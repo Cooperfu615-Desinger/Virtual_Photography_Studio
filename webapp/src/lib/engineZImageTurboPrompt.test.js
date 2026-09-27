@@ -235,7 +235,7 @@ test('Z-Image and Midjourney preserve explicitly selected clothing fit anchors',
       [lockKey]: fitId,
       framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     }, `explicit-fit-${lockKey}`);
-    const fitText = controls
+    const fitText = lockKey === 'outerwearFitId' ? 'oversized longline cotton-poplin button-up shirt' : controls
       .find((control) => control.key === lockKey)
       .options.find((option) => option.id === fitId).en;
     const escapedFitText = fitText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');

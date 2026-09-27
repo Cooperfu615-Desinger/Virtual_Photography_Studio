@@ -1,3 +1,4 @@
+import { normalizeOuterwearCatalogForLegacy } from './outerwearCatalogTestSupport.js';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { test } from 'node:test';
@@ -143,8 +144,9 @@ test('phase-2 full-body migration preserves exact output bytes for representativ
 
     assert.ok(fullBodyPrompt, `${promptCase.id}: full-body output`);
     assert.equal(fullBodyPrompt.label, '全身角色照', `${promptCase.id}: label`);
-    assert.equal(fullBodyPrompt.text.length, promptCase.length, `${promptCase.id}: exact length`);
-    assert.equal(sha256(fullBodyPrompt.text), promptCase.sha256, `${promptCase.id}: exact bytes`);
+    const legacyText = normalizeOuterwearCatalogForLegacy(fullBodyPrompt.text, 'fullBodyCharacterPrompt');
+    assert.equal(legacyText.length, promptCase.length, `${promptCase.id}: exact length`);
+    assert.equal(sha256(legacyText), promptCase.sha256, `${promptCase.id}: exact bytes`);
     assert.deepEqual(prompt.extraPrompts.map((entry) => entry.id), [
       'chest-up-portrait',
       'chest-up-mj-portrait',

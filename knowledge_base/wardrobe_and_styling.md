@@ -350,44 +350,44 @@
 | **外套版型 (Outerwear Fit)** | 長版 Oversize | `hip-length oversized outerwear, roomy shoulders and body, ending around the widest part of the hips` | 長版外套長度約到臀部最寬的位置，同時保留寬鬆肩線與寬大衣身。 |
 | **外套版型 (Outerwear Fit)** | 短版 Oversize | `underbust-cropped oversized outerwear, roomy shoulders, ending just below the bust` | 短版外套長度約到胸下位置，同時保留寬鬆肩線與短版寬鬆比例。 |
 | **外套 (Outerwear)** | 全無 | `no outerwear, uncluttered silhouette` | 不加外套，保留上身與下身單品的主要輪廓。 |
-| **外套 (Outerwear)** | 西裝外套 | `blazer, tailored jacket structure, defined lapels, clean shoulder line, polished suiting fabric` | 以西裝翻領、清楚肩線、挺版西裝布與乾淨剪裁為主，是最基礎的外層西裝輪廓。 |
-| **外套 (Outerwear)** | 連帽外套 | `sport zip-up hoodie, athletic hooded jacket, ribbed cuffs and hem, casual performance knit structure` | 以運動感連帽、前拉鍊、羅紋袖口下擺與較俐落的機能針織結構為主。 |
-| **外套 (Outerwear)** | 龐克皮衣 | `punk leather jacket, moto-inspired leather outerwear, sharp lapels, zipper hardware, structured edgy silhouette` | 以皮革表面、騎士外套式翻領、拉鍊五金與硬挺短外層輪廓為主。 |
+| **外套 (Outerwear)** | 西裝外套 | `blazer in suiting fabric` | 西裝布料外套；版型、衣長與穿法由獨立選項指定。 |
+| **外套 (Outerwear)** | 連帽外套 | `sport zip-up hoodie in performance knit` | 運動機能針織的拉鍊連帽外套。 |
+| **外套 (Outerwear)** | 龐克風皮衣 | `punk leather jacket with metal studs and prominent zipper hardware` | 以鉚釘與醒目金屬拉鍊五金呈現龐克風。 |
 | **外套 (Outerwear)** | 賽博反光科技風衣 | `iridescent reflective techwear trench coat, waterproof shell texture` | 以虹彩反光、防水機能布與俐落科技感材質為主，風衣輪廓由單品名稱本身帶出。 |
-| **外套 (Outerwear)** | 柔軟毛絨泰迪熊外套 | `fluffy teddy fleece jacket, plush pile texture, rounded cozy outerwear structure` | 以蓬鬆毛絨、柔軟刷毛表面與圓潤保暖外套份量為主。 |
-| **外套 (Outerwear)** | 飛行夾克 | `bomber jacket, flight jacket structure, ribbed collar cuffs and hem, rounded casual outerwear volume` | 以飛行夾克結構、羅紋領口袖口下擺與圓潤短外套份量為主。 |
-| **外套 (Outerwear)** | 短版皮外套 | `cropped leather moto jacket, short hem, leather panels, zipper hardware, structured cropped outerwear shape` | 以短版衣長、皮革拼片、拉鍊五金與騎士外套結構為主，外層比例更短更俐落。 |
-| **外套 (Outerwear)** | 丹寧外套 | `denim jacket, washed denim texture, chest pockets, metal buttons, casual structured outerwear` | 以水洗丹寧、胸前口袋、金屬扣與牛仔外套的硬挺日常結構為主。 |
-| **外套 (Outerwear)** | 連帽外套_戴 | `soft zip hoodie, hooded sweatshirt jacket, front zipper, relaxed knit body, ribbed cuffs and hem, hood worn up framing the hair` | 以柔軟連帽外套、前拉鍊、衛衣針織布與放鬆衣身為主，並固定將帽子戴起框住頭髮。 |
-| **外套 (Outerwear)** | 寬鬆西裝外套 | `oversized blazer, roomy tailored jacket, broad shoulder line, softened suiting structure` | 以寬版西裝輪廓、放大肩線、較寬衣身與柔化西裝結構為主。 |
-| **外套 (Outerwear)** | 合身西裝外套 | `tailored fitted blazer, close-cut jacket structure, defined waist shaping, polished suiting fabric` | 以合身西裝剪裁、收腰線條、俐落肩線與挺版西裝布為主。 |
-| **外套 (Outerwear)** | 短版合身西裝外套 | `cropped fitted blazer, short tailored jacket, waist-defining cut, structured shoulders, slim sleeves, clean notched lapels, polished suiting fabric` | 以短版西裝衣長、收腰剪裁、俐落肩線、窄袖與翻領為主，不綁定開合狀態、內搭、下身或姿勢。 |
-| **外套 (Outerwear)** | 人造毛皮草外套 | `faux fur coat, plush textured outerwear, voluminous soft pile, cold-weather fashion layer` | 以人造毛皮的厚實絨面、蓬鬆外層份量與柔軟大面積材質為主。 |
-| **外套 (Outerwear)** | 薄紗輕薄披衣外套 | `sheer lightweight cover-up jacket, translucent gauze mesh fabric, short sleeves, soft draped outerwear` | 以半透明薄紗網布、短袖與輕柔披掛感為主的輕薄外層，不包含帽子設計。 |
-| **外套 (Outerwear)** | 長版外套 | `long coat, elongated outer layer, structured shoulders, full-length or below-knee hem` | 以延長外層比例、結構肩線與全長或膝下衣襬為主。 |
+| **外套 (Outerwear)** | 柔軟毛絨泰迪熊外套 | `teddy fleece jacket with a plush pile texture` | 保留泰迪絨的蓬鬆刷毛質感。 |
+| **外套 (Outerwear)** | 飛行夾克 | `nylon bomber jacket` | 尼龍飛行夾克，與撞色棒球外套區分。 |
+| **外套 (Outerwear)** | 騎士風皮衣 | `leather biker jacket with an asymmetrical front zipper` | 以斜向前拉鍊呈現騎士風；衣長由版型控制。 |
+| **外套 (Outerwear)** | 丹寧外套 | `washed denim jacket` | 水洗丹寧外套。 |
+| **外套 (Outerwear)** | 連帽外套（戴帽） | `soft zip-up hoodie in sweatshirt fabric, hood worn up` | 柔軟衛衣布料的拉鍊連帽外套，帽子戴起。 |
+| **外套 (Outerwear)** | 寬鬆西裝外套 | `oversized blazer, roomy tailored jacket, broad shoulder line, softened suiting structure` | 歷史款式，僅供舊資料還原，不再提供新選用或隨機抽取。以寬版西裝輪廓、放大肩線、較寬衣身與柔化西裝結構為主。 |
+| **外套 (Outerwear)** | 合身西裝外套 | `tailored fitted blazer, close-cut jacket structure, defined waist shaping, polished suiting fabric` | 歷史款式，僅供舊資料還原，不再提供新選用或隨機抽取。以合身西裝剪裁、收腰線條、俐落肩線與挺版西裝布為主。 |
+| **外套 (Outerwear)** | 短版合身西裝外套 | `cropped fitted blazer, short tailored jacket, waist-defining cut, structured shoulders, slim sleeves, clean notched lapels, polished suiting fabric` | 歷史款式，僅供舊資料還原，不再提供新選用或隨機抽取。以短版西裝衣長、收腰剪裁、俐落肩線、窄袖與翻領為主，不綁定開合狀態、內搭、下身或姿勢。 |
+| **外套 (Outerwear)** | 人造毛皮草外套 | `faux fur coat with a fluffy pile` | 蓬鬆人造毛皮外套，保留毛皮質地。 |
+| **外套 (Outerwear)** | 薄紗輕薄披衣外套 | `sheer gauze cover-up jacket with short sleeves` | 透明薄紗短袖披衣。 |
+| **外套 (Outerwear)** | 毛呢大衣 | `long wool coat` | 長版毛呢大衣；明確衣長選項可覆寫預設長度。 |
 | **外套 (Outerwear)** | 風衣 | `trench coat, long structured outer layer, lapel collar, belted waist or storm-flap detailing` | 以長版結構外層、翻領、腰帶或防風片細節為主。 |
-| **外套 (Outerwear)** | 針織開襟外套 | `knit cardigan, open-front knit layer, soft drape, ribbed or textured knit surface` | 以開襟針織層、柔軟垂墜與羅紋或紋理針織表面為主。 |
-| **外套 (Outerwear)** | 棒球外套 | `varsity jacket, ribbed collar and cuffs, contrast stripe trim, structured sporty outer layer` | 以羅紋領口袖口、撞色條紋滾邊與運動感結構外層為主。 |
-| **外套 (Outerwear)** | 短版粗花呢外套 | `cropped tweed jacket, textured woven surface, structured short silhouette, polished button front` | 以短版衣長、粗花呢織紋、硬挺輪廓與整齊排釦為主。 |
-| **外套 (Outerwear)** | 蕾絲罩衫 | `lace robe cardigan, long open-front silhouette, lightweight lace texture, ruffled or scalloped hem` | 以長版開襟罩衫、輕薄蕾絲表面與荷葉或波浪下襬為主。 |
-| **外套 (Outerwear)** | 長版襯衫 | `longline button-up shirt in cotton poplin, pointed collar, long sleeves with buttoned cuffs, curved shirttail hem` | 棉質府綢長版排扣襯衫，保留尖領、長袖扣式袖口與弧形衣襬，可疊穿於其他上身之外；版型與穿法由獨立選項控制。 |
-| **外套開合 (Outerwear Opening)** | 正常 | `outerwear worn with its front closure in the normal default position, front panels aligned naturally` | 外套前襟維持自然、標準的開合狀態；此選項只控制前襟開合，不代表雙肩穿著或滑落肩部。 |
-| **外套開合 (Outerwear Opening)** | 扣子扣一半 | `button-front outerwear partially buttoned, with some buttons fastened and the remaining front panels naturally open` | 適用有扣子的外套，部分扣子扣上，其餘前片自然打開。 |
-| **外套開合 (Outerwear Opening)** | 拉鏈拉一半 | `zip-front outerwear partially zipped, zipper closed to the mid-front while the upper front remains naturally open` | 適用有拉鍊的外套，拉鍊拉到前襟中段，上方前片自然打開。 |
+| **外套 (Outerwear)** | 針織開襟外套 | `knit cardigan` | 針織開襟外套；當下開合由獨立選項控制。 |
+| **外套 (Outerwear)** | 棒球外套 | `varsity jacket with contrasting sleeves and snap buttons` | 撞色袖身與按扣；所選配色作為衣身主色，袖色由模型搭配。 |
+| **外套 (Outerwear)** | 短版粗花呢外套 | `cropped tweed jacket, textured woven surface, structured short silhouette, polished button front` | 歷史款式，僅供舊資料還原，不再提供新選用或隨機抽取。以短版衣長、粗花呢織紋、硬挺輪廓與整齊排釦為主。 |
+| **外套 (Outerwear)** | 蕾絲罩衫 | `long lace cover-up` | 長版蕾絲罩衫。 |
+| **外套 (Outerwear)** | 長版襯衫 | `longline cotton-poplin button-up shirt` | 長版棉質府綢排扣襯衫，可作為外層疊穿。 |
+| **外套開合 (Outerwear Opening)** | 正常 | `front panels resting naturally` | 外套前襟維持自然、標準的開合狀態；此選項只控制前襟開合，不代表雙肩穿著或滑落肩部。 |
+| **外套開合 (Outerwear Opening)** | 扣子扣一半 | `partially buttoned at the front` | 適用有扣子的外套，部分扣子扣上，其餘前片自然打開。 |
+| **外套開合 (Outerwear Opening)** | 拉鏈拉一半 | `zipped halfway up, open above the zipper` | 適用有拉鍊的外套，拉鍊拉到前襟中段，上方前片自然打開。 |
 | **外套開合 (Outerwear Opening)** | 敞開穿 | `worn open at the front` | 正面敞開，不強制內搭必須完整可見；開合與露肩穿法分開控制。 |
 | **外套開合 (Outerwear Opening)** | 全無 | `none` | 不指定前襟開合，保留已選外套與其他穿法。 |
 | **外套穿法 (Outerwear Styling)** | 全無 | `no additional outerwear styling adjustment` | 不額外指定外套穿法，保留外套本身的自然穿著狀態。 |
 | **外套穿法 (Outerwear Styling)** | 正常穿著 | `outerwear worn normally on both shoulders in a standard outer-layer position` | 外套正常穿在雙肩上，作為標準外層，不額外指定肩線完全覆蓋。 |
 | **外套穿法 (Outerwear Styling)** | 單肩露出 | `slipped down over one upper arm, with the neckline lowered on that side and the opposite shoulder still covered` | 衣服滑到單側上臂，領口同側一起降低，另一側肩膀仍被衣服覆蓋；不指定左右側，也不改變前襟開合。 |
-| **外套穿法 (Outerwear Styling)** | 雙肩露出 | `slipped down around both upper arms, with the neckline resting below both shoulders and both arms still in the sleeves` | 衣服滑到雙側上臂，領口整體降至雙肩下方，雙臂仍套在袖內；不把露肩描述成挖肩剪裁，也不改變前襟開合。 |
+| **外套穿法 (Outerwear Styling)** | 雙肩露出 | `halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves` | 外套脫到一半，落於雙上臂，雙肩露出且雙臂仍留在袖內；開合由獨立選項控制。 |
 | **外套圖案 (Outerwear Surface Design)** | 全無 | `no added outerwear pattern, clean solid-color outer layer styling` | 不額外加入外套圖案，保留外套本身的輪廓、材質與層次。 |
-| **外套圖案 (Outerwear Surface Design)** | 粗橫條紋 | `bold horizontal stripes across the outerwear, strong graphic layering` | 以明顯橫向條帶覆蓋外套，使用中性的 outerwear 語言適配夾克、風衣與外層單品。 |
-| **外套圖案 (Outerwear Surface Design)** | 細直條紋 | `clear vertical stripe outerwear, narrow repeated stripe lines, tailored linear rhythm across the jacket` | 以俐落直條紋覆蓋外套表面，形成結構化外層單品的線性節奏。 |
-| **外套圖案 (Outerwear Surface Design)** | 胸前龐克塗鴉印花 | `large punk graffiti graphic on the front of the outerwear, bold statement artwork, rebellious streetwear focal point` | 以外套正面的大面積龐克塗鴉圖像為主，讓外層成為穿搭的主要視覺焦點。 |
-| **外套圖案 (Outerwear Surface Design)** | 滿版龐克塗鴉印花 | `all-over punk graffiti print across the outerwear, rebellious hand-drawn markings, dense graphic streetwear shell` | 以整件外套都覆蓋龐克塗鴉圖樣為重點，整體更街頭、更具次文化感。 |
-| **外套圖案 (Outerwear Surface Design)** | 胸前卡通塗鴉印花 | `large cartoon doodle graphic on the front of the outerwear, playful illustrated focal artwork, bold casual layering` | 以外套正面的大面積卡通塗鴉圖像為主，整體更年輕、活潑，也更有 casual layering 感。 |
-| **外套圖案 (Outerwear Surface Design)** | 滿版卡通塗鴉印花 | `all-over cartoon doodle print across the outerwear, playful illustrated motifs, colorful youthful outer layer surface` | 以卡通塗鴉與插畫感圖樣覆蓋整件外套，整體更活潑且圖案存在感更高。 |
-| **外套圖案 (Outerwear Surface Design)** | 胸前復古標語印花 | `large vintage slogan graphic on the front of the outerwear, centered typographic statement, retro casual streetwear styling` | 以外套正面的大型復古標語或字樣圖像為主，形成置中的 graphic outerwear 主視覺。 |
+| **外套圖案 (Outerwear Surface Design)** | 粗橫條紋 | `bold horizontal stripes across the outerwear` | 以明顯橫向條帶覆蓋外套，使用中性的 outerwear 語言適配夾克、風衣與外層單品。 |
+| **外套圖案 (Outerwear Surface Design)** | 細直條紋 | `narrow vertical stripes across the outerwear` | 以俐落直條紋覆蓋外套表面，形成結構化外層單品的線性節奏。 |
+| **外套圖案 (Outerwear Surface Design)** | 胸前龐克塗鴉印花 | `large punk graffiti graphic on the front` | 以外套正面的大面積龐克塗鴉圖像為主，讓外層成為穿搭的主要視覺焦點。 |
+| **外套圖案 (Outerwear Surface Design)** | 滿版龐克塗鴉印花 | `all-over punk graffiti print` | 以整件外套都覆蓋龐克塗鴉圖樣為重點，整體更街頭、更具次文化感。 |
+| **外套圖案 (Outerwear Surface Design)** | 胸前卡通塗鴉印花 | `large cartoon doodle graphic on the front` | 以外套正面的大面積卡通塗鴉圖像為主，整體更年輕、活潑，也更有 casual layering 感。 |
+| **外套圖案 (Outerwear Surface Design)** | 滿版卡通塗鴉印花 | `all-over cartoon doodle print` | 以卡通塗鴉與插畫感圖樣覆蓋整件外套，整體更活潑且圖案存在感更高。 |
+| **外套圖案 (Outerwear Surface Design)** | 胸前復古標語印花 | `large centered vintage slogan graphic on the front` | 以外套正面的大型復古標語或字樣圖像為主，形成置中的 graphic outerwear 主視覺。 |
 | **鞋款 (Shoes)** | 全無 | `no explicit shoe styling, footwear unspecified` | 不特別指定鞋款，讓畫面避免額外鞋部細節。 |
 | **鞋款 (Shoes)** | 赤腳 | `bare feet, natural barefoot state` | 明確要求不穿鞋，保留自然腳部狀態；腳趾是否可見交由構圖決定。 |
 | **鞋款 (Shoes)** | 低筒球鞋 | `low-top sneakers, clean everyday casual shoe shape` | 以低筒鞋口、簡潔鞋面與日常球鞋輪廓為主。 |

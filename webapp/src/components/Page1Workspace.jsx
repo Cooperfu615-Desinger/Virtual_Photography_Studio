@@ -403,6 +403,7 @@ function WardrobePickerModal({ control, value, query, onQueryChange, onClose, on
   const noneOption = baseOptions.find((option) => option.id === 'none' || option.zh === '全無');
   const randomOption = pairedColorMode ? baseOptions.find((option) => option.random || option.id === 'random') : null;
   const visibleOptions = baseOptions.filter((option) => {
+    if (option.meta?.outerwear?.retired) return false;
     if ((singleColorMode || pairedColorMode) && (option === noneOption || option === randomOption)) return false;
     if (singleColorMode && activeColorFilter !== 'all' && getSingleColorGroup(option) !== activeColorFilter) return false;
     if (!normalizedQuery) return true;

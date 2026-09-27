@@ -234,11 +234,11 @@ lace bra top, delicate lace cups, intimate lingerie structure, slim strap detail
 ### 外層露肩穿法（2026-09-09）
 
 - `單肩露出` 描述衣服滑至單側上臂、領口同側降低，另一側肩膀仍被覆蓋；不指定左右手／左右肩。
-- `雙肩露出` 描述衣服滑至雙側上臂、領口整體低於雙肩，雙臂仍在袖內。重點是完整衣服的位置改變，不是挖肩剪裁或保留在肩上的布條。
+- `雙肩露出` 採核准 D：衣服半脫掛在雙側上臂，雙肩完全露出，雙臂仍在袖內。重點是完整衣服的位置改變，不是挖肩剪裁或保留在肩上的布條。
 - 穿法片語不另引入 `jacket`／`outerwear` 服裝名稱，也不加入背面／三分之四視角的條件句；服裝本體由外套選項負責。
 - 開合仍由 `outerwearOpeningId` 獨立控制。`敞開穿` 使用 `worn open at the front`；選擇露肩不自動改成敞開。
 - AI 壓縮必須保留有效的單肩／雙肩穿法與其開合來源，不得讓下襬或其他結構細節取代穿法；版型修飾亦不得取代服裝本體。
-- 本次僅簡化「外套」分類的長版襯衫：棉質府綢、排扣、尖領、長袖扣式袖口、弧形衣襬；「上身」分類中的長版襯衫維持原文。名稱、ID、列順序不變，舊英文保留為 Prompt 回填 alias。
+- 2026-09-27 進一步簡化「外套」分類長版襯衫為 `longline cotton-poplin button-up shirt`；「上身」分類中的長版襯衫維持原文。名稱、ID、列順序不變，舊英文保留為 Prompt 回填 alias。
 - 回歸入口：`webapp/src/lib/engineOuterwearShoulderWear.test.js` 與 `webapp/src/lib/engine/representativePromptFixtures.js` 的兩組 `longline-shirt-*-shoulder` 案例。
 
 ## 9. 配色與圖案
@@ -287,7 +287,7 @@ lace bra top, delicate lace cups, intimate lingerie structure, slim strap detail
 新增規則：
 
 - 英文 prompt 以 6-20 words 為目標。
-- 描述 outerwear type、fabric、lapels、zipper、hood、length、shoulder line。
+- 只保留款式、材質與必要辨識特徵，避免重複列舉衣領、袖口、肩線與衣襬。版型、衣長、開合、穿法依 [外套整理 v1](outerwear-catalog-v1.md) 各自組合，MJ 保留可見圖案與開合。
 - 不描述內搭、下身或鞋款。
 - 外套圖案與外套配色分開控制。
 - 若外套和連身細肩帶共存，要維持外套是外層，不把外套誤生成細肩帶。

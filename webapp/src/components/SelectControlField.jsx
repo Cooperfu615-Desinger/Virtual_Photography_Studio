@@ -1,5 +1,6 @@
 import { Copy } from 'lucide-react';
 import { getCameraControlDisplayLabel } from '../lib/page1CameraLabels.js';
+import { isRetiredOuterwear } from '../lib/engine/outerwearModel.js';
 
 function getSelectedPromptText(control, value) {
   if (Array.isArray(value)) {
@@ -48,8 +49,8 @@ export default function SelectControlField({ control, value, onChange, onCopy, d
           onChange={(event) => onChange(event.target.value)}
         >
           {!control.required && !control.suppressDefaultRandomOption ? <option value="">隨機</option> : null}
-          {control.options.map((option) => (
-            <option key={option.id} value={option.id} disabled={option.disabled}>
+          {control.options.filter(option => !isRetiredOuterwear(option) || option.id === value).map((option) => (
+            <option key={option.id} value={option.id} disabled={option.disabled || isRetiredOuterwear(option)}>
               {getCameraControlDisplayLabel(control.key, option)}
             </option>
           ))}

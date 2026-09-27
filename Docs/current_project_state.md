@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-09-27
 
+## Outerwear catalog and D shoulder wear (local, 2026-09-27)
+
+- Outerwear now exposes 17 active pieces plus none. Three blazer variants and cropped tweed remain restore-only, with original IDs and old prose aliases; they are hidden from fresh selection/random sampling. Active blazer cut is controlled by fit. Punk/biker leather styles are distinct, the generic long coat becomes a wool coat, varsity has contrasting sleeves and snap buttons, and its selected color applies to body panels. Trench source wording stays unchanged.
+- Authored outerwear metadata resolves fit and length once before all six renderers; explicit cut overrides only cut, combined length/cut overrides both, none keeps defaults. Long modifiers mean hip length; short modifiers mean underbust. Historical cropped fitted blazer keeps its generic cropped meaning. Double-shoulder wear uses the user-approved D half-removed/upper-arm wording, independently of opening. MJ preserves visible outerwear pattern, opening and wear. No storage schema or public output field rename. Public output contract is `1.21.0`; see [outerwear catalog v1](specs/outerwear-catalog-v1.md).
+- Validation: frontend 1048/1048, Prompt Quality 318/318, lint/build, sync freshness, Python 2/2 and diff-check pass. Build retains its existing chunk-size warning. Same-seed strict audit (200 / `prompt-quality-baseline`) has zero blockers before/after; diagnostics change 27 → 28 after the active catalog/random-opening changes (15 pants/stockings, 5 pants/skirt, 3 swimwear/scene, 5 near-duplicate signals). Historical hash files remain unchanged; a test-only exact phrase bridge checks all unrelated output text.
+- Browser QA at 1440×1000 and 390×900 covered all five required workspaces, new active options, fit helper text, six live D/open/pattern outputs, copy feedback, modern prose refill and restore-only legacy blazer display. No document overflow, broken checked images or console errors observed; temporary viewport reset. Saved Cards rendering was checked, with serialization/restore covered by automated fixtures. External model appearance remains based on the user's D images in `Docs/0927`; this pass did not request new image generation, commit or push.
+
 ## Conditional lace garter-belt layer (local, 2026-09-27)
 
 - The shared resolved wardrobe adds a lace garter belt over the lower garment, with straps connecting to thigh-high stocking tops, only when the same person has one of three standalone bottoms (`蕾絲內褲`, `蕾絲丁字褲`, `比基尼下身`) plus `膝上蕾絲吊帶襪`. Complete outfit presets, dresses, other bottoms, and cross-person A/B combinations do not trigger it.

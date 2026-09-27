@@ -1,4 +1,5 @@
 import { accessoryRestoreNotices } from '../../lib/engine/accessoryPolicy.js';
+import { matchResolvedOuterwear } from '../../lib/engine/outerwearModel.js';
 import {
   createEmptyLocks,
   getLockControls,
@@ -330,6 +331,27 @@ export function parseLocksFromStandardPrompt(promptText, controls) {
       locks[control.key] = option.id;
       matchedControls.push({ key: control.key, label: control.label, option });
     });
+    for (const role of ['', 'A', 'B']) {
+      const itemKey = `outerwear${role}Id`;
+      const fitKey = `outerwear${role}FitId`;
+      const itemControl = controlMap.get(itemKey);
+      const fitControl = controlMap.get(fitKey);
+      const match = matchResolvedOuterwear(normalizedPrompt, itemControl?.options || [], fitControl?.options || []);
+      // Longer historical source aliases keep their original item identity.
+      const existing = itemControl?.options.find(item => item.id === locks[itemKey]);
+      const hasHistoricalSource = existing && [existing.en, ...(existing.meta?.legacyPromptAliases || [])]
+        .some(source => normalizePromptText(source).length > (match?.phrase.length || 0)
+          && normalizedPrompt.includes(normalizePromptText(source)));
+      if (!match || hasHistoricalSource) continue;
+      for (const [key, option] of [[itemKey, match.item], [fitKey, match.fit]]) {
+        if (!option) continue;
+        locks[key] = option.id;
+        const index = matchedControls.findIndex(entry => entry.key === key);
+        const entry = { key, label: controlMap.get(key)?.label || key, option };
+        if (index >= 0) matchedControls[index] = entry;
+        else matchedControls.push(entry);
+      }
+    }
   }
 
   if (parsedMidjourneyTail.matched) {

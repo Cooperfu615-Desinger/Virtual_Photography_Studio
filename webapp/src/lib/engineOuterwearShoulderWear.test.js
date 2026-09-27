@@ -19,7 +19,7 @@ const noneLocks = () => {
 };
 const styles = [
   ['單肩露出', 'slipped down over one upper arm, with the neckline lowered on that side and the opposite shoulder still covered'],
-  ['雙肩露出', 'slipped down around both upper arms, with the neckline resting below both shoulders and both arms still in the sleeves'],
+  ['雙肩露出', 'halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves'],
 ];
 
 test('button-up longline shirt can randomly resolve a half-buttoned opening, never a zipper', () => {
@@ -33,7 +33,7 @@ test('button-up longline shirt can randomly resolve a half-buttoned opening, nev
     seen.add(result.selection.outerwearOpeningId);
     if (result.selection.outerwearOpeningId === option('outerwearOpeningId', '扣子扣一半').id) {
       for (const output of [result.grokPrompt, result.zImagePrompt]) {
-        assert.match(output, /button-front outerwear partially buttoned/);
+        assert.match(output, /partially buttoned at the front/);
       }
     }
   }
@@ -42,7 +42,7 @@ test('button-up longline shirt can randomly resolve a half-buttoned opening, nev
 });
 
 test('outerwear shirt keeps its identity without changing the top shirt or option IDs', () => {
-  assert.equal(option('outerwearId', '長版襯衫').en, 'longline button-up shirt in cotton poplin, pointed collar, long sleeves with buttoned cuffs, curved shirttail hem');
+  assert.equal(option('outerwearId', '長版襯衫').en, 'longline cotton-poplin button-up shirt');
   assert.match(option('topId', '長版襯衫').en, /tailored longline men's dress shirt, crisp woven poplin/);
   for (const [zh, text] of styles) {
     const item = option('outerwearStylingId', zh);
@@ -69,7 +69,7 @@ test('all six outputs retain shoulder wear independently of shirt hem, crop and 
         assert.equal(outputs.length, 6);
         for (const output of outputs) {
           assert.ok(output.includes(text), `${framing}/${zh}: ${output}`);
-          assert.match(output, /white longline button-up shirt/);
+          assert.match(output, /white fitted longline cotton-poplin button-up shirt/);
           assert.match(output, /worn open at the front/);
           assert.doesNotMatch(output, /tailored longline men's dress shirt|jacket draped|standard outer-layer position/);
         }

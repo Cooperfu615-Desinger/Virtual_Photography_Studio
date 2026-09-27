@@ -113,7 +113,7 @@ test('random outerwear opening follows the selected garment fastener while an ex
     random: createSeededRandom('denim-explicit-unzip'),
   });
   assert.equal(explicitPrompt.selection.outerwearOpeningId, halfZipId);
-  assert.match(explicitPrompt.grokPrompt, /zip-front outerwear partially zipped/i);
+  assert.match(explicitPrompt.grokPrompt, /zipped halfway up, open above the zipper/i);
 });
 
 test('outerwear opening options expose the new closure states and migrate old saved ids', () => {
@@ -137,7 +137,7 @@ test('outerwear opening options expose the new closure states and migrate old sa
 
 test('renamed hooded outerwear options migrate both current and historical saved ids', () => {
   const regularHoodieId = optionId('outerwearId', '連帽外套');
-  const hoodUpHoodieId = optionId('outerwearId', '連帽外套_戴');
+  const hoodUpHoodieId = optionId('outerwearId', '連帽外套（戴帽）');
 
   assert.equal(
     normalizeLocks({ outerwearId: 'wardrobe:外套-outerwear:運動連帽外套:2' }).outerwearId,
@@ -193,7 +193,7 @@ test('formal longline shirt is treated as button-front outerwear for opening ran
     outerwearOpeningId: halfButtonId,
   });
   assert.equal(explicitPrompt.selection.outerwearOpeningId, halfButtonId);
-  assert.match(explicitPrompt.grokPrompt, /button-front outerwear partially buttoned/i);
+  assert.match(explicitPrompt.grokPrompt, /partially buttoned at the front/i);
 });
 
 test('outfit presets with embedded outerwear suppress a random second layer but preserve explicit outerwear overrides', () => {
@@ -250,11 +250,11 @@ test('outfit presets with embedded outerwear suppress a random second layer but 
   const [explicitPrompt] = generatePrompts(1, {
     ...outdoorBaseLocks,
     outfitPresetId: optionId('outfitPresetId', '套裝：西裝外套蕾絲迷你洋裝'),
-    outerwearId: optionId('outerwearId', '龐克皮衣'),
+    outerwearId: optionId('outerwearId', '龐克風皮衣'),
   }, [], {
     random: createSeededRandom('embedded-outerwear-explicit-override'),
   });
-  assert.equal(explicitPrompt.selection.outerwearId, optionId('outerwearId', '龐克皮衣'));
+  assert.equal(explicitPrompt.selection.outerwearId, optionId('outerwearId', '龐克風皮衣'));
   assert.match(explicitPrompt.grokPrompt, /navy oversized blazer/i);
   assert.match(explicitPrompt.grokPrompt, /punk leather jacket/i);
 });

@@ -137,7 +137,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   },
   ...[
     ['single', '單肩露出', 'slipped down over one upper arm, with the neckline lowered on that side and the opposite shoulder still covered'],
-    ['double', '雙肩露出', 'slipped down around both upper arms, with the neckline resting below both shoulders and both arms still in the sleeves'],
+    ['double', '雙肩露出', 'halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves'],
   ].map(([id, label, wearText]) => ({
     id: `longline-shirt-${id}-shoulder`,
     title: `Longline shirt retains ${id}-shoulder wear across all outputs`,
@@ -156,7 +156,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       'grokPrompt', 'zImagePrompt', 'midjourneyPrompt',
       'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt', 'fullBodyCharacterPrompt',
     ].map((field) => [field, {
-      includes: ['white longline button-up shirt', 'worn open at the front', wearText],
+      includes: ['white longline cotton-poplin button-up shirt', 'worn open at the front', wearText],
       excludes: ['jacket draped', 'standard outer-layer position', "tailored longline men's dress shirt"],
     }])),
   })),

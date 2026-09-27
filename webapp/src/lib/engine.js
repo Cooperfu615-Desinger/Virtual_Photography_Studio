@@ -1,5 +1,6 @@
 import { ACCESSORY_CATEGORIES, accessoryNoneId, isConcreteAccessory, isHeadWornAudio, blocksHeadWornAudio, splitAccessoryCatalog, migrateAccessoryLocks, normalizeAccessoryConflicts, projectAudioForFraming } from './engine/accessoryPolicy.js';
 import database from '../data/database.json' with { type: 'json' };
+import { isRetiredOuterwear, resolveOuterwearBase, outerwearFasteners } from './engine/outerwearModel.js';
 import { getActionPoseCardById } from '../data/actionPoseCards.js';
 import {
   CHARACTER_CARD_LAYER_KEYS,
@@ -3045,7 +3046,7 @@ const WARDROBE_LEGACY_OPTION_MAP = [
   { category: WARDROBE_TOP_CATEGORY, targetZh: '全無', legacy: [['漢服式上衣', 38], ['改良漢服式上衣', 39]] },
   { category: WARDROBE_OUTERWEAR_CATEGORY, targetZh: '西裝外套', legacy: [['西裝外套（不扣扣子）', 1]] },
   { category: WARDROBE_OUTERWEAR_CATEGORY, targetZh: '飛行夾克', legacy: [['飛行夾克（敞開穿）', 6]] },
-  { category: WARDROBE_OUTERWEAR_CATEGORY, targetZh: '短版皮外套', legacy: [['短版皮外套（不扣）', 7]] },
+  { category: WARDROBE_OUTERWEAR_CATEGORY, targetZh: '騎士風皮衣', legacy: [['短版皮外套（不扣）', 7]] },
   { category: WARDROBE_OUTERWEAR_CATEGORY, targetZh: '丹寧外套', legacy: [['丹寧外套（敞開穿）', 8]] },
   {
     category: WARDROBE_OUTERWEAR_CATEGORY,
@@ -3054,7 +3055,7 @@ const WARDROBE_LEGACY_OPTION_MAP = [
   },
   {
     category: WARDROBE_OUTERWEAR_CATEGORY,
-    targetZh: '連帽外套_戴',
+    targetZh: '連帽外套（戴帽）',
     legacy: [['連帽拉鍊外套（不拉拉鍊）', 9], ['連帽拉鍊外套', 9]],
   },
   { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：鏈條緞面內衣', legacy: [['酒紅鏈條緞面內衣套裝', 1]] },
@@ -3257,7 +3258,7 @@ function buildEntries(groupName, groupedData, inferMeta) {
         ? [`${groupName}:${slugify(LEGACY_ENVIRONMENT_MOOD_CATEGORY)}:${slugify(rawZh || item.en || String(index))}:${index}`]
         : [];
       const normalized = {
-        id: `${groupName}:${slugify(category)}:${slugify(displayZh || item.en || String(index))}:${index}`,
+        id: item.stableId || `${groupName}:${slugify(category)}:${slugify(displayZh || item.en || String(index))}:${index}`,
         zh: displayZh,
         en: stripMarkdown(item.en),
         desc: stripMarkdown(item.desc),
@@ -3292,6 +3293,11 @@ function buildEntries(groupName, groupedData, inferMeta) {
         meta: {
           ...inferredMeta,
           ...sourceMeta,
+          ...(item.outerwear ? { outerwear: item.outerwear } : {}),
+          ...(item.outerwearFit ? { outerwearFit: item.outerwearFit } : {}),
+          ...(item.outerwearFastenerRequirement !== undefined ? { outerwearFastenerRequirement: item.outerwearFastenerRequirement } : {}),
+          ...(item.legacyPromptAliases ? { legacyPromptAliases: item.legacyPromptAliases } : {}),
+          ...(item.legacyLabels ? { legacyLabels: item.legacyLabels } : {}),
           tags: withTags([...inferredTags, ...sourceTags]),
         },
       };
@@ -3954,7 +3960,9 @@ function buildLockControls({ flatCatalog, catalog }) {
       if (['waistAccessoryId', 'waistAccessoryAId', 'waistAccessoryBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '腰部配件 (Waist Accessories)');
     }
 
-    return { ...definition, options };
+    const outerwearFitHelp = /^outerwear[AB]?FitId$/.test(definition.key)
+      ? { helpText: '長版約及臀，短版約胸下；全無保留款式原有比例。' } : {};
+    return { ...definition, ...outerwearFitHelp, options };
   });
 }
 
@@ -4116,6 +4124,8 @@ function buildTopColoredPrompt(topItem, color = null, { pattern = null, fit = nu
 
 function getOuterwearFastenerTypes(outerwearItem) {
   if (!outerwearItem || isNoneLikeItem(outerwearItem)) return new Set();
+  const authored = outerwearFasteners(outerwearItem);
+  if (authored) return new Set(authored);
   const haystack = toHaystack(outerwearItem.zh, outerwearItem.en, outerwearItem.desc);
   const fasteners = new Set();
   if (hasAny(haystack, ['zip-front', 'zip-up', 'zipper', '拉鍊'])) fasteners.add('zip');
@@ -4125,6 +4135,7 @@ function getOuterwearFastenerTypes(outerwearItem) {
 
 function getOuterwearOpeningFastenerRequirement(opening) {
   if (!opening || isNoneLikeItem(opening)) return '';
+  if (opening.meta?.outerwearFastenerRequirement !== undefined) return opening.meta.outerwearFastenerRequirement;
   const haystack = toHaystack(opening.zh, opening.en, opening.desc);
   if (hasAny(haystack, ['zip-front', 'unzipped', '拉鍊'])) return 'zip';
   if (hasAny(haystack, ['button-front', 'unbuttoned', '扣子', '鈕扣'])) return 'button';
@@ -4139,17 +4150,20 @@ function outerwearSupportsOpening(outerwearItem, opening) {
 
 function buildOuterwearColoredPrompt(outerwearItem, color = null, { fit = null, pattern = null, opening = null, styling = null, minimalStyling = false } = {}) {
   if (!outerwearItem || isNoneLikeItem(outerwearItem)) return '';
-  const base = normalizeWardrobePromptText(outerwearItem.en);
+  const resolvedBase = resolveOuterwearBase(outerwearItem, isNoneLikeItem(fit) ? null : fit);
+  const base = normalizeWardrobePromptText(resolvedBase ?? outerwearItem.en);
   if (!base) return '';
 
-  const isSimpleOversizeFit = fit?.zh === 'Oversize';
-  const fitText = fit && !isNoneLikeItem(fit) && !isSimpleOversizeFit
+  const isSimpleOversizeFit = resolvedBase === null && fit?.zh === 'Oversize';
+  const fitText = resolvedBase === null && fit && !isNoneLikeItem(fit) && !isSimpleOversizeFit
     ? normalizeWardrobePromptText(fit.en)
     : '';
   const stylingText = buildOuterwearStylingLeadText(styling, { minimal: minimalStyling });
   const patternText = pattern && !isNoneLikeItem(pattern) ? normalizeWardrobePromptText(pattern.en) : '';
   const openingText = opening && !isNoneLikeItem(opening) ? normalizeWardrobePromptText(opening.en) : '';
-  const coloredBase = composeWearableColorPrompt(base, color);
+  const coloredBase = outerwearItem.meta?.outerwear?.colorTargetsBody && color && !isNoneLikeItem(color)
+    ? `${base}, body panels in ${color.en}`
+    : composeWearableColorPrompt(base, color);
   const styledBase = isSimpleOversizeFit ? `oversized ${coloredBase}` : coloredBase;
 
   return [fitText, styledBase, patternText, openingText, stylingText].filter(Boolean).join(', ');
@@ -4669,6 +4683,7 @@ function styleFitsLocation(style, location) {
 }
 
 function wardrobeFitsLocation(item, location) {
+  if (isRetiredOuterwear(item)) return false;
   if (!location || isNoneLikeItem(location)) return true;
   const family = item.meta.family;
   const locationTags = new Set(location.meta.tags);
@@ -8565,6 +8580,7 @@ function buildWardrobeColors(wardrobeSlots, locks, random = Math.random) {
 }
 
 function buildColoredGrokPrompt(item, color = null, { preset = false, pattern = null, styling = null, fit = null, rise = null, secondaryColor = null } = {}) {
+  if (item?.meta?.outerwear) return buildOuterwearColoredPrompt(item, color, { pattern, styling, fit });
   if (!item || isNoneLikeItem(item)) return '';
   const base = appendWardrobePromptSearchAlias(item, stripMarkdown(item.en).replace(/\s+/g, ' ').trim());
   if (!base) return '';
@@ -8940,6 +8956,8 @@ function getExplicitWardrobeFitAnchors(context, wardrobeSlots) {
       config.fallbackGarmentSlot ? wardrobeSlots[config.fallbackGarmentSlot] : null
     );
     if (isNoneLikeItem(fit) || isNoneLikeItem(garment)) return [];
+    // Authored outerwear fit is already resolved into the garment identity.
+    if (config.role === 'outerwear' && garment?.meta?.outerwear) return [];
 
     const text = normalizeWardrobePromptText(fit?.en || '');
     if (!text || !shouldKeepWardrobeRoleForContext(config.role, context, text)) return [];
@@ -9150,7 +9168,7 @@ function filterZImagePoseForFraming(value, context) {
 }
 
 const OUTERWEAR_SINGLE_SHOULDER_STYLING_TEXT = 'slipped down over one upper arm, with the neckline lowered on that side and the opposite shoulder still covered';
-const OUTERWEAR_DOUBLE_SHOULDER_STYLING_TEXT = 'slipped down around both upper arms, with the neckline resting below both shoulders and both arms still in the sleeves';
+const OUTERWEAR_DOUBLE_SHOULDER_STYLING_TEXT = 'halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves';
 
 function buildOuterwearStylingLeadText(styling, { minimal = false } = {}) {
   if (!styling || isNoneLikeItem(styling)) return '';
@@ -14441,6 +14459,10 @@ function compactAiGarmentValue(value, preferredRole = '', primarySource = '', we
   // Selected surface design is an independent visual anchor. Keep only its
   // clauses already present in the shared projected garment, never hidden raw text.
   const visibleSurfaceFragments = splitAiSourceFragments(surfaceSource).filter(fragment => fragments.includes(fragment));
+  if (preferredRole === 'outerwear') {
+    const visibleIdentity = primarySourceFragments.filter(fragment => fragments.includes(fragment));
+    return [...new Set([primary, ...visibleIdentity, ...visibleWearSources, ...visibleSurfaceFragments].filter(Boolean))].join(', ');
+  }
   const structuralDetail = fragments.find((fragment) => /\b(?:neckline|flare|pleated|ruffled|slit|hem|boning|lace trim|garter|cut-out|open shoulder|one shoulder line exposed|both shoulder lines exposed|draped off one shoulder|worn off both shoulders|upper back exposed|high-cut|wide-leg|straight-leg)\b/i.test(fragment) && fragment !== primary
     && !visibleSurfaceFragments.includes(fragment)
     && !visibleWearSources.some((source) => source.includes(fragment))) || '';
@@ -14699,16 +14721,23 @@ function buildAiNormalWardrobeText(
         'Waist Accessory': buildAccessoryPrompt(wardrobeSlots.waistAccessory),
       }
     : {};
-  const outerwear = firstStructuredValue(valuesByLabel, ['Outerwear']);
+  // Full-body structured sources place the outer layer before its inner garment.
+  // Recover that already-projected fragment, never hidden raw wardrobe text.
+  const outerwear = firstStructuredValue(valuesByLabel, ['Outerwear'])
+    || ['Top', 'Dress'].map(label => {
+      const source = firstStructuredValue(valuesByLabel, [label]);
+      const boundary = source.indexOf(', layered over ');
+      return boundary >= 0 ? source.slice(0, boundary) : '';
+    }).find(Boolean) || '';
   const shoulderWear = wardrobeSlots?.outerwearStyling;
-  const outerwearWearSources = ['單肩露出', '雙肩露出'].includes(shoulderWear?.zh)
-    ? [
-        !isNoneLikeItem(wardrobeSlots.outerwearOpening) ? normalizeWardrobePromptText(wardrobeSlots.outerwearOpening?.en || '') : '',
-        buildOuterwearStylingLeadText(shoulderWear),
-      ]
-    : [];
+  const outerwearWearSources = [
+    !isNoneLikeItem(wardrobeSlots?.outerwearOpening) ? normalizeWardrobePromptText(wardrobeSlots?.outerwearOpening?.en || '') : '',
+    buildOuterwearStylingLeadText(shoulderWear),
+  ];
+  const outerwearPatternSource = !isNoneLikeItem(wardrobeSlots?.outerwearPattern)
+    ? normalizeWardrobePromptText(wardrobeSlots?.outerwearPattern?.en || '') : '';
   const visibleOuterwear = shouldKeepWardrobeRoleForContext('outerwear', context, outerwear)
-    ? compactAiGarmentValue(outerwear, 'outerwear', primarySourceByLabel.Outerwear, outerwearWearSources)
+    ? compactAiGarmentValue(outerwear, 'outerwear', primarySourceByLabel.Outerwear, outerwearWearSources, outerwearPatternSource)
     : '';
   const visibleCompleteLookWaistAccessory = wardrobeSlots?.waistAccessory
     && !isNoneLikeItem(wardrobeSlots.waistAccessory)
@@ -14755,11 +14784,11 @@ function buildAiNormalWardrobeText(
   };
   return withExplicitFitAnchors(Object.entries(roleByLabel)
     .map(([label, role]) => {
-      const value = firstStructuredValue(valuesByLabel, [label]);
+      const value = role === 'outerwear' ? outerwear : firstStructuredValue(valuesByLabel, [label]);
       const topPatternSource = role === 'top' && wardrobeSlots?.topPattern && !isNoneLikeItem(wardrobeSlots.topPattern)
         ? normalizeWardrobePromptText(wardrobeSlots.topPattern.en) : '';
       return shouldKeepWardrobeRoleForContext(role, context, value)
-        ? compactAiGarmentValue(value, role, primarySourceByLabel[label], outerwearWearSources, topPatternSource)
+        ? compactAiGarmentValue(value, role, primarySourceByLabel[label], role === 'outerwear' ? outerwearWearSources : [], role === 'outerwear' ? outerwearPatternSource : topPatternSource)
         : '';
     })
     .filter(Boolean)

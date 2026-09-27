@@ -1,3 +1,4 @@
+import { normalizeOuterwearCatalogForLegacy } from './outerwearCatalogTestSupport.js';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { test } from 'node:test';
@@ -151,7 +152,7 @@ test('Midjourney native structure records duo length diagnostics without a delet
       Number.isInteger(countAiPromptWords(output)),
       `${fixture.id} diagnostic word count`
     );
-    const hash = createHash('sha256').update(stripMidjourneyParameterTail(output)).digest('hex');
+    const hash = createHash('sha256').update(stripMidjourneyParameterTail(normalizeOuterwearCatalogForLegacy(output, 'midjourneyPrompt'))).digest('hex');
     assert.equal(hash, MIDJOURNEY_NATIVE_DESCRIPTION_HASHES[fixture.id], fixture.id);
   }
 });
@@ -185,7 +186,7 @@ test('Midjourney native structure freezes every accepted AI description', () => 
     const fixture = AI_PROMPT_LENGTH_FIXTURES.find((entry) => entry.id === fixtureId);
     const output = generateFixture(fixture).midjourneyPrompt;
     assert.equal(
-      createHash('sha256').update(stripMidjourneyParameterTail(output)).digest('hex'),
+      createHash('sha256').update(stripMidjourneyParameterTail(normalizeOuterwearCatalogForLegacy(output, 'midjourneyPrompt'))).digest('hex'),
       expectedHash,
       fixtureId
     );

@@ -188,7 +188,7 @@ test('full-body character prompt keeps complete separate wardrobe regardless of 
   assert.match(fullBodyPrompt, /\n\nWardrobe:\nShe wears /);
   assert.match(fullBodyPrompt, /off-white shirt/i);
   assert.match(fullBodyPrompt, /dark grey .*pleated mini skirt/i);
-  assert.match(fullBodyPrompt, /dark grey denim jacket/i);
+  assert.match(fullBodyPrompt, /dark grey washed denim jacket/i);
   assert.match(fullBodyPrompt, /white ribbed ankle socks/i);
   assert.match(fullBodyPrompt, /white adidas samba og sneakers/i);
   assert.match(fullBodyPrompt, /\n\nLighting:\nClean even lighting with clear facial, body, fabric, and footwear readability\./);
@@ -809,7 +809,7 @@ test('Gpt single-subject prompt preserves full-fidelity footwear and outerwear d
 
   const wardrobe = gptSection(prompt, 'Wardrobe');
 
-  assert.match(wardrobe, /dark grey denim jacket, washed denim texture, chest pockets, metal buttons, casual structured outerwear/i);
+  assert.match(wardrobe, /dark grey underbust-cropped oversized washed denim jacket/i);
   assert.match(wardrobe, /slipped down over one upper arm, with the neckline lowered on that side and the opposite shoulder still covered/i);
   assert.match(wardrobe, /white ribbed ankle socks, soft cotton texture/i);
   assert.match(wardrobe, /white adidas samba og sneakers, gum sole, three-stripe side detail, terrace football styling/i);
@@ -1843,7 +1843,7 @@ test('Grok/Z-Image uses X-prompt wardrobe wording without guard clauses for repr
     shoesId: optionId('shoesId', 'Samba OG'),
     shoesColorId: optionId('shoesColorId', '白色'),
   });
-  assert.match(zImageWardrobeParagraph(outerwearPrompt), /dark grey denim jacket, washed denim texture, chest pockets, metal buttons/i);
+  assert.match(zImageWardrobeParagraph(outerwearPrompt), /dark grey washed denim jacket/i);
   assert.match(zImageWardrobeParagraph(outerwearPrompt), /worn open at the front/i);
   assert.match(zImageWardrobeParagraph(outerwearPrompt), /slipped down over one upper arm/i);
   assert.match(zImageWardrobeParagraph(outerwearPrompt), /layered over off-white shirt/i);
