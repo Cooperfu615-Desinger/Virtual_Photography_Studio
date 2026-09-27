@@ -3,6 +3,7 @@ import { test } from 'node:test';
 
 import {
   createEmptyLocks,
+  createSeededRandom,
   generatePrompts,
   getCloseupAllowedKeys,
   getLockControls,
@@ -385,8 +386,9 @@ test('longline outerwear shirt has concise source wording while the top shirt st
     ...createEmptyLocks(),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     outerwearId: outerwearLonglineShirt.id,
+    outerwearFitId: optionId('outerwearFitId', '全無'),
     topId: optionId('topId', '絲質細肩帶上衣'),
-  });
+  }, [], { random: createSeededRandom('longline-outerwear-shirt-source-v1') });
 
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
   assert.match(promptText, /longline cotton-poplin button-up shirt/);
