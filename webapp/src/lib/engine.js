@@ -8245,7 +8245,7 @@ function extractCharacterSlots(character) {
   };
 }
 
-function projectBodyTypeCharacter(character, context) {
+function projectBodyTypeCharacter(character, context, wardrobe = []) {
   if (!Array.isArray(character)) return character;
   if (isSpecialSubject(context.subject) || isCharacterProfileSubject(context.subject)) return character;
 
@@ -8256,9 +8256,14 @@ function projectBodyTypeCharacter(character, context) {
   if (bodyTypes.length === 0) return character;
 
   const compositionVisibility = getCompositionVisibilityProjection(context);
+  const hemOverlapRoles = new Set((Array.isArray(wardrobe) ? wardrobe : [])
+    .filter((item) => isHemOverlapStyling(item) && String(item.en || '').trim())
+    .map((item) => item.meta?.wardrobeRole || ''));
   const projectedBySource = new Map(bodyTypes.map((bodyType) => [
     bodyType,
-    projectNormalBodyTypeItem(bodyType, compositionVisibility),
+    projectNormalBodyTypeItem(bodyType, compositionVisibility, {
+      hemOverlap: hemOverlapRoles.has(bodyType.meta?.characterRole || ''),
+    }),
   ]));
   if ([...projectedBySource].every(([source, projected]) => source === projected)) return character;
   return character.flatMap((item) => {
@@ -12649,18 +12654,19 @@ function buildFixedFramingDerivedPromptModel({
   wardrobe = projectTopHemOverlap(projectAudioForFraming(wardrobe, baseDerivedContext), baseDerivedContext);
 
   if (!preset.projectResolvedSources) {
+    const projectedCharacter = projectBodyTypeCharacter(character, baseDerivedContext, wardrobe);
     return {
       ...sourcePromptModel,
       ...buildStructuredPromptSections(
         baseDerivedContext,
-        character,
+        projectedCharacter,
         wardrobe,
         wardrobeColors,
         lightDirection,
         film,
       ),
       context: baseDerivedContext,
-      character,
+      character: projectedCharacter,
       wardrobe,
       wardrobeColors,
     };
@@ -12677,7 +12683,7 @@ function buildFixedFramingDerivedPromptModel({
     projectedCanonicalPoseText,
     projectedScene: buildFixedFramingDerivedProjectedScene(sourceContext, baseDerivedContext, preset),
   };
-  const projectedCharacter = projectBodyTypeCharacter(character, derivedContext);
+  const projectedCharacter = projectBodyTypeCharacter(character, derivedContext, wardrobe);
 
   return {
     ...sourcePromptModel,
@@ -15480,7 +15486,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
       : rendererContext.subject,
     projectedScene: buildProjectedScene(rendererContext),
   };
-  const projectedCharacter = projectBodyTypeCharacter(character, mainContext);
+  const projectedCharacter = projectBodyTypeCharacter(character, mainContext, wardrobe);
   const rendererWardrobe = projectTopHemOverlap(projectAudioForFraming(fixedCompositionPromptProjection?.wardrobe.items || wardrobe, mainContext), mainContext);
   const rendererWardrobeColors = fixedCompositionPromptProjection?.wardrobe.colors || wardrobeColors;
   const promptModel = {

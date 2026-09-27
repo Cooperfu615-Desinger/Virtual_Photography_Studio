@@ -36,6 +36,82 @@ test('overlap keeps micro shorts identity and survives visible outputs and saved
   assert.equal(deserializeFavoritePrompt(serializeFavoritePrompt(p)).selection.topStylingId, 'hem-overlap');
 });
 
+test('overlap uses the A body profile without waist or abdominal emphasis and leaves other styling unchanged', () => {
+  const bodyTypeId = option('bodyTypeId', '性感曲線身形');
+  const p = generate({
+    bodyTypeId,
+    topId: option('topId', '長版寬鬆麻花針織毛衣'),
+    pantsId: option('pantsId', '牛仔短褲'),
+    bottomRiseId: option('bottomRiseId', '超低腰'),
+  });
+  const bodyAreaAnchors = /94-58-92|body proportion anchor|narrow defined waist|defined waist|waistline|waist curve|bust-waist-hip|abdomen|abdominal|midriff|belly|stomach|\babs\b|muscle definition/i;
+  const bodyOutputs = [
+    p.grokPrompt,
+    p.zImagePrompt,
+    p.midjourneyPrompt,
+    p.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '',
+  ];
+
+  assert.equal(p.selection.bodyTypeId, bodyTypeId);
+  for (const text of bodyOutputs) {
+    assert.match(text, /softly curvy figure/i);
+    assert.match(text, /rounded hips/i);
+    assert.doesNotMatch(text, bodyAreaAnchors);
+  }
+
+  const untucked = generate({ bodyTypeId, topStylingId: 'untucked' });
+  assert.match(untucked.grokPrompt, /94-58-92 body proportion anchor/i);
+  assert.match(untucked.zImagePrompt, /narrow defined waist/i);
+  assert.match(untucked.midjourneyPrompt, /defined waist/i);
+
+  const incompatible = generate({ bodyTypeId, topId: option('topId', '比基尼上身') });
+  assert.doesNotMatch(incompatible.grokPrompt, /partially concealing/i);
+  assert.match(incompatible.grokPrompt, /94-58-92 body proportion anchor/i);
+});
+
+test('all normal body types omit local body-area details while hem overlap is effective', () => {
+  const bodyTypeControl = controls.find((control) => control.key === 'bodyTypeId');
+  const bodyAreaAnchors = /\bwaist(?:line)?(?!-up)\b|waist curve|waist-hip|bust-waist-hip|abdomen|abdominal|midriff|belly|stomach|\babs\b|muscle definition|body proportion anchor|torso-to-leg|visual height|visual weight|cup-scale|\b\d{2,3}-\d{2,3}-\d{2,3}\b/i;
+
+  for (const item of bodyTypeControl.options.filter((entry) => entry.zh !== '全無')) {
+    for (const framingZh of ['全身鏡頭 (Full Body Shot)', '中景鏡頭 (Medium Shot)', '牛仔中景 (Cowboy Shot)']) {
+      const p = generate({
+        bodyTypeId: item.id,
+        framingId: option('framingId', framingZh),
+      }, `hem-overlap-${item.zh}-${framingZh}`);
+      const fullBody = p.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '';
+      for (const text of [p.grokPrompt, p.zImagePrompt, p.midjourneyPrompt, fullBody]) {
+        assert.doesNotMatch(text, bodyAreaAnchors, `${item.zh}/${framingZh}`);
+      }
+    }
+  }
+});
+
+test('duo overlap softens only the Body Type of the person wearing hem-overlap', () => {
+  const p = generate({
+    subjectCount: '2',
+    bodyTypeAId: option('bodyTypeAId', '性感曲線身形'),
+    bodyTypeBId: option('bodyTypeBId', '性感曲線身形'),
+    topAId: option('topAId', '長版寬鬆麻花針織毛衣'),
+    topBId: option('topBId', '長版寬鬆麻花針織毛衣'),
+    pantsAId: option('pantsAId', '牛仔短褲'),
+    pantsBId: option('pantsBId', '牛仔短褲'),
+    topStylingAId: 'hem-overlap',
+    topStylingBId: option('topStylingBId', '自然放出'),
+  }, 'hem-overlap-duo-body-v1');
+  const womanOne = p.grokPrompt.split('Woman 2:')[0].split('Woman 1:')[1] || '';
+  const womanTwo = p.grokPrompt.split('Woman 2:')[1] || '';
+
+  assert.match(womanOne, /softly curvy figure/i);
+  assert.doesNotMatch(womanOne, /94-58-92|defined waist|bust-waist-hip/i);
+  assert.match(womanTwo, /94-58-92 body proportion anchor/i);
+  assert.match(womanTwo, /narrow defined waist/i);
+  assert.equal(p.selection.bodyTypeAId, option('bodyTypeAId', '性感曲線身形'));
+  assert.equal(p.selection.bodyTypeBId, option('bodyTypeBId', '性感曲線身形'));
+  assert.equal(p.selection.topStylingAId, 'hem-overlap');
+  assert.equal(p.selection.topStylingBId, option('topStylingBId', '自然放出'));
+});
+
 test('overlap works for silk tops and independent skirts without editing garment length', () => {
   const p = generate({ topId: option('topId', '絲質細肩帶上衣'), pantsId: option('pantsId', '全無'), skirtId: option('skirtId', '水手服長裙') });
   for (const text of visible(p)) assert.match(text, /partially concealing/i);

@@ -40,19 +40,49 @@ const BODY_TYPE_PROJECTED_TEXT_BY_ZH = Object.freeze({
   }),
 });
 
-export function projectNormalBodyTypeText(bodyType, compositionVisibility) {
+const HEM_OVERLAP_BODY_TYPE_TEXT_BY_ZH = Object.freeze({
+  性感曲線身形: 'a tall, softly curvy figure with long legs, a full bust and rounded hips, with lean overall proportions',
+});
+
+// Keep the selected overall build while omitting local body-area and measurement
+// anchors that can prompt visible waist/abdomen details under an overlapping hem.
+const BODY_AREA_DETAIL_PATTERN = /\b(?:waist(?:line)?|abdomen|abdominal|midriff|belly|stomach|abs|muscle definition|body proportion anchor|torso-to-leg|visual height|visual weight|cup-scale)\b|\b\d{2,3}\s*-\s*\d{2,3}\s*-\s*\d{2,3}\b/i;
+
+function projectHemOverlapBodyTypeText(bodyType, text) {
+  if (!text) return '';
+  if (
+    text === bodyType?.en
+    && HEM_OVERLAP_BODY_TYPE_TEXT_BY_ZH[bodyType?.zh]
+    && /\b94-58-92\s+body proportion anchor\b/i.test(bodyType.en)
+  ) {
+    return HEM_OVERLAP_BODY_TYPE_TEXT_BY_ZH[bodyType.zh];
+  }
+
+  return text
+    .split(/\s*,\s*/)
+    .filter((fragment) => !BODY_AREA_DETAIL_PATTERN.test(fragment))
+    .join(', ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+export function projectNormalBodyTypeText(bodyType, compositionVisibility, { hemOverlap = false } = {}) {
   if (!bodyType || !bodyType.en || /^none$/i.test(bodyType.en.trim())) return '';
 
   const mode = compositionVisibility?.body?.mode || 'fullSource';
   if (mode === 'omit') return '';
-  if (mode === 'fullSource') return bodyType.en;
-  if (mode !== 'visibleZones') return '';
+  let projectedText = '';
+  if (mode === 'fullSource') projectedText = bodyType.en;
+  else if (mode === 'visibleZones') {
+    projectedText = BODY_TYPE_PROJECTED_TEXT_BY_ZH[bodyType.zh]?.[compositionVisibility?.bucket] || '';
+  }
+  if (!projectedText) return '';
 
-  return BODY_TYPE_PROJECTED_TEXT_BY_ZH[bodyType.zh]?.[compositionVisibility?.bucket] || '';
+  return hemOverlap ? projectHemOverlapBodyTypeText(bodyType, projectedText) : projectedText;
 }
 
-export function projectNormalBodyTypeItem(bodyType, compositionVisibility) {
-  const projectedText = projectNormalBodyTypeText(bodyType, compositionVisibility);
+export function projectNormalBodyTypeItem(bodyType, compositionVisibility, options) {
+  const projectedText = projectNormalBodyTypeText(bodyType, compositionVisibility, options);
   if (!projectedText) return null;
   if (projectedText === bodyType?.en) return bodyType;
   return { ...bodyType, en: projectedText };

@@ -20,14 +20,15 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     mode: 'single', seed: 'hem-overlap-v1',
     locks: {
       subjectCount: '1', framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      bodyTypeId: { byZh: '性感曲線身形' },
       outfitPresetId: { byZh: '全無' }, dressId: { byZh: '全無' },
       topId: { byZh: '落肩 T 恤' }, pantsId: { byZh: '真理褲' }, skirtId: { byZh: '全無' },
       topStylingId: 'hem-overlap', outerwearId: { byZh: '全無' },
     },
     expectedOutputs: {
       ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'fullBodyCharacterPrompt'].map(field => [field, {
-        includes: ['partially concealing it', 'dolphin micro shorts'],
-        excludes: ['top length meets or slightly overlaps'],
+        includes: ['partially concealing it', 'dolphin micro shorts', 'rounded hips'],
+        excludes: ['top length meets or slightly overlaps', '94-58-92', 'defined waist', 'bust-waist-hip curve', 'abdomen'],
       }])),
       chestUpPortraitPrompt: { excludes: ['partially concealing it'] },
       chestUpMjPortraitPrompt: { excludes: ['partially concealing it'] },

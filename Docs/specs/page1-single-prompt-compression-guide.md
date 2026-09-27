@@ -2,6 +2,8 @@
 
 Last updated: 2026-09-27
 
+2026-09-27 衣襬遮住部分下身的體態相容：有效選取時，普通 Body Type 來源移除腰／腹部與身體比例量測細節；性感曲線身形改用 A 實測通過的整體輪廓文字。只作用於相同人物與有效衣襬關係，包含雙人逐人投影及全身角色照；不改來源選項、storage、Character Card 或未觸發路徑。Public output contract `1.25.0`，見 [穿搭撰寫規範](wardrobe-section-b-authoring-guide.md#衣襬遮住部分下身2026-09-27)。
+
 2026-09-27 站姿目錄重整：保留九個公開選項，優化骨盆曲線、將微前傾加強為向鏡頭探身、新增三組站姿、退役三組但保留舊資料還原。三個主 renderer 使用共用來源與裁切 metadata；胸上機制與全身角色照契約不變。Public output contract `1.23.0`。見 [站姿動作目錄 v1](standing-catalog-v1.md)。
 
 2026-09-27 雙手遮住胸部改為純手勢：保留 `hands-cover-breasts` 選項 ID、姿勢與裁切矩陣，只描述雙掌分別覆住乳頭、手指自然放鬆；移除上衣、衣料堆疊及肩頭穿法描述，並解除上身服裝依賴。手勢維持手動選擇、不進隨機池。Public output contract `1.22.0`。
