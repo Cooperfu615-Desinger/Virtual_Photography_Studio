@@ -355,22 +355,14 @@ test('standing arrangement simplification keeps a stable active core and depreca
     .map((option) => option.id);
 
   assert.deepEqual(activeIds, [
-    'standing-natural',
-    'standing-one-leg-weight',
-    'standing-pelvis-back-curve',
-    'standing-forward-lean',
-    'standing-back-lean',
-    'standing-crossed-legs',
-    'standing-back-facing-turn',
-    'standing-narrow-side',
-    'standing-forward-toe-point',
+    'standing-natural', 'standing-one-leg-weight', 'standing-pelvis-back-curve',
+    'standing-forward-lean', 'standing-crossed-legs', 'standing-narrow-side',
+    'standing-bent-leg-lift', 'standing-feet-together-soft-knees', 'standing-wide-weight-shift',
   ]);
   assert.deepEqual(deprecatedIds, [
-    'standing-deep-forward-lean',
-    'standing-turn-back',
-    'standing-contrapposto',
-    'standing-raised-foot',
-    'standing-soft-bent-knees',
+    'standing-deep-forward-lean', 'standing-back-lean', 'standing-turn-back',
+    'standing-contrapposto', 'standing-raised-foot', 'standing-soft-bent-knees',
+    'standing-back-facing-turn', 'standing-forward-toe-point',
   ]);
 
   for (const id of deprecatedIds) {
@@ -392,7 +384,7 @@ test('standing projection metadata distinguishes lower-body-only and upper-body 
   assert.equal(getPoseComposerProjection(lowerBodyOnly, FULL_BODY).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
 
   assert.equal(getPoseComposerProjection(hipCurve, CHEST_UP).mode, POSE_COMPOSER_PROJECTION_MODES.OMIT);
-  assert.equal(getPoseComposerProjection(hipCurve, MEDIUM_WAIST).mode, POSE_COMPOSER_PROJECTION_MODES.OMIT);
+  assert.equal(getPoseComposerProjection(hipCurve, MEDIUM_WAIST).mode, POSE_COMPOSER_PROJECTION_MODES.PROJECTED);
   assert.equal(getPoseComposerProjection(hipCurve, COWBOY_KNEE).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
   assert.equal(getPoseComposerProjection(hipCurve, FULL_BODY).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
 

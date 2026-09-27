@@ -329,9 +329,8 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       'grokPrompt', 'zImagePrompt', 'midjourneyPrompt',
     ].map((field) => [field, {
       includes: [
-        'pelvis pushed strongly backward',
-        'lower back forming a pronounced arch',
-        'weight settled onto one leg',
+        'pelvis shifted distinctly backward',
+        'a smooth pronounced curve through the lower back into the buttocks',
         'upper torso only slightly inclined forward',
       ],
       excludes: ['back-facing standing pose', 'rear-facing standing pose'],

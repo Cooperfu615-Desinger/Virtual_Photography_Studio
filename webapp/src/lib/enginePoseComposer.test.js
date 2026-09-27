@@ -1102,13 +1102,13 @@ test('public standing arrangements use clear canonical English and crop-safe upp
     },
     {
       zh: '骨盆後推曲線站姿',
-      full: 'She presents a curve-emphasizing standing pose, pelvis pushed strongly backward, lower back forming a pronounced arch, weight settled onto one leg, upper torso only slightly inclined forward.',
+      full: 'She presents a standing pose with the pelvis shifted distinctly backward and the hips projecting behind the torso, a smooth pronounced curve through the lower back into the buttocks, upper torso only slightly inclined forward.',
       chest: '',
     },
     {
-      zh: '身體微前傾',
-      full: 'She presents a standing posture with a slight forward lean through the upper body.',
-      chest: 'She presents an upper-body pose with a slight forward lean through the upper body.',
+      zh: '向鏡頭探身站姿',
+      full: 'She presents a standing pose with the upper body leaning markedly forward from the hips toward the camera, bringing the face and shoulders closer to the lens than the waist and hips.',
+      chest: 'She presents an upper-body pose with a marked forward lean toward the camera, with the face and shoulders brought close to the lens.',
     },
     {
       zh: '身體微後仰',
