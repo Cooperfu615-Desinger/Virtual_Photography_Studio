@@ -16,6 +16,24 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   {
+    id: 'top-hem-overlap', title: 'Untucked top overlaps independent bottoms only where the waist is visible',
+    mode: 'single', seed: 'hem-overlap-v1',
+    locks: {
+      subjectCount: '1', framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      outfitPresetId: { byZh: '全無' }, dressId: { byZh: '全無' },
+      topId: { byZh: '落肩 T 恤' }, pantsId: { byZh: '真理褲' }, skirtId: { byZh: '全無' },
+      topStylingId: 'hem-overlap', outerwearId: { byZh: '全無' },
+    },
+    expectedOutputs: {
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'fullBodyCharacterPrompt'].map(field => [field, {
+        includes: ['partially concealing it', 'dolphin micro shorts'],
+        excludes: ['top length meets or slightly overlaps'],
+      }])),
+      chestUpPortraitPrompt: { excludes: ['partially concealing it'] },
+      chestUpMjPortraitPrompt: { excludes: ['partially concealing it'] },
+    },
+  },
+  {
     id: 'conditional-lace-garter-belt',
     title: 'Selected independent lace bottoms add the garter-belt and stocking connection across visible outputs',
     mode: 'single',

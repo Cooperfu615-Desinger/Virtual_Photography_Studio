@@ -476,6 +476,7 @@ const TOP_STYLING_OPTIONS = [
   { id: 'half-tucked', zh: '半紮', en: 'front hem half-tucked into the bottoms' },
   { id: 'untucked', zh: '自然放出', en: 'top hem worn naturally loose over the waistband' },
   { id: 'knot-tied', zh: '下擺打結', en: 'front hem tied into a compact knot below the waist' },
+  { id: 'hem-overlap', zh: '衣襬遮住部分下身', en: 'worn untucked, its hem draping naturally over the waistband and upper portion of the lower garment, partially concealing it while leaving the remaining fabric visible below', meta: { randomEligible: false } },
 ];
 
 const BOTTOM_FIT_OPTIONS = [
@@ -4119,6 +4120,9 @@ function buildTopColoredPrompt(topItem, color = null, { pattern = null, fit = nu
   const patternText = pattern && !isNoneLikeItem(pattern) ? normalizeWardrobePromptText(pattern.en) : '';
   const coloredBase = composeWearableColorPrompt(base, color);
 
+  if (isHemOverlapStyling(styling)) {
+    return [fitText, coloredBase, patternText, stylingText].filter(Boolean).join(', ');
+  }
   return [fitText, stylingText, coloredBase, patternText].filter(Boolean).join(', ');
 }
 
@@ -6636,6 +6640,29 @@ function buildCharacter(context, catalog) {
   return character;
 }
 
+function isHemOverlapStyling(item) {
+  return /wardrobe:上身穿法-top-styling:hem-overlap(?::[ab])?$/.test(item?.id || '');
+}
+
+// Resolve the relationship once, after fit projection, without changing either garment.
+function resolveTopHemOverlap(pieces) {
+  return pieces.map(item => {
+    if (!isHemOverlapStyling(item)) return item;
+    const role = item.meta?.wardrobeRole || '';
+    const sameRole = pieces.filter(piece => (piece.meta?.wardrobeRole || '') === role && !isNoneLikeItem(piece));
+    const top = sameRole.find(piece => piece.id?.startsWith('wardrobe:上身-tops:'));
+    const hasBottom = sameRole.some(piece => /^wardrobe:(?:褲裝-pants|裙裝-skirts):/.test(piece.id));
+    const incompatible = !top || !hasBottom || isCroppedTopItem(top)
+      || /\b(?:bikini|bra)\b|raised hem exposing the midriff/i.test(top.en);
+    return incompatible ? { ...item, en: '' } : item;
+  });
+}
+
+function projectTopHemOverlap(pieces, context) {
+  const zones = getCompositionVisibilityProjection(context)?.wardrobe?.detailZones || [];
+  return zones.includes('waist') ? pieces : pieces.map(item => isHemOverlapStyling(item) ? { ...item, en: '' } : item);
+}
+
 function projectSailorSeparateFit(pieces, locks = {}) {
   const roleOf = (item) => item.meta?.wardrobeRole || '';
   const hasSailorTop = (role) => pieces.some((piece) => (
@@ -7133,7 +7160,7 @@ function buildWardrobe(context, locks, catalog) {
       return isNoneLikeItem(lockedOption) ? null : createSyntheticWardrobeModifier(token, lockedOption);
     }
 
-    const candidates = options.filter((option) => allowNoneWhenUnlocked || !isNoneLikeItem(option));
+    const candidates = options.filter((option) => option.meta?.randomEligible !== false && (allowNoneWhenUnlocked || !isNoneLikeItem(option)));
     if (candidates.length === 0) return null;
     const pickedOption = sampleItem(candidates);
     return pickedOption && !isNoneLikeItem(pickedOption)
@@ -7515,7 +7542,7 @@ function buildWardrobe(context, locks, catalog) {
         if (selectedPattern) addPiece(selectedPattern);
       }
     }
-    return projectSailorSeparateFit(pieces.filter(keepExplicitCloseupWardrobeItem), locks);
+    return resolveTopHemOverlap(projectSailorSeparateFit(pieces.filter(keepExplicitCloseupWardrobeItem), locks));
   }
 
   const hasOutfitPresetPieceResolved = pieces.some((piece) => piece.id?.includes('wardrobe:套裝-outfit-presets:') && !isNoneLikeItem(piece));
@@ -7689,7 +7716,7 @@ function buildWardrobe(context, locks, catalog) {
     maybePick('頸部 (Neck Accessories)', visibilityAtLeast(visibility, 'portrait') ? 0.4 : 0.2, () => true, { allowNoneWhenUnlocked: true });
   }
 
-  return addConditionalGarterBeltLayer(projectSailorSeparateFit(pieces, locks));
+  return addConditionalGarterBeltLayer(resolveTopHemOverlap(projectSailorSeparateFit(pieces, locks)));
 }
 
 function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
@@ -9508,6 +9535,7 @@ function buildWaistlineCompatibilityPrompt(wardrobeSlots) {
   );
 
   if (!bottom || !top || !isLowRiseBottom || isCroppedTopItem(top)) return '';
+  if (isHemOverlapStyling(topStyling)) return '';
 
   if (topStyling?.zh === '自然放出' || isUntuckedTopItem(top)) {
     return 'top hem overlaps the low-rise waistband, long untucked length covering the abdomen';
@@ -12618,7 +12646,7 @@ function buildFixedFramingDerivedPromptModel({
   film,
 }) {
   const baseDerivedContext = createFixedFramingDerivedContext(sourceContext, preset);
-  wardrobe = projectAudioForFraming(wardrobe, baseDerivedContext);
+  wardrobe = projectTopHemOverlap(projectAudioForFraming(wardrobe, baseDerivedContext), baseDerivedContext);
 
   if (!preset.projectResolvedSources) {
     return {
@@ -14414,7 +14442,7 @@ function compactAiGarmentValue(value, preferredRole = '', primarySource = '', we
     const keep = preferredRole === 'top'
       ? /\b(?:sailor school blouse|relaxed straight-cut body|undersized close-fitting body|navy sailor collar|navy scarf tie|navy cuffs)\b/i
       : /\b(?:sailor-uniform pleated skirt|broad pressed pleats|above-knee hem|near-floor maxi hem)\b/i;
-    return sourceFragments.filter((fragment) => keep.test(fragment)).join(', ');
+    return [...sourceFragments.filter((fragment) => keep.test(fragment)), ...wearSources.filter(source => source && value.includes(source))].join(', ');
   }
   if (
     preferredRole === 'waistAccessory'
@@ -14789,7 +14817,7 @@ function buildAiNormalWardrobeText(
       const topPatternSource = role === 'top' && wardrobeSlots?.topPattern && !isNoneLikeItem(wardrobeSlots.topPattern)
         ? normalizeWardrobePromptText(wardrobeSlots.topPattern.en) : '';
       return shouldKeepWardrobeRoleForContext(role, context, value)
-        ? compactAiGarmentValue(value, role, primarySourceByLabel[label], role === 'outerwear' ? outerwearWearSources : [], role === 'outerwear' ? outerwearPatternSource : topPatternSource)
+        ? compactAiGarmentValue(value, role, primarySourceByLabel[label], role === 'outerwear' ? outerwearWearSources : (role === 'top' && isHemOverlapStyling(wardrobeSlots?.topStyling) ? [wardrobeSlots.topStyling.en] : []), role === 'outerwear' ? outerwearPatternSource : topPatternSource)
         : '';
     })
     .filter(Boolean)
@@ -15453,7 +15481,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     projectedScene: buildProjectedScene(rendererContext),
   };
   const projectedCharacter = projectBodyTypeCharacter(character, mainContext);
-  const rendererWardrobe = projectAudioForFraming(fixedCompositionPromptProjection?.wardrobe.items || wardrobe, mainContext);
+  const rendererWardrobe = projectTopHemOverlap(projectAudioForFraming(fixedCompositionPromptProjection?.wardrobe.items || wardrobe, mainContext), mainContext);
   const rendererWardrobeColors = fixedCompositionPromptProjection?.wardrobe.colors || wardrobeColors;
   const promptModel = {
     ...buildStructuredPromptSections(mainContext, projectedCharacter, rendererWardrobe, rendererWardrobeColors, lightDirection, film),

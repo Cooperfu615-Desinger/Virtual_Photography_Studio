@@ -4,6 +4,15 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-09-27
 
+## Top hem overlap styling (local, 2026-09-27)
+
+- `上身穿法` gains `衣襬遮住部分下身` (`hem-overlap`) for single and duo A/B, alongside the unchanged `自然放出`. It is manual-only in this first version, preserving the existing random pool. Garment catalog descriptions, lengths, fit and colors remain unchanged.
+- Shared resolution requires a same-person independent top and bottom. Cropped tops, bikini/bra tops and the projected undersized sailor blouse omit the relationship without stretching garments. Selected IDs remain available for restoration. The selected overlap replaces the generic low-rise hem compatibility addition.
+- Waist-visible outputs retain the relation; chest/face crops omit it and full-body derivatives reproject the raw resolved source. MJ retains the selected overlap alongside the top identity, including regular sailor tops. Public output contract is `1.24.0`; see [wardrobe authoring guide](specs/wardrobe-section-b-authoring-guide.md#衣襬遮住部分下身2026-09-27).
+- Validation: 7 focused tests, 1061 full tests, 331 prompt-quality tests, lint/build and diff-check pass. Same-seed strict audits (200 / `prompt-quality-baseline`) have 0 blockers and the same 28 diagnostic-only signals before/after. Build retains the existing chunk-size advisory.
+- Browser smoke at 1440×1000 and 390×900 covered all five required workspaces, selection of the new style with dolphin shorts, six output visibility results, and cropped-top omission. No console warnings/errors, document overflow or broken checked images observed. Saved Card serialization/restore is covered by automated tests. Temporary viewport and original tested selections/six output texts restored. Screenshots: `/tmp/hem-overlap-desktop.png`, `/tmp/hem-overlap-mobile.png` (session evidence, not repository assets). Clipboard write could not be independently read back in IAB; no clipboard success is claimed.
+- External output acceptance comes from the user's `Docs/0927` tests; this implementation did not generate new images. Untracked image folders remain untouched. No staging, commit, push or deployment.
+
 ## Standing catalog v1 (local, 2026-09-27)
 
 - Nine public standing arrangements: natural, one-leg weight, pelvis-back curve, camera-facing forward lean, crossed legs, narrow side stance, bent-leg lift, feet-together soft knees, and wide weight shift. Pelvis/forward-lean retain IDs and old prose aliases; back lean, back-facing turn and forward toe point become restore-only. See [standing catalog v1](specs/standing-catalog-v1.md).

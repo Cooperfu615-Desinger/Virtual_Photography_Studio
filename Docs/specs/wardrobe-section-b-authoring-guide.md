@@ -214,6 +214,16 @@ lace bra top, delicate lace cups, intimate lingerie structure, slim strap detail
 
 ## 8. 版型、穿法與腰線
 
+### 衣襬遮住部分下身（2026-09-27）
+
+- 新增 `topStylingId=hem-overlap`，單人與雙人 A/B 共用；保留 `untucked`「自然放出」。第一版僅手動選取，不加入既有隨機池。
+- 共用英文來源為 `worn untucked, its hem draping naturally over the waistband and upper portion of the lower garment, partially concealing it while leaving the remaining fabric visible below`。承接單品後輸出，保留實測的遮擋關係，不指定比例、額外衣長或寬鬆版型。
+- 同一人物必須有獨立上身及褲裝／裙裝。明確短版、比基尼、胸罩、運動內衣及緊身後露腹的水手服不輸出這段；保留已選 ID，不替換單品或強行拉長衣服。完整造型仍依既有優先權接管。
+- 下身原始長度、剪裁、配色與材質不變。選用這個穿法時，不再疊加泛用低腰衣襬相容句。
+- 共用構圖投影只在腰部可見時保留。胸上與臉部裁切省略；全身角色照從原始 resolved wardrobe 重新投影。MJ 保留可見的選定穿法，不將它當成普通衣襬結構細節丟掉。
+- `Docs/0927` 的真理褲、牛仔長褲、百褶裙與棉質／絲質上衣測試由使用者接受；絲質衣長與偶發半紮仍是外部生成變化，未宣稱所有組合完全穩定。
+
+
 這些欄位是 modifier，不是單品。
 
 | 欄位 | 責任 | 組裝位置 |
