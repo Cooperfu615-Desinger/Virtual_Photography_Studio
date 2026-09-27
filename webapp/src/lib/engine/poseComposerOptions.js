@@ -972,13 +972,12 @@ export const POSE_COMPOSER_HAND_OPTIONS = [
   {
     id: 'hands-cover-breasts',
     zh: '雙手遮住胸部',
-    en: 'both hands pulling the front of her upper garment up above her breasts, leaving the fabric gathered across her upper chest while the garment remains on her shoulders, each hand positioned over one exposed breast so its palm covers the nipple while the rest of the breast remains visible',
-    desc: '雙手將上身服裝前側向上拉至胸部上方，衣料聚攏在胸部上緣，露出胸部；雙手停在胸前，各以一隻手的掌心遮住一側乳頭，其餘胸部仍可見，服裝仍穿在肩部。',
+    en: 'both palms placed directly over her nipples, one palm covering each, with the fingers naturally relaxed across her breasts',
+    desc: '雙手抬到胸前，兩側掌心分別直接覆住乳頭，手指自然放鬆貼在胸部。',
     meta: {
-      tags: ['wardrobe_action'],
+      tags: ['hand_action'],
       visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS,
       projectionByBucket: HAND_BREAST_COVER_PROJECTION,
-      requiresWardrobeRole: 'upperGarment',
       randomEligible: false,
     },
   },

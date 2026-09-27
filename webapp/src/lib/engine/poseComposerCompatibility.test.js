@@ -293,14 +293,15 @@ test('wardrobe-dependent hand actions require a positively present role for rand
   }
 });
 
-test('both garment lifts remain manual upright actions with separate crop visibility', () => {
+test('manual upper-body hand actions retain upright compatibility and separate crop visibility', () => {
   const underbust = POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === 'hands-lift-top-underbust');
   const covering = POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === 'hands-cover-breasts');
   assert.ok(underbust);
   assert.ok(covering);
+  assert.equal(underbust.meta?.randomEligible, false);
+  assert.equal(underbust.meta?.requiresWardrobeRole, 'upperGarment');
   for (const hand of [underbust, covering]) {
     assert.equal(hand.meta?.randomEligible, false);
-    assert.equal(hand.meta?.requiresWardrobeRole, 'upperGarment');
     for (const base of ['standing', 'sitting', 'kneeling']) {
       assert.equal(poseComposerOptionVisibleForBase(hand, base), true, base);
     }
@@ -314,6 +315,8 @@ test('both garment lifts remain manual upright actions with separate crop visibi
       assert.equal(hand.meta?.projectionByBucket?.[bucket]?.mode, 'visible', bucket);
     }
   }
+  assert.equal(covering.meta?.requiresWardrobeRole, undefined);
+  assert.ok(covering.meta?.tags?.includes('hand_action'));
   assert.equal(underbust.meta?.projectionByBucket?.[COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP]?.mode, 'omit');
   assert.equal(covering.meta?.projectionByBucket?.[COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP]?.mode, 'visible');
 });

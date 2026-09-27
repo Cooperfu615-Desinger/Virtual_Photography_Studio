@@ -4,6 +4,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-09-27
 
+## Breast-covering hand gesture (local, 2026-09-27)
+
+- `雙手遮住胸部` keeps its existing option ID, posture compatibility and crop projection, but now describes only both palms covering one nipple each, with relaxed fingers. Upper garment, gathered fabric and shoulder-wear wording are removed; the gesture no longer depends on an upper garment and remains manual-only.
+- Internal `hand_action` metadata preserves the prior framing boundary without treating this as a wardrobe interaction. Public output contract is `1.22.0`; see [character authoring guide](specs/character-section-a-authoring-guide.md) and [compression guide](specs/page1-single-prompt-compression-guide.md).
+- Validation: same-seed 200-sample logic audit unchanged; strict prompt audit has 0 blockers; prompt-quality 318/318 and focused Pose Composer/compatibility/contract tests 151/151 pass; `npm test` 1048/1048, lint, and build pass (build retains the existing prompt-engine chunk-size advisory). Desktop/mobile browser smoke covered Prompt 工作台、角色建模、動作姿勢、場景建模與 Saved Cards; the new hand gesture remains selectable with upper garment set to none, no horizontal overflow or console warnings/errors.
+
 ## Outerwear catalog and D shoulder wear (local, 2026-09-27)
 
 - Outerwear now exposes 17 active pieces plus none. Three blazer variants and cropped tweed remain restore-only, with original IDs and old prose aliases; they are hidden from fresh selection/random sampling. Active blazer cut is controlled by fit. Punk/biker leather styles are distinct, the generic long coat becomes a wool coat, varsity has contrasting sleeves and snap buttons, and its selected color applies to body panels. Trench source wording stays unchanged.

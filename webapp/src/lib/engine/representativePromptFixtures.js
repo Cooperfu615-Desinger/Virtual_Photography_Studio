@@ -257,13 +257,13 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   },
   {
     id: 'hands-cover-breasts',
-    title: 'Manual breast-covering hand action keeps the raised garment and both palms visible',
+    title: 'Manual breast-covering hand action is independent of upper clothing',
     mode: 'single',
     seed: 'prompt-contract-hands-cover-breasts-v1',
     locks: {
       subjectCount: '1',
       framingId: { byZh: '中景鏡頭 (Medium Shot)' },
-      topId: { byZh: '棉質細肩背心' },
+      topId: { byZh: '全無' },
       poseBaseId: { byZh: '站姿' },
       poseArrangementId: { byZh: '自然站姿' },
       poseHandId: { byZh: '雙手遮住胸部' },
@@ -273,8 +273,8 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
         'grokPrompt', 'zImagePrompt', 'midjourneyPrompt',
         'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt',
       ].map((field) => [field, {
-        includes: ['both hands pulling the front', 'above her breasts', 'each hand positioned over one exposed breast', 'palm covers the nipple'],
-        excludes: ['underboob', 'upper bust remains covered'],
+        includes: ['both palms placed directly over her nipples, one palm covering each'],
+        excludes: ['pulling the front of her upper garment', 'fabric gathered across her upper chest', 'garment remains on her shoulders'],
       }])),
     },
   },

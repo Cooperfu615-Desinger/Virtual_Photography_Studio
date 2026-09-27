@@ -163,10 +163,12 @@ test('public hand catalog includes dedicated lying actions and clarified garment
   const breastCover = byZh('雙手遮住胸部');
   assert.equal(breastCover.id, 'hands-cover-breasts');
   assert.equal(breastCover.meta?.randomEligible, false);
-  assert.equal(breastCover.meta?.requiresWardrobeRole, 'upperGarment');
-  assert.match(breastCover.en, /both hands pulling the front.*above her breasts.*each hand positioned over one exposed breast.*palm covers the nipple/i);
-  assert.doesNotMatch(breastCover.en, /underboob|upper bust remains covered/i);
-  assert.doesNotMatch(`${breastCover.en} ${breastCover.desc}`, /white|T-shirt|jeans|studio|鏡頭|牛仔|白色/i);
+  assert.equal(breastCover.meta?.requiresWardrobeRole, undefined);
+  assert.ok(breastCover.meta?.tags?.includes('hand_action'));
+  assert.ok(!breastCover.meta?.tags?.includes('wardrobe_action'));
+  assert.match(breastCover.en, /both palms placed directly over her nipples, one palm covering each.*fingers naturally relaxed/i);
+  assert.match(breastCover.desc, /兩側掌心分別直接覆住乳頭/);
+  assert.doesNotMatch(`${breastCover.en} ${breastCover.desc}`, /garment|fabric|shirt|top|shoulder|上衣|衣料|衣物|肩頭/i);
   const openedOuterwear = byZh('雙手拉開外套（雙肩滑落）');
   assert.equal(openedOuterwear.id, 'hands-pull-open-off-shoulder-outerwear');
   assert.equal(openedOuterwear.meta?.requiresWardrobeRole, 'outerwear');
@@ -197,7 +199,12 @@ test('original underbust lift remains unchanged while the new breast-covering ac
     poseHandId: underbustId,
   });
   const [underbust] = generatePrompts(1, locks, [], { random: createSeededRandom('two-garment-actions-test') });
-  const [covering] = generatePrompts(1, { ...locks, poseHandId: coveringId }, [], { random: createSeededRandom('two-garment-actions-test') });
+  const coveringLocks = {
+    ...locks,
+    topId: optionId('topId', '全無'),
+    poseHandId: coveringId,
+  };
+  const [covering] = generatePrompts(1, coveringLocks, [], { random: createSeededRandom('two-garment-actions-test') });
   assert.equal(underbust.selection.poseHandId, underbustId);
   assert.equal(covering.selection.poseHandId, coveringId);
   for (const text of [underbust.grokPrompt, underbust.zImagePrompt, underbust.midjourneyPrompt]) {
@@ -205,22 +212,27 @@ test('original underbust lift remains unchanged while the new breast-covering ac
     assert.doesNotMatch(text, /each hand positioned over one exposed breast|palm covers the nipple/i);
   }
   for (const text of [covering.grokPrompt, covering.zImagePrompt, covering.midjourneyPrompt]) {
-    assert.match(text, /both hands pulling the front.*above her breasts.*each hand positioned over one exposed breast.*palm covers the nipple/i);
+    assert.match(text, /both palms placed directly over her nipples, one palm covering each.*fingers naturally relaxed across her breasts/i);
+    assert.doesNotMatch(text, /pulling the front of her upper garment|fabric gathered|garment remains on her shoulders/i);
     assert.doesNotMatch(text, /underboob|upper bust remains covered/i);
   }
   for (const text of underbust.extraPrompts.filter((entry) => ['chest-up-portrait', 'chest-up-mj-portrait'].includes(entry.id)).map((entry) => entry.text)) {
     assert.doesNotMatch(text, /both hands gripping the front lower hem|underboob/i);
   }
   for (const text of covering.extraPrompts.filter((entry) => ['chest-up-portrait', 'chest-up-mj-portrait'].includes(entry.id)).map((entry) => entry.text)) {
-    assert.match(text, /each hand positioned over one exposed breast.*palm covers the nipple/i);
+    assert.match(text, /both palms placed directly over her nipples, one palm covering each/i);
   }
   for (const framingZh of ['胸上特寫', '特寫鏡頭 (Close-Up)', '臉部特寫']) {
-    const croppedLocks = {
+    const oldCroppedLocks = {
       ...locks,
       framingId: optionId('framingId', framingZh),
     };
-    const [oldCropped] = generatePrompts(1, croppedLocks, [], { random: createSeededRandom('two-garment-actions-test') });
-    const [newCropped] = generatePrompts(1, { ...croppedLocks, poseHandId: coveringId }, [], { random: createSeededRandom('two-garment-actions-test') });
+    const newCroppedLocks = {
+      ...coveringLocks,
+      framingId: optionId('framingId', framingZh),
+    };
+    const [oldCropped] = generatePrompts(1, oldCroppedLocks, [], { random: createSeededRandom('two-garment-actions-test') });
+    const [newCropped] = generatePrompts(1, newCroppedLocks, [], { random: createSeededRandom('two-garment-actions-test') });
     assert.equal(oldCropped.selection.poseHandId, underbustId);
     assert.equal(newCropped.selection.poseHandId, coveringId);
     for (const text of [oldCropped.grokPrompt, oldCropped.zImagePrompt, oldCropped.midjourneyPrompt]) {
@@ -228,9 +240,9 @@ test('original underbust lift remains unchanged while the new breast-covering ac
     }
     for (const text of [newCropped.grokPrompt, newCropped.zImagePrompt, newCropped.midjourneyPrompt]) {
       if (framingZh === '胸上特寫') {
-        assert.match(text, /each hand positioned over one exposed breast.*palm covers the nipple/i, framingZh);
+        assert.match(text, /both palms placed directly over her nipples, one palm covering each/i, framingZh);
       } else {
-        assert.doesNotMatch(text, /each hand positioned over one exposed breast|palm covers the nipple/i, framingZh);
+        assert.doesNotMatch(text, /both palms placed directly over her nipples/i, framingZh);
       }
     }
   }

@@ -4806,6 +4806,7 @@ function getPoseComposerActionConstraint(locks = {}) {
     || tag === 'leg_focus_action'
     || tag === 'large_prop_action'
     || tag === 'wardrobe_action'
+    || tag === 'hand_action'
     || tag === 'full_body_action'
     || tag === 'social_shooting_action'
   ));
