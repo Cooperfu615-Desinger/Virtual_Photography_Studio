@@ -16,6 +16,43 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   {
+    id: 'conditional-lace-garter-belt',
+    title: 'Selected independent lace bottoms add the garter-belt and stocking connection across visible outputs',
+    mode: 'single',
+    seed: 'conditional-garter-belt-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      pantsId: { byZh: '蕾絲內褲' },
+      legwearId: { byZh: '膝上蕾絲吊帶襪' },
+    },
+    expectedOutputs: {
+      ...Object.fromEntries([
+        'grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'fullBodyCharacterPrompt',
+      ].map((field) => [field, {
+        includes: ['a separate lace garter belt worn over the bottoms at the hips', 'slim straps connecting to the stocking tops'],
+      }])),
+      chestUpPortraitPrompt: { excludes: ['lace garter belt worn over the bottoms'] },
+      chestUpMjPortraitPrompt: { excludes: ['lace garter belt worn over the bottoms'] },
+    },
+  },
+  {
+    id: 'conditional-lace-garter-belt-outfit-preset-excluded',
+    title: 'Complete swimwear presets do not gain an independent garter-belt layer',
+    mode: 'single',
+    seed: 'conditional-garter-belt-preset-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      outfitPresetId: { byZh: '套裝：泳裝度假' },
+      legwearId: { byZh: '膝上蕾絲吊帶襪' },
+    },
+    expectedOutputs: Object.fromEntries([
+      'grokPrompt', 'zImagePrompt', 'midjourneyPrompt',
+      'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt', 'fullBodyCharacterPrompt',
+    ].map((field) => [field, { excludes: ['lace garter belt worn over the bottoms'] }])),
+  },
+  {
     id: 'independent-wired-earphones', title: 'Wired cable follows each output crop', mode: 'single', seed: 'accessories-v1',
     locks: { subjectCount: '1', headphonesId: { byZh: '有線耳機' }, framingId: { byZh: '全身鏡頭 (Full Body Shot)' } },
     expectedOutputs: {

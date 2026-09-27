@@ -2,7 +2,13 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-09-26
+Last updated: 2026-09-27
+
+## Conditional lace garter-belt layer (local, 2026-09-27)
+
+- The shared resolved wardrobe adds a lace garter belt over the lower garment, with straps connecting to thigh-high stocking tops, only when the same person has one of three standalone bottoms (`蕾絲內褲`, `蕾絲丁字褲`, `比基尼下身`) plus `膝上蕾絲吊帶襪`. Complete outfit presets, dresses, other bottoms, and cross-person A/B combinations do not trigger it.
+- This is derived from existing selections: no control, catalog row, storage key, Saved Cards field, or selection ID is added or changed. The derived zh label appears in Generation Outputs summaries; the source phrase follows existing visibility projection. AI compact output retains the stocking-to-belt relationship. Public output contract is `1.20.0`. See [wardrobe authoring §10.2](specs/wardrobe-section-b-authoring-guide.md#102-襪類) and [compression guide](specs/page1-single-prompt-compression-guide.md).
+- Validation: frontend 1040/1040 and Prompt Quality 318/318 pass; lint/build and `git diff --check` pass (build retains the existing chunk-size warning). Same-seed strict audit (200 / `prompt-quality-baseline`) has zero blockers and the same 22 existing diagnostics before and after. Browser QA verified the conditional summary and generated source on mobile, navigated all five workspaces on desktop, found no horizontal overflow or console errors, and reset the temporary viewport. No commit, push, catalog change, or external image generation was performed.
 
 ## PAGE1 optional silence selections (local, 2026-09-26)
 

@@ -3,6 +3,10 @@ import { getActionPoseCardById } from '../data/actionPoseCards.js';
 import { buildAccessorySummaryEntries } from './accessorySummary.js';
 import { getCameraControlDisplayLabel } from './page1CameraLabels.js';
 import { PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS } from '../features/page1/page1WardrobeExclusivity.js';
+import {
+  CONDITIONAL_GARTER_BELT_SUMMARY_LABEL,
+  hasConditionalGarterBeltLabels,
+} from './engine/conditionalGarterBelt.js';
 
 export const OUTFIT_PRESET_COVERED_KEYS = new Set([
   ...PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS,
@@ -155,6 +159,30 @@ export function buildWorkspaceSummary(locks, controls) {
     locks,
     activeOutfitPresets,
   );
+  const automaticGarterBeltLabels = [];
+  if (!isSpecialSubjectMode && !isCharacterProfileMode) {
+    const sharedSpecialOutfitActive = Boolean(wardrobeLabel('specialOutfitId'));
+    if (!sharedSpecialOutfitActive) {
+      if (hasConditionalGarterBeltLabels(
+        wardrobeLabel('pantsId'),
+        wardrobeLabel('legwearId'),
+      )) {
+        automaticGarterBeltLabels.push(CONDITIONAL_GARTER_BELT_SUMMARY_LABEL);
+      }
+
+      if (locks.subjectCount === '2') {
+        for (const [suffix, roleLabel] of [['A', '人物 1'], ['B', '人物 2']]) {
+          if (wardrobeLabel(`specialOutfit${suffix}Id`)) continue;
+          if (hasConditionalGarterBeltLabels(
+            wardrobeLabel(`pants${suffix}Id`),
+            wardrobeLabel(`legwear${suffix}Id`),
+          )) {
+            automaticGarterBeltLabels.push(`${roleLabel}：${CONDITIONAL_GARTER_BELT_SUMMARY_LABEL}`);
+          }
+        }
+      }
+    }
+  }
   const importedCharacterCardWardrobe = isCharacterProfileMode && !isSpecialSubjectMode
     ? normalizeCharacterCardLayerIds(locks.characterCardWardrobeLayerIds).map((key) => `角色卡${CHARACTER_CARD_LAYER_LABELS[key]}`)
     : [];
@@ -229,6 +257,7 @@ export function buildWorkspaceSummary(locks, controls) {
     wardrobeLabel('bottomFitId'),
     wardrobeLabel('bottomRiseId'),
     wardrobeLabel('legwearId'),
+    ...automaticGarterBeltLabels,
     wardrobeLabel('shoesId'),
     ...singleAccessoryLabels,
     wardrobeLabel('legwearAId'),

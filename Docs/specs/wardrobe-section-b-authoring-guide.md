@@ -301,6 +301,8 @@ lace bra top, delicate lace cups, intimate lingerie structure, slim strap detail
 - 英文 prompt 以 4-16 words 為目標。
 - 描述 hosiery type、length、texture、band、garter 或 ribbed structure。
 - 長褲或長裙存在時，襪類應保持 secondary，不應覆蓋長下身。
+- 條件式加層：只有獨立下身選擇「蕾絲內褲」、「蕾絲丁字褲」或「比基尼下身」，且同一人物的襪類選擇「膝上蕾絲吊帶襪」時，runtime 才在襪類的共用來源補上「蕾絲吊襪帶腰封穿在下身之外、吊帶連接至襪口」的描述。這是襪類與獨立下身的條件式搭配，不是新的腰部配件選項；完整套裝、連身服、其他下身與跨人物 A/B 配對均不觸發。
+- 條件式來源保留原選項 ID／英文字串於 catalog 不變，單人與雙人 A/B 依相同人物層級配對；各 renderer 繼續套用原有構圖可見性與壓縮規則。Generation Summary 顯示「蕾絲吊襪帶腰封（自動搭配）」以便追溯，selection／Saved Cards 不建立新的配件欄位。
 
 ### 10.3 鞋款
 

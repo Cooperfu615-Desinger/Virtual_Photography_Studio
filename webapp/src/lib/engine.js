@@ -12,6 +12,10 @@ import { normalizeRandom } from './engineRandom.js';
 import { getCameraControlDisplayLabel } from './page1CameraLabels.js';
 import { buildAccessorySummaryText } from './accessorySummary.js';
 import {
+  addConditionalGarterBeltLayer,
+  CONDITIONAL_GARTER_BELT_SUMMARY_LABEL,
+} from './engine/conditionalGarterBelt.js';
+import {
   COMPOSITION_VISIBILITY_BUCKETS,
   COMPOSITION_VISIBILITY_CONTRACT,
   createCompositionVisibilityProjection,
@@ -7669,7 +7673,7 @@ function buildWardrobe(context, locks, catalog) {
     maybePick('頸部 (Neck Accessories)', visibilityAtLeast(visibility, 'portrait') ? 0.4 : 0.2, () => true, { allowNoneWhenUnlocked: true });
   }
 
-  return projectSailorSeparateFit(pieces, locks);
+  return addConditionalGarterBeltLayer(projectSailorSeparateFit(pieces, locks));
 }
 
 function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
@@ -7956,10 +7960,14 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
           wardrobeSlots.outerwearStyling?.zh && !isNoneLikeItem(wardrobeSlots.outerwearStyling) ? wardrobeSlots.outerwearStyling.zh : ''
         )
       : '';
+    const conditionalGarterBeltLabel = wardrobeSlots.legwear?.meta?.conditionalGarterBeltLayer
+      ? CONDITIONAL_GARTER_BELT_SUMMARY_LABEL
+      : '';
     return joinSummaryParts(
       topLabel,
       bottomLabel,
       outerwearLabel,
+      conditionalGarterBeltLabel,
       shoeLabel,
       summarizeAccessorySet(),
     );
@@ -14436,7 +14444,11 @@ function compactAiGarmentValue(value, preferredRole = '', primarySource = '', we
   const structuralDetail = fragments.find((fragment) => /\b(?:neckline|flare|pleated|ruffled|slit|hem|boning|lace trim|garter|cut-out|open shoulder|one shoulder line exposed|both shoulder lines exposed|draped off one shoulder|worn off both shoulders|upper back exposed|high-cut|wide-leg|straight-leg)\b/i.test(fragment) && fragment !== primary
     && !visibleSurfaceFragments.includes(fragment)
     && !visibleWearSources.some((source) => source.includes(fragment))) || '';
-  return [...new Set([primary, structuralDetail, ...visibleWearSources, ...visibleSurfaceFragments].filter(Boolean))].join(', ');
+  const hasSelectedGarterBelt = fragments.some((fragment) => /\bseparate lace garter belt worn over the bottoms at the hips\b/i.test(fragment));
+  const selectedGarterStrapConnection = hasSelectedGarterBelt
+    ? fragments.find((fragment) => /\bslim straps connecting to the stocking tops\b/i.test(fragment)) || ''
+    : '';
+  return [...new Set([primary, structuralDetail, selectedGarterStrapConnection, ...visibleWearSources, ...visibleSurfaceFragments].filter(Boolean))].join(', ');
 }
 
 function isAdhesiveTapeWrapOutfitPresetSource(value) {
