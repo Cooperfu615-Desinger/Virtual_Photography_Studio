@@ -540,7 +540,7 @@ function WardrobePickerModal({ control, value, query, onQueryChange, onClose, on
                   key={option.id}
                   type="button"
                   className={`wardrobe-picker-pair-option${isActive ? ' wardrobe-picker-pair-option-active' : ''}`}
-                  aria-label="特殊上下身配色：上身／下身"
+                  aria-label="特殊上下身配色：上身色塊在上方，下身色塊在下方"
                   aria-pressed={isActive}
                   disabled={option.disabled}
                   onClick={() => onSelect(option.id)}

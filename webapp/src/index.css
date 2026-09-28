@@ -1597,7 +1597,7 @@ button:disabled {
 }
 
 .wardrobe-picker-pair-grid {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(8, minmax(0, 1fr));
   align-items: stretch;
   gap: 9px;
   max-height: min(64vh, 700px);
@@ -1606,10 +1606,11 @@ button:disabled {
 .wardrobe-picker-pair-option {
   position: relative;
   display: grid;
-  gap: 7px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 5px;
   min-width: 0;
   min-height: 90px;
-  padding: 10px 26px 10px 10px;
+  padding: 8px 26px 8px 8px;
   border: 1px solid var(--border-muted);
   border-radius: 12px;
   background: var(--surface-control);
@@ -1625,25 +1626,39 @@ button:disabled {
 }
 
 .wardrobe-picker-pair-color {
-  display: grid;
-  grid-template-columns: 34px 22px;
-  align-items: center;
-  gap: 7px;
+  display: block;
   min-width: 0;
 }
 
 .wardrobe-picker-pair-label {
-  color: var(--text-secondary);
-  font-size: 0.72rem;
-  font-weight: 700;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .wardrobe-picker-pair-swatch {
-  width: 22px;
-  height: 22px;
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 30px;
+  overflow: hidden;
   border: 1px solid var(--border-muted);
-  border-radius: 6px;
+  border-radius: 8px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+.wardrobe-picker-pair-swatch::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), transparent 48%, rgba(0, 0, 0, 0.08));
+  content: '';
+  pointer-events: none;
 }
 
 .wardrobe-picker-pair-check {
@@ -2207,7 +2222,7 @@ button:disabled {
   }
 
   .wardrobe-picker-pair-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 }
 
@@ -2217,7 +2232,7 @@ button:disabled {
   }
 
   .wardrobe-picker-pair-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .wardrobe-picker-color-toolbar {
@@ -2268,15 +2283,5 @@ button:disabled {
 @media (max-width: 400px) {
   .wardrobe-picker-color-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .wardrobe-picker-pair-color {
-    grid-template-columns: 30px 20px;
-    gap: 5px;
-  }
-
-  .wardrobe-picker-pair-swatch {
-    width: 20px;
-    height: 20px;
   }
 }
