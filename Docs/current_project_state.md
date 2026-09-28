@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-09-28
 
+## Station fixed composition (local, 2026-09-28)
+
+- Three append-only fixed scenes cover a New York subway bench platform, London Tube arrival platform, and Japanese Yamanote platform advertising. Left/right layout and the longitudinal camera axis stay stable when the subject turns. In these scenes only, orbit is labeled as subject facing and lens selection is enabled; focal length may change distance along the same axis and omit peripheral details. Ordinary locations and older fixed sets are unchanged.
+- GPT/Z/MJ and same-state chest outputs retain station layout, subject facing and selected lens. Full-body reference stays scene-free. No persisted schema/key migration; output contract `1.27.0`. See [station fixed composition v1](specs/station-fixed-composition-v1.md).
+- Validation: frontend 1077/1077, Prompt Quality 362/362, focused station/fixed-set 24/24, lint/build, catalog freshness, Python 2/2 and diff-check pass. The same-seed 200-prompt strict audit has zero blockers before/after; diagnostics change 28 → 27 as the new fixed sets redistribute coverage (23 wardrobe/scene findings plus 4 near-duplicates after). Existing Vite chunk-size warning remains.
+- Browser QA at 1440×1000 and 390×900 checked all five required workspaces, three scene identities in the main outputs, subject-facing label, 135mm/back-facing source in all three main and both chest outputs, scene-free full-body reference, and legacy lens disabling. No new console warning/error or document-level horizontal overflow was observed. Temporary scene/camera selections and viewport were restored. Saved Cards rendering and automated selection restoration were checked without creating a saved card. External-model image acceptance remains pending. No staging, commit, push or deployment in this batch.
+
 ## Bathroom vanity reflection / wet-clothing prompt and outerwear summary (local, 2026-09-28)
 
 - The bathroom location source now names only a frequently used, lived-in vanity and a large wall mirror above the sink; other everyday bathroom details remain open-ended. Eligible ordinary single main GPT/Z-Image/MJ and same-state chest outputs share a generic, garment-neutral reflection block: same person, appearance, outfit and pose; the reflected view follows front/back/side orientation; mirror-edge condensation leaves the center clear; damp skin/hair and visibly soaked clothing retain original sheerness and coverage; the full mirror frame is requested when the crop allows. The selected pose remains the source of seated/standing posture. Full-body character references and existing excluded modes remain unchanged.

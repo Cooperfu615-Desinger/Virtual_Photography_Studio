@@ -1,4 +1,5 @@
 import { prepareAccessoryControl } from '../lib/engine/accessoryPolicy.js';
+import { fixedSetAllowsLensVariation, isStationFixedSet, stationSubjectFacingText } from '../lib/engine/stationFixedComposition.js';
 import { Fragment, useMemo, useState } from 'react';
 import { Check, Copy } from 'lucide-react';
 import DllPicProPanel from './DllPicProPanel';
@@ -901,7 +902,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     ].includes(control.key))
     || (FIXED_SET_KEYS.includes(control.key) && locks.subjectCount === '2')
     || (FIXED_SET_DEPENDENT_DISPLAY_NONE_KEYS.has(control.key) && !fixedCompositionSetActive)
-    || (fixedCompositionSetActive && FIXED_SET_LOCKED_KEYS.includes(control.key))
+    || (fixedCompositionSetActive && FIXED_SET_LOCKED_KEYS.includes(control.key)
+      && !(control.key === 'lensId' && fixedSetAllowsLensVariation(selectedFixedCompositionSetOption)))
     || (fixedCompositionSetActive && !fixedSetAllowsCameraVariation && FIXED_SET_STRICT_CAMERA_KEYS.includes(control.key))
     || (selectedPoseHandLocksOrbit && control.key === 'orbitId')
     || (POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && locks.subjectCount !== '1')
@@ -933,7 +935,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
           next.importedWorldSceneMode = 'none';
           next.importedWorldSceneLabel = '';
           next.importedWorldSceneArchitectureText = '';
-          ['framingId', 'lensId', 'opticalEffectId'].forEach((key) => {
+          ['framingId', 'lensId', 'opticalEffectId'].filter(key =>
+            key !== 'lensId' || !fixedSetAllowsLensVariation(nextFixedSetOption)).forEach((key) => {
             const noneOption = lockControls.find((item) => item.key === key)?.options?.find((option) => option.zh === '全無');
             next[key] = noneOption?.id || '';
           });
@@ -1107,7 +1110,14 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const renderControlGrid = (controls) => (
     <div className="lock-grid detail-lock-grid">
       {controls.map((rawControl) => {
-        const preparedControl = prepareAccessoryControl(buildFixedSetControl(buildPoseComposerControl(rawControl)), locks);
+        const baseControl = prepareAccessoryControl(buildFixedSetControl(buildPoseComposerControl(rawControl)), locks);
+        const preparedControl = baseControl.key === 'orbitId' && isStationFixedSet(selectedFixedCompositionSetOption)
+          ? {
+              ...baseControl,
+              label: '人物面向（場景取景方向固定）',
+              options: baseControl.options.map(option => ({ ...option, en: stationSubjectFacingText(option) })),
+            }
+          : baseControl;
         const control = supineSurfaceOnly && ['sceneAttributeId', 'locationId'].includes(preparedControl.key)
           ? {
               ...preparedControl,

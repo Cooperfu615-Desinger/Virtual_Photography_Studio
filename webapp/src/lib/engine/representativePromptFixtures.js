@@ -15,6 +15,31 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 });
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
+  ...[
+    ['nyc-subway-bench-platform', 'New York subway', 'tracks on the right'],
+    ['london-tube-arriving-platform', 'London Underground', 'train on the left'],
+    ['yamanote-platform-advertising', 'Yamanote Line', 'train on the right'],
+  ].map(([id, identity, layout]) => ({
+    id: `station-fixed-${id}`, title: 'Station axis stays stable while subject facing and lens are explicit',
+    mode: 'single', seed: 'station-fixed-representative-v1',
+    locks: {
+      subjectCount: '1', fixedCompositionSetId: id,
+      fixedSetCaptureModeId: 'none', fixedSetPerformanceStateId: 'none',
+      poseBaseId: 'standing', poseArrangementId: 'any', poseHandId: 'none', poseHeadId: 'none',
+      angleId: { byZh: '平視高度鏡頭' }, orbitId: { byZh: '背面 180 度' },
+      lensId: { byZh: '135mm 長焦壓縮' },
+    },
+    expectedOutputs: {
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt'].map(field => [field, {
+        includes: [identity, layout, 'Her back faces the lens', 'same longitudinal platform axis', '135mm long telephoto lens', 'narrow field of view'],
+        excludes: ['camera orbit', 'viewpoint around', 'selected room architecture'],
+      }])),
+      ...Object.fromEntries(['chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map(field => [field, {
+        includes: [identity, 'same longitudinal platform axis', 'Her back faces the lens'],
+      }])),
+      fullBodyCharacterPrompt: { excludes: [identity, 'platform axis'] },
+    },
+  })),
   {
     id: 'top-hem-overlap', title: 'Untucked top overlaps independent bottoms only where the waist is visible',
     mode: 'single', seed: 'hem-overlap-v1',

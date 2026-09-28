@@ -41,7 +41,7 @@ function promptParagraphs(value) {
 test('fixed composition controls expose fixed sets and fixed-set-only option groups', () => {
   assert.deepEqual(
     control('fixedCompositionSetId').options.map((entry) => entry.zh),
-    ['全無', '清水模牆面沙發棚', '暖灰泥黑絲絨工業沙發棚', '高級飯店落地窗都市夜景', '高級飯店落地窗富士山春景', '高級飯店落地窗富士山冬景', '復古磁磚浴室浴缸', '海邊坡道平交道', '海邊階梯小巷']
+    ['全無', '清水模牆面沙發棚', '暖灰泥黑絲絨工業沙發棚', '高級飯店落地窗都市夜景', '高級飯店落地窗富士山春景', '高級飯店落地窗富士山冬景', '復古磁磚浴室浴缸', '海邊坡道平交道', '海邊階梯小巷', '紐約地鐵無人長椅月台', '倫敦地鐵列車進站月台', '日本山手線月台電子看板與廣告']
   );
 
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '沙發座面中央'));

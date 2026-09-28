@@ -64,6 +64,10 @@ import {
 } from './engine/fixedCompositionOptions.js';
 import { createFixedCompositionPromptProjection } from './engine/fixedCompositionPromptProjection.js';
 import {
+  fixedSetAllowsLensVariation, isStationFixedSet, stationSceneText,
+  stationSubjectFacingText, stationViewText,
+} from './engine/stationFixedComposition.js';
+import {
   createFixedFramingDerivedContext,
   FIXED_FRAMING_DERIVED_PROMPT_PRESETS,
 } from './engine/fixedFramingDerivedPrompt.js';
@@ -10124,7 +10128,9 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
     addContextLine('Fixed Set Performance State', context.fixedSetPerformanceState, (item) => skeletonText(item.en));
     if (allowCameraVariation) {
       addContextLine('Angle', context.angle, (item) => skeletonText(resolvePromptVariant(item, 'angle', context.subject.count)));
-      addContextLine('Orbit Angle', context.orbit, (item) => skeletonText(resolvePromptVariant(item, 'orbit', context.subject.count)));
+      addContextLine('Orbit Angle', context.orbit, (item) => skeletonText(isStationFixedSet(context.fixedCompositionSet)
+        ? stationSubjectFacingText(item)
+        : resolvePromptVariant(item, 'orbit', context.subject.count)));
     }
     addLine('Fixed Set Integrity', skeletonText(buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode)));
     addContextLine('Ambient Light Conditions', context.lighting, (item) => skeletonText(item.en));
@@ -10366,6 +10372,7 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
     addLine('Composition Priority', 'allow imperfect self-shot framing, partial subject crop, close-lens body proximity, and incomplete set visibility when it makes the social snapshot feel real');
   }
   if (fixedCompositionSetActive) {
+    if (fixedSetAllowsLensVariation(context.fixedCompositionSet)) addContextLine('Lens', context.lens);
     addContextLine('Aperture / Depth of Field', context.aperture);
     addContextLine('Shutter / Motion Blur', context.shutter);
   }
@@ -10531,6 +10538,7 @@ function buildZImageFixedSetBackgroundText(backgroundState) {
 
 function buildZImageFixedSetViewText(context) {
   if (!fixedCompositionSetAllowsCameraVariation(context.fixedCompositionSet)) return '';
+  if (isStationFixedSet(context.fixedCompositionSet)) return '';
 
   const angle = context.angle && !isNoneLikeItem(context.angle)
     ? compactCameraDescriptor(context.angle, 'angle')
@@ -10586,6 +10594,10 @@ function buildAiFixedSetInteractionSentence(context) {
 }
 
 function buildAiFixedCompositionSceneClause(context) {
+  if (isStationFixedSet(context.fixedCompositionSet)) return [
+    stationSceneText(context.fixedCompositionSet, { compact: true }),
+    buildZImageFixedSetInteractionParagraph(context),
+  ].filter(Boolean).join(' ');
   const scenePhrase = AI_FIXED_SET_SCENE_PHRASES[context.fixedCompositionSet?.id];
   if (!scenePhrase) return '';
 
@@ -10654,6 +10666,7 @@ function buildGptFixedSetPerformanceText(performanceState) {
 
 function buildGptFixedSetViewText(context) {
   if (!fixedCompositionSetAllowsCameraVariation(context.fixedCompositionSet)) return '';
+  if (isStationFixedSet(context.fixedCompositionSet)) return '';
 
   const angle = context.angle && !isNoneLikeItem(context.angle)
     ? compactCameraDescriptor(context.angle, 'angle')
@@ -10717,6 +10730,7 @@ function naturalizeGptFixedSetReplacementGuardText(value) {
 function buildGptFixedSetIntegrityParagraph(context) {
   const fixedSet = context.fixedCompositionSet;
   if (!fixedSet || isNoneLikeItem(fixedSet)) return '';
+  if (isStationFixedSet(fixedSet)) return fixedSet.sharedStructureEn;
 
   return [
     naturalizeGptFixedSetSharedStructureText(fixedSet.sharedStructureEn || FIXED_COMPOSITION_SHARED_STRUCTURE_EN),
@@ -10824,6 +10838,11 @@ function buildCompositionPromptLine(context, {
   omitAngle = false,
   omitOrbit = false,
 } = {}) {
+  if (isStationFixedSet(context?.fixedCompositionSet) || isStationFixedSet(context?.stationFixedSceneSource)) {
+    const framing = context.fixedFramingCompositionOpening || '';
+    return [framing ? ensureTerminalPeriod(framing) : '', stationViewText(context,
+      compactCameraDescriptor(context.angle, 'angle'))].filter(Boolean).join(' ');
+  }
   const parts = [
     context?.fixedFramingCompositionOpening || compactCameraDescriptor(context?.framing, 'framing'),
     omitAngle ? '' : compactCameraDescriptor(context?.angle, 'angle'),
@@ -12614,6 +12633,11 @@ function buildFixedFramingDerivedProjectedScene(sourceContext, derivedContext, p
     preset.fixedCompositionHandling === 'projectScene'
     && isFixedCompositionSetActive(sourceContext.fixedCompositionSet)
   ) {
+    if (isStationFixedSet(sourceContext.fixedCompositionSet)) return Object.freeze({
+      mode: 'compactSource',
+      locationText: stationSceneText(sourceContext.fixedCompositionSet, { compact: true }),
+      worldSceneText: '', sceneAccentText: '',
+    });
     const authoredScene = AI_FIXED_SET_SCENE_PHRASES[sourceContext.fixedCompositionSet.id]
       || cleanFixedSetOpeningSentence(sourceContext.fixedCompositionSet);
     const locationText = projectSceneSourceText(
@@ -12677,6 +12701,8 @@ function buildFixedFramingDerivedPromptModel({
   const projectedCanonicalPoseText = buildProjectedCanonicalPoseText(baseDerivedContext, poseComposer);
   const derivedContext = {
     ...baseDerivedContext,
+    ...(isStationFixedSet(sourceContext.fixedCompositionSet)
+      ? { stationFixedSceneSource: sourceContext.fixedCompositionSet } : {}),
     subject: isCharacterProfileSubject(baseDerivedContext.subject)
       ? projectCharacterProfileSubject(baseDerivedContext.subject, compositionVisibility)
       : baseDerivedContext.subject,
@@ -13168,7 +13194,9 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
     );
 
     return [
-      clean(Z_IMAGE_FIXED_SET_OPENING_PARAGRAPHS[context.fixedCompositionSet.id] || buildGptFixedSetOpeningParagraph(context.fixedCompositionSet)),
+      clean(isStationFixedSet(context.fixedCompositionSet)
+        ? stationSceneText(context.fixedCompositionSet)
+        : Z_IMAGE_FIXED_SET_OPENING_PARAGRAPHS[context.fixedCompositionSet.id] || buildGptFixedSetOpeningParagraph(context.fixedCompositionSet)),
       clean(buildZImageFixedSetInteractionParagraph(context)),
       visibleTextSentence,
     ].filter(Boolean);
@@ -13199,6 +13227,8 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
       : '',
   ]);
   const buildFixedCompositionOpticsText = () => joinSentenceParts([
+    fixedSetAllowsLensVariation(context.fixedCompositionSet) && context.lens && !isNoneLikeItem(context.lens)
+      ? context.lens.en : '',
     context.aperture && !isNoneLikeItem(context.aperture) ? compactZImageCameraControlText(context.aperture.en) : '',
     context.shutter && !isNoneLikeItem(context.shutter) ? compactZImageCameraControlText(context.shutter.en) : '',
   ]);
@@ -13236,7 +13266,7 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
   });
   const compositionLine = [
     ensureTerminalPeriod(baseCompositionLine),
-    context.subject.count === 1
+    context.subject.count === 1 && !isStationFixedSet(context.fixedCompositionSet)
       ? buildZImageTurboCameraGeometry({
           angle: context.angle,
           orbit: context.orbit,
@@ -15181,7 +15211,11 @@ function buildAiFreedomPoseSentence(context, character) {
 }
 
 function buildAiFreedomSceneSentence(valuesByLabel, context, { maxClauses = 3, part = 'all' } = {}) {
+  if (isStationFixedSet(context.stationFixedSceneSource)) return [
+    stationSceneText(context.stationFixedSceneSource, { compact: true }),
+  ].filter(Boolean).join(' ');
   if (isFixedCompositionSetActive(context?.fixedCompositionSet)) {
+    if (isStationFixedSet(context.fixedCompositionSet)) return buildAiFixedCompositionSceneClause(context);
     const fixedScene = AI_FIXED_SET_SCENE_PHRASES[context.fixedCompositionSet?.id] || '';
     return fixedScene ? ensureTerminalPeriod(capitalizePromptLead(compactAiSourceText(fixedScene))) : '';
   }
@@ -15253,7 +15287,7 @@ function buildAiFreedomSceneWithLightingSentence(
 
 function buildAiFreedomImagingSentence(
   valuesByLabel,
-  { compact = false, characterCard = false, adaptation = null, sceneIntegrated = false } = {}
+  { compact = false, characterCard = false, adaptation = null, sceneIntegrated = false, stationFixed = false } = {}
 ) {
   const styleText = sceneIntegrated ? '' : firstStructuredValue(valuesByLabel, ['Photography Style']);
   const style = (
@@ -15262,9 +15296,11 @@ function buildAiFreedomImagingSentence(
   ).replace(/^Inspired by ([^,]+),\s*/i, '$1-inspired ');
   const lens = compactPromptClauses(
     firstStructuredValue(valuesByLabel, ['Lens']),
-    compact && !characterCard ? 1 : 2
+    stationFixed ? 6 : compact && !characterCard ? 1 : 2
   ).replace(/^shot on\s+/i, '');
-  const lensAdaptation = (adaptation?.imagingAdditions || []).join(', ');
+  const lensAdaptation = (adaptation?.imagingAdditions || [])
+    .filter((addition) => !stationFixed || !lens.toLowerCase().split(/\s*,\s*/).includes(addition.toLowerCase()))
+    .join(', ');
   const parts = [
     style,
     lens,
@@ -15341,7 +15377,8 @@ function renderAiPrompt(promptModel, {
   const sceneIntegrated = integrateMainScene && context.subject?.count === 1
     && !isSpecialSubject(context.subject) && !isCharacterProfileSubject(context.subject)
     && !context.characterProfilePrompt
-    && !isFixedCompositionSetActive(context.fixedCompositionSet) && !supineSurfaceLed;
+    && !isFixedCompositionSetActive(context.fixedCompositionSet)
+    && !isStationFixedSet(context.stationFixedSceneSource) && !supineSurfaceLed;
 
   const policyKey = resolveAiPromptPolicyKey({
     characterCard: isCharacterProfileSubject(context.subject),
@@ -15362,12 +15399,14 @@ function renderAiPrompt(promptModel, {
     part: sceneIntegrated ? 'details' : 'all',
   });
   const adaptation = midjourneyAdaptation;
-  const fullImagingText = buildAiFreedomImagingSentence(imagingValuesByLabel, { adaptation, sceneIntegrated });
+  const stationFixed = isStationFixedSet(context.fixedCompositionSet) || isStationFixedSet(context.stationFixedSceneSource);
+  const fullImagingText = buildAiFreedomImagingSentence(imagingValuesByLabel, { adaptation, sceneIntegrated, stationFixed });
   const compactImagingText = buildAiFreedomImagingSentence(imagingValuesByLabel, {
     compact: true,
     characterCard: policyKey === 'characterCard',
     adaptation,
     sceneIntegrated,
+    stationFixed,
   });
   const fullWardrobeText = buildAiFreedomWardrobeSentence(
     wardrobeValuesByLabel,
@@ -15876,7 +15915,8 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     effectiveLocks.importedWorldSceneLabel = '';
     effectiveLocks.importedWorldSceneArchitectureText = '';
 
-    ['locationId', 'framingId', 'lensId', 'opticalEffectId'].forEach((key) => {
+    ['locationId', 'framingId', 'lensId', 'opticalEffectId'].filter(key =>
+      key !== 'lensId' || !fixedSetAllowsLensVariation(selectedFixedCompositionSet)).forEach((key) => {
       const noneOption = getControlOptionByZh(lockControls, key, '全無');
       effectiveLocks[key] = noneOption?.id || '';
     });

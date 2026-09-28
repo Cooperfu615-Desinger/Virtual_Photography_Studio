@@ -1,3 +1,5 @@
+import { STATION_FIXED_COMPOSITION_OPTIONS } from './stationFixedComposition.js';
+
 export const FIXED_COMPOSITION_SHARED_STRUCTURE_EN = 'fixed-set rule: stable selected room architecture; vary only subject placement, pose, crop, camera distance, camera orbit, lighting, and mood inside the same real-scale set; keep adult scale believable against furniture, fixtures, and props; avoid enlarging the subject or shrinking set anchors';
 const OUTDOOR_FIXED_COMPOSITION_SHARED_STRUCTURE_EN = 'fixed-set rule: stable selected outdoor architecture; vary only subject placement, pose, crop, lighting, mood, and selected background life state inside the same real-scale set; keep adult scale believable against roads, stairs, rails, poles, buildings, and distant background anchors; avoid enlarging the subject or shrinking set anchors';
 export const OUTDOOR_FIXED_SET_GROUP_ID = 'outdoor-fixed-scene';
@@ -95,6 +97,7 @@ export const FIXED_COMPOSITION_SET_OPTIONS = [
     aspectRatioId: '9:16',
     meta: { tags: ['fixed_composition_set', 'single_subject_only', 'outdoor', 'coastal_set', 'stair_alley_set', 'vertical_set'] },
   },
+  ...STATION_FIXED_COMPOSITION_OPTIONS,
 ];
 
 export const FIXED_SET_POSITION_OPTIONS = [
