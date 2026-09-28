@@ -1,6 +1,6 @@
 # C 場景與環境新增與維護規格
 
-Last updated: 2026-09-15
+Last updated: 2026-09-28
 
 目前有效狀態（2026-09-15）：B 區共有 48 個既有來源項目，首批 10 組包含 7 組修改與 3 組不變對照；另有 38 組已完成低機位優先來源接入。runtime 的 `zImageSceneDetailPriority.js` 維護 45 個實際 location ID（7 組歷史修改加 38 組新增），3 組不變對照只作為 fixtures 控制組。25 組 `光線表現 (Light Style)` 則以 `knowledge_base/camera_and_lighting.md` 為唯一來源，再同步到 JSON；完整文字與 renderer 邊界分別見 [既有細節優先 v1](z-image-existing-scene-detail-priority-v1.md)、[既有細節優先 v2](z-image-existing-scene-detail-priority-v2.md) 與 [主體光線 v1](subject-light-styles-v1.md)。以下日期補充保留作批次歷史紀錄，本段是目前的總數與責任邊界。
 
@@ -13,6 +13,8 @@ Last updated: 2026-09-15
 2026-09-14 光線補充：25 組 `光線表現 (Light Style)` 的英文來源已改為主體受光範圍的短描述，仍由本文件指定的 `camera_and_lighting.md` 單一來源同步到 JSON；完整來源表與 renderer 邊界見 [主體光線 v1](subject-light-styles-v1.md)。
 
 2026-09-13 窄範圍補充：十八個已核准低機位上方場景來源（首批四個＋十四個擴充）由 `webapp/src/lib/engine/zImageUpperScene.js` 按既有 location ID 綁定，不更動 Locations 主資料；只供一般單人主 Z-Image 使用。維護與驗證邊界見 [上方場景 v2 規格](z-image-upper-scene-v2.md)，其餘新增／修改資料仍依本文件。
+
+2026-09-28 浴室鏡前：場景來源只保留「常用、有生活感的浴室洗手台」與「洗手台上方大型壁掛鏡」，不列舉盥洗用品或其他固定佈景，讓模型自由補足日常細節。符合一般單人主輸出條件時，renderer 另外加入通用鏡像／水氣補充；鏡像須是同一人物並依人物朝向呈現相應前、背或側面，姿勢本身沿用所選姿勢，不寫死站姿。人物肌膚與頭髮微濕、服裝明顯濕透但保持原有透光與覆蓋；鏡緣水氣淡、中央反射清楚，鏡框依所選景別盡可能完整入鏡。胸上同狀態輸出沿用此補充，全身角色參考照與其他既有排除模式不變。
 
 這份文件定義 PAGE1 `C. 場景與環境` 的新增、修改、合併與測試規則。後續新增室內、戶外、其他場景基底、環境光條件或光線表現時，請先依照本規格檢查責任邊界、prompt 寫法、相容性標籤與測試覆蓋。
 

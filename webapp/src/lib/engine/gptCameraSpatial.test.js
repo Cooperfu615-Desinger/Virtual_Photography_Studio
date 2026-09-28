@@ -74,14 +74,14 @@ test('frozen camera/scene/lighting matrix permits only the exact main GPT Compos
   assert.equal(results.length,cameraBaseline.count);
   assertChestUpRevision('camera', results);
   for (const field of PROTECTED_OUTPUT_FIELDS) assert.equal(digest(results.map(r=>normalizeSubjectLightForLegacy(field==='grokPrompt'
-    ? normalizeGptCameraForLegacy(r.outputs[field]) : normalizeHighAngleDistanceForLegacy(normalizeCloseWormForLegacy(normalizeExplicitWardrobeFitForLegacy(r.outputs[field], field), field))))),cameraBaseline.hashes[field],field);
+    ? normalizeGptCameraForLegacy(r.outputs[field], r.selection) : normalizeHighAngleDistanceForLegacy(normalizeCloseWormForLegacy(normalizeExplicitWardrobeFitForLegacy(r.outputs[field], field), field, r.selection))))),cameraBaseline.hashes[field],field);
   assert.equal(digest(results.map(r=>r.selection)),cameraBaseline.selectionHash);
   assert.equal(digest(results.map(r=>r.randomDraws)),cameraBaseline.randomHash);
   const composition = t => t.match(/(?:^|\n\n)Composition:\n([^]*?)(?=\n\n[A-Z][^\n]*:\n|$)/)?.[1] || '';
   for (const [i,f] of GPT_CAMERA_SPATIAL_FIXTURES.entries()) {
     const r = results[i];
     const current = normalizeSubjectLightForLegacy(r.outputs.grokPrompt);
-    const original = normalizeGptCameraForLegacy(current);
+    const original = normalizeGptCameraForLegacy(current, r.selection);
     if (f.excluded) assert.equal(original,current,f.id);
     else assert.equal(composition(current),expectedCameraComposition(composition(original),r.selection),f.id);
   }

@@ -36,8 +36,8 @@ for (const [angleId,framingId,poseBaseId,old] of cameraBaseline.originals) {
   if (reverse.has(current) && reverse.get(current)!==original) throw Error('Ambiguous Composition oracle');
   reverse.set(current,original);
 }
-export function normalizeGptCameraForLegacy(text) {
-  text = normalizeBathroomVanityMirrorForLegacy(text, 'grokPrompt');
+export function normalizeGptCameraForLegacy(text, selection = {}) {
+  text = normalizeBathroomVanityMirrorForLegacy(text, 'grokPrompt', selection);
   text = normalizeSubjectLightForLegacy(text);
   return text.replace(/(^|\n\n)Composition:\n([^]*?)(?=\n\n[A-Z][^\n]*:\n|$)/,
     (all,prefix,current)=> {

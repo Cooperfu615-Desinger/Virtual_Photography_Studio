@@ -15,30 +15,30 @@
     "camera": {
       "count": 6320,
       "chestHashes": {
-        "chestUpPortraitPrompt": "1cd27a63976eeb1b470a3dd4952eff4285b746dd72213fcb2154f4c0f8ef1c0d",
-        "chestUpMjPortraitPrompt": "8bf3bb177dbb5685989d2a925ccebbb6ce3801f08d0f92e33e1740ffaf9a3acb"
+        "chestUpPortraitPrompt": "fbf3aab07129fad1998ea7c41616ba46dd7595e2c210e582ccd232c4b67ea47e",
+        "chestUpMjPortraitPrompt": "8f7f7359370a7d6062a1321f9e7a57d7dc57294e873bc78d6db247b750a4e935"
       },
-      "protectedHash": "ced852ea12ef8db9b077e60a63f2eaad31e8a99e79445d5d4352fa0516aede33",
+      "protectedHash": "9ed4b913e6060eb70757910c1eeac6a67c3b3f17885c151dbeb3144130bdffcd",
       "selectionHash": "587990e841049b2a2fb0b9de61ca510011dde9478e954822ddf9d981f8bc0573",
       "randomHash": "35995ff103c8783e9ffaa4ef67d92eea9883e13cd0d5fd65dd5b49c6e2ad8766"
     },
     "worm": {
       "count": 6370,
       "chestHashes": {
-        "chestUpPortraitPrompt": "2b61839ce232614b239bdb111ebb1b23408f3e0d142039ca3239c0757e403a6b",
-        "chestUpMjPortraitPrompt": "fb000c961a802ea486b8cdd4701d56761de4b549bfe29b8cf71cf4966c3bf6e5"
+        "chestUpPortraitPrompt": "98fc1bf852b1141186cee3f94959ebe1f87cf073be78037b96b5dbdee4f3e234",
+        "chestUpMjPortraitPrompt": "8cb92054f11ff1db4b8af04ed3f5d972c2e1090f7a265f4b2ad3e21fdc9f266f"
       },
-      "protectedHash": "b1a120da552bb292d2135692644e674629123dfeb09f724a3fce0590350774aa",
+      "protectedHash": "f9652cc766d41ea1cd45c4ebfd16c22ba94bd9d4b4af7577bbb22025eb7f5ac9",
       "selectionHash": "4da06787c592c2b023fd1e7d9f5b72759626f8f4c9a1a0b978f54cdc1a340be8",
       "randomHash": "a195a7b3ffbd12bb4cc00f77c49537b1044d23a9ec8d9f503fcfcca3cb23d23a"
     },
     "visibility": {
       "count": 5614,
       "chestHashes": {
-        "chestUpPortraitPrompt": "d9447fe20293d155a693d5a34f30684ad51ec29df1ef5e5fa9080e31bb8401ec",
-        "chestUpMjPortraitPrompt": "e94e34f98f924da3cad7496f293e3c591e9569b06a568d2f5f27f6e78718456f"
+        "chestUpPortraitPrompt": "726ef9feda5a22e72880cc82d3f36f8dd5257de2b0e54a803b838fb7be8c949b",
+        "chestUpMjPortraitPrompt": "ba3453c5a9b9a6e340afa4dbb61bec196a5f530d151e76d1199d9563bf9c0e70"
       },
-      "protectedHash": "3c1020d22a750de10b6e4809e9debbc2e2efc2f676d06a7f784b5ea815691171",
+      "protectedHash": "c33af1ce4e0b6cd7d5723275d3d49dba417f2ca3a252bacc034db4ba4d9f013e",
       "selectionHash": "a44e523a4de30892975be8597346889562f2f7c5f90ffba877f537ef73efa505",
       "randomHash": "c0bb0d9cfa6f09c84771e686bb5ce176de9b8f45a653360341de9c75b860177d"
     },

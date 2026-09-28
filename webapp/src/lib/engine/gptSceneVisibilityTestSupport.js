@@ -11,11 +11,11 @@ import {
 } from './bathroomVanityMirrorReflectionTestSupport.js';
 const legacy = JSON.parse(readFileSync(new URL('./gptSceneVisibilityLegacyScenes.json', import.meta.url), 'utf8'));
 const angles = getLockControls().find(c => c.key === 'angleId').options;
-export const gptSection = (text, name) => {
+export const gptSection = (text, name, selection = {}) => {
   const value = text.match(new RegExp(`(?:^|\\n\\n)${name}:\\n([^]*?)(?=\\n\\n[A-Z][^\\n]*:\\n|$)`))?.[1] || '';
-  return name === 'Scene' ? normalizeBathroomVanitySceneForLegacy(value) : value;
+  return name === 'Scene' ? normalizeBathroomVanitySceneForLegacy(value, selection) : value;
 };
-export const withoutSceneLighting = text => normalizeGptCameraForLegacy(text).replace(/(?:^|\n\n)(Scene|Lighting):\n[^]*?(?=\n\n[A-Z][^\n]*:\n|$)/g, '');
+export const withoutSceneLighting = (text, selection = {}) => normalizeGptCameraForLegacy(text, selection).replace(/(?:^|\n\n)(Scene|Lighting):\n[^]*?(?=\n\n[A-Z][^\n]*:\n|$)/g, '');
 
 export function expectedSceneProjection(scene, angle) {
   if (!scene) return scene;
@@ -26,8 +26,8 @@ export function expectedSceneProjection(scene, angle) {
   }).join('\n');
 }
 export function normalizeGptVisibilityForLegacy(text, selection) {
-  text = normalizeBathroomVanityMirrorForLegacy(normalizeGptCameraForLegacy(text), 'grokPrompt');
-  const current = gptSection(text, 'Scene');
+  text = normalizeBathroomVanityMirrorForLegacy(normalizeGptCameraForLegacy(text, selection), 'grokPrompt', selection);
+  const current = gptSection(text, 'Scene', selection);
   const angle = angles.find(a => a.id === selection?.angleId);
   const candidates = legacy.filter(([loc, frame, old]) => loc === selection?.locationId
     && frame === selection?.framingId && old !== current && expectedSceneProjection(old, angle) === current);

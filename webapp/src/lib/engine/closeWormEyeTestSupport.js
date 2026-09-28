@@ -43,8 +43,8 @@ function normalizeZImageSceneDetailForLegacy(text) {
   return text;
 }
 
-export function normalizeCloseWormForLegacy(text, field = 'zImagePrompt') {
-  text = normalizeBathroomVanityMirrorForLegacy(text, field);
+export function normalizeCloseWormForLegacy(text, field = 'zImagePrompt', selection = {}) {
+  text = normalizeBathroomVanityMirrorForLegacy(text, field, selection);
   text = normalizeSubjectLightForLegacy(text);
   const replace = block => Object.values(CLOSE_WORM_EXPECTED).reduce((s, phrase) => s.replace(phrase, OLD_WORM), block);
   if (field === 'grokPrompt') return text.replace(/(^|\n\n)Composition:\n([^]*?)(?=\n\n[A-Z][^\n]*:\n|$)/,

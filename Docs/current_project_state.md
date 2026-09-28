@@ -2,7 +2,13 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-09-27
+Last updated: 2026-09-28
+
+## Bathroom vanity reflection / wet-clothing prompt and outerwear summary (local, 2026-09-28)
+
+- The bathroom location source now names only a frequently used, lived-in vanity and a large wall mirror above the sink; other everyday bathroom details remain open-ended. Eligible ordinary single main GPT/Z-Image/MJ and same-state chest outputs share a generic, garment-neutral reflection block: same person, appearance, outfit and pose; the reflected view follows front/back/side orientation; mirror-edge condensation leaves the center clear; damp skin/hair and visibly soaked clothing retain original sheerness and coverage; the full mirror frame is requested when the crop allows. The selected pose remains the source of seated/standing posture. Full-body character references and existing excluded modes remain unchanged.
+- PAGE1 Generation Summary now includes selected outerwear and any effective outerwear fit, color, pattern, opening and wear-style options for single and duo roles. No selection IDs, storage schema or renderer mapping changes. Public output contract is `1.26.0`; see [scene authoring guide](specs/scene-section-c-authoring-guide.md) and [single-prompt guide](specs/page1-single-prompt-compression-guide.md).
+- Validation: bathroom and summary tests 29/29; bathroom representative contract fixture 1/1; camera/visibility/worm regression tests 14/14; Prompt Quality 335/335; frontend suite 1067/1067; lint and build passed; strict prompt audit covered 200 prompts with 0 blockers (23 existing wardrobe/scene findings and 28 diagnostic-only signals); database sync check and Python tests 2/2 passed; `git diff --check` passed. Browser checked the selected bathroom scene and outerwear in Generation Summary at 1440×900 and 390×844: no horizontal overflow and no console errors. Build retains the existing Rollup warning for a JavaScript chunk above 500 kB.
 
 ## Top hem overlap styling (local, 2026-09-27)
 

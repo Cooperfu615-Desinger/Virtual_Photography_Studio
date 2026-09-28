@@ -57,13 +57,13 @@ test('frozen all-scene / ambient matrix changes only approved GPT Scene and Ligh
     const ambient = AMBIENT_LIGHT_DESCRIPTIONS[r.selection.lightingId];
     const expectedLight = !excluded && ambient
       ? oldLight.replace(renderAmbientLightDescription(ambient), renderAmbientLightDescription(ambient, 'z', angle)) : oldLight;
-    assert.equal(gptSection(r.outputs.grokPrompt, 'Scene'), excluded ? oldScene : expectedSceneProjection(oldScene, angle), GPT_VISIBILITY_ALL[i].id);
+    assert.equal(gptSection(r.outputs.grokPrompt, 'Scene', r.selection), excluded ? oldScene : expectedSceneProjection(oldScene, angle), GPT_VISIBILITY_ALL[i].id);
     assert.equal(normalizeSubjectLightForLegacy(gptSection(r.outputs.grokPrompt, 'Lighting')), expectedLight, GPT_VISIBILITY_ALL[i].id);
   }
   assertChestUpRevision('visibility', results);
   for (const field of PROTECTED_OUTPUT_FIELDS) assert.equal(digest(results.map(r => field === 'grokPrompt'
-    ? withoutSceneLighting(r.outputs[field])
-    : normalizeHighAngleDistanceForLegacy(normalizeCloseWormForLegacy(normalizeExplicitWardrobeFitForLegacy(r.outputs[field], field), field)))), baseline.hashes[field], field);
+    ? withoutSceneLighting(r.outputs[field], r.selection)
+    : normalizeHighAngleDistanceForLegacy(normalizeCloseWormForLegacy(normalizeExplicitWardrobeFitForLegacy(r.outputs[field], field), field, r.selection)))), baseline.hashes[field], field);
   assert.equal(digest(results.map(r => r.selection)), baseline.selectionHash);
   assert.equal(digest(results.map(r => r.randomDraws)), baseline.randomHash);
 });

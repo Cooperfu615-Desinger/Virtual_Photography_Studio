@@ -46,7 +46,7 @@ test('frozen matrix permits only the exact GPT/Z camera text and no selection or
   assertChestUpRevision('worm', rows);
   for (const field of PROTECTED_OUTPUT_FIELDS) assert.equal(digest(rows.map(r => {
     const value = normalizeExplicitWardrobeFitForLegacy(
-      normalizeCloseWormForLegacy(r.outputs[field], field),
+      normalizeCloseWormForLegacy(r.outputs[field], field, r.selection),
       field,
     );
     if (field === 'grokPrompt') return normalizeGptHighAngleDistanceForLegacy(value, r.selection);

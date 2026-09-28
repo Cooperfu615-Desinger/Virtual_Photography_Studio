@@ -180,6 +180,45 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     }])),
   })),
   {
+    id: 'bathroom-vanity-generic-reflection',
+    title: 'Bathroom vanity keeps an open-ended lived-in setting, a coherent mirror reflection, and crop-aware frame visibility',
+    mode: 'single',
+    seed: 'bathroom-vanity-generic-reflection-v1',
+    locks: {
+      subjectCount: '1',
+      locationId: { byZh: '室內：浴室鏡前 / 洗手台' },
+      framingId: { byZh: '中景鏡頭 (Medium Shot)' },
+      angleId: { byZh: '高位俯視鏡頭' },
+      orbitId: { byZh: '背面 180 度' },
+      poseBaseId: 'sitting',
+      poseArrangementId: { byZh: '隨性癱坐' },
+      outerwearId: { byZh: '長版襯衫' },
+      outerwearColorId: { byZh: '白色' },
+    },
+    expectedOutputs: {
+      ...Object.fromEntries([
+        'grokPrompt', 'zImagePrompt', 'midjourneyPrompt',
+        'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt',
+      ].map((field) => [field, {
+        includes: [
+          'frequently used and lived-in bathroom vanity',
+          'large wall-mounted mirror above the sink',
+          'mirror clearly reflects the same woman from a physically consistent angle',
+          'reflection shows her front when her back faces the camera',
+          'her back when her front faces the camera',
+          'skin and hair are damp',
+          'clothing looks visibly soaked while retaining its original sheerness and coverage',
+          'full mirror frame whenever the selected crop allows',
+          'longline cotton-poplin button-up shirt',
+        ],
+      }])),
+      fullBodyCharacterPrompt: {
+        includes: ['longline cotton-poplin button-up shirt'],
+        excludes: ['physically consistent reflection', 'skin and hair are damp'],
+      },
+    },
+  },
+  {
     id: 'normal-single',
     title: 'Normal single portrait with separate wardrobe',
     mode: 'single',

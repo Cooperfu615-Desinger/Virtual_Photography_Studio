@@ -54,6 +54,30 @@ test('workspace wardrobe summary hides stale separates when a dress is active', 
   assert.deepEqual(insights.main, ['連身：短版｜一字領哥德迷你洋裝']);
 });
 
+test('workspace and generation summaries trace selected outerwear and its explicit styling', () => {
+  const locks = {
+    ...createEmptyLocks(),
+    outfitPresetId: optionId('outfitPresetId', '全無'),
+    dressId: optionId('dressId', '全無'),
+    outerwearId: optionId('outerwearId', '長版襯衫'),
+    outerwearFitId: optionId('outerwearFitId', 'Oversize'),
+    outerwearColorId: optionId('outerwearColorId', '白色'),
+    outerwearOpeningId: optionId('outerwearOpeningId', '敞開穿'),
+    outerwearStylingId: optionId('outerwearStylingId', '雙肩露出'),
+  };
+  const [prompt] = generatePrompts(1, locks, [], { random: () => 0.5 });
+  const workspaceSummary = buildWorkspaceSummary(locks, controls).wardrobe.summary;
+  const generationSummary = buildPage1GenerationSummary(locks, prompt, controls);
+
+  for (const label of ['長版襯衫', 'Oversize', '白色', '敞開穿', '雙肩露出']) {
+    assert.match(workspaceSummary, new RegExp(label));
+    assert.match(generationSummary, new RegExp(label));
+  }
+  for (const label of ['長版襯衫', 'Oversize', '敞開穿', '雙肩露出']) {
+    assert.match(prompt.summaryFields.wardrobe, new RegExp(label));
+  }
+});
+
 test('workspace scene summary shows imported PAGE3 world-scene architecture label', () => {
   const summary = buildWorkspaceSummary({
     ...createEmptyLocks(),

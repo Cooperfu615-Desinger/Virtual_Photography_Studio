@@ -1,13 +1,10 @@
 // Test-only compatibility bridge for immutable pre-bathroom snapshots.
-// The production source intentionally adds a full mirror and post-shower
-// humidity to this location. Historical camera/visibility matrices predate
-// that wording, so reverse only the exact reviewed source here; never rewrite
-// arbitrary imported or custom scene prose.
+// Reverse only the exact reviewed bathroom source and mirror block; never
+// rewrite arbitrary imported or custom scene prose.
 
-const NEW_GPT_PREFIX = 'The portrait takes place in slightly humid post-shower bathroom vanity, full wall-mounted mirror behind her above the sink facing the camera, sparse edge condensation with a clear central reflection';
-const NEW_Z_PREFIX = 'The setting is slightly humid post-shower bathroom vanity, full wall-mounted mirror behind her above the sink facing the camera, sparse edge condensation with a clear central reflection';
-const NEW_MJ_PREFIX = 'The setting is Slightly humid post-shower bathroom vanity';
-const NEW_MJ_DETAILS = 'Full wall-mounted mirror behind her above the sink facing the camera, sparse edge condensation with a clear central reflection';
+const NEW_LOCATION_EN = 'a frequently used and lived-in bathroom vanity with a large wall-mounted mirror above the sink';
+const NEW_LOCATION_MJ = `${NEW_LOCATION_EN[0].toUpperCase()}${NEW_LOCATION_EN.slice(1)}`;
+const NEW_MIRROR_TEXT = 'The mirror clearly reflects the same woman from a physically consistent angle, with matching appearance, outfit, and pose. The reflection shows her front when her back faces the camera, her back when her front faces the camera, and a corresponding side view at side angles. Light post-shower condensation gathers around the mirror edges while the center stays clear. Her skin and hair are damp; her clothing looks visibly soaked while retaining its original sheerness and coverage. Show the full mirror frame whenever the selected crop allows.';
 
 const LEGACY_GPT_SCENES = Object.freeze({
   half: 'The portrait takes place in bathroom vanity area, sink counter, faucet.',
@@ -15,44 +12,51 @@ const LEGACY_GPT_SCENES = Object.freeze({
   full: 'The portrait takes place in bathroom vanity area, sink counter, faucet, mirror edge, tiled wall, toiletry bottles, reflective cabinet surface, compact washroom corner.',
 });
 
-export function normalizeBathroomVanitySceneForLegacy(scene) {
-  if (!scene || !scene.startsWith(NEW_GPT_PREFIX)) return scene;
-  const match = scene.match(new RegExp(`^${NEW_GPT_PREFIX}(, sink counter and faucet, tiled wall(?:, toiletry bottles, reflective cabinet surface)?)?\\.\\s+The full mirror behind her accurately reflects [^.]+\\.$`));
-  if (!match) return scene;
-  const tail = match[1] || '';
-  if (tail.includes('toiletry bottles')) return LEGACY_GPT_SCENES.full;
-  if (tail.includes('tiled wall')) return LEGACY_GPT_SCENES.medium;
-  return LEGACY_GPT_SCENES.half;
+const LEGACY_GPT_SCENE_BY_FRAMING = Object.freeze({
+  'camera:景別構圖-framing:半臉傾斜特寫:1': LEGACY_GPT_SCENES.half,
+  'camera:景別構圖-framing:中景鏡頭-medium-shot:6': LEGACY_GPT_SCENES.medium,
+  'camera:景別構圖-framing:全身鏡頭-full-body-shot:8': LEGACY_GPT_SCENES.full,
+});
+
+export function normalizeBathroomVanitySceneForLegacy(scene, selection = {}) {
+  const expected = `The portrait takes place in ${NEW_LOCATION_EN}. ${NEW_MIRROR_TEXT}`;
+  if (!scene || scene !== expected) return scene;
+  return LEGACY_GPT_SCENE_BY_FRAMING[selection?.framingId] || scene;
 }
 
-function normalizeGptScene(text) {
-  return text.replace(/(Scene:\n)([^\n]+)(?=\n\n[A-Z][^\n]*:\n|$)/, (_, prefix, scene) => `${prefix}${normalizeBathroomVanitySceneForLegacy(scene)}`);
+function normalizeGptScene(text, selection) {
+  return text.replace(/(Scene:\n)([^\n]+)(?=\n\n[A-Z][^\n]*:\n|$)/,
+    (_, prefix, scene) => `${prefix}${normalizeBathroomVanitySceneForLegacy(scene, selection)}`);
 }
 
 function normalizeZScene(text) {
-  const pattern = new RegExp(`${NEW_Z_PREFIX}\\.\\s+The full mirror behind her accurately reflects [^.]+\\.`);
-  return text.replace(pattern, 'The setting is bathroom vanity area, sink counter, faucet.');
+  const current = `The setting is ${NEW_LOCATION_EN}. ${NEW_MIRROR_TEXT}`;
+  return text.replace(current, 'The setting is bathroom vanity area, sink counter, faucet.');
 }
 
 function normalizeMjScene(text) {
-  const pattern = new RegExp(`${NEW_MJ_PREFIX}\\.\\s+The full mirror behind her accurately reflects [^.]+\\.`);
-  const normalized = text.replace(pattern, 'The setting is Bathroom vanity area.');
-  const detailsPattern = new RegExp(`${NEW_MJ_DETAILS}(, sink counter and faucet)?\\.`);
-  return normalized.replace(detailsPattern, (_, tail) => tail ? 'Sink counter, faucet, mirror edge.' : 'Sink counter, faucet.');
+  const current = `The setting is ${NEW_LOCATION_MJ}. ${NEW_MIRROR_TEXT}`;
+  if (!text.includes(current)) return text;
+  const normalized = text.replace(current, 'The setting is Bathroom vanity area.');
+  const wardrobeSentence = normalized.match(/\bWearing [^.]*\./)?.[0];
+  return wardrobeSentence
+    ? normalized.replace(wardrobeSentence, `${wardrobeSentence} Sink counter, faucet, mirror edge.`)
+    : normalized;
 }
 
 function normalizeChestUpGptScene(text) {
-  return text.replace(new RegExp(`(Scene:\n)${NEW_GPT_PREFIX}\\.`), '$1The portrait takes place in bathroom vanity area, sink counter, faucet.');
+  const current = `The portrait takes place in ${NEW_LOCATION_EN}. ${NEW_MIRROR_TEXT}`;
+  return text.replace(`Scene:\n${current}`, 'Scene:\nThe portrait takes place in bathroom vanity area, sink counter, faucet.');
 }
 
 function normalizeChestUpMjScene(text) {
-  const pattern = new RegExp(`${NEW_MJ_PREFIX.replace('The setting is ', '')}, full wall-mounted mirror behind her above the sink facing the camera, sparse edge condensation with a clear central reflection(, sink counter and faucet)?\\.`);
-  return text.replace(pattern, (_, tail) => `Bathroom vanity area, sink counter, faucet${tail ? ', mirror edge' : ''}.`);
+  const current = `The setting is ${NEW_LOCATION_MJ}. ${NEW_MIRROR_TEXT}`;
+  return text.replace(current, 'The setting is Bathroom vanity area, sink counter, faucet, mirror edge.');
 }
 
-export function normalizeBathroomVanityMirrorForLegacy(text, field = 'zImagePrompt') {
+export function normalizeBathroomVanityMirrorForLegacy(text, field = 'zImagePrompt', selection = {}) {
   if (!text) return text;
-  if (field === 'grokPrompt') return normalizeGptScene(text);
+  if (field === 'grokPrompt') return normalizeGptScene(text, selection);
   if (field === 'zImagePrompt') return normalizeZScene(text);
   if (field === 'midjourneyPrompt') return normalizeMjScene(text);
   if (field === 'chestUpPortraitPrompt') return normalizeChestUpGptScene(text);

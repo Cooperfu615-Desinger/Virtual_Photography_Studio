@@ -1,6 +1,8 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
-Last updated: 2026-09-27
+Last updated: 2026-09-28
+
+2026-09-28 浴室鏡前補充：既有場景來源縮短為生活感浴室洗手台與大型壁掛鏡；一般單人主 GPT／Z-Image／MJ 與同狀態胸上輸出共用通用的鏡像與濕潤描述。鏡面對應同一人物的姿勢、外觀與服裝，依朝向顯示相應前／背／側面，不綁定襯衫或站姿；濕衣保留原有透光及覆蓋。全身角色參考照與其餘 renderer 排除路徑不變。Generation Summary 同步顯示已選外套及其有效版型、顏色、圖案、開合與穿法，不改 selection/storage。Public output contract `1.26.0`。
 
 2026-09-27 衣襬遮住部分下身的體態相容：有效選取時，普通 Body Type 來源移除腰／腹部與身體比例量測細節；性感曲線身形改用 A 實測通過的整體輪廓文字。只作用於相同人物與有效衣襬關係，包含雙人逐人投影及全身角色照；不改來源選項、storage、Character Card 或未觸發路徑。Public output contract `1.25.0`，見 [穿搭撰寫規範](wardrobe-section-b-authoring-guide.md#衣襬遮住部分下身2026-09-27)。
 
