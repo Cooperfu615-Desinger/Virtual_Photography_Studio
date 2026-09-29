@@ -16,6 +16,21 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   ...[
+    ['nyc-subway-bench-platform', 'station-nyc-seated', 'She sits upright on the existing waiting bench'],
+    ['london-tube-arriving-platform', 'station-london-wall', 'her shoulder and upper back resting lightly against it'],
+    ['yamanote-platform-advertising', 'station-yamanote-waiting', 'platform gates between her and the stopped train'],
+  ].map(([set, position, pose]) => ({
+    id: `station-position-${position}`, title: 'Station position owns a coherent platform pose', mode: 'single', seed: 'station-position-v2',
+    locks: { subjectCount: '1', fixedCompositionSetId: set, fixedSetPositionId: position,
+      poseBaseId: 'kneeling', poseHandId: 'selfie-mirror-phone-visible' },
+    expectedOutputs: {
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map(field => [field, {
+        includes: [pose, 'same longitudinal platform axis'], excludes: ['kneeling', 'selfie'],
+      }])),
+      fullBodyCharacterPrompt: { excludes: ['waiting bench', 'platform gates', 'tiled platform wall'] },
+    },
+  })),
+  ...[
     ['japan-carriage-bench-front', 'carriage-bench-upright', 'She sits upright on the bench'],
     ['japan-carriage-side-aisle', 'carriage-aisle-strap', 'nearby overhead strap within comfortable reach'],
     ['japan-carriage-rush-hour', 'carriage-crowd-pole', 'nearby vertical grab pole at chest height'],

@@ -70,8 +70,9 @@ import {
 } from './engine/stationFixedComposition.js';
 import {
   isCarriageFixedSet, fixedSetAllowsFramingVariation, resolveCarriageOrbit,
-  carriageCameraText, carriageSceneText, carriagePoseLocks,
+  carriageCameraText, carriageSceneText,
 } from './engine/carriageFixedComposition.js';
+import { fixedScenePoseLocks } from './engine/fixedScenePose.js';
 import {
   createFixedFramingDerivedContext,
   FIXED_FRAMING_DERIVED_PROMPT_PRESETS,
@@ -5999,7 +6000,7 @@ function buildChestUpPoseComposerSentence({ orientation, arrangement, handPose, 
 function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = false, omitHand = false } = {}) {
   if (!poseComposer || isNoneLikeItem(poseComposer)) return '';
   const projection = getCompositionVisibilityProjection(context);
-  if (context.fixedSetPosition?.carriagePose) {
+  if (context.fixedSetPosition?.carriagePose || context.fixedSetPosition?.stationPose) {
     if (projection.pose?.mode === 'omit') return '';
     const position = context.fixedSetPosition;
     const head = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, poseComposer.meta?.poseHeadId);
@@ -10551,7 +10552,7 @@ function isFreeInteractionFixedSetPosition(position) {
 
 function buildZImageFixedSetPositionText(context) {
   const position = context.fixedSetPosition;
-  if (position?.carriagePose) return ''; // Emitted once by the shared canonical pose projection.
+  if (position?.carriagePose || position?.stationPose) return ''; // Emitted once by the shared canonical pose projection.
   if (!position || isNoneLikeItem(position)) return '';
 
   if (isFreeInteractionFixedSetPosition(position)) {
@@ -10726,7 +10727,7 @@ function naturalizeGptFixedSetSourceText(value) {
 }
 
 function buildGptFixedSetPositionText(position) {
-  if (position?.carriagePose) return '';
+  if (position?.carriagePose || position?.stationPose) return '';
   if (!position || isNoneLikeItem(position)) return '';
 
   return ensureTerminalPeriod(capitalizePromptLead(naturalizeGptFixedSetSourceText(position.en)));
@@ -16022,7 +16023,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
       random,
     )
   );
-  const effectiveLocks = sanitizeLocksForCloseupMode(carriagePoseLocks(locks), lockControls);
+  const effectiveLocks = sanitizeLocksForCloseupMode(fixedScenePoseLocks(locks), lockControls);
   if (isFullyClosedOpening(effectiveLocks.outerwearOpeningId) && effectiveLocks.poseHandId === PULL_OPEN_HAND_ID) {
     effectiveLocks.poseHandId = 'none';
   }

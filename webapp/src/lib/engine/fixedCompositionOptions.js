@@ -1,4 +1,4 @@
-import { STATION_FIXED_COMPOSITION_OPTIONS } from './stationFixedComposition.js';
+import { STATION_FIXED_COMPOSITION_OPTIONS, STATION_POSITION_OPTIONS } from './stationFixedComposition.js';
 import { CARRIAGE_FIXED_COMPOSITION_OPTIONS, CARRIAGE_WINDOW_BACKGROUND_OPTIONS, CARRIAGE_POSITION_OPTIONS } from './carriageFixedComposition.js';
 
 export const FIXED_COMPOSITION_SHARED_STRUCTURE_EN = 'fixed-set rule: stable selected room architecture; vary only subject placement, pose, crop, camera distance, camera orbit, lighting, and mood inside the same real-scale set; keep adult scale believable against furniture, fixtures, and props; avoid enlarging the subject or shrinking set anchors';
@@ -274,6 +274,7 @@ export const FIXED_SET_POSITION_OPTIONS = [
     en: 'subject beside the pale stucco wall or narrow building edge, letting the stairs and railings continue downhill toward the ocean in the background',
   },
   ...CARRIAGE_POSITION_OPTIONS,
+  ...STATION_POSITION_OPTIONS,
 ];
 
 export const FIXED_SET_BACKGROUND_STATE_OPTIONS = [

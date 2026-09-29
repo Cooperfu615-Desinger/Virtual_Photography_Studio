@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-09-29
 
+## Station position/pose follow-up (local, 2026-09-29)
+
+- Three station fixed sets now each expose three scene-scoped positions: NYC bench upright/relaxed/standing beside; London waiting/wall lean/walking; Yamanote gates waiting/column-side/walking. Selected positions share the carriage effective-pose takeover and restoration policy; expression/head/facing remain independent. None and foreign-set/duo paths do not acquire a preset. Framing remains locked under the prior station rules, with lens and angle unchanged.
+- Shared scene wording clarifies image-side layout, shared ambient light and peripheral cropping. NYC drops the opposite-platform requirement, London avoids repeated stationary wording, and Yamanote explicitly has a stopped train beyond the platform gates. Main GPT/Z/MJ emit one canonical pose; chest variants retain upper-body posture, full-body references remain scene-free. Contract `1.31.0`; no storage migration or ordinary-location edits. See [station v2](specs/station-fixed-composition-v1.md).
+- Validation: focused station/carriage 24/24, frontend 1118/1118, Prompt Quality 386/386, lint/build and diff check pass. Strict 200-case audit with seed `prompt-quality-baseline` remains 0 blockers / 28 diagnostics. Existing Vite chunk-size advisory remains.
+- Browser at 1440×1000 and 390×900: scene-specific options, pose takeover, independent head, none restoration, five scene-bearing outputs and scene-free reference verified; five-workspace navigation checked, no console warnings/errors or broken images. Desktop has no document overflow. Mobile D fixed-scene header action row retains existing overflow (435px scroll width vs 375px client width), reproduced with position none and the original carriage scene; action-row markup/CSS unchanged. This layout issue is not repaired in this scope. Evidence: `/tmp/station-v2-desktop.png`, `/tmp/station-v2-mobile.png`.
+- Original six preview texts restored exactly; viewport reset and temporary tab closed. No Saved Cards created/deleted. Not committed/pushed/deployed; external-model image acceptance remains pending. User reference-image folders preserved.
+
 ## Cotton low-rise briefs replacement (local, 2026-09-29)
 
 - 褲裝「蕾絲內褲」替換為「棉質低腰三角褲」：`low-rise cotton briefs, soft cotton fabric, triangular front panel, full-coverage back`。不固定顏色，既有配色／版型／腰線與景別投影維持原規則；同人物膝上蕾絲吊帶襪的吊襪帶搭配保留。單人及 A/B 使用原 ID `wardrobe:褲裝-pants:蕾絲內褲:7`，歷史英文來源保留為匯入 alias；舊卡的已存 Prompt 不批次改寫，還原後重新生成採用新單品。無 storage migration 或 renderer 改寫。

@@ -4,6 +4,64 @@ import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls,
 import { isStationFixedSet, fixedSetAllowsLensVariation, stationSubjectFacingText } from './stationFixedComposition.js';
 import { validatePromptOutputContract } from './promptOutputContracts.js';
 import { buildAllNoneLocks } from '../../features/page1/page1Selectors.js';
+import { STATION_POSITION_OPTIONS } from './stationFixedComposition.js';
+import { fixedScenePoseLocks, getFixedScenePosition } from './fixedScenePose.js';
+
+test('nine station positions own one canonical pose, preserve facing and lens and restore', () => {
+  assert.equal(STATION_POSITION_OPTIONS.length, 9);
+  for (const position of STATION_POSITION_OPTIONS) {
+    assert.equal(STATION_POSITION_OPTIONS.filter(p => p.setId === position.setId).length, 3);
+    for (const lens of ['28mm 廣角', '135mm 長焦壓縮']) {
+      for (const orbit of ['正面 0 度', '背面 180 度', '左側 90 度']) {
+        const result = generate(position.setId, lens, orbit, { fixedSetPositionId: position.id,
+          poseBaseId: 'kneeling', poseHandId: 'selfie-mirror-phone-visible', fixedSetCaptureModeId: 'selfie' });
+        for (const text of [result.grokPrompt, result.zImagePrompt, result.midjourneyPrompt]) {
+          assert.equal(text.split(position.en).length - 1, 1, position.id);
+          assert.doesNotMatch(text, /kneeling|selfie/i);
+          assert.match(text, /same longitudinal platform axis/);
+        }
+        for (const extra of result.extraPrompts.filter(p => p.id.includes('chest-up'))) {
+          assert.ok(extra.text.includes(position.chestEn), `${position.id}: chest`);
+          assert.doesNotMatch(extra.text, /hips supported|hands resting.*lap|relaxed stride/);
+        }
+        assert.equal(result.selection.poseBaseId, position.baseId);
+        assert.equal(result.selection.orbitId, id('orbitId', orbit));
+        assert.equal(result.selection.framingId, id('framingId', '全無'));
+        const restored = generatePrompts(1, normalizeLocks(JSON.parse(JSON.stringify(result.selection))), [],
+          { random: createSeededRandom('station-position-restore') })[0];
+        assert.ok(restored.zImagePrompt.includes(position.en));
+        assert.doesNotMatch(restored.extraPrompts.find(p => p.id === 'full-body-character').text,
+          /waiting bench|platform gates|stopped train|tiled platform wall|canopy column/);
+      }
+    }
+  }
+});
+test('station takeover is pure and excludes none, foreign scenes and duo', () => {
+  const source = { subjectCount: '1', fixedCompositionSetId: 'nyc-subway-bench-platform',
+    fixedSetPositionId: 'station-nyc-seated', poseBaseId: 'kneeling', actionPoseCardId: 'saved-card', poseHeadId: 'any' };
+  const snapshot = structuredClone(source);
+  assert.equal(fixedScenePoseLocks(source).poseBaseId, 'sitting');
+  assert.equal(fixedScenePoseLocks(source).actionPoseCardId, '');
+  assert.equal(fixedScenePoseLocks(source).poseHeadId, 'any');
+  assert.deepEqual(source, snapshot);
+  for (const patch of [{ fixedSetPositionId: 'none' }, { fixedCompositionSetId: 'japan-carriage-bench-front' }, { subjectCount: '2' }]) {
+    const input = { ...source, ...patch };
+    assert.equal(getFixedScenePosition(input), null);
+    assert.equal(fixedScenePoseLocks(input), input);
+  }
+  const foreign = generate('yamanote-platform-advertising', '28mm 廣角', '正面 0 度', { fixedSetPositionId: source.fixedSetPositionId });
+  assert.equal(foreign.selection.fixedSetPositionId, 'none');
+  assert.equal(foreign.selection.poseBaseId, 'standing');
+});
+test('station spatial sources retain image-side layout, shared light and stopped Yamanote train', () => {
+  const result = generate('yamanote-platform-advertising', '28mm 廣角');
+  for (const text of [result.grokPrompt, result.zImagePrompt, result.midjourneyPrompt,
+    ...result.extraPrompts.filter(p => p.id.includes('chest-up')).map(p => p.text)]) {
+    assert.match(text, /stationary silver green-striped train/);
+    assert.match(text, /Left and right refer to the image/);
+    assert.match(text, /shares its ambient light/);
+  }
+});
 
 const cases = [
   ['nyc-subway-bench-platform', 'New York subway', 'tracks on the right'],
