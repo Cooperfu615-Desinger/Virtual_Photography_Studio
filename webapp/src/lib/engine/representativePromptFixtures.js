@@ -15,6 +15,15 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 });
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
+  {
+    id: 'transit-explicit-lighting', title: 'Transit sets retain explicit ambient and subject light',
+    mode: 'single', seed: 'transit-light-v1',
+    locks: { subjectCount: '1', fixedCompositionSetId: 'japan-carriage-bench-front',
+      lightingId: { byZh: '藍調傍晚' }, lightDirectionId: { byZh: '霓虹染色光' } },
+    expectedOutputs: Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map(field => [field, {
+      includes: ['blue hour', 'neon'], excludes: ['late-night indoor ambience'],
+    }])),
+  },
   ...[
     ['nyc-subway-bench-platform', 'station-nyc-seated', 'She sits upright on the existing waiting bench'],
     ['london-tube-arriving-platform', 'station-london-wall', 'her shoulder and upper back resting lightly against it'],

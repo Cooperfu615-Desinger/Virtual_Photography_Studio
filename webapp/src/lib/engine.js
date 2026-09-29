@@ -4647,6 +4647,9 @@ function getScenePoseAnchorOptions(location, lockedLocationId = '', sceneAttribu
 export function getSceneDependentOptions(customLibrary = [], rawLocks = {}) {
   const runtime = getEngineRuntime(customLibrary);
   const locks = normalizeLocks(rawLocks);
+  const fixedSet = getFixedCompositionSetOption(locks.fixedCompositionSetId);
+  const transitManualLighting = locks.subjectCount !== '2'
+    && (isStationFixedSet(fixedSet) || isCarriageFixedSet(fixedSet));
   const supineSurfaceOnly = isSupinePoseSelection(locks);
   const fallbackFraming = runtime.flatCatalog.framing.find((item) => item.en.includes('medium shot')) || runtime.flatCatalog.framing[0];
   const sceneAttribute = getSceneAttributeOption(locks.sceneAttributeId);
@@ -4658,6 +4661,7 @@ export function getSceneDependentOptions(customLibrary = [], rawLocks = {}) {
   const framing = findById(runtime.flatCatalog.framing, locks.framingId) || fallbackFraming;
 
   const lightingOptions = runtime.flatCatalog.lighting.filter((item) => {
+    if (transitManualLighting) return true;
     if (item.zh === '全無') return true;
     if (!lightingMatchesSceneAttribute(item, sceneAttribute)) return false;
     return location ? locationSupportsLighting(location, item) : true;
@@ -4666,6 +4670,7 @@ export function getSceneDependentOptions(customLibrary = [], rawLocks = {}) {
   const lightingForDirection = selectedLighting && lightingOptions.some((item) => item.id === selectedLighting.id) ? selectedLighting : null;
 
   const lightDirectionOptions = runtime.flatCatalog.lightDirection.filter((item) => {
+    if (transitManualLighting) return true;
     if (item.zh === '全無') return true;
     if (!lightDirectionMatchesSceneAttribute(item, sceneAttribute)) return false;
     return lightDirectionSupportsScene(item, framing, location, lightingForDirection);
@@ -16170,17 +16175,18 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
   const shutterLockId = effectiveLocks.shutterId || getControlOptionByZh(lockControls, 'shutterId', '全無')?.id || '';
   const aperture = pickLocked(runtime.flatCatalog.aperture, apertureLockId, () => true, sample, ['apertureId']);
   const shutter = pickLocked(runtime.flatCatalog.shutter, shutterLockId, () => true, sample, ['shutterId']);
+  const transitFixedLighting = fixedCompositionSetActive
+    && (isStationFixedSet(selectedFixedCompositionSet) || isCarriageFixedSet(selectedFixedCompositionSet));
   const fixedSetLightingCompatibilityAnchor = fixedCompositionSetActive
-    && selectedFixedCompositionSet?.meta?.tags?.includes('outdoor')
+    && (transitFixedLighting || selectedFixedCompositionSet?.meta?.tags?.includes('outdoor'))
     ? selectedFixedCompositionSet
     : null;
   const locationForLightingCompatibility = supineSurfaceOnly
     ? null
     : fixedSetLightingCompatibilityAnchor || (hasImportedWorldSceneArchitecture ? null : location);
-  // A fixed composition set owns its environment contract. Outside that
-  // explicit mode, preserve a concrete user lighting lock and use the
-  // compatibility predicate only for random resolution.
-  const pickLighting = !fixedCompositionSetActive && effectiveLocks.lightingId && !isRandomLockValue(effectiveLocks.lightingId)
+  // Transit sets honor explicit lighting like ordinary scenes. Random picks
+  // use the actual fixed scene above; legacy fixed-set policy stays intact.
+  const pickLighting = (!fixedCompositionSetActive || transitFixedLighting) && effectiveLocks.lightingId && !isRandomLockValue(effectiveLocks.lightingId)
     ? pickLocked
     : pickCompatible;
   const lighting = pickLighting(
@@ -16190,7 +16196,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     sample,
     ['lightingId'],
   );
-  const pickLightDirection = !fixedCompositionSetActive && effectiveLocks.lightDirectionId && !isRandomLockValue(effectiveLocks.lightDirectionId)
+  const pickLightDirection = (!fixedCompositionSetActive || transitFixedLighting) && effectiveLocks.lightDirectionId && !isRandomLockValue(effectiveLocks.lightDirectionId)
     ? pickLocked
     : pickCompatible;
   const lightDirection = !lighting

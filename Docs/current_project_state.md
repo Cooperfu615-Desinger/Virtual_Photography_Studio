@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-09-29
 
+## Transit fixed-scene lighting selection (local, 2026-09-29)
+
+- Six station/carriage fixed scenes now retain explicit ambient and subject-light selections. Their manual dropdowns expose the full lighting catalog, so changing ambient no longer clears a selected subject light. None stays silent; random resolution uses the actual fixed scene metadata rather than the cleared ordinary location. Existing supine policy and all unrelated scene modes remain unchanged. No authored lighting, pose, camera or storage changes; contract `1.32.0`. See [transit light rules](specs/station-fixed-composition-v1.md).
+- Main GPT/Z/MJ and both chest outputs share the resolved light; full-body character reference keeps its own clean lighting. Added tests reproduce the prior substitution, cover six sets, 144 seeded random cases, UI transitions, none, JSON restoration and legacy isolation.
+- Validation: frontend 1123/1123, Prompt Quality 391/391, lint/build and diff-check pass. Strict 200-case audit with `prompt-quality-baseline` remains 0 blockers / 28 diagnostics; only small word-count statistics changed. Existing Vite large-chunk advisory remains.
+- Browser: 1440×1000 and 390×900, all five workspace navigation/health checked. Six scenes retain blue-hour/neon in all five scene-bearing previews; ambient changes retain manually selected high-key light. No console warnings/errors or broken images. Environment/light panel has no document overflow; the existing mobile fixed-scene header still measures 435px versus 375px client width, unchanged and outside scope. Evidence: `/tmp/transit-light-desktop.png`, `/tmp/transit-light-mobile.png`.
+- Original six preview texts restored exactly, viewport reset and temporary tab closed. No Saved Cards written; reference-image folders preserved. Not committed/pushed/deployed; external-model image acceptance remains pending.
+
 ## Station position/pose follow-up (local, 2026-09-29)
 
 - Three station fixed sets now each expose three scene-scoped positions: NYC bench upright/relaxed/standing beside; London waiting/wall lean/walking; Yamanote gates waiting/column-side/walking. Selected positions share the carriage effective-pose takeover and restoration policy; expression/head/facing remain independent. None and foreign-set/duo paths do not acquire a preset. Framing remains locked under the prior station rules, with lens and angle unchanged.

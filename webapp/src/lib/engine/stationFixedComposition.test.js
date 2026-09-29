@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls, normalizeLocks } from '../engine.js';
+import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls, getSceneDependentOptions, normalizeLocks } from '../engine.js';
+import { transitionPage1Locks } from '../../features/page1/lockTransitions.js';
 import { isStationFixedSet, fixedSetAllowsLensVariation, stationSubjectFacingText } from './stationFixedComposition.js';
 import { validatePromptOutputContract } from './promptOutputContracts.js';
 import { buildAllNoneLocks } from '../../features/page1/page1Selectors.js';
@@ -68,6 +69,75 @@ const cases = [
   ['london-tube-arriving-platform', 'London Underground', 'train on the left'],
   ['yamanote-platform-advertising', 'Yamanote Line', 'train on the right'],
 ];
+const transitSets = [...cases.map(([set]) => set), 'japan-carriage-bench-front', 'japan-carriage-side-aisle', 'japan-carriage-rush-hour'];
+test('transit UI keeps manual options and does not clear a selected light on ambient changes', () => {
+  for (const set of transitSets) {
+    const previousLocks = { ...buildAllNoneLocks(getLockControls(), createEmptyLocks()), subjectCount: '1',
+      fixedCompositionSetId: set, lightDirectionId: id('lightDirectionId', '高調亮光') };
+    const candidateLocks = { ...previousLocks, lightingId: id('lightingId', '室內低照度暖色夜景') };
+    const options = getSceneDependentOptions([], candidateLocks);
+    assert.deepEqual(options.lightDirectionOptions, getLockControls().find(c => c.key === 'lightDirectionId').options);
+    const result = transitionPage1Locks({ previousLocks, candidateLocks, lockControls: getLockControls() });
+    assert.equal(result.lightDirectionId, candidateLocks.lightDirectionId);
+    assert.equal(result.lightingId, candidateLocks.lightingId);
+  }
+});
+test('transit random ambient uses actual scene metadata, not the cleared ordinary location', () => {
+  const options = getLockControls().find(c => c.key === 'lightingId').options;
+  for (const set of transitSets) {
+    for (let seed = 0; seed < 24; seed += 1) {
+      const result = generatePrompts(1, {
+        ...buildAllNoneLocks(getLockControls(), createEmptyLocks()), subjectCount: '1',
+        fixedCompositionSetId: set, poseBaseId: 'standing', lightingId: '', lightDirectionId: '',
+      }, [], { random: createSeededRandom(`transit-light-${seed}`) })[0];
+      const selected = options.find(o => o.id === result.selection.lightingId);
+      assert.ok(selected, set);
+      if (selected.zh === '全無') continue;
+      const tags = selected.meta.tags;
+      if (set === 'yamanote-platform-advertising') {
+        assert.ok(!tags.includes('ambient_indoor') && !tags.includes('ambient_studio'), selected.zh);
+      } else {
+        assert.ok(!tags.includes('ambient_outdoor'), selected.zh);
+        if (set.startsWith('nyc-') || set.startsWith('london-')) assert.ok(!tags.includes('studio_light'), selected.zh);
+      }
+    }
+  }
+});
+test('legacy fixed-set compatibility remains while ordinary explicit lighting stays unchanged', () => {
+  const lightingId = id('lightingId', '黃昏夕陽');
+  const legacy = generate('concrete-wall-chesterfield-sofa', '28mm 廣角', '正面 0 度', { lightingId });
+  assert.notEqual(legacy.selection.lightingId, lightingId);
+  assert.equal(generate('none', '28mm 廣角', '正面 0 度', { lightingId }).selection.lightingId, lightingId);
+});
+test('six transit sets preserve explicit ambient and subject lighting across scene-bearing outputs', () => {
+  for (const set of transitSets) {
+    for (const [ambient, subject, fragment] of [
+      ['黃昏夕陽', '暖金黃昏色溫', 'golden'],
+      ['藍調傍晚', '霓虹染色光', 'neon'],
+      ['室內低照度暖色夜景', '高調亮光', 'high-key'],
+    ]) {
+      const result = generate(set, '28mm 廣角', '正面 0 度', {
+        lightingId: id('lightingId', ambient), lightDirectionId: id('lightDirectionId', subject),
+      });
+      assert.equal(result.selection.lightingId, id('lightingId', ambient), set);
+      assert.equal(result.selection.lightDirectionId, id('lightDirectionId', subject), set);
+      for (const text of [result.grokPrompt, result.zImagePrompt, result.midjourneyPrompt,
+        ...result.extraPrompts.filter(p => p.id.includes('chest-up')).map(p => p.text)]) {
+        assert.ok(text.toLowerCase().includes(fragment), `${set}: ${fragment}`);
+      }
+      const restored = generatePrompts(1, normalizeLocks(JSON.parse(JSON.stringify(result.selection))), [],
+        { random: createSeededRandom('transit-light-restore') })[0];
+      assert.equal(restored.selection.lightingId, result.selection.lightingId);
+      assert.equal(restored.selection.lightDirectionId, result.selection.lightDirectionId);
+    }
+    const silent = generate(set, '28mm 廣角');
+    assert.equal(silent.selection.lightingId, id('lightingId', '全無'));
+    assert.equal(silent.selection.lightDirectionId, id('lightDirectionId', '全無'));
+    const subjectOnly = generate(set, '28mm 廣角', '正面 0 度', { lightDirectionId: id('lightDirectionId', '霓虹染色光') });
+    assert.equal(subjectOnly.selection.lightingId, id('lightingId', '全無'));
+    assert.equal(subjectOnly.selection.lightDirectionId, id('lightDirectionId', '霓虹染色光'));
+  }
+});
 const id = (key, zh) => {
   const option = getLockControls().find(c => c.key === key).options.find(o => o.zh === zh);
   assert.ok(option, `${key}: ${zh}`);
