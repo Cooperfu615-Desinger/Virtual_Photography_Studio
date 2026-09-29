@@ -1,7 +1,7 @@
 export const CONDITIONAL_GARTER_BELT_SUMMARY_LABEL = '蕾絲吊襪帶腰封（自動搭配）';
 
 const CONDITIONAL_BOTTOM_LABELS = new Set([
-  '蕾絲內褲',
+  '棉質低腰三角褲',
   '蕾絲丁字褲',
   '比基尼下身',
 ]);

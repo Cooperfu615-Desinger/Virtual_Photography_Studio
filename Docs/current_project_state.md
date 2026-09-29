@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-09-29
 
+## Cotton low-rise briefs replacement (local, 2026-09-29)
+
+- 褲裝「蕾絲內褲」替換為「棉質低腰三角褲」：`low-rise cotton briefs, soft cotton fabric, triangular front panel, full-coverage back`。不固定顏色，既有配色／版型／腰線與景別投影維持原規則；同人物膝上蕾絲吊帶襪的吊襪帶搭配保留。單人及 A/B 使用原 ID `wardrobe:褲裝-pants:蕾絲內褲:7`，歷史英文來源保留為匯入 alias；舊卡的已存 Prompt 不批次改寫，還原後重新生成採用新單品。無 storage migration 或 renderer 改寫。
+- Validation on the current shared working tree: focused 109/109, frontend 1112/1112, Prompt Quality 380/380, final representative-contract checks 76/76, lint/build, sync/check, Python 2/2 and diff-check pass. Before/after 200-case strict audits with `prompt-quality-baseline` are byte-identical: 0 blocking signals, 28 existing diagnostics. Existing build chunk-size advisory remains.
+- Browser at 1440×1000 and 390×900 checked the new selected label, all six preview texts and all five required workspaces. Main/full-body outputs retain cotton briefs; both chest crops omit the lower garment. No console warnings/errors, broken loaded images or document horizontal overflow. Original six preview texts restored exactly; viewport reset, temporary tab closed, no Saved Cards created/deleted. Screenshots: `/tmp/cotton-briefs-desktop.png`, `/tmp/cotton-briefs-mobile.png`.
+- Implementation and validation complete; the user authorized commit/push on 2026-09-29. Verify delivery against Git rather than inferring it from this document. No deployment was performed. Existing carriage changes and user reference-image folders remain intact; external image-generation results were not evaluated.
+
 ## Fully closed outerwear (local, 2026-09-29)
 
 - 外套開合新增手動「全扣上／全拉上」，17 款外套適用；依既有扣件分成完全拉鏈、全扣鈕扣／按扣或通用閉合措辭。選項附加於既有清單，既有 IDs 與隨機池不變。薄紗輕薄披衣外套、蕾絲罩衫保留透過閉合布料可見的內搭；其他款式省略被遮住的上身描述。衣長、獨立下身、腰線、鞋襪、配件維持原設定。See [outerwear catalog v1](specs/outerwear-catalog-v1.md).

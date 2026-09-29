@@ -1884,11 +1884,11 @@ test('Grok/Z-Image uses X-prompt wardrobe wording without guard clauses for repr
     ...baseLocks,
     topId: optionId('topId', '蕾絲胸罩'),
     topColorId: optionId('topColorId', '黑色'),
-    pantsId: optionId('pantsId', '蕾絲內褲'),
+    pantsId: optionId('pantsId', '棉質低腰三角褲'),
     bottomColorId: optionId('bottomColorId', '黑色'),
   });
   assert.match(zImageWardrobeParagraph(lacePrompt), /black lace bra top, delicate shoulder straps/i);
-  assert.match(zImageWardrobeParagraph(lacePrompt), /black low-rise lace panties/i);
+  assert.match(zImageWardrobeParagraph(lacePrompt), /black low-rise cotton briefs/i);
   assert.doesNotMatch(zImageWardrobeParagraph(lacePrompt), noZGuard);
 });
 
@@ -1903,10 +1903,10 @@ test('AI prompt uses simplified X-prompt wardrobe wording for representative loo
     ...baseLocks,
     topId: optionId('topId', '蕾絲胸罩'),
     topColorId: optionId('topColorId', '黑色'),
-    pantsId: optionId('pantsId', '蕾絲內褲'),
+    pantsId: optionId('pantsId', '棉質低腰三角褲'),
     bottomColorId: optionId('bottomColorId', '黑色'),
   });
-  assert.match(lacePrompt.midjourneyPrompt, /Wearing black lace bra top, (?:black low-rise lace panties|lingerie bottoms)/i);
+  assert.match(lacePrompt.midjourneyPrompt, /Wearing black lace bra top, black low-rise cotton briefs/i);
   assert.doesNotMatch(lacePrompt.midjourneyPrompt, /gothic lace street look|top length|waistband|[\u3400-\u9fff]/i);
 
   const [dressPrompt] = generatePrompts(1, {

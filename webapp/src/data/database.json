@@ -2720,9 +2720,16 @@
         "desc": "以五分長度的緊身韻律短褲為主，像 leggings 的貼身彈性布料但長度停在膝上到膝位附近，不是長褲。"
       },
       {
-        "zh": "蕾絲內褲",
-        "en": "low-rise lace panties, lingerie bottoms, delicate lace texture, close-fitting hip line, compact lower-body structure",
-        "desc": "以低腰蕾絲內褲本體為主，強調蕾絲質地、貼合臀線與精簡下身結構，不加入情境語氣。"
+        "zh": "棉質低腰三角褲",
+        "en": "low-rise cotton briefs, soft cotton fabric, triangular front panel, full-coverage back",
+        "desc": "基本款日常內衣：低腰棉質三角內褲，柔軟棉布、三角前片與完整後片；配色由下身顏色控制。",
+        "stableId": "wardrobe:褲裝-pants:蕾絲內褲:7",
+        "legacyLabels": [
+          "蕾絲內褲"
+        ],
+        "legacyPromptAliases": [
+          "low-rise lace panties, lingerie bottoms, delicate lace texture, close-fitting hip line, compact lower-body structure"
+        ]
       },
       {
         "zh": "蕾絲丁字褲",

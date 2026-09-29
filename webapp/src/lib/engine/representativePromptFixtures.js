@@ -105,23 +105,24 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   },
   {
     id: 'conditional-lace-garter-belt',
-    title: 'Selected independent lace bottoms add the garter-belt and stocking connection across visible outputs',
+    title: 'Selected independent underwear bottoms add the garter-belt and stocking connection across visible outputs',
     mode: 'single',
     seed: 'conditional-garter-belt-v1',
     locks: {
       subjectCount: '1',
       framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
-      pantsId: { byZh: '蕾絲內褲' },
+      pantsId: { byZh: '棉質低腰三角褲' },
       legwearId: { byZh: '膝上蕾絲吊帶襪' },
     },
     expectedOutputs: {
       ...Object.fromEntries([
         'grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'fullBodyCharacterPrompt',
       ].map((field) => [field, {
-        includes: ['a separate lace garter belt worn over the bottoms at the hips', 'slim straps connecting to the stocking tops'],
+        includes: ['cotton briefs', 'a separate lace garter belt worn over the bottoms at the hips', 'slim straps connecting to the stocking tops'],
+        excludes: ['lace panties'],
       }])),
-      chestUpPortraitPrompt: { excludes: ['lace garter belt worn over the bottoms'] },
-      chestUpMjPortraitPrompt: { excludes: ['lace garter belt worn over the bottoms'] },
+      chestUpPortraitPrompt: { excludes: ['cotton briefs', 'lace garter belt worn over the bottoms'] },
+      chestUpMjPortraitPrompt: { excludes: ['cotton briefs', 'lace garter belt worn over the bottoms'] },
     },
   },
   {

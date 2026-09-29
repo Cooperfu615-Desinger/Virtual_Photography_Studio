@@ -36,7 +36,7 @@ function getPromptText(prompt, field) {
 }
 
 test('all approved independent lower garments add the derived garter-belt layer without changing stored selections', () => {
-  for (const bottom of ['蕾絲內褲', '蕾絲丁字褲', '比基尼下身']) {
+  for (const bottom of ['棉質低腰三角褲', '蕾絲丁字褲', '比基尼下身']) {
     const pantsId = optionId('pantsId', bottom);
     const legwearId = optionId('legwearId', '膝上蕾絲吊帶襪');
     const prompt = generate({ pantsId, legwearId });

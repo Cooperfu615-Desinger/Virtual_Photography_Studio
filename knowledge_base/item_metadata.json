@@ -122,6 +122,13 @@
       }
     },
     "褲裝 (Pants)": {
+      "棉質低腰三角褲": {
+        "stableId": "wardrobe:褲裝-pants:蕾絲內褲:7",
+        "legacyLabels": ["蕾絲內褲"],
+        "legacyPromptAliases": [
+          "low-rise lace panties, lingerie bottoms, delicate lace texture, close-fitting hip line, compact lower-body structure"
+        ]
+      },
       "直筒牛仔褲": {
         "legacyIds": [
           "wardrobe:褲裝-pants:高腰直筒牛仔褲:1"

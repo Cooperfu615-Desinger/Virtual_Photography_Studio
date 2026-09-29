@@ -210,6 +210,8 @@ lace bra top, delicate lace cups, intimate lingerie structure, slim strap detail
 - 不把顏色寫死在 prompt。
 - 特殊材質如 leather、latex、satin、mesh 可以保留，因為它們是材質不是配色。
 
+2026-09-29 「蕾絲內褲」原位替換為「棉質低腰三角褲」，來源為 `low-rise cotton briefs, soft cotton fabric, triangular front panel, full-coverage back`。保留原 ID `wardrobe:褲裝-pants:蕾絲內褲:7` 與清單順序，單人／雙人控制沿用；舊英文來源及舊名稱作相容 metadata，不輸出為新 Prompt。下身顏色、版型、腰線與同人物吊襪帶搭配沿用既有規則。
+
 2026-09-25 水手服單品例外：`短袖水手服`、`長袖水手服` 是獨立上身，常態為不勾勒胸腰的寬鬆直筒制服衣身，覆到裙腰。上身配色只作用於衣身／袖身；水手領固定近黑深藍配白色平行線，領巾同為深藍，長袖袖口保留深藍白線。選 `上身版型＝緊身` 時，共用 resolved wardrobe 將衣身改為尺寸偏小、貼身且衣襬上移露腹；若同時選紮入、半紮或自然放出，改以衣襬在腰頭上方的可見狀態描述，避免矛盾。`水手服短裙` 是膝上百褶裙；`水手服長裙` 為近地長百褶裙，可搭配女暴走族風格。兩者保留制服腰頭與寬褶；下身版型只改腰頭或褶量，不把裙子變成褲管或壓平裙褶。既有兩套完整水手服維持獨立選項。
 
 ## 8. 版型、穿法與腰線
@@ -312,7 +314,7 @@ lace bra top, delicate lace cups, intimate lingerie structure, slim strap detail
 - 英文 prompt 以 4-16 words 為目標。
 - 描述 hosiery type、length、texture、band、garter 或 ribbed structure。
 - 長褲或長裙存在時，襪類應保持 secondary，不應覆蓋長下身。
-- 條件式加層：只有獨立下身選擇「蕾絲內褲」、「蕾絲丁字褲」或「比基尼下身」，且同一人物的襪類選擇「膝上蕾絲吊帶襪」時，runtime 才在襪類的共用來源補上「蕾絲吊襪帶腰封穿在下身之外、吊帶連接至襪口」的描述。這是襪類與獨立下身的條件式搭配，不是新的腰部配件選項；完整套裝、連身服、其他下身與跨人物 A/B 配對均不觸發。
+- 條件式加層：只有獨立下身選擇「棉質低腰三角褲」（原「蕾絲內褲」）、「蕾絲丁字褲」或「比基尼下身」，且同一人物的襪類選擇「膝上蕾絲吊帶襪」時，runtime 才在襪類的共用來源補上「蕾絲吊襪帶腰封穿在下身之外、吊帶連接至襪口」的描述。這是襪類與獨立下身的條件式搭配，不是新的腰部配件選項；完整套裝、連身服、其他下身與跨人物 A/B 配對均不觸發。
 - 條件式來源保留原選項 ID／英文字串於 catalog 不變，單人與雙人 A/B 依相同人物層級配對；各 renderer 繼續套用原有構圖可見性與壓縮規則。Generation Summary 顯示「蕾絲吊襪帶腰封（自動搭配）」以便追溯，selection／Saved Cards 不建立新的配件欄位。
 
 ### 10.3 鞋款

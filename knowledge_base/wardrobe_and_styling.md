@@ -256,7 +256,7 @@
 | **褲裝 (Pants)** | 超短運動短褲 | `micro athletic shorts, compact sporty cut, minimal hem length, lightweight activewear structure` | 以超短褲長、運動褲口與輕量機能結構為主，整體偏精簡直接的 activewear 語言。 |
 | **褲裝 (Pants)** | 真理褲 | `low-rise dolphin micro shorts, contrast piping, contrast elastic waistband, front drawstring, side lace-up grommet detail, compact athletic hot-pants silhouette` | 以低腰 dolphin 熱褲為核心，包含撞色滾邊、對比鬆緊腰頭、前方抽繩與側邊綁孔細節，重點是短版運動熱褲比例。 |
 | **褲裝 (Pants)** | 韻律緊身短褲 | `knee-length stretch leggings shorts, fitted rhythmic dance shorts, elastic activewear fabric, streamlined mid-leg silhouette` | 以五分長度的緊身韻律短褲為主，像 leggings 的貼身彈性布料但長度停在膝上到膝位附近，不是長褲。 |
-| **褲裝 (Pants)** | 蕾絲內褲 | `low-rise lace panties, lingerie bottoms, delicate lace texture, close-fitting hip line, compact lower-body structure` | 以低腰蕾絲內褲本體為主，強調蕾絲質地、貼合臀線與精簡下身結構，不加入情境語氣。 |
+| **褲裝 (Pants)** | 棉質低腰三角褲 | `low-rise cotton briefs, soft cotton fabric, triangular front panel, full-coverage back` | 基本款日常內衣：低腰棉質三角內褲，柔軟棉布、三角前片與完整後片；配色由下身顏色控制。 |
 | **褲裝 (Pants)** | 蕾絲丁字褲 | `seamless lace thong bottoms, ultra-thin side straps, low-rise V-front, minimal back panel` | 以無痕蕾絲丁字褲為主，低腰 V 字前片、極細側帶與極少後片結構，和一般蕾絲內褲做出清楚區隔。 |
 | **褲裝 (Pants)** | 皮革短褲 | `leather shorts, glossy leather surface, compact fitted seat, sharp short-bottom silhouette` | 以皮革表面、俐落短褲比例與較硬挺的下身結構為主，重點在材質與剪裁態度。 |
 | **褲裝 (Pants)** | 工裝長褲 | `cargo pants, structured utility silhouette, practical pocket detailing` | 工裝、街頭與機能感都很穩，輪廓偏直筒或微寬鬆。 |

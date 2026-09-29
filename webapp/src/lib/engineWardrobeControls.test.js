@@ -221,15 +221,15 @@ test('pants controls include dolphin micro shorts and knee-length fitted shorts'
 });
 
 test('lace thong prompt uses thin-strap minimal-coverage thong structure', () => {
-  const lacePanties = optionByLabel('pantsId', '蕾絲內褲');
+  const cottonBriefs = optionByLabel('pantsId', '棉質低腰三角褲');
   const laceThong = optionByLabel('pantsId', '蕾絲丁字褲');
 
-  assert.match(lacePanties.en, /lace panties/);
+  assert.match(cottonBriefs.en, /cotton briefs/);
   assert.match(laceThong.en, /seamless lace thong bottoms/);
   assert.match(laceThong.en, /ultra-thin side straps/);
   assert.match(laceThong.en, /minimal back panel/);
   assert.doesNotMatch(laceThong.en, /exposed buttock curve/i);
-  assert.doesNotMatch(lacePanties.en, /thong|minimal rear coverage|exposed buttock curve|delicate intimate styling|exposed hip line/i);
+  assert.doesNotMatch(cottonBriefs.en, /thong|minimal rear coverage|exposed buttock curve|delicate intimate styling|exposed hip line/i);
 
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
