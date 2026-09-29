@@ -12,9 +12,9 @@ const definitions = [
   },
   {
     id: 'london-tube-arriving-platform', zh: '倫敦地鐵列車進站月台',
-    en: 'A London Underground station with an arriving red-and-white Tube train on the left and the passenger platform and tiled station wall on the right, receding together toward the far end. A curved station ceiling, round station clock and wayfinding signs frame the platform. Motion streaks belong to the arriving train while the platform architecture and portrait subject remain still.',
-    compactEn: 'London Underground station, arriving red-and-white Tube train on the left, passenger platform and tiled wall on the right, curved ceiling, round clock and wayfinding signs. Train-only motion streaks with a still subject and platform.',
-    desc: '列車在左、月台與磁磚牆在右；車身進站拖影，人物與月台維持靜止。',
+    en: 'A London Underground station with a stationary red-and-white Tube train on the left and the passenger platform and tiled station wall on the right, receding together toward the far end. A curved station ceiling, round station clock and wayfinding signs frame the platform. The train is stopped at the platform.',
+    compactEn: 'London Underground station, stationary red-and-white Tube train on the left, passenger platform and tiled wall on the right, curved ceiling, round clock and wayfinding signs. The train is stopped at the platform.',
+    desc: '靜止停靠的列車在左、月台與磁磚牆在右；保留弧形站頂、圓鐘與導引牌。',
     tags: ['indoor', 'subterranean', 'urban'],
   },
   {

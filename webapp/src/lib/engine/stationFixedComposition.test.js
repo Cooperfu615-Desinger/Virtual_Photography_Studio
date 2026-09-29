@@ -15,6 +15,20 @@ const id = (key, zh) => {
   assert.ok(option, `${key}: ${zh}`);
   return option.id;
 };
+test('London scene keeps the existing label and a stationary train in every scene-bearing output', () => {
+  const option = getLockControls().find(c => c.key === 'fixedCompositionSetId').options
+    .find(o => o.id === 'london-tube-arriving-platform');
+  assert.equal(option.zh, '倫敦地鐵列車進站月台');
+  for (const lens of ['28mm 廣角', '135mm 長焦壓縮']) {
+    const result = generate(option.id, lens);
+    const texts = [result.grokPrompt, result.zImagePrompt, result.midjourneyPrompt,
+      ...result.extraPrompts.filter(p => p.id.includes('chest-up')).map(p => p.text)];
+    for (const text of texts) {
+      assert.match(text, /stationary red-and-white Tube train on the left/);
+      assert.doesNotMatch(text, /arriving|motion streaks|train-only|moving train/i);
+    }
+  }
+});
 function generate(setId, lens, orbit = '背面 180 度', overrides = {}) {
   return generatePrompts(1, {
     ...buildAllNoneLocks(getLockControls(), createEmptyLocks()), subjectCount: '1', fixedCompositionSetId: setId,

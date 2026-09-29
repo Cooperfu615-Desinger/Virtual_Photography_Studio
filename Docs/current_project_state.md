@@ -2,7 +2,11 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-09-28
+Last updated: 2026-09-29
+
+2026-09-29 London station follow-up: the fixed scene retains its UI name `倫敦地鐵列車進站月台` and ID `london-tube-arriving-platform`, but its full/compact descriptions now specify a stationary train stopped at the platform, removing arrival and train-motion streaks. Layout, lens, subject-facing and other scenes are unchanged.
+
+Follow-up validation: station tests 8/8, frontend tests 1078/1078, prompt-quality 363/363, lint/build and diff checks passed. Same-seed 200-case strict audits before/after both have zero blockers and 27 unchanged diagnostics. Browser output readback confirms stationary wording in all five scene-bearing outputs; five-workspace smoke at 1440×1000 and 390×900 has no page overflow, broken images or console warnings/errors. Not yet committed or pushed.
 
 ## Station fixed composition (local, 2026-09-28)
 
