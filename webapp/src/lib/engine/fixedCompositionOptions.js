@@ -1,5 +1,5 @@
 import { STATION_FIXED_COMPOSITION_OPTIONS } from './stationFixedComposition.js';
-import { CARRIAGE_FIXED_COMPOSITION_OPTIONS, CARRIAGE_WINDOW_BACKGROUND_OPTIONS } from './carriageFixedComposition.js';
+import { CARRIAGE_FIXED_COMPOSITION_OPTIONS, CARRIAGE_WINDOW_BACKGROUND_OPTIONS, CARRIAGE_POSITION_OPTIONS } from './carriageFixedComposition.js';
 
 export const FIXED_COMPOSITION_SHARED_STRUCTURE_EN = 'fixed-set rule: stable selected room architecture; vary only subject placement, pose, crop, camera distance, camera orbit, lighting, and mood inside the same real-scale set; keep adult scale believable against furniture, fixtures, and props; avoid enlarging the subject or shrinking set anchors';
 const OUTDOOR_FIXED_COMPOSITION_SHARED_STRUCTURE_EN = 'fixed-set rule: stable selected outdoor architecture; vary only subject placement, pose, crop, lighting, mood, and selected background life state inside the same real-scale set; keep adult scale believable against roads, stairs, rails, poles, buildings, and distant background anchors; avoid enlarging the subject or shrinking set anchors';
@@ -103,6 +103,7 @@ export const FIXED_COMPOSITION_SET_OPTIONS = [
 ];
 
 export const FIXED_SET_POSITION_OPTIONS = [
+  // Carriage presets are appended below to preserve legacy option order.
   { id: 'none', zh: '全無', en: 'none', desc: '不指定固定場景內的人物位置。', meta: { tags: ['none'] } },
   {
     id: 'sofa-free-interaction',
@@ -272,6 +273,7 @@ export const FIXED_SET_POSITION_OPTIONS = [
     zh: '牆面小巷側邊',
     en: 'subject beside the pale stucco wall or narrow building edge, letting the stairs and railings continue downhill toward the ocean in the background',
   },
+  ...CARRIAGE_POSITION_OPTIONS,
 ];
 
 export const FIXED_SET_BACKGROUND_STATE_OPTIONS = [

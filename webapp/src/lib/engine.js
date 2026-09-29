@@ -70,7 +70,7 @@ import {
 } from './engine/stationFixedComposition.js';
 import {
   isCarriageFixedSet, fixedSetAllowsFramingVariation, resolveCarriageOrbit,
-  carriageCameraText, carriageSceneText,
+  carriageCameraText, carriageSceneText, carriagePoseLocks,
 } from './engine/carriageFixedComposition.js';
 import {
   createFixedFramingDerivedContext,
@@ -5999,6 +5999,14 @@ function buildChestUpPoseComposerSentence({ orientation, arrangement, handPose, 
 function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = false, omitHand = false } = {}) {
   if (!poseComposer || isNoneLikeItem(poseComposer)) return '';
   const projection = getCompositionVisibilityProjection(context);
+  if (context.fixedSetPosition?.carriagePose) {
+    if (projection.pose?.mode === 'omit') return '';
+    const position = context.fixedSetPosition;
+    const head = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, poseComposer.meta?.poseHeadId);
+    return [projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP ? position.chestEn : position.en,
+      isActivePoseComposerOption(head) && !isRandomOption(head) ? `She has ${stripTerminalPromptPunctuation(head.en)}.` : '',
+    ].filter(Boolean).join(' ');
+  }
 
   const activeOption = (options, id) => {
     const option = getPoseComposerOption(options, id);
@@ -10543,6 +10551,7 @@ function isFreeInteractionFixedSetPosition(position) {
 
 function buildZImageFixedSetPositionText(context) {
   const position = context.fixedSetPosition;
+  if (position?.carriagePose) return ''; // Emitted once by the shared canonical pose projection.
   if (!position || isNoneLikeItem(position)) return '';
 
   if (isFreeInteractionFixedSetPosition(position)) {
@@ -10717,6 +10726,7 @@ function naturalizeGptFixedSetSourceText(value) {
 }
 
 function buildGptFixedSetPositionText(position) {
+  if (position?.carriagePose) return '';
   if (!position || isNoneLikeItem(position)) return '';
 
   return ensureTerminalPeriod(capitalizePromptLead(naturalizeGptFixedSetSourceText(position.en)));
@@ -16012,7 +16022,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
       random,
     )
   );
-  const effectiveLocks = sanitizeLocksForCloseupMode(locks, lockControls);
+  const effectiveLocks = sanitizeLocksForCloseupMode(carriagePoseLocks(locks), lockControls);
   if (isFullyClosedOpening(effectiveLocks.outerwearOpeningId) && effectiveLocks.poseHandId === PULL_OPEN_HAND_ID) {
     effectiveLocks.poseHandId = 'none';
   }

@@ -1,7 +1,7 @@
 import { prepareAccessoryControl } from '../lib/engine/accessoryPolicy.js';
 import { prepareOuterwearClosureControl } from '../lib/engine/outerwearClosure.js';
 import { fixedSetAllowsLensVariation, isStationFixedSet, stationSubjectFacingText } from '../lib/engine/stationFixedComposition.js';
-import { isCarriageFixedSet, fixedSetAllowsFramingVariation, carriageOrbitAllowed, resolveCarriageOrbit, carriageCameraText } from '../lib/engine/carriageFixedComposition.js';
+import { isCarriageFixedSet, fixedSetAllowsFramingVariation, carriageOrbitAllowed, resolveCarriageOrbit, carriageCameraText, getCarriagePosition, carriagePoseLocks, CARRIAGE_MANAGED_POSE_KEYS } from '../lib/engine/carriageFixedComposition.js';
 import { Fragment, useMemo, useState } from 'react';
 import { Check, Copy } from 'lucide-react';
 import DllPicProPanel from './DllPicProPanel';
@@ -680,10 +680,12 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     createPromptGenerationLocks(locks),
     createPromptGenerationLocks(clearedLocks),
   );
+  const carriagePosition = getCarriagePosition(locks);
+  const effectiveCarriageLocks = useMemo(() => carriagePoseLocks(locks), [locks]);
   const workspaceSummary = useMemo(() => ({
-    ...buildWorkspaceSummary(locks, lockControls),
+    ...buildWorkspaceSummary(effectiveCarriageLocks, lockControls),
     midjourney: buildMidjourneyParameterSummary(midjourneyParameterSettings),
-  }), [locks, lockControls, midjourneyParameterSettings]);
+  }), [effectiveCarriageLocks, lockControls, midjourneyParameterSettings]);
   const generationSummary = useMemo(
     () => buildPage1GenerationSummary(locks, previewPrompt, lockControls),
     [locks, previewPrompt, lockControls]
@@ -704,7 +706,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     ? normalizeCharacterCardLayerIds(locks.characterCardWardrobeLayerIds)
     : [];
   const isAndroidSubjectMode = specialSubjectOption?.specialSubject === 'android';
-  const supineSurfaceOnly = isSupinePoseSelection(locks);
+  const supineSurfaceOnly = isSupinePoseSelection(effectiveCarriageLocks);
   const resolvedActiveSubpanelBase = resolvePage1ActiveSubpanel(activeSection, activeSubpanel, { subjectCount: locks.subjectCount });
   const resolvedActiveSubpanel = supineSurfaceOnly
     && activeSection === 'scene'
@@ -771,16 +773,16 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const selectedSpecialActionOption = getSpecialActionOption(locks.specialActionId);
   const selectedSpecialActionIsSocial = isSocialShootingActionOption(selectedSpecialActionOption);
   const selectedPoseHandOption = poseHandControl?.options?.find((option) => option.id === locks.poseHandId) || null;
-  const selectedPoseHandLocksOrbit = isSelfiePoseHandOption(selectedPoseHandOption);
+  const selectedPoseHandLocksOrbit = !carriagePosition && isSelfiePoseHandOption(selectedPoseHandOption);
   const isPoseComposerValueActive = (key, value = locks[key]) => (
     Boolean(value) && !isNoneSelected(key, value, characterLockControls)
   );
   const isPoseComposerActive = POSE_COMPOSER_CONTROL_KEYS.some((key) => isPoseComposerValueActive(key));
-  const selectedPoseBaseId = POSE_COMPOSER_BASE_IDS.has(locks.poseBaseId) ? locks.poseBaseId : '';
+  const selectedPoseBaseId = POSE_COMPOSER_BASE_IDS.has(effectiveCarriageLocks.poseBaseId) ? effectiveCarriageLocks.poseBaseId : '';
   const selectedPoseOrientationId = typeof locks.poseOrientationId === 'string' && locks.poseOrientationId.startsWith('lying-')
     ? locks.poseOrientationId
     : '';
-  const activeActionPoseCard = locks.subjectCount !== '2' && !isDedicatedSpecialSubjectMode
+  const activeActionPoseCard = !carriagePosition && locks.subjectCount !== '2' && !isDedicatedSpecialSubjectMode
     ? getActionPoseCardById(locks.actionPoseCardId)
     : null;
   const currentModeBadges = [
@@ -805,8 +807,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       ].filter(Boolean),
     },
     pose: {
-      status: activeActionPoseCard ? '動作卡接管' : formatSectionStatus('pose', countEffectiveSelections('pose', locks, lockControls), isClearedLockState),
+      status: carriagePosition ? '車廂人物位置接管' : activeActionPoseCard ? '動作卡接管' : formatSectionStatus('pose', countEffectiveSelections('pose', locks, lockControls), isClearedLockState),
       chips: [
+        carriagePosition?.zh || '',
         activeActionPoseCard ? activeActionPoseCard.title : '',
         isPoseComposerActive ? 'Pose Composer' : '',
         selectedPoseHandLocksOrbit ? '自拍手部鎖定環繞' : '',
@@ -849,6 +852,10 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   };
 
   const buildPoseComposerControl = (control) => {
+    if (carriagePosition && CARRIAGE_MANAGED_POSE_KEYS.includes(control.key)) {
+      return { ...control, label: `${control.label}（車廂位置接管）`, suppressDefaultRandomOption: true,
+        options: control.options.filter(option => option.id === effectiveCarriageLocks[control.key]) };
+    }
     if (!POSE_COMPOSER_CONTEXT_KEYS.has(control.key)) return control;
     return {
       ...control,
@@ -895,7 +902,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   };
 
   const isControlDisabled = (control) => (
-    (isCloseupMode && !closeupAllowedKeys.has(control.key))
+    (Boolean(carriagePosition) && CARRIAGE_MANAGED_POSE_KEYS.includes(control.key))
+    || (isCloseupMode && !closeupAllowedKeys.has(control.key))
     || (supineSurfaceOnly && SUPINE_SCENE_LOCKED_KEYS.has(control.key))
     || (isDedicatedSubjectMode && !isAndroidSubjectMode && [
       'hairstyleId', 'hairstyleAId', 'hairstyleBId',
@@ -911,8 +919,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     || (fixedCompositionSetActive && !fixedSetAllowsCameraVariation && FIXED_SET_STRICT_CAMERA_KEYS.includes(control.key))
     || (selectedPoseHandLocksOrbit && control.key === 'orbitId')
     || (POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && locks.subjectCount !== '1')
-    || (POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && (Boolean(locks.poseId) && !isNoneSelected('poseId', locks.poseId, characterLockControls)))
-    || (POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && (Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls)))
+    || (!carriagePosition && POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && (Boolean(locks.poseId) && !isNoneSelected('poseId', locks.poseId, characterLockControls)))
+    || (!carriagePosition && POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && (Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls)))
     || (['poseId', 'specialActionId'].includes(control.key) && isPoseComposerActive)
     || (control.key === 'poseId' && Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls) && !selectedSpecialActionIsSocial)
     || (['topColorId', 'bottomColorId'].includes(control.key) && Boolean(locks.topBottomPaletteId) && !isNoneSelected('topBottomPaletteId', locks.topBottomPaletteId, wardrobeLockControls))
@@ -1057,12 +1065,12 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
           createEmptyLocks(),
           lockControls,
         )
-        : randomizeLockKeys(prev, activeSubpanelKeys, createEmptyLocks(), lockControls)
+        : randomizeLockKeys(prev, activeSubpanelKeys.filter(key => !carriagePosition || !CARRIAGE_MANAGED_POSE_KEYS.includes(key)), createEmptyLocks(), lockControls)
     ));
   };
 
   const handleSetActiveSectionNone = () => {
-    updateLocks((prev) => setLockKeysToNone(prev, activeSubpanelKeys, lockControls));
+    updateLocks((prev) => setLockKeysToNone(prev, activeSubpanelKeys.filter(key => !carriagePosition || !CARRIAGE_MANAGED_POSE_KEYS.includes(key)), lockControls));
   };
 
   const clearImportedWorldSceneArchitecture = () => {
@@ -1137,7 +1145,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
           : preparedControl;
         const displayFixedSetDependentAsNone = FIXED_SET_DEPENDENT_DISPLAY_NONE_KEYS.has(control.key) && !fixedCompositionSetActive;
         const disabled = isControlDisabled(control) || Boolean(control.closureDisabled);
-        const value = control.closureDisplayValue ?? (control.key === 'orbitId' && isCarriageFixedSet(selectedFixedCompositionSetOption)
+        const value = (carriagePosition && CARRIAGE_MANAGED_POSE_KEYS.includes(control.key)) ? effectiveCarriageLocks[control.key] : control.closureDisplayValue ?? (control.key === 'orbitId' && isCarriageFixedSet(selectedFixedCompositionSetOption)
           ? resolveCarriageOrbit(selectedFixedCompositionSetOption,
               baseControl.options.find(option => option.id === locks.orbitId), baseControl.options)?.id || locks.orbitId
           : supineSurfaceOnly && SUPINE_SCENE_LOCKED_KEYS.has(control.key)
@@ -1278,6 +1286,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         </div>
         {renderSectionActionButtons()}
       </div>
+      {carriagePosition ? <div className="context-note">車廂人物位置「{carriagePosition.zh}」接管姿勢與手部動作。表情與頭部動作仍可調整；選回全無或離開此場景後恢復原設定。</div> : null}
       {activeActionPoseCard ? (
         <div className="context-note action-pose-context-note">
           <span>動作卡「{activeActionPoseCard.title}」正在接管單人神情姿態輸出。</span>

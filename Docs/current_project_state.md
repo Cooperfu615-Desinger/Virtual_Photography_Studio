@@ -11,6 +11,15 @@ Last updated: 2026-09-29
 - Browser at 1440×1000 and 390×900 checked the new selected label, all six preview texts and all five required workspaces. Main/full-body outputs retain cotton briefs; both chest crops omit the lower garment. No console warnings/errors, broken loaded images or document horizontal overflow. Original six preview texts restored exactly; viewport reset, temporary tab closed, no Saved Cards created/deleted. Screenshots: `/tmp/cotton-briefs-desktop.png`, `/tmp/cotton-briefs-mobile.png`.
 - Implementation and validation complete; the user authorized commit/push on 2026-09-29. Verify delivery against Git rather than inferring it from this document. No deployment was performed. Existing carriage changes and user reference-image folders remain intact; external image-generation results were not evaluated.
 
+## Carriage position/pose follow-up (local, 2026-09-29)
+
+- User-approved follow-up strengthens the front-bench horizontal axis: across carriage width, perpendicular to the window wall, not down the aisle. Framing, lens and camera height remain selectable; peripheral details may be cropped.
+- Eight append-only scene-specific `fixedSetPositionId` presets own posture and necessary hand/support relationships. The UI projects managed controls without overwriting latent choices, and none/scene exit restores them. Expression/head remain selectable. Fixed capture/performance controls resolve to none while a preset is active, avoiding competing self-shot/body-attitude instructions. Legacy none, unrelated scenes and duo paths remain unchanged.
+- Main GPT/Z/MJ share the same authored pose; chest outputs use the upper-body variant, face crops omit posture, and full-body references remain scene-free. No storage migration. Contract `1.30.0`; see [carriage v2 supplement](specs/japanese-carriage-fixed-composition-v1.md).
+- Validation: carriage tests 13/13; frontend 1112/1112 and Prompt Quality 380/380; lint/build pass. Same-seed 200-case strict audit has zero blockers and 28 diagnostics before/after. Existing Vite chunk-size advisory remains. Full-suite counts include concurrent cotton-brief wardrobe work, which this task did not edit.
+- Browser: localhost 5175, 1440×1000 and 390×900; eight-option scene scoping, selected pose takeover, independent head control, none/scene-exit restoration, five scene-bearing outputs and scene-free reference checked; five-workspace navigation/render smoke completed. No console warnings/errors, broken images or document overflow. Existing narrow mobile section-header wrapping remains. Original six preview texts restored exactly; viewport reset; no Saved Cards created/deleted. Evidence: `/tmp/carriage-v2-desktop.png`, `/tmp/carriage-v2-mobile.png`.
+- Not committed/pushed/deployed. External-model image acceptance remains for the user's next test. Untracked reference-image folders and concurrent wardrobe edits preserved.
+
 ## Fully closed outerwear (local, 2026-09-29)
 
 - 外套開合新增手動「全扣上／全拉上」，17 款外套適用；依既有扣件分成完全拉鏈、全扣鈕扣／按扣或通用閉合措辭。選項附加於既有清單，既有 IDs 與隨機池不變。薄紗輕薄披衣外套、蕾絲罩衫保留透過閉合布料可見的內搭；其他款式省略被遮住的上身描述。衣長、獨立下身、腰線、鞋襪、配件維持原設定。See [outerwear catalog v1](specs/outerwear-catalog-v1.md).

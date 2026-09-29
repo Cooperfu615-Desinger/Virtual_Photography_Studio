@@ -16,6 +16,22 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   ...[
+    ['japan-carriage-bench-front', 'carriage-bench-upright', 'She sits upright on the bench'],
+    ['japan-carriage-side-aisle', 'carriage-aisle-strap', 'nearby overhead strap within comfortable reach'],
+    ['japan-carriage-rush-hour', 'carriage-crowd-pole', 'nearby vertical grab pole at chest height'],
+  ].map(([set, position, pose]) => ({
+    id: `carriage-position-${position}`, title: 'Carriage position owns one coherent pose', mode: 'single', seed: 'carriage-position-v2',
+    locks: { subjectCount: '1', fixedCompositionSetId: set, fixedSetPositionId: position,
+      poseBaseId: 'kneeling', poseHandId: 'selfie-mirror-phone-visible',
+      framingId: { byZh: '中景鏡頭 (Medium Shot)' }, fixedSetBackgroundStateId: 'carriage-window-coastal' },
+    expectedOutputs: {
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map(field => [field, {
+        includes: [pose, 'coastal scenery'], excludes: ['kneeling', 'selfie'],
+      }])),
+      fullBodyCharacterPrompt: { excludes: ['carriage', 'grab pole', 'overhead strap'] },
+    },
+  })),
+  ...[
     ['西裝外套', 'all front buttons fastened', false],
     ['薄紗輕薄披衣外套', 'front fully fastened closed', true],
   ].map(([coat, closure, sheer]) => ({

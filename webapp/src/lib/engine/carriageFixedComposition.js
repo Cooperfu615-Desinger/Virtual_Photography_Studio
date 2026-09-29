@@ -3,9 +3,9 @@ const shared = 'The subject and passengers occupy the same carriage and share it
 export const CARRIAGE_FIXED_COMPOSITION_OPTIONS = [
   {
     id: 'japan-carriage-bench-front', zh: '電車車廂正面長椅視角', orbitMode: 'bench-front',
-    en: 'A Japanese passenger train carriage viewed directly across the aisle toward a blue fabric bench and the broad windows above it. Window frames, sliding-door panels, overhead hand straps, route maps and small carriage advertisements establish the travel setting. The camera faces the bench squarely from the opposite side of the aisle; the subject occupies the bench area or the space immediately in front of it according to the selected pose.',
-    compactEn: 'Japanese passenger train carriage, blue fabric bench beneath broad windows, window frames, sliding-door panels, overhead hand straps, route maps and small carriage advertisements. The camera faces the bench squarely from across the aisle.',
-    desc: '從長椅對面正向拍攝，保留窗景與電車細節；不強制人物坐著。',
+    en: 'A Japanese passenger train carriage with a blue fabric bench beneath broad windows. The camera is directly opposite the bench, looking across the width of the carriage rather than down the aisle. Its horizontal viewing direction is perpendicular to the window wall, showing the bench and windows straight on instead of receding sideways into aisle depth. Window scenery is the main background; door edges, hand straps, route maps and small advertisements appear only where the crop allows.',
+    compactEn: 'Japanese passenger train carriage, blue fabric bench beneath broad windows. The camera looks across the width of the carriage, its horizontal viewing direction perpendicular to the window wall. The bench and windows are seen straight on rather than receding down the aisle. Window scenery is the main background; peripheral carriage details may be cropped.',
+    desc: '從長椅正對面橫向拍攝車廂，不沿走道斜拍；人物位置可選正坐或靠背坐，景別與焦段仍可調整。',
   },
   {
     id: 'japan-carriage-side-aisle', zh: '電車車廂側面走道視角', orbitMode: 'side-camera',
@@ -21,9 +21,53 @@ export const CARRIAGE_FIXED_COMPOSITION_OPTIONS = [
   },
 ].map(source => ({ ...source, setGroupId: CARRIAGE_SET_GROUP_ID,
   allowsCameraVariation: true, allowsLensVariation: true, allowsFramingVariation: true,
-  sharedStructureEn: shared, aspectRatioId: '9:16',
+  sharedStructureEn: source.orbitMode === 'bench-front'
+    ? 'The subject occupies the same carriage and shares its ambient light. The camera remains opposite the bench while the selected camera height, crop and lens may omit peripheral carriage details.'
+    : shared, aspectRatioId: '9:16',
   meta: { tags: ['fixed_composition_set', 'single_subject_only', 'indoor', 'carriage_set', 'vertical_set'] },
 }));
+
+// Append-only, scene-scoped presets. "none" continues to use the existing free pose path.
+export const CARRIAGE_POSITION_OPTIONS = [
+  ['bench-upright', 'japan-carriage-bench-front', '正坐在長椅上', 'sitting',
+    'She sits upright on the bench, with her hips resting on the seat cushion and her back close to the backrest. Her hands rest naturally in her lap.',
+    'She sits upright on the bench with her back close to its backrest.'],
+  ['bench-relaxed', 'japan-carriage-bench-front', '靠背放鬆坐在長椅上', 'sitting',
+    'She sits comfortably on the bench, her hips resting on the cushion and her back supported by the backrest. Her hands rest loosely in her lap.',
+    'She sits comfortably on the bench, her back supported by its backrest.'],
+  ['aisle-seated', 'japan-carriage-side-aisle', '坐在長椅上', 'sitting',
+    'She sits on the bench with her hips resting on its cushion and her back near the backrest, her hands relaxed in her lap.',
+    'She sits on the bench with her back near its backrest.'],
+  ['aisle-strap', 'japan-carriage-side-aisle', '站在走道單手握吊環', 'standing',
+    'She stands naturally in the aisle, one hand holding a nearby overhead strap within comfortable reach, the other arm relaxed by her side.',
+    'She stands in the aisle, one arm raised to hold a nearby overhead strap within comfortable reach.'],
+  ['aisle-partition', 'japan-carriage-side-aisle', '倚靠車門旁隔板站立', 'standing',
+    'She stands beside the carriage door, her shoulder and upper back resting lightly against the existing partition, with her arms relaxed.',
+    'She stands beside the carriage door, her shoulder and upper back resting lightly against the existing partition.'],
+  ['crowd-strap', 'japan-carriage-rush-hour', '站在人群中單手握吊環', 'standing',
+    'She stands among the commuters, one hand holding a nearby overhead strap within comfortable reach and the other arm close to her body.',
+    'She stands among the commuters, one arm raised to hold a nearby overhead strap within comfortable reach.'],
+  ['crowd-pole', 'japan-carriage-rush-hour', '站在人群中扶立柱', 'standing',
+    'She stands among the commuters, one hand holding the nearby vertical grab pole at chest height, her other arm relaxed close to her body.',
+    'She stands among the commuters, one hand holding the nearby vertical grab pole at chest height.'],
+  ['crowd-seated', 'japan-carriage-rush-hour', '坐在乘客之間', 'sitting',
+    'She sits between other passengers on the bench, her hips supported by the seat cushion and her back near the backrest, with her hands resting in her lap.',
+    'She sits between other passengers on the bench with her back near its backrest.'],
+].map(([id, setId, zh, baseId, en, chestEn]) => ({ id: `carriage-${id}`, setId, zh, en, chestEn, baseId, carriagePose: true }));
+
+export const CARRIAGE_MANAGED_POSE_KEYS = ['poseBaseId', 'poseOrientationId', 'poseArrangementId',
+  'poseHandId', 'posePropId', 'poseAnchorId', 'poseId', 'specialActionId', 'actionPoseCardId',
+  'fixedSetCaptureModeId', 'fixedSetPerformanceStateId'];
+export function getCarriagePosition(locks = {}) {
+  if (locks.subjectCount === '2') return null;
+  return CARRIAGE_POSITION_OPTIONS.find(p => p.id === locks.fixedSetPositionId && p.setId === locks.fixedCompositionSetId) || null;
+}
+export function carriagePoseLocks(locks = {}) {
+  const position = getCarriagePosition(locks);
+  if (!position) return locks;
+  return { ...locks, ...Object.fromEntries(CARRIAGE_MANAGED_POSE_KEYS.map(key => [key, key === 'actionPoseCardId' ? '' : 'none'])),
+    poseBaseId: position.baseId };
+}
 
 export const CARRIAGE_WINDOW_BACKGROUND_OPTIONS = [
   ['urban', '都市', 'urban buildings and city streets'],

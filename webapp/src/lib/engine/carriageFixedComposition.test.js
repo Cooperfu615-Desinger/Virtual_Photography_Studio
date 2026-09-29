@@ -2,7 +2,75 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls, normalizeLocks } from '../engine.js';
 import { buildAllNoneLocks } from '../../features/page1/page1Selectors.js';
-import { resolveCarriageOrbit, carriageOrbitAllowed } from './carriageFixedComposition.js';
+import { resolveCarriageOrbit, carriageOrbitAllowed, CARRIAGE_POSITION_OPTIONS, carriagePoseLocks, getCarriagePosition } from './carriageFixedComposition.js';
+
+test('bench front describes a transverse camera axis, not a viewpoint moving along the aisle', () => {
+  const result = make('japan-carriage-bench-front');
+  for (const text of [result.grokPrompt, result.zImagePrompt, result.midjourneyPrompt]) {
+    assert.match(text, /across the width of the carriage/);
+    assert.match(text, /perpendicular to the window wall/);
+    assert.doesNotMatch(text, /left-right relationships may change/);
+  }
+});
+
+test('carriage positions own posture and hands without retaining contradictory pose locks', () => {
+  const result = make('japan-carriage-bench-front', {
+    fixedSetPositionId: 'carriage-bench-upright', poseBaseId: 'kneeling',
+    poseHandId: 'selfie-mirror-phone-visible', poseArrangementId: 'any',
+  });
+  for (const text of [result.grokPrompt, result.zImagePrompt, result.midjourneyPrompt,
+    ...result.extraPrompts.filter(p => p.id.includes('chest-up')).map(p => p.text)]) {
+    assert.match(text, /sits upright on the bench/);
+    assert.doesNotMatch(text, /kneeling|selfie|mirror-phone/i);
+  }
+  assert.equal(result.selection.poseBaseId, 'sitting');
+  assert.equal(result.selection.fixedSetPositionId, 'carriage-bench-upright');
+  assert.doesNotMatch(result.extraPrompts.find(p => p.id === 'full-body-character').text, /seat cushion|carriage/);
+});
+
+test('all eight positions share one crop-aware pose across main and chest renderers and restore from selection', () => {
+  assert.equal(CARRIAGE_POSITION_OPTIONS.length, 8);
+  for (const position of CARRIAGE_POSITION_OPTIONS) {
+    for (const frame of ['中景鏡頭 (Medium Shot)', '牛仔中景 (Cowboy Shot)', '全身鏡頭 (Full Body Shot)', '全臉傾斜特寫']) {
+      const result = make(position.setId, { fixedSetPositionId: position.id,
+        framingId: option('framingId', frame).id, poseBaseId: 'kneeling',
+        poseHandId: 'selfie-mirror-phone-visible', fixedSetCaptureModeId: 'selfie',
+      });
+      const tight = frame === '全臉傾斜特寫';
+      for (const text of [result.grokPrompt, result.zImagePrompt, result.midjourneyPrompt]) {
+        if (!tight) assert.ok(text.includes(position.en), `${position.id} ${frame}`);
+        else assert.ok(!text.includes(position.en));
+        assert.doesNotMatch(text, /kneeling|selfie/i);
+        if (!tight) assert.equal(text.split(position.en).length - 1, 1);
+      }
+      for (const text of result.extraPrompts.filter(p => p.id.includes('chest-up')).map(p => p.text)) {
+        assert.ok(text.includes(position.chestEn), position.id);
+        assert.doesNotMatch(text, /hands rest.*lap|hips resting|kneeling/);
+      }
+      const restored = generatePrompts(1, normalizeLocks(JSON.parse(JSON.stringify(result.selection))), [], { random: createSeededRandom('restore-carriage-v2') })[0];
+      assert.equal(restored.selection.fixedSetPositionId, position.id);
+      assert.equal(restored.selection.poseBaseId, position.baseId);
+      assert.doesNotMatch(restored.extraPrompts.find(p => p.id === 'full-body-character').text, /carriage|commuters|seat cushion|grab pole|overhead strap/);
+    }
+  }
+});
+
+test('managed values are a pure projection; none, foreign scene positions and duo preserve existing choices', () => {
+  const original = { subjectCount: '1', fixedCompositionSetId: 'japan-carriage-bench-front',
+    fixedSetPositionId: 'carriage-bench-upright', poseBaseId: 'kneeling', poseHandId: 'selfie-mirror-phone-visible', actionPoseCardId: 'legacy-card' };
+  const snapshot = structuredClone(original);
+  assert.equal(carriagePoseLocks(original).poseBaseId, 'sitting');
+  assert.equal(carriagePoseLocks(original).actionPoseCardId, '');
+  assert.deepEqual(original, snapshot);
+  for (const patch of [{ fixedSetPositionId: 'none' }, { fixedCompositionSetId: 'japan-carriage-side-aisle' }, { subjectCount: '2' }]) {
+    const input = { ...original, ...patch };
+    assert.equal(getCarriagePosition(input), null);
+    assert.equal(carriagePoseLocks(input), input);
+  }
+  const foreign = make('japan-carriage-side-aisle', { fixedSetPositionId: 'carriage-bench-upright' });
+  assert.equal(foreign.selection.fixedSetPositionId, 'none');
+  assert.equal(foreign.selection.poseBaseId, 'standing');
+});
 
 const cases = [
   ['japan-carriage-bench-front', '電車車廂正面長椅視角', 'blue fabric bench'],
