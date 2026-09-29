@@ -1,4 +1,5 @@
 import { CHARACTER_CARD_LAYER_KEYS, CHARACTER_CARD_LAYER_LABELS } from './characterCardLab.js';
+import { isFullyClosedOpening } from './engine/outerwearClosure.js';
 import { getActionPoseCardById } from '../data/actionPoseCards.js';
 import { buildAccessorySummaryEntries } from './accessorySummary.js';
 import { getCameraControlDisplayLabel } from './page1CameraLabels.js';
@@ -115,6 +116,8 @@ function isCoveredByOutfitPreset(key, activePresets) {
 }
 
 function getEffectiveWardrobeOptionLabel(controls, locks, key, activePresets) {
+  const styling = key.match(/^outerwear([AB]?)StylingId$/);
+  if (styling && isFullyClosedOpening(locks[`outerwear${styling[1]}OpeningId`])) return '';
   if (isCoveredByOutfitPreset(key, activePresets)) return '';
   return getControlOptionLabel(controls, key, locks[key]);
 }

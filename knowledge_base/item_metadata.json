@@ -442,7 +442,8 @@
       "薄紗輕薄披衣外套": {
         "outerwear": {
           "baseEn": "sheer gauze cover-up jacket with short sleeves",
-          "fasteners": []
+          "fasteners": [],
+          "closedInnerLayerVisibility": "through-fabric"
         },
         "stableId": "wardrobe:外套-outerwear:薄紗輕薄披衣外套:14",
         "legacyPromptAliases": [
@@ -516,7 +517,8 @@
         "outerwear": {
           "baseEn": "lace cover-up",
           "fasteners": [],
-          "defaultLength": "long"
+          "defaultLength": "long",
+          "closedInnerLayerVisibility": "through-fabric"
         },
         "stableId": "wardrobe:外套-outerwear:蕾絲罩衫:20",
         "legacyPromptAliases": [
@@ -554,6 +556,15 @@
         "outerwearFastenerRequirement": "zip",
         "legacyPromptAliases": [
           "zip-front outerwear partially zipped, zipper closed to the mid-front while the upper front remains naturally open"
+        ]
+      },
+      "全扣上／全拉上": {
+        "stableId": "wardrobe:外套開合-outerwear-opening:fully-closed:5",
+        "outerwearFastenerRequirement": "",
+        "legacyPromptAliases": [
+          "front zipper fully zipped closed",
+          "all front buttons fastened",
+          "all front snap buttons fastened"
         ]
       }
     },

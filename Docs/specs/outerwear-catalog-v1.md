@@ -34,8 +34,20 @@
 
 ## 驗證
 
+### 全扣上／全拉上（2026-09-29）
+
+- 外套開合新增手動選項 `wardrobe:外套開合-outerwear-opening:fully-closed:5`，附加於既有五項之後；既有 ID、順序及隨機池不變。全部 17 款外套適用。
+- 依 `outerwear.fasteners` 解析：zip 使用 `front zipper fully zipped closed`；button 使用 `all front buttons fastened`；棒球外套使用 `all front snap buttons fastened`。未宣告扣件的款式使用 `front fully fastened closed`，不指定新扣件。
+- 薄紗輕薄披衣外套與蕾絲罩衫宣告 `outerwear.closedInnerLayerVisibility: through-fabric`。閉合時保留內搭、版型、配色、圖案，並說明 `inner layer visible through the closed translucent fabric`。其餘款式在渲染投影中省略內搭上身及其修飾，連身／套裝只移除被遮住的上身細節，保留下身與配件。特殊穿搭與角色卡的完整預設造型仍依既有接管規則，不新增外套覆寫；角色卡選取分層模式中的有效 PAGE1 外套可使用新開合。
+- 六組輸出共用投影規則；衍生景別從原解析來源重新投影。原始衣物、顏色、外套穿法與 Saved Card selection 保留，切回其他開合即可恢復；不修改 storage schema。生成摘要與工作台摘要省略閉合時無效的露肩穿法。
+- 閉合時外套穿法顯示停用的全無。UI 禁止與「雙手拉開外套」同時選用；還原資料若同時帶入兩者，以完全閉合優先，手部有效選擇為全無；隨機手部池也排除拉開外套。其餘手部、頭部及身體姿勢維持原規則。
+- 不增加衣長或遮腹要求；短版外套仍可露出腹部。獨立褲裙、腰線、鞋襪、配件維持來源選擇與既有景別投影。
+- 新開合及實際拉鏈／鈕扣措辭可由標準 Prompt 回填辨識；純文字不能還原未輸出的內搭，完整還原以 Saved Card selection 為準。
+
 焦點測試：`engineOuterwearCatalog.test.js`、`engineOuterwearShoulderWear.test.js`，涵蓋六組輸出、近景、版型覆寫、雙人、歷史還原與新 prose 回填。代表案例沿用 longline-shirt shoulder fixtures。歷史 hash 檔不重建；`outerwearCatalogTestSupport.js` 只把精確已核准措辭映回舊字串，以核對其餘來源不變。
 
 執行 AGENTS Prompt／knowledge-base completion gates，使用 200／`prompt-quality-baseline` 做前後比較，另檢查桌面與手機選取、生成、回填及五個工作區。
 
 D 的外部模型測試由使用者在 `Docs/0927` 提供並核准；文字結構測試不等同保證每個模型每張圖都正確露出雙肩。
+
+2026-09-29 完全閉合驗證：焦點 9/9、frontend 1101/1101、Prompt Quality 377/377、lint/build、同步／check、Python 2/2 與 diff-check 通過。200／`prompt-quality-baseline` 前後稽核紀錄相同：0 blockers、28 既有 diagnostics。1440×1000 與 390×900 檢查五工作區、六組閉合輸出、透明內搭、停用全無、手部互斥及恢復原設定；無 console warnings/errors、破圖或 document overflow。原六組預覽與 viewport 已還原，未新增／刪除 Saved Cards。外部模型生成尚待實測。

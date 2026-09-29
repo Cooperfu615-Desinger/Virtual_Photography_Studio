@@ -1,4 +1,5 @@
 import { prepareAccessoryControl } from '../lib/engine/accessoryPolicy.js';
+import { prepareOuterwearClosureControl } from '../lib/engine/outerwearClosure.js';
 import { fixedSetAllowsLensVariation, isStationFixedSet, stationSubjectFacingText } from '../lib/engine/stationFixedComposition.js';
 import { isCarriageFixedSet, fixedSetAllowsFramingVariation, carriageOrbitAllowed, resolveCarriageOrbit, carriageCameraText } from '../lib/engine/carriageFixedComposition.js';
 import { Fragment, useMemo, useState } from 'react';
@@ -1114,7 +1115,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const renderControlGrid = (controls) => (
     <div className="lock-grid detail-lock-grid">
       {controls.map((rawControl) => {
-        const baseControl = prepareAccessoryControl(buildFixedSetControl(buildPoseComposerControl(rawControl)), locks);
+        const baseControl = prepareOuterwearClosureControl(prepareAccessoryControl(buildFixedSetControl(buildPoseComposerControl(rawControl)), locks), locks);
         const preparedControl = baseControl.key === 'orbitId' && isCarriageFixedSet(selectedFixedCompositionSetOption)
           ? { ...baseControl, label: '相機拍攝方位',
               suppressDefaultRandomOption: selectedFixedCompositionSetOption.orbitMode !== 'camera-position',
@@ -1135,13 +1136,13 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
             }
           : preparedControl;
         const displayFixedSetDependentAsNone = FIXED_SET_DEPENDENT_DISPLAY_NONE_KEYS.has(control.key) && !fixedCompositionSetActive;
-        const disabled = isControlDisabled(control);
-        const value = control.key === 'orbitId' && isCarriageFixedSet(selectedFixedCompositionSetOption)
+        const disabled = isControlDisabled(control) || Boolean(control.closureDisabled);
+        const value = control.closureDisplayValue ?? (control.key === 'orbitId' && isCarriageFixedSet(selectedFixedCompositionSetOption)
           ? resolveCarriageOrbit(selectedFixedCompositionSetOption,
               baseControl.options.find(option => option.id === locks.orbitId), baseControl.options)?.id || locks.orbitId
           : supineSurfaceOnly && SUPINE_SCENE_LOCKED_KEYS.has(control.key)
           ? 'none'
-          : displayFixedSetDependentAsNone ? 'none' : locks[control.key];
+          : displayFixedSetDependentAsNone ? 'none' : locks[control.key]);
         const dividerLabel = activeSection === 'wardrobe' && activeSubpanel?.id === 'garments'
           ? WARDROBE_GARMENT_CONTROL_DIVIDERS[control.key]
           : '';

@@ -3481,7 +3481,8 @@
         "desc": "透明薄紗短袖披衣。",
         "outerwear": {
           "baseEn": "sheer gauze cover-up jacket with short sleeves",
-          "fasteners": []
+          "fasteners": [],
+          "closedInnerLayerVisibility": "through-fabric"
         },
         "stableId": "wardrobe:外套-outerwear:薄紗輕薄披衣外套:14",
         "legacyPromptAliases": [
@@ -3573,7 +3574,8 @@
         "outerwear": {
           "baseEn": "lace cover-up",
           "fasteners": [],
-          "defaultLength": "long"
+          "defaultLength": "long",
+          "closedInnerLayerVisibility": "through-fabric"
         },
         "stableId": "wardrobe:外套-outerwear:蕾絲罩衫:20",
         "legacyPromptAliases": [
@@ -3634,6 +3636,18 @@
         "zh": "全無",
         "en": "none",
         "desc": "不指定前襟開合，保留已選外套與其他穿法。"
+      },
+      {
+        "zh": "全扣上／全拉上",
+        "en": "front fully fastened closed",
+        "desc": "依外套的扣子或拉鏈完全閉合前襟；外套穿法固定全無。不透明外套遮住上身內搭，薄紗與蕾絲保留透過閉合布料可見的內搭；不改變衣長與下身配件。僅供手動選擇。",
+        "stableId": "wardrobe:外套開合-outerwear-opening:fully-closed:5",
+        "outerwearFastenerRequirement": "",
+        "legacyPromptAliases": [
+          "front zipper fully zipped closed",
+          "all front buttons fastened",
+          "all front snap buttons fastened"
+        ]
       }
     ],
     "外套穿法 (Outerwear Styling)": [

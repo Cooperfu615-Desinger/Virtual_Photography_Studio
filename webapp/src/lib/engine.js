@@ -1,6 +1,7 @@
 import { ACCESSORY_CATEGORIES, accessoryNoneId, isConcreteAccessory, isHeadWornAudio, blocksHeadWornAudio, splitAccessoryCatalog, migrateAccessoryLocks, normalizeAccessoryConflicts, projectAudioForFraming } from './engine/accessoryPolicy.js';
 import database from '../data/database.json' with { type: 'json' };
 import { isRetiredOuterwear, resolveOuterwearBase, outerwearFasteners } from './engine/outerwearModel.js';
+import { isFullyClosedOpening, closedInnerLayerIsVisible, fullyClosedOuterwearText, PULL_OPEN_HAND_ID } from './engine/outerwearClosure.js';
 import { getActionPoseCardById } from '../data/actionPoseCards.js';
 import {
   CHARACTER_CARD_LAYER_KEYS,
@@ -4155,6 +4156,7 @@ function getOuterwearOpeningFastenerRequirement(opening) {
 }
 
 function outerwearSupportsOpening(outerwearItem, opening) {
+  if (isFullyClosedOpening(opening)) return true;
   const requiredFastener = getOuterwearOpeningFastenerRequirement(opening);
   if (!requiredFastener) return true;
   return getOuterwearFastenerTypes(outerwearItem).has(requiredFastener);
@@ -4170,9 +4172,10 @@ function buildOuterwearColoredPrompt(outerwearItem, color = null, { fit = null, 
   const fitText = resolvedBase === null && fit && !isNoneLikeItem(fit) && !isSimpleOversizeFit
     ? normalizeWardrobePromptText(fit.en)
     : '';
-  const stylingText = buildOuterwearStylingLeadText(styling, { minimal: minimalStyling });
+  const stylingText = isFullyClosedOpening(opening) ? '' : buildOuterwearStylingLeadText(styling, { minimal: minimalStyling });
   const patternText = pattern && !isNoneLikeItem(pattern) ? normalizeWardrobePromptText(pattern.en) : '';
-  const openingText = opening && !isNoneLikeItem(opening) ? normalizeWardrobePromptText(opening.en) : '';
+  const openingText = isFullyClosedOpening(opening) ? fullyClosedOuterwearText(outerwearItem)
+    : opening && !isNoneLikeItem(opening) ? normalizeWardrobePromptText(opening.en) : '';
   const coloredBase = outerwearItem.meta?.outerwear?.colorTargetsBody && color && !isNoneLikeItem(color)
     ? `${base}, body panels in ${color.en}`
     : composeWearableColorPrompt(base, color);
@@ -5533,7 +5536,8 @@ function buildPoseComposerItem(context) {
       POSE_COMPOSER_HAND_OPTIONS,
       context.locks?.poseHandId,
       isRandomOption(requestedHand)
-        ? (option) => poseComposerHandSupportsRandomContext(option, compatibilityContext)
+        ? (option) => !(isFullyClosedOpening(context.locks?.outerwearOpeningId) && option.id === PULL_OPEN_HAND_ID)
+          && poseComposerHandSupportsRandomContext(option, compatibilityContext)
         : () => true,
       exclusions,
       ['poseHandId'],
@@ -5623,7 +5627,8 @@ function buildPoseComposerItem(context) {
     POSE_COMPOSER_HAND_OPTIONS,
     context.locks?.poseHandId,
     isRandomOption(requestedHand)
-      ? (option) => poseComposerHandSupportsRandomContext(option, {
+      ? (option) => !(isFullyClosedOpening(context.locks?.outerwearOpeningId) && option.id === PULL_OPEN_HAND_ID)
+        && poseComposerHandSupportsRandomContext(option, {
         ...lyingCompatibilityContext,
         baseId: base.id,
         arrangement,
@@ -6939,6 +6944,7 @@ function buildWardrobe(context, locks, catalog) {
 
     const candidates = categoryItems.filter(
       (item) =>
+        !isFullyClosedOpening(item) &&
         !item.meta?.tags?.includes('optional_silence') &&
         (allowNoneWhenUnlocked || !isNoneLikeItem(item)) &&
         wardrobeFitsLocation(item, context.location) &&
@@ -7741,6 +7747,10 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
       : '一位性感驚豔的日系或韓系女性';
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
+  for (const suffix of ['', 'A', 'B']) {
+    const opening = suffix ? wardrobeSlots[`outerwear${suffix}Opening`] : wardrobeSlots.outerwearOpening;
+    if (isFullyClosedOpening(opening)) wardrobeSlots[suffix ? `outerwear${suffix}Styling` : 'outerwearStyling'] = null;
+  }
   const imageTypeLabel = context.imageTypePreset?.zh || IMAGE_TYPE_PRESET_OPTIONS[0].zh;
   const styleLabel = joinSummaryParts(
     imageTypeLabel,
@@ -8660,7 +8670,8 @@ function buildColoredGrokPrompt(item, color = null, { preset = false, pattern = 
 }
 
 function buildCompleteLookDressPrompt(item, color = null, palette = null, options = {}) {
-  return appendCompleteLookPaletteDirection(buildColoredGrokPrompt(item, color, options), palette);
+  const text = appendCompleteLookPaletteDirection(buildColoredGrokPrompt(item, color, options), palette);
+  return item?.meta?.closedOuterwearProjection ? projectClosedInnerLook(text) : text;
 }
 
 function joinNaturalList(parts = []) {
@@ -8858,6 +8869,19 @@ function materializeOutfitPresetPrimaryColorBehavior(base, meta, primaryColor) {
 }
 
 function buildOutfitPresetPrompt(item, colorState = {}) {
+  const projectedItem = item?.meta?.closedOuterwearProjection ? {
+    ...item, meta: { ...item.meta, colorTargets: Object.fromEntries(
+      Object.entries(item.meta.colorTargets || {}).map(([key, targets]) => [key, targets.filter(target => {
+        const role = classifyCompleteLookWardrobeFragment(describeOutfitColorTargets([target]));
+        return role !== 'top' && role !== 'outerwear';
+      })])
+    ) },
+  } : item;
+  const text = buildUnprojectedOutfitPresetPrompt(projectedItem, colorState);
+  return item?.meta?.closedOuterwearProjection ? projectClosedInnerLook(text) : text;
+}
+
+function buildUnprojectedOutfitPresetPrompt(item, colorState = {}) {
   if (!item || isNoneLikeItem(item)) return '';
 
   const base = stripMarkdown(item.en).replace(/\s+/g, ' ').trim().replace(/^wearing\s+/i, '');
@@ -8927,7 +8951,51 @@ function buildSpecialOutfitPrompt(item, palette = null) {
   const outfitText = item.meta?.suppressSpecialOutfitHairstyle
     ? stripSpecialOutfitHairstyleDescription(base)
     : base;
-  return appendCompleteLookPaletteDirection(outfitText, palette);
+  const text = appendCompleteLookPaletteDirection(outfitText, palette);
+  return item.meta?.closedOuterwearProjection ? projectClosedInnerLook(text) : text;
+}
+
+// Project already-resolved sources only. The source wardrobe, colors and saved
+// selection remain intact; complete looks retain their lower pieces/accessories.
+function projectClosedOuterwearWardrobe(wardrobe) {
+  const slots = extractWardrobeSlots(wardrobe);
+  const hidden = new Set();
+  const bundled = new Set();
+  for (const suffix of ['', 'A', 'B']) {
+    if (!isFullyClosedOpening(slots[`outerwear${suffix}Opening`] || (suffix ? null : slots.outerwearOpening))) continue;
+    const coat = slots[`outerwear${suffix}`];
+    if (!coat || isNoneLikeItem(coat)) continue;
+    const styling = slots[`outerwear${suffix}Styling`] || (suffix ? null : slots.outerwearStyling);
+    if (styling) hidden.add(styling);
+    if (closedInnerLayerIsVisible(coat)) continue;
+    for (const key of ['top', 'topFit', 'topStyling', 'topPattern']) {
+      if (slots[`${key}${suffix}`]) hidden.add(slots[`${key}${suffix}`]);
+    }
+    for (const key of ['dress', 'outfitPreset', 'specialOutfit']) {
+      if (slots[`${key}${suffix}`]) bundled.add(slots[`${key}${suffix}`]);
+    }
+  }
+  if (!hidden.size && !bundled.size) return wardrobe;
+  return wardrobe.filter(item => !hidden.has(item)).map(item => bundled.has(item)
+    ? { ...item, meta: { ...item.meta, closedOuterwearProjection: true } } : item);
+}
+
+function projectClosedInnerLook(text) {
+  let upperDetails = false;
+  return splitGptSpecialOutfitFragments(text).flatMap(source => splitMixedCompleteLookWardrobeFragment(source)).flatMap(fragment => {
+    const role = classifyCompleteLookWardrobeFragment(fragment);
+    if (role === 'top' || role === 'outerwear') { upperDetails = true; return []; }
+    if (role === 'dress') {
+      upperDetails = true;
+      const identity = fragment.match(/\b(?:(?:silk|satin|cotton|lace|latex|leather|denim|velvet)\s+)?(?:(?:micro|mini|midi|maxi|short|long|ankle-length|floor-length)\s+)?(?:dress|gown|qipao|cheongsam|kimono|yukata)\b/i);
+      const color = identity ? fragment.slice(identity.index + identity[0].length).match(/\bin\s+[^,;]+/i)?.[0] || '' : '';
+      return identity ? [`lower portion of the ${identity[0]}${color ? ` ${color}` : ''}`] : [];
+    }
+    if (role) { upperDetails = false; return [fragment]; }
+    if (/\b(?:neckline|collar|sleeves?|straps?|bust|chest|shoulders?|bodice|upper\/main dress area)\b/i.test(fragment)) return [];
+    if (/\b(?:hem|skirt|lower-half|lower hem|lower garment|lower outfit|pleats?|slit)\b/i.test(fragment)) return [fragment];
+    return upperDetails ? [] : [fragment];
+  }).filter(Boolean).join(', ');
 }
 
 function getCompositionVisibilityProjection(context) {
@@ -9227,6 +9295,7 @@ function buildOuterwearStylingLeadText(styling, { minimal = false } = {}) {
 }
 
 function buildOuterwearFirstPrompt(baseLayerText, outerwearItem, outerwearColor, outerwearFit, outerwearPattern, outerwearOpening, outerwearStyling, { minimal = false } = {}) {
+  if (isFullyClosedOpening(outerwearOpening) && !closedInnerLayerIsVisible(outerwearItem)) return '';
   if (!baseLayerText || !outerwearItem || isNoneLikeItem(outerwearItem)) return '';
   const outerwearText = buildOuterwearColoredPrompt(outerwearItem, outerwearColor, {
     fit: outerwearFit,
@@ -11644,11 +11713,14 @@ function buildFallbackCharacterProfileGroups(subject) {
 }
 
 function buildCharacterCardProfileGroups(subject, locks = {}, wardrobe = null) {
-  const baseGroups = subject.profile || buildFallbackCharacterProfileGroups(subject);
+  const sourceGroups = subject.profile || buildFallbackCharacterProfileGroups(subject);
+  const wardrobeSlots = Array.isArray(wardrobe) ? extractWardrobeSlots(wardrobe) : null;
+  const hideInner = isFullyClosedOpening(wardrobeSlots?.outerwearOpening)
+    && wardrobeSlots?.outerwear && !closedInnerLayerIsVisible(wardrobeSlots.outerwear);
+  const baseGroups = hideInner ? { ...sourceGroups, outfit: projectClosedInnerLook(sourceGroups.outfit || '') } : sourceGroups;
   if (!shouldImportCharacterCardWardrobeLayers(locks)) return baseGroups;
 
   const importedLayers = getCharacterCardImportedLayers(subject, locks);
-  const wardrobeSlots = Array.isArray(wardrobe) ? extractWardrobeSlots(wardrobe) : null;
   const accessoryLayerKeys = new Set(['headAccessory', 'eyewear', 'earrings', 'neckAccessory', 'wristAccessory', 'ring', 'waistAccessory']);
   const outfitText = importedLayers
     .filter((layer) => !accessoryLayerKeys.has(layer.meta?.characterCardLayer))
@@ -11676,7 +11748,7 @@ function buildCharacterCardProfileGroups(subject, locks = {}, wardrobe = null) {
 
   return {
     ...baseGroups,
-    outfit: outfitText,
+    outfit: hideInner ? projectClosedInnerLook(outfitText) : outfitText,
     accessories: [accessoryText, page1AccessoryText].filter(Boolean).join(', '),
   };
 }
@@ -12698,7 +12770,7 @@ function buildFixedFramingDerivedPromptModel({
   film,
 }) {
   const baseDerivedContext = createFixedFramingDerivedContext(sourceContext, preset);
-  wardrobe = projectTopHemOverlap(projectAudioForFraming(wardrobe, baseDerivedContext), baseDerivedContext);
+  wardrobe = projectClosedOuterwearWardrobe(projectTopHemOverlap(projectAudioForFraming(wardrobe, baseDerivedContext), baseDerivedContext));
 
   if (!preset.projectResolvedSources) {
     const projectedCharacter = projectBodyTypeCharacter(character, baseDerivedContext, wardrobe);
@@ -14823,7 +14895,8 @@ function buildAiNormalWardrobeText(
     }).find(Boolean) || '';
   const shoulderWear = wardrobeSlots?.outerwearStyling;
   const outerwearWearSources = [
-    !isNoneLikeItem(wardrobeSlots?.outerwearOpening) ? normalizeWardrobePromptText(wardrobeSlots?.outerwearOpening?.en || '') : '',
+    isFullyClosedOpening(wardrobeSlots?.outerwearOpening) ? fullyClosedOuterwearText(wardrobeSlots.outerwear)
+      : !isNoneLikeItem(wardrobeSlots?.outerwearOpening) ? normalizeWardrobePromptText(wardrobeSlots?.outerwearOpening?.en || '') : '',
     buildOuterwearStylingLeadText(shoulderWear),
   ];
   const outerwearPatternSource = !isNoneLikeItem(wardrobeSlots?.outerwearPattern)
@@ -14989,6 +15062,9 @@ const AI_CHARACTER_CARD_ACCESSORY_LAYERS = new Set([
 
 function getAiCharacterCardLayerSources(context, wardrobe) {
   if (!isCharacterProfileSubject(context?.subject)) return [];
+  const slots = extractWardrobeSlots(wardrobe || []);
+  const hideInner = isFullyClosedOpening(slots.outerwearOpening)
+    && slots.outerwear && !closedInnerLayerIsVisible(slots.outerwear);
 
   const card = getRuntimeCharacterCards().find((entry) => entry.id === context.subject.id);
   if (!card) return [];
@@ -15024,10 +15100,12 @@ function getAiCharacterCardLayerSources(context, wardrobe) {
     'ring',
     'waistAccessory',
   ]
-    .filter((key) => included.has(key) && layerMap[key])
+    .filter((key) => included.has(key) && layerMap[key] && !(hideInner && key === 'top'))
     .map((key) => ({
       key,
-      source: importedSourceByLayer.get(key) || layerMap[key].prompt,
+      source: hideInner && key === 'dress'
+        ? projectClosedInnerLook(importedSourceByLayer.get(key) || layerMap[key].prompt)
+        : importedSourceByLayer.get(key) || layerMap[key].prompt,
     }))
     .filter((entry) => entry.source);
 }
@@ -15556,7 +15634,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     projectedScene: buildProjectedScene(rendererContext),
   };
   const projectedCharacter = projectBodyTypeCharacter(character, mainContext, wardrobe);
-  const rendererWardrobe = projectTopHemOverlap(projectAudioForFraming(fixedCompositionPromptProjection?.wardrobe.items || wardrobe, mainContext), mainContext);
+  const rendererWardrobe = projectClosedOuterwearWardrobe(projectTopHemOverlap(projectAudioForFraming(fixedCompositionPromptProjection?.wardrobe.items || wardrobe, mainContext), mainContext));
   const rendererWardrobeColors = fixedCompositionPromptProjection?.wardrobe.colors || wardrobeColors;
   const promptModel = {
     ...buildStructuredPromptSections(mainContext, projectedCharacter, rendererWardrobe, rendererWardrobeColors, lightDirection, film),
@@ -15935,6 +16013,9 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     )
   );
   const effectiveLocks = sanitizeLocksForCloseupMode(locks, lockControls);
+  if (isFullyClosedOpening(effectiveLocks.outerwearOpeningId) && effectiveLocks.poseHandId === PULL_OPEN_HAND_ID) {
+    effectiveLocks.poseHandId = 'none';
+  }
   const supineSurfaceOnly = isSupinePoseSelection(effectiveLocks);
   const selectedFixedCompositionSet = getFixedCompositionSetOption(effectiveLocks.fixedCompositionSetId);
   const fixedCompositionSetActive = isFixedCompositionSetActive(selectedFixedCompositionSet) && effectiveLocks.subjectCount !== '2';

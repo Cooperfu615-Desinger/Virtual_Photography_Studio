@@ -16,6 +16,25 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   ...[
+    ['西裝外套', 'all front buttons fastened', false],
+    ['薄紗輕薄披衣外套', 'front fully fastened closed', true],
+  ].map(([coat, closure, sheer]) => ({
+    id: `fully-closed-${sheer ? 'sheer' : 'opaque'}-outerwear`,
+    title: 'Closed outerwear preserves source selections and projects inner-layer visibility',
+    mode: 'single', seed: 'outerwear-closure-v1',
+    locks: {
+      subjectCount: '1', framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      outfitPresetId: { byZh: '全無' }, dressId: { byZh: '全無' },
+      topId: { byZh: '絲質細肩帶上衣' }, pantsId: { byZh: '直筒牛仔褲' },
+      outerwearId: { byZh: coat }, outerwearOpeningId: 'wardrobe:外套開合-outerwear-opening:fully-closed:5',
+      outerwearStylingId: { byZh: '雙肩露出' },
+    },
+    expectedOutputs: Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt', 'fullBodyCharacterPrompt'].map(field => [field, {
+      includes: [closure, ...(sheer ? ['silk camisole', 'visible through the closed'] : [])],
+      excludes: ['both shoulders fully uncovered', ...(sheer ? [] : ['silk camisole', 'delicate straps', 'fluid sheen'])],
+    }])),
+  })),
+  ...[
     ['japan-carriage-bench-front', 'blue fabric bench', '正面 0 度'],
     ['japan-carriage-side-aisle', 'A few passengers', '右側 270 度'],
     ['japan-carriage-rush-hour', 'Visible bench seats are fully occupied', '背面 180 度'],

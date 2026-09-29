@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-09-29
 
+## Fully closed outerwear (local, 2026-09-29)
+
+- 外套開合新增手動「全扣上／全拉上」，17 款外套適用；依既有扣件分成完全拉鏈、全扣鈕扣／按扣或通用閉合措辭。選項附加於既有清單，既有 IDs 與隨機池不變。薄紗輕薄披衣外套、蕾絲罩衫保留透過閉合布料可見的內搭；其他款式省略被遮住的上身描述。衣長、獨立下身、腰線、鞋襪、配件維持原設定。See [outerwear catalog v1](specs/outerwear-catalog-v1.md).
+- Six outputs share the resolved visibility projection. Source wardrobe/colors and Saved Card selections remain intact; reopening restores the inner top and latent shoulder styling. The styling control displays disabled 全無, and the pull-open hand is mutually exclusive with full closure. Invalid imported closure/pull-open pairs resolve to closure plus effective hand none. Complete special looks and full-default Character Cards retain their existing takeover; selected Character Card layers support effective PAGE1 outerwear closure. No storage migration; output contract `1.29.0`.
+- Validation: focused closure tests 9/9, frontend 1101/1101, Prompt Quality 377/377, lint/build, knowledge-base sync/check, Python tests 2/2 and diff checks pass. Before/after strict audits use 200 cases and `prompt-quality-baseline`; logs are identical, with zero blocking signals and 28 existing diagnostics. The pre-existing Vite chunk-size advisory remains.
+- Browser QA at 1440×1000 and 390×900 inspected all five required workspaces, closed blazer, fully zipped hoodie, sheer inner-layer visibility, disabled styling/hand choices, six output readback and reopening. No console warnings/errors, broken images or document horizontal overflow. Six original preview texts restored exactly, viewport reset, and no Saved Cards created/deleted. Screenshots: `/tmp/outerwear-closure-desktop.png`, `/tmp/outerwear-closure-mobile.png` (local temporary evidence).
+- Implementation and local validation complete; the user authorized commit/push on 2026-09-29. Verify delivery against Git rather than inferring it from this document. No deployment was performed. External-model image acceptance remains pending. User reference-image folders are untouched.
+
 ## Japanese carriage fixed compositions (local, 2026-09-29)
 
 - Three append-only fixed scenes cover the opposite-bench front view, companion side-aisle view with a few passengers, and densely crowded Japanese rush-hour carriage. All three share urban/residential/countryside/coastal window backgrounds and allow framing and lens selection. Orbit means camera position: bench-front is fixed front, side-aisle allows four side viewpoints, and rush-hour allows all eight. Existing platform subject-facing rules, older fixed sets and ordinary locations are unchanged. See [carriage fixed composition v1](specs/japanese-carriage-fixed-composition-v1.md).

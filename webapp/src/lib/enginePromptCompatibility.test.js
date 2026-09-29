@@ -120,7 +120,7 @@ test('outerwear opening options expose the new closure states and migrate old sa
   const openingControl = controls.find((control) => control.key === 'outerwearOpeningId');
   assert.deepEqual(
     openingControl.options.map((option) => option.zh),
-    ['正常', '扣子扣一半', '拉鏈拉一半', '敞開穿', '全無'],
+    ['正常', '扣子扣一半', '拉鏈拉一半', '敞開穿', '全無', '全扣上／全拉上'],
   );
 
   const legacyOpeningIds = [

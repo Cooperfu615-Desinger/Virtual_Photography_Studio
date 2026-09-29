@@ -376,6 +376,7 @@
 | **外套開合 (Outerwear Opening)** | 拉鏈拉一半 | `zipped halfway up, open above the zipper` | 適用有拉鍊的外套，拉鍊拉到前襟中段，上方前片自然打開。 |
 | **外套開合 (Outerwear Opening)** | 敞開穿 | `worn open at the front` | 正面敞開，不強制內搭必須完整可見；開合與露肩穿法分開控制。 |
 | **外套開合 (Outerwear Opening)** | 全無 | `none` | 不指定前襟開合，保留已選外套與其他穿法。 |
+| **外套開合 (Outerwear Opening)** | 全扣上／全拉上 | `front fully fastened closed` | 依外套的扣子或拉鏈完全閉合前襟；外套穿法固定全無。不透明外套遮住上身內搭，薄紗與蕾絲保留透過閉合布料可見的內搭；不改變衣長與下身配件。僅供手動選擇。 |
 | **外套穿法 (Outerwear Styling)** | 全無 | `no additional outerwear styling adjustment` | 不額外指定外套穿法，保留外套本身的自然穿著狀態。 |
 | **外套穿法 (Outerwear Styling)** | 正常穿著 | `outerwear worn normally on both shoulders in a standard outer-layer position` | 外套正常穿在雙肩上，作為標準外層，不額外指定肩線完全覆蓋。 |
 | **外套穿法 (Outerwear Styling)** | 單肩露出 | `slipped down over one upper arm, with the neckline lowered on that side and the opposite shoulder still covered` | 衣服滑到單側上臂，領口同側一起降低，另一側肩膀仍被衣服覆蓋；不指定左右側，也不改變前襟開合。 |
