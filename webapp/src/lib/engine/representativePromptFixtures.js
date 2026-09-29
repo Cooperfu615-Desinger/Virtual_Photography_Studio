@@ -16,6 +16,31 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   ...[
+    ['japan-carriage-bench-front', 'blue fabric bench', '正面 0 度'],
+    ['japan-carriage-side-aisle', 'A few passengers', '右側 270 度'],
+    ['japan-carriage-rush-hour', 'Visible bench seats are fully occupied', '背面 180 度'],
+  ].map(([id, anchor, orbit]) => ({
+    id: `carriage-fixed-${id}`, title: 'Japanese carriage keeps crop, camera position and window background',
+    mode: 'single', seed: 'carriage-fixed-representative-v1',
+    locks: {
+      subjectCount: '1', fixedCompositionSetId: id, fixedSetBackgroundStateId: 'carriage-window-coastal',
+      fixedSetCaptureModeId: 'none', fixedSetPerformanceStateId: 'none',
+      poseBaseId: 'standing', poseArrangementId: 'any', poseHandId: 'none', poseHeadId: 'none',
+      framingId: { byZh: '中景鏡頭 (Medium Shot)' }, orbitId: { byZh: orbit },
+      lensId: { byZh: '135mm 長焦壓縮' },
+    },
+    expectedOutputs: {
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt'].map(field => [field, {
+        includes: [anchor, 'Waist-up portrait', 'Through the carriage windows', 'coastal scenery', '135mm'],
+        excludes: ['platform axis', 'Her back faces the lens', 'selected room architecture'],
+      }])),
+      ...Object.fromEntries(['chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map(field => [field, {
+        includes: [anchor, 'Chest-up portrait', 'coastal scenery', '135mm'],
+      }])),
+      fullBodyCharacterPrompt: { excludes: ['carriage', 'coastal scenery'] },
+    },
+  })),
+  ...[
     ['nyc-subway-bench-platform', 'New York subway', 'tracks on the right'],
     ['london-tube-arriving-platform', 'London Underground', 'train on the left'],
     ['yamanote-platform-advertising', 'Yamanote Line', 'train on the right'],

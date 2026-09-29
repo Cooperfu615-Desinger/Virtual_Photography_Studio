@@ -1,5 +1,6 @@
 import { prepareAccessoryControl } from '../lib/engine/accessoryPolicy.js';
 import { fixedSetAllowsLensVariation, isStationFixedSet, stationSubjectFacingText } from '../lib/engine/stationFixedComposition.js';
+import { isCarriageFixedSet, fixedSetAllowsFramingVariation, carriageOrbitAllowed, resolveCarriageOrbit, carriageCameraText } from '../lib/engine/carriageFixedComposition.js';
 import { Fragment, useMemo, useState } from 'react';
 import { Check, Copy } from 'lucide-react';
 import DllPicProPanel from './DllPicProPanel';
@@ -903,7 +904,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     || (FIXED_SET_KEYS.includes(control.key) && locks.subjectCount === '2')
     || (FIXED_SET_DEPENDENT_DISPLAY_NONE_KEYS.has(control.key) && !fixedCompositionSetActive)
     || (fixedCompositionSetActive && FIXED_SET_LOCKED_KEYS.includes(control.key)
-      && !(control.key === 'lensId' && fixedSetAllowsLensVariation(selectedFixedCompositionSetOption)))
+      && !(control.key === 'lensId' && fixedSetAllowsLensVariation(selectedFixedCompositionSetOption))
+      && !(control.key === 'framingId' && fixedSetAllowsFramingVariation(selectedFixedCompositionSetOption)))
+    || (control.key === 'orbitId' && selectedFixedCompositionSetOption?.orbitMode === 'bench-front')
     || (fixedCompositionSetActive && !fixedSetAllowsCameraVariation && FIXED_SET_STRICT_CAMERA_KEYS.includes(control.key))
     || (selectedPoseHandLocksOrbit && control.key === 'orbitId')
     || (POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && locks.subjectCount !== '1')
@@ -936,7 +939,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
           next.importedWorldSceneLabel = '';
           next.importedWorldSceneArchitectureText = '';
           ['framingId', 'lensId', 'opticalEffectId'].filter(key =>
-            key !== 'lensId' || !fixedSetAllowsLensVariation(nextFixedSetOption)).forEach((key) => {
+            !(key === 'lensId' && fixedSetAllowsLensVariation(nextFixedSetOption))
+            && !(key === 'framingId' && fixedSetAllowsFramingVariation(nextFixedSetOption))).forEach((key) => {
             const noneOption = lockControls.find((item) => item.key === key)?.options?.find((option) => option.zh === '全無');
             next[key] = noneOption?.id || '';
           });
@@ -1111,7 +1115,13 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     <div className="lock-grid detail-lock-grid">
       {controls.map((rawControl) => {
         const baseControl = prepareAccessoryControl(buildFixedSetControl(buildPoseComposerControl(rawControl)), locks);
-        const preparedControl = baseControl.key === 'orbitId' && isStationFixedSet(selectedFixedCompositionSetOption)
+        const preparedControl = baseControl.key === 'orbitId' && isCarriageFixedSet(selectedFixedCompositionSetOption)
+          ? { ...baseControl, label: '相機拍攝方位',
+              suppressDefaultRandomOption: selectedFixedCompositionSetOption.orbitMode !== 'camera-position',
+              options: baseControl.options.filter(option => carriageOrbitAllowed(selectedFixedCompositionSetOption, option))
+                .map(option => ({ ...option, en: carriageCameraText(option) })),
+            }
+          : baseControl.key === 'orbitId' && isStationFixedSet(selectedFixedCompositionSetOption)
           ? {
               ...baseControl,
               label: '人物面向（場景取景方向固定）',
@@ -1126,7 +1136,10 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
           : preparedControl;
         const displayFixedSetDependentAsNone = FIXED_SET_DEPENDENT_DISPLAY_NONE_KEYS.has(control.key) && !fixedCompositionSetActive;
         const disabled = isControlDisabled(control);
-        const value = supineSurfaceOnly && SUPINE_SCENE_LOCKED_KEYS.has(control.key)
+        const value = control.key === 'orbitId' && isCarriageFixedSet(selectedFixedCompositionSetOption)
+          ? resolveCarriageOrbit(selectedFixedCompositionSetOption,
+              baseControl.options.find(option => option.id === locks.orbitId), baseControl.options)?.id || locks.orbitId
+          : supineSurfaceOnly && SUPINE_SCENE_LOCKED_KEYS.has(control.key)
           ? 'none'
           : displayFixedSetDependentAsNone ? 'none' : locks[control.key];
         const dividerLabel = activeSection === 'wardrobe' && activeSubpanel?.id === 'garments'

@@ -68,6 +68,10 @@ import {
   stationSubjectFacingText, stationViewText,
 } from './engine/stationFixedComposition.js';
 import {
+  isCarriageFixedSet, fixedSetAllowsFramingVariation, resolveCarriageOrbit,
+  carriageCameraText, carriageSceneText,
+} from './engine/carriageFixedComposition.js';
+import {
   createFixedFramingDerivedContext,
   FIXED_FRAMING_DERIVED_PROMPT_PRESETS,
 } from './engine/fixedFramingDerivedPrompt.js';
@@ -8928,7 +8932,8 @@ function buildSpecialOutfitPrompt(item, palette = null) {
 
 function getCompositionVisibilityProjection(context) {
   return context?.compositionVisibility || createCompositionVisibilityProjection(context?.framing, {
-    fixedCompositionActive: isFixedCompositionSetActive(context?.fixedCompositionSet),
+    fixedCompositionActive: isFixedCompositionSetActive(context?.fixedCompositionSet)
+      && !fixedSetAllowsFramingVariation(context?.fixedCompositionSet),
   });
 }
 
@@ -10130,7 +10135,8 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
       addContextLine('Angle', context.angle, (item) => skeletonText(resolvePromptVariant(item, 'angle', context.subject.count)));
       addContextLine('Orbit Angle', context.orbit, (item) => skeletonText(isStationFixedSet(context.fixedCompositionSet)
         ? stationSubjectFacingText(item)
-        : resolvePromptVariant(item, 'orbit', context.subject.count)));
+        : isCarriageFixedSet(context.fixedCompositionSet) ? carriageCameraText(item)
+          : resolvePromptVariant(item, 'orbit', context.subject.count)));
     }
     addLine('Fixed Set Integrity', skeletonText(buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode)));
     addContextLine('Ambient Light Conditions', context.lighting, (item) => skeletonText(item.en));
@@ -10372,6 +10378,7 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
     addLine('Composition Priority', 'allow imperfect self-shot framing, partial subject crop, close-lens body proximity, and incomplete set visibility when it makes the social snapshot feel real');
   }
   if (fixedCompositionSetActive) {
+    if (fixedSetAllowsFramingVariation(context.fixedCompositionSet)) addLine('Framing', buildGrokFramingText());
     if (fixedSetAllowsLensVariation(context.fixedCompositionSet)) addContextLine('Lens', context.lens);
     addContextLine('Aperture / Depth of Field', context.aperture);
     addContextLine('Shutter / Motion Blur', context.shutter);
@@ -10538,7 +10545,7 @@ function buildZImageFixedSetBackgroundText(backgroundState) {
 
 function buildZImageFixedSetViewText(context) {
   if (!fixedCompositionSetAllowsCameraVariation(context.fixedCompositionSet)) return '';
-  if (isStationFixedSet(context.fixedCompositionSet)) return '';
+  if (isStationFixedSet(context.fixedCompositionSet) || isCarriageFixedSet(context.fixedCompositionSet)) return '';
 
   const angle = context.angle && !isNoneLikeItem(context.angle)
     ? compactCameraDescriptor(context.angle, 'angle')
@@ -10555,7 +10562,8 @@ function buildZImageFixedSetInteractionParagraph(context) {
   return [
     buildZImageFixedSetPositionText(context),
     buildZImageFixedSetBackgroundText(context.fixedSetBackgroundState),
-    buildZImageFixedSetCaptureText(context.fixedSetCaptureMode),
+    isCarriageFixedSet(context.fixedCompositionSet) && context.fixedSetCaptureMode?.id === 'photographer-shot'
+      ? 'Photographed by a companion inside the same carriage.' : buildZImageFixedSetCaptureText(context.fixedSetCaptureMode),
     buildZImageFixedSetViewText(context),
     buildZImageFixedSetPerformanceText(context.fixedSetPerformanceState),
   ].filter(Boolean).join(' ');
@@ -10594,6 +10602,10 @@ function buildAiFixedSetInteractionSentence(context) {
 }
 
 function buildAiFixedCompositionSceneClause(context) {
+  if (isCarriageFixedSet(context.fixedCompositionSet)) return [
+    carriageSceneText(context.fixedCompositionSet, { compact: true }),
+    buildZImageFixedSetInteractionParagraph(context),
+  ].filter(Boolean).join(' ');
   if (isStationFixedSet(context.fixedCompositionSet)) return [
     stationSceneText(context.fixedCompositionSet, { compact: true }),
     buildZImageFixedSetInteractionParagraph(context),
@@ -10666,7 +10678,7 @@ function buildGptFixedSetPerformanceText(performanceState) {
 
 function buildGptFixedSetViewText(context) {
   if (!fixedCompositionSetAllowsCameraVariation(context.fixedCompositionSet)) return '';
-  if (isStationFixedSet(context.fixedCompositionSet)) return '';
+  if (isStationFixedSet(context.fixedCompositionSet) || isCarriageFixedSet(context.fixedCompositionSet)) return '';
 
   const angle = context.angle && !isNoneLikeItem(context.angle)
     ? compactCameraDescriptor(context.angle, 'angle')
@@ -10685,7 +10697,8 @@ function buildGptFixedSetInteractionParagraph(context) {
     context.fixedSetBackgroundState && !isNoneLikeItem(context.fixedSetBackgroundState)
       ? ensureTerminalPeriod(capitalizePromptLead(stripTerminalPromptPunctuation(context.fixedSetBackgroundState.en)))
       : '',
-    buildGptFixedSetCaptureText(context.fixedSetCaptureMode),
+    isCarriageFixedSet(context.fixedCompositionSet) && context.fixedSetCaptureMode?.id === 'photographer-shot'
+      ? 'Photographed by a companion inside the same carriage.' : buildGptFixedSetCaptureText(context.fixedSetCaptureMode),
     buildGptFixedSetViewText(context),
     buildGptFixedSetPerformanceText(context.fixedSetPerformanceState),
   ].filter(Boolean).join(' ');
@@ -10730,7 +10743,7 @@ function naturalizeGptFixedSetReplacementGuardText(value) {
 function buildGptFixedSetIntegrityParagraph(context) {
   const fixedSet = context.fixedCompositionSet;
   if (!fixedSet || isNoneLikeItem(fixedSet)) return '';
-  if (isStationFixedSet(fixedSet)) return fixedSet.sharedStructureEn;
+  if (isStationFixedSet(fixedSet) || isCarriageFixedSet(fixedSet)) return fixedSet.sharedStructureEn;
 
   return [
     naturalizeGptFixedSetSharedStructureText(fixedSet.sharedStructureEn || FIXED_COMPOSITION_SHARED_STRUCTURE_EN),
@@ -10838,6 +10851,11 @@ function buildCompositionPromptLine(context, {
   omitAngle = false,
   omitOrbit = false,
 } = {}) {
+  if (isCarriageFixedSet(context?.fixedCompositionSet) || isCarriageFixedSet(context?.carriageFixedSceneSource)) {
+    return [context.fixedFramingCompositionOpening || compactCameraDescriptor(context.framing, 'framing'),
+      compactCameraDescriptor(context.angle, 'angle'), carriageCameraText(context.orbit)]
+      .filter(Boolean).map(ensureTerminalPeriod).join(' ');
+  }
   if (isStationFixedSet(context?.fixedCompositionSet) || isStationFixedSet(context?.stationFixedSceneSource)) {
     const framing = context.fixedFramingCompositionOpening || '';
     return [framing ? ensureTerminalPeriod(framing) : '', stationViewText(context,
@@ -12633,6 +12651,11 @@ function buildFixedFramingDerivedProjectedScene(sourceContext, derivedContext, p
     preset.fixedCompositionHandling === 'projectScene'
     && isFixedCompositionSetActive(sourceContext.fixedCompositionSet)
   ) {
+    if (isCarriageFixedSet(sourceContext.fixedCompositionSet)) return Object.freeze({
+      mode: 'compactSource', locationText: carriageSceneText(sourceContext.fixedCompositionSet,
+        { compact: true, background: sourceContext.fixedSetBackgroundState }),
+      worldSceneText: '', sceneAccentText: '',
+    });
     if (isStationFixedSet(sourceContext.fixedCompositionSet)) return Object.freeze({
       mode: 'compactSource',
       locationText: stationSceneText(sourceContext.fixedCompositionSet, { compact: true }),
@@ -12703,6 +12726,8 @@ function buildFixedFramingDerivedPromptModel({
     ...baseDerivedContext,
     ...(isStationFixedSet(sourceContext.fixedCompositionSet)
       ? { stationFixedSceneSource: sourceContext.fixedCompositionSet } : {}),
+    ...(isCarriageFixedSet(sourceContext.fixedCompositionSet)
+      ? { carriageFixedSceneSource: sourceContext.fixedCompositionSet } : {}),
     subject: isCharacterProfileSubject(baseDerivedContext.subject)
       ? projectCharacterProfileSubject(baseDerivedContext.subject, compositionVisibility)
       : baseDerivedContext.subject,
@@ -13194,7 +13219,9 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
     );
 
     return [
-      clean(isStationFixedSet(context.fixedCompositionSet)
+      clean(isCarriageFixedSet(context.fixedCompositionSet)
+        ? carriageSceneText(context.fixedCompositionSet)
+        : isStationFixedSet(context.fixedCompositionSet)
         ? stationSceneText(context.fixedCompositionSet)
         : Z_IMAGE_FIXED_SET_OPENING_PARAGRAPHS[context.fixedCompositionSet.id] || buildGptFixedSetOpeningParagraph(context.fixedCompositionSet)),
       clean(buildZImageFixedSetInteractionParagraph(context)),
@@ -13266,7 +13293,7 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
   });
   const compositionLine = [
     ensureTerminalPeriod(baseCompositionLine),
-    context.subject.count === 1 && !isStationFixedSet(context.fixedCompositionSet)
+    context.subject.count === 1 && !isStationFixedSet(context.fixedCompositionSet) && !isCarriageFixedSet(context.fixedCompositionSet)
       ? buildZImageTurboCameraGeometry({
           angle: context.angle,
           orbit: context.orbit,
@@ -15211,11 +15238,13 @@ function buildAiFreedomPoseSentence(context, character) {
 }
 
 function buildAiFreedomSceneSentence(valuesByLabel, context, { maxClauses = 3, part = 'all' } = {}) {
+  if (isCarriageFixedSet(context.carriageFixedSceneSource)) return carriageSceneText(context.carriageFixedSceneSource,
+    { compact: true, background: context.fixedSetBackgroundState });
   if (isStationFixedSet(context.stationFixedSceneSource)) return [
     stationSceneText(context.stationFixedSceneSource, { compact: true }),
   ].filter(Boolean).join(' ');
   if (isFixedCompositionSetActive(context?.fixedCompositionSet)) {
-    if (isStationFixedSet(context.fixedCompositionSet)) return buildAiFixedCompositionSceneClause(context);
+    if (isStationFixedSet(context.fixedCompositionSet) || isCarriageFixedSet(context.fixedCompositionSet)) return buildAiFixedCompositionSceneClause(context);
     const fixedScene = AI_FIXED_SET_SCENE_PHRASES[context.fixedCompositionSet?.id] || '';
     return fixedScene ? ensureTerminalPeriod(capitalizePromptLead(compactAiSourceText(fixedScene))) : '';
   }
@@ -15399,7 +15428,8 @@ function renderAiPrompt(promptModel, {
     part: sceneIntegrated ? 'details' : 'all',
   });
   const adaptation = midjourneyAdaptation;
-  const stationFixed = isStationFixedSet(context.fixedCompositionSet) || isStationFixedSet(context.stationFixedSceneSource);
+  const stationFixed = isStationFixedSet(context.fixedCompositionSet) || isStationFixedSet(context.stationFixedSceneSource)
+    || isCarriageFixedSet(context.fixedCompositionSet) || isCarriageFixedSet(context.carriageFixedSceneSource);
   const fullImagingText = buildAiFreedomImagingSentence(imagingValuesByLabel, { adaptation, sceneIntegrated, stationFixed });
   const compactImagingText = buildAiFreedomImagingSentence(imagingValuesByLabel, {
     compact: true,
@@ -15916,7 +15946,8 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     effectiveLocks.importedWorldSceneArchitectureText = '';
 
     ['locationId', 'framingId', 'lensId', 'opticalEffectId'].filter(key =>
-      key !== 'lensId' || !fixedSetAllowsLensVariation(selectedFixedCompositionSet)).forEach((key) => {
+      !(key === 'lensId' && fixedSetAllowsLensVariation(selectedFixedCompositionSet))
+      && !(key === 'framingId' && fixedSetAllowsFramingVariation(selectedFixedCompositionSet))).forEach((key) => {
       const noneOption = getControlOptionByZh(lockControls, key, '全無');
       effectiveLocks[key] = noneOption?.id || '';
     });
@@ -16039,6 +16070,9 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     sample,
     ['orbitId'],
   );
+  if (fixedCompositionSetActive && isCarriageFixedSet(selectedFixedCompositionSet)) {
+    orbit = resolveCarriageOrbit(selectedFixedCompositionSet, orbit, runtime.flatCatalog.orbit);
+  }
   const lens = pickLocked(runtime.flatCatalog.lens, effectiveLocks.lensId, () => true, sample, ['lensId']);
   const apertureLockId = effectiveLocks.apertureId || getControlOptionByZh(lockControls, 'apertureId', '全無')?.id || '';
   const shutterLockId = effectiveLocks.shutterId || getControlOptionByZh(lockControls, 'shutterId', '全無')?.id || '';
@@ -16114,7 +16148,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     ? getFixedSetPerformanceStateOption(effectiveLocks.fixedSetPerformanceStateId)
     : getFixedSetPerformanceStateOption(supineSurfaceOnly ? 'none' : 'model-natural');
   const compositionVisibility = createCompositionVisibilityProjection(framing, {
-    fixedCompositionActive: Boolean(fixedCompositionSet),
+    fixedCompositionActive: Boolean(fixedCompositionSet) && !fixedSetAllowsFramingVariation(fixedCompositionSet),
   });
   const context = {
     subject,

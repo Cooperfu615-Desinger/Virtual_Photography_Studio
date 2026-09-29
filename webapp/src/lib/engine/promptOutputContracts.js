@@ -80,7 +80,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.27.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.28.0';
 
 /**
  * Public PAGE1 prompt-output contract.

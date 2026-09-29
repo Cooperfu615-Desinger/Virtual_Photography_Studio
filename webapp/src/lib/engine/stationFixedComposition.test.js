@@ -108,7 +108,7 @@ test('same resolved station selections regenerate after JSON restore without a l
 });
 test('lens permission is opt-in and camera heights remain independently selectable', () => {
   const sets = getLockControls().find(c => c.key === 'fixedCompositionSetId').options;
-  for (const set of sets) assert.equal(fixedSetAllowsLensVariation(set), isStationFixedSet(set));
+  for (const set of sets) assert.equal(fixedSetAllowsLensVariation(set), isStationFixedSet(set) || set.setGroupId === 'japanese-carriage');
   for (const angle of getLockControls().find(c => c.key === 'angleId').options.filter(o => o.id && o.zh !== '全無')) {
     const result = generate(cases[2][0], '28mm 廣角', '正面 0 度', { angleId: angle.id });
     assert.equal(result.selection.angleId, angle.id);

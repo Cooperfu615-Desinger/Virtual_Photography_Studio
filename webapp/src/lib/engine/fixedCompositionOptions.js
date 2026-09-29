@@ -1,4 +1,5 @@
 import { STATION_FIXED_COMPOSITION_OPTIONS } from './stationFixedComposition.js';
+import { CARRIAGE_FIXED_COMPOSITION_OPTIONS, CARRIAGE_WINDOW_BACKGROUND_OPTIONS } from './carriageFixedComposition.js';
 
 export const FIXED_COMPOSITION_SHARED_STRUCTURE_EN = 'fixed-set rule: stable selected room architecture; vary only subject placement, pose, crop, camera distance, camera orbit, lighting, and mood inside the same real-scale set; keep adult scale believable against furniture, fixtures, and props; avoid enlarging the subject or shrinking set anchors';
 const OUTDOOR_FIXED_COMPOSITION_SHARED_STRUCTURE_EN = 'fixed-set rule: stable selected outdoor architecture; vary only subject placement, pose, crop, lighting, mood, and selected background life state inside the same real-scale set; keep adult scale believable against roads, stairs, rails, poles, buildings, and distant background anchors; avoid enlarging the subject or shrinking set anchors';
@@ -98,6 +99,7 @@ export const FIXED_COMPOSITION_SET_OPTIONS = [
     meta: { tags: ['fixed_composition_set', 'single_subject_only', 'outdoor', 'coastal_set', 'stair_alley_set', 'vertical_set'] },
   },
   ...STATION_FIXED_COMPOSITION_OPTIONS,
+  ...CARRIAGE_FIXED_COMPOSITION_OPTIONS,
 ];
 
 export const FIXED_SET_POSITION_OPTIONS = [
@@ -310,6 +312,7 @@ export const FIXED_SET_BACKGROUND_STATE_OPTIONS = [
     zh: '少量生活車輛',
     en: 'background life state: one or two small distant cars, scooters, or bicycles may appear on the road or near the crossing, keeping a quiet everyday coastal-town feeling without crowding the scene',
   },
+  ...CARRIAGE_WINDOW_BACKGROUND_OPTIONS,
 ];
 
 export const FIXED_SET_CAPTURE_MODE_OPTIONS = [
