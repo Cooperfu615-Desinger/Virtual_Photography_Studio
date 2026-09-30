@@ -4,6 +4,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-09-30
 
+## Snapshot appendix buttons (local, 2026-09-30)
+
+- Added 素人失敗自拍 and 日常生活照 to the existing exclusive preview/copy appendix toolbar, using the approved concise English text. Both request four separate 9:16 photographs; original preview bytes and ratio settings remain intact. No engine, catalog, persistence, Favorites or DLL-source changes. See [appendix spec](specs/page1-prompt-appendices-v1.md#snapshot-templates-2026-09-30).
+- Focused 5/5 and frontend 1126/1126 passed; lint/build passed with the existing large-bundle advisory. Desktop 1440×1000 and mobile 390×900 verified all six appended values, mode replacement, no repeated appendix, clear restoring exact originals, keyboard activation and workspace-exit reset. Five-workspace load/overflow/image health checked at both widths; no console warnings/errors. Screenshots: `/tmp/vps-snapshot-desktop.png`, `/tmp/vps-snapshot-mobile.png`.
+- External clipboard round trip was not rerun; prior automation limitation remains. User visual tests accepted occasional collage output; image count/format compliance is not guaranteed. User authorized commit/push on 2026-09-30; verify delivery against Git. No manual deployment; user reference-image folders preserved.
+
 ## Preview appendix toolbar (local, 2026-09-30)
 
 - Generation Outputs now has an optional toolbar below the summary: 四張自由變化 / 四張多機位 / 清除附加. It appends one centrally managed text template to each nonblank preview/copy value, without changing the engine, catalog, original payload, ratios, Favorites or DLL sources. New previews and workspace exit clear the temporary action. See [preview appendices v1](specs/page1-prompt-appendices-v1.md).

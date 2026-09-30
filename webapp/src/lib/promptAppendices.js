@@ -22,6 +22,18 @@ For photographs 2–4, override only the original camera viewpoint and adjust th
 
 Generate all four photographs together for comparison, as four separate images, not a collage. Keep the cameras outside the frame.`,
   }),
+  Object.freeze({
+    id: 'amateur-selfies',
+    label: '素人失敗自拍',
+    description: '保持人物、服裝與場景一致，自由呈現不完美的素人自拍與隨手寫真，四張 9:16。',
+    text: 'Create a series of imperfect amateur smartphone selfies. Keep the same person, outfit, and setting described above; freely vary poses and camera angles. Generate 4 separate 9:16 photographs, not a collage, with no added text.',
+  }),
+  Object.freeze({
+    id: 'everyday-snapshots',
+    label: '日常生活照',
+    description: '保持人物、服裝與場景一致，自由變化生活活動、自然表情、姿勢與拍攝角度，四張 9:16。',
+    text: 'Create a series of casual everyday snapshots with natural expressions. Keep the same person, outfit, and setting described above; freely vary activities, poses, and camera angles. Generate 4 separate 9:16 photographs, not a collage, with no added text.',
+  }),
 ]);
 
 export function appendPromptInstruction(original, templateId) {

@@ -11,12 +11,20 @@ const source = {
     .map((id) => ({ id, text: `Original ${id}` })),
 };
 
-test('appendices have unique stable IDs and do not introduce aspect ratios', () => {
-  assert.equal(new Set(PROMPT_APPENDICES.map(({ id }) => id)).size, 2);
+test('appendices keep stable IDs and only the approved snapshot modes request 9:16', () => {
+  assert.deepEqual(PROMPT_APPENDICES.map(({ id }) => id), [
+    'four-free-variations', 'four-camera-views', 'amateur-selfies', 'everyday-snapshots',
+  ]);
   for (const entry of PROMPT_APPENDICES) {
     assert.ok(entry.label && entry.description && entry.text);
-    assert.doesNotMatch(entry.text, /--ar|9:16|4:5/);
-    assert.match(entry.text, /separate images/);
+    assert.doesNotMatch(entry.text, /--ar|4:5/);
+    if (['amateur-selfies', 'everyday-snapshots'].includes(entry.id)) {
+      assert.match(entry.text, /Generate 4 separate 9:16 photographs, not a collage, with no added text\./);
+      assert.match(entry.text, /Keep the same person, outfit, and setting described above/);
+    } else {
+      assert.doesNotMatch(entry.text, /9:16/);
+      assert.match(entry.text, /separate images/);
+    }
   }
 });
 
