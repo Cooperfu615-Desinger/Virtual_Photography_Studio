@@ -2,7 +2,13 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-09-29
+Last updated: 2026-09-30
+
+## Preview appendix toolbar (local, 2026-09-30)
+
+- Generation Outputs now has an optional toolbar below the summary: 四張自由變化 / 四張多機位 / 清除附加. It appends one centrally managed text template to each nonblank preview/copy value, without changing the engine, catalog, original payload, ratios, Favorites or DLL sources. New previews and workspace exit clear the temporary action. See [preview appendices v1](specs/page1-prompt-appendices-v1.md).
+- Focused 5/5, frontend 1126/1126, lint/build passed (existing large-chunk warning). Desktop 1440×1000/mobile 390×900 verified six outputs, switching, repetition, clear and reroll reset; five-workspace load/overflow/image/console checks passed. Copy success feedback works, but the automation virtual clipboard cannot read/paste the copied content; external clipboard round trip remains unverified. Screenshots in `/tmp/vps-appendix-{desktop,mobile}.png`.
+- User authorized commit/push on 2026-09-30; verify delivery against Git. No manual deployment. User reference-image folders preserved; no Favorites written or external image generation performed.
 
 ## Transit fixed-scene lighting selection (local, 2026-09-29)
 

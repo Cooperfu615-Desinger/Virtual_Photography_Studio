@@ -553,6 +553,45 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.page1-appendix-toolbar {
+  grid-column: 1 / -1;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--border-muted);
+  border-radius: 12px;
+  background: var(--surface-subtle);
+}
+
+.page1-appendix-heading,
+.page1-appendix-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.page1-appendix-heading span,
+.page1-appendix-toolbar p {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.page1-appendix-toolbar p { margin: 4px 0 0; }
+.page1-appendix-actions button { min-height: 44px; }
+.page1-appendix-actions button[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--surface-selected);
+  color: var(--accent);
+}
+.page1-appendix-actions .page1-appendix-clear {
+  background: transparent;
+  border-color: transparent;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .page1-generation-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;

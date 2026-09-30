@@ -10,6 +10,7 @@ import SelectControlField from './SelectControlField';
 import LightingReferenceModal from './LightingReferenceModal';
 import MidjourneyParameterControls from './MidjourneyParameterControls';
 import PromptPreviewCard from './PromptPreviewCard';
+import { PROMPT_APPENDICES, appendPromptInstruction } from '../lib/promptAppendices.js';
 import ZImageVisibleTextControls from './ZImageVisibleTextControls';
 import {
   DRESS_COVERED_KEYS,
@@ -660,6 +661,12 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     handleApply: handleApplyImportedPrompt,
   } = importDialog;
   const [isLightingReferenceOpen, setIsLightingReferenceOpen] = useState(false);
+  const [appendixState, setAppendixState] = useState({ source: previewPrompt, id: '' });
+  // A new generated preview invalidates the temporary display action, including rerolls.
+  if (appendixState.source !== previewPrompt) {
+    setAppendixState({ source: previewPrompt, id: '' });
+  }
+  const appendixId = appendixState.source === previewPrompt ? appendixState.id : '';
   const [activeWardrobePickerKey, setActiveWardrobePickerKey] = useState('');
   const [wardrobePickerQuery, setWardrobePickerQuery] = useState('');
   const [activeSection, setActiveSection] = useState('character');
@@ -1373,7 +1380,13 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     return renderCharacterControls();
   };
 
-  const generationPromptCards = buildPage1GenerationPromptCards(previewPrompt);
+  const originalPromptCards = buildPage1GenerationPromptCards(previewPrompt);
+  const generationPromptCards = originalPromptCards.map((card) => ({
+    ...card,
+    value: appendPromptInstruction(card.value, appendixId),
+  }));
+  const hasPromptOutput = originalPromptCards.some((card) => card.value.trim());
+  const activeAppendix = PROMPT_APPENDICES.find(({ id }) => id === appendixId);
   const dllPromptSources = buildPage1DllPromptSources(previewPrompt);
 
   const handleClearSelected = () => {
@@ -1532,6 +1545,35 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
                 variant="summary"
                 description=""
               />
+              <div className="page1-appendix-toolbar" role="group" aria-label="附加指令">
+                <div className="page1-appendix-heading">
+                  <strong>附加指令</strong>
+                  <span role="status">{activeAppendix ? `已附加：${activeAppendix.label}` : '尚未附加'}</span>
+                </div>
+                <div className="page1-appendix-actions">
+                  {PROMPT_APPENDICES.map((template) => (
+                    <button
+                      key={template.id}
+                      type="button"
+                      className="secondary"
+                      aria-pressed={appendixId === template.id}
+                      title={template.description}
+                      disabled={!hasPromptOutput}
+                      onClick={() => setAppendixState({ source: previewPrompt, id: template.id })}
+                    >
+                      {template.label}
+                    </button>
+                  ))}
+                  <button
+                    type="button"
+                    className="secondary page1-appendix-clear"
+                    disabled={!appendixId}
+                    onClick={() => setAppendixState({ source: previewPrompt, id: '' })}
+                  >清除附加</button>
+                </div>
+                <p>套用至下方所有非空白 Prompt 的預覽與複製內容；不影響加入最愛、DLL 圖片生成或原始設定。新預覽會清除附加指令。</p>
+                <p>這是文字指令，實際張數與變化由生成模型決定。</p>
+              </div>
               {generationPromptCards.map((card) => (
                 <PromptPreviewCard
                   key={card.id}
