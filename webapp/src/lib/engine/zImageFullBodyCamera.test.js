@@ -6,7 +6,7 @@ import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
 import { getLockControls } from '../engine.js';
 import { buildZImageFullBodyCamera, FULL_BODY_CAMERA_GROUPS } from './zImageFullBodyCamera.js';
-import { runSceneFixture, OUTPUT_FIELDS, digest } from './sceneIntegratedAssemblyTestSupport.js';
+import { runLegacySceneFixture as runSceneFixture, OUTPUT_FIELDS, digest } from './sceneIntegratedAssemblyTestSupport.js';
 import { FULL_CAMERA_ANGLES, FULL_CAMERA_REGRESSION, fullCameraFixture } from './zImageFullBodyCameraFixtures.js';
 import { FULL_CAMERA_TEXT_PAIRS, normalizeFullCameraForLegacy, normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';

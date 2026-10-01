@@ -2,7 +2,15 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-09-30
+Last updated: 2026-10-01
+
+## Main Z-Image on-location capture (local, 2026-10-01)
+
+- User-approved rollout groups projected scene, effective pose, visible selfie capture source, lighting and unchanged camera wording into one opening paragraph for ordinary main single Z and the three Japanese carriage fixed sets. Ordinary Z with ambient selected adds one shared-ambient connector; carriages retain their existing relationship. Selected manual seats and carriage-pose takeover remain intact. No support-object substitution, body/wardrobe shortening, camera change, catalog/UI/summary change, or selection/storage migration. See [capture spec](specs/z-image-on-location-capture-v1.md) and [three actual renderer test prompts](specs/z-image-on-location-v1-test-prompts.md).
+- Frozen pre-change 57-case snapshots check same selections/RNG, reversible Z source relocation and byte-exact other five outputs. Historical scene/camera matrices retain immutable snapshots via a narrow test-only inverse; current-layout tests separately verify the rollout. GPT, MJ, both chest outputs and full-body character remain untouched, as do duo/special/card/supine and other fixed scenes. Public contract `1.33.0`, Z contract `1.17.0`.
+- Validation: focused 63/63, frontend 1189/1189, Prompt Quality 454/454, lint/build and diff-check pass. Strict audit `200 / prompt-quality-baseline` remains 0 blockers / 28 existing diagnostics; only Z average length changes (329.4 to 329.8 words). Existing Vite large-chunk advisory remains.
+- Browser localhost 5175, desktop 1440×1000/mobile 390×900: all five workspaces load, no overflow or broken images in reviewed states, no console warnings/errors. Main previews checked for bedroom/park scene and pose/light grouping; front carriage seat takeover verified. Six original preview values restored exactly, no Saved Cards written, viewport reset and temporary working tab closed. Screenshots: `/tmp/vps-on-location-desktop.jpg`, `/tmp/vps-on-location-mobile.jpg`. Previously documented fixed-scene mobile header overflow was not repaired in this renderer-only scope.
+- User authorized commit/push on 2026-10-01; verify delivery against Git. No manual deployment. User reference-image folders `Docs/參考`, `Docs/站姿`, `Docs/lie_on_back` preserved. Handwritten-prompt visual tests established the accepted direction, but external-model acceptance of the production-renderer output is the next user test, not a completed code gate.
 
 ## Snapshot appendix buttons (local, 2026-09-30)
 

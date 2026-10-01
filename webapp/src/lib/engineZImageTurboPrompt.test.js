@@ -123,18 +123,18 @@ test('Z-Image Turbo single prompt uses direct visual paragraphs in priority orde
   assert.match(text, /Full-body portrait, eye-level view\./);
   assert.doesNotMatch(text, /right profile view/i);
   assert.match(text, /The setting is cement-mixer tank side area, large cylindrical mixing tank, concrete dust\./i);
-  assert.match(text, /Large cylindrical mixing tank, concrete dust\./i);
+  assert.match(text, /large cylindrical mixing tank, concrete dust\./i);
   assert.match(text, /Indoor low-light warm night ambience[\s\S]*mixed warm and cool subject light(?:ing)?/i);
 
   const ordered = [
     'Photorealistic editorial portrait',
     'The setting is cement-mixer tank side area',
     'large cylindrical mixing tank',
+    'Indoor low-light warm night ambience',
     'Full-body portrait, eye-level view',
     'She stands completely sideways, facing the left edge of the image',
     'A 20s seductive stunning Japanese or Korean woman',
     'She wears',
-    'Indoor low-light warm night ambience',
     'Mika Ninagawa',
     'anamorphic lens',
     'Kodak Portra',

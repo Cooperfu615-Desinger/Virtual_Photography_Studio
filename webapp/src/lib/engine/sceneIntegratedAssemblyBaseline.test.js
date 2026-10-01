@@ -9,7 +9,7 @@ import {
 } from './sceneIntegratedAssemblyFixtures.js';
 import {
   digest, materializeSceneFixture, OUTPUT_FIELDS, readSceneOutputs,
-  restoreBaselineSelection, runSceneFixture, stableValue, assertZImagePoseProjection,
+  restoreBaselineSelection, runLegacySceneFixture as runSceneFixture, stableValue, assertZImagePoseProjection,
 } from './sceneIntegratedAssemblyTestSupport.js';
 import { validatePromptOutputContract } from './promptOutputContracts.js';
 import { normalizeFullCameraForLegacy } from './zImageFullBodyCameraTestSupport.js';

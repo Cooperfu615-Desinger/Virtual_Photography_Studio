@@ -8,7 +8,7 @@ import { GPT_CAMERA_SPATIAL_FIXTURES } from './gptCameraSpatialFixtures.js';
 import { normalizeGptHighAngleDistanceForLegacy } from './gptCameraSpatialTestSupport.js';
 import { normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';
 import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
-import { runSceneFixture, digest, OUTPUT_FIELDS } from './sceneIntegratedAssemblyTestSupport.js';
+import { runLegacySceneFixture as runSceneFixture, digest, OUTPUT_FIELDS } from './sceneIntegratedAssemblyTestSupport.js';
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 import { getLockControls } from '../engine.js';
 import { buildCloseWormEyeText } from './closeWormEye.js';

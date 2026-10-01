@@ -7,7 +7,7 @@ import { cameraBaseline, normalizeGptCameraForLegacy, normalizeGptHighAngleDista
 import { GPT_CAMERA_SPATIAL_FIXTURES } from './gptCameraSpatialFixtures.js';
 import { fullCameraFixture } from './zImageFullBodyCameraFixtures.js';
 import { normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';
-import { runSceneFixture, digest } from './sceneIntegratedAssemblyTestSupport.js';
+import { runLegacySceneFixture as runSceneFixture, digest } from './sceneIntegratedAssemblyTestSupport.js';
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 import { getLockControls } from '../engine.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';

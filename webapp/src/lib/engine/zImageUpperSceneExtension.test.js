@@ -9,7 +9,7 @@ import { appendZImageUpperScene, Z_IMAGE_UPPER_SCENE_SOURCES, Z_IMAGE_UPPER_SCEN
 import { LOW_CAMERA_LABELS } from './zImageSceneDirection.js';
 import { UPPER_SCENE_EXTENSION_CASES, UPPER_SCENE_EXTENSION_MATRIX, UPPER_SCENE_EXTENSION_REGRESSION } from './zImageUpperSceneExtensionFixtures.js';
 import { upperSceneFixture } from './zImageUpperSceneFixtures.js';
-import { runSceneFixture, digest, OUTPUT_FIELDS } from './sceneIntegratedAssemblyTestSupport.js';
+import { runLegacySceneFixture as runSceneFixture, digest, OUTPUT_FIELDS } from './sceneIntegratedAssemblyTestSupport.js';
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 import { normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';

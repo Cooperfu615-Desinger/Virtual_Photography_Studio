@@ -6,7 +6,7 @@ import { readFileSync } from 'node:fs';
 import { getLockControls } from '../engine.js';
 import { projectGptSceneSource, projectGptSceneLightingModel } from './gptSceneVisibility.js';
 import { GPT_VISIBILITY_ALL } from './gptSceneVisibilityFixtures.js';
-import { runSceneFixture, digest } from './sceneIntegratedAssemblyTestSupport.js';
+import { runLegacySceneFixture as runSceneFixture, digest } from './sceneIntegratedAssemblyTestSupport.js';
 import { gptSection, withoutSceneLighting, expectedSceneProjection } from './gptSceneVisibilityTestSupport.js';
 import { AMBIENT_LIGHT_DESCRIPTIONS, renderAmbientLightDescription } from './ambientLightDescriptions.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';

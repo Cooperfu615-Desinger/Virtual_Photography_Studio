@@ -116,6 +116,7 @@ import { createPromptSectionModel } from './engine/promptModel.js';
 import { createEngineRuntimeResolver, deepFreezeRuntime } from './engine/runtimeCache.js';
 import { createSelectionSnapshot } from './engine/selectionSchema.js';
 import { createZImageTurboPromptSectionModel } from './engine/zImageTurboPromptContract.js';
+import { buildZImageOnLocationCapture } from './engine/zImageOnLocationCapture.js';
 import {
   buildZImageVisibleTextSentence,
   normalizeZImageVisibleTextSettings,
@@ -13461,7 +13462,11 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
           === stripMarkdown(context.projectedCanonicalPoseText).replace(/\s+/g, ' ').trim();
       return {
         ...section,
-        text: isProjectedCanonicalPose
+        text: section.preserveSourceLines
+          ? section.text.split('\n').filter(Boolean).map((line, index) => index === 1
+            ? ensureTerminalPeriod(line) // unchanged projected pose source
+            : cleanZImageTurboInternalLanguage(ensureTerminalPeriod(capitalizePromptLead(line)))).join('\n')
+          : isProjectedCanonicalPose
           ? normalizedText
           : cleanZImageTurboInternalLanguage(ensureTerminalPeriod(capitalizePromptLead(section.text))),
       };
@@ -13509,19 +13514,48 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
     ).filter((clause) => !locationDetailKeys.has(clause.toLowerCase())).join(', ');
     const details = [location ? world : '', clauses.join(', '), sceneAccent]
       .filter(Boolean);
+    const settingText = [
+      identity ? sentence(`The setting is ${[identity, ...details].join(', ')}`) : joinSentenceParts(details),
+      sceneMirrorReflectionText ? sentence(sceneMirrorReflectionText) : '',
+    ].filter(Boolean).join(' ');
+    const poseText = buildSinglePoseText();
+    const lightingText = buildLightingText();
+    const handText = captureHand ? sentence(capitalizePromptLead(captureHand.en)) : '';
+    // Only connect surviving sources. Empty scenes/hidden poses retain v1;
+    // never infer a seat, surface, light source or replacement object.
+    const onLocation = Boolean(identity && poseText);
     return renderSections([
       { id: 'imageType', text: imageTypeLine },
-      { id: 'composition', text: [
-        identity ? sentence(`The setting is ${[identity, ...details].join(', ')}`) : joinSentenceParts(details),
-        sceneMirrorReflectionText ? sentence(sceneMirrorReflectionText) : '',
-        compositionLine,
-        captureHand ? sentence(capitalizePromptLead(captureHand.en)) : '',
-      ].filter(Boolean).join(' ') },
+      { id: 'composition', preserveSourceLines: onLocation, text: onLocation ? buildZImageOnLocationCapture({
+        scene: settingText, pose: poseText, hand: handText, lighting: lightingText,
+        hasAmbientLight: Boolean(context.lighting && !isNoneLikeItem(context.lighting)
+          && stripMarkdown(context.lighting.en || '').trim()),
+        composition: compositionLine,
+      }) : [settingText, compositionLine, handText].filter(Boolean).join(' ') },
       { id: 'subject', text: buildCharacterText() },
-      { id: 'pose', text: buildSinglePoseText() },
+      { id: 'pose', text: onLocation ? '' : poseText },
       { id: 'wardrobe', text: buildWardrobeText() },
       { id: 'scene', text: visibleTextSentence },
-      { id: 'lighting', text: buildLightingText() },
+      { id: 'lighting', text: onLocation ? '' : lightingText },
+      { id: 'style', text: buildPhotographyStyleText() },
+      { id: 'optics', text: buildCameraText() },
+      { id: 'rendering', text: buildRenderingText() },
+    ]);
+  }
+
+  // The approved Japanese-carriage rollout relocates intact fixed-scene and
+  // preset-pose sources, but does not adopt ordinary Z anchor/hand reductions.
+  if (context.subject.count === 1 && !specialSubjectMode && !characterProfileMode
+    && !useCharacterIdentityAnchor && !supineSurfaceLed && isCarriageFixedSet(context.fixedCompositionSet)) {
+    const poseText = buildSinglePoseText();
+    if (poseText) return renderSections([
+      { id: 'imageType', text: imageTypeLine },
+      { id: 'composition', preserveSourceLines: true, text: buildZImageOnLocationCapture({
+        scene: buildSceneText(), pose: poseText, lighting: buildLightingText(),
+        sceneSharesAmbientLight: true, composition: compositionLine,
+      }) },
+      { id: 'subject', text: buildCharacterText() },
+      { id: 'wardrobe', text: buildWardrobeText() },
       { id: 'style', text: buildPhotographyStyleText() },
       { id: 'optics', text: buildCameraText() },
       { id: 'rendering', text: buildRenderingText() },

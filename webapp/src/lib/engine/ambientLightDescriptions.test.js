@@ -9,7 +9,7 @@ import { AMBIENT_LIGHT_DESCRIPTIONS, resolveAmbientLightDescription, renderAmbie
 import { AMBIENT_MATRIX, AMBIENT_EXCLUDED } from './ambientLightFixtures.js';
 import { normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';
 import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
-import { runSceneFixture, digest } from './sceneIntegratedAssemblyTestSupport.js';
+import { runLegacySceneFixture as runSceneFixture, digest } from './sceneIntegratedAssemblyTestSupport.js';
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 const baseline = JSON.parse(readFileSync(new URL('./ambientLightBaseline.json', import.meta.url), 'utf8'));
 const controls = getLockControls();

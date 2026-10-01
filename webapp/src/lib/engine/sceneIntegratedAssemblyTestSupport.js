@@ -4,6 +4,7 @@ import { createHash } from 'node:crypto';
 import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls } from '../engine.js';
 import { PROMPT_OUTPUT_CONTRACTS } from './promptOutputContracts.js';
 import { POSE_COMPOSER_ANCHOR_OPTIONS, POSE_COMPOSER_HAND_OPTIONS } from './poseComposerOptions.js';
+import { normalizeZImageOnLocationForLegacy } from './zImageOnLocationTestSupport.js';
 
 export const OUTPUT_FIELDS = Object.freeze(Object.keys(PROMPT_OUTPUT_CONTRACTS));
 
@@ -91,6 +92,15 @@ export function restoreBaselineSelection(baseline, entry) {
   const selection = { ...baseline.selectionBase, ...entry.selectionDelta };
   for (const key of entry.removedSelectionKeys) delete selection[key];
   return selection;
+}
+
+// Historical test matrices may reverse only this rollout's layout before
+// applying their original exact-source assertions. Current behavior and five
+// byte-exact protected outputs are checked in zImageOnLocationCapture.test.js.
+export function runLegacySceneFixture(fixture) {
+  const result = runSceneFixture(fixture);
+  const zImagePrompt = normalizeZImageOnLocationForLegacy(result.outputs.zImagePrompt);
+  return { ...result, outputs: { ...result.outputs, zImagePrompt }, prompt: { ...result.prompt, zImagePrompt } };
 }
 
 // Independent oracle: the unchanged GPT projection renders the same resolved

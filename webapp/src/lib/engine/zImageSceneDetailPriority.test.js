@@ -15,7 +15,7 @@ import {
   SCENE_DETAIL_PRIORITY_REGRESSION,
 } from './zImageSceneDetailPriorityFixtures.js';
 import { upperSceneFixture } from './zImageUpperSceneFixtures.js';
-import { runSceneFixture, digest, OUTPUT_FIELDS } from './sceneIntegratedAssemblyTestSupport.js';
+import { runLegacySceneFixture as runSceneFixture, digest, OUTPUT_FIELDS } from './sceneIntegratedAssemblyTestSupport.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 import { normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';
 import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';

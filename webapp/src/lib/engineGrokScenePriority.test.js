@@ -46,7 +46,7 @@ test('Gpt prompt keeps scene priority disabled for normal separates', () => {
   assert.doesNotMatch(prompt.grokPrompt, /keep the selected environment readable/);
 });
 
-test('Z-Image places the selected special outfit before pose and scene without public scene-control guidance', () => {
+test('Z-Image connects scene and pose before subject and special outfit without scene-control guidance', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
@@ -68,8 +68,9 @@ test('Z-Image places the selected special outfit before pose and scene without p
   assert.notEqual(wardrobeIndex, -1);
   assert.notEqual(poseIndex, -1);
   assert.ok(locationIndex < subjectIndex);
-  assert.ok(subjectIndex < poseIndex);
-  assert.ok(poseIndex < wardrobeIndex);
+  assert.ok(locationIndex < poseIndex);
+  assert.ok(poseIndex < subjectIndex);
+  assert.ok(subjectIndex < wardrobeIndex);
   assert.ok(settingIndex < locationIndex);
   assert.doesNotMatch(zImage, /keep the selected environment readable/i);
   assert.doesNotMatch(zImage, /moderate depth of field when needed/i);

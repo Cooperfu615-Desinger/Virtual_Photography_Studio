@@ -7,7 +7,7 @@ import { getLockControls } from '../engine.js';
 import { appendZImageUpperScene, Z_IMAGE_UPPER_SCENE_SOURCES } from './zImageUpperScene.js';
 import { LOW_CAMERA_LABELS } from './zImageSceneDirection.js';
 import { normalizeFullCameraForLegacy } from './zImageFullBodyCameraTestSupport.js';
-import { runSceneFixture, digest, OUTPUT_FIELDS } from './sceneIntegratedAssemblyTestSupport.js';
+import { runLegacySceneFixture as runSceneFixture, digest, OUTPUT_FIELDS } from './sceneIntegratedAssemblyTestSupport.js';
 import { UPPER_SCENE_CASES, UPPER_SCENE_MATRIX, UPPER_SCENE_EXCLUDED, UPPER_SCENE_CONTROLS, upperSceneFixture } from './zImageUpperSceneFixtures.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';

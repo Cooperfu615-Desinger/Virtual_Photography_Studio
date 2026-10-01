@@ -1378,7 +1378,7 @@ test('Z-Image prompt keeps natural paragraphs across major selection modes', () 
   }
 });
 
-test('Z-Image keeps subject, wardrobe, pose, and scene order across single wardrobe modes', () => {
+test('Z-Image binds intact pose to the scene before subject and all single wardrobe modes', () => {
   const wardrobeCases = [
     {
       name: 'outfit preset',
@@ -1424,16 +1424,17 @@ test('Z-Image keeps subject, wardrobe, pose, and scene order across single wardr
     const canonicalPose = gptSection(prompt, 'Pose and Composition');
     const subjectIndex = paragraphs.findIndex((paragraph) => /A 20s seductive stunning Japanese or Korean woman/i.test(paragraph));
     const wardrobeIndex = paragraphs.findIndex((paragraph) => wardrobeCase.wardrobePattern.test(paragraph));
-    const poseIndex = paragraphs.findIndex((paragraph) => paragraph === canonicalPose);
+    const poseIndex = paragraphs.findIndex((paragraph) => paragraph.includes(canonicalPose));
     const sceneIndex = paragraphs.findIndex((paragraph) => /^The setting is /i.test(paragraph));
 
     assert.ok(subjectIndex >= 0, `${wardrobeCase.name}: expected a subject paragraph`);
     assert.ok(wardrobeIndex >= 0, `${wardrobeCase.name}: expected a wardrobe paragraph`);
-    assert.ok(poseIndex >= 0, `${wardrobeCase.name}: expected the canonical pose paragraph`);
+    assert.ok(poseIndex >= 0, `${wardrobeCase.name}: expected the intact canonical pose source`);
     assert.ok(sceneIndex >= 0, `${wardrobeCase.name}: expected a scene paragraph`);
     assert.ok(subjectIndex < wardrobeIndex, `${wardrobeCase.name}: expected subject before wardrobe`);
     assert.ok(poseIndex < wardrobeIndex, `${wardrobeCase.name}: expected pose before wardrobe`);
     assert.ok(sceneIndex < subjectIndex, `${wardrobeCase.name}: expected location context before subject`);
+    assert.equal(poseIndex, sceneIndex, `${wardrobeCase.name}: pose belongs to the scene capture`);
   }
 });
 

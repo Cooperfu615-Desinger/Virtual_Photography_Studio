@@ -1,5 +1,5 @@
 import { assertZImagePoseProjection } from './sceneIntegratedAssemblyTestSupport.js';
-import { normalizeFullCameraForLegacy } from './zImageFullBodyCameraTestSupport.js';
+import { normalizeOnLocationAndFullCameraForLegacy as normalizeFullCameraForLegacy } from './zImageOnLocationTestSupport.js';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { test } from 'node:test';

@@ -10,7 +10,7 @@ import {
 } from '../engine.js';
 import { parseLocksFromStandardPrompt } from '../../features/saved-cards/cardCodec.js';
 import { countAiPromptWords } from './aiPromptLengthContract.js';
-import { normalizeFullCameraForLegacy } from './zImageFullBodyCameraTestSupport.js';
+import { normalizeOnLocationAndFullCameraForLegacy as normalizeFullCameraForLegacy } from './zImageOnLocationTestSupport.js';
 import { MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES } from './midjourneyNativeStructureFixtures.js';
 import {
   MIDJOURNEY_ASPECT_RATIO_FIXTURES,

@@ -18,7 +18,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.16.0';
+export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.17.0';
 
 const SCENE_INTEGRATED_SECTION_ORDER = Object.freeze([
   'imageType', 'composition', 'subject', 'pose', 'wardrobe',
@@ -58,6 +58,15 @@ export const Z_IMAGE_TURBO_PROMPT_CONTRACT = deepFreeze({
   },
   sectionOrder: SECTION_ORDER,
   singleSceneIntegrated: {
+    onLocationCapture: {
+      version: '1.0.0',
+      scope: 'ordinary main single Z with surviving setting and pose; Japanese carriage main Z with surviving pose',
+      sourceOrder: ['projected scene', 'effective pose', 'visible selfie hand', 'existing lighting', 'camera composition'],
+      layout: 'one opening capture paragraph with source lines, then unchanged subject and wardrobe',
+      ambientConnection: 'only explicit ambient selection; carriage retains its existing shared-ambient sentence',
+      preserves: ['five other outputs', 'all source text', 'selection', 'RNG', 'manual sitting objects', 'carriage preset takeover'],
+      exclusions: ['empty scene', 'hidden/empty pose', 'duo', 'other fixed scenes', 'dedicated-subject', 'character-card', 'supine-surface-led', 'derived-output'],
+    },
     ambientDescription: {
       version: '1.0.0',
       source: '36 exact-ID/source-pinned shared GPT/Z descriptions in ambientLightDescriptions.js',
