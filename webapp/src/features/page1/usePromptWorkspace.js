@@ -87,7 +87,7 @@ export function usePromptWorkspace() {
     saveJsonStorage(LOCKS_STORAGE_KEY, locks);
   }, [locks]);
 
-  const updateLocks = useCallback((updater) => {
+  const updateLocks = useCallback((updater, { restoringSelection = false } = {}) => {
     setPreviewRerollExclusion(null);
     setLocks((previousLocks) => {
       let candidateLocks = typeof updater === 'function'
@@ -116,6 +116,7 @@ export function usePromptWorkspace() {
         candidateLocks,
         lockControls,
         activeLibrary,
+        restoringSelection,
       });
     });
   }, [activeLibrary, lockControls]);

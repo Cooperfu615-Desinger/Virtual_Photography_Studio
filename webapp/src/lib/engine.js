@@ -1,3 +1,4 @@
+import { DEFAULT_KNEELING_SUPPORT_HAND_ID, isFourPointKneeling, isKneelingSupportHand, resolveKneelingSupportArrangement } from './engine/kneelingSupport.js';
 import { ACCESSORY_CATEGORIES, accessoryNoneId, isConcreteAccessory, isHeadWornAudio, blocksHeadWornAudio, splitAccessoryCatalog, migrateAccessoryLocks, normalizeAccessoryConflicts, projectAudioForFraming } from './engine/accessoryPolicy.js';
 import database from '../data/database.json' with { type: 'json' };
 import { isRetiredOuterwear, resolveOuterwearBase, outerwearFasteners } from './engine/outerwearModel.js';
@@ -3627,6 +3628,7 @@ function applyLegacyPoseHandPropMigration(normalizedLocks, rawLocks, controls) {
 function applyPosePropHandExclusivity(normalizedLocks, controls) {
   const selectedProp = getControlOptionById(controls, 'posePropId', normalizedLocks.posePropId);
   if (!isActivePoseComposerOption(selectedProp)) return;
+  if (isFourPointKneeling(normalizedLocks) && isRandomOption(selectedProp)) return;
   setControlToNone(normalizedLocks, controls, 'poseHandId');
 }
 
@@ -5625,7 +5627,7 @@ function buildPoseComposerItem(context) {
       )
     )
   );
-  const arrangement = resolvePoseComposerOption(
+  let arrangement = resolvePoseComposerOption(
     POSE_COMPOSER_ARRANGEMENT_OPTIONS,
     context.locks?.poseArrangementId,
     isRandomOption(requestedArrangement)
@@ -5635,11 +5637,18 @@ function buildPoseComposerItem(context) {
     ['poseArrangementId'],
     random
   );
+  const boundSupport = base.id === 'kneeling' && arrangement?.id === 'kneeling-all-fours'
+    && (!isActivePoseComposerOption(requestedProp) || isRandomOption(requestedProp))
+    && (!isActivePoseComposerOption(requestedHand) || isRandomOption(requestedHand)
+      || isModelNaturalPoseComposerOption(requestedHand) || isKneelingSupportHand(requestedHand.id));
   const handPose = resolvePoseComposerOption(
     POSE_COMPOSER_HAND_OPTIONS,
-    context.locks?.poseHandId,
+    boundSupport && !isRandomOption(requestedHand) && !isKneelingSupportHand(requestedHand?.id)
+      ? DEFAULT_KNEELING_SUPPORT_HAND_ID : context.locks?.poseHandId,
     isRandomOption(requestedHand)
-      ? (option) => !(isFullyClosedOpening(context.locks?.outerwearOpeningId) && option.id === PULL_OPEN_HAND_ID)
+      ? (option) => boundSupport
+        ? isKneelingSupportHand(option.id)
+        : !(isFullyClosedOpening(context.locks?.outerwearOpeningId) && option.id === PULL_OPEN_HAND_ID)
         && poseComposerHandSupportsRandomContext(option, {
         ...lyingCompatibilityContext,
         baseId: base.id,
@@ -5650,6 +5659,7 @@ function buildPoseComposerItem(context) {
     ['poseHandId'],
     random
   );
+  arrangement = resolveKneelingSupportArrangement(arrangement, handPose?.id);
   const head = resolveHead(arrangement, orientation);
   const anchor = resolvePoseComposerAnchorOption(
     context.locks?.poseAnchorId,
@@ -5661,7 +5671,7 @@ function buildPoseComposerItem(context) {
     exclusions,
     random,
   );
-  const propAction = resolvePoseComposerOption(
+  const propAction = boundSupport ? null : resolvePoseComposerOption(
     POSE_COMPOSER_PROP_OPTIONS,
     context.locks?.posePropId,
     isRandomOption(requestedProp)
@@ -6025,7 +6035,10 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
     return isActivePoseComposerOption(option) ? option : null;
   };
   const base = activeOption(POSE_COMPOSER_BASE_OPTIONS, poseComposer.meta?.poseBaseId);
-  const arrangement = activeOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, poseComposer.meta?.poseArrangementId);
+  const arrangement = resolveKneelingSupportArrangement(
+    activeOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, poseComposer.meta?.poseArrangementId),
+    poseComposer.meta?.poseHandId,
+  );
   const orientation = activeOption(POSE_COMPOSER_ORIENTATION_OPTIONS, poseComposer.meta?.poseOrientationId);
   const handPose = omitHand ? null : activeOption(POSE_COMPOSER_HAND_OPTIONS, poseComposer.meta?.poseHandId);
   const propAction = activeOption(POSE_COMPOSER_PROP_OPTIONS, poseComposer.meta?.posePropId);

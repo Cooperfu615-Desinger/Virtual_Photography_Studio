@@ -480,13 +480,13 @@ test('sitting matrix exclusions remain explicitly restorable', () => {
   assert.match(prompt.grokPrompt, /body naturally supported/i);
 });
 
-test('kneeling catalog keeps eight public arrangements and preserves merged legacy ids', () => {
+test('kneeling catalog keeps seven public arrangements and preserves merged legacy ids', () => {
   const kneelingOptions = control('poseArrangementId').options.filter((option) => option.base === 'kneeling');
   assert.deepEqual(
     kneelingOptions.filter((option) => !option.meta?.uiHidden).map((option) => option.zh),
-    ['跪坐', '分腿跪坐', '前傾跪姿', '四足跪姿', '跪姿側身', '直立端正跪姿', '側坐跪姿', '單膝前跨跪姿'],
+    ['跪坐', '分腿跪坐', '前傾跪姿', '四足跪姿', '直立端正跪姿', '側坐跪姿', '單膝前跨跪姿'],
   );
-  for (const legacyLabel of ['單膝跪地', '跪姿微後仰']) {
+  for (const legacyLabel of ['單膝跪地', '跪姿微後仰', '跪姿側身']) {
     const legacy = kneelingOptions.find((option) => option.zh === legacyLabel);
     assert.ok(legacy, `Expected legacy kneeling option ${legacyLabel}`);
     assert.equal(legacy.meta?.uiHidden, true, legacyLabel);
@@ -618,9 +618,9 @@ test('kneeling crop projection keeps visible upper-body intent and omits ground-
   const [cowboy] = generatePrompts(1, { ...shared, framingId: framing('牛仔中景 (Cowboy Shot)') });
   const [fullBody] = generatePrompts(1, { ...shared, framingId: framing('全身鏡頭 (Full Body Shot)') });
 
-  assert.match(canonicalPose(chestUp), /torso held low and close to the ground/i);
+  assert.match(canonicalPose(chestUp), /roughly horizontal torso with raised chest and shoulders/i);
   assert.doesNotMatch(canonicalPose(chestUp), /both palms planted on the ground/i);
-  assert.match(canonicalPose(mediumWaist), /low, forward-angled torso with the body supported close to the ground/i);
+  assert.match(canonicalPose(mediumWaist), /roughly horizontal torso with raised chest and shoulders/i);
   assert.doesNotMatch(canonicalPose(mediumWaist), /both palms planted on the ground/i);
   assert.match(canonicalPose(cowboy), /both palms planted on the ground/i);
   assert.match(canonicalPose(fullBody), /both palms planted on the ground/i);
@@ -1006,7 +1006,7 @@ test('pose composer canonical grammar handles articles, action phrases, and supp
         poseBaseId: optionId('poseBaseId', '跪姿'),
         poseArrangementId: optionId('poseArrangementId', '四足跪姿'),
       },
-      expected: 'She presents an all-fours kneeling posture with both knees grounded and the torso held low, roughly parallel to the ground.',
+      expected: 'She has both palms planted on the ground with the arms supporting the upper body, and presents an all-fours kneeling posture with both knees grounded, hips raised, arms extended, and the torso roughly parallel to the ground.',
     },
     {
       locks: {
@@ -1365,21 +1365,21 @@ test('public kneeling arrangements use direct canonical English and crop-safe fr
     },
     {
       zh: '分腿跪坐',
-      full: 'She presents a wide-knee kneeling posture with the hips settled between the heels and the torso relaxed upright.',
+      full: 'She presents a wide-knee kneeling posture with both knees grounded and naturally apart, lower legs folded back on either side, hips resting on the ground between the legs, and the torso upright.',
       chest: '',
       medium: 'She presents a kneeling pose.',
     },
     {
       zh: '前傾跪姿',
-      full: 'She presents a forward-leaning kneeling posture with the upper body inclined from the hips while both knees remain grounded.',
+      full: 'She presents a forward-leaning high kneeling posture with both knees grounded, hips lifted clear of the heels, and the upper body inclined forward from the hips.',
       chest: 'She presents an upper-body pose with a forward torso lean from the hips.',
       medium: 'She presents a forward torso lean from the hips.',
     },
     {
       zh: '四足跪姿',
-      full: 'She presents an all-fours kneeling posture with both knees grounded and the torso held low, roughly parallel to the ground.',
-      chest: 'She presents an upper-body pose with the torso held low and close to the ground.',
-      medium: 'She presents a low, forward-angled torso with the body supported close to the ground.',
+      full: 'She has both palms planted on the ground with the arms supporting the upper body, and presents an all-fours kneeling posture with both knees grounded, hips raised, arms extended, and the torso roughly parallel to the ground.',
+      chest: 'She presents an upper-body pose with a roughly horizontal torso with raised chest and shoulders.',
+      medium: 'She presents a roughly horizontal torso with raised chest and shoulders.',
     },
     {
       zh: '跪姿側身',
@@ -1389,7 +1389,7 @@ test('public kneeling arrangements use direct canonical English and crop-safe fr
     },
     {
       zh: '直立端正跪姿',
-      full: 'She presents an upright poised kneeling posture with the torso tall, shoulders relaxed, and both knees grounded.',
+      full: 'She presents an upright high kneeling posture with both knees grounded, thighs nearly vertical, hips lifted clear of the heels and positioned above the knees, and the torso tall with relaxed shoulders.',
       chest: 'She presents an upper-body pose with a tall, relaxed upper-body posture.',
       medium: 'She presents a tall, relaxed upper-body posture.',
     },
@@ -1915,7 +1915,7 @@ test('legacy poseId locks migrate into visible pose composer controls and clear 
 
 test('pose composer exposes kneeling and lying expansion batch', () => {
   [
-    ['直立端正跪姿', 'kneeling', /upright poised kneeling posture/],
+    ['直立端正跪姿', 'kneeling', /upright high kneeling posture/],
     ['側坐跪姿', 'kneeling', /side-sitting kneeling posture/],
     ['單膝前跨跪姿', 'kneeling', /half-kneeling posture/],
     ['手肘支撐跪姿', 'kneeling', /forearms supporting the upper body/],

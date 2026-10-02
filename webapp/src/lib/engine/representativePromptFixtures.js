@@ -15,6 +15,25 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 });
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
+  ...[
+    ['hands-palms-planted-ground', 'arms extended', 'raised chest and shoulders'],
+    ['hands-elbows-planted-ground', 'chest and shoulders lowered', 'lowered chest and shoulders'],
+  ].map(([hand, body, upper]) => ({
+    id: `kneeling-support-${hand}`, title: 'Four-point kneeling resolves support before crop',
+    mode: 'single', seed: 'kneeling-catalog-v2',
+    locks: { subjectCount: '1', poseBaseId: 'kneeling', poseArrangementId: 'kneeling-all-fours',
+      poseHandId: hand, posePropId: 'none', poseHeadId: 'none', poseAnchorId: 'none',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' } },
+    expectedOutputs: {
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt'].map(field => [field, {
+        includes: ['both knees grounded, hips raised', body],
+      }])),
+      ...Object.fromEntries(['chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map(field => [field, {
+        includes: ['kneeling pose', upper], excludes: ['both knees grounded', 'hips raised'],
+      }])),
+      fullBodyCharacterPrompt: { excludes: ['all-fours kneeling', 'both knees grounded'] },
+    },
+  })),
   {
     id: 'transit-explicit-lighting', title: 'Transit sets retain explicit ambient and subject light',
     mode: 'single', seed: 'transit-light-v1',

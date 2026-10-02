@@ -1,3 +1,4 @@
+import { buildKneelingSupportControl, isFourPointKneeling } from '../lib/engine/kneelingSupport.js';
 import { prepareAccessoryControl } from '../lib/engine/accessoryPolicy.js';
 import { prepareOuterwearClosureControl } from '../lib/engine/outerwearClosure.js';
 import { fixedSetAllowsLensVariation, isStationFixedSet, stationSubjectFacingText } from '../lib/engine/stationFixedComposition.js';
@@ -864,6 +865,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       return { ...control, label: `${control.label}（場景位置接管）`, suppressDefaultRandomOption: true,
         options: control.options.filter(option => option.id === effectiveFixedSceneLocks[control.key]) };
     }
+    control = buildKneelingSupportControl(control, effectiveFixedSceneLocks);
     if (!POSE_COMPOSER_CONTEXT_KEYS.has(control.key)) return control;
     return {
       ...control,
@@ -910,6 +912,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   };
 
   const isControlDisabled = (control) => (
+    (control.key === 'posePropId' && isFourPointKneeling(effectiveFixedSceneLocks))
+    ||
     (Boolean(fixedScenePosition) && FIXED_SCENE_MANAGED_POSE_KEYS.includes(control.key))
     || (isCloseupMode && !closeupAllowedKeys.has(control.key))
     || (supineSurfaceOnly && SUPINE_SCENE_LOCKED_KEYS.has(control.key))

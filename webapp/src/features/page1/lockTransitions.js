@@ -1,3 +1,4 @@
+import { reconcileKneelingSupportLocks } from '../../lib/engine/kneelingSupport.js';
 import {
   getSceneDependentOptions,
   sanitizeLocksForCloseupMode,
@@ -41,9 +42,12 @@ export function transitionPage1Locks({
   candidateLocks,
   lockControls,
   activeLibrary = [],
+  restoringSelection = false,
 }) {
   let next = sanitizeLocksForCloseupMode(
-    synchronizeChangedOutfitPresetColorAliases(previousLocks, candidateLocks),
+    restoringSelection
+      ? synchronizeChangedOutfitPresetColorAliases(previousLocks, candidateLocks)
+      : reconcileKneelingSupportLocks(previousLocks, synchronizeChangedOutfitPresetColorAliases(previousLocks, candidateLocks)),
     lockControls,
   );
   const sceneOptions = getSceneDependentOptions(activeLibrary, next);

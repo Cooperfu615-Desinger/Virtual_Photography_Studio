@@ -253,7 +253,7 @@ export default function App() {
       return;
     }
     const restoredLocks = buildRestoreLocks(previewPrompt.selection, lockControls);
-    updateLocks(() => normalizeLocks(restoredLocks));
+    updateLocks(() => normalizeLocks(restoredLocks), { restoringSelection: true });
     showToast('已將目前預覽回填到所有選項');
   }, [lockControls, previewPrompt, showToast, updateLocks]);
 
@@ -293,7 +293,7 @@ export default function App() {
     }
 
     const restoredLocks = buildRestoreLocks(prompt.selection, lockControls);
-    updateLocks(() => normalizeLocks(restoredLocks));
+    updateLocks(() => normalizeLocks(restoredLocks), { restoringSelection: true });
     setPageMode('page1');
     showToast(['已套用收藏卡片的預覽選項', ...(prompt.accessoryRestoreNotices || []), ...accessoryRestoreNotices(prompt.selection)].join(' '));
   }, [handleApplyActionPoseCardToPage1, lockControls, showToast, updateLocks]);
@@ -365,7 +365,7 @@ export default function App() {
             ...normalizeMidjourneyParameterSettings(previousLocks),
           }
         : restoredLocks
-    ));
+    ), { restoringSelection: true });
     setPageMode('page1');
     showToast(successLabel);
   }, [lockControls, showToast, updateLocks]);

@@ -554,24 +554,33 @@ export const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   deprecatedPoseArrangement(withSittingUpperProjectionEnglish({ id: 'sitting-grounded-forward-lean', base: 'sitting', zh: '坐姿身體前傾', en: 'grounded forward-leaning seated arrangement, upper body angled forward with stable seated weight' }, 'the upper body angled forward')),
   withSittingUpperProjectionEnglish({ id: 'sitting-open-confident', base: 'sitting', zh: '開闊自信坐姿', en: 'open, grounded seated posture with the knees comfortably apart, weight settled through the hips, and the torso relaxed and upright', desc: '膝蓋自然分開、重心穩定下沉，軀幹放鬆直立，呈現沒有拘束的開放坐姿。' }, 'an open, relaxed upper-body posture with the torso upright and shoulders at ease'),
   { id: 'kneeling-seiza', base: 'kneeling', zh: '跪坐', en: 'seiza-style kneeling posture with the hips resting on the heels, knees together, and the torso upright', meta: { projectionByBucket: KNEELING_LOWER_PROJECTION } },
-  { id: 'kneeling-wide', base: 'kneeling', zh: '分腿跪坐', en: 'wide-knee kneeling posture with the hips settled between the heels and the torso relaxed upright', meta: { projectionByBucket: KNEELING_LOWER_PROJECTION } },
+  { id: 'kneeling-wide', base: 'kneeling', zh: '分腿跪坐', en: 'wide-knee kneeling posture with both knees grounded and naturally apart, lower legs folded back on either side, hips resting on the ground between the legs, and the torso upright', meta: { legacyPromptAliases: ['wide-knee kneeling posture with the hips settled between the heels and the torso relaxed upright'], projectionByBucket: KNEELING_LOWER_PROJECTION } },
   withKneelingUpperProjectionEnglish(
-    { id: 'kneeling-forward-lean', base: 'kneeling', zh: '前傾跪姿', en: 'forward-leaning kneeling posture with the upper body inclined from the hips while both knees remain grounded' },
+    { id: 'kneeling-forward-lean', base: 'kneeling', zh: '前傾跪姿', en: 'forward-leaning high kneeling posture with both knees grounded, hips lifted clear of the heels, and the upper body inclined forward from the hips', meta: { legacyPromptAliases: ['forward-leaning kneeling posture with the upper body inclined from the hips while both knees remain grounded'] } },
     'a forward torso lean from the hips',
   ),
   withKneelingUpperProjectionEnglish(
-    { id: 'kneeling-all-fours', base: 'kneeling', zh: '四足跪姿', en: 'all-fours kneeling posture with both knees grounded and the torso held low, roughly parallel to the ground' },
+    { id: 'kneeling-all-fours', base: 'kneeling', zh: '四足跪姿', en: 'all-fours kneeling posture with both knees grounded and the torso held low, roughly parallel to the ground', meta: {
+      supportVariants: Object.fromEntries([
+        ['hands-palms-planted-ground', 'all-fours kneeling posture with both knees grounded, hips raised, arms extended, and the torso roughly parallel to the ground', 'a roughly horizontal torso with raised chest and shoulders'],
+        ['hands-elbows-planted-ground', 'all-fours kneeling posture with both knees grounded, hips raised, chest and shoulders lowered, and the torso inclined forward and downward from the hips', 'a forward and downward torso incline with lowered chest and shoulders'],
+      ].map(([id, en, upper]) => [id, { en, projectionByBucket: withKneelingUpperProjectionEnglish({ en }, upper).meta.projectionByBucket }])),
+      legacyPromptAliases: [
+        'all-fours kneeling posture with both knees grounded, hips raised, arms extended, and the torso roughly parallel to the ground',
+        'all-fours kneeling posture with both knees grounded, hips raised, chest and shoulders lowered, and the torso inclined forward and downward from the hips',
+      ],
+    } },
     'the torso held low and close to the ground',
     'a low, forward-angled torso with the body supported close to the ground',
   ),
   deprecatedPoseArrangement({ id: 'kneeling-puppy-crossed-hands-chin', base: 'kneeling', zh: '瑜伽小狗式交叉手托下巴', en: 'extended puppy kneeling pose with knees grounded, torso folded forward, forearms crossed under the chin, and hands tucked below the jaw' }),
   deprecatedPoseArrangement({ id: 'kneeling-one-knee', base: 'kneeling', zh: '單膝跪地', en: 'one-knee kneeling arrangement' }),
-  withKneelingUpperProjectionEnglish(
+  deprecatedPoseArrangement(withKneelingUpperProjectionEnglish(
     { id: 'kneeling-side', base: 'kneeling', zh: '跪姿側身', en: 'side-oriented kneeling posture with the lower body grounded and the torso turned to one side' },
     'a side-turned upper-body posture and a clear lateral shoulder line',
-  ),
+  )),
   withKneelingUpperProjectionEnglish(
-    { id: 'kneeling-upright-poised', base: 'kneeling', zh: '直立端正跪姿', en: 'upright poised kneeling posture with the torso tall, shoulders relaxed, and both knees grounded' },
+    { id: 'kneeling-upright-poised', base: 'kneeling', zh: '直立端正跪姿', en: 'upright high kneeling posture with both knees grounded, thighs nearly vertical, hips lifted clear of the heels and positioned above the knees, and the torso tall with relaxed shoulders', meta: { legacyPromptAliases: ['upright poised kneeling posture with the torso tall, shoulders relaxed, and both knees grounded'] } },
     'a tall, relaxed upper-body posture',
   ),
   { id: 'kneeling-side-sit', base: 'kneeling', zh: '側坐跪姿', en: 'side-sitting kneeling posture with the hips lowered beside the folded legs and the torso relaxed upright', meta: { projectionByBucket: KNEELING_LOWER_PROJECTION } },

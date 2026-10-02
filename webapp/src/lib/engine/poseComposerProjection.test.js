@@ -67,7 +67,7 @@ test('all active sitting arrangements carry explicit crop projection metadata', 
 
 test('all active kneeling arrangements carry explicit crop projection metadata', () => {
   const kneeling = POSE_COMPOSER_ARRANGEMENT_OPTIONS.filter((option) => option.base === 'kneeling' && !option.meta?.deprecated);
-  assert.equal(kneeling.length, 8);
+  assert.equal(kneeling.length, 7);
 
   for (const option of kneeling) {
     const metadata = option.meta?.projectionByBucket;

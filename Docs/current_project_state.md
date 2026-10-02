@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-02
 
+## 跪姿目錄 v2 (local, 2026-10-02)
+
+- 使用者核准七組跪姿，`跪姿側身` 改為隱藏／非隨機但仍可還原。分腿跪坐明確坐在兩腿間地面；直立端正及前傾為臀部離開腳跟的高跪。新選四足預設雙掌，可改雙肘，肩胸高度及軀幹傾斜隨支撐解析；道具不能接管必要支撐。
+- 三主輸出與兩胸上共用 resolved support，再依原景別政策投影；全身角色照維持原用途。舊卡／匯入／預覽回填保留明確雙肘與歷史手勢，英文 alias 保留，無 storage migration。Public contract `1.34.0`。見 [跪姿目錄 v2](specs/kneeling-catalog-v2.md)。
+- 驗證完成：focused 109/109、前端 1207/1207、Prompt Quality 472/472、lint/build、資料同步檢查、Python 2/2 與 diff-check 通過。同 seed `200 / prompt-quality-baseline` 嚴格稽核與修改前文字報告相同：0 阻擋／28 既有診斷；Vite 大型 chunk 提示仍在。
+- 瀏覽器 `1440×1000`／`390×900` 已檢查五個工作區完成載入後的版面，所檢查狀態無頁面橫向溢出、破圖或 console 警告／錯誤。實際操作確認七組目錄、四足預設雙掌／切換雙肘、道具停用、離開四足清除支撐及分腿／前傾輸出；三主輸出含完整雙肘幾何、兩胸上保留降低的肩胸／傾斜但省略地面接觸、全身角色照保持自然站姿。JSON／文字匯入與回填相容性由 focused tests 覆蓋，未寫入或刪除 Saved Cards。原本六組預覽已逐字還原、viewport 已重設，驗證分頁已關閉。截圖 `/tmp/vps-kneeling-desktop.jpg`、`/tmp/vps-kneeling-mobile.jpg`。
+- 使用者於 2026-10-02 授權 commit/push；交付狀態以 Git 核對為準，未部署。使用者參考圖資料夾保持原狀，實際圖像模型驗收另行進行。
+
 ## 豐胸纖腰沙漏身形 (local, 2026-10-02)
 
 - `A. 人物設定／體態` append-only 新增 `豐胸纖腰沙漏身形`，保留既有選項 ID。完整來源用實測的 I-cup、纖細手臂與腰部、較寬臀部、豐滿大腿及纖細小腿；近景依可見範圍投影。AI 主 Prompt 使用無罩杯數值的短輪廓句；Gpt、Z-Image 和全身角色照保留適用的完整來源。
