@@ -19,11 +19,6 @@ import {
   CONDITIONAL_GARTER_BELT_SUMMARY_LABEL,
 } from './engine/conditionalGarterBelt.js';
 import {
-  addConditionalHourglassBikiniFit,
-  HOURGLASS_BIKINI_TOP_FIT,
-  HOURGLASS_BIKINI_BOTTOM_FIT,
-} from './engine/hourglassBikiniFit.js';
-import {
   COMPOSITION_VISIBILITY_BUCKETS,
   COMPOSITION_VISIBILITY_CONTRACT,
   createCompositionVisibilityProjection,
@@ -8296,7 +8291,7 @@ function extractCharacterSlots(character) {
   };
 }
 
-function projectBodyTypeCharacter(character, context, wardrobe = []) {
+function projectBodyTypeCharacter(character, context, wardrobe = [], { preserveHourglassSource = false } = {}) {
   if (!Array.isArray(character)) return character;
   if (isSpecialSubject(context.subject) || isCharacterProfileSubject(context.subject)) return character;
 
@@ -8312,7 +8307,9 @@ function projectBodyTypeCharacter(character, context, wardrobe = []) {
     .map((item) => item.meta?.wardrobeRole || ''));
   const projectedBySource = new Map(bodyTypes.map((bodyType) => [
     bodyType,
-    projectNormalBodyTypeItem(bodyType, compositionVisibility, {
+    preserveHourglassSource && bodyType.zh === '豐胸纖腰沙漏身形'
+      ? bodyType
+      : projectNormalBodyTypeItem(bodyType, compositionVisibility, {
       hemOverlap: hemOverlapRoles.has(bodyType.meta?.characterRole || ''),
     }),
   ]));
@@ -11873,7 +11870,7 @@ const GPT_SINGLE_HAIR_COLOR_MERGE_RULES = [
 const SINGLE_BODY_TYPE_ANCHOR_RULES = [
   {
     pattern: /I-cup bust,\s*slender arms,\s*narrow waist,\s*wider hips,\s*fuller upper thighs,\s*slim calves,\s*defined hourglass silhouette/i,
-    aiText: 'Pronounced hourglass silhouette, very full bust, slender arms and waist, wider hips, fuller upper thighs, slim calves.',
+    aiText: 'I-cup bust, slender arms, narrow waist, wider hips, fuller upper thighs, slim calves, defined hourglass silhouette',
   },
   {
     pattern: /I-cup bust,\s*slender arms,\s*wider hips,\s*fuller upper thighs,\s*slim calves,\s*defined hourglass silhouette/i,
@@ -15036,13 +15033,8 @@ function buildAiNormalWardrobeText(
       const value = role === 'outerwear' ? outerwear : firstStructuredValue(valuesByLabel, [label]);
       const topPatternSource = role === 'top' && wardrobeSlots?.topPattern && !isNoneLikeItem(wardrobeSlots.topPattern)
         ? normalizeWardrobePromptText(wardrobeSlots.topPattern.en) : '';
-      const conditionalWearSources = role === 'top' && wardrobeSlots?.top?.meta?.conditionalHourglassBikiniFit
-        ? [HOURGLASS_BIKINI_TOP_FIT]
-        : role === 'bottom' && wardrobeSlots?.pants?.meta?.conditionalHourglassBikiniFit
-          ? [HOURGLASS_BIKINI_BOTTOM_FIT]
-          : [];
       const wearSources = role === 'outerwear' ? outerwearWearSources
-        : [...(role === 'top' && isHemOverlapStyling(wardrobeSlots?.topStyling) ? [wardrobeSlots.topStyling.en] : []), ...conditionalWearSources];
+        : role === 'top' && isHemOverlapStyling(wardrobeSlots?.topStyling) ? [wardrobeSlots.topStyling.en] : [];
       return shouldKeepWardrobeRoleForContext(role, context, value)
         ? compactAiGarmentValue(value, role, primarySourceByLabel[label], wearSources, role === 'outerwear' ? outerwearPatternSource : topPatternSource)
         : '';
@@ -15724,7 +15716,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
       : rendererContext.subject,
     projectedScene: buildProjectedScene(rendererContext),
   };
-  const projectedCharacter = projectBodyTypeCharacter(character, mainContext, wardrobe);
+  const projectedCharacter = projectBodyTypeCharacter(character, mainContext, wardrobe, { preserveHourglassSource: true });
   const rendererWardrobe = projectClosedOuterwearWardrobe(projectTopHemOverlap(projectAudioForFraming(fixedCompositionPromptProjection?.wardrobe.items || wardrobe, mainContext), mainContext));
   const rendererWardrobeColors = fixedCompositionPromptProjection?.wardrobe.colors || wardrobeColors;
   const promptModel = {
@@ -16368,7 +16360,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     : buildWardrobe({ ...context }, effectiveLocks, runtime);
   const filteredPage1Wardrobe = filterPage1WardrobeForCharacterCardLayers(rawPage1Wardrobe, cardLayers);
   const page1Wardrobe = appendLockedPage1FillersForCharacterCardLayers(filteredPage1Wardrobe, cardLayers, effectiveLocks, lockControls);
-  const wardrobe = [...cardLayers, ...addConditionalHourglassBikiniFit(page1Wardrobe, character)];
+  const wardrobe = [...cardLayers, ...page1Wardrobe];
   context.wardrobe = wardrobe;
   const wardrobeColors = buildWardrobeColors(extractWardrobeSlots(wardrobe), effectiveLocks, random);
 

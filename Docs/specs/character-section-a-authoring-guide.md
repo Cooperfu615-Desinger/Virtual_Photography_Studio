@@ -113,11 +113,12 @@ core identity phrase, 1-3 concrete visual traits, restrained style or realism cu
 - 避免 `underweight`、`bony`、`fragile`、`childlike`、過度誇張身材或不健康身形。
 - 胸部與臀部曲線可以用比例與輪廓語氣描述，例如 `fuller bust-waist-hip curves`、`rounded hips`，避免露骨或過度物化。
 
-`豐胸纖腰沙漏身形` append-only 新增在既有 `全無` 之後，canonical source 使用經實測的 `I-cup bust, slender arms, narrow waist, wider hips, fuller upper thighs, slim calves, defined hourglass silhouette`。不指定身高、體重或三圍，也不把泳裝寫進體態。僅當同一人物選到獨立 `比基尼上身` 時，resolved wardrobe 加入較小三角罩杯在上緣／外側形成局部柔軟貼合、仍覆蓋中央且保持結構完整的描述；選到獨立 `比基尼下身` 時，才描述側綁帶在臀部的淺壓痕。比基尼上身不套用一般上衣與低腰下身之間的衣長銜接句。一般衣褲、完整套裝和另一人物不繼承這些比基尼句子。AI 主 Prompt 依既有 Body Type 短正向 anchor 政策使用 `very full bust` 等視覺輪廓，不輸出 I-cup 數值；Gpt／Z-Image 的全身來源保留 I-cup。
+`豐胸纖腰沙漏身形` append-only 新增在既有 `全無` 之後，canonical source 使用經實測的 `I-cup bust, slender arms, narrow waist, wider hips, fuller upper thighs, slim calves, defined hourglass silhouette`。不指定身高、體重或三圍，也不把泳裝寫進體態。2026-10-03 核准的窄例外：選取此體態時，Gpt、Grok/Z-Image、AI 三組主 Prompt 都逐字保留上述完整英文，包含近景及 `衣襬遮住部分下身`；不能套用 AI 短正向 anchor 或刪除腰部／腿部片段。兩句依此體態附加的比基尼上身／下身貼合描述已移除；獨立比基尼單品仍用原資料庫描述，不在此體態規則中改版。比基尼上身不套用一般上衣與低腰下身之間的衣長銜接句。衍生輸出與其他體態仍依既有景別及衣襬投影規則。
 
 構圖可見性目標規則：
 
 - 體態 visibility phase 3 已讓正常單人、雙人 A/B、Character Card 結構化 `body` 與特殊穿搭 person-detail 共用 `compositionBodyProjection.js` 的 composition body policy。完整 `en`／`profile.body` 仍是 canonical full-body source，近景只使用 authored、可追溯的區域來源。
+- 上述 `豐胸纖腰沙漏身形` 的三組主 Prompt 是例外：近景仍使用原始完整來源，衍生輸出繼續使用本節 authored 區域來源。
 - 新增或修改 Body Type 時，必須同時提供可追溯的 `chestUp`、`mediumWaist`、`cowboyKnee` 區域描述，並更新 `compositionBodyVisibilityFixtures.js`。不得只依 renderer 正規表示式從混合全身句猜測區域。
 - `faceDetail` 與 `headShoulders` 的目標 projected body 為空；臉、膚質、妝容、髮型、神情與臉部配件不得因此消失。
 - `chestUp` 只描述胸部、胸廓、上半身緊實度等實際可見特徵，不輸出身高、體重、完整三圍、腰腹、臀腿、腿身比或 cup-scale 數值。

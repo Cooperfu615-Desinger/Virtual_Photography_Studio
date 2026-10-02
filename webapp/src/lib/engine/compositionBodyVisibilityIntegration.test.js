@@ -30,7 +30,7 @@ const AI_FULL_BODY_ANCHOR_BY_ZH = Object.freeze({
   一般基本體型: 'natural balanced silhouette, gentle waist curve, natural bust and hips',
   柔和沙漏身形: 'soft hourglass silhouette, fuller bust, wider hips',
   性感曲線身形: 'curvy hourglass silhouette, fuller bust, defined waist, rounded hips',
-  豐胸纖腰沙漏身形: 'pronounced hourglass silhouette, very full bust, slender arms and waist, wider hips, fuller upper thighs, slim calves',
+  豐胸纖腰沙漏身形: 'I-cup bust, slender arms, narrow waist, wider hips, fuller upper thighs, slim calves, defined hourglass silhouette',
   運動緊實身形: 'fit athletic silhouette, firm build, subtle muscle definition',
   小隻精緻身形: 'petite refined silhouette, compact frame, delicate proportions',
 });
@@ -92,7 +92,11 @@ test('normal single Body Types use one composition-projected source across all m
 
       assert.equal(prompt.selection.bodyTypeId, bodyTypeId, `${profile.bodyTypeZh}/${bucket}: selection`);
 
-      if (!expectedBodyText) {
+      if (profile.bodyTypeZh === '豐胸纖腰沙漏身形') {
+        for (const field of MAIN_OUTPUT_FIELDS) {
+          assert.equal(prompt[field].includes(profile.fullSource), true, `${profile.bodyTypeZh}/${bucket}/${field}: verbatim main source`);
+        }
+      } else if (!expectedBodyText) {
         for (const field of MAIN_OUTPUT_FIELDS) {
           for (const fragment of bodyFragments(profile.fullSource)) {
             assertExcludes(prompt[field], fragment, `${profile.bodyTypeZh}/${bucket}/${field}: ${fragment}`);
@@ -138,6 +142,7 @@ test('normal single partial Body Type output excludes hidden full-body regions',
   };
 
   for (const profile of BODY_TYPE_VISIBILITY_PROFILES) {
+    if (profile.bodyTypeZh === '豐胸纖腰沙漏身形') continue;
     for (const [bucket, forbiddenPattern] of Object.entries(forbiddenByBucket)) {
       const [prompt] = generatePrompts(1, {
         ...createAllNoneLocks(),

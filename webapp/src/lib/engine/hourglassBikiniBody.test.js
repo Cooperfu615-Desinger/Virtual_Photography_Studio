@@ -5,6 +5,8 @@ import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls 
 
 const BODY_LABEL = '豐胸纖腰沙漏身形';
 const BODY_SOURCE = 'I-cup bust, slender arms, narrow waist, wider hips, fuller upper thighs, slim calves, defined hourglass silhouette';
+const MAIN_FIELDS = ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt'];
+const REMOVED_FIT = /reduced-fabric triangle cups cover the bust center|side ties make shallow impressions against the rounded outer hips/i;
 const controls = getLockControls();
 
 function optionId(key, zh) {
@@ -23,82 +25,31 @@ function locksWithNone() {
   return locks;
 }
 
-function generate(locks, seed = 'hourglass-bikini-v1') {
+function generate(locks, seed = 'hourglass-source-v2') {
   return generatePrompts(1, { ...locksWithNone(), ...locks }, [], {
     random: createSeededRandom(seed),
   })[0];
 }
 
-test('new body option keeps its full source and a number-free AI silhouette', () => {
-  const prompt = generate({
-    subjectCount: '1',
-    bodyTypeId: optionId('bodyTypeId', BODY_LABEL),
-    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
-    topId: optionId('topId', '全無'),
-    pantsId: optionId('pantsId', '全無'),
-    skirtId: optionId('skirtId', '全無'),
-  });
-
-  assert.match(prompt.grokPrompt, new RegExp(BODY_SOURCE, 'i'));
-  assert.match(prompt.zImagePrompt, /I-cup bust.*slim calves/i);
-  assert.match(prompt.midjourneyPrompt, /Pronounced hourglass silhouette, very full bust, slender arms and waist, wider hips, fuller upper thighs, slim calves/i);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /I-cup/i);
-  assert.match(prompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '', /I-cup bust.*slim calves/i);
-});
-
-test('the selected bikini layers receive only their own same-body fit details', () => {
+test('selected I-cup Body Type stays verbatim in all three main prompts at every crop', () => {
   const bodyTypeId = optionId('bodyTypeId', BODY_LABEL);
-  const bikiniTopId = optionId('topId', '比基尼上身');
-  const bikiniBottomId = optionId('pantsId', '比基尼下身');
-  const baseLocks = { subjectCount: '1', bodyTypeId, framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)') };
-  const both = generate({ ...baseLocks, topId: bikiniTopId, pantsId: bikiniBottomId });
-
-  for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) {
-    assert.match(both[field], /reduced-fabric (?:triangle )?cups/i, field);
-    assert.match(both[field], /localized soft fullness/i, field);
-    assert.match(both[field], /shallow impressions/i, field);
-    assert.doesNotMatch(both[field], /top length meets or slightly overlaps the low-rise waistband/i, field);
-  }
-  assert.equal(both.selection.bodyTypeId, bodyTypeId);
-  assert.equal(both.selection.topId, bikiniTopId);
-  assert.equal(both.selection.pantsId, bikiniBottomId);
-
-  const topOnly = generate({ ...baseLocks, topId: bikiniTopId, pantsId: optionId('pantsId', '直筒牛仔褲') });
-  assert.match(topOnly.grokPrompt, /reduced-fabric (?:triangle )?cups/i);
-  assert.doesNotMatch(topOnly.grokPrompt, /shallow impressions/i);
-
-  const bottomOnly = generate({ ...baseLocks, topId: optionId('topId', '絲質細肩帶上衣'), pantsId: bikiniBottomId });
-  assert.doesNotMatch(bottomOnly.grokPrompt, /reduced-fabric (?:triangle )?cups/i);
-  assert.match(bottomOnly.grokPrompt, /shallow impressions/i);
-
-  const ordinary = generate({ ...baseLocks, topId: optionId('topId', '絲質細肩帶上衣'), pantsId: optionId('pantsId', '直筒牛仔褲') });
-  for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) {
-    assert.doesNotMatch(ordinary[field], /reduced-fabric (?:triangle )?cups|localized soft fullness|shallow impressions/i, field);
-  }
-  const oldBody = generate({ ...baseLocks, bodyTypeId: optionId('bodyTypeId', '性感曲線身形'), topId: bikiniTopId, pantsId: bikiniBottomId });
-  assert.doesNotMatch(oldBody.grokPrompt, /reduced-fabric (?:triangle )?cups|localized soft fullness|shallow impressions/i);
-});
-
-test('body source follows the visible crop without leaking hidden regions', () => {
-  const bodyTypeId = optionId('bodyTypeId', BODY_LABEL);
-  const cases = [
-    ['胸上特寫', /full bust, slender arms/i, /narrow waist|wider hips|fuller upper thighs|slim calves|I-cup/i],
-    ['中景鏡頭 (Medium Shot)', /full bust, slender arms, narrow waist/i, /wider hips|fuller upper thighs|slim calves|I-cup/i],
-    ['牛仔中景 (Cowboy Shot)', /full bust, slender arms, narrow waist, wider hips, fuller upper thighs/i, /slim calves|I-cup/i],
-    ['全臉傾斜特寫', null, /I-cup|full bust|narrow waist|wider hips|fuller upper thighs|slim calves/i],
-  ];
-  for (const [framing, include, exclude] of cases) {
-    const prompt = generate({ subjectCount: '1', bodyTypeId, framingId: optionId('framingId', framing), topId: optionId('topId', '全無'), pantsId: optionId('pantsId', '全無') }, framing);
-    if (include) assert.match(prompt.grokPrompt, include, framing);
-    assert.doesNotMatch(prompt.grokPrompt, exclude, framing);
-    if (framing === '牛仔中景 (Cowboy Shot)') {
-      assert.match(prompt.midjourneyPrompt, /very full bust, slender arms, narrow waist, wider hips, fuller upper thighs/i);
-      assert.doesNotMatch(prompt.midjourneyPrompt, /slim calves|I-cup/i);
+  for (const framing of [
+    '全無', '全身鏡頭 (Full Body Shot)', '牛仔中景 (Cowboy Shot)',
+    '中景鏡頭 (Medium Shot)', '胸上特寫', '全臉傾斜特寫', '臉部特寫',
+  ]) {
+    const prompt = generate({
+      subjectCount: '1', bodyTypeId, framingId: optionId('framingId', framing),
+      topId: optionId('topId', '全無'), pantsId: optionId('pantsId', '全無'),
+    }, framing);
+    assert.equal(prompt.selection.bodyTypeId, bodyTypeId);
+    for (const field of MAIN_FIELDS) {
+      assert.ok(prompt[field].includes(BODY_SOURCE), `${framing}/${field}: exact Body Type source`);
     }
+    assert.ok(prompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text.includes(BODY_SOURCE));
   }
 });
 
-test('overlapping hem removes waist detail without leaking cup size into AI', () => {
+test('overlapping top hem keeps the same I-cup sentence in all main prompts', () => {
   const prompt = generate({
     subjectCount: '1',
     bodyTypeId: optionId('bodyTypeId', BODY_LABEL),
@@ -107,25 +58,40 @@ test('overlapping hem removes waist detail without leaking cup size into AI', ()
     topStylingId: optionId('topStylingId', '衣襬遮住部分下身'),
     pantsId: optionId('pantsId', '牛仔短褲'),
   });
-  assert.match(prompt.grokPrompt, /I-cup bust, slender arms, wider hips/i);
-  assert.doesNotMatch(prompt.grokPrompt, /I-cup bust, slender arms, narrow waist/i);
-  assert.match(prompt.midjourneyPrompt, /Pronounced hourglass silhouette, very full bust, slender arms, wider hips/i);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /I-cup|narrow waist/i);
+  for (const field of MAIN_FIELDS) assert.ok(prompt[field].includes(BODY_SOURCE), field);
 });
 
-test('duo bikini fit belongs only to the role with the new body type', () => {
+test('bikini pieces keep only their catalog wording with the I-cup Body Type', () => {
+  const bodyTypeId = optionId('bodyTypeId', BODY_LABEL);
+  const topId = optionId('topId', '比基尼上身');
+  const pantsId = optionId('pantsId', '比基尼下身');
+  const prompt = generate({ subjectCount: '1', bodyTypeId, topId, pantsId });
+  assert.equal(prompt.selection.topId, topId);
+  assert.equal(prompt.selection.pantsId, pantsId);
+  for (const field of MAIN_FIELDS) {
+    assert.ok(prompt[field].includes(BODY_SOURCE), field);
+    assert.doesNotMatch(prompt[field], REMOVED_FIT, field);
+    assert.match(prompt[field], /triangle bikini top/i, field);
+    assert.match(prompt[field], /side-tie bikini bottoms/i, field);
+  }
+  for (const entry of prompt.extraPrompts) assert.doesNotMatch(entry.text, REMOVED_FIT, entry.id);
+});
+
+test('the same source belongs only to the selected person in duo prompts', () => {
+  const bodyTypeAId = optionId('bodyTypeAId', BODY_LABEL);
   const prompt = generate({
-    subjectCount: '2',
-    bodyTypeAId: optionId('bodyTypeAId', BODY_LABEL),
+    subjectCount: '2', bodyTypeAId,
     bodyTypeBId: optionId('bodyTypeBId', '一般基本體型'),
+    framingId: optionId('framingId', '胸上特寫'),
     topAId: optionId('topAId', '比基尼上身'),
     pantsAId: optionId('pantsAId', '比基尼下身'),
     topBId: optionId('topBId', '比基尼上身'),
     pantsBId: optionId('pantsBId', '比基尼下身'),
-    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
-  assert.match(prompt.grokPrompt, /Woman 1:[\s\S]*reduced-fabric (?:triangle )?cups/i);
-  assert.match(prompt.grokPrompt, /Woman 1:[\s\S]*shallow impressions/i);
-  const woman2 = prompt.grokPrompt.split('Woman 2:')[1] || '';
-  assert.doesNotMatch(woman2, /reduced-fabric (?:triangle )?cups|localized soft fullness|shallow impressions/i);
+  assert.equal(prompt.selection.bodyTypeAId, bodyTypeAId);
+  for (const field of MAIN_FIELDS) {
+    assert.ok(prompt[field].includes(BODY_SOURCE), field);
+    assert.equal(prompt[field].split(BODY_SOURCE).length - 1, 1, field);
+    assert.doesNotMatch(prompt[field], REMOVED_FIT, field);
+  }
 });

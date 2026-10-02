@@ -147,6 +147,8 @@ PAGE1 的「全無」代表該欄位不提供英文描述，並保留已選的�
 
 體態投影共同規則：
 
+2026-10-03 窄例外：`豐胸纖腰沙漏身形` 選取後，三組主 Prompt 都逐字保留完整 `I-cup bust, slender arms, narrow waist, wider hips, fuller upper thighs, slim calves, defined hourglass silhouette`，不受景別、AI 精簡或衣襬遮住部分下身影響。其他 Body Type、Character Card 與衍生輸出維持下列投影規則；此體態不再提供附加的比基尼貼合句。
+
 - 「省略」只影響三組主 Prompt，不得清除 `bodyTypeId`、`bodyTypeAId`、`bodyTypeBId`、Character Card、Saved Cards、restore payload、generated selection 或瀏覽器儲存值。
 - 三組主輸出必須先共用同一份 projected body source。Gpt 完整保留投影後有效內容；Grok/Z-Image 與 AI 只能從該來源做可追溯壓縮，不得回讀完整 Body Type。
 - `fullBodyCharacterPrompt` 使用完整 body source，不繼承主 Prompt 的近景體態投影。

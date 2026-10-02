@@ -2,7 +2,7 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-02
+Last updated: 2026-10-03
 
 ## 跪姿目錄 v2 (local, 2026-10-02)
 
@@ -12,10 +12,11 @@ Last updated: 2026-10-02
 - 瀏覽器 `1440×1000`／`390×900` 已檢查五個工作區完成載入後的版面，所檢查狀態無頁面橫向溢出、破圖或 console 警告／錯誤。實際操作確認七組目錄、四足預設雙掌／切換雙肘、道具停用、離開四足清除支撐及分腿／前傾輸出；三主輸出含完整雙肘幾何、兩胸上保留降低的肩胸／傾斜但省略地面接觸、全身角色照保持自然站姿。JSON／文字匯入與回填相容性由 focused tests 覆蓋，未寫入或刪除 Saved Cards。原本六組預覽已逐字還原、viewport 已重設，驗證分頁已關閉。截圖 `/tmp/vps-kneeling-desktop.jpg`、`/tmp/vps-kneeling-mobile.jpg`。
 - 使用者於 2026-10-02 授權 commit/push；交付狀態以 Git 核對為準，未部署。使用者參考圖資料夾保持原狀，實際圖像模型驗收另行進行。
 
-## 豐胸纖腰沙漏身形 (local, 2026-10-02)
+## 豐胸纖腰沙漏身形 (local, 2026-10-03)
 
-- `A. 人物設定／體態` append-only 新增 `豐胸纖腰沙漏身形`，保留既有選項 ID。完整來源用實測的 I-cup、纖細手臂與腰部、較寬臀部、豐滿大腿及纖細小腿；近景依可見範圍投影。AI 主 Prompt 使用無罩杯數值的短輪廓句；Gpt、Z-Image 和全身角色照保留適用的完整來源。
-- 同一人物選到獨立比基尼上身／下身時，才各自加入小三角罩杯的局部柔軟貼合／側綁帶的淺壓痕。一般服裝、完整套裝與另一人物不繼承。比基尼上身不套用一般上衣與低腰下身的衣長銜接句；`衣襬遮住部分下身` 仍省略腰腹描述。
+- `A. 人物設定／體態` 的 `豐胸纖腰沙漏身形` 保留既有選項 ID 與 canonical source。2026-10-03 修正：選取後三組主 Prompt（Gpt、Grok/Z-Image、AI）都逐字保留 `I-cup bust, slender arms, narrow waist, wider hips, fuller upper thighs, slim calves, defined hourglass silhouette`，不受景別、AI 精簡或 `衣襬遮住部分下身` 改寫。此例外只限該體態的主輸出；其餘體態與衍生輸出依既有投影規則。
+- 移除這個體態附加給比基尼上身／下身的兩句貼合與壓痕描述，獨立比基尼單品維持資料庫原文，沒有新增布料較少的單品。比基尼上身不套用一般上衣與低腰下身的衣長銜接句。下方 2026-10-02 驗證紀錄描述的是修正前版本。
+- 2026-10-03 驗證：專項體態／景別／衣襬測試、前端 1206/1206、Prompt Quality 471/471、lint、build、diff-check 通過；同 seed `200 / hourglass-fixed-20261003` 嚴格稽核修改前後同為 0 阻擋／16 診斷，正式 `prompt-quality-baseline` 為 0 阻擋／28 診斷。瀏覽器於 1440×1000 與 390×900 實選此體態，確認三組主輸出逐字顯示原句；五個工作區載入後無頁面橫向溢出、破圖或 console 警告／錯誤，測試選項與 viewport 已還原。既有 Vite 大型 chunk 提示仍在；未 commit、push 或部署。
 - 驗證：前端 1194/1194、Prompt Quality 459/459、資料同步檢查、Python 2/2、公開資產、lint、build 和 diff-check 均通過；同 seed（`prompt-quality-baseline`）200 筆嚴格稽核維持 0 阻擋／28 診斷。瀏覽器於 1440×1000 與 390×900 檢查五個工作區，無頁面橫向溢出、破圖或 console 錯誤；實際選取新體態與比基尼組合後，三組主 Prompt 和衍生輸出的條件句均可見。截圖 `/tmp/vps-hourglass-{desktop,mobile}.jpg`。既有 Vite 大型 chunk 提示仍在。使用者於 2026-10-02 授權 commit/push；使用者參考圖資料夾保持原狀，外部圖像模型對正式輸出的視覺驗收仍待使用者實測。
 
 ## Main Z-Image on-location capture (local, 2026-10-01)

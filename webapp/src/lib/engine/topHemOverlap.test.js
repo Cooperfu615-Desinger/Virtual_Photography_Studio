@@ -80,6 +80,13 @@ test('all normal body types omit local body-area details while hem overlap is ef
         framingId: option('framingId', framingZh),
       }, `hem-overlap-${item.zh}-${framingZh}`);
       const fullBody = p.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '';
+      if (item.zh === '豐胸纖腰沙漏身形') {
+        for (const text of [p.grokPrompt, p.zImagePrompt, p.midjourneyPrompt]) {
+          assert.ok(text.includes(item.en), `${item.zh}/${framingZh}: exact main Body Type source`);
+        }
+        assert.doesNotMatch(fullBody, bodyAreaAnchors, `${item.zh}/${framingZh}: derived hem overlap`);
+        continue;
+      }
       for (const text of [p.grokPrompt, p.zImagePrompt, p.midjourneyPrompt, fullBody]) {
         assert.doesNotMatch(text, bodyAreaAnchors, `${item.zh}/${framingZh}`);
       }
