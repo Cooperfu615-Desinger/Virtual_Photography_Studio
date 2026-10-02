@@ -18,6 +18,11 @@ import {
   CONDITIONAL_GARTER_BELT_SUMMARY_LABEL,
 } from './engine/conditionalGarterBelt.js';
 import {
+  addConditionalHourglassBikiniFit,
+  HOURGLASS_BIKINI_TOP_FIT,
+  HOURGLASS_BIKINI_BOTTOM_FIT,
+} from './engine/hourglassBikiniFit.js';
+import {
   COMPOSITION_VISIBILITY_BUCKETS,
   COMPOSITION_VISIBILITY_CONTRACT,
   createCompositionVisibilityProjection,
@@ -9632,7 +9637,7 @@ function buildWaistlineCompatibilityPrompt(wardrobeSlots) {
     (bottomRise && ['低腰', '超低腰'].includes(bottomRise.zh)) || isLowRiseBottomItem(bottom)
   );
 
-  if (!bottom || !top || !isLowRiseBottom || isCroppedTopItem(top)) return '';
+  if (!bottom || !top || !isLowRiseBottom || isCroppedTopItem(top) || top.zh === '比基尼上身') return '';
   if (isHemOverlapStyling(topStyling)) return '';
 
   if (topStyling?.zh === '自然放出' || isUntuckedTopItem(top)) {
@@ -11853,6 +11858,22 @@ const GPT_SINGLE_HAIR_COLOR_MERGE_RULES = [
 ];
 
 const SINGLE_BODY_TYPE_ANCHOR_RULES = [
+  {
+    pattern: /I-cup bust,\s*slender arms,\s*narrow waist,\s*wider hips,\s*fuller upper thighs,\s*slim calves,\s*defined hourglass silhouette/i,
+    aiText: 'Pronounced hourglass silhouette, very full bust, slender arms and waist, wider hips, fuller upper thighs, slim calves.',
+  },
+  {
+    pattern: /I-cup bust,\s*slender arms,\s*wider hips,\s*fuller upper thighs,\s*slim calves,\s*defined hourglass silhouette/i,
+    aiText: 'Pronounced hourglass silhouette, very full bust, slender arms, wider hips, fuller upper thighs, slim calves.',
+  },
+  {
+    pattern: /full bust,\s*slender arms,\s*narrow waist,\s*wider hips,\s*fuller upper thighs,\s*defined hourglass silhouette/i,
+    aiText: 'Pronounced hourglass silhouette, very full bust, slender arms, narrow waist, wider hips, fuller upper thighs.',
+  },
+  {
+    pattern: /full bust,\s*slender arms,\s*wider hips,\s*fuller upper thighs,\s*defined hourglass silhouette/i,
+    aiText: 'Pronounced hourglass silhouette, very full bust, slender arms, wider hips, fuller upper thighs.',
+  },
   {
     pattern: /sexy tall slim-curvy silhouette,\s*about 168-173 cm visual height and 53-58 kg lean visual weight,\s*94-58-92 body proportion anchor,\s*long legs with about 3\.8:6\.2 torso-to-leg balance,\s*full F-to-G-cup-scale bust,\s*narrow defined waist,\s*rounded hips,\s*dramatic but lean bust-waist-hip curve/i,
     aiText: 'Curvy hourglass silhouette, fuller bust, defined waist, rounded hips.',
@@ -15002,8 +15023,15 @@ function buildAiNormalWardrobeText(
       const value = role === 'outerwear' ? outerwear : firstStructuredValue(valuesByLabel, [label]);
       const topPatternSource = role === 'top' && wardrobeSlots?.topPattern && !isNoneLikeItem(wardrobeSlots.topPattern)
         ? normalizeWardrobePromptText(wardrobeSlots.topPattern.en) : '';
+      const conditionalWearSources = role === 'top' && wardrobeSlots?.top?.meta?.conditionalHourglassBikiniFit
+        ? [HOURGLASS_BIKINI_TOP_FIT]
+        : role === 'bottom' && wardrobeSlots?.pants?.meta?.conditionalHourglassBikiniFit
+          ? [HOURGLASS_BIKINI_BOTTOM_FIT]
+          : [];
+      const wearSources = role === 'outerwear' ? outerwearWearSources
+        : [...(role === 'top' && isHemOverlapStyling(wardrobeSlots?.topStyling) ? [wardrobeSlots.topStyling.en] : []), ...conditionalWearSources];
       return shouldKeepWardrobeRoleForContext(role, context, value)
-        ? compactAiGarmentValue(value, role, primarySourceByLabel[label], role === 'outerwear' ? outerwearWearSources : (role === 'top' && isHemOverlapStyling(wardrobeSlots?.topStyling) ? [wardrobeSlots.topStyling.en] : []), role === 'outerwear' ? outerwearPatternSource : topPatternSource)
+        ? compactAiGarmentValue(value, role, primarySourceByLabel[label], wearSources, role === 'outerwear' ? outerwearPatternSource : topPatternSource)
         : '';
     })
     .filter(Boolean)
@@ -16327,7 +16355,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     : buildWardrobe({ ...context }, effectiveLocks, runtime);
   const filteredPage1Wardrobe = filterPage1WardrobeForCharacterCardLayers(rawPage1Wardrobe, cardLayers);
   const page1Wardrobe = appendLockedPage1FillersForCharacterCardLayers(filteredPage1Wardrobe, cardLayers, effectiveLocks, lockControls);
-  const wardrobe = [...cardLayers, ...page1Wardrobe];
+  const wardrobe = [...cardLayers, ...addConditionalHourglassBikiniFit(page1Wardrobe, character)];
   context.wardrobe = wardrobe;
   const wardrobeColors = buildWardrobeColors(extractWardrobeSlots(wardrobe), effectiveLocks, random);
 

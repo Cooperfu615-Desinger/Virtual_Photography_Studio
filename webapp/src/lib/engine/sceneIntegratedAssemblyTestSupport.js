@@ -1,12 +1,18 @@
 // Node-only regression tooling, never a production import.
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls } from '../engine.js';
+import { createEmptyLocks, createSeededRandom, generatePrompts, getKnowledgeBaseSnapshot, getLockControls } from '../engine.js';
 import { PROMPT_OUTPUT_CONTRACTS } from './promptOutputContracts.js';
 import { POSE_COMPOSER_ANCHOR_OPTIONS, POSE_COMPOSER_HAND_OPTIONS } from './poseComposerOptions.js';
 import { normalizeZImageOnLocationForLegacy } from './zImageOnLocationTestSupport.js';
 
 export const OUTPUT_FIELDS = Object.freeze(Object.keys(PROMPT_OUTPUT_CONTRACTS));
+
+// Freeze the pre-extension body pool for immutable legacy random/selection hashes.
+// Current behavior and the new option remain covered by live-catalog tests.
+export const PRE_HOURGLASS_BODY_CATALOG = getKnowledgeBaseSnapshot();
+PRE_HOURGLASS_BODY_CATALOG.Character['體態 (Body Type)'] = PRE_HOURGLASS_BODY_CATALOG.Character['體態 (Body Type)']
+  .filter((item) => item.zh !== '豐胸纖腰沙漏身形');
 
 export function stableValue(value) {
   if (Array.isArray(value)) return value.map(stableValue);
@@ -68,12 +74,12 @@ export function readSceneOutputs(prompt) {
   }));
 }
 
-export function runSceneFixture(fixture) {
+export function runSceneFixture(fixture, customLibrary = []) {
   const locks = materializeSceneFixture(fixture);
   const before = structuredClone(locks);
   const random = createSeededRandom(fixture.seed);
   let randomDraws = 0;
-  const prompt = generatePrompts(1, locks, [], { random: () => { randomDraws += 1; return random(); } })[0];
+  const prompt = generatePrompts(1, locks, customLibrary, { random: () => { randomDraws += 1; return random(); } })[0];
   assert.deepEqual(locks, before, `${fixture.id}: generator mutated input locks`);
   // Historical scene baselines predate these opt-in controls. Ignore only their
   // empty/none defaults; a concrete selection must remain observable.
@@ -98,7 +104,7 @@ export function restoreBaselineSelection(baseline, entry) {
 // applying their original exact-source assertions. Current behavior and five
 // byte-exact protected outputs are checked in zImageOnLocationCapture.test.js.
 export function runLegacySceneFixture(fixture) {
-  const result = runSceneFixture(fixture);
+  const result = runSceneFixture(fixture, PRE_HOURGLASS_BODY_CATALOG);
   const zImagePrompt = normalizeZImageOnLocationForLegacy(result.outputs.zImagePrompt);
   return { ...result, outputs: { ...result.outputs, zImagePrompt }, prompt: { ...result.prompt, zImagePrompt } };
 }

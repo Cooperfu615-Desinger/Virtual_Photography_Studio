@@ -101,6 +101,7 @@ core identity phrase, 1-3 concrete visual traits, restrained style or realism cu
 - `一般基本體型`
 - `柔和沙漏身形`
 - `性感曲線身形`
+- `豐胸纖腰沙漏身形`
 - `運動緊實身形`
 - `小隻精緻身形`
 
@@ -111,6 +112,8 @@ core identity phrase, 1-3 concrete visual traits, restrained style or realism cu
 - 可描述 `tall`、`petite`、`curvy`、`athletic`、`hourglass`、`long legs`、`defined waist`、`bust-waist-hip curves`、`rounded hips`。
 - 避免 `underweight`、`bony`、`fragile`、`childlike`、過度誇張身材或不健康身形。
 - 胸部與臀部曲線可以用比例與輪廓語氣描述，例如 `fuller bust-waist-hip curves`、`rounded hips`，避免露骨或過度物化。
+
+`豐胸纖腰沙漏身形` append-only 新增在既有 `全無` 之後，canonical source 使用經實測的 `I-cup bust, slender arms, narrow waist, wider hips, fuller upper thighs, slim calves, defined hourglass silhouette`。不指定身高、體重或三圍，也不把泳裝寫進體態。僅當同一人物選到獨立 `比基尼上身` 時，resolved wardrobe 加入較小三角罩杯在上緣／外側形成局部柔軟貼合、仍覆蓋中央且保持結構完整的描述；選到獨立 `比基尼下身` 時，才描述側綁帶在臀部的淺壓痕。比基尼上身不套用一般上衣與低腰下身之間的衣長銜接句。一般衣褲、完整套裝和另一人物不繼承這些比基尼句子。AI 主 Prompt 依既有 Body Type 短正向 anchor 政策使用 `very full bust` 等視覺輪廓，不輸出 I-cup 數值；Gpt／Z-Image 的全身來源保留 I-cup。
 
 構圖可見性目標規則：
 

@@ -2,14 +2,15 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { Z_IMAGE_ON_LOCATION_FIXTURES as fixtures } from './zImageOnLocationFixtures.js';
-import { digest, runSceneFixture, assertZImagePoseProjection } from './sceneIntegratedAssemblyTestSupport.js';
+import { digest, runSceneFixture, PRE_HOURGLASS_BODY_CATALOG, assertZImagePoseProjection } from './sceneIntegratedAssemblyTestSupport.js';
 import { normalizeZImageOnLocationForLegacy } from './zImageOnLocationTestSupport.js';
 import { buildZImageOnLocationCapture } from './zImageOnLocationCapture.js';
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 import { getLockControls } from '../engine.js';
 
 const baseline = JSON.parse(readFileSync(new URL('./zImageOnLocationBaseline.json', import.meta.url), 'utf8'));
-const results = new Map(fixtures.map((f) => [f.id, runSceneFixture(f)]));
+const runFrozenFixture = (fixture) => runSceneFixture(fixture, PRE_HOURGLASS_BODY_CATALOG);
+const results = new Map(fixtures.map((f) => [f.id, runFrozenFixture(f)]));
 const get = (id) => results.get(id);
 
 test('capture helper joins only supplied sources without changing or inventing them', () => {
@@ -32,7 +33,7 @@ for (const fixture of fixtures) test(`main-Z-only source relocation: ${fixture.i
   assert.equal(digest(current.selection), before.selectionHash, 'selections unchanged');
   assert.equal(current.inputHash, before.inputHash);
   assert.equal(current.randomDraws, before.randomDraws);
-  assert.deepEqual(runSceneFixture(fixture).outputs, current.outputs, 'same seed');
+  assert.deepEqual(runFrozenFixture(fixture).outputs, current.outputs, 'same seed');
   for (const [field, value] of Object.entries(current.outputs)) {
     if (field === 'zImagePrompt') {
       assert.equal(normalizeZImageOnLocationForLegacy(value), before.zImagePrompt,

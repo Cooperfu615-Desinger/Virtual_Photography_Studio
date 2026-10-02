@@ -36,6 +36,7 @@ import {
 import { validatePromptOutputContract } from './promptOutputContracts.js';
 import { REPRESENTATIVE_PROMPT_FIXTURES } from './representativePromptFixtures.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
+import { PRE_HOURGLASS_BODY_CATALOG } from './sceneIntegratedAssemblyTestSupport.js';
 
 const controls = getLockControls();
 const extraPromptFields = Object.freeze({
@@ -89,7 +90,7 @@ function generateFixture(parameterFixture) {
 
   return {
     mode: sourceFixture.mode,
-    prompt: generatePrompts(1, locks, [], {
+    prompt: generatePrompts(1, locks, PRE_HOURGLASS_BODY_CATALOG, {
       random: createSeededRandom(sourceFixture.seed),
     })[0],
   };

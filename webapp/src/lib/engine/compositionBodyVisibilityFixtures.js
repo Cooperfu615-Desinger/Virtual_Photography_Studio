@@ -128,6 +128,13 @@ export const BODY_TYPE_VISIBILITY_PROFILES = Object.freeze([
     mediumWaist: 'compact refined upper-body proportions, graceful small-frame presence',
     cowboyKnee: 'petite polished body, compact refined proportions, delicate idol-like silhouette, graceful small-frame presence',
   }),
+  createBodyTypeProfile({
+    bodyTypeZh: '豐胸纖腰沙漏身形',
+    fullSource: 'I-cup bust, slender arms, narrow waist, wider hips, fuller upper thighs, slim calves, defined hourglass silhouette',
+    chestUp: 'full bust, slender arms',
+    mediumWaist: 'full bust, slender arms, narrow waist',
+    cowboyKnee: 'full bust, slender arms, narrow waist, wider hips, fuller upper thighs, defined hourglass silhouette',
+  }),
 ]);
 
 export const COMPOSITION_BODY_VISIBILITY_REGRESSION_FIXTURES = Object.freeze([

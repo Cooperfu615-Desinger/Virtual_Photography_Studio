@@ -21,7 +21,8 @@ test('identity base exposes approved body and facial feature options', () => {
       '性感曲線身形',
       '運動緊實身形',
       '小隻精緻身形',
-    '全無',
+      '全無',
+      '豐胸纖腰沙漏身形',
     ]
   );
 

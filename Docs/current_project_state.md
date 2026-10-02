@@ -2,7 +2,13 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-01
+Last updated: 2026-10-02
+
+## 豐胸纖腰沙漏身形 (local, 2026-10-02)
+
+- `A. 人物設定／體態` append-only 新增 `豐胸纖腰沙漏身形`，保留既有選項 ID。完整來源用實測的 I-cup、纖細手臂與腰部、較寬臀部、豐滿大腿及纖細小腿；近景依可見範圍投影。AI 主 Prompt 使用無罩杯數值的短輪廓句；Gpt、Z-Image 和全身角色照保留適用的完整來源。
+- 同一人物選到獨立比基尼上身／下身時，才各自加入小三角罩杯的局部柔軟貼合／側綁帶的淺壓痕。一般服裝、完整套裝與另一人物不繼承。比基尼上身不套用一般上衣與低腰下身的衣長銜接句；`衣襬遮住部分下身` 仍省略腰腹描述。
+- 驗證：前端 1194/1194、Prompt Quality 459/459、資料同步檢查、Python 2/2、公開資產、lint、build 和 diff-check 均通過；同 seed（`prompt-quality-baseline`）200 筆嚴格稽核維持 0 阻擋／28 診斷。瀏覽器於 1440×1000 與 390×900 檢查五個工作區，無頁面橫向溢出、破圖或 console 錯誤；實際選取新體態與比基尼組合後，三組主 Prompt 和衍生輸出的條件句均可見。截圖 `/tmp/vps-hourglass-{desktop,mobile}.jpg`。既有 Vite 大型 chunk 提示仍在。使用者於 2026-10-02 授權 commit/push；使用者參考圖資料夾保持原狀，外部圖像模型對正式輸出的視覺驗收仍待使用者實測。
 
 ## Main Z-Image on-location capture (local, 2026-10-01)
 

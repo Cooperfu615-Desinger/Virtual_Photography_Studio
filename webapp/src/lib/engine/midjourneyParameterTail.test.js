@@ -24,6 +24,7 @@ import {
 } from './midjourneyParameterTail.js';
 import { REPRESENTATIVE_PROMPT_FIXTURES } from './representativePromptFixtures.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
+import { PRE_HOURGLASS_BODY_CATALOG } from './sceneIntegratedAssemblyTestSupport.js';
 
 const controls = getLockControls();
 
@@ -65,7 +66,7 @@ function generateFixture(parameterFixture) {
     locks[key] = resolveLock(key, selector, sourceFixture.id);
   }
 
-  return generatePrompts(1, locks, [], {
+  return generatePrompts(1, locks, PRE_HOURGLASS_BODY_CATALOG, {
     random: createSeededRandom(sourceFixture.seed),
   })[0];
 }

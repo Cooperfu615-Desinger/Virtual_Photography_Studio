@@ -25,6 +25,7 @@
 | **體態 (Body Type)** | 運動緊實身形 | `fit toned athletic female body, healthy firm silhouette, subtle muscle definition, energetic balanced proportions` | 健康、俐落、緊實，有運動感與輕微肌肉張力。 |
 | **體態 (Body Type)** | 小隻精緻身形 | `petite polished female body, compact refined proportions, delicate idol-like silhouette, graceful small-frame presence` | 較嬌小、比例精緻，帶偶像感與可愛但成熟的身形輪廓。 |
 | **體態 (Body Type)** | 全無 | `none` | 不指定體態，不輸出身形、身高或比例描述。 |
+| **體態 (Body Type)** | 豐胸纖腰沙漏身形 | `I-cup bust, slender arms, narrow waist, wider hips, fuller upper thighs, slim calves, defined hourglass silhouette` | 胸部份量明顯，手臂與腰部纖細；臀部及大腿上段有柔和肉感，往下收至纖細小腿。 |
 | **髮型 (Hairstyle)** | 全無 | `none` | 不指定髮型，讓模型自行決定頭髮長度與輪廓。 |
 | **髮型 (Hairstyle)** | 帥氣濕亮油頭 | `slicked-back short hair, hair combed away from the forehead, sharp compact fashion silhouette` | 短髮向後梳開，輪廓俐落緊湊；是否濕亮、分束或受風吹拂交由整理狀態控制。 |
 | **髮型 (Hairstyle)** | 乾淨短鮑伯 | `clean short bob haircut, softly blunt ends, polished face-framing line, neat modern shape` | 合併乾淨短鮑伯類型，重點是短髮輪廓俐落、髮尾乾淨、臉側線條清楚。 |

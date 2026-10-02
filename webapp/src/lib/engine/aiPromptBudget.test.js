@@ -20,6 +20,7 @@ import {
 import { countAiPromptWords } from './aiPromptLengthContract.js';
 import { AI_PROMPT_LENGTH_FIXTURES } from './aiPromptLengthFixtures.js';
 import { stripMidjourneyParameterTail } from './midjourneyParameterTail.js';
+import { PRE_HOURGLASS_BODY_CATALOG } from './sceneIntegratedAssemblyTestSupport.js';
 
 const controls = getLockControls();
 const MIDJOURNEY_NATIVE_DESCRIPTION_HASHES = Object.freeze({
@@ -58,7 +59,7 @@ function generateFixture(fixture) {
     assert.ok(option, `${fixture.id}.${key} cannot resolve ${selector.byZh}`);
     locks[key] = option.id;
   }
-  return generatePrompts(1, locks, [], {
+  return generatePrompts(1, locks, PRE_HOURGLASS_BODY_CATALOG, {
     random: createSeededRandom(fixture.seed),
   })[0];
 }

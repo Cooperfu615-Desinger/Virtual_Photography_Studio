@@ -28,6 +28,11 @@ const BODY_TYPE_PROJECTED_TEXT_BY_ZH = Object.freeze({
     mediumWaist: 'full bust, narrow defined waist',
     cowboyKnee: '94-58-92 body proportion anchor, full bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve',
   }),
+  豐胸纖腰沙漏身形: Object.freeze({
+    chestUp: 'full bust, slender arms',
+    mediumWaist: 'full bust, slender arms, narrow waist',
+    cowboyKnee: 'full bust, slender arms, narrow waist, wider hips, fuller upper thighs, defined hourglass silhouette',
+  }),
   運動緊實身形: Object.freeze({
     chestUp: 'fit toned athletic upper body, subtle muscle definition',
     mediumWaist: 'fit toned athletic upper body, healthy firm silhouette, subtle muscle definition',

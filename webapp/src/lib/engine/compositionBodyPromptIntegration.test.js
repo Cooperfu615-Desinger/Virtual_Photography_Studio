@@ -23,6 +23,7 @@ const FULL_BODY_ANCHOR_BY_ZH = Object.freeze({
   一般基本體型: 'natural basic body',
   柔和沙漏身形: 'soft natural hourglass body',
   性感曲線身形: 'sexy tall slim-curvy silhouette',
+  豐胸纖腰沙漏身形: 'I-cup bust',
   運動緊實身形: 'fit toned athletic',
   小隻精緻身形: 'petite polished',
 });
@@ -32,6 +33,7 @@ const AI_BODY_TYPE_ANCHOR_BY_ZH = Object.freeze({
   一般基本體型: 'Natural balanced silhouette, gentle waist curve, natural bust and hips',
   柔和沙漏身形: 'Soft hourglass silhouette, fuller bust, wider hips',
   性感曲線身形: 'Curvy hourglass silhouette, fuller bust, defined waist, rounded hips',
+  豐胸纖腰沙漏身形: 'Pronounced hourglass silhouette, very full bust, slender arms and waist, wider hips, fuller upper thighs, slim calves',
   運動緊實身形: 'Fit athletic silhouette, firm build, subtle muscle definition',
   小隻精緻身形: 'Petite refined silhouette, compact frame, delicate proportions',
 });

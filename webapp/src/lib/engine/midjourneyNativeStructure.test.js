@@ -1,4 +1,4 @@
-import { assertZImagePoseProjection } from './sceneIntegratedAssemblyTestSupport.js';
+import { assertZImagePoseProjection, PRE_HOURGLASS_BODY_CATALOG } from './sceneIntegratedAssemblyTestSupport.js';
 import { normalizeOnLocationAndFullCameraForLegacy as normalizeFullCameraForLegacy } from './zImageOnLocationTestSupport.js';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
@@ -63,7 +63,7 @@ function generateFixture(parameterFixture) {
 
   return {
     mode: sourceFixture.mode,
-    prompt: generatePrompts(1, locks, [], {
+    prompt: generatePrompts(1, locks, PRE_HOURGLASS_BODY_CATALOG, {
       random: createSeededRandom(sourceFixture.seed),
     })[0],
   };

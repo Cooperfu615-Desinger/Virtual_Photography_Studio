@@ -15,6 +15,7 @@ import {
   FIXED_FRAMING_DERIVED_PROMPT_PRESETS,
 } from './fixedFramingDerivedPrompt.js';
 import { FIXED_FRAMING_DERIVED_PROMPT_CONTRACT } from './fixedFramingDerivedPromptContract.js';
+import { PRE_HOURGLASS_BODY_CATALOG } from './sceneIntegratedAssemblyTestSupport.js';
 
 const controls = getLockControls();
 const controlsByKey = new Map(controls.map((control) => [control.key, control]));
@@ -137,7 +138,7 @@ test('phase-2 shared preset builds a full-body derived context without mutating 
 test('phase-2 full-body migration preserves exact output bytes for representative resolved sources', () => {
   for (const promptCase of FULL_BODY_CHARACTER_BASELINES) {
     const locks = materializeLocks(promptCase);
-    const [prompt] = generatePrompts(1, locks, [], {
+    const [prompt] = generatePrompts(1, locks, PRE_HOURGLASS_BODY_CATALOG, {
       random: createSeededRandom(promptCase.seed),
     });
     const fullBodyPrompt = prompt.extraPrompts.find((entry) => entry.id === 'full-body-character');
