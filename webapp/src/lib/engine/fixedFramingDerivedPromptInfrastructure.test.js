@@ -1,3 +1,4 @@
+import { generateLegacyBodyPrompts } from './bodyTypeLegacyTestSupport.js';
 import { normalizeOuterwearCatalogForLegacy } from './outerwearCatalogTestSupport.js';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
@@ -6,7 +7,6 @@ import { test } from 'node:test';
 import {
   createEmptyLocks,
   createSeededRandom,
-  generatePrompts,
   getLockControls,
 } from '../engine.js';
 import { COMPOSITION_VISIBILITY_BUCKETS } from './compositionVisibilityContract.js';
@@ -138,7 +138,7 @@ test('phase-2 shared preset builds a full-body derived context without mutating 
 test('phase-2 full-body migration preserves exact output bytes for representative resolved sources', () => {
   for (const promptCase of FULL_BODY_CHARACTER_BASELINES) {
     const locks = materializeLocks(promptCase);
-    const [prompt] = generatePrompts(1, locks, PRE_HOURGLASS_BODY_CATALOG, {
+    const [prompt] = generateLegacyBodyPrompts(1, locks, PRE_HOURGLASS_BODY_CATALOG, {
       random: createSeededRandom(promptCase.seed),
     });
     const fullBodyPrompt = prompt.extraPrompts.find((entry) => entry.id === 'full-body-character');

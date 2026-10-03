@@ -31,6 +31,57 @@
           "face": "dimensional elongated oval face, deep-set round eyes with defined brows, high nose bridge and sculpted lips"
         }
       }
+    },
+    "體態 (Body Type)": {
+      "高挑時裝模特": {
+        "stableId": "character:體態-body-type:高挑時裝模特:0",
+        "legacyPromptAliases": [
+          "tall slim fashion body, about 170-175 cm visual height, 80-58-88 body proportion anchor, long legs with about 3.5:6.5 torso-to-leg balance, shorter upper torso, high waistline, narrow ribcage, gently wider hips, clean editorial silhouette",
+          "Tall fashion-model silhouette, long legs, high waistline"
+        ]
+      },
+      "柔和沙漏身形": {
+        "stableId": "character:體態-body-type:柔和沙漏身形:2",
+        "legacyPromptAliases": [
+          "soft natural hourglass body, about 165-170 cm visual height, 90-62-94 body proportion anchor, balanced torso-to-leg ratio around 4:6, longer upper torso, lower waistline, fuller bust, wider hips, elongated abdomen with subtle contour lines",
+          "Soft hourglass silhouette, fuller bust, wider hips",
+          "natural basic body, about 160-165 cm visual height, 83-62-88 body proportion anchor, balanced torso-to-leg ratio around 4:6, low-contrast waist curve, modest bust and hips, smooth natural silhouette",
+          "Natural balanced silhouette, gentle waist curve, natural bust and hips"
+        ],
+        "legacyIds": [
+          "character:體態-body-type:一般基本體型:1"
+        ]
+      },
+      "性感曲線身形": {
+        "stableId": "character:體態-body-type:性感曲線身形:3",
+        "legacyPromptAliases": [
+          "sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight, 94-58-92 body proportion anchor, long legs with about 3.8:6.2 torso-to-leg balance, full F-to-G-cup-scale bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve",
+          "Curvy hourglass silhouette, fuller bust, defined waist, rounded hips"
+        ]
+      },
+      "運動緊實身形": {
+        "stableId": "character:體態-body-type:運動緊實身形:4",
+        "legacyPromptAliases": [
+          "fit toned athletic female body, healthy firm silhouette, subtle muscle definition, energetic balanced proportions",
+          "Fit athletic silhouette, firm build, subtle muscle definition"
+        ]
+      },
+      "小隻精緻身形": {
+        "stableId": "character:體態-body-type:小隻精緻身形:5",
+        "legacyPromptAliases": [
+          "petite polished female body, compact refined proportions, delicate idol-like silhouette, graceful small-frame presence",
+          "Petite refined silhouette, compact frame, delicate proportions"
+        ]
+      },
+      "豐胸纖腰沙漏身形": {
+        "stableId": "character:體態-body-type:豐胸纖腰沙漏身形:7",
+        "legacyPromptAliases": [
+          "I-cup bust, slender arms, narrow waist, wider hips, fuller upper thighs, slim calves, defined hourglass silhouette"
+        ]
+      },
+      "全無": {
+        "stableId": "character:體態-body-type:全無:6"
+      }
     }
   },
   "Wardrobe": {

@@ -5,13 +5,14 @@ import { createEmptyLocks, createSeededRandom, generatePrompts, getKnowledgeBase
 import { PROMPT_OUTPUT_CONTRACTS } from './promptOutputContracts.js';
 import { POSE_COMPOSER_ANCHOR_OPTIONS, POSE_COMPOSER_HAND_OPTIONS } from './poseComposerOptions.js';
 import { normalizeZImageOnLocationForLegacy } from './zImageOnLocationTestSupport.js';
+import { LEGACY_BODY_CATALOG_ITEMS, generateLegacyBodyPrompts } from './bodyTypeLegacyTestSupport.js';
 
 export const OUTPUT_FIELDS = Object.freeze(Object.keys(PROMPT_OUTPUT_CONTRACTS));
 
 // Freeze the pre-extension body pool for immutable legacy random/selection hashes.
 // Current behavior and the new option remain covered by live-catalog tests.
 export const PRE_HOURGLASS_BODY_CATALOG = getKnowledgeBaseSnapshot();
-PRE_HOURGLASS_BODY_CATALOG.Character['體態 (Body Type)'] = PRE_HOURGLASS_BODY_CATALOG.Character['體態 (Body Type)']
+PRE_HOURGLASS_BODY_CATALOG.Character['體態 (Body Type)'] = LEGACY_BODY_CATALOG_ITEMS
   .filter((item) => item.zh !== '豐胸纖腰沙漏身形');
 
 export function stableValue(value) {
@@ -79,7 +80,8 @@ export function runSceneFixture(fixture, customLibrary = []) {
   const before = structuredClone(locks);
   const random = createSeededRandom(fixture.seed);
   let randomDraws = 0;
-  const prompt = generatePrompts(1, locks, customLibrary, { random: () => { randomDraws += 1; return random(); } })[0];
+  const generator = customLibrary === PRE_HOURGLASS_BODY_CATALOG ? generateLegacyBodyPrompts : generatePrompts;
+  const prompt = generator(1, locks, customLibrary, { random: () => { randomDraws += 1; return random(); } })[0];
   assert.deepEqual(locks, before, `${fixture.id}: generator mutated input locks`);
   // Historical scene baselines predate these opt-in controls. Ignore only their
   // empty/none defaults; a concrete selection must remain observable.

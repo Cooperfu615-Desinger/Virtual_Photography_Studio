@@ -4,7 +4,8 @@ import { test } from 'node:test';
 import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls } from '../engine.js';
 
 const BODY_LABEL = '豐胸纖腰沙漏身形';
-const BODY_SOURCE = 'I-cup bust, slender arms, narrow waist, wider hips, fuller upper thighs, slim calves, defined hourglass silhouette';
+import { BODY_TYPE_CATALOG_V2 } from './bodyTypeCatalogFixtures.js';
+const BODY_SOURCE = BODY_TYPE_CATALOG_V2.find(item => item.zh === BODY_LABEL).en;
 const MAIN_FIELDS = ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt'];
 const REMOVED_FIT = /reduced-fabric triangle cups cover the bust center|side ties make shallow impressions against the rounded outer hips/i;
 const controls = getLockControls();
@@ -81,7 +82,7 @@ test('the same source belongs only to the selected person in duo prompts', () =>
   const bodyTypeAId = optionId('bodyTypeAId', BODY_LABEL);
   const prompt = generate({
     subjectCount: '2', bodyTypeAId,
-    bodyTypeBId: optionId('bodyTypeBId', '一般基本體型'),
+    bodyTypeBId: optionId('bodyTypeBId', '柔和沙漏身形'),
     framingId: optionId('framingId', '胸上特寫'),
     topAId: optionId('topAId', '比基尼上身'),
     pantsAId: optionId('pantsAId', '比基尼下身'),

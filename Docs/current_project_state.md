@@ -4,6 +4,15 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-03
 
+## 體態目錄 v2 (local, 2026-10-03)
+
+- 使用者核准精簡版六種體態，基本體型合併為柔和沙漏（C–D Cup）；高挑／小隻為 A–B、性感曲線 F–G、豐胸纖腰 I–K。每組採相同的特徵、比例、身高與三圍格式。運動型以參考圖左側為方向：纖細輕微肌肉手臂、水平肩線與明顯鎖骨、纖細緊實腰腹、適中圓翹臀、稍粗結實大腿與緊實小腿，輪廓偏直線。見 [體態目錄 v2](specs/body-type-catalog-v2.md)。
+- 六組 PAGE1 輸出逐字保留同一 resolved Body Type 英文，不因景別、衣襬遮蓋、AI 短句或 Z 字數指標刪改；雙人三主輸出各自保留 A/B 來源。全無保持無文字，Character Card body／identity、服裝、姿勢、場景與固定比例維持原契約。Public contract `1.35.0`、Z `1.18.0`、AI length `1.3.0`。本規則取代下方歷史體態投影與 I-cup 限定例外。
+- 六組及全無的原 ID 固定；舊基本 ID／更早優雅曲線 ID 還原為柔和沙漏。各組原完整英文與 AI 短句保留作匯入 alias。Saved Cards 原文不批次改寫，還原後重新生成才使用新來源；無 storage schema migration。
+- 驗證完成：專項 104/104、前端 1215/1215、Prompt Quality 480/480、lint/build、資料同步檢查、Python 2/2、公開資產與 diff-check 通過。涵蓋所有體態／景別／衣襬的六輸出、雙人、舊 ID／英文匯入／Saved Cards、比例與 60 組變更前非體態逐字隔離。原歷史快照不改寫，以 test-only 精確體態逆轉保留原有非體態與 RNG 檢查。同 seed `200 / prompt-quality-baseline` 嚴格稽核修改前後皆為 0 阻擋／28 既有診斷；Vite 大型 chunk 提示仍在。
+- 瀏覽器 `1440×1000`／`390×900` 已確認六種目錄、全無及運動型完整六輸出，並檢查五工作區與 Observation Capture 載入後的版面。所檢查狀態無頁面橫向溢出、破圖或 console 警告／錯誤；Saved Cards 只讀，原本六組預覽逐字還原、viewport 重設、暫存分頁與測試伺服器已關閉。截圖 `/tmp/vps-body-desktop-output.jpg`、`/tmp/vps-body-mobile-output.jpg`。
+- 使用者於 2026-10-03 授權 commit/push；交付狀態以 Git 核對為準，未手動部署。既有未追蹤參考圖資料夾維持原狀；實際圖像模型的體態區隔與服裝效果仍需後續生成實測。
+
 ## 跪姿目錄 v2 (local, 2026-10-02)
 
 - 使用者核准七組跪姿，`跪姿側身` 改為隱藏／非隨機但仍可還原。分腿跪坐明確坐在兩腿間地面；直立端正及前傾為臀部離開腳跟的高跪。新選四足預設雙掌，可改雙肘，肩胸高度及軀幹傾斜隨支撐解析；道具不能接管必要支撐。

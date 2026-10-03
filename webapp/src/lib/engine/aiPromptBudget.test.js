@@ -1,3 +1,4 @@
+import { generateLegacyBodyPrompts } from './bodyTypeLegacyTestSupport.js';
 import { normalizeOuterwearCatalogForLegacy } from './outerwearCatalogTestSupport.js';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
@@ -6,7 +7,6 @@ import { test } from 'node:test';
 import {
   createEmptyLocks,
   createSeededRandom,
-  generatePrompts,
   getLockControls,
 } from '../engine.js';
 import {
@@ -59,7 +59,8 @@ function generateFixture(fixture) {
     assert.ok(option, `${fixture.id}.${key} cannot resolve ${selector.byZh}`);
     locks[key] = option.id;
   }
-  return generatePrompts(1, locks, PRE_HOURGLASS_BODY_CATALOG, {
+  if (fixture.id === 'normal-separates') locks.bodyTypeId = 'character:體態-body-type:一般基本體型:1';
+  return generateLegacyBodyPrompts(1, locks, PRE_HOURGLASS_BODY_CATALOG, {
     random: createSeededRandom(fixture.seed),
   })[0];
 }

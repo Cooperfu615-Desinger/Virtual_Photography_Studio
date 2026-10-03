@@ -1,3 +1,4 @@
+import { generateLegacyBodyPrompts } from './bodyTypeLegacyTestSupport.js';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import test from 'node:test';
@@ -5,7 +6,6 @@ import test from 'node:test';
 import {
   createEmptyLocks,
   createSeededRandom,
-  generatePrompts,
   getLockControls,
 } from '../engine.js';
 import { parseLocksFromStandardPrompt } from '../../features/saved-cards/cardCodec.js';
@@ -66,7 +66,7 @@ function generateFixture(parameterFixture) {
     locks[key] = resolveLock(key, selector, sourceFixture.id);
   }
 
-  return generatePrompts(1, locks, PRE_HOURGLASS_BODY_CATALOG, {
+  return generateLegacyBodyPrompts(1, locks, PRE_HOURGLASS_BODY_CATALOG, {
     random: createSeededRandom(sourceFixture.seed),
   })[0];
 }

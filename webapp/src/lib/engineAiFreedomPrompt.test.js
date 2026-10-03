@@ -26,7 +26,7 @@ test('AI normal single prompt keeps only the agreed freedom-oriented sections', 
     ...createAllNoneLocks(),
     subjectCount: '1',
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
-    bodyTypeId: optionId('bodyTypeId', '一般基本體型'),
+    bodyTypeId: optionId('bodyTypeId', '柔和沙漏身形'),
     hairstyleId: optionId('hairstyleId', '柔波：深側分'),
     hairColorId: optionId('hairColorId', '栗子棕'),
     eyewearId: optionId('eyewearId', '粗框眼鏡'),
@@ -45,7 +45,7 @@ test('AI normal single prompt keeps only the agreed freedom-oriented sections', 
 
   const text = prompt.midjourneyPrompt;
   assert.match(text, /^Photorealistic editorial portrait\./i);
-  assert.match(text, /natural balanced silhouette, gentle waist curve, natural bust and hips/i);
+  assert.match(text, /C–D cup bust, soft proportionate arms, gently defined waist/i);
   assert.doesNotMatch(text, /about 160-165 cm visual height|83-62-88 body proportion anchor|torso-to-leg/i);
   assert.match(text, /deep side-parted long soft waves|chestnut-brown hair/i);
   assert.match(text, /black bold-frame glasses|black frame, bold thick-frame glasses/i);

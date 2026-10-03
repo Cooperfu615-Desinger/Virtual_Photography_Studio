@@ -76,7 +76,7 @@ test('fixed chest identity and scene are independent of the parent crop', () => 
   const close = generate({ orbitId, framingId: option('framingId', '半臉傾斜特寫') });
   assert.equal(full.selection.bodyTypeId, close.selection.bodyTypeId);
   assert.deepEqual(chestTexts(full), chestTexts(close));
-  assert.doesNotMatch(extra(full, 'chest-up-mj-portrait'), /defined waist|rounded hips/);
+  assert.ok(extra(full, 'chest-up-mj-portrait').includes(controls.find(c => c.key === 'bodyTypeId').options.find(o => o.id === full.selection.bodyTypeId).en));
 });
 
 test('chest crops retain the selected posture and manual seat without demanding hidden legs', () => {

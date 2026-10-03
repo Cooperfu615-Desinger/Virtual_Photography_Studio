@@ -1,0 +1,9 @@
+// User-reviewed source text, intentionally independent of the generated catalog.
+export const BODY_TYPE_CATALOG_V2 = Object.freeze([
+  { zh: '高挑時裝模特', index: 0, en: 'A–B cup bust, narrow ribcage, slim arms and legs, narrow waist, high waistline, slightly wider hips, short torso, long legs, tall slender model silhouette; height 170–175 cm, bust–waist–hip 80–58–88 cm' },
+  { zh: '柔和沙漏身形', index: 2, en: 'C–D cup bust, soft proportionate arms, gently defined waist, slightly low waistline, rounded wider hips, moderately full thighs, tapered calves, slightly long torso, balanced legs, soft hourglass silhouette; height 165–170 cm, bust–waist–hip 90–62–94 cm' },
+  { zh: '性感曲線身形', index: 3, en: 'F–G cup bust, lean limbs, narrow defined waist, rounded hips, long legs, dramatic lean hourglass silhouette; height 168–173 cm, bust–waist–hip 94–58–92 cm' },
+  { zh: '運動緊實身形', index: 4, en: 'moderate bust, level shoulders, prominent collarbones, slim lightly toned arms, slender firm waist, flat toned abdomen, rounded lifted glutes of moderate size, slightly thicker firm thighs, firm calves, balanced proportions, straight-lined slim athletic silhouette; height 165–170 cm, bust–waist–hip 86–64–92 cm' },
+  { zh: '小隻精緻身形', index: 5, en: 'A–B cup bust, narrow ribcage, slim arms and legs, narrow waist, gently rounded hips, compact balanced proportions, moderate-length limbs, petite slender model silhouette; height 150–155 cm, bust–waist–hip 78–58–84 cm' },
+  { zh: '豐胸纖腰沙漏身形', index: 7, en: 'I–K cup bust, slim arms, narrow waist, wide hips, fuller upper thighs, slim calves, balanced proportions, pronounced hourglass silhouette, curves stretching fitted fabric with soft flesh bulges at snug garment edges; height 163–168 cm, bust–waist–hip 103–60–98 cm' },
+].map(item => Object.freeze({ ...item, id: `character:體態-body-type:${item.zh}:${item.index}` })));

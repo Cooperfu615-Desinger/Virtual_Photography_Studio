@@ -80,7 +80,7 @@ test('phase-3 chest output uses the projected canonical upper-body pose and comp
   const chest = extraText(generateFixture('chest-up-normal-separates-pose-scene-imaging').prompt, 'chest-up-portrait');
 
   assertIncludes(chest, 'Chest-up portrait');
-  assertIncludes(chest, 'full bust');
+  assertIncludes(chest, 'F–G cup bust');
   assertIncludes(chest, 'cotton camisole top');
   assertExcludes(chest, 'straight-leg jeans');
   assertIncludes(chest, 'head slightly tilted');

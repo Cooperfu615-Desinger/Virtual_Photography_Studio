@@ -25,25 +25,7 @@ const FRAMING_ZH_BY_BUCKET = Object.freeze({
   fullBody: '全身鏡頭 (Full Body Shot)',
 });
 
-const AI_FULL_BODY_ANCHOR_BY_ZH = Object.freeze({
-  高挑時裝模特: 'tall fashion-model silhouette, long legs, high waistline',
-  一般基本體型: 'natural balanced silhouette, gentle waist curve, natural bust and hips',
-  柔和沙漏身形: 'soft hourglass silhouette, fuller bust, wider hips',
-  性感曲線身形: 'curvy hourglass silhouette, fuller bust, defined waist, rounded hips',
-  豐胸纖腰沙漏身形: 'I-cup bust, slender arms, narrow waist, wider hips, fuller upper thighs, slim calves, defined hourglass silhouette',
-  運動緊實身形: 'fit athletic silhouette, firm build, subtle muscle definition',
-  小隻精緻身形: 'petite refined silhouette, compact frame, delicate proportions',
-});
 
-const Z_FULL_BODY_ANCHOR_BY_ZH = Object.freeze({
-  高挑時裝模特: 'tall slim fashion body',
-  一般基本體型: 'natural basic body',
-  柔和沙漏身形: 'soft natural hourglass body',
-  性感曲線身形: 'sexy tall slim-curvy silhouette',
-  豐胸纖腰沙漏身形: 'I-cup bust',
-  運動緊實身形: 'fit toned athletic female body',
-  小隻精緻身形: 'petite polished female body',
-});
 
 function optionId(control, zh) {
   const option = control?.options.find((entry) => entry.zh === zh);
@@ -92,40 +74,8 @@ test('normal single Body Types use one composition-projected source across all m
 
       assert.equal(prompt.selection.bodyTypeId, bodyTypeId, `${profile.bodyTypeZh}/${bucket}: selection`);
 
-      if (profile.bodyTypeZh === '豐胸纖腰沙漏身形') {
-        for (const field of MAIN_OUTPUT_FIELDS) {
-          assert.equal(prompt[field].includes(profile.fullSource), true, `${profile.bodyTypeZh}/${bucket}/${field}: verbatim main source`);
-        }
-      } else if (!expectedBodyText) {
-        for (const field of MAIN_OUTPUT_FIELDS) {
-          for (const fragment of bodyFragments(profile.fullSource)) {
-            assertExcludes(prompt[field], fragment, `${profile.bodyTypeZh}/${bucket}/${field}: ${fragment}`);
-          }
-        }
-      } else if (bucket === 'fullBody') {
-        assertIncludes(prompt.grokPrompt, profile.fullSource, `${profile.bodyTypeZh}/${bucket}: Gpt full source`);
-        assertIncludes(
-          prompt.zImagePrompt,
-          Z_FULL_BODY_ANCHOR_BY_ZH[profile.bodyTypeZh],
-          `${profile.bodyTypeZh}/${bucket}: Grok/Z full anchor`
-        );
-        assertIncludes(
-          prompt.midjourneyPrompt,
-          AI_FULL_BODY_ANCHOR_BY_ZH[profile.bodyTypeZh],
-          `${profile.bodyTypeZh}/${bucket}: AI full anchor`
-        );
-      } else {
-        assertIncludes(prompt.grokPrompt, expectedBodyText, `${profile.bodyTypeZh}/${bucket}: Gpt projected source`);
-        assertIncludes(
-          prompt.zImagePrompt,
-          bodyFragments(expectedBodyText)[0],
-          `${profile.bodyTypeZh}/${bucket}: Grok/Z traceable projected anchor`
-        );
-        for (const fragment of bodyFragments(expectedBodyText)
-          .filter((part) => !/visual height|visual weight|body proportion anchor|torso-to-leg|cup-scale|\b\d{2,3}-\d{2,3}-\d{2,3}\b/i.test(part))
-          .slice(0, 4)) {
-          assertIncludes(prompt.midjourneyPrompt, fragment, `${profile.bodyTypeZh}/${bucket}: AI projected ${fragment}`);
-        }
+      for (const field of MAIN_OUTPUT_FIELDS) {
+        assert.ok(prompt[field].includes(expectedBodyText), `${profile.bodyTypeZh}/${bucket}/${field}: verbatim source`);
       }
 
       const fullBodyText = prompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '';
@@ -134,35 +84,9 @@ test('normal single Body Types use one composition-projected source across all m
   }
 });
 
-test('normal single partial Body Type output excludes hidden full-body regions', () => {
-  const forbiddenByBucket = {
-    chestUp: /\b(?:visual height|visual weight|body proportion anchor|torso-to-leg|waist|abdomen|hips?|legs?|cup-scale)\b/i,
-    mediumWaist: /\b(?:visual height|visual weight|body proportion anchor|torso-to-leg|hips?|legs?|cup-scale)\b/i,
-    cowboyKnee: /\b(?:visual height|visual weight|torso-to-leg|long legs?|long limbs?|cup-scale)\b/i,
-  };
-
-  for (const profile of BODY_TYPE_VISIBILITY_PROFILES) {
-    if (profile.bodyTypeZh === '豐胸纖腰沙漏身形') continue;
-    for (const [bucket, forbiddenPattern] of Object.entries(forbiddenByBucket)) {
-      const [prompt] = generatePrompts(1, {
-        ...createAllNoneLocks(),
-        subjectCount: '1',
-        framingId: optionId(framingControl, FRAMING_ZH_BY_BUCKET[bucket]),
-        bodyTypeId: optionId(bodyTypeControl, profile.bodyTypeZh),
-      }, [], {
-        random: createSeededRandom(`body-visibility-boundary-${profile.bodyTypeZh}-${bucket}-v1`),
-      });
-
-      for (const field of MAIN_OUTPUT_FIELDS) {
-        assert.doesNotMatch(prompt[field], forbiddenPattern, `${profile.bodyTypeZh}/${bucket}/${field}`);
-      }
-    }
-  }
-});
-
 test('duo role Body Types reuse the shared projected body source without changing selections', () => {
   const bodyTypeAId = optionId(controlsByKey.get('bodyTypeAId'), '高挑時裝模特');
-  const bodyTypeBId = optionId(controlsByKey.get('bodyTypeBId'), '一般基本體型');
+  const bodyTypeBId = optionId(controlsByKey.get('bodyTypeBId'), '柔和沙漏身形');
   const [prompt] = generatePrompts(1, {
     ...createAllNoneLocks(),
     subjectCount: '2',
@@ -176,12 +100,8 @@ test('duo role Body Types reuse the shared projected body source without changin
   assert.equal(prompt.selection.bodyTypeAId, bodyTypeAId);
   assert.equal(prompt.selection.bodyTypeBId, bodyTypeBId);
   for (const field of MAIN_OUTPUT_FIELDS) {
-    assertIncludes(prompt[field], 'shorter upper torso', `${field}: woman 1 projected body`);
-    assertIncludes(prompt[field], 'modest bust', `${field}: woman 2 projected body`);
-    assertExcludes(prompt[field], 'about 170-175 cm visual height', `${field}: woman 1 height`);
-    assertExcludes(prompt[field], 'long legs with about 3.5:6.5 torso-to-leg balance', `${field}: woman 1 legs`);
-    assertExcludes(prompt[field], 'about 160-165 cm visual height', `${field}: woman 2 height`);
-    assertExcludes(prompt[field], 'balanced torso-to-leg ratio around 4:6', `${field}: woman 2 legs`);
+    assert.ok(prompt[field].includes(BODY_TYPE_VISIBILITY_PROFILES.find(p => p.bodyTypeZh === '高挑時裝模特').fullSource));
+    assert.ok(prompt[field].includes(BODY_TYPE_VISIBILITY_PROFILES.find(p => p.bodyTypeZh === '柔和沙漏身形').fullSource));
   }
 });
 
@@ -273,7 +193,7 @@ test('special-outfit hair and tattoo details remain while its normal Body Type i
   assert.equal(prompt.selection.bodyTypeId, bodyTypeId);
   assert.equal(prompt.selection.specialOutfitId, specialOutfitId);
   for (const field of MAIN_OUTPUT_FIELDS) {
-    assertIncludes(prompt[field], 'fit toned athletic upper body', `${field}: projected body`);
+    assertIncludes(prompt[field], bodyTypeControl.options.find(o => o.id === bodyTypeId).en, `${field}: verbatim body`);
     assertIncludes(prompt[field], 'long voluminous side-part black waves', `${field}: outfit hair`);
     assertIncludes(prompt[field], 'small cherry tattoo on the right chest', `${field}: outfit tattoo`);
     assertIncludes(prompt[field], 'cream cropped spaghetti-strap camisole', `${field}: visible outfit`);
@@ -297,10 +217,10 @@ test('face crop keeps special-outfit hair, removes body-position tattoos, and re
   for (const field of MAIN_OUTPUT_FIELDS) {
     assertIncludes(prompt[field], 'long voluminous side-part black waves', `${field}: outfit hair`);
     assertExcludes(prompt[field], 'small cherry tattoo on the right chest', `${field}: chest tattoo`);
-    assertExcludes(prompt[field], 'fit toned athletic female body', `${field}: full body source`);
+    assertIncludes(prompt[field], bodyTypeControl.options.find(o => o.id === bodyTypeId).en, `${field}: full body source`);
   }
 
   const fullBodyText = prompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '';
   assertIncludes(fullBodyText, 'small cherry tattoo on the right chest', 'full-body tattoo restoration');
-  assertIncludes(fullBodyText, 'fit toned athletic female body', 'full-body Body Type restoration');
+  assertIncludes(fullBodyText, bodyTypeControl.options.find(o => o.id === bodyTypeId).en, 'full-body Body Type restoration');
 });

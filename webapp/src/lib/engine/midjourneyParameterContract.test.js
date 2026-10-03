@@ -1,3 +1,4 @@
+import { generateLegacyBodyPrompts } from './bodyTypeLegacyTestSupport.js';
 import { assertZImagePoseProjection } from './sceneIntegratedAssemblyTestSupport.js';
 import { normalizeOnLocationAndFullCameraForLegacy as normalizeFullCameraForLegacy } from './zImageOnLocationTestSupport.js';
 import assert from 'node:assert/strict';
@@ -7,7 +8,6 @@ import { test } from 'node:test';
 import {
   createEmptyLocks,
   createSeededRandom,
-  generatePrompts,
   getLockControls,
 } from '../engine.js';
 import {
@@ -68,7 +68,7 @@ function generateFixture(parameterFixture) {
 
   return {
     mode: sourceFixture.mode,
-    prompt: generatePrompts(1, locks, PRE_HOURGLASS_BODY_CATALOG, {
+    prompt: generateLegacyBodyPrompts(1, locks, PRE_HOURGLASS_BODY_CATALOG, {
       random: createSeededRandom(sourceFixture.seed),
     })[0],
   };

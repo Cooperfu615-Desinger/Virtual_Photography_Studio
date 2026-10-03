@@ -2732,7 +2732,7 @@ const CAMERA_PROFILE_RENDERING_MIGRATIONS = {
 
 const CHARACTER_IDENTITY_LEGACY_OPTION_MAP = [
   { category: '體態 (Body Type)', targetZh: '高挑時裝模特', legacy: [['模特兒', 0]] },
-  { category: '體態 (Body Type)', targetZh: '一般基本體型', legacy: [['優雅曲線模特', 1], ['優雅曲線模特兒', 1]] },
+  { category: '體態 (Body Type)', targetZh: '柔和沙漏身形', legacy: [['優雅曲線模特', 1], ['優雅曲線模特兒', 1]] },
   { category: '體態 (Body Type)', targetZh: '柔和沙漏身形', legacy: [['柔和沙漏身形', 2]] },
   { category: '五官特徵 (Facial Features)', targetZh: '韓系偶像臉', legacy: [['KPOP', 1]] },
   { category: '五官特徵 (Facial Features)', targetZh: '日系清透臉', legacy: [['日系透明', 2]] },
@@ -8291,7 +8291,7 @@ function extractCharacterSlots(character) {
   };
 }
 
-function projectBodyTypeCharacter(character, context, wardrobe = [], { preserveHourglassSource = false } = {}) {
+function projectBodyTypeCharacter(character, context) {
   if (!Array.isArray(character)) return character;
   if (isSpecialSubject(context.subject) || isCharacterProfileSubject(context.subject)) return character;
 
@@ -8302,16 +8302,9 @@ function projectBodyTypeCharacter(character, context, wardrobe = [], { preserveH
   if (bodyTypes.length === 0) return character;
 
   const compositionVisibility = getCompositionVisibilityProjection(context);
-  const hemOverlapRoles = new Set((Array.isArray(wardrobe) ? wardrobe : [])
-    .filter((item) => isHemOverlapStyling(item) && String(item.en || '').trim())
-    .map((item) => item.meta?.wardrobeRole || ''));
   const projectedBySource = new Map(bodyTypes.map((bodyType) => [
     bodyType,
-    preserveHourglassSource && bodyType.zh === '豐胸纖腰沙漏身形'
-      ? bodyType
-      : projectNormalBodyTypeItem(bodyType, compositionVisibility, {
-      hemOverlap: hemOverlapRoles.has(bodyType.meta?.characterRole || ''),
-    }),
+    projectNormalBodyTypeItem(bodyType, compositionVisibility),
   ]));
   if ([...projectedBySource].every(([source, projected]) => source === projected)) return character;
   return character.flatMap((item) => {
@@ -12279,13 +12272,14 @@ const Z_IMAGE_REDUNDANT_SOURCE_FRAGMENTS = [
 ];
 
 function compactZImageSourceText(value) {
-  let output = cleanZImageSinglePromptText(value)
+  const protectedBody = protectSingleBodyTypeAnchors(value);
+  let output = cleanZImageSinglePromptText(protectedBody.text)
     .replace(/outerwear intentionally slipped below one or both shoulders,\s*sleeves still loosely on the arms,\s*jacket body hanging as an intact outer layer/gi, OUTERWEAR_SINGLE_SHOULDER_STYLING_TEXT)
     .replace(/outerwear slipped below the shoulder line,\s*sleeves loosely on the arms,\s*jacket body still readable as an outer layer/gi, OUTERWEAR_SINGLE_SHOULDER_STYLING_TEXT);
   for (const pattern of Z_IMAGE_REDUNDANT_SOURCE_FRAGMENTS) {
     output = output.replace(pattern, '');
   }
-  return output
+  return protectedBody.restore(output
     .replace(/\b(short|long|soft) necktie fastened at the collar\b/gi, '$1 necktie')
     .replace(/\bouterwear remains a coherent outer layer;\s*inner garment appears at natural openings\b/gi, '')
     .replace(/\blegwear stays secondary,\s*appearing near hems or openings when naturally visible\b/gi, '')
@@ -12299,7 +12293,7 @@ function compactZImageSourceText(value) {
     .replace(/\s*,\s*\./g, '.')
     .replace(/\.\s*,/g, ',')
     .replace(/,\s*$/g, '')
-    .trim();
+    .trim());
 }
 
 function compactZImageLocationText(value) {
@@ -12350,7 +12344,18 @@ function splitZImageSpecialOutfitContent(value, context = null) {
 
 function protectSingleBodyTypeAnchors(value) {
   const anchors = [];
-  let output = value;
+  let output = String(value || '');
+
+  // Current standalone sources are immutable in every public output. Mask the
+  // whole source before connective/redundancy cleanup, then restore it exactly.
+  for (const item of database.Character['體態 (Body Type)']) {
+    if (!item.en || /^none$/i.test(item.en.trim())) continue;
+    output = output.replace(new RegExp(escapePromptRegExp(item.en), 'g'), (match) => {
+      const token = `ZIMAGEBODYANCHOR${anchors.length}`;
+      anchors.push({ token, text: match });
+      return token;
+    });
+  }
 
   for (const rule of SINGLE_BODY_TYPE_ANCHOR_RULES) {
     output = output.replace(new RegExp(rule.pattern.source, 'gi'), (match) => {
@@ -13639,29 +13644,9 @@ function compactAiMinimalFragment(value, limit = 4) {
 }
 
 function compactAiBodyTypeAnchorText(value) {
-  const bodyTypeText = cleanAiMinimalFragment(value);
+  const bodyTypeText = String(value || '').trim();
   if (!bodyTypeText || /^none$/i.test(bodyTypeText)) return '';
-
-  const rule = SINGLE_BODY_TYPE_ANCHOR_RULES.find((entry) => {
-    return new RegExp(entry.pattern.source, 'i').test(bodyTypeText);
-  });
-  if (rule) return rule.aiText.replace(/[.!?]+$/g, '');
-
-  const measurementFreeText = bodyTypeText
-    .replace(
-      /\babout\s+\d{2,3}(?:-\d{2,3})?\s*cm(?:\s+visual height)?(?:\s+and\s+\d{2,3}(?:-\d{2,3})?\s*kg(?:\s+lean visual weight)?)?/gi,
-      ''
-    )
-    .replace(/\b\d{2,3}(?:-\d{2,3}){2}\s+body proportion anchor\b/gi, '')
-    .replace(/\b(?:balanced\s+)?torso-to-leg ratio(?:\s+around)?\s+\d+(?:\.\d+)?:\d+(?:\.\d+)?\b/gi, '')
-    .replace(/\b\d+(?:\.\d+)?:\d+(?:\.\d+)?\b/gi, '')
-    .replace(/\b[A-Z]-to-[A-Z]-cup-scale\b/gi, '')
-    .replace(/\s*,\s*,+/g, ', ')
-    .replace(/^\s*,\s*|\s*,\s*$/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-
-  return compactAiMinimalFragment(measurementFreeText, 4);
+  return bodyTypeText;
 }
 
 function buildAiSingleBodyTypeAnchorText(valuesByLabel, context) {
@@ -14508,8 +14493,9 @@ function buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, role) {
 function buildAiDuoRoleSubjectText(valuesByLabel, context, wardrobe, wardrobeColors, role) {
   const roleNumber = role === 'a' ? '1' : '2';
   const bodyText = compactAiBodyTypeAnchorText(
-    cleanAiDuoCompactText(firstStructuredValue(valuesByLabel, [`Woman ${roleNumber} Body Type`]))
+    String(firstStructuredValue(valuesByLabel, [`Woman ${roleNumber} Body Type`]) || '')
       .replace(new RegExp(`^woman ${roleNumber} has\\s+`, 'i'), '')
+      .replace(/[.!?]+$/g, '')
   );
   const hairstyleText = compactAiMinimalFragment(
     firstStructuredValue(valuesByLabel, [`Woman ${roleNumber} Hairstyle`]),
@@ -15716,7 +15702,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
       : rendererContext.subject,
     projectedScene: buildProjectedScene(rendererContext),
   };
-  const projectedCharacter = projectBodyTypeCharacter(character, mainContext, wardrobe, { preserveHourglassSource: true });
+  const projectedCharacter = projectBodyTypeCharacter(character, mainContext);
   const rendererWardrobe = projectClosedOuterwearWardrobe(projectTopHemOverlap(projectAudioForFraming(fixedCompositionPromptProjection?.wardrobe.items || wardrobe, mainContext), mainContext));
   const rendererWardrobeColors = fixedCompositionPromptProjection?.wardrobe.colors || wardrobeColors;
   const promptModel = {

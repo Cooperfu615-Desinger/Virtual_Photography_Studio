@@ -291,9 +291,9 @@ test('Gpt single-subject prompt preserves full-fidelity normal subject and wardr
   const wardrobe = gptSection(prompt, 'Wardrobe');
 
   assert.match(subject, /black frame, bold thick-frame glasses, worn normally on the face, lenses aligned over the eyes/i);
-  assert.match(subject, /sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight/i);
-  assert.match(subject, /94-58-92 body proportion anchor, long legs with about 3\.8:6\.2 torso-to-leg balance/i);
-  assert.match(subject, /full F-to-G-cup-scale bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve/i);
+  assert.match(subject, /F–G cup bust, lean limbs, narrow defined waist, rounded hips/i);
+  assert.match(subject, /height 168–173 cm, bust–waist–hip 94–58–92 cm/i);
+  assert.match(subject, /F–G cup bust, lean limbs, narrow defined waist, rounded hips, long legs, dramatic lean hourglass silhouette/i);
   assert.match(subject, /young seductive alluring beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence/i);
   assert.match(subject, /deep side-parted long soft waves, defined face-framing layers, polished wave shape/i);
   assert.match(subject, /silver-gray white hair, cool pale fashion color, realistic dyed hair texture/i);
@@ -309,9 +309,9 @@ test('Gpt single-subject prompt preserves full-fidelity normal subject and wardr
   assert.doesNotMatch(prompt.zImagePrompt, /worn normally on the face|lenses aligned over the eyes/i);
   assert.doesNotMatch(prompt.zImagePrompt, /realistic outer-to-inner dressing order/i);
   assert.match(prompt.zImagePrompt, /A 20s seductive stunning Japanese or Korean woman(?:[.,]| with)/i);
-  assert.match(prompt.zImagePrompt, /sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight/i);
-  assert.match(prompt.zImagePrompt, /94-58-92 body proportion anchor, long legs with about 3\.8:6\.2 torso-to-leg balance/i);
-  assert.match(prompt.zImagePrompt, /full F-to-G-cup-scale bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve/i);
+  assert.match(prompt.zImagePrompt, /F–G cup bust, lean limbs, narrow defined waist, rounded hips/i);
+  assert.match(prompt.zImagePrompt, /height 168–173 cm, bust–waist–hip 94–58–92 cm/i);
+  assert.match(prompt.zImagePrompt, /F–G cup bust, lean limbs, narrow defined waist, rounded hips, long legs, dramatic lean hourglass silhouette/i);
 });
 
 test('Z-Image single-subject prompt keeps fixed subject lead and full body type while keeping natural paragraphs', () => {
@@ -340,9 +340,9 @@ test('Z-Image single-subject prompt keeps fixed subject lead and full body type 
   assertNaturalZImageParagraphs(prompt, 'single z-image compact prompt', 4);
   assert.match(paragraphs[0], /^Photorealistic editorial portrait\./i);
   assert.match(paragraphs.find((paragraph) => /A 20s seductive stunning Japanese or Korean woman/i.test(paragraph)) || '', /bold thick-frame glasses/i);
-  assert.match(prompt.zImagePrompt, /sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight/i);
-  assert.match(prompt.zImagePrompt, /94-58-92 body proportion anchor, long legs with about 3\.8:6\.2 torso-to-leg balance/i);
-  assert.match(prompt.zImagePrompt, /full F-to-G-cup-scale bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve/i);
+  assert.match(prompt.zImagePrompt, /F–G cup bust, lean limbs, narrow defined waist, rounded hips/i);
+  assert.match(prompt.zImagePrompt, /height 168–173 cm, bust–waist–hip 94–58–92 cm/i);
+  assert.match(prompt.zImagePrompt, /F–G cup bust, lean limbs, narrow defined waist, rounded hips, long legs, dramatic lean hourglass silhouette/i);
   assert.match(prompt.zImagePrompt, /long soft waves with defined wave shape[\s\S]*sleek wet finish[\s\S]*natural black hair/i);
 
   assert.match(paragraphs.find((paragraph) => /^She wears /i.test(paragraph)) || '', /white triangle bikini top/i);
@@ -376,7 +376,7 @@ test('AI single-subject prompt uses fixed subject lead while preserving eyewear 
   const aiPrompt = prompt.midjourneyPrompt;
 
   assert.match(aiPrompt, /^Photorealistic editorial portrait\. Full-body portrait\. A 20s seductive stunning Japanese woman\./i);
-  assert.match(aiPrompt, /curvy hourglass silhouette, fuller bust, defined waist, rounded hips/i);
+  assert.match(aiPrompt, /F–G cup bust, lean limbs, narrow defined waist, rounded hips/i);
   assert.match(aiPrompt, /long soft waves with defined wave shape[\s\S]*sleek wet finish[\s\S]*black bold-frame glasses/i);
   assert.match(aiPrompt, /Wearing white triangle bikini top, white low-rise side-tie bikini bottoms/i);
   assert.doesNotMatch(aiPrompt, /^(Image Type|Scene|Subject|Wardrobe|Pose and Composition):/m);
@@ -406,33 +406,9 @@ test('AI single-subject prompt keeps compact hairstyle and hair color before spe
   assert.doesNotMatch(aiPrompt, /[\u3400-\u9fff]/);
 });
 
-test('AI single-subject prompt uses simplified body type anchors for each body selection', () => {
-  const cases = [
-    {
-      zh: '高挑時裝模特',
-      expected: 'Tall fashion-model silhouette, long legs, high waistline.',
-    },
-    {
-      zh: '一般基本體型',
-      expected: 'Natural balanced silhouette, gentle waist curve, natural bust and hips.',
-    },
-    {
-      zh: '柔和沙漏身形',
-      expected: 'Soft hourglass silhouette, fuller bust, wider hips.',
-    },
-    {
-      zh: '性感曲線身形',
-      expected: 'Curvy hourglass silhouette, fuller bust, defined waist, rounded hips.',
-    },
-    {
-      zh: '運動緊實身形',
-      expected: 'Fit athletic silhouette, firm build, subtle muscle definition.',
-    },
-    {
-      zh: '小隻精緻身形',
-      expected: 'Petite refined silhouette, compact frame, delicate proportions.',
-    },
-  ];
+test('AI single-subject prompt retains the full selected Body Type source', () => {
+  const cases = getLockControls().find(c => c.key === 'bodyTypeId').options
+    .filter(o => o.zh !== '全無').map(o => ({ zh: o.zh, expected: o.en }));
 
   for (const { zh, expected } of cases) {
     const [prompt] = generatePrompts(1, {
@@ -511,17 +487,17 @@ test('Gpt single-subject prompt preserves full-fidelity identity descriptions', 
         hairColorId: optionId('hairColorId', '銀灰白'),
       },
       gptKeeps: [
-        /sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight/i,
-        /94-58-92 body proportion anchor, long legs with about 3\.8:6\.2 torso-to-leg balance/i,
+        /F–G cup bust, lean limbs, narrow defined waist, rounded hips/i,
+        /height 168–173 cm, bust–waist–hip 94–58–92 cm/i,
         /young seductive alluring beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence/i,
         /deep side-parted long soft waves, defined face-framing layers, polished wave shape/i,
         /silver-gray white hair, cool pale fashion color, realistic dyed hair texture/i,
       ],
       zKeeps: [
         /A 20s seductive stunning Japanese or Korean woman(?:[.,]| with)/i,
-        /sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight/i,
-        /94-58-92 body proportion anchor, long legs with about 3\.8:6\.2 torso-to-leg balance/i,
-        /full F-to-G-cup-scale bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve/i,
+        /F–G cup bust, lean limbs, narrow defined waist, rounded hips/i,
+        /height 168–173 cm, bust–waist–hip 94–58–92 cm/i,
+        /F–G cup bust, lean limbs, narrow defined waist, rounded hips, long legs, dramatic lean hourglass silhouette/i,
       ],
       zOmits: /magnetic feminine facial balance|polished Korean-style face-framing flow/i,
     },
@@ -535,7 +511,7 @@ test('Gpt single-subject prompt preserves full-fidelity identity descriptions', 
         hairColorId: optionId('hairColorId', '自然黑'),
       },
       gptKeeps: [
-        /tall slim fashion body, about 170-175 cm visual height, 80-58-88 body proportion anchor/i,
+        /A–B cup bust, narrow ribcage, slim arms and legs/i,
         /young beautiful Korean idol face, refined small face, clear bright eyes, polished youthful beauty, photogenic K-pop portrait balance/i,
         /chin-length inward-curved bob, airy straight bangs, smooth face-framing rounded ends, clean salon shape/i,
         /natural black hair, soft realistic shine, clean dark depth/i,
@@ -543,8 +519,8 @@ test('Gpt single-subject prompt preserves full-fidelity identity descriptions', 
       ],
       zKeeps: [
         /A 20s seductive stunning Japanese or Korean woman(?:[.,]| with)/i,
-        /tall slim fashion body, about 170-175 cm visual height, 80-58-88 body proportion anchor/i,
-        /long legs with about 3\.5:6\.5 torso-to-leg balance, shorter upper torso, high waistline, narrow ribcage, gently wider hips/i,
+        /A–B cup bust, narrow ribcage, slim arms and legs/i,
+        /short torso, long legs, tall slender model silhouette; height 170–175 cm, bust–waist–hip 80–58–88 cm/i,
       ],
       zOmits: /photogenic K-pop portrait balance|hydrated reflective complexion|clean salon shape/i,
     },
@@ -558,7 +534,7 @@ test('Gpt single-subject prompt preserves full-fidelity identity descriptions', 
         hairColorId: optionId('hairColorId', '蜂蜜焦糖棕'),
       },
       gptKeeps: [
-        /soft natural hourglass body, about 165-170 cm visual height, 90-62-94 body proportion anchor/i,
+        /C–D cup bust, soft proportionate arms, gently defined waist/i,
         /young sweet pretty face, soft rounded charm, bright friendly eyes, gentle cute beauty, approachable youthful portrait look/i,
         /straight medium-to-long hair with clean vertical lengths, softly tapered ends, compact natural silhouette/i,
         /honey caramel-brown hair, warm golden brown salon color/i,
@@ -566,8 +542,8 @@ test('Gpt single-subject prompt preserves full-fidelity identity descriptions', 
       ],
       zKeeps: [
         /A 20s seductive stunning Japanese or Korean woman(?:[.,]| with)/i,
-        /soft natural hourglass body, about 165-170 cm visual height, 90-62-94 body proportion anchor/i,
-        /balanced torso-to-leg ratio around 4:6, longer upper torso, lower waistline, fuller bust, wider hips, elongated abdomen with subtle contour lines/i,
+        /C–D cup bust, soft proportionate arms, gently defined waist/i,
+        /slightly long torso, balanced legs, soft hourglass silhouette; height 165–170 cm, bust–waist–hip 90–62–94 cm/i,
       ],
       zOmits: /approachable youthful portrait look|authentic skin detail/i,
     },
@@ -1438,7 +1414,7 @@ test('Z-Image binds intact pose to the scene before subject and all single wardr
   }
 });
 
-test('chest-up framing keeps only the visible Body Type chest anchor', () => {
+test('chest-up framing retains the selected Body Type source', () => {
   const [prompt] = generatePrompts(1, {
     ...createAllNoneLocks(),
     subjectCount: '1',
@@ -1447,12 +1423,8 @@ test('chest-up framing keeps only the visible Body Type chest anchor', () => {
     topId: optionId('topId', '棉質細肩背心'),
   });
 
-  for (const output of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
-    assert.match(output, /fuller bust/i);
-    assert.doesNotMatch(output, /soft natural hourglass body/i);
-    assert.doesNotMatch(output, /visual height|90-62-94 body proportion anchor|torso-to-leg ratio/i);
-    assert.doesNotMatch(output, /wider hips|longer upper torso|lower waistline|elongated abdomen/i);
-  }
+  const source = getLockControls().find(c => c.key === 'bodyTypeId').options.find(o => o.id === prompt.selection.bodyTypeId).en;
+  for (const output of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) assert.ok(output.includes(source));
   assert.match(prompt.zImagePrompt, /cotton camisole top/i);
 });
 

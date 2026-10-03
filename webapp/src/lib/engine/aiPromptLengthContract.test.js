@@ -48,7 +48,7 @@ function generateFixture(fixture) {
 }
 
 test('AI Prompt length contract is frozen serializable policy data', () => {
-  assert.equal(AI_PROMPT_LENGTH_CONTRACT_VERSION, '1.2.0');
+  assert.equal(AI_PROMPT_LENGTH_CONTRACT_VERSION, '1.3.0');
   assert.ok(Object.isFrozen(AI_PROMPT_LENGTH_CONTRACT));
   assert.ok(Object.isFrozen(AI_PROMPT_LENGTH_CONTRACT.budgets.characterCard));
   assert.deepEqual(
@@ -67,6 +67,7 @@ test('AI Prompt length contract is frozen serializable policy data', () => {
     deletionGate: 'none',
     preserveResolvedVisualItems: true,
     compactRedundantProseBeforeVisualItems: true,
+    standaloneBodyType: 'retain the complete resolved English source verbatim; no short anchor or measurement deletion',
   });
   assert.equal(AI_PROMPT_LENGTH_CONTRACT.rollout.phase1.behaviorNeutral, true);
   assert.equal(AI_PROMPT_LENGTH_CONTRACT.rollout.phase3.behaviorNeutral, false);

@@ -1,0 +1,94 @@
+[
+  {
+    "zh": "高挑時裝模特",
+    "en": "tall slim fashion body, about 170-175 cm visual height, 80-58-88 body proportion anchor, long legs with about 3.5:6.5 torso-to-leg balance, shorter upper torso, high waistline, narrow ribcage, gently wider hips, clean editorial silhouette",
+    "desc": "高挑、纖細、短上身與高腰線，腿身比例更拉長，臀圍略寬但仍維持時裝 editorial 的乾淨輪廓。",
+    "stableId": "character:體態-body-type:高挑時裝模特:0",
+    "partial": {
+      "chestUp": "narrow ribcage",
+      "mediumWaist": "shorter upper torso, high waistline, narrow ribcage",
+      "cowboyKnee": "80-58-88 body proportion anchor, high waistline, narrow ribcage, gently wider hips, shorter upper torso"
+    },
+    "ai": "Tall fashion-model silhouette, long legs, high waistline"
+  },
+  {
+    "zh": "一般基本體型",
+    "en": "natural basic body, about 160-165 cm visual height, 83-62-88 body proportion anchor, balanced torso-to-leg ratio around 4:6, low-contrast waist curve, modest bust and hips, smooth natural silhouette",
+    "desc": "一般自然體型，曲線不強調，胸腰臀落差較低，整體比例平衡，不加入肉感或年齡相關描述。",
+    "stableId": "character:體態-body-type:一般基本體型:1",
+    "partial": {
+      "chestUp": "modest bust",
+      "mediumWaist": "modest bust, low-contrast waist curve",
+      "cowboyKnee": "83-62-88 body proportion anchor, modest bust and hips, low-contrast waist curve, smooth natural silhouette"
+    },
+    "ai": "Natural balanced silhouette, gentle waist curve, natural bust and hips"
+  },
+  {
+    "zh": "柔和沙漏身形",
+    "en": "soft natural hourglass body, about 165-170 cm visual height, 90-62-94 body proportion anchor, balanced torso-to-leg ratio around 4:6, longer upper torso, lower waistline, fuller bust, wider hips, elongated abdomen with subtle contour lines",
+    "desc": "柔和沙漏比例，上身較長、腰線較低，胸部與臀圍更明顯，腹部較長並帶自然線條。",
+    "stableId": "character:體態-body-type:柔和沙漏身形:2",
+    "partial": {
+      "chestUp": "fuller bust",
+      "mediumWaist": "longer upper torso, lower waistline, fuller bust, elongated abdomen with subtle contour lines",
+      "cowboyKnee": "90-62-94 body proportion anchor, fuller bust, lower waistline, wider hips, longer upper torso, elongated abdomen with subtle contour lines"
+    },
+    "ai": "Soft hourglass silhouette, fuller bust, wider hips"
+  },
+  {
+    "zh": "性感曲線身形",
+    "en": "sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight, 94-58-92 body proportion anchor, long legs with about 3.8:6.2 torso-to-leg balance, full F-to-G-cup-scale bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve",
+    "desc": "性感但偏纖長的曲線體型，以足夠身高、精瘦視覺體重與明確胸腰臀比例避免變胖或年齡感，重點是誇張但乾淨的曲線線條。",
+    "stableId": "character:體態-body-type:性感曲線身形:3",
+    "partial": {
+      "chestUp": "full bust",
+      "mediumWaist": "full bust, narrow defined waist",
+      "cowboyKnee": "94-58-92 body proportion anchor, full bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve"
+    },
+    "ai": "Curvy hourglass silhouette, fuller bust, defined waist, rounded hips"
+  },
+  {
+    "zh": "運動緊實身形",
+    "en": "fit toned athletic female body, healthy firm silhouette, subtle muscle definition, energetic balanced proportions",
+    "desc": "健康、俐落、緊實，有運動感與輕微肌肉張力。",
+    "stableId": "character:體態-body-type:運動緊實身形:4",
+    "partial": {
+      "chestUp": "fit toned athletic upper body, subtle muscle definition",
+      "mediumWaist": "fit toned athletic upper body, healthy firm silhouette, subtle muscle definition",
+      "cowboyKnee": "fit toned athletic body, healthy firm silhouette, subtle muscle definition, energetic balanced proportions"
+    },
+    "ai": "Fit athletic silhouette, firm build, subtle muscle definition"
+  },
+  {
+    "zh": "小隻精緻身形",
+    "en": "petite polished female body, compact refined proportions, delicate idol-like silhouette, graceful small-frame presence",
+    "desc": "較嬌小、比例精緻，帶偶像感與可愛但成熟的身形輪廓。",
+    "stableId": "character:體態-body-type:小隻精緻身形:5",
+    "partial": {
+      "chestUp": "compact refined upper-body proportions, graceful small-frame presence",
+      "mediumWaist": "compact refined upper-body proportions, graceful small-frame presence",
+      "cowboyKnee": "petite polished body, compact refined proportions, delicate idol-like silhouette, graceful small-frame presence"
+    },
+    "ai": "Petite refined silhouette, compact frame, delicate proportions"
+  },
+  {
+    "zh": "全無",
+    "en": "none",
+    "desc": "不指定體態，不輸出身形、身高或比例描述。",
+    "stableId": "character:體態-body-type:全無:6",
+    "partial": {},
+    "ai": ""
+  },
+  {
+    "zh": "豐胸纖腰沙漏身形",
+    "en": "I-cup bust, slender arms, narrow waist, wider hips, fuller upper thighs, slim calves, defined hourglass silhouette",
+    "desc": "胸部份量明顯，手臂與腰部纖細；臀部及大腿上段有柔和肉感，往下收至纖細小腿。",
+    "stableId": "character:體態-body-type:豐胸纖腰沙漏身形:7",
+    "partial": {
+      "chestUp": "full bust, slender arms",
+      "mediumWaist": "full bust, slender arms, narrow waist",
+      "cowboyKnee": "full bust, slender arms, narrow waist, wider hips, fuller upper thighs, defined hourglass silhouette"
+    },
+    "ai": "I-cup bust, slender arms, narrow waist, wider hips, fuller upper thighs, slim calves, defined hourglass silhouette"
+  }
+]

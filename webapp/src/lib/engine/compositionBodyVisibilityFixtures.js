@@ -1,3 +1,5 @@
+import { BODY_TYPE_CATALOG_V2 } from './bodyTypeCatalogFixtures.js';
+
 /**
  * Desired PAGE1 body-visibility behavior.
  *
@@ -62,80 +64,13 @@ export const BODY_VISIBILITY_PHASE4_INTEGRATION_MATRIX = Object.freeze({
   specialOutfitPersonDetailPattern: 'tattoos?',
 });
 
-function createBodyTypeProfile({
-  bodyTypeZh,
-  fullSource,
-  chestUp,
-  mediumWaist,
-  cowboyKnee,
-}) {
-  return Object.freeze({
-    bodyTypeZh,
-    fullSource,
-    expectedTextByBucket: Object.freeze({
-      faceDetail: '',
-      headShoulders: '',
-      chestUp,
-      mediumWaist,
-      cowboyKnee,
-      fullBody: fullSource,
-      unconstrained: fullSource,
-      fixedComposition: fullSource,
-    }),
-  });
-}
-
-export const BODY_TYPE_VISIBILITY_PROFILES = Object.freeze([
-  createBodyTypeProfile({
-    bodyTypeZh: '高挑時裝模特',
-    fullSource: 'tall slim fashion body, about 170-175 cm visual height, 80-58-88 body proportion anchor, long legs with about 3.5:6.5 torso-to-leg balance, shorter upper torso, high waistline, narrow ribcage, gently wider hips, clean editorial silhouette',
-    chestUp: 'narrow ribcage',
-    mediumWaist: 'shorter upper torso, high waistline, narrow ribcage',
-    cowboyKnee: '80-58-88 body proportion anchor, high waistline, narrow ribcage, gently wider hips, shorter upper torso',
-  }),
-  createBodyTypeProfile({
-    bodyTypeZh: '一般基本體型',
-    fullSource: 'natural basic body, about 160-165 cm visual height, 83-62-88 body proportion anchor, balanced torso-to-leg ratio around 4:6, low-contrast waist curve, modest bust and hips, smooth natural silhouette',
-    chestUp: 'modest bust',
-    mediumWaist: 'modest bust, low-contrast waist curve',
-    cowboyKnee: '83-62-88 body proportion anchor, modest bust and hips, low-contrast waist curve, smooth natural silhouette',
-  }),
-  createBodyTypeProfile({
-    bodyTypeZh: '柔和沙漏身形',
-    fullSource: 'soft natural hourglass body, about 165-170 cm visual height, 90-62-94 body proportion anchor, balanced torso-to-leg ratio around 4:6, longer upper torso, lower waistline, fuller bust, wider hips, elongated abdomen with subtle contour lines',
-    chestUp: 'fuller bust',
-    mediumWaist: 'longer upper torso, lower waistline, fuller bust, elongated abdomen with subtle contour lines',
-    cowboyKnee: '90-62-94 body proportion anchor, fuller bust, lower waistline, wider hips, longer upper torso, elongated abdomen with subtle contour lines',
-  }),
-  createBodyTypeProfile({
-    bodyTypeZh: '性感曲線身形',
-    fullSource: 'sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight, 94-58-92 body proportion anchor, long legs with about 3.8:6.2 torso-to-leg balance, full F-to-G-cup-scale bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve',
-    chestUp: 'full bust',
-    mediumWaist: 'full bust, narrow defined waist',
-    cowboyKnee: '94-58-92 body proportion anchor, full bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve',
-  }),
-  createBodyTypeProfile({
-    bodyTypeZh: '運動緊實身形',
-    fullSource: 'fit toned athletic female body, healthy firm silhouette, subtle muscle definition, energetic balanced proportions',
-    chestUp: 'fit toned athletic upper body, subtle muscle definition',
-    mediumWaist: 'fit toned athletic upper body, healthy firm silhouette, subtle muscle definition',
-    cowboyKnee: 'fit toned athletic body, healthy firm silhouette, subtle muscle definition, energetic balanced proportions',
-  }),
-  createBodyTypeProfile({
-    bodyTypeZh: '小隻精緻身形',
-    fullSource: 'petite polished female body, compact refined proportions, delicate idol-like silhouette, graceful small-frame presence',
-    chestUp: 'compact refined upper-body proportions, graceful small-frame presence',
-    mediumWaist: 'compact refined upper-body proportions, graceful small-frame presence',
-    cowboyKnee: 'petite polished body, compact refined proportions, delicate idol-like silhouette, graceful small-frame presence',
-  }),
-  createBodyTypeProfile({
-    bodyTypeZh: '豐胸纖腰沙漏身形',
-    fullSource: 'I-cup bust, slender arms, narrow waist, wider hips, fuller upper thighs, slim calves, defined hourglass silhouette',
-    chestUp: 'full bust, slender arms',
-    mediumWaist: 'full bust, slender arms, narrow waist',
-    cowboyKnee: 'full bust, slender arms, narrow waist, wider hips, fuller upper thighs, defined hourglass silhouette',
-  }),
-]);
+export const BODY_TYPE_VISIBILITY_PROFILES = Object.freeze(BODY_TYPE_CATALOG_V2.map(item => Object.freeze({
+  bodyTypeZh: item.zh,
+  fullSource: item.en,
+  expectedTextByBucket: Object.freeze(Object.fromEntries(
+    Object.keys(EXPECTED_BODY_VISIBILITY_POLICY_BY_BUCKET).map(bucket => [bucket, item.en])
+  )),
+})));
 
 export const COMPOSITION_BODY_VISIBILITY_REGRESSION_FIXTURES = Object.freeze([
   {
@@ -152,7 +87,7 @@ export const COMPOSITION_BODY_VISIBILITY_REGRESSION_FIXTURES = Object.freeze([
     expectedProjection: {
       bucket: 'faceDetail',
       profileZh: '柔和沙漏身形',
-      bodyText: '',
+      bodyText: 'C–D cup bust, soft proportionate arms, gently defined waist, slightly low waistline, rounded wider hips, moderately full thighs, tapered calves, slightly long torso, balanced legs, soft hourglass silhouette; height 165–170 cm, bust–waist–hip 90–62–94 cm',
       preserveRawLockKeys: ['bodyTypeId', 'facialFeaturesId', 'eyewearId'],
       preserveNonBodyGroups: ['faceIdentity', 'skin', 'makeup', 'hair', 'faceAccessories'],
       fullBodyCharacterUsesFullSource: true,
@@ -172,7 +107,7 @@ export const COMPOSITION_BODY_VISIBILITY_REGRESSION_FIXTURES = Object.freeze([
     expectedProjection: {
       bucket: 'headShoulders',
       profileZh: '性感曲線身形',
-      bodyText: '',
+      bodyText: 'F–G cup bust, lean limbs, narrow defined waist, rounded hips, long legs, dramatic lean hourglass silhouette; height 168–173 cm, bust–waist–hip 94–58–92 cm',
       preserveRawLockKeys: ['bodyTypeId', 'facialFeaturesId', 'earringsId'],
       preserveNonBodyGroups: ['faceIdentity', 'skin', 'makeup', 'hair', 'faceAccessories'],
       fullBodyCharacterUsesFullSource: true,
@@ -190,7 +125,7 @@ export const COMPOSITION_BODY_VISIBILITY_REGRESSION_FIXTURES = Object.freeze([
     expectedProjection: {
       bucket: 'chestUp',
       profileZh: '性感曲線身形',
-      bodyText: 'full bust',
+      bodyText: 'F–G cup bust, lean limbs, narrow defined waist, rounded hips, long legs, dramatic lean hourglass silhouette; height 168–173 cm, bust–waist–hip 94–58–92 cm',
       preserveRawLockKeys: ['bodyTypeId'],
       preserveNonBodyGroups: ['faceIdentity', 'skin', 'makeup', 'hair', 'faceAccessories'],
       fullBodyCharacterUsesFullSource: true,
@@ -208,7 +143,7 @@ export const COMPOSITION_BODY_VISIBILITY_REGRESSION_FIXTURES = Object.freeze([
     expectedProjection: {
       bucket: 'mediumWaist',
       profileZh: '柔和沙漏身形',
-      bodyText: 'longer upper torso, lower waistline, fuller bust, elongated abdomen with subtle contour lines',
+      bodyText: 'C–D cup bust, soft proportionate arms, gently defined waist, slightly low waistline, rounded wider hips, moderately full thighs, tapered calves, slightly long torso, balanced legs, soft hourglass silhouette; height 165–170 cm, bust–waist–hip 90–62–94 cm',
       preserveRawLockKeys: ['bodyTypeId'],
       preserveNonBodyGroups: ['faceIdentity', 'skin', 'makeup', 'hair', 'faceAccessories'],
       fullBodyCharacterUsesFullSource: true,
@@ -226,7 +161,7 @@ export const COMPOSITION_BODY_VISIBILITY_REGRESSION_FIXTURES = Object.freeze([
     expectedProjection: {
       bucket: 'cowboyKnee',
       profileZh: '柔和沙漏身形',
-      bodyText: '90-62-94 body proportion anchor, fuller bust, lower waistline, wider hips, longer upper torso, elongated abdomen with subtle contour lines',
+      bodyText: 'C–D cup bust, soft proportionate arms, gently defined waist, slightly low waistline, rounded wider hips, moderately full thighs, tapered calves, slightly long torso, balanced legs, soft hourglass silhouette; height 165–170 cm, bust–waist–hip 90–62–94 cm',
       preserveRawLockKeys: ['bodyTypeId'],
       preserveNonBodyGroups: ['faceIdentity', 'skin', 'makeup', 'hair', 'faceAccessories'],
       fullBodyCharacterUsesFullSource: true,
@@ -244,7 +179,7 @@ export const COMPOSITION_BODY_VISIBILITY_REGRESSION_FIXTURES = Object.freeze([
     expectedProjection: {
       bucket: 'fullBody',
       profileZh: '柔和沙漏身形',
-      bodyText: 'soft natural hourglass body, about 165-170 cm visual height, 90-62-94 body proportion anchor, balanced torso-to-leg ratio around 4:6, longer upper torso, lower waistline, fuller bust, wider hips, elongated abdomen with subtle contour lines',
+      bodyText: 'C–D cup bust, soft proportionate arms, gently defined waist, slightly low waistline, rounded wider hips, moderately full thighs, tapered calves, slightly long torso, balanced legs, soft hourglass silhouette; height 165–170 cm, bust–waist–hip 90–62–94 cm',
       preserveRawLockKeys: ['bodyTypeId'],
       preserveNonBodyGroups: ['faceIdentity', 'skin', 'makeup', 'hair', 'faceAccessories'],
       fullBodyCharacterUsesFullSource: true,
@@ -258,14 +193,14 @@ export const COMPOSITION_BODY_VISIBILITY_REGRESSION_FIXTURES = Object.freeze([
       subjectCount: '2',
       framingId: { byZh: '中景鏡頭 (Medium Shot)' },
       bodyTypeAId: { byZh: '高挑時裝模特' },
-      bodyTypeBId: { byZh: '一般基本體型' },
+      bodyTypeBId: { byZh: '柔和沙漏身形' },
     },
     expectedProjection: {
       bucket: 'mediumWaist',
-      roleProfiles: Object.freeze({ a: '高挑時裝模特', b: '一般基本體型' }),
+      roleProfiles: Object.freeze({ a: '高挑時裝模特', b: '柔和沙漏身形' }),
       roleBodyText: Object.freeze({
-        a: 'shorter upper torso, high waistline, narrow ribcage',
-        b: 'modest bust, low-contrast waist curve',
+        a: 'A–B cup bust, narrow ribcage, slim arms and legs, narrow waist, high waistline, slightly wider hips, short torso, long legs, tall slender model silhouette; height 170–175 cm, bust–waist–hip 80–58–88 cm',
+        b: 'C–D cup bust, soft proportionate arms, gently defined waist, slightly low waistline, rounded wider hips, moderately full thighs, tapered calves, slightly long torso, balanced legs, soft hourglass silhouette; height 165–170 cm, bust–waist–hip 90–62–94 cm',
       }),
       preserveRawLockKeys: ['bodyTypeAId', 'bodyTypeBId'],
       preserveNonBodyGroups: ['faceIdentity', 'skin', 'makeup', 'hair', 'faceAccessories'],
@@ -303,7 +238,7 @@ export const COMPOSITION_BODY_VISIBILITY_REGRESSION_FIXTURES = Object.freeze([
     expectedProjection: {
       bucket: 'chestUp',
       profileZh: '運動緊實身形',
-      bodyText: 'fit toned athletic upper body, subtle muscle definition',
+      bodyText: 'moderate bust, level shoulders, prominent collarbones, slim lightly toned arms, slender firm waist, flat toned abdomen, rounded lifted glutes of moderate size, slightly thicker firm thighs, firm calves, balanced proportions, straight-lined slim athletic silhouette; height 165–170 cm, bust–waist–hip 86–64–92 cm',
       preserveRawLockKeys: ['bodyTypeId', 'specialOutfitId'],
       preserveNonBodyGroups: ['specialOutfitHair', 'tattoos', 'faceIdentity', 'skin', 'makeup', 'hair'],
       fullBodyCharacterUsesFullSource: true,

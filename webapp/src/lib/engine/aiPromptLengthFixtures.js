@@ -16,7 +16,7 @@ export const AI_PROMPT_LENGTH_FIXTURES = Object.freeze([
     seed: 'ai-length-normal-separates-v1',
     locks: {
       ...FULL_CAPTURE_BASE,
-      bodyTypeId: { byZh: '一般基本體型' },
+      bodyTypeId: { byZh: '柔和沙漏身形' },
       hairstyleId: { byZh: '柔波：深側分' },
       hairColorId: { byZh: '栗子棕' },
       topId: { byZh: '領帶襯衫' },

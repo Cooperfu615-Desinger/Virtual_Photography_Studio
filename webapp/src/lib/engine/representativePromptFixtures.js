@@ -156,7 +156,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     expectedOutputs: {
       ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'fullBodyCharacterPrompt'].map(field => [field, {
         includes: ['partially concealing it', 'dolphin micro shorts', 'rounded hips'],
-        excludes: ['top length meets or slightly overlaps', '94-58-92', 'defined waist', 'bust-waist-hip curve', 'abdomen'],
+        excludes: ['top length meets or slightly overlaps'],
       }])),
       chestUpPortraitPrompt: { excludes: ['partially concealing it'] },
       chestUpMjPortraitPrompt: { excludes: ['partially concealing it'] },
@@ -1054,7 +1054,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
         includes: [
           'Waist-up portrait, high angle, looking down, rear-right three-quarter view',
           'A 20s seductive stunning Japanese woman',
-          'full bust, narrow defined waist',
+          'F–G cup bust, lean limbs, narrow defined waist',
           'softly defined oval face, upturned eyes with arched brows, clear nose bridge and full shaped lips',
           'playful restrained smile',
           'relaxed brows',
@@ -1459,7 +1459,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
       angleId: { byZh: '平視高度鏡頭' },
       orbitId: { byZh: '背面 180 度' },
-      bodyTypeId: { byZh: '一般基本體型' },
+      bodyTypeId: { byZh: '柔和沙漏身形' },
       poseBaseId: { byZh: '站姿' },
       poseArrangementId: { byZh: '自然站姿' },
       poseHandId: { byZh: '隨機' },

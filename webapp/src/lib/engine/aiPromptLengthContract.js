@@ -5,7 +5,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const AI_PROMPT_LENGTH_CONTRACT_VERSION = '1.2.0';
+export const AI_PROMPT_LENGTH_CONTRACT_VERSION = '1.3.0';
 
 /**
  * Machine-readable length diagnostics and preservation policy for the
@@ -30,6 +30,7 @@ export const AI_PROMPT_LENGTH_CONTRACT = deepFreeze({
     deletionGate: 'none',
     preserveResolvedVisualItems: true,
     compactRedundantProseBeforeVisualItems: true,
+    standaloneBodyType: 'retain the complete resolved English source verbatim; no short anchor or measurement deletion',
   },
   budgets: {
     normal: {

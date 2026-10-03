@@ -394,6 +394,12 @@ export function buildRestoreLocks(nextLocks, controls) {
   const restoredLocks = { ...createEmptyLocks(), ...nextLocks };
 
   controls.forEach((control) => {
+    if (/^bodyType[AB]?Id$/.test(control.key)) {
+      const value = restoredLocks[control.key];
+      const current = control.options?.some(option => option.id === value);
+      const legacy = !current && control.options?.find(option => option.legacyIds?.includes(value));
+      if (legacy) restoredLocks[control.key] = legacy.id;
+    }
     if (restoredLocks[control.key]) return;
     const noneOption = control.options?.find((option) => option.zh === '全無');
     if (noneOption) restoredLocks[control.key] = noneOption.id;

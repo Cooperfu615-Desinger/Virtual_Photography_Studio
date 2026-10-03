@@ -80,7 +80,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.34.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.35.0';
 
 /**
  * Public PAGE1 prompt-output contract.
@@ -93,6 +93,16 @@ export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.34.0';
  * normal PAGE1 ratio is available; fixed-composition output keeps its own set
  * wording and does not repeat that cue.
  */
+// Applies to catalog Body Type only; Character Card body visibility is unchanged.
+export const STANDALONE_BODY_TYPE_CONTRACT = deepFreeze({
+  source: 'resolved selected catalog Body Type English description',
+  fidelity: 'verbatim across all three main outputs and all three derivatives',
+  projection: 'independent of crop, camera direction and effective hem overlap',
+  compression: 'retain cup range, height and bust-waist-hip measurements; no short anchor or word-budget deletion',
+  empty: 'none stays silent',
+  compatibility: 'existing IDs preserved; legacy basic body resolves to soft hourglass',
+});
+
 export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
   grokPrompt: {
     field: 'grokPrompt',

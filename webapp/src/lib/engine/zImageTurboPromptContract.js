@@ -18,7 +18,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.17.0';
+export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.18.0';
 
 const SCENE_INTEGRATED_SECTION_ORDER = Object.freeze([
   'imageType', 'composition', 'subject', 'pose', 'wardrobe',
@@ -55,6 +55,11 @@ export const Z_IMAGE_TURBO_PROMPT_CONTRACT = deepFreeze({
     estimateIsExactTokenizerCount: false,
     targetEstimatedTokens: 400,
     softMaxEstimatedTokens: 480,
+    enforcement: 'diagnostic-only; estimates never truncate the selected standalone Body Type source',
+  },
+  standaloneBodyType: {
+    fidelity: 'complete resolved English source verbatim, including cup range, height and bust-waist-hip measurements',
+    visibility: 'retain at every crop and under effective hem overlap; Character Card body projection is unchanged',
   },
   sectionOrder: SECTION_ORDER,
   singleSceneIntegrated: {

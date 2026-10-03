@@ -65,26 +65,17 @@ test('phase-1 body profiles cover every public Body Type and retain the canonica
     const sourceOption = bodyTypeControl.options.find((option) => option.zh === profile.bodyTypeZh);
     assert.ok(sourceOption, profile.bodyTypeZh);
     assert.equal(profile.fullSource, sourceOption.en, `${profile.bodyTypeZh}: full source must stay canonical`);
-    assert.equal(profile.expectedTextByBucket.faceDetail, '', `${profile.bodyTypeZh}: face detail`);
-    assert.equal(profile.expectedTextByBucket.headShoulders, '', `${profile.bodyTypeZh}: head shoulders`);
+    assert.equal(profile.expectedTextByBucket.faceDetail, profile.fullSource, `${profile.bodyTypeZh}: face detail`);
+    assert.equal(profile.expectedTextByBucket.headShoulders, profile.fullSource, `${profile.bodyTypeZh}: head shoulders`);
     assert.equal(profile.expectedTextByBucket.fullBody, profile.fullSource, `${profile.bodyTypeZh}: full body`);
     assert.equal(profile.expectedTextByBucket.unconstrained, profile.fullSource, `${profile.bodyTypeZh}: unconstrained`);
     assert.equal(profile.expectedTextByBucket.fixedComposition, profile.fullSource, `${profile.bodyTypeZh}: fixed composition`);
   }
 });
 
-test('phase-1 partial body profiles exclude regions that are outside each crop', () => {
-  const chestForbidden = /\b(?:visual height|visual weight|body proportion anchor|torso-to-leg|waist|abdomen|hips?|legs?|cup-scale)\b/i;
-  const mediumForbidden = /\b(?:visual height|visual weight|body proportion anchor|torso-to-leg|hips?|legs?|cup-scale)\b/i;
-  const cowboyForbidden = /\b(?:visual height|visual weight|torso-to-leg|long legs?|long limbs?|cup-scale)\b/i;
-
+test('standalone body profiles retain the full reviewed source across every visibility bucket', () => {
   for (const profile of BODY_TYPE_VISIBILITY_PROFILES) {
-    assert.notEqual(profile.expectedTextByBucket.chestUp, '', `${profile.bodyTypeZh}: chest-up source`);
-    assert.notEqual(profile.expectedTextByBucket.mediumWaist, '', `${profile.bodyTypeZh}: medium source`);
-    assert.notEqual(profile.expectedTextByBucket.cowboyKnee, '', `${profile.bodyTypeZh}: cowboy source`);
-    assert.doesNotMatch(profile.expectedTextByBucket.chestUp, chestForbidden, `${profile.bodyTypeZh}: chest-up boundary`);
-    assert.doesNotMatch(profile.expectedTextByBucket.mediumWaist, mediumForbidden, `${profile.bodyTypeZh}: medium boundary`);
-    assert.doesNotMatch(profile.expectedTextByBucket.cowboyKnee, cowboyForbidden, `${profile.bodyTypeZh}: cowboy boundary`);
+    for (const text of Object.values(profile.expectedTextByBucket)) assert.equal(text, profile.fullSource);
   }
 });
 
@@ -161,7 +152,7 @@ test('phase-1 fixtures preserve face identity while only body content is project
 
   assert.ok(faceFixtures.length >= 3);
   for (const fixture of faceFixtures) {
-    assert.equal(fixture.expectedProjection.bodyText, '', fixture.id);
+    if (!fixture.expectedProjection.profileZh) assert.equal(fixture.expectedProjection.bodyText, '', fixture.id);
     assert.equal(fixture.expectedProjection.preserveNonBodyGroups.includes('hair'), true, `${fixture.id}: hair`);
     assert.equal(
       fixture.expectedProjection.preserveNonBodyGroups.some((group) => (

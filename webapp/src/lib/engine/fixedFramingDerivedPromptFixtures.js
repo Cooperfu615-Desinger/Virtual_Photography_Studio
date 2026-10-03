@@ -36,13 +36,11 @@ export const FIXED_FRAMING_DERIVED_PROMPT_FIXTURES = Object.freeze([
       omitWardrobeRoles: Object.freeze(['bottom', 'legwear', 'shoes', 'bag']),
       mjSemanticReuse: Object.freeze({
         includeFromMainAi: Object.freeze([
-          'full bust',
+          'F–G cup bust',
           'British vintage window-side room interior',
           '85mm short telephoto portrait lens',
         ]),
         excludeFromChestCrop: Object.freeze([
-          'defined waist',
-          'rounded hips',
           'Orie Ichihashi-inspired',
           'straight-leg jeans',
           'white patent leather thigh-high boots',

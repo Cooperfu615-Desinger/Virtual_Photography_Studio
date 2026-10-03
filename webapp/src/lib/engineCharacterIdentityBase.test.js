@@ -16,7 +16,6 @@ test('identity base exposes approved body and facial feature options', () => {
     optionLabels('bodyTypeId'),
     [
       '高挑時裝模特',
-      '一般基本體型',
       '柔和沙漏身形',
       '性感曲線身形',
       '運動緊實身形',
@@ -302,14 +301,14 @@ test('duo identity base supports separate body type and skin details per woman',
   assert.match(promptText, new RegExp(`Woman 1:\\nHas [\\s\\S]*${skinA.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
   assert.match(promptText, new RegExp(`Woman 2:\\nHas [\\s\\S]*${skinB.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
   assert.match(prompt.zImagePrompt, /Two stunning seductive 20-year-old Japanese or Korean women\./);
-  assert.match(prompt.zImagePrompt, /Woman 1 has tall slim fashion body[\s\S]*gently wider hips, glass skin, dewy luminous skin texture/i);
-  assert.match(prompt.zImagePrompt, /Woman 2 has fit toned athletic female body[\s\S]*natural freckles across nose and cheeks, sun-kissed freckles/i);
+  assert.match(prompt.zImagePrompt, /Woman 1 has A–B cup bust[\s\S]*80–58–88 cm, glass skin, dewy luminous skin texture/i);
+  assert.match(prompt.zImagePrompt, /Woman 2 has moderate bust[\s\S]*natural freckles across nose and cheeks, sun-kissed freckles/i);
   assert.doesNotMatch(prompt.zImagePrompt, /clean editorial silhouette|hydrated reflective complexion|authentic skin detail/i);
   assert.match(prompt.midjourneyPrompt, /^Photorealistic editorial portrait\./);
   assert.doesNotMatch(prompt.midjourneyPrompt, /The main characters are two stunning seductive 20-year-old Japanese or Korean women/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /\bwoman [12] has\b/i);
-  assert.match(prompt.midjourneyPrompt, /First woman, tall fashion-model silhouette, long legs, high waistline/i);
-  assert.match(prompt.midjourneyPrompt, /Second woman, fit athletic silhouette, firm build, subtle muscle definition/i);
+  assert.match(prompt.midjourneyPrompt, /First woman, A–B cup bust, narrow ribcage/i);
+  assert.match(prompt.midjourneyPrompt, /Second woman, moderate bust, level shoulders/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /visual height|visual weight|body proportion anchor|torso-to-leg|\b\d{2,3}-\d{2,3}-\d{2,3}\b/i);
   assert.equal(prompt.selection.bodyTypeAId, bodyA.id);
   assert.equal(prompt.selection.bodyTypeBId, bodyB.id);
@@ -352,7 +351,7 @@ test('legacy identity base locks migrate into the merged options', () => {
   );
   assert.equal(
     normalizeLocks({ ...locks, bodyTypeId: 'character:體態-body-type:優雅曲線模特:1' }).bodyTypeId,
-    optionByLabel('bodyTypeId', '一般基本體型').id
+    optionByLabel('bodyTypeId', '柔和沙漏身形').id
   );
   assert.equal(
     normalizeLocks({ ...locks, facialFeaturesId: 'character:五官特徵-facial-features:kpop:1' }).facialFeaturesId,
