@@ -1,6 +1,7 @@
 import { DEFAULT_KNEELING_SUPPORT_HAND_ID, isFourPointKneeling, isKneelingSupportHand, resolveKneelingSupportArrangement } from './engine/kneelingSupport.js';
 import { ACCESSORY_CATEGORIES, accessoryNoneId, isConcreteAccessory, isHeadWornAudio, blocksHeadWornAudio, splitAccessoryCatalog, migrateAccessoryLocks, normalizeAccessoryConflicts, projectAudioForFraming } from './engine/accessoryPolicy.js';
 import database from '../data/database.json' with { type: 'json' };
+import { isMinimalCoverageGarmentSource, isMinimalCoverageTop } from './engine/minimalCoverageWardrobe.js';
 import { isRetiredOuterwear, resolveOuterwearBase, outerwearFasteners } from './engine/outerwearModel.js';
 import { isFullyClosedOpening, closedInnerLayerIsVisible, fullyClosedOuterwearText, PULL_OPEN_HAND_ID } from './engine/outerwearClosure.js';
 import { getActionPoseCardById } from '../data/actionPoseCards.js';
@@ -9640,7 +9641,7 @@ function buildWaistlineCompatibilityPrompt(wardrobeSlots) {
     (bottomRise && ['低腰', '超低腰'].includes(bottomRise.zh)) || isLowRiseBottomItem(bottom)
   );
 
-  if (!bottom || !top || !isLowRiseBottom || isCroppedTopItem(top) || top.zh === '比基尼上身') return '';
+  if (!bottom || !top || !isLowRiseBottom || isCroppedTopItem(top) || top.zh === '比基尼上身' || isMinimalCoverageTop(top)) return '';
   if (isHemOverlapStyling(topStyling)) return '';
 
   if (topStyling?.zh === '自然放出' || isUntuckedTopItem(top)) {
@@ -14477,7 +14478,7 @@ function buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, role) {
 
   const roleTexts = buildGptDuoFullWardrobeRoleTexts(wardrobeSlots, wardrobeColors, context);
   const roleText = role === 'a' ? roleTexts.woman1 : roleTexts.woman2;
-  const fragments = isCompleteWardrobeProjection(getCompositionVisibilityProjection(context))
+  const fragments = isCompleteWardrobeProjection(getCompositionVisibilityProjection(context)) || isMinimalCoverageGarmentSource(roleText)
     ? splitAiDuoCompactFragments(roleText)
     : splitAiDuoCompactFragments(buildAiCompleteLookCoreText(roleText, context));
   const suffix = role === 'a' ? 'A' : 'B';
@@ -14639,6 +14640,15 @@ function extractAiSpecialPersonFragments(value, context = null) {
 
 function compactAiGarmentValue(value, preferredRole = '', primarySource = '', wearSources = [], surfaceSource = '') {
   const sourceText = primarySource || value;
+  if (isMinimalCoverageGarmentSource(sourceText)) {
+    // Retain only authored clauses that survived the shared crop projection.
+    // This preserves the defining cup/tie fit while respecting colors/patterns
+    // and avoids recovering hidden lower-body details in chest derivatives.
+    const visibleSource = splitAiSourceFragments(sourceText).filter(fragment => value.includes(fragment));
+    const visibleWear = wearSources.filter(source => source && value.includes(source));
+    const visibleSurface = splitAiSourceFragments(surfaceSource).filter(fragment => value.includes(fragment));
+    return [...new Set([...visibleSource, ...visibleWear, ...visibleSurface])].join(', ');
+  }
   if (/\bJapanese sailor school blouse\b|\bJapanese sailor-uniform pleated skirt\b/i.test(sourceText)) {
     const sourceFragments = splitAiSourceFragments(sourceText);
     const keep = preferredRole === 'top'

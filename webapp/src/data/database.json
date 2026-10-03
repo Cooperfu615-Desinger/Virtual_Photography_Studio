@@ -2293,6 +2293,16 @@
         "zh": "長袖水手服",
         "en": "long-sleeve Japanese sailor school blouse, opaque woven uniform fabric, relaxed straight-cut body draping over the waist, near-black navy sailor collar with crisp white parallel trim, matching navy scarf tie, modest neckline insert, navy cuffs with white trim",
         "desc": "長袖制服上衣，常態是寬鬆直筒衣身、自然覆過裙腰；近黑深藍水手領、同色領巾及袖口飾邊配白色線條。"
+      },
+      {
+        "zh": "小罩杯細帶蕾絲胸罩",
+        "en": "small-cup lace bra top, small low-cut floral lace cups, slender shoulder straps, narrow underband, closely fitted cups, soft bust fullness extending slightly above and around the cup edges",
+        "desc": "小面積低罩杯花卉蕾絲胸罩，細肩帶與窄下圍；罩杯緊密貼合，柔軟胸部輪廓略高於罩杯上緣並延伸至兩側邊緣。效果屬於此款服裝，不改人物體態設定。"
+      },
+      {
+        "zh": "小三角細繩比基尼上身",
+        "en": "small-triangle string bikini top, small sliding triangle cups, slender halter and back ties, smooth stretch swim fabric, closely fitted cups, soft bust fullness extending slightly above and around the cup edges",
+        "desc": "小三角布片細繩比基尼上身，細掛脖與背部綁繩、彈性泳裝布料；罩杯緊密貼合，柔軟胸部輪廓略高於罩杯上緣並延伸至兩側邊緣。效果屬於此款服裝，不改人物體態設定。"
       }
     ],
     "上身圖案 (Top Surface Design)": [
@@ -2875,6 +2885,16 @@
         "zh": "七分褲",
         "en": "cropped capri pants, straight or fitted leg, hem ending below the knee, clean cropped silhouette",
         "desc": "以膝下截短褲長、直筒或合身褲管與乾淨七分比例為主。"
+      },
+      {
+        "zh": "窄前片細繩蕾絲丁字褲",
+        "en": "narrow-front lace G-string bottoms, low-rise narrow triangular lace front panel, G-string back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties",
+        "desc": "低腰窄三角蕾絲前片與細繩後片；細側繫繩拉緊貼合髖部，接觸處有可見淺壓痕，保留繩帶張力與局部貼合輪廓。"
+      },
+      {
+        "zh": "窄前片細繩比基尼下身",
+        "en": "narrow-front string thong bikini bottoms, low-rise narrow triangular swim front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties",
+        "desc": "低腰窄三角泳裝前片、高腿口與丁字後片；細側繫繩拉緊貼合髖部，接觸處有可見淺壓痕，保留繩帶張力與局部貼合輪廓。"
       }
     ],
     "裙裝 (Skirts)": [

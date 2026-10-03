@@ -198,6 +198,8 @@
 | **上身 (Tops)** | 帽T | `regular-length pullover hoodie, drawstring hood, ribbed cuffs and hem, relaxed casual streetwear silhouette` | 以一般衣長的套頭帽T、抽繩帽兜、羅紋袖口與下襬，以及放鬆的休閒街頭輪廓為主，與短版帽T區分。 |
 | **上身 (Tops)** | 短袖水手服 | `short-sleeve Japanese sailor school blouse, opaque woven uniform fabric, relaxed straight-cut body draping over the waist, near-black navy sailor collar with crisp white parallel trim, matching navy scarf tie, modest neckline insert` | 短袖制服上衣，常態是寬鬆直筒衣身、自然覆過裙腰；近黑深藍水手領配白色平行線條，同色領巾與領口遮片固定保留。 |
 | **上身 (Tops)** | 長袖水手服 | `long-sleeve Japanese sailor school blouse, opaque woven uniform fabric, relaxed straight-cut body draping over the waist, near-black navy sailor collar with crisp white parallel trim, matching navy scarf tie, modest neckline insert, navy cuffs with white trim` | 長袖制服上衣，常態是寬鬆直筒衣身、自然覆過裙腰；近黑深藍水手領、同色領巾及袖口飾邊配白色線條。 |
+| **上身 (Tops)** | 小罩杯細帶蕾絲胸罩 | `small-cup lace bra top, small low-cut floral lace cups, slender shoulder straps, narrow underband, closely fitted cups, soft bust fullness extending slightly above and around the cup edges` | 小面積低罩杯花卉蕾絲胸罩，細肩帶與窄下圍；罩杯緊密貼合，柔軟胸部輪廓略高於罩杯上緣並延伸至兩側邊緣。效果屬於此款服裝，不改人物體態設定。 |
+| **上身 (Tops)** | 小三角細繩比基尼上身 | `small-triangle string bikini top, small sliding triangle cups, slender halter and back ties, smooth stretch swim fabric, closely fitted cups, soft bust fullness extending slightly above and around the cup edges` | 小三角布片細繩比基尼上身，細掛脖與背部綁繩、彈性泳裝布料；罩杯緊密貼合，柔軟胸部輪廓略高於罩杯上緣並延伸至兩側邊緣。效果屬於此款服裝，不改人物體態設定。 |
 | **上身圖案 (Top Surface Design)** | 全無 | `no added top pattern, clean solid-color surface styling` | 不額外加入上身表面圖案，保留單色與乾淨版型表現。 |
 | **上身圖案 (Top Surface Design)** | 粗橫條紋 | `bold horizontal stripe top, clearly defined stripe bands across the torso, strong Breton-style graphic rhythm` | 以明顯橫向條帶貫穿整件上身，條紋方向清楚、辨識度高，整體更像經典橫條紋上衣而不是淡淡表面紋理。 |
 | **上身圖案 (Top Surface Design)** | 細橫條紋 | `fine horizontal stripe top, narrow repeated stripe bands across the torso, delicate Breton-inspired surface rhythm` | 以細緻而連續的橫向條帶覆蓋整件上身，保留清楚的橫條紋識別，同時比粗條紋更日常、更輕盈。 |
@@ -280,6 +282,8 @@
 | **褲裝 (Pants)** | 工裝短褲 | `cargo shorts, compact utility cut, side cargo pockets, structured casual silhouette` | 以短褲長度、側邊工裝口袋與硬挺休閒輪廓為主。 |
 | **褲裝 (Pants)** | 氣球工裝褲 | `balloon cargo pants, high-volume barrel legs, deep knee shaping, large bellows side pockets, tapered cuffs` | 以高份量氣球褲管、膝部立體剪裁、大型風箱口袋與收束褲口為主。 |
 | **褲裝 (Pants)** | 七分褲 | `cropped capri pants, straight or fitted leg, hem ending below the knee, clean cropped silhouette` | 以膝下截短褲長、直筒或合身褲管與乾淨七分比例為主。 |
+| **褲裝 (Pants)** | 窄前片細繩蕾絲丁字褲 | `narrow-front lace G-string bottoms, low-rise narrow triangular lace front panel, G-string back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties` | 低腰窄三角蕾絲前片與細繩後片；細側繫繩拉緊貼合髖部，接觸處有可見淺壓痕，保留繩帶張力與局部貼合輪廓。 |
+| **褲裝 (Pants)** | 窄前片細繩比基尼下身 | `narrow-front string thong bikini bottoms, low-rise narrow triangular swim front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties` | 低腰窄三角泳裝前片、高腿口與丁字後片；細側繫繩拉緊貼合髖部，接觸處有可見淺壓痕，保留繩帶張力與局部貼合輪廓。 |
 | **裙裝 (Skirts)** | 全無 | `no skirt, skirt styling omitted` | 不使用裙裝，方便保留褲裝、泳裝或更乾淨的下身結構。 |
 | **裙裝 (Skirts)** | 迷你裙 | `mini skirt, concise hem length, clean tailored finish, compact lower-body proportion` | 以短裙長度、乾淨下擺與簡潔裙身比例為主，是最基礎的迷你裙結構。 |
 | **裙裝 (Skirts)** | A 字短裙 | `a-line mini skirt, structured flare, balanced feminine silhouette` | 腰部收合、裙擺自然展開的短裙版本，實用且好搭配。 |

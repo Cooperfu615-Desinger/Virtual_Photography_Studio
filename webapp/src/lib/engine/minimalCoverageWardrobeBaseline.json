@@ -1,0 +1,408 @@
+{
+  "oldOptionIds": {
+    "topId": [
+      "wardrobe:上身-tops:全無:0",
+      "wardrobe:上身-tops:襯衫:1",
+      "wardrobe:上身-tops:長版襯衫:2",
+      "wardrobe:上身-tops:領帶襯衫:3",
+      "wardrobe:上身-tops:短袖上衣:4",
+      "wardrobe:上身-tops:落肩-t-恤:5",
+      "wardrobe:上身-tops:短版-t-恤:6",
+      "wardrobe:上身-tops:棉質細肩背心:7",
+      "wardrobe:上身-tops:絲質細肩帶上衣:8",
+      "wardrobe:上身-tops:削肩針織上衣:9",
+      "wardrobe:上身-tops:坦克背心:10",
+      "wardrobe:上身-tops:高領針織上衣:11",
+      "wardrobe:上身-tops:高領連身上衣:12",
+      "wardrobe:上身-tops:長版寬鬆麻花針織毛衣:13",
+      "wardrobe:上身-tops:短版針織背心:14",
+      "wardrobe:上身-tops:短版蕾絲背心:15",
+      "wardrobe:上身-tops:平口上衣:16",
+      "wardrobe:上身-tops:一字領上衣:17",
+      "wardrobe:上身-tops:絲綢緞面襯衫:18",
+      "wardrobe:上身-tops:透膚刺繡襯衫:19",
+      "wardrobe:上身-tops:網紗透視上衣:20",
+      "wardrobe:上身-tops:短版吊帶背心:21",
+      "wardrobe:上身-tops:短版帽t:22",
+      "wardrobe:上身-tops:球衣-運動-jersey:23",
+      "wardrobe:上身-tops:維多利亞高領蕾絲襯衫:24",
+      "wardrobe:上身-tops:雪紡荷葉蝴蝶結襯衫:25",
+      "wardrobe:上身-tops:素色緞面旗袍上衣:26",
+      "wardrobe:上身-tops:精緻刺繡旗袍上衣:27",
+      "wardrobe:上身-tops:和服式上衣:28",
+      "wardrobe:上身-tops:浴衣式上衣:29",
+      "wardrobe:上身-tops:比基尼上身:30",
+      "wardrobe:上身-tops:蕾絲胸罩:31",
+      "wardrobe:上身-tops:運動型內衣:32",
+      "wardrobe:上身-tops:蕾絲睡衣上身:33",
+      "wardrobe:上身-tops:波西米亞風上衣:34",
+      "wardrobe:上身-tops:長袖上衣:35",
+      "wardrobe:上身-tops:馬甲上衣:36",
+      "wardrobe:上身-tops:掛脖上衣:37",
+      "wardrobe:上身-tops:泡袖上衣:38",
+      "wardrobe:上身-tops:針織背心:39",
+      "wardrobe:上身-tops:帽t:40",
+      "wardrobe:上身-tops:短袖水手服:41",
+      "wardrobe:上身-tops:長袖水手服:42"
+    ],
+    "pantsId": [
+      "wardrobe:褲裝-pants:全無:0",
+      "wardrobe:褲裝-pants:直筒牛仔褲:1",
+      "wardrobe:褲裝-pants:低腰牛仔褲:2",
+      "wardrobe:褲裝-pants:牛仔短褲:3",
+      "wardrobe:褲裝-pants:超短運動短褲:4",
+      "wardrobe:褲裝-pants:真理褲:5",
+      "wardrobe:褲裝-pants:韻律緊身短褲:6",
+      "wardrobe:褲裝-pants:蕾絲內褲:7",
+      "wardrobe:褲裝-pants:蕾絲丁字褲:8",
+      "wardrobe:褲裝-pants:皮革短褲:9",
+      "wardrobe:褲裝-pants:工裝長褲:10",
+      "wardrobe:褲裝-pants:西裝長褲:11",
+      "wardrobe:褲裝-pants:寬褲:12",
+      "wardrobe:褲裝-pants:leggings:13",
+      "wardrobe:褲裝-pants:運動棉褲:14",
+      "wardrobe:褲裝-pants:短褲:15",
+      "wardrobe:褲裝-pants:皮革長褲:16",
+      "wardrobe:褲裝-pants:尼龍工裝褲:17",
+      "wardrobe:褲裝-pants:破壞牛仔寬褲:18",
+      "wardrobe:褲裝-pants:絲絨喇叭褲:19",
+      "wardrobe:褲裝-pants:亮面皮革長褲:20",
+      "wardrobe:褲裝-pants:乳膠長褲:21",
+      "wardrobe:褲裝-pants:乳膠短褲:22",
+      "wardrobe:褲裝-pants:比基尼下身:23",
+      "wardrobe:褲裝-pants:波西米亞風長褲:24",
+      "wardrobe:褲裝-pants:丹寧吊帶長褲:25",
+      "wardrobe:褲裝-pants:丹寧吊帶短褲:26",
+      "wardrobe:褲裝-pants:喇叭褲:27",
+      "wardrobe:褲裝-pants:工裝短褲:28",
+      "wardrobe:褲裝-pants:氣球工裝褲:29",
+      "wardrobe:褲裝-pants:七分褲:30"
+    ]
+  },
+  "fixtures": [
+    {
+      "title": "1/蕾絲胸罩/全身鏡頭 (Full Body Shot)/柔和沙漏身形",
+      "seed": "minimal-wardrobe-legacy-0",
+      "overrides": {
+        "subjectCount": "1",
+        "framingId": "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+        "topId": "wardrobe:上身-tops:蕾絲胸罩:31",
+        "pantsId": "wardrobe:褲裝-pants:蕾絲丁字褲:8",
+        "bodyTypeId": "character:體態-body-type:柔和沙漏身形:2"
+      },
+      "sha256": "ad7c16a4466d9c1cc2d417f7c1f8cf823aacbe593f268127c683d49305cd95bf"
+    },
+    {
+      "title": "1/蕾絲胸罩/全身鏡頭 (Full Body Shot)/豐胸纖腰沙漏身形",
+      "seed": "minimal-wardrobe-legacy-1",
+      "overrides": {
+        "subjectCount": "1",
+        "framingId": "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+        "topId": "wardrobe:上身-tops:蕾絲胸罩:31",
+        "pantsId": "wardrobe:褲裝-pants:蕾絲丁字褲:8",
+        "bodyTypeId": "character:體態-body-type:豐胸纖腰沙漏身形:7"
+      },
+      "sha256": "3684c38c51d373dda28a8d6af4cca13ee8c9766544e1c272ee3708e112ffb0a5"
+    },
+    {
+      "title": "1/蕾絲胸罩/中景鏡頭 (Medium Shot)/柔和沙漏身形",
+      "seed": "minimal-wardrobe-legacy-2",
+      "overrides": {
+        "subjectCount": "1",
+        "framingId": "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+        "topId": "wardrobe:上身-tops:蕾絲胸罩:31",
+        "pantsId": "wardrobe:褲裝-pants:蕾絲丁字褲:8",
+        "bodyTypeId": "character:體態-body-type:柔和沙漏身形:2"
+      },
+      "sha256": "4c874da5d32dfb6aa7717caa21616031f386e496a43854640901855130ffe1b9"
+    },
+    {
+      "title": "1/蕾絲胸罩/中景鏡頭 (Medium Shot)/豐胸纖腰沙漏身形",
+      "seed": "minimal-wardrobe-legacy-3",
+      "overrides": {
+        "subjectCount": "1",
+        "framingId": "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+        "topId": "wardrobe:上身-tops:蕾絲胸罩:31",
+        "pantsId": "wardrobe:褲裝-pants:蕾絲丁字褲:8",
+        "bodyTypeId": "character:體態-body-type:豐胸纖腰沙漏身形:7"
+      },
+      "sha256": "37f0548352cfb99b4418aec389fc2580c69cb021c46e9b4beed26a1d005d5d0d"
+    },
+    {
+      "title": "1/蕾絲胸罩/胸上特寫/柔和沙漏身形",
+      "seed": "minimal-wardrobe-legacy-4",
+      "overrides": {
+        "subjectCount": "1",
+        "framingId": "camera:景別構圖-framing:胸上特寫:5",
+        "topId": "wardrobe:上身-tops:蕾絲胸罩:31",
+        "pantsId": "wardrobe:褲裝-pants:蕾絲丁字褲:8",
+        "bodyTypeId": "character:體態-body-type:柔和沙漏身形:2"
+      },
+      "sha256": "30122a4e545bc3c9aabd6622c7d5e9e682606509d3695aaf21cfb53f1374d198"
+    },
+    {
+      "title": "1/蕾絲胸罩/胸上特寫/豐胸纖腰沙漏身形",
+      "seed": "minimal-wardrobe-legacy-5",
+      "overrides": {
+        "subjectCount": "1",
+        "framingId": "camera:景別構圖-framing:胸上特寫:5",
+        "topId": "wardrobe:上身-tops:蕾絲胸罩:31",
+        "pantsId": "wardrobe:褲裝-pants:蕾絲丁字褲:8",
+        "bodyTypeId": "character:體態-body-type:豐胸纖腰沙漏身形:7"
+      },
+      "sha256": "32667a3f42e32f2951eb85fe3af4899fd646a10436ea468e6f79d5798086dbf8"
+    },
+    {
+      "title": "1/比基尼上身/全身鏡頭 (Full Body Shot)/柔和沙漏身形",
+      "seed": "minimal-wardrobe-legacy-6",
+      "overrides": {
+        "subjectCount": "1",
+        "framingId": "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+        "topId": "wardrobe:上身-tops:比基尼上身:30",
+        "pantsId": "wardrobe:褲裝-pants:比基尼下身:23",
+        "bodyTypeId": "character:體態-body-type:柔和沙漏身形:2"
+      },
+      "sha256": "d7144f3eb29b1f3fc2c31aa1229bd5c5ba171a10d3793b4593b208e732d266b8"
+    },
+    {
+      "title": "1/比基尼上身/全身鏡頭 (Full Body Shot)/豐胸纖腰沙漏身形",
+      "seed": "minimal-wardrobe-legacy-7",
+      "overrides": {
+        "subjectCount": "1",
+        "framingId": "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+        "topId": "wardrobe:上身-tops:比基尼上身:30",
+        "pantsId": "wardrobe:褲裝-pants:比基尼下身:23",
+        "bodyTypeId": "character:體態-body-type:豐胸纖腰沙漏身形:7"
+      },
+      "sha256": "879794043b6a4e45308d3072bd84bfc9a4decaf3510dce3911a7e0b15fba03c9"
+    },
+    {
+      "title": "1/比基尼上身/中景鏡頭 (Medium Shot)/柔和沙漏身形",
+      "seed": "minimal-wardrobe-legacy-8",
+      "overrides": {
+        "subjectCount": "1",
+        "framingId": "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+        "topId": "wardrobe:上身-tops:比基尼上身:30",
+        "pantsId": "wardrobe:褲裝-pants:比基尼下身:23",
+        "bodyTypeId": "character:體態-body-type:柔和沙漏身形:2"
+      },
+      "sha256": "a4f9d2e3d34474422a95d7bb6c78da5ab1210dbc174fdfa1fe767f6fee1e5937"
+    },
+    {
+      "title": "1/比基尼上身/中景鏡頭 (Medium Shot)/豐胸纖腰沙漏身形",
+      "seed": "minimal-wardrobe-legacy-9",
+      "overrides": {
+        "subjectCount": "1",
+        "framingId": "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+        "topId": "wardrobe:上身-tops:比基尼上身:30",
+        "pantsId": "wardrobe:褲裝-pants:比基尼下身:23",
+        "bodyTypeId": "character:體態-body-type:豐胸纖腰沙漏身形:7"
+      },
+      "sha256": "936f8545d25b154ebef56d269393959f64c15410793e4a7923a3ccbb1165ebd6"
+    },
+    {
+      "title": "1/比基尼上身/胸上特寫/柔和沙漏身形",
+      "seed": "minimal-wardrobe-legacy-10",
+      "overrides": {
+        "subjectCount": "1",
+        "framingId": "camera:景別構圖-framing:胸上特寫:5",
+        "topId": "wardrobe:上身-tops:比基尼上身:30",
+        "pantsId": "wardrobe:褲裝-pants:比基尼下身:23",
+        "bodyTypeId": "character:體態-body-type:柔和沙漏身形:2"
+      },
+      "sha256": "91950a692e358c331e991726e041486ca5c5d85c16349fcedd6ec58f393f823f"
+    },
+    {
+      "title": "1/比基尼上身/胸上特寫/豐胸纖腰沙漏身形",
+      "seed": "minimal-wardrobe-legacy-11",
+      "overrides": {
+        "subjectCount": "1",
+        "framingId": "camera:景別構圖-framing:胸上特寫:5",
+        "topId": "wardrobe:上身-tops:比基尼上身:30",
+        "pantsId": "wardrobe:褲裝-pants:比基尼下身:23",
+        "bodyTypeId": "character:體態-body-type:豐胸纖腰沙漏身形:7"
+      },
+      "sha256": "416d7e2c568bf85b2c23e0f5ff082fbb983f1407985b240a5e81811e0a216e05"
+    },
+    {
+      "title": "2/蕾絲胸罩/全身鏡頭 (Full Body Shot)/柔和沙漏身形",
+      "seed": "minimal-wardrobe-legacy-12",
+      "overrides": {
+        "subjectCount": "2",
+        "framingId": "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+        "topAId": "wardrobe:上身-tops:蕾絲胸罩:31",
+        "pantsAId": "wardrobe:褲裝-pants:蕾絲丁字褲:8",
+        "bodyTypeAId": "character:體態-body-type:柔和沙漏身形:2",
+        "topBId": "wardrobe:上身-tops:蕾絲胸罩:31",
+        "pantsBId": "wardrobe:褲裝-pants:蕾絲丁字褲:8",
+        "bodyTypeBId": "character:體態-body-type:柔和沙漏身形:2"
+      },
+      "sha256": "afcaefcae9796f18cdc4934573766cb80cd79f01b231b0c0c38fa2b20f4a4be2"
+    },
+    {
+      "title": "2/蕾絲胸罩/全身鏡頭 (Full Body Shot)/豐胸纖腰沙漏身形",
+      "seed": "minimal-wardrobe-legacy-13",
+      "overrides": {
+        "subjectCount": "2",
+        "framingId": "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+        "topAId": "wardrobe:上身-tops:蕾絲胸罩:31",
+        "pantsAId": "wardrobe:褲裝-pants:蕾絲丁字褲:8",
+        "bodyTypeAId": "character:體態-body-type:豐胸纖腰沙漏身形:7",
+        "topBId": "wardrobe:上身-tops:蕾絲胸罩:31",
+        "pantsBId": "wardrobe:褲裝-pants:蕾絲丁字褲:8",
+        "bodyTypeBId": "character:體態-body-type:豐胸纖腰沙漏身形:7"
+      },
+      "sha256": "5052e759dd873be02efb7803d14a7364f68635f9cd2e9fea5af5ba641df12d68"
+    },
+    {
+      "title": "2/蕾絲胸罩/中景鏡頭 (Medium Shot)/柔和沙漏身形",
+      "seed": "minimal-wardrobe-legacy-14",
+      "overrides": {
+        "subjectCount": "2",
+        "framingId": "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+        "topAId": "wardrobe:上身-tops:蕾絲胸罩:31",
+        "pantsAId": "wardrobe:褲裝-pants:蕾絲丁字褲:8",
+        "bodyTypeAId": "character:體態-body-type:柔和沙漏身形:2",
+        "topBId": "wardrobe:上身-tops:蕾絲胸罩:31",
+        "pantsBId": "wardrobe:褲裝-pants:蕾絲丁字褲:8",
+        "bodyTypeBId": "character:體態-body-type:柔和沙漏身形:2"
+      },
+      "sha256": "563b8c7b1e28795170e570b954cc810cbaba707b9b3afe2dd81811d124c7f767"
+    },
+    {
+      "title": "2/蕾絲胸罩/中景鏡頭 (Medium Shot)/豐胸纖腰沙漏身形",
+      "seed": "minimal-wardrobe-legacy-15",
+      "overrides": {
+        "subjectCount": "2",
+        "framingId": "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+        "topAId": "wardrobe:上身-tops:蕾絲胸罩:31",
+        "pantsAId": "wardrobe:褲裝-pants:蕾絲丁字褲:8",
+        "bodyTypeAId": "character:體態-body-type:豐胸纖腰沙漏身形:7",
+        "topBId": "wardrobe:上身-tops:蕾絲胸罩:31",
+        "pantsBId": "wardrobe:褲裝-pants:蕾絲丁字褲:8",
+        "bodyTypeBId": "character:體態-body-type:豐胸纖腰沙漏身形:7"
+      },
+      "sha256": "3b98f9cb5138967cc9ed50047318f05f4cf2b0e1b6e5467a667b1ab4dbe578aa"
+    },
+    {
+      "title": "2/蕾絲胸罩/胸上特寫/柔和沙漏身形",
+      "seed": "minimal-wardrobe-legacy-16",
+      "overrides": {
+        "subjectCount": "2",
+        "framingId": "camera:景別構圖-framing:胸上特寫:5",
+        "topAId": "wardrobe:上身-tops:蕾絲胸罩:31",
+        "pantsAId": "wardrobe:褲裝-pants:蕾絲丁字褲:8",
+        "bodyTypeAId": "character:體態-body-type:柔和沙漏身形:2",
+        "topBId": "wardrobe:上身-tops:蕾絲胸罩:31",
+        "pantsBId": "wardrobe:褲裝-pants:蕾絲丁字褲:8",
+        "bodyTypeBId": "character:體態-body-type:柔和沙漏身形:2"
+      },
+      "sha256": "a7965fc07b8571e10a8081466899ef7f5d27ca19e050e8499f31d93d87fdd485"
+    },
+    {
+      "title": "2/蕾絲胸罩/胸上特寫/豐胸纖腰沙漏身形",
+      "seed": "minimal-wardrobe-legacy-17",
+      "overrides": {
+        "subjectCount": "2",
+        "framingId": "camera:景別構圖-framing:胸上特寫:5",
+        "topAId": "wardrobe:上身-tops:蕾絲胸罩:31",
+        "pantsAId": "wardrobe:褲裝-pants:蕾絲丁字褲:8",
+        "bodyTypeAId": "character:體態-body-type:豐胸纖腰沙漏身形:7",
+        "topBId": "wardrobe:上身-tops:蕾絲胸罩:31",
+        "pantsBId": "wardrobe:褲裝-pants:蕾絲丁字褲:8",
+        "bodyTypeBId": "character:體態-body-type:豐胸纖腰沙漏身形:7"
+      },
+      "sha256": "b9b4aaf27695882aa1eaaa96bee9eba3bd21abf1a5cbc28f957afb8c87771b5a"
+    },
+    {
+      "title": "2/比基尼上身/全身鏡頭 (Full Body Shot)/柔和沙漏身形",
+      "seed": "minimal-wardrobe-legacy-18",
+      "overrides": {
+        "subjectCount": "2",
+        "framingId": "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+        "topAId": "wardrobe:上身-tops:比基尼上身:30",
+        "pantsAId": "wardrobe:褲裝-pants:比基尼下身:23",
+        "bodyTypeAId": "character:體態-body-type:柔和沙漏身形:2",
+        "topBId": "wardrobe:上身-tops:比基尼上身:30",
+        "pantsBId": "wardrobe:褲裝-pants:比基尼下身:23",
+        "bodyTypeBId": "character:體態-body-type:柔和沙漏身形:2"
+      },
+      "sha256": "bd93eb40df4e62074176eb0e149e4d790585a1ab4cb84609cda41a7a247c5ebb"
+    },
+    {
+      "title": "2/比基尼上身/全身鏡頭 (Full Body Shot)/豐胸纖腰沙漏身形",
+      "seed": "minimal-wardrobe-legacy-19",
+      "overrides": {
+        "subjectCount": "2",
+        "framingId": "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+        "topAId": "wardrobe:上身-tops:比基尼上身:30",
+        "pantsAId": "wardrobe:褲裝-pants:比基尼下身:23",
+        "bodyTypeAId": "character:體態-body-type:豐胸纖腰沙漏身形:7",
+        "topBId": "wardrobe:上身-tops:比基尼上身:30",
+        "pantsBId": "wardrobe:褲裝-pants:比基尼下身:23",
+        "bodyTypeBId": "character:體態-body-type:豐胸纖腰沙漏身形:7"
+      },
+      "sha256": "c12eddbb164f7f45efb5510974c696a1b35d1e0fa6b9427d4f268c5ac23b9006"
+    },
+    {
+      "title": "2/比基尼上身/中景鏡頭 (Medium Shot)/柔和沙漏身形",
+      "seed": "minimal-wardrobe-legacy-20",
+      "overrides": {
+        "subjectCount": "2",
+        "framingId": "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+        "topAId": "wardrobe:上身-tops:比基尼上身:30",
+        "pantsAId": "wardrobe:褲裝-pants:比基尼下身:23",
+        "bodyTypeAId": "character:體態-body-type:柔和沙漏身形:2",
+        "topBId": "wardrobe:上身-tops:比基尼上身:30",
+        "pantsBId": "wardrobe:褲裝-pants:比基尼下身:23",
+        "bodyTypeBId": "character:體態-body-type:柔和沙漏身形:2"
+      },
+      "sha256": "fc3559ed753f05b1e675b4de2973ce652214f7ca48492e4594afe3e8190ed79b"
+    },
+    {
+      "title": "2/比基尼上身/中景鏡頭 (Medium Shot)/豐胸纖腰沙漏身形",
+      "seed": "minimal-wardrobe-legacy-21",
+      "overrides": {
+        "subjectCount": "2",
+        "framingId": "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+        "topAId": "wardrobe:上身-tops:比基尼上身:30",
+        "pantsAId": "wardrobe:褲裝-pants:比基尼下身:23",
+        "bodyTypeAId": "character:體態-body-type:豐胸纖腰沙漏身形:7",
+        "topBId": "wardrobe:上身-tops:比基尼上身:30",
+        "pantsBId": "wardrobe:褲裝-pants:比基尼下身:23",
+        "bodyTypeBId": "character:體態-body-type:豐胸纖腰沙漏身形:7"
+      },
+      "sha256": "82f0660e0376778af1d4879270343e7dedf7973fae999495cded016e42c196ac"
+    },
+    {
+      "title": "2/比基尼上身/胸上特寫/柔和沙漏身形",
+      "seed": "minimal-wardrobe-legacy-22",
+      "overrides": {
+        "subjectCount": "2",
+        "framingId": "camera:景別構圖-framing:胸上特寫:5",
+        "topAId": "wardrobe:上身-tops:比基尼上身:30",
+        "pantsAId": "wardrobe:褲裝-pants:比基尼下身:23",
+        "bodyTypeAId": "character:體態-body-type:柔和沙漏身形:2",
+        "topBId": "wardrobe:上身-tops:比基尼上身:30",
+        "pantsBId": "wardrobe:褲裝-pants:比基尼下身:23",
+        "bodyTypeBId": "character:體態-body-type:柔和沙漏身形:2"
+      },
+      "sha256": "03303134796a79360d88476bf2d989a2d89665abfbd9cfb4853ccbe20c557e1f"
+    },
+    {
+      "title": "2/比基尼上身/胸上特寫/豐胸纖腰沙漏身形",
+      "seed": "minimal-wardrobe-legacy-23",
+      "overrides": {
+        "subjectCount": "2",
+        "framingId": "camera:景別構圖-framing:胸上特寫:5",
+        "topAId": "wardrobe:上身-tops:比基尼上身:30",
+        "pantsAId": "wardrobe:褲裝-pants:比基尼下身:23",
+        "bodyTypeAId": "character:體態-body-type:豐胸纖腰沙漏身形:7",
+        "topBId": "wardrobe:上身-tops:比基尼上身:30",
+        "pantsBId": "wardrobe:褲裝-pants:比基尼下身:23",
+        "bodyTypeBId": "character:體態-body-type:豐胸纖腰沙漏身形:7"
+      },
+      "sha256": "da030cb2655c0b13599e54bee74a5f6967fb61a8082220484ed5f7db1d141b21"
+    }
+  ]
+}

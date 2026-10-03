@@ -47,6 +47,8 @@ const EXPECTED_TOP_LABELS = [
   '帽T',
   '短袖水手服',
   '長袖水手服',
+  '小罩杯細帶蕾絲胸罩',
+  '小三角細繩比基尼上身',
 ];
 
 const controlOptions = (key) => getLockControls().find((control) => control.key === key).options;

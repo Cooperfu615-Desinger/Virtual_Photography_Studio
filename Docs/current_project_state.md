@@ -2,7 +2,15 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-03
+Last updated: 2026-10-04
+
+## 小面積蕾絲／細繩泳裝單品 v1 (local, 2026-10-04)
+
+- 上身尾端新增「小罩杯細帶蕾絲胸罩」「小三角細繩比基尼上身」；褲裝尾端新增「窄前片細繩蕾絲丁字褲」「窄前片細繩比基尼下身」。來源見 `knowledge_base/wardrobe_and_styling.md`，規則見 [小面積服裝 v1](specs/minimal-coverage-wardrobe-v1.md)。上身有杯緣柔軟胸部輪廓略高於／延伸至兩側，下身有髖側細繩張力與可見淺壓痕；效果屬於選中服裝，不改 Body Type 或新增全域身體修飾。
+- 三主輸出與全身角色照保留可見剪裁／貼合來源；胸上輸出保留上身並省略下身。AI 僅針對四款保留共享投影後的來源片段；新上身排除一般上衣衣長銜接。配色／圖案、單人／雙人、舊 ID／來源、Saved Cards／匯入與 storage schema 維持既有契約，Public contract `1.36.0`。新下身未擴充自動吊襪帶白名單。
+- 回歸涵蓋四款、六組體態、景別、配色／圖案、雙人隔離、Saved Cards／標準 Prompt 匯入；修改前凍結的 24 組舊款 selection 與六輸出雜湊全數相同。專項 40/40、前端 1252/1252、Prompt Quality 517/517、lint/build、資料同步檢查、Python 2/2、公開資產與 diff-check 通過。同 seed `200 / prompt-quality-baseline` 嚴格稽核前後皆為 0 阻擋／28 既有診斷；Vite 大型 chunk 提示仍在。既有完整上身清單測試同步加入兩款，歷史輸出快照不改寫。
+- 瀏覽器 `1440×1000`／`390×900` 各實際選取蕾絲、比基尼兩組新款，核對六輸出；五個工作區與 Observation Capture 完成載入後的版面 smoke 通過。所檢查狀態無頁面橫向溢出、破圖或 console 警告／錯誤。Saved Cards 只讀；原服裝選擇與六組預覽逐字還原，viewport 重設、暫存分頁及測試伺服器已關閉。截圖 `/tmp/vps-minimal-wardrobe-desktop.jpg`、`/tmp/vps-minimal-wardrobe-mobile.jpg`。
+- 使用者於 2026-10-04 授權 commit／push；交付狀態以 Git 核對為準，未手動部署。既有未追蹤參考圖資料夾保留。實際圖像模型的杯緣效果、繫繩張力與壓痕強度仍需後續固定條件的新舊款生成對照。
 
 ## 體態目錄 v2 (local, 2026-10-03)
 

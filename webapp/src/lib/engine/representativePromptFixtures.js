@@ -16,6 +16,27 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   ...[
+    ['lace', '小罩杯細帶蕾絲胸罩', '窄前片細繩蕾絲丁字褲', 'small-cup lace bra top', 'narrow-front lace G-string bottoms'],
+    ['bikini', '小三角細繩比基尼上身', '窄前片細繩比基尼下身', 'small-triangle string bikini top', 'narrow-front string thong bikini bottoms'],
+  ].map(([id, top, bottom, topSource, bottomSource]) => ({
+    id: `minimal-coverage-${id}`, title: 'Independent minimal-coverage garment fit retains its authored source', mode: 'single', seed: 'minimal-coverage-v1',
+    locks: { subjectCount: '1', framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      topId: { byZh: top }, pantsId: { byZh: bottom }, skirtId: { byZh: '全無' },
+      specialOutfitId: { byZh: '全無' }, outfitPresetId: { byZh: '全無' }, dressId: { byZh: '全無' },
+      outerwearId: { byZh: '全無' }, topStylingId: { byZh: '全無' } },
+    expectedOutputs: {
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'fullBodyCharacterPrompt'].map(field => [field, {
+        includes: [topSource, bottomSource, 'soft bust fullness extending slightly above and around the cup edges',
+          'taut slender side ties fitted tightly around the hips', 'visible shallow indentations beneath the ties'],
+        excludes: ['top length meets or slightly overlaps'],
+      }])),
+      ...Object.fromEntries(['chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map(field => [field, {
+        includes: [topSource, 'soft bust fullness extending slightly above and around the cup edges'],
+        excludes: [bottomSource, 'visible shallow indentations beneath the ties'],
+      }])),
+    },
+  })),
+  ...[
     ['hands-palms-planted-ground', 'arms extended', 'raised chest and shoulders'],
     ['hands-elbows-planted-ground', 'chest and shoulders lowered', 'lowered chest and shoulders'],
   ].map(([hand, body, upper]) => ({
