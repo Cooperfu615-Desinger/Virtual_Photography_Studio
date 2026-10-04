@@ -67,6 +67,7 @@ export const DLL_PIC_MODEL_CONFIG = {
     defaultResolution: '1k',
   },
   byteplusSeedream5Pro: {
+    hidden: true,
     label: 'BytePlus Seedream 5.0 Pro',
     provider: 'byteplus',
     generationModel: 'dola-seedream-5-0-pro-260628',
@@ -79,6 +80,7 @@ export const DLL_PIC_MODEL_CONFIG = {
     apiKeyPlaceholder: 'Firebase Proxy 會使用伺服端 BytePlus ARK Secret',
   },
   byteplusSeedream5Lite: {
+    hidden: true,
     label: 'BytePlus Seedream 5.0 Lite',
     provider: 'byteplus',
     generationModel: 'seedream-5-0-260128',
@@ -91,6 +93,7 @@ export const DLL_PIC_MODEL_CONFIG = {
     apiKeyPlaceholder: 'Firebase Proxy 會使用伺服端 BytePlus ARK Secret',
   },
   magnificClassic: {
+    hidden: true,
     label: 'Magnific Classic',
     provider: 'magnific',
     generationModel: 'text-to-image',
@@ -100,6 +103,7 @@ export const DLL_PIC_MODEL_CONFIG = {
     apiKeyPlaceholder: 'Firebase Proxy 會使用伺服端 Magnific Secret',
   },
   magnificZImageTurbo: {
+    hidden: true,
     label: 'Magnific Z-Image Turbo',
     provider: 'magnific',
     generationModel: 'z-image-turbo',
@@ -109,6 +113,7 @@ export const DLL_PIC_MODEL_CONFIG = {
     apiKeyPlaceholder: 'Firebase Proxy 會使用伺服端 Magnific Secret',
   },
   magnificMystic: {
+    hidden: true,
     label: 'Magnific Mystic',
     provider: 'magnific',
     generationModel: 'mystic',
@@ -121,6 +126,7 @@ export const DLL_PIC_MODEL_CONFIG = {
     apiKeyPlaceholder: 'Firebase Proxy 會使用伺服端 Magnific Secret',
   },
   magnificNanoBananaProFlash: {
+    hidden: true,
     label: 'Magnific Nano Banana Pro Flash',
     provider: 'magnific',
     generationModel: 'nano-banana-pro-flash',
@@ -133,6 +139,7 @@ export const DLL_PIC_MODEL_CONFIG = {
     apiKeyPlaceholder: 'Firebase Proxy 會使用伺服端 Magnific Secret',
   },
   magnificGemini25FlashImagePreview: {
+    hidden: true,
     label: 'Magnific Gemini 2.5 Flash Image Preview',
     provider: 'magnific',
     generationModel: 'gemini-2.5-flash-image-preview',
@@ -142,6 +149,7 @@ export const DLL_PIC_MODEL_CONFIG = {
     apiKeyPlaceholder: 'Firebase Proxy 會使用伺服端 Magnific Secret',
   },
   magnificSeedreamV5Lite: {
+    hidden: true,
     label: 'Magnific Seedream V5 Lite',
     provider: 'magnific',
     generationModel: 'seedream-v5-lite',
@@ -188,8 +196,6 @@ export const DLL_PIC_ASPECT_RATIOS = [
   { value: '3:4', label: '3:4' },
   { value: '4:5', label: '4:5' },
 ];
-
-const DLL_PIC_VERIFIED_FOUR_BY_FIVE_MODELS = new Set(['google31FlashLiteImage']);
 
 function buildGoogleApiUrl(modelName, apiKey, apiVersion = 'v1beta') {
   return `https://generativelanguage.googleapis.com/${apiVersion}/models/${modelName}:generateContent?key=${apiKey}`;
@@ -281,7 +287,7 @@ export function isDllPicAspectRatioSupported(modelKey, aspectRatio) {
   if (model.aspectRatios) return model.aspectRatios.includes(aspectRatio);
   if (!DLL_PIC_ASPECT_RATIOS.some((option) => option.value === aspectRatio)) return false;
   if (aspectRatio !== '4:5') return true;
-  return DLL_PIC_VERIFIED_FOUR_BY_FIVE_MODELS.has(normalizeDllPicModelKey(modelKey));
+  return model === DLL_PIC_MODEL_CONFIG.google31FlashLiteImage;
 }
 
 export function getDllPicSelectableModelEntries({ includeAnalysisOnly = false } = {}) {

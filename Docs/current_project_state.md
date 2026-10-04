@@ -4,6 +4,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-04
 
+## DLL：隱藏 BytePlus / Magnific 介面 (local, 2026-10-04)
+
+- 使用者不再使用這兩家服務，要求隱藏 UI。八個模型透過既有 hidden 規則移出所有 DLL 選單，API Keys 視窗移除兩家 Secret 說明列；Gemini、xAI 與兩個 Comfy Cloud 模型保留。舊瀏覽器模型選擇於載入時沿用既有回退邏輯顯示 Gemini，不批次覆寫 storage。後端 Functions、Secrets、provider contract 與 adapter 保留；4:5 支援判斷仍依實際模型，避免 hidden 回退誤標舊 adapter。
+- 專項測試 18/18、完整前端 1266/1266、lint/build 與 diff-check 通過，既有 Vite 大型 chunk 提示仍在。桌面 1440×1000／手機 390×900 六工作區檢查無 console/page error、破圖或頁面橫向溢出，四個 DLL 使用工作區均確認選單及 API Keys 不含 BytePlus/Magnific，Comfy 可選。已驗證舊 Magnific 記錄回退、視窗開關；截圖 `/tmp/provider-hide-1440.png`、`/tmp/provider-hide-390.png`。
+- 使用者於 2026-10-04 授權 commit／push，交付狀態以 Git 核對為準。本次未部署或修改遠端 Secret；原未追蹤參考圖資料夾保留。
+
 ## Comfy Cloud 接入 DLL_PIC Pro v1 (local, 2026-10-04)
 
 - 使用者授權實作付費 Comfy Cloud 串接，暫不使用 LoRA。既有 DLL 新增 Z-Image-Turbo / Qwen-Image-2.1，沿用 Prompt 來源與預覽／放大／下載；單次一張、1K / 2K 約 1 / 4 MP，六種比例含 4:5、9:16。工作流模板源自使用者 API JSON；保留模型與採樣設定，Z 移除未接線 LoRA，Qwen 直接編碼原 Prompt、移除未啟用的改寫分支。既有 prompt engine、Saved Cards、public mappings 與原 storage keys 不變。詳見 [整合規格與啟用流程](specs/comfy-cloud-integration-v1.md)。

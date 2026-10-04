@@ -75,18 +75,6 @@ const DLL_PIC_PROXY_FIELDS = [
     provider: 'comfyCloud', label: 'Comfy Cloud API Key', status: 'Firebase Secret',
     description: '由伺服端 COMFY_CLOUD_API_KEY 提供；請先登入 Firebase。',
   },
-  {
-    provider: 'byteplus',
-    label: 'BytePlus ARK API Key',
-    status: 'Firebase Secret',
-    description: '由 Firebase Functions proxy 使用伺服端 BYTEPLUS_ARK_API_KEY，不會儲存在瀏覽器。',
-  },
-  {
-    provider: 'magnific',
-    label: 'Magnific API Key',
-    status: 'Firebase Secret',
-    description: '由 Firebase Functions proxy 使用伺服端 MAGNIFIC_API_KEY，不會儲存在瀏覽器。',
-  },
 ];
 
 function loadStoredProviderApiKeys() {

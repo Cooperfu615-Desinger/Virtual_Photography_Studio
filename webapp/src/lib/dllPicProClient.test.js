@@ -328,18 +328,17 @@ test('model option helpers hide legacy aliases and keep analyzer to analysis-cap
     'google31FlashLiteImage',
     'xaiGrokImagine',
     'xaiGrokImagineQuality',
-    'byteplusSeedream5Pro',
-    'byteplusSeedream5Lite',
-    'magnificClassic',
-    'magnificZImageTurbo',
-    'magnificMystic',
-    'magnificNanoBananaProFlash',
-    'magnificGemini25FlashImagePreview',
-    'magnificSeedreamV5Lite',
     'comfyZImageTurbo',
     'comfyQwenImage21',
   ]);
 
   const analysisModelKeys = getDllPicSelectableModelEntries({ includeAnalysisOnly: true }).map(([key]) => key);
   assert.deepEqual(analysisModelKeys, ['google31FlashLiteImage']);
+});
+
+test('retired provider selections fall back for UI while their adapters remain compatible', () => {
+  for (const key of ['byteplusSeedream5Pro', 'byteplusSeedream5Lite', 'magnificClassic', 'magnificZImageTurbo', 'magnificMystic', 'magnificNanoBananaProFlash', 'magnificGemini25FlashImagePreview', 'magnificSeedreamV5Lite']) {
+    assert.equal(normalizeDllPicModelKey(key), 'google31FlashLiteImage');
+    assert.equal(normalizeDllPicModelKey(key, 'comfyZImageTurbo'), 'comfyZImageTurbo');
+  }
 });
