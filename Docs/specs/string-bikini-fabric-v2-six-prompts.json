@@ -1,0 +1,92 @@
+{
+  "contractVersion": "1.37.0",
+  "seed": "string-bikini-fabric-review-20261004",
+  "context": "single subject; front-view cowboy crop; abandoned examination room; selected I–K body; explicit none for unspecified optional fields",
+  "garment": {
+    "id": "wardrobe:上身-tops:小三角細繩比基尼上身:44",
+    "zh": "小三角細繩比基尼上身",
+    "en": "string bikini top with ultra-minimal fabric covering only the nipples, leaving most of the breasts exposed, smooth swim fabric, and long slender halter and back ties",
+    "desc": "細繩比基尼上身，以極少量布料僅遮住乳頭，其餘大部分胸部外露；平滑泳裝布料，細長掛脖與背部綁繩。"
+  },
+  "wordCount": 26,
+  "activeLocks": {
+    "subjectCount": "1",
+    "imageTypePresetId": "fashion-advertising",
+    "styleId": "regional:攝影風格:石田真澄-柔亮底片空氣感:4",
+    "locationId": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄診療室:10",
+    "framingId": "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+    "angleId": "camera:相機視角-angle:腰部高度鏡頭:4",
+    "orbitId": "camera:拍攝方位-orbit-angle:正面-0-度:1",
+    "lightingId": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+    "lightDirectionId": "camera:光線表現-light-style:側向硬光:4",
+    "filmId": "camera:底片與相機模擬-camera-film-simulation:柯達-portra-暖膚底片:2",
+    "bodyTypeId": "character:體態-body-type:豐胸纖腰沙漏身形:7",
+    "facialFeaturesId": "character:五官特徵-facial-features:韓系偶像臉:1",
+    "skinDetailsId": "character:膚質特徵-skin-details:柔霧細緻肌:2",
+    "hairstyleId": "character:髮型-hairstyle:柔波-瀏海:20",
+    "hairStylingStateId": "character:髮絲整理狀態-hair-styling-state:微風吹拂:2",
+    "hairColorId": "character:髮色-hair-color:自然黑:1",
+    "expressionId": "character:表情-facial-expression:柔和微笑:1",
+    "poseBaseId": "standing",
+    "poseArrangementId": "standing-natural",
+    "poseHandId": "hands-relaxed-down",
+    "poseHeadId": "chin-slightly-raised",
+    "topId": "wardrobe:上身-tops:小三角細繩比基尼上身:44",
+    "topFitId": "tight",
+    "pantsId": "wardrobe:褲裝-pants:窄前片細繩蕾絲丁字褲:31",
+    "bottomFitId": "tight",
+    "bottomRiseId": "ultra-low-rise",
+    "legwearId": "wardrobe:襪類-legwear:柔和過膝絲襪:6",
+    "legwearColorId": "white"
+  },
+  "outputs": [
+    {
+      "field": "grokPrompt",
+      "label": "Gpt",
+      "garmentText": "string bikini top with ultra-minimal fabric covering only the nipples, leaving most of the breasts exposed, smooth swim fabric, and long slender halter and back ties",
+      "wordCount": 26,
+      "occurrences": 1,
+      "promptSha256": "2858b1455b5a90ac1c06141867e28e80e5c8af9b9da2787e4e6ca827b3ab87f3"
+    },
+    {
+      "field": "zImagePrompt",
+      "label": "Grok/Z-Image",
+      "garmentText": "string bikini top with ultra-minimal fabric covering only the nipples, leaving most of the breasts exposed, smooth swim fabric, and long slender halter and back ties",
+      "wordCount": 26,
+      "occurrences": 1,
+      "promptSha256": "924dad1d67de071fec01a81ee8a0c60b20725a77177fb13fb196928cd693c140"
+    },
+    {
+      "field": "midjourneyPrompt",
+      "label": "AI",
+      "garmentText": "string bikini top with ultra-minimal fabric covering only the nipples, leaving most of the breasts exposed, smooth swim fabric, and long slender halter and back ties",
+      "wordCount": 26,
+      "occurrences": 1,
+      "promptSha256": "bd87d22316f457d65fd009f0a8789a78e1bd22758bac8cc5652a097a12b3f1e8"
+    },
+    {
+      "field": "chest-up-portrait",
+      "label": "胸上特寫照",
+      "garmentText": "string bikini top with ultra-minimal fabric covering only the nipples, leaving most of the breasts exposed, smooth swim fabric, and long slender halter and back ties",
+      "wordCount": 26,
+      "occurrences": 1,
+      "promptSha256": "de49369ffc6b08ed278de5066b0f8c1395f460a1f37fb5f99c49f5190393d328"
+    },
+    {
+      "field": "chest-up-mj-portrait",
+      "label": "MJ 胸上特寫照",
+      "garmentText": "string bikini top with ultra-minimal fabric covering only the nipples, leaving most of the breasts exposed, smooth swim fabric, and long slender halter and back ties",
+      "wordCount": 26,
+      "occurrences": 1,
+      "promptSha256": "26d9e221c3d44443a198ca3cf9caaa6957260494cfa64cd6e2e02ca9914f8086"
+    },
+    {
+      "field": "full-body-character",
+      "label": "全身角色照",
+      "garmentText": "string bikini top with ultra-minimal fabric covering only the nipples, leaving most of the breasts exposed, smooth swim fabric, and long slender halter and back ties",
+      "wordCount": 26,
+      "occurrences": 1,
+      "promptSha256": "bfb85a52aa4ea2371cbfda0cb451c06fa3b72cd24bc34df8b36563fe14d1d42d"
+    }
+  ]
+}

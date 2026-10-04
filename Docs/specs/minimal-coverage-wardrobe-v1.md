@@ -2,6 +2,18 @@
 
 核准與實作範圍：2026-10-04。Public output contract `1.36.0`。
 
+## 比基尼布料描述正式更新（2026-10-04）
+
+使用者已接受 Grok Imagine 2.0 的診間測試成果，核准原位更新「小三角細繩比基尼上身」。本節取代下方初版中該款的罩杯與杯緣描述；蕾絲胸罩及兩款下身維持初版。Public output contract `1.37.0`。
+
+正式英文採使用者確認的布料短句，移除 `small sliding triangle cups`、`closely fitted cups` 及杯緣貼合效果，不補承托結構。來源仍維護於 `knowledge_base/wardrobe_and_styling.md`，名稱、ID、列順序與選擇／儲存 schema 不變。舊版完整英文在 `knowledge_base/item_metadata.json` 保留為匯入 alias；Saved Cards 原文不批次改寫，還原後重新生成採新來源。
+
+四款服裝的來源保留判斷加入這個精確的新款識別，不擴大至所有比基尼。六輸出使用相同 resolved source 與既有可見性規則；五官特寫依原規則省略服裝。回歸覆蓋完整新來源、罩杯文字排除、舊英文匯入與重新生成，原先 24 組舊款凍結快照維持不變。
+
+正式資料列與使用者診間／I–K 基準的六組實際單品片段見 [單品文字確認文件](string-bikini-fabric-v2-six-prompts.md)，單品字數、次數與完整 Prompt 雜湊見同名 JSON。使用者已確認六組皆保留同一 26 字來源，核准修正實作；外部模型對正式 Prompt 的生成效果不屬於已完成驗證。
+
+本次驗證：專項 121/121、前端 1254/1254、Prompt Quality 519/519、lint/build、同步檢查、Python 2/2、公開資產與 diff-check 通過。同 seed `200 / prompt-quality-baseline` 嚴格稽核前後報告相同，0 阻擋／28 既有診斷。桌面 `1440×1000`／手機 `390×900` 實選新款，六預覽皆完整保留來源一次，無舊罩杯文字；五工作區載入／版面 smoke 通過，無新的 console 錯誤、破圖或頁面橫向溢出。原選項與六預覽已逐字還原，Saved Cards 只讀。未 commit／push／部署。
+
 ## 單品與來源
 
 在上身、褲裝分類尾端各新增兩款，保留既有列順序、名稱、英文與 ID。

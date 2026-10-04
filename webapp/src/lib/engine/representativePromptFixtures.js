@@ -16,9 +16,9 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   ...[
-    ['lace', '小罩杯細帶蕾絲胸罩', '窄前片細繩蕾絲丁字褲', 'small-cup lace bra top', 'narrow-front lace G-string bottoms'],
-    ['bikini', '小三角細繩比基尼上身', '窄前片細繩比基尼下身', 'small-triangle string bikini top', 'narrow-front string thong bikini bottoms'],
-  ].map(([id, top, bottom, topSource, bottomSource]) => ({
+    ['lace', '小罩杯細帶蕾絲胸罩', '窄前片細繩蕾絲丁字褲', 'small-cup lace bra top', 'narrow-front lace G-string bottoms', 'soft bust fullness extending slightly above and around the cup edges'],
+    ['bikini', '小三角細繩比基尼上身', '窄前片細繩比基尼下身', 'string bikini top with ultra-minimal fabric', 'narrow-front string thong bikini bottoms', 'ultra-minimal fabric covering only the nipples, leaving most of the breasts exposed, smooth swim fabric, and long slender halter and back ties'],
+  ].map(([id, top, bottom, topSource, bottomSource, topDetail]) => ({
     id: `minimal-coverage-${id}`, title: 'Independent minimal-coverage garment fit retains its authored source', mode: 'single', seed: 'minimal-coverage-v1',
     locks: { subjectCount: '1', framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
       topId: { byZh: top }, pantsId: { byZh: bottom }, skirtId: { byZh: '全無' },
@@ -26,12 +26,12 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       outerwearId: { byZh: '全無' }, topStylingId: { byZh: '全無' } },
     expectedOutputs: {
       ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'fullBodyCharacterPrompt'].map(field => [field, {
-        includes: [topSource, bottomSource, 'soft bust fullness extending slightly above and around the cup edges',
+        includes: [topSource, bottomSource, topDetail,
           'taut slender side ties fitted tightly around the hips', 'visible shallow indentations beneath the ties'],
         excludes: ['top length meets or slightly overlaps'],
       }])),
       ...Object.fromEntries(['chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map(field => [field, {
-        includes: [topSource, 'soft bust fullness extending slightly above and around the cup edges'],
+        includes: [topSource, topDetail],
         excludes: [bottomSource, 'visible shallow indentations beneath the ties'],
       }])),
     },

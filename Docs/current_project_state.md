@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-04
 
+## 小三角細繩比基尼上身：布料描述正式更新 (local, 2026-10-04)
+
+- 使用者接受 Grok Imagine 2.0 的診間實測，核准原位更新此款上身；正式英文採已確認的少量布料與細繩短句，移除該款罩杯、緊密罩杯與杯緣文字。蕾絲胸罩及兩款下身不變。名稱、ID、選項順序與 storage schema 保留，舊版完整英文作匯入 alias；舊卡原文不批次改寫，還原後重新生成採新來源。
+- Public output contract `1.37.0`；服裝保留判斷加入精確的新款識別，六輸出沿用原可見性與模式規則。使用者已確認六組輸出都完整保留同一 26 字描述，核准修正實作。詳細規則見 [小面積單品規格的正式更新](specs/minimal-coverage-wardrobe-v1.md)，正式資料列與六組實際單品片段見 [單品文字確認文件](specs/string-bikini-fabric-v2-six-prompts.md) 及同名 JSON；文件依使用者確認範圍只記錄這件上身，不列完整人物／場景 Prompt。
+- 驗證完成：專項 121/121、前端 1254/1254、Prompt Quality 519/519、雙人 A/B 的 12 組來源檢查、lint/build、資料同步檢查、Python 2/2、公開資產與 diff-check 通過。前後同 seed `200 / prompt-quality-baseline` 嚴格稽核報告逐字相同，0 阻擋／28 既有診斷；Vite 大型 chunk 提示仍在。確認資料庫僅此一列改動，原先 24 組舊款凍結快照維持不變。
+- 瀏覽器 `1440×1000`／`390×900` 實際選取此款，六個預覽各完整包含新英文一次，沒有舊罩杯片段；五個工作區載入及版面 smoke 通過，所檢查狀態無頁面橫向溢出、破圖或 console 警告／錯誤。Saved Cards 只讀；原選項與六組預覽逐字還原，viewport 重設，暫存分頁及測試伺服器已關閉。截圖 `/tmp/vps-bikini-fabric-desktop.jpg`、`/tmp/vps-bikini-fabric-mobile.jpg`。
+- 本次修正實作與驗證完成，尚未 commit／push／部署；既有未追蹤參考圖資料夾保留。使用者接受的外部圖像成果來自 Grok Imagine 2.0 手寫基準，本次正式六輸出未另行送至外部模型生成圖片。
+
 ## 小面積蕾絲／細繩泳裝單品 v1 (local, 2026-10-04)
 
 - 上身尾端新增「小罩杯細帶蕾絲胸罩」「小三角細繩比基尼上身」；褲裝尾端新增「窄前片細繩蕾絲丁字褲」「窄前片細繩比基尼下身」。來源見 `knowledge_base/wardrobe_and_styling.md`，規則見 [小面積服裝 v1](specs/minimal-coverage-wardrobe-v1.md)。上身有杯緣柔軟胸部輪廓略高於／延伸至兩側，下身有髖側細繩張力與可見淺壓痕；效果屬於選中服裝，不改 Body Type 或新增全域身體修飾。

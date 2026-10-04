@@ -170,6 +170,11 @@
         "legacyIds": [
           "wardrobe:上身-tops:短版緊身吊帶背心:28"
         ]
+      },
+      "小三角細繩比基尼上身": {
+        "legacyPromptAliases": [
+          "small-triangle string bikini top, small sliding triangle cups, slender halter and back ties, smooth stretch swim fabric, closely fitted cups, soft bust fullness extending slightly above and around the cup edges"
+        ]
       }
     },
     "褲裝 (Pants)": {

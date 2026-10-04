@@ -80,12 +80,13 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.36.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.37.0';
 
 export const MINIMAL_COVERAGE_WARDROBE_CONTRACT = deepFreeze({
   scope: 'four new independent lace/string-bikini pieces only',
   source: 'selected garment English description after shared wardrobe visibility projection',
-  upperFit: 'small closely fitted cups and soft fullness at the cup edges',
+  upperFit: 'lace bra retains small closely fitted cups and soft fullness at the cup edges',
+  bikiniFabric: 'string bikini retains the reviewed ultra-minimal fabric source and slender ties; no cup/support supplement',
   lowerFit: 'taut slender hip ties with visible shallow indentations',
   retention: 'preserve visible authored fit clauses in GPT, Z-Image, AI and applicable derivatives',
   body: 'garment fit does not replace or supplement the selected Body Type source',

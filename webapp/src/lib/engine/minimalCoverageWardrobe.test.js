@@ -7,10 +7,12 @@ import { deserializeFavoritePrompt, serializeFavoritePrompt, parseLocksFromStand
 
 const controls = getLockControls();
 const pairs = [
-  ['小罩杯細帶蕾絲胸罩', '窄前片細繩蕾絲丁字褲', /small-cup lace bra top/i, /narrow-front lace G-string bottoms/i],
-  ['小三角細繩比基尼上身', '窄前片細繩比基尼下身', /small-triangle string bikini top/i, /narrow-front string thong bikini bottoms/i],
+  ['小罩杯細帶蕾絲胸罩', '窄前片細繩蕾絲丁字褲', /small-cup lace bra top/i, /narrow-front lace G-string bottoms/i, 'soft bust fullness extending slightly above and around the cup edges'],
+  ['小三角細繩比基尼上身', '窄前片細繩比基尼下身', /string bikini top with ultra-minimal fabric/i, /narrow-front string thong bikini bottoms/i, 'ultra-minimal fabric covering only the nipples, leaving most of the breasts exposed'],
 ];
 const fullness = 'soft bust fullness extending slightly above and around the cup edges';
+const bikiniSource = 'string bikini top with ultra-minimal fabric covering only the nipples, leaving most of the breasts exposed, smooth swim fabric, and long slender halter and back ties';
+const legacyBikiniSource = 'small-triangle string bikini top, small sliding triangle cups, slender halter and back ties, smooth stretch swim fabric, closely fitted cups, soft bust fullness extending slightly above and around the cup edges';
 const tension = 'taut slender side ties fitted tightly around the hips';
 const indentation = 'visible shallow indentations beneath the ties';
 const option = (key, zh) => {
@@ -50,19 +52,19 @@ for (const fixture of baseline.fixtures) test(`legacy bytes unchanged: ${fixture
   assert.equal(createHash('sha256').update(JSON.stringify(snapshot(p))).digest('hex'), fixture.sha256);
 });
 
-for (const [top, pants, topType, pantsType] of pairs) {
+for (const [top, pants, topType, pantsType, topDetail] of pairs) {
   test(`${top}: fit details survive visible main/derived outputs without changing body source`, () => {
     for (const body of controls.find(c => c.key === 'bodyTypeId').options.filter(o => o.zh !== '全無')) {
       const p = generate({ topId: option('topId', top).id, pantsId: option('pantsId', pants).id, bodyTypeId: body.id });
       for (const text of [...main(p), fullBody(p)]) {
         assert.match(text, topType);
         assert.match(text, pantsType);
-        for (const fragment of [fullness, tension, indentation, body.en]) assert.ok(text.includes(fragment), fragment);
+        for (const fragment of [topDetail, tension, indentation, body.en]) assert.ok(text.includes(fragment), fragment);
         assert.doesNotMatch(text, /top length meets|top hem overlaps|top hem tucks|partially concealing/i);
       }
       for (const text of chest(p)) {
         assert.match(text, topType);
-        assert.ok(text.includes(fullness));
+        assert.ok(text.includes(topDetail));
         assert.doesNotMatch(text, pantsType);
         assert.ok(!text.includes(indentation));
       }
@@ -85,7 +87,7 @@ for (const [top, pants, topType, pantsType] of pairs) {
           assert.ok(text.includes(tension));
           assert.ok(text.includes(indentation));
         }
-        if (framing === '局部五官特寫') assert.ok(!text.includes(fullness));
+        if (framing === '局部五官特寫') assert.ok(!text.includes(topDetail));
       }
     }
   });
@@ -97,7 +99,7 @@ for (const [top, pants, topType, pantsType] of pairs) {
       assert.match(text, /white/i);
       assert.match(text, /black/i);
       assert.match(text, /horizontal stripe/i);
-      assert.ok(text.includes(fullness));
+      assert.ok(text.includes(topDetail));
       assert.doesNotMatch(text, /partially concealing|top length meets/i);
     }
   });
@@ -108,7 +110,7 @@ for (const [top, pants, topType, pantsType] of pairs) {
     assert.equal(restored.selection.pantsId, p.selection.pantsId);
     const regenerated = generate(normalizeLocks(restored.selection));
     for (const text of main(regenerated)) {
-      assert.ok(text.includes(fullness));
+      assert.ok(text.includes(topDetail));
       assert.ok(text.includes(indentation));
       assert.match(text, topType);
       assert.match(text, pantsType);
@@ -118,6 +120,32 @@ for (const [top, pants, topType, pantsType] of pairs) {
     assert.equal(imported.pantsId, p.selection.pantsId);
   });
 }
+
+test('reviewed bikini fabric source survives all six outputs without restoring cup language', () => {
+  const top = option('topId', pairs[1][0]);
+  assert.equal(top.en, bikiniSource);
+  assert.equal(top.id, 'wardrobe:上身-tops:小三角細繩比基尼上身:44');
+  const p = generate({ topId: top.id, pantsId: option('pantsId', pairs[0][1]).id,
+    bodyTypeId: option('bodyTypeId', '豐胸纖腰沙漏身形').id,
+    framingId: option('framingId', '牛仔中景 (Cowboy Shot)').id,
+    topFitId: 'tight', bottomFitId: 'tight', bottomRiseId: 'ultra-low-rise' });
+  for (const text of [...main(p), ...chest(p), fullBody(p)]) {
+    assert.ok(text.includes(bikiniSource));
+    assert.doesNotMatch(text, /small sliding triangle cups|closely fitted cups|cup edges|top length meets|partially concealing/i);
+  }
+});
+
+test('old bikini wording imports to the same ID and regenerates the reviewed source', () => {
+  const top = option('topId', pairs[1][0]);
+  const { locks } = parseLocksFromStandardPrompt(`Wardrobe: ${legacyBikiniSource}.`, controls);
+  assert.equal(locks.topId, top.id);
+  assert.ok(top.meta.legacyPromptAliases.includes(legacyBikiniSource));
+  const p = generate(locks);
+  for (const text of [...main(p), ...chest(p), fullBody(p)]) {
+    assert.ok(text.includes(bikiniSource));
+    assert.ok(!text.includes(legacyBikiniSource));
+  }
+});
 
 test('duo fit details stay with the selected wearer and respect chest visibility', () => {
   for (const framing of ['全身鏡頭 (Full Body Shot)', '胸上特寫']) {
