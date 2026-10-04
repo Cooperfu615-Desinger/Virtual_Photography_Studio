@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-04
 
+## X形胸貼：原位替換小罩杯蕾絲胸罩 (local, 2026-10-04)
+
+- 使用者接受平滑、不透明布料的 X 形胸貼實測，授權替換「小罩杯細帶蕾絲胸罩」並修正名稱。正式英文 27 字，描述兩枚獨立貼片、每側一枚、兩條短布帶交叉成 X，以及無罩杯、肩帶或下圍；不補蕾絲、承托或杯緣貼合。來源見 `knowledge_base/wardrobe_and_styling.md`，規則見 [小面積單品規格](specs/minimal-coverage-wardrobe-v1.md)，資料與六組實際片段見 [胸貼確認文件](specs/x-shaped-pasties-v2-six-prompts.md) 及同名 JSON。
+- 沿用比基尼上身架構，Public output contract `1.39.0`。原選項 ID `wardrobe:上身-tops:小罩杯細帶蕾絲胸罩:43`、清單位置、單人／雙人選擇與 storage schema 保留；舊名稱與完整英文作相容 alias，Saved Cards 原文不批次改寫，還原／匯入後重新生成採新來源。可見時六組保留同一來源一次，五官特寫沿原規則省略服裝；胸貼排除衣長銜接及衣襬遮下身關係，其他配色／版型／圖案規則不變。
+- 驗證完成：專項 142/142、前端 1261/1261、Prompt Quality 526/526、資料同步檢查、Python 2/2、公開資產、lint/build 與 diff-check 通過。同 seed `200 / prompt-quality-baseline` 嚴格稽核前後逐字相同，0 阻擋／28 既有診斷，Vite 大型 chunk 提示仍在。確認資料庫僅一列變動，原 24 組舊款凍結快照、220 組其他上身／景別 selection 與六輸出雜湊、比基尼上下身確認文件的 12 組完整 Prompt 雜湊不變。
+- 瀏覽器 `1440×1000`／`390×900` 實選 X形胸貼，六個預覽各完整保留來源一次，Z-Image 複製文字也保留來源；五工作區完成載入與版面檢查，無 console 警告／錯誤或破圖。目標工作台無頁面橫向溢出；手機動作姿勢的 `.action-pose-shell` 既有局部溢出 25px（body 超出 client 1px），相關元件與 CSS 相對變更前 HEAD 無差異，未擴大修正。Saved Cards 維持 9 張且只讀；原選項、六預覽與剪貼簿已還原，viewport 重設、暫存分頁及測試伺服器已關閉。截圖 `/tmp/vps-pasties-desktop.png`、`/tmp/vps-pasties-mobile-item.png`。
+- 使用者已授權驗證通過後 commit／push；交付狀態以 Git 核對為準。參考圖資料夾保留，未手動部署；正式六輸出未另送外部圖像模型生成圖片。
+
 ## 窄前片細繩比基尼下身：布料描述更新 (local, 2026-10-04)
 
 - 使用者要求先交付上身，再沿同一布料描述架構調整此款下身。原位改為極少量平滑泳裝布料形成小型低腰三角前片，保留高腿口、丁字後片、拉緊的髖側細繩及可見淺壓痕；正式英文 36 字。名稱、ID、列順序與 storage schema 不變，原英文保留作匯入 alias，其他單品與上身正式來源不變。

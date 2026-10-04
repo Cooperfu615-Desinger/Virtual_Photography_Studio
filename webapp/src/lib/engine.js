@@ -6694,7 +6694,7 @@ function resolveTopHemOverlap(pieces) {
     const sameRole = pieces.filter(piece => (piece.meta?.wardrobeRole || '') === role && !isNoneLikeItem(piece));
     const top = sameRole.find(piece => piece.id?.startsWith('wardrobe:上身-tops:'));
     const hasBottom = sameRole.some(piece => /^wardrobe:(?:褲裝-pants|裙裝-skirts):/.test(piece.id));
-    const incompatible = !top || !hasBottom || isCroppedTopItem(top)
+    const incompatible = !top || !hasBottom || isCroppedTopItem(top) || isMinimalCoverageTop(top)
       || /\b(?:bikini|bra)\b|raised hem exposing the midriff/i.test(top.en);
     return incompatible ? { ...item, en: '' } : item;
   });

@@ -1,0 +1,92 @@
+{
+  "contractVersion": "1.39.0",
+  "seed": "string-bikini-fabric-review-20261004",
+  "context": "single subject; front-view cowboy crop; abandoned examination room; selected I–K body; explicit none for unspecified optional fields",
+  "garment": {
+    "id": "wardrobe:上身-tops:小罩杯細帶蕾絲胸罩:43",
+    "zh": "X形胸貼",
+    "en": "two separate X-shaped adhesive pasties, one centered on each breast, each formed from two short crossed strips of smooth opaque fabric, no cups, shoulder straps, or underband",
+    "desc": "兩枚獨立的 X 形貼附式胸貼，左右胸部各一枚；每枚由兩條短布帶交叉構成，使用平滑、不透明布料；無罩杯、肩帶或下圍。"
+  },
+  "wordCount": 27,
+  "activeLocks": {
+    "subjectCount": "1",
+    "imageTypePresetId": "fashion-advertising",
+    "styleId": "regional:攝影風格:石田真澄-柔亮底片空氣感:4",
+    "locationId": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄診療室:10",
+    "framingId": "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+    "angleId": "camera:相機視角-angle:腰部高度鏡頭:4",
+    "orbitId": "camera:拍攝方位-orbit-angle:正面-0-度:1",
+    "lightingId": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+    "lightDirectionId": "camera:光線表現-light-style:側向硬光:4",
+    "filmId": "camera:底片與相機模擬-camera-film-simulation:柯達-portra-暖膚底片:2",
+    "bodyTypeId": "character:體態-body-type:豐胸纖腰沙漏身形:7",
+    "facialFeaturesId": "character:五官特徵-facial-features:韓系偶像臉:1",
+    "skinDetailsId": "character:膚質特徵-skin-details:柔霧細緻肌:2",
+    "hairstyleId": "character:髮型-hairstyle:柔波-瀏海:20",
+    "hairStylingStateId": "character:髮絲整理狀態-hair-styling-state:微風吹拂:2",
+    "hairColorId": "character:髮色-hair-color:自然黑:1",
+    "expressionId": "character:表情-facial-expression:柔和微笑:1",
+    "poseBaseId": "standing",
+    "poseArrangementId": "standing-natural",
+    "poseHandId": "hands-relaxed-down",
+    "poseHeadId": "chin-slightly-raised",
+    "topId": "wardrobe:上身-tops:小罩杯細帶蕾絲胸罩:43",
+    "topFitId": "tight",
+    "pantsId": "wardrobe:褲裝-pants:窄前片細繩蕾絲丁字褲:31",
+    "bottomFitId": "tight",
+    "bottomRiseId": "ultra-low-rise",
+    "legwearId": "wardrobe:襪類-legwear:柔和過膝絲襪:6",
+    "legwearColorId": "white"
+  },
+  "outputs": [
+    {
+      "field": "grokPrompt",
+      "label": "Gpt",
+      "garmentText": "two separate X-shaped adhesive pasties, one centered on each breast, each formed from two short crossed strips of smooth opaque fabric, no cups, shoulder straps, or underband",
+      "wordCount": 27,
+      "occurrences": 1,
+      "promptSha256": "a961f85756732d57f556a420bfc788b6d1272d3f86a53ceb3e29a131ebfa46d6"
+    },
+    {
+      "field": "zImagePrompt",
+      "label": "Grok/Z-Image",
+      "garmentText": "two separate X-shaped adhesive pasties, one centered on each breast, each formed from two short crossed strips of smooth opaque fabric, no cups, shoulder straps, or underband",
+      "wordCount": 27,
+      "occurrences": 1,
+      "promptSha256": "ca395b5d906ac219427cd9784340b7c903098a2525b3f063a0d5e102d6f1b987"
+    },
+    {
+      "field": "midjourneyPrompt",
+      "label": "AI",
+      "garmentText": "two separate X-shaped adhesive pasties, one centered on each breast, each formed from two short crossed strips of smooth opaque fabric, no cups, shoulder straps, or underband",
+      "wordCount": 27,
+      "occurrences": 1,
+      "promptSha256": "7915b6fb1f86fb511e91782946588c7a9c847c4a53ca7730943a94412976d477"
+    },
+    {
+      "field": "chest-up-portrait",
+      "label": "胸上特寫照",
+      "garmentText": "two separate X-shaped adhesive pasties, one centered on each breast, each formed from two short crossed strips of smooth opaque fabric, no cups, shoulder straps, or underband",
+      "wordCount": 27,
+      "occurrences": 1,
+      "promptSha256": "2de43a7f62aefb8060f866acac33b9759c423e2763a066b8eeb16d9af768cd4d"
+    },
+    {
+      "field": "chest-up-mj-portrait",
+      "label": "MJ 胸上特寫照",
+      "garmentText": "two separate X-shaped adhesive pasties, one centered on each breast, each formed from two short crossed strips of smooth opaque fabric, no cups, shoulder straps, or underband",
+      "wordCount": 27,
+      "occurrences": 1,
+      "promptSha256": "76ab16ed586276fdfdb837d174555654f2cfa759a411da0a012edebe697ab0e5"
+    },
+    {
+      "field": "full-body-character",
+      "label": "全身角色照",
+      "garmentText": "two separate X-shaped adhesive pasties, one centered on each breast, each formed from two short crossed strips of smooth opaque fabric, no cups, shoulder straps, or underband",
+      "wordCount": 27,
+      "occurrences": 1,
+      "promptSha256": "65aa8b30030dcef6d045b62a89ab942d40fb01582b9605db65b079e70a16bf9a"
+    }
+  ]
+}

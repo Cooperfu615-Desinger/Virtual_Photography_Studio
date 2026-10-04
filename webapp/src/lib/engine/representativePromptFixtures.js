@@ -16,7 +16,7 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   ...[
-    ['lace', '小罩杯細帶蕾絲胸罩', '窄前片細繩蕾絲丁字褲', 'small-cup lace bra top', 'narrow-front lace G-string bottoms', 'soft bust fullness extending slightly above and around the cup edges', 'low-rise narrow triangular lace front panel'],
+    ['pasties', 'X形胸貼', '窄前片細繩蕾絲丁字褲', 'two separate X-shaped adhesive pasties', 'narrow-front lace G-string bottoms', 'each formed from two short crossed strips of smooth opaque fabric, no cups, shoulder straps, or underband', 'low-rise narrow triangular lace front panel'],
     ['bikini', '小三角細繩比基尼上身', '窄前片細繩比基尼下身', 'string bikini top with ultra-minimal fabric', 'narrow-front string thong bikini bottoms', 'ultra-minimal fabric covering only the nipples, leaving most of the breasts exposed, smooth swim fabric, and long slender halter and back ties', 'ultra-minimal smooth swim fabric forming a tiny low-rise triangular front panel'],
   ].map(([id, top, bottom, topSource, bottomSource, topDetail, bottomDetail]) => ({
     id: `minimal-coverage-${id}`, title: 'Independent minimal-coverage garment fit retains its authored source', mode: 'single', seed: 'minimal-coverage-v1',

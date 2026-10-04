@@ -2295,9 +2295,16 @@
         "desc": "長袖制服上衣，常態是寬鬆直筒衣身、自然覆過裙腰；近黑深藍水手領、同色領巾及袖口飾邊配白色線條。"
       },
       {
-        "zh": "小罩杯細帶蕾絲胸罩",
-        "en": "small-cup lace bra top, small low-cut floral lace cups, slender shoulder straps, narrow underband, closely fitted cups, soft bust fullness extending slightly above and around the cup edges",
-        "desc": "小面積低罩杯花卉蕾絲胸罩，細肩帶與窄下圍；罩杯緊密貼合，柔軟胸部輪廓略高於罩杯上緣並延伸至兩側邊緣。效果屬於此款服裝，不改人物體態設定。"
+        "zh": "X形胸貼",
+        "en": "two separate X-shaped adhesive pasties, one centered on each breast, each formed from two short crossed strips of smooth opaque fabric, no cups, shoulder straps, or underband",
+        "desc": "兩枚獨立的 X 形貼附式胸貼，左右胸部各一枚；每枚由兩條短布帶交叉構成，使用平滑、不透明布料；無罩杯、肩帶或下圍。",
+        "stableId": "wardrobe:上身-tops:小罩杯細帶蕾絲胸罩:43",
+        "legacyLabels": [
+          "小罩杯細帶蕾絲胸罩"
+        ],
+        "legacyPromptAliases": [
+          "small-cup lace bra top, small low-cut floral lace cups, slender shoulder straps, narrow underband, closely fitted cups, soft bust fullness extending slightly above and around the cup edges"
+        ]
       },
       {
         "zh": "小三角細繩比基尼上身",

@@ -175,6 +175,15 @@
         "legacyPromptAliases": [
           "small-triangle string bikini top, small sliding triangle cups, slender halter and back ties, smooth stretch swim fabric, closely fitted cups, soft bust fullness extending slightly above and around the cup edges"
         ]
+      },
+      "X形胸貼": {
+        "stableId": "wardrobe:上身-tops:小罩杯細帶蕾絲胸罩:43",
+        "legacyLabels": [
+          "小罩杯細帶蕾絲胸罩"
+        ],
+        "legacyPromptAliases": [
+          "small-cup lace bra top, small low-cut floral lace cups, slender shoulder straps, narrow underband, closely fitted cups, soft bust fullness extending slightly above and around the cup edges"
+        ]
       }
     },
     "褲裝 (Pants)": {

@@ -80,18 +80,18 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.38.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.39.0';
 
 export const MINIMAL_COVERAGE_WARDROBE_CONTRACT = deepFreeze({
-  scope: 'four new independent lace/string-bikini pieces only',
+  scope: 'four reviewed independent pasties/lace-bottom/string-bikini pieces only',
   source: 'selected garment English description after shared wardrobe visibility projection',
-  upperFit: 'lace bra retains small closely fitted cups and soft fullness at the cup edges',
+  upperFit: 'X-shaped adhesive pasties retain two separate crossed-strip patches and smooth opaque fabric; no cups, shoulder straps or underband',
   bikiniFabric: 'string bikini retains the reviewed ultra-minimal fabric source and slender ties; no cup/support supplement',
   bikiniBottomFabric: 'ultra-minimal smooth swim fabric forms a tiny low-rise triangular front panel; retain high-cut openings, thong back and authored hip-tie fit',
   lowerFit: 'taut slender hip ties with visible shallow indentations',
-  retention: 'preserve visible authored fit clauses in GPT, Z-Image, AI and applicable derivatives',
+  retention: 'preserve visible authored structure, fabric and fit clauses in GPT, Z-Image, AI and applicable derivatives',
   body: 'garment fit does not replace or supplement the selected Body Type source',
-  compatibility: 'append-only catalogs; preserve existing IDs, sources and storage schema',
+  compatibility: 'preserve catalog IDs and positions, retain historical source/label aliases, and keep storage schema unchanged',
 });
 
 /**

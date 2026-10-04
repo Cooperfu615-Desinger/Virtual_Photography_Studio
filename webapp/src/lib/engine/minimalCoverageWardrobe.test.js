@@ -7,10 +7,12 @@ import { deserializeFavoritePrompt, serializeFavoritePrompt, parseLocksFromStand
 
 const controls = getLockControls();
 const pairs = [
-  ['小罩杯細帶蕾絲胸罩', '窄前片細繩蕾絲丁字褲', /small-cup lace bra top/i, /narrow-front lace G-string bottoms/i, 'soft bust fullness extending slightly above and around the cup edges'],
+  ['X形胸貼', '窄前片細繩蕾絲丁字褲', /two separate X-shaped adhesive pasties/i, /narrow-front lace G-string bottoms/i, 'each formed from two short crossed strips of smooth opaque fabric'],
   ['小三角細繩比基尼上身', '窄前片細繩比基尼下身', /string bikini top with ultra-minimal fabric/i, /narrow-front string thong bikini bottoms/i, 'ultra-minimal fabric covering only the nipples, leaving most of the breasts exposed'],
 ];
-const fullness = 'soft bust fullness extending slightly above and around the cup edges';
+const pastiesSource = 'two separate X-shaped adhesive pasties, one centered on each breast, each formed from two short crossed strips of smooth opaque fabric, no cups, shoulder straps, or underband';
+const legacyBraSource = 'small-cup lace bra top, small low-cut floral lace cups, slender shoulder straps, narrow underband, closely fitted cups, soft bust fullness extending slightly above and around the cup edges';
+const pastiesId = 'wardrobe:上身-tops:小罩杯細帶蕾絲胸罩:43';
 const bikiniSource = 'string bikini top with ultra-minimal fabric covering only the nipples, leaving most of the breasts exposed, smooth swim fabric, and long slender halter and back ties';
 const legacyBikiniSource = 'small-triangle string bikini top, small sliding triangle cups, slender halter and back ties, smooth stretch swim fabric, closely fitted cups, soft bust fullness extending slightly above and around the cup edges';
 const bikiniBottomSource = 'narrow-front string thong bikini bottoms, ultra-minimal smooth swim fabric forming a tiny low-rise triangular front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties';
@@ -137,6 +139,67 @@ test('reviewed bikini fabric source survives all six outputs without restoring c
   }
 });
 
+test('X-shaped pasties replace the bra label while retaining single/duo IDs and catalog position', () => {
+  for (const key of ['topId', 'topAId', 'topBId']) {
+    const top = option(key, 'X形胸貼');
+    assert.equal(top.id, pastiesId);
+    assert.equal(top.en, pastiesSource);
+    assert.equal(top.en.split(/\s+/).length, 27);
+    assert.equal(controls.find(c => c.key === key).options[43].id, pastiesId);
+    assert.ok(!controls.find(c => c.key === key).options.some(o => o.zh === '小罩杯細帶蕾絲胸罩'));
+    assert.ok(top.meta.legacyLabels.includes('小罩杯細帶蕾絲胸罩'));
+    assert.equal(normalizeLocks({ ...noneLocks(), [key]: pastiesId })[key], pastiesId);
+  }
+});
+
+test('reviewed opaque X-shaped pasties source survives all six outputs and respects crop visibility', () => {
+  for (const framing of ['全身鏡頭 (Full Body Shot)', '牛仔中景 (Cowboy Shot)', '中景鏡頭 (Medium Shot)', '胸上特寫', '局部五官特寫']) {
+    const p = generate({ topId: pastiesId, bodyTypeId: option('bodyTypeId', '豐胸纖腰沙漏身形').id,
+      framingId: option('framingId', framing).id, topFitId: 'tight', bottomRiseId: 'ultra-low-rise' });
+    assert.equal(p.selection.topId, pastiesId);
+    for (const text of main(p)) assert.equal(text.split(pastiesSource).length - 1, framing === '局部五官特寫' ? 0 : 1);
+    for (const text of [...chest(p), fullBody(p)]) assert.equal(text.split(pastiesSource).length - 1, 1);
+    for (const text of [...main(p), ...chest(p), fullBody(p)]) {
+      assert.doesNotMatch(text, /small-cup lace bra|floral lace cups|closely fitted cups|cup edges|top length meets|partially concealing/i);
+    }
+    assert.match(p.summary, /X形胸貼/);
+    assert.doesNotMatch(p.summary, /小罩杯細帶蕾絲胸罩/);
+  }
+});
+
+test('old bra English imports and historical Saved Cards regenerate the pasties without rewriting stored text', () => {
+  const top = option('topId', 'X形胸貼');
+  assert.ok(top.meta.legacyPromptAliases.includes(legacyBraSource));
+  for (const source of [legacyBraSource, pastiesSource]) {
+    const { locks } = parseLocksFromStandardPrompt(`Wardrobe: ${source}.`, controls);
+    assert.equal(locks.topId, pastiesId);
+    const p = generate(locks);
+    for (const text of [...main(p), ...chest(p), fullBody(p)]) assert.equal(text.split(pastiesSource).length - 1, 1);
+  }
+  const historical = { ...generate({ topId: pastiesId }), grokPrompt: `Wardrobe: ${legacyBraSource}.` };
+  const stored = serializeFavoritePrompt(historical);
+  const restored = deserializeFavoritePrompt(stored);
+  assert.equal(restored.selection.topId, pastiesId);
+  assert.equal(restored.grokPrompt, historical.grokPrompt);
+  const regenerated = generate(normalizeLocks(restored.selection));
+  for (const text of [...main(regenerated), ...chest(regenerated), fullBody(regenerated)]) {
+    assert.equal(text.split(pastiesSource).length - 1, 1);
+    assert.ok(!text.includes(legacyBraSource));
+  }
+});
+
+test('X-shaped pasties source stays with the selected duo wearer in visible crops', () => {
+  for (const wearer of ['A', 'B']) {
+    for (const framing of ['全身鏡頭 (Full Body Shot)', '牛仔中景 (Cowboy Shot)', '中景鏡頭 (Medium Shot)', '胸上特寫']) {
+      const p = generate({ subjectCount: '2', framingId: option('framingId', framing).id,
+        topAId: option('topAId', '比基尼上身').id, topBId: option('topBId', '比基尼上身').id,
+        [`top${wearer}Id`]: pastiesId });
+      for (const text of main(p)) assert.equal(text.split(pastiesSource).length - 1, 1);
+      assert.equal(p.selection[`top${wearer}Id`], pastiesId);
+    }
+  }
+});
+
 test('old bikini wording imports to the same ID and regenerates the reviewed source', () => {
   const top = option('topId', pairs[1][0]);
   const { locks } = parseLocksFromStandardPrompt(`Wardrobe: ${legacyBikiniSource}.`, controls);
@@ -207,7 +270,7 @@ test('duo fit details stay with the selected wearer and respect chest visibility
       topAId: option('topAId', pairs[0][0]).id, pantsAId: option('pantsAId', pairs[0][1]).id,
       topBId: option('topBId', '比基尼上身').id, pantsBId: option('pantsBId', '比基尼下身').id });
     for (const text of main(p)) {
-      assert.equal(text.split(fullness).length - 1, 1);
+      assert.equal(text.split(pastiesSource).length - 1, 1);
       assert.equal(text.split(indentation).length - 1, framing === '胸上特寫' ? 0 : 1);
     }
   }
