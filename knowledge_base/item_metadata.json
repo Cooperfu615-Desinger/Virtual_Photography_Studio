@@ -249,6 +249,11 @@
         "legacyIds": [
           "wardrobe:褲裝-pants:亮面乳膠緊身短褲:20"
         ]
+      },
+      "窄前片細繩比基尼下身": {
+        "legacyPromptAliases": [
+          "narrow-front string thong bikini bottoms, low-rise narrow triangular swim front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties"
+        ]
       }
     },
     "裙裝 (Skirts)": {

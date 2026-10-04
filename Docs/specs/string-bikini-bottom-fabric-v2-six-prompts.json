@@ -1,0 +1,98 @@
+{
+  "contractVersion": "1.38.0",
+  "seed": "string-bikini-fabric-review-20261004",
+  "context": "single subject; front-view cowboy crop; abandoned examination room; selected I–K body; explicit none for unspecified optional fields",
+  "garment": {
+    "id": "wardrobe:褲裝-pants:窄前片細繩比基尼下身:32",
+    "zh": "窄前片細繩比基尼下身",
+    "en": "narrow-front string thong bikini bottoms, ultra-minimal smooth swim fabric forming a tiny low-rise triangular front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties",
+    "desc": "窄前片細繩比基尼下身，極少量平滑泳裝布料形成小型低腰三角前片，搭配高腿口與丁字後片；細側繫繩拉緊貼合髖部，接觸處有可見淺壓痕。"
+  },
+  "wordCount": 36,
+  "activeLocks": {
+    "subjectCount": "1",
+    "imageTypePresetId": "fashion-advertising",
+    "styleId": "regional:攝影風格:石田真澄-柔亮底片空氣感:4",
+    "locationId": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄診療室:10",
+    "framingId": "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+    "angleId": "camera:相機視角-angle:腰部高度鏡頭:4",
+    "orbitId": "camera:拍攝方位-orbit-angle:正面-0-度:1",
+    "lightingId": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+    "lightDirectionId": "camera:光線表現-light-style:側向硬光:4",
+    "filmId": "camera:底片與相機模擬-camera-film-simulation:柯達-portra-暖膚底片:2",
+    "bodyTypeId": "character:體態-body-type:豐胸纖腰沙漏身形:7",
+    "facialFeaturesId": "character:五官特徵-facial-features:韓系偶像臉:1",
+    "skinDetailsId": "character:膚質特徵-skin-details:柔霧細緻肌:2",
+    "hairstyleId": "character:髮型-hairstyle:柔波-瀏海:20",
+    "hairStylingStateId": "character:髮絲整理狀態-hair-styling-state:微風吹拂:2",
+    "hairColorId": "character:髮色-hair-color:自然黑:1",
+    "expressionId": "character:表情-facial-expression:柔和微笑:1",
+    "poseBaseId": "standing",
+    "poseArrangementId": "standing-natural",
+    "poseHandId": "hands-relaxed-down",
+    "poseHeadId": "chin-slightly-raised",
+    "topId": "wardrobe:上身-tops:小三角細繩比基尼上身:44",
+    "topFitId": "tight",
+    "pantsId": "wardrobe:褲裝-pants:窄前片細繩比基尼下身:32",
+    "bottomFitId": "tight",
+    "bottomRiseId": "ultra-low-rise",
+    "legwearId": "wardrobe:襪類-legwear:柔和過膝絲襪:6",
+    "legwearColorId": "white"
+  },
+  "outputs": [
+    {
+      "field": "grokPrompt",
+      "label": "Gpt",
+      "garmentText": "narrow-front string thong bikini bottoms, ultra-minimal smooth swim fabric forming a tiny low-rise triangular front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties",
+      "wordCount": 36,
+      "occurrences": 1,
+      "visibility": "visible",
+      "promptSha256": "48864bcd108e49d7f2b7c35f68928f2f7ae5b066f8406fada2f9eb0f864a8855"
+    },
+    {
+      "field": "zImagePrompt",
+      "label": "Grok/Z-Image",
+      "garmentText": "narrow-front string thong bikini bottoms, ultra-minimal smooth swim fabric forming a tiny low-rise triangular front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties",
+      "wordCount": 36,
+      "occurrences": 1,
+      "visibility": "visible",
+      "promptSha256": "6f2ffca1eecc032dad8cfd3bcb9afaeffd7a3500f51e460f1c75fa2ed2e4bcba"
+    },
+    {
+      "field": "midjourneyPrompt",
+      "label": "AI",
+      "garmentText": "narrow-front string thong bikini bottoms, ultra-minimal smooth swim fabric forming a tiny low-rise triangular front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties",
+      "wordCount": 36,
+      "occurrences": 1,
+      "visibility": "visible",
+      "promptSha256": "79ce2b85ab314ea87409095eccb4b0e13aa001183b27e5e36700cb8fb69c95b3"
+    },
+    {
+      "field": "chest-up-portrait",
+      "label": "胸上特寫照",
+      "garmentText": "",
+      "wordCount": 0,
+      "occurrences": 0,
+      "visibility": "outside chest crop",
+      "promptSha256": "de49369ffc6b08ed278de5066b0f8c1395f460a1f37fb5f99c49f5190393d328"
+    },
+    {
+      "field": "chest-up-mj-portrait",
+      "label": "MJ 胸上特寫照",
+      "garmentText": "",
+      "wordCount": 0,
+      "occurrences": 0,
+      "visibility": "outside chest crop",
+      "promptSha256": "26d9e221c3d44443a198ca3cf9caaa6957260494cfa64cd6e2e02ca9914f8086"
+    },
+    {
+      "field": "full-body-character",
+      "label": "全身角色照",
+      "garmentText": "narrow-front string thong bikini bottoms, ultra-minimal smooth swim fabric forming a tiny low-rise triangular front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties",
+      "wordCount": 36,
+      "occurrences": 1,
+      "visibility": "visible",
+      "promptSha256": "46cb271227f1831165dece806e1566f5bcded5d2620e8a049b80a1c3df7982d6"
+    }
+  ]
+}

@@ -4,13 +4,21 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-04
 
+## 窄前片細繩比基尼下身：布料描述更新 (local, 2026-10-04)
+
+- 使用者要求先交付上身，再沿同一布料描述架構調整此款下身。原位改為極少量平滑泳裝布料形成小型低腰三角前片，保留高腿口、丁字後片、拉緊的髖側細繩及可見淺壓痕；正式英文 36 字。名稱、ID、列順序與 storage schema 不變，原英文保留作匯入 alias，其他單品與上身正式來源不變。
+- Public output contract `1.38.0`；沿用既有四款來源保留判斷，不改 renderer。三個主輸出與全身角色照在下身可見時逐字保留，胸上兩組省略下身及繫繩壓痕；選項仍保存在 selection。規則見 [小面積單品規格](specs/minimal-coverage-wardrobe-v1.md)，單品來源與六組實際片段見 [下身文字確認文件](specs/string-bikini-bottom-fabric-v2-six-prompts.md) 及同名 JSON。
+- 驗證完成：專項 124/124、前端 1257/1257、Prompt Quality 522/522、lint/build、資料同步檢查、Python 2/2、公開資產與 diff-check 通過。同 seed `200 / prompt-quality-baseline` 嚴格稽核前後報告相同，0 阻擋／28 既有診斷；Vite 大型 chunk 提示仍在。資料庫確認僅此一列改動，原先 24 組舊款凍結快照及上身原確認基準的六組完整 Prompt 雜湊不變。
+- 瀏覽器 `1440×1000`／`390×900` 實選下身，三主預覽及全身角色照完整保留來源一次，胸上兩組省略下身與繫繩壓痕；五工作區載入／版面 smoke 通過，無新的 console 警告／錯誤、破圖或頁面橫向溢出。原選項與六預覽逐字還原，Saved Cards 維持 9 張且只讀；viewport 重設、暫存分頁與測試伺服器已關閉。截圖 `/tmp/vps-bikini-bottom-desktop.jpg`、`/tmp/vps-bikini-bottom-mobile.jpg`。
+- 使用者於 2026-10-04 授權 commit／push；交付狀態以 Git 核對為準，未手動部署。使用者參考圖資料夾保留，正式下身 Prompt 尚未送至外部圖像模型實測。
+
 ## 小三角細繩比基尼上身：布料描述正式更新 (local, 2026-10-04)
 
 - 使用者接受 Grok Imagine 2.0 的診間實測，核准原位更新此款上身；正式英文採已確認的少量布料與細繩短句，移除該款罩杯、緊密罩杯與杯緣文字。蕾絲胸罩及兩款下身不變。名稱、ID、選項順序與 storage schema 保留，舊版完整英文作匯入 alias；舊卡原文不批次改寫，還原後重新生成採新來源。
 - Public output contract `1.37.0`；服裝保留判斷加入精確的新款識別，六輸出沿用原可見性與模式規則。使用者已確認六組輸出都完整保留同一 26 字描述，核准修正實作。詳細規則見 [小面積單品規格的正式更新](specs/minimal-coverage-wardrobe-v1.md)，正式資料列與六組實際單品片段見 [單品文字確認文件](specs/string-bikini-fabric-v2-six-prompts.md) 及同名 JSON；文件依使用者確認範圍只記錄這件上身，不列完整人物／場景 Prompt。
 - 驗證完成：專項 121/121、前端 1254/1254、Prompt Quality 519/519、雙人 A/B 的 12 組來源檢查、lint/build、資料同步檢查、Python 2/2、公開資產與 diff-check 通過。前後同 seed `200 / prompt-quality-baseline` 嚴格稽核報告逐字相同，0 阻擋／28 既有診斷；Vite 大型 chunk 提示仍在。確認資料庫僅此一列改動，原先 24 組舊款凍結快照維持不變。
 - 瀏覽器 `1440×1000`／`390×900` 實際選取此款，六個預覽各完整包含新英文一次，沒有舊罩杯片段；五個工作區載入及版面 smoke 通過，所檢查狀態無頁面橫向溢出、破圖或 console 警告／錯誤。Saved Cards 只讀；原選項與六組預覽逐字還原，viewport 重設，暫存分頁及測試伺服器已關閉。截圖 `/tmp/vps-bikini-fabric-desktop.jpg`、`/tmp/vps-bikini-fabric-mobile.jpg`。
-- 本次修正實作與驗證完成，尚未 commit／push／部署；既有未追蹤參考圖資料夾保留。使用者接受的外部圖像成果來自 Grok Imagine 2.0 手寫基準，本次正式六輸出未另行送至外部模型生成圖片。
+- 使用者於 2026-10-04 授權 commit／push；已交付 `111458d` 至 `origin/main`，遠端 SHA 核對一致，未手動部署。既有未追蹤參考圖資料夾保留。使用者接受的外部圖像成果來自 Grok Imagine 2.0 手寫基準，本次正式六輸出未另行送至外部模型生成圖片。
 
 ## 小面積蕾絲／細繩泳裝單品 v1 (local, 2026-10-04)
 

@@ -283,7 +283,7 @@
 | **褲裝 (Pants)** | 氣球工裝褲 | `balloon cargo pants, high-volume barrel legs, deep knee shaping, large bellows side pockets, tapered cuffs` | 以高份量氣球褲管、膝部立體剪裁、大型風箱口袋與收束褲口為主。 |
 | **褲裝 (Pants)** | 七分褲 | `cropped capri pants, straight or fitted leg, hem ending below the knee, clean cropped silhouette` | 以膝下截短褲長、直筒或合身褲管與乾淨七分比例為主。 |
 | **褲裝 (Pants)** | 窄前片細繩蕾絲丁字褲 | `narrow-front lace G-string bottoms, low-rise narrow triangular lace front panel, G-string back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties` | 低腰窄三角蕾絲前片與細繩後片；細側繫繩拉緊貼合髖部，接觸處有可見淺壓痕，保留繩帶張力與局部貼合輪廓。 |
-| **褲裝 (Pants)** | 窄前片細繩比基尼下身 | `narrow-front string thong bikini bottoms, low-rise narrow triangular swim front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties` | 低腰窄三角泳裝前片、高腿口與丁字後片；細側繫繩拉緊貼合髖部，接觸處有可見淺壓痕，保留繩帶張力與局部貼合輪廓。 |
+| **褲裝 (Pants)** | 窄前片細繩比基尼下身 | `narrow-front string thong bikini bottoms, ultra-minimal smooth swim fabric forming a tiny low-rise triangular front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties` | 窄前片細繩比基尼下身，極少量平滑泳裝布料形成小型低腰三角前片，搭配高腿口與丁字後片；細側繫繩拉緊貼合髖部，接觸處有可見淺壓痕。 |
 | **裙裝 (Skirts)** | 全無 | `no skirt, skirt styling omitted` | 不使用裙裝，方便保留褲裝、泳裝或更乾淨的下身結構。 |
 | **裙裝 (Skirts)** | 迷你裙 | `mini skirt, concise hem length, clean tailored finish, compact lower-body proportion` | 以短裙長度、乾淨下擺與簡潔裙身比例為主，是最基礎的迷你裙結構。 |
 | **裙裝 (Skirts)** | A 字短裙 | `a-line mini skirt, structured flare, balanced feminine silhouette` | 腰部收合、裙擺自然展開的短裙版本，實用且好搭配。 |

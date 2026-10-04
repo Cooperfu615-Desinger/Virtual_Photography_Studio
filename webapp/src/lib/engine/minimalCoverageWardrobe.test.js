@@ -13,6 +13,8 @@ const pairs = [
 const fullness = 'soft bust fullness extending slightly above and around the cup edges';
 const bikiniSource = 'string bikini top with ultra-minimal fabric covering only the nipples, leaving most of the breasts exposed, smooth swim fabric, and long slender halter and back ties';
 const legacyBikiniSource = 'small-triangle string bikini top, small sliding triangle cups, slender halter and back ties, smooth stretch swim fabric, closely fitted cups, soft bust fullness extending slightly above and around the cup edges';
+const bikiniBottomSource = 'narrow-front string thong bikini bottoms, ultra-minimal smooth swim fabric forming a tiny low-rise triangular front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties';
+const legacyBikiniBottomSource = 'narrow-front string thong bikini bottoms, low-rise narrow triangular swim front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties';
 const tension = 'taut slender side ties fitted tightly around the hips';
 const indentation = 'visible shallow indentations beneath the ties';
 const option = (key, zh) => {
@@ -144,6 +146,58 @@ test('old bikini wording imports to the same ID and regenerates the reviewed sou
   for (const text of [...main(p), ...chest(p), fullBody(p)]) {
     assert.ok(text.includes(bikiniSource));
     assert.ok(!text.includes(legacyBikiniSource));
+  }
+});
+
+test('bikini bottom fabric source stays complete in visible outputs and absent from chest crops', () => {
+  const bottom = option('pantsId', pairs[1][1]);
+  assert.equal(bottom.id, 'wardrobe:褲裝-pants:窄前片細繩比基尼下身:32');
+  assert.equal(bottom.en, bikiniBottomSource);
+  assert.equal(bottom.en.split(/\s+/).length, 36);
+  for (const framing of ['全身鏡頭 (Full Body Shot)', '牛仔中景 (Cowboy Shot)', '中景鏡頭 (Medium Shot)', '胸上特寫', '局部五官特寫']) {
+    const p = generate({ pantsId: bottom.id, topId: option('topId', pairs[1][0]).id,
+      framingId: option('framingId', framing).id,
+      bodyTypeId: option('bodyTypeId', '豐胸纖腰沙漏身形').id,
+      bottomFitId: 'tight', bottomRiseId: 'ultra-low-rise' });
+    assert.equal(p.selection.pantsId, bottom.id);
+    for (const text of [...main(p), fullBody(p)]) {
+      const visible = text === fullBody(p) || !['胸上特寫', '局部五官特寫'].includes(framing);
+      assert.equal(text.split(bikiniBottomSource).length - 1, visible ? 1 : 0);
+      assert.ok(!text.includes(legacyBikiniBottomSource));
+    }
+    for (const text of chest(p)) {
+      assert.doesNotMatch(text, /narrow-front string thong bikini bottoms|tiny low-rise triangular front panel/i);
+      assert.ok(!text.includes(indentation));
+    }
+  }
+});
+
+test('old bikini bottom wording imports to its existing ID and regenerates the fabric source', () => {
+  const bottom = option('pantsId', pairs[1][1]);
+  const { locks } = parseLocksFromStandardPrompt(`Wardrobe: ${legacyBikiniBottomSource}.`, controls);
+  assert.equal(locks.pantsId, bottom.id);
+  assert.ok(bottom.meta.legacyPromptAliases.includes(legacyBikiniBottomSource));
+  const p = generate(locks);
+  const restored = deserializeFavoritePrompt(serializeFavoritePrompt(p));
+  assert.equal(restored.selection.pantsId, bottom.id);
+  for (const text of [...main(generate(normalizeLocks(restored.selection))), fullBody(p)]) {
+    assert.ok(text.includes(bikiniBottomSource));
+    assert.ok(!text.includes(legacyBikiniBottomSource));
+  }
+});
+
+test('bikini bottom fabric and tie details stay with the selected duo wearer', () => {
+  for (const wearer of ['A', 'B']) {
+    for (const framing of ['全身鏡頭 (Full Body Shot)', '胸上特寫']) {
+      const p = generate({ subjectCount: '2', framingId: option('framingId', framing).id,
+        pantsAId: option('pantsAId', '比基尼下身').id,
+        pantsBId: option('pantsBId', '比基尼下身').id,
+        [`pants${wearer}Id`]: option(`pants${wearer}Id`, pairs[1][1]).id });
+      for (const text of main(p)) {
+        assert.equal(text.split(bikiniBottomSource).length - 1, framing === '胸上特寫' ? 0 : 1);
+        assert.equal(text.split(indentation).length - 1, framing === '胸上特寫' ? 0 : 1);
+      }
+    }
   }
 });
 
