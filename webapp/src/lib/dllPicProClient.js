@@ -2,6 +2,7 @@ import { getProviderContract } from './providerContract.js';
 
 const MAGNIFIC_CONTRACT = getProviderContract('magnific');
 const BYTEPLUS_CONTRACT = getProviderContract('byteplus');
+const COMFY_CONTRACT = getProviderContract('comfyCloud');
 
 export const DLL_PIC_STORAGE_KEYS = {
   apiKey: 'dll_pic_pro_api_key',
@@ -160,6 +161,14 @@ export const DLL_PIC_MODEL_CONFIG = {
     defaultResolution: '1k',
     hidden: true,
   },
+  ...Object.fromEntries(Object.entries(COMFY_CONTRACT.models).map(([key, model]) => [
+    `comfy${key === 'zImageTurbo' ? 'ZImageTurbo' : 'QwenImage21'}`,
+    { label: `Comfy Cloud · ${key === 'zImageTurbo' ? 'Z-Image-Turbo' : 'Qwen-Image-2.1'}`,
+      provider: 'comfyCloud', comfyModel: key, generationModel: key,
+      analysisModel: '', usesServerProxy: true, supportsResolution: true,
+      defaultResolution: model.defaultResolution, resolutionOptions: model.resolutions,
+      maxCount: model.maxCount, aspectRatios: model.aspectRatios },
+  ])),
 };
 
 export const DLL_PIC_RESOLUTIONS = [
@@ -268,6 +277,8 @@ export function normalizeDllPicModelKey(modelKey, fallback = 'google31FlashLiteI
 }
 
 export function isDllPicAspectRatioSupported(modelKey, aspectRatio) {
+  const model = getDllPicModelConfig(modelKey);
+  if (model.aspectRatios) return model.aspectRatios.includes(aspectRatio);
   if (!DLL_PIC_ASPECT_RATIOS.some((option) => option.value === aspectRatio)) return false;
   if (aspectRatio !== '4:5') return true;
   return DLL_PIC_VERIFIED_FOUR_BY_FIVE_MODELS.has(normalizeDllPicModelKey(modelKey));
@@ -470,6 +481,7 @@ export async function generateDllPicImages({
   resolution = '1k',
   magnificGenerate = null,
   bytePlusGenerate = null,
+  comfyGenerate = null,
 }) {
   const modelConfig = getDllPicModelConfig(modelKey);
   if (!apiKey && !modelConfig.usesServerProxy) throw new Error('請先設定 DLL_PIC Pro API Key');
@@ -477,7 +489,10 @@ export async function generateDllPicImages({
   if (!modelConfig.generationModel) throw new Error(`${modelConfig.label} 目前尚未接入生圖功能`);
 
   const normalizedResolution = getDllPicResolutionOption(modelKey, resolution).value;
-  const result = modelConfig.provider === 'magnific'
+  if (modelConfig.provider === 'comfyCloud' && !comfyGenerate) throw new Error('Comfy Cloud Firebase Proxy 尚未接入');
+  const result = modelConfig.provider === 'comfyCloud'
+    ? await comfyGenerate({ modelKey: modelConfig.comfyModel, prompt, aspectRatio, count: Math.min(count, modelConfig.maxCount), resolution: normalizedResolution })
+    : modelConfig.provider === 'magnific'
     ? await generateMagnificImages({ magnificGenerate, modelConfig, prompt, aspectRatio, count, resolution: normalizedResolution })
     : modelConfig.provider === 'byteplus'
       ? await generateBytePlusImages({ bytePlusGenerate, modelConfig, prompt, aspectRatio, count, resolution: normalizedResolution })

@@ -27,6 +27,45 @@
         "seedreamV5Lite": { "resolutions": ["1k"], "defaultResolution": "1k" }
       }
     },
+    "comfyCloud": {
+      "functionName": "comfyCloudSubmit",
+      "statusFunctionName": "comfyCloudStatus",
+      "defaultModelKey": "zImageTurbo",
+      "models": {
+        "zImageTurbo": {
+          "resolutions": [
+            "1k",
+            "2k"
+          ],
+          "defaultResolution": "1k",
+          "maxCount": 1,
+          "aspectRatios": [
+            "1:1",
+            "4:3",
+            "3:4",
+            "16:9",
+            "9:16",
+            "4:5"
+          ]
+        },
+        "qwenImage21": {
+          "resolutions": [
+            "1k",
+            "2k"
+          ],
+          "defaultResolution": "1k",
+          "maxCount": 1,
+          "aspectRatios": [
+            "1:1",
+            "4:3",
+            "3:4",
+            "16:9",
+            "9:16",
+            "4:5"
+          ]
+        }
+      }
+    },
     "byteplus": {
       "functionName": "bytePlusGenerate",
       "defaultModelKey": "seedream5Pro",

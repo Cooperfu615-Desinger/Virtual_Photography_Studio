@@ -21,9 +21,9 @@ export function normalizeProviderGenerationRequest(providerKey, payload = {}) {
 
   const numericCount = Number(payload.count);
   const count = Number.isFinite(numericCount)
-    ? Math.max(contract.request.count.min, Math.min(contract.request.count.max, Math.trunc(numericCount)))
+    ? Math.max(contract.request.count.min, Math.min(model.maxCount || contract.request.count.max, Math.trunc(numericCount)))
     : contract.request.count.default;
-  const aspectRatio = contract.request.aspectRatios.includes(payload.aspectRatio)
+  const aspectRatio = (model.aspectRatios || contract.request.aspectRatios).includes(payload.aspectRatio)
     ? payload.aspectRatio
     : contract.request.defaultAspectRatio;
   const requestedResolution = String(payload.resolution || model.defaultResolution).toLowerCase();

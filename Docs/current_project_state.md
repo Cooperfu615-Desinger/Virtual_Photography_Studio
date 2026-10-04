@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-04
 
+## Comfy Cloud 接入 DLL_PIC Pro v1 (local, 2026-10-04)
+
+- 使用者授權實作付費 Comfy Cloud 串接，暫不使用 LoRA。既有 DLL 新增 Z-Image-Turbo / Qwen-Image-2.1，沿用 Prompt 來源與預覽／放大／下載；單次一張、1K / 2K 約 1 / 4 MP，六種比例含 4:5、9:16。工作流模板源自使用者 API JSON；保留模型與採樣設定，Z 移除未接線 LoRA，Qwen 直接編碼原 Prompt、移除未啟用的改寫分支。既有 prompt engine、Saved Cards、public mappings 與原 storage keys 不變。詳見 [整合規格與啟用流程](specs/comfy-cloud-integration-v1.md)。
+- 新增 `comfyCloudSubmit` / `comfyCloudStatus` callable，使用伺服端 `COMFY_CLOUD_API_KEY`、既有登入／email allowlist、HTTP v2。Firestore 按 uid 原子認領 request ID；重複請求只查詢，提交回應不明時保留 uncertain 且不重送。瀏覽器以新 key 保存追蹤，可在重整或換工作區後查詢；結束追蹤需確認，不等於取消／退款。網址有期限，完成後應下載保存。
+- 驗證：前端完整測試 1264/1264（其後新增儲存空間保護測試，相關專項再驗證）；Functions 完整測試與雙端 lint、前端 build、diff-check 通過。既有 Vite 大型 chunk 提示仍在。瀏覽器 1440×1000 / 390×900 六工作區載入檢查無錯誤、破圖或頁面橫向溢出；已測登入錯誤、模擬 Z 9:16／Qwen 固定 4:5、排隊→執行→完成、放大／下載、失敗任務續查。截圖 `/tmp/comfy-desktop-final.png`、`/tmp/comfy-mobile.png`；使用獨立測試瀏覽器，沒有更動使用者 Saved Cards。
+- 使用者於 2026-10-04 授權 commit／push，交付狀態以 Git 核對為準。尚未設定 Secret、部署或呼叫真實 Comfy API。實際帳號 API 權限、模型／節點、各比例／2K、圖片網址與下載、消耗額度及 GUI 效果一致性待啟用後驗收；模擬成功不代表雲端出圖完成。任務認領目前無自動清除政策，提交回應遺失且未保存 job ID 時需人工確認雲端佇列。原未追蹤參考圖資料夾保留。
+
 ## X形胸貼：原位替換小罩杯蕾絲胸罩 (local, 2026-10-04)
 
 - 使用者接受平滑、不透明布料的 X 形胸貼實測，授權替換「小罩杯細帶蕾絲胸罩」並修正名稱。正式英文 27 字，描述兩枚獨立貼片、每側一枚、兩條短布帶交叉成 X，以及無罩杯、肩帶或下圍；不補蕾絲、承托或杯緣貼合。來源見 `knowledge_base/wardrobe_and_styling.md`，規則見 [小面積單品規格](specs/minimal-coverage-wardrobe-v1.md)，資料與六組實際片段見 [胸貼確認文件](specs/x-shaped-pasties-v2-six-prompts.md) 及同名 JSON。

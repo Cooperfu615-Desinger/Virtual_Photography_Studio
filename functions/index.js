@@ -15,6 +15,10 @@ const { normalizeGenerationRequest } = require('./src/providerContract');
 
 const magnificApiKey = defineSecret('MAGNIFIC_API_KEY');
 const bytePlusArkApiKey = defineSecret('BYTEPLUS_ARK_API_KEY');
+const comfyCloudApiKey = defineSecret('COMFY_CLOUD_API_KEY');
+const { getApps, initializeApp } = require('firebase-admin/app');
+const { getFirestore } = require('firebase-admin/firestore');
+const { submitComfyJob, readComfyJob } = require('./src/comfyCloud');
 const DEFAULT_ALLOWED_EMAILS = 'cooperfu.615@gmail.com';
 const MAGNIFIC_API_BASE_URL = 'https://api.magnific.com';
 
@@ -43,6 +47,39 @@ function normalizeCallableGenerationRequest(providerKey, data) {
   } catch (error) {
     throw new HttpsError('invalid-argument', error?.message || '生圖請求格式錯誤');
   }
+}
+
+function comfyStore(uid) {
+  if (!getApps().length) initializeApp();
+  const db = getFirestore();
+  const collection = db.collection('comfyCloudJobs').doc(uid).collection('requests');
+  return {
+    claim: (id, record) => db.runTransaction(async (transaction) => {
+      const ref = collection.doc(id);
+      const snapshot = await transaction.get(ref);
+      if (snapshot.exists) return { claimed: false };
+      transaction.create(ref, record);
+      return { claimed: true };
+    }),
+    get: async (id) => (await collection.doc(id).get()).data(),
+    update: (id, record) => collection.doc(id).update(record),
+  };
+}
+
+for (const [name, operation] of [['comfyCloudSubmit', submitComfyJob], ['comfyCloudStatus', readComfyJob]]) {
+  exports[name] = onCall({
+    region: 'us-central1', secrets: [comfyCloudApiKey], timeoutSeconds: 60,
+    memory: '256MiB', maxInstances: 2,
+  }, async (request) => {
+    assertAllowedUser(request, 'Comfy Cloud');
+    if (!comfyCloudApiKey.value()) throw new HttpsError('failed-precondition', 'Comfy Cloud API Key 尚未設定');
+    try {
+      return await operation({ apiKey: comfyCloudApiKey.value(), payload: request.data || {},
+        requestId: request.data?.requestId, store: comfyStore(request.auth.uid) });
+    } catch (error) {
+      throw new HttpsError('failed-precondition', error.message || 'Comfy Cloud 請求失敗');
+    }
+  });
 }
 
 exports.magnificGenerateClassic = onCall({

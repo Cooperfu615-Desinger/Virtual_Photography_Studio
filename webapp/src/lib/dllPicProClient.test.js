@@ -336,6 +336,8 @@ test('model option helpers hide legacy aliases and keep analyzer to analysis-cap
     'magnificNanoBananaProFlash',
     'magnificGemini25FlashImagePreview',
     'magnificSeedreamV5Lite',
+    'comfyZImageTurbo',
+    'comfyQwenImage21',
   ]);
 
   const analysisModelKeys = getDllPicSelectableModelEntries({ includeAnalysisOnly: true }).map(([key]) => key);

@@ -13,6 +13,7 @@ import {
   normalizeDllPicModelKey,
 } from '../lib/dllPicProClient.js';
 import { generateBytePlusViaFirebase } from '../lib/bytePlusProxyClient.js';
+import { generateComfyViaFirebase, readComfyPending, clearComfyPending, formatComfyProgress } from '../lib/comfyCloudProxyClient.js';
 import { downloadImageFile } from '../lib/imageDownload.js';
 import { downloadMagnificImageViaFirebase, generateMagnificViaFirebase } from '../lib/magnificProxyClient.js';
 
@@ -71,6 +72,10 @@ const DLL_PIC_API_KEY_FIELDS = [
 
 const DLL_PIC_PROXY_FIELDS = [
   {
+    provider: 'comfyCloud', label: 'Comfy Cloud API Key', status: 'Firebase Secret',
+    description: '由伺服端 COMFY_CLOUD_API_KEY 提供；請先登入 Firebase。',
+  },
+  {
     provider: 'byteplus',
     label: 'BytePlus ARK API Key',
     status: 'Firebase Secret',
@@ -119,7 +124,7 @@ function formatGenerationMessage(result) {
     return `已生成 ${images.length} 張圖像，其中 ${nsfwCount} 張被 Magnific 標記為安全風險`;
   }
 
-  return `已生成 ${images.length} 張圖像`;
+  return `已生成 ${images.length} 張圖像${result.meta?.provider === 'comfyCloud' ? `｜${result.meta.width} × ${result.meta.height}｜Seed ${result.meta.seed}` : ''}`;
 }
 
 function loadDevPreviewImages() {
@@ -147,6 +152,7 @@ export default function DllPicProPanel({
     getDllPicResolutionOption(loadStoredModelKey(), loadStoredValue(DLL_PIC_STORAGE_KEYS.resolution, '1k')).value
   ));
   const [count, setCount] = useState(1);
+  const [comfyPending, setComfyPending] = useState(readComfyPending);
   const [images, setImages] = useState(loadDevPreviewImages);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [previewImageIndex, setPreviewImageIndex] = useState(null);
@@ -175,14 +181,14 @@ export default function DllPicProPanel({
   const isAspectRatioLocked = Boolean(selectedSource?.lockAspectRatio && selectedSource?.aspectRatio);
   const isAspectRatioSupported = isDllPicAspectRatioSupported(modelKey, aspectRatio);
   const activeApiKey = getDllPicApiKeyForModel(modelKey, apiKeys);
-  const activeProviderLabel = activeModel.provider === 'magnific'
+  const activeProviderLabel = activeModel.provider === 'comfyCloud' ? 'Comfy Cloud' : activeModel.provider === 'magnific'
     ? 'Magnific'
     : activeModel.provider === 'byteplus'
       ? 'BytePlus'
       : activeModel.provider === 'xai'
         ? 'xAI'
         : 'Gemini';
-  const activeKeyStatus = activeModel.usesServerProxy
+  const activeKeyStatus = activeModel.provider === 'comfyCloud' ? 'Comfy Cloud｜需登入及伺服端設定' : activeModel.usesServerProxy
     ? `${activeProviderLabel} Proxy 已連接`
     : activeApiKey
       ? `${activeProviderLabel} Key 已設定`
@@ -193,6 +199,7 @@ export default function DllPicProPanel({
     && activeModel.generationModel
     && isAspectRatioSupported
     && !isGenerating
+    && !(activeModel.provider === 'comfyCloud' && comfyPending)
   );
   const modelCompatibilityNote = isAspectRatioSupported
     ? ''
@@ -260,6 +267,7 @@ export default function DllPicProPanel({
         resolution: activeResolution,
         magnificGenerate: generateMagnificViaFirebase,
         bytePlusGenerate: generateBytePlusViaFirebase,
+        comfyGenerate: (payload) => generateComfyViaFirebase(payload, { onProgress: (job) => setMessage(formatComfyProgress(job)) }),
       });
       setImages(result.images);
       setMessage(formatGenerationMessage(result));
@@ -267,6 +275,23 @@ export default function DllPicProPanel({
       setMessage(getGenerationErrorMessage(error));
     } finally {
       setIsGenerating(false);
+      setComfyPending(readComfyPending());
+    }
+  };
+
+  const handleResumeComfy = async () => {
+    setIsGenerating(true);
+    try {
+      const result = await generateComfyViaFirebase({}, { resume: true, onProgress: (job) => setMessage(formatComfyProgress(job)) });
+      setImages(result.images);
+      setSelectedImageIndex(0);
+      setPreviewImageIndex(null);
+      setMessage(formatGenerationMessage(result));
+    } catch (error) {
+      setMessage(getGenerationErrorMessage(error));
+    } finally {
+      setIsGenerating(false);
+      setComfyPending(readComfyPending());
     }
   };
 
@@ -331,6 +356,7 @@ export default function DllPicProPanel({
           <select
             className={!selectedPrompt ? 'select-muted' : ''}
             value={selectedSource?.id || ''}
+            disabled={isGenerating}
             onChange={(event) => setSelectedSourceId(event.target.value)}
           >
             {promptSources.map((source) => (
@@ -345,6 +371,7 @@ export default function DllPicProPanel({
           <span>模型</span>
           <select
             value={modelKey}
+            disabled={isGenerating}
             onChange={(event) => {
               const nextModelKey = event.target.value;
               const nextResolution = getDllPicResolutionOption(nextModelKey, resolution).value;
@@ -366,7 +393,7 @@ export default function DllPicProPanel({
           <select
             value={aspectRatio}
             onChange={(event) => setAspectRatio(event.target.value)}
-            disabled={isAspectRatioLocked}
+            disabled={isAspectRatioLocked || isGenerating}
           >
             {DLL_PIC_ASPECT_RATIOS.map((option) => (
               <option key={option.value} value={option.value}>
@@ -381,6 +408,7 @@ export default function DllPicProPanel({
             <span>解析度</span>
             <select
               value={activeResolution}
+              disabled={isGenerating}
               onChange={(event) => {
                 const nextResolution = event.target.value;
                 setResolution(nextResolution);
@@ -398,8 +426,8 @@ export default function DllPicProPanel({
 
         <label className="field dll-pic-field">
           <span>張數</span>
-          <select value={count} onChange={(event) => setCount(Number(event.target.value))}>
-            {[1, 2, 3, 4].map((amount) => (
+          <select value={Math.min(count, activeModel.maxCount || 4)} disabled={isGenerating} onChange={(event) => setCount(Number(event.target.value))}>
+            {[1, 2, 3, 4].filter((amount) => amount <= (activeModel.maxCount || 4)).map((amount) => (
               <option key={amount} value={amount}>
                 {amount} 張
               </option>
@@ -407,6 +435,16 @@ export default function DllPicProPanel({
           </select>
         </label>
       </div>
+
+      {activeModel.provider === 'comfyCloud' ? <div className="dll-pic-model-note">每次一張；1K / 2K 為約 1 / 4 百萬像素，依比例決定尺寸。無 LoRA、無 Prompt 重寫。完成後請下載保存，圖像網址會到期。</div> : null}
+      {comfyPending ? <div className="dll-pic-actions">
+        <button type="button" className="secondary" disabled={isGenerating} onClick={handleResumeComfy}>查詢上次任務</button>
+        <button type="button" className="secondary" disabled={isGenerating} onClick={() => {
+          if (!window.confirm('結束追蹤不會取消雲端任務，也不會退還額度。請先確認 Comfy Cloud 作業佇列，避免重複生成。確定結束追蹤？')) return;
+          clearComfyPending(); setComfyPending(null);
+          setMessage('已結束追蹤；雲端任務可能仍在執行');
+        }}>結束追蹤</button>
+      </div> : null}
 
       <div className="dll-pic-actions">
         <button className="primary-copy-btn dll-pic-generate-btn" type="button" onClick={handleGenerate} disabled={!canGenerate}>
@@ -417,7 +455,7 @@ export default function DllPicProPanel({
         </span>
       </div>
 
-      {message ? <div className="dll-pic-message">{message}</div> : null}
+      {message ? <div className="dll-pic-message" role="status" aria-live="polite">{message}</div> : null}
 
       {isApiKeyModalOpen ? (
         <div className="modal-backdrop dll-pic-api-modal-backdrop" onClick={closeApiKeyModal}>

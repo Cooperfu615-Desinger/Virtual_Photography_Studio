@@ -48,8 +48,8 @@ function normalizeGenerationRequest(providerKey, payload = {}) {
     ...payload,
     modelKey,
     prompt,
-    aspectRatio: normalizeAspectRatio(payload.aspectRatio),
-    count: clampGenerationCount(payload.count),
+    aspectRatio: model.aspectRatios?.includes(payload.aspectRatio) ? payload.aspectRatio : normalizeAspectRatio(payload.aspectRatio),
+    count: Math.min(model.maxCount || contract.request.count.max, clampGenerationCount(payload.count)),
     resolution: normalizeResolution(model, payload.resolution),
   };
 }
