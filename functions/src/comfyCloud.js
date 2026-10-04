@@ -57,8 +57,11 @@ function parseComfyJob(job, meta) {
     throw new Error('Comfy Cloud 任務回應格式不符，請保留任務繼續查詢');
   }
   const outputNode = meta.modelKey === 'zImageTurbo' ? '9' : '461';
-  const images = (job.outputs || []).filter((output) => output.type === 'image' && output.node_id === outputNode && output.content_type?.startsWith('image/') && /^https:\/\//.test(output.url || '')).map((output) => ({
-    src: output.url, mimeType: output.content_type, assetId: output.id, expiresAt: output.url_expires_at,
+  // Output.url is authenticated and must never be passed to a browser as src.
+  // Cloud workers can leave MIME empty; retain final image assets for metadata lookup.
+  const images = (job.outputs || []).filter((output) => output.type === 'image' && output.node_id === outputNode
+    && (!output.content_type || output.content_type.startsWith('image/'))).map((output) => ({
+    mimeType: output.content_type, assetId: output.id,
   }));
   return {
     jobId: job.id, status: job.status, queuePosition: job.queue_position ?? null,
@@ -66,6 +69,30 @@ function parseComfyJob(job, meta) {
     errors: job.error ? [String(job.error.message || job.error.code || 'Comfy Cloud 任務失敗')] : [],
     meta: { ...meta, provider: 'comfyCloud', jobId: job.id, expiresAt: job.expires_at ?? null },
   };
+}
+
+async function resolveComfyImages(job, meta, apiKey, fetchImpl) {
+  const result = parseComfyJob(job, meta);
+  if (result.status !== 'succeeded') return { ...result, images: [] };
+  if (!result.images.length) console.warn('Comfy Cloud output mismatch', JSON.stringify({
+    jobId: job.id, modelKey: meta.modelKey,
+    outputs: (job.outputs || []).slice(0, 10).map(({ node_id, type, content_type }) => ({ node_id, type, content_type })),
+  }));
+  result.images = await Promise.all(result.images.map(async (image) => {
+    const id = validateRequestId(image.assetId);
+    const asset = await callComfy(apiKey, `https://cloud.comfy.org/api/v2/assets/${id}`, { method: 'GET' }, fetchImpl);
+    const url = new URL(asset.url);
+    // Both controlled final SaveImage nodes emit PNG. Live Cloud metadata can
+    // omit MIME in both records; only infer it from the matching PNG asset path.
+    const mimeType = asset.content_type || (/\.png$/i.test(asset.file_path || '') ? 'image/png' : null);
+    if (asset.id !== id || !mimeType?.startsWith('image/') || url.protocol !== 'https:' || url.username || url.password
+      || (url.origin === 'https://cloud.comfy.org' && url.pathname.startsWith('/api/v2/assets/'))) {
+      console.warn('Comfy Cloud asset mismatch', JSON.stringify({ jobId: job.id, contentType: asset.content_type, urlOrigin: url.origin, urlPath: url.pathname, queryKeys: [...url.searchParams.keys()] }));
+      throw new Error('Comfy Cloud 圖片下載網址格式不符，請保留任務繼續查詢');
+    }
+    return { ...image, src: url.href, mimeType, expiresAt: asset.url_expires_at ?? null };
+  }));
+  return result;
 }
 
 // The store claims a request transactionally before making a paid call. A lost
@@ -83,7 +110,7 @@ async function submitComfyJob({ apiKey, payload, store, fetchImpl = fetch }) {
     if (!job?.id || typeof job.id !== 'string') throw new Error('Comfy Cloud 未回傳任務 ID');
     await store.update(requestId, { phase: 'submitted', jobId: job.id });
     await store.update(requestId, { self: getJobUrl(job) });
-    return parseComfyJob(job, meta);
+    return resolveComfyImages(job, meta, apiKey, fetchImpl);
   } catch (error) {
     await store.update(requestId, { phase: error.definitive ? 'rejected' : 'uncertain' });
     throw error;
@@ -104,7 +131,7 @@ async function readComfyJob({ apiKey, requestId, store, fetchImpl = fetch }) {
     throw error;
   }
   if (job.id !== record.jobId) throw new Error('Comfy Cloud 任務 ID 不一致');
-  return parseComfyJob(job, record.meta);
+  return resolveComfyImages(job, record.meta, apiKey, fetchImpl);
 }
 
 module.exports = { buildComfyWorkflow, parseComfyJob, submitComfyJob, readComfyJob, validateRequestId };

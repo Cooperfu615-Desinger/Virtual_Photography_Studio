@@ -546,7 +546,7 @@ export default function App() {
                   <div className={`settings-menu-status sync-status-${favoriteCloudSyncStatus}`}>
                     {favoriteCloudLabel}
                   </div>
-                  {favoriteCloudAuth?.status === 'signed-in' ? (
+                  {favoriteCloudAuth?.user ? (
                     <button className="secondary" onClick={handleSignOutFavorites}>
                       Sign Out Firebase
                     </button>

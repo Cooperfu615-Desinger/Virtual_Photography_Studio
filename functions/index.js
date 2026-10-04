@@ -19,7 +19,7 @@ const comfyCloudApiKey = defineSecret('COMFY_CLOUD_API_KEY');
 const { getApps, initializeApp } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 const { submitComfyJob, readComfyJob } = require('./src/comfyCloud');
-const DEFAULT_ALLOWED_EMAILS = 'cooperfu.615@gmail.com';
+const DEFAULT_ALLOWED_EMAILS = 'cooperfu.615@gmail.com,nailai7981.ai@gmail.com';
 const MAGNIFIC_API_BASE_URL = 'https://api.magnific.com';
 
 function getAllowedEmails() {
@@ -50,7 +50,7 @@ function normalizeCallableGenerationRequest(providerKey, data) {
 }
 
 function comfyStore(uid) {
-  if (!getApps().length) initializeApp();
+  if (!getApps().some((app) => app.name === '[DEFAULT]')) initializeApp();
   const db = getFirestore();
   const collection = db.collection('comfyCloudJobs').doc(uid).collection('requests');
   return {

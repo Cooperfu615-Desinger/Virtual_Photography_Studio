@@ -14,6 +14,7 @@ import {
   isEmailAllowed,
   isFirebaseConfigured,
 } from './firebase';
+import { resolveFavoriteAuthState } from './favoriteAuthState.js';
 
 const FAVORITES_COLLECTION = 'favorites';
 const CLOUD_SYNC_CHUNK_SIZE = 450;
@@ -34,22 +35,9 @@ export function subscribeToFavoriteAuth(onChange) {
   }
 
   return onAuthStateChanged(firebaseAuth, (user) => {
-    if (!user) {
-      onChange({ status: 'signed-out', user: null, error: null });
-      return;
-    }
-
-    if (!isEmailAllowed(user.email)) {
-      onChange({
-        status: 'unauthorized',
-        user: null,
-        error: `${user.email || '這個帳號'} 沒有 Favorites 同步權限`,
-      });
-      signOut(firebaseAuth).catch(() => {});
-      return;
-    }
-
-    onChange({ status: 'signed-in', user, error: null });
+    // Favorites access does not own the shared Firebase session used by Comfy.
+    // The workspace only reads/writes cloud cards for status === 'signed-in'.
+    onChange(resolveFavoriteAuthState(user, isEmailAllowed(user?.email)));
   });
 }
 

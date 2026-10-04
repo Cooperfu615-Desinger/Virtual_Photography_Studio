@@ -58,11 +58,12 @@ test('lost submission response remains uncertain and never reposts', async () =>
   await assert.rejects(readComfyJob({ apiKey: 'key', requestId, store: makeStore(), fetchImpl }), /找不到/);
 });
 
-test('output parsing only returns final image nodes and preserves expiry and diagnostics', () => {
+test('output parsing keeps final asset identity and diagnostics without exposing content URLs or retention as signed expiry', () => {
   const output = { type: 'image', node_id: '461', url: 'https://assets.example/image.png', content_type: 'image/png', id: 'asset1', url_expires_at: '2026-10-05T00:00:00Z' };
   const result = parseComfyJob({ id: 'job1', status: 'succeeded', outputs: [output, { ...output, node_id: 'other' }, { ...output, url: 'http://unsafe' }], error: null }, { modelKey: 'qwenImage21' });
-  assert.equal(result.images.length, 1); assert.equal(result.images[0].assetId, 'asset1');
-  assert.equal(result.images[0].expiresAt, output.url_expires_at);
+  assert.equal(result.images.length, 2); assert.equal(result.images[0].assetId, 'asset1');
+  assert.equal(result.images[0].src, undefined);
+  assert.equal(result.images[0].expiresAt, undefined);
   assert.equal(parseComfyJob({ id: 'job1', status: 'failed', error: { message: 'Node failed' } }, {}).errors[0], 'Node failed');
 });
 
@@ -82,4 +83,60 @@ test('expired jobs finish tracking and GET uses only the stored provider job', a
   const result = await readComfyJob({ apiKey: 'key', requestId, store, fetchImpl: async () => response({}, 410) });
   assert.equal(result.status, 'expired'); assert.equal(result.meta.seed, 7);
   await assert.rejects(readComfyJob({ apiKey: 'key', requestId, store, fetchImpl: async () => response({ id: 'other', status: 'queued' }) }), /ID 不一致/);
+});
+
+test('successful jobs resolve asset metadata to fresh signed URLs without exposing authenticated content routes', async () => {
+  const store = makeStore(); const calls = [];
+  const id = '11111111-2222-3333-4444-555555555555';
+  await store.claim(requestId, { jobId: 'job1', meta: { modelKey: 'zImageTurbo' } });
+  const job = { id: 'job1', status: 'succeeded', outputs: [{ id, node_id: '9', type: 'image', content_type: 'image/png', url: `https://cloud.comfy.org/api/v2/assets/${id}/content`, url_expires_at: '2026-11-04T00:00:00Z' }] };
+  const asset = { id, url: 'https://storage.example/image.png?signature=temporary', content_type: 'image/png', url_expires_at: '2026-10-05T01:00:00Z' };
+  const fetchImpl = async (url, options) => { calls.push({ url, options }); return response(url.includes('/assets/') ? asset : job); };
+  const result = await readComfyJob({ apiKey: 'test-key', requestId, store, fetchImpl });
+  assert.equal(result.images[0].src, asset.url);
+  assert.equal(result.images[0].expiresAt, asset.url_expires_at);
+  assert.equal(calls[1].url, `https://cloud.comfy.org/api/v2/assets/${id}`);
+  assert.equal(calls[1].options.headers.Authorization, 'Bearer test-key');
+  asset.url = job.outputs[0].url;
+  await assert.rejects(readComfyJob({ apiKey: 'test-key', requestId, store, fetchImpl }), /下載網址/);
+  asset.url = 'http://unsafe.example/image.png';
+  await assert.rejects(readComfyJob({ apiKey: 'test-key', requestId, store, fetchImpl }), /下載網址/);
+  assert.equal((await store.get(requestId)).jobId, 'job1');
+});
+
+test('a download URL lookup failure retains the paid job and recovery never resubmits', async () => {
+  const store = makeStore(); const calls = [];
+  const id = '11111111-2222-3333-4444-555555555555';
+  const job = { id: 'job1', status: 'succeeded', outputs: [{ id, node_id: '9', type: 'image', content_type: 'image/png' }] };
+  let failAsset = true;
+  const fetchImpl = async (url, options) => {
+    calls.push(options.method);
+    if (!url.includes('/assets/')) return response(job);
+    return failAsset ? response({}, 503) : response({ id, content_type: 'image/png', url: 'https://storage.example/image.png', url_expires_at: null });
+  };
+  await assert.rejects(submitComfyJob({ apiKey: 'key', payload, store, fetchImpl }), /503/);
+  assert.equal((await store.get(requestId)).phase, 'submitted');
+  failAsset = false;
+  const result = await submitComfyJob({ apiKey: 'key', payload, store, fetchImpl });
+  assert.equal(result.images[0].src, 'https://storage.example/image.png');
+  assert.equal(calls.filter((method) => method === 'POST').length, 1);
+});
+
+test('live Cloud image output may omit MIME; final node and Asset metadata still identify the image', async () => {
+  const id = '11111111-2222-3333-4444-555555555555';
+  const output = { id, node_id: '9', type: 'image', content_type: '' };
+  const job = { id: 'job1', status: 'succeeded', outputs: [output] };
+  assert.equal(parseComfyJob(job, { modelKey: 'zImageTurbo' }).images.length, 1);
+  assert.equal(parseComfyJob({ ...job, outputs: [{ ...output, node_id: 'preview' }] }, { modelKey: 'zImageTurbo' }).images.length, 0);
+  assert.equal(parseComfyJob({ ...job, outputs: [{ ...output, content_type: 'text/plain' }] }, { modelKey: 'zImageTurbo' }).images.length, 0);
+  const store = makeStore();
+  await store.claim(requestId, { jobId: 'job1', meta: { modelKey: 'zImageTurbo' } });
+  const asset = { id, content_type: '', file_path: 'output/z-image-turbo_00001_.png', url: 'https://storage.example/image.png' };
+  const fetchImpl = async (url) => response(url.includes('/assets/') ? asset : job);
+  const result = await readComfyJob({ apiKey: 'key', requestId, store, fetchImpl });
+  assert.equal(result.images[0].mimeType, 'image/png');
+  asset.content_type = 'text/plain';
+  await assert.rejects(readComfyJob({ apiKey: 'key', requestId, store, fetchImpl }), /下載網址/);
+  asset.content_type = ''; asset.file_path = 'output/unknown.bin';
+  await assert.rejects(readComfyJob({ apiKey: 'key', requestId, store, fetchImpl }), /下載網址/);
 });

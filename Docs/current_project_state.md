@@ -2,7 +2,16 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-04
+Last updated: 2026-10-05
+
+## Comfy Cloud：新帳號已授權、兩模型真實 1K 驗收通過 (2026-10-05)
+
+- 使用者授權加入 `nailai7981.ai@gmail.com` 的生圖／下載權限，保留 `cooperfu.615@gmail.com`。已部署 `comfyCloudSubmit`、`comfyCloudStatus`、下載 fallback `magnificDownloadImage` 至 `virtualphotographystudio/us-central1`；Comfy Functions 綁定 `COMFY_CLOUD_API_KEY` version 1，未讀取 Secret 值。沒有部署舊供應商生圖 Functions 或更改收藏 rules。
+- 前端收藏權限檢查原本會將新帳號從共用 Firebase session 登出，已改為保留登入、Favorites 僅存本機；收藏的雲端讀寫仍需原 allowlist 及 Firestore rules。設置顯示新帳號與 Sign Out。Firebase Auth 驗證可能先初始化 named Admin app，另補 default app 檢查，避免 Comfy 任務資料庫初始化失敗。
+- 實測發現 Comfy 的 Job Output 及 Asset `content_type` 都可能為空。保留最終節點及 image 類型限制，以對應 Asset 的 PNG 檔案路徑補 MIME；按 asset ID 取短效簽名 URL，拒絕需金鑰的 content route。成功但缺圖片時保留本機追蹤，避免誤清除後再扣費。診斷不輸出 API 金鑰、Prompt 或簽名參數值；詳見 [整合文件](specs/comfy-cloud-integration-v1.md)。
+- 已以新帳號、同一中性紅色馬克杯 Prompt，各提交一次 Z-Image-Turbo／Qwen-Image-2.1 的 1K、1:1、一張。均成功預覽、放大、下載為 1024×1024 PNG；Z 原任務修正後靠 GET 續查取回，沒有第二次生成。Seed 分別為 `44094747575631`／`117363328541623`。下載原檔位於 `/Users/cooperfu/Downloads/dll_pic_pro_1791132052123_1.png`／`dll_pic_pro_1791132179660_1.png`。只確認這兩個任務，未量測扣額度數字、其他比例／2K 或 GUI 同 seed 效果一致性。
+- Functions 45/45、前端 1270/1270、雙端 lint、前端 build 與 diff-check 通過；既有 Vite 大型 chunk 提示仍在。localhost:5175 的 1440×1000／390×900 五工作區載入及登入顯示檢查無 console error、破圖或頁面橫向溢出，Qwen 原任務在完整 App 的桌面／手機續查及預覽也通過。截圖 `/tmp/comfy-nailai-settings-{1440,390}.jpg`、`/tmp/comfy-qwen-main-1440.jpg`、`/tmp/comfy-qwen-live-390.jpg`。127.0.0.1 非既有 Firebase 授權登入網域，真實登入改用已授權的 localhost；未擴大網域設定。臨時驗收頁已移除，viewport 已重設，測試伺服器已關閉。
+- 後端已部署；使用者於 2026-10-05 授權本批 commit／push，前端採 main 既有 GitHub Pages 流程發布。Git 與正式網站交付狀態以實際遠端核對為準。原未追蹤參考圖資料夾保留。部署提示 Node.js 20 將於 2026-10-30 停止部署支援，執行環境升級另行安排。
 
 ## DLL：隱藏 BytePlus / Magnific 介面 (local, 2026-10-04)
 
@@ -15,7 +24,7 @@ Last updated: 2026-10-04
 - 使用者授權實作付費 Comfy Cloud 串接，暫不使用 LoRA。既有 DLL 新增 Z-Image-Turbo / Qwen-Image-2.1，沿用 Prompt 來源與預覽／放大／下載；單次一張、1K / 2K 約 1 / 4 MP，六種比例含 4:5、9:16。工作流模板源自使用者 API JSON；保留模型與採樣設定，Z 移除未接線 LoRA，Qwen 直接編碼原 Prompt、移除未啟用的改寫分支。既有 prompt engine、Saved Cards、public mappings 與原 storage keys 不變。詳見 [整合規格與啟用流程](specs/comfy-cloud-integration-v1.md)。
 - 新增 `comfyCloudSubmit` / `comfyCloudStatus` callable，使用伺服端 `COMFY_CLOUD_API_KEY`、既有登入／email allowlist、HTTP v2。Firestore 按 uid 原子認領 request ID；重複請求只查詢，提交回應不明時保留 uncertain 且不重送。瀏覽器以新 key 保存追蹤，可在重整或換工作區後查詢；結束追蹤需確認，不等於取消／退款。網址有期限，完成後應下載保存。
 - 驗證：前端完整測試 1264/1264（其後新增儲存空間保護測試，相關專項再驗證）；Functions 完整測試與雙端 lint、前端 build、diff-check 通過。既有 Vite 大型 chunk 提示仍在。瀏覽器 1440×1000 / 390×900 六工作區載入檢查無錯誤、破圖或頁面橫向溢出；已測登入錯誤、模擬 Z 9:16／Qwen 固定 4:5、排隊→執行→完成、放大／下載、失敗任務續查。截圖 `/tmp/comfy-desktop-final.png`、`/tmp/comfy-mobile.png`；使用獨立測試瀏覽器，沒有更動使用者 Saved Cards。
-- 使用者於 2026-10-04 授權 commit／push，交付狀態以 Git 核對為準。尚未設定 Secret、部署或呼叫真實 Comfy API。實際帳號 API 權限、模型／節點、各比例／2K、圖片網址與下載、消耗額度及 GUI 效果一致性待啟用後驗收；模擬成功不代表雲端出圖完成。任務認領目前無自動清除政策，提交回應遺失且未保存 job ID 時需人工確認雲端佇列。原未追蹤參考圖資料夾保留。
+- 實作已 commit／push `daf23a5` 至 `origin/main`；其後使用者授權 Secret 設定及部署，最新狀態見本文件首節。初次實作時尚未呼叫真實 Comfy API，最新兩模型 1K 驗收見首節；各比例／2K、扣額度數字及 GUI 效果一致性仍待驗收；模擬成功不代表雲端出圖完成。任務認領目前無自動清除政策，提交回應遺失且未保存 job ID 時需人工確認雲端佇列。原未追蹤參考圖資料夾保留。
 
 ## X形胸貼：原位替換小罩杯蕾絲胸罩 (local, 2026-10-04)
 

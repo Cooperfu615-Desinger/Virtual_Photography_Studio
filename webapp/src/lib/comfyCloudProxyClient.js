@@ -58,9 +58,9 @@ export async function generateComfyViaFirebase(payload, {
   for (let attempt = 0; attempt <= maxPolls; attempt += 1) {
     onProgress(job);
     if (terminal.has(job.status)) {
+      if (job.status === 'succeeded' && !job.images?.length) throw new Error('Comfy Cloud 已完成，但未回傳工作流最終圖像；已保留追蹤，請稍後查詢');
       clearComfyPending(storage);
       if (job.status !== 'succeeded') throw new Error(job.errors?.[0] || `Comfy Cloud 任務已${job.status === 'rejected' ? '拒絕' : job.status}`);
-      if (!job.images?.length) throw new Error('Comfy Cloud 已完成，但未回傳工作流最終圖像');
       return job;
     }
     if (job.status === 'uncertain') throw new Error('提交結果尚未確認；已保留追蹤且不會重送。請到 Comfy Cloud 作業佇列確認，或稍後查詢');

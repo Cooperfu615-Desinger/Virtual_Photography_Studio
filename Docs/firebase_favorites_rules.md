@@ -35,3 +35,9 @@ users/{uid}/favorites/{promptId}
 ```
 
 Only Favorites are synced to Firestore. Feed still uses browser local storage.
+
+Favorites authorization does not end the shared Firebase login session. Accounts
+outside the Favorites allowlist stay signed in and use local Favorites; cloud
+reads and writes still require the `signed-in` Favorites state and the rules
+above. Comfy generation and image downloads have a separate server allowlist;
+adding an account there does not grant access to cloud Favorites.

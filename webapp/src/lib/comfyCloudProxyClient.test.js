@@ -51,3 +51,21 @@ test('unavailable persistent storage prevents a paid submission', async () => {
   await assert.rejects(generateComfyViaFirebase(payload, { storage: null, session: { uid: 'user1', call: async () => { called = true; } } }), /儲存空間/);
   assert.equal(called, false);
 });
+
+test('a completed job without an image retains tracking and recovers with query only', async () => {
+  const store = storage(); const names = [];
+  const session = { uid: 'user1', call: async (name) => {
+    names.push(name); return { status: 'succeeded', images: [] };
+  } };
+  await assert.rejects(generateComfyViaFirebase(payload, { session, storage: store }), /最終圖像/);
+  const pending = readComfyPending(store);
+  assert.ok(pending);
+  session.call = async (name, input) => {
+    names.push(name); assert.equal(input.requestId, pending.requestId);
+    return { status: 'succeeded', images: [{ src: 'https://image.example/recovered.png' }] };
+  };
+  const result = await generateComfyViaFirebase({}, { session, storage: store, resume: true });
+  assert.equal(result.images.length, 1);
+  assert.deepEqual(names, ['comfyCloudSubmit', 'comfyCloudStatus']);
+  assert.equal(readComfyPending(store), null);
+});
