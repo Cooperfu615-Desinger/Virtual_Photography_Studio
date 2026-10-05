@@ -1,6 +1,6 @@
 .page1-workspace-shell {
   display: grid;
-  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr) minmax(168px, 190px);
+  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr) 260px;
   gap: 18px;
   align-items: start;
 }

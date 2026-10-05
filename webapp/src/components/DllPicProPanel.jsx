@@ -169,18 +169,6 @@ export default function DllPicProPanel({
   const isAspectRatioLocked = Boolean(selectedSource?.lockAspectRatio && selectedSource?.aspectRatio);
   const isAspectRatioSupported = isDllPicAspectRatioSupported(modelKey, aspectRatio);
   const activeApiKey = getDllPicApiKeyForModel(modelKey, apiKeys);
-  const activeProviderLabel = activeModel.provider === 'comfyCloud' ? 'Comfy Cloud' : activeModel.provider === 'magnific'
-    ? 'Magnific'
-    : activeModel.provider === 'byteplus'
-      ? 'BytePlus'
-      : activeModel.provider === 'xai'
-        ? 'xAI'
-        : 'Gemini';
-  const activeKeyStatus = activeModel.provider === 'comfyCloud' ? 'Comfy Cloud｜需登入及伺服端設定' : activeModel.usesServerProxy
-    ? `${activeProviderLabel} Proxy 已連接`
-    : activeApiKey
-      ? `${activeProviderLabel} Key 已設定`
-      : `${activeProviderLabel} Key 未設定`;
   const canGenerate = Boolean(
     (activeModel.usesServerProxy || activeApiKey)
     && selectedPrompt
@@ -324,14 +312,12 @@ export default function DllPicProPanel({
   }, [apiKeys, isApiKeyModalOpen]);
 
   return (
-    <section className={`dll-pic-panel ${compact ? 'dll-pic-panel-compact' : ''}`}>
+    <section className={`dll-pic-panel ${compact ? 'dll-pic-panel-compact' : ''}`} aria-label={title} aria-description={description}>
       <div className="dll-pic-header">
         <div>
           <div className="control-section-title">{title}</div>
-          <p className="workspace-panel-copy">{description}</p>
         </div>
         <div className="dll-pic-header-actions">
-          <span className="dll-pic-status">{activeKeyStatus}</span>
           <button className="secondary dll-pic-api-settings-btn" type="button" onClick={openApiKeyModal}>
             API Keys
           </button>
@@ -340,8 +326,8 @@ export default function DllPicProPanel({
 
       <div className="dll-pic-settings-grid">
         <label className="field dll-pic-field">
-          <span>Prompt 來源</span>
           <select
+            aria-label="Prompt 來源"
             className={!selectedPrompt ? 'select-muted' : ''}
             value={selectedSource?.id || ''}
             disabled={isGenerating}
@@ -356,8 +342,8 @@ export default function DllPicProPanel({
         </label>
 
         <label className="field dll-pic-field">
-          <span>模型</span>
           <select
+            aria-label="模型"
             value={modelKey}
             disabled={isGenerating}
             onChange={(event) => {
@@ -377,8 +363,8 @@ export default function DllPicProPanel({
         </label>
 
         <label className="field dll-pic-field">
-          <span>比例</span>
           <select
+            aria-label="比例"
             value={aspectRatio}
             onChange={(event) => setAspectRatio(event.target.value)}
             disabled={isAspectRatioLocked || isGenerating}
@@ -413,8 +399,7 @@ export default function DllPicProPanel({
         ) : null}
 
         <label className="field dll-pic-field">
-          <span>張數</span>
-          <select value={Math.min(count, activeModel.maxCount || 4)} disabled={isGenerating} onChange={(event) => setCount(Number(event.target.value))}>
+          <select aria-label="張數" value={Math.min(count, activeModel.maxCount || 4)} disabled={isGenerating} onChange={(event) => setCount(Number(event.target.value))}>
             {[1, 2, 3, 4].filter((amount) => amount <= (activeModel.maxCount || 4)).map((amount) => (
               <option key={amount} value={amount}>
                 {amount} 張
@@ -434,13 +419,13 @@ export default function DllPicProPanel({
         }}>結束追蹤</button>
       </div> : null}
 
-      <div className="dll-pic-actions">
-        <button className="primary-copy-btn dll-pic-generate-btn" type="button" onClick={handleGenerate} disabled={!canGenerate}>
-          {isGenerating ? '生成中...' : '生成圖像'}
-        </button>
+      <div className="dll-pic-actions dll-pic-generate-actions">
         <span className="dll-pic-model-note">
           {modelCompatibilityNote || activeModelNote || '此 provider 尚未接入生圖'}
         </span>
+        <button className="primary-copy-btn dll-pic-generate-btn" type="button" onClick={handleGenerate} disabled={!canGenerate}>
+          {isGenerating ? '生成中...' : '生成圖像'}
+        </button>
       </div>
 
       {message ? <div className="dll-pic-message" role="status" aria-live="polite">{message}</div> : null}

@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-05
 
+## DLL：依介面標註精簡控制區 (2026-10-05)
+
+- 使用者授權八項瀏覽器標註調整：移除可見說明、Key 狀態及 Prompt 來源／模型／比例／張數四個標題，保留選單與輔助閱讀名稱；各工作區 description 保留為區域的輔助閱讀描述。API Keys 視窗及既有生成條件不變。模型／解析度或相容性提示改放在「生成圖像」上方，共用 DLL 的四個工作區一致套用。
+- PAGE1 右側 DLL 欄由最高 190px 改為桌面 260px；260px 由三欄 grid 控制，1100px 以下沿用原單欄滿寬規則，其他工作區不強制 260px。沒有複製瀏覽器暫時標註樣式，也未更動 Prompt、storage、provider 或 Comfy 後端。
+- 專項 17/17、完整前端 1270/1270、lint/build 與 diff-check 通過；既有 Vite 大型 chunk 提示仍在。1440×1000／390×900 六工作區檢查無 console 警告／錯誤、破圖或頁面橫向溢出；1101／1100px 斷點檢查通過。已檢查來源／模型／解析度切換、胸上 4:5 鎖定、unsupported 停用提示、API Keys 開關與 Escape、本地示範圖預覽／放大；未提交付費生成。截圖 `/tmp/dll-ui-before-1440.png`、`/tmp/dll-ui-after-1440.png`、`/tmp/dll-ui-after-390.png`。本機服務保留供使用者繼續調整。
+- 使用者於 2026-10-05 授權本批 commit／push，前端採 main 既有 GitHub Pages 流程發布；Git 與正式網站交付狀態以實際遠端核對為準。原未追蹤參考圖資料夾保留，本次未修改或部署後端 Functions。
+
 ## Comfy Cloud：新帳號已授權、兩模型真實 1K 驗收通過 (2026-10-05)
 
 - 使用者授權加入 `nailai7981.ai@gmail.com` 的生圖／下載權限，保留 `cooperfu.615@gmail.com`。已部署 `comfyCloudSubmit`、`comfyCloudStatus`、下載 fallback `magnificDownloadImage` 至 `virtualphotographystudio/us-central1`；Comfy Functions 綁定 `COMFY_CLOUD_API_KEY` version 1，未讀取 Secret 值。沒有部署舊供應商生圖 Functions 或更改收藏 rules。
