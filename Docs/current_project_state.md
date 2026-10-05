@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-05
 
+## DLL：Comfy Cloud 剩餘額度與估算 (local, 2026-10-05)
+
+- 核准實作剩餘 Credits、依目前模型／解析度／比例的預估張數、重新整理與更新時間；只在 Comfy 模型顯示。失敗保留舊值，切換帳號／設定清除舊狀態，至少三筆同工作流成功樣本才估算。詳見 [額度規格](specs/comfy-cloud-quota-v1.md)。
+- 新增唯讀 `comfyCloudQuota`，沿用既有 Secret／allowlist；查詢帳號餘額與目前 uid 的 DLL 歷史，不改生成、Prompt、storage 或收藏契約。30 秒快取；官方當日換算為 USD 1 = 211 Credits，執行時間每秒 0.266 Credits，估算不等同實際扣款。
+- 前端完整 1272/1272、Functions 54/54、雙端 lint、前端 build 與 focused checks 通過；桌面 1440×1000／手機 390×900 五工作區及模擬刷新／錯誤／登入狀態驗證完成。真實 adapter 唯讀餘額約 4,154 與 Cloud GUI 相符；已知兩模型 1K／9:16 各一筆有效樣本，不足三筆，因此無張數估算。未新增付費生成。
+- 使用者授權後已部署 `comfyCloudQuota` 至 `virtualphotographystudio/us-central1`，revision `comfycloudquota-00001-len`、Secret version 1。localhost 以 Nailai 帳號登入，Z／Qwen 1K、9:16 均讀回 4,154 Credits，樣本不足提示與手動刷新通過；完整 callable＋Firestore 路徑已驗證。部署後曾短暫出現 Cloud Run 憑證驗證拒絕，重試後恢復；唯讀核對 IAM 與既有 status 服務相同，沒有修改權限或宣稱根因已確定。
+- 真實畫面 1440×1000／390×900 檢查通過，console 無錯誤／警告、手機無橫向溢出；截圖 `/tmp/dll-quota-live-1440.png`、`/tmp/dll-quota-live-390.png`。使用者已授權本批 commit/push；正式 Pages 發布狀態以推送後 Actions 為準。本機已登入預覽保留，viewport 已重設。CLI 提示 Node.js 20 將於 2026-10-30 停止部署支援，另有 firebase-functions 版本更新提示，本次未升級依賴。
+
 ## DLL：依介面標註精簡控制區 (2026-10-05)
 
 - 使用者授權八項瀏覽器標註調整：移除可見說明、Key 狀態及 Prompt 來源／模型／比例／張數四個標題，保留選單與輔助閱讀名稱；各工作區 description 保留為區域的輔助閱讀描述。API Keys 視窗及既有生成條件不變。模型／解析度或相容性提示改放在「生成圖像」上方，共用 DLL 的四個工作區一致套用。

@@ -35,6 +35,13 @@ export function formatComfyProgress(job) {
   return `Comfy Cloud：${job.status}`;
 }
 
+export async function readComfyQuotaViaFirebase(selection, { session = null } = {}) {
+  const current = session || await getComfySession();
+  return current.call('comfyCloudQuota', {
+    modelKey: selection.modelKey, resolution: selection.resolution, aspectRatio: selection.aspectRatio,
+  });
+}
+
 export async function generateComfyViaFirebase(payload, {
   onProgress = () => {}, resume = false, session = null,
   storage = getBrowserStorage(), sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)),

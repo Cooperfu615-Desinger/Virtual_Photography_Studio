@@ -175,6 +175,33 @@
   overflow-wrap: anywhere;
 }
 
+.dll-pic-quota {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid var(--border-muted);
+  border-radius: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.dll-pic-quota-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.dll-pic-quota-header button { padding: 6px 9px; font-size: 12px; }
+.dll-pic-quota-values { display: grid; gap: 10px; }
+.dll-pic-quota-values > div { display: grid; gap: 3px; font-size: 12px; }
+.dll-pic-quota-values strong { font-size: 14px; font-weight: 600; overflow-wrap: anywhere; }
+.dll-pic-quota p { margin: 0; }
+.dll-pic-quota-error { font-size: 12px; color: var(--text-secondary, #666); overflow-wrap: anywhere; }
+
 .dll-pic-message {
   padding: 9px 10px;
   border-left: 3px solid var(--accent-border);

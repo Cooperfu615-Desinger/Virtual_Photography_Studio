@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import ComfyQuotaPanel from './ComfyQuotaPanel.jsx';
 import {
   DLL_PIC_ASPECT_RATIOS,
   DLL_PIC_STORAGE_KEYS,
@@ -423,6 +424,7 @@ export default function DllPicProPanel({
         <span className="dll-pic-model-note">
           {modelCompatibilityNote || activeModelNote || '此 provider 尚未接入生圖'}
         </span>
+        {activeModel.provider === 'comfyCloud' && <ComfyQuotaPanel modelKey={activeModel.comfyModel} resolution={activeResolution} aspectRatio={aspectRatio} refreshToken={images} />}
         <button className="primary-copy-btn dll-pic-generate-btn" type="button" onClick={handleGenerate} disabled={!canGenerate}>
           {isGenerating ? '生成中...' : '生成圖像'}
         </button>

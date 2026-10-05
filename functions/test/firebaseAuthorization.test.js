@@ -7,8 +7,8 @@ process.env.COMFY_CLOUD_API_KEY = 'authorization-test-fixture';
 process.env.FIREBASE_CONFIG = JSON.stringify({ projectId: 'authorization-test-project' });
 const { initializeApp, getApps } = require('firebase-admin/app');
 initializeApp({ projectId: 'authorization-test-project' }, 'token-verification-test-app');
-const { comfyCloudSubmit, comfyCloudStatus, magnificDownloadImage } = require('../index');
-const handlers = [comfyCloudSubmit, comfyCloudStatus, magnificDownloadImage];
+const { comfyCloudSubmit, comfyCloudStatus, comfyCloudQuota, magnificDownloadImage } = require('../index');
+const handlers = [comfyCloudSubmit, comfyCloudStatus, comfyCloudQuota, magnificDownloadImage];
 const request = (email) => ({ auth: { uid: 'authorization-test-user', token: { email } }, data: {} });
 
 test.beforeEach(() => { delete process.env.ALLOWED_FIREBASE_EMAILS; });
@@ -18,6 +18,8 @@ async function assertAllowed(email) {
     await assert.rejects(handler.run(request(email)), (error) => (
       handler === magnificDownloadImage
         ? error.code === 'invalid-argument' && error.message === '請提供要下載的圖片網址'
+        : handler === comfyCloudQuota
+          ? error.code === 'failed-precondition' && error.message === 'Comfy Cloud 額度查詢失敗，請稍後重新整理'
         : error.code === 'failed-precondition' && error.message === '無效的任務識別碼'
     ));
   }

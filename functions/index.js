@@ -19,6 +19,8 @@ const comfyCloudApiKey = defineSecret('COMFY_CLOUD_API_KEY');
 const { getApps, initializeApp } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 const { submitComfyJob, readComfyJob } = require('./src/comfyCloud');
+const { createQuotaReader } = require('./src/comfyQuota');
+const readQuota = createQuotaReader();
 const DEFAULT_ALLOWED_EMAILS = 'cooperfu.615@gmail.com,nailai7981.ai@gmail.com';
 const MAGNIFIC_API_BASE_URL = 'https://api.magnific.com';
 
@@ -63,6 +65,7 @@ function comfyStore(uid) {
     }),
     get: async (id) => (await collection.doc(id).get()).data(),
     update: (id, record) => collection.doc(id).update(record),
+    listRecent: async () => (await collection.orderBy('createdAt', 'desc').limit(50).get()).docs.map(doc => doc.data()),
   };
 }
 
@@ -81,6 +84,20 @@ for (const [name, operation] of [['comfyCloudSubmit', submitComfyJob], ['comfyCl
     }
   });
 }
+
+exports.comfyCloudQuota = onCall({
+  region: 'us-central1', secrets: [comfyCloudApiKey], timeoutSeconds: 60,
+  memory: '256MiB', maxInstances: 2,
+}, async (request) => {
+  assertAllowedUser(request, 'Comfy Cloud');
+  if (!comfyCloudApiKey.value()) throw new HttpsError('failed-precondition', 'Comfy Cloud API Key 尚未設定');
+  try {
+    return await readQuota({ uid: request.auth.uid, apiKey: comfyCloudApiKey.value(),
+      payload: request.data || {}, listRecords: () => comfyStore(request.auth.uid).listRecent() });
+  } catch {
+    throw new HttpsError('failed-precondition', 'Comfy Cloud 額度查詢失敗，請稍後重新整理');
+  }
+});
 
 exports.magnificGenerateClassic = onCall({
   region: 'us-central1',
