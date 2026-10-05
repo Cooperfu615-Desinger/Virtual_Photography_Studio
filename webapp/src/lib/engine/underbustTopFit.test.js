@@ -12,7 +12,7 @@ const option = (key, zh) => {
   return value;
 };
 const names = ['短版緊身', '短版合身'];
-const excluded = ['比基尼上身', '蕾絲胸罩', '運動型內衣', 'X形胸貼', '小三角細繩比基尼上身'];
+const excluded = ['比基尼上身', '蕾絲胸罩', '運動型內衣', 'X形胸貼', '小三角細繩比基尼上身', '創可貼造型胸貼'];
 function locksFor(values = {}) {
   const locks = { ...createEmptyLocks(), subjectCount: '1' };
   for (const c of controls) {

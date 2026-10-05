@@ -80,7 +80,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.42.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.43.0';
 
 export const UNDERBUST_TOP_FIT_CONTRACT = deepFreeze({
   scope: 'two appended manual single-choice fits for eligible independent tops',
@@ -101,9 +101,10 @@ export const OUTERWEAR_STYLING_CONTRACT = deepFreeze({
 });
 
 export const MINIMAL_COVERAGE_WARDROBE_CONTRACT = deepFreeze({
-  scope: 'four reviewed independent pasties/lace-bottom/string-bikini pieces only',
+  scope: 'five reviewed independent pasties/lace-bottom/string-bikini pieces only',
   source: 'selected garment English description after shared wardrobe visibility projection',
   upperFit: 'X-shaped adhesive pasties retain two separate crossed-strip patches and smooth opaque fabric; no cups, shoulder straps or underband',
+  bandagePasties: 'two separate patches, one short horizontal opaque rounded-rectangle strip per breast; retain central pad, perforated ends and slightly varied casual placement angles',
   bikiniFabric: 'string bikini retains the reviewed ultra-minimal fabric source and slender ties; no cup/support supplement',
   bikiniBottomFabric: 'ultra-minimal smooth swim fabric forms a tiny low-rise triangular front panel; retain high-cut openings, thong back and authored hip-tie fit',
   lowerFit: 'taut slender hip ties with visible shallow indentations',

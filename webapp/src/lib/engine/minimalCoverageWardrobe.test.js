@@ -46,7 +46,7 @@ test('new pieces append to existing single and duo catalogs without changing pri
     for (const suffix of ['', 'A', 'B']) {
       const current = controls.find(c => c.key === key.replace('Id', `${suffix}Id`)).options.map(o => o.id);
       assert.deepEqual(current.slice(0, before.length), before);
-      assert.equal(current.length, before.length + 2);
+      assert.equal(current.length, before.length + (key === 'topId' ? 3 : 2));
     }
   }
 });

@@ -15,6 +15,19 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 });
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
+  {
+    id: 'bandage-pasties', title: 'Bandage-shaped pasties retain paired horizontal patches and casual placement',
+    mode: 'single', seed: 'bandage-pasties-v1',
+    locks: { subjectCount: '1', framingId: { byZh: '牛仔中景 (Cowboy Shot)' },
+      topId: { byZh: '創可貼造型胸貼' }, pantsId: { byZh: '直筒牛仔褲' },
+      skirtId: { byZh: '全無' }, specialOutfitId: { byZh: '全無' },
+      outfitPresetId: { byZh: '全無' }, dressId: { byZh: '全無' }, outerwearId: { byZh: '全無' } },
+    expectedOutputs: Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt', 'fullBodyCharacterPrompt']
+      .map(field => [field, {
+        includes: ['two separate bandage-shaped adhesive pasties, one short horizontal rounded-rectangle strip of smooth opaque fabric centered on each breast, with a central pad detail, finely perforated ends, and slightly varied casual placement angles'],
+        excludes: ['two short crossed strips', 'top length meets or slightly overlaps'],
+      }])),
+  },
   ...[
     ['tight', '長版襯衫', '短版緊身', 'underbust-cropped tight fit, hem ending just below the bust'],
     ['fitted', '短版帽T', '短版合身', 'underbust-cropped fitted cut, hem ending just below the bust'],

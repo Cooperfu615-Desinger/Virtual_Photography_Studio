@@ -49,6 +49,7 @@ const EXPECTED_TOP_LABELS = [
   '長袖水手服',
   'X形胸貼',
   '小三角細繩比基尼上身',
+  '創可貼造型胸貼',
 ];
 
 const controlOptions = (key) => getLockControls().find((control) => control.key === key).options;
