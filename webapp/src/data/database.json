@@ -2433,8 +2433,11 @@
       },
       {
         "zh": "創可貼造型胸貼",
-        "en": "two separate bandage-shaped adhesive pasties, one short horizontal rounded-rectangle strip of smooth opaque fabric centered on each breast, with a central pad detail, finely perforated ends, and slightly varied casual placement angles",
-        "desc": "兩枚獨立創可貼造型胸貼，左右胸部各一枚橫向單條；短圓角長方形平滑不透明布料，中央墊片與兩端細小孔洞，貼附角度略有自然差異，不要求僵硬對稱。"
+        "en": "two small finger-bandage-sized adhesive strips, each approximately 4 cm long and 1 cm wide, one horizontal strip centered on each breast, two strips total, thin flexible opaque fabric lying flush against the skin, rounded ends, subtle pad and perforation details, slightly varied natural placement angles",
+        "desc": "手指用創可貼尺寸的細長貼片，每枚約長 4 公分、寬 1 公分，左右胸部中央各一枚橫向單條，總共兩枚；薄而柔軟的不透明布料平貼肌膚，圓角兩端，低調墊片與細孔，貼附角度略有自然差異。",
+        "legacyPromptAliases": [
+          "two separate bandage-shaped adhesive pasties, one short horizontal rounded-rectangle strip of smooth opaque fabric centered on each breast, with a central pad detail, finely perforated ends, and slightly varied casual placement angles"
+        ]
       }
     ],
     "上身圖案 (Top Surface Design)": [

@@ -10,7 +10,8 @@ import { isMinimalCoverageGarmentSource, isMinimalCoverageTop } from './minimalC
 const controls = getLockControls();
 const name = '創可貼造型胸貼';
 const id = 'wardrobe:上身-tops:創可貼造型胸貼:45';
-const source = 'two separate bandage-shaped adhesive pasties, one short horizontal rounded-rectangle strip of smooth opaque fabric centered on each breast, with a central pad detail, finely perforated ends, and slightly varied casual placement angles';
+const legacySource = 'two separate bandage-shaped adhesive pasties, one short horizontal rounded-rectangle strip of smooth opaque fabric centered on each breast, with a central pad detail, finely perforated ends, and slightly varied casual placement angles';
+const source = 'two small finger-bandage-sized adhesive strips, each approximately 4 cm long and 1 cm wide, one horizontal strip centered on each breast, two strips total, thin flexible opaque fabric lying flush against the skin, rounded ends, subtle pad and perforation details, slightly varied natural placement angles';
 const option = (key, zh) => {
   const value = controls.find(c => c.key === key)?.options.find(o => o.zh === zh);
   assert.ok(value, `${key}/${zh}`);
@@ -47,6 +48,7 @@ test('bandage pasties append one independent option to single and duo catalogs w
   }
   assert.equal(isMinimalCoverageTop(option('topId', name)), true);
   assert.equal(isMinimalCoverageGarmentSource(source), true);
+  assert.ok(option('topId', name).meta.legacyPromptAliases.includes(legacySource));
   assert.equal(isMinimalCoverageGarmentSource('adhesive fashion top with bandage-inspired print'), false);
 });
 
@@ -125,13 +127,21 @@ test('Saved Cards and standard prose restore the new top without colliding with 
     assert.equal(occurrences(text), 1);
     assert.match(text, /black/i);
   }
-  for (const text of [p.grokPrompt, `Wardrobe: ${source}.`]) {
+  for (const text of [p.grokPrompt, `Wardrobe: ${source}.`, `Wardrobe: ${legacySource}.`]) {
     const imported = parseLocksFromStandardPrompt(text, controls).locks;
     assert.equal(imported.topId, id);
     for (const prompt of all(generate(imported))) assert.equal(occurrences(prompt), 1);
   }
   const x = option('topId', 'X形胸貼');
   assert.equal(parseLocksFromStandardPrompt(`Wardrobe: ${x.en}.`, controls).locks.topId, x.id);
+  const historical = { ...p, grokPrompt: p.grokPrompt.replace(source, legacySource) };
+  const historicalRestored = deserializeFavoritePrompt(serializeFavoritePrompt(historical));
+  assert.equal(historicalRestored.grokPrompt, historical.grokPrompt);
+  assert.equal(historicalRestored.selection.topId, id);
+  for (const text of all(generate(normalizeLocks(historicalRestored.selection)))) {
+    assert.equal(occurrences(text), 1);
+    assert.ok(!text.includes(legacySource));
+  }
 });
 
 test('closed opaque outerwear and complete presets retain existing top precedence', () => {

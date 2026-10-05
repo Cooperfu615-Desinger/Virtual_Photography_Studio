@@ -227,6 +227,11 @@
           "small-triangle string bikini top, small sliding triangle cups, slender halter and back ties, smooth stretch swim fabric, closely fitted cups, soft bust fullness extending slightly above and around the cup edges"
         ]
       },
+      "創可貼造型胸貼": {
+        "legacyPromptAliases": [
+          "two separate bandage-shaped adhesive pasties, one short horizontal rounded-rectangle strip of smooth opaque fabric centered on each breast, with a central pad detail, finely perforated ends, and slightly varied casual placement angles"
+        ]
+      },
       "X形胸貼": {
         "stableId": "wardrobe:上身-tops:小罩杯細帶蕾絲胸罩:43",
         "legacyLabels": [

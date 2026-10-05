@@ -2,7 +2,15 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-05
+Last updated: 2026-10-06
+
+## 創可貼造型胸貼：手指尺寸與兩枚限定 (local, 2026-10-06)
+
+- 已依使用者實測回饋原位修訂為手指用創可貼尺寸，每枚約 4 × 1 公分、每側一枚橫向單條、總共兩枚；薄柔不透明布料平貼肌膚，墊片／細孔降為低調細節，保留自然角度差異。UI 名稱、ID `wardrobe:上身-tops:創可貼造型胸貼:45`、順序、配色、圖案與隨機池不變。Public output contract `1.45.0`，見 [創可貼造型胸貼規格](specs/bandage-pasties-v1.md)。
+- 六組可見輸出完整保留新版來源，衣襬及短版不適用規則不變；精確來源判斷只涵蓋該款新舊身份。舊完整英文加入 `legacyPromptAliases`，舊文字仍可回填，歷史收藏原文不批次改寫，還原後生成採新來源。未修改其他單品、GPT 結構、模型組裝或 storage schema。
+- 已通過專項 8/8、完整 frontend 1323/1323、Prompt Quality 572/572、225 組既有上身／景別 selection 及六輸出雜湊不變、lint/build、資料同步／check、Python 2/2、206 個公開資產及 diff-check；同 seed `200 / prompt-quality-baseline` strict 前後報告相同，blocking 0、28 項既有 diagnostics。既有 Vite 大型 chunk 提示未處理，本次不擴大重構。
+- 瀏覽器 1440×1000／390×900 已驗證選項、六組新來源與複製，以及五工作區完成載入後的版面；無 console warning/error、破圖或頁面橫向溢出。獨立 5177 舊測試卡原文仍為初版，桌面／手機還原後六組採新版；舊完整英文回填亦通過。正常 5175 原設定與六預覽逐字還原、9 張收藏保留，5177 原六預覽亦還原、1 張測試卡未增刪。剪貼簿及 viewport 還原，臨時分頁與兩個測試服務已關閉。截圖 `/tmp/vps-bandage-small-desktop.png`、`/tmp/vps-bandage-small-mobile.png`。
+- 使用者已於 2026-10-06 授權本批 commit／push，交付狀態以 Git 遠端核對為準；未手動部署，保留原未追蹤參考資料夾。未呼叫外部圖像模型，尺寸與數量的實際圖像效果待使用者實測。
 
 ## adidas 三線外套與長褲 (local, 2026-10-05)
 

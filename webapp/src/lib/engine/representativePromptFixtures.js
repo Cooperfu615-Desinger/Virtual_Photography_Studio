@@ -41,7 +41,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       outfitPresetId: { byZh: '全無' }, dressId: { byZh: '全無' }, outerwearId: { byZh: '全無' } },
     expectedOutputs: Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt', 'fullBodyCharacterPrompt']
       .map(field => [field, {
-        includes: ['two separate bandage-shaped adhesive pasties, one short horizontal rounded-rectangle strip of smooth opaque fabric centered on each breast, with a central pad detail, finely perforated ends, and slightly varied casual placement angles'],
+        includes: ['two small finger-bandage-sized adhesive strips, each approximately 4 cm long and 1 cm wide, one horizontal strip centered on each breast, two strips total, thin flexible opaque fabric lying flush against the skin, rounded ends, subtle pad and perforation details, slightly varied natural placement angles'],
         excludes: ['two short crossed strips', 'top length meets or slightly overlaps'],
       }])),
   },
