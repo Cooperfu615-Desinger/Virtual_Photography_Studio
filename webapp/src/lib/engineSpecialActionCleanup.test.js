@@ -117,7 +117,8 @@ test('prop actions split from pose composer hand controls while wardrobe actions
 
   assert.doesNotMatch(optionByLabel('posePropId', '手持冰咖啡').en, /lips|mid-sip|near the lips/i);
   assert.doesNotMatch(optionByLabel('posePropId', '手持香菸').en, /lips|near the lips/i);
-  assert.doesNotMatch(optionByLabel('posePropId', '手持波板糖').en, /biting|lips/i);
+  assert.match(optionByLabel('posePropId', '手持波板糖').en, /just in front of her lips, partially covering her mouth/i);
+  assert.doesNotMatch(optionByLabel('posePropId', '手持波板糖').en, /biting|between her lips/i);
 });
 
 test('old special actions normalize into pose composer controls', () => {

@@ -15,6 +15,20 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 });
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
+  {
+    id: 'whirly-lollipop-mouth', title: 'Whirly lollipop stays in front of the mouth in the shared visible pose',
+    mode: 'single', seed: 'whirly-lollipop-mouth-v1',
+    locks: { subjectCount: '1', poseBaseId: 'standing', poseArrangementId: 'standing-natural',
+      posePropId: 'hand-hold-whirly-lollipop', poseHandId: 'none', poseHeadId: 'none', poseAnchorId: 'none',
+      framingId: { byZh: '牛仔中景 (Cowboy Shot)' } },
+    expectedOutputs: {
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map(field => [field, {
+        includes: ['an oversized colorful swirl lollipop held by the stick in one hand, its flat round candy disc positioned just in front of her lips, partially covering her mouth while leaving her nose and eyes visible'],
+        excludes: ['cute cheerful prop detail'],
+      }])),
+      fullBodyCharacterPrompt: { excludes: ['lollipop', 'candy disc'] },
+    },
+  },
   ...[
     ['pasties', 'X形胸貼', '窄前片細繩蕾絲丁字褲', 'two separate X-shaped adhesive pasties', 'narrow-front lace G-string bottoms', 'each formed from two short crossed strips of smooth opaque fabric, no cups, shoulder straps, or underband', 'low-rise narrow triangular lace front panel'],
     ['bikini', '小三角細繩比基尼上身', '窄前片細繩比基尼下身', 'string bikini top with ultra-minimal fabric', 'narrow-front string thong bikini bottoms', 'ultra-minimal fabric covering only the nipples, leaving most of the breasts exposed, smooth swim fabric, and long slender halter and back ties', 'ultra-minimal smooth swim fabric forming a tiny low-rise triangular front panel'],

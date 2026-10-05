@@ -470,7 +470,7 @@ Pose Composer `手部動作` / `道具動作` 規則：
 - 服裝／配件條件由手部 option metadata 與 shared random compatibility resolver 同步執行：服裝整理與上拉需有明確選定的上衣、洋裝、外套、套裝或特殊穿搭；褲頭／褲袋需有褲或裙，外套口袋需有外套，眼鏡互動需有眼鏡。胸前遮擋手勢不依賴上身服裝。只有 required role 明確解析為 `present` 時才可進入隨機池，`absent`、`unknown` 或隨機尚未解析都會排除，以免公開 prompt 虛構不存在的服裝／配件。這只限制隨機候選，不覆寫使用者明確手勢 lock。
 - 胸上、腰上、牛仔中景與全身／固定構圖使用同一份 `visibleBuckets` metadata 投影；臉部接觸與眼鏡互動的隨機候選會避開背面／後三分之四與鳥瞰角度。
 - 其餘下身接觸、遮臉、舊扶眼鏡、抓褲腰等低泛用手勢保留為 `uiHidden: true`、`randomEligible: false` 的退役解析項，供既有 restore／parser 使用但不再出現在新 UI 或隨機池。三個自拍 ID 已恢復為公開手動選項，不再屬於 `uiHidden` 退役池。
-- 手持道具類應描述手上有什麼，不要不必要地綁死道具位置。例如 `手持冰咖啡`、`手持香菸`、`手持波板糖` 由模型依姿勢與構圖自然決定位置。
+- 手持道具類應描述手上有什麼，不要不必要地綁死道具位置。例如 `手持冰咖啡`、`手持香菸` 由模型依姿勢與構圖自然決定位置。使用者核准的 `手持波板糖` 是指定位置的例外：單手握糖棒，扁平圓形糖面放在嘴唇正前方、部分遮嘴，鼻眼保持可見；不指定左右手，不加入咬糖或含糖。沿用 `hand-hold-whirly-lollipop` ID，舊完整英文保留為 `legacyPromptAliases`；`face_action` 使背面／後三分之四的隨機候選排除這項，明確手動選擇仍保留。支援的主輸出與胸上衍生沿用同一 canonical pose，頭肩及更緊裁切省略動作文字但保留選擇，全身角色參考仍為自然站姿。詳見 [嘴前波板糖規格](whirly-lollipop-mouth-v1.md)。
 - 若手部 / 道具動作需要更寬構圖，應保留相容性 tags，例如 `prop_action`、`face_action`、`eyewear_action`、`wardrobe_action`、`leg_focus_action`。
 
 Pose Composer `接觸 / 支撐` legacy policy：

@@ -3,6 +3,7 @@ import { test } from 'node:test';
 
 import {
   createEmptyLocks,
+  createSeededRandom,
   generatePrompts,
   getLockControls,
   getSceneDependentOptions,
@@ -10,10 +11,12 @@ import {
 } from './engine.js';
 import { buildPage1ControlGroups } from '../features/page1/page1Selectors.js';
 import { poseComposerOptionVisibleForBase } from './engine/poseComposerCompatibility.js';
+import { deserializeFavoritePrompt, parseLocksFromStandardPrompt, serializeFavoritePrompt } from '../features/saved-cards/cardCodec.js';
 
 const LIPSTICK_PROMPT = 'one hand applying lipstick directly to the lips with visible hand-to-mouth contact, with the finish varying naturally between clean application and a slightly smudged lip line';
 const FUJI_CAMERA_PROMPT = 'a silver-and-black FUJIFILM X100V camera raised directly in front of her face, her right eye looking through the viewfinder, her right hand gripping the camera with her index finger poised on the shutter button, captured in the act of taking a photograph';
-const WHIRLY_LOLLIPOP_PROMPT = 'an oversized colorful whirly pop swirl lollipop with a large playful candy head, held naturally in one hand, cute cheerful prop detail';
+const WHIRLY_LOLLIPOP_PROMPT = 'an oversized colorful swirl lollipop held by the stick in one hand, its flat round candy disc positioned just in front of her lips, partially covering her mouth while leaving her nose and eyes visible';
+const LEGACY_WHIRLY_LOLLIPOP_PROMPT = 'an oversized colorful whirly pop swirl lollipop with a large playful candy head, held naturally in one hand, cute cheerful prop detail';
 const ROUND_LOLLIPOP_PROMPT = 'a round lollipop held between her lips, the white stick extending outward with her right hand gripping the far end, cute playful pose';
 
 function control(key) {
@@ -32,6 +35,23 @@ function option(controlKey, matcher) {
 
 function canonicalPose(prompt) {
   return prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
+}
+
+function whirlyPrompt(overrides = {}) {
+  const locks = createEmptyLocks();
+  for (const entry of getLockControls()) {
+    const none = entry.options.find(item => item.zh === '全無');
+    if (none) locks[entry.key] = none.id;
+  }
+  return generatePrompts(1, {
+    ...locks,
+    subjectCount: '1',
+    poseBaseId: 'standing',
+    poseArrangementId: 'standing-natural',
+    posePropId: 'hand-hold-whirly-lollipop',
+    framingId: option('framingId', '牛仔中景 (Cowboy Shot)').id,
+    ...overrides,
+  }, [], { random: createSeededRandom('whirly-lollipop-mouth-v1') })[0];
 }
 
 test('Pose Composer exposes prop actions separately from hand actions', () => {
@@ -201,6 +221,69 @@ test('round lollipop prop keeps the mouth contact and right-hand grip in the can
   assert.equal(pose.split(ROUND_LOLLIPOP_PROMPT).length - 1, 1);
   assert.ok(prompt.zImagePrompt.includes(pose));
   assert.ok(prompt.midjourneyPrompt.includes(pose));
+});
+
+test('whirly lollipop mouth placement is shared once by main and chest outputs in visible crops', () => {
+  for (const base of ['standing', 'sitting']) {
+    for (const framing of ['胸上特寫', '中景鏡頭 (Medium Shot)', '牛仔中景 (Cowboy Shot)', '全身鏡頭 (Full Body Shot)']) {
+      const prompt = whirlyPrompt({
+        poseBaseId: base,
+        poseArrangementId: `${base}-natural`,
+        poseHandId: 'hands-behind-head',
+        framingId: option('framingId', framing).id,
+      });
+      const main = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt];
+      const chest = prompt.extraPrompts.filter(item => item.id.includes('chest')).map(item => item.text);
+      assert.equal(prompt.selection.poseHandId, 'none');
+      assert.equal(prompt.selection.posePropId, 'hand-hold-whirly-lollipop');
+      for (const text of [...main, ...chest]) {
+        assert.equal(text.split(WHIRLY_LOLLIPOP_PROMPT).length - 1, 1, `${base}/${framing}`);
+        assert.ok(!text.includes(LEGACY_WHIRLY_LOLLIPOP_PROMPT));
+      }
+      const pose = canonicalPose(prompt);
+      assert.ok(prompt.zImagePrompt.includes(pose));
+      assert.ok(prompt.midjourneyPrompt.includes(pose));
+      assert.doesNotMatch(prompt.extraPrompts.find(item => item.id === 'full-body-character').text, /lollipop|candy disc/i);
+    }
+  }
+});
+
+test('tight face crops omit the lollipop action while preserving the selected prop and chest re-projection', () => {
+  for (const framing of ['局部五官特寫', '臉部特寫', '特寫鏡頭 (Close-Up)']) {
+    const prompt = whirlyPrompt({ framingId: option('framingId', framing).id });
+    assert.equal(prompt.selection.posePropId, 'hand-hold-whirly-lollipop');
+    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) assert.doesNotMatch(text, /lollipop/i);
+    for (const item of prompt.extraPrompts.filter(item => item.id.includes('chest'))) {
+      assert.equal(item.text.split(WHIRLY_LOLLIPOP_PROMPT).length - 1, 1);
+    }
+  }
+});
+
+test('whirly lollipop keeps its legacy English imports and stored Saved Card text', () => {
+  const prop = option('posePropId', '手持波板糖');
+  assert.equal(prop.id, 'hand-hold-whirly-lollipop');
+  assert.equal(prop.en.split(/\s+/).length, 35);
+  assert.ok(prop.meta.legacyPromptAliases.includes(LEGACY_WHIRLY_LOLLIPOP_PROMPT));
+  for (const source of [LEGACY_WHIRLY_LOLLIPOP_PROMPT, WHIRLY_LOLLIPOP_PROMPT]) {
+    const { locks } = parseLocksFromStandardPrompt(`Pose and Composition:\nShe has ${source}.`, getLockControls());
+    assert.equal(locks.posePropId, prop.id);
+    assert.ok(whirlyPrompt(locks).grokPrompt.includes(WHIRLY_LOLLIPOP_PROMPT));
+  }
+  const historical = { ...whirlyPrompt(), grokPrompt: `Pose and Composition:\nShe has ${LEGACY_WHIRLY_LOLLIPOP_PROMPT}.` };
+  const restored = deserializeFavoritePrompt(serializeFavoritePrompt(historical));
+  assert.equal(restored.grokPrompt, historical.grokPrompt);
+  assert.equal(restored.selection.posePropId, prop.id);
+  assert.ok(whirlyPrompt(normalizeLocks(restored.selection)).grokPrompt.includes(WHIRLY_LOLLIPOP_PROMPT));
+});
+
+test('explicit rear-view lollipop selection stays manual while the face-action tag constrains only randomness', () => {
+  const orbit = option('orbitId', item => item.meta?.tags?.includes('back_view'));
+  const prompt = whirlyPrompt({ orbitId: orbit.id });
+  assert.equal(prompt.selection.orbitId, orbit.id);
+  assert.equal(prompt.selection.posePropId, 'hand-hold-whirly-lollipop');
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    assert.equal(text.split(WHIRLY_LOLLIPOP_PROMPT).length - 1, 1);
+  }
 });
 
 test('manual sitting objects are public while generic relationship anchors stay restorable', () => {

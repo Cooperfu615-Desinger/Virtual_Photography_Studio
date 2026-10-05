@@ -80,7 +80,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.39.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.40.0';
 
 export const MINIMAL_COVERAGE_WARDROBE_CONTRACT = deepFreeze({
   scope: 'four reviewed independent pasties/lace-bottom/string-bikini pieces only',

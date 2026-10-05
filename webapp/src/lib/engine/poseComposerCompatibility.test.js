@@ -7,6 +7,7 @@ import {
   POSE_COMPOSER_ARRANGEMENT_OPTIONS,
   POSE_COMPOSER_HAND_OPTIONS,
   POSE_COMPOSER_HEAD_OPTIONS,
+  POSE_COMPOSER_PROP_OPTIONS,
 } from './poseComposerOptions.js';
 import {
   createPoseComposerCompatibilityContext,
@@ -69,6 +70,15 @@ test('random head and facial prop choices avoid aerial and rear-view conflicts',
   assert.equal(poseComposerPropSupportsRandomContext(option('hand-hold-fuji-x100v', ['prop_action', 'face_action']), rear), false);
   assert.equal(poseComposerPropSupportsRandomContext(option('hand-hold-round-lollipop-mouth', ['prop_action', 'face_action']), rear), false);
   assert.equal(poseComposerPropSupportsRandomContext(option('hand-hold-iced-coffee', ['prop_action']), rear), true);
+});
+
+test('authored whirly lollipop mouth action is eligible in front and excluded from rear random views', () => {
+  const prop = POSE_COMPOSER_PROP_OPTIONS.find(item => item.id === 'hand-hold-whirly-lollipop');
+  assert.deepEqual(prop.meta.tags, ['prop_action', 'face_action']);
+  for (const tags of [['back_view'], ['rear_three_quarter']]) {
+    assert.equal(poseComposerPropSupportsRandomContext(prop, createPoseComposerCompatibilityContext({ orbit: option('rear', tags) })), false);
+  }
+  assert.equal(poseComposerPropSupportsRandomContext(prop, createPoseComposerCompatibilityContext({ orbit: option('front', ['front_view']) })), true);
 });
 
 test('random lower-body hand placements are excluded from upper crops', () => {

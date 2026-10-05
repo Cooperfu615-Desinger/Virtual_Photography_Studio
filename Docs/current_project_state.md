@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-05
 
+## 手持波板糖：嘴前部分遮嘴 (local, 2026-10-05)
+
+- 使用者核准將「手持波板糖」改成單手握糖棒，將大型彩色旋紋波板糖的扁平圓盤放在嘴唇正前方、部分遮嘴，鼻眼保持可見。正式英文 35 個空白分隔詞；不指定左右手，不加入咬糖或含糖。沿用 `hand-hold-whirly-lollipop` ID、名稱與清單位置；來源在 `webapp/src/lib/engine/poseComposerOptions.js`，詳見 [嘴前波板糖規格](specs/whirly-lollipop-mouth-v1.md)。Public output contract `1.40.0`。
+- 舊完整英文保留為 `legacyPromptAliases`，Saved Cards 原文不批次改寫，還原後重新生成採新來源。另項「含著圓形棒棒糖｜右手持棒」與 legacy 知識庫「咬著波板糖」不變。`face_action` 沿用隨機背面／後三分之四排除規則，明確 lock 仍保留。支援的三組主輸出與兩組胸上衍生完整保留同一來源一次；較緊裁切、全身角色參考、固定場景位置接管、四點支撐與仰躺路徑沿用既有範圍。
+- 驗證完成：專項 129/129、完整前端 1278/1278、Prompt Quality 527/527、lint/build 與 diff-check 通過。180 組非目標道具六輸出與 selection、11 個其他道具資料前後完全相同；歷史 Saved Card 原文保留，重新生成採新來源。相同 `200 / prompt-quality-baseline` 嚴格稽核前後相同，blocking signals 0；既有服裝／場景診斷 25 項、22 組未增加，既有 Vite 大型 chunk 提示仍在。
+- 瀏覽器 1440×1000／390×900：新版選項、五組支援輸出各保留來源一次、牛仔中景／緊裁切切換、複製及清除選擇通過；五工作區載入檢查無 console error/warning、破圖或頁面橫向溢出。六組原始預覽逐字還原，工作台原設定與剪貼簿已還原，viewport 已重設、驗證分頁已關閉，既有本機伺服器保留。截圖 `/tmp/vps-lollipop-desktop.png`、`/tmp/vps-lollipop-mobile.png`；稽核與瀏覽器紀錄 `/tmp/vps-lollipop-{before,after}-audit.log`、`/tmp/vps-lollipop-browser-checks.json`。未呼叫外部圖像生成，影像效果由使用者後續實測確認。使用者已於 2026-10-05 授權本批 commit/push，交付狀態以 Git 遠端核對為準。原未追蹤參考資料夾保留。
+
 ## DLL：Comfy Cloud 剩餘額度與估算 (local, 2026-10-05)
 
 - 核准實作剩餘 Credits、依目前模型／解析度／比例的預估張數、重新整理與更新時間；只在 Comfy 模型顯示。失敗保留舊值，切換帳號／設定清除舊狀態，至少三筆同工作流成功樣本才估算。詳見 [額度規格](specs/comfy-cloud-quota-v1.md)。

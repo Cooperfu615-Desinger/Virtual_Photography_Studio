@@ -1099,9 +1099,12 @@ export const POSE_COMPOSER_PROP_OPTIONS = [
   {
     id: 'hand-hold-whirly-lollipop',
     zh: '手持波板糖',
-    en: 'an oversized colorful whirly pop swirl lollipop with a large playful candy head, held naturally in one hand, cute cheerful prop detail',
-    desc: '手上自然拿著尺寸明顯放大的彩色旋轉波板糖，糖果本體更大、更有童趣，呈現可愛活潑的道具感；不綁定嘴部接觸。',
-    meta: { tags: ['prop_action'] },
+    en: 'an oversized colorful swirl lollipop held by the stick in one hand, its flat round candy disc positioned just in front of her lips, partially covering her mouth while leaving her nose and eyes visible',
+    desc: '單手握住糖棒，將大型彩色旋紋波板糖的扁平圓盤舉到嘴唇正前方，遮住部分嘴部，鼻子與眼睛保持可見。',
+    meta: {
+      tags: ['prop_action', 'face_action'],
+      legacyPromptAliases: ['an oversized colorful whirly pop swirl lollipop with a large playful candy head, held naturally in one hand, cute cheerful prop detail'],
+    },
   },
   {
     id: 'hand-hold-round-lollipop-mouth',
