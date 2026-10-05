@@ -1,6 +1,7 @@
 import { buildKneelingSupportControl, isFourPointKneeling } from '../lib/engine/kneelingSupport.js';
 import { prepareAccessoryControl } from '../lib/engine/accessoryPolicy.js';
 import { prepareOuterwearClosureControl } from '../lib/engine/outerwearClosure.js';
+import { prepareUnderbustTopControl } from '../lib/engine/underbustTopFit.js';
 import { fixedSetAllowsLensVariation, isStationFixedSet, stationSubjectFacingText } from '../lib/engine/stationFixedComposition.js';
 import { isCarriageFixedSet, fixedSetAllowsFramingVariation, carriageOrbitAllowed, resolveCarriageOrbit, carriageCameraText } from '../lib/engine/carriageFixedComposition.js';
 import { getFixedScenePosition, fixedScenePoseLocks, FIXED_SCENE_MANAGED_POSE_KEYS } from '../lib/engine/fixedScenePose.js';
@@ -1135,7 +1136,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const renderControlGrid = (controls) => (
     <div className="lock-grid detail-lock-grid">
       {controls.map((rawControl) => {
-        const baseControl = prepareOuterwearClosureControl(prepareAccessoryControl(buildFixedSetControl(buildPoseComposerControl(rawControl)), locks), locks, lockControls);
+        const baseControl = prepareUnderbustTopControl(prepareOuterwearClosureControl(prepareAccessoryControl(buildFixedSetControl(buildPoseComposerControl(rawControl)), locks), locks, lockControls), locks, lockControls);
         const preparedControl = baseControl.key === 'orbitId' && isCarriageFixedSet(selectedFixedCompositionSetOption)
           ? { ...baseControl, label: '相機拍攝方位',
               suppressDefaultRandomOption: selectedFixedCompositionSetOption.orbitMode !== 'camera-position',

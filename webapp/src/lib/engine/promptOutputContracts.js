@@ -80,7 +80,16 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.41.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.42.0';
+
+export const UNDERBUST_TOP_FIT_CONTRACT = deepFreeze({
+  scope: 'two appended manual single-choice fits for eligible independent tops',
+  source: 'reviewed topUnderbust garment source plus shared underbust-tight or underbust-fitted source',
+  resolution: 'same-person garment length and body cut override before rendering; preserved fabric, neckline, sleeves and ornaments',
+  compatibility: 'waist-bound top styles suppressed with raw selection preserved; bras, swimwear and pasties keep their structure',
+  projection: 'retain authored fit when chest is visible; omit off-screen fit in face/shoulder crops, restore full-body source',
+  preservation: 'old IDs, canonical garment English, random pool, complete-look precedence, storage schema and other layers unchanged',
+});
 
 export const OUTERWEAR_STYLING_CONTRACT = deepFreeze({
   scope: 'four appended manual single-choice outerwear styles',

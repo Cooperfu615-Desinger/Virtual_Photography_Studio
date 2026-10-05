@@ -1,5 +1,6 @@
 import { CHARACTER_CARD_LAYER_KEYS, CHARACTER_CARD_LAYER_LABELS } from './characterCardLab.js';
 import { isFullyClosedOpening } from './engine/outerwearClosure.js';
+import { isUnderbustTopFit, isUnderbustIncompatibleStyle, underbustTopConflict, underbustTopControlContext } from './engine/underbustTopFit.js';
 import { isNewOuterwearStyling, outerwearStylingAllowsClosed, outerwearStylingConflict, outerwearStylingControlContext } from './engine/outerwearStyling.js';
 import { getActionPoseCardById } from '../data/actionPoseCards.js';
 import { buildAccessorySummaryEntries } from './accessorySummary.js';
@@ -117,6 +118,15 @@ function isCoveredByOutfitPreset(key, activePresets) {
 }
 
 function getEffectiveWardrobeOptionLabel(controls, locks, key, activePresets) {
+  const topControl = key.match(/^top(?:Fit|Styling)([AB]?)Id$/);
+  if (topControl) {
+    const { top, fit } = underbustTopControlContext(controls, locks, topControl[1]);
+    if (isUnderbustTopFit(fit)) {
+      if (key.startsWith('topFit') && underbustTopConflict(top)) return '';
+      const styling = controls.find(c => c.key === key)?.options.find(o => o.id === locks[key]);
+      if (!underbustTopConflict(top) && key.startsWith('topStyling') && isUnderbustIncompatibleStyle(styling)) return '';
+    }
+  }
   const styling = key.match(/^outerwear([AB]?)StylingId$/);
   if (styling) {
     const item = controls.find(c => c.key === key)?.options.find(o => o.id === locks[key]);

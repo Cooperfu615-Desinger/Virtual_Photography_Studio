@@ -16,6 +16,18 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   ...[
+    ['tight', '長版襯衫', '短版緊身', 'underbust-cropped tight fit, hem ending just below the bust'],
+    ['fitted', '短版帽T', '短版合身', 'underbust-cropped fitted cut, hem ending just below the bust'],
+  ].map(([id, top, fit, source]) => ({
+    id: `underbust-top-${id}`, title: 'Reviewed short top keeps one underbust length across six outputs',
+    mode: 'single', seed: 'underbust-top-v1',
+    locks: { subjectCount: '1', framingId: { byZh: '牛仔中景 (Cowboy Shot)' },
+      topId: { byZh: top }, topFitId: { byZh: fit }, topStylingId: { byZh: '自然放出' },
+      pantsId: { byZh: '直筒牛仔褲' }, outerwearId: { byZh: '全無' } },
+    expectedOutputs: Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt', 'fullBodyCharacterPrompt']
+      .map(field => [field, { includes: [source, 'top hem hanging naturally just below the bust'], excludes: ['extended shirttail hem', 'cinched waist hem', 'top length meets'] }])),
+  })),
+  ...[
     ['hem', '衣襬遮住部分下身', 'its hem draping naturally over the waistband and upper portion of the lower garment, partially concealing it', false],
     ['drape-both', '披在雙肩（不穿袖）', 'draped over both shoulders, both arms outside the sleeves, with the empty sleeves hanging naturally', true],
     ['drape-one', '披在單肩（不穿袖）', 'draped over one shoulder, both arms outside the sleeves, with the garment and empty sleeves hanging to that side', true],

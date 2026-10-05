@@ -2,6 +2,7 @@ import { DEFAULT_KNEELING_SUPPORT_HAND_ID, isFourPointKneeling, isKneelingSuppor
 import { ACCESSORY_CATEGORIES, accessoryNoneId, isConcreteAccessory, isHeadWornAudio, blocksHeadWornAudio, splitAccessoryCatalog, migrateAccessoryLocks, normalizeAccessoryConflicts, projectAudioForFraming } from './engine/accessoryPolicy.js';
 import database from '../data/database.json' with { type: 'json' };
 import { isMinimalCoverageGarmentSource, isMinimalCoverageTop } from './engine/minimalCoverageWardrobe.js';
+import { isUnderbustTopFit, resolveUnderbustTopFit, projectUnderbustTopFit } from './engine/underbustTopFit.js';
 import { isRetiredOuterwear, resolveOuterwearBase, outerwearFasteners } from './engine/outerwearModel.js';
 import { isNewOuterwearStyling, outerwearStylingKind, outerwearStylingAllowsClosed, outerwearStylingConflict, resolveOuterwearStylingSource, projectOuterwearStyling } from './engine/outerwearStyling.js';
 import { isFullyClosedOpening, closedInnerLayerIsVisible, fullyClosedOuterwearText, PULL_OPEN_HAND_ID } from './engine/outerwearClosure.js';
@@ -481,6 +482,8 @@ const TOP_FIT_OPTIONS = [
   { id: 'fitted', zh: '合身', en: 'fitted upper-body cut following the garment shape' },
   { id: 'tight', zh: '緊身', en: 'tight body-skimming upper-body fit' },
   { id: 'oversized', zh: 'oversize', en: 'oversized upper-body proportion with roomy shoulders and body' },
+  { id: 'underbust-tight', zh: '短版緊身', en: 'underbust-cropped tight fit, hem ending just below the bust', meta: { randomEligible: false, topFit: { length: 'underbust', fit: 'tight' } } },
+  { id: 'underbust-fitted', zh: '短版合身', en: 'underbust-cropped fitted cut, hem ending just below the bust', meta: { randomEligible: false, topFit: { length: 'underbust', fit: 'fitted' } } },
 ];
 
 const TOP_STYLING_OPTIONS = [
@@ -3309,6 +3312,7 @@ function buildEntries(groupName, groupedData, inferMeta) {
           ...inferredMeta,
           ...sourceMeta,
           ...(item.outerwear ? { outerwear: item.outerwear } : {}),
+          ...(item.topUnderbust ? { topUnderbust: item.topUnderbust } : {}),
           ...(item.outerwearFit ? { outerwearFit: item.outerwearFit } : {}),
           ...(item.outerwearStyling ? { outerwearStyling: item.outerwearStyling, randomEligible: item.randomEligible } : {}),
           ...(item.outerwearFastenerRequirement !== undefined ? { outerwearFastenerRequirement: item.outerwearFastenerRequirement } : {}),
@@ -7512,6 +7516,13 @@ function buildWardrobe(context, locks, catalog) {
   hasBottomPiece = useDuoRoleWardrobe ? hasRoleBottomPiece : hasBottomPiece;
 
   if (visibility === 'close') {
+    // Resolve explicit new short fits before the close-up early return so the
+    // uncropped full-body derivative still receives the same garment source.
+    if (!useDuoRoleWardrobe && hasTopPiece && !hasDressPiece && !hasOutfitPresetPiece
+      && isUnderbustTopFit(getTopFitOption(locks?.topFitId))) {
+      addPiece(resolveWardrobeModifier(locks.topFitId, TOP_FIT_OPTIONS, getTopFitOption, '上身版型-top-fit'));
+      if (locks?.topStylingId && !isRandomLockValue(locks.topStylingId)) addPiece(resolveWardrobeModifier(locks.topStylingId, TOP_STYLING_OPTIONS, getTopStylingOption, '上身穿法-top-styling'));
+    }
     const matchesCloseupItem = (item, targetId) => {
       if (!item || !targetId) return false;
       return item.id === targetId || item.id.startsWith(`${targetId}:`);
@@ -7603,7 +7614,7 @@ function buildWardrobe(context, locks, catalog) {
         if (selectedPattern) addPiece(selectedPattern);
       }
     }
-    return resolveTopHemOverlap(projectSailorSeparateFit(resolveNewOuterwearStyling(pieces, context).filter(keepExplicitCloseupWardrobeItem), locks));
+    return resolveTopHemOverlap(resolveUnderbustTopFit(projectSailorSeparateFit(resolveNewOuterwearStyling(pieces, context).filter(keepExplicitCloseupWardrobeItem), locks)));
   }
 
   const hasOutfitPresetPieceResolved = pieces.some((piece) => piece.id?.includes('wardrobe:套裝-outfit-presets:') && !isNoneLikeItem(piece));
@@ -7778,7 +7789,7 @@ function buildWardrobe(context, locks, catalog) {
     maybePick('頸部 (Neck Accessories)', visibilityAtLeast(visibility, 'portrait') ? 0.4 : 0.2, () => true, { allowNoneWhenUnlocked: true });
   }
 
-  return addConditionalGarterBeltLayer(resolveTopHemOverlap(projectSailorSeparateFit(resolveNewOuterwearStyling(pieces, context), locks)));
+  return addConditionalGarterBeltLayer(resolveTopHemOverlap(resolveUnderbustTopFit(projectSailorSeparateFit(resolveNewOuterwearStyling(pieces, context), locks))));
 }
 
 function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
@@ -7799,6 +7810,10 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
     const opening = suffix ? wardrobeSlots[`outerwear${suffix}Opening`] : wardrobeSlots.outerwearOpening;
     const styleKey = suffix ? `outerwear${suffix}Styling` : 'outerwearStyling';
     if (!wardrobeSlots[styleKey]?.en || (isFullyClosedOpening(opening) && !outerwearStylingAllowsClosed(wardrobeSlots[styleKey]))) wardrobeSlots[styleKey] = null;
+    const fitKey = `topFit${suffix}`;
+    const topStyleKey = `topStyling${suffix}`;
+    if (isUnderbustTopFit(wardrobeSlots[fitKey]) && !wardrobeSlots[fitKey].en) wardrobeSlots[fitKey] = null;
+    if (wardrobeSlots[topStyleKey]?.meta?.underbustTopStyle && !wardrobeSlots[topStyleKey].en) wardrobeSlots[topStyleKey] = null;
   }
   const imageTypeLabel = context.imageTypePreset?.zh || IMAGE_TYPE_PRESET_OPTIONS[0].zh;
   const styleLabel = joinSummaryParts(
@@ -9625,6 +9640,7 @@ function isLowRiseBottomItem(item) {
 
 function isCroppedTopItem(item) {
   if (!item || isNoneLikeItem(item)) return false;
+  if (item.meta?.effectiveUnderbustTop) return true;
   return hasAny(getTopBottomHaystack(item), ['cropped', 'crop top', '短版', '露臍', '露腰', 'exposed waist']);
 }
 
@@ -12862,7 +12878,7 @@ function buildFixedFramingDerivedPromptModel({
   film,
 }) {
   const baseDerivedContext = createFixedFramingDerivedContext(sourceContext, preset);
-  wardrobe = projectClosedOuterwearWardrobe(projectOuterwearStyling(projectTopHemOverlap(projectAudioForFraming(wardrobe, baseDerivedContext), baseDerivedContext), getCompositionVisibilityProjection(baseDerivedContext)));
+  wardrobe = projectUnderbustTopFit(projectClosedOuterwearWardrobe(projectOuterwearStyling(projectTopHemOverlap(projectAudioForFraming(wardrobe, baseDerivedContext), baseDerivedContext), getCompositionVisibilityProjection(baseDerivedContext))), getCompositionVisibilityProjection(baseDerivedContext));
 
   if (!preset.projectResolvedSources) {
     const projectedCharacter = projectBodyTypeCharacter(character, baseDerivedContext, wardrobe);
@@ -15068,7 +15084,10 @@ function buildAiNormalWardrobeText(
       const topPatternSource = role === 'top' && wardrobeSlots?.topPattern && !isNoneLikeItem(wardrobeSlots.topPattern)
         ? normalizeWardrobePromptText(wardrobeSlots.topPattern.en) : '';
       const wearSources = role === 'outerwear' ? outerwearWearSources
-        : role === 'top' && isHemOverlapStyling(wardrobeSlots?.topStyling) ? [wardrobeSlots.topStyling.en] : [];
+        : role === 'top' ? [
+          isHemOverlapStyling(wardrobeSlots?.topStyling) || wardrobeSlots?.topStyling?.meta?.underbustTopStyle ? wardrobeSlots?.topStyling?.en : '',
+          isUnderbustTopFit(wardrobeSlots?.topFit) ? wardrobeSlots.topFit.en : '',
+        ].filter(Boolean) : [];
       return shouldKeepWardrobeRoleForContext(role, context, value)
         ? compactAiGarmentValue(value, role, primarySourceByLabel[label], wearSources, role === 'outerwear' ? outerwearPatternSource : topPatternSource)
         : '';
@@ -15752,7 +15771,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     projectedScene: buildProjectedScene(rendererContext),
   };
   const projectedCharacter = projectBodyTypeCharacter(character, mainContext);
-  const rendererWardrobe = projectClosedOuterwearWardrobe(projectOuterwearStyling(projectTopHemOverlap(projectAudioForFraming(fixedCompositionPromptProjection?.wardrobe.items || wardrobe, mainContext), mainContext), getCompositionVisibilityProjection(mainContext)));
+  const rendererWardrobe = projectUnderbustTopFit(projectClosedOuterwearWardrobe(projectOuterwearStyling(projectTopHemOverlap(projectAudioForFraming(fixedCompositionPromptProjection?.wardrobe.items || wardrobe, mainContext), mainContext), getCompositionVisibilityProjection(mainContext))), getCompositionVisibilityProjection(mainContext));
   const rendererWardrobeColors = fixedCompositionPromptProjection?.wardrobe.colors || wardrobeColors;
   const promptModel = {
     ...buildStructuredPromptSections(mainContext, projectedCharacter, rendererWardrobe, rendererWardrobeColors, lightDirection, film),
@@ -15860,6 +15879,8 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
 function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film) {
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
+  const preserveUnderbustTopFit = (slot, key) => slot?.id?.replace(/:[ab]$/, '').split(':').at(-1)
+    || (isUnderbustTopFit(getTopFitOption(context.locks?.[key])) ? context.locks[key] : '');
   const preserveNewOuterwearStylingSelection = (slot, key) => {
     if (slot?.id) return slot.id.replace(/:[ab]$/, '');
     const selected = getLockControls().find(control => control.key === key)?.options.find(item => item.id === context.locks?.[key]);
@@ -15978,9 +15999,9 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     topId: wardrobeSlots.top?.id || '',
     topAId: wardrobeSlots.topA?.id?.replace(/:a$/, '') || '',
     topBId: wardrobeSlots.topB?.id?.replace(/:b$/, '') || '',
-    topFitId: wardrobeSlots.topFit?.id?.split(':').pop() || '',
-    topFitAId: wardrobeSlots.topFitA?.id?.replace(/:a$/, '')?.split(':').pop() || '',
-    topFitBId: wardrobeSlots.topFitB?.id?.replace(/:b$/, '')?.split(':').pop() || '',
+    topFitId: preserveUnderbustTopFit(wardrobeSlots.topFit, 'topFitId'),
+    topFitAId: preserveUnderbustTopFit(wardrobeSlots.topFitA, 'topFitAId'),
+    topFitBId: preserveUnderbustTopFit(wardrobeSlots.topFitB, 'topFitBId'),
     topStylingId: wardrobeSlots.topStyling?.id?.split(':').pop() || '',
     topStylingAId: wardrobeSlots.topStylingA?.id?.replace(/:a$/, '')?.split(':').pop() || '',
     topStylingBId: wardrobeSlots.topStylingB?.id?.replace(/:b$/, '')?.split(':').pop() || '',

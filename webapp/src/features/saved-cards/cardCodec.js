@@ -1,5 +1,6 @@
 import { accessoryRestoreNotices } from '../../lib/engine/accessoryPolicy.js';
 import { matchResolvedOuterwear } from '../../lib/engine/outerwearModel.js';
+import { isUnderbustTopFit, matchResolvedUnderbustTop, UNDERBUST_UNTUCKED_SOURCE } from '../../lib/engine/underbustTopFit.js';
 import {
   createEmptyLocks,
   getLockControls,
@@ -324,6 +325,13 @@ export function parseLocksFromStandardPrompt(promptText, controls) {
   }
 
   if (normalizedPrompt) {
+    const hasUnderbustSource = controlMap.get('topFitId')?.options.some(item => isUnderbustTopFit(item) && normalizedPrompt.includes(item.en));
+    const firstWoman = normalizedPrompt.search(/\b(?:woman 1:|first woman,)/);
+    const secondWoman = normalizedPrompt.search(/\b(?:woman 2:|second woman,)/);
+    const scopedUnderbustDuo = hasUnderbustSource && firstWoman >= 0 && secondWoman > firstWoman;
+    const topPromptForRole = role => !scopedUnderbustDuo ? normalizedPrompt
+      : role === 'A' ? normalizedPrompt.slice(firstWoman, secondWoman)
+        : role === 'B' ? normalizedPrompt.slice(secondWoman).split(/\b(?:shared expression:|pose and composition:|scene:|lighting:)/)[0] : '';
     // The shorter coat-hem source occurs inside the historical inner-top source.
     // Remove whole inner-top instructions only while matching outerwear styling;
     // a separately selected coat instruction remains available to the parser.
@@ -332,13 +340,30 @@ export function parseLocksFromStandardPrompt(promptText, controls) {
       .filter(Boolean).reduce((text, source) => text.replaceAll(normalizePromptText(source), ''), normalizedPrompt);
     controls.forEach((control) => {
       if (control.compatibilityOnly) return;
+      const topControl = scopedUnderbustDuo && control.key.match(/^top(?:Fit|Styling)?([AB]?)Id$/);
       const option = findBestOptionMatch(control.options,
-        /^outerwear[AB]?StylingId$/.test(control.key) ? outerwearStylingPrompt : normalizedPrompt);
+        topControl ? topPromptForRole(topControl[1])
+          : /^outerwear[AB]?StylingId$/.test(control.key) ? outerwearStylingPrompt : normalizedPrompt);
       if (!option) return;
       locks[control.key] = option.id;
       matchedControls.push({ key: control.key, label: control.label, option });
     });
     for (const role of ['', 'A', 'B']) {
+      const topPrompt = topPromptForRole(role);
+      const topMatch = matchResolvedUnderbustTop(topPrompt,
+        controlMap.get(`top${role}Id`)?.options || [], controlMap.get(`topFit${role}Id`)?.options || []);
+      if (topMatch) {
+        const naturalHem = topPrompt.includes(UNDERBUST_UNTUCKED_SOURCE)
+          ? controlMap.get(`topStyling${role}Id`)?.options.find(item => item.id === 'untucked') : null;
+        for (const [key, option] of [[`top${role}Id`, topMatch.top], [`topFit${role}Id`, topMatch.fit],
+          ...(naturalHem ? [[`topStyling${role}Id`, naturalHem]] : [])]) {
+          locks[key] = option.id;
+          const index = matchedControls.findIndex(entry => entry.key === key);
+          const entry = { key, label: controlMap.get(key)?.label || key, option };
+          if (index >= 0) matchedControls[index] = entry;
+          else matchedControls.push(entry);
+        }
+      }
       const itemKey = `outerwear${role}Id`;
       const fitKey = `outerwear${role}FitId`;
       const itemControl = controlMap.get(itemKey);

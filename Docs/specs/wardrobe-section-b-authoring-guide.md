@@ -1,6 +1,6 @@
 # B 穿搭設定新增與維護規格
 
-Last updated: 2026-10-04
+Last updated: 2026-10-05
 
 這份文件定義 PAGE1 `B. 穿搭設定` 的新增、修改、合併與測試規則。後續新增上身、下身、套裝、連身、鞋襪、外套、配件、顏色或圖案時，請先依照本規格檢查責任邊界、prompt 寫法、組合順序與舊資料相容性。
 
@@ -30,6 +30,7 @@ Prompt 應使用短而準的英文片語。中文描述用來幫助維護者理�
 | --- | --- | --- |
 | 特殊穿搭、套裝、連身、上身、下身、鞋襪、外套、配件 | `knowledge_base/wardrobe_and_styling.md` | 編輯後需同步到 `webapp/src/data/database.json`。 |
 | 上身/下身/外套/鞋襪/配件組合邏輯 | `webapp/src/lib/engine.js` | 控制 prompt 組裝順序、角色 A/B 分流、特殊穿搭優先權與 legacy mapping。 |
+| 胸下短版上身版型與服裝變體 | `webapp/src/lib/engine.js` 的 `TOP_FIT_OPTIONS`、`knowledge_base/item_metadata.json` 的 `topUnderbust` | 兩項新版型只手動選用；有效衣長／穿法先共用解析，未選用維持原單品來源。 |
 | B 區 UI 顯示、分隔線與控制項摘要 | `webapp/src/components/Page1Workspace.jsx`、`webapp/src/index.css` | 新增控制鍵時需同步 UI 分組與摘要。 |
 | 相容舊選項 | `webapp/src/lib/engine.js` | 合併、改名、移除時需加 legacy mapping 或 migration。 |
 | 測試 | `webapp/src/lib/*Wardrobe*.test.js`、`engineSpecialOutfitCleanup.test.js`、`engineAccessoryEyewearCleanup.test.js` | 依修改範圍更新。 |
@@ -223,6 +224,8 @@ lace bra top, delicate lace cups, intimate lingerie structure, slim strap detail
 2026-09-25 水手服單品例外：`短袖水手服`、`長袖水手服` 是獨立上身，常態為不勾勒胸腰的寬鬆直筒制服衣身，覆到裙腰。上身配色只作用於衣身／袖身；水手領固定近黑深藍配白色平行線，領巾同為深藍，長袖袖口保留深藍白線。選 `上身版型＝緊身` 時，共用 resolved wardrobe 將衣身改為尺寸偏小、貼身且衣襬上移露腹；若同時選紮入、半紮或自然放出，改以衣襬在腰頭上方的可見狀態描述，避免矛盾。`水手服短裙` 是膝上百褶裙；`水手服長裙` 為近地長百褶裙，可搭配女暴走族風格。兩者保留制服腰頭與寬褶；下身版型只改腰頭或褶量，不把裙子變成褲管或壓平裙褶。既有兩套完整水手服維持獨立選項。
 
 ## 8. 版型、穿法與腰線
+
+2026-10-05 胸下短版上身：新增「短版緊身」「短版合身」，39 款一般上身（含現有短版）在明確選用時統一到胸下衣襬；逐款 metadata 保留材質、領口、袖型與裝飾，覆寫衣長及衣身鬆緊。五款胸罩／泳裝／胸貼不適用；紮入、半紮、腰下打結、上身衣襬遮擋暫停，自然放出改用胸下來源。單人與雙人 A/B 共用；舊來源、ID、隨機池、完整造型優先權及 storage 不變。詳見 [胸下短版上身版型 v1](underbust-top-fit-v1.md)。下方水手服舊緊身例外繼續生效，新短版另依共用規則解析。之後新增一般上身時，須同步審核 `topUnderbust.baseEn`；未提供來源的款式不啟用新短版。
 
 ### 衣襬遮住部分下身（2026-09-27）
 

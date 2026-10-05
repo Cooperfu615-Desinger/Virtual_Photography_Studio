@@ -2039,7 +2039,10 @@
         "desc": "以俐落門襟、清楚領型與乾淨肩線構成的基礎上身單品，重點在剪裁結構而不是情境語氣。",
         "legacyIds": [
           "wardrobe:上身-tops:合身襯衫:1"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "shirt, crisp cotton poplin, clean placket construction, balanced collar line"
+        }
       },
       {
         "zh": "長版襯衫",
@@ -2047,7 +2050,10 @@
         "desc": "以男性正裝襯衫的清楚領型、完整前襟排釦、硬挺袖口與較長衣襬為主，保留長版比例與乾淨正式的男裝輪廓，不預設特定穿法。",
         "legacyIds": [
           "wardrobe:上身-tops:寬鬆襯衫:10"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "tailored men's dress shirt, crisp woven poplin, pointed collar, full button-front placket, structured cuffs, relaxed sleeve volume, clean formal menswear silhouette"
+        }
       },
       {
         "zh": "領帶襯衫",
@@ -2055,7 +2061,10 @@
         "desc": "以短領帶固定在領口的制服感襯衫為主，領口保持整齊、門襟清楚，不預設衣襬狀態。",
         "legacyIds": [
           "wardrobe:上身-tops:緊身襯衫-領帶-紮入下身:12"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "collared shirt with a short soft necktie fastened at the collar, neat collar line, clean front placket, uniform-inspired shirt structure"
+        }
       },
       {
         "zh": "短袖上衣",
@@ -2063,7 +2072,10 @@
         "desc": "以俐落袖長、順身布面與簡潔上半身線條為主，適合作為中性基礎版型。",
         "legacyIds": [
           "wardrobe:上身-tops:短袖貼身上衣:4"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "short-sleeve top, smooth stretch fabric, clean torso line, compact sleeve proportion"
+        }
       },
       {
         "zh": "落肩 T 恤",
@@ -2071,7 +2083,10 @@
         "desc": "以低肩線、寬鬆袖根與棉質 T 恤輪廓為主，上身比例放鬆但不指定衣長。",
         "legacyIds": [
           "wardrobe:上身-tops:寬鬆落肩-t-恤-紮入下身:14"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "dropped-shoulder t-shirt, washed cotton jersey, low shoulder seam"
+        }
       },
       {
         "zh": "短版 T 恤",
@@ -2079,7 +2094,10 @@
         "desc": "以短版衣長與精簡衣身比例為主，重點在裁短後的上半身輪廓，而非情境化描述。",
         "legacyIds": [
           "wardrobe:上身-tops:短版緊身露臍-t-恤:16"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "t-shirt, casual knit structure"
+        }
       },
       {
         "zh": "棉質細肩背心",
@@ -2087,12 +2105,18 @@
         "desc": "以棉質羅紋、細肩帶與乾淨內搭式輪廓為主，線條貼近身形但不過度複雜。",
         "legacyIds": [
           "wardrobe:上身-tops:短版棉質露臍小可愛:2"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line"
+        }
       },
       {
         "zh": "絲質細肩帶上衣",
         "en": "silk camisole top, delicate straps, fluid sheen",
-        "desc": "以柔軟絲質、細肩帶與流動微光布面為主，輪廓輕薄貼身，可作精緻內搭或單穿上身。"
+        "desc": "以柔軟絲質、細肩帶與流動微光布面為主，輪廓輕薄貼身，可作精緻內搭或單穿上身。",
+        "topUnderbust": {
+          "baseEn": "silk camisole top, delicate straps, fluid sheen"
+        }
       },
       {
         "zh": "削肩針織上衣",
@@ -2100,12 +2124,18 @@
         "desc": "以削肩結構、貼近頸根的領線與細緻針織紋理為重點，輪廓乾淨且偏都會感。",
         "legacyIds": [
           "wardrobe:上身-tops:合身削肩針織上衣:3"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "sleeveless knit top, ribbed texture, clean shoulder-baring cut, narrow armhole shaping"
+        }
       },
       {
         "zh": "坦克背心",
         "en": "tank top, sleeveless casual fit, clean sporty line",
-        "desc": "最簡單直接的無袖上身，適合日常、運動與寫真人像。"
+        "desc": "最簡單直接的無袖上身，適合日常、運動與寫真人像。",
+        "topUnderbust": {
+          "baseEn": "tank top, sleeveless construction, clean sporty line"
+        }
       },
       {
         "zh": "高領針織上衣",
@@ -2113,7 +2143,10 @@
         "desc": "以貼頸高領、細針織面與順直上身比例為主，重點在安定、收斂的上半身結構。",
         "legacyIds": [
           "wardrobe:上身-tops:合身高領針織上衣:7"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "turtleneck knit top, fine gauge knit, smooth neckline transition, clean torso structure"
+        }
       },
       {
         "zh": "高領連身上衣",
@@ -2121,12 +2154,18 @@
         "desc": "以高領、無袖、連續上身線條與貼身布面為主，讓頸部到軀幹的輪廓保持順直。",
         "legacyIds": [
           "wardrobe:上身-tops:高領高衩連身彈性上衣:8"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "high-neck top, sleeveless construction, smooth stretch or ribbed fabric"
+        }
       },
       {
         "zh": "長版寬鬆麻花針織毛衣",
         "en": "oversized cable-knit sweater, chunky knit texture, longline upper-thigh hem, dropped shoulders, extra-long relaxed sleeves, slouchy boyfriend fit",
-        "desc": "以寬鬆長版毛衣、明顯麻花編織、落肩剪裁與偏長袖型為主，衣襬自然覆蓋大腿上緣，呈現柔軟厚實的男友風針織輪廓。"
+        "desc": "以寬鬆長版毛衣、明顯麻花編織、落肩剪裁與偏長袖型為主，衣襬自然覆蓋大腿上緣，呈現柔軟厚實的男友風針織輪廓。",
+        "topUnderbust": {
+          "baseEn": "cable-knit sweater, chunky knit texture, dropped shoulders, extra-long relaxed sleeves"
+        }
       },
       {
         "zh": "短版針織背心",
@@ -2134,7 +2173,10 @@
         "desc": "以短版長度、細肩帶與針織紋理為主，輪廓精簡且帶明確針織表面語言。",
         "legacyIds": [
           "wardrobe:上身-tops:短版針織露臍小可愛:17"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "knit camisole, ribbed knit texture, narrow shoulder strap construction"
+        }
       },
       {
         "zh": "短版蕾絲背心",
@@ -2142,7 +2184,10 @@
         "desc": "參考 LENY 蕾絲 cami 款式：透明花卉蕾絲、細可調肩帶、三角胸杯感上緣與短版波浪蕾絲下襬；顏色交由上身配色控制。",
         "legacyIds": [
           "wardrobe:上身-tops:短版蕾絲露臍小可愛:18"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "sheer floral lace camisole, slim adjustable straps, triangle cup bust panel, scalloped lace hem"
+        }
       },
       {
         "zh": "平口上衣",
@@ -2150,12 +2195,18 @@
         "desc": "以無肩帶或平口上緣、簡潔帶狀比例與貼身彈性布面為主，輪廓短而乾淨。",
         "legacyIds": [
           "wardrobe:上身-tops:平口短版上衣:19"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "strapless tube top, clean upper edge, smooth stretch fabric, compact bandeau or halter-bandeau structure"
+        }
       },
       {
         "zh": "一字領上衣",
         "en": "off-shoulder top, soft neckline silhouette, open collarbone line, refined neckline detail",
-        "desc": "以露出鎖骨與肩線的一字領為主，輪廓柔和且女性化，不在單品內寫死內層肩帶。"
+        "desc": "以露出鎖骨與肩線的一字領為主，輪廓柔和且女性化，不在單品內寫死內層肩帶。",
+        "topUnderbust": {
+          "baseEn": "off-shoulder top, soft neckline silhouette, open collarbone line, refined neckline detail"
+        }
       },
       {
         "zh": "絲綢緞面襯衫",
@@ -2163,7 +2214,10 @@
         "desc": "以柔亮緞面、流動布感、柔垂袖型與細緻袖口為主，保留襯衫結構與高級布面光澤。",
         "legacyIds": [
           "wardrobe:上身-tops:絲綢緞面襯衫-紮入下身:22"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "silk satin blouse, luminous satin sheen, soft draping sleeves, refined cuff or ruffle finish, fluid blouse construction"
+        }
       },
       {
         "zh": "透膚刺繡襯衫",
@@ -2171,7 +2225,10 @@
         "desc": "以輕薄透膚布料、同色刺繡、柔垂領口與襯衫結構為主，表面有細緻層次。",
         "legacyIds": [
           "wardrobe:上身-tops:透膚刺繡襯衫-紮入下身:24"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "semi-sheer embroidered shirt, lightweight voile fabric, tonal floral embroidery, soft draped collar structure, translucent layered surface"
+        }
       },
       {
         "zh": "網紗透視上衣",
@@ -2179,7 +2236,10 @@
         "desc": "以細網材質、蕾絲拼片、花卉紋理與輕透層次為主，保留清楚的透視上衣結構。",
         "legacyIds": [
           "wardrobe:上身-tops:網紗透視上衣-紮入下身:26"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "semi-sheer mesh or lace top, fine net texture, floral motif panels, lace-trim detailing, lightweight layered construction"
+        }
       },
       {
         "zh": "短版吊帶背心",
@@ -2187,47 +2247,74 @@
         "desc": "以短版衣長、細肩帶與精簡上身比例為主，輪廓明快直接。",
         "legacyIds": [
           "wardrobe:上身-tops:短版緊身吊帶背心:28"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "camisole, narrow straps, streamlined upper-body silhouette"
+        }
       },
       {
         "zh": "短版帽T",
         "en": "cropped hoodie, cinched waist hem, casual streetwear silhouette, sporty relaxed shape",
-        "desc": "以短版衣長、帽兜、腰部束口與放鬆運動輪廓為主，保留明確街頭上身結構。"
+        "desc": "以短版衣長、帽兜、腰部束口與放鬆運動輪廓為主，保留明確街頭上身結構。",
+        "topUnderbust": {
+          "baseEn": "hoodie, ribbed hem, casual streetwear silhouette"
+        }
       },
       {
         "zh": "球衣 / 運動 jersey",
         "en": "sports jersey top, athletic uniform feel, relaxed sporty silhouette",
-        "desc": "以運動制服感、寬鬆衣身與球衣式面料為主，輪廓清楚且偏休閒運動。"
+        "desc": "以運動制服感、寬鬆衣身與球衣式面料為主，輪廓清楚且偏休閒運動。",
+        "topUnderbust": {
+          "baseEn": "sports jersey top, athletic uniform feel"
+        }
       },
       {
         "zh": "維多利亞高領蕾絲襯衫",
         "en": "Victorian high-neck lace blouse, ruffled collar, intricate lace detailing",
-        "desc": "以高領、荷葉領邊、細緻蕾絲與復古襯衫結構為主，領口與胸前細節較繁複。"
+        "desc": "以高領、荷葉領邊、細緻蕾絲與復古襯衫結構為主，領口與胸前細節較繁複。",
+        "topUnderbust": {
+          "baseEn": "Victorian high-neck lace blouse, ruffled collar, intricate lace detailing"
+        }
       },
       {
         "zh": "雪紡荷葉蝴蝶結襯衫",
         "en": "sheer chiffon ruffle blouse, layered lace ruffles across the front, ribbon bow at the collar, soft gathered sleeves, romantic vintage styling",
-        "desc": "以雪紡薄料、前胸荷葉層次、領口蝴蝶結與柔軟抓褶袖為主，輪廓偏古典甜美。"
+        "desc": "以雪紡薄料、前胸荷葉層次、領口蝴蝶結與柔軟抓褶袖為主，輪廓偏古典甜美。",
+        "topUnderbust": {
+          "baseEn": "sheer chiffon ruffle blouse, layered lace ruffles across the front, ribbon bow at the collar, soft gathered sleeves, romantic vintage styling"
+        }
       },
       {
         "zh": "素色緞面旗袍上衣",
         "en": "satin cheongsam-style top, elegant mandarin collar, fitted upper-body silhouette, frog-button detail, smooth lustrous fabric, hip-grazing hem",
-        "desc": "旗袍式剪裁的上衣版本，保留立領、盤扣與貼身上半身輪廓，衣襬長度停在臀部附近，實際紮入或放出交由穿法控制。"
+        "desc": "旗袍式剪裁的上衣版本，保留立領、盤扣與貼身上半身輪廓，衣襬長度停在臀部附近，實際紮入或放出交由穿法控制。",
+        "topUnderbust": {
+          "baseEn": "satin cheongsam-style top, elegant mandarin collar, frog-button detail, smooth lustrous fabric"
+        }
       },
       {
         "zh": "精緻刺繡旗袍上衣",
         "en": "embroidered cheongsam-style top, elegant mandarin collar, fitted upper-body silhouette, frog-button detail, intricate floral embroidery, hip-grazing hem",
-        "desc": "在旗袍式上衣結構中加入細緻刺繡與盤扣細節，衣襬長度停在臀部附近，不預設紮衣或放出穿法。"
+        "desc": "在旗袍式上衣結構中加入細緻刺繡與盤扣細節，衣襬長度停在臀部附近，不預設紮衣或放出穿法。",
+        "topUnderbust": {
+          "baseEn": "embroidered cheongsam-style top, elegant mandarin collar, frog-button detail, intricate floral embroidery"
+        }
       },
       {
         "zh": "和服式上衣",
         "en": "kimono-style wrap top, layered crossover front, soft draped sleeves, woven floral or traditional motif accents, obi-inspired waist emphasis",
-        "desc": "以和服交疊包裹結構為靈感的上衣版本，保留寬鬆袖型、包裹式前襟、腰部強調與傳統圖樣裝飾。"
+        "desc": "以和服交疊包裹結構為靈感的上衣版本，保留寬鬆袖型、包裹式前襟、腰部強調與傳統圖樣裝飾。",
+        "topUnderbust": {
+          "baseEn": "kimono-style wrap top, layered crossover front, soft draped sleeves, woven floral or traditional motif accents, obi-inspired band at the hem"
+        }
       },
       {
         "zh": "浴衣式上衣",
         "en": "yukata-style wrap top, airy crossover front, relaxed draped sleeves, lightweight cotton gauze texture, delicate floral or geometric prints",
-        "desc": "以浴衣較輕鬆的包裹式結構為靈感，布料輕薄透氣，保留交疊前襟、寬鬆袖型與簡潔印花。"
+        "desc": "以浴衣較輕鬆的包裹式結構為靈感，布料輕薄透氣，保留交疊前襟、寬鬆袖型與簡潔印花。",
+        "topUnderbust": {
+          "baseEn": "yukata-style wrap top, airy crossover front, relaxed draped sleeves, lightweight cotton gauze texture, delicate floral or geometric prints"
+        }
       },
       {
         "zh": "比基尼上身",
@@ -2247,52 +2334,82 @@
       {
         "zh": "蕾絲睡衣上身",
         "en": "lace sleepwear top, delicate floral lace panels, scalloped trim, soft relaxed drape, refined sleepwear detailing",
-        "desc": "以蕾絲拼接、花卉蕾絲面、波浪收邊與柔軟垂墜為主，保留睡衣式上身結構。"
+        "desc": "以蕾絲拼接、花卉蕾絲面、波浪收邊與柔軟垂墜為主，保留睡衣式上身結構。",
+        "topUnderbust": {
+          "baseEn": "lace sleepwear top, delicate floral lace panels, scalloped trim, refined sleepwear detailing"
+        }
       },
       {
         "zh": "波西米亞風上衣",
         "en": "bohemian draped blouse, crinkled gauze or washed rayon, deep relaxed neckline, layered sleeves, folk-woven trim",
-        "desc": "以皺感薄紗或水洗 rayon、鬆垂領口、層次袖型與民俗織帶細節為主，保留波西米亞上衣的垂墜結構，不預設衣襬穿法。"
+        "desc": "以皺感薄紗或水洗 rayon、鬆垂領口、層次袖型與民俗織帶細節為主，保留波西米亞上衣的垂墜結構，不預設衣襬穿法。",
+        "topUnderbust": {
+          "baseEn": "bohemian blouse, crinkled gauze or washed rayon, deep relaxed neckline, layered sleeves, folk-woven trim"
+        }
       },
       {
         "zh": "長袖上衣",
         "en": "long-sleeve top, fitted or relaxed sleeve length, clean shoulder line, simple upper-body structure",
-        "desc": "以完整長袖、乾淨肩線與簡潔上身結構為主，不預設領口、材質或穿法。"
+        "desc": "以完整長袖、乾淨肩線與簡潔上身結構為主，不預設領口、材質或穿法。",
+        "topUnderbust": {
+          "baseEn": "long-sleeve top, fitted or relaxed sleeve length, clean shoulder line, simple upper-body structure"
+        }
       },
       {
         "zh": "馬甲上衣",
         "en": "structured corset top, shaped cup seams, visible boning channels, fitted waist",
-        "desc": "以胸衣式結構、分割線、骨條通道與收腰輪廓為主，不預設內搭或下身。"
+        "desc": "以胸衣式結構、分割線、骨條通道與收腰輪廓為主，不預設內搭或下身。",
+        "topUnderbust": {
+          "baseEn": "structured corset-style top, shaped cup seams, visible boning channels"
+        }
       },
       {
         "zh": "掛脖上衣",
         "en": "halter top, neck-tie or halter straps, open shoulder line, fitted upper-body silhouette",
-        "desc": "以繞頸或掛脖肩帶、露肩線與合身上身輪廓為主。"
+        "desc": "以繞頸或掛脖肩帶、露肩線與合身上身輪廓為主。",
+        "topUnderbust": {
+          "baseEn": "halter top, neck-tie or halter straps, open shoulder line"
+        }
       },
       {
         "zh": "泡袖上衣",
         "en": "puff-sleeve blouse, gathered sleeve volume, defined shoulder shape, soft woven fabric",
-        "desc": "以集褶澎袖、明確肩部份量與柔軟梭織布料為主。"
+        "desc": "以集褶澎袖、明確肩部份量與柔軟梭織布料為主。",
+        "topUnderbust": {
+          "baseEn": "puff-sleeve blouse, gathered sleeve volume, defined shoulder shape, soft woven fabric"
+        }
       },
       {
         "zh": "針織背心",
         "en": "knit sweater vest, sleeveless layered construction, ribbed knit texture, relaxed upper-body shape",
-        "desc": "以無袖針織背心、羅紋或紋理針織表面與放鬆上身比例為主。"
+        "desc": "以無袖針織背心、羅紋或紋理針織表面與放鬆上身比例為主。",
+        "topUnderbust": {
+          "baseEn": "knit sweater vest, sleeveless layered construction, ribbed knit texture"
+        }
       },
       {
         "zh": "帽T",
         "en": "regular-length pullover hoodie, drawstring hood, ribbed cuffs and hem, relaxed casual streetwear silhouette",
-        "desc": "以一般衣長的套頭帽T、抽繩帽兜、羅紋袖口與下襬，以及放鬆的休閒街頭輪廓為主，與短版帽T區分。"
+        "desc": "以一般衣長的套頭帽T、抽繩帽兜、羅紋袖口與下襬，以及放鬆的休閒街頭輪廓為主，與短版帽T區分。",
+        "topUnderbust": {
+          "baseEn": "pullover hoodie, drawstring hood, ribbed cuffs and hem, casual streetwear silhouette"
+        }
       },
       {
         "zh": "短袖水手服",
         "en": "short-sleeve Japanese sailor school blouse, opaque woven uniform fabric, relaxed straight-cut body draping over the waist, near-black navy sailor collar with crisp white parallel trim, matching navy scarf tie, modest neckline insert",
-        "desc": "短袖制服上衣，常態是寬鬆直筒衣身、自然覆過裙腰；近黑深藍水手領配白色平行線條，同色領巾與領口遮片固定保留。"
+        "desc": "短袖制服上衣，常態是寬鬆直筒衣身、自然覆過裙腰；近黑深藍水手領配白色平行線條，同色領巾與領口遮片固定保留。",
+        "topUnderbust": {
+          "baseEn": "short-sleeve Japanese sailor school blouse, opaque woven uniform fabric, near-black navy sailor collar with crisp white parallel trim, matching navy scarf tie, modest neckline insert"
+        }
       },
       {
         "zh": "長袖水手服",
         "en": "long-sleeve Japanese sailor school blouse, opaque woven uniform fabric, relaxed straight-cut body draping over the waist, near-black navy sailor collar with crisp white parallel trim, matching navy scarf tie, modest neckline insert, navy cuffs with white trim",
-        "desc": "長袖制服上衣，常態是寬鬆直筒衣身、自然覆過裙腰；近黑深藍水手領、同色領巾及袖口飾邊配白色線條。"
+        "desc": "長袖制服上衣，常態是寬鬆直筒衣身、自然覆過裙腰；近黑深藍水手領、同色領巾及袖口飾邊配白色線條。",
+        "topUnderbust": {
+          "baseEn": "long-sleeve Japanese sailor school blouse, opaque woven uniform fabric, near-black navy sailor collar with crisp white parallel trim, matching navy scarf tie, modest neckline insert, navy cuffs with white trim"
+        }
       },
       {
         "zh": "X形胸貼",

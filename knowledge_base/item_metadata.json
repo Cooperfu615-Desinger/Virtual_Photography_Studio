@@ -89,87 +89,138 @@
       "襯衫": {
         "legacyIds": [
           "wardrobe:上身-tops:合身襯衫:1"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "shirt, crisp cotton poplin, clean placket construction, balanced collar line"
+        }
       },
       "長版襯衫": {
         "legacyIds": [
           "wardrobe:上身-tops:寬鬆襯衫:10"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "tailored men's dress shirt, crisp woven poplin, pointed collar, full button-front placket, structured cuffs, relaxed sleeve volume, clean formal menswear silhouette"
+        }
       },
       "領帶襯衫": {
         "legacyIds": [
           "wardrobe:上身-tops:緊身襯衫-領帶-紮入下身:12"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "collared shirt with a short soft necktie fastened at the collar, neat collar line, clean front placket, uniform-inspired shirt structure"
+        }
       },
       "短袖上衣": {
         "legacyIds": [
           "wardrobe:上身-tops:短袖貼身上衣:4"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "short-sleeve top, smooth stretch fabric, clean torso line, compact sleeve proportion"
+        }
       },
       "落肩 T 恤": {
         "legacyIds": [
           "wardrobe:上身-tops:寬鬆落肩-t-恤-紮入下身:14"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "dropped-shoulder t-shirt, washed cotton jersey, low shoulder seam"
+        }
       },
       "短版 T 恤": {
         "legacyIds": [
           "wardrobe:上身-tops:短版緊身露臍-t-恤:16"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "t-shirt, casual knit structure"
+        }
       },
       "棉質細肩背心": {
         "legacyIds": [
           "wardrobe:上身-tops:短版棉質露臍小可愛:2"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line"
+        }
       },
       "削肩針織上衣": {
         "legacyIds": [
           "wardrobe:上身-tops:合身削肩針織上衣:3"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "sleeveless knit top, ribbed texture, clean shoulder-baring cut, narrow armhole shaping"
+        }
       },
       "高領針織上衣": {
         "legacyIds": [
           "wardrobe:上身-tops:合身高領針織上衣:7"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "turtleneck knit top, fine gauge knit, smooth neckline transition, clean torso structure"
+        }
       },
       "高領連身上衣": {
         "legacyIds": [
           "wardrobe:上身-tops:高領高衩連身彈性上衣:8"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "high-neck top, sleeveless construction, smooth stretch or ribbed fabric"
+        }
       },
       "短版針織背心": {
         "legacyIds": [
           "wardrobe:上身-tops:短版針織露臍小可愛:17"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "knit camisole, ribbed knit texture, narrow shoulder strap construction"
+        }
       },
       "短版蕾絲背心": {
         "legacyIds": [
           "wardrobe:上身-tops:短版蕾絲露臍小可愛:18"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "sheer floral lace camisole, slim adjustable straps, triangle cup bust panel, scalloped lace hem"
+        }
       },
       "平口上衣": {
         "legacyIds": [
           "wardrobe:上身-tops:平口短版上衣:19"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "strapless tube top, clean upper edge, smooth stretch fabric, compact bandeau or halter-bandeau structure"
+        }
       },
       "絲綢緞面襯衫": {
         "legacyIds": [
           "wardrobe:上身-tops:絲綢緞面襯衫-紮入下身:22"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "silk satin blouse, luminous satin sheen, soft draping sleeves, refined cuff or ruffle finish, fluid blouse construction"
+        }
       },
       "透膚刺繡襯衫": {
         "legacyIds": [
           "wardrobe:上身-tops:透膚刺繡襯衫-紮入下身:24"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "semi-sheer embroidered shirt, lightweight voile fabric, tonal floral embroidery, soft draped collar structure, translucent layered surface"
+        }
       },
       "網紗透視上衣": {
         "legacyIds": [
           "wardrobe:上身-tops:網紗透視上衣-紮入下身:26"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "semi-sheer mesh or lace top, fine net texture, floral motif panels, lace-trim detailing, lightweight layered construction"
+        }
       },
       "短版吊帶背心": {
         "legacyIds": [
           "wardrobe:上身-tops:短版緊身吊帶背心:28"
-        ]
+        ],
+        "topUnderbust": {
+          "baseEn": "camisole, narrow straps, streamlined upper-body silhouette"
+        }
       },
       "小三角細繩比基尼上身": {
         "legacyPromptAliases": [
@@ -184,6 +235,116 @@
         "legacyPromptAliases": [
           "small-cup lace bra top, small low-cut floral lace cups, slender shoulder straps, narrow underband, closely fitted cups, soft bust fullness extending slightly above and around the cup edges"
         ]
+      },
+      "絲質細肩帶上衣": {
+        "topUnderbust": {
+          "baseEn": "silk camisole top, delicate straps, fluid sheen"
+        }
+      },
+      "坦克背心": {
+        "topUnderbust": {
+          "baseEn": "tank top, sleeveless construction, clean sporty line"
+        }
+      },
+      "長版寬鬆麻花針織毛衣": {
+        "topUnderbust": {
+          "baseEn": "cable-knit sweater, chunky knit texture, dropped shoulders, extra-long relaxed sleeves"
+        }
+      },
+      "一字領上衣": {
+        "topUnderbust": {
+          "baseEn": "off-shoulder top, soft neckline silhouette, open collarbone line, refined neckline detail"
+        }
+      },
+      "短版帽T": {
+        "topUnderbust": {
+          "baseEn": "hoodie, ribbed hem, casual streetwear silhouette"
+        }
+      },
+      "球衣 / 運動 jersey": {
+        "topUnderbust": {
+          "baseEn": "sports jersey top, athletic uniform feel"
+        }
+      },
+      "維多利亞高領蕾絲襯衫": {
+        "topUnderbust": {
+          "baseEn": "Victorian high-neck lace blouse, ruffled collar, intricate lace detailing"
+        }
+      },
+      "雪紡荷葉蝴蝶結襯衫": {
+        "topUnderbust": {
+          "baseEn": "sheer chiffon ruffle blouse, layered lace ruffles across the front, ribbon bow at the collar, soft gathered sleeves, romantic vintage styling"
+        }
+      },
+      "素色緞面旗袍上衣": {
+        "topUnderbust": {
+          "baseEn": "satin cheongsam-style top, elegant mandarin collar, frog-button detail, smooth lustrous fabric"
+        }
+      },
+      "精緻刺繡旗袍上衣": {
+        "topUnderbust": {
+          "baseEn": "embroidered cheongsam-style top, elegant mandarin collar, frog-button detail, intricate floral embroidery"
+        }
+      },
+      "和服式上衣": {
+        "topUnderbust": {
+          "baseEn": "kimono-style wrap top, layered crossover front, soft draped sleeves, woven floral or traditional motif accents, obi-inspired band at the hem"
+        }
+      },
+      "浴衣式上衣": {
+        "topUnderbust": {
+          "baseEn": "yukata-style wrap top, airy crossover front, relaxed draped sleeves, lightweight cotton gauze texture, delicate floral or geometric prints"
+        }
+      },
+      "蕾絲睡衣上身": {
+        "topUnderbust": {
+          "baseEn": "lace sleepwear top, delicate floral lace panels, scalloped trim, refined sleepwear detailing"
+        }
+      },
+      "波西米亞風上衣": {
+        "topUnderbust": {
+          "baseEn": "bohemian blouse, crinkled gauze or washed rayon, deep relaxed neckline, layered sleeves, folk-woven trim"
+        }
+      },
+      "長袖上衣": {
+        "topUnderbust": {
+          "baseEn": "long-sleeve top, fitted or relaxed sleeve length, clean shoulder line, simple upper-body structure"
+        }
+      },
+      "馬甲上衣": {
+        "topUnderbust": {
+          "baseEn": "structured corset-style top, shaped cup seams, visible boning channels"
+        }
+      },
+      "掛脖上衣": {
+        "topUnderbust": {
+          "baseEn": "halter top, neck-tie or halter straps, open shoulder line"
+        }
+      },
+      "泡袖上衣": {
+        "topUnderbust": {
+          "baseEn": "puff-sleeve blouse, gathered sleeve volume, defined shoulder shape, soft woven fabric"
+        }
+      },
+      "針織背心": {
+        "topUnderbust": {
+          "baseEn": "knit sweater vest, sleeveless layered construction, ribbed knit texture"
+        }
+      },
+      "帽T": {
+        "topUnderbust": {
+          "baseEn": "pullover hoodie, drawstring hood, ribbed cuffs and hem, casual streetwear silhouette"
+        }
+      },
+      "短袖水手服": {
+        "topUnderbust": {
+          "baseEn": "short-sleeve Japanese sailor school blouse, opaque woven uniform fabric, near-black navy sailor collar with crisp white parallel trim, matching navy scarf tie, modest neckline insert"
+        }
+      },
+      "長袖水手服": {
+        "topUnderbust": {
+          "baseEn": "long-sleeve Japanese sailor school blouse, opaque woven uniform fabric, near-black navy sailor collar with crisp white parallel trim, matching navy scarf tie, modest neckline insert, navy cuffs with white trim"
+        }
       }
     },
     "褲裝 (Pants)": {
