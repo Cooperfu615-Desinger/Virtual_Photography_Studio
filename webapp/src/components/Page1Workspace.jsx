@@ -1135,7 +1135,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const renderControlGrid = (controls) => (
     <div className="lock-grid detail-lock-grid">
       {controls.map((rawControl) => {
-        const baseControl = prepareOuterwearClosureControl(prepareAccessoryControl(buildFixedSetControl(buildPoseComposerControl(rawControl)), locks), locks);
+        const baseControl = prepareOuterwearClosureControl(prepareAccessoryControl(buildFixedSetControl(buildPoseComposerControl(rawControl)), locks), locks, lockControls);
         const preparedControl = baseControl.key === 'orbitId' && isCarriageFixedSet(selectedFixedCompositionSetOption)
           ? { ...baseControl, label: '相機拍攝方位',
               suppressDefaultRandomOption: selectedFixedCompositionSetOption.orbitMode !== 'camera-position',

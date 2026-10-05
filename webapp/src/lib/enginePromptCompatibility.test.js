@@ -156,7 +156,7 @@ test('renamed hooded outerwear options migrate both current and historical saved
 test('outerwear styling replaces the old slipped-shoulder option with explicit shoulder exposure and migrates old ids', () => {
   const stylingControl = controls.find((control) => control.key === 'outerwearStylingId');
   assert.deepEqual(
-    stylingControl.options.map((option) => option.zh),
+    stylingControl.options.slice(0, 4).map((option) => option.zh),
     ['全無', '正常穿著', '單肩露出', '雙肩露出'],
   );
 

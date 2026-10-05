@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-05
 
+## 外套穿法 v2：四種手動單選穿法 (local, 2026-10-05)
+
+- 已完成核准的「衣襬遮住部分下身」「披在雙肩（不穿袖）」「披在單肩（不穿袖）」「袖口捲至前臂」。附加於既有外套穿法清單尾端，首批只手動選用；舊 ID、順序、隨機池、storage schema、三組主輸出及三組衍生欄位不變。Public output contract `1.41.0`，詳見 [外套穿法 v2](specs/outerwear-styling-v2.md)。
+- 新英文依外套 → 圖案 → 開合 → 穿法 → 內搭次序組裝；六組可見且相容時完整保留同一來源一次，不做 renderer 短版。透明外套衣襬採共用透視變體；衣襬須有同人物獨立褲／裙並排除短版，捲袖只適用七款已標記外套。不穿袖披肩排除半扣／半拉鏈／完全閉合及雙手拉開外套動作；全閉合仍可保留有效衣襬與捲袖。衣襬／捲袖於胸上／臉部近景整段省略，全身衍生重新保留。UI 暫顯全無及不適用提示，來源選項不清除，切回相容條件恢復。雙人各自解析；Saved Cards／文字回填沿用原架構。
+- 驗證完成：包含收藏相容性的專項 73/73、完整前端 1293/1293、Prompt Quality 542/542、lint/build、資料同步、Python 2/2、206 個公開資產及 diff-check 通過；204 組舊外套 selection 與六輸出完全相同。同 seed `200 / prompt-quality-baseline` 嚴格稽核前後逐字相同，blocking 0，既有服裝／場景診斷 25 項及近似重複 3 項未增加；Vite 大型 chunk 提示仍在。
+- 瀏覽器 1440×1000／390×900 完成四種選項、複製、透明、閉合、短版停用／恢復、披肩與開合／手部互斥、裁切／全身來源及雙人披肩檢查；五工作區無新增 console error/warning、破圖或頁面橫向溢出。正常 Saved Cards 保留 9 張並測試篩選；另在原本 0 張卡片的獨立 5176 驗收來源新增 1 張本機測試卡，桌面／手機實際驗證文字回填及修改後從收藏還原。回填先排除完整上衣衣襬來源，避免把其內含的短片語誤判成外套穿法；還原核對選項與有效來源，未指定欄位沿用既有重新生成機制。測試卡保留在獨立來源。原 5175 工作台選項、六組預覽及剪貼簿已還原，viewport 重設，驗證分頁及本次測試伺服器已關閉。截圖 `/tmp/vps-outerwear-{desktop,mobile}.jpg`；紀錄 `/tmp/vps-outerwear-browser-checks.json`。文字／介面已驗證，外部圖像效果待使用者實測。使用者已於 2026-10-05 授權本批 commit/push，交付狀態以 Git 遠端核對為準。既有未追蹤參考資料夾保留。
+
 ## 手持波板糖：嘴前部分遮嘴 (local, 2026-10-05)
 
 - 使用者核准將「手持波板糖」改成單手握糖棒，將大型彩色旋紋波板糖的扁平圓盤放在嘴唇正前方、部分遮嘴，鼻眼保持可見。正式英文 35 個空白分隔詞；不指定左右手，不加入咬糖或含糖。沿用 `hand-hold-whirly-lollipop` ID、名稱與清單位置；來源在 `webapp/src/lib/engine/poseComposerOptions.js`，詳見 [嘴前波板糖規格](specs/whirly-lollipop-mouth-v1.md)。Public output contract `1.40.0`。

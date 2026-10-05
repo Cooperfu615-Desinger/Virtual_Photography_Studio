@@ -58,11 +58,13 @@ test('Saved Card preserves hidden choices and reopening restores original inner 
   assert.match(closed.grokPrompt, /straight-leg jeans/);
 });
 
-test('closed styling displays disabled none without mutating the stored choice', () => {
+test('closed legacy styling displays none while compatible new choices stay enabled and stored choice survives', () => {
   const locks = locksFor();
   const control = controls.find(c => c.key === 'outerwearStylingId');
   const prepared = prepareOuterwearClosureControl(control, locks);
-  assert.equal(prepared.closureDisabled, true);
+  assert.ok(!prepared.closureDisabled);
+  assert.equal(prepared.options.find(o => o.zh === '雙肩露出').disabled, true);
+  assert.ok(!prepared.options.find(o => o.zh === '衣襬遮住部分下身').disabled);
   assert.equal(prepared.closureDisplayValue, option('outerwearStylingId', '全無').id);
   assert.equal(locks.outerwearStylingId, option('outerwearStylingId', '雙肩露出').id);
   assert.ok(!JSON.stringify(buildWorkspaceSummary(locks, controls)).includes('雙肩露出'));

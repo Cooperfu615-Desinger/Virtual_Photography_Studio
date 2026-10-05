@@ -226,6 +226,8 @@ lace bra top, delicate lace cups, intimate lingerie structure, slim strap detail
 
 ### 衣襬遮住部分下身（2026-09-27）
 
+2026-10-05 外套另增同名手動選項，沿用外套穿法單選欄位；描述接在外套後，透明變體與衣長／開合／袖型／手部相容先共用解析，六組可見英文保留原文。上身原選項不變。詳見 [外套穿法 v2](outerwear-styling-v2.md)。下方歷史衣襬體態刪除規則已由 [體態目錄 v2](body-type-catalog-v2.md) 取代，獨立體態來源維持完整。
+
 - 新增 `topStylingId=hem-overlap`，單人與雙人 A/B 共用；保留 `untucked`「自然放出」。第一版僅手動選取，不加入既有隨機池。
 - 共用英文來源為 `worn untucked, its hem draping naturally over the waistband and upper portion of the lower garment, partially concealing it while leaving the remaining fabric visible below`。承接單品後輸出，保留實測的遮擋關係，不指定比例、額外衣長或寬鬆版型。
 - 同一人物必須有獨立上身及褲裝／裙裝。明確短版、比基尼、胸罩、運動內衣及緊身後露腹的水手服不輸出這段；保留已選 ID，不替換單品或強行拉長衣服。完整造型仍依既有優先權接管。
@@ -535,5 +537,7 @@ git diff --check
 - 測試是否覆蓋新行為、prompt 組合與舊資料遷移。
 
 ## 外套完全閉合（2026-09-29）
+
+2026-10-05 新穿法 v2 將完全閉合的穿法限制改為逐項判斷；有效衣襬關係與捲袖可保留，既有露肩與不穿袖披肩不生效。其餘閉合及內搭來源規則不變，見 [外套穿法 v2](outerwear-styling-v2.md)。
 
 外套開合新增「全扣上／全拉上」，手動選用且不進入原隨機池。扣件措辭由既有 `outerwear.fasteners` 決定；未宣告扣件時使用通用完全閉合描述。薄紗與蕾絲以 `closedInnerLayerVisibility: through-fabric` 明確保留透過布料可見的內搭；其他款式在共用渲染投影中移除上身內搭及其修飾。不可刪除原選項、改變衣長或清空下身／配件。完全閉合的外套穿法有效值為全無；與拉開外套的手部動作互斥。完整規則、角色卡／特殊穿搭接管邊界及 Saved Cards 保留方式見 [外套資料與穿法整理 v1](outerwear-catalog-v1.md#全扣上全拉上2026-09-29)。

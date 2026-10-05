@@ -3,6 +3,7 @@ import { ACCESSORY_CATEGORIES, accessoryNoneId, isConcreteAccessory, isHeadWornA
 import database from '../data/database.json' with { type: 'json' };
 import { isMinimalCoverageGarmentSource, isMinimalCoverageTop } from './engine/minimalCoverageWardrobe.js';
 import { isRetiredOuterwear, resolveOuterwearBase, outerwearFasteners } from './engine/outerwearModel.js';
+import { isNewOuterwearStyling, outerwearStylingKind, outerwearStylingAllowsClosed, outerwearStylingConflict, resolveOuterwearStylingSource, projectOuterwearStyling } from './engine/outerwearStyling.js';
 import { isFullyClosedOpening, closedInnerLayerIsVisible, fullyClosedOuterwearText, PULL_OPEN_HAND_ID } from './engine/outerwearClosure.js';
 import { getActionPoseCardById } from '../data/actionPoseCards.js';
 import {
@@ -3309,6 +3310,7 @@ function buildEntries(groupName, groupedData, inferMeta) {
           ...sourceMeta,
           ...(item.outerwear ? { outerwear: item.outerwear } : {}),
           ...(item.outerwearFit ? { outerwearFit: item.outerwearFit } : {}),
+          ...(item.outerwearStyling ? { outerwearStyling: item.outerwearStyling, randomEligible: item.randomEligible } : {}),
           ...(item.outerwearFastenerRequirement !== undefined ? { outerwearFastenerRequirement: item.outerwearFastenerRequirement } : {}),
           ...(item.legacyPromptAliases ? { legacyPromptAliases: item.legacyPromptAliases } : {}),
           ...(item.legacyLabels ? { legacyLabels: item.legacyLabels } : {}),
@@ -4177,7 +4179,7 @@ function buildOuterwearColoredPrompt(outerwearItem, color = null, { fit = null, 
   const fitText = resolvedBase === null && fit && !isNoneLikeItem(fit) && !isSimpleOversizeFit
     ? normalizeWardrobePromptText(fit.en)
     : '';
-  const stylingText = isFullyClosedOpening(opening) ? '' : buildOuterwearStylingLeadText(styling, { minimal: minimalStyling });
+  const stylingText = isFullyClosedOpening(opening) && !outerwearStylingAllowsClosed(styling) ? '' : buildOuterwearStylingLeadText(styling, { minimal: minimalStyling });
   const patternText = pattern && !isNoneLikeItem(pattern) ? normalizeWardrobePromptText(pattern.en) : '';
   const openingText = isFullyClosedOpening(opening) ? fullyClosedOuterwearText(outerwearItem)
     : opening && !isNoneLikeItem(opening) ? normalizeWardrobePromptText(opening.en) : '';
@@ -6700,6 +6702,21 @@ function resolveTopHemOverlap(pieces) {
   });
 }
 
+function resolveNewOuterwearStyling(pieces, context) {
+  return pieces.map(item => {
+    if (!isNewOuterwearStyling(item)) return item;
+    const role = item.meta?.wardrobeRole || '';
+    const sameRole = pieces.filter(piece => (piece.meta?.wardrobeRole || '') === role && !isNoneLikeItem(piece));
+    const outerwear = sameRole.find(piece => piece.id?.startsWith('wardrobe:外套-outerwear:')) || null;
+    const fit = sameRole.find(piece => piece.id?.startsWith('wardrobe:外套版型-outerwear-fit:'));
+    const opening = sameRole.find(piece => piece.id?.startsWith('wardrobe:外套開合-outerwear-opening:'));
+    const hasBottom = sameRole.some(piece => /^wardrobe:(?:褲裝-pants|裙裝-skirts):/.test(piece.id));
+    return resolveOuterwearStylingSource(item, { outerwear, fit, opening, hasBottom,
+      fullyClosed: isFullyClosedOpening(opening),
+      handId: context.subject.count === 1 ? context.locks?.poseHandId : '' });
+  });
+}
+
 function projectTopHemOverlap(pieces, context) {
   const zones = getCompositionVisibilityProjection(context)?.wardrobe?.detailZones || [];
   return zones.includes('waist') ? pieces : pieces.map(item => isHemOverlapStyling(item) ? { ...item, en: '' } : item);
@@ -6974,6 +6991,7 @@ function buildWardrobe(context, locks, catalog) {
     const candidates = categoryItems.filter(
       (item) =>
         !isFullyClosedOpening(item) &&
+        (categoryKey !== '外套穿法 (Outerwear Styling)' || item.meta?.randomEligible !== false) &&
         !item.meta?.tags?.includes('optional_silence') &&
         (allowNoneWhenUnlocked || !isNoneLikeItem(item)) &&
         wardrobeFitsLocation(item, context.location) &&
@@ -7585,7 +7603,7 @@ function buildWardrobe(context, locks, catalog) {
         if (selectedPattern) addPiece(selectedPattern);
       }
     }
-    return resolveTopHemOverlap(projectSailorSeparateFit(pieces.filter(keepExplicitCloseupWardrobeItem), locks));
+    return resolveTopHemOverlap(projectSailorSeparateFit(resolveNewOuterwearStyling(pieces, context).filter(keepExplicitCloseupWardrobeItem), locks));
   }
 
   const hasOutfitPresetPieceResolved = pieces.some((piece) => piece.id?.includes('wardrobe:套裝-outfit-presets:') && !isNoneLikeItem(piece));
@@ -7659,7 +7677,8 @@ function buildWardrobe(context, locks, catalog) {
       maybePick('外套版型 (Outerwear Fit)', locks?.outerwearFitId ? 1 : 0.55, () => true, { allowNoneWhenUnlocked: true });
       maybePick('外套圖案 (Outerwear Surface Design)', locks?.outerwearPatternId ? 1 : 0.3, () => true, { allowNoneWhenUnlocked: true });
       maybePick('外套開合 (Outerwear Opening)', useOpenFrontForHand || locks?.outerwearOpeningId ? 1 : 0.55,
-        (opening) => outerwearSupportsOpening(selectedOuterwear, opening) && (!useOpenFrontForHand || opening.zh === '敞開穿'),
+        (opening) => outerwearSupportsOpening(selectedOuterwear, opening) && (!useOpenFrontForHand || opening.zh === '敞開穿')
+          && !outerwearStylingConflict(findById(getByKey(catalog.catalog.wardrobe, '外套穿法 (Outerwear Styling)'), locks?.outerwearStylingId), { outerwear: undefined, opening }),
         { allowNoneWhenUnlocked: !useOpenFrontForHand });
       maybePick('外套穿法 (Outerwear Styling)', useLoweredShouldersForHand || locks?.outerwearStylingId ? 1 : 0.55,
         (styling) => !useLoweredShouldersForHand || styling.zh === '雙肩露出',
@@ -7759,7 +7778,7 @@ function buildWardrobe(context, locks, catalog) {
     maybePick('頸部 (Neck Accessories)', visibilityAtLeast(visibility, 'portrait') ? 0.4 : 0.2, () => true, { allowNoneWhenUnlocked: true });
   }
 
-  return addConditionalGarterBeltLayer(resolveTopHemOverlap(projectSailorSeparateFit(pieces, locks)));
+  return addConditionalGarterBeltLayer(resolveTopHemOverlap(projectSailorSeparateFit(resolveNewOuterwearStyling(pieces, context), locks)));
 }
 
 function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
@@ -7778,7 +7797,8 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   for (const suffix of ['', 'A', 'B']) {
     const opening = suffix ? wardrobeSlots[`outerwear${suffix}Opening`] : wardrobeSlots.outerwearOpening;
-    if (isFullyClosedOpening(opening)) wardrobeSlots[suffix ? `outerwear${suffix}Styling` : 'outerwearStyling'] = null;
+    const styleKey = suffix ? `outerwear${suffix}Styling` : 'outerwearStyling';
+    if (!wardrobeSlots[styleKey]?.en || (isFullyClosedOpening(opening) && !outerwearStylingAllowsClosed(wardrobeSlots[styleKey]))) wardrobeSlots[styleKey] = null;
   }
   const imageTypeLabel = context.imageTypePreset?.zh || IMAGE_TYPE_PRESET_OPTIONS[0].zh;
   const styleLabel = joinSummaryParts(
@@ -8990,7 +9010,7 @@ function projectClosedOuterwearWardrobe(wardrobe) {
     const coat = slots[`outerwear${suffix}`];
     if (!coat || isNoneLikeItem(coat)) continue;
     const styling = slots[`outerwear${suffix}Styling`] || (suffix ? null : slots.outerwearStyling);
-    if (styling) hidden.add(styling);
+    if (styling && !outerwearStylingAllowsClosed(styling)) hidden.add(styling);
     if (closedInnerLayerIsVisible(coat)) continue;
     for (const key of ['top', 'topFit', 'topStyling', 'topPattern']) {
       if (slots[`${key}${suffix}`]) hidden.add(slots[`${key}${suffix}`]);
@@ -9643,6 +9663,7 @@ function buildWaistlineCompatibilityPrompt(wardrobeSlots) {
 
   if (!bottom || !top || !isLowRiseBottom || isCroppedTopItem(top) || top.zh === '比基尼上身' || isMinimalCoverageTop(top)) return '';
   if (isHemOverlapStyling(topStyling)) return '';
+  if (outerwearStylingKind(wardrobeSlots.outerwearStyling) === 'hem-overlap' && wardrobeSlots.outerwearStyling.en) return '';
 
   if (topStyling?.zh === '自然放出' || isUntuckedTopItem(top)) {
     return 'top hem overlaps the low-rise waistband, long untucked length covering the abdomen';
@@ -11558,6 +11579,22 @@ function buildGptDuoPoseAndCompositionText(valuesByLabel, context) {
   ].filter(Boolean).join(' ');
 }
 
+function protectNewLayeredHemSources(text) {
+  const topHemSource = getTopStylingOption('hem-overlap')?.en;
+  const coatHemSource = database.Wardrobe['外套穿法 (Outerwear Styling)'].find(item => item.outerwearStyling?.kind === 'hem-overlap')?.en;
+  const sources = [];
+  // Same words can describe distinct garment layers. Only the new pairing
+  // protects whole instructions; all legacy deduplication remains unchanged.
+  if (topHemSource && coatHemSource && text.includes(topHemSource)
+    && (text.includes(`${coatHemSource},`) || text.includes(`${coatHemSource}.`) || text.endsWith(coatHemSource))) {
+    for (const source of [topHemSource, coatHemSource]) text = text.replaceAll(source, () => {
+      sources.push(source);
+      return `VPSTUDIO_LAYER_SOURCE_${sources.length - 1}`;
+    });
+  }
+  return { text, restore: value => value.replace(/VPSTUDIO_LAYER_SOURCE_(\d+)/g, (_, index) => sources[Number(index)]) };
+}
+
 function cleanGptSinglePromptText(value) {
   const normalized = stripMarkdown(value || '')
     .replace(/\s+/g, ' ')
@@ -11566,7 +11603,8 @@ function cleanGptSinglePromptText(value) {
     .replace(/\s+,/g, ',')
     .replace(/,\s*\./g, '.')
     .trim();
-  return dedupeExactPromptText(normalized);
+  const protectedSources = protectNewLayeredHemSources(normalized);
+  return protectedSources.restore(dedupeExactPromptText(protectedSources.text));
 }
 
 function buildGptSingleFullFidelityText(value) {
@@ -12824,7 +12862,7 @@ function buildFixedFramingDerivedPromptModel({
   film,
 }) {
   const baseDerivedContext = createFixedFramingDerivedContext(sourceContext, preset);
-  wardrobe = projectClosedOuterwearWardrobe(projectTopHemOverlap(projectAudioForFraming(wardrobe, baseDerivedContext), baseDerivedContext));
+  wardrobe = projectClosedOuterwearWardrobe(projectOuterwearStyling(projectTopHemOverlap(projectAudioForFraming(wardrobe, baseDerivedContext), baseDerivedContext), getCompositionVisibilityProjection(baseDerivedContext)));
 
   if (!preset.projectResolvedSources) {
     const projectedCharacter = projectBodyTypeCharacter(character, baseDerivedContext, wardrobe);
@@ -15373,7 +15411,8 @@ function buildAiFreedomWardrobeSentence(
         wardrobeColors,
         { majorRoleLimit: compact ? 1 : 2 }
       )];
-  const wardrobeText = uniqueAiWardrobeValues(wardrobeParts.join(', ').split(/,\s*/)).join(', ');
+  const protectedLayerSources = protectNewLayeredHemSources(wardrobeParts.join(', '));
+  const wardrobeText = protectedLayerSources.restore(uniqueAiWardrobeValues(protectedLayerSources.text.split(/,\s*/)).join(', '));
   const visibleWardrobeText = stripAiUpperCropBoundaryText(wardrobeText, context);
   const visibleFitAnchors = getExplicitWardrobeFitAnchors(
     context,
@@ -15713,7 +15752,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     projectedScene: buildProjectedScene(rendererContext),
   };
   const projectedCharacter = projectBodyTypeCharacter(character, mainContext);
-  const rendererWardrobe = projectClosedOuterwearWardrobe(projectTopHemOverlap(projectAudioForFraming(fixedCompositionPromptProjection?.wardrobe.items || wardrobe, mainContext), mainContext));
+  const rendererWardrobe = projectClosedOuterwearWardrobe(projectOuterwearStyling(projectTopHemOverlap(projectAudioForFraming(fixedCompositionPromptProjection?.wardrobe.items || wardrobe, mainContext), mainContext), getCompositionVisibilityProjection(mainContext)));
   const rendererWardrobeColors = fixedCompositionPromptProjection?.wardrobe.colors || wardrobeColors;
   const promptModel = {
     ...buildStructuredPromptSections(mainContext, projectedCharacter, rendererWardrobe, rendererWardrobeColors, lightDirection, film),
@@ -15821,6 +15860,11 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
 function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film) {
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
+  const preserveNewOuterwearStylingSelection = (slot, key) => {
+    if (slot?.id) return slot.id.replace(/:[ab]$/, '');
+    const selected = getLockControls().find(control => control.key === key)?.options.find(item => item.id === context.locks?.[key]);
+    return isNewOuterwearStyling(selected) ? selected.id : '';
+  };
   const preserveHiddenWaistSelection = (slot, lockKey) => (
     slot?.id
     || (context.locks?.[lockKey] && context.locks[lockKey] !== 'random' ? context.locks[lockKey] : '')
@@ -15980,7 +16024,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     outerwearColorId: wardrobeColors.outerwearColor?.id || '',
     outerwearPatternId: wardrobeSlots.outerwearPattern?.id || '',
     outerwearOpeningId: wardrobeSlots.outerwearOpening?.id || '',
-    outerwearStylingId: wardrobeSlots.outerwearStyling?.id || '',
+    outerwearStylingId: preserveNewOuterwearStylingSelection(wardrobeSlots.outerwearStyling, 'outerwearStylingId'),
     shoesId: wardrobeSlots.shoes?.id || '',
     shoesColorId: wardrobeColors.shoesColor?.id || '',
     legwearAId: wardrobeSlots.legwearA?.id?.replace(/:a$/, '') || '',
@@ -15990,7 +16034,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     outerwearAColorId: wardrobeColors.outerwearAColor?.id || '',
     outerwearAPatternId: wardrobeSlots.outerwearAPattern?.id?.replace(/:a$/, '') || '',
     outerwearAOpeningId: wardrobeSlots.outerwearAOpening?.id?.replace(/:a$/, '') || '',
-    outerwearAStylingId: wardrobeSlots.outerwearAStyling?.id?.replace(/:a$/, '') || '',
+    outerwearAStylingId: preserveNewOuterwearStylingSelection(wardrobeSlots.outerwearAStyling, 'outerwearAStylingId'),
     shoesAId: wardrobeSlots.shoesA?.id?.replace(/:a$/, '') || '',
     shoesAColorId: wardrobeColors.shoesAColor?.id || '',
     legwearBId: wardrobeSlots.legwearB?.id?.replace(/:b$/, '') || '',
@@ -16000,7 +16044,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     outerwearBColorId: wardrobeColors.outerwearBColor?.id || '',
     outerwearBPatternId: wardrobeSlots.outerwearBPattern?.id?.replace(/:b$/, '') || '',
     outerwearBOpeningId: wardrobeSlots.outerwearBOpening?.id?.replace(/:b$/, '') || '',
-    outerwearBStylingId: wardrobeSlots.outerwearBStyling?.id?.replace(/:b$/, '') || '',
+    outerwearBStylingId: preserveNewOuterwearStylingSelection(wardrobeSlots.outerwearBStyling, 'outerwearBStylingId'),
     shoesBId: wardrobeSlots.shoesB?.id?.replace(/:b$/, '') || '',
     shoesBColorId: wardrobeColors.shoesBColor?.id || '',
     headphonesId: wardrobeSlots.headphones?.id?.replace(/:[ab]$/, '') || accessoryNoneId('headphones'),

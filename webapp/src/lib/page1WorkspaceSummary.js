@@ -1,5 +1,6 @@
 import { CHARACTER_CARD_LAYER_KEYS, CHARACTER_CARD_LAYER_LABELS } from './characterCardLab.js';
 import { isFullyClosedOpening } from './engine/outerwearClosure.js';
+import { isNewOuterwearStyling, outerwearStylingAllowsClosed, outerwearStylingConflict, outerwearStylingControlContext } from './engine/outerwearStyling.js';
 import { getActionPoseCardById } from '../data/actionPoseCards.js';
 import { buildAccessorySummaryEntries } from './accessorySummary.js';
 import { getCameraControlDisplayLabel } from './page1CameraLabels.js';
@@ -117,7 +118,12 @@ function isCoveredByOutfitPreset(key, activePresets) {
 
 function getEffectiveWardrobeOptionLabel(controls, locks, key, activePresets) {
   const styling = key.match(/^outerwear([AB]?)StylingId$/);
-  if (styling && isFullyClosedOpening(locks[`outerwear${styling[1]}OpeningId`])) return '';
+  if (styling) {
+    const item = controls.find(c => c.key === key)?.options.find(o => o.id === locks[key]);
+    const fullyClosed = isFullyClosedOpening(locks[`outerwear${styling[1]}OpeningId`]);
+    if (fullyClosed && !outerwearStylingAllowsClosed(item)) return '';
+    if (isNewOuterwearStyling(item) && outerwearStylingConflict(item, { ...outerwearStylingControlContext(controls, locks, styling[1]), fullyClosed })) return '';
+  }
   if (isCoveredByOutfitPreset(key, activePresets)) return '';
   return getControlOptionLabel(controls, key, locks[key]);
 }

@@ -3325,7 +3325,8 @@
           "baseEn": "blazer in suiting fabric",
           "fasteners": [
             "button"
-          ]
+          ],
+          "rollableSleeves": true
         },
         "stableId": "wardrobe:外套-outerwear:西裝外套:1",
         "legacyPromptAliases": [
@@ -3340,7 +3341,8 @@
           "baseEn": "sport zip-up hoodie in performance knit",
           "fasteners": [
             "zip"
-          ]
+          ],
+          "rollableSleeves": true
         },
         "stableId": "wardrobe:外套-outerwear:連帽外套:2",
         "legacyPromptAliases": [
@@ -3429,7 +3431,8 @@
           "baseEn": "washed denim jacket",
           "fasteners": [
             "button"
-          ]
+          ],
+          "rollableSleeves": true
         },
         "stableId": "wardrobe:外套-outerwear:丹寧外套:8",
         "legacyPromptAliases": [
@@ -3444,7 +3447,8 @@
           "baseEn": "soft zip-up hoodie in sweatshirt fabric, hood worn up",
           "fasteners": [
             "zip"
-          ]
+          ],
+          "rollableSleeves": true
         },
         "stableId": "wardrobe:外套-outerwear:連帽外套-戴:9",
         "legacyPromptAliases": [
@@ -3557,7 +3561,8 @@
           "fasteners": [
             "button"
           ],
-          "defaultLength": "long"
+          "defaultLength": "long",
+          "rollableSleeves": true
         },
         "stableId": "wardrobe:外套-outerwear:風衣:16"
       },
@@ -3569,7 +3574,8 @@
           "baseEn": "knit cardigan",
           "fasteners": [
             "button"
-          ]
+          ],
+          "rollableSleeves": true
         },
         "stableId": "wardrobe:外套-outerwear:針織開襟外套:17",
         "legacyPromptAliases": [
@@ -3631,7 +3637,8 @@
           "fasteners": [
             "button"
           ],
-          "defaultLength": "longline"
+          "defaultLength": "longline",
+          "rollableSleeves": true
         },
         "stableId": "wardrobe:外套-outerwear:長版襯衫:21",
         "legacyPromptAliases": [
@@ -3680,7 +3687,7 @@
       {
         "zh": "全扣上／全拉上",
         "en": "front fully fastened closed",
-        "desc": "依外套的扣子或拉鏈完全閉合前襟；外套穿法固定全無。不透明外套遮住上身內搭，薄紗與蕾絲保留透過閉合布料可見的內搭；不改變衣長與下身配件。僅供手動選擇。",
+        "desc": "依外套的扣子或拉鏈完全閉合前襟；既有露肩穿法不生效；有效衣襬遮擋與捲袖可保留。不透明外套遮住上身內搭，薄紗與蕾絲保留透過閉合布料可見的內搭；不改變衣長與下身配件。僅供手動選擇。",
         "stableId": "wardrobe:外套開合-outerwear-opening:fully-closed:5",
         "outerwearFastenerRequirement": "",
         "legacyPromptAliases": [
@@ -3713,6 +3720,50 @@
         "legacyPromptAliases": [
           "slipped down around both upper arms, with the neckline resting below both shoulders and both arms still in the sleeves"
         ]
+      },
+      {
+        "zh": "衣襬遮住部分下身",
+        "en": "its hem draping naturally over the waistband and upper portion of the lower garment, partially concealing it",
+        "desc": "外套衣襬自然覆在下身腰頭與上緣；依衣長及材質判斷，僅手動選用。",
+        "stableId": "wardrobe:外套穿法-outerwear-styling:衣襬遮住部分下身:4",
+        "randomEligible": false,
+        "outerwearStyling": {
+          "kind": "hem-overlap",
+          "throughFabricEn": "its hem overlapping the waistband and upper portion of the lower garment, which remains visible through the fabric"
+        },
+        "legacyPromptAliases": [
+          "its hem overlapping the waistband and upper portion of the lower garment, which remains visible through the fabric"
+        ]
+      },
+      {
+        "zh": "披在雙肩（不穿袖）",
+        "en": "draped over both shoulders, both arms outside the sleeves, with the empty sleeves hanging naturally",
+        "desc": "外套披在雙肩，雙臂留在袖外，空袖自然垂下；不適用半扣、半拉鏈或完全閉合，僅手動選用。",
+        "stableId": "wardrobe:外套穿法-outerwear-styling:披在雙肩（不穿袖）:5",
+        "randomEligible": false,
+        "outerwearStyling": {
+          "kind": "drape-both"
+        }
+      },
+      {
+        "zh": "披在單肩（不穿袖）",
+        "en": "draped over one shoulder, both arms outside the sleeves, with the garment and empty sleeves hanging to that side",
+        "desc": "外套披在一側肩膀，雙臂留在袖外，衣身及空袖垂向同側；不指定左右，僅手動選用。",
+        "stableId": "wardrobe:外套穿法-outerwear-styling:披在單肩（不穿袖）:6",
+        "randomEligible": false,
+        "outerwearStyling": {
+          "kind": "drape-one"
+        }
+      },
+      {
+        "zh": "袖口捲至前臂",
+        "en": "sleeves rolled up to mid-forearm, with visible folded cuffs",
+        "desc": "外套袖子捲至前臂中段，保留可見折捲袖口；只適用已標註可捲袖款式，不改內搭袖子，僅手動選用。",
+        "stableId": "wardrobe:外套穿法-outerwear-styling:袖口捲至前臂:7",
+        "randomEligible": false,
+        "outerwearStyling": {
+          "kind": "rolled-sleeves"
+        }
       }
     ],
     "外套圖案 (Outerwear Surface Design)": [

@@ -80,7 +80,16 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.40.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.41.0';
+
+export const OUTERWEAR_STYLING_CONTRACT = deepFreeze({
+  scope: 'four appended manual single-choice outerwear styles',
+  source: 'same resolved authored English after the coat identity, pattern and opening',
+  fidelity: 'retain the whole visible source verbatim once across applicable main and derived outputs',
+  resolution: 'same-person garment length, authored rollable sleeves, closure and sleeve-bound hand compatibility; translucent hem variant resolves once',
+  projection: 'hem and rolled cuffs omitted in chest/face crops and restored from resolved sources for full-body reference',
+  compatibility: 'existing IDs, random pool, pose source, Body Type, saved selections and storage schema preserved',
+});
 
 export const MINIMAL_COVERAGE_WARDROBE_CONTRACT = deepFreeze({
   scope: 'four reviewed independent pasties/lace-bottom/string-bikini pieces only',

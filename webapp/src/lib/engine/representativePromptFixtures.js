@@ -15,6 +15,23 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 });
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
+  ...[
+    ['hem', '衣襬遮住部分下身', 'its hem draping naturally over the waistband and upper portion of the lower garment, partially concealing it', false],
+    ['drape-both', '披在雙肩（不穿袖）', 'draped over both shoulders, both arms outside the sleeves, with the empty sleeves hanging naturally', true],
+    ['drape-one', '披在單肩（不穿袖）', 'draped over one shoulder, both arms outside the sleeves, with the garment and empty sleeves hanging to that side', true],
+    ['rolled', '袖口捲至前臂', 'sleeves rolled up to mid-forearm, with visible folded cuffs', false],
+  ].map(([id, label, source, chestVisible]) => ({
+    id: `outerwear-styling-v2-${id}`, title: `Outerwear ${label} keeps the reviewed visible source`,
+    mode: 'single', seed: 'outerwear-styling-v2',
+    locks: { subjectCount: '1', framingId: { byZh: '牛仔中景 (Cowboy Shot)' },
+      topId: { byZh: '短袖上衣' }, pantsId: { byZh: '直筒牛仔褲' },
+      outerwearId: { byZh: '長版襯衫' }, outerwearOpeningId: { byZh: '敞開穿' },
+      outerwearStylingId: { byZh: label } },
+    expectedOutputs: {
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'fullBodyCharacterPrompt'].map(field => [field, { includes: [source] }])),
+      ...Object.fromEntries(['chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map(field => [field, chestVisible ? { includes: [source] } : { excludes: [source] }])),
+    },
+  })),
   {
     id: 'whirly-lollipop-mouth', title: 'Whirly lollipop stays in front of the mouth in the shared visible pose',
     mode: 'single', seed: 'whirly-lollipop-mouth-v1',

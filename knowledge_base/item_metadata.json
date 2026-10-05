@@ -362,7 +362,8 @@
           "baseEn": "blazer in suiting fabric",
           "fasteners": [
             "button"
-          ]
+          ],
+          "rollableSleeves": true
         },
         "stableId": "wardrobe:外套-outerwear:西裝外套:1",
         "legacyPromptAliases": [
@@ -374,7 +375,8 @@
           "baseEn": "sport zip-up hoodie in performance knit",
           "fasteners": [
             "zip"
-          ]
+          ],
+          "rollableSleeves": true
         },
         "stableId": "wardrobe:外套-outerwear:連帽外套:2",
         "legacyPromptAliases": [
@@ -445,7 +447,8 @@
           "baseEn": "washed denim jacket",
           "fasteners": [
             "button"
-          ]
+          ],
+          "rollableSleeves": true
         },
         "stableId": "wardrobe:外套-outerwear:丹寧外套:8",
         "legacyPromptAliases": [
@@ -457,7 +460,8 @@
           "baseEn": "soft zip-up hoodie in sweatshirt fabric, hood worn up",
           "fasteners": [
             "zip"
-          ]
+          ],
+          "rollableSleeves": true
         },
         "stableId": "wardrobe:外套-outerwear:連帽外套-戴:9",
         "legacyPromptAliases": [
@@ -549,7 +553,8 @@
           "fasteners": [
             "button"
           ],
-          "defaultLength": "long"
+          "defaultLength": "long",
+          "rollableSleeves": true
         },
         "stableId": "wardrobe:外套-outerwear:風衣:16"
       },
@@ -558,7 +563,8 @@
           "baseEn": "knit cardigan",
           "fasteners": [
             "button"
-          ]
+          ],
+          "rollableSleeves": true
         },
         "stableId": "wardrobe:外套-outerwear:針織開襟外套:17",
         "legacyPromptAliases": [
@@ -608,7 +614,8 @@
           "fasteners": [
             "button"
           ],
-          "defaultLength": "longline"
+          "defaultLength": "longline",
+          "rollableSleeves": true
         },
         "stableId": "wardrobe:外套-outerwear:長版襯衫:21",
         "legacyPromptAliases": [
@@ -650,6 +657,38 @@
         "legacyPromptAliases": [
           "slipped down around both upper arms, with the neckline resting below both shoulders and both arms still in the sleeves"
         ]
+      },
+      "衣襬遮住部分下身": {
+        "stableId": "wardrobe:外套穿法-outerwear-styling:衣襬遮住部分下身:4",
+        "randomEligible": false,
+        "outerwearStyling": {
+          "kind": "hem-overlap",
+          "throughFabricEn": "its hem overlapping the waistband and upper portion of the lower garment, which remains visible through the fabric"
+        },
+        "legacyPromptAliases": [
+          "its hem overlapping the waistband and upper portion of the lower garment, which remains visible through the fabric"
+        ]
+      },
+      "披在雙肩（不穿袖）": {
+        "stableId": "wardrobe:外套穿法-outerwear-styling:披在雙肩（不穿袖）:5",
+        "randomEligible": false,
+        "outerwearStyling": {
+          "kind": "drape-both"
+        }
+      },
+      "披在單肩（不穿袖）": {
+        "stableId": "wardrobe:外套穿法-outerwear-styling:披在單肩（不穿袖）:6",
+        "randomEligible": false,
+        "outerwearStyling": {
+          "kind": "drape-one"
+        }
+      },
+      "袖口捲至前臂": {
+        "stableId": "wardrobe:外套穿法-outerwear-styling:袖口捲至前臂:7",
+        "randomEligible": false,
+        "outerwearStyling": {
+          "kind": "rolled-sleeves"
+        }
       }
     },
     "外套圖案 (Outerwear Surface Design)": {

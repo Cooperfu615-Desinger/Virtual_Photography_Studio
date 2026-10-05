@@ -324,9 +324,16 @@ export function parseLocksFromStandardPrompt(promptText, controls) {
   }
 
   if (normalizedPrompt) {
+    // The shorter coat-hem source occurs inside the historical inner-top source.
+    // Remove whole inner-top instructions only while matching outerwear styling;
+    // a separately selected coat instruction remains available to the parser.
+    const innerHem = controlMap.get('topStylingId')?.options.find(option => option.id === 'hem-overlap');
+    const outerwearStylingPrompt = [innerHem?.en, ...(innerHem?.meta?.legacyPromptAliases || [])]
+      .filter(Boolean).reduce((text, source) => text.replaceAll(normalizePromptText(source), ''), normalizedPrompt);
     controls.forEach((control) => {
       if (control.compatibilityOnly) return;
-      const option = findBestOptionMatch(control.options, normalizedPrompt);
+      const option = findBestOptionMatch(control.options,
+        /^outerwear[AB]?StylingId$/.test(control.key) ? outerwearStylingPrompt : normalizedPrompt);
       if (!option) return;
       locks[control.key] = option.id;
       matchedControls.push({ key: control.key, label: control.label, option });
