@@ -1,3 +1,4 @@
+import { bottomRiseConflict, bottomRiseControlContext } from './engine/bottomRiseCompatibility.js';
 import { CHARACTER_CARD_LAYER_KEYS, CHARACTER_CARD_LAYER_LABELS } from './characterCardLab.js';
 import { isFullyClosedOpening } from './engine/outerwearClosure.js';
 import { isUnderbustTopFit, isUnderbustIncompatibleStyle, underbustTopConflict, underbustTopControlContext } from './engine/underbustTopFit.js';
@@ -118,6 +119,11 @@ function isCoveredByOutfitPreset(key, activePresets) {
 }
 
 function getEffectiveWardrobeOptionLabel(controls, locks, key, activePresets) {
+  const riseControl = key.match(/^bottomRise([AB]?)Id$/);
+  if (riseControl) {
+    const { pants, rise } = bottomRiseControlContext(controls, locks, riseControl[1]);
+    if (bottomRiseConflict(pants, rise)) return '';
+  }
   const topControl = key.match(/^top(?:Fit|Styling)([AB]?)Id$/);
   if (topControl) {
     const { top, fit } = underbustTopControlContext(controls, locks, topControl[1]);

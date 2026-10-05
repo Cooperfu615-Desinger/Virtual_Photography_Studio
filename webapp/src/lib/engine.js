@@ -1,3 +1,4 @@
+import { bottomRiseConflict, resolveBottomRiseCompatibility } from './engine/bottomRiseCompatibility.js';
 import { DEFAULT_KNEELING_SUPPORT_HAND_ID, isFourPointKneeling, isKneelingSupportHand, resolveKneelingSupportArrangement } from './engine/kneelingSupport.js';
 import { ACCESSORY_CATEGORIES, accessoryNoneId, isConcreteAccessory, isHeadWornAudio, blocksHeadWornAudio, splitAccessoryCatalog, migrateAccessoryLocks, normalizeAccessoryConflicts, projectAudioForFraming } from './engine/accessoryPolicy.js';
 import database from '../data/database.json' with { type: 'json' };
@@ -3312,6 +3313,7 @@ function buildEntries(groupName, groupedData, inferMeta) {
           ...inferredMeta,
           ...sourceMeta,
           ...(item.outerwear ? { outerwear: item.outerwear } : {}),
+          ...(item.bottomWaist ? { bottomWaist: item.bottomWaist } : {}),
           ...(item.topUnderbust ? { topUnderbust: item.topUnderbust } : {}),
           ...(item.outerwearFit ? { outerwearFit: item.outerwearFit } : {}),
           ...(item.outerwearStyling ? { outerwearStyling: item.outerwearStyling, randomEligible: item.randomEligible } : {}),
@@ -4236,7 +4238,7 @@ function isPantsWardrobeItem(item) {
 }
 
 function getApplicableBottomRise(bottomItem, rise) {
-  if (!rise || isNoneLikeItem(rise)) return null;
+  if (!rise || isNoneLikeItem(rise) || bottomRiseConflict(bottomItem, rise)) return null;
   if (rise.id?.includes('unbuttoned-slightly-unzipped') && !isPantsWardrobeItem(bottomItem)) return null;
   return rise;
 }
@@ -7810,6 +7812,7 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
     const opening = suffix ? wardrobeSlots[`outerwear${suffix}Opening`] : wardrobeSlots.outerwearOpening;
     const styleKey = suffix ? `outerwear${suffix}Styling` : 'outerwearStyling';
     if (!wardrobeSlots[styleKey]?.en || (isFullyClosedOpening(opening) && !outerwearStylingAllowsClosed(wardrobeSlots[styleKey]))) wardrobeSlots[styleKey] = null;
+    if (wardrobeSlots[`bottomRise${suffix}`]?.meta?.suppressedBottomRise) wardrobeSlots[`bottomRise${suffix}`] = null;
     const fitKey = `topFit${suffix}`;
     const topStyleKey = `topStyling${suffix}`;
     if (isUnderbustTopFit(wardrobeSlots[fitKey]) && !wardrobeSlots[fitKey].en) wardrobeSlots[fitKey] = null;
@@ -16421,7 +16424,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     : buildWardrobe({ ...context }, effectiveLocks, runtime);
   const filteredPage1Wardrobe = filterPage1WardrobeForCharacterCardLayers(rawPage1Wardrobe, cardLayers);
   const page1Wardrobe = appendLockedPage1FillersForCharacterCardLayers(filteredPage1Wardrobe, cardLayers, effectiveLocks, lockControls);
-  const wardrobe = [...cardLayers, ...page1Wardrobe];
+  const wardrobe = resolveBottomRiseCompatibility([...cardLayers, ...page1Wardrobe]);
   context.wardrobe = wardrobe;
   const wardrobeColors = buildWardrobeColors(extractWardrobeSlots(wardrobe), effectiveLocks, random);
 

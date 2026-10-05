@@ -80,7 +80,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.43.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.44.0';
 
 export const UNDERBUST_TOP_FIT_CONTRACT = deepFreeze({
   scope: 'two appended manual single-choice fits for eligible independent tops',

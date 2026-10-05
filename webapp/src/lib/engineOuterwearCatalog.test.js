@@ -22,9 +22,9 @@ const generate = locks => generatePrompts(1, locks, [], { random: createSeededRa
 const outputs = r => [r.grokPrompt, r.zImagePrompt, r.midjourneyPrompt, ...r.extraPrompts.map(e => e.text)];
 const doubleShoulder = 'halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves';
 
-test('17 active coats and four restore-only coats retain historical IDs', () => {
+test('18 active coats and four restore-only coats retain historical IDs', () => {
   const items = controls.find(c => c.key === 'outerwearId').options.filter(o => o.zh !== '全無');
-  assert.equal(items.filter(o => !o.meta?.outerwear?.retired).length, 17);
+  assert.equal(items.filter(o => !o.meta?.outerwear?.retired).length, 18);
   assert.equal(items.filter(o => o.meta?.outerwear?.retired).length, 4);
   for (const [name, id] of [
     ['龐克風皮衣', 'wardrobe:外套-outerwear:龐克皮衣:3'],

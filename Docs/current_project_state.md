@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-05
 
+## adidas 三線外套與長褲 (local, 2026-10-05)
+
+- 已依核准追加「愛迪達立領三線外套」及「愛迪達三線運動長褲」，各 20 詞英文。外套保留立領／前拉鏈／平滑 tricot／雙袖三線；褲裝保留全長／平滑 tricot／鬆緊抽繩腰／褲管外側三線。兩件獨立選擇、配色及版型沿用現有控制。ID 尾碼分別 `22`／`33`，Public output contract `1.44.0`；見 [adidas 三線服裝 v1](specs/adidas-trackwear-v1.md)。
+- 外套支援既有拉鏈開合及捲袖；沿用不透明閉合內搭遮蔽。褲裝限定 metadata 讓「扣子解開拉鏈微開」不適用：UI 停用／暫顯全無，六輸出與摘要省略無效來源，原 selection 保留，切回相容褲款恢復。單人與 A/B 各自解析。沿用原六輸出組裝，胸上省略褲裝，全身恢復，沒有品牌專用 renderer 或 storage 遷移。新增候選進入原隨機池。
+- 已通過專項 33/33、165 組舊單品／景別 selection 及六輸出雜湊比對、舊 ID／名稱核對、lint/build、資料同步／check、Python 2/2、206 個公開資產及 diff-check。200／prompt-quality-baseline strict 前後均 blocking 0、28 既有 diagnostics；新增抽樣候選使字數統計略變，診斷分類／範例未增加。Vite 大型 chunk 提示維持既有狀態。舊褲裝數量斷言同步新增選項後，相關專項 49/49、重新執行完整 frontend 1323/1323 及 Prompt Quality 572/572 全數通過。
+- 瀏覽器 1440×1000／390×900 已驗證新選項、停用／恢復、短版／半拉鏈／捲袖／全拉上遮內搭、六輸出與複製來源，以及五工作區載入／版面。無新增 console warning/error、破圖或 document 橫向溢出。正常 5175 原設定與六預覽逐字還原、9 張收藏保留；獨立 5178 來源以正式文字回填、儲存 1 張測試卡、切換舊款再收藏還原，桌面／手機六預覽均逐字一致。截圖 `/tmp/vps-adidas-desktop.png`、`/tmp/vps-adidas-mobile.png`。剪貼簿及 viewport 已還原，兩個驗證伺服器已關閉。
+- 使用者已於 2026-10-05 授權本批 commit／push，交付狀態以 Git 遠端核對為準；原未追蹤參考資料夾保留。未呼叫外部圖像模型，實際圖片由使用者實測。
+
 ## 上身單品：創可貼造型胸貼 (local, 2026-10-05)
 
 - 已按使用者核准追加「創可貼造型胸貼」：兩枚獨立貼片，每側一枚橫向單條；短圓角長方形不透明布料、中央墊片及兩端細孔，角度略有自然差異，不要求僵硬對稱。英文來源 32 詞，新 ID `wardrobe:上身-tops:創可貼造型胸貼:45`；既有 X形胸貼與其他單品的 ID、文字及位置不變。Public output contract `1.43.0`，詳見 [創可貼造型胸貼 v1](specs/bandage-pasties-v1.md)。

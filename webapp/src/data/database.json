@@ -3030,6 +3030,15 @@
         "legacyPromptAliases": [
           "narrow-front string thong bikini bottoms, low-rise narrow triangular swim front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties"
         ]
+      },
+      {
+        "zh": "愛迪達三線運動長褲",
+        "en": "adidas full-length smooth tricot track pants with an elastic drawstring waist and three parallel contrast stripes down both outer legs",
+        "desc": "全長運動長褲，平滑針織運動布料、鬆緊抽繩腰頭，兩側褲管各有三條平行撞色線條。",
+        "bottomWaist": {
+          "supportsUnfastenedFly": false
+        },
+        "stableId": "wardrobe:褲裝-pants:愛迪達三線運動長褲:33"
       }
     ],
     "裙裝 (Skirts)": [
@@ -3766,6 +3775,19 @@
         "legacyPromptAliases": [
           "longline button-up shirt in cotton poplin, pointed collar, long sleeves with buttoned cuffs, curved shirttail hem"
         ]
+      },
+      {
+        "zh": "愛迪達立領三線外套",
+        "en": "adidas zip-front track jacket, stand-up collar, smooth tricot fabric, three parallel contrast stripes from shoulders to cuffs on both sleeves",
+        "desc": "立領拉鍊運動外套，平滑針織運動布料，雙袖各有三條從肩部延伸至袖口的平行撞色線條。",
+        "outerwear": {
+          "baseEn": "adidas zip-front track jacket, stand-up collar, smooth tricot fabric, three parallel contrast stripes from shoulders to cuffs on both sleeves",
+          "fasteners": [
+            "zip"
+          ],
+          "rollableSleeves": true
+        },
+        "stableId": "wardrobe:外套-outerwear:愛迪達立領三線外套:22"
       }
     ],
     "外套開合 (Outerwear Opening)": [

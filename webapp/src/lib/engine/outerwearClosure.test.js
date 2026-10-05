@@ -26,7 +26,7 @@ const texts = result => [result.grokPrompt, result.zImagePrompt, result.midjourn
 
 test('every active coat closes using authored hardware, without inventing hardware', () => {
   const coats = controls.find(c => c.key === 'outerwearId').options.filter(o => o.zh !== '全無' && !o.meta?.outerwear?.retired);
-  assert.equal(coats.length, 17);
+  assert.equal(coats.length, 18);
   for (const coat of coats) {
     const result = generate(locksFor({ outerwearId: coat.zh }));
     const hardware = coat.meta.outerwear.fasteners;

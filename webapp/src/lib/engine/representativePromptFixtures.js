@@ -16,6 +16,23 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   {
+    id: 'adidas-trackwear', title: 'Separate adidas trackwear retains stripes and suppresses incompatible fly styling',
+    mode: 'single', seed: 'adidas-trackwear-v1',
+    locks: { subjectCount: '1', framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      topId: { byZh: '全無' }, pantsId: { byZh: '愛迪達三線運動長褲' },
+      skirtId: { byZh: '全無' }, specialOutfitId: { byZh: '全無' },
+      outfitPresetId: { byZh: '全無' }, dressId: { byZh: '全無' },
+      outerwearId: { byZh: '愛迪達立領三線外套' }, outerwearOpeningId: { byZh: '敞開穿' },
+      outerwearFitId: { byZh: '全無' }, outerwearStylingId: { byZh: '正常穿著' },
+      bottomRiseId: { byZh: '扣子解開拉鏈微開' } },
+    expectedOutputs: Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt', 'fullBodyCharacterPrompt']
+      .map(field => [field, {
+        includes: ['adidas zip-front track jacket', 'three parallel contrast stripes', 'worn open at the front',
+          ...(/chestUp/.test(field) ? [] : ['adidas full-length smooth tricot track pants'])],
+        excludes: ['waist button undone', 'front zipper slightly lowered', ...(/chestUp/.test(field) ? ['track pants'] : [])],
+      }])),
+  },
+  {
     id: 'bandage-pasties', title: 'Bandage-shaped pasties retain paired horizontal patches and casual placement',
     mode: 'single', seed: 'bandage-pasties-v1',
     locks: { subjectCount: '1', framingId: { byZh: '牛仔中景 (Cowboy Shot)' },

@@ -285,6 +285,7 @@
 | **褲裝 (Pants)** | 七分褲 | `cropped capri pants, straight or fitted leg, hem ending below the knee, clean cropped silhouette` | 以膝下截短褲長、直筒或合身褲管與乾淨七分比例為主。 |
 | **褲裝 (Pants)** | 窄前片細繩蕾絲丁字褲 | `narrow-front lace G-string bottoms, low-rise narrow triangular lace front panel, G-string back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties` | 低腰窄三角蕾絲前片與細繩後片；細側繫繩拉緊貼合髖部，接觸處有可見淺壓痕，保留繩帶張力與局部貼合輪廓。 |
 | **褲裝 (Pants)** | 窄前片細繩比基尼下身 | `narrow-front string thong bikini bottoms, ultra-minimal smooth swim fabric forming a tiny low-rise triangular front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties` | 窄前片細繩比基尼下身，極少量平滑泳裝布料形成小型低腰三角前片，搭配高腿口與丁字後片；細側繫繩拉緊貼合髖部，接觸處有可見淺壓痕。 |
+| **褲裝 (Pants)** | 愛迪達三線運動長褲 | `adidas full-length smooth tricot track pants with an elastic drawstring waist and three parallel contrast stripes down both outer legs` | 全長運動長褲，平滑針織運動布料、鬆緊抽繩腰頭，兩側褲管各有三條平行撞色線條。 |
 | **裙裝 (Skirts)** | 全無 | `no skirt, skirt styling omitted` | 不使用裙裝，方便保留褲裝、泳裝或更乾淨的下身結構。 |
 | **裙裝 (Skirts)** | 迷你裙 | `mini skirt, concise hem length, clean tailored finish, compact lower-body proportion` | 以短裙長度、乾淨下擺與簡潔裙身比例為主，是最基礎的迷你裙結構。 |
 | **裙裝 (Skirts)** | A 字短裙 | `a-line mini skirt, structured flare, balanced feminine silhouette` | 腰部收合、裙擺自然展開的短裙版本，實用且好搭配。 |
@@ -376,6 +377,7 @@
 | **外套 (Outerwear)** | 短版粗花呢外套 | `cropped tweed jacket, textured woven surface, structured short silhouette, polished button front` | 歷史款式，僅供舊資料還原，不再提供新選用或隨機抽取。以短版衣長、粗花呢織紋、硬挺輪廓與整齊排釦為主。 |
 | **外套 (Outerwear)** | 蕾絲罩衫 | `long lace cover-up` | 長版蕾絲罩衫。 |
 | **外套 (Outerwear)** | 長版襯衫 | `longline cotton-poplin button-up shirt` | 長版棉質府綢排扣襯衫，可作為外層疊穿。 |
+| **外套 (Outerwear)** | 愛迪達立領三線外套 | `adidas zip-front track jacket, stand-up collar, smooth tricot fabric, three parallel contrast stripes from shoulders to cuffs on both sleeves` | 立領拉鍊運動外套，平滑針織運動布料，雙袖各有三條從肩部延伸至袖口的平行撞色線條。 |
 | **外套開合 (Outerwear Opening)** | 正常 | `front panels resting naturally` | 外套前襟維持自然、標準的開合狀態；此選項只控制前襟開合，不代表雙肩穿著或滑落肩部。 |
 | **外套開合 (Outerwear Opening)** | 扣子扣一半 | `partially buttoned at the front` | 適用有扣子的外套，部分扣子扣上，其餘前片自然打開。 |
 | **外套開合 (Outerwear Opening)** | 拉鏈拉一半 | `zipped halfway up, open above the zipper` | 適用有拉鍊的外套，拉鍊拉到前襟中段，上方前片自然打開。 |

@@ -424,6 +424,12 @@
         "legacyPromptAliases": [
           "narrow-front string thong bikini bottoms, low-rise narrow triangular swim front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties"
         ]
+      },
+      "愛迪達三線運動長褲": {
+        "bottomWaist": {
+          "supportsUnfastenedFly": false
+        },
+        "stableId": "wardrobe:褲裝-pants:愛迪達三線運動長褲:33"
       }
     },
     "裙裝 (Skirts)": {
@@ -782,6 +788,16 @@
         "legacyPromptAliases": [
           "longline button-up shirt in cotton poplin, pointed collar, long sleeves with buttoned cuffs, curved shirttail hem"
         ]
+      },
+      "愛迪達立領三線外套": {
+        "outerwear": {
+          "baseEn": "adidas zip-front track jacket, stand-up collar, smooth tricot fabric, three parallel contrast stripes from shoulders to cuffs on both sleeves",
+          "fasteners": [
+            "zip"
+          ],
+          "rollableSleeves": true
+        },
+        "stableId": "wardrobe:外套-outerwear:愛迪達立領三線外套:22"
       }
     },
     "外套開合 (Outerwear Opening)": {
