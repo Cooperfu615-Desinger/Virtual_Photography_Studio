@@ -46,7 +46,8 @@
             "16:9",
             "9:16",
             "4:5"
-          ]
+          ],
+          "label": "Z-Image-Turbo"
         },
         "qwenImage21": {
           "resolutions": [
@@ -62,7 +63,62 @@
             "16:9",
             "9:16",
             "4:5"
-          ]
+          ],
+          "label": "Qwen-Image-2.1"
+        },
+        "zImageTurboInt8": {
+          "resolutions": [
+            "1k",
+            "2k"
+          ],
+          "defaultResolution": "1k",
+          "maxCount": 1,
+          "aspectRatios": [
+            "1:1",
+            "4:3",
+            "3:4",
+            "16:9",
+            "9:16",
+            "4:5"
+          ],
+          "label": "Z-Image-Turbo INT8"
+        },
+        "ideogram45": {
+          "resolutions": [
+            "1k",
+            "2k"
+          ],
+          "defaultResolution": "1k",
+          "maxCount": 1,
+          "aspectRatios": [
+            "1:1",
+            "4:3",
+            "3:4",
+            "16:9",
+            "9:16",
+            "4:5"
+          ],
+          "label": "Ideogram 4.5",
+          "maxPromptLength": 10000,
+          "partnerPricing": true
+        },
+        "seedream5Pro": {
+          "resolutions": [
+            "1k",
+            "2k"
+          ],
+          "defaultResolution": "1k",
+          "maxCount": 1,
+          "aspectRatios": [
+            "1:1",
+            "4:3",
+            "3:4",
+            "16:9",
+            "9:16",
+            "4:5"
+          ],
+          "label": "Seedream 5.0 Pro",
+          "partnerPricing": true
         }
       }
     },

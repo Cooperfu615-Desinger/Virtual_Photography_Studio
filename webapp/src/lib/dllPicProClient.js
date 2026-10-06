@@ -170,12 +170,13 @@ export const DLL_PIC_MODEL_CONFIG = {
     hidden: true,
   },
   ...Object.fromEntries(Object.entries(COMFY_CONTRACT.models).map(([key, model]) => [
-    `comfy${key === 'zImageTurbo' ? 'ZImageTurbo' : 'QwenImage21'}`,
-    { label: `Comfy Cloud · ${key === 'zImageTurbo' ? 'Z-Image-Turbo' : 'Qwen-Image-2.1'}`,
+    `comfy${key[0].toUpperCase()}${key.slice(1)}`,
+    { label: `Comfy Cloud · ${model.label}`,
       provider: 'comfyCloud', comfyModel: key, generationModel: key,
       analysisModel: '', usesServerProxy: true, supportsResolution: true,
       defaultResolution: model.defaultResolution, resolutionOptions: model.resolutions,
-      maxCount: model.maxCount, aspectRatios: model.aspectRatios },
+      maxCount: model.maxCount, aspectRatios: model.aspectRatios,
+      partnerPricing: Boolean(model.partnerPricing) },
   ])),
 };
 

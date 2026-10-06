@@ -18,6 +18,7 @@ export function normalizeProviderGenerationRequest(providerKey, payload = {}) {
   const promptRules = contract.request.prompt;
   if (prompt.length < promptRules.minLength) throw new Error('請先提供至少 3 個字元的 Prompt');
   if (prompt.length > promptRules.maxLength) throw new Error(`Prompt 不可超過 ${promptRules.maxLength} 個字元`);
+  if (model.maxPromptLength && prompt.length > model.maxPromptLength) throw new Error(`此模型的 Prompt 不可超過 ${model.maxPromptLength} 個字元`);
 
   const numericCount = Number(payload.count);
   const count = Number.isFinite(numericCount)

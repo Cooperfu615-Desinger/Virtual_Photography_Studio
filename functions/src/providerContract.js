@@ -44,6 +44,9 @@ function normalizeGenerationRequest(providerKey, payload = {}) {
   }
 
   const { model, modelKey } = getProviderModelContract(providerKey, payload.modelKey);
+  if (model.maxPromptLength && prompt.length > model.maxPromptLength) {
+    throw new Error(`Prompt must contain at most ${model.maxPromptLength} characters for this model`);
+  }
   return {
     ...payload,
     modelKey,

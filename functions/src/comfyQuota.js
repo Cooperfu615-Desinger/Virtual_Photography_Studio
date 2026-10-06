@@ -1,6 +1,7 @@
 const { isDeepStrictEqual } = require('node:util');
 const { createHash } = require('node:crypto');
 const { buildComfyWorkflow } = require('./comfyCloud');
+const { getComfyModel } = require('./comfyModels');
 
 // Official Cloud rates verified 2026-10-05. This is an estimate, not billed cost.
 const CREDITS_PER_USD = 211;
@@ -10,8 +11,8 @@ const MAX_SAMPLES = 8;
 const uuid = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/;
 
 function quotaSelection(payload = {}) {
-  if (!['zImageTurbo', 'qwenImage21'].includes(payload.modelKey)
-    || !['1k', '2k'].includes(payload.resolution)
+  getComfyModel(payload.modelKey);
+  if (!['1k', '2k'].includes(payload.resolution)
     || !['1:1', '4:3', '3:4', '16:9', '9:16', '4:5'].includes(payload.aspectRatio)) {
     throw new Error('不支援的 Comfy Cloud 額度查詢設定');
   }
@@ -26,12 +27,12 @@ function normalizeWorkflow(workflow, modelKey) {
     if (!node || typeof node !== 'object') return null;
     delete node._meta;
   }
-  const z = modelKey === 'zImageTurbo';
-  const text = copy[z ? '57:27' : '459:452']?.inputs;
-  const sampler = copy[z ? '57:3' : '459:458']?.inputs;
+  const model = getComfyModel(modelKey);
+  const text = copy[model.textNode]?.inputs;
+  const sampler = copy[model.seedNode]?.inputs;
   if (!text || !sampler) return null;
-  text[z ? 'text' : 'prompt'] = '';
-  sampler.seed = 0;
+  text[model.textKey] = '';
+  sampler[model.seedKey] = 0;
   return copy;
 }
 
@@ -55,6 +56,13 @@ async function readComfyQuota({ apiKey, payload, records, fetchImpl = fetch, now
     return response.json();
   }
   const credits = balanceCredits(await get('/api/billing/usage/timeseries?months=1&group_by=product&granularity=month'));
+  // Partner calls have per-image fees; execution time is not their billed cost.
+  if (getComfyModel(meta.modelKey).partnerPricing) return {
+    selection: { modelKey: meta.modelKey, resolution: meta.resolution, aspectRatio: meta.aspectRatio },
+    credits, estimatedImages: null, creditsPerImage: null, sampleCount: 0,
+    minimumSamples: MIN_SAMPLES, sampleReadFailed: false,
+    estimateUnavailableReason: 'partnerPricing', checkedAt: now(), rateDate: '2026-10-05',
+  };
   const seen = new Set();
   const candidates = records.filter((r) => {
     if (!uuid.test(r.jobId) || seen.has(r.jobId) || r.meta?.modelKey !== meta.modelKey
@@ -70,7 +78,7 @@ async function readComfyQuota({ apiKey, payload, records, fetchImpl = fetch, now
       try {
         const job = await get(`/api/v2/jobs/${jobId}`, true);
         const ms = job.metrics?.execution_ms;
-        const outputNode = meta.modelKey === 'zImageTurbo' ? '9' : '461';
+        const outputNode = getComfyModel(meta.modelKey).outputNode;
         if (job.id !== jobId || job.status !== 'succeeded' || job.error
           || typeof ms !== 'number' || !Number.isFinite(ms) || ms <= 0 || ms > 3600000
           || !Array.isArray(job.outputs) || job.outputs.filter(o => o.type === 'image' && o.node_id === outputNode).length !== 1) return;
@@ -101,7 +109,8 @@ function createQuotaReader({ now = Date.now } = {}) {
     if (previous && now() - previous.at < 30000) return previous.promise;
     if (cache.size >= 64) cache.delete(cache.keys().next().value);
     const entry = { at: now() };
-    entry.promise = Promise.resolve().then(async () => readComfyQuota({ ...options, now, records: await options.listRecords() }));
+    entry.promise = Promise.resolve().then(async () => readComfyQuota({ ...options, now,
+      records: getComfyModel(meta.modelKey).partnerPricing ? [] : await options.listRecords() }));
     cache.set(key, entry);
     try { return await entry.promise; } catch (error) {
       if (cache.get(key) === entry) cache.delete(key);

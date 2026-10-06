@@ -330,6 +330,9 @@ test('model option helpers hide legacy aliases and keep analyzer to analysis-cap
     'xaiGrokImagineQuality',
     'comfyZImageTurbo',
     'comfyQwenImage21',
+    'comfyZImageTurboInt8',
+    'comfyIdeogram45',
+    'comfySeedream5Pro',
   ]);
 
   const analysisModelKeys = getDllPicSelectableModelEntries({ includeAnalysisOnly: true }).map(([key]) => key);

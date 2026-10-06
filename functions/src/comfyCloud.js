@@ -1,9 +1,6 @@
 const { randomInt } = require('node:crypto');
 const { normalizeGenerationRequest } = require('./providerContract');
-const templates = {
-  zImageTurbo: require('./comfyWorkflows/zImageTurbo.json'),
-  qwenImage21: require('./comfyWorkflows/qwenImage21.json'),
-};
+const { getComfyModel } = require('./comfyModels');
 const BASE = 'https://cloud.comfy.org/api/v2/jobs';
 
 function validateRequestId(id) {
@@ -11,21 +8,32 @@ function validateRequestId(id) {
   return id;
 }
 
-function buildComfyWorkflow(payload, seed = randomInt(0, 2 ** 48 - 1)) {
+function buildComfyWorkflow(payload, seed) {
   if (payload.aspectRatio && !['1:1', '4:3', '3:4', '16:9', '9:16', '4:5'].includes(payload.aspectRatio)) throw new Error('不支援的 Comfy Cloud 比例');
   if (payload.resolution && !['1k', '2k'].includes(payload.resolution)) throw new Error('不支援的 Comfy Cloud 解析度');
   const input = normalizeGenerationRequest('comfyCloud', payload);
+  const model = getComfyModel(input.modelKey);
+  seed ??= randomInt(0, model.seedLimit);
+  if (!Number.isSafeInteger(seed) || seed < 0 || seed >= model.seedLimit) throw new Error('Seed 超出此模型的範圍');
   if (Number(payload.count ?? 1) !== 1) throw new Error('Comfy Cloud 第一版每次只生成一張');
   const [a, b] = input.aspectRatio.split(':').map(Number);
   const unit = Math.max(1, Math.round(Math.sqrt((input.resolution === '2k' ? 4 : 1) * 1048576 / (a * b)) / 8));
-  const width = a * unit * 8;
-  const height = b * unit * 8;
-  const workflow = structuredClone(templates[input.modelKey]);
-  const z = input.modelKey === 'zImageTurbo';
-  workflow[z ? '57:27' : '459:452'].inputs[z ? 'text' : 'prompt'] = input.prompt;
-  workflow[z ? '57:13' : '459:456'].inputs.width = width;
-  workflow[z ? '57:13' : '459:456'].inputs.height = height;
-  workflow[z ? '57:3' : '459:458'].inputs.seed = seed;
+  const [width, height] = model.sizes?.[input.resolution]?.[input.aspectRatio] || [a * unit * 8, b * unit * 8];
+  const workflow = structuredClone(model.template);
+  workflow[model.textNode].inputs[model.textKey] = input.prompt;
+  workflow[model.seedNode].inputs[model.seedKey] = seed;
+  if (model.latentNode) {
+    workflow[model.latentNode].inputs.width = width;
+    workflow[model.latentNode].inputs.height = height;
+  } else if (input.modelKey === 'ideogram45') {
+    workflow['1'].inputs['model.size'] = `(${input.resolution.toUpperCase()}) ${width}x${height} (${input.aspectRatio})`;
+  } else {
+    const inputs = workflow['3'].inputs;
+    inputs['model.size_preset'] = input.aspectRatio === '4:5' ? 'Custom' : `(${input.resolution.toUpperCase()}) ${width}x${height} (${input.aspectRatio})`;
+    // Inactive custom fields still have schema bounds (minimum 1024). Some
+    // valid 1K presets have a shorter side, so only fill them for Custom.
+    if (input.aspectRatio === '4:5') Object.assign(inputs, { 'model.width': width, 'model.height': height });
+  }
   return { workflow, meta: { modelKey: input.modelKey, aspectRatio: input.aspectRatio, resolution: input.resolution, width, height, seed } };
 }
 
@@ -43,7 +51,7 @@ async function callComfy(apiKey, url = BASE, options = {}, fetchImpl = fetch) {
   });
   const body = await response.json().catch(() => ({}));
   if (!response.ok) {
-    const detail = String(body.error?.message || '').slice(0, 500);
+    const detail = String(body.error?.message || '').replaceAll(apiKey, '[redacted]').slice(0, 500);
     const error = new Error(`Comfy Cloud 請求失敗（HTTP ${response.status}）${detail ? `：${detail}` : ''}`);
     error.status = response.status;
     error.definitive = response.status >= 400 && response.status < 500 && response.status !== 408;
@@ -56,7 +64,7 @@ function parseComfyJob(job, meta) {
   if (!job?.id || !['queued', 'running', 'succeeded', 'canceling', 'canceled', 'failed', 'expired'].includes(job.status)) {
     throw new Error('Comfy Cloud 任務回應格式不符，請保留任務繼續查詢');
   }
-  const outputNode = meta.modelKey === 'zImageTurbo' ? '9' : '461';
+  const outputNode = getComfyModel(meta.modelKey).outputNode;
   // Output.url is authenticated and must never be passed to a browser as src.
   // Cloud workers can leave MIME empty; retain final image assets for metadata lookup.
   const images = (job.outputs || []).filter((output) => output.type === 'image' && output.node_id === outputNode
@@ -73,6 +81,7 @@ function parseComfyJob(job, meta) {
 
 async function resolveComfyImages(job, meta, apiKey, fetchImpl) {
   const result = parseComfyJob(job, meta);
+  result.errors = result.errors.map(message => message.replaceAll(apiKey, '[redacted]'));
   if (result.status !== 'succeeded') return { ...result, images: [] };
   if (!result.images.length) console.warn('Comfy Cloud output mismatch', JSON.stringify({
     jobId: job.id, modelKey: meta.modelKey,
@@ -82,7 +91,7 @@ async function resolveComfyImages(job, meta, apiKey, fetchImpl) {
     const id = validateRequestId(image.assetId);
     const asset = await callComfy(apiKey, `https://cloud.comfy.org/api/v2/assets/${id}`, { method: 'GET' }, fetchImpl);
     const url = new URL(asset.url);
-    // Both controlled final SaveImage nodes emit PNG. Live Cloud metadata can
+    // Controlled final SaveImage nodes emit PNG. Live Cloud metadata can
     // omit MIME in both records; only infer it from the matching PNG asset path.
     const mimeType = asset.content_type || (/\.png$/i.test(asset.file_path || '') ? 'image/png' : null);
     if (asset.id !== id || !mimeType?.startsWith('image/') || url.protocol !== 'https:' || url.username || url.password
@@ -103,8 +112,12 @@ async function submitComfyJob({ apiKey, payload, store, fetchImpl = fetch }) {
   const claim = await store.claim(requestId, { phase: 'submitting', meta, createdAt: Date.now() });
   if (!claim.claimed) return readComfyJob({ apiKey, requestId, store, fetchImpl });
   try {
+    // Partner nodes need their credential forwarded to the worker separately
+    // from HTTP authentication. Keep it out of workflows, records and responses.
+    const body = { workflow };
+    if (getComfyModel(meta.modelKey).partnerPricing) body.extra_data = { api_key_comfy_org: apiKey };
     const job = await callComfy(apiKey, BASE, {
-      method: 'POST', headers: { 'Idempotency-Key': requestId }, body: JSON.stringify({ workflow }),
+      method: 'POST', headers: { 'Idempotency-Key': requestId }, body: JSON.stringify(body),
     }, fetchImpl);
     // Persist the ID before parsing output so malformed output cannot lose a job.
     if (!job?.id || typeof job.id !== 'string') throw new Error('Comfy Cloud 未回傳任務 ID');

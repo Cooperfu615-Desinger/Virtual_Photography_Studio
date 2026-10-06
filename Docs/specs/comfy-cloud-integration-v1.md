@@ -2,6 +2,8 @@
 
 日期：2026-10-05。狀態：新帳號後端權限已部署，兩模型各一張 1K 真實驗收通過；使用者已授權本批 commit／push 及既有流程前端發布，交付狀態以 Git／Actions 核對為準。
 
+2026-10-06 追加 INT8、Ideogram 4.5、Seedream 5.0 Pro 的本機實作，見 [三模型擴充](comfy-cloud-model-expansion-v1.md)。以下兩模型的已部署／已驗收狀態不包含新模型；合作夥伴提交另需伺服端 extra_data。
+
 ## 功能範圍
 
 現有 DLL 模型清單新增 `Comfy Cloud · Z-Image-Turbo` 與 `Comfy Cloud · Qwen-Image-2.1`。沿用各工作區現有 Prompt 來源、預覽、放大與下載流程，不更動 prompt engine、Saved Cards 或歷史 public mappings。每次一張；1K / 2K 分別以約 1 / 4 百萬像素計算，寬高為 8 的倍數並維持精確比例；支援 1:1、4:3、3:4、16:9、9:16、4:5。這是工作流尺寸支援，尚不代表雲端各尺寸出圖已驗收。

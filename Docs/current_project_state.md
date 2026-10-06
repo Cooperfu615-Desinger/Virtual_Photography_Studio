@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-06
 
+## DLL：INT8／Ideogram／Seedream 三模型 (local, 2026-10-06)
+
+- 使用者核准新增三份 API workflow；DLL 追加 `Comfy Cloud · Z-Image-Turbo INT8`、`Comfy Cloud · Ideogram 4.5`、`Comfy Cloud · Seedream 5.0 Pro`，每次一張、1K／2K、六種比例。Downloads 原檔未修改。模型／尺寸／seed／最終節點由 `functions/src/comfyModels.js` 管理；原 Z／Qwen 工作流、storage、續查／下載及 Prompt engine 不變。詳見 [三模型擴充規格](specs/comfy-cloud-model-expansion-v1.md)。
+- Ideogram 採 Medium、Magic Prompt off、10,000 字元上限；Seedream Thinking off、watermark false，4:5 Custom，其他尺寸採官方 preset。兩模型 seed 上限 2^31−1；伺服端透過 v2 `extra_data.api_key_comfy_org` 提供 Partner Node 驗證，不進入模板、任務記錄或前端。API 尺寸支援不代表真實出圖已驗收。
+- 三模型共用餘額／刷新。INT8 至少三筆同工作流成功樣本才估算且不混原 Z；Ideogram／Seedream 有合作夥伴計費，只顯示「此模型暫不估算張數」，不以 GPU 秒數猜總成本。
+- Functions 63/63、前端 1326/1326、雙端 lint、前端 build、diff-check 通過；唯讀 Cloud schema 確認兩 Partner Node 與 INT8 三模型檔案存在，24 組尺寸／參數核對通過。1440×1000／390×900 五工作區、新模型、固定 4:5、未登入保護及額度模擬刷新檢查正常，完整 App 無 console warning/error、破圖或橫向溢出。截圖 `/tmp/dll-models-{desktop,mobile}.png`、`/tmp/dll-models-quota-{desktop,mobile}.png`。
+- 新批次未部署、未提交付費生成；使用者已於 2026-10-06 授權本批 commit／push，交付狀態以 Git 遠端核對為準，前端沿用既有 Pages 發布流程。需要部署 `comfyCloudSubmit`、`comfyCloudStatus`、`comfyCloudQuota` 後才可實測新模型。Secret／allowlist 沿用；不新增 rules／index。真實生成、下載、耗額與效果仍待驗收。本機預覽保留，無修改使用者收藏，既有未追蹤參考資料夾保留。
+
 ## 創可貼造型胸貼：手指尺寸與兩枚限定 (local, 2026-10-06)
 
 - 已依使用者實測回饋原位修訂為手指用創可貼尺寸，每枚約 4 × 1 公分、每側一枚橫向單條、總共兩枚；薄柔不透明布料平貼肌膚，墊片／細孔降為低調細節，保留自然角度差異。UI 名稱、ID `wardrobe:上身-tops:創可貼造型胸貼:45`、順序、配色、圖案與隨機池不變。Public output contract `1.45.0`，見 [創可貼造型胸貼規格](specs/bandage-pasties-v1.md)。

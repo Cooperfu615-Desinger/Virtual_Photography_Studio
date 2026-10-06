@@ -410,7 +410,9 @@ export default function DllPicProPanel({
         </label>
       </div>
 
-      {activeModel.provider === 'comfyCloud' ? <div className="dll-pic-model-note">每次一張；1K / 2K 為約 1 / 4 百萬像素，依比例決定尺寸。無 LoRA、無 Prompt 重寫。完成後請下載保存，圖像網址會到期。</div> : null}
+      {activeModel.provider === 'comfyCloud' ? <div className="dll-pic-model-note">{activeModel.partnerPricing
+        ? `每次一張；依模型支援尺寸生成。${activeModel.comfyModel === 'ideogram45' ? 'Medium 品質，Magic Prompt 關閉。' : 'Thinking 關閉，4:5 採自訂尺寸。'}合作夥伴節點另計耗額。完成後請下載保存，圖像網址會到期。`
+        : '每次一張；1K / 2K 為約 1 / 4 百萬像素，依比例決定尺寸。無 LoRA、無 Prompt 重寫。完成後請下載保存，圖像網址會到期。'}</div> : null}
       {comfyPending ? <div className="dll-pic-actions">
         <button type="button" className="secondary" disabled={isGenerating} onClick={handleResumeComfy}>查詢上次任務</button>
         <button type="button" className="secondary" disabled={isGenerating} onClick={() => {

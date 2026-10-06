@@ -64,7 +64,7 @@ test('output parsing keeps final asset identity and diagnostics without exposing
   assert.equal(result.images.length, 2); assert.equal(result.images[0].assetId, 'asset1');
   assert.equal(result.images[0].src, undefined);
   assert.equal(result.images[0].expiresAt, undefined);
-  assert.equal(parseComfyJob({ id: 'job1', status: 'failed', error: { message: 'Node failed' } }, {}).errors[0], 'Node failed');
+  assert.equal(parseComfyJob({ id: 'job1', status: 'failed', error: { message: 'Node failed' } }, { modelKey: 'qwenImage21' }).errors[0], 'Node failed');
 });
 
 test('untrusted self links and definitive HTTP errors do not leak credentials or retry', async () => {

@@ -15,7 +15,9 @@ export function ComfyQuotaView({ data, loading, error, signedIn, onRefresh }) {
       <div><span>剩餘額度</span><strong>{!signedIn ? '請先登入' : loading && !data ? '查詢中…' : display.balance}</strong></div>
       <div><span>預估可生成</span><strong>{!signedIn ? '—' : loading && !data ? '查詢中…' : display.estimate}</strong></div>
     </div>
-    {signedIn && <p className="dll-pic-model-note">依目前模型、解析度與比例估算，實際耗額可能不同。</p>}
+    {signedIn && <p className="dll-pic-model-note">{data?.estimateUnavailableReason === 'partnerPricing'
+      ? '此模型含合作夥伴計費，暫不以執行時間估算張數。'
+      : '依目前模型、解析度與比例估算，實際耗額可能不同。'}</p>}
     {data && <p className="dll-pic-model-note">更新於 {display.updated}{loading ? ' · 更新中' : ''}</p>}
     {error && <p className="dll-pic-quota-error" role="status">{error}</p>}
   </section>;
