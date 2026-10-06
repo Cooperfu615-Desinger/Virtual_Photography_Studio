@@ -1,6 +1,6 @@
 # DLL：Comfy Cloud 三模型擴充 v1
 
-日期：2026-10-06。狀態：使用者核准新增模型；本機實作與驗證完成，已授權本批 commit／push，交付狀態以 Git 遠端核對為準。新版 Functions 尚未部署、未提交真實付費生圖。此文件補充 [既有整合](comfy-cloud-integration-v1.md) 與 [額度規格](comfy-cloud-quota-v1.md)，原兩模型工作流與登入／續查／下載契約保留。
+日期：2026-10-06。狀態：使用者核准新增模型；實作已 commit／push `0c3a921`，正式 Pages 與三個新版 Functions 已發布，三模型真實額度查詢通過，未提交新付費生圖。此文件補充 [既有整合](comfy-cloud-integration-v1.md) 與 [額度規格](comfy-cloud-quota-v1.md)，原兩模型工作流與登入／續查／下載契約保留。
 
 ## 功能與來源
 
@@ -40,12 +40,14 @@ Seedream Custom 欄位最低邊長 1024。選官方 preset 時，未使用的 `m
 - Ideogram／Seedream 包含額外合作夥伴計費，不能使用 GPU 執行秒數推算總成本。只顯示餘額，估算回傳 null、`estimateUnavailableReason=partnerPricing`，畫面顯示「此模型暫不估算張數」。不讀 GPU 歷史。未加入固定牌價推算，未宣稱精確單張費用。
 - 共享 provider contract 保持 version 1，模型為追加；原 `comfyZImageTurbo`／`comfyQwenImage21` key、預設、儲存鍵、Prompt mappings 與隱藏 BytePlus／Magnific 規則保留。
 
-## 已驗證與待啟用
+## 已驗證與待驗收
 
 - Functions 63/63、完整前端 1326/1326、雙端 lint、前端 build 與 diff-check 通過。新增測試涵蓋新模型路由、Prompt／seed／尺寸、原兩模型固定工作流相容、合作夥伴驗證且不洩 key、重複請求不重送、最終圖片節點、INT8 樣本隔離與合作夥伴額度邊界。Vite 既有大型 chunk 提示保留。
 - 以既有 Firebase Secret 在記憶體中做 GET `/api/object_info` 唯讀核對：兩個 Partner Node、SaveImageAdvanced、INT8 三個模型檔案均存在；24 組兩模型×兩解析度×六比例的參數通過目前 Cloud schema 核對。不輸出 Secret，不提交付費工作。
 - 瀏覽器 1440×1000／390×900，五主要工作區完成載入及模型選單檢查；新模型、1K／2K、胸上來源固定 4:5、未登入生成保護與空預覽均通過。完整 App 無 console warning/error、破圖或文件橫向溢出。額度元件以模擬資料驗證兩個合作夥伴提示、INT8 樣本不足、loading、刷新失敗保留值及鍵盤重試；模擬不代表真實餘額／扣費。臨時頁熱更新曾出現 createRoot 重複告警，完整重載後沒有新增，臨時頁與分頁已移除。原 DLL 設定、viewport 已還原。截圖 `/tmp/dll-models-desktop.png`、`/tmp/dll-models-mobile.png`、`/tmp/dll-models-quota-{desktop,mobile}.png`。
-- **尚需部署** `comfyCloudSubmit`、`comfyCloudStatus`、`comfyCloudQuota` 至既有 Firebase project，才能讓前端呼叫新模型。無需新 Secret、Firestore rules 或 index。使用者已授權本批 commit／push，前端沿用 main 既有 Pages 流程發布；Functions 部署及額外付費驗收仍需後續授權，本機預覽保留。
+- 已 push `0c3a9211e072547378278cffab54a4f89d751b03`；GitHub Actions `37401555769` 的 webapp-quality／functions-quality／build／deploy 全部成功，Pages 於 2026-10-06 10:15:19（台北）發布。正式 DLL lazy asset 已核對三模型標籤、後端 key 與 `partnerPricing`。
+- 使用者另行授權部署三個 Functions，2026-10-06 14:35（台北）部署成功；Cloud Functions v2 metadata 確認三者 ACTIVE、所有流量指向最新 revision，均使用 build `0337ff76-33ae-45cd-a297-8bf94ad53b38`。`virtualphotographystudio/us-central1` 的 revision：submit `comfycloudsubmit-00006-cow`、status `comfycloudstatus-00007-yez`、quota `comfycloudquota-00002-jij`。沿用 Secret `COMFY_CLOUD_API_KEY` v1、allowlist、Node.js 20，不新增 Secret、rules 或 index；其他四個 Functions 部署前後的 CLI metadata 語意相同。CLI 有 Node.js 20 於 2026-10-30 停止支援部署及 firebase-functions 更新提示，本次未升級。
+- 正式 Pages 使用既有登入逐一查詢三個新模型 1K／9:16，均讀回 4,086 Credits（14:36 快照）。INT8 顯示「尚無足夠估算資料」，Ideogram／Seedream 顯示「此模型暫不估算張數」；Seedream 手動刷新完成且無錯誤。此驗收涵蓋已部署 quota callable／Secret／真實 Comfy 餘額及 INT8 Firestore 樣本路徑，未送 submit 付費工作，也未操作既有上次任務追蹤。瀏覽器 1732×757 的 console warning/error 為空、無文件橫向溢出，截圖 `/tmp/dll-models-live-deployment.png`；原 DLL 設定已還原，收藏未變更，臨時驗收分頁已關閉。
 - 真實模型出圖、圖片實際尺寸／下載、Partner Node 執行權限、實際扣額、不同尺寸的品質及和 GUI 的效果一致性仍待部署後驗收。建議先 1K、一張、同中性 Prompt，由使用者確認三模型效果；不自動重送不明結果。
 
 官方依據（2026-10-06 核對）：[HTTP v2 OpenAPI](https://github.com/Comfy-Org/docs/blob/main/openapi-v2.yaml)、[Ideogram 節點](https://github.com/Comfy-Org/ComfyUI/blob/master/comfy_api_nodes/nodes_ideogram.py)、[Seedream 節點](https://github.com/Comfy-Org/ComfyUI/blob/master/comfy_api_nodes/nodes_bytedance.py)、[Seedream presets](https://github.com/Comfy-Org/ComfyUI/blob/master/comfy_api_nodes/apis/bytedance.py)、[Credits 說明](https://support.comfy.org/articles/5846341390-how-credits-work-in-comfy)。
