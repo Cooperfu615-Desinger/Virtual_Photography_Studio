@@ -4771,6 +4771,11 @@
         "zh": "全臉傾斜特寫",
         "en": "asymmetrical full-face close-up, off-center, slight tilt, entire face visible",
         "desc": "完整臉部保留在畫面內，人物隨機靠左或靠右且嚴禁置中，對側保留大面積負空間，並帶輕微傾斜的近距離構圖。"
+      },
+      {
+        "zh": "頭部主導近景",
+        "en": "head-dominant close portrait, close camera distance, head from hair crown to chin occupying 50–60% of frame height, full face and chin within the crop, little headroom, shoulders, upper torso and arms visible below, recognizable scene around the head and body",
+        "desc": "頭頂至下巴約佔畫面高度 50–60%，保留完整臉部與下巴、少量頭頂留白；下方仍見肩膀、上身與手臂，周圍場景可辨識。只開放高位俯視、平視與正上方；頭部角度由原選項控制。"
       }
     ],
     "相機視角 (Angle)": [

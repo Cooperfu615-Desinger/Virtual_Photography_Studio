@@ -44,7 +44,7 @@ function materializeLocks(fixture) {
 }
 
 test('fixed-framing contract is frozen serializable target data and records runtime plus consumer and main framing activation', () => {
-  assert.equal(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT_VERSION, 4);
+  assert.equal(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT_VERSION, 5);
   assert.equal(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.runtimeConnected, true);
   assert.equal(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.runtimePhase, 3);
   assert.ok(Object.isFrozen(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT));
@@ -115,7 +115,7 @@ test('phase-1 main framing policy partitions every existing option without chang
 
   assert.deepEqual(
     FIXED_FRAMING_MAIN_OPTION_POLICY.visible.filter((entry) => entry.randomCandidate).map((entry) => entry.zh),
-    ['半臉傾斜特寫', '全臉傾斜特寫', '中景鏡頭 (Medium Shot)', '牛仔中景 (Cowboy Shot)', '全身鏡頭 (Full Body Shot)'],
+    ['半臉傾斜特寫', '全臉傾斜特寫', '中景鏡頭 (Medium Shot)', '牛仔中景 (Cowboy Shot)', '全身鏡頭 (Full Body Shot)', '頭部主導近景'],
   );
   assert.deepEqual(FIXED_FRAMING_MAIN_OPTION_POLICY.legacyRestore, {
     preserveIds: true,

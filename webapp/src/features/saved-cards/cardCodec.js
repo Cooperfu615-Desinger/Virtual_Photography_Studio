@@ -15,6 +15,7 @@ import {
 import { ACTION_POSE_CARDS, buildActionPoseSavedCard } from '../../lib/actionPoseLab.js';
 import { reconcilePage1SingleWardrobeLocks } from '../page1/page1WardrobeExclusivity.js';
 import { normalizeZImageDisplayLabel } from './promptLabels.js';
+import { isHeadDominantFraming, matchHeadDominantAngle } from '../../lib/engine/headDominantFraming.js';
 
 export const FAVORITES_STORAGE_VERSION = 3;
 const READABLE_FAVORITES_STORAGE_VERSIONS = Object.freeze([2, FAVORITES_STORAGE_VERSION, 4]);
@@ -382,6 +383,20 @@ export function parseLocksFromStandardPrompt(promptText, controls) {
         const entry = { key, label: controlMap.get(key)?.label || key, option };
         if (index >= 0) matchedControls[index] = entry;
         else matchedControls.push(entry);
+      }
+    }
+  }
+
+  if (normalizedPrompt) {
+    const framing = controlMap.get('framingId')?.options.find(option => option.id === locks.framingId);
+    if (isHeadDominantFraming(framing)) {
+      const angleControl = controlMap.get('angleId');
+      const angle = matchHeadDominantAngle(normalizedPrompt, angleControl?.options || []);
+      if (angle) {
+        locks.angleId = angle.id;
+        const oldMatch = matchedControls.findIndex(match => match.key === 'angleId');
+        if (oldMatch >= 0) matchedControls.splice(oldMatch, 1);
+        matchedControls.push({ key: 'angleId', label: angleControl.label, option: angle });
       }
     }
   }

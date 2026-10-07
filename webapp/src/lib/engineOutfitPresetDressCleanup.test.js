@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { createEmptyLocks, generatePrompts, getLockControls, normalizeLocks } from './engine.js';
+import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls, normalizeLocks } from './engine.js';
 import { runSceneFixture } from './engine/sceneIntegratedAssemblyTestSupport.js';
 
 const controlOptions = (key) => getLockControls().find((control) => control.key === key).options;
@@ -652,9 +652,10 @@ test('zippered latex mini dress leaves the navel area visible for a selected nav
   const navelPiercing = optionByLabel('waistAccessoryId', '肚臍環');
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
     dressId: dress.id,
     waistAccessoryId: navelPiercing.id,
-  });
+  }, [], { random: createSeededRandom('zippered-latex-dress-navel-visible-v1') });
   const text = allPromptOutputs(prompt);
 
   assert.match(text, /zipper opened down below the navel by default/i);

@@ -13,7 +13,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const FIXED_FRAMING_DERIVED_PROMPT_CONTRACT_VERSION = 4;
+export const FIXED_FRAMING_DERIVED_PROMPT_CONTRACT_VERSION = 5;
 
 export const FIXED_FRAMING_MAIN_OPTION_POLICY = deepFreeze({
   visible: [
@@ -23,6 +23,7 @@ export const FIXED_FRAMING_MAIN_OPTION_POLICY = deepFreeze({
     { id: 'camera:景別構圖-framing:中景鏡頭-medium-shot:6', zh: '中景鏡頭 (Medium Shot)', randomCandidate: true },
     { id: 'camera:景別構圖-framing:牛仔中景-cowboy-shot:7', zh: '牛仔中景 (Cowboy Shot)', randomCandidate: true },
     { id: 'camera:景別構圖-framing:全身鏡頭-full-body-shot:8', zh: '全身鏡頭 (Full Body Shot)', randomCandidate: true },
+    { id: 'camera:景別構圖-framing:頭部主導近景:10', zh: '頭部主導近景', randomCandidate: true },
   ],
   legacyHidden: [
     { id: 'camera:景別構圖-framing:局部五官特寫:2', zh: '局部五官特寫' },

@@ -1,4 +1,5 @@
 import { bottomRiseConflict, bottomRiseControlContext } from './engine/bottomRiseCompatibility.js';
+import { isHeadDominantFraming, headDominantAngleAllowed } from './engine/headDominantFraming.js';
 import { CHARACTER_CARD_LAYER_KEYS, CHARACTER_CARD_LAYER_LABELS } from './characterCardLab.js';
 import { isFullyClosedOpening } from './engine/outerwearClosure.js';
 import { isUnderbustTopFit, isUnderbustIncompatibleStyle, underbustTopConflict, underbustTopControlContext } from './engine/underbustTopFit.js';
@@ -349,7 +350,9 @@ export function buildWorkspaceSummary(locks, controls) {
   const photographySummary = buildSummaryText([
     getControlOptionLabel(controls, 'imageTypePresetId', locks.imageTypePresetId),
     getControlOptionLabel(controls, 'framingId', locks.framingId),
-    getControlOptionLabel(controls, 'angleId', locks.angleId),
+    isHeadDominantFraming(controls.find(c => c.key === 'framingId')?.options.find(o => o.id === locks.framingId))
+      && !headDominantAngleAllowed(controls.find(c => c.key === 'angleId')?.options.find(o => o.id === locks.angleId))
+      ? '' : getControlOptionLabel(controls, 'angleId', locks.angleId),
     getControlOptionLabel(controls, 'orbitId', locks.orbitId),
     getControlOptionLabel(controls, 'styleId', locks.styleId),
     getControlOptionLabel(controls, 'lensId', locks.lensId),

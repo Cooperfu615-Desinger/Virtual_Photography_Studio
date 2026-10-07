@@ -2,7 +2,14 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-07
+Last updated: 2026-10-08
+
+## 頭部主導近景 (local, 2026-10-07)
+
+- 使用者核准在構圖景別尾端新增「頭部主導近景」：頭頂至下巴占畫面高度 50–60%，完整臉部／下巴、少量頭頂留白，下方仍見肩膀、上身、手臂與周邊可辨識場景。開放高位俯視、平視、正上方；鳥瞰等七個不相容視角停用，原不相容選值暫顯全無並保留，切回其他景別恢復。不綁鏡頭、比例或頭部姿勢，正上方不自動加入抬頭。來源 `knowledge_base/camera_and_lighting.md`，見 [頭部主導近景 v1](specs/head-dominant-framing-v1.md)。
+- 三主輸出保留同一完整來源；新主景別 GPT/Z 高位與正上方採近距離相機句，避免繼承胸上公尺距離。共用 `chestUp` 可見範圍，兩組胸上衍生維持胸上／4:5及原距離，全身角色照維持完整 9:16。追加新 ID `camera:景別構圖-framing:頭部主導近景:10`，舊 ID／順序／來源及 storage schema 不變；文字回填在新景別已辨識時補認三個開放視角，完整收藏保留 latent 視角。Public contract `1.48.0`、固定景別契約 v5、GPT spatial `1.3.0`。
+- 驗證完成：新景別／回填與 codec 30/30、兩個目錄相關檔案 31/31、完整前端 1346/1346、Prompt Quality 592/592、lint/build、同步 check、Python 2/2、206 公開資產及 diff-check 通過。110 組舊景別／角度 selection 與六輸出 SHA256 相同；同 seed `200 / prompt-quality-baseline` strict 前後 blocking 均 0，diagnostics 28→22，僅既有穿搭／泳裝場景與近重複類別。兩個完整清單／順序檢查已追加新選項；肚臍環測試固定全身與 seed，避免隨機近景合法裁掉肚臍。歷史快照不改寫；既有 Vite 大型 chunk 提示未擴修。
+- 桌面 1440×1000／手機 390×900 已檢查五工作區、新視角停用／恢復、正式回填、三主來源與三衍生邊界、GPT 複製及獨立測試收藏套用；所查狀態無破圖或 console warning/error，新 E 區無橫向溢出。手機 D 標題操作列既有溢出沿前批記錄，未擴修。正常來源景別與角度還原全無，9 張既有收藏只讀；不宣稱重生成後六預覽逐字還原。剪貼簿與 viewport 還原，驗證分頁／服務已關閉；截圖 `/tmp/vps-head-desktop.png`、`/tmp/vps-head-mobile.png`。使用者已於 2026-10-08 授權本批 commit／push，交付狀態以 Git 遠端核對為準；未手動部署。原未追蹤參考資料夾保留；圖片效果待使用者實測。
 
 ## 澀谷站前：主角融入同一人流（本機修訂，2026-10-07）
 

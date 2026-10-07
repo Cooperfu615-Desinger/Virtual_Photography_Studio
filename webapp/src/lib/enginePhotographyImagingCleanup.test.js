@@ -72,6 +72,7 @@ test('framing options are ordered from closest face crop to full body with legac
       '牛仔中景 (Cowboy Shot)',
       '全身鏡頭 (Full Body Shot)',
       '全臉傾斜特寫',
+      '頭部主導近景',
     ]
   );
 

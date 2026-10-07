@@ -16,6 +16,23 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   {
+    id: 'head-dominant-top-down', title: 'Head-dominant portrait preserves selected head pose and independent derived crops',
+    mode: 'single', seed: 'head-dominant-v1',
+    locks: { subjectCount: '1', framingId: { byZh: '頭部主導近景' },
+      angleId: { byZh: '正上方俯視鏡頭' }, orbitId: { byZh: '正面 0 度' },
+      lensId: { byZh: '魚眼鏡頭 Fisheye' }, fixedCompositionSetId: 'none',
+      specialSubjectId: 'none', characterProfileId: 'none' },
+    expectedOutputs: {
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt'].map(field => [field, {
+        includes: ['head-dominant close portrait', '50–60% of frame height', 'upper torso and arms visible below', 'recognizable scene', 'fisheye'],
+        excludes: ['1.5–2 meters', '1–2 meters'],
+      }])),
+      chestUpPortraitPrompt: { includes: ['Chest-up portrait'], excludes: ['head-dominant', '50–60%'] },
+      chestUpMjPortraitPrompt: { includes: ['Chest-up portrait'], excludes: ['head-dominant', '50–60%'] },
+      fullBodyCharacterPrompt: { excludes: ['head-dominant', '50–60%'] },
+    },
+  },
+  {
     id: 'shibuya-moving-crowds', title: 'Shibuya low-camera scene keeps landmarks and moving crowds at three depths',
     mode: 'single', seed: 'shibuya-crowd-v1',
     locks: { subjectCount: '1', locationId: { byZh: '戶外：澀谷站前廣場人潮邊緣' },

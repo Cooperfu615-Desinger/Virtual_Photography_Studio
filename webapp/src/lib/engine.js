@@ -1,4 +1,5 @@
 import { bottomRiseConflict, resolveBottomRiseCompatibility } from './engine/bottomRiseCompatibility.js';
+import { isHeadDominantFraming, headDominantAngleAllowed, headDominantCameraText } from './engine/headDominantFraming.js';
 import { DEFAULT_KNEELING_SUPPORT_HAND_ID, isFourPointKneeling, isKneelingSupportHand, resolveKneelingSupportArrangement } from './engine/kneelingSupport.js';
 import { ACCESSORY_CATEGORIES, accessoryNoneId, isConcreteAccessory, isHeadWornAudio, blocksHeadWornAudio, splitAccessoryCatalog, migrateAccessoryLocks, normalizeAccessoryConflicts, projectAudioForFraming } from './engine/accessoryPolicy.js';
 import database from '../data/database.json' with { type: 'json' };
@@ -1800,6 +1801,7 @@ function inferLocationMeta(category, item) {
 function inferFramingMeta(_category, item) {
   const haystack = toHaystack(item.zh, item.en, item.desc);
 
+  if (isHeadDominantFraming(item)) return { visibility: 'portrait', tags: ['face_detail', 'upper_body_focus'] };
   if (hasAny(haystack, ['partial facial features', '局部五官特寫'])) return { visibility: 'close', tags: ['face_detail', 'partial_face'] };
   if (hasAny(haystack, ['only one half of the face', '半臉傾斜特寫'])) return { visibility: 'close', tags: ['face_detail', 'partial_face', 'dutch_bias'] };
   if (hasAny(haystack, ['entire face visible', '全臉傾斜特寫'])) return { visibility: 'close', tags: ['face_detail', 'full_face_offset', 'dutch_bias'] };
@@ -4739,6 +4741,7 @@ function wardrobeFitsLocation(item, location) {
 }
 
 function framingSupportsAngle(framing, angle) {
+  if (isHeadDominantFraming(framing)) return headDominantAngleAllowed(angle);
   const angleTags = new Set(angle.meta.tags);
   const framingTags = new Set(framing.meta.tags || []);
 
@@ -10949,6 +10952,7 @@ function compactCameraDescriptor(item, kind) {
 
   const label = String(item.zh || '').toLowerCase();
   if (kind === 'framing') {
+    if (isHeadDominantFraming(item)) return item.en;
     if (label.includes('半臉')) return 'half-face close-up, tilted crop';
     if (label.includes('局部五官')) return 'facial-detail close-up';
     if (label.includes('臉部特寫')) return 'tight face close-up';
@@ -12634,7 +12638,7 @@ function renderGptPrompt(promptModel, {
     cameraSpatial ? composeGptCameraSpatial(baseCompositionLine,
       compactCameraDescriptor(context.angle, 'angle'), context.angle,
       getCompositionVisibilityProjection(context).bucket,
-      characterSlots.poseComposer?.meta?.poseBaseId || '') : baseCompositionLine,
+      characterSlots.poseComposer?.meta?.poseBaseId || '', context.framing) : baseCompositionLine,
     useRoleOrderedDuo ? null : characterSlots.poseComposer,
   );
   const duoCharacterSlots = useRoleOrderedDuo ? extractCharacterSlots(character) : null;
@@ -13491,7 +13495,7 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
           bucket: compositionVisibilityProjection.bucket,
           subjectKind: specialSubjectMode ? 'subject' : 'woman',
           poseBaseId: characterSlots.poseComposer?.meta?.poseBaseId || '',
-          angleTextOverride: fullBodyCameraText || closeWormEyeText || null,
+          angleTextOverride: headDominantCameraText(context.framing, context.angle, specialSubjectMode ? 'subject' : 'woman') || fullBodyCameraText || closeWormEyeText || null,
           useDistanceProfiles: sceneIntegrated,
         })
       : '',
@@ -15942,7 +15946,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     fixedSetCaptureModeId: context.fixedSetCaptureMode?.id || 'photographer-shot',
     fixedSetPerformanceStateId: context.fixedSetPerformanceState?.id || 'model-natural',
     framingId: context.framing?.id || '',
-    angleId: context.angle?.id || '',
+    angleId: context.headDominantSuppressedAngleId || context.angle?.id || '',
     orbitId: context.orbit?.id || '',
     lensId: context.lens?.id || '',
     apertureId: context.aperture?.id || '',
@@ -16292,9 +16296,13 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     effectiveLocks.expressionId ? findById(expressionOptions, effectiveLocks.expressionId) : null,
   ].filter(Boolean);
   const pickCameraWithExpressionLock = lockedExpressions.length > 0 ? pickCompatible : pickLocked;
+  const lockedAngle = findById(runtime.flatCatalog.angle, effectiveLocks.angleId);
+  const suppressHeadDominantAngle = isHeadDominantFraming(framing) && !headDominantAngleAllowed(lockedAngle);
+  const angleLockId = suppressHeadDominantAngle
+    ? runtime.flatCatalog.angle.find(isNoneLikeItem)?.id : effectiveLocks.angleId;
   const angle = pickCameraWithExpressionLock(
     runtime.flatCatalog.angle,
-    effectiveLocks.angleId,
+    angleLockId,
     (item) => framingSupportsAngle(framing, item) && lockedExpressions.every((expression) => angleSupportsExpression(item, expression)),
     lowFrequencyPicker('low_frequency_angle'),
     ['angleId'],
@@ -16388,6 +16396,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     fixedCompositionActive: Boolean(fixedCompositionSet) && !fixedSetAllowsFramingVariation(fixedCompositionSet),
   });
   const context = {
+    headDominantSuppressedAngleId: suppressHeadDominantAngle ? effectiveLocks.angleId : '',
     subject,
     imageTypePreset,
     aspectRatio,

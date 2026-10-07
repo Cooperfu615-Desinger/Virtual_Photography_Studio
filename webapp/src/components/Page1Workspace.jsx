@@ -1,4 +1,5 @@
 import { prepareBottomRiseControl } from '../lib/engine/bottomRiseCompatibility.js';
+import { prepareHeadDominantAngleControl } from '../lib/engine/headDominantFraming.js';
 import { buildKneelingSupportControl, isFourPointKneeling } from '../lib/engine/kneelingSupport.js';
 import { prepareAccessoryControl } from '../lib/engine/accessoryPolicy.js';
 import { prepareOuterwearClosureControl } from '../lib/engine/outerwearClosure.js';
@@ -1137,7 +1138,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const renderControlGrid = (controls) => (
     <div className="lock-grid detail-lock-grid">
       {controls.map((rawControl) => {
-        const baseControl = prepareBottomRiseControl(prepareUnderbustTopControl(prepareOuterwearClosureControl(prepareAccessoryControl(buildFixedSetControl(buildPoseComposerControl(rawControl)), locks), locks, lockControls), locks, lockControls), locks, lockControls);
+        const baseControl = prepareHeadDominantAngleControl(prepareBottomRiseControl(prepareUnderbustTopControl(prepareOuterwearClosureControl(prepareAccessoryControl(buildFixedSetControl(buildPoseComposerControl(rawControl)), locks), locks, lockControls), locks, lockControls), locks, lockControls), locks, lockControls);
         const preparedControl = baseControl.key === 'orbitId' && isCarriageFixedSet(selectedFixedCompositionSetOption)
           ? { ...baseControl, label: '相機拍攝方位',
               suppressDefaultRandomOption: selectedFixedCompositionSetOption.orbitMode !== 'camera-position',
