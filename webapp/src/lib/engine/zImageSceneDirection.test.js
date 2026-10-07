@@ -4,19 +4,38 @@ import { readFileSync } from 'node:fs';
 import { projectZImageDirectionalSource, GROUND_SOURCE_REDUCTIONS, SKY_SOURCE_REDUCTIONS } from './zImageSceneDirection.js';
 import { runSceneFixture } from './sceneIntegratedAssemblyTestSupport.js';
 import { SCENE_INTEGRATED_ASSEMBLY_FIXTURES } from './sceneIntegratedAssemblyFixtures.js';
+import { getLockControls } from '../engine.js';
 
 const project = (text, zh, options = {}) => projectZImageDirectionalSource(text, { zh }, options);
 const low = ['腰部高度鏡頭', '膝蓋高度鏡頭', '地面高度鏡頭', '蟲眼視角鏡頭'];
 const high = ['高位俯視鏡頭', '鳥瞰視角', '正上方俯視鏡頭'];
 const source = 'traditional Japanese ryokan engawa veranda, raised wooden deck edge, sliding door frames';
 
-test('every authored reduction is traceable to the unchanged catalog and handles its exact source', () => {
+test('every authored reduction is traceable to the current catalog or exact reviewed Shibuya legacy source', () => {
   const db = JSON.parse(readFileSync(new URL('../../data/database.json', import.meta.url), 'utf8'));
   const sources = [...Object.values(db.Locations).flat(), ...Object.values(db.CameraLighting).flat()]
     .map((row) => row.en.toLowerCase()).join('\n');
+  // Keep reviewed ground rules usable for old/custom libraries after this one
+  // scene is revised; do not turn every historical alias into an exemption.
+  const locationId = 'locations:城市與社群感-urban-social-snapshots:戶外-澀谷站前廣場人潮邊緣:11';
+  const legacyScenes = JSON.parse(readFileSync(new URL('./gptSceneVisibilityLegacyScenes.json', import.meta.url), 'utf8'));
+  const legacyScene = legacyScenes.find(([id, framingId]) => id === locationId
+    && framingId === 'camera:景別構圖-framing:全身鏡頭-full-body-shot:8')?.[2];
+  assert.ok(legacyScene, 'frozen full Shibuya source must remain available');
+  const legacySource = legacyScene.replace(/^The portrait takes place in /, '').replace(/\.$/, '');
+  const location = getLockControls().find(control => control.key === 'locationId').options.find(option => option.id === locationId);
+  assert.ok(location?.meta?.legacyPromptAliases?.includes(legacySource), 'exact old Shibuya source remains a restoration alias');
+  const legacyGroundClauses = new Set([
+    'broad pedestrian paving',
+    'curb and railing fragments',
+    'recognizable public-plaza ground plane without focusing on a single monument',
+  ]);
+  const approvedLegacyClauses = legacySource.split(/,\s*/);
   for (const [rules, angle] of [[GROUND_SOURCE_REDUCTIONS, low[0]], [SKY_SOURCE_REDUCTIONS, high[0]]]) {
     for (const [text, replacement] of Object.entries(rules)) {
-      assert.ok(sources.includes(text), `catalog drift needs review: ${text}`);
+      const reviewedLegacyGround = rules === GROUND_SOURCE_REDUCTIONS
+        && legacyGroundClauses.has(text) && approvedLegacyClauses.includes(text);
+      assert.ok(sources.includes(text) || reviewedLegacyGround, `catalog drift needs review: ${text}`);
       assert.equal(project(text, angle), replacement);
       assert.equal(project(text, '平視高度鏡頭'), text);
     }

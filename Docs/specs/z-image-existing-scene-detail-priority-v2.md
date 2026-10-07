@@ -37,7 +37,7 @@
 | 戶外：高樓建築骨架施工鷹架旁 | `construction scaffolding side area, steel pipes, unfinished concrete column` |
 | 戶外：高樓建築骨架開放樓層邊緣 | `open high-rise floor edge, exposed beams` |
 | 室內：地下月台電子看板與海報牆 | `underground subway platform signboard corner, amber LED next-train display overhead, fluorescent ceiling tubes` |
-| 戶外：澀谷站前廣場人潮邊緣 | `Shibuya Station front plaza edge near Hachiko Square, station-front commercial facade layers` |
+| 戶外：澀谷站前廣場人潮邊緣 | `Shibuya Station front plaza with the QFRONT glass facade carrying TSUTAYA and STARBUCKS signage and large advertising screens in the background, dense varied crowds walking in different directions around the subject through the foreground and midground into the background, nearby passersby partly cropped at frame edges`（2026-10-07 [人潮修訂](shibuya-station-crowds-v1.md)，取代本列舊商業立面優先文字） |
 | 戶外：八公銅像旁行人區 | `Shibuya Hachiko Square pedestrian waiting area beside the small bronze Hachiko dog statue, Shibuya Station frontage and nearby commercial facades` |
 | 戶外：澀谷站前大型看板下穿越口 | `Shibuya station-side crossing entrance beneath oversized commercial billboards, tower facades packed with signage` |
 | 戶外：目黑川旁的櫻花隧道 | `Meguro River bridge viewpoint, one riverside cherry blossom canopy` |

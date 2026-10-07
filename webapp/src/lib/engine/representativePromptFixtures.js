@@ -16,6 +16,25 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   {
+    id: 'shibuya-moving-crowds', title: 'Shibuya low-camera scene keeps landmarks and moving crowds at three depths',
+    mode: 'single', seed: 'shibuya-crowd-v1',
+    locks: { subjectCount: '1', locationId: { byZh: '戶外：澀谷站前廣場人潮邊緣' },
+      framingId: { byZh: '中景鏡頭 (Medium Shot)' }, angleId: { byZh: '地面高度鏡頭' },
+      poseBaseId: 'standing', poseArrangementId: { byZh: '自然站姿' },
+      poseHandId: 'none', poseAnchorId: 'none', fixedCompositionSetId: 'none',
+      specialSubjectId: 'none', characterProfileId: 'none' },
+    expectedOutputs: {
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt']
+        .map(field => [field, {
+          includes: ['QFRONT glass facade', 'TSUTAYA and STARBUCKS signage', 'large advertising screens',
+            'dense varied crowds walking in different directions around the subject through the foreground and midground into the background',
+            'nearby passersby partly cropped at frame edges'],
+          excludes: ['Hachiko Square', 'meeting crowd clusters', 'broad pedestrian paving'],
+        }])),
+      fullBodyCharacterPrompt: { excludes: ['Shibuya', 'QFRONT', 'TSUTAYA', 'dense varied crowds'] },
+    },
+  },
+  {
     id: 'adidas-trackwear', title: 'Separate adidas trackwear retains stripes and suppresses incompatible fly styling',
     mode: 'single', seed: 'adidas-trackwear-v1',
     locks: { subjectCount: '1', framingId: { byZh: '全身鏡頭 (Full Body Shot)' },

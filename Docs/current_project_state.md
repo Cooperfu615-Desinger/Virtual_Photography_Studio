@@ -2,7 +2,15 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-06
+Last updated: 2026-10-07
+
+## 澀谷站前：地標背景與三層流動人潮 (local, 2026-10-07)
+
+- 已依使用者核准原位修改「戶外：澀谷站前廣場人潮邊緣」：以澀谷站前及 QFRONT 玻璃立面、TSUTAYA／STARBUCKS 招牌、大型廣告螢幕為背景；主角周圍前、中、後景是朝不同方向行走的多樣人潮，近處路人局部切入畫面邊緣。移除八公廣場／人潮外緣限制及舊地面清單，不鎖鏡頭、朝向或姿勢。名稱、ID、順序、分類、既有 tags 及隨機池不變，見 [澀谷人潮 v1](specs/shibuya-station-crowds-v1.md)。
+- 五組含場景輸出沿用各自投影／精簡政策，Z 的四種低機位保留新版人潮與近前景路人，不再換成純商業立面；其餘 44 個低機位來源優先規則不變。GPT 區段結構及全身角色照無場景的邊界不變。舊完整英文加入 location alias，Saved Cards 原文不批次改寫，還原後生成採新版。Public output contract `1.46.0`、scene-detail priority source `1.2.0`；歷史 JSON baseline 不改，精確 test-only inverse 只回溯該 ID 的核准場景來源。
+- 驗證：專項 10/10、完整前端 1337/1337、Prompt Quality 583/583、lint/build、資料同步／check、Python 2/2、206 個公開資產及 diff-check 通過。兩個舊測試已同步當前來源：低機位 matrix 避免把 map 索引當自訂資料庫，舊地面規則只接受不可變歷史全文及精確 alias 中的三句來源。200／prompt-quality-baseline strict 前後均 blocking 0、28 既有 diagnostics，分類／範例未增加；既有 Vite 大型 chunk 提示不在本次範圍。
+- 瀏覽器 `1440×1000`／`390×900` 已檢查新版來源、舊完整英文回填、既有收藏還原及五工作區載入；未發現 console warning/error 或破圖。手機 D 場景區既有三顆標題操作鈕不換行，`查看光線定位對照` 造成 document 411px／client 375px 的橫向溢出；對應 JSX／CSS 本次未改，其他工作區與人物區檢查無溢出，不在本次場景資料範圍擴大修正。截圖 `/tmp/vps-shibuya-desktop.jpg`、`/tmp/vps-shibuya-mobile-output.jpg`。複製按鈕出現成功提示，但自動化剪貼簿讀取為空，未宣稱 byte round-trip 已驗證。
+- 原固定車廂、人物位置、普通場景隨機模式與 MJ HD 設定已從介面還原；9 張既有收藏未增刪。回填會依既有行為重新解析選項及重新生成隨機預覽，沒有原始完整 locks 備份，因此不宣稱所有 latent 選值或六預覽逐字還原。viewport 已重設、驗證分頁與本次 5175 服務已關閉。原未追蹤參考圖資料夾保留；使用者於 2026-10-07 授權本批 commit／push，交付狀態以 Git 遠端核對為準，未手動部署。未呼叫外部圖像模型，真實人潮密度、招牌辨識及自然遮擋待使用者實測。
 
 ## DLL：INT8／Ideogram／Seedream 三模型 (deployed, 2026-10-06)
 

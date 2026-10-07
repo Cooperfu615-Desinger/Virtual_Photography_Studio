@@ -4,6 +4,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { digest, OUTPUT_FIELDS } from './sceneIntegratedAssemblyTestSupport.js';
+import { normalizeShibuyaPromptForLegacy } from './shibuyaSceneTestSupport.js';
 
 export const CHEST_OUTPUT_FIELDS = ['chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'];
 export const PROTECTED_OUTPUT_FIELDS = OUTPUT_FIELDS.filter(field => !CHEST_OUTPUT_FIELDS.includes(field));
@@ -11,8 +12,8 @@ export const PROTECTED_OUTPUT_FIELDS = OUTPUT_FIELDS.filter(field => !CHEST_OUTP
 export function measureChestUpRevision(results) {
   return {
     count: results.length,
-    chestHashes: Object.fromEntries(CHEST_OUTPUT_FIELDS.map(field => [field, digest(results.map(r => r.outputs[field]))])),
-    protectedHash: digest(results.map(r => PROTECTED_OUTPUT_FIELDS.map(field => r.outputs[field]))),
+    chestHashes: Object.fromEntries(CHEST_OUTPUT_FIELDS.map(field => [field, digest(results.map(r => normalizeShibuyaPromptForLegacy(r.outputs[field], field, r.selection)))])),
+    protectedHash: digest(results.map(r => PROTECTED_OUTPUT_FIELDS.map(field => normalizeShibuyaPromptForLegacy(r.outputs[field], field, r.selection)))),
     selectionHash: digest(results.map(r => r.selection)),
     randomHash: digest(results.map(r => r.randomDraws)),
   };

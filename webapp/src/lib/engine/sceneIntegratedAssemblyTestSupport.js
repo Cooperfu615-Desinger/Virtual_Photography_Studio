@@ -6,6 +6,7 @@ import { PROMPT_OUTPUT_CONTRACTS } from './promptOutputContracts.js';
 import { POSE_COMPOSER_ANCHOR_OPTIONS, POSE_COMPOSER_HAND_OPTIONS } from './poseComposerOptions.js';
 import { normalizeZImageOnLocationForLegacy } from './zImageOnLocationTestSupport.js';
 import { LEGACY_BODY_CATALOG_ITEMS, generateLegacyBodyPrompts } from './bodyTypeLegacyTestSupport.js';
+import { normalizeShibuyaPromptForLegacy } from './shibuyaSceneTestSupport.js';
 
 export const OUTPUT_FIELDS = Object.freeze(Object.keys(PROMPT_OUTPUT_CONTRACTS));
 
@@ -107,8 +108,10 @@ export function restoreBaselineSelection(baseline, entry) {
 // byte-exact protected outputs are checked in zImageOnLocationCapture.test.js.
 export function runLegacySceneFixture(fixture) {
   const result = runSceneFixture(fixture, PRE_HOURGLASS_BODY_CATALOG);
-  const zImagePrompt = normalizeZImageOnLocationForLegacy(result.outputs.zImagePrompt);
-  return { ...result, outputs: { ...result.outputs, zImagePrompt }, prompt: { ...result.prompt, zImagePrompt } };
+  const outputs = Object.fromEntries(Object.entries(result.outputs).map(([field, text]) =>
+    [field, normalizeShibuyaPromptForLegacy(text, field, result.selection)]));
+  const zImagePrompt = normalizeZImageOnLocationForLegacy(outputs.zImagePrompt);
+  return { ...result, outputs: { ...outputs, zImagePrompt }, prompt: { ...result.prompt, zImagePrompt } };
 }
 
 // Independent oracle: the unchanged GPT projection renders the same resolved

@@ -15,7 +15,7 @@ import {
   SCENE_DETAIL_PRIORITY_REGRESSION,
 } from './zImageSceneDetailPriorityFixtures.js';
 import { upperSceneFixture } from './zImageUpperSceneFixtures.js';
-import { runLegacySceneFixture as runSceneFixture, digest, OUTPUT_FIELDS } from './sceneIntegratedAssemblyTestSupport.js';
+import { runLegacySceneFixture as runSceneFixture, runSceneFixture as runCurrentSceneFixture, digest, OUTPUT_FIELDS } from './sceneIntegratedAssemblyTestSupport.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 import { normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';
 import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
@@ -67,7 +67,7 @@ test('38 remaining priorities use only exact catalog clauses and preserve non-lo
 });
 
 test('remaining priorities integrate into the low-camera Z-Image scene opening', () => {
-  const results = SCENE_DETAIL_PRIORITY_REMAINING_LOW_MATRIX.map(runSceneFixture);
+  const results = SCENE_DETAIL_PRIORITY_REMAINING_LOW_MATRIX.map(fixture => runCurrentSceneFixture(fixture));
   assert.equal(results.length, 456);
   for (const [index, result] of results.entries()) {
     const fixture = SCENE_DETAIL_PRIORITY_REMAINING_LOW_MATRIX[index];

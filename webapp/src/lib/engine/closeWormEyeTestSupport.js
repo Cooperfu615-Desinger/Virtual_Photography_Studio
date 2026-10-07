@@ -16,6 +16,8 @@ export const OLD_WORM = 'The camera is positioned extremely low near the ground 
 // priority pass. Reverse only an exact approved scene-opening prefix; never
 // rewrite arbitrary imported/custom prose or a non-Z output.
 const SCENE_DETAIL_LEGACY_CASES = Object.freeze([
+  // Freeze the old Shibuya priority inverse after its authored source changed.
+  ['戶外：澀谷站前廣場人潮邊緣', 'Shibuya Station front plaza edge near Hachiko Square, dense realistic foot traffic', 'Shibuya Station front plaza edge near Hachiko Square, station-front commercial facade layers'],
   ...SCENE_DETAIL_PRIORITY_REMAINING_CASES,
 ].filter(([, before, after]) => before !== after));
 

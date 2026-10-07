@@ -3136,6 +3136,13 @@ const WARDROBE_LEGACY_PROMPT_ALIASES = [
 const LOCATION_LEGACY_PROMPT_ALIASES = [
   {
     category: '城市與社群感 (Urban & Social Snapshots)',
+    targetZh: '戶外：澀谷站前廣場人潮邊緣',
+    prompts: [
+      'Shibuya Station front plaza edge near Hachiko Square, broad pedestrian paving, dense realistic foot traffic, station-front commercial facade layers, meeting crowd clusters, curb and railing fragments, recognizable public-plaza ground plane without focusing on a single monument',
+    ],
+  },
+  {
+    category: '城市與社群感 (Urban & Social Snapshots)',
     targetZh: '戶外：新宿歌舞伎町招牌下',
     prompts: [
       'Kabukicho signboard corner, stacked sign structures, storefront edge, glossy pavement patches, narrow curb, doorway seam, overhead sign brackets',
