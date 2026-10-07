@@ -3,7 +3,7 @@ import { LOW_CAMERA_LABELS } from './zImageSceneDirection.js';
 // Approved selection exception for reviewed existing catalog sources, not new
 // scenery. The caller owns ordinary-single-main eligibility. Shared projection,
 // other renderers and the eighteen authored upper-scene additions stay intact.
-export const Z_IMAGE_SCENE_DETAIL_PRIORITY_VERSION = '1.2.0';
+export const Z_IMAGE_SCENE_DETAIL_PRIORITY_VERSION = '1.3.0';
 const record = (identity, previous, preferred) => Object.freeze({
   identity, previous: Object.freeze(previous),
   preferred: Object.freeze(preferred.map(clause => Object.freeze(
@@ -60,8 +60,8 @@ export const Z_IMAGE_SCENE_DETAIL_PRIORITIES = Object.freeze({
     ['amber LED next-train display overhead', 'fluorescent ceiling tubes']),
   'locations:城市與社群感-urban-social-snapshots:戶外-澀谷站前廣場人潮邊緣:11': record(
     'Shibuya Station front plaza with the QFRONT glass facade carrying TSUTAYA and STARBUCKS signage and large advertising screens in the background',
-    ['dense varied crowds walking in different directions around the subject through the foreground and midground into the background', 'nearby passersby partly cropped at frame edges'],
-    ['dense varied crowds walking in different directions around the subject through the foreground and midground into the background', 'nearby passersby partly cropped at frame edges']),
+    ['the subject as one person within a dense pedestrian flow with people passing in different directions beside and in front of and behind her; everyone sharing the same physical space and perspective with apparent size varying naturally by distance', 'pedestrians in varied everyday clothing in mixed colors and styles sharing the same ambient light as the subject; nearby passersby naturally overlapping and partly cropped at frame edges'],
+    ['the subject as one person within a dense pedestrian flow with people passing in different directions beside and in front of and behind her; everyone sharing the same physical space and perspective with apparent size varying naturally by distance', 'pedestrians in varied everyday clothing in mixed colors and styles sharing the same ambient light as the subject; nearby passersby naturally overlapping and partly cropped at frame edges']),
   'locations:城市與社群感-urban-social-snapshots:戶外-八公銅像旁行人區:12': record(
     'Shibuya Hachiko Square pedestrian waiting area beside the small bronze Hachiko dog statue', ['low queue railings'],
     ['Shibuya Station frontage and nearby commercial facades']),

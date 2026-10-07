@@ -3138,6 +3138,7 @@ const LOCATION_LEGACY_PROMPT_ALIASES = [
     category: '城市與社群感 (Urban & Social Snapshots)',
     targetZh: '戶外：澀谷站前廣場人潮邊緣',
     prompts: [
+      'Shibuya Station front plaza with the QFRONT glass facade carrying TSUTAYA and STARBUCKS signage and large advertising screens in the background, dense varied crowds walking in different directions around the subject through the foreground and midground into the background, nearby passersby partly cropped at frame edges, surrounding Japanese shop signs',
       'Shibuya Station front plaza edge near Hachiko Square, broad pedestrian paving, dense realistic foot traffic, station-front commercial facade layers, meeting crowd clusters, curb and railing fragments, recognizable public-plaza ground plane without focusing on a single monument',
     ],
   },

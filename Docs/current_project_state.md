@@ -4,6 +4,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-07
 
+## 澀谷站前：主角融入同一人流（本機修訂，2026-10-07）
+
+- 依 `Docs/1007` 實測回饋與使用者核准，改為主角是密集人流中的一員，行人從身旁、前方與後方不同方向經過；共享空間、透視、環境光及隨距離自然改變的表觀尺寸。路人穿著混合色彩與款式，不逐人指定、不要求同樣大小、不改主角服裝與姿勢。
+- 保留 QFRONT／TSUTAYA／STARBUCKS、名稱／ID／順序與既有鏡頭控制；同步唯一場景來源及同一 ID 的 Z 低機位 pin。新增上一版全文 alias，最初八公全文 alias 仍保留；收藏原文不批次改寫。Public contract `1.47.0`、scene priority `1.3.0`。
+- 驗證完成：專項 10/10、聚焦 110/110、完整前端 1337/1337、Prompt Quality 583/583、lint/build、資料同步 check、Python 2/2、206 公開資產及 diff-check 通過；200 同 seed strict blocking 0、既有 28 diagnostics 未增加。隔離瀏覽器桌面 1440×1000／手機 390×900 確認五工作區、六预覽、上一版回填與測試收藏套用，無 console/page error 或破圖；D 場景標題操作列既有手機溢出另記於規格，未擴修 UI。本次服務與瀏覽器已關閉，使用者 storage、收藏與未追蹤參考圖未動。尚未 commit／push 或部署；真實生成比例及穿搭多樣性待使用者實測。詳見 [澀谷人潮規格](specs/shibuya-station-crowds-v1.md)。
+
 ## 澀谷站前：地標背景與三層流動人潮 (local, 2026-10-07)
 
 - 已依使用者核准原位修改「戶外：澀谷站前廣場人潮邊緣」：以澀谷站前及 QFRONT 玻璃立面、TSUTAYA／STARBUCKS 招牌、大型廣告螢幕為背景；主角周圍前、中、後景是朝不同方向行走的多樣人潮，近處路人局部切入畫面邊緣。移除八公廣場／人潮外緣限制及舊地面清單，不鎖鏡頭、朝向或姿勢。名稱、ID、順序、分類、既有 tags 及隨機池不變，見 [澀谷人潮 v1](specs/shibuya-station-crowds-v1.md)。

@@ -8,8 +8,8 @@ import { LOW_CAMERA_LABELS } from './zImageSceneDirection.js';
 export const SHIBUYA_LEGACY_LOCATION_ID = 'locations:城市與社群感-urban-social-snapshots:戶外-澀谷站前廣場人潮邊緣:11';
 const CURRENT_PARTS = Object.freeze([
   'Shibuya Station front plaza with the QFRONT glass facade carrying TSUTAYA and STARBUCKS signage and large advertising screens in the background',
-  'dense varied crowds walking in different directions around the subject through the foreground and midground into the background',
-  'nearby passersby partly cropped at frame edges',
+  'the subject as one person within a dense pedestrian flow with people passing in different directions beside and in front of and behind her; everyone sharing the same physical space and perspective with apparent size varying naturally by distance',
+  'pedestrians in varied everyday clothing in mixed colors and styles sharing the same ambient light as the subject; nearby passersby naturally overlapping and partly cropped at frame edges',
   'surrounding Japanese shop signs',
 ]);
 const LEGACY_PARTS = Object.freeze([

@@ -21,11 +21,12 @@ const legacySource = 'Shibuya Station front plaza edge near Hachiko Square, broa
 // comma-delimited clause so crop/compact selection cannot split their meaning.
 const clauses = Object.freeze([
   'Shibuya Station front plaza with the QFRONT glass facade carrying TSUTAYA and STARBUCKS signage and large advertising screens in the background',
-  'dense varied crowds walking in different directions around the subject through the foreground and midground into the background',
-  'nearby passersby partly cropped at frame edges',
+  'the subject as one person within a dense pedestrian flow with people passing in different directions beside and in front of and behind her; everyone sharing the same physical space and perspective with apparent size varying naturally by distance',
+  'pedestrians in varied everyday clothing in mixed colors and styles sharing the same ambient light as the subject; nearby passersby naturally overlapping and partly cropped at frame edges',
   'surrounding Japanese shop signs',
 ]);
 const source = clauses.join(', ');
+const previousSource = [clauses[0], 'dense varied crowds walking in different directions around the subject through the foreground and midground into the background', 'nearby passersby partly cropped at frame edges', clauses[3]].join(', ');
 const locationOptions = controls.find(c => c.key === 'locationId').options;
 const option = (key, zh) => {
   const found = controls.find(c => c.key === key)?.options.find(o => o.zh === zh);
@@ -102,6 +103,7 @@ test('Shibuya crowd source preserves the public label, ID, order and legacy Engl
   assert.equal(location.en, source);
   assert.deepEqual(location.en.split(', '), clauses);
   assert.ok(location.meta.legacyPromptAliases.includes(legacySource));
+  assert.ok(location.meta.legacyPromptAliases.includes(previousSource));
   assert.equal(normalizeLocks(locks()).locationId, id);
   assert.doesNotMatch(location.en, /Hachiko|waiting|paving|ground plane|crosswalk|railing/i);
 });
@@ -171,7 +173,7 @@ test('scene-source-only revision preserves selections, random draws and the scen
 });
 
 test('new and historical full English sources import to the same stable Shibuya location', () => {
-  for (const text of [`Scene: ${source}.`, `Scene: ${legacySource}.`, generate().prompt.grokPrompt]) {
+  for (const text of [`Scene: ${source}.`, `Scene: ${legacySource}.`, `Scene: ${previousSource}.`, generate().prompt.grokPrompt]) {
     const imported = parseLocksFromStandardPrompt(text, controls).locks;
     assert.equal(imported.locationId, id);
     for (const output of sceneTexts(generate(imported).prompt)) assertCrowd(output, 'import');
@@ -221,7 +223,7 @@ test('historical inverse fails closed on wrong identities or changed scenes and 
   const otherSelection = { ...prompt.selection, locationId: option('locationId', '戶外：八公銅像旁行人區') };
   const mutate = text => [
     text.replace('QFRONT', 'UNKNOWN-FACADE'),
-    text.replace(/dense varied crowds/i, 'changed sparse pedestrians'),
+    text.replace(/dense pedestrian flow/i, 'changed sparse pedestrians'),
     text.replace(clauses[2], `${clauses[2]}, unexpected crimson fountain`),
   ];
   assert.equal(normalizeShibuyaSceneForLegacy(scene, otherSelection), scene);

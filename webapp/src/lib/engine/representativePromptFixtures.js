@@ -27,8 +27,8 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt']
         .map(field => [field, {
           includes: ['QFRONT glass facade', 'TSUTAYA and STARBUCKS signage', 'large advertising screens',
-            'dense varied crowds walking in different directions around the subject through the foreground and midground into the background',
-            'nearby passersby partly cropped at frame edges'],
+            'the subject as one person within a dense pedestrian flow with people passing in different directions beside and in front of and behind her; everyone sharing the same physical space and perspective with apparent size varying naturally by distance',
+            'pedestrians in varied everyday clothing in mixed colors and styles sharing the same ambient light as the subject; nearby passersby naturally overlapping and partly cropped at frame edges'],
           excludes: ['Hachiko Square', 'meeting crowd clusters', 'broad pedestrian paving'],
         }])),
       fullBodyCharacterPrompt: { excludes: ['Shibuya', 'QFRONT', 'TSUTAYA', 'dense varied crowds'] },
