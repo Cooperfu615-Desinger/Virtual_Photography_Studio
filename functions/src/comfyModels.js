@@ -4,6 +4,15 @@ const local = (key, textNode, textKey, latentNode, seedNode) => ({
   outputNode: key === 'qwenImage21' ? '461' : '9',
 });
 
+const krea = (key) => ({
+  template: require(`./comfyWorkflows/${key}.json`),
+  textNode: '1', textKey: 'prompt', seedNode: '1', seedKey: 'seed',
+  seedLimit: 2 ** 31, outputNode: '2', partnerPricing: true,
+  // Krea accepts a native ratio and 1K label, not an explicit pixel canvas.
+  // Leave dimensions unknown until an upstream pixel mapping is verified.
+  nativeAspectRatio: true,
+});
+
 // Official partner node size presets verified 2026-10-06. Unlike local
 // diffusion, these APIs do not accept every calculated 8-pixel canvas.
 const ideogramSizes = {
@@ -28,6 +37,9 @@ const models = {
   seedream5Pro: { template: require('./comfyWorkflows/seedream5Pro.json'),
     textNode: '3', textKey: 'prompt', seedNode: '3', seedKey: 'model.seed',
     seedLimit: 2 ** 31, outputNode: '2', sizes: seedreamSizes, partnerPricing: true },
+  krea2Medium: krea('krea2Medium'),
+  krea2MediumTurbo: krea('krea2MediumTurbo'),
+  krea2Large: krea('krea2Large'),
 };
 
 function getComfyModel(modelKey) {

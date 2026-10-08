@@ -181,5 +181,5 @@ test('builds Classic request when model key is omitted for backwards compatibili
 
   assert.equal(request.modelKey, 'classic');
   assert.equal(request.modelConfig.endpoint, '/v1/ai/text-to-image');
-  assert.equal(request.body.num_images, 3);
+  assert.equal(request.body.num_images, 2);
 });

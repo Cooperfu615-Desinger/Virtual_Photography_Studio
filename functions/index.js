@@ -18,7 +18,7 @@ const bytePlusArkApiKey = defineSecret('BYTEPLUS_ARK_API_KEY');
 const comfyCloudApiKey = defineSecret('COMFY_CLOUD_API_KEY');
 const { getApps, initializeApp } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
-const { submitComfyJob, readComfyJob } = require('./src/comfyCloud');
+const { submitComfyJob, readComfyJob, assertExpectedComfyUid } = require('./src/comfyCloud');
 const { createQuotaReader } = require('./src/comfyQuota');
 const readQuota = createQuotaReader();
 const DEFAULT_ALLOWED_EMAILS = 'cooperfu.615@gmail.com,nailai7981.ai@gmail.com';
@@ -77,6 +77,7 @@ for (const [name, operation] of [['comfyCloudSubmit', submitComfyJob], ['comfyCl
     assertAllowedUser(request, 'Comfy Cloud');
     if (!comfyCloudApiKey.value()) throw new HttpsError('failed-precondition', 'Comfy Cloud API Key 尚未設定');
     try {
+      assertExpectedComfyUid(request.data, request.auth.uid);
       return await operation({ apiKey: comfyCloudApiKey.value(), payload: request.data || {},
         requestId: request.data?.requestId, store: comfyStore(request.auth.uid) });
     } catch (error) {

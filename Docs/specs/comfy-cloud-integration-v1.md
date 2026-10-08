@@ -4,6 +4,8 @@
 
 2026-10-06 追加 INT8、Ideogram 4.5、Seedream 5.0 Pro 的本機實作，見 [三模型擴充](comfy-cloud-model-expansion-v1.md)。以下兩模型的已部署／已驗收狀態不包含新模型；合作夥伴提交另需伺服端 extra_data。
 
+2026-10-08 本機新增 Krea 三版本與所有 DLL 模型的 1／2 張控制，見 [Krea 與逐張生成](comfy-krea-sequential-generation-v1.md)。每個 Comfy 任務仍固定一張，選兩張時依序建立獨立任務；下文單任務追蹤由該規格的相容序列追蹤補充。本次尚未部署或付費生成驗收。
+
 ## 功能範圍
 
 現有 DLL 模型清單新增 `Comfy Cloud · Z-Image-Turbo` 與 `Comfy Cloud · Qwen-Image-2.1`。沿用各工作區現有 Prompt 來源、預覽、放大與下載流程，不更動 prompt engine、Saved Cards 或歷史 public mappings。每次一張；1K / 2K 分別以約 1 / 4 百萬像素計算，寬高為 8 的倍數並維持精確比例；支援 1:1、4:3、3:4、16:9、9:16、4:5。這是工作流尺寸支援，尚不代表雲端各尺寸出圖已驗收。

@@ -7,7 +7,7 @@
     },
     "count": {
       "min": 1,
-      "max": 4,
+      "max": 2,
       "default": 1
     },
     "aspectRatios": ["1:1", "4:3", "3:4", "16:9", "9:16"],
@@ -38,7 +38,8 @@
             "2k"
           ],
           "defaultResolution": "1k",
-          "maxCount": 1,
+          "maxCount": 2,
+          "oneImagePerJob": true,
           "aspectRatios": [
             "1:1",
             "4:3",
@@ -55,7 +56,8 @@
             "2k"
           ],
           "defaultResolution": "1k",
-          "maxCount": 1,
+          "maxCount": 2,
+          "oneImagePerJob": true,
           "aspectRatios": [
             "1:1",
             "4:3",
@@ -72,7 +74,8 @@
             "2k"
           ],
           "defaultResolution": "1k",
-          "maxCount": 1,
+          "maxCount": 2,
+          "oneImagePerJob": true,
           "aspectRatios": [
             "1:1",
             "4:3",
@@ -89,7 +92,8 @@
             "2k"
           ],
           "defaultResolution": "1k",
-          "maxCount": 1,
+          "maxCount": 2,
+          "oneImagePerJob": true,
           "aspectRatios": [
             "1:1",
             "4:3",
@@ -108,7 +112,8 @@
             "2k"
           ],
           "defaultResolution": "1k",
-          "maxCount": 1,
+          "maxCount": 2,
+          "oneImagePerJob": true,
           "aspectRatios": [
             "1:1",
             "4:3",
@@ -118,6 +123,57 @@
             "4:5"
           ],
           "label": "Seedream 5.0 Pro",
+          "partnerPricing": true
+        },
+        "krea2Medium": {
+          "resolutions": [
+            "1k"
+          ],
+          "defaultResolution": "1k",
+          "maxCount": 2,
+          "oneImagePerJob": true,
+          "aspectRatios": [
+            "1:1",
+            "4:3",
+            "16:9",
+            "9:16",
+            "4:5"
+          ],
+          "label": "Krea 2 Medium",
+          "partnerPricing": true
+        },
+        "krea2MediumTurbo": {
+          "resolutions": [
+            "1k"
+          ],
+          "defaultResolution": "1k",
+          "maxCount": 2,
+          "oneImagePerJob": true,
+          "aspectRatios": [
+            "1:1",
+            "4:3",
+            "16:9",
+            "9:16",
+            "4:5"
+          ],
+          "label": "Krea 2 Medium Turbo",
+          "partnerPricing": true
+        },
+        "krea2Large": {
+          "resolutions": [
+            "1k"
+          ],
+          "defaultResolution": "1k",
+          "maxCount": 2,
+          "oneImagePerJob": true,
+          "aspectRatios": [
+            "1:1",
+            "4:3",
+            "16:9",
+            "9:16",
+            "4:5"
+          ],
+          "label": "Krea 2 Large",
           "partnerPricing": true
         }
       }

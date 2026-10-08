@@ -19,7 +19,8 @@ test('provider contract normalizes request fields from the shared provider model
   assert.equal(IMAGE_PROVIDER_CONTRACT.version, 1);
   assert.equal(request.prompt, 'cinematic portrait');
   assert.equal(request.aspectRatio, '9:16');
-  assert.equal(request.count, 4);
+  assert.equal(request.count, 2);
+  assert.deepEqual(IMAGE_PROVIDER_CONTRACT.request.count, { min: 1, max: 2, default: 1 });
   assert.equal(request.resolution, '2k');
 });
 

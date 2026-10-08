@@ -8,7 +8,7 @@ const source = 'A red mug on a table.\nExact lettering: DLL.\n--ar 4:5';
 const payload = modelKey => ({ modelKey, prompt: source, count: 1, resolution: '1k', aspectRatio: '1:1' });
 
 test('partner submissions forward only the server credential and duplicates never resubmit', async () => {
-  for (const modelKey of ['ideogram45', 'seedream5Pro', 'zImageTurboInt8']) {
+  for (const modelKey of ['ideogram45', 'seedream5Pro', 'zImageTurboInt8', 'krea2Medium', 'krea2MediumTurbo', 'krea2Large']) {
     let record; const calls = [];
     const store = {
       claim: async (_, value) => { if (record) return { claimed: false }; record = value; return { claimed: true }; },
@@ -93,7 +93,8 @@ test('Ideogram rejects excessive prompt before submitting; existing models retai
 });
 
 test('final image filtering uses each model SaveImage and ignores partner text outputs', () => {
-  for (const [modelKey, node] of [['zImageTurboInt8', '9'], ['ideogram45', '5'], ['seedream5Pro', '2']]) {
+  for (const [modelKey, node] of [['zImageTurboInt8', '9'], ['ideogram45', '5'], ['seedream5Pro', '2'],
+    ['krea2Medium', '2'], ['krea2MediumTurbo', '2'], ['krea2Large', '2']]) {
     const result = parseComfyJob({ id: 'job', status: 'succeeded', outputs: [
       { id: 'image', node_id: node, type: 'image', content_type: '' },
       { id: 'text', node_id: '1', type: 'text' },
@@ -104,7 +105,7 @@ test('final image filtering uses each model SaveImage and ignores partner text o
 });
 
 test('partner quota reads balance without guessing GPU-only cost or requesting history', async () => {
-  for (const modelKey of ['ideogram45', 'seedream5Pro']) {
+  for (const modelKey of ['ideogram45', 'seedream5Pro', 'krea2Medium', 'krea2MediumTurbo', 'krea2Large']) {
     const calls = [];
     const r = await createQuotaReader()({ uid: 'fixture', apiKey: 'fixture', payload: payload(modelKey),
       listRecords: async () => { throw Error('partner model must not read GPU history'); }, fetchImpl: async url => {

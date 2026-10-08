@@ -21,8 +21,8 @@ test('maps DLL PIC aspect ratios to Magnific Classic image sizes', () => {
 test('clamps Magnific Classic generation count to supported range', () => {
   assert.equal(clampGenerationCount(0), 1);
   assert.equal(clampGenerationCount(2), 2);
-  assert.equal(clampGenerationCount(8), 4);
-  assert.equal(clampGenerationCount('3.8'), 3);
+  assert.equal(clampGenerationCount(8), 2);
+  assert.equal(clampGenerationCount('3.8'), 2);
   assert.equal(clampGenerationCount('bad'), 1);
 });
 
@@ -38,7 +38,7 @@ test('builds a Magnific Classic request body', () => {
     image: {
       size: 'widescreen_16_9',
     },
-    num_images: 4,
+    num_images: 2,
     filter_nsfw: true,
     guidance_scale: 2,
     seed: 1000000,

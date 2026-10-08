@@ -1,0 +1,31 @@
+{
+  "1": {
+    "inputs": {
+      "prompt": "",
+      "model": "Krea 2 Medium",
+      "model.aspect_ratio": "1:1",
+      "model.resolution": "1K",
+      "model.creativity": "medium",
+      "model.moodboard_id": "",
+      "model.moodboard_strength": 0.35,
+      "seed": 0
+    },
+    "class_type": "Krea2ImageNode",
+    "_meta": {
+      "title": "Krea 2 圖像"
+    }
+  },
+  "2": {
+    "inputs": {
+      "filename_prefix": "dll_krea2Medium",
+      "images": [
+        "1",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "儲存圖片"
+    }
+  }
+}

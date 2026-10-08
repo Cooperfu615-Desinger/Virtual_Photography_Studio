@@ -3,27 +3,35 @@ import assert from 'node:assert/strict';
 import { getDllPicSelectableModelEntries, generateDllPicImages, getDllPicModelConfig, isDllPicAspectRatioSupported, normalizeDllPicModelKey } from './dllPicProClient.js';
 import { normalizeProviderGenerationRequest } from './providerContract.js';
 
-test('all five Comfy models are distinct and select correctly without reviving hidden providers', () => {
+test('all eight Comfy models are distinct and select correctly without reviving hidden providers', () => {
   const entries = getDllPicSelectableModelEntries();
-  const expected = ['comfyZImageTurbo', 'comfyQwenImage21', 'comfyZImageTurboInt8', 'comfyIdeogram45', 'comfySeedream5Pro'];
+  const expected = ['comfyZImageTurbo', 'comfyQwenImage21', 'comfyZImageTurboInt8', 'comfyIdeogram45', 'comfySeedream5Pro',
+    'comfyKrea2Medium', 'comfyKrea2MediumTurbo', 'comfyKrea2Large'];
   assert.deepEqual(entries.filter(([, m]) => m.provider === 'comfyCloud').map(([key]) => key), expected);
   assert.equal(new Set(entries.map(([, m]) => m.label)).size, entries.length);
   assert.equal(entries.some(([, m]) => ['byteplus', 'magnific'].includes(m.provider)), false);
   for (const key of expected) {
     assert.equal(normalizeDllPicModelKey(key), key);
     assert.equal(isDllPicAspectRatioSupported(key, '4:5'), true);
-    assert.deepEqual(getDllPicModelConfig(key).resolutionOptions, ['1k', '2k']);
+    assert.deepEqual(getDllPicModelConfig(key).resolutionOptions, key.startsWith('comfyKrea2') ? ['1k'] : ['1k', '2k']);
+    assert.equal(getDllPicModelConfig(key).maxCount, 2);
+    if (key.startsWith('comfyKrea2')) {
+      assert.equal(isDllPicAspectRatioSupported(key, '3:4'), false);
+      assert.equal(getDllPicModelConfig(key).partnerPricing, true);
+    }
   }
 });
 
-test('new models use the Comfy proxy and preserve selected prompt, ratio and one-image limit', async () => {
-  for (const [modelKey, backend] of [['comfyZImageTurboInt8', 'zImageTurboInt8'], ['comfyIdeogram45', 'ideogram45'], ['comfySeedream5Pro', 'seedream5Pro']]) {
+test('new models use the Comfy proxy and preserve selected prompt, ratio and two-image total limit', async () => {
+  for (const [modelKey, backend] of [['comfyZImageTurboInt8', 'zImageTurboInt8'], ['comfyIdeogram45', 'ideogram45'], ['comfySeedream5Pro', 'seedream5Pro'],
+    ['comfyKrea2Medium', 'krea2Medium'], ['comfyKrea2MediumTurbo', 'krea2MediumTurbo'], ['comfyKrea2Large', 'krea2Large']]) {
     let sent;
     const prompt = 'A red mug.\n--ar 4:5';
-    const result = await generateDllPicImages({ modelKey, prompt, resolution: '2k', aspectRatio: '4:5', count: 4,
+    const resolution = modelKey.startsWith('comfyKrea2') ? '1k' : '2k';
+    const result = await generateDllPicImages({ modelKey, prompt, resolution, aspectRatio: '4:5', count: 4,
       comfyGenerate: async payload => { sent = payload; return { images: [{ src: 'https://example.test/image.png', mimeType: 'image/png' }], meta: { seed: 42, modelKey: backend } }; } });
     assert.equal(sent.modelKey, backend); assert.equal(sent.prompt, prompt);
-    assert.equal(sent.aspectRatio, '4:5'); assert.equal(sent.resolution, '2k'); assert.equal(sent.count, 1);
+    assert.equal(sent.aspectRatio, '4:5'); assert.equal(sent.resolution, resolution); assert.equal(sent.count, 2);
     assert.equal(result.meta.seed, 42);
   }
 });

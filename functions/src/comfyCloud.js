@@ -1,5 +1,5 @@
 const { randomInt } = require('node:crypto');
-const { normalizeGenerationRequest } = require('./providerContract');
+const { getProviderModelContract, normalizeGenerationRequest } = require('./providerContract');
 const { getComfyModel } = require('./comfyModels');
 const BASE = 'https://cloud.comfy.org/api/v2/jobs';
 
@@ -8,21 +8,40 @@ function validateRequestId(id) {
   return id;
 }
 
+function assertExpectedComfyUid(payload, uid) {
+  if (payload?.expectedUid !== undefined && payload.expectedUid !== uid) throw new Error('登入帳號已變更，請重新操作');
+}
+
+function generateComfySeed(seedLimit, previousSeed, randomIntImpl = randomInt) {
+  if (!Number.isSafeInteger(previousSeed) || previousSeed < 0 || previousSeed >= seedLimit) return randomIntImpl(0, seedLimit);
+  // Map the smaller random range around the excluded seed without retrying.
+  const value = randomIntImpl(0, seedLimit - 1);
+  return value >= previousSeed ? value + 1 : value;
+}
+
 function buildComfyWorkflow(payload, seed) {
   if (payload.aspectRatio && !['1:1', '4:3', '3:4', '16:9', '9:16', '4:5'].includes(payload.aspectRatio)) throw new Error('不支援的 Comfy Cloud 比例');
   if (payload.resolution && !['1k', '2k'].includes(payload.resolution)) throw new Error('不支援的 Comfy Cloud 解析度');
   const input = normalizeGenerationRequest('comfyCloud', payload);
   const model = getComfyModel(input.modelKey);
-  seed ??= randomInt(0, model.seedLimit);
+  const { model: limits } = getProviderModelContract('comfyCloud', input.modelKey);
+  if (payload.aspectRatio && !limits.aspectRatios.includes(payload.aspectRatio)) throw new Error('不支援的 Comfy Cloud 比例');
+  if (payload.resolution && !limits.resolutions.includes(payload.resolution)) throw new Error('不支援的 Comfy Cloud 解析度');
+  seed ??= generateComfySeed(model.seedLimit, payload.previousSeed);
   if (!Number.isSafeInteger(seed) || seed < 0 || seed >= model.seedLimit) throw new Error('Seed 超出此模型的範圍');
-  if (Number(payload.count ?? 1) !== 1) throw new Error('Comfy Cloud 第一版每次只生成一張');
+  if (Number(payload.count ?? 1) !== 1) throw new Error('Comfy Cloud 每個任務固定一張，請以獨立任務序列生成多張');
   const [a, b] = input.aspectRatio.split(':').map(Number);
   const unit = Math.max(1, Math.round(Math.sqrt((input.resolution === '2k' ? 4 : 1) * 1048576 / (a * b)) / 8));
-  const [width, height] = model.sizes?.[input.resolution]?.[input.aspectRatio] || [a * unit * 8, b * unit * 8];
+  const [width, height] = model.nativeAspectRatio ? [null, null]
+    : model.sizes?.[input.resolution]?.[input.aspectRatio] || [a * unit * 8, b * unit * 8];
   const workflow = structuredClone(model.template);
   workflow[model.textNode].inputs[model.textKey] = input.prompt;
   workflow[model.seedNode].inputs[model.seedKey] = seed;
-  if (model.latentNode) {
+  if (model.nativeAspectRatio) {
+    const inputs = workflow[model.textNode].inputs;
+    inputs['model.aspect_ratio'] = input.aspectRatio;
+    inputs['model.resolution'] = input.resolution.toUpperCase();
+  } else if (model.latentNode) {
     workflow[model.latentNode].inputs.width = width;
     workflow[model.latentNode].inputs.height = height;
   } else if (input.modelKey === 'ideogram45') {
@@ -147,4 +166,4 @@ async function readComfyJob({ apiKey, requestId, store, fetchImpl = fetch }) {
   return resolveComfyImages(job, record.meta, apiKey, fetchImpl);
 }
 
-module.exports = { buildComfyWorkflow, parseComfyJob, submitComfyJob, readComfyJob, validateRequestId };
+module.exports = { buildComfyWorkflow, parseComfyJob, submitComfyJob, readComfyJob, validateRequestId, generateComfySeed, assertExpectedComfyUid };

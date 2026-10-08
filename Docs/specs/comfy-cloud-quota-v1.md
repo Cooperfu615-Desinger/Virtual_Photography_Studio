@@ -2,7 +2,9 @@
 
 日期：2026-10-05。使用者核准實作及部署；後端已部署，本機前端真實查詢通過，使用者已授權本批 commit/push。
 
-2026-10-06 本機追加三模型，見 [擴充規格](comfy-cloud-model-expansion-v1.md)。INT8 採獨立歷史樣本；Ideogram／Seedream 只顯示餘額與刷新，不以 GPU 秒數估算張數。此追加尚未部署，以下原兩模型驗收狀態仍適用原範圍。
+2026-10-06 追加三模型，部署／額度查詢紀錄見 [擴充規格](comfy-cloud-model-expansion-v1.md)。INT8 採獨立歷史樣本；Ideogram／Seedream 只顯示餘額與刷新，不以 GPU 秒數估算張數。以下原兩模型驗收狀態仍適用原範圍。
+
+2026-10-08 本機追加 [Krea 與逐張生成](comfy-krea-sequential-generation-v1.md)。Krea 三版本也不估算張數；原擴散模型每個 job 仍一張，所以既有單張樣本維持有效，估算單位仍是圖片張數。本次追加尚未部署或付費生成驗收。
 
 ## 介面
 

@@ -157,7 +157,7 @@ test('falls back from tutorial Pro model id to listed Pro model id when unavaila
   assert.deepEqual(result.meta.models, ['seedream-5-0-pro-260628']);
 });
 
-test('generates one BytePlus request per requested image', async () => {
+test('generates one BytePlus request per image within the shared two-image limit', async () => {
   const requests = [];
   const fetchImpl = async (url, options) => {
     const requestIndex = requests.length + 1;
@@ -190,11 +190,10 @@ test('generates one BytePlus request per requested image', async () => {
     },
   });
 
-  assert.equal(requests.length, 3);
-  assert.deepEqual(requests.map((request) => request.body.size), ['3K', '3K', '3K']);
+  assert.equal(requests.length, 2);
+  assert.deepEqual(requests.map((request) => request.body.size), ['3K', '3K']);
   assert.deepEqual(result.images.map((image) => image.src), [
     'data:image/png;base64,image-1',
     'data:image/png;base64,image-2',
-    'data:image/png;base64,image-3',
   ]);
 });

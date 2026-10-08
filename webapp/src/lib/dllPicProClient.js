@@ -329,6 +329,21 @@ export function getDllPicResolutionOption(modelKeyOrResolution, resolution) {
     || options[0];
 }
 
+export function normalizeDllPicImageCount(count = 1) {
+  const parsedCount = Number(count);
+  return Number.isFinite(parsedCount) ? Math.max(1, Math.min(2, Math.floor(parsedCount))) : 1;
+}
+
+async function notifyDllPicObserver(callback, payload, images) {
+  try {
+    await callback?.(payload);
+  } catch (error) {
+    const observerError = error instanceof Error ? error : new Error(String(error));
+    observerError.images = [...images];
+    throw observerError;
+  }
+}
+
 async function generateGeminiImages({
   apiKey,
   modelConfig,
@@ -489,6 +504,8 @@ export async function generateDllPicImages({
   magnificGenerate = null,
   bytePlusGenerate = null,
   comfyGenerate = null,
+  onProgress,
+  onImages,
 }) {
   const modelConfig = getDllPicModelConfig(modelKey);
   if (!apiKey && !modelConfig.usesServerProxy) throw new Error('請先設定 DLL_PIC Pro API Key');
@@ -496,22 +513,49 @@ export async function generateDllPicImages({
   if (!modelConfig.generationModel) throw new Error(`${modelConfig.label} 目前尚未接入生圖功能`);
 
   const normalizedResolution = getDllPicResolutionOption(modelKey, resolution).value;
+  const normalizedCount = normalizeDllPicImageCount(count);
   if (modelConfig.provider === 'comfyCloud' && !comfyGenerate) throw new Error('Comfy Cloud Firebase Proxy 尚未接入');
-  const result = modelConfig.provider === 'comfyCloud'
-    ? await comfyGenerate({ modelKey: modelConfig.comfyModel, prompt, aspectRatio, count: Math.min(count, modelConfig.maxCount), resolution: normalizedResolution })
-    : modelConfig.provider === 'magnific'
-    ? await generateMagnificImages({ magnificGenerate, modelConfig, prompt, aspectRatio, count, resolution: normalizedResolution })
-    : modelConfig.provider === 'byteplus'
-      ? await generateBytePlusImages({ bytePlusGenerate, modelConfig, prompt, aspectRatio, count, resolution: normalizedResolution })
-    : modelConfig.provider === 'xai'
-      ? await generateXaiImages({ apiKey, modelConfig, prompt, aspectRatio, count, resolution: normalizedResolution })
-      : await generateGeminiImages({ apiKey, modelConfig, prompt, aspectRatio, count });
-
-  if (result.images.length === 0) {
-    throw new Error(result.errors[0] || 'API 回應中未包含圖像資料。');
+  if (modelConfig.provider === 'comfyCloud') {
+    if (!modelConfig.resolutionOptions.includes(resolution)) throw new Error(`${modelConfig.label} 不支援 ${resolution} 解析度`);
+    const result = await comfyGenerate({
+      modelKey: modelConfig.comfyModel, prompt, aspectRatio, count: normalizedCount, resolution,
+    }, { onProgress, onImages });
+    if (result.images.length === 0) throw new Error(result.errors[0] || 'API 回應中未包含圖像資料。');
+    return result;
   }
 
-  return result;
+  const images = [];
+  const errors = [];
+  let lastResult;
+  for (let sequenceIndex = 1; sequenceIndex <= normalizedCount; sequenceIndex += 1) {
+    await notifyDllPicObserver(onProgress, { status: 'running', sequenceIndex, sequenceTotal: normalizedCount, images: [...images] }, images);
+    let result;
+    try {
+      result = modelConfig.provider === 'magnific'
+        ? await generateMagnificImages({ magnificGenerate, modelConfig, prompt, aspectRatio, count: 1, resolution: normalizedResolution })
+        : modelConfig.provider === 'byteplus'
+          ? await generateBytePlusImages({ bytePlusGenerate, modelConfig, prompt, aspectRatio, count: 1, resolution: normalizedResolution })
+          : modelConfig.provider === 'xai'
+            ? await generateXaiImages({ apiKey, modelConfig, prompt, aspectRatio, count: 1, resolution: normalizedResolution })
+            : await generateGeminiImages({ apiKey, modelConfig, prompt, aspectRatio, count: 1 });
+      if (result.images.length === 0) throw new Error(result.errors[0] || 'API 回應中未包含圖像資料。');
+    } catch (error) {
+      if (images.length === 0) throw error;
+      const message = typeof error === 'string' ? error : error?.message || error?.details || error?.code || '生成失敗';
+      errors.push(`第 ${sequenceIndex} 張生成失敗：${message}`);
+      break;
+    }
+    images.push(...result.images);
+    errors.push(...(result.errors || []).map((error) => `第 ${sequenceIndex} 張：${error}`));
+    lastResult = result;
+    await notifyDllPicObserver(onImages, [...images], images);
+    if (normalizedCount === 1) return result;
+  }
+  return {
+    images,
+    errors,
+    meta: { ...lastResult?.meta, requestedCount: normalizedCount, completedCount: images.length, partial: images.length < normalizedCount },
+  };
 }
 
 function normalizeJsonText(text = '') {

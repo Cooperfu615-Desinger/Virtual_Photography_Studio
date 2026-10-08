@@ -15,6 +15,7 @@ import {
 } from '../lib/dllPicProClient.js';
 import { generateBytePlusViaFirebase } from '../lib/bytePlusProxyClient.js';
 import { generateComfyViaFirebase, readComfyPending, clearComfyPending, formatComfyProgress } from '../lib/comfyCloudProxyClient.js';
+import { formatDllPicGenerationMessage, getComfyGenerationNote } from '../lib/dllPicGenerationPresentation.js';
 import { downloadImageFile } from '../lib/imageDownload.js';
 import { downloadMagnificImageViaFirebase, generateMagnificViaFirebase } from '../lib/magnificProxyClient.js';
 
@@ -102,18 +103,6 @@ function saveStoredGenerationSettings(modelKey, resolution) {
 function getGenerationErrorMessage(error) {
   if (typeof error === 'string') return error;
   return error?.message || error?.details || error?.code || '生成失敗';
-}
-
-function formatGenerationMessage(result) {
-  const images = result.images || [];
-  const nsfwCount = images.filter((image) => image.hasNsfw).length;
-
-  if (result.errors?.length > 0) return result.errors[0];
-  if (nsfwCount > 0) {
-    return `已生成 ${images.length} 張圖像，其中 ${nsfwCount} 張被 Magnific 標記為安全風險`;
-  }
-
-  return `已生成 ${images.length} 張圖像${result.meta?.provider === 'comfyCloud' ? `｜${result.meta.width} × ${result.meta.height}｜Seed ${result.meta.seed}` : ''}`;
 }
 
 function loadDevPreviewImages() {
@@ -228,7 +217,6 @@ export default function DllPicProPanel({
 
     setIsGenerating(true);
     setMessage('');
-    setImages([]);
     setSelectedImageIndex(0);
     setPreviewImageIndex(null);
     setPreviewImageSize(null);
@@ -244,11 +232,16 @@ export default function DllPicProPanel({
         resolution: activeResolution,
         magnificGenerate: generateMagnificViaFirebase,
         bytePlusGenerate: generateBytePlusViaFirebase,
-        comfyGenerate: (payload) => generateComfyViaFirebase(payload, { onProgress: (job) => setMessage(formatComfyProgress(job)) }),
+        comfyGenerate: generateComfyViaFirebase,
+        onProgress: (job) => setMessage(activeModel.provider === 'comfyCloud'
+          ? formatComfyProgress(job)
+          : `正在生成第 ${job.sequenceIndex} / ${job.sequenceTotal} 張圖像`),
+        onImages: (nextImages) => setImages(nextImages),
       });
       setImages(result.images);
-      setMessage(formatGenerationMessage(result));
+      setMessage(formatDllPicGenerationMessage(result));
     } catch (error) {
+      if (error?.images?.length) setImages(error.images);
       setMessage(getGenerationErrorMessage(error));
     } finally {
       setIsGenerating(false);
@@ -259,12 +252,17 @@ export default function DllPicProPanel({
   const handleResumeComfy = async () => {
     setIsGenerating(true);
     try {
-      const result = await generateComfyViaFirebase({}, { resume: true, onProgress: (job) => setMessage(formatComfyProgress(job)) });
+      const result = await generateComfyViaFirebase({}, {
+        resume: true,
+        onProgress: (job) => setMessage(formatComfyProgress(job)),
+        onImages: (nextImages) => setImages(nextImages),
+      });
       setImages(result.images);
       setSelectedImageIndex(0);
       setPreviewImageIndex(null);
-      setMessage(formatGenerationMessage(result));
+      setMessage(formatDllPicGenerationMessage(result));
     } catch (error) {
+      if (error?.images?.length) setImages(error.images);
       setMessage(getGenerationErrorMessage(error));
     } finally {
       setIsGenerating(false);
@@ -351,6 +349,7 @@ export default function DllPicProPanel({
               const nextModelKey = event.target.value;
               const nextResolution = getDllPicResolutionOption(nextModelKey, resolution).value;
               setModelKey(nextModelKey);
+              setCount(1);
               setResolution(nextResolution);
               saveStoredGenerationSettings(nextModelKey, nextResolution);
             }}
@@ -371,7 +370,7 @@ export default function DllPicProPanel({
             disabled={isAspectRatioLocked || isGenerating}
           >
             {DLL_PIC_ASPECT_RATIOS.map((option) => (
-              <option key={option.value} value={option.value}>
+              <option key={option.value} value={option.value} disabled={!isDllPicAspectRatioSupported(modelKey, option.value)}>
                 {option.label}
               </option>
             ))}
@@ -400,8 +399,8 @@ export default function DllPicProPanel({
         ) : null}
 
         <label className="field dll-pic-field">
-          <select aria-label="張數" value={Math.min(count, activeModel.maxCount || 4)} disabled={isGenerating} onChange={(event) => setCount(Number(event.target.value))}>
-            {[1, 2, 3, 4].filter((amount) => amount <= (activeModel.maxCount || 4)).map((amount) => (
+          <select aria-label="張數" value={count} disabled={isGenerating} onChange={(event) => setCount(Number(event.target.value))}>
+            {[1, 2].map((amount) => (
               <option key={amount} value={amount}>
                 {amount} 張
               </option>
@@ -410,15 +409,19 @@ export default function DllPicProPanel({
         </label>
       </div>
 
-      {activeModel.provider === 'comfyCloud' ? <div className="dll-pic-model-note">{activeModel.partnerPricing
-        ? `每次一張；依模型支援尺寸生成。${activeModel.comfyModel === 'ideogram45' ? 'Medium 品質，Magic Prompt 關閉。' : 'Thinking 關閉，4:5 採自訂尺寸。'}合作夥伴節點另計耗額。完成後請下載保存，圖像網址會到期。`
-        : '每次一張；1K / 2K 為約 1 / 4 百萬像素，依比例決定尺寸。無 LoRA、無 Prompt 重寫。完成後請下載保存，圖像網址會到期。'}</div> : null}
+      {activeModel.provider === 'comfyCloud' ? <div className="dll-pic-model-note">{getComfyGenerationNote(activeModel)}</div> : null}
       {comfyPending ? <div className="dll-pic-actions">
         <button type="button" className="secondary" disabled={isGenerating} onClick={handleResumeComfy}>查詢上次任務</button>
-        <button type="button" className="secondary" disabled={isGenerating} onClick={() => {
+        <button type="button" className="secondary" disabled={isGenerating} onClick={async () => {
           if (!window.confirm('結束追蹤不會取消雲端任務，也不會退還額度。請先確認 Comfy Cloud 作業佇列，避免重複生成。確定結束追蹤？')) return;
-          clearComfyPending(); setComfyPending(null);
-          setMessage('已結束追蹤；雲端任務可能仍在執行');
+          try {
+            await clearComfyPending(undefined, { expectedRequestId: comfyPending?.requestId || null });
+            setMessage('已結束追蹤；雲端任務可能仍在執行');
+          } catch (error) {
+            setMessage(getGenerationErrorMessage(error));
+          } finally {
+            setComfyPending(readComfyPending());
+          }
         }}>結束追蹤</button>
       </div> : null}
 
