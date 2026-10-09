@@ -8,25 +8,13 @@ const PANELS = {
   ],
   overall: [],
   garments: [],
-  layers: [
-    group('outerwear', '外套', 'outerwear@Id outerwear@FitId outerwear@OpeningId outerwear@StylingId outerwear@ColorId outerwear@PatternId'),
-    group('legwear', '襪類', 'legwear@Id legwear@ColorId'),
-    group('shoes', '鞋類', 'shoes@Id shoes@ColorId'),
-  ],
-  accessories: [
-    group('head', '頭部配件', 'headAccessory@Id headAccessory@ColorId'),
-    group('headphones', '耳機', 'headphones@Id headphones@ColorId'),
-    group('face', '口鼻遮擋', 'faceCovering@Id faceCovering@ColorId'),
-    group('eyewear', '眼鏡', 'eyewear@Id eyewear@ColorId eyewear@PlacementId'),
-    group('earrings', '耳環', 'earrings@Id'),
-    group('neck', '頸部配件', 'neckAccessory@Id'),
-    group('waist', '腰部配件', 'waistAccessory@Id'),
-  ],
+  layers: [],
+  accessories: [],
 };
 export const DUO_ROLES = [{ id: 'A', label: '人物1', number: 1 }, { id: 'B', label: '人物2', number: 2 }];
 export function getDuoEditorGroups(panelId, role, completeOwner) {
   if (!['A', 'B'].includes(role)) return [];
-  if (['overall', 'garments'].includes(panelId)) return getWardrobeEditorGroups(panelId, role, completeOwner);
+  if (['overall', 'garments', 'layers', 'accessories'].includes(panelId)) return getWardrobeEditorGroups(panelId, role, completeOwner);
   return (PANELS[panelId] || []).map(item => ({ ...item, keys: item.keys.map(key => key.replace('@', role)) }));
 }
 const FIELD_ROLES = new Map(DUO_ROLES.flatMap(role => Object.keys(PANELS).flatMap(panel => getDuoEditorGroups(panel, role.id).flatMap(item => item.keys.map(key => [key, role.id])))));

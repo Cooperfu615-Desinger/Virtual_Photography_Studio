@@ -780,6 +780,21 @@
 .wardrobe-editor-card select, .wardrobe-editor-card .wardrobe-picker-trigger { font-size: 13px; min-height: 42px; }
 .wardrobe-single-grid > .wardrobe-editor-card--dress,
 .wardrobe-single-grid > .wardrobe-editor-card--palette { grid-column: 1 / -1; }
+.wardrobe-single-grid > .wardrobe-editor-card--outerwear { grid-column: 1 / -1; }
+.page1-editor .wardrobe-single-grid .wardrobe-editor-card--outerwear .detail-lock-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.page1-editor .wardrobe-single-grid .wardrobe-editor-card--outerwear .detail-lock-grid > :nth-child(n+2) { grid-column: span 2; }
+.page1-editor .wardrobe-single-grid .wardrobe-editor-card--outerwear .detail-lock-grid > :nth-child(n+5) { grid-column: span 3; }
+.page1-editor .wardrobe-editor-card--legwear .detail-lock-grid,
+.page1-editor .wardrobe-editor-card--shoes .detail-lock-grid { grid-template-columns: minmax(0, 1fr); }
+.page1-editor .duo-person .wardrobe-editor-card--outerwear .detail-lock-grid > :nth-child(4) { grid-column: 1 / -1; }
+.page1-editor .wardrobe-editor-card--head .detail-lock-grid,
+.page1-editor .wardrobe-editor-card--headphones .detail-lock-grid { grid-template-columns: minmax(0, 1fr); }
+.page1-editor .wardrobe-editor-card--face .detail-lock-grid > :nth-child(2) { grid-column: 1 / -1; }
+.wardrobe-single-grid > .wardrobe-editor-card--jewelry { grid-column: 1 / -1; }
+.page1-editor .wardrobe-single-grid .wardrobe-editor-card--jewelry .detail-lock-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.page1-editor .wardrobe-single-grid .wardrobe-editor-card--jewelry .detail-lock-grid > :first-child { grid-column: auto; }
+.page1-editor .duo-person .wardrobe-editor-card--jewelry .detail-lock-grid { grid-template-columns: minmax(0, 1fr); }
+.wardrobe-editor-card .field-help { font-size: 12px; line-height: 1.6; overflow-wrap: anywhere; }
 .page1-editor .wardrobe-single-grid .wardrobe-editor-card--dress .detail-lock-grid > :first-child { grid-column: auto; }
 .wardrobe-card-note { margin: 12px 0 0; font-size: 12px; line-height: 1.6; color: var(--text-secondary); overflow-wrap: anywhere; }
 .wardrobe-palette-heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 14px; }
@@ -794,6 +809,9 @@
 .wardrobe-palette-actions button { padding: 8px 12px; min-height: 40px; }
 .duo-person .wardrobe-palette-preview-row { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 @container (max-width: 600px) {
+  .page1-editor .wardrobe-single-grid .wardrobe-editor-card--jewelry .detail-lock-grid { grid-template-columns: minmax(0, 1fr); }
+  .page1-editor .wardrobe-single-grid .wardrobe-editor-card--outerwear .detail-lock-grid { grid-template-columns: minmax(0, 1fr); }
+  .page1-editor .wardrobe-single-grid .wardrobe-editor-card--outerwear .detail-lock-grid > :nth-child(n) { grid-column: 1 / -1; }
   .wardrobe-single-grid { grid-template-columns: minmax(0, 1fr); }
   .wardrobe-integrated-section > .control-section-header { flex-direction: column; align-items: stretch; }
   .wardrobe-integrated-section .page1-section-header-actions { flex-wrap: wrap; justify-content: flex-start; }
@@ -801,6 +819,9 @@
   .page1-editor .duo-person .wardrobe-editor-card .detail-lock-grid { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 820px) {
+  .page1-editor .wardrobe-single-grid .wardrobe-editor-card--jewelry .detail-lock-grid { grid-template-columns: minmax(0, 1fr); }
+  .page1-editor .wardrobe-single-grid .wardrobe-editor-card--outerwear .detail-lock-grid { grid-template-columns: minmax(0, 1fr); }
+  .page1-editor .wardrobe-single-grid .wardrobe-editor-card--outerwear .detail-lock-grid > :nth-child(n) { grid-column: 1 / -1; }
   .wardrobe-single-grid { grid-template-columns: minmax(0, 1fr); }
   .wardrobe-integrated-section > .control-section-header { flex-direction: column; align-items: stretch; }
   .wardrobe-integrated-section .page1-section-header-actions { flex-wrap: wrap; justify-content: flex-start; }

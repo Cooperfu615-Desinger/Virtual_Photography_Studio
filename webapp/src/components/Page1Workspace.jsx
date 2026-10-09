@@ -9,7 +9,7 @@ import { isCarriageFixedSet, fixedSetAllowsFramingVariation, carriageOrbitAllowe
 import { getFixedScenePosition, fixedScenePoseLocks, FIXED_SCENE_MANAGED_POSE_KEYS } from '../lib/engine/fixedScenePose.js';
 import { Fragment, useMemo, useRef, useState } from 'react';
 import { DUO_ROLES, getDuoEditorGroups, getDuoRoleActionKeys, getDuoRoleSummary, getDuoFieldRole } from '../features/page1/duoEditor.js';
-import { getWardrobeEditorGroups, getWardrobePanelKeys, getCompleteLookOwner } from '../features/page1/wardrobeEditor.js';
+import { getWardrobeEditorGroups, getWardrobePanelKeys, getCompleteLookOwner, getLayerControlHelp } from '../features/page1/wardrobeEditor.js';
 import { Check, Copy } from 'lucide-react';
 import DllPicProPanel from './DllPicProPanel';
 import SelectControlField from './SelectControlField';
@@ -1094,7 +1094,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         ? randomizePage1WardrobePanelLocks(
           prev,
           resolvedActiveSubpanel?.id,
-          locks.subjectCount === '1' && ['overall', 'garments'].includes(resolvedActiveSubpanel?.id)
+          locks.subjectCount === '1' && ['overall', 'garments', 'layers', 'accessories'].includes(resolvedActiveSubpanel?.id)
             ? getWardrobePanelKeys(resolvedActiveSubpanel.id, '') : activeSubpanelKeys,
           createEmptyLocks(),
           lockControls,
@@ -1104,7 +1104,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   };
 
   const handleSetActiveSectionNone = () => {
-    const keys = activeSection === 'wardrobe' && locks.subjectCount === '1' && ['overall', 'garments'].includes(resolvedActiveSubpanel?.id)
+    const keys = activeSection === 'wardrobe' && locks.subjectCount === '1' && ['overall', 'garments', 'layers', 'accessories'].includes(resolvedActiveSubpanel?.id)
       ? getWardrobePanelKeys(resolvedActiveSubpanel.id, '') : activeSubpanelKeys;
     updateLocks((prev) => setLockKeysToNone(prev, keys.filter(key => !fixedScenePosition || !FIXED_SCENE_MANAGED_POSE_KEYS.includes(key)), lockControls));
   };
@@ -1169,7 +1169,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const renderControlGrid = (controls, inDuoGroup = false) => (
     <div className="lock-grid detail-lock-grid">
       {controls.map((rawControl) => {
-        const baseControl = prepareHeadDominantAngleControl(prepareBottomRiseControl(prepareUnderbustTopControl(prepareOuterwearClosureControl(prepareAccessoryControl(buildFixedSetControl(buildPoseComposerControl(rawControl)), locks), locks, lockControls), locks, lockControls), locks, lockControls), locks, lockControls);
+        const preparedBaseControl = prepareHeadDominantAngleControl(prepareBottomRiseControl(prepareUnderbustTopControl(prepareOuterwearClosureControl(prepareAccessoryControl(buildFixedSetControl(buildPoseComposerControl(rawControl)), locks), locks, lockControls), locks, lockControls), locks, lockControls), locks, lockControls);
+        const baseControl = activeSection === 'wardrobe' && resolvedActiveSubpanel?.id === 'layers'
+          ? { ...preparedBaseControl, helpText: getLayerControlHelp(preparedBaseControl, locks, lockControls) } : preparedBaseControl;
         const preparedControl = baseControl.key === 'orbitId' && isCarriageFixedSet(selectedFixedCompositionSetOption)
           ? { ...baseControl, label: '相機拍攝方位',
               suppressDefaultRandomOption: selectedFixedCompositionSetOption.orbitMode !== 'camera-position',
@@ -1299,7 +1301,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     const fields = group.keys.map(key => prepared.find(control => control.key === key)).filter(Boolean);
     const allDisabled = fields.length === 0 || fields.every(control => control.disabled || isControlDisabled(control));
     const active = resolvedActiveSubpanel.id === 'overall' && group.id === owner;
-    const selected = getControlOptionLabel(lockControls, group.keys[0], locks[group.keys[0]]);
+    const selected = ['jewelry', 'face'].includes(group.id) ? '' : getControlOptionLabel(lockControls, group.keys[0], locks[group.keys[0]]);
     if (group.id === 'palette') {
       const control = fields[0];
       const pairs = control?.options.filter(option => option.topColor && option.bottomColor) || [];
@@ -1349,7 +1351,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const renderDuoEditor = (controls) => {
     const panelId = resolvedActiveSubpanel.id;
     const prepared = controls.map(prepareDuoControl);
-    const integratedWardrobe = activeSection === 'wardrobe' && ['overall', 'garments'].includes(panelId);
+    const integratedWardrobe = activeSection === 'wardrobe' && ['overall', 'garments', 'layers', 'accessories'].includes(panelId);
     const groups = getDuoEditorGroups(panelId, 'A').filter((group, index) => integratedWardrobe || DUO_ROLES.some(role =>
       getDuoEditorGroups(panelId, role.id)[index].keys.some(key => prepared.some(control => control.key === key))));
     const focusRole = role => {
@@ -1488,7 +1490,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   );
 
   const renderWardrobeControls = () => (
-    <div className={`control-section ${['overall', 'garments'].includes(resolvedActiveSubpanel?.id) ? 'wardrobe-integrated-section' : ''}`}>
+    <div className={`control-section ${['overall', 'garments', 'layers', 'accessories'].includes(resolvedActiveSubpanel?.id) ? 'wardrobe-integrated-section' : ''}`}>
       <div className="control-section-header">
         <div>
           <div className="control-section-title">Style & Wardrobe</div>
@@ -1512,7 +1514,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
           特殊角色目前不使用服裝、鞋襪或配件欄位，這一區已暫時停用，請改用角色本身、場景、鏡頭、光線與風格去塑造作品氣氛。
         </div>
       ) : null}
-      {!isDuoMode && !['overall', 'garments'].includes(resolvedActiveSubpanel?.id) && <WardrobeLayerPanel insights={wardrobeLayerInsights} />}
+      {!isDuoMode && isDedicatedSubjectMode && resolvedActiveSubpanel?.id === 'accessories' && <WardrobeLayerPanel insights={wardrobeLayerInsights} />}
       {activeSection === 'wardrobe' && importedCharacterCardLayers.length > 0 ? (
         <div className="character-card-imported-layers" aria-label="來自角色卡的穿搭層">
           {importedCharacterCardLayers.map((layerKey) => (
@@ -1522,7 +1524,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
           ))}
         </div>
       ) : null}
-      {isDuoMode && !isDedicatedSubjectMode ? renderDuoEditor(wardrobeLockControls) : !isDedicatedSubjectMode && ['overall', 'garments'].includes(resolvedActiveSubpanel?.id) ? renderSingleWardrobeEditor() : renderControlGrid(filterControlsByKeys(wardrobeLockControls, resolvedActiveSubpanel?.keys || []))}
+      {isDuoMode && !isDedicatedSubjectMode ? renderDuoEditor(wardrobeLockControls) : !isDedicatedSubjectMode && ['overall', 'garments', 'layers', 'accessories'].includes(resolvedActiveSubpanel?.id) ? renderSingleWardrobeEditor() : renderControlGrid(filterControlsByKeys(wardrobeLockControls, resolvedActiveSubpanel?.keys || []))}
     </div>
   );
 
@@ -1532,7 +1534,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const pickerContext = isDuoMode && pickerRole && pickerGroup
     ? `${DUO_ROLES.find(role => role.id === pickerRole).label} › ${activeWardrobePickerControl.label.replace(/^人物\s*[12]\s*/, '')}${pickerItem && activeWardrobePickerControl.key !== pickerGroup.keys[0] ? ` · ${pickerItem}` : ''}`
     : !isDuoMode && activeWardrobePickerControl ? (() => {
-      const group = ['overall', 'garments'].flatMap(panel => getWardrobeEditorGroups(panel, '', getCompleteLookOwner(locks, lockControls))).find(item => item.keys.includes(activeWardrobePickerControl.key));
+      const group = ['overall', 'garments', 'layers', 'accessories'].flatMap(panel => getWardrobeEditorGroups(panel, '', getCompleteLookOwner(locks, lockControls))).find(item => item.keys.includes(activeWardrobePickerControl.key));
       const item = group && getControlOptionLabel(lockControls, group.keys[0], locks[group.keys[0]]);
       return item && activeWardrobePickerControl.key !== group.keys[0] ? `${activeWardrobePickerControl.label} · ${item}` : '';
     })() : '';
