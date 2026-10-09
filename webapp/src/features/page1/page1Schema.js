@@ -1,3 +1,4 @@
+import { getWardrobePanelKeys } from './wardrobeEditor.js';
 import { PAGE1_POSE_SUBPANELS } from '../../lib/page1WorkspacePanels.js';
 
 export const POSE_COMPOSER_KEYS = [
@@ -147,6 +148,11 @@ export const WORKSPACE_SECTIONS = [
   { id: 'midjourney', label: 'F MJ 參數設定' },
 ];
 
+export const SINGLE_IDENTITY_GROUPS = [
+  { id: 'appearance', label: '外貌', keys: ['bodyTypeId', 'facialFeaturesId', 'skinDetailsId'] },
+  { id: 'hair', label: '頭髮', keys: ['hairstyleId', 'hairStylingStateId', 'hairColorId'] },
+];
+
 export const SECTION_SUBPANELS = {
   character: [
     {
@@ -199,84 +205,16 @@ export const SECTION_SUBPANELS = {
     {
       id: 'overall',
       label: '完整造型',
-      description: '優先決定特殊穿搭、套裝或連身這類完整造型，它們會直接影響後續單件欄位。',
-      keys: [
-        'specialOutfitId',
-        'specialOutfitAId',
-        'specialOutfitBId',
-        'outfitPresetId',
-        'outfitPresetAId',
-        'outfitPresetBId',
-        'dressId',
-        'dressAId',
-        'dressBId',
-      ],
+      randomActionLabel: '本頁設為隨機',
+      description: '特殊穿搭、套裝與連身的款式和配色，集中在各自的卡片。',
+      keys: getWardrobePanelKeys('overall'),
     },
     {
       id: 'garments',
       label: '上下身單件',
-      description: '當你不走整體造型時，這裡只處理上身、褲裝與裙裝的主體輪廓。',
-      keys: [
-        'topId',
-        'topAId',
-        'topBId',
-        'topFitId',
-        'topFitAId',
-        'topFitBId',
-        'topStylingId',
-        'topStylingAId',
-        'topStylingBId',
-        'pantsId',
-        'pantsAId',
-        'pantsBId',
-        'skirtId',
-        'skirtAId',
-        'skirtBId',
-        'bottomFitId',
-        'bottomFitAId',
-        'bottomFitBId',
-        'bottomRiseId',
-        'bottomRiseAId',
-        'bottomRiseBId',
-      ],
-    },
-    {
-      id: 'colors',
-      label: '造型配色',
-      randomActionLabel: '隨機可用配色',
-      description: '把特殊穿搭、套裝或連身與上下身單件的配色和圖案集中處理；完整造型色系只作用在完整造型上。',
-      keys: [
-        'completeLookPaletteId',
-        'completeLookPaletteAId',
-        'completeLookPaletteBId',
-        'outfitPresetPrimaryColorId',
-        'outfitPresetContrastColorId',
-        'outfitPresetLockedPaletteId',
-        'outfitPresetAPrimaryColorId',
-        'outfitPresetAContrastColorId',
-        'outfitPresetALockedPaletteId',
-        'outfitPresetBPrimaryColorId',
-        'outfitPresetBContrastColorId',
-        'outfitPresetBLockedPaletteId',
-        'topBottomPaletteId',
-        'topBottomPaletteAId',
-        'topBottomPaletteBId',
-        'topColorId',
-        'topAColorId',
-        'topBColorId',
-        'topPatternId',
-        'topAPatternId',
-        'topBPatternId',
-        'dressColorId',
-        'dressAColorId',
-        'dressBColorId',
-        'bottomColorId',
-        'bottomAColorId',
-        'bottomBColorId',
-        'bottomPatternId',
-        'bottomAPatternId',
-        'bottomBPatternId',
-      ],
+      randomActionLabel: '本頁設為隨機',
+      description: '選擇上下身單品，再調整版型、穿法、腰線與配色。',
+      keys: getWardrobePanelKeys('garments'),
     },
     {
       id: 'layers',

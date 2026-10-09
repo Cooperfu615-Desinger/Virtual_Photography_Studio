@@ -28,7 +28,7 @@ export default function SelectControlField({ control, value, onChange, onCopy, d
   return (
     <label className={`field ${disabled ? 'field-disabled' : ''}`}>
       <div className="field-heading-row">
-        <span>{control.label}</span>
+        <span>{control.displayLabel || control.label}</span>
         <button
           type="button"
           className="icon-btn control-copy-icon-btn"
@@ -42,6 +42,7 @@ export default function SelectControlField({ control, value, onChange, onCopy, d
       </div>
       <div className="field-control-row">
         <select
+          aria-label={control.label}
           aria-describedby={control.helpText ? `${control.key}-help` : undefined}
           disabled={disabled}
           className={isMutedSelectValue(control, value) ? 'select-muted' : ''}

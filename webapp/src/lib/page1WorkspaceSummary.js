@@ -1,3 +1,4 @@
+import { DUO_ROLES, getDuoRoleSummary } from '../features/page1/duoEditor.js';
 import { bottomRiseConflict, bottomRiseControlContext } from './engine/bottomRiseCompatibility.js';
 import { isHeadDominantFraming, headDominantAngleAllowed } from './engine/headDominantFraming.js';
 import { CHARACTER_CARD_LAYER_KEYS, CHARACTER_CARD_LAYER_LABELS } from './characterCardLab.js';
@@ -169,7 +170,7 @@ export function normalizeCharacterCardLayerIds(layerIds) {
   return CHARACTER_CARD_LAYER_KEYS.filter((key) => selectedLayers.has(key));
 }
 
-export function buildWorkspaceSummary(locks, controls) {
+export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {}) {
   const specialSubjectControl = controls.find((control) => control.key === 'specialSubjectId');
   const specialSubjectOption = specialSubjectControl?.options?.find((option) => option.id === locks.specialSubjectId);
   const characterProfileControl = controls.find((control) => control.key === 'characterProfileId');
@@ -362,9 +363,13 @@ export function buildWorkspaceSummary(locks, controls) {
     getControlOptionLabel(controls, 'filmId', locks.filmId),
   ]);
 
+  const duoSummaries = groupDuo && locks.subjectCount === '2' && !isSpecialSubjectMode && !isCharacterProfileMode
+    ? Object.fromEntries(['character', 'wardrobe'].map(section => [section, DUO_ROLES.map(role => ({ ...role, summary: getDuoRoleSummary(section, role.id, locks, controls) }))]))
+    : null;
   return {
     character: {
-      summary: characterSummary,
+      roles: duoSummaries?.character,
+      summary: duoSummaries ? duoSummaries.character.map(role => `${role.label}：${role.summary}`).join('；') : characterSummary,
       meta: '',
     },
     pose: {
@@ -372,7 +377,8 @@ export function buildWorkspaceSummary(locks, controls) {
       meta: '',
     },
     wardrobe: {
-      summary: wardrobeSummary,
+      roles: duoSummaries?.wardrobe,
+      summary: duoSummaries ? duoSummaries.wardrobe.map(role => `${role.label}：${role.summary}`).join('；') : wardrobeSummary,
       meta: '',
     },
     scene: {
@@ -388,7 +394,7 @@ export function buildWorkspaceSummary(locks, controls) {
 
 export function buildPage1GenerationSummary(locks, previewPrompt, controls) {
   const resolvedLocks = previewPrompt?.selection || locks;
-  const summary = buildWorkspaceSummary(resolvedLocks, controls);
+  const summary = buildWorkspaceSummary(resolvedLocks, controls, { groupDuo: false });
   return [
     summary.character.summary,
     summary.pose.summary,

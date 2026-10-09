@@ -7,7 +7,9 @@ import { prepareUnderbustTopControl } from '../lib/engine/underbustTopFit.js';
 import { fixedSetAllowsLensVariation, isStationFixedSet, stationSubjectFacingText } from '../lib/engine/stationFixedComposition.js';
 import { isCarriageFixedSet, fixedSetAllowsFramingVariation, carriageOrbitAllowed, resolveCarriageOrbit, carriageCameraText } from '../lib/engine/carriageFixedComposition.js';
 import { getFixedScenePosition, fixedScenePoseLocks, FIXED_SCENE_MANAGED_POSE_KEYS } from '../lib/engine/fixedScenePose.js';
-import { Fragment, useMemo, useState } from 'react';
+import { Fragment, useMemo, useRef, useState } from 'react';
+import { DUO_ROLES, getDuoEditorGroups, getDuoRoleActionKeys, getDuoRoleSummary, getDuoFieldRole } from '../features/page1/duoEditor.js';
+import { getWardrobeEditorGroups, getWardrobePanelKeys, getCompleteLookOwner } from '../features/page1/wardrobeEditor.js';
 import { Check, Copy } from 'lucide-react';
 import DllPicProPanel from './DllPicProPanel';
 import SelectControlField from './SelectControlField';
@@ -50,6 +52,7 @@ import {
 } from '../lib/engine/poseComposerCompatibility.js';
 import {
   POSE_COMPOSER_CONTROL_KEYS,
+  SINGLE_IDENTITY_GROUPS,
   SECTION_SUBPANELS,
   WORKSPACE_SECTIONS,
   getSectionKeys,
@@ -255,6 +258,7 @@ function filterControlsByKeys(controls, keys) {
 
 function countEffectiveSelections(sectionId, locks, controls) {
   return Array.from(new Set(getSectionKeys(sectionId)))
+    .filter((key) => locks.subjectCount !== '2' || !['character', 'wardrobe'].includes(sectionId) || getDuoFieldRole(key))
     .filter((key) => getControlOptionLabel(controls, key, locks[key]))
     .length;
 }
@@ -362,9 +366,9 @@ function WardrobePickerField({ control, value, disabled, onOpen, onChange, onCop
   const isMuted = !selectedOption || selectedOption.zh === '全無';
 
   return (
-    <label className={`field wardrobe-picker-field ${disabled ? 'field-disabled' : ''}`}>
+    <label className={`field wardrobe-picker-field ${control.key.startsWith('completeLookPalette') ? 'wardrobe-complete-palette-field' : ''} ${disabled ? 'field-disabled' : ''}`}>
       <div className="field-heading-row">
-        <span>{control.label}</span>
+        <span>{control.displayLabel || control.label}</span>
         <button
           type="button"
           className="icon-btn control-copy-icon-btn"
@@ -378,6 +382,7 @@ function WardrobePickerField({ control, value, disabled, onOpen, onChange, onCop
       </div>
       <button
         type="button"
+        aria-label={`${control.label}：${selectedLabel}`}
         className={`wardrobe-picker-trigger ${isMuted ? 'wardrobe-picker-trigger-muted' : ''}`}
         disabled={disabled}
         onClick={onOpen}
@@ -401,7 +406,7 @@ function WardrobePickerField({ control, value, disabled, onOpen, onChange, onCop
   );
 }
 
-function WardrobePickerModal({ control, value, query, onQueryChange, onClose, onSelect }) {
+function WardrobePickerModal({ control, contextLabel, value, query, onQueryChange, onClose, onSelect }) {
   const [activeColorFilter, setActiveColorFilter] = useState('all');
   const selectedOption = findControlOption(control, value);
   const normalizedQuery = query.trim().toLowerCase();
@@ -435,10 +440,20 @@ function WardrobePickerModal({ control, value, query, onQueryChange, onClose, on
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
-      <div className={modalClassName} onClick={(event) => event.stopPropagation()}>
+      <div className={modalClassName} role="dialog" aria-modal="true" aria-label={contextLabel || control.label}
+        onClick={(event) => event.stopPropagation()}
+        onKeyDown={(event) => {
+          if (event.key === 'Escape') { event.stopPropagation(); onClose(); }
+          if (event.key !== 'Tab') return;
+          const focusable = [...event.currentTarget.querySelectorAll('button:not(:disabled), input:not(:disabled), select:not(:disabled), [tabindex="0"]')].filter(element => element.getClientRects().length);
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+          if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+        }}>
         <div className="modal-header">
           <div>
-            <div className="lock-title">{control.label}</div>
+            <div className="lock-title">{contextLabel || control.label}</div>
             {!singleColorMode && !pairedColorMode ? (
               <p className="lock-subtitle">搜尋中文名稱、英文 prompt 或配色關鍵字，適合資料庫持續增加時快速定位。</p>
             ) : null}
@@ -671,6 +686,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     setAppendixState({ source: previewPrompt, id: '' });
   }
   const appendixId = appendixState.source === previewPrompt ? appendixState.id : '';
+  const wardrobePickerTriggerRef = useRef(null);
   const [activeWardrobePickerKey, setActiveWardrobePickerKey] = useState('');
   const [wardrobePickerQuery, setWardrobePickerQuery] = useState('');
   const [activeSection, setActiveSection] = useState('character');
@@ -752,7 +768,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       : activeDuoSpecialOutfitRoles[0] === 'A'
         ? '人物 1'
         : '人物 2';
-  const isAnyOutfitPresetActive = isSingleOutfitPresetActive || isSingleDressActive || isOutfitPresetAActive || isOutfitPresetBActive;
+  const isAnyOutfitPresetActive = isSingleOutfitPresetActive || isSingleDressActive || isOutfitPresetAActive || isOutfitPresetBActive
+    || (isDuoMode && ['dressAId', 'dressBId'].some(key => getControlOptionLabel(lockControls, key, locks[key])));
   const importedWorldSceneActive = locks.importedWorldSceneMode === 'architecture' && Boolean(locks.importedWorldSceneArchitectureText);
   const fixedCompositionSetActive = locks.subjectCount !== '2'
     && Boolean(locks.fixedCompositionSetId)
@@ -811,7 +828,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   ].filter(Boolean);
   const sectionDiagnostics = {
     character: {
-      status: isDedicatedSubjectMode ? '接管中' : formatSectionStatus('character', countEffectiveSelections('character', locks, lockControls), isClearedLockState),
+      status: isDedicatedSubjectMode ? '接管中' : formatSectionStatus('character', countEffectiveSelections('character', locks, isDuoMode ? characterLockControls.map(prepareDuoControl).filter(control => !control.disabled) : lockControls), isClearedLockState),
       chips: [
         isSpecialSubjectMode ? (specialSubjectOption?.zh || '特殊角色') : '',
         isCharacterProfileMode ? (characterProfileOption?.zh || '角色卡') : '',
@@ -831,7 +848,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       ].filter(Boolean),
     },
     wardrobe: {
-      status: isSpecialSubjectMode ? '已停用' : (isAnyOutfitPresetActive || isSpecialOutfitActive || importedCharacterCardLayers.length > 0 ? '接管中' : formatSectionStatus('wardrobe', countEffectiveSelections('wardrobe', locks, lockControls), isClearedLockState)),
+      status: isSpecialSubjectMode ? '已停用' : (isAnyOutfitPresetActive || isSpecialOutfitActive || importedCharacterCardLayers.length > 0 ? '接管中' : formatSectionStatus('wardrobe', countEffectiveSelections('wardrobe', locks, isDuoMode ? wardrobeLockControls.map(prepareDuoControl).filter(control => !control.disabled) : lockControls), isClearedLockState)),
       chips: [
         isSpecialSubjectMode ? '特殊角色停用穿搭' : '',
         isCharacterProfileMode && importedCharacterCardLayers.length > 0 ? '角色卡服裝層' : '',
@@ -914,7 +931,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     });
   };
 
-  const isControlDisabled = (control) => (
+  function isControlDisabled(control) { return (
     (control.key === 'posePropId' && isFourPointKneeling(effectiveFixedSceneLocks))
     ||
     (Boolean(fixedScenePosition) && FIXED_SCENE_MANAGED_POSE_KEYS.includes(control.key))
@@ -943,9 +960,10 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     || (['topBColorId', 'bottomBColorId'].includes(control.key) && Boolean(locks.topBottomPaletteBId) && !isNoneSelected('topBottomPaletteBId', locks.topBottomPaletteBId, wardrobeLockControls))
     || (isSingleOutfitPresetActive && control.key !== 'dressId' && OUTFIT_PRESET_COVERED_KEYS.has(control.key))
     || (isSingleDressActive && DRESS_COVERED_KEYS.has(control.key))
+    || (isDuoMode && ['A', 'B'].some(role => getControlOptionLabel(lockControls, `dress${role}Id`, locks[`dress${role}Id`]) && getDuoEditorGroups('garments', role).some(group => group.keys.includes(control.key))))
     || (isOutfitPresetAActive && OUTFIT_PRESET_A_COVERED_KEYS.has(control.key))
     || (isOutfitPresetBActive && OUTFIT_PRESET_B_COVERED_KEYS.has(control.key))
-  );
+  ); }
 
   const applyControlValue = (control, value) => {
     updateLocks((prev) => {
@@ -1076,7 +1094,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         ? randomizePage1WardrobePanelLocks(
           prev,
           resolvedActiveSubpanel?.id,
-          activeSubpanelKeys,
+          locks.subjectCount === '1' && ['overall', 'garments'].includes(resolvedActiveSubpanel?.id)
+            ? getWardrobePanelKeys(resolvedActiveSubpanel.id, '') : activeSubpanelKeys,
           createEmptyLocks(),
           lockControls,
         )
@@ -1085,7 +1104,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   };
 
   const handleSetActiveSectionNone = () => {
-    updateLocks((prev) => setLockKeysToNone(prev, activeSubpanelKeys.filter(key => !fixedScenePosition || !FIXED_SCENE_MANAGED_POSE_KEYS.includes(key)), lockControls));
+    const keys = activeSection === 'wardrobe' && locks.subjectCount === '1' && ['overall', 'garments'].includes(resolvedActiveSubpanel?.id)
+      ? getWardrobePanelKeys(resolvedActiveSubpanel.id, '') : activeSubpanelKeys;
+    updateLocks((prev) => setLockKeysToNone(prev, keys.filter(key => !fixedScenePosition || !FIXED_SCENE_MANAGED_POSE_KEYS.includes(key)), lockControls));
   };
 
   const clearImportedWorldSceneArchitecture = () => {
@@ -1130,12 +1151,22 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     </div>
   );
 
+  const closeWardrobePicker = () => {
+    setActiveWardrobePickerKey('');
+    requestAnimationFrame(() => wardrobePickerTriggerRef.current?.isConnected && wardrobePickerTriggerRef.current.focus());
+  };
   const openWardrobePicker = (control) => {
+    wardrobePickerTriggerRef.current = document.activeElement;
     setActiveWardrobePickerKey(control.key);
     setWardrobePickerQuery('');
   };
 
-  const renderControlGrid = (controls) => (
+  function prepareDuoControl(control) {
+    const prepared = prepareBottomRiseControl(prepareUnderbustTopControl(prepareOuterwearClosureControl(prepareAccessoryControl(control, locks), locks, lockControls), locks, lockControls), locks, lockControls);
+    return { ...prepared, displayLabel: prepared.label.replace(/^人物\s*[12]\s*/, ''), disabled: isControlDisabled(prepared) || Boolean(prepared.closureDisabled) };
+  }
+
+  const renderControlGrid = (controls, inDuoGroup = false) => (
     <div className="lock-grid detail-lock-grid">
       {controls.map((rawControl) => {
         const baseControl = prepareHeadDominantAngleControl(prepareBottomRiseControl(prepareUnderbustTopControl(prepareOuterwearClosureControl(prepareAccessoryControl(buildFixedSetControl(buildPoseComposerControl(rawControl)), locks), locks, lockControls), locks, lockControls), locks, lockControls), locks, lockControls);
@@ -1159,14 +1190,14 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
             }
           : preparedControl;
         const displayFixedSetDependentAsNone = FIXED_SET_DEPENDENT_DISPLAY_NONE_KEYS.has(control.key) && !fixedCompositionSetActive;
-        const disabled = isControlDisabled(control) || Boolean(control.closureDisabled);
+        const disabled = Boolean(control.disabled) || isControlDisabled(control) || Boolean(control.closureDisabled);
         const value = (fixedScenePosition && FIXED_SCENE_MANAGED_POSE_KEYS.includes(control.key)) ? effectiveFixedSceneLocks[control.key] : control.closureDisplayValue ?? (control.key === 'orbitId' && isCarriageFixedSet(selectedFixedCompositionSetOption)
           ? resolveCarriageOrbit(selectedFixedCompositionSetOption,
               baseControl.options.find(option => option.id === locks.orbitId), baseControl.options)?.id || locks.orbitId
           : supineSurfaceOnly && SUPINE_SCENE_LOCKED_KEYS.has(control.key)
           ? 'none'
           : displayFixedSetDependentAsNone ? 'none' : locks[control.key]);
-        const dividerLabel = activeSection === 'wardrobe' && activeSubpanel?.id === 'garments'
+        const dividerLabel = !inDuoGroup && activeSection === 'wardrobe' && activeSubpanel?.id === 'garments'
           ? WARDROBE_GARMENT_CONTROL_DIVIDERS[control.key]
           : '';
         const field = WARDROBE_PICKER_KEYS.has(control.key) ? (
@@ -1262,14 +1293,142 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     </div>
   );
 
+  const renderWardrobeGroup = (group, prepared, role = '') => {
+    const prefix = role ? `人物${role === 'A' ? 1 : 2}・` : '';
+    const owner = getCompleteLookOwner(locks, lockControls, role);
+    const fields = group.keys.map(key => prepared.find(control => control.key === key)).filter(Boolean);
+    const allDisabled = fields.length === 0 || fields.every(control => control.disabled || isControlDisabled(control));
+    const active = resolvedActiveSubpanel.id === 'overall' && group.id === owner;
+    const selected = getControlOptionLabel(lockControls, group.keys[0], locks[group.keys[0]]);
+    if (group.id === 'palette') {
+      const control = fields[0];
+      const pairs = control?.options.filter(option => option.topColor && option.bottomColor) || [];
+      const chosen = pairs.find(option => option.id === locks[control?.key]);
+      const previews = chosen && !pairs.slice(0, 8).includes(chosen) ? [...pairs.slice(0, 7), chosen] : pairs.slice(0, 8);
+      return <section key={group.id} className="wardrobe-editor-card wardrobe-editor-card--palette" aria-label={`${prefix}${group.label}`}>
+        <header className="wardrobe-palette-heading"><h4>{group.label}</h4><span>{allDisabled ? '暫不適用' : chosen?.zh || '未套用'}</span></header>
+        {control ? <>
+          <div className="wardrobe-palette-preview-row">
+            {previews.map(option => {
+              const colors = getOptionSwatches(option);
+              return <button key={option.id} type="button" className="wardrobe-palette-preview" aria-label={`${prefix}${option.zh}`} title={option.zh}
+                aria-pressed={chosen?.id === option.id} disabled={allDisabled || option.disabled} onClick={() => applyControlValue(control, option.id)}>
+                {colors.slice(0, 2).map((color, index) => <span key={index} style={{ backgroundColor: color.color }} />)}
+                {chosen?.id === option.id ? <Check size={14} aria-hidden="true" /> : null}
+              </button>;
+            })}
+          </div>
+          <div className="wardrobe-palette-actions">
+            <button type="button" className="secondary" disabled={allDisabled || !chosen} onClick={() => applyControlValue(control, control.options.find(option => option.zh === '全無')?.id || 'none')}>解除配色</button>
+            <button type="button" className="secondary" aria-label={`${prefix}選擇特殊上下身配色`} disabled={allDisabled} onClick={() => openWardrobePicker(control)}>選擇配色</button>
+          </div>
+        </> : <p className="wardrobe-card-note">目前由完整造型管理。</p>}
+      </section>;
+    }
+    const paletteKey = `topBottomPalette${role}Id`;
+    const paired = ['top', 'bottom'].includes(group.id) && getControlOptionLabel(lockControls, paletteKey, locks[paletteKey]);
+    return <section key={group.id} className={`wardrobe-editor-card wardrobe-editor-card--${group.id}${active ? ' wardrobe-editor-card-active' : ''}`} aria-label={`${prefix}${group.label}`}>
+      <h4>{group.label}{selected ? <span> · {selected}</span> : null}</h4>
+      {fields.length ? renderControlGrid(fields, true) : <p className="wardrobe-card-note">目前由完整造型管理，請先解除完整造型再調整。</p>}
+      {paired ? <p className="wardrobe-card-note">配色由「特殊上下身配色」控制。</p> : null}
+      {fields.length > 0 && allDisabled ? <p className="wardrobe-card-note">目前設定下暫不適用，原設定保留。</p> : null}
+      {group.id === 'special' && !fields.some(control => control.key === `completeLookPalette${role}Id`) ? <p className="wardrobe-card-note">選擇特殊穿搭後，可在此調整對應色系。</p> : null}
+      {group.id === 'preset' && !fields.some(control => control.key === `outfitPreset${role}PrimaryColorId`) ? <p className="wardrobe-card-note">配色欄位依所選套裝顯示。</p> : null}
+    </section>;
+  };
+
+  const renderSingleWardrobeEditor = () => {
+    const panel = resolvedActiveSubpanel.id;
+    const prepared = wardrobeLockControls.map(prepareDuoControl);
+    const groups = getWardrobeEditorGroups(panel, '', getCompleteLookOwner(locks, lockControls));
+    return <div className={`wardrobe-single-grid wardrobe-single-grid--${panel}`}>
+      {groups.map(group => renderWardrobeGroup(group, prepared))}
+    </div>;
+  };
+
+  const renderDuoEditor = (controls) => {
+    const panelId = resolvedActiveSubpanel.id;
+    const prepared = controls.map(prepareDuoControl);
+    const integratedWardrobe = activeSection === 'wardrobe' && ['overall', 'garments'].includes(panelId);
+    const groups = getDuoEditorGroups(panelId, 'A').filter((group, index) => integratedWardrobe || DUO_ROLES.some(role =>
+      getDuoEditorGroups(panelId, role.id)[index].keys.some(key => prepared.some(control => control.key === key))));
+    const focusRole = role => {
+      const heading = document.getElementById(`duo-${activeSection}-${role}`);
+      heading?.focus({ preventScroll: true });
+      heading?.closest('.duo-person')?.scrollIntoView({ block: 'start', behavior: 'instant' });
+    };
+    return (
+      <>
+        <nav className="duo-jump-nav" aria-label="跳至人物設定">
+          {DUO_ROLES.map(role => <button key={role.id} type="button" className="secondary" onClick={() => focusRole(role.id)}>前往{role.label}</button>)}
+        </nav>
+        <div className="duo-editor-grid" style={{ '--duo-rows': Math.max(1, groups.length) + 1 }}>
+          {DUO_ROLES.map(role => {
+            const allGroups = getDuoEditorGroups(panelId, role.id, getCompleteLookOwner(locks, lockControls, role.id));
+            const roleKeys = getDuoRoleActionKeys(panelId, role.id, prepared);
+            const applyRoleAction = random => updateLocks(previous => random
+              ? randomizeLockKeys(previous, roleKeys, createEmptyLocks(), lockControls)
+              : setLockKeysToNone(previous, roleKeys, lockControls));
+            const complete = ['specialOutfit', 'outfitPreset', 'dress'].map(prefix => getControlOptionLabel(lockControls, `${prefix}${role.id}Id`, locks[`${prefix}${role.id}Id`])).find(Boolean);
+            return (
+              <section key={role.id} className="duo-person" data-role={role.id} aria-labelledby={`duo-${activeSection}-${role.id}`}>
+                <header className="duo-person-header">
+                  <div className="duo-person-heading"><h3 id={`duo-${activeSection}-${role.id}`} tabIndex={-1}><span className="duo-person-number">{role.number}</span>{role.label}</h3><button type="button" className="secondary duo-mobile-switch" onClick={() => focusRole(role.id === 'A' ? 'B' : 'A')}>切換至人物{role.id === 'A' ? 2 : 1}</button></div>
+                  <p className="duo-person-summary">{getDuoRoleSummary(activeSection, role.id, locks, prepared.filter(control => !control.disabled))}</p>
+                  <div className="duo-person-actions">
+                    <button type="button" className="secondary" disabled={!roleKeys.length} aria-label={`${role.label}本頁設為隨機`} onClick={() => applyRoleAction(true)}>本頁設為隨機</button>
+                    <button type="button" className="secondary" disabled={!roleKeys.length} aria-label={`清空${role.label}本頁可清除項目`} onClick={() => applyRoleAction(false)}>清空可清除項目</button>
+                  </div>
+                  {activeSection === 'wardrobe' && complete ? <p className="duo-takeover">目前造型：{complete}</p> : null}
+                </header>
+                {groups.map(group => {
+                  const roleGroup = allGroups.find(item => item.id === group.id);
+                  if (integratedWardrobe) return renderWardrobeGroup(roleGroup, prepared, role.id);
+                  const keys = roleGroup.keys;
+                  const fields = keys.map(key => prepared.find(control => control.key === key)).filter(Boolean);
+                  const selected = fields.length > 0 && fields.every(control => control.disabled) ? '暫不適用' : getControlOptionLabel(prepared, keys[0], locks[keys[0]]);
+                  return <section key={group.id} className="duo-item" aria-label={`${role.label}・${group.label}`}>
+                    <h4>{group.label}{selected ? <span> · {selected}</span> : null}</h4>
+                    {fields.length ? renderControlGrid(fields, true) : <p className="duo-empty">{complete ? `由「${complete}」管理，本區目前不適用。` : '選擇適用的造型後，即可設定。'}</p>}
+                    {fields.length > 0 && fields.every(control => control.disabled) ? <p className="duo-empty">{complete ? `由「${complete}」管理，原設定保留。` : '目前模式下暫不適用，原設定保留。'}</p> : null}
+                  </section>;
+                })}
+                {groups.length === 0 ? <p className="duo-empty">{complete ? `由「${complete}」管理，本頁目前不適用。` : '目前模式沒有可調整項目。'}</p> : null}
+              </section>
+            );
+          })}
+        </div>
+      </>
+    );
+  };
+
+  const renderSingleIdentity = () => (
+    <div className="single-identity-editor">
+      {renderControlGrid(filterControlsByKeys(characterLockControls, ['subjectCount']))}
+      <div className="single-identity-grid">
+        {SINGLE_IDENTITY_GROUPS.map(group => {
+          const controls = filterControlsByKeys(characterLockControls, group.keys);
+          const summary = group.keys.map(key => getControlOptionLabel(controls, key, locks[key])).filter(Boolean).join(' / ');
+          return <section key={group.id} className="single-identity-card" aria-labelledby={`single-identity-${group.id}`}>
+            <header>
+              <h3 id={`single-identity-${group.id}`}>{group.label}</h3>
+              <p>{summary || `尚未指定${group.label}`}</p>
+            </header>
+            {renderControlGrid(controls)}
+          </section>;
+        })}
+      </div>
+    </div>
+  );
+
   const renderCharacterControls = () => (
-    <div className="control-section">
+    <div className={`control-section ${!isDuoMode && !isDedicatedSubjectMode && resolvedActiveSubpanel?.id === 'identity' ? 'single-identity-section' : ''}`}>
       <div className="control-section-header">
         <div>
           <div className="control-section-title">Character Setup</div>
           <p className="workspace-panel-copy">{resolvedActiveSubpanel?.description || '把人物身份與特殊角色先固定下來，後面換神情、穿搭與場景會更穩定。'}</p>
         </div>
-        {renderSectionActionButtons()}
+        {!(isDuoMode && !isDedicatedSubjectMode && resolvedActiveSubpanel?.id === 'identity') && renderSectionActionButtons()}
       </div>
       {isSpecialSubjectMode ? (
         <div className="context-note">
@@ -1288,7 +1447,12 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
           目前為特寫模式，系統會自動收斂不必要欄位，保留與人物、主要服裝輪廓與構圖相關的設定，讓 prompt 更聚焦。
         </div>
       ) : null}
-      {renderControlGrid(filterControlsByKeys(characterLockControls, resolvedActiveSubpanel?.keys || []))}
+      {isDuoMode && !isDedicatedSubjectMode && resolvedActiveSubpanel?.id === 'identity' ? <>
+        {renderControlGrid(filterControlsByKeys(characterLockControls, ['subjectCount']))}
+        {renderDuoEditor(characterLockControls)}
+      </> : !isDuoMode && !isDedicatedSubjectMode && resolvedActiveSubpanel?.id === 'identity'
+        ? renderSingleIdentity()
+        : renderControlGrid(filterControlsByKeys(characterLockControls, resolvedActiveSubpanel?.keys || []))}
     </div>
   );
 
@@ -1324,20 +1488,20 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   );
 
   const renderWardrobeControls = () => (
-    <div className="control-section">
+    <div className={`control-section ${['overall', 'garments'].includes(resolvedActiveSubpanel?.id) ? 'wardrobe-integrated-section' : ''}`}>
       <div className="control-section-header">
         <div>
           <div className="control-section-title">Style & Wardrobe</div>
           <p className="workspace-panel-copy">{resolvedActiveSubpanel?.description || '在這裡分段處理整體造型、單件、鞋襪與配件。'}</p>
         </div>
-        {renderSectionActionButtons()}
+        {!isDuoMode && renderSectionActionButtons()}
       </div>
-      {isOutfitPresetActive ? (
+      {isOutfitPresetActive && !isDuoMode ? (
         <div className="context-note">
           套裝或連身已接管主要服裝輪廓，和它重疊的上身、下身單件欄位會自動停用，避免 prompt 互相打架。
         </div>
       ) : null}
-      {isSpecialOutfitActive ? (
+      {isSpecialOutfitActive && !isDuoMode ? (
         <div className="context-note">
           特殊穿搭是完整從頭到腳造型，已接管{isDuoMode ? `${specialOutfitScopeLabel}的` : ''}服裝、鞋襪與配件欄位。
           {isDuoMode && activeDuoSpecialOutfitRoles.length === 1 ? '另一位人物仍可獨立設定穿搭。' : ''}
@@ -1348,7 +1512,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
           特殊角色目前不使用服裝、鞋襪或配件欄位，這一區已暫時停用，請改用角色本身、場景、鏡頭、光線與風格去塑造作品氣氛。
         </div>
       ) : null}
-      <WardrobeLayerPanel insights={wardrobeLayerInsights} />
+      {!isDuoMode && !['overall', 'garments'].includes(resolvedActiveSubpanel?.id) && <WardrobeLayerPanel insights={wardrobeLayerInsights} />}
       {activeSection === 'wardrobe' && importedCharacterCardLayers.length > 0 ? (
         <div className="character-card-imported-layers" aria-label="來自角色卡的穿搭層">
           {importedCharacterCardLayers.map((layerKey) => (
@@ -1358,9 +1522,20 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
           ))}
         </div>
       ) : null}
-      {renderControlGrid(filterControlsByKeys(wardrobeLockControls, resolvedActiveSubpanel?.keys || []))}
+      {isDuoMode && !isDedicatedSubjectMode ? renderDuoEditor(wardrobeLockControls) : !isDedicatedSubjectMode && ['overall', 'garments'].includes(resolvedActiveSubpanel?.id) ? renderSingleWardrobeEditor() : renderControlGrid(filterControlsByKeys(wardrobeLockControls, resolvedActiveSubpanel?.keys || []))}
     </div>
   );
+
+  const pickerRole = getDuoFieldRole(activeWardrobePickerControl?.key);
+  const pickerGroup = pickerRole ? ['overall', 'garments', 'layers', 'accessories'].flatMap(panel => getDuoEditorGroups(panel, pickerRole, getCompleteLookOwner(locks, lockControls, pickerRole))).find(group => group.keys.includes(activeWardrobePickerControl.key)) : null;
+  const pickerItem = pickerGroup ? getControlOptionLabel(lockControls, pickerGroup.keys[0], locks[pickerGroup.keys[0]]) : '';
+  const pickerContext = isDuoMode && pickerRole && pickerGroup
+    ? `${DUO_ROLES.find(role => role.id === pickerRole).label} › ${activeWardrobePickerControl.label.replace(/^人物\s*[12]\s*/, '')}${pickerItem && activeWardrobePickerControl.key !== pickerGroup.keys[0] ? ` · ${pickerItem}` : ''}`
+    : !isDuoMode && activeWardrobePickerControl ? (() => {
+      const group = ['overall', 'garments'].flatMap(panel => getWardrobeEditorGroups(panel, '', getCompleteLookOwner(locks, lockControls))).find(item => item.keys.includes(activeWardrobePickerControl.key));
+      const item = group && getControlOptionLabel(lockControls, group.keys[0], locks[group.keys[0]]);
+      return item && activeWardrobePickerControl.key !== group.keys[0] ? `${activeWardrobePickerControl.label} · ${item}` : '';
+    })() : '';
 
   const renderEditorPanel = () => {
     if (activeSection === 'midjourney') {
@@ -1407,7 +1582,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
 
   return (
     <>
-      <section className="page1-workspace-shell">
+      <section className={`page1-workspace-shell ${isDuoMode ? 'page1-workspace-duo' : ''}`}>
         <aside className="page1-sidebar lock-panel">
           <div className="page1-sidebar-header">
             <div className="lock-title">Prompt Workspace</div>
@@ -1444,7 +1619,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
                     <span className="page1-section-label">{section.label}</span>
                     <span className="page1-section-status">{diagnostics.status}</span>
                   </span>
-                  <strong className="page1-section-value">{snapshot.summary}</strong>
+                  {snapshot.roles ? <span className="duo-sidebar-summary">{snapshot.roles.map(role => <span key={role.id}><b>{role.label}</b><span>{role.summary}</span></span>)}</span> : <strong className="page1-section-value">{snapshot.summary}</strong>}
                   {snapshot.meta ? <span className="page1-section-meta">{snapshot.meta}</span> : null}
                   {diagnostics.chips.length > 0 ? (
                     <span className="page1-section-chip-row">
@@ -1499,7 +1674,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
           >
             <div className="page1-editor-header">
               <div>
-                <div className="lock-title">{activeSectionConfig.label}</div>
+                <div className="lock-title">{activeSectionConfig.label} {isDuoMode && ['pose', 'scene', 'photography'].includes(activeSection) ? <span className="page1-section-chip">雙人共用</span> : null}</div>
               </div>
             </div>
 
@@ -1639,13 +1814,14 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       {activeWardrobePickerControl ? (
         <WardrobePickerModal
           control={activeWardrobePickerControl}
+          contextLabel={pickerContext}
           value={locks[activeWardrobePickerControl.key]}
           query={wardrobePickerQuery}
           onQueryChange={setWardrobePickerQuery}
-          onClose={() => setActiveWardrobePickerKey('')}
+          onClose={closeWardrobePicker}
           onSelect={(value) => {
             applyControlValue(activeWardrobePickerControl, value);
-            setActiveWardrobePickerKey('');
+            closeWardrobePicker();
           }}
         />
       ) : null}

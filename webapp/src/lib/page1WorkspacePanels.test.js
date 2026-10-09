@@ -1,11 +1,22 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import { SINGLE_IDENTITY_GROUPS, SECTION_SUBPANELS } from '../features/page1/page1Schema.js';
 
 import {
   PAGE1_SECTION_SUBPANELS,
   isPage1PoseSubpanelDisabled,
   resolvePage1ActiveSubpanel,
 } from './page1WorkspacePanels.js';
+
+test('single identity cards retain all six existing fields exactly once and leave person count outside', () => {
+  assert.deepEqual(SINGLE_IDENTITY_GROUPS.map(group => group.label), ['外貌', '頭髮']);
+  const keys = SINGLE_IDENTITY_GROUPS.flatMap(group => group.keys);
+  assert.equal(new Set(keys).size, 6);
+  assert.deepEqual(keys, ['bodyTypeId', 'facialFeaturesId', 'skinDetailsId', 'hairstyleId', 'hairStylingStateId', 'hairColorId']);
+  const identity = SECTION_SUBPANELS.character.find(panel => panel.id === 'identity');
+  keys.forEach(key => assert.ok(identity.keys.includes(key), key));
+  assert.ok(!keys.includes('subjectCount'));
+});
 
 test('page1 pose panels split single and duo settings without legacy pose controls', () => {
   const posePanels = PAGE1_SECTION_SUBPANELS.pose;
