@@ -2,16 +2,25 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-08
+Last updated: 2026-10-09
 
-## DLL：Krea 三版本與逐張生成 (local, 2026-10-08)
+## Firebase Functions：Node.js 24 (local, 2026-10-09)
+
+- 使用者授權更新 Functions runtime 設定，`functions/package.json`、lock 根 `engines.node` 與 Functions CI 從 20 改為 24。Google 支援時程及本機 Firebase CLI 15.17.0 均已核對 `nodejs24` 支援；前端 CI 的 Node 22、Functions source／共用契約／模板／Secret／allowlist 不變，依賴版本完全保留。詳見 [Node 24 升級與部署規格](specs/firebase-functions-node24-v1.md)。
+- 明確使用 Node 24.19.0 完成 engine-strict clean install（337 packages）、Functions 72/72／lint、相關前端 client／shared tests 55/55；七個 callable 載入與匿名保護均通過，供應商 fetch 為 0。前端沿用 Node 22.22.3 的 lint／build 通過；既有 npm 依賴棄用與 Vite 大型 chunk 提示未擴修。未改使用者可見行為、前端 runtime 或 shared source，因此未重跑完整 Prompt suite／瀏覽器流程；前批既有服裝隨機 fixture 例外保留。
+- 使用者已於 2026-10-09 授權本批 commit／push，Git 交付狀態以遠端核對為準；尚未重新部署，設定於後續部署才生效。正式遷移需包含全部七個 Functions：三個 Comfy、現用 `magnificDownloadImage` 與三個隱藏 legacy 生圖服務；可分批部署，逐一核對 Node 24／ACTIVE／revision／Secret。macOS 本機驗證不代替雲端 Linux 連線驗收，未消耗付費生成額度。
+- 本對話前批 Krea 部署紀錄依本次授權一併提交；未追蹤參考資料保留。文件連結及 diff-check 通過。
+
+## DLL：Krea 三版本與逐張生成 (backend deployed, 2026-10-08)
 
 - 使用者核准新增 Krea 2 Medium／Medium Turbo／Large；所有 DLL 模型預設 1 張，張數只提供 1／2，切換模型重設為 1。三份固定 Krea 模板由 Downloads 的 `api_krea2_t2i.json` 派生，原檔未修改；皆為 1K，支援既有 DLL 比例中的 1:1／4:3／16:9／9:16／4:5，拒絕 3:4／2K，不猜精確像素。來源 Prompt、模型舊 keys、Saved Cards、隱藏 legacy provider、LoRA 與 runtime 邊界不變，見 [Krea 與逐張生成規格](specs/comfy-krea-sequential-generation-v1.md)。
 - 選 2 張時，所有 provider 都先取得第一張最終圖像結果並更新畫面，再送第二次單張請求。Comfy 使用兩個固定 request ID，第二張排除已知第一張 seed；第一張失敗不送第二張，第二張失敗保留第一張，不自動重送。保留原 pending storage key，以 version 2 記錄序列；舊單任務可唯讀續查。網路／缺圖／儲存／回調失敗保留追蹤及已取得圖片；續查只查已提交 ID，不代送 planned 第二張。跨頁 Web Lock、清追蹤 ID 比對及 client／server uid guard 防止競態與送錯帳號。
 - Krea 沿用 Partner Node 伺服端 Secret，合作夥伴費用不以 GPU 秒數推算，只提供 Credits／刷新與暫不估算提示。原五個 Comfy 模型單張工作流／採樣不變，每個 job 仍一張，原擴散模型的單張額度樣本仍適用。此批未查詢真實費用、權限或額度。
 - 驗證：Functions 72/72、前端聚焦 51/51、雙端 lint、前端 build、78 個相關文件本機連結／diff-check 通過。首次完整測試唯一失敗為新 Krea fixture 原傳 2K，已依正確的 1K 契約修正，未放寬 production 尺寸拒絕。重跑完整前端 1372/1373，唯一失敗為未修改的 `engineOutfitPresetDressCleanup.test.js:627` 隨機抽到頭部主導近景後仍要求完整裙身拉鍊來源。以 Node 24.19.0／固定 seed `latex-fixture-1` 在 HEAD `5792226` 的唯讀 snapshot 與目前工作區重現相同失敗；test／engine SHA256 相同，證據 `/tmp/vps-head-latex-baseline-4ch5admo/manifest.json` 及兩份 fixed-seed-test log。保留該既有不穩定測試，不擴修服裝／Prompt。既有 Vite 大型 chunk 提示未擴修；本次 Krea／client／追蹤／共享契約全數通過，未宣稱完整套件全綠。
 - Chromium 隔離來源於 1440×1000／390×900 檢查五工作區載入及四個 DLL 面板、11 個可見模型的預設／1-2 張控制、Krea 比例停用／固定胸上 4:5、逐張 loading／兩張成功／第二張失敗／回應遺失後 reload 唯讀回收／放大關閉／未登入保護與鍵盤 focus／Tab／Enter。所查狀態無 console warning/error、page error、破圖或 document 橫向溢出；未重驗手機 D 區既有標題工具列溢出。生成均採本機 mock，觀察到外部 POST 為 0，不代替付費出圖。截圖 `/tmp/vps-krea-desktop-{loading,success,preview}.png`、`/tmp/vps-krea-mobile-{success,partial,lost,recovered,preview,unsupported,login-error}.png`，結果 `/tmp/vps-krea-browser-results.json`／`/tmp/vps-krea-surface-results.json`。隔離儲存未動到使用者收藏／登入／待查任務；原未追蹤參考資料夾保留。
-- 驗證瀏覽器與本次 5175 服務已關閉。使用者已於 2026-10-08 授權本批 commit／push，Git 交付及自動前端發布狀態以遠端／Actions 核對為準；Functions 尚未部署，未做付費生成驗收。發佈時須同步新版前端及 `comfyCloudSubmit`／`comfyCloudStatus`／`comfyCloudQuota` 的共用模型定義與 uid guard。Krea 真實生成、兩張依序出圖、下載、扣額與圖片品質仍待部署後驗收。
+- 驗證瀏覽器與本次 5175 服務已關閉。已 commit／push `162cd4f71aca7536f5398cf482499589c8eb2015` 至 `origin/main`，遠端 SHA 一致。GitHub Actions [37749256835](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/37749256835) 查核時仍為 in_progress：Functions quality 成功，前端完整測試尚在執行，Pages build／deploy 尚未開始；不可宣稱新版前端已發布。
+- 使用者另行授權後，2026-10-08 16:28（台北）已從上述 commit 部署 `comfyCloudSubmit`／`comfyCloudStatus`／`comfyCloudQuota` 至 `virtualphotographystudio/us-central1`。三者 ACTIVE、最新 revision 全量流量，分別為 `comfycloudsubmit-00007-jup`／`comfycloudstatus-00008-buc`／`comfycloudquota-00003-hek`，共用 build `9c76a8cd-159a-4146-9797-d4c89bd0ab64`。Secret v1、環境設定、allowlist 與 Node.js 20 維持不變；其他四個 Functions 的 CLI metadata 不變，未部署 rules／index。三個未登入 callable 檢查均回 401／UNAUTHENTICATED，正式來源 CORS 正確，未執行供應商操作；詳細證據見 [部署紀錄](specs/comfy-krea-sequential-generation-v1.md#部署紀錄2026-10-08)。
+- 未查詢真實額度或提交付費生成。待新版前端發布後，Krea 真實節點權限、單張／兩張依序出圖、下載、扣額與圖片品質仍需驗收。部署 CLI 再次提示 Node.js 20 將於 2026-10-30 停止支援部署，本次未升級 runtime／dependencies。
 
 ## 頭部主導近景 (local, 2026-10-07)
 

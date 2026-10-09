@@ -1,6 +1,6 @@
 # DLL：Krea 三版本與逐張生成 v1
 
-日期：2026-10-08。使用者核准規格：所有 DLL 模型預設一張，張數只提供 1／2；第一張完成並取得最終圖片後，才提交第二張。本批本機實作與驗證完成，使用者已授權 commit／push；Git 交付及自動前端發布狀態以遠端／Actions 核對為準，Functions 尚未部署或付費生圖驗收。
+日期：2026-10-08。使用者核准規格：所有 DLL 模型預設一張，張數只提供 1／2；第一張完成並取得最終圖片後，才提交第二張。本批本機實作與驗證完成，已 commit／push `162cd4f71aca7536f5398cf482499589c8eb2015`；使用者另行授權的三個 Functions 部署已完成。前端自動發布查核時仍在執行，尚未做付費生圖驗收。
 
 本規格補充 [Comfy 整合](comfy-cloud-integration-v1.md)、[三模型擴充](comfy-cloud-model-expansion-v1.md) 與 [額度估算](comfy-cloud-quota-v1.md)。不更動 Prompt engine、來源 mappings、Saved Cards、舊模型 keys、Secrets、allowlist、runtime 或隱藏 BytePlus／Magnific 介面。
 
@@ -47,6 +47,22 @@
 
 驗證結果（2026-10-08）：Functions 72/72、前端聚焦 51/51、雙端 lint、前端 build、文件連結／diff-check 通過。完整前端 1372/1373；未修改的服裝隨機 fixture 在頭部近景要求完整裙身拉鍊，固定 `latex-fixture-1` 在 HEAD 與工作區重現同一失敗，保留既有例外，不改 Prompt engine。五工作區／四個 DLL 面板桌面與手機渲染、11 模型張數選擇、模擬兩張依序成功／第二張失敗保留第一張／回應遺失後 reload 只查詢、放大關閉及未登入保護通過；所查狀態無 console／page error、破圖或 document 橫向溢出，觀察到外部 POST 為 0。截圖 `/tmp/vps-krea-desktop-success.png`、`/tmp/vps-krea-mobile-recovered.png` 等與完整證據路徑見 [目前狀態](../current_project_state.md)。隔離瀏覽器與本次驗證服務已關閉。
 
-發佈時須同步新版前端及 `comfyCloudSubmit`／`comfyCloudStatus`／`comfyCloudQuota` 的共用模型定義；submit／status 包含 uid guard。本次已獲 commit／push 授權，Functions 尚未部署，未做付費生圖；真實節點權限、生成、下載、耗額與效果仍待驗收。
+發佈時須同步新版前端及 `comfyCloudSubmit`／`comfyCloudStatus`／`comfyCloudQuota` 的共用模型定義；submit／status 包含 uid guard。三個 Functions 已部署，前端自動發布尚待完成；真實節點權限、生成、下載、耗額與效果仍待驗收。
+
+## 部署紀錄（2026-10-08）
+
+- 使用者另行授權部署三個 Functions。來源 commit `162cd4f71aca7536f5398cf482499589c8eb2015`，`main`／`origin/main` SHA 一致；2026-10-08 16:28（台北）部署至 `virtualphotographystudio/us-central1`，CLI exit 0，三項 update 均成功。
+
+| Function | 部署後 revision | 雲端狀態／流量 |
+| --- | --- | --- |
+| `comfyCloudSubmit` | `comfycloudsubmit-00007-jup` | ACTIVE／最新 revision 全量流量 |
+| `comfyCloudStatus` | `comfycloudstatus-00008-buc` | ACTIVE／最新 revision 全量流量 |
+| `comfyCloudQuota` | `comfycloudquota-00003-hek` | ACTIVE／最新 revision 全量流量 |
+
+- 三者共用 build `9c76a8cd-159a-4146-9797-d4c89bd0ab64`；部署前後 code hash／revision 已更新。Secret `COMFY_CLOUD_API_KEY` version 1、環境設定、Node.js 20 與 allowlist 沿用，未讀取金鑰值。`bytePlusGenerate`、`magnificDownloadImage`、`magnificGenerate`、`magnificGenerateClassic` 的 CLI metadata 不變；未部署 Firestore rules／indexes。
+- 不帶登入資訊、空 data 的三個 callable POST 均回 HTTP 401／UNAUTHENTICATED，CORS 回傳正式 Pages 來源 `https://cooperfu615-desinger.github.io`。請求在供應商操作前被拒絕，未查詢真實額度、認領生圖任務或消耗付費生成額度。
+- 部署證據：`/tmp/vps-krea-functions-deploy.log`、`/tmp/vps-krea-cloud-{before,after}.jsonl`、`/tmp/vps-krea-deployment-verification.json`、`/tmp/vps-krea-deployment-smoke.json`。使用者已於 2026-10-09 授權此部署紀錄併 [Node 24 設定](firebase-functions-node24-v1.md) commit／push，交付狀態以遠端核對為準。
+- 前端 Actions [37749256835](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/37749256835) 的 head SHA 與上述來源一致；查核時 Functions quality 成功，前端完整測試仍執行，Pages build／deploy 尚未開始。後端部署成功不代表新版介面已發布；待正式前端更新後再驗收 Krea 與逐張生成。
+- CLI 提示 Node.js 20 將於 2026-10-30 停止支援部署，本次未升級 runtime／dependencies。原未追蹤參考資料夾保留。
 
 官方依據（2026-10-08 查核）：[Krea 節點](https://github.com/Comfy-Org/ComfyUI/blob/master/comfy_api_nodes/nodes_krea.py)、[Krea API schema](https://github.com/Comfy-Org/ComfyUI/blob/master/comfy_api_nodes/apis/krea.py)、[Comfy 前端執行次數](https://github.com/Comfy-Org/ComfyUI_frontend/blob/main/src/scripts/app.ts)、[Partner 並行限制](https://docs.comfy.org/tutorials/partner-nodes/concurrency-limits)。重試後成功不構成已確認失敗根因。
