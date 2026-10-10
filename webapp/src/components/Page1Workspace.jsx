@@ -19,7 +19,9 @@ import PromptPreviewCard from './PromptPreviewCard';
 import { PROMPT_APPENDICES, appendPromptInstruction } from '../lib/promptAppendices.js';
 import ZImageVisibleTextControls from './ZImageVisibleTextControls';
 import SceneEnvironmentControls from './SceneEnvironmentControls';
+import PhotographyControls from './PhotographyControls';
 import SceneLocationField from './SceneLocationField';
+import { buildPhotographyEditorModel, PHOTOGRAPHY_EDITOR_GROUPS } from '../features/page1/photographyEditor.js';
 import {
   SCENE_EDITOR_FIELD_LABELS,
   getSceneEditorActionKeys,
@@ -1169,42 +1171,47 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     return { ...prepared, displayLabel: prepared.label.replace(/^人物\s*[12]\s*/, ''), disabled: isControlDisabled(prepared) || Boolean(prepared.closureDisabled) };
   }
 
+  const prepareControlField = (rawControl, inDuoGroup = false) => {
+    const preparedBaseControl = prepareHeadDominantAngleControl(prepareBottomRiseControl(prepareUnderbustTopControl(prepareOuterwearClosureControl(prepareAccessoryControl(buildFixedSetControl(buildPoseComposerControl(rawControl)), locks), locks, lockControls), locks, lockControls), locks, lockControls), locks, lockControls);
+    const baseControl = activeSection === 'wardrobe' && resolvedActiveSubpanel?.id === 'layers'
+      ? { ...preparedBaseControl, helpText: getLayerControlHelp(preparedBaseControl, locks, lockControls) } : preparedBaseControl;
+    const preparedControl = baseControl.key === 'orbitId' && isCarriageFixedSet(selectedFixedCompositionSetOption)
+      ? { ...baseControl, label: '相機拍攝方位',
+          suppressDefaultRandomOption: selectedFixedCompositionSetOption.orbitMode !== 'camera-position',
+          options: baseControl.options.filter(option => carriageOrbitAllowed(selectedFixedCompositionSetOption, option))
+            .map(option => ({ ...option, en: carriageCameraText(option) })),
+        }
+      : baseControl.key === 'orbitId' && isStationFixedSet(selectedFixedCompositionSetOption)
+      ? {
+          ...baseControl,
+          label: '人物面向（場景取景方向固定）',
+          options: baseControl.options.map(option => ({ ...option, en: stationSubjectFacingText(option) })),
+        }
+      : baseControl;
+    const control = supineSurfaceOnly && ['sceneAttributeId', 'locationId'].includes(preparedControl.key)
+      ? {
+          ...preparedControl,
+          options: [{ id: 'none', zh: '全無', en: '', meta: { tags: ['none'] } }],
+        }
+      : preparedControl;
+    const displayFixedSetDependentAsNone = FIXED_SET_DEPENDENT_DISPLAY_NONE_KEYS.has(control.key) && !fixedCompositionSetActive;
+    const disabled = Boolean(control.disabled) || isControlDisabled(control) || Boolean(control.closureDisabled);
+    const value = (fixedScenePosition && FIXED_SCENE_MANAGED_POSE_KEYS.includes(control.key)) ? effectiveFixedSceneLocks[control.key] : control.closureDisplayValue ?? (control.key === 'orbitId' && isCarriageFixedSet(selectedFixedCompositionSetOption)
+      ? resolveCarriageOrbit(selectedFixedCompositionSetOption,
+          baseControl.options.find(option => option.id === locks.orbitId), baseControl.options)?.id || locks.orbitId
+      : supineSurfaceOnly && SUPINE_SCENE_LOCKED_KEYS.has(control.key)
+      ? 'none'
+      : displayFixedSetDependentAsNone ? 'none' : locks[control.key]);
+    const dividerLabel = !inDuoGroup && activeSection === 'wardrobe' && activeSubpanel?.id === 'garments'
+      ? WARDROBE_GARMENT_CONTROL_DIVIDERS[control.key]
+      : '';
+    return { control, value, disabled, dividerLabel };
+  };
+
   const renderControlGrid = (controls, inDuoGroup = false) => (
     <div className="lock-grid detail-lock-grid">
       {controls.map((rawControl) => {
-        const preparedBaseControl = prepareHeadDominantAngleControl(prepareBottomRiseControl(prepareUnderbustTopControl(prepareOuterwearClosureControl(prepareAccessoryControl(buildFixedSetControl(buildPoseComposerControl(rawControl)), locks), locks, lockControls), locks, lockControls), locks, lockControls), locks, lockControls);
-        const baseControl = activeSection === 'wardrobe' && resolvedActiveSubpanel?.id === 'layers'
-          ? { ...preparedBaseControl, helpText: getLayerControlHelp(preparedBaseControl, locks, lockControls) } : preparedBaseControl;
-        const preparedControl = baseControl.key === 'orbitId' && isCarriageFixedSet(selectedFixedCompositionSetOption)
-          ? { ...baseControl, label: '相機拍攝方位',
-              suppressDefaultRandomOption: selectedFixedCompositionSetOption.orbitMode !== 'camera-position',
-              options: baseControl.options.filter(option => carriageOrbitAllowed(selectedFixedCompositionSetOption, option))
-                .map(option => ({ ...option, en: carriageCameraText(option) })),
-            }
-          : baseControl.key === 'orbitId' && isStationFixedSet(selectedFixedCompositionSetOption)
-          ? {
-              ...baseControl,
-              label: '人物面向（場景取景方向固定）',
-              options: baseControl.options.map(option => ({ ...option, en: stationSubjectFacingText(option) })),
-            }
-          : baseControl;
-        const control = supineSurfaceOnly && ['sceneAttributeId', 'locationId'].includes(preparedControl.key)
-          ? {
-              ...preparedControl,
-              options: [{ id: 'none', zh: '全無', en: '', meta: { tags: ['none'] } }],
-            }
-          : preparedControl;
-        const displayFixedSetDependentAsNone = FIXED_SET_DEPENDENT_DISPLAY_NONE_KEYS.has(control.key) && !fixedCompositionSetActive;
-        const disabled = Boolean(control.disabled) || isControlDisabled(control) || Boolean(control.closureDisabled);
-        const value = (fixedScenePosition && FIXED_SCENE_MANAGED_POSE_KEYS.includes(control.key)) ? effectiveFixedSceneLocks[control.key] : control.closureDisplayValue ?? (control.key === 'orbitId' && isCarriageFixedSet(selectedFixedCompositionSetOption)
-          ? resolveCarriageOrbit(selectedFixedCompositionSetOption,
-              baseControl.options.find(option => option.id === locks.orbitId), baseControl.options)?.id || locks.orbitId
-          : supineSurfaceOnly && SUPINE_SCENE_LOCKED_KEYS.has(control.key)
-          ? 'none'
-          : displayFixedSetDependentAsNone ? 'none' : locks[control.key]);
-        const dividerLabel = !inDuoGroup && activeSection === 'wardrobe' && activeSubpanel?.id === 'garments'
-          ? WARDROBE_GARMENT_CONTROL_DIVIDERS[control.key]
-          : '';
+        const { control, value, disabled, dividerLabel } = prepareControlField(rawControl, inDuoGroup);
         const field = WARDROBE_PICKER_KEYS.has(control.key) ? (
           <WardrobePickerField
             control={control}
@@ -1296,18 +1303,32 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     />;
   };
 
-  const renderPhotographyControls = () => (
-    <div className="control-section">
-      <div className="control-section-header">
-        <div>
-          <div className="control-section-title">Photography & Rendering</div>
-          <p className="workspace-panel-copy">{resolvedActiveSubpanel?.description || '在這裡整理攝影師語氣、構圖視角、鏡頭光學與成像模擬。'}</p>
-        </div>
-        {renderSectionActionButtons()}
-      </div>
-      {renderControlGrid(filterControlsByKeys(coreLockControls, resolvedActiveSubpanel?.keys || []))}
-    </div>
-  );
+  const renderPhotographyControls = () => {
+    const fields = filterControlsByKeys(coreLockControls, PHOTOGRAPHY_EDITOR_GROUPS.flatMap(group => group.keys))
+      .map(control => prepareControlField(control));
+    const model = buildPhotographyEditorModel(fields, {
+      fixedSet: selectedFixedCompositionSetOption,
+      handLocksOrbit: selectedPoseHandLocksOrbit,
+    });
+    return <PhotographyControls
+      model={model}
+      onChange={applyControlValue}
+      onCopy={(control, text) => handleCopyText(`${control.label} copied`, text)}
+      onAction={(groupId, action) => {
+        const keys = model.groups.find(group => group.id === groupId)?.actionKeys || [];
+        if (!keys.length) return;
+        updateLocks(prev => action === 'reset'
+          ? { ...prev, ...Object.fromEntries(keys.map(key => [key, clearedLocks[key]])) }
+          : action === 'none'
+          ? setLockKeysToNone(prev, keys, lockControls)
+          : randomizeLockKeys(prev, keys, clearedLocks, lockControls));
+      }}
+      onShowScene={() => {
+        setActiveSection('scene');
+        setActiveSubpanels(prev => ({ ...prev, scene: 'fixed' }));
+      }}
+    />;
+  };
 
   const renderWardrobeGroup = (group, prepared, role = '') => {
     const prefix = role ? `人物${role === 'A' ? 1 : 2}・` : '';
@@ -1692,11 +1713,11 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
           >
             <div className="page1-editor-header">
               <div>
-                <div className="lock-title">{activeSectionConfig.label} {isDuoMode && ['pose', 'scene', 'photography'].includes(activeSection) ? <span className="page1-section-chip">雙人共用</span> : null}</div>
+                <div className="lock-title">{activeSectionConfig.label} {activeSection === 'photography' ? <span className="page1-section-chip">{fixedCompositionSetActive ? '固定構圖' : '一般場景'}</span> : null} {isDuoMode && ['pose', 'scene', 'photography'].includes(activeSection) ? <span className="page1-section-chip">雙人共用</span> : null}</div>
               </div>
             </div>
 
-            {activeSection !== 'scene' ? <div className="page1-subpanel-tabs">
+            {!['scene', 'photography'].includes(activeSection) ? <div className="page1-subpanel-tabs">
               {sectionSubpanels.map((panel) => {
                 const disabled = (activeSection === 'pose' && isPage1PoseSubpanelDisabled(panel, locks.subjectCount))
                   || (activeSection === 'scene' && supineSurfaceOnly && panel.id === 'visible-text');

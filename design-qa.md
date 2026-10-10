@@ -92,3 +92,98 @@ Implementation：既有 `http://127.0.0.1:5175/Virtual_Photography_Studio/` 開�
 - [x] 來源圖與最終內容区同一輸入比較，無未解決 P0／P1／P2。
 
 限制：驗證針對本機 IAB 與已檢查狀態；不是遠端部署、其他瀏覽器或真實生成影像的驗收。
+
+---
+
+# 攝影成像四卡片 UI 驗證
+
+日期：2026-10-10
+
+final result: passed
+
+## 核准目標與變更範圍
+
+依使用者核准的一般場景與固定構圖示意圖，將 E 攝影成像整合為四張同頁卡片：成品類型、構圖與視角、鏡頭與光學、風格與成像。保留原十個 control keys、選項順序與完整名稱、英文複製來源、必要欄位、隨機／全無、固定構圖及自拍管理規則。沒有新增平行 storage 或修改 Prompt renderer。
+
+本次程式檔案：
+
+- `webapp/src/components/Page1Workspace.jsx`：攝影介面整合；原欄位準備流程共用，其他 renderer 沿用原結果。
+- `webapp/src/components/PhotographyControls.jsx`：四卡片、快捷選項、摘要、管理提示及場景入口。
+- `webapp/src/features/page1/photographyEditor.js`：唯讀介面 model 與各卡片可操作 keys。
+- `webapp/src/features/page1/photographyEditor.css`：攝影區專用、日夜 tokens 及響應配置。
+- `webapp/src/features/page1/photographyEditor.test.js`：14 個聚焦回歸案例。
+
+## 視覺目標與最終證據
+
+兩張核准的來源圖：
+
+- 一般場景：`/Users/cooperfu/.codex/generated_images/01a0cba8-2f6d-7423-a0d2-fa7e6bc5f563/exec-c279aabf-e6b7-4188-a274-dd08eaa3df70.png`
+- 固定構圖：`/Users/cooperfu/.codex/generated_images/01a0cba8-2f6d-7423-a0d2-fa7e6bc5f563/exec-6b785d70-e651-406a-95c7-8b1e4537862f.png`
+
+來源圖為 1422 × 1106 的配置示意。實作使用既有 5175 服務，桌面 viewport 1440 × 1120、手機 390 × 844，DOM 回報 devicePixelRatio=1。全頁脈絡截圖與四卡片內容區均與來源圖同次輸入比較；固定構圖另比較來源圖、完整脈絡及內容區。未將來源圖當作要匯入的產品圖片資產。
+
+最終證據資料夾：
+
+`/Users/cooperfu/.codex/visualizations/2026/09/23/01a0cba8-2f6d-7423-a0d2-fa7e6bc5f563/photography-ui/`
+
+| 證據 | 狀態／範圍 | 實際圖片像素 |
+| --- | --- | --- |
+| `ordinary-top.jpg` | 桌面一般場景，包含工作台脈絡 | 1425 × 1108 |
+| `fixed-top.jpg` | 桌面固定構圖，包含工作台脈絡 | 1425 × 1108 |
+| `ordinary-desktop.jpg` | 單人一般場景，完整 E 區 | 776 × 911 |
+| `fixed-desktop.jpg` | 海邊坡道平交道，完整 E 區 | 776 × 1051 |
+| `ordinary-mobile.jpg` | 手機一般場景，完整 E 區 | 327 × 1857 |
+| `fixed-mobile.jpg` | 手機固定構圖，完整 E 區 | 327 × 1972 |
+| `fixed-desktop-dark.jpg` | 深色固定構圖，完整 E 區 | 776 × 1051 |
+| `fixed-mobile-dark.jpg` | 深色手機固定構圖，完整 E 區 | 327 × 1972 |
+| `duo-desktop.jpg` | 雙人共用配置，完整 E 區 | 890 × 911 |
+| `duo-mobile.jpg` | 手機雙人共用配置，完整 E 區 | 327 × 1857 |
+
+圖片由瀏覽器直接擷取。內容區依 DOM 矩形裁切，沒有放大、重畫或修改像素。backend 實際回傳 JPEG，證據以正確副檔名保存；完整畫面像素與要求的 viewport 略有差異，以 DOM viewport 與各圖實際尺寸分別記錄。
+
+## 比較結果與迭代
+
+最終沒有未解決的 P0／P1／P2 問題；第二位代理另外唯讀巡查四張 E 圖與其他工作區八張圖，亦未發現阻擋問題。
+
+| 表面 | 比較與處理 |
+| --- | --- |
+| 結構與順序 | 四張卡片順序與核准設計一致；成品與景別直接選取，pitch／orbit 在景別下方，四項鏡頭欄位為雙欄，風格與成像保留獨立控制。 |
+| 桌面密度 | 初版成品 3 × 2 與較大內距讓卡片偏高。容器 ≥600px 的成品改一排六項；桌面內距、操作列與欄位間距縮減。最終一般卡片高度為 122／302.5／243／149.5px，保留可讀字級與現有完整選項名稱。 |
+| 字體與階層 | 沿用系統字型；E 標題桌面20px、卡片標題18px、欄位與摘要12px、選項13px。長景別英文及風格摘要可換行；手機原生選單的可見寬度有限，完整選中名稱仍由摘要與原生選項提供。 |
+| 色彩與圖示 | 沿用既有 surface／text／border／accent tokens，淺色與深色皆可讀；選中藍色、勾選、Copy 與鎖頭使用 Lucide。沒有插畫或攝影資產，沒有自繪圖片替代物。 |
+| 固定管理 | 每個受管理欄位顯示值、場景／自拍管理與原因；入口連回 D 的固定場景設定。實作顯示真正限制，沒有為 generic fixed 場景虛構焦段、景別或方向。 |
+| 手機與鍵盤 | ≤700px 欄位單欄、快捷選項兩欄；可操作按鈕 ≥44px高，選項48px。原生選單可操作，focus-visible 邊框可辨識；中文長摘要與場景入口正常分行。 |
+
+另外補強固定場景允許 orbit、但自拍手部鎖住 orbit 的提示 fallback；場景本身管理時仍保留場景優先。摘要使用 prepared effective value，頭部主導近景不會顯示隱藏的無效角度。
+
+## 操作與狀態驗證
+
+互動使用獨立 origin `http://photography-ui-20261010.localhost:5175/Virtual_Photography_Studio/`，避免改寫使用者 127.0.0.1 與既有 localhost 的設定／收藏。原 127.0.0.1 分頁已顯示 HMR 後的 E 區；各狀態則在同一服務的獨立 origin 操作。
+
+- 一般場景十欄、六種成品與景別、選中標記、英文 Copy 成功提示、成品重設預設。
+- 構圖與鏡頭的隨機／清空只改各組可操作 keys；風格、成像與其他組設定保留。
+- 頭部主導近景：蟲眼角度投影為全無、七個不相容角度停用；切回全身恢復原蟲眼角度。
+- 海邊坡道平交道與海邊階梯小巷：景別、俯仰、環繞、焦段、光學五欄管理，光圈／快門／風格／成像可調。
+- 紐約地鐵月台：景別及光學管理，保留 pitch／lens 與原「人物面向（場景取景方向固定）」選項。
+- 正面長椅車廂：orbit／光學管理；側面走道保留四方向，不提供全無／隨機；擁擠車廂保留八方向及全無／隨機。其餘原可調項目保留。
+- 普通場景與清水模沙發場景的自然自拍：orbit 顯示自拍管理原因，不誤標為場景管理。
+- 查看場景設定入口到 D 固定區、返回 E；單人／雙人切換後顯示雙人共用，單人固定場景的保留值不接管雙人。
+- 在獨立 origin 保存一張測試收藏，改成水彩後套用該卡：寫實攝影、海邊固定來源及光圈／快門／風格／成像成功還原。
+- 五個工作區在桌面及手機完成載入與畫面巡查；角色圖片正常，沒有新增破圖、重疊或裁切。
+- 最終版本在360／390／700／701／820／821／1100／1101／1440px檢查欄位與 document 寬度，全數沒有意外橫向溢出。長頁的垂直捲動為刻意保留。
+- 淺色與深色、單人與雙人、一般及受限狀態截圖已保存。瀏覽器 error／warn 查詢為空，未觀察到新執行錯誤。
+
+細部 DOM 記錄：`browser-evidence.json`。其他四工作區桌面／手機脈絡截圖在 `/tmp/vps-photography-ui-qa/` 的 `workspace-*`／`mobile-workspace-*`；它們是可見範圍巡查，不宣稱每個其他工作區的所有折線以下狀態都重新驗收。
+
+## 自動驗證、既有環境差異與交付界線
+
+- 攝影、場景、selectors、camera labels、random、head-dominant、station及carriage聚焦檢查：72／72通過。
+- 完整 `npm test`，明確使用專案／CI 的 Node22.22.3：1,436／1,436通過，fail／skip／cancel皆0，215.397秒。
+- 最終 `npm run lint`、`npm run build`：exit0。既有Vite大型chunk提示保留。
+- `git diff --check`：通過。
+- 初次完整套件被登入shell選到Homebrew Node25.8.2；兩項既有runner自測只因spec reporter輸出與TAP文字斷言不符而失敗。HEAD `0d4ba7e` 在獨立暫存來源重現同樣問題；Node22以及Node25明確TAP都通過。沒有修改runner或縮減測試範圍，改用正確runtime重跑完整套件。
+- 日誌：`/tmp/vps-photography-ui-qa/full-tests-node22.log`、`lint-final.log`、`build-final.log`。
+
+現有 current-state／provider文件、服裝來源／metadata／generated database／測試及未追蹤參考資料保持原狀。本次沒有 stage、commit、push、部署或付費生圖。獨立測試分頁已結束、viewport override已重設，原5175服務及使用者分頁保留。
+
+限制：此驗證涵蓋本機 IAB、列出的 viewport 與流程；不是其他瀏覽器、遠端部署或生成影像的驗收。

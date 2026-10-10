@@ -1,0 +1,409 @@
+.page1-workspace-shell .page1-editor[data-active-section='photography'] {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.page1-workspace-shell .page1-editor[data-active-section='photography'] > .page1-editor-header {
+  margin-bottom: 0;
+}
+
+.photography-editor {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  container-type: inline-size;
+}
+
+.photography-editor .photography-editor-card {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid var(--border-muted);
+  border-radius: 14px;
+  background: var(--surface-translucent);
+}
+
+.photography-editor .photography-editor-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  min-width: 0;
+  margin-bottom: 16px;
+}
+
+.photography-editor .photography-editor-card-heading {
+  display: flex;
+  align-items: center;
+  flex: 1 1 220px;
+  flex-wrap: wrap;
+  gap: 5px 10px;
+  min-width: 0;
+}
+
+.photography-editor h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 18px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.photography-editor .photography-editor-summary {
+  flex: 1 1 180px;
+  min-width: 0;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.photography-editor .photography-editor-group-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: 100%;
+}
+
+.photography-editor .photography-editor-group-actions button {
+  min-width: 0;
+  min-height: 44px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.photography-editor .photography-editor-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-width: 0;
+  min-height: 44px;
+  padding: 8px 0;
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: normal;
+}
+
+.photography-editor .photography-editor-link:hover {
+  background: transparent;
+  color: var(--accent-hover);
+}
+
+.photography-editor .photography-editor-link svg {
+  flex-shrink: 0;
+}
+
+.photography-editor .photography-editor-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  min-width: 0;
+}
+
+.photography-editor .photography-editor-field-slot,
+.photography-editor .photography-editor-select-field,
+.photography-editor .field,
+.photography-editor .field-heading-row,
+.photography-editor .field-control-row,
+.photography-editor .photography-editor-quick-field {
+  min-width: 0;
+}
+
+.photography-editor .photography-editor-field-slot--full {
+  grid-column: 1 / -1;
+}
+
+.photography-editor .field-heading-row {
+  flex-wrap: nowrap;
+  gap: 6px;
+}
+
+.photography-editor .field-heading-row > span {
+  min-width: 0;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.photography-editor .photography-editor-copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-width: 28px;
+  min-height: 28px;
+  padding: 5px;
+}
+
+.photography-editor select {
+  max-width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  font-size: 13px;
+}
+
+.photography-editor .photography-editor-quick-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 0;
+  margin-bottom: 8px;
+}
+
+.photography-editor .photography-editor-quick-heading > span {
+  color: var(--text-label);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.photography-editor .photography-editor-quick-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.photography-editor .photography-editor-small-choice {
+  min-width: 0;
+  min-height: 44px;
+  padding: 8px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.photography-editor .photography-editor-choices {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  min-width: 0;
+}
+
+.photography-editor .photography-editor-choice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  gap: 5px;
+  min-width: 0;
+  min-height: 48px;
+  padding: 10px 9px;
+  border-radius: 9px;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: normal;
+}
+
+.photography-editor .photography-editor-choice > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.photography-editor .photography-editor-choice svg {
+  flex-shrink: 0;
+}
+
+.photography-editor .photography-editor-choice-active,
+.photography-editor .photography-editor-small-choice-active {
+  border-color: var(--accent);
+  background: var(--surface-selected);
+  color: var(--accent);
+}
+
+.photography-editor .photography-editor-choice-active:hover,
+.photography-editor .photography-editor-small-choice-active:hover {
+  border-color: var(--accent-hover);
+  background: var(--surface-selected);
+  color: var(--accent-hover);
+}
+
+.photography-editor .photography-editor-fixed-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  min-width: 0;
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  border-radius: 9px;
+  background: var(--accent-soft);
+}
+
+.photography-editor .photography-editor-fixed-notice > div {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.photography-editor .photography-editor-fixed-notice strong {
+  color: var(--text-primary);
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.photography-editor .photography-editor-fixed-notice p {
+  margin: 3px 0 0;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.photography-editor .photography-editor-managed-value {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  min-width: 0;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-muted);
+  border-radius: 9px;
+  background: var(--surface-control);
+}
+
+.photography-editor .photography-editor-managed-value > span:first-child {
+  flex: 1 1 120px;
+  min-width: 0;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.photography-editor .photography-editor-management-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.photography-editor .photography-editor-management-badge svg {
+  flex-shrink: 0;
+}
+
+.photography-editor .photography-editor-field-note {
+  display: block;
+  margin-top: 5px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.photography-editor button:focus-visible,
+.photography-editor select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@container (max-width: 400px) {
+  .photography-editor .photography-editor-choices {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container (min-width: 600px) {
+  .photography-editor .photography-editor-card--image-type .photography-editor-choices {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 701px) {
+  .page1-workspace-shell .page1-editor[data-active-section='photography'] .lock-title {
+    font-size: 20px;
+    line-height: 1.5;
+  }
+
+  .photography-editor .photography-editor-card {
+    padding: 16px;
+  }
+
+  .photography-editor .photography-editor-card-header {
+    margin-bottom: 12px;
+  }
+
+  .photography-editor .photography-editor-group-actions button,
+  .photography-editor .photography-editor-small-choice,
+  .photography-editor .photography-editor-link {
+    min-height: 32px;
+    padding: 6px;
+  }
+
+  .photography-editor .photography-editor-choice {
+    min-height: 44px;
+    padding: 8px 9px;
+  }
+
+  .photography-editor .field {
+    gap: 6px;
+  }
+
+  .photography-editor .photography-editor-fields {
+    gap: 12px;
+  }
+
+  .photography-editor .photography-editor-copy,
+  .photography-editor .control-copy-icon-btn {
+    min-width: 24px;
+    min-height: 24px;
+    width: 24px;
+    height: 24px;
+    padding: 4px;
+  }
+
+  .photography-editor select {
+    min-height: 40px;
+  }
+}
+
+@media (max-width: 700px) {
+  .photography-editor {
+    gap: 14px;
+  }
+
+  .photography-editor .photography-editor-card {
+    padding: 16px;
+  }
+
+  .photography-editor .photography-editor-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .photography-editor .photography-editor-choices,
+  .photography-editor .photography-editor-card--image-type .photography-editor-choices {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .photography-editor .photography-editor-card-heading {
+    flex-basis: 100%;
+  }
+
+  .photography-editor .photography-editor-card-header {
+    gap: 8px;
+  }
+
+  .photography-editor .photography-editor-copy,
+  .photography-editor .control-copy-icon-btn {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
