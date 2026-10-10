@@ -85,6 +85,13 @@
     }
   },
   "Wardrobe": {
+    "連身 (Dresses)": {
+      "短版｜亮面乳膠拉鏈洋裝": {
+        "legacyPromptAliases": [
+          "glossy latex collared short-sleeve mini dress, one-piece bodycon silhouette, smooth reflective surface, tone-on-tone center-front zipper from collar through the skirt, zipper opened down below the navel by default, exposing the cleavage and a vertical strip of bare skin along the abdomen, with the navel area left visible for a navel piercing, main latex color controlled by dress color selection"
+        ]
+      }
+    },
     "上身 (Tops)": {
       "襯衫": {
         "legacyIds": [
