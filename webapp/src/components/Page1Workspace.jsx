@@ -18,6 +18,16 @@ import MidjourneyParameterControls from './MidjourneyParameterControls';
 import PromptPreviewCard from './PromptPreviewCard';
 import { PROMPT_APPENDICES, appendPromptInstruction } from '../lib/promptAppendices.js';
 import ZImageVisibleTextControls from './ZImageVisibleTextControls';
+import SceneEnvironmentControls from './SceneEnvironmentControls';
+import SceneLocationField from './SceneLocationField';
+import {
+  SCENE_EDITOR_FIELD_LABELS,
+  getSceneEditorActionKeys,
+  fixedSceneOptionMatchesSet,
+  getSceneEditorSource,
+  getFixedSceneDetailKeys,
+  getFixedSceneCameraStatus,
+} from '../features/page1/sceneEditor.js';
 import {
   DRESS_COVERED_KEYS,
   OUTFIT_PRESET_A_COVERED_KEYS,
@@ -694,7 +704,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     character: 'identity',
     pose: 'single',
     wardrobe: 'overall',
-    scene: 'fixed',
+    scene: getSceneEditorSource(locks, lockControls).id,
     photography: 'composition',
     midjourney: 'generation',
   });
@@ -778,15 +788,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const fixedCompositionSetControl = lockControls.find((control) => control.key === 'fixedCompositionSetId');
   const getFixedCompositionSetOption = (id) => fixedCompositionSetControl?.options?.find((option) => option.id === id) || null;
   const selectedFixedCompositionSetOption = fixedCompositionSetActive ? getFixedCompositionSetOption(selectedFixedCompositionSetId) : null;
-  const fixedSetScopedOptionMatchesSet = (option, fixedSetOption) => {
-    if (!option || option.id === 'none') return true;
-    if (!fixedSetOption) return false;
-    if (option.setId === fixedSetOption.id) return true;
-    if (Array.isArray(option.setIds) && option.setIds.includes(fixedSetOption.id)) return true;
-    return Boolean(option.setGroupId && fixedSetOption.setGroupId && option.setGroupId === fixedSetOption.setGroupId);
-  };
-  const fixedSetPositionMatchesSet = (position, fixedSetOption) => fixedSetScopedOptionMatchesSet(position, fixedSetOption);
-  const fixedSetBackgroundStateMatchesSet = (state, fixedSetOption) => fixedSetScopedOptionMatchesSet(state, fixedSetOption);
+  const fixedSetPositionMatchesSet = fixedSceneOptionMatchesSet;
+  const fixedSetBackgroundStateMatchesSet = fixedSceneOptionMatchesSet;
   const fixedSetAllowsCameraVariation = Boolean(selectedFixedCompositionSetOption) && selectedFixedCompositionSetOption.allowsCameraVariation !== false;
   const wardrobeLayerInsights = useMemo(
     () => buildWardrobeLayerInsights(locks, wardrobeLockControls, isSpecialOutfitActive, isAnyOutfitPresetActive),
@@ -1211,6 +1214,14 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
             onChange={(value) => applyControlValue(control, value)}
             onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
           />
+        ) : activeSection === 'scene' && control.key === 'locationId' ? (
+          <SceneLocationField
+            control={control}
+            value={value}
+            disabled={disabled}
+            onChange={(value) => applyControlValue(control, value)}
+            onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
+          />
         ) : (
           <SelectControlField
             control={control}
@@ -1237,50 +1248,53 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     </div>
   );
 
-  const structuralSceneLocked = supineSurfaceOnly && ['fixed', 'space'].includes(resolvedActiveSubpanel?.id);
+  const renderSceneActions = (scope, disabled = false) => {
+    const keys = getSceneEditorActionKeys(scope, Boolean(fixedScenePosition));
+    const panel = SECTION_SUBPANELS.scene.find(item => item.id === scope);
+    const labels = getPage1SectionActionLabels(panel, lockControls);
+    return <div className="page1-section-header-actions">
+      <button type="button" className="secondary page1-section-random-btn" disabled={disabled}
+        title="只隨機化這組欄位；必要欄位與接管型欄位會保留預設狀態。"
+        onClick={() => updateLocks(prev => randomizeLockKeys(prev, keys, createEmptyLocks(), lockControls))}>{labels.random}</button>
+      <button type="button" className="secondary subtle-action page1-section-random-btn" disabled={disabled}
+        title="清空這組可清除欄位；必要欄位會保留預設值。"
+        onClick={() => updateLocks(prev => setLockKeysToNone(prev, keys, lockControls))}>{labels.none}</button>
+    </div>;
+  };
 
-  const renderSceneControls = () => resolvedActiveSubpanel?.id === 'visible-text' ? (
-    <ZImageVisibleTextControls
-      settings={locks}
-      onChange={updateLocks}
-    />
-  ) : (
-    <div className="control-section">
-      <div className="control-section-header">
-        <div>
-          <div className="control-section-title">Scene & Environment</div>
-          <p className="workspace-panel-copy">{resolvedActiveSubpanel?.description || '先決定場景、環境與光線，右側會同步反映成目前可直接使用的 Gpt prompt。'}</p>
-        </div>
-        <div className="page1-section-header-actions">
-          {renderSectionRandomButton({ disabled: structuralSceneLocked })}
-          {renderSectionNoneButton({ disabled: structuralSceneLocked })}
-          <button className="secondary reference-trigger-btn" type="button" onClick={() => setIsLightingReferenceOpen(true)}>
-            查看光線定位對照
-          </button>
-        </div>
-      </div>
-      <div className="context-note context-note-compact">
-        <div className="context-note-copy">
-          {supineSurfaceOnly
-            ? '仰躺為表面主導構圖：固定構圖場景、場景基底與額外空景架構固定為全無，只保留環境光線。'
-            : importedWorldSceneActive
-              ? `PAGE3 空景架構已套用：${locks.importedWorldSceneLabel || '未命名世界場景'}。此架構會優先進入三種 PAGE1 prompt，人物、服裝、姿勢仍由 PAGE1 控制。`
-              : '可把目前 PAGE3 的空景建模 profile 套入 PAGE1，作為人像 prompt 的世界場景骨架。'}
-        </div>
-        <div className="page1-section-header-actions">
-          <button className="secondary" type="button" disabled={supineSurfaceOnly} onClick={onApplyPage3WorldSceneArchitecture}>
-            套用 PAGE3 空景架構
-          </button>
-          {importedWorldSceneActive ? (
-            <button className="secondary" type="button" disabled={supineSurfaceOnly} onClick={clearImportedWorldSceneArchitecture}>
-              清除匯入
-            </button>
-          ) : null}
-        </div>
-      </div>
-      {renderControlGrid(filterControlsByKeys(coreLockControls, resolvedActiveSubpanel?.keys || []))}
-    </div>
-  );
+  const renderSceneControls = () => {
+    const source = getSceneEditorSource(locks, lockControls, supineSurfaceOnly);
+    const panelId = ['space', 'fixed', 'imported'].includes(activeSubpanels.scene) ? activeSubpanels.scene : 'space';
+    return <SceneEnvironmentControls
+      panelId={panelId}
+      onPanelChange={id => setActiveSubpanels(prev => ({ ...prev, scene: id }))}
+      sourceLabel={source.label}
+      sourceName={source.name}
+      isDuoMode={isDuoMode}
+      supineSurfaceOnly={supineSurfaceOnly}
+      fixedActive={fixedCompositionSetActive}
+      onReleaseFixed={() => applyControlValue(fixedCompositionSetControl, 'none')}
+      fixedDetails={getFixedSceneDetailKeys(selectedFixedCompositionSetOption, lockControls, Boolean(fixedScenePosition))}
+      cameraStatus={getFixedSceneCameraStatus(selectedFixedCompositionSetOption)}
+      poseStatus={fixedScenePosition ? '姿勢、拍攝型態與演出狀態由人物位置管理。' : ''}
+      renderFields={keys => renderControlGrid(filterControlsByKeys(coreLockControls, keys).map(control => ({
+        ...control, displayLabel: SCENE_EDITOR_FIELD_LABELS[control.key] || control.label,
+      })))}
+      renderActions={renderSceneActions}
+      onShowLightingReference={() => setIsLightingReferenceOpen(true)}
+      onShowPhotography={() => {
+        setActiveSection('photography');
+        setActiveSubpanels(prev => ({ ...prev, photography: 'composition' }));
+      }}
+      importedActive={importedWorldSceneActive}
+      importedEffective={source.id === 'imported'}
+      importedLabel={locks.importedWorldSceneLabel}
+      onApplyImported={onApplyPage3WorldSceneArchitecture}
+      onClearImported={clearImportedWorldSceneArchitecture}
+      visibleTextEnabled={locks.zImageVisibleTextEnabled}
+      renderVisibleText={() => <ZImageVisibleTextControls settings={locks} onChange={updateLocks} />}
+    />;
+  };
 
   const renderPhotographyControls = () => (
     <div className="control-section">
@@ -1613,7 +1627,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
                     setActiveSection(section.id);
                     setActiveSubpanels((prev) => ({
                       ...prev,
-                      [section.id]: prev[section.id] || SECTION_SUBPANELS[section.id]?.[0]?.id || '',
+                      [section.id]: section.id === 'scene' && activeSection !== 'scene'
+                        ? (getSceneEditorSource(locks, lockControls, supineSurfaceOnly).id === 'surface' ? 'space' : getSceneEditorSource(locks, lockControls).id)
+                        : prev[section.id] || SECTION_SUBPANELS[section.id]?.[0]?.id || '',
                     }));
                   }}
                 >
@@ -1680,7 +1696,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
               </div>
             </div>
 
-            <div className="page1-subpanel-tabs">
+            {activeSection !== 'scene' ? <div className="page1-subpanel-tabs">
               {sectionSubpanels.map((panel) => {
                 const disabled = (activeSection === 'pose' && isPage1PoseSubpanelDisabled(panel, locks.subjectCount))
                   || (activeSection === 'scene' && supineSurfaceOnly && panel.id === 'visible-text');
@@ -1697,7 +1713,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
                   </button>
                 );
               })}
-            </div>
+            </div> : null}
             {renderEditorPanel()}
           </section>
 

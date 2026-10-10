@@ -1,0 +1,444 @@
+.scene-editor {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+
+.scene-editor-source-status {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+}
+
+.scene-editor-source-copy {
+  min-width: 0;
+}
+
+.scene-editor-source-copy p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.scene-editor-source-copy strong {
+  color: var(--text-primary);
+}
+
+.scene-editor-source-name {
+  display: block;
+  margin-top: 3px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.scene-editor-badge {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 3px 9px;
+  border: 1px solid var(--border-muted);
+  border-radius: 999px;
+  background: var(--surface-control);
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.scene-editor-source-nav {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  min-width: 0;
+}
+
+.scene-editor .scene-editor-source-button {
+  min-width: 0;
+  min-height: 44px;
+  padding: 10px 8px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.scene-editor .scene-editor-source-button-active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.scene-editor .scene-editor-source-button-active:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.scene-editor-card {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid var(--border-muted);
+  border-radius: 14px;
+  background: var(--surface-translucent);
+}
+
+.scene-editor-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-width: 0;
+  margin-bottom: 16px;
+}
+
+.scene-editor h3,
+.scene-editor h4 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.scene-editor-card > h4 {
+  margin-bottom: 14px;
+}
+
+.scene-editor .page1-section-header-actions {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.scene-editor .page1-section-header-actions button,
+.scene-editor-import-actions button {
+  min-width: 0;
+  min-height: 36px;
+  padding: 7px 11px;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.scene-editor-fields,
+.scene-editor-fields .field,
+.scene-editor-fields .field-heading-row {
+  min-width: 0;
+}
+
+.scene-editor .scene-editor-fields .lock-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+}
+
+.scene-editor .scene-editor-fields--base .lock-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.65fr);
+}
+
+.scene-editor .scene-editor-fields--single .lock-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.scene-editor-fields--fixed-details {
+  margin-top: 14px;
+}
+
+.scene-editor-switch-note {
+  margin: 0 0 12px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.scene-editor-release-fixed {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 0;
+  margin-bottom: 12px;
+}
+
+.scene-editor-release-fixed .scene-editor-switch-note {
+  flex: 1 1 220px;
+  min-width: 0;
+  margin: 0;
+}
+
+.scene-editor-release-fixed button {
+  min-width: 0;
+  min-height: 36px;
+  padding: 7px 11px;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.scene-editor-pose-status {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 14px 0 0;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.scene-editor-pose-status svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.scene-editor-fields select,
+.scene-editor-fields button {
+  max-width: 100%;
+}
+
+.scene-editor-camera-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-muted);
+}
+
+.scene-editor-camera-status p {
+  display: flex;
+  align-items: flex-start;
+  flex: 1 1 220px;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.scene-editor-camera-status p svg,
+.scene-editor-notice > svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.scene-editor .scene-editor-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 36px;
+  padding: 6px 0;
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.scene-editor-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+  padding: 16px 18px;
+  border: 1px solid var(--border-muted);
+  border-radius: 14px;
+  background: var(--surface-subtle);
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.scene-editor-notice strong {
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.scene-editor-notice p {
+  margin: 5px 0 0;
+}
+
+.scene-editor-card-copy {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.scene-editor-import-name {
+  margin: 0 0 8px;
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.scene-editor-import-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.scene-editor-lighting {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
+
+.scene-editor-lighting > .scene-editor-card-header {
+  margin-bottom: 0;
+}
+
+.scene-editor-light-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  min-width: 0;
+}
+
+.scene-editor .scene-editor-light-reference {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.scene-editor-visible-text {
+  min-width: 0;
+  border: 1px solid var(--border-muted);
+  border-radius: 14px;
+  background: var(--surface-translucent);
+}
+
+.scene-editor-visible-text > summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  min-height: 56px;
+  padding: 14px 18px;
+  list-style: none;
+  cursor: pointer;
+}
+
+.scene-editor-visible-text > summary::-webkit-details-marker {
+  display: none;
+}
+
+.scene-editor-visible-text-heading {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-width: 0;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.scene-editor-visible-text-state {
+  flex-shrink: 0;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.scene-editor-details-chevron {
+  flex-shrink: 0;
+  color: var(--text-secondary);
+}
+
+.scene-editor-visible-text[open] .scene-editor-details-chevron {
+  transform: rotate(180deg);
+}
+
+.scene-editor-visible-text-content {
+  padding: 0 18px 18px;
+}
+
+.scene-editor-visible-text .z-image-visible-text-section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.scene-editor-visible-text .z-image-visible-text-section .control-section-header {
+  flex-wrap: wrap;
+}
+
+.scene-editor button:focus-visible,
+.scene-editor summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 700px) {
+  .scene-editor {
+    gap: 16px;
+  }
+
+  .scene-editor-card {
+    padding: 16px;
+  }
+
+  .scene-editor .scene-editor-fields--base .lock-grid,
+  .scene-editor .scene-editor-fields--fixed-details .lock-grid,
+  .scene-editor-light-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .scene-editor-card-header {
+    align-items: flex-start;
+  }
+
+  .scene-editor-source-nav {
+    gap: 6px;
+  }
+
+  .scene-editor .scene-editor-source-button {
+    padding: 9px 5px;
+    font-size: 12px;
+  }
+
+  .scene-editor-visible-text > summary {
+    padding: 14px 16px;
+    gap: 7px;
+  }
+
+  .scene-editor-visible-text-heading {
+    gap: 6px;
+  }
+
+  .scene-editor-visible-text-content {
+    padding: 0 16px 16px;
+  }
+}
