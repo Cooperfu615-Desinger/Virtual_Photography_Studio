@@ -34,7 +34,7 @@ flowchart LR
     M --> N
 ```
 
-The default-library path compiles the runtime once and reuses it. A custom-library overlay follows the same pipeline but is recompiled per request so local changes cannot reuse stale catalog data.
+The default-library path compiles the runtime once and reuses it. An ordinary custom-library overlay follows the same pipeline but is recompiled per request so local changes cannot reuse stale catalog data. Explicitly prepared immutable historical test catalogs can reuse their runtime by identity, as described below.
 
 ## Module Ownership
 
@@ -42,7 +42,7 @@ The default-library path compiles the runtime once and reuses it. A custom-libra
 | --- | --- |
 | `webapp/src/lib/engine.js` | Public engine API, catalog compilation, compatibility rules, selection resolution, character/wardrobe orchestration, and prompt renderers |
 | `webapp/src/lib/engineRandom.js` | Seed hashing, deterministic PRNG creation, and production fallback to `Math.random` |
-| `webapp/src/lib/engine/runtimeCache.js` | Default-runtime memoization and recursive freezing |
+| `webapp/src/lib/engine/runtimeCache.js` | Default-runtime memoization, explicit immutable-library preparation, and recursive freezing |
 | `webapp/src/lib/engine/promptModel.js` | Ordered prompt sections plus grouped label lookup used by renderers |
 | `webapp/src/lib/engine/promptOutputContracts.js` | Machine-readable public contracts and validation for Gpt, Grok/Z-Image, AI, structured chest-up, native MJ chest-up, and full-body character outputs; retired facial metadata remains compatibility-only |
 | `webapp/src/lib/engine/representativePromptFixtures.js` | Seeded normal, character-card, special-outfit, duo, fixed-set, close-up, and full-body regression scenarios |
@@ -87,10 +87,20 @@ The module is intentionally separate from `poseComposerOptions.js` so option dat
 
 1. `getEngineRuntime()` and `getEngineRuntime([])` reuse the same default runtime.
 2. The cached default runtime is deeply frozen to prevent accidental mutation of catalog or control state.
-3. A non-empty array or object custom library is compiled on every call.
-4. Custom-library caching must not be added without a reliable version or invalidation key.
+3. An ordinary non-empty array or object custom library is compiled on every call, including unregistered frozen objects.
+4. `prepareImmutableRuntimeLibrary(library)` is an explicit opt-in for completed plain-data catalogs. It validates all own data descriptors without invoking accessors, then deeply freezes and registers the catalog. Each resolver reuses a registered library's runtime through a WeakMap keyed by its immutable identity; a changed revision requires a new identity. Unsupported mutable object types, functions, symbols and accessors are rejected before freezing begins.
+5. The current opt-in consumer is the Node-only `PRE_HOURGLASS_BODY_CATALOG` historical test helper. Production UI custom libraries are not registered and retain per-call compilation. A failed compilation is not cached.
+6. Custom-library caching must not be added without a reliable version or invalidation key; an explicitly validated, deeply immutable identity provides that key for the historical test path.
 
 The cache removes repeated catalog parsing, legacy-ID application, metadata inference, option flattening, and lock-control construction from normal prompt generation.
+
+### Historical matrix test orchestration (2026-10-10)
+
+`npm test` and `npm run test:prompt-quality` use `scripts/run_webapp_tests.mjs` with their original file selections. When all three overlapping scene suites are selected, the runner replaces their entries with `historicalSceneMatrices.test.js`, which imports the unchanged original tests into one native test process. Other files retain native process isolation; selecting only one or two original files retains that focused scope.
+
+Only the combined entry enables process-local historical fixture memoization. Results are keyed by fixture identity and an input fingerprint, cloned on return, and discarded after the suite. A changed seed or nested lock regenerates the fixture, and failures are never cached. No generated results persist on disk or between runs. All original assertions, fixture order, output hashes, selection hashes and RNG checks remain active. The three matrices still validate 5,614, 6,320 and 6,370 rows; their 18,304 row uses share 6,370 generated fixtures.
+
+See [test execution efficiency and CI audit](test-execution-efficiency-v1.md) for measurements and failure diagnosis.
 
 ## Randomness and Reproduction
 

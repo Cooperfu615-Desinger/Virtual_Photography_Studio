@@ -7,6 +7,8 @@ import { POSE_COMPOSER_ANCHOR_OPTIONS, POSE_COMPOSER_HAND_OPTIONS } from './pose
 import { normalizeZImageOnLocationForLegacy } from './zImageOnLocationTestSupport.js';
 import { LEGACY_BODY_CATALOG_ITEMS, generateLegacyBodyPrompts } from './bodyTypeLegacyTestSupport.js';
 import { normalizeShibuyaPromptForLegacy } from './shibuyaSceneTestSupport.js';
+import { prepareImmutableRuntimeLibrary } from './runtimeCache.js';
+import { createHistoricalFixtureMemo } from './historicalFixtureMemoTestSupport.js';
 
 export const OUTPUT_FIELDS = Object.freeze(Object.keys(PROMPT_OUTPUT_CONTRACTS));
 
@@ -15,6 +17,7 @@ export const OUTPUT_FIELDS = Object.freeze(Object.keys(PROMPT_OUTPUT_CONTRACTS))
 export const PRE_HOURGLASS_BODY_CATALOG = getKnowledgeBaseSnapshot();
 PRE_HOURGLASS_BODY_CATALOG.Character['體態 (Body Type)'] = LEGACY_BODY_CATALOG_ITEMS
   .filter((item) => item.zh !== '豐胸纖腰沙漏身形');
+prepareImmutableRuntimeLibrary(PRE_HOURGLASS_BODY_CATALOG);
 
 export function stableValue(value) {
   if (Array.isArray(value)) return value.map(stableValue);
@@ -106,12 +109,31 @@ export function restoreBaselineSelection(baseline, entry) {
 // Historical test matrices may reverse only this rollout's layout before
 // applying their original exact-source assertions. Current behavior and five
 // byte-exact protected outputs are checked in zImageOnLocationCapture.test.js.
-export function runLegacySceneFixture(fixture) {
+function runLegacySceneFixtureUncached(fixture) {
   const result = runSceneFixture(fixture, PRE_HOURGLASS_BODY_CATALOG);
   const outputs = Object.fromEntries(Object.entries(result.outputs).map(([field, text]) =>
     [field, normalizeShibuyaPromptForLegacy(text, field, result.selection)]));
   const zImagePrompt = normalizeZImageOnLocationForLegacy(outputs.zImagePrompt);
   return { ...result, outputs: { ...outputs, zImagePrompt }, prompt: { ...result.prompt, zImagePrompt } };
+}
+
+let historicalSceneMemo = null;
+
+// Only the combined matrix entry enables reuse, for this process/run alone.
+// Direct focused tests keep generating fresh results with the same assertions.
+export function enableHistoricalSceneFixtureMemoization() {
+  const previous = historicalSceneMemo;
+  const memo = createHistoricalFixtureMemo(runLegacySceneFixtureUncached);
+  historicalSceneMemo = memo;
+  const stop = () => {
+    if (historicalSceneMemo === memo) historicalSceneMemo = previous;
+  };
+  stop.statistics = memo.statistics;
+  return stop;
+}
+
+export function runLegacySceneFixture(fixture) {
+  return historicalSceneMemo ? historicalSceneMemo.run(fixture) : runLegacySceneFixtureUncached(fixture);
 }
 
 // Independent oracle: the unchanged GPT projection renders the same resolved
