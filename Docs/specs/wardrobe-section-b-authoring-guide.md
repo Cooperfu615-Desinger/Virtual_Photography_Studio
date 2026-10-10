@@ -166,6 +166,10 @@ Prompt 規則：
 
 2026-10-10「短版｜亮面乳膠拉鏈洋裝」：拉鏈預設敞開至肚臍位置（`zipper opened down to the navel by default`），移除單品自帶的肚臍環描述。肚臍環仍由獨立腰部配件選項決定，不加入禁止配件的負面句。名稱、ID、順序、配色與六組既有投影／精簡規則不變；舊完整英文保留為回填 alias。回歸位於 `engineOutfitPresetDressCleanup.test.js`，包含無配件六輸出、明確選配件及舊來源回填。
 
+同日依實測追加拉鏈結構修訂：以 `a single continuous front opening from the collar down to the navel, with the zipper slider at navel level and the front zipped closed below it` 取代上述預設開合及胸口／腹部露膚片語，明確指定連續開口、拉鏈頭位置與下段閉合。前兩版完整英文均保留為回填 alias；其餘單品來源與 renderer 規則沿用。
+
+追加修訂驗證：服裝回歸 25/25、完整前端 1436/1436、Prompt Quality 593/593、lint/build、資料同步 check、Python 2/2、206 個公開資產及 diff-check 通過。同 seed `200 / prompt-quality-baseline` strict 前後均 blocking 0、22 項既有 diagnostics；僅字數統計隨新版來源微增。完整前端初次執行因兩項未修改的 runner 測試期待 TAP 但收到 spec 格式失敗；單獨 10/10，明確 `NODE_OPTIONS=--test-reporter=tap` 重跑完整套件全數通過，未修改 runner。1440×1000／390×900 隔離瀏覽器確認新版六預覽、舊文字回填、收藏還原與五工作區，無 console/page error、破圖或 document 橫向溢出；截圖 `/tmp/latex-opening-output-{1440,390}.png`。一般單人 MJ 仍沿用既有拉鏈身份精簡，未擴修其開口細節規則；未呼叫外部圖像模型，連續開口的圖像效果仍待使用者實測。
+
 命名規則：
 
 - UI label 使用 `連身：短版｜名稱` 或 `連身：長版｜名稱`。

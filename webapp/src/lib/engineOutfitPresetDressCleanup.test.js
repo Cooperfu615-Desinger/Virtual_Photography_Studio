@@ -615,8 +615,9 @@ test('zippered latex mini dress preserves collared short sleeves and default low
   assert.match(text, /glossy latex collared short-sleeve mini dress/i);
   assert.match(text, /one-piece bodycon silhouette/i);
   assert.match(text, /tone-on-tone center-front zipper from collar through the skirt/i);
-  assert.match(text, /zipper opened down to the navel by default/i);
-  assert.match(text, /exposing the cleavage and a vertical strip of bare skin along the abdomen/i);
+  assert.match(text, /a single continuous front opening from the collar down to the navel/i);
+  assert.match(text, /zipper slider at navel level and the front zipped closed below it/i);
+  assert.doesNotMatch(text, /exposing the cleavage and a vertical strip/i);
   assert.doesNotMatch(text, /navel piercing|臍環/i);
   assert.match(text, /controlled by dress color selection/i);
   assert.doesNotMatch(text, /white|glasses|earrings|stockings|kitchen|coffee maker/i);
@@ -643,8 +644,8 @@ test('zippered latex mini dress uses the shared dress color and single-dress war
   assert.equal(prompt.selection.dressColorId, color.id);
   assert.match(text, /red glossy latex collared short-sleeve(?: mini)? dress/i);
   assert.match(text, /tone-on-tone center-front zipper from collar through the skirt/i);
-  assert.match(text, /zipper opened down to the navel by default/i);
-  assert.match(text, /exposing the cleavage and a vertical strip of bare skin along the abdomen/i);
+  assert.match(text, /a single continuous front opening from the collar down to the navel/i);
+  assert.match(text, /zipper slider at navel level and the front zipped closed below it/i);
   assert.doesNotMatch(text, /navel piercing/i);
   assert.doesNotMatch(text, /short-sleeve T-shirt|denim shorts/i);
   assert.doesNotMatch([prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n'), /main latex color controlled by dress color selection/i);
@@ -661,7 +662,7 @@ test('zippered latex mini dress retains an explicitly selected navel piercing', 
   }, [], { random: createSeededRandom('zippered-latex-dress-navel-visible-v1') });
   const text = allPromptOutputs(prompt);
 
-  assert.match(text, /zipper opened down to the navel by default/i);
+  assert.match(text, /a single continuous front opening from the collar down to the navel/i);
   assert.doesNotMatch(text, /navel area left visible for a navel piercing/i);
   assert.match(text, /round-cut diamond navel piercing at the belly button/i);
   assert.equal(prompt.selection.waistAccessoryId, navelPiercing.id);
@@ -679,7 +680,7 @@ test('zippered latex dress has no built-in piercing across all six outputs and p
     assert.doesNotMatch(text, /navel piercing|below the navel/i, field);
   }
   for (const field of ['grokPrompt', 'zImagePrompt', 'fullBodyCharacterPrompt']) {
-    assert.match(outputs[field], /zipper opened down to the navel by default/i, field);
+    assert.match(outputs[field], /a single continuous front opening from the collar down to the navel, with the zipper slider at navel level and the front zipped closed below it/i, field);
   }
   for (const source of [dress.en, ...dress.meta.legacyPromptAliases]) {
     assert.equal(parseLocksFromStandardPrompt(`Wardrobe: ${source}.`, getLockControls()).locks.dressId, dress.id);
