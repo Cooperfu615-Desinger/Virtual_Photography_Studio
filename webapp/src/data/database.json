@@ -2057,13 +2057,18 @@
       },
       {
         "zh": "領帶襯衫",
-        "en": "collared shirt with a short soft necktie fastened at the collar, neat collar line, clean front placket, uniform-inspired shirt structure",
-        "desc": "以短領帶固定在領口的制服感襯衫為主，領口保持整齊、門襟清楚，不預設衣襬狀態。",
+        "en": "collared shirt with a short soft black necktie fastened at the collar, neat collar line, clean front placket, uniform-inspired shirt structure",
+        "desc": "以固定黑色短領帶繫在領口的制服感襯衫為主，領口保持整齊、門襟清楚，不預設衣襬狀態；上身配色只作用於襯衫布料，不改變領帶。",
         "legacyIds": [
           "wardrobe:上身-tops:緊身襯衫-領帶-紮入下身:12"
         ],
+        "wearableColorTarget": "shirt fabric",
+        "legacyPromptAliases": [
+          "collared shirt with a short soft necktie fastened at the collar, neat collar line, clean front placket, uniform-inspired shirt structure",
+          "collared shirt with a short soft necktie, neat collar line, clean front placket, uniform-inspired shirt structure"
+        ],
         "topUnderbust": {
-          "baseEn": "collared shirt with a short soft necktie fastened at the collar, neat collar line, clean front placket, uniform-inspired shirt structure"
+          "baseEn": "collared shirt with a short soft black necktie fastened at the collar, neat collar line, clean front placket, uniform-inspired shirt structure"
         }
       },
       {

@@ -1,5 +1,7 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
+2026-10-11 領帶襯衫固定黑領帶：一般與胸下短版來源均指定黑色短領帶；上身配色的顏色、圖樣及材質描述只作用於襯衫布料。三主輸出及適用衍生保留同一可見來源，不回補被裁切、閉合外套或完整造型省略的內搭。名稱／ID／順序、隨機池與 storage 不變，舊英文回填 alias 保留。Public contract `1.51.0`，見 [領帶襯衫固定黑領帶 v1](black-tie-shirt-v1.md)。
+
 2026-10-11 鏡子自拍移至道具：`selfie-mirror-phone-visible` 改由 `posePropId` 控制，名稱為「手持手機對鏡自拍」，ID／英文／鏡面與可見手機語意不變。舊 hand lock 遷移、道具互斥與批次保留沿用現有規則；自拍 orbit 及 eligible 主 Z capture 讀有效 hand／prop 動作，避免來源重複。其他兩款自拍、canonical pose、裁切及排除路徑不變。Public contract `1.50.0`，驗證狀態見 [鏡子自拍道具 v1](mirror-selfie-prop-v1.md)。
 
 2026-10-11 主體光線六款新增：追加正面強硬光、機頂直閃、蝴蝶光、倫勃朗光、分割光、下方硬質主光，31 款有效光線＋全無。單一 resolved source 沿用 GPT 完整保留、Z 前兩片語、MJ 既有核心精簡；胸上兩組保留同一選擇，全身角色參考照仍固定均勻光。舊來源／ID／順序、環境光、構圖及 storage 不變；Public contract `1.49.0`，見 [六款人物主光 v1](subject-light-additions-v1.md)。

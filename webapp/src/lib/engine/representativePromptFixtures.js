@@ -16,6 +16,21 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   ...[
+    ['none', '全無', ''],
+    ['red', '紅色', 'shirt fabric in red'],
+    ['chrome', '鏡面鉻銀', 'shirt fabric in mirror-chrome silver with'],
+  ].map(([id, color, target]) => ({
+    id: `black-tie-shirt-${id}`, title: 'Independent tie shirt preserves its fixed black tie and fabric-only swatch',
+    mode: 'single', seed: 'black-tie-shirt-v1',
+    locks: { subjectCount: '1', topId: { byZh: '領帶襯衫' }, topColorId: { byZh: color },
+      topFitId: { byZh: '短版合身' }, framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      outfitPresetId: { byZh: '全無' }, specialOutfitId: { byZh: '全無' }, dressId: { byZh: '全無' },
+      outerwearId: { byZh: '全無' } },
+    expectedOutputs: Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt', 'fullBodyCharacterPrompt']
+      .map(field => [field, { includes: ['short soft black necktie', 'underbust-cropped', ...(target ? [target] : [])],
+        excludes: target ? ['red necktie', 'silver necktie', 'mirror-chrome collared shirt'] : ['shirt fabric in', 'shirt fabric with'] }])),
+  })),
+  ...[
     ['正面強硬光', 'strong hard key light from in front of the subject'],
     ['機頂直閃', 'hard direct flash from near the camera axis'],
     ['蝴蝶光', 'raised frontal butterfly key light on the subject'],

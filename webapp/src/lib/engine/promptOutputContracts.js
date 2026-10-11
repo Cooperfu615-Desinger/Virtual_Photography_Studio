@@ -80,7 +80,16 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.50.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.51.0';
+
+export const BLACK_TIE_SHIRT_CONTRACT = deepFreeze({
+  scope: 'existing independent collared tie shirt only; catalog identity and selection unchanged',
+  source: 'short soft black necktie in both normal and reviewed underbust garment sources',
+  color: 'selected wearable color and finish target shirt fabric only; no selection leaves fabric unspecified',
+  fidelity: 'all applicable outputs retain the visible black tie and the same projected shirt-fabric color source',
+  projection: 'existing crop, closed-outerwear and complete-look visibility remains authoritative',
+  compatibility: 'historical English aliases, stable IDs, single and A/B selections, Saved Cards and storage schemas preserved',
+});
 
 export const MIRROR_SELFIE_PROP_CONTRACT = deepFreeze({
   scope: 'move mirror selfie from hand action to prop action; natural and companion selfies unchanged',

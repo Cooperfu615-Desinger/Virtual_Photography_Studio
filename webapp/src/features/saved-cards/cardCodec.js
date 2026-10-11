@@ -302,6 +302,17 @@ export function findBestOptionMatch(options, normalizedPrompt) {
     .find((entry) => normalizedPrompt.includes(entry.normalizedText))?.option || null;
 }
 
+function findWearableTargetColorMatch(options, prompt, target) {
+  return (options || []).filter(option => option.zh !== '全無').map(option => {
+    const syntax = option.meta?.wearableColorSyntax;
+    const phrase = syntax ? [target, syntax.prefix ? `in ${syntax.prefix}` : '',
+      syntax.detail ? `with ${syntax.detail}` : ''].filter(Boolean).join(' ')
+      : `${target} in ${option.en}`;
+    return { option, phrase: normalizePromptText(phrase) };
+  }).sort((a, b) => b.phrase.length - a.phrase.length)
+    .find(entry => prompt.includes(entry.phrase))?.option || null;
+}
+
 export function parseLocksFromStandardPrompt(promptText, controls) {
   const parsedMidjourneyTail = parseMidjourneyParameterTail(promptText);
   const normalizedPrompt = normalizePromptText(parsedMidjourneyTail.content);
@@ -361,6 +372,27 @@ export function parseLocksFromStandardPrompt(promptText, controls) {
           locks[key] = option.id;
           const index = matchedControls.findIndex(entry => entry.key === key);
           const entry = { key, label: controlMap.get(key)?.label || key, option };
+          if (index >= 0) matchedControls[index] = entry;
+          else matchedControls.push(entry);
+        }
+      }
+      const top = controlMap.get(`top${role}Id`)?.options.find(item => item.id === locks[`top${role}Id`]);
+      // Read only this authored target from each person's new source. The tie's
+      // fixed black detail is not a shirt swatch; historical prose stays on the
+      // existing matcher when it lacks the new fixed-detail source.
+      const colorPrompt = role && firstWoman >= 0 && secondWoman > firstWoman
+        ? role === 'A' ? normalizedPrompt.slice(firstWoman, secondWoman)
+          : normalizedPrompt.slice(secondWoman).split(/\b(?:shared expression:|pose and composition:|scene:|lighting:)/)[0]
+        : topPrompt;
+      if (top?.meta?.wearableColorTarget && /\bshort soft black necktie\b/.test(colorPrompt)) {
+        const key = role ? `top${role}ColorId` : 'topColorId';
+        const colorControl = controlMap.get(key);
+        const color = findWearableTargetColorMatch(colorControl?.options, colorPrompt, top.meta.wearableColorTarget)
+          || colorControl?.options.find(item => item.zh === '全無');
+        if (color) {
+          locks[key] = color.id;
+          const index = matchedControls.findIndex(entry => entry.key === key);
+          const entry = { key, label: colorControl.label, option: color };
           if (index >= 0) matchedControls[index] = entry;
           else matchedControls.push(entry);
         }

@@ -65,6 +65,15 @@ function generateFixture(fixture) {
   })[0];
 }
 
+// Exact test-only inverse for this frozen white-shirt fixture. Current-source
+// black-tie tests validate the new wording; all other description bytes remain.
+function normalizeTieShirtForFrozenFixture(output, fixtureId) {
+  return ['normal-separates', 'half-face-boundary'].includes(fixtureId) ? output.replace(
+    'collared shirt with a short soft black necktie fastened at the collar, shirt fabric in white',
+    'white collared shirt with a short soft necktie',
+  ) : output;
+}
+
 test('section-aware budget model records stable order, immutable sections, and diagnostics', () => {
   const model = createAiPromptSectionModel({
     policyKey: 'normal',
@@ -188,7 +197,7 @@ test('Midjourney native structure freezes every accepted AI description', () => 
     const fixture = AI_PROMPT_LENGTH_FIXTURES.find((entry) => entry.id === fixtureId);
     const output = generateFixture(fixture).midjourneyPrompt;
     assert.equal(
-      createHash('sha256').update(stripMidjourneyParameterTail(normalizeOuterwearCatalogForLegacy(output, 'midjourneyPrompt'))).digest('hex'),
+      createHash('sha256').update(stripMidjourneyParameterTail(normalizeOuterwearCatalogForLegacy(normalizeTieShirtForFrozenFixture(output, fixtureId), 'midjourneyPrompt'))).digest('hex'),
       expectedHash,
       fixtureId
     );

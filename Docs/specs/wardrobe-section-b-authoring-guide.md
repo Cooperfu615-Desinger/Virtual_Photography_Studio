@@ -297,6 +297,8 @@ lace bra top, delicate lace cups, intimate lingerie structure, slim strap detail
 - 特殊上下身配色可以同時指定 top/bottom 的搭配關係，但不要輸出技術色值。
 - 品牌鞋或固定材質可保留視覺必要的 signature detail，但不要和鞋款配色衝突。
 
+2026-10-11 領帶襯衫例外：黑色短領帶是此款固定細節，一般與 `topUnderbust.baseEn` 來源都保留 `short soft black necktie`。此件 metadata 的 `wearableColorTarget: "shirt fabric"` 將上身色票限定於襯衫布料，包括進階色票的表面／材質描述；無配色不指定襯衫顏色。MJ 只保留投影後已存在的布料配色片語，不回補隱藏內搭。單品名稱、ID、順序、隨機池、A/B 與舊英文回填不變。見 [領帶襯衫固定黑領帶 v1](black-tie-shirt-v1.md)。
+
 ### 9.2 圖案
 
 目前主要圖案欄位：

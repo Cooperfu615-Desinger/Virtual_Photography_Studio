@@ -1746,7 +1746,8 @@ test('AI prompt keeps top and bottom garments for arbitrary separates', () => {
     bottomFitId: optionId('bottomFitId', '緊身'),
   });
 
-  assert.match(tieShirtPrompt.midjourneyPrompt, /white collared shirt with a short soft necktie/i);
+  assert.match(tieShirtPrompt.midjourneyPrompt, /collared shirt with a short soft black necktie/i);
+  assert.match(tieShirtPrompt.midjourneyPrompt, /shirt fabric in white/i);
   assert.match(tieShirtPrompt.midjourneyPrompt, /neon green leather shorts/i);
   assert.doesNotMatch(tieShirtPrompt.midjourneyPrompt, /[\u3400-\u9fff]/);
 
@@ -1784,7 +1785,8 @@ test('Grok/Z-Image uses X-prompt wardrobe wording without guard clauses for repr
     bottomFitId: optionId('bottomFitId', '緊身'),
   });
   assert.match(gptSection(tieShirtPrompt, 'Wardrobe'), /top length meets or slightly overlaps the low-rise waistband/i);
-  assert.match(zImageWardrobeParagraph(tieShirtPrompt), /white collared shirt with a short soft necktie/i);
+  assert.match(zImageWardrobeParagraph(tieShirtPrompt), /collared shirt with a short soft black necktie/i);
+  assert.match(zImageWardrobeParagraph(tieShirtPrompt), /shirt fabric in white/i);
   assert.match(zImageWardrobeParagraph(tieShirtPrompt), /neon green leather shorts/i);
   assert.doesNotMatch(zImageWardrobeParagraph(tieShirtPrompt), noZGuard);
 

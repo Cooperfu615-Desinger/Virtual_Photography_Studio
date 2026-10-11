@@ -3330,6 +3330,7 @@ function buildEntries(groupName, groupedData, inferMeta) {
           ...(item.outerwear ? { outerwear: item.outerwear } : {}),
           ...(item.bottomWaist ? { bottomWaist: item.bottomWaist } : {}),
           ...(item.topUnderbust ? { topUnderbust: item.topUnderbust } : {}),
+          ...(item.wearableColorTarget ? { wearableColorTarget: item.wearableColorTarget } : {}),
           ...(item.outerwearFit ? { outerwearFit: item.outerwearFit } : {}),
           ...(item.outerwearStyling ? { outerwearStyling: item.outerwearStyling, randomEligible: item.randomEligible } : {}),
           ...(item.outerwearFastenerRequirement !== undefined ? { outerwearFastenerRequirement: item.outerwearFastenerRequirement } : {}),
@@ -4140,6 +4141,18 @@ function describeWearableColorTarget(target, color, { relation = 'in' } = {}) {
   ].filter(Boolean).join(' ');
 }
 
+function getItemWearableColorTargetSource(item, color) {
+  const target = normalizeWardrobePromptText(item?.meta?.wearableColorTarget);
+  return target && color && !isNoneLikeItem(color)
+    ? describeWearableColorTarget(target, color)
+    : '';
+}
+
+function composeItemWearableColorPrompt(item, base, color) {
+  const targetSource = getItemWearableColorTargetSource(item, color);
+  return targetSource ? `${base}, ${targetSource}` : composeWearableColorPrompt(base, color);
+}
+
 function describeGarmentColorRole(label, color) {
   if (!color || isNoneLikeItem(color)) return '';
   const syntax = getWearableColorSyntax(color);
@@ -4164,7 +4177,7 @@ function buildTopColoredPrompt(topItem, color = null, { pattern = null, fit = nu
   const fitText = fit && !isNoneLikeItem(fit) ? normalizeWardrobePromptText(fit.en) : '';
   const stylingText = styling && !isNoneLikeItem(styling) ? normalizeWardrobePromptText(styling.en) : '';
   const patternText = pattern && !isNoneLikeItem(pattern) ? normalizeWardrobePromptText(pattern.en) : '';
-  const coloredBase = composeWearableColorPrompt(base, color);
+  const coloredBase = composeItemWearableColorPrompt(topItem, base, color);
 
   if (isHemOverlapStyling(styling)) {
     return [fitText, coloredBase, patternText, stylingText].filter(Boolean).join(', ');
@@ -8771,7 +8784,7 @@ function buildColoredGrokPrompt(item, color = null, { preset = false, pattern = 
     return composeWearableColorPrompt(base.replace(/^wearing\s+/i, ''), color);
   }
 
-  const coloredBase = composeWearableColorPrompt(base, color);
+  const coloredBase = composeItemWearableColorPrompt(item, base, color);
   const styledBase = isSimpleOversizeFit ? `oversized ${coloredBase}` : coloredBase;
   return detailText ? `${styledBase}, ${detailText}` : styledBase;
 }
@@ -15058,7 +15071,11 @@ function buildAiNormalWardrobeText(
         Outerwear: buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors?.outerwearColor, {
           fit: wardrobeSlots.outerwearFit,
         }),
-        Top: buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors?.topColor),
+        // A separately targeted fabric color is retained below as a visible wear
+        // source; it must not become the selected garment identity itself.
+        Top: wardrobeSlots.top?.meta?.wearableColorTarget
+          ? normalizeWardrobePromptText(wardrobeSlots.top.en)
+          : buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors?.topColor),
         Pants: buildColoredGrokPrompt(wardrobeSlots.pants, wardrobeColors?.bottomColor),
         Skirt: buildColoredGrokPrompt(wardrobeSlots.skirt, wardrobeColors?.bottomColor),
         Legwear: buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors?.legwearColor),
@@ -15137,6 +15154,7 @@ function buildAiNormalWardrobeText(
         : role === 'top' ? [
           isHemOverlapStyling(wardrobeSlots?.topStyling) || wardrobeSlots?.topStyling?.meta?.underbustTopStyle ? wardrobeSlots?.topStyling?.en : '',
           isUnderbustTopFit(wardrobeSlots?.topFit) ? wardrobeSlots.topFit.en : '',
+          getItemWearableColorTargetSource(wardrobeSlots?.top, wardrobeColors?.topColor),
         ].filter(Boolean) : [];
       return shouldKeepWardrobeRoleForContext(role, context, value)
         ? compactAiGarmentValue(value, role, primarySourceByLabel[label], wearSources, role === 'outerwear' ? outerwearPatternSource : topPatternSource)

@@ -35,6 +35,22 @@ const all = p => [...main(p), ...derivatives(p)];
 const occurrences = text => text.split(source).length - 1;
 const snapshot = p => ({ selection: p.selection, grokPrompt: p.grokPrompt, zImagePrompt: p.zImagePrompt,
   midjourneyPrompt: p.midjourneyPrompt, extraPrompts: p.extraPrompts });
+// This immutable matrix predates the approved fixed-black tie wording. Only its
+// exact uncolored, standard-fit tie-shirt row is compared in the old vocabulary;
+// current feature checks below continue to inspect the unmodified public output.
+function legacyTopSnapshot(p) {
+  const value = snapshot(p);
+  if (p.selection.topId !== 'wardrobe:上身-tops:領帶襯衫:3'
+    || p.selection.topColorId !== 'none' || p.selection.topFitId !== '') return value;
+  const previousTieHead = (text, compact = false) => text.replaceAll(
+    'collared shirt with a short soft black necktie fastened at the collar',
+    compact ? 'collared shirt with a short soft necktie'
+      : 'collared shirt with a short soft necktie fastened at the collar',
+  );
+  return { ...value, grokPrompt: previousTieHead(value.grokPrompt),
+    zImagePrompt: previousTieHead(value.zImagePrompt, true), midjourneyPrompt: previousTieHead(value.midjourneyPrompt, true),
+    extraPrompts: value.extraPrompts.map(row => ({ ...row, text: previousTieHead(row.text, row.id === 'chest-up-mj-portrait') })) };
+}
 
 test('bandage pasties append one independent option to single and duo catalogs without moving old IDs', () => {
   for (const key of ['topId', 'topAId', 'topBId']) {
@@ -57,7 +73,7 @@ test('all 225 existing top/crop selections and six outputs retain their pre-chan
   let count = 0;
   for (const topId of baseline.oldTopIds) for (const crop of baseline.crops) {
     const p = generate({ topId, framingId: option('framingId', crop).id }, baseline.seed);
-    hash.update(JSON.stringify(snapshot(p)));
+    hash.update(JSON.stringify(legacyTopSnapshot(p)));
     count++;
   }
   assert.equal(count, baseline.cases);

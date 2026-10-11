@@ -114,8 +114,13 @@
         "legacyIds": [
           "wardrobe:上身-tops:緊身襯衫-領帶-紮入下身:12"
         ],
+        "wearableColorTarget": "shirt fabric",
+        "legacyPromptAliases": [
+          "collared shirt with a short soft necktie fastened at the collar, neat collar line, clean front placket, uniform-inspired shirt structure",
+          "collared shirt with a short soft necktie, neat collar line, clean front placket, uniform-inspired shirt structure"
+        ],
         "topUnderbust": {
-          "baseEn": "collared shirt with a short soft necktie fastened at the collar, neat collar line, clean front placket, uniform-inspired shirt structure"
+          "baseEn": "collared shirt with a short soft black necktie fastened at the collar, neat collar line, clean front placket, uniform-inspired shirt structure"
         }
       },
       "短袖上衣": {

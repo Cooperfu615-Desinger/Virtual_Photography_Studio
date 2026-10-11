@@ -256,7 +256,8 @@ test('single garment prompts remove contradictory wearing states and styling pol
   const bareFeet = optionByLabel('shoesId', '赤腳');
   const leatherChoker = optionByLabel('neckAccessoryId', '皮質扣環頸鏈');
 
-  assert.match(tieShirt.en, /short soft necktie fastened at the collar/);
+  assert.match(tieShirt.en, /short soft black necktie fastened at the collar/);
+  assert.equal(tieShirt.meta.wearableColorTarget, 'shirt fabric');
   assert.doesNotMatch(tieShirt.en, /relaxed collar opening/i);
   assert.doesNotMatch(offShoulderTop.en, /visible white bra straps/i);
   assert.doesNotMatch(laceBra.en, /or strapless/i);

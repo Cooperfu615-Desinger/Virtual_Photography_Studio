@@ -158,7 +158,7 @@
 | **上身 (Tops)** | 全無 | `no top layering, uncluttered upper-body styling` | 不額外強調上身單品，讓畫面更乾淨，適合泳裝、內衣或極簡裸感造型。 |
 | **上身 (Tops)** | 襯衫 | `shirt, crisp cotton poplin, clean placket construction, balanced collar line` | 以俐落門襟、清楚領型與乾淨肩線構成的基礎上身單品，重點在剪裁結構而不是情境語氣。 |
 | **上身 (Tops)** | 長版襯衫 | `tailored longline men's dress shirt, crisp woven poplin, pointed collar, full button-front placket, structured cuffs, extended shirttail hem, relaxed sleeve volume, clean formal menswear silhouette` | 以男性正裝襯衫的清楚領型、完整前襟排釦、硬挺袖口與較長衣襬為主，保留長版比例與乾淨正式的男裝輪廓，不預設特定穿法。 |
-| **上身 (Tops)** | 領帶襯衫 | `collared shirt with a short soft necktie fastened at the collar, neat collar line, clean front placket, uniform-inspired shirt structure` | 以短領帶固定在領口的制服感襯衫為主，領口保持整齊、門襟清楚，不預設衣襬狀態。 |
+| **上身 (Tops)** | 領帶襯衫 | `collared shirt with a short soft black necktie fastened at the collar, neat collar line, clean front placket, uniform-inspired shirt structure` | 以固定黑色短領帶繫在領口的制服感襯衫為主，領口保持整齊、門襟清楚，不預設衣襬狀態；上身配色只作用於襯衫布料，不改變領帶。 |
 | **上身 (Tops)** | 短袖上衣 | `short-sleeve top, smooth stretch fabric, clean torso line, compact sleeve proportion` | 以俐落袖長、順身布面與簡潔上半身線條為主，適合作為中性基礎版型。 |
 | **上身 (Tops)** | 落肩 T 恤 | `dropped-shoulder t-shirt, washed cotton jersey, low shoulder seam, relaxed upper-body proportion` | 以低肩線、寬鬆袖根與棉質 T 恤輪廓為主，上身比例放鬆但不指定衣長。 |
 | **上身 (Tops)** | 短版 T 恤 | `cropped t-shirt, concise hem length, compact torso block, casual knit structure` | 以短版衣長與精簡衣身比例為主，重點在裁短後的上半身輪廓，而非情境化描述。 |

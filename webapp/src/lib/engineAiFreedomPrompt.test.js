@@ -50,7 +50,8 @@ test('AI normal single prompt keeps only the agreed freedom-oriented sections', 
   assert.match(text, /deep side-parted long soft waves|chestnut-brown hair/i);
   assert.match(text, /black bold-frame glasses|black frame, bold thick-frame glasses/i);
   assert.match(text, /Marshall Major V/i);
-  assert.match(text, /white collared shirt with a short soft necktie/i);
+  assert.match(text, /collared shirt with a short soft black necktie/i);
+  assert.match(text, /shirt fabric in white/i);
   assert.match(text, /black a-line mini skirt/i);
   assert.match(text, /Seoul Seongsu-dong urban corner/i);
   assert.match(text, /Inspired by Yoshihiko Ueda|50mm standard lens|Fujifilm Provia/i);
