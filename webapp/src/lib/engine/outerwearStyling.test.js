@@ -52,9 +52,12 @@ test('hem source resolves transparency once and accepts a minimal inner top with
     const result = generate(locksFor({ outerwearId: coat, outerwearStylingId: names[0], topId: '小三角細繩比基尼上身', bodyTypeId: body.zh }));
     for (const text of visible(result)) {
       assert.ok(text.includes(style.meta.outerwearStyling.throughFabricEn));
-      assert.ok(text.includes(body.en));
       assert.ok(!text.includes(style.en));
     }
+    for (const text of [result.zImagePrompt, result.midjourneyPrompt]) assert.ok(text.includes(body.en));
+    assert.ok(!result.grokPrompt.includes(body.en));
+    assert.ok(!result.extraPrompts.find(e => e.id === 'full-body-character').text.includes(body.en));
+    assert.equal(result.selection.bodyTypeId, body.id);
     assert.equal(parseLocksFromStandardPrompt(result.grokPrompt, controls).locks.outerwearStylingId, style.id);
   }
 });

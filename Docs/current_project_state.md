@@ -2,7 +2,13 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-09
+Last updated: 2026-10-11
+
+## GPT 獨立 Body Type 省略 (local, 2026-10-11)
+
+- 使用者核准：主 GPT、GPT 胸上與全身角色照省略獨立 Body Type，雙人主 GPT 分別省略 A/B 來源；成年身份、canonical pose、穿搭與其他有效描述不變。Z、AI 與 MJ 胸上保留同一完整來源，Character Card body／permanent identity／legacy `identityAndBody` 不變，見 [GPT 獨立體態省略 v1](specs/gpt-standalone-body-omission-v1.md)。
+- 原選值與結構化 Saved Cards／還原保留，資料庫／UI／storage schema 不改；舊 GPT 體態來源及 aliases 仍解析，省略後純 GPT 文字不能反推出原體態。Public contract `1.52.0`；已完成本機實作與驗證，Git 交付依分支紀錄核對，未手動 deploy；實際 GPT 生圖接受情況待正式輸出實測。
+- 驗證：前端 Node 22.22.3，完整測試 1517/1517、Prompt Quality 674/674、lint／build／資料同步檢查／diff-check 通過；同 seed 200 組 strict audit 前後皆 0 blockers／22 項既有診斷。410 組固定案例中非 GPT 1181 份輸出逐字相同，GPT 差異限於獨立體態省略。1440×1000／390×900 瀏覽器 28 項檢查、六現用工作區呈現與 GPT 複製／收藏還原／回填／角色卡匯回皆通過；無新頁面錯誤、溢位或失敗圖片。詳細證據見上述規格，既有 Vite 大型 chunk 提示保留。
 
 ## Firebase Functions：Node.js 24 (local, 2026-10-09)
 

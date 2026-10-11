@@ -36,18 +36,19 @@ test('overlap keeps micro shorts identity and survives visible outputs and saved
   assert.equal(deserializeFavoritePrompt(serializeFavoritePrompt(p)).selection.topStylingId, 'hem-overlap');
 });
 
-test('hem overlap keeps all reviewed body sources and changes only effective wardrobe styling', () => {
+test('hem overlap keeps Z and AI body sources while GPT omits body and retains effective wardrobe styling', () => {
   const bodyTypeControl = controls.find(c => c.key === 'bodyTypeId');
   for (const item of bodyTypeControl.options.filter(o => o.zh !== '全無')) {
     for (const framingZh of ['全身鏡頭 (Full Body Shot)', '中景鏡頭 (Medium Shot)', '牛仔中景 (Cowboy Shot)']) {
       const p = generate({ bodyTypeId: item.id, framingId: option('framingId', framingZh) }, `hem-overlap-${item.zh}-${framingZh}`);
       assert.equal(p.selection.bodyTypeId, item.id);
-      for (const text of visible(p)) assert.ok(text.includes(item.en), `${item.zh}/${framingZh}: verbatim source`);
+      for (const text of [p.zImagePrompt, p.midjourneyPrompt]) assert.ok(text.includes(item.en), `${item.zh}/${framingZh}: verbatim source`);
+      for (const text of [p.grokPrompt, p.extraPrompts.find(e => e.id === 'full-body-character').text]) assert.ok(!text.includes(item.en));
       const untucked = generate({ bodyTypeId: item.id, topStylingId: 'untucked' });
-      assert.ok(untucked.grokPrompt.includes(item.en));
+      assert.ok(!untucked.grokPrompt.includes(item.en));
       const incompatible = generate({ bodyTypeId: item.id, topId: option('topId', '比基尼上身') });
       assert.doesNotMatch(incompatible.grokPrompt, /partially concealing/i);
-      assert.ok(incompatible.grokPrompt.includes(item.en));
+      assert.ok(!incompatible.grokPrompt.includes(item.en));
     }
   }
 });
@@ -63,8 +64,12 @@ test('duo hem overlap preserves both sources and remains attached only to its we
   const womanOne = p.grokPrompt.split('Woman 2:')[0].split('Woman 1:')[1] || '';
   const womanTwo = p.grokPrompt.split('Woman 2:')[1].split('Shared Expression:')[0] || '';
   const body = role => controls.find(c => c.key === `bodyType${role}Id`).options.find(o => o.id === p.selection[`bodyType${role}Id`]).en;
-  assert.ok(womanOne.includes(body('A')));
-  assert.ok(womanTwo.includes(body('B')));
+  assert.ok(!womanOne.includes(body('A')));
+  assert.ok(!womanTwo.includes(body('B')));
+  for (const text of [p.zImagePrompt, p.midjourneyPrompt]) {
+    assert.ok(text.includes(body('A')));
+    assert.ok(text.includes(body('B')));
+  }
   assert.match(womanOne, /partially concealing/i);
   assert.doesNotMatch(womanTwo, /partially concealing/i);
   assert.equal(p.selection.topStylingAId, 'hem-overlap');

@@ -1,5 +1,7 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
+2026-10-11 GPT 獨立 Body Type 省略：主 GPT、GPT 胸上與全身角色照省略獨立 Body Type，雙人主 GPT 分別省略 A/B 來源；成年身份、canonical pose、穿搭及其他有效描述保留。Z／AI／MJ 胸上仍逐字保留同一來源，Character Card body／permanent identity／legacy `identityAndBody` 不變。選值、結構化 Saved Cards、UI、資料庫及 storage schema 不改；舊來源仍可解析，省略後純 GPT 文字無法反推原體態。此核准例外取代下方 GPT 完整保留中的獨立體態要求；Public contract `1.52.0`，本機自動檢查與桌面／手機驗證通過，見 [GPT 獨立體態省略 v1](gpt-standalone-body-omission-v1.md)。
+
 2026-10-11 領帶襯衫固定黑領帶：一般與胸下短版來源均指定黑色短領帶；上身配色的顏色、圖樣及材質描述只作用於襯衫布料。三主輸出及適用衍生保留同一可見來源，不回補被裁切、閉合外套或完整造型省略的內搭。名稱／ID／順序、隨機池與 storage 不變，舊英文回填 alias 保留。Public contract `1.51.0`，見 [領帶襯衫固定黑領帶 v1](black-tie-shirt-v1.md)。
 
 2026-10-11 鏡子自拍移至道具：`selfie-mirror-phone-visible` 改由 `posePropId` 控制，名稱為「手持手機對鏡自拍」，ID／英文／鏡面與可見手機語意不變。舊 hand lock 遷移、道具互斥與批次保留沿用現有規則；自拍 orbit 及 eligible 主 Z capture 讀有效 hand／prop 動作，避免來源重複。其他兩款自拍、canonical pose、裁切及排除路徑不變。Public contract `1.50.0`，驗證狀態見 [鏡子自拍道具 v1](mirror-selfie-prop-v1.md)。
@@ -102,6 +104,7 @@ PAGE1 的「全無」代表該欄位不提供英文描述，並保留已選的�
 - 格式：結構化自然段落。
 - 新定位：`GPT Full-Fidelity Prompt` / `GPT 完整保留型 Prompt`。
 - 目標：完整保留 PAGE1 工作台中被選到、並經共用構圖可見性投影判定為有效的英文描述，優先保留生成穩定性、造型鎖定與細節完整度。原始選擇必須完整保存，不可用景別裁切覆寫或清空。
+- 已核准的獨立 Body Type 例外：主 GPT、GPT 胸上、全身角色照與雙人主 GPT 各人物省略獨立體態來源。成年身份、姿勢、服裝來源與角色卡內建 body／identity 仍保留，原選值不清除，詳見 [限定規格](gpt-standalone-body-omission-v1.md)。
 - 固定主區塊順序：`Image Type`、`Composition`、`Subject`、`Wardrobe`、`Pose and Composition`、`Scene`、`Lighting`、`Camera Look`。一般 PAGE1 比例可用時，`Composition` 先以 resolved aspect ratio 與 portrait／landscape orientation 的自然語言提示開頭，再接原有共用構圖句；比例提示不改寫 framing、angle、orbit 或 Pose Composer 來源文字。固定構圖場景仍沿用自己的專用構圖語意，不重複比例提示。新生成的 GPT Prompt 不再附加歷史上的 `multi-cut sequence n=2` 尾端。
 - 不輸出 `Constraints`。
 - 結尾為最後一個有內容的 GPT section；歷史 Saved Cards 中的 `multi-cut sequence n=2` 文字仍可讀取，但不會由新生成結果重新附加。
@@ -625,13 +628,15 @@ PAGE1 單人輸出固定為 `Gpt`、`Grok/Z-Image`、`AI Prompt`、`胸上特寫
 
 如果答案是肯定的，`Gpt` 版應保留，不應為了縮短 prompt 而刪除。
 
+獨立 Body Type 依 [GPT 獨立體態省略 v1](gpt-standalone-body-omission-v1.md) 在主 GPT、GPT 胸上、全身角色照與雙人主 GPT 省略，是本節完整保留原則的核准例外；不擴大到角色卡 body、legacy identity、canonical pose 或服裝內建描述。其他模型保留同一完整來源，選值與結構化資料不變。
+
 `Gpt` 版應保留：
 
 - 可被目前構圖辨識的結構、材質、版型、長度、穿法、位置。
 - 影響生成結果的 anchor，例如 `low-rise`, `thigh-high stockings`, `side-part`, `direct eye contact`。
 - 特殊穿搭、套裝、連身的造型核心與層次關係。
 - 構圖投影後仍有效的 Pose Composer 身體結構、支撐點、手部位置、頭部方向。
-- 人物體態、五官、膚質、髮型、髮色、表情中原始資料提供的有效細節。
+- 人物成年身份、五官、膚質、髮型、髮色、表情中原始資料提供的有效細節；內建於角色卡／其他來源的身體描述沿用原規則，獨立 Body Type 採已核准省略。
 - 場景、燈光、鏡頭、成像模擬中的有效環境與攝影控制資訊。
 
 `Gpt` 版允許的清理範圍：
@@ -642,12 +647,13 @@ PAGE1 單人輸出固定為 `Gpt`、`Grok/Z-Image`、`AI Prompt`、`胸上特寫
 - 避免同一段完全重複出現兩次。
 - 加上必要 section lead，例如 `The subject is...`、`She wears...`。
 - 依 section 責任移動內容，例如特殊穿搭配件移到 `Headwear, eyewear, and bag`。
+- 依限定來源身份省略獨立 Body Type；不以通用身體詞彙刪除成年身份、姿勢、角色卡或服裝內容。
 
 `Gpt` 版不應做：
 
 - 把長描述縮成短片語。
-- 在構圖投影仍判定有效時刪除數值、比例、支撐點、材質、層次、guard 或造型鎖定資訊。
-- 因為文字看似冗長就移除 `body proportion anchor`、`worn normally on the face`、palette、`controlled by selection` 等原始控制語。這些是否保留應由資料庫 authoring 或後續專案決策處理，不在 Gpt 最終輸出層任意刪除或自然化改寫。
+- 除已核准的獨立 Body Type 整段省略外，在構圖投影仍判定有效時刪除數值、比例、支撐點、材質、層次、guard 或造型鎖定資訊。
+- 因為文字看似冗長就移除 `body proportion anchor`、`worn normally on the face`、palette、`controlled by selection` 等原始控制語。獨立 Body Type 依限定規格整段省略；其他來源是否保留應由資料庫 authoring 或後續專案決策處理，不在 Gpt 最終輸出層任意刪除或自然化改寫。
 - 把多個選項的內容合併時遺失原始描述。
 
 ### Grok/Z-Image 與 AI 壓縮原則
@@ -672,7 +678,7 @@ PAGE1 單人輸出固定為 `Gpt`、`Grok/Z-Image`、`AI Prompt`、`胸上特寫
 
 ## 3. A 人物設定輸出規則
 
-`Gpt` 版應完整保留被選到的體態、五官、膚質、髮型、髮色、神情與配件描述。不要在最終輸出層把長描述壓成短片語。
+`Gpt` 版省略獨立 Body Type，完整保留成年身份、被選到的五官、膚質、髮型、髮色、神情與配件描述。Character Card body／permanent identity／legacy `identityAndBody` 及姿勢、服裝中的身體相關描述沿用原規則；不要在最終輸出層把其餘長描述壓成短片語。
 
 `Grok/Z-Image` 與 `AI` 可依模型需求壓縮，壓縮時仍須保留核心人物識別與造型特徵。
 

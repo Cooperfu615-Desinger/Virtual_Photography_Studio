@@ -11,6 +11,7 @@ import {
   PROMPT_OUTPUT_CONTRACTS,
   PROMPT_OUTPUT_CONTRACT_VERSION,
   MIRROR_SELFIE_PROP_CONTRACT,
+  STANDALONE_BODY_TYPE_CONTRACT,
   validatePromptOutputContract,
 } from './promptOutputContracts.js';
 import { REPRESENTATIVE_PROMPT_FIXTURES } from './representativePromptFixtures.js';
@@ -107,7 +108,7 @@ function assertLiteralExpectations(text, expectations, fixtureId, field) {
 }
 
 test('prompt output contracts are frozen serializable data with stable public fields', () => {
-  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.51.0');
+  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.52.0');
   assert.deepEqual(Object.keys(PROMPT_OUTPUT_CONTRACTS), [
     'grokPrompt',
     'zImagePrompt',
@@ -117,6 +118,8 @@ test('prompt output contracts are frozen serializable data with stable public fi
     'fullBodyCharacterPrompt',
   ]);
   assert.ok(Object.isFrozen(PROMPT_OUTPUT_CONTRACTS));
+  assert.ok(Object.isFrozen(STANDALONE_BODY_TYPE_CONTRACT));
+  assert.equal(STANDALONE_BODY_TYPE_CONTRACT.version, '2.0.0');
   assert.ok(Object.isFrozen(PROMPT_OUTPUT_CONTRACTS.grokPrompt.shape.modes.single));
   assert.deepEqual(JSON.parse(JSON.stringify(PROMPT_OUTPUT_CONTRACTS)), PROMPT_OUTPUT_CONTRACTS);
   assert.equal(PROMPT_OUTPUT_CONTRACTS.grokPrompt.uiLabel, 'Gpt');

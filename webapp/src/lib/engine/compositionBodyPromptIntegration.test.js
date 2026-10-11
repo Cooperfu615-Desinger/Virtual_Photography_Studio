@@ -86,13 +86,13 @@ test('phase-4 gate covers every public framing alias for every normal Body Type'
 
       assert.equal(prompt.selection.bodyTypeId, bodyTypeId, `${profile.bodyTypeZh}/${framingZh}: selection`);
       for (const field of MAIN_OUTPUT_FIELDS) {
-        assert.ok(prompt[field].includes(expectedBodyText), `${profile.bodyTypeZh}/${framingZh}/${field}: verbatim source`);
+        assert.equal(prompt[field].includes(expectedBodyText), field !== 'grokPrompt', `${profile.bodyTypeZh}/${framingZh}/${field}: independent body policy`);
       }
 
-      assertIncludes(
+      assertExcludes(
         fullBodyCharacterText(prompt),
         profile.fullSource,
-        `${profile.bodyTypeZh}/${framingZh}: full-body restoration`
+        `${profile.bodyTypeZh}/${framingZh}: GPT full-body omission`
       );
       assertOutputContracts(prompt, 'single');
     }
@@ -118,10 +118,10 @@ test('phase-4 gate keeps fixed composition full-source and projects duo A/B acro
 
     assert.equal(prompt.selection.fixedCompositionSetId, fixedSetId, `${profile.bodyTypeZh}: fixed set`);
     assert.equal(prompt.selection.bodyTypeId, bodyTypeId, `${profile.bodyTypeZh}: fixed body selection`);
-    assertIncludes(prompt.grokPrompt, profile.fullSource, `${profile.bodyTypeZh}: fixed Gpt full source`);
+    assertExcludes(prompt.grokPrompt, profile.fullSource, `${profile.bodyTypeZh}: fixed GPT omission`);
     assertIncludes(prompt.zImagePrompt, FULL_BODY_ANCHOR_BY_ZH[profile.bodyTypeZh], `${profile.bodyTypeZh}/zImagePrompt`);
     assertIncludes(prompt.midjourneyPrompt, AI_BODY_TYPE_ANCHOR_BY_ZH[profile.bodyTypeZh], `${profile.bodyTypeZh}/midjourneyPrompt`);
-    assertIncludes(fullBodyCharacterText(prompt), profile.fullSource, `${profile.bodyTypeZh}: fixed restoration`);
+    assertExcludes(fullBodyCharacterText(prompt), profile.fullSource, `${profile.bodyTypeZh}: fixed GPT full-body omission`);
     assertOutputContracts(prompt, 'single');
   }
 
@@ -152,7 +152,7 @@ test('phase-4 gate keeps fixed composition full-source and projects duo A/B acro
     for (const [role, profile] of [['a', profileA], ['b', profileB]]) {
       const expectedBodyText = profile.expectedTextByBucket[bucket];
       for (const field of MAIN_OUTPUT_FIELDS) {
-        assert.ok(prompt[field].includes(expectedBodyText), `${framingZh}/${field}/${role}: verbatim source`);
+        assert.equal(prompt[field].includes(expectedBodyText), field !== 'grokPrompt', `${framingZh}/${field}/${role}: independent body policy`);
       }
     }
     assert.equal(fullBodyCharacterText(prompt), '', `${framingZh}: duo full-body output`);

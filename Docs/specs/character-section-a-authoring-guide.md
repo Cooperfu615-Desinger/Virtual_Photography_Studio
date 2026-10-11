@@ -1,5 +1,7 @@
 # A 人物設定新增與維護規格
 
+2026-10-11 GPT 獨立 Body Type 省略：主 GPT、GPT 胸上、全身角色照與雙人主 GPT 各人物省略獨立體態來源；成年身份、姿勢及其他有效描述保留，Z／AI／MJ 胸上仍逐字保留同一來源。Character Card body／permanent identity／legacy `identityAndBody`、資料庫、UI 與結構化選值／Saved Cards 不變，舊來源及 aliases 仍可解析。此核准例外取代下方完整保留中的 GPT 獨立體態部分；Public contract `1.52.0`，本機自動檢查與桌面／手機驗證通過，見 [GPT 獨立體態省略 v1](gpt-standalone-body-omission-v1.md)。
+
 2026-10-11 鏡子自拍分類調整：原 `selfie-mirror-phone-visible` 移至 `posePropId`，新名稱「手持手機對鏡自拍」；ID／英文與可見手機／鏡面語意不變，維持手動限定、道具互斥與批次隨機保留。舊 `poseHandId` 可遷移回填，自拍 orbit 與 Z capture 讀有效動作；其他自拍及排除路徑不變。Public contract `1.50.0`，驗證狀態見 [鏡子自拍道具 v1](mirror-selfie-prop-v1.md)。
 
 2026-10-03 體態目錄 v2：基本體型合併為柔和沙漏，六種體態統一精簡來源與身高／三圍。獨立 Body Type 在六組輸出逐字保留，不再依景別、衣襬或 AI 短句政策刪改；角色卡及其餘投影維持既有規則。本更新取代下方歷史普通體態規則，見 [體態目錄 v2](body-type-catalog-v2.md)。Public contract `1.35.0`、Z `1.18.0`、AI length `1.3.0`。
@@ -9,6 +11,8 @@ Last updated: 2026-10-11
 這份文件定義 PAGE1 `A. 人物設定` 的新增、修改、合併與測試規則。後續新增五官、體態、髮型、髮色、神情、姿勢、特殊動作或特殊角色時，請先依照本規格檢查責任邊界與 prompt 寫法。
 
 單人模式的 Gpt / Grok/Z-Image / AI 輸出規則請同時參考 `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/page1-single-prompt-compression-guide.md`。目前 Gpt 版採完整保留型 Prompt，體態、五官、膚質、髮型、髮色、神情、姿勢與特殊動作中的有效英文描述應完整保留；Grok/Z-Image 與 AI 才依各自模型需求壓縮。新增資料時仍需確認數值 anchor、正常狀態說明、同義詞堆疊與內部控制語言是否真的有助於生成穩定或造型鎖定。
+
+上述完整保留原則的現行 GPT 獨立體態例外依 [GPT 獨立體態省略 v1](gpt-standalone-body-omission-v1.md)。它只改 GPT 呈現層，不改 A 區 authoring 來源，也不刪除角色卡內建 body、成年身份、canonical pose 或服裝自身的貼合描述；Z／AI／MJ 胸上仍遵守體態目錄 v2 的完整來源保留。
 
 ## Optional silence follow-up (2026-09-26)
 

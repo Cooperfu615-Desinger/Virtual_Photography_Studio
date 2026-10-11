@@ -296,8 +296,9 @@ test('duo identity base supports separate body type and skin details per woman',
   });
 
   const promptText = prompt.grokPrompt;
-  assert.match(promptText, new RegExp(`Woman 1:\\nHas ${bodyA.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
-  assert.match(promptText, new RegExp(`Woman 2:\\nHas ${bodyB.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
+  assert.ok(!promptText.includes(bodyA.en));
+  assert.ok(!promptText.includes(bodyB.en));
+  assert.match(promptText, /Two 20-year-old Japanese or Korean female portrait subjects/i);
   assert.match(promptText, new RegExp(`Woman 1:\\nHas [\\s\\S]*${skinA.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
   assert.match(promptText, new RegExp(`Woman 2:\\nHas [\\s\\S]*${skinB.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
   assert.match(prompt.zImagePrompt, /Two stunning seductive 20-year-old Japanese or Korean women\./);

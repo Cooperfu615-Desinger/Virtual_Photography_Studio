@@ -7,6 +7,7 @@ const BODY_LABEL = '豐胸纖腰沙漏身形';
 import { BODY_TYPE_CATALOG_V2 } from './bodyTypeCatalogFixtures.js';
 const BODY_SOURCE = BODY_TYPE_CATALOG_V2.find(item => item.zh === BODY_LABEL).en;
 const MAIN_FIELDS = ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt'];
+const RETAINED_MAIN_FIELDS = ['zImagePrompt', 'midjourneyPrompt'];
 const REMOVED_FIT = /reduced-fabric triangle cups cover the bust center|side ties make shallow impressions against the rounded outer hips/i;
 const controls = getLockControls();
 
@@ -32,7 +33,7 @@ function generate(locks, seed = 'hourglass-source-v2') {
   })[0];
 }
 
-test('selected I-cup Body Type stays verbatim in all three main prompts at every crop', () => {
+test('selected hourglass Body Type is omitted by GPT and stays verbatim in Z and AI at every crop', () => {
   const bodyTypeId = optionId('bodyTypeId', BODY_LABEL);
   for (const framing of [
     '全無', '全身鏡頭 (Full Body Shot)', '牛仔中景 (Cowboy Shot)',
@@ -43,14 +44,15 @@ test('selected I-cup Body Type stays verbatim in all three main prompts at every
       topId: optionId('topId', '全無'), pantsId: optionId('pantsId', '全無'),
     }, framing);
     assert.equal(prompt.selection.bodyTypeId, bodyTypeId);
-    for (const field of MAIN_FIELDS) {
+    for (const field of RETAINED_MAIN_FIELDS) {
       assert.ok(prompt[field].includes(BODY_SOURCE), `${framing}/${field}: exact Body Type source`);
     }
-    assert.ok(prompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text.includes(BODY_SOURCE));
+    assert.ok(!prompt.grokPrompt.includes(BODY_SOURCE));
+    for (const id of ['chest-up-portrait', 'full-body-character']) assert.ok(!prompt.extraPrompts.find(entry => entry.id === id)?.text.includes(BODY_SOURCE));
   }
 });
 
-test('overlapping top hem keeps the same I-cup sentence in all main prompts', () => {
+test('overlapping top hem preserves the body source in Z and AI and keeps GPT body-free', () => {
   const prompt = generate({
     subjectCount: '1',
     bodyTypeId: optionId('bodyTypeId', BODY_LABEL),
@@ -59,7 +61,8 @@ test('overlapping top hem keeps the same I-cup sentence in all main prompts', ()
     topStylingId: optionId('topStylingId', '衣襬遮住部分下身'),
     pantsId: optionId('pantsId', '牛仔短褲'),
   });
-  for (const field of MAIN_FIELDS) assert.ok(prompt[field].includes(BODY_SOURCE), field);
+  for (const field of RETAINED_MAIN_FIELDS) assert.ok(prompt[field].includes(BODY_SOURCE), field);
+  assert.ok(!prompt.grokPrompt.includes(BODY_SOURCE));
 });
 
 test('bikini pieces keep only their catalog wording with the I-cup Body Type', () => {
@@ -70,7 +73,7 @@ test('bikini pieces keep only their catalog wording with the I-cup Body Type', (
   assert.equal(prompt.selection.topId, topId);
   assert.equal(prompt.selection.pantsId, pantsId);
   for (const field of MAIN_FIELDS) {
-    assert.ok(prompt[field].includes(BODY_SOURCE), field);
+    assert.equal(prompt[field].includes(BODY_SOURCE), field !== 'grokPrompt', field);
     assert.doesNotMatch(prompt[field], REMOVED_FIT, field);
     assert.match(prompt[field], /triangle bikini top/i, field);
     assert.match(prompt[field], /side-tie bikini bottoms/i, field);
@@ -91,8 +94,8 @@ test('the same source belongs only to the selected person in duo prompts', () =>
   });
   assert.equal(prompt.selection.bodyTypeAId, bodyTypeAId);
   for (const field of MAIN_FIELDS) {
-    assert.ok(prompt[field].includes(BODY_SOURCE), field);
-    assert.equal(prompt[field].split(BODY_SOURCE).length - 1, 1, field);
+    assert.equal(prompt[field].includes(BODY_SOURCE), field !== 'grokPrompt', field);
+    assert.equal(prompt[field].split(BODY_SOURCE).length - 1, field === 'grokPrompt' ? 0 : 1, field);
     assert.doesNotMatch(prompt[field], REMOVED_FIT, field);
   }
 });

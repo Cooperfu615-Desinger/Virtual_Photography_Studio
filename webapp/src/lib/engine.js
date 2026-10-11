@@ -11099,15 +11099,13 @@ function joinCompositionPromptText(baseComposition, poseComposer) {
   ].filter(Boolean).join(' ');
 }
 
-function buildPromptSectionSources(valuesByLabel, context) {
+function buildGptPromptSectionSources(valuesByLabel, context) {
   const fixedCompositionSetActive = isFixedCompositionSetActive(context.fixedCompositionSet);
+  // Omit only standalone catalog Body Type; card identity and pose sources stay intact.
   const subjectValues = getStructuredValues(valuesByLabel, [
     'Duo Scene Anchor',
     'Subject Count',
     'Reference Guidance',
-    'Body Type',
-    'Woman 1 Body Type',
-    'Woman 2 Body Type',
     'Facial Features',
     'Woman 1 Facial Features',
     'Woman 2 Facial Features',
@@ -11585,7 +11583,6 @@ function buildGptDuoRoleSubjectText(role, characterSlots, wardrobeSlots, wardrob
   const suffix = role === 'a' ? 'A' : 'B';
   const roleNumber = role === 'a' ? '1' : '2';
   const parts = [
-    buildRoleHasPrompt(characterSlots[`bodyType${suffix}`], `woman ${roleNumber}`),
     characterSlots[`facialFeatures${suffix}`] && !isNoneLikeItem(characterSlots[`facialFeatures${suffix}`])
       ? characterSlots[`facialFeatures${suffix}`].en
       : '',
@@ -12673,7 +12670,7 @@ function renderGptPrompt(promptModel, {
     subjectLead,
     wardrobeLead,
     sceneUsesDirectSentence,
-  } = buildPromptSectionSources(valuesByLabel, context);
+  } = buildGptPromptSectionSources(valuesByLabel, context);
   const imageTypeLine = buildImageTypePromptLine(context) || imageType;
   const useRoleOrderedDuo = context.subject?.count === 2 && character && wardrobe && wardrobeColors;
   const characterSlots = character ? extractCharacterSlots(character) : {};
@@ -12836,7 +12833,7 @@ function renderFullBodyCharacterPrompt(promptModel) {
     wardrobeText,
     subjectLead,
     wardrobeLead,
-  } = buildPromptSectionSources(valuesByLabel, context);
+  } = buildGptPromptSectionSources(valuesByLabel, context);
   const characterProfileSubjectBlock = isCharacterProfileSubject(context.subject)
     ? buildGptFullBodyCharacterProfileSubjectBlock(context.subject, context.locks, wardrobe)
     : '';

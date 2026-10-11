@@ -56,7 +56,7 @@ function bodyFragments(value) {
   return value.split(/,\s*/).map((fragment) => fragment.trim()).filter(Boolean);
 }
 
-test('normal single Body Types use one composition-projected source across all main outputs', () => {
+test('normal single Body Types stay resolved while GPT omits them and Z and AI retain them', () => {
   for (const profile of BODY_TYPE_VISIBILITY_PROFILES) {
     const bodyTypeId = optionId(bodyTypeControl, profile.bodyTypeZh);
 
@@ -75,11 +75,11 @@ test('normal single Body Types use one composition-projected source across all m
       assert.equal(prompt.selection.bodyTypeId, bodyTypeId, `${profile.bodyTypeZh}/${bucket}: selection`);
 
       for (const field of MAIN_OUTPUT_FIELDS) {
-        assert.ok(prompt[field].includes(expectedBodyText), `${profile.bodyTypeZh}/${bucket}/${field}: verbatim source`);
+        assert.equal(prompt[field].includes(expectedBodyText), field !== 'grokPrompt', `${profile.bodyTypeZh}/${bucket}/${field}: body policy`);
       }
 
       const fullBodyText = prompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '';
-      assertIncludes(fullBodyText, profile.fullSource, `${profile.bodyTypeZh}/${bucket}: full-body restoration`);
+      assertExcludes(fullBodyText, profile.fullSource, `${profile.bodyTypeZh}/${bucket}: GPT full-body omission`);
     }
   }
 });
@@ -100,8 +100,8 @@ test('duo role Body Types reuse the shared projected body source without changin
   assert.equal(prompt.selection.bodyTypeAId, bodyTypeAId);
   assert.equal(prompt.selection.bodyTypeBId, bodyTypeBId);
   for (const field of MAIN_OUTPUT_FIELDS) {
-    assert.ok(prompt[field].includes(BODY_TYPE_VISIBILITY_PROFILES.find(p => p.bodyTypeZh === '高挑時裝模特').fullSource));
-    assert.ok(prompt[field].includes(BODY_TYPE_VISIBILITY_PROFILES.find(p => p.bodyTypeZh === '柔和沙漏身形').fullSource));
+    assert.equal(prompt[field].includes(BODY_TYPE_VISIBILITY_PROFILES.find(p => p.bodyTypeZh === '高挑時裝模特').fullSource), field !== 'grokPrompt');
+    assert.equal(prompt[field].includes(BODY_TYPE_VISIBILITY_PROFILES.find(p => p.bodyTypeZh === '柔和沙漏身形').fullSource), field !== 'grokPrompt');
   }
 });
 
@@ -193,7 +193,7 @@ test('special-outfit hair and tattoo details remain while its normal Body Type i
   assert.equal(prompt.selection.bodyTypeId, bodyTypeId);
   assert.equal(prompt.selection.specialOutfitId, specialOutfitId);
   for (const field of MAIN_OUTPUT_FIELDS) {
-    assertIncludes(prompt[field], bodyTypeControl.options.find(o => o.id === bodyTypeId).en, `${field}: verbatim body`);
+    assert.equal(prompt[field].includes(bodyTypeControl.options.find(o => o.id === bodyTypeId).en), field !== 'grokPrompt', `${field}: independent body policy`);
     assertIncludes(prompt[field], 'long voluminous side-part black waves', `${field}: outfit hair`);
     assertIncludes(prompt[field], 'small cherry tattoo on the right chest', `${field}: outfit tattoo`);
     assertIncludes(prompt[field], 'cream cropped spaghetti-strap camisole', `${field}: visible outfit`);
@@ -217,10 +217,10 @@ test('face crop keeps special-outfit hair, removes body-position tattoos, and re
   for (const field of MAIN_OUTPUT_FIELDS) {
     assertIncludes(prompt[field], 'long voluminous side-part black waves', `${field}: outfit hair`);
     assertExcludes(prompt[field], 'small cherry tattoo on the right chest', `${field}: chest tattoo`);
-    assertIncludes(prompt[field], bodyTypeControl.options.find(o => o.id === bodyTypeId).en, `${field}: full body source`);
+    assert.equal(prompt[field].includes(bodyTypeControl.options.find(o => o.id === bodyTypeId).en), field !== 'grokPrompt', `${field}: independent body policy`);
   }
 
   const fullBodyText = prompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '';
   assertIncludes(fullBodyText, 'small cherry tattoo on the right chest', 'full-body tattoo restoration');
-  assertIncludes(fullBodyText, bodyTypeControl.options.find(o => o.id === bodyTypeId).en, 'full-body Body Type restoration');
+  assertExcludes(fullBodyText, bodyTypeControl.options.find(o => o.id === bodyTypeId).en, 'GPT full-body independent body omission');
 });

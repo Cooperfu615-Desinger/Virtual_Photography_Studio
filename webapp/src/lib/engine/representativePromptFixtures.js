@@ -15,6 +15,34 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 });
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
+  {
+    id: 'gpt-standalone-body-omission', title: 'GPT omits standalone body source while retaining adulthood and pose',
+    mode: 'single', seed: 'gpt-standalone-body-omission-v1',
+    locks: { subjectCount: '1', bodyTypeId: { byZh: '豐胸纖腰沙漏身形' },
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' }, poseBaseId: 'standing',
+      poseArrangementId: 'standing-natural', poseHandId: 'none', posePropId: 'none', poseAnchorId: 'none',
+      fixedCompositionSetId: 'none', specialSubjectId: 'none', characterProfileId: 'none' },
+    expectedOutputs: {
+      ...Object.fromEntries(['grokPrompt', 'chestUpPortraitPrompt', 'fullBodyCharacterPrompt']
+        .map(field => [field, { includes: ['20-year-old', 'standing'],
+          excludes: ['I–K cup bust', 'height 163–168 cm', 'bust–waist–hip 103–60–98 cm', 'curves stretching fitted fabric'] }])),
+      ...Object.fromEntries(['zImagePrompt', 'midjourneyPrompt', 'chestUpMjPortraitPrompt']
+        .map(field => [field, { includes: ['I–K cup bust', 'height 163–168 cm', 'bust–waist–hip 103–60–98 cm'] }])),
+    },
+  },
+  {
+    id: 'gpt-duo-standalone-body-omission', title: 'Duo GPT omits both body sources without changing other model roles',
+    mode: 'duo', seed: 'gpt-duo-standalone-body-omission-v1',
+    locks: { subjectCount: '2', bodyTypeAId: { byZh: '高挑時裝模特' },
+      bodyTypeBId: { byZh: '小隻精緻身形' }, framingId: { byZh: '全身鏡頭 (Full Body Shot)' } },
+    expectedOutputs: {
+      grokPrompt: { includes: ['two 20-year-old'],
+        excludes: ['tall slender model silhouette', 'petite slender model silhouette', 'bust–waist–hip'] },
+      ...Object.fromEntries(['zImagePrompt', 'midjourneyPrompt'].map(field => [field, {
+        includes: ['tall slender model silhouette', 'petite slender model silhouette', 'height 170–175 cm', 'height 150–155 cm'],
+      }])),
+    },
+  },
   ...[
     ['none', '全無', ''],
     ['red', '紅色', 'shirt fabric in red'],
@@ -321,8 +349,8 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
     expectedOutputs: {
       ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'fullBodyCharacterPrompt'].map(field => [field, {
-        includes: ['partially concealing it', 'dolphin micro shorts', 'rounded hips'],
-        excludes: ['top length meets or slightly overlaps'],
+        includes: ['partially concealing it', 'dolphin micro shorts', ...(['zImagePrompt', 'midjourneyPrompt'].includes(field) ? ['rounded hips'] : [])],
+        excludes: ['top length meets or slightly overlaps', ...(['grokPrompt', 'fullBodyCharacterPrompt'].includes(field) ? ['F–G cup bust', 'rounded hips'] : [])],
       }])),
       chestUpPortraitPrompt: { excludes: ['partially concealing it'] },
       chestUpMjPortraitPrompt: { excludes: ['partially concealing it'] },

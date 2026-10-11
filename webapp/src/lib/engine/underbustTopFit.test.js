@@ -84,10 +84,15 @@ test('color and surface variants keep the new fit, selected garment and natural-
   }
 });
 
-test('short fits preserve every selected catalog body source across visible and derived outputs', () => {
+test('short fits retain non-GPT body sources and preserve the GPT-only omission', () => {
   for (const body of controls.find(c => c.key === 'bodyTypeId').options.filter(o => o.zh !== '全無')) {
     const result = generate(locksFor({ bodyTypeId: body.zh, topStylingId: '自然放出' }));
-    for (const text of all(result)) assert.ok(text.includes(body.en), body.zh);
+    for (const text of [result.zImagePrompt, result.midjourneyPrompt, result.extraPrompts.find(e => e.id === 'chest-up-mj-portrait').text]) {
+      assert.ok(text.includes(body.en), body.zh);
+    }
+    for (const text of [result.grokPrompt, full(result), result.extraPrompts.find(e => e.id === 'chest-up-portrait').text]) {
+      assert.ok(!text.includes(body.en), body.zh);
+    }
     assert.equal(result.selection.bodyTypeId, body.id);
   }
 });

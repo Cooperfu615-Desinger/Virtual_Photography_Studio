@@ -21,6 +21,8 @@ function locksFor(body, framing = '全身鏡頭 (Full Body Shot)') {
 const generate = locks => generatePrompts(1, locks, [], { random: createSeededRandom('body-catalog-v2') })[0];
 const main = p => [p.grokPrompt, p.zImagePrompt, p.midjourneyPrompt];
 const six = p => [...main(p), ...['chest-up-portrait', 'chest-up-mj-portrait', 'full-body-character'].map(id => p.extraPrompts.find(e => e.id === id).text)];
+const gpt = p => [p.grokPrompt, ...['chest-up-portrait', 'full-body-character'].map(id => p.extraPrompts.find(e => e.id === id).text)];
+const retained = p => [p.zImagePrompt, p.midjourneyPrompt, p.extraPrompts.find(e => e.id === 'chest-up-mj-portrait').text];
 
 test('six reviewed body sources and none retain stable IDs in single and duo controls', () => {
   for (const key of ['bodyTypeId', 'bodyTypeAId', 'bodyTypeBId']) {
@@ -37,7 +39,7 @@ test('six reviewed body sources and none retain stable IDs in single and duo con
 });
 
 for (const source of BODY_TYPE_CATALOG_V2) {
-  test(`${source.zh}: six outputs retain the entire source at every framing and with overlapping hems`, () => {
+  test(`${source.zh}: GPT omits body while other outputs retain the source at every framing and with overlapping hems`, () => {
     for (const framing of controls.find(c => c.key === 'framingId').options) {
       const locks = { ...locksFor(source), framingId: framing.id };
       for (const overlap of [false, true]) {
@@ -46,9 +48,10 @@ for (const source of BODY_TYPE_CATALOG_V2) {
           topStylingId: option('topStylingId', '衣襬遮住部分下身'), pantsId: option('pantsId', '牛仔短褲'),
         } : locks);
         assert.equal(prompt.selection.bodyTypeId, source.id);
-        for (const [i, text] of six(prompt).entries()) {
+        for (const [i, text] of retained(prompt).entries()) {
           assert.ok(text.includes(source.en), `${framing.zh}/${overlap}/${i}: missing verbatim source`);
         }
+        for (const text of gpt(prompt)) assert.ok(!text.includes(source.en), `${framing.zh}/${overlap}: GPT omission`);
       }
     }
   });
@@ -58,7 +61,9 @@ test('duo body sources stay with their selected person without compacting or cro
   for (const source of BODY_TYPE_CATALOG_V2) {
     const other = BODY_TYPE_CATALOG_V2.find(s => s.id !== source.id);
     const p = generate({ ...locksFor(source, '臉部特寫'), subjectCount: '2', bodyTypeAId: source.id, bodyTypeBId: other.id });
-    for (const text of main(p)) {
+    assert.ok(!p.grokPrompt.includes(source.en));
+    assert.ok(!p.grokPrompt.includes(other.en));
+    for (const text of [p.zImagePrompt, p.midjourneyPrompt]) {
       assert.ok(text.includes(source.en));
       assert.ok(text.includes(other.en));
       assert.equal(text.split(source.en).length - 1, 1);
@@ -86,7 +91,8 @@ test('old basic IDs, old English sources and Saved Card payloads resolve to the 
     const prompt = generate(locksFor(source));
     const restored = deserializeFavoritePrompt(serializeFavoritePrompt(prompt));
     assert.equal(buildRestoreLocks(restored.selection, controls).bodyTypeId, source.id);
-    assert.equal(parseLocksFromStandardPrompt(prompt.grokPrompt, controls).locks.bodyTypeId, source.id);
+    assert.equal(parseLocksFromStandardPrompt(`Subject:\nBody Type: ${source.en}`, controls).locks.bodyTypeId, source.id);
+    assert.ok(!parseLocksFromStandardPrompt(prompt.grokPrompt, controls).locks.bodyTypeId);
   }
 });
 

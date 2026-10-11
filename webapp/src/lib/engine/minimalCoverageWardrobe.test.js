@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { test } from 'node:test';
 import baseline from './minimalCoverageWardrobeBaseline.json' with { type: 'json' };
+import { restoreGptIndependentBodySource } from './bodyTypeLegacyTestSupport.js';
 import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls, normalizeLocks } from '../engine.js';
 import { deserializeFavoritePrompt, serializeFavoritePrompt, parseLocksFromStandardPrompt } from '../../features/saved-cards/cardCodec.js';
 
@@ -53,17 +54,18 @@ test('new pieces append to existing single and duo catalogs without changing pri
 
 for (const fixture of baseline.fixtures) test(`legacy bytes unchanged: ${fixture.title}`, () => {
   const p = generate(fixture.overrides, fixture.seed);
-  assert.equal(createHash('sha256').update(JSON.stringify(snapshot(p))).digest('hex'), fixture.sha256);
+  const preOmission = restoreGptIndependentBodySource(p, []);
+  assert.equal(createHash('sha256').update(JSON.stringify(snapshot(preOmission))).digest('hex'), fixture.sha256);
 });
 
 for (const [top, pants, topType, pantsType, topDetail] of pairs) {
-  test(`${top}: fit details survive visible main/derived outputs without changing body source`, () => {
+  test(`${top}: fit details survive visible main/derived outputs with GPT-only body omission`, () => {
     for (const body of controls.find(c => c.key === 'bodyTypeId').options.filter(o => o.zh !== '全無')) {
       const p = generate({ topId: option('topId', top).id, pantsId: option('pantsId', pants).id, bodyTypeId: body.id });
       for (const text of [...main(p), fullBody(p)]) {
         assert.match(text, topType);
         assert.match(text, pantsType);
-        for (const fragment of [topDetail, tension, indentation, body.en]) assert.ok(text.includes(fragment), fragment);
+        for (const fragment of [topDetail, tension, indentation]) assert.ok(text.includes(fragment), fragment);
         assert.doesNotMatch(text, /top length meets|top hem overlaps|top hem tucks|partially concealing/i);
       }
       for (const text of chest(p)) {
@@ -72,6 +74,13 @@ for (const [top, pants, topType, pantsType, topDetail] of pairs) {
         assert.doesNotMatch(text, pantsType);
         assert.ok(!text.includes(indentation));
       }
+      for (const text of [p.zImagePrompt, p.midjourneyPrompt, p.extraPrompts.find(e => e.id === 'chest-up-mj-portrait').text]) {
+        assert.ok(text.includes(body.en), body.en);
+      }
+      for (const text of [p.grokPrompt, p.extraPrompts.find(e => e.id === 'chest-up-portrait').text, fullBody(p)]) {
+        assert.ok(!text.includes(body.en), `GPT omits independent ${body.zh} source`);
+      }
+      assert.equal(p.selection.bodyTypeId, body.id);
     }
   });
   test(`${pants}: crop hides lower details but preserves locks and full-body wardrobe`, () => {

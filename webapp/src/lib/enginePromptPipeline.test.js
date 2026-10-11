@@ -291,9 +291,8 @@ test('Gpt single-subject prompt preserves full-fidelity normal subject and wardr
   const wardrobe = gptSection(prompt, 'Wardrobe');
 
   assert.match(subject, /black frame, bold thick-frame glasses, worn normally on the face, lenses aligned over the eyes/i);
-  assert.match(subject, /F–G cup bust, lean limbs, narrow defined waist, rounded hips/i);
-  assert.match(subject, /height 168–173 cm, bust–waist–hip 94–58–92 cm/i);
-  assert.match(subject, /F–G cup bust, lean limbs, narrow defined waist, rounded hips, long legs, dramatic lean hourglass silhouette/i);
+  assert.doesNotMatch(subject, /F–G cup bust|height 168–173 cm|bust–waist–hip|dramatic lean hourglass silhouette/i);
+  assert.match(subject, /20-year-old Japanese or Korean female portrait subject/i);
   assert.match(subject, /young seductive alluring beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence/i);
   assert.match(subject, /deep side-parted long soft waves, defined face-framing layers, polished wave shape/i);
   assert.match(subject, /silver-gray white hair, cool pale fashion color, realistic dyed hair texture/i);
@@ -487,8 +486,6 @@ test('Gpt single-subject prompt preserves full-fidelity identity descriptions', 
         hairColorId: optionId('hairColorId', '銀灰白'),
       },
       gptKeeps: [
-        /F–G cup bust, lean limbs, narrow defined waist, rounded hips/i,
-        /height 168–173 cm, bust–waist–hip 94–58–92 cm/i,
         /young seductive alluring beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence/i,
         /deep side-parted long soft waves, defined face-framing layers, polished wave shape/i,
         /silver-gray white hair, cool pale fashion color, realistic dyed hair texture/i,
@@ -511,7 +508,6 @@ test('Gpt single-subject prompt preserves full-fidelity identity descriptions', 
         hairColorId: optionId('hairColorId', '自然黑'),
       },
       gptKeeps: [
-        /A–B cup bust, narrow ribcage, slim arms and legs/i,
         /young beautiful Korean idol face, refined small face, clear bright eyes, polished youthful beauty, photogenic K-pop portrait balance/i,
         /chin-length inward-curved bob, airy straight bangs, smooth face-framing rounded ends, clean salon shape/i,
         /natural black hair, soft realistic shine, clean dark depth/i,
@@ -534,7 +530,6 @@ test('Gpt single-subject prompt preserves full-fidelity identity descriptions', 
         hairColorId: optionId('hairColorId', '蜂蜜焦糖棕'),
       },
       gptKeeps: [
-        /C–D cup bust, soft proportionate arms, gently defined waist/i,
         /young sweet pretty face, soft rounded charm, bright friendly eyes, gentle cute beauty, approachable youthful portrait look/i,
         /straight medium-to-long hair with clean vertical lengths, softly tapered ends, compact natural silhouette/i,
         /honey caramel-brown hair, warm golden brown salon color/i,
@@ -551,6 +546,8 @@ test('Gpt single-subject prompt preserves full-fidelity identity descriptions', 
 
   for (const item of cases) {
     const result = buildSubject(item.locks);
+    assert.doesNotMatch(result.subject, /cup bust|bust–waist–hip|height \d/i);
+    assert.match(result.subject, /20-year-old Japanese or Korean female portrait subject/i);
     for (const pattern of item.gptKeeps) {
       assert.match(result.subject, pattern, `${item.name} should preserve full GPT wording`);
     }
@@ -992,8 +989,9 @@ test('Gpt duo subject role wardrobes materialize role colors and punctuate sente
   const subject = gptSection(prompt, 'Subject');
 
   assert.equal(gptSection(prompt, 'Wardrobe'), '');
-  assert.match(subject, /Woman 1:\nHas [\s\S]*\. Wears gold leopard-pattern strapless corset top, lace bust cups, long front ribbon ties, low-rise flared jeans, platform sandals\./);
-  assert.match(subject, /Woman 2:\nHas [\s\S]*\. Wears dark brown sheer mesh halter camisole, visible lace bra layer, denim micro mini skirt, stacked waist jewelry, platform sandals\./);
+  assert.match(subject, /Woman 1:\nWears gold leopard-pattern strapless corset top, lace bust cups, long front ribbon ties, low-rise flared jeans, platform sandals\./);
+  assert.match(subject, /Woman 2:\nWears dark brown sheer mesh halter camisole, visible lace bra layer, denim micro mini skirt, stacked waist jewelry, platform sandals\./);
+  assert.doesNotMatch(subject, /cup bust|bust–waist–hip|height \d/i);
   assert.doesNotMatch(subject, /controlled by the outfit color selection/i);
   assert.doesNotMatch(subject, /coordinated but clearly distinct outfits|avoid identical garment colors|avoid matching top colors|keep each woman styling visually separate/i);
   assert.doesNotMatch(subject, /distinct outfit-visible editorial|complete wardrobe visible on both women|visible torso and wardrobe details|no headshot-only crop/i);
@@ -1414,7 +1412,7 @@ test('Z-Image binds intact pose to the scene before subject and all single wardr
   }
 });
 
-test('chest-up framing retains the selected Body Type source', () => {
+test('chest-up framing omits standalone GPT body while other models retain the selected source', () => {
   const [prompt] = generatePrompts(1, {
     ...createAllNoneLocks(),
     subjectCount: '1',
@@ -1424,7 +1422,8 @@ test('chest-up framing retains the selected Body Type source', () => {
   });
 
   const source = getLockControls().find(c => c.key === 'bodyTypeId').options.find(o => o.id === prompt.selection.bodyTypeId).en;
-  for (const output of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) assert.ok(output.includes(source));
+  assert.ok(!prompt.grokPrompt.includes(source));
+  for (const output of [prompt.zImagePrompt, prompt.midjourneyPrompt]) assert.ok(output.includes(source));
   assert.match(prompt.zImagePrompt, /cotton camisole top/i);
 });
 
