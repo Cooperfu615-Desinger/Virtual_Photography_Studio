@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { createEmptyLocks, generatePrompts, getLockControls, normalizeLocks } from './engine.js';
-import { SUBJECT_LIGHT_SOURCE_CASES } from './engine/subjectLightFixtures.js';
+import { SUBJECT_LIGHT_SOURCE_CASES, SUBJECT_LIGHT_ADDITION_SOURCE_CASES } from './engine/subjectLightFixtures.js';
 
 function controlOptions(key) {
   const control = getLockControls().find((entry) => entry.key === key);
@@ -92,9 +92,10 @@ test('renamed ambient light options keep legacy lighting ids working', () => {
 test('subject light prompts stay compact and subject-scoped', () => {
   const lightStyleOptions = controlOptions('lightDirectionId');
 
-  assert.equal(lightStyleOptions.length, 26);
+  assert.equal(lightStyleOptions.length, 32);
   assert.equal(SUBJECT_LIGHT_SOURCE_CASES.length, 25);
-  for (const [label, source] of SUBJECT_LIGHT_SOURCE_CASES) {
+  assert.equal(SUBJECT_LIGHT_ADDITION_SOURCE_CASES.length, 6);
+  for (const [label, source] of [...SUBJECT_LIGHT_SOURCE_CASES, ...SUBJECT_LIGHT_ADDITION_SOURCE_CASES]) {
     assert.equal(optionByLabel('lightDirectionId', label).en, source, `${label} source wording drifted`);
   }
   for (const option of lightStyleOptions.filter((entry) => entry.zh !== '全無')) {

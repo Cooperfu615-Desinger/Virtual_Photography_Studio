@@ -15,6 +15,27 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 });
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
+  ...[
+    ['正面強硬光', 'strong hard key light from in front of the subject'],
+    ['機頂直閃', 'hard direct flash from near the camera axis'],
+    ['蝴蝶光', 'raised frontal butterfly key light on the subject'],
+    ['倫勃朗光', 'raised oblique Rembrandt key light on the subject'],
+    ['分割光', 'side split key light on the subject'],
+    ['下方硬質主光', 'hard upward key light on the subject'],
+  ].map(([label, core], index) => ({
+    id: `subject-key-light-${index}`, title: `${label}: shared subject-light core without changing camera or reference lighting`,
+    mode: 'single', seed: `subject-light-additions-v1:${index}`,
+    locks: { subjectCount: '1', lightDirectionId: { byZh: label },
+      locationId: { byZh: '戶外：新宿歌舞伎町招牌下' }, lightingId: { byZh: '藍調傍晚' },
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' }, angleId: { byZh: '平視高度鏡頭' },
+      orbitId: { byZh: '正面 0 度' }, fixedCompositionSetId: 'none',
+      specialSubjectId: 'none', characterProfileId: 'none' },
+    expectedOutputs: {
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt']
+        .map(field => [field, { includes: [core] }])),
+      fullBodyCharacterPrompt: { includes: ['Clean even lighting'], excludes: [core] },
+    },
+  })),
   {
     id: 'head-dominant-top-down', title: 'Head-dominant portrait preserves selected head pose and independent derived crops',
     mode: 'single', seed: 'head-dominant-v1',

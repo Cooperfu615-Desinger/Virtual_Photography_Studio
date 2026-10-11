@@ -125,6 +125,12 @@
 | **光線表現 (Light Style)** | 潮濕反射光 | `wet-surface reflected fill on the subject, soft upward bounce from nearby surfaces, cool glossy highlights along lower contours` | 附近濕潤表面的柔和反射從下方回補人物，讓下緣輪廓帶冷色亮面。 |
 | **光線表現 (Light Style)** | 局部暖光 | `localized warm subject light, concentrated amber highlight zone across face and hands, gentle warm falloff, soft surrounding shadows` | 臉部與手部形成集中琥珀暖亮區，向外柔和衰減並保留周圍柔軟陰影。 |
 | **光線表現 (Light Style)** | 深夜邊緣微光 | `minimal nocturnal rim light, faint cool edge tracing hair shoulders and body outline, mostly shadowed subject mass` | 主體大多留在暗部，只沿髮絲、肩線與身體外輪廓保留微弱冷色邊光。 |
+| **光線表現 (Light Style)** | 正面強硬光 | `strong hard key light from in front of the subject, bright frontal highlights and compact crisp shadows, preserved skin and clothing detail` | 強硬主光從人物前方照射，正面亮部明確、陰影短而清楚，保留肌膚與衣物細節，不指定過曝或背景變黑。 |
+| **光線表現 (Light Style)** | 機頂直閃 | `hard direct flash from near the camera axis, bright highlights on the visible subject and crisp compact shadows, natural light falloff` | 近鏡頭方向的直接閃光照亮當下可見人物面，亮部鮮明、陰影清楚，保留自然光線衰減，不強制人物轉向鏡頭。 |
+| **光線表現 (Light Style)** | 蝴蝶光 | `raised frontal butterfly key light on the subject, a small centered shadow beneath the nose, defined cheekbone highlights` | 正面略高的主光在鼻下形成居中的短陰影，顴骨亮部清楚，不要求人物改變姿勢或面向。 |
+| **光線表現 (Light Style)** | 倫勃朗光 | `raised oblique Rembrandt key light on the subject, a small light triangle on the shadowed cheek, pronounced facial modeling` | 側上方主光在暗側臉頰形成小三角亮區，臉部明暗塑形鮮明，不另指定場景或背景。 |
+| **光線表現 (Light Style)** | 分割光 | `side split key light on the subject, one facial half illuminated and the other in shadow, clear light-dark separation` | 側方主光讓臉部一半受光、一半留在陰影中，明暗分界清楚，形成強烈戲劇性。 |
+| **光線表現 (Light Style)** | 下方硬質主光 | `hard upward key light on the subject, upward-cast nose and brow shadows, bright lower facial planes` | 強硬主光從下方照射，鼻部與眉骨陰影向上，臉部下緣亮面明確，不只是柔和反射補光。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | 全無 | `none` | 不指定成像風格，讓模型自行決定畫面質感與成像方式。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | 拍立得柔淡即時成像 | `Polaroid instant-film rendering, faded pastel color response, low contrast curve, soft chemical development texture, subtle edge softness, classic white border` | 模擬拍立得即時成像的低對比、淡粉 pastel 色彩、柔和邊緣與化學顯影質地，白色相紙邊框作為成像特徵保留。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | 柯達 Portra 暖膚底片 | `Kodak Portra film rendering, warm accurate skin-tone response, fine film grain, broad highlight latitude, smooth contrast curve, gentle analog color density` | 強調 Portra 系列的暖膚色反應、細緻底片顆粒、寬亮部容忍度與柔順對比曲線，整體色彩濃度溫和自然。 |

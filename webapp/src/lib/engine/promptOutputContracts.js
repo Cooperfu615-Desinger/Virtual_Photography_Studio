@@ -80,7 +80,17 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.48.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.49.0';
+
+export const SUBJECT_LIGHT_ADDITIONS_CONTRACT = deepFreeze({
+  version: '1.0.0',
+  source: 'six appended Light Style catalog entries; one shared resolved selection',
+  compatibility: 'reviewed source-marked independent keys and direct flash support daytime fill, night and full-body crops; existing styles unchanged',
+  fidelity: 'GPT retains full effective source; Z-Image and MJ retain source cores under existing compaction policies',
+  geometry: 'subject-front key and camera-axis flash are distinct; selected pose, orbit and head direction are never replaced',
+  reference: 'full-body character reference retains its fixed clean even lighting',
+  preservation: 'old IDs, labels, order, ambient light, renderer structure and storage schema remain unchanged',
+});
 
 export const UNDERBUST_TOP_FIT_CONTRACT = deepFreeze({
   scope: 'two appended manual single-choice fits for eligible independent tops',

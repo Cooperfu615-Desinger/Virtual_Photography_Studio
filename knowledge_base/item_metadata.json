@@ -918,5 +918,51 @@
         ]
       }
     }
+  },
+  "CameraLighting": {
+    "光線表現 (Light Style)": {
+      "正面強硬光": {
+        "subjectLight": {
+          "independentKey": true,
+          "sourceEn": "strong hard key light from in front of the subject, bright frontal highlights and compact crisp shadows, preserved skin and clothing detail",
+          "tags": ["artificial_light", "supports_indoor", "supports_outdoor", "supports_studio"]
+        }
+      },
+      "機頂直閃": {
+        "subjectLight": {
+          "independentKey": true,
+          "sourceEn": "hard direct flash from near the camera axis, bright highlights on the visible subject and crisp compact shadows, natural light falloff",
+          "tags": ["artificial_light", "flash", "supports_indoor", "supports_outdoor", "supports_studio"]
+        }
+      },
+      "蝴蝶光": {
+        "subjectLight": {
+          "independentKey": true,
+          "sourceEn": "raised frontal butterfly key light on the subject, a small centered shadow beneath the nose, defined cheekbone highlights",
+          "tags": ["artificial_light", "supports_indoor", "supports_outdoor", "supports_studio"]
+        }
+      },
+      "倫勃朗光": {
+        "subjectLight": {
+          "independentKey": true,
+          "sourceEn": "raised oblique Rembrandt key light on the subject, a small light triangle on the shadowed cheek, pronounced facial modeling",
+          "tags": ["artificial_light", "supports_indoor", "supports_outdoor", "supports_studio"]
+        }
+      },
+      "分割光": {
+        "subjectLight": {
+          "independentKey": true,
+          "sourceEn": "side split key light on the subject, one facial half illuminated and the other in shadow, clear light-dark separation",
+          "tags": ["artificial_light", "supports_indoor", "supports_outdoor", "supports_studio"]
+        }
+      },
+      "下方硬質主光": {
+        "subjectLight": {
+          "independentKey": true,
+          "sourceEn": "hard upward key light on the subject, upward-cast nose and brow shadows, bright lower facial planes",
+          "tags": ["artificial_light", "supports_indoor", "supports_outdoor", "supports_studio"]
+        }
+      }
+    }
   }
 }

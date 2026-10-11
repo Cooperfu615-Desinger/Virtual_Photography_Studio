@@ -28,6 +28,16 @@ export const SUBJECT_LIGHT_SOURCE_CASES = Object.freeze([
   ['深夜邊緣微光', 'minimal nocturnal rim light, faint cool edge tracing hair shoulders and body outline, mostly shadowed subject mass'],
 ]);
 
+// Append-only additions; keep the original 25-row historical oracle unchanged.
+export const SUBJECT_LIGHT_ADDITION_SOURCE_CASES = Object.freeze([
+  ['正面強硬光', 'strong hard key light from in front of the subject, bright frontal highlights and compact crisp shadows, preserved skin and clothing detail'],
+  ['機頂直閃', 'hard direct flash from near the camera axis, bright highlights on the visible subject and crisp compact shadows, natural light falloff'],
+  ['蝴蝶光', 'raised frontal butterfly key light on the subject, a small centered shadow beneath the nose, defined cheekbone highlights'],
+  ['倫勃朗光', 'raised oblique Rembrandt key light on the subject, a small light triangle on the shadowed cheek, pronounced facial modeling'],
+  ['分割光', 'side split key light on the subject, one facial half illuminated and the other in shadow, clear light-dark separation'],
+  ['下方硬質主光', 'hard upward key light on the subject, upward-cast nose and brow shadows, bright lower facial planes'],
+]);
+
 // Historical source wording used by the frozen prompt baselines.  Runtime
 // output intentionally uses SUBJECT_LIGHT_SOURCE_CASES above; this compatibility
 // oracle lets regression tests compare unrelated behavior without rewriting

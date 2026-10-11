@@ -3316,6 +3316,10 @@ function buildEntries(groupName, groupedData, inferMeta) {
         : {};
       const sourceTags = Array.isArray(sourceMeta.tags) ? sourceMeta.tags : [];
       const inferredTags = Array.isArray(inferredMeta.tags) ? inferredMeta.tags : [];
+      const subjectLight = groupName === 'camera' && category === LIGHT_STYLE_CATEGORY
+        && item.subjectLight && typeof item.subjectLight === 'object' && !Array.isArray(item.subjectLight)
+        ? item.subjectLight : null;
+      const subjectLightTags = Array.isArray(subjectLight?.tags) ? subjectLight.tags : [];
 
       return {
         ...normalized,
@@ -3330,7 +3334,8 @@ function buildEntries(groupName, groupedData, inferMeta) {
           ...(item.outerwearFastenerRequirement !== undefined ? { outerwearFastenerRequirement: item.outerwearFastenerRequirement } : {}),
           ...(item.legacyPromptAliases ? { legacyPromptAliases: item.legacyPromptAliases } : {}),
           ...(item.legacyLabels ? { legacyLabels: item.legacyLabels } : {}),
-          tags: withTags([...inferredTags, ...sourceTags]),
+          ...(subjectLight ? { subjectLight } : {}),
+          tags: withTags([...inferredTags, ...sourceTags, ...subjectLightTags]),
         },
       };
     });
@@ -4527,8 +4532,23 @@ function opticalEffectSupportsFilm(opticalEffect, film) {
   return true;
 }
 
+const REVIEWED_INDEPENDENT_SUBJECT_KEY_LABELS = new Set([
+  '正面強硬光', '機頂直閃', '蝴蝶光', '倫勃朗光', '分割光', '下方硬質主光',
+]);
+
+function isReviewedIndependentSubjectKey(lightDirection) {
+  const source = lightDirection?.meta?.subjectLight;
+  return source?.independentKey === true
+    && REVIEWED_INDEPENDENT_SUBJECT_KEY_LABELS.has(lightDirection.zh)
+    && Boolean(source.sourceEn)
+    && lightDirection.en === source.sourceEn;
+}
+
 function lightDirectionSupportsAmbientLight(lightDirection, lighting) {
   if (!lighting || isNoneLikeItem(lighting) || !lightDirection || isNoneLikeItem(lightDirection)) return true;
+  // Reviewed key/flash sources may illuminate a subject independently of the
+  // ambient hour, weather or brightness. Unknown/edited sources fail closed.
+  if (isReviewedIndependentSubjectKey(lightDirection)) return true;
 
   const directionTags = new Set(lightDirection.meta.tags);
   const lightingTags = new Set(lighting?.meta?.tags || []);
@@ -4580,6 +4600,9 @@ function lightDirectionSupportsScene(lightDirection, framing, location, lighting
   if (directionTags.has('outdoor_only') && locationEnvironment.indoor && !locationEnvironment.outdoor) return false;
   if (locationEnvironment.indoor && !locationEnvironment.outdoor && !directionEnvironment.indoor) return false;
   if (locationEnvironment.outdoor && !locationEnvironment.indoor && !directionEnvironment.outdoor) return false;
+  // Keep authored indoor/outdoor scope checks above; exempt only the six
+  // source-pinned subject keys from legacy daylight/artificial-light coupling.
+  if (isReviewedIndependentSubjectKey(lightDirection)) return true;
   if (directionTags.has('window_light') && !(locationTags.has('indoor') || locationTags.has('residential') || locationTags.has('hospitality') || locationTags.has('heritage'))) return false;
   if (directionTags.has('portrait_light') && lightingTags.has('natural_light') && !lightingTags.has('window_light') && !lightingTags.has('soft_light')) return false;
   if ((locationTags.has('outdoor') || locationTags.has('natural')) && directionTags.has('window_light')) return false;

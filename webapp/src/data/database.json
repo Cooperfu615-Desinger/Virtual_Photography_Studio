@@ -5339,6 +5339,97 @@
         "zh": "深夜邊緣微光",
         "en": "minimal nocturnal rim light, faint cool edge tracing hair shoulders and body outline, mostly shadowed subject mass",
         "desc": "主體大多留在暗部，只沿髮絲、肩線與身體外輪廓保留微弱冷色邊光。"
+      },
+      {
+        "zh": "正面強硬光",
+        "en": "strong hard key light from in front of the subject, bright frontal highlights and compact crisp shadows, preserved skin and clothing detail",
+        "desc": "強硬主光從人物前方照射，正面亮部明確、陰影短而清楚，保留肌膚與衣物細節，不指定過曝或背景變黑。",
+        "subjectLight": {
+          "independentKey": true,
+          "sourceEn": "strong hard key light from in front of the subject, bright frontal highlights and compact crisp shadows, preserved skin and clothing detail",
+          "tags": [
+            "artificial_light",
+            "supports_indoor",
+            "supports_outdoor",
+            "supports_studio"
+          ]
+        }
+      },
+      {
+        "zh": "機頂直閃",
+        "en": "hard direct flash from near the camera axis, bright highlights on the visible subject and crisp compact shadows, natural light falloff",
+        "desc": "近鏡頭方向的直接閃光照亮當下可見人物面，亮部鮮明、陰影清楚，保留自然光線衰減，不強制人物轉向鏡頭。",
+        "subjectLight": {
+          "independentKey": true,
+          "sourceEn": "hard direct flash from near the camera axis, bright highlights on the visible subject and crisp compact shadows, natural light falloff",
+          "tags": [
+            "artificial_light",
+            "flash",
+            "supports_indoor",
+            "supports_outdoor",
+            "supports_studio"
+          ]
+        }
+      },
+      {
+        "zh": "蝴蝶光",
+        "en": "raised frontal butterfly key light on the subject, a small centered shadow beneath the nose, defined cheekbone highlights",
+        "desc": "正面略高的主光在鼻下形成居中的短陰影，顴骨亮部清楚，不要求人物改變姿勢或面向。",
+        "subjectLight": {
+          "independentKey": true,
+          "sourceEn": "raised frontal butterfly key light on the subject, a small centered shadow beneath the nose, defined cheekbone highlights",
+          "tags": [
+            "artificial_light",
+            "supports_indoor",
+            "supports_outdoor",
+            "supports_studio"
+          ]
+        }
+      },
+      {
+        "zh": "倫勃朗光",
+        "en": "raised oblique Rembrandt key light on the subject, a small light triangle on the shadowed cheek, pronounced facial modeling",
+        "desc": "側上方主光在暗側臉頰形成小三角亮區，臉部明暗塑形鮮明，不另指定場景或背景。",
+        "subjectLight": {
+          "independentKey": true,
+          "sourceEn": "raised oblique Rembrandt key light on the subject, a small light triangle on the shadowed cheek, pronounced facial modeling",
+          "tags": [
+            "artificial_light",
+            "supports_indoor",
+            "supports_outdoor",
+            "supports_studio"
+          ]
+        }
+      },
+      {
+        "zh": "分割光",
+        "en": "side split key light on the subject, one facial half illuminated and the other in shadow, clear light-dark separation",
+        "desc": "側方主光讓臉部一半受光、一半留在陰影中，明暗分界清楚，形成強烈戲劇性。",
+        "subjectLight": {
+          "independentKey": true,
+          "sourceEn": "side split key light on the subject, one facial half illuminated and the other in shadow, clear light-dark separation",
+          "tags": [
+            "artificial_light",
+            "supports_indoor",
+            "supports_outdoor",
+            "supports_studio"
+          ]
+        }
+      },
+      {
+        "zh": "下方硬質主光",
+        "en": "hard upward key light on the subject, upward-cast nose and brow shadows, bright lower facial planes",
+        "desc": "強硬主光從下方照射，鼻部與眉骨陰影向上，臉部下緣亮面明確，不只是柔和反射補光。",
+        "subjectLight": {
+          "independentKey": true,
+          "sourceEn": "hard upward key light on the subject, upward-cast nose and brow shadows, bright lower facial planes",
+          "tags": [
+            "artificial_light",
+            "supports_indoor",
+            "supports_outdoor",
+            "supports_studio"
+          ]
+        }
       }
     ],
     "底片與相機模擬 (Camera & Film Simulation)": [
