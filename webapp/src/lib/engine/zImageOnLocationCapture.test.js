@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { Z_IMAGE_ON_LOCATION_FIXTURES as fixtures } from './zImageOnLocationFixtures.js';
-import { digest, runSceneFixture, PRE_HOURGLASS_BODY_CATALOG, assertZImagePoseProjection } from './sceneIntegratedAssemblyTestSupport.js';
+import { digest, runSceneFixture, materializeSceneFixture, PRE_HOURGLASS_BODY_CATALOG, assertZImagePoseProjection } from './sceneIntegratedAssemblyTestSupport.js';
 import { normalizeZImageOnLocationForLegacy } from './zImageOnLocationTestSupport.js';
 import { buildZImageOnLocationCapture } from './zImageOnLocationCapture.js';
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
@@ -30,7 +30,14 @@ test('published test prompts are the actual main renderer outputs', () => {
 for (const fixture of fixtures) test(`main-Z-only source relocation: ${fixture.id}`, () => {
   const current = get(fixture.id);
   const before = baseline.cases[fixture.id];
-  assert.equal(digest(current.selection), before.selectionHash, 'selections unchanged');
+  const rawLocks = materializeSceneFixture(fixture);
+  // This frozen fixture predates the category-only mirror migration. Reverse
+  // only its old hand/empty-prop input for the hash; all output gates stay exact.
+  const historicalSelection = rawLocks.poseHandId === 'selfie-mirror-phone-visible' && rawLocks.posePropId === 'none'
+    && current.selection.poseHandId === 'none' && current.selection.posePropId === 'selfie-mirror-phone-visible'
+    ? { ...current.selection, poseHandId: 'selfie-mirror-phone-visible', posePropId: 'none' }
+    : current.selection;
+  assert.equal(digest(historicalSelection), before.selectionHash, 'selections unchanged except exact mirror category migration');
   assert.equal(current.inputHash, before.inputHash);
   assert.equal(current.randomDraws, before.randomDraws);
   assert.deepEqual(runFrozenFixture(fixture).outputs, current.outputs, 'same seed');

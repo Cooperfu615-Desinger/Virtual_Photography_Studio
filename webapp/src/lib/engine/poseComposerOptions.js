@@ -715,7 +715,6 @@ const POSE_COMPOSER_LEGACY_HAND_OPTIONS = [
 
 const POSE_COMPOSER_HAND_OPTIONS_ACTIVE_IDS = new Set([
   'selfie-natural-right-arm',
-  'selfie-mirror-phone-visible',
   'selfie-companion-camera-interaction',
   'hands-relaxed-down',
   'arms-crossed',
@@ -919,17 +918,6 @@ export const POSE_COMPOSER_HAND_OPTIONS = [
     },
   },
   {
-    id: 'selfie-mirror-phone-visible',
-    zh: '鏡子自拍',
-    en: 'one hand holding a visible phone toward a mirror for a mirror selfie, with the phone overlapping the face or positioned beside it in the reflection',
-    desc: '單手拿著畫面中可見的手機對鏡自拍，手機可在鏡中遮住部分臉部或位於臉旁。',
-    meta: {
-      tags: ['selfie_hand_pose', 'visible_phone', 'mirror_selfie', 'locks_orbit'],
-      visibleBuckets: HAND_VISIBLE_BUCKETS,
-      randomEligible: false,
-    },
-  },
-  {
     id: 'selfie-companion-camera-interaction',
     zh: '男友/閨蜜自拍',
     en: 'a close handheld companion snapshot from a boyfriend-or-best-friend point of view, with her leaning naturally toward the nearby camera and keeping her hands relaxed in candid body language',
@@ -1115,6 +1103,17 @@ export const POSE_COMPOSER_PROP_OPTIONS = [
   },
   { id: 'hand-hold-cigarette', zh: '手持香菸', en: 'a cigarette held naturally between the fingers in one hand, faint smoke around the hand', desc: '手指自然夾著香菸，位置由模型自然決定。', meta: { tags: ['prop_action'] } },
   { id: 'hand-use-phone', zh: '滑手機', en: 'a cell phone held in one hand while scrolling or checking the screen', desc: '單手拿手機滑動或查看畫面。', meta: { tags: ['prop_action'] } },
+  {
+    id: 'selfie-mirror-phone-visible',
+    zh: '手持手機對鏡自拍',
+    en: 'one hand holding a visible phone toward a mirror for a mirror selfie, with the phone overlapping the face or positioned beside it in the reflection',
+    desc: '單手拿著畫面中可見的手機對鏡自拍，手機可在鏡中遮住部分臉部或位於臉旁。',
+    meta: {
+      tags: ['prop_action', 'selfie_hand_pose', 'visible_phone', 'mirror_selfie', 'locks_orbit'],
+      visibleBuckets: HAND_VISIBLE_BUCKETS,
+      randomEligible: false,
+    },
+  },
 ];
 const LYING_SHARED_HEAD_IDS = new Set([
   'head-camera-natural',

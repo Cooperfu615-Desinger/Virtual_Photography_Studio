@@ -1,5 +1,7 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
+2026-10-11 鏡子自拍移至道具：`selfie-mirror-phone-visible` 改由 `posePropId` 控制，名稱為「手持手機對鏡自拍」，ID／英文／鏡面與可見手機語意不變。舊 hand lock 遷移、道具互斥與批次保留沿用現有規則；自拍 orbit 及 eligible 主 Z capture 讀有效 hand／prop 動作，避免來源重複。其他兩款自拍、canonical pose、裁切及排除路徑不變。Public contract `1.50.0`，驗證狀態見 [鏡子自拍道具 v1](mirror-selfie-prop-v1.md)。
+
 2026-10-11 主體光線六款新增：追加正面強硬光、機頂直閃、蝴蝶光、倫勃朗光、分割光、下方硬質主光，31 款有效光線＋全無。單一 resolved source 沿用 GPT 完整保留、Z 前兩片語、MJ 既有核心精簡；胸上兩組保留同一選擇，全身角色參考照仍固定均勻光。舊來源／ID／順序、環境光、構圖及 storage 不變；Public contract `1.49.0`，見 [六款人物主光 v1](subject-light-additions-v1.md)。
 
 2026-10-07 澀谷站前人潮：單一場景來源改為主角身處同一密集人流，共享空間、透視、環境光與依距離變化的尺度；路人混合色彩與款式，近前景自然重疊裁切。Z 低機位保留同一新版來源。GPT 區段、各 renderer 精簡政策、胸上同狀態、全身角色照及 storage 不變；Public contract `1.47.0`，見 [澀谷站前人潮 v1](shibuya-station-crowds-v1.md)。
@@ -18,7 +20,7 @@
 
 2026-10-02 跪姿 v2：七組公開目錄、分腿跪坐落地／高跪幾何及四足雙掌／雙肘綁定。支撐先解析再投影，三個主輸出共用來源，兩組胸上沿用同一拍攝狀態，全身角色照保持原規則；歷史明確選擇及來源 alias 保留。四足綁定是下文「手部任意／道具接管」規則的限定例外，見 [跪姿目錄 v2](kneeling-catalog-v2.md)。Public contract `1.34.0`。
 
-Last updated: 2026-10-07
+Last updated: 2026-10-11
 
 2026-10-07 頭部主導近景：追加主景別，頭頂至下巴占畫面高度 50–60%，上身／手臂及場景可見。僅開放高位、平視與正上方，保留頭部選項；新主景別 GPT/Z 使用近距離相機來源，兩組固定胸上與全身衍生維持用途及原距離。詳見 [頭部主導近景 v1](head-dominant-framing-v1.md)。Public contract `1.48.0`。
 
@@ -706,6 +708,8 @@ core category, 1-3 concrete visible traits
 
 `Gpt`、`Grok/Z-Image`、`AI` 在 Pose Composer 啟用時先共用同一個 resolved pose，再依共用構圖契約產生 projected canonical pose。GPT／MJ 與排除路徑逐字共用，完整保留投影後仍可見的身體安排、重心、支撐、手部位置、道具接觸與頭部方向。一般單人主 Z-Image 僅依現行 Z contract 窄例外省略關係型獨立支撐及搬移自拍來源；`meta.preserveInSceneIntegratedZ` 明確標記的九個手動坐姿物件仍須以簡潔「坐姿＋物件」來源保留，姿勢／手部自身的接觸也不刪；不得任意再壓縮其他角色。`faceDetail` 與 `headShoulders` 原投影為空時，Z 也不回灌自拍或姿勢。
 
+鏡子自拍的自拍來源以有效動作為準，不假設永遠存於 `poseHandId`：「手持手機對鏡自拍」屬於 `posePropId`，有效道具先於手部。僅 eligible 主 Z 將投影仍可見的同一鏡面／手機來源搬至 capture context 並在其局部姿勢組裝省略該道具，避免重複；GPT／MJ、共用 canonical 與原排除路徑不改。近景已省略的來源不得回灌，非自拍道具不得取得自拍語意。
+
 接觸／支撐第一版規則：站姿、跪姿、蹲姿的公開選單不指定外部支撐物件，`全無` 表示由模型依姿勢自由安排；坐姿可手動選擇一般椅子、單人雕花絨布椅、沙發、長椅、台階、床、地面、浴缸或洗手台旁浴室檯面，這九項不進入隨機池。選中物件時只輸出既有物件身份與介系詞，不補 `clear contact`、`body weight visibly supported` 或額外場景道具。舊的關係型與場景推導型 anchor 保留還原相容性，但不顯示於公開選單，也不參與非躺姿隨機。躺姿與 `supineSurfaceLed` 規則維持不變。
 
 表情只寫臉部可見反應、嘴型、眉毛、眼瞼狀態與情緒強度，不指定眼神方向。姿態只寫身體安排、重心、支撐與動作狀態，並可保留 Pose Composer 的 canonical head direction；但 `head naturally facing the camera`、`turning back`、`over-the-shoulder` 等頭部／身體方向不得由姿態文字偷渡進表情資料。
@@ -757,6 +761,8 @@ soft natural smile, relaxed cheeks, gently lifted mouth corners
 - `relaxed everyday...`, `polished...`, `controlled cinematic...` 若不影響畫面可刪。
 - Pose Composer `手部動作` 保留手部位置與接觸點；獨立 `道具動作` 保留物件、持握方式與必要接觸狀態。Legacy `特殊動作` 只作 restore 遷移參考，不作新增主路徑。
 
+「手持手機對鏡自拍」保留原 `selfie-mirror-phone-visible` ID 與英文，歸獨立道具；`自然自拍` 與 `男友/閨蜜自拍` 不搬移。舊手部值按既有 hand-to-prop 規則還原，明確道具優先。三款仍手動限定、不進入各自隨機池；新鏡子自拍遵循道具批次隨機保留與 hand／prop 互斥，不新增 storage schema 或重寫已存 Prompt 原文。
+
 Pose Composer 相關描述在構圖可見時應保留實際身體結構，例如 base arrangement、hand / prop placement、support anchor、head direction。三組輸出都直接使用同一段 projected canonical pose prompt。不要新增 Pose Modifier，除非使用者明確要求。
 
 `單手向鏡頭張開手掌` 是已核准的窄範圍構圖例外：除了三組逐字共用的 projected canonical pose，三個主要單人輸出還必須在人物、服裝與場景描述之前，共用同一段由該 hand option metadata 提供的 composition modifier，明確把完整五指手掌提升為約佔畫面 80–90% 的近鏡頭遮擋。這段 modifier 屬於所選手部來源的可追溯視覺描述，不是 renderer 自行發明的 Pose Modifier；不得鎖定左右手、不得裁切指尖、不得套用到其他手勢或雙人模式。沒有該 modifier 時，各 renderer 必須保持原本的 composition 文字與標點 bytes，不得因共用 helper 產生非目標輸出漂移。
@@ -780,7 +786,7 @@ Pose Composer 相關描述在構圖可見時應保留實際身體結構，例如
 - 上半身裁切優先使用站姿／坐姿基底；牛仔中景排除躺姿，讓可見裁切和姿勢重心一致。
 - 正面方位的隨機肢體排除側身／背向變體；隨機頭部會避免與側／背向身體同時使用「頭部自然朝向鏡頭」。
 - 鳥瞰／正上方俯視時，隨機頭部排除需要正面臉孔可見的方向；上半身裁切排除只依賴腿部或地面接觸的手部動作。
-- 背面視角的隨機道具排除臉部接觸型道具；自拍手勢仍沿用既有的方位接管規則。
+- 背面視角的隨機道具排除臉部接觸型道具；有效自拍手部／道具動作仍沿用既有的方位接管規則。四足必要支撐、固定人物位置及其他模式接管優先權不變。
 - 相容性只限制 `隨機` 候選，不替換明確 lock。若使用者刻意選擇衝突方向，resolved pose 與三組 canonical prompt 仍照實保留。
 
 這套規範只處理鏡頭裁切、角度、方位與姿勢層的可組合性；場景物件是否真的能提供支撐，仍由既有 anchor／水域規則處理，完整場景幾何相容性不在本階段範圍。

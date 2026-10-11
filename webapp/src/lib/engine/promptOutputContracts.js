@@ -80,7 +80,17 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.49.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.50.0';
+
+export const MIRROR_SELFIE_PROP_CONTRACT = deepFreeze({
+  scope: 'move mirror selfie from hand action to prop action; natural and companion selfies unchanged',
+  identity: 'selfie-mirror-phone-visible retains its ID, complete English source and historical selfie tags',
+  selection: 'manual-only prop uses existing hand-prop exclusivity and explicit-prop batch preservation',
+  migration: 'legacy hand locks migrate to the same prop ID without replacing an existing effective prop',
+  orbit: 'effective selfie action in either slot retains the existing none-orbit lock',
+  capture: 'relocate the same surviving selfie source once in eligible main Z capture; retain all existing visibility and mode exclusions',
+  preservation: 'saved text, storage schema, canonical source, selected pose, wardrobe, scene and camera geometry unchanged',
+});
 
 export const SUBJECT_LIGHT_ADDITIONS_CONTRACT = deepFreeze({
   version: '1.0.0',

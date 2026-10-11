@@ -76,15 +76,15 @@ test('selfie shooting choices are no longer exposed as special actions', () => {
   assert.doesNotMatch(labels, /自然自拍感|鏡子自拍|男友視角拍攝|閨蜜視角拍攝/);
 });
 
-test('selfie shooting choices are exposed as pose composer hand poses', () => {
+test('selfie shooting choices are exposed in their hand or prop control', () => {
   const cases = [
-    ['自然自拍', /front-camera self-shot/],
-    ['鏡子自拍', /visible phone toward a mirror/],
-    ['男友/閨蜜自拍', /close handheld companion snapshot/],
+    ['poseHandId', '自然自拍', /front-camera self-shot/],
+    ['posePropId', '手持手機對鏡自拍', /visible phone toward a mirror/],
+    ['poseHandId', '男友/閨蜜自拍', /close handheld companion snapshot/],
   ];
 
-  for (const [label, expected] of cases) {
-    const selfie = optionByLabel('poseHandId', label);
+  for (const [key, label, expected] of cases) {
+    const selfie = optionByLabel(key, label);
     assert.match(selfie.en, expected);
     assert.equal(selfie.meta?.uiHidden, undefined, label);
     assert.equal(selfie.meta?.randomEligible, false, label);

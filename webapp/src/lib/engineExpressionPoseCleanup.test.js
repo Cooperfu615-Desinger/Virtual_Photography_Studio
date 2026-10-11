@@ -113,12 +113,12 @@ test('legacy reference subject locks normalize to single subject mode without re
   assert.doesNotMatch(promptText, /Reference Guidance|attached reference image|attached reference person|附圖人物|上傳人物/i);
 });
 
-test('selfie shooting actions moved from special actions to pose composer hand poses', () => {
+test('selfie shooting actions use hand or prop controls instead of special actions', () => {
   const specialActionLabels = optionLabels('specialActionId').join(' ');
 
   assert.doesNotMatch(specialActionLabels, /自然自拍感|鏡子自拍|男友視角拍攝|閨蜜視角拍攝/);
   assert.ok(optionByLabel('poseHandId', '自然自拍'));
-  assert.ok(optionByLabel('poseHandId', '鏡子自拍'));
+  assert.ok(optionByLabel('posePropId', '手持手機對鏡自拍'));
   assert.ok(optionByLabel('poseHandId', '男友/閨蜜自拍'));
 });
 
@@ -461,7 +461,8 @@ test('legacy expression and selfie pose locks migrate into cleaned options', () 
   assert.equal(normalizedMirrorSelfie.specialActionId, optionByLabel('specialActionId', '全無').id);
   assert.equal(normalizedMirrorSelfie.poseBaseId, optionByLabel('poseBaseId', '站姿').id);
   assert.equal(normalizedMirrorSelfie.poseArrangementId, optionByLabel('poseArrangementId', '自然站姿').id);
-  assert.equal(normalizedMirrorSelfie.poseHandId, optionByLabel('poseHandId', '鏡子自拍').id);
+  assert.equal(normalizedMirrorSelfie.poseHandId, 'none');
+  assert.equal(normalizedMirrorSelfie.posePropId, optionByLabel('posePropId', '手持手機對鏡自拍').id);
 
   const normalizedMovingSelfie = normalizeLocks({
     ...createEmptyLocks(),

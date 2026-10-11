@@ -56,7 +56,7 @@ function enrichField(field, fixedSet, handLocksOrbit) {
       management = {
         label: '自拍動作管理',
         value: '由自拍動作決定',
-        reason: '目前自拍手部動作管理拍攝方位，環繞角度暫不可調整。',
+        reason: '目前自拍動作管理拍攝方位，環繞角度暫不可調整。',
       };
     }
   }

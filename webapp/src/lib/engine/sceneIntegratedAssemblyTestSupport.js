@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { createEmptyLocks, createSeededRandom, generatePrompts, getKnowledgeBaseSnapshot, getLockControls } from '../engine.js';
 import { PROMPT_OUTPUT_CONTRACTS } from './promptOutputContracts.js';
-import { POSE_COMPOSER_ANCHOR_OPTIONS, POSE_COMPOSER_HAND_OPTIONS } from './poseComposerOptions.js';
+import { POSE_COMPOSER_ANCHOR_OPTIONS, POSE_COMPOSER_HAND_OPTIONS, POSE_COMPOSER_PROP_OPTIONS } from './poseComposerOptions.js';
 import { normalizeZImageOnLocationForLegacy } from './zImageOnLocationTestSupport.js';
 import { LEGACY_BODY_CATALOG_ITEMS, generateLegacyBodyPrompts } from './bodyTypeLegacyTestSupport.js';
 import { normalizeShibuyaPromptForLegacy } from './shibuyaSceneTestSupport.js';
@@ -111,10 +111,16 @@ export function restoreBaselineSelection(baseline, entry) {
 // byte-exact protected outputs are checked in zImageOnLocationCapture.test.js.
 function runLegacySceneFixtureUncached(fixture) {
   const result = runSceneFixture(fixture, PRE_HOURGLASS_BODY_CATALOG);
+  // Frozen matrices predate the mirror action's category-only relocation.
+  // Reverse only that exact migration for selection hashes, never public text.
+  const legacySelection = result.selection.posePropId === 'selfie-mirror-phone-visible'
+    && result.selection.poseHandId === 'none'
+    ? stableValue({ ...result.selection, poseHandId: 'selfie-mirror-phone-visible', posePropId: 'none' })
+    : result.selection;
   const outputs = Object.fromEntries(Object.entries(result.outputs).map(([field, text]) =>
     [field, normalizeShibuyaPromptForLegacy(text, field, result.selection)]));
   const zImagePrompt = normalizeZImageOnLocationForLegacy(outputs.zImagePrompt);
-  return { ...result, outputs: { ...outputs, zImagePrompt }, prompt: { ...result.prompt, zImagePrompt } };
+  return { ...result, selection: legacySelection, outputs: { ...outputs, zImagePrompt }, prompt: { ...result.prompt, zImagePrompt } };
 }
 
 let historicalSceneMemo = null;
@@ -147,14 +153,16 @@ export function assertZImagePoseProjection(prompt) {
   const excluded = s.subjectCount !== '1' || active(s.fixedCompositionSetId)
     || active(s.specialSubjectId) || active(s.characterProfileId)
     || (s.poseBaseId === 'lying' && s.poseOrientationId === 'lying-supine' && anchor?.meta?.supineSurfaceLed);
-  const hand = POSE_COMPOSER_HAND_OPTIONS.find((o) => o.id === s.poseHandId);
+  const hand = s.posePropId === 'selfie-mirror-phone-visible'
+    ? POSE_COMPOSER_PROP_OPTIONS.find((o) => o.id === s.posePropId)
+    : POSE_COMPOSER_HAND_OPTIONS.find((o) => o.id === s.poseHandId);
   const visibleCapture = !excluded && hand?.meta?.tags?.includes('selfie_hand_pose')
     && canonical(prompt).toLowerCase().includes(hand.en.toLowerCase());
   const preserveAnchor = !excluded && anchor?.meta?.preserveInSceneIntegratedZ === true;
   const expected = excluded ? canonical(prompt) : canonical(generatePrompts(1, {
     ...s,
     ...(!preserveAnchor ? { poseAnchorId: 'none' } : {}),
-    ...(visibleCapture ? { poseHandId: 'none' } : {}),
+    ...(visibleCapture ? { poseHandId: 'none', ...(s.posePropId === 'selfie-mirror-phone-visible' ? { posePropId: 'none' } : {}) } : {}),
   }, [], { random: createSeededRandom('z-projection-independent-gpt-oracle') })[0]);
   if (expected) assert.ok(prompt.zImagePrompt.includes(expected), `Z must preserve the projected pose source: ${expected}`);
   if (visibleCapture) {

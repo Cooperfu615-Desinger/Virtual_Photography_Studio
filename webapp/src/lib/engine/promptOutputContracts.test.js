@@ -10,6 +10,7 @@ import {
 import {
   PROMPT_OUTPUT_CONTRACTS,
   PROMPT_OUTPUT_CONTRACT_VERSION,
+  MIRROR_SELFIE_PROP_CONTRACT,
   validatePromptOutputContract,
 } from './promptOutputContracts.js';
 import { REPRESENTATIVE_PROMPT_FIXTURES } from './representativePromptFixtures.js';
@@ -106,7 +107,7 @@ function assertLiteralExpectations(text, expectations, fixtureId, field) {
 }
 
 test('prompt output contracts are frozen serializable data with stable public fields', () => {
-  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.49.0');
+  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.50.0');
   assert.deepEqual(Object.keys(PROMPT_OUTPUT_CONTRACTS), [
     'grokPrompt',
     'zImagePrompt',
@@ -132,6 +133,15 @@ test('prompt output contracts are frozen serializable data with stable public fi
   assert.equal(PROMPT_OUTPUT_CONTRACTS.chestUpMjPortraitPrompt.source.id, 'chest-up-mj-portrait');
   assert.match(PROMPT_OUTPUT_CONTRACTS.chestUpMjPortraitPrompt.tail.requiredPatternSource, /--ar 4:5/);
   assert.deepEqual(PROMPT_OUTPUT_CONTRACTS.fullBodyCharacterPrompt.applicability.supportedModes, ['single']);
+});
+
+test('mirror selfie prop contract preserves the source and compatibility boundaries', () => {
+  assert.ok(Object.isFrozen(MIRROR_SELFIE_PROP_CONTRACT));
+  assert.deepEqual(JSON.parse(JSON.stringify(MIRROR_SELFIE_PROP_CONTRACT)), MIRROR_SELFIE_PROP_CONTRACT);
+  assert.match(MIRROR_SELFIE_PROP_CONTRACT.identity, /selfie-mirror-phone-visible/);
+  assert.match(MIRROR_SELFIE_PROP_CONTRACT.selection, /manual-only/);
+  assert.match(MIRROR_SELFIE_PROP_CONTRACT.migration, /without replacing an existing effective prop/);
+  assert.match(MIRROR_SELFIE_PROP_CONTRACT.capture, /existing visibility and mode exclusions/);
 });
 
 test('contract validator reports unknown, unsupported, tail, language, and control-leakage failures', () => {

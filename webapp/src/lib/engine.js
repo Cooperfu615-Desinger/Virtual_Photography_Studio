@@ -2896,13 +2896,13 @@ const CHARACTER_EXPRESSION_POSE_LEGACY_OPTION_MAP = [
 
 const CHARACTER_EXPRESSION_POSE_LEGACY_SOCIAL_POSE_MIGRATIONS = [
   { legacy: ['站姿｜自然自拍姿勢', 9], baseZh: '站姿', arrangementZh: '自然站姿', handZh: '自然自拍' },
-  { legacy: ['站姿｜鏡子自拍姿勢', 10], baseZh: '站姿', arrangementZh: '自然站姿', handZh: '鏡子自拍' },
+  { legacy: ['站姿｜鏡子自拍姿勢', 10], baseZh: '站姿', arrangementZh: '自然站姿', propZh: '手持手機對鏡自拍' },
   { legacy: ['坐姿｜自然自拍姿勢', 21], baseZh: '坐姿', arrangementZh: '自然坐姿', handZh: '自然自拍' },
-  { legacy: ['坐姿｜鏡子自拍姿勢', 22], baseZh: '坐姿', arrangementZh: '自然坐姿', handZh: '鏡子自拍' },
+  { legacy: ['坐姿｜鏡子自拍姿勢', 22], baseZh: '坐姿', arrangementZh: '自然坐姿', propZh: '手持手機對鏡自拍' },
   { legacy: ['半躺低姿態｜自然自拍姿勢', 32], baseZh: '躺姿', arrangementZh: '側躺', handZh: '自然自拍' },
-  { legacy: ['半躺低姿態｜鏡子自拍姿勢', 33], baseZh: '躺姿', arrangementZh: '側躺', handZh: '鏡子自拍' },
+  { legacy: ['半躺低姿態｜鏡子自拍姿勢', 33], baseZh: '躺姿', arrangementZh: '側躺', propZh: '手持手機對鏡自拍' },
   { legacy: ['動態互動｜自然自拍姿勢', 46], baseZh: '站姿', arrangementZh: '自然站姿', handZh: '自然自拍' },
-  { legacy: ['動態互動｜鏡子自拍姿勢', 47], baseZh: '站姿', arrangementZh: '自然站姿', handZh: '鏡子自拍' },
+  { legacy: ['動態互動｜鏡子自拍姿勢', 47], baseZh: '站姿', arrangementZh: '自然站姿', propZh: '手持手機對鏡自拍' },
 ].map((entry) => ({
   ...entry,
   legacyId: `character:${slugify('姿勢與肢體語言 (Pose & Body Language)')}:${slugify(entry.legacy[0])}:${entry.legacy[1]}`,
@@ -2910,7 +2910,7 @@ const CHARACTER_EXPRESSION_POSE_LEGACY_SOCIAL_POSE_MIGRATIONS = [
 
 const CHARACTER_LEGACY_SELFIE_SPECIAL_ACTION_MIGRATIONS = [
   { label: '自然自拍感', handZh: '自然自拍' },
-  { label: '鏡子自拍', handZh: '鏡子自拍' },
+  { label: '鏡子自拍', propZh: '手持手機對鏡自拍' },
   { label: '男友視角拍攝', handZh: '男友/閨蜜自拍' },
   { label: '閨蜜視角拍攝', handZh: '男友/閨蜜自拍' },
 ].map((entry, index) => ({
@@ -2951,6 +2951,7 @@ const LEGACY_POSE_HAND_TO_PROP_ID = new Map([
   ['hand-hold-whirly-lollipop', 'hand-hold-whirly-lollipop'],
   ['hand-hold-cigarette', 'hand-hold-cigarette'],
   ['hand-use-phone', 'hand-use-phone'],
+  ['selfie-mirror-phone-visible', 'selfie-mirror-phone-visible'],
 ]);
 
 const CHARACTER_POSE_TO_POSE_COMPOSER_MIGRATIONS = [
@@ -3569,6 +3570,7 @@ function applyExpressionPoseLegacySocialLockMigration(normalizedLocks, rawLocks,
   setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseBaseId', migration.baseZh);
   setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseArrangementId', migration.arrangementZh);
   setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseHandId', migration.handZh);
+  if (migration.propZh) setControlOptionByZhIfInactive(normalizedLocks, controls, 'posePropId', migration.propZh);
 }
 
 function inferPoseComposerBaseZhFromLegacyPose(normalizedLocks, rawLocks, controls) {
@@ -3593,6 +3595,7 @@ function applyLegacySelfieSpecialActionMigration(normalizedLocks, rawLocks, cont
   setControlToNone(normalizedLocks, controls, 'specialActionId');
   setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseBaseId', inferPoseComposerBaseZhFromLegacyPose(normalizedLocks, rawLocks, controls));
   setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseHandId', migration.handZh);
+  if (migration.propZh) setControlOptionByZhIfInactive(normalizedLocks, controls, 'posePropId', migration.propZh);
 }
 
 function applyPoseArrangementAnchorMigration(normalizedLocks, rawLocks, controls) {
@@ -3674,17 +3677,23 @@ function isSelfiePoseHandOption(option) {
   return Boolean(option?.meta?.tags?.includes('selfie_hand_pose'));
 }
 
+function getPoseComposerActiveAction(handId, propId) {
+  const prop = getPoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, propId);
+  return isActivePoseComposerOption(prop)
+    ? prop : getPoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, handId);
+}
+
 function applySelfiePoseHandOrbitLock(normalizedLocks, controls) {
-  const poseHand = getControlOptionById(controls, 'poseHandId', normalizedLocks.poseHandId);
-  if (!isSelfiePoseHandOption(poseHand)) return;
+  const action = getPoseComposerActiveAction(normalizedLocks.poseHandId, normalizedLocks.posePropId);
+  if (!isSelfiePoseHandOption(action)) return;
 
   setControlToNone(normalizedLocks, controls, 'orbitId');
 }
 
 function characterUsesResolvedSelfiePoseHand(character = []) {
   const poseComposer = character.find((item) => item?.meta?.tags?.includes('pose_composer'));
-  const poseHand = getPoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, poseComposer?.meta?.poseHandId);
-  return isSelfiePoseHandOption(poseHand);
+  const action = getPoseComposerActiveAction(poseComposer?.meta?.poseHandId, poseComposer?.meta?.posePropId);
+  return isSelfiePoseHandOption(action);
 }
 
 function applyOutfitPresetToDressLegacyLockMigration(normalizedLocks, rawLocks, controls) {
@@ -5498,7 +5507,9 @@ function buildPoseComposerResultPhrase({ base, orientation, arrangement, anchor,
 
 function buildPoseComposerSentence({ base, orientation, arrangement, handPose, propAction, anchor, head, location }) {
   if (base?.id === 'lying' && orientation?.id === 'lying-supine') {
-    return buildSupinePoseComposerSentence({ arrangement, handPose, anchor, head, orientation });
+    return buildSupinePoseComposerSentence({ arrangement,
+      handPose: isSelfiePoseHandOption(propAction) ? propAction : handPose,
+      anchor, head, orientation });
   }
 
   const anchorEffect = getPoseComposerAnchorEffect(anchor, base);
@@ -6005,7 +6016,7 @@ function buildChestUpPoseComposerSentence({ orientation, arrangement, handPose, 
       : null;
     return buildSupinePoseComposerSentence({
       arrangement: projectedSupineArrangement,
-      handPose: projectedHand,
+      handPose: isSelfiePoseHandOption(propAction) ? propAction : projectedHand,
       anchor: projectedAnchor,
       head: projectedHead,
       orientation,
@@ -6056,7 +6067,7 @@ function buildChestUpPoseComposerSentence({ orientation, arrangement, handPose, 
   });
 }
 
-function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = false, omitHand = false } = {}) {
+function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = false, omitHand = false, omitProp = false } = {}) {
   if (!poseComposer || isNoneLikeItem(poseComposer)) return '';
   const projection = getCompositionVisibilityProjection(context);
   if (context.fixedSetPosition?.carriagePose || context.fixedSetPosition?.stationPose) {
@@ -6079,7 +6090,7 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
   );
   const orientation = activeOption(POSE_COMPOSER_ORIENTATION_OPTIONS, poseComposer.meta?.poseOrientationId);
   const handPose = omitHand ? null : activeOption(POSE_COMPOSER_HAND_OPTIONS, poseComposer.meta?.poseHandId);
-  const propAction = activeOption(POSE_COMPOSER_PROP_OPTIONS, poseComposer.meta?.posePropId);
+  const propAction = omitProp ? null : activeOption(POSE_COMPOSER_PROP_OPTIONS, poseComposer.meta?.posePropId);
   const head = activeOption(POSE_COMPOSER_HEAD_OPTIONS, poseComposer.meta?.poseHeadId);
   const anchor = omitAnchor ? null : activeOption(POSE_COMPOSER_ANCHOR_OPTIONS, poseComposer.meta?.poseAnchorId);
   const bucket = projection.bucket;
@@ -6108,7 +6119,7 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
       : visibleHand ? buildPoseComposerSentence({ handPose: visibleHand }) : '';
   }
   if (projection.pose?.mode === 'fullCanonical') {
-    if (!omitAnchor && !omitHand) return poseComposer.en || '';
+    if (!omitAnchor && !omitHand && !omitProp) return poseComposer.en || '';
     return buildPoseComposerSentence({ base, orientation, arrangement, handPose, propAction, anchor, head, location: context.location });
   }
 
@@ -13072,20 +13083,21 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
   const sceneIntegrated = context.subject.count === 1
     && !specialSubjectMode && !characterProfileMode && !useCharacterIdentityAnchor
     && !fixedCompositionSetActive && !supineSurfaceLed;
-  const selfieHand = getPoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, poseComposer?.meta?.poseHandId);
   const activeProp = getPoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, poseComposer?.meta?.posePropId);
-  const captureHand = sceneIntegrated && selfieHand?.meta?.tags?.includes('selfie_hand_pose')
-    && !isActivePoseComposerOption(activeProp)
+  const selfieAction = getPoseComposerActiveAction(poseComposer?.meta?.poseHandId, poseComposer?.meta?.posePropId);
+  const captureIsProp = isActivePoseComposerOption(activeProp);
+  const captureAction = sceneIntegrated && isSelfiePoseHandOption(selfieAction)
     && compositionVisibilityProjection.pose?.mode !== 'omit'
     ? (compositionVisibilityProjection.pose?.mode === 'fullCanonical'
-      ? selfieHand
-      : shouldProjectPosePart(compositionVisibilityProjection, 'hand', { conditional: true })
-        ? projectPoseComposerHand(selfieHand, compositionVisibilityProjection.bucket) : null)
+      ? selfieAction
+      : shouldProjectPosePart(compositionVisibilityProjection, captureIsProp ? 'prop' : 'hand', { conditional: true })
+        ? projectPoseComposerHand(selfieAction, compositionVisibilityProjection.bucket) : null)
     : null;
   const zOnlyPoseText = sceneIntegrated
     ? buildProjectedCanonicalPoseText(context, poseComposer, {
       omitAnchor: !preserveSceneIntegratedAnchor,
-      omitHand: Boolean(captureHand),
+      omitHand: Boolean(captureAction) && !captureIsProp,
+      omitProp: Boolean(captureAction) && captureIsProp,
     })
     : context.projectedCanonicalPoseText || '';
   const buildCharacterText = () => {
@@ -13649,7 +13661,7 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
     ].filter(Boolean).join(' ');
     const poseText = buildSinglePoseText();
     const lightingText = buildLightingText();
-    const handText = captureHand ? sentence(capitalizePromptLead(captureHand.en)) : '';
+    const handText = captureAction ? sentence(capitalizePromptLead(captureAction.en)) : '';
     // Only connect surviving sources. Empty scenes/hidden poses retain v1;
     // never infer a seat, surface, light source or replacement object.
     const onLocation = Boolean(identity && poseText);

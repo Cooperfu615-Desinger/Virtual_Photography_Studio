@@ -801,13 +801,17 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     .find((control) => control.key === activeWardrobePickerKey);
   const specialActionControl = characterLockControls.find((control) => control.key === 'specialActionId');
   const poseHandControl = characterLockControls.find((control) => control.key === 'poseHandId');
+  const posePropControl = characterLockControls.find((control) => control.key === 'posePropId');
   const getSpecialActionOption = (id) => specialActionControl?.options?.find((option) => option.id === id) || null;
   const isSocialShootingActionOption = (option) => Boolean(option?.meta?.tags?.includes('social_shooting_action'));
-  const isSelfiePoseHandOption = (option) => Boolean(option?.meta?.tags?.includes('selfie_hand_pose'));
+  const isSelfiePoseActionOption = (option) => Boolean(option?.meta?.tags?.includes('selfie_hand_pose'));
   const selectedSpecialActionOption = getSpecialActionOption(locks.specialActionId);
   const selectedSpecialActionIsSocial = isSocialShootingActionOption(selectedSpecialActionOption);
   const selectedPoseHandOption = poseHandControl?.options?.find((option) => option.id === locks.poseHandId) || null;
-  const selectedPoseHandLocksOrbit = !fixedScenePosition && isSelfiePoseHandOption(selectedPoseHandOption);
+  const selectedPosePropOption = posePropControl?.options?.find((option) => option.id === locks.posePropId) || null;
+  const selectedPoseActionOption = selectedPosePropOption && !isNoneSelected('posePropId', locks.posePropId, characterLockControls)
+    ? selectedPosePropOption : selectedPoseHandOption;
+  const selectedPoseActionLocksOrbit = !fixedScenePosition && isSelfiePoseActionOption(selectedPoseActionOption);
   const isPoseComposerValueActive = (key, value = locks[key]) => (
     Boolean(value) && !isNoneSelected(key, value, characterLockControls)
   );
@@ -846,7 +850,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         fixedScenePosition?.zh || '',
         activeActionPoseCard ? activeActionPoseCard.title : '',
         isPoseComposerActive ? 'Pose Composer' : '',
-        selectedPoseHandLocksOrbit ? '自拍手部鎖定環繞' : '',
+        selectedPoseActionLocksOrbit ? '自拍動作鎖定環繞' : '',
         selectedSpecialActionIsSocial ? '社群拍攝動作' : '',
         isDuoMode ? '雙人姿態' : '',
         isCloseupMode ? '特寫收斂' : '',
@@ -954,7 +958,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       && !(control.key === 'framingId' && fixedSetAllowsFramingVariation(selectedFixedCompositionSetOption)))
     || (control.key === 'orbitId' && selectedFixedCompositionSetOption?.orbitMode === 'bench-front')
     || (fixedCompositionSetActive && !fixedSetAllowsCameraVariation && FIXED_SET_STRICT_CAMERA_KEYS.includes(control.key))
-    || (selectedPoseHandLocksOrbit && control.key === 'orbitId')
+    || (selectedPoseActionLocksOrbit && control.key === 'orbitId')
     || (POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && locks.subjectCount !== '1')
     || (!fixedScenePosition && POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && (Boolean(locks.poseId) && !isNoneSelected('poseId', locks.poseId, characterLockControls)))
     || (!fixedScenePosition && POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && (Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls)))
@@ -1048,9 +1052,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       if (control.key === 'poseHandId' && value && !isNoneSelected('poseHandId', value, characterLockControls)) {
         next.posePropId = 'none';
       }
-      if (control.key === 'poseHandId') {
-        const nextPoseHand = poseHandControl?.options?.find((option) => option.id === value);
-        if (isSelfiePoseHandOption(nextPoseHand)) {
+      if (control.key === 'poseHandId' || control.key === 'posePropId') {
+        const nextPoseAction = control.options?.find((option) => option.id === value);
+        if (isSelfiePoseActionOption(nextPoseAction)) {
           const noneOrbit = lockControls.find((item) => item.key === 'orbitId')?.options?.find((option) => option.zh === '全無');
           next.orbitId = noneOrbit?.id || '';
         }
@@ -1308,7 +1312,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       .map(control => prepareControlField(control));
     const model = buildPhotographyEditorModel(fields, {
       fixedSet: selectedFixedCompositionSetOption,
-      handLocksOrbit: selectedPoseHandLocksOrbit,
+      handLocksOrbit: selectedPoseActionLocksOrbit,
     });
     return <PhotographyControls
       model={model}

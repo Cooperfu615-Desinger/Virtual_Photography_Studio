@@ -120,15 +120,18 @@ test('public hand metadata shares crop, wardrobe, and face-orbit constraints', (
   assert.equal(poseComposerHandSupportsRandomContext(findHand('one-hand-open-palm-camera'), fullDress), true);
 });
 
-test('restored selfie hands stay manually selectable across every pose base and out of random pools', () => {
+test('restored selfie actions stay manually selectable across every pose base and out of random pools', () => {
   const selfieIds = [
     'selfie-natural-right-arm',
-    'selfie-mirror-phone-visible',
     'selfie-companion-camera-interaction',
   ];
 
-  for (const id of selfieIds) {
-    const hand = POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === id);
+  const actions = [
+    ...selfieIds.map((id) => POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === id)),
+    POSE_COMPOSER_PROP_OPTIONS.find((item) => item.id === 'selfie-mirror-phone-visible'),
+  ];
+  for (const hand of actions) {
+    const id = hand?.id;
     assert.ok(hand, `Expected restored selfie hand ${id}`);
     assert.equal(hand.meta?.uiHidden, undefined, id);
     assert.equal(hand.meta?.randomEligible, false, id);
@@ -139,6 +142,10 @@ test('restored selfie hands stay manually selectable across every pose base and 
       assert.equal(poseComposerOptionVisibleForOrientation(hand, orientationId), true, `${id} should be visible for ${orientationId}`);
     }
   }
+  const legacyMirror = POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === 'selfie-mirror-phone-visible');
+  assert.equal(legacyMirror.meta.uiHidden, true);
+  assert.equal(legacyMirror.meta.randomEligible, false);
+  assert.equal(legacyMirror.en, actions.at(-1).en);
 });
 
 test('standing matrix hides incompatible support and lower-body options while preserving other bases', () => {

@@ -113,7 +113,6 @@ test('public hand catalog includes dedicated lying actions and clarified garment
     '手指愛心',
     '單手向鏡頭張開手掌',
     '自然自拍',
-    '鏡子自拍',
     '男友/閨蜜自拍',
     '雙手向前伸展',
     '雙手自然放在兩腿外側',
@@ -144,10 +143,12 @@ test('public hand catalog includes dedicated lying actions and clarified garment
   assert.match(byZh('單手向鏡頭張開手掌').en, /one arm extended straight toward the camera.*block the lens.*all five fingers.*fully visible from their bases to their fingertips/i);
   assert.match(byZh('單手向鏡頭張開手掌').meta?.compositionModifierEn || '', /camera lens is intentionally blocked.*eighty to ninety percent.*without being cropped.*incomplete fragments/i);
   assert.doesNotMatch(`${byZh('單手向鏡頭張開手掌').en} ${byZh('單手向鏡頭張開手掌').meta?.compositionModifierEn || ''}`, /greeting|waving|right hand|right arm|left hand|left arm/i);
-  for (const label of ['自然自拍', '鏡子自拍', '男友/閨蜜自拍']) {
+  for (const label of ['自然自拍', '男友/閨蜜自拍']) {
     assert.equal(byZh(label).meta?.uiHidden, undefined, label);
     assert.equal(byZh(label).meta?.randomEligible, false, label);
   }
+  assert.equal(control('poseHandId').options.find(option => option.zh === '鏡子自拍').meta.uiHidden, true);
+  assert.equal(control('posePropId').options.find(option => option.zh === '手持手機對鏡自拍').meta.randomEligible, false);
   assert.match(byZh('雙手抓著整束頭髮與髮尾整理').en, /one thick bundle of hair.*holding near the base.*grips and smooths.*ends/i);
   assert.match(byZh('單手往後撥瀏海').en, /sweeping the bangs backward.*fingers combing the fringe/i);
   const garmentAdjustment = byZh('拉下上身服裝整理');
@@ -655,7 +656,7 @@ test('pose composer controls expose base arrangement hand and anchor options', (
   assert.ok(control('poseArrangementId').options.some((option) => option.zh === '隨性慵懶' && option.base === 'lying'));
   assert.ok(control('poseHandId').options.some((option) => option.zh === '單手摸下巴'));
   assert.ok(control('poseHandId').options.some((option) => option.zh === '自然自拍'));
-  assert.ok(control('poseHandId').options.some((option) => option.zh === '鏡子自拍'));
+  assert.ok(control('posePropId').options.some((option) => option.zh === '手持手機對鏡自拍'));
   assert.ok(control('poseHandId').options.some((option) => option.zh === '男友/閨蜜自拍'));
   assert.ok(control('poseHeadId').options.some((option) => option.zh === '頭部微微側傾'));
   assert.ok(control('poseAnchorId').options.some((option) => option.zh === '站在門框邊' && option.base === 'standing'));
@@ -1482,7 +1483,7 @@ test('pose composer exposes expressive hand interaction batch', () => {
   assertHandOption('單手撩髮', /near the temple or ear/);
 });
 
-test('pose composer exposes selfie hand pose batch', () => {
+test('pose composer exposes selfie source batch and a hidden legacy mirror alias', () => {
   [
     ['自然自拍', /front-camera self-shot with her right arm extended to hold the phone/],
     ['自然自拍', /phone just beyond the frame edge/],
@@ -1518,7 +1519,8 @@ test('selfie hand poses are preserved in all prompt versions and lock orbit to n
     });
 
     assert.equal(prompt.selection.orbitId, noneOrbit);
-    assert.equal(prompt.selection.poseHandId, optionId('poseHandId', handZh));
+    assert.equal(prompt.selection.poseHandId, handZh === '鏡子自拍' ? 'none' : optionId('poseHandId', handZh));
+    if (handZh === '鏡子自拍') assert.equal(prompt.selection.posePropId, optionId('posePropId', '手持手機對鏡自拍'));
     for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
       assert.match(text, expectedA);
       assert.match(text, expectedB);

@@ -1,8 +1,10 @@
 # A 人物設定新增與維護規格
 
+2026-10-11 鏡子自拍分類調整：原 `selfie-mirror-phone-visible` 移至 `posePropId`，新名稱「手持手機對鏡自拍」；ID／英文與可見手機／鏡面語意不變，維持手動限定、道具互斥與批次隨機保留。舊 `poseHandId` 可遷移回填，自拍 orbit 與 Z capture 讀有效動作；其他自拍及排除路徑不變。Public contract `1.50.0`，驗證狀態見 [鏡子自拍道具 v1](mirror-selfie-prop-v1.md)。
+
 2026-10-03 體態目錄 v2：基本體型合併為柔和沙漏，六種體態統一精簡來源與身高／三圍。獨立 Body Type 在六組輸出逐字保留，不再依景別、衣襬或 AI 短句政策刪改；角色卡及其餘投影維持既有規則。本更新取代下方歷史普通體態規則，見 [體態目錄 v2](body-type-catalog-v2.md)。Public contract `1.35.0`、Z `1.18.0`、AI length `1.3.0`。
 
-Last updated: 2026-10-03
+Last updated: 2026-10-11
 
 這份文件定義 PAGE1 `A. 人物設定` 的新增、修改、合併與測試規則。後續新增五官、體態、髮型、髮色、神情、姿勢、特殊動作或特殊角色時，請先依照本規格檢查責任邊界與 prompt 寫法。
 
@@ -437,7 +439,7 @@ Pose: natural seated pose, torso upright, one hand resting beside the body
 - 英文 prompt 以 8-24 words 為目標；複雜躺姿可略長，但要有測試保護。
 - 只描述 body structure、weight、limbs、motion state。
 - 不寫 `looking at camera`、`lowered gaze`、`over-the-shoulder gaze`，這些屬於神情。
-- 不新增自拍或鏡子自拍為一般 `poseId` 姿勢；自拍類屬於 Pose Composer 的 `手部姿勢`。
+- 不新增自拍或鏡子自拍為一般 `poseId` 姿勢；自拍方式使用 Pose Composer 的既有選項。`自然自拍`、`男友/閨蜜自拍` 保留手部類別，持握可見手機的「手持手機對鏡自拍」歸道具類別。
 - PAGE1 不再顯示一般 `poseId` 姿勢選單；舊 `poseId` restore / normalize 應轉成 `poseBaseId`、必要時的 `poseOrientationId`、`poseArrangementId`、`poseHandId`、`posePropId`、`poseHeadId`、`poseAnchorId` 的可見組合，並清空 `poseId`。
 - 新姿勢必須改變身體輪廓或構圖效果；單純手的位置小差異不建議新增。
 
@@ -452,13 +454,14 @@ Pose Composer `手部動作` / `道具動作` 規則：
 - 舊 saved card / import 若把既有道具 option ID 存在 `poseHandId`，normalize 應將該 ID 遷移至 `posePropId` 並清空舊手部 lock；若 payload 已有有效的明確 `posePropId`，不得用 legacy 值覆蓋，且同樣由明確道具接管並清空 `poseHandId`。
 - 合併或改寫道具英文時，若舊 Markdown import 可能只留下舊 prompt 文字，應在 option `meta.legacyPromptAliases` 保留舊英文，讓標準 prompt parser 能映射至目前 option ID。
 
-- `自然自拍`、`鏡子自拍`、`男友/閨蜜自拍` 是三個全姿勢可用的公開手部例外：站、坐、跪、蹲、躺以及三種躺姿方向都可手動選擇。三者維持 `randomEligible: false`，不進入一般手部隨機池；選中後依 `selfie_hand_pose` 規則將環繞方向解析為 `全無`。
+- `自然自拍`、`男友/閨蜜自拍` 維持全姿勢公開手部例外：站、坐、跪、蹲、躺以及三種躺姿方向可依既有支撐政策手動選擇。兩者維持 `randomEligible: false`，不進入手部隨機池；選中後依 `selfie_hand_pose` 規則將環繞方向解析為 `全無`。
+- 「手持手機對鏡自拍」由 `posePropId` 控制，沿用原 `selfie-mirror-phone-visible` ID、英文、裁切範圍及 `selfie_hand_pose`／`visible_phone`／`mirror_selfie`／`locks_orbit` tags，仍只供手動選擇，不加入道具隨機池。手機在鏡中可見，不與畫面外手機的自然自拍混合；沿用道具互斥、明確道具優先及批次隨機保留規則。舊手部值遷移至同 ID 道具後清空手部；四足支撐及固定人物位置接管不變。2026-09-01 三款自拍曾共同恢復在手部類別的歷史安排，本批只改鏡子自拍，詳見 [鏡子自拍道具 v1](mirror-selfie-prop-v1.md)。
 
 - 共用 `poseHandId` 維持 24 個具體動作：`雙手自然垂放`、`雙臂交疊`、`一手扶腰一手自然放下`、`雙手背在身後`、`雙手放在頭後`、`雙手比 ROCK 手勢`、`雙手比愛心`、`手指愛心`、`單手向鏡頭張開手掌`、`單手托下巴`、`單手輕咬食指`、`單手往後撥瀏海`、`雙手抓著整束頭髮與髮尾整理`、`拉下上身服裝整理`、`雙手上拉上衣露出胸下緣`、`雙手遮住胸部`、`雙手拉開外套（雙肩滑落）`、`雙手把褲子或裙子的褲頭往上拉`、`雙手抱膝`、`雙手插褲子口袋`、`雙手插外套口袋`、`單手拿著眼鏡`、`單手把眼鏡拉下`、`咬著眼鏡腳`。這 24 個屬於共用手部清單，但各選項仍依姿勢基底限制顯示，不包含姿勢專屬手部池。`雙手抱膝` 是不綁定特定基底的下身手部動作，可與自然蹲姿、坐姿或其他可見下半身姿勢組合。
 - `單手向鏡頭張開手掌` 是構圖主導的近鏡頭遮擋動作，不是揮手或打招呼。動作不鎖定左手或右手；完整手掌必須位於鏡頭正前方並約佔畫面 80–90%，五根手指從指根到指尖完整可見、指尖靠近畫面邊緣但不得裁切，人物臉部、服裝與環境只在手掌外圍留下少量不完整片段。此選項除共用 projected canonical pose 外，另以同一份 option metadata 提供三個主要 renderer 共用且可追溯的 composition modifier；不得讓各 renderer 自行改寫成不同遮擋程度，也不得把 modifier 套用到其他手部動作、雙人模式或全身角色參考輸出。
 - 蹲姿的具體手部選項只保留六個專用動作：`雙手向前伸展`、`雙手自然放在兩腿外側`、`單手托腮一手扶膝`、`單手碰嘴角一手自然下垂`、`單手在臉旁比 V`、`雙手托腮扶臉`；除上述兩組手動愛心例外外，蹲姿 UI 與隨機池不顯示或抽取其餘共用手勢，但 `全無`、`隨機`、`任意` 三個控制項仍保留。其他姿勢依各選項的基底限制使用共用手勢。`雙手向前伸展` 的支撐點是分別倚靠左右膝蓋的雙肘，不是手掌；上半身前傾並讓手肘承接部分重量，前臂越過膝蓋向前下方伸展，手腕與雙手自然放鬆垂下，不再要求雙手在兩膝前靠攏。
 - 躺姿手部依 `仰躺`、`側躺`、`趴臥` 分成各自的專用池，並由 `visibleBuckets`、方向矩陣與隨機相容性規則控制；不得把躺姿專用動作誤列為共用手部。
-- 上述蹲姿六組限制只指普通手勢；三個手動自拍例外會另外顯示在蹲姿 UI，但不參與蹲姿隨機池。三個自拍也不屬於躺姿專用隨機池，但在仰躺、側躺與趴臥 UI 中仍可選擇。
+- 上述蹲姿六組限制只指普通手勢；自然自拍與男友／閨蜜自拍會另外顯示在蹲姿手部 UI，但不參與蹲姿隨機池。「手持手機對鏡自拍」顯示在道具 UI。三款自拍不屬於躺姿專用隨機池，仍沿用仰躺、側躺與趴臥的既有選擇／支撐規則。
 - `雙手抓著整束頭髮與髮尾整理` 必須明確描述一手抓住髮根附近、另一手抓住並順過整束髮尾的自然整理動作，不得只寫籠統的 `arrange hair`。
 - `單手往後撥瀏海` 必須描述手指把瀏海向後梳理的帥氣整理動作，不再使用含糊的 `brush hair`。
 - `拉下上身服裝整理` 描述單手輕輕將已穿著的上身服裝向下拉並整理，讓衣料自然回位；不指定衣物部位、肩膀是否露出或服裝款式。沿用原 `hand-adjust-off-shoulder-top` ID，舊英文僅保留在 `legacyPromptAliases` 作 Markdown 匯入解析。
@@ -469,7 +472,7 @@ Pose Composer `手部動作` / `道具動作` 規則：
 - `單手拿著眼鏡`、`單手把眼鏡拉下`、`咬著眼鏡腳` 都要求眼鏡是已存在的穿戴配件；其中咬眼鏡腳要寫明鏡腳輕放齒間、鏡框取下後自然垂在臉頰旁。
 - 服裝／配件條件由手部 option metadata 與 shared random compatibility resolver 同步執行：服裝整理與上拉需有明確選定的上衣、洋裝、外套、套裝或特殊穿搭；褲頭／褲袋需有褲或裙，外套口袋需有外套，眼鏡互動需有眼鏡。胸前遮擋手勢不依賴上身服裝。只有 required role 明確解析為 `present` 時才可進入隨機池，`absent`、`unknown` 或隨機尚未解析都會排除，以免公開 prompt 虛構不存在的服裝／配件。這只限制隨機候選，不覆寫使用者明確手勢 lock。
 - 胸上、腰上、牛仔中景與全身／固定構圖使用同一份 `visibleBuckets` metadata 投影；臉部接觸與眼鏡互動的隨機候選會避開背面／後三分之四與鳥瞰角度。
-- 其餘下身接觸、遮臉、舊扶眼鏡、抓褲腰等低泛用手勢保留為 `uiHidden: true`、`randomEligible: false` 的退役解析項，供既有 restore／parser 使用但不再出現在新 UI 或隨機池。三個自拍 ID 已恢復為公開手動選項，不再屬於 `uiHidden` 退役池。
+- 其餘下身接觸、遮臉、舊扶眼鏡、抓褲腰等低泛用手勢保留為 `uiHidden: true`、`randomEligible: false` 的退役解析項，供既有 restore／parser 使用但不再出現在新 UI 或隨機池。三個自拍 ID 為公開手動選項，不屬於 `uiHidden` 退役池；本批鏡子自拍僅搬至道具，其餘兩款仍在手部。
 - 手持道具類應描述手上有什麼，不要不必要地綁死道具位置。例如 `手持冰咖啡`、`手持香菸` 由模型依姿勢與構圖自然決定位置。使用者核准的 `手持波板糖` 是指定位置的例外：單手握糖棒，扁平圓形糖面放在嘴唇正前方、部分遮嘴，鼻眼保持可見；不指定左右手，不加入咬糖或含糖。沿用 `hand-hold-whirly-lollipop` ID，舊完整英文保留為 `legacyPromptAliases`；`face_action` 使背面／後三分之四的隨機候選排除這項，明確手動選擇仍保留。支援的主輸出與胸上衍生沿用同一 canonical pose，頭肩及更緊裁切省略動作文字但保留選擇，全身角色參考仍為自然站姿。詳見 [嘴前波板糖規格](whirly-lollipop-mouth-v1.md)。
 - 若手部 / 道具動作需要更寬構圖，應保留相容性 tags，例如 `prop_action`、`face_action`、`eyewear_action`、`wardrobe_action`、`leg_focus_action`。
 

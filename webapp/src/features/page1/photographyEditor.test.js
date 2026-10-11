@@ -157,7 +157,7 @@ test('selfie explains only the disabled orbit and does not disable other prepare
   assert.deepEqual(managedKeys(model), ['orbitId']);
   assert.deepEqual(field(model, 'orbitId').management, {
     label: '自拍動作管理', value: '由自拍動作決定',
-    reason: '目前自拍手部動作管理拍攝方位，環繞角度暫不可調整。',
+    reason: '目前自拍動作管理拍攝方位，環繞角度暫不可調整。',
   });
   assert.deepEqual(group(model, 'composition').actionKeys, ['framingId', 'angleId']);
   const stillEnabled = buildPhotographyEditorModel(fields(), { handLocksOrbit: true });
@@ -172,7 +172,7 @@ test('selfie manages orbit in a fixed scene that permits it while scene-managed 
   assert.deepEqual(model.fixedNotice, { name: sofa.zh, text: getFixedSceneCameraStatus(sofa) });
   assert.equal(field(model, 'orbitId').management.label, '自拍動作管理');
   assert.equal(field(model, 'orbitId').management.value, '由自拍動作決定');
-  assert.match(field(model, 'orbitId').management.reason, /自拍手部動作/);
+  assert.match(field(model, 'orbitId').management.reason, /自拍動作/);
   assert.equal(field(model, 'framingId').management.label, '場景管理');
   assert.equal(field(model, 'lensId').management.label, '場景管理');
   assert.deepEqual(group(model, 'composition').actionKeys, ['angleId']);
