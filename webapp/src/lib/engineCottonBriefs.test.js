@@ -37,8 +37,7 @@ test('cotton briefs replace the existing option without changing single/duo IDs 
 
 test('all six outputs respect cotton material and the existing crop projection', () => {
   const prompt = generate();
-  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt,
-    prompt.extraPrompts.find(p => p.id === 'full-body-character').text]) {
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.extraPrompts.find(p => p.id === 'full-body-character').text]) {
     assert.match(text, /black low-rise cotton briefs/);
     assert.doesNotMatch(text, /lace panties|delicate lace texture/);
   }

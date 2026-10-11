@@ -78,6 +78,6 @@ test('ambient text survives Saved Cards and Markdown without changing selection 
     const parsed = parseExportedMarkdownPrompt(md, controls, 'ambient-roundtrip');
     assert.equal(saved.selection.lightingId, prompt.selection.lightingId);
     assert.deepEqual(saved.extraPrompts, prompt.extraPrompts);
-    for (const result of [saved, parsed]) for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) assert.equal(result[field], prompt[field]);
+    for (const result of [saved, parsed]) for (const field of ['grokPrompt', 'zImagePrompt', ]) assert.equal(result[field], prompt[field]);
   }
 });

@@ -12,7 +12,7 @@ const controls = getLockControls();
 const controlsByKey = new Map(controls.map((control) => [control.key, control]));
 const FIXED_SET_SCENE_ANCHOR = /black velvet sofa/i;
 const Z_IMAGE_SUBJECT_ANCHOR = /A 20s seductive stunning Japanese or Korean woman/i;
-const MIDJOURNEY_SUBJECT_ANCHOR = /A 20s seductive stunning Japanese woman\./i;
+const MIDJOURNEY_SUBJECT_ANCHOR = /A Japanese woman in her twenties\./i;
 
 const WARDROBE_CASES = [
   {
@@ -103,7 +103,7 @@ function contentIndex(text, pattern) {
 
 function assertNaturalOutputOrder(text, subjectAnchor, wardrobeAnchor, canonicalPose, field, caseId) {
   const subjectIndex = contentIndex(text, subjectAnchor);
-  const wardrobeIndex = contentIndex(text, wardrobeAnchor);
+  const wardrobeIndex = field === 'midjourneyPrompt' ? text.indexOf('She wears ') : contentIndex(text, wardrobeAnchor);
   const poseIndex = contentIndex(text, canonicalPose);
   const sceneIndex = contentIndex(text, FIXED_SET_SCENE_ANCHOR);
 
@@ -112,7 +112,7 @@ function assertNaturalOutputOrder(text, subjectAnchor, wardrobeAnchor, canonical
   assert.ok(poseIndex >= 0, `${caseId}.${field} should reuse the canonical pose`);
   assert.ok(sceneIndex >= 0, `${caseId}.${field} should contain the fixed-set scene`);
   assert.ok(subjectIndex < wardrobeIndex, `${caseId}.${field} should place subject before wardrobe`);
-  assert.ok(wardrobeIndex < poseIndex, `${caseId}.${field} should place wardrobe before pose`);
+  assert.ok(field === 'midjourneyPrompt' ? poseIndex < wardrobeIndex : wardrobeIndex < poseIndex, `${caseId}.${field} should place wardrobe before pose`);
   assert.ok(poseIndex < sceneIndex, `${caseId}.${field} should place pose before fixed-set scene`);
 }
 

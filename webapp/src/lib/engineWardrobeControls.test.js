@@ -52,7 +52,7 @@ test('random outfit primary color can resolve a reusable special latex material'
   assert.equal(prompt.selection.outfitPresetPrimaryColorId, 'glossy-skin-tone-latex');
   assert.match(prompt.grokPrompt, /glossy skin-tone latex/i);
   assert.match(prompt.zImagePrompt, /glossy skin-tone latex/i);
-  assert.match(prompt.midjourneyPrompt, /glossy skin-tone latex/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /glossy skin-tone latex/i);
 });
 
 test('bottom rise controls include a slightly unbuttoned and unzipped pants state', () => {
@@ -341,7 +341,7 @@ test('hood-up outerwear uses the renamed option and keeps the hood framing the h
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     outerwearId: hoodUpHoodie.id,
   });
-  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt].join('\n');
   assert.match(promptText, /hood worn up/i);
 });
 
@@ -391,7 +391,7 @@ test('longline outerwear shirt has concise source wording while the top shirt st
     topId: optionId('topId', '絲質細肩帶上衣'),
   }, [], { random: createSeededRandom('longline-outerwear-shirt-source-v1') });
 
-  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt].join('\n');
   assert.match(promptText, /longline cotton-poplin button-up shirt/);
   assert.match(promptText, /layered over/);
 });
@@ -417,7 +417,7 @@ test('simple oversize outerwear fit prefixes the selected outerwear item', () =>
   assert.match(prompt.zImagePrompt, /white oversized longline cotton-poplin button-up shirt/i);
   assert.doesNotMatch(prompt.zImagePrompt, /oversized outerwear proportion with roomy shoulders and body/i);
   assert.doesNotMatch(prompt.zImagePrompt, /oversized,\s+white longline cotton-poplin button-up shirt/i);
-  assert.match(prompt.midjourneyPrompt, /white oversized longline cotton-poplin button-up shirt/i);
+  assert.match(prompt.midjourneyPrompt, /longline cotton-poplin button-up shirt/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /oversized outerwear proportion with roomy shoulders and body/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /oversized,\s+white longline cotton-poplin button-up shirt/i);
 });
@@ -508,7 +508,7 @@ test('outerwear fit and opening compose before pattern and shoulder styling', ()
   });
   assert.match(doubleShoulderPrompt.grokPrompt, /halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves/);
   assert.match(doubleShoulderPrompt.zImagePrompt, /halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves/);
-  assert.match(doubleShoulderPrompt.midjourneyPrompt, /halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves/);
+  assert.doesNotMatch(doubleShoulderPrompt.midjourneyPrompt, /halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves/);
 });
 
 test('model-specific shoes stay concise while preserving signature accent details', () => {
@@ -606,7 +606,7 @@ test('round diamond navel piercing remains traceable as a waist accessory in ful
   const navelPiercingPrompt = /round-cut diamond navel piercing at the belly button, clear circular gemstone, slim polished metal ring setting/i;
   assert.match(prompt.grokPrompt, navelPiercingPrompt);
   assert.match(prompt.zImagePrompt, navelPiercingPrompt);
-  assert.match(prompt.midjourneyPrompt, navelPiercingPrompt);
+  assert.match(prompt.midjourneyPrompt, /navel piercing/i);
   assert.match(prompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '', navelPiercingPrompt);
   assert.ok(prompt.structured.Wardrobe.some((item) => item.zh === '肚臍環'));
   assert.equal(prompt.selection.waistAccessoryId, optionId('waistAccessoryId', '肚臍環'));
@@ -639,7 +639,7 @@ test('all leather waist belts use loose decorative styling while retaining their
 
     assert.match(prompt.grokPrompt, expected);
     assert.match(prompt.zImagePrompt, expected);
-    assert.match(prompt.midjourneyPrompt, expected);
+    assert.match(prompt.midjourneyPrompt, /leather waist belt/i);
     assert.match(prompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '', expected);
     assert.equal(prompt.selection.waistAccessoryId, optionId('waistAccessoryId', label));
   }
@@ -657,7 +657,7 @@ test('gothic waist cincher remains a waist-only accessory in full-body outputs',
   const waistCincherPrompt = /gothic black leather waist cincher, structured boning, front lace-up panel, silver buckle hardware, worn over clothing/i;
   assert.match(prompt.grokPrompt, waistCincherPrompt);
   assert.match(prompt.zImagePrompt, waistCincherPrompt);
-  assert.match(prompt.midjourneyPrompt, /gothic black leather waist cincher, structured boning/i);
+  assert.match(prompt.midjourneyPrompt, /gothic black leather waist cincher/i);
   assert.match(prompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '', waistCincherPrompt);
   assert.ok(prompt.structured.Wardrobe.some((item) => item.zh === '馬甲束腰'));
   assert.equal(prompt.selection.waistAccessoryId, optionId('waistAccessoryId', '馬甲束腰'));
@@ -676,8 +676,8 @@ test('duo waist accessories remain assigned to the selected person in compact ou
     waistAccessoryBId: optionId('waistAccessoryBId', '銀色水鑽蝴蝶腰鏈'),
   });
 
-  assert.match(prompt.midjourneyPrompt, /decorative slim leather waist belt worn loosely around hips with a simple off-center buckle/i);
-  assert.match(prompt.midjourneyPrompt, /silver rhinestone butterfly waist chain.*multiple small rhinestone butterfly charms/i);
+  assert.match(prompt.midjourneyPrompt, /leather waist belt/i);
+  assert.match(prompt.midjourneyPrompt, /silver rhinestone butterfly waist chain/i);
   assert.equal(prompt.selection.waistAccessoryAId, optionId('waistAccessoryAId', '細版皮革腰帶'));
   assert.equal(prompt.selection.waistAccessoryBId, optionId('waistAccessoryBId', '銀色水鑽蝴蝶腰鏈'));
 });
@@ -1001,7 +1001,6 @@ test('adhesive tape look is a composable outfit preset while the original specia
   for (const text of [
     defaultPrompt.grokPrompt,
     defaultPrompt.zImagePrompt,
-    defaultPrompt.midjourneyPrompt,
     defaultChestUpPrompt,
     defaultChestUpMjPrompt,
     defaultFullBodyPrompt,
@@ -1030,9 +1029,9 @@ test('adhesive tape look is a composable outfit preset while the original specia
   assert.match(presetPrompt.zImagePrompt, /independent chest and ribcage wrap bands/);
   assert.match(presetPrompt.zImagePrompt, /compressed skin with soft flesh bulges/i);
   assert.doesNotMatch(presetPrompt.zImagePrompt, /halter|bralette|high-cut|tape bottoms/i);
-  assert.match(presetPrompt.midjourneyPrompt, /glossy adhesive tape wrapped directly around the skin/i);
-  assert.match(presetPrompt.midjourneyPrompt, /independent (?:wide )?chest and ribcage wrap bands/i);
-  assert.match(presetPrompt.midjourneyPrompt, /compressed skin with soft flesh bulges/i);
+  assert.match(presetPrompt.midjourneyPrompt, /adhesive tape/i);
+  assert.doesNotMatch(presetPrompt.midjourneyPrompt, /independent (?:wide )?chest and ribcage wrap bands/i);
+  assert.doesNotMatch(presetPrompt.midjourneyPrompt, /compressed skin with soft flesh bulges/i);
   assert.doesNotMatch(presetPrompt.midjourneyPrompt, /halter|bralette|high-cut|tape bottoms/i);
   const chestUpPrompt = presetPrompt.extraPrompts.find((entry) => entry.id === 'chest-up-portrait')?.text || '';
   const chestUpMjPrompt = presetPrompt.extraPrompts.find((entry) => entry.id === 'chest-up-mj-portrait')?.text || '';
@@ -1049,7 +1048,6 @@ test('adhesive tape look is a composable outfit preset while the original specia
   for (const text of [
     presetPrompt.grokPrompt,
     presetPrompt.zImagePrompt,
-    presetPrompt.midjourneyPrompt,
     chestUpPrompt,
     chestUpMjPrompt,
     fullBodyPrompt,
@@ -1066,7 +1064,6 @@ test('adhesive tape look is a composable outfit preset while the original specia
   for (const text of [
     randomColorPrompt.grokPrompt,
     randomColorPrompt.zImagePrompt,
-    randomColorPrompt.midjourneyPrompt,
   ]) {
     assert.match(text, /black glossy adhesive tape|glossy tape surfaces in black/i);
     assert.doesNotMatch(text, /safety-yellow|CAUTION|solid black rectangular warning blocks/i);

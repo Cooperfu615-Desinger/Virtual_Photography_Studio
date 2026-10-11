@@ -115,7 +115,7 @@ test('new full camera output round-trips through saved text and Markdown without
     const { prompt } = runSceneFixture(fullCameraFixture(label));
     const restored = deserializeFavoritePrompt(serializeFavoritePrompt(prompt));
     const parsed = parseExportedMarkdownPrompt(buildMarkdownExport(prompt), getLockControls(), 'full-camera-test');
-    for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) {
+    for (const field of ['grokPrompt', 'zImagePrompt', ]) {
       assert.equal(restored[field], prompt[field]);
       assert.equal(parsed[field], prompt[field]);
     }

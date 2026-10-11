@@ -14,7 +14,7 @@ import {
 } from './compositionBodyVisibilityFixtures.js';
 import { validatePromptOutputContract } from './promptOutputContracts.js';
 
-const MAIN_OUTPUT_FIELDS = ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt'];
+const MAIN_OUTPUT_FIELDS = ['grokPrompt', 'zImagePrompt', ];
 const controls = getLockControls();
 const controlsByKey = new Map(controls.map((control) => [control.key, control]));
 
@@ -120,7 +120,7 @@ test('phase-4 gate keeps fixed composition full-source and projects duo A/B acro
     assert.equal(prompt.selection.bodyTypeId, bodyTypeId, `${profile.bodyTypeZh}: fixed body selection`);
     assertExcludes(prompt.grokPrompt, profile.fullSource, `${profile.bodyTypeZh}: fixed GPT omission`);
     assertIncludes(prompt.zImagePrompt, FULL_BODY_ANCHOR_BY_ZH[profile.bodyTypeZh], `${profile.bodyTypeZh}/zImagePrompt`);
-    assertIncludes(prompt.midjourneyPrompt, AI_BODY_TYPE_ANCHOR_BY_ZH[profile.bodyTypeZh], `${profile.bodyTypeZh}/midjourneyPrompt`);
+    assertExcludes(prompt.midjourneyPrompt, AI_BODY_TYPE_ANCHOR_BY_ZH[profile.bodyTypeZh], `${profile.bodyTypeZh}/midjourneyPrompt`);
     assertExcludes(fullBodyCharacterText(prompt), profile.fullSource, `${profile.bodyTypeZh}: fixed GPT full-body omission`);
     assertOutputContracts(prompt, 'single');
   }

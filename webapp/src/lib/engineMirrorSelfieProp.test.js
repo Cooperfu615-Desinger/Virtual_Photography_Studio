@@ -1,3 +1,4 @@
+import naturalProtected from './engine/midjourneyNaturalMirrorProtected.json' with { type: 'json' };
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { createHash } from 'node:crypto';
@@ -51,8 +52,8 @@ const PRE_MOVE_OUTPUT_HASHES = [
   ['untouched:scroll:牛仔中景 (Cowboy Shot)', { posePropId: 'hand-use-phone' }, '6b1f26c6bdf33bc0ac3309b4b7681edb8045288e0a3228d090e897bc72175de3'],
 ];
 
-test('complete six-output hashes match the pre-migration capture for mirror and untouched capture modes', () => {
-  for (const [id, { framing, orientation, anchor, ...overrides }, expected] of PRE_MOVE_OUTPUT_HASHES) {
+test('five protected output hashes match the pre-natural-MJ capture for mirror and untouched capture modes', () => {
+  for (const [id, { framing, orientation, anchor, ...overrides }] of PRE_MOVE_OUTPUT_HASHES) {
     const prompt = generate({
       imageTypePresetId: 'photorealistic-photo', poseOrientationId: 'none', poseHeadId: 'chin-slightly-raised',
       topId: option('topId', '落肩 T 恤').id, pantsId: option('pantsId', '皮革長褲').id,
@@ -65,8 +66,8 @@ test('complete six-output hashes match the pre-migration capture for mirror and 
       ...overrides,
     }, `mirror-prop-v1:${id}`);
     const outputs = Object.fromEntries([['grokPrompt', prompt.grokPrompt], ['zImagePrompt', prompt.zImagePrompt],
-      ['midjourneyPrompt', prompt.midjourneyPrompt], ...prompt.extraPrompts.map(row => [row.id, row.text])]);
-    assert.equal(createHash('sha256').update(JSON.stringify(outputs)).digest('hex'), expected, id);
+      ...prompt.extraPrompts.map(row => [row.id, row.text])]);
+    assert.equal(createHash('sha256').update(JSON.stringify(outputs)).digest('hex'), naturalProtected[id], id);
   }
 });
 

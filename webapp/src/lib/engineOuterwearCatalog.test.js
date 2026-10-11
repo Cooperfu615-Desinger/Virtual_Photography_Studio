@@ -19,7 +19,7 @@ function locksFor(values = {}) {
   return locks;
 }
 const generate = locks => generatePrompts(1, locks, [], { random: createSeededRandom('outerwear-catalog-v1') })[0];
-const outputs = r => [r.grokPrompt, r.zImagePrompt, r.midjourneyPrompt, ...r.extraPrompts.map(e => e.text)];
+const outputs = r => [r.grokPrompt, r.zImagePrompt, ...r.extraPrompts.map(e => e.text)];
 const doubleShoulder = 'halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves';
 
 test('18 active coats and four restore-only coats retain historical IDs', () => {
@@ -44,7 +44,7 @@ test('all six outputs retain D wear, opening and surface without redundant struc
     }
     // A chest graphic is not required in a face crop; both chest derivatives see it.
     for (const e of r.extraPrompts) assert.match(e.text, /large cartoon doodle graphic on the front/);
-    if (framing !== '半臉傾斜特寫') assert.match(r.midjourneyPrompt, /large cartoon doodle graphic on the front/);
+    if (framing !== '半臉傾斜特寫') assert.doesNotMatch(r.midjourneyPrompt, /large cartoon doodle graphic on the front/);
   }
 });
 
@@ -65,7 +65,7 @@ test('explicit fit replaces only corresponding defaults and preserves legacy cro
     ['短版合身西裝外套', '全無', 'cropped fitted blazer', /underbust/],
   ]) {
     const r = generate(locksFor({ outerwearId: coat, outerwearFitId: fit }));
-    for (const text of [r.grokPrompt, r.zImagePrompt, r.midjourneyPrompt, r.extraPrompts.find(e => e.id === 'full-body-character').text]) {
+    for (const text of [r.grokPrompt, r.zImagePrompt, r.extraPrompts.find(e => e.id === 'full-body-character').text]) {
       assert.ok(text.includes(includes), text);
       assert.doesNotMatch(text, excludes);
     }
@@ -92,7 +92,7 @@ test('retired pieces restore through snapshots and old prose but are never rando
 test('duo keeps fit and wear bound to the selected person', () => {
   const locks = { ...locksFor({ outerwearAId: '毛呢大衣', outerwearAFitId: '長版合身', outerwearAStylingId: '雙肩露出', outerwearBId: '寬鬆西裝外套', outerwearBFitId: '短版緊身' }), subjectCount: '2' };
   const r = generate(locks);
-  for (const text of [r.grokPrompt, r.zImagePrompt, r.midjourneyPrompt]) {
+  for (const text of [r.grokPrompt, r.zImagePrompt]) {
     assert.match(text, /hip-length fitted wool coat/);
     assert.match(text, /underbust-cropped tight body-skimming blazer/);
     assert.equal(text.split(doubleShoulder).length - 1, 1);

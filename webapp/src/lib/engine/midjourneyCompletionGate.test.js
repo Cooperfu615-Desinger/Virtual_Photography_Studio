@@ -129,7 +129,7 @@ test('phase 6 blocks any engine or public-contract drift across all Midjourney f
     );
     assert.equal(
       hashPrompt(stripMidjourneyParameterTail(prompt.midjourneyPrompt)),
-      nativeFixture.expectedDescriptionHash,
+      nativeFixture.naturalDescriptionHash,
       `${parameterFixture.id}: Midjourney-native description`
     );
 
@@ -260,7 +260,7 @@ test('phase 6 keeps the canonical pose verbatim in all three primary outputs', (
 });
 
 test('description phase 7 freezes direct syntax, mappings, and downstream consumers', () => {
-  assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION, '1.9.0');
+  assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION, '2.1.0');
   assert.equal(
     MIDJOURNEY_DESCRIPTION_CONTRACT.completion.blockingGate,
     'midjourneyCompletionGate.test.js'
@@ -293,7 +293,7 @@ test('description phase 7 freezes direct syntax, mappings, and downstream consum
     const description = stripMidjourneyParameterTail(prompt.midjourneyPrompt);
     assert.equal(
       hashPrompt(description),
-      target.sceneIntegratedDescriptionHash || target.phase5DescriptionHash,
+      target.naturalDescriptionHash,
       `${parameterFixture.id}: accepted description`
     );
     assert.ok(
@@ -301,7 +301,7 @@ test('description phase 7 freezes direct syntax, mappings, and downstream consum
       `${parameterFixture.id}: direct image identity`
     );
     assert.doesNotMatch(description, /^Create an? /, `${parameterFixture.id}: imperative opening`);
-    assert.doesNotMatch(description, /\n/, `${parameterFixture.id}: one text block`);
+    assert.ok(description.split('\n\n').length <= 4, `${parameterFixture.id}: at most four natural paragraphs`);
     assert.doesNotMatch(
       description,
       /\b(?:Woman 1|Woman 2|Pose|Scene|Lighting|Camera Look):/,

@@ -22,7 +22,7 @@ function locksFor(values = {}) {
   return locks;
 }
 const generate = locks => generatePrompts(1, locks, [], { random: createSeededRandom('outerwear-closure-v1') })[0];
-const texts = result => [result.grokPrompt, result.zImagePrompt, result.midjourneyPrompt, ...result.extraPrompts.map(p => p.text)];
+const texts = result => [result.grokPrompt, result.zImagePrompt, ...result.extraPrompts.map(p => p.text)];
 
 test('every active coat closes using authored hardware, without inventing hardware', () => {
   const coats = controls.find(c => c.key === 'outerwearId').options.filter(o => o.zh !== '全無' && !o.meta?.outerwear?.retired);

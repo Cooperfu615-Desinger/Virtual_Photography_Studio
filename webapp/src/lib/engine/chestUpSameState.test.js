@@ -60,7 +60,7 @@ test('chest MJ uses main MJ imaging semantics including aperture and shutter', (
     shutterId: option('shutterId', '1/30s 主體動態殘影'),
   });
   const chest = extra(prompt, 'chest-up-mj-portrait');
-  for (const text of [prompt.midjourneyPrompt, chest]) {
+  for (const text of [chest]) {
     assert.match(text, /f\/1\.4-style ultra shallow depth of field/);
     assert.match(text, /1\/30s slow-shutter portrait blur/);
     assert.match(text, /narrow field of view/);

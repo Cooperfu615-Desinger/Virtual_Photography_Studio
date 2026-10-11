@@ -150,7 +150,7 @@ test('phase-5 half-face framing keeps selected upper clothing and does not trigg
   });
 
   assert.equal(isCloseupModeFramingId(framingId, controls), false);
-  for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) {
+  for (const field of ['grokPrompt', 'zImagePrompt']) {
     assert.match(prompt[field], /collared shirt with a short soft black necktie/i, field);
   }
 });
@@ -197,7 +197,7 @@ test('full-face framing coexists with half-face and keeps the head-shoulders war
     topId,
   }, [], { random: () => 0 });
   assert.equal(isCloseupModeFramingId(fullFaceId, controls), false);
-  for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) {
+  for (const field of ['grokPrompt', 'zImagePrompt']) {
     assert.match(prompt[field], /collared shirt with a short soft black necktie/i, field);
   }
 });

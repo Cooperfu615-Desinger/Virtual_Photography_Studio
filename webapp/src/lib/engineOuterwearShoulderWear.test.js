@@ -65,8 +65,8 @@ test('all six outputs retain shoulder wear independently of shirt hem, crop and 
           outerwearStylingId: option('outerwearStylingId', zh).id,
         };
         const result = generatePrompts(1, locks, [], { random: createSeededRandom('shoulder-wear-regression') })[0];
-        const outputs = [result.grokPrompt, result.zImagePrompt, result.midjourneyPrompt, ...result.extraPrompts.map((entry) => entry.text)];
-        assert.equal(outputs.length, 6);
+        const outputs = [result.grokPrompt, result.zImagePrompt, ...result.extraPrompts.map((entry) => entry.text)];
+        assert.equal(outputs.length, 5);
         for (const output of outputs) {
           assert.ok(output.includes(text), `${framing}/${zh}: ${output}`);
           assert.match(output, /white fitted longline cotton-poplin button-up shirt/);
@@ -89,7 +89,7 @@ test('shoulder wear does not force the independent opening control to open', () 
     };
     const result = generatePrompts(1, locks, [], { random: createSeededRandom('shoulder-opening-independent') })[0];
     assert.equal(result.selection.outerwearOpeningId, locks.outerwearOpeningId);
-    for (const output of [result.grokPrompt, result.zImagePrompt, result.midjourneyPrompt]) {
+    for (const output of [result.grokPrompt, result.zImagePrompt]) {
       assert.ok(output.includes(text));
       assert.doesNotMatch(output, /worn open at the front/);
     }
@@ -103,7 +103,7 @@ test('duo retains each role shoulder wear without assigning the other role styli
     locks[`outerwear${role}StylingId`] = option(`outerwear${role}StylingId`, styles[index][0]).id;
   }
   const result = generatePrompts(1, locks, [], { random: createSeededRandom('duo-shoulder-wear') })[0];
-  for (const output of [result.grokPrompt, result.zImagePrompt, result.midjourneyPrompt]) {
+  for (const output of [result.grokPrompt, result.zImagePrompt]) {
     assert.ok(output.includes(styles[0][1]));
     assert.ok(output.includes(styles[1][1]));
     assert.ok(output.indexOf(styles[0][1]) < output.indexOf(styles[1][1]));

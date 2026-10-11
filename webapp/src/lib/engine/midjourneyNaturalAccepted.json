@@ -1,0 +1,44 @@
+{
+  "parameters": {
+    "normal-single-precise": {
+      "hash": "86fde8ba171dfc8da8cd93e55b120803095260a7928732e7c9ffaf7654a45245",
+      "words": 100
+    },
+    "complete-look-balanced": {
+      "hash": "478928eab0ed460dbbfca4d5e951cd4b1989130ea9b1e263c56e98cf4e1c2e8e",
+      "words": 53
+    },
+    "canonical-pose-precise": {
+      "hash": "a33ddac160f1f302b63c4e7c6692415ced8c436a546907d8f1bcb083da198bc2",
+      "words": 80
+    },
+    "character-card-hd": {
+      "hash": "17f78504ed6cb34ab296e38862227f11a9c6d795a754030bc06be6345999d47a",
+      "words": 115
+    },
+    "duo-balanced": {
+      "hash": "3c7d05933ad7ad0a7286e0be8b9c6e7f30b7c1f748f3ff0c5f849ced60fcf720",
+      "words": 141
+    },
+    "fixed-special-creative": {
+      "hash": "ababdee324a918f4899995b4f7e41d29307a7e7530a1ebf60d2f8b6fcaf74d47",
+      "words": 68
+    },
+    "fixed-dress-v81": {
+      "hash": "54c9240892fbaa1ef17850606c80ed9503d0eb94ebc5924b363a4c6c4cbd5f38",
+      "words": 54
+    }
+  },
+  "lengths": {
+    "normal-separates": "909370853c178d7a61ccc8c6e33ee4354cfd52a01914fe0fe66ba3ef2c09b639",
+    "complete-look-latex": "0a02671bb9da3ed25aefabc127aaf332d6353a15767394c2e5222f368ff04f43",
+    "complete-look-special": "ec21ddcbaa6e46aea04e12e3071ad9f64998afcdce2e4045205fd013afc56e86",
+    "complete-look-dress": "5da4f1352879c13f695dbb488733c50123e0af34963f3e17d604ee4f97b5be14",
+    "character-card-jiwoo": "8969ebd61d5f2b7041d9ff030a02471867f5d46e6d96e651d994732138402a4b",
+    "character-card-sui": "1829661be7693d551b91e84ac9a8e539d5089548e64f483a6efd38798338b338",
+    "character-card-half-face-pressure": "4576ed49f9cbdbcf5f71846f6c5838dc58dbadbbe3114fcb5ec6cd44f99ac24f",
+    "canonical-pose-pressure": "700ceb40c7a5f0116f4be1bfe8e1ec2878bbed51957d1b5a04dd964534e4b2df",
+    "half-face-boundary": "b4d6a182e4ed3e22c1f37ef7e71a9cc6740b7d97c89913c41191c7c96a81339c",
+    "duo-direct-boundary": "0e18a23ee08893442b970dea82d74909dfc4f4c33f672808f5ea2a0154b4b971"
+  }
+}

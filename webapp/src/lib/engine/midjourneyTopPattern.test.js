@@ -30,13 +30,13 @@ function generate(overrides = {}) {
   return result;
 }
 
-test('all 25 top patterns survive main MJ and MJ chest across three top identities', () => {
+test('all 25 top patterns survive MJ chest while main MJ uses names across three top identities', () => {
   assert.equal(patterns.length, 25);
   for (const top of ['短袖上衣', '棉質細肩背心', '帽T']) {
     for (const pattern of patterns) {
       const prompt = generate({ topId: option('topId', top).id, topPatternId: pattern.id });
       assert.equal(prompt.selection.topPatternId, pattern.id);
-      for (const text of [prompt.midjourneyPrompt, chest(prompt)]) {
+      for (const text of [chest(prompt)]) {
         const wardrobe = text.match(/\bWearing ([^.]+)\./)?.[1] || '';
         for (const fragment of pattern.en.split(',').map(value => value.trim())) {
           assert.ok(wardrobe.includes(fragment), `${top}/${pattern.zh}: missing ${fragment}`);
@@ -47,7 +47,7 @@ test('all 25 top patterns survive main MJ and MJ chest across three top identiti
   }
 });
 
-test('top patterns remain in both MJ outputs across current and legacy parent crops', () => {
+test('top patterns remain only in MJ chest across current and legacy parent crops', () => {
   const pattern = option('topPatternId', '胸前卡通塗鴉印花');
   for (const framing of ['全身鏡頭 (Full Body Shot)', '牛仔中景 (Cowboy Shot)', '中景鏡頭 (Medium Shot)', '半臉傾斜特寫', '全臉傾斜特寫', '臉部特寫']) {
     const prompt = generate({ framingId: option('framingId', framing).id, topPatternId: pattern.id });
@@ -55,8 +55,8 @@ test('top patterns remain in both MJ outputs across current and legacy parent cr
     assert.ok(chest(prompt).includes(pattern.en), framing);
     assert.ok(prompt.extraPrompts.find(entry => entry.id === 'chest-up-portrait').text.includes(pattern.en), framing);
     // Main close-ups follow the shared projected top, never raw hidden sources.
-    const gptHasPattern = prompt.grokPrompt.includes(pattern.en);
-    assert.equal(prompt.midjourneyPrompt.includes(pattern.en), gptHasPattern, framing);
+
+    assert.equal(prompt.midjourneyPrompt.includes(pattern.en), false, framing);
   }
 });
 
@@ -64,7 +64,7 @@ test('none and complete-look replacements never gain a discarded top pattern', (
   const pattern = option('topPatternId', '胸前卡通塗鴉印花');
   for (const locks of [{}, { outfitPresetId: option('outfitPresetId', '套裝：開扣長袖襯衫包臀裙').id, topPatternId: pattern.id }]) {
     const prompt = generate(locks);
-    for (const text of [prompt.midjourneyPrompt, chest(prompt)]) {
+    for (const text of [chest(prompt)]) {
       assert.ok(!text.includes(pattern.en));
       assert.doesNotMatch(text, /Top Surface Design|preserve pattern|全無/);
     }

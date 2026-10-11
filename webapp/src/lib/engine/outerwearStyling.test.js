@@ -22,8 +22,8 @@ function locksFor(values = {}) {
   return locks;
 }
 const generate = locks => generatePrompts(1, locks, [], { random: createSeededRandom('outerwear-styling-v2') })[0];
-const all = r => [r.grokPrompt, r.zImagePrompt, r.midjourneyPrompt, ...r.extraPrompts.map(e => e.text)];
-const visible = r => [r.grokPrompt, r.zImagePrompt, r.midjourneyPrompt, r.extraPrompts.find(e => e.id === 'full-body-character').text];
+const all = r => [r.grokPrompt, r.zImagePrompt, ...r.extraPrompts.map(e => e.text)];
+const visible = r => [r.grokPrompt, r.zImagePrompt, r.extraPrompts.find(e => e.id === 'full-body-character').text];
 
 test('four manual styles append after legacy choices and retain exact source once after the coat', () => {
   const styles = controls.find(c => c.key === 'outerwearStylingId').options;
@@ -54,7 +54,7 @@ test('hem source resolves transparency once and accepts a minimal inner top with
       assert.ok(text.includes(style.meta.outerwearStyling.throughFabricEn));
       assert.ok(!text.includes(style.en));
     }
-    for (const text of [result.zImagePrompt, result.midjourneyPrompt]) assert.ok(text.includes(body.en));
+    for (const text of [result.zImagePrompt]) assert.ok(text.includes(body.en));
     assert.ok(!result.grokPrompt.includes(body.en));
     assert.ok(!result.extraPrompts.find(e => e.id === 'full-body-character').text.includes(body.en));
     assert.equal(result.selection.bodyTypeId, body.id);
@@ -94,7 +94,7 @@ test('waist and sleeve crop exclusions do not rewrite visible sources or full-bo
   for (const name of [names[0], names[3]]) {
     const result = generate(locksFor({ framingId: '胸上特寫', outerwearStylingId: name }));
     const source = option('outerwearStylingId', name).en;
-    for (const text of [result.grokPrompt, result.zImagePrompt, result.midjourneyPrompt, ...result.extraPrompts.filter(e => e.id.includes('chest')).map(e => e.text)]) assert.ok(!text.includes(source));
+    for (const text of [result.grokPrompt, result.zImagePrompt, ...result.extraPrompts.filter(e => e.id.includes('chest')).map(e => e.text)]) assert.ok(!text.includes(source));
     assert.ok(result.extraPrompts.find(e => e.id === 'full-body-character').text.includes(source));
   }
 });
@@ -178,7 +178,7 @@ test('duo styles remain attached to their own coat and random styles retain the 
     outerwearAId: option('outerwearAId', '長版襯衫').id, outerwearAStylingId: option('outerwearAStylingId', names[0]).id,
     outerwearBId: option('outerwearBId', '西裝外套').id, outerwearBStylingId: option('outerwearBStylingId', names[1]).id };
   const result = generate(locks);
-  for (const text of [result.grokPrompt, result.zImagePrompt, result.midjourneyPrompt]) for (const name of [names[0], names[1]]) assert.equal(text.split(option('outerwearStylingId', name).en).length - 1, 1);
+  for (const text of [result.grokPrompt, result.zImagePrompt]) for (const name of [names[0], names[1]]) assert.equal(text.split(option('outerwearStylingId', name).en).length - 1, 1);
   assert.equal(result.selection.outerwearAStylingId, locks.outerwearAStylingId);
   assert.equal(result.selection.outerwearBStylingId, locks.outerwearBStylingId);
   const ids = new Set(names.map(name => option('outerwearStylingId', name).id));

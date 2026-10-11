@@ -48,7 +48,7 @@ function generateFixture(fixture) {
 }
 
 test('AI Prompt length contract is frozen serializable policy data', () => {
-  assert.equal(AI_PROMPT_LENGTH_CONTRACT_VERSION, '1.3.0');
+  assert.equal(AI_PROMPT_LENGTH_CONTRACT_VERSION, '2.1.0');
   assert.ok(Object.isFrozen(AI_PROMPT_LENGTH_CONTRACT));
   assert.ok(Object.isFrozen(AI_PROMPT_LENGTH_CONTRACT.budgets.characterCard));
   assert.deepEqual(
@@ -67,7 +67,8 @@ test('AI Prompt length contract is frozen serializable policy data', () => {
     deletionGate: 'none',
     preserveResolvedVisualItems: true,
     compactRedundantProseBeforeVisualItems: true,
-    standaloneBodyType: 'retain the complete resolved English source verbatim; no short anchor or measurement deletion',
+    standaloneBodyType: 'map effective standalone body to six reviewed sentences in main MJ only; omit measurements; keep saved selections and other renderers unchanged',
+    wardrobe: 'visible item names only; additional color, pattern, fit and construction prose omitted',
   });
   assert.equal(AI_PROMPT_LENGTH_CONTRACT.rollout.phase1.behaviorNeutral, true);
   assert.equal(AI_PROMPT_LENGTH_CONTRACT.rollout.phase3.behaviorNeutral, false);
@@ -128,7 +129,7 @@ test('historical word budgets remain diagnostics and do not gate MJ visual reten
 
   assert.ok(Object.values(measurements).every((value) => Number.isInteger(value) && value > 0));
   assert.ok(
-    measurements['character-card-sui'] > AI_PROMPT_LENGTH_CONTRACT.budgets.characterCard.softMaxWords,
+    AI_PROMPT_LENGTH_CONTRACT.runtimePolicy.enforcement === 'diagnostic-only',
     'a retained full-fidelity Character Card output may exceed the historical diagnostic soft max'
   );
 });

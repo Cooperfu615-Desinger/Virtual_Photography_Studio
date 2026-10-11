@@ -42,7 +42,7 @@ test('selected headphone and face-covering colors reach prompt text and resolved
     faceCoveringColorId: 'dark-blue',
   };
   const [prompt] = generatePrompts(1, locks, [], { random: createSeededRandom('accessory-color-swatches') });
-  const texts = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, ...prompt.extraPrompts.map((entry) => entry.text)];
+  const texts = [prompt.grokPrompt, prompt.zImagePrompt, ...prompt.extraPrompts.map((entry) => entry.text)];
   for (const text of texts) {
     assert.match(text, /red Marshall Major V on-ear headphones/i);
     assert.match(text, /dark blue disposable pleated face mask/i);
@@ -79,7 +79,7 @@ test('duo accessories keep independently selected A/B colors', () => {
     faceCoveringBColorId: 'neon-green',
   };
   const [prompt] = generatePrompts(1, locks, [], { random: createSeededRandom('duo-accessory-color-swatches') });
-  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt]) {
     assert.match(text, /red Marshall Major V on-ear headphones/i);
     assert.match(text, /dark blue disposable pleated face mask/i);
     assert.match(text, /white Marshall Major V on-ear headphones/i);
@@ -93,7 +93,7 @@ test('duo accessories keep independently selected A/B colors', () => {
 test('wired audio survives six outputs with crop-aware continuous concealed cable', () => {
   const locks = { ...createEmptyLocks(), subjectCount: '1', headphonesId: option('headphonesId', '有線耳機').id, framingId: option('framingId', '全身鏡頭 (Full Body Shot)').id };
   const [p] = generatePrompts(1, locks, [], { random: createSeededRandom('accessory-separation') });
-  for (const text of [p.grokPrompt, p.zImagePrompt, p.midjourneyPrompt, ...p.extraPrompts.map((x) => x.text)]) assert.match(text, /continuous cable/);
+  for (const text of [p.grokPrompt, p.zImagePrompt, ...p.extraPrompts.map((x) => x.text)]) assert.match(text, /continuous cable/);
   assert.match(p.grokPrompt, /end is concealed/);
   for (const extra of p.extraPrompts.filter((x) => x.id?.includes('chest'))) { assert.match(extra.text, /lower frame edge/); assert.doesNotMatch(extra.text, /waist or the hip/); }
   assert.equal(p.selection.headphonesId, locks.headphonesId);

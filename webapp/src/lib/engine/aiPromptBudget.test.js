@@ -1,3 +1,4 @@
+import naturalAccepted from './midjourneyNaturalAccepted.json' with { type: 'json' };
 import { generateLegacyBodyPrompts } from './bodyTypeLegacyTestSupport.js';
 import { normalizeOuterwearCatalogForLegacy } from './outerwearCatalogTestSupport.js';
 import assert from 'node:assert/strict';
@@ -23,18 +24,7 @@ import { stripMidjourneyParameterTail } from './midjourneyParameterTail.js';
 import { PRE_HOURGLASS_BODY_CATALOG } from './sceneIntegratedAssemblyTestSupport.js';
 
 const controls = getLockControls();
-const MIDJOURNEY_NATIVE_DESCRIPTION_HASHES = Object.freeze({
-  'normal-separates': '7e9a73b11ea81efe08a0bcaa330dfcbc1eb5382693045b769343d3d3dd618a3e',
-  'complete-look-latex': '79d302b251d3bd52e0311cfcd73254b9bcc7a89a72196989bc7f1b4e0af9311f',
-  'complete-look-special': '51d822b857d89d5744e12a82752c1f3fe076d372b6bdb75dc359aa939e2d92ea',
-  'complete-look-dress': '9390e5bdbaee6e91bb686863c0c54256f7e7645d82cf0a321ed334d60170a909',
-  'character-card-jiwoo': '95cb45387c2ff62aa3a9a93594edb7770aca38ac231563d7f82542035fb7cba4',
-  'character-card-sui': '1436fc87a020827d9ddec9ef735247f8069480caf6896bb36c46e32828c1067a',
-  'character-card-half-face-pressure': 'e13712f94c12853fc6e9daceef510857d6b6d1ef6e05ca92f78466e892d6f0d4',
-  'canonical-pose-pressure': '1f0de768a1c20d257b37934812cb414627620a71eeec220d555aad5fcfbdaba2',
-  'half-face-boundary': '2f2930deb06073209a305bd9d548629572477d533375eb9c3805138234a11cf3',
-  'duo-direct-boundary': 'd03117d64f729ff32b254f5eea53280203ef0fcf5b800b0725f1feddfeb03a8c',
-});
+const MIDJOURNEY_NATIVE_DESCRIPTION_HASHES = naturalAccepted.lengths;
 
 function createAllNoneLocks() {
   const locks = { ...createEmptyLocks() };

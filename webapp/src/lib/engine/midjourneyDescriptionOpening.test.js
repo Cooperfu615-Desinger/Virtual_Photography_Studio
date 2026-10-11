@@ -48,7 +48,7 @@ test('phase 3 keeps direct image-type openings before the normal subject lead', 
     assert.doesNotMatch(description, /^Create an? /, fixture.id);
     assert.match(
       description,
-      /Waist-up portrait, high angle, looking down, front view\. A 20s seductive stunning Japanese woman\./,
+      /Waist-up portrait, high angle, looking down, front view\. A Japanese woman in her twenties\./,
       `${fixture.id}: composition-to-subject boundary`
     );
   }
@@ -67,7 +67,6 @@ test('phase 2 applies the same direct opening and sentence boundary to duo AI', 
   assert.doesNotMatch(description, /^Create an? /);
   assert.match(description, /Waist-up portrait, high angle, looking down, front view\./);
   assert.match(description, /Two 20-year-old Japanese or Korean women\./);
-  assert.match(description, /First woman,/);
-  assert.match(description, /Second woman,/);
+  assert.match(description, /Both have/);
   assert.doesNotMatch(description, /\bWoman [12]:/);
 });

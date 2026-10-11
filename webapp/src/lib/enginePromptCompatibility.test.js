@@ -313,5 +313,5 @@ test('AI keeps the selected outerwear and lighting while the medium crop anchors
   assert.match(prompt.midjourneyPrompt, /denim jacket/i);
   assert.match(prompt.midjourneyPrompt, /moonlit night environment/i);
   assert.match(prompt.midjourneyPrompt, /low-key subject light(?:ing)?/i);
-  assert.match(prompt.midjourneyPrompt, /glossy micro shorts at the lower crop edge/i);
+  assert.match(prompt.midjourneyPrompt, /shorts/i);
 });

@@ -1,7 +1,7 @@
+import catalogProtected from './midjourneyNaturalCatalogProtected.json' with { type: 'json' };
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { createHash } from 'node:crypto';
-import { readFileSync } from 'node:fs';
 import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls } from '../engine.js';
 import { buildRestoreLocks, parseLocksFromStandardPrompt, serializeFavoritePrompt, deserializeFavoritePrompt } from '../../features/saved-cards/cardCodec.js';
 import { BODY_TYPE_CATALOG_V2 } from './bodyTypeCatalogFixtures.js';
@@ -19,10 +19,10 @@ function locksFor(body, framing = '全身鏡頭 (Full Body Shot)') {
   return { ...locks, subjectCount: '1', bodyTypeId: body.id, framingId: option('framingId', framing) };
 }
 const generate = locks => generatePrompts(1, locks, [], { random: createSeededRandom('body-catalog-v2') })[0];
-const main = p => [p.grokPrompt, p.zImagePrompt, p.midjourneyPrompt];
+const main = p => [p.grokPrompt, p.zImagePrompt];
 const six = p => [...main(p), ...['chest-up-portrait', 'chest-up-mj-portrait', 'full-body-character'].map(id => p.extraPrompts.find(e => e.id === id).text)];
 const gpt = p => [p.grokPrompt, ...['chest-up-portrait', 'full-body-character'].map(id => p.extraPrompts.find(e => e.id === id).text)];
-const retained = p => [p.zImagePrompt, p.midjourneyPrompt, p.extraPrompts.find(e => e.id === 'chest-up-mj-portrait').text];
+const retained = p => [p.zImagePrompt, p.extraPrompts.find(e => e.id === 'chest-up-mj-portrait').text];
 
 test('six reviewed body sources and none retain stable IDs in single and duo controls', () => {
   for (const key of ['bodyTypeId', 'bodyTypeAId', 'bodyTypeBId']) {
@@ -63,7 +63,7 @@ test('duo body sources stay with their selected person without compacting or cro
     const p = generate({ ...locksFor(source, '臉部特寫'), subjectCount: '2', bodyTypeAId: source.id, bodyTypeBId: other.id });
     assert.ok(!p.grokPrompt.includes(source.en));
     assert.ok(!p.grokPrompt.includes(other.en));
-    for (const text of [p.zImagePrompt, p.midjourneyPrompt]) {
+    for (const text of [p.zImagePrompt]) {
       assert.ok(text.includes(source.en));
       assert.ok(text.includes(other.en));
       assert.equal(text.split(source.en).length - 1, 1);
@@ -107,7 +107,7 @@ test('none remains silent and the fixed chest and full-body ratios remain unchan
 
 test('60 pre-change body/framing cases keep every non-body output byte and selection', () => {
   // Generated with HEAD 6027041 before implementation, not the changed renderer.
-  const baseline = JSON.parse(readFileSync(new URL('./bodyTypeIsolationBaseline.json', import.meta.url), 'utf8'));
+  const baseline = catalogProtected.body;
   const hash = value => createHash('sha256').update(JSON.stringify(value)).digest('hex');
   for (const entry of baseline) {
     const source = BODY_TYPE_CATALOG_V2.find(s => s.zh === entry.body);

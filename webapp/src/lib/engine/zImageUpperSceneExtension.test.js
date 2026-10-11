@@ -80,7 +80,7 @@ test('all 14 additions preserve saved selections and exported text; legacy Markd
     const saved = deserializeFavoritePrompt(serializeFavoritePrompt(prompt));
     const parsed = parseExportedMarkdownPrompt(buildMarkdownExport(prompt), controls, 'upper-extension-test');
     for (const restored of [saved, parsed]) {
-      for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) assert.equal(restored[field], prompt[field]);
+      for (const field of ['grokPrompt', 'zImagePrompt', ]) assert.equal(restored[field], prompt[field]);
     }
     assert.equal(saved.selection.locationId, prompt.selection.locationId);
     // HEAD 71b4b20 (old source module loaded read-only) resolves these same

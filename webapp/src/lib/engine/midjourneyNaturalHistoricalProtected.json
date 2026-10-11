@@ -1,0 +1,632 @@
+{
+  "scene:R01-squat-low-selfie": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "619533a8317503dc31f5b8df49a58b28a01f20990d98db34751e27496a4f6586",
+      "chestUpMjPortraitPrompt": "ccc475896e483a526512feb3e1e6617352477a178f3592b9f38274a8d98caef3"
+    },
+    "protectedHash": "25c16123f3ee5b4e51fb25d2d04c0b526cde0f2b58e4b0794f6408a1c10d1415",
+    "selectionHash": "2df3590915d1f7708f1c30662cde65b042bcf87cafe833af02362c3411ce524c",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R02-kneel-high-selfie": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "3c410f147c1ff6608bf198eb1b3f3abd0a1ac82b60e00899c03556b487408302",
+      "chestUpMjPortraitPrompt": "342ae55c8ff940f6e9a60f6416aa7ce0f2bef232cd2683871988a9af0c0b2d27"
+    },
+    "protectedHash": "8862ea3df94763e10b5127e3ccaa10e13d5bb97b1cc69fda1888c0b70868ce64",
+    "selectionHash": "52645a38bd2e28a1798293eb71a906363c15048d4dfb9c14ad91a2957eb64088",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R03-squat-no-anchor": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "6ec9449f03c11f3b785a0457a7e4e4ace55322a503ed041227b534a63884dcab",
+      "chestUpMjPortraitPrompt": "eedede4dcea3a10cff69541bca61e3ea6466670caeb5ecb08fa02bdaa2a9cbcd"
+    },
+    "protectedHash": "2f5744a68f799f94c5fef3dc66b72e00d5abff1d0e5593c59d75254a57665c7d",
+    "selectionHash": "05333f83c0925b22fd5048a7ad8f630789163cca294ea12b6c67b13471138175",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R04-standing": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "a3265d868146dceba237774cae95923d89efa1c00d2cbbea8ec56473140cecd9",
+      "chestUpMjPortraitPrompt": "a0a560d654d37ab5145efddcb036625dd21e45175c83e11246f1ac168de57160"
+    },
+    "protectedHash": "0b9cb5e990b4884829d0f34a2c05476378ee4883e1d4e19204825eeaadbb5f75",
+    "selectionHash": "8abf8be1c5c45e2405838333276485802156762a6cc0bf3adcc03fe796d2dbcb",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R04-sitting": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "df5d63f1cd4dc33b95e4bbb783559bcbc2f969ffc6f22aec8f4665a3706f2da8",
+      "chestUpMjPortraitPrompt": "12e7435be6ffc42a588d5893681e1b03e4c91bd13894c53e602bfe39d09b71fa"
+    },
+    "protectedHash": "26117a15e6a20b55eb166061ec4c8eb5e8b09a66a02729d286e86460fd40ca77",
+    "selectionHash": "d8a761eb4606f55cde2ebfdfb36eef40b2be4256773926c958bc26385dc5fb6c",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R05-elbows-on-knees": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "9bcb4f439c8252c0b1692060477c1aac3f10753a7f963c9c9f45901a6a045f2a",
+      "chestUpMjPortraitPrompt": "f7a493a387e2d11a78d2c7f2870996c650daf55040ae0eb58539aec004d77a44"
+    },
+    "protectedHash": "9ee3f298fc9a6469a26325538d3e17ac6d68026352199aa8dcf2643b16f81757",
+    "selectionHash": "fcb8c3743ec0fe50a81d8fdd23f6535824c8573ecbbeb32779597d8109e93464",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R06-mirror-selfie": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "21030d62c00aa5e137b69573812911fa44162ba8a4a690526d06f0b40ceb3842",
+      "chestUpMjPortraitPrompt": "6209c03af51cdd41314a80744e11335b1ccc2019271c11d9e0804a5a67a2f476"
+    },
+    "protectedHash": "090ad228b4292b0de937a711c7c258c2be986961a769d527d1ca2f6554250212",
+    "selectionHash": "37b6e07a24060603d0c37cf275e64dbbe051608a6109ff65f26ff6bdacab9244",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R07-companion-selfie": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "fd585d3c03679503ff0357c70d1285b777b66815b2ec75f2182fd926859528bb",
+      "chestUpMjPortraitPrompt": "a36b7f0bb8f2f886c8c85280ec1b35dfaf2ba514fdec495eda45635a51c9d210"
+    },
+    "protectedHash": "5bb277981932be086a1b060cf666c2ed3e76fe963e2245ff054586b65c2f83f5",
+    "selectionHash": "5d1665932f52353ef609efacaaa3353793b4f165f3f85597ddff7d4b4c8f1f34",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R08-crop-full": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "3c410f147c1ff6608bf198eb1b3f3abd0a1ac82b60e00899c03556b487408302",
+      "chestUpMjPortraitPrompt": "342ae55c8ff940f6e9a60f6416aa7ce0f2bef232cd2683871988a9af0c0b2d27"
+    },
+    "protectedHash": "11c716301127ef61e9014c6f5bfa54b886767e3ee7d1e0dd72b3641c212bcbff",
+    "selectionHash": "a267c0de4d28dc39d3c74b3c22de725a535c86b93fd8e4efa7d76b7e6f95110f",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R08-crop-cowboy": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "3c410f147c1ff6608bf198eb1b3f3abd0a1ac82b60e00899c03556b487408302",
+      "chestUpMjPortraitPrompt": "342ae55c8ff940f6e9a60f6416aa7ce0f2bef232cd2683871988a9af0c0b2d27"
+    },
+    "protectedHash": "8862ea3df94763e10b5127e3ccaa10e13d5bb97b1cc69fda1888c0b70868ce64",
+    "selectionHash": "8903bbcfdd9d1cb2232b8d1e4c1dd358fb79e36ac38dc17bc892839f3800eb31",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R08-crop-medium": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "3c410f147c1ff6608bf198eb1b3f3abd0a1ac82b60e00899c03556b487408302",
+      "chestUpMjPortraitPrompt": "342ae55c8ff940f6e9a60f6416aa7ce0f2bef232cd2683871988a9af0c0b2d27"
+    },
+    "protectedHash": "0211221fc490a0e3c79892233492f1e23e06b74f2ab42f28b542d3d2414c8bdd",
+    "selectionHash": "00eeb56390f5cb26a488dfc3407d0ab5081a786621c6ccbbad8579e905208a18",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R08-crop-chest": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "3c410f147c1ff6608bf198eb1b3f3abd0a1ac82b60e00899c03556b487408302",
+      "chestUpMjPortraitPrompt": "342ae55c8ff940f6e9a60f6416aa7ce0f2bef232cd2683871988a9af0c0b2d27"
+    },
+    "protectedHash": "441271b9c7689d4220880de588b6a2aecdf54fb18f85568ed175f8ecf89c5c30",
+    "selectionHash": "32386ff24bd85ed92d62d9778bac20605762c71ca5e75d0b9ae746b243783dda",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R08-crop-head": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "3c410f147c1ff6608bf198eb1b3f3abd0a1ac82b60e00899c03556b487408302",
+      "chestUpMjPortraitPrompt": "342ae55c8ff940f6e9a60f6416aa7ce0f2bef232cd2683871988a9af0c0b2d27"
+    },
+    "protectedHash": "33e72a8c6287e6c0189a823838acb03196f77042b2576a88546e839dd718efe6",
+    "selectionHash": "42df6ed45a2ecd7bc0c762d6c4b370d6b6d17f02a1cafef961604ddb3e4a4e35",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R08-crop-face": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "7567c77a320d0f24e8f2282fbd588130838d882016d4f680a47b86bf5998cedc",
+      "chestUpMjPortraitPrompt": "b705ad669ea7a4e7917223d6c1d7739fa08a9519426c1ed88de35b74b804aed8"
+    },
+    "protectedHash": "89a62ed697a7b3e178586d15cb45f5d1568398221b98a68704027955e373d8e3",
+    "selectionHash": "cb2cbf15d9f236d9a1411402adf513a0536c19bc0eaacb67892c1b67e5f18efd",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R09-orbit-front": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "fb064164451557e12f6d66d370c4662ab2ee3859a09c5bec90e883ee48eb4286",
+      "chestUpMjPortraitPrompt": "67ec625480b1b2802c49ea6d9f6546dc5ce719811e4ae6c01d1a53c6d30d3e29"
+    },
+    "protectedHash": "ee3b7586f791aecc2837118f2bd77ce1d93eb77c8b7f91c18f7f353c2b0761a4",
+    "selectionHash": "f8a912f4e99e5e003cd5d41a60456661b70595eda71a54f9f2b866508e753a38",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R09-orbit-left": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "956ed5a529191aae66a8ba74230716b790446076c5b6cf191c83ad651ef4ea4e",
+      "chestUpMjPortraitPrompt": "deb4cea7aca51cf9f270069a0553da6805cd55ab05ef09dd29fd0818420fda8b"
+    },
+    "protectedHash": "27338d16dcc4545fd8c9137519406c0e43bdfa25299e9ade217f1c042984d152",
+    "selectionHash": "c6dda96522b6f8d0568866e48e25dd5cd0f5fd382b1d62ae60ea80386304bcf7",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R09-orbit-right": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "436805e21cb8e7c1688a26ad0c01cc0241a85debae7125cb288782f870704e4b",
+      "chestUpMjPortraitPrompt": "786b3fd2545938ef6eb94103ffdbac537d2ae56baf175a8256632c8462c449b2"
+    },
+    "protectedHash": "0381265b824291a39f9f0daf7eea97a221bef6fa3f052d162275593374dbff73",
+    "selectionHash": "8069a92090767871551bb79f76935cd352b758b478c735a7e2a6371b5d0d501a",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R09-orbit-rear": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "dee1a2f219a7e2212841cc9a16714161aadf781fd9b6b59d55b4872749c7c67b",
+      "chestUpMjPortraitPrompt": "297d58fad2551a37bccff0d12a330eaa72e2e4b93bba1ccaf08db3313c0564e2"
+    },
+    "protectedHash": "3a18668b9a5d41ddca66e237c7ea85ef3444c5d5b4d56063c9ac38625a057eae",
+    "selectionHash": "5db25c7f3ad1858ac45834dec4b94ad11622feaa3afbae53092ae24579dd7b31",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R09-half-face": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "e3c423042c6e8d7ff66ac2a2987f44949215b8e408885bc138ca787357547ccc",
+      "chestUpMjPortraitPrompt": "a0a560d654d37ab5145efddcb036625dd21e45175c83e11246f1ac168de57160"
+    },
+    "protectedHash": "ffe2211afc45b879dfa2630b369cb2b8460c7b737fbbec080a0033f7a9829296",
+    "selectionHash": "bd3029909921aeec8b46dbebe145dede05d3d0de372bcf6548412c241ab4ad59",
+    "randomHash": "038966de9f6b9a901b20b4c6ca8b2a46009feebe031babc842d43690c0bc222b"
+  },
+  "scene:R10-palm-occlusion": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "401309b64368500b6fb1e04665d566416c74bcaac134e6346de71d1126afcf52",
+      "chestUpMjPortraitPrompt": "be714e7a89cf4c4f78d9b0ddbab24fc183df570deb42332e827263ca48341ad1"
+    },
+    "protectedHash": "c526e3b840b1b198732225f2d828b2acd732e266f0f32f9576c2201e1847336f",
+    "selectionHash": "c0a789c7c17deb46443fd59feb677b69e8d6c211383e141a5ee02973078328ea",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R11-shirt-shoulder-1": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "6ca4a7711e672f7d384d34c4e2eb9c1f7847d762ad496541fcde5eeb8aa2d306",
+      "chestUpMjPortraitPrompt": "e94a567c04484efd727fa512286629873e1c7f8958d74e8aced2587991d2bb28"
+    },
+    "protectedHash": "23f74d4989dd46f2c0f85c83d16c6ca70c65f38928eef73b28261f56f9fa2849",
+    "selectionHash": "d7dae1eb79ccd6a6970057b17ad472534aa01ab48aa9bbb9f68a64f23104670d",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R11-shirt-shoulder-2": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "83cf86bbd28deacf443c9da26c26d58189c1775336b86e53d6b8cd233315b4fa",
+      "chestUpMjPortraitPrompt": "5fdb0e904c0dbfb0f17bdb98880e00bc52ddc496339ee9f4d1c9645afe26e3ec"
+    },
+    "protectedHash": "d0cd098eff3ca57e084eafeceb515c9e5577bbbe119e8fa5dacbb89801cc50c6",
+    "selectionHash": "4d2b81047ef11568444ab04f316adae4b5c15d9de1fd59e60ae18feca5b9842f",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R11-dress": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "1570e9033b36d782d36f17498fbbb5f96d2b9e6a5e96d2ab5fd65f3b1d71abdd",
+      "chestUpMjPortraitPrompt": "1bb144531763657015079161bd12e8dbb74fcab8bcf15a47a047c4624705e27d"
+    },
+    "protectedHash": "1863abf09bf7a04caf43b0845e0de4b898f09bdea954246d01010da90b79ea71",
+    "selectionHash": "ade50e2b84a53fd92f70650aae6508aecebbc0badf1f324ebd0c976a3db13713",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R11-complete-look": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "72465460139ad538f391e28e47a381fb377fc76c0b39bb6dbc931b95864198fe",
+      "chestUpMjPortraitPrompt": "4c5f4958bf09b3984d49198b4f4e0b70f07f3461786e8447615dbf5e4def59b5"
+    },
+    "protectedHash": "feeb439dab52006fd8754bb4fcce9e527188a0f6cb570645cb304a6851442540",
+    "selectionHash": "ca4d0c73cd8321b6ee6d79a0be38db4e0edfb57292441e02c5658d8b6d341169",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R11-waist-chain": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "c9fa6a0039fc4146458d1c849fcdb0e921e9a9bc32d4064014706e03fe138771",
+      "chestUpMjPortraitPrompt": "7c323d7c0af2339c901ed0ec64b0e8c48697f4c7834a2b8f2ac74b69690e9b3c"
+    },
+    "protectedHash": "3b7307087d6032e2fa2499dc3d59325f1bdee4ae8e6424c7f421e2d874126953",
+    "selectionHash": "1bb91674eab6d1b7cf449ac696570a40eeb2e71f8c88eb6815c39e2833270a68",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R12-scene-indoor": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "100721defbb1955b8155b4c53014947630a607f418a134330cceb866315c95b3",
+      "chestUpMjPortraitPrompt": "bc0b227215317e1641fcba2963389dc23ee8bf62ae7b011a8e5837ebff41bfe4"
+    },
+    "protectedHash": "111015845789e4ab702497e252a5570c5816b92d9c13267797c328e65e162d8f",
+    "selectionHash": "17113c7d1533a792d5339ca34b66008e4e2ab552acd0d41411fb45322f878c50",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R12-scene-studio": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "89eae5c7856fce472023fd8712c9b8dacb4ee4ed12365f40eb4229fe04b9acdc",
+      "chestUpMjPortraitPrompt": "fbaf1c988130fe6a9c93fc217d7b3f30711d4df15ea27e67affec6a2d8dabfa6"
+    },
+    "protectedHash": "9da66511a534fb0bbdf790c595845864b22eb0a153a6d1c09deb41cd4ff670ea",
+    "selectionHash": "683b0924f347a5926b9c6dd027a445f87e184093c153a6a8bb9945c78db220ab",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R12-scene-none": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "5c265efc2c7e65fd55e3b9cb96f5e2b19ee6a8938b9d43ca671f91b8f5884220",
+      "chestUpMjPortraitPrompt": "3e2802392c21cce3fcbc44f13b34b13e21c812d475157b2b7c6c1f155a8eac2a"
+    },
+    "protectedHash": "b2acd082784b2ec45ce5a3ae381e1c3f371f770867a38f198c7df0350b4d50d6",
+    "selectionHash": "6b94c0724ac143d3184805630213cd8da9ea1c2618ffe416bad37d02609b5a22",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R12-watercolor": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "eee189af18e5f34080785db8472849da112839037d36456930196783d3e5b097",
+      "chestUpMjPortraitPrompt": "33d286180ed5acd5668e24627cace2adb2b2d886c183d85475f95733a4564a61"
+    },
+    "protectedHash": "d9088748a302d3c73b6d4d170f66b5f63d25bf776e0c3c634b8f6f13d9306895",
+    "selectionHash": "00ec29219afe8d6f88736bec32d5b15f69c0cc400db726431475624fadc67cb0",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R13-optics": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "cff153e3a27540ca39b2ff44d70bf6d64571467ed0260c3171a81682b0afdecc",
+      "chestUpMjPortraitPrompt": "d969ad5be8c6509471b9937b30ff10ac2fb14a8941d804f765afe5a82462ef0e"
+    },
+    "protectedHash": "fe0df3245cf5e5e3b720ff29885807c44e8166b803e5bad3eb891605cadd6160",
+    "selectionHash": "ac9710c49cb6affbbf0e6d028defa81ed80a7fc16f73a2ab49037d265ae96b5a",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R14-mj-imaging": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "6e29e99ede85c6333377457691784ff3e707e0e443c37b710310b359354178a7",
+      "chestUpMjPortraitPrompt": "c6897ea287fe05c4e096e91a4b29848e456f72a7dc165edb030c5e3298f6ad53"
+    },
+    "protectedHash": "e2c2e938e0b612e8f160d5269a7cff4554819ca138df682bdbe03024d310cd4b",
+    "selectionHash": "07624da6f6f691e284223767671741c19c7805f5a02c4e1c06f0f979dfeed31f",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R15-derived-isolation": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "e3c423042c6e8d7ff66ac2a2987f44949215b8e408885bc138ca787357547ccc",
+      "chestUpMjPortraitPrompt": "a0a560d654d37ab5145efddcb036625dd21e45175c83e11246f1ac168de57160"
+    },
+    "protectedHash": "9d89bb156904f5538287bf7180ff78813ba33295d4f8bb4cbe8e81906265620a",
+    "selectionHash": "696c7fae90686016374b43d36f2cd0814dfd509a51bd28fd6c389b2f88782684",
+    "randomHash": "080a9ed428559ef602668b4c00f114f1a11c3f6b02a435f0bdc154578e4d7f22"
+  },
+  "scene:R16-duo": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "055539df4a0b804c58caf46c0cd2941af10d64c1395ddd8e50b5f55d945841e6",
+      "chestUpMjPortraitPrompt": "055539df4a0b804c58caf46c0cd2941af10d64c1395ddd8e50b5f55d945841e6"
+    },
+    "protectedHash": "5946cf6a19df1f7bb62fe8a9f2ad4594d7945e133c67b380ec90e433bfcee759",
+    "selectionHash": "cc6b891778fe71aa6f876bb6783597623339ca2d43d50d5fac9d6df34f88aa24",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R16-fixed": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "a5bc6c359caecd500cfc4c2aa2133c8ff6e6511b2b21309acf6aa86b6ac034b0",
+      "chestUpMjPortraitPrompt": "0e51aa86ea89bbb644be439911d4b51add24166563a944694e23896fd56e0d2a"
+    },
+    "protectedHash": "02f58c027bfb07f9dcefa93e0b8f73c1f594558d28213dd0b8dc8ade30c4951b",
+    "selectionHash": "20f82d9af2b70ba7b4ac93cae16e2ceb764c410b06612e2ba2aa44ead46eea8b",
+    "randomHash": "46b1884167c4edd308bcf0c04163dd02d05c9742b35e86b57b5f7ed1b82f3850"
+  },
+  "scene:R16-special": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "7b8223cf308136150ebf0398709a70fc00ed43c67ed187a034dde18c204eb4ef",
+      "chestUpMjPortraitPrompt": "a70d43d1f9831c74d1d8ffa5d02a6800cdaa087403c669af34a45a4b62a23c58"
+    },
+    "protectedHash": "86b0c3d819710a4fde9c459dcbbe28d52712e8bff4b2efbfed01f908e8bfe5ff",
+    "selectionHash": "7716f199ed09d8a709f4ed645b14a633bf8d1c5b03366e9343a262d93859b525",
+    "randomHash": "080a9ed428559ef602668b4c00f114f1a11c3f6b02a435f0bdc154578e4d7f22"
+  },
+  "scene:R16-character-card": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "7602e75e1a3764011277df2d0cab340fe8600712477ebb0fa42ea4877f48f4aa",
+      "chestUpMjPortraitPrompt": "2a099bcdf03f29a3bcb2a4a57e839d30f294c03139084736648318e69f20bb09"
+    },
+    "protectedHash": "410d3c76be06cadbe3c17c112bbfa17f3ffbd0e3ee5b5f2b00f97425a76d5fcd",
+    "selectionHash": "b7bfd4fe79b03f98a9b0d880d85be0e5fa374df3fa0aa0b7b51ed64f2192c0ad",
+    "randomHash": "080a9ed428559ef602668b4c00f114f1a11c3f6b02a435f0bdc154578e4d7f22"
+  },
+  "scene:R17-lying-bed-surface-0": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "eb7db2fbcb1f48a2398fe262cce30515fab2e439ea691ab6709ead9c4c10da93",
+      "chestUpMjPortraitPrompt": "d13753156fec86b31e301adc6797f95f6d3039bd37345de3ffa1f0d6f124ecc0"
+    },
+    "protectedHash": "073655d7a5f2ffbe57c11c70eac0d64a4f4e333c11e77daa9b2fbb2bdb9b95bb",
+    "selectionHash": "bf3a75f5fc54e329d30068163f5507d0e095079dd2daace116b234f155b1e6c3",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R17-lying-bed-surface-1": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "4b974bc1718c74a35ebdfb96eb7ab400a3d8bc3b276319e21a4bca8f7b1aff6d",
+      "chestUpMjPortraitPrompt": "c72fe64c9dc0136b4ffdcafeec48eefdf69e638de6363f8358be9da11b4dfa9e"
+    },
+    "protectedHash": "db5e5ba28fbe2448aba8c15df5660488ed82bd5d079065cd8762b1d538a71770",
+    "selectionHash": "2360774abe766e44ea57df13565e04ea3a4b157281b1e1c211f657017d119088",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R17-water-immersed-0": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "a41d34a9f21ec397c0b9d515f5e734ade1895601802d5a246317d5b2f4a66c54",
+      "chestUpMjPortraitPrompt": "4a87ebffb67c6debd81053f38f41786ab381b103a2d0e20392fe56405ccaf207"
+    },
+    "protectedHash": "393e1021b6656e42f879b438439dd26022dc54c7347b95049825d36b90bd2c2b",
+    "selectionHash": "e2d4c57a50161f028a47bf22fe16209883c70d54ceed186f52c2a730f499c81d",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R17-water-immersed-1": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "90fb293807d60b128621f8382a0d16f706c229d4202e553ac30c9f673aa771e1",
+      "chestUpMjPortraitPrompt": "8a90088f7ffb0e1193fd200dac4f0b122599fb3c7fa93093d9a60ca3bc60a589"
+    },
+    "protectedHash": "dca242358c1ab6fec4bbef8e43ff56770aee6d392fdad3a02a19ae33c654ee8a",
+    "selectionHash": "01086a2a2aa630a75f25e489a80f89b09b9866ade4d445397fdf2d742063b78f",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R17-lying-clear-sea-surface-0": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "49ab675ed0173132060216c7555c75b4b4c55ffeda67fba0803d4c206032814c",
+      "chestUpMjPortraitPrompt": "1e7f9e0cc3f1add59b6e9aff3c15643541d152a333be7dac3b73d01d1f16d86e"
+    },
+    "protectedHash": "6adf52c51b53155e23f3d621388a11f38502bff42a169178172f3d9eb8e2522f",
+    "selectionHash": "91686c607d98cc7ee3f787425e557005afc165bb3fa017994742c2093f957a53",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R17-lying-clear-sea-surface-1": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "5a4b0adb636f6ec7a99915e4c16b459c541e27597a029f5dda7d6e47abce8797",
+      "chestUpMjPortraitPrompt": "f3d6d89a5e0c284bc9f40d1783b2908b04fb62bb126bc13a83f28ddd04f2c677"
+    },
+    "protectedHash": "9dfd1435420efb27c2444f28992b2572e37376f272d59405321266b1d5ff534a",
+    "selectionHash": "e0053b1a453572554f172139162b916470b7754f3fc3eed3810a2c297cd4cba3",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R18-exact-text-on": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "a3265d868146dceba237774cae95923d89efa1c00d2cbbea8ec56473140cecd9",
+      "chestUpMjPortraitPrompt": "a0a560d654d37ab5145efddcb036625dd21e45175c83e11246f1ac168de57160"
+    },
+    "protectedHash": "275734f015c54bd94a32f1586bba89a4bde43c3875cb6cccb08608297aab4823",
+    "selectionHash": "1e1fa88ce2a12361ca8f2efbee7571da4aedadad57dd390558436d87ab6a54f9",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R18-exact-text-off": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "a3265d868146dceba237774cae95923d89efa1c00d2cbbea8ec56473140cecd9",
+      "chestUpMjPortraitPrompt": "a0a560d654d37ab5145efddcb036625dd21e45175c83e11246f1ac168de57160"
+    },
+    "protectedHash": "0b9cb5e990b4884829d0f34a2c05476378ee4883e1d4e19204825eeaadbb5f75",
+    "selectionHash": "53d67d5bb59339d3eb9407dec23391dc2a52c04ab95a9a661e54b2f8ebde580b",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "scene:R19-random-pose": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "c6195d7c826b9991a729fb053217b0e09826327d0b30c2ed383ed8f75e3fd8a8",
+      "chestUpMjPortraitPrompt": "47a9b5716e53fee281a132041078ff01fa2f7e9136f841031aaff82f6e60a123"
+    },
+    "protectedHash": "00131ee154155946d0b752be15a35f1e8b696579d52f899b5440b8149554b2e5",
+    "selectionHash": "1dfffd2405e1e456a6c4a0f4fe0704d352c03b133fb8abcdd17cd8694c746ded",
+    "randomHash": "a8f2ecf6c811b67c050190173c8b89ce2c99b7993d29235ff3bf656b6a2c505e"
+  },
+  "fullCamera": {
+    "count": 431,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "5f77928765d8e5fd9980c1779e0ba4e461639146e9b30b41edeb5f88fdcb0804",
+      "chestUpMjPortraitPrompt": "248ff7addda9bac3110e1079382a0a9763b95a44f0021593a5babc1d84d6a0aa"
+    },
+    "protectedHash": "b0d5ce32a3eaa5f504599046bc087e857578d71e0ca704e5f92ea22caeb4a20b",
+    "selectionHash": "3cb428ff94a3991acb941fef0c3724b91df031e61b36601e83f6858de6b19354",
+    "randomHash": "b347c62093cd794d34fc5c844d1cc2b6158b4c6d8596e4e000803c03a57fe7d5"
+  },
+  "upperScene": {
+    "count": 230,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "d49c5de87e2180cc641ece58e3f5d736b154d20e332b0db33e0cf9afdd41644c",
+      "chestUpMjPortraitPrompt": "550b2ee870e8eb68b36a8224183a4b1fdc9181b10df7a74a45cbd0be5c20da40"
+    },
+    "protectedHash": "cccbceebaf01500c686c4d33fe7458063ec56281474641ac9c22502d8ac69ab1",
+    "selectionHash": "c8f956f076e6495c7cd6fcbe85880df9bc784101b9a924dbe83cf12b80722d49",
+    "randomHash": "c4551aefb81932ae776da03af7eac5be04d03bcb81caa60f9b45bfea74391501"
+  },
+  "ambient": {
+    "count": 720,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "6da5048eaa9ffb17e66774714f9f77bdb9f9fe226eb79512e7db7d4438481f83",
+      "chestUpMjPortraitPrompt": "67759533655de400a597c6d08598770beebc0416b75a00d15f345e44c5bd42d0"
+    },
+    "protectedHash": "7a7699cb0e5161be20d4df839860c3acc0a4685ab87a84dffd87696db2c534af",
+    "selectionHash": "42f394343b495fabe20750ff227ef74f728f93dd17f64cad1b21161a7aac8861",
+    "randomHash": "b0809a621b1611023b5db14ee5b6b5bfa7c0c2d75dc0d8c376f8d5f868979322"
+  },
+  "ambient-excluded:R16-duo": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "055539df4a0b804c58caf46c0cd2941af10d64c1395ddd8e50b5f55d945841e6",
+      "chestUpMjPortraitPrompt": "055539df4a0b804c58caf46c0cd2941af10d64c1395ddd8e50b5f55d945841e6"
+    },
+    "protectedHash": "5946cf6a19df1f7bb62fe8a9f2ad4594d7945e133c67b380ec90e433bfcee759",
+    "selectionHash": "cc6b891778fe71aa6f876bb6783597623339ca2d43d50d5fac9d6df34f88aa24",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "ambient-excluded:R16-fixed": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "a5bc6c359caecd500cfc4c2aa2133c8ff6e6511b2b21309acf6aa86b6ac034b0",
+      "chestUpMjPortraitPrompt": "0e51aa86ea89bbb644be439911d4b51add24166563a944694e23896fd56e0d2a"
+    },
+    "protectedHash": "02f58c027bfb07f9dcefa93e0b8f73c1f594558d28213dd0b8dc8ade30c4951b",
+    "selectionHash": "20f82d9af2b70ba7b4ac93cae16e2ceb764c410b06612e2ba2aa44ead46eea8b",
+    "randomHash": "46b1884167c4edd308bcf0c04163dd02d05c9742b35e86b57b5f7ed1b82f3850"
+  },
+  "ambient-excluded:R16-special": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "7b8223cf308136150ebf0398709a70fc00ed43c67ed187a034dde18c204eb4ef",
+      "chestUpMjPortraitPrompt": "a70d43d1f9831c74d1d8ffa5d02a6800cdaa087403c669af34a45a4b62a23c58"
+    },
+    "protectedHash": "86b0c3d819710a4fde9c459dcbbe28d52712e8bff4b2efbfed01f908e8bfe5ff",
+    "selectionHash": "7716f199ed09d8a709f4ed645b14a633bf8d1c5b03366e9343a262d93859b525",
+    "randomHash": "080a9ed428559ef602668b4c00f114f1a11c3f6b02a435f0bdc154578e4d7f22"
+  },
+  "ambient-excluded:R16-character-card": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "7602e75e1a3764011277df2d0cab340fe8600712477ebb0fa42ea4877f48f4aa",
+      "chestUpMjPortraitPrompt": "2a099bcdf03f29a3bcb2a4a57e839d30f294c03139084736648318e69f20bb09"
+    },
+    "protectedHash": "410d3c76be06cadbe3c17c112bbfa17f3ffbd0e3ee5b5f2b00f97425a76d5fcd",
+    "selectionHash": "b7bfd4fe79b03f98a9b0d880d85be0e5fa374df3fa0aa0b7b51ed64f2192c0ad",
+    "randomHash": "080a9ed428559ef602668b4c00f114f1a11c3f6b02a435f0bdc154578e4d7f22"
+  },
+  "ambient-excluded:R17-lying-bed-surface-0": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "eb7db2fbcb1f48a2398fe262cce30515fab2e439ea691ab6709ead9c4c10da93",
+      "chestUpMjPortraitPrompt": "d13753156fec86b31e301adc6797f95f6d3039bd37345de3ffa1f0d6f124ecc0"
+    },
+    "protectedHash": "073655d7a5f2ffbe57c11c70eac0d64a4f4e333c11e77daa9b2fbb2bdb9b95bb",
+    "selectionHash": "bf3a75f5fc54e329d30068163f5507d0e095079dd2daace116b234f155b1e6c3",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "ambient-excluded:R17-lying-bed-surface-1": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "4b974bc1718c74a35ebdfb96eb7ab400a3d8bc3b276319e21a4bca8f7b1aff6d",
+      "chestUpMjPortraitPrompt": "c72fe64c9dc0136b4ffdcafeec48eefdf69e638de6363f8358be9da11b4dfa9e"
+    },
+    "protectedHash": "db5e5ba28fbe2448aba8c15df5660488ed82bd5d079065cd8762b1d538a71770",
+    "selectionHash": "2360774abe766e44ea57df13565e04ea3a4b157281b1e1c211f657017d119088",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "ambient-excluded:R17-water-immersed-0": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "a41d34a9f21ec397c0b9d515f5e734ade1895601802d5a246317d5b2f4a66c54",
+      "chestUpMjPortraitPrompt": "4a87ebffb67c6debd81053f38f41786ab381b103a2d0e20392fe56405ccaf207"
+    },
+    "protectedHash": "393e1021b6656e42f879b438439dd26022dc54c7347b95049825d36b90bd2c2b",
+    "selectionHash": "e2d4c57a50161f028a47bf22fe16209883c70d54ceed186f52c2a730f499c81d",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "ambient-excluded:R17-water-immersed-1": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "90fb293807d60b128621f8382a0d16f706c229d4202e553ac30c9f673aa771e1",
+      "chestUpMjPortraitPrompt": "8a90088f7ffb0e1193fd200dac4f0b122599fb3c7fa93093d9a60ca3bc60a589"
+    },
+    "protectedHash": "dca242358c1ab6fec4bbef8e43ff56770aee6d392fdad3a02a19ae33c654ee8a",
+    "selectionHash": "01086a2a2aa630a75f25e489a80f89b09b9866ade4d445397fdf2d742063b78f",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "ambient-excluded:R17-lying-clear-sea-surface-0": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "49ab675ed0173132060216c7555c75b4b4c55ffeda67fba0803d4c206032814c",
+      "chestUpMjPortraitPrompt": "1e7f9e0cc3f1add59b6e9aff3c15643541d152a333be7dac3b73d01d1f16d86e"
+    },
+    "protectedHash": "6adf52c51b53155e23f3d621388a11f38502bff42a169178172f3d9eb8e2522f",
+    "selectionHash": "91686c607d98cc7ee3f787425e557005afc165bb3fa017994742c2093f957a53",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "ambient-excluded:R17-lying-clear-sea-surface-1": {
+    "count": 1,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "5a4b0adb636f6ec7a99915e4c16b459c541e27597a029f5dda7d6e47abce8797",
+      "chestUpMjPortraitPrompt": "f3d6d89a5e0c284bc9f40d1783b2908b04fb62bb126bc13a83f28ddd04f2c677"
+    },
+    "protectedHash": "9dfd1435420efb27c2444f28992b2572e37376f272d59405321266b1d5ff534a",
+    "selectionHash": "e0053b1a453572554f172139162b916470b7754f3fc3eed3810a2c297cd4cba3",
+    "randomHash": "06d033ece6645de592db973644cf7357255f24536ff7b03c3b2ace10736f7636"
+  },
+  "upperExtension": {
+    "count": 930,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "cc69fa4f78c7d943408400d1c6d9ac4ba27e2efc204307c17592a0026618cdd5",
+      "chestUpMjPortraitPrompt": "f7f22dfbd501fcd01b2b619c25db7096c1e1eba029429e8d236cf481f1cd07ac"
+    },
+    "protectedHash": "7c7113b8d4daf671e2972c82a10bcb214183430416c7a3371ea368c6de34da10",
+    "selectionHash": "af953607a8e37fab7d9539017916b77fb4bceb392e0cd8a659bf76878587c6bf",
+    "randomHash": "e0bf9c0df718c39a274f9950e5dfb3acbba11986f759ec11d0dc108c44cde851"
+  },
+  "sceneDetail": {
+    "count": 1430,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "02cd25e50bdb2338cc42f49bbe592e16a6b634780bc47b8a3e018737d017a7cc",
+      "chestUpMjPortraitPrompt": "51458821379183dbd3e3c86cb07055c605c88b7c918ab991fb7090516b2bf880"
+    },
+    "protectedHash": "c35c48ba6b533184646bd3484ff41814708ffb9053a5207524939e424a9be11f",
+    "selectionHash": "6e4a151b9cfcaae149d2fa420147239e0a34b75ec3d4f0b9aaad533982da60f2",
+    "randomHash": "c1eef40e924d221dd86009ce96501c79c4d550df6e876cf97a3d827cd52e4b97"
+  },
+  "visibility": {
+    "count": 5614,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "726ef9feda5a22e72880cc82d3f36f8dd5257de2b0e54a803b838fb7be8c949b",
+      "chestUpMjPortraitPrompt": "ba3453c5a9b9a6e340afa4dbb61bec196a5f530d151e76d1199d9563bf9c0e70"
+    },
+    "protectedHash": "aa9c49f64546843ccdc8cf320a32ec725e19888160db2210b36e70c94f3d7c17",
+    "selectionHash": "a44e523a4de30892975be8597346889562f2f7c5f90ffba877f537ef73efa505",
+    "randomHash": "c0bb0d9cfa6f09c84771e686bb5ce176de9b8f45a653360341de9c75b860177d"
+  },
+  "camera": {
+    "count": 6320,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "fbf3aab07129fad1998ea7c41616ba46dd7595e2c210e582ccd232c4b67ea47e",
+      "chestUpMjPortraitPrompt": "8f7f7359370a7d6062a1321f9e7a57d7dc57294e873bc78d6db247b750a4e935"
+    },
+    "protectedHash": "549636b886b770416d3a169b7c88b57a72602ba525f919ab5f7d1a5732f5548e",
+    "selectionHash": "587990e841049b2a2fb0b9de61ca510011dde9478e954822ddf9d981f8bc0573",
+    "randomHash": "35995ff103c8783e9ffaa4ef67d92eea9883e13cd0d5fd65dd5b49c6e2ad8766"
+  },
+  "worm": {
+    "count": 6370,
+    "chestHashes": {
+      "chestUpPortraitPrompt": "98fc1bf852b1141186cee3f94959ebe1f87cf073be78037b96b5dbdee4f3e234",
+      "chestUpMjPortraitPrompt": "8cb92054f11ff1db4b8af04ed3f5d972c2e1090f7a265f4b2ad3e21fdc9f266f"
+    },
+    "protectedHash": "53f4f4ed6060f812114f739bebc3431713215bed767f5313df181fb5221c17ef",
+    "selectionHash": "4da06787c592c2b023fd1e7d9f5b72759626f8f4c9a1a0b978f54cdc1a340be8",
+    "randomHash": "a195a7b3ffbd12bb4cc00f77c49537b1044d23a9ec8d9f503fcfcca3cb23d23a"
+  }
+}

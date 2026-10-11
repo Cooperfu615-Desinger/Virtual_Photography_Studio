@@ -160,7 +160,7 @@ test('phase 4 appends parameters only to AI while preserving descriptive baselin
 
     assert.equal(prompt.midjourneyPrompt.endsWith(fixture.expectedTail), true, fixture.id);
     assert.ok(nativeTarget, `${fixture.id}: native structure fixture`);
-    assert.equal(hashPrompt(content), nativeTarget.expectedDescriptionHash, `${fixture.id}: AI content`);
+    assert.equal(hashPrompt(content), nativeTarget.naturalDescriptionHash, `${fixture.id}: AI content`);
     assert.equal(hashPrompt(normalizeAmbientForLegacy(prompt.grokPrompt, 'grokPrompt', prompt.selection)), fixture.baselineHashes.grokPrompt, `${fixture.id}: Gpt`);
     assert.equal(hashPrompt(normalizeAmbientForLegacy(normalizeFullCameraForLegacy(prompt.zImagePrompt), 'zImagePrompt', prompt.selection)), fixture.baselineHashes.zImagePrompt, `${fixture.id}: Grok/Z`);
     assert.doesNotMatch(

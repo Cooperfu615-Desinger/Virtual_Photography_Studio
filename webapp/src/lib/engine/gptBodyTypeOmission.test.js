@@ -20,7 +20,7 @@ const allNoneLocks = () => {
 const generate = locks => generatePrompts(1, locks, [], { random: createSeededRandom('gpt-body-type-omission-v1') })[0];
 const extra = (prompt, id) => prompt.extraPrompts.find(item => item.id === id)?.text || '';
 const gptOutputs = prompt => [prompt.grokPrompt, extra(prompt, 'chest-up-portrait'), extra(prompt, 'full-body-character')];
-const otherOutputs = prompt => [prompt.zImagePrompt, prompt.midjourneyPrompt, extra(prompt, 'chest-up-mj-portrait')];
+const otherOutputs = prompt => [prompt.zImagePrompt, extra(prompt, 'chest-up-mj-portrait')];
 
 test('all six independent body selections produce the same GPT text as none without changing resolved selections', () => {
   for (const framing of ['臉部特寫', '胸上特寫', '中景鏡頭 (Medium Shot)', '全身鏡頭 (Full Body Shot)']) {
@@ -70,7 +70,7 @@ test('duo GPT omits both independently selected body sources while Z and AI pres
     assert.match(prompt.grokPrompt, /Two 20-year-old Japanese or Korean female portrait subjects/);
     assert.equal(prompt.selection.bodyTypeAId, body.id);
     assert.equal(prompt.selection.bodyTypeBId, other.id);
-    for (const text of [prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    for (const text of [prompt.zImagePrompt]) {
       assert.ok(text.includes(body.en));
       assert.ok(text.includes(other.en));
       assert.ok(text.indexOf(body.en) < text.indexOf(other.en));

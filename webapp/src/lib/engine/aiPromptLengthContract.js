@@ -5,7 +5,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const AI_PROMPT_LENGTH_CONTRACT_VERSION = '1.3.0';
+export const AI_PROMPT_LENGTH_CONTRACT_VERSION = '2.1.0';
 
 /**
  * Machine-readable length diagnostics and preservation policy for the
@@ -30,7 +30,8 @@ export const AI_PROMPT_LENGTH_CONTRACT = deepFreeze({
     deletionGate: 'none',
     preserveResolvedVisualItems: true,
     compactRedundantProseBeforeVisualItems: true,
-    standaloneBodyType: 'retain the complete resolved English source verbatim; no short anchor or measurement deletion',
+    standaloneBodyType: 'map effective standalone body to six reviewed sentences in main MJ only; omit measurements; keep saved selections and other renderers unchanged',
+    wardrobe: 'visible item names only; additional color, pattern, fit and construction prose omitted',
   },
   budgets: {
     normal: {
@@ -68,7 +69,6 @@ export const AI_PROMPT_LENGTH_CONTRACT = deepFreeze({
       'noseSignature',
       'mouthSignature',
       'skinSignature',
-      'body',
       'hair',
       'selected eyewear or headphones',
       'all four permanent identity anchors',

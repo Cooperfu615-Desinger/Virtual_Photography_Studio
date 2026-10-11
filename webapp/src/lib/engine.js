@@ -1,4 +1,7 @@
+import { MIDJOURNEY_CARD_ITEM_NAMES } from './engine/midjourneyCardItemNames.js';
 import { bottomRiseConflict, resolveBottomRiseCompatibility } from './engine/bottomRiseCompatibility.js';
+import { extractMidjourneyItemNames, midjourneyItemName, naturalIdentity, naturalSentence, naturalWardrobeSentence, renderNaturalMidjourney, uniqueNames } from './engine/midjourneyNaturalPrompt.js';
+import { midjourneyBodyDescription } from './engine/midjourneyBodyDescriptions.js';
 import { isHeadDominantFraming, headDominantAngleAllowed, headDominantCameraText } from './engine/headDominantFraming.js';
 import { DEFAULT_KNEELING_SUPPORT_HAND_ID, isFourPointKneeling, isKneelingSupportHand, resolveKneelingSupportArrangement } from './engine/kneelingSupport.js';
 import { ACCESSORY_CATEGORIES, accessoryNoneId, isConcreteAccessory, isHeadWornAudio, blocksHeadWornAudio, splitAccessoryCatalog, migrateAccessoryLocks, normalizeAccessoryConflicts, projectAudioForFraming } from './engine/accessoryPolicy.js';
@@ -15789,6 +15792,167 @@ function renderAiPrompt(promptModel, {
   return renderAiPromptSectionModel(sectionModel);
 }
 
+// Main MJ owns this projection. The legacy AI renderer remains the unchanged
+// same-state chest renderer; never pass this policy into shared source builders.
+function buildNaturalMjWardrobe(promptModel, role = '') {
+  const { context, wardrobe, wardrobeColors, valuesByLabel } = promptModel;
+  const slots = extractWardrobeSlots(wardrobe);
+  const projection = getCompositionVisibilityProjection(context);
+  const names = [];
+  const addSource = source => names.push(...extractMidjourneyItemNames(source));
+  const addItem = (item, wardrobeRole) => {
+    if (item && !isNoneLikeItem(item) && !(isCharacterProfileSubject(context.subject) && isCharacterCardLayerSlot(item))
+      && shouldProjectWardrobeRole(projection, wardrobeRole, item.en)) {
+      names.push(midjourneyItemName(item));
+      if (wardrobeRole === 'legwear' && /lace garter belt/i.test(item.en)) names.push('lace garter belt');
+    }
+  };
+  if (isDedicatedSpecialSubject(context.subject)) {
+    if (['european-knight', 'sengoku-samurai'].includes(context.subject.id)) addSource(buildMidjourneySpecialSubjectPrompt(context.subject, context));
+    return uniqueNames(names).join(', ');
+  }
+  if (role) {
+    const suffix = role === 'a' ? 'A' : 'B';
+    const roleSpecial = slots[`specialOutfit${suffix}`];
+    const special = roleSpecial && !isNoneLikeItem(roleSpecial) ? roleSpecial : slots.specialOutfit;
+    if (special && !isNoneLikeItem(special)) {
+      addSource(buildGptDuoSpecialOutfitText(special, wardrobeColors[`completeLookPalette${suffix}`] || wardrobeColors.completeLookPalette, context));
+    } else {
+      const hasRoleMain = ['outfitPreset', 'dress', 'top', 'pants', 'skirt']
+        .some(key => slots[`${key}${suffix}`] && !isNoneLikeItem(slots[`${key}${suffix}`]));
+      const mainSuffix = hasRoleMain ? suffix : '';
+      const preset = slots[`outfitPreset${mainSuffix}`];
+      if (preset && !isNoneLikeItem(preset)) {
+        addSource(hasRoleMain ? buildGptDuoRoleMainWardrobeText(slots, wardrobeColors, role, context)
+          : buildGptDuoSharedMainWardrobeText(slots, wardrobeColors, context));
+      } else {
+        const dress = slots[`dress${mainSuffix}`];
+        addItem(dress, 'dress');
+        if (!dress || isNoneLikeItem(dress)) {
+          addItem(slots[`top${mainSuffix}`], 'top');
+          addItem(slots[`pants${mainSuffix}`], 'bottom');
+          addItem(slots[`skirt${mainSuffix}`], 'bottom');
+        }
+      }
+      for (const key of ['outerwear', 'legwear', 'shoes', 'waistAccessory']) {
+        addItem(slots[`${key}${suffix}`], key);
+        addItem(slots[key], key);
+      }
+    }
+  } else if (isCharacterProfileSubject(context.subject)) {
+    for (const layer of getAiCharacterCardLayerSources(context, wardrobe)) {
+      const source = filterCompleteLookPromptForFraming(layer.source, context);
+      const reviewed = MIDJOURNEY_CARD_ITEM_NAMES[context.subject.id]?.[layer.key];
+      if (source) names.push(...(reviewed ? reviewed.split(', ') : extractMidjourneyItemNames(source)));
+    }
+    // Selected card layers may be combined with PAGE1 garments in the vacant slots.
+    // These are already resolved/projected; card-owned slots are skipped by addItem.
+    for (const [key, wardrobeRole] of [['dress', 'dress'], ['top', 'top'], ['pants', 'bottom'], ['skirt', 'bottom'],
+      ['outerwear', 'outerwear'], ['legwear', 'legwear'], ['shoes', 'shoes'], ['waistAccessory', 'waistAccessory']]) {
+      addItem(slots[key], wardrobeRole);
+    }
+  } else {
+    const complete = firstStructuredValue(valuesByLabel, ['Special Outfit', 'Outfit Preset']);
+    if (complete) addSource(complete);
+    else {
+      addItem(slots.dress, 'dress');
+      if (!slots.dress || isNoneLikeItem(slots.dress)) {
+        addItem(slots.top, 'top');
+        addItem(slots.pants, 'bottom');
+        addItem(slots.skirt, 'bottom');
+      }
+    }
+    addItem(slots.outerwear, 'outerwear');
+    if (!slots.specialOutfit || isNoneLikeItem(slots.specialOutfit)) {
+      addItem(slots.legwear, 'legwear');
+      addItem(slots.shoes, 'shoes');
+      addItem(slots.waistAccessory, 'waistAccessory');
+    }
+  }
+  const suffix = role === 'a' ? 'A' : role === 'b' ? 'B' : '';
+  for (const key of ['headAccessory', 'eyewear', 'earrings', 'neckAccessory', 'headphones', 'faceCovering', 'nosePiercing', 'lipPiercing']) {
+    const item = slots[`${key}${suffix}`] || slots[key];
+    addItem(item, ['headphones', 'faceCovering', 'nosePiercing', 'lipPiercing'].includes(key) ? 'eyewear' : key);
+  }
+  return uniqueNames(names).join(', ');
+}
+
+function buildNaturalMjSubject(promptModel) {
+  const { context, wardrobe, valuesByLabel, character } = promptModel;
+  const value = label => firstStructuredValue(valuesByLabel, [label]);
+  const slots = extractCharacterSlots(character);
+  if (isCharacterProfileSubject(context.subject)) {
+    const groups = buildCharacterCardProfileGroups(context.subject, context.locks, wardrobe);
+    const identity = [groups.distinctiveFeatures || [groups.facialGeometry, groups.eyeSignature,
+      groups.noseSignature, groups.mouthSignature].filter(Boolean).join(', '), groups.skinSignature, groups.makeup]
+      .filter(Boolean).map(naturalIdentity);
+    const hair = compactAiCharacterCardHairText(groups.hair, buildCharacterCardHairVariantText(context.subject, context.locks));
+    return naturalSentence(['A 20-year-old adult East Asian woman', ...identity, hair, value('Expression')].filter(Boolean).join(', '));
+  }
+  if (isDedicatedSpecialSubject(context.subject)) {
+    const source = buildMidjourneySpecialSubjectPrompt(context.subject, context);
+    const identity = context.subject.id === 'european-knight'
+      ? 'A realistic adult female medieval European knight'
+      : context.subject.id === 'sengoku-samurai' ? 'A realistic adult female Japanese Sengoku samurai' : naturalIdentity(source);
+    return naturalSentence([identity, value('Hairstyle'), value('Hair Color'), value('Expression')].filter(Boolean).join(', '));
+  }
+  if (context.subject.count === 2) {
+    const roles = [1, 2].map(index => ['Facial Features', 'Skin Details', 'Hairstyle', 'Hair Styling State', 'Hair Color']
+      .map(label => compactPromptClauses(value(`Woman ${index} ${label}`).replace(/^woman [12] has\s+/i, ''), 2)).filter(Boolean));
+    const shared = roles[0].filter(part => roles[1].includes(part));
+    const bodies = [value('Woman 1 Body Type') ? midjourneyBodyDescription(slots.bodyTypeA) : '',
+      value('Woman 2 Body Type') ? midjourneyBodyDescription(slots.bodyTypeB) : ''];
+    const bodyText = bodies[0] && bodies[0] === bodies[1]
+      ? `Both women have ${bodies[0][0].toLowerCase()}${bodies[0].slice(1)}`
+      : [bodies[0] ? midjourneyBodyDescription(slots.bodyTypeA, 'a') : '',
+        bodies[1] ? midjourneyBodyDescription(slots.bodyTypeB, 'b') : ''].filter(Boolean).join(' ');
+    return ['Two 20-year-old Japanese or Korean women.', ...[1, 2].map(index => {
+      const description = roles[index - 1].filter(part => !shared.includes(part)).join(', ');
+      return description ? naturalSentence(`The ${index === 1 ? 'first' : 'second'} woman has ${description}`) : '';
+    }), shared.length ? naturalSentence(`Both have ${shared.join(', ')}`) : '', naturalSentence(value('Duo Expression')),
+    bodyText].filter(Boolean).join(' ');
+  }
+  const facialItem = extractCharacterSlots(character).facialFeatures;
+  const face = [compactPromptClauses(facialItem?.mj?.face || value('Facial Features'), 3),
+    compactPromptClauses(value('Expression'), 1)].filter(Boolean).join(', ');
+  const hair = [compactPromptClauses(value('Hairstyle'), 1), compactPromptClauses(value('Hair Styling State'), 1), compactPromptClauses(value('Hair Color'), 1)].filter(Boolean).join(', ');
+  const specialSource = value('Special Outfit') || buildSpecialOutfitPrompt(extractWardrobeSlots(wardrobe).specialOutfit);
+  const specialPerson = extractAiSpecialPersonFragments(specialSource, context)
+    .map(naturalIdentity).filter(Boolean).join(', ');
+  return [naturalSentence(context.characterProfilePrompt ? naturalIdentity(context.characterProfilePrompt) : 'A Japanese woman in her twenties'),
+    naturalSentence([face, compactPromptClauses(value('Skin Details'), 1), hair, specialPerson].filter(Boolean).join(', ')),
+    !context.characterProfilePrompt && value('Body Type') ? midjourneyBodyDescription(slots.bodyType) : ''].filter(Boolean).join(' ');
+}
+
+function renderMainNaturalMidjourney(promptModel, sceneMirrorReflectionText) {
+  const { context, character, valuesByLabel } = promptModel;
+  const adaptation = buildMidjourneyFramingPoseAdaptation(context);
+  const duo = context.subject.count === 2 && !isSpecialSubject(context.subject);
+  let clothing;
+  if (duo) {
+    const roles = ['a', 'b'].map(role => buildNaturalMjWardrobe(promptModel, role).split(', ').filter(Boolean));
+    const shared = roles[0].filter(name => roles[1].includes(name));
+    clothing = [...roles.map((names, index) => naturalWardrobeSentence(
+      names.filter(name => !shared.includes(name)).join(', '), `The ${index === 0 ? 'first' : 'second'} woman`)),
+    naturalWardrobeSentence(shared.join(', '), 'Both')].filter(Boolean).join(' ');
+  } else clothing = naturalWardrobeSentence(buildNaturalMjWardrobe(promptModel));
+  const stationFixed = isStationFixedSet(context.fixedCompositionSet) || isStationFixedSet(context.stationFixedSceneSource)
+    || isCarriageFixedSet(context.fixedCompositionSet) || isCarriageFixedSet(context.carriageFixedSceneSource);
+  const style = context.style && !isNoneLikeItem(context.style) ? compactPromptClauses(context.style.en, 5) : '';
+  // Restore selected style/film in main MJ while preserving the optical policy.
+  const optics = buildAiFreedomImagingSentence(valuesByLabel, { adaptation, sceneIntegrated: true, stationFixed });
+  const film = compactPromptClauses(firstStructuredValue(valuesByLabel, ['Camera / Film']), 6);
+  return renderNaturalMidjourney({
+    imageType: buildMidjourneyImageTypePromptLine(context),
+    composition: joinCompositionPromptText(ensureTerminalPeriod(buildCompositionPromptLine(context, { adaptation })), extractCharacterSlots(character).poseComposer),
+    subject: buildNaturalMjSubject(promptModel),
+    pose: duo ? buildAiDuoDirectSentence(buildAiDuoPoseText(valuesByLabel)) : buildAiFreedomPoseSentence(context, character),
+    wardrobe: clothing,
+    scene: [buildAiFreedomSceneWithLightingSentence(valuesByLabel, context), naturalSentence(sceneMirrorReflectionText)].filter(Boolean).join(' '),
+    imaging: [naturalSentence(style), optics, naturalSentence(film)].filter(Boolean).join(' '),
+  });
+}
+
 function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect) {
   const compositionVisibility = getCompositionVisibilityProjection(context);
   const poseComposer = extractCharacterSlots(character).poseComposer;
@@ -15905,11 +16069,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
   });
   const zImagePrompt = renderZImagePrompt(ambientPromptModel, { sceneMirrorReflectionText });
   const midjourneyPrompt = appendMidjourneyParameterTail(
-    renderMidjourneyNativeDescription(renderAiPrompt(promptModel, {
-      midjourneyAdaptation: buildMidjourneyFramingPoseAdaptation(mainContext),
-      integrateMainScene: true,
-      sceneMirrorReflectionText,
-    })),
+    renderMainNaturalMidjourney(promptModel, sceneMirrorReflectionText),
     {
       ...context.locks,
       aspectRatio: context.aspectRatio.id,

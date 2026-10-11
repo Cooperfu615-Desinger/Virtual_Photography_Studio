@@ -1,10 +1,11 @@
+import { MIDJOURNEY_CARD_ITEM_NAMES } from './engine/midjourneyCardItemNames.js';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { createEmptyLocks, generatePrompts, getLockControls, normalizeLocks } from './engine.js';
 import { getCharacterCardOptions } from './characterCardLab.js';
 
-const PRIMARY_OUTPUT_KEYS = ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt'];
+const PRIMARY_OUTPUT_KEYS = ['grokPrompt', 'zImagePrompt'];
 
 function optionId(controlKey, zh) {
   const control = getLockControls().find((entry) => entry.key === controlKey);
@@ -70,7 +71,7 @@ test('plain PAGE1 character card keeps the complete default wardrobe in full-bod
     characterProfileId: 'character-rika',
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
-  const text = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
+  const text = [prompt.grokPrompt, prompt.zImagePrompt].join('\n');
 
   assert.match(text, /cropped white short-sleeve baby tee/i);
   assert.match(text, /low-rise light-wash blue jeans/i);
@@ -121,7 +122,7 @@ test('character card variant can include selected card layers and PAGE1 missing 
     shoesId: optionId('shoesId', '高跟鞋'),
     neckAccessoryId: optionId('neckAccessoryId', '鎖骨細金屬鏈'),
   });
-  const text = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
+  const text = [prompt.grokPrompt, prompt.zImagePrompt].join('\n');
 
   assert.equal(prompt.selection.characterProfileId, 'character-rika');
   assert.equal(prompt.selection.characterCardHairVariantId, 'low-ponytail');
@@ -227,11 +228,11 @@ test('selected-layers character card accessory layers appear in AI and remain in
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
 
-  assert.match(sakuraPrompt.midjourneyPrompt, /white plush bunny-eared hood/i);
-  assert.equal(countMatches(sakuraPrompt.midjourneyPrompt, /white plush bunny-eared hood/gi), 1);
-  assert.match(rikaPrompt.midjourneyPrompt, /silver ring keychain clipped to the front belt loop/i);
-  assert.match(yuriPrompt.midjourneyPrompt, /stacked silver bangles and rings/i);
-  assert.match(yuriPrompt.midjourneyPrompt, /western-style belt buckle and metal-stud chain detail/i);
+  assert.match(sakuraPrompt.midjourneyPrompt, /bunny-eared hood/i);
+  assert.equal(countMatches(sakuraPrompt.midjourneyPrompt, /bunny-eared hood/gi), 1);
+  assert.match(rikaPrompt.midjourneyPrompt, /ring keychain/i);
+  assert.match(yuriPrompt.midjourneyPrompt, /bangles[\s\S]*rings/i);
+  assert.match(yuriPrompt.midjourneyPrompt, /belt/i);
 
   assert.match(sakuraPrompt.grokPrompt, /white plush bunny-eared hood/i);
   assert.match(sakuraPrompt.zImagePrompt, /white plush bunny-eared hood/i);
@@ -292,7 +293,7 @@ test('selected character-card wardrobe and accessories appear once in GPT and Gr
   }
 });
 
-test('AI character-card wardrobe keeps complete selected layer text without a compact duplicate list', () => {
+test('AI character-card wardrobe keeps selected layer item names once', () => {
   const [prompt] = generatePrompts(1, {
     ...createAllNoneLocks(),
     characterProfileId: 'character-48g',
@@ -301,25 +302,14 @@ test('AI character-card wardrobe keeps complete selected layer text without a co
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
 
-  const completeLayerPhrases = [
-    /taupe-gray cropped hooded zip jacket worn open with the hood usually worn up framing the hair/gi,
-    /black lace bralette neckline/gi,
-    /low-rise faded blue denim mini skirt worn unbuttoned with the zipper slightly pulled down and visible thin-strap black lace thong waistband underneath/gi,
-    /black lace-up ankle boots with glossy rounded toes/gi,
-    /small off-white shoulder bag with thin black strap/gi,
-  ];
-
-  for (const phrase of completeLayerPhrases) {
-    assert.equal(countMatches(prompt.midjourneyPrompt, phrase), 1, `AI duplicate: ${phrase}`);
+  for (const name of ['jacket', 'lace bralette', 'denim mini skirt', 'lace thong', 'lace-up ankle boots', 'shoulder bag']) {
+    assert.equal(countMatches(prompt.midjourneyPrompt.split('\n\n')[1], new RegExp(name, 'gi')), 1, name);
   }
-  assert.doesNotMatch(
-    prompt.midjourneyPrompt,
-    /Wearing black lace bralette neckline, low-rise faded blue denim mini skirt, black lace-up ankle boots,/i,
-    'AI should not prepend the compact duplicate list before the complete card wardrobe'
-  );
+  assert.doesNotMatch(prompt.midjourneyPrompt, /worn unbuttoned|zipper slightly pulled down|glossy rounded toes/i);
+
 });
 
-test('AI full-default character cards emit every effective wardrobe layer once', () => {
+test('AI full-default character cards emit effective wardrobe item names once', () => {
   const cards = getCharacterCardOptions(getLockControls());
   const fullBodyFramingId = optionId('framingId', '全身鏡頭 (Full Body Shot)');
 
@@ -331,13 +321,17 @@ test('AI full-default character cards emit every effective wardrobe layer once',
       framingId: fullBodyFramingId,
     });
 
-    for (const layer of Object.values(card.defaultWardrobeLayers || {})) {
-      const escaped = layer.prompt.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    for (const key of Object.keys(card.defaultWardrobeLayers || {})) {
+      assert.ok(MIDJOURNEY_CARD_ITEM_NAMES[card.id]?.[key], `${card.id}/${key}: reviewed name missing`);
+      for (const name of MIDJOURNEY_CARD_ITEM_NAMES[card.id][key].split(', ')) {
+      if (name === 'bare feet') { assert.match(prompt.midjourneyPrompt, /She is barefoot/); continue; }
+      const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       assert.equal(
-        countMatches(prompt.midjourneyPrompt, new RegExp(escaped, 'gi')),
+        countMatches(prompt.midjourneyPrompt.split('\n\n')[1], new RegExp('\\b'+escaped+'\\b', 'gi')),
         1,
-        `${card.id} AI wardrobe layer should appear once: ${layer.prompt}`
+        `${card.id} AI wardrobe item should appear once: ${name}`
       );
+      }
     }
   }
 });

@@ -34,7 +34,7 @@ test('sailor separates retain their own sleeve and hem lengths across main and d
     ['長袖水手服', '水手服長裙', 'long-sleeve', 'near-floor'],
   ]) {
     const result = render({ top, skirt });
-    for (const key of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'fullBodyCharacterPrompt']) {
+    for (const key of ['grokPrompt', 'zImagePrompt', 'fullBodyCharacterPrompt']) {
       assert.match(result[key], new RegExp(sleeve), key);
       assert.match(result[key], /near-black navy sailor collar|navy sailor collar/, key);
       assert.match(result[key], /white parallel trim|white trim/, key);
@@ -53,7 +53,7 @@ test('a tight sailor blouse reads as undersized and midriff-baring without relax
     const tight = render({ top, skirt: '水手服短裙', fit: '緊身', bottomFit: '緊身' });
     assert.match(normal.grokPrompt, /relaxed straight-cut body/);
     assert.doesNotMatch(normal.grokPrompt, /exposing the midriff/);
-    for (const key of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'fullBodyCharacterPrompt']) {
+    for (const key of ['grokPrompt', 'zImagePrompt', 'fullBodyCharacterPrompt']) {
       assert.match(tight[key], /undersized|one-size-too-small/i, key);
       assert.match(tight[key], /midriff/i, key);
       assert.doesNotMatch(tight[key], /relaxed straight-cut body/, key);
@@ -68,7 +68,7 @@ test('sailor fit resolves tucked hems and wide skirt modifiers without conflicti
     top: '長袖水手服', skirt: '水手服長裙', fit: '緊身',
     topStyling: '紮入下身', bottomFit: '寬版',
   });
-  for (const key of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) {
+  for (const key of ['grokPrompt', 'zImagePrompt', ]) {
     assert.match(result[key], /midriff/i, key);
     assert.match(result[key], /near-floor maxi hem/, key);
     assert.doesNotMatch(result[key], /tucked neatly into the bottoms|wide-leg volume/, key);

@@ -5,7 +5,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = '1.9.0';
+export const MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = '2.1.0';
 
 /**
  * Target contract for the Midjourney-native descriptive content that appears
@@ -31,15 +31,16 @@ export const MIDJOURNEY_DESCRIPTION_CONTRACT = deepFreeze({
     ],
   },
   structure: {
-    lineCount: 1,
+    lineCount: null,
+    paragraphCount: { minimum: 1, maximum: 4 },
     semanticSeparator: 'sentence boundary',
     internalClauseSeparator: 'comma',
     sectionOrder: [
       'imageType',
       'composition',
       'subject',
-      'wardrobe',
       'projectedCanonicalPose',
+      'wardrobe',
       'sceneAndLighting',
       'imaging',
     ],
@@ -58,7 +59,7 @@ export const MIDJOURNEY_DESCRIPTION_CONTRACT = deepFreeze({
     exactCanonicalPoseReuse: true,
     preserveCompatibilitySelections: true,
     topSurfaceDesign: {
-      scope: ['midjourneyPrompt', 'chestUpMjPortraitPrompt'],
+      scope: ['chestUpMjPortraitPrompt'],
       source: 'resolved topPattern clauses present in the shared projected Top value',
       retention: 'preserve selected pattern clauses once with the top garment; do not replace them with structural details',
       exclusions: 'no Top value, hidden garment, none selection, or complete-look replacement',
@@ -70,11 +71,11 @@ export const MIDJOURNEY_DESCRIPTION_CONTRACT = deepFreeze({
     },
   },
   sceneIntegratedMain: {
-    scope: 'ordinary PAGE1 single-subject main midjourneyPrompt only',
-    excluded: ['duo', 'fixed composition', 'dedicated subject', 'character card or identity import', 'supine surface-led', 'derived output'],
-    sectionOrder: ['imageType', 'sceneIdentityAndComposition', 'subject', 'projectedCanonicalPose', 'wardrobe', 'sceneDetailsAndLighting', 'optics'],
-    omittedSourceKeys: ['styleId', 'filmId'],
-    retainedImagingKeys: ['lensId', 'apertureId', 'shutterId', 'opticalEffectId'],
+    scope: 'all PAGE1 main midjourneyPrompt modes; natural paragraphs',
+    excluded: ['derived output', 'other workspace AI output', 'stored prompt text'],
+    sectionOrder: ['imageType', 'composition', 'subject', 'projectedCanonicalPose', 'wardrobeNames', 'sceneAndLighting', 'imaging'],
+    omittedSourceKeys: ['character profile body', 'additional wardrobe fit/color/pattern prose'],
+    retainedImagingKeys: ['styleId', 'filmId', 'lensId', 'apertureId', 'shutterId', 'opticalEffectId'],
     canonicalPose: 'verbatim including contact/support and visible capture action',
     parameterTail: 'unchanged; no automatic personalization or moodboard parameters',
   },
@@ -88,7 +89,8 @@ export const MIDJOURNEY_DESCRIPTION_CONTRACT = deepFreeze({
   },
   compatibility: {
     parameterTailOwner: 'MIDJOURNEY_PARAMETER_CONTRACT',
-    bodyTypeAnchors: 'use short positive source-derived anchors without measurement strings',
+    bodyTypeAnchors: 'six reviewed sentences for effective standalone body selections in main MJ; retain role ownership, structured identity, pose geometry and stored selections; omit measurements',
+    wardrobeNames: 'visible English item names only, by stable catalog ID or source-matched garment nouns for bundles and custom items',
     wardrobeVisibility: 'reuse composition projection',
     fixedComposition: 'reuse fixed-set source projection',
     derivedPromptParameters: 'forbidden',

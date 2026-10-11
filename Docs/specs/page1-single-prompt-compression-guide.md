@@ -1,5 +1,9 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
+2026-10-11 主 MJ 體態簡述：取消對話中的 CRT 極短場景／成像測試版，維持原描述長度及診斷字數規則；六種有效獨立 Body Type 改採核准自然短句，「全無」不輸出，雙人分別保留 A/B 歸屬，相同體態合併一句。原目錄、其他五輸出及角色卡自有體態政策不變；不將自由文字或特殊主體映射為六種體態。Public contract `1.54.0`，MJ description／AI length `2.1.0`。已完成本機實作，完整中英文表及驗證邊界見 [主 MJ 體態簡述補充](midjourney-natural-main-v1.md)。
+
+2026-10-11 主 MJ 自然精簡（體態規則由上段後續更新）：僅主 `midjourneyPrompt` 全模式改為最多四段自然英文，省略體態，穿搭只留可見單品名稱，保留身份／姿勢／場景／光線與選定成像。此規則取代下方歷史主 AI 體態完整保留、服裝細節及 style／film 省略規則；其他五組輸出（含 MJ 胸上）、資料與 storage 不變。Public contract `1.53.0`，見 [主 Midjourney 自然精簡 v1](midjourney-natural-main-v1.md)。
+
 2026-10-11 GPT 獨立 Body Type 省略：主 GPT、GPT 胸上與全身角色照省略獨立 Body Type，雙人主 GPT 分別省略 A/B 來源；成年身份、canonical pose、穿搭及其他有效描述保留。Z／AI／MJ 胸上仍逐字保留同一來源，Character Card body／permanent identity／legacy `identityAndBody` 不變。選值、結構化 Saved Cards、UI、資料庫及 storage schema 不改；舊來源仍可解析，省略後純 GPT 文字無法反推原體態。此核准例外取代下方 GPT 完整保留中的獨立體態要求；Public contract `1.52.0`，本機自動檢查與桌面／手機驗證通過，見 [GPT 獨立體態省略 v1](gpt-standalone-body-omission-v1.md)。
 
 2026-10-11 領帶襯衫固定黑領帶：一般與胸下短版來源均指定黑色短領帶；上身配色的顏色、圖樣及材質描述只作用於襯衫布料。三主輸出及適用衍生保留同一可見來源，不回補被裁切、閉合外套或完整造型省略的內搭。名稱／ID／順序、隨機池與 storage 不變，舊英文回填 alias 保留。Public contract `1.51.0`，見 [領帶襯衫固定黑領帶 v1](black-tie-shirt-v1.md)。

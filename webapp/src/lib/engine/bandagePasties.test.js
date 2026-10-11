@@ -1,3 +1,4 @@
+import catalogProtected from './midjourneyNaturalCatalogProtected.json' with { type: 'json' };
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { test } from 'node:test';
@@ -29,7 +30,7 @@ function generate(overrides = {}, seed = 'bandage-pasties-v1') {
   return generatePrompts(1, { ...noneLocks(), topId: id,
     framingId: option('framingId', '全身鏡頭 (Full Body Shot)').id, ...overrides }, [], { random: createSeededRandom(seed) })[0];
 }
-const main = p => [p.grokPrompt, p.zImagePrompt, p.midjourneyPrompt];
+const main = p => [p.grokPrompt, p.zImagePrompt];
 const derivatives = p => p.extraPrompts.map(e => e.text);
 const all = p => [...main(p), ...derivatives(p)];
 const occurrences = text => text.split(source).length - 1;
@@ -73,11 +74,13 @@ test('all 225 existing top/crop selections and six outputs retain their pre-chan
   let count = 0;
   for (const topId of baseline.oldTopIds) for (const crop of baseline.crops) {
     const p = generate({ topId, framingId: option('framingId', crop).id }, baseline.seed);
-    hash.update(JSON.stringify(legacyTopSnapshot(p)));
+    const protectedSnapshot = legacyTopSnapshot(p);
+    delete protectedSnapshot.midjourneyPrompt;
+    hash.update(JSON.stringify(protectedSnapshot));
     count++;
   }
   assert.equal(count, baseline.cases);
-  assert.equal(hash.digest('hex'), baseline.sha256);
+  assert.equal(hash.digest('hex'), catalogProtected.bandage);
 });
 
 test('each visible output retains one full pair source including casual horizontal placement', () => {

@@ -14,7 +14,7 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
   fixedSetPerformanceStateId: { byZh: '模型自然發揮' },
 });
 
-export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
+const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   {
     id: 'gpt-standalone-body-omission', title: 'GPT omits standalone body source while retaining adulthood and pose',
     mode: 'single', seed: 'gpt-standalone-body-omission-v1',
@@ -2137,3 +2137,13 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
 ]);
+
+// Main MJ v2 supersedes the historical body/wardrobe-detail expectations above.
+// Keep all other renderer expectations and the deterministic inputs intact.
+// Detailed main MJ coverage lives in midjourneyNaturalPrompt.test.js.
+export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze(LEGACY_REPRESENTATIVE_PROMPT_FIXTURES.map(fixture => ({
+  ...fixture,
+  expectedOutputs: { ...fixture.expectedOutputs, midjourneyPrompt: {
+    excludes: ['cup bust', 'bust–waist–hip', 'shallow indentations'],
+  } },
+})));

@@ -1,3 +1,4 @@
+import catalogProtected from './engine/midjourneyNaturalCatalogProtected.json' with { type: 'json' };
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { test } from 'node:test';
@@ -32,8 +33,8 @@ function generate(overrides = {}, seed = SEED) {
     framingId: option('framingId', '全身鏡頭 (Full Body Shot)').id, ...overrides }, [], { random: createSeededRandom(seed) })[0];
 }
 const outputs = p => Object.fromEntries([['grokPrompt', p.grokPrompt], ['zImagePrompt', p.zImagePrompt],
-  ['midjourneyPrompt', p.midjourneyPrompt], ...p.extraPrompts.map(row => [row.id, row.text])]);
-const main = p => [p.grokPrompt, p.zImagePrompt, p.midjourneyPrompt];
+  ...p.extraPrompts.map(row => [row.id, row.text])]);
+const main = p => [p.grokPrompt, p.zImagePrompt];
 const all = p => Object.values(outputs(p));
 const hash = value => createHash('sha256').update(JSON.stringify(value)).digest('hex');
 const count = (text, phrase = TIE) => text.toLowerCase().split(phrase.toLowerCase()).length - 1;
@@ -54,12 +55,12 @@ test('405 explicitly selected non-target top cases preserve selection and all si
     return { ...row, selectionHash: hash(p.selection), outputHash: hash(outputs(p)) };
   });
   assert.equal(captured.length, 405);
-  assert.equal(hash(captured), 'a124fe1b797807da7fecf2634d111a8901a92ccac983beb32e075a75eef3f19a');
+  assert.equal(hash(captured), catalogProtected.tie);
 });
 
 test('the existing tie-shirt identity fixes only the necktie black and declares its fabric color target', () => {
   assert.equal(Object.isFrozen(BLACK_TIE_SHIRT_CONTRACT), true);
-  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.52.0');
+  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.54.0');
   assert.match(BLACK_TIE_SHIRT_CONTRACT.source, /short soft black necktie/);
   assert.match(BLACK_TIE_SHIRT_CONTRACT.color, /shirt fabric only/);
   assert.match(BLACK_TIE_SHIRT_CONTRACT.projection, /existing crop, closed-outerwear and complete-look/);

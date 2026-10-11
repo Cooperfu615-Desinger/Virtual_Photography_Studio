@@ -30,17 +30,17 @@ test('phase 5 keeps Character Card identity anchors without control-language hai
     characterCardHairVariantId: 'highlight-streaks',
   });
 
-  assert.match(prompt.midjourneyPrompt, /20-year-old East Asian woman/i);
+  assert.match(prompt.midjourneyPrompt, /20-year-old adult East Asian woman/i);
   assert.match(prompt.midjourneyPrompt, /small heart-oval face with a fine pointed chin/i);
   assert.match(prompt.midjourneyPrompt, /wide-set gray-hazel almond eyes with lifted corners/i);
   assert.match(prompt.midjourneyPrompt, /narrow-bridge rounded-tip nose/i);
   assert.match(prompt.midjourneyPrompt, /full coral-brick cupid-bow lips/i);
   assert.match(prompt.midjourneyPrompt, /extremely long natural black hair/i);
   assert.match(prompt.midjourneyPrompt, /subtle localized highlight streaks/i);
-  assert.match(prompt.midjourneyPrompt, /black off-shoulder gothic dress/i);
+  assert.match(prompt.midjourneyPrompt, /dress/i);
   assert.doesNotMatch(
     prompt.midjourneyPrompt,
-    /\bA 20-year-old adult\b|keep the original hair identity|add subtle|without changing|must not|do not|avoid/i
+    /keep the original hair identity|add subtle|without changing|must not|do not|avoid/i
   );
 });
 
@@ -50,7 +50,7 @@ test('phase 5 removes redundant complete-look category words without losing garm
     outfitPresetId: optionId('outfitPresetId', '套裝：空服員制服'),
   });
 
-  assert.match(prompt.midjourneyPrompt, /Wearing flight attendant uniform, fitted skirt or trousers, tailored jacket/i);
+  assert.match(prompt.midjourneyPrompt, /She wears.*jacket.*skirt.*trousers/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /flight attendant uniform outfit/i);
   assert.match(prompt.zImagePrompt, /flight attendant uniform outfit/i);
   assert.match(prompt.grokPrompt, /flight attendant uniform outfit/i);
@@ -68,9 +68,9 @@ test('phase 7 keeps every selected MJ accessory as a compact visual phrase', () 
   });
 
   assert.match(prompt.midjourneyPrompt, /crown/i);
-  assert.match(prompt.midjourneyPrompt, /sculptural hoop earrings/i);
-  assert.match(prompt.midjourneyPrompt, /short gold curb-link necklace/i);
-  assert.match(prompt.midjourneyPrompt, /silver rhinestone butterfly waist chain.*multiple small rhinestone butterfly charms/i);
+  assert.match(prompt.midjourneyPrompt, /sculptural hoop earring/i);
+  assert.match(prompt.midjourneyPrompt, /curb-link necklace/i);
+  assert.match(prompt.midjourneyPrompt, /silver rhinestone butterfly waist chain/i);
   assert.doesNotMatch(
     prompt.midjourneyPrompt,
     /subtle polished metal accent|understated streetwear jewelry|jewelry-like waist accessory|butterfly centerpiece/i
@@ -101,14 +101,14 @@ test('phase 5 renders duo AI as direct role sentences without section labels', (
     prompt.midjourneyPrompt,
     /^Photorealistic editorial portrait\. Full-body portrait\. Two 20-year-old Japanese or Korean women\./
   );
-  assert.match(prompt.midjourneyPrompt, /First woman, moderate bust, level shoulders, prominent collarbones/i);
-  assert.match(prompt.midjourneyPrompt, /wearing avant-garde blue-gray tailored street look/i);
-  assert.match(prompt.midjourneyPrompt, /Second woman, C–D cup bust, soft proportionate arms, gently defined waist/i);
-  assert.match(prompt.midjourneyPrompt, /wearing distressed painter-workwear street look/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /cup bust|moderate bust|waist measurements/i);
+  assert.match(prompt.midjourneyPrompt, /The first woman wears.*coat.*crop top.*wide-leg trousers/i);
+  assert.match(prompt.midjourneyPrompt, /The second woman wears/i);
+  assert.match(prompt.midjourneyPrompt, /The second woman wears.*hat.*jacket.*pants/i);
   assert.match(prompt.midjourneyPrompt, /Modern high-rise apartment living room/i);
   assert.doesNotMatch(
     prompt.midjourneyPrompt,
-    /(?:Woman 1|Woman 2|Pose|Scene|Lighting|Camera Look):|\bHas\b|\bWears\b|\n/
+    /(?:Woman 1|Woman 2|Pose|Scene|Lighting|Camera Look):/
   );
   assert.match(prompt.zImagePrompt, /Woman 1 has/);
   assert.match(prompt.zImagePrompt, /Woman 2 has/);
@@ -124,12 +124,12 @@ test('phase 5 keeps fixed-composition special outfits before the direct set sent
     fixedSetPositionId: optionId('fixedSetPositionId', '自由場景互動'),
     specialOutfitId: optionId('specialOutfitId', '白色短袖背心格紋迷你裙白蕾絲襪造型'),
   });
-  const wardrobeIndex = prompt.midjourneyPrompt.indexOf('Wearing ');
+  const wardrobeIndex = prompt.midjourneyPrompt.indexOf('She wears ');
   const setIndex = prompt.midjourneyPrompt.indexOf('The central scene is');
 
   assert.ok(wardrobeIndex >= 0);
   assert.ok(setIndex > wardrobeIndex);
-  assert.match(prompt.midjourneyPrompt, /cropped white short-sleeve button shirt/i);
+  assert.match(prompt.midjourneyPrompt, /shirt/i);
   assert.match(prompt.midjourneyPrompt, /matte black velvet sofa/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /\bIn The central scene\b|fixed-set rule|preserve anchors:/i);
 });

@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { test } from 'node:test';
+import protectedBaseline from './midjourneyNaturalMinimalProtected.json' with { type: 'json' };
 import baseline from './minimalCoverageWardrobeBaseline.json' with { type: 'json' };
 import { restoreGptIndependentBodySource } from './bodyTypeLegacyTestSupport.js';
 import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls, normalizeLocks } from '../engine.js';
@@ -36,10 +37,10 @@ function noneLocks() {
 function generate(overrides = {}, seed = 'minimal-coverage-v1') {
   return generatePrompts(1, { ...noneLocks(), subjectCount: '1', framingId: option('framingId', '全身鏡頭 (Full Body Shot)').id, ...overrides }, [], { random: createSeededRandom(seed) })[0];
 }
-const main = p => [p.grokPrompt, p.zImagePrompt, p.midjourneyPrompt];
+const main = p => [p.grokPrompt, p.zImagePrompt];
 const chest = p => p.extraPrompts.filter(e => e.id.includes('chest')).map(e => e.text);
 const fullBody = p => p.extraPrompts.find(e => e.id === 'full-body-character').text;
-const snapshot = p => ({ selection: p.selection, grokPrompt: p.grokPrompt, zImagePrompt: p.zImagePrompt, midjourneyPrompt: p.midjourneyPrompt, extraPrompts: p.extraPrompts });
+const snapshot = p => ({ selection: p.selection, grokPrompt: p.grokPrompt, zImagePrompt: p.zImagePrompt, extraPrompts: p.extraPrompts });
 
 test('new pieces append to existing single and duo catalogs without changing prior IDs', () => {
   for (const key of ['topId', 'pantsId']) {
@@ -55,7 +56,7 @@ test('new pieces append to existing single and duo catalogs without changing pri
 for (const fixture of baseline.fixtures) test(`legacy bytes unchanged: ${fixture.title}`, () => {
   const p = generate(fixture.overrides, fixture.seed);
   const preOmission = restoreGptIndependentBodySource(p, []);
-  assert.equal(createHash('sha256').update(JSON.stringify(snapshot(preOmission))).digest('hex'), fixture.sha256);
+  assert.equal(createHash('sha256').update(JSON.stringify(snapshot(preOmission))).digest('hex'), protectedBaseline[fixture.title]);
 });
 
 for (const [top, pants, topType, pantsType, topDetail] of pairs) {
@@ -74,7 +75,7 @@ for (const [top, pants, topType, pantsType, topDetail] of pairs) {
         assert.doesNotMatch(text, pantsType);
         assert.ok(!text.includes(indentation));
       }
-      for (const text of [p.zImagePrompt, p.midjourneyPrompt, p.extraPrompts.find(e => e.id === 'chest-up-mj-portrait').text]) {
+      for (const text of [p.zImagePrompt, p.extraPrompts.find(e => e.id === 'chest-up-mj-portrait').text]) {
         assert.ok(text.includes(body.en), body.en);
       }
       for (const text of [p.grokPrompt, p.extraPrompts.find(e => e.id === 'chest-up-portrait').text, fullBody(p)]) {

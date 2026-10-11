@@ -10,7 +10,7 @@ import {
 import { COMPOSITION_VISIBILITY_REGRESSION_FIXTURES } from './compositionVisibilityFixtures.js';
 
 const controlsByKey = new Map(getLockControls().map((control) => [control.key, control]));
-const MAIN_OUTPUT_FIELDS = ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt'];
+const MAIN_OUTPUT_FIELDS = ['grokPrompt', 'zImagePrompt', ];
 const PHASE_THREE_FIXTURE_IDS = [
   'head-shoulders-pose-scene-pressure',
   'chest-up-layered-separates',

@@ -23,7 +23,7 @@ function locksFor(values = {}) {
   return locks;
 }
 const generate = locks => generatePrompts(1, locks, [], { random: createSeededRandom('adidas-trackwear-v1') })[0];
-const outputs = r => [r.grokPrompt, r.zImagePrompt, r.midjourneyPrompt, ...r.extraPrompts.map(e => e.text)];
+const outputs = r => [r.grokPrompt, r.zImagePrompt, ...r.extraPrompts.map(e => e.text)];
 
 test('new trackwear appends stable identities and keeps its authored detail across six outputs', () => {
   assert.equal(option('outerwearId', jacket).id, `wardrobe:外套-outerwear:${jacket}:22`);
@@ -33,7 +33,7 @@ test('new trackwear appends stable identities and keeps its authored detail acro
     assert.ok(text.includes(option('outerwearId', jacket).en));
     assert.ok(text.includes('black adidas'));
   }
-  for (const text of [r.grokPrompt, r.zImagePrompt, r.midjourneyPrompt, r.extraPrompts.find(e => e.id === 'full-body-character').text]) assert.ok(text.includes(option('pantsId', pants).en));
+  for (const text of [r.grokPrompt, r.zImagePrompt, r.extraPrompts.find(e => e.id === 'full-body-character').text]) assert.ok(text.includes(option('pantsId', pants).en));
   for (const e of r.extraPrompts.filter(e => e.id.startsWith('chest-up'))) assert.ok(!e.text.includes('track pants'));
 });
 
@@ -75,7 +75,7 @@ test('elastic waist suppresses only incompatible fly styling while keeping store
 test('duo waist compatibility is scoped to the selected wearer', () => {
   const locks = { ...locksFor({ outerwearId: '全無', pantsId: '全無', pantsAId: pants, pantsBId: '直筒牛仔褲', bottomRiseAId: '扣子解開拉鏈微開', bottomRiseBId: '扣子解開拉鏈微開' }), subjectCount: '2' };
   const r = generate(locks);
-  for (const text of [r.grokPrompt, r.zImagePrompt, r.midjourneyPrompt]) assert.equal((text.match(/waist button undone/g) || []).length, 1);
+  for (const text of [r.grokPrompt, r.zImagePrompt]) assert.equal((text.match(/waist button undone/g) || []).length, 1);
   assert.equal(prepareBottomRiseControl(controls.find(c => c.key === 'bottomRiseAId'), locks, controls).closureDisplayValue, 'none');
   assert.equal(prepareBottomRiseControl(controls.find(c => c.key === 'bottomRiseBId'), locks, controls).closureDisplayValue, undefined);
 });

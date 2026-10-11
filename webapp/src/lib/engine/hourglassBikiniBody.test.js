@@ -6,8 +6,8 @@ import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls 
 const BODY_LABEL = '豐胸纖腰沙漏身形';
 import { BODY_TYPE_CATALOG_V2 } from './bodyTypeCatalogFixtures.js';
 const BODY_SOURCE = BODY_TYPE_CATALOG_V2.find(item => item.zh === BODY_LABEL).en;
-const MAIN_FIELDS = ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt'];
-const RETAINED_MAIN_FIELDS = ['zImagePrompt', 'midjourneyPrompt'];
+const MAIN_FIELDS = ['grokPrompt', 'zImagePrompt', ];
+const RETAINED_MAIN_FIELDS = ['zImagePrompt', ];
 const REMOVED_FIT = /reduced-fabric triangle cups cover the bust center|side ties make shallow impressions against the rounded outer hips/i;
 const controls = getLockControls();
 

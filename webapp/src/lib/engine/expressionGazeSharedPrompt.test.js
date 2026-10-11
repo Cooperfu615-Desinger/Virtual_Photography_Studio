@@ -12,7 +12,7 @@ const expressionByLabel = (label) => {
   return option;
 };
 
-const promptOutputs = (prompt) => [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt];
+const promptOutputs = (prompt) => [prompt.grokPrompt, prompt.zImagePrompt];
 
 function generateWithExpression(label) {
   return generatePrompts(1, {

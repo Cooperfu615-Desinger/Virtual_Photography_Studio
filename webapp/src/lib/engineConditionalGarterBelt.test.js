@@ -41,7 +41,7 @@ test('all approved independent lower garments add the derived garter-belt layer 
     const legwearId = optionId('legwearId', '膝上蕾絲吊帶襪');
     const prompt = generate({ pantsId, legwearId });
 
-    for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'fullBodyCharacterPrompt']) {
+    for (const field of ['grokPrompt', 'zImagePrompt', 'fullBodyCharacterPrompt']) {
       const output = getPromptText(prompt, field);
       assert.match(output, /a separate lace garter belt worn over the bottoms at the hips/i, `${bottom}: ${field}`);
       assert.match(output, /slim straps connecting to the stocking tops/i, `${bottom}: ${field}`);

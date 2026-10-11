@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-11
 
+## 主 Midjourney 自然精簡 (2026-10-11)
+
+- 體態補充已本機實作：主 MJ 將六種有效獨立 Body Type 對應為核准自然短句，「全無」不輸出；雙人保留 A/B 歸屬，相同體態合併一句。取消對話中的 CRT 極短測試版，場景／光線／成像維持原文。角色卡、自訂身份及特殊主體不套用此六種映射。Public contract `1.54.0`，MJ description／AI length `2.1.0`，見 [主 MJ 規格補充](specs/midjourney-natural-main-v1.md)。
+- 使用者核准僅更換 PAGE1 主 `midjourneyPrompt`：所有既有主模式採最多四段自然英文，獨立體態採核准短句、尺寸省略，穿搭只留可見單品名稱，保留人物身份、原姿勢與構圖、場景光線及選定風格／成像；MJ 參數尾綴不變。其他五組輸出（含 MJ 胸上）、其他工作區、原始資料與儲存契約不變。此核准例外取代下方歷史主 AI 保留體態及服裝細節的規則，見 [主 Midjourney 自然精簡 v1](specs/midjourney-natural-main-v1.md)。
+- 主 MJ 專用名稱表涵蓋 286 個目錄 ID 與 33 張角色卡的預設層；角色卡選定層可與 PAGE1 空缺層混搭，雙人保留單品歸屬。選值／summary／structured／Saved Cards 保留完整資料；已儲存舊文字不批次重寫，套用選值重新生成時才使用新版。
+- 體態補充驗證（Node 22.22.3）：focused 9/9、完整測試 1526/1526、Prompt Quality 683/683、lint／build／diff-check 通過。986 組固定案例確認主 MJ 移除新增體態句後全文相同，其他五組輸出與資料逐欄相同；另覆蓋六體態／全無 × 五景別、49 組 A/B 組合及各模式。相同 seed 200 組 strict audit 前後皆 0 blockers／22 既有診斷。1440×1000／390×900 瀏覽器 24 項檢查、14 張截圖檢視、六現用工作區呈現、CRT 主 MJ 複製及收藏還原通過，無新錯誤、破圖或頁面橫向溢位。證據見規格最末補充完成紀錄。
+- 使用者已核准本批 commit／push；交付狀態以 Git 與遠端核對為準，未手動部署。既有不相關工作保留。未送出外部生圖，Midjourney 實際接受情況與影像效果需另行實測。
+
 ## GPT 獨立 Body Type 省略 (local, 2026-10-11)
 
 - 使用者核准：主 GPT、GPT 胸上與全身角色照省略獨立 Body Type，雙人主 GPT 分別省略 A/B 來源；成年身份、canonical pose、穿搭與其他有效描述不變。Z、AI 與 MJ 胸上保留同一完整來源，Character Card body／permanent identity／legacy `identityAndBody` 不變，見 [GPT 獨立體態省略 v1](specs/gpt-standalone-body-omission-v1.md)。

@@ -80,7 +80,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.52.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.54.0';
 
 export const BLACK_TIE_SHIRT_CONTRACT = deepFreeze({
   scope: 'existing independent collared tie shirt only; catalog identity and selection unchanged',
@@ -155,13 +155,13 @@ export const MINIMAL_COVERAGE_WARDROBE_CONTRACT = deepFreeze({
  */
 // Applies to catalog Body Type only; Character Card body visibility is unchanged.
 export const STANDALONE_BODY_TYPE_CONTRACT = deepFreeze({
-  version: '2.0.0',
+  version: '2.1.0',
   source: 'resolved selected catalog Body Type English description',
-  fidelity: 'verbatim in Z-Image, AI and MJ chest-up; GPT omits only standalone catalog Body Type',
+  fidelity: 'verbatim in Z-Image and MJ chest-up; GPT omits standalone catalog Body Type; main MJ omits all physique descriptions',
   gpt: 'omit standalone single and A/B body sources in main GPT, GPT chest-up and full-body character reference; retain adult identity and existing pose',
   excludes: 'Character Card profile.body, permanent identity, legacy identityAndBody, dedicated subjects and authored wardrobe details',
   projection: 'independent of crop, camera direction and effective hem overlap',
-  compression: 'non-GPT outputs retain cup range, height and bust-waist-hip measurements; no short anchor or word-budget deletion',
+  compression: 'Z-Image and MJ chest-up retain cup range, height and bust-waist-hip measurements; main MJ maps effective standalone body to six reviewed sentences without measurements or stored-data changes',
   empty: 'none stays silent',
   compatibility: 'existing IDs and structured selections preserved; legacy body text remains importable; omitted GPT text cannot infer body selection',
 });
@@ -310,7 +310,7 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
       forbiddenUnicodeBlocks: [CJK_UNIFIED_IDEOGRAPHS],
     },
     shape: {
-      paragraphSeparator: 'single-block',
+      paragraphSeparator: 'blank-line',
       minimumParagraphs: 1,
       labelPlacement: 'inline',
       modes: {

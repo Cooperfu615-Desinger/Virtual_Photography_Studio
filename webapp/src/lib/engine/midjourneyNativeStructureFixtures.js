@@ -1,3 +1,4 @@
+import naturalAccepted from './midjourneyNaturalAccepted.json' with { type: 'json' };
 /**
  * Current Midjourney-native structure targets.
  *
@@ -5,7 +6,7 @@
  * preserving the canonical pose verbatim. The parameter tail remains outside
  * the hash.
  */
-export const MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES = Object.freeze([
+const LEGACY_MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES = Object.freeze([
   {
     id: 'normal-single-precise',
     expectedDescriptionHash: 'ae27d961563fbba281c95c33a1d55d637d5118d0ac0316230f671719c382b985',
@@ -42,3 +43,9 @@ export const MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES = Object.freeze([
     expectedWords: 48,
   },
 ]);
+
+export const MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES = Object.freeze(LEGACY_MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES.map(fixture => ({
+  ...fixture,
+  naturalDescriptionHash: naturalAccepted.parameters[fixture.id].hash,
+  naturalWords: naturalAccepted.parameters[fixture.id].words,
+})));

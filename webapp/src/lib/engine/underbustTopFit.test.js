@@ -23,7 +23,7 @@ function locksFor(values = {}) {
   return locks;
 }
 const generate = locks => generatePrompts(1, locks, [], { random: createSeededRandom('underbust-top-v1') })[0];
-const all = r => [r.grokPrompt, r.zImagePrompt, r.midjourneyPrompt, ...r.extraPrompts.map(e => e.text)];
+const all = r => [r.grokPrompt, r.zImagePrompt, ...r.extraPrompts.map(e => e.text)];
 const full = r => r.extraPrompts.find(e => e.id === 'full-body-character').text;
 
 test('two manual short fits append without changing the five old options', () => {
@@ -87,7 +87,7 @@ test('color and surface variants keep the new fit, selected garment and natural-
 test('short fits retain non-GPT body sources and preserve the GPT-only omission', () => {
   for (const body of controls.find(c => c.key === 'bodyTypeId').options.filter(o => o.zh !== '全無')) {
     const result = generate(locksFor({ bodyTypeId: body.zh, topStylingId: '自然放出' }));
-    for (const text of [result.zImagePrompt, result.midjourneyPrompt, result.extraPrompts.find(e => e.id === 'chest-up-mj-portrait').text]) {
+    for (const text of [result.zImagePrompt, result.extraPrompts.find(e => e.id === 'chest-up-mj-portrait').text]) {
       assert.ok(text.includes(body.en), body.zh);
     }
     for (const text of [result.grokPrompt, full(result), result.extraPrompts.find(e => e.id === 'chest-up-portrait').text]) {
@@ -146,7 +146,7 @@ test('UI disables incompatible short fits and styles individually, preserves val
 test('framing omits off-screen short fit and full-body output restores it from the same source', () => {
   for (const framing of ['臉部特寫', '特寫鏡頭 (Close-Up)']) {
     const result = generate(locksFor({ framingId: framing }));
-    for (const text of [result.grokPrompt, result.zImagePrompt, result.midjourneyPrompt]) assert.ok(!text.includes(option('topFitId', names[0]).en));
+    for (const text of [result.grokPrompt, result.zImagePrompt]) assert.ok(!text.includes(option('topFitId', names[0]).en));
     assert.ok(full(result).includes(option('topFitId', names[0]).en));
     assert.equal(result.selection.topFitId, option('topFitId', names[0]).id);
   }
@@ -186,7 +186,7 @@ test('duo short fits remain attached to each wearer and do not override the othe
   assert.equal(parsed.topFitAId, locks.topFitAId);
   assert.equal(parsed.topFitBId, 'standard');
   const both = generate({ ...locks, topFitBId: option('topFitBId', names[0]).id });
-  for (const text of [both.grokPrompt, both.zImagePrompt, both.midjourneyPrompt]) for (const name of names) assert.ok(text.includes(option('topFitId', name).en));
+  for (const text of [both.grokPrompt, both.zImagePrompt]) for (const name of names) assert.ok(text.includes(option('topFitId', name).en));
   const restoredBoth = parseLocksFromStandardPrompt(both.grokPrompt, controls).locks;
   assert.equal(restoredBoth.topAId, locks.topAId);
   assert.equal(restoredBoth.topBId, locks.topBId);

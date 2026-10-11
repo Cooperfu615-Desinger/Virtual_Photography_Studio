@@ -48,7 +48,7 @@ test('face-covering head accessories keep their defining construction in all sin
     const fixedOutputs = ['chest-up-portrait', 'chest-up-mj-portrait', 'full-body-character']
       .map((id) => prompt.extraPrompts.find((entry) => entry.id === id)?.text || '');
 
-    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, ...fixedOutputs]) {
+    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, ...fixedOutputs]) {
       assert.match(text, expectedPattern, `${label} should remain visible in every single-subject output`);
     }
   }
@@ -83,7 +83,6 @@ test('crown color targets only the red velvet body and preserves fixed ornament 
   const outputs = [
     coloredPrompt.grokPrompt,
     coloredPrompt.zImagePrompt,
-    coloredPrompt.midjourneyPrompt,
     ...coloredPrompt.extraPrompts.map((entry) => entry.text),
   ];
 
@@ -134,7 +133,6 @@ test('head accessory colors reuse the garment palette and replace authored color
     const outputs = [
       prompt.grokPrompt,
       prompt.zImagePrompt,
-      prompt.midjourneyPrompt,
       ...prompt.extraPrompts.map((entry) => entry.text),
     ];
 
@@ -182,7 +180,7 @@ test('random head accessory color resolves a concrete palette color and keeps th
   const [prompt] = generatePrompts(1, randomized, [], { random: () => 0 });
   assert.equal(prompt.selection.faceCoveringId, mask.id);
   assert.equal(prompt.selection.faceCoveringColorId, 'black');
-  assert.match(prompt.midjourneyPrompt, /black disposable pleated face mask/i);
+  assert.match(prompt.midjourneyPrompt, /disposable face mask/i);
 });
 
 test('duo AI output retains independently selected face coverings for both women', () => {
@@ -193,7 +191,7 @@ test('duo AI output retains independently selected face coverings for both women
     headAccessoryBId: optionByLabel('faceCoveringBId', '防毒面具（3M 6200）').id,
   });
 
-  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt]) {
     assert.match(text, /black disposable pleated face mask/i);
     assert.match(text, /grey 3M 6200 reusable half-face respirator/i);
   }
@@ -288,7 +286,6 @@ test('eye cloth uses the eyewear layer, preserves hair, and ignores head-top pla
   const outputs = [
     prompt.grokPrompt,
     prompt.zImagePrompt,
-    prompt.midjourneyPrompt,
     ...prompt.extraPrompts.map((entry) => entry.text),
   ];
 

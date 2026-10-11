@@ -19,8 +19,7 @@ const controls = getLockControls();
 const PRIMARY_OUTPUT_FIELDS = Object.freeze([
   'grokPrompt',
   'zImagePrompt',
-  'midjourneyPrompt',
-]);
+  ]);
 
 function createAllNoneLocks() {
   const locks = { ...createEmptyLocks() };

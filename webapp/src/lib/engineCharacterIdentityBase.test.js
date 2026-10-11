@@ -125,7 +125,7 @@ test('hairstyle prompt supports twin buns with two fixed red ribbons', () => {
     hairColorId: optionByLabel('hairColorId', '自然黑').id,
   });
 
-  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt].join('\n');
   assert.match(promptText, /Chinese-inspired twin buns/);
   assert.match(promptText, /two red fabric ribbons, one tied around each bun/);
   assert.equal(prompt.selection.hairstyleId, twinBuns.id);
@@ -148,7 +148,7 @@ test('hairstyle prompt supports airy inward bob with see-through bangs', () => {
     hairstyleId: airyBob.id,
   });
 
-  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt].join('\n');
   assert.match(promptText, /chin-length inward-curved bob/);
   assert.match(promptText, /airy straight bangs/);
   assert.equal(prompt.selection.hairstyleId, airyBob.id);
@@ -181,8 +181,8 @@ test('hairstyle prompt supports referenced soft-wave and airy-bang long hair opt
     hairstyleId: airyLongHair.id,
   });
 
-  const wavePromptText = [wavePrompt.grokPrompt, wavePrompt.zImagePrompt, wavePrompt.midjourneyPrompt].join('\n');
-  const longHairPromptText = [longHairPrompt.grokPrompt, longHairPrompt.zImagePrompt, longHairPrompt.midjourneyPrompt].join('\n');
+  const wavePromptText = [wavePrompt.grokPrompt, wavePrompt.zImagePrompt].join('\n');
+  const longHairPromptText = [longHairPrompt.grokPrompt, longHairPrompt.zImagePrompt].join('\n');
   assert.match(wavePromptText, /Korean collarbone-length soft waves/);
   assert.match(longHairPromptText, /long (?:naturally )?slightly wavy hair/);
   assert.equal(wavePrompt.selection.hairstyleId, koreanWaves.id);
@@ -245,7 +245,6 @@ test('identity base prompt wording is controlled by selected DNA options', () =>
   });
 
   const promptText = [
-    prompt.midjourneyPrompt,
     prompt.grokPrompt,
     prompt.zImagePrompt,
     prompt.summary,
@@ -308,8 +307,8 @@ test('duo identity base supports separate body type and skin details per woman',
   assert.match(prompt.midjourneyPrompt, /^Photorealistic editorial portrait\./);
   assert.doesNotMatch(prompt.midjourneyPrompt, /The main characters are two stunning seductive 20-year-old Japanese or Korean women/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /\bwoman [12] has\b/i);
-  assert.match(prompt.midjourneyPrompt, /First woman, A–B cup bust, narrow ribcage/i);
-  assert.match(prompt.midjourneyPrompt, /Second woman, moderate bust, level shoulders/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /First woman, A–B cup bust, narrow ribcage/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /moderate bust|level shoulders|cup bust/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /visual height|visual weight|body proportion anchor|torso-to-leg|\b\d{2,3}-\d{2,3}-\d{2,3}\b/i);
   assert.equal(prompt.selection.bodyTypeAId, bodyA.id);
   assert.equal(prompt.selection.bodyTypeBId, bodyB.id);

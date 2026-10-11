@@ -26,7 +26,7 @@ import {
 
 const controls = getLockControls();
 const controlsByKey = new Map(controls.map((control) => [control.key, control]));
-const PRIMARY_FIELDS = ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt'];
+const PRIMARY_FIELDS = ['grokPrompt', 'zImagePrompt'];
 const SIX_OUTPUT_IDS = [
   'gpt',
   'grok',

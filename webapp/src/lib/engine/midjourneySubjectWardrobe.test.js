@@ -35,9 +35,9 @@ test('phase 3 gives normal AI subjects a direct Midjourney identity lead', () =>
 
   assert.match(
     prompt.midjourneyPrompt,
-    /^Photorealistic editorial portrait\. Waist-up portrait\. A 20s seductive stunning Japanese woman\./i
+    /^Photorealistic editorial portrait\. Waist-up portrait\. A Japanese woman in her twenties\./i
   );
-  assert.match(prompt.midjourneyPrompt, /F–G cup bust, lean limbs, narrow defined waist/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /cup bust|narrow defined waist/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /flat abdomen/i);
   assert.match(prompt.midjourneyPrompt, /Korean collarbone-length soft waves/i);
   assert.match(prompt.midjourneyPrompt, /chestnut-brown hair/i);
@@ -54,15 +54,15 @@ test('phase 3 emits the lower-crop wardrobe visibility boundary only once', () =
     framingId: optionId('framingId', '中景鏡頭 (Medium Shot)'),
   };
   const [prompt] = generatePrompts(1, locks);
-  const wardrobeSentence = prompt.midjourneyPrompt.match(/\bWearing [^.]+\./)?.[0] || '';
+  const wardrobeSentence = prompt.midjourneyPrompt.match(/\bShe wears [^.]+\./)?.[0] || '';
 
   assert.equal(
     wardrobeSentence,
-    'Wearing tight long-sleeve button-up shirt, tight bodycon mini skirt, smooth hip-hugging skirt silhouette at the lower crop edge.'
+    'She wears a long-sleeve button-up shirt and a mini skirt.'
   );
   assert.equal(
     wardrobeSentence.match(/\bat the lower crop edge\b/gi)?.length || 0,
-    1
+    0
   );
   assert.match(prompt.zImagePrompt, /tight bodycon mini skirt/i);
   assert.match(prompt.grokPrompt, /tight bodycon mini skirt/i);

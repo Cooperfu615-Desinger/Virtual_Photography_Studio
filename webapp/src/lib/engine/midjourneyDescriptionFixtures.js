@@ -1,4 +1,5 @@
-export const MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze([
+import naturalAccepted from './midjourneyNaturalAccepted.json' with { type: 'json' };
+const LEGACY_MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze([
   {
     id: 'normal-single-precise',
     mode: 'single',
@@ -89,3 +90,9 @@ export const MIDJOURNEY_IMAGE_TYPE_OPENING_FIXTURES = Object.freeze([
   { id: 'fashion-illustration', expected: 'Fashion illustration.' },
   { id: 'pastel-illustration', expected: 'Pastel illustration portrait.' },
 ]);
+
+export const MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze(LEGACY_MIDJOURNEY_DESCRIPTION_FIXTURES.map(fixture => ({
+  ...fixture,
+  naturalDescriptionHash: naturalAccepted.parameters[fixture.id].hash,
+  naturalWords: naturalAccepted.parameters[fixture.id].words,
+})));

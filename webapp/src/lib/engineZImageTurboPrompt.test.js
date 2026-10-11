@@ -241,7 +241,7 @@ test('Z-Image and Midjourney preserve explicitly selected clothing fit anchors',
     const escapedFitText = fitText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
     assert.match(prompt.zImagePrompt, new RegExp(escapedFitText, 'i'), `${lockKey} should survive Z-Image compaction`);
-    assert.match(prompt.midjourneyPrompt, new RegExp(escapedFitText, 'i'), `${lockKey} should survive Midjourney compaction`);
+    assert.doesNotMatch(prompt.midjourneyPrompt, new RegExp(escapedFitText, 'i'), `${lockKey} is omitted by main MJ name-only wardrobe`);
   }
 });
 

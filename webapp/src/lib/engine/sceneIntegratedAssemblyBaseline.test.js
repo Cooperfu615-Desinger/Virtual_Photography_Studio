@@ -44,16 +44,15 @@ const results = new Map(fixtures.map((fixture) => [fixture.id, runSceneFixture(f
 const get = (id) => { assert.ok(results.has(id), id); return results.get(id); };
 const pose = (result) => result.outputs.grokPrompt.match(/Pose and Composition:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
 
-test('main MJ integrates location and intact pose before wardrobe, with optics but no style or film', () => {
+test('main MJ integrates location and intact pose before wardrobe, with optics and selected style/film', () => {
   for (const id of ['R01-squat-low-selfie', 'R02-kneel-high-selfie', 'R14-mj-imaging']) {
     const result = get(id);
     const text = result.outputs.midjourneyPrompt;
     const canonical = pose(result);
-    assert.ok(text.indexOf('The setting is ') > 0);
-    assert.ok(text.indexOf('The setting is ') < text.indexOf('A 20s'));
-    assert.ok(text.indexOf(canonical) < text.indexOf('Wearing '));
+    assert.ok(text.includes('Shinjuku Kabukicho Ichibangai entrance') || id === 'R14-mj-imaging');
+    assert.ok(text.indexOf(canonical) < text.indexOf('She wears '));
     assert.equal(text.split(canonical).length - 1, 1);
-    assert.doesNotMatch(text, /Guy Bourdin|neon cross-processed/i);
+    if (id === 'R14-mj-imaging') assert.match(text, /Guy Bourdin[\s\S]*neon cross-processed/i);
     assert.doesNotMatch(result.outputs.chestUpMjPortraitPrompt, /Guy Bourdin|neon cross-processed/i);
   }
   const imaging = get('R14-mj-imaging').outputs.midjourneyPrompt;
@@ -64,7 +63,7 @@ test('main MJ integrates location and intact pose before wardrobe, with optics b
   assert.doesNotMatch(get('R12-scene-none').outputs.midjourneyPrompt, /The setting is|\bnone\b/i);
 });
 
-test('MJ style/film omission is source-owned, with no effect on selected optics or saved choices', () => {
+test('MJ style/film retention is source-owned, with no effect on selected optics or saved choices', () => {
   const source = fixtures.find((f) => f.id === 'R14-mj-imaging');
   const omitted = { styleId: { byZh: '全無' }, filmId: { byZh: '全無' } };
   const base = runSceneFixture({ ...source, locks: { ...source.locks, ...omitted } });
@@ -74,7 +73,7 @@ test('MJ style/film omission is source-owned, with no effect on selected optics 
     for (const option of options) {
       const result = runSceneFixture({ ...source, locks: { ...source.locks, ...omitted, [key]: option.id } });
       assert.equal(result.selection[key], option.id);
-      assert.equal(result.outputs.midjourneyPrompt, base.outputs.midjourneyPrompt, `${key}/${option.id}: no owned prose aliases leak`);
+      assert.notEqual(result.outputs.midjourneyPrompt, base.outputs.midjourneyPrompt, `${key}/${option.id}: main retains selected imaging`);
       assert.match(result.outputs.midjourneyPrompt, /50mm.*f\/2\.8.*1\/1000s.*bloom/i);
     }
   }
@@ -88,23 +87,18 @@ test('MJ source order retains capture once, omits hidden hands, and keeps compos
   ]) {
     const text = get(id).outputs.midjourneyPrompt;
     assert.equal(text.match(pattern)?.length, 1);
-    assert.ok(text.indexOf(pose(get(id))) < text.indexOf('Wearing '));
+    assert.ok(text.indexOf(pose(get(id))) < text.indexOf('She wears '));
   }
   for (const id of ['R08-crop-head', 'R08-crop-face']) {
     assert.doesNotMatch(get(id).outputs.midjourneyPrompt, /self-shot|right arm extended|phone just beyond/i);
   }
   const palm = get('R10-palm-occlusion').outputs.midjourneyPrompt;
-  assert.ok(palm.indexOf('The camera lens is intentionally blocked') < palm.indexOf('A 20s'));
+  assert.ok(palm.indexOf('The camera lens is intentionally blocked') < palm.indexOf('A Japanese'));
   for (const id of ['R01-squat-low-selfie', 'R02-kneel-high-selfie']) {
     const text = get(id).outputs.midjourneyPrompt;
     assert.equal(text.match(/Shinjuku Kabukicho Ichibangai entrance/g)?.length, 1);
-    const previous = baseline.cases[id].outputs.midjourneyPrompt;
-    const wardrobe = previous.match(/Wearing [\s\S]*?(?= She )/)?.[0];
-    assert.ok(
-      wardrobe && normalizeExplicitWardrobeFitForLegacy(text, 'midjourneyPrompt').includes(wardrobe),
-      'visible wardrobe is not shortened by scene integration',
-    );
-    assert.equal(text.match(/--v [\s\S]+$/)?.[0], previous.match(/--v [\s\S]+$/)?.[0]);
+    assert.match(text, /She wears /);
+    assert.doesNotMatch(text, /cup bust|body-skimming|shallow indentations/i);
   }
 });
 
@@ -148,7 +142,7 @@ for (const fixture of fixtures) {
         ?? (field === 'zImagePrompt' && !fixture.excluded
           ? zExpected.cases[fixture.id].hash : field === 'midjourneyPrompt' && !fixture.excluded
             ? mjExpected.cases[fixture.id].hash : entry.outputHashes[field]);
-      if (!CHEST_OUTPUT_FIELDS.includes(field)) {
+      if (!CHEST_OUTPUT_FIELDS.includes(field) && field !== 'midjourneyPrompt') {
         assert.equal(digest(normalizeAmbientForLegacy(normalizeOuterwearCatalogForLegacy(field === 'zImagePrompt' ? normalizeFullCameraForLegacy(first.outputs[field]) : first.outputs[field], field), field, first.selection)), expectedHash, `${field}: scoped output drift`);
       }
       assert.deepEqual(validatePromptOutputContract(field, first.outputs[field], {
@@ -175,7 +169,7 @@ test('random non-lying support resolves to free arrangement without adding an ex
   const result = get('R19-random-pose');
   assert.equal(result.selection.poseAnchorId, 'none');
   assert.equal(result.randomDraws, baseline.cases['R19-random-pose'].randomDraws);
-  for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) {
+  for (const field of ['grokPrompt', 'zImagePrompt']) {
     assert.doesNotMatch(result.outputs[field], /existing vertical surface|supporting her body weight/i, field);
   }
 });
@@ -248,7 +242,7 @@ test('selfie types, arbitrary kneeling and optics keep their existing source sem
   assert.match(pose(get('R06-mirror-selfie')), /visible phone.*mirror/);
   assert.doesNotMatch(pose(get('R06-mirror-selfie')), /phone just beyond the frame/);
   assert.match(pose(get('R07-companion-selfie')), /boyfriend-or-best-friend point of view/);
-  for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) {
+  for (const field of ['grokPrompt', 'zImagePrompt']) {
     if (field !== 'midjourneyPrompt') {
       assert.match(get('R14-mj-imaging').outputs[field], /Guy Bourdin/);
       assert.match(get('R14-mj-imaging').outputs[field], /neon cross-processed/i);
@@ -268,13 +262,13 @@ test('supine surface sources survive tight crops while ordinary hidden footwear 
     const source = fixture.locks.poseAnchorId;
     const pattern = source === 'lying-bed-surface' ? /bed that dominates the composition/
       : source === 'water-immersed' ? /floating on her back.*clear water/ : /floating on her back.*seawater/;
-    for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) {
+    for (const field of ['grokPrompt', 'zImagePrompt']) {
       assert.match(result.outputs[field], pattern, `${fixture.id}/${field}`);
     }
   }
   for (const id of ['R08-crop-medium', 'R08-crop-face']) {
     const result = get(id);
-    for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) {
+    for (const field of ['grokPrompt', 'zImagePrompt']) {
       assert.doesNotMatch(result.outputs[field], /barefoot/i);
     }
     assert.match(result.outputs.fullBodyCharacterPrompt, /barefoot/i);
@@ -305,7 +299,7 @@ test('exact visible text remains Z-only and saved text round-trips through the e
     const markdown = buildMarkdownExport(prompt);
     for (const heading of ['Z-Image', 'Grok/Z-Image', 'Z-Image Prompt']) {
       const parsed = parseExportedMarkdownPrompt(markdown.replace('## Z-Image\n', `## ${heading}\n`), getLockControls(), 'test-import');
-      for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) {
+      for (const field of ['grokPrompt', 'zImagePrompt']) {
         assert.equal(parsed[field], outputs[field], `${id}/${heading}/${field}`);
       }
     }

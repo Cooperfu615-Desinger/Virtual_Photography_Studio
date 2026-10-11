@@ -34,8 +34,7 @@ const option = (key, zh) => {
   return found.id;
 };
 const extra = (prompt, extraId) => prompt.extraPrompts.find(entry => entry.id === extraId)?.text || '';
-const sceneTexts = prompt => [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt,
-  extra(prompt, 'chest-up-portrait'), extra(prompt, 'chest-up-mj-portrait')];
+const sceneTexts = prompt => [prompt.grokPrompt, prompt.zImagePrompt, extra(prompt, 'chest-up-portrait'), extra(prompt, 'chest-up-mj-portrait')];
 const digest = value => createHash('sha256').update(JSON.stringify(value)).digest('hex');
 const stablePrompt = prompt => ({ selection: prompt.selection, summary: prompt.summary,
   grokPrompt: prompt.grokPrompt, zImagePrompt: prompt.zImagePrompt,
@@ -208,7 +207,7 @@ test('historical snapshot inverse recognizes only the exact approved Shibuya sce
   const scene = current.grokPrompt.split('Scene:\n')[1]?.split('\n\n')[0] || '';
   const originalScene = historical.grokPrompt.split('Scene:\n')[1]?.split('\n\n')[0] || '';
   assert.equal(normalizeShibuyaSceneForLegacy(scene, current.selection), originalScene);
-  const fields = ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'];
+  const fields = ['grokPrompt', 'zImagePrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'];
   for (const [index, field] of fields.entries()) {
     assert.equal(normalizeShibuyaPromptForLegacy(sceneTexts(current)[index], field, current.selection),
       sceneTexts(historical)[index], field);
@@ -230,7 +229,7 @@ test('historical inverse fails closed on wrong identities or changed scenes and 
   for (const value of [...mutate(scene), `${scene} A custom scene addition.`, 'arbitrary imported scene']) {
     assert.equal(normalizeShibuyaSceneForLegacy(value, prompt.selection), value);
   }
-  const fields = ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'];
+  const fields = ['grokPrompt', 'zImagePrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'];
   for (const [index, field] of fields.entries()) {
     const text = sceneTexts(prompt)[index];
     assert.equal(normalizeShibuyaPromptForLegacy(text, field, otherSelection), text, field);

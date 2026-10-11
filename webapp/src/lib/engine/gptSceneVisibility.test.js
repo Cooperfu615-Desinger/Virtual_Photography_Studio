@@ -79,7 +79,7 @@ test('projected GPT texts survive Saved Cards and Markdown without changing stor
       assert.equal(saved.selection[key], prompt.selection[key], key);
     }
     assert.deepEqual(saved.extraPrompts, prompt.extraPrompts);
-    for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) {
+    for (const field of ['grokPrompt', 'zImagePrompt']) {
       assert.equal(saved[field], prompt[field]);
       assert.equal(parsed[field], prompt[field]);
     }

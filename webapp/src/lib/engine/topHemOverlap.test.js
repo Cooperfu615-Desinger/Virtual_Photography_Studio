@@ -22,8 +22,8 @@ function generate(overrides = {}, seed = 'hem-overlap-v1') {
   });
   return generatePrompts(1, locks, [], { random: createSeededRandom(seed) })[0];
 }
-const visible = p => [p.grokPrompt, p.zImagePrompt, p.midjourneyPrompt, p.extraPrompts.find(e => e.id === 'full-body-character').text];
-const all = p => [p.grokPrompt, p.zImagePrompt, p.midjourneyPrompt, ...p.extraPrompts.map(e => e.text)];
+const visible = p => [p.grokPrompt, p.zImagePrompt, p.extraPrompts.find(e => e.id === 'full-body-character').text];
+const all = p => [p.grokPrompt, p.zImagePrompt, ...p.extraPrompts.map(e => e.text)];
 
 test('overlap keeps micro shorts identity and survives visible outputs and saved-card restore', () => {
   const p = generate();
@@ -42,7 +42,7 @@ test('hem overlap keeps Z and AI body sources while GPT omits body and retains e
     for (const framingZh of ['全身鏡頭 (Full Body Shot)', '中景鏡頭 (Medium Shot)', '牛仔中景 (Cowboy Shot)']) {
       const p = generate({ bodyTypeId: item.id, framingId: option('framingId', framingZh) }, `hem-overlap-${item.zh}-${framingZh}`);
       assert.equal(p.selection.bodyTypeId, item.id);
-      for (const text of [p.zImagePrompt, p.midjourneyPrompt]) assert.ok(text.includes(item.en), `${item.zh}/${framingZh}: verbatim source`);
+      for (const text of [p.zImagePrompt]) assert.ok(text.includes(item.en), `${item.zh}/${framingZh}: verbatim source`);
       for (const text of [p.grokPrompt, p.extraPrompts.find(e => e.id === 'full-body-character').text]) assert.ok(!text.includes(item.en));
       const untucked = generate({ bodyTypeId: item.id, topStylingId: 'untucked' });
       assert.ok(!untucked.grokPrompt.includes(item.en));
@@ -66,7 +66,7 @@ test('duo hem overlap preserves both sources and remains attached only to its we
   const body = role => controls.find(c => c.key === `bodyType${role}Id`).options.find(o => o.id === p.selection[`bodyType${role}Id`]).en;
   assert.ok(!womanOne.includes(body('A')));
   assert.ok(!womanTwo.includes(body('B')));
-  for (const text of [p.zImagePrompt, p.midjourneyPrompt]) {
+  for (const text of [p.zImagePrompt]) {
     assert.ok(text.includes(body('A')));
     assert.ok(text.includes(body('B')));
   }
@@ -107,7 +107,7 @@ test('jeans and regular sailor tops retain overlap, and close crops restore it o
     { topId: option('topId', '短袖水手服') },
   ]) for (const text of visible(generate(overrides))) assert.match(text, /partially concealing/i);
   const p = generate({ framingId: 'camera:景別構圖-framing:胸上特寫:5' });
-  for (const text of [p.grokPrompt, p.zImagePrompt, p.midjourneyPrompt]) assert.doesNotMatch(text, /partially concealing/);
+  for (const text of [p.grokPrompt, p.zImagePrompt]) assert.doesNotMatch(text, /partially concealing/);
   assert.match(p.extraPrompts.find(e => e.id === 'full-body-character').text, /partially concealing/);
 });
 
@@ -116,7 +116,7 @@ test('duo overlap is scoped to the person with compatible separates', () => {
     topAId: option('topAId', '絲質細肩帶上衣'), pantsAId: option('pantsAId', '直筒牛仔褲'), topStylingAId: 'hem-overlap',
     topBId: option('topBId', '比基尼上身'), pantsBId: option('pantsBId', '真理褲'), topStylingBId: 'hem-overlap',
   });
-  for (const text of [p.grokPrompt, p.zImagePrompt, p.midjourneyPrompt]) {
+  for (const text of [p.grokPrompt, p.zImagePrompt]) {
     assert.equal((text.match(/partially concealing/g) || []).length, 1);
   }
 });

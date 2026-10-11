@@ -10,7 +10,7 @@ import {
 import { CHARACTER_PROFILE_OPTIONS } from './characterProfiles.js';
 import { BODY_TYPE_VISIBILITY_PROFILES } from './compositionBodyVisibilityFixtures.js';
 
-const MAIN_OUTPUT_FIELDS = ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt'];
+const MAIN_OUTPUT_FIELDS = ['grokPrompt', 'zImagePrompt', ];
 const controls = getLockControls();
 const controlsByKey = new Map(controls.map((control) => [control.key, control]));
 const bodyTypeControl = controlsByKey.get('bodyTypeId');

@@ -30,7 +30,7 @@ function gptPose(prompt) {
   )?.[1] || '';
 }
 
-test('main scene integration keeps scene sources and optics while omitting style and film', () => {
+test('main scene integration keeps scene sources and optics with selected style and film', () => {
   const locks = {
     ...createAllNoneLocks(),
     framingId: optionId('framingId', '中景鏡頭 (Medium Shot)'),
@@ -47,23 +47,23 @@ test('main scene integration keeps scene sources and optics while omitting style
 
   assert.match(
     description,
-    /The setting is British vintage window-side room interior\./i
+    /British vintage window-side room interior,/i
   );
   assert.match(description, /White lace curtain and sash window, dresser mirror side table framed paintings wall clock porcelain trinkets, layered nostalgic room surfaces\./i);
   assert.match(
     description,
     /Indoor low-light warm night ambience, dim amber room brightness, cool window-side (?:rim|edge) light(?: on the subject)?/i
   );
-  assert.doesNotMatch(description, /Rinko Kawauchi|airy high-key image language/i);
+  assert.match(description, /Rinko Kawauchi|airy high-key photography/i);
   assert.match(description, /tilt-shift lens, shifted perspective control/i);
   assert.match(description, /lens-only mist-filter haze/i);
-  assert.doesNotMatch(description, /VHS|analog tape noise/i);
+  assert.match(description, /VHS[\s\S]*analog tape noise/i);
   const derived = prompt.extraPrompts.find((p) => p.id === 'chest-up-mj-portrait').text;
   assert.doesNotMatch(derived, /Rinko Kawauchi-inspired airy high-key image language/i);
   assert.doesNotMatch(derived, /VHS camcorder image degradation, analog tape noise/i);
   assert.match(derived, /tilt-shift lens, shifted perspective control/i);
   assert.match(derived, /lens-only mist-filter haze/i);
-  assert.doesNotMatch(description, /\bIn British vintage|\blit by\b|\bInspired by\b|\bshot on\b/i);
+  assert.doesNotMatch(description, /\bIn British vintage|\blit by\b|\bshot on\b/i);
 
   assert.match(prompt.zImagePrompt, /Rinko Kawauchi-inspired/i);
   assert.match(prompt.zImagePrompt, /shot on tilt-shift lens/i);

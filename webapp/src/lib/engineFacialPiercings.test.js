@@ -22,7 +22,7 @@ test('selected facial piercings survive main outputs, derivatives and resolved s
   for (const crop of ['全身鏡頭 (Full Body Shot)', '胸上特寫', '臉部特寫']) {
     const locks = { ...baseLocks(), framingId: option('framingId', crop).id };
     const [prompt] = generatePrompts(1, locks, [], { random: createSeededRandom('facial-piercing-v1') });
-    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, ...prompt.extraPrompts.map((entry) => entry.text)]) {
+    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, ...prompt.extraPrompts.map((entry) => entry.text)]) {
       assert.match(text, /silver septum ring/, crop);
       assert.match(text, /a single small silver horseshoe-shaped lip ring on her right side of the lower lip/, crop);
       assert.match(text, /two polished ball ends arranged vertically/, crop);

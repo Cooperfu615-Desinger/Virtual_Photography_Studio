@@ -233,7 +233,7 @@ test('phase 4 preserves representative content while adding only the approved AI
     assert.ok(nativeTarget, `${fixture.id}: native structure fixture`);
     assert.equal(
       hashPrompt(stripMidjourneyParameterTail(first.prompt.midjourneyPrompt)),
-      nativeTarget.expectedDescriptionHash,
+      nativeTarget.naturalDescriptionHash,
       `${fixture.id}.midjourneyPrompt: native descriptive baseline`
     );
     assert.equal(
@@ -261,7 +261,7 @@ test('phase 1 preserves source-derived positive Body Type anchors and exact cano
   const normalPrompt = generateFixture(normalFixture).prompt;
   const posePrompt = generateFixture(poseFixture).prompt;
 
-  assert.match(
+  assert.doesNotMatch(
     normalPrompt.midjourneyPrompt,
     /Curvy hourglass silhouette, fuller bust, defined waist, rounded hips/
   );

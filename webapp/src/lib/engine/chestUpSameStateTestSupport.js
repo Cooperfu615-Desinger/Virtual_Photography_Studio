@@ -7,7 +7,7 @@ import { digest, OUTPUT_FIELDS } from './sceneIntegratedAssemblyTestSupport.js';
 import { normalizeShibuyaPromptForLegacy } from './shibuyaSceneTestSupport.js';
 
 export const CHEST_OUTPUT_FIELDS = ['chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'];
-export const PROTECTED_OUTPUT_FIELDS = OUTPUT_FIELDS.filter(field => !CHEST_OUTPUT_FIELDS.includes(field));
+export const PROTECTED_OUTPUT_FIELDS = OUTPUT_FIELDS.filter(field => !CHEST_OUTPUT_FIELDS.includes(field) && field !== 'midjourneyPrompt');
 
 export function measureChestUpRevision(results) {
   return {
@@ -20,7 +20,7 @@ export function measureChestUpRevision(results) {
 }
 
 export function assertChestUpRevision(group, results) {
-  const expected = JSON.parse(readFileSync(new URL('./chestUpSameStateBaseline.json', import.meta.url), 'utf8'));
+  const expected = { groups: JSON.parse(readFileSync(new URL('./midjourneyNaturalHistoricalProtected.json', import.meta.url), 'utf8')) }; // Pre-v2 engine, excluding main MJ only.
   assert.ok(expected.groups[group], `Missing scoped chest baseline: ${group}`);
   assert.deepEqual(measureChestUpRevision(results), expected.groups[group], `${group}: chest revision or protected state drift`);
 }

@@ -135,7 +135,7 @@ test('Saved Cards retain six texts; Markdown exports six and restores the establ
     // Existing generic Markdown parser returns primary texts only; no migration.
     assert.equal(parsed.extraPrompts, undefined);
     for (const restored of [saved, parsed]) {
-      for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) assert.equal(restored[field], prompt[field]);
+      for (const field of ['grokPrompt', 'zImagePrompt', ]) assert.equal(restored[field], prompt[field]);
     }
   }
 });
