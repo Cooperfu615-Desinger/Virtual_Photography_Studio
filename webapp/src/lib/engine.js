@@ -2,6 +2,8 @@ import { MIDJOURNEY_CARD_ITEM_NAMES } from './engine/midjourneyCardItemNames.js'
 import { bottomRiseConflict, resolveBottomRiseCompatibility } from './engine/bottomRiseCompatibility.js';
 import { extractMidjourneyItemNames, midjourneyItemName, naturalIdentity, naturalSentence, naturalWardrobeSentence, renderNaturalMidjourney, uniqueNames } from './engine/midjourneyNaturalPrompt.js';
 import { midjourneyBodyDescription } from './engine/midjourneyBodyDescriptions.js';
+import { renderNanoBananaNarrative } from './engine/nanoBananaPrompt.js';
+import { nanoBananaFacialDescription } from './engine/nanoBananaFacialFeatures.js';
 import { isHeadDominantFraming, headDominantAngleAllowed, headDominantCameraText } from './engine/headDominantFraming.js';
 import { DEFAULT_KNEELING_SUPPORT_HAND_ID, isFourPointKneeling, isKneelingSupportHand, resolveKneelingSupportArrangement } from './engine/kneelingSupport.js';
 import { ACCESSORY_CATEGORIES, accessoryNoneId, isConcreteAccessory, isHeadWornAudio, blocksHeadWornAudio, splitAccessoryCatalog, migrateAccessoryLocks, normalizeAccessoryConflicts, projectAudioForFraming } from './engine/accessoryPolicy.js';
@@ -11764,6 +11766,9 @@ function buildGptSingleSpecialOutfitGroups(specialOutfitText, additionalFullText
       ? joinGptSpecialOutfitGroupFragments(hairAndBodyFragments)
       : '',
     wardrobeText: wardrobeSections.join('\n\n'),
+    // Unlabelled sources for narrative renderers; keep the GPT block unchanged.
+    fullOutfitText: joinGptSpecialOutfitGroupFragments(fullOutfitFragments),
+    headwearEyewearBagText: joinGptSpecialOutfitGroupFragments(headwearEyewearBagFragments),
   };
 }
 
@@ -12803,6 +12808,114 @@ function renderGptPrompt(promptModel, {
     section('Lighting', lightingText),
     section('Camera Look', cameraText),
   ].filter(Boolean).join('\n\n');
+}
+
+// Assemble semantic sources directly; the finished GPT/MJ strings are not inputs.
+function renderNanoBananaPrompt(promptModel, { cameraSpatial = false, sceneMirrorReflectionText = '' } = {}) {
+  const { valuesByLabel, context, character, wardrobe, wardrobeColors } = promptModel;
+  const sources = buildGptPromptSectionSources(valuesByLabel, context);
+  const slots = extractCharacterSlots(character);
+  const wardrobeSlots = extractWardrobeSlots(wardrobe);
+  const clean = cleanCharacterProfileGroupText;
+  const selectedText = item => item && !isNoneLikeItem(item) ? item.en : '';
+  const sentence = value => value ? ensureTerminalPeriod(value) : '';
+  const lead = (prefix, value) => value ? sentence(`${prefix} ${clean(value)}`) : '';
+  const join = values => values.filter(Boolean).map(value => capitalizePromptLead(value)).join(' ');
+  const compositionBase = [
+    buildGptAspectRatioPromptLine({ ...context, fixedCompositionSet: null }),
+    buildCompositionPromptLine(context),
+  ].filter(Boolean).join(', ');
+  const composition = joinCompositionPromptText(
+    cameraSpatial ? composeGptCameraSpatial(compositionBase,
+      compactCameraDescriptor(context.angle, 'angle'), context.angle,
+      getCompositionVisibilityProjection(context).bucket,
+      slots.poseComposer?.meta?.poseBaseId || '', context.framing) : compositionBase,
+    context.subject.count === 2 ? null : slots.poseComposer,
+  );
+  const subjects = [];
+  let wardrobeText = cleanGptSinglePromptText(sources.wardrobeText);
+
+  if (context.subject.count === 2) {
+    subjects.push(sentence(capitalizePromptLead(context.subject.en)));
+    const roleWardrobe = buildGptDuoFullWardrobeRoleTexts(wardrobeSlots, wardrobeColors, context);
+    for (const [role, suffix, roleNumber, roleName] of [['a', 'A', '1', 'first'], ['b', 'B', '2', 'second']]) {
+      const identity = [
+        nanoBananaFacialDescription(slots[`facialFeatures${suffix}`], selectedText(slots[`facialFeatures${suffix}`])),
+        buildRoleHasPrompt(slots[`skinDetails${suffix}`], `woman ${roleNumber}`),
+        selectedText(slots[`hairstyle${suffix}`]),
+        selectedText(slots[`hairStylingState${suffix}`]),
+        buildHairColorPrompt(slots[`hairColor${suffix}`]),
+        buildRoleHasPrompt(slots[`bodyType${suffix}`], `woman ${roleNumber}`),
+        buildHeadAccessoryPrompt(wardrobeSlots[`headAccessory${suffix}`], wardrobeColors[`headAccessory${suffix}Color`]),
+        buildRoleSubjectAccessoryPrompt(wardrobeSlots, role),
+      ].map(value => cleanGptDuoRoleSubjectPart(value || '', roleNumber)).filter(Boolean).join(', ');
+      const clothing = role === 'a' ? roleWardrobe.woman1 : roleWardrobe.woman2;
+      const appearance = lead(`The ${roleName} woman has`, identity);
+      subjects.push(join([appearance, clothing ? lead(`The ${roleName} woman wears`, clothing) : '']));
+    }
+    subjects.push(sentence(buildGptDuoSharedExpressionText(slots)));
+    wardrobeText = '';
+  } else if (isCharacterProfileSubject(context.subject)) {
+    const groups = buildCharacterCardProfileGroups(context.subject, context.locks, wardrobe);
+    const structuredFace = [groups.facialGeometry, groups.eyeSignature, groups.noseSignature, groups.mouthSignature].some(Boolean);
+    const adultIdentity = clean(groups.identityAndBody).match(/^a\s+20-year-old\s+adult\s+[^,]*?\bwoman\b/i)?.[0] || '';
+    subjects.push(join([
+      lead('The subject is', structuredFace ? adultIdentity : groups.identityAndBody),
+      lead('She has a', groups.facialGeometry),
+      lead('Her eyes are', groups.eyeSignature),
+      lead('She has a', groups.noseSignature),
+      lead('Her lips are', groups.mouthSignature),
+      lead('Her complexion shows', groups.skinSignature),
+      lead('Her makeup uses', groups.makeup),
+      lead('Her figure has', groups.body),
+      lead('Her defining features are', groups.distinctiveFeatures),
+      lead('Her hair is', groups.hair),
+      sentence(clean(buildCharacterCardHairVariantText(context.subject, context.locks))),
+      sentence(filterCompleteLookPromptForFraming(clean(groups.accessories), context)),
+      ...getStructuredValues(valuesByLabel, ['Head Accessory', 'Expression']).map(value => sentence(clean(value))),
+      sentence(clean(groups.photographicDirection)),
+    ]));
+    if (!wardrobeText) wardrobeText = filterCompleteLookPromptForFraming(groups.outfit, context);
+  } else {
+    const specialOutfit = firstStructuredValue(valuesByLabel, ['Special Outfit']);
+    const specialGroups = specialOutfit ? buildGptSingleSpecialOutfitGroups(specialOutfit,
+      getStructuredValues(valuesByLabel, ['Outerwear']), context) : null;
+    const facialSource = joinNaturalPromptValues(getStructuredValues(valuesByLabel, ['Facial Features']));
+    const facialDescription = nanoBananaFacialDescription(slots.facialFeatures, facialSource);
+    subjects.push(join([
+      lead(sources.subjectLead, cleanGptSinglePromptText(joinNaturalPromptValues(getStructuredValues(valuesByLabel,
+        ['Duo Scene Anchor', 'Subject Count', 'Reference Guidance', 'Character Identity'])))),
+      lead(facialDescription !== facialSource ? 'Her facial features include' : 'Her facial features are', facialDescription),
+      lead('Her skin shows', joinNaturalPromptValues(getStructuredValues(valuesByLabel, ['Skin Details']))),
+      lead('Her hair is', joinNaturalPromptValues(getStructuredValues(valuesByLabel, ['Hairstyle']))),
+      lead('Her hair styling has', joinNaturalPromptValues(getStructuredValues(valuesByLabel, ['Hair Styling State']))),
+      lead('Her hair color is', joinNaturalPromptValues(getStructuredValues(valuesByLabel, ['Hair Color']))),
+      lead('Her expression is', joinNaturalPromptValues(getStructuredValues(valuesByLabel, ['Expression']))),
+      lead('She wears', joinNaturalPromptValues(getStructuredValues(valuesByLabel, ['Head Accessory']))),
+      lead('She has', joinNaturalPromptValues(getStructuredValues(valuesByLabel, ['Body Type']))),
+      sentence(specialGroups?.hairAndBodyText),
+    ]));
+    if (specialGroups) wardrobeText = [specialGroups.fullOutfitText, specialGroups.headwearEyewearBagText].filter(Boolean).join(' ');
+  }
+
+  const pose = context.subject.count === 2
+    ? buildGptDuoPoseAndCompositionText(valuesByLabel, context)
+    : slots.poseComposer && !isNoneLikeItem(slots.poseComposer)
+      ? context.projectedCanonicalPoseText || ''
+      : context.compositionVisibility?.pose?.mode === 'omit' ? ''
+        : filterFaceOnlyTorsoAngleText(cleanGptSinglePromptText(joinNaturalPromptValues(
+          getStructuredValues(valuesByLabel, ['Action Pose', 'Special Action', 'Pose']))), context);
+  const scene = join([
+    sources.sceneText ? sources.sceneUsesDirectSentence ? sentence(sources.sceneText)
+      : lead('The setting is', sources.sceneText) : '',
+    sentence(sceneMirrorReflectionText),
+  ]);
+  return renderNanoBananaNarrative({
+    imageType: buildImageTypePromptLine(context) || sources.imageType,
+    composition, subjects,
+    wardrobe: wardrobeText ? lead(sources.wardrobeLead, wardrobeText.replace(/^She wears\s+/i, '')) : '',
+    pose, scene, lighting: sources.lightingText, camera: sources.cameraText,
+  });
 }
 
 const FULL_BODY_CHARACTER_IMAGE_TYPE = 'Create a photorealistic character reference portrait in a single 9:16 vertical image';
@@ -16090,6 +16203,9 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     sceneMirrorReflectionText,
   );
   const fullBodyCharacterPrompt = renderFullBodyCharacterPrompt(fullBodyCharacterPromptModel);
+  const nanoBananaPrompt = renderNanoBananaPrompt(gptPromptModel, {
+    cameraSpatial: ambientEligible, sceneMirrorReflectionText,
+  });
 
   return {
     midjourneyPrompt,
@@ -16098,6 +16214,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     chestUpPortraitPrompt,
     chestUpMjPortraitPrompt,
     fullBodyCharacterPrompt,
+    nanoBananaPrompt,
   };
 }
 
@@ -16662,6 +16779,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     chestUpPortraitPrompt,
     chestUpMjPortraitPrompt,
     fullBodyCharacterPrompt,
+    nanoBananaPrompt,
   } = buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect);
   const summaryFields = buildSummaryFields(context, wardrobe, character, wardrobeColors);
 
@@ -16673,6 +16791,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     midjourneyPrompt,
     grokPrompt,
     zImagePrompt,
+    nanoBananaPrompt,
     extraPrompts: [
       {
         preset: FIXED_FRAMING_DERIVED_PROMPT_PRESETS.chestUpPortrait,

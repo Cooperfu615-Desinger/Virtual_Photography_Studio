@@ -10,7 +10,9 @@ import { normalizeShibuyaPromptForLegacy } from './shibuyaSceneTestSupport.js';
 import { prepareImmutableRuntimeLibrary } from './runtimeCache.js';
 import { createHistoricalFixtureMemo } from './historicalFixtureMemoTestSupport.js';
 
-export const OUTPUT_FIELDS = Object.freeze(Object.keys(PROMPT_OUTPUT_CONTRACTS));
+// These immutable pre-Nano baselines own the six historical outputs. New
+// optional outputs have their own baseline, rather than rewriting old hashes.
+export const OUTPUT_FIELDS = Object.freeze(Object.keys(PROMPT_OUTPUT_CONTRACTS).filter(field => field !== 'nanoBananaPrompt'));
 
 // Freeze the pre-extension body pool for immutable legacy random/selection hashes.
 // Current behavior and the new option remain covered by live-catalog tests.

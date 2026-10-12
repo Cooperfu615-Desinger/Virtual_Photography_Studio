@@ -498,6 +498,14 @@ export function validateOutputContracts(prompt) {
   const subjectCount = String(prompt?.selection?.subjectCount || '');
   const mode = subjectCount === '2' ? 'duo' : 'single';
 
+  // The optional new field does not change audit semantics for legacy records.
+  if (typeof prompt?.nanoBananaPrompt === 'string') {
+    for (const contractIssue of validatePromptOutputContract('nanoBananaPrompt', prompt.nanoBananaPrompt, { mode })) {
+      issues.push({ output: 'Nano Banana 2.1', ...contractIssue,
+        category: contractIssue.code === 'control-leakage' ? 'control-leakage' : 'contract' });
+    }
+  }
+
   for (const output of Object.values(outputs)) {
     for (const contractIssue of validatePromptOutputContract(output.field, output.text, { mode })) {
       issues.push({

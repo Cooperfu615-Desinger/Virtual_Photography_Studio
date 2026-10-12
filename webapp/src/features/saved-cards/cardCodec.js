@@ -96,6 +96,7 @@ export function buildMarkdownExport(data) {
     { label: labels.midjourney, text: data.midjourneyPrompt },
     { label: labels.grok, text: data.grokPrompt },
     { label: labels.zImage, text: data.zImagePrompt },
+    ...(data.nanoBananaPrompt?.trim() ? [{ label: 'Nano Banana 2.1', text: data.nanoBananaPrompt }] : []),
     ...extraPromptEntries,
   ].filter((entry) => entry.text);
 
@@ -543,6 +544,7 @@ export function parseExportedMarkdownPrompt(markdownText, controls, fallbackId) 
   const midjourneyMatch = text.match(/## (?:AI Prompt|Midjourney Prompt)\n```text\n([\s\S]*?)\n```/);
   const grokMatch = text.match(/## (?:Gpt|Grok Structured Prompt)\n```text\n([\s\S]*?)\n```/);
   const zImageMatch = text.match(/## (?:Grok\/Z-Image|Z-Image(?: Prompt)?)\n```text\n([\s\S]*?)\n```/);
+  const nanoBananaMatch = text.match(/## Nano Banana 2\.1\n```text\n([\s\S]*?)\n```/);
   if (!summaryMatch || !midjourneyMatch || !grokMatch) {
     throw new Error('missing required markdown sections');
   }
@@ -580,6 +582,7 @@ export function parseExportedMarkdownPrompt(markdownText, controls, fallbackId) 
     midjourneyPrompt,
     grokPrompt,
     zImagePrompt,
+    ...(nanoBananaMatch ? { nanoBananaPrompt: nanoBananaMatch[1] } : {}),
     selection,
     structured: buildImportedStructured(selection, controls),
   };
@@ -625,6 +628,7 @@ export function sanitizeStoredPrompt(prompt, controls = getLockControls()) {
     midjourneyPrompt: String(prompt.midjourneyPrompt || ''),
     grokPrompt: String(prompt.grokPrompt || ''),
     zImagePrompt: String(prompt.zImagePrompt || ''),
+    ...(typeof prompt.nanoBananaPrompt === 'string' ? { nanoBananaPrompt: prompt.nanoBananaPrompt } : {}),
     extraPrompts: Array.isArray(prompt.extraPrompts)
       ? prompt.extraPrompts
         .filter((entry) => entry?.id && entry?.label && entry?.text)
@@ -666,6 +670,7 @@ export function serializeFavoritePrompt(prompt) {
     m: sanitized.midjourneyPrompt,
     g: sanitized.grokPrompt,
     z: sanitized.zImagePrompt,
+    ...(sanitized.nanoBananaPrompt !== undefined ? { nb: sanitized.nanoBananaPrompt } : {}),
     e: sanitized.extraPrompts,
     y: sanitized.promptLabels,
     l: compactPromptSelection(sanitized.selection),
@@ -693,6 +698,7 @@ export function deserializeFavoritePrompt(record) {
       midjourneyPrompt: record.m,
       grokPrompt: record.g,
       zImagePrompt: record.z,
+      ...(typeof record.nb === 'string' ? { nanoBananaPrompt: record.nb } : {}),
       extraPrompts: record.e,
       promptLabels: record.y,
       selection: record.l,

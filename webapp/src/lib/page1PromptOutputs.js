@@ -22,6 +22,20 @@ const PRIMARY_PROMPT_OUTPUTS = Object.freeze([
   }),
 ]);
 
+const NANO_BANANA_PROMPT_OUTPUT = Object.freeze({
+  id: 'nano-banana-2.1',
+  title: 'Nano Banana 2.1',
+  field: 'nanoBananaPrompt',
+  placeholder: '目前尚無可顯示的 Nano Banana 2.1 prompt。',
+  copyLabel: 'Nano Banana 2.1 copied',
+});
+
+function readPrimaryOutputs(previewPrompt) {
+  return previewPrompt?.nanoBananaPrompt?.trim()
+    ? [...PRIMARY_PROMPT_OUTPUTS, NANO_BANANA_PROMPT_OUTPUT]
+    : PRIMARY_PROMPT_OUTPUTS;
+}
+
 const FIXED_FRAMING_PROMPT_OUTPUTS = Object.freeze([
   Object.freeze({
     id: 'chest-up-portrait',
@@ -58,7 +72,7 @@ function readFixedFramingOutputs(previewPrompt) {
 }
 
 export function buildPage1GenerationPromptCards(previewPrompt) {
-  const primaryCards = PRIMARY_PROMPT_OUTPUTS.map((output) => ({
+  const primaryCards = readPrimaryOutputs(previewPrompt).map((output) => ({
     id: output.id,
     title: output.title,
     value: previewPrompt?.[output.field] || '',
@@ -77,7 +91,7 @@ export function buildPage1GenerationPromptCards(previewPrompt) {
 }
 
 export function buildPage1DllPromptSources(previewPrompt) {
-  const primarySources = PRIMARY_PROMPT_OUTPUTS.map((output) => ({
+  const primarySources = readPrimaryOutputs(previewPrompt).map((output) => ({
     id: output.id,
     label: output.title,
     value: previewPrompt?.[output.field] || '',

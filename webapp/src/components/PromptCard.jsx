@@ -26,6 +26,9 @@ function getPromptEntries(data, labels) {
     { key: 'grok', label: labels.grok, text: data.grokPrompt },
     { key: 'midjourney', label: labels.midjourney, text: data.midjourneyPrompt },
     { key: 'zImage', label: labels.zImage, text: data.zImagePrompt },
+    ...(data.nanoBananaPrompt?.trim()
+      ? [{ key: 'nano-banana-2.1', label: 'Nano Banana 2.1', text: data.nanoBananaPrompt }]
+      : []),
   ];
   const extraEntries = Array.isArray(data.extraPrompts)
     ? data.extraPrompts.map((entry) => ({

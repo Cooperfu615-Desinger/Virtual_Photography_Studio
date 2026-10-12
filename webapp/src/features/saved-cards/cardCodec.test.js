@@ -15,7 +15,75 @@ import {
   parseExportedMarkdownPrompt,
   parseLocksFromStandardPrompt,
   serializeFavoritePrompt,
+  sanitizeStoredPrompt,
+  FAVORITES_STORAGE_VERSION,
 } from './cardCodec.js';
+
+test('Nano Banana optional text round-trips through raw and compact saved records without a storage version change', () => {
+  const nanoBananaPrompt = '  Create a photograph.\n\nRetain the same adult identity.  ';
+  const prompt = {
+    id: 'banana-codec', date: '2026-10-12T00:00:00.000Z', summary: 'Nano Banana test',
+    midjourneyPrompt: 'original MJ', grokPrompt: 'original GPT', zImagePrompt: 'original Z',
+    nanoBananaPrompt,
+    extraPrompts: [{ id: 'chest-up-portrait', label: '胸上特寫照', text: 'original chest' }],
+    selection: { ...createEmptyLocks(), subjectCount: '1' },
+  };
+  prompt.lineage = createLineage(prompt);
+  const sanitized = sanitizeStoredPrompt(prompt);
+  const compact = serializeFavoritePrompt(prompt);
+  const restored = deserializeFavoritePrompt(JSON.parse(JSON.stringify(compact)));
+
+  assert.equal(FAVORITES_STORAGE_VERSION, 3);
+  assert.equal(compact.v, 3);
+  assert.equal(compact.nb, nanoBananaPrompt);
+  assert.deepEqual(compact.n, prompt.lineage);
+  assert.equal(sanitized.nanoBananaPrompt, nanoBananaPrompt);
+  assert.equal(deserializeFavoritePrompt(prompt).nanoBananaPrompt, nanoBananaPrompt);
+  assert.equal(restored.nanoBananaPrompt, nanoBananaPrompt);
+  for (const field of ['midjourneyPrompt', 'grokPrompt', 'zImagePrompt']) assert.equal(restored[field], prompt[field]);
+  assert.deepEqual(restored.extraPrompts, prompt.extraPrompts);
+  assert.deepEqual(restored.selection, sanitized.selection);
+});
+
+test('legacy saved records stay without a Nano Banana field and preserve old prompt bytes', () => {
+  const prompt = {
+    id: 'legacy-banana-absent', date: '2026-10-12T00:00:00.000Z',
+    midjourneyPrompt: '  original MJ  ', grokPrompt: 'original GPT\n', zImagePrompt: 'original Z',
+  };
+  const compact = serializeFavoritePrompt(prompt);
+  assert.equal('nb' in compact, false);
+  for (const record of [prompt, compact, { ...compact, v: 2 }, { ...compact, v: 4 }]) {
+    const restored = deserializeFavoritePrompt(record);
+    assert.equal('nanoBananaPrompt' in restored, false);
+    assert.equal(restored.midjourneyPrompt, prompt.midjourneyPrompt);
+    assert.equal(restored.grokPrompt, prompt.grokPrompt);
+    assert.equal(restored.zImagePrompt, prompt.zImagePrompt);
+  }
+});
+
+test('Markdown export and import preserve optional Nano Banana text separately from recoverable legacy selections', () => {
+  const controls = getLockControls();
+  const top = controls.find(({ key }) => key === 'topId').options.find(({ zh }) => zh === '棉質細肩背心');
+  const prompt = {
+    id: 'banana-markdown', date: '2026-10-12T00:00:00.000Z', summary: 'Nano Banana export',
+    midjourneyPrompt: 'original MJ', grokPrompt: top.en, zImagePrompt: 'original Z',
+    nanoBananaPrompt: '  Make the chosen scene.\n\nA natural adult portrait.  ',
+    selection: { ...createEmptyLocks(), topId: top.id },
+  };
+  const markdown = buildMarkdownExport(prompt);
+  assert.ok(markdown.includes('## Nano Banana 2.1\n```text\n'));
+  const imported = parseExportedMarkdownPrompt(markdown, controls, 'banana-import');
+  assert.equal(imported.nanoBananaPrompt, prompt.nanoBananaPrompt);
+  assert.equal(imported.selection.topId, top.id);
+  assert.equal(imported.midjourneyPrompt, prompt.midjourneyPrompt);
+  assert.equal(imported.grokPrompt, prompt.grokPrompt);
+  assert.equal(imported.zImagePrompt, prompt.zImagePrompt);
+
+  const { nanoBananaPrompt: _nanoBananaPrompt, ...legacy } = prompt;
+  const legacyMarkdown = buildMarkdownExport(legacy);
+  assert.equal(legacyMarkdown.includes('## Nano Banana'), false);
+  assert.equal('nanoBananaPrompt' in parseExportedMarkdownPrompt(legacyMarkdown, controls, 'legacy-import'), false);
+});
 
 test('Markdown import accepts historical and current Z-Image section headings', () => {
   const controls = getLockControls();

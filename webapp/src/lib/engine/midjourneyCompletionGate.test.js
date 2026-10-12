@@ -172,12 +172,28 @@ test('phase 6 keeps PAGE1 cards and DLL sources byte-identical to engine outputs
     const { mode, prompt } = generateFixture(parameterFixture);
     const cards = buildPage1GenerationPromptCards(prompt);
     const sources = buildPage1DllPromptSources(prompt);
+    const primaryIds = [...Object.keys(primaryPromptFields), 'nano-banana-2.1'];
     const expectedIds = mode === 'single'
-      ? [...Object.keys(primaryPromptFields), ...Object.keys(extraPromptFields)]
-      : Object.keys(primaryPromptFields);
+      ? [...primaryIds, ...Object.keys(extraPromptFields)]
+      : primaryIds;
 
     assert.deepEqual(cards.map((entry) => entry.id), expectedIds, `${parameterFixture.id}: card order`);
     assert.deepEqual(sources.map((entry) => entry.id), expectedIds, `${parameterFixture.id}: DLL order`);
+
+    const legacyPrompt = { ...prompt };
+    delete legacyPrompt.nanoBananaPrompt;
+    assert.deepEqual(
+      cards.filter(({ id }) => id !== 'nano-banana-2.1'),
+      buildPage1GenerationPromptCards(legacyPrompt),
+      `${parameterFixture.id}: legacy cards remain identical`,
+    );
+    assert.deepEqual(
+      sources.filter(({ id }) => id !== 'nano-banana-2.1'),
+      buildPage1DllPromptSources(legacyPrompt),
+      `${parameterFixture.id}: legacy sources remain identical`,
+    );
+    assert.equal(cards.find(({ id }) => id === 'nano-banana-2.1')?.value, prompt.nanoBananaPrompt);
+    assert.equal(sources.find(({ id }) => id === 'nano-banana-2.1')?.value, prompt.nanoBananaPrompt);
 
     for (const [id, field] of Object.entries(primaryPromptFields)) {
       assert.equal(

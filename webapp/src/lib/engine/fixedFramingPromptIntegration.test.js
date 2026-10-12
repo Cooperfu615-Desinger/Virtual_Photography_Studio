@@ -35,6 +35,29 @@ const SIX_OUTPUT_IDS = [
   'chest-up-mj-portrait',
   'full-body-character',
 ];
+const NANO_BANANA_OUTPUT_ID = 'nano-banana-2.1';
+
+function assertConsumerOutputs(prompt, label) {
+  const expectedLegacyIds = prompt.extraPrompts.length ? SIX_OUTPUT_IDS : SIX_OUTPUT_IDS.slice(0, 3);
+  const expectedIds = [
+    ...expectedLegacyIds.slice(0, 3), NANO_BANANA_OUTPUT_ID, ...expectedLegacyIds.slice(3),
+  ];
+  const legacyPrompt = { ...prompt };
+  delete legacyPrompt.nanoBananaPrompt;
+  const cards = buildPage1GenerationPromptCards(prompt);
+  const sources = buildPage1DllPromptSources(prompt);
+  const legacyCards = buildPage1GenerationPromptCards(legacyPrompt);
+  const legacySources = buildPage1DllPromptSources(legacyPrompt);
+
+  assert.deepEqual(cards.map(({ id }) => id), expectedIds, `${label}: PAGE1 cards`);
+  assert.deepEqual(sources.map(({ id }) => id), expectedIds, `${label}: DLL sources`);
+  assert.deepEqual(legacyCards.map(({ id }) => id), expectedLegacyIds, `${label}: legacy PAGE1 cards`);
+  assert.deepEqual(legacySources.map(({ id }) => id), expectedLegacyIds, `${label}: legacy DLL sources`);
+  assert.deepEqual(cards.filter(({ id }) => id !== NANO_BANANA_OUTPUT_ID), legacyCards, `${label}: preserved cards`);
+  assert.deepEqual(sources.filter(({ id }) => id !== NANO_BANANA_OUTPUT_ID), legacySources, `${label}: preserved sources`);
+  assert.equal(cards.find(({ id }) => id === NANO_BANANA_OUTPUT_ID)?.value, prompt.nanoBananaPrompt);
+  assert.equal(sources.find(({ id }) => id === NANO_BANANA_OUTPUT_ID)?.value, prompt.nanoBananaPrompt);
+}
 
 function optionId(key, zh) {
   const option = controlsByKey.get(key)?.options?.find((entry) => entry.zh === zh);
@@ -115,16 +138,7 @@ test('phase-6 current main framings preserve one resolved source across all six 
       assert.equal(prompt.selection[key], locks[key], `${fixture.id}: ${key} selection`);
     }
     assertAllOutputContracts(prompt, 'single');
-    assert.deepEqual(
-      buildPage1GenerationPromptCards(prompt).map((entry) => entry.id),
-      SIX_OUTPUT_IDS,
-      `${fixture.id}: PAGE1 cards`,
-    );
-    assert.deepEqual(
-      buildPage1DllPromptSources(prompt).map((entry) => entry.id),
-      SIX_OUTPUT_IDS,
-      `${fixture.id}: DLL sources`,
-    );
+    assertConsumerOutputs(prompt, fixture.id);
 
     for (const field of PRIMARY_FIELDS) {
       const primaryIncludes = field === 'midjourneyPrompt'
@@ -160,7 +174,7 @@ test('phase-6 every retired framing remains restorable and contract-valid withou
     assert.ok(restored, `${fixture.framingZh}: restore-only option`);
     assert.equal(restored.disabled, true, `${fixture.framingZh}: disabled`);
     assert.equal(prompt.selection.framingId, framingId, `${fixture.framingZh}: generated selection`);
-    assert.deepEqual(buildPage1GenerationPromptCards(prompt).map((entry) => entry.id), SIX_OUTPUT_IDS);
+    assertConsumerOutputs(prompt, fixture.framingZh);
     assertAllOutputContracts(prompt, 'single');
   }
 });
@@ -206,7 +220,7 @@ test('phase-6 fixed-composition and duo boundaries remain independent from singl
   });
 
   assert.equal(fixedPrompt.selection.framingId, fixedLocks.framingId);
-  assert.deepEqual(buildPage1GenerationPromptCards(fixedPrompt).map((entry) => entry.id), SIX_OUTPUT_IDS);
+  assertConsumerOutputs(fixedPrompt, 'fixed composition');
   assertAllOutputContracts(fixedPrompt, 'single');
 
   const duoLocks = createAllNoneLocks('2');
@@ -218,9 +232,6 @@ test('phase-6 fixed-composition and duo boundaries remain independent from singl
   });
 
   assert.deepEqual(duoPrompt.extraPrompts, []);
-  assert.deepEqual(
-    buildPage1GenerationPromptCards(duoPrompt).map((entry) => entry.id),
-    ['gpt', 'grok', 'ai'],
-  );
+  assertConsumerOutputs(duoPrompt, 'duo');
   assertAllOutputContracts(duoPrompt, 'duo');
 });

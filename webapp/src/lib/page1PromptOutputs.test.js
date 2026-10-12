@@ -20,8 +20,13 @@ function generatePrompt(subjectCount) {
   })[0];
 }
 
+function legacyPrompt(subjectCount) {
+  const { nanoBananaPrompt: _nanoBananaPrompt, ...prompt } = generatePrompt(subjectCount);
+  return prompt;
+}
+
 test('PAGE1 single output consumers expose three primary and three fixed-framing prompts in one order', () => {
-  const prompt = generatePrompt('1');
+  const prompt = legacyPrompt('1');
   const cards = buildPage1GenerationPromptCards(prompt);
   const dllSources = buildPage1DllPromptSources(prompt);
 
@@ -60,7 +65,7 @@ test('PAGE1 single output consumers expose three primary and three fixed-framing
 });
 
 test('PAGE1 duo output consumers omit every single-subject fixed-framing prompt', () => {
-  const prompt = generatePrompt('2');
+  const prompt = legacyPrompt('2');
 
   assert.deepEqual(prompt.extraPrompts, []);
   assert.deepEqual(
@@ -72,4 +77,42 @@ test('PAGE1 duo output consumers omit every single-subject fixed-framing prompt'
     buildPage1DllPromptSources(prompt).map((entry) => entry.id),
     ['gpt', 'grok', 'ai'],
   );
+});
+
+test('Nano Banana output adds one exact main source before fixed-framing extras without changing legacy sources', () => {
+  const original = legacyPrompt('1');
+  const nanoBananaPrompt = '  Create a natural photograph.\n\nKeep the resolved pose and outfit.  ';
+  const prompt = { ...original, nanoBananaPrompt };
+  const cards = buildPage1GenerationPromptCards(prompt);
+  const sources = buildPage1DllPromptSources(prompt);
+  const withoutBanana = (entries) => entries.filter(({ id }) => id !== 'nano-banana-2.1');
+
+  assert.deepEqual(cards.map(({ id }) => id), [
+    'gpt', 'grok', 'ai', 'nano-banana-2.1',
+    'chest-up-portrait', 'chest-up-mj-portrait', 'full-body-character',
+  ]);
+  assert.deepEqual(sources.map(({ id }) => id), cards.map(({ id }) => id));
+  assert.deepEqual(withoutBanana(cards), buildPage1GenerationPromptCards(original));
+  assert.deepEqual(withoutBanana(sources), buildPage1DllPromptSources(original));
+  assert.equal(cards[3].title, 'Nano Banana 2.1');
+  assert.equal(cards[3].value, nanoBananaPrompt);
+  assert.equal(sources[3].label, 'Nano Banana 2.1');
+  assert.equal(sources[3].value, nanoBananaPrompt);
+  assert.equal('aspectRatio' in sources[3], false);
+  assert.equal('lockAspectRatio' in sources[3], false);
+  assert.deepEqual(prompt.extraPrompts, original.extraPrompts);
+});
+
+test('Nano Banana output is optional for legacy, blank and duo records', () => {
+  const single = legacyPrompt('1');
+  for (const nanoBananaPrompt of [undefined, '', '  \n ']) {
+    const prompt = { ...single, nanoBananaPrompt };
+    assert.deepEqual(buildPage1GenerationPromptCards(prompt), buildPage1GenerationPromptCards(single));
+    assert.deepEqual(buildPage1DllPromptSources(prompt), buildPage1DllPromptSources(single));
+  }
+
+  const duo = { ...legacyPrompt('2'), nanoBananaPrompt: 'Two adults in one shared scene.' };
+  assert.deepEqual(buildPage1GenerationPromptCards(duo).map(({ id }) => id), ['gpt', 'grok', 'ai', 'nano-banana-2.1']);
+  assert.deepEqual(buildPage1DllPromptSources(duo).map(({ id }) => id), ['gpt', 'grok', 'ai', 'nano-banana-2.1']);
+  assert.deepEqual(duo.extraPrompts, []);
 });

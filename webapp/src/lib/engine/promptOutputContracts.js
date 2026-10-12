@@ -80,7 +80,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.54.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.55.0';
 
 export const BLACK_TIE_SHIRT_CONTRACT = deepFreeze({
   scope: 'existing independent collared tie shirt only; catalog identity and selection unchanged',
@@ -513,6 +513,27 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
     controlLeakage: {
       forbiddenCaseInsensitive: COMMON_CONTROL_LEAKAGE,
     },
+  },
+  nanoBananaPrompt: {
+    field: 'nanoBananaPrompt',
+    uiLabel: 'Nano Banana 2.1',
+    target: 'Gemini Nano Banana 2.1 natural-language image prompt',
+    source: { kind: 'field', key: 'nanoBananaPrompt' },
+    applicability: { supportedModes: ['single', 'duo'], unsupportedBehavior: 'absent' },
+    language: { primary: 'en', forbiddenUnicodeBlocks: [CJK_UNIFIED_IDEOGRAPHS] },
+    shape: {
+      paragraphSeparator: 'blank-line', minimumParagraphs: 2,
+      modes: Object.fromEntries(['single', 'duo'].map(mode => [mode, {
+        requiredPrefix: 'Create ', requiredLabels: [], optionalLabels: [],
+        forbiddenLabels: [...GPT_SINGLE_LABELS, 'Woman 1', 'Woman 2', 'Constraints',
+          'Facial geometry', 'Eye signature', 'Nose signature', 'Mouth signature', 'Permanent identity anchors'],
+        orderedLabels: [],
+      }])),
+    },
+    tail: { requiredExactLine: '', forbiddenSubstrings: ['--ar ', '--v ', '--s ', '--raw', '--stylize ', 'multi-cut sequence n=2'] },
+    controlLeakage: { forbiddenCaseInsensitive: [...COMMON_CONTROL_LEAKAGE,
+      'permanent identity anchors:', 'signature outfit locked as', 'selected character-card outfit layer:',
+      'Full outfit:', 'Headwear, eyewear, and bag:', 'She wears She wears'] },
   },
 });
 
