@@ -1,0 +1,22 @@
+## characterCardLab: 卡數 33；圖層鍵 12；髮型變體 11
+- 每卡預設穿搭圖層數: min 2 / max 7；無圖層卡: 無
+- 圖層文字不是 profile.outfit/accessories 子字串 (雙來源漂移候選): 16 筆
+  - 12_Sakura.top: "oversized ivory-white fleece pullover hoodie with dropped shoulders, l"
+  - 02_Yuri.top: "white ribbed off-shoulder cropped long-sleeve top with exposed shoulde"
+  - 26_Yuna.shoes: "white crew socks and clean white low-top sneakers"
+  - 01_Rei.outerwear: "open black zip hoodie with relaxed sleeves"
+  - 09_Amy.top: "oversized vivid red pullover hoodie with a front kangaroo pocket and m"
+  - 09_Amy.shoes: "glossy red lace-up combat boots with black soles"
+  - 13_Yui.shoes: "bare feet as the locked footwear state"
+  - 14_Nana.shoes: "navy ankle socks and brown leather loafers"
+  - 19_Minji.top: "loose slate-blue camisole tank with thin straps"
+  - 20_Manami.outerwear: "long white faux-fur coat worn open"
+  - 25_Grace.shoes: "bare feet as the locked footwear state"
+  - 30_Kaori.outerwear: "black leather biker jacket with silver hardware"
+  - 30_Kaori.neckAccessory: "black studded choker and layered silver chain necklaces"
+  - 30_Kaori.ring: "stacked silver rings"
+  - 36_Miku.shoes: "navy ankle socks and black leather penny loafers"
+- 每卡可用髮型變體 (不含 default): 48_G:5, 38_Rin:5, 37_Hina:5, 13_Yui:5, 14_Nana:5, 18_Natsuki:5, 19_Minji:5, 20_Manami:5, 06_Hinata:6, 30_Kaori:6, 32_Soyeon:6, 34_Seulgi:6, 29_Philippa:7, 12_Sakura:7, 11_Rika:7, 07_Lily:7, 02_Yuri:7, 03_Sui:7, 26_Yuna:7, 41_Eleanor:7, 22_Olivia:7, 08_Jiwoo:7, 05_Chihiro:7, 04_Koto:7, 00_Mei:7, 01_Rei:7, 09_Amy:7, 10_Ji-Yoo:7, 15_Emily:7, 16_Shiori:7, 25_Grace:7, 33_Bora:7, 36_Miku:7
+- 無 hairTags 的卡: 無
+- hairTags 與 hair 文字矛盾候選: 無
+- CHARACTER_CARD_EXTENSIONS 條目: 33；缺 extension 的卡: 無

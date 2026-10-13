@@ -1,0 +1,10 @@
+import { createEmptyLocks, getLockControls, getSceneDependentOptions } from '/private/tmp/claude-501/-Users-cooperfu-Projects-Virtual-Photography-Studio/80d8f708-6d6d-4e28-951d-26f07f8bdfff/scratchpad/verify/old/webapp/src/lib/engine.js';
+const locs = getLockControls().find(c=>c.key==='locationId').options;
+console.log('loc option keys', Object.keys(locs[1]), 'meta?', JSON.stringify(locs[1].meta||null).slice(0,200));
+const lightCount = id => getSceneDependentOptions([], { ...createEmptyLocks(), locationId:id }).lightingOptions;
+const counts = locs.filter(l=>!/全無/.test(l.zh)).map(l=>{ const lo=lightCount(l.id); return {zh:l.zh, n: lo.length-1, tags:(l.meta?.tags||[]).join(','), sub:/地下/.test(l.zh+l.en+(l.desc||'')), mall:/mall/i.test(l.en+(l.desc||''))}; });
+const london = counts.filter(c=>/倫敦/.test(c.zh)); console.log('LONDON', london);
+const london2 = locs.filter(l=>/倫敦/.test(l.zh)).map(l=>({zh:l.zh, en:l.en, desc:l.desc}));
+console.log(JSON.stringify(london2,null,1).slice(0,2500));
+console.log('lighting option distribution (min..)', counts.map(c=>c.n).sort((a,b)=>a-b).slice(0,15), 'median', counts.map(c=>c.n).sort((a,b)=>a-b)[Math.floor(counts.length/2)]);
+console.log('total lighting', getSceneDependentOptions([], createEmptyLocks()).lightingOptions.length-1);

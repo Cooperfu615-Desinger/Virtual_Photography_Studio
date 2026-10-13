@@ -1,0 +1,12 @@
+const E = await import('/private/tmp/claude-501/-Users-cooperfu-Projects-Virtual-Photography-Studio/80d8f708-6d6d-4e28-951d-26f07f8bdfff/scratchpad/verify/old/webapp/src/lib/engine.js');
+const ctl = k => E.getLockControls().find(c=>c.key===k);
+const loc = ctl('locationId').options[5];
+const shifted = loc.id.replace(/:(\d+)$/, (_,n)=>':'+(Number(n)+1)+'X');
+const bogus = loc.id.replace(/:(\d+)$/, (_,n)=>':'+(Number(n)+40));
+let warned=false; const ow=console.warn; console.warn=()=>{warned=true};
+const r1 = E.normalizeLocks({ locationId: bogus });
+const r2 = E.normalizeLocks({ locationId: loc.id });
+console.warn=ow;
+console.log('orig', loc.id, '\nbogus ->', r1.locationId, '\nvalid ->', r2.locationId, '\nwarned:', warned);
+const top = ctl('topId').options[3]; const renamed = top.id.replace(/:[^:]+:(\d+)$/, ':renamed-label:$1');
+console.log('renamed-label same index', renamed, '->', E.normalizeLocks({ topId: renamed }).topId);
