@@ -2,10 +2,11 @@ export const PAGE1_POSE_SUBPANELS = [
   {
     id: 'single',
     label: '單人設置',
-    description: '設定單人表情，並用 Pose Composer 分開組合姿勢基底、主要躺姿、肢體變化、手部動作、獨立道具動作、頭部方向與接觸支撐。表情不指定視線方向；道具預設全無，不會跟著這一區的全部隨機啟用。',
+    description: '設定單人表情與姿勢基底，可選指定動作或自由組合肢體、手部、道具及接觸支撐。指定動作保留表情與頭部方向，取消後恢復原選值；道具不會跟著這一區的全部隨機啟用。',
     keys: [
       'expressionId',
       'poseBaseId',
+      'specifiedActionId',
       'poseOrientationId',
       'poseArrangementId',
       'poseHandId',

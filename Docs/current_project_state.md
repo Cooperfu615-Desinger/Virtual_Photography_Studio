@@ -2,7 +2,16 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-11
+Last updated: 2026-10-13
+
+## 指定動作：第一批八項與圖片選取 (local, 2026-10-13)
+
+- 使用者核准的三坐／三跪／兩躺動作已本機實作；PAGE1「B 神情姿態」在姿勢基底後提供按圖選取，每項含參考縮圖及完整中文描述。全數由地面承托，不帶家具或道具；站／蹲尚無第一批候選，不加入隨機池。資料單一來源為 `webapp/src/lib/engine/specifiedActions.js`，規格見 [指定動作 v1](specs/specified-actions-v1.md)，Public output contract `1.56.0`。
+- 動作接管主要躺姿、肢體、手部、道具與接觸／支撐；表情和頭部保持獨立。原自由組合選值保存在 raw locks／Saved Cards，取消恢復；姿勢基底或雙人切換清除指定動作，固定場景人物位置／有效姿勢卡優先暫停。預覽重抽保留，姿勢區／全域批次隨機退出指定動作並遵循既有道具保留範圍。
+- 第 8「仰躺屈腿交疊・雙臂沿身側」接管地面與場景，光線仍可調整；場景 snapshot 僅保存白名單純量欄位，重新載入／收藏還原後取消仍可恢復。較高優先權接管者解除後不會因取消動作復活已清除的固定場景。四主輸出與兩胸上共用同一解析動作；上身裁切保留姿態，第 8 保留最短地面身份；全身角色照維持自然站姿及 9:16。
+- 驗證：新增動作專項 30/30、完整前端 1576/1576、Prompt Quality 713/713、lint／build、sync check、Python 2/2、207 個公開資產與 diff-check 通過。104 組既有代表案例的四主輸出與衍生輸出逐字相同；同 seed `200 / prompt-quality-baseline` strict audit 前後報告相同，0 blockers／22 既有 diagnostics。Vite 既有大型 chunk 提示保留。
+- 隔離 Chromium 於 1440×1000／390×900 檢查八動作、停用／取消、表情／頭部、場景重載與收藏還原、重抽／批次隨機及六現用工作區；另驗證 390×640 內容捲動、639／641 圖卡斷點、Tab／Shift+Tab／Enter／Escape、描述剪貼簿逐字比對與固定場景解除後取消。共 38 項檢查通過，無 console error／page error、破圖或 document 橫向溢位；手機圖片伸長已修正並確認正方形比例。截圖與記錄見規格最末完成紀錄。
+- 使用者已驗收本機操作，於 2026-10-13 授權本批 commit／push。提交推送至 `codex/specified-actions-v1`，Git 交付以遠端 SHA 核對為準；因 `main` 推送會自動發布 Pages，本批不合併至 main、不部署。原有不相關文件變更與未追蹤參考資料保留；未送出外部圖像生成，實際模型的姿勢精準度由後續圖片驗收確認。
 
 ## 主 Midjourney 自然精簡 (2026-10-11)
 

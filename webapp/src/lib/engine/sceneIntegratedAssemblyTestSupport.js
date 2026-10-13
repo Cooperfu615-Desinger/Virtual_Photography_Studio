@@ -92,7 +92,9 @@ export function runSceneFixture(fixture, customLibrary = []) {
   // Historical scene baselines predate these opt-in controls. Ignore only their
   // empty/none defaults; a concrete selection must remain observable.
   const legacySelection = (selection) => Object.fromEntries(Object.entries(selection).filter(([key, value]) => (
-    (/^(headphones|faceCovering)[AB]?(Color)?Id$/.test(key)
+    (key === 'specifiedActionId' ? Boolean(value && value !== 'none')
+      : key === 'specifiedActionSceneRestore' ? Boolean(value)
+      : /^(headphones|faceCovering)[AB]?(Color)?Id$/.test(key)
       ? Boolean(value && value !== 'none' && !String(value).endsWith(':none'))
       : !['nosePiercingId', 'lipPiercingId'].includes(key) || (value && !String(value).endsWith(':全無:0')))
   )));

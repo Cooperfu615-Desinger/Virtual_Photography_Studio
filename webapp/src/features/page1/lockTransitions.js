@@ -9,7 +9,11 @@ import {
 } from './page1Schema.js';
 import { isNoneSelected } from './page1Selectors.js';
 import { reconcilePage1SingleWardrobeLocks } from './page1WardrobeExclusivity.js';
-import { applySupineSceneOverride } from '../../lib/engine/poseScenePolicy.js';
+import {
+  applySupineSceneOverride,
+  reconcileSpecifiedActionSceneRestore,
+} from '../../lib/engine/poseScenePolicy.js';
+import { getSpecifiedAction } from '../../lib/engine/specifiedActions.js';
 
 const OUTFIT_PRESET_COLOR_ALIAS_PAIRS = Object.freeze([
   ['outfitPresetColorId', 'outfitPresetPrimaryColorId'],
@@ -44,18 +48,37 @@ export function transitionPage1Locks({
   activeLibrary = [],
   restoringSelection = false,
 }) {
+  let reconciledCandidate = synchronizeChangedOutfitPresetColorAliases(previousLocks, candidateLocks);
+  if (!restoringSelection && reconciledCandidate.poseBaseId !== previousLocks.poseBaseId
+    && reconciledCandidate.specifiedActionId === previousLocks.specifiedActionId) {
+    reconciledCandidate.specifiedActionId = 'none';
+  }
+  if (reconciledCandidate.subjectCount !== '1') reconciledCandidate.specifiedActionId = 'none';
+  reconciledCandidate = reconcileSpecifiedActionSceneRestore(previousLocks, reconciledCandidate, { restoringSelection });
+  const hasStoredAction = Boolean(getSpecifiedAction(reconciledCandidate, { ignoreOwners: true }));
+  const hadStoredAction = Boolean(getSpecifiedAction(previousLocks, { ignoreOwners: true }));
+  const exitingStoredAction = hadStoredAction && !hasStoredAction
+    && reconciledCandidate.subjectCount === '1'
+    && reconciledCandidate.poseBaseId === previousLocks.poseBaseId;
   let next = sanitizeLocksForCloseupMode(
-    restoringSelection
-      ? synchronizeChangedOutfitPresetColorAliases(previousLocks, candidateLocks)
-      : reconcileKneelingSupportLocks(previousLocks, synchronizeChangedOutfitPresetColorAliases(previousLocks, candidateLocks)),
+    restoringSelection || hasStoredAction || exitingStoredAction
+      ? reconciledCandidate
+      : reconcileKneelingSupportLocks(previousLocks, reconciledCandidate),
     lockControls,
   );
+  if (exitingStoredAction && !restoringSelection) {
+    ['poseOrientationId', 'poseArrangementId', 'poseHandId', 'posePropId', 'poseAnchorId'].forEach(key => {
+      next[key] = reconciledCandidate[key];
+    });
+  }
   const sceneOptions = getSceneDependentOptions(activeLibrary, next);
 
   clearUnavailableSelection(next, 'locationId', sceneOptions.locationOptions);
   clearUnavailableSelection(next, 'lightingId', sceneOptions.lightingOptions);
   clearUnavailableSelection(next, 'lightDirectionId', sceneOptions.lightDirectionOptions);
-  clearUnavailableSelection(next, 'poseAnchorId', sceneOptions.poseAnchorOptions, 'none');
+  if (!hasStoredAction && !exitingStoredAction) {
+    clearUnavailableSelection(next, 'poseAnchorId', sceneOptions.poseAnchorOptions, 'none');
+  }
 
   const poseIsActive = Boolean(next.poseId) && !isNoneSelected('poseId', next.poseId, lockControls);
   const specialActionIsActive = Boolean(next.specialActionId)

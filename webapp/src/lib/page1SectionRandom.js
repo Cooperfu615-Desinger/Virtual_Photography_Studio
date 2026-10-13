@@ -6,6 +6,7 @@ import {
 } from '../features/page1/page1WardrobeExclusivity.js';
 
 const RESET_TO_DEFAULT_KEYS = new Set([
+  'specifiedActionId',
   'specialSubjectId',
   'characterProfileId',
   'imageTypePresetId',

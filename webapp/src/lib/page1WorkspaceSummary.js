@@ -1,4 +1,5 @@
 import { DUO_ROLES, getDuoRoleSummary } from '../features/page1/duoEditor.js';
+import { getSpecifiedAction } from './engine/specifiedActions.js';
 import { bottomRiseConflict, bottomRiseControlContext } from './engine/bottomRiseCompatibility.js';
 import { isHeadDominantFraming, headDominantAngleAllowed } from './engine/headDominantFraming.js';
 import { CHARACTER_CARD_LAYER_KEYS, CHARACTER_CARD_LAYER_LABELS } from './characterCardLab.js';
@@ -241,8 +242,14 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
         getControlOptionLabel(controls, 'hairColorAId', locks.hairColorAId),
         getControlOptionLabel(controls, 'hairColorBId', locks.hairColorBId),
   ]);
+  const specifiedAction = getSpecifiedAction(locks);
   const poseSummary = actionPoseCard
     ? `動作卡：${actionPoseCard.title}`
+    : specifiedAction ? buildSummaryText([
+      getControlOptionLabel(controls, 'expressionId', locks.expressionId),
+      `指定動作：${specifiedAction.zh}`,
+      getControlOptionLabel(controls, 'poseHeadId', locks.poseHeadId),
+    ])
     : buildSummaryText([
       getControlOptionLabel(controls, 'expressionId', locks.expressionId),
       getControlOptionLabel(controls, 'duoExpressionId', locks.duoExpressionId),

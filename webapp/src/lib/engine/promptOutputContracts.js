@@ -80,7 +80,16 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.55.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.56.0';
+
+export const SPECIFIED_ACTION_CONTRACT = deepFreeze({
+  version: '1.0.0',
+  source: 'eight manual ground-contact actions, resolved once with independent expression and head',
+  projection: 'shared full and upper-body authored source; face crops omit geometry; supine retains ground identity',
+  ownership: 'fixed scene position, action card, specified action, free composer',
+  persistence: 'additive action ID and supine scene restore snapshot; dormant free selections retained',
+  outputs: 'four main outputs and two chest derivatives; full-body character reference remains standing',
+});
 
 export const BLACK_TIE_SHIRT_CONTRACT = deepFreeze({
   scope: 'existing independent collared tie shirt only; catalog identity and selection unchanged',

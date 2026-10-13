@@ -64,6 +64,7 @@ test('Pose Composer keeps the independent prop control outside the six-layer bat
   ]);
   assert.deepEqual(POSE_COMPOSER_CONTROL_KEYS, [
     'poseBaseId',
+    'specifiedActionId',
     'poseOrientationId',
     'poseArrangementId',
     'poseHandId',
