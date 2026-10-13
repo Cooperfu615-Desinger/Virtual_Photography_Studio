@@ -1672,6 +1672,13 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     showToast?.('已清除可選欄位，必要欄位保留預設值');
   };
 
+  const handleSetAllNone = () => {
+    updateLocks((previousLocks) => buildAllNoneLocks(lockControls, previousLocks), {
+      discardSupineSceneRestore: true,
+    });
+    showToast?.('一般選項已全部設為全無');
+  };
+
   return (
     <>
       <section className={`page1-workspace-shell ${isDuoMode ? 'page1-workspace-duo' : ''}`}>
@@ -1749,10 +1756,10 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
             </button>
             <button
               className="secondary subtle-action"
-              title="清空可清除欄位；必要欄位會保留預設值。"
-              onClick={() => updateLocks(buildAllNoneLocks(lockControls, locks))}
+              title="一般選項全部設為全無；人物數量、MJ 參數與畫面文字保留，成品類型回到寫實攝影。"
+              onClick={handleSetAllNone}
             >
-              清空可清除項目
+              全部全無
             </button>
             <button className="secondary" onClick={() => setIsImportPromptOpen(true)}>
               回填 Prompt

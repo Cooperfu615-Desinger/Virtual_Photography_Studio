@@ -88,12 +88,15 @@ export function usePromptWorkspace() {
     saveJsonStorage(LOCKS_STORAGE_KEY, locks);
   }, [locks]);
 
-  const updateLocks = useCallback((updater, { restoringSelection = false } = {}) => {
+  const updateLocks = useCallback((updater, { restoringSelection = false, discardSupineSceneRestore = false } = {}) => {
     setPreviewRerollExclusion(null);
     setLocks((previousLocks) => {
       let candidateLocks = typeof updater === 'function'
         ? updater(previousLocks)
         : { ...previousLocks, ...updater };
+
+      // An explicit global clear must not recover the scene it just removed.
+      if (discardSupineSceneRestore) supineSceneRestoreRef.current = null;
 
       const enteringSupine = !isSupinePoseSelection(previousLocks) && isSupinePoseSelection(candidateLocks);
       const leavingSupine = isSupinePoseSelection(previousLocks) && !isSupinePoseSelection(candidateLocks);
