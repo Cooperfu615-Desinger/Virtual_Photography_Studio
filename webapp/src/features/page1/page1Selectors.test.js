@@ -35,6 +35,161 @@ test('buildAllNoneLocks preserves required defaults when a control has no none o
   assert.equal(next.topId, 'top-none');
 });
 
+test('global none selects the existing no-extra-expression IDs for single and dormant duo expressions', () => {
+  const lockControls = getLockControls();
+  const expressionKeys = ['expressionId', 'expressionAId', 'expressionBId'];
+  const selectedExpressions = Object.fromEntries(expressionKeys.map((key) => {
+    const control = lockControls.find((item) => item.key === key);
+    return [key, control.options.find((option) => option.en !== 'none').id];
+  }));
+
+  for (const subjectCount of ['1', '2']) {
+    const next = buildAllNoneLocks(lockControls, {
+      ...createEmptyLocks(),
+      ...selectedExpressions,
+      subjectCount,
+    });
+
+    expressionKeys.forEach((key) => {
+      const noneOption = lockControls.find((control) => control.key === key)
+        .options.find((option) => option.zh === '無額外表情');
+      assert.ok(noneOption, `${key} retains its authored no-extra-expression option`);
+      assert.equal(noneOption.en, 'none');
+      assert.equal(noneOption.id, 'character:表情-facial-expression:無額外表情:0');
+      assert.ok(noneOption.legacyIds.includes('character:神情與眼神-expression-gaze:全無:0'));
+      assert.equal(next[key], noneOption.id, `${key} is explicitly none in ${subjectCount}-person mode`);
+    });
+  }
+});
+
+test('global none sets every eligible real control to its authored none option in single and duo modes', () => {
+  const lockControls = getLockControls();
+  const isNoneOption = (option) => option.zh === '全無' || option.en === 'none';
+  const currentSelections = Object.fromEntries(lockControls.map((control) => [
+    control.key,
+    control.options.find((option) => !isNoneOption(option) && option.id !== 'random')?.id
+      ?? control.defaultValue ?? '',
+  ]));
+
+  for (const subjectCount of ['1', '2']) {
+    const current = { ...createEmptyLocks(), ...currentSelections, subjectCount };
+    const original = structuredClone(current);
+    const next = buildAllNoneLocks(lockControls, current);
+
+    lockControls.forEach((control) => {
+      if (control.section === 'midjourney' || control.randomization === 'excluded') return;
+      const noneOption = control.options.find(isNoneOption);
+      if (noneOption) {
+        assert.equal(next[control.key], noneOption.id, `${control.key} uses its own none ID`);
+        assert.notEqual(next[control.key], '', `${control.key} must not become implicit random`);
+      }
+    });
+    assert.equal(next.subjectCount, subjectCount);
+    assert.equal(next.imageTypePresetId, 'photorealistic-photo');
+    assert.deepEqual(current, original, 'global none must not mutate the input locks');
+  }
+});
+
+test('global none preserves all seven MJ settings, four visible-text settings, and the historical ratio', () => {
+  const lockControls = getLockControls();
+  const preservedSettings = {
+    mjVersionId: 'v8-1',
+    mjAspectRatio: '21:9',
+    mjRawMode: 'standard',
+    mjStylize: 321,
+    mjChaos: 37,
+    mjWeirdness: 678,
+    mjResolution: 'hd',
+    zImageVisibleTextEnabled: true,
+    zImageVisibleTextContent: '保留畫面文字\nExact visible text',
+    zImageVisibleTextLanguage: 'english',
+    zImageVisibleTextPlacement: 'background-storefront-sign',
+    aspectRatio: lockControls.find((control) => control.key === 'aspectRatio')
+      .options.find((option) => option.zh !== '全無').id,
+  };
+  const excludedKeys = lockControls
+    .filter((control) => control.section === 'midjourney' || control.randomization === 'excluded')
+    .map((control) => control.key);
+  assert.deepEqual([...excludedKeys].sort(), Object.keys(preservedSettings).sort());
+
+  for (const subjectCount of ['1', '2']) {
+    const current = { ...createEmptyLocks(), ...preservedSettings, subjectCount };
+    const next = buildAllNoneLocks(lockControls, current);
+    assert.deepEqual(
+      Object.fromEntries(excludedKeys.map((key) => [key, next[key]])),
+      preservedSettings,
+    );
+    assert.equal(next.subjectCount, subjectCount);
+  }
+});
+
+test('global none clears subject, fixed-scene, card, and imported-scene owners', () => {
+  const lockControls = getLockControls();
+  const selectedOptionId = (key) => lockControls.find((control) => control.key === key)
+    .options.find((option) => option.zh !== '全無' && option.en !== 'none' && option.id !== 'random').id;
+  const current = {
+    ...createEmptyLocks(),
+    specialSubjectId: selectedOptionId('specialSubjectId'),
+    characterProfileId: selectedOptionId('characterProfileId'),
+    characterCardHairVariantId: 'custom-hair',
+    characterCardEyewearMode: 'custom-eyewear',
+    characterCardWardrobeMode: 'custom-wardrobe',
+    characterCardWardrobeLayerIds: ['custom-layer'],
+    characterCardPromptOverride: 'custom identity text',
+    fixedCompositionSetId: selectedOptionId('fixedCompositionSetId'),
+    fixedSetPositionId: selectedOptionId('fixedSetPositionId'),
+    fixedSetBackgroundStateId: selectedOptionId('fixedSetBackgroundStateId'),
+    fixedSetCaptureModeId: selectedOptionId('fixedSetCaptureModeId'),
+    fixedSetPerformanceStateId: selectedOptionId('fixedSetPerformanceStateId'),
+    actionPoseCardId: 'saved-action-card',
+    importedWorldSceneMode: 'replace',
+    importedWorldSceneLabel: 'imported scene',
+    importedWorldSceneArchitectureText: 'imported architecture text',
+  };
+  const original = structuredClone(current);
+  const next = buildAllNoneLocks(lockControls, current);
+
+  [
+    'specialSubjectId', 'characterProfileId', 'fixedCompositionSetId',
+    'fixedSetPositionId', 'fixedSetBackgroundStateId', 'fixedSetCaptureModeId',
+    'fixedSetPerformanceStateId', 'importedWorldSceneMode',
+  ].forEach((key) => assert.equal(next[key], 'none', `${key} relinquishes control`));
+  assert.equal(next.actionPoseCardId, '');
+  assert.equal(next.characterCardHairVariantId, 'default');
+  assert.equal(next.characterCardEyewearMode, 'default');
+  assert.equal(next.characterCardWardrobeMode, 'full-default');
+  assert.deepEqual(next.characterCardWardrobeLayerIds, []);
+  ['characterCardPromptOverride', 'importedWorldSceneLabel', 'importedWorldSceneArchitectureText']
+    .forEach((key) => assert.equal(next[key], '', `${key} no longer supplies hidden content`));
+  assert.deepEqual(current, original);
+});
+
+test('global none clears ordinary pose layers and explicit props instead of preserving or randomizing them', () => {
+  const lockControls = getLockControls();
+  const poseKeys = [
+    'poseBaseId', 'poseOrientationId', 'poseArrangementId', 'poseHandId',
+    'poseHeadId', 'poseAnchorId', 'posePropId', 'poseId', 'specialActionId',
+  ];
+  const current = {
+    ...createEmptyLocks(),
+    ...Object.fromEntries(poseKeys.map((key) => {
+      const control = lockControls.find((item) => item.key === key);
+      return [key, control.options.find((option) => (
+        option.zh !== '全無' && option.en !== 'none' && option.id !== 'random'
+      )).id];
+    })),
+  };
+  const next = buildAllNoneLocks(lockControls, current);
+
+  poseKeys.forEach((key) => {
+    const noneOption = lockControls.find((control) => control.key === key)
+      .options.find((option) => option.zh === '全無' || option.en === 'none');
+    assert.equal(next[key], noneOption.id, `${key} is explicitly cleared`);
+    assert.notEqual(next[key], '', `${key} must not become implicit random`);
+    assert.notEqual(next[key], 'random', `${key} must not become explicit random`);
+  });
+});
+
 test('eyewear frame color and placement controls follow single and duo subject modes together', () => {
   const lockControls = getLockControls();
   const wardrobeControlKeys = (subjectCount) => {
