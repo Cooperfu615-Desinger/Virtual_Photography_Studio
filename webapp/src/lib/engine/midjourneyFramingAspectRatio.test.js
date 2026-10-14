@@ -88,3 +88,23 @@ test('a live F-setting change keeps the framing ratio and an explicit F ratio re
   const explicit = attachMidjourneySettingsToPrompt(prompt, { mjAspectRatio: '16:9' });
   assert.match(explicit.midjourneyPrompt, /--ar 16:9 /);
 });
+
+test('carriage sets that allow framing variation keep the framing ratio through live F changes and restore', async () => {
+  const { attachMidjourneySettingsToPrompt } = await import('../../features/page1/midjourneyParameterState.js');
+  const { buildMarkdownExport, parseExportedMarkdownPrompt } = await import('../../features/saved-cards/cardCodec.js');
+  const prompt = generatePrompts(1, {
+    ...createEmptyLocks(), subjectCount: '1',
+    fixedCompositionSetId: 'japan-carriage-side-aisle',
+    framingId: option('framingId', '中景鏡頭 (Medium Shot)'), mjAspectRatio: 'page1',
+  }, [], { random: createSeededRandom('mj-framing-aspect-carriage') })[0];
+  assert.match(prompt.midjourneyPrompt, /--ar 3:4 /);
+
+  const restyled = attachMidjourneySettingsToPrompt(prompt, { mjAspectRatio: 'page1', mjStylize: 100 });
+  assert.match(restyled.midjourneyPrompt, /--ar 3:4 /);
+
+  // Carriage Markdown text does not round-trip its crop (existing importer limit),
+  // so the ratio is kept as the MJ-only F ratio and PAGE1 stays unset.
+  const restored = parseExportedMarkdownPrompt(buildMarkdownExport(prompt), controls, 'carriage-ratio');
+  assert.equal(restored.selection.aspectRatio, prompt.selection.aspectRatio);
+  assert.equal(restored.selection.mjAspectRatio, '3:4');
+});

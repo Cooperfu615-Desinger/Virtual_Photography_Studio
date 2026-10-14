@@ -20,7 +20,9 @@ export function createPromptGenerationLocks(locks = {}) {
 export function attachMidjourneySettingsToPrompt(prompt, settings = {}) {
   if (!prompt) return null;
   const baseSelection = prompt.selection || {};
-  const framingOptions = getLockControls().find(control => control.key === 'framingId')?.options || [];
+  const controls = getLockControls();
+  const framingOptions = controls.find(control => control.key === 'framingId')?.options || [];
+  const fixedSetOptions = controls.find(control => control.key === 'fixedCompositionSetId')?.options || [];
   const selection = {
     ...baseSelection,
     ...normalizeMidjourneyParameterSettings(settings),
@@ -28,7 +30,7 @@ export function attachMidjourneySettingsToPrompt(prompt, settings = {}) {
   // Keep the approved framing ratio when F follows PAGE1 after a live F change.
   const tailSelection = {
     ...selection,
-    framingAspectRatio: framingAspectRatioForSelection(baseSelection, framingOptions),
+    framingAspectRatio: framingAspectRatioForSelection(baseSelection, framingOptions, fixedSetOptions),
   };
   return {
     ...prompt,

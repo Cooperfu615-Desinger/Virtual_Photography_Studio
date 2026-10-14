@@ -69,6 +69,8 @@
 
 文字匯入（Saved Cards／Markdown）原本會把 MJ 尾綴的 `--ar` 同時寫回 PAGE1 比例與 F 區。現在若匯入的 `--ar` 等於「解析出的景別所對應的自動比例」，視為自動帶入：PAGE1 不設比例、F 區維持「跟隨 PAGE1」，重新生成的輸出相同。其他比例照舊還原。（`cardCodec.js`）
 
+PR #3 review 修正：日本電車車廂 3 組固定構圖允許變換景別（`allowsFramingVariation`），生成時依景別帶入比例。`framingAspectRatioForSelection()` 改用與生成相同的判斷：只有不允許變換景別的固定構圖組才不帶入；即時調整 F 區後，車廂的 `--ar` 也會保留。車廂 prompt 從文字匯入時景別無法還原（既有限制），這時匯入的 `--ar` 只還原為 F 區的 MJ 比例，不寫入 PAGE1，避免 Nano 等輸出因 PAGE1 憑空多出比例而改變。
+
 即時調整：在畫面上改動 F 區參數時（`midjourneyParameterState.js` 的 `attachMidjourneySettingsToPrompt`），會用 `framingAspectRatioForSelection()` 從 selection 重算景別比例，避免一改 stylize 等參數，自動帶入的 `--ar` 就消失。Saved Cards 匯入與即時調整共用這個函式。
 
 ### 驗證

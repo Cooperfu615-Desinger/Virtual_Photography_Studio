@@ -40,11 +40,16 @@ export function midjourneyFramingAspectRatio(bucket) {
 }
 
 // Resolve the same framing ratio from a stored selection (Saved Card restore and
-// live F-setting updates), given the framingId control options.
-export function framingAspectRatioForSelection(selection = {}, framingOptions = []) {
+// live F-setting updates), given the framingId and fixedCompositionSetId control
+// options. Mirrors generation: a fixed set only overrides framing when it does
+// not allow framing variation (the Japanese carriage sets do).
+export function framingAspectRatioForSelection(selection = {}, framingOptions = [], fixedSetOptions = []) {
   const framing = framingOptions.find(option => option.id === selection.framingId);
-  const fixedCompositionActive = Boolean(selection.fixedCompositionSetId
-    && !['none', 'random'].includes(selection.fixedCompositionSetId));
+  const fixedSetId = selection.fixedCompositionSetId;
+  const fixedSet = fixedSetId && !['none', 'random'].includes(fixedSetId)
+    ? fixedSetOptions.find(option => option.id === fixedSetId) || { id: fixedSetId }
+    : null;
+  const fixedCompositionActive = Boolean(fixedSet) && !fixedSet.allowsFramingVariation;
   return midjourneyFramingAspectRatio(resolveCompositionVisibilityBucket(framing, { fixedCompositionActive }));
 }
 
