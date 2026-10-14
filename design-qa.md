@@ -187,3 +187,79 @@ final result: passed
 現有 current-state／provider文件、服裝來源／metadata／generated database／測試及未追蹤參考資料保持原狀。本次沒有 stage、commit、push、部署或付費生圖。獨立測試分頁已結束、viewport override已重設，原5175服務及使用者分頁保留。
 
 限制：此驗證涵蓋本機 IAB、列出的 viewport 與流程；不是其他瀏覽器、遠端部署或生成影像的驗收。
+
+## 2026-10-13：PAGE1 全域「全部全無」
+
+此節記錄原功能分支 `be820b3` 的驗證；該分支當時含指定動作。下列 1,590／713 與指定動作檢查是該分支的歷史結果，不能視為 2026-10-14 main 移植後的測試結果。
+
+### 核准範圍與結果
+
+使用者確認「一般選項全部全無，保留 MJ 參數與畫面文字」。左側第三顆按鈕由「清空可清除項目」改成「全部全無」，沿用現有外觀，操作後顯示「一般選項已全部設為全無」。單人／雙人的一般選項使用各自既有 none ID；保留人物數量、七個 MJ 參數、四個 Z-Image 精確畫面文字設定及 excluded 舊比例欄位。成品類型回到必要的寫實攝影預設。
+
+清除角色卡／特殊角色、固定構圖與人物位置、指定動作與 snapshot、普通姿態與明確道具、姿態卡與匯入場景接管。自由仰躺的場景還原暫存一併丟棄，清空後再選站姿不恢復舊場景；普通取消仰躺及收藏還原的既有流程保留。分區／人物卡片的清空、清除可選欄位、全部隨機與回填 Prompt 沒有改名或改動。
+
+既有「無額外表情」使用原 ID，明確設為 none，並從已選計數與摘要排除。一般單／雙人及三組車站的 none 景別不套用 placeholder 中景的 aerial 限制；camera caller 使用現成 fixed-scene context，其他固定構圖與非 none 景別、原表情 picker／orbit 限制均保留。沒有改 catalog、renderer 文案、public output fields、storage schema 或 golden fixtures。
+
+### 修改檔案
+
+- `webapp/src/components/Page1Workspace.jsx`：全域按鈕、提示與操作入口。
+- `webapp/src/features/page1/page1Selectors.js`：辨識既有語義 none 表情。
+- `webapp/src/features/page1/usePromptWorkspace.js`：全域操作明確丟棄自由仰躺場景暫存。
+- `webapp/src/lib/page1WorkspaceSummary.js`：語義 none 不計入摘要／已選。
+- `webapp/src/lib/engine.js`：限一般／車站 none 景別的 angle predicate。
+- `webapp/src/features/page1/page1Selectors.test.js`：五組全域 none／保留範圍回歸。
+- `webapp/src/lib/page1WorkspaceSummary.test.js`：三組單／雙人摘要回歸。
+- `webapp/src/lib/engine/expressionNoneCamera.test.js`：六組一般／車站／雙人／legacy A/B 與非 none／固定管理邊界。
+- `Docs/specs/page1-random-none-control-contract.md`：核准全域操作契約。
+- `design-qa.md`：本次驗證紀錄。
+
+### 最終自動驗證
+
+所有程式驗證明確使用專案／CI 的 Node 22.22.3，沒有改動或縮減既有測試與凍結矩陣。
+
+| 檢查 | 結果 |
+| --- | --- |
+| selectors、lock／指定動作 transitions、分區隨機、summary、none-camera、station、expression 聚焦檢查 | 100／100，exit0，2.317 秒 |
+| 完整 `npm test` | 1,590／1,590，fail／skip／cancel 都為 0，exit0，139.434 秒 |
+| `npm run test:prompt-quality` | 713／713，fail／skip／cancel 都為 0，exit0，138.040 秒 |
+| `npm run lint`、`npm run build` | exit0；保留既有 Vite 大型 chunk 提示 |
+| `scripts/validate_prompt_logic.mjs 200 prompt-quality-baseline --strict`，修改前後同 count／seed | 前後皆 exit0、blocking 0、diagnostic 22，沒有新增結構／控制語言／矛盾或覆蓋問題 |
+| `git diff --check` | 通過 |
+
+最終 audit 的主 GPT／Z／MJ 與兩組非 MJ 衍生字數統計相同；MJ 胸上平均 224.0 → 224.1，其他統計相同。保留 19 個既有服裝／場景診斷與 3 個 near-duplicate 訊號；沒有為了降低診斷數而修改其他搭配。
+
+最終日誌位於 `/tmp/vps-all-none-qa/`：`focused-delivery.log`、`full-tests-delivery.log`、`prompt-quality-delivery.log`、`lint-delivery.log`、`build-delivery.log`、`prompt-audit-before.log` 與 `prompt-audit-delivery.log`。
+
+### 瀏覽器操作與畫面
+
+使用現有 `http://127.0.0.1:5175/Virtual_Photography_Studio/`，以獨立 Chromium context 驗證，沒有改寫使用者原分頁的設定／收藏。桌面 1440 × 1000、手機 390 × 900，33 項檢查全部通過，console warning／error 與 page error 為空。
+
+- 四顆左側按鈕順序與文字、鍵盤 Enter、成功提示與重複操作。
+- 單人全無與表情顯示、B 摘要未設定／計數 0；雙人 A/B 均清空且維持兩人模式。
+- 七個 MJ／四個 Z 文字設定與舊比例完整保留；GPT 舊表情來源不再出現，Z 精確文字保留。
+- 在隔離環境保存測試收藏、全部隨機、套用收藏與 reload；全無選值及保留參數正確還原。
+- 固定構圖、角色卡、指定仰躺 snapshot、自由仰躺暫存皆清空；退出仰躺後舊場景不回復。
+- 全無後選擇鳥瞰，選單及生成的 GPT 保留同一角度。
+- 單／雙人、日／夜模式，工作台欄位與按鈕沒有新增裁切或重疊。
+- Prompt 工作台、角色建模、動作姿勢、場景建模、觀察式抓拍、Saved Cards 均於桌面／手機載入及畫面巡查；document 沒有水平溢位，圖片完整。
+
+共保存 20 張瀏覽器直接擷取的 PNG（八張操作／sidebar 狀態、十二張工作區脈絡）與 `browser-results.json`。工作區截圖等待導覽轉場與 toast 結束；操作截圖保留成功提示作為狀態證據。主代理與第二位代理已分別檢視工作台及其他工作區畫面，沒有新的阻擋問題。證據資料夾：
+
+`/Users/cooperfu/.codex/visualizations/2026/09/23/01a0cba8-2f6d-7423-a0d2-fa7e6bc5f563/all-none-20261013/`
+
+### 迭代與既有測試界線
+
+初次全域 none 修正揭露既有「無額外表情」會觸發中景相容性 fallback，造成全無景別的鳥瞰被替換。新增四組測試先重現 FAIL；隔離 HEAD 只明確指定既有 none 表情 ID 即可重現，不是未固定 seed。曾嘗試全面排除 none 表情，再嘗試對所有 none 景別解除限制；兩者都使歷史固定場景的輸出／selection／RNG 凍結矩陣漂移，已撤回。最終只調整一般／車站路徑；原 6,370／6,320／431 案例凍結矩陣與所有 golden 完整通過。歷史 memo 僅當次 process 使用，沒有跨執行快取或清理快取來掩蓋差異。
+
+一次中間完整執行另遇 `enginePromptPipeline.test.js:934` 的既有未設 seed 測試偶發失敗：它只鎖人物 B 的眼鏡，卻要求人物 A 必有 `Has`。以 Node 22、seed `role-card-has-6` 的暫存 Math.random hook，隔離 HEAD `e86703e` 原測試在第 952 行可重現；相同 locks／seed 下 HEAD 與本批 GPT／selection 完全相同（GPT SHA-256 `d4a64b467a9a72685eb211f3ef33fdeb6bd50b31076855bac2c136777a5a0afd`）。最終完整執行通過；沒有擴修此不相關測試或 renderer。隔離證據已與截圖保存在同一資料夾。
+
+原有 current-state／provider dirty 文件及未追蹤參考資料保留。沒有 stage、commit、push、部署或外部生圖；隔離瀏覽器已關閉，原 5175 服務保留。此批驗收限本機 Chromium 與列出流程，不宣稱遠端部署、其他瀏覽器或影像模型驗收。
+
+
+## 2026-10-14：將全域「全部全無」單獨移入 main
+
+使用者授權將全域「全部全無」合併到 main。以遠端 `468edac` 為基底，只套用 `be820b3` 的差異，保留 main 原有資料庫報告／架構文件；`e86703e` 指定動作不在本次合併範圍。於獨立臨時 Git worktree 操作，原工作區的三份 dirty 文件與未追蹤參考資料保留。
+
+五個正式程式檔的修改維持原功能提交的內容，不帶入指定動作 UI、catalog、renderer 或 storage schema。移植後的 selector 測試仍檢查全部既有 controls 與 owners，只排除 main 不存在的指定動作／snapshot 欄位；規格同步 main 的實際功能。原功能分支的完整測試及瀏覽器證據保留在上一節，沒有宣稱它們已於此 main 組合再次執行。
+
+合併檢查涵蓋精確檔案範圍、正式程式差異、保留 main 文件與排除指定動作、暫存差異格式，以及本機／遠端 SHA。main push 依既有 GitHub Actions 執行資料／資產檢查、前端與 Functions 測試／lint、build 及 Pages deploy；實際結果以該次 Actions run 為準。本次沒有額外改動 workflow、Functions 或手動部署。

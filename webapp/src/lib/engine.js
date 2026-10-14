@@ -16627,10 +16627,13 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
   const suppressHeadDominantAngle = isHeadDominantFraming(framing) && !headDominantAngleAllowed(lockedAngle);
   const angleLockId = suppressHeadDominantAngle
     ? runtime.flatCatalog.angle.find(isNoneLikeItem)?.id : effectiveLocks.angleId;
+  const unspecifiedFramingAllowsAngle = isNoneLikeItem(framing)
+    && (!fixedCompositionSetActive || isStationFixedSet(selectedFixedCompositionSet));
   const angle = pickCameraWithExpressionLock(
     runtime.flatCatalog.angle,
     angleLockId,
-    (item) => framingSupportsAngle(framing, item) && lockedExpressions.every((expression) => angleSupportsExpression(item, expression)),
+    (item) => (unspecifiedFramingAllowsAngle || framingSupportsAngle(framing, item))
+      && lockedExpressions.every((expression) => angleSupportsExpression(item, expression)),
     lowFrequencyPicker('low_frequency_angle'),
     ['angleId'],
   );

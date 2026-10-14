@@ -94,7 +94,7 @@ export function getControlOptionLabel(controls, key, value) {
   if (!value) return '';
   const control = controls.find((item) => item.key === key);
   const option = control?.options?.find((item) => item.id === value);
-  if (!option || option.zh === '全無' || option.zh === '隨機') return '';
+  if (!option || option.zh === '全無' || option.zh === '隨機' || option.en === 'none') return '';
   return getCameraControlDisplayLabel(key, option);
 }
 

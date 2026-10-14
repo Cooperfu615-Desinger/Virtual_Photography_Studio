@@ -40,7 +40,7 @@ export function buildAllNoneLocks(controls, currentLocks) {
       return;
     }
     if (control.key === 'subjectCount') return;
-    const noneOption = control.options?.find((option) => option.zh === '全無');
+    const noneOption = control.options?.find((option) => option.zh === '全無' || option.en === 'none');
     nextLocks[control.key] = noneOption
       ? noneOption.id
       : (control.defaultValue !== undefined

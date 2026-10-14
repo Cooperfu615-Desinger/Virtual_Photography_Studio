@@ -2,7 +2,13 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-11
+Last updated: 2026-10-14
+
+## PAGE1 全域「全部全無」：main 合併 (2026-10-14)
+
+- 使用者授權將 `be820b3` 的全域「全部全無」單獨移入 main，基底為遠端 `468edac`。一般可省略選項明確設為既有 none，涵蓋單／雙人；人物數量、七個 MJ 參數與四個 Z-Image 畫面文字設定保留，必要成品類型維持寫實攝影。
+- 全域操作清除角色／卡片／固定場景／匯入場景接管與普通姿態／道具，丟棄自由仰躺還原暫存；無額外表情不計入摘要，none 景別的普通／車站路徑保留可選俯仰。其他固定場景及真實景別限制維持原規則。規格見 [隨機與全無契約](specs/page1-random-none-control-contract.md)，合併與歷史驗證見 `design-qa.md`。
+- 本次不合併同分支的 `e86703e` 指定動作；main 保留既有資料庫報告／架構文件。原功能分支的完整測試／瀏覽器證據屬該分支紀錄；main 移植後的自動驗證與 Pages 發布狀態以本次 GitHub Actions 為準。原工作區的不相關未提交文件與參考資料保留。
 
 ## 主 Midjourney 自然精簡 (2026-10-11)
 

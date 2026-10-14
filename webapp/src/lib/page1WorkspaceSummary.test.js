@@ -2,10 +2,13 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { createEmptyLocks, generatePrompts, getLockControls } from './engine.js';
+import { getSectionKeys } from '../features/page1/page1Schema.js';
+import { buildAllNoneLocks } from '../features/page1/page1Selectors.js';
 import {
   buildPage1GenerationSummary,
   buildWardrobeLayerInsights,
   buildWorkspaceSummary,
+  getControlOptionLabel,
 } from './page1WorkspaceSummary.js';
 
 const controls = getLockControls();
@@ -101,6 +104,40 @@ test('workspace pose summary is separate from character identity summary', () =>
   assert.match(summary.character.summary, /性感曲線身形/);
   assert.doesNotMatch(summary.character.summary, /平靜淡然|站姿|一手扶腰一手自然放下/);
   assert.match(summary.pose.summary, /平靜淡然|站姿|一手扶腰一手自然放下/);
+});
+
+for (const subjectCount of ['1', '2']) {
+  test(`global none leaves no effective B selections or no-extra-expression summary in ${subjectCount}-person mode`, () => {
+    const locks = buildAllNoneLocks(controls, { ...createEmptyLocks(), subjectCount });
+    const selectedCount = [...new Set(getSectionKeys('pose'))]
+      .filter((key) => getControlOptionLabel(controls, key, locks[key])).length;
+
+    assert.equal(selectedCount, 0, 'the sidebar must not count a semantic none expression');
+    assert.equal(buildWorkspaceSummary(locks, controls).pose.summary, '尚未形成明確選項');
+    assert.doesNotMatch(buildPage1GenerationSummary(locks, { selection: locks }, controls), /無額外表情/);
+    for (const key of ['expressionId', 'expressionAId', 'expressionBId']) {
+      assert.equal(getControlOptionLabel(controls, key, locks[key]), '');
+    }
+  });
+}
+
+test('workspace expression labels and summaries retain effective single and duo selections', () => {
+  for (const { subjectCount, key, label } of [
+    { subjectCount: '1', key: 'expressionId', label: '平靜淡然' },
+    { subjectCount: '2', key: 'duoExpressionId', label: '兩人相互凝視｜安靜親密' },
+  ]) {
+    const locks = {
+      ...buildAllNoneLocks(controls, { ...createEmptyLocks(), subjectCount }),
+      [key]: optionId(key, label),
+    };
+    const selectedCount = [...new Set(getSectionKeys('pose'))]
+      .filter((controlKey) => getControlOptionLabel(controls, controlKey, locks[controlKey])).length;
+
+    assert.equal(selectedCount, 1);
+    assert.equal(getControlOptionLabel(controls, key, locks[key]), label);
+    assert.equal(buildWorkspaceSummary(locks, controls).pose.summary, label);
+    assert.match(buildPage1GenerationSummary(locks, { selection: locks }, controls), new RegExp(label));
+  }
 });
 
 test('workspace pose summary includes the independent prop action', () => {
