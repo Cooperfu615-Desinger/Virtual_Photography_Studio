@@ -1,3 +1,4 @@
+import { registerReferencePersonPreview, REFERENCE_PERSON_INSTRUCTION } from './referencePersonPreview.js';
 import { MIDJOURNEY_CARD_ITEM_NAMES } from './engine/midjourneyCardItemNames.js';
 import { bottomRiseConflict, resolveBottomRiseCompatibility } from './engine/bottomRiseCompatibility.js';
 import { extractMidjourneyItemNames, midjourneyItemName, naturalIdentity, naturalSentence, naturalWardrobeSentence, renderNaturalMidjourney, uniqueNames } from './engine/midjourneyNaturalPrompt.js';
@@ -14193,7 +14194,8 @@ function shouldUseFixedNormalSingleSubjectLead(context) {
   return context.subject?.count === 1
     && !isSpecialSubject(context.subject)
     && !isCharacterProfileSubject(context.subject)
-    && !context.subject?.reference;
+    && !context.subject?.reference
+    && !context.referencePersonPreview;
 }
 
 function shouldUseFixedAiSingleSubjectLead(context) {
@@ -15980,6 +15982,9 @@ function buildNaturalMjWardrobe(promptModel, role = '') {
 }
 
 function buildNaturalMjSubject(promptModel) {
+  if (promptModel.context.referencePersonPreview) {
+    return naturalSentence([promptModel.context.subject.en, firstStructuredValue(promptModel.valuesByLabel, ['Expression'])].filter(Boolean).join(', '));
+  }
   const { context, wardrobe, valuesByLabel, character } = promptModel;
   const value = label => firstStructuredValue(valuesByLabel, [label]);
   const slots = extractCharacterSlots(character);
@@ -16759,7 +16764,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
   } = buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect);
   const summaryFields = buildSummaryFields(context, wardrobe, character, wardrobeColors);
 
-  return {
+  const prompt = {
     id: `${Date.now()}-${index}-${random().toString(36).slice(2, 8)}`,
     date: new Date().toISOString(),
     summary: buildSummary(summaryFields),
@@ -16793,6 +16798,39 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
       'Lens & Imaging': [lens, aperture, shutter, opticalEffect, film].filter(Boolean),
     },
   };
+  if (subject.count === 1 && !isSpecialSubject(subject) && !context.characterProfilePrompt) {
+    let referenceOutputs;
+    registerReferencePersonPreview(prompt, (preview) => {
+      if (!referenceOutputs) {
+        const slots = extractCharacterSlots(character);
+        const performance = [slots.expression, slots.actionPose, slots.poseComposer, slots.pose, slots.specialAction].filter(Boolean);
+        const referenceContext = {
+          ...context,
+          referencePersonPreview: true,
+          subject: { ...subject, en: 'one adult person from the attached reference image' },
+          wardrobe: [],
+        };
+        referenceOutputs = buildPrompts(referenceContext, performance, [], {}, lightDirection, film, opticalEffect);
+      }
+      const referenceText = text => text ? `${REFERENCE_PERSON_INSTRUCTION}\n\n${text}` : '';
+      return {
+        ...preview,
+        grokPrompt: referenceText(referenceOutputs.grokPrompt),
+        zImagePrompt: referenceText(referenceOutputs.zImagePrompt),
+        nanoBananaPrompt: referenceText(referenceOutputs.nanoBananaPrompt),
+        midjourneyPrompt: appendMidjourneyParameterTail(referenceText(referenceOutputs.midjourneyPrompt), {
+          ...preview.selection,
+          aspectRatio: context.aspectRatio.id,
+          framingAspectRatio: midjourneyFramingAspectRatio(context.compositionVisibility?.bucket),
+        }),
+        extraPrompts: preview.extraPrompts.map(entry => ({ ...entry, text: referenceText(
+          entry.id === 'chest-up-portrait' ? referenceOutputs.chestUpPortraitPrompt
+            : referenceOutputs.fullBodyCharacterPrompt,
+        ) })),
+      };
+    });
+  }
+  return prompt;
 }
 
 export function generatePrompts(count = 1, locks = createEmptyLocks(), customLibrary = [], runtimeOptions = {}) {

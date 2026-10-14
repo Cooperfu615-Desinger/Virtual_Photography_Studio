@@ -263,3 +263,16 @@ final result: passed
 五個正式程式檔的修改維持原功能提交的內容，不帶入指定動作 UI、catalog、renderer 或 storage schema。移植後的 selector 測試仍檢查全部既有 controls 與 owners，只排除 main 不存在的指定動作／snapshot 欄位；規格同步 main 的實際功能。原功能分支的完整測試及瀏覽器證據保留在上一節，沒有宣稱它們已於此 main 組合再次執行。
 
 合併檢查涵蓋精確檔案範圍、正式程式差異、保留 main 文件與排除指定動作、暫存差異格式，以及本機／遠端 SHA。main push 依既有 GitHub Actions 執行資料／資產檢查、前端與 Functions 測試／lint、build 及 Pages deploy；實際結果以該次 Actions run 為準。本次沒有額外改動 workflow、Functions 或手動部署。
+
+## 2026-10-14 — 單人參考圖人物與穿搭
+
+- 基底：遠端 main `9629c4b`；獨立分支 `codex/reference-person-preview`，工作區 `.worktrees/reference-person-preview`。原工作區三份未提交文件及未追蹤參考資料保持原狀；未 stage、commit 或 push。
+- 範圍：現行六輸出預覽／複製、獨立參考圖開關＋四種模板；同 resolved source，外觀／穿搭來源省略，保留表情、姿勢、場景及各 renderer 的構圖與成像政策。收藏／DLL 仍為原文，不增加上傳或 provider 請求。
+- 自動檢查：聚焦 9/9；完整前端最終 1594/1594（67.97 秒）、Prompt Quality 698/698、lint／build／diff-check 通過。同 seed `200 / prompt-quality-baseline --strict` 前後完整報告逐字一致，blocking 0，既有 finding prompts 20；Vite 既有大型 chunk 提示保留。
+- Visual QA: PASS。URL `http://127.0.0.1:5175/Virtual_Photography_Studio/`，桌面 1440×1000、手機 390×900，Chromium 隔離儲存。
+- 檢查：六組非空白參考輸出、鍵盤 Enter 開啟、關閉逐字恢復、四張多機位組合、清除模板但保留參考模式、Gpt 複製與實際 clipboard read-back 相同、收藏儲存仍無參考指令、重新生成／離開工作區重設。雙人與角色卡手機停用狀態通過；自訂身份、特殊主體、空值由自動測試覆蓋。
+- 導覽：Prompt 工作台、角色建模、動作姿勢、場景建模、觀察式抓拍、Saved Cards 於兩尺寸載入；document 無水平溢出，console error／page error 為 0。新按鈕、狀態文字與說明無遮擋；沿用既有手機「套用目前預覽」截字。未改圖片資產。
+- 證據：`/tmp/vps-reference-1440.png`、`/tmp/vps-reference-390.png`；結果 `/tmp/vps-reference-browser-results.json`。自動 logs `/tmp/vps-reference-{focused,full-final,quality,lint-final,build-final,audit-before,audit-after}.log`。
+- 未驗證：外部圖片模型的實際參考一致性、多張生成及原生圖片參數；此功能是提供外部附圖使用的文字投影。未進行付費生成。保留 5175 本機預覽供使用者確認。
+
+- 交付授權：使用者已確認本機操作，並授權本批 commit／push 與合併 main；遠端 main 合併前仍為 `9629c4b`，無新增上游差異。

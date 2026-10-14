@@ -36,8 +36,11 @@ Generate all four photographs together for comparison, as four separate images, 
   }),
 ]);
 
-export function appendPromptInstruction(original, templateId) {
+export function appendPromptInstruction(original, templateId, { referencePerson = false } = {}) {
   const template = PROMPT_APPENDICES.find(({ id }) => id === templateId);
   if (!template || !original?.trim()) return original;
-  return `${original}\n\n${template.text}`;
+  const text = referencePerson
+    ? template.text.replace('same person, outfit, and setting described above', 'same person and outfit from the attached reference image, and the setting described above')
+    : template.text;
+  return `${original}\n\n${text}`;
 }

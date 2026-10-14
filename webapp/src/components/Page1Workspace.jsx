@@ -1,3 +1,4 @@
+import { getReferencePersonPreview, hasReferencePersonPreview } from '../lib/referencePersonPreview.js';
 import { prepareBottomRiseControl } from '../lib/engine/bottomRiseCompatibility.js';
 import { prepareHeadDominantAngleControl } from '../lib/engine/headDominantFraming.js';
 import { buildKneelingSupportControl, isFourPointKneeling } from '../lib/engine/kneelingSupport.js';
@@ -698,6 +699,14 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     setAppendixState({ source: previewPrompt, id: '' });
   }
   const appendixId = appendixState.source === previewPrompt ? appendixState.id : '';
+  const [referenceState, setReferenceState] = useState({ source: previewPrompt, enabled: false });
+  if (referenceState.source !== previewPrompt) {
+    setReferenceState({ source: previewPrompt, enabled: false });
+  }
+  const referenceAvailable = hasReferencePersonPreview(previewPrompt);
+  const referenceEnabled = referenceAvailable && referenceState.source === previewPrompt && referenceState.enabled;
+  const displayPrompt = useMemo(() => referenceEnabled ? getReferencePersonPreview(previewPrompt) : previewPrompt,
+    [previewPrompt, referenceEnabled]);
   const wardrobePickerTriggerRef = useRef(null);
   const [activeWardrobePickerKey, setActiveWardrobePickerKey] = useState('');
   const [wardrobePickerQuery, setWardrobePickerQuery] = useState('');
@@ -1604,9 +1613,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   };
 
   const originalPromptCards = buildPage1GenerationPromptCards(previewPrompt);
-  const generationPromptCards = originalPromptCards.map((card) => ({
+  const generationPromptCards = buildPage1GenerationPromptCards(displayPrompt).map((card) => ({
     ...card,
-    value: appendPromptInstruction(card.value, appendixId),
+    value: appendPromptInstruction(card.value, appendixId, { referencePerson: referenceEnabled }),
   }));
   const hasPromptOutput = originalPromptCards.some((card) => card.value.trim());
   const activeAppendix = PROMPT_APPENDICES.find(({ id }) => id === appendixId);
@@ -1780,9 +1789,16 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
               <div className="page1-appendix-toolbar" role="group" aria-label="附加指令">
                 <div className="page1-appendix-heading">
                   <strong>附加指令</strong>
-                  <span role="status">{activeAppendix ? `已附加：${activeAppendix.label}` : '尚未附加'}</span>
+                  <span role="status">{[referenceEnabled ? '參考圖已啟用' : '', activeAppendix ? `已附加：${activeAppendix.label}` : referenceEnabled ? '' : '尚未附加'].filter(Boolean).join(' · ')}</span>
                 </div>
                 <div className="page1-appendix-actions">
+                  <button
+                    type="button"
+                    className="secondary"
+                    aria-pressed={referenceEnabled}
+                    disabled={!hasPromptOutput || !referenceAvailable}
+                    onClick={() => setReferenceState({ source: previewPrompt, enabled: !referenceEnabled })}
+                  >參考圖人物與穿搭</button>
                   {PROMPT_APPENDICES.map((template) => (
                     <button
                       key={template.id}
@@ -1803,7 +1819,11 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
                     onClick={() => setAppendixState({ source: previewPrompt, id: '' })}
                   >清除附加</button>
                 </div>
-                <p>套用至下方所有非空白 Prompt 的預覽與複製內容；不影響加入最愛、DLL 圖片生成或原始設定。新預覽會清除附加指令。</p>
+                <p>套用至下方所有非空白 Prompt 的預覽與複製內容；不影響加入最愛、DLL 圖片生成或原始設定。新預覽會重設參考圖模式與附加指令。</p>
+                <p>{referenceAvailable
+                  ? referenceEnabled ? '已啟用參考圖人物與穿搭：請在外部生成工具附上角色圖片。人物外觀與穿搭依圖片，其他設定沿用目前 Prompt。'
+                    : '參考圖人物與穿搭可獨立開關，並搭配上方附加指令；角色圖片需在外部生成工具附上。'
+                  : '參考圖人物與穿搭目前僅支援一般單人；雙人、角色卡、自訂身份及特殊主體暫不適用。'}</p>
                 <p>這是文字指令，實際張數與變化由生成模型決定。</p>
               </div>
               {generationPromptCards.map((card) => (

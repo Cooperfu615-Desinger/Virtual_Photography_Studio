@@ -4,6 +4,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-14
 
+## 參考圖人物與穿搭（使用者確認，2026-10-14）
+
+- 以最新 main `9629c4b` 為基底，新增一般單人六組 Prompt 的參考圖人物與穿搭開關，可搭配四種附加指令，只影響預覽及複製。人物外觀／服裝依外部附圖，保留各輸出姿勢／場景／攝影規則、胸上 4:5、全身 9:16、主 MJ F 參數及 Z 畫面文字。
+- 同一次 resolved source 做 lazy 投影，不重抽、不清選值、不改收藏／DLL／storage；雙人、角色卡、自訂身份、特殊主體暫不適用。參考圖片需在外部工具附上，未新增上傳或付費生成。詳見 [參考圖預覽 v1](specs/reference-person-preview-v1.md)。
+- 原工作區文件與參考資料保留；實作位於 `codex/reference-person-preview` 獨立工作區；使用者已確認並授權 commit／push 與合併 main，交付狀態以遠端核對為準。自動與瀏覽器驗證記錄見 `design-qa.md`。
+
 ## 官方規範修正：標點、MJ 比例、全身體態、移除 MJ 胸上、族裔 (2026-10-14)
 
 - 依 [七種輸出 × 官方規範檢視](reports/prompt-official-review-2026-10-13/README.md) 與 Cooper 決定，在分支 `claude/prompt-official-fixes` 完成五組修改，規格見 [官方規範修正 v1](specs/prompt-official-fixes-v1.md)，決策見 [決策紀錄](decisions/2026-10-14-prompt-official-fixes.md)。
