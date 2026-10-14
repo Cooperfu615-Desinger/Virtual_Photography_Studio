@@ -45,7 +45,7 @@ test('face-covering head accessories keep their defining construction in all sin
       framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
       headAccessoryId: optionByLabel('faceCoveringId', label).id,
     });
-    const fixedOutputs = ['chest-up-portrait', 'chest-up-mj-portrait', 'full-body-character']
+    const fixedOutputs = ['chest-up-portrait', 'full-body-character']
       .map((id) => prompt.extraPrompts.find((entry) => entry.id === id)?.text || '');
 
     for (const text of [prompt.grokPrompt, prompt.zImagePrompt, ...fixedOutputs]) {

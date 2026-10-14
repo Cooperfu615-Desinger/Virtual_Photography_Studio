@@ -2,12 +2,11 @@
   "checkpoint": "fa22169",
   "count": 230,
   "hashes": {
-    "grokPrompt": "bfb6603221a41090b893fd24cac36654eaca77507eec2308237e34ebf4257dd4",
-    "zImagePrompt": "05589df6a5a07144e4ddbeee30edd2d6d1e9d925fc73add714f2c5ec589b1d55",
+    "grokPrompt": "1119c6ba1142e80230e96d2cb45251804163dfb1e0f737fade811d58a80fb78b",
+    "zImagePrompt": "c02260796698d2bb2bb02a88c8a2af5b021d453aadb8d56ce27d7ff54f97b762",
     "midjourneyPrompt": "a2a5d573d93cc57a9f685f92bcce8c0d0482abefcd76ae4fe5d39535ba948720",
     "chestUpPortraitPrompt": "83844f5e59296aeda6c3abdf381856ad16cc87525e29ab28b816d16568ad2362",
-    "chestUpMjPortraitPrompt": "658c56077f5c310bbcae9fe5314993262f2e6296dfe88214dd7e2aa317c3ff78",
-    "fullBodyCharacterPrompt": "28260ca290906b60dc942f45516c54a2e4635ee2909a7980870375c98952a71f"
+    "fullBodyCharacterPrompt": "694816a5cc339bba795dae20e104c1d8a496977fe364ef7db01bc4f1e61d366f"
   },
   "selectionHash": "c8f956f076e6495c7cd6fcbe85880df9bc784101b9a924dbe83cf12b80722d49",
   "randomHash": "c4551aefb81932ae776da03af7eac5be04d03bcb81caa60f9b45bfea74391501"

@@ -7,7 +7,7 @@ const source = {
   grokPrompt: 'Original GPT\nAspect ratio 4:5.',
   zImagePrompt: 'Original Z',
   midjourneyPrompt: 'Original MJ --ar 4:5 --v 7',
-  extraPrompts: ['chest-up-portrait', 'chest-up-mj-portrait', 'full-body-character']
+  extraPrompts: ['chest-up-portrait', 'full-body-character']
     .map((id) => ({ id, text: `Original ${id}` })),
 };
 
@@ -28,13 +28,13 @@ test('appendices keep stable IDs and only the approved snapshot modes request 9:
   }
 });
 
-test('all six display/copy values retain exact originals and use only the selected appendix', () => {
+test('all five display/copy values retain exact originals and use only the selected appendix', () => {
   const before = structuredClone(source);
   const original = buildPage1GenerationPromptCards(source);
   const dllBefore = buildPage1DllPromptSources(source);
   for (const template of PROMPT_APPENDICES) {
     const displayed = original.map((card) => ({ ...card, value: appendPromptInstruction(card.value, template.id) }));
-    assert.equal(displayed.length, 6);
+    assert.equal(displayed.length, 5);
     displayed.forEach((card, index) => {
       assert.equal(card.value, `${original[index].value}\n\n${template.text}`);
       assert.equal(appendPromptInstruction(original[index].value, template.id), card.value);

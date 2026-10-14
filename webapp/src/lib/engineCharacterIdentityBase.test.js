@@ -227,7 +227,7 @@ test('hair styling state is a separate shared prompt control', () => {
 
   assert.equal(prompt.selection.hairstyleId, hairstyle.id);
   assert.equal(prompt.selection.hairStylingStateId, stylingState.id);
-  assert.match(prompt.grokPrompt, /strong directional wind/);
+  assert.match(prompt.grokPrompt, /Strong directional wind/);
   assert.match(prompt.zImagePrompt, /strong directional wind/);
   assert.match(prompt.midjourneyPrompt, /strong directional wind/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /wet-look|damp separated strands/i);
@@ -250,14 +250,14 @@ test('identity base prompt wording is controlled by selected DNA options', () =>
     prompt.summary,
   ].join('\n');
 
-  assert.match(promptText, /20-year-old Japanese or Korean female portrait subject/);
+  assert.match(promptText, /20-year-old adult woman/);
   assert.doesNotMatch(promptText, /adult Japanese or Korean female portrait subject/);
   assert.doesNotMatch(promptText, /seductive stunning & beautiful/);
   assert.doesNotMatch(bodyType.en, /\bmature\b|\bolder\b|\bage\b/i);
   assert.match(bodyType.en, /168-173 cm|53-58 kg|F-to-G-cup|bust-waist-hip|rounded hips/);
   assert.doesNotMatch(facialFeatures.en, /\bmature\b/i);
   assert.match(facialFeatures.en, /alluring|seductive|magnetic|sensual/);
-  assert.match(promptText, /curvy silhouette|bust-waist-hip|fuller bust|rounded hips|alluring beauty face|deep side-parted long soft waves|hot-pink fashion hair/);
+  assert.match(promptText, /curvy silhouette|bust-waist-hip|fuller bust|rounded hips|alluring Korean beauty face|deep side-parted long soft waves|hot-pink fashion hair/);
   assert.equal(prompt.selection.bodyTypeId, bodyType.id);
   assert.equal(prompt.selection.facialFeaturesId, facialFeatures.id);
   assert.equal(prompt.selection.hairstyleId, optionByLabel('hairstyleId', '柔波：深側分').id);
@@ -297,15 +297,15 @@ test('duo identity base supports separate body type and skin details per woman',
   const promptText = prompt.grokPrompt;
   assert.ok(!promptText.includes(bodyA.en));
   assert.ok(!promptText.includes(bodyB.en));
-  assert.match(promptText, /Two 20-year-old Japanese or Korean female portrait subjects/i);
+  assert.match(promptText, /Two 20-year-old adult women/i);
   assert.match(promptText, new RegExp(`Woman 1:\\nHas [\\s\\S]*${skinA.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
   assert.match(promptText, new RegExp(`Woman 2:\\nHas [\\s\\S]*${skinB.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
-  assert.match(prompt.zImagePrompt, /Two stunning seductive 20-year-old Japanese or Korean women\./);
+  assert.match(prompt.zImagePrompt, /Two stunning seductive 20-year-old adult women\./);
   assert.match(prompt.zImagePrompt, /Woman 1 has A–B cup bust[\s\S]*80–58–88 cm, glass skin, dewy luminous skin texture/i);
   assert.match(prompt.zImagePrompt, /Woman 2 has moderate bust[\s\S]*natural freckles across nose and cheeks, sun-kissed freckles/i);
   assert.doesNotMatch(prompt.zImagePrompt, /clean editorial silhouette|hydrated reflective complexion|authentic skin detail/i);
   assert.match(prompt.midjourneyPrompt, /^Photorealistic editorial portrait\./);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /The main characters are two stunning seductive 20-year-old Japanese or Korean women/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /The main characters are two stunning seductive 20-year-old adult women/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /\bwoman [12] has\b/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /First woman, A–B cup bust, narrow ribcage/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /moderate bust|level shoulders|cup bust/i);

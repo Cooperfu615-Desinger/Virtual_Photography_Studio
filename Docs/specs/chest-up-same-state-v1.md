@@ -1,5 +1,7 @@
 # 胸上衍生輸出：同一拍攝狀態 v1
 
+> **2026-10-14 更新：** `chest-up-mj-portrait`（MJ 胸上特寫照）已依 Cooper 決定完全移除，引擎不再產生、畫面與 DLL 來源不再顯示，F 區參數只作用於主 MJ；既有 Saved Cards 資料保留不改寫。見 [官方規範修正 v1](prompt-official-fixes-v1.md)。本文中關於 MJ 胸上的段落僅供歷史參考。
+
 Last updated: 2026-09-22
 
 Status: 本次使用者核准的實作契約。範圍為 `chest-up-portrait` 與 `chest-up-mj-portrait`；主 Gpt、Z-Image、MIDJOURNEY、全身角色照、選項解析與儲存 schema 不改。

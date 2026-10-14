@@ -7,6 +7,15 @@ import { CRT_MIDJOURNEY_SELECTIONS, midjourneyNaturalFixtures, naturalFixtureLoc
 import { extractMidjourneyItemNames, midjourneyItemName, naturalIdentity } from './midjourneyNaturalPrompt.js';
 import { MIDJOURNEY_ITEM_NAMES } from './midjourneyItemNames.js';
 import { parseMidjourneyParameterTail, stripMidjourneyParameterTail } from './midjourneyParameterTail.js';
+import { polishPublicPromptText } from './publicPromptPolish.js';
+import { restoreUnquotedShibuyaSignage } from './shibuyaSceneTestSupport.js';
+import { stripFramingDerivedMidjourneyRatio } from './midjourneyFramingAspectTestSupport.js';
+import { stripFullBodyCharacterBodySource } from './fullBodyCharacterBodyTestSupport.js';
+import { restorePreEthnicityText, restorePreEthnicityValue } from './ethnicityRevisionTestSupport.js';
+// Public prompt polish (publicPromptPolish.js) capitalizes sentence starts. A
+// catalog source keeps every word; accept only its exact polished letter case.
+const sourceForms = (source) => [...new Set([source, polishPublicPromptText(source), source[0] + polishPublicPromptText(source).slice(1)])];
+const includesSource = (text, source) => sourceForms(source).some(form => text.includes(form));
 
 const generate = selections => generatePrompts(1, naturalFixtureLocks(selections), [], { random: createSeededRandom('mj-natural-crt') })[0];
 const hash = value => createHash('sha256').update(JSON.stringify(value) ?? 'undefined').digest('hex');
@@ -32,7 +41,7 @@ test('main MJ CRT has the approved short body, item names, freckles, style and f
   const body = stripMidjourneyParameterTail(prompt.midjourneyPrompt);
   const paragraphs = body.split('\n\n');
   assert.equal(paragraphs.length, 4);
-  assert.match(paragraphs[0], /twenties.*freckles.*waves.*bangs/is);
+  assert.match(paragraphs[0], /20-year-old adult woman.*freckles.*waves.*bangs/is);
   assert.ok(paragraphs[0].includes(bodyCases[5][1]));
   assert.equal(paragraphs[1], 'She wears a bikini top, narrow-front string bikini bottoms and lace-top thigh-high stockings.');
   assert.match(paragraphs[2], /CRT.*static.*scan lines.*High-key white.*soft frontal/is);
@@ -40,7 +49,8 @@ test('main MJ CRT has the approved short body, item names, freckles, style and f
   assert.doesNotMatch(body, /cup bust|hourglass|height \d|bust[–-]waist|indentation|body-skimming|low-rise|Dr\.? Martens|--ar/);
   const full = generate({ ...CRT_MIDJOURNEY_SELECTIONS, framingId: { byZh: '全身鏡頭 (Full Body Shot)' } });
   assert.match(full.midjourneyPrompt, /dr martens 1460 round toe lace-up boots/i);
-  assert.equal(parseMidjourneyParameterTail(prompt.midjourneyPrompt).tail, '--v 8.2 --raw --s 25 --c 0 --w 0 --sd');
+  // CRT is a cowboy crop with F following PAGE1, so the approved framing ratio is 2:3.
+  assert.equal(parseMidjourneyParameterTail(prompt.midjourneyPrompt).tail, '--v 8.2 --ar 2:3 --raw --s 25 --c 0 --w 0 --sd');
 });
 
 test('all mode baselines protect five other outputs, raw selections, structured data and summaries byte for byte', () => {
@@ -51,10 +61,15 @@ test('all mode baselines protect five other outputs, raw selections, structured 
     assert.equal(fixture.id, baseline[index].id);
     const prompt = generatePrompts(1, fixture.locks, [], { random: createSeededRandom(fixture.seed) })[0];
     assert.equal(fixture.id, bodyBaseline[index].id);
-    assert.equal(createHash('sha256').update(removeBody(prompt.midjourneyPrompt)).digest('hex'), bodyBaseline[index].main,
+    // Baselines predate the quoted Shibuya signage and the 2026-10-14 ethnicity
+    // revision; compare through their exact inverses.
+    const historicalMain = restorePreEthnicityText(prompt.midjourneyPrompt, 'midjourneyPrompt');
+    assert.equal(createHash('sha256').update(removeBody(restoreUnquotedShibuyaSignage(stripFramingDerivedMidjourneyRatio(historicalMain, prompt.selection)))).digest('hex'), bodyBaseline[index].main,
       `${fixture.id}: main MJ changed beyond approved body sentences`);
-    for (const [field, value] of Object.entries(protectedNaturalOutputs(prompt))) {
-      assert.equal(hash(value), baseline[index].fields[field], `${fixture.id}: ${field} changed`);
+    // Baselines predate the approved full-body Body Type exception; compare
+    // through its exact inverse (only the inserted full-body body sentence).
+    for (const [field, value] of Object.entries(protectedNaturalOutputs(stripFullBodyCharacterBodySource(prompt)))) {
+      assert.equal(hash(restoreUnquotedShibuyaSignage(restorePreEthnicityValue(value, field))), baseline[index].fields[field], `${fixture.id}: ${field} changed`);
     }
     assert.ok(parseMidjourneyParameterTail(prompt.midjourneyPrompt).matched, fixture.id);
     assert.doesNotMatch(prompt.midjourneyPrompt, /cup bust|bust[–-]waist[–-]hip|height \d+|shallow indentations/i, fixture.id);
@@ -82,8 +97,7 @@ test('six reviewed bodies and none preserve CRT scene, lighting, imaging and par
       const source = prompt.structured.Character.find(item => item.id === prompt.selection.bodyTypeId);
       assert.equal(source?.en, getLockControls().find(control => control.key === 'bodyTypeId').options.find(item => item.zh === zh).en,
         `${zh}: original catalog data retained`);
-      assert.ok(prompt.zImagePrompt.includes(source.en), `${zh}: Z keeps full source`);
-      assert.ok(prompt.extraPrompts.find(item => item.id === 'chest-up-mj-portrait').text.includes(source.en));
+      assert.ok(includesSource(prompt.zImagePrompt, source.en), `${zh}: Z keeps full source`);
     }
   }
 });

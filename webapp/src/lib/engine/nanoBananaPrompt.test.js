@@ -16,6 +16,8 @@ import {
   nanoBananaFixtures,
   protectedNanoBananaOutputs,
 } from './nanoBananaFixtures.js';
+import { stripFullBodyCharacterBodySource } from './fullBodyCharacterBodyTestSupport.js';
+import { restorePreEthnicityText, restorePreEthnicityValue } from './ethnicityRevisionTestSupport.js';
 
 const fixtures = nanoBananaFixtures();
 const generated = fixtures.map(fixture => ({ fixture, prompt: generateNanoBananaFixture(fixture) }));
@@ -37,10 +39,13 @@ test('Nano Banana preserves all six legacy texts, extra prompts, selections, str
     const { fixture, prompt } = generated[index];
     assert.equal(fixture.id, baseline[index].id);
     assert.equal(fixture.seed, baseline[index].seed);
-    const protectedFields = protectedNanoBananaOutputs(prompt);
+    // Baselines predate the approved full-body Body Type exception; compare
+    // through its exact inverse (only the inserted full-body body sentence).
+    const protectedFields = protectedNanoBananaOutputs(stripFullBodyCharacterBodySource(prompt));
     assert.deepEqual(Object.keys(protectedFields), Object.keys(baseline[index].fields));
+    // ...and through the exact inverse of the 2026-10-14 ethnicity revision.
     for (const [field, value] of Object.entries(protectedFields)) {
-      assert.equal(hash(value), baseline[index].fields[field], `${fixture.id}: ${field} changed`);
+      assert.equal(hash(restorePreEthnicityValue(value, field)), baseline[index].fields[field], `${fixture.id}: ${field} changed`);
     }
   }
 });
@@ -207,7 +212,7 @@ test('all SpecialOutfits use natural Nano Banana wardrobe prose at full, cowboy 
         failures.push(`${outfit.zh}/${framing}: repeated or nested clothing lead`);
       }
       if (outfit.zh === '黑色波點頭巾透紗套裝') {
-        assert.ok(value.includes('fitted black polka-dot headscarf'), `${fixture.id}: visible headwear retained`);
+        assert.ok(value.includes('Fitted black polka-dot headscarf'), `${fixture.id}: visible headwear retained`);
         if (framing === '全身鏡頭 (Full Body Shot)') {
           assert.ok(value.includes('black slouchy knee-high boots'), `${fixture.id}: footwear retained`);
           assert.ok(value.includes('black thin-strap shoulder bag'), `${fixture.id}: bag retained`);
@@ -248,15 +253,16 @@ test('Nano facial expansion preserves all other texts and data and changes only 
     const before = facialBaseline[index];
     assert.equal(fixture.id, before.id);
     assert.equal(fixture.seed, before.seed);
-    const fields = protectedNanoBananaOutputs(prompt);
+    // Same exact full-body Body Type inverse as the legacy six-text baseline.
+    const fields = protectedNanoBananaOutputs(stripFullBodyCharacterBodySource(prompt));
     assert.deepEqual(Object.keys(fields), Object.keys(before.fields));
     for (const [field, value] of Object.entries(fields)) {
-      assert.equal(hash(value), before.fields[field], `${fixture.id}: protected ${field} changed`);
+      assert.equal(hash(restorePreEthnicityValue(value, field)), before.fields[field], `${fixture.id}: protected ${field} changed`);
     }
-    assert.equal(hash(normalizedNanoBananaFacialText(prompt, fixture, NANO_BANANA_FACIAL_FEATURES)),
+    assert.equal(hash(restorePreEthnicityText(normalizedNanoBananaFacialText(prompt, fixture, NANO_BANANA_FACIAL_FEATURES), 'nanoBananaPrompt')),
       before.nanoBananaPrompt, `${fixture.id}: Nano changed outside its effective generic face phrase`);
     if (before.unchangedNanoBananaPrompt) {
-      assert.equal(hash(prompt.nanoBananaPrompt), before.unchangedNanoBananaPrompt,
+      assert.equal(hash(restorePreEthnicityText(prompt.nanoBananaPrompt, 'nanoBananaPrompt')), before.unchangedNanoBananaPrompt,
         `${fixture.id}: excluded or silent Nano output changed`);
     }
   }
@@ -266,11 +272,11 @@ test('six Nano facial mappings retain the approved geometry and omit styling and
   const faces = controlOptions('facialFeaturesId').filter(option => option.en !== 'none');
   assert.deepEqual(Object.keys(NANO_BANANA_FACIAL_FEATURES).sort(), faces.map(face => face.id).sort());
   const expected = {
-    '韓系偶像臉': ['small refined oval face', 'almond eyes', 'straight brows', 'slender', 'softly shaped lips'],
-    '日系清透臉': ['soft natural oval face', 'almond eyes', 'natural brows', 'small straight nose', 'softly defined lips'],
-    '甜美可愛臉': ['soft natural oval face', 'round eyes', 'curved brows', 'small rounded nose', 'softly shaped lips'],
-    '冷感高級臉': ['refined elongated oval face', 'upturned eyes', 'straight brows', 'defined bridge', 'sculpted lips'],
-    '成熟性感臉': ['softly defined oval face', 'upturned eyes', 'arched brows', 'clear medium bridge', 'full shaped lips'],
+    '韓系偶像臉': ['small refined oval Korean face', 'almond eyes', 'straight brows', 'slender', 'softly shaped lips'],
+    '日系清透臉': ['soft natural oval Japanese face', 'almond eyes', 'natural brows', 'small straight nose', 'softly defined lips'],
+    '甜美可愛臉': ['soft natural oval Japanese face', 'round eyes', 'curved brows', 'small rounded nose', 'softly shaped lips'],
+    '冷感高級臉': ['refined elongated oval Korean face', 'upturned eyes', 'straight brows', 'defined bridge', 'sculpted lips'],
+    '成熟性感臉': ['softly defined oval Korean face', 'upturned eyes', 'arched brows', 'clear medium bridge', 'full shaped lips'],
     '混血立體臉': ['dimensional elongated oval face', 'deep-set round eyes', 'defined brows', 'high narrow bridge', 'sculpted lips'],
   };
   for (const face of faces) {

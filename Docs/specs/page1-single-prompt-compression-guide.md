@@ -1,5 +1,8 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
+> **2026-10-14 更新：** `chest-up-mj-portrait`（MJ 胸上特寫照）已依 Cooper 決定完全移除，引擎不再產生、畫面與 DLL 來源不再顯示，F 區參數只作用於主 MJ；既有 Saved Cards 資料保留不改寫。見 [官方規範修正 v1](prompt-official-fixes-v1.md)。本文中關於 MJ 胸上的段落僅供歷史參考。
+> **2026-10-14 族裔：** 所有輸出的主體句不再寫 `Japanese or Korean`／`Japanese woman`，改為 `20-year-old adult woman`（雙人 `20-year-old adult women`）；族裔改由五官特徵承接，五官選「全無」時不指定族裔。下文出現的舊主體句僅供歷史參考。
+
 2026-10-11 主 MJ 體態簡述：取消對話中的 CRT 極短場景／成像測試版，維持原描述長度及診斷字數規則；六種有效獨立 Body Type 改採核准自然短句，「全無」不輸出，雙人分別保留 A/B 歸屬，相同體態合併一句。原目錄、其他五輸出及角色卡自有體態政策不變；不將自由文字或特殊主體映射為六種體態。Public contract `1.54.0`，MJ description／AI length `2.1.0`。已完成本機實作，完整中英文表及驗證邊界見 [主 MJ 體態簡述補充](midjourney-natural-main-v1.md)。
 
 2026-10-11 主 MJ 自然精簡（體態規則由上段後續更新）：僅主 `midjourneyPrompt` 全模式改為最多四段自然英文，省略體態，穿搭只留可見單品名稱，保留身份／姿勢／場景／光線與選定成像。此規則取代下方歷史主 AI 體態完整保留、服裝細節及 style／film 省略規則；其他五組輸出（含 MJ 胸上）、資料與 storage 不變。Public contract `1.53.0`，見 [主 Midjourney 自然精簡 v1](midjourney-natural-main-v1.md)。

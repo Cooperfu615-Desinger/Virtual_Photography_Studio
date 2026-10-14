@@ -1,6 +1,6 @@
 # GPT 獨立 Body Type 省略 v1
 
-Last updated: 2026-10-11
+Last updated: 2026-10-14
 
 Status: 使用者核准範圍已實作，本機自動檢查與桌面／手機瀏覽器驗證通過；Git 交付依分支紀錄核對，未手動 deploy。
 
@@ -16,13 +16,23 @@ GPT 的人物描述不再輸出 A 區獨立「體態 (Body Type)」選項所提�
 | --- | --- |
 | 單人 `Gpt` → `grokPrompt` | 省略已解析的獨立 Body Type；包括使用相同 GPT renderer 的既有單人模式。 |
 | `胸上特寫照` → `chest-up-portrait` | 省略獨立 Body Type；保留同一拍攝狀態與胸上姿勢、服裝、場景及攝影政策。 |
-| `全身角色照` → `full-body-character` | 省略獨立 Body Type；保留單人、`9:16`、自然站姿及完整頭到腳的服裝／配件用途。 |
+| `全身角色照` → `full-body-character` | **2026-10-14 例外：保留**獨立 Body Type，放回省略前的原位置（主體句之後、五官之前）；保留單人、`9:16`、自然站姿及完整頭到腳的服裝／配件用途。見下方「全身角色照例外」。 |
 | 雙人主 `Gpt` → `grokPrompt` | 分別省略 Woman 1／Woman 2 的獨立 Body Type，保留人物歸屬、成年身份與姿勢。 |
 | `Grok/Z-Image` → `zImagePrompt` | 保留同一獨立 Body Type 完整英文，沿用 [體態目錄 v2](body-type-catalog-v2.md)。 |
 | `AI` → `midjourneyPrompt` | 保留同一獨立 Body Type 完整英文，不因這次 GPT 變更恢復舊短正向 anchor。 |
-| `MJ 胸上特寫照` → `chest-up-mj-portrait` | 保留同一獨立 Body Type 完整英文；`4:5` 與既有 F 參數尾段不變。 |
+| ~~`MJ 胸上特寫照` → `chest-up-mj-portrait`~~ | 2026-10-14 已移除（[官方規範修正 v1](prompt-official-fixes-v1.md)）。 |
 
 雙人模式原本不產生三組單人衍生輸出，此限制不變。「全無」仍維持無體態來源，不產生 `none`、通用身材替代句或新的模型操作說明。
+
+## 全身角色照例外（2026-10-14）
+
+Cooper 核准：全身角色照的用途是「組出好造型時匯出的角色備份」，缺少體態會讓備份無法重現人物身形，因此全身角色照恢復輸出獨立 Body Type。
+
+- 只有 `full-body-character` 恢復；主 `Gpt` 與 `chest-up-portrait` 維持省略，雙人主 GPT 維持各角色省略。
+- 位置與省略前相同：`Subject Count`／`Reference Guidance` 之後、`Facial Features` 之前；文字為該選項的完整英文來源，不改寫。
+- 「全無」仍不輸出體態；角色卡、特殊角色沿用原本的路徑。
+- 實作：`buildGptPromptSectionSources(..., { includeBodyType: true })` 只由全身角色照呼叫。
+- 驗證：304 組 fixtures＋隨機組合中只有全身角色照變動（206 份），全部是在 Subject 段插入體態來源，其他段落一字未改。詳見 [官方規範修正 v1](prompt-official-fixes-v1.md)。
 
 ## 保留邊界
 

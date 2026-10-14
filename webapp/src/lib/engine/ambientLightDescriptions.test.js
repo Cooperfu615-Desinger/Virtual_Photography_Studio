@@ -1,5 +1,6 @@
 import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
 import assert from 'node:assert/strict';
+import { restorePreEthnicityOutputs } from './ethnicityRevisionTestSupport.js';
 import { normalizeGptCameraForLegacy } from './gptCameraSpatialTestSupport.js';
 import { normalizeCloseWormForLegacy } from './closeWormEyeTestSupport.js';
 import { test } from 'node:test';
@@ -50,13 +51,15 @@ test('720 frozen main cases change only authored directional GPT/Z ambient', () 
     assert.equal(source.id, AMBIENT_MATRIX[i].locks.lightingId);
     const description = resolveAmbientLightDescription(source);
     const angle = angles.find(a => a.id === r.selection.angleId);
-    const gpt = renderAmbientLightDescription(description, 'directional', angle) + '.';
+    const gpt = sentence(renderAmbientLightDescription(description, 'directional', angle));
     const z = sentence(renderAmbientLightDescription(description, 'z', angle));
     assert.equal(r.outputs.grokPrompt.match(/Lighting:\n([^\n]+)/)?.[1], gpt, AMBIENT_MATRIX[i].id);
     assert.equal(r.outputs.zImagePrompt.split('\n\n').at(-1), z, AMBIENT_MATRIX[i].id);
-    return { ...r.outputs, grokPrompt: normalizeGptCameraForLegacy(r.outputs.grokPrompt, r.selection).replace(`Lighting:\n${gpt}`, `Lighting:\n${baseline.lighting[i]}`),
-      midjourneyPrompt: normalizeExplicitWardrobeFitForLegacy(r.outputs.midjourneyPrompt, 'midjourneyPrompt'),
-      zImagePrompt: normalizeHighAngleDistanceForLegacy(normalizeCloseWormForLegacy(normalizeExplicitWardrobeFitForLegacy(r.outputs.zImagePrompt.slice(0, -z.length) + baseline.ambient[i], 'zImagePrompt'), 'zImagePrompt', r.selection)) };
+    // Frozen hashes predate the 2026-10-14 ethnicity revision; reverse only that rollout.
+    const historical = restorePreEthnicityOutputs(r.outputs);
+    return { ...historical, grokPrompt: normalizeGptCameraForLegacy(historical.grokPrompt, r.selection).replace(`Lighting:\n${gpt}`, `Lighting:\n${baseline.lighting[i]}`),
+      midjourneyPrompt: normalizeExplicitWardrobeFitForLegacy(historical.midjourneyPrompt, 'midjourneyPrompt'),
+      zImagePrompt: normalizeHighAngleDistanceForLegacy(normalizeCloseWormForLegacy(normalizeExplicitWardrobeFitForLegacy(historical.zImagePrompt.slice(0, -z.length) + baseline.ambient[i], 'zImagePrompt'), 'zImagePrompt', r.selection)) };
   });
   assertChestUpRevision('ambient', results);
   for (const field of PROTECTED_OUTPUT_FIELDS) assert.equal(digest(normalized.map(r => r[field])), baseline.hashes[field], field);

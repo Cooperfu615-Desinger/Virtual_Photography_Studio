@@ -41,7 +41,7 @@ test('all six outputs respect cotton material and the existing crop projection',
     assert.match(text, /black low-rise cotton briefs/);
     assert.doesNotMatch(text, /lace panties|delicate lace texture/);
   }
-  for (const id of ['chest-up-portrait', 'chest-up-mj-portrait']) {
+  for (const id of ['chest-up-portrait']) {
     assert.doesNotMatch(prompt.extraPrompts.find(p => p.id === id).text, /cotton briefs|lace panties/);
   }
   assert.match(prompt.summary, /棉質低腰三角褲/);

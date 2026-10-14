@@ -11,8 +11,8 @@ import {
 const controls = getLockControls();
 const controlsByKey = new Map(controls.map((control) => [control.key, control]));
 const FIXED_SET_SCENE_ANCHOR = /black velvet sofa/i;
-const Z_IMAGE_SUBJECT_ANCHOR = /A 20s seductive stunning Japanese or Korean woman/i;
-const MIDJOURNEY_SUBJECT_ANCHOR = /A Japanese woman in her twenties\./i;
+const Z_IMAGE_SUBJECT_ANCHOR = /A 20-year-old seductive stunning adult woman/i;
+const MIDJOURNEY_SUBJECT_ANCHOR = /A 20-year-old adult woman\./i;
 
 const WARDROBE_CASES = [
   {

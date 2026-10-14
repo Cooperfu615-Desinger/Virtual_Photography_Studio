@@ -23,7 +23,7 @@ export const MIDJOURNEY_PARAMETER_CONTRACT = deepFreeze({
   targetModel: 'Midjourney V8',
   applicability: {
     supportedModes: ['single', 'duo'],
-    affectsOnly: ['midjourneyPrompt', 'chestUpMjPortraitPrompt'],
+    affectsOnly: ['midjourneyPrompt'],
     unaffectedOutputs: [
       'grokPrompt',
       'zImagePrompt',
@@ -122,7 +122,7 @@ export const MIDJOURNEY_PARAMETER_CONTRACT = deepFreeze({
   derivedParameters: {
     aspectRatio: {
       parameter: '--ar',
-      source: 'selection.mjAspectRatio, falling back to resolved selection.aspectRatio',
+      source: 'selection.mjAspectRatio, falling back to resolved selection.aspectRatio, then the framing-bucket ratio',
       controlOwner: 'F｜MJ 參數設定',
       legacySource: 'existing PAGE1 aspectRatio',
       omitValues: ['', 'none'],
@@ -137,7 +137,7 @@ export const MIDJOURNEY_PARAMETER_CONTRACT = deepFreeze({
     {
       parameter: '--ar',
       label: '畫面比例',
-      description: '第一個數字越大越寬，第二個數字越大越高；跟隨 PAGE1 會沿用 PAGE1 比例。',
+      description: '第一個數字越大越寬，第二個數字越大越高；跟隨 PAGE1 會沿用 PAGE1 比例，PAGE1 未設定時依景別帶入（近景與胸上 4:5、中景 3:4、牛仔中景與全身 2:3）。',
     },
     {
       parameter: '--raw',
@@ -253,7 +253,6 @@ export const MIDJOURNEY_PARAMETER_CONTRACT = deepFreeze({
       'zImagePrompt',
       'midjourneyPrompt',
       'chestUpPortraitPrompt',
-      'chestUpMjPortraitPrompt',
       'fullBodyCharacterPrompt',
     ],
     preservesHistoricalMappings: {

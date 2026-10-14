@@ -4,6 +4,12 @@ import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls 
 import { deserializeFavoritePrompt, serializeFavoritePrompt, parseLocksFromStandardPrompt } from '../../features/saved-cards/cardCodec.js';
 import { prepareUnderbustTopControl } from './underbustTopFit.js';
 import { buildWorkspaceSummary } from '../page1WorkspaceSummary.js';
+import { polishPublicPromptText } from './publicPromptPolish.js';
+import { assertFullBodyCharacterBody } from './fullBodyCharacterBodyTestSupport.js';
+// Public prompt polish (publicPromptPolish.js) capitalizes sentence starts. A
+// catalog source keeps every word; accept only its exact polished letter case.
+const sourceForms = (source) => [...new Set([source, polishPublicPromptText(source), source[0] + polishPublicPromptText(source).slice(1)])];
+const includesSource = (text, source) => sourceForms(source).some(form => text.includes(form));
 
 const controls = getLockControls();
 const option = (key, zh) => {
@@ -84,15 +90,17 @@ test('color and surface variants keep the new fit, selected garment and natural-
   }
 });
 
-test('short fits retain non-GPT body sources and preserve the GPT-only omission', () => {
+test('short fits retain non-GPT and full-body body sources and preserve the main/chest GPT omission', () => {
   for (const body of controls.find(c => c.key === 'bodyTypeId').options.filter(o => o.zh !== '全無')) {
     const result = generate(locksFor({ bodyTypeId: body.zh, topStylingId: '自然放出' }));
-    for (const text of [result.zImagePrompt, result.extraPrompts.find(e => e.id === 'chest-up-mj-portrait').text]) {
-      assert.ok(text.includes(body.en), body.zh);
+    for (const text of [result.zImagePrompt]) {
+      assert.ok(includesSource(text, body.en), body.zh);
     }
-    for (const text of [result.grokPrompt, full(result), result.extraPrompts.find(e => e.id === 'chest-up-portrait').text]) {
-      assert.ok(!text.includes(body.en), body.zh);
+    for (const text of [result.grokPrompt, result.extraPrompts.find(e => e.id === 'chest-up-portrait').text]) {
+      assert.ok(!includesSource(text, body.en), body.zh);
     }
+    // Approved 2026-10-14 exception: full-body character keeps the body once.
+    assertFullBodyCharacterBody(result, body.en, body.zh);
     assert.equal(result.selection.bodyTypeId, body.id);
   }
 });

@@ -6142,7 +6142,7 @@
       },
       {
         "zh": "戶外：澀谷站前廣場人潮邊緣",
-        "en": "Shibuya Station front plaza with the QFRONT glass facade carrying TSUTAYA and STARBUCKS signage and large advertising screens in the background, the subject as one person within a dense pedestrian flow with people passing in different directions beside and in front of and behind her; everyone sharing the same physical space and perspective with apparent size varying naturally by distance, pedestrians in varied everyday clothing in mixed colors and styles sharing the same ambient light as the subject; nearby passersby naturally overlapping and partly cropped at frame edges, surrounding Japanese shop signs",
+        "en": "Shibuya Station front plaza with the QFRONT glass facade carrying \"TSUTAYA\" and \"STARBUCKS\" signage and large advertising screens in the background, the subject as one person within a dense pedestrian flow with people passing in different directions beside and in front of and behind her; everyone sharing the same physical space and perspective with apparent size varying naturally by distance, pedestrians in varied everyday clothing in mixed colors and styles sharing the same ambient light as the subject; nearby passersby naturally overlapping and partly cropped at frame edges, surrounding Japanese shop signs",
         "desc": "澀谷站前廣場，以 QFRONT 玻璃立面、TSUTAYA／STARBUCKS 招牌、大型廣告螢幕與周邊日文店家招牌為背景；主角是密集人流中的一員，行人從身旁、前方與後方朝不同方向經過。所有人共享實體空間、透視與環境光，畫面大小隨距離自然變化；路人穿著不同色彩與款式的日常服裝，近處自然重疊並可局部裁切。不鎖姿勢、鏡頭或新增地面要求。"
       },
       {
@@ -6473,7 +6473,7 @@
         "en": "young beautiful Korean idol face, refined small face, clear bright eyes, polished youthful beauty, photogenic K-pop portrait balance",
         "desc": "韓系偶像感的年輕漂亮臉，重點是精緻、上鏡、明亮與乾淨。",
         "mj": {
-          "face": "small refined oval face, clear almond eyes with straight brows, slender nose bridge and softly shaped lips"
+          "face": "small refined oval Korean face, clear almond eyes with straight brows, slender nose bridge and softly shaped lips"
         }
       },
       {
@@ -6481,32 +6481,41 @@
         "en": "young beautiful Japanese transparent face, soft natural features, clean gentle eyes, airy fresh beauty, subtle innocent portrait presence",
         "desc": "日系清透淡顏，重點是自然、透明、乾淨與柔和的寫真感。",
         "mj": {
-          "face": "soft natural oval face, gentle almond eyes with natural brows, small nose and softly defined lips"
+          "face": "soft natural oval Japanese face, gentle almond eyes with natural brows, small nose and softly defined lips"
         }
       },
       {
         "zh": "甜美可愛臉",
-        "en": "young sweet pretty face, soft rounded charm, bright friendly eyes, gentle cute beauty, approachable youthful portrait look",
+        "en": "young sweet pretty Japanese face, soft rounded charm, bright friendly eyes, gentle cute beauty, approachable youthful portrait look",
         "desc": "甜美、親和、年輕漂亮，帶可愛感但不幼態。",
         "mj": {
-          "face": "soft natural oval face, bright round eyes with curved brows, small rounded nose and softly shaped lips"
-        }
+          "face": "soft natural oval Japanese face, bright round eyes with curved brows, small rounded nose and softly shaped lips"
+        },
+        "legacyPromptAliases": [
+          "young sweet pretty face, soft rounded charm, bright friendly eyes, gentle cute beauty, approachable youthful portrait look"
+        ]
       },
       {
         "zh": "冷感高級臉",
-        "en": "young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, high-fashion understated presence",
+        "en": "young cool editorial Korean beauty face, refined sharp facial balance, calm distant gaze-ready features, high-fashion understated presence",
         "desc": "冷感、俐落、時裝 editorial 氣質，臉部基底更高級克制。",
         "mj": {
-          "face": "refined elongated oval face, upturned eyes with straight brows, defined nose bridge and sculpted lips"
-        }
+          "face": "refined elongated oval Korean face, upturned eyes with straight brows, defined nose bridge and sculpted lips"
+        },
+        "legacyPromptAliases": [
+          "young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, high-fashion understated presence"
+        ]
       },
       {
         "zh": "成熟性感臉",
-        "en": "young seductive alluring beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence",
+        "en": "young seductive alluring Korean beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence",
         "desc": "性感、迷人、明艷、有女人味，以五官氣質帶出吸引力而不是靠表情。",
         "mj": {
-          "face": "softly defined oval face, upturned eyes with arched brows, clear nose bridge and full shaped lips"
-        }
+          "face": "softly defined oval Korean face, upturned eyes with arched brows, clear nose bridge and full shaped lips"
+        },
+        "legacyPromptAliases": [
+          "young seductive alluring beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence"
+        ]
       },
       {
         "zh": "混血立體臉",

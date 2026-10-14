@@ -76,7 +76,8 @@ test('phase 5 emits one Midjourney-native description block before the canonical
     );
     assert.ok(parameterFixture, `${target.id}: parameter fixture`);
     const { mode, prompt } = generateFixture(parameterFixture);
-    const description = normalizeSubjectLightForLegacy(stripMidjourneyParameterTail(prompt.midjourneyPrompt));
+    // Frozen hashes/word counts predate the 2026-10-14 ethnicity revision; reverse only that rollout.
+    const description = normalizeSubjectLightForLegacy(stripMidjourneyParameterTail(restorePreEthnicityText(prompt.midjourneyPrompt, 'midjourneyPrompt')));
     const parsedTail = parseMidjourneyParameterTail(prompt.midjourneyPrompt);
 
     assert.equal(
@@ -98,36 +99,25 @@ test('phase 5 emits one Midjourney-native description block before the canonical
 
 test('phase 5 changes only AI structure and preserves every non-AI baseline', () => {
   for (const parameterFixture of MIDJOURNEY_PARAMETER_FIXTURES) {
-    const { mode, prompt } = generateFixture(parameterFixture);
+    const { prompt } = generateFixture(parameterFixture);
 
     assert.equal(
-      hashPrompt(normalizeAmbientForLegacy(prompt.grokPrompt, 'grokPrompt', prompt.selection)),
+      hashPrompt(normalizeAmbientForLegacy(restorePreEthnicityText(prompt.grokPrompt, 'grokPrompt'), 'grokPrompt', prompt.selection)),
       parameterFixture.baselineHashes.grokPrompt,
       `${parameterFixture.id}: Gpt`
     );
     assert.equal(
-      hashPrompt(normalizeAmbientForLegacy(normalizeFullCameraForLegacy(prompt.zImagePrompt), 'zImagePrompt', prompt.selection)),
+      hashPrompt(normalizeAmbientForLegacy(normalizeFullCameraForLegacy(restorePreEthnicityText(prompt.zImagePrompt, 'zImagePrompt')), 'zImagePrompt', prompt.selection)),
       parameterFixture.baselineHashes.zImagePrompt,
       `${parameterFixture.id}: Grok/Z-Image`
     );
     assert.doesNotMatch(
       prompt.extraPrompts
-        .filter((entry) => entry.id !== 'chest-up-mj-portrait')
         .map((entry) => entry.text)
         .join('\n'),
       /(?:^|\s)--(?:v|ar|raw|s|c|w|sd|hd)(?:\s|$)/,
       `${parameterFixture.id}: fixed-framing outputs`
     );
-    if (mode === 'single') {
-      const mjChest = prompt.extraPrompts.find((entry) => entry.id === 'chest-up-mj-portrait')?.text || '';
-      assert.match(mjChest, /^\S[\s\S]* --v (?:8\.2|8\.1) --ar 4:5/);
-      assert.doesNotMatch(mjChest, /\n\s*\n|(?:^|\s)(?:Image Type|Subject|Wardrobe|Pose and Composition|Scene|Lighting|Camera Look):/);
-      assert.deepEqual(
-        validatePromptOutputContract('chestUpMjPortraitPrompt', mjChest, { mode: 'single' }),
-        [],
-        `${parameterFixture.id}: MJ chest output contract`
-      );
-    }
   }
 });
 
@@ -155,3 +145,4 @@ test('phase 5 preserves positive Body Type anchors and canonical pose verbatim',
   assert.ok(posePrompt.midjourneyPrompt.includes(canonicalPose));
 });
 import { normalizeAmbientForLegacy } from './ambientLightTestSupport.js';
+import { restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';

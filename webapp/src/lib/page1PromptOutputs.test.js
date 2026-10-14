@@ -25,7 +25,7 @@ function legacyPrompt(subjectCount) {
   return prompt;
 }
 
-test('PAGE1 single output consumers expose three primary and three fixed-framing prompts in one order', () => {
+test('PAGE1 single output consumers expose three primary and two fixed-framing prompts in one order', () => {
   const prompt = legacyPrompt('1');
   const cards = buildPage1GenerationPromptCards(prompt);
   const dllSources = buildPage1DllPromptSources(prompt);
@@ -35,7 +35,6 @@ test('PAGE1 single output consumers expose three primary and three fixed-framing
     'grok',
     'ai',
     'chest-up-portrait',
-    'chest-up-mj-portrait',
     'full-body-character',
   ]);
   assert.deepEqual(dllSources.map((entry) => entry.id), cards.map((entry) => entry.id));
@@ -44,7 +43,6 @@ test('PAGE1 single output consumers expose three primary and three fixed-framing
     'Z-Image',
     'MIDJOURNEY',
     '胸上特寫照',
-    'MJ 胸上特寫照',
     '全身角色照',
   ]);
   assert.ok(cards.every((entry) => !('description' in entry)));
@@ -58,7 +56,6 @@ test('PAGE1 single output consumers expose three primary and three fixed-framing
     dllSources.slice(3).map(({ id, aspectRatio, lockAspectRatio }) => ({ id, aspectRatio, lockAspectRatio })),
     [
       { id: 'chest-up-portrait', aspectRatio: '4:5', lockAspectRatio: true },
-      { id: 'chest-up-mj-portrait', aspectRatio: '4:5', lockAspectRatio: true },
       { id: 'full-body-character', aspectRatio: '9:16', lockAspectRatio: true },
     ],
   );
@@ -89,7 +86,7 @@ test('Nano Banana output adds one exact main source before fixed-framing extras 
 
   assert.deepEqual(cards.map(({ id }) => id), [
     'gpt', 'grok', 'ai', 'nano-banana-2.1',
-    'chest-up-portrait', 'chest-up-mj-portrait', 'full-body-character',
+    'chest-up-portrait', 'full-body-character',
   ]);
   assert.deepEqual(sources.map(({ id }) => id), cards.map(({ id }) => id));
   assert.deepEqual(withoutBanana(cards), buildPage1GenerationPromptCards(original));

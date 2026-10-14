@@ -55,7 +55,6 @@ test('fixed-framing contract is frozen serializable target data and records runt
   );
   assert.equal(PROMPT_OUTPUT_CONTRACTS.fullBodyCharacterPrompt.source.id, 'full-body-character');
   assert.equal(PROMPT_OUTPUT_CONTRACTS.chestUpPortraitPrompt.source.id, 'chest-up-portrait');
-  assert.equal(PROMPT_OUTPUT_CONTRACTS.chestUpMjPortraitPrompt.source.id, 'chest-up-mj-portrait');
   assert.equal(LEGACY_PROMPT_OUTPUT_CONTRACTS.facialCloseupPortraitPrompt.source.id, 'facial-closeup-portrait');
   assert.equal(
     FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.outputs.fullBodyCharacterCompatibility.id,
@@ -67,7 +66,6 @@ test('fixed-framing contract is frozen serializable target data and records runt
     dllPicProPromptSources: true,
     fixedAspectRatios: {
       chestUpPortrait: '4:5',
-      chestUpMjPortrait: '4:5',
       fullBodyCharacter: '9:16',
     },
     unsupportedModeBehavior: 'absent',
@@ -128,7 +126,6 @@ test('phase-1 main framing policy partitions every existing option without chang
 test('phase-1 derived output policies record the legacy face boundary and active chest boundaries', () => {
   const face = FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.outputs.facialCloseupPortrait;
   const chest = FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.outputs.chestUpPortrait;
-  const mjChest = FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.outputs.chestUpMjPortrait;
 
   assert.equal(face.id, 'facial-closeup-portrait');
   assert.equal(face.aspectRatio, '1:1');
@@ -148,21 +145,8 @@ test('phase-1 derived output policies record the legacy face boundary and active
   assert.deepEqual(chest.pose.parts, ['head', 'upperBody']);
   assert.deepEqual(chest.pose.conditionalParts, ['hand', 'prop', 'anchor', 'contactWeight']);
   assert.equal(chest.scene.mode, 'resolvedSourceWithMainRendererPolicy');
-  assert.equal(mjChest.id, 'chest-up-mj-portrait');
-  assert.equal(mjChest.aspectRatio, '4:5');
-  assert.equal(mjChest.rendererStyle, 'midjourneyNativeSingleBlockWithCanonicalTail');
-  assert.equal(mjChest.parameterTail.fixedAspectRatio, '4:5');
-  assert.equal(mjChest.parameterTail.inheritFSettings, true);
-  assert.deepEqual(mjChest.semanticSourceAlignment, {
-    composition: 'derivedChestUpProjection',
-    normalSubject: 'derivedChestUpProjectionFromResolvedSource',
-    specialSubject: 'retainCropAwareMjSubjectAnchor',
-    wardrobe: 'derivedChestUpVisibleRoles',
-    pose: 'derivedChestUpProjectedCanonical',
-    sceneLightingImaging: 'resolvedSourceWithMainMjRendererPolicy',
-  });
 
-  for (const output of [face, chest, mjChest]) {
+  for (const output of [face, chest]) {
     assert.equal(output.scene.preserveLocationIdentity, true);
     assert.equal(output.scene.preserveSourceAnchors, true);
   }
@@ -263,7 +247,7 @@ test('phase-3 connects single derived outputs while preserving the raw framing s
 
   assert.equal(extraIds.includes('full-body-character'), true);
   assert.equal(extraIds.includes('chest-up-portrait'), true);
-  assert.equal(extraIds.includes('chest-up-mj-portrait'), true);
+  assert.equal(extraIds.includes('chest-up-mj-portrait'), false);
   assert.equal(extraIds.includes('facial-closeup-portrait'), false);
   assert.equal(prompt.selection.framingId, locks.framingId);
 });

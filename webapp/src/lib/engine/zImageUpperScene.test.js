@@ -9,8 +9,10 @@ import { LOW_CAMERA_LABELS } from './zImageSceneDirection.js';
 import { normalizeFullCameraForLegacy } from './zImageFullBodyCameraTestSupport.js';
 import { runLegacySceneFixture as runSceneFixture, digest, OUTPUT_FIELDS } from './sceneIntegratedAssemblyTestSupport.js';
 import { UPPER_SCENE_CASES, UPPER_SCENE_MATRIX, UPPER_SCENE_EXCLUDED, UPPER_SCENE_CONTROLS, upperSceneFixture } from './zImageUpperSceneFixtures.js';
+import { polishPublicPromptText } from './publicPromptPolish.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
+import { restorePreEthnicityOutputs, restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
 
 const baseline = JSON.parse(readFileSync(new URL('./zImageUpperSceneBaseline.json', import.meta.url), 'utf8'));
 const controls = getLockControls();
@@ -51,10 +53,11 @@ test('four user-accepted waist-up B prompts match the test pack verbatim', () =>
   const doc = readFileSync(new URL('../../../../Docs/specs/z-image-upper-scene-v2-test-prompts.md', import.meta.url), 'utf8');
   const prompts = [...doc.matchAll(/```text\n([\s\S]*?)\n```/g)].map((m) => m[1]);
   for (const [index, [label]] of UPPER_SCENE_CASES.entries()) {
+    // The test pack predates the 2026-10-14 ethnicity revision; reverse only that rollout.
     assert.equal(normalizeExplicitWardrobeFitForLegacy(
-      runSceneFixture(upperSceneFixture(label, '腰部高度鏡頭')).outputs.zImagePrompt,
+      restorePreEthnicityText(runSceneFixture(upperSceneFixture(label, '腰部高度鏡頭')).outputs.zImagePrompt, 'zImagePrompt'),
       'zImagePrompt',
-    ), prompts[index * 2 + 1]);
+    ), polishPublicPromptText(prompts[index * 2 + 1]));
   }
 });
 
@@ -63,7 +66,8 @@ test('230-case pre-change baseline: only approved low-camera main Z scene clause
   const normalized = results.map((result, index) => {
     const angle = angles.find((a) => a.id === result.selection.angleId);
     const eligible = index < UPPER_SCENE_MATRIX.length && LOW_CAMERA_LABELS.includes(angle?.zh);
-    const outputs = { ...result.outputs };
+    // The baseline predates the 2026-10-14 ethnicity revision; reverse only that rollout.
+    const outputs = restorePreEthnicityOutputs(result.outputs);
     const addition = UPPER_SCENE_CASES.find(([label]) => label === rows[index].locks.locationId.byZh)?.[1];
     if (eligible) {
       const scene = outputs.zImagePrompt.split('\n\n')[1].split('. ')[0];

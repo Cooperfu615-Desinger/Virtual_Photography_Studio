@@ -172,8 +172,8 @@ export const AI_PROMPT_LENGTH_FIXTURES = Object.freeze([
       locationId: { byZh: '室內：英倫復古窗邊房間' },
     },
     requiredFragments: [
-      'Two 20-year-old Japanese or Korean women',
-      'Two 20-year-old Japanese or Korean women',
+      'Two 20-year-old adult women',
+      'Two 20-year-old adult women',
       'Both have',
     ],
   },

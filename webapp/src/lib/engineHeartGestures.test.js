@@ -32,7 +32,7 @@ test('both heart gestures are manual choices for every posture and lying orienta
       for (const framing of ['胸上特寫', '中景鏡頭 (Medium Shot)', '牛仔中景 (Cowboy Shot)', '全身鏡頭 (Full Body Shot)']) {
         const { prompt, outputs } = render(id, base, orientation, framing);
         assert.equal(prompt.selection.poseHandId, id);
-        for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt']) {
+        for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt']) {
           assert.ok(outputs[field].includes(hand.en), `${base}/${orientation}/${framing}/${field} must preserve the hand source`);
         }
         assertZImagePoseProjection(prompt);
@@ -58,7 +58,7 @@ test('close crops keep only authored visible hand details and tight face crops o
     const { outputs, prompt } = render(id, 'standing', 'none', '局部五官特寫');
     for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) assert.doesNotMatch(outputs[field], /heart shape|finger-heart/);
     assert.equal(prompt.selection.poseHandId, id);
-    for (const field of ['chestUpPortraitPrompt', 'chestUpMjPortraitPrompt']) assert.ok(outputs[field].includes(hand.en));
+    for (const field of ['chestUpPortraitPrompt']) assert.ok(outputs[field].includes(hand.en));
     const supine = render(id, 'lying', 'lying-supine', '特寫鏡頭 (Close-Up)').outputs;
     for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) {
       assert.ok(supine[field].includes(hand.meta.projectionByBucket.headShoulders.en));

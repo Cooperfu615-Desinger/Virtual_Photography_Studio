@@ -66,7 +66,7 @@ test('all six outputs retain shoulder wear independently of shirt hem, crop and 
         };
         const result = generatePrompts(1, locks, [], { random: createSeededRandom('shoulder-wear-regression') })[0];
         const outputs = [result.grokPrompt, result.zImagePrompt, ...result.extraPrompts.map((entry) => entry.text)];
-        assert.equal(outputs.length, 5);
+        assert.equal(outputs.length, 4);
         for (const output of outputs) {
           assert.ok(output.includes(text), `${framing}/${zh}: ${output}`);
           assert.match(output, /white fitted longline cotton-poplin button-up shirt/);

@@ -14,6 +14,7 @@ import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 import { normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';
 import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
+import { restorePreEthnicityOutputs } from './ethnicityRevisionTestSupport.js';
 
 const controls = getLockControls();
 const locations = controls.find(c => c.key === 'locationId').options;
@@ -52,7 +53,8 @@ test('930 frozen cases permit only the 14 authored additions in eligible main Z 
     const row = UPPER_SCENE_EXTENSION_REGRESSION[i];
     const addition = UPPER_SCENE_EXTENSION_CASES.find(([label]) => label === row.locks.locationId?.byZh)?.[1];
     const eligible = i < UPPER_SCENE_EXTENSION_MATRIX.length && LOW_CAMERA_LABELS.includes(angles.find(a => a.id === r.selection.angleId)?.zh);
-    const outputs = { ...r.outputs };
+    // The baseline predates the 2026-10-14 ethnicity revision; reverse only that rollout.
+    const outputs = restorePreEthnicityOutputs(r.outputs);
     if (eligible) {
       const blocks = outputs.zImagePrompt.split('\n\n');
       assert.ok(blocks[1].split('. ')[0].endsWith(addition), row.id);

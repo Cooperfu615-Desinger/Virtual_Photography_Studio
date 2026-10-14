@@ -220,10 +220,10 @@ test('sofa fixed composition keeps flexible camera angle and orbit while overrid
   assert.match(prompt.grokPrompt, /Preserve raw-concrete wall, brown Chesterfield sofa, branch-side area, coffee-table foreground as fixed anchors/);
   assert.match(prompt.grokPrompt, /Do not shift into plain studio backdrop, bedroom, cafe, outdoor street, or unrelated room\./);
   assert.doesNotMatch(prompt.grokPrompt, /preserve anchors:|avoid plain studio backdrop/);
-  assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*indoor warm night ambience/);
-  assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*localized warm subject light/);
+  assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*Indoor warm night ambience/);
+  assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*Localized warm subject light/);
   assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*Daido Moriyama/);
-  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*high-acutance snapshot rendering/);
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*High-acutance snapshot rendering/);
   assert.doesNotMatch(prompt.grokPrompt, /Seoul Seongsu-dong urban corner/);
   assert.doesNotMatch(prompt.grokPrompt, /Shibuya should not remain/);
   assert.doesNotMatch(prompt.grokPrompt, /135mm long telephoto lens/);
@@ -288,7 +288,7 @@ test('black velvet industrial sofa fixed composition shares sofa placement contr
   assert.doesNotMatch(prompt.grokPrompt, /multi-cut sequence n=2/);
 
   assert.ok(
-    prompt.zImagePrompt.indexOf('A 20s seductive stunning Japanese or Korean woman') <
+    prompt.zImagePrompt.indexOf('A 20-year-old seductive stunning adult woman') <
       prompt.zImagePrompt.indexOf('real-scale compact editorial lounge set'),
     'Expected subject description to appear before the black velvet sofa scene in Z-Image prompt'
   );
@@ -336,7 +336,7 @@ test('Gpt fixed composition scene uses full-fidelity three-paragraph self-shot f
   assert.match(sceneParagraphs[2], /Preserve warm limewash plaster wall, black velvet sofa, wall-art or mirror zone, industrial coffee-table foreground as fixed anchors; keep their relative positions stable\./);
   assert.match(sceneParagraphs[2], /Do not shift into raw concrete set, brown leather sofa, bare dry-branch decor, plain studio backdrop, bedroom, cafe, outdoor street, or unrelated room\./);
 
-  assert.match(poseText, /allow imperfect self-shot framing/);
+  assert.match(poseText, /Allow imperfect self-shot framing/);
   assert.doesNotMatch(sceneText, /let the image model choose|preserve anchors:|fixed-set rule:/i);
   assert.match(prompt.zImagePrompt, /Close-lens self-shot framing, off-center crop, incomplete set visibility/);
   assert.doesNotMatch(prompt.zImagePrompt, /self-shot social composition feeling|let the image model choose|fixed-set rule:|preserve anchors:/);
@@ -607,7 +607,7 @@ test('Fuji hotel fixed compositions share hotel placement controls and seasonal 
     assert.doesNotMatch(prompt.grokPrompt, /multi-cut sequence n=2/);
 
     assert.ok(
-      prompt.zImagePrompt.indexOf('A 20s seductive stunning Japanese or Korean woman') <
+      prompt.zImagePrompt.indexOf('A 20-year-old seductive stunning adult woman') <
         prompt.zImagePrompt.indexOf('real-scale luxury hotel room editorial set'),
       'Expected subject description to appear before the fixed Fuji hotel scene in Z-Image prompt'
     );
@@ -724,7 +724,7 @@ test('bathtub fixed composition keeps a frontal wall plane and sink mirror inter
   assert.doesNotMatch(prompt.grokPrompt, /camera near the tub edge or waterline/);
 
   assert.ok(
-    prompt.zImagePrompt.indexOf('A 20s seductive stunning Japanese or Korean woman') < prompt.zImagePrompt.indexOf('real-scale vintage bathroom editorial set'),
+    prompt.zImagePrompt.indexOf('A 20-year-old seductive stunning adult woman') < prompt.zImagePrompt.indexOf('real-scale vintage bathroom editorial set'),
     'Expected subject description to appear before the fixed bathtub scene in Z-Image prompt'
   );
   assert.doesNotMatch(prompt.zImagePrompt, /The portrait uses The portrait takes place/);

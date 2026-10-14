@@ -20,6 +20,7 @@ import { MIDJOURNEY_PARAMETER_FIXTURES } from './midjourneyParameterFixtures.js'
 import { stripMidjourneyParameterTail } from './midjourneyParameterTail.js';
 import { REPRESENTATIVE_PROMPT_FIXTURES } from './representativePromptFixtures.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
+import { restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
 import { PRE_HOURGLASS_BODY_CATALOG } from './sceneIntegratedAssemblyTestSupport.js';
 
 const controls = getLockControls();
@@ -135,7 +136,8 @@ test('phase 5 freezes direct special modes and the accepted compact structure', 
     assert.match(target.phase2DescriptionHash, /^[a-f0-9]{64}$/, `${target.id}: phase 2`);
     assert.match(target.phase3DescriptionHash, /^[a-f0-9]{64}$/, `${target.id}: phase 3`);
     assert.match(target.phase4DescriptionHash, /^[a-f0-9]{64}$/, `${target.id}: phase 4`);
-    assert.equal(hashPrompt(description), target.naturalDescriptionHash, `${target.id}: approved scoped revision`);
+    // Frozen hashes predate the 2026-10-14 ethnicity revision; reverse only that rollout.
+    assert.equal(hashPrompt(restorePreEthnicityText(description, 'midjourneyPrompt')), target.naturalDescriptionHash, `${target.id}: approved scoped revision`);
     assert.ok(description.startsWith(target.phase2Opening), `${target.id}: direct opening`);
     assert.doesNotMatch(description, /^Create an? /, `${target.id}: no imperative opening`);
   }

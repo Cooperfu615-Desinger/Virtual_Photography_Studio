@@ -2,6 +2,7 @@ import {
   MIDJOURNEY_PARAMETER_CONTRACT,
   normalizeMidjourneyParameterSettings,
 } from './midjourneyParameterContract.js';
+import { resolveCompositionVisibilityBucket } from './compositionVisibilityContract.js';
 
 const CAPTURED_TAIL_PATTERN = /(?:^|\s)(--v (8\.2|8\.1)(?: --ar (\d+:\d+))?( --raw)? --s (\d+) --c (\d+) --w (\d+) --(sd|hd))\s*$/;
 
@@ -21,11 +22,38 @@ function normalizeAspectRatio(value) {
   return /^\d+:\d+$/.test(normalized) ? normalized : '';
 }
 
+// Approved 2026-10-14: when F follows PAGE1 and PAGE1 has no ratio, main MJ
+// takes a portrait ratio from the framing bucket instead of falling back to
+// Midjourney's 1:1 default. Fixed composition sets keep their own ratio rule.
+export const MIDJOURNEY_FRAMING_ASPECT_RATIO = Object.freeze({
+  faceDetail: '4:5',
+  headShoulders: '4:5',
+  chestUp: '4:5',
+  mediumWaist: '3:4',
+  cowboyKnee: '2:3',
+  fullBody: '2:3',
+  unconstrained: '2:3',
+});
+
+export function midjourneyFramingAspectRatio(bucket) {
+  return MIDJOURNEY_FRAMING_ASPECT_RATIO[bucket] || '';
+}
+
+// Resolve the same framing ratio from a stored selection (Saved Card restore and
+// live F-setting updates), given the framingId control options.
+export function framingAspectRatioForSelection(selection = {}, framingOptions = []) {
+  const framing = framingOptions.find(option => option.id === selection.framingId);
+  const fixedCompositionActive = Boolean(selection.fixedCompositionSetId
+    && !['none', 'random'].includes(selection.fixedCompositionSetId));
+  return midjourneyFramingAspectRatio(resolveCompositionVisibilityBucket(framing, { fixedCompositionActive }));
+}
+
 function resolveAspectRatio(selection, settings) {
   if (settings.mjAspectRatio !== 'page1') {
     return normalizeAspectRatio(settings.mjAspectRatio);
   }
-  return normalizeAspectRatio(selection.aspectRatio);
+  return normalizeAspectRatio(selection.aspectRatio)
+    || normalizeAspectRatio(selection.framingAspectRatio);
 }
 
 export function buildMidjourneyParameterTail(selection = {}) {

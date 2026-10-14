@@ -7,6 +7,8 @@ import { normalizeZImageOnLocationForLegacy } from './zImageOnLocationTestSuppor
 import { buildZImageOnLocationCapture } from './zImageOnLocationCapture.js';
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 import { getLockControls } from '../engine.js';
+import { polishPublicPromptText } from './publicPromptPolish.js';
+import { restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
 
 const baseline = JSON.parse(readFileSync(new URL('./zImageOnLocationBaseline.json', import.meta.url), 'utf8'));
 const runFrozenFixture = (fixture) => runSceneFixture(fixture, PRE_HOURGLASS_BODY_CATALOG);
@@ -24,7 +26,9 @@ test('capture helper joins only supplied sources without changing or inventing t
 test('published test prompts are the actual main renderer outputs', () => {
   const document = readFileSync(new URL('../../../../Docs/specs/z-image-on-location-v1-test-prompts.md', import.meta.url), 'utf8');
   const published = [...document.matchAll(/```text\n([\s\S]*?)\n```/g)].map((match) => match[1]);
-  assert.deepEqual(published, ['bedroom-eye', 'park-eye', 'carriage-0'].map((id) => get(id).outputs.zImagePrompt));
+  // The published pack predates the 2026-10-14 ethnicity revision; reverse only that rollout.
+  assert.deepEqual(published.map(polishPublicPromptText), ['bedroom-eye', 'park-eye', 'carriage-0']
+    .map((id) => restorePreEthnicityText(get(id).outputs.zImagePrompt, 'zImagePrompt')));
 });
 
 for (const fixture of fixtures) test(`main-Z-only source relocation: ${fixture.id}`, () => {
@@ -41,7 +45,9 @@ for (const fixture of fixtures) test(`main-Z-only source relocation: ${fixture.i
   assert.equal(current.inputHash, before.inputHash);
   assert.equal(current.randomDraws, before.randomDraws);
   assert.deepEqual(runFrozenFixture(fixture).outputs, current.outputs, 'same seed');
-  for (const [field, value] of Object.entries(current.outputs)) {
+  // Frozen baselines predate the 2026-10-14 ethnicity revision; reverse only that rollout.
+  for (const [field, text] of Object.entries(current.outputs)) {
+    const value = restorePreEthnicityText(text, field);
     if (field === 'zImagePrompt') {
       assert.equal(normalizeZImageOnLocationForLegacy(value), before.zImagePrompt,
         'only reviewed relocation/ambient connection; every surviving source unchanged');
@@ -78,7 +84,7 @@ test('fixed carriage keeps preset takeover, window/camera layout and one ambient
 
 test('none and excluded paths do not acquire a fictitious capture or ambient source', () => {
   for (const id of ['no-scene', 'no-pose', ...fixtures.filter((f) => f.excluded).map((f) => f.id)]) {
-    assert.equal(get(id).outputs.zImagePrompt, baseline.cases[id].zImagePrompt, id);
+    assert.equal(restorePreEthnicityText(get(id).outputs.zImagePrompt, 'zImagePrompt'), baseline.cases[id].zImagePrompt, id);
   }
   for (const id of ['no-lights', 'subject-light-only']) assert.doesNotMatch(get(id).outputs.zImagePrompt, /within the scene's ambient light/);
   assert.doesNotMatch(get('no-lights').outputs.zImagePrompt.split('\n\n')[1], /golden-amber|daylight|scene's ambient/);

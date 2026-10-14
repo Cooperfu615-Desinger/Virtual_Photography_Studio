@@ -259,9 +259,9 @@ test('selected image type preset drives Gpt Z-Image and AI openings without losi
 
   assert.match(gptSection(prompt, 'Image Type'), /^Create a pastel illustration portrait\b/i);
   assert.match(prompt.zImagePrompt, /^Pastel illustration portrait\./i);
-  assert.match(prompt.zImagePrompt, /A 20s seductive stunning Japanese or Korean woman(?:[.,]| with)/i);
+  assert.match(prompt.zImagePrompt, /A 20-year-old seductive stunning adult woman(?:[.,]| with)/i);
   assert.match(prompt.midjourneyPrompt, /^Pastel illustration portrait\./i);
-  assert.match(prompt.midjourneyPrompt, /A Japanese woman in her twenties\./i);
+  assert.match(prompt.midjourneyPrompt, /A 20-year-old adult woman\./i);
   assert.match(prompt.midjourneyPrompt, /She wears /i);
   assert.equal(prompt.selection.imageTypePresetId, 'pastel-illustration');
   assert.equal(prompt.structured.Style[0].zh, '粉彩插畫');
@@ -292,8 +292,8 @@ test('Gpt single-subject prompt preserves full-fidelity normal subject and wardr
 
   assert.match(subject, /black frame, bold thick-frame glasses, worn normally on the face, lenses aligned over the eyes/i);
   assert.doesNotMatch(subject, /F–G cup bust|height 168–173 cm|bust–waist–hip|dramatic lean hourglass silhouette/i);
-  assert.match(subject, /20-year-old Japanese or Korean female portrait subject/i);
-  assert.match(subject, /young seductive alluring beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence/i);
+  assert.match(subject, /20-year-old adult woman/i);
+  assert.match(subject, /young seductive alluring Korean beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence/i);
   assert.match(subject, /deep side-parted long soft waves, defined face-framing layers, polished wave shape/i);
   assert.match(subject, /silver-gray white hair, cool pale fashion color, realistic dyed hair texture/i);
   assert.doesNotMatch(subject, /tall slim-curvy hourglass body, long legs, narrow waist, rounded hips/i);
@@ -307,7 +307,7 @@ test('Gpt single-subject prompt preserves full-fidelity normal subject and wardr
 
   assert.doesNotMatch(prompt.zImagePrompt, /worn normally on the face|lenses aligned over the eyes/i);
   assert.doesNotMatch(prompt.zImagePrompt, /realistic outer-to-inner dressing order/i);
-  assert.match(prompt.zImagePrompt, /A 20s seductive stunning Japanese or Korean woman(?:[.,]| with)/i);
+  assert.match(prompt.zImagePrompt, /A 20-year-old seductive stunning adult woman(?:[.,]| with)/i);
   assert.match(prompt.zImagePrompt, /F–G cup bust, lean limbs, narrow defined waist, rounded hips/i);
   assert.match(prompt.zImagePrompt, /height 168–173 cm, bust–waist–hip 94–58–92 cm/i);
   assert.match(prompt.zImagePrompt, /F–G cup bust, lean limbs, narrow defined waist, rounded hips, long legs, dramatic lean hourglass silhouette/i);
@@ -338,7 +338,7 @@ test('Z-Image single-subject prompt keeps fixed subject lead and full body type 
 
   assertNaturalZImageParagraphs(prompt, 'single z-image compact prompt', 4);
   assert.match(paragraphs[0], /^Photorealistic editorial portrait\./i);
-  assert.match(paragraphs.find((paragraph) => /A 20s seductive stunning Japanese or Korean woman/i.test(paragraph)) || '', /bold thick-frame glasses/i);
+  assert.match(paragraphs.find((paragraph) => /A 20-year-old seductive stunning adult woman/i.test(paragraph)) || '', /bold thick-frame glasses/i);
   assert.match(prompt.zImagePrompt, /F–G cup bust, lean limbs, narrow defined waist, rounded hips/i);
   assert.match(prompt.zImagePrompt, /height 168–173 cm, bust–waist–hip 94–58–92 cm/i);
   assert.match(prompt.zImagePrompt, /F–G cup bust, lean limbs, narrow defined waist, rounded hips, long legs, dramatic lean hourglass silhouette/i);
@@ -374,7 +374,7 @@ test('AI single-subject prompt uses fixed subject lead while preserving eyewear 
   });
   const aiPrompt = prompt.midjourneyPrompt;
 
-  assert.match(aiPrompt, /^Photorealistic editorial portrait\. Full-body portrait\. A Japanese woman in her twenties\./i);
+  assert.match(aiPrompt, /^Photorealistic editorial portrait\. Full-body portrait\. A 20-year-old adult woman\./i);
   assert.doesNotMatch(aiPrompt, /F–G cup bust, lean limbs, narrow defined waist, rounded hips/i);
   assert.match(aiPrompt, /long soft waves with defined wave shape[\s\S]*sleek wet finish[\s\S]*bold thick-frame glasses/i);
   assert.match(aiPrompt, /She wears a bikini top.*side-tie bikini bottoms/i);
@@ -449,7 +449,7 @@ test('AI single-subject prompt lists eyewear and headphones by name with clothin
 
   const aiPrompt = prompt.midjourneyPrompt;
 
-  assert.match(aiPrompt, /^Photorealistic editorial portrait\.[\s\S]*A Japanese woman in her twenties\./i);
+  assert.match(aiPrompt, /^Photorealistic editorial portrait\.[\s\S]*A 20-year-old adult woman\./i);
   assert.match(aiPrompt, /She wears [\s\S]*bold thick-frame glasses[\s\S]*Marshall Major V on-ear headphones/i);
   assert.match(aiPrompt, /sheer floral lace cropped camisole[\s\S]*denim shorts/i);
   assert.ok(aiPrompt.indexOf('denim shorts') < aiPrompt.indexOf('bold thick-frame glasses'));
@@ -481,12 +481,12 @@ test('Gpt single-subject prompt preserves full-fidelity identity descriptions', 
         hairColorId: optionId('hairColorId', '銀灰白'),
       },
       gptKeeps: [
-        /young seductive alluring beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence/i,
+        /young seductive alluring Korean beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence/i,
         /deep side-parted long soft waves, defined face-framing layers, polished wave shape/i,
         /silver-gray white hair, cool pale fashion color, realistic dyed hair texture/i,
       ],
       zKeeps: [
-        /A 20s seductive stunning Japanese or Korean woman(?:[.,]| with)/i,
+        /A 20-year-old seductive stunning adult woman(?:[.,]| with)/i,
         /F–G cup bust, lean limbs, narrow defined waist, rounded hips/i,
         /height 168–173 cm, bust–waist–hip 94–58–92 cm/i,
         /F–G cup bust, lean limbs, narrow defined waist, rounded hips, long legs, dramatic lean hourglass silhouette/i,
@@ -509,7 +509,7 @@ test('Gpt single-subject prompt preserves full-fidelity identity descriptions', 
         /glass skin, dewy luminous skin texture, hydrated reflective complexion/i,
       ],
       zKeeps: [
-        /A 20s seductive stunning Japanese or Korean woman(?:[.,]| with)/i,
+        /A 20-year-old seductive stunning adult woman(?:[.,]| with)/i,
         /A–B cup bust, narrow ribcage, slim arms and legs/i,
         /short torso, long legs, tall slender model silhouette; height 170–175 cm, bust–waist–hip 80–58–88 cm/i,
       ],
@@ -525,13 +525,13 @@ test('Gpt single-subject prompt preserves full-fidelity identity descriptions', 
         hairColorId: optionId('hairColorId', '蜂蜜焦糖棕'),
       },
       gptKeeps: [
-        /young sweet pretty face, soft rounded charm, bright friendly eyes, gentle cute beauty, approachable youthful portrait look/i,
+        /young sweet pretty Japanese face, soft rounded charm, bright friendly eyes, gentle cute beauty, approachable youthful portrait look/i,
         /straight medium-to-long hair with clean vertical lengths, softly tapered ends, compact natural silhouette/i,
         /honey caramel-brown hair, warm golden brown salon color/i,
         /natural freckles across nose and cheeks, sun-kissed freckles, authentic skin detail/i,
       ],
       zKeeps: [
-        /A 20s seductive stunning Japanese or Korean woman(?:[.,]| with)/i,
+        /A 20-year-old seductive stunning adult woman(?:[.,]| with)/i,
         /C–D cup bust, soft proportionate arms, gently defined waist/i,
         /slightly long torso, balanced legs, soft hourglass silhouette; height 165–170 cm, bust–waist–hip 90–62–94 cm/i,
       ],
@@ -542,7 +542,7 @@ test('Gpt single-subject prompt preserves full-fidelity identity descriptions', 
   for (const item of cases) {
     const result = buildSubject(item.locks);
     assert.doesNotMatch(result.subject, /cup bust|bust–waist–hip|height \d/i);
-    assert.match(result.subject, /20-year-old Japanese or Korean female portrait subject/i);
+    assert.match(result.subject, /20-year-old adult woman/i);
     for (const pattern of item.gptKeeps) {
       assert.match(result.subject, pattern, `${item.name} should preserve full GPT wording`);
     }
@@ -948,7 +948,7 @@ test('Gpt duo prompt uses role cards with wardrobe inside each subject block', (
   const pose = gptSection(prompt, 'Pose and Composition');
   const scene = gptSection(prompt, 'Scene');
 
-  assert.match(subject, /^Two 20-year-old Japanese or Korean female portrait subjects\./);
+  assert.match(subject, /^Two 20-year-old adult women\./);
   assert.match(subject, /Woman 1:\nHas /);
   assert.match(subject, /Woman 2:\nHas /);
   assert.ok(subject.indexOf('Woman 1:') < subject.indexOf('Woman 2:'));
@@ -1115,7 +1115,7 @@ test('Z-Image duo prompt uses compact direct paragraphs', () => {
 
   const zPrompt = prompt.zImagePrompt;
   assert.match(zPrompt, /^Photorealistic editorial portrait\./i);
-  assert.match(zPrompt, /\n\nTwo stunning seductive 20-year-old Japanese or Korean women\./);
+  assert.match(zPrompt, /\n\nTwo stunning seductive 20-year-old adult women\./);
   assert.match(zPrompt, /Woman 1 has [\s\S]+?She wears [^.]*cropped sleeveless tank[\s\S]*balloon wide pants[\s\S]*deep indigo denim palette/i);
   assert.match(zPrompt, /Woman 2 has [\s\S]+?She wears [^.]*sheer mesh halter camisole[\s\S]*denim micro mini skirt[\s\S]*silver graphite metallic palette/i);
   assert.match(zPrompt, /laugh naturally with each other/i);
@@ -1145,7 +1145,7 @@ test('Z-Image prompt remains natural language with blank-line paragraphs and AI 
   }, [], { random: createSeededRandom('prompt-structure-natural-language') });
 
   assert.match(prompt.zImagePrompt, /^Photorealistic editorial portrait\./);
-  assert.match(prompt.zImagePrompt, /\n\nA 20s seductive stunning Japanese or Korean woman(?:[.,]| with)/);
+  assert.match(prompt.zImagePrompt, /\n\nA 20-year-old seductive stunning adult woman(?:[.,]| with)/);
   assertNaturalZImageParagraphs(prompt, 'outfit preset z-image prompt');
   assert.match(prompt.zImagePrompt, /\n\nThe setting is horizonless seamless matte deep black color field/i);
   assert.doesNotMatch(prompt.zImagePrompt, /^Subject Count:/m);
@@ -1153,9 +1153,10 @@ test('Z-Image prompt remains natural language with blank-line paragraphs and AI 
   assert.doesNotMatch(prompt.midjourneyPrompt, /^(Image Type|Scene|Subject|Wardrobe):/m);
   assert.doesNotMatch(prompt.midjourneyPrompt, /multi-cut sequence n=2/);
   assert.match(prompt.midjourneyPrompt, /^Photorealistic editorial portrait\./);
-  assert.match(prompt.midjourneyPrompt, / A Japanese woman in her twenties\./);
+  assert.match(prompt.midjourneyPrompt, / A 20-year-old adult woman\./);
   assert.ok(prompt.midjourneyPrompt.split('\n\n').length <= 4);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /20-year-old|defined eyes and lips/i);
+  // Apart from the approved MJ lead above, no GPT-style age subject or facial text.
+  assert.doesNotMatch(prompt.midjourneyPrompt.replace(' A 20-year-old adult woman.', ''), /20-year-old|defined eyes and lips/i);
   assert.match(prompt.midjourneyPrompt, /deep black color field/);
   assert.match(prompt.midjourneyPrompt, /She wears [^\n]*jacket/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /standing with natural relaxed standing arrangement; arms crossed loosely/i);
@@ -1176,8 +1177,8 @@ test('Z-Image and AI keep selected lighting and camera controls with model-speci
     filmId: optionId('filmId', '日系亮膚高彩濾鏡'),
   });
 
-  assert.match(gptSection(prompt, 'Lighting'), /indoor late-afternoon ambience[\s\S]*warm-neutral daylight[\s\S]*warm golden-amber subject color[\s\S]*controlled saturation/);
-  assert.match(gptSection(prompt, 'Camera Look'), /high-key minimalist portraiture[\s\S]*flattened spatial layers[\s\S]*meaningful partial frame coverage[\s\S]*vivid saturation[\s\S]*clean deep blacks/);
+  assert.match(gptSection(prompt, 'Lighting'), /Indoor late-afternoon ambience[\s\S]*warm-neutral daylight[\s\S]*Warm golden-amber subject color[\s\S]*controlled saturation/);
+  assert.match(gptSection(prompt, 'Camera Look'), /High-key minimalist portraiture[\s\S]*flattened spatial layers[\s\S]*meaningful partial frame coverage[\s\S]*vivid saturation[\s\S]*clean deep blacks/);
 
   assertNaturalZImageParagraphs(prompt, 'compressed imaging z-image prompt');
   assert.match(prompt.zImagePrompt, /indoor late-afternoon ambience with bright softened illumination and warm-neutral daylight/i);
@@ -1391,7 +1392,7 @@ test('Z-Image binds intact pose to the scene before subject and all single wardr
     });
     const paragraphs = zImageParagraphs(prompt);
     const canonicalPose = gptSection(prompt, 'Pose and Composition');
-    const subjectIndex = paragraphs.findIndex((paragraph) => /A 20s seductive stunning Japanese or Korean woman/i.test(paragraph));
+    const subjectIndex = paragraphs.findIndex((paragraph) => /A 20-year-old seductive stunning adult woman/i.test(paragraph));
     const wardrobeIndex = paragraphs.findIndex((paragraph) => wardrobeCase.wardrobePattern.test(paragraph));
     const poseIndex = paragraphs.findIndex((paragraph) => paragraph.includes(canonicalPose));
     const sceneIndex = paragraphs.findIndex((paragraph) => /^The setting is /i.test(paragraph));
@@ -1537,7 +1538,7 @@ test('AI duo prompt keeps compact direct role sentences and retained accessories
 
   const aiPrompt = prompt.midjourneyPrompt;
   assert.match(aiPrompt, /^Photorealistic editorial portrait\./);
-  assert.match(aiPrompt, / Two 20-year-old Japanese or Korean women\./);
+  assert.match(aiPrompt, / Two 20-year-old adult women\./);
   assert.ok(aiPrompt.indexOf('The first woman wears') < aiPrompt.indexOf('The second woman wears'));
   assert.ok(aiPrompt.indexOf('Two women captured') < aiPrompt.indexOf('The first woman wears'));
   assert.ok(aiPrompt.indexOf(' Two women captured') < aiPrompt.indexOf('Dotonbori Shinsaibashi'));
@@ -1887,7 +1888,7 @@ test('AI prompt uses simplified X-prompt wardrobe wording for representative loo
   assert.doesNotMatch(dressPrompt.midjourneyPrompt, /delicate lace trim|short hem|one-piece|[\u3400-\u9fff]/i);
 });
 
-test('main AI retains film simulation while MJ chest-up retains its omission', () => {
+test('main AI retains film simulation', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     outfitPresetId: optionId('outfitPresetId', '套裝：空服員制服'),
@@ -1898,8 +1899,6 @@ test('main AI retains film simulation while MJ chest-up retains its omission', (
   }, [], { random: createSeededRandom('ci-imaging-8') });
 
   assert.match(prompt.midjourneyPrompt, /high-acutance snapshot rendering|snap-focus clarity/i);
-  const chestUp = prompt.extraPrompts.find((p) => p.id === 'chest-up-mj-portrait').text;
-  assert.doesNotMatch(chestUp, /high-acutance snapshot rendering|snap-focus clarity/i);
 });
 
 test('none selections stay silent across all final prompt outputs', () => {

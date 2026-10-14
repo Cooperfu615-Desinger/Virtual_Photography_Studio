@@ -521,7 +521,7 @@ test('model-specific shoes stay concise while preserving signature accent detail
 
   const grokShoesLine = prompt.grokPrompt.match(/Wardrobe:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
   assert.ok(grokShoesLine);
-  assert.match(grokShoesLine, /white adidas samba og sneakers/);
+  assert.match(grokShoesLine, /White adidas samba og sneakers/);
   assert.match(grokShoesLine, /gum sole/);
   assert.match(grokShoesLine, /three-stripe side detail/);
   assert.doesNotMatch(grokShoesLine, /low-top classic terrace shoe silhouette/);
@@ -541,7 +541,7 @@ test('generic shoe colors do not conflict with fixed color wording', () => {
 
   const grokShoesLine = prompt.grokPrompt.match(/Wardrobe:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
   assert.ok(grokShoesLine);
-  assert.match(grokShoesLine, /white glossy pointed-toe stiletto pumps/);
+  assert.match(grokShoesLine, /White glossy pointed-toe stiletto pumps/);
   assert.doesNotMatch(grokShoesLine, /black glossy pointed-toe/);
 
   assert.match(prompt.zImagePrompt, /white glossy pointed-toe stiletto pumps/);
@@ -707,7 +707,6 @@ test('street gold necklace stays short and spatially anchored at the neck across
   ];
   const omittedByCompactContract = [
     prompt.midjourneyPrompt,
-    extraById.get('chest-up-mj-portrait'),
   ];
   const expected = /short gold curb-link necklace worn around the base of the neck at collarbone level/i;
   const retired = /street-style gold chain detail, subtle urban neck accent/i;
@@ -996,13 +995,11 @@ test('adhesive tape look is a composable outfit preset while the original specia
     outfitPresetPrimaryColorId: optionId('outfitPresetPrimaryColorId', '全無'),
   });
   const defaultChestUpPrompt = defaultPrompt.extraPrompts.find((entry) => entry.id === 'chest-up-portrait')?.text || '';
-  const defaultChestUpMjPrompt = defaultPrompt.extraPrompts.find((entry) => entry.id === 'chest-up-mj-portrait')?.text || '';
   const defaultFullBodyPrompt = defaultPrompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '';
   for (const text of [
     defaultPrompt.grokPrompt,
     defaultPrompt.zImagePrompt,
     defaultChestUpPrompt,
-    defaultChestUpMjPrompt,
     defaultFullBodyPrompt,
   ]) {
     assert.match(text, /safety-yellow/i);
@@ -1034,9 +1031,8 @@ test('adhesive tape look is a composable outfit preset while the original specia
   assert.doesNotMatch(presetPrompt.midjourneyPrompt, /compressed skin with soft flesh bulges/i);
   assert.doesNotMatch(presetPrompt.midjourneyPrompt, /halter|bralette|high-cut|tape bottoms/i);
   const chestUpPrompt = presetPrompt.extraPrompts.find((entry) => entry.id === 'chest-up-portrait')?.text || '';
-  const chestUpMjPrompt = presetPrompt.extraPrompts.find((entry) => entry.id === 'chest-up-mj-portrait')?.text || '';
   const fullBodyPrompt = presetPrompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '';
-  for (const text of [chestUpPrompt, chestUpMjPrompt]) {
+  for (const text of [chestUpPrompt]) {
     assert.match(text, /independent (?:wide )?chest and ribcage wrap bands/i);
     assert.match(text, /bare-shoulder|bare shoulders/i);
     assert.doesNotMatch(text, /hip and pelvis|thigh wrap|halter|bralette|high-cut|tape bottoms/i);
@@ -1049,7 +1045,6 @@ test('adhesive tape look is a composable outfit preset while the original specia
     presetPrompt.grokPrompt,
     presetPrompt.zImagePrompt,
     chestUpPrompt,
-    chestUpMjPrompt,
     fullBodyPrompt,
   ]) {
     assert.doesNotMatch(text, /safety-yellow|CAUTION|solid black rectangular warning blocks/i);

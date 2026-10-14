@@ -1,6 +1,7 @@
 // Historical snapshot compatibility helper for the approved explicit-fit pass.
 // Keep old baselines immutable while the focused fit fixtures assert the new
 // behavior. This helper is test-only and must never be imported by production.
+import { polishPublicPromptText } from './publicPromptPolish.js';
 
 const EXPLICIT_FIT_PHRASES = Object.freeze([
   'standard upper-body cut',
@@ -43,10 +44,12 @@ export function normalizeExplicitWardrobeFitForLegacy(text, field) {
     );
   }
 
-  return output
+  // Removing a fit phrase can expose a wardrobe lead comma ("She wears, ...").
+  // Compare in the same polished form as public prompts (publicPromptPolish.js).
+  return polishPublicPromptText(output
     .replace(/\s+,/g, ',')
     .replace(/,\s*\./g, '.')
     .replace(/\.\s*,/g, ',')
     .replace(/,\s*(?=\n|$)/g, '')
-    .trim();
+    .trim());
 }

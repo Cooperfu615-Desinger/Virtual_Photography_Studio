@@ -1,5 +1,6 @@
 import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
 import assert from 'node:assert/strict';
+import { restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
 import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
 import { CLOSE_WORM_CASES, CLOSE_WORM_EXCLUDED } from './closeWormEyeFixtures.js';
@@ -46,7 +47,8 @@ test('frozen matrix permits only the exact GPT/Z camera text and no selection or
   assertChestUpRevision('worm', rows);
   for (const field of PROTECTED_OUTPUT_FIELDS) assert.equal(digest(rows.map(r => {
     const value = normalizeExplicitWardrobeFitForLegacy(
-      normalizeCloseWormForLegacy(r.outputs[field], field, r.selection),
+      // Frozen hashes predate the 2026-10-14 ethnicity revision; reverse only that rollout.
+      normalizeCloseWormForLegacy(restorePreEthnicityText(r.outputs[field], field), field, r.selection),
       field,
     );
     if (field === 'grokPrompt') return normalizeGptHighAngleDistanceForLegacy(value, r.selection);

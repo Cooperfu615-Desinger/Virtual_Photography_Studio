@@ -155,10 +155,10 @@ export const MINIMAL_COVERAGE_WARDROBE_CONTRACT = deepFreeze({
  */
 // Applies to catalog Body Type only; Character Card body visibility is unchanged.
 export const STANDALONE_BODY_TYPE_CONTRACT = deepFreeze({
-  version: '2.1.0',
+  version: '2.2.0',
   source: 'resolved selected catalog Body Type English description',
-  fidelity: 'verbatim in Z-Image and MJ chest-up; GPT omits standalone catalog Body Type; main MJ omits all physique descriptions',
-  gpt: 'omit standalone single and A/B body sources in main GPT, GPT chest-up and full-body character reference; retain adult identity and existing pose',
+  fidelity: 'verbatim in Z-Image, MJ chest-up and the full-body character reference; main GPT and GPT chest-up omit standalone catalog Body Type; main MJ omits all physique descriptions',
+  gpt: 'omit standalone single and A/B body sources in main GPT and GPT chest-up; the full-body character reference keeps the single body source at its original Subject position (approved 2026-10-14); retain adult identity and existing pose',
   excludes: 'Character Card profile.body, permanent identity, legacy identityAndBody, dedicated subjects and authored wardrobe details',
   projection: 'independent of crop, camera direction and effective hem overlap',
   compression: 'Z-Image and MJ chest-up retain cup range, height and bust-waist-hip measurements; main MJ maps effective standalone body to six reviewed sentences without measurements or stored-data changes',
@@ -413,70 +413,6 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
     },
     controlLeakage: {
       forbiddenCaseInsensitive: COMMON_CONTROL_LEAKAGE,
-    },
-  },
-
-  chestUpMjPortraitPrompt: {
-    field: 'chestUpMjPortraitPrompt',
-    uiLabel: 'MJ 胸上特寫照',
-    target: 'Single-subject 4:5 Midjourney-native chest-up portrait',
-    captureState: 'same resolved source reprojected to chest; main MJ assembly and imaging policy with matching mode exclusions; live F settings except fixed 4:5',
-    source: { kind: 'extraPrompt', id: 'chest-up-mj-portrait' },
-    applicability: {
-      supportedModes: ['single'],
-      unsupportedBehavior: 'absent',
-    },
-    language: {
-      primary: 'en',
-      forbiddenUnicodeBlocks: [CJK_UNIFIED_IDEOGRAPHS],
-    },
-    shape: {
-      paragraphSeparator: 'single-block',
-      minimumParagraphs: 1,
-      labelPlacement: 'inline',
-      modes: {
-        single: {
-          requiredPrefix: '',
-          requiredPrefixes: Object.values(MIDJOURNEY_DESCRIPTION_CONTRACT.imageTypeOpenings),
-          requiredLabels: [],
-          optionalLabels: [],
-          forbiddenLabels: [
-            'Image Type',
-            'Subject',
-            'Wardrobe',
-            'Woman 1',
-            'Woman 2',
-            'Shared Expression',
-            'Pose and Composition',
-            'Pose',
-            'Scene',
-            'Lighting',
-            'Camera Look',
-            'Constraints',
-          ],
-          orderedLabels: [],
-        },
-      },
-    },
-    tail: {
-      requiredExactLine: '',
-      requiredPatternSource: '--v (?:8\\.2|8\\.1) --ar 4:5(?: --raw)? --s \\d+ --c \\d+ --w \\d+ --(?:sd|hd)$',
-      forbiddenSubstrings: [
-        'multi-cut sequence n=2',
-        '--q',
-        '--quality',
-        '--draft',
-        '--oref',
-        '--ow',
-        '--turbo',
-      ],
-    },
-    controlLeakage: {
-      forbiddenCaseInsensitive: [
-        ...COMMON_CONTROL_LEAKAGE,
-        'controlled by the outfit color selection',
-        'can retain a classic signature color scheme',
-      ],
     },
   },
 

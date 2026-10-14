@@ -44,7 +44,6 @@ test('all nine standing sources reach the three main outputs and survive saved-c
     assert.equal(restored.grokPrompt, p.grokPrompt);
     assert.equal(parseLocksFromStandardPrompt(p.grokPrompt, controls).locks.poseArrangementId, id);
     assert.match(extra(p, 'chest-up-portrait'), /4:5/);
-    assert.match(extra(p, 'chest-up-mj-portrait'), /--ar 4:5\b/);
     assert.equal(extra(p, 'full-body-character'), extra(generate(locksFor('standing-natural')), 'full-body-character'));
   }
 });
@@ -64,7 +63,7 @@ test('standing crops keep visible intent without leaking off-frame feet or chang
       const pose = p.grokPrompt.split('Pose and Composition:\n')[1]?.split('\n\n')[0] || '';
       assert.doesNotMatch(pose, /foot raised|feet planted|foot raised off the ground|lower leg folded back/);
       if (id === 'standing-forward-lean' && frame !== '半臉傾斜特寫') assert.match(pose, /marked forward lean.*camera/);
-      for (const key of ['chest-up-portrait', 'chest-up-mj-portrait']) {
+      for (const key of ['chest-up-portrait']) {
         const text = extra(p, key);
         assert.doesNotMatch(text, /foot raised off the ground|pelvis shifted distinctly backward/);
       }

@@ -3,6 +3,7 @@ import { bottomRiseConflict, resolveBottomRiseCompatibility } from './engine/bot
 import { extractMidjourneyItemNames, midjourneyItemName, naturalIdentity, naturalSentence, naturalWardrobeSentence, renderNaturalMidjourney, uniqueNames } from './engine/midjourneyNaturalPrompt.js';
 import { midjourneyBodyDescription } from './engine/midjourneyBodyDescriptions.js';
 import { renderNanoBananaNarrative } from './engine/nanoBananaPrompt.js';
+import { polishPublicPromptText } from './engine/publicPromptPolish.js';
 import { nanoBananaFacialDescription } from './engine/nanoBananaFacialFeatures.js';
 import { isHeadDominantFraming, headDominantAngleAllowed, headDominantCameraText } from './engine/headDominantFraming.js';
 import { DEFAULT_KNEELING_SUPPORT_HAND_ID, isFourPointKneeling, isKneelingSupportHand, resolveKneelingSupportArrangement } from './engine/kneelingSupport.js';
@@ -56,8 +57,7 @@ import {
   normalizeMidjourneyParameterSettings,
 } from './engine/midjourneyParameterContract.js';
 import { MIDJOURNEY_DESCRIPTION_CONTRACT } from './engine/midjourneyDescriptionContract.js';
-import { renderMidjourneyNativeDescription } from './engine/midjourneyNativeStructure.js';
-import { appendMidjourneyParameterTail } from './engine/midjourneyParameterTail.js';
+import { appendMidjourneyParameterTail, midjourneyFramingAspectRatio } from './engine/midjourneyParameterTail.js';
 import { CHARACTER_PROFILE_OPTIONS } from './engine/characterProfiles.js';
 import {
   DUO_EXPRESSION_OPTIONS,
@@ -150,8 +150,9 @@ import { buildBathroomVanityMirrorReflectionText } from './engine/bathroomVanity
 export { createSeededRandom } from './engineRandom.js';
 
 const SUBJECT_COUNT_OPTIONS = [
-  { id: '1', zh: '1 位', en: 'one 20-year-old Japanese or Korean female portrait subject', count: 1 },
-  { id: '2', zh: '2 位', en: 'two 20-year-old Japanese or Korean female portrait subjects', count: 2 },
+  // 2026-10-14: ethnicity moved to Facial Features; old text stays importable.
+  { id: '1', zh: '1 位', en: 'one 20-year-old adult woman', count: 1, meta: { legacyPromptAliases: ['one 20-year-old Japanese or Korean female portrait subject'] } },
+  { id: '2', zh: '2 位', en: 'two 20-year-old adult women', count: 2, meta: { legacyPromptAliases: ['two 20-year-old Japanese or Korean female portrait subjects'] } },
 ];
 
 const CHARACTER_EXPRESSION_CATEGORY = '表情 (Facial Expression)';
@@ -159,8 +160,8 @@ const LEGACY_CHARACTER_EXPRESSION_CATEGORY = '神情與眼神 (Expression & Gaze
 const HAIR_STYLING_STATE_CATEGORY = '髮絲整理狀態 (Hair Styling State)';
 const HAIR_STYLING_STATE_DEFAULT_ID = 'character:髮絲整理狀態-hair-styling-state:柔順自然:0';
 
-const FIXED_SINGLE_NORMAL_SUBJECT_SENTENCE = 'A 20s seductive stunning Japanese or Korean woman.';
-const MIDJOURNEY_FIXED_SINGLE_NORMAL_SUBJECT_LEAD = 'A 20s seductive stunning Japanese woman.';
+const FIXED_SINGLE_NORMAL_SUBJECT_SENTENCE = 'A 20-year-old seductive stunning adult woman.';
+const MIDJOURNEY_FIXED_SINGLE_NORMAL_SUBJECT_LEAD = 'A 20-year-old seductive stunning adult woman.';
 
 const IMAGE_TYPE_PRESET_OPTIONS = [
   {
@@ -171,7 +172,7 @@ const IMAGE_TYPE_PRESET_OPTIONS = [
     zImageLead: 'Create a photorealistic editorial portrait of',
     zImageDuo: 'Create a photorealistic editorial portrait of two women in a real-world photography style',
     aiLead: '',
-    aiDuo: 'Create a photorealistic editorial portrait in a real-world photography style. The main characters are two stunning seductive 20-year-old Japanese or Korean women.',
+    aiDuo: 'Create a photorealistic editorial portrait in a real-world photography style. The main characters are two stunning seductive 20-year-old adult women.',
   },
   {
     id: 'fashion-advertising',
@@ -181,7 +182,7 @@ const IMAGE_TYPE_PRESET_OPTIONS = [
     zImageLead: 'Create a premium fashion advertising image of',
     zImageDuo: 'Create a premium fashion advertising image of two women with modern luxury art direction and polished commercial fashion finish',
     aiLead: 'premium fashion advertising image',
-    aiDuo: 'Create a premium fashion advertising image in a polished commercial fashion style. The main characters are two stunning seductive 20-year-old Japanese or Korean women.',
+    aiDuo: 'Create a premium fashion advertising image in a polished commercial fashion style. The main characters are two stunning seductive 20-year-old adult women.',
   },
   {
     id: 'watercolor-illustration',
@@ -191,7 +192,7 @@ const IMAGE_TYPE_PRESET_OPTIONS = [
     zImageLead: 'Create a watercolor portrait illustration of',
     zImageDuo: 'Create a watercolor portrait illustration of two women with soft hand-painted washes and refined editorial character styling',
     aiLead: 'watercolor portrait illustration',
-    aiDuo: 'Create a watercolor portrait illustration with soft hand-painted washes. The main characters are two stunning seductive 20-year-old Japanese or Korean women.',
+    aiDuo: 'Create a watercolor portrait illustration with soft hand-painted washes. The main characters are two stunning seductive 20-year-old adult women.',
   },
   {
     id: 'oil-painting',
@@ -201,7 +202,7 @@ const IMAGE_TYPE_PRESET_OPTIONS = [
     zImageLead: 'Create an oil painting portrait of',
     zImageDuo: 'Create an oil painting portrait of two women with layered brushwork and gallery-quality finished image direction',
     aiLead: 'oil painting portrait',
-    aiDuo: 'Create an oil painting portrait with layered brushwork and tactile painted surface. The main characters are two stunning seductive 20-year-old Japanese or Korean women.',
+    aiDuo: 'Create an oil painting portrait with layered brushwork and tactile painted surface. The main characters are two stunning seductive 20-year-old adult women.',
   },
   {
     id: 'fashion-illustration',
@@ -211,7 +212,7 @@ const IMAGE_TYPE_PRESET_OPTIONS = [
     zImageLead: 'Create a fashion illustration of',
     zImageDuo: 'Create a fashion illustration of two women with elegant drawn lines and refined clothing presentation',
     aiLead: 'fashion illustration',
-    aiDuo: 'Create a fashion illustration with elegant drawn lines and refined clothing presentation. The main characters are two stunning seductive 20-year-old Japanese or Korean women.',
+    aiDuo: 'Create a fashion illustration with elegant drawn lines and refined clothing presentation. The main characters are two stunning seductive 20-year-old adult women.',
   },
   {
     id: 'pastel-illustration',
@@ -221,7 +222,7 @@ const IMAGE_TYPE_PRESET_OPTIONS = [
     zImageLead: 'Create a pastel illustration portrait of',
     zImageDuo: 'Create a pastel illustration portrait of two women with soft powdery color texture and refined romantic character styling',
     aiLead: 'pastel illustration portrait',
-    aiDuo: 'Create a pastel illustration portrait with soft powdery color texture. The main characters are two stunning seductive 20-year-old Japanese or Korean women.',
+    aiDuo: 'Create a pastel illustration portrait with soft powdery color texture. The main characters are two stunning seductive 20-year-old adult women.',
   },
 ];
 
@@ -3146,6 +3147,7 @@ const LOCATION_LEGACY_PROMPT_ALIASES = [
     category: '城市與社群感 (Urban & Social Snapshots)',
     targetZh: '戶外：澀谷站前廣場人潮邊緣',
     prompts: [
+      'Shibuya Station front plaza with the QFRONT glass facade carrying TSUTAYA and STARBUCKS signage and large advertising screens in the background, the subject as one person within a dense pedestrian flow with people passing in different directions beside and in front of and behind her; everyone sharing the same physical space and perspective with apparent size varying naturally by distance, pedestrians in varied everyday clothing in mixed colors and styles sharing the same ambient light as the subject; nearby passersby naturally overlapping and partly cropped at frame edges, surrounding Japanese shop signs',
       'Shibuya Station front plaza with the QFRONT glass facade carrying TSUTAYA and STARBUCKS signage and large advertising screens in the background, dense varied crowds walking in different directions around the subject through the foreground and midground into the background, nearby passersby partly cropped at frame edges, surrounding Japanese shop signs',
       'Shibuya Station front plaza edge near Hachiko Square, broad pedestrian paving, dense realistic foot traffic, station-front commercial facade layers, meeting crowd clusters, curb and railing fragments, recognizable public-plaza ground plane without focusing on a single monument',
     ],
@@ -11104,13 +11106,16 @@ function joinCompositionPromptText(baseComposition, poseComposer) {
   ].filter(Boolean).join(' ');
 }
 
-function buildGptPromptSectionSources(valuesByLabel, context) {
+function buildGptPromptSectionSources(valuesByLabel, context, { includeBodyType = false } = {}) {
   const fixedCompositionSetActive = isFixedCompositionSetActive(context.fixedCompositionSet);
   // Omit only standalone catalog Body Type; card identity and pose sources stay intact.
+  // The full-body character reference is an approved exception (2026-10-14): it is a
+  // reusable character backup, so it keeps the single Body Type at its original position.
   const subjectValues = getStructuredValues(valuesByLabel, [
     'Duo Scene Anchor',
     'Subject Count',
     'Reference Guidance',
+    ...(includeBodyType ? ['Body Type'] : []),
     'Facial Features',
     'Woman 1 Facial Features',
     'Woman 2 Facial Features',
@@ -12949,7 +12954,7 @@ function renderFullBodyCharacterPrompt(promptModel) {
     wardrobeText,
     subjectLead,
     wardrobeLead,
-  } = buildGptPromptSectionSources(valuesByLabel, context);
+  } = buildGptPromptSectionSources(valuesByLabel, context, { includeBodyType: true });
   const characterProfileSubjectBlock = isCharacterProfileSubject(context.subject)
     ? buildGptFullBodyCharacterProfileSubjectBlock(context.subject, context.locks, wardrobe)
     : '';
@@ -13117,25 +13122,6 @@ function renderFixedFramingDerivedPrompt(promptModel, preset, { cameraSpatial = 
     wardrobeFallbackText: preset.wardrobeFallbackText || '',
     cameraSpatial,
     sceneMirrorReflectionText,
-  });
-}
-
-function renderMidjourneyFixedFramingPrompt(promptModel, preset, sourcePromptModel, sceneMirrorReflectionText = '') {
-  if (promptModel.context.subject?.count !== 1) return '';
-
-  const adaptationContext = {
-    ...promptModel.context,
-    locks: { ...promptModel.context.locks, mjAspectRatio: preset.aspectRatio },
-  };
-  const description = renderMidjourneyNativeDescription(renderAiPrompt(promptModel, {
-    midjourneyAdaptation: buildMidjourneyFramingPoseAdaptation(adaptationContext),
-    integrateMainScene: !isFixedCompositionSetActive(sourcePromptModel.context.fixedCompositionSet),
-    sceneMirrorReflectionText,
-  }));
-  return appendMidjourneyParameterTail(description, {
-    ...promptModel.context.locks,
-    aspectRatio: preset.aspectRatio,
-    mjAspectRatio: preset.aspectRatio,
   });
 }
 
@@ -13664,7 +13650,7 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
       ? buildPoseComposerCompositionModifier(characterSlots.poseComposer)
       : '',
   ].filter(Boolean).join(' ');
-  const buildZImageDuoSubjectText = () => 'Two stunning seductive 20-year-old Japanese or Korean women';
+  const buildZImageDuoSubjectText = () => 'Two stunning seductive 20-year-old adult women';
   const buildZImageDuoRoleSubjectText = (role) => {
     const roleTexts = buildGptDuoFullWardrobeRoleTexts(wardrobeSlots, wardrobeColors, context);
     const wardrobeText = stripTerminalPromptPunctuation(role === 'a' ? roleTexts.woman1 : roleTexts.woman2)
@@ -14430,8 +14416,8 @@ function buildAiMinimalSubjectLead(valuesByLabel, context, wardrobe = null) {
   }
 
   return context.subject?.count === 2
-    ? 'Two seductive stunning 20-year-old Japanese or Korean women'
-    : 'A seductive stunning 20-year-old Japanese or Korean woman';
+    ? 'Two seductive stunning 20-year-old adult women'
+    : 'A seductive stunning 20-year-old adult woman';
 }
 
 function buildAiMinimalWardrobeClause(valuesByLabel, context, wardrobe = null) {
@@ -14811,7 +14797,7 @@ function renderAiDuoPrompt(valuesByLabel, context, wardrobe, wardrobeColors, { a
   return [
     buildMidjourneyImageTypePromptLine(context),
     ensureTerminalPeriod(buildCompositionPromptLine(context, { adaptation })),
-    'Two 20-year-old Japanese or Korean women.',
+    'Two 20-year-old adult women.',
     woman1 ? ensureTerminalPeriod(`First woman, ${woman1}`) : '',
     woman2 ? ensureTerminalPeriod(`Second woman, ${woman2}`) : '',
     buildAiDuoDirectSentence(buildAiDuoPoseText(valuesByLabel)),
@@ -15752,6 +15738,9 @@ const AI_LEGACY_SINGLE_RENDERER_HELPERS = [
   buildAiMinimalMoodTail,
 ];
 
+// Legacy compact AI renderer. Its last caller, the MJ chest-up output, was removed
+// on 2026-10-14; delete this chain in a dedicated dead-code cleanup, not here.
+// eslint-disable-next-line no-unused-vars
 function renderAiPrompt(promptModel, {
   compositionPromptModel = promptModel,
   subjectPromptModel = promptModel,
@@ -16019,7 +16008,7 @@ function buildNaturalMjSubject(promptModel) {
       ? `Both women have ${bodies[0][0].toLowerCase()}${bodies[0].slice(1)}`
       : [bodies[0] ? midjourneyBodyDescription(slots.bodyTypeA, 'a') : '',
         bodies[1] ? midjourneyBodyDescription(slots.bodyTypeB, 'b') : ''].filter(Boolean).join(' ');
-    return ['Two 20-year-old Japanese or Korean women.', ...[1, 2].map(index => {
+    return ['Two 20-year-old adult women.', ...[1, 2].map(index => {
       const description = roles[index - 1].filter(part => !shared.includes(part)).join(', ');
       return description ? naturalSentence(`The ${index === 1 ? 'first' : 'second'} woman has ${description}`) : '';
     }), shared.length ? naturalSentence(`Both have ${shared.join(', ')}`) : '', naturalSentence(value('Duo Expression')),
@@ -16032,7 +16021,7 @@ function buildNaturalMjSubject(promptModel) {
   const specialSource = value('Special Outfit') || buildSpecialOutfitPrompt(extractWardrobeSlots(wardrobe).specialOutfit);
   const specialPerson = extractAiSpecialPersonFragments(specialSource, context)
     .map(naturalIdentity).filter(Boolean).join(', ');
-  return [naturalSentence(context.characterProfilePrompt ? naturalIdentity(context.characterProfilePrompt) : 'A Japanese woman in her twenties'),
+  return [naturalSentence(context.characterProfilePrompt ? naturalIdentity(context.characterProfilePrompt) : 'A 20-year-old adult woman'),
     naturalSentence([face, compactPromptClauses(value('Skin Details'), 1), hair, specialPerson].filter(Boolean).join(', ')),
     !context.characterProfilePrompt && value('Body Type') ? midjourneyBodyDescription(slots.bodyType) : ''].filter(Boolean).join(' ');
 }
@@ -16145,16 +16134,6 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     lightDirection,
     film,
   });
-  const chestUpMjPortraitPromptModel = buildFixedFramingDerivedPromptModel({
-    sourcePromptModel: promptModel,
-    sourceContext: context,
-    preset: FIXED_FRAMING_DERIVED_PROMPT_PRESETS.chestUpMjPortrait,
-    character,
-    wardrobe,
-    wardrobeColors,
-    lightDirection,
-    film,
-  });
   // Main GPT/Z and the same-state GPT chest share the authored ambient source.
   // MJ and excluded subjects/modes retain the original structured source.
   const ambientPose = extractCharacterSlots(projectedCharacter).poseComposer;
@@ -16186,6 +16165,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     {
       ...context.locks,
       aspectRatio: context.aspectRatio.id,
+      framingAspectRatio: midjourneyFramingAspectRatio(context.compositionVisibility?.bucket),
     },
   );
   const chestUpPortraitPrompt = renderFixedFramingDerivedPrompt(
@@ -16196,25 +16176,19 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     FIXED_FRAMING_DERIVED_PROMPT_PRESETS.chestUpPortrait,
     { cameraSpatial: ambientEligible, sceneMirrorReflectionText },
   );
-  const chestUpMjPortraitPrompt = renderMidjourneyFixedFramingPrompt(
-    chestUpMjPortraitPromptModel,
-    FIXED_FRAMING_DERIVED_PROMPT_PRESETS.chestUpMjPortrait,
-    promptModel,
-    sceneMirrorReflectionText,
-  );
   const fullBodyCharacterPrompt = renderFullBodyCharacterPrompt(fullBodyCharacterPromptModel);
   const nanoBananaPrompt = renderNanoBananaPrompt(gptPromptModel, {
     cameraSpatial: ambientEligible, sceneMirrorReflectionText,
   });
 
+  // Repair assembly punctuation only; visual content is unchanged.
   return {
-    midjourneyPrompt,
-    grokPrompt,
-    zImagePrompt,
-    chestUpPortraitPrompt,
-    chestUpMjPortraitPrompt,
-    fullBodyCharacterPrompt,
-    nanoBananaPrompt,
+    midjourneyPrompt: polishPublicPromptText(midjourneyPrompt),
+    grokPrompt: polishPublicPromptText(grokPrompt),
+    zImagePrompt: polishPublicPromptText(zImagePrompt),
+    chestUpPortraitPrompt: polishPublicPromptText(chestUpPortraitPrompt),
+    fullBodyCharacterPrompt: polishPublicPromptText(fullBodyCharacterPrompt),
+    nanoBananaPrompt: polishPublicPromptText(nanoBananaPrompt),
   };
 }
 
@@ -16777,7 +16751,6 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     grokPrompt,
     zImagePrompt,
     chestUpPortraitPrompt,
-    chestUpMjPortraitPrompt,
     fullBodyCharacterPrompt,
     nanoBananaPrompt,
   } = buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect);
@@ -16796,10 +16769,6 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
       {
         preset: FIXED_FRAMING_DERIVED_PROMPT_PRESETS.chestUpPortrait,
         text: chestUpPortraitPrompt,
-      },
-      {
-        preset: FIXED_FRAMING_DERIVED_PROMPT_PRESETS.chestUpMjPortrait,
-        text: chestUpMjPortraitPrompt,
       },
       {
         preset: FIXED_FRAMING_DERIVED_PROMPT_PRESETS.fullBodyCharacter,

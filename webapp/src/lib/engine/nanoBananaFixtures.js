@@ -1,3 +1,4 @@
+import { stripFramingDerivedMidjourneyRatio } from './midjourneyFramingAspectTestSupport.js';
 import { createSeededRandom, generatePrompts, getLockControls } from '../engine.js';
 import { CHARACTER_PROFILE_OPTIONS } from './characterProfiles.js';
 import { naturalFixtureLocks } from './midjourneyNaturalFixtures.js';
@@ -26,9 +27,9 @@ export function protectedNanoBananaOutputs(prompt) {
   return {
     grokPrompt: prompt.grokPrompt,
     zImagePrompt: prompt.zImagePrompt,
-    midjourneyPrompt: prompt.midjourneyPrompt,
+    // Baselines predate the framing-derived MJ ratio; compare through its exact inverse.
+    midjourneyPrompt: stripFramingDerivedMidjourneyRatio(prompt.midjourneyPrompt, prompt.selection),
     chestUpPortraitPrompt: extra('chest-up-portrait'),
-    chestUpMjPortraitPrompt: extra('chest-up-mj-portrait'),
     fullBodyCharacterPrompt: extra('full-body-character'),
     extraPrompts: prompt.extraPrompts,
     selection: prompt.selection,

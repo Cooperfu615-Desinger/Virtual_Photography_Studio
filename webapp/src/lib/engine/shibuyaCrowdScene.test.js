@@ -20,13 +20,16 @@ const legacySource = 'Shibuya Station front plaza edge near Hachiko Square, broa
 // Independent approved source oracle. Keep the three depth layers in one
 // comma-delimited clause so crop/compact selection cannot split their meaning.
 const clauses = Object.freeze([
-  'Shibuya Station front plaza with the QFRONT glass facade carrying TSUTAYA and STARBUCKS signage and large advertising screens in the background',
+  'Shibuya Station front plaza with the QFRONT glass facade carrying "TSUTAYA" and "STARBUCKS" signage and large advertising screens in the background',
   'the subject as one person within a dense pedestrian flow with people passing in different directions beside and in front of and behind her; everyone sharing the same physical space and perspective with apparent size varying naturally by distance',
   'pedestrians in varied everyday clothing in mixed colors and styles sharing the same ambient light as the subject; nearby passersby naturally overlapping and partly cropped at frame edges',
   'surrounding Japanese shop signs',
 ]);
 const source = clauses.join(', ');
-const previousSource = [clauses[0], 'dense varied crowds walking in different directions around the subject through the foreground and midground into the background', 'nearby passersby partly cropped at frame edges', clauses[3]].join(', ');
+const unquotedSignageClause = clauses[0].replace('"TSUTAYA" and "STARBUCKS"', 'TSUTAYA and STARBUCKS');
+// Source before the 2026-10-14 quoted-signage revision; Saved Cards may hold it.
+const unquotedSource = [unquotedSignageClause, ...clauses.slice(1)].join(', ');
+const previousSource = [unquotedSignageClause, 'dense varied crowds walking in different directions around the subject through the foreground and midground into the background', 'nearby passersby partly cropped at frame edges', clauses[3]].join(', ');
 const locationOptions = controls.find(c => c.key === 'locationId').options;
 const option = (key, zh) => {
   const found = controls.find(c => c.key === key)?.options.find(o => o.zh === zh);
@@ -34,7 +37,7 @@ const option = (key, zh) => {
   return found.id;
 };
 const extra = (prompt, extraId) => prompt.extraPrompts.find(entry => entry.id === extraId)?.text || '';
-const sceneTexts = prompt => [prompt.grokPrompt, prompt.zImagePrompt, extra(prompt, 'chest-up-portrait'), extra(prompt, 'chest-up-mj-portrait')];
+const sceneTexts = prompt => [prompt.grokPrompt, prompt.zImagePrompt, extra(prompt, 'chest-up-portrait')];
 const digest = value => createHash('sha256').update(JSON.stringify(value)).digest('hex');
 const stablePrompt = prompt => ({ selection: prompt.selection, summary: prompt.summary,
   grokPrompt: prompt.grokPrompt, zImagePrompt: prompt.zImagePrompt,
@@ -103,6 +106,7 @@ test('Shibuya crowd source preserves the public label, ID, order and legacy Engl
   assert.deepEqual(location.en.split(', '), clauses);
   assert.ok(location.meta.legacyPromptAliases.includes(legacySource));
   assert.ok(location.meta.legacyPromptAliases.includes(previousSource));
+  assert.ok(location.meta.legacyPromptAliases.includes(unquotedSource));
   assert.equal(normalizeLocks(locks()).locationId, id);
   assert.doesNotMatch(location.en, /Hachiko|waiting|paving|ground plane|crosswalk|railing/i);
 });
@@ -172,7 +176,7 @@ test('scene-source-only revision preserves selections, random draws and the scen
 });
 
 test('new and historical full English sources import to the same stable Shibuya location', () => {
-  for (const text of [`Scene: ${source}.`, `Scene: ${legacySource}.`, `Scene: ${previousSource}.`, generate().prompt.grokPrompt]) {
+  for (const text of [`Scene: ${source}.`, `Scene: ${legacySource}.`, `Scene: ${previousSource}.`, `Scene: ${unquotedSource}.`, generate().prompt.grokPrompt]) {
     const imported = parseLocksFromStandardPrompt(text, controls).locks;
     assert.equal(imported.locationId, id);
     for (const output of sceneTexts(generate(imported).prompt)) assertCrowd(output, 'import');
@@ -207,7 +211,7 @@ test('historical snapshot inverse recognizes only the exact approved Shibuya sce
   const scene = current.grokPrompt.split('Scene:\n')[1]?.split('\n\n')[0] || '';
   const originalScene = historical.grokPrompt.split('Scene:\n')[1]?.split('\n\n')[0] || '';
   assert.equal(normalizeShibuyaSceneForLegacy(scene, current.selection), originalScene);
-  const fields = ['grokPrompt', 'zImagePrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'];
+  const fields = ['grokPrompt', 'zImagePrompt', 'chestUpPortraitPrompt'];
   for (const [index, field] of fields.entries()) {
     assert.equal(normalizeShibuyaPromptForLegacy(sceneTexts(current)[index], field, current.selection),
       sceneTexts(historical)[index], field);
@@ -229,7 +233,7 @@ test('historical inverse fails closed on wrong identities or changed scenes and 
   for (const value of [...mutate(scene), `${scene} A custom scene addition.`, 'arbitrary imported scene']) {
     assert.equal(normalizeShibuyaSceneForLegacy(value, prompt.selection), value);
   }
-  const fields = ['grokPrompt', 'zImagePrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'];
+  const fields = ['grokPrompt', 'zImagePrompt', 'chestUpPortraitPrompt'];
   for (const [index, field] of fields.entries()) {
     const text = sceneTexts(prompt)[index];
     assert.equal(normalizeShibuyaPromptForLegacy(text, field, otherSelection), text, field);

@@ -70,21 +70,28 @@ const SUBJECT_LIGHT_LEGACY_SOURCE_CASES = Object.freeze([
   ['深夜邊緣微光', 'minimal nocturnal rim light, faint cool edge tracing hair shoulders and body outline, mostly shadowed subject mass', 'minimal nocturnal subject rim light, faint cool edge tracing along face hair shoulders and body outline, mostly dark subject mass'],
 ]);
 
+// Public prompt polish capitalizes a source that starts a sentence. Replace that
+// capitalized form with the equally capitalized legacy source, never other text.
+const capitalizeSource = (text) => text[0].toUpperCase() + text.slice(1);
+const replaceSource = (output, current, legacy) => output
+  .replaceAll(current, legacy)
+  .replaceAll(capitalizeSource(current), capitalizeSource(legacy));
+
 export function normalizeSubjectLightForLegacy(value) {
   let output = String(value || '');
   for (const [, current, legacy] of SUBJECT_LIGHT_LEGACY_SOURCE_CASES) {
-    output = output.replaceAll(current, legacy);
+    output = replaceSource(output, current, legacy);
     const currentCompact = current.split(', ').slice(0, 2).join(', ');
     const legacyCompact = legacy.split(', ').slice(0, 2).join(', ');
-    if (currentCompact !== current) output = output.replaceAll(currentCompact, legacyCompact);
+    if (currentCompact !== current) output = replaceSource(output, currentCompact, legacyCompact);
   }
   // Special-subject sanitization rewrites skin/hair references before the
   // renderer emits the light sentence. Preserve that historical variant too.
-  output = output.replaceAll(
+  output = replaceSource(output,
     'saturated neon color spill across the subject, vivid colored edge highlights on surface skull and clothing, controlled chromatic cast',
     'neon color spill across the subject, saturated colored highlights on surface skull and clothing edges, controlled vivid color cast'
   );
-  output = output.replaceAll(
+  output = replaceSource(output,
     'saturated neon color spill across the subject, vivid colored edge highlights on surface skull and clothing',
     'neon color spill across the subject, saturated colored highlights on surface skull and clothing edges'
   );

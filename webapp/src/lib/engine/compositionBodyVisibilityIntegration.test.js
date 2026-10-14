@@ -9,6 +9,7 @@ import {
 } from '../engine.js';
 import { CHARACTER_PROFILE_OPTIONS } from './characterProfiles.js';
 import { BODY_TYPE_VISIBILITY_PROFILES } from './compositionBodyVisibilityFixtures.js';
+import { assertFullBodyCharacterBody } from './fullBodyCharacterBodyTestSupport.js';
 
 const MAIN_OUTPUT_FIELDS = ['grokPrompt', 'zImagePrompt', ];
 const controls = getLockControls();
@@ -56,7 +57,7 @@ function bodyFragments(value) {
   return value.split(/,\s*/).map((fragment) => fragment.trim()).filter(Boolean);
 }
 
-test('normal single Body Types stay resolved while GPT omits them and Z and AI retain them', () => {
+test('normal single Body Types stay resolved while main GPT omits them, full-body keeps them, and Z and AI retain them', () => {
   for (const profile of BODY_TYPE_VISIBILITY_PROFILES) {
     const bodyTypeId = optionId(bodyTypeControl, profile.bodyTypeZh);
 
@@ -78,8 +79,8 @@ test('normal single Body Types stay resolved while GPT omits them and Z and AI r
         assert.equal(prompt[field].includes(expectedBodyText), field !== 'grokPrompt', `${profile.bodyTypeZh}/${bucket}/${field}: body policy`);
       }
 
-      const fullBodyText = prompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '';
-      assertExcludes(fullBodyText, profile.fullSource, `${profile.bodyTypeZh}/${bucket}: GPT full-body omission`);
+      // Approved 2026-10-14 exception: full-body character keeps the body once.
+      assertFullBodyCharacterBody(prompt, profile.fullSource, `${profile.bodyTypeZh}/${bucket}: full-body body`);
     }
   }
 });
@@ -222,5 +223,5 @@ test('face crop keeps special-outfit hair, removes body-position tattoos, and re
 
   const fullBodyText = prompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '';
   assertIncludes(fullBodyText, 'small cherry tattoo on the right chest', 'full-body tattoo restoration');
-  assertExcludes(fullBodyText, bodyTypeControl.options.find(o => o.id === bodyTypeId).en, 'GPT full-body independent body omission');
+  assertFullBodyCharacterBody(prompt, bodyTypeControl.options.find(o => o.id === bodyTypeId).en, 'special-outfit full-body body');
 });

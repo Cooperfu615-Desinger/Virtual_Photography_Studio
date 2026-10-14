@@ -1,5 +1,6 @@
 import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
 import assert from 'node:assert/strict';
+import { restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
 import { normalizeCloseWormForLegacy } from './closeWormEyeTestSupport.js';
 import { test } from 'node:test';
 import { buildGptCameraSpatialText } from './gptCameraSpatial.js';
@@ -73,8 +74,9 @@ test('frozen camera/scene/lighting matrix permits only the exact main GPT Compos
   const results = GPT_CAMERA_SPATIAL_FIXTURES.map(runSceneFixture);
   assert.equal(results.length,cameraBaseline.count);
   assertChestUpRevision('camera', results);
+  // Frozen hashes predate the 2026-10-14 ethnicity revision; reverse only that rollout.
   for (const field of PROTECTED_OUTPUT_FIELDS) assert.equal(digest(results.map(r=>normalizeSubjectLightForLegacy(field==='grokPrompt'
-    ? normalizeGptCameraForLegacy(r.outputs[field], r.selection) : normalizeHighAngleDistanceForLegacy(normalizeCloseWormForLegacy(normalizeExplicitWardrobeFitForLegacy(r.outputs[field], field), field, r.selection))))),cameraBaseline.hashes[field],field);
+    ? normalizeGptCameraForLegacy(restorePreEthnicityText(r.outputs[field], field), r.selection) : normalizeHighAngleDistanceForLegacy(normalizeCloseWormForLegacy(normalizeExplicitWardrobeFitForLegacy(restorePreEthnicityText(r.outputs[field], field), field), field, r.selection))))),cameraBaseline.hashes[field],field);
   assert.equal(digest(results.map(r=>r.selection)),cameraBaseline.selectionHash);
   assert.equal(digest(results.map(r=>r.randomDraws)),cameraBaseline.randomHash);
   const composition = t => t.match(/(?:^|\n\n)Composition:\n([^]*?)(?=\n\n[A-Z][^\n]*:\n|$)/)?.[1] || '';

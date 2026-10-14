@@ -4,8 +4,10 @@ import {
 } from '../../lib/engine/midjourneyParameterContract.js';
 import {
   appendMidjourneyParameterTail,
+  framingAspectRatioForSelection,
   stripMidjourneyParameterTail,
 } from '../../lib/engine/midjourneyParameterTail.js';
+import { getLockControls } from '../../lib/engine.js';
 
 const MIDJOURNEY_PARAMETER_KEY_SET = new Set(MIDJOURNEY_PARAMETER_SELECTION_KEYS);
 
@@ -17,27 +19,23 @@ export function createPromptGenerationLocks(locks = {}) {
 
 export function attachMidjourneySettingsToPrompt(prompt, settings = {}) {
   if (!prompt) return null;
+  const baseSelection = prompt.selection || {};
+  const framingOptions = getLockControls().find(control => control.key === 'framingId')?.options || [];
   const selection = {
-    ...(prompt.selection || {}),
+    ...baseSelection,
     ...normalizeMidjourneyParameterSettings(settings),
+  };
+  // Keep the approved framing ratio when F follows PAGE1 after a live F change.
+  const tailSelection = {
+    ...selection,
+    framingAspectRatio: framingAspectRatioForSelection(baseSelection, framingOptions),
   };
   return {
     ...prompt,
     midjourneyPrompt: appendMidjourneyParameterTail(
       stripMidjourneyParameterTail(prompt.midjourneyPrompt),
-      selection,
+      tailSelection,
     ),
-    ...(Array.isArray(prompt.extraPrompts) ? {
-      extraPrompts: prompt.extraPrompts.map(entry => entry.id === 'chest-up-mj-portrait'
-        ? {
-            ...entry,
-            text: appendMidjourneyParameterTail(stripMidjourneyParameterTail(entry.text), {
-              ...selection,
-              mjAspectRatio: '4:5',
-            }),
-          }
-        : entry),
-    } : {}),
     selection,
   };
 }

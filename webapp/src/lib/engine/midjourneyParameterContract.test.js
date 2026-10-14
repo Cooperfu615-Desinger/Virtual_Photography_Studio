@@ -25,6 +25,7 @@ import {
 } from './promptOutputContracts.js';
 import { REPRESENTATIVE_PROMPT_FIXTURES } from './representativePromptFixtures.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
+import { restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
 import { PRE_HOURGLASS_BODY_CATALOG } from './sceneIntegratedAssemblyTestSupport.js';
 
 const controls = getLockControls();
@@ -89,7 +90,7 @@ test('Midjourney parameter contract is frozen serializable rollout policy data',
   );
   assert.match(MIDJOURNEY_PARAMETER_CONTRACT.parameterHelp.find((help) => help.parameter === '--s').description, /越小/);
   assert.match(MIDJOURNEY_PARAMETER_CONTRACT.parameterHelp.find((help) => help.parameter === '--s').description, /越大/);
-  assert.deepEqual(MIDJOURNEY_PARAMETER_CONTRACT.applicability.affectsOnly, ['midjourneyPrompt', 'chestUpMjPortraitPrompt']);
+  assert.deepEqual(MIDJOURNEY_PARAMETER_CONTRACT.applicability.affectsOnly, ['midjourneyPrompt']);
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.derivedParameters.aspectRatio.controlOwner, 'F｜MJ 參數設定');
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.controls.aspectRatio.selectionKey, 'mjAspectRatio');
   assert.deepEqual(
@@ -215,7 +216,8 @@ test('phase 4 preserves representative content while adding only the approved AI
     for (const field of ['grokPrompt', 'zImagePrompt']) {
       assert.equal(repeated.prompt[field], first.prompt[field], `${fixture.id}.${field}: deterministic`);
       assert.equal(
-        hashPrompt(normalizeAmbientForLegacy(field === 'zImagePrompt' ? normalizeFullCameraForLegacy(first.prompt[field]) : first.prompt[field], field, first.prompt.selection)),
+        // Frozen hashes predate the 2026-10-14 ethnicity revision; reverse only that rollout.
+        hashPrompt(normalizeAmbientForLegacy(field === 'zImagePrompt' ? normalizeFullCameraForLegacy(restorePreEthnicityText(first.prompt[field], field)) : restorePreEthnicityText(first.prompt[field], field), field, first.prompt.selection)),
         fixture.baselineHashes[field],
         `${fixture.id}.${field}: baseline`
       );
@@ -232,7 +234,7 @@ test('phase 4 preserves representative content while adding only the approved AI
     );
     assert.ok(nativeTarget, `${fixture.id}: native structure fixture`);
     assert.equal(
-      hashPrompt(stripMidjourneyParameterTail(first.prompt.midjourneyPrompt)),
+      hashPrompt(stripMidjourneyParameterTail(restorePreEthnicityText(first.prompt.midjourneyPrompt, 'midjourneyPrompt'))),
       nativeTarget.naturalDescriptionHash,
       `${fixture.id}.midjourneyPrompt: native descriptive baseline`
     );

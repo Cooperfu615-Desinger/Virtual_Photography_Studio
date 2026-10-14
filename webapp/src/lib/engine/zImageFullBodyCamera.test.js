@@ -11,6 +11,7 @@ import { FULL_CAMERA_ANGLES, FULL_CAMERA_REGRESSION, fullCameraFixture } from '.
 import { FULL_CAMERA_TEXT_PAIRS, normalizeFullCameraForLegacy, normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
+import { restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 
 test('full camera policy has six groups; Dutch keeps roll; no unknown/default angle injection', () => {
@@ -94,7 +95,8 @@ test('431-case frozen baseline: only approved main Z camera text changes; select
   assertChestUpRevision('fullCamera', results);
   for (const field of PROTECTED_OUTPUT_FIELDS) {
     assert.equal(digest(results.map((r) => {
-      let value = r.outputs[field];
+      // The baseline predates the 2026-10-14 ethnicity revision; reverse only that rollout.
+      let value = restorePreEthnicityText(r.outputs[field], field);
       if (field === 'zImagePrompt') value = normalizeFullCameraForLegacy(value);
       if (field === 'grokPrompt') value = normalizeGptVisibilityForLegacy(value, r.selection);
       return normalizeSubjectLightForLegacy(normalizeExplicitWardrobeFitForLegacy(value, field));

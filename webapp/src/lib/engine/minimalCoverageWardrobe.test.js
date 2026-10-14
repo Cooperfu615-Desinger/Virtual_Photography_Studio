@@ -4,8 +4,15 @@ import { test } from 'node:test';
 import protectedBaseline from './midjourneyNaturalMinimalProtected.json' with { type: 'json' };
 import baseline from './minimalCoverageWardrobeBaseline.json' with { type: 'json' };
 import { restoreGptIndependentBodySource } from './bodyTypeLegacyTestSupport.js';
+import { restorePreEthnicityValue } from './ethnicityRevisionTestSupport.js';
+import { assertFullBodyCharacterBody } from './fullBodyCharacterBodyTestSupport.js';
 import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls, normalizeLocks } from '../engine.js';
 import { deserializeFavoritePrompt, serializeFavoritePrompt, parseLocksFromStandardPrompt } from '../../features/saved-cards/cardCodec.js';
+import { polishPublicPromptText } from './publicPromptPolish.js';
+// Public prompt polish (publicPromptPolish.js) capitalizes sentence starts. A
+// catalog source keeps every word; accept only its exact polished letter case.
+const sourceForms = (source) => [...new Set([source, polishPublicPromptText(source), source[0] + polishPublicPromptText(source).slice(1)])];
+const includesSource = (text, source) => sourceForms(source).some(form => text.includes(form));
 
 const controls = getLockControls();
 const pairs = [
@@ -56,11 +63,13 @@ test('new pieces append to existing single and duo catalogs without changing pri
 for (const fixture of baseline.fixtures) test(`legacy bytes unchanged: ${fixture.title}`, () => {
   const p = generate(fixture.overrides, fixture.seed);
   const preOmission = restoreGptIndependentBodySource(p, []);
-  assert.equal(createHash('sha256').update(JSON.stringify(snapshot(preOmission))).digest('hex'), protectedBaseline[fixture.title]);
+  // The frozen hash predates the 2026-10-14 ethnicity revision; reverse only that rollout.
+  const historical = restorePreEthnicityValue(snapshot(preOmission));
+  assert.equal(createHash('sha256').update(JSON.stringify(historical)).digest('hex'), protectedBaseline[fixture.title]);
 });
 
 for (const [top, pants, topType, pantsType, topDetail] of pairs) {
-  test(`${top}: fit details survive visible main/derived outputs with GPT-only body omission`, () => {
+  test(`${top}: fit details survive visible main/derived outputs with main/chest GPT body omission and full-body body`, () => {
     for (const body of controls.find(c => c.key === 'bodyTypeId').options.filter(o => o.zh !== '全無')) {
       const p = generate({ topId: option('topId', top).id, pantsId: option('pantsId', pants).id, bodyTypeId: body.id });
       for (const text of [...main(p), fullBody(p)]) {
@@ -75,12 +84,14 @@ for (const [top, pants, topType, pantsType, topDetail] of pairs) {
         assert.doesNotMatch(text, pantsType);
         assert.ok(!text.includes(indentation));
       }
-      for (const text of [p.zImagePrompt, p.extraPrompts.find(e => e.id === 'chest-up-mj-portrait').text]) {
-        assert.ok(text.includes(body.en), body.en);
+      for (const text of [p.zImagePrompt]) {
+        assert.ok(includesSource(text, body.en), body.en);
       }
-      for (const text of [p.grokPrompt, p.extraPrompts.find(e => e.id === 'chest-up-portrait').text, fullBody(p)]) {
-        assert.ok(!text.includes(body.en), `GPT omits independent ${body.zh} source`);
+      for (const text of [p.grokPrompt, p.extraPrompts.find(e => e.id === 'chest-up-portrait').text]) {
+        assert.ok(!includesSource(text, body.en), `GPT omits independent ${body.zh} source`);
       }
+      // Approved 2026-10-14 exception: full-body character keeps the body once.
+      assertFullBodyCharacterBody(p, body.en, `${top}/${body.zh}`);
       assert.equal(p.selection.bodyTypeId, body.id);
     }
   });
@@ -235,8 +246,8 @@ test('bikini bottom fabric source stays complete in visible outputs and absent f
     assert.equal(p.selection.pantsId, bottom.id);
     for (const text of [...main(p), fullBody(p)]) {
       const visible = text === fullBody(p) || !['胸上特寫', '局部五官特寫'].includes(framing);
-      assert.equal(text.split(bikiniBottomSource).length - 1, visible ? 1 : 0);
-      assert.ok(!text.includes(legacyBikiniBottomSource));
+      assert.equal(sourceForms(bikiniBottomSource).reduce((count, form) => count + text.split(form).length - 1, 0), visible ? 1 : 0);
+      assert.ok(!includesSource(text, legacyBikiniBottomSource));
     }
     for (const text of chest(p)) {
       assert.doesNotMatch(text, /narrow-front string thong bikini bottoms|tiny low-rise triangular front panel/i);

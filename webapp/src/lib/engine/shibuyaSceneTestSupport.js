@@ -7,7 +7,7 @@ import { LOW_CAMERA_LABELS } from './zImageSceneDirection.js';
 
 export const SHIBUYA_LEGACY_LOCATION_ID = 'locations:城市與社群感-urban-social-snapshots:戶外-澀谷站前廣場人潮邊緣:11';
 const CURRENT_PARTS = Object.freeze([
-  'Shibuya Station front plaza with the QFRONT glass facade carrying TSUTAYA and STARBUCKS signage and large advertising screens in the background',
+  'Shibuya Station front plaza with the QFRONT glass facade carrying "TSUTAYA" and "STARBUCKS" signage and large advertising screens in the background',
   'the subject as one person within a dense pedestrian flow with people passing in different directions beside and in front of and behind her; everyone sharing the same physical space and perspective with apparent size varying naturally by distance',
   'pedestrians in varied everyday clothing in mixed colors and styles sharing the same ambient light as the subject; nearby passersby naturally overlapping and partly cropped at frame edges',
   'surrounding Japanese shop signs',
@@ -86,6 +86,24 @@ export function normalizeShibuyaPromptForLegacy(text, field, selection = {}) {
   if (field === 'chestUpPortraitPrompt') return normalizeGpt(text, selection, true);
   if (field === 'zImagePrompt') return normalizeZ(text, selection);
   if (field === 'midjourneyPrompt') return normalizeMj(text, selection, false);
-  if (field === 'chestUpMjPortraitPrompt') return normalizeMj(text, selection, true);
   return text;
+}
+
+// Exact inverse of the 2026-10-14 quoted-signage revision for frozen snapshots
+// taken before it. Only the two quoted Shibuya sign names are restored; strings
+// inside objects and arrays are visited so hashed selections stay comparable.
+// The same revision appended the unquoted source to legacyPromptAliases so
+// older Saved Cards still import; that single alias is removed here as well.
+const QUOTED_SHIBUYA_SIGNAGE = '"TSUTAYA" and "STARBUCKS"';
+const unquote = text => text.replaceAll(QUOTED_SHIBUYA_SIGNAGE, 'TSUTAYA and STARBUCKS');
+const UNQUOTED_SHIBUYA_SOURCE = unquote(CURRENT_PARTS.join(', '));
+export function restoreUnquotedShibuyaSignage(value) {
+  if (typeof value === 'string') return unquote(value);
+  if (Array.isArray(value)) return value.map(restoreUnquotedShibuyaSignage);
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, key === 'legacyPromptAliases' && Array.isArray(item)
+      ? item.filter(alias => alias !== UNQUOTED_SHIBUYA_SOURCE).map(restoreUnquotedShibuyaSignage)
+      : restoreUnquotedShibuyaSignage(item)]));
+  }
+  return value;
 }

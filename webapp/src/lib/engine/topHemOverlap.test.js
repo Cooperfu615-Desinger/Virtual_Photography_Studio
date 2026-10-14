@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls } from '../engine.js';
 import { serializeFavoritePrompt, deserializeFavoritePrompt } from '../../features/saved-cards/cardCodec.js';
+import { assertFullBodyCharacterBody } from './fullBodyCharacterBodyTestSupport.js';
 
 const controls = getLockControls();
 const option = (key, zh) => {
@@ -36,14 +37,16 @@ test('overlap keeps micro shorts identity and survives visible outputs and saved
   assert.equal(deserializeFavoritePrompt(serializeFavoritePrompt(p)).selection.topStylingId, 'hem-overlap');
 });
 
-test('hem overlap keeps Z and AI body sources while GPT omits body and retains effective wardrobe styling', () => {
+test('hem overlap keeps Z, AI and full-body body sources while main GPT omits body and retains effective wardrobe styling', () => {
   const bodyTypeControl = controls.find(c => c.key === 'bodyTypeId');
   for (const item of bodyTypeControl.options.filter(o => o.zh !== '全無')) {
     for (const framingZh of ['全身鏡頭 (Full Body Shot)', '中景鏡頭 (Medium Shot)', '牛仔中景 (Cowboy Shot)']) {
       const p = generate({ bodyTypeId: item.id, framingId: option('framingId', framingZh) }, `hem-overlap-${item.zh}-${framingZh}`);
       assert.equal(p.selection.bodyTypeId, item.id);
       for (const text of [p.zImagePrompt]) assert.ok(text.includes(item.en), `${item.zh}/${framingZh}: verbatim source`);
-      for (const text of [p.grokPrompt, p.extraPrompts.find(e => e.id === 'full-body-character').text]) assert.ok(!text.includes(item.en));
+      assert.ok(!p.grokPrompt.includes(item.en));
+      // Approved 2026-10-14 exception: full-body character keeps the body once.
+      assertFullBodyCharacterBody(p, item.en, `${item.zh}/${framingZh}`);
       const untucked = generate({ bodyTypeId: item.id, topStylingId: 'untucked' });
       assert.ok(!untucked.grokPrompt.includes(item.en));
       const incompatible = generate({ bodyTypeId: item.id, topId: option('topId', '比基尼上身') });

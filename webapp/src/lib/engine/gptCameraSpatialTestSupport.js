@@ -43,7 +43,12 @@ export function normalizeGptCameraForLegacy(text, selection = {}) {
     (all,prefix,current)=> {
       const ratio = current.match(ratioPrefix)?.[0] || '';
       const body = current.slice(ratio.length);
-      return reverse.has(body) ? `${prefix}Composition:\n${ratio}${reverse.get(body)}` : all;
+      if (reverse.has(body)) return `${prefix}Composition:\n${ratio}${reverse.get(body)}`;
+      // Public prompt polish lowercases the word after an aspect-ratio cue
+      // ("aspect ratio, full-body"); match and restore in that same polished form.
+      const capitalized = body.replace(/^[a-z]/, (letter) => letter.toUpperCase());
+      if (!ratio || capitalized === body || !reverse.has(capitalized)) return all;
+      return `${prefix}Composition:\n${ratio}${reverse.get(capitalized).replace(/^[A-Z](?=[a-z])/, (letter) => letter.toLowerCase())}`;
     });
 }
 

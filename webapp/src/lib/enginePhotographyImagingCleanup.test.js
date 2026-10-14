@@ -167,7 +167,7 @@ test('worm-eye angle preserves selected photography style and lens optics', () =
       }
       assert.match(prompt.grokPrompt, /Inspired by Ellen von Unwerth/);
       assert.match(prompt.grokPrompt, /105mm medium telephoto lens/);
-      assert.match(prompt.grokPrompt, /blurred foreground occlusion near the lens/);
+      assert.match(prompt.grokPrompt, /[Bb]lurred foreground occlusion near the lens/);
     }
   }
 });
@@ -537,10 +537,10 @@ test('aperture and shutter controls compose with lens optics in all prompt outpu
     opticalEffectId: optionByLabel('opticalEffectId', '重散景光斑').id,
   });
 
-  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*shot on 85mm short telephoto portrait lens/);
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*Shot on 85mm short telephoto portrait lens/);
   assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*f\/1\.4-style ultra shallow depth of field/);
   assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*1\/30s slow-shutter portrait blur/);
-  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*heavy bokeh rendering/);
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*Heavy bokeh rendering/);
   assert.match(prompt.zImagePrompt, /f\/1\.4-style ultra shallow depth of field/);
   assert.match(prompt.zImagePrompt, /1\/30s slow-shutter portrait blur/);
   assert.match(prompt.midjourneyPrompt, /f\/1\.4-style ultra shallow depth of field/);
@@ -558,11 +558,11 @@ test('generated prompts expose rendering color grade as a single D-section rende
     opticalEffectId: optionByLabel('opticalEffectId', '前景遮擋散景').id,
   });
 
-  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*glossy Japanese portrait color grade/);
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*Glossy Japanese portrait color grade/);
   assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*lifted midtones/);
   assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*warm peach skin-tone protection/);
-  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*shot on 35mm lens/);
-  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*blurred foreground occlusion near the lens/);
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*Shot on 35mm lens/);
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*Blurred foreground occlusion near the lens/);
   assert.match(prompt.zImagePrompt, /clear opening toward the subject/);
   assert.doesNotMatch(prompt.zImagePrompt, /meaningful partial frame coverage/);
   assert.match(prompt.summary, /鏡頭：[^|]*日系亮膚高彩濾鏡/);

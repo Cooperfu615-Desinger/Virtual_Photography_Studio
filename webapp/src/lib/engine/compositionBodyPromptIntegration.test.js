@@ -13,6 +13,7 @@ import {
   BODY_VISIBILITY_PHASE4_INTEGRATION_MATRIX,
 } from './compositionBodyVisibilityFixtures.js';
 import { validatePromptOutputContract } from './promptOutputContracts.js';
+import { assertFullBodyCharacterBody } from './fullBodyCharacterBodyTestSupport.js';
 
 const MAIN_OUTPUT_FIELDS = ['grokPrompt', 'zImagePrompt', ];
 const controls = getLockControls();
@@ -89,11 +90,8 @@ test('phase-4 gate covers every public framing alias for every normal Body Type'
         assert.equal(prompt[field].includes(expectedBodyText), field !== 'grokPrompt', `${profile.bodyTypeZh}/${framingZh}/${field}: independent body policy`);
       }
 
-      assertExcludes(
-        fullBodyCharacterText(prompt),
-        profile.fullSource,
-        `${profile.bodyTypeZh}/${framingZh}: GPT full-body omission`
-      );
+      // Approved 2026-10-14 exception: full-body character keeps the body once.
+      assertFullBodyCharacterBody(prompt, profile.fullSource, `${profile.bodyTypeZh}/${framingZh}: full-body body`);
       assertOutputContracts(prompt, 'single');
     }
   }
@@ -121,7 +119,7 @@ test('phase-4 gate keeps fixed composition full-source and projects duo A/B acro
     assertExcludes(prompt.grokPrompt, profile.fullSource, `${profile.bodyTypeZh}: fixed GPT omission`);
     assertIncludes(prompt.zImagePrompt, FULL_BODY_ANCHOR_BY_ZH[profile.bodyTypeZh], `${profile.bodyTypeZh}/zImagePrompt`);
     assertExcludes(prompt.midjourneyPrompt, AI_BODY_TYPE_ANCHOR_BY_ZH[profile.bodyTypeZh], `${profile.bodyTypeZh}/midjourneyPrompt`);
-    assertExcludes(fullBodyCharacterText(prompt), profile.fullSource, `${profile.bodyTypeZh}: fixed GPT full-body omission`);
+    assertFullBodyCharacterBody(prompt, profile.fullSource, `${profile.bodyTypeZh}: fixed full-body body`);
     assertOutputContracts(prompt, 'single');
   }
 
