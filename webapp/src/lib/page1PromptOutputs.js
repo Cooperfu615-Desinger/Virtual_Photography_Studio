@@ -45,13 +45,6 @@ const FIXED_FRAMING_PROMPT_OUTPUTS = Object.freeze([
     copyLabel: '胸上特寫照 copied',
   }),
   Object.freeze({
-    id: 'chest-up-mj-portrait',
-    title: 'MJ 胸上特寫照',
-    aspectRatio: '4:5',
-    placeholder: '目前尚無可顯示的 MJ 胸上特寫照 Prompt。',
-    copyLabel: 'MJ 胸上特寫照 copied',
-  }),
-  Object.freeze({
     id: 'full-body-character',
     title: '全身角色照',
     aspectRatio: '9:16',

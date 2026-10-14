@@ -141,7 +141,7 @@ test('selected crops project wardrobe while preserving the full-body character r
   for (const [set] of cases) {
     const result = make(set, { framingId: option('framingId', '全臉傾斜特寫').id });
     assert.doesNotMatch(result.zImagePrompt, /straight-leg jeans/);
-    assert.match(result.extraPrompts.find(p => p.id === 'full-body-character').text, /straight-leg jeans/);
+    assert.match(result.extraPrompts.find(p => p.id === 'full-body-character').text, /Straight-leg jeans/);
   }
 });
 test('every public crop and both lenses remain selectable for all three carriage sets', () => {

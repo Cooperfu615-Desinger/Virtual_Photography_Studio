@@ -41,7 +41,6 @@ import { PRE_HOURGLASS_BODY_CATALOG } from './sceneIntegratedAssemblyTestSupport
 const controls = getLockControls();
 const extraPromptFields = Object.freeze({
   'chest-up-portrait': 'chestUpPortraitPrompt',
-  'chest-up-mj-portrait': 'chestUpMjPortraitPrompt',
   'full-body-character': 'fullBodyCharacterPrompt',
 });
 const primaryPromptFields = Object.freeze({
@@ -117,18 +116,19 @@ test('phase 6 blocks any engine or public-contract drift across all Midjourney f
     );
     assert.ok(nativeFixture, `${parameterFixture.id}: native structure fixture`);
 
+    // Frozen hashes predate the 2026-10-14 ethnicity revision; reverse only that rollout.
     assert.equal(
-      hashPrompt(normalizeAmbientForLegacy(prompt.grokPrompt, 'grokPrompt', prompt.selection)),
+      hashPrompt(normalizeAmbientForLegacy(restorePreEthnicityText(prompt.grokPrompt, 'grokPrompt'), 'grokPrompt', prompt.selection)),
       parameterFixture.baselineHashes.grokPrompt,
       `${parameterFixture.id}: historical Gpt mapping`
     );
     assert.equal(
-      hashPrompt(normalizeAmbientForLegacy(normalizeFullCameraForLegacy(prompt.zImagePrompt), 'zImagePrompt', prompt.selection)),
+      hashPrompt(normalizeAmbientForLegacy(normalizeFullCameraForLegacy(restorePreEthnicityText(prompt.zImagePrompt, 'zImagePrompt')), 'zImagePrompt', prompt.selection)),
       parameterFixture.baselineHashes.zImagePrompt,
       `${parameterFixture.id}: historical Grok/Z-Image mapping`
     );
     assert.equal(
-      hashPrompt(stripMidjourneyParameterTail(prompt.midjourneyPrompt)),
+      hashPrompt(stripMidjourneyParameterTail(restorePreEthnicityText(prompt.midjourneyPrompt, 'midjourneyPrompt'))),
       nativeFixture.naturalDescriptionHash,
       `${parameterFixture.id}: Midjourney-native description`
     );
@@ -154,15 +154,11 @@ test('phase 6 blocks any engine or public-contract drift across all Midjourney f
         [],
         `${parameterFixture.id}: ${field} contract`
       );
-      if (id === 'chest-up-mj-portrait' && mode === 'single') {
-        assert.match(text, /--ar 4:5/, `${parameterFixture.id}: ${id} fixed aspect ratio`);
-      } else {
-        assert.doesNotMatch(
-          text,
-          /(?:^|\s)--(?:v|ar|raw|s|c|w|sd|hd)(?:\s|$)/,
-          `${parameterFixture.id}: ${id} remains parameter-free`
-        );
-      }
+      assert.doesNotMatch(
+        text,
+        /(?:^|\s)--(?:v|ar|raw|s|c|w|sd|hd)(?:\s|$)/,
+        `${parameterFixture.id}: ${id} remains parameter-free`
+      );
     }
   }
 });
@@ -307,8 +303,9 @@ test('description phase 7 freezes direct syntax, mappings, and downstream consum
     assert.ok(target, `${parameterFixture.id}: description target`);
 
     const description = stripMidjourneyParameterTail(prompt.midjourneyPrompt);
+    // The accepted hash predates the 2026-10-14 ethnicity revision; reverse only that rollout.
     assert.equal(
-      hashPrompt(description),
+      hashPrompt(restorePreEthnicityText(description, 'midjourneyPrompt')),
       target.naturalDescriptionHash,
       `${parameterFixture.id}: accepted description`
     );
@@ -327,3 +324,4 @@ test('description phase 7 freezes direct syntax, mappings, and downstream consum
   }
 });
 import { normalizeAmbientForLegacy } from './ambientLightTestSupport.js';
+import { restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';

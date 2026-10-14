@@ -124,7 +124,7 @@ test('generated prompts keep ambient conditions separate from subject light styl
   });
 
   assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*deep azure sky and towering luminous white cumulus clouds/);
-  assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*warm golden-amber subject color/);
+  assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*Warm golden-amber subject color/);
   assert.match(prompt.zImagePrompt, /bright summer daylight with a clear atmosphere/i);
   assert.match(prompt.zImagePrompt, /warm golden-amber subject color, honey-toned highlights on skin and clothing/);
   assert.match(prompt.summary, /光影：夏日深藍積雲 \/ 暖金黃昏色溫/);
@@ -139,8 +139,8 @@ test('generated house-party prompt keeps flexible scene and party ambient light'
   });
 
   assert.match(prompt.grokPrompt, /Scene:\n[\s\S]*nighttime American house-party home interior/);
-  assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*warm low-light social ambience/);
-  assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*localized warm subject light/);
+  assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*Warm low-light social ambience/);
+  assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*Localized warm subject light/);
   assert.match(prompt.zImagePrompt, /background guests (?:chatting drinking and playing games|if visible)/);
   assert.match(prompt.zImagePrompt, /warm low-light social ambience/i);
   assert.doesNotMatch(prompt.zImagePrompt, /practical lamps|decorative lights/i);

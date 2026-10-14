@@ -838,7 +838,9 @@ test('generated prompts keep outfit preset color separate from clothing structur
   });
 
   assert.equal(prompt.selection.outfitPresetId, outfit.id);
-  assert.match(prompt.grokPrompt, /Wardrobe:\nShe wears [\s\S]*red satin lingerie set/);
+  // A random outerwear sentence may precede the outfit; public prompt polish
+  // then capitalizes the outfit's sentence start ("... coat. Red satin ...").
+  assert.match(prompt.grokPrompt, /Wardrobe:\nShe wears [\s\S]*[Rr]ed satin lingerie set/);
   assert.match(prompt.grokPrompt, /satin lingerie set/);
 });
 

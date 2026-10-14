@@ -7,7 +7,7 @@ import {
   normalizeLocks,
 } from '../../lib/engine.js';
 import { MIDJOURNEY_PARAMETER_CONTRACT } from '../../lib/engine/midjourneyParameterContract.js';
-import { parseMidjourneyParameterTail } from '../../lib/engine/midjourneyParameterTail.js';
+import { framingAspectRatioForSelection, parseMidjourneyParameterTail } from '../../lib/engine/midjourneyParameterTail.js';
 import {
   Z_IMAGE_VISIBLE_TEXT_SELECTION_KEYS,
   parseZImageVisibleTextSentence,
@@ -435,6 +435,25 @@ export function parseLocksFromStandardPrompt(promptText, controls) {
   }
 
   if (parsedMidjourneyTail.matched) {
+    // A ratio equal to the parsed framing's automatic MJ ratio was derived, not
+    // chosen: keep PAGE1 empty and F on "follow PAGE1" so regeneration matches.
+    const derivedAspectRatio = framingAspectRatioForSelection(
+      locks,
+      controlMap.get('framingId')?.options || [],
+      controlMap.get('fixedCompositionSetId')?.options || [],
+    );
+    const tailFramingId = locks.framingId;
+    const tailFramingUnresolved = !controlMap.get('framingId')?.options.some(option => option.id === tailFramingId && option.zh !== '全無');
+    const framingVariationSet = (controlMap.get('fixedCompositionSetId')?.options || [])
+      .find(option => option.id === locks.fixedCompositionSetId && option.allowsFramingVariation);
+    if (derivedAspectRatio && parsedMidjourneyTail.aspectRatio === derivedAspectRatio) {
+      parsedMidjourneyTail.aspectRatio = '';
+      if (parsedMidjourneyTail.settings) parsedMidjourneyTail.settings.mjAspectRatio = 'page1';
+    } else if (framingVariationSet && tailFramingUnresolved && parsedMidjourneyTail.aspectRatio) {
+      // Carriage text does not round-trip its crop, so the ratio may have been
+      // framing-derived. Keep it as the MJ-only F ratio and never invent a PAGE1 ratio.
+      parsedMidjourneyTail.aspectRatio = '';
+    }
     if (parsedMidjourneyTail.aspectRatio) {
       // Keep the historical PAGE1 ratio restoration while also restoring the
       // new AI-only F control. Unknown/custom ratios continue to flow through

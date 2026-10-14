@@ -1,6 +1,7 @@
 import { generateLegacyBodyPrompts } from './bodyTypeLegacyTestSupport.js';
 import { normalizeOuterwearCatalogForLegacy } from './outerwearCatalogTestSupport.js';
 import assert from 'node:assert/strict';
+import { restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
 import { createHash } from 'node:crypto';
 import { test } from 'node:test';
 
@@ -35,7 +36,7 @@ const FULL_BODY_CHARACTER_BASELINES = Object.freeze([
       locationId: '室內：英倫復古窗邊房間',
     }),
     length: 1501,
-    sha256: '44e154c408864e22b33cd061d137857f9a60e82aee3ac71fd2ca81659a86f872',
+    sha256: '225ba10d54063d5d9720f443ca21cbd1bcf28b88d133947df5888456234bac14',
   }),
   Object.freeze({
     id: 'special-outfit',
@@ -46,7 +47,7 @@ const FULL_BODY_CHARACTER_BASELINES = Object.freeze([
       locationId: '室內：古書二手書店',
     }),
     length: 1184,
-    sha256: '63c7c2fd6eda39858d2744a01cdf984067ba83fe21532c431c6219f90d482a8f',
+    sha256: '2aad827721275f8ac6923fecd3ac72e9888780ae6ab103be4b7a830c8d544d31',
   }),
   Object.freeze({
     id: 'character-card',
@@ -57,7 +58,7 @@ const FULL_BODY_CHARACTER_BASELINES = Object.freeze([
       locationId: '室內：莫蘭迪灰背景',
     }),
     length: 1923,
-    sha256: '7168055482a1343fd3df9e2f94aa5945479bb7c56fbd5bb93fd804898bc3189a',
+    sha256: 'e63c31fee50c073c2d6c0c0d02288b85eda6e1a25d6e3083b8d55969adc9642a',
   }),
   Object.freeze({
     id: 'fixed-composition',
@@ -69,7 +70,7 @@ const FULL_BODY_CHARACTER_BASELINES = Object.freeze([
       pantsId: '直筒牛仔褲',
     }),
     length: 1147,
-    sha256: '6be801486139b3d8feea0a2c7a9bcc65f790dd982e92b18f4d937d182a766959',
+    sha256: '7ab44665c528b470d592f02bb5b4395e630e663d4640a6a5b0a519536e0a502a',
   }),
 ]);
 
@@ -145,12 +146,12 @@ test('phase-2 full-body migration preserves exact output bytes for representativ
 
     assert.ok(fullBodyPrompt, `${promptCase.id}: full-body output`);
     assert.equal(fullBodyPrompt.label, '全身角色照', `${promptCase.id}: label`);
-    const legacyText = normalizeOuterwearCatalogForLegacy(fullBodyPrompt.text, 'fullBodyCharacterPrompt');
+    // Frozen bytes predate the 2026-10-14 ethnicity revision; reverse only that rollout.
+    const legacyText = normalizeOuterwearCatalogForLegacy(restorePreEthnicityText(fullBodyPrompt.text, 'fullBodyCharacterPrompt'), 'fullBodyCharacterPrompt');
     assert.equal(legacyText.length, promptCase.length, `${promptCase.id}: exact length`);
     assert.equal(sha256(legacyText), promptCase.sha256, `${promptCase.id}: exact bytes`);
     assert.deepEqual(prompt.extraPrompts.map((entry) => entry.id), [
       'chest-up-portrait',
-      'chest-up-mj-portrait',
       'full-body-character',
     ]);
     for (const key of Object.keys(promptCase.locks)) {

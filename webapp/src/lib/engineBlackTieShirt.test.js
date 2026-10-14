@@ -1,6 +1,7 @@
 import catalogProtected from './engine/midjourneyNaturalCatalogProtected.json' with { type: 'json' };
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
+import { restorePreEthnicityOutputs } from './engine/ethnicityRevisionTestSupport.js';
 import { test } from 'node:test';
 import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls, normalizeLocks } from './engine.js';
 import { deserializeFavoritePrompt, parseLocksFromStandardPrompt, serializeFavoritePrompt } from '../features/saved-cards/cardCodec.js';
@@ -52,7 +53,8 @@ test('405 explicitly selected non-target top cases preserve selection and all si
     locks: { topId, framingId: option('framingId', '牛仔中景 (Cowboy Shot)').id, topColorId: option('topColorId', color).id } });
   const captured = cases.map(row => {
     const p = generate(row.locks);
-    return { ...row, selectionHash: hash(p.selection), outputHash: hash(outputs(p)) };
+    // The frozen hash predates the 2026-10-14 ethnicity revision; reverse only that rollout.
+    return { ...row, selectionHash: hash(p.selection), outputHash: hash(restorePreEthnicityOutputs(outputs(p))) };
   });
   assert.equal(captured.length, 405);
   assert.equal(hash(captured), catalogProtected.tie);

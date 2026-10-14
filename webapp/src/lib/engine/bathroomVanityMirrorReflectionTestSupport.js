@@ -49,18 +49,12 @@ function normalizeChestUpGptScene(text) {
   return text.replace(`Scene:\n${current}`, 'Scene:\nThe portrait takes place in bathroom vanity area, sink counter, faucet.');
 }
 
-function normalizeChestUpMjScene(text) {
-  const current = `The setting is ${NEW_LOCATION_MJ}. ${NEW_MIRROR_TEXT}`;
-  return text.replace(current, 'The setting is Bathroom vanity area, sink counter, faucet, mirror edge.');
-}
-
 export function normalizeBathroomVanityMirrorForLegacy(text, field = 'zImagePrompt', selection = {}) {
   if (!text) return text;
   if (field === 'grokPrompt') return normalizeGptScene(text, selection);
   if (field === 'zImagePrompt') return normalizeZScene(text);
   if (field === 'midjourneyPrompt') return normalizeMjScene(text);
   if (field === 'chestUpPortraitPrompt') return normalizeChestUpGptScene(text);
-  if (field === 'chestUpMjPortraitPrompt') return normalizeChestUpMjScene(text);
   return text;
 }
 

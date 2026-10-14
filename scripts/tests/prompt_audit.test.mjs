@@ -63,11 +63,6 @@ function validPromptFixture() {
         ].join('\n\n'),
       },
       {
-        id: 'chest-up-mj-portrait',
-        label: 'MJ 胸上特寫照',
-        text: 'Photorealistic editorial portrait. Chest-up editorial portrait, one adult portrait subject, wearing a black dress neckline, soft even light, natural photographic detail. --v 8.2 --ar 4:5 --s 25 --c 0 --w 0 --sd',
-      },
-      {
         id: 'full-body-character',
         label: '全身角色照',
         text: [
@@ -193,7 +188,6 @@ test('mixed-mode word statistics only expect single-subject derived outputs wher
   const report = auditPrompts([singlePrompt, duoPrompt]);
   for (const key of [
     'extra:chest-up-portrait',
-    'extra:chest-up-mj-portrait',
     'extra:full-body-character',
   ]) {
     const stats = report.wordLengths.find((item) => item.key === key);

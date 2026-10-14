@@ -18,10 +18,19 @@ function legacyBodyText(body, bucket, ai) {
   return ai ? body.ai : body.en;
 }
 
-function replaceBody(text, source, replacement) {
+function replaceExactBody(text, source, replacement) {
   if (!text.includes(source)) return text;
   if (replacement) return text.replaceAll(source, replacement);
   return text.replaceAll(`, ${source}.`, '.').replaceAll(`${source}, `, '').replaceAll(` ${source}.`, '').replaceAll(`${source}. `, '').replaceAll(source, '');
+}
+
+// Public prompt polish capitalizes a body source that starts a sentence. Treat
+// that exact capitalized source the same way and keep the replacement capitalized.
+const capitalizeSource = (text) => text && text[0].toUpperCase() + text.slice(1);
+function replaceBody(text, source, replacement) {
+  const capitalized = capitalizeSource(source);
+  if (capitalized !== source) text = replaceExactBody(text, capitalized, capitalizeSource(replacement));
+  return replaceExactBody(text, source, replacement);
 }
 
 // Test-only inverse for pre-omission GPT snapshots. Use the selected catalog
@@ -72,8 +81,11 @@ export function restoreGptIndependentBodySource(prompt, catalog) {
   const source = selectedSource('bodyTypeId');
   if (!valid(source)) return prompt;
   const lead = `Subject:\nThe subject is ${base.en}`;
+  // The restored body starts a sentence, so emit it in the polished letter case
+  // public prompts use (publicPromptPolish.js) and recognize either case.
+  const restoredBody = capitalizeSource(source.en.replace(/[.!?]+$/, ''));
   const restore = text => {
-    if (text.includes(source.en) || !text.includes(lead)) return text;
+    if (text.includes(source.en) || text.includes(restoredBody) || !text.includes(lead)) return text;
     const start = text.indexOf(lead) + lead.length;
     if (!['.', ' '].includes(text[start])) return text;
     // Subject Count may include a comma-joined accessory phrase. Its terminal
@@ -82,12 +94,16 @@ export function restoreGptIndependentBodySource(prompt, catalog) {
     const boundary = text.slice(start).search(/\.(?=\s|$)/);
     if (boundary < 0) return text;
     const end = start + boundary + 1;
-    return `${text.slice(0, end)} ${source.en.replace(/[.!?]+$/, '')}.${text.slice(end)}`;
+    return `${text.slice(0, end)} ${restoredBody}.${text.slice(end)}`;
   };
   return {
     ...prompt,
     grokPrompt: restore(prompt.grokPrompt),
-    extraPrompts: prompt.extraPrompts.map(item => ['chest-up-portrait', 'full-body-character'].includes(item.id)
+    // Since the approved 2026-10-14 full-body exception, full-body-character
+    // already renders the selected body at its pre-omission position, so only
+    // GPT chest-up still needs the restored source. Restoring full-body again
+    // would duplicate the body sentence.
+    extraPrompts: prompt.extraPrompts.map(item => item.id === 'chest-up-portrait'
       ? { ...item, text: restore(item.text) } : item),
   };
 }
@@ -117,7 +133,7 @@ export function normalizeLegacyBodyPrompt(prompt, catalog) {
     zImagePrompt: rewrite(prompt.zImagePrompt, bucket, false, true, true),
     midjourneyPrompt: rewrite(prompt.midjourneyPrompt, bucket, true, true),
     extraPrompts: prompt.extraPrompts.map(e => ({ ...e,
-      text: rewrite(e.text, e.id === 'full-body-character' ? 'fullBody' : 'chestUp', e.id === 'chest-up-mj-portrait', false),
+      text: rewrite(e.text, e.id === 'full-body-character' ? 'fullBody' : 'chestUp', false, false),
     })),
   };
 }

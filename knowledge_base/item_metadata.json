@@ -3,28 +3,31 @@
     "五官特徵 (Facial Features)": {
       "韓系偶像臉": {
         "mj": {
-          "face": "small refined oval face, clear almond eyes with straight brows, slender nose bridge and softly shaped lips"
+          "face": "small refined oval Korean face, clear almond eyes with straight brows, slender nose bridge and softly shaped lips"
         }
       },
       "日系清透臉": {
         "mj": {
-          "face": "soft natural oval face, gentle almond eyes with natural brows, small nose and softly defined lips"
+          "face": "soft natural oval Japanese face, gentle almond eyes with natural brows, small nose and softly defined lips"
         }
       },
       "甜美可愛臉": {
         "mj": {
-          "face": "soft natural oval face, bright round eyes with curved brows, small rounded nose and softly shaped lips"
-        }
+          "face": "soft natural oval Japanese face, bright round eyes with curved brows, small rounded nose and softly shaped lips"
+        },
+        "legacyPromptAliases": ["young sweet pretty face, soft rounded charm, bright friendly eyes, gentle cute beauty, approachable youthful portrait look"]
       },
       "冷感高級臉": {
         "mj": {
-          "face": "refined elongated oval face, upturned eyes with straight brows, defined nose bridge and sculpted lips"
-        }
+          "face": "refined elongated oval Korean face, upturned eyes with straight brows, defined nose bridge and sculpted lips"
+        },
+        "legacyPromptAliases": ["young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, high-fashion understated presence"]
       },
       "成熟性感臉": {
         "mj": {
-          "face": "softly defined oval face, upturned eyes with arched brows, clear nose bridge and full shaped lips"
-        }
+          "face": "softly defined oval Korean face, upturned eyes with arched brows, clear nose bridge and full shaped lips"
+        },
+        "legacyPromptAliases": ["young seductive alluring beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence"]
       },
       "混血立體臉": {
         "mj": {

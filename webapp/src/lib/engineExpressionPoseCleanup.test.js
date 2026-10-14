@@ -262,7 +262,7 @@ test('duo expression outputs one shared relationship cue and ignores legacy per-
   assert.equal(prompt.structured.Character.filter((item) => item.meta?.characterRole && item.id.includes('expression-gaze')).length, 0);
   assert.doesNotMatch(promptText, /^Woman 1 Expression:/m);
   assert.doesNotMatch(promptText, /^Woman 2 Expression:/m);
-  assert.match(promptText, /both women look directly at each other/);
+  assert.match(promptText, /[Bb]oth women look directly at each other/);
   assert.match(promptText, /quiet intimate expressions/);
   assert.match(promptText, /calm private connection/);
   assert.doesNotMatch(promptText, /woman 1 looking toward the camera|woman 2 laughing naturally/i);
@@ -423,7 +423,7 @@ test('locked expression remains independent from the previous orbit', () => {
   assert.equal(prompt.selection.expressionId, gentleExpression.id);
   assert.notEqual(prompt.selection.orbitId, '');
   assert.match(prompt.summary, /溫柔含蓄/);
-  assert.match(prompt.grokPrompt, /gentle demure expression/);
+  assert.match(prompt.grokPrompt, /Gentle demure expression/);
   const expressionItem = prompt.structured.Character.find((item) => item.id === gentleExpression.id);
   assert.ok(expressionItem, 'Expected the locked expression to remain a structured character item');
   assert.doesNotMatch(expressionItem.en, /gaze|eye contact|glancing back over the shoulder/i);

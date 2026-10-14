@@ -1,11 +1,18 @@
 import catalogProtected from './midjourneyNaturalCatalogProtected.json' with { type: 'json' };
 import assert from 'node:assert/strict';
+import { restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
 import test from 'node:test';
 import { createHash } from 'node:crypto';
 import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls } from '../engine.js';
 import { buildRestoreLocks, parseLocksFromStandardPrompt, serializeFavoritePrompt, deserializeFavoritePrompt } from '../../features/saved-cards/cardCodec.js';
 import { BODY_TYPE_CATALOG_V2 } from './bodyTypeCatalogFixtures.js';
 import { normalizeLegacyBodyPrompt } from './bodyTypeLegacyTestSupport.js';
+import { assertFullBodyCharacterBody, assertFullBodyCharacterHasNoBody } from './fullBodyCharacterBodyTestSupport.js';
+import { polishPublicPromptText } from './publicPromptPolish.js';
+// Public prompt polish (publicPromptPolish.js) capitalizes sentence starts. A
+// catalog source keeps every word; accept only its exact polished letter case.
+const sourceForms = (source) => [...new Set([source, polishPublicPromptText(source), source[0] + polishPublicPromptText(source).slice(1)])];
+const includesSource = (text, source) => sourceForms(source).some(form => text.includes(form));
 
 const controls = getLockControls();
 const option = (key, zh) => controls.find(c => c.key === key).options.find(o => o.zh === zh).id;
@@ -20,9 +27,11 @@ function locksFor(body, framing = '全身鏡頭 (Full Body Shot)') {
 }
 const generate = locks => generatePrompts(1, locks, [], { random: createSeededRandom('body-catalog-v2') })[0];
 const main = p => [p.grokPrompt, p.zImagePrompt];
-const six = p => [...main(p), ...['chest-up-portrait', 'chest-up-mj-portrait', 'full-body-character'].map(id => p.extraPrompts.find(e => e.id === id).text)];
-const gpt = p => [p.grokPrompt, ...['chest-up-portrait', 'full-body-character'].map(id => p.extraPrompts.find(e => e.id === id).text)];
-const retained = p => [p.zImagePrompt, p.extraPrompts.find(e => e.id === 'chest-up-mj-portrait').text];
+const six = p => [...main(p), ...['chest-up-portrait', 'full-body-character'].map(id => p.extraPrompts.find(e => e.id === id).text)];
+// Main GPT and GPT chest-up omit the standalone body; the full-body character
+// reference keeps it under the approved 2026-10-14 exception.
+const gpt = p => [p.grokPrompt, p.extraPrompts.find(e => e.id === 'chest-up-portrait').text];
+const retained = p => [p.zImagePrompt];
 
 test('six reviewed body sources and none retain stable IDs in single and duo controls', () => {
   for (const key of ['bodyTypeId', 'bodyTypeAId', 'bodyTypeBId']) {
@@ -39,7 +48,7 @@ test('six reviewed body sources and none retain stable IDs in single and duo con
 });
 
 for (const source of BODY_TYPE_CATALOG_V2) {
-  test(`${source.zh}: GPT omits body while other outputs retain the source at every framing and with overlapping hems`, () => {
+  test(`${source.zh}: main/chest GPT omit body, full-body keeps it once, other outputs retain the source at every framing and with overlapping hems`, () => {
     for (const framing of controls.find(c => c.key === 'framingId').options) {
       const locks = { ...locksFor(source), framingId: framing.id };
       for (const overlap of [false, true]) {
@@ -49,9 +58,10 @@ for (const source of BODY_TYPE_CATALOG_V2) {
         } : locks);
         assert.equal(prompt.selection.bodyTypeId, source.id);
         for (const [i, text] of retained(prompt).entries()) {
-          assert.ok(text.includes(source.en), `${framing.zh}/${overlap}/${i}: missing verbatim source`);
+          assert.ok(includesSource(text, source.en), `${framing.zh}/${overlap}/${i}: missing verbatim source`);
         }
-        for (const text of gpt(prompt)) assert.ok(!text.includes(source.en), `${framing.zh}/${overlap}: GPT omission`);
+        for (const text of gpt(prompt)) assert.ok(!includesSource(text, source.en), `${framing.zh}/${overlap}: GPT omission`);
+        assertFullBodyCharacterBody(prompt, source.en, `${framing.zh}/${overlap}`);
       }
     }
   });
@@ -101,7 +111,8 @@ test('none remains silent and the fixed chest and full-body ratios remain unchan
   for (const text of six(p)) {
     assert.doesNotMatch(text, /Body Type:|bust–waist–hip|\bnone\b/i);
   }
-  for (const id of ['chest-up-portrait', 'chest-up-mj-portrait']) assert.match(p.extraPrompts.find(e => e.id === id).text, /4:5/);
+  assertFullBodyCharacterHasNoBody(p, BODY_TYPE_CATALOG_V2.map(source => source.en), 'none');
+  for (const id of ['chest-up-portrait']) assert.match(p.extraPrompts.find(e => e.id === id).text, /4:5/);
   assert.match(p.extraPrompts.find(e => e.id === 'full-body-character').text, /9:16/);
 });
 
@@ -116,7 +127,9 @@ test('60 pre-change body/framing cases keep every non-body output byte and selec
       locationId: option('locationId', '室內：英倫復古窗邊房間'),
       poseBaseId: 'standing', poseArrangementId: 'standing-natural',
     });
-    assert.equal(hash(six(normalizeLegacyBodyPrompt(p))), entry.outputs, `${entry.body}/${entry.framing}: non-body bytes`);
+    // The frozen hash predates the 2026-10-14 ethnicity revision; reverse only that rollout (no main MJ here).
+    const historical = six(normalizeLegacyBodyPrompt(p)).map(text => restorePreEthnicityText(text, 'six'));
+    assert.equal(hash(historical), entry.outputs, `${entry.body}/${entry.framing}: non-body bytes`);
     assert.equal(hash(p.selection), entry.selection, `${entry.body}/${entry.framing}: selection`);
   }
 });

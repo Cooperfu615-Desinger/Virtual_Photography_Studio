@@ -133,7 +133,7 @@ test('Z-Image Turbo single prompt uses direct visual paragraphs in priority orde
     'Indoor low-light warm night ambience',
     'Full-body portrait, eye-level view',
     'She stands completely sideways, facing the left edge of the image',
-    'A 20s seductive stunning Japanese or Korean woman',
+    'A 20-year-old seductive stunning adult woman',
     'She wears',
     'Mika Ninagawa',
     'anamorphic lens',
@@ -339,7 +339,7 @@ test('Z-Image Turbo duo prompt removes Grok-style labels and internal control wo
   const text = prompt.zImagePrompt;
 
   assert.match(text, /^Photorealistic editorial portrait\./);
-  assert.match(text, /Two stunning seductive 20-year-old Japanese or Korean women\./);
+  assert.match(text, /Two stunning seductive 20-year-old adult women\./);
   assert.match(text, /Woman 1 has [^.]+\. She wears /);
   assert.match(text, /Woman 2 has [^.]+\. She wears /);
   assert.doesNotMatch(text, /^(?:Image Type|Subject|Woman 1|Woman 2|Shared Expression|Pose and Composition|Scene|Lighting|Camera Look):/m);

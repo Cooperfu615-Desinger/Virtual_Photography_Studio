@@ -5,6 +5,7 @@ import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls 
 
 const BODY_LABEL = '豐胸纖腰沙漏身形';
 import { BODY_TYPE_CATALOG_V2 } from './bodyTypeCatalogFixtures.js';
+import { assertFullBodyCharacterBody } from './fullBodyCharacterBodyTestSupport.js';
 const BODY_SOURCE = BODY_TYPE_CATALOG_V2.find(item => item.zh === BODY_LABEL).en;
 const MAIN_FIELDS = ['grokPrompt', 'zImagePrompt', ];
 const RETAINED_MAIN_FIELDS = ['zImagePrompt', ];
@@ -33,7 +34,7 @@ function generate(locks, seed = 'hourglass-source-v2') {
   })[0];
 }
 
-test('selected hourglass Body Type is omitted by GPT and stays verbatim in Z and AI at every crop', () => {
+test('selected hourglass Body Type is omitted by main/chest GPT, kept once by full-body and verbatim in Z and AI at every crop', () => {
   const bodyTypeId = optionId('bodyTypeId', BODY_LABEL);
   for (const framing of [
     '全無', '全身鏡頭 (Full Body Shot)', '牛仔中景 (Cowboy Shot)',
@@ -48,7 +49,9 @@ test('selected hourglass Body Type is omitted by GPT and stays verbatim in Z and
       assert.ok(prompt[field].includes(BODY_SOURCE), `${framing}/${field}: exact Body Type source`);
     }
     assert.ok(!prompt.grokPrompt.includes(BODY_SOURCE));
-    for (const id of ['chest-up-portrait', 'full-body-character']) assert.ok(!prompt.extraPrompts.find(entry => entry.id === id)?.text.includes(BODY_SOURCE));
+    assert.ok(!prompt.extraPrompts.find(entry => entry.id === 'chest-up-portrait')?.text.includes(BODY_SOURCE));
+    // Approved 2026-10-14 exception: full-body character keeps the body once.
+    assertFullBodyCharacterBody(prompt, BODY_SOURCE, framing);
   }
 });
 

@@ -23,7 +23,6 @@ function generate(overrides) {
 const garterBeltSummary = '蕾絲吊襪帶腰封（自動搭配）';
 const extraPromptIds = {
   chestUpPortraitPrompt: 'chest-up-portrait',
-  chestUpMjPortraitPrompt: 'chest-up-mj-portrait',
   fullBodyCharacterPrompt: 'full-body-character',
 };
 
@@ -47,7 +46,6 @@ test('all approved independent lower garments add the derived garter-belt layer 
       assert.match(output, /slim straps connecting to the stocking tops/i, `${bottom}: ${field}`);
     }
     assert.doesNotMatch(getPromptText(prompt, 'chestUpPortraitPrompt'), /lace garter belt worn over the bottoms/i);
-    assert.doesNotMatch(getPromptText(prompt, 'chestUpMjPortraitPrompt'), /lace garter belt worn over the bottoms/i);
     assert.equal(prompt.selection.pantsId, pantsId);
     assert.equal(prompt.selection.legwearId, legwearId);
     assert.match(prompt.summaryFields.wardrobe, new RegExp(garterBeltSummary));

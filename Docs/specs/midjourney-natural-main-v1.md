@@ -1,5 +1,7 @@
 # 主 Midjourney 自然精簡輸出 v1
 
+> **2026-10-14 更新：** `chest-up-mj-portrait`（MJ 胸上特寫照）已依 Cooper 決定完全移除，引擎不再產生、畫面與 DLL 來源不再顯示，F 區參數只作用於主 MJ；既有 Saved Cards 資料保留不改寫。見 [官方規範修正 v1](prompt-official-fixes-v1.md)。本文中關於 MJ 胸上的段落僅供歷史參考。
+
 日期：2026-10-11。範圍：使用者核准僅更換 PAGE1 主 `midjourneyPrompt`。驗證完成後已另行授權 commit／push；不手動部署。
 
 ## 核准補充：保留原長度並加入體態簡述

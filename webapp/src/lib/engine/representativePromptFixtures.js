@@ -16,17 +16,23 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 
 const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   {
-    id: 'gpt-standalone-body-omission', title: 'GPT omits standalone body source while retaining adulthood and pose',
+    id: 'gpt-standalone-body-omission', title: 'Main and chest GPT omit standalone body source while full-body keeps it; adulthood and pose retained',
     mode: 'single', seed: 'gpt-standalone-body-omission-v1',
     locks: { subjectCount: '1', bodyTypeId: { byZh: '豐胸纖腰沙漏身形' },
       framingId: { byZh: '全身鏡頭 (Full Body Shot)' }, poseBaseId: 'standing',
       poseArrangementId: 'standing-natural', poseHandId: 'none', posePropId: 'none', poseAnchorId: 'none',
       fixedCompositionSetId: 'none', specialSubjectId: 'none', characterProfileId: 'none' },
     expectedOutputs: {
-      ...Object.fromEntries(['grokPrompt', 'chestUpPortraitPrompt', 'fullBodyCharacterPrompt']
+      ...Object.fromEntries(['grokPrompt', 'chestUpPortraitPrompt']
         .map(field => [field, { includes: ['20-year-old', 'standing'],
           excludes: ['I–K cup bust', 'height 163–168 cm', 'bust–waist–hip 103–60–98 cm', 'curves stretching fitted fabric'] }])),
-      ...Object.fromEntries(['zImagePrompt', 'midjourneyPrompt', 'chestUpMjPortraitPrompt']
+      // Approved 2026-10-14 exception: the full-body character backup keeps the
+      // selected body directly after the Subject Count sentence.
+      fullBodyCharacterPrompt: {
+        includes: ['20-year-old', 'standing', 'I–K cup bust', 'height 163–168 cm', 'bust–waist–hip 103–60–98 cm', 'curves stretching fitted fabric'],
+        ordered: ['adult woman. I–K cup bust', 'bust–waist–hip 103–60–98 cm'],
+      },
+      ...Object.fromEntries(['zImagePrompt', 'midjourneyPrompt']
         .map(field => [field, { includes: ['I–K cup bust', 'height 163–168 cm', 'bust–waist–hip 103–60–98 cm'] }])),
     },
   },
@@ -54,7 +60,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       topFitId: { byZh: '短版合身' }, framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
       outfitPresetId: { byZh: '全無' }, specialOutfitId: { byZh: '全無' }, dressId: { byZh: '全無' },
       outerwearId: { byZh: '全無' } },
-    expectedOutputs: Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt', 'fullBodyCharacterPrompt']
+    expectedOutputs: Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'fullBodyCharacterPrompt']
       .map(field => [field, { includes: ['short soft black necktie', 'underbust-cropped', ...(target ? [target] : [])],
         excludes: target ? ['red necktie', 'silver necktie', 'mirror-chrome collared shirt'] : ['shirt fabric in', 'shirt fabric with'] }])),
   })),
@@ -74,7 +80,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       orbitId: { byZh: '正面 0 度' }, fixedCompositionSetId: 'none',
       specialSubjectId: 'none', characterProfileId: 'none' },
     expectedOutputs: {
-      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt']
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt']
         .map(field => [field, { includes: [core] }])),
       fullBodyCharacterPrompt: { includes: ['Clean even lighting'], excludes: [core] },
     },
@@ -92,7 +98,6 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
         excludes: ['1.5–2 meters', '1–2 meters'],
       }])),
       chestUpPortraitPrompt: { includes: ['Chest-up portrait'], excludes: ['head-dominant', '50–60%'] },
-      chestUpMjPortraitPrompt: { includes: ['Chest-up portrait'], excludes: ['head-dominant', '50–60%'] },
       fullBodyCharacterPrompt: { excludes: ['head-dominant', '50–60%'] },
     },
   },
@@ -105,9 +110,9 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       poseHandId: 'none', poseAnchorId: 'none', fixedCompositionSetId: 'none',
       specialSubjectId: 'none', characterProfileId: 'none' },
     expectedOutputs: {
-      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt']
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt']
         .map(field => [field, {
-          includes: ['QFRONT glass facade', 'TSUTAYA and STARBUCKS signage', 'large advertising screens',
+          includes: ['QFRONT glass facade', '"TSUTAYA" and "STARBUCKS" signage', 'large advertising screens',
             'the subject as one person within a dense pedestrian flow with people passing in different directions beside and in front of and behind her; everyone sharing the same physical space and perspective with apparent size varying naturally by distance',
             'pedestrians in varied everyday clothing in mixed colors and styles sharing the same ambient light as the subject; nearby passersby naturally overlapping and partly cropped at frame edges'],
           excludes: ['Hachiko Square', 'meeting crowd clusters', 'broad pedestrian paving'],
@@ -125,7 +130,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       outerwearId: { byZh: '愛迪達立領三線外套' }, outerwearOpeningId: { byZh: '敞開穿' },
       outerwearFitId: { byZh: '全無' }, outerwearStylingId: { byZh: '正常穿著' },
       bottomRiseId: { byZh: '扣子解開拉鏈微開' } },
-    expectedOutputs: Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt', 'fullBodyCharacterPrompt']
+    expectedOutputs: Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'fullBodyCharacterPrompt']
       .map(field => [field, {
         includes: ['adidas zip-front track jacket', 'three parallel contrast stripes', 'worn open at the front',
           ...(/chestUp/.test(field) ? [] : ['adidas full-length smooth tricot track pants'])],
@@ -139,7 +144,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       topId: { byZh: '創可貼造型胸貼' }, pantsId: { byZh: '直筒牛仔褲' },
       skirtId: { byZh: '全無' }, specialOutfitId: { byZh: '全無' },
       outfitPresetId: { byZh: '全無' }, dressId: { byZh: '全無' }, outerwearId: { byZh: '全無' } },
-    expectedOutputs: Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt', 'fullBodyCharacterPrompt']
+    expectedOutputs: Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'fullBodyCharacterPrompt']
       .map(field => [field, {
         includes: ['two small finger-bandage-sized adhesive strips, each approximately 4 cm long and 1 cm wide, one horizontal strip centered on each breast, two strips total, thin flexible opaque fabric lying flush against the skin, rounded ends, subtle pad and perforation details, slightly varied natural placement angles'],
         excludes: ['two short crossed strips', 'top length meets or slightly overlaps'],
@@ -154,7 +159,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     locks: { subjectCount: '1', framingId: { byZh: '牛仔中景 (Cowboy Shot)' },
       topId: { byZh: top }, topFitId: { byZh: fit }, topStylingId: { byZh: '自然放出' },
       pantsId: { byZh: '直筒牛仔褲' }, outerwearId: { byZh: '全無' } },
-    expectedOutputs: Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt', 'fullBodyCharacterPrompt']
+    expectedOutputs: Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'fullBodyCharacterPrompt']
       .map(field => [field, { includes: [source, 'top hem hanging naturally just below the bust'], excludes: ['extended shirttail hem', 'cinched waist hem', 'top length meets'] }])),
   })),
   ...[
@@ -171,7 +176,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       outerwearStylingId: { byZh: label } },
     expectedOutputs: {
       ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'fullBodyCharacterPrompt'].map(field => [field, { includes: [source] }])),
-      ...Object.fromEntries(['chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map(field => [field, chestVisible ? { includes: [source] } : { excludes: [source] }])),
+      ...Object.fromEntries(['chestUpPortraitPrompt'].map(field => [field, chestVisible ? { includes: [source] } : { excludes: [source] }])),
     },
   })),
   {
@@ -181,7 +186,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       posePropId: 'hand-hold-whirly-lollipop', poseHandId: 'none', poseHeadId: 'none', poseAnchorId: 'none',
       framingId: { byZh: '牛仔中景 (Cowboy Shot)' } },
     expectedOutputs: {
-      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map(field => [field, {
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt'].map(field => [field, {
         includes: ['an oversized colorful swirl lollipop held by the stick in one hand, its flat round candy disc positioned just in front of her lips, partially covering her mouth while leaving her nose and eyes visible'],
         excludes: ['cute cheerful prop detail'],
       }])),
@@ -203,7 +208,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
           'taut slender side ties fitted tightly around the hips', 'visible shallow indentations beneath the ties'],
         excludes: ['top length meets or slightly overlaps'],
       }])),
-      ...Object.fromEntries(['chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map(field => [field, {
+      ...Object.fromEntries(['chestUpPortraitPrompt'].map(field => [field, {
         includes: [topSource, topDetail],
         excludes: [bottomSource, bottomDetail, 'visible shallow indentations beneath the ties'],
       }])),
@@ -222,7 +227,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt'].map(field => [field, {
         includes: ['both knees grounded, hips raised', body],
       }])),
-      ...Object.fromEntries(['chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map(field => [field, {
+      ...Object.fromEntries(['chestUpPortraitPrompt'].map(field => [field, {
         includes: ['kneeling pose', upper], excludes: ['both knees grounded', 'hips raised'],
       }])),
       fullBodyCharacterPrompt: { excludes: ['all-fours kneeling', 'both knees grounded'] },
@@ -233,7 +238,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     mode: 'single', seed: 'transit-light-v1',
     locks: { subjectCount: '1', fixedCompositionSetId: 'japan-carriage-bench-front',
       lightingId: { byZh: '藍調傍晚' }, lightDirectionId: { byZh: '霓虹染色光' } },
-    expectedOutputs: Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map(field => [field, {
+    expectedOutputs: Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt'].map(field => [field, {
       includes: ['blue hour', 'neon'], excludes: ['late-night indoor ambience'],
     }])),
   },
@@ -246,7 +251,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     locks: { subjectCount: '1', fixedCompositionSetId: set, fixedSetPositionId: position,
       poseBaseId: 'kneeling', poseHandId: 'selfie-mirror-phone-visible' },
     expectedOutputs: {
-      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map(field => [field, {
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt'].map(field => [field, {
         includes: [pose, 'same longitudinal platform axis'], excludes: ['kneeling', 'selfie'],
       }])),
       fullBodyCharacterPrompt: { excludes: ['waiting bench', 'platform gates', 'tiled platform wall'] },
@@ -262,7 +267,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       poseBaseId: 'kneeling', poseHandId: 'selfie-mirror-phone-visible',
       framingId: { byZh: '中景鏡頭 (Medium Shot)' }, fixedSetBackgroundStateId: 'carriage-window-coastal' },
     expectedOutputs: {
-      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map(field => [field, {
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt'].map(field => [field, {
         includes: [pose, 'coastal scenery'], excludes: ['kneeling', 'selfie'],
       }])),
       fullBodyCharacterPrompt: { excludes: ['carriage', 'grab pole', 'overhead strap'] },
@@ -282,7 +287,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       outerwearId: { byZh: coat }, outerwearOpeningId: 'wardrobe:外套開合-outerwear-opening:fully-closed:5',
       outerwearStylingId: { byZh: '雙肩露出' },
     },
-    expectedOutputs: Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt', 'fullBodyCharacterPrompt'].map(field => [field, {
+    expectedOutputs: Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'fullBodyCharacterPrompt'].map(field => [field, {
       includes: [closure, ...(sheer ? ['silk camisole', 'visible through the closed'] : [])],
       excludes: ['both shoulders fully uncovered', ...(sheer ? [] : ['silk camisole', 'delicate straps', 'fluid sheen'])],
     }])),
@@ -306,7 +311,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
         includes: [anchor, 'Waist-up portrait', 'Through the carriage windows', 'coastal scenery', '135mm'],
         excludes: ['platform axis', 'Her back faces the lens', 'selected room architecture'],
       }])),
-      ...Object.fromEntries(['chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map(field => [field, {
+      ...Object.fromEntries(['chestUpPortraitPrompt'].map(field => [field, {
         includes: [anchor, 'Chest-up portrait', 'coastal scenery', '135mm'],
       }])),
       fullBodyCharacterPrompt: { excludes: ['carriage', 'coastal scenery'] },
@@ -331,7 +336,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
         includes: [identity, layout, 'Her back faces the lens', 'same longitudinal platform axis', '135mm long telephoto lens', 'narrow field of view'],
         excludes: ['camera orbit', 'viewpoint around', 'selected room architecture'],
       }])),
-      ...Object.fromEntries(['chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map(field => [field, {
+      ...Object.fromEntries(['chestUpPortraitPrompt'].map(field => [field, {
         includes: [identity, 'same longitudinal platform axis', 'Her back faces the lens'],
       }])),
       fullBodyCharacterPrompt: { excludes: [identity, 'platform axis'] },
@@ -348,12 +353,17 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       topStylingId: 'hem-overlap', outerwearId: { byZh: '全無' },
     },
     expectedOutputs: {
-      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'fullBodyCharacterPrompt'].map(field => [field, {
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt'].map(field => [field, {
         includes: ['partially concealing it', 'dolphin micro shorts', ...(['zImagePrompt', 'midjourneyPrompt'].includes(field) ? ['rounded hips'] : [])],
-        excludes: ['top length meets or slightly overlaps', ...(['grokPrompt', 'fullBodyCharacterPrompt'].includes(field) ? ['F–G cup bust', 'rounded hips'] : [])],
+        excludes: ['top length meets or slightly overlaps', ...(field === 'grokPrompt' ? ['F–G cup bust', 'rounded hips'] : [])],
       }])),
+      // Approved 2026-10-14 exception: full-body keeps the selected body source.
+      fullBodyCharacterPrompt: {
+        includes: ['partially concealing it', 'dolphin micro shorts', 'F–G cup bust', 'rounded hips'],
+        excludes: ['top length meets or slightly overlaps'],
+        ordered: ['adult woman. F–G cup bust', 'bust–waist–hip 94–58–92 cm', 'partially concealing it'],
+      },
       chestUpPortraitPrompt: { excludes: ['partially concealing it'] },
-      chestUpMjPortraitPrompt: { excludes: ['partially concealing it'] },
     },
   },
   {
@@ -375,7 +385,6 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
         excludes: ['lace panties'],
       }])),
       chestUpPortraitPrompt: { excludes: ['cotton briefs', 'lace garter belt worn over the bottoms'] },
-      chestUpMjPortraitPrompt: { excludes: ['cotton briefs', 'lace garter belt worn over the bottoms'] },
     },
   },
   {
@@ -391,7 +400,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
     expectedOutputs: Object.fromEntries([
       'grokPrompt', 'zImagePrompt', 'midjourneyPrompt',
-      'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt', 'fullBodyCharacterPrompt',
+      'chestUpPortraitPrompt', 'fullBodyCharacterPrompt',
     ].map((field) => [field, { excludes: ['lace garter belt worn over the bottoms'] }])),
   },
   {
@@ -399,7 +408,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     locks: { subjectCount: '1', headphonesId: { byZh: '有線耳機' }, framingId: { byZh: '全身鏡頭 (Full Body Shot)' } },
     expectedOutputs: {
       ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'fullBodyCharacterPrompt'].map((key) => [key, { includes: ['continuous cable', 'end is concealed'] }])),
-      ...Object.fromEntries(['chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map((key) => [key, { includes: ['continuous cable', 'lower frame edge'], excludes: ['waist or the hip'] }])),
+      ...Object.fromEntries(['chestUpPortraitPrompt'].map((key) => [key, { includes: ['continuous cable', 'lower frame edge'], excludes: ['waist or the hip'] }])),
     },
   },
   ...[
@@ -419,7 +428,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
     expectedOutputs: Object.fromEntries([
       'grokPrompt', 'zImagePrompt', 'midjourneyPrompt',
-      'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt', 'fullBodyCharacterPrompt',
+      'chestUpPortraitPrompt', 'fullBodyCharacterPrompt',
     ].map(field => [field, { includes: [visualAnchor] }])),
   })),
   ...[
@@ -440,7 +449,6 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'fullBodyCharacterPrompt']
         .map(field => [field, { includes: [sleeve, hem, 'navy sailor collar', 'white parallel trim', 'navy scarf tie'] }])),
       chestUpPortraitPrompt: { includes: [sleeve, 'navy sailor collar'], excludes: [hem] },
-      chestUpMjPortraitPrompt: { includes: [sleeve, 'navy sailor collar'], excludes: [hem] },
     },
   })),
   ...[
@@ -456,7 +464,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       framingId: { byZh: '特寫鏡頭 (Close-Up)' },
     },
     expectedOutputs: {
-      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt']
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt']
         .map(field => [field, { includes }])),
       fullBodyCharacterPrompt: { excludes: ['heart shape', 'finger-heart'] },
     },
@@ -474,7 +482,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
     expectedOutputs: Object.fromEntries([
       'grokPrompt', 'zImagePrompt', 'midjourneyPrompt',
-      'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt', 'fullBodyCharacterPrompt',
+      'chestUpPortraitPrompt', 'fullBodyCharacterPrompt',
     ].map(field => [field, { includes: ['large cartoon doodle chest graphic'] }])),
   },
   ...[
@@ -496,7 +504,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
     expectedOutputs: Object.fromEntries([
       'grokPrompt', 'zImagePrompt', 'midjourneyPrompt',
-      'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt', 'fullBodyCharacterPrompt',
+      'chestUpPortraitPrompt', 'fullBodyCharacterPrompt',
     ].map((field) => [field, {
       includes: ['white longline cotton-poplin button-up shirt', 'worn open at the front', wearText],
       excludes: ['jacket draped', 'standard outer-layer position', "tailored longline men's dress shirt"],
@@ -521,7 +529,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     expectedOutputs: {
       ...Object.fromEntries([
         'grokPrompt', 'zImagePrompt', 'midjourneyPrompt',
-        'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt',
+        'chestUpPortraitPrompt',
       ].map((field) => [field, {
         includes: [
           'frequently used and lived-in bathroom vanity',
@@ -608,7 +616,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
     expectedOutputs: Object.fromEntries([
       'grokPrompt', 'zImagePrompt', 'midjourneyPrompt',
-      'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt',
+      'chestUpPortraitPrompt',
     ].map((field) => [field, {
       includes: ['one hand gently tugging the upper-body garment downward in a casual adjusting motion'],
       excludes: ['pulling the neckline or shoulder seam down', 'expose the shoulder'],
@@ -631,7 +639,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt'].map((field) => [field, {
         includes: ['both hands gripping the front lower hem', 'upper ribcage', 'underboob', 'upper bust remains covered'],
       }])),
-      ...Object.fromEntries(['chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map((field) => [field, {
+      ...Object.fromEntries(['chestUpPortraitPrompt'].map((field) => [field, {
         excludes: ['both hands gripping the front lower hem', 'underboob'],
       }])),
     },
@@ -652,7 +660,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     expectedOutputs: {
       ...Object.fromEntries([
         'grokPrompt', 'zImagePrompt', 'midjourneyPrompt',
-        'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt',
+        'chestUpPortraitPrompt',
       ].map((field) => [field, {
         includes: ['both palms placed directly over her nipples, one palm covering each'],
         excludes: ['pulling the front of her upper garment', 'fabric gathered across her upper chest', 'garment remains on her shoulders'],
@@ -677,7 +685,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     expectedOutputs: {
       ...Object.fromEntries([
         'grokPrompt', 'zImagePrompt', 'midjourneyPrompt',
-        'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt',
+        'chestUpPortraitPrompt',
       ].map((field) => [field, {
         includes: [
           'both hands firmly gripping the front edges',
@@ -888,10 +896,6 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
         includes: ['upper torso facing downward in a prone position', 'upper body raised into a supported incline'],
         excludes: ['chest and abdomen facing the support surface', 'lower body remains on the support surface'],
       },
-      chestUpMjPortraitPrompt: {
-        includes: ['upper torso facing downward in a prone position', 'upper body raised into a supported incline'],
-        excludes: ['chest and abdomen facing the support surface', 'lower body remains on the support surface'],
-      },
     },
   },
   {
@@ -971,9 +975,6 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
         ],
         excludes: ['mirror-chrome silver, highly polished scene-reflective surface'],
       },
-      chestUpMjPortraitPrompt: {
-        excludes: ['mirror-chrome silver, highly polished scene-reflective surface'],
-      },
       fullBodyCharacterPrompt: {
         includes: [
           'high-neck extreme front cut-out monokini swimsuit',
@@ -1010,9 +1011,6 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       },
       chestUpPortraitPrompt: {
         includes: ['short gold curb-link necklace worn around the base of the neck at collarbone level'],
-        excludes: ['street-style gold chain detail, subtle urban neck accent'],
-      },
-      chestUpMjPortraitPrompt: {
         excludes: ['street-style gold chain detail, subtle urban neck accent'],
       },
       fullBodyCharacterPrompt: {
@@ -1157,9 +1155,6 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       chestUpPortraitPrompt: {
         includes: ['grey 3M 6200 reusable half-face respirator', 'twin side filter cartridges'],
       },
-      chestUpMjPortraitPrompt: {
-        includes: ['grey 3M 6200 reusable half-face respirator', 'twin side filter cartridges'],
-      },
       fullBodyCharacterPrompt: {
         includes: ['grey 3M 6200 reusable half-face respirator', 'twin side filter cartridges'],
       },
@@ -1188,9 +1183,6 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
         includes: ['royal blue velvet crown body', 'gold filigree arches', 'red gemstone accents'],
       },
       chestUpPortraitPrompt: {
-        includes: ['royal blue velvet crown body', 'gold filigree arches', 'red gemstone accents'],
-      },
-      chestUpMjPortraitPrompt: {
         includes: ['royal blue velvet crown body', 'gold filigree arches', 'red gemstone accents'],
       },
       fullBodyCharacterPrompt: {
@@ -1228,7 +1220,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     expectedOutputs: {
       grokPrompt: {
         includes: [
-          'young seductive alluring beauty face',
+          'young seductive alluring Korean beauty face',
           'playful restrained smile, relaxed brows, gently narrowed eyes, pressed lips, subtly lifted mouth corners',
           'macro lens',
           'neon cross-processed rendering',
@@ -1237,7 +1229,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       },
       zImagePrompt: {
         includes: [
-          'young seductive alluring beauty face',
+          'young seductive alluring Korean beauty face',
           'playful restrained smile, relaxed brows, gently narrowed eyes, pressed lips, subtly lifted mouth corners',
           'macro lens',
           'neon cross-processed rendering',
@@ -1265,25 +1257,6 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
           'window-blind stripe light across the subject',
           'macro lens',
           'blurred foreground occlusion near the lens',
-        ],
-        excludes: [
-          'Yoshihiko Ueda-inspired',
-          'neon cross-processed rendering',
-          'flat abdomen',
-          '20s Japanese or Korean woman, seductive editorial presence',
-          'complete outfit',
-          'locked',
-          'controlled by',
-          'selection control',
-        ],
-      },
-      chestUpMjPortraitPrompt: {
-        includes: [
-          'Chest-up portrait',
-          'A 20s seductive stunning Japanese woman',
-          'structured opaque leather corset lingerie set',
-          'abandoned school infirmary room',
-          'macro lens',
         ],
         excludes: [
           'Yoshihiko Ueda-inspired',
@@ -1849,7 +1822,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
           'black velvet sofa',
         ],
         ordered: [
-          'A 20s seductive stunning Japanese or Korean woman',
+          'A 20-year-old seductive stunning adult woman',
           'cotton camisole top',
           'She presents a relaxed neutral standing posture.',
           'real-scale compact editorial lounge set',
@@ -1879,7 +1852,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       zImagePrompt: {
         includes: ['burgundy plaid handkerchief camisole', 'low-rise blue denim mini skirt', 'black knee-high leather boots', 'black velvet sofa'],
         ordered: [
-          'A 20s seductive stunning Japanese or Korean woman',
+          'A 20-year-old seductive stunning adult woman',
           'burgundy plaid handkerchief camisole',
           'real-scale compact editorial lounge set',
         ],
@@ -1908,7 +1881,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       zImagePrompt: {
         includes: ['Parisian linen trouser outfit', 'silk camisole', 'high-waisted wide-leg trousers', 'black velvet sofa'],
         ordered: [
-          'A 20s seductive stunning Japanese or Korean woman',
+          'A 20-year-old seductive stunning adult woman',
           'Parisian linen trouser outfit',
           'real-scale compact editorial lounge set',
         ],
@@ -1937,7 +1910,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       zImagePrompt: {
         includes: ['off-shoulder gothic mini dress', 'fitted silhouette', 'ruffle trim', 'black velvet sofa'],
         ordered: [
-          'A 20s seductive stunning Japanese or Korean woman',
+          'A 20-year-old seductive stunning adult woman',
           'off-shoulder gothic mini dress',
           'real-scale compact editorial lounge set',
         ],

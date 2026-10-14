@@ -34,7 +34,7 @@ test('every active coat closes using authored hardware, without inventing hardwa
       assert.match(text, hardware.includes('zip') ? /front zipper fully zipped closed/ : hardware.includes('button') ? /all front (?:buttons|snap buttons) fastened/ : /front fully fastened closed/);
       assert.doesNotMatch(text, /halfway taken off|both shoulders fully uncovered|worn open at the front/);
       if (coat.meta.outerwear.closedInnerLayerVisibility === 'through-fabric') {
-        assert.match(text, /silk camisole/);
+        assert.match(text, /[Ss]ilk camisole/);
         assert.match(text, /visible through the closed/);
       } else assert.doesNotMatch(text, /silk camisole|delicate straps|fluid sheen/);
     }
@@ -55,7 +55,7 @@ test('Saved Card preserves hidden choices and reopening restores original inner 
   assert.match(reopened.grokPrompt, /silk camisole/);
   assert.match(reopened.grokPrompt, /both shoulders fully uncovered/);
   assert.doesNotMatch(closed.grokPrompt, /silk camisole|stripes across the top/);
-  assert.match(closed.grokPrompt, /straight-leg jeans/);
+  assert.match(closed.grokPrompt, /Straight-leg jeans/);
 });
 
 test('closed legacy styling displays none while compatible new choices stay enabled and stored choice survives', () => {
@@ -94,7 +94,7 @@ test('cropped length and lower garments/accessories survive closure and all crop
       assert.match(text, /all front buttons fastened/);
       assert.doesNotMatch(text, /silk camisole/);
     }
-    assert.match(result.extraPrompts.find(p => p.id === 'full-body-character').text, /straight-leg jeans/);
+    assert.match(result.extraPrompts.find(p => p.id === 'full-body-character').text, /Straight-leg jeans/);
   }
 });
 

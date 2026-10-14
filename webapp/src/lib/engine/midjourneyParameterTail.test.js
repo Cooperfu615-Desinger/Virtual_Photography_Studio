@@ -24,6 +24,7 @@ import {
 } from './midjourneyParameterTail.js';
 import { REPRESENTATIVE_PROMPT_FIXTURES } from './representativePromptFixtures.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
+import { restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
 import { PRE_HOURGLASS_BODY_CATALOG } from './sceneIntegratedAssemblyTestSupport.js';
 
 const controls = getLockControls();
@@ -160,24 +161,17 @@ test('phase 4 appends parameters only to AI while preserving descriptive baselin
 
     assert.equal(prompt.midjourneyPrompt.endsWith(fixture.expectedTail), true, fixture.id);
     assert.ok(nativeTarget, `${fixture.id}: native structure fixture`);
-    assert.equal(hashPrompt(content), nativeTarget.naturalDescriptionHash, `${fixture.id}: AI content`);
-    assert.equal(hashPrompt(normalizeAmbientForLegacy(prompt.grokPrompt, 'grokPrompt', prompt.selection)), fixture.baselineHashes.grokPrompt, `${fixture.id}: Gpt`);
-    assert.equal(hashPrompt(normalizeAmbientForLegacy(normalizeFullCameraForLegacy(prompt.zImagePrompt), 'zImagePrompt', prompt.selection)), fixture.baselineHashes.zImagePrompt, `${fixture.id}: Grok/Z`);
+    // Frozen hashes predate the 2026-10-14 ethnicity revision; reverse only that rollout.
+    assert.equal(hashPrompt(restorePreEthnicityText(content, 'midjourneyPrompt')), nativeTarget.naturalDescriptionHash, `${fixture.id}: AI content`);
+    assert.equal(hashPrompt(normalizeAmbientForLegacy(restorePreEthnicityText(prompt.grokPrompt, 'grokPrompt'), 'grokPrompt', prompt.selection)), fixture.baselineHashes.grokPrompt, `${fixture.id}: Gpt`);
+    assert.equal(hashPrompt(normalizeAmbientForLegacy(normalizeFullCameraForLegacy(restorePreEthnicityText(prompt.zImagePrompt, 'zImagePrompt')), 'zImagePrompt', prompt.selection)), fixture.baselineHashes.zImagePrompt, `${fixture.id}: Grok/Z`);
     assert.doesNotMatch(
       prompt.extraPrompts
-        .filter((entry) => entry.id !== 'chest-up-mj-portrait')
         .map((entry) => entry.text)
         .join('\n'),
       /(?:^|\s)--(?:v|ar|raw|s|c|w|sd|hd)(?:\s|$)/,
       `${fixture.id}: derived outputs`
     );
-    const mjChestText = prompt.extraPrompts.find((entry) => entry.id === 'chest-up-mj-portrait')?.text || '';
-    if (mjChestText) {
-      assert.match(
-        mjChestText,
-        /--ar 4:5(?: --raw)? --s \d+ --c \d+ --w \d+ --(?:sd|hd)$/,
-      );
-    }
     assert.equal(countAiPromptWords(prompt.midjourneyPrompt), countAiPromptWords(content), fixture.id);
   }
 });

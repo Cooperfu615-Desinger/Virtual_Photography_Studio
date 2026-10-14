@@ -217,10 +217,10 @@ test('original underbust lift remains unchanged while the new breast-covering ac
     assert.doesNotMatch(text, /pulling the front of her upper garment|fabric gathered|garment remains on her shoulders/i);
     assert.doesNotMatch(text, /underboob|upper bust remains covered/i);
   }
-  for (const text of underbust.extraPrompts.filter((entry) => ['chest-up-portrait', 'chest-up-mj-portrait'].includes(entry.id)).map((entry) => entry.text)) {
+  for (const text of underbust.extraPrompts.filter((entry) => ['chest-up-portrait'].includes(entry.id)).map((entry) => entry.text)) {
     assert.doesNotMatch(text, /both hands gripping the front lower hem|underboob/i);
   }
-  for (const text of covering.extraPrompts.filter((entry) => ['chest-up-portrait', 'chest-up-mj-portrait'].includes(entry.id)).map((entry) => entry.text)) {
+  for (const text of covering.extraPrompts.filter((entry) => ['chest-up-portrait'].includes(entry.id)).map((entry) => entry.text)) {
     assert.match(text, /both palms placed directly over her nipples, one palm covering each/i);
   }
   for (const framingZh of ['胸上特寫', '特寫鏡頭 (Close-Up)', '臉部特寫']) {
@@ -272,7 +272,7 @@ test('manual outerwear spread keeps the same shoulder-slip action across outputs
     assert.equal(text.split(canonicalPose).length - 1, 1);
   }
   const extra = (id) => prompt.extraPrompts.find((entry) => entry.id === id)?.text || '';
-  for (const text of [extra('chest-up-portrait'), extra('chest-up-mj-portrait')]) {
+  for (const text of [extra('chest-up-portrait')]) {
     assert.match(text, /shoulder seams slipped completely below both shoulders.*two broad open panels/i);
   }
   assert.doesNotMatch(extra('full-body-character'), /both hands firmly gripping the front edges/i);

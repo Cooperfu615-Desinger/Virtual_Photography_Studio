@@ -22,6 +22,7 @@ import { countAiPromptWords } from './aiPromptLengthContract.js';
 import { AI_PROMPT_LENGTH_FIXTURES } from './aiPromptLengthFixtures.js';
 import { stripMidjourneyParameterTail } from './midjourneyParameterTail.js';
 import { PRE_HOURGLASS_BODY_CATALOG } from './sceneIntegratedAssemblyTestSupport.js';
+import { restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
 
 const controls = getLockControls();
 const MIDJOURNEY_NATIVE_DESCRIPTION_HASHES = naturalAccepted.lengths;
@@ -153,7 +154,8 @@ test('Midjourney native structure records duo length diagnostics without a delet
       Number.isInteger(countAiPromptWords(output)),
       `${fixture.id} diagnostic word count`
     );
-    const hash = createHash('sha256').update(stripMidjourneyParameterTail(normalizeOuterwearCatalogForLegacy(output, 'midjourneyPrompt'))).digest('hex');
+    // Frozen hashes predate the 2026-10-14 ethnicity revision; reverse only that rollout.
+    const hash = createHash('sha256').update(stripMidjourneyParameterTail(normalizeOuterwearCatalogForLegacy(restorePreEthnicityText(output, 'midjourneyPrompt'), 'midjourneyPrompt'))).digest('hex');
     assert.equal(hash, MIDJOURNEY_NATIVE_DESCRIPTION_HASHES[fixture.id], fixture.id);
   }
 });
@@ -185,7 +187,8 @@ test('Character Card outputs preserve permanent identity and wardrobe anchors wi
 test('Midjourney native structure freezes every accepted AI description', () => {
   for (const [fixtureId, expectedHash] of Object.entries(MIDJOURNEY_NATIVE_DESCRIPTION_HASHES)) {
     const fixture = AI_PROMPT_LENGTH_FIXTURES.find((entry) => entry.id === fixtureId);
-    const output = generateFixture(fixture).midjourneyPrompt;
+    // Frozen hashes predate the 2026-10-14 ethnicity revision; reverse only that rollout.
+    const output = restorePreEthnicityText(generateFixture(fixture).midjourneyPrompt, 'midjourneyPrompt');
     assert.equal(
       createHash('sha256').update(stripMidjourneyParameterTail(normalizeOuterwearCatalogForLegacy(normalizeTieShirtForFrozenFixture(output, fixtureId), 'midjourneyPrompt'))).digest('hex'),
       expectedHash,

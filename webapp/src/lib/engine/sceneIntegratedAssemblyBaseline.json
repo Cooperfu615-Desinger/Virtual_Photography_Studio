@@ -219,20 +219,18 @@
       "selectionDelta": {},
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "f2f5e00f7a202df3d5403785e51c297acb5cf037d52364e6d542e787e3800228",
+        "grokPrompt": "386bfa93276793bb22eaec9422c6c50915f95a8bfe29849f808f3023bf786dda",
         "zImagePrompt": "c278f5d5957c4d2f59628ed31efab6620a6ca6e1c52ee907638fbef8e4d6748a",
         "midjourneyPrompt": "a9fd5a8ddea923b5b113a9d1b538a07390954bff3b5810a60d22d13d4169908a",
         "chestUpPortraitPrompt": "6577ddcc9de6039ac64e75d4f66ef8aa67c4a9731955f6a282cbf5b265784132",
-        "chestUpMjPortraitPrompt": "72e31aa07128472cd5b46e8c2724f49bd2defa635ff696386017a68c688d3f49",
-        "fullBodyCharacterPrompt": "6cb39cd26fa1ea2a10f6b3a1130e9ace9d6dcd8e73aca51393d3fa59e348325b"
+        "fullBodyCharacterPrompt": "a65b63a4a513dc627bba8dc8e6a932147d0becd067a1e2d8774623a49cca951d"
       },
       "outputs": {
-        "grokPrompt": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nKnee-up cowboy shot, low angle from floor level.\n\nSubject:\nThe subject is one 20-year-old Japanese or Korean female portrait subject. 94-58-92 body proportion anchor, full bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve. young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, high-fashion understated presence. long soft waves with a center part, defined wave shape, clean tapered ends. lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette. light blonde hair, soft golden-beige tone, realistic dyed hair texture, hair color applies only to the scalp hair, eyebrows remain natural and realistic, not dyed to match the hair. soft matte skin texture, refined pores, velvety smooth finish. soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n\nWardrobe:\nShe wears tight body-skimming upper-body fit, sheer floral lace cropped camisole, slim adjustable straps, triangle cup bust panel, scalloped lace hem. ultra-low-rise waistband sitting very low on the hips, cargo shorts, compact utility cut, side cargo pockets, structured casual silhouette. thigh-high sheer garter stockings, lace top band, visible garter straps, delicate nylon hosiery. decorative wide leather waist belt worn loosely around hips with a structured off-center buckle.\n\nPose and Composition:\nShe has her chin slightly raised, a front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side, and presents a deep resting squat with both feet planted flat, both heels grounded, knees deeply bent, and the hips held low over the feet with the upper back resting against an existing vertical surface in the scene, clear back-to-surface contact with light body-weight support.\n\nScene:\nThe portrait takes place in Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign, steel arch supports, dense nightlife storefronts and layered signboards, glossy pavement patches, narrow curb and doorway edges.\n\nLighting:\ngolden sunset environment, warm orange-pink sky gradient, low sun near the horizon, distant amber evening atmosphere. high-key subject lighting, bright even exposure, pale soft shadows, clean highlight detail across face and clothing.\n\nCamera Look:\nInspired by Guy Bourdin, bold narrative fashion image language. bold narrative fashion portraiture, vivid color blocking, surreal tension, graphic contrast, dangerous glamour, staged editorial precision. neon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels, cold porcelain highlights.",
-        "zImagePrompt": "Photorealistic editorial portrait.\n\nKnee-up cowboy shot. The camera is positioned near floor level and tilted upward toward the woman, emphasizing the upward perspective through her thighs, torso, and shoulders.\n\nA 20s seductive stunning Japanese or Korean woman, 94-58-92 body proportion anchor, full bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve, young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, long soft waves with a center part, defined wave shape, clean tapered ends, lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette, light blonde hair, soft golden-beige tone, realistic dyed hair texture, soft matte skin texture, refined pores, velvety smooth finish, soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n\nShe wears, sheer floral lace cropped camisole, slim adjustable straps, triangle cup bust panel, scalloped lace hem, ultra-low-rise waistband sitting very low on the hips, cargo shorts, compact utility cut, side cargo pockets, structured casual silhouette, thigh-high sheer garter stockings, lace top band, visible garter straps, delicate nylon hosiery, decorative wide leather waist belt worn loosely around hips with a structured off-center buckle.\n\nShe has her chin slightly raised, a front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side, and presents a deep resting squat with both feet planted flat, both heels grounded, knees deeply bent, and the hips held low over the feet with the upper back resting against an existing vertical surface in the scene, clear back-to-surface contact with light body-weight support.\n\nThe scene is Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign, steel arch supports, dense nightlife storefronts and layered signboards.\n\nGolden sunset environment, warm orange-pink sky gradient, high-key subject lighting, bright even exposure.\n\nGuy Bourdin-inspired bold narrative fashion image language.\n\nNeon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels.",
-        "midjourneyPrompt": "Photorealistic editorial portrait. Knee-up cowboy shot, low angle from floor level. A 20s seductive stunning Japanese woman. full bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve, long soft waves with a center part, defined wave shape, clean tapered ends, lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette, light blonde hair, refined elongated oval face, upturned eyes with straight brows, defined nose bridge and sculpted lips, soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks. Wearing sheer floral lace cropped camisole, scalloped lace hem, cargo shorts, thigh-high sheer garter stockings, visible garter straps, decorative wide leather waist belt worn loosely around hips with a structured off-center buckle. She has her chin slightly raised, a front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side, and presents a deep resting squat with both feet planted flat, both heels grounded, knees deeply bent, and the hips held low over the feet with the upper back resting against an existing vertical surface in the scene, clear back-to-surface contact with light body-weight support. Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign, glossy pavement patches, steel arch supports, dense nightlife storefronts and layered signboards. Golden sunset environment, warm orange-pink sky gradient, high-key subject lighting, bright even exposure, pale soft shadows. Guy Bourdin-inspired bold narrative fashion image language, neon cross-processed rendering, cyan-shifted cool tones. --v 8.2 --raw --s 25 --c 0 --w 0 --sd",
-        "chestUpPortraitPrompt": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nChest-up portrait, low angle from floor level.\n\nSubject:\nThe subject is one 20-year-old Japanese or Korean female portrait subject. full bust. young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, high-fashion understated presence. long soft waves with a center part, defined wave shape, clean tapered ends. lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette. light blonde hair, soft golden-beige tone, realistic dyed hair texture, hair color applies only to the scalp hair, eyebrows remain natural and realistic, not dyed to match the hair. soft matte skin texture, refined pores, velvety smooth finish. soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n\nWardrobe:\nShe wears tight body-skimming upper-body fit, sheer floral lace cropped camisole, slim adjustable straps, triangle cup bust panel, scalloped lace hem.\n\nPose and Composition:\nShe has her chin slightly raised, a front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side, and presents an upper-body pose with the torso upright and relaxed, and the upper back resting against an existing vertical surface in the scene, with clear back-to-surface contact.\n\nScene:\nThe portrait takes place in Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign, steel arch supports, dense nightlife storefronts and layered signboards.\n\nLighting:\ngolden sunset environment, warm orange-pink sky gradient, low sun near the horizon, distant amber evening atmosphere. high-key subject lighting, bright even exposure, pale soft shadows, clean highlight detail across face and clothing.\n\nCamera Look:\nInspired by Guy Bourdin, bold narrative fashion image language. bold narrative fashion portraiture, vivid color blocking, surreal tension, graphic contrast, dangerous glamour, staged editorial precision. neon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels, cold porcelain highlights.",
-        "chestUpMjPortraitPrompt": "Photorealistic editorial portrait. Chest-up editorial portrait with the head, both shoulders, upper chest, and neckline clearly visible, low angle from floor level. A 20s seductive stunning Japanese woman. full bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve, long soft waves with a center part, defined wave shape, clean tapered ends, lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette, light blonde hair, refined elongated oval face, upturned eyes with straight brows, defined nose bridge and sculpted lips, soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks. Wearing sheer floral lace cropped camisole, scalloped lace hem. She has her chin slightly raised, a front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side, and presents an upper-body pose with the torso upright and relaxed, and the upper back resting against an existing vertical surface in the scene, with clear back-to-surface contact. Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign, glossy pavement patches, steel arch supports, dense nightlife storefronts and layered signboards. Golden sunset environment, warm orange-pink sky gradient, high-key subject lighting, bright even exposure, pale soft shadows. Guy Bourdin-inspired bold narrative fashion image language, neon cross-processed rendering, cyan-shifted cool tones. --v 8.2 --ar 4:5 --raw --s 25 --c 0 --w 0 --sd",
-        "fullBodyCharacterPrompt": "Image Type:\nCreate a photorealistic character reference portrait in a single 9:16 vertical image.\n\nSubject:\nThe subject is one 20-year-old Japanese or Korean female portrait subject. sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight, 94-58-92 body proportion anchor, long legs with about 3.8:6.2 torso-to-leg balance, full F-to-G-cup-scale bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve. young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, high-fashion understated presence. long soft waves with a center part, defined wave shape, clean tapered ends. lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette. light blonde hair, soft golden-beige tone, realistic dyed hair texture, hair color applies only to the scalp hair, eyebrows remain natural and realistic, not dyed to match the hair. soft matte skin texture, refined pores, velvety smooth finish. soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n\nWardrobe:\nShe wears tight body-skimming upper-body fit, sheer floral lace cropped camisole, slim adjustable straps, triangle cup bust panel, scalloped lace hem. ultra-low-rise waistband sitting very low on the hips, cargo shorts, compact utility cut, side cargo pockets, structured casual silhouette. thigh-high sheer garter stockings, lace top band, visible garter straps, delicate nylon hosiery. decorative wide leather waist belt worn loosely around hips with a structured off-center buckle.\n\nLighting:\nClean even lighting with clear facial, body, fabric, and footwear readability.\n\nCamera Look:\nFull-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text."
+        "grokPrompt": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nKnee-up cowboy shot, low angle from floor level.\n\nSubject:\nThe subject is one 20-year-old Japanese or Korean female portrait subject. 94-58-92 body proportion anchor, full bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve. Young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, high-fashion understated presence. Long soft waves with a center part, defined wave shape, clean tapered ends. Lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette. Light blonde hair, soft golden-beige tone, realistic dyed hair texture, hair color applies only to the scalp hair, eyebrows remain natural and realistic, not dyed to match the hair. Soft matte skin texture, refined pores, velvety smooth finish. Soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n\nWardrobe:\nShe wears tight body-skimming upper-body fit, sheer floral lace cropped camisole, slim adjustable straps, triangle cup bust panel, scalloped lace hem. Ultra-low-rise waistband sitting very low on the hips, cargo shorts, compact utility cut, side cargo pockets, structured casual silhouette. Thigh-high sheer garter stockings, lace top band, visible garter straps, delicate nylon hosiery. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle.\n\nPose and Composition:\nShe has her chin slightly raised, a front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side, and presents a deep resting squat with both feet planted flat, both heels grounded, knees deeply bent, and the hips held low over the feet with the upper back resting against an existing vertical surface in the scene, clear back-to-surface contact with light body-weight support.\n\nScene:\nThe portrait takes place in Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign, steel arch supports, dense nightlife storefronts and layered signboards, glossy pavement patches, narrow curb and doorway edges.\n\nLighting:\nGolden sunset environment, warm orange-pink sky gradient, low sun near the horizon, distant amber evening atmosphere. High-key subject lighting, bright even exposure, pale soft shadows, clean highlight detail across face and clothing.\n\nCamera Look:\nInspired by Guy Bourdin, bold narrative fashion image language. Bold narrative fashion portraiture, vivid color blocking, surreal tension, graphic contrast, dangerous glamour, staged editorial precision. Neon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels, cold porcelain highlights.",
+        "zImagePrompt": "Photorealistic editorial portrait.\n\nKnee-up cowboy shot. The camera is positioned near floor level and tilted upward toward the woman, emphasizing the upward perspective through her thighs, torso, and shoulders.\n\nA 20s seductive stunning Japanese or Korean woman, 94-58-92 body proportion anchor, full bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve, young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, long soft waves with a center part, defined wave shape, clean tapered ends, lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette, light blonde hair, soft golden-beige tone, realistic dyed hair texture, soft matte skin texture, refined pores, velvety smooth finish, soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n\nShe wears sheer floral lace cropped camisole, slim adjustable straps, triangle cup bust panel, scalloped lace hem, ultra-low-rise waistband sitting very low on the hips, cargo shorts, compact utility cut, side cargo pockets, structured casual silhouette, thigh-high sheer garter stockings, lace top band, visible garter straps, delicate nylon hosiery, decorative wide leather waist belt worn loosely around hips with a structured off-center buckle.\n\nShe has her chin slightly raised, a front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side, and presents a deep resting squat with both feet planted flat, both heels grounded, knees deeply bent, and the hips held low over the feet with the upper back resting against an existing vertical surface in the scene, clear back-to-surface contact with light body-weight support.\n\nThe scene is Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign, steel arch supports, dense nightlife storefronts and layered signboards.\n\nGolden sunset environment, warm orange-pink sky gradient, high-key subject lighting, bright even exposure.\n\nGuy Bourdin-inspired bold narrative fashion image language.\n\nNeon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels.",
+        "midjourneyPrompt": "Photorealistic editorial portrait. Knee-up cowboy shot, low angle from floor level. A 20s seductive stunning Japanese woman. Full bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve, long soft waves with a center part, defined wave shape, clean tapered ends, lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette, light blonde hair, refined elongated oval face, upturned eyes with straight brows, defined nose bridge and sculpted lips, soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks. Wearing sheer floral lace cropped camisole, scalloped lace hem, cargo shorts, thigh-high sheer garter stockings, visible garter straps, decorative wide leather waist belt worn loosely around hips with a structured off-center buckle. She has her chin slightly raised, a front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side, and presents a deep resting squat with both feet planted flat, both heels grounded, knees deeply bent, and the hips held low over the feet with the upper back resting against an existing vertical surface in the scene, clear back-to-surface contact with light body-weight support. Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign, glossy pavement patches, steel arch supports, dense nightlife storefronts and layered signboards. Golden sunset environment, warm orange-pink sky gradient, high-key subject lighting, bright even exposure, pale soft shadows. Guy Bourdin-inspired bold narrative fashion image language, neon cross-processed rendering, cyan-shifted cool tones. --v 8.2 --raw --s 25 --c 0 --w 0 --sd",
+        "chestUpPortraitPrompt": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nChest-up portrait, low angle from floor level.\n\nSubject:\nThe subject is one 20-year-old Japanese or Korean female portrait subject. Full bust. Young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, high-fashion understated presence. Long soft waves with a center part, defined wave shape, clean tapered ends. Lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette. Light blonde hair, soft golden-beige tone, realistic dyed hair texture, hair color applies only to the scalp hair, eyebrows remain natural and realistic, not dyed to match the hair. Soft matte skin texture, refined pores, velvety smooth finish. Soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n\nWardrobe:\nShe wears tight body-skimming upper-body fit, sheer floral lace cropped camisole, slim adjustable straps, triangle cup bust panel, scalloped lace hem.\n\nPose and Composition:\nShe has her chin slightly raised, a front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side, and presents an upper-body pose with the torso upright and relaxed, and the upper back resting against an existing vertical surface in the scene, with clear back-to-surface contact.\n\nScene:\nThe portrait takes place in Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign, steel arch supports, dense nightlife storefronts and layered signboards.\n\nLighting:\nGolden sunset environment, warm orange-pink sky gradient, low sun near the horizon, distant amber evening atmosphere. High-key subject lighting, bright even exposure, pale soft shadows, clean highlight detail across face and clothing.\n\nCamera Look:\nInspired by Guy Bourdin, bold narrative fashion image language. Bold narrative fashion portraiture, vivid color blocking, surreal tension, graphic contrast, dangerous glamour, staged editorial precision. Neon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels, cold porcelain highlights.",
+        "fullBodyCharacterPrompt": "Image Type:\nCreate a photorealistic character reference portrait in a single 9:16 vertical image.\n\nSubject:\nThe subject is one 20-year-old Japanese or Korean female portrait subject. Sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight, 94-58-92 body proportion anchor, long legs with about 3.8:6.2 torso-to-leg balance, full F-to-G-cup-scale bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve. Young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, high-fashion understated presence. Long soft waves with a center part, defined wave shape, clean tapered ends. Lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette. Light blonde hair, soft golden-beige tone, realistic dyed hair texture, hair color applies only to the scalp hair, eyebrows remain natural and realistic, not dyed to match the hair. Soft matte skin texture, refined pores, velvety smooth finish. Soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n\nWardrobe:\nShe wears tight body-skimming upper-body fit, sheer floral lace cropped camisole, slim adjustable straps, triangle cup bust panel, scalloped lace hem. Ultra-low-rise waistband sitting very low on the hips, cargo shorts, compact utility cut, side cargo pockets, structured casual silhouette. Thigh-high sheer garter stockings, lace top band, visible garter straps, delicate nylon hosiery. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle.\n\nLighting:\nClean even lighting with clear facial, body, fabric, and footwear readability.\n\nCamera Look:\nFull-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text."
       }
     },
     "R02-kneel-high-selfie": {
@@ -258,20 +256,18 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "8fd32ee48e35c941ca164264ba136790438c823d7d4431c9c59158fc3d1c75fa",
+        "grokPrompt": "69abab7b886fb9cad11dafd348618b304bd2cd1c7762de1f919ee8ff3b0f1885",
         "zImagePrompt": "5a76ee86edca139d9ec71fa6675a7eba15cb6addbf7892ef4b6d549980401155",
         "midjourneyPrompt": "3364777d97e2dface4d69aa87fc34d6553b45990eb48f94ff2d1cb1ec5f96d20",
-        "chestUpPortraitPrompt": "63309a785e8f8abc93308ad1545d1fb9fd7571a4126e1260c8788447804740ed",
-        "chestUpMjPortraitPrompt": "05dcdddfbe1c55e40f7f8f54fea628b91bd6bc69a2d0fccc1fab7c470ead2e62",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "chestUpPortraitPrompt": "441e6731b46a7d06feeb71d46bf68545d711a77ac62d2a4242a7b2f09460cb31",
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       },
       "outputs": {
-        "grokPrompt": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nKnee-up cowboy shot, high angle, looking down.\n\nSubject:\nThe subject is one 20-year-old Japanese or Korean female portrait subject. 94-58-92 body proportion anchor, full bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve. young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, high-fashion understated presence. long soft waves with a center part, defined wave shape, clean tapered ends. lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette. light blonde hair, soft golden-beige tone, realistic dyed hair texture, hair color applies only to the scalp hair, eyebrows remain natural and realistic, not dyed to match the hair. soft matte skin texture, refined pores, velvety smooth finish. soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n\nWardrobe:\nShe wears tight body-skimming upper-body fit, dropped-shoulder t-shirt, washed cotton jersey, low shoulder seam, relaxed upper-body proportion. ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. decorative wide leather waist belt worn loosely around hips with a structured off-center buckle.\n\nPose and Composition:\nShe has a front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side, and presents a casual, relaxed, and natural kneeling pose.\n\nScene:\nThe portrait takes place in Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign, steel arch supports, dense nightlife storefronts and layered signboards, glossy pavement patches, narrow curb and doorway edges, early evening practical lights beginning to appear, a few dim interior windows, vending machine glow becoming visible.\n\nLighting:\nblue hour environment, deep blue dusk sky, fading ambient daylight, cool evening transition, faint remaining distance light. neon color spill across the subject, saturated colored highlights on skin hair and clothing edges, controlled vivid color cast.\n\nCamera Look:\nInspired by Guy Bourdin, bold narrative fashion image language. bold narrative fashion portraiture, vivid color blocking, surreal tension, graphic contrast, dangerous glamour, staged editorial precision. neon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels, cold porcelain highlights.",
-        "zImagePrompt": "Photorealistic editorial portrait.\n\nKnee-up cowboy shot. The camera is positioned clearly above the woman and tilted downward toward her, revealing the top planes of her shoulders and waistband.\n\nA 20s seductive stunning Japanese or Korean woman, 94-58-92 body proportion anchor, full bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve, young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, long soft waves with a center part, defined wave shape, clean tapered ends, lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette, light blonde hair, soft golden-beige tone, realistic dyed hair texture, soft matte skin texture, refined pores, velvety smooth finish, soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n\nShe wears, dropped-shoulder t-shirt, washed cotton jersey, low shoulder seam, relaxed upper-body proportion, ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude, decorative wide leather waist belt worn loosely around hips with a structured off-center buckle.\n\nShe has a front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side, and presents a casual, relaxed, and natural kneeling pose.\n\nThe scene is Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign, steel arch supports, dense nightlife storefronts and layered signboards, early evening practical lights beginning to appear, a few dim interior windows, vending machine glow becoming visible.\n\nBlue hour environment, deep blue dusk sky, neon color spill across the subject, saturated colored highlights on skin hair and clothing edges.\n\nGuy Bourdin-inspired bold narrative fashion image language.\n\nNeon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels.",
-        "midjourneyPrompt": "Photorealistic editorial portrait. Knee-up cowboy shot, high angle, looking down. A 20s seductive stunning Japanese woman. full bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve, long soft waves with a center part, defined wave shape, clean tapered ends, lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette, light blonde hair, refined elongated oval face, upturned eyes with straight brows, defined nose bridge and sculpted lips, soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks. Wearing dropped-shoulder t-shirt, leather trousers, decorative wide leather waist belt worn loosely around hips with a structured off-center buckle. She has a front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side, and presents a casual, relaxed, and natural kneeling pose. Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign, glossy pavement patches, steel arch supports, dense nightlife storefronts and layered signboards. Blue hour environment, deep blue dusk sky, neon color spill across the subject, saturated colored highlights on skin hair and clothing edges, controlled vivid color cast. Guy Bourdin-inspired bold narrative fashion image language, neon cross-processed rendering, cyan-shifted cool tones. --v 8.2 --raw --s 25 --c 0 --w 0 --sd",
-        "chestUpPortraitPrompt": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nChest-up portrait, high angle, looking down.\n\nSubject:\nThe subject is one 20-year-old Japanese or Korean female portrait subject. full bust. young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, high-fashion understated presence. long soft waves with a center part, defined wave shape, clean tapered ends. lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette. light blonde hair, soft golden-beige tone, realistic dyed hair texture, hair color applies only to the scalp hair, eyebrows remain natural and realistic, not dyed to match the hair. soft matte skin texture, refined pores, velvety smooth finish. soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n\nWardrobe:\nShe wears tight body-skimming upper-body fit, dropped-shoulder t-shirt, washed cotton jersey, low shoulder seam, relaxed upper-body proportion.\n\nPose and Composition:\nShe has a front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side, and presents a casual, relaxed, and natural natural posture.\n\nScene:\nThe portrait takes place in Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign, steel arch supports, dense nightlife storefronts and layered signboards.\n\nLighting:\nblue hour environment, deep blue dusk sky, fading ambient daylight, cool evening transition, faint remaining distance light. neon color spill across the subject, saturated colored highlights on skin hair and clothing edges, controlled vivid color cast.\n\nCamera Look:\nInspired by Guy Bourdin, bold narrative fashion image language. bold narrative fashion portraiture, vivid color blocking, surreal tension, graphic contrast, dangerous glamour, staged editorial precision. neon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels, cold porcelain highlights.",
-        "chestUpMjPortraitPrompt": "Photorealistic editorial portrait. Chest-up editorial portrait with the head, both shoulders, upper chest, and neckline clearly visible, high angle, looking down. A 20s seductive stunning Japanese woman. full bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve, long soft waves with a center part, defined wave shape, clean tapered ends, lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette, light blonde hair, refined elongated oval face, upturned eyes with straight brows, defined nose bridge and sculpted lips, soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks. Wearing dropped-shoulder t-shirt. She has a front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side, and presents a casual, relaxed, and natural natural posture. Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign, glossy pavement patches, steel arch supports, dense nightlife storefronts and layered signboards. Blue hour environment, deep blue dusk sky, neon color spill across the subject, saturated colored highlights on skin hair and clothing edges, controlled vivid color cast. Guy Bourdin-inspired bold narrative fashion image language, neon cross-processed rendering, cyan-shifted cool tones. --v 8.2 --ar 4:5 --raw --s 25 --c 0 --w 0 --sd",
-        "fullBodyCharacterPrompt": "Image Type:\nCreate a photorealistic character reference portrait in a single 9:16 vertical image.\n\nSubject:\nThe subject is one 20-year-old Japanese or Korean female portrait subject. sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight, 94-58-92 body proportion anchor, long legs with about 3.8:6.2 torso-to-leg balance, full F-to-G-cup-scale bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve. young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, high-fashion understated presence. long soft waves with a center part, defined wave shape, clean tapered ends. lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette. light blonde hair, soft golden-beige tone, realistic dyed hair texture, hair color applies only to the scalp hair, eyebrows remain natural and realistic, not dyed to match the hair. soft matte skin texture, refined pores, velvety smooth finish. soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n\nWardrobe:\nShe wears tight body-skimming upper-body fit, dropped-shoulder t-shirt, washed cotton jersey, low shoulder seam, relaxed upper-body proportion. ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. bare feet, natural barefoot state. decorative wide leather waist belt worn loosely around hips with a structured off-center buckle. top length meets or slightly overlaps the low-rise waistband.\n\nLighting:\nClean even lighting with clear facial, body, fabric, and footwear readability.\n\nCamera Look:\nFull-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text."
+        "grokPrompt": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nKnee-up cowboy shot, high angle, looking down.\n\nSubject:\nThe subject is one 20-year-old Japanese or Korean female portrait subject. 94-58-92 body proportion anchor, full bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve. Young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, high-fashion understated presence. Long soft waves with a center part, defined wave shape, clean tapered ends. Lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette. Light blonde hair, soft golden-beige tone, realistic dyed hair texture, hair color applies only to the scalp hair, eyebrows remain natural and realistic, not dyed to match the hair. Soft matte skin texture, refined pores, velvety smooth finish. Soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n\nWardrobe:\nShe wears tight body-skimming upper-body fit, dropped-shoulder t-shirt, washed cotton jersey, low shoulder seam, relaxed upper-body proportion. Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle.\n\nPose and Composition:\nShe has a front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side, and presents a casual, relaxed, and natural kneeling pose.\n\nScene:\nThe portrait takes place in Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign, steel arch supports, dense nightlife storefronts and layered signboards, glossy pavement patches, narrow curb and doorway edges, early evening practical lights beginning to appear, a few dim interior windows, vending machine glow becoming visible.\n\nLighting:\nBlue hour environment, deep blue dusk sky, fading ambient daylight, cool evening transition, faint remaining distance light. Neon color spill across the subject, saturated colored highlights on skin hair and clothing edges, controlled vivid color cast.\n\nCamera Look:\nInspired by Guy Bourdin, bold narrative fashion image language. Bold narrative fashion portraiture, vivid color blocking, surreal tension, graphic contrast, dangerous glamour, staged editorial precision. Neon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels, cold porcelain highlights.",
+        "zImagePrompt": "Photorealistic editorial portrait.\n\nKnee-up cowboy shot. The camera is positioned clearly above the woman and tilted downward toward her, revealing the top planes of her shoulders and waistband.\n\nA 20s seductive stunning Japanese or Korean woman, 94-58-92 body proportion anchor, full bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve, young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, long soft waves with a center part, defined wave shape, clean tapered ends, lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette, light blonde hair, soft golden-beige tone, realistic dyed hair texture, soft matte skin texture, refined pores, velvety smooth finish, soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n\nShe wears dropped-shoulder t-shirt, washed cotton jersey, low shoulder seam, relaxed upper-body proportion, ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude, decorative wide leather waist belt worn loosely around hips with a structured off-center buckle.\n\nShe has a front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side, and presents a casual, relaxed, and natural kneeling pose.\n\nThe scene is Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign, steel arch supports, dense nightlife storefronts and layered signboards, early evening practical lights beginning to appear, a few dim interior windows, vending machine glow becoming visible.\n\nBlue hour environment, deep blue dusk sky, neon color spill across the subject, saturated colored highlights on skin hair and clothing edges.\n\nGuy Bourdin-inspired bold narrative fashion image language.\n\nNeon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels.",
+        "midjourneyPrompt": "Photorealistic editorial portrait. Knee-up cowboy shot, high angle, looking down. A 20s seductive stunning Japanese woman. Full bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve, long soft waves with a center part, defined wave shape, clean tapered ends, lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette, light blonde hair, refined elongated oval face, upturned eyes with straight brows, defined nose bridge and sculpted lips, soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks. Wearing dropped-shoulder t-shirt, leather trousers, decorative wide leather waist belt worn loosely around hips with a structured off-center buckle. She has a front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side, and presents a casual, relaxed, and natural kneeling pose. Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign, glossy pavement patches, steel arch supports, dense nightlife storefronts and layered signboards. Blue hour environment, deep blue dusk sky, neon color spill across the subject, saturated colored highlights on skin hair and clothing edges, controlled vivid color cast. Guy Bourdin-inspired bold narrative fashion image language, neon cross-processed rendering, cyan-shifted cool tones. --v 8.2 --raw --s 25 --c 0 --w 0 --sd",
+        "chestUpPortraitPrompt": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nChest-up portrait, high angle, looking down.\n\nSubject:\nThe subject is one 20-year-old Japanese or Korean female portrait subject. Full bust. Young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, high-fashion understated presence. Long soft waves with a center part, defined wave shape, clean tapered ends. Lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette. Light blonde hair, soft golden-beige tone, realistic dyed hair texture, hair color applies only to the scalp hair, eyebrows remain natural and realistic, not dyed to match the hair. Soft matte skin texture, refined pores, velvety smooth finish. Soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n\nWardrobe:\nShe wears tight body-skimming upper-body fit, dropped-shoulder t-shirt, washed cotton jersey, low shoulder seam, relaxed upper-body proportion.\n\nPose and Composition:\nShe has a front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side, and presents a casual, relaxed, and natural natural posture.\n\nScene:\nThe portrait takes place in Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign, steel arch supports, dense nightlife storefronts and layered signboards.\n\nLighting:\nBlue hour environment, deep blue dusk sky, fading ambient daylight, cool evening transition, faint remaining distance light. Neon color spill across the subject, saturated colored highlights on skin hair and clothing edges, controlled vivid color cast.\n\nCamera Look:\nInspired by Guy Bourdin, bold narrative fashion image language. Bold narrative fashion portraiture, vivid color blocking, surreal tension, graphic contrast, dangerous glamour, staged editorial precision. Neon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels, cold porcelain highlights.",
+        "fullBodyCharacterPrompt": "Image Type:\nCreate a photorealistic character reference portrait in a single 9:16 vertical image.\n\nSubject:\nThe subject is one 20-year-old Japanese or Korean female portrait subject. Sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight, 94-58-92 body proportion anchor, long legs with about 3.8:6.2 torso-to-leg balance, full F-to-G-cup-scale bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve. Young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, high-fashion understated presence. Long soft waves with a center part, defined wave shape, clean tapered ends. Lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette. Light blonde hair, soft golden-beige tone, realistic dyed hair texture, hair color applies only to the scalp hair, eyebrows remain natural and realistic, not dyed to match the hair. Soft matte skin texture, refined pores, velvety smooth finish. Soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n\nWardrobe:\nShe wears tight body-skimming upper-body fit, dropped-shoulder t-shirt, washed cotton jersey, low shoulder seam, relaxed upper-body proportion. Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle. Top length meets or slightly overlaps the low-rise waistband.\n\nLighting:\nClean even lighting with clear facial, body, fabric, and footwear readability.\n\nCamera Look:\nFull-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text."
       }
     },
     "R03-squat-no-anchor": {
@@ -285,12 +281,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "fb522e11f8894837fae3eeee9770766a3be05363d6c7ef632978aa2a6004028a",
+        "grokPrompt": "f9f0d3cf36c2c89ace3bd2d3aca5a010d52535685751db912dcbd5c0c72030ba",
         "zImagePrompt": "628437fdddb1da8add88dcfef23755e8d7963fdaf09c5c0ae550ad35ea82beb4",
         "midjourneyPrompt": "96b49e03e0d1e285d7974442f6dd62dbdeb9e1b0fb5712463257c6432e950de0",
         "chestUpPortraitPrompt": "f9ab998cc064345b4e6276976c09445144572109b30f8bd6ec287f468f02b081",
-        "chestUpMjPortraitPrompt": "1fbba477b8a620949a4578b2b307ae36d886effa4aea61e2d86607829e5726e8",
-        "fullBodyCharacterPrompt": "6cb39cd26fa1ea2a10f6b3a1130e9ace9d6dcd8e73aca51393d3fa59e348325b"
+        "fullBodyCharacterPrompt": "a65b63a4a513dc627bba8dc8e6a932147d0becd067a1e2d8774623a49cca951d"
       }
     },
     "R04-standing": {
@@ -317,12 +312,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "12cf4930762e14df4126b434676b7e4ab528be55de4487b4ba693c7efaacf7fd",
+        "grokPrompt": "637bec25ad886f088bec5e56b4ea374058053ec2a68989c898fe984ce3bb55c1",
         "zImagePrompt": "d3d0d1decf928bae9a432d649c42141131e18ff7ef979d744bd87b59c950e988",
         "midjourneyPrompt": "4c416fd439142ee604a9e0b09df2a401c08a612d10613e6383abe7ae273206dc",
         "chestUpPortraitPrompt": "8357dfc1119311e581ea2242cb9e95e4f7182c03bc9a6de0b4f6d6d24f7a386e",
-        "chestUpMjPortraitPrompt": "0590c60a4201257306e17ec52343057ec185140ccb53558a6baae6d0cf5508c7",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R04-sitting": {
@@ -349,12 +343,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "864288e857bc4ee74a0dbefb4cb8f387b032f94346e050d29aa36a4a762378b9",
+        "grokPrompt": "b99ff50749d13e16296eca7b44ef687c36b30002bef2016948263ae2755c5622",
         "zImagePrompt": "8d6ad612c4367dc3686534d74337ff2912d69a4a32d14411136a4ee20a2b90e8",
         "midjourneyPrompt": "4d09db1b261efc82dea590cb0d7f737572e7857ea804bd85db570148ec81bcfb",
         "chestUpPortraitPrompt": "9ff3fe58bc7441cf78bbeae0562f83da0f3d8f416bac7f2735e0f75e1f03a274",
-        "chestUpMjPortraitPrompt": "93f95cda9274061d82eff937c227d9ca6d630c0cc7ae9a1cd19b2ce71b8f7baf",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R05-elbows-on-knees": {
@@ -369,12 +362,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "92947dc4d8196c1eb279f751187b289972160c9190f02bf132781e88ffabeb21",
+        "grokPrompt": "68ec1ea7ed336c1371bcbc2f61511bc7a102536ecf98564d260333cef8540c0f",
         "zImagePrompt": "7eefd08b9813a00c3d36199b34907c3efe77ad361243407c490921dfeee8b739",
         "midjourneyPrompt": "69a7b3e5dffd48cae363915d73dc25d41a0db6b2f073699e1327911b4e237dd6",
         "chestUpPortraitPrompt": "c639eb33475e8afff77374a8ee769a99a36e76bc6fe03b55cf4c3b87c39d481d",
-        "chestUpMjPortraitPrompt": "706f09130422533a16cac12ed47dc6689accc9fee703c6908dfbab84f090d6c7",
-        "fullBodyCharacterPrompt": "6cb39cd26fa1ea2a10f6b3a1130e9ace9d6dcd8e73aca51393d3fa59e348325b"
+        "fullBodyCharacterPrompt": "a65b63a4a513dc627bba8dc8e6a932147d0becd067a1e2d8774623a49cca951d"
       }
     },
     "R06-mirror-selfie": {
@@ -401,12 +393,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "bb7dd2d488aaf1dbcc2379a1941ebb0d9d6fc435178a2e66566b20267e193ba0",
+        "grokPrompt": "dcd9c235e8e5ebb44a8d7dd298764a608afcc5273909e3ded7efbcef08cd89e3",
         "zImagePrompt": "53d790c8015b7d80a3b866c34089163eb9d998723462cd4f2bac321b2451bd3e",
         "midjourneyPrompt": "fc2e84a4bb203f7d38735f210dd7e3ddbdc75cfcbad1f7fe8c78518401414550",
         "chestUpPortraitPrompt": "a3caf7bdbb226f508f483bd0b49c7254ea8b9078713f3550737029f5d864312d",
-        "chestUpMjPortraitPrompt": "5882d6ef66d904aee7aee0a05aa27ce94a0693c3dff3b375e26d5483a820b976",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R07-companion-selfie": {
@@ -433,12 +424,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "fa41d330b91b745879031ab9858f35ac857e39352e3dc09d4d392e2421498812",
+        "grokPrompt": "fd4b07ae4f0a7dab5cd981f3ca32bfc0f9f2edfb072a391c931909d17f4da2fe",
         "zImagePrompt": "d979cd38359d3d4e7cfc48f1779dbdcc35ac74ec65bb0a60b12215219d739406",
         "midjourneyPrompt": "48bb1c6ab05d1a0c3c7eaa22ebdee902c008fa40827e841e4b2bdd57a0ff0a9c",
         "chestUpPortraitPrompt": "29318a448aaecdd07871bd8eb4ff939ea35bd69680547a527b40a7ea82ba5242",
-        "chestUpMjPortraitPrompt": "1f523d02b79b19ff354c50fb26e65baa5aff69eb645f67aa8d8ffd059a50d847",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R08-crop-full": {
@@ -465,12 +455,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "0da408b1e31c1c2a1c3389322d1aa6799fed77e4d3886ae95f633af1410ce772",
+        "grokPrompt": "467196c812707f81f0234216d3c896d83fb7a3b31f27baabb2eededee0187164",
         "zImagePrompt": "03c6d21ad27d8a48d25c8387fe1edcb475d06b27cbbd9d8bc213b118a94cd7ea",
         "midjourneyPrompt": "7898d6f8825e7fdcdc262cdb01cf630466a826d48909b05592b4e1f0d3bed6a7",
-        "chestUpPortraitPrompt": "63309a785e8f8abc93308ad1545d1fb9fd7571a4126e1260c8788447804740ed",
-        "chestUpMjPortraitPrompt": "e09ea0c31b4e3b4df2f34d60b662259518124675bac0b4944bc5261cdac7c393",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "chestUpPortraitPrompt": "441e6731b46a7d06feeb71d46bf68545d711a77ac62d2a4242a7b2f09460cb31",
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R08-crop-cowboy": {
@@ -497,12 +486,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "8fd32ee48e35c941ca164264ba136790438c823d7d4431c9c59158fc3d1c75fa",
+        "grokPrompt": "69abab7b886fb9cad11dafd348618b304bd2cd1c7762de1f919ee8ff3b0f1885",
         "zImagePrompt": "5a76ee86edca139d9ec71fa6675a7eba15cb6addbf7892ef4b6d549980401155",
         "midjourneyPrompt": "3364777d97e2dface4d69aa87fc34d6553b45990eb48f94ff2d1cb1ec5f96d20",
-        "chestUpPortraitPrompt": "63309a785e8f8abc93308ad1545d1fb9fd7571a4126e1260c8788447804740ed",
-        "chestUpMjPortraitPrompt": "05dcdddfbe1c55e40f7f8f54fea628b91bd6bc69a2d0fccc1fab7c470ead2e62",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "chestUpPortraitPrompt": "441e6731b46a7d06feeb71d46bf68545d711a77ac62d2a4242a7b2f09460cb31",
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R08-crop-medium": {
@@ -529,12 +517,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "d8c0271d76a746c385ded384f7c3ac0d42d09e89eff2d959bd9367e2b4fa97b5",
+        "grokPrompt": "0a6eb1898df6e67ae528e55ce6e938f0c27e13d2b6cda542e158254e66c8b4f7",
         "zImagePrompt": "3b7489ddf4d82a66e10dba8eae1575c852bc0aa33c18e393be2b88e233d765ee",
         "midjourneyPrompt": "8bd027d4019427da065f7cae1e329594a02e13472b919d16af9080837d26f8ae",
-        "chestUpPortraitPrompt": "63309a785e8f8abc93308ad1545d1fb9fd7571a4126e1260c8788447804740ed",
-        "chestUpMjPortraitPrompt": "9fa62ae6a5520330603e0beef25cd1d1b9e04b00eb6b82e36847ed4c8440c5bf",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "chestUpPortraitPrompt": "441e6731b46a7d06feeb71d46bf68545d711a77ac62d2a4242a7b2f09460cb31",
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R08-crop-chest": {
@@ -561,12 +548,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "63309a785e8f8abc93308ad1545d1fb9fd7571a4126e1260c8788447804740ed",
+        "grokPrompt": "441e6731b46a7d06feeb71d46bf68545d711a77ac62d2a4242a7b2f09460cb31",
         "zImagePrompt": "f98e690b6ab7381609221e1da2c8983d3fa6800f8a80fc10b77f22ac79ec4b5d",
         "midjourneyPrompt": "bca7098d02c7b442dc4fa061be310a28416056a3801e88c87ba28ea4d082c8ff",
-        "chestUpPortraitPrompt": "63309a785e8f8abc93308ad1545d1fb9fd7571a4126e1260c8788447804740ed",
-        "chestUpMjPortraitPrompt": "ceed326631ba9518ae3d28ad275f780d6d7f75ed8f62098f9a00bbc51ff55ef0",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "chestUpPortraitPrompt": "441e6731b46a7d06feeb71d46bf68545d711a77ac62d2a4242a7b2f09460cb31",
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R08-crop-head": {
@@ -593,12 +579,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "c700bafa1a03d8c4de3ade84a5040827374bcbf7c2b5bb8c6580b4489225dba6",
+        "grokPrompt": "97459bcbe6c65f1409039b33064c4e56bd93b27d81fb18cbd7e45d3349ec0059",
         "zImagePrompt": "086d94c360d33010f1aace909fac1cb338bdd6f2f783379dfbac718dfd0561d3",
         "midjourneyPrompt": "61b5eefca4a1350d2513fdade364e0c82501f946b36021386c16b916dd50f09a",
-        "chestUpPortraitPrompt": "63309a785e8f8abc93308ad1545d1fb9fd7571a4126e1260c8788447804740ed",
-        "chestUpMjPortraitPrompt": "f5854c5cb03ed26b7de479579c1228348b321937c57623d8f2762924d1686d1b",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "chestUpPortraitPrompt": "441e6731b46a7d06feeb71d46bf68545d711a77ac62d2a4242a7b2f09460cb31",
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R08-crop-face": {
@@ -636,12 +621,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "fa2b47265d8b1d5fa08ede875eb15dcc26a1a09ede783bd15ebc038253c8c1fd",
+        "grokPrompt": "e708c6ac27a216c1d1840bdb9f31f6a5d72b4b5b217f24f2bf4b4fd1c1950ce2",
         "zImagePrompt": "f0f1a029beb9f19d55f67e897ac2c990ac52e2d16750268f2694ebf029e6cf3e",
         "midjourneyPrompt": "17c2c15b22efdea42b84d47a1e848695caa8aae4143d167cb1b8c64f69c429e5",
         "chestUpPortraitPrompt": "f6407eb34405d51272f3027b19a433e2b029d85ca268aee3b96e214f09e2b8a0",
-        "chestUpMjPortraitPrompt": "a59a684e07afab48ffe837ad99d16dd5889b1a486afe08c5f69daf3e30aaa056",
-        "fullBodyCharacterPrompt": "c7d488e4779c02e9f4ceaee110b96eef8d6c2bacc2361dbe28ba4634478f2373"
+        "fullBodyCharacterPrompt": "50c2646d3f60a189fe8ae1e8d9c91e6b6996bfdea327750266be9ca7c86f88e5"
       }
     },
     "R09-orbit-front": {
@@ -669,12 +653,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "e4316a611d9309180c45ee8a03fbbdb20daf4c6428fd29aaf3556bf9069a7ca4",
+        "grokPrompt": "0f6698c7218f923da8bf5e3d66c5593c56be6dbb178457870d143c13146e4dc0",
         "zImagePrompt": "efa56fd40b3425f3606509ff6c2c5a6463604675be31dfbdcada775132d29d02",
         "midjourneyPrompt": "a7f4f644ba0ffe1c6515e3c67bd2b261df81aada70db20aa6fb97d209170242b",
         "chestUpPortraitPrompt": "416f1fc99259435df90e936e9c1b3cdf761ac10c2dd78b8dc895469db5ec5bef",
-        "chestUpMjPortraitPrompt": "2ec417b01dc5679e4ec6b103727d5215e6f4482ac608cbf6f416397da86ad9ee",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R09-orbit-left": {
@@ -703,12 +686,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "9d4826b52f7fc0e8d495514e24bb2041fbe4dcedf172e9222bb674c79802c6fe",
+        "grokPrompt": "861e3594e57687d12f09f1dc24bee79f7ff0224f6ad95509d5fc6451a0dd1b3d",
         "zImagePrompt": "58f1f8f3908b1f725861a05aaa93a2a4cfbea045b13ce4bcb9e4593fc78bddf8",
         "midjourneyPrompt": "aca07a4d47bd6f41daa1a5cc211e5687537e5af11360bc718274798299b90449",
         "chestUpPortraitPrompt": "be2f82a30efe4b3114102b26dea875cc460913e16e24379c8b5ea4767b9612f6",
-        "chestUpMjPortraitPrompt": "bc2bbdd12972ef0135962b37d0f08efc5fc0c7da2996fe95b45446953fc603db",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R09-orbit-right": {
@@ -736,12 +718,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "fdb57ead91759cb9303317085a3054f34d8380a2e7d78b525a60637e9c96384e",
+        "grokPrompt": "143c7b003c9e03a99eb5d62ef3b3199f9cdf4bef776f2476181d3ce32a8554fd",
         "zImagePrompt": "08e3b378f2326a3d333d8bd0d9bb4033cb5132f8e9823805bc3a5609515f3693",
         "midjourneyPrompt": "a950e0b1fe08b84c4040f5b32cefd0c20bc0ec811a5b3f2122067d3aab5471c6",
         "chestUpPortraitPrompt": "de9de1a469135de847093e81191113736bf1e0c85d255dee40c9c8bd8d1f1f23",
-        "chestUpMjPortraitPrompt": "383780787c8dbf244ca662ff58e1d6bf8780bf96b4fdc6876b5a106efc03fa62",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R09-orbit-rear": {
@@ -770,12 +751,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "f5e916ea6175ccd028e9b01f2e92914850e41b3782edc01990ce8e45edbc0b6c",
+        "grokPrompt": "02ade620a1d60c575bb797146a9e9ebf4912ddb8ded62eda950fbbcabb7f8b0b",
         "zImagePrompt": "c341291e8bc79377cfc7b5bf64eed5abf3d3bf4ecfe98500e033f088de572023",
         "midjourneyPrompt": "88e7c4ce0dfd6863e4084c34e7505c0f21e47ff3af2f971e2487abcdd41a2774",
         "chestUpPortraitPrompt": "8bc7c6a79d276c2980fc5978c354fd5164465969c1f8b1e31f9f4c29e6ff90fb",
-        "chestUpMjPortraitPrompt": "5340c8bb1350e022d74e15e21a8491675bc18898da8bd3ec90d227450d8d3289",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R09-half-face": {
@@ -814,12 +794,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "2aa9cf026b30c6a07255a5311a48f461710e14b0b746a3cd812d35ba94871fae",
+        "grokPrompt": "1db53b88c86a078055f8db7b498fb0a7f959abbac5c3f8d932447856d41d543d",
         "zImagePrompt": "cb600fcdf71b217ec6d101da58291855991c529108c152681c5e1277bee59f53",
         "midjourneyPrompt": "7232c9b955792bcd476cfdfea76d1f96977b3abe65407cffec20bee676d5f9d1",
         "chestUpPortraitPrompt": "f4e68547f9c3768b9b0b91233c0bda8222692407689e914de3eb57f5c29e271d",
-        "chestUpMjPortraitPrompt": "3ed7ac21234c4adb488055d9095cdf26c4732e67a4eb151e11021e5ec3c9b0b5",
-        "fullBodyCharacterPrompt": "c7d488e4779c02e9f4ceaee110b96eef8d6c2bacc2361dbe28ba4634478f2373"
+        "fullBodyCharacterPrompt": "50c2646d3f60a189fe8ae1e8d9c91e6b6996bfdea327750266be9ca7c86f88e5"
       }
     },
     "R10-palm-occlusion": {
@@ -846,12 +825,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "fdb5989eef18b927e68dbb0a5604dc15e295c92cb23ea71aa5e4e261ab364bea",
+        "grokPrompt": "988f51489fad4a871a5f308b3c5d78c9aa1d87095d0ac08789df85b0b1b0469c",
         "zImagePrompt": "d2192a7729cd5a3bb70217a8bb84e898388ac26069da8b29afbb3364eef720ed",
         "midjourneyPrompt": "5040fed45f4c15e551107a3599cc4a97fac4f1cdba418350cd3b1fa77502cbb5",
         "chestUpPortraitPrompt": "326bf0e61548ab0dcc940542f69ab4380df1dce37f17efa1bd4281e323c88a68",
-        "chestUpMjPortraitPrompt": "c08b8d05835e8c956ec02a49be7ff794de6840bf7f3615cf1f480da4475776c0",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R11-shirt-shoulder-1": {
@@ -885,12 +863,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "e7010f8512ffe095d8165f9bb2b35e5ec9e5ab4da16be38464d8d5a92742440a",
+        "grokPrompt": "e79294ca1d54347cd36a5397b54d7564973cd840d41545326b132d6f484d56c3",
         "zImagePrompt": "cf3f569132c8ccb277288d0d194446c07eca996e43cea2f10a9c417f0f4de51c",
         "midjourneyPrompt": "dbb704843bdc45b8cb1541573b3323a0ff7eb5ff6493b22f28815603d698ac7b",
         "chestUpPortraitPrompt": "1a503135eb88939672c1c03bdd3edb47264821c3e5b6a4f1b32225343c1b4499",
-        "chestUpMjPortraitPrompt": "1b5c7eae882bfd3035b088167d90bce340f875166b38972623afcd45f97c39c6",
-        "fullBodyCharacterPrompt": "2f7aa6251adbbfeab4d8ce3dd4a3aef516220255fa5d51f35941d67f4845ecf8"
+        "fullBodyCharacterPrompt": "36f4b40edfbc33f901d79be84d725264e4abe3cb09be77a8c2943ec6703576c1"
       }
     },
     "R11-shirt-shoulder-2": {
@@ -923,12 +900,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "ab41e591206ed1d602f8a05370b44d76117606242922a7b719151a38c6775721",
+        "grokPrompt": "7f7b978eab5bbd96abdddae9a5373d0cc57cb5e15747c42a973e85199ee49316",
         "zImagePrompt": "c2d4282f5d0a63498d5b3611e3b9e70cd800f8d2da2e41743ac0165cc94744fa",
         "midjourneyPrompt": "ae7fac8b9b657e5bc67f1cc67bf06f3c6ae281679c27a668395c03722c1a386c",
         "chestUpPortraitPrompt": "37633e3befc6a6741f33d51b6c17b912cb766445520618b9238cf8397a66ed7e",
-        "chestUpMjPortraitPrompt": "47eab565048ce8b4589ae05ac8cb806f75b2d407400460cb39c70c781e89c285",
-        "fullBodyCharacterPrompt": "fcefa4de559656aa77735e540522c52b2158c0b9ff9ee97f4c72b8c1fd674713"
+        "fullBodyCharacterPrompt": "74775507ee3a9a66bf4b11e70e00f6226cb341290bf7140e164db42975d840b5"
       }
     },
     "R11-dress": {
@@ -963,12 +939,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "60cffb2d7a91c40f89f96232106c2ca47433ec3f1c9bbd71f8fdc5a2bd3c231a",
+        "grokPrompt": "9231d85afea2002d76fb297bcc19fc6c0b1818eb670cbeae01dd774880dba4f1",
         "zImagePrompt": "8eccd5bac6d1fcde86503bfa490d3119ae260c7cc773be7ae65920025ba97cd1",
         "midjourneyPrompt": "b19f3ac20d1545b09028a478e925501abe53c1f61ea961316d90f9e2ee928787",
         "chestUpPortraitPrompt": "6025a218b83f4521c38f9d011a59259808d7242d86330b360aeaf83e7c6501b3",
-        "chestUpMjPortraitPrompt": "35ff3508bd7f8928d3b80e80b1b5e9ddf4873c980351c748cdb6da7e7dfdb448",
-        "fullBodyCharacterPrompt": "bbd9d858e0674f01e97e7dcba0a1080635967b7b963b1b80ff242ed9449cfd56"
+        "fullBodyCharacterPrompt": "e1d7569bcc10182d675b433dab2798f2f090991c593e18dd703919f3688fb5a6"
       }
     },
     "R11-complete-look": {
@@ -1006,12 +981,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "04df26d1c15b44099ba327f2e9a8652f676287c0ab44f2b8d06cf6fb02e1bc74",
+        "grokPrompt": "0d6160a15cd6a439bc8e467bb8caa8558c39e7ff9c182ce4ac2e7d6e900b7d6e",
         "zImagePrompt": "a768487262720d458253e75613cff6287e488672c2a2910714eca5b6172d7409",
         "midjourneyPrompt": "b50f547aa418d215d558ffcc9df6ce2addd480a6d19dd027c8d466132650977a",
         "chestUpPortraitPrompt": "5f4c43fff4e0e6d6b8e961fa4666a69fe4c575b2909ec2be07ab79fb741686d3",
-        "chestUpMjPortraitPrompt": "52740fa940e79fef1e0f81e67168c0436002074cf471527fa794a863ad24bfa7",
-        "fullBodyCharacterPrompt": "87684e6c598c9bfd1fad10a4dff8f2992fd8073513a5a000a0d6e40afa4fb92a"
+        "fullBodyCharacterPrompt": "5bd834907300cb752613762118dea159fa75880301370c0f5ae7a2b658389a89"
       }
     },
     "R11-waist-chain": {
@@ -1042,12 +1016,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "b60f47622487e9611d150138e377631341a3dba14dca4b4d99ba19d46fe65a79",
+        "grokPrompt": "ef0adf2fe593e6cd8aaad694bd9dcfada5d917ad7e2ad95337d7817daa3c5209",
         "zImagePrompt": "6d434f178651f14081b5a66d9f1d3b06045dc8d0b7773c3b991994be6d0f8bb4",
         "midjourneyPrompt": "17a261e482319b21fb66ea7227a3df492635987582458a3622db178ffcfeee57",
         "chestUpPortraitPrompt": "12eccf6597da78674201bfbd04fcd5bbf9ca403dfc15f5bc7184562a40da9ae7",
-        "chestUpMjPortraitPrompt": "f29d99328fb8658b063299fd4a51e199abec74b41f6b3c704c3227f5d273d491",
-        "fullBodyCharacterPrompt": "1450d24d8e233c935605f4e97edfa0cbe8c1e30ea6d536a945f7e8f06b634130"
+        "fullBodyCharacterPrompt": "1a98a9b627ff2446f5e7d2ba1b92ab7f913ac28417d5126b800990528d3084ea"
       }
     },
     "R12-scene-indoor": {
@@ -1076,12 +1049,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "137865ae37333c80dbc5cdb99c589d3044610a105a90aff35973a3f04f125cad",
+        "grokPrompt": "e15647a1c499b5092dd0b84a81b984bc3cffa792b37d483a358e32093a5bd8dc",
         "zImagePrompt": "85e30a35115d4ed6791280b1b7d3cfdcb6a0158445c84d93c4e204f8ee9463ca",
         "midjourneyPrompt": "00e9d34ab25ce0a477a68b971795144db9842593c48bc50d1dc91dac139588c7",
         "chestUpPortraitPrompt": "174d3c7a378f09e205ed8cff6cffd4e6aa58f25fe6fa9e32686c67aced4e401b",
-        "chestUpMjPortraitPrompt": "ecf779667cce46316f66b798ad14463cf2a5b00ebb7948f14ecd836ff83ca7af",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R12-scene-studio": {
@@ -1111,12 +1083,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "632031c898044b8527f5a0d110ae33f9fa33c72b64372e584f9863fbfe7762a5",
+        "grokPrompt": "65a921007009dd0ba37f29505d183f9fb787d23d74464a23d546407455ed14fd",
         "zImagePrompt": "e517140b710de6fa2a13d87ffc94f4adb0ac600c44649519fce7cbae69e5e568",
         "midjourneyPrompt": "29736fa1cddf0e3dca23eabad37cc9c83f00fb82acf636c8e81702550252cff2",
         "chestUpPortraitPrompt": "eeda29cf5b072431a3615d353b86d72109c08d014b233d15b242dd3f730a6427",
-        "chestUpMjPortraitPrompt": "5c5902aab821f4128b9bd86bcc36f669c005a8ffc4cdb63febfb1c422a6a70d2",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R12-scene-none": {
@@ -1145,12 +1116,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "77507cc1b3751a29ba43d1bf86815abf92b183e3cea1ba7266fdaa759264b908",
+        "grokPrompt": "699fa253b41b737b46bf515ca5933d77008212fdce0a903363005509ef70bb2a",
         "zImagePrompt": "8a0dbb4336277f6d36d51c83b0605cffa691ef708ae8a61854893952b18d2fcf",
         "midjourneyPrompt": "d3a5cabb310e054517af6abf26cc9524fde90747416be2ea8decb759031e01fe",
         "chestUpPortraitPrompt": "a38f184b391f2f6ae948a36fe5b35179c641d20b44420a47c519d40c6dab1492",
-        "chestUpMjPortraitPrompt": "99abe14743ce6675c116ee7791ae63f7fd30865c9577a81cad3f566ab88f8b1c",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R12-watercolor": {
@@ -1178,12 +1148,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "97ca5e9a820569d816faa57b0b9da7618fc83d9f069b82991f02628ee357044e",
+        "grokPrompt": "f5c6f265aeecf0d5cf3c146241033ee335655537f9d30d469f8f415e44472a6a",
         "zImagePrompt": "faad0d629aa853dfdf68d611a45dd314cf3eb0563c621aa624885b7df1347579",
         "midjourneyPrompt": "dd0224af3c69228b05a64da47afe74a6de7ad23abc3d06625eedfbc3b608b329",
         "chestUpPortraitPrompt": "4c344548629294a0e457a25bbe290a878ac5e089f6bd4d1b8829842583574ad9",
-        "chestUpMjPortraitPrompt": "ad97fc19b5a9fb7338cc39367fb6a61fbd6e51533569e379ddc169248a36e7d8",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R13-optics": {
@@ -1214,12 +1183,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "cee478b8afbbce07c86fcb28e91851bba8900b527549aedc85de66590335fbd5",
+        "grokPrompt": "9f25d569f67a57bcd2574162aa7bcc2428a27eb3b539640a66147c1816883dc5",
         "zImagePrompt": "5e7e902fcaff1de4e72fd2f9817dd2518b3ff3b07f434b6df20ffa42fb181861",
         "midjourneyPrompt": "e2adafbc3636e62ef4c581b25b15eff4a9d72664db225b895097864a7fc57e5e",
         "chestUpPortraitPrompt": "4f412d065bec682eaf4435830ef8ee7bc1080730ebfda99036202625e780a9e7",
-        "chestUpMjPortraitPrompt": "8628a97dc68e05ee4d9d7cb98c5ef3d820a3dfeecd4fa1bda5152a5e706e8911",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R14-mj-imaging": {
@@ -1250,12 +1218,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "ec911b09c345ee86a414aed74bae29ef0158baab23b2b7ece29ae7e863cf36a0",
+        "grokPrompt": "b8a4aabf4f33d293397560eabe8b8e6df1912c60c9c6599468d6603df8b2ce7a",
         "zImagePrompt": "68e12215d31365a76784834caebcb3b8c54bcddd6fdf233db6b40050658d17dd",
         "midjourneyPrompt": "d37a8c697fa3296dad54d609e4a0a1eeea317198e93f405def1c5b9e76554261",
         "chestUpPortraitPrompt": "61987543d367aa0e966929be54322be3ddeb0817729ad47ca02a718c65349b4c",
-        "chestUpMjPortraitPrompt": "5df43991917ba6c7be2b8211718dc213c523ce071cbc5fd9d98280174ac74f79",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R15-derived-isolation": {
@@ -1294,12 +1261,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "fa2b47265d8b1d5fa08ede875eb15dcc26a1a09ede783bd15ebc038253c8c1fd",
+        "grokPrompt": "e708c6ac27a216c1d1840bdb9f31f6a5d72b4b5b217f24f2bf4b4fd1c1950ce2",
         "zImagePrompt": "f0f1a029beb9f19d55f67e897ac2c990ac52e2d16750268f2694ebf029e6cf3e",
         "midjourneyPrompt": "17c2c15b22efdea42b84d47a1e848695caa8aae4143d167cb1b8c64f69c429e5",
         "chestUpPortraitPrompt": "f4e68547f9c3768b9b0b91233c0bda8222692407689e914de3eb57f5c29e271d",
-        "chestUpMjPortraitPrompt": "3ed7ac21234c4adb488055d9095cdf26c4732e67a4eb151e11021e5ec3c9b0b5",
-        "fullBodyCharacterPrompt": "00803a1b26b608307e8b43b4b71cbbf40db9578f28ef700ee2c1dd927149441a"
+        "fullBodyCharacterPrompt": "0a697ecf34212c226afb0362b622989f662800e34680bbe3e3e9cee7f7b929c8"
       }
     },
     "R16-duo": {
@@ -1391,7 +1357,6 @@
         "zImagePrompt": "30b1e98d97915d343bef2fce40aba282b8abc15ef1cfa891ad75829686e6be89",
         "midjourneyPrompt": "4a0395a8c34c8538972d1b7da5170754e60abb9fd9f19eaa13882d13c8f1e7c1",
         "chestUpPortraitPrompt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "chestUpMjPortraitPrompt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "fullBodyCharacterPrompt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       }
     },
@@ -1437,12 +1402,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "96199d1de74e35b207d45f83158867c7deb23d791353621335f867c41eda9170",
+        "grokPrompt": "41103b57188509cd28d3be7f0d329e1b585149b16d61e8cae9aeb7c928a62ae5",
         "zImagePrompt": "991886c4891d62d8e5f6ca2eb0d597fb6a5e3bea182637b6fd176df2e93de3dc",
         "midjourneyPrompt": "5190e6670913d0ef5553d77070702a16108ed7d50a383a6d86d53fd7ec912324",
         "chestUpPortraitPrompt": "6ba188264ca6f5ad0e1fb8f9360080c3b992a6c5ef47e9b2a3c87ad4eddae9d8",
-        "chestUpMjPortraitPrompt": "19c2ee1cb0ecd7114f56eb7a417810bc7783648660d9ab184a2cda72f8a3fab7",
-        "fullBodyCharacterPrompt": "99c4c62d5ade7c5667edcc42e8f6923a24da8f489fd8040a1c10ba4dedcad6e6"
+        "fullBodyCharacterPrompt": "aefceb4a1ab2698b901461c457f0ed476458a45618f58ce81aaf26262d60ceb8"
       }
     },
     "R16-special": {
@@ -1488,12 +1452,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "d9ff504823bcfe2a169de271701a6578298fdf162c015cf5ff812ed86e90981d",
+        "grokPrompt": "60887d76da3f496ba24ae07a2cb55f14b85baf0f99adfbf3c314720f54fb4f3f",
         "zImagePrompt": "131d6d5836a994d4209d4bd65ce995e1f21e66117e6d156d50940c885a8e0232",
         "midjourneyPrompt": "4ea4c425eac2ae9ef167766366a72652e3be023c8b6deade7cc472272cb07e16",
         "chestUpPortraitPrompt": "e5e95d76efdbc071d1bbc27addfd6a419c78336c7fd6401323b742705a0b883c",
-        "chestUpMjPortraitPrompt": "df54874ec7d093ae7621351db3504929d5f1fac28c54f05f52e52382823a7c39",
-        "fullBodyCharacterPrompt": "738559265b3ebddb464e50be9333831d6fb62e5bafe876398adff006d4b7c852"
+        "fullBodyCharacterPrompt": "46ba8b268ae2a6a6d917a18ae50044ab70f7bd973d576c994d558c782a66b51d"
       }
     },
     "R16-character-card": {
@@ -1546,12 +1509,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "de63f8da5ac3e4f90b986109ce2d717f38dc68e07a04eac27837c631bfb9a145",
+        "grokPrompt": "d7726368b52555517c150cedc152645960e0d4715cb7aee57b313c715f6c529b",
         "zImagePrompt": "813fb10fb8b13454011d624d5fff34f242dbf98c49d84e7c19170b58b5dc9192",
         "midjourneyPrompt": "431e8e4697ed71a22f45e76ddd70eff142a2edaac88e645831cc648a99094ab9",
         "chestUpPortraitPrompt": "e52f4baf382768980ef0d66de48de83390c4f664044c2b590a6cf5fc993b2690",
-        "chestUpMjPortraitPrompt": "4bfdec5e79fc75a339c4fb27ab64eeb2d3a939d2f464465ec0e8151d32aea246",
-        "fullBodyCharacterPrompt": "52b0bbd480a03b494d34648a43d7125930b2c090f7616e63b0f8bbcf1051ef6c"
+        "fullBodyCharacterPrompt": "4ceb7bd40d85ef3bc63fc561c4d0169e0bc91eb1691d2c9533cdd12309ac01e2"
       }
     },
     "R17-lying-bed-surface-0": {
@@ -1584,12 +1546,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "0711a51a07bdc1ec2162feacce85a52d72a0979dde062e1edea79e377e8cc53c",
-        "zImagePrompt": "def34f31836757c17de43f5b6b7b56ad7554e994ebb9d8f130d524c956fa6ff7",
+        "grokPrompt": "086cd33c94f38494bc915302d7721683c8585a4ac185c026e3912486855c9364",
+        "zImagePrompt": "c4e04571a5ead6a80d6d01dbfade71d2051df6a10de25d3c890be91b0c7e1618",
         "midjourneyPrompt": "9d10181cfc0018c805731a45fb95b128f995c15f39ef1a66d1b216eb25ba1448",
         "chestUpPortraitPrompt": "ad8dd0abaa78b0f59672d14b8e9f014f4ea609e9129d5a4efdf1cce86a569bc7",
-        "chestUpMjPortraitPrompt": "24e076c7a0ce2ef772a5d3114cb241cfb5fb940eb0af4d739b325a0bd3d88d16",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R17-lying-bed-surface-1": {
@@ -1633,12 +1594,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "d89e87b0dd1aad2430d4eea4a11c2292c4e6e19e2e83f97f9cf63a333f8948b0",
+        "grokPrompt": "57ae4135b2da0573834814d9cf9ce3025cfefdc385aee9a1180789f15435b1d9",
         "zImagePrompt": "17978bdd5f6468258a767748b75c24fc5d05848cce20a32e7edbeb22632a089f",
         "midjourneyPrompt": "2bb1016ef62c06675bee1509c7f54805d5ca05d3b52158787c22cb11df938acf",
         "chestUpPortraitPrompt": "3710e51580a2258d0bc3cde0e28d0efecf941247caeaae22e88c525da6d1fc48",
-        "chestUpMjPortraitPrompt": "e1e735d9c2ff85c5974b16bde8013752df20bbb07c528f069d7baf0787dc0781",
-        "fullBodyCharacterPrompt": "c7d488e4779c02e9f4ceaee110b96eef8d6c2bacc2361dbe28ba4634478f2373"
+        "fullBodyCharacterPrompt": "50c2646d3f60a189fe8ae1e8d9c91e6b6996bfdea327750266be9ca7c86f88e5"
       }
     },
     "R17-water-immersed-0": {
@@ -1671,12 +1631,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "6829bffa8f563d4498b0191e888e6e45b97d78df708702d1ecdad4232086aef9",
-        "zImagePrompt": "f85dd2076670494539cc02d97161855a6cdcd378967e7b3604b01e525d0a3266",
+        "grokPrompt": "ef3727321e89c06e066fb96b8d4ab08f20dfcb3b0001294c5dab941635642c2c",
+        "zImagePrompt": "267296f3708286da3dec13f155475f3c7021ce39ace77be7e706421efe455aa4",
         "midjourneyPrompt": "fadbe4adada61d6eca349a67cedba8ce7cd0ef4ab1785fbe5c0b64d3ee654769",
         "chestUpPortraitPrompt": "6ead1dacdcdcbf7fd7d4b38f5745cbea8e064fb50d36080a831ffef184e278ba",
-        "chestUpMjPortraitPrompt": "28cd60a546bb76adcbf8afa7635e2ab1f66eadd8236a364a305fa6fd281dfdc7",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R17-water-immersed-1": {
@@ -1720,12 +1679,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "22e40462b280b253c720d2e759e6c8a63cc4ead5511ed37064b2d125635d6914",
+        "grokPrompt": "59f5eb64af10eff0ea446a5ddb03d83981258a03b536175e4c048f6da00b3127",
         "zImagePrompt": "d512b6dd24f79f68a19718febd301a14ce6c1ae89396621daac2c64c6dd94f05",
         "midjourneyPrompt": "f1421a2950bc7bc4c2e2cd1477dace28a12da6139e29934642c3b7acf0d7836f",
         "chestUpPortraitPrompt": "767dbbf0efa68791ed1b5a56ccc212d36de827583e2c619244e27e200d8866bb",
-        "chestUpMjPortraitPrompt": "e98ca3af838c4c071dd8ccee694bfa0beb884569e48ddf95f5c93146dc468a73",
-        "fullBodyCharacterPrompt": "c7d488e4779c02e9f4ceaee110b96eef8d6c2bacc2361dbe28ba4634478f2373"
+        "fullBodyCharacterPrompt": "50c2646d3f60a189fe8ae1e8d9c91e6b6996bfdea327750266be9ca7c86f88e5"
       }
     },
     "R17-lying-clear-sea-surface-0": {
@@ -1758,12 +1716,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "e0c2520e3161bd8b23ac7a04f0f73676e6b564328a2bc15aa25b1896eebf2c86",
-        "zImagePrompt": "7ef65a069a65da98c4cc02f67cb0f83f8d83f7ea86ac026267f769539de55112",
+        "grokPrompt": "6f5c6afacd0ef03ad24301f12c1a597451b4186731286026cbde5365ab119e7e",
+        "zImagePrompt": "ce18376f9fa1f2443ae3d442f197a0bd9d202e752a2ec9b7d67ecc91532ef89b",
         "midjourneyPrompt": "cc023f25c5391adfba646809c0e3c3c63ce306e7db106de82f8c57bcfa55bc09",
         "chestUpPortraitPrompt": "407f4d3e096652ada9aaa121df859be685f2758cad4d7dd2d1c1b9161a78e5cb",
-        "chestUpMjPortraitPrompt": "1bf99d764320e40d1cc7bd48f7f6e1abeb5163a76b445bbebe8485b46f6214bd",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R17-lying-clear-sea-surface-1": {
@@ -1807,12 +1764,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "32267d8ad12327fcdc5b0821c4d835ee1f9fb894a4adb98f003c51aa31dec8f6",
+        "grokPrompt": "baccd8bc017bcda272141445635c29180f9e60334a58dbe4af47c440d56d4792",
         "zImagePrompt": "3b37c7c55ba4d8988ca223c9e15556b74307189e934560d2c422afab628c56c1",
         "midjourneyPrompt": "b2f5a3ce0d88850910037f1b6dec5fff3e5fc363ed1214ffefa8c32aa936808e",
         "chestUpPortraitPrompt": "240828eeb1909f0b1ad4a6cadfca48ee1142e641672fe03b2547f64c08432e2c",
-        "chestUpMjPortraitPrompt": "8b6c537eb546645f58207ae5c5efaad4f93f7b217942a4836bbf74400e665e4a",
-        "fullBodyCharacterPrompt": "c7d488e4779c02e9f4ceaee110b96eef8d6c2bacc2361dbe28ba4634478f2373"
+        "fullBodyCharacterPrompt": "50c2646d3f60a189fe8ae1e8d9c91e6b6996bfdea327750266be9ca7c86f88e5"
       }
     },
     "R18-exact-text-on": {
@@ -1842,12 +1798,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "12cf4930762e14df4126b434676b7e4ab528be55de4487b4ba693c7efaacf7fd",
+        "grokPrompt": "637bec25ad886f088bec5e56b4ea374058053ec2a68989c898fe984ce3bb55c1",
         "zImagePrompt": "ed4c6194889d24b2a02bd73c57ea26e7aece4b861dc0938d39c41c4405eb6a01",
         "midjourneyPrompt": "4c416fd439142ee604a9e0b09df2a401c08a612d10613e6383abe7ae273206dc",
         "chestUpPortraitPrompt": "8357dfc1119311e581ea2242cb9e95e4f7182c03bc9a6de0b4f6d6d24f7a386e",
-        "chestUpMjPortraitPrompt": "0590c60a4201257306e17ec52343057ec185140ccb53558a6baae6d0cf5508c7",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R18-exact-text-off": {
@@ -1876,12 +1831,11 @@
       },
       "removedSelectionKeys": [],
       "outputHashes": {
-        "grokPrompt": "12cf4930762e14df4126b434676b7e4ab528be55de4487b4ba693c7efaacf7fd",
+        "grokPrompt": "637bec25ad886f088bec5e56b4ea374058053ec2a68989c898fe984ce3bb55c1",
         "zImagePrompt": "d3d0d1decf928bae9a432d649c42141131e18ff7ef979d744bd87b59c950e988",
         "midjourneyPrompt": "4c416fd439142ee604a9e0b09df2a401c08a612d10613e6383abe7ae273206dc",
         "chestUpPortraitPrompt": "8357dfc1119311e581ea2242cb9e95e4f7182c03bc9a6de0b4f6d6d24f7a386e",
-        "chestUpMjPortraitPrompt": "0590c60a4201257306e17ec52343057ec185140ccb53558a6baae6d0cf5508c7",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     },
     "R19-random-pose": {
@@ -1912,8 +1866,7 @@
         "zImagePrompt": "015eff7c6ea97c95bb334c2ae8752bbde86004b0499c5766d7889f41408c126a",
         "midjourneyPrompt": "5bcf5b5bc63a534bea2f83bdbb0c112b7b6e3d0959413330650097c287ac7d8a",
         "chestUpPortraitPrompt": "35ae63fccdd4858495b5aa8fe26d02837590b14cf3a65e8e363af97edcdf5396",
-        "chestUpMjPortraitPrompt": "e1439eb48f0fc1b1e301bf0e1d8e6dabe382b7cc7579b2e44a7e20681f91cf2f",
-        "fullBodyCharacterPrompt": "d62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce"
+        "fullBodyCharacterPrompt": "9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca"
       }
     }
   },

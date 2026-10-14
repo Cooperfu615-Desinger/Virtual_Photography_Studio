@@ -1,5 +1,7 @@
 # Prompt Engine Architecture
 
+> **2026-10-14 update:** the `chest-up-mj-portrait` derived output was removed (see [prompt-official-fixes-v1](prompt-official-fixes-v1.md)); `buildPrompts` now returns six outputs and live F settings affect only the main MJ tail. References to it below are historical.
+
 Status: implemented on `main` in `7aed676 Optimize prompt engine runtime`
 
 Last updated: 2026-08-01

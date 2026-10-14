@@ -22,7 +22,6 @@ export const MAIN_OUTPUTS = Object.freeze([
 
 const EXTRA_OUTPUT_FIELDS = Object.freeze({
   'chest-up-portrait': 'chestUpPortraitPrompt',
-  'chest-up-mj-portrait': 'chestUpMjPortraitPrompt',
   'full-body-character': 'fullBodyCharacterPrompt',
 });
 
@@ -90,7 +89,7 @@ export function createPromptAuditPlan(count, seed = 'prompt-logic-default') {
 }
 
 function isMidjourneyNativeField(field) {
-  return field === 'midjourneyPrompt' || field === 'chestUpMjPortraitPrompt';
+  return field === 'midjourneyPrompt';
 }
 
 const CONTROL_LANGUAGE_RULES = Object.freeze([
@@ -549,7 +548,6 @@ export function validateOutputContracts(prompt) {
   const extraPromptEntries = Array.isArray(prompt?.extraPrompts) ? prompt.extraPrompts : [];
   for (const field of [
     'chestUpPortraitPrompt',
-    'chestUpMjPortraitPrompt',
     'fullBodyCharacterPrompt',
   ]) {
     const contract = PROMPT_OUTPUT_CONTRACTS[field];

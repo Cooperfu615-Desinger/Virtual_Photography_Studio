@@ -71,7 +71,6 @@ function stablePromptResult(prompt) {
     zImagePrompt: prompt.zImagePrompt,
     midjourneyPrompt: prompt.midjourneyPrompt,
     chestUpPortraitPrompt: readContractOutput(prompt, PROMPT_OUTPUT_CONTRACTS.chestUpPortraitPrompt),
-    chestUpMjPortraitPrompt: readContractOutput(prompt, PROMPT_OUTPUT_CONTRACTS.chestUpMjPortraitPrompt),
     fullBodyCharacterPrompt: readContractOutput(prompt, PROMPT_OUTPUT_CONTRACTS.fullBodyCharacterPrompt),
     selection: prompt.selection,
   };
@@ -114,13 +113,12 @@ test('prompt output contracts are frozen serializable data with stable public fi
     'zImagePrompt',
     'midjourneyPrompt',
     'chestUpPortraitPrompt',
-    'chestUpMjPortraitPrompt',
     'fullBodyCharacterPrompt',
     'nanoBananaPrompt',
   ]);
   assert.ok(Object.isFrozen(PROMPT_OUTPUT_CONTRACTS));
   assert.ok(Object.isFrozen(STANDALONE_BODY_TYPE_CONTRACT));
-  assert.equal(STANDALONE_BODY_TYPE_CONTRACT.version, '2.1.0');
+  assert.equal(STANDALONE_BODY_TYPE_CONTRACT.version, '2.2.0');
   assert.ok(Object.isFrozen(PROMPT_OUTPUT_CONTRACTS.grokPrompt.shape.modes.single));
   assert.deepEqual(JSON.parse(JSON.stringify(PROMPT_OUTPUT_CONTRACTS)), PROMPT_OUTPUT_CONTRACTS);
   assert.equal(PROMPT_OUTPUT_CONTRACTS.grokPrompt.uiLabel, 'Gpt');
@@ -134,8 +132,6 @@ test('prompt output contracts are frozen serializable data with stable public fi
     /--v/
   );
   assert.equal(PROMPT_OUTPUT_CONTRACTS.chestUpPortraitPrompt.source.id, 'chest-up-portrait');
-  assert.equal(PROMPT_OUTPUT_CONTRACTS.chestUpMjPortraitPrompt.source.id, 'chest-up-mj-portrait');
-  assert.match(PROMPT_OUTPUT_CONTRACTS.chestUpMjPortraitPrompt.tail.requiredPatternSource, /--ar 4:5/);
   assert.deepEqual(PROMPT_OUTPUT_CONTRACTS.fullBodyCharacterPrompt.applicability.supportedModes, ['single']);
 });
 
@@ -178,13 +174,6 @@ test('contract validator reports unknown, unsupported, tail, language, and contr
   assert.ok(
     validatePromptOutputContract('midjourneyPrompt', invalidMidjourney, { mode: 'single' })
       .some((entry) => entry.code === 'tail-pattern')
-  );
-  assert.ok(
-    validatePromptOutputContract(
-      'chestUpMjPortraitPrompt',
-      'Photorealistic editorial portrait. --v 8.2 --ar 1:1 --raw --s 25 --c 0 --w 0 --sd',
-      { mode: 'single' },
-    ).some((entry) => entry.code === 'tail-pattern')
   );
 });
 

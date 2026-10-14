@@ -26,7 +26,6 @@ export const MIDJOURNEY_DESCRIPTION_CONTRACT = deepFreeze({
       'zImagePrompt',
       'facialCloseupPortraitPrompt',
       'chestUpPortraitPrompt',
-      'chestUpMjPortraitPrompt',
       'fullBodyCharacterPrompt',
     ],
   },
@@ -58,12 +57,6 @@ export const MIDJOURNEY_DESCRIPTION_CONTRACT = deepFreeze({
     inventedVisualFacts: 'forbidden',
     exactCanonicalPoseReuse: true,
     preserveCompatibilitySelections: true,
-    topSurfaceDesign: {
-      scope: ['chestUpMjPortraitPrompt'],
-      source: 'resolved topPattern clauses present in the shared projected Top value',
-      retention: 'preserve selected pattern clauses once with the top garment; do not replace them with structural details',
-      exclusions: 'no Top value, hidden garment, none selection, or complete-look replacement',
-    },
     preserveHistoricalMappings: {
       Gpt: 'grokPrompt',
       'Grok/Z-Image': 'zImagePrompt',

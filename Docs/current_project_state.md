@@ -4,6 +4,17 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-14
 
+## 官方規範修正：標點、MJ 比例、全身體態、移除 MJ 胸上、族裔 (2026-10-14)
+
+- 依 [七種輸出 × 官方規範檢視](reports/prompt-official-review-2026-10-13/README.md) 與 Cooper 決定，在分支 `claude/prompt-official-fixes` 完成五組修改，規格見 [官方規範修正 v1](specs/prompt-official-fixes-v1.md)，決策見 [決策紀錄](decisions/2026-10-14-prompt-official-fixes.md)。
+- **標點**：新增 `publicPromptPolish`，在 `buildPrompts` 出口修正 `.,`、`She wears,`、句首小寫與比例句後的景別大寫；澀谷招牌文字改為 `"TSUTAYA"`、`"STARBUCKS"`（舊原文保留為匯入別名）。
+- **MJ 比例**：F 區「跟隨 PAGE1」且 PAGE1 無比例時，主 MJ 依景別帶入 `--ar`（近景／胸上 4:5、中景 3:4、牛仔／全身／未選 2:3；固定構圖不變）。Saved Cards 匯入與 F 區即時調整共用 `framingAspectRatioForSelection()`。
+- **全身角色照**：帶回獨立 Body Type（原位置）；主 GPT 與 GPT 胸上維持省略。`STANDALONE_BODY_TYPE_CONTRACT` 升為 `2.2.0`。
+- **MJ 胸上特寫已完全移除**：引擎、輸出卡片、DLL 來源、F 參數連動與契約都已移除；既有 Saved Cards 資料保留不改寫。現在共 6 種輸出。
+- **族裔**：所有主體句改為 `20-year-old adult woman`（雙人 `adult women`）；族裔改由五官特徵承接（韓系、冷感、成熟 → Korean；日系、甜美 → Japanese；混血與全無不指定），含 `mj.face` 與 Nano 五官描述。舊英文保留為匯入別名；角色卡（East Asian）不動。新增五官時請依[撰寫指引 A 的「五官族裔」](specs/character-section-a-authoring-guide.md)。
+- 驗證：完整測試 1573/1573（連跑 2 次）、Prompt Quality 698/698、lint、build、同 seed strict audit（摘要不變）、資料同步、Python 測試、公開資產、diff-check 全數通過；304 組全輸出比對中 1,814 個變動欄位全部可由核准變更解釋。瀏覽器 1440×1000 與 390×900 六工作區、生成、F 區即時調整、Saved Cards 存取還原檢查通過，無主控台錯誤。
+- 已知未處理：雙人測試 `enginePromptPipeline.test.js:934` 與 `enginePromptDeduplication.test.js:58` 未固定 seed 偶發失敗（既有）；`scripts/tests/prompt_audit.test.mjs` 在 main 上即有 1 個失敗且無 CI 入口；`renderAiPrompt` 舊渲染鏈與 `mjSemanticReuse` 待專門清理；`CAUTION` 字樣未加引號。
+
 ## PAGE1 全域「全部全無」：main 合併 (2026-10-14)
 
 - 使用者授權將 `be820b3` 的全域「全部全無」單獨移入 main，基底為遠端 `468edac`。一般可省略選項明確設為既有 none，涵蓋單／雙人；人物數量、七個 MJ 參數與四個 Z-Image 畫面文字設定保留，必要成品類型維持寫實攝影。

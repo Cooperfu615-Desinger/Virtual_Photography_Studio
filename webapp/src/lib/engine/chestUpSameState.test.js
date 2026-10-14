@@ -14,7 +14,7 @@ const option = (key, zh) => {
 };
 const extra = (prompt, id) => prompt.extraPrompts.find(entry => entry.id === id)?.text || '';
 const section = (text, label) => text.split(`${label}:\n`)[1]?.split('\n\n')[0] || '';
-const chestTexts = prompt => ['chest-up-portrait', 'chest-up-mj-portrait'].map(id => extra(prompt, id));
+const chestTexts = prompt => ['chest-up-portrait'].map(id => extra(prompt, id));
 
 function fixture(overrides = {}) {
   const locks = createEmptyLocks();
@@ -35,9 +35,8 @@ function generate(overrides = {}) {
 test('both chest crops own 4:5 without changing the source ratio or selection', () => {
   for (const aspectRatio of ['16:9', '9:16', '1:1', '4:5']) {
     const prompt = generate({ aspectRatio });
-    const [gpt, mj] = chestTexts(prompt);
+    const [gpt] = chestTexts(prompt);
     assert.match(section(gpt, 'Composition'), /Vertical portrait composition at a 4:5 aspect ratio/);
-    assert.match(mj, /--ar 4:5\b/);
     assert.equal(prompt.selection.aspectRatio, aspectRatio);
     assert.ok(prompt.grokPrompt.includes(`a ${aspectRatio} aspect ratio`));
   }
@@ -53,30 +52,12 @@ test('chest GPT uses the main lighting, camera and scene policy with full source
   assert.doesNotMatch(section(chest, 'Composition'), /entire figure|head to feet/);
 });
 
-test('chest MJ uses main MJ imaging semantics including aperture and shutter', () => {
-  const prompt = generate({
-    filmId: option('filmId', '高階黑白灰階'),
-    apertureId: option('apertureId', 'f/1.4 極淺景深散景'),
-    shutterId: option('shutterId', '1/30s 主體動態殘影'),
-  });
-  const chest = extra(prompt, 'chest-up-mj-portrait');
-  for (const text of [chest]) {
-    assert.match(text, /f\/1\.4-style ultra shallow depth of field/);
-    assert.match(text, /1\/30s slow-shutter portrait blur/);
-    assert.match(text, /narrow field of view/);
-    assert.doesNotMatch(text, /Orie Ichihashi|premium monochrome|black-and-white tonal response/);
-    assert.ok(text.indexOf('The setting is') < text.indexOf('Japanese woman'));
-    assert.ok(text.indexOf('She has') < text.indexOf('Wearing'));
-  }
-});
-
 test('fixed chest identity and scene are independent of the parent crop', () => {
   const orbitId = option('orbitId', '左側 90 度');
   const full = generate({ orbitId });
   const close = generate({ orbitId, framingId: option('framingId', '半臉傾斜特寫') });
   assert.equal(full.selection.bodyTypeId, close.selection.bodyTypeId);
   assert.deepEqual(chestTexts(full), chestTexts(close));
-  assert.ok(extra(full, 'chest-up-mj-portrait').includes(controls.find(c => c.key === 'bodyTypeId').options.find(o => o.id === full.selection.bodyTypeId).en));
 });
 
 test('chest crops retain the selected posture and manual seat without demanding hidden legs', () => {
@@ -141,7 +122,6 @@ test('preview F settings update both MJ tails and survive save/restore without r
   assert.deepEqual(source, before);
   assert.equal(updated.id, source.id);
   assert.match(updated.midjourneyPrompt, /--v 8\.1 --ar 16:9 --s 500 --c 30 --w 42 --hd$/);
-  assert.match(extra(updated, 'chest-up-mj-portrait'), /--v 8\.1 --ar 4:5 --s 500 --c 30 --w 42 --hd$/);
   for (const id of ['chest-up-portrait', 'full-body-character']) assert.equal(extra(updated, id), extra(source, id));
   for (const field of ['grokPrompt', 'zImagePrompt']) assert.equal(updated[field], source[field]);
   const restored = deserializeFavoritePrompt(serializeFavoritePrompt({ ...updated, source: 'page1' }));

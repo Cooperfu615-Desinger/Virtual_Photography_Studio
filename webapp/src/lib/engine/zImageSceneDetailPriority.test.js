@@ -19,6 +19,7 @@ import { runLegacySceneFixture as runSceneFixture, runSceneFixture as runCurrent
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 import { normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';
 import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
+import { restorePreEthnicityOutputs } from './ethnicityRevisionTestSupport.js';
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 
 const controls = getLockControls();
@@ -100,7 +101,8 @@ test('1430 frozen cases permit only reviewed low-camera scene substitutions', ()
     const row = SCENE_DETAIL_PRIORITY_REGRESSION[i];
     const entry = SCENE_DETAIL_PRIORITY_CASES.find(([label]) => label === row.locks.locationId?.byZh)
       || SCENE_DETAIL_PRIORITY_REMAINING_CASES.find(([label]) => label === row.locks.locationId?.byZh);
-    const output = { ...r.outputs };
+    // The baseline predates the 2026-10-14 ethnicity revision; reverse only that rollout.
+    const output = restorePreEthnicityOutputs(r.outputs);
     const lowCamera = LOW_CAMERA_LABELS.includes(angles.find(a => a.id === r.selection.angleId)?.zh);
     if (entry && lowCamera) {
       const [, before, after] = entry;

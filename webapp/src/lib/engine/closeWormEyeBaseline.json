@@ -2,12 +2,11 @@
   "commit": "b74a43202598adc1a6715c910020cd9e4f96c27f",
   "count": 6370,
   "hashes": {
-    "grokPrompt": "2f1e257ecdef5c1dddcfd6439b6e0f7fd6f4f542b101f059ede2ec6e7ea58b19",
-    "zImagePrompt": "1f9970f25e36282e02355dcf6f8c54c7d83383df9654f278d12a9bc9a35c3a2b",
+    "grokPrompt": "50e0dccc78949d93c6d743187aa8380c67680b3375ab1d2d8a551f8e62fb6808",
+    "zImagePrompt": "10d5a6006c4bdba44c2c2f17316a2663604be2d48caa51199f66402b883bbf07",
     "midjourneyPrompt": "b3d03fae51aa3818737c58960bd1357cdfdbedf25f8135f82ce8667f386f4286",
     "chestUpPortraitPrompt": "b164c22b41632f2b5985a3d50ef786242481172e0d1dec5580d575741ee35f2f",
-    "chestUpMjPortraitPrompt": "8babdc0f29349a8dc16086a0f4880b437e3e7b4ee79233a26060e5fbf8617663",
-    "fullBodyCharacterPrompt": "55503c3c62f731a2e95b59003f1499098cc71d46829a4f147813041326d1ad5a"
+    "fullBodyCharacterPrompt": "ad34d2dcad9b341f66300e4a9ee27074a29dba4f1ebeac236a6a35a7a403865d"
   },
   "selections": "4da06787c592c2b023fd1e7d9f5b72759626f8f4c9a1a0b978f54cdc1a340be8",
   "random": "a195a7b3ffbd12bb4cc00f77c49537b1044d23a9ec8d9f503fcfcca3cb23d23a"

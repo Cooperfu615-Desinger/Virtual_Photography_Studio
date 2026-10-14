@@ -1,5 +1,6 @@
 import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
 import assert from 'node:assert/strict';
+import { restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
 import { normalizeCloseWormForLegacy } from './closeWormEyeTestSupport.js';
 import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
@@ -46,6 +47,7 @@ test('GPT projection clones source roles, preserves full scene detail and all no
   for (const key of ['Action Pose', 'Subject Light Style', 'World Scene Architecture']) assert.deepEqual(projected.valuesByLabel.get(key), valuesByLabel.get(key));
 });
 
+const capitalizeFirst = (text) => text && text[0].toUpperCase() + text.slice(1);
 test('frozen all-scene / ambient matrix changes only approved GPT Scene and Lighting; every other byte and selection stays fixed', () => {
   const results = GPT_VISIBILITY_ALL.map(runSceneFixture);
   assert.equal(results.length, baseline.count);
@@ -56,14 +58,17 @@ test('frozen all-scene / ambient matrix changes only approved GPT Scene and Ligh
     const oldLight = baseline.lighting[baseline.indices[i][1]];
     const ambient = AMBIENT_LIGHT_DESCRIPTIONS[r.selection.lightingId];
     const expectedLight = !excluded && ambient
-      ? oldLight.replace(renderAmbientLightDescription(ambient), renderAmbientLightDescription(ambient, 'z', angle)) : oldLight;
+      ? oldLight.replace(renderAmbientLightDescription(ambient), renderAmbientLightDescription(ambient, 'z', angle))
+        // Polished baselines capitalize a Lighting block that starts with the ambient source.
+        .replace(capitalizeFirst(renderAmbientLightDescription(ambient)), capitalizeFirst(renderAmbientLightDescription(ambient, 'z', angle))) : oldLight;
     assert.equal(gptSection(r.outputs.grokPrompt, 'Scene', r.selection), excluded ? oldScene : expectedSceneProjection(oldScene, angle), GPT_VISIBILITY_ALL[i].id);
     assert.equal(normalizeSubjectLightForLegacy(gptSection(r.outputs.grokPrompt, 'Lighting')), expectedLight, GPT_VISIBILITY_ALL[i].id);
   }
   assertChestUpRevision('visibility', results);
+  // Frozen hashes predate the 2026-10-14 ethnicity revision; reverse only that rollout.
   for (const field of PROTECTED_OUTPUT_FIELDS) assert.equal(digest(results.map(r => field === 'grokPrompt'
-    ? withoutSceneLighting(r.outputs[field], r.selection)
-    : normalizeHighAngleDistanceForLegacy(normalizeCloseWormForLegacy(normalizeExplicitWardrobeFitForLegacy(r.outputs[field], field), field, r.selection)))), baseline.hashes[field], field);
+    ? withoutSceneLighting(restorePreEthnicityText(r.outputs[field], field), r.selection)
+    : normalizeHighAngleDistanceForLegacy(normalizeCloseWormForLegacy(normalizeExplicitWardrobeFitForLegacy(restorePreEthnicityText(r.outputs[field], field), field), field, r.selection)))), baseline.hashes[field], field);
   assert.equal(digest(results.map(r => r.selection)), baseline.selectionHash);
   assert.equal(digest(results.map(r => r.randomDraws)), baseline.randomHash);
 });

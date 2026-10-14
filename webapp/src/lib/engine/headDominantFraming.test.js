@@ -150,12 +150,9 @@ test('new main camera distance is close while chest derivatives retain their own
     const prompt = generate(locks);
     for (const text of mainTexts(prompt)) assert.doesNotMatch(text, /1\.5[–-]2 meters|1[–-]2 meters|3[–-]5 meters/);
     const chestGpt = extra(prompt, 'chest-up-portrait');
-    const chestMj = extra(prompt, 'chest-up-mj-portrait');
     assert.match(section(chestGpt, 'Composition'), /4:5 aspect ratio.*Chest-up portrait/i);
-    assert.match(chestMj, /Chest-up portrait/i);
-    assert.match(chestMj, /--ar 4:5\b/);
     assert.match(chestGpt, zh === '高位俯視鏡頭' ? /1\.5[–-]2 meters/ : /1[–-]2 meters/);
-    for (const text of [chestGpt, chestMj, extra(prompt, 'full-body-character')]) {
+    for (const text of [chestGpt, extra(prompt, 'full-body-character')]) {
       assert.doesNotMatch(text, /head-dominant close portrait|50[–-]60%/i);
     }
     const ordinary = generate({ ...locks, framingId: option('framingId', '胸上特寫').id });
@@ -163,7 +160,6 @@ test('new main camera distance is close while chest derivatives retain their own
     // exact derived bytes only when both parents resolve the same angle.
     if (ordinary.selection.angleId === prompt.selection.angleId) {
       assert.equal(chestGpt, extra(ordinary, 'chest-up-portrait'), `${zh}: same resolved chest GPT`);
-      assert.equal(chestMj, extra(ordinary, 'chest-up-mj-portrait'), `${zh}: same resolved chest MJ`);
     }
     assert.equal(extra(prompt, 'full-body-character'), extra(ordinary, 'full-body-character'), `${zh}: full reference independence`);
   }

@@ -5,8 +5,9 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { digest, OUTPUT_FIELDS } from './sceneIntegratedAssemblyTestSupport.js';
 import { normalizeShibuyaPromptForLegacy } from './shibuyaSceneTestSupport.js';
+import { restorePreEthnicityOutputs } from './ethnicityRevisionTestSupport.js';
 
-export const CHEST_OUTPUT_FIELDS = ['chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'];
+export const CHEST_OUTPUT_FIELDS = ['chestUpPortraitPrompt'];
 export const PROTECTED_OUTPUT_FIELDS = OUTPUT_FIELDS.filter(field => !CHEST_OUTPUT_FIELDS.includes(field) && field !== 'midjourneyPrompt');
 
 export function measureChestUpRevision(results) {
@@ -22,5 +23,7 @@ export function measureChestUpRevision(results) {
 export function assertChestUpRevision(group, results) {
   const expected = { groups: JSON.parse(readFileSync(new URL('./midjourneyNaturalHistoricalProtected.json', import.meta.url), 'utf8')) }; // Pre-v2 engine, excluding main MJ only.
   assert.ok(expected.groups[group], `Missing scoped chest baseline: ${group}`);
-  assert.deepEqual(measureChestUpRevision(results), expected.groups[group], `${group}: chest revision or protected state drift`);
+  // The frozen groups predate the 2026-10-14 ethnicity revision; reverse only that rollout.
+  const historical = results.map(result => ({ ...result, outputs: restorePreEthnicityOutputs(result.outputs) }));
+  assert.deepEqual(measureChestUpRevision(historical), expected.groups[group], `${group}: chest revision or protected state drift`);
 }

@@ -2,6 +2,7 @@ import naturalProtected from './engine/midjourneyNaturalMirrorProtected.json' wi
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { createHash } from 'node:crypto';
+import { restorePreEthnicityOutputs } from './engine/ethnicityRevisionTestSupport.js';
 
 import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls, getSceneDependentOptions, normalizeLocks } from './engine.js';
 import { buildPage1ControlGroups } from '../features/page1/page1Selectors.js';
@@ -67,7 +68,8 @@ test('five protected output hashes match the pre-natural-MJ capture for mirror a
     }, `mirror-prop-v1:${id}`);
     const outputs = Object.fromEntries([['grokPrompt', prompt.grokPrompt], ['zImagePrompt', prompt.zImagePrompt],
       ...prompt.extraPrompts.map(row => [row.id, row.text])]);
-    assert.equal(createHash('sha256').update(JSON.stringify(outputs)).digest('hex'), naturalProtected[id], id);
+    // Frozen hashes predate the 2026-10-14 ethnicity revision; reverse only that rollout.
+    assert.equal(createHash('sha256').update(JSON.stringify(restorePreEthnicityOutputs(outputs))).digest('hex'), naturalProtected[id], id);
   }
 });
 
@@ -188,7 +190,7 @@ test('legacy and new mirror locks produce byte-identical six outputs across crop
 test('mirror prop locks orbit and relocates the same visible source only once in main Z capture', () => {
   const prompt = generate({ orbitId: option('orbitId', '背面 180 度').id });
   assert.equal(prompt.selection.orbitId, option('orbitId', '全無').id);
-  for (const text of sixOutputs(prompt).slice(0, 5)) assert.equal(count(text), 1);
+  for (const text of sixOutputs(prompt).slice(0, 4)) assert.equal(count(text), 1);
   assert.equal(count(prompt.zImagePrompt.split('\n\n')[1]), 1);
   assert.equal(count(prompt.zImagePrompt.split('\n\n').slice(2).join('\n\n')), 0);
   assert.doesNotMatch(prompt.grokPrompt, /rear view|back view|from behind/i);

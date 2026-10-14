@@ -23,7 +23,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     },
     expectedTail: '--v 8.2 --ar 4:5 --raw --s 25 --c 0 --w 0 --sd',
     baselineHashes: {
-      grokPrompt: 'd48061e3e0063e38e067abb40989daa71000be91d4f6fb947652f8c14773d885',
+      grokPrompt: 'db3b9261a96f6c25fa4596671591b6c2e7678897729615c560c5f84b8ec74dd7',
       zImagePrompt: 'add51d2ab02f5ad600379344ed30c9d5e56b335aecfaf4fa2c3ec650fc1474cd',
       midjourneyPrompt: 'ae27d961563fbba281c95c33a1d55d637d5118d0ac0316230f671719c382b985',
     },
@@ -44,7 +44,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     },
     expectedTail: '--v 8.2 --ar 9:16 --s 100 --c 0 --w 0 --hd',
     baselineHashes: {
-      grokPrompt: 'ca6cdde4f3a5ad082edebe75dbd18615a8b55b2f4774a41483786ea029958036',
+      grokPrompt: 'a9160edb5eca19f825804bee37af41fbe1a8561d4a917e0fd3cf7f8c6ec8d0b8',
       zImagePrompt: '7e5163304de68b5d0eabef5bf9670bfe5edaa90a9c8845a83141fd1128aa0deb',
       midjourneyPrompt: '25b7c896cc14c93551dda26329a43d6156a458b2a22de0d3e4e9432744b07323',
     },
@@ -65,7 +65,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     },
     expectedTail: '--v 8.2 --ar 4:5 --raw --s 50 --c 0 --w 0 --sd',
     baselineHashes: {
-      grokPrompt: '80c49cc0a39c72165c657a9df73ea400d3c8655d4971ab5fa3ea8f5f3d64b1d2',
+      grokPrompt: '131ad668763dd2dfa15b5f20d09450524b9dad102c406a69d6fb1feb46026c1c',
       zImagePrompt: '6bcd0bdaa099c6b67e0b602255ea0b1777d45149e316ec14ebfd4526848c042f',
       midjourneyPrompt: 'b7907e731f5e04a6d75adbc2484fee6fb9db5576eed976b51938ef5406bcfae9',
     },
@@ -86,7 +86,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     },
     expectedTail: '--v 8.2 --ar 4:5 --raw --s 50 --c 0 --w 0 --hd',
     baselineHashes: {
-      grokPrompt: '16bfbcaea4dd8a976f86a20c31dd841d9fa296a2c1e8602cf864247e6447a673',
+      grokPrompt: '339b3ef69e7f33ea464cf64a7dfb1dca00acda284aa3830af8b42c83b64ef239',
       zImagePrompt: '813fb10fb8b13454011d624d5fff34f242dbf98c49d84e7c19170b58b5dc9192',
       midjourneyPrompt: 'e93cc457b295a65f3650074d4f775225f3597c23e778f6923860ff09c44ac5c9',
     },
@@ -107,7 +107,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     },
     expectedTail: '--v 8.2 --ar 3:4 --s 100 --c 0 --w 0 --sd',
     baselineHashes: {
-      grokPrompt: 'ca5665b951d50e4e208c434a8d4f22150e8117770c69b859c1a44a3998ce30e4',
+      grokPrompt: '598d1dccede34cd36fe515d02228c02437f32d9b3c11799fa4c2b417eb7c5a18',
       zImagePrompt: '391d4a0efbd66374e57acffa90be14932e90fc51791e452aed5dbd5ca63b7736',
       midjourneyPrompt: '46cf0306f75af041990ada379f6f1ec98b8c671baf51fe641346dcea3bb3e331',
     },
@@ -128,7 +128,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     },
     expectedTail: '--v 8.2 --ar 4:5 --s 250 --c 10 --w 0 --hd',
     baselineHashes: {
-      grokPrompt: '182ba2b84d35fd31b1f0e46828c5379267805eb9a5298b4f576c60544d196323',
+      grokPrompt: '37c7c48c085dfb4e52c4c976f1aaf7f80af756cc37f3edc0f6e91389b8f3a766',
       zImagePrompt: '31d4d1ad85264d485744c0ab8120f55beb1b51babdfab27d108920335f57a7a2',
       midjourneyPrompt: '67a7d2c05590c3e1399fda8cd657f21871d77c83465b3c220b981f789e1bf68b',
     },
@@ -149,7 +149,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     },
     expectedTail: '--v 8.1 --ar 9:16 --s 100 --c 0 --w 0 --sd',
     baselineHashes: {
-      grokPrompt: '583845715e70ccb4d824a1d43794e7195ad35cf29b0454c969ee705a22e9aed6',
+      grokPrompt: '16561bda91a1c00330690d841614528d9ddb7f8806ad7e9bcbdfc08eaf2d5ee6',
       zImagePrompt: '86cddf60cad71c2f992336672a761e4201ef659d37636a7356973372c3241fc9',
       midjourneyPrompt: '910c4243d6d227ceb18ef501b580b04b2d5d7c31a1e905bd431b70bf8f417061',
     },

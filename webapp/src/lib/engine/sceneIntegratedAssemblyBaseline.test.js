@@ -31,12 +31,11 @@ const supportObjectV1Expected = Object.freeze({
   'R19-random-pose': Object.freeze({
     poseAnchorId: 'none',
     outputHashes: Object.freeze({
-      grokPrompt: '91a1928c468ecc9e783ee4aff0b2aa4ce13d1f12c6d9af82ad36488feb5fdd05',
+      grokPrompt: 'eb4f28a02123bd21e133773e636022bee77771fd4f221e8dd99aabb727e215f2',
       zImagePrompt: 'ef51b62dfa6cad9a5ba6efdd779223295573e0154eefad1a070fab9df1f54251',
       midjourneyPrompt: '047358a317a1f7dc4a77a24268051b6efe3c530428eb9d953d46d54ac3851416',
       chestUpPortraitPrompt: 'e6902f324171853e9140f5fd62b53483a07c555850f6d2b35741d9298e3675dd',
-      chestUpMjPortraitPrompt: '2904f55f5a01bb15d1b34d27ba61d2cc9fff952beefd28633a56a3000608a8ab',
-      fullBodyCharacterPrompt: 'd62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce',
+      fullBodyCharacterPrompt: '9f30af1b1cec9590216ac2c66e2a06cdbe759e0098633f52900519916f8f1aca',
     }),
   }),
 });
@@ -53,7 +52,6 @@ test('main MJ integrates location and intact pose before wardrobe, with optics a
     assert.ok(text.indexOf(canonical) < text.indexOf('She wears '));
     assert.equal(text.split(canonical).length - 1, 1);
     if (id === 'R14-mj-imaging') assert.match(text, /Guy Bourdin[\s\S]*neon cross-processed/i);
-    assert.doesNotMatch(result.outputs.chestUpMjPortraitPrompt, /Guy Bourdin|neon cross-processed/i);
   }
   const imaging = get('R14-mj-imaging').outputs.midjourneyPrompt;
   assert.match(imaging, /50mm/);
@@ -93,7 +91,7 @@ test('MJ source order retains capture once, omits hidden hands, and keeps compos
     assert.doesNotMatch(get(id).outputs.midjourneyPrompt, /self-shot|right arm extended|phone just beyond/i);
   }
   const palm = get('R10-palm-occlusion').outputs.midjourneyPrompt;
-  assert.ok(palm.indexOf('The camera lens is intentionally blocked') < palm.indexOf('A Japanese'));
+  assert.ok(palm.indexOf('The camera lens is intentionally blocked') < palm.indexOf('A 20-year-old adult woman'));
   for (const id of ['R01-squat-low-selfie', 'R02-kneel-high-selfie']) {
     const text = get(id).outputs.midjourneyPrompt;
     assert.equal(text.match(/Shinjuku Kabukicho Ichibangai entrance/g)?.length, 1);
@@ -136,14 +134,16 @@ for (const fixture of fixtures) {
     assert.deepEqual(first.outputs, repeated.outputs, 'same-seed outputs changed');
     assert.deepEqual(first.selection, repeated.selection);
     assert.equal(repeated.randomDraws, first.randomDraws);
-    assertChestUpRevision(`scene:${fixture.id}`, [{ ...first, outputs: Object.fromEntries(Object.entries(first.outputs).map(([field, text]) => [field, fixture.id.startsWith('R11-shirt-shoulder-') ? normalizeOuterwearCatalogForLegacy(text, field === 'chestUpMjPortraitPrompt' ? 'midjourneyPrompt' : field) : text])) }]);
+    // Frozen hashes/bytes predate the 2026-10-14 ethnicity revision; reverse only that rollout.
+    const historicalOutputs = restorePreEthnicityOutputs(first.outputs);
+    assertChestUpRevision(`scene:${fixture.id}`, [{ ...first, outputs: Object.fromEntries(Object.entries(first.outputs).map(([field, text]) => [field, fixture.id.startsWith('R11-shirt-shoulder-') ? normalizeOuterwearCatalogForLegacy(text, field) : text])) }]);
     for (const field of OUTPUT_FIELDS) {
       const expectedHash = supportObjectExpected?.outputHashes[field]
         ?? (field === 'zImagePrompt' && !fixture.excluded
           ? zExpected.cases[fixture.id].hash : field === 'midjourneyPrompt' && !fixture.excluded
             ? mjExpected.cases[fixture.id].hash : entry.outputHashes[field]);
       if (!CHEST_OUTPUT_FIELDS.includes(field) && field !== 'midjourneyPrompt') {
-        assert.equal(digest(normalizeAmbientForLegacy(normalizeOuterwearCatalogForLegacy(field === 'zImagePrompt' ? normalizeFullCameraForLegacy(first.outputs[field]) : first.outputs[field], field), field, first.selection)), expectedHash, `${field}: scoped output drift`);
+        assert.equal(digest(normalizeAmbientForLegacy(normalizeOuterwearCatalogForLegacy(field === 'zImagePrompt' ? normalizeFullCameraForLegacy(historicalOutputs[field]) : historicalOutputs[field], field), field, first.selection)), expectedHash, `${field}: scoped output drift`);
       }
       assert.deepEqual(validatePromptOutputContract(field, first.outputs[field], {
         mode: fixture.mode,
@@ -154,7 +154,7 @@ for (const fixture of fixtures) {
     if (entry.outputs) {
       const normalizedOutputs = Object.fromEntries(PROTECTED_OUTPUT_FIELDS.map((field) => [field,
         normalizeAmbientForLegacy(
-          field === 'zImagePrompt' ? normalizeFullCameraForLegacy(first.outputs[field]) : first.outputs[field],
+          field === 'zImagePrompt' ? normalizeFullCameraForLegacy(historicalOutputs[field]) : historicalOutputs[field],
           field,
           first.selection,
         )]));
@@ -197,7 +197,8 @@ test('GPT and MJ retain canonical contact while Z omits only the independent anc
 test('core Z cases reorder existing scene and capture without reducing subject, wardrobe or imaging', () => {
   for (const id of ['R01-squat-low-selfie', 'R02-kneel-high-selfie']) {
     const previous = baseline.cases[id].outputs.zImagePrompt.split('\n\n');
-    const current = get(id).outputs.zImagePrompt.split('\n\n');
+    // The frozen baseline predates the 2026-10-14 ethnicity revision; reverse only that rollout.
+    const current = restorePreEthnicityOutputs(get(id).outputs).zImagePrompt.split('\n\n');
     assert.equal(current[0], previous[0], 'image type');
     assert.equal(current[2], previous[2], 'all effective subject sources');
     assert.equal(normalizeExplicitWardrobeFitForLegacy(current[4], 'zImagePrompt'), previous[3], 'all crop-visible wardrobe sources');
@@ -320,3 +321,4 @@ test('reverse generation order and independent observation workspace preserve ba
   assert.deepEqual(stableValue(observe()), before);
 });
 import { normalizeAmbientForLegacy } from './ambientLightTestSupport.js';
+import { restorePreEthnicityOutputs } from './ethnicityRevisionTestSupport.js';

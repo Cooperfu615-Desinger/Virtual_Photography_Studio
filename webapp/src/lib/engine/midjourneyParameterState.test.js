@@ -102,14 +102,6 @@ test('phase 4 changes only the AI parameter tail while preserving resolved selec
   for (const id of ['chest-up-portrait', 'full-body-character']) {
     assert.equal(customizedExtras.get(id), baselineExtras.get(id), id);
   }
-  assert.equal(
-    stripMidjourneyParameterTail(customizedExtras.get('chest-up-mj-portrait')),
-    stripMidjourneyParameterTail(baselineExtras.get('chest-up-mj-portrait')),
-  );
-  assert.equal(
-    customizedExtras.get('chest-up-mj-portrait').endsWith('--v 8.1 --ar 4:5 --raw --s 333 --c 18 --w 47 --hd'),
-    true,
-  );
   assert.deepEqual(pickSettings(customized.selection), CUSTOM_SETTINGS);
 });
 

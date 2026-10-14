@@ -90,7 +90,7 @@ test('palms and elbows produce different shared torso geometry before crop proje
         assert.doesNotMatch(text, /torso roughly parallel to the ground/);
       }
     }
-    for (const id of ['chest-up-portrait', 'chest-up-mj-portrait']) {
+    for (const id of ['chest-up-portrait']) {
       const text = extra(p, id);
       assert.match(text, hand === palms ? /raised chest and shoulders/ : /lowered chest and shoulders/);
       assert.doesNotMatch(text, /knees grounded|hips raised|palms planted|elbows planted/);

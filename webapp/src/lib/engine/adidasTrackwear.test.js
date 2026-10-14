@@ -4,6 +4,11 @@ import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls 
 import { prepareBottomRiseControl } from './bottomRiseCompatibility.js';
 import { buildWorkspaceSummary } from '../page1WorkspaceSummary.js';
 import { deserializeFavoritePrompt, serializeFavoritePrompt, parseLocksFromStandardPrompt } from '../../features/saved-cards/cardCodec.js';
+import { polishPublicPromptText } from './publicPromptPolish.js';
+// Public prompt polish (publicPromptPolish.js) capitalizes sentence starts. A
+// catalog source keeps every word; accept only its exact polished letter case.
+const sourceForms = (source) => [...new Set([source, polishPublicPromptText(source), source[0] + polishPublicPromptText(source).slice(1)])];
+const includesSource = (text, source) => sourceForms(source).some(form => text.includes(form));
 
 const controls = getLockControls();
 const jacket = '愛迪達立領三線外套';
@@ -69,7 +74,7 @@ test('elastic waist suppresses only incompatible fly styling while keeping store
   assert.equal(saved.selection.bottomRiseId, locks.bottomRiseId);
   const restored = generate({ ...saved.selection, pantsId: option('pantsId', '直筒牛仔褲').id });
   assert.match(restored.grokPrompt, /waist button undone/);
-  for (const rise of ['高腰', '正常腰線', '低腰', '超低腰']) assert.ok(generate(locksFor({ bottomRiseId: rise })).grokPrompt.includes(option('bottomRiseId', rise).en));
+  for (const rise of ['高腰', '正常腰線', '低腰', '超低腰']) assert.ok(includesSource(generate(locksFor({ bottomRiseId: rise })).grokPrompt, option('bottomRiseId', rise).en));
 });
 
 test('duo waist compatibility is scoped to the selected wearer', () => {

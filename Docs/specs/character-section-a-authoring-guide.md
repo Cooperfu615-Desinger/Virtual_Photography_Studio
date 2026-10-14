@@ -81,8 +81,10 @@ core identity phrase, 1-3 concrete visual traits, restrained style or realism cu
 
 目前選項：
 
-- `1 位`: one 20-year-old Japanese or Korean female portrait subject
-- `2 位`: two 20-year-old Japanese or Korean female portrait subjects
+- `1 位`: one 20-year-old adult woman
+- `2 位`: two 20-year-old adult women
+
+2026-10-14：主體句不再指定族裔（舊寫法 `Japanese or Korean female portrait subject(s)` 保留為匯入別名）。族裔改由 5.2 五官特徵承接，見下方「五官族裔（2026-10-14）」。
 
 舊資料相容：
 
@@ -153,6 +155,22 @@ fit toned athletic female body, healthy firm silhouette, subtle muscle definitio
 - `冷感高級臉`
 - `成熟性感臉`
 - `混血立體臉`
+
+### 五官族裔（2026-10-14）
+
+主體句不再指定族裔，改由五官特徵承接。目前的分配：
+
+| 五官特徵 | 族裔 | 共用 `en` | `mj.face` 與 Nano 五官描述 |
+| --- | --- | --- | --- |
+| 韓系偶像臉 | Korean | 原本已含 `Korean idol face` | `… oval Korean face …` |
+| 日系清透臉 | Japanese | 原本已含 `Japanese transparent face` | `… oval Japanese face …` |
+| 甜美可愛臉 | Japanese | `young sweet pretty Japanese face, …` | `… oval Japanese face …` |
+| 冷感高級臉 | Korean | `young cool editorial Korean beauty face, …` | `… oval Korean face …` |
+| 成熟性感臉 | Korean | `young seductive alluring Korean beauty face, …` | `… oval Korean face …` |
+| 混血立體臉 | 不指定日／韓 | 維持 `mixed editorial face` | 不變 |
+| 全無 | 不指定 | — | — |
+
+新增五官時，必須同時決定族裔，並同步寫進共用 `en`、`mj.face`（`knowledge_base/item_metadata.json`）與 Nano 五官描述（`webapp/src/lib/engine/nanoBananaFacialFeatures.js`）。改寫既有 `en` 時，舊英文要加入 `legacyPromptAliases`。角色卡（`East Asian`）的身份句由卡片本身承接，不在此規則內。詳見 [官方規範修正 v1](prompt-official-fixes-v1.md)。
 
 ### 五官結構定案（2026-08-09）
 

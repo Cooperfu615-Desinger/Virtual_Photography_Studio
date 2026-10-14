@@ -4,6 +4,7 @@ import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls 
 import { deserializeFavoritePrompt, serializeFavoritePrompt, parseLocksFromStandardPrompt } from '../../features/saved-cards/cardCodec.js';
 import { prepareOuterwearClosureControl } from './outerwearClosure.js';
 import { buildWorkspaceSummary } from '../page1WorkspaceSummary.js';
+import { assertFullBodyCharacterBody } from './fullBodyCharacterBodyTestSupport.js';
 
 const controls = getLockControls();
 const option = (key, zh) => {
@@ -56,7 +57,8 @@ test('hem source resolves transparency once and accepts a minimal inner top with
     }
     for (const text of [result.zImagePrompt]) assert.ok(text.includes(body.en));
     assert.ok(!result.grokPrompt.includes(body.en));
-    assert.ok(!result.extraPrompts.find(e => e.id === 'full-body-character').text.includes(body.en));
+    // Approved 2026-10-14 exception: full-body character keeps the body once.
+    assertFullBodyCharacterBody(result, body.en, coat);
     assert.equal(result.selection.bodyTypeId, body.id);
     assert.equal(parseLocksFromStandardPrompt(result.grokPrompt, controls).locks.outerwearStylingId, style.id);
   }

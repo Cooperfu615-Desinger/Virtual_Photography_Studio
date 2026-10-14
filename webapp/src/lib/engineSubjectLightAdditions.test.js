@@ -86,7 +86,6 @@ for (const [label, source] of NEW_SUBJECT_LIGHT_CASES) {
     assert.ok(sourcePresent(result.zImagePrompt, source.split(', ').slice(0, 2).join(', ')), 'Z retains first two source clauses');
     assert.ok(sourcePresent(result.midjourneyPrompt, source.split(', ')[0]), 'MJ retains distinctive first clause');
     assert.ok(sourcePresent(extraText(result, 'chest-up-portrait'), source), 'Chest GPT retains the same complete light');
-    assert.ok(sourcePresent(extraText(result, 'chest-up-mj-portrait'), source.split(', ')[0]), 'Chest MJ retains the same light core');
     const reference = extraText(result, 'full-body-character');
     assert.match(reference, /Clean even lighting/i);
     assert.ok(!reference.includes(source.split(', ')[0]), 'Character reference does not inherit selected light');
@@ -108,7 +107,7 @@ test('subject-light none remains silent without replacing the character-referenc
   const result = generate({ ...baseLocks(), lightDirectionId: option('lightDirectionId', '全無').id });
   assert.equal(result.selection.lightDirectionId, option('lightDirectionId', '全無').id);
   for (const text of [result.grokPrompt, result.zImagePrompt, result.midjourneyPrompt,
-    extraText(result, 'chest-up-portrait'), extraText(result, 'chest-up-mj-portrait')]) {
+    extraText(result, 'chest-up-portrait')]) {
     assert.doesNotMatch(text, /Lighting:|subject light|key light|direct flash|subject lighting|\bnone\b|unspecified/i);
   }
   assert.match(extraText(result, 'full-body-character'), /Clean even lighting/i);
@@ -141,7 +140,7 @@ test('fixed Japanese carriage smoke retains each newly selected shared light sou
     assert.equal(result.selection.fixedSetPositionId, 'carriage-bench-upright');
     assert.ok(sourcePresent(result.grokPrompt, source), `${label}: full GPT shared source`);
     for (const [field, text] of [['Z', result.zImagePrompt], ['MJ', result.midjourneyPrompt],
-      ['chest GPT', extraText(result, 'chest-up-portrait')], ['chest MJ', extraText(result, 'chest-up-mj-portrait')]]) {
+      ['chest GPT', extraText(result, 'chest-up-portrait')]]) {
       assert.ok(sourcePresent(text, source.split(', ')[0]), `${label}: ${field} retains shared light core`);
     }
   }

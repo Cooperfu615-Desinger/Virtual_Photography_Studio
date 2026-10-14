@@ -102,7 +102,7 @@ test('side and unassigned orbits retain the same generic mirror description', ()
 test('ordinary chest crops inherit mirror identity while full-body references remain independent', () => {
   const prompt = generateBathroomPrompt('正面 0 度');
   for (const entry of prompt.extraPrompts) {
-    if (['chest-up-portrait', 'chest-up-mj-portrait'].includes(entry.id)) {
+    if (['chest-up-portrait'].includes(entry.id)) {
       assert.match(entry.text, /mirror clearly reflects the same woman/);
     } else {
       assert.doesNotMatch(entry.text, /mirror clearly reflects the same woman/);

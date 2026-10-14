@@ -1,5 +1,6 @@
 import catalogProtected from './midjourneyNaturalCatalogProtected.json' with { type: 'json' };
 import assert from 'node:assert/strict';
+import { restorePreEthnicityValue } from './ethnicityRevisionTestSupport.js';
 import { createHash } from 'node:crypto';
 import { test } from 'node:test';
 import baseline from './bandagePastiesBaseline.json' with { type: 'json' };
@@ -50,7 +51,7 @@ function legacyTopSnapshot(p) {
   );
   return { ...value, grokPrompt: previousTieHead(value.grokPrompt),
     zImagePrompt: previousTieHead(value.zImagePrompt, true), midjourneyPrompt: previousTieHead(value.midjourneyPrompt, true),
-    extraPrompts: value.extraPrompts.map(row => ({ ...row, text: previousTieHead(row.text, row.id === 'chest-up-mj-portrait') })) };
+    extraPrompts: value.extraPrompts.map(row => ({ ...row, text: previousTieHead(row.text) })) };
 }
 
 test('bandage pasties append one independent option to single and duo catalogs without moving old IDs', () => {
@@ -76,7 +77,8 @@ test('all 225 existing top/crop selections and six outputs retain their pre-chan
     const p = generate({ topId, framingId: option('framingId', crop).id }, baseline.seed);
     const protectedSnapshot = legacyTopSnapshot(p);
     delete protectedSnapshot.midjourneyPrompt;
-    hash.update(JSON.stringify(protectedSnapshot));
+    // The frozen hash predates the 2026-10-14 ethnicity revision; reverse only that rollout.
+    hash.update(JSON.stringify(restorePreEthnicityValue(protectedSnapshot)));
     count++;
   }
   assert.equal(count, baseline.cases);

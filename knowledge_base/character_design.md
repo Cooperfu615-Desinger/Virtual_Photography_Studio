@@ -8,9 +8,9 @@
 | **五官特徵 (Facial Features)** | 全無 | `none` | 不指定五官特徵，讓模型自行決定臉部輪廓與辨識度。 |
 | **五官特徵 (Facial Features)** | 韓系偶像臉 | `young beautiful Korean idol face, refined small face, clear bright eyes, polished youthful beauty, photogenic K-pop portrait balance` | 韓系偶像感的年輕漂亮臉，重點是精緻、上鏡、明亮與乾淨。 |
 | **五官特徵 (Facial Features)** | 日系清透臉 | `young beautiful Japanese transparent face, soft natural features, clean gentle eyes, airy fresh beauty, subtle innocent portrait presence` | 日系清透淡顏，重點是自然、透明、乾淨與柔和的寫真感。 |
-| **五官特徵 (Facial Features)** | 甜美可愛臉 | `young sweet pretty face, soft rounded charm, bright friendly eyes, gentle cute beauty, approachable youthful portrait look` | 甜美、親和、年輕漂亮，帶可愛感但不幼態。 |
-| **五官特徵 (Facial Features)** | 冷感高級臉 | `young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, high-fashion understated presence` | 冷感、俐落、時裝 editorial 氣質，臉部基底更高級克制。 |
-| **五官特徵 (Facial Features)** | 成熟性感臉 | `young seductive alluring beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence` | 性感、迷人、明艷、有女人味，以五官氣質帶出吸引力而不是靠表情。 |
+| **五官特徵 (Facial Features)** | 甜美可愛臉 | `young sweet pretty Japanese face, soft rounded charm, bright friendly eyes, gentle cute beauty, approachable youthful portrait look` | 甜美、親和、年輕漂亮，帶可愛感但不幼態。 |
+| **五官特徵 (Facial Features)** | 冷感高級臉 | `young cool editorial Korean beauty face, refined sharp facial balance, calm distant gaze-ready features, high-fashion understated presence` | 冷感、俐落、時裝 editorial 氣質，臉部基底更高級克制。 |
+| **五官特徵 (Facial Features)** | 成熟性感臉 | `young seductive alluring Korean beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence` | 性感、迷人、明艷、有女人味，以五官氣質帶出吸引力而不是靠表情。 |
 | **五官特徵 (Facial Features)** | 混血立體臉 | `young mixed editorial face, dimensional facial structure, defined nose bridge and deep-set eyes, international high-fashion beauty` | 立體骨相與國際 editorial 感，仍可服務日韓女性角色主線。 |
 | **膚質特徵 (Skin Details)** | 全無 | `none` | 不指定膚質特徵，讓模型自行決定肌膚表面細節。 |
 | **膚質特徵 (Skin Details)** | 玻璃水光肌 | `glass skin, dewy luminous skin texture, hydrated reflective complexion` | 光澤明顯、飽水感高，適合韓系棚拍與近距離人像。 |

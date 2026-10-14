@@ -32,7 +32,6 @@ const SIX_OUTPUT_IDS = [
   'grok',
   'ai',
   'chest-up-portrait',
-  'chest-up-mj-portrait',
   'full-body-character',
 ];
 const NANO_BANANA_OUTPUT_ID = 'nano-banana-2.1';
@@ -149,8 +148,6 @@ test('phase-6 current main framings preserve one resolved source across all six 
     }
     assertFragments(extraText(prompt, 'chest-up-portrait'), fixture.chestIncludes, true, `${fixture.id}.chest`);
     assertFragments(extraText(prompt, 'chest-up-portrait'), fixture.chestExcludes, false, `${fixture.id}.chest`);
-    assertFragments(extraText(prompt, 'chest-up-mj-portrait'), fixture.chestIncludes, true, `${fixture.id}.mjChest`);
-    assertFragments(extraText(prompt, 'chest-up-mj-portrait'), fixture.chestExcludes, false, `${fixture.id}.mjChest`);
     assertFragments(extraText(prompt, 'full-body-character'), fixture.fullBodyIncludes, true, `${fixture.id}.fullBody`);
     assert.equal(extraText(prompt, 'facial-closeup-portrait'), '', `${fixture.id}: retired face output`);
   }

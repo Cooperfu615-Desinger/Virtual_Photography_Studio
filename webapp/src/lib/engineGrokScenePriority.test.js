@@ -56,7 +56,7 @@ test('Z-Image connects scene and pose before subject and special outfit without 
   });
 
   const zImage = prompt.zImagePrompt;
-  const subjectIndex = zImage.indexOf('A 20s seductive stunning Japanese or Korean woman');
+  const subjectIndex = zImage.indexOf('A 20-year-old seductive stunning adult woman');
   const settingIndex = zImage.indexOf('The setting is ');
   const locationIndex = zImage.indexOf('Seoul Seongsu-dong urban corner');
   const wardrobeIndex = zImage.indexOf('She wears black sheer polka-dot matching fashion set');
@@ -100,7 +100,7 @@ test('PAGE1 imaging simulation uses rendering looks in generated outputs and sel
   assert.equal(prompt.selection.filmId, optionId('filmId', '高銳利快照黑位'));
   assert.equal(prompt.selection.cameraSystemId, '');
   assert.doesNotMatch(prompt.grokPrompt, /Camera System:/);
-  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*high-acutance snapshot rendering/);
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*High-acutance snapshot rendering/);
   assert.match(prompt.zImagePrompt, /high-acutance snapshot rendering/i);
   assert.equal(prompt.structured['Lens & Imaging'].at(-1).zh, '高銳利快照黑位');
 });
@@ -113,5 +113,5 @@ test('legacy camera system lock migrates into rendering simulation', () => {
 
   assert.equal(prompt.selection.filmId, optionId('filmId', '高銳利快照黑位'));
   assert.equal(prompt.selection.cameraSystemId, '');
-  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*high-acutance snapshot rendering/);
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*High-acutance snapshot rendering/);
 });

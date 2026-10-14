@@ -13,9 +13,13 @@ export function normalizeAmbientForLegacy(text, field, selection) {
   const entry = AMBIENT_LIGHT_DESCRIPTIONS[selection?.lightingId];
   if (!entry || !['grokPrompt', 'zImagePrompt'].includes(field)) return text;
   const angle = angles.find(a => a.id === selection.angleId);
+  // Public prompt polish capitalizes the Lighting block's first source letter.
   if (field === 'grokPrompt') return text.replace(
     `Lighting:\n${renderAmbientLightDescription(entry, 'directional', angle)}`,
     `Lighting:\n${entry.source}`,
+  ).replace(
+    `Lighting:\n${cap(renderAmbientLightDescription(entry, 'directional', angle))}`,
+    `Lighting:\n${cap(entry.source)}`,
   );
   const current = cap(renderAmbientLightDescription(entry, 'z', angle));
   const previous = cap(projectZImageDirectionalSource(entry.source.split(', ').slice(0, 2).join(', '), angle));
