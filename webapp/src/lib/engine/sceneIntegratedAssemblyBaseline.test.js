@@ -192,7 +192,7 @@ test('GPT and MJ retain canonical contact while Z omits only the independent anc
   assert.doesNotMatch(pose(withoutAnchor), /vertical surface|body-weight support/);
   assert.equal(withAnchor.outputs.zImagePrompt, withoutAnchor.outputs.zImagePrompt);
   assert.doesNotMatch(withAnchor.outputs.zImagePrompt, /upper back resting against/);
-  assert.match(pose(get('R05-elbows-on-knees')), /both elbows resting firmly on top of the knees/);
+  assert.match(pose(get('R05-elbows-on-knees')), /both elbows or proximal forearms resting lightly on the same-side thighs near the knees/);
 });
 
 test('core Z cases reorder existing scene and capture without reducing subject, wardrobe or imaging', () => {
@@ -215,7 +215,7 @@ test('core Z cases reorder existing scene and capture without reducing subject, 
     assert.match(current[1], /self-shot.*right arm extended/i);
     assert.doesNotMatch(current[3], /self-shot|phone|vertical surface/);
   }
-  assert.match(get('R05-elbows-on-knees').outputs.zImagePrompt, /both elbows resting firmly on top of the knees/);
+  assert.match(get('R05-elbows-on-knees').outputs.zImagePrompt, /both elbows or proximal forearms resting lightly on the same-side thighs near the knees/);
 });
 
 test('Z does not invent settings or restore selfie hands hidden by the selected crop', () => {

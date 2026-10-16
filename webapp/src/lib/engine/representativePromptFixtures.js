@@ -826,7 +826,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       framingId: { byZh: '牛仔中景 (Cowboy Shot)' },
       poseBaseId: { byZh: '蹲姿' },
       poseArrangementId: { byZh: '身體前傾蹲姿' },
-      poseHandId: { byZh: '雙手向前伸展' },
+      poseHandId: { byZh: '雙肘靠膝自然垂手' },
       posePropId: { byZh: '全無' },
       poseHeadId: { byZh: '全無' },
       poseAnchorId: { byZh: '全無' },
@@ -835,24 +835,24 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     expectedOutputs: {
       grokPrompt: {
         includes: [
-          'both elbows resting firmly on top of the knees',
-          'forearms extend forward and downward beyond the knees',
+          'both elbows or proximal forearms resting lightly on the same-side thighs near the knees',
+          'forearms falling naturally forward and downward beyond the knees',
           'torso gently inclined from the hips toward the thighs',
         ],
         excludes: ['hands held close together in front of the knees'],
       },
       zImagePrompt: {
         includes: [
-          'both elbows resting firmly on top of the knees',
-          'forearms extend forward and downward beyond the knees',
+          'both elbows or proximal forearms resting lightly on the same-side thighs near the knees',
+          'forearms falling naturally forward and downward beyond the knees',
           'torso gently inclined from the hips toward the thighs',
         ],
         excludes: ['hands held close together in front of the knees'],
       },
       midjourneyPrompt: {
         includes: [
-          'both elbows resting firmly on top of the knees',
-          'forearms extend forward and downward beyond the knees',
+          'both elbows or proximal forearms resting lightly on the same-side thighs near the knees',
+          'forearms falling naturally forward and downward beyond the knees',
           'torso gently inclined from the hips toward the thighs',
         ],
         excludes: ['hands held close together in front of the knees'],
@@ -1567,22 +1567,22 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
       poseBaseId: { byZh: '蹲姿' },
       poseArrangementId: { byZh: '自然蹲姿' },
-      poseHandId: { byZh: '雙手托腮扶臉' },
+      poseHandId: { byZh: '雙手托腮' },
       poseHeadId: { byZh: '頭部自然朝向鏡頭' },
       poseAnchorId: { byZh: '全無' },
       locationId: { byZh: '室內：英倫復古窗邊房間' },
     },
     expectedOutputs: {
       grokPrompt: {
-        includes: ['both hands gently cupping the cheeks in a cute, relaxed pose with the elbows resting naturally at the sides', 'presents a relaxed low squat with comfortably bent knees'],
+        includes: ['both elbows resting lightly on the same-side thighs near the knees, forearms raised with both palms gently cradling the cheeks, fingers relaxed along the cheeks and jaw, and shoulders naturally lowered', 'presents a relaxed low squat with comfortably bent knees'],
         excludes: ['arrangement', 'let the image model choose'],
       },
       zImagePrompt: {
-        includes: ['both hands gently cupping the cheeks in a cute, relaxed pose with the elbows resting naturally at the sides', 'presents a relaxed low squat with comfortably bent knees'],
+        includes: ['both elbows resting lightly on the same-side thighs near the knees, forearms raised with both palms gently cradling the cheeks, fingers relaxed along the cheeks and jaw, and shoulders naturally lowered', 'presents a relaxed low squat with comfortably bent knees'],
         excludes: ['arrangement', 'let the image model choose'],
       },
       midjourneyPrompt: {
-        includes: ['both hands gently cupping the cheeks in a cute, relaxed pose with the elbows resting naturally at the sides', 'presents a relaxed low squat with comfortably bent knees'],
+        includes: ['both elbows resting lightly on the same-side thighs near the knees, forearms raised with both palms gently cradling the cheeks, fingers relaxed along the cheeks and jaw, and shoulders naturally lowered', 'presents a relaxed low squat with comfortably bent knees'],
         excludes: ['arrangement', 'let the image model choose'],
       },
     },

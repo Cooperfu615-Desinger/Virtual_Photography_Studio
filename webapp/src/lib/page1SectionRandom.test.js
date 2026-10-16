@@ -221,11 +221,11 @@ test('single pose panel randomizes the six Pose Composer layers and leaves props
       poseBaseId: 'squatting',
       poseOrientationId: 'none',
       poseArrangementId: 'squatting-natural',
-      poseHandId: 'squatting-hands-outer-legs',
+      poseHandId: 'squatting-elbows-center-drape',
       poseHeadId: 'head-away-profile',
       poseAnchorId: 'none',
     },
-    'The seed after retiring the unused ratio draw preserves layer order and free arrangement',
+    'The seed preserves layer order with the reviewed seven-hand squatting pool',
   );
 
   const arrangement = controls

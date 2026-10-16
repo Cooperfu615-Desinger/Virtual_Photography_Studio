@@ -189,7 +189,7 @@ test('kneeling matrix keeps four-point support hands and bent-knee hug hands com
   assert.equal(poseComposerHandSupportsRandomContext(hugKnees, forwardLean), false);
 });
 
-test('squatting matrix exposes six dedicated hand actions for squatting', () => {
+test('squatting matrix exposes seven dedicated hand actions for squatting', () => {
   const squat = createPoseComposerCompatibilityContext({
     base: 'squatting',
     bucket: COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
@@ -198,8 +198,9 @@ test('squatting matrix exposes six dedicated hand actions for squatting', () => 
   const dedicatedIds = [
     'squatting-hands-forward',
     'squatting-hands-outer-legs',
+    'squatting-forearms-outward-drape',
+    'squatting-elbows-center-drape',
     'squatting-one-hand-cheek-one-knee',
-    'squatting-one-hand-mouth-one-down',
     'squatting-one-hand-v-sign',
     'squatting-both-hands-cheeks',
   ];
@@ -217,7 +218,6 @@ test('squatting matrix exposes six dedicated hand actions for squatting', () => 
 
   for (const id of [
     'squatting-one-hand-cheek-one-knee',
-    'squatting-one-hand-mouth-one-down',
     'squatting-one-hand-v-sign',
     'squatting-both-hands-cheeks',
   ]) {
@@ -233,8 +233,9 @@ test('squatting hand pool excludes every shared concrete hand action', () => {
   const dedicatedIds = new Set([
     'squatting-hands-forward',
     'squatting-hands-outer-legs',
+    'squatting-forearms-outward-drape',
+    'squatting-elbows-center-drape',
     'squatting-one-hand-cheek-one-knee',
-    'squatting-one-hand-mouth-one-down',
     'squatting-one-hand-v-sign',
     'squatting-both-hands-cheeks',
   ]);

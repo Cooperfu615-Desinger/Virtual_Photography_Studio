@@ -114,12 +114,13 @@ test('public hand catalog includes dedicated lying actions and clarified garment
     '單手向鏡頭張開手掌',
     '自然自拍',
     '男友/閨蜜自拍',
-    '雙手向前伸展',
-    '雙手自然放在兩腿外側',
-    '單手托腮一手扶膝',
-    '單手碰嘴角一手自然下垂',
+    '雙肘靠膝自然垂手',
+    '雙手沿腿側自然下垂',
+    '單手托腮一手自然垂落',
+    '雙手托腮',
     '單手在臉旁比 V',
-    '雙手托腮扶臉',
+    '雙臂搭膝外展垂手',
+    '雙肘靠膝中央垂手',
     '單手托下巴',
     '單手輕咬食指',
     '單手往後撥瀏海',
@@ -1281,12 +1282,12 @@ test('squatting-specific hand actions stay scoped and source-traceable across ou
     poseAnchorId: optionId('poseAnchorId', '全無'),
   };
   const cases = [
-    ['雙手向前伸展', /both elbows resting firmly on top of the knees.*forearms extend forward and downward beyond the knees.*wrists and hands hang naturally with relaxed fingers/],
-    ['雙手自然放在兩腿外側', /both hands resting naturally along the outer sides of the legs with relaxed elbows/],
-    ['單手托腮一手扶膝', /one hand lightly supporting one cheek, the other hand resting on the opposite knee with both elbows relaxed/],
+    ['雙肘靠膝自然垂手', /both elbows or proximal forearms resting lightly.*forearms falling naturally forward and downward beyond the knees.*loose wrists, relaxed fingers/],
+    ['雙手沿腿側自然下垂', /both arms hanging naturally along the outer sides of the legs with softly bent elbows, hands relaxed beside the lower shins or outer ankles, loose wrists and fingers, and lowered shoulders/],
+    ['單手托腮一手自然垂落', /one elbow resting lightly on the same-side thigh near the knee with the raised palm gently cradling the cheek, the other elbow or proximal forearm resting near the opposite knee with that forearm falling forward and downward, its wrist and fingers relaxed, and both shoulders lowered/],
     ['單手碰嘴角一手自然下垂', /one hand lightly touching the corner of the mouth, the other arm hanging naturally beside the leg/],
-    ['單手在臉旁比 V', /one hand forming a relaxed V sign beside the face, the other hand resting naturally near the leg/],
-    ['雙手托腮扶臉', /both hands gently cupping the cheeks in a cute, relaxed pose with the elbows resting naturally at the sides/],
+    ['單手在臉旁比 V', /one elbow resting lightly on the same-side thigh near the knee with the raised hand forming a relaxed V sign beside the cheek and clear of the eyes, the other elbow or proximal forearm resting near the opposite knee with that forearm falling forward and downward, its wrist and fingers relaxed, and both shoulders lowered/],
+    ['雙手托腮', /both elbows resting lightly on the same-side thighs near the knees, forearms raised with both palms gently cradling the cheeks, fingers relaxed along the cheeks and jaw, and shoulders naturally lowered/],
   ];
 
   for (const [handZh, expected] of cases) {
@@ -1312,12 +1313,15 @@ test('squatting-specific hand actions stay scoped and source-traceable across ou
       framingId: framing('中景鏡頭 (Medium Shot)'),
       poseHandId: optionId('poseHandId', handZh),
     });
-    assert.match(poseText(medium), expected);
+    const option = control('poseHandId').options.find(o => o.zh === handZh);
+    const projected = option.meta?.projectionByBucket?.mediumWaist?.en;
+    if (projected) assert.ok(poseText(medium).includes(projected));
+    else assert.match(poseText(medium), expected);
   }
 });
 
 test('forward-leaning and wide-knee squats share the revised elbow-supported forward hand action', () => {
-  const expectedHand = /both elbows resting firmly on top of the knees.*supporting part of the forward-leaning upper-body weight.*forearms extend forward and downward beyond the knees.*wrists and hands hang naturally with relaxed fingers/;
+  const expectedHand = /both elbows or proximal forearms resting lightly.*forearms falling naturally forward and downward beyond the knees.*loose wrists, relaxed fingers/;
   const retiredHand = /both arms extended forward with the hands held close together in front of the knees/;
 
   for (const arrangementZh of ['身體前傾蹲姿', '寬膝低蹲姿']) {
@@ -1327,7 +1331,7 @@ test('forward-leaning and wide-knee squats share the revised elbow-supported for
       framingId: optionId('framingId', '牛仔中景 (Cowboy Shot)'),
       poseBaseId: optionId('poseBaseId', '蹲姿'),
       poseArrangementId: optionId('poseArrangementId', arrangementZh),
-      poseHandId: optionId('poseHandId', '雙手向前伸展'),
+      poseHandId: optionId('poseHandId', '雙肘靠膝自然垂手'),
       posePropId: optionId('posePropId', '全無'),
       poseHeadId: optionId('poseHeadId', '全無'),
       poseAnchorId: optionId('poseAnchorId', '全無'),
