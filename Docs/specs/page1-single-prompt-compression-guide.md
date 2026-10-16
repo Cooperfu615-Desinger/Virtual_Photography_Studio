@@ -1,5 +1,7 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
+2026-10-17 蹲姿 v2：四組放鬆低蹲共用來源，取消強制雙腳跟落地；退役三組保留原文與還原。自然／收攏／前傾有上半身投影，寬膝沿用下半身裁切；四主輸出與 GPT 胸上共用解析，全身角色照用途不變，不恢復 MJ 胸上。Public contract `1.57.0`，見 [蹲姿目錄 v2](squatting-catalog-v2.md)。
+
 > **2026-10-14 更新：** `chest-up-mj-portrait`（MJ 胸上特寫照）已依 Cooper 決定完全移除，引擎不再產生、畫面與 DLL 來源不再顯示，F 區參數只作用於主 MJ；既有 Saved Cards 資料保留不改寫。見 [官方規範修正 v1](prompt-official-fixes-v1.md)。本文中關於 MJ 胸上的段落僅供歷史參考。
 > **2026-10-14 族裔：** 所有輸出的主體句不再寫 `Japanese or Korean`／`Japanese woman`，改為 `20-year-old adult woman`（雙人 `20-year-old adult women`）；族裔改由五官特徵承接，五官選「全無」時不指定族裔。下文出現的舊主體句僅供歷史參考。
 

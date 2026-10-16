@@ -1,3 +1,4 @@
+import { restorePreSquattingV2 } from './squattingCatalogTestSupport.js';
 // Node-only scoped replacement for historical chest-output hashes. Historical
 // baselines stay immutable; the other four outputs, selections and RNG are pinned
 // to the pre-change engine as well as to their existing feature-specific gates.
@@ -24,6 +25,6 @@ export function assertChestUpRevision(group, results) {
   const expected = { groups: JSON.parse(readFileSync(new URL('./midjourneyNaturalHistoricalProtected.json', import.meta.url), 'utf8')) }; // Pre-v2 engine, excluding main MJ only.
   assert.ok(expected.groups[group], `Missing scoped chest baseline: ${group}`);
   // The frozen groups predate the 2026-10-14 ethnicity revision; reverse only that rollout.
-  const historical = results.map(result => ({ ...result, outputs: restorePreEthnicityOutputs(result.outputs) }));
+  const historical = results.map(result => ({ ...result, outputs: restorePreSquattingV2(restorePreEthnicityOutputs(result.outputs)) }));
   assert.deepEqual(measureChestUpRevision(historical), expected.groups[group], `${group}: chest revision or protected state drift`);
 }

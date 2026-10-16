@@ -119,7 +119,7 @@ test('kneeling projection separates upper-body and lower-body arrangements', () 
 
 test('all active squatting arrangements carry explicit crop projection metadata', () => {
   const squatting = POSE_COMPOSER_ARRANGEMENT_OPTIONS.filter((option) => option.base === 'squatting' && !option.meta?.deprecated);
-  assert.equal(squatting.length, 7);
+  assert.equal(squatting.length, 4);
 
   for (const option of squatting) {
     const metadata = option.meta?.projectionByBucket;
@@ -198,10 +198,9 @@ test('lying orientation and body variation layers stay explicit and independent'
 });
 
 test('squatting projection metadata separates upper and lower geometry', () => {
-  const upperBodyIds = ['squatting-natural', 'squatting-forward-lean'];
+  const upperBodyIds = ['squatting-natural', 'squatting-side', 'squatting-forward-lean'];
   const lowerBodyIds = [
     'squatting-one-knee',
-    'squatting-side',
     'squatting-low-one-leg-forward',
     'squatting-gangster-wide-knee',
   ];
@@ -241,7 +240,7 @@ test('squatting projection metadata separates upper and lower geometry', () => {
   assert.equal(getPoseComposerProjection(kneesTogether, FULL_BODY).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
 });
 
-test('squatting arrangement simplification keeps seven active categories and restorable legacy IDs', () => {
+test('squatting arrangement simplification keeps four active categories and restorable legacy IDs', () => {
   const activeIds = POSE_COMPOSER_ARRANGEMENT_OPTIONS
     .filter((option) => option.base === 'squatting' && !option.meta?.deprecated)
     .map((option) => option.id);
@@ -251,21 +250,21 @@ test('squatting arrangement simplification keeps seven active categories and res
 
   assert.deepEqual(activeIds, [
     'squatting-natural',
-    'squatting-one-knee',
     'squatting-side',
-    'squatting-low-one-leg-forward',
     'squatting-forward-lean',
-    'squatting-knees-together-low',
     'squatting-gangster-wide-knee',
   ]);
   assert.deepEqual(deprecatedIds, [
+    'squatting-one-knee',
     'squatting-hands-knees',
     'squatting-compact',
     'squatting-hug-knees',
     'squatting-one-hand-ground',
+    'squatting-low-one-leg-forward',
     'squatting-side-low',
     'squatting-raised-heels',
     'squatting-compact-hug-knees-variant',
+    'squatting-knees-together-low',
   ]);
 
   for (const id of deprecatedIds) {

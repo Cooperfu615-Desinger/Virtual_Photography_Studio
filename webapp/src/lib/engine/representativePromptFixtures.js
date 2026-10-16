@@ -837,7 +837,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
         includes: [
           'both elbows resting firmly on top of the knees',
           'forearms extend forward and downward beyond the knees',
-          'torso leaning forward over the thighs',
+          'torso gently inclined from the hips toward the thighs',
         ],
         excludes: ['hands held close together in front of the knees'],
       },
@@ -845,7 +845,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
         includes: [
           'both elbows resting firmly on top of the knees',
           'forearms extend forward and downward beyond the knees',
-          'torso leaning forward over the thighs',
+          'torso gently inclined from the hips toward the thighs',
         ],
         excludes: ['hands held close together in front of the knees'],
       },
@@ -853,7 +853,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
         includes: [
           'both elbows resting firmly on top of the knees',
           'forearms extend forward and downward beyond the knees',
-          'torso leaning forward over the thighs',
+          'torso gently inclined from the hips toward the thighs',
         ],
         excludes: ['hands held close together in front of the knees'],
       },
@@ -1574,15 +1574,15 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
     expectedOutputs: {
       grokPrompt: {
-        includes: ['both hands gently cupping the cheeks in a cute, relaxed pose with the elbows resting naturally at the sides', 'presents a deep resting squat with both feet planted flat, both heels grounded'],
+        includes: ['both hands gently cupping the cheeks in a cute, relaxed pose with the elbows resting naturally at the sides', 'presents a relaxed low squat with comfortably bent knees'],
         excludes: ['arrangement', 'let the image model choose'],
       },
       zImagePrompt: {
-        includes: ['both hands gently cupping the cheeks in a cute, relaxed pose with the elbows resting naturally at the sides', 'presents a deep resting squat with both feet planted flat, both heels grounded'],
+        includes: ['both hands gently cupping the cheeks in a cute, relaxed pose with the elbows resting naturally at the sides', 'presents a relaxed low squat with comfortably bent knees'],
         excludes: ['arrangement', 'let the image model choose'],
       },
       midjourneyPrompt: {
-        includes: ['both hands gently cupping the cheeks in a cute, relaxed pose with the elbows resting naturally at the sides', 'presents a deep resting squat with both feet planted flat, both heels grounded'],
+        includes: ['both hands gently cupping the cheeks in a cute, relaxed pose with the elbows resting naturally at the sides', 'presents a relaxed low squat with comfortably bent knees'],
         excludes: ['arrangement', 'let the image model choose'],
       },
     },

@@ -80,7 +80,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.56.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.57.0';
 
 export const SPECIFIED_ACTION_CONTRACT = deepFreeze({
   version: '1.0.0',

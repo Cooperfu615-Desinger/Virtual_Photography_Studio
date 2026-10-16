@@ -1,3 +1,4 @@
+import { restorePreSquattingV2 } from './squattingCatalogTestSupport.js';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
@@ -47,7 +48,7 @@ for (const fixture of fixtures) test(`main-Z-only source relocation: ${fixture.i
   assert.deepEqual(runFrozenFixture(fixture).outputs, current.outputs, 'same seed');
   // Frozen baselines predate the 2026-10-14 ethnicity revision; reverse only that rollout.
   for (const [field, text] of Object.entries(current.outputs)) {
-    const value = restorePreEthnicityText(text, field);
+    const value = restorePreSquattingV2(restorePreEthnicityText(text, field));
     if (field === 'zImagePrompt') {
       assert.equal(normalizeZImageOnLocationForLegacy(value), before.zImagePrompt,
         'only reviewed relocation/ambient connection; every surviving source unchanged');

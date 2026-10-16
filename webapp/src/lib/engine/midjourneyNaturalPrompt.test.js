@@ -1,3 +1,4 @@
+import { restorePreSquattingV2 } from './squattingCatalogTestSupport.js';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
@@ -63,13 +64,13 @@ test('all mode baselines protect five other outputs, raw selections, structured 
     assert.equal(fixture.id, bodyBaseline[index].id);
     // Baselines predate the quoted Shibuya signage and the 2026-10-14 ethnicity
     // revision; compare through their exact inverses.
-    const historicalMain = restorePreEthnicityText(prompt.midjourneyPrompt, 'midjourneyPrompt');
+    const historicalMain = restorePreSquattingV2(restorePreEthnicityText(prompt.midjourneyPrompt, 'midjourneyPrompt'));
     assert.equal(createHash('sha256').update(removeBody(restoreUnquotedShibuyaSignage(stripFramingDerivedMidjourneyRatio(historicalMain, prompt.selection)))).digest('hex'), bodyBaseline[index].main,
       `${fixture.id}: main MJ changed beyond approved body sentences`);
     // Baselines predate the approved full-body Body Type exception; compare
     // through its exact inverse (only the inserted full-body body sentence).
     for (const [field, value] of Object.entries(protectedNaturalOutputs(stripFullBodyCharacterBodySource(prompt)))) {
-      assert.equal(hash(restoreUnquotedShibuyaSignage(restorePreEthnicityValue(value, field))), baseline[index].fields[field], `${fixture.id}: ${field} changed`);
+      assert.equal(hash(restoreUnquotedShibuyaSignage(restorePreSquattingV2(restorePreEthnicityValue(value, field)))), baseline[index].fields[field], `${fixture.id}: ${field} changed`);
     }
     assert.ok(parseMidjourneyParameterTail(prompt.midjourneyPrompt).matched, fixture.id);
     assert.doesNotMatch(prompt.midjourneyPrompt, /cup bust|bust[–-]waist[–-]hip|height \d+|shallow indentations/i, fixture.id);

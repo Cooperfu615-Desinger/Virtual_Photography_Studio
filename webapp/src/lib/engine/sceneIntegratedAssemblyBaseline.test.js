@@ -1,3 +1,4 @@
+import { restorePreSquattingV2 } from './squattingCatalogTestSupport.js';
 import { normalizeOuterwearCatalogForLegacy } from './outerwearCatalogTestSupport.js';
 import { assertChestUpRevision, CHEST_OUTPUT_FIELDS, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
 import assert from 'node:assert/strict';
@@ -135,7 +136,7 @@ for (const fixture of fixtures) {
     assert.deepEqual(first.selection, repeated.selection);
     assert.equal(repeated.randomDraws, first.randomDraws);
     // Frozen hashes/bytes predate the 2026-10-14 ethnicity revision; reverse only that rollout.
-    const historicalOutputs = restorePreEthnicityOutputs(first.outputs);
+    const historicalOutputs = restorePreSquattingV2(restorePreEthnicityOutputs(first.outputs));
     assertChestUpRevision(`scene:${fixture.id}`, [{ ...first, outputs: Object.fromEntries(Object.entries(first.outputs).map(([field, text]) => [field, fixture.id.startsWith('R11-shirt-shoulder-') ? normalizeOuterwearCatalogForLegacy(text, field) : text])) }]);
     for (const field of OUTPUT_FIELDS) {
       const expectedHash = supportObjectExpected?.outputHashes[field]

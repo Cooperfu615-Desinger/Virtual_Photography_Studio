@@ -723,7 +723,7 @@ test('random pose composer respects crop and front-orbit compatibility', () => {
   const { prompt } = generateWithRandomSequence(locks, [0.99, 0.99, 0.99, 0.99, 0.99, 0.99]);
 
   assert.ok(['standing', 'sitting'].includes(prompt.selection.poseBaseId));
-  assert.notEqual(prompt.selection.poseArrangementId, optionId('poseArrangementId', '側身蹲姿'));
+  assert.notEqual(prompt.selection.poseArrangementId, optionId('poseArrangementId', '收攏低蹲姿'));
   assert.doesNotMatch(prompt.grokPrompt, /side-facing squatting|back-facing turn-back/i);
   assertSharedCanonicalPose(prompt, prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '');
 });
@@ -735,15 +735,15 @@ test('explicit pose locks remain visible even when they intentionally conflict',
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     orbitId: optionId('orbitId', '正面 0 度'),
     poseBaseId: optionId('poseBaseId', '蹲姿'),
-    poseArrangementId: optionId('poseArrangementId', '側身蹲姿'),
+    poseArrangementId: optionId('poseArrangementId', '收攏低蹲姿'),
     poseHandId: optionId('poseHandId', '雙手自然垂放'),
     poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
   });
 
-  assert.equal(prompt.selection.poseArrangementId, optionId('poseArrangementId', '側身蹲姿'));
+  assert.equal(prompt.selection.poseArrangementId, optionId('poseArrangementId', '收攏低蹲姿'));
   assert.equal(prompt.selection.poseHeadId, optionId('poseHeadId', '頭部自然朝向鏡頭'));
   assert.match(prompt.grokPrompt, /head naturally facing the camera/);
-  assert.match(prompt.grokPrompt, /deep squat with both feet planted flat and both heels grounded, hips and legs kept low over the feet while the torso turns toward the camera/);
+  assert.match(prompt.grokPrompt, /compact low squat with the knees and feet close together, thighs folded close to the calves, hips sunk near the heels and clear of the ground, torso gently inclined toward the thighs, shoulders relaxed, and heels resting down or lightly lifted for balance/);
 });
 
 test('pose composer exposes standing lean support anchor options', () => {
@@ -888,8 +888,8 @@ test('water contact anchors adapt to pose base and selected water scene in all p
       baseZh: '蹲姿',
       arrangementZh: '自然蹲姿',
       anchorZh: '在水中',
-      expected: [/deep resting squat with both feet planted flat, both heels grounded/, /natural ripples(?: around the torso and limbs)?/],
-      expectedGpt: [/deep resting squat with both feet planted flat, both heels grounded/, /natural ripples/],
+      expected: [/relaxed low squat with comfortably bent knees/, /natural ripples(?: around the torso and limbs)?/],
+      expectedGpt: [/relaxed low squat with comfortably bent knees/, /natural ripples/],
     },
     {
       locationZh: '戶外：岩洞感海灣淺灘',
@@ -1182,8 +1182,9 @@ test('squatting arrangements use explicit crop projection without lower-body lea
   })[0];
 
   [
-    ['自然蹲姿', 'the torso upright and relaxed', 'a relaxed upright upper-body posture'],
-    ['身體前傾蹲姿', 'the torso leaning forward from the hips', 'a forward-leaning upper-body posture with the torso inclined from the hips'],
+    ['自然蹲姿', 'a gentle forward lean with relaxed shoulders', 'a gentle forward lean with relaxed shoulders'],
+    ['身體前傾蹲姿', 'a gentle forward lean from the hips with relaxed shoulders and neck', 'a gentle forward lean from the hips with relaxed shoulders and neck'],
+    ['收攏低蹲姿', 'a softly gathered upper-body posture with a gentle forward lean and relaxed shoulders', 'a softly gathered upper-body posture with a gentle forward lean and relaxed shoulders'],
   ].forEach(([arrangementZh, chestExpected, mediumExpected]) => {
     assert.equal(
       poseText(render(arrangementZh, '胸上特寫')),
@@ -1197,10 +1198,9 @@ test('squatting arrangements use explicit crop projection without lower-body lea
 
   [
     '單膝抬起不對稱蹲姿',
-    '側身蹲姿',
     '低蹲單腿前伸',
     '雙膝合併半蹲',
-    '寬膝深蹲／流氓蹲姿',
+    '寬膝低蹲姿',
   ].forEach((arrangementZh) => {
     assert.equal(poseText(render(arrangementZh, '胸上特寫')), '');
     assert.equal(poseText(render(arrangementZh, '中景鏡頭 (Medium Shot)')), 'She presents a squatting pose.');
@@ -1224,16 +1224,16 @@ test('squatting arrangements use explicit crop projection without lower-body lea
   }
 });
 
-test('public squat arrangements keep both feet grounded and hips low in complete prompts', () => {
+test('reviewed squats allow relaxed heels while retired squats preserve historical geometry', () => {
   const poseText = (prompt) => prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
   const cases = [
-    ['自然蹲姿', /both feet planted flat, both heels grounded.*hips held low over the feet/],
+    ['自然蹲姿', /clear of the ground.*heels resting down or lightly lifted for balance/],
     ['單膝抬起不對稱蹲姿', /both feet planted flat and both heels grounded.*hips held low over the feet/],
-    ['側身蹲姿', /both feet planted flat and both heels grounded.*hips and legs kept low over the feet/],
+    ['收攏低蹲姿', /clear of the ground.*heels resting down or lightly lifted for balance/],
     ['低蹲單腿前伸', /both feet planted flat on the surface and both heels grounded.*hips held low over the supporting base/],
-    ['身體前傾蹲姿', /both feet planted flat and both heels grounded.*hips held low over the feet/],
+    ['身體前傾蹲姿', /clear of the ground.*heels resting down or lightly lifted for balance/],
     ['雙膝合併半蹲', /both feet planted flat and both heels grounded.*hips held low over the feet/],
-    ['寬膝深蹲／流氓蹲姿', /both feet planted flat in a wide stance.*both heels grounded.*hips held low over the feet/],
+    ['寬膝低蹲姿', /clear of the ground.*heels resting down or lightly lifted for balance/],
   ];
 
   for (const [arrangementZh, groundingPattern] of cases) {
@@ -1248,7 +1248,7 @@ test('public squat arrangements keep both feet grounded and hips low in complete
       poseAnchorId: optionId('poseAnchorId', '全無'),
     });
     const canonical = poseText(prompt);
-    assert.match(canonical, groundingPattern, `${arrangementZh} should anchor both feet and low hips`);
+    assert.match(canonical, groundingPattern, `${arrangementZh} should retain its reviewed or historical geometry`);
     for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
       assert.match(text, groundingPattern, `${arrangementZh} grounding should be preserved across outputs`);
     }
@@ -1320,7 +1320,7 @@ test('forward-leaning and wide-knee squats share the revised elbow-supported for
   const expectedHand = /both elbows resting firmly on top of the knees.*supporting part of the forward-leaning upper-body weight.*forearms extend forward and downward beyond the knees.*wrists and hands hang naturally with relaxed fingers/;
   const retiredHand = /both arms extended forward with the hands held close together in front of the knees/;
 
-  for (const arrangementZh of ['身體前傾蹲姿', '寬膝深蹲／流氓蹲姿']) {
+  for (const arrangementZh of ['身體前傾蹲姿', '寬膝低蹲姿']) {
     const [prompt] = generatePrompts(1, {
       ...createEmptyLocks(),
       subjectCount: '1',
@@ -1439,7 +1439,7 @@ test('natural support anchor adapts one object-free canonical pose across all fi
     {
       baseZh: '蹲姿',
       arrangementZh: '自然蹲姿',
-      expected: 'She presents a deep resting squat with both feet planted flat, both heels grounded, knees deeply bent, and the hips held low over the feet with the body naturally supported.',
+      expected: 'She presents a relaxed low squat with comfortably bent knees, hips lowered near the heels and clear of the ground, feet comfortably spaced, heels resting down or lightly lifted for balance, and the torso gently inclined forward with relaxed shoulders with the body naturally supported.',
     },
     {
       baseZh: '躺姿',
@@ -1789,7 +1789,7 @@ test('hug-knees is an independent hand action rather than a squat arrangement', 
   });
 
   assert.match(prompt.grokPrompt, /both arms wrapped around the bent knees, hands gently holding the knees close to the torso/);
-  assert.match(prompt.grokPrompt, /deep resting squat with both feet planted flat, both heels grounded/);
+  assert.match(prompt.grokPrompt, /relaxed low squat with comfortably bent knees/);
   assert.equal(prompt.selection.poseArrangementId, optionId('poseArrangementId', '自然蹲姿'));
   assert.equal(prompt.selection.poseHandId, optionId('poseHandId', '雙手抱膝'));
 });
@@ -1806,11 +1806,11 @@ test('pose composer exposes new standing sitting and squatting arrangement batch
     ['坐姿身體前傾', 'sitting', /grounded forward-leaning seated arrangement/],
     ['開闊自信坐姿', 'sitting', /open, grounded seated posture/],
     ['單膝抬起不對稱蹲姿', 'squatting', /asymmetrical deep squat with both feet planted flat and both heels grounded/],
-    ['側身蹲姿', 'squatting', /deep squat with both feet planted flat and both heels grounded/],
+    ['收攏低蹲姿', 'squatting', /compact low squat with the knees and feet close together/],
     ['低蹲單腿前伸', 'squatting', /low squat with both feet planted flat on the surface and both heels grounded/],
-    ['身體前傾蹲姿', 'squatting', /deep squat with both feet planted flat and both heels grounded/],
+    ['身體前傾蹲姿', 'squatting', /relaxed forward-leaning low squat/],
     ['雙膝合併半蹲', 'squatting', /low half-squat with both feet planted flat and both heels grounded/],
-    ['寬膝深蹲／流氓蹲姿', 'squatting', /wide-knee deep squat with both feet planted flat in a wide stance/],
+    ['寬膝低蹲姿', 'squatting', /relaxed wide-knee low squat with the knees opened outward/],
   ].forEach(([zh, base, expectedEnglish]) => {
     assertArrangementOption(zh, base, expectedEnglish);
   });
@@ -1949,7 +1949,7 @@ test('new arrangement batch is preserved in all prompt versions', () => {
   const cases = [
     ['站姿', '交叉腿站姿', /standing posture with the legs naturally crossed/],
     ['坐姿', '開闊自信坐姿', /open, grounded seated posture/],
-    ['蹲姿', '側身蹲姿', /deep squat with both feet planted flat and both heels grounded/],
+    ['蹲姿', '收攏低蹲姿', /compact low squat with the knees and feet close together/],
   ];
 
   for (const [baseZh, arrangementZh, expected] of cases) {
@@ -2541,7 +2541,7 @@ test('shared bathtub anchor phrases naturally for standing sitting and squatting
   const cases = [
     ['站姿', '自然站姿', /presents a relaxed neutral standing posture beside a water-filled clawfoot vintage bathtub/, false],
     ['坐姿', '自然坐姿', /presents a natural seated pose on the edge of a water-filled clawfoot vintage bathtub/, true],
-    ['蹲姿', '自然蹲姿', /presents a deep resting squat with both feet planted flat, both heels grounded, knees deeply bent, and the hips held low over the feet inside a water-filled clawfoot vintage bathtub/, true],
+    ['蹲姿', '自然蹲姿', /presents a relaxed low squat with comfortably bent knees, hips lowered near the heels and clear of the ground, feet comfortably spaced, heels resting down or lightly lifted for balance, and the torso gently inclined forward with relaxed shoulders inside a water-filled clawfoot vintage bathtub/, true],
   ];
 
   for (const [baseZh, arrangementZh, expected, expectsWaterContact] of cases) {

@@ -2,7 +2,14 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-16
+Last updated: 2026-10-17
+
+## 蹲姿目錄 v2（2026-10-17，本機實作）
+
+- 公開四組：自然蹲姿、收攏低蹲姿、身體前傾蹲姿、寬膝低蹲姿。採日常放鬆低蹲，腳跟可自然落地或輕抬；收攏取代原側身內容，不綁定視角，寬膝採確認的適度開膝版本。
+- 單膝抬起不對稱、低蹲單腿前伸、雙膝合併半蹲退出選單／隨機，原 ID 與舊資料還原保留。手部等獨立選項與接觸／支撐不改。四主輸出共用動作來源，近景依現行投影；全身角色照仍為站姿。契約版本 `1.57.0`，詳見 [蹲姿目錄 v2](specs/squatting-catalog-v2.md)。
+- Node 22.22.3 完整測試 1629/1629、Prompt Quality 716/716；lint、build、sync check、Python 2/2 通過。同 seed 200 筆 strict audit 前後一致、阻擋項 0。桌面 1440×1000／手機 390×900 五工作區、四組切換、六輸出與收藏套用通過，無頁面橫向溢出或 console/page error。
+- 本機預設 npm 使用 Node 25 時，既有測試執行器兩項報表文字斷言因 spec/TAP 格式差異失敗；指定 Node 22 通過，未修改該測試。正式模型出圖仍待驗收；使用者已授權本批 commit／push，交付狀態以 Git 紀錄為準。保留原工作區文件與參考資料。
 
 ## 參考圖人物與穿搭（使用者確認，2026-10-14）
 
