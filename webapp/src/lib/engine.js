@@ -3,6 +3,7 @@ import { MIDJOURNEY_CARD_ITEM_NAMES } from './engine/midjourneyCardItemNames.js'
 import { bottomRiseConflict, resolveBottomRiseCompatibility } from './engine/bottomRiseCompatibility.js';
 import { extractMidjourneyItemNames, midjourneyItemName, naturalIdentity, naturalSentence, naturalWardrobeSentence, renderNaturalMidjourney, uniqueNames } from './engine/midjourneyNaturalPrompt.js';
 import { midjourneyBodyDescription } from './engine/midjourneyBodyDescriptions.js';
+import { SPECIFIED_ACTION_OPTIONS, getSpecifiedAction, getSpecifiedActionEffectiveLocks } from './engine/specifiedActions.js';
 import { renderNanoBananaNarrative } from './engine/nanoBananaPrompt.js';
 import { polishPublicPromptText } from './engine/publicPromptPolish.js';
 import { nanoBananaFacialDescription } from './engine/nanoBananaFacialFeatures.js';
@@ -123,6 +124,7 @@ import {
 import {
   applySupineSceneOverride,
   isSupinePoseSelection,
+  normalizeSpecifiedActionSceneRestore,
 } from './engine/poseScenePolicy.js';
 import { createPromptSectionModel } from './engine/promptModel.js';
 import { createEngineRuntimeResolver, deepFreezeRuntime } from './engine/runtimeCache.js';
@@ -1140,6 +1142,8 @@ const LOCK_DEFINITIONS = [
   { key: 'specialActionId', label: '特殊動作', category: '特殊動作 (Special Actions)', section: 'character' },
   { key: 'actionPoseCardId', label: '動作姿勢卡', section: 'hidden' },
   { key: 'poseBaseId', label: '姿勢基底', options: POSE_COMPOSER_BASE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
+  { key: 'specifiedActionId', label: '指定動作', options: SPECIFIED_ACTION_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
+  { key: 'specifiedActionSceneRestore', label: '指定動作場景還原', defaultValue: null, section: 'hidden' },
   { key: 'poseOrientationId', label: '主要躺姿', options: POSE_COMPOSER_ORIENTATION_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'poseArrangementId', label: '肢體變化', options: POSE_COMPOSER_ARRANGEMENT_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'poseHandId', label: '手部動作', options: POSE_COMPOSER_HAND_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
@@ -2400,6 +2404,7 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'duoPoseBaseId',
   'duoInteractionId',
   'poseBaseId',
+  'specifiedActionId',
   'poseOrientationId',
   'poseArrangementId',
   'poseHandId',
@@ -3803,6 +3808,7 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
     if (!LOCK_KEYS.has(key)) return;
     normalized[key] = value;
   });
+  normalized.specifiedActionSceneRestore = normalizeSpecifiedActionSceneRestore(normalized.specifiedActionSceneRestore);
 
   if (!normalized.aspectRatio || normalized.aspectRatio === 'random') normalized.aspectRatio = 'none';
 
@@ -3909,16 +3915,21 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
   applyDuoInteractionLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyDuoExpressionLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyExpressionPoseLegacySocialLockMigration(normalizedWithLegacyColors, rawLocks, controls);
-  applyLegacySelfieSpecialActionMigration(normalizedWithLegacyColors, rawLocks, controls);
-  applyPoseArrangementAnchorMigration(normalizedWithLegacyColors, rawLocks, controls);
-  applySpecialActionPoseComposerMigration(normalizedWithLegacyColors, rawLocks, controls);
-  applyPoseIdPoseComposerMigration(normalizedWithLegacyColors, rawLocks, controls);
-  applyLegacyPoseHandPropMigration(normalizedWithLegacyColors, rawLocks, controls);
-  applyPosePropHandExclusivity(normalizedWithLegacyColors, controls);
+  // A specified action temporarily owns pose geometry. Its dormant free-pose
+  // choices must survive normalization, storage, and higher-priority owners.
+  const hasStoredSpecifiedAction = Boolean(getSpecifiedAction(normalizedWithLegacyColors, { ignoreOwners: true }));
+  if (!hasStoredSpecifiedAction) {
+    applyLegacySelfieSpecialActionMigration(normalizedWithLegacyColors, rawLocks, controls);
+    applyPoseArrangementAnchorMigration(normalizedWithLegacyColors, rawLocks, controls);
+    applySpecialActionPoseComposerMigration(normalizedWithLegacyColors, rawLocks, controls);
+    applyPoseIdPoseComposerMigration(normalizedWithLegacyColors, rawLocks, controls);
+    applyLegacyPoseHandPropMigration(normalizedWithLegacyColors, rawLocks, controls);
+    applyPosePropHandExclusivity(normalizedWithLegacyColors, controls);
+  }
   applyOutfitPresetToDressLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyEyewearLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyOuterwearOpeningLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
-  applySelfiePoseHandOrbitLock(normalizedWithLegacyColors, controls);
+  if (!hasStoredSpecifiedAction) applySelfiePoseHandOrbitLock(normalizedWithLegacyColors, controls);
   Object.assign(
     normalizedWithLegacyColors,
     normalizeMidjourneyParameterSettings(normalizedWithLegacyColors),
@@ -3932,7 +3943,7 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
     normalizedWithLegacyColors,
     applySupineSceneOverride(normalizedWithLegacyColors),
   );
-  if (isSupinePoseSelection(normalizedWithLegacyColors)) {
+  if (!hasStoredSpecifiedAction && isSupinePoseSelection(normalizedWithLegacyColors)) {
     const supineAnchor = getControlOptionById(controls, 'poseAnchorId', normalizedWithLegacyColors.poseAnchorId);
     if (supineAnchor && !['none', 'random'].includes(supineAnchor.id) && supineAnchor.meta?.supineSurfaceLed !== true) {
       setControlToNone(normalizedWithLegacyColors, controls, 'poseAnchorId');
@@ -5615,6 +5626,27 @@ function buildPoseComposerItem(context) {
     random
   );
 
+  const specifiedAction = getSpecifiedAction(context.locks);
+  if (specifiedAction) {
+    const orientation = getPoseComposerOption(POSE_COMPOSER_ORIENTATION_OPTIONS, specifiedAction.orientationId);
+    const head = resolveHead(null, orientation);
+    const headText = isActivePoseComposerOption(head) ? `She has ${stripTerminalPromptPunctuation(head.en)}.` : '';
+    return {
+      id: `character:姿勢組合器-pose-composer:${specifiedAction.id}:${head?.id || 'none'}`,
+      zh: [specifiedAction.zh, head?.zh].filter(Boolean).join(' + '),
+      en: [specifiedAction.en, headText].filter(Boolean).join(' '),
+      desc: specifiedAction.descriptionZh,
+      meta: {
+        tags: ['pose_composer'], minVisibility: 'full',
+        specifiedActionId: specifiedAction.id,
+        supineGroundOnly: specifiedAction.meta?.supineGroundOnly === true,
+        poseBaseId: specifiedAction.baseId, poseOrientationId: specifiedAction.orientationId,
+        poseArrangementId: 'none', poseHandId: 'none', posePropId: 'none',
+        poseHeadId: head?.id || 'none', poseAnchorId: 'none',
+      },
+    };
+  }
+
   if (!base) {
     const handPose = resolvePoseComposerOption(
       POSE_COMPOSER_HAND_OPTIONS,
@@ -6091,6 +6123,15 @@ function buildChestUpPoseComposerSentence({ orientation, arrangement, handPose, 
 function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = false, omitHand = false, omitProp = false } = {}) {
   if (!poseComposer || isNoneLikeItem(poseComposer)) return '';
   const projection = getCompositionVisibilityProjection(context);
+  const specifiedAction = SPECIFIED_ACTION_OPTIONS.find(option => option.id === poseComposer.meta?.specifiedActionId);
+  if (specifiedAction) {
+    if (projection.pose?.mode === 'omit') return specifiedAction.meta?.supineGroundOnly ? 'She is lying on her back on the ground.' : '';
+    if (projection.pose?.mode === 'fullCanonical' || projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE) return poseComposer.en;
+    const head = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, poseComposer.meta?.poseHeadId);
+    return [specifiedAction.upperBodyEn,
+      isActivePoseComposerOption(head) ? `She has ${stripTerminalPromptPunctuation(head.en)}.` : '',
+    ].filter(Boolean).join(' ');
+  }
   if (context.fixedSetPosition?.carriagePose || context.fixedSetPosition?.stationPose) {
     if (projection.pose?.mode === 'omit') return '';
     const position = context.fixedSetPosition;
@@ -13191,7 +13232,7 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
   const anchor = getPoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, poseComposer?.meta?.poseAnchorId);
   const supineSurfaceLed = poseComposer?.meta?.poseBaseId === 'lying'
     && poseComposer?.meta?.poseOrientationId === 'lying-supine'
-    && anchor?.meta?.supineSurfaceLed === true;
+    && (anchor?.meta?.supineSurfaceLed === true || poseComposer?.meta?.supineGroundOnly === true);
   const preserveSceneIntegratedAnchor = anchor?.meta?.preserveInSceneIntegratedZ === true;
   const sceneIntegrated = context.subject.count === 1
     && !specialSubjectMode && !characterProfileMode && !useCharacterIdentityAnchor
@@ -15789,7 +15830,7 @@ function renderAiPrompt(promptModel, {
   const anchor = getPoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, poseComposer?.meta?.poseAnchorId);
   const supineSurfaceLed = poseComposer?.meta?.poseBaseId === 'lying'
     && poseComposer?.meta?.poseOrientationId === 'lying-supine'
-    && anchor?.meta?.supineSurfaceLed === true;
+    && (anchor?.meta?.supineSurfaceLed === true || poseComposer?.meta?.supineGroundOnly === true);
   const sceneIntegrated = integrateMainScene && context.subject?.count === 1
     && !isSpecialSubject(context.subject) && !isCharacterProfileSubject(context.subject)
     && !context.characterProfilePrompt
@@ -16147,7 +16188,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     && !isDedicatedSpecialSubject(mainContext.subject) && !isCharacterProfileSubject(mainContext.subject)
     && !mainContext.characterProfilePrompt && !isFixedCompositionSetActive(mainContext.fixedCompositionSet)
     && !(ambientPose?.meta?.poseBaseId === 'lying' && ambientPose?.meta?.poseOrientationId === 'lying-supine'
-      && ambientAnchor?.meta?.supineSurfaceLed === true);
+      && (ambientAnchor?.meta?.supineSurfaceLed === true || ambientPose?.meta?.supineGroundOnly === true));
   const ambientLightDescription = ambientEligible ? resolveAmbientLightDescription(mainContext.lighting) : null;
   const ambientValues = new Map(promptModel.valuesByLabel);
   if (ambientLightDescription) ambientValues.set('Ambient Light Conditions', [`${renderAmbientLightDescription(ambientLightDescription)}.`]);
@@ -16434,7 +16475,21 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     const locked = control.options?.find((option) => option.id === context.locks?.[control.key]);
     if (locked && isNoneLikeItem(locked)) resolvedSelection[control.key] = locked.id;
   }
-  return createSelectionSnapshot(LOCK_DEFINITIONS, resolvedSelection);
+  const storedAction = getSpecifiedAction(context.rawLocks, { ignoreOwners: true });
+  if (storedAction) {
+    for (const key of ['specifiedActionId', 'specifiedActionSceneRestore', 'poseBaseId', 'poseOrientationId',
+      'poseArrangementId', 'poseHandId', 'posePropId', 'poseAnchorId']) {
+      resolvedSelection[key] = context.rawLocks[key];
+    }
+  }
+  const snapshot = createSelectionSnapshot(LOCK_DEFINITIONS, resolvedSelection);
+  if (!storedAction) {
+    // Old results keep their exact selection shape. Missing additive fields
+    // restore to the new defaults without a compatibility migration.
+    delete snapshot.specifiedActionId;
+    delete snapshot.specifiedActionSceneRestore;
+  }
+  return snapshot;
 }
 
 export function buildLocksFromPrompt(prompt, keepKeys = []) {
@@ -16477,7 +16532,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
       random,
     )
   );
-  const effectiveLocks = sanitizeLocksForCloseupMode(fixedScenePoseLocks(locks), lockControls);
+  const effectiveLocks = sanitizeLocksForCloseupMode(getSpecifiedActionEffectiveLocks(fixedScenePoseLocks(locks)), lockControls);
   if (isFullyClosedOpening(effectiveLocks.outerwearOpeningId) && effectiveLocks.poseHandId === PULL_OPEN_HAND_ID) {
     effectiveLocks.poseHandId = 'none';
   }
@@ -16732,6 +16787,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     lighting,
     lightDirection,
     locks: effectiveLocks,
+    rawLocks: locks,
     random,
     previewRerollExclusions,
     characterProfilePrompt: String(runtimeOptions.characterProfilePrompt || '').trim(),

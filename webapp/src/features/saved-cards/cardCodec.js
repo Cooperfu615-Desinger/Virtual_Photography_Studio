@@ -16,6 +16,7 @@ import { ACTION_POSE_CARDS, buildActionPoseSavedCard } from '../../lib/actionPos
 import { reconcilePage1SingleWardrobeLocks } from '../page1/page1WardrobeExclusivity.js';
 import { normalizeZImageDisplayLabel } from './promptLabels.js';
 import { isHeadDominantFraming, matchHeadDominantAngle } from '../../lib/engine/headDominantFraming.js';
+import { SPECIFIED_ACTION_CONCRETE_OPTIONS, getSpecifiedActionEffectiveLocks } from '../../lib/engine/specifiedActions.js';
 
 export const FAVORITES_STORAGE_VERSION = 3;
 const READABLE_FAVORITES_STORAGE_VERSIONS = Object.freeze([2, FAVORITES_STORAGE_VERSION, 4]);
@@ -33,7 +34,7 @@ const STRUCTURED_CONTROL_KEYS = {
     'hairStylingStateId', 'hairStylingStateAId', 'hairStylingStateBId',
     'hairColorId', 'hairColorAId', 'hairColorBId',
     'duoPoseId', 'duoPoseBaseId', 'duoExpressionId', 'expressionId',
-    'poseBaseId', 'poseOrientationId', 'poseArrangementId', 'poseHandId', 'posePropId', 'poseHeadId', 'poseAnchorId',
+    'poseBaseId', 'specifiedActionId', 'poseOrientationId', 'poseArrangementId', 'poseHandId', 'posePropId', 'poseHeadId', 'poseAnchorId',
   ],
   Wardrobe: [
     'nosePiercingId', 'lipPiercingId',
@@ -274,6 +275,7 @@ export function parseSummaryFields(summary) {
 }
 
 export function buildImportedStructured(locks, controls) {
+  locks = getSpecifiedActionEffectiveLocks(locks);
   const controlMap = new Map(controls.map((control) => [control.key, control]));
   const getOption = (key) => {
     const value = locks[key];
@@ -486,6 +488,12 @@ export function parseLocksFromStandardPrompt(promptText, controls) {
     }
   }
 
+  const specifiedAction = SPECIFIED_ACTION_CONCRETE_OPTIONS.find(option => normalizedPrompt.includes(normalizePromptText(option.en)));
+  if (specifiedAction) {
+    locks.specifiedActionId = specifiedAction.id;
+    locks.poseBaseId = specifiedAction.baseId;
+    locks.poseOrientationId = specifiedAction.orientationId;
+  }
   return { locks, matchedControls };
 }
 

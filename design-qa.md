@@ -276,3 +276,14 @@ final result: passed
 - 未驗證：外部圖片模型的實際參考一致性、多張生成及原生圖片參數；此功能是提供外部附圖使用的文字投影。未進行付費生成。保留 5175 本機預覽供使用者確認。
 
 - 交付授權：使用者已確認本機操作，並授權本批 commit／push 與合併 main；遠端 main 合併前仍為 `9629c4b`，無新增上游差異。
+
+
+## 2026-10-16 — 指定動作分支整合 main
+
+- 使用者授權合併 `codex/specified-actions-v1` 並確認 CI／Pages；以 main `a5a3126` 在獨立 managed worktree 整合 `be820b3`，保留原工作區 27 個未提交／未追蹤檔案的逐檔 SHA-256。
+- 解決 current-state、全無契約／測試與歷史 QA 文件衝突。保留 main 的參考圖預覽、標點／族裔／比例政策與六輸出；指定動作契約與整合測試改為 GPT 胸上一種衍生，沒有帶回已移除的 MJ 胸上。全域全無不重複移植。
+- 聚焦 41/41、完整前端 1624/1624、Prompt Quality 711/711、lint、build、sync check、Python 2/2、公開資產 207 檔及 diff-check 通過。本機 Node 25.8.2；遠端 CI 使用 workflow 的 Node 22，Functions Node 24。build 首次因隔離目錄寫入權限失敗，授權重跑通過；保留既有大型 chunk 提示。
+- 同 seed `200 / prompt-quality-baseline --strict` 與以 `git archive a5a3126` 取得的 main 基準報告逐字相同，無新增 blocking 或診斷。
+- Visual QA: PASS。為保留原 5175 預覽，隔離版使用 `http://127.0.0.1:5176/Virtual_Photography_Studio/`。1440×1000、390×900、390×640 及 639／641 斷點共 38 項指定動作檢查通過，涵蓋八動作圖片、有效輸出、獨立表情／頭部、取消、仰躺場景／重載／收藏還原、較高優先接管者、鍵盤及剪貼簿；六工作區桌面／手機巡覽無錯誤、破圖或 document 橫向溢位。
+- 額外重跑 main 參考圖預覽桌面／手機流程通過，錯誤清單為空。證據 `/tmp/vps-merge-browser/{results,extra-results}.json`、`/tmp/vps-merge-reference-browser-results.json` 與同目錄截圖；自動 logs `/tmp/vps-merge-{focused,full,quality,lint,build,audit,baseline-audit}.log`。
+- 原分支歷史記錄保留；本次 CI／Pages 發布結果以整合提交對應 GitHub Actions 為準。沒有 Functions 部署、外部模型生圖或修改原工作區文件。

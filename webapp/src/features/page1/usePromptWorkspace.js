@@ -23,6 +23,7 @@ import {
   createPromptGenerationLocks,
 } from './midjourneyParameterState.js';
 import { buildPage1ControlGroups } from './page1Selectors.js';
+import { getSpecifiedAction } from '../../lib/engine/specifiedActions.js';
 
 export const LOCKS_STORAGE_KEY = 'vps.locks';
 const EMPTY_LIBRARY = Object.freeze([]);
@@ -99,19 +100,35 @@ export function usePromptWorkspace() {
 
       const enteringSupine = !isSupinePoseSelection(previousLocks) && isSupinePoseSelection(candidateLocks);
       const leavingSupine = isSupinePoseSelection(previousLocks) && !isSupinePoseSelection(candidateLocks);
+      const previousSpecifiedAction = getSpecifiedAction(previousLocks, { ignoreOwners: true });
+      const candidateSpecifiedAction = getSpecifiedAction(candidateLocks, { ignoreOwners: true });
+      const hasStoredSpecifiedAction = Boolean(previousSpecifiedAction || candidateSpecifiedAction);
 
-      if (enteringSupine) {
+      if (!restoringSelection && !previousSpecifiedAction && candidateSpecifiedAction
+        && isSupinePoseSelection(previousLocks) && supineSceneRestoreRef.current) {
+        candidateLocks = candidateSpecifiedAction.meta.supineGroundOnly
+          ? { ...candidateLocks, specifiedActionSceneRestore: supineSceneRestoreRef.current }
+          : { ...candidateLocks, ...supineSceneRestoreRef.current };
+        supineSceneRestoreRef.current = null;
+      }
+
+      if (enteringSupine && !hasStoredSpecifiedAction) {
         supineSceneRestoreRef.current = Object.fromEntries(
           SUPINE_SCENE_RESTORE_KEYS.map((key) => [key, previousLocks[key]]),
         );
       }
 
-      if (leavingSupine && supineSceneRestoreRef.current) {
+      if (leavingSupine && supineSceneRestoreRef.current && !hasStoredSpecifiedAction) {
         candidateLocks = {
           ...candidateLocks,
           ...supineSceneRestoreRef.current,
         };
         supineSceneRestoreRef.current = null;
+      }
+      if (previousSpecifiedAction && !candidateSpecifiedAction
+        && isSupinePoseSelection(candidateLocks)) {
+        supineSceneRestoreRef.current = previousLocks.specifiedActionSceneRestore
+          || Object.fromEntries(SUPINE_SCENE_RESTORE_KEYS.map(key => [key, previousLocks[key]]));
       }
 
       return transitionPage1Locks({

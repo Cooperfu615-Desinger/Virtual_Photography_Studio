@@ -12,6 +12,7 @@ export const POSE_COMPOSER_KEYS = [
 
 export const POSE_COMPOSER_CONTROL_KEYS = [
   'poseBaseId',
+  'specifiedActionId',
   'poseOrientationId',
   'poseArrangementId',
   'poseHandId',

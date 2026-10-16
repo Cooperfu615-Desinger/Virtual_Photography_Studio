@@ -123,7 +123,7 @@ test('global none preserves all seven MJ settings, four visible-text settings, a
   }
 });
 
-test('global none clears subject, fixed-scene, card, and imported-scene owners', () => {
+test('global none clears subject, fixed-scene, specified-action, card, and imported-scene owners', () => {
   const lockControls = getLockControls();
   const selectedOptionId = (key) => lockControls.find((control) => control.key === key)
     .options.find((option) => option.zh !== '全無' && option.en !== 'none' && option.id !== 'random').id;
@@ -141,6 +141,8 @@ test('global none clears subject, fixed-scene, card, and imported-scene owners',
     fixedSetBackgroundStateId: selectedOptionId('fixedSetBackgroundStateId'),
     fixedSetCaptureModeId: selectedOptionId('fixedSetCaptureModeId'),
     fixedSetPerformanceStateId: selectedOptionId('fixedSetPerformanceStateId'),
+    specifiedActionId: selectedOptionId('specifiedActionId'),
+    specifiedActionSceneRestore: { sceneAttributeId: 'indoor', locationId: 'previous-scene' },
     actionPoseCardId: 'saved-action-card',
     importedWorldSceneMode: 'replace',
     importedWorldSceneLabel: 'imported scene',
@@ -152,8 +154,9 @@ test('global none clears subject, fixed-scene, card, and imported-scene owners',
   [
     'specialSubjectId', 'characterProfileId', 'fixedCompositionSetId',
     'fixedSetPositionId', 'fixedSetBackgroundStateId', 'fixedSetCaptureModeId',
-    'fixedSetPerformanceStateId', 'importedWorldSceneMode',
+    'fixedSetPerformanceStateId', 'specifiedActionId', 'importedWorldSceneMode',
   ].forEach((key) => assert.equal(next[key], 'none', `${key} relinquishes control`));
+  assert.equal(next.specifiedActionSceneRestore, null);
   assert.equal(next.actionPoseCardId, '');
   assert.equal(next.characterCardHairVariantId, 'default');
   assert.equal(next.characterCardEyewearMode, 'default');
