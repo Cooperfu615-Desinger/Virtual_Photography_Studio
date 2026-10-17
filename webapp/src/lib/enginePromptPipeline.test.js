@@ -931,44 +931,61 @@ test('Gpt single-subject prompt preserves outfit preset and dress palette contro
   assert.match(halterDress.wardrobe, /lower hem or skirt area/i);
 });
 
-test('Gpt duo prompt uses role cards with wardrobe inside each subject block', () => {
-  const [prompt] = generatePrompts(1, {
-    ...createEmptyLocks(),
-    subjectCount: '2',
-    locationId: optionId('locationId', '室內：現代高樓公寓客廳'),
-    outfitPresetAId: optionId('outfitPresetAId', '套裝：鏈條緞面內衣'),
-    outfitPresetBId: optionId('outfitPresetBId', '套裝：BDSM 束縛'),
-    eyewearBId: optionId('eyewearBId', '細框眼鏡'),
-    duoExpressionId: optionId('duoExpressionId', '曖昧對視｜性感張力'),
-    duoPoseId: optionId('duoPoseId', '充滿情慾的時尚寫真'),
+for (const hasRoleAIdentity of [true, false]) {
+  // Empty optional identity sources legitimately omit Has; neither case should
+  // depend on random framing or allow wardrobe matches from the other role.
+  test(`Gpt duo role cards retain wardrobe with ${hasRoleAIdentity ? 'Has and Wears' : 'Wears only'} for Woman 1`, () => {
+    const [prompt] = generatePrompts(1, {
+      ...createAllNoneLocks(),
+      framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+      hairStylingStateAId: optionId('hairStylingStateAId', '全無'),
+      hairStylingStateBId: optionId('hairStylingStateBId', '全無'),
+      eyewearAId: optionId('eyewearAId', hasRoleAIdentity ? '細框眼鏡' : '全無'),
+      lightingId: optionId('lightingId', '室內窗邊日光'),
+      subjectCount: '2',
+      locationId: optionId('locationId', '室內：現代高樓公寓客廳'),
+      outfitPresetAId: optionId('outfitPresetAId', '套裝：鏈條緞面內衣'),
+      outfitPresetBId: optionId('outfitPresetBId', '套裝：BDSM 束縛'),
+      eyewearBId: optionId('eyewearBId', '細框眼鏡'),
+      duoExpressionId: optionId('duoExpressionId', '曖昧對視｜性感張力'),
+      duoPoseId: optionId('duoPoseId', '充滿情慾的時尚寫真'),
+    }, [], { random: createSeededRandom('gpt-duo-role-card-identity') });
+
+    const subject = gptSection(prompt, 'Subject');
+    const sharedExpression = gptSection(prompt, 'Shared Expression');
+    const pose = gptSection(prompt, 'Pose and Composition');
+    const scene = gptSection(prompt, 'Scene');
+
+    assert.match(subject, /^Two 20-year-old adult women\./);
+    const woman1 = gptDuoRoleCard(subject, 1);
+    const woman2 = gptDuoRoleCard(subject, 2);
+    assert.ok(subject.indexOf('Woman 1:') < subject.indexOf('Woman 2:'));
+    if (hasRoleAIdentity) {
+      assert.match(woman1, /^Has [\s\S]*thin-frame glasses[\s\S]*\. Wears /i);
+    } else {
+      assert.match(woman1, /^Wears /);
+      assert.doesNotMatch(woman1, /\bHas\b|thin-frame glasses/i);
+    }
+    assert.match(woman1, /Wears [\s\S]*satin lingerie set[\s\S]*\.$/i);
+    assert.doesNotMatch(woman1, /BDSM-inspired leather lingerie harness set/i);
+    assert.match(woman2, /^Has [\s\S]*thin-frame glasses[\s\S]*\. Wears [\s\S]*BDSM-inspired leather lingerie harness set[\s\S]*\.$/i);
+    assert.doesNotMatch(woman2, /satin lingerie set/i);
+    assert.doesNotMatch(subject, /modern high-rise apartment living room/i);
+    assert.doesNotMatch(subject, /coordinated but clearly distinct outfits|avoid identical garment colors|avoid matching top colors|keep each woman styling visually separate/i);
+    assert.doesNotMatch(subject, /distinct outfit-visible editorial|complete wardrobe visible on both women|visible torso and wardrobe details|no headshot-only crop/i);
+
+    assert.equal(gptSection(prompt, 'Wardrobe'), '');
+    assert.match(sharedExpression, /^both women share a flirtatious ambiguous gaze/i);
+    assert.ok(prompt.grokPrompt.indexOf('\nSubject:\n') < prompt.grokPrompt.indexOf('\nShared Expression:\n'));
+    assert.ok(prompt.grokPrompt.indexOf('\nShared Expression:\n') < prompt.grokPrompt.indexOf('\nPose and Composition:\n'));
+    assert.ok(prompt.grokPrompt.indexOf('\nPose and Composition:\n') < prompt.grokPrompt.indexOf('\nScene:\n'));
+    assert.ok(prompt.grokPrompt.indexOf('\nScene:\n') < prompt.grokPrompt.indexOf('\nLighting:\n'));
+    assert.match(pose, /erotic high-fashion photo-story/i);
+    assert.match(scene, /modern high-rise apartment living room/i);
+    assert.doesNotMatch(scene, /Woman 1 wears|Woman 2 wears/i);
+    assert.doesNotMatch(prompt.grokPrompt, /multi-cut sequence n=2/);
   });
-
-  const subject = gptSection(prompt, 'Subject');
-  const sharedExpression = gptSection(prompt, 'Shared Expression');
-  const pose = gptSection(prompt, 'Pose and Composition');
-  const scene = gptSection(prompt, 'Scene');
-
-  assert.match(subject, /^Two 20-year-old adult women\./);
-  assert.match(subject, /Woman 1:\nHas /);
-  assert.match(subject, /Woman 2:\nHas /);
-  assert.ok(subject.indexOf('Woman 1:') < subject.indexOf('Woman 2:'));
-  assert.match(subject, /Woman 1:\nHas [\s\S]*\. Wears [\s\S]*satin lingerie set[\s\S]*\./i);
-  assert.match(subject, /Woman 2:\nHas [\s\S]*thin-frame glasses[\s\S]*\. Wears [\s\S]*BDSM-inspired leather lingerie harness set[\s\S]*\./i);
-  assert.doesNotMatch(subject, /modern high-rise apartment living room/i);
-  assert.doesNotMatch(subject, /coordinated but clearly distinct outfits|avoid identical garment colors|avoid matching top colors|keep each woman styling visually separate/i);
-  assert.doesNotMatch(subject, /distinct outfit-visible editorial|complete wardrobe visible on both women|visible torso and wardrobe details|no headshot-only crop/i);
-
-  assert.equal(gptSection(prompt, 'Wardrobe'), '');
-  assert.match(sharedExpression, /^both women share a flirtatious ambiguous gaze/i);
-  assert.ok(prompt.grokPrompt.indexOf('\nSubject:\n') < prompt.grokPrompt.indexOf('\nShared Expression:\n'));
-  assert.ok(prompt.grokPrompt.indexOf('\nShared Expression:\n') < prompt.grokPrompt.indexOf('\nPose and Composition:\n'));
-  assert.ok(prompt.grokPrompt.indexOf('\nPose and Composition:\n') < prompt.grokPrompt.indexOf('\nScene:\n'));
-  assert.ok(prompt.grokPrompt.indexOf('\nScene:\n') < prompt.grokPrompt.indexOf('\nLighting:\n'));
-  assert.match(pose, /erotic high-fashion photo-story/i);
-  assert.match(scene, /modern high-rise apartment living room/i);
-  assert.doesNotMatch(scene, /Woman 1 wears|Woman 2 wears/i);
-  assert.doesNotMatch(prompt.grokPrompt, /multi-cut sequence n=2/);
-});
+}
 
 test('Gpt duo subject role wardrobes materialize role colors and punctuate sentences', () => {
   const [prompt] = generatePrompts(1, {
