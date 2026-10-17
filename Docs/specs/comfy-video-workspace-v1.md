@@ -1,6 +1,6 @@
 # Comfy Cloud 圖生影片工作區 v1
 
-狀態：2026-10-17 本機實作／模擬驗證完成；尚未部署、尚未真實付費影片驗收。
+狀態：2026-10-17 已提交、推送並部署兩個新 Functions；本機／模擬驗證完成，真實付費影片仍待驗收。
 
 ## 核准範圍與操作
 
@@ -69,7 +69,7 @@ Firestore 新集合 `comfyCloudVideoJobs/{uid}/requests/{id}`，由 Admin 寫入
 
 ## 後續部署與真實驗收
 
-本批未 commit／push／deploy，未讀取 Secret 值、沒有雲端上傳或付費影片作業。待使用者授權後，只部署上述兩個新 Functions，沿用既有 Secret。後續各選一張圖片，以模型預設 5 秒與預設解析度各驗一支，確認權限、節點可用性、v2 asset 上傳、實際影片內容／音訊／長度、額度差、Cloud 作業可見性、關閉續查、播放及真實 CDN Range 下載。
+使用者另行授權後已完成 commit／push 及兩個新 Functions 部署，詳見下節。未讀取 Secret 值、沒有雲端圖片上傳或付費影片作業。後續各選一張圖片，以模型預設 5 秒與預設解析度各驗一支，確認權限、節點可用性、v2 asset 上傳、實際影片內容／音訊／長度、額度差、Cloud 作業可見性、關閉續查、播放及真實 CDN Range 下載。
 
 尚未確認的提交結果會持續保留追蹤並阻止新付費提交；若未取得 jobId，需先至 Comfy Cloud 核實再處理，不提供一鍵重送。來源與結果集合只保留在此瀏覽器，不是跨裝置雲端影片庫；簽名連結和 Cloud 作業有保存期限，請下載保存。
 
@@ -79,3 +79,21 @@ Firestore 新集合 `comfyCloudVideoJobs/{uid}/requests/{id}`，由 Admin 寫入
 - [Comfy API v2](https://docs.comfy.org/api-reference/v2/overview)、[OpenAPI v2 schema](https://github.com/Comfy-Org/docs/blob/main/openapi-v2.yaml)
 - [Wan schema](https://github.com/Comfy-Org/ComfyUI/blob/master/comfy_api_nodes/nodes_wan.py)、[MiniMax schema](https://github.com/Comfy-Org/ComfyUI/blob/master/comfy_api_nodes/nodes_minimax.py)、[SaveVideo schema](https://github.com/Comfy-Org/ComfyUI/blob/master/comfy_extras/nodes_video.py)
 - [Cloud Run functions quotas](https://docs.cloud.google.com/functions/quotas)
+
+
+## 正式部署紀錄（2026-10-17）
+
+- 功能提交：[`c18f7ba`](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/commit/c18f7badf4ef4f6ba64fc057285b71f13d9906df)，已先推送 `origin/main` 再部署。只提交本批24個程式／規格／截圖檔，其他未追蹤資料保留。
+- 明確指定 `virtualphotographystudio` 與 `--only functions:comfyCloudVideo,functions:comfyCloudVideoDownload`，Firebase CLI 15.17.0、Node 24 執行部署；兩項 Successful create，CLI exit 0。完成時間約台北 22:57。
+
+| Function | revision | 驗證結果 |
+| --- | --- | --- |
+| `comfyCloudVideo` | `comfycloudvideo-00001-qil` | Node24 / GEN_2 / ACTIVE / 最新 revision 全量流量 |
+| `comfyCloudVideoDownload` | `comfycloudvideodownload-00001-piz` | Node24 / GEN_2 / ACTIVE / 最新 revision 全量流量 |
+
+- 兩項均 512Mi、120秒、maxInstances 2、`COMFY_CLOUD_API_KEY` version 1。共用 Cloud Build `1b099d94-bc72-4e2d-afa6-5051dc7cd670`。未存取 Secret 值。
+- 部署前後清單由7項增至9項；原七項的所有清單 metadata 深度比較完全相同，沒有重新部署或設定變動。未部署 Firestore rules、indexes 或其他 Functions。
+- 正式網址匿名空資料 POST：兩項皆 HTTP401，callable 回 UNAUTHENTICATED，download 回「請先登入」；兩項均有正式 Pages origin CORS。確認容器載入、handler 與匿名保護，不代表登入後的 Comfy API／Firestore／扣額／影片下載已驗收。
+- 部署前 Functions 82/82、lint 與 staged diff-check 通過；沿用上一節已完成的前端／視覺驗證。CLI 提示 firebase-functions 有新版，本批未升級依賴。
+- 永久證據：[部署 metadata](../reports/comfy-video-workspace-2026-10-17/deployment.json)、[匿名 smoke](../reports/comfy-video-workspace-2026-10-17/deployment-smoke.json)、[既有服務比較](../reports/comfy-video-workspace-2026-10-17/deployment-comparison.json)。
+- 後續驗收仍為：兩模型各一支，確認節點權限、圖片上傳、真實影片、扣額、Cloud 可見性、播放與 CDN 分段下載；部署不會自動送出付費作業。

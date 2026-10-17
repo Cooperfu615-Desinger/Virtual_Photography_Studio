@@ -4,12 +4,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-17
 
-## Comfy Cloud 圖生影片工作區（2026-10-17，本機實作）
+## Comfy Cloud 圖生影片工作區（2026-10-17，已部署）
 
 - 使用者核准示意圖與流程後，新增 DLL 圖片／放大視窗的「製作影片」，採大面積雙欄 modal、手機單欄；支援 Wan 3.0 與 MiniMax H3、動作／運鏡、秒數／解析度、額度預估、同圖多結果、播放與 MP4 下載。規格見 [影片工作區 v1](specs/comfy-video-workspace-v1.md)。
 - 新增兩個 Functions：`comfyCloudVideo`、`comfyCloudVideoDownload`，沿用 Node 24、Secret 與 allowlist；v2 來源上傳／作業追蹤與 image-only 契約分離。同步追蹤標記、Web Locks、Firestore claim 防重送；中斷後只查詢。下載採受驗證的 6 MiB 分段，避免單次 Functions 回應上限。
 - Node 22 前端完整 1644/1644、lint／build；Node 24 Functions 82/82、lint 通過。桌面／手機、820px 斷點、五工作區、模擬成功／失敗／續查／播放／下載已驗證；沒有實際付費生成。最初錯用 Node 25 的 TAP 格式失敗，在指定 Node 22 重跑全過。詳見規格及根目錄 `design-qa.md` 本批附錄。
-- 本批尚未 commit／push／部署。後續需授權部署兩個新 Functions，再各模型一支驗證真實權限、節點、扣額、Cloud 可見性、影片內容、播放及 CDN 分段下載；不得把本機 mock 視為供應商端驗收。
+- 使用者已授權 commit／push／部署：功能 `c18f7ba` 已推送 origin/main，兩個新 Functions 已於台北 22:57 成功建立，Node24／GEN_2／ACTIVE／最新 revision 全量流量，沿用 Secret v1；原七項 metadata 全部不變。匿名 POST 皆401且 CORS 正常，詳見規格部署紀錄。真實兩模型付費生成、扣額、Cloud 可見性與 CDN 下載仍待另行驗收；其他未追蹤文件／參考圖保留。
 
 ## 蹲姿專屬手部 v2（2026-10-17，本機實作）
 

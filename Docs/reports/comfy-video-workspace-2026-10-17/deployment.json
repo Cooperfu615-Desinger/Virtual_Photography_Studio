@@ -1,0 +1,42 @@
+[
+  {
+    "name": "comfyCloudVideo",
+    "state": "ACTIVE",
+    "runtime": "nodejs24",
+    "environment": "GEN_2",
+    "revision": "comfycloudvideo-00001-qil",
+    "latestTraffic": true,
+    "uri": "https://comfycloudvideo-akjozu3kza-uc.a.run.app",
+    "memory": "512Mi",
+    "timeout": 120,
+    "maxInstances": 2,
+    "secrets": [
+      {
+        "key": "COMFY_CLOUD_API_KEY",
+        "version": "1"
+      }
+    ],
+    "build": "projects/125438971546/locations/us-central1/builds/1b099d94-bc72-4e2d-afa6-5051dc7cd670",
+    "updateTime": "2026-10-17T14:56:45.432643495Z"
+  },
+  {
+    "name": "comfyCloudVideoDownload",
+    "state": "ACTIVE",
+    "runtime": "nodejs24",
+    "environment": "GEN_2",
+    "revision": "comfycloudvideodownload-00001-piz",
+    "latestTraffic": true,
+    "uri": "https://comfycloudvideodownload-akjozu3kza-uc.a.run.app",
+    "memory": "512Mi",
+    "timeout": 120,
+    "maxInstances": 2,
+    "secrets": [
+      {
+        "key": "COMFY_CLOUD_API_KEY",
+        "version": "1"
+      }
+    ],
+    "build": "projects/125438971546/locations/us-central1/builds/1b099d94-bc72-4e2d-afa6-5051dc7cd670",
+    "updateTime": "2026-10-17T14:56:50.585383443Z"
+  }
+]

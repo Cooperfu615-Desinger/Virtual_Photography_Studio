@@ -341,6 +341,7 @@ final result: passed
 - [x] 維持已核准 modal 主要配置、既有視覺語言與獨立影片契約。
 - [x] 修正初稿寬度、入口換行、手機按鈕及鍵盤迴圈，再次檢查。
 - [x] 桌面／手機／斷點及狀態操作完成，暫時 harness 移除。
-- [ ] 授權後部署兩個新 Functions，再做 Wan/H3 真實付費影片與扣額／下載驗收。
+- [x] 使用者另行授權後，兩個新 Functions 已部署並驗證 ACTIVE／匿名拒絕；原七項服務 metadata 不變。
+- [ ] Wan/H3 真實付費影片、扣額、播放與 CDN 下載驗收。
 
 final result: passed

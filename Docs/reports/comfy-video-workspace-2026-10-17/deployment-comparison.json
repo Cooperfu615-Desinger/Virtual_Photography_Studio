@@ -1,0 +1,16 @@
+{
+  "sourceCommit": "c18f7badf4ef4f6ba64fc057285b71f13d9906df",
+  "added": [
+    "comfyCloudVideo",
+    "comfyCloudVideoDownload"
+  ],
+  "existingMetadataUnchanged": {
+    "bytePlusGenerate": true,
+    "comfyCloudQuota": true,
+    "comfyCloudStatus": true,
+    "comfyCloudSubmit": true,
+    "magnificDownloadImage": true,
+    "magnificGenerate": true,
+    "magnificGenerateClassic": true
+  }
+}

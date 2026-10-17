@@ -1,0 +1,14 @@
+[
+  {
+    "name": "comfyCloudVideo",
+    "status": 401,
+    "cors": "https://cooperfu615-desinger.github.io",
+    "body": "{\"error\":{\"message\":\"請先登入 Firebase 後再使用 Comfy Cloud 影片\",\"status\":\"UNAUTHENTICATED\"}}"
+  },
+  {
+    "name": "comfyCloudVideoDownload",
+    "status": 401,
+    "cors": "https://cooperfu615-desinger.github.io",
+    "body": "請先登入"
+  }
+]
