@@ -398,6 +398,22 @@ test('standard prompt parser restores revised hand actions from current and lega
   }
 });
 
+test('open-palm current and historical descriptions restore the same ID without rewriting stored prompt text', () => {
+  const controls = getLockControls();
+  const hand = controls.find(control => control.key === 'poseHandId').options.find(option => option.id === 'one-hand-open-palm-camera');
+  const formerSource = 'one arm extended straight toward the camera to block the lens, with one open palm held flat toward the lens and all five fingers spread wide and fully visible from their bases to their fingertips';
+  assert.ok(hand.meta.legacyPromptAliases.includes(formerSource));
+  for (const source of [hand.en, ...hand.meta.legacyPromptAliases]) {
+    const text = `Pose and Composition:\nShe has ${source}, and presents a relaxed upright posture.`;
+    const parsed = parseLocksFromStandardPrompt(text, controls);
+    assert.equal(parsed.locks.poseHandId, hand.id);
+    const saved = serializeFavoritePrompt({ id: 'palm-legacy', grokPrompt: text, selection: { ...createEmptyLocks(), poseHandId: hand.id } });
+    const restored = deserializeFavoritePrompt(JSON.parse(JSON.stringify(saved)));
+    assert.equal(restored.grokPrompt, text);
+    assert.equal(restored.selection.poseHandId, hand.id);
+  }
+});
+
 test('standard prompt parser restores the two garment-lift actions to separate IDs', () => {
   const controls = getLockControls();
   const handOptions = controls.find((control) => control.key === 'poseHandId')?.options || [];

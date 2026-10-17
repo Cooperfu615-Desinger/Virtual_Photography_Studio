@@ -62,7 +62,7 @@ test('405 explicitly selected non-target top cases preserve selection and all si
 
 test('the existing tie-shirt identity fixes only the necktie black and declares its fabric color target', () => {
   assert.equal(Object.isFrozen(BLACK_TIE_SHIRT_CONTRACT), true);
-  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.58.0');
+  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.59.0');
   assert.match(BLACK_TIE_SHIRT_CONTRACT.source, /short soft black necktie/);
   assert.match(BLACK_TIE_SHIRT_CONTRACT.color, /shirt fabric only/);
   assert.match(BLACK_TIE_SHIRT_CONTRACT.projection, /existing crop, closed-outerwear and complete-look/);
