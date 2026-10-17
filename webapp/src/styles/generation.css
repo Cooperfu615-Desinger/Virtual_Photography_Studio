@@ -269,6 +269,7 @@
 
 .dll-pic-image-card figcaption {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
@@ -297,6 +298,7 @@
 }
 
 .dll-pic-lightbox-header {
+  flex-wrap: wrap;
   gap: 14px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--border-muted);
@@ -304,6 +306,7 @@
 
 .dll-pic-lightbox-actions {
   display: flex;
+  flex-wrap: wrap;
   flex: 0 0 auto;
   align-items: center;
   gap: 8px;
@@ -486,4 +489,9 @@
   .prompt-preview-grid {
     grid-template-columns: 1fr;
   }
+}
+
+.dll-pic-image-card .dll-pic-download-btn {
+  white-space: nowrap;
+  flex-shrink: 0;
 }

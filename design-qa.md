@@ -299,3 +299,48 @@ final result: passed
 - Evidence: `/tmp/palm-qa/results.json`、`/tmp/palm-qa/{1440,390}-selection.png`、`/tmp/palm-qa/{1440,390}-output.png` 及兩尺寸五工作區截圖。
 - Harness boundary: 初始全無的 Playwright selectOption 停用判定未解除，選取驗證從既有有效手勢開始；清為全無與收藏還原通過。未修改 UI 或選項規則來配合工具。
 - 原不相關修改保留。使用者於本機驗證後授權 commit／push，本批以 `codex/open-palm-foreground-v2` 分支交付，不合併 main 或觸發 Pages 部署。完整核准文字、測試及外部出圖驗收邊界見 [規格](Docs/specs/open-palm-foreground-v2.md)。
+
+## 2026-10-17 — Comfy Cloud 圖生影片工作區
+
+### Source / implementation / scope
+
+- Source visual truth: `/Users/cooperfu/.codex/generated_images/01a0c277-5451-7130-b31f-c16c71e86b2c/exec-e28f82ac-9f16-48e5-8c27-d15770d6adc7.png`，使用者已核准。
+- Implementation: `http://127.0.0.1:5175/Virtual_Photography_Studio/`；既有 DEV `dllPicDemoImage` 用公開衣服參考圖展示入口，未真實生圖。
+- Final screenshots: [桌面](Docs/reports/comfy-video-workspace-2026-10-17/desktop.png)、[手機](Docs/reports/comfy-video-workspace-2026-10-17/mobile.png)、[手機設定 mock](Docs/reports/comfy-video-workspace-2026-10-17/mobile-settings-mock.png)、[結果 mock](Docs/reports/comfy-video-workspace-2026-10-17/success-mock.png)。
+- Source and final desktop capture: 1513×1039 pixels / 1513×1039 CSS pixels；1:1 density，沒有圖片縮放或裁切以掩蓋差異。另驗 1440×1000、390×900、819×1000、821×1000。
+- State comparison: 來源圖片、Wan、5 秒、720p、動作及運鏡文字。示意圖的咖啡廳人物為動態使用者來源示範；實作使用既有綠裙參考圖，不視為品牌／裝飾素材替代。Mock 已登入且金額虛構；正式截圖未登入，因此金額未知且生成停用是必要差異。
+- 同一 CUA comparison input 同時呈現原示意圖及最終截圖，比對整體、右側表單、額度、結果容器。原尺寸字樣可讀，未另裁切局部。此批僅檢查影片及新增入口，不重設現有 prompt／Saved Cards。
+
+### Findings / iterations
+
+- [P2, fixed] 初稿 modal 最大 1240px，比示意圖過寬；改成 1120px。1513×1039 重拍，左右約60/40、預覽與右表單閱讀順序一致。內部捲動用於短螢幕及展開設定，不造成頁面橫向溢出。
+- [P2, fixed] DLL 小圖卡增加按鈕後文字被壓成直排；figcaption 允許換行、按鈕不縮小，lightbox 標題列可換行。手機 lightbox 實查三操作均可用。
+- [P2, fixed] 手機停用固定生成按鈕的 opacity 讓背後文字透出；改為不透明淡藍色。最新 mobile.png 可見白色底部遮罩與完整按鈕，底部內容可捲至按鈕上方。
+- [P2, fixed] 關閉後浮動入口重新掛載導致原 focus 失效；加入回到浮動入口的 fallback。焦點迴圈排除折疊 details 內的 input 及非控制項影片縮圖；原生 Shift+Tab 從關閉到更多設定、Tab 返回關閉已驗證，Esc 後返回「開啟影片工作區」。
+- No remaining actionable P0/P1/P2 visual findings in checked states. 不把未部署／外部影片驗收當成視覺 QA 通過的範圍。
+
+### Required fidelity surfaces
+
+- Fonts / typography: 沿用專案字型、24px modal heading、12–15px controls、手機輸入16px。無長中文斷字壓縮；模型名及錯誤可讀。產生式示意圖的微小字型差異未另外引入字型依賴。
+- Spacing / rhythm: 圓角白色大 modal、左預覽與結果、右表單／額度／CTA。1120px 上限、92dvh；820px 以下全螢幕，兩側16px。所有控制項可由內部捲動到達；沒有文件水平捲動。
+- Colors / tokens: 重用 panel/control/subtle/selected/accent/text/border tokens，主按鈕藍色、輔助灰色，選取模型藍框。停用與失敗有清楚狀態。
+- Images / icons: 真正來源 img、真 MP4 video controls、object-fit contain 不裁切；使用 lucide 的 Film/Play/Download/Refresh/X。來源示範不同為內容差異。模擬播放fixture只2秒，不能當成真實模型5秒成果。
+- Copy / content: 保留「製作影片」「來源圖片」「影片結果」「本張圖片的影片」「生成影片」；成功後「再生成一支」。真實限制、費率時間、未登入、估價不含工作流執行費取代示意數值；模型切換不相容設定有提示。
+
+### Browser validation
+
+- 主 app：圖卡→modal、lightbox→modal（僅一個dialog）、關閉／返回、模型能力、文字與捷徑、匿名disabled、背景 inert、鍵盤迴圈、手機固定CTA、819/821斷點。
+- 五工作區 desktop/mobile smoke：Prompt、角色、動作、場景、Saved Cards；各頁標題與內容正常，document scrollWidth 不超過 clientWidth，破圖0。只讀原本9張收藏，沒有套用／新增／刪除。
+- 暫時獨立 harness（已移除）：排隊／生成鎖定、關閉續跑、完成、兩模型兩結果、原生影片播放、下載、失敗保留草稿、遺失提交回應後重載續查、額度更新失敗保留既有數值。
+- 模擬 MP4 下載 SHA256 `7757066a839414310d6208d01b7e5d53914887bc3f946c67f6a4e5e54884ef16` 與本機 fixture 一致。真實下載分段另由 unit tests 驗證，真 Cloud CDN 仍待部署後確認。
+- 初次熱更新時，修改 effect dependencies 出現一次 React HMR 警告；完整 reload 後及最新互動無新增 console error/warning，mock頁無console錯誤。未忽略持續的執行錯誤。
+- 全部自動化結果與尚未部署的界線見 [實作規格](Docs/specs/comfy-video-workspace-v1.md)。無付費作業、無 Secret 讀取。
+
+### Implementation checklist
+
+- [x] 維持已核准 modal 主要配置、既有視覺語言與獨立影片契約。
+- [x] 修正初稿寬度、入口換行、手機按鈕及鍵盤迴圈，再次檢查。
+- [x] 桌面／手機／斷點及狀態操作完成，暫時 harness 移除。
+- [ ] 授權後部署兩個新 Functions，再做 Wan/H3 真實付費影片與扣額／下載驗收。
+
+final result: passed

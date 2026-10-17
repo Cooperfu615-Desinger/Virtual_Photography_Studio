@@ -51,10 +51,10 @@ function normalizeCallableGenerationRequest(providerKey, data) {
   }
 }
 
-function comfyStore(uid) {
+function comfyStore(uid, collectionName = 'comfyCloudJobs') {
   if (!getApps().some((app) => app.name === '[DEFAULT]')) initializeApp();
   const db = getFirestore();
-  const collection = db.collection('comfyCloudJobs').doc(uid).collection('requests');
+  const collection = db.collection(collectionName).doc(uid).collection('requests');
   return {
     claim: (id, record) => db.runTransaction(async (transaction) => {
       const ref = collection.doc(id);
@@ -68,6 +68,11 @@ function comfyStore(uid) {
     listRecent: async () => (await collection.orderBy('createdAt', 'desc').limit(50).get()).docs.map(doc => doc.data()),
   };
 }
+
+Object.assign(exports, require('./src/comfyVideoFunctions')({
+  onCall, HttpsError, assertAllowedUser, apiKey: comfyCloudApiKey,
+  storeFor: uid => comfyStore(uid, 'comfyCloudVideoJobs'),
+}));
 
 for (const [name, operation] of [['comfyCloudSubmit', submitComfyJob], ['comfyCloudStatus', readComfyJob]]) {
   exports[name] = onCall({

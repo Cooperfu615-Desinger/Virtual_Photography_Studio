@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import ComfyQuotaPanel from './ComfyQuotaPanel.jsx';
+import { openVideoWorkspace } from '../lib/comfyVideoClient.js';
 import {
   DLL_PIC_ASPECT_RATIOS,
   DLL_PIC_STORAGE_KEYS,
@@ -524,6 +525,7 @@ export default function DllPicProPanel({
                 </button>
                 <figcaption>
                   <span>#{index + 1}</span>
+                  <button type="button" className="secondary dll-pic-download-btn" onClick={() => openVideoWorkspace(image, index)}>製作影片</button>
                   <button
                     type="button"
                     className="secondary dll-pic-download-btn"
@@ -557,6 +559,11 @@ export default function DllPicProPanel({
                 <div className="control-section-title">DLL_PIC Pro 預覽圖 #{previewImageIndex + 1}</div>
               </div>
               <div className="dll-pic-lightbox-actions">
+                <button type="button" className="secondary dll-pic-download-btn" onClick={() => {
+                  const image = previewImage; const index = previewImageIndex;
+                  closeImagePreview();
+                  openVideoWorkspace(image, index);
+                }}>製作影片</button>
                 <button
                   type="button"
                   className="secondary dll-pic-download-btn"

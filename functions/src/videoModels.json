@@ -1,0 +1,15 @@
+{
+  "rateDate": "2026-10-17",
+  "models": {
+    "wan3": {
+      "label": "Wan 3.0", "node": "Wan3ImageToVideoApi", "model": "wan3.0-video",
+      "resolutions": ["720P", "1080P", "480P"], "minDuration": 2, "maxDuration": 30,
+      "audioToggle": true, "creditsPerSecond": {"480P": 15.09, "720P": 30.17, "1080P": 60.35}
+    },
+    "minimaxH3": {
+      "label": "MiniMax H3", "node": "MinimaxHailuo03FirstLastFrameNode", "model": "MiniMax H3",
+      "resolutions": ["768P", "2K"], "minDuration": 4, "maxDuration": 15,
+      "audioToggle": false, "creditsPerSecond": {"768P": 27.16, "2K": 39.22}
+    }
+  }
+}
