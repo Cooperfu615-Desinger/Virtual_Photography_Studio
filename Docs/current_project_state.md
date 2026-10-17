@@ -66,12 +66,13 @@ Last updated: 2026-10-17
 - 原選值與結構化 Saved Cards／還原保留，資料庫／UI／storage schema 不改；舊 GPT 體態來源及 aliases 仍解析，省略後純 GPT 文字不能反推出原體態。Public contract `1.52.0`；已完成本機實作與驗證，Git 交付依分支紀錄核對，未手動 deploy；實際 GPT 生圖接受情況待正式輸出實測。
 - 驗證：前端 Node 22.22.3，完整測試 1517/1517、Prompt Quality 674/674、lint／build／資料同步檢查／diff-check 通過；同 seed 200 組 strict audit 前後皆 0 blockers／22 項既有診斷。410 組固定案例中非 GPT 1181 份輸出逐字相同，GPT 差異限於獨立體態省略。1440×1000／390×900 瀏覽器 28 項檢查、六現用工作區呈現與 GPT 複製／收藏還原／回填／角色卡匯回皆通過；無新頁面錯誤、溢位或失敗圖片。詳細證據見上述規格，既有 Vite 大型 chunk 提示保留。
 
-## Firebase Functions：Node.js 24 (local, 2026-10-09)
+## Firebase Functions：Node.js 24 (deployed, 2026-10-09)
 
 - 使用者授權更新 Functions runtime 設定，`functions/package.json`、lock 根 `engines.node` 與 Functions CI 從 20 改為 24。Google 支援時程及本機 Firebase CLI 15.17.0 均已核對 `nodejs24` 支援；前端 CI 的 Node 22、Functions source／共用契約／模板／Secret／allowlist 不變，依賴版本完全保留。詳見 [Node 24 升級與部署規格](specs/firebase-functions-node24-v1.md)。
 - 明確使用 Node 24.19.0 完成 engine-strict clean install（337 packages）、Functions 72/72／lint、相關前端 client／shared tests 55/55；七個 callable 載入與匿名保護均通過，供應商 fetch 為 0。前端沿用 Node 22.22.3 的 lint／build 通過；既有 npm 依賴棄用與 Vite 大型 chunk 提示未擴修。未改使用者可見行為、前端 runtime 或 shared source，因此未重跑完整 Prompt suite／瀏覽器流程；前批既有服裝隨機 fixture 例外保留。
-- 使用者已於 2026-10-09 授權本批 commit／push，Git 交付狀態以遠端核對為準；尚未重新部署，設定於後續部署才生效。正式遷移需包含全部七個 Functions：三個 Comfy、現用 `magnificDownloadImage` 與三個隱藏 legacy 生圖服務；可分批部署，逐一核對 Node 24／ACTIVE／revision／Secret。macOS 本機驗證不代替雲端 Linux 連線驗收，未消耗付費生成額度。
-- 本對話前批 Krea 部署紀錄依本次授權一併提交；未追蹤參考資料保留。文件連結及 diff-check 通過。
+- 已 commit／push `c552423bf574a180fc834597fdc06250eebabb05`，交付當時本機與遠端 `main` SHA 一致；本對話前批 Krea 部署紀錄一併交付。使用者另行授權後，2026-10-09 09:10（台北）已將全部七個 Functions 部署至 `virtualphotographystudio/us-central1`：三個 Comfy、現用 `magnificDownloadImage` 與三個隱藏 legacy 生圖服務。逐一核對皆為 Node.js 24／Gen2／ACTIVE、最新 revision 全量流量，Secret 名稱／專案／version 1 綁定沿用；revision／build 見 [部署紀錄](specs/firebase-functions-node24-v1.md#正式部署紀錄2026-10-09)。
+- 三個隱藏 legacy 同步目前已提交 source 的 `maxInstances: 2`：Magnific 兩項由舊雲端 20 改為 2，BytePlus 由未明設改為 2。BytePlus 新增公開的 `FUNCTION_SIGNATURE_TYPE=http` 框架標記；所有既有環境值與其他資源設定相同。此批也載入先前核准的共用張數上限 2，未新增 source／UI 修改。
+- 七個正式 callable 的匿名空資料 POST 均回 401／UNAUTHENTICATED、本專案登入提示與正式來源 CORS，確認新版容器載入及 handler 正常；未讀取金鑰值、查詢真實額度、提交生圖、下載圖片或寫 Firestore。供應商 TLS／DNS、登入後 Firestore／額度／下載與真實付費生成仍需另外驗收。未追蹤參考資料保留；2026-10-17 唯讀重查七項 Functions 均為 Node 24／Gen2／ACTIVE／us-central1；兩批歷史 Actions 全部成功。當時暫存證據已無法取得，詳見上述規格的紀錄核對。
 
 ## DLL：Krea 三版本與逐張生成 (backend deployed, 2026-10-08)
 
@@ -80,9 +81,9 @@ Last updated: 2026-10-17
 - Krea 沿用 Partner Node 伺服端 Secret，合作夥伴費用不以 GPU 秒數推算，只提供 Credits／刷新與暫不估算提示。原五個 Comfy 模型單張工作流／採樣不變，每個 job 仍一張，原擴散模型的單張額度樣本仍適用。此批未查詢真實費用、權限或額度。
 - 驗證：Functions 72/72、前端聚焦 51/51、雙端 lint、前端 build、78 個相關文件本機連結／diff-check 通過。首次完整測試唯一失敗為新 Krea fixture 原傳 2K，已依正確的 1K 契約修正，未放寬 production 尺寸拒絕。重跑完整前端 1372/1373，唯一失敗為未修改的 `engineOutfitPresetDressCleanup.test.js:627` 隨機抽到頭部主導近景後仍要求完整裙身拉鍊來源。以 Node 24.19.0／固定 seed `latex-fixture-1` 在 HEAD `5792226` 的唯讀 snapshot 與目前工作區重現相同失敗；test／engine SHA256 相同，證據 `/tmp/vps-head-latex-baseline-4ch5admo/manifest.json` 及兩份 fixed-seed-test log。保留該既有不穩定測試，不擴修服裝／Prompt。既有 Vite 大型 chunk 提示未擴修；本次 Krea／client／追蹤／共享契約全數通過，未宣稱完整套件全綠。
 - Chromium 隔離來源於 1440×1000／390×900 檢查五工作區載入及四個 DLL 面板、11 個可見模型的預設／1-2 張控制、Krea 比例停用／固定胸上 4:5、逐張 loading／兩張成功／第二張失敗／回應遺失後 reload 唯讀回收／放大關閉／未登入保護與鍵盤 focus／Tab／Enter。所查狀態無 console warning/error、page error、破圖或 document 橫向溢出；未重驗手機 D 區既有標題工具列溢出。生成均採本機 mock，觀察到外部 POST 為 0，不代替付費出圖。截圖 `/tmp/vps-krea-desktop-{loading,success,preview}.png`、`/tmp/vps-krea-mobile-{success,partial,lost,recovered,preview,unsupported,login-error}.png`，結果 `/tmp/vps-krea-browser-results.json`／`/tmp/vps-krea-surface-results.json`。隔離儲存未動到使用者收藏／登入／待查任務；原未追蹤參考資料夾保留。
-- 驗證瀏覽器與本次 5175 服務已關閉。已 commit／push `162cd4f71aca7536f5398cf482499589c8eb2015` 至 `origin/main`，遠端 SHA 一致。GitHub Actions [37749256835](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/37749256835) 查核時仍為 in_progress：Functions quality 成功，前端完整測試尚在執行，Pages build／deploy 尚未開始；不可宣稱新版前端已發布。
+- 驗證瀏覽器與本次 5175 服務已關閉。已 commit／push `162cd4f71aca7536f5398cf482499589c8eb2015` 至 `origin/main`，遠端 SHA 一致。2026-10-09 重查 GitHub Actions [37749256835](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/37749256835)，Functions／frontend quality、build／Pages deploy 全部成功，前端於 2026-10-08 16:41:46（台北）發布。此結果更新前次仍在執行的查核快照。
 - 使用者另行授權後，2026-10-08 16:28（台北）已從上述 commit 部署 `comfyCloudSubmit`／`comfyCloudStatus`／`comfyCloudQuota` 至 `virtualphotographystudio/us-central1`。三者 ACTIVE、最新 revision 全量流量，分別為 `comfycloudsubmit-00007-jup`／`comfycloudstatus-00008-buc`／`comfycloudquota-00003-hek`，共用 build `9c76a8cd-159a-4146-9797-d4c89bd0ab64`。Secret v1、環境設定、allowlist 與 Node.js 20 維持不變；其他四個 Functions 的 CLI metadata 不變，未部署 rules／index。三個未登入 callable 檢查均回 401／UNAUTHENTICATED，正式來源 CORS 正確，未執行供應商操作；詳細證據見 [部署紀錄](specs/comfy-krea-sequential-generation-v1.md#部署紀錄2026-10-08)。
-- 未查詢真實額度或提交付費生成。待新版前端發布後，Krea 真實節點權限、單張／兩張依序出圖、下載、扣額與圖片品質仍需驗收。部署 CLI 再次提示 Node.js 20 將於 2026-10-30 停止支援部署，本次未升級 runtime／dependencies。
+- Krea 與逐張生成的前端發布已完成；未查詢真實額度或提交付費生成，真實節點權限、單張／兩張依序出圖、下載、扣額與圖片品質仍需驗收。上列 2026-10-08 部署沿用 Node 20；2026-10-09 的七項 Node 24 遷移紀錄見上方 Firebase Functions 段落，依賴版本未升級。
 
 ## 頭部主導近景 (local, 2026-10-07)
 
