@@ -3,6 +3,15 @@ import { test } from 'node:test';
 
 import { createEmptyLocks, generatePrompts, getLockControls } from './engine.js';
 import { stripMidjourneyParameterTail } from './engine/midjourneyParameterTail.js';
+import { expectedSubjectText } from './engine/defaultEthnicityTestSupport.js';
+
+// Facial Features are unlocked here, so the 2026-10-17 Japanese default may apply.
+// Require the subject to exist: a missing anchor (-1) must not pass an order check.
+const zSubjectIndex = prompt => {
+  const index = prompt.zImagePrompt.indexOf(expectedSubjectText(prompt, 'A 20-year-old seductive stunning adult woman'));
+  assert.ok(index >= 0, 'Z-Image subject sentence exists');
+  return index;
+};
 
 function control(key) {
   const found = getLockControls().find((entry) => entry.key === key);
@@ -288,7 +297,7 @@ test('black velvet industrial sofa fixed composition shares sofa placement contr
   assert.doesNotMatch(prompt.grokPrompt, /multi-cut sequence n=2/);
 
   assert.ok(
-    prompt.zImagePrompt.indexOf('A 20-year-old seductive stunning adult woman') <
+    zSubjectIndex(prompt) <
       prompt.zImagePrompt.indexOf('real-scale compact editorial lounge set'),
     'Expected subject description to appear before the black velvet sofa scene in Z-Image prompt'
   );
@@ -607,7 +616,7 @@ test('Fuji hotel fixed compositions share hotel placement controls and seasonal 
     assert.doesNotMatch(prompt.grokPrompt, /multi-cut sequence n=2/);
 
     assert.ok(
-      prompt.zImagePrompt.indexOf('A 20-year-old seductive stunning adult woman') <
+      zSubjectIndex(prompt) <
         prompt.zImagePrompt.indexOf('real-scale luxury hotel room editorial set'),
       'Expected subject description to appear before the fixed Fuji hotel scene in Z-Image prompt'
     );
@@ -724,7 +733,7 @@ test('bathtub fixed composition keeps a frontal wall plane and sink mirror inter
   assert.doesNotMatch(prompt.grokPrompt, /camera near the tub edge or waterline/);
 
   assert.ok(
-    prompt.zImagePrompt.indexOf('A 20-year-old seductive stunning adult woman') < prompt.zImagePrompt.indexOf('real-scale vintage bathroom editorial set'),
+    zSubjectIndex(prompt) < prompt.zImagePrompt.indexOf('real-scale vintage bathroom editorial set'),
     'Expected subject description to appear before the fixed bathtub scene in Z-Image prompt'
   );
   assert.doesNotMatch(prompt.zImagePrompt, /The portrait uses The portrait takes place/);

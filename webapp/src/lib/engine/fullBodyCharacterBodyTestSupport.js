@@ -5,6 +5,7 @@
 // and before facial, hair, skin and expression fragments.
 import assert from 'node:assert/strict';
 import { polishPublicPromptText } from './publicPromptPolish.js';
+import { expectedSubjectText } from './defaultEthnicityTestSupport.js';
 
 export const FULL_BODY_CHARACTER_ID = 'full-body-character';
 const SUBJECT_LABEL = 'Subject:\n';
@@ -50,7 +51,7 @@ export function assertFullBodyCharacterBody(prompt, source, message = '') {
   assert.ok(bodyIndex > 0, `${label}Body Type source sits inside Subject`);
   const base = prompt.structured?.Character?.find(item => BASE_IDS.includes(item.id));
   assert.ok(base?.en, `${label}ordinary base identity exists`);
-  const lead = `${SUBJECT_LABEL}The subject is ${base.en}`;
+  const lead = `${SUBJECT_LABEL}The subject is ${expectedSubjectText(prompt, base.en)}`;
   assert.ok(subject.startsWith(lead), `${label}Subject opens with the Subject Count sentence`);
   const countBoundary = subject.slice(lead.length).search(/\.(?=\s|$)/);
   assert.ok(countBoundary >= 0, `${label}Subject Count sentence ends`);
