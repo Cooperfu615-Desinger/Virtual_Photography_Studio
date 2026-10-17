@@ -2,9 +2,11 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-17
+Last updated: 2026-10-18
 
 ## Comfy Cloud 圖生影片工作區（2026-10-17，已部署）
+
+- **2026-10-18 真實驗收完成**：Wan／H3 各一次付費生成成功，DLL 播放與下載通過；Wan 實際 5.000 秒，H3 請求 5 秒、實際 5.167 秒含 AAC。額度 2,803.25 → 2,652.39 → 2,516.61 Credits。實測修正 multipart 欄位順序與 `type=image + video/mp4` 回傳相容，已更新 `comfyCloudVideo` 至 revision `00003-pig`；使用者已於 2026-10-18 授權將本批修正與驗收紀錄 commit／push；實際交付以 Git 遠端為準。詳細範圍、下載檔、差額限制與證據見 [真實驗收紀錄](reports/comfy-video-workspace-2026-10-17/live-acceptance.md)。下方未實際生成描述為初次部署時的歷史狀態。
 
 - 使用者核准示意圖與流程後，新增 DLL 圖片／放大視窗的「製作影片」，採大面積雙欄 modal、手機單欄；支援 Wan 3.0 與 MiniMax H3、動作／運鏡、秒數／解析度、額度預估、同圖多結果、播放與 MP4 下載。規格見 [影片工作區 v1](specs/comfy-video-workspace-v1.md)。
 - 新增兩個 Functions：`comfyCloudVideo`、`comfyCloudVideoDownload`，沿用 Node 24、Secret 與 allowlist；v2 來源上傳／作業追蹤與 image-only 契約分離。同步追蹤標記、Web Locks、Firestore claim 防重送；中斷後只查詢。下載採受驗證的 6 MiB 分段，避免單次 Functions 回應上限。

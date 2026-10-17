@@ -49,9 +49,10 @@ async function prepareVideoSource({ apiKey, payload, store, fetchImpl }) {
   const { bytes, width, height } = parseInputPng(payload.src);
   if (!(await store.claim(sourceId, { kind: 'source', createdAt: Date.now() })).claimed) throw new Error('圖片正在上傳，請稍後再試');
   const form = new FormData();
-  form.set('file', new Blob([bytes], { type: 'image/png' }), `${sourceId}.png`);
-  form.set('file_path', `dll-video/${sourceId}.png`);
+  // Cloud's streaming multipart parser requires metadata before file bytes.
   form.set('content_type', 'image/png');
+  form.set('file_path', `dll-video/${sourceId}.png`);
+  form.set('file', new Blob([bytes], { type: 'image/png' }), `${sourceId}.png`);
   const asset = await api(apiKey, '/assets', { method: 'POST', body: form, headers: { 'Idempotency-Key': sourceId } }, fetchImpl);
   const assetId = validateRequestId(asset.id);
   await store.update(sourceId, { assetId, width, height });
@@ -93,7 +94,10 @@ async function videoJobResult({ apiKey, job, record, requestId, store, fetchImpl
   const result = { requestId, status: job.status, meta: record.meta, queuePosition: job.queue_position ?? null,
     error: job.status === 'failed' ? '模型未完成影片生成，請至 Comfy Cloud 查看作業詳情' : '' };
   if (job.status !== 'succeeded') return result;
-  const outputs = (job.outputs || []).filter(o => o.node_id === '3' && o.type === 'video' && (!o.content_type || o.content_type === 'video/mp4'));
+  // Cloud may label SaveVideo as legacy type=image; accept only explicit MP4 in that case.
+  const outputs = (job.outputs || []).filter(o => o.node_id === '3'
+    && ((o.type === 'video' && (!o.content_type || o.content_type === 'video/mp4'))
+      || (o.type === 'image' && o.content_type === 'video/mp4')));
   if (outputs.length !== 1) throw new Error('作業已完成但影片尚未取得，請重新查詢；不會重新生成');
   const assetId = validateRequestId(outputs[0].id);
   await store.update(requestId, { outputAssetId: assetId });

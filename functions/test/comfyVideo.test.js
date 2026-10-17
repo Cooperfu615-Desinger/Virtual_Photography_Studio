@@ -86,6 +86,11 @@ test('completed job resolves exactly one final video and refreshes expiring asse
   const options = { apiKey: 'secret', payload, store: storage, fetchImpl };
   const first = await readVideoJob(options); const second = await readVideoJob(options);
   assert.equal(first.video.mimeType, 'video/mp4'); assert.notEqual(first.video.src, second.video.src);
+  // Live SaveVideo output can have legacy type=image with explicit video/mp4 MIME.
+  const legacyType = await readVideoJob({ ...options, fetchImpl: async (url, init) => url.includes('/assets/')
+    ? fetchImpl(url, init) : response({ id: JOB, status: 'succeeded', outputs: [{ node_id: '3', id: ASSET, type: 'image', content_type: 'video/mp4' }] }) });
+  assert.equal(legacyType.video.mimeType, 'video/mp4');
+  await assert.rejects(readVideoJob({ ...options, fetchImpl: async () => response({ id: JOB, status: 'succeeded', outputs: [{ node_id: '3', id: ASSET, type: 'image', content_type: 'image/png' }] }) }), /尚未取得/);
   assert.equal((await storage.get(ID)).outputAssetId, ASSET);
   await assert.rejects(readVideoJob({ ...options, fetchImpl: async () => response({ id: JOB, status: 'succeeded', outputs: [] }) }), /尚未取得/);
   await assert.rejects(resolveVideoAsset({ apiKey: 'secret', assetId: ASSET, fetchImpl: async () => response({ id: ASSET, content_type: 'image/png', url: 'https://example.org/x.png' }) }), /格式/);
@@ -107,6 +112,8 @@ test('new PNG upload uses multipart v2 assets and records no image payload', asy
   const result = await prepareVideoSource({ apiKey: 'secret', payload: { sourceId: JOB, src: `data:image/png;base64,${bytes.toString('base64')}` }, store: storage,
     fetchImpl: async (url, options) => {
       calls++; assert.ok(url.endsWith('/assets')); assert.equal(options.body.get('content_type'), 'image/png');
+      // Cloud streams multipart fields and rejects metadata arriving after file bytes.
+      assert.deepEqual([...options.body.keys()], ['content_type', 'file_path', 'file']);
       assert.equal(options.body.get('file').size, 33); assert.equal(options.headers.Authorization, 'Bearer secret');
       return response({ id: ASSET });
     } });
