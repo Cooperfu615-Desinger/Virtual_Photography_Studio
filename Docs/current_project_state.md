@@ -4,6 +4,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-17
 
+## 五官全無預設日本族裔（2026-10-17，本機實作）
+
+- Cooper 決定：一般主體五官全無時預設日本，推翻 2026-10-14 的「全無不指定」。單人主體句改為 `adult Japanese woman`；雙人兩人都全無時共用句 `adult Japanese women`；只有一人全無時，該位加 `Japanese facial features`。有選五官、混血、角色卡、特殊主體、自訂身份、附圖參考預覽不變。規格見 [預設日本族裔 v1](specs/default-japanese-ethnicity-v1.md)，決策見 [決策紀錄](decisions/2026-10-17-default-japanese-ethnicity.md)。
+- 只在渲染時套用（`engine/defaultEthnicity.js`），選擇快照、結構資料、Saved Cards 不變；新主體句已加入人數匯入別名。凍結基準以 `defaultEthnicityTestSupport.js` 的精確反函數比對，雜湊未重算。
+- 完整測試 1653/1653（連跑 2 次）、Prompt Quality 721/721、lint、build、同 seed strict audit（問題摘要不變）、sync check、Python、公開資產、diff-check 通過；桌面與手機瀏覽器、Saved Cards 存取還原已檢查。分支 `claude/ethnicity-default-japanese`（worktree `.worktrees/ethnicity-default-japanese`），尚未 commit。細節見規格 §4。
+
 ## Comfy Cloud 圖生影片工作區（2026-10-17，已部署）
 
 - 使用者核准示意圖與流程後，新增 DLL 圖片／放大視窗的「製作影片」，採大面積雙欄 modal、手機單欄；支援 Wan 3.0 與 MiniMax H3、動作／運鏡、秒數／解析度、額度預估、同圖多結果、播放與 MP4 下載。規格見 [影片工作區 v1](specs/comfy-video-workspace-v1.md)。

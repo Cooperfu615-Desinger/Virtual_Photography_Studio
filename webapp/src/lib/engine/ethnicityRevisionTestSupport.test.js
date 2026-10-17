@@ -8,6 +8,8 @@ import {
   restorePreEthnicityText,
   restorePreEthnicityValue,
 } from './ethnicityRevisionTestSupport.js';
+import { applyDefaultEthnicity } from './defaultEthnicity.js';
+import { DEFAULT_ETHNICITY_ADDED_ALIASES, restorePreDefaultEthnicityText } from './defaultEthnicityTestSupport.js';
 
 const controls = getLockControls();
 const options = key => controls.find(control => control.key === key)?.options ?? [];
@@ -65,7 +67,11 @@ test('common replacements cover every approved rollout phrase in order', () => {
 
 test('reverse mapping reproduces the legacy aliases recorded in the current catalog data', () => {
   for (const option of options('subjectCount')) {
-    assert.deepEqual(option.meta?.legacyPromptAliases, [restorePreEthnicityText(option.en, 'grokPrompt')], option.id);
+    // 2026-10-17 added the Japanese-default subject after the 2026-10-14 alias.
+    assert.deepEqual(option.meta?.legacyPromptAliases, [
+      restorePreEthnicityText(option.en, 'grokPrompt'),
+      applyDefaultEthnicity(option.en, { single: true }),
+    ], option.id);
   }
   const faces = options('facialFeaturesId').filter(option => option.meta?.legacyPromptAliases?.length);
   assert.deepEqual(faces.map(face => face.zh).sort(), ['冷感高級臉', '成熟性感臉', '甜美可愛臉'].sort());
@@ -73,7 +79,7 @@ test('reverse mapping reproduces the legacy aliases recorded in the current cata
     assert.ok(face.meta.legacyPromptAliases.includes(restorePreEthnicityText(face.en, 'grokPrompt')), face.zh);
   }
   const recorded = [...options('subjectCount'), ...faces].flatMap(option => option.meta.legacyPromptAliases);
-  assert.deepEqual([...recorded].sort(), [...ETHNICITY_REVISION_ADDED_ALIASES].sort());
+  assert.deepEqual([...recorded].sort(), [...ETHNICITY_REVISION_ADDED_ALIASES, ...DEFAULT_ETHNICITY_ADDED_ALIASES].sort());
 });
 
 test('deep restore uses key-based fields, removes only added aliases and the added archetype', () => {
@@ -119,7 +125,8 @@ test('generated outputs no longer name the old subject after the revision, and r
     for (const [field, text] of Object.entries(outputs)) {
       assert.doesNotMatch(text, /Japanese or Korean|in her twenties/, field);
       assert.match(restored[field], /Japanese or Korean|in her twenties/, `${field}: restored subject`);
-      assert.equal(restored[field].length - text.length > 0, true, field);
+      // Compare with the pre-2026-10-17 text: the Japanese default is reversed first.
+      assert.equal(restored[field].length - restorePreDefaultEthnicityText(text).length > 0, true, field);
     }
   }
 });

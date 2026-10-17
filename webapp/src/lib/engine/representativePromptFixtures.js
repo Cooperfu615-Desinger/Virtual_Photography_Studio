@@ -30,7 +30,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       // selected body directly after the Subject Count sentence.
       fullBodyCharacterPrompt: {
         includes: ['20-year-old', 'standing', 'I–K cup bust', 'height 163–168 cm', 'bust–waist–hip 103–60–98 cm', 'curves stretching fitted fabric'],
-        ordered: ['adult woman. I–K cup bust', 'bust–waist–hip 103–60–98 cm'],
+        ordered: ['adult Japanese woman. I–K cup bust', 'bust–waist–hip 103–60–98 cm'],
       },
       ...Object.fromEntries(['zImagePrompt', 'midjourneyPrompt']
         .map(field => [field, { includes: ['I–K cup bust', 'height 163–168 cm', 'bust–waist–hip 103–60–98 cm'] }])),
@@ -361,7 +361,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       fullBodyCharacterPrompt: {
         includes: ['partially concealing it', 'dolphin micro shorts', 'F–G cup bust', 'rounded hips'],
         excludes: ['top length meets or slightly overlaps'],
-        ordered: ['adult woman. F–G cup bust', 'bust–waist–hip 94–58–92 cm', 'partially concealing it'],
+        ordered: ['adult Japanese woman. F–G cup bust', 'bust–waist–hip 94–58–92 cm', 'partially concealing it'],
       },
       chestUpPortraitPrompt: { excludes: ['partially concealing it'] },
     },
@@ -1821,7 +1821,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
           'black velvet sofa',
         ],
         ordered: [
-          'A 20-year-old seductive stunning adult woman',
+          'A 20-year-old seductive stunning adult Japanese woman',
           'cotton camisole top',
           'She presents a relaxed neutral standing posture.',
           'real-scale compact editorial lounge set',
@@ -1851,7 +1851,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       zImagePrompt: {
         includes: ['burgundy plaid handkerchief camisole', 'low-rise blue denim mini skirt', 'black knee-high leather boots', 'black velvet sofa'],
         ordered: [
-          'A 20-year-old seductive stunning adult woman',
+          'A 20-year-old seductive stunning adult Japanese woman',
           'burgundy plaid handkerchief camisole',
           'real-scale compact editorial lounge set',
         ],
@@ -1880,7 +1880,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       zImagePrompt: {
         includes: ['Parisian linen trouser outfit', 'silk camisole', 'high-waisted wide-leg trousers', 'black velvet sofa'],
         ordered: [
-          'A 20-year-old seductive stunning adult woman',
+          'A 20-year-old seductive stunning adult Japanese woman',
           'Parisian linen trouser outfit',
           'real-scale compact editorial lounge set',
         ],
@@ -1909,7 +1909,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       zImagePrompt: {
         includes: ['off-shoulder gothic mini dress', 'fitted silhouette', 'ruffle trim', 'black velvet sofa'],
         ordered: [
-          'A 20-year-old seductive stunning adult woman',
+          'A 20-year-old seductive stunning adult Japanese woman',
           'off-shoulder gothic mini dress',
           'real-scale compact editorial lounge set',
         ],

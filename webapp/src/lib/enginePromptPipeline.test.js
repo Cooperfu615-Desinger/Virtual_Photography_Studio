@@ -3,6 +3,7 @@ import { assertZImagePoseProjection } from './engine/sceneIntegratedAssemblyTest
 import { test } from 'node:test';
 
 import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls } from './engine.js';
+import { expectedSubjectText } from './engine/defaultEthnicityTestSupport.js';
 
 function optionId(controlKey, zh) {
   const control = getLockControls().find((entry) => entry.key === controlKey);
@@ -259,9 +260,9 @@ test('selected image type preset drives Gpt Z-Image and AI openings without losi
 
   assert.match(gptSection(prompt, 'Image Type'), /^Create a pastel illustration portrait\b/i);
   assert.match(prompt.zImagePrompt, /^Pastel illustration portrait\./i);
-  assert.match(prompt.zImagePrompt, /A 20-year-old seductive stunning adult woman(?:[.,]| with)/i);
+  assert.match(prompt.zImagePrompt, /A 20-year-old seductive stunning adult Japanese woman(?:[.,]| with)/i);
   assert.match(prompt.midjourneyPrompt, /^Pastel illustration portrait\./i);
-  assert.match(prompt.midjourneyPrompt, /A 20-year-old adult woman\./i);
+  assert.match(prompt.midjourneyPrompt, /A 20-year-old adult Japanese woman\./i);
   assert.match(prompt.midjourneyPrompt, /She wears /i);
   assert.equal(prompt.selection.imageTypePresetId, 'pastel-illustration');
   assert.equal(prompt.structured.Style[0].zh, '粉彩插畫');
@@ -449,7 +450,7 @@ test('AI single-subject prompt lists eyewear and headphones by name with clothin
 
   const aiPrompt = prompt.midjourneyPrompt;
 
-  assert.match(aiPrompt, /^Photorealistic editorial portrait\.[\s\S]*A 20-year-old adult woman\./i);
+  assert.match(aiPrompt, /^Photorealistic editorial portrait\.[\s\S]*A 20-year-old adult Japanese woman\./i);
   assert.match(aiPrompt, /She wears [\s\S]*bold thick-frame glasses[\s\S]*Marshall Major V on-ear headphones/i);
   assert.match(aiPrompt, /sheer floral lace cropped camisole[\s\S]*denim shorts/i);
   assert.ok(aiPrompt.indexOf('denim shorts') < aiPrompt.indexOf('bold thick-frame glasses'));
@@ -956,7 +957,7 @@ for (const hasRoleAIdentity of [true, false]) {
     const pose = gptSection(prompt, 'Pose and Composition');
     const scene = gptSection(prompt, 'Scene');
 
-    assert.match(subject, /^Two 20-year-old adult women\./);
+    assert.match(subject, /^Two 20-year-old adult Japanese women\./);
     const woman1 = gptDuoRoleCard(subject, 1);
     const woman2 = gptDuoRoleCard(subject, 2);
     assert.ok(subject.indexOf('Woman 1:') < subject.indexOf('Woman 2:'));
@@ -1132,7 +1133,8 @@ test('Z-Image duo prompt uses compact direct paragraphs', () => {
 
   const zPrompt = prompt.zImagePrompt;
   assert.match(zPrompt, /^Photorealistic editorial portrait\./i);
-  assert.match(zPrompt, /\n\nTwo stunning seductive 20-year-old adult women\./);
+  // Faces are unlocked (unseeded); both none renders the 2026-10-17 Japanese default.
+  assert.match(zPrompt, new RegExp(`\\n\\n${expectedSubjectText(prompt, 'Two stunning seductive 20-year-old adult women')}\\.`));
   assert.match(zPrompt, /Woman 1 has [\s\S]+?She wears [^.]*cropped sleeveless tank[\s\S]*balloon wide pants[\s\S]*deep indigo denim palette/i);
   assert.match(zPrompt, /Woman 2 has [\s\S]+?She wears [^.]*sheer mesh halter camisole[\s\S]*denim micro mini skirt[\s\S]*silver graphite metallic palette/i);
   assert.match(zPrompt, /laugh naturally with each other/i);
@@ -1161,8 +1163,10 @@ test('Z-Image prompt remains natural language with blank-line paragraphs and AI 
     filmId: optionId('filmId', '富士 Provia 清透明亮'),
   }, [], { random: createSeededRandom('prompt-structure-natural-language') });
 
+  // Facial Features are drawn by the seed; none renders the 2026-10-17 Japanese default.
+  const mjLead = expectedSubjectText(prompt, 'A 20-year-old adult woman.');
   assert.match(prompt.zImagePrompt, /^Photorealistic editorial portrait\./);
-  assert.match(prompt.zImagePrompt, /\n\nA 20-year-old seductive stunning adult woman(?:[.,]| with)/);
+  assert.match(prompt.zImagePrompt, new RegExp(`\\n\\n${escapeRegExp(expectedSubjectText(prompt, 'A 20-year-old seductive stunning adult woman'))}(?:[.,]| with)`));
   assertNaturalZImageParagraphs(prompt, 'outfit preset z-image prompt');
   assert.match(prompt.zImagePrompt, /\n\nThe setting is horizonless seamless matte deep black color field/i);
   assert.doesNotMatch(prompt.zImagePrompt, /^Subject Count:/m);
@@ -1170,10 +1174,10 @@ test('Z-Image prompt remains natural language with blank-line paragraphs and AI 
   assert.doesNotMatch(prompt.midjourneyPrompt, /^(Image Type|Scene|Subject|Wardrobe):/m);
   assert.doesNotMatch(prompt.midjourneyPrompt, /multi-cut sequence n=2/);
   assert.match(prompt.midjourneyPrompt, /^Photorealistic editorial portrait\./);
-  assert.match(prompt.midjourneyPrompt, / A 20-year-old adult woman\./);
+  assert.ok(prompt.midjourneyPrompt.includes(` ${mjLead}`), prompt.midjourneyPrompt);
   assert.ok(prompt.midjourneyPrompt.split('\n\n').length <= 4);
   // Apart from the approved MJ lead above, no GPT-style age subject or facial text.
-  assert.doesNotMatch(prompt.midjourneyPrompt.replace(' A 20-year-old adult woman.', ''), /20-year-old|defined eyes and lips/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt.replace(` ${mjLead}`, ''), /20-year-old|defined eyes and lips/i);
   assert.match(prompt.midjourneyPrompt, /deep black color field/);
   assert.match(prompt.midjourneyPrompt, /She wears [^\n]*jacket/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /standing with natural relaxed standing arrangement; arms crossed loosely/i);
@@ -1409,7 +1413,7 @@ test('Z-Image binds intact pose to the scene before subject and all single wardr
     });
     const paragraphs = zImageParagraphs(prompt);
     const canonicalPose = gptSection(prompt, 'Pose and Composition');
-    const subjectIndex = paragraphs.findIndex((paragraph) => /A 20-year-old seductive stunning adult woman/i.test(paragraph));
+    const subjectIndex = paragraphs.findIndex((paragraph) => /A 20-year-old seductive stunning adult Japanese woman/i.test(paragraph));
     const wardrobeIndex = paragraphs.findIndex((paragraph) => wardrobeCase.wardrobePattern.test(paragraph));
     const poseIndex = paragraphs.findIndex((paragraph) => paragraph.includes(canonicalPose));
     const sceneIndex = paragraphs.findIndex((paragraph) => /^The setting is /i.test(paragraph));
