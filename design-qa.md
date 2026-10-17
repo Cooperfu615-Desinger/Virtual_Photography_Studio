@@ -287,3 +287,15 @@ final result: passed
 - Visual QA: PASS。為保留原 5175 預覽，隔離版使用 `http://127.0.0.1:5176/Virtual_Photography_Studio/`。1440×1000、390×900、390×640 及 639／641 斷點共 38 項指定動作檢查通過，涵蓋八動作圖片、有效輸出、獨立表情／頭部、取消、仰躺場景／重載／收藏還原、較高優先接管者、鍵盤及剪貼簿；六工作區桌面／手機巡覽無錯誤、破圖或 document 橫向溢位。
 - 額外重跑 main 參考圖預覽桌面／手機流程通過，錯誤清單為空。證據 `/tmp/vps-merge-browser/{results,extra-results}.json`、`/tmp/vps-merge-reference-browser-results.json` 與同目錄截圖；自動 logs `/tmp/vps-merge-{focused,full,quality,lint,build,audit,baseline-audit}.log`。
 - 原分支歷史記錄保留；本次 CI／Pages 發布結果以整合提交對應 GitHub Actions 為準。沒有 Functions 部署、外部模型生圖或修改原工作區文件。
+
+
+## 2026-10-17 — 單手向鏡頭張開手掌：前景透視文字
+
+- Scope: 保留名稱、ID、鏡頭／角度／服裝／頭部／表情與選項規則；僅修改手部動作及既有 composition modifier，舊英文作還原 alias。
+- Validation: Node 22 完整測試 1636/1636、Prompt Quality 721/721、lint、build、sync check、Python 2/2、diff-check 通過。同 seed 200 strict audit 前後一致，0 blockers／22 既有 diagnostics。137 案例確認所有規則／選值不變，輸出差異限核准文案。
+- URL: http://127.0.0.1:5175/Virtual_Photography_Studio/
+- Viewports: 1440×1000、390×900；兩尺寸完成既有手勢切換至張掌、六輸出、複製、清除、收藏還原、reload、蹲姿隱藏規則與五工作區 smoke。
+- Render inspection: 無 console/page error、水平溢出或破圖；手機角色圖卡捲動後全部載入，既有 textarea 內部捲動維持。
+- Evidence: `/tmp/palm-qa/results.json`、`/tmp/palm-qa/{1440,390}-selection.png`、`/tmp/palm-qa/{1440,390}-output.png` 及兩尺寸五工作區截圖。
+- Harness boundary: 初始全無的 Playwright selectOption 停用判定未解除，選取驗證從既有有效手勢開始；清為全無與收藏還原通過。未修改 UI 或選項規則來配合工具。
+- 原不相關修改保留。使用者於本機驗證後授權 commit／push，本批以 `codex/open-palm-foreground-v2` 分支交付，不合併 main 或觸發 Pages 部署。完整核准文字、測試及外部出圖驗收邊界見 [規格](Docs/specs/open-palm-foreground-v2.md)。

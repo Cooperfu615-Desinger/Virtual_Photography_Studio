@@ -1,3 +1,4 @@
+import { restorePreOpenPalmV2 } from './openPalmTestSupport.js';
 import { restorePreSquattingV2 } from './squattingCatalogTestSupport.js';
 import { normalizeOuterwearCatalogForLegacy } from './outerwearCatalogTestSupport.js';
 import { assertChestUpRevision, CHEST_OUTPUT_FIELDS, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
@@ -135,8 +136,8 @@ for (const fixture of fixtures) {
     assert.deepEqual(first.outputs, repeated.outputs, 'same-seed outputs changed');
     assert.deepEqual(first.selection, repeated.selection);
     assert.equal(repeated.randomDraws, first.randomDraws);
-    // Frozen hashes/bytes predate the 2026-10-14 ethnicity revision; reverse only that rollout.
-    const historicalOutputs = restorePreSquattingV2(restorePreEthnicityOutputs(first.outputs));
+    // Reverse only the exact approved ethnicity, squat and open-palm wording for frozen hashes.
+    const historicalOutputs = restorePreSquattingV2(restorePreEthnicityOutputs(restorePreOpenPalmV2(first.outputs)));
     assertChestUpRevision(`scene:${fixture.id}`, [{ ...first, outputs: Object.fromEntries(Object.entries(first.outputs).map(([field, text]) => [field, fixture.id.startsWith('R11-shirt-shoulder-') ? normalizeOuterwearCatalogForLegacy(text, field) : text])) }]);
     for (const field of OUTPUT_FIELDS) {
       const expectedHash = supportObjectExpected?.outputHashes[field]

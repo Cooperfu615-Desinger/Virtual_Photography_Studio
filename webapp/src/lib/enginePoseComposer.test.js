@@ -141,8 +141,8 @@ test('public hand catalog includes dedicated lying actions and clarified garment
   ]);
 
   const byZh = (zh) => publicHands.find((option) => option.zh === zh);
-  assert.match(byZh('單手向鏡頭張開手掌').en, /one arm extended straight toward the camera.*block the lens.*all five fingers.*fully visible from their bases to their fingertips/i);
-  assert.match(byZh('單手向鏡頭張開手掌').meta?.compositionModifierEn || '', /camera lens is intentionally blocked.*eighty to ninety percent.*without being cropped.*incomplete fragments/i);
+  assert.match(byZh('單手向鏡頭張開手掌').en, /one arm extended toward the camera.*open palm facing the lens.*five fingers naturally spread and slightly relaxed/i);
+  assert.match(byZh('單手向鏡頭張開手掌').meta?.compositionModifierEn || '', /much closer to the lens than her face.*larger in the foreground.*facial features unobstructed.*forearm to her shoulder/i);
   assert.doesNotMatch(`${byZh('單手向鏡頭張開手掌').en} ${byZh('單手向鏡頭張開手掌').meta?.compositionModifierEn || ''}`, /greeting|waving|right hand|right arm|left hand|left arm/i);
   for (const label of ['自然自拍', '男友/閨蜜自拍']) {
     assert.equal(byZh(label).meta?.uiHidden, undefined, label);
@@ -298,30 +298,56 @@ test('manual outerwear spread keeps the same shoulder-slip action across outputs
   }
 });
 
-test('open-palm lens block promotes complete five-finger occlusion into every main composition', () => {
-  const [prompt] = generatePrompts(1, {
-    ...createEmptyLocks(),
-    subjectCount: '1',
+test('open-palm foreground perspective preserves the face and shared source across main and chest outputs', () => {
+  const [prompt] = generatePrompts(1, createFullySpecifiedLocks({
     framingId: optionId('framingId', '中景鏡頭 (Medium Shot)'),
     orbitId: optionId('orbitId', '正面 0 度'),
     poseBaseId: optionId('poseBaseId', '站姿'),
     poseArrangementId: optionId('poseArrangementId', '自然站姿'),
     poseHandId: optionId('poseHandId', '單手向鏡頭張開手掌'),
-    poseHeadId: optionId('poseHeadId', '全無'),
-    poseAnchorId: optionId('poseAnchorId', '全無'),
-  });
+  }), [], { random: createSeededRandom('open-palm-foreground-v2') });
 
-  const expectedCanonical = 'She has one arm extended straight toward the camera to block the lens, with one open palm held flat toward the lens and all five fingers spread wide and fully visible from their bases to their fingertips, and presents a relaxed upright posture.';
+  const expectedCanonical = 'She has one arm extended toward the camera, with an open palm facing the lens and five fingers naturally spread and slightly relaxed, and presents a relaxed upright posture.';
   assertSharedCanonicalPose(prompt, expectedCanonical);
-
-  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
-    assert.match(text, /The camera lens is intentionally blocked by one open hand/i);
-    assert.match(text, /occupying roughly eighty to ninety percent of the frame/i);
-    assert.match(text, /all five fingers are spread wide and fully visible from their bases to their fingertips/i);
-    assert.match(text, /fingertips reaching close to the outer frame edges without being cropped/i);
-    assert.match(text, /face, clothing, and surroundings remain visible only as small, incomplete fragments/i);
-    assert.doesNotMatch(text, /right hand|right arm|left hand|left arm/i);
+  const hand = control('poseHandId').options.find(option => option.id === 'one-hand-open-palm-camera');
+  const chest = prompt.extraPrompts.find(entry => entry.id === 'chest-up-portrait').text;
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.nanoBananaPrompt, chest]) {
+    assert.ok(text.includes(hand.en), 'visible output retains the full hand action');
+    assert.ok(text.includes(hand.meta.compositionModifierEn), 'visible output retains the full hand composition');
+    assert.equal(text.split(hand.meta.compositionModifierEn).length - 1, 1);
+    assert.doesNotMatch(text, /block the lens|intentionally blocked|eighty to ninety|incomplete fragments|without being cropped|right hand|right arm|left hand|left arm/i);
   }
+  const fullBody = prompt.extraPrompts.find(entry => entry.id === 'full-body-character').text;
+  assert.ok(!fullBody.includes(hand.en));
+  assert.ok(!fullBody.includes(hand.meta.compositionModifierEn));
+});
+
+test('open-palm wording preserves option rules and independently selected camera, wardrobe, head and expression', () => {
+  const hand = control('poseHandId').options.find(option => option.id === 'one-hand-open-palm-camera');
+  assert.equal(hand.zh, '單手向鏡頭張開手掌');
+  assert.deepEqual(hand.meta.tags, ['foreground_occlusion']);
+  assert.deepEqual(hand.meta.hiddenForBases, ['squatting', 'lying']);
+  assert.deepEqual(hand.meta.randomEligibleForBases, { squatting: false, lying: false });
+  assert.equal(hand.meta.requiresCameraFacingGesture, true);
+  assert.deepEqual(hand.meta.visibleBuckets, ['unconstrained', 'fixedComposition', 'chestUp', 'mediumWaist', 'cowboyKnee', 'fullBody']);
+  assert.doesNotMatch(`${hand.en} ${hand.meta.compositionModifierEn}`, /wide.angle|high.angle|low.angle|fisheye|squat|kneel|T-shirt|shorts|boots|blur|focus|aperture|percent|tilt|expression/i);
+
+  const independentKeys = ['angleId', 'orbitId', 'lensId', 'topId', 'pantsId', 'expressionId', 'poseHeadId'];
+  const locks = createFullySpecifiedLocks({
+    framingId: optionId('framingId', '中景鏡頭 (Medium Shot)'),
+    poseBaseId: 'standing', poseArrangementId: 'standing-natural', poseHandId: 'none',
+  });
+  for (const key of independentKeys) {
+    const choice = control(key).options.find(option => !['none', 'random'].includes(option.id) && option.zh !== '全無' && option.zh !== '無額外表情');
+    locks[key] = choice.id;
+  }
+  const run = value => generatePrompts(1, { ...locks, poseHandId: value }, [], { random: createSeededRandom('open-palm-independent-settings') })[0];
+  const original = run('none');
+  const changed = run(hand.id);
+  for (const key of independentKeys) assert.equal(changed.selection[key], original.selection[key], key);
+  assert.equal(changed.selection.framingId, original.selection.framingId);
+  assert.equal(changed.selection.poseArrangementId, original.selection.poseArrangementId);
+  assert.equal(changed.selection.poseHandId, hand.id);
 });
 
 test('random hand integration excludes unavailable wardrobe and eyewear interactions', () => {

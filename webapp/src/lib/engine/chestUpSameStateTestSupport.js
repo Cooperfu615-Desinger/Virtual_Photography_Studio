@@ -1,3 +1,4 @@
+import { restorePreOpenPalmV2 } from './openPalmTestSupport.js';
 import { restorePreSquattingV2 } from './squattingCatalogTestSupport.js';
 // Node-only scoped replacement for historical chest-output hashes. Historical
 // baselines stay immutable; the other four outputs, selections and RNG are pinned
@@ -24,7 +25,7 @@ export function measureChestUpRevision(results) {
 export function assertChestUpRevision(group, results) {
   const expected = { groups: JSON.parse(readFileSync(new URL('./midjourneyNaturalHistoricalProtected.json', import.meta.url), 'utf8')) }; // Pre-v2 engine, excluding main MJ only.
   assert.ok(expected.groups[group], `Missing scoped chest baseline: ${group}`);
-  // The frozen groups predate the 2026-10-14 ethnicity revision; reverse only that rollout.
-  const historical = results.map(result => ({ ...result, outputs: restorePreSquattingV2(restorePreEthnicityOutputs(result.outputs)) }));
+  // Reverse only the exact approved ethnicity, squat and open-palm wording for frozen groups.
+  const historical = results.map(result => ({ ...result, outputs: restorePreSquattingV2(restorePreEthnicityOutputs(restorePreOpenPalmV2(result.outputs))) }));
   assert.deepEqual(measureChestUpRevision(historical), expected.groups[group], `${group}: chest revision or protected state drift`);
 }

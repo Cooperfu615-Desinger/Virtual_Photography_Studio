@@ -784,7 +784,7 @@ soft natural smile, relaxed cheeks, gently lifted mouth corners
 
 Pose Composer 相關描述在構圖可見時應保留實際身體結構，例如 base arrangement、hand / prop placement、support anchor、head direction。三組輸出都直接使用同一段 projected canonical pose prompt。不要新增 Pose Modifier，除非使用者明確要求。
 
-`單手向鏡頭張開手掌` 是已核准的窄範圍構圖例外：除了三組逐字共用的 projected canonical pose，三個主要單人輸出還必須在人物、服裝與場景描述之前，共用同一段由該 hand option metadata 提供的 composition modifier，明確把完整五指手掌提升為約佔畫面 80–90% 的近鏡頭遮擋。這段 modifier 屬於所選手部來源的可追溯視覺描述，不是 renderer 自行發明的 Pose Modifier；不得鎖定左右手、不得裁切指尖、不得套用到其他手勢或雙人模式。沒有該 modifier 時，各 renderer 必須保持原本的 composition 文字與標點 bytes，不得因共用 helper 產生非目標輸出漂移。
+`單手向鏡頭張開手掌` 是已核准的窄範圍構圖例外。2026-10-17 將原 80–90% 遮擋語意替換為前景透視放大：手比臉更靠近鏡頭、偏向臉部一側而不遮五官，並保留手腕、前臂與肩膀的合理連接。共用 projected canonical pose 與 hand option metadata 的 composition modifier 採核准原文；四主輸出及 GPT 胸上沿用原組裝路徑，不新增 renderer 專屬改寫。不得固定左右手、占比、指尖裁切、鏡頭／角度／服裝／頭部／表情，也不得擴大適用姿勢或接管範圍。其他手勢、雙人、全身角色照及無 modifier 的 composition 文字與標點 bytes 不變。完整來源及驗證範圍見 [單手前景張掌修訂](open-palm-foreground-v2.md)。
 
 ### Pose Composer「任意」與 canonical pose 規則
 

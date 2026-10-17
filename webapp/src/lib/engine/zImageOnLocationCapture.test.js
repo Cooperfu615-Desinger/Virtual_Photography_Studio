@@ -1,3 +1,4 @@
+import { restorePreOpenPalmV2 } from './openPalmTestSupport.js';
 import { restorePreSquattingV2 } from './squattingCatalogTestSupport.js';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -46,9 +47,9 @@ for (const fixture of fixtures) test(`main-Z-only source relocation: ${fixture.i
   assert.equal(current.inputHash, before.inputHash);
   assert.equal(current.randomDraws, before.randomDraws);
   assert.deepEqual(runFrozenFixture(fixture).outputs, current.outputs, 'same seed');
-  // Frozen baselines predate the 2026-10-14 ethnicity revision; reverse only that rollout.
+  // Reverse only the exact approved ethnicity, squat and open-palm wording for frozen baselines.
   for (const [field, text] of Object.entries(current.outputs)) {
-    const value = restorePreSquattingV2(restorePreEthnicityText(text, field));
+    const value = restorePreSquattingV2(restorePreEthnicityText(restorePreOpenPalmV2(text), field));
     if (field === 'zImagePrompt') {
       assert.equal(normalizeZImageOnLocationForLegacy(value), before.zImagePrompt,
         'only reviewed relocation/ambient connection; every surviving source unchanged');

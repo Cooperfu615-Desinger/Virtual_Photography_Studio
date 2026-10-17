@@ -727,7 +727,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   },
   {
     id: 'open-palm-lens-occlusion',
-    title: 'Open palm fills the near-lens foreground instead of greeting',
+    title: 'Open palm enlarges in the foreground while leaving the face unobstructed',
     mode: 'single',
     seed: 'prompt-contract-open-palm-lens-occlusion-v1',
     locks: {
@@ -740,20 +740,19 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       poseHeadId: { byZh: '全無' },
       poseAnchorId: { byZh: '全無' },
     },
-    expectedOutputs: {
-      grokPrompt: {
-        includes: ['The camera lens is intentionally blocked by one open hand', 'occupying roughly eighty to ninety percent of the frame', 'all five fingers are spread wide and fully visible from their bases to their fingertips', 'fingertips reaching close to the outer frame edges without being cropped', 'one arm extended straight toward the camera to block the lens'],
-        excludes: ['greeting gesture', 'one hand raised toward the camera', 'right hand', 'right arm', 'left hand', 'left arm'],
-      },
-      zImagePrompt: {
-        includes: ['The camera lens is intentionally blocked by one open hand', 'occupying roughly eighty to ninety percent of the frame', 'all five fingers are spread wide and fully visible from their bases to their fingertips', 'fingertips reaching close to the outer frame edges without being cropped', 'one arm extended straight toward the camera to block the lens'],
-        excludes: ['greeting gesture', 'one hand raised toward the camera', 'right hand', 'right arm', 'left hand', 'left arm'],
-      },
-      midjourneyPrompt: {
-        includes: ['The camera lens is intentionally blocked by one open hand', 'occupying roughly eighty to ninety percent of the frame', 'all five fingers are spread wide and fully visible from their bases to their fingertips', 'fingertips reaching close to the outer frame edges without being cropped', 'one arm extended straight toward the camera to block the lens'],
-        excludes: ['greeting gesture', 'one hand raised toward the camera', 'right hand', 'right arm', 'left hand', 'left arm'],
-      },
-    },
+    expectedOutputs: Object.fromEntries([
+      'grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'nanoBananaPrompt', 'chestUpPortraitPrompt',
+    ].map((field) => [field, {
+      includes: [
+        'one arm extended toward the camera, with an open palm facing the lens',
+        'five fingers naturally spread and slightly relaxed',
+        'much closer to the lens than her face',
+        'noticeably larger in the foreground through near-to-far perspective',
+        'to one side of her face, leaving her facial features unobstructed',
+        'from the palm through the wrist and foreshortened forearm to her shoulder',
+      ],
+      excludes: ['greeting gesture', 'block the lens', 'intentionally blocked', 'eighty to ninety percent', 'without being cropped', 'incomplete fragments', 'right hand', 'right arm', 'left hand', 'left arm'],
+    }])),
   },
   {
     id: 'restored-companion-selfie',
