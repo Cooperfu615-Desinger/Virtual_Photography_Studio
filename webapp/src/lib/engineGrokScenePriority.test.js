@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { createEmptyLocks, generatePrompts, getLockControls } from './engine.js';
+import { expectedSubjectText } from './engine/defaultEthnicityTestSupport.js';
 
 function optionId(controlKey, zh) {
   const control = getLockControls().find((entry) => entry.key === controlKey);
@@ -56,7 +57,8 @@ test('Z-Image connects scene and pose before subject and special outfit without 
   });
 
   const zImage = prompt.zImagePrompt;
-  const subjectIndex = zImage.indexOf('A 20-year-old seductive stunning adult woman');
+  // Facial Features are drawn at random; none renders the 2026-10-17 Japanese default.
+  const subjectIndex = zImage.indexOf(expectedSubjectText(prompt, 'A 20-year-old seductive stunning adult woman'));
   const settingIndex = zImage.indexOf('The setting is ');
   const locationIndex = zImage.indexOf('Seoul Seongsu-dong urban corner');
   const wardrobeIndex = zImage.indexOf('She wears black sheer polka-dot matching fashion set');

@@ -5,7 +5,8 @@ import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls 
 import { parseLocksFromStandardPrompt } from '../../features/saved-cards/cardCodec.js';
 
 // Approved 2026-10-14: the subject sentence names no ethnicity ("20-year-old adult
-// woman"); the Facial Features selection carries it. None stays unspecified.
+// woman"); the Facial Features selection carries it. Approved 2026-10-17: none
+// renders the Japanese default ("adult Japanese woman"); see defaultEthnicity.test.js.
 const controls = getLockControls();
 const option = (key, zh) => {
   const found = controls.find(c => c.key === key)?.options.find(o => o.zh === zh);
@@ -32,12 +33,14 @@ const EXPECTED = [
   ['冷感高級臉', 'Korean'], ['成熟性感臉', 'Korean'],
 ];
 
-test('the ordinary single subject sentence is a 20-year-old adult woman without ethnicity', () => {
+test('Facial Features none gives the ordinary single subject the Japanese default and no face', () => {
   const prompt = generate({ facialFeaturesId: noneOf('facialFeaturesId') });
-  assert.match(prompt.grokPrompt, /The subject is one 20-year-old adult woman\./);
-  assert.match(prompt.midjourneyPrompt, /A 20-year-old adult woman\./);
+  assert.match(prompt.grokPrompt, /The subject is one 20-year-old adult Japanese woman\./);
+  assert.match(prompt.midjourneyPrompt, /A 20-year-old adult Japanese woman\./);
   for (const [name, text] of Object.entries(outputs(prompt))) {
-    assert.doesNotMatch(text, ETHNICITY, `${name} must not name an ethnicity when Facial Features is none`);
+    assert.match(text, /\badult Japanese woman\b/, `${name}: Japanese default subject`);
+    assert.doesNotMatch(text, faceEthnicity('Japanese'), `${name}: no invented Japanese face`);
+    assert.doesNotMatch(text, faceEthnicity('Korean'), `${name}: no Korean face`);
     assert.doesNotMatch(text, /Japanese or Korean|portrait subject\b/, name);
   }
 });
@@ -56,18 +59,25 @@ test('each non-mixed facial feature carries its approved ethnicity in every outp
 test('the mixed facial feature names neither Japanese nor Korean', () => {
   const prompt = generate({ facialFeaturesId: option('facialFeaturesId', '混血立體臉') });
   for (const [name, text] of Object.entries(outputs(prompt))) {
+    assert.doesNotMatch(text, ETHNICITY, `${name}: mixed face keeps the subject unspecified`);
     assert.doesNotMatch(text, faceEthnicity('Japanese'), name);
     assert.doesNotMatch(text, faceEthnicity('Korean'), name);
   }
 });
 
-test('duo outputs describe two 20-year-old adult women', () => {
-  const prompt = generatePrompts(1, { ...createEmptyLocks(), subjectCount: '2' }, [], {
-    random: createSeededRandom('ethnicity-duo'),
-  })[0];
-  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.nanoBananaPrompt]) {
+test('duo outputs describe two 20-year-old adult women; both faces none adds the Japanese default', () => {
+  const duo = (faceA, faceB) => generatePrompts(1, {
+    ...createEmptyLocks(), subjectCount: '2', facialFeaturesAId: faceA, facialFeaturesBId: faceB,
+  }, [], { random: createSeededRandom('ethnicity-duo') })[0];
+  const selected = duo(option('facialFeaturesAId', '韓系偶像臉'), option('facialFeaturesBId', '日系清透臉'));
+  const none = duo(noneOf('facialFeaturesAId'), noneOf('facialFeaturesBId'));
+  for (const text of [selected.grokPrompt, selected.zImagePrompt, selected.midjourneyPrompt, selected.nanoBananaPrompt]) {
     assert.match(text, /20-year-old adult women/);
     assert.doesNotMatch(text, /Japanese or Korean/);
+  }
+  for (const text of [none.grokPrompt, none.zImagePrompt, none.midjourneyPrompt, none.nanoBananaPrompt]) {
+    assert.match(text, /20-year-old adult Japanese women/);
+    assert.doesNotMatch(text, /Japanese facial features/);
   }
 });
 

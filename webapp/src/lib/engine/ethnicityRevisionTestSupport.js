@@ -5,6 +5,9 @@
 // Japanese instead. Frozen historical baselines, hashes and published test
 // packs predate that revision. Reverse only these exact rollout replacements
 // before comparing; every other byte must still match the old baseline.
+// The later 2026-10-17 Japanese default is reversed first (see
+// defaultEthnicityTestSupport.js), so callers keep one entry point.
+import { DEFAULT_ETHNICITY_ADDED_ALIASES, restorePreDefaultEthnicityText } from './defaultEthnicityTestSupport.js';
 
 // Main MJ (midjourneyPrompt) owns its own opening sentence.
 const MAIN_MIDJOURNEY_FIELD = 'midjourneyPrompt';
@@ -59,7 +62,7 @@ const replaceAll = (text, from, to) => text.split(from).join(to);
  */
 export function restorePreEthnicityText(text, field) {
   if (typeof text !== 'string') return text;
-  let restored = text;
+  let restored = restorePreDefaultEthnicityText(text);
   if (field === MAIN_MIDJOURNEY_FIELD) {
     restored = restored.replace(MAIN_MIDJOURNEY_SINGLE[0], MAIN_MIDJOURNEY_SINGLE[1]);
     restored = replaceAll(restored, MAIN_MIDJOURNEY_DUO[0], MAIN_MIDJOURNEY_DUO[1]);
@@ -74,7 +77,8 @@ const isPlainObject = value => Boolean(value) && typeof value === 'object' && !A
 
 function withoutAddedAliases(object) {
   if (!Array.isArray(object.legacyPromptAliases)) return object;
-  const kept = object.legacyPromptAliases.filter(alias => !ETHNICITY_REVISION_ADDED_ALIASES.includes(alias));
+  const kept = object.legacyPromptAliases.filter(alias => !ETHNICITY_REVISION_ADDED_ALIASES.includes(alias)
+    && !DEFAULT_ETHNICITY_ADDED_ALIASES.includes(alias));
   if (kept.length === object.legacyPromptAliases.length) return object;
   const { legacyPromptAliases: _removed, ...rest } = object;
   return kept.length ? { ...rest, legacyPromptAliases: kept } : rest;
