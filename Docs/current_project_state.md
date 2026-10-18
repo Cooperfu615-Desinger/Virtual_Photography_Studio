@@ -4,6 +4,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-18
 
+## 落肩 T 恤英文改寫（2026-10-18，本機實作）
+
+- Z-Image 兩輪實驗都把 `dropped-shoulder … low shoulder seam` 畫成露肩。Cooper 決定改寫且不提肩線、寬窄交給「版型」選項：共用英文 `crew-neck t-shirt, washed cotton jersey, relaxed upper-body proportion`、下胸線版 `crew-neck t-shirt, washed cotton jersey`、MJ 品名 `crew-neck t-shirt`。ID 與中文名稱不變，舊英文加入匯入別名。決策見 [決策紀錄](decisions/2026-10-18-crew-neck-tee.md)。
+- 連帶：MJ 品名也是擷取詞庫，特殊穿搭「菱格背心黑寬短褲長襪造型」主 MJ 由 `a T-shirt` 變成 `a crew-neck T-shirt`（更貼近原文，Cooper 確認保留）。中文說明 desc 未改，待決。
+- 完整測試 1651/1651（連跑 2 次）、Prompt Quality 721/721、lint、build、同 seed strict audit（問題摘要不變）、sync check、Python、公開資產、diff-check 通過；桌面與手機瀏覽器、Saved Cards 存取還原已檢查。分支 `claude/tshirt-crew-neck`（worktree `.worktrees/tshirt-crew-neck`），已開 PR。
+
 ## Comfy Cloud 圖生影片工作區（2026-10-17，已部署）
 
 - **2026-10-18 真實驗收完成**：Wan／H3 各一次付費生成成功，DLL 播放與下載通過；Wan 實際 5.000 秒，H3 請求 5 秒、實際 5.167 秒含 AAC。額度 2,803.25 → 2,652.39 → 2,516.61 Credits。實測修正 multipart 欄位順序與 `type=image + video/mp4` 回傳相容，已更新 `comfyCloudVideo` 至 revision `00003-pig`；使用者已於 2026-10-18 授權將本批修正與驗收紀錄 commit／push；實際交付以 Git 遠端為準。詳細範圍、下載檔、差額限制與證據見 [真實驗收紀錄](reports/comfy-video-workspace-2026-10-17/live-acceptance.md)。下方未實際生成描述為初次部署時的歷史狀態。

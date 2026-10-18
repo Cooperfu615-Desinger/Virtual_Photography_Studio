@@ -87,7 +87,7 @@ test('three main outputs retain the head scale, body context and authored scene 
     assert.match(text, /upper torso and arms/i);
     assert.match(text, /recognizable scene/i);
     assert.match(text, /fitting room/i);
-    assert.match(text, /dropped-shoulder t-shirt/i);
+    assert.match(text, /crew-neck t-shirt/i);
     assert.doesNotMatch(text, /straight-leg jeans|head-to-toe figure/i);
   }
   assert.equal(prompt.selection.pantsId, option('pantsId', '直筒牛仔褲').id);

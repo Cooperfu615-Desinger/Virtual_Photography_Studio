@@ -138,8 +138,12 @@
         "legacyIds": [
           "wardrobe:上身-tops:寬鬆落肩-t-恤-紮入下身:14"
         ],
+        "legacyPromptAliases": [
+          "dropped-shoulder t-shirt, washed cotton jersey, low shoulder seam, relaxed upper-body proportion",
+          "dropped-shoulder t-shirt, washed cotton jersey, low shoulder seam"
+        ],
         "topUnderbust": {
-          "baseEn": "dropped-shoulder t-shirt, washed cotton jersey, low shoulder seam"
+          "baseEn": "crew-neck t-shirt, washed cotton jersey"
         }
       },
       "短版 T 恤": {
