@@ -51,10 +51,10 @@ test('all six independent body selections keep main/chest GPT equal to none and 
       assert.ok(prompt.structured.Character.some(item => item.id === body.id && item.en === body.en));
       for (const text of otherOutputs(prompt)) assert.ok(includesSource(text, body.en), `${body.zh}/${framing}: other output retains the complete source`);
       for (const text of gptOutputs(prompt)) {
-        assert.match(text, /20-year-old adult woman/);
+        assert.match(text, /20-year-old adult Japanese woman/);
         assert.doesNotMatch(text, /cup bust|bust–waist–hip|height \d|soft flesh bulges/i);
       }
-      assert.match(fullBody(prompt), /20-year-old adult woman/);
+      assert.match(fullBody(prompt), /20-year-old adult Japanese woman/);
     }
   }
 });
@@ -88,7 +88,7 @@ test('duo GPT omits both independently selected body sources while Z and AI pres
     const other = BODY_TYPE_CATALOG_V2[(index + 1) % BODY_TYPE_CATALOG_V2.length];
     const prompt = generate({ ...base, bodyTypeAId: body.id, bodyTypeBId: other.id });
     assert.equal(prompt.grokPrompt, none.grokPrompt, `${body.zh}/${other.zh}: GPT omission`);
-    assert.match(prompt.grokPrompt, /Two 20-year-old adult women/);
+    assert.match(prompt.grokPrompt, /Two 20-year-old adult Japanese women/);
     assert.equal(prompt.selection.bodyTypeAId, body.id);
     assert.equal(prompt.selection.bodyTypeBId, other.id);
     for (const text of [prompt.zImagePrompt]) {

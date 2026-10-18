@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { createEmptyLocks, generatePrompts, getLockControls, normalizeLocks } from './engine.js';
+import { expectedSubjectText } from './engine/defaultEthnicityTestSupport.js';
 
 const controlOptions = (key) => getLockControls().find((control) => control.key === key).options;
 const optionLabels = (key) => controlOptions(key).map((option) => option.zh);
@@ -297,10 +298,12 @@ test('duo identity base supports separate body type and skin details per woman',
   const promptText = prompt.grokPrompt;
   assert.ok(!promptText.includes(bodyA.en));
   assert.ok(!promptText.includes(bodyB.en));
-  assert.match(promptText, /Two 20-year-old adult women/i);
+  // Facial Features are drawn at random here; the shared sentence follows the
+  // 2026-10-17 Japanese default only when both drawn faces are none.
+  assert.ok(promptText.includes(expectedSubjectText(prompt, 'Two 20-year-old adult women')), promptText);
   assert.match(promptText, new RegExp(`Woman 1:\\nHas [\\s\\S]*${skinA.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
   assert.match(promptText, new RegExp(`Woman 2:\\nHas [\\s\\S]*${skinB.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
-  assert.match(prompt.zImagePrompt, /Two stunning seductive 20-year-old adult women\./);
+  assert.ok(prompt.zImagePrompt.includes(expectedSubjectText(prompt, 'Two stunning seductive 20-year-old adult women.')), prompt.zImagePrompt);
   assert.match(prompt.zImagePrompt, /Woman 1 has A–B cup bust[\s\S]*80–58–88 cm, glass skin, dewy luminous skin texture/i);
   assert.match(prompt.zImagePrompt, /Woman 2 has moderate bust[\s\S]*natural freckles across nose and cheeks, sun-kissed freckles/i);
   assert.doesNotMatch(prompt.zImagePrompt, /clean editorial silhouette|hydrated reflective complexion|authentic skin detail/i);

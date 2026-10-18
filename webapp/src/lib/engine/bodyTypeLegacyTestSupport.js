@@ -4,6 +4,7 @@
 import { generatePrompts, getLockControls } from '../engine.js';
 import legacyBodies from './bodyTypeLegacyFixtures.json' with { type: 'json' };
 import { createCompositionVisibilityProjection } from './compositionVisibilityContract.js';
+import { applyDefaultEthnicity } from './defaultEthnicity.js';
 
 export const LEGACY_BODY_CATALOG_ITEMS = legacyBodies.map(({ partial, ai, ...item }) => {
   void partial; void ai;
@@ -41,6 +42,12 @@ export function restoreGptIndependentBodySource(prompt, catalog) {
   if (selection.characterProfileId && !['none', 'random'].includes(selection.characterProfileId)) return prompt;
   const base = prompt.structured?.Character?.find(item => ['base-character-1', 'base-character-2'].includes(item.id));
   if (!base?.en || base.meta?.tags?.includes('special_subject')) return prompt;
+  // Since 2026-10-17 a none face renders "adult Japanese woman" while the stored
+  // base item keeps the plain lead; accept either exact form of that one lead.
+  const pickLead = (text, plain) => {
+    const japanese = applyDefaultEthnicity(plain, { single: true });
+    return !text.includes(plain) && text.includes(japanese) ? japanese : plain;
+  };
   const controls = getLockControls(catalog);
   const selectedSource = key => controls.find(control => control.key === key)?.options
     .find(item => item.id === selection[key]);
@@ -48,7 +55,7 @@ export function restoreGptIndependentBodySource(prompt, catalog) {
   if (base.id === 'base-character-2') {
     const sources = [selectedSource('bodyTypeAId'), selectedSource('bodyTypeBId')];
     if (!sources.some(valid)) return prompt;
-    const lead = `Subject:\n${base.en[0].toUpperCase()}${base.en.slice(1)}.`;
+    const lead = pickLead(prompt.grokPrompt, `Subject:\n${base.en[0].toUpperCase()}${base.en.slice(1)}.`);
     if (!prompt.grokPrompt.includes(lead)) return prompt;
     // The old duo renderer placed the selected body first in each Has sentence,
     // before facial/hair/accessory fragments and the unchanged Wears sentence.
@@ -80,11 +87,12 @@ export function restoreGptIndependentBodySource(prompt, catalog) {
   }
   const source = selectedSource('bodyTypeId');
   if (!valid(source)) return prompt;
-  const lead = `Subject:\nThe subject is ${base.en}`;
+  const plainLead = `Subject:\nThe subject is ${base.en}`;
   // The restored body starts a sentence, so emit it in the polished letter case
   // public prompts use (publicPromptPolish.js) and recognize either case.
   const restoredBody = capitalizeSource(source.en.replace(/[.!?]+$/, ''));
   const restore = text => {
+    const lead = pickLead(text, plainLead);
     if (text.includes(source.en) || text.includes(restoredBody) || !text.includes(lead)) return text;
     const start = text.indexOf(lead) + lead.length;
     if (!['.', ' '].includes(text[start])) return text;

@@ -4,6 +4,7 @@ import { bottomRiseConflict, resolveBottomRiseCompatibility } from './engine/bot
 import { extractMidjourneyItemNames, midjourneyItemName, naturalIdentity, naturalSentence, naturalWardrobeSentence, renderNaturalMidjourney, uniqueNames } from './engine/midjourneyNaturalPrompt.js';
 import { midjourneyBodyDescription } from './engine/midjourneyBodyDescriptions.js';
 import { SPECIFIED_ACTION_OPTIONS, getSpecifiedAction, getSpecifiedActionEffectiveLocks } from './engine/specifiedActions.js';
+import { applyDefaultEthnicity, applyDefaultEthnicityToCharacter, resolveDefaultEthnicity } from './engine/defaultEthnicity.js';
 import { renderNanoBananaNarrative } from './engine/nanoBananaPrompt.js';
 import { polishPublicPromptText } from './engine/publicPromptPolish.js';
 import { nanoBananaFacialDescription } from './engine/nanoBananaFacialFeatures.js';
@@ -154,8 +155,9 @@ export { createSeededRandom } from './engineRandom.js';
 
 const SUBJECT_COUNT_OPTIONS = [
   // 2026-10-14: ethnicity moved to Facial Features; old text stays importable.
-  { id: '1', zh: '1 位', en: 'one 20-year-old adult woman', count: 1, meta: { legacyPromptAliases: ['one 20-year-old Japanese or Korean female portrait subject'] } },
-  { id: '2', zh: '2 位', en: 'two 20-year-old adult women', count: 2, meta: { legacyPromptAliases: ['two 20-year-old Japanese or Korean female portrait subjects'] } },
+  // 2026-10-17: an unset face renders the Japanese default (engine/defaultEthnicity.js).
+  { id: '1', zh: '1 位', en: 'one 20-year-old adult woman', count: 1, meta: { legacyPromptAliases: ['one 20-year-old Japanese or Korean female portrait subject', 'one 20-year-old adult Japanese woman'] } },
+  { id: '2', zh: '2 位', en: 'two 20-year-old adult women', count: 2, meta: { legacyPromptAliases: ['two 20-year-old Japanese or Korean female portrait subjects', 'two 20-year-old adult Japanese women'] } },
 ];
 
 const CHARACTER_EXPRESSION_CATEGORY = '表情 (Facial Expression)';
@@ -13320,7 +13322,7 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
       : cleanSubjectAccessoryPrompt(buildHeadAccessoryPrompt(wardrobeSlots.headAccessory, wardrobeColors.headAccessoryColor));
     const usesFixedSingleSubjectLead = context.subject.count === 1 && shouldUseFixedNormalSingleSubjectLead(context);
     const subjectBaseText = usesFixedSingleSubjectLead
-      ? FIXED_SINGLE_NORMAL_SUBJECT_SENTENCE
+      ? applyDefaultEthnicity(FIXED_SINGLE_NORMAL_SUBJECT_SENTENCE, context.defaultEthnicity)
       : useCharacterIdentityAnchor
         ? `${context.subject.en} ${context.characterProfilePrompt}`
         : context.subject.en;
@@ -13692,7 +13694,7 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
       ? buildPoseComposerCompositionModifier(characterSlots.poseComposer)
       : '',
   ].filter(Boolean).join(' ');
-  const buildZImageDuoSubjectText = () => 'Two stunning seductive 20-year-old adult women';
+  const buildZImageDuoSubjectText = () => applyDefaultEthnicity('Two stunning seductive 20-year-old adult women', context.defaultEthnicity);
   const buildZImageDuoRoleSubjectText = (role) => {
     const roleTexts = buildGptDuoFullWardrobeRoleTexts(wardrobeSlots, wardrobeColors, context);
     const wardrobeText = stripTerminalPromptPunctuation(role === 'a' ? roleTexts.woman1 : roleTexts.woman2)
@@ -14244,7 +14246,9 @@ function shouldUseFixedAiSingleSubjectLead(context) {
 }
 
 function buildAiSingleSubjectLead(context) {
-  return shouldUseFixedAiSingleSubjectLead(context) ? FIXED_SINGLE_NORMAL_SUBJECT_SENTENCE : '';
+  return shouldUseFixedAiSingleSubjectLead(context)
+    ? applyDefaultEthnicity(FIXED_SINGLE_NORMAL_SUBJECT_SENTENCE, context.defaultEthnicity)
+    : '';
 }
 
 function compactAiEyewearAccessoryText(eyewear, color = null, placement = null) {
@@ -14458,9 +14462,9 @@ function buildAiMinimalSubjectLead(valuesByLabel, context, wardrobe = null) {
       .join(' ');
   }
 
-  return context.subject?.count === 2
+  return applyDefaultEthnicity(context.subject?.count === 2
     ? 'Two seductive stunning 20-year-old adult women'
-    : 'A seductive stunning 20-year-old adult woman';
+    : 'A seductive stunning 20-year-old adult woman', context.defaultEthnicity);
 }
 
 function buildAiMinimalWardrobeClause(valuesByLabel, context, wardrobe = null) {
@@ -14840,7 +14844,7 @@ function renderAiDuoPrompt(valuesByLabel, context, wardrobe, wardrobeColors, { a
   return [
     buildMidjourneyImageTypePromptLine(context),
     ensureTerminalPeriod(buildCompositionPromptLine(context, { adaptation })),
-    'Two 20-year-old adult women.',
+    applyDefaultEthnicity('Two 20-year-old adult women.', context.defaultEthnicity),
     woman1 ? ensureTerminalPeriod(`First woman, ${woman1}`) : '',
     woman2 ? ensureTerminalPeriod(`Second woman, ${woman2}`) : '',
     buildAiDuoDirectSentence(buildAiDuoPoseText(valuesByLabel)),
@@ -16054,7 +16058,7 @@ function buildNaturalMjSubject(promptModel) {
       ? `Both women have ${bodies[0][0].toLowerCase()}${bodies[0].slice(1)}`
       : [bodies[0] ? midjourneyBodyDescription(slots.bodyTypeA, 'a') : '',
         bodies[1] ? midjourneyBodyDescription(slots.bodyTypeB, 'b') : ''].filter(Boolean).join(' ');
-    return ['Two 20-year-old adult women.', ...[1, 2].map(index => {
+    return [applyDefaultEthnicity('Two 20-year-old adult women.', context.defaultEthnicity), ...[1, 2].map(index => {
       const description = roles[index - 1].filter(part => !shared.includes(part)).join(', ');
       return description ? naturalSentence(`The ${index === 1 ? 'first' : 'second'} woman has ${description}`) : '';
     }), shared.length ? naturalSentence(`Both have ${shared.join(', ')}`) : '', naturalSentence(value('Duo Expression')),
@@ -16067,7 +16071,7 @@ function buildNaturalMjSubject(promptModel) {
   const specialSource = value('Special Outfit') || buildSpecialOutfitPrompt(extractWardrobeSlots(wardrobe).specialOutfit);
   const specialPerson = extractAiSpecialPersonFragments(specialSource, context)
     .map(naturalIdentity).filter(Boolean).join(', ');
-  return [naturalSentence(context.characterProfilePrompt ? naturalIdentity(context.characterProfilePrompt) : 'A 20-year-old adult woman'),
+  return [naturalSentence(context.characterProfilePrompt ? naturalIdentity(context.characterProfilePrompt) : applyDefaultEthnicity('A 20-year-old adult woman', context.defaultEthnicity)),
     naturalSentence([face, compactPromptClauses(value('Skin Details'), 1), hair, specialPerson].filter(Boolean).join(', ')),
     !context.characterProfilePrompt && value('Body Type') ? midjourneyBodyDescription(slots.bodyType) : ''].filter(Boolean).join(' ');
 }
@@ -16793,6 +16797,22 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     characterProfilePrompt: String(runtimeOptions.characterProfilePrompt || '').trim(),
   };
   const character = buildCharacter(context, runtime.catalog);
+  const defaultEthnicitySlots = extractCharacterSlots(character);
+  context.defaultEthnicity = resolveDefaultEthnicity({
+    ordinary: !isSpecialSubject(subject) && !subject.reference && !context.characterProfilePrompt,
+    count: subject.count,
+    facial: defaultEthnicitySlots.facialFeatures,
+    facialA: defaultEthnicitySlots.facialFeaturesA,
+    facialB: defaultEthnicitySlots.facialFeaturesB,
+    isNone: isNoneLikeItem,
+  });
+  if (context.defaultEthnicity.single || context.defaultEthnicity.duoAll) {
+    context.subject = { ...subject, en: applyDefaultEthnicity(subject.en, context.defaultEthnicity) };
+  }
+  const promptCharacter = applyDefaultEthnicityToCharacter(character, context.defaultEthnicity, {
+    facialToken: 'character:五官特徵-facial-features:',
+    isNone: isNoneLikeItem,
+  });
   if (characterUsesResolvedSelfiePoseHand(character)) {
     const noneOrbit = getControlOptionByZh(lockControls, 'orbitId', '全無');
     orbit = noneOrbit || null;
@@ -16817,7 +16837,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     chestUpPortraitPrompt,
     fullBodyCharacterPrompt,
     nanoBananaPrompt,
-  } = buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect);
+  } = buildPrompts(context, promptCharacter, wardrobe, wardrobeColors, lightDirection, film, opticalEffect);
   const summaryFields = buildSummaryFields(context, wardrobe, character, wardrobeColors);
 
   const prompt = {
@@ -16863,6 +16883,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
         const referenceContext = {
           ...context,
           referencePersonPreview: true,
+          defaultEthnicity: null,
           subject: { ...subject, en: 'one adult person from the attached reference image' },
           wardrobe: [],
         };

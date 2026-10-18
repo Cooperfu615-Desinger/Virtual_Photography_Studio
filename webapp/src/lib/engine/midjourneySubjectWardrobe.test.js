@@ -35,7 +35,7 @@ test('phase 3 gives normal AI subjects a direct Midjourney identity lead', () =>
 
   assert.match(
     prompt.midjourneyPrompt,
-    /^Photorealistic editorial portrait\. Waist-up portrait\. A 20-year-old adult woman\./i
+    /^Photorealistic editorial portrait\. Waist-up portrait\. A 20-year-old adult Japanese woman\./i
   );
   assert.doesNotMatch(prompt.midjourneyPrompt, /cup bust|narrow defined waist/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /flat abdomen/i);
@@ -43,7 +43,7 @@ test('phase 3 gives normal AI subjects a direct Midjourney identity lead', () =>
   assert.match(prompt.midjourneyPrompt, /chestnut-brown hair/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /20s Japanese or Korean woman, seductive editorial presence/i);
 
-  assert.match(prompt.zImagePrompt, /A 20-year-old seductive stunning adult woman/i);
+  assert.match(prompt.zImagePrompt, /A 20-year-old seductive stunning adult Japanese woman/i);
   assert.doesNotMatch(prompt.grokPrompt, /seductive editorial presence/i);
 });
 
