@@ -4,11 +4,17 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-18
 
-## 五官全無預設日本族裔（2026-10-17，本機實作）
+## 落肩 T 恤英文改寫（2026-10-18，已合併 main，PR #7）
+
+- Z-Image 兩輪實驗都把 `dropped-shoulder … low shoulder seam` 畫成露肩。Cooper 決定改寫且不提肩線、寬窄交給「版型」選項：共用英文 `crew-neck t-shirt, washed cotton jersey, relaxed upper-body proportion`、下胸線版 `crew-neck t-shirt, washed cotton jersey`、MJ 品名 `crew-neck t-shirt`。ID 與中文名稱不變，舊英文加入匯入別名。決策見 [決策紀錄](decisions/2026-10-18-crew-neck-tee.md)。
+- 連帶：MJ 品名也是擷取詞庫，特殊穿搭「菱格背心黑寬短褲長襪造型」主 MJ 由 `a T-shirt` 變成 `a crew-neck T-shirt`（更貼近原文，Cooper 確認保留）。中文說明 desc 未改，待決。
+- 完整測試 1651/1651（連跑 2 次）、Prompt Quality 721/721、lint、build、同 seed strict audit（問題摘要不變）、sync check、Python、公開資產、diff-check 通過；桌面與手機瀏覽器、Saved Cards 存取還原已檢查。PR #7 已合併 main。
+
+## 五官全無預設日本族裔（2026-10-17，已合併 main，PR #6）
 
 - Cooper 決定：一般主體五官全無時預設日本，推翻 2026-10-14 的「全無不指定」。單人主體句改為 `adult Japanese woman`；雙人兩人都全無時共用句 `adult Japanese women`；只有一人全無時，該位加 `Japanese facial features`。有選五官、混血、角色卡、特殊主體、自訂身份、附圖參考預覽不變。規格見 [預設日本族裔 v1](specs/default-japanese-ethnicity-v1.md)，決策見 [決策紀錄](decisions/2026-10-17-default-japanese-ethnicity.md)。
 - 只在渲染時套用（`engine/defaultEthnicity.js`），選擇快照、結構資料、Saved Cards 不變；新主體句已加入人數匯入別名。凍結基準以 `defaultEthnicityTestSupport.js` 的精確反函數比對，雜湊未重算。
-- 完整測試 1653/1653（連跑 2 次）、Prompt Quality 721/721、lint、build、同 seed strict audit（問題摘要不變）、sync check、Python、公開資產、diff-check 通過；桌面與手機瀏覽器、Saved Cards 存取還原已檢查。分支 `claude/ethnicity-default-japanese`（worktree `.worktrees/ethnicity-default-japanese`），尚未 commit。細節見規格 §4。
+- 完整測試 1653/1653（連跑 2 次）、Prompt Quality 721/721、lint、build、同 seed strict audit（問題摘要不變）、sync check、Python、公開資產、diff-check 通過；桌面與手機瀏覽器、Saved Cards 存取還原已檢查。已合併 main（PR #6）。細節見規格 §4。
 
 ## Comfy Cloud 圖生影片工作區（2026-10-17，已部署）
 

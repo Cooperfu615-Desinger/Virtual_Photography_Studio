@@ -8,6 +8,9 @@
 // The later 2026-10-17 Japanese default is reversed first (see
 // defaultEthnicityTestSupport.js), so callers keep one entry point.
 import { DEFAULT_ETHNICITY_ADDED_ALIASES, restorePreDefaultEthnicityText } from './defaultEthnicityTestSupport.js';
+// The independent 2026-10-18 crew-neck tee wording (crewNeckTeeTestSupport.js)
+// is reversed here too, so frozen baselines keep one entry point.
+import { isCrewNeckTeeAddedAlias, restorePreCrewNeckTeeText } from './crewNeckTeeTestSupport.js';
 
 // Main MJ (midjourneyPrompt) owns its own opening sentence.
 const MAIN_MIDJOURNEY_FIELD = 'midjourneyPrompt';
@@ -70,7 +73,7 @@ export function restorePreEthnicityText(text, field) {
     for (const [from, to] of OTHER_FIELD_REPLACEMENTS) restored = replaceAll(restored, from, to);
   }
   for (const [from, to] of ETHNICITY_REVISION_COMMON_REPLACEMENTS) restored = replaceAll(restored, from, to);
-  return restored;
+  return restorePreCrewNeckTeeText(restored, field);
 }
 
 const isPlainObject = value => Boolean(value) && typeof value === 'object' && !Array.isArray(value);
@@ -78,7 +81,8 @@ const isPlainObject = value => Boolean(value) && typeof value === 'object' && !A
 function withoutAddedAliases(object) {
   if (!Array.isArray(object.legacyPromptAliases)) return object;
   const kept = object.legacyPromptAliases.filter(alias => !ETHNICITY_REVISION_ADDED_ALIASES.includes(alias)
-    && !DEFAULT_ETHNICITY_ADDED_ALIASES.includes(alias));
+    && !DEFAULT_ETHNICITY_ADDED_ALIASES.includes(alias)
+    && !isCrewNeckTeeAddedAlias(alias));
   if (kept.length === object.legacyPromptAliases.length) return object;
   const { legacyPromptAliases: _removed, ...rest } = object;
   return kept.length ? { ...rest, legacyPromptAliases: kept } : rest;

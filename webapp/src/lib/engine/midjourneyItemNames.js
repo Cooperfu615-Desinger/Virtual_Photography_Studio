@@ -4,7 +4,7 @@ export const MIDJOURNEY_ITEM_NAMES = Object.freeze({
   "wardrobe:上身-tops:長版襯衫:2": "longline men's dress shirt",
   "wardrobe:上身-tops:領帶襯衫:3": "collared shirt and necktie",
   "wardrobe:上身-tops:短袖上衣:4": "short-sleeve top",
-  "wardrobe:上身-tops:落肩-t-恤:5": "dropped-shoulder t-shirt",
+  "wardrobe:上身-tops:落肩-t-恤:5": "crew-neck t-shirt",
   "wardrobe:上身-tops:短版-t-恤:6": "cropped t-shirt",
   "wardrobe:上身-tops:棉質細肩背心:7": "cotton camisole top",
   "wardrobe:上身-tops:絲質細肩帶上衣:8": "silk camisole top",
