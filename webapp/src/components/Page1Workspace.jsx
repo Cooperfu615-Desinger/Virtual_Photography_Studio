@@ -920,7 +920,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         : control.key === 'expressionId' ? activeSpecifiedAction.expressionLabel
         : control.key === 'poseHeadId' ? activeSpecifiedAction.headLabel
         : control.key === 'poseOrientationId' ? orientationLabel || '由指定動作決定'
-        : control.key === 'poseAnchorId' ? (activeSpecifiedAction.meta.supportSurface === 'ground' ? '地面' : '不指定額外支撐')
+        : control.key === 'poseAnchorId' ? (activeSpecifiedAction.meta.supportSurface === 'ground' ? '地面' : activeSpecifiedAction.meta.supportSurface === 'bed' ? '床面' : '不指定額外支撐')
         : control.key === 'posePropId' ? (activeSpecifiedAction.legacyCardId ? '由指定動作決定' : '不使用道具') : '由指定動作決定';
       return {
         ...control,
