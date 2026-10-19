@@ -35,8 +35,9 @@ const EXPECTED = [
 
 test('Facial Features none gives the ordinary single subject the Japanese default and no face', () => {
   const prompt = generate({ facialFeaturesId: noneOf('facialFeaturesId') });
-  assert.match(prompt.grokPrompt, /The subject is one 20-year-old adult Japanese woman\./);
-  assert.match(prompt.midjourneyPrompt, /A 20-year-old adult Japanese woman\./);
+  // Random accessories may follow the subject sentence (v2 P2 shifted this seed's draws).
+  assert.match(prompt.grokPrompt, /The subject is one 20-year-old adult Japanese woman\b/);
+  assert.match(prompt.midjourneyPrompt, /A 20-year-old adult Japanese woman\b/);
   for (const [name, text] of Object.entries(outputs(prompt))) {
     assert.match(text, /\badult Japanese woman\b/, `${name}: Japanese default subject`);
     assert.doesNotMatch(text, faceEthnicity('Japanese'), `${name}: no invented Japanese face`);

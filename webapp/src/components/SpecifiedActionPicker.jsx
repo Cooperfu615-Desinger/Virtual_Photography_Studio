@@ -26,7 +26,9 @@ function PoseReferenceImage({ option, compact = false }) {
   );
 }
 
-function SpecifiedActionDialog({ options, value, onClose, onSelect }) {
+const isMenuChoice = option => Boolean(option?.meta?.tags?.includes('menu_choice'));
+
+function SpecifiedActionDialog({ options, choices, value, onClose, onSelect }) {
   const [category, setCategory] = useState('all');
   const titleId = useId();
   const descriptionId = useId();
@@ -84,6 +86,13 @@ function SpecifiedActionDialog({ options, value, onClose, onSelect }) {
             <span>全無 · 使用原本的姿勢設定</span>
             {value === 'none' ? <Check size={17} aria-hidden="true" /> : null}
           </button>
+          {choices.map((choice) => (
+            <button key={choice.id} type="button" className={`specified-action-none${value === choice.id ? ' specified-action-selected' : ''}`}
+              aria-pressed={value === choice.id} onClick={() => onSelect(choice.id)}>
+              <span>{choice.zh} · {choice.descriptionZh}</span>
+              {value === choice.id ? <Check size={17} aria-hidden="true" /> : null}
+            </button>
+          ))}
           <div className="specified-action-card-grid">
             {options.filter(option => category === 'all' || option.baseId === category).map((option) => {
               const selected = option.id === value;
@@ -114,7 +123,8 @@ function SpecifiedActionDialog({ options, value, onClose, onSelect }) {
 export default function SpecifiedActionPicker({ control, value, disabled = false, disabledReason = '', onChange, onCopy }) {
   const [isOpen, setIsOpen] = useState(false);
   const triggerRef = useRef(null);
-  const options = control.options.filter((option) => option.id !== 'none');
+  const options = control.options.filter((option) => option.id !== 'none' && !isMenuChoice(option));
+  const choices = control.options.filter(isMenuChoice);
   const selected = control.options.find((option) => option.id === value && option.baseId);
   const helpId = `${control.key}-help`;
   const helpText = disabledReason || control.helpText;
@@ -148,7 +158,7 @@ export default function SpecifiedActionPicker({ control, value, disabled = false
         <ChevronDown size={16} aria-hidden="true" />
       </button>
       {helpText ? <small id={helpId} className="field-help">{helpText}</small> : null}
-      {isOpen && !disabled ? <SpecifiedActionDialog options={options} value={currentValue}
+      {isOpen && !disabled ? <SpecifiedActionDialog options={options} choices={choices} value={currentValue}
         onClose={closeDialog} onSelect={(id) => { onChange(id); closeDialog(); }} /> : null}
     </div>
   );

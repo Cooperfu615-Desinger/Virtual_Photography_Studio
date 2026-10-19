@@ -222,13 +222,64 @@ export const SPECIFIED_ACTION_CONCRETE_OPTIONS = Object.freeze([
 
 ]);
 
+// expression-pose-v2 §3.1 menu choices (Cooper 2026-10-19): 隨機 draws an accepted
+// action from the library at generation time; 任意 hands the pose to the model.
+export const SPECIFIED_ACTION_RANDOM_ID = 'random';
+export const SPECIFIED_ACTION_ANY_ID = 'any';
+export const SPECIFIED_ACTION_ANY_EN = 'She is caught in a candid, natural mid-movement pose, her weight shifted onto one leg and both hands engaged.';
+
+const menuChoice = definition => {
+  const action = createAction({ baseId: 'none', supportSurface: '', ...definition });
+  return deepFreeze({ ...action, meta: { ...action.meta, tags: ['specified_action', 'menu_choice'] } });
+};
+
+/** 隨機 is resolved before generation; the record only drives menus and takeover UI. */
+export const SPECIFIED_ACTION_RANDOM = menuChoice({
+  id: SPECIFIED_ACTION_RANDOM_ID, zh: '隨機', upperBodyEn: '',
+  descriptionZh: '每次生成時，從已驗收的指定動作中隨機抽一個（躺姿待場景表面完成後加入）。',
+  clauses: [clause('core', '', 'A specified action is drawn at generation time')],
+});
+
+/** 任意: the third-round free-pose sentence (Docs/reports/pose-hand-experiment-2026-10-17/results.md §6). */
+export const SPECIFIED_ACTION_ANY = menuChoice({
+  id: SPECIFIED_ACTION_ANY_ID, zh: '任意', handsMode: 'free',
+  descriptionZh: '交給模型自由決定姿勢：抓拍中的自然動態，重心放在一腳，雙手有動作。',
+  clauses: [
+    clause('core', '', 'She is caught in a candid, natural mid-movement pose'),
+    clause('lower', ', ', 'her weight shifted onto one leg'),
+    clause('upper', ' and ', 'both hands engaged'),
+  ],
+  upperBodyEn: 'She is caught in a candid, natural mid-movement pose with both hands engaged.',
+});
+
 export const SPECIFIED_ACTION_OPTIONS = Object.freeze([
   deepFreeze({ id: 'none', zh: '全無', en: '', upperBodyEn: '', descriptionZh: '',
     baseId: '', orientationId: 'none', meta: { tags: ['none'], randomEligible: false } }),
+  SPECIFIED_ACTION_RANDOM,
+  SPECIFIED_ACTION_ANY,
   ...SPECIFIED_ACTION_CONCRETE_OPTIONS,
 ]);
 
-const ACTIONS_BY_ID = new Map(SPECIFIED_ACTION_CONCRETE_OPTIONS.map((action) => [action.id, action]));
+const ACTIONS_BY_ID = new Map([...SPECIFIED_ACTION_CONCRETE_OPTIONS, SPECIFIED_ACTION_RANDOM, SPECIFIED_ACTION_ANY]
+  .map((action) => [action.id, action]));
+
+/** Library actions 隨機 may draw: accepted, and not lying until scenes provide a
+ * lying surface (expression-pose-v2 implementation plan P3). */
+export const SPECIFIED_ACTION_RANDOM_POOL = Object.freeze(SPECIFIED_ACTION_CONCRETE_OPTIONS
+  .filter(action => action.validation.status === 'accepted' && action.family !== 'lying'));
+
+export const isSpecifiedActionMenuChoice = action => Boolean(action?.meta?.tags?.includes('menu_choice'));
+
+/** Replace 隨機 with one drawn library action (one random() call), or 全無 when
+ * no single-subject action can apply. Camera conflicts use locked choices only. */
+export function resolveRandomSpecifiedAction(locks = {}, random = Math.random, { cameraControls = [] } = {}) {
+  if (locks.specifiedActionId !== SPECIFIED_ACTION_RANDOM_ID) return locks;
+  const pool = locks.subjectCount === '1' && !getFixedScenePosition(locks)
+    ? SPECIFIED_ACTION_RANDOM_POOL.filter(action => !getSpecifiedActionCameraConflict(action, locks, cameraControls))
+    : [];
+  const action = pool.length ? pool[Math.min(pool.length - 1, Math.floor(random() * pool.length))] : null;
+  return { ...locks, specifiedActionId: action?.id || 'none', actionPoseCardId: '' };
+}
 
 /** Owner checks use raw selections; they never clear a paused action. */
 export function getSpecifiedAction(locks = {}, { ignoreOwners = false, cameraControls = [] } = {}) {

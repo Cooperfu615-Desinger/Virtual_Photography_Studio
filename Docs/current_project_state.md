@@ -5,7 +5,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 Last updated: 2026-10-19
 
 
-## 神情姿態 v2：P1 動作資料（2026-10-19，本機實作）
+## 神情姿態 v2：P2 姿勢選單機制（2026-10-19，本機實作）
+
+- 姿勢選單＝全無／隨機／任意／各指定動作。未動時為全無（Cooper），不再從舊「姿勢與肢體語言」目錄自動抽姿勢；隨機在生成時從已驗收、非躺姿的 9 個動作抽一個並記入快照；任意輸出第三輪定案的 B 句。姿勢區或全域「全部隨機」改設為隨機並清空自由組合身體層（頭部仍隨機、道具保留）。
+- 驗證：代表性與指定動作 412 組逐字不變；隨機樣本以鎖定重播證明只有姿勢相關差異；MJ natural 基準 71 組以 `scripts/rebaseline_mj_natural_fixtures.mjs` 重產；`npm test` 1709/1709（連跑 2 次）、Prompt Quality 738/738、lint、build、strict audit exit 0、sync、Python、公開資產、diff-check；瀏覽器 1440×1000／390×900。細節見 [實作計畫 §5](specs/expression-pose-v2-implementation-plan.md)。分支 `claude/pose-v2-p2-menu`。
+
+## 神情姿態 v2：P1 動作資料（2026-10-19，已合併 main，PR #8）
 
 - 方向（Cooper 定案）：B 神情姿態改以指定動作為主體，姿勢選單＝隨機（從動作庫抽已驗收動作）／任意（交給模型的 B 寫法）／全無／各指定動作；自由組合之後移除，舊 Saved Cards 不需還原。規格 [expression-pose-v2](specs/expression-pose-v2.md)、計畫 [implementation-plan](specs/expression-pose-v2-implementation-plan.md)、躺姿 [pose-library-lying-v1](specs/pose-library-lying-v1.md)、決策 [decisions](decisions/2026-10-17-expression-pose-direction.md)。
 - P1：11 個指定動作改成帶部位標記的子句（逐字切分，串回後與原文相同），加 family／手部模式／表面需求／驗收狀態；11 個依 Cooper 決定視為已驗收。新增躺姿 3 個（側躺抱枕、趴躺腳踝交叉 accepted；趴躺單腿屈起 pending），排在清單最後。隨機池行為未變（P2 處理）。
