@@ -175,6 +175,24 @@
           ],
           "label": "Krea 2 Large",
           "partnerPricing": true
+        },
+        "flux3KleinBaseInt8": {
+          "resolutions": [
+            "1k",
+            "2k"
+          ],
+          "defaultResolution": "1k",
+          "maxCount": 2,
+          "oneImagePerJob": true,
+          "aspectRatios": [
+            "1:1",
+            "4:3",
+            "3:4",
+            "16:9",
+            "9:16",
+            "4:5"
+          ],
+          "label": "FLUX 3 Image Klein Base INT8"
         }
       }
     },

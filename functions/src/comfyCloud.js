@@ -31,9 +31,10 @@ function buildComfyWorkflow(payload, seed) {
   if (!Number.isSafeInteger(seed) || seed < 0 || seed >= model.seedLimit) throw new Error('Seed 超出此模型的範圍');
   if (Number(payload.count ?? 1) !== 1) throw new Error('Comfy Cloud 每個任務固定一張，請以獨立任務序列生成多張');
   const [a, b] = input.aspectRatio.split(':').map(Number);
-  const unit = Math.max(1, Math.round(Math.sqrt((input.resolution === '2k' ? 4 : 1) * 1048576 / (a * b)) / 8));
+  const multiple = model.pixelMultiple || 8;
+  const unit = Math.max(1, Math.round(Math.sqrt((input.resolution === '2k' ? 4 : 1) * 1048576 / (a * b)) / multiple));
   const [width, height] = model.nativeAspectRatio ? [null, null]
-    : model.sizes?.[input.resolution]?.[input.aspectRatio] || [a * unit * 8, b * unit * 8];
+    : model.sizes?.[input.resolution]?.[input.aspectRatio] || [a * unit * multiple, b * unit * multiple];
   const workflow = structuredClone(model.template);
   workflow[model.textNode].inputs[model.textKey] = input.prompt;
   workflow[model.seedNode].inputs[model.seedKey] = seed;

@@ -2,7 +2,13 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-18
+Last updated: 2026-10-19
+
+## FLUX 3 Image Klein Base INT8（2026-10-19，本機實作）
+
+- DLL 新增 Base INT8，固定 50 steps／CFG 3.5，關閉自動擴寫、直接採用 DLL prompt；預設 1 張、可選 1／2，沿用先取得第一張才送第二張。1K／2K、六比例使用模型專屬 16 像素對齊，舊模型不變。額度估算使用獨立成功樣本。詳見 [FLUX 整合 v1](specs/comfy-flux3-klein-v1.md)。
+- Functions 86/86、前端 1660/1660、雙端 lint、build 通過；桌面／手機五工作區與新模型選項、張數、未登入保護通過。修正長模型名稱造成的 DLL 手機撐寬，無新斷點。未提交付費生成，真實 Cloud 出圖／扣額／下載待驗收。
+- 本批尚未 commit／push／部署；發布需同步 `comfyCloudSubmit`、`comfyCloudStatus`、`comfyCloudQuota`。其他未追蹤資料保留。
 
 ## 落肩 T 恤英文改寫（2026-10-18，已合併 main，PR #7）
 

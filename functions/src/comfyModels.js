@@ -40,6 +40,7 @@ const models = {
   krea2Medium: krea('krea2Medium'),
   krea2MediumTurbo: krea('krea2MediumTurbo'),
   krea2Large: krea('krea2Large'),
+  flux3KleinBaseInt8: { ...local('flux3KleinBaseInt8', '18:4', 'text', '18:6', '18:7'), pixelMultiple: 16 },
 };
 
 function getComfyModel(modelKey) {

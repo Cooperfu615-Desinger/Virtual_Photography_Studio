@@ -3,10 +3,10 @@ import assert from 'node:assert/strict';
 import { getDllPicSelectableModelEntries, generateDllPicImages, getDllPicModelConfig, isDllPicAspectRatioSupported, normalizeDllPicModelKey } from './dllPicProClient.js';
 import { normalizeProviderGenerationRequest } from './providerContract.js';
 
-test('all eight Comfy models are distinct and select correctly without reviving hidden providers', () => {
+test('all nine Comfy models are distinct and select correctly without reviving hidden providers', () => {
   const entries = getDllPicSelectableModelEntries();
   const expected = ['comfyZImageTurbo', 'comfyQwenImage21', 'comfyZImageTurboInt8', 'comfyIdeogram45', 'comfySeedream5Pro',
-    'comfyKrea2Medium', 'comfyKrea2MediumTurbo', 'comfyKrea2Large'];
+    'comfyKrea2Medium', 'comfyKrea2MediumTurbo', 'comfyKrea2Large', 'comfyFlux3KleinBaseInt8'];
   assert.deepEqual(entries.filter(([, m]) => m.provider === 'comfyCloud').map(([key]) => key), expected);
   assert.equal(new Set(entries.map(([, m]) => m.label)).size, entries.length);
   assert.equal(entries.some(([, m]) => ['byteplus', 'magnific'].includes(m.provider)), false);
@@ -24,7 +24,7 @@ test('all eight Comfy models are distinct and select correctly without reviving 
 
 test('new models use the Comfy proxy and preserve selected prompt, ratio and two-image total limit', async () => {
   for (const [modelKey, backend] of [['comfyZImageTurboInt8', 'zImageTurboInt8'], ['comfyIdeogram45', 'ideogram45'], ['comfySeedream5Pro', 'seedream5Pro'],
-    ['comfyKrea2Medium', 'krea2Medium'], ['comfyKrea2MediumTurbo', 'krea2MediumTurbo'], ['comfyKrea2Large', 'krea2Large']]) {
+    ['comfyKrea2Medium', 'krea2Medium'], ['comfyKrea2MediumTurbo', 'krea2MediumTurbo'], ['comfyKrea2Large', 'krea2Large'], ['comfyFlux3KleinBaseInt8', 'flux3KleinBaseInt8']]) {
     let sent;
     const prompt = 'A red mug.\n--ar 4:5';
     const resolution = modelKey.startsWith('comfyKrea2') ? '1k' : '2k';
