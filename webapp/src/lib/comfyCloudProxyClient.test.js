@@ -230,3 +230,13 @@ test('a concurrent generation or clear cannot replace in-flight sequence trackin
   await assert.rejects(clearComfyPending(store), /另一個頁面/);
   assert.equal(submits, 1); release(); await first;
 });
+
+test('workspace seed uses the dedicated endpoint, stable first request id, and seed plus one', async () => {
+  const calls = [], store = storage(), requestId = '11111111-1111-4111-8111-111111111111';
+  const session = { uid: 'user1', call: async (name, input) => { calls.push({ name, input }); return imageJob(calls.length); } };
+  await generateComfyViaFirebase({ ...payload, count: 2, seed: 27, requestId }, { session, storage: store });
+  assert.deepEqual(calls.map(c => c.name), ['comfyCloudWorkspaceSubmit', 'comfyCloudWorkspaceSubmit']);
+  assert.deepEqual(calls.map(c => c.input.seed), [27, 28]);
+  assert.equal(calls[0].input.requestId, requestId);
+  assert.notEqual(calls[1].input.requestId, requestId);
+});

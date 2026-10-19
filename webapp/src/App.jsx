@@ -1,3 +1,7 @@
+import { onAuthStateChanged } from 'firebase/auth';
+import { firebaseAuth } from './lib/firebase.js';
+import { dllWorkspace } from './lib/dllWorkspaceRuntime.js';
+import { buildPage1DllPromptSources } from './lib/page1PromptOutputs.js';
 import { accessoryRestoreNotices } from './lib/engine/accessoryPolicy.js';
 import React, { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { normalizeLocks } from './lib/engine';
@@ -49,6 +53,7 @@ import { buildPage3SavedCard } from './features/page3/page3SavedCard.js';
 import { loadJsonStorage, loadStringStorage, saveJsonStorage } from './features/storage/browserStorage.js';
 import './index.css';
 
+const DllPicWorkspace = lazy(() => import('./components/DllPicWorkspace.jsx'));
 const Page1Workspace = lazy(() => import('./components/Page1Workspace.jsx'));
 const Page2Workspace = lazy(() => import('./components/Page2Workspace.jsx'));
 const Page3Workspace = lazy(() => import('./components/Page3Workspace.jsx'));
@@ -63,6 +68,7 @@ const ACTION_POSE_PROFILE_KEY = 'vps.actionPoseProfile';
 const OBSERVATION_CAPTURE_PROFILE_KEY = 'vps.observationCaptureProfile';
 const APPEARANCE_STORAGE_KEY = 'vps.appearance';
 const PAGE_MODE_COPY = {
+  dll: { title: 'DLL_PIC Pro', subtitle: '集中生成、比較與整理圖片，保留每次創作的設定與成果。' },
   page1: {
     title: 'Prompt Control Deck',
     subtitle: '一個為個人創作流程設計的虛擬攝影 Prompt 生成工具，支援快速組合、批次生成與風格探索。',
@@ -454,6 +460,22 @@ export default function App() {
     showToast('場景建模 Prompt 已加入 Saved Cards');
   }, [addFavoritePrompt, page3Anchor, page3CinematicPrompt, page3Profile, page3Prompt, page3Summary, page3WorldPrompt, showToast]);
 
+  const [dllIncoming, setDllIncoming] = useState(null);
+  useEffect(() => {
+    if (!firebaseAuth) { void dllWorkspace.setUser(null); return undefined; }
+    return onAuthStateChanged(firebaseAuth, user => { void dllWorkspace.setUser(user?.uid); });
+  }, []);
+  useEffect(() => {
+    const open = event => {
+      setDllIncoming(event.detail);
+      if (!dllWorkspace.getSnapshot().draft && event.detail.sources) dllWorkspace.draft({ ...event.detail.settings, sources: event.detail.sources, workspaceId: event.detail.workspaceId });
+      if (event.detail.taskId) dllWorkspace.select(event.detail.taskId);
+      setPageMode('dll');
+    };
+    window.addEventListener('dll-workspace-open', open);
+    return () => window.removeEventListener('dll-workspace-open', open);
+  }, []);
+
   const pageHeaderCopy = PAGE_MODE_COPY[pageMode] || PAGE_MODE_COPY.page1;
 
   return (
@@ -500,6 +522,7 @@ export default function App() {
               >
                 觀察式抓拍
               </button>
+              <button type="button" className={pageMode === 'dll' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'} onClick={() => setPageMode('dll')}>DLL_PIC Pro</button>
               <button
                 type="button"
                 className={pageMode === 'page4' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'}
@@ -563,7 +586,7 @@ export default function App() {
       </header>
 
       <Suspense fallback={<WorkspaceFallback />}>
-        {pageMode === 'page1' ? (
+        {pageMode === 'dll' ? <DllPicWorkspace sources={buildPage1DllPromptSources(previewPrompt)} incoming={dllIncoming} /> : pageMode === 'page1' ? (
           <Page1Workspace
             workspace={{
               coreLockControls,

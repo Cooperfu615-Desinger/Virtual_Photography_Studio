@@ -345,3 +345,35 @@ final result: passed
 - [ ] Wan/H3 真實付費影片、扣額、播放與 CDN 下載驗收。
 
 final result: passed
+
+## 2026-10-19 — DLL_PIC Pro 完整版第一版（本機驗收）
+
+### Scope and visual reference
+
+- 使用者核准獨立分頁示意並授權實作；保留四個快速面板，未授權 Git 提交或部署。
+- 來源示意：`/Users/cooperfu/.codex/generated_images/01a151ae-96a5-7132-9699-ea8d4e95fc62/exec-1b9bc2ea-5461-4a54-91e8-3b9ca992968f.png`。
+- 與實際 `Docs/reports/dll-workspace-v1-2026-10-19/workspace-desktop.png` 在同一次影像檢視中比對：保留左設定／右成果／右下任務、六來源、雙圖及提升解析度操作。實作採原站字型、圓角、配色與較寬鬆間距；圖中的流程編號／連線說明沒有放入正式操作介面。
+- 示意咖啡店人物與實際本機測試角色圖不同；模擬橫幅清楚標示非真實出圖與放大，沒有以測試圖片宣稱畫質驗收。
+
+### Render and interaction evidence
+
+- 1440×1000、390×900 七工作區導航與畫面檢查，document overflow 0、broken image 0；819／821 與1099／1101兩側排版檢查通過。
+- 四個快速入口帶入各自實際來源；原草稿不默默覆蓋。快速生成切到完整版仍繼續，成功結果共用。六來源、胸上固定4:5、xAI不相容禁止提交通過。
+- 本機模擬：兩張生成、reload保留圖片／草稿、沿用單圖Seed1235、歷史切換、雙圖與原圖／放大比較、100%／縮放控制、手機設定／成果切換、加入放大任務後執行通過。
+- 清單：兩筆排隊後暫停，當筆完成、下一筆仍待執行；再取消待執行。`[offline]`模擬中斷後呈待確認，重載只查詢後恢復兩張成果。
+- 鍵盤焦點圈限／Escape 與背景inert已實作；實體雙指手勢未操作驗收。圖片下載按鈕無頁面錯誤，但IAB沒有回傳下載事件與檔案路徑，下載落盤待一般瀏覽器人工驗收。
+- 一般模式空白歷史、Comfy未登入提示、與模擬資料分離通過。未送付費生成、未更改Saved Cards的9張資料。最後模擬／一般頁console errors/warnings皆空。
+- 截圖：`workspace-desktop.png`、`normal-empty-desktop.png`、`settings-mobile.png`、`results-mobile.png`、`compare-desktop.png`、`compare-mobile.png`、`recovery-pending.png`與各工作區／斷點截圖，均在 `Docs/reports/dll-workspace-v1-2026-10-19/`。
+
+### Validation and limits
+
+- 前端Node22：1677/1677、lint、build通過。Functions Node24：91/91、lint通過。Production bundle未包含模擬執行程式。
+- 原有Vite大型chunk提示保留；未改Prompt renderer，沒有執行無關資料同步／Prompt strict audit。
+- 新 `comfyCloudWorkspaceSubmit` 與 `comfyCloudImageWorkspace` 未部署。指定Seed／放大／取消的實際Cloud功能、SeedVR2可用性、扣額與畫質待另外驗收。
+- 本批未stage、commit、push、deploy；保留其他未追蹤文件。詳見 [完整版規格](Docs/specs/dll-pic-pro-workspace-v1.md)。
+
+Result: local UI and automated checks passed; user acceptance, download-to-disk, physical touch and live Cloud acceptance pending.
+
+### 2026-10-19 使用者驗收補記
+
+使用者確認「實際測試沒問題，可以 commit/push」，本機版本驗收通過。授權本批 Git 提交／推送；交付 `codex/dll-pic-pro-workspace-v1`，保留暫不部署限制，不合併會觸發 Pages 的 main。上方自動化證據與真實 Cloud 尚未驗證範圍維持原紀錄；未把一般本機驗收推定成雲端付費出圖驗收。

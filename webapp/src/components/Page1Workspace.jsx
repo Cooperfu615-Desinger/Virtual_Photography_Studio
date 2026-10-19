@@ -1890,6 +1890,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
 
         <aside className="page1-preview-column">
           <DllPicProPanel
+              workspaceId="Prompt 工作台"
             title="DLL_PIC Pro"
             description="使用目前 prompt 直接生成圖像預覽。"
             promptSources={dllPromptSources}

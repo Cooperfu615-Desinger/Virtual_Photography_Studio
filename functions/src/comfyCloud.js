@@ -27,7 +27,7 @@ function buildComfyWorkflow(payload, seed) {
   const { model: limits } = getProviderModelContract('comfyCloud', input.modelKey);
   if (payload.aspectRatio && !limits.aspectRatios.includes(payload.aspectRatio)) throw new Error('不支援的 Comfy Cloud 比例');
   if (payload.resolution && !limits.resolutions.includes(payload.resolution)) throw new Error('不支援的 Comfy Cloud 解析度');
-  seed ??= generateComfySeed(model.seedLimit, payload.previousSeed);
+  seed ??= payload.seed ?? generateComfySeed(model.seedLimit, payload.previousSeed);
   if (!Number.isSafeInteger(seed) || seed < 0 || seed >= model.seedLimit) throw new Error('Seed 超出此模型的範圍');
   if (Number(payload.count ?? 1) !== 1) throw new Error('Comfy Cloud 每個任務固定一張，請以獨立任務序列生成多張');
   const [a, b] = input.aspectRatio.split(':').map(Number);
@@ -74,7 +74,7 @@ async function callComfy(apiKey, url = BASE, options = {}, fetchImpl = fetch) {
     const detail = String(body.error?.message || '').replaceAll(apiKey, '[redacted]').slice(0, 500);
     const error = new Error(`Comfy Cloud 請求失敗（HTTP ${response.status}）${detail ? `：${detail}` : ''}`);
     error.status = response.status;
-    error.definitive = response.status >= 400 && response.status < 500 && response.status !== 408;
+    error.definitive = response.status >= 400 && response.status < 500 && ![408, 409].includes(response.status);
     throw error;
   }
   return body;
@@ -167,4 +167,4 @@ async function readComfyJob({ apiKey, requestId, store, fetchImpl = fetch }) {
   return resolveComfyImages(job, record.meta, apiKey, fetchImpl);
 }
 
-module.exports = { buildComfyWorkflow, parseComfyJob, submitComfyJob, readComfyJob, validateRequestId, generateComfySeed, assertExpectedComfyUid };
+module.exports = { buildComfyWorkflow, parseComfyJob, submitComfyJob, readComfyJob, validateRequestId, generateComfySeed, assertExpectedComfyUid, callComfy, getJobUrl };

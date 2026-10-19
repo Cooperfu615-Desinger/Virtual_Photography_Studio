@@ -149,6 +149,7 @@ export default function ActionPoseWorkspace({
           ))}
         </div>
         <DllPicProPanel
+              workspaceId="動作姿勢"
           title="DLL_PIC Pro"
           description="動作參考圖 prompt。"
           promptSources={outputs

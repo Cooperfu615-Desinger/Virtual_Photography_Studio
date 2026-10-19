@@ -504,6 +504,7 @@ export async function generateDllPicImages({
   magnificGenerate = null,
   bytePlusGenerate = null,
   comfyGenerate = null,
+  seed, requestId,
   onProgress,
   onImages,
 }) {
@@ -519,6 +520,7 @@ export async function generateDllPicImages({
     if (!modelConfig.resolutionOptions.includes(resolution)) throw new Error(`${modelConfig.label} 不支援 ${resolution} 解析度`);
     const result = await comfyGenerate({
       modelKey: modelConfig.comfyModel, prompt, aspectRatio, count: normalizedCount, resolution,
+      ...(seed !== undefined ? { seed } : {}), ...(requestId ? { requestId } : {}),
     }, { onProgress, onImages });
     if (result.images.length === 0) throw new Error(result.errors[0] || 'API 回應中未包含圖像資料。');
     return result;

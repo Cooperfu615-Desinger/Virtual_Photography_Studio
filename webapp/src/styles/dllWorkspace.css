@@ -1,0 +1,81 @@
+.dll-workspace { min-width: 0; }
+.dll-workspace-toolbar, .dll-results-toolbar, .dll-result-heading, .dll-image-viewer header { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.dll-workspace-toolbar { margin-bottom: 16px; }
+.dll-workspace-toolbar p { margin: 0; }
+.dll-workspace-toolbar span, .dll-help, .dll-image-meta, .dll-result-heading small { color: var(--text-secondary); font-size: 12px; line-height: 1.6; }
+.dll-workspace-grid { display: grid; grid-template-columns: minmax(290px, 0.92fr) minmax(0, 2fr); gap: 18px; align-items: start; }
+.dll-workspace-form, .dll-workspace-main { min-width: 0; }
+.dll-workspace-main { display: grid; gap: 18px; }
+.dll-full-settings, .dll-results, .dll-tasks { padding: 20px; background: var(--bg-panel); border: 1px solid var(--border); border-radius: 20px; min-width: 0; }
+.dll-full-settings .dll-pic-settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.dll-full-settings .dll-pic-field:first-child, .dll-full-settings .dll-prompt-editor, .dll-full-settings .dll-pic-field:has(select[aria-label="模型"]) { grid-column: 1 / -1; }
+.dll-full-settings select, .dll-full-settings input, .dll-upscale-dialog select { width: 100%; min-width: 0; min-height: 42px; background: var(--surface-control); color: var(--text-primary); border: 1px solid var(--border); border-radius: 9px; padding: 8px; }
+.dll-full-settings .dll-pic-header { margin-bottom: 16px; }
+.dll-prompt-editor label { font-size: 13px; display: block; margin-bottom: 8px; }
+.dll-prompt-editor textarea { resize: vertical; width: 100%; box-sizing: border-box; min-height: 130px; max-height: 450px; background: var(--surface-control); color: var(--text-primary); border: 1px solid var(--border); border-radius: 10px; padding: 12px; font: inherit; font-size: 13px; line-height: 1.6; }
+.dll-prompt-editor textarea:read-only { background: var(--card-bg); }
+.dll-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.dll-text-button { background: none; border: 0; color: var(--accent); padding: 6px 0; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; font: inherit; font-size: 12px; }
+.dll-text-button:disabled { opacity: .45; cursor: default; }
+.dll-results-toolbar { margin-bottom: 18px; }
+.dll-results button, .dll-tasks button, .dll-image-viewer button { display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
+.dll-results { min-height: 490px; }
+.dll-empty { display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; min-height: 360px; padding: 20px; color: var(--text-secondary); }
+.dll-empty h2 { font-size: 20px; color: var(--text-primary); margin: 18px 0 8px; }
+.dll-empty p { max-width: 360px; font-size: 14px; line-height: 1.8; }
+.dll-result-group + .dll-result-group { margin-top: 30px; padding-top: 24px; border-top: 1px solid var(--border); }
+.dll-result-heading { margin-bottom: 12px; }
+.dll-result-heading small { display: block; }
+.dll-image-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.dll-result-card { border: 1px solid var(--border); padding: 10px; border-radius: 12px; min-width: 0; }
+.dll-result-card.selected { border-color: var(--accent); }
+.dll-image-selection { display: flex; align-items: center; gap: 8px; font-size: 12px; margin-bottom: 10px; }
+.dll-image-selection input { width: 16px; height: 16px; }
+.dll-image-open { display: block !important; width: 100%; border: 0; padding: 0; background: var(--card-bg); border-radius: 8px; cursor: zoom-in; }
+.dll-image-open img { width: 100%; height: 330px; object-fit: contain; display: block; border-radius: 8px; }
+.dll-image-meta { overflow-wrap: anywhere; margin: 10px 0; }
+.dll-card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.dll-card-actions button { padding: 8px 5px; font-size: 12px; min-height: 36px; }
+.dll-task-details { margin-top: 12px; font-size: 12px; color: var(--text-secondary); }
+.dll-task-details summary { cursor: pointer; }
+.dll-task-details pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 220px; overflow: auto; font: inherit; }
+.dll-task-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(100px, 1fr) auto; align-items: center; gap: 10px; padding: 10px 0; border-top: 1px solid var(--border); font-size: 12px; }
+.dll-task-row > button { justify-content: start; text-align: left; }
+.dll-task-row span { overflow-wrap: anywhere; }
+.dll-workspace-error { color: var(--text-primary); border-left: 3px solid #c66b00; padding: 12px; background: var(--card-bg); overflow-wrap: anywhere; }
+.dll-mobile-tabs { display: none; }
+.dll-upscale-backdrop, .dll-viewer-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 1200; display: flex; align-items: center; justify-content: center; padding: 16px; }
+.dll-upscale-dialog { background: var(--bg-panel); color: var(--text-primary); border-radius: 20px; padding: 24px; width: min(480px, 100%); max-height: 90dvh; overflow: auto; }
+.dll-upscale-dialog > img { width: 100%; height: 200px; object-fit: contain; background: var(--card-bg); }
+.dll-image-viewer { background: var(--bg-panel); color: var(--text-primary); border-radius: 16px; width: min(1500px, 100%); height: 92dvh; display: flex; flex-direction: column; padding: 18px; min-width: 0; outline: none; }
+.dll-image-viewer header { margin-bottom: 14px; }
+.dll-viewer-panes { display: grid; grid-template-columns: 1fr; min-height: 0; flex: 1; gap: 12px; }
+.dll-viewer-panes.comparing { grid-template-columns: 1fr 1fr; }
+.dll-viewer-panes section { min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+.dll-viewer-panes section > .dll-row { justify-content: space-between; padding-bottom: 8px; font-size: 13px; }
+.dll-pan { overflow: auto; flex: 1; min-height: 0; background: var(--card-bg); cursor: grab; touch-action: none; }
+.dll-pan img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; margin: auto; user-select: none; }
+@media (max-width: 1100px) { .dll-workspace-grid { grid-template-columns: minmax(280px, 1fr) minmax(0, 1.5fr); } .dll-image-grid { grid-template-columns: 1fr; } }
+@media (max-width: 820px) {
+  .dll-workspace-grid { display: block; }
+  .dll-mobile-tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+  .mobile-settings .dll-results { display: none; }
+  .mobile-results .dll-workspace-form { display: none; }
+  .dll-workspace-main { margin-top: 14px; }
+  .dll-full-settings, .dll-results, .dll-tasks { padding: 14px; border-radius: 14px; }
+  .dll-task-row { grid-template-columns: 1fr 1fr; }
+  .dll-task-row > .dll-row { grid-column: 1 / -1; }
+  .dll-image-open img { height: 350px; }
+  .dll-image-viewer { height: 95dvh; padding: 10px; }
+  .dll-image-viewer header { align-items: start; }
+  .dll-image-viewer button { font-size: 12px; padding: 6px; }
+  .dll-viewer-panes.comparing { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
+}
+
+.dll-source-choices { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-bottom: 16px; }
+.dll-source-choices button { font-size: 12px; min-height: 40px; padding: 6px; overflow-wrap: anywhere; }
+.dll-full-settings .dll-pic-field:first-child { display: none; }
+
+.dll-prompt-editor .dll-text-button + .dll-text-button { margin-left: 12px; }
+.dll-full-settings .dll-pic-header-actions { margin-left: auto; }
+.dll-full-settings .dll-pic-header { display:flex; align-items:center; justify-content:space-between; gap:8px; }

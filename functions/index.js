@@ -91,6 +91,25 @@ for (const [name, operation] of [['comfyCloudSubmit', submitComfyJob], ['comfyCl
   });
 }
 
+// New callable keeps seeded requests distinguishable from older deployed handlers.
+exports.comfyCloudWorkspaceSubmit = onCall({ region: 'us-central1', secrets: [comfyCloudApiKey], timeoutSeconds: 60, memory: '256MiB', maxInstances: 2 }, async request => {
+  assertAllowedUser(request, 'DLL_PIC Pro');
+  try {
+    assertExpectedComfyUid(request.data, request.auth.uid);
+    if (!comfyCloudApiKey.value()) throw new Error('Comfy Cloud API Key 尚未設定');
+    return await submitComfyJob({ apiKey: comfyCloudApiKey.value(), payload: request.data || {}, store: comfyStore(request.auth.uid) });
+  } catch (error) { throw new HttpsError('failed-precondition', error.message || '生成操作失敗'); }
+});
+exports.comfyCloudImageWorkspace = onCall({ region: 'us-central1', secrets: [comfyCloudApiKey], timeoutSeconds: 120, memory: '512MiB', maxInstances: 2 }, async request => {
+  assertAllowedUser(request, 'DLL_PIC Pro');
+  try {
+    assertExpectedComfyUid(request.data, request.auth.uid);
+    if (!comfyCloudApiKey.value()) throw new Error('Comfy Cloud API Key 尚未設定');
+    return await require('./src/comfyImageWorkspace').imageWorkspaceOperation({ apiKey: comfyCloudApiKey.value(), payload: request.data || {},
+      store: comfyStore(request.auth.uid, 'comfyCloudUpscaleJobs'), imageStore: comfyStore(request.auth.uid) });
+  } catch (error) { throw new HttpsError('failed-precondition', error.message || '圖片操作失敗'); }
+});
+
 exports.comfyCloudQuota = onCall({
   region: 'us-central1', secrets: [comfyCloudApiKey], timeoutSeconds: 60,
   memory: '256MiB', maxInstances: 2,

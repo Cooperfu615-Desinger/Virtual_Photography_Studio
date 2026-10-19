@@ -183,6 +183,7 @@ export default function Page3Workspace({
           ))}
         </div>
         <DllPicProPanel
+              workspaceId="場景建模"
           title="DLL_PIC Pro"
           description="用場景 prompt 直接生成環境參考圖。"
           promptSources={promptCards

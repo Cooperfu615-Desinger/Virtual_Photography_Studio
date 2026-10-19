@@ -307,6 +307,7 @@ export default function Page2Workspace({
             </div>
 
             <DllPicProPanel
+              workspaceId="角色建模"
               title="DLL_PIC Pro"
               description="選擇 Prompt 來源後生成角色 reference"
               promptSources={outputs.map((output) => ({ id: output.id, label: output.label, value: output.value }))}

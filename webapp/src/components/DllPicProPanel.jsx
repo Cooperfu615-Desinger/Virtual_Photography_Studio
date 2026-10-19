@@ -1,11 +1,12 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
+import { dllWorkspace, openDllWorkspace, DLL_LOCAL_ACCEPTANCE } from '../lib/dllWorkspaceRuntime.js';
+import '../styles/generation.css';
 import ComfyQuotaPanel from './ComfyQuotaPanel.jsx';
 import { openVideoWorkspace } from '../lib/comfyVideoClient.js';
 import {
   DLL_PIC_ASPECT_RATIOS,
   DLL_PIC_STORAGE_KEYS,
   getDllPicApiKeyForModel,
-  generateDllPicImages,
   getDllPicApiKeyStorageKeys,
   getDllPicModelConfig,
   getDllPicResolutionOption,
@@ -14,11 +15,10 @@ import {
   isDllPicAspectRatioSupported,
   normalizeDllPicModelKey,
 } from '../lib/dllPicProClient.js';
-import { generateBytePlusViaFirebase } from '../lib/bytePlusProxyClient.js';
-import { generateComfyViaFirebase, readComfyPending, clearComfyPending, formatComfyProgress } from '../lib/comfyCloudProxyClient.js';
-import { formatDllPicGenerationMessage, getComfyGenerationNote } from '../lib/dllPicGenerationPresentation.js';
+import { readComfyPending, clearComfyPending } from '../lib/comfyCloudProxyClient.js';
+import { getComfyGenerationNote } from '../lib/dllPicGenerationPresentation.js';
 import { downloadImageFile } from '../lib/imageDownload.js';
-import { downloadMagnificImageViaFirebase, generateMagnificViaFirebase } from '../lib/magnificProxyClient.js';
+import { downloadMagnificImageViaFirebase } from '../lib/magnificProxyClient.js';
 
 function loadStoredValue(key, fallback = '') {
   if (typeof window === 'undefined') return fallback;
@@ -118,25 +118,33 @@ export default function DllPicProPanel({
   promptSources = [],
   defaultSourceId = '',
   compact = false,
+  workspaceId = 'Prompt 工作台',
+  full = false,
+  initialSettings = {},
 }) {
   const availableSources = promptSources.filter((source) => source?.value?.trim());
   const initialSourceId = defaultSourceId || availableSources[0]?.id || promptSources[0]?.id || '';
-  const [modelKey, setModelKey] = useState(loadStoredModelKey);
+  const shared = useSyncExternalStore(dllWorkspace.subscribe, dllWorkspace.getSnapshot);
+  const sharedTask = [...shared.tasks].reverse().find(task => full ? task.id === shared.selected : task.snapshot.workspace === workspaceId);
+  const [modelKey, setModelKey] = useState(() => initialSettings.modelKey || loadStoredModelKey());
+  const [custom, setCustom] = useState(Boolean(initialSettings.custom));
+  const [customPrompt, setCustomPrompt] = useState(initialSettings.customPrompt || '');
+  const [seed, setSeed] = useState(initialSettings.seed ?? '');
   const [apiKeys, setApiKeys] = useState(loadStoredProviderApiKeys);
   const [apiKeyDrafts, setApiKeyDrafts] = useState(loadStoredProviderApiKeys);
   const [isApiKeyModalOpen, setIsApiKeyModalOpen] = useState(false);
-  const [selectedSourceId, setSelectedSourceId] = useState(initialSourceId);
-  const [aspectRatio, setAspectRatio] = useState('9:16');
+  const [selectedSourceId, setSelectedSourceId] = useState(initialSettings.selectedSourceId || initialSourceId);
+  const [aspectRatio, setAspectRatio] = useState(initialSettings.aspectRatio || '9:16');
   const [resolution, setResolution] = useState(() => (
-    getDllPicResolutionOption(loadStoredModelKey(), loadStoredValue(DLL_PIC_STORAGE_KEYS.resolution, '1k')).value
+    getDllPicResolutionOption(loadStoredModelKey(), initialSettings.resolution || loadStoredValue(DLL_PIC_STORAGE_KEYS.resolution, '1k')).value
   ));
-  const [count, setCount] = useState(1);
-  const [comfyPending, setComfyPending] = useState(readComfyPending);
-  const [images, setImages] = useState(loadDevPreviewImages);
+  const [count, setCount] = useState(initialSettings.count || 1);
+  const comfyPending = DLL_LOCAL_ACCEPTANCE ? null : readComfyPending();
+  const images = sharedTask?.images || loadDevPreviewImages();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [previewImageIndex, setPreviewImageIndex] = useState(null);
   const [previewImageSize, setPreviewImageSize] = useState(null);
-  const [isGenerating, setIsGenerating] = useState(false);
+  const isGenerating = shared.busy;
   const [downloadingImageIndex, setDownloadingImageIndex] = useState(null);
   const [message, setMessage] = useState(() => (loadDevPreviewImages().length ? '已套用本地預覽圖' : ''));
 
@@ -156,15 +164,21 @@ export default function DllPicProPanel({
   const selectedSource = useMemo(() => (
     promptSources.find((source) => source.id === selectedSourceId) || availableSources[0] || promptSources[0] || null
   ), [availableSources, promptSources, selectedSourceId]);
-  const selectedPrompt = selectedSource?.value?.trim() || '';
+  const selectedPrompt = full && custom ? customPrompt : selectedSource?.value || '';
+  const snapshot = () => ({ modelKey, prompt: selectedPrompt, aspectRatio, resolution: activeResolution, count,
+    seed: full && activeModel.provider === 'comfyCloud' ? seed : '', sourceId: custom ? 'custom' : selectedSource?.id,
+    sourceLabel: custom ? '自訂' : selectedSource?.label, workspace: workspaceId, lockAspectRatio: Boolean(selectedSource?.lockAspectRatio) });
+  const draftSignature = JSON.stringify({ sources: promptSources, modelKey, selectedSourceId, aspectRatio, resolution: activeResolution, count, custom, customPrompt, seed, workspaceId });
+  useEffect(() => { if (full && shared.ready) dllWorkspace.draft(JSON.parse(draftSignature)); }, [full, shared.ready, draftSignature]);
   const isAspectRatioLocked = Boolean(selectedSource?.lockAspectRatio && selectedSource?.aspectRatio);
   const isAspectRatioSupported = isDllPicAspectRatioSupported(modelKey, aspectRatio);
   const activeApiKey = getDllPicApiKeyForModel(modelKey, apiKeys);
   const canGenerate = Boolean(
-    (activeModel.usesServerProxy || activeApiKey)
+    (DLL_LOCAL_ACCEPTANCE || activeModel.usesServerProxy || activeApiKey)
     && selectedPrompt
     && activeModel.generationModel
     && isAspectRatioSupported
+    && shared.ready
     && !isGenerating
     && !(activeModel.provider === 'comfyCloud' && comfyPending)
   );
@@ -214,61 +228,15 @@ export default function DllPicProPanel({
   };
 
   const handleGenerate = async () => {
-    const apiKey = getDllPicApiKeyForModel(modelKey, apiKeys);
-
-    setIsGenerating(true);
     setMessage('');
-    setSelectedImageIndex(0);
-    setPreviewImageIndex(null);
-    setPreviewImageSize(null);
-
     try {
       saveStoredGenerationSettings(modelKey, activeResolution);
-      const result = await generateDllPicImages({
-        apiKey,
-        modelKey,
-        prompt: selectedPrompt,
-        aspectRatio,
-        count,
-        resolution: activeResolution,
-        magnificGenerate: generateMagnificViaFirebase,
-        bytePlusGenerate: generateBytePlusViaFirebase,
-        comfyGenerate: generateComfyViaFirebase,
-        onProgress: (job) => setMessage(activeModel.provider === 'comfyCloud'
-          ? formatComfyProgress(job)
-          : `正在生成第 ${job.sequenceIndex} / ${job.sequenceTotal} 張圖像`),
-        onImages: (nextImages) => setImages(nextImages),
-      });
-      setImages(result.images);
-      setMessage(formatDllPicGenerationMessage(result));
-    } catch (error) {
-      if (error?.images?.length) setImages(error.images);
-      setMessage(getGenerationErrorMessage(error));
-    } finally {
-      setIsGenerating(false);
-      setComfyPending(readComfyPending());
-    }
+      await dllWorkspace.enqueue(snapshot(), true);
+    } catch (error) { setMessage(getGenerationErrorMessage(error)); }
   };
-
   const handleResumeComfy = async () => {
-    setIsGenerating(true);
-    try {
-      const result = await generateComfyViaFirebase({}, {
-        resume: true,
-        onProgress: (job) => setMessage(formatComfyProgress(job)),
-        onImages: (nextImages) => setImages(nextImages),
-      });
-      setImages(result.images);
-      setSelectedImageIndex(0);
-      setPreviewImageIndex(null);
-      setMessage(formatDllPicGenerationMessage(result));
-    } catch (error) {
-      if (error?.images?.length) setImages(error.images);
-      setMessage(getGenerationErrorMessage(error));
-    } finally {
-      setIsGenerating(false);
-      setComfyPending(readComfyPending());
-    }
+    try { await dllWorkspace.recoverLegacy(comfyPending); }
+    catch (error) { setMessage(getGenerationErrorMessage(error)); }
   };
 
   const handleDownloadImage = async (src, index) => {
@@ -312,26 +280,29 @@ export default function DllPicProPanel({
   }, [apiKeys, isApiKeyModalOpen]);
 
   return (
-    <section className={`dll-pic-panel ${compact ? 'dll-pic-panel-compact' : ''}`} aria-label={title} aria-description={description}>
+    <section className={`dll-pic-panel ${full ? 'dll-full-settings' : ''} ${compact ? 'dll-pic-panel-compact' : ''}`} aria-label={title} aria-description={description}>
       <div className="dll-pic-header">
         <div>
           <div className="control-section-title">{title}</div>
         </div>
         <div className="dll-pic-header-actions">
+          {!full && <button type="button" className="secondary" onClick={() => openDllWorkspace({ sources: promptSources, settings: { modelKey, selectedSourceId, aspectRatio, resolution: activeResolution, count }, workspaceId, taskId: sharedTask?.id })}>開啟完整版</button>}
           <button className="secondary dll-pic-api-settings-btn" type="button" onClick={openApiKeyModal}>
             API Keys
           </button>
         </div>
       </div>
 
+      {full && <div className="dll-source-choices">{promptSources.map(source => <button type="button" key={source.id} className={selectedSource?.id === source.id && !custom ? 'tab-primary-active' : 'secondary'} disabled={!source.value?.trim()} onClick={() => { setSelectedSourceId(source.id); setCustom(false); }}>{source.label}</button>)}</div>}
       <div className="dll-pic-settings-grid">
         <label className="field dll-pic-field">
+          {full && <span>Prompt 來源</span>}
           <select
             aria-label="Prompt 來源"
             className={!selectedPrompt ? 'select-muted' : ''}
             value={selectedSource?.id || ''}
-            disabled={isGenerating}
-            onChange={(event) => setSelectedSourceId(event.target.value)}
+            disabled={!full && isGenerating}
+            onChange={(event) => { setSelectedSourceId(event.target.value); setCustom(false); }}
           >
             {promptSources.map((source) => (
               <option key={source.id} value={source.id} disabled={!source.value?.trim()}>
@@ -341,16 +312,25 @@ export default function DllPicProPanel({
           </select>
         </label>
 
+        {full && <div className="dll-prompt-editor">
+          <label htmlFor="dll-full-prompt">{custom ? '自訂本次 Prompt' : '目前使用的 Prompt'}</label>
+          <textarea id="dll-full-prompt" value={selectedPrompt} readOnly={!custom} onChange={event => setCustomPrompt(event.target.value)} placeholder="帶入工作區來源，或編輯本次 Prompt" />
+          <button type="button" className="dll-text-button" onClick={() => { setCustomPrompt(selectedPrompt); setCustom(true); }}>編輯本次 Prompt</button>
+          {custom && <button type="button" className="dll-text-button" onClick={() => setCustom(false)}>還原來源文字</button>}
+        </div>}
+
         <label className="field dll-pic-field">
+          {full && <span>模型</span>}
           <select
             aria-label="模型"
             value={modelKey}
-            disabled={isGenerating}
+            disabled={!full && isGenerating}
             onChange={(event) => {
               const nextModelKey = event.target.value;
               const nextResolution = getDllPicResolutionOption(nextModelKey, resolution).value;
               setModelKey(nextModelKey);
               setCount(1);
+              setSeed('');
               setResolution(nextResolution);
               saveStoredGenerationSettings(nextModelKey, nextResolution);
             }}
@@ -364,11 +344,12 @@ export default function DllPicProPanel({
         </label>
 
         <label className="field dll-pic-field">
+          {full && <span>比例</span>}
           <select
             aria-label="比例"
             value={aspectRatio}
             onChange={(event) => setAspectRatio(event.target.value)}
-            disabled={isAspectRatioLocked || isGenerating}
+            disabled={isAspectRatioLocked || (!full && isGenerating)}
           >
             {DLL_PIC_ASPECT_RATIOS.map((option) => (
               <option key={option.value} value={option.value} disabled={!isDllPicAspectRatioSupported(modelKey, option.value)}>
@@ -383,7 +364,7 @@ export default function DllPicProPanel({
             <span>解析度</span>
             <select
               value={activeResolution}
-              disabled={isGenerating}
+              disabled={!full && isGenerating}
               onChange={(event) => {
                 const nextResolution = event.target.value;
                 setResolution(nextResolution);
@@ -400,7 +381,8 @@ export default function DllPicProPanel({
         ) : null}
 
         <label className="field dll-pic-field">
-          <select aria-label="張數" value={count} disabled={isGenerating} onChange={(event) => setCount(Number(event.target.value))}>
+          {full && <span>張數</span>}
+          <select aria-label="張數" value={count} disabled={!full && isGenerating} onChange={(event) => setCount(Number(event.target.value))}>
             {[1, 2].map((amount) => (
               <option key={amount} value={amount}>
                 {amount} 張
@@ -410,7 +392,9 @@ export default function DllPicProPanel({
         </label>
       </div>
 
-      {activeModel.provider === 'comfyCloud' ? <div className="dll-pic-model-note">{getComfyGenerationNote(activeModel)}</div> : null}
+      {full && activeModel.provider === 'comfyCloud' && <label className="field"><span>Seed（留空為隨機；2 張時第二張使用 Seed + 1）</span><input aria-label="Seed" type="number" min="0" step="1" value={seed} onChange={event => setSeed(event.target.value)} placeholder="隨機" /></label>}
+
+      {activeModel.provider === 'comfyCloud' ? <div className="dll-pic-model-note">{full ? '依序取得每張圖片後才送下一張。成果保存於此瀏覽器，請下載重要圖片。' : getComfyGenerationNote(activeModel)}</div> : null}
       {comfyPending ? <div className="dll-pic-actions">
         <button type="button" className="secondary" disabled={isGenerating} onClick={handleResumeComfy}>查詢上次任務</button>
         <button type="button" className="secondary" disabled={isGenerating} onClick={async () => {
@@ -421,21 +405,23 @@ export default function DllPicProPanel({
           } catch (error) {
             setMessage(getGenerationErrorMessage(error));
           } finally {
-            setComfyPending(readComfyPending());
+            setMessage('已更新追蹤狀態');
           }
         }}>結束追蹤</button>
       </div> : null}
 
       <div className="dll-pic-actions dll-pic-generate-actions">
         <span className="dll-pic-model-note">
-          {modelCompatibilityNote || activeModelNote || '此 provider 尚未接入生圖'}
+          {modelCompatibilityNote || (!full && (activeModelNote || '此 provider 尚未接入生圖'))}
         </span>
-        {activeModel.provider === 'comfyCloud' && <ComfyQuotaPanel modelKey={activeModel.comfyModel} resolution={activeResolution} aspectRatio={aspectRatio} refreshToken={images} />}
+        {activeModel.provider === 'comfyCloud' && !DLL_LOCAL_ACCEPTANCE && <ComfyQuotaPanel modelKey={activeModel.comfyModel} resolution={activeResolution} aspectRatio={aspectRatio} refreshToken={images} />}
         <button className="primary-copy-btn dll-pic-generate-btn" type="button" onClick={handleGenerate} disabled={!canGenerate}>
           {isGenerating ? '生成中...' : '生成圖像'}
         </button>
       </div>
 
+      {full && <button type="button" className="secondary" disabled={!selectedPrompt.trim() || !shared.ready || !isAspectRatioSupported} onClick={async () => { try { await dllWorkspace.enqueue(snapshot()); setMessage('已加入待生成清單'); } catch (error) { setMessage(error.message); } }}>加入待生成</button>}
+      {(shared.error || sharedTask?.message) && <p role="status" className="dll-pic-message">{shared.error || sharedTask.message}</p>}
       {message ? <div className="dll-pic-message" role="status" aria-live="polite">{message}</div> : null}
 
       {isApiKeyModalOpen ? (
@@ -503,7 +489,7 @@ export default function DllPicProPanel({
         </div>
       ) : null}
 
-      <div className="dll-pic-preview-zone" style={{ '--dll-pic-preview-ratio': aspectRatio.replace(':', ' / ') }}>
+      {!full && <div className="dll-pic-preview-zone" style={{ '--dll-pic-preview-ratio': aspectRatio.replace(':', ' / ') }}>
         {images.length === 0 ? (
           <div className="dll-pic-empty-preview">
             <span>{isGenerating ? '正在等待模型回圖' : '尚未生成預覽圖'}</span>
@@ -525,7 +511,7 @@ export default function DllPicProPanel({
                 </button>
                 <figcaption>
                   <span>#{index + 1}</span>
-                  <button type="button" className="secondary dll-pic-download-btn" onClick={() => openVideoWorkspace(image, index)}>製作影片</button>
+                  <button type="button" className="secondary dll-pic-download-btn" disabled={DLL_LOCAL_ACCEPTANCE} onClick={() => openVideoWorkspace(image, index)}>製作影片</button>
                   <button
                     type="button"
                     className="secondary dll-pic-download-btn"
@@ -539,7 +525,7 @@ export default function DllPicProPanel({
             ))}
           </div>
         )}
-      </div>
+      </div>}
 
       {previewImage ? (
         <div className="modal-backdrop dll-pic-lightbox-backdrop" onClick={closeImagePreview}>

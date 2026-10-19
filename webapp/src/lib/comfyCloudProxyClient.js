@@ -70,7 +70,7 @@ function removeTracking(storage, pending) {
   storage.removeItem(STORAGE_KEY);
 }
 
-async function getComfySession() {
+export async function getComfySession() {
   const [{ getFunctions, httpsCallable }, { firebaseApp, firebaseAuth }] = await Promise.all([
     import('firebase/functions'), import('./firebase.js'),
   ]);
@@ -118,7 +118,7 @@ async function runSequence(payload, {
     if (model && payload.resolution && !model.resolutions.includes(String(payload.resolution).toLowerCase())) throw new Error('不支援的 Comfy Cloud 解析度');
     input = normalizeProviderGenerationRequest('comfyCloud', payload);
     if (!storage) throw new Error('瀏覽器儲存空間不可用，無法安全追蹤任務');
-    const items = Array.from({ length: input.count }, () => ({ requestId: crypto.randomUUID(), state: 'planned' }));
+    const items = Array.from({ length: input.count }, (_, index) => ({ requestId: index === 0 && payload.requestId ? payload.requestId : crypto.randomUUID(), state: 'planned' }));
     pending = { version: 2, requestId: items[0].requestId, uid, modelKey: input.modelKey, createdAt: Date.now(),
       count: input.count, resolution: input.resolution, aspectRatio: input.aspectRatio, items };
     // Do not persist prompts or signed image URLs. Each paid attempt is saved
@@ -138,13 +138,14 @@ async function runSequence(payload, {
         if (item.state === 'planned') {
           item.state = 'attempted';
           saveTracking(storage, pending);
-          job = await call('comfyCloudSubmit', { ...input, count: 1, requestId: item.requestId,
+          job = await call(payload.seed !== undefined ? 'comfyCloudWorkspaceSubmit' : 'comfyCloudSubmit', { ...input, count: 1, requestId: item.requestId,
+            ...(payload.seed !== undefined ? { seed: Number(payload.seed) + index } : {}),
             ...(index > 0 && Number.isSafeInteger(jobs.at(-1)?.seed) ? { previousSeed: jobs.at(-1).seed } : {}) });
         } else {
           job = await call('comfyCloudStatus', { requestId: item.requestId });
         }
         for (let attempt = 0; attempt <= maxPolls; attempt += 1) {
-          await onProgress({ ...job, sequenceIndex: index + 1, sequenceTotal: pending.count });
+          await onProgress({ ...job, requestId: item.requestId, sequenceIndex: index + 1, sequenceTotal: pending.count });
           if (terminal.has(job.status)) break;
           if (job.status === 'uncertain') throw new Error('提交結果尚未確認；已保留追蹤且不會重送。請到 Comfy Cloud 作業佇列確認，或稍後查詢');
           if (attempt === maxPolls) throw new Error('等待逾時，任務仍在雲端執行；請按「查詢上次任務」繼續追蹤');
@@ -175,7 +176,12 @@ async function runSequence(payload, {
       }
     }
     if (!unresolved) removeTracking(storage, pending);
-    if (!images.length) throw new Error(errors[0] || 'Comfy Cloud 未回傳圖像');
+    if (!images.length) {
+      const error = new Error(errors[0] || 'Comfy Cloud 未回傳圖像');
+      error.terminal = !unresolved;
+      error.canceled = pending.items.some(item => item.state === 'canceled');
+      throw error;
+    }
     return { status: 'succeeded', images, errors, meta: { ...jobs[0], provider: 'comfyCloud',
       requestedCount: pending.count, completedCount: images.length, partial: images.length !== pending.count,
       jobs, seeds: jobs.map(job => job.seed) } };
