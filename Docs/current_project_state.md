@@ -4,13 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-19
 
-## DLL_PIC Pro 完整版第一版（2026-10-19，本機驗收通過）
+## DLL_PIC Pro 完整版第一版（2026-10-19，已合併 main／Functions 已部署）
 
 - 新增獨立 DLL 分頁，保留四個快速面板，共用生成任務與圖片；支援來源／自訂 Prompt、草稿、清單、瀏覽器歷史、大圖／雙圖比較、沿用設定／Seed、SeedVR2 放大任務與原圖關係。Prompt engine、Saved Cards 與原選值契約不變。詳見 [完整版 v1](specs/dll-pic-pro-workspace-v1.md)。
-- IndexedDB 依帳號保存實體圖片與任務快照；Web Locks、提交前保存、重開只查詢、失敗停止下一筆。新增兩個 Functions 的程式已完成，**未部署**；真實指定 Seed／放大／取消與 Cloud 模型可用性、畫質、扣額待後續驗收。
+- IndexedDB 依帳號保存實體圖片與任務快照；Web Locks、提交前保存、重開只查詢、失敗停止下一筆。新增兩個 Functions 已部署並為 ACTIVE／Node24／Gen2；真實指定 Seed／放大／取消與 Cloud 模型可用性、畫質、扣額待後續驗收。
 - 本機一般入口 `http://127.0.0.1:5175/Virtual_Photography_Studio/`；加 `?dllAcceptance=1` 可使用 DEV 專屬、獨立資料庫的免費模擬流程（示例圖不代表實際生成／放大，影片停用）。
 - Node22 前端 1677/1677、lint／build；Node24 Functions 91/91、lint 通過。桌面／手機七工作區、820／1100 周邊斷點、來源帶入、保存恢復、比例限制、清單與比較檢查通過。內建瀏覽器未取得下載落盤證據；實體觸控手勢亦待使用者驗收。細節及截圖見規格、`design-qa.md`。
-- 使用者已回覆「實際測試沒問題，可以 commit/push」，本機驗收通過並授權 Git 交付。為保留先前暫不部署限制，本批交付至 `codex/dll-pic-pro-workspace-v1`，不合併 main（main push 會自動發布 Pages）；新增 Functions 仍未部署。實際提交與遠端狀態以 Git 為準，其他 session 的姿勢文件、參考資料與未追蹤工作保留。
+- 使用者本機驗收通過後，另行授權合併 main 與部署新增 Functions。功能提交 `5fc1692` 已 fast-forward 合併 main；`comfyCloudWorkspaceSubmit`、`comfyCloudImageWorkspace` 已部署至 `virtualphotographystudio/us-central1`，原九項服務 metadata 完全相同。兩項匿名 POST 皆 401／UNAUTHENTICATED、OPTIONS 皆 204 且正式網站 CORS 正常，未提交付費工作。Pages 由本次 main push 自動發布，結果以對應 GitHub Actions 為準；部署證據見規格末節，其他 session 的工作保留。
 
 ## FLUX 3 Image Klein Base INT8（2026-10-19，Functions 已部署）
 

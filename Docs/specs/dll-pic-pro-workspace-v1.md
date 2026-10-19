@@ -1,6 +1,6 @@
 # DLL_PIC Pro 完整版第一版
 
-Status: 使用者本機驗收通過，已授權 commit／push；交付功能分支，暫不部署。
+Status: 使用者本機驗收通過，已授權合併 main／部署；兩項新增 Functions 已啟用，實際 Cloud 功能待使用者驗收。
 Date: 2026-10-19
 
 ## 目的與範圍
@@ -37,7 +37,7 @@ Date: 2026-10-19
 - 先持久化任務才提交；先保存第一張實體圖片再送第二張。已提交狀態重開後只查詢，未提交清單需手動開始。恢復查詢不丟棄已保存但雲端連結過期的原圖。
 - 不確定作業不自動重送。Google／xAI 沒有本批實作的查詢 API，需先到供應商核對；明確確認後可結束本機追蹤，再手動新建任務。
 
-## 雲端契約與待部署項目
+## 雲端契約與部署項目
 
 新增 `comfyCloudWorkspaceSubmit`，讓指定 Seed 呼叫與舊部署 handler 分開，避免舊 handler 靜默忽略 Seed。隨機 Seed 沿用 `comfyCloudSubmit`，狀態沿用 `comfyCloudStatus`。
 
@@ -45,7 +45,7 @@ Date: 2026-10-19
 
 `functions/src/comfyImageWorkspace.js` 使用官方 [SeedVR2 7B INT8 模板](https://github.com/Comfy-Org/workflow_templates/blob/main/templates/utility_seedvr2_7b_int8_upscale_image.json)，並核對官方 ComfyUI 的 ResizeImageMaskNode 與 SeedVR2 節點輸入。官方模板提醒 Cloud 穩定版可能落後 nightly；**目前帳號的節點／模型可用性、付費出圖、時間、扣額、畫質與取消最後狀態尚未實測**。
 
-本批未部署任何 Functions，因此一般本機網址中的新 Seed／放大／取消功能尚不具備正式雲端服務。不要把模擬成功視為雲端驗收。既有一般生成仍連既有服務，會依原方式使用 API 額度。
+兩項新增 Functions 已於 2026-10-19 依後續授權部署，一般本機網址與正式網站可連接新 Seed／放大／取消服務。模擬成功與服務啟用均不等於真實 Cloud 功能驗收；正式生成會使用 API 額度。
 
 ## 本機驗收入口
 
@@ -69,4 +69,18 @@ Date: 2026-10-19
 
 2026-10-19，使用者回覆「實際測試沒問題，可以 commit/push」，確認本機版本並授權提交／推送。上方下載／觸控項目保留為代理自動化證據的限制，不推定使用者逐項回報的測試細節。
 
-本批交付 `origin/codex/dll-pic-pro-workspace-v1`，不合併 main，避免觸發 main 的 GitHub Pages 自動部署；不推送第二個 remote。新增 Functions、真實付費 Cloud 功能與圖像品質仍需另行授權／驗收。Git 交付結果以提交與遠端 SHA 為準。
+初次依當時授權交付 `origin/codex/dll-pic-pro-workspace-v1`，未合併 main 或部署；功能提交為 `5fc1692519433d651d4e5e1bc5185a2cd03a957c`。後續合併與部署授權及結果見下節，未推送第二個 remote。
+
+
+## 正式部署紀錄（2026-10-19）
+
+使用者明確授權「合併到 main 並部署新增的 Firebase Functions」，並將實際 Seed、圖片放大與取消留待部署後驗收。
+
+- `main` 由 `18b6162` fast-forward 至功能提交 `5fc1692`，無衝突；本次僅補充部署文件，未變更已驗收的功能程式。Pages 由本次 main push 的 GitHub Actions 自動發布，結果以該提交的 workflow 為準。
+- 僅部署 `comfyCloudWorkspaceSubmit`、`comfyCloudImageWorkspace` 至 `virtualphotographystudio/us-central1`，Firebase CLI 回報兩項 Successful create operation 與 Deploy complete。
+- 部署後兩項均為 ACTIVE／nodejs24／gcfv2，code hash `d2f7ee359f00b206b583d83871a3aaddf1487b95`；沿用 `COMFY_CLOUD_API_KEY` version 1 綁定，未讀取或變更 Secret 值。
+- 部署前後 functions:list 由 9 項增至 11 項；原九項完整 metadata 逐項相同。此檢查不另推定 Cloud Run revision／流量資訊。
+- 正式來源 `https://cooperfu615-desinger.github.io` 的兩項 OPTIONS 皆回 204；匿名空資料 POST 皆回 401／UNAUTHENTICATED 與本專案登入提示，CORS origin 正確。未查詢真實額度、提交生圖／放大／取消或寫入使用者任務。
+- 部署前再次執行 Node 24.19.0 Functions 91/91、lint；資料同步 check、Python 2/2、公開資產 207 檔檢查通過。前端沿用本機已驗收版本，完整測試／lint／build 亦由 main 的 CI 再驗證。
+- 正式驗收入口：https://cooperfu615-desinger.github.io/Virtual_Photography_Studio/ 。使用本機驗收時，請移除 `?dllAcceptance=1`，避免仍在 DEV 模擬模式。
+- Cloud 節點／模型可用性、Seed 實際採用、放大畫質／尺寸／扣額與取消最終狀態留待使用者登入實測；服務部署與匿名保護檢查不代表上述項目已通過。
