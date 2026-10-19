@@ -209,13 +209,15 @@ test('restoring an active specified-supine Saved Card uses its own persisted sce
   assert.equal(canceled.sceneAttributeId, source.sceneAttributeId);
 });
 
-test('pose batch random resets specified action and preserves explicit prop; other sections leave action alone', () => {
+// expression-pose-v2 P2 (Cooper 2026-10-19): pose random draws from the action
+// library (隨機) instead of clearing the action and randomizing the free composer.
+test('pose batch random sets the action menu to random and preserves explicit prop; other sections leave action alone', () => {
   const original = initialLocks({ specifiedActionId: ACTION.sitting });
   const keys = PAGE1_POSE_SUBPANELS.find(panel => panel.id === 'single').keys;
   const randomized = randomizeLockKeys(original, keys, createEmptyLocks(), controls);
-  assert.equal(randomized.specifiedActionId, 'none');
+  assert.equal(randomized.specifiedActionId, 'random');
   assert.equal(randomized.posePropId, original.posePropId);
-  assert.equal(randomized.poseBaseId, 'random');
+  assert.equal(randomized.poseBaseId, 'none');
   assert.equal(randomizeLockKeys(original, ['lightingId'], createEmptyLocks(), controls).specifiedActionId, ACTION.sitting);
   assert.equal(setLockKeysToNone(original, keys, controls).specifiedActionId, 'none');
 });

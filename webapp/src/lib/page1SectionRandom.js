@@ -5,8 +5,13 @@ import {
   clearPage1WardrobeKeys,
 } from '../features/page1/page1WardrobeExclusivity.js';
 
+// expression-pose-v2 P2 (Cooper 2026-10-19): random sets the pose menu to 隨機
+// (a library draw at generation); free-composer body, hand and support layers
+// no longer randomize. The head layer stays random until it becomes gaze (P4).
+const POSE_MENU_RANDOM_KEY = 'specifiedActionId';
+const POSE_COMPOSER_RANDOM_KEYS = new Set(['poseHeadId']);
+
 const RESET_TO_DEFAULT_KEYS = new Set([
-  'specifiedActionId',
   'specialSubjectId',
   'characterProfileId',
   'imageTypePresetId',
@@ -39,7 +44,8 @@ export function getPage1ControlActionMode(controlOrKey, controls = []) {
   if (control?.section === 'midjourney' || control?.randomization === 'excluded') return 'preserve';
   if (control?.compatibilityOnly) return 'reset';
   if (PRESERVE_KEYS.has(key) || control?.required) return 'preserve';
-  if (POSE_COMPOSER_KEYS.includes(key)) return 'random';
+  if (key === POSE_MENU_RANDOM_KEY) return 'random';
+  if (POSE_COMPOSER_KEYS.includes(key)) return POSE_COMPOSER_RANDOM_KEYS.has(key) ? 'random' : 'reset';
   if (RESET_TO_DEFAULT_KEYS.has(key) || control?.section === 'hidden') return 'reset';
   if (control?.suppressDefaultRandomOption) return 'reset';
   return 'random';
@@ -80,7 +86,7 @@ export function randomizeLockKeys(locks, keys, defaultLocks = {}, controls = [])
       next[key] = getNoneOrDefaultValue(control, defaultLocks[key] ?? '');
       return;
     }
-    next[key] = POSE_COMPOSER_KEYS.includes(key)
+    next[key] = POSE_COMPOSER_KEYS.includes(key) || key === POSE_MENU_RANDOM_KEY
       ? (control?.options?.find((option) => option.id === 'random')?.id || 'random')
       : '';
   });

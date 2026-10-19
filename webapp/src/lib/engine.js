@@ -4,7 +4,7 @@ import { MIDJOURNEY_CARD_ITEM_NAMES } from './engine/midjourneyCardItemNames.js'
 import { bottomRiseConflict, resolveBottomRiseCompatibility } from './engine/bottomRiseCompatibility.js';
 import { extractMidjourneyItemNames, midjourneyItemName, naturalIdentity, naturalSentence, naturalWardrobeSentence, renderNaturalMidjourney, uniqueNames } from './engine/midjourneyNaturalPrompt.js';
 import { midjourneyBodyDescription } from './engine/midjourneyBodyDescriptions.js';
-import { SPECIFIED_ACTION_OPTIONS, getSpecifiedAction, getSpecifiedActionEffectiveLocks, specifiedActionSupportsCamera } from './engine/specifiedActions.js';
+import { SPECIFIED_ACTION_OPTIONS, getSpecifiedAction, getSpecifiedActionEffectiveLocks, resolveRandomSpecifiedAction, specifiedActionSupportsCamera } from './engine/specifiedActions.js';
 import { applyDefaultEthnicity, applyDefaultEthnicityToCharacter, resolveDefaultEthnicity } from './engine/defaultEthnicity.js';
 import { renderNanoBananaNarrative } from './engine/nanoBananaPrompt.js';
 import { polishPublicPromptText } from './engine/publicPromptPolish.js';
@@ -4959,20 +4959,6 @@ function detailAllowed(item, framing) {
   return visibilityAtLeast(framing.meta.visibility, item.meta.minVisibility);
 }
 
-function isOutdoorLocationContext(context) {
-  if (context.sceneAttribute?.id === 'outdoor') return true;
-  const locationTags = new Set(context.location?.meta?.tags || []);
-  return locationTags.has('outdoor') || locationTags.has('natural') || locationTags.has('waterfront') || locationTags.has('green_space');
-}
-
-function poseSupportsLocationContext(item, context) {
-  if (!item || isNoneLikeItem(item)) return true;
-  if (!isOutdoorLocationContext(context)) return true;
-
-  const poseText = toHaystack(item.zh, item.en, item.desc);
-  return !hasAny(poseText, ['mirror selfie', '鏡子自拍']);
-}
-
 function getSubjectOption(id) {
   return SUBJECT_COUNT_OPTIONS.find((option) => option.id === id) || SUBJECT_COUNT_OPTIONS[0];
 }
@@ -6745,7 +6731,6 @@ function buildCharacter(context, catalog) {
     if (hairColorB) character.push(hairColorB);
   }
 
-  let expression = null;
   if (context.subject.count === 2) {
     const duoExpressionOption = context.locks?.duoExpressionId
       ? getDuoExpressionOption(context.locks.duoExpressionId)
@@ -6760,7 +6745,7 @@ function buildCharacter(context, catalog) {
   } else if (actionPose && !isNoneLikeItem(actionPose)) {
     character.push(actionPose);
   } else {
-    expression = pickCategory(CHARACTER_EXPRESSION_CATEGORY, context.locks, (item) => expressionSupportsComposition(item, context));
+    pickCategory(CHARACTER_EXPRESSION_CATEGORY, context.locks, (item) => expressionSupportsComposition(item, context));
   }
 
   if (context.subject.count > 1) {
@@ -6792,20 +6777,11 @@ function buildCharacter(context, catalog) {
     : null;
   if (specialAction && !isNoneLikeItem(specialAction) && !isSocialShootingAction(specialAction)) return character;
 
+  // expression-pose-v2 P2 (Cooper 2026-10-19): 全無 writes no pose. Only an
+  // explicitly locked legacy pose still resolves; an unset pose no longer draws
+  // from the old Pose & Body Language catalog.
   if (context.locks?.poseId) {
     pickCategory('姿勢與肢體語言 (Pose & Body Language)', context.locks, () => true, sampleItem, false);
-  } else if (visibility === 'close') {
-    return character;
-  } else if (visibilityAtLeast(visibility, 'full')) {
-    pickCategory('姿勢與肢體語言 (Pose & Body Language)', context.locks, (item) => poseSupportsLocationContext(item, context));
-  } else if (!expression) {
-    pickCategory(
-      '姿勢與肢體語言 (Pose & Body Language)',
-      context.locks,
-      (item) => detailAllowed(item, context.framing) && poseSupportsLocationContext(item, context),
-      sampleItem,
-      false
-    );
   }
 
   return character;
@@ -16531,13 +16507,16 @@ export function buildLocksFromPrompt(prompt, keepKeys = []) {
   return base;
 }
 
-function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
+function generateSinglePrompt(index, requestedLocks, runtime, runtimeOptions = {}) {
   const lockControls = runtime.controls;
-  const capture = locks.captureMode === 'observation' ? resolveCapture(locks.observationCapture) : null;
-  if (capture && (capture.error || captureEligibility(locks, lockControls))) return null;
-  const generationLocks = capture ? captureEffectiveLocks(locks) : locks;
+  const capture = requestedLocks.captureMode === 'observation' ? resolveCapture(requestedLocks.observationCapture) : null;
+  if (capture && (capture.error || captureEligibility(requestedLocks, lockControls))) return null;
   let captureRandomState = 1977;
   const random = capture ? () => { captureRandomState = (Math.imul(captureRandomState, 1664525) + 1013904223) >>> 0; return captureRandomState / 4294967296; } : normalizeRandom(runtimeOptions.random);
+  // expression-pose-v2 P2: 隨機 becomes one concrete library action before any
+  // other resolution, so the result, snapshot and Saved Card all name it.
+  const locks = capture ? requestedLocks : resolveRandomSpecifiedAction(requestedLocks, random, { cameraControls: lockControls });
+  const generationLocks = capture ? captureEffectiveLocks(locks) : locks;
   const previewRerollExclusions = buildPreviewRerollExclusions(runtimeOptions.excludePreviousSelection);
   const withPreviewExclusions = (picker, lockedId, exclusionKeys) => (candidates, pickerRandom) => {
     const shouldExcludePrevious = !lockedId || isRandomLockValue(lockedId);
