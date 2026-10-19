@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-19
 
+## 觀察式抓拍整合工作台（2026-10-19，本機驗收通過）
+
+- 依核准示意圖新增一般／抓拍模式、最上方拍攝人物與 A 同步、C 穿搭入口、八項固定／隨機選擇與衝突說明。單人／雙人與穿搭導入保留停用入口。詳見 [整合 v1](specs/observation-capture-workspace-v1.md)。
+- B／D／E 部分只接管有效輸出、原值保留；四主與胸上共用抓拍狀態，全身角色照保持站姿 reference。Saved Cards／Markdown 保存實際選值與固定旗標。獨立抓拍導覽退休，舊生成器與 storage 保留。
+- 完整測試 1694/1694、Prompt Quality 738/738、lint／build、同 seed 200 strict audit 前後相同。桌面／手機現行五工作區與面板斷點、固定重抽、模式切換、收藏還原檢查通過；保留本機測試收藏 #0SJ4PQ。
+- **使用者已確認本機驗收通過，授權提交並推送本批。** 其他 Session 未追蹤文件與參考資料保持原樣，外部出圖尚未驗收。
+
 ## 指定動作 v2：11 組整合（2026-10-19，本機待驗收）
 
 - 使用者核准將「動作姿勢」三組單人卡併入 Prompt 工作台 B 區獨立「指定動作」，共 11 組、不需先選基底。B 順序為指定動作／說明、表情與頭部、基底與主要躺姿、肢體與手部、道具與支撐。第 9 頭部可調、第 10 不指定下半身、第 11 保留小貓。詳見 [指定動作 v2](specs/specified-actions-v2.md)。

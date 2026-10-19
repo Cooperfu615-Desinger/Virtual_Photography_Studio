@@ -1,3 +1,4 @@
+import { CAPTURE_GROUPS, resolveCapture } from './observationCaptureMode.js';
 import { DUO_ROLES, getDuoRoleSummary } from '../features/page1/duoEditor.js';
 import { getSpecifiedAction } from './engine/specifiedActions.js';
 import { bottomRiseConflict, bottomRiseControlContext } from './engine/bottomRiseCompatibility.js';
@@ -395,6 +396,10 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
 export function buildPage1GenerationSummary(locks, previewPrompt, controls) {
   const resolvedLocks = previewPrompt?.selection || locks;
   const summary = buildWorkspaceSummary(resolvedLocks, controls, { groupDuo: false });
+  if (resolvedLocks.captureMode === 'observation') {
+    const capture = resolveCapture(resolvedLocks.observationCapture);
+    return [summary.character.summary, '觀察式抓拍', capture.error || CAPTURE_GROUPS.map(g => capture.selections[g.key].zh).join(' / ')].join(' / ');
+  }
   return [
     summary.character.summary,
     summary.pose.summary,

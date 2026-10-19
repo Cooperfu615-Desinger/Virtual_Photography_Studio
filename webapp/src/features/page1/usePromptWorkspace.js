@@ -1,3 +1,4 @@
+import { rerollCapture, CAPTURE_GROUPS } from '../../lib/observationCaptureMode.js';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import {
@@ -142,9 +143,13 @@ export function usePromptWorkspace() {
   }, [activeLibrary, lockControls]);
 
   const rerollPreview = useCallback(() => {
+    if (locks.captureMode === 'observation') {
+      if (!CAPTURE_GROUPS.every(g => locks.observationCapture?.fixed?.[g.key])) updateLocks({ observationCapture: rerollCapture(locks.observationCapture).profile });
+      return;
+    }
     setPreviewRerollExclusion(previewPrompt?.selection || null);
     setPreviewGenerationNonce((current) => current + 1);
-  }, [previewPrompt]);
+  }, [previewPrompt, locks, updateLocks]);
 
   return {
     activeLibrary,

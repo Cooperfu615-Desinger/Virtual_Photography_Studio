@@ -147,7 +147,7 @@ function PhotographyField({ field, onChange, onCopy }) {
 
 function GroupActions({ group, onAction }) {
   if (group.id === 'image-type') {
-    return <button type="button" className="photography-editor-link" onClick={() => onAction(group.id, 'reset')}>重設為預設</button>;
+    return <button type="button" className="photography-editor-link" disabled={group.actionKeys.length === 0} onClick={() => onAction(group.id, 'reset')}>重設為預設</button>;
   }
 
   if (group.id !== 'composition' && group.id !== 'optics') return null;

@@ -1,3 +1,4 @@
+import { CAPTURE_OWNED_KEYS } from '../../lib/observationCaptureMode.js';
 import { reconcileKneelingSupportLocks } from '../../lib/engine/kneelingSupport.js';
 import {
   getSceneDependentOptions,
@@ -158,5 +159,9 @@ export function transitionPage1Locks({
     POSE_COMPOSER_CONTROL_KEYS.forEach((key) => { next[key] = 'none'; });
   }
 
+  if (candidateLocks.captureMode === 'observation' || previousLocks.captureMode === 'observation' && candidateLocks.subjectCount === '1') {
+    for (const key of [...CAPTURE_OWNED_KEYS, 'specifiedActionSceneRestore']) next[key] = candidateLocks[key];
+    return next;
+  }
   return applySupineSceneOverride(next);
 }

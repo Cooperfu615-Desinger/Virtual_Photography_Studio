@@ -1,3 +1,5 @@
+import ObservationCapturePanel from './ObservationCapturePanel';
+import { CAPTURE_OWNED_KEYS, captureEligibility, resolveCapture } from '../lib/observationCaptureMode.js';
 import { getReferencePersonPreview, hasReferencePersonPreview } from '../lib/referencePersonPreview.js';
 import { prepareBottomRiseControl } from '../lib/engine/bottomRiseCompatibility.js';
 import { prepareHeadDominantAngleControl } from '../lib/engine/headDominantFraming.js';
@@ -711,7 +713,13 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const wardrobePickerTriggerRef = useRef(null);
   const [activeWardrobePickerKey, setActiveWardrobePickerKey] = useState('');
   const [wardrobePickerQuery, setWardrobePickerQuery] = useState('');
-  const [activeSection, setActiveSection] = useState('character');
+  const [activeSection, setActiveSection] = useState(locks.captureMode === 'observation' ? 'capture' : 'character');
+  const captureActive = locks.captureMode === 'observation';
+  const captureResult = useMemo(() => resolveCapture(locks.observationCapture), [locks.observationCapture]);
+  const captureEntryReason = captureEligibility({ ...locks, characterProfileId: lockControls.find(c => c.key === 'characterProfileId')?.options?.find(o => o.specialSubject === 'character-profile')?.id }, lockControls);
+  const captureError = captureActive ? captureEligibility(locks, lockControls) || captureResult.error : '';
+  const captureShowing = captureActive && activeSection === 'capture';
+  if (!captureActive && activeSection === 'capture') setActiveSection('character');
   const [activeSubpanels, setActiveSubpanels] = useState({
     character: 'identity',
     pose: 'single',
@@ -731,8 +739,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     createPromptGenerationLocks(clearedLocks),
   );
   const fixedScenePosition = getFixedScenePosition(locks);
-  const activeSpecifiedAction = getSpecifiedAction(locks, { cameraControls: lockControls });
-  const selectedSpecifiedAction = getSpecifiedAction(locks, { ignoreOwners: true });
+  const activeSpecifiedAction = captureActive ? null : getSpecifiedAction(locks, { cameraControls: lockControls });
+  const selectedSpecifiedAction = captureActive ? null : getSpecifiedAction(locks, { ignoreOwners: true });
   const effectiveFixedSceneLocks = useMemo(() => getSpecifiedActionEffectiveLocks(fixedScenePoseLocks(locks), { cameraControls: lockControls }), [locks, lockControls]);
   const workspaceSummary = useMemo(() => ({
     ...buildWorkspaceSummary(effectiveFixedSceneLocks, lockControls),
@@ -969,6 +977,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   };
 
   function isControlDisabled(control) { return (
+    (captureActive && CAPTURE_OWNED_KEYS.includes(control.key)) ||
     specifiedActionOwnsControl(activeSpecifiedAction, control.key)
     || (control.key === 'specifiedActionId' && Boolean(specifiedActionDisabledReason))
     || (control.key === 'posePropId' && isFourPointKneeling(effectiveFixedSceneLocks))
@@ -1005,6 +1014,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   ); }
 
   const applyControlValue = (control, value) => {
+    if (captureActive && CAPTURE_OWNED_KEYS.includes(control.key)) return;
     updateLocks((prev) => {
       const next = { ...prev, [control.key]: value };
       if (/^(headphones|faceCovering)[AB]?Id$/.test(control.key) && prev[control.key] !== value) {
@@ -1206,6 +1216,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   }
 
   const prepareControlField = (rawControl, inDuoGroup = false) => {
+    if (captureActive && CAPTURE_OWNED_KEYS.includes(rawControl.key)) return { control: { ...rawControl, options: [{ id: 'capture-owned', zh: '由觀察式抓拍決定', en: '' }], suppressDefaultRandomOption: true }, value: 'capture-owned', disabled: true, dividerLabel: '' };
+    if (captureActive && rawControl.key === 'framingId') rawControl = { ...rawControl, options: rawControl.options.map(option => ({ ...option, disabled: option.zh !== '全無' && !/全身鏡頭|中景鏡頭|牛仔/.test(option.zh) })), helpText: '抓拍主輸出支援全身、膝上、腰上；胸上特寫由衍生輸出提供。' };
     const preparedBaseControl = prepareHeadDominantAngleControl(prepareBottomRiseControl(prepareUnderbustTopControl(prepareOuterwearClosureControl(prepareAccessoryControl(buildFixedSetControl(buildPoseComposerControl(rawControl)), locks), locks, lockControls), locks, lockControls), locks, lockControls), locks, lockControls);
     const baseControl = activeSection === 'wardrobe' && resolvedActiveSubpanel?.id === 'layers'
       ? { ...preparedBaseControl, helpText: getLayerControlHelp(preparedBaseControl, locks, lockControls) } : preparedBaseControl;
@@ -1358,7 +1370,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       onChange={applyControlValue}
       onCopy={(control, text) => handleCopyText(`${control.label} copied`, text)}
       onAction={(groupId, action) => {
-        const keys = model.groups.find(group => group.id === groupId)?.actionKeys || [];
+        const keys = (model.groups.find(group => group.id === groupId)?.actionKeys || []).filter(key => !captureActive || !CAPTURE_OWNED_KEYS.includes(key));
         if (!keys.length) return;
         updateLocks(prev => action === 'reset'
           ? { ...prev, ...Object.fromEntries(keys.map(key => [key, clearedLocks[key]])) }
@@ -1660,7 +1672,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   };
 
   const handleSetAllNone = () => {
-    updateLocks((previousLocks) => buildAllNoneLocks(lockControls, previousLocks), {
+    updateLocks((previousLocks) => ({ ...buildAllNoneLocks(lockControls, previousLocks), captureMode: 'standard' }), {
       discardSupineSceneRestore: true,
     });
     showToast?.('一般選項已全部設為全無');
@@ -1668,15 +1680,17 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
 
   return (
     <>
+      <div className="capture-mode-bar lock-panel"><strong>拍攝模式</strong><button type="button" className="secondary" aria-pressed={!captureActive} onClick={() => { updateLocks({ captureMode: 'standard' }); setActiveSection('character'); }}>一般拍攝</button><button type="button" className="secondary" aria-pressed={captureActive} disabled={!captureActive && Boolean(captureEntryReason)} title={captureEntryReason} onClick={() => { updateLocks({ captureMode: 'observation', observationCapture: captureResult.profile }); setActiveSection('capture'); }}>觀察式抓拍</button><span className="capture-mode-hint">{!captureActive && captureEntryReason || '切回一般拍攝後恢復原設定'}</span></div>
       <section className={`page1-workspace-shell ${isDuoMode ? 'page1-workspace-duo' : ''}`}>
         <aside className="page1-sidebar lock-panel">
           <div className="page1-sidebar-header">
             <div className="lock-title">Prompt Workspace</div>
+            {captureActive ? <button type="button" className="secondary capture-nav-button" onClick={() => setActiveSection('capture')}>觀察式抓拍啟用中</button> : null}
             {currentModeBadges.length > 0 ? (
               <div className="page1-mode-stack">
                 <span className="page1-mode-label">Current Modes</span>
                 <div className="page1-mode-chip-row">
-                  {currentModeBadges.map((badge) => (
+                  {(captureActive ? currentModeBadges.filter(badge => !badge.startsWith('指定動作')) : currentModeBadges).map((badge) => (
                     <span key={badge} className="page1-mode-chip">{badge}</span>
                   ))}
                 </div>
@@ -1705,9 +1719,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
                 >
                   <span className="page1-section-heading">
                     <span className="page1-section-label">{section.label}</span>
-                    <span className="page1-section-status">{diagnostics.status}</span>
+                    <span className="page1-section-status">{captureActive && ['pose','scene','photography'].includes(section.id) ? section.id === 'photography' ? '部分接管' : '抓拍接管' : diagnostics.status}</span>
                   </span>
-                  {snapshot.roles ? <span className="duo-sidebar-summary">{snapshot.roles.map(role => <span key={role.id}><b>{role.label}</b><span>{role.summary}</span></span>)}</span> : <strong className="page1-section-value">{snapshot.summary}</strong>}
+                  {snapshot.roles ? <span className="duo-sidebar-summary">{snapshot.roles.map(role => <span key={role.id}><b>{role.label}</b><span>{role.summary}</span></span>)}</span> : <strong className="page1-section-value">{captureActive && ['pose','scene','photography'].includes(section.id) ? section.id === 'pose' ? captureResult.selections?.action.zh : section.id === 'scene' ? captureResult.selections?.scene.zh : captureResult.selections?.lens.zh : snapshot.summary}</strong>}
                   {snapshot.meta ? <span className="page1-section-meta">{snapshot.meta}</span> : null}
                   {diagnostics.chips.length > 0 ? (
                     <span className="page1-section-chip-row">
@@ -1733,7 +1747,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
               className="secondary"
               title="只隨機化可隨機欄位；必要欄位與接管型欄位會保留預設狀態。"
               onClick={() => updateLocks((prev) => randomizeLockKeys(
-                prev,
+                { ...prev, captureMode: 'standard' },
                 lockControls.map((control) => control.key),
                 createEmptyLocks(),
                 lockControls,
@@ -1760,7 +1774,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
             data-active-section={activeSection}
             data-subject-count={locks.subjectCount}
           >
-            <div className="page1-editor-header">
+            <div hidden={captureShowing}><div className="page1-editor-header">
               <div>
                 <div className="lock-title">{activeSectionConfig.label} {activeSection === 'photography' ? <span className="page1-section-chip">{fixedCompositionSetActive ? '固定構圖' : '一般場景'}</span> : null} {isDuoMode && ['pose', 'scene', 'photography'].includes(activeSection) ? <span className="page1-section-chip">雙人共用</span> : null}</div>
               </div>
@@ -1784,7 +1798,10 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
                 );
               })}
             </div> : null}
-            {renderEditorPanel()}
+            {captureActive && ['pose','scene','photography'].includes(activeSection) ? <p className="context-note">觀察式抓拍接管本區的有效輸出；以下原選值保留，切回一般拍攝後恢復。</p> : null}
+            {captureActive && ['pose','scene'].includes(activeSection) ? <fieldset className="capture-owned-fields" disabled>{renderEditorPanel()}</fieldset> : renderEditorPanel()}
+            </div>
+            {captureShowing ? <ObservationCapturePanel locks={locks} controls={lockControls} updateLocks={updateLocks} onWardrobe={() => setActiveSection('wardrobe')} /> : null}
           </section>
 
           <section className="page1-preview-panel page1-output-panel lock-panel reference-output-panel">
@@ -1795,9 +1812,10 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
               </div>
             </div>
 
+            {captureError ? <div className="capture-error" role="alert">{captureError} 請回到抓拍設定調整。</div> : null}
             <div className="primary-action-row page1-generation-actions">
-              <button className="primary-copy-btn page1-random-generate-btn" onClick={handleRerollPreview} disabled={!previewPrompt}>
-                隨機生成
+              <button className="primary-copy-btn page1-random-generate-btn" onClick={handleRerollPreview} disabled={!previewPrompt || captureActive && Object.values(captureResult.profile.fixed).every(Boolean)}>
+                {captureActive ? '重抽隨機項目' : '隨機生成'}
               </button>
               <button className="secondary primary-copy-btn" onClick={handleApplyPreviewSelection} disabled={!previewPrompt?.selection}>
                 套用目前預覽

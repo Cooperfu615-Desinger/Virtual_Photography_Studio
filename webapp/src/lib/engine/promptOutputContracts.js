@@ -80,7 +80,16 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.60.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.61.0';
+
+export const OBSERVATION_CAPTURE_CONTRACT = deepFreeze({
+  version: '1.0.0',
+  scope: 'opt-in single character card capture; current wardrobe retained',
+  source: 'one persisted eight-field capture selection shared by four main outputs and chest projection',
+  ownership: 'pose, scene, practical light, camera position, foreground, optics and imaging; dormant PAGE1 locks preserved',
+  compatibility: 'ordinary outputs and legacy standalone generator unchanged; full-body reference remains standing',
+  conflicts: 'fixed choices never replaced; invalid saved combinations block generation',
+});
 
 export const SPECIFIED_ACTION_CONTRACT = deepFreeze({
   version: '2.0.0',
@@ -259,7 +268,7 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
       modes: {
         single: {
           requiredPrefix: '',
-          requiredPrefixes: Object.values(MIDJOURNEY_DESCRIPTION_CONTRACT.imageTypeOpenings),
+          requiredPrefixes: [...Object.values(MIDJOURNEY_DESCRIPTION_CONTRACT.imageTypeOpenings), 'Photorealistic staged candid observation photograph of an adult fictional woman'],
           requiredLabels: [],
           optionalLabels: [],
           forbiddenLabels: [
@@ -325,7 +334,7 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
       modes: {
         single: {
           requiredPrefix: '',
-          requiredPrefixes: Object.values(MIDJOURNEY_DESCRIPTION_CONTRACT.imageTypeOpenings),
+          requiredPrefixes: [...Object.values(MIDJOURNEY_DESCRIPTION_CONTRACT.imageTypeOpenings), 'Photorealistic staged candid observation photograph of an adult fictional woman'],
           requiredLabels: [],
           optionalLabels: [],
           forbiddenLabels: [

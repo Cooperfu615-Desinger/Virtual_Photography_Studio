@@ -109,7 +109,10 @@ export function buildMarkdownExport(data) {
   const silenceMetadata = Object.keys(silenceLocks).length
     ? `<!-- VPStudio Optional Silence: ${JSON.stringify(silenceLocks)} -->\n` : '';
 
-  return `${silenceMetadata}# Generated Prompt - ${new Date(data.date).toLocaleString()}
+  const captureMetadata = data.selection?.captureMode === 'observation'
+    ? `<!-- VPStudio Observation Capture: ${JSON.stringify(data.selection).replace(/</g, '\\u003c').replace(/>/g, '\\u003e')} -->\n` : '';
+
+  return `${silenceMetadata}${captureMetadata}# Generated Prompt - ${new Date(data.date).toLocaleString()}
 **Source:** ${data.sourceLabel || 'Prompt 工作台'}
 **Summary:** ${data.summary}
 
@@ -598,6 +601,12 @@ export function parseExportedMarkdownPrompt(markdownText, controls, fallbackId) 
         if (control.options?.some((option) => option.id === value && option.zh === '全無')) parsed.locks[control.key] = value;
       }
     } catch { /* Older prose remains recoverable when optional metadata is invalid. */ }
+  }
+  const captureMatch = text.match(/<!-- VPStudio Observation Capture: (\{[^\n]*\}) -->/);
+  if (captureMatch) {
+    const captureSelection = normalizeLocks(JSON.parse(captureMatch[1]), controls);
+    if (captureSelection.captureMode !== 'observation') throw new Error('invalid observation capture metadata');
+    Object.assign(parsed.locks, captureSelection);
   }
   const selection = buildRestoreLocks(parsed.locks, controls);
   const prompt = {

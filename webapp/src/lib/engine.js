@@ -1,3 +1,4 @@
+import { captureEligibility, resolveCapture, normalizeCaptureProfile, captureEffectiveLocks, captureContext, capturePoseText, capturePoseItem, captureChestScene, CAPTURE_OWNED_KEYS } from './observationCaptureMode.js';
 import { registerReferencePersonPreview, REFERENCE_PERSON_INSTRUCTION } from './referencePersonPreview.js';
 import { MIDJOURNEY_CARD_ITEM_NAMES } from './engine/midjourneyCardItemNames.js';
 import { bottomRiseConflict, resolveBottomRiseCompatibility } from './engine/bottomRiseCompatibility.js';
@@ -1077,6 +1078,8 @@ const MIDJOURNEY_PARAMETER_LOCK_DEFINITIONS = Object.entries(
 }));
 
 const LOCK_DEFINITIONS = [
+  { key: 'captureMode', label: '拍攝模式', defaultValue: 'standard', section: 'hidden' },
+  { key: 'observationCapture', label: '觀察式抓拍', defaultValue: null, section: 'hidden' },
   { key: 'subjectCount', label: '人物數量', options: SUBJECT_COUNT_OPTIONS, required: true, defaultValue: '1', section: 'core' },
   { key: 'specialSubjectId', label: '特殊角色', options: SPECIAL_SUBJECT_OPTIONS, defaultValue: 'none', section: 'character' },
   { key: 'characterProfileId', label: '角色卡', options: CHARACTER_PROFILE_CONTROL_OPTIONS, defaultValue: 'none', section: 'character' },
@@ -3810,6 +3813,8 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
     if (!LOCK_KEYS.has(key)) return;
     normalized[key] = value;
   });
+  normalized.captureMode = rawLocks.captureMode === 'observation' ? 'observation' : 'standard';
+  normalized.observationCapture = rawLocks.observationCapture ? normalizeCaptureProfile(rawLocks.observationCapture) : null;
   normalized.specifiedActionSceneRestore = normalizeSpecifiedActionSceneRestore(normalized.specifiedActionSceneRestore);
 
   if (!normalized.aspectRatio || normalized.aspectRatio === 'random') normalized.aspectRatio = 'none';
@@ -3952,6 +3957,11 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
     }
   }
 
+  if (rawLocks.captureMode === 'observation') {
+    for (const key of [...CAPTURE_OWNED_KEYS, 'specifiedActionSceneRestore']) {
+      if (key in rawLocks) normalizedWithLegacyColors[key] = rawLocks[key];
+    }
+  }
   return normalizeAccessoryConflicts(normalizedWithLegacyColors, controls);
 }
 
@@ -6125,6 +6135,7 @@ function buildChestUpPoseComposerSentence({ orientation, arrangement, handPose, 
 function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = false, omitHand = false, omitProp = false } = {}) {
   if (!poseComposer || isNoneLikeItem(poseComposer)) return '';
   const projection = getCompositionVisibilityProjection(context);
+  if (poseComposer.meta?.observationCapture) return capturePoseText(poseComposer.meta.observationCapture, projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP, projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST);
   const specifiedAction = SPECIFIED_ACTION_OPTIONS.find(option => option.id === poseComposer.meta?.specifiedActionId);
   if (specifiedAction) {
     if (projection.pose?.mode === 'omit') return specifiedAction.faceEn || (specifiedAction.meta?.supineGroundOnly ? 'She is lying on her back on the ground.' : '');
@@ -6451,6 +6462,7 @@ function resolvePoseComposerWardrobeSignals(context, catalog) {
 
 function buildCharacter(context, catalog) {
   const character = [buildSubjectBase(context.subject)];
+  if (context.observationCapture) return [...character, capturePoseItem(context.observationCapture)];
   const poseComposerContext = context.wardrobeSignals
     ? context
     : { ...context, wardrobeSignals: resolvePoseComposerWardrobeSignals(context, catalog) };
@@ -11024,6 +11036,7 @@ function buildZImageSubjectLead(context) {
 }
 
 function buildZImageTypePromptLine(context) {
+  if (context.observationCapture) return ensureTerminalPeriod(context.imageTypePreset.en);
   const preset = resolveImageTypePreset(context);
   return MIDJOURNEY_DESCRIPTION_CONTRACT.imageTypeOpenings[preset.id]
     || MIDJOURNEY_DESCRIPTION_CONTRACT.imageTypeOpenings['photorealistic-photo'];
@@ -11034,6 +11047,7 @@ function buildAiImageTypeLead(context) {
 }
 
 function buildImageTypePromptLine(context) {
+  if (context.observationCapture) return 'Create a photorealistic staged candid observation photograph of an adult fictional woman.';
   const preset = resolveImageTypePreset(context);
   const source = preset.aiLead ? `Create a ${preset.aiLead}` : preset.en;
   return ensureTerminalPeriod(stripTerminalPromptPunctuation(source || ''));
@@ -11096,6 +11110,7 @@ function buildCompositionPromptLine(context, {
   omitAngle = false,
   omitOrbit = false,
 } = {}) {
+  if (context?.observationCapture) return [context.fixedFramingCompositionOpening || context.framing?.en, context.angle?.en].filter(Boolean).map(ensureTerminalPeriod).join(' ');
   if (isCarriageFixedSet(context?.fixedCompositionSet) || isCarriageFixedSet(context?.carriageFixedSceneSource)) {
     return [context.fixedFramingCompositionOpening || compactCameraDescriptor(context.framing, 'framing'),
       compactCameraDescriptor(context.angle, 'angle'), carriageCameraText(context.orbit)]
@@ -11909,7 +11924,8 @@ function buildFallbackCharacterProfileGroups(subject) {
 }
 
 function buildCharacterCardProfileGroups(subject, locks = {}, wardrobe = null) {
-  const sourceGroups = subject.profile || buildFallbackCharacterProfileGroups(subject);
+  const originalGroups = subject.profile || buildFallbackCharacterProfileGroups(subject);
+  const sourceGroups = locks.captureMode === 'observation' ? { ...originalGroups, photographicDirection: '' } : originalGroups;
   const wardrobeSlots = Array.isArray(wardrobe) ? extractWardrobeSlots(wardrobe) : null;
   const hideInner = isFullyClosedOpening(wardrobeSlots?.outerwearOpening)
     && wardrobeSlots?.outerwear && !closedInnerLayerIsVisible(wardrobeSlots.outerwear);
@@ -11982,7 +11998,7 @@ function buildGptCharacterProfileSubjectBlock(
     groupLine('Hair', [groups.hair, buildCharacterCardHairVariantText(subject, locks)].filter(Boolean).join(', ')),
     includeOutfit ? groupLine('Outfit', filterCompleteLookPromptForFraming(groups.outfit, context)) : '',
     groupLine('Accessories', filterCompleteLookPromptForFraming(groups.accessories, context)),
-    groupLine('Photographic direction', groups.photographicDirection || 'photorealistic editorial portrait, coherent facial identity, natural photographic detail'),
+    context?.observationCapture ? '' : groupLine('Photographic direction', groups.photographicDirection || 'photorealistic editorial portrait, coherent facial identity, natural photographic detail'),
   ].filter(Boolean).join('\n\n');
 }
 
@@ -13051,6 +13067,7 @@ function renderFullBodyCharacterPrompt(promptModel) {
 }
 
 function buildFixedFramingDerivedProjectedScene(sourceContext, derivedContext, preset) {
+  if (sourceContext.observationCapture && preset.id === 'chest-up-portrait') return { mode: 'fullSource', locationText: captureChestScene(sourceContext.observationCapture), worldSceneText: '', sceneAccentText: '' };
   if (
     preset.fixedCompositionHandling === 'projectScene'
     && isFixedCompositionSetActive(sourceContext.fixedCompositionSet)
@@ -16095,7 +16112,7 @@ function renderMainNaturalMidjourney(promptModel, sceneMirrorReflectionText) {
   const optics = buildAiFreedomImagingSentence(valuesByLabel, { adaptation, sceneIntegrated: true, stationFixed });
   const film = compactPromptClauses(firstStructuredValue(valuesByLabel, ['Camera / Film']), 6);
   return renderNaturalMidjourney({
-    imageType: buildMidjourneyImageTypePromptLine(context),
+    imageType: context.observationCapture ? context.imageTypePreset.en : buildMidjourneyImageTypePromptLine(context),
     composition: joinCompositionPromptText(ensureTerminalPeriod(buildCompositionPromptLine(context, { adaptation })), extractCharacterSlots(character).poseComposer),
     subject: buildNaturalMjSubject(promptModel),
     pose: duo ? buildAiDuoDirectSentence(buildAiDuoPoseText(valuesByLabel)) : buildAiFreedomPoseSentence(context, character),
@@ -16166,7 +16183,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
   };
   const fullBodyCharacterPromptModel = buildFixedFramingDerivedPromptModel({
     sourcePromptModel: promptModel,
-    sourceContext: context,
+    sourceContext: context.observationCapture ? { ...context, observationCapture: null, locks: { ...context.locks, captureMode: 'standard' } } : context,
     preset: FIXED_FRAMING_DERIVED_PROMPT_PRESETS.fullBodyCharacter,
     character,
     wardrobe,
@@ -16495,6 +16512,11 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     delete snapshot.specifiedActionId;
     delete snapshot.specifiedActionSceneRestore;
   }
+  if (context.observationCapture) {
+    for (const key of [...CAPTURE_OWNED_KEYS, 'specifiedActionSceneRestore']) snapshot[key] = context.rawLocks[key];
+    snapshot.captureMode = 'observation';
+    snapshot.observationCapture = resolveCapture(context.rawLocks.observationCapture).profile;
+  } else { delete snapshot.captureMode; delete snapshot.observationCapture; }
   return snapshot;
 }
 
@@ -16511,7 +16533,11 @@ export function buildLocksFromPrompt(prompt, keepKeys = []) {
 
 function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
   const lockControls = runtime.controls;
-  const random = normalizeRandom(runtimeOptions.random);
+  const capture = locks.captureMode === 'observation' ? resolveCapture(locks.observationCapture) : null;
+  if (capture && (capture.error || captureEligibility(locks, lockControls))) return null;
+  const generationLocks = capture ? captureEffectiveLocks(locks) : locks;
+  let captureRandomState = 1977;
+  const random = capture ? () => { captureRandomState = (Math.imul(captureRandomState, 1664525) + 1013904223) >>> 0; return captureRandomState / 4294967296; } : normalizeRandom(runtimeOptions.random);
   const previewRerollExclusions = buildPreviewRerollExclusions(runtimeOptions.excludePreviousSelection);
   const withPreviewExclusions = (picker, lockedId, exclusionKeys) => (candidates, pickerRandom) => {
     const shouldExcludePrevious = !lockedId || isRandomLockValue(lockedId);
@@ -16538,7 +16564,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
       random,
     )
   );
-  const effectiveLocks = sanitizeLocksForCloseupMode(getSpecifiedActionEffectiveLocks(fixedScenePoseLocks(locks), { cameraControls: lockControls }), lockControls);
+  const effectiveLocks = sanitizeLocksForCloseupMode(getSpecifiedActionEffectiveLocks(fixedScenePoseLocks(generationLocks), { cameraControls: lockControls }), lockControls);
   if (isFullyClosedOpening(effectiveLocks.outerwearOpeningId) && effectiveLocks.poseHandId === PULL_OPEN_HAND_ID) {
     effectiveLocks.poseHandId = 'none';
   }
@@ -16634,7 +16660,9 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
       }
     : null;
   const lockedActionConstraint = mergeActionConstraints(lockedSpecialAction, lockedPoseComposerAction, lockedActionPose);
-  const framingOptions = effectiveLocks.framingId
+  const framingOptions = capture
+    ? runtime.flatCatalog.framing.filter(item => item.zh === '全無' || /全身鏡頭|中景鏡頭|牛仔/.test(item.zh))
+    : effectiveLocks.framingId
     ? runtime.flatCatalog.framing
     : getRandomMainFramingOptions(runtime.flatCatalog.framing);
   const framing = pickLocked(
@@ -16800,6 +16828,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     previewRerollExclusions,
     characterProfilePrompt: String(runtimeOptions.characterProfilePrompt || '').trim(),
   };
+  if (capture) Object.assign(context, captureContext(capture.selections));
   const character = buildCharacter(context, runtime.catalog);
   const defaultEthnicitySlots = extractCharacterSlots(character);
   context.defaultEthnicity = resolveDefaultEthnicity({
@@ -16841,7 +16870,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     chestUpPortraitPrompt,
     fullBodyCharacterPrompt,
     nanoBananaPrompt,
-  } = buildPrompts(context, promptCharacter, wardrobe, wardrobeColors, lightDirection, film, opticalEffect);
+  } = buildPrompts(context, promptCharacter, wardrobe, wardrobeColors, context.lightDirection, context.film, context.opticalEffect);
   const summaryFields = buildSummaryFields(context, wardrobe, character, wardrobeColors);
 
   const prompt = {
@@ -16867,15 +16896,15 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
       label: preset.uiLabel,
       text,
     })),
-    selection: buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film),
+    selection: buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, context.lightDirection, context.film),
     structured: {
-      Style: [imageTypePreset, style].filter(Boolean),
+      Style: [context.imageTypePreset, context.style].filter(Boolean),
       Character: character,
       Wardrobe: wardrobe,
-      Location: [location],
-      Framing: [framing, angle, orbit].filter(Boolean),
-      Lighting: [lighting, lightDirection].filter(Boolean),
-      'Lens & Imaging': [lens, aperture, shutter, opticalEffect, film].filter(Boolean),
+      Location: [context.location],
+      Framing: [context.framing, context.angle, context.orbit].filter(Boolean),
+      Lighting: [context.lighting, context.lightDirection].filter(Boolean),
+      'Lens & Imaging': [context.lens, context.aperture, context.shutter, context.opticalEffect, context.film].filter(Boolean),
     },
   };
   if (subject.count === 1 && !isSpecialSubject(subject) && !context.characterProfilePrompt) {
@@ -16916,5 +16945,5 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
 
 export function generatePrompts(count = 1, locks = createEmptyLocks(), customLibrary = [], runtimeOptions = {}) {
   const runtime = getEngineRuntime(customLibrary);
-  return Array.from({ length: count }, (_, index) => generateSinglePrompt(index, locks, runtime, runtimeOptions));
+  return Array.from({ length: count }, (_, index) => generateSinglePrompt(index, locks, runtime, runtimeOptions)).filter(Boolean);
 }

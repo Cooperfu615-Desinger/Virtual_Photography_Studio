@@ -32,11 +32,6 @@ import {
   buildPage1LocksFromActionPoseCard,
   getActionPoseCardById,
 } from './lib/actionPoseLab';
-import {
-  buildObservationCapturePrompt,
-  createEmptyObservationCaptureProfile,
-  normalizeObservationCaptureProfile,
-} from './lib/observationCaptureLab.js';
 import { copyTextToClipboard } from './lib/clipboard';
 import {
   buildRestoreLocks,
@@ -53,13 +48,11 @@ const DllPicWorkspace = lazy(() => import('./components/DllPicWorkspace.jsx'));
 const Page1Workspace = lazy(() => import('./components/Page1Workspace.jsx'));
 const Page2Workspace = lazy(() => import('./components/Page2Workspace.jsx'));
 const Page3Workspace = lazy(() => import('./components/Page3Workspace.jsx'));
-const ObservationCaptureWorkspace = lazy(() => import('./components/ObservationCaptureWorkspace.jsx'));
 const SavedCardsWorkspace = lazy(() => import('./components/SavedCardsWorkspace.jsx'));
 
 const PAGE_MODE_KEY = 'vps.pageMode';
 const PAGE2_PROFILE_KEY = 'vps.page2Profile';
 const PAGE3_PROFILE_KEY = 'vps.page3Profile';
-const OBSERVATION_CAPTURE_PROFILE_KEY = 'vps.observationCaptureProfile';
 const APPEARANCE_STORAGE_KEY = 'vps.appearance';
 const PAGE_MODE_COPY = {
   dll: { title: 'DLL_PIC Pro', subtitle: '集中生成、比較與整理圖片，保留每次創作的設定與成果。' },
@@ -74,10 +67,6 @@ const PAGE_MODE_COPY = {
   page3: {
     title: 'World Street Scene Builder',
     subtitle: '建立全球經典街景、城市空景與高視角地景 prompt，專注真實地點錨點與攝影語言。',
-  },
-  observationCapture: {
-    title: 'Observation Capture Lab',
-    subtitle: '導入角色卡，獨立組合舞台化觀察式抓拍的場景、鏡位、動作與成像 Prompt。',
   },
   page4: {
     title: 'Saved Cards',
@@ -151,7 +140,7 @@ export default function App() {
   } = useFavoritesWorkspace({ showToast });
   const [pageMode, setPageMode] = useState(() => {
     const stored = loadStringStorage(PAGE_MODE_KEY, 'page1');
-    return ['page5', 'actionPose'].includes(stored) ? 'page1' : stored;
+    return ['page5', 'actionPose', 'observationCapture'].includes(stored) ? 'page1' : stored;
   });
   const characterCards = useMemo(() => getCharacterCardOptions(lockControls), [lockControls]);
   const [page2Profile, setPage2Profile] = useState(() => (
@@ -160,17 +149,6 @@ export default function App() {
   const normalizedPage2Profile = useMemo(() => normalizeCharacterCardVariant(page2Profile, characterCards), [page2Profile, characterCards]);
   const page2PromptBundle = useMemo(() => buildCharacterCardPromptBundle(characterCards, normalizedPage2Profile), [characterCards, normalizedPage2Profile]);
   const [page3Profile, setPage3Profile] = useState(() => loadJsonStorage(PAGE3_PROFILE_KEY, createEmptyPage3Profile()));
-  const [observationCaptureProfile, setObservationCaptureProfile] = useState(() => (
-    loadJsonStorage(OBSERVATION_CAPTURE_PROFILE_KEY, createEmptyObservationCaptureProfile(characterCards))
-  ));
-  const normalizedObservationCaptureProfile = useMemo(
-    () => normalizeObservationCaptureProfile(observationCaptureProfile, characterCards),
-    [characterCards, observationCaptureProfile],
-  );
-  const observationCaptureResult = useMemo(
-    () => buildObservationCapturePrompt(characterCards, normalizedObservationCaptureProfile),
-    [characterCards, normalizedObservationCaptureProfile],
-  );
 
   useEffect(() => {
     window.localStorage.setItem(PAGE_MODE_KEY, pageMode);
@@ -184,9 +162,6 @@ export default function App() {
     saveJsonStorage(PAGE3_PROFILE_KEY, page3Profile);
   }, [page3Profile]);
 
-  useEffect(() => {
-    saveJsonStorage(OBSERVATION_CAPTURE_PROFILE_KEY, normalizedObservationCaptureProfile);
-  }, [normalizedObservationCaptureProfile]);
 
   const displayPrompts = favoritePrompts;
   const page3FieldOptions = PAGE3_WORLD_SCENE_FIELD_OPTIONS;
@@ -395,12 +370,6 @@ export default function App() {
     showToast('角色卡 Prompt 已加入 Saved Cards');
   }, [addFavoritePrompt, characterCards, normalizedPage2Profile, page2PromptBundle, showToast]);
 
-  const handleRegenerateObservationCapture = useCallback(() => {
-    setObservationCaptureProfile((previous) => ({
-      ...previous,
-      generationSeed: Number(previous.generationSeed || 1) + 1,
-    }));
-  }, []);
 
   const handleSavePage3Card = useCallback(() => {
     if (!page3Prompt) {
@@ -468,13 +437,6 @@ export default function App() {
                 onClick={() => setPageMode('page3')}
               >
                 場景建模
-              </button>
-              <button
-                type="button"
-                className={pageMode === 'observationCapture' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'}
-                onClick={() => setPageMode('observationCapture')}
-              >
-                觀察式抓拍
               </button>
               <button type="button" className={pageMode === 'dll' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'} onClick={() => setPageMode('dll')}>DLL_PIC Pro</button>
               <button
@@ -595,15 +557,6 @@ export default function App() {
           onCopyText={handleCopyText}
           onSaveCard={handleSavePage3Card}
           createEmptyProfile={createEmptyPage3Profile}
-        />
-      ) : pageMode === 'observationCapture' ? (
-        <ObservationCaptureWorkspace
-          characterCards={characterCards}
-          profile={normalizedObservationCaptureProfile}
-          setProfile={setObservationCaptureProfile}
-          result={observationCaptureResult}
-          onCopyText={handleCopyText}
-          onRegenerate={handleRegenerateObservationCapture}
         />
       ) : (
         <SavedCardsWorkspace
