@@ -14,8 +14,9 @@ const free = () => ({ ...createEmptyLocks(), subjectCount: '1', poseBaseId: 'sit
 const gen = locks => generatePrompts(1, locks, [], { random: createSeededRandom('unified-actions') })[0];
 const transition = (previousLocks, patch) => transitionPage1Locks({ previousLocks, candidateLocks: {...previousLocks, ...patch}, lockControls: controls });
 const main = p => [p.grokPrompt, p.zImagePrompt, p.midjourneyPrompt, p.nanoBananaPrompt];
-test('all eleven actions can be selected without a matching free base', () => {
-  assert.equal(SPECIFIED_ACTION_CONCRETE_OPTIONS.length, 11);
+// 2026-10-19 v2 P1 appends the lying library v1 (3 actions) after the 11 v1 actions.
+test('all fourteen actions can be selected without a matching free base', () => {
+  assert.equal(SPECIFIED_ACTION_CONCRETE_OPTIONS.length, 14);
   for (const action of SPECIFIED_ACTION_CONCRETE_OPTIONS) for (const poseBaseId of ['none', 'random', 'standing']) {
     const raw = {...free(), poseBaseId, specifiedActionId: action.id};
     assert.equal(getSpecifiedAction(raw)?.id, action.id);
@@ -45,7 +46,7 @@ test('new actions share the full source, suppress latent choices and preserve th
   }
 });
 test('kick allows head adjustment, lens gesture omits lower body, cats retain companions', () => {
-  const actions = SPECIFIED_ACTION_CONCRETE_OPTIONS.slice(8);
+  const actions = SPECIFIED_ACTION_CONCRETE_OPTIONS.slice(8, 11);
   for (const [index, action] of actions.entries()) {
     const p = gen({...free(), specifiedActionId:action.id});
     for (const text of main(p)) {

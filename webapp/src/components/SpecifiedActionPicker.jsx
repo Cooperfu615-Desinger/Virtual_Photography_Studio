@@ -66,13 +66,13 @@ function SpecifiedActionDialog({ options, value, onClose, onSelect }) {
       <div className="modal-panel specified-action-dialog" role="dialog" aria-modal="true"
         aria-labelledby={titleId} aria-describedby={descriptionId} onKeyDown={handleKeyDown}>
         <div className="specified-action-dialog-header">
-          <h3 id={titleId}>選擇指定動作 · 11 組</h3>
+          <h3 id={titleId}>選擇指定動作 · {options.length} 組</h3>
           <button ref={closeRef} type="button" className="icon-btn specified-action-close"
             aria-label="關閉指定動作選擇" onClick={onClose}>
             <X size={18} aria-hidden="true" />
           </button>
         </div>
-        <p id={descriptionId} className="specified-action-reference-note">一次選取一組動作。圖像僅供姿勢參考；接管範圍以動作描述為準，新加入的三組先以文字呈現。</p>
+        <p id={descriptionId} className="specified-action-reference-note">一次選取一組動作。圖像僅供姿勢參考；接管範圍以動作描述為準；沒有參考圖的動作以文字呈現。</p>
         <div className="specified-action-filters" role="group" aria-label="動作分類">
           {Object.entries(BASE_LABELS).map(([id, label]) => <button key={id} type="button"
             className={category === id ? 'specified-action-selected' : 'secondary'} aria-pressed={category === id}
@@ -144,7 +144,7 @@ export default function SpecifiedActionPicker({ control, value, disabled = false
         aria-expanded={isOpen && !disabled} aria-describedby={helpText ? helpId : undefined} disabled={disabled}
         onClick={() => { setIsOpen(true); }}>
         {selected?.referenceNumber ? <PoseReferenceImage option={selected} compact /> : <Images size={19} aria-hidden="true" />}
-        <span>{selected?.zh || '全無'}<small>選擇 11 組指定動作</small></span>
+        <span>{selected?.zh || '全無'}<small>選擇 {options.length} 組指定動作</small></span>
         <ChevronDown size={16} aria-hidden="true" />
       </button>
       {helpText ? <small id={helpId} className="field-help">{helpText}</small> : null}

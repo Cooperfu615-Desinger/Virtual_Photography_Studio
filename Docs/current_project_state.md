@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-19
 
+
+## 神情姿態 v2：P1 動作資料（2026-10-19，本機實作）
+
+- 方向（Cooper 定案）：B 神情姿態改以指定動作為主體，姿勢選單＝隨機（從動作庫抽已驗收動作）／任意（交給模型的 B 寫法）／全無／各指定動作；自由組合之後移除，舊 Saved Cards 不需還原。規格 [expression-pose-v2](specs/expression-pose-v2.md)、計畫 [implementation-plan](specs/expression-pose-v2-implementation-plan.md)、躺姿 [pose-library-lying-v1](specs/pose-library-lying-v1.md)、決策 [decisions](decisions/2026-10-17-expression-pose-direction.md)。
+- P1：11 個指定動作改成帶部位標記的子句（逐字切分，串回後與原文相同），加 family／手部模式／表面需求／驗收狀態；11 個依 Cooper 決定視為已驗收。新增躺姿 3 個（側躺抱枕、趴躺腳踝交叉 accepted；趴躺單腿屈起 pending），排在清單最後。隨機池行為未變（P2 處理）。
+- 驗證：546 組輸出（含選擇快照與摘要）前後逐字相同；同 seed strict audit 報告與 main 逐位元組相同；`npm test` 1701/1701、Prompt Quality 738/738、lint、build、sync、Python、公開資產、diff-check 通過；瀏覽器 1440×1000／390×900 指定動作對話框顯示 14 組、躺姿分類 5 組、選擇後五種輸出帶入動作，無主控台錯誤。分支 `claude/pose-v2-p1-action-data`。
+
 ## 觀察式抓拍整合工作台（2026-10-19，本機驗收通過）
 
 - 依核准示意圖新增一般／抓拍模式、最上方拍攝人物與 A 同步、C 穿搭入口、八項固定／隨機選擇與衝突說明。單人／雙人與穿搭導入保留停用入口。詳見 [整合 v1](specs/observation-capture-workspace-v1.md)。
