@@ -1,6 +1,6 @@
 # DLL：FLUX 3 Image Klein Base INT8 v1
 
-日期：2026-10-19。使用者核准本機實作；尚未 commit／push／部署，也未實際付費生成。
+日期：2026-10-19。使用者核准實作與發布；功能提交 `2323bf8c0d6ebab8813511e098bd9566658ad208` 已推送 origin/main，三個 Functions 已部署。未實際付費生成。
 
 ## 模型與工作流
 
@@ -24,4 +24,13 @@
 
 ## 發布邊界
 
-之後需使用者另行授權 commit／push，以及部署 `comfyCloudSubmit`、`comfyCloudStatus`、`comfyCloudQuota`。這三項共用模型定義，需同步發布；不需新增 Secret、Functions 或升級 runtime。下載代理與影片 Functions 本批不變。
+使用者已於 2026-10-19 授權 commit／push，以及部署 `comfyCloudSubmit`、`comfyCloudStatus`、`comfyCloudQuota`。這三項共用模型定義，需同步發布；不需新增 Secret、Functions 或升級 runtime。下載代理與影片 Functions 本批不變。
+
+
+## 部署紀錄（2026-10-19）
+
+- 功能提交 `2323bf8c0d6ebab8813511e098bd9566658ad208` 已推送 origin/main。Firebase CLI 部署 exit 0，三項 Successful update，專案 `virtualphotographystudio`、區域 `us-central1`。
+- `comfyCloudSubmit`、`comfyCloudStatus`、`comfyCloudQuota` 部署後均為 ACTIVE／Node.js 24；三者 code hash 相較部署前已更新，Secret 設定保持一致。其餘六個 Functions 的 CLI metadata 與部署前完全相同。
+- 未變更 runtime、依賴、Secret、Firestore rules 或 indexes。CLI 有 firebase-functions 可更新提示，本次保留已驗證版本。
+- [GitHub Actions 39182091109](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/39182091109) 為功能提交觸發；紀錄當下 Functions quality 已通過，frontend quality 仍執行中，尚不能宣稱 Pages 發布完成。
+- 真實 FLUX 生成、扣額、圖片下載與品質仍待另行驗收，本次沒有提交付費工作。
