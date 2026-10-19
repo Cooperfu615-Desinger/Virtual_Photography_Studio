@@ -19,11 +19,11 @@ const fixtures = [
 ];
 
 test('manual catalog pins eight reviewed actions, their base and reference provenance', () => {
-  assert.equal(SPECIFIED_ACTION_OPTIONS.length, 9);
+  assert.equal(SPECIFIED_ACTION_OPTIONS.length, 12);
   assert.equal(SPECIFIED_ACTION_OPTIONS[0].id, 'none');
   assert.equal(SPECIFIED_ACTION_OPTIONS[0].en, '');
-  assert.equal(SPECIFIED_ACTION_CONCRETE_OPTIONS.length, 8);
-  assert.equal(new Set(SPECIFIED_ACTION_OPTIONS.map((option) => option.id)).size, 9);
+  assert.equal(SPECIFIED_ACTION_CONCRETE_OPTIONS.length, 11);
+  assert.equal(new Set(SPECIFIED_ACTION_OPTIONS.map((option) => option.id)).size, 12);
   assert.ok(!SPECIFIED_ACTION_OPTIONS.some((option) => ['random', 'any'].includes(option.id)));
   for (const [id, baseId, orientationId, referenceNumber, sources] of fixtures) {
     const action = SPECIFIED_ACTION_CONCRETE_OPTIONS.find((option) => option.id === id);
@@ -40,7 +40,7 @@ test('manual catalog pins eight reviewed actions, their base and reference prove
 });
 
 test('shared full and upper sources leave expression, head, camera and furniture independent', () => {
-  for (const action of SPECIFIED_ACTION_CONCRETE_OPTIONS) {
+  for (const action of SPECIFIED_ACTION_CONCRETE_OPTIONS.slice(0, 8)) {
     for (const source of [action.en, action.upperBodyEn]) {
       assert.doesNotMatch(source, /\b(head|chin|gaze|camera|lens|framing|chair|sofa|bed|table|wall|blanket|drink|indoor)\b|\bsmil\w*/i, action.id);
       assert.doesNotMatch(source, /[\u3400-\u9fff]|fallback|guard|override|selection|specified action/i, action.id);
@@ -55,28 +55,26 @@ test('shared full and upper sources leave expression, head, camera and furniture
       assert.equal(action.meta.projectionByBucket[bucket].mode, 'omit');
     }
   }
-  const supine = SPECIFIED_ACTION_CONCRETE_OPTIONS.at(-1);
+  const supine = SPECIFIED_ACTION_CONCRETE_OPTIONS[7];
   assert.equal(supine.meta.supineGroundOnly, true);
-  assert.ok(SPECIFIED_ACTION_CONCRETE_OPTIONS.slice(0, -1).every((action) => !action.meta.supineGroundOnly));
+  assert.ok(SPECIFIED_ACTION_CONCRETE_OPTIONS.filter((_, index) => index !== 7).every((action) => !action.meta.supineGroundOnly));
 });
 
-test('only an explicitly selected action with a matching concrete single-person base is active', () => {
+test('only a concrete single-person action is active, independent of the free base', () => {
   for (const [id, baseId] of fixtures) {
     const source = { subjectCount: '1', poseBaseId: baseId, specifiedActionId: id };
     assert.equal(getSpecifiedAction(source)?.id, id);
     for (const patch of [
       { subjectCount: '2' }, { subjectCount: undefined },
-      { poseBaseId: 'standing' }, { poseBaseId: 'random' }, { poseBaseId: 'none' },
       { specifiedActionId: 'none' }, { specifiedActionId: '' },
       { specifiedActionId: 'random' }, { specifiedActionId: 'unknown' },
     ]) assert.equal(getSpecifiedAction({ ...source, ...patch }), null, `${id}: ${JSON.stringify(patch)}`);
   }
 });
 
-test('fixed scene position and an explicit pose card pause the action without destroying its selection', () => {
+test('fixed scene position pauses the action without destroying its selection', () => {
   const source = { subjectCount: '1', poseBaseId: 'sitting', specifiedActionId: fixtures[0][0] };
   for (const owner of [
-    { actionPoseCardId: 'low-seated-aloof-cats-street-mood' },
     { fixedCompositionSetId: 'nyc-subway-bench-platform', fixedSetPositionId: 'station-nyc-seated' },
     { fixedCompositionSetId: 'japan-carriage-rush-hour', fixedSetPositionId: 'carriage-crowd-seated' },
   ]) {
@@ -90,7 +88,7 @@ test('fixed scene position and an explicit pose card pause the action without de
   }
   assert.equal(getSpecifiedAction({ ...source, fixedCompositionSetId: 'none', fixedSetPositionId: 'station-nyc-seated' })?.id,
     source.specifiedActionId);
-  assert.equal(getSpecifiedAction({ ...source, poseBaseId: 'standing', actionPoseCardId: 'card' }, { ignoreOwners: true }), null);
+  assert.equal(getSpecifiedAction({ ...source, poseBaseId: 'standing', actionPoseCardId: 'card' }, { ignoreOwners: true })?.id, source.specifiedActionId);
 });
 
 test('effective locks mask four latent layers and own lying orientation while preserving raw storage', () => {

@@ -245,7 +245,7 @@ test('workspace pose summary shows the active single action pose card as the B p
     poseHandId: 'one-hand-waist-one-down',
   }, controls);
 
-  assert.equal(summary.pose.summary, '動作卡：不爽發洩踢擊');
+  assert.equal(summary.pose.summary, '不悅、噘嘴、倔強 / 指定動作：不爽發洩踢擊');
   assert.doesNotMatch(summary.pose.summary, /平靜淡然|站姿|一手扶腰一手自然放下/);
 });
 

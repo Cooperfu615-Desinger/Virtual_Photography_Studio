@@ -8,11 +8,11 @@ function deepFreeze(value) {
 }
 
 function createAction({ id, zh, baseId, orientationId = 'none', en, upperBodyEn,
-  descriptionZh, referenceNumber, supineGroundOnly = false }) {
-  return deepFreeze({ id, zh, baseId, orientationId, en, upperBodyEn, descriptionZh, referenceNumber,
+  descriptionZh, referenceNumber, supineGroundOnly = false, legacyCardId = '', ownsExpression = false, ownsHead = false, expressionLabel = '', headLabel = '', faceEn = '', supportSurface = 'ground' }) {
+  return deepFreeze({ id, zh, baseId, orientationId, en, upperBodyEn, descriptionZh, referenceNumber, legacyCardId, ownsExpression, ownsHead, expressionLabel, headLabel, faceEn,
     meta: {
       tags: ['specified_action'],
-      supportSurface: 'ground',
+      supportSurface,
       randomEligible: false,
       supineGroundOnly,
       projectionByBucket: {
@@ -29,7 +29,8 @@ function createAction({ id, zh, baseId, orientationId = 'none', en, upperBodyEn,
   });
 }
 
-/** One reviewed source per action; no furniture, head or camera is inferred. */
+/** Reviewed sources only. The three legacy cards explicitly own mood/gaze;
+ * no additional furniture, lower-body geometry or camera setting is inferred. */
 export const SPECIFIED_ACTION_CONCRETE_OPTIONS = Object.freeze([
   createAction({
     id: 'specified-sitting-side-fold-back-support',
@@ -88,6 +89,28 @@ export const SPECIFIED_ACTION_CONCRETE_OPTIONS = Object.freeze([
     upperBodyEn: 'She lies on her back on the ground with both arms along her sides and slightly spread outward, her elbows softly bent.',
     supineGroundOnly: true,
   }),
+
+  ...[
+    { legacyCardId: 'bratty-frustration-mock-kick', baseId: 'standing', ownsHead: false,
+      expressionLabel: '不悅、噘嘴、倔強', supportSurface: '',
+      descriptionZh: '情緒化地向附近物件或畫面下緣踢出一腳，上身自然前傾、身體略失衡。接管不悅噘嘴的神情；頭部方向可調。不指定物件種類、另一隻手或額外支撐。',
+      upperBodyEn: 'She is visibly annoyed and fed up, leaning forward with a pouty defiant mood, her upper body slightly tense and off-balance in a candid, playful, emotionally driven moment.' },
+    { legacyCardId: 'defiant-middle-finger-lens-jab', baseId: 'none', ownsHead: true,
+      expressionLabel: '冷淡、不耐、挑釁', headLabel: '冷淡直視鏡頭', supportSurface: '',
+      descriptionZh: '上身向鏡頭前傾，以冷淡挑釁的目光直視鏡頭，一隻手前伸形成近距離透視與輕微動態模糊。不限定站、坐、跪或其他下半身姿態，也不補另一隻手。',
+      upperBodyEn: 'She leans close toward the camera with a cold, irritated, defiant stare, thrusting one hand forward into the lens with a rude confrontational gesture. The hand is close to camera, slightly foreshortened and motion-blurred, while her upper body bends forward. Her mood is bratty, rebellious, and street-candid.' },
+    { legacyCardId: 'low-seated-aloof-cats-street-mood', baseId: 'sitting', ownsHead: true,
+      expressionLabel: '疏離、冷淡、微微低落', headLabel: '抬眼望向上方鏡頭', supportSurface: 'ground',
+      descriptionZh: '低坐地面，雙腿放鬆、軀幹微傾，手臂自然靠近腿部；抬眼望向上方鏡頭，神情疏離冷淡。保留身邊安靜停留的小貓，場景地點沿用 D 區設定。',
+      upperBodyEn: 'She is seated low with her torso slightly tilted and her arms resting naturally downward. She looks upward toward the camera with an aloof, distant, slightly moody expression, as if quietly observing without inviting attention.' },
+  ].map(({ legacyCardId, ...definition }) => {
+    const card = getActionPoseCardById(legacyCardId);
+    return createAction({ ...definition, id: `specified-${legacyCardId}`, legacyCardId,
+      zh: card.title, en: card.actionPrompt, ownsExpression: true,
+      faceEn: definition.ownsHead
+        ? (definition.baseId === 'sitting' ? 'She looks upward toward the camera with an aloof, distant, slightly moody expression.' : 'She looks toward the camera with a cold, irritated, defiant stare.')
+        : 'She has a pouty, annoyed, defiant expression, unhappy eyes and tightened brows.' });
+  }),
 ]);
 
 export const SPECIFIED_ACTION_OPTIONS = Object.freeze([
@@ -99,23 +122,57 @@ export const SPECIFIED_ACTION_OPTIONS = Object.freeze([
 const ACTIONS_BY_ID = new Map(SPECIFIED_ACTION_CONCRETE_OPTIONS.map((action) => [action.id, action]));
 
 /** Owner checks use raw selections; they never clear a paused action. */
-export function getSpecifiedAction(locks = {}, { ignoreOwners = false } = {}) {
+export function getSpecifiedAction(locks = {}, { ignoreOwners = false, cameraControls = [] } = {}) {
   if (locks.subjectCount !== '1') return null;
-  const action = ACTIONS_BY_ID.get(locks.specifiedActionId);
-  if (!action || locks.poseBaseId !== action.baseId) return null;
-  if (!ignoreOwners && (getFixedScenePosition(locks) || getActionPoseCardById(locks.actionPoseCardId))) return null;
+  const action = SPECIFIED_ACTION_CONCRETE_OPTIONS.find(item => item.legacyCardId && item.legacyCardId === locks.actionPoseCardId)
+    || ACTIONS_BY_ID.get(locks.specifiedActionId);
+  if (!action) return null;
+  if (!ignoreOwners && (getFixedScenePosition(locks) || getSpecifiedActionCameraConflict(action, locks, cameraControls))) return null;
   return action;
 }
 
 /** Only effective generation inputs are masked; caller/storage values survive. */
 export function getSpecifiedActionEffectiveLocks(locks = {}, options = {}) {
   const action = getSpecifiedAction(locks, options);
-  if (!action) return locks;
+  if (!action) {
+    const stored = getSpecifiedAction(locks, { ignoreOwners: true });
+    return stored && (locks.actionPoseCardId || getSpecifiedActionCameraConflict(stored, locks, options.cameraControls))
+      ? { ...locks, specifiedActionId: 'none', actionPoseCardId: '' } : locks;
+  }
   return { ...locks,
+    specifiedActionId: action.id,
+    actionPoseCardId: '',
+    poseBaseId: action.baseId,
+    ...(action.ownsExpression ? { expressionId: 'none' } : {}),
+    ...(action.ownsHead ? { poseHeadId: 'none' } : {}),
     poseOrientationId: action.orientationId,
     poseArrangementId: 'none',
     poseHandId: 'none',
     posePropId: 'none',
     poseAnchorId: 'none',
   };
+}
+
+export function specifiedActionOwnsControl(action, key) {
+  return Boolean(action) && (['poseBaseId', 'poseOrientationId', 'poseArrangementId', 'poseHandId', 'posePropId', 'poseAnchorId'].includes(key)
+    || (key === 'expressionId' && action.ownsExpression) || (key === 'poseHeadId' && action.ownsHead));
+}
+
+/** Camera choices stay intact. Explicit conflicts pause the action; random
+ * candidates use the same predicate before resolving the shared capture. */
+export function specifiedActionSupportsCamera(action, key, option) {
+  if (!action?.ownsHead || !option || option.zh === '全無' || option.id === 'none') return true;
+  const tags = option.meta?.tags || [];
+  if (key === 'orbitId') return !tags.some(tag => ['back_view', 'profile_view', 'no_eye_contact'].includes(tag));
+  if (key === 'angleId' && action.baseId === 'sitting') {
+    return tags.includes('high_angle') || tags.includes('aerial') || tags.includes('dynamic');
+  }
+  return key !== 'angleId' || !tags.includes('aerial');
+}
+
+export function getSpecifiedActionCameraConflict(action, locks, controls = []) {
+  return ['orbitId', 'angleId'].map(key => {
+    const option = controls.find(control => control.key === key)?.options?.find(option => option.id === locks[key]);
+    return specifiedActionSupportsCamera(action, key, option) ? '' : `${option.zh}與動作的注視方向不相容`;
+  }).filter(Boolean).join('；');
 }

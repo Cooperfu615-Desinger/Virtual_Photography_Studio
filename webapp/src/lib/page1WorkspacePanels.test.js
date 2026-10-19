@@ -28,14 +28,14 @@ test('page1 pose panels split single and duo settings without legacy pose contro
   assert.equal(singlePanel.label, '單人設置');
   assert.equal(duoPanel.label, '雙人設置');
   assert.deepEqual(singlePanel.keys, [
-    'expressionId',
-    'poseBaseId',
     'specifiedActionId',
+    'expressionId',
+    'poseHeadId',
+    'poseBaseId',
     'poseOrientationId',
     'poseArrangementId',
     'poseHandId',
     'posePropId',
-    'poseHeadId',
     'poseAnchorId',
   ]);
   assert.deepEqual(duoPanel.keys, [

@@ -2,7 +2,7 @@ import { getReferencePersonPreview, hasReferencePersonPreview } from '../lib/ref
 import { prepareBottomRiseControl } from '../lib/engine/bottomRiseCompatibility.js';
 import { prepareHeadDominantAngleControl } from '../lib/engine/headDominantFraming.js';
 import { buildKneelingSupportControl, isFourPointKneeling } from '../lib/engine/kneelingSupport.js';
-import { getSpecifiedAction, getSpecifiedActionEffectiveLocks } from '../lib/engine/specifiedActions.js';
+import { getSpecifiedAction, getSpecifiedActionEffectiveLocks, specifiedActionOwnsControl, getSpecifiedActionCameraConflict } from '../lib/engine/specifiedActions.js';
 import { prepareAccessoryControl } from '../lib/engine/accessoryPolicy.js';
 import { prepareOuterwearClosureControl } from '../lib/engine/outerwearClosure.js';
 import { prepareUnderbustTopControl } from '../lib/engine/underbustTopFit.js';
@@ -45,7 +45,6 @@ import {
   normalizeCharacterCardLayerIds,
 } from '../lib/page1WorkspaceSummary.js';
 import { CHARACTER_CARD_LAYER_LABELS } from '../lib/characterCardLab.js';
-import { getActionPoseCardById } from '../data/actionPoseCards.js';
 import {
   isPage1PoseSubpanelDisabled,
   resolvePage1ActiveSubpanel,
@@ -180,7 +179,6 @@ const POSE_COMPOSER_CONTEXT_KEYS = new Set([
   'poseAnchorId',
 ]);
 const POSE_COMPOSER_BASE_IDS = new Set(['standing', 'sitting', 'kneeling', 'squatting', 'lying']);
-const SPECIFIED_ACTION_MANAGED_KEYS = new Set(['poseOrientationId', 'poseArrangementId', 'poseHandId', 'posePropId', 'poseAnchorId']);
 const FIXED_SET_KEYS = ['fixedCompositionSetId', 'fixedSetPositionId', 'fixedSetBackgroundStateId', 'fixedSetCaptureModeId', 'fixedSetPerformanceStateId'];
 const FIXED_SET_DEPENDENT_DISPLAY_NONE_KEYS = new Set(['fixedSetBackgroundStateId', 'fixedSetCaptureModeId', 'fixedSetPerformanceStateId']);
 const FIXED_SET_LOCKED_KEYS = [
@@ -733,9 +731,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     createPromptGenerationLocks(clearedLocks),
   );
   const fixedScenePosition = getFixedScenePosition(locks);
-  const activeSpecifiedAction = getSpecifiedAction(locks);
+  const activeSpecifiedAction = getSpecifiedAction(locks, { cameraControls: lockControls });
   const selectedSpecifiedAction = getSpecifiedAction(locks, { ignoreOwners: true });
-  const effectiveFixedSceneLocks = useMemo(() => getSpecifiedActionEffectiveLocks(fixedScenePoseLocks(locks)), [locks]);
+  const effectiveFixedSceneLocks = useMemo(() => getSpecifiedActionEffectiveLocks(fixedScenePoseLocks(locks), { cameraControls: lockControls }), [locks, lockControls]);
   const workspaceSummary = useMemo(() => ({
     ...buildWorkspaceSummary(effectiveFixedSceneLocks, lockControls),
     midjourney: buildMidjourneyParameterSummary(midjourneyParameterSettings),
@@ -754,7 +752,6 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const characterProfileOption = characterProfileControl?.options?.find((option) => option.id === locks.characterProfileId);
   const isSpecialSubjectMode = Boolean(specialSubjectOption?.specialSubject);
   const isCharacterProfileMode = Boolean(characterProfileOption?.specialSubject);
-  const isDedicatedSpecialSubjectMode = isSpecialSubjectMode && !isCharacterProfileMode;
   const isDedicatedSubjectMode = isSpecialSubjectMode || isCharacterProfileMode;
   const importedCharacterCardLayers = isCharacterProfileMode && !isSpecialSubjectMode
     ? normalizeCharacterCardLayerIds(locks.characterCardWardrobeLayerIds)
@@ -834,22 +831,12 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const selectedPoseOrientationId = typeof effectiveFixedSceneLocks.poseOrientationId === 'string' && effectiveFixedSceneLocks.poseOrientationId.startsWith('lying-')
     ? effectiveFixedSceneLocks.poseOrientationId
     : '';
-  const activeActionPoseCard = !fixedScenePosition && locks.subjectCount !== '2' && !isDedicatedSpecialSubjectMode
-    ? getActionPoseCardById(locks.actionPoseCardId)
-    : null;
+  const specifiedActionCameraConflict = getSpecifiedActionCameraConflict(selectedSpecifiedAction, locks, lockControls);
   const specifiedActionDisabledReason = fixedScenePosition
-    ? '固定場景人物位置接管中；離開後恢復指定動作。'
-    : activeActionPoseCard
-      ? '動作卡接管中；清除動作卡後恢復指定動作。'
-      : !selectedPoseBaseId
-        ? '請先選定坐姿、跪姿或躺姿基底，再選擇指定動作。'
-        : ['standing', 'squatting'].includes(selectedPoseBaseId)
-          ? '第一批尚未提供這個姿勢基底的指定動作。'
-          : '';
+    ? '固定場景人物位置接管中；離開後恢復指定動作。' : isSpecialSubjectMode ? '專用特殊角色使用其專屬姿態。' : '';
   const currentModeBadges = [
     isSpecialSubjectMode ? (specialSubjectOption?.zh || '特殊角色') : '',
     isCharacterProfileMode ? (characterProfileOption?.zh || '角色卡') : '',
-    activeActionPoseCard ? `動作卡：${activeActionPoseCard.title}` : '',
     activeSpecifiedAction ? `指定動作：${activeSpecifiedAction.zh}` : '',
     isDuoMode ? '雙人' : '',
     isCloseupMode ? '特寫模式' : '',
@@ -869,10 +856,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       ].filter(Boolean),
     },
     pose: {
-      status: fixedScenePosition ? '固定場景人物位置接管' : activeActionPoseCard ? '動作卡接管' : activeSpecifiedAction ? '指定動作接管' : formatSectionStatus('pose', countEffectiveSelections('pose', locks, lockControls), isClearedLockState),
+      status: fixedScenePosition ? '固定場景人物位置接管' : activeSpecifiedAction ? '指定動作接管' : formatSectionStatus('pose', countEffectiveSelections('pose', locks, lockControls), isClearedLockState),
       chips: [
         fixedScenePosition?.zh || '',
-        activeActionPoseCard ? activeActionPoseCard.title : '',
         activeSpecifiedAction ? activeSpecifiedAction.zh : '',
         isPoseComposerActive && !activeSpecifiedAction ? 'Pose Composer' : '',
         selectedPoseActionLocksOrbit ? '自拍動作鎖定環繞' : '',
@@ -919,12 +905,15 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       return { ...control, label: `${control.label}（場景位置接管）`, suppressDefaultRandomOption: true,
         options: control.options.filter(option => option.id === effectiveFixedSceneLocks[control.key]) };
     }
-    if (activeSpecifiedAction && SPECIFIED_ACTION_MANAGED_KEYS.has(control.key)) {
+    if (specifiedActionOwnsControl(activeSpecifiedAction, control.key)) {
       const orientationLabel = control.options.find((option) => option.id === activeSpecifiedAction.orientationId)?.zh;
-      const label = control.key === 'poseOrientationId'
-        ? orientationLabel || '由指定動作決定'
-        : control.key === 'poseAnchorId' ? '地面'
-          : control.key === 'posePropId' ? '不使用道具' : '由指定動作決定';
+      const label = control.key === 'poseBaseId'
+        ? activeSpecifiedAction.baseId === 'none' ? '不限定・由指定動作決定' : control.options.find(o => o.id === activeSpecifiedAction.baseId)?.zh
+        : control.key === 'expressionId' ? activeSpecifiedAction.expressionLabel
+        : control.key === 'poseHeadId' ? activeSpecifiedAction.headLabel
+        : control.key === 'poseOrientationId' ? orientationLabel || '由指定動作決定'
+        : control.key === 'poseAnchorId' ? (activeSpecifiedAction.meta.supportSurface === 'ground' ? '地面' : '不指定額外支撐')
+        : control.key === 'posePropId' ? (activeSpecifiedAction.legacyCardId ? '由指定動作決定' : '不使用道具') : '由指定動作決定';
       return {
         ...control,
         label: `${control.label}（指定動作接管）`,
@@ -980,12 +969,12 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   };
 
   function isControlDisabled(control) { return (
-    (Boolean(activeSpecifiedAction) && SPECIFIED_ACTION_MANAGED_KEYS.has(control.key))
+    specifiedActionOwnsControl(activeSpecifiedAction, control.key)
     || (control.key === 'specifiedActionId' && Boolean(specifiedActionDisabledReason))
     || (control.key === 'posePropId' && isFourPointKneeling(effectiveFixedSceneLocks))
     ||
     (Boolean(fixedScenePosition) && FIXED_SCENE_MANAGED_POSE_KEYS.includes(control.key))
-    || (isCloseupMode && !closeupAllowedKeys.has(control.key))
+    || (isCloseupMode && control.key !== 'specifiedActionId' && !closeupAllowedKeys.has(control.key))
     || (supineSurfaceOnly && SUPINE_SCENE_LOCKED_KEYS.has(control.key))
     || (isDedicatedSubjectMode && !isAndroidSubjectMode && [
       'hairstyleId', 'hairstyleAId', 'hairstyleBId',
@@ -1260,8 +1249,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         const field = control.key === 'specifiedActionId' ? (
           <SpecifiedActionPicker
             control={control}
-            value={value}
-            baseId={selectedPoseBaseId}
+            value={selectedSpecifiedAction?.id || value}
             disabled={disabled}
             disabledReason={specifiedActionDisabledReason}
             onChange={(value) => applyControlValue(control, value)}
@@ -1549,7 +1537,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   );
 
   const renderPoseControls = () => (
-    <div className="control-section">
+    <div className="control-section page1-pose-controls">
       <div className="control-section-header">
         <div>
           <div className="control-section-title">Expression & Pose</div>
@@ -1558,33 +1546,23 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         {renderSectionActionButtons()}
       </div>
       {fixedScenePosition ? <div className="context-note">固定場景人物位置「{fixedScenePosition.zh}」接管姿勢與手部動作。表情與頭部動作仍可調整；選回全無或離開此場景後恢復原設定。</div> : null}
-      {activeActionPoseCard ? (
-        <div className="context-note action-pose-context-note">
-          <span>動作卡「{activeActionPoseCard.title}」正在接管單人神情姿態輸出。</span>
-          <button
-            type="button"
-            className="secondary page1-section-random-btn"
-            onClick={() => updateLocks((prev) => ({ ...prev, actionPoseCardId: '' }))}
-          >
-            清除動作卡
-          </button>
-        </div>
-      ) : null}
+      {!isDuoMode ? renderControlGrid(filterControlsByKeys(characterLockControls, ['specifiedActionId'])) : null}
       {activeSpecifiedAction ? (
         <div className="context-note specified-action-context-note">
-          <span>指定動作「{activeSpecifiedAction.zh}」接管肢體、手部、道具與接觸／支撐。表情和頭部可獨立調整，原選值已保留。{activeSpecifiedAction.orientationId === 'lying-supine' ? '仰躺由地面承托，場景設定暫停，光線仍可調整。' : ''}</span>
+          <span>{activeSpecifiedAction.descriptionZh}<br />指定動作「{activeSpecifiedAction.zh}」接管姿勢基底、肢體、手部、道具與接觸／支撐。{activeSpecifiedAction.ownsExpression ? '表情由動作決定；' : '表情可調；'}{activeSpecifiedAction.ownsHead ? '頭部由動作決定。' : '頭部可調。'}原選值已保留。{activeSpecifiedAction.orientationId === 'lying-supine' ? '仰躺由地面承托，場景設定暫停，光線仍可調整。' : ''}</span>
           <button type="button" className="secondary page1-section-random-btn"
-            onClick={() => updateLocks((prev) => ({ ...prev, specifiedActionId: 'none' }))}>取消指定動作</button>
+            onClick={() => updateLocks((prev) => ({ ...prev, specifiedActionId: 'none', actionPoseCardId: '' }))}>取消指定動作</button>
         </div>
-      ) : selectedSpecifiedAction && (fixedScenePosition || activeActionPoseCard) ? (
-        <div className="context-note">指定動作「{selectedSpecifiedAction.zh}」已保留，暫由{fixedScenePosition ? '固定場景人物位置' : '動作卡'}接管；取消接管後恢復。</div>
+      ) : selectedSpecifiedAction && fixedScenePosition ? (
+        <div className="context-note">指定動作「{selectedSpecifiedAction.zh}」已保留，暫由固定場景人物位置接管；取消接管後恢復。</div>
       ) : null}
+      {selectedSpecifiedAction && !fixedScenePosition && specifiedActionCameraConflict ? <div className="context-note specified-action-context-note"><span>指定動作「{selectedSpecifiedAction.zh}」暫停：{specifiedActionCameraConflict}。E 區選值已保留；調整鏡位後恢復動作，目前使用原本姿勢。</span><button type="button" className="secondary" onClick={() => updateLocks(prev => ({...prev, specifiedActionId: 'none', actionPoseCardId: ''}))}>取消指定動作</button></div> : null}
       {isPoseComposerActive && !activeSpecifiedAction ? (
         <div className="context-note">
           單人姿勢已由 Pose Composer 組合輸出，舊姿勢動作與特殊動作會維持隱藏相容，不再作為可見控制來源。
         </div>
       ) : null}
-      {renderControlGrid(filterControlsByKeys(characterLockControls, resolvedActiveSubpanel?.keys || []))}
+      {renderControlGrid((resolvedActiveSubpanel?.keys || []).filter(key => key !== 'specifiedActionId').map(key => characterLockControls.find(control => control.key === key)).filter(Boolean))}
     </div>
   );
 

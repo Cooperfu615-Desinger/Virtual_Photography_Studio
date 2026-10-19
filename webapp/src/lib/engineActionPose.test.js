@@ -26,11 +26,12 @@ test('single action pose card overrides PAGE1 expression and pose composer outpu
   const allPromptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
 
   assert.equal(prompt.selection.actionPoseCardId, DEFAULT_ACTION_POSE_CARD_ID);
-  assert.equal(prompt.selection.expressionId, '');
-  assert.equal(prompt.selection.poseBaseId, 'none');
+  assert.equal(prompt.selection.expressionId, optionId('expressionId', '柔和微笑'));
+  assert.equal(prompt.selection.poseBaseId, 'standing');
   assert.match(prompt.grokPrompt, /kicks one foot into a nearby object/);
   assert.match(prompt.zImagePrompt, /kicks one foot into a nearby object/);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /nearby object|not violent|not a yoga pose/i);
+  assert.match(prompt.midjourneyPrompt, /nearby object/);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /not violent|not a yoga pose/i);
   assert.doesNotMatch(allPromptText, /not a yoga pose/);
   assert.doesNotMatch(allPromptText, /soft natural smile|one hand on the waist|standing with/);
 });

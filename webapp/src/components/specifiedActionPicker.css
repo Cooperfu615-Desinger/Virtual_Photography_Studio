@@ -240,3 +240,16 @@
     flex-direction: column;
   }
 }
+
+.specified-action-field { grid-column: 1 / -1; }
+.specified-action-filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.specified-action-filters button { padding: 7px 12px; border: 1px solid var(--border); border-radius: 9px; color: var(--text-primary); }
+.specified-action-text-card { justify-content: center; }
+@media (max-width: 640px) {
+  .specified-action-card.specified-action-text-card { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .page1-pose-controls .control-section-header { flex-direction: column; align-items: stretch; }
+  .page1-pose-controls .page1-section-header-actions { align-self: flex-start; }
+}

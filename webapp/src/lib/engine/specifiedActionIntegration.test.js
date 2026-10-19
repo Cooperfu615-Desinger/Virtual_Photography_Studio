@@ -62,7 +62,7 @@ test('stored selection survives normalization, Saved Cards and restore with late
 });
 
 test('supine action uses only ground without a bed, blanket, drink or ordinary scene', () => {
-  const action = SPECIFIED_ACTION_CONCRETE_OPTIONS.at(-1);
+  const action = SPECIFIED_ACTION_CONCRETE_OPTIONS[7];
   const p = generate({ ...locksFor(action), locationId: option('locationId', '戶外：澀谷站前廣場人潮邊緣') });
   for (const text of main(p)) {
     assert.match(text, /ground/);
@@ -71,7 +71,7 @@ test('supine action uses only ground without a bed, blanket, drink or ordinary s
 });
 
 test('expression and head remain effective, and dormant selfie cannot clear selected orbit', () => {
-  for (const action of SPECIFIED_ACTION_CONCRETE_OPTIONS) {
+  for (const action of SPECIFIED_ACTION_CONCRETE_OPTIONS.slice(0, 8)) {
     const expressionId = option('expressionId', '柔和微笑');
     const orbitId = option('orbitId', '左側 90 度');
     const locks = { ...locksFor(action), expressionId, orbitId,
@@ -90,7 +90,7 @@ test('expression and head remain effective, and dormant selfie cannot clear sele
 });
 
 test('supine Saved Card restores its stored scene and original support after reload and cancel', () => {
-  const action = SPECIFIED_ACTION_CONCRETE_OPTIONS.at(-1);
+  const action = SPECIFIED_ACTION_CONCRETE_OPTIONS[7];
   const previous = { ...locksFor(action), specifiedActionId: 'none', poseOrientationId: 'lying-side',
     poseHandId: 'none', posePropId: 'none', poseAnchorId: 'lying-bed-surface',
     sceneAttributeId: option('sceneAttributeId', '室內'), locationId: option('locationId', '室內：復古美式 Diner') };
@@ -112,7 +112,7 @@ test('old results retain the exact selection shape and missing action defaults r
 });
 
 test('normalization and Saved Cards keep only the supported scalar scene snapshot fields', () => {
-  const action = SPECIFIED_ACTION_CONCRETE_OPTIONS.at(-1);
+  const action = SPECIFIED_ACTION_CONCRETE_OPTIONS[7];
   const input = { ...locksFor(action), specifiedActionSceneRestore: {
     locationId: 'none', zImageVisibleTextEnabled: true,
     importedWorldSceneLabel: { unexpected: true }, unknown: { copied: true },

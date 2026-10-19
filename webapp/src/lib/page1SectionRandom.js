@@ -66,6 +66,7 @@ export function getPage1SectionActionLabels(panel, controls = []) {
 
 export function randomizeLockKeys(locks, keys, defaultLocks = {}, controls = []) {
   const next = { ...locks };
+  if (keys.includes('specifiedActionId')) next.actionPoseCardId = '';
   const controlsByKey = new Map(controls.map((control) => [control.key, control]));
 
   Array.from(new Set(keys)).forEach((key) => {
@@ -106,6 +107,7 @@ export function randomizePage1WardrobePanelLocks(
 
 export function setLockKeysToNone(locks, keys, controls = []) {
   const next = { ...locks };
+  if (keys.includes('specifiedActionId')) next.actionPoseCardId = '';
   const controlsByKey = new Map(controls.map((control) => [control.key, control]));
 
   Array.from(new Set(keys)).forEach((key) => {

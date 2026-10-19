@@ -80,13 +80,13 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.59.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.60.0';
 
 export const SPECIFIED_ACTION_CONTRACT = deepFreeze({
-  version: '1.0.0',
-  source: 'eight manual ground-contact actions, resolved once with independent expression and head',
+  version: '2.0.0',
+  source: 'eleven manual actions, resolved once with per-action expression and head ownership',
   projection: 'shared full and upper-body authored source; face crops omit geometry; supine retains ground identity',
-  ownership: 'fixed scene position, action card, specified action, free composer',
+  ownership: 'fixed scene position, unified specified action including legacy card aliases, free composer',
   persistence: 'additive action ID and supine scene restore snapshot; dormant free selections retained',
   outputs: 'four main outputs and GPT chest derivative; full-body character reference remains standing',
 });

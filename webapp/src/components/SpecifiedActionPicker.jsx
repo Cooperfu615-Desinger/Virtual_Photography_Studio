@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { Check, ChevronDown, Copy, Images, X } from 'lucide-react';
 import './specifiedActionPicker.css';
 
-const BASE_LABELS = { sitting: '坐姿', kneeling: '跪姿', lying: '躺姿' };
+const BASE_LABELS = { all: '全部', standing: '站立動態', none: '上身互動', sitting: '坐姿', kneeling: '跪姿', lying: '躺姿' };
 const REFERENCE_SHEET = `${import.meta.env.BASE_URL}reference/specified-actions/pose-reference-sheet.jpeg`;
 const REFERENCE_COLUMNS = [0, 261, 506, 754, 1000, 1254];
 const REFERENCE_ROWS = [0, 252, 495, 739, 987, 1254];
@@ -26,7 +26,8 @@ function PoseReferenceImage({ option, compact = false }) {
   );
 }
 
-function SpecifiedActionDialog({ options, value, baseId, onClose, onSelect }) {
+function SpecifiedActionDialog({ options, value, onClose, onSelect }) {
+  const [category, setCategory] = useState('all');
   const titleId = useId();
   const descriptionId = useId();
   const closeRef = useRef(null);
@@ -65,32 +66,37 @@ function SpecifiedActionDialog({ options, value, baseId, onClose, onSelect }) {
       <div className="modal-panel specified-action-dialog" role="dialog" aria-modal="true"
         aria-labelledby={titleId} aria-describedby={descriptionId} onKeyDown={handleKeyDown}>
         <div className="specified-action-dialog-header">
-          <h3 id={titleId}>選擇指定動作 · {BASE_LABELS[baseId]}</h3>
+          <h3 id={titleId}>選擇指定動作 · 11 組</h3>
           <button ref={closeRef} type="button" className="icon-btn specified-action-close"
             aria-label="關閉指定動作選擇" onClick={onClose}>
             <X size={18} aria-hidden="true" />
           </button>
         </div>
-        <p id={descriptionId} className="specified-action-reference-note">圖像僅作姿勢參考；左右側、手部與地面接觸關係以動作描述為準。表情與頭部維持獨立設定。</p>
-        <div className="specified-action-options" role="group" aria-label={`${BASE_LABELS[baseId]}指定動作`}>
+        <p id={descriptionId} className="specified-action-reference-note">一次選取一組動作。圖像僅供姿勢參考；接管範圍以動作描述為準，新加入的三組先以文字呈現。</p>
+        <div className="specified-action-filters" role="group" aria-label="動作分類">
+          {Object.entries(BASE_LABELS).map(([id, label]) => <button key={id} type="button"
+            className={category === id ? 'specified-action-selected' : 'secondary'} aria-pressed={category === id}
+            onClick={() => setCategory(id)}>{label}</button>)}
+        </div>
+        <div className="specified-action-options" role="group" aria-label="指定動作清單">
           <button type="button" className={`specified-action-none${value === 'none' ? ' specified-action-selected' : ''}`}
             aria-pressed={value === 'none'} onClick={() => onSelect('none')}>
             <span>全無 · 使用原本的姿勢設定</span>
             {value === 'none' ? <Check size={17} aria-hidden="true" /> : null}
           </button>
           <div className="specified-action-card-grid">
-            {options.map((option) => {
+            {options.filter(option => category === 'all' || option.baseId === category).map((option) => {
               const selected = option.id === value;
               return (
                 <button key={option.id} type="button"
-                  className={`specified-action-card${selected ? ' specified-action-selected' : ''}`}
+                  className={`specified-action-card${!option.referenceNumber ? ' specified-action-text-card' : ''}${selected ? ' specified-action-selected' : ''}`}
                   aria-pressed={selected} aria-label={`指定動作：${option.zh}`}
                   aria-describedby={`specified-action-${option.id}-description`}
                   onClick={() => onSelect(option.id)}>
                   <PoseReferenceImage option={option} />
                   <span className="specified-action-card-copy">
                     <span className="specified-action-card-title">
-                      <strong>{option.zh}</strong>
+                      <strong>{options.indexOf(option) + 1}. {option.zh}</strong>
                       {selected ? <Check size={17} aria-hidden="true" /> : null}
                     </span>
                     <span id={`specified-action-${option.id}-description`} className="specified-action-card-description">{option.descriptionZh}</span>
@@ -105,17 +111,16 @@ function SpecifiedActionDialog({ options, value, baseId, onClose, onSelect }) {
   );
 }
 
-export default function SpecifiedActionPicker({ control, value, baseId, disabled = false, disabledReason = '', onChange, onCopy }) {
+export default function SpecifiedActionPicker({ control, value, disabled = false, disabledReason = '', onChange, onCopy }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [openBaseId, setOpenBaseId] = useState(baseId);
   const triggerRef = useRef(null);
-  const options = control.options.filter((option) => option.baseId === baseId);
+  const options = control.options.filter((option) => option.id !== 'none');
   const selected = control.options.find((option) => option.id === value && option.baseId);
   const helpId = `${control.key}-help`;
   const helpText = disabledReason || control.helpText;
   const currentValue = value || 'none';
 
-  if (isOpen && (disabled || openBaseId !== baseId)) setIsOpen(false);
+  if (isOpen && disabled) setIsOpen(false);
 
   const closeDialog = () => {
     setIsOpen(false);
@@ -137,13 +142,13 @@ export default function SpecifiedActionPicker({ control, value, baseId, disabled
       <button ref={triggerRef} type="button" className={`specified-action-trigger${selected ? ' specified-action-trigger-selected' : ''}`}
         aria-label={`${control.label}：${selected?.zh || '全無'}`} aria-haspopup="dialog"
         aria-expanded={isOpen && !disabled} aria-describedby={helpText ? helpId : undefined} disabled={disabled}
-        onClick={() => { setOpenBaseId(baseId); setIsOpen(true); }}>
-        {selected ? <PoseReferenceImage option={selected} compact /> : <Images size={19} aria-hidden="true" />}
-        <span>{selected?.zh || '全無'}<small>看圖選擇動作</small></span>
+        onClick={() => { setIsOpen(true); }}>
+        {selected?.referenceNumber ? <PoseReferenceImage option={selected} compact /> : <Images size={19} aria-hidden="true" />}
+        <span>{selected?.zh || '全無'}<small>選擇 11 組指定動作</small></span>
         <ChevronDown size={16} aria-hidden="true" />
       </button>
       {helpText ? <small id={helpId} className="field-help">{helpText}</small> : null}
-      {isOpen && !disabled ? <SpecifiedActionDialog options={options} value={currentValue} baseId={baseId}
+      {isOpen && !disabled ? <SpecifiedActionDialog options={options} value={currentValue}
         onClose={closeDialog} onSelect={(id) => { onChange(id); closeDialog(); }} /> : null}
     </div>
   );

@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-19
 
+## 指定動作 v2：11 組整合（2026-10-19，本機待驗收）
+
+- 使用者核准將「動作姿勢」三組單人卡併入 Prompt 工作台 B 區獨立「指定動作」，共 11 組、不需先選基底。B 順序為指定動作／說明、表情與頭部、基底與主要躺姿、肢體與手部、道具與支撐。第 9 頭部可調、第 10 不指定下半身、第 11 保留小貓。詳見 [指定動作 v2](specs/specified-actions-v2.md)。
+- 指定動作只接管有效輸出，原選值保存；四主輸出與胸上共用投影，全身角色照保持自然站姿。鏡位矛盾時提示並暫停動作，E 原值保留。舊動作卡／收藏可套用，歷史 Prompt 不改寫；獨立動作姿勢導覽退休，場景／觀察式抓拍仍獨立。
+- 前端 1683/1683、Prompt Quality 727/727、lint／build、同 seed 200 strict audit 前後相同（0 blockers／22 既有診斷）。桌面／手機六工作區與 11 組、切換、取消、收藏還原、固定場景接管均已檢查；全新頁面無執行錯誤，無橫向溢位／破圖。保留本機測試收藏 #8VR5ES 供驗收。
+- **使用者尚未驗收；本批未 stage、commit、push 或部署。** 其他 Session 的檔案與未追蹤參考資料保留，外部圖像生成尚未驗證。
+
 ## DLL_PIC Pro 完整版第一版（2026-10-19，已合併 main／Functions 已部署）
 
 - 新增獨立 DLL 分頁，保留四個快速面板，共用生成任務與圖片；支援來源／自訂 Prompt、草稿、清單、瀏覽器歷史、大圖／雙圖比較、沿用設定／Seed、SeedVR2 放大任務與原圖關係。Prompt engine、Saved Cards 與原選值契約不變。詳見 [完整版 v1](specs/dll-pic-pro-workspace-v1.md)。

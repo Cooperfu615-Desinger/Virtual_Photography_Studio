@@ -53,7 +53,11 @@ export function transitionPage1Locks({
     && reconciledCandidate.specifiedActionId === previousLocks.specifiedActionId) {
     reconciledCandidate.specifiedActionId = 'none';
   }
-  if (reconciledCandidate.subjectCount !== '1') reconciledCandidate.specifiedActionId = 'none';
+  if (!restoringSelection && reconciledCandidate.specifiedActionId !== previousLocks.specifiedActionId) reconciledCandidate.actionPoseCardId = '';
+  if (reconciledCandidate.subjectCount !== '1') {
+    reconciledCandidate.specifiedActionId = 'none';
+    reconciledCandidate.actionPoseCardId = '';
+  }
   reconciledCandidate = reconcileSpecifiedActionSceneRestore(previousLocks, reconciledCandidate, { restoringSelection });
   const hasStoredAction = Boolean(getSpecifiedAction(reconciledCandidate, { ignoreOwners: true }));
   const hadStoredAction = Boolean(getSpecifiedAction(previousLocks, { ignoreOwners: true }));

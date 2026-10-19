@@ -3,7 +3,7 @@ import { MIDJOURNEY_CARD_ITEM_NAMES } from './engine/midjourneyCardItemNames.js'
 import { bottomRiseConflict, resolveBottomRiseCompatibility } from './engine/bottomRiseCompatibility.js';
 import { extractMidjourneyItemNames, midjourneyItemName, naturalIdentity, naturalSentence, naturalWardrobeSentence, renderNaturalMidjourney, uniqueNames } from './engine/midjourneyNaturalPrompt.js';
 import { midjourneyBodyDescription } from './engine/midjourneyBodyDescriptions.js';
-import { SPECIFIED_ACTION_OPTIONS, getSpecifiedAction, getSpecifiedActionEffectiveLocks } from './engine/specifiedActions.js';
+import { SPECIFIED_ACTION_OPTIONS, getSpecifiedAction, getSpecifiedActionEffectiveLocks, specifiedActionSupportsCamera } from './engine/specifiedActions.js';
 import { applyDefaultEthnicity, applyDefaultEthnicityToCharacter, resolveDefaultEthnicity } from './engine/defaultEthnicity.js';
 import { renderNanoBananaNarrative } from './engine/nanoBananaPrompt.js';
 import { polishPublicPromptText } from './engine/publicPromptPolish.js';
@@ -6127,7 +6127,7 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
   const projection = getCompositionVisibilityProjection(context);
   const specifiedAction = SPECIFIED_ACTION_OPTIONS.find(option => option.id === poseComposer.meta?.specifiedActionId);
   if (specifiedAction) {
-    if (projection.pose?.mode === 'omit') return specifiedAction.meta?.supineGroundOnly ? 'She is lying on her back on the ground.' : '';
+    if (projection.pose?.mode === 'omit') return specifiedAction.faceEn || (specifiedAction.meta?.supineGroundOnly ? 'She is lying on her back on the ground.' : '');
     if (projection.pose?.mode === 'fullCanonical' || projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE) return poseComposer.en;
     const head = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, poseComposer.meta?.poseHeadId);
     return [specifiedAction.upperBodyEn,
@@ -16482,9 +16482,11 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
   const storedAction = getSpecifiedAction(context.rawLocks, { ignoreOwners: true });
   if (storedAction) {
     for (const key of ['specifiedActionId', 'specifiedActionSceneRestore', 'poseBaseId', 'poseOrientationId',
-      'poseArrangementId', 'poseHandId', 'posePropId', 'poseAnchorId']) {
+      'poseArrangementId', 'poseHandId', 'posePropId', 'poseAnchorId', 'actionPoseCardId',
+      ...(storedAction.ownsExpression ? ['expressionId'] : []), ...(storedAction.ownsHead ? ['poseHeadId'] : [])]) {
       resolvedSelection[key] = context.rawLocks[key];
     }
+    resolvedSelection.specifiedActionId = storedAction.id;
   }
   const snapshot = createSelectionSnapshot(LOCK_DEFINITIONS, resolvedSelection);
   if (!storedAction) {
@@ -16536,7 +16538,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
       random,
     )
   );
-  const effectiveLocks = sanitizeLocksForCloseupMode(getSpecifiedActionEffectiveLocks(fixedScenePoseLocks(locks)), lockControls);
+  const effectiveLocks = sanitizeLocksForCloseupMode(getSpecifiedActionEffectiveLocks(fixedScenePoseLocks(locks), { cameraControls: lockControls }), lockControls);
   if (isFullyClosedOpening(effectiveLocks.outerwearOpeningId) && effectiveLocks.poseHandId === PULL_OPEN_HAND_ID) {
     effectiveLocks.poseHandId = 'none';
   }
@@ -16661,6 +16663,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     effectiveLocks.expressionId ? findById(expressionOptions, effectiveLocks.expressionId) : null,
   ].filter(Boolean);
   const pickCameraWithExpressionLock = lockedExpressions.length > 0 ? pickCompatible : pickLocked;
+  const specifiedCameraAction = getSpecifiedAction(effectiveLocks);
   const lockedAngle = findById(runtime.flatCatalog.angle, effectiveLocks.angleId);
   const suppressHeadDominantAngle = isHeadDominantFraming(framing) && !headDominantAngleAllowed(lockedAngle);
   const angleLockId = suppressHeadDominantAngle
@@ -16671,14 +16674,15 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     runtime.flatCatalog.angle,
     angleLockId,
     (item) => (unspecifiedFramingAllowsAngle || framingSupportsAngle(framing, item))
-      && lockedExpressions.every((expression) => angleSupportsExpression(item, expression)),
+      && lockedExpressions.every((expression) => angleSupportsExpression(item, expression))
+      && specifiedActionSupportsCamera(specifiedCameraAction, 'angleId', item),
     lowFrequencyPicker('low_frequency_angle'),
     ['angleId'],
   );
   let orbit = pickCameraWithExpressionLock(
     runtime.flatCatalog.orbit,
     effectiveLocks.orbitId,
-    (item) => framingSupportsOrbit(framing, item) && lockedExpressions.every((expression) => orbitSupportsExpression(item, expression)) && specialActionSupportsOrbit(item, lockedActionConstraint),
+    (item) => framingSupportsOrbit(framing, item) && lockedExpressions.every((expression) => orbitSupportsExpression(item, expression)) && specialActionSupportsOrbit(item, lockedActionConstraint) && specifiedActionSupportsCamera(specifiedCameraAction, 'orbitId', item),
     sample,
     ['orbitId'],
   );
