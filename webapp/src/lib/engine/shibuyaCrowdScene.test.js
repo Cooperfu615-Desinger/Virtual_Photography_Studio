@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { withoutLyingSurface } from './lyingSurfaceTestSupport.js';
 import { createHash } from 'node:crypto';
 import { test } from 'node:test';
 import {
@@ -154,7 +155,8 @@ test('scene identity does not override selected high viewpoints, orbit or focal 
 });
 
 test('all other location descriptions, metadata and positions remain byte-identical', () => {
-  assert.equal(digest(locationOptions.filter(o => o.id !== id)), '9e65a646d08541af7ad4b797c39de4cde31893b81ff120821d96d899498f2de6');
+  // Scenes gained an additive reviewed lyingSurface field (2026-10-19); compare without it.
+  assert.equal(digest(withoutLyingSurface(locationOptions.filter(o => o.id !== id))), '9e65a646d08541af7ad4b797c39de4cde31893b81ff120821d96d899498f2de6');
 });
 
 test('scene-source-only revision preserves selections, random draws and the scene-free full-body character', () => {

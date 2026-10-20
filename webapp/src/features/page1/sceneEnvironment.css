@@ -442,3 +442,8 @@
     padding: 0 16px 16px;
   }
 }
+
+/* Lying library P3: whether the selected scene offers a lying surface. */
+.scene-lying-note { margin-top: 10px; padding: 6px 10px; border-radius: 8px; }
+.scene-lying-note--ok { background: var(--success-soft); color: var(--success); }
+.scene-lying-note--warn { background: var(--warning-soft); color: var(--warning); }

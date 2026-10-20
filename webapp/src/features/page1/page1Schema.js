@@ -312,7 +312,8 @@ export const SECTION_SUBPANELS = {
       id: 'composition',
       label: '構圖與視角',
       description: '選景別、相機視角與拍攝方位，決定人物和場景在畫面中的關係。',
-      keys: ['framingId', 'angleId', 'orbitId'],
+      // lyingCameraId (P3) replaces angle and orbit only while a lying action is active.
+      keys: ['framingId', 'angleId', 'orbitId', 'lyingCameraId'],
     },
     {
       id: 'style',

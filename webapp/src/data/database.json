@@ -5686,84 +5686,148 @@
       {
         "zh": "室內：鏡面地板攝影棚",
         "en": "five-sided mirror chamber studio, three mirrored walls, mirrored floor and mirrored ceiling, infinite reflective commercial space, isolated subject",
-        "desc": "三面牆、地板與天花板皆為鏡面的特殊攝影棚空間，形成全方位鏡面延伸與商業時裝感。"
+        "desc": "三面牆、地板與天花板皆為鏡面的特殊攝影棚空間，形成全方位鏡面延伸與商業時裝感。",
+        "lyingSurface": {
+          "type": "floor",
+          "en": "mirrored floor"
+        }
       },
       {
         "zh": "室內：純潔白幕",
         "en": "horizonless seamless matte pure white color field, continuous white ground-and-background plane blending into a solid white void, full-bleed white surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
-        "desc": "以純白無縫單色空間為主，地面與背景融合成滿版白色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
+        "desc": "以純白無縫單色空間為主，地面與背景融合成滿版白色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "white surface"
+        }
       },
       {
         "zh": "室內：深邃黑幕",
         "en": "horizonless seamless matte deep black color field, continuous black ground-and-background plane blending into a solid black void, full-bleed black surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
-        "desc": "以深黑無縫單色空間為主，地面與背景融合成滿版黑色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
+        "desc": "以深黑無縫單色空間為主，地面與背景融合成滿版黑色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "black surface"
+        }
       },
       {
         "zh": "室內：莫蘭迪灰背景",
         "en": "horizonless seamless matte muted grey color field, continuous neutral-grey ground-and-background plane blending into a solid grey void, full-bleed low-saturation grey surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
-        "desc": "以低飽和灰色無縫單色空間為主，地面與背景融合成滿版中性灰，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
+        "desc": "以低飽和灰色無縫單色空間為主，地面與背景融合成滿版中性灰，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "grey surface"
+        }
       },
       {
         "zh": "室內：純藍背景",
         "en": "horizonless seamless matte saturated pure blue color field, continuous vivid blue ground-and-background plane blending into a solid blue void, full-bleed clean blue surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
-        "desc": "以高飽和純藍無縫單色空間為主，地面與背景融合成滿版藍色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
+        "desc": "以高飽和純藍無縫單色空間為主，地面與背景融合成滿版藍色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "blue surface"
+        }
       },
       {
         "zh": "室內：純橘背景",
         "en": "horizonless seamless matte saturated pure orange color field, continuous vivid orange ground-and-background plane blending into a solid orange void, full-bleed clean orange surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
-        "desc": "以高飽和純橘無縫單色空間為主，地面與背景融合成滿版橘色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
+        "desc": "以高飽和純橘無縫單色空間為主，地面與背景融合成滿版橘色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "orange surface"
+        }
       },
       {
         "zh": "室內：純紅背景",
         "en": "horizonless seamless matte saturated pure red color field, continuous vivid red ground-and-background plane blending into a solid red void, full-bleed clean red surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
-        "desc": "以高飽和純紅無縫單色空間為主，地面與背景融合成滿版紅色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
+        "desc": "以高飽和純紅無縫單色空間為主，地面與背景融合成滿版紅色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "red surface"
+        }
       },
       {
         "zh": "室內：純黃背景",
         "en": "horizonless seamless matte saturated pure yellow color field, continuous vivid yellow ground-and-background plane blending into a solid yellow void, full-bleed clean yellow surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
-        "desc": "以高飽和純黃無縫單色空間為主，地面與背景融合成滿版黃色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
+        "desc": "以高飽和純黃無縫單色空間為主，地面與背景融合成滿版黃色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "yellow surface"
+        }
       },
       {
         "zh": "室內：純紫背景",
         "en": "horizonless seamless matte saturated pure purple color field, continuous vivid purple ground-and-background plane blending into a solid purple void, full-bleed clean purple surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
-        "desc": "以高飽和純紫無縫單色空間為主，地面與背景融合成滿版紫色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
+        "desc": "以高飽和純紫無縫單色空間為主，地面與背景融合成滿版紫色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "purple surface"
+        }
       },
       {
         "zh": "室內：純綠背景",
         "en": "horizonless seamless matte saturated pure green color field, continuous vivid green ground-and-background plane blending into a solid green void, full-bleed clean green surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
-        "desc": "以高飽和純綠無縫單色空間為主，地面與背景融合成滿版綠色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
+        "desc": "以高飽和純綠無縫單色空間為主，地面與背景融合成滿版綠色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "green surface"
+        }
       },
       {
         "zh": "室內：鮮豔撞色背景",
         "en": "horizonless seamless matte single vivid pop-color field, continuous saturated ground-and-background plane blending into a solid graphic color void, full-bleed clean color-block surface, subtle natural contact shadow under the subject, no gradient, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
-        "desc": "以單一高飽和色塊無縫空間為主，地面與背景融合成滿版純色，人物腳下保留自然接觸陰影；避免漸層、紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
+        "desc": "以單一高飽和色塊無縫空間為主，地面與背景融合成滿版純色，人物腳下保留自然接觸陰影；避免漸層、紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "color-block surface"
+        }
       },
       {
         "zh": "室內：漸層打光背景",
         "en": "horizonless seamless smooth gradient color field, continuous gradient ground-and-background plane with no visible boundary, full-bleed tonal transition surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
-        "desc": "以無縫漸層色場為主，地面與背景融合成沒有邊界的漸層平面，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
+        "desc": "以無縫漸層色場為主，地面與背景融合成沒有邊界的漸層平面，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "gradient ground-and-background plane"
+        }
       },
       {
         "zh": "室內：CRT 電視牆攝影棚",
         "en": "studio set with assorted CRT televisions and vintage computer monitors in an irregular high-low cluster, retro cathode-ray displays with varied gaps and heights, glowing screens with analog static, scan lines, news footage, or the subject's face, scattered VHS tapes, coiled cables, security monitors and VCR decks, seamless desaturated blue-grey floor and backdrop, isolated subject",
-        "desc": "以不同尺寸 CRT 電視與復古螢幕高低錯落堆疊，形成不規則顯示器群；螢幕可顯示雜訊、掃描線、新聞或主角畫面，周圍有錄影帶、線材與舊電子設備，地面與背景維持低飽和藍灰色。"
+        "desc": "以不同尺寸 CRT 電視與復古螢幕高低錯落堆疊，形成不規則顯示器群；螢幕可顯示雜訊、掃描線、新聞或主角畫面，周圍有錄影帶、線材與舊電子設備，地面與背景維持低飽和藍灰色。",
+        "lyingSurface": {
+          "type": "floor",
+          "en": "desaturated blue-grey floor"
+        }
       },
       {
         "zh": "室內：多色塊撞色背景",
         "en": "horizonless seamless indoor studio background formed by two to four large adjacent vivid color fields in freely varied hues, color fields of unequal widths and heights with crisp boundaries in an asymmetrical full-bleed layout, continuous ground-and-background color surface with a subtle natural contact shadow under the subject, no gradient, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
-        "desc": "無縫室內攝影棚由 2～4 個相鄰的大面積鮮豔色塊構成，色彩與各色塊長寬由模型自由變化；色塊邊界清晰、大小不等並形成不對稱滿版背景，地面與背景連續，人物腳下保留自然接觸陰影，避免露出牆角、地板接縫、天花板或棚內設備。"
+        "desc": "無縫室內攝影棚由 2～4 個相鄰的大面積鮮豔色塊構成，色彩與各色塊長寬由模型自由變化；色塊邊界清晰、大小不等並形成不對稱滿版背景，地面與背景連續，人物腳下保留自然接觸陰影，避免露出牆角、地板接縫、天花板或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "ground-and-background color surface"
+        }
       }
     ],
     "生活感室內 (Indoor & Lifestyle)": [
       {
         "zh": "室內：精品飯店房間",
         "en": "boutique hotel room, crisp bed with white sheets, bedside table, lamp fixtures as physical objects, upholstered headboard, curtain edge, carpet or wood floor, compact corner of an elegant guest room",
-        "desc": "高級但不過度奢華的飯店房間，重點是床鋪、床頭櫃、燈具、窗簾邊、地面材質與客房角落，而不是攝影情緒。"
+        "desc": "高級但不過度奢華的飯店房間，重點是床鋪、床頭櫃、燈具、窗簾邊、地面材質與客房角落，而不是攝影情緒。",
+        "lyingSurface": {
+          "type": "bed",
+          "en": "bed with white sheets"
+        }
       },
       {
         "zh": "室內：現代高樓公寓客廳",
         "en": "modern high-rise apartment living room, large window wall, sofa edge, low coffee table, clean shelving, rug texture, city buildings visible outside the windows, offset residential interior composition",
-        "desc": "現代高樓住宅客廳，重點是落地窗、沙發邊、茶几、層架、地毯與窗外城市建築，以偏角室內構圖避免過度對稱。"
+        "desc": "現代高樓住宅客廳，重點是落地窗、沙發邊、茶几、層架、地毯與窗外城市建築，以偏角室內構圖避免過度對稱。",
+        "lyingSurface": {
+          "type": "rug",
+          "en": "rug"
+        }
       },
       {
         "zh": "室內：夜間家庭派對",
@@ -5778,7 +5842,11 @@
       {
         "zh": "室內：Y2K 復古房間",
         "en": "Y2K retro bedroom interior, bed edge desk corner CRT TV setup vinyl-record wall poster cluster window area or floor rug, compact nostalgic room clutter",
-        "desc": "Y2K 復古房間的彈性室內場景，模型可在床邊、桌角、CRT 電視、黑膠唱片牆、海報牆、窗邊或地毯地面之間選擇，保留懷舊小房間的密集生活物件。"
+        "desc": "Y2K 復古房間的彈性室內場景，模型可在床邊、桌角、CRT 電視、黑膠唱片牆、海報牆、窗邊或地毯地面之間選擇，保留懷舊小房間的密集生活物件。",
+        "lyingSurface": {
+          "type": "rug",
+          "en": "floor rug"
+        }
       },
       {
         "zh": "室內：英倫復古窗邊房間",
@@ -5788,12 +5856,20 @@
       {
         "zh": "室內：臥室窗邊",
         "en": "bedroom window area, curtain panels, linen bedding near the window, pillow edges, small bedside surface, window frame, fabric textures around an offset corner of the room",
-        "desc": "臥室窗邊區域，重點是窗框、窗簾、床品、枕頭邊緣、床邊小平面與布料材質，形成偏角的生活室內空間。"
+        "desc": "臥室窗邊區域，重點是窗框、窗簾、床品、枕頭邊緣、床邊小平面與布料材質，形成偏角的生活室內空間。",
+        "lyingSurface": {
+          "type": "bed",
+          "en": "linen bedding"
+        }
       },
       {
         "zh": "室內：白色書櫃落地窗臥室",
         "en": "vintage white bookcase bedroom corner, tall white bookshelf filled with books, large window edge, sheer curtain panels, white bedding surface, pillow details, sky and treetop fragments outside",
-        "desc": "以復古白色書櫃、窗邊、輕薄紗窗、白色床面與枕頭為主的偏角室內場景，窗外可見天空與樹梢片段。"
+        "desc": "以復古白色書櫃、窗邊、輕薄紗窗、白色床面與枕頭為主的偏角室內場景，窗外可見天空與樹梢片段。",
+        "lyingSurface": {
+          "type": "bed",
+          "en": "white bedding surface"
+        }
       },
       {
         "zh": "室內：浴室鏡前 / 洗手台",
@@ -5848,7 +5924,11 @@
       {
         "zh": "室內：英式小旅館房間",
         "en": "small British inn room, floral bedding, narrow sash window, cream walls, aged wooden furniture, bedside table, compact guest-room corner",
-        "desc": "英式小旅館房間角落，重點是碎花床品、窄直拉窗、奶油色牆面、舊木家具與床邊桌。"
+        "desc": "英式小旅館房間角落，重點是碎花床品、窄直拉窗、奶油色牆面、舊木家具與床邊桌。",
+        "lyingSurface": {
+          "type": "bed",
+          "en": "floral bedding"
+        }
       },
       {
         "zh": "室內：傳統酒吧二樓包廂",
@@ -5858,7 +5938,11 @@
       {
         "zh": "室內：英式溫室 conservatory",
         "en": "British conservatory interior, white-painted window frames, glass roof panels, potted greenery, tiled or stone floor, garden-room corner with offset plant clusters",
-        "desc": "英式溫室室內，重點是白色窗框、玻璃屋頂、盆栽、磁磚或石材地面與偏角植栽群。"
+        "desc": "英式溫室室內，重點是白色窗框、玻璃屋頂、盆栽、磁磚或石材地面與偏角植栽群。",
+        "lyingSurface": {
+          "type": "floor",
+          "en": "stone floor"
+        }
       },
       {
         "zh": "室內：黑膠唱片聆聽角",
@@ -5868,7 +5952,11 @@
       {
         "zh": "室內：老式鋼琴房",
         "en": "old British piano room, upright piano, sheet music stand, worn wood floor, muted wallpaper, piano bench, side wall details",
-        "desc": "老式英式鋼琴房，重點是直立鋼琴、譜架、木地板磨損、壁紙、琴凳與側牆細節。"
+        "desc": "老式英式鋼琴房，重點是直立鋼琴、譜架、木地板磨損、壁紙、琴凳與側牆細節。",
+        "lyingSurface": {
+          "type": "floor",
+          "en": "worn wood floor"
+        }
       },
       {
         "zh": "室內：地下 live house 後台",
@@ -5878,12 +5966,20 @@
       {
         "zh": "室內：女高生房間",
         "en": "Japanese student bedroom corner, compact single bed, study desk, curtains, soft everyday clutter, school bag or small personal items, private lived-in room details",
-        "desc": "偏真實日本學生房間，不走動漫誇張感，重點是單人床、書桌、窗簾、書包或小物與生活雜物。"
+        "desc": "偏真實日本學生房間，不走動漫誇張感，重點是單人床、書桌、窗簾、書包或小物與生活雜物。",
+        "lyingSurface": {
+          "type": "bed",
+          "en": "compact single bed"
+        }
       },
       {
         "zh": "室內：日式和室",
         "en": "traditional Japanese washitsu room, tatami flooring, shoji sliding doors, low table, floor cushion, alcove or wall edge, woven mat texture",
-        "desc": "典型日式和室，重點是榻榻米、障子拉門、低矮桌、坐墊、壁龕或牆邊與編織蓆面材質。"
+        "desc": "典型日式和室，重點是榻榻米、障子拉門、低矮桌、坐墊、壁龕或牆邊與編織蓆面材質。",
+        "lyingSurface": {
+          "type": "tatami",
+          "en": "tatami flooring"
+        }
       },
       {
         "zh": "室內：日本學校教室",
@@ -5938,7 +6034,11 @@
       {
         "zh": "戶外：日式旅館緣側木廊",
         "en": "traditional Japanese ryokan engawa veranda, raised wooden deck edge, sliding door frames, polished timber posts, stone step, garden greenery below, asymmetric threshold composition",
-        "desc": "參考日式旅館或傳統和風建築的緣側空間，重點是抬高木廊、拉門框、木柱、石階、庭院綠意與偏側門檻構圖。"
+        "desc": "參考日式旅館或傳統和風建築的緣側空間，重點是抬高木廊、拉門框、木柱、石階、庭院綠意與偏側門檻構圖。",
+        "lyingSurface": {
+          "type": "floor",
+          "en": "raised wooden deck"
+        }
       },
       {
         "zh": "室內：宮廷音樂廳 / 歌劇院",
@@ -5948,7 +6048,11 @@
       {
         "zh": "室內：狹小都會旅館房間",
         "en": "small urban hotel room, compact bedding, practical lamp fixtures, narrow bedside table, close wall surfaces, luggage corner, enclosed room layout",
-        "desc": "狹小都會旅館房間，重點是緊湊床鋪、實用燈具、窄床頭桌、近距離牆面、行李角落與封閉房間佈局。"
+        "desc": "狹小都會旅館房間，重點是緊湊床鋪、實用燈具、窄床頭桌、近距離牆面、行李角落與封閉房間佈局。",
+        "lyingSurface": {
+          "type": "bed",
+          "en": "compact bedding"
+        }
       }
     ],
     "地下與廢墟風格 (Abandoned & Underground)": [
@@ -6005,7 +6109,11 @@
       {
         "zh": "室內：廢棄診療室",
         "en": "abandoned examination room, medical bed, instrument cart, desk lamp as a physical object, scattered paper records, metal stool, chipped wall surface, side cabinet",
-        "desc": "破舊診療空間，重點是診療床、器械車、桌燈物件、散落紀錄紙、金屬椅凳、剝落牆面與側邊櫃。"
+        "desc": "破舊診療空間，重點是診療床、器械車、桌燈物件、散落紀錄紙、金屬椅凳、剝落牆面與側邊櫃。",
+        "lyingSurface": {
+          "type": "bed",
+          "en": "medical bed"
+        }
       },
       {
         "zh": "室內：廢棄校舍散亂課桌教室",
@@ -6015,27 +6123,47 @@
       {
         "zh": "室內：廢棄校舍破窗音樂教室",
         "en": "abandoned music room, old upright piano, music stand, broken window panes, dust on the wooden floor, scattered sheet music, instrument case near a wall edge",
-        "desc": "樂器殘留與破窗共存的教室，重點是直立鋼琴、譜架、破窗、木地板灰塵、散落樂譜與牆邊樂器箱。"
+        "desc": "樂器殘留與破窗共存的教室，重點是直立鋼琴、譜架、破窗、木地板灰塵、散落樂譜與牆邊樂器箱。",
+        "lyingSurface": {
+          "type": "floor",
+          "en": "wooden floor"
+        }
       },
       {
         "zh": "室內：廢棄校舍保健室",
         "en": "abandoned school infirmary room, medicine box, privacy curtain, white metal cabinet, old examination bed, small sink, chipped floor tiles, side shelf",
-        "desc": "廢棄校舍保健室，重點是藥箱、隔簾、白色金屬櫃、舊診療床、小水槽、剝落地磚與側邊架。"
+        "desc": "廢棄校舍保健室，重點是藥箱、隔簾、白色金屬櫃、舊診療床、小水槽、剝落地磚與側邊架。",
+        "lyingSurface": {
+          "type": "bed",
+          "en": "examination bed"
+        }
       },
       {
         "zh": "室內：廢棄校舍體育器材室",
         "en": "abandoned school equipment room, vaulting box, stacked gym mats, ball rack, dusty floor, old wooden door, rope bundle, equipment shelf against one wall",
-        "desc": "器材堆放雜亂的封閉空間，重點是跳箱、堆疊體操墊、球架、灰塵地面、舊木門、繩索與靠牆器材架。"
+        "desc": "器材堆放雜亂的封閉空間，重點是跳箱、堆疊體操墊、球架、灰塵地面、舊木門、繩索與靠牆器材架。",
+        "lyingSurface": {
+          "type": "other",
+          "en": "gym mats"
+        }
       },
       {
         "zh": "室內：地下狂歡俱樂部 / 金庫",
         "en": "underground rave bunker room, laser fixtures mounted on metal truss, smoke machine as a visible device, metallic wall surfaces, heavy vault-like door, concrete floor, cable runs along one side",
-        "desc": "地下 bunker 俱樂部或金庫式空間，重點是雷射燈具、金屬桁架、可見煙霧機、金屬牆面、厚重門片、混凝土地面與側邊線材。"
+        "desc": "地下 bunker 俱樂部或金庫式空間，重點是雷射燈具、金屬桁架、可見煙霧機、金屬牆面、厚重門片、混凝土地面與側邊線材。",
+        "lyingSurface": {
+          "type": "floor",
+          "en": "concrete floor"
+        }
       },
       {
         "zh": "室內：遭洗劫的維多利亞大宅",
         "en": "looted Victorian mansion interior, torn wallpaper, broken chandelier pieces, overturned chair, cracked fireplace surround, dusty wooden floor, ornate molding fragments, wall-side debris",
-        "desc": "曾經華麗但現已破敗的大宅室內，重點是撕裂壁紙、破碎吊燈、翻倒椅子、裂開壁爐框、木地板灰塵、裝飾線板碎片與牆邊殘骸。"
+        "desc": "曾經華麗但現已破敗的大宅室內，重點是撕裂壁紙、破碎吊燈、翻倒椅子、裂開壁爐框、木地板灰塵、裝飾線板碎片與牆邊殘骸。",
+        "lyingSurface": {
+          "type": "floor",
+          "en": "dusty wooden floor"
+        }
       },
       {
         "zh": "室內：廢棄商場停用手扶梯旁",
@@ -6070,7 +6198,11 @@
       {
         "zh": "戶外：高樓建築骨架裸露混凝土地板",
         "en": "exposed high-rise floor slab, rebar clusters, construction debris, concrete floor edge, temporary railing fragment, distant city buildings beyond the open side, scattered dust",
-        "desc": "裸露樓層地板與城市高空感，重點是鋼筋束、建築碎屑、混凝土地板邊緣、臨時欄杆片段、開放側外的城市建築與灰塵。"
+        "desc": "裸露樓層地板與城市高空感，重點是鋼筋束、建築碎屑、混凝土地板邊緣、臨時欄杆片段、開放側外的城市建築與灰塵。",
+        "lyingSurface": {
+          "type": "floor",
+          "en": "exposed high-rise floor slab"
+        }
       },
       {
         "zh": "戶外：高樓建築骨架施工鷹架旁",
@@ -6197,7 +6329,11 @@
       {
         "zh": "戶外：孚日廣場草地邊與紅磚立面",
         "en": "Place des Vosges lawn edge, clipped grass border, red-brick facade section, shuttered windows, stone curb, walkway edge, residential square frontage",
-        "desc": "廣場草地邊緣與紅磚住宅立面，重點是草坪邊、紅磚牆段、百葉窗、石材路緣、步道邊與住宅立面。"
+        "desc": "廣場草地邊緣與紅磚住宅立面，重點是草坪邊、紅磚牆段、百葉窗、石材路緣、步道邊與住宅立面。",
+        "lyingSurface": {
+          "type": "grass",
+          "en": "lawn"
+        }
       },
       {
         "zh": "戶外：瑪黑區高級住宅門前石牆",
@@ -6367,7 +6503,11 @@
       {
         "zh": "戶外：飯店度假村泳池露台",
         "en": "hotel resort poolside terrace, wet stone deck, swimming pool edge, lounge chair corner, balcony facade, palm planters, wall-lamp fixtures, asymmetric poolside composition",
-        "desc": "參考戶外飯店或度假村泳池邊的人像場景，重點是濕石材露台、泳池邊線、躺椅角落、陽台立面、棕櫚植栽與牆燈物件，形成偏側池畔構圖。"
+        "desc": "參考戶外飯店或度假村泳池邊的人像場景，重點是濕石材露台、泳池邊線、躺椅角落、陽台立面、棕櫚植栽與牆燈物件，形成偏側池畔構圖。",
+        "lyingSurface": {
+          "type": "floor",
+          "en": "wet stone deck"
+        }
       },
       {
         "zh": "戶外：高級飯店陽台城市河景",
@@ -6379,7 +6519,11 @@
       {
         "zh": "戶外：金色海灘與浪線",
         "en": "golden sandy beach edge, shallow clear seawater, thin transparent receding wave line across wet sand, clean waterline, open seaside ground plane, smooth beach surface",
-        "desc": "高頻好用的海邊場景，重點是金色沙灘、透明淺水、薄薄退潮浪緣、清楚水線與濕潤沙面。"
+        "desc": "高頻好用的海邊場景，重點是金色沙灘、透明淺水、薄薄退潮浪緣、清楚水線與濕潤沙面。",
+        "lyingSurface": {
+          "type": "sand",
+          "en": "wet sand"
+        }
       },
       {
         "zh": "戶外：清澈海灣岩岸",
@@ -6394,12 +6538,20 @@
       {
         "zh": "戶外：草地與樹木",
         "en": "small grassy park patch, uneven lawn texture, scattered tree trunks at varied depths, low shrubs, ground-level natural surface, off-center tree edge",
-        "desc": "小型草地與樹木邊緣，重點是不均勻草皮、不同距離的樹幹、低矮灌木與偏側樹木錨點。"
+        "desc": "小型草地與樹木邊緣，重點是不均勻草皮、不同距離的樹幹、低矮灌木與偏側樹木錨點。",
+        "lyingSurface": {
+          "type": "grass",
+          "en": "lawn"
+        }
       },
       {
         "zh": "戶外：廣闊草原平原與天空",
         "en": "wide open grassland plain, low meadow grasses and wild plants, flat horizon line, expansive open sky, distant tree line, spacious countryside field",
-        "desc": "廣闊草原與平原感的戶外場景，重點是低矮草叢、野生植物、平坦地平線、大面積天空與遠方樹線。"
+        "desc": "廣闊草原與平原感的戶外場景，重點是低矮草叢、野生植物、平坦地平線、大面積天空與遠方樹線。",
+        "lyingSurface": {
+          "type": "grass",
+          "en": "grassland plain"
+        }
       },
       {
         "zh": "戶外：向日葵花田",
@@ -6414,12 +6566,20 @@
       {
         "zh": "戶外：森林營地帳篷營火",
         "en": "forest campsite clearing, canvas tent edge, campfire pit, hanging lantern stand, tree trunks at varied depths, leaf-litter ground, asymmetric camp setup",
-        "desc": "森林營地的局部戶外場景，重點是帆布帳篷邊、營火盆、吊掛油燈架、不同深度的樹幹、落葉地面與偏側營地配置。"
+        "desc": "森林營地的局部戶外場景，重點是帆布帳篷邊、營火盆、吊掛油燈架、不同深度的樹幹、落葉地面與偏側營地配置。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "leaf-litter ground"
+        }
       },
       {
         "zh": "戶外：湖邊木棧道",
         "en": "lakeside wooden deck edge, weathered planks, low railing section, calm water surface beside the deck, reeds or shoreline plants on one side, natural bank detail",
-        "desc": "湖邊木棧道邊緣，重點是風化木板、低欄杆片段、棧道旁水面、單側蘆葦或岸邊植物與自然岸線細節。"
+        "desc": "湖邊木棧道邊緣，重點是風化木板、低欄杆片段、棧道旁水面、單側蘆葦或岸邊植物與自然岸線細節。",
+        "lyingSurface": {
+          "type": "floor",
+          "en": "wooden deck"
+        }
       },
       {
         "zh": "戶外：海邊岩岸",
@@ -6429,39 +6589,67 @@
       {
         "zh": "戶外：沙丘與風痕地景",
         "en": "sand dune slope, wind-shaped sand ripples, uneven dune ridge, sparse dry grass tufts, open sandy ground plane, off-center crest line",
-        "desc": "沙丘坡面與風痕地景，重點是砂紋、不均勻沙脊、稀疏乾草、開闊沙地平面與偏離中心的稜線。"
+        "desc": "沙丘坡面與風痕地景，重點是砂紋、不均勻沙脊、稀疏乾草、開闊沙地平面與偏離中心的稜線。",
+        "lyingSurface": {
+          "type": "sand",
+          "en": "sandy ground plane"
+        }
       },
       {
         "zh": "戶外：白色鹽湖乾裂荒漠",
         "en": "white salt flat playa edge, cracked salt crust ground, pale polygon surface texture, open dry basin, distant low mountain range, wide blue-sky desert horizon",
-        "desc": "白色鹽湖或乾涸 playa 荒漠場景，重點是乾裂鹽殼地面、淡色多邊形表面紋理、開闊乾盆地、遠方低山與寬闊沙漠地平線。"
+        "desc": "白色鹽湖或乾涸 playa 荒漠場景，重點是乾裂鹽殼地面、淡色多邊形表面紋理、開闊乾盆地、遠方低山與寬闊沙漠地平線。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "salt crust ground"
+        }
       }
     ],
     "其他專屬場景 (Other Dedicated Scenes)": [
       {
         "zh": "其他：草地",
         "en": "close grassy ground plane, dense green lawn texture, short grass blades, simple natural surface filling the frame, near-ground scene base",
-        "desc": "近距離草地平面場景，重點是密集綠色草皮、短草葉材質與滿版自然地面，不拉成遠景草原。"
+        "desc": "近距離草地平面場景，重點是密集綠色草皮、短草葉材質與滿版自然地面，不拉成遠景草原。",
+        "lyingSurface": {
+          "type": "grass",
+          "en": "green lawn"
+        }
       },
       {
         "zh": "其他：白色床鋪",
         "en": "lived-in white bed surface, casually rumpled white comforter, two loose white pillows, cotton bedding texture, close bed-surface scene base filling the frame",
-        "desc": "生活感白色床鋪場景，重點是隨意擺放的兩顆枕頭、白色棉被、棉質床品紋理與近距離床面，不強調完整臥室遠景。"
+        "desc": "生活感白色床鋪場景，重點是隨意擺放的兩顆枕頭、白色棉被、棉質床品紋理與近距離床面，不強調完整臥室遠景。",
+        "lyingSurface": {
+          "type": "bed",
+          "en": "white bed surface"
+        }
       },
       {
         "zh": "其他：生活感日式榻榻米房間",
         "en": "lived-in Japanese tatami ground plane, woven mat texture filling the floor, shoji screen edge, low domestic detail, small personal items near a corner, tatami seam geometry",
-        "desc": "生活感日式榻榻米基底，重點是榻榻米編織紋理、障子或紙門邊緣、低矮生活細節、角落小物與榻榻米接縫。"
+        "desc": "生活感日式榻榻米基底，重點是榻榻米編織紋理、障子或紙門邊緣、低矮生活細節、角落小物與榻榻米接縫。",
+        "lyingSurface": {
+          "type": "tatami",
+          "en": "tatami ground plane"
+        }
       },
       {
         "zh": "其他：樹下草地",
         "en": "green lawn under tree canopy, visible grass blade texture, tree roots breaking through the grass, tree trunk base near one side, low branch and leaf fragments, natural ground scene base",
-        "desc": "樹下草地場景，重點是綠色草坪、草葉材質、局部樹根、偏側樹幹基部與低處枝葉片段。"
+        "desc": "樹下草地場景，重點是綠色草坪、草葉材質、局部樹根、偏側樹幹基部與低處枝葉片段。",
+        "lyingSurface": {
+          "type": "grass",
+          "en": "green lawn"
+        }
       },
       {
         "zh": "其他：沙灘海岸線",
         "en": "pale sandy beach ground plane, clean fine sand surface, shallow clear seawater at the edge, thin transparent wave line across wet sand, calm shoreline scene base",
-        "desc": "沙灘海岸線場景，重點是乾淨細沙、透明淺水、薄浪緣、濕沙材質與平緩海岸線。"
+        "desc": "沙灘海岸線場景，重點是乾淨細沙、透明淺水、薄浪緣、濕沙材質與平緩海岸線。",
+        "lyingSurface": {
+          "type": "sand",
+          "en": "fine sand surface"
+        }
       }
     ]
   },

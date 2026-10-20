@@ -95,6 +95,7 @@ export function runSceneFixture(fixture, customLibrary = []) {
     (key === 'captureMode' ? value === 'observation'
       : key === 'observationCapture' ? Boolean(value)
       : key === 'specifiedActionId' ? Boolean(value && value !== 'none')
+      : key === 'lyingCameraId' ? Boolean(value && value !== 'none') // lying camera (P3, 2026-10-19)
       : key === 'specifiedActionSceneRestore' ? Boolean(value)
       : /^(headphones|faceCovering)[AB]?(Color)?Id$/.test(key)
       ? Boolean(value && value !== 'none' && !String(value).endsWith(':none'))

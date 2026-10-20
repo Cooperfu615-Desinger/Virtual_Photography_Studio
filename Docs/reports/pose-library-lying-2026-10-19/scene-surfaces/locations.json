@@ -1,0 +1,1566 @@
+[
+ {
+  "id": "locations:攝影棚與背景-studio-sets:室內-鏡面地板攝影棚:1",
+  "zh": "室內：鏡面地板攝影棚",
+  "en": "five-sided mirror chamber studio, three mirrored walls, mirrored floor and mirrored ceiling, infinite reflective commercial space, isolated subject",
+  "tags": [
+   "indoor",
+   "set",
+   "controlled",
+   "studio",
+   "mirror_studio",
+   "studio_lighting_scene"
+  ]
+ },
+ {
+  "id": "locations:攝影棚與背景-studio-sets:室內-純潔白幕:2",
+  "zh": "室內：純潔白幕",
+  "en": "horizonless seamless matte pure white color field, continuous white ground-and-background plane blending into a solid white void, full-bleed white surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+  "tags": [
+   "indoor",
+   "set",
+   "controlled",
+   "studio",
+   "solid_color_studio",
+   "studio_lighting_scene"
+  ]
+ },
+ {
+  "id": "locations:攝影棚與背景-studio-sets:室內-深邃黑幕:3",
+  "zh": "室內：深邃黑幕",
+  "en": "horizonless seamless matte deep black color field, continuous black ground-and-background plane blending into a solid black void, full-bleed black surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+  "tags": [
+   "indoor",
+   "set",
+   "controlled",
+   "studio",
+   "solid_color_studio",
+   "studio_lighting_scene"
+  ]
+ },
+ {
+  "id": "locations:攝影棚與背景-studio-sets:室內-莫蘭迪灰背景:4",
+  "zh": "室內：莫蘭迪灰背景",
+  "en": "horizonless seamless matte muted grey color field, continuous neutral-grey ground-and-background plane blending into a solid grey void, full-bleed low-saturation grey surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+  "tags": [
+   "indoor",
+   "set",
+   "controlled",
+   "studio",
+   "solid_color_studio",
+   "studio_lighting_scene"
+  ]
+ },
+ {
+  "id": "locations:攝影棚與背景-studio-sets:室內-純藍背景:5",
+  "zh": "室內：純藍背景",
+  "en": "horizonless seamless matte saturated pure blue color field, continuous vivid blue ground-and-background plane blending into a solid blue void, full-bleed clean blue surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+  "tags": [
+   "indoor",
+   "set",
+   "controlled",
+   "studio",
+   "solid_color_studio",
+   "studio_lighting_scene"
+  ]
+ },
+ {
+  "id": "locations:攝影棚與背景-studio-sets:室內-純橘背景:6",
+  "zh": "室內：純橘背景",
+  "en": "horizonless seamless matte saturated pure orange color field, continuous vivid orange ground-and-background plane blending into a solid orange void, full-bleed clean orange surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+  "tags": [
+   "indoor",
+   "set",
+   "controlled",
+   "studio",
+   "solid_color_studio",
+   "studio_lighting_scene"
+  ]
+ },
+ {
+  "id": "locations:攝影棚與背景-studio-sets:室內-純紅背景:7",
+  "zh": "室內：純紅背景",
+  "en": "horizonless seamless matte saturated pure red color field, continuous vivid red ground-and-background plane blending into a solid red void, full-bleed clean red surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+  "tags": [
+   "indoor",
+   "set",
+   "controlled",
+   "studio",
+   "solid_color_studio",
+   "studio_lighting_scene"
+  ]
+ },
+ {
+  "id": "locations:攝影棚與背景-studio-sets:室內-純黃背景:8",
+  "zh": "室內：純黃背景",
+  "en": "horizonless seamless matte saturated pure yellow color field, continuous vivid yellow ground-and-background plane blending into a solid yellow void, full-bleed clean yellow surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+  "tags": [
+   "indoor",
+   "set",
+   "controlled",
+   "studio",
+   "solid_color_studio",
+   "studio_lighting_scene"
+  ]
+ },
+ {
+  "id": "locations:攝影棚與背景-studio-sets:室內-純紫背景:9",
+  "zh": "室內：純紫背景",
+  "en": "horizonless seamless matte saturated pure purple color field, continuous vivid purple ground-and-background plane blending into a solid purple void, full-bleed clean purple surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+  "tags": [
+   "indoor",
+   "set",
+   "controlled",
+   "studio",
+   "solid_color_studio",
+   "studio_lighting_scene"
+  ]
+ },
+ {
+  "id": "locations:攝影棚與背景-studio-sets:室內-純綠背景:10",
+  "zh": "室內：純綠背景",
+  "en": "horizonless seamless matte saturated pure green color field, continuous vivid green ground-and-background plane blending into a solid green void, full-bleed clean green surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+  "tags": [
+   "indoor",
+   "set",
+   "controlled",
+   "studio",
+   "solid_color_studio",
+   "studio_lighting_scene"
+  ]
+ },
+ {
+  "id": "locations:攝影棚與背景-studio-sets:室內-鮮豔撞色背景:11",
+  "zh": "室內：鮮豔撞色背景",
+  "en": "horizonless seamless matte single vivid pop-color field, continuous saturated ground-and-background plane blending into a solid graphic color void, full-bleed clean color-block surface, subtle natural contact shadow under the subject, no gradient, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+  "tags": [
+   "indoor",
+   "set",
+   "controlled",
+   "studio",
+   "solid_color_studio",
+   "studio_lighting_scene"
+  ]
+ },
+ {
+  "id": "locations:攝影棚與背景-studio-sets:室內-漸層打光背景:12",
+  "zh": "室內：漸層打光背景",
+  "en": "horizonless seamless smooth gradient color field, continuous gradient ground-and-background plane with no visible boundary, full-bleed tonal transition surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+  "tags": [
+   "indoor",
+   "set",
+   "controlled",
+   "studio"
+  ]
+ },
+ {
+  "id": "locations:攝影棚與背景-studio-sets:室內-crt-電視牆攝影棚:13",
+  "zh": "室內：CRT 電視牆攝影棚",
+  "en": "studio set with assorted CRT televisions and vintage computer monitors in an irregular high-low cluster, retro cathode-ray displays with varied gaps and heights, glowing screens with analog static, scan lines, news footage, or the subject's face, scattered VHS tapes, coiled cables, security monitors and VCR decks, seamless desaturated blue-grey floor and backdrop, isolated subject",
+  "tags": [
+   "indoor",
+   "set",
+   "controlled",
+   "studio",
+   "outdoor",
+   "studio_lighting_scene"
+  ]
+ },
+ {
+  "id": "locations:攝影棚與背景-studio-sets:室內-多色塊撞色背景:14",
+  "zh": "室內：多色塊撞色背景",
+  "en": "horizonless seamless indoor studio background formed by two to four large adjacent vivid color fields in freely varied hues, color fields of unequal widths and heights with crisp boundaries in an asymmetrical full-bleed layout, continuous ground-and-background color surface with a subtle natural contact shadow under the subject, no gradient, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+  "tags": [
+   "indoor",
+   "set",
+   "controlled",
+   "studio"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-精品飯店房間:0",
+  "zh": "室內：精品飯店房間",
+  "en": "boutique hotel room, crisp bed with white sheets, bedside table, lamp fixtures as physical objects, upholstered headboard, curtain edge, carpet or wood floor, compact corner of an elegant guest room",
+  "tags": [
+   "indoor",
+   "hospitality"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-現代高樓公寓客廳:1",
+  "zh": "室內：現代高樓公寓客廳",
+  "en": "modern high-rise apartment living room, large window wall, sofa edge, low coffee table, clean shelving, rug texture, city buildings visible outside the windows, offset residential interior composition",
+  "tags": [
+   "indoor",
+   "residential"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-夜間家庭派對:2",
+  "zh": "室內：夜間家庭派對",
+  "en": "nighttime American house-party home interior, living room dining area kitchen island hallway stair landing or bedroom doorway, background guests chatting drinking and playing games, crowded casual party setting",
+  "tags": [
+   "indoor",
+   "residential"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-古書二手書店:3",
+  "zh": "室內：古書二手書店",
+  "en": "antique used-book shop interior, narrow bookshelf aisle reading table counter corner or window book stacks, aged books, dark wood shelves, warm lamp fixtures, crowded literary surfaces",
+  "tags": [
+   "indoor",
+   "commercial",
+   "heritage"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-y2k-復古房間:4",
+  "zh": "室內：Y2K 復古房間",
+  "en": "Y2K retro bedroom interior, bed edge desk corner CRT TV setup vinyl-record wall poster cluster window area or floor rug, compact nostalgic room clutter",
+  "tags": [
+   "indoor",
+   "residential"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-英倫復古窗邊房間:5",
+  "zh": "室內：英倫復古窗邊房間",
+  "en": "British vintage window-side room interior, white lace curtain and sash window, dresser mirror side table framed paintings wall clock porcelain trinkets, layered nostalgic room surfaces",
+  "tags": [
+   "indoor",
+   "heritage"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-臥室窗邊:6",
+  "zh": "室內：臥室窗邊",
+  "en": "bedroom window area, curtain panels, linen bedding near the window, pillow edges, small bedside surface, window frame, fabric textures around an offset corner of the room",
+  "tags": [
+   "indoor",
+   "residential",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-白色書櫃落地窗臥室:7",
+  "zh": "室內：白色書櫃落地窗臥室",
+  "en": "vintage white bookcase bedroom corner, tall white bookshelf filled with books, large window edge, sheer curtain panels, white bedding surface, pillow details, sky and treetop fragments outside",
+  "tags": [
+   "indoor",
+   "residential"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-浴室鏡前-洗手台:8",
+  "zh": "室內：浴室鏡前 / 洗手台",
+  "en": "a frequently used and lived-in bathroom vanity with a large wall-mounted mirror above the sink",
+  "tags": [
+   "indoor"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-日本住宅使用感廚房:9",
+  "zh": "室內：日本住宅使用感廚房",
+  "en": "lived-in Japanese home kitchen corner, wooden window frame, tiled wall, stainless steel sink counter, stacked dishes, drying rack, hanging utensils, pots, kettle, condiment bottles, refrigerator edge, everyday cooking clutter",
+  "tags": [
+   "indoor",
+   "residential"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-更衣室-試衣間:10",
+  "zh": "室內：更衣室 / 試衣間",
+  "en": "fitting room interior, mirror edge, curtain panels, wall hook, narrow bench or small stool, compact retail changing area with close wall surfaces",
+  "tags": [
+   "indoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-電梯內:11",
+  "zh": "室內：電梯內",
+  "en": "elevator interior, reflective metal wall panels, button panel, door seam, handrail edge, compact enclosed cabin surfaces",
+  "tags": [
+   "indoor"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-復古美式-diner:12",
+  "zh": "室內：復古美式 Diner",
+  "en": "retro American diner booth, red leather bench seating, chrome table edge, jukebox corner, counter stools, checker or tiled floor, curved booth backrest",
+  "tags": [
+   "indoor"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-木造圖書館閱讀桌旁:13",
+  "zh": "室內：木造圖書館閱讀桌旁",
+  "en": "historic library reading table, aged wood grain tabletop, desk lamp fixture, stacked books, chair edge, nearby shelf rows, worn floor surface",
+  "tags": [
+   "indoor",
+   "heritage"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-木造圖書館木窗邊:14",
+  "zh": "室內：木造圖書館木窗邊",
+  "en": "historic library window corner, wooden window frame, book stacks on a side surface, shelf edge, worn wall texture, offset reading nook",
+  "tags": [
+   "indoor",
+   "heritage"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-木造圖書館書車旁:15",
+  "zh": "室內：木造圖書館書車旁",
+  "en": "historic library book cart, stacked books, metal cart frame, worn carpet, wood floor, nearby shelf edge",
+  "tags": [
+   "indoor",
+   "heritage"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-木造圖書館借書台前:16",
+  "zh": "室內：木造圖書館借書台前",
+  "en": "historic library check-out desk, card catalog drawers, stamped paper slips, aged wood counter, shelf edge, service-counter surface details",
+  "tags": [
+   "indoor",
+   "heritage"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-倫敦老咖啡館角落:17",
+  "zh": "室內：倫敦老咖啡館角落",
+  "en": "old London cafe corner, dark wood table, fogged window glass, pendant lamp fixture as a visible object, muted wall panels, chair edge",
+  "tags": [
+   "indoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-英式小旅館房間:18",
+  "zh": "室內：英式小旅館房間",
+  "en": "small British inn room, floral bedding, narrow sash window, cream walls, aged wooden furniture, bedside table, compact guest-room corner",
+  "tags": [
+   "indoor",
+   "hospitality",
+   "commercial",
+   "heritage"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-傳統酒吧二樓包廂:19",
+  "zh": "室內：傳統酒吧二樓包廂",
+  "en": "traditional British pub upstairs booth, dark wood paneling, red-brown leather bench seating, small table, framed vintage prints, low lamp fixtures as visible objects",
+  "tags": [
+   "indoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-英式溫室-conservatory:20",
+  "zh": "室內：英式溫室 conservatory",
+  "en": "British conservatory interior, white-painted window frames, glass roof panels, potted greenery, tiled or stone floor, garden-room corner with offset plant clusters",
+  "tags": [
+   "indoor"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-黑膠唱片聆聽角:21",
+  "zh": "室內：黑膠唱片聆聽角",
+  "en": "British record listening corner, turntable setup, stacked vinyl sleeves, bookshelf speakers, aged wood cabinet, lamp fixture as a visible object, small side table",
+  "tags": [
+   "indoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-老式鋼琴房:22",
+  "zh": "室內：老式鋼琴房",
+  "en": "old British piano room, upright piano, sheet music stand, worn wood floor, muted wallpaper, piano bench, side wall details",
+  "tags": [
+   "indoor"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-地下-live-house-後台:23",
+  "zh": "室內：地下 live house 後台",
+  "en": "British underground live house backstage, black curtain, road cases, guitar amp, worn posters, cable clutter, taped floor marks, equipment stacked near a wall edge",
+  "tags": [
+   "indoor",
+   "subterranean"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-女高生房間:24",
+  "zh": "室內：女高生房間",
+  "en": "Japanese student bedroom corner, compact single bed, study desk, curtains, soft everyday clutter, school bag or small personal items, private lived-in room details",
+  "tags": [
+   "indoor",
+   "residential",
+   "commercial",
+   "institutional"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-日式和室:25",
+  "zh": "室內：日式和室",
+  "en": "traditional Japanese washitsu room, tatami flooring, shoji sliding doors, low table, floor cushion, alcove or wall edge, woven mat texture",
+  "tags": [
+   "indoor",
+   "heritage"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-日本學校教室:26",
+  "zh": "室內：日本學校教室",
+  "en": "Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces",
+  "tags": [
+   "indoor",
+   "institutional"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-辦公室茶水間:27",
+  "zh": "室內：辦公室茶水間",
+  "en": "Japanese office pantry corner, small sink counter, compact coffee machine, electric kettle, storage cabinets, upper wall cabinets, simple countertop, paper cups and small workplace supplies",
+  "tags": [
+   "indoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-洗衣店洗衣機門前:28",
+  "zh": "室內：洗衣店洗衣機門前",
+  "en": "laundromat washer-door detail, round chrome washer door, sticker-covered machine surface, detergent residue, tiled floor, machine row cropped from one side",
+  "tags": [
+   "indoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-洗衣店摺衣台旁:29",
+  "zh": "室內：洗衣店摺衣台旁",
+  "en": "laundromat folding table, scattered clothes, plastic basket, detergent bottle, tiled floor detail",
+  "tags": [
+   "indoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-洗衣店洗劑貨架前:30",
+  "zh": "室內：洗衣店洗劑貨架前",
+  "en": "laundromat detergent shelf, plastic bottles, price labels, narrow retail shelf surface, wall-side product rows, tiled floor edge",
+  "tags": [
+   "indoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-洗衣店角落塑膠椅旁:31",
+  "zh": "室內：洗衣店角落塑膠椅旁",
+  "en": "laundromat waiting corner, plastic chair, wall stickers, loose clothing, washer reflections, tiled floor, corner wall junction",
+  "tags": [
+   "indoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:戶外-日本住宅陽台曬衣架旁:32",
+  "zh": "戶外：日本住宅陽台曬衣架旁",
+  "en": "Japanese apartment balcony with laundry rack, freshly washed clothes hanging to dry, metal railing, compact residential veranda, neighboring apartment facades, balcony floor edge and wall corner",
+  "tags": [
+   "indoor",
+   "residential",
+   "outdoor"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:戶外-日本住宅外樓梯間:33",
+  "zh": "戶外：日本住宅外樓梯間",
+  "en": "narrow exterior metal stairway on a Japanese apartment building, white painted steel structure, open-grate steps, slim railings, stacked landings, tight vertical side facade, compact residential side passage",
+  "tags": [
+   "indoor",
+   "residential",
+   "outdoor"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:戶外-社區自動販賣機旁:34",
+  "zh": "戶外：社區自動販賣機旁",
+  "en": "Japanese residential vending-machine corner, two or three machines beside a wall, utility pole fragment, overhead power lines, quiet curbside asphalt, apartment facade edge, detached house detail, compact neighborhood roadside surface",
+  "tags": [
+   "indoor",
+   "residential",
+   "outdoor"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:戶外-辦公大樓人行道-上班途中:35",
+  "zh": "戶外：辦公大樓人行道（上班途中）",
+  "en": "Japanese business-district office sidewalk, glass-and-steel office tower frontage, clean paving, building entrance edge, curbside detail, commuter path fragment offset to one side",
+  "tags": [
+   "indoor",
+   "outdoor"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:戶外-日式旅館緣側木廊:36",
+  "zh": "戶外：日式旅館緣側木廊",
+  "en": "traditional Japanese ryokan engawa veranda, raised wooden deck edge, sliding door frames, polished timber posts, stone step, garden greenery below, asymmetric threshold composition",
+  "tags": [
+   "indoor",
+   "hospitality",
+   "outdoor",
+   "heritage",
+   "green_space"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-宮廷音樂廳-歌劇院:37",
+  "zh": "室內：宮廷音樂廳 / 歌劇院",
+  "en": "opulent opera house interior, chandelier fixtures, velvet seat rows cropped from one side, ornate balcony rail, carved wall panels, marble or carpeted floor, side aisle edge",
+  "tags": [
+   "indoor",
+   "heritage"
+  ]
+ },
+ {
+  "id": "locations:生活感室內-indoor-lifestyle:室內-狹小都會旅館房間:38",
+  "zh": "室內：狹小都會旅館房間",
+  "en": "small urban hotel room, compact bedding, practical lamp fixtures, narrow bedside table, close wall surfaces, luggage corner, enclosed room layout",
+  "tags": [
+   "indoor",
+   "hospitality",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄水泥工廠破碎輸送帶區:0",
+  "zh": "室內：廢棄水泥工廠破碎輸送帶區",
+  "en": "abandoned cement factory conveyor-belt corner, broken conveyor rollers, gravel piles, cement dust on the floor, rusted metal supports, cracked concrete wall edge, loose machine parts",
+  "tags": [
+   "ruin",
+   "indoor",
+   "industrial"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄水泥工廠生鏽控制室:1",
+  "zh": "室內：廢棄水泥工廠生鏽控制室",
+  "en": "rusted cement factory control room, industrial switch panels, broken glass on the console, dust-covered dials, peeling metal cabinets, concrete corner, exposed cable bundles",
+  "tags": [
+   "ruin",
+   "indoor",
+   "industrial"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄水泥工廠攪拌槽旁:2",
+  "zh": "室內：廢棄水泥工廠攪拌槽旁",
+  "en": "cement-mixer tank side area, large cylindrical mixing tank, concrete dust, iron ladder, rust stains, thick pipe joints, heavy concrete support column, uneven service platform",
+  "tags": [
+   "ruin",
+   "indoor",
+   "transit",
+   "urban",
+   "industrial"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄水泥工廠機具堆放區:3",
+  "zh": "室內：廢棄水泥工廠機具堆放區",
+  "en": "abandoned machinery storage corner, heavy machine parts, loose chains, bent metal sheets, dusty concrete floor, stacked gears, tool fragments, wall-side industrial clutter",
+  "tags": [
+   "ruin",
+   "indoor",
+   "industrial"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:室內-地下排洪道積水牆角:4",
+  "zh": "室內：地下排洪道積水牆角",
+  "en": "flood-tunnel pooled-water corner, stained concrete wall, shallow water on the floor, wet pipe openings, dark drainage channel edge, algae marks, reflective concrete surface",
+  "tags": [
+   "ruin",
+   "indoor",
+   "subterranean"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:室內-地下排洪道排水閘門旁:5",
+  "zh": "室內：地下排洪道排水閘門旁",
+  "en": "drainage gate side area, rusted steel floodgate, wet concrete floor, exposed pipes, valve wheel, grated drain channel, stained utility wall, metal hinge detail",
+  "tags": [
+   "ruin",
+   "indoor",
+   "subterranean"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:室內-地下排洪道機房通道口:6",
+  "zh": "室內：地下排洪道機房通道口",
+  "en": "underground machine-room entrance, heavy steel door, pipework along the wall, electrical box, damp concrete threshold, grated floor panel, side corridor edge",
+  "tags": [
+   "ruin",
+   "indoor",
+   "industrial",
+   "subterranean"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄手術室:7",
+  "zh": "室內：廢棄手術室",
+  "en": "abandoned operating room, broken surgical table, metal tray stand, medicine bottles, peeling tiled walls, ceiling rail, cracked floor tiles, instrument cart at one side",
+  "tags": [
+   "ruin",
+   "indoor",
+   "institutional"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄病房:8",
+  "zh": "室內：廢棄病房",
+  "en": "abandoned hospital ward corner, old metal bed frame, hanging privacy curtain, medicine cabinet, worn floor tiles, chipped wall paint, bedside table, loose bedding remnants",
+  "tags": [
+   "ruin",
+   "indoor",
+   "institutional"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄藥品室:9",
+  "zh": "室內：廢棄藥品室",
+  "en": "abandoned medicine storage room, dusty glass bottles, metal cabinet, labeled medicine jars, narrow utility shelves, cracked tile floor, cabinet door hanging open",
+  "tags": [
+   "ruin",
+   "indoor"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄診療室:10",
+  "zh": "室內：廢棄診療室",
+  "en": "abandoned examination room, medical bed, instrument cart, desk lamp as a physical object, scattered paper records, metal stool, chipped wall surface, side cabinet",
+  "tags": [
+   "ruin",
+   "indoor",
+   "institutional"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄校舍散亂課桌教室:11",
+  "zh": "室內：廢棄校舍散亂課桌教室",
+  "en": "abandoned classroom, scattered wooden desks at uneven angles, chalkboard, torn papers, broken window panes, dusty schoolroom floor, chair legs and wall bulletin scraps",
+  "tags": [
+   "ruin",
+   "indoor",
+   "institutional"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄校舍破窗音樂教室:12",
+  "zh": "室內：廢棄校舍破窗音樂教室",
+  "en": "abandoned music room, old upright piano, music stand, broken window panes, dust on the wooden floor, scattered sheet music, instrument case near a wall edge",
+  "tags": [
+   "ruin",
+   "indoor",
+   "institutional"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄校舍保健室:13",
+  "zh": "室內：廢棄校舍保健室",
+  "en": "abandoned school infirmary room, medicine box, privacy curtain, white metal cabinet, old examination bed, small sink, chipped floor tiles, side shelf",
+  "tags": [
+   "ruin",
+   "indoor",
+   "commercial",
+   "institutional"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄校舍體育器材室:14",
+  "zh": "室內：廢棄校舍體育器材室",
+  "en": "abandoned school equipment room, vaulting box, stacked gym mats, ball rack, dusty floor, old wooden door, rope bundle, equipment shelf against one wall",
+  "tags": [
+   "ruin",
+   "indoor",
+   "institutional"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:室內-地下狂歡俱樂部-金庫:15",
+  "zh": "室內：地下狂歡俱樂部 / 金庫",
+  "en": "underground rave bunker room, laser fixtures mounted on metal truss, smoke machine as a visible device, metallic wall surfaces, heavy vault-like door, concrete floor, cable runs along one side",
+  "tags": [
+   "ruin",
+   "indoor",
+   "subterranean"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:室內-遭洗劫的維多利亞大宅:16",
+  "zh": "室內：遭洗劫的維多利亞大宅",
+  "en": "looted Victorian mansion interior, torn wallpaper, broken chandelier pieces, overturned chair, cracked fireplace surround, dusty wooden floor, ornate molding fragments, wall-side debris",
+  "tags": [
+   "ruin",
+   "indoor",
+   "heritage"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄商場停用手扶梯旁:17",
+  "zh": "室內：廢棄商場停用手扶梯旁",
+  "en": "abandoned mall escalator corner, stopped escalator steps, broken signage, dusty floor tiles, railing edge, shuttered shopfront fragment, loose ceiling panel",
+  "tags": [
+   "ruin",
+   "indoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄商場破損櫥窗前:18",
+  "zh": "室內：廢棄商場破損櫥窗前",
+  "en": "abandoned storefront window, damaged mannequins, broken glass on the floor, dusty retail display base, metal shutter edge, cracked tile walkway, torn sale poster",
+  "tags": [
+   "ruin",
+   "indoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄商場空置美食街角落:19",
+  "zh": "室內：廢棄商場空置美食街角落",
+  "en": "abandoned food-court corner, plastic tables, mismatched chairs, empty counter, menu board remnants, tile floor reflections, tray-return shelf, shuttered stall edge",
+  "tags": [
+   "ruin",
+   "indoor",
+   "outdoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄商場服務台殘骸:20",
+  "zh": "室內：廢棄商場服務台殘骸",
+  "en": "abandoned mall service desk remains, fallen signage, scattered papers, glass fragments, cracked counter surface, broken directory board, floor debris around the desk",
+  "tags": [
+   "ruin",
+   "indoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:戶外-雜草叢生的廢棄公園:21",
+  "zh": "戶外：雜草叢生的廢棄公園",
+  "en": "abandoned overgrown park edge, cracked pavement textures, rusted play structures, weeds pushing through concrete, broken bench, tilted fence section, uneven outdoor ground",
+  "tags": [
+   "ruin",
+   "outdoor",
+   "green_space"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:戶外-滿佈塗鴉的火車調車場:22",
+  "zh": "戶外：滿佈塗鴉的火車調車場",
+  "en": "graffiti-covered train yard edge, rusty railcar side, spray-painted metal surfaces, gravel track bed, rail switch hardware, chain-link fence fragment, weeds along the rails",
+  "tags": [
+   "ruin",
+   "outdoor",
+   "transit",
+   "urban",
+   "industrial"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:戶外-高樓建築骨架裸露混凝土地板:23",
+  "zh": "戶外：高樓建築骨架裸露混凝土地板",
+  "en": "exposed high-rise floor slab, rebar clusters, construction debris, concrete floor edge, temporary railing fragment, distant city buildings beyond the open side, scattered dust",
+  "tags": [
+   "ruin",
+   "outdoor",
+   "industrial"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:戶外-高樓建築骨架施工鷹架旁:24",
+  "zh": "戶外：高樓建築骨架施工鷹架旁",
+  "en": "construction scaffolding side area, steel pipes, dusty tarp, raw building materials, unfinished concrete column, clamp joints, plank walkway, wall edge",
+  "tags": [
+   "ruin",
+   "outdoor",
+   "industrial"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:戶外-高樓建築骨架開放樓層邊緣:25",
+  "zh": "戶外：高樓建築骨架開放樓層邊緣",
+  "en": "open high-rise floor edge, exposed beams, concrete lip, temporary railing gap, scattered rebar, floor dust, distant city buildings visible beyond the side opening",
+  "tags": [
+   "ruin",
+   "outdoor"
+  ]
+ },
+ {
+  "id": "locations:地下與廢墟風格-abandoned-underground:戶外-高樓建築骨架建材堆放角落:26",
+  "zh": "戶外：高樓建築骨架建材堆放角落",
+  "en": "construction-material corner, stacked boards, cement bags, tool box, dust, unfinished concrete wall, bundled pipes, loose fasteners on the floor",
+  "tags": [
+   "ruin",
+   "outdoor",
+   "industrial"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:室內-九龍城寨內部狹窄走道:0",
+  "zh": "室內：九龍城寨內部狹窄走道",
+  "en": "Kowloon Walled City interior passage, narrow wall-to-wall corridor, water-stained concrete walls, exposed wiring bundles, stacked signboards, overhead pipes, cramped layered surfaces close to the subject",
+  "tags": [
+   "urban",
+   "indoor"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:室內-九龍城寨樓梯井與鐵窗:1",
+  "zh": "室內：九龍城寨樓梯井與鐵窗",
+  "en": "Kowloon Walled City stairwell shaft, iron window grilles, stained stair rail, tiled wall stains, narrow vertical interior, landing edge, exposed pipework",
+  "tags": [
+   "urban",
+   "indoor"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:室內-興記煲仔飯店內桌椅區:2",
+  "zh": "室內：興記煲仔飯店內桌椅區",
+  "en": "Hing Kee claypot rice interior seating corner, compact tables, tiled walls, plastic stools, menu board edge, narrow gap between table and wall, stacked tableware",
+  "tags": [
+   "urban",
+   "hospitality",
+   "indoor"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:室內-塗鴉牆面旁的地鐵月台角落:3",
+  "zh": "室內：塗鴉牆面旁的地鐵月台角落",
+  "en": "New York subway platform corner, graffiti-covered wall, stained tile panels, scratched metal column, platform warning strip, wall-side waiting zone",
+  "tags": [
+   "urban",
+   "indoor",
+   "transit"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:室內-無人月台長椅區:4",
+  "zh": "室內：無人月台長椅區",
+  "en": "subway bench zone, worn plastic seating, tiled wall panels, platform edge markings, metal column edge, small sign plate, underground transit wall surface",
+  "tags": [
+   "urban",
+   "indoor",
+   "commercial",
+   "transit"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:室內-列車高速進站的月台邊:5",
+  "zh": "室內：列車高速進站的月台邊",
+  "en": "subway platform edge with passing train body, tiled wall, warning strip, carriage side blur, platform column, floor edge markings",
+  "tags": [
+   "urban",
+   "indoor",
+   "transit"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:室內-髒污磁磚牆與金屬柱之間:6",
+  "zh": "室內：髒污磁磚牆與金屬柱之間",
+  "en": "dirty subway tile wall, scratched metal column, aged grout lines, narrow standing zone, chipped tile edges, underground wall texture",
+  "tags": [
+   "urban",
+   "indoor",
+   "transit"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:室內-地下月台電子看板與海報牆:7",
+  "zh": "室內：地下月台電子看板與海報牆",
+  "en": "underground subway platform signboard corner, amber LED next-train display overhead, stained white tile wall, graffiti tags, movie poster frame, fluorescent ceiling tubes, dark tunnel edge",
+  "tags": [
+   "urban",
+   "indoor",
+   "transit",
+   "subterranean"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂正面長椅視角:8",
+  "zh": "室內：電車車廂正面長椅視角",
+  "en": "Japanese commuter train car interior, slight offset view toward a blue fabric bench seat, window and sliding door panels behind the subject, stainless steel wall surfaces, overhead hand straps, route maps, small carriage posters, passing scenery glimpsed through windows",
+  "tags": [
+   "urban",
+   "indoor",
+   "commercial",
+   "transit",
+   "institutional"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂側面走道視角:9",
+  "zh": "室內：電車車廂側面走道視角",
+  "en": "Japanese commuter train car side aisle section, vertical grab pole near the subject, overhead hand straps, side bench seats, sliding doors, train windows, route map panels, nearby commuters as background context",
+  "tags": [
+   "urban",
+   "indoor",
+   "transit"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂坐滿與站滿乘客:10",
+  "zh": "室內：電車車廂坐滿與站滿乘客",
+  "en": "crowded Japanese commuter train car, seated passengers on bench seats, standing commuters around vertical grab poles, overhead hand straps in use, sliding doors and train windows behind layered bodies, route map panels, small carriage ads, compressed public-transit density",
+  "tags": [
+   "urban",
+   "indoor",
+   "commercial",
+   "transit"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-澀谷站前廣場人潮邊緣:11",
+  "zh": "戶外：澀谷站前廣場人潮邊緣",
+  "en": "Shibuya Station front plaza with the QFRONT glass facade carrying \"TSUTAYA\" and \"STARBUCKS\" signage and large advertising screens in the background, the subject as one person within a dense pedestrian flow with people passing in different directions beside and in front of and behind her; everyone sharing the same physical space and perspective with apparent size varying naturally by distance, pedestrians in varied everyday clothing in mixed colors and styles sharing the same ambient light as the subject; nearby passersby naturally overlapping and partly cropped at frame edges, surrounding Japanese shop signs",
+  "tags": [
+   "urban",
+   "outdoor",
+   "transit"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-八公銅像旁行人區:12",
+  "zh": "戶外：八公銅像旁行人區",
+  "en": "Shibuya Hachiko Square pedestrian waiting area beside the small bronze Hachiko dog statue, modest stone pedestal, low queue railings, station-front plaza paving, clustered meeting crowds, Shibuya Station frontage and nearby commercial facades, realistic landmark scale",
+  "tags": [
+   "urban",
+   "outdoor",
+   "commercial",
+   "transit"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-澀谷站前大型看板下穿越口:13",
+  "zh": "戶外：澀谷站前大型看板下穿越口",
+  "en": "Shibuya station-side crossing entrance beneath oversized commercial billboards, bold crosswalk stripes at the intersection edge, waiting pedestrian clusters, tower facades packed with signage, curb corner, traffic-light pole, station-front crossing detail",
+  "tags": [
+   "urban",
+   "outdoor",
+   "transit"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-目黑川旁的櫻花隧道:14",
+  "zh": "戶外：目黑川旁的櫻花隧道",
+  "en": "Meguro River bridge viewpoint, bridge railing in the foreground, river channel offset along one side, one riverside cherry blossom canopy, layered Tokyo buildings behind the riverbank, pale pink petals as small physical details, asymmetric riverside composition",
+  "tags": [
+   "urban",
+   "outdoor",
+   "commercial",
+   "waterfront"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-大阪道頓堀心齋橋河道:15",
+  "zh": "戶外：大阪道頓堀心齋橋河道",
+  "en": "Dotonbori Shinsaibashi riverside edge in Osaka, iconic billboard signage, Shinsaibashi bridge railing in the foreground, canal water visible below, dense commercial facade layers, famous advertisement boards, sidewalk edge near the bridge",
+  "tags": [
+   "urban",
+   "outdoor",
+   "waterfront"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-九龍城寨雜貨店門口:16",
+  "zh": "戶外：九龍城寨雜貨店門口",
+  "en": "Kowloon Walled City grocery storefront, narrow shop entrance, stacked goods, hanging signs, water-stained concrete, exposed cable clutter, doorway threshold, crate piles",
+  "tags": [
+   "urban",
+   "outdoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-九龍城寨電器行外牆與管線:17",
+  "zh": "戶外：九龍城寨電器行外牆與管線",
+  "en": "Kowloon Walled City appliance shop wall, exposed conduits, old electrical boxes, peeling tiles, hanging shop signs, compressed alley edge, appliance display fragments",
+  "tags": [
+   "urban",
+   "outdoor"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-興記煲仔飯店門口騎樓區:18",
+  "zh": "戶外：興記煲仔飯店門口騎樓區",
+  "en": "Hing Kee claypot rice storefront arcade, tiled pavement, restaurant signboard, entrance threshold, compact Temple Street frontage, menu board edge, stacked stools",
+  "tags": [
+   "urban",
+   "hospitality",
+   "indoor",
+   "outdoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-廟街小吃店外桌邊角落:19",
+  "zh": "戶外：廟街小吃店外桌邊角落",
+  "en": "Temple Street eatery sidewalk table corner, plastic stools, tiled storefront edge, stacked utensils, curbside dining surface, shop threshold, table leg details",
+  "tags": [
+   "urban",
+   "outdoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-孚日廣場拱廊下:20",
+  "zh": "戶外：孚日廣場拱廊下",
+  "en": "Place des Vosges arcade side bay, brick arch segment, stone floor, recessed residential entrance, column base, wall-side walkway, shuttered window detail",
+  "tags": [
+   "urban",
+   "outdoor"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-孚日廣場草地邊與紅磚立面:21",
+  "zh": "戶外：孚日廣場草地邊與紅磚立面",
+  "en": "Place des Vosges lawn edge, clipped grass border, red-brick facade section, shuttered windows, stone curb, walkway edge, residential square frontage",
+  "tags": [
+   "urban",
+   "outdoor",
+   "green_space"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-瑪黑區高級住宅門前石牆:22",
+  "zh": "戶外：瑪黑區高級住宅門前石牆",
+  "en": "Le Marais upscale residence entrance, stone doorway, wrought-iron detail, polished wall texture, door threshold, brass hardware, narrow sidewalk edge",
+  "tags": [
+   "urban",
+   "outdoor"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-曼哈頓精品櫥窗前人行道:23",
+  "zh": "戶外：曼哈頓精品櫥窗前人行道",
+  "en": "Manhattan fashion storefront sidewalk, large display window, polished glass, curbside edge, layered storefront reflections, window-display base, building entrance seam",
+  "tags": [
+   "urban",
+   "outdoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-曼哈頓街角玻璃反射牆面:24",
+  "zh": "戶外：曼哈頓街角玻璃反射牆面",
+  "en": "Manhattan corner glass facade, reflective storefront wall, taxi shapes reflected in glass, steam plume reflection, tower reflections layered behind, sidewalk corner edge",
+  "tags": [
+   "urban",
+   "outdoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-曼哈頓店面轉角櫥窗邊:25",
+  "zh": "戶外：曼哈頓店面轉角櫥窗邊",
+  "en": "Manhattan corner display window, angled storefront glass, crosswalk edge, reflected traffic shapes, polished commercial facade, corner mullion, sidewalk curb detail",
+  "tags": [
+   "urban",
+   "outdoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-首爾聖水洞街區:26",
+  "zh": "戶外：首爾聖水洞街區",
+  "en": "Seoul Seongsu-dong urban corner, industrial cafe frontage, muted concrete textures, shop entrance edge, metal-framed window, sidewalk curb, small signboard",
+  "tags": [
+   "urban",
+   "outdoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-首爾弘大街頭:27",
+  "zh": "戶外：首爾弘大街頭",
+  "en": "Seoul Hongdae youth-culture storefront edge, colorful signboards, layered shopfronts, stickered pole, narrow sidewalk corner, small retail signs, curb detail",
+  "tags": [
+   "urban",
+   "outdoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-台北西門町街頭:28",
+  "zh": "戶外：台北西門町街頭",
+  "en": "Taipei Ximending street corner, dense commercial signboards, humid-looking storefront reflections, shopfront layers, arcade edge, scooter parking fragment, curbside paving",
+  "tags": [
+   "urban",
+   "outdoor",
+   "commercial",
+   "green_space"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-洛杉磯日落大道街景:29",
+  "zh": "戶外：洛杉磯日落大道街景",
+  "en": "Los Angeles Sunset Boulevard sidewalk edge, palm tree trunk segment, large billboard structure, broad boulevard curb, low commercial facade, street-sign pole, asphalt edge",
+  "tags": [
+   "urban",
+   "outdoor"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町招牌下:30",
+  "zh": "戶外：新宿歌舞伎町招牌下",
+  "en": "Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign, steel arch supports, dense nightlife storefronts and layered signboards, glossy pavement patches, narrow curb and doorway edges",
+  "tags": [
+   "urban",
+   "outdoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町販賣機旁:31",
+  "zh": "戶外：新宿歌舞伎町販賣機旁",
+  "en": "Shinjuku vending machine corner, metallic vending-machine surfaces, wall edge, pavement texture, small product display windows, curbside standing space",
+  "tags": [
+   "urban",
+   "outdoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町酒吧門口:32",
+  "zh": "戶外：新宿歌舞伎町酒吧門口",
+  "en": "Kabukicho bar entrance, compact signboard, doorway recess, narrow threshold, wall texture, small exterior light fixture as a physical object, side poster panel",
+  "tags": [
+   "urban",
+   "outdoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町濕地反光角落:33",
+  "zh": "戶外：新宿歌舞伎町濕地反光角落",
+  "en": "Kabukicho street corner, reflective pavement patches, wall edge, layered signboards, storefront corner, curb detail, glossy ground texture",
+  "tags": [
+   "urban",
+   "outdoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-蘇荷區酒吧門口:34",
+  "zh": "戶外：蘇荷區酒吧門口",
+  "en": "Soho pub entrance, doorway frame, wall texture, glossy pavement patches, pub sign bracket, narrow threshold, window trim",
+  "tags": [
+   "urban",
+   "outdoor"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-蘇荷區店面櫥窗邊:35",
+  "zh": "戶外：蘇荷區店面櫥窗邊",
+  "en": "Soho storefront window edge, reflective glass, pavement texture, shop threshold, display-window base, side wall detail",
+  "tags": [
+   "urban",
+   "outdoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-蘇荷區招牌下:36",
+  "zh": "戶外：蘇荷區招牌下",
+  "en": "Soho signboard corner, neon sign structure, wall edge, glossy ground patches, layered storefront reflections, sign bracket detail",
+  "tags": [
+   "urban",
+   "outdoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-蘇荷區濕地反光街角:37",
+  "zh": "戶外：蘇荷區濕地反光街角",
+  "en": "Soho street corner, pub frontage reflections, turning wall, glossy pavement patches, curb edge, storefront base detail",
+  "tags": [
+   "urban",
+   "outdoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-brick-lane-海報牆巷口:38",
+  "zh": "戶外：Brick Lane 海報牆巷口",
+  "en": "Brick Lane poster-covered brick wall, graffiti tags, layered pasted flyers, worn metal shutters, pavement edge, alley entrance corner, stickered pole",
+  "tags": [
+   "urban",
+   "outdoor"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-shoreditch-紅磚塗鴉街:39",
+  "zh": "戶外：Shoreditch 紅磚塗鴉街",
+  "en": "Shoreditch red-brick graffiti wall edge, painted wall panels, sticker-covered surfaces, layered posters, sidewalk curb, metal shutter fragment, side alley detail",
+  "tags": [
+   "urban",
+   "outdoor"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-camden-龐克街角:40",
+  "zh": "戶外：Camden 龐克街角",
+  "en": "Camden punk street corner, red-brick storefront edge, band posters, sticker-covered pole, graffiti wall section, pavement curb, shop sign fragments",
+  "tags": [
+   "urban",
+   "outdoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-倫敦排屋街道:41",
+  "zh": "戶外：倫敦排屋街道",
+  "en": "London townhouse frontage edge, Victorian terrace facade section, black iron railings, stone steps, pavement edge, basement window grille, doorway threshold",
+  "tags": [
+   "urban",
+   "outdoor",
+   "heritage",
+   "subterranean"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-雨後-mews-巷弄:42",
+  "zh": "戶外：雨後 mews 巷弄",
+  "en": "London mews lane corner, brick garage fronts, narrow cobbled passage, glossy cobblestone patches, garage door edge, wall-mounted utility boxes, side entrance detail",
+  "tags": [
+   "urban",
+   "outdoor"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-法租界老洋房門口:43",
+  "zh": "戶外：法租界老洋房門口",
+  "en": "French Concession townhouse entrance, old doorway frame, iron railing, tree trunk segment off to one side, stone step, wall plaque, sidewalk edge",
+  "tags": [
+   "urban",
+   "outdoor",
+   "heritage"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:室內-法租界咖啡館靠窗座位:44",
+  "zh": "室內：法租界咖啡館靠窗座位",
+  "en": "French Concession cafe window seat, large floor-to-ceiling window, sidewalk and park trees outside, reflective glass, small table edge, chair back, window frame detail",
+  "tags": [
+   "urban",
+   "indoor",
+   "outdoor",
+   "commercial",
+   "green_space"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-法租界咖啡館窗外露台座位:45",
+  "zh": "戶外：法租界咖啡館窗外露台座位",
+  "en": "French Concession cafe window terrace, small round table, metal chairs, street tree trunk off to one side, reflective glass, sidewalk edge, cafe threshold",
+  "tags": [
+   "urban",
+   "outdoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-法租界街角轉角牆面:46",
+  "zh": "戶外：法租界街角轉角牆面",
+  "en": "French Concession corner wall, aged brick textures, small shop signage, street tree trunk fragment, sidewalk corner, wall base, narrow storefront edge",
+  "tags": [
+   "urban",
+   "outdoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-法租界鐵欄杆前:47",
+  "zh": "戶外：法租界鐵欄杆前",
+  "en": "French Concession iron railing, stone wall, window frame, layered wall textures, sidewalk edge, railing post detail, old residential frontage",
+  "tags": [
+   "urban",
+   "outdoor"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-羅馬老城石牆轉角:48",
+  "zh": "戶外：羅馬老城石牆轉角",
+  "en": "Rome old-town stone corner, warm-toned wall texture, cobblestone ground, wall base, narrow doorway edge, uneven stone blocks",
+  "tags": [
+   "urban",
+   "outdoor",
+   "heritage"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-羅馬老城咖啡館外桌旁:49",
+  "zh": "戶外：羅馬老城咖啡館外桌旁",
+  "en": "Rome cafe terrace edge, outdoor chairs, textured stone wall, small table edge, cafe threshold, cobblestone pavement, wall-side seating detail",
+  "tags": [
+   "urban",
+   "indoor",
+   "outdoor",
+   "commercial",
+   "heritage"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-羅馬老城老木門前:50",
+  "zh": "戶外：羅馬老城老木門前",
+  "en": "Rome aged wooden door, stone wall texture, iron handle detail, doorway threshold, worn step, wall plaque, side hinge detail",
+  "tags": [
+   "urban",
+   "outdoor",
+   "heritage"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-羅馬老城窗台邊:51",
+  "zh": "戶外：羅馬老城窗台邊",
+  "en": "Rome old-town window ledge, stone wall, cafe frontage detail, potted plants, sill edge, textured plaster, narrow sidewalk strip",
+  "tags": [
+   "urban",
+   "outdoor",
+   "commercial",
+   "heritage"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-城市遊艇碼頭欄杆旁:52",
+  "zh": "戶外：城市遊艇碼頭欄杆旁",
+  "en": "urban yacht marina promenade, slim stainless-steel pedestrian handrail with round tubular rails, weathered dock planks, timber pier decking, moored sailboats and yacht masts, calm harbor water, distant city skyline and mountain silhouettes",
+  "tags": [
+   "urban",
+   "outdoor",
+   "waterfront",
+   "natural"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-奧地利-hallstatt-湖畔山村觀景欄杆:53",
+  "zh": "戶外：奧地利 Hallstatt 湖畔山村觀景欄杆",
+  "en": "Hallstatt lakeside village overlook, metal railing foreground, Hallstatter See water edge, clustered alpine timber houses, church spire and steep mountain backdrop, asymmetric travel-portrait composition",
+  "tags": [
+   "urban",
+   "outdoor",
+   "waterfront",
+   "natural",
+   "studio"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-高樓頂樓城市天際線:54",
+  "zh": "戶外：高樓頂樓城市天際線",
+  "en": "high-rise rooftop edge, rooftop guardrail and concrete parapet, modern city skyline in the distance, layered urban towers, broad rooftop ledge, elevated metropolitan overlook",
+  "tags": [
+   "urban",
+   "outdoor"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-飯店度假村泳池露台:55",
+  "zh": "戶外：飯店度假村泳池露台",
+  "en": "hotel resort poolside terrace, wet stone deck, swimming pool edge, lounge chair corner, balcony facade, palm planters, wall-lamp fixtures, asymmetric poolside composition",
+  "tags": [
+   "urban",
+   "hospitality",
+   "indoor",
+   "outdoor",
+   "waterfront"
+  ]
+ },
+ {
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-高級飯店陽台城市河景:56",
+  "zh": "戶外：高級飯店陽台城市河景",
+  "en": "luxury hotel balcony river-view terrace, glass railing, balcony ledge, high-rise facade edge, broad river below, dense skyline towers, asymmetric metropolitan overlook",
+  "tags": [
+   "urban",
+   "hospitality",
+   "indoor",
+   "outdoor",
+   "waterfront"
+  ]
+ },
+ {
+  "id": "locations:自然與戶外-nature-outdoors:戶外-金色海灘與浪線:0",
+  "zh": "戶外：金色海灘與浪線",
+  "en": "golden sandy beach edge, shallow clear seawater, thin transparent receding wave line across wet sand, clean waterline, open seaside ground plane, smooth beach surface",
+  "tags": [
+   "outdoor",
+   "natural",
+   "waterfront"
+  ]
+ },
+ {
+  "id": "locations:自然與戶外-nature-outdoors:戶外-清澈海灣岩岸:1",
+  "zh": "戶外：清澈海灣岩岸",
+  "en": "clear turquoise cove shoreline, pale rocky coast, shallow transparent seawater, irregular coastal stones, cliff wall edge, small inlet waterline, uneven shoreline surface",
+  "tags": [
+   "outdoor",
+   "natural",
+   "commercial",
+   "waterfront"
+  ]
+ },
+ {
+  "id": "locations:自然與戶外-nature-outdoors:戶外-岩洞感海灣淺灘:2",
+  "zh": "戶外：岩洞感海灣淺灘",
+  "en": "rocky seaside cove with cave-like cliff openings, shallow crystalline water, irregular stone shoreline, recessed rock wall, coastal rock textures, uneven shallow-water edge",
+  "tags": [
+   "outdoor",
+   "natural",
+   "waterfront"
+  ]
+ },
+ {
+  "id": "locations:自然與戶外-nature-outdoors:戶外-草地與樹木:3",
+  "zh": "戶外：草地與樹木",
+  "en": "small grassy park patch, uneven lawn texture, scattered tree trunks at varied depths, low shrubs, ground-level natural surface, off-center tree edge",
+  "tags": [
+   "outdoor",
+   "natural",
+   "commercial",
+   "green_space"
+  ]
+ },
+ {
+  "id": "locations:自然與戶外-nature-outdoors:戶外-廣闊草原平原與天空:4",
+  "zh": "戶外：廣闊草原平原與天空",
+  "en": "wide open grassland plain, low meadow grasses and wild plants, flat horizon line, expansive open sky, distant tree line, spacious countryside field",
+  "tags": [
+   "outdoor",
+   "natural",
+   "green_space"
+  ]
+ },
+ {
+  "id": "locations:自然與戶外-nature-outdoors:戶外-向日葵花田:5",
+  "zh": "戶外：向日葵花田",
+  "en": "sunflower field edge, dense sunflower stems, large yellow flower heads, irregular plant clusters broken by leaves, soil path fragment on one side, rural field background",
+  "tags": [
+   "outdoor",
+   "natural",
+   "green_space"
+  ]
+ },
+ {
+  "id": "locations:自然與戶外-nature-outdoors:戶外-霧感森林步道:6",
+  "zh": "戶外：霧感森林步道",
+  "en": "forest path edge, dark tree trunks at varied distances, uneven ground, mossy roots, leaf litter, partial trail curve, dense woodland background",
+  "tags": [
+   "outdoor",
+   "natural",
+   "green_space"
+  ]
+ },
+ {
+  "id": "locations:自然與戶外-nature-outdoors:戶外-森林營地帳篷營火:7",
+  "zh": "戶外：森林營地帳篷營火",
+  "en": "forest campsite clearing, canvas tent edge, campfire pit, hanging lantern stand, tree trunks at varied depths, leaf-litter ground, asymmetric camp setup",
+  "tags": [
+   "outdoor",
+   "natural",
+   "green_space"
+  ]
+ },
+ {
+  "id": "locations:自然與戶外-nature-outdoors:戶外-湖邊木棧道:8",
+  "zh": "戶外：湖邊木棧道",
+  "en": "lakeside wooden deck edge, weathered planks, low railing section, calm water surface beside the deck, reeds or shoreline plants on one side, natural bank detail",
+  "tags": [
+   "outdoor",
+   "natural",
+   "waterfront"
+  ]
+ },
+ {
+  "id": "locations:自然與戶外-nature-outdoors:戶外-海邊岩岸:9",
+  "zh": "戶外：海邊岩岸",
+  "en": "rocky shoreline edge, irregular stone slabs, tide-pool pockets, rough coastal rock texture, seawater visible beside the rocks, uneven standing surface",
+  "tags": [
+   "outdoor",
+   "natural",
+   "waterfront"
+  ]
+ },
+ {
+  "id": "locations:自然與戶外-nature-outdoors:戶外-沙丘與風痕地景:10",
+  "zh": "戶外：沙丘與風痕地景",
+  "en": "sand dune slope, wind-shaped sand ripples, uneven dune ridge, sparse dry grass tufts, open sandy ground plane, off-center crest line",
+  "tags": [
+   "outdoor",
+   "natural",
+   "waterfront",
+   "green_space"
+  ]
+ },
+ {
+  "id": "locations:自然與戶外-nature-outdoors:戶外-白色鹽湖乾裂荒漠:11",
+  "zh": "戶外：白色鹽湖乾裂荒漠",
+  "en": "white salt flat playa edge, cracked salt crust ground, pale polygon surface texture, open dry basin, distant low mountain range, wide blue-sky desert horizon",
+  "tags": [
+   "outdoor",
+   "natural"
+  ]
+ },
+ {
+  "id": "locations:其他專屬場景-other-dedicated-scenes:其他-草地:0",
+  "zh": "其他：草地",
+  "en": "close grassy ground plane, dense green lawn texture, short grass blades, simple natural surface filling the frame, near-ground scene base",
+  "tags": [
+   "other_scene",
+   "green_space"
+  ]
+ },
+ {
+  "id": "locations:其他專屬場景-other-dedicated-scenes:其他-白色床鋪:1",
+  "zh": "其他：白色床鋪",
+  "en": "lived-in white bed surface, casually rumpled white comforter, two loose white pillows, cotton bedding texture, close bed-surface scene base filling the frame",
+  "tags": [
+   "other_scene",
+   "residential",
+   "indoor"
+  ]
+ },
+ {
+  "id": "locations:其他專屬場景-other-dedicated-scenes:其他-生活感日式榻榻米房間:2",
+  "zh": "其他：生活感日式榻榻米房間",
+  "en": "lived-in Japanese tatami ground plane, woven mat texture filling the floor, shoji screen edge, low domestic detail, small personal items near a corner, tatami seam geometry",
+  "tags": [
+   "other_scene",
+   "indoor",
+   "commercial"
+  ]
+ },
+ {
+  "id": "locations:其他專屬場景-other-dedicated-scenes:其他-樹下草地:3",
+  "zh": "其他：樹下草地",
+  "en": "green lawn under tree canopy, visible grass blade texture, tree roots breaking through the grass, tree trunk base near one side, low branch and leaf fragments, natural ground scene base",
+  "tags": [
+   "other_scene",
+   "green_space"
+  ]
+ },
+ {
+  "id": "locations:其他專屬場景-other-dedicated-scenes:其他-沙灘海岸線:4",
+  "zh": "其他：沙灘海岸線",
+  "en": "pale sandy beach ground plane, clean fine sand surface, shallow clear seawater at the edge, thin transparent wave line across wet sand, calm shoreline scene base",
+  "tags": [
+   "other_scene",
+   "outdoor",
+   "waterfront",
+   "natural"
+  ]
+ }
+]

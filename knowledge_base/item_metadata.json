@@ -976,5 +976,301 @@
         }
       }
     }
+  },
+  "Locations": {
+    "攝影棚與背景 (Studio Sets)": {
+      "室內：鏡面地板攝影棚": {
+        "lyingSurface": {
+          "type": "floor",
+          "en": "mirrored floor"
+        }
+      },
+      "室內：純潔白幕": {
+        "lyingSurface": {
+          "type": "ground",
+          "en": "white surface"
+        }
+      },
+      "室內：深邃黑幕": {
+        "lyingSurface": {
+          "type": "ground",
+          "en": "black surface"
+        }
+      },
+      "室內：莫蘭迪灰背景": {
+        "lyingSurface": {
+          "type": "ground",
+          "en": "grey surface"
+        }
+      },
+      "室內：純藍背景": {
+        "lyingSurface": {
+          "type": "ground",
+          "en": "blue surface"
+        }
+      },
+      "室內：純橘背景": {
+        "lyingSurface": {
+          "type": "ground",
+          "en": "orange surface"
+        }
+      },
+      "室內：純紅背景": {
+        "lyingSurface": {
+          "type": "ground",
+          "en": "red surface"
+        }
+      },
+      "室內：純黃背景": {
+        "lyingSurface": {
+          "type": "ground",
+          "en": "yellow surface"
+        }
+      },
+      "室內：純紫背景": {
+        "lyingSurface": {
+          "type": "ground",
+          "en": "purple surface"
+        }
+      },
+      "室內：純綠背景": {
+        "lyingSurface": {
+          "type": "ground",
+          "en": "green surface"
+        }
+      },
+      "室內：鮮豔撞色背景": {
+        "lyingSurface": {
+          "type": "ground",
+          "en": "color-block surface"
+        }
+      },
+      "室內：漸層打光背景": {
+        "lyingSurface": {
+          "type": "ground",
+          "en": "gradient ground-and-background plane"
+        }
+      },
+      "室內：CRT 電視牆攝影棚": {
+        "lyingSurface": {
+          "type": "floor",
+          "en": "desaturated blue-grey floor"
+        }
+      },
+      "室內：多色塊撞色背景": {
+        "lyingSurface": {
+          "type": "ground",
+          "en": "ground-and-background color surface"
+        }
+      }
+    },
+    "生活感室內 (Indoor & Lifestyle)": {
+      "室內：精品飯店房間": {
+        "lyingSurface": {
+          "type": "bed",
+          "en": "bed with white sheets"
+        }
+      },
+      "室內：現代高樓公寓客廳": {
+        "lyingSurface": {
+          "type": "rug",
+          "en": "rug"
+        }
+      },
+      "室內：Y2K 復古房間": {
+        "lyingSurface": {
+          "type": "rug",
+          "en": "floor rug"
+        }
+      },
+      "室內：臥室窗邊": {
+        "lyingSurface": {
+          "type": "bed",
+          "en": "linen bedding"
+        }
+      },
+      "室內：白色書櫃落地窗臥室": {
+        "lyingSurface": {
+          "type": "bed",
+          "en": "white bedding surface"
+        }
+      },
+      "室內：英式小旅館房間": {
+        "lyingSurface": {
+          "type": "bed",
+          "en": "floral bedding"
+        }
+      },
+      "室內：英式溫室 conservatory": {
+        "lyingSurface": {
+          "type": "floor",
+          "en": "stone floor"
+        }
+      },
+      "室內：老式鋼琴房": {
+        "lyingSurface": {
+          "type": "floor",
+          "en": "worn wood floor"
+        }
+      },
+      "室內：女高生房間": {
+        "lyingSurface": {
+          "type": "bed",
+          "en": "compact single bed"
+        }
+      },
+      "室內：日式和室": {
+        "lyingSurface": {
+          "type": "tatami",
+          "en": "tatami flooring"
+        }
+      },
+      "戶外：日式旅館緣側木廊": {
+        "lyingSurface": {
+          "type": "floor",
+          "en": "raised wooden deck"
+        }
+      },
+      "室內：狹小都會旅館房間": {
+        "lyingSurface": {
+          "type": "bed",
+          "en": "compact bedding"
+        }
+      }
+    },
+    "地下與廢墟風格 (Abandoned & Underground)": {
+      "室內：廢棄診療室": {
+        "lyingSurface": {
+          "type": "bed",
+          "en": "medical bed"
+        }
+      },
+      "室內：廢棄校舍破窗音樂教室": {
+        "lyingSurface": {
+          "type": "floor",
+          "en": "wooden floor"
+        }
+      },
+      "室內：廢棄校舍保健室": {
+        "lyingSurface": {
+          "type": "bed",
+          "en": "examination bed"
+        }
+      },
+      "室內：廢棄校舍體育器材室": {
+        "lyingSurface": {
+          "type": "other",
+          "en": "gym mats"
+        }
+      },
+      "室內：地下狂歡俱樂部 / 金庫": {
+        "lyingSurface": {
+          "type": "floor",
+          "en": "concrete floor"
+        }
+      },
+      "室內：遭洗劫的維多利亞大宅": {
+        "lyingSurface": {
+          "type": "floor",
+          "en": "dusty wooden floor"
+        }
+      },
+      "戶外：高樓建築骨架裸露混凝土地板": {
+        "lyingSurface": {
+          "type": "floor",
+          "en": "exposed high-rise floor slab"
+        }
+      }
+    },
+    "城市與社群感 (Urban & Social Snapshots)": {
+      "戶外：孚日廣場草地邊與紅磚立面": {
+        "lyingSurface": {
+          "type": "grass",
+          "en": "lawn"
+        }
+      },
+      "戶外：飯店度假村泳池露台": {
+        "lyingSurface": {
+          "type": "floor",
+          "en": "wet stone deck"
+        }
+      }
+    },
+    "自然與戶外 (Nature & Outdoors)": {
+      "戶外：金色海灘與浪線": {
+        "lyingSurface": {
+          "type": "sand",
+          "en": "wet sand"
+        }
+      },
+      "戶外：草地與樹木": {
+        "lyingSurface": {
+          "type": "grass",
+          "en": "lawn"
+        }
+      },
+      "戶外：廣闊草原平原與天空": {
+        "lyingSurface": {
+          "type": "grass",
+          "en": "grassland plain"
+        }
+      },
+      "戶外：森林營地帳篷營火": {
+        "lyingSurface": {
+          "type": "ground",
+          "en": "leaf-litter ground"
+        }
+      },
+      "戶外：湖邊木棧道": {
+        "lyingSurface": {
+          "type": "floor",
+          "en": "wooden deck"
+        }
+      },
+      "戶外：沙丘與風痕地景": {
+        "lyingSurface": {
+          "type": "sand",
+          "en": "sandy ground plane"
+        }
+      },
+      "戶外：白色鹽湖乾裂荒漠": {
+        "lyingSurface": {
+          "type": "ground",
+          "en": "salt crust ground"
+        }
+      }
+    },
+    "其他專屬場景 (Other Dedicated Scenes)": {
+      "其他：草地": {
+        "lyingSurface": {
+          "type": "grass",
+          "en": "green lawn"
+        }
+      },
+      "其他：白色床鋪": {
+        "lyingSurface": {
+          "type": "bed",
+          "en": "white bed surface"
+        }
+      },
+      "其他：生活感日式榻榻米房間": {
+        "lyingSurface": {
+          "type": "tatami",
+          "en": "tatami ground plane"
+        }
+      },
+      "其他：樹下草地": {
+        "lyingSurface": {
+          "type": "grass",
+          "en": "green lawn"
+        }
+      },
+      "其他：沙灘海岸線": {
+        "lyingSurface": {
+          "type": "sand",
+          "en": "fine sand surface"
+        }
+      }
+    }
   }
 }
