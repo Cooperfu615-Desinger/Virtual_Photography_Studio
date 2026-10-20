@@ -188,7 +188,9 @@ test('Z-Image exact visible text stays outside global random and clear operation
 // expression-pose-v2 P2 (Cooper 2026-10-19): pose random sets the menu to 隨機,
 // resets the free-composer body, hand and support layers, keeps the head layer
 // random until it becomes gaze (P4) and leaves the prop layer independent.
-test('single pose panel sets the pose menu to random and resets free-composer body layers', () => {
+// P4 (2026-10-20): the panel holds 姿勢／手勢／表情／視線; random sets the three
+// menus to 隨機, and the retired composer layers stay 全無.
+test('single pose panel sets the pose, gesture and gaze menus to random and leaves composer layers silent', () => {
   const controls = getLockControls();
   const defaults = createEmptyLocks();
   const singlePosePanel = PAGE1_POSE_SUBPANELS.find((panel) => panel.id === 'single');
@@ -202,11 +204,12 @@ test('single pose panel sets the pose menu to random and resets free-composer bo
   );
 
   assert.equal(randomized.specifiedActionId, 'random');
-  for (const key of POSE_COMPOSER_KEYS.filter((key) => key !== 'poseHeadId')) {
+  assert.equal(randomized.gestureId, 'random');
+  assert.equal(randomized.gazeId, 'random');
+  for (const key of POSE_COMPOSER_KEYS) {
     assert.equal(randomized[key], 'none', `${key} no longer randomizes`);
   }
-  assert.equal(randomized.poseHeadId, 'random');
-  assert.equal(randomized.posePropId, 'none', 'The independent prop layer should keep its current none value');
+  assert.equal(randomized.posePropId, 'none', 'the retired prop layer stays silent');
 
   const fullBody = controls.find((entry) => entry.key === 'framingId').options.find((option) => option.zh === '全身鏡頭 (Full Body Shot)').id;
   const [prompt] = generatePrompts(1, { ...randomized, framingId: fullBody }, [], {

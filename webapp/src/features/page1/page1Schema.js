@@ -312,8 +312,9 @@ export const SECTION_SUBPANELS = {
       id: 'composition',
       label: '構圖與視角',
       description: '選景別、相機視角與拍攝方位，決定人物和場景在畫面中的關係。',
-      // lyingCameraId (P3) replaces angle and orbit only while a lying action is active.
-      keys: ['framingId', 'angleId', 'orbitId', 'lyingCameraId'],
+      // lyingCameraId (P3) replaces angle and orbit only while a lying action is active;
+      // captureStyleId (P4) carries the selfie styles that used to be hand options.
+      keys: ['framingId', 'angleId', 'orbitId', 'lyingCameraId', 'captureStyleId'],
     },
     {
       id: 'style',

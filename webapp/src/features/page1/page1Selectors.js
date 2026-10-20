@@ -145,7 +145,7 @@ function buildCharacterControls(lockControls, locks, sceneDependentOptions) {
   return sortControls(sceneAware.filter((control) => {
     if (isDedicatedSubject) {
       return [
-        'specialSubjectId', 'characterProfileId', 'expressionId', ...POSE_COMPOSER_CONTROL_KEYS,
+        'specialSubjectId', 'characterProfileId', 'expressionId', 'gazeId', 'gestureId', ...POSE_COMPOSER_CONTROL_KEYS,
         ...(isAndroidSubject ? ['hairstyleId', 'hairStylingStateId', 'hairColorId'] : []),
       ].includes(control.key);
     }
@@ -153,7 +153,7 @@ function buildCharacterControls(lockControls, locks, sceneDependentOptions) {
     if (['specialSubjectId', 'characterProfileId'].includes(control.key)) return true;
     if (['duoPoseId', 'duoPoseBaseId', 'duoExpressionId'].includes(control.key) && locks.subjectCount !== '2') return false;
     if (['poseId', 'specialActionId'].includes(control.key)) return false;
-    if (POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && locks.subjectCount !== '1') return false;
+    if ([...POSE_COMPOSER_CONTROL_KEYS, 'gazeId', 'gestureId'].includes(control.key) && locks.subjectCount !== '1') return false;
     if (['bodyTypeId', 'facialFeaturesId', 'skinDetailsId', 'hairstyleId', 'hairStylingStateId', 'hairColorId', 'expressionId'].includes(control.key) && locks.subjectCount === '2') return false;
     if ([
       'bodyTypeAId', 'bodyTypeBId', 'facialFeaturesAId', 'facialFeaturesBId',

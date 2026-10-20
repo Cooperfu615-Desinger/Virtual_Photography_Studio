@@ -322,7 +322,7 @@ export function getSpecifiedActionEffectiveLocks(locks = {}, options = {}) {
 
 export function specifiedActionOwnsControl(action, key) {
   return Boolean(action) && (['poseBaseId', 'poseOrientationId', 'poseArrangementId', 'poseHandId', 'posePropId', 'poseAnchorId'].includes(key)
-    || (key === 'expressionId' && action.ownsExpression) || (key === 'poseHeadId' && action.ownsHead));
+    || (key === 'expressionId' && action.ownsExpression) || (['poseHeadId', 'gazeId'].includes(key) && action.ownsHead));
 }
 
 /** Camera choices stay intact. Explicit conflicts pause the action; random

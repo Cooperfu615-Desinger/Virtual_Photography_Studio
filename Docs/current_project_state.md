@@ -5,7 +5,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 Last updated: 2026-10-20
 
 
-## 神情姿態 v2：P3 躺姿機位與表面（2026-10-20，本機實作）
+## 神情姿態 v2：P4 新 B 面板（2026-10-20，本機實作）
+
+- B 單人只剩姿勢、手勢、表情、視線（Cooper 依示意圖確認）。手勢只在動作的手空著時出現（目前是趴躺動作）；視線取代頭部方向，沿用既有頭部英文，背面只留回眸；明確選了其他視線時，環繞隨機不抽背面（Cooper 選 B）。自拍移到 E 構圖與視角的「拍攝方式」，生成前轉成既有自拍手部／鏡子道具，Prompt 與舊鎖定逐字相同。舊自由組合欄位在工作台與套用 Saved Card 時清除。
+- 驗證：未使用新欄位時 612 組輸出與 P3 逐字相同；場景隨機時，全部隨機只有頭部句改變（鎖定可躺場景時還會加上手勢句）；strict audit 與 P3 相同；`npm test` 1731/1731（連跑 2 次）、Prompt Quality 738/738、lint、build、sync、Python、公開資產、diff-check；瀏覽器 1440×1000／390×900。細節與已知限制見 [實作計畫 §7](specs/expression-pose-v2-implementation-plan.md)。分支 `claude/pose-v2-p4-panel`。
+
+## 神情姿態 v2：P3 躺姿機位與表面（2026-10-20，已合併 main，PR #10）
 
 - 47 個場景加上躺姿表面（逐字取自場景英文，Cooper 審核定案）；躺姿動作會寫成 `She lies on her stomach on the white bed surface …`。E「構圖與視角」新增躺姿機位（全無／隨機／正上方俯拍／斜上方俯拍／貼地平視／從頭頂方向／從腳底方向 △），只在躺姿動作下取代俯仰與環繞。姿勢「隨機」只在鎖定的可躺場景抽躺姿。D 區顯示可躺表面提示。
 - 驗證：代表性 104 組、隨機 200 組與 P2 逐字相同；躺姿輸出 110 組差異只有 35 處表面插入；`npm test` 1718/1718、Prompt Quality 738/738、lint、build、strict audit 與 P2 相同、sync、Python、公開資產、diff-check；瀏覽器 1440×1000／390×900。細節見 [pose-library-lying-v1 §7](specs/pose-library-lying-v1.md)。分支 `claude/pose-v2-p3-lying`。

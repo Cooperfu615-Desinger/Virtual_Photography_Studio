@@ -1,6 +1,7 @@
 import { CAPTURE_GROUPS, resolveCapture } from './observationCaptureMode.js';
 import { DUO_ROLES, getDuoRoleSummary } from '../features/page1/duoEditor.js';
 import { getSpecifiedAction } from './engine/specifiedActions.js';
+import { applicableGestureOptions } from './engine/gazeGesture.js';
 import { bottomRiseConflict, bottomRiseControlContext } from './engine/bottomRiseCompatibility.js';
 import { isHeadDominantFraming, headDominantAngleAllowed } from './engine/headDominantFraming.js';
 import { CHARACTER_CARD_LAYER_KEYS, CHARACTER_CARD_LAYER_LABELS } from './characterCardLab.js';
@@ -242,7 +243,11 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
   const poseSummary = specifiedAction ? buildSummaryText([
       specifiedAction.ownsExpression ? specifiedAction.expressionLabel : getControlOptionLabel(controls, 'expressionId', locks.expressionId),
       `指定動作：${specifiedAction.zh}`,
-      specifiedAction.ownsHead ? specifiedAction.headLabel : getControlOptionLabel(controls, 'poseHeadId', locks.poseHeadId),
+      // expression-pose-v2 P4: gesture and gaze replace the free composer layers.
+      applicableGestureOptions(specifiedAction).some(option => option.id === locks.gestureId)
+        ? getControlOptionLabel(controls, 'gestureId', locks.gestureId) : '',
+      specifiedAction.ownsHead ? specifiedAction.headLabel
+        : getControlOptionLabel(controls, 'gazeId', locks.gazeId) || getControlOptionLabel(controls, 'poseHeadId', locks.poseHeadId),
     ])
     : buildSummaryText([
       getControlOptionLabel(controls, 'expressionId', locks.expressionId),
@@ -256,6 +261,7 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
       getControlOptionLabel(controls, 'posePropId', locks.posePropId),
       getControlOptionLabel(controls, 'poseHeadId', locks.poseHeadId),
       getControlOptionLabel(controls, 'poseAnchorId', locks.poseAnchorId),
+      locks.subjectCount === '1' ? getControlOptionLabel(controls, 'gazeId', locks.gazeId) : '',
     ]);
   const wardrobeSummary = isSpecialSubjectMode ? '' : buildSummaryText([
     ...importedCharacterCardWardrobe,

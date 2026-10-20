@@ -2,17 +2,13 @@ export const PAGE1_POSE_SUBPANELS = [
   {
     id: 'single',
     label: '單人設置',
-    description: '設定單人表情與姿勢基底，可選指定動作或自由組合肢體、手部、道具及接觸支撐。指定動作依內容接管姿態、神情或頭部，取消後恢復原選值；道具不會跟著這一區的全部隨機啟用。',
+    // expression-pose-v2 P4 (Cooper 2026-10-20): 姿勢、手勢、表情、視線; the free composer is retired.
+    description: '先選姿勢，再搭配手勢、表情與視線。手勢只在動作的雙手空著時出現；自拍請到 E 攝影成像的「拍攝方式」。',
     keys: [
       'specifiedActionId',
+      'gestureId',
       'expressionId',
-      'poseHeadId',
-      'poseBaseId',
-      'poseOrientationId',
-      'poseArrangementId',
-      'poseHandId',
-      'posePropId',
-      'poseAnchorId',
+      'gazeId',
     ],
   },
   {
