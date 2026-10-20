@@ -25,6 +25,7 @@ import {
 } from './midjourneyParameterState.js';
 import { buildPage1ControlGroups } from './page1Selectors.js';
 import { getSpecifiedAction } from '../../lib/engine/specifiedActions.js';
+import { retirePage1PoseComposerLocks } from './retiredPoseLocks.js';
 
 export const LOCKS_STORAGE_KEY = 'vps.locks';
 const EMPTY_LIBRARY = Object.freeze([]);
@@ -38,11 +39,11 @@ export function usePromptWorkspace() {
       normalizeLocks(loadJsonStorage(LOCKS_STORAGE_KEY, emptyLocks)),
       lockControls,
     );
-    return reconcilePage1SingleWardrobeLocks({
+    return retirePage1PoseComposerLocks(reconcilePage1SingleWardrobeLocks({
       previousLocks: emptyLocks,
       candidateLocks: normalizedLocks,
       lockControls,
-    });
+    }));
   });
   const [previewGenerationNonce, setPreviewGenerationNonce] = useState(0);
   const [previewRerollExclusion, setPreviewRerollExclusion] = useState(null);
@@ -132,13 +133,13 @@ export function usePromptWorkspace() {
           || Object.fromEntries(SUPINE_SCENE_RESTORE_KEYS.map(key => [key, previousLocks[key]]));
       }
 
-      return transitionPage1Locks({
+      return retirePage1PoseComposerLocks(transitionPage1Locks({
         previousLocks,
         candidateLocks,
         lockControls,
         activeLibrary,
         restoringSelection,
-      });
+      }));
     });
   }, [activeLibrary, lockControls]);
 

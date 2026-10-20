@@ -6,6 +6,7 @@ import { extractMidjourneyItemNames, midjourneyItemName, naturalIdentity, natura
 import { midjourneyBodyDescription } from './engine/midjourneyBodyDescriptions.js';
 import { SPECIFIED_ACTION_OPTIONS, getSpecifiedAction, getSpecifiedActionEffectiveLocks, resolveRandomSpecifiedAction, specifiedActionSupportsCamera } from './engine/specifiedActions.js';
 import { LYING_CAMERA_OPTIONS, isLyingAction, lyingSurfaceFor, resolveLyingCamera, withLyingSurface } from './engine/lyingSurface.js';
+import { CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, actionTextWithGesture, applyCaptureStyleLocks, gazeAvoidsBackView, isBackViewOrbit, resolveGaze, resolveGesture } from './engine/gazeGesture.js';
 import { applyDefaultEthnicity, applyDefaultEthnicityToCharacter, resolveDefaultEthnicity } from './engine/defaultEthnicity.js';
 import { renderNanoBananaNarrative } from './engine/nanoBananaPrompt.js';
 import { polishPublicPromptText } from './engine/publicPromptPolish.js';
@@ -1114,6 +1115,8 @@ const LOCK_DEFINITIONS = [
   { key: 'orbitId', label: '環繞角度', category: '拍攝方位 (Orbit Angle)', section: 'core' },
   // Lying library P3: replaces angle and orbit while a lying action is active.
   { key: 'lyingCameraId', label: '躺姿機位', options: LYING_CAMERA_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'core' },
+  // expression-pose-v2 P4: selfie styles map onto the existing selfie hand and prop options.
+  { key: 'captureStyleId', label: '拍攝方式', options: CAPTURE_STYLE_OPTIONS, defaultValue: 'standard', suppressDefaultRandomOption: true, section: 'core' },
   { key: 'lensId', label: '鏡頭焦段', category: FOCAL_LENGTH_CATEGORY, section: 'core' },
   { key: 'apertureId', label: '光圈 / 景深', category: APERTURE_CATEGORY, section: 'core' },
   { key: 'shutterId', label: '快門 / 動態殘影', category: SHUTTER_CATEGORY, section: 'core' },
@@ -1158,6 +1161,9 @@ const LOCK_DEFINITIONS = [
   { key: 'posePropId', label: '道具動作', options: POSE_COMPOSER_PROP_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'poseHeadId', label: '頭部方向', options: POSE_COMPOSER_HEAD_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'poseAnchorId', label: '接觸 / 支撐', options: POSE_COMPOSER_ANCHOR_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
+  // expression-pose-v2 P4: gaze replaces the head layer; gestures fill free-hand actions.
+  { key: 'gestureId', label: '手勢', options: GESTURE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
+  { key: 'gazeId', label: '視線', options: GAZE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'specialOutfitId', label: '特殊穿搭', category: '特殊穿搭 (Special Outfits)', section: 'wardrobe' },
   { key: 'specialOutfitAId', label: '人物 1 特殊穿搭', category: '特殊穿搭 (Special Outfits)', section: 'wardrobe' },
   { key: 'specialOutfitBId', label: '人物 2 特殊穿搭', category: '特殊穿搭 (Special Outfits)', section: 'wardrobe' },
@@ -5594,9 +5600,17 @@ function buildPoseComposerItem(context) {
   const requestedOrientation = getPoseComposerOption(POSE_COMPOSER_ORIENTATION_OPTIONS, context.locks?.poseOrientationId);
   const requestedArrangement = getPoseComposerOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, context.locks?.poseArrangementId);
   const requestedHand = getPoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId);
-  const requestedHead = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId);
   const requestedProp = getPoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, context.locks?.posePropId);
   const requestedAnchor = getPoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, context.locks?.poseAnchorId);
+  // expression-pose-v2 P4: an active gaze supplies the head option; unused gaze
+  // leaves older head locks in charge. An action that owns the head keeps it.
+  const specifiedAction = getSpecifiedAction(context.locks);
+  const gaze = context.rawLocks?.captureMode === 'observation' || specifiedAction?.ownsHead
+    ? null : resolveGaze(context.locks?.gazeId, { orientationId: specifiedAction?.orientationId, orbit: context.orbit }, random);
+  if (context.poseResolution) context.poseResolution.gaze = gaze;
+  const headLockId = gaze ? gaze.headId || 'none' : context.locks?.poseHeadId;
+
+  const requestedHead = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, headLockId);
 
   const resolveHead = (arrangementForHead = null, orientationForHead = null) => {
     // Compatibility constrains only the random pool. A concrete user lock is
@@ -5612,7 +5626,7 @@ function buildPoseComposerItem(context) {
       : () => true;
     return resolvePoseComposerOption(
       POSE_COMPOSER_HEAD_OPTIONS,
-      context.locks?.poseHeadId,
+      headLockId,
       predicate,
       exclusions,
       ['poseHeadId'],
@@ -5630,15 +5644,17 @@ function buildPoseComposerItem(context) {
     random
   );
 
-  const specifiedAction = getSpecifiedAction(context.locks);
   if (specifiedAction) {
     const orientation = getPoseComposerOption(POSE_COMPOSER_ORIENTATION_OPTIONS, specifiedAction.orientationId);
     const head = resolveHead(null, orientation);
-    const headText = isActivePoseComposerOption(head) ? `She has ${stripTerminalPromptPunctuation(head.en)}.` : '';
+    const headText = isActivePoseComposerOption(head) ? `She has ${normalizePoseComposerHeadPhrase(head)}.` : '';
+    const gesture = resolveGesture(context.locks?.gestureId, specifiedAction, { wardrobeSignals: context.wardrobeSignals }, random);
+    if (context.poseResolution) context.poseResolution.gesture = gesture;
+    const actionText = actionTextWithGesture(specifiedAction, gesture);
     return {
       id: `character:姿勢組合器-pose-composer:${specifiedAction.id}:${head?.id || 'none'}`,
       zh: [specifiedAction.zh, head?.zh].filter(Boolean).join(' + '),
-      en: [withLyingSurface(specifiedAction.en, lyingSurfaceFor(specifiedAction, context.location)), headText].filter(Boolean).join(' '),
+      en: [withLyingSurface(actionText.en, lyingSurfaceFor(specifiedAction, context.location)), headText].filter(Boolean).join(' '),
       desc: specifiedAction.descriptionZh,
       meta: {
         tags: ['pose_composer'], minVisibility: 'full',
@@ -5647,6 +5663,7 @@ function buildPoseComposerItem(context) {
         poseBaseId: specifiedAction.baseId, poseOrientationId: specifiedAction.orientationId,
         poseArrangementId: 'none', poseHandId: 'none', posePropId: 'none',
         poseHeadId: head?.id || 'none', poseAnchorId: 'none',
+        gestureId: gesture?.id || 'none',
       },
     };
   }
@@ -6133,8 +6150,9 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
     if (projection.pose?.mode === 'omit') return specifiedAction.faceEn || (specifiedAction.meta?.supineGroundOnly ? 'She is lying on her back on the ground.' : '');
     if (projection.pose?.mode === 'fullCanonical' || projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE) return poseComposer.en;
     const head = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, poseComposer.meta?.poseHeadId);
-    return [withLyingSurface(specifiedAction.upperBodyEn, lyingSurfaceFor(specifiedAction, context.location)),
-      isActivePoseComposerOption(head) ? `She has ${stripTerminalPromptPunctuation(head.en)}.` : '',
+    const gesture = GESTURE_OPTIONS.find(option => option.scope && option.id === poseComposer.meta?.gestureId) || null;
+    return [withLyingSurface(actionTextWithGesture(specifiedAction, gesture).upperBodyEn, lyingSurfaceFor(specifiedAction, context.location)),
+      isActivePoseComposerOption(head) ? `She has ${normalizePoseComposerHeadPhrase(head)}.` : '',
     ].filter(Boolean).join(' ');
   }
   if (context.fixedSetPosition?.carriagePose || context.fixedSetPosition?.stationPose) {
@@ -6142,7 +6160,7 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
     const position = context.fixedSetPosition;
     const head = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, poseComposer.meta?.poseHeadId);
     return [projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP ? position.chestEn : position.en,
-      isActivePoseComposerOption(head) && !isRandomOption(head) ? `She has ${stripTerminalPromptPunctuation(head.en)}.` : '',
+      isActivePoseComposerOption(head) && !isRandomOption(head) ? `She has ${normalizePoseComposerHeadPhrase(head)}.` : '',
     ].filter(Boolean).join(' ');
   }
 
@@ -16495,8 +16513,17 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     resolvedSelection.orbitId = context.rawLocks.orbitId;
   }
   resolvedSelection.lyingCameraId = context.lyingCamera?.id || context.rawLocks.lyingCameraId || 'none';
+  // expression-pose-v2 P4: record resolved gaze and gesture (raw choice when unused)
+  // and the 拍攝方式; unused defaults keep old snapshots' shape.
+  const { gaze, gesture } = context.poseResolution || {};
+  resolvedSelection.gazeId = gaze ? gaze.id : context.rawLocks.gazeId || 'none';
+  resolvedSelection.gestureId = gesture ? gesture.id : context.rawLocks.gestureId || 'none';
+  resolvedSelection.captureStyleId = context.rawLocks.captureStyleId || 'standard';
   const snapshot = createSelectionSnapshot(LOCK_DEFINITIONS, resolvedSelection);
   if (!snapshot.lyingCameraId || snapshot.lyingCameraId === 'none') delete snapshot.lyingCameraId;
+  for (const [key, unused] of [['gazeId', 'none'], ['gestureId', 'none'], ['captureStyleId', 'standard']]) {
+    if (!snapshot[key] || snapshot[key] === unused) delete snapshot[key];
+  }
   if (!storedAction) {
     // Old results keep their exact selection shape. Missing additive fields
     // restore to the new defaults without a compatibility migration.
@@ -16522,8 +16549,10 @@ export function buildLocksFromPrompt(prompt, keepKeys = []) {
   return base;
 }
 
-function generateSinglePrompt(index, requestedLocks, runtime, runtimeOptions = {}) {
+function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
   const lockControls = runtime.controls;
+  // expression-pose-v2 P4: a selfie 拍攝方式 becomes its selfie hand or prop lock.
+  const requestedLocks = applyCaptureStyleLocks(inputLocks);
   const capture = requestedLocks.captureMode === 'observation' ? resolveCapture(requestedLocks.observationCapture) : null;
   if (capture && (capture.error || captureEligibility(requestedLocks, lockControls))) return null;
   let captureRandomState = 1977;
@@ -16708,10 +16737,15 @@ function generateSinglePrompt(index, requestedLocks, runtime, runtimeOptions = {
     lowFrequencyPicker('low_frequency_angle'),
     ['angleId'],
   );
+  // expression-pose-v2 P4 (Cooper option B): an explicit non-回眸 gaze steers an
+  // unlocked orbit away from back views; a locked orbit is never replaced.
+  const gazeKeepsFrontOrbit = subject.count === 1 && !capture && !specifiedCameraAction?.ownsHead
+    && gazeAvoidsBackView(effectiveLocks.gazeId) && (!effectiveLocks.orbitId || isRandomLockValue(effectiveLocks.orbitId));
   let orbit = pickCameraWithExpressionLock(
     runtime.flatCatalog.orbit,
     effectiveLocks.orbitId,
-    (item) => framingSupportsOrbit(framing, item) && lockedExpressions.every((expression) => orbitSupportsExpression(item, expression)) && specialActionSupportsOrbit(item, lockedActionConstraint) && specifiedActionSupportsCamera(specifiedCameraAction, 'orbitId', item),
+    (item) => framingSupportsOrbit(framing, item) && lockedExpressions.every((expression) => orbitSupportsExpression(item, expression)) && specialActionSupportsOrbit(item, lockedActionConstraint) && specifiedActionSupportsCamera(specifiedCameraAction, 'orbitId', item)
+      && !(gazeKeepsFrontOrbit && isBackViewOrbit(item)),
     sample,
     ['orbitId'],
   );
@@ -16811,6 +16845,8 @@ function generateSinglePrompt(index, requestedLocks, runtime, runtimeOptions = {
     orbit,
     lyingCamera,
     lyingActionActive,
+    // Shared by reference so context copies report the composer's gaze and gesture.
+    poseResolution: {},
     lens,
     aperture,
     shutter,

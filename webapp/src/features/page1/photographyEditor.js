@@ -7,13 +7,16 @@ import { getFixedSceneCameraStatus } from './sceneEditor.js';
 export const PHOTOGRAPHY_EDITOR_GROUPS = [
   { id: 'image-type', label: '成品類型', keys: ['imageTypePresetId'] },
   // Lying library P3: lyingCameraId replaces angle and orbit while a lying action is active.
-  { id: 'composition', label: '構圖與視角', keys: ['framingId', 'angleId', 'orbitId', 'lyingCameraId'] },
+  // expression-pose-v2 P4: captureStyleId holds the selfie styles.
+  { id: 'composition', label: '構圖與視角', keys: ['framingId', 'angleId', 'orbitId', 'lyingCameraId', 'captureStyleId'] },
   { id: 'optics', label: '鏡頭與光學', keys: ['lensId', 'apertureId', 'shutterId', 'opticalEffectId'] },
   { id: 'look', label: '風格與成像', keys: ['styleId', 'filmId'] },
 ];
 
 function selectedLabel(field) {
   const { control, value } = field;
+  // 拍攝方式 always names its mode; 一般拍攝 is the default, not a 全無.
+  if (control.key === 'captureStyleId') return control.options?.find(item => item.id === value)?.zh || '一般拍攝';
   if (value === '' || value === undefined || value === null || value === 'random') {
     return '隨機（生成時決定）';
   }
@@ -74,7 +77,9 @@ export function buildPhotographyEditorModel(fields = [], context = {}) {
     return {
       ...group,
       fields: preparedFields,
-      summary: preparedFields.map(field => field.management?.value || selectedLabel(field)).join(' / '),
+      // 拍攝方式 joins the summary only when it is not the default 一般拍攝.
+      summary: preparedFields.filter(field => field.control.key !== 'captureStyleId' || (field.value && field.value !== 'standard'))
+        .map(field => field.management?.value || selectedLabel(field)).join(' / '),
       actionKeys: preparedFields.filter(field => !field.disabled).map(field => field.control.key),
     };
   });

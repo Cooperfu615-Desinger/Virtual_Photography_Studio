@@ -5,6 +5,7 @@ import { prepareBottomRiseControl } from '../lib/engine/bottomRiseCompatibility.
 import { prepareHeadDominantAngleControl } from '../lib/engine/headDominantFraming.js';
 import { buildKneelingSupportControl, isFourPointKneeling } from '../lib/engine/kneelingSupport.js';
 import { isLyingAction, lyingSurfaceFor } from '../lib/engine/lyingSurface.js';
+import { applicableGestureOptions, availableGazeOptions, isSelfieCaptureStyle } from '../lib/engine/gazeGesture.js';
 import { getSpecifiedAction, getSpecifiedActionEffectiveLocks, specifiedActionOwnsControl, getSpecifiedActionCameraConflict } from '../lib/engine/specifiedActions.js';
 import { prepareAccessoryControl } from '../lib/engine/accessoryPolicy.js';
 import { prepareOuterwearClosureControl } from '../lib/engine/outerwearClosure.js';
@@ -846,7 +847,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const selectedPosePropOption = posePropControl?.options?.find((option) => option.id === effectiveFixedSceneLocks.posePropId) || null;
   const selectedPoseActionOption = selectedPosePropOption && !isNoneSelected('posePropId', effectiveFixedSceneLocks.posePropId, characterLockControls)
     ? selectedPosePropOption : selectedPoseHandOption;
-  const selectedPoseActionLocksOrbit = !fixedScenePosition && isSelfiePoseActionOption(selectedPoseActionOption);
+  // expression-pose-v2 P4: a selfie 拍攝方式 applies (and locks the orbit) only while no action owns the hands.
+  const captureStyleSelfieApplies = isSelfieCaptureStyle(locks.captureStyleId) && locks.subjectCount === '1' && !activeSpecifiedAction && !captureActive;
+  const selectedPoseActionLocksOrbit = !fixedScenePosition && (isSelfiePoseActionOption(selectedPoseActionOption) || captureStyleSelfieApplies);
   const isPoseComposerValueActive = (key, value = locks[key]) => (
     Boolean(value) && !isNoneSelected(key, value, characterLockControls)
   );
@@ -934,7 +937,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       const label = control.key === 'poseBaseId'
         ? activeSpecifiedAction.baseId === 'none' ? '不限定・由指定動作決定' : control.options.find(o => o.id === activeSpecifiedAction.baseId)?.zh
         : control.key === 'expressionId' ? activeSpecifiedAction.expressionLabel
-        : control.key === 'poseHeadId' ? activeSpecifiedAction.headLabel
+        : ['poseHeadId', 'gazeId'].includes(control.key) ? activeSpecifiedAction.headLabel
         : control.key === 'poseOrientationId' ? orientationLabel || '由指定動作決定'
         : control.key === 'poseAnchorId' ? (activeSpecifiedAction.meta.supportSurface === 'ground' ? '地面' : activeSpecifiedAction.meta.supportSurface === 'bed' ? '床面' : '不指定額外支撐')
         : control.key === 'posePropId' ? (activeSpecifiedAction.legacyCardId ? '由指定動作決定' : '不使用道具') : '由指定動作決定';
@@ -945,6 +948,26 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         closureDisplayValue: 'specified-action-owned',
         options: [{ id: 'specified-action-owned', zh: label, en: '' }],
       };
+    }
+    if (control.key === 'gazeId') {
+      const orbitOption = lockControls.find(c => c.key === 'orbitId')?.options?.find(o => o.id === locks.orbitId);
+      const backView = !isLyingAction(activeSpecifiedAction) && Boolean(orbitOption?.meta?.tags?.includes('back_view'));
+      const available = new Set(availableGazeOptions({ orientationId: activeSpecifiedAction?.orientationId, orbit: backView ? orbitOption : null }).map(o => o.id));
+      const unavailableSelected = !['none', 'random'].includes(locks.gazeId) && !available.has(locks.gazeId);
+      return { ...control,
+        options: control.options.filter(o => ['none', 'random'].includes(o.id) || available.has(o.id) || o.id === locks.gazeId),
+        helpText: unavailableSelected ? '目前的姿勢或機位不適用這個視線，暫不寫入；調整後恢復。'
+          : backView ? '背面機位只能回眸。' : isLyingAction(activeSpecifiedAction) ? '躺姿不提供低頭與回眸。' : '' };
+    }
+    if (control.key === 'gestureId') {
+      const applicable = new Set(applicableGestureOptions(activeSpecifiedAction).map(o => o.id));
+      return { ...control, options: control.options.filter(o => ['none', 'random'].includes(o.id) || applicable.has(o.id) || o.id === locks.gestureId),
+        helpText: applicable.has('gesture-front-pockets') ? '雙手插前口袋需要穿搭有前口袋；隨機只在確定有褲裝時抽到。' : '' };
+    }
+    if (control.key === 'captureStyleId' && isSelfieCaptureStyle(locks.captureStyleId)) {
+      return { ...control, helpText: locks.subjectCount !== '1' ? '雙人模式不使用拍攝方式。'
+        : activeSpecifiedAction ? `姿勢「${activeSpecifiedAction.zh}」使用自己的手部，拍攝方式暫不套用；姿勢選全無後生效。`
+        : '自拍時手拿手機，環繞角度由自拍決定。' };
     }
     control = buildKneelingSupportControl(control, effectiveFixedSceneLocks);
     if (!POSE_COMPOSER_CONTEXT_KEYS.has(control.key)) return control;
@@ -1014,6 +1037,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     || (control.key === 'orbitId' && selectedFixedCompositionSetOption?.orbitMode === 'bench-front')
     || (fixedCompositionSetActive && !fixedSetAllowsCameraVariation && FIXED_SET_STRICT_CAMERA_KEYS.includes(control.key))
     || (selectedPoseActionLocksOrbit && control.key === 'orbitId')
+    || (control.key === 'captureStyleId' && (locks.subjectCount !== '1' || captureActive))
     || (POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && locks.subjectCount !== '1')
     || (!fixedScenePosition && POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && (Boolean(locks.poseId) && !isNoneSelected('poseId', locks.poseId, characterLockControls)))
     || (!fixedScenePosition && POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && (Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls)))
@@ -1232,7 +1256,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   }
 
   const prepareControlField = (rawControl, inDuoGroup = false) => {
-    if (captureActive && CAPTURE_OWNED_KEYS.includes(rawControl.key)) return { control: { ...rawControl, options: [{ id: 'capture-owned', zh: '由觀察式抓拍決定', en: '' }], suppressDefaultRandomOption: true }, value: 'capture-owned', disabled: true, dividerLabel: '' };
+    if (captureActive && (CAPTURE_OWNED_KEYS.includes(rawControl.key) || ['gazeId', 'gestureId'].includes(rawControl.key))) return { control: { ...rawControl, options: [{ id: 'capture-owned', zh: '由觀察式抓拍決定', en: '' }], suppressDefaultRandomOption: true }, value: 'capture-owned', disabled: true, dividerLabel: '' };
     if (captureActive && rawControl.key === 'framingId') rawControl = { ...rawControl, options: rawControl.options.map(option => ({ ...option, disabled: option.zh !== '全無' && !/全身鏡頭|中景鏡頭|牛仔/.test(option.zh) })), helpText: '抓拍主輸出支援全身、膝上、腰上；胸上特寫由衍生輸出提供。' };
     const preparedBaseControl = prepareHeadDominantAngleControl(prepareBottomRiseControl(prepareUnderbustTopControl(prepareOuterwearClosureControl(prepareAccessoryControl(buildFixedSetControl(buildPoseComposerControl(rawControl)), locks), locks, lockControls), locks, lockControls), locks, lockControls), locks, lockControls);
     const baseControl = activeSection === 'wardrobe' && resolvedActiveSubpanel?.id === 'layers'
@@ -1579,7 +1603,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       {!isDuoMode ? renderControlGrid(filterControlsByKeys(characterLockControls, ['specifiedActionId'])) : null}
       {activeSpecifiedAction ? (
         <div className="context-note specified-action-context-note">
-          <span>{activeSpecifiedAction.descriptionZh}<br />指定動作「{activeSpecifiedAction.zh}」接管姿勢基底、肢體、手部、道具與接觸／支撐。{activeSpecifiedAction.ownsExpression ? '表情由動作決定；' : '表情可調；'}{activeSpecifiedAction.ownsHead ? '頭部由動作決定。' : '頭部可調。'}原選值已保留。{activeSpecifiedAction.orientationId === 'lying-supine' ? '仰躺由地面承托，場景設定暫停，光線仍可調整。' : ''}{isLyingAction(activeSpecifiedAction) && activeSpecifiedAction.orientationId !== 'lying-supine' ? <><br />{lyingPoseNote}</> : null}</span>
+          <span>{activeSpecifiedAction.descriptionZh}<br />{applicableGestureOptions(activeSpecifiedAction).length ? '雙手空著，可搭配手勢；' : '手部由動作決定；'}{activeSpecifiedAction.ownsExpression ? '表情由動作決定；' : '表情可調；'}{activeSpecifiedAction.ownsHead ? '視線由動作決定。' : '視線可調。'}{activeSpecifiedAction.orientationId === 'lying-supine' ? '仰躺由地面承托，場景設定暫停，光線仍可調整。' : ''}{isLyingAction(activeSpecifiedAction) && activeSpecifiedAction.orientationId !== 'lying-supine' ? <><br />{lyingPoseNote}</> : null}</span>
           <button type="button" className="secondary page1-section-random-btn"
             onClick={() => updateLocks((prev) => ({ ...prev, specifiedActionId: 'none', actionPoseCardId: '' }))}>取消指定動作</button>
         </div>
@@ -1592,7 +1616,10 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
           單人姿勢已由 Pose Composer 組合輸出，舊姿勢動作與特殊動作會維持隱藏相容，不再作為可見控制來源。
         </div>
       ) : null}
-      {renderControlGrid((resolvedActiveSubpanel?.keys || []).filter(key => key !== 'specifiedActionId').map(key => characterLockControls.find(control => control.key === key)).filter(Boolean))}
+      {renderControlGrid((resolvedActiveSubpanel?.keys || []).filter(key => key !== 'specifiedActionId'
+        // P4: 手勢 appears only when the action's hands are free.
+        && (key !== 'gestureId' || applicableGestureOptions(activeSpecifiedAction).length > 0))
+        .map(key => characterLockControls.find(control => control.key === key)).filter(Boolean))}
     </div>
   );
 

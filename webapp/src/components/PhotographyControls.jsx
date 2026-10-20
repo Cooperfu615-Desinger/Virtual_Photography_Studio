@@ -131,7 +131,7 @@ function QuickChoiceField({ field, onChange, onCopy, showHeading = true }) {
 function PhotographyField({ field, onChange, onCopy }) {
   if (field.management) return <ManagedField field={field} />;
 
-  if (field.control.key === 'framingId' || field.control.key === 'imageTypePresetId' || field.control.key === 'lyingCameraId') {
+  if (['framingId', 'imageTypePresetId', 'lyingCameraId', 'captureStyleId'].includes(field.control.key)) {
     return <QuickChoiceField field={field} onChange={onChange} onCopy={onCopy} showHeading={field.control.key !== 'imageTypePresetId'} />;
   }
 
@@ -206,7 +206,7 @@ export default function PhotographyControls({ model, onChange, onCopy, onAction,
             {group.fields.map((field) => (
               <div
                 key={field.control.key}
-                className={`photography-editor-field-slot${['framingId', 'imageTypePresetId', 'lyingCameraId'].includes(field.control.key) ? ' photography-editor-field-slot--full' : ''}`}
+                className={`photography-editor-field-slot${['framingId', 'imageTypePresetId', 'lyingCameraId', 'captureStyleId'].includes(field.control.key) ? ' photography-editor-field-slot--full' : ''}`}
               >
                 <PhotographyField field={field} onChange={onChange} onCopy={onCopy} />
               </div>

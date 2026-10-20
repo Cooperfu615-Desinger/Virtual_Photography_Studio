@@ -6,11 +6,11 @@ import {
 } from '../features/page1/page1WardrobeExclusivity.js';
 
 // expression-pose-v2 P2 (Cooper 2026-10-19): random sets the pose menu to 隨機
-// (a library draw at generation); free-composer body, hand and support layers
-// no longer randomize. The head layer stays random until it becomes gaze (P4).
-// Menus whose own 隨機 option is the random value (pose menu; lying camera, P3).
-const EXPLICIT_RANDOM_KEYS = new Set(['specifiedActionId', 'lyingCameraId']);
-const POSE_COMPOSER_RANDOM_KEYS = new Set(['poseHeadId']);
+// (a library draw at generation); free-composer layers no longer randomize.
+// P4 (Cooper 2026-10-20): gaze replaces the head layer and gestures join; the
+// retired composer layers, props included, reset to 全無. 拍攝方式 is a mode and
+// survives random. Menus whose own 隨機 option is the random value:
+const EXPLICIT_RANDOM_KEYS = new Set(['specifiedActionId', 'lyingCameraId', 'gazeId', 'gestureId']);
 
 const RESET_TO_DEFAULT_KEYS = new Set([
   'specialSubjectId',
@@ -30,7 +30,7 @@ const RESET_TO_DEFAULT_KEYS = new Set([
   'topBottomPaletteBId',
 ]);
 
-const PRESERVE_KEYS = new Set(['subjectCount', 'posePropId']);
+const PRESERVE_KEYS = new Set(['subjectCount', 'captureStyleId']);
 
 function getControlByKey(controls, key) {
   return controls.find((control) => control.key === key) || null;
@@ -46,7 +46,7 @@ export function getPage1ControlActionMode(controlOrKey, controls = []) {
   if (control?.compatibilityOnly) return 'reset';
   if (PRESERVE_KEYS.has(key) || control?.required) return 'preserve';
   if (EXPLICIT_RANDOM_KEYS.has(key)) return 'random';
-  if (POSE_COMPOSER_KEYS.includes(key)) return POSE_COMPOSER_RANDOM_KEYS.has(key) ? 'random' : 'reset';
+  if (POSE_COMPOSER_KEYS.includes(key) || key === 'posePropId') return 'reset';
   if (RESET_TO_DEFAULT_KEYS.has(key) || control?.section === 'hidden') return 'reset';
   if (control?.suppressDefaultRandomOption) return 'reset';
   return 'random';
