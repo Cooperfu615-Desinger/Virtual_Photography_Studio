@@ -16,7 +16,8 @@ import {
   setLockKeysToNone,
 } from './page1SectionRandom.js';
 import { PAGE1_POSE_SUBPANELS } from './page1WorkspacePanels.js';
-import { POSE_COMPOSER_KEYS, SECTION_SUBPANELS } from '../features/page1/page1Schema.js';
+import { SECTION_SUBPANELS } from '../features/page1/page1Schema.js';
+import { RETIRED_POSE_COMPOSER_KEYS } from '../features/page1/retiredPoseLocks.js';
 import {
   PAGE1_SINGLE_COMPLETE_LOOK_STATE_KEYS,
   PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS,
@@ -206,7 +207,7 @@ test('single pose panel sets the pose, gesture and gaze menus to random and leav
   assert.equal(randomized.specifiedActionId, 'random');
   assert.equal(randomized.gestureId, 'random');
   assert.equal(randomized.gazeId, 'random');
-  for (const key of POSE_COMPOSER_KEYS) {
+  for (const key of RETIRED_POSE_COMPOSER_KEYS) {
     assert.equal(randomized[key], 'none', `${key} no longer randomizes`);
   }
   assert.equal(randomized.posePropId, 'none', 'the retired prop layer stays silent');
@@ -220,7 +221,7 @@ test('single pose panel sets the pose, gesture and gaze menus to random and leav
   assert.notEqual(drawn.family, 'lying', 'lying waits for scene surfaces (P3)');
   assert.ok(prompt.grokPrompt.includes(drawn.en.slice(0, 40)), 'the drawn action is rendered at full body');
   // An action that owns the head keeps the raw head lock for a later cancel.
-  for (const key of POSE_COMPOSER_KEYS.filter((key) => !(key === 'poseHeadId' && drawn.ownsHead))) {
+  for (const key of RETIRED_POSE_COMPOSER_KEYS.filter((key) => !(key === 'poseHeadId' && drawn.ownsHead))) {
     assert.notEqual(prompt.selection[key], 'random', `${key} should not expose the random sentinel`);
   }
 });

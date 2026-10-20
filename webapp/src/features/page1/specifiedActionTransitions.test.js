@@ -108,12 +108,11 @@ test('specified action bypasses the free four-point kneeling bind without discar
   for (const key of latentKeys) assert.equal(canceled[key], original[key], key);
 });
 
-test('a changed pose base or duo mode clears the specified action', () => {
+// P5a (2026-10-20): the pose base is no longer a workspace control; duo still clears the action.
+test('duo mode clears the specified action', () => {
   const entered = transition(initialLocks(), { specifiedActionId: ACTION.sitting });
-  assert.equal(transition(entered, { poseBaseId: 'standing' }).specifiedActionId, 'none');
   const duo = transition(entered, { subjectCount: '2' });
   assert.equal(duo.specifiedActionId, 'none');
-  assert.equal(duo.posePropId, 'none');
 });
 
 test('specified side-lying overrides latent supine orientation while leaving ordinary scene intact', () => {

@@ -2,12 +2,12 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {
-  POSE_COMPOSER_CONTROL_KEYS,
-  POSE_COMPOSER_KEYS,
+  SINGLE_POSE_CONTROL_KEYS,
   SECTION_SUBPANELS,
   WORKSPACE_SECTIONS,
   getSectionKeys,
 } from './page1Schema.js';
+import { RETIRED_POSE_COMPOSER_KEYS } from './retiredPoseLocks.js';
 
 test('PAGE1 workspace schema defines every navigation section and unique panel ids', () => {
   assert.deepEqual(WORKSPACE_SECTIONS.map((section) => section.id), [
@@ -53,25 +53,14 @@ test('Z-Image exact visible text has a dedicated opt-in scene panel', () => {
   ]);
 });
 
-test('Pose Composer keeps the independent prop control outside the six-layer batch random keys', () => {
-  assert.deepEqual(POSE_COMPOSER_KEYS, [
-    'poseBaseId',
-    'poseOrientationId',
-    'poseArrangementId',
-    'poseHandId',
-    'poseHeadId',
-    'poseAnchorId',
+// expression-pose-v2 P5a (2026-10-20): the single B panel keys replace the free composer.
+test('single pose keys are the action, gesture and gaze; the seven composer layers are retired', () => {
+  assert.deepEqual(SINGLE_POSE_CONTROL_KEYS, ['specifiedActionId', 'gestureId', 'gazeId']);
+  assert.deepEqual(RETIRED_POSE_COMPOSER_KEYS, [
+    'poseBaseId', 'poseOrientationId', 'poseArrangementId', 'poseHandId', 'posePropId', 'poseHeadId', 'poseAnchorId',
   ]);
-  assert.deepEqual(POSE_COMPOSER_CONTROL_KEYS, [
-    'poseBaseId',
-    'specifiedActionId',
-    'poseOrientationId',
-    'poseArrangementId',
-    'poseHandId',
-    'posePropId',
-    'poseHeadId',
-    'poseAnchorId',
-  ]);
+  const singlePanelKeys = SECTION_SUBPANELS.pose.find((panel) => panel.id === 'single').keys;
+  for (const key of RETIRED_POSE_COMPOSER_KEYS) assert.equal(singlePanelKeys.includes(key), false, key);
 });
 
 test('duo wardrobe schema exposes both role waist-accessory controls in the accessories panel', () => {

@@ -1,20 +1,15 @@
 import { CAPTURE_OWNED_KEYS } from '../../lib/observationCaptureMode.js';
-import { reconcileKneelingSupportLocks } from '../../lib/engine/kneelingSupport.js';
 import {
   getSceneDependentOptions,
   sanitizeLocksForCloseupMode,
 } from '../../lib/engine.js';
-import {
-  DUO_ROLE_WARDROBE_KEYS,
-  POSE_COMPOSER_CONTROL_KEYS,
-} from './page1Schema.js';
+import { DUO_ROLE_WARDROBE_KEYS } from './page1Schema.js';
 import { isNoneSelected } from './page1Selectors.js';
 import { reconcilePage1SingleWardrobeLocks } from './page1WardrobeExclusivity.js';
 import {
   applySupineSceneOverride,
   reconcileSpecifiedActionSceneRestore,
 } from '../../lib/engine/poseScenePolicy.js';
-import { getSpecifiedAction } from '../../lib/engine/specifiedActions.js';
 
 const OUTFIT_PRESET_COLOR_ALIAS_PAIRS = Object.freeze([
   ['outfitPresetColorId', 'outfitPresetPrimaryColorId'],
@@ -49,48 +44,23 @@ export function transitionPage1Locks({
   activeLibrary = [],
   restoringSelection = false,
 }) {
+  // expression-pose-v2 P5a (2026-10-20): the free-composer and legacy pose/special
+  // action keys are retired in workspace state (retiredPoseLocks.js), so the rules
+  // that coordinated them with specified actions are gone.
   let reconciledCandidate = synchronizeChangedOutfitPresetColorAliases(previousLocks, candidateLocks);
-  if (!restoringSelection && reconciledCandidate.poseBaseId !== previousLocks.poseBaseId
-    && reconciledCandidate.specifiedActionId === previousLocks.specifiedActionId) {
-    reconciledCandidate.specifiedActionId = 'none';
-  }
   if (!restoringSelection && reconciledCandidate.specifiedActionId !== previousLocks.specifiedActionId) reconciledCandidate.actionPoseCardId = '';
   if (reconciledCandidate.subjectCount !== '1') {
     reconciledCandidate.specifiedActionId = 'none';
     reconciledCandidate.actionPoseCardId = '';
   }
   reconciledCandidate = reconcileSpecifiedActionSceneRestore(previousLocks, reconciledCandidate, { restoringSelection });
-  const hasStoredAction = Boolean(getSpecifiedAction(reconciledCandidate, { ignoreOwners: true }));
-  const hadStoredAction = Boolean(getSpecifiedAction(previousLocks, { ignoreOwners: true }));
-  const exitingStoredAction = hadStoredAction && !hasStoredAction
-    && reconciledCandidate.subjectCount === '1'
-    && reconciledCandidate.poseBaseId === previousLocks.poseBaseId;
-  let next = sanitizeLocksForCloseupMode(
-    restoringSelection || hasStoredAction || exitingStoredAction
-      ? reconciledCandidate
-      : reconcileKneelingSupportLocks(previousLocks, reconciledCandidate),
-    lockControls,
-  );
-  if (exitingStoredAction && !restoringSelection) {
-    ['poseOrientationId', 'poseArrangementId', 'poseHandId', 'posePropId', 'poseAnchorId'].forEach(key => {
-      next[key] = reconciledCandidate[key];
-    });
-  }
+  let next = sanitizeLocksForCloseupMode(reconciledCandidate, lockControls);
   const sceneOptions = getSceneDependentOptions(activeLibrary, next);
 
   clearUnavailableSelection(next, 'locationId', sceneOptions.locationOptions);
   clearUnavailableSelection(next, 'lightingId', sceneOptions.lightingOptions);
   clearUnavailableSelection(next, 'lightDirectionId', sceneOptions.lightDirectionOptions);
-  if (!hasStoredAction && !exitingStoredAction) {
-    clearUnavailableSelection(next, 'poseAnchorId', sceneOptions.poseAnchorOptions, 'none');
-  }
 
-  const poseIsActive = Boolean(next.poseId) && !isNoneSelected('poseId', next.poseId, lockControls);
-  const specialActionIsActive = Boolean(next.specialActionId)
-    && !isNoneSelected('specialActionId', next.specialActionId, lockControls);
-  const poseComposerIsActive = POSE_COMPOSER_CONTROL_KEYS.some((key) => (
-    Boolean(next[key]) && !isNoneSelected(key, next[key], lockControls)
-  ));
   const specialSubjectIsActive = Boolean(next.specialSubjectId)
     && !isNoneSelected('specialSubjectId', next.specialSubjectId, lockControls);
   const characterProfileIsActive = Boolean(next.characterProfileId)
@@ -102,11 +72,6 @@ export function transitionPage1Locks({
   }
   if (specialSubjectIsActive || characterProfileIsActive) next.subjectCount = '1';
   if (specialSubjectIsActive) next.actionPoseCardId = '';
-  if (poseIsActive && specialActionIsActive) next.specialActionId = '';
-  if (poseComposerIsActive) {
-    next.poseId = '';
-    next.specialActionId = '';
-  }
 
   [
     ['topBottomPaletteId', 'topColorId', 'bottomColorId'],
@@ -156,7 +121,7 @@ export function transitionPage1Locks({
   if (next.subjectCount !== '1') {
     next.actionPoseCardId = '';
     next.specialActionId = '';
-    POSE_COMPOSER_CONTROL_KEYS.forEach((key) => { next[key] = 'none'; });
+    next.specifiedActionId = 'none';
   }
 
   if (candidateLocks.captureMode === 'observation' || previousLocks.captureMode === 'observation' && candidateLocks.subjectCount === '1') {

@@ -49,6 +49,6 @@ GPT 省略後，結構化 selection／Saved Cards 中的 `bodyTypeId`、`bodyTyp
 
 歷史功能快照不重寫：`bodyTypeLegacyFixtures.json` 保存變更前來源與舊投影片語，`bodyTypeLegacyTestSupport.js` 只將完整匹配的已解析體態來源替換回歷史文字，供舊功能快照繼續檢查非體態內容與抽選。新完整來源行為由實際 renderer 測試另行檢查。
 
-`bodyTypeIsolationBaseline.json` 另固定變更前 HEAD `6027041` 實際產生的六體態 × 十景別，共 60 組六輸出與 selection hashes；只逆轉核准的體態文字後，其他 bytes 與選擇必須完全相同。基準由變更前 renderer 建立，不從新 renderer 回填預期。
+`bodyTypeIsolationBaseline.json` 另固定變更前 HEAD `6027041` 實際產生的六體態 × 十景別，共 60 組六輸出與 selection hashes；只逆轉核准的體態文字後，其他 bytes 與選擇必須完全相同。基準由變更前 renderer 建立，不從新 renderer 回填預期。（2026-10-20 P5a 刪除：沒有任何測試讀取，見 `Docs/specs/expression-pose-v2-p5-cleanup-scope.md`；內容保留在 git 歷史。）
 
 完成門檻依根目錄 AGENTS.md：資料同步／Python／公開資產、focused tests、Prompt Quality、完整前端 tests／lint／build、同 seed `200 / prompt-quality-baseline` strict audit，以及桌面／手機的目錄、六輸出與五工作區 browser smoke。實際圖像生成品質由後續模型實測確認。

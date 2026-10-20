@@ -1,24 +1,12 @@
 import { getWardrobePanelKeys } from './wardrobeEditor.js';
 import { PAGE1_POSE_SUBPANELS } from '../../lib/page1WorkspacePanels.js';
 
-export const POSE_COMPOSER_KEYS = [
-  'poseBaseId',
-  'poseOrientationId',
-  'poseArrangementId',
-  'poseHandId',
-  'poseHeadId',
-  'poseAnchorId',
-];
-
-export const POSE_COMPOSER_CONTROL_KEYS = [
-  'poseBaseId',
+// expression-pose-v2 P5a (2026-10-20): the single-subject B keys besides 表情;
+// the retired free-composer keys live in features/page1/retiredPoseLocks.js.
+export const SINGLE_POSE_CONTROL_KEYS = [
   'specifiedActionId',
-  'poseOrientationId',
-  'poseArrangementId',
-  'poseHandId',
-  'posePropId',
-  'poseHeadId',
-  'poseAnchorId',
+  'gestureId',
+  'gazeId',
 ];
 
 export const CHARACTER_CONTROL_ORDER = [
@@ -30,7 +18,7 @@ export const CHARACTER_CONTROL_ORDER = [
   'hairStylingStateId', 'hairStylingStateAId', 'hairStylingStateBId',
   'hairColorId', 'hairColorAId', 'hairColorBId',
   'duoPoseId', 'duoPoseBaseId', 'duoExpressionId', 'expressionId',
-  ...POSE_COMPOSER_CONTROL_KEYS,
+  ...SINGLE_POSE_CONTROL_KEYS,
 ];
 
 export const STYLE_WARDROBE_CONTROL_ORDER = [

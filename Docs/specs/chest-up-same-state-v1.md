@@ -44,7 +44,7 @@ Status: 本次使用者核准的實作契約。範圍為 `chest-up-portrait` 與
 - Public output contract `1.17.0`；fixed-framing contract `4`；Z 契約維持 `1.16.0`。
 - `chestUpSameState.test.js`：比例、攝影、主 crop 獨立性、九個坐姿物件、蹲跪躺姿與 live F／save restore 回歸，加入 Prompt Quality gate。
 - 歷史矩陣仍用原 baseline 驗證四個受保護輸出；新 `chestUpSameStateBaseline.json` 僅作本次胸上修訂的 scoped gate，另釘住所有矩陣的主輸出、selection 與 RNG。
-- `scripts/capture_chest_up_same_state_baseline.mjs <pre-change-checkout>` 產生 scoped baseline 時，先要求前後四個受保護輸出、selection、RNG 完全相等。不可僅為消除失敗而重錄。
+- `scripts/capture_chest_up_same_state_baseline.mjs <pre-change-checkout>` 產生 scoped baseline 時，先要求前後四個受保護輸出、selection、RNG 完全相等。不可僅為消除失敗而重錄。（2026-10-20 P5a 刪除：沒有任何測試讀取，見 `Docs/specs/expression-pose-v2-p5-cleanup-scope.md`；內容保留在 git 歷史。）
 
 ## 驗證邊界
 
