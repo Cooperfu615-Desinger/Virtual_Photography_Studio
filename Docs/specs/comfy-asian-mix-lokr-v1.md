@@ -49,3 +49,4 @@ Functions：工作流差異、強度邊界／刻度、模板不可變、claim �
 - 四項服務匿名POST均401，正式站Origin的OPTIONS均204且allow-origin正確；未登入請求未觸及Comfy生成。[健康檢查](../reports/comfy-asian-mix-2026-10-20/functions-smoke.json)。
 - main推送觸發[正式網站發布流程](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/workflows/deploy.yml)。CI與Pages完成狀態依該次執行紀錄確認，不以push成功取代發布驗證。
 - CLI仍提示firebase-functions可升級，未在本次部署擴大範圍升級。真實帳號的DLL API出圖、扣額、下載及不同強度品質仍待付費驗收。
+- 功能提交的[Pages流程39392352038](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/39392352038)成功，正式資產及實際頁面確認開關／滑桿／預設1。正式深色模式檢查發現數字欄位背景token不符，於main修正為既有主題token；前端1736/1736、lint、build與深淺色桌面／手機驗證再通過。後端不需重部署；前端修正另由main發布流程更新。

@@ -1,5 +1,6 @@
 # Asian Mix LoKr 強度控制驗收（2026-10-20）
 
+- 正式站發布檢查發現深色模式數字欄位使用不存在的背景token而退回白底；已在main改用既有`--surface-control`／`--text-primary`／`--border`。深色欄位實際為rgb(58,58,60)底＋rgb(245,245,247)字，桌面與手機控制可讀，淺色模式正常；前端1736/1736、lint、build重新通過，無console warning/error。證據`asian-dll-qa/dark-mobile-fixed.jpg`；不涉及Functions或生成行為。
 - 本機功能分支 `codex/asian-mix-lokr-strength`；入口 `http://127.0.0.1:5175/Virtual_Photography_Studio/?dllAcceptance=1`，使用獨立模擬任務儲存，不呼叫生成服務、不扣額。
 - 沿用 DLL 原有核取框、色彩、欄位和響應式配置；新強度控制佔設定網格整列，滑桿自適應＋76px數字輸入，沒有新增斷點或變更整體面板寬度。
 - 桌面1440×1000／手機390×900、DPR1，現行五工作區與三快速面板皆完成 render-and-inspect。桌面 document scrollWidth1425／手機375，均不超過 viewport；控件與說明可讀、無重疊，原有文字區內部捲動保留。

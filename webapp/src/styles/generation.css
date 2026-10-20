@@ -115,10 +115,10 @@
   min-height: 40px;
   padding: 8px;
   box-sizing: border-box;
-  border: 1px solid var(--border-color, #d1d1d6);
+  border: 1px solid var(--border);
   border-radius: 8px;
-  color: inherit;
-  background: var(--bg-secondary, #fff);
+  color: var(--text-primary);
+  background: var(--surface-control);
 }
 .dll-pic-lora-strength small { line-height: 1.5; color: var(--text-secondary); }
 .dll-pic-lora-strength small[role="alert"] { color: #c62828; }
