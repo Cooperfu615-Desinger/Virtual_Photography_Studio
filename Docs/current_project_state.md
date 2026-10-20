@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-20
 
+## DLL：Asian Mix LoKr 可調強度（2026-10-20，本機實作完成，待發布／真實 API 驗收）
+
+- Z-Image-Turbo BF16 新增「套用 Asian Mix LoKr」，首次選模型預設關閉；開啟後可用滑桿／數字調整 0–1（間距 0.05，預設 1）。INT8 不提供此開關，MOSS 仍固定 0.7。詳見 [規格與驗收](specs/comfy-asian-mix-lokr-v1.md)。
+- 固定使用已匯入 Cloud 的 v7.0-R-rev1 FP32 檔案；強度跟隨快速設定、完整版草稿、任務快照、歷史沿用與結果 metadata，額度樣本／快取按強度隔離。原基底工作流及 Prompt 不變。
+- Node22 前端 1736/1736、Node24 Functions 102/102、兩端 lint、前端 build、diff-check 通過。桌面1440×1000／手機390×900檢查現行五工作區、三快速入口與完整版；開關、0／空白／超界、滑桿刻度、快照隔離、歷史沿用／reload、兩張模擬完成，無新 console warning/error 或頁面橫向溢出。
+- 分支 `codex/asian-mix-lokr-strength`，基於 `316cb64`。使用者已授權提交並推送此功能分支；尚未合併 main、部署或付費生成。發布需更新 `comfyCloudSubmit`、`comfyCloudWorkspaceSubmit`、`comfyCloudStatus`、`comfyCloudQuota`；真實 DLL API 私有模型可見性、扣額、下載與不同強度效果尚待驗收。
+
 ## DLL：MOSS 與可選 LoRA（2026-10-20，已發布正式版與四項 Functions）
 
 - DLL 完整版與三個現用快速面板新增 MOSS-Image SFT INT8；核取「套用 MOSS LoRA」以固定強度 0.7 套用本對話已匯入的相容命名副本，首次選模型預設關閉。初版 1K、六比例、30 steps／CFG 3、直接使用 DLL Prompt，預設一張、可選兩張依序生成。詳見 [MOSS／LoRA v1](specs/comfy-moss-lora-v1.md)。

@@ -1,3 +1,5 @@
+import { getDllPicLoraSettings } from './dllPicProClient.js';
+
 export const DLL_TASK_LABELS = {
   waiting: '待執行', preparing: '準備中', submitting: '正在提交', queued: '雲端排隊中', running: '生成中',
   succeeded: '已完成', partial: '部分完成', failed: '未完成', uncertain: '待確認', canceling: '取消中', canceled: '已取消',
@@ -12,6 +14,7 @@ export function generationSnapshot(input) {
   if (![1, 2].includes(Number(count))) throw new Error('每筆可生成 1 或 2 張');
   if (seed !== '' && (!Number.isSafeInteger(Number(seed)) || Number(seed) < 0)) throw new Error('Seed 需為非負整數');
   return structuredClone({ modelKey, prompt, aspectRatio, resolution, count: Number(count), seed,
+    ...(kind === 'generate' ? getDllPicLoraSettings(modelKey, input.loraStrength) : {}),
     sourceId, sourceLabel, workspace, lockAspectRatio, kind, parentId, sourceImage, scale });
 }
 export function createDllWorkspaceController({ storage, execute, resume, cancel, materialize,

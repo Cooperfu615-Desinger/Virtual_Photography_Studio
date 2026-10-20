@@ -45,6 +45,17 @@ const models = {
   mossImageSftInt8Lora: { ...local('mossImageSftInt8Lora', '18:4', 'text', '18:6', '18:7'), pixelMultiple: 16 },
 };
 
+// Derive from the unchanged BF16 template; only the verified adapter is added.
+const asianMix = local('zImageTurbo', '57:27', 'text', '57:13', '57:3');
+asianMix.template = structuredClone(asianMix.template);
+asianMix.template['60'] = { class_type: 'LoraLoaderModelOnly', inputs: {
+  model: ['57:28', 0],
+  lora_name: 'hina_zImageTurbo_asianMix_v7.0-R-rev1_fp32.safetensors',
+  strength_model: 1,
+} };
+asianMix.template['57:11'].inputs.model = ['60', 0];
+models.zImageTurboAsianMix = { ...asianMix, loraNode: '60' };
+
 function getComfyModel(modelKey) {
   const model = Object.hasOwn(models, modelKey) && models[modelKey];
   if (!model) throw new Error('不支援的 Comfy Cloud 模型');

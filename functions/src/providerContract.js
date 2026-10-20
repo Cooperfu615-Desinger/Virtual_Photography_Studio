@@ -33,6 +33,20 @@ function normalizeResolution(model, resolution) {
   return model.resolutions.includes(value) ? value : model.defaultResolution;
 }
 
+function normalizeLoraStrength(model, value) {
+  const rules = model.loraStrength;
+  if (!rules) {
+    if (value !== undefined) throw new Error('此模型不支援調整 LoKr 強度');
+    return {};
+  }
+  const strength = value === undefined ? rules.default : value;
+  if (typeof strength !== 'number' || !Number.isFinite(strength) || strength < rules.min || strength > rules.max
+    || Math.abs(strength / rules.step - Math.round(strength / rules.step)) > 1e-8) {
+    throw new Error('LoKr 強度需為 0～1，且以 0.05 為間距');
+  }
+  return { loraStrength: Number(strength.toFixed(2)) };
+}
+
 function normalizeGenerationRequest(providerKey, payload = {}) {
   const prompt = String(payload.prompt || '').trim();
   const promptRules = contract.request.prompt;
@@ -49,6 +63,7 @@ function normalizeGenerationRequest(providerKey, payload = {}) {
   }
   return {
     ...payload,
+    ...(providerKey === 'comfyCloud' ? normalizeLoraStrength(model, payload.loraStrength) : {}),
     modelKey,
     prompt,
     aspectRatio: model.aspectRatios?.includes(payload.aspectRatio) ? payload.aspectRatio : normalizeAspectRatio(payload.aspectRatio),

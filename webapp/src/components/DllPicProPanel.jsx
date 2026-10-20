@@ -11,6 +11,7 @@ import {
   getDllPicModelConfig,
   getDllPicLoraSelection,
   getDllPicLoraModelKey,
+  getDllPicLoraSettings,
   getDllPicResolutionOption,
   getDllPicResolutionOptions,
   getDllPicSelectableModelEntries,
@@ -33,6 +34,14 @@ function loadStoredValue(key, fallback = '') {
 
 function loadStoredModelKey(fallback = 'google31FlashLiteImage') {
   return normalizeDllPicModelKey(loadStoredValue(DLL_PIC_STORAGE_KEYS.model, fallback), fallback);
+}
+
+function loadStoredLoraStrength() {
+  try {
+    return getDllPicLoraSettings('comfyZImageTurboAsianMix', Number(loadStoredValue(DLL_PIC_STORAGE_KEYS.asianMixStrength, '1'))).loraStrength;
+  } catch {
+    return 1;
+  }
 }
 
 function loadStoredApiKey(modelKey) {
@@ -132,6 +141,7 @@ export default function DllPicProPanel({
   const [custom, setCustom] = useState(Boolean(initialSettings.custom));
   const [customPrompt, setCustomPrompt] = useState(initialSettings.customPrompt || '');
   const [seed, setSeed] = useState(initialSettings.seed ?? '');
+  const [loraStrength, setLoraStrength] = useState(() => initialSettings.loraStrength ?? loadStoredLoraStrength());
   const [apiKeys, setApiKeys] = useState(loadStoredProviderApiKeys);
   const [apiKeyDrafts, setApiKeyDrafts] = useState(loadStoredProviderApiKeys);
   const [isApiKeyModalOpen, setIsApiKeyModalOpen] = useState(false);
@@ -152,6 +162,17 @@ export default function DllPicProPanel({
 
   const activeModel = getDllPicModelConfig(modelKey);
   const loraSelection = getDllPicLoraSelection(modelKey);
+  let loraSettings = {};
+  let loraError = '';
+  try { loraSettings = getDllPicLoraSettings(modelKey, loraStrength); }
+  catch (error) { loraError = error.message; }
+  const changeLoraStrength = value => {
+    setLoraStrength(value);
+    try {
+      const valid = getDllPicLoraSettings('comfyZImageTurboAsianMix', value);
+      window.localStorage.setItem(DLL_PIC_STORAGE_KEYS.asianMixStrength, String(valid.loraStrength));
+    } catch { /* Keep incomplete input editable without persisting it. */ }
+  };
   const activeResolution = getDllPicResolutionOption(modelKey, resolution).value;
   const activeResolutionOptions = getDllPicResolutionOptions(modelKey);
   const activeModelNote = activeModel.supportsResolution
@@ -168,10 +189,10 @@ export default function DllPicProPanel({
     promptSources.find((source) => source.id === selectedSourceId) || availableSources[0] || promptSources[0] || null
   ), [availableSources, promptSources, selectedSourceId]);
   const selectedPrompt = full && custom ? customPrompt : selectedSource?.value || '';
-  const snapshot = () => ({ modelKey, prompt: selectedPrompt, aspectRatio, resolution: activeResolution, count,
+  const snapshot = () => ({ modelKey, ...getDllPicLoraSettings(modelKey, loraStrength), prompt: selectedPrompt, aspectRatio, resolution: activeResolution, count,
     seed: full && activeModel.provider === 'comfyCloud' ? seed : '', sourceId: custom ? 'custom' : selectedSource?.id,
     sourceLabel: custom ? '自訂' : selectedSource?.label, workspace: workspaceId, lockAspectRatio: Boolean(selectedSource?.lockAspectRatio) });
-  const draftSignature = JSON.stringify({ sources: promptSources, modelKey, selectedSourceId, aspectRatio, resolution: activeResolution, count, custom, customPrompt, seed, workspaceId });
+  const draftSignature = JSON.stringify({ sources: promptSources, modelKey, loraStrength, selectedSourceId, aspectRatio, resolution: activeResolution, count, custom, customPrompt, seed, workspaceId });
   useEffect(() => { if (full && shared.ready) dllWorkspace.draft(JSON.parse(draftSignature)); }, [full, shared.ready, draftSignature]);
   const isAspectRatioLocked = Boolean(selectedSource?.lockAspectRatio && selectedSource?.aspectRatio);
   const isAspectRatioSupported = isDllPicAspectRatioSupported(modelKey, aspectRatio);
@@ -181,6 +202,7 @@ export default function DllPicProPanel({
     && selectedPrompt
     && activeModel.generationModel
     && isAspectRatioSupported
+    && !loraError
     && shared.ready
     && !isGenerating
     && !(activeModel.provider === 'comfyCloud' && comfyPending)
@@ -289,7 +311,7 @@ export default function DllPicProPanel({
           <div className="control-section-title">{title}</div>
         </div>
         <div className="dll-pic-header-actions">
-          {!full && <button type="button" className="secondary" onClick={() => openDllWorkspace({ sources: promptSources, settings: { modelKey, selectedSourceId, aspectRatio, resolution: activeResolution, count }, workspaceId, taskId: sharedTask?.id })}>開啟完整版</button>}
+          {!full && <button type="button" className="secondary" onClick={() => openDllWorkspace({ sources: promptSources, settings: { modelKey, loraStrength, selectedSourceId, aspectRatio, resolution: activeResolution, count }, workspaceId, taskId: sharedTask?.id })}>開啟完整版</button>}
           <button className="secondary dll-pic-api-settings-btn" type="button" onClick={openApiKeyModal}>
             API Keys
           </button>
@@ -332,6 +354,7 @@ export default function DllPicProPanel({
               const nextModelKey = event.target.value;
               const nextResolution = getDllPicResolutionOption(nextModelKey, resolution).value;
               setModelKey(nextModelKey);
+              changeLoraStrength(1);
               setCount(1);
               setSeed('');
               setResolution(nextResolution);
@@ -347,14 +370,25 @@ export default function DllPicProPanel({
         </label>
 
         {loraSelection.supported && <label className="dll-pic-lora-control">
-          <input type="checkbox" aria-label="套用 MOSS LoRA" checked={loraSelection.enabled} disabled={!full && isGenerating}
+          <input type="checkbox" aria-label={loraSelection.adjustable ? '套用 Asian Mix LoKr' : '套用 MOSS LoRA'} checked={loraSelection.enabled} disabled={!full && isGenerating}
             onChange={event => {
               const nextModelKey = getDllPicLoraModelKey(modelKey, event.target.checked);
               setModelKey(nextModelKey);
               saveStoredGenerationSettings(nextModelKey, activeResolution);
             }} />
-          <span>套用 MOSS LoRA<small>強度 {loraSelection.strength}</small></span>
+          <span>{loraSelection.adjustable ? '套用 Asian Mix LoKr' : '套用 MOSS LoRA'}{!loraSelection.adjustable && <small>強度 {loraSelection.strength}</small>}</span>
         </label>}
+        {loraSelection.adjustable && loraSelection.enabled && <div className="dll-pic-lora-strength">
+          <span>LoKr 強度</span>
+          <div className="dll-pic-lora-strength-inputs">
+            <input type="range" aria-label="LoKr 強度滑桿" min="0" max="1" step="0.05" value={typeof loraStrength === 'number' ? loraStrength : 1}
+              disabled={!full && isGenerating} onChange={event => changeLoraStrength(Number(event.target.value))} />
+            <input type="number" aria-label="LoKr 強度數值" min="0" max="1" step="0.05" value={loraStrength}
+              disabled={!full && isGenerating} onChange={event => changeLoraStrength(event.target.value === '' ? '' : Number(event.target.value))} />
+          </div>
+          <small>0–1，每次調整 0.05。需要時可在提示詞加入 asian woman。</small>
+          {loraError && <small className="dll-pic-quota-error" role="alert">{loraError}</small>}
+        </div>}
 
         <label className="field dll-pic-field">
           {full && <span>比例</span>}
@@ -407,7 +441,7 @@ export default function DllPicProPanel({
 
       {full && activeModel.provider === 'comfyCloud' && <label className="field"><span>Seed（留空為隨機；2 張時第二張使用 Seed + 1）</span><input aria-label="Seed" type="number" min="0" step="1" value={seed} onChange={event => setSeed(event.target.value)} placeholder="隨機" /></label>}
 
-      {activeModel.provider === 'comfyCloud' ? <div className="dll-pic-model-note">{full ? '依序取得每張圖片後才送下一張。成果保存於此瀏覽器，請下載重要圖片。' : getComfyGenerationNote(activeModel)}</div> : null}
+      {activeModel.provider === 'comfyCloud' ? <div className="dll-pic-model-note">{full ? '依序取得每張圖片後才送下一張。成果保存於此瀏覽器，請下載重要圖片。' : getComfyGenerationNote(activeModel, loraStrength)}</div> : null}
       {comfyPending ? <div className="dll-pic-actions">
         <button type="button" className="secondary" disabled={isGenerating} onClick={handleResumeComfy}>查詢上次任務</button>
         <button type="button" className="secondary" disabled={isGenerating} onClick={async () => {
@@ -427,13 +461,13 @@ export default function DllPicProPanel({
         <span className="dll-pic-model-note">
           {modelCompatibilityNote || (!full && (activeModelNote || '此 provider 尚未接入生圖'))}
         </span>
-        {activeModel.provider === 'comfyCloud' && !DLL_LOCAL_ACCEPTANCE && <ComfyQuotaPanel modelKey={activeModel.comfyModel} resolution={activeResolution} aspectRatio={aspectRatio} refreshToken={images} />}
+        {activeModel.provider === 'comfyCloud' && !DLL_LOCAL_ACCEPTANCE && !loraError && <ComfyQuotaPanel modelKey={activeModel.comfyModel} {...loraSettings} resolution={activeResolution} aspectRatio={aspectRatio} refreshToken={images} />}
         <button className="primary-copy-btn dll-pic-generate-btn" type="button" onClick={handleGenerate} disabled={!canGenerate}>
           {isGenerating ? '生成中...' : '生成圖像'}
         </button>
       </div>
 
-      {full && <button type="button" className="secondary" disabled={!selectedPrompt.trim() || !shared.ready || !isAspectRatioSupported} onClick={async () => { try { await dllWorkspace.enqueue(snapshot()); setMessage('已加入待生成清單'); } catch (error) { setMessage(error.message); } }}>加入待生成</button>}
+      {full && <button type="button" className="secondary" disabled={!selectedPrompt.trim() || !shared.ready || !isAspectRatioSupported || Boolean(loraError)} onClick={async () => { try { await dllWorkspace.enqueue(snapshot()); setMessage('已加入待生成清單'); } catch (error) { setMessage(error.message); } }}>加入待生成</button>}
       {(shared.error || sharedTask?.message) && <p role="status" className="dll-pic-message">{shared.error || sharedTask.message}</p>}
       {message ? <div className="dll-pic-message" role="status" aria-live="polite">{message}</div> : null}
 

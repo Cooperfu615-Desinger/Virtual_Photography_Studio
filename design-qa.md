@@ -1,3 +1,13 @@
+# Asian Mix LoKr 強度控制驗收（2026-10-20）
+
+- 本機功能分支 `codex/asian-mix-lokr-strength`；入口 `http://127.0.0.1:5175/Virtual_Photography_Studio/?dllAcceptance=1`，使用獨立模擬任務儲存，不呼叫生成服務、不扣額。
+- 沿用 DLL 原有核取框、色彩、欄位和響應式配置；新強度控制佔設定網格整列，滑桿自適應＋76px數字輸入，沒有新增斷點或變更整體面板寬度。
+- 桌面1440×1000／手機390×900、DPR1，現行五工作區與三快速面板皆完成 render-and-inspect。桌面 document scrollWidth1425／手機375，均不超過 viewport；控件與說明可讀、無重疊，原有文字區內部捲動保留。
+- 已檢查開關／1預設／0有效／0.05刻度／空白與1.2錯誤／停用生成、INT8不顯示、MOSS固定0.7、排入後改值不影響任務、歷史沿用／reload、來源帶入、兩張模擬成功與實際強度保存。無新 console warning/error；成果圖片均載入。
+- Node22前端1736/1736、Node24 Functions102/102、兩端lint／前端build通過；build有既有大型chunk提醒。Node24前端曾因既有TAP格式斷言不符而失敗，Node22完整重跑通過。
+- 證據資料夾：`/Users/cooperfu/.codex/visualizations/2026/09/21/01a0c277-5451-7130-b31f-c16c71e86b2c/asian-dll-qa/`。`final-desktop.jpg`顯示兩張模擬成果與0.4強度，`desktop-prompt.jpg`／`desktop-character.jpg`／`desktop-scene.jpg`是桌面三快速入口；`mobile.jpg`／`mobile-prompt.jpg`／`mobile-character.jpg`／`mobile-scene.jpg`是手機控制。瀏覽器截圖可能扣除捲軸／邊界（桌面1425×990、手機375×865或900），未修改圖片內容。
+- 完成的是本機實作及模擬驗證；使用者後續已授權提交並推送此功能分支，正式發布、部署與真實 DLL API 生圖仍待進行。
+
 # 場景環境卡片 UI 驗證
 
 日期：2026-10-10

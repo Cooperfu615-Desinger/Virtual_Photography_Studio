@@ -23,7 +23,7 @@ export function ComfyQuotaView({ data, loading, error, signedIn, onRefresh }) {
   </section>;
 }
 
-export function ComfyQuotaSession({ modelKey, resolution, aspectRatio, refreshToken, loadQuota = readComfyQuotaViaFirebase }) {
+export function ComfyQuotaSession({ modelKey, loraStrength, resolution, aspectRatio, refreshToken, loadQuota = readComfyQuotaViaFirebase }) {
   const [revision, setRevision] = useState(0);
   const [state, setState] = useState({ data: null, loading: true, error: '' });
   useEffect(() => {
@@ -32,7 +32,7 @@ export function ComfyQuotaSession({ modelKey, resolution, aspectRatio, refreshTo
       if (!active) return;
       setState(previous => ({ ...previous, loading: true, error: '' }));
       try {
-        const data = await loadQuota({ modelKey, resolution, aspectRatio });
+        const data = await loadQuota({ modelKey, resolution, aspectRatio, ...(loraStrength === undefined ? {} : { loraStrength }) });
         if (active) setState({ data, loading: false, error: '' });
       } catch (error) {
         const message = error?.code === 'functions/not-found'
@@ -42,7 +42,7 @@ export function ComfyQuotaSession({ modelKey, resolution, aspectRatio, refreshTo
       }
     });
     return () => { active = false; };
-  }, [modelKey, resolution, aspectRatio, revision, refreshToken, loadQuota]);
+  }, [modelKey, loraStrength, resolution, aspectRatio, revision, refreshToken, loadQuota]);
   return <ComfyQuotaView {...state} signedIn onRefresh={() => setRevision(value => value + 1)} />;
 }
 
@@ -50,6 +50,6 @@ export default function ComfyQuotaPanel(props) {
   const [user, setUser] = useState(() => firebaseAuth?.currentUser || null);
   useEffect(() => firebaseAuth ? onAuthStateChanged(firebaseAuth, setUser) : undefined, []);
   return user
-    ? <ComfyQuotaSession key={`${user.uid}:${props.modelKey}:${props.resolution}:${props.aspectRatio}`} {...props} />
+    ? <ComfyQuotaSession key={`${user.uid}:${props.modelKey}:${props.loraStrength ?? ''}:${props.resolution}:${props.aspectRatio}`} {...props} />
     : <ComfyQuotaView signedIn={false} loading={false} />;
 }

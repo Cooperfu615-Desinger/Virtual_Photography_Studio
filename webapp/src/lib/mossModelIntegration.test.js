@@ -21,8 +21,8 @@ test('MOSS offers one model option while preserving the actual LoRA variant acro
   assert.notEqual(getDllPicModelConfig(base).label, getDllPicModelConfig(lora).label);
   assert.equal(getDllPicLoraModelKey(base, true), lora);
   assert.equal(getDllPicLoraModelKey(lora, false), base);
-  assert.equal(getDllPicLoraModelKey('comfyZImageTurbo', true), 'comfyZImageTurbo');
-  assert.equal(getDllPicLoraSelection('comfyZImageTurbo').supported, false);
+  assert.equal(getDllPicLoraModelKey('comfyZImageTurboInt8', true), 'comfyZImageTurboInt8');
+  assert.equal(getDllPicLoraSelection('comfyZImageTurboInt8').supported, false);
   assert.equal(normalizeDllPicModelKey('magnificClassic'), 'google31FlashLiteImage');
 });
 

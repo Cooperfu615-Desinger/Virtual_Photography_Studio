@@ -38,6 +38,7 @@ function buildComfyWorkflow(payload, seed) {
   const workflow = structuredClone(model.template);
   workflow[model.textNode].inputs[model.textKey] = input.prompt;
   workflow[model.seedNode].inputs[model.seedKey] = seed;
+  if (model.loraNode) workflow[model.loraNode].inputs.strength_model = input.loraStrength;
   if (model.nativeAspectRatio) {
     const inputs = workflow[model.textNode].inputs;
     inputs['model.aspect_ratio'] = input.aspectRatio;
@@ -54,7 +55,8 @@ function buildComfyWorkflow(payload, seed) {
     // valid 1K presets have a shorter side, so only fill them for Custom.
     if (input.aspectRatio === '4:5') Object.assign(inputs, { 'model.width': width, 'model.height': height });
   }
-  return { workflow, meta: { modelKey: input.modelKey, aspectRatio: input.aspectRatio, resolution: input.resolution, width, height, seed } };
+  return { workflow, meta: { modelKey: input.modelKey, aspectRatio: input.aspectRatio, resolution: input.resolution, width, height, seed,
+    ...(model.loraNode ? { loraStrength: input.loraStrength } : {}) } };
 }
 
 function getJobUrl(job) {
