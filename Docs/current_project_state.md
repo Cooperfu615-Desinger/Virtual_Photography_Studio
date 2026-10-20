@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-20
 
+## DLL：MOSS 與可選 LoRA（2026-10-20，本機驗收通過，已授權發布）
+
+- DLL 完整版與三個現用快速面板新增 MOSS-Image SFT INT8；核取「套用 MOSS LoRA」以固定強度 0.7 套用本對話已匯入的相容命名副本，首次選模型預設關閉。初版 1K、六比例、30 steps／CFG 3、直接使用 DLL Prompt，預設一張、可選兩張依序生成。詳見 [MOSS／LoRA v1](specs/comfy-moss-lora-v1.md)。
+- 兩個固定 modelKey 保留草稿、任務快照、歷史沿用／Seed、查詢恢復與額度樣本隔離；未新增任意 LoRA 或工作流編輯、storage migration 或 HF token 收集。原模型模板保持 byte equality，Prompt engine、Saved Cards 不改。
+- Node22 前端 1735/1735、lint／build；Node24 Functions 98/98、lint 通過。桌面1440×1000／手機390×900檢查現行五工作區、三個快速入口、LoRA 開關、草稿重載、歷史沿用、兩張模擬及中斷查詢恢復；無新 console error/warning、破圖或 document 橫向溢出。證據見規格與 design-qa。
+- 使用獨立工作目錄、分支 `codex/moss-optional-lora`，原工作區及其他參考資料保留。使用者已授權本批 commit／push、合併 main 發布正式 DLL，並部署 Submit／WorkspaceSubmit／Status／Quota 四項 Functions；實際交付以後續驗證為準。本批沒有付費生成，GUI 的先前成功出圖不代替 DLL API 驗收，私人 LoRA 的 API 可見性、扣額及原圖下載待後續驗證。
+
 
 ## 神情姿態 v2：P4 新 B 面板（2026-10-20，本機實作）
 

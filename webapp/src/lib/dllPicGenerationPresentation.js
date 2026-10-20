@@ -25,6 +25,10 @@ export function formatDllPicGenerationMessage(result) {
 export function getComfyGenerationNote(model) {
   const start = '依序生成 1–2 張；';
   const end = '完成後請下載保存，圖像網址會到期。';
+  if (['mossImageSftInt8', 'mossImageSftInt8Lora'].includes(model.comfyModel)) {
+    const lora = model.comfyModel === 'mossImageSftInt8Lora' ? '已套用 MOSS LoRA（強度 0.7）' : '未套用 LoRA';
+    return `${start}1K，依比例決定尺寸。${lora}，直接使用目前 Prompt。${end}`;
+  }
   if (model.comfyModel?.startsWith('krea2')) {
     return `${start}1K，依比例生成。合作夥伴節點另計耗額。${end}`;
   }

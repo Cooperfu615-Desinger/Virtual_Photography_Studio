@@ -3,17 +3,17 @@ import assert from 'node:assert/strict';
 import { getDllPicSelectableModelEntries, generateDllPicImages, getDllPicModelConfig, isDllPicAspectRatioSupported, normalizeDllPicModelKey } from './dllPicProClient.js';
 import { normalizeProviderGenerationRequest } from './providerContract.js';
 
-test('all nine Comfy models are distinct and select correctly without reviving hidden providers', () => {
+test('selectable Comfy models are distinct without reviving hidden providers or duplicating LoRA variants', () => {
   const entries = getDllPicSelectableModelEntries();
   const expected = ['comfyZImageTurbo', 'comfyQwenImage21', 'comfyZImageTurboInt8', 'comfyIdeogram45', 'comfySeedream5Pro',
-    'comfyKrea2Medium', 'comfyKrea2MediumTurbo', 'comfyKrea2Large', 'comfyFlux3KleinBaseInt8'];
+    'comfyKrea2Medium', 'comfyKrea2MediumTurbo', 'comfyKrea2Large', 'comfyFlux3KleinBaseInt8', 'comfyMossImageSftInt8'];
   assert.deepEqual(entries.filter(([, m]) => m.provider === 'comfyCloud').map(([key]) => key), expected);
   assert.equal(new Set(entries.map(([, m]) => m.label)).size, entries.length);
   assert.equal(entries.some(([, m]) => ['byteplus', 'magnific'].includes(m.provider)), false);
   for (const key of expected) {
     assert.equal(normalizeDllPicModelKey(key), key);
     assert.equal(isDllPicAspectRatioSupported(key, '4:5'), true);
-    assert.deepEqual(getDllPicModelConfig(key).resolutionOptions, key.startsWith('comfyKrea2') ? ['1k'] : ['1k', '2k']);
+    assert.deepEqual(getDllPicModelConfig(key).resolutionOptions, key.startsWith('comfyKrea2') || key === 'comfyMossImageSftInt8' ? ['1k'] : ['1k', '2k']);
     assert.equal(getDllPicModelConfig(key).maxCount, 2);
     if (key.startsWith('comfyKrea2')) {
       assert.equal(isDllPicAspectRatioSupported(key, '3:4'), false);

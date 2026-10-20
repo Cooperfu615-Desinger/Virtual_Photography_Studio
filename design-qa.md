@@ -377,3 +377,18 @@ Result: local UI and automated checks passed; user acceptance, download-to-disk,
 ### 2026-10-19 使用者驗收補記
 
 使用者確認「實際測試沒問題，可以 commit/push」，本機版本驗收通過。授權本批 Git 提交／推送；交付 `codex/dll-pic-pro-workspace-v1`，保留暫不部署限制，不合併會觸發 Pages 的 main。上方自動化證據與真實 Cloud 尚未驗證範圍維持原紀錄；未把一般本機驗收推定成雲端付費出圖驗收。
+
+## 2026-10-20：MOSS 與固定 LoRA 開關
+
+Visual QA: PASS（本機模擬與未登入 UI）；真實 API、扣額、下載待部署後驗收。
+
+- URL：`http://127.0.0.1:5175/Virtual_Photography_Studio/?dllAcceptance=1`；一般入口僅查看未登入額度保護。
+- Viewports：1440×1000、390×900；沒有新增斷點。現用五工作區與三個快速面板均已檢查；動作姿勢導覽沿用最新主線退休狀態。
+- 新增單一 MOSS 模型選項與「套用 MOSS LoRA」checkbox，強度固定0.7。跨滿原有格線並保留原生鍵盤焦點／Space，完整版一般input樣式不再拉寬此checkbox；其他模型與既有視覺語言不變。
+- 驗證 base一張、LoRA兩張、Seed42/43、immutable排程、歷史沿用／單張Seed、草稿reload、快速→完整版明確帶入、模擬loading／中斷／手動查詢恢復。只用獨立模擬資料庫，新增三筆測試任務，既有11張收藏只讀；不是實際MOSS畫質測試。
+- Console/page errors：沒有新的console warning/error。水平溢出／破圖：沒有；clientWidth等於scrollWidth，桌面1425／手機375。正常模式未登入時額度刷新停用。
+- 自動檢查：Node22前端1735/1735、lint/build；Node24 Functions98/98、lint；diff-check通過。建置保留大型chunk及混用import提示。
+- [桌面](Docs/reports/comfy-moss-lora-2026-10-20/desktop-final.png)、[手機](Docs/reports/comfy-moss-lora-2026-10-20/mobile.png)、[完整檢查紀錄](Docs/reports/comfy-moss-lora-2026-10-20/visual-qa.json)。詳見 [MOSS／LoRA規格](Docs/specs/comfy-moss-lora-v1.md)。
+- 獨立分支 `codex/moss-optional-lora`；尚未 stage／commit／push／部署。本機新工作目錄未複製Firebase環境設定；私有LoRA的正式API可見性、真實執行／扣額／下載未驗收，不以既有GUI成功替代。
+
+2026-10-20 使用者確認整合並授權 commit／push、合併 main 發布正式 DLL，及部署四項 Functions；上列「尚未」為完成本機驗收當下狀態。Git／Pages／Functions 的實際結果另記於 MOSS 規格。

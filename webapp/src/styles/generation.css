@@ -59,6 +59,34 @@
   min-width: 0;
 }
 
+.dll-pic-lora-control {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 1px solid var(--border-muted);
+  border-radius: 10px;
+  background: var(--surface-control);
+  font-size: 0.76rem;
+  cursor: pointer;
+}
+
+.dll-pic-lora-control input[type="checkbox"] {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  min-height: 18px;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--accent);
+}
+
+.dll-pic-lora-control span { min-width: 0; }
+.dll-pic-lora-control small { display: block; color: var(--text-secondary); }
+.dll-pic-lora-control:has(input:disabled) { cursor: default; opacity: 0.65; }
+
 .dll-pic-field select,
 .dll-pic-field input {
   min-width: 0;

@@ -9,6 +9,8 @@ import {
   getDllPicApiKeyForModel,
   getDllPicApiKeyStorageKeys,
   getDllPicModelConfig,
+  getDllPicLoraSelection,
+  getDllPicLoraModelKey,
   getDllPicResolutionOption,
   getDllPicResolutionOptions,
   getDllPicSelectableModelEntries,
@@ -149,6 +151,7 @@ export default function DllPicProPanel({
   const [message, setMessage] = useState(() => (loadDevPreviewImages().length ? '已套用本地預覽圖' : ''));
 
   const activeModel = getDllPicModelConfig(modelKey);
+  const loraSelection = getDllPicLoraSelection(modelKey);
   const activeResolution = getDllPicResolutionOption(modelKey, resolution).value;
   const activeResolutionOptions = getDllPicResolutionOptions(modelKey);
   const activeModelNote = activeModel.supportsResolution
@@ -323,7 +326,7 @@ export default function DllPicProPanel({
           {full && <span>模型</span>}
           <select
             aria-label="模型"
-            value={modelKey}
+            value={loraSelection.modelKey}
             disabled={!full && isGenerating}
             onChange={(event) => {
               const nextModelKey = event.target.value;
@@ -342,6 +345,16 @@ export default function DllPicProPanel({
             ))}
           </select>
         </label>
+
+        {loraSelection.supported && <label className="dll-pic-lora-control">
+          <input type="checkbox" aria-label="套用 MOSS LoRA" checked={loraSelection.enabled} disabled={!full && isGenerating}
+            onChange={event => {
+              const nextModelKey = getDllPicLoraModelKey(modelKey, event.target.checked);
+              setModelKey(nextModelKey);
+              saveStoredGenerationSettings(nextModelKey, activeResolution);
+            }} />
+          <span>套用 MOSS LoRA<small>強度 {loraSelection.strength}</small></span>
+        </label>}
 
         <label className="field dll-pic-field">
           {full && <span>比例</span>}
