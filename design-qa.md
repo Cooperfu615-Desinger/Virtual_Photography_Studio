@@ -6,7 +6,7 @@
 - 已檢查開關／1預設／0有效／0.05刻度／空白與1.2錯誤／停用生成、INT8不顯示、MOSS固定0.7、排入後改值不影響任務、歷史沿用／reload、來源帶入、兩張模擬成功與實際強度保存。無新 console warning/error；成果圖片均載入。
 - Node22前端1736/1736、Node24 Functions102/102、兩端lint／前端build通過；build有既有大型chunk提醒。Node24前端曾因既有TAP格式斷言不符而失敗，Node22完整重跑通過。
 - 證據資料夾：`/Users/cooperfu/.codex/visualizations/2026/09/21/01a0c277-5451-7130-b31f-c16c71e86b2c/asian-dll-qa/`。`final-desktop.jpg`顯示兩張模擬成果與0.4強度，`desktop-prompt.jpg`／`desktop-character.jpg`／`desktop-scene.jpg`是桌面三快速入口；`mobile.jpg`／`mobile-prompt.jpg`／`mobile-character.jpg`／`mobile-scene.jpg`是手機控制。瀏覽器截圖可能扣除捲軸／邊界（桌面1425×990、手機375×865或900），未修改圖片內容。
-- 完成的是本機實作及模擬驗證；使用者後續已授權提交並推送此功能分支，正式發布、部署與真實 DLL API 生圖仍待進行。
+- 完成的是本機實作及模擬驗證；使用者後續另授權合併main與部署，功能提交`3d9cc30`已進main，四個Functions更新與匿名／CORS健康檢查通過。真實DLL API生圖仍待進行，詳見功能規格部署章節。
 
 # 場景環境卡片 UI 驗證
 

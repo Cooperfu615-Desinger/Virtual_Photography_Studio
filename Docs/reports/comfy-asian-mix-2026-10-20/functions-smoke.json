@@ -1,0 +1,78 @@
+[
+  {
+    "function": "comfyCloudQuota",
+    "method": "POST",
+    "status": 401,
+    "allowOrigin": "https://cooperfu615-desinger.github.io",
+    "body": {
+      "error": {
+        "message": "請先登入 Firebase 後再使用 Comfy Cloud",
+        "status": "UNAUTHENTICATED"
+      }
+    }
+  },
+  {
+    "function": "comfyCloudQuota",
+    "method": "OPTIONS",
+    "status": 204,
+    "allowOrigin": "https://cooperfu615-desinger.github.io",
+    "body": ""
+  },
+  {
+    "function": "comfyCloudStatus",
+    "method": "POST",
+    "status": 401,
+    "allowOrigin": "https://cooperfu615-desinger.github.io",
+    "body": {
+      "error": {
+        "message": "請先登入 Firebase 後再使用 Comfy Cloud",
+        "status": "UNAUTHENTICATED"
+      }
+    }
+  },
+  {
+    "function": "comfyCloudStatus",
+    "method": "OPTIONS",
+    "status": 204,
+    "allowOrigin": "https://cooperfu615-desinger.github.io",
+    "body": ""
+  },
+  {
+    "function": "comfyCloudSubmit",
+    "method": "POST",
+    "status": 401,
+    "allowOrigin": "https://cooperfu615-desinger.github.io",
+    "body": {
+      "error": {
+        "message": "請先登入 Firebase 後再使用 Comfy Cloud",
+        "status": "UNAUTHENTICATED"
+      }
+    }
+  },
+  {
+    "function": "comfyCloudSubmit",
+    "method": "OPTIONS",
+    "status": 204,
+    "allowOrigin": "https://cooperfu615-desinger.github.io",
+    "body": ""
+  },
+  {
+    "function": "comfyCloudWorkspaceSubmit",
+    "method": "POST",
+    "status": 401,
+    "allowOrigin": "https://cooperfu615-desinger.github.io",
+    "body": {
+      "error": {
+        "message": "請先登入 Firebase 後再使用 DLL_PIC Pro",
+        "status": "UNAUTHENTICATED"
+      }
+    }
+  },
+  {
+    "function": "comfyCloudWorkspaceSubmit",
+    "method": "OPTIONS",
+    "status": 204,
+    "allowOrigin": "https://cooperfu615-desinger.github.io",
+    "body": ""
+  }
+]

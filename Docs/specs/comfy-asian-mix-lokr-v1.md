@@ -1,6 +1,6 @@
 # DLL：Asian Mix LoKr 開關與強度 v1
 
-日期：2026-10-20。使用者核准本機實作，驗收紀錄完成後另授權 commit／push 此功能分支；本批不含合併 main、部署或新的付費生成。
+日期：2026-10-20。使用者先核准本機實作及 commit／push，再另授權合併 main、部署相關 Functions，並要求後續直接在 main 開發；本批未執行新的付費生成。
 
 ## 核准範圍
 
@@ -40,3 +40,12 @@ Functions：工作流差異、強度邊界／刻度、模板不可變、claim �
 - 開關、預設 1、0 有效、滑桿 ArrowRight 增量0.05、空白與1.2阻擋；INT8 無控制、MOSS固定0.7。任務以0.55排入後將草稿改為0.05，任務仍0.55；模擬完成後「沿用設定」及 reload 恢復0.55。
 - 快速面板0.4帶入完整版，循既有「帶入來源」流程覆蓋舊草稿，成功保留0.4；兩張模擬結果均完成（測試圖片／Seed1234、1235），實際生成設定顯示0.4，兩張圖片載入成功。
 - 截圖位置與驗收詳情見根目錄 `design-qa.md` 的 Asian Mix 章節。上述為本機模擬，未證明真實 DLL API 生圖／扣額／下載。
+
+## main 合併與後端部署
+
+- `3d9cc30ccff083d90c17f87f377bb28ad7040de2` 已由功能分支快轉合併並推送 main。後續開發直接使用 main，不建立新功能分支；提交／推送／部署仍按各次授權執行。
+- main 使用本次乾淨的既有工作目錄 `/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio`。原專案目錄保留在 detached `e9e7745`，避開四份未追蹤同名文件與遠端不同的覆寫風險；其66個未追蹤檔案前後SHA256一致。
+- Firebase CLI 部署成功；`comfyCloudSubmit`、`comfyCloudWorkspaceSubmit`、`comfyCloudStatus`、`comfyCloudQuota` 均 ACTIVE、Node24、us-central1。四者僅source／hash／labels改變，Secret與環境／資源配置保留，其餘七項服務完整metadata不變。[部署摘要](../reports/comfy-asian-mix-2026-10-20/functions-deployment.json)。
+- 四項服務匿名POST均401，正式站Origin的OPTIONS均204且allow-origin正確；未登入請求未觸及Comfy生成。[健康檢查](../reports/comfy-asian-mix-2026-10-20/functions-smoke.json)。
+- main推送觸發[正式網站發布流程](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/workflows/deploy.yml)。CI與Pages完成狀態依該次執行紀錄確認，不以push成功取代發布驗證。
+- CLI仍提示firebase-functions可升級，未在本次部署擴大範圍升級。真實帳號的DLL API出圖、扣額、下載及不同強度品質仍待付費驗收。
