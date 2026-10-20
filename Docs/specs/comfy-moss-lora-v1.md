@@ -37,7 +37,7 @@ LoRA 由 [axiomofmind 作者模型庫](https://huggingface.co/axiomofmind/Moss-i
 
 ## 發布與實際驗收邊界
 
-後續需同步部署 `comfyCloudSubmit`、`comfyCloudWorkspaceSubmit`、`comfyCloudStatus`、`comfyCloudQuota` 四項 Functions；既有放大／取消、影片與下載服務不需變更。保留 Node 24、allowlist 與 `COMFY_CLOUD_API_KEY`，無新增 Secret。
+本批需同步部署 `comfyCloudSubmit`、`comfyCloudWorkspaceSubmit`、`comfyCloudStatus`、`comfyCloudQuota` 四項 Functions，已完成，實際結果見下節；既有放大／取消、影片與下載服務不需變更。保留 Node 24、allowlist 與 `COMFY_CLOUD_API_KEY`，無新增 Secret。
 
 HF token 供 [Cloud 匯入私人模型](https://docs.comfy.org/cloud/import-models) 使用，DLL 不收集或轉傳該 token。正式 API key 必須能讀取同一 [Cloud 工作區](https://docs.comfy.org/cloud/workspace) 的私人 LoRA；GUI 成功不代表 API 私人模型可見性已通過。部署後再各驗收基底／LoRA 的 API 出圖、選項快照、額度與圖片下載；不得將本機模擬當成付費驗收。
 
@@ -49,4 +49,15 @@ HF token 供 [Cloud 匯入私人模型](https://docs.comfy.org/cloud/import-mode
 - 一般模式額度顯示「請先登入」，刷新停用；沒有提交生成。隔離工作目錄沒有複製原 `.env.local`，尚未驗證此工作目錄的真實 Firebase 登入。
 - 最後無 console warning/error、破圖或 document 橫向溢出；桌面 client/scroll width 同為1425、手機同為375（設定 viewport 為1440／390，扣除 scrollbar）。開關沿用原生 checkbox，跨滿現有格線，沒有新斷點；以限定 type selector 避免完整版的一般輸入框規則拉寬核取方塊。
 - Build 保留現有大型 chunk 與動靜態混用 import 提示。首輪 build 因隔離目錄的 sandbox 寫入限制失敗，授權範圍內重跑後成功，非程式錯誤。未改 Prompt renderer，因此未執行無關 strict audit／資料同步。
-- 證據：[桌面](../reports/comfy-moss-lora-2026-10-20/desktop-final.png)、[手機](../reports/comfy-moss-lora-2026-10-20/mobile.png)、[快速面板手機](../reports/comfy-moss-lora-2026-10-20/quick-mobile.png)、[模擬中斷](../reports/comfy-moss-lora-2026-10-20/interrupted.png)、[檢查紀錄](../reports/comfy-moss-lora-2026-10-20/visual-qa.json)。實際 Git／部署結果於完成後追加，不以授權代替完成。
+- 證據：[桌面](../reports/comfy-moss-lora-2026-10-20/desktop-final.png)、[手機](../reports/comfy-moss-lora-2026-10-20/mobile.png)、[快速面板手機](../reports/comfy-moss-lora-2026-10-20/quick-mobile.png)、[模擬中斷](../reports/comfy-moss-lora-2026-10-20/interrupted.png)、[檢查紀錄](../reports/comfy-moss-lora-2026-10-20/visual-qa.json)。
+
+## Git 與正式部署紀錄（2026-10-20）
+
+- 使用者明確授權提交、推送、合併 main 與發布正式 DLL。功能提交 `295c46d3a9d97e3215a5a08f9de09da25041b019` 已推送 `origin/codex/moss-optional-lora`；遠端 `main` 由 `1b8f31a85cd130cc167a0e6b26c113beaf2b4444` 一般快轉至同一提交，無 force push。原 main 工作目錄與其未追蹤參考資料未改動，未推送其他 remote。
+- [Actions 39376331565](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/39376331565) 的 functions-quality、webapp-quality、build、deploy 全部成功，Pages 於 2026-10-20 13:46:15（台北，05:46:15Z）完成。
+- [正式 DLL](https://cooperfu615-desinger.github.io/Virtual_Photography_Studio/) HTTP 200；實際載入的 `index-U9JVd6_I.js` SHA-256 為 `e2a61d17a64da0c204e852ee0442f7853342afd66248052b669f65a24267b828`，包含基底與 LoRA key；`DllPicProPanel-AJNEJ69T.js` SHA-256 為 `b6638ae70e71b7c0749bdf8c584cae746cafe426e0ea24c7d4722ea20b8e5248`，包含核取控制項與強度 0.7。
+- 正式頁面快速面板已實際選取 MOSS：初次 LoRA 關閉；勾選後顯示 `mossImageSftInt8Lora / 1K` 與強度 0.7。未登入時額度提示登入、刷新停用，檢查未提交生成；console warning/error 為零。結束前還原 LoRA 關閉及原 Gemini 選項。證據：[正式頁面](../reports/comfy-moss-lora-2026-10-20/live-release.png)。
+- Firebase CLI 僅部署 `virtualphotographystudio/us-central1` 的 Submit／WorkspaceSubmit／Status／Quota 四項服務，四者部署成功後為 ACTIVE、Node.js 24、Gen2；來源 hash 均由原值更新為 `f2da04e9a794ae3e76990b13538c17060d7ca5ac`。未新增 Function、Secret 或發布 rules／indexes。
+- 四者資源設定、應用環境值與 `COMFY_CLOUD_API_KEY` v1 綁定不變；CLI 為 WorkspaceSubmit 新增框架標記 `FUNCTION_SIGNATURE_TYPE=http`。另外七項服務的完整 CLI metadata 比較不變：BytePlus、ImageWorkspace、Video、VideoDownload、MagnificDownloadImage、MagnificGenerate、MagnificGenerateClassic。可檢查 [部署比對摘要](../reports/comfy-moss-lora-2026-10-20/functions-deployment.json)。
+- 部署後逐一匿名 JSON POST 均回 401／UNAUTHENTICATED，來源保護在 Secret 與 provider 呼叫之前；正式 Pages origin 的 OPTIONS 均回 204 且 CORS origin 正確。沒有送出付費生成或建立使用者任務。可檢查 [保護與 CORS 結果](../reports/comfy-moss-lora-2026-10-20/functions-smoke.json)。
+- Firebase CLI 提示 firebase-functions 套件可升級，本批依範圍未升級。發布與服務健康檢查已完成；真實登入、API 私人 LoRA 可見性、基底／LoRA 出圖、精確扣額及原圖下載仍是獨立待驗收項目。
