@@ -206,7 +206,7 @@ npm run audit:prompts:strict
 ## 8. Z-Image 正式實作批次（2026-09-13）
 
 - 第 7 節測試基準已提交／推送為 `1be19e8`，本節 Z runtime 工作後續已於 `b5ebebd` 提交／推送。以下驗證數字保留當時紀錄。
-- 舊版 baseline JSON 與固定輸入均不改。新增 [Z-only expected](../../webapp/src/lib/engine/sceneIntegratedZImageExpected.json)，只指定 35 組 eligible inputs 的 Z hash，以及 R01／R02 可讀全文。其餘五種輸出、10 組排除路徑的六輸出、全部 selections 與 RNG draws 仍核對原基準。
+- 舊版 baseline JSON 與固定輸入均不改。新增 [Z-only expected](../../webapp/src/lib/engine/sceneIntegratedZImageExpected.json)，只指定 35 組 eligible inputs 的 Z hash，以及 R01／R02 可讀全文。其餘五種輸出、10 組排除路徑的六輸出、全部 selections 與 RNG draws 仍核對原基準。（2026-10-20 P5a 刪除：沒有任何測試讀取，見 `Docs/specs/expression-pose-v2-p5-cleanup-scope.md`；內容保留在 git 歷史。）
 - 新姿勢斷言使用未修改的 GPT 投影作為獨立 oracle：同一 resolved selection 僅將 anchor 設全無，可見自拍另移除 hand 後核對 Z 姿勢；另外確認自拍原文恰好出現一次且位於人物之前。不從已完成 Prompt 用 regex 刪除支撐字眼，也不以新 Z renderer 自己生成 expected pose。
 - 核心案例逐段比較舊版人物、服裝、光線、風格、光學、成像 bytes；地點身份僅一次、其餘場景 clauses 保留。另驗證全無場景不補模板、近景不回灌自拍、手肘倚膝仍在、明確道具不與自拍重複。機器區塊順序只在 opt-in 路徑改變。
 - 最終 focused assembly **55/55**、Prompt Quality **225/225**、完整前端 **893/893**、lint、build、`git diff --check` 通過。Build 保留既有大 chunk 建議。200／`prompt-quality-baseline` strict audit 的 avg／p95／max 與第 7 節表格相同；零 blocking、23 diagnostic-only。此 audit 多數為排除路徑，不能用平均字數不變推論新 Z bytes 沒變；35 組 Z snapshots 才是本輪精確差異證據。

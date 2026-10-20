@@ -247,20 +247,14 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
       applicableGestureOptions(specifiedAction).some(option => option.id === locks.gestureId)
         ? getControlOptionLabel(controls, 'gestureId', locks.gestureId) : '',
       specifiedAction.ownsHead ? specifiedAction.headLabel
-        : getControlOptionLabel(controls, 'gazeId', locks.gazeId) || getControlOptionLabel(controls, 'poseHeadId', locks.poseHeadId),
+        : getControlOptionLabel(controls, 'gazeId', locks.gazeId),
     ])
     : buildSummaryText([
       getControlOptionLabel(controls, 'expressionId', locks.expressionId),
       getControlOptionLabel(controls, 'duoExpressionId', locks.duoExpressionId),
       getControlOptionLabel(controls, 'duoPoseId', locks.duoPoseId),
       getControlOptionLabel(controls, 'duoPoseBaseId', locks.duoPoseBaseId),
-      getControlOptionLabel(controls, 'poseBaseId', locks.poseBaseId),
-      getControlOptionLabel(controls, 'poseOrientationId', locks.poseOrientationId),
-      getControlOptionLabel(controls, 'poseArrangementId', locks.poseArrangementId),
-      getControlOptionLabel(controls, 'poseHandId', locks.poseHandId),
-      getControlOptionLabel(controls, 'posePropId', locks.posePropId),
-      getControlOptionLabel(controls, 'poseHeadId', locks.poseHeadId),
-      getControlOptionLabel(controls, 'poseAnchorId', locks.poseAnchorId),
+      // P5a: the retired free-composer layers are always 全無 in workspace state.
       locks.subjectCount === '1' ? getControlOptionLabel(controls, 'gazeId', locks.gazeId) : '',
     ]);
   const wardrobeSummary = isSpecialSubjectMode ? '' : buildSummaryText([
@@ -362,6 +356,9 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
       && !headDominantAngleAllowed(controls.find(c => c.key === 'angleId')?.options.find(o => o.id === locks.angleId))
       ? '' : getControlOptionLabel(controls, 'angleId', locks.angleId),
     getControlOptionLabel(controls, 'orbitId', locks.orbitId),
+    // P5a: a selfie 拍攝方式 is named when it applies (single subject, no action owning the hands).
+    locks.subjectCount === '1' && !specifiedAction && locks.captureStyleId && locks.captureStyleId !== 'standard'
+      ? getControlOptionLabel(controls, 'captureStyleId', locks.captureStyleId) : '',
     getControlOptionLabel(controls, 'styleId', locks.styleId),
     getControlOptionLabel(controls, 'lensId', locks.lensId),
     getControlOptionLabel(controls, 'apertureId', locks.apertureId),

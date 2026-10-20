@@ -49,24 +49,7 @@ test('page1 transition keeps special subject and character profile mutually excl
   assert.equal(next.subjectCount, '1');
 });
 
-test('page1 transition makes pose composer override legacy pose and special action', () => {
-  const controls = getLockControls();
-  const previousLocks = createEmptyLocks();
-  const next = transitionPage1Locks({
-    previousLocks,
-    candidateLocks: {
-      ...previousLocks,
-      poseId: optionId(controls, 'poseId', '自然站立'),
-      specialActionId: optionId(controls, 'specialActionId', '抽菸'),
-      poseBaseId: optionId(controls, 'poseBaseId', '站姿'),
-    },
-    lockControls: controls,
-  });
-
-  assert.equal(next.poseId, '');
-  assert.equal(next.specialActionId, '');
-  assert.notEqual(next.poseBaseId, 'none');
-});
+// P5a (2026-10-20): composer/legacy-pose exclusivity left the transitions with the retired layers.
 
 test('page1 transition locks supine scene and fixed-composition controls to none', () => {
   const controls = getLockControls();
@@ -109,31 +92,6 @@ test('page1 transition locks supine scene and fixed-composition controls to none
   assert.equal(next.importedWorldSceneArchitectureText, '');
   assert.equal(next.zImageVisibleTextEnabled, false);
   assert.equal(next.zImageVisibleTextContent, '');
-});
-
-test('page1 transition lets an explicit prop take over hand and clears props in duo mode', () => {
-  const controls = getLockControls();
-  const previousLocks = createEmptyLocks();
-  const handId = optionId(controls, 'poseHandId', '單手摸下巴');
-  const propId = optionId(controls, 'posePropId', '手持冰咖啡');
-  const propNext = transitionPage1Locks({
-    previousLocks,
-    candidateLocks: {
-      ...previousLocks,
-      poseHandId: handId,
-      posePropId: propId,
-    },
-    lockControls: controls,
-  });
-  assert.equal(propNext.poseHandId, 'none');
-  assert.equal(propNext.posePropId, propId);
-
-  const duoNext = transitionPage1Locks({
-    previousLocks: propNext,
-    candidateLocks: { ...propNext, subjectCount: '2' },
-    lockControls: controls,
-  });
-  assert.equal(duoNext.posePropId, 'none');
 });
 
 test('page1 close-up transitions preserve hidden selections and restore them at full body', () => {

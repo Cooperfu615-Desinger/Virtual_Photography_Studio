@@ -39,7 +39,7 @@
 ## 已知、未處理
 
 - `enginePromptPipeline.test.js:934`（雙人、無固定 seed）在未修改的 `main` 上 20 次失敗 4 次，屬既有不穩定測試，未擴修。
-- `chestUpSameStateBaseline.json` 沒有任何測試引用（測試基準更新時發現），未同步，留待 Cooper 決定是否刪除。
+- `chestUpSameStateBaseline.json` 沒有任何測試引用（測試基準更新時發現），未同步，留待 Cooper 決定是否刪除。（2026-10-20 P5a 刪除：沒有任何測試讀取，見 `Docs/specs/expression-pose-v2-p5-cleanup-scope.md`；內容保留在 git 歷史。）
 - `scripts/tests/prompt_audit.test.mjs` 第 153 行的測試在未修改的 `main` 上就失敗（16 過 1 失敗），且沒有任何 CI 或 npm 指令執行它；本次修改後維持相同結果，未擴修。
 - `fixedFramingDerivedPromptFixtures.js` 的 `mjSemanticReuse` 在 MJ 胸上移除後已無人使用，未刪除，列入後續清理。
 - `renderAiPrompt` 與其舊渲染鏈的刪除，列入後續專門的舊程式碼清理。

@@ -10,12 +10,13 @@ import {
   DUO_LAYER_KEYS,
   DUO_ROLE_WARDROBE_KEYS,
   OUTFIT_PRESET_COLOR_KEYS,
-  POSE_COMPOSER_CONTROL_KEYS,
+  SINGLE_POSE_CONTROL_KEYS,
   SHARED_ACCESSORY_KEYS,
   SHARED_GARMENT_KEYS,
   SHARED_LAYER_KEYS,
   STYLE_WARDROBE_CONTROL_ORDER,
 } from './page1Schema.js';
+import { RETIRED_POSE_COMPOSER_KEYS } from './retiredPoseLocks.js';
 
 export function sortControls(controls, order) {
   const orderMap = new Map(order.map((key, index) => [key, index]));
@@ -114,23 +115,12 @@ function buildCoreControls(lockControls, sceneDependentOptions, locks) {
   );
 }
 
-function buildCharacterControls(lockControls, locks, sceneDependentOptions) {
+function buildCharacterControls(lockControls, locks) {
   const sceneAware = lockControls.map((control) => {
-    if (!['poseOrientationId', 'poseArrangementId', 'poseAnchorId'].includes(control.key)) {
-      if (!Array.isArray(control.options)) return control;
-      return {
-        ...control,
-        options: control.options.filter((option) => (
-          option.meta?.uiHidden !== true || option.id === locks[control.key]
-        )),
-      };
-    }
-    const sceneOptions = control.key === 'poseAnchorId'
-      ? sceneDependentOptions.poseAnchorOptions || control.options
-      : control.options;
+    if (!Array.isArray(control.options)) return control;
     return {
       ...control,
-      options: sceneOptions.filter((option) => (
+      options: control.options.filter((option) => (
         option.meta?.uiHidden !== true || option.id === locks[control.key]
       )),
     };
@@ -145,15 +135,16 @@ function buildCharacterControls(lockControls, locks, sceneDependentOptions) {
   return sortControls(sceneAware.filter((control) => {
     if (isDedicatedSubject) {
       return [
-        'specialSubjectId', 'characterProfileId', 'expressionId', 'gazeId', 'gestureId', ...POSE_COMPOSER_CONTROL_KEYS,
+        'specialSubjectId', 'characterProfileId', 'expressionId', ...SINGLE_POSE_CONTROL_KEYS,
         ...(isAndroidSubject ? ['hairstyleId', 'hairStylingStateId', 'hairColorId'] : []),
       ].includes(control.key);
     }
     if (!(control.section === 'character' || control.key === 'subjectCount')) return false;
     if (['specialSubjectId', 'characterProfileId'].includes(control.key)) return true;
     if (['duoPoseId', 'duoPoseBaseId', 'duoExpressionId'].includes(control.key) && locks.subjectCount !== '2') return false;
-    if (['poseId', 'specialActionId'].includes(control.key)) return false;
-    if ([...POSE_COMPOSER_CONTROL_KEYS, 'gazeId', 'gestureId'].includes(control.key) && locks.subjectCount !== '1') return false;
+    // P5a: retired free-composer layers and the hidden legacy pose/special-action keys have no control.
+    if ([...RETIRED_POSE_COMPOSER_KEYS, 'poseId', 'specialActionId'].includes(control.key)) return false;
+    if (SINGLE_POSE_CONTROL_KEYS.includes(control.key) && locks.subjectCount !== '1') return false;
     if (['bodyTypeId', 'facialFeaturesId', 'skinDetailsId', 'hairstyleId', 'hairStylingStateId', 'hairColorId', 'expressionId'].includes(control.key) && locks.subjectCount === '2') return false;
     if ([
       'bodyTypeAId', 'bodyTypeBId', 'facialFeaturesAId', 'facialFeaturesBId',
@@ -218,7 +209,7 @@ function buildWardrobeControls(lockControls, locks) {
 
 export function buildPage1ControlGroups({ lockControls, locks, sceneDependentOptions }) {
   const coreLockControls = buildCoreControls(lockControls, sceneDependentOptions, locks);
-  const characterLockControls = buildCharacterControls(lockControls, locks, sceneDependentOptions);
+  const characterLockControls = buildCharacterControls(lockControls, locks);
   const wardrobeLockControls = buildWardrobeControls(lockControls, locks);
   const isOutfitPresetActive = locks.subjectCount === '2'
     ? ['outfitPresetAId', 'outfitPresetBId'].some((key) => (

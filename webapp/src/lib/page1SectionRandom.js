@@ -1,4 +1,4 @@
-import { POSE_COMPOSER_KEYS } from '../features/page1/page1Schema.js';
+import { RETIRED_POSE_COMPOSER_KEYS } from '../features/page1/retiredPoseLocks.js';
 import {
   PAGE1_SINGLE_COMPLETE_LOOK_STATE_KEYS,
   PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS,
@@ -46,7 +46,7 @@ export function getPage1ControlActionMode(controlOrKey, controls = []) {
   if (control?.compatibilityOnly) return 'reset';
   if (PRESERVE_KEYS.has(key) || control?.required) return 'preserve';
   if (EXPLICIT_RANDOM_KEYS.has(key)) return 'random';
-  if (POSE_COMPOSER_KEYS.includes(key) || key === 'posePropId') return 'reset';
+  if (RETIRED_POSE_COMPOSER_KEYS.includes(key)) return 'reset';
   if (RESET_TO_DEFAULT_KEYS.has(key) || control?.section === 'hidden') return 'reset';
   if (control?.suppressDefaultRandomOption) return 'reset';
   return 'random';
@@ -87,7 +87,7 @@ export function randomizeLockKeys(locks, keys, defaultLocks = {}, controls = [])
       next[key] = getNoneOrDefaultValue(control, defaultLocks[key] ?? '');
       return;
     }
-    next[key] = POSE_COMPOSER_KEYS.includes(key) || EXPLICIT_RANDOM_KEYS.has(key)
+    next[key] = EXPLICIT_RANDOM_KEYS.has(key)
       ? (control?.options?.find((option) => option.id === 'random')?.id || 'random')
       : '';
   });

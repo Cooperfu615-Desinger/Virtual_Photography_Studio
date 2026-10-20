@@ -29,7 +29,7 @@
 | **P2 姿勢選單機制**（2026-10-19 完成，分支 `claude/pose-v2-p2-menu`） | 隨機／任意／全無／指定動作；由動作 family 推導內部基底（保住固定場景、機位主語）；移除「全無時抽舊姿勢」 | **大量改變**（全無不再寫姿勢；隨機改從動作庫抽） | 選單選項改變 |
 | **P3 躺姿機位與表面**（2026-10-20 完成，分支 `claude/pose-v2-p3-lying`） | 5 個躺姿機位（選了躺姿才出現）；場景加「躺姿表面」；隨機過濾不能躺的組合 | 躺姿的 Prompt 改變 | B／機位區新增選單（先給示意圖） |
 | **P4 新 B 面板**（2026-10-20 完成，分支 `claude/pose-v2-p4-panel`） | 移除自由組合欄位，改成新版 B 神情姿態 | 否（P2 已改） | **是**（先給示意圖確認） |
-| **P5 清理** | 刪除 Composer 程式、舊目錄、舊測試；重產基準 | 否 | 否 |
+| **P5 清理**（P5a 2026-10-20 完成，分支 `claude/pose-v2-p5-cleanup`；P5b 待做） | 刪除 Composer 程式、舊目錄、舊測試；重產基準 | 否 | 否 |
 
 P1 可以馬上開始，它不改變任何既有輸出，和觀察式抓拍的衝突也最小。
 
@@ -113,3 +113,25 @@ P1 可以馬上開始，它不改變任何既有輸出，和觀察式抓拍的�
 - 通用 4 句手勢目前沒有可搭配的動作（站姿、坐姿動作的手都是固定的），等新增手空著的動作才會出現。
 - 視線沿用舊頭部英文，只描述頭部方向；Prompt 文字依方案丙之後再修。
 - 觀察式抓拍時，手勢與視線欄顯示「由觀察式抓拍決定」（程式同既有接管欄位，未在瀏覽器實測此狀態）。
+
+## 8. P5a 實作紀錄（2026-10-20）
+
+**決定**（Cooper「照建議」）：P5 分兩個 PR，P5a 只清介面與工作台層殘留和孤兒檔，Prompt 不變、不重產基準；其餘決定見 [P5 清理範圍](expression-pose-v2-p5-cleanup-scope.md) §5。
+
+**刪除與改寫**
+- `page1Schema.js`：`POSE_COMPOSER_KEYS`、`POSE_COMPOSER_CONTROL_KEYS` 改為 `SINGLE_POSE_CONTROL_KEYS`（姿勢、手勢、視線）；退役欄位清單統一用 `retiredPoseLocks.js` 的 `RETIRED_POSE_COMPOSER_KEYS`。
+- `page1Selectors.js`：7 個退役欄位與 `poseId`、`specialActionId` 不再產生控制項；移除接觸／支撐、躺姿、肢體的場景選項過濾。
+- `lockTransitions.js`：移除改基底清動作、離開動作還原 5 欄、接觸／支撐清除、舊姿勢／特殊動作／自由組合互斥、四點跪姿手部綁定。
+- `Page1Workspace.jsx`：移除自由組合控制項過濾（基底、方向）、舊手部／道具／特殊動作的變更處理、「Pose Composer」提示與摘要標籤；自拍鎖定環繞只看拍攝方式；接管標籤只剩表情與視線。
+- `page1SectionRandom.js`、`page1WorkspaceSummary.js`：改用退役清單；摘要不再列退役欄位；E 摘要在自拍生效時列出拍攝方式。
+- 孤兒檔：`ActionPoseWorkspace.jsx`、`bodyTypeIsolationBaseline.json`、`sceneIntegratedZImageExpected.json`、`chestUpSameStateBaseline.json` 與只寫入它的 `scripts/capture_chest_up_same_state_baseline.mjs`；引用它們的 4 份文件加註刪除說明。
+- 引擎程式未改（`engine.js` 與 `engine/*.js` 零差異，只刪基準 JSON 與改測試）。
+
+**測試**
+- 刪除只測已移除介面行為的 3 個測試：自由組合覆蓋舊姿勢、道具接管手部、四點跪姿手部綁定。
+- 改寫 9 個測試：撿選器斷言改成「退役欄位沒有控制項」；鏡子自拍改由拍攝方式提供；仰躺場景改用仰躺指定動作；摘要改測拍攝方式與視線。
+
+**驗證**
+- 代表性、隨機、指定動作×景別 612 組與全部隨機 150 組，與 P4（main）逐位元組相同；同 seed strict audit 相同。
+- `npm test` 1728/1728（連跑 2 次）、Prompt Quality 737/737（少 1 個是刪掉的四點跪姿綁定測試）、lint、build、sync、Python、公開資產、diff-check。
+- 瀏覽器 1440×1000／390×900：B 只剩指定動作、表情、視線（趴躺時多手勢）；拍攝方式自拍鎖定與解除環繞、寫入輸出、生成摘要列出「自拍」；全部隨機、全部全無、套用舊 Saved Card；五個工作區無溢出、無破圖、無主控台錯誤。

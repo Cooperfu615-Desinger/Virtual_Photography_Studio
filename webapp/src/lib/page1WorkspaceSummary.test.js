@@ -140,39 +140,38 @@ test('workspace expression labels and summaries retain effective single and duo 
   }
 });
 
-test('workspace pose summary includes the independent prop action', () => {
+// P5a (2026-10-20): retired composer layers leave the summary; 拍攝方式 joins the E summary.
+test('workspace summaries skip retired composer layers and name a selfie 拍攝方式', () => {
   const summary = buildWorkspaceSummary({
     ...createEmptyLocks(),
+    subjectCount: '1',
     posePropId: optionId('posePropId', '手持冰咖啡'),
+    captureStyleId: 'selfie',
   }, controls);
 
-  assert.match(summary.pose.summary, /手持冰咖啡/);
+  assert.doesNotMatch(summary.pose.summary, /手持冰咖啡/);
+  assert.match(summary.photography.summary, /自拍/);
 });
 
 test('generation summary follows the resolved preview selection instead of conflicting raw locks', () => {
   const locks = {
     ...createEmptyLocks(),
+    subjectCount: '1',
     orbitId: optionId('orbitId', '背面 180 度'),
-    poseBaseId: 'random',
-    poseArrangementId: 'random',
-    poseHandId: 'random',
-    poseHeadId: 'random',
-    poseAnchorId: 'random',
+    captureStyleId: 'selfie',
+    gazeId: 'random',
   };
   const previewPrompt = {
     selection: {
       ...locks,
       orbitId: optionId('orbitId', '全無'),
-      poseBaseId: 'standing',
-      poseArrangementId: 'standing-natural',
-      poseHandId: 'selfie-natural-right-arm',
-      poseHeadId: 'head-camera-natural',
-      poseAnchorId: 'standing-wall',
+      gazeId: 'gaze-camera',
     },
   };
 
   const resolvedSummary = buildPage1GenerationSummary(locks, previewPrompt, controls);
-  assert.match(resolvedSummary, /站姿|自然站姿|自然自拍|頭部自然朝向鏡頭|靠牆站立/);
+  assert.match(resolvedSummary, /自拍/);
+  assert.match(resolvedSummary, /看鏡頭/);
   assert.doesNotMatch(resolvedSummary, /背面/);
   assert.match(buildPage1GenerationSummary(locks, null, controls), /背面/);
 });

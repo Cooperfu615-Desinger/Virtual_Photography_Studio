@@ -3,7 +3,6 @@ import { CAPTURE_OWNED_KEYS, captureEligibility, resolveCapture } from '../lib/o
 import { getReferencePersonPreview, hasReferencePersonPreview } from '../lib/referencePersonPreview.js';
 import { prepareBottomRiseControl } from '../lib/engine/bottomRiseCompatibility.js';
 import { prepareHeadDominantAngleControl } from '../lib/engine/headDominantFraming.js';
-import { buildKneelingSupportControl, isFourPointKneeling } from '../lib/engine/kneelingSupport.js';
 import { isLyingAction, lyingSurfaceFor } from '../lib/engine/lyingSurface.js';
 import { applicableGestureOptions, availableGazeOptions, isSelfieCaptureStyle } from '../lib/engine/gazeGesture.js';
 import { getSpecifiedAction, getSpecifiedActionEffectiveLocks, specifiedActionOwnsControl, getSpecifiedActionCameraConflict } from '../lib/engine/specifiedActions.js';
@@ -65,11 +64,7 @@ import {
 } from '../lib/page1SectionRandom.js';
 import { createEmptyLocks } from '../lib/engine.js';
 import {
-  poseComposerOptionVisibleForBase,
-  poseComposerOptionVisibleForOrientation,
-} from '../lib/engine/poseComposerCompatibility.js';
-import {
-  POSE_COMPOSER_CONTROL_KEYS,
+  SINGLE_POSE_CONTROL_KEYS,
   SINGLE_IDENTITY_GROUPS,
   SECTION_SUBPANELS,
   WORKSPACE_SECTIONS,
@@ -175,14 +170,6 @@ const WARDROBE_IMAGE_ONLY_PICKER_KEYS = new Set([
 const WARDROBE_OUTFIT_PICKER_KEYS = new Set(['outfitPresetId', 'outfitPresetAId', 'outfitPresetBId']);
 const WARDROBE_DRESS_PICKER_KEYS = new Set(['dressId', 'dressAId', 'dressBId']);
 
-const POSE_COMPOSER_CONTEXT_KEYS = new Set([
-  'poseOrientationId',
-  'poseArrangementId',
-  'poseHandId',
-  'poseHeadId',
-  'poseAnchorId',
-]);
-const POSE_COMPOSER_BASE_IDS = new Set(['standing', 'sitting', 'kneeling', 'squatting', 'lying']);
 const FIXED_SET_KEYS = ['fixedCompositionSetId', 'fixedSetPositionId', 'fixedSetBackgroundStateId', 'fixedSetCaptureModeId', 'fixedSetPerformanceStateId'];
 const FIXED_SET_DEPENDENT_DISPLAY_NONE_KEYS = new Set(['fixedSetBackgroundStateId', 'fixedSetCaptureModeId', 'fixedSetPerformanceStateId']);
 const FIXED_SET_LOCKED_KEYS = [
@@ -835,29 +822,10 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   );
   const activeWardrobePickerControl = [...characterLockControls, ...wardrobeLockControls]
     .find((control) => control.key === activeWardrobePickerKey);
-  const specialActionControl = characterLockControls.find((control) => control.key === 'specialActionId');
-  const poseHandControl = characterLockControls.find((control) => control.key === 'poseHandId');
-  const posePropControl = characterLockControls.find((control) => control.key === 'posePropId');
-  const getSpecialActionOption = (id) => specialActionControl?.options?.find((option) => option.id === id) || null;
-  const isSocialShootingActionOption = (option) => Boolean(option?.meta?.tags?.includes('social_shooting_action'));
-  const isSelfiePoseActionOption = (option) => Boolean(option?.meta?.tags?.includes('selfie_hand_pose'));
-  const selectedSpecialActionOption = getSpecialActionOption(locks.specialActionId);
-  const selectedSpecialActionIsSocial = isSocialShootingActionOption(selectedSpecialActionOption);
-  const selectedPoseHandOption = poseHandControl?.options?.find((option) => option.id === effectiveFixedSceneLocks.poseHandId) || null;
-  const selectedPosePropOption = posePropControl?.options?.find((option) => option.id === effectiveFixedSceneLocks.posePropId) || null;
-  const selectedPoseActionOption = selectedPosePropOption && !isNoneSelected('posePropId', effectiveFixedSceneLocks.posePropId, characterLockControls)
-    ? selectedPosePropOption : selectedPoseHandOption;
   // expression-pose-v2 P4: a selfie 拍攝方式 applies (and locks the orbit) only while no action owns the hands.
+  // P5a: the retired hand/prop layers no longer feed this; 拍攝方式 is the only source.
   const captureStyleSelfieApplies = isSelfieCaptureStyle(locks.captureStyleId) && locks.subjectCount === '1' && !activeSpecifiedAction && !captureActive;
-  const selectedPoseActionLocksOrbit = !fixedScenePosition && (isSelfiePoseActionOption(selectedPoseActionOption) || captureStyleSelfieApplies);
-  const isPoseComposerValueActive = (key, value = locks[key]) => (
-    Boolean(value) && !isNoneSelected(key, value, characterLockControls)
-  );
-  const isPoseComposerActive = POSE_COMPOSER_CONTROL_KEYS.some((key) => isPoseComposerValueActive(key));
-  const selectedPoseBaseId = POSE_COMPOSER_BASE_IDS.has(effectiveFixedSceneLocks.poseBaseId) ? effectiveFixedSceneLocks.poseBaseId : '';
-  const selectedPoseOrientationId = typeof effectiveFixedSceneLocks.poseOrientationId === 'string' && effectiveFixedSceneLocks.poseOrientationId.startsWith('lying-')
-    ? effectiveFixedSceneLocks.poseOrientationId
-    : '';
+  const selectedPoseActionLocksOrbit = !fixedScenePosition && captureStyleSelfieApplies;
   const specifiedActionCameraConflict = getSpecifiedActionCameraConflict(selectedSpecifiedAction, locks, lockControls);
   const specifiedActionDisabledReason = fixedScenePosition
     ? '固定場景人物位置接管中；離開後恢復指定動作。' : isSpecialSubjectMode ? '專用特殊角色使用其專屬姿態。' : '';
@@ -887,9 +855,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       chips: [
         fixedScenePosition?.zh || '',
         activeSpecifiedAction ? activeSpecifiedAction.zh : '',
-        isPoseComposerActive && !activeSpecifiedAction ? 'Pose Composer' : '',
         selectedPoseActionLocksOrbit ? '自拍動作鎖定環繞' : '',
-        selectedSpecialActionIsSocial ? '社群拍攝動作' : '',
         isDuoMode ? '雙人姿態' : '',
         isCloseupMode ? '特寫收斂' : '',
       ].filter(Boolean),
@@ -933,14 +899,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         options: control.options.filter(option => option.id === effectiveFixedSceneLocks[control.key]) };
     }
     if (specifiedActionOwnsControl(activeSpecifiedAction, control.key)) {
-      const orientationLabel = control.options.find((option) => option.id === activeSpecifiedAction.orientationId)?.zh;
-      const label = control.key === 'poseBaseId'
-        ? activeSpecifiedAction.baseId === 'none' ? '不限定・由指定動作決定' : control.options.find(o => o.id === activeSpecifiedAction.baseId)?.zh
-        : control.key === 'expressionId' ? activeSpecifiedAction.expressionLabel
-        : ['poseHeadId', 'gazeId'].includes(control.key) ? activeSpecifiedAction.headLabel
-        : control.key === 'poseOrientationId' ? orientationLabel || '由指定動作決定'
-        : control.key === 'poseAnchorId' ? (activeSpecifiedAction.meta.supportSurface === 'ground' ? '地面' : activeSpecifiedAction.meta.supportSurface === 'bed' ? '床面' : '不指定額外支撐')
-        : control.key === 'posePropId' ? (activeSpecifiedAction.legacyCardId ? '由指定動作決定' : '不使用道具') : '由指定動作決定';
+      // P5a: only 表情 and 視線 are still rendered among the keys an action can own.
+      const label = control.key === 'expressionId' ? activeSpecifiedAction.expressionLabel
+        : control.key === 'gazeId' ? activeSpecifiedAction.headLabel : '由指定動作決定';
       return {
         ...control,
         label: `${control.label}（指定動作接管）`,
@@ -969,35 +930,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         : activeSpecifiedAction ? `姿勢「${activeSpecifiedAction.zh}」使用自己的手部，拍攝方式暫不套用；姿勢選全無後生效。`
         : '自拍時手拿手機，環繞角度由自拍決定。' };
     }
-    control = buildKneelingSupportControl(control, effectiveFixedSceneLocks);
-    if (!POSE_COMPOSER_CONTEXT_KEYS.has(control.key)) return control;
-    return {
-      ...control,
-      options: control.options.filter((option) => {
-        const preserveExplicitHiddenSelection = option.id === locks[control.key]
-          && !(control.key === 'poseHandId'
-          && selectedPoseBaseId === 'squatting'
-          && option.meta?.hiddenForBases?.includes('squatting'));
-        if (
-          selectedPoseBaseId
-          && !poseComposerOptionVisibleForBase(option, selectedPoseBaseId)
-          && !preserveExplicitHiddenSelection
-        ) {
-          return false;
-        }
-        if (
-          selectedPoseOrientationId
-          && !poseComposerOptionVisibleForOrientation(option, selectedPoseOrientationId)
-          && option.id !== locks[control.key]
-        ) {
-          return false;
-        }
-        if (!option.base && !option.bases) return true;
-        if (!selectedPoseBaseId) return false;
-        if (option.base) return option.base === selectedPoseBaseId;
-        return option.bases.includes(selectedPoseBaseId);
-      }),
-    };
+    return control;
   };
   const buildFixedSetControl = (control) => {
     if (!['fixedSetPositionId', 'fixedSetBackgroundStateId'].includes(control.key)) return control;
@@ -1009,17 +942,10 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       options: control.options.filter((option) => matchesSelectedSet(option, selectedFixedCompositionSetOption)),
     };
   };
-  const resetPoseComposerLocks = (target) => {
-    POSE_COMPOSER_CONTROL_KEYS.forEach((key) => {
-      target[key] = 'none';
-    });
-  };
-
   function isControlDisabled(control) { return (
     (captureActive && CAPTURE_OWNED_KEYS.includes(control.key)) ||
     specifiedActionOwnsControl(activeSpecifiedAction, control.key)
     || (control.key === 'specifiedActionId' && Boolean(specifiedActionDisabledReason))
-    || (control.key === 'posePropId' && isFourPointKneeling(effectiveFixedSceneLocks))
     ||
     (Boolean(fixedScenePosition) && FIXED_SCENE_MANAGED_POSE_KEYS.includes(control.key))
     || (isCloseupMode && control.key !== 'specifiedActionId' && !closeupAllowedKeys.has(control.key))
@@ -1038,11 +964,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     || (fixedCompositionSetActive && !fixedSetAllowsCameraVariation && FIXED_SET_STRICT_CAMERA_KEYS.includes(control.key))
     || (selectedPoseActionLocksOrbit && control.key === 'orbitId')
     || (control.key === 'captureStyleId' && (locks.subjectCount !== '1' || captureActive))
-    || (POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && locks.subjectCount !== '1')
-    || (!fixedScenePosition && POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && (Boolean(locks.poseId) && !isNoneSelected('poseId', locks.poseId, characterLockControls)))
-    || (!fixedScenePosition && POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && (Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls)))
-    || (['poseId', 'specialActionId'].includes(control.key) && isPoseComposerActive)
-    || (control.key === 'poseId' && Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls) && !selectedSpecialActionIsSocial)
+    || (SINGLE_POSE_CONTROL_KEYS.includes(control.key) && locks.subjectCount !== '1')
     || (['topColorId', 'bottomColorId'].includes(control.key) && Boolean(locks.topBottomPaletteId) && !isNoneSelected('topBottomPaletteId', locks.topBottomPaletteId, wardrobeLockControls))
     || (['topAColorId', 'bottomAColorId'].includes(control.key) && Boolean(locks.topBottomPaletteAId) && !isNoneSelected('topBottomPaletteAId', locks.topBottomPaletteAId, wardrobeLockControls))
     || (['topBColorId', 'bottomBColorId'].includes(control.key) && Boolean(locks.topBottomPaletteBId) && !isNoneSelected('topBottomPaletteBId', locks.topBottomPaletteBId, wardrobeLockControls))
@@ -1108,37 +1030,6 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
           next.fixedSetBackgroundStateId = 'none';
         }
       }
-      if (control.key === 'poseId' && value && !isNoneSelected('poseId', value, characterLockControls)) {
-        const currentSpecialAction = getSpecialActionOption(prev.specialActionId);
-        if (currentSpecialAction && !isSocialShootingActionOption(currentSpecialAction)) {
-          next.specialActionId = '';
-        }
-        resetPoseComposerLocks(next);
-      }
-      if (control.key === 'specialActionId' && value && !isNoneSelected('specialActionId', value, characterLockControls)) {
-        const nextSpecialAction = getSpecialActionOption(value);
-        if (!isSocialShootingActionOption(nextSpecialAction)) {
-          next.poseId = '';
-        }
-        resetPoseComposerLocks(next);
-      }
-      if (POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && value && !isNoneSelected(control.key, value, characterLockControls)) {
-        next.poseId = '';
-        next.specialActionId = '';
-      }
-      if (control.key === 'posePropId' && value && !isNoneSelected('posePropId', value, characterLockControls)) {
-        next.poseHandId = 'none';
-      }
-      if (control.key === 'poseHandId' && value && !isNoneSelected('poseHandId', value, characterLockControls)) {
-        next.posePropId = 'none';
-      }
-      if (control.key === 'poseHandId' || control.key === 'posePropId') {
-        const nextPoseAction = control.options?.find((option) => option.id === value);
-        if (isSelfiePoseActionOption(nextPoseAction)) {
-          const noneOrbit = lockControls.find((item) => item.key === 'orbitId')?.options?.find((option) => option.zh === '全無');
-          next.orbitId = noneOrbit?.id || '';
-        }
-      }
       if (control.key === 'locationId' && value) {
         next.importedWorldSceneMode = 'none';
         next.importedWorldSceneLabel = '';
@@ -1148,30 +1039,6 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         next.fixedSetBackgroundStateId = 'none';
         next.fixedSetCaptureModeId = 'photographer-shot';
         next.fixedSetPerformanceStateId = 'model-natural';
-      }
-      if (control.key === 'poseBaseId') {
-        const nextBase = POSE_COMPOSER_BASE_IDS.has(value) ? value : '';
-        ['poseOrientationId', 'poseArrangementId', 'poseHandId', 'poseHeadId', 'poseAnchorId'].forEach((key) => {
-          const nextControl = characterLockControls.find((item) => item.key === key);
-          const selected = nextControl?.options?.find((option) => option.id === next[key]);
-          const selectedSupportsBase = selected?.base
-            ? selected.base === nextBase
-            : selected?.bases
-              ? selected.bases.includes(nextBase)
-              : true;
-          const selectedHiddenForBase = selected?.meta?.hiddenForBases?.includes(nextBase);
-          if (!selectedSupportsBase || selectedHiddenForBase) next[key] = 'none';
-        });
-      }
-      if (control.key === 'poseOrientationId') {
-        const nextOrientation = typeof value === 'string' && value.startsWith('lying-') ? value : '';
-        ['poseArrangementId', 'poseHandId', 'poseHeadId', 'poseAnchorId'].forEach((key) => {
-          const nextControl = characterLockControls.find((item) => item.key === key);
-          const selected = nextControl?.options?.find((option) => option.id === next[key]);
-          if (selected && nextOrientation && !poseComposerOptionVisibleForOrientation(selected, nextOrientation)) {
-            next[key] = 'none';
-          }
-        });
       }
       return next;
     });
@@ -1611,11 +1478,6 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         <div className="context-note">指定動作「{selectedSpecifiedAction.zh}」已保留，暫由固定場景人物位置接管；取消接管後恢復。</div>
       ) : null}
       {selectedSpecifiedAction && !fixedScenePosition && specifiedActionCameraConflict ? <div className="context-note specified-action-context-note"><span>指定動作「{selectedSpecifiedAction.zh}」暫停：{specifiedActionCameraConflict}。E 區選值已保留；調整鏡位後恢復動作，目前使用原本姿勢。</span><button type="button" className="secondary" onClick={() => updateLocks(prev => ({...prev, specifiedActionId: 'none', actionPoseCardId: ''}))}>取消指定動作</button></div> : null}
-      {isPoseComposerActive && !activeSpecifiedAction ? (
-        <div className="context-note">
-          單人姿勢已由 Pose Composer 組合輸出，舊姿勢動作與特殊動作會維持隱藏相容，不再作為可見控制來源。
-        </div>
-      ) : null}
       {renderControlGrid((resolvedActiveSubpanel?.keys || []).filter(key => key !== 'specifiedActionId'
         // P4: 手勢 appears only when the action's hands are free.
         && (key !== 'gestureId' || applicableGestureOptions(activeSpecifiedAction).length > 0))
