@@ -4,6 +4,15 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-20
 
+## DLL：MOSS 與可選 LoRA（2026-10-20，已發布正式版與四項 Functions）
+
+- DLL 完整版與三個現用快速面板新增 MOSS-Image SFT INT8；核取「套用 MOSS LoRA」以固定強度 0.7 套用本對話已匯入的相容命名副本，首次選模型預設關閉。初版 1K、六比例、30 steps／CFG 3、直接使用 DLL Prompt，預設一張、可選兩張依序生成。詳見 [MOSS／LoRA v1](specs/comfy-moss-lora-v1.md)。
+- 兩個固定 modelKey 保留草稿、任務快照、歷史沿用／Seed、查詢恢復與額度樣本隔離；未新增任意 LoRA 或工作流編輯、storage migration 或 HF token 收集。原模型模板保持 byte equality，Prompt engine、Saved Cards 不改。
+- Node22 前端 1735/1735、lint／build；Node24 Functions 98/98、lint 通過。桌面1440×1000／手機390×900檢查現行五工作區、三個快速入口、LoRA 開關、草稿重載、歷史沿用、兩張模擬及中斷查詢恢復；無新 console error/warning、破圖或 document 橫向溢出。證據見規格與 design-qa。
+- 功能提交 `295c46d` 已推送 `origin/codex/moss-optional-lora` 並快轉 `origin/main`；[Actions 39376331565](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/39376331565) 四項工作全成功，2026-10-20 13:46（台北）完成 Pages。正式資產與瀏覽器均確認 MOSS 選項、LoRA 開關與 0.7 強度；檢查後還原模型選項，無 console warning/error。
+- `virtualphotographystudio/us-central1` 的 `comfyCloudSubmit`、`comfyCloudWorkspaceSubmit`、`comfyCloudStatus`、`comfyCloudQuota` 已部署，四者 ACTIVE／Node24，Secret、應用設定與資源配置保留；其餘七個 Functions metadata 未變。匿名 POST 均 401、正式網站 CORS OPTIONS 均 204。部署工具僅為 WorkspaceSubmit 補上框架環境標記 `FUNCTION_SIGNATURE_TYPE=http`，未新增 Secret。實際紀錄見 [規格](specs/comfy-moss-lora-v1.md)。
+- 使用獨立工作目錄、分支 `codex/moss-optional-lora`，原工作區及其他參考資料保留。本批沒有付費生成，GUI 的先前成功出圖不代替 DLL API 驗收，私人 LoRA 的 API 可見性、扣額及原圖下載待後續驗證。
+
 
 ## 神情姿態 v2：P5a 介面層清理（2026-10-20，本機實作）
 

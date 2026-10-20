@@ -4,6 +4,12 @@ const MAGNIFIC_CONTRACT = getProviderContract('magnific');
 const BYTEPLUS_CONTRACT = getProviderContract('byteplus');
 const COMFY_CONTRACT = getProviderContract('comfyCloud');
 
+// Fixed variants keep each job, restored setting and quota sample immutable.
+export const DLL_MOSS_MODEL_KEYS = Object.freeze({
+  base: 'comfyMossImageSftInt8',
+  lora: 'comfyMossImageSftInt8Lora',
+});
+
 export const DLL_PIC_STORAGE_KEYS = {
   apiKey: 'dll_pic_pro_api_key',
   googleApiKey: 'dll_pic_pro_google_api_key',
@@ -176,7 +182,8 @@ export const DLL_PIC_MODEL_CONFIG = {
       analysisModel: '', usesServerProxy: true, supportsResolution: true,
       defaultResolution: model.defaultResolution, resolutionOptions: model.resolutions,
       maxCount: model.maxCount, aspectRatios: model.aspectRatios,
-      partnerPricing: Boolean(model.partnerPricing) },
+      partnerPricing: Boolean(model.partnerPricing),
+      ...(key === 'mossImageSftInt8Lora' ? { hidden: true } : {}) },
   ])),
 };
 
@@ -280,7 +287,18 @@ export function normalizeDllPicModelKey(modelKey, fallback = 'google31FlashLiteI
   if (modelKey === 'grok') return 'xaiGrokImagineQuality';
   const modelConfig = DLL_PIC_MODEL_CONFIG[modelKey];
   if (modelConfig?.redirectModelKey) return modelConfig.redirectModelKey;
-  return modelConfig && !modelConfig.hidden ? modelKey : fallback;
+  return modelConfig && (!modelConfig.hidden || modelKey === DLL_MOSS_MODEL_KEYS.lora) ? modelKey : fallback;
+}
+
+export function getDllPicLoraSelection(modelKey) {
+  const supported = Object.values(DLL_MOSS_MODEL_KEYS).includes(modelKey);
+  return { modelKey: supported ? DLL_MOSS_MODEL_KEYS.base : modelKey,
+    supported, enabled: modelKey === DLL_MOSS_MODEL_KEYS.lora, strength: supported ? 0.7 : null };
+}
+
+export function getDllPicLoraModelKey(modelKey, enabled) {
+  if (!getDllPicLoraSelection(modelKey).supported) return modelKey;
+  return enabled === true ? DLL_MOSS_MODEL_KEYS.lora : DLL_MOSS_MODEL_KEYS.base;
 }
 
 export function isDllPicAspectRatioSupported(modelKey, aspectRatio) {

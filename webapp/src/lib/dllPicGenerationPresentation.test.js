@@ -37,3 +37,14 @@ test('existing Comfy models preserve their provider settings in the sequential c
   assert.match(getComfyGenerationNote({ comfyModel: 'seedream5Pro', partnerPricing: true }), /Thinking 關閉，4:5 採自訂尺寸/);
   assert.match(getComfyGenerationNote({ comfyModel: 'zImageTurbo', partnerPricing: false }), /無 LoRA、無 Prompt 重寫/);
 });
+
+test('MOSS quick-panel copy reflects the selected fixed LoRA variant and 1K limit', () => {
+  const base = getComfyGenerationNote({ comfyModel: 'mossImageSftInt8' });
+  const lora = getComfyGenerationNote({ comfyModel: 'mossImageSftInt8Lora' });
+  assert.match(base, /1K.*未套用 LoRA/);
+  assert.match(lora, /1K.*MOSS LoRA.*0\.7/);
+  for (const note of [base, lora]) {
+    assert.match(note, /直接使用目前 Prompt/);
+    assert.doesNotMatch(note, /2K|4 百萬|無 LoRA/);
+  }
+});
