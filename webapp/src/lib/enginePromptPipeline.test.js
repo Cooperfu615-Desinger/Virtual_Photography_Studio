@@ -841,7 +841,7 @@ test('Gpt single-subject prompt preserves full-fidelity outfit preset and dress 
   assert.match(openButtonSet.wardrobe, /tight long-sleeve button-up shirt outfit, opaque stretch cotton shirting fabric, structured collar and long fitted sleeves/i);
   assert.match(openButtonSet.wardrobe, /upper buttons left open, remaining front buttons fastened under tension/i);
   assert.match(openButtonSet.wardrobe, /visible button placket pulling at the chest and waist, horizontal fabric wrinkles across the bust and midriff/i);
-  assert.match(openButtonSet.wardrobe, /tight bodycon mini skirt, smooth hip-hugging skirt silhouette/i);
+  assert.match(openButtonSet.wardrobe, /tight black bodycon mini skirt, smooth hip-hugging skirt silhouette/i);
   assert.doesNotMatch(openButtonSet.wardrobe, /controlled by the outfit color selection/i);
   assert.doesNotMatch(openButtonSet.prompt.zImagePrompt, /remaining front buttons fastened under tension/i);
 

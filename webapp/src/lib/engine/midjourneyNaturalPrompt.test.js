@@ -1,3 +1,4 @@
+import { PRE_BLACK_BOTTOM_CATALOG, usesBlackBottomPreset } from './shirtBlackBottomTestSupport.js';
 import { restorePreOpenPalmV2 } from './openPalmTestSupport.js';
 import { restorePreSquattingV2 } from './squattingCatalogTestSupport.js';
 import assert from 'node:assert/strict';
@@ -61,7 +62,12 @@ test('all mode baselines protect five other outputs, raw selections, structured 
   for (let index = 0; index < fixtures.length; index += 1) {
     const fixture = fixtures[index];
     assert.equal(fixture.id, baseline[index].id);
-    const prompt = generatePrompts(1, fixture.locks, [], { random: createSeededRandom(fixture.seed) })[0];
+    const current = generatePrompts(1, fixture.locks, [], { random: createSeededRandom(fixture.seed) })[0];
+    // Only the two approved source revisions use their exact historical input.
+    // All other live presets still compare against the immutable old hashes.
+    const prompt = usesBlackBottomPreset(current)
+      ? generatePrompts(1, fixture.locks, PRE_BLACK_BOTTOM_CATALOG, { random: createSeededRandom(fixture.seed) })[0]
+      : current;
     assert.equal(fixture.id, bodyBaseline[index].id);
     // Frozen baselines predate the approved signage, ethnicity, squat and
     // open-palm wording revisions; compare through their exact inverses.

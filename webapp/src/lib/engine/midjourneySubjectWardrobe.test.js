@@ -58,12 +58,12 @@ test('phase 3 emits the lower-crop wardrobe visibility boundary only once', () =
 
   assert.equal(
     wardrobeSentence,
-    'She wears a long-sleeve button-up shirt and a mini skirt.'
+    'She wears a long-sleeve button-up shirt and a black bodycon mini skirt.'
   );
   assert.equal(
     wardrobeSentence.match(/\bat the lower crop edge\b/gi)?.length || 0,
     0
   );
-  assert.match(prompt.zImagePrompt, /tight bodycon mini skirt/i);
-  assert.match(prompt.grokPrompt, /tight bodycon mini skirt/i);
+  assert.match(prompt.zImagePrompt, /tight black bodycon mini skirt/i);
+  assert.match(prompt.grokPrompt, /tight black bodycon mini skirt/i);
 });
