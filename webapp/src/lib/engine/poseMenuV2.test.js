@@ -8,6 +8,7 @@ import {
   SPECIFIED_ACTION_ANY_EN,
   SPECIFIED_ACTION_CONCRETE_OPTIONS,
   SPECIFIED_ACTION_OPTIONS,
+  SPECIFIED_ACTION_RANDOM,
   SPECIFIED_ACTION_RANDOM_POOL,
   resolveRandomSpecifiedAction,
 } from './specifiedActions.js';
@@ -27,8 +28,9 @@ const main = prompt => [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourne
 test('the menu lists 全無, 隨機, 任意 and then the library; 隨機 draws only accepted non-lying actions', () => {
   assert.deepEqual(SPECIFIED_ACTION_OPTIONS.slice(0, 3).map(o => [o.id, o.zh]), [['none', '全無'], ['random', '隨機'], ['any', '任意']]);
   assert.deepEqual(SPECIFIED_ACTION_RANDOM_POOL.map(a => a.id),
-    SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(a => a.validation.status === 'accepted' && a.family !== 'lying').map(a => a.id));
-  assert.equal(SPECIFIED_ACTION_RANDOM_POOL.length, 9);
+    SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(a => a.validation.status === 'accepted' && a.family !== 'lying' && !a.meta.requiresWardrobeRole).map(a => a.id));
+  // 9 earlier accepted actions + 9 standing batch-1 actions (Cooper 2026-10-20).
+  assert.equal(SPECIFIED_ACTION_RANDOM_POOL.length, 18);
   assert.equal(SPECIFIED_ACTION_ANY.en, SPECIFIED_ACTION_ANY_EN);
   assert.equal(controls.find(c => c.key === 'specifiedActionId').defaultValue, 'none', 'Cooper: the untouched menu is 全無');
 });
@@ -100,4 +102,11 @@ test('an explicitly locked legacy pose still renders (old cards keep working)', 
   // normalizeLocks migrates a locked legacy pose into the free composer.
   assert.match(prompt.grokPrompt, /\nPose and Composition:\n/);
   assert.notEqual(prompt.selection.poseBaseId, 'none');
+});
+
+// Standing library v1 (Cooper 2026-10-20): the 隨機 description matches the current pool rules.
+test('the 隨機 description names the lying-scene and pending rules, not the pre-P3 wording', () => {
+  assert.doesNotMatch(SPECIFIED_ACTION_RANDOM.descriptionZh, /待場景表面完成後加入/);
+  assert.match(SPECIFIED_ACTION_RANDOM.descriptionZh, /躺姿只在鎖定的場景可以躺時/);
+  assert.match(SPECIFIED_ACTION_RANDOM.descriptionZh, /未驗收的動作不會抽到/);
 });

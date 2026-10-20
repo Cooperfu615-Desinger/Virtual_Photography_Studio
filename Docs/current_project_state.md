@@ -37,6 +37,11 @@ Last updated: 2026-10-20
 - 使用獨立工作目錄、分支 `codex/moss-optional-lora`，原工作區及其他參考資料保留。本批沒有付費生成，GUI 的先前成功出圖不代替 DLL API 驗收，私人 LoRA 的 API 可見性、扣額及原圖下載待後續驗證。
 
 
+## 站姿動作庫 v1（2026-10-20，本機實作，PR #14）
+
+- 新增 20 個站姿指定動作：第一批 9 個由舊自由組合站姿改寫（accepted，加入隨機，手空著可搭配手勢）；第二批 11 個依 `Docs/站姿/` 參考圖（pending，可手動選、不進隨機）。通用手勢增為 8 句（新 4 句不進隨機）。選擇器分類「站立動態」改名「站姿」、pending 動作加「未驗收」小標、「隨機」說明更新。出圖實測延後到神情姿態改版完成後統一進行（Cooper）。草案與紀錄 [pose-library-standing-v1](specs/pose-library-standing-v1.md)。
+- 驗證：與 main 比對，代表性、預設隨機、既有動作×景別逐字相同；全部隨機 150 組只因抽到不同動作而改變；strict audit 相同；`npm test` 1748/1748、Prompt Quality 745/745、lint、build、sync、Python、公開資產、diff-check；瀏覽器 1440×1000／390×900。比對工具 `scripts/dump_prompt_outputs.mjs`。
+
 ## 神情姿態 v2：P5a 介面層清理（2026-10-20，已合併 main，PR #12；P5b 延後）
 
 - 依 Cooper 決定，P5 分兩步：P5a 清掉介面與工作台層的自由組合殘留和 4 個孤兒檔（Prompt 不變、不重產基準）；P5b 再刪引擎中只服務舊組合的程式。範圍見 [P5 清理範圍](specs/expression-pose-v2-p5-cleanup-scope.md)，紀錄見 [實作計畫 §8](specs/expression-pose-v2-implementation-plan.md)。

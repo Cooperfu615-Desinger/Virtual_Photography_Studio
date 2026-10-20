@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { Check, ChevronDown, Copy, Images, X } from 'lucide-react';
 import './specifiedActionPicker.css';
 
-const BASE_LABELS = { all: '全部', standing: '站立動態', none: '上身互動', sitting: '坐姿', kneeling: '跪姿', lying: '躺姿' };
+const BASE_LABELS = { all: '全部', standing: '站姿', none: '上身互動', sitting: '坐姿', kneeling: '跪姿', lying: '躺姿' };
 const REFERENCE_SHEET = `${import.meta.env.BASE_URL}reference/specified-actions/pose-reference-sheet.jpeg`;
 const REFERENCE_COLUMNS = [0, 261, 506, 754, 1000, 1254];
 const REFERENCE_ROWS = [0, 252, 495, 739, 987, 1254];
@@ -106,6 +106,8 @@ function SpecifiedActionDialog({ options, choices, value, onClose, onSelect }) {
                   <span className="specified-action-card-copy">
                     <span className="specified-action-card-title">
                       <strong>{options.indexOf(option) + 1}. {option.zh}</strong>
+                      {/* Standing library v1 (Cooper 2026-10-20): pending actions are selectable but not in 隨機. */}
+                      {option.validation?.status === 'pending' ? <span className="specified-action-pending">未驗收</span> : null}
                       {selected ? <Check size={17} aria-hidden="true" /> : null}
                     </span>
                     <span id={`specified-action-${option.id}-description`} className="specified-action-card-description">{option.descriptionZh}</span>
