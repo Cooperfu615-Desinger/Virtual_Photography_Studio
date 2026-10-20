@@ -84,6 +84,7 @@ export const MIDJOURNEY_DESCRIPTION_CONTRACT = deepFreeze({
     parameterTailOwner: 'MIDJOURNEY_PARAMETER_CONTRACT',
     bodyTypeAnchors: 'six reviewed sentences for effective standalone body selections in main MJ; retain role ownership, structured identity, pose geometry and stored selections; omit measurements',
     wardrobeNames: 'visible English item names only, by stable catalog ID or source-matched garment nouns for bundles and custom items',
+    shirtBlackBottomException: 'two reviewed open-button shirt presets retain their selected shirt color and fixed black hot pants or bodycon mini skirt after visibility projection',
     wardrobeVisibility: 'reuse composition projection',
     fixedComposition: 'reuse fixed-set source projection',
     derivedPromptParameters: 'forbidden',

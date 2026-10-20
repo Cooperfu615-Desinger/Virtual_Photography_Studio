@@ -1829,9 +1829,19 @@
       },
       {
         "zh": "開扣短袖襯衫熱褲",
-        "en": "tight short-sleeve button-up shirt outfit, opaque stretch cotton shirting fabric, structured collar and short sleeves, upper buttons left open, remaining front buttons fastened under tension, visible button placket pulling at the chest and waist, horizontal fabric wrinkles across the bust and midriff, skin-tight ultra-short hot pants, dominant fabric color controlled by the outfit color selection",
-        "desc": "以極貼身短袖襯衫與緊身超短熱褲為核心；襯衫本體要明確是有領子、短袖、前排扣與門襟的襯衫，使用不透膚的彈性棉質襯衫布。上方少量釦子開著，其餘前排釦子扣住並因貼身版型在胸部與腰部產生橫向拉扯皺褶、門襟張力與釦距細節，避免變成光滑貼膚衣；主色交由套裝配色控制。",
+        "en": "tight short-sleeve button-up shirt outfit, opaque stretch cotton shirting fabric, structured collar and short sleeves, upper buttons left open, remaining front buttons fastened under tension, visible button placket pulling at the chest and waist, horizontal fabric wrinkles across the bust and midriff, skin-tight ultra-short black hot pants",
+        "desc": "以極貼身短袖襯衫與緊身超短熱褲為核心；襯衫本體要明確是有領子、短袖、前排扣與門襟的襯衫，使用不透膚的彈性棉質襯衫布。上方少量釦子開著，其餘前排釦子扣住並因貼身版型在胸部與腰部產生橫向拉扯皺褶、門襟張力與釦距細節，避免變成光滑貼膚衣；下身固定黑色；套裝主色只改變襯衫布料顏色。",
         "meta": {
+          "colorMode": "primary",
+          "colorTargets": {
+            "primary": [
+              "shirt_fabric"
+            ]
+          },
+          "shirtBlackBottom": "hot-pants",
+          "legacyPromptAliases": [
+            "tight short-sleeve button-up shirt outfit, opaque stretch cotton shirting fabric, structured collar and short sleeves, upper buttons left open, remaining front buttons fastened under tension, visible button placket pulling at the chest and waist, horizontal fabric wrinkles across the bust and midriff, skin-tight ultra-short hot pants, dominant fabric color controlled by the outfit color selection"
+          ],
           "referenceImageId": "outfit-presets-050",
           "referenceImage": "reference/wardrobe/outfit-presets/50_開扣短袖襯衫熱褲.avif",
           "referenceImageFormat": "avif"
@@ -1839,9 +1849,19 @@
       },
       {
         "zh": "開扣長袖襯衫包臀裙",
-        "en": "tight long-sleeve button-up shirt outfit, opaque stretch cotton shirting fabric, structured collar and long fitted sleeves, upper buttons left open, remaining front buttons fastened under tension, visible button placket pulling at the chest and waist, horizontal fabric wrinkles across the bust and midriff, tight bodycon mini skirt, smooth hip-hugging skirt silhouette, dominant fabric color controlled by the outfit color selection",
-        "desc": "以極貼身長袖襯衫與包臀緊身迷你裙為核心；襯衫本體要明確是有領子、長袖、前排扣與門襟的襯衫，使用不透膚的彈性棉質襯衫布。上方少量釦子開著，其餘前排釦子扣住並因貼身版型在胸部與腰部產生橫向拉扯皺褶、門襟張力與釦距細節，搭配貼合臀線的迷你裙輪廓；主色交由套裝配色控制。",
+        "en": "tight long-sleeve button-up shirt outfit, opaque stretch cotton shirting fabric, structured collar and long fitted sleeves, upper buttons left open, remaining front buttons fastened under tension, visible button placket pulling at the chest and waist, horizontal fabric wrinkles across the bust and midriff, tight black bodycon mini skirt, smooth hip-hugging skirt silhouette",
+        "desc": "以極貼身長袖襯衫與包臀緊身迷你裙為核心；襯衫本體要明確是有領子、長袖、前排扣與門襟的襯衫，使用不透膚的彈性棉質襯衫布。上方少量釦子開著，其餘前排釦子扣住並因貼身版型在胸部與腰部產生橫向拉扯皺褶、門襟張力與釦距細節，搭配貼合臀線的迷你裙輪廓；下身固定黑色；套裝主色只改變襯衫布料顏色。",
         "meta": {
+          "colorMode": "primary",
+          "colorTargets": {
+            "primary": [
+              "shirt_fabric"
+            ]
+          },
+          "shirtBlackBottom": "bodycon-mini-skirt",
+          "legacyPromptAliases": [
+            "tight long-sleeve button-up shirt outfit, opaque stretch cotton shirting fabric, structured collar and long fitted sleeves, upper buttons left open, remaining front buttons fastened under tension, visible button placket pulling at the chest and waist, horizontal fabric wrinkles across the bust and midriff, tight bodycon mini skirt, smooth hip-hugging skirt silhouette, dominant fabric color controlled by the outfit color selection"
+          ],
           "referenceImageId": "outfit-presets-051",
           "referenceImage": "reference/wardrobe/outfit-presets/51_開扣長袖襯衫包臀裙.avif",
           "referenceImageFormat": "avif"

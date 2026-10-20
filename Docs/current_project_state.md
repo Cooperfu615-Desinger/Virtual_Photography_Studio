@@ -2,7 +2,14 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-19
+Last updated: 2026-10-20
+
+## 開扣襯衫套裝固定黑色下身（2026-10-20，使用者已驗收）
+
+- 僅「開扣短袖襯衫熱褲」「開扣長袖襯衫包臀裙」的下身固定黑色，套裝主色／完整造型色系只影響襯衫。主 MJ 增加限定例外，保留可見上衣主色與黑色下身名稱；其他套裝、ID、圖片與舊英文回填不變。詳見 [規格及驗證](specs/shirt-outfit-black-bottom-v1.md)，Public contract `1.62.0`。
+- 8 項專項測試含所有色票、隨機色、雙人、固定構圖、裁切、閉合外套、匯入與還原；另以修改前 486 組其他套裝六輸出與資料雜湊確認不變。完整前端 1702/1702、Prompt Quality 746/746；同 seed 200 strict audit 仍是 0 blockers／22 項既有 diagnostics。
+- lint／build、KB sync／Python／資產及 diff-check 通過；隔離瀏覽器 1440×1000／390×900 共 23 項檢查與 14 張截圖檢視通過，六輸出收藏還原正常。5175 為另一工作目錄的服務，本批以 5176 驗證，無新錯誤、破圖或橫向溢位。
+- 使用者已確認實際 Prompt，授權僅提交／推送本批。交付分支 `codex/shirt-black-bottom`，不合併或更新另一工作目錄的 `main`；原有未追蹤文件與參考資料保留。
 
 ## 觀察式抓拍整合工作台（2026-10-19，本機驗收通過）
 

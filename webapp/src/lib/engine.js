@@ -9075,7 +9075,8 @@ function buildUnprojectedOutfitPresetPrompt(item, colorState = {}) {
   const colorMode = meta.colorMode || 'primary';
   const lockedOptional = Boolean(meta.lockedOptional);
 
-  const primaryColor = colorState.primary || colorState.legacy || null;
+  const primaryColor = meta.shirtBlackBottom && meta.closedOuterwearProjection && !colorTargets.primary?.length
+    ? null : colorState.primary || colorState.legacy || null;
   const contrastColor = colorState.contrast || null;
   const lockedPalette = colorState.lockedPalette || null;
   const completeLookPalette = colorState.completeLookPalette || null;
@@ -9122,7 +9123,16 @@ function buildUnprojectedOutfitPresetPrompt(item, colorState = {}) {
   }
 
   const coloredBase = materializedBase.text || primaryBehavior.text || base;
-  return appendCompleteLookPaletteDirection(details.length > 0 ? `${coloredBase}, ${details.join(', ')}` : coloredBase, completeLookPalette);
+  const coloredText = details.length > 0 ? `${coloredBase}, ${details.join(', ')}` : coloredBase;
+  // These two reviewed presets own a black lower garment. A complete-look
+  // palette can influence only the visible shirt, never their fixed bottom.
+  if (meta.shirtBlackBottom) {
+    const paletteText = completeLookPalette && !isNoneLikeItem(completeLookPalette)
+      ? stripMarkdown(completeLookPalette.en || '').trim() : '';
+    return paletteText && colorTargets.primary?.length
+      ? `${coloredText}, shirt palette inspired by ${paletteText}` : coloredText;
+  }
+  return appendCompleteLookPaletteDirection(coloredText, completeLookPalette);
 }
 
 function buildSpecialOutfitPrompt(item, palette = null) {
@@ -12333,8 +12343,8 @@ function DEPRECATED_GPT_SINGLE_WARDROBE_COMPACTOR(value, context) {
 
   const compressed = cleanGptSinglePromptText(value)
     .replace(/\bgothic bunny corset outfit,\s*bunny-ear headband with lace inner panels,\s*one bunny ear standing upright and the other half-drooping,\s*bow accents placed clearly on both the left and right sides of the headband,\s*fitted corset bodysuit with shaped cup seams and vertical boning lines,\s*lace neckline,\s*cross appliques,\s*ribbon and garter straps,\s*matching main-color garter lace thigh-high stockings,\s*leather neck choker with metal cross pendant/gi, 'gothic bunny corset, bunny-ear headband with one upright ear and one half-drooping ear, side bow accents, fitted corset bodysuit, shaped cup seams, vertical boning, lace neckline, cross appliques, ribbon and garter straps, matching garter lace thigh-high stockings, leather choker with metal cross pendant')
-    .replace(/\btight long-sleeve button-up shirt outfit,\s*opaque stretch cotton shirting fabric,\s*structured collar and long fitted sleeves,\s*upper buttons left open,\s*remaining front buttons fastened under tension,\s*visible button placket pulling at the chest and waist,\s*horizontal fabric wrinkles across the bust and midriff,\s*tight bodycon mini skirt,\s*smooth hip-hugging skirt silhouette/gi, 'tight long-sleeve button-up shirt, opaque stretch cotton, structured collar and fitted sleeves, upper buttons open, front buttons under tension, placket pulling at chest and waist, bust and midriff wrinkles, tight bodycon mini skirt, smooth hip-hugging silhouette')
-    .replace(/\btight short-sleeve button-up shirt outfit,\s*opaque stretch cotton shirting fabric,\s*structured collar and short sleeves,\s*upper buttons left open,\s*remaining front buttons fastened under tension,\s*visible button placket pulling at the chest and waist,\s*horizontal fabric wrinkles across the bust and midriff,\s*skin-tight ultra-short hot pants/gi, 'tight short-sleeve button-up shirt, opaque stretch cotton, structured collar and short sleeves, upper buttons open, front buttons under tension, placket pulling at chest and waist, bust and midriff wrinkles, skin-tight hot pants')
+    .replace(/\btight long-sleeve button-up shirt outfit,\s*opaque stretch cotton shirting fabric,\s*structured collar and long fitted sleeves,\s*upper buttons left open,\s*remaining front buttons fastened under tension,\s*visible button placket pulling at the chest and waist,\s*horizontal fabric wrinkles across the bust and midriff,\s*tight (black )?bodycon mini skirt,\s*smooth hip-hugging skirt silhouette/gi, 'tight long-sleeve button-up shirt, opaque stretch cotton, structured collar and fitted sleeves, upper buttons open, front buttons under tension, placket pulling at chest and waist, bust and midriff wrinkles, tight $1bodycon mini skirt, smooth hip-hugging silhouette')
+    .replace(/\btight short-sleeve button-up shirt outfit,\s*opaque stretch cotton shirting fabric,\s*structured collar and short sleeves,\s*upper buttons left open,\s*remaining front buttons fastened under tension,\s*visible button placket pulling at the chest and waist,\s*horizontal fabric wrinkles across the bust and midriff,\s*skin-tight ultra-short (black )?hot pants/gi, 'tight short-sleeve button-up shirt, opaque stretch cotton, structured collar and short sleeves, upper buttons open, front buttons under tension, placket pulling at chest and waist, bust and midriff wrinkles, skin-tight $1hot pants')
     .replace(/\bhigh-neck extreme front cut-out monokini swimsuit,\s*bikini-like one-piece construction,\s*separate high-neck chest panel and high-cut bikini bottom connected only by thin side straps,\s*oversized open front torso gap exposing most of the abdomen and navel,\s*smooth stretch swim fabric/gi, 'high-neck extreme front cut-out monokini swimsuit, separate high-neck chest panel and high-cut bikini bottom connected by thin side straps, large open front torso gap exposing abdomen and navel, smooth stretch swim fabric')
     .replace(/tight body-skimming upper-body fit,\s*([^,]+?) cotton camisole top,\s*slim shoulder straps,\s*soft ribbed knit,\s*clean compact upper-body line/gi, 'tight $1 ribbed cotton camisole with slim straps')
     .replace(/high-rise waistband sitting above the natural waist,\s*fitted lower-body line following the garment shape,\s*([^,]+?) straight-leg jeans,\s*clean denim texture,\s*balanced leg line,\s*classic five-pocket construction/gi, 'high-rise fitted $1 straight-leg jeans')
@@ -15966,6 +15976,18 @@ function buildNaturalMjWardrobe(promptModel, role = '') {
   const projection = getCompositionVisibilityProjection(context);
   const names = [];
   const addSource = source => names.push(...extractMidjourneyItemNames(source));
+  const addPreset = (item, source, suffix = '') => {
+    if (!item?.meta?.shirtBlackBottom) { addSource(source); return; }
+    // Read only surviving projected garment identities. In particular, do not
+    // recreate the shirt behind a closed coat or a bottom outside the crop.
+    const shirt = String(source || '').match(/\b(short|long)-sleeve button-up shirt\b/i)?.[0];
+    if (shirt) {
+      const color = wardrobeColors[`outfitPreset${suffix}PrimaryColor`] || wardrobeColors[`outfitPreset${suffix}Color`];
+      names.push(composeWearableColorPrompt(shirt, color).replace(/,\s*/g, ' '));
+    }
+    if (/\bblack hot pants\b/i.test(source)) names.push('black hot pants');
+    if (/\bblack bodycon mini skirt\b/i.test(source)) names.push('black bodycon mini skirt');
+  };
   const addItem = (item, wardrobeRole) => {
     if (item && !isNoneLikeItem(item) && !(isCharacterProfileSubject(context.subject) && isCharacterCardLayerSlot(item))
       && shouldProjectWardrobeRole(projection, wardrobeRole, item.en)) {
@@ -15989,8 +16011,8 @@ function buildNaturalMjWardrobe(promptModel, role = '') {
       const mainSuffix = hasRoleMain ? suffix : '';
       const preset = slots[`outfitPreset${mainSuffix}`];
       if (preset && !isNoneLikeItem(preset)) {
-        addSource(hasRoleMain ? buildGptDuoRoleMainWardrobeText(slots, wardrobeColors, role, context)
-          : buildGptDuoSharedMainWardrobeText(slots, wardrobeColors, context));
+        addPreset(preset, hasRoleMain ? buildGptDuoRoleMainWardrobeText(slots, wardrobeColors, role, context)
+          : buildGptDuoSharedMainWardrobeText(slots, wardrobeColors, context), mainSuffix);
       } else {
         const dress = slots[`dress${mainSuffix}`];
         addItem(dress, 'dress');
@@ -16019,7 +16041,10 @@ function buildNaturalMjWardrobe(promptModel, role = '') {
     }
   } else {
     const complete = firstStructuredValue(valuesByLabel, ['Special Outfit', 'Outfit Preset']);
-    if (complete) addSource(complete);
+    if (complete) {
+      if (firstStructuredValue(valuesByLabel, ['Special Outfit'])) addSource(complete);
+      else addPreset(slots.outfitPreset, complete);
+    }
     else {
       addItem(slots.dress, 'dress');
       if (!slots.dress || isNoneLikeItem(slots.dress)) {
