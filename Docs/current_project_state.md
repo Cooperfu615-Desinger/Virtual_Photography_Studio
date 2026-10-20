@@ -29,10 +29,11 @@ Last updated: 2026-10-20
 - 使用獨立工作目錄、分支 `codex/moss-optional-lora`，原工作區及其他參考資料保留。本批沒有付費生成，GUI 的先前成功出圖不代替 DLL API 驗收，私人 LoRA 的 API 可見性、扣額及原圖下載待後續驗證。
 
 
-## 神情姿態 v2：P5a 介面層清理（2026-10-20，本機實作）
+## 神情姿態 v2：P5a 介面層清理（2026-10-20，已合併 main，PR #12；P5b 延後）
 
 - 依 Cooper 決定，P5 分兩步：P5a 清掉介面與工作台層的自由組合殘留和 4 個孤兒檔（Prompt 不變、不重產基準）；P5b 再刪引擎中只服務舊組合的程式。範圍見 [P5 清理範圍](specs/expression-pose-v2-p5-cleanup-scope.md)，紀錄見 [實作計畫 §8](specs/expression-pose-v2-implementation-plan.md)。
 - 驗證：612 組與全部隨機 150 組與 P4 逐位元組相同、strict audit 相同；`npm test` 1728/1728、Prompt Quality 737/737、lint、build、sync、Python、公開資產、diff-check；瀏覽器 1440×1000／390×900。分支 `claude/pose-v2-p5-cleanup`。
+- P5b（刪引擎舊組合程式）延後（Cooper 2026-10-20）：逐 fixture 調查約 2.4 萬列基準會變，且會失去手動坐具、仰躺 surface-led、近距離蟲眼站姿等契約；等站姿／坐具類指定動作補齊後再評估。見 [清理範圍 §6](specs/expression-pose-v2-p5-cleanup-scope.md)。
 
 ## 神情姿態 v2：P4 新 B 面板（2026-10-20，已合併 main，PR #11）
 

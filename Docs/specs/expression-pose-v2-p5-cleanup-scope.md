@@ -3,7 +3,7 @@
 - 日期：2026-10-20；基準 main @ 1b8f31a（P4 已合併）
 - 調查方式：唯讀 agent 讀碼＋實跑。把舊欄位在生成入口強制清成全無後跑全套測試，以失敗數估計影響。**數字是模擬估算**，實作時以實際 diff 為準。
 - 路徑前綴：`webapp/src/`
-- 進度：P5a 已完成（2026-10-20，紀錄見[實作計畫 §8](expression-pose-v2-implementation-plan.md)）；P5b 待做。
+- 進度：P5a 已完成（2026-10-20，PR #12，紀錄見[實作計畫 §8](expression-pose-v2-implementation-plan.md)）；**P5b 延後**（Cooper 2026-10-20 選 A），理由與條件見 §6。
 
 ## 1. 目前的狀況
 
@@ -46,11 +46,11 @@ P4 之後，介面已經不會再設定舊自由組合欄位。以新介面的�
 | nanoBananaProtected | 5／382 |
 | nanoBananaFacialFeatures | 35／1078 |
 | ambientLight | 727／730 |
-| closeWormEye | 44／50 |
+| closeWormEye | 6316／6370（2026-10-20 逐列調查更正，原寫 44／50） |
 | gptCameraSpatial | 6132／6180 |
 | gptSceneVisibility | 5611／5614 |
 | zImageFullBodyCamera | 386／431 |
-| zImageSceneDetailPriority | 2846／2930 |
+| zImageSceneDetailPriority | 1346／1430（2026-10-20 逐列調查更正，原寫 2846／2930） |
 | zImageUpperScene | 218／230 |
 | zImageUpperSceneExtension | 876／930 |
 | midjourneyNaturalCatalogProtected | not_stated |
@@ -112,3 +112,15 @@ P4 之後，介面已經不會再設定舊自由組合欄位。以新介面的�
 | 5 | 選擇快照是否保留 9 個舊欄位（固定填全無） | 保留 | 不然所有選擇快照雜湊基準都要重產 |
 | 6 | 鎖了舊組合的 fixtures 怎麼處理 | 測試主題仍有效的（場景組裝、相機、裁切）改寫成指定動作／視線／拍攝方式的等價輸入；只測舊組合的刪除；然後只重產有變的基準，並先對不變的樣本做零差異驗證 | 保住測試覆蓋，重產範圍可控 |
 | 7 | 孤兒檔是否順便刪 | 刪（P5a） | 沒人讀取，實作前再 grep 一次確認 |
+
+## 6. P5b 延後（Cooper 2026-10-20 選 A）
+
+逐 fixture 調查（[fixtures.md](../reports/pose-v2-p5b-fixtures-2026-10-20/fixtures.md)）顯示 P5b 的代價遠大於 §3 的估計：
+
+- 約 2.4 萬列基準會改變，主因是相機與場景矩陣幾乎都從舊「站姿」衍生，而動作庫目前沒有站姿動作（只有坐、跪、躺與 3 張舊卡），沒有等價的新輸入。
+- 換成新欄位後輸出不變的 fixture（A 類）只有 7 列（固定場景人物位置）。
+- 會失去的現有契約：手動坐具（AGENTS.md:42、:45）、仰躺 surface-led（AGENTS.md:42、:44）、近距離蟲眼站姿措辭（AGENTS.md:38，只剩「不爽發洩踢擊」能觸發）、GPT 獨立體態省略測試的 standing 斷言。
+
+**決定**：P5 停在 P5a。引擎中約 1000 行舊組合程式暫時保留；新介面走不到這些程式，舊存檔與 Saved Card 的舊值在工作台層清除（P4／P5a），對使用者沒有影響。
+
+**重啟條件**：站姿（與需要坐具的坐姿）指定動作補齊後再評估。屆時舊站姿 fixture 可改寫成真正的站姿動作，蟲眼與坐具相關契約有機會保留；重啟時先依 fixtures.md 的 A／B／C／D 分類重跑一次，再請 Cooper 回答 fixtures.md §5 的 6 個問題。
