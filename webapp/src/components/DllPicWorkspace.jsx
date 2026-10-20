@@ -42,12 +42,11 @@ export default function DllPicWorkspace({ sources, incoming }) {
   if (!state.ready) return <p role="status">{state.error || '正在載入此瀏覽器的圖片工作區…'}</p>;
   return <main className="dll-workspace">
     {DLL_LOCAL_ACCEPTANCE && <p className="dll-workspace-error" role="status">本機模擬驗收 · 不呼叫生成服務、不扣額；範例圖片與放大效果均為測試資料，使用獨立儲存空間。</p>}
-    <div className="dll-workspace-toolbar"><p>生成、比較與整理圖片 <span>・保存在此瀏覽器</span></p>
-      <button className="secondary" onClick={bringSources}>帶入{incoming?.workspaceId || 'Prompt 工作台'}來源</button></div>
+
     <div className="dll-mobile-tabs"><button className={mobile === 'settings' ? 'tab-primary-active' : 'secondary'} onClick={() => setMobile('settings')}>設定</button><button className={mobile === 'results' ? 'tab-primary-active' : 'secondary'} onClick={() => setMobile('results')}>成果（{allImages.length}）</button></div>
     {(error || state.error) && <p role="alert" className="dll-workspace-error">{error || state.error}</p>}
     <div className={`dll-workspace-grid mobile-${mobile}`}>
-      <aside className="dll-workspace-form"><DllPicProPanel key={`${state.owner}:${revision}`} full title="DLL_PIC Pro" workspaceId={draft.workspaceId || '完整版'} promptSources={draft.sources || sources} initialSettings={draft} /></aside>
+      <aside className="dll-workspace-form"><DllPicProPanel key={`${state.owner}:${revision}`} full title="生成設定" onBringSources={bringSources} sourceWorkspace={incoming?.workspaceId} workspaceId={draft.workspaceId || '完整版'} promptSources={draft.sources || sources} initialSettings={draft} /></aside>
       <div className="dll-workspace-main">
         <section className="dll-results" aria-label="圖片成果">
           <div className="dll-results-toolbar"><div className="dll-row"><button className={tab === 'current' ? 'tab-primary-active' : 'secondary'} onClick={() => setTab('current')}>本次成果</button><button className={tab === 'history' ? 'tab-primary-active' : 'secondary'} onClick={() => setTab('history')}>歷史成果</button></div>

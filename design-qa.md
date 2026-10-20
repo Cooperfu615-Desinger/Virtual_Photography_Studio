@@ -403,3 +403,27 @@ Visual QA: PASS（本機模擬與未登入 UI）；真實 API、扣額、下載�
 - 獨立分支 `codex/moss-optional-lora`；尚未 stage／commit／push／部署。本機新工作目錄未複製Firebase環境設定；私有LoRA的正式API可見性、真實執行／扣額／下載未驗收，不以既有GUI成功替代。
 
 2026-10-20 使用者確認整合並授權 commit／push、合併 main 發布正式 DLL，及部署四項 Functions；上列「尚未」為完成本機驗收當下狀態。Git／Pages／Functions 的實際結果另記於 MOSS 規格。
+
+
+## 2026-10-20 — DLL 完整版等寬與置頂操作列
+
+### Reference and visual comparison
+
+- 已核准示意：`Docs/reports/dll-workspace-layout-2026-10-20/approved-reference.png`；實作：同目錄 `desktop-1536.png`。以1536×1024版面檢視比較，另檢查1440×1000與390×900。
+- Typography：沿用站內字型，DLL標題縮為28px、次要文字12–13px；主生成鈕46px高。層級依序為操作、模型參數、Prompt、Seed／進階。
+- Layout／spacing：桌面等寬兩欄、18px欄距、20px內距；上方標題與導覽整併。生成列sticky維持原文件捲動，Prompt有意保留欄內捲動與展開。手機使用兩欄導覽、設定／成果切換，控制項未重疊或溢出。
+- Colors／icons：沿用panel、control、accent、text、border等主題tokens及lucide圖示；主動作藍色、次要灰色、停用狀態保留。沒有導入示意中額外漸層或不同字型。
+- Images／copy：保留真正結果卡與現有fixture圖片，示意風景不作為生成成果。Seed使用原留空隨機契約及清空按鈕；進階區只在模型支援LoRA時顯示。額度使用真實資料與登入提示，未採示意假值。模擬橫幅增加高度，正式入口無此橫幅。
+- 修正檢查過程發現的手機API Keys換行；保持與左側標題同列。手機截圖保存前重新核對DOM viewport，避免另一分頁接收尺寸覆寫造成證據尺寸不符。
+
+### Interaction and regression
+
+- 生成／loading／成功／排程取消、來源切換／帶入／比例鎖定、自訂Prompt／展開／還原、空白文字停用、Seed0／清除、LoKr驗證、reload草稿通過。
+- 歷史捲動5072px後生成列頂部8px；比較與大圖保留，Escape還原焦點。沒有操作付費生成。
+- 1440×1000、390×900五工作區與三快速面板；819／821、1099／1101斷點已檢查，無水平溢出、破圖或不可讀重疊。動作姿勢導覽沿用主線退休狀態；11張Saved Cards只讀。
+- 一般模式未登入空狀態與精簡額度通過。最終console warning/error空。登入額度、真實Cloud與觸控硬體手勢不屬於本次已驗收項目。
+- Node22完整前端1736/1736、相關40/40、lint/build、diff-check通過。既有大型chunk提醒保留。
+
+final result: passed (local UI and automated checks); user acceptance pending. No staging, commit, push or deployment.
+
+2026-10-20 使用者驗收補記：使用者確認本機驗收沒有問題，並授權本批 commit／push 到 main。上述待驗收／未提交為本機交付當時狀態；雲端真實出圖的驗證界線不變。

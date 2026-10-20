@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
+import { ImagePlus, ListPlus, Pin } from 'lucide-react';
 import { dllWorkspace, openDllWorkspace, DLL_LOCAL_ACCEPTANCE } from '../lib/dllWorkspaceRuntime.js';
 import '../styles/generation.css';
 import ComfyQuotaPanel from './ComfyQuotaPanel.jsx';
@@ -132,6 +133,8 @@ export default function DllPicProPanel({
   workspaceId = 'Prompt 工作台',
   full = false,
   initialSettings = {},
+  onBringSources,
+  sourceWorkspace,
 }) {
   const availableSources = promptSources.filter((source) => source?.value?.trim());
   const initialSourceId = defaultSourceId || availableSources[0]?.id || promptSources[0]?.id || '';
@@ -141,6 +144,7 @@ export default function DllPicProPanel({
   const [custom, setCustom] = useState(Boolean(initialSettings.custom));
   const [customPrompt, setCustomPrompt] = useState(initialSettings.customPrompt || '');
   const [seed, setSeed] = useState(initialSettings.seed ?? '');
+  const [promptExpanded, setPromptExpanded] = useState(Boolean(initialSettings.custom));
   const [loraStrength, setLoraStrength] = useState(() => initialSettings.loraStrength ?? loadStoredLoraStrength());
   const [apiKeys, setApiKeys] = useState(loadStoredProviderApiKeys);
   const [apiKeyDrafts, setApiKeyDrafts] = useState(loadStoredProviderApiKeys);
@@ -199,7 +203,7 @@ export default function DllPicProPanel({
   const activeApiKey = getDllPicApiKeyForModel(modelKey, apiKeys);
   const canGenerate = Boolean(
     (DLL_LOCAL_ACCEPTANCE || activeModel.usesServerProxy || activeApiKey)
-    && selectedPrompt
+    && selectedPrompt.trim()
     && activeModel.generationModel
     && isAspectRatioSupported
     && !loraError
@@ -304,6 +308,29 @@ export default function DllPicProPanel({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [apiKeys, isApiKeyModalOpen]);
 
+  const loraControls = <>
+        {loraSelection.supported && <label className="dll-pic-lora-control">
+          <input type="checkbox" aria-label={loraSelection.adjustable ? '套用 Asian Mix LoKr' : '套用 MOSS LoRA'} checked={loraSelection.enabled} disabled={!full && isGenerating}
+            onChange={event => {
+              const nextModelKey = getDllPicLoraModelKey(modelKey, event.target.checked);
+              setModelKey(nextModelKey);
+              saveStoredGenerationSettings(nextModelKey, activeResolution);
+            }} />
+          <span>{loraSelection.adjustable ? '套用 Asian Mix LoKr' : '套用 MOSS LoRA'}{!loraSelection.adjustable && <small>強度 {loraSelection.strength}</small>}</span>
+        </label>}
+        {loraSelection.adjustable && loraSelection.enabled && <div className="dll-pic-lora-strength">
+          <span>LoKr 強度</span>
+          <div className="dll-pic-lora-strength-inputs">
+            <input type="range" aria-label="LoKr 強度滑桿" min="0" max="1" step="0.05" value={typeof loraStrength === 'number' ? loraStrength : 1}
+              disabled={!full && isGenerating} onChange={event => changeLoraStrength(Number(event.target.value))} />
+            <input type="number" aria-label="LoKr 強度數值" min="0" max="1" step="0.05" value={loraStrength}
+              disabled={!full && isGenerating} onChange={event => changeLoraStrength(event.target.value === '' ? '' : Number(event.target.value))} />
+          </div>
+          <small>0–1，每次調整 0.05。需要時可在提示詞加入 asian woman。</small>
+          {loraError && <small className="dll-pic-quota-error" role="alert">{loraError}</small>}
+        </div>}
+  </>;
+
   return (
     <section className={`dll-pic-panel ${full ? 'dll-full-settings' : ''} ${compact ? 'dll-pic-panel-compact' : ''}`} aria-label={title} aria-description={description}>
       <div className="dll-pic-header">
@@ -318,10 +345,19 @@ export default function DllPicProPanel({
         </div>
       </div>
 
-      {full && <div className="dll-source-choices">{promptSources.map(source => <button type="button" key={source.id} className={selectedSource?.id === source.id && !custom ? 'tab-primary-active' : 'secondary'} disabled={!source.value?.trim()} onClick={() => { setSelectedSourceId(source.id); setCustom(false); }}>{source.label}</button>)}</div>}
+      {full && <div className="dll-generation-bar" aria-label="生成操作">
+        <div className="dll-generation-buttons">
+          <button className="primary-copy-btn dll-pic-generate-btn" type="button" onClick={handleGenerate} disabled={!canGenerate}><ImagePlus size={18} />{isGenerating ? '生成中...' : '生成圖像'}</button>
+          <button type="button" className="secondary" disabled={!selectedPrompt.trim() || !shared.ready || !isAspectRatioSupported || Boolean(loraError)} onClick={async () => { try { await dllWorkspace.enqueue(snapshot()); setMessage('已加入待生成清單'); } catch (error) { setMessage(error.message); } }}><ListPlus size={18} />加入待生成</button>
+          <span className="dll-sticky-hint"><Pin size={13} />操作列固定可見</span>
+        </div>
+        <p className="dll-generation-summary">{activeModel.label} · {aspectRatio} · {activeResolution.toUpperCase()} · {count} 張</p>
+        <p className="dll-generation-context">{custom ? '自訂 Prompt' : selectedSource?.label || '尚未帶入來源'}{activeModel.provider === 'comfyCloud' && ` · Seed：${seed === '' ? '隨機' : seed}`}{loraSelection.enabled && ` · ${loraSelection.adjustable ? `Asian Mix LoKr ${loraStrength}` : 'MOSS LoRA 0.7'}`}</p>
+        {(modelCompatibilityNote || loraError || !selectedPrompt.trim() || comfyPending || (!DLL_LOCAL_ACCEPTANCE && !activeModel.usesServerProxy && !activeApiKey)) && <p className="dll-generation-notice" role="status">{modelCompatibilityNote || loraError || (!selectedPrompt.trim() ? '請先帶入來源或編輯本次 Prompt。' : comfyPending ? '請先查詢上次 Comfy 任務，再開始生成。' : '請先在 API Keys 設定此模型的金鑰。')}</p>}
+        {activeModel.provider === 'comfyCloud' && !DLL_LOCAL_ACCEPTANCE && !loraError && <ComfyQuotaPanel compact modelKey={activeModel.comfyModel} {...loraSettings} resolution={activeResolution} aspectRatio={aspectRatio} refreshToken={images} />}
+      </div>}
       <div className="dll-pic-settings-grid">
-        <label className="field dll-pic-field">
-          {full && <span>Prompt 來源</span>}
+        {!full && <label className="field dll-pic-field">
           <select
             aria-label="Prompt 來源"
             className={!selectedPrompt ? 'select-muted' : ''}
@@ -335,14 +371,7 @@ export default function DllPicProPanel({
               </option>
             ))}
           </select>
-        </label>
-
-        {full && <div className="dll-prompt-editor">
-          <label htmlFor="dll-full-prompt">{custom ? '自訂本次 Prompt' : '目前使用的 Prompt'}</label>
-          <textarea id="dll-full-prompt" value={selectedPrompt} readOnly={!custom} onChange={event => setCustomPrompt(event.target.value)} placeholder="帶入工作區來源，或編輯本次 Prompt" />
-          <button type="button" className="dll-text-button" onClick={() => { setCustomPrompt(selectedPrompt); setCustom(true); }}>編輯本次 Prompt</button>
-          {custom && <button type="button" className="dll-text-button" onClick={() => setCustom(false)}>還原來源文字</button>}
-        </div>}
+        </label>}
 
         <label className="field dll-pic-field">
           {full && <span>模型</span>}
@@ -369,26 +398,7 @@ export default function DllPicProPanel({
           </select>
         </label>
 
-        {loraSelection.supported && <label className="dll-pic-lora-control">
-          <input type="checkbox" aria-label={loraSelection.adjustable ? '套用 Asian Mix LoKr' : '套用 MOSS LoRA'} checked={loraSelection.enabled} disabled={!full && isGenerating}
-            onChange={event => {
-              const nextModelKey = getDllPicLoraModelKey(modelKey, event.target.checked);
-              setModelKey(nextModelKey);
-              saveStoredGenerationSettings(nextModelKey, activeResolution);
-            }} />
-          <span>{loraSelection.adjustable ? '套用 Asian Mix LoKr' : '套用 MOSS LoRA'}{!loraSelection.adjustable && <small>強度 {loraSelection.strength}</small>}</span>
-        </label>}
-        {loraSelection.adjustable && loraSelection.enabled && <div className="dll-pic-lora-strength">
-          <span>LoKr 強度</span>
-          <div className="dll-pic-lora-strength-inputs">
-            <input type="range" aria-label="LoKr 強度滑桿" min="0" max="1" step="0.05" value={typeof loraStrength === 'number' ? loraStrength : 1}
-              disabled={!full && isGenerating} onChange={event => changeLoraStrength(Number(event.target.value))} />
-            <input type="number" aria-label="LoKr 強度數值" min="0" max="1" step="0.05" value={loraStrength}
-              disabled={!full && isGenerating} onChange={event => changeLoraStrength(event.target.value === '' ? '' : Number(event.target.value))} />
-          </div>
-          <small>0–1，每次調整 0.05。需要時可在提示詞加入 asian woman。</small>
-          {loraError && <small className="dll-pic-quota-error" role="alert">{loraError}</small>}
-        </div>}
+        {!full && loraControls}
 
         <label className="field dll-pic-field">
           {full && <span>比例</span>}
@@ -439,7 +449,29 @@ export default function DllPicProPanel({
         </label>
       </div>
 
-      {full && activeModel.provider === 'comfyCloud' && <label className="field"><span>Seed（留空為隨機；2 張時第二張使用 Seed + 1）</span><input aria-label="Seed" type="number" min="0" step="1" value={seed} onChange={event => setSeed(event.target.value)} placeholder="隨機" /></label>}
+      {full && <section className="dll-prompt-section" aria-label="Prompt 設定">
+        <div className="dll-source-heading"><span>Prompt 來源</span>{onBringSources && <button className="dll-text-button" type="button" onClick={onBringSources}>帶入{sourceWorkspace || 'Prompt 工作台'}來源</button>}</div>
+        <div className="dll-source-choices">{promptSources.map(source => <button type="button" key={source.id} className={selectedSource?.id === source.id && !custom ? 'tab-primary-active' : 'secondary'} disabled={!source.value?.trim()} onClick={() => { setSelectedSourceId(source.id); setCustom(false); }}>{source.label}</button>)}</div>
+        <div className={`dll-prompt-editor ${promptExpanded ? 'expanded' : ''}`}>
+          <label htmlFor="dll-full-prompt">{custom ? '自訂本次 Prompt' : '目前使用的 Prompt'}</label>
+          <textarea id="dll-full-prompt" rows={promptExpanded ? 10 : 3} value={selectedPrompt} readOnly={!custom} onChange={event => setCustomPrompt(event.target.value)} placeholder="帶入工作區來源，或編輯本次 Prompt" />
+          <div className="dll-prompt-actions">
+            <button type="button" className="dll-text-button" aria-expanded={promptExpanded} aria-controls="dll-full-prompt" onClick={() => setPromptExpanded(value => !value)}>{promptExpanded ? '收合全文' : '展開全文'}</button>
+            {!custom && <button type="button" className="dll-text-button" onClick={() => { setCustomPrompt(selectedPrompt); setCustom(true); setPromptExpanded(true); }}>編輯本次 Prompt</button>}
+            {custom && <button type="button" className="dll-text-button" onClick={() => setCustom(false)}>還原來源文字</button>}
+          </div>
+        </div>
+      </section>}
+      {full && activeModel.provider === 'comfyCloud' && <div className="dll-seed-settings">
+        <label className="field"><span>Seed</span><input aria-label="Seed" type="number" min="0" step="1" value={seed} onChange={event => setSeed(event.target.value)} placeholder="隨機（留空）" /></label>
+        <button type="button" className="secondary" disabled={seed === ''} onClick={() => setSeed('')}>改用隨機</button>
+        <small>留空為隨機；2 張時第二張使用 Seed + 1。</small>
+      </div>}
+
+      {full && loraSelection.supported && <details className="dll-advanced-settings">
+        <summary>進階設定 · {loraSelection.adjustable ? 'Asian Mix LoKr' : 'MOSS LoRA'}{loraSelection.enabled ? ` 已套用（${loraSelection.adjustable ? loraStrength : loraSelection.strength}）` : ' 未套用'}</summary>
+        <div>{loraControls}</div>
+      </details>}
 
       {activeModel.provider === 'comfyCloud' ? <div className="dll-pic-model-note">{full ? '依序取得每張圖片後才送下一張。成果保存於此瀏覽器，請下載重要圖片。' : getComfyGenerationNote(activeModel, loraStrength)}</div> : null}
       {comfyPending ? <div className="dll-pic-actions">
@@ -457,7 +489,7 @@ export default function DllPicProPanel({
         }}>結束追蹤</button>
       </div> : null}
 
-      <div className="dll-pic-actions dll-pic-generate-actions">
+      {!full && <div className="dll-pic-actions dll-pic-generate-actions">
         <span className="dll-pic-model-note">
           {modelCompatibilityNote || (!full && (activeModelNote || '此 provider 尚未接入生圖'))}
         </span>
@@ -465,9 +497,7 @@ export default function DllPicProPanel({
         <button className="primary-copy-btn dll-pic-generate-btn" type="button" onClick={handleGenerate} disabled={!canGenerate}>
           {isGenerating ? '生成中...' : '生成圖像'}
         </button>
-      </div>
-
-      {full && <button type="button" className="secondary" disabled={!selectedPrompt.trim() || !shared.ready || !isAspectRatioSupported || Boolean(loraError)} onClick={async () => { try { await dllWorkspace.enqueue(snapshot()); setMessage('已加入待生成清單'); } catch (error) { setMessage(error.message); } }}>加入待生成</button>}
+      </div>}
       {(shared.error || sharedTask?.message) && <p role="status" className="dll-pic-message">{shared.error || sharedTask.message}</p>}
       {message ? <div className="dll-pic-message" role="status" aria-live="polite">{message}</div> : null}
 

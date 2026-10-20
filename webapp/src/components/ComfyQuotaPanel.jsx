@@ -4,8 +4,13 @@ import { firebaseAuth } from '../lib/firebase.js';
 import { readComfyQuotaViaFirebase } from '../lib/comfyCloudProxyClient.js';
 import { formatComfyQuota } from '../lib/comfyQuotaDisplay.js';
 
-export function ComfyQuotaView({ data, loading, error, signedIn, onRefresh }) {
+export function ComfyQuotaView({ data, loading, error, signedIn, onRefresh, compact = false }) {
   const display = formatComfyQuota(data);
+  if (compact) return <section className="dll-quota-compact" aria-label="Comfy Cloud 額度" aria-busy={loading}>
+    <div className="dll-quota-compact-row" aria-live="polite"><span>剩餘額度 <strong>{!signedIn ? '請先登入' : loading && !data ? '查詢中…' : display.balance}</strong></span><span>預估可生成 <strong>{!signedIn ? '—' : loading && !data ? '查詢中…' : display.estimate}</strong></span><button type="button" className="dll-text-button" onClick={onRefresh} disabled={!signedIn || loading} aria-label="重新整理 Comfy Cloud 額度">{loading ? '查詢中…' : '重新整理'}</button></div>
+    {signedIn && <details><summary>額度說明</summary><p>{data?.estimateUnavailableReason === 'partnerPricing' ? '此模型含合作夥伴計費，暫不以執行時間估算張數。' : '依目前模型、解析度與比例估算，實際耗額可能不同。'}</p>{data && <p>更新於 {display.updated}{loading ? ' · 更新中' : ''}</p>}</details>}
+    {error && <p className="dll-pic-quota-error" role="status">{error}</p>}
+  </section>;
   return <section className="dll-pic-quota" aria-label="Comfy Cloud 額度" aria-busy={loading}>
     <div className="dll-pic-quota-header">
       <span>Comfy Cloud</span>
@@ -23,7 +28,7 @@ export function ComfyQuotaView({ data, loading, error, signedIn, onRefresh }) {
   </section>;
 }
 
-export function ComfyQuotaSession({ modelKey, loraStrength, resolution, aspectRatio, refreshToken, loadQuota = readComfyQuotaViaFirebase }) {
+export function ComfyQuotaSession({ modelKey, loraStrength, resolution, aspectRatio, refreshToken, compact = false, loadQuota = readComfyQuotaViaFirebase }) {
   const [revision, setRevision] = useState(0);
   const [state, setState] = useState({ data: null, loading: true, error: '' });
   useEffect(() => {
@@ -43,7 +48,7 @@ export function ComfyQuotaSession({ modelKey, loraStrength, resolution, aspectRa
     });
     return () => { active = false; };
   }, [modelKey, loraStrength, resolution, aspectRatio, revision, refreshToken, loadQuota]);
-  return <ComfyQuotaView {...state} signedIn onRefresh={() => setRevision(value => value + 1)} />;
+  return <ComfyQuotaView {...state} compact={compact} signedIn onRefresh={() => setRevision(value => value + 1)} />;
 }
 
 export default function ComfyQuotaPanel(props) {
@@ -51,5 +56,5 @@ export default function ComfyQuotaPanel(props) {
   useEffect(() => firebaseAuth ? onAuthStateChanged(firebaseAuth, setUser) : undefined, []);
   return user
     ? <ComfyQuotaSession key={`${user.uid}:${props.modelKey}:${props.loraStrength ?? ''}:${props.resolution}:${props.aspectRatio}`} {...props} />
-    : <ComfyQuotaView signedIn={false} loading={false} />;
+    : <ComfyQuotaView compact={props.compact} signedIn={false} loading={false} />;
 }

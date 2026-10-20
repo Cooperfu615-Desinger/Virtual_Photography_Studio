@@ -1,0 +1,250 @@
+TAP version 13
+# Subtest: quota display preserves unavailable vs true zero and rounds Cloud credits
+ok 1 - quota display preserves unavailable vs true zero and rounds Cloud credits
+  ---
+  duration_ms: 36.196708
+  type: 'test'
+  ...
+# Subtest: quota refresh sends only selection to a read-only callable
+ok 2 - quota refresh sends only selection to a read-only callable
+  ---
+  duration_ms: 0.511875
+  type: 'test'
+  ...
+# Subtest: xAI generation sends two sequential single-image requests with the selected settings
+ok 3 - xAI generation sends two sequential single-image requests with the selected settings
+  ---
+  duration_ms: 2.869084
+  type: 'test'
+  ...
+# Subtest: legacy Grok model key normalizes to the current xAI quality model
+ok 4 - legacy Grok model key normalizes to the current xAI quality model
+  ---
+  duration_ms: 0.261333
+  type: 'test'
+  ...
+# Subtest: legacy Gemini model keys normalize to Nano Banana 2 Lite
+ok 5 - legacy Gemini model keys normalize to Nano Banana 2 Lite
+  ---
+  duration_ms: 0.988125
+  type: 'test'
+  ...
+# Subtest: fixed chest-up 4:5 ratio stays selectable only for a verified supporting model
+ok 6 - fixed chest-up 4:5 ratio stays selectable only for a verified supporting model
+  ---
+  duration_ms: 0.40325
+  type: 'test'
+  ...
+# Subtest: API key selection follows the active model provider
+ok 7 - API key selection follows the active model provider
+  ---
+  duration_ms: 0.169333
+  type: 'test'
+  ...
+# Subtest: legacy Gemini generation model keys route to Nano Banana 2 Lite
+ok 8 - legacy Gemini generation model keys route to Nano Banana 2 Lite
+  ---
+  duration_ms: 0.34475
+  type: 'test'
+  ...
+# Subtest: Gemini Nano Banana 2 Lite generation uses the stable v1 model and fixed 1K image size
+ok 9 - Gemini Nano Banana 2 Lite generation uses the stable v1 model and fixed 1K image size
+  ---
+  duration_ms: 0.608958
+  type: 'test'
+  ...
+# Subtest: Magnific generation preserves the hidden proxy adapter with single-image sequencing
+ok 10 - Magnific generation preserves the hidden proxy adapter with single-image sequencing
+  ---
+  duration_ms: 0.688166
+  type: 'test'
+  ...
+# Subtest: BytePlus generation preserves model-specific resolution with single-image sequencing
+ok 11 - BytePlus generation preserves model-specific resolution with single-image sequencing
+  ---
+  duration_ms: 0.901167
+  type: 'test'
+  ...
+# Subtest: BytePlus resolution options follow Pro and Lite model support
+ok 12 - BytePlus resolution options follow Pro and Lite model support
+  ---
+  duration_ms: 0.273333
+  type: 'test'
+  ...
+# Subtest: model option helpers hide legacy aliases and keep analyzer to analysis-capable models
+ok 13 - model option helpers hide legacy aliases and keep analyzer to analysis-capable models
+  ---
+  duration_ms: 0.202333
+  type: 'test'
+  ...
+# Subtest: retired provider selections fall back for UI while their adapters remain compatible
+ok 14 - retired provider selections fall back for UI while their adapters remain compatible
+  ---
+  duration_ms: 0.093791
+  type: 'test'
+  ...
+# Subtest: DLL image count defaults to one and is bounded to one or two
+ok 15 - DLL image count defaults to one and is bounded to one or two
+  ---
+  duration_ms: 0.101458
+  type: 'test'
+  ...
+# Subtest: the second Gemini request waits for the first image and its callback to complete
+ok 16 - the second Gemini request waits for the first image and its callback to complete
+  ---
+  duration_ms: 5.414125
+  type: 'test'
+  ...
+# Subtest: a second image API failure returns the successful image without a retry
+ok 17 - a second image API failure returns the successful image without a retry
+  ---
+  duration_ms: 0.340292
+  type: 'test'
+  ...
+# Subtest: a second image network failure keeps the first proxy image and does not retry
+ok 18 - a second image network failure keeps the first proxy image and does not retry
+  ---
+  duration_ms: 0.17225
+  type: 'test'
+  ...
+# Subtest: an empty first response stops the sequence before a second request
+ok 19 - an empty first response stops the sequence before a second request
+  ---
+  duration_ms: 0.389583
+  type: 'test'
+  ...
+# Subtest: Comfy receives one bounded sequence request and the progress callbacks
+ok 20 - Comfy receives one bounded sequence request and the progress callbacks
+  ---
+  duration_ms: 0.153667
+  type: 'test'
+  ...
+# Subtest: Krea models expose only 1K with five native ratios and stay unavailable to the analyzer
+ok 21 - Krea models expose only 1K with five native ratios and stay unavailable to the analyzer
+  ---
+  duration_ms: 0.22975
+  type: 'test'
+  ...
+# Subtest: a rejected onProgress callback preserves the first image and prevents the second request
+ok 22 - a rejected onProgress callback preserves the first image and prevents the second request
+  ---
+  duration_ms: 0.211291
+  type: 'test'
+  ...
+# Subtest: a rejected onImages callback preserves the first image and prevents the second request
+ok 23 - a rejected onImages callback preserves the first image and prevents the second request
+  ---
+  duration_ms: 0.166667
+  type: 'test'
+  ...
+# Subtest: Krea generation rejects unsupported requested resolutions before invoking the adapter
+ok 24 - Krea generation rejects unsupported requested resolutions before invoking the adapter
+  ---
+  duration_ms: 0.631917
+  type: 'test'
+  ...
+# Subtest: snapshot preserves prompt exactly, excludes credentials and validates counts/seeds
+ok 25 - snapshot preserves prompt exactly, excludes credentials and validates counts/seeds
+  ---
+  duration_ms: 1.0555
+  type: 'test'
+  ...
+# Subtest: enqueue is not submission; reload never runs waiting tasks automatically
+ok 26 - enqueue is not submission; reload never runs waiting tasks automatically
+  ---
+  duration_ms: 1.838833
+  type: 'test'
+  ...
+# Subtest: results save local bytes before completion and snapshot cannot mutate
+ok 27 - results save local bytes before completion and snapshot cannot mutate
+  ---
+  duration_ms: 0.377292
+  type: 'test'
+  ...
+# Subtest: persistence failure blocks paid submit
+ok 28 - persistence failure blocks paid submit
+  ---
+  duration_ms: 0.993
+  type: 'test'
+  ...
+# Subtest: uncertain request stops queue and is never automatically resubmitted
+ok 29 - uncertain request stops queue and is never automatically resubmitted
+  ---
+  duration_ms: 0.356542
+  type: 'test'
+  ...
+# Subtest: failed second image retains first locally and stops following jobs
+ok 30 - failed second image retains first locally and stops following jobs
+  ---
+  duration_ms: 0.221417
+  type: 'test'
+  ...
+# Subtest: resume queries only and finalizes interrupted task
+ok 31 - resume queries only and finalizes interrupted task
+  ---
+  duration_ms: 0.34125
+  type: 'test'
+  ...
+# Subtest: account changes cannot attach old response to new user
+ok 32 - account changes cannot attach old response to new user
+  ---
+  duration_ms: 4.7275
+  type: 'test'
+  ...
+# Subtest: pause lets current job finish but does not submit next job
+ok 33 - pause lets current job finish but does not submit next job
+  ---
+  duration_ms: 1.008666
+  type: 'test'
+  ...
+# Subtest: cross-tab lock rejects new submit
+ok 34 - cross-tab lock rejects new submit
+  ---
+  duration_ms: 0.485
+  type: 'test'
+  ...
+# Subtest: upscale snapshot retains parent without mutating original
+ok 35 - upscale snapshot retains parent without mutating original
+  ---
+  duration_ms: 0.153083
+  type: 'test'
+  ...
+# Subtest: terminal cancellation stops queue
+ok 36 - terminal cancellation stops queue
+  ---
+  duration_ms: 0.22225
+  type: 'test'
+  ...
+# Subtest: reload queries interrupted Comfy job without submitting a waiting job
+ok 37 - reload queries interrupted Comfy job without submitting a waiting job
+  ---
+  duration_ms: 0.16075
+  type: 'test'
+  ...
+# Subtest: stale waiting task cannot cancel or delete a submitted job from another tab
+ok 38 - stale waiting task cannot cancel or delete a submitted job from another tab
+  ---
+  duration_ms: 0.237042
+  type: 'test'
+  ...
+# Subtest: recovery preserves downloaded original when Cloud returns only a later asset
+ok 39 - recovery preserves downloaded original when Cloud returns only a later asset
+  ---
+  duration_ms: 0.51475
+  type: 'test'
+  ...
+# Subtest: restored history is chronological rather than database UUID order
+ok 40 - restored history is chronological rather than database UUID order
+  ---
+  duration_ms: 0.079334
+  type: 'test'
+  ...
+1..40
+# tests 40
+# suites 0
+# pass 40
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 101.073667

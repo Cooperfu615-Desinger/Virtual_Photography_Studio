@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-20
 
+
+## DLL：完整版等寬版面與置頂生成操作（2026-10-20，本機驗收通過）
+
+- 依核准示意調整完整版為左右等寬，生成／加入待生成移到左欄上方並隨捲動固定；常用參數並排、Prompt可收合／編輯、Seed快捷清空、LoRA進階設定與精簡額度。保留三快速面板與既有生成／儲存契約。詳見 [規格及驗證](specs/dll-workspace-layout-v1.md)。
+- 直接在現有 main 工作目錄實作，原 detached 目錄未動。前端1736/1736、相關40/40、lint、build通過；桌面／手機／兩組斷點、五工作區與三快速面板檢查通過，無新console warning/error或水平溢出。
+- 本機模擬驗收入口 `http://127.0.0.1:5175/Virtual_Photography_Studio/?dllAcceptance=1`。無付費生成；本機未配置Firebase，實際登入額度待驗收。使用者已確認本機驗收通過並授權本批 commit／push 到 main；Pages 結果以對應 Actions 為準，本批不需部署 Functions。
+
 ## DLL：Asian Mix LoKr 可調強度（2026-10-20，已合併 main／四項 Functions 已部署）
 
 - Z-Image-Turbo BF16 新增「套用 Asian Mix LoKr」，首次選模型預設關閉；開啟後可用滑桿／數字調整 0–1（間距 0.05，預設 1）。INT8 不提供此開關，MOSS 仍固定 0.7。詳見 [規格與驗收](specs/comfy-asian-mix-lokr-v1.md)。
