@@ -1,5 +1,6 @@
 import { getFixedScenePosition } from './fixedScenePose.js';
 import { getActionPoseCardById } from '../../data/actionPoseCards.js';
+import { lyingActionFitsScene } from './lyingSurface.js';
 
 function deepFreeze(value) {
   if (!value || typeof value !== 'object' || Object.isFrozen(value)) return value;
@@ -263,10 +264,14 @@ export const SPECIFIED_ACTION_OPTIONS = Object.freeze([
 const ACTIONS_BY_ID = new Map([...SPECIFIED_ACTION_CONCRETE_OPTIONS, SPECIFIED_ACTION_RANDOM, SPECIFIED_ACTION_ANY]
   .map((action) => [action.id, action]));
 
-/** Library actions 隨機 may draw: accepted, and not lying until scenes provide a
- * lying surface (expression-pose-v2 implementation plan P3). */
+/** Library actions 隨機 may always draw: accepted and not lying. */
 export const SPECIFIED_ACTION_RANDOM_POOL = Object.freeze(SPECIFIED_ACTION_CONCRETE_OPTIONS
   .filter(action => action.validation.status === 'accepted' && action.family !== 'lying'));
+
+/** Accepted lying actions join the draw only when the locked scene offers a lying
+ * surface (P3); an unresolved random scene cannot be checked, so lying stays out. */
+export const SPECIFIED_ACTION_LYING_POOL = Object.freeze(SPECIFIED_ACTION_CONCRETE_OPTIONS
+  .filter(action => action.validation.status === 'accepted' && action.family === 'lying'));
 
 export const isSpecifiedActionMenuChoice = action => Boolean(action?.meta?.tags?.includes('menu_choice'));
 
@@ -274,8 +279,10 @@ export const isSpecifiedActionMenuChoice = action => Boolean(action?.meta?.tags?
  * no single-subject action can apply. Camera conflicts use locked choices only. */
 export function resolveRandomSpecifiedAction(locks = {}, random = Math.random, { cameraControls = [] } = {}) {
   if (locks.specifiedActionId !== SPECIFIED_ACTION_RANDOM_ID) return locks;
+  const location = cameraControls.find(control => control.key === 'locationId')?.options?.find(option => option.id === locks.locationId);
+  const candidates = [...SPECIFIED_ACTION_RANDOM_POOL, ...SPECIFIED_ACTION_LYING_POOL.filter(action => lyingActionFitsScene(action, location))];
   const pool = locks.subjectCount === '1' && !getFixedScenePosition(locks)
-    ? SPECIFIED_ACTION_RANDOM_POOL.filter(action => !getSpecifiedActionCameraConflict(action, locks, cameraControls))
+    ? candidates.filter(action => !getSpecifiedActionCameraConflict(action, locks, cameraControls))
     : [];
   const action = pool.length ? pool[Math.min(pool.length - 1, Math.floor(random() * pool.length))] : null;
   return { ...locks, specifiedActionId: action?.id || 'none', actionPoseCardId: '' };

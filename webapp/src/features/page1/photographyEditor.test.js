@@ -10,6 +10,9 @@ import { PHOTOGRAPHY_EDITOR_GROUPS, buildPhotographyEditorModel } from './photog
 
 const controls = getLockControls();
 const editorKeys = PHOTOGRAPHY_EDITOR_GROUPS.flatMap(group => group.keys);
+// Lying library P3: lyingCameraId is shown only while a lying action is active.
+const visibleKeys = editorKeys.filter(key => key !== 'lyingCameraId');
+const lyingVisibleKeys = editorKeys.filter(key => !['angleId', 'orbitId'].includes(key));
 const control = key => controls.find(item => item.key === key);
 const option = (key, zh) => control(key).options.find(item => item.zh === zh || item.zh.startsWith(zh));
 const fixedSet = id => control('fixedCompositionSetId').options.find(item => item.id === id);
@@ -26,15 +29,19 @@ const managedKeys = model => model.groups.flatMap(item => item.fields)
 
 test('photography cards retain all ten existing keys exactly once and keep placement order', () => {
   const previousKeys = SECTION_SUBPANELS.photography.flatMap(panel => panel.keys);
-  assert.equal(editorKeys.length, 10);
-  assert.equal(new Set(editorKeys).size, 10);
+  assert.equal(editorKeys.length, 11);
+  assert.equal(new Set(editorKeys).size, 11);
   assert.deepEqual([...editorKeys].sort(), [...previousKeys].sort());
   const model = buildPhotographyEditorModel(fields());
   assert.deepEqual(model.groups.map(item => [item.id, item.label]), [
     ['image-type', '成品類型'], ['composition', '構圖與視角'],
     ['optics', '鏡頭與光學'], ['look', '風格與成像'],
   ]);
-  assert.deepEqual(model.groups.flatMap(item => item.fields.map(entry => entry.control.key)), editorKeys);
+  assert.deepEqual(model.groups.flatMap(item => item.fields.map(entry => entry.control.key)), visibleKeys);
+  const lying = buildPhotographyEditorModel(fields(), { lyingActionActive: true });
+  assert.deepEqual(lying.groups.flatMap(item => item.fields.map(entry => entry.control.key)), lyingVisibleKeys);
+  assert.match(lying.lyingNotice, /躺姿機位/);
+  assert.equal(model.lyingNotice, '');
 });
 
 test('ordinary and duo preparation without an effective single fixed set have no scene management', () => {
@@ -42,7 +49,7 @@ test('ordinary and duo preparation without an effective single fixed set have no
     const model = buildPhotographyEditorModel(fields(), context);
     assert.equal(model.fixedNotice, null);
     assert.deepEqual(managedKeys(model), []);
-    assert.deepEqual(model.groups.flatMap(item => item.actionKeys), editorKeys);
+    assert.deepEqual(model.groups.flatMap(item => item.actionKeys), visibleKeys);
   }
 });
 
@@ -63,7 +70,8 @@ test('actions stay inside their original scopes and preserve disabled and unrela
   const prepared = fields(locks, ['angleId', 'opticalEffectId']);
   const model = buildPhotographyEditorModel(prepared);
   for (const card of model.groups) {
-    assert.deepEqual(card.actionKeys, card.keys.filter(key => !['angleId', 'opticalEffectId'].includes(key)));
+    // lyingCameraId is hidden without a lying action (P3), so it is not an action key here.
+    assert.deepEqual(card.actionKeys, card.keys.filter(key => !['angleId', 'opticalEffectId', 'lyingCameraId'].includes(key)));
     for (const next of [randomizeLockKeys(locks, card.actionKeys, createEmptyLocks(), controls),
       setLockKeysToNone(locks, card.actionKeys, controls)]) {
       for (const key of Object.keys(locks)) if (!card.actionKeys.includes(key)) assert.deepEqual(next[key], locks[key], key);
@@ -204,7 +212,7 @@ test('availability stays authoritative and unrelated disabled fields are not lab
   const set = fixedSet('seaside-slope-railway-crossing');
   const enabled = buildPhotographyEditorModel(fields(), { fixedSet: set });
   assert.deepEqual(managedKeys(enabled), []);
-  assert.deepEqual(enabled.groups.flatMap(item => item.actionKeys), editorKeys);
+  assert.deepEqual(enabled.groups.flatMap(item => item.actionKeys), visibleKeys);
   const unrelated = buildPhotographyEditorModel(fields({}, ['styleId', 'filmId', 'apertureId', 'shutterId']), { fixedSet: set });
   assert.deepEqual(managedKeys(unrelated), []);
   assert.deepEqual(group(unrelated, 'look').actionKeys, []);
@@ -221,7 +229,7 @@ test('frozen input fields, values, option objects and context are preserved with
   Object.freeze(prepared);
   Object.freeze(context);
   const model = buildPhotographyEditorModel(prepared, context);
-  for (const item of prepared) {
+  for (const item of prepared.filter(entry => entry.control.key !== 'lyingCameraId')) {
     const result = field(model, item.control.key);
     assert.notStrictEqual(result, item);
     assert.strictEqual(result.control, item.control);

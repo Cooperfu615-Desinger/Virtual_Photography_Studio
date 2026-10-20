@@ -21,8 +21,11 @@ const LYING_V1 = [
 const byId = id => SPECIFIED_ACTION_CONCRETE_OPTIONS.find(action => action.id === id);
 const controls = getLockControls();
 const framing = zh => controls.find(c => c.key === 'framingId').options.find(o => o.zh === zh).id;
+// Scene locked to 全無: lying scenes would insert their reviewed surface (P3), which
+// lyingSurface.test.js covers separately.
+const sceneNone = controls.find(c => c.key === 'locationId').options.find(o => o.zh === '全無').id;
 const generate = (id, framingZh) => generatePrompts(1, {
-  ...createEmptyLocks(), subjectCount: '1', specifiedActionId: id, framingId: framing(framingZh),
+  ...createEmptyLocks(), subjectCount: '1', specifiedActionId: id, framingId: framing(framingZh), locationId: sceneNone,
 }, [], { random: createSeededRandom('specified-actions-v2') })[0];
 
 test('every action is valid tagged clauses whose join is its English', () => {

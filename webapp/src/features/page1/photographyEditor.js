@@ -6,7 +6,8 @@ import { getFixedSceneCameraStatus } from './sceneEditor.js';
 // Card placement keeps the existing control keys and independent action scopes.
 export const PHOTOGRAPHY_EDITOR_GROUPS = [
   { id: 'image-type', label: '成品類型', keys: ['imageTypePresetId'] },
-  { id: 'composition', label: '構圖與視角', keys: ['framingId', 'angleId', 'orbitId'] },
+  // Lying library P3: lyingCameraId replaces angle and orbit while a lying action is active.
+  { id: 'composition', label: '構圖與視角', keys: ['framingId', 'angleId', 'orbitId', 'lyingCameraId'] },
   { id: 'optics', label: '鏡頭與光學', keys: ['lensId', 'apertureId', 'shutterId', 'opticalEffectId'] },
   { id: 'look', label: '風格與成像', keys: ['styleId', 'filmId'] },
 ];
@@ -66,8 +67,9 @@ function enrichField(field, fixedSet, handLocksOrbit) {
 export function buildPhotographyEditorModel(fields = [], context = {}) {
   const fixedSet = context.fixedSet?.id && context.fixedSet.id !== 'none' ? context.fixedSet : null;
   const fieldsByKey = new Map(fields.map(field => [field.control.key, field]));
+  const lyingKeys = context.lyingActionActive ? ['angleId', 'orbitId'] : ['lyingCameraId'];
   const groups = PHOTOGRAPHY_EDITOR_GROUPS.map(group => {
-    const preparedFields = group.keys.map(key => fieldsByKey.get(key)).filter(Boolean)
+    const preparedFields = group.keys.filter(key => !lyingKeys.includes(key)).map(key => fieldsByKey.get(key)).filter(Boolean)
       .map(field => enrichField(field, fixedSet, Boolean(context.handLocksOrbit)));
     return {
       ...group,
@@ -79,5 +81,6 @@ export function buildPhotographyEditorModel(fields = [], context = {}) {
   return {
     groups,
     fixedNotice: fixedSet ? { name: fixedSet.zh, text: getFixedSceneCameraStatus(fixedSet) } : null,
+    lyingNotice: context.lyingActionActive ? '躺姿動作使用躺姿機位；俯仰角度與環繞角度暫時收起，取消躺姿動作後恢復原本的選擇。△ 表示這個方向較不建議，仍可選。' : '',
   };
 }

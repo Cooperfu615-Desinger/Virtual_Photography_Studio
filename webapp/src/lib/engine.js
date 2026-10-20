@@ -5,6 +5,7 @@ import { bottomRiseConflict, resolveBottomRiseCompatibility } from './engine/bot
 import { extractMidjourneyItemNames, midjourneyItemName, naturalIdentity, naturalSentence, naturalWardrobeSentence, renderNaturalMidjourney, uniqueNames } from './engine/midjourneyNaturalPrompt.js';
 import { midjourneyBodyDescription } from './engine/midjourneyBodyDescriptions.js';
 import { SPECIFIED_ACTION_OPTIONS, getSpecifiedAction, getSpecifiedActionEffectiveLocks, resolveRandomSpecifiedAction, specifiedActionSupportsCamera } from './engine/specifiedActions.js';
+import { LYING_CAMERA_OPTIONS, isLyingAction, lyingSurfaceFor, resolveLyingCamera, withLyingSurface } from './engine/lyingSurface.js';
 import { applyDefaultEthnicity, applyDefaultEthnicityToCharacter, resolveDefaultEthnicity } from './engine/defaultEthnicity.js';
 import { renderNanoBananaNarrative } from './engine/nanoBananaPrompt.js';
 import { polishPublicPromptText } from './engine/publicPromptPolish.js';
@@ -1111,6 +1112,8 @@ const LOCK_DEFINITIONS = [
   { key: 'framingId', label: '構圖景別', category: '景別構圖 (Framing)', section: 'core' },
   { key: 'angleId', label: '俯仰角度', category: '相機視角 (Angle)', section: 'core' },
   { key: 'orbitId', label: '環繞角度', category: '拍攝方位 (Orbit Angle)', section: 'core' },
+  // Lying library P3: replaces angle and orbit while a lying action is active.
+  { key: 'lyingCameraId', label: '躺姿機位', options: LYING_CAMERA_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'core' },
   { key: 'lensId', label: '鏡頭焦段', category: FOCAL_LENGTH_CATEGORY, section: 'core' },
   { key: 'apertureId', label: '光圈 / 景深', category: APERTURE_CATEGORY, section: 'core' },
   { key: 'shutterId', label: '快門 / 動態殘影', category: SHUTTER_CATEGORY, section: 'core' },
@@ -3321,6 +3324,9 @@ function buildEntries(groupName, groupedData, inferMeta) {
           : {}),
         ...(item.eyewearPlacementMode
           ? { eyewearPlacementMode: item.eyewearPlacementMode }
+          : {}),
+        ...(item.lyingSurface && typeof item.lyingSurface === 'object'
+          ? { lyingSurface: { ...item.lyingSurface } }
           : {}),
         legacyIds: Array.from(new Set([
           ...(Array.isArray(item.legacyIds) ? item.legacyIds : []),
@@ -5632,7 +5638,7 @@ function buildPoseComposerItem(context) {
     return {
       id: `character:姿勢組合器-pose-composer:${specifiedAction.id}:${head?.id || 'none'}`,
       zh: [specifiedAction.zh, head?.zh].filter(Boolean).join(' + '),
-      en: [specifiedAction.en, headText].filter(Boolean).join(' '),
+      en: [withLyingSurface(specifiedAction.en, lyingSurfaceFor(specifiedAction, context.location)), headText].filter(Boolean).join(' '),
       desc: specifiedAction.descriptionZh,
       meta: {
         tags: ['pose_composer'], minVisibility: 'full',
@@ -6127,7 +6133,7 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
     if (projection.pose?.mode === 'omit') return specifiedAction.faceEn || (specifiedAction.meta?.supineGroundOnly ? 'She is lying on her back on the ground.' : '');
     if (projection.pose?.mode === 'fullCanonical' || projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE) return poseComposer.en;
     const head = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, poseComposer.meta?.poseHeadId);
-    return [specifiedAction.upperBodyEn,
+    return [withLyingSurface(specifiedAction.upperBodyEn, lyingSurfaceFor(specifiedAction, context.location)),
       isActivePoseComposerOption(head) ? `She has ${stripTerminalPromptPunctuation(head.en)}.` : '',
     ].filter(Boolean).join(' ');
   }
@@ -11099,6 +11105,7 @@ function buildCompositionPromptLine(context, {
   }
   const parts = [
     context?.fixedFramingCompositionOpening || compactCameraDescriptor(context?.framing, 'framing'),
+    context?.lyingCamera?.en || '',
     omitAngle ? '' : compactCameraDescriptor(context?.angle, 'angle'),
     omitOrbit ? '' : compactCameraDescriptor(context?.orbit, 'orbit'),
     ...(adaptation?.compositionAdditions || []),
@@ -16481,7 +16488,15 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     }
     resolvedSelection.specifiedActionId = storedAction.id;
   }
+  // Lying library P3: keep the user's raw angle and orbit for a later cancel, and
+  // record the resolved lying camera; an unused 全無 keeps old snapshots' shape.
+  if (context.lyingActionActive) {
+    resolvedSelection.angleId = context.rawLocks.angleId;
+    resolvedSelection.orbitId = context.rawLocks.orbitId;
+  }
+  resolvedSelection.lyingCameraId = context.lyingCamera?.id || context.rawLocks.lyingCameraId || 'none';
   const snapshot = createSelectionSnapshot(LOCK_DEFINITIONS, resolvedSelection);
+  if (!snapshot.lyingCameraId || snapshot.lyingCameraId === 'none') delete snapshot.lyingCameraId;
   if (!storedAction) {
     // Old results keep their exact selection shape. Missing additive fields
     // restore to the new defaults without a compatibility migration.
@@ -16546,6 +16561,13 @@ function generateSinglePrompt(index, requestedLocks, runtime, runtimeOptions = {
   const effectiveLocks = sanitizeLocksForCloseupMode(getSpecifiedActionEffectiveLocks(fixedScenePoseLocks(generationLocks), { cameraControls: lockControls }), lockControls);
   if (isFullyClosedOpening(effectiveLocks.outerwearOpeningId) && effectiveLocks.poseHandId === PULL_OPEN_HAND_ID) {
     effectiveLocks.poseHandId = 'none';
+  }
+  // Lying library P3: a lying action replaces the standing-based angle and orbit
+  // with the lying camera (one random() call only when 隨機 is chosen).
+  const lyingActionActive = isLyingAction(getSpecifiedAction(effectiveLocks));
+  const lyingCamera = lyingActionActive ? resolveLyingCamera(effectiveLocks.lyingCameraId, random) : null;
+  if (lyingActionActive) {
+    for (const key of ['angleId', 'orbitId']) effectiveLocks[key] = getControlOptionByZh(lockControls, key, '全無')?.id || '';
   }
   const supineSurfaceOnly = isSupinePoseSelection(effectiveLocks);
   const selectedFixedCompositionSet = getFixedCompositionSetOption(effectiveLocks.fixedCompositionSetId);
@@ -16787,6 +16809,8 @@ function generateSinglePrompt(index, requestedLocks, runtime, runtimeOptions = {
     fixedFramingCompositionOpening,
     angle,
     orbit,
+    lyingCamera,
+    lyingActionActive,
     lens,
     aperture,
     shutter,

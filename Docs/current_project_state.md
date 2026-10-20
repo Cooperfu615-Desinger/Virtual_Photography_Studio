@@ -2,10 +2,15 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-19
+Last updated: 2026-10-20
 
 
-## 神情姿態 v2：P2 姿勢選單機制（2026-10-19，本機實作）
+## 神情姿態 v2：P3 躺姿機位與表面（2026-10-20，本機實作）
+
+- 47 個場景加上躺姿表面（逐字取自場景英文，Cooper 審核定案）；躺姿動作會寫成 `She lies on her stomach on the white bed surface …`。E「構圖與視角」新增躺姿機位（全無／隨機／正上方俯拍／斜上方俯拍／貼地平視／從頭頂方向／從腳底方向 △），只在躺姿動作下取代俯仰與環繞。姿勢「隨機」只在鎖定的可躺場景抽躺姿。D 區顯示可躺表面提示。
+- 驗證：代表性 104 組、隨機 200 組與 P2 逐字相同；躺姿輸出 110 組差異只有 35 處表面插入；`npm test` 1718/1718、Prompt Quality 738/738、lint、build、strict audit 與 P2 相同、sync、Python、公開資產、diff-check；瀏覽器 1440×1000／390×900。細節見 [pose-library-lying-v1 §7](specs/pose-library-lying-v1.md)。分支 `claude/pose-v2-p3-lying`。
+
+## 神情姿態 v2：P2 姿勢選單機制（2026-10-19，已合併 main，PR #9）
 
 - 姿勢選單＝全無／隨機／任意／各指定動作。未動時為全無（Cooper），不再從舊「姿勢與肢體語言」目錄自動抽姿勢；隨機在生成時從已驗收、非躺姿的 9 個動作抽一個並記入快照；任意輸出第三輪定案的 B 句。姿勢區或全域「全部隨機」改設為隨機並清空自由組合身體層（頭部仍隨機、道具保留）。
 - 驗證：代表性與指定動作 412 組逐字不變；隨機樣本以鎖定重播證明只有姿勢相關差異；MJ natural 基準 71 組以 `scripts/rebaseline_mj_natural_fixtures.mjs` 重產；`npm test` 1709/1709（連跑 2 次）、Prompt Quality 738/738、lint、build、strict audit exit 0、sync、Python、公開資產、diff-check；瀏覽器 1440×1000／390×900。細節見 [實作計畫 §5](specs/expression-pose-v2-implementation-plan.md)。分支 `claude/pose-v2-p2-menu`。

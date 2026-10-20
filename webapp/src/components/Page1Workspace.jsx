@@ -4,6 +4,7 @@ import { getReferencePersonPreview, hasReferencePersonPreview } from '../lib/ref
 import { prepareBottomRiseControl } from '../lib/engine/bottomRiseCompatibility.js';
 import { prepareHeadDominantAngleControl } from '../lib/engine/headDominantFraming.js';
 import { buildKneelingSupportControl, isFourPointKneeling } from '../lib/engine/kneelingSupport.js';
+import { isLyingAction, lyingSurfaceFor } from '../lib/engine/lyingSurface.js';
 import { getSpecifiedAction, getSpecifiedActionEffectiveLocks, specifiedActionOwnsControl, getSpecifiedActionCameraConflict } from '../lib/engine/specifiedActions.js';
 import { prepareAccessoryControl } from '../lib/engine/accessoryPolicy.js';
 import { prepareOuterwearClosureControl } from '../lib/engine/outerwearClosure.js';
@@ -740,6 +741,21 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   );
   const fixedScenePosition = getFixedScenePosition(locks);
   const activeSpecifiedAction = captureActive ? null : getSpecifiedAction(locks, { cameraControls: lockControls });
+  // Lying library P3: tell the user whether the chosen scene gives a lying action a surface.
+  const LYING_SURFACE_LABELS = { bed: '床面', floor: '地板', tatami: '榻榻米', rug: '地毯', grass: '草地', sand: '沙地', ground: '地面', other: '表面' };
+  const selectedLocationOption = lockControls.find((control) => control.key === 'locationId')?.options
+    ?.find((option) => option.id === locks.locationId && option.zh !== '全無' && option.zh !== '隨機') || null;
+  const lyingSurfaceNote = !selectedLocationOption ? null : selectedLocationOption.lyingSurface
+    ? { tone: 'ok', text: `可躺：${LYING_SURFACE_LABELS[selectedLocationOption.lyingSurface.type] || '表面'}（${selectedLocationOption.lyingSurface.en}）` }
+    : { tone: 'warn', text: '沒有躺姿表面：隨機不抽躺姿；手動選的躺姿動作不寫表面。' };
+  const lyingPoseSurface = lyingSurfaceFor(activeSpecifiedAction, selectedLocationOption);
+  const lyingPoseNote = !selectedLocationOption
+    ? '躺姿機位在 E 區；場景未指定，生成時若抽到可躺場景才會寫表面。'
+    : lyingPoseSurface
+      ? `躺姿機位在 E 區；表面：${lyingPoseSurface}（由 D 區場景提供）。`
+      : selectedLocationOption.lyingSurface
+        ? '躺姿機位在 E 區；這個動作的描述已寫明地面，不另加場景表面。'
+        : '躺姿機位在 E 區；目前場景沒有躺姿表面，Prompt 不寫表面。';
   const selectedSpecifiedAction = captureActive ? null : getSpecifiedAction(locks, { ignoreOwners: true });
   const effectiveFixedSceneLocks = useMemo(() => getSpecifiedActionEffectiveLocks(fixedScenePoseLocks(locks), { cameraControls: lockControls }), [locks, lockControls]);
   const workspaceSummary = useMemo(() => ({
@@ -1328,6 +1344,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     const source = getSceneEditorSource(locks, lockControls, supineSurfaceOnly);
     const panelId = ['space', 'fixed', 'imported'].includes(activeSubpanels.scene) ? activeSubpanels.scene : 'space';
     return <SceneEnvironmentControls
+      lyingSurfaceNote={lyingSurfaceNote}
       panelId={panelId}
       onPanelChange={id => setActiveSubpanels(prev => ({ ...prev, scene: id }))}
       sourceLabel={source.label}
@@ -1364,6 +1381,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     const model = buildPhotographyEditorModel(fields, {
       fixedSet: selectedFixedCompositionSetOption,
       handLocksOrbit: selectedPoseActionLocksOrbit,
+      lyingActionActive: isLyingAction(activeSpecifiedAction),
     });
     return <PhotographyControls
       model={model}
@@ -1561,7 +1579,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       {!isDuoMode ? renderControlGrid(filterControlsByKeys(characterLockControls, ['specifiedActionId'])) : null}
       {activeSpecifiedAction ? (
         <div className="context-note specified-action-context-note">
-          <span>{activeSpecifiedAction.descriptionZh}<br />指定動作「{activeSpecifiedAction.zh}」接管姿勢基底、肢體、手部、道具與接觸／支撐。{activeSpecifiedAction.ownsExpression ? '表情由動作決定；' : '表情可調；'}{activeSpecifiedAction.ownsHead ? '頭部由動作決定。' : '頭部可調。'}原選值已保留。{activeSpecifiedAction.orientationId === 'lying-supine' ? '仰躺由地面承托，場景設定暫停，光線仍可調整。' : ''}</span>
+          <span>{activeSpecifiedAction.descriptionZh}<br />指定動作「{activeSpecifiedAction.zh}」接管姿勢基底、肢體、手部、道具與接觸／支撐。{activeSpecifiedAction.ownsExpression ? '表情由動作決定；' : '表情可調；'}{activeSpecifiedAction.ownsHead ? '頭部由動作決定。' : '頭部可調。'}原選值已保留。{activeSpecifiedAction.orientationId === 'lying-supine' ? '仰躺由地面承托，場景設定暫停，光線仍可調整。' : ''}{isLyingAction(activeSpecifiedAction) && activeSpecifiedAction.orientationId !== 'lying-supine' ? <><br />{lyingPoseNote}</> : null}</span>
           <button type="button" className="secondary page1-section-random-btn"
             onClick={() => updateLocks((prev) => ({ ...prev, specifiedActionId: 'none', actionPoseCardId: '' }))}>取消指定動作</button>
         </div>
