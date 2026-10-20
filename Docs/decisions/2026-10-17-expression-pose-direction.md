@@ -54,6 +54,7 @@
 | 明確視線與隨機環繞（2026-10-20） | 選 B：明確選了回眸以外的視線時，環繞角度隨機不抽背面系機位；鎖定的背面機位不替換 | Cooper 決定。放棄：A 維持丟棄視線（約四成拿不到選的視線）、C 照寫視線（背對鏡頭卻看鏡頭的矛盾 Prompt） |
 | P5 清理範圍（2026-10-20） | 分兩個 PR：P5a＝介面與工作台層殘留＋孤兒檔（Prompt 不變、不重產基準）；P5b＝引擎中只服務舊組合的程式（重產受影響基準）；完整刪除（舊選項檔、舊目錄、舊欄位定義）不做。舊卡文字匯入只保留「舊自拍→拍攝方式」；保留舊自拍轉換；兩個舊目錄資料先保留、只刪引擎讀取路徑；選擇快照保留 9 個舊欄位（填全無）；鎖舊欄位的 fixtures 改寫成等價新輸入或刪除後只重產有變的基準；孤兒檔刪除 | Cooper「照建議」。範圍見 `Docs/specs/expression-pose-v2-p5-cleanup-scope.md`。放棄：一次完整刪除（所有選擇快照雜湊基準都要重產，收益小） |
 | P5b 延後（2026-10-20） | P5 停在 P5a；引擎舊組合程式保留，等站姿／坐具類指定動作補齊後再評估 | Cooper 選 A。依據：逐 fixture 調查約 2.4 萬列基準會變、等價改寫只有 7 列，且會失去手動坐具、仰躺 surface-led、近距離蟲眼站姿等契約（`Docs/reports/pose-v2-p5b-fixtures-2026-10-20/fixtures.md`）。放棄：B 縮小版（影響未量測）、C 完整刪除（需修訂 AGENTS.md 4 條並放棄上述契約） |
+| 站姿動作庫 v1（2026-10-20） | 第一批由舊自由組合 9 個公開站姿變化改成指定動作（英文沿用、只切子句補句）；分正面、側身、背對，倚靠類延後比照躺姿表面；大部分手空著接通用手勢；沿用一般俯仰與環繞；草稿→Cooper 測圖驗收；「向鏡頭探身」改寫為不提相機的「上身前傾探身站姿」 | Cooper「照建議」並確認 3.8 改寫。草案 `Docs/specs/pose-library-standing-v1.md`；放棄：全部從參考圖重做（舊描述已審核過，且能讓延後的 P5b 站姿 fixture 有對應動作） |
 | 五官全無預設日本：實作 | 已完成，[PR #6](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/pull/6) | 規格 `Docs/specs/default-japanese-ethnicity-v1.md`（在該 PR 分支） |
 
 結果報告：[results.md](../reports/pose-hand-experiment-2026-10-17/results.md)
