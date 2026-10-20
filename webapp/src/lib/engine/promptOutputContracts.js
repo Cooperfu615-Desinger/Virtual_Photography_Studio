@@ -80,7 +80,17 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.61.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.62.0';
+
+export const SHIRT_BLACK_BOTTOM_CONTRACT = deepFreeze({
+  version: '1.0.0',
+  presets: ['開扣短袖襯衫熱褲', '開扣長袖襯衫包臀裙'],
+  primaryColorTarget: 'shirt fabric only',
+  bottom: 'fixed black hot pants or black bodycon mini skirt',
+  mainMj: 'retain selected shirt color and fixed black bottom names only when visible',
+  completeLookPalette: 'shirt only; preserve fixed black bottom',
+  compatibility: 'stable IDs, reference images and legacy English aliases; all other presets unchanged',
+});
 
 export const OBSERVATION_CAPTURE_CONTRACT = deepFreeze({
   version: '1.0.0',

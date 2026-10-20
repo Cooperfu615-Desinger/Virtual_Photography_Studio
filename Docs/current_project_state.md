@@ -5,6 +5,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 Last updated: 2026-10-20
 
 
+## 開扣襯衫套裝固定黑色下身（2026-10-20，使用者已驗收）
+
+- 僅「開扣短袖襯衫熱褲」「開扣長袖襯衫包臀裙」的下身固定黑色，套裝主色／完整造型色系只影響襯衫。主 MJ 增加限定例外，保留可見上衣主色與黑色下身名稱；其他套裝、ID、圖片與舊英文回填不變。詳見 [規格及驗證](specs/shirt-outfit-black-bottom-v1.md)，Public contract `1.62.0`。
+- 8 項專項測試含所有色票、隨機色、雙人、固定構圖、裁切、閉合外套、匯入與還原；另以修改前 486 組其他套裝六輸出與資料雜湊確認不變。完整前端 1702/1702、Prompt Quality 746/746；同 seed 200 strict audit 仍是 0 blockers／22 項既有 diagnostics。
+- lint／build、KB sync／Python／資產及 diff-check 通過；隔離瀏覽器 1440×1000／390×900 共 23 項檢查與 14 張截圖檢視通過，六輸出收藏還原正常。5175 為另一工作目錄的服務，本批以 5176 驗證，無新錯誤、破圖或橫向溢位。
+- 最新 main `bdfe2c7` 整合驗證：前端1744/1744、Prompt Quality745/745、聚焦17/17、lint／build／資料檢查通過；同 seed audit 前後0 blockers／18 diagnostics，桌手機23項與14張截圖通過。舊分支與最新 main 測試數量分開記錄，未覆寫歷史基準。
+- 使用者已確認實際 Prompt，並於 2026-10-20 授權將 `codex/shirt-black-bottom` 合併最新 main 及推送。以隔離目錄整合，原有未追蹤文件與其他工作目錄保留；整合驗證與發布結果見本次規格。
+
 ## DLL：完整版等寬版面與置頂生成操作（2026-10-20，本機驗收通過）
 
 - 依核准示意調整完整版為左右等寬，生成／加入待生成移到左欄上方並隨捲動固定；常用參數並排、Prompt可收合／編輯、Seed快捷清空、LoRA進階設定與精簡額度。保留三快速面板與既有生成／儲存契約。詳見 [規格及驗證](specs/dll-workspace-layout-v1.md)。

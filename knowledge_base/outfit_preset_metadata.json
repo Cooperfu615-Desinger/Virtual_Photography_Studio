@@ -370,8 +370,30 @@
     "embeddedOuterwear": true
   },
   "浴巾裹身": {},
-  "開扣短袖襯衫熱褲": {},
-  "開扣長袖襯衫包臀裙": {},
+  "開扣短袖襯衫熱褲": {
+    "colorMode": "primary",
+    "colorTargets": {
+      "primary": [
+        "shirt_fabric"
+      ]
+    },
+    "shirtBlackBottom": "hot-pants",
+    "legacyPromptAliases": [
+      "tight short-sleeve button-up shirt outfit, opaque stretch cotton shirting fabric, structured collar and short sleeves, upper buttons left open, remaining front buttons fastened under tension, visible button placket pulling at the chest and waist, horizontal fabric wrinkles across the bust and midriff, skin-tight ultra-short hot pants, dominant fabric color controlled by the outfit color selection"
+    ]
+  },
+  "開扣長袖襯衫包臀裙": {
+    "colorMode": "primary",
+    "colorTargets": {
+      "primary": [
+        "shirt_fabric"
+      ]
+    },
+    "shirtBlackBottom": "bodycon-mini-skirt",
+    "legacyPromptAliases": [
+      "tight long-sleeve button-up shirt outfit, opaque stretch cotton shirting fabric, structured collar and long fitted sleeves, upper buttons left open, remaining front buttons fastened under tension, visible button placket pulling at the chest and waist, horizontal fabric wrinkles across the bust and midriff, tight bodycon mini skirt, smooth hip-hugging skirt silhouette, dominant fabric color controlled by the outfit color selection"
+    ]
+  },
   "粉紅哥德兔耳吊帶束身": {
     "series": "signature",
     "colorMode": "primary_contrast_locked",

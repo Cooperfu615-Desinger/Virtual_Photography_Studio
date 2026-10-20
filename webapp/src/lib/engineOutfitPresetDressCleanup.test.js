@@ -248,8 +248,8 @@ test('open-button fitted shirt outfit presets preserve shorts and skirt variants
       /structured collar and short sleeves/i,
       /upper buttons left open/i,
       /visible button placket pulling at the chest and waist/i,
-      /skin-tight ultra-short hot pants/i,
-      /dominant fabric color controlled by the outfit color selection/i,
+      /skin-tight ultra-short black hot pants/i,
+      /下身固定黑色/i,
       'reference/wardrobe/outfit-presets/50_開扣短袖襯衫熱褲.avif',
     ],
     [
@@ -259,7 +259,7 @@ test('open-button fitted shirt outfit presets preserve shorts and skirt variants
       /structured collar and long fitted sleeves/i,
       /upper buttons left open/i,
       /visible button placket pulling at the chest and waist/i,
-      /tight bodycon mini skirt/i,
+      /tight black bodycon mini skirt/i,
       /smooth hip-hugging skirt silhouette/i,
       'reference/wardrobe/outfit-presets/51_開扣長袖襯衫包臀裙.avif',
     ],
@@ -272,7 +272,8 @@ test('open-button fitted shirt outfit presets preserve shorts and skirt variants
       assert.match(text, pattern);
     });
 
-    assert.match(text, /controlled by the outfit color selection/i);
+    assert.equal(option.meta.colorMode, 'primary');
+    assert.deepEqual(option.meta.colorTargets.primary, ['shirt_fabric']);
     assert.doesNotMatch(text, /hair|hairstyle|髮型|頭髮/i);
     assert.equal(option.meta.referenceImage, referenceImage);
     assert.equal(option.meta.referenceImageFormat, 'avif');
@@ -302,8 +303,8 @@ test('open-button fitted shirt outfit presets preserve shorts and skirt variants
     outfitPresetId: skirtOutfit.id,
   });
 
-  assert.match([shortsPrompt.grokPrompt, shortsPrompt.zImagePrompt, shortsPrompt.midjourneyPrompt].join('\n'), /skin-tight (?:ultra-short )?hot pants/i);
-  assert.match([skirtPrompt.grokPrompt, skirtPrompt.zImagePrompt, skirtPrompt.midjourneyPrompt].join('\n'), /tight bodycon mini skirt/i);
+  assert.match([shortsPrompt.grokPrompt, shortsPrompt.zImagePrompt, shortsPrompt.midjourneyPrompt].join('\n'), /skin-tight (?:ultra-short )?black hot pants/i);
+  assert.match([skirtPrompt.grokPrompt, skirtPrompt.zImagePrompt, skirtPrompt.midjourneyPrompt].join('\n'), /tight black bodycon mini skirt/i);
   assert.equal(shortsPrompt.selection.outfitPresetId, shortsOutfit.id);
   assert.equal(skirtPrompt.selection.outfitPresetId, skirtOutfit.id);
 });
