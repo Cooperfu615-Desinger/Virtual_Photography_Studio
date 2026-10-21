@@ -37,7 +37,12 @@ Last updated: 2026-10-20
 - 使用獨立工作目錄、分支 `codex/moss-optional-lora`，原工作區及其他參考資料保留。本批沒有付費生成，GUI 的先前成功出圖不代替 DLL API 驗收，私人 LoRA 的 API 可見性、扣額及原圖下載待後續驗證。
 
 
-## 蹲姿動作庫 v1（2026-10-21，本機實作）
+## 坐姿與跪姿動作庫 v1（2026-10-21，本機實作）
+
+- 舊自由組合的坐姿 10 個、跪姿 6 個轉成指定動作（accepted，加入隨機，手空著可配通用手勢）；原本中景與胸上省略的沿用省略。坐具之後比照躺姿表面由場景提供；四足跪姿不轉（已有兩個撐地動作）。紀錄 [pose-library-sitting-kneeling-v1](specs/pose-library-sitting-kneeling-v1.md)。
+- 驗證：與 main 比對既有輸出逐字相同，全部隨機只因抽到不同動作而改變；strict audit 相同；`npm test` 1754/1754、Prompt Quality 745/745、lint、build、sync、Python、公開資產、diff-check；瀏覽器 1440×1000／390×900。
+
+## 蹲姿動作庫 v1（2026-10-21，已推送 main，3681356）
 
 - 4 組已確認的蹲姿做成指定動作（accepted，加入隨機）；7 組蹲姿手部改成蹲姿專屬手勢（刪肩膀描述、改白話用字），蹲姿只配這 7 句。寬膝在中景與胸上省略動作句。選擇器新增「蹲姿」分類。草案與紀錄 [pose-library-squatting-v1](specs/pose-library-squatting-v1.md)。
 - 驗證：與 main 比對既有輸出逐字相同，全部隨機只因抽到不同動作而改變；strict audit 相同；`npm test` 1752/1752、Prompt Quality 745/745、lint、build、sync、Python、公開資產、diff-check；瀏覽器 1440×1000／390×900。

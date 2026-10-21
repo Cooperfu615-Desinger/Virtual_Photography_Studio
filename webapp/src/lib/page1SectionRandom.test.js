@@ -219,7 +219,8 @@ test('single pose panel sets the pose, gesture and gaze menus to random and leav
   const drawn = SPECIFIED_ACTION_RANDOM_POOL.find((action) => action.id === prompt.selection.specifiedActionId);
   assert.ok(drawn, 'the selection names one accepted library action');
   assert.notEqual(drawn.family, 'lying', 'lying waits for scene surfaces (P3)');
-  assert.ok(prompt.grokPrompt.includes(drawn.en.slice(0, 40)), 'the drawn action is rendered at full body');
+  // Compare the first clause: a drawn free-hand action may carry a random gesture after it.
+  assert.ok(prompt.grokPrompt.includes(drawn.clauses[0].en), 'the drawn action is rendered at full body');
   // An action that owns the head keeps the raw head lock for a later cancel.
   for (const key of RETIRED_POSE_COMPOSER_KEYS.filter((key) => !(key === 'poseHeadId' && drawn.ownsHead))) {
     assert.notEqual(prompt.selection[key], 'random', `${key} should not expose the random sentinel`);

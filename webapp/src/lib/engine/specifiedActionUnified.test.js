@@ -15,9 +15,9 @@ const gen = locks => generatePrompts(1, locks, [], { random: createSeededRandom(
 const transition = (previousLocks, patch) => transitionPage1Locks({ previousLocks, candidateLocks: {...previousLocks, ...patch}, lockControls: controls });
 const main = p => [p.grokPrompt, p.zImagePrompt, p.midjourneyPrompt, p.nanoBananaPrompt];
 // 2026-10-19 v2 P1 appends the lying library v1 (3 actions) after the 11 v1 actions.
-// 14 earlier actions + 20 standing (2026-10-20) + 4 squatting (2026-10-21) library v1 actions.
-test('all thirty-eight actions can be selected without a matching free base', () => {
-  assert.equal(SPECIFIED_ACTION_CONCRETE_OPTIONS.length, 38);
+// 14 earlier actions + 20 standing (2026-10-20) + 4 squatting + 16 sitting/kneeling (2026-10-21) library v1 actions.
+test('all fifty-four actions can be selected without a matching free base', () => {
+  assert.equal(SPECIFIED_ACTION_CONCRETE_OPTIONS.length, 54);
   for (const action of SPECIFIED_ACTION_CONCRETE_OPTIONS) for (const poseBaseId of ['none', 'random', 'standing']) {
     const raw = {...free(), poseBaseId, specifiedActionId: action.id};
     assert.equal(getSpecifiedAction(raw)?.id, action.id);

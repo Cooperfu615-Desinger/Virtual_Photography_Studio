@@ -29,8 +29,8 @@ test('the menu lists 全無, 隨機, 任意 and then the library; 隨機 draws o
   assert.deepEqual(SPECIFIED_ACTION_OPTIONS.slice(0, 3).map(o => [o.id, o.zh]), [['none', '全無'], ['random', '隨機'], ['any', '任意']]);
   assert.deepEqual(SPECIFIED_ACTION_RANDOM_POOL.map(a => a.id),
     SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(a => a.validation.status === 'accepted' && a.family !== 'lying' && !a.meta.requiresWardrobeRole).map(a => a.id));
-  // 9 earlier accepted actions + 9 standing batch-1 (2026-10-20) + 4 squatting (2026-10-21).
-  assert.equal(SPECIFIED_ACTION_RANDOM_POOL.length, 22);
+  // 9 earlier accepted actions + 9 standing batch-1 (2026-10-20) + 4 squatting + 16 sitting/kneeling (2026-10-21).
+  assert.equal(SPECIFIED_ACTION_RANDOM_POOL.length, 38);
   assert.equal(SPECIFIED_ACTION_ANY.en, SPECIFIED_ACTION_ANY_EN);
   assert.equal(controls.find(c => c.key === 'specifiedActionId').defaultValue, 'none', 'Cooper: the untouched menu is 全無');
 });
@@ -63,7 +63,7 @@ test('隨機 renders the drawn action, names it in the selection and varies acro
     const prompt = generate({ specifiedActionId: 'random' }, `pose-menu-random-${index}`);
     const drawn = SPECIFIED_ACTION_RANDOM_POOL.find(a => a.id === prompt.selection.specifiedActionId);
     assert.ok(drawn, `${index}: ${prompt.selection.specifiedActionId}`);
-    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.nanoBananaPrompt]) assert.ok(text.includes(drawn.en.slice(0, 40)), `${index}: ${drawn.id}`);
+    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.nanoBananaPrompt]) assert.ok(text.includes(drawn.clauses[0].en), `${index}: ${drawn.id}`);
     seen.add(drawn.id);
   }
   assert.ok(seen.size >= 5, `expected variety, saw ${seen.size}`);

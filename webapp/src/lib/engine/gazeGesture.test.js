@@ -230,3 +230,31 @@ test('隨機 squat gestures skip face-touching hands under a back view', () => {
   }
   assert.ok(Array.from({ length: 40 }, (_, index) => resolveGesture('random', SQUAT('natural'), {}, () => index / 40).id).some(id => face.includes(id)));
 });
+
+// Sitting and kneeling library v1 (Docs/specs/pose-library-sitting-kneeling-v1.md, Cooper 2026-10-21).
+const SITTING = ['natural', 'forward-lean', 'legs-extended', 'cross-legged', 'knees-raised', 'slouched', 'leg-cross', 'one-knee-up', 'legs-to-side', 'open-confident'];
+const KNEELING = ['seiza', 'wide', 'forward-lean', 'upright-poised', 'side-sit', 'one-knee-forward'];
+
+test('16 sitting and kneeling actions: accepted, hands free with the general gestures, no all-fours copy', () => {
+  const added = [...SITTING.map(key => action(`specified-sitting-${key}`)), ...KNEELING.map(key => action(`specified-kneeling-${key}`))];
+  for (const a of added) {
+    assert.ok(a, 'exists');
+    assert.equal(a.validation.status, 'accepted', a.id);
+    assert.equal(a.hands.mode, 'free', a.id);
+    assert.equal(applicableGestureOptions(a).length, 8, a.id);
+    assert.doesNotMatch(a.en, /arrangement/, a.id);
+  }
+  assert.equal(action('specified-kneeling-all-fours'), undefined, 'all-fours stays with the two support-hand actions');
+});
+
+test('sitting and kneeling crops keep reviewed fragments or omit the action where the composer omitted it', () => {
+  const medium = id => generate({ specifiedActionId: id, framingId: MEDIUM });
+  assert.match(medium('specified-sitting-slouched').grokPrompt, /Her upper body slouches loosely and heavily with dropped shoulders and a relaxed torso\./);
+  assert.match(medium('specified-kneeling-forward-lean').grokPrompt, /Her torso leans forward from the hips\./);
+  for (const id of ['specified-sitting-cross-legged', 'specified-kneeling-seiza']) {
+    assert.doesNotMatch(medium(id).grokPrompt, /\nPose and Composition:\n/, id);
+    assert.match(generate({ specifiedActionId: id }).grokPrompt, /\nPose and Composition:\nShe (sits|kneels)/, id);
+  }
+  const gesture = generate({ specifiedActionId: 'specified-sitting-cross-legged', gestureId: 'gesture-collarbone' });
+  assert.match(gesture.grokPrompt, /She sits cross-legged, one hand resting on her collarbone and the other relaxed at her side\./);
+});

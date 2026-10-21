@@ -321,6 +321,58 @@ export const SPECIFIED_ACTION_CONCRETE_OPTIONS = Object.freeze([
     validation: { status: 'accepted', evidence: 'Cooper 2026-10-21: reviewed squatting-catalog-v2 wording; image round deferred' },
   })),
 
+  // Sitting and kneeling library v1 (Docs/specs/pose-library-sitting-kneeling-v1.md, Cooper
+  // 2026-10-21): the reviewed free-composer sitting and kneeling wording, completed as
+  // sentences; accepted with free hands. Crops keep the reviewed upper-body fragment, or omit
+  // the action where the composer omitted it. No seat is named (seats come later from scenes).
+  ...[
+    ['sitting', 'natural', '自然坐姿', '自然放鬆的坐姿。', [clause('core', '', 'She sits in a relaxed, natural posture')],
+      'Her upper body rests in a relaxed seated posture.'],
+    ['sitting', 'forward-lean', '微微前傾', '坐著，上身微微往前傾。', [clause('core', '', 'She sits leaning slightly forward')],
+      'Her upper body leans slightly forward.'],
+    ['sitting', 'legs-extended', '雙腿自然伸展', '坐著，雙腿自然往前伸展。', [clause('core', '', 'She sits'), clause('lower', ' with ', 'both legs naturally extended')]],
+    ['sitting', 'cross-legged', '盤腿坐姿', '盤腿而坐。', [clause('core', '', 'She sits cross-legged')]],
+    ['sitting', 'knees-raised', '雙腿屈起', '坐著，雙腿彎曲、膝蓋抬起，雙腳自然放著。', [clause('core', '', 'She sits'),
+      clause('lower', ' with ', 'both legs bent and her knees raised, her feet resting naturally')]],
+    ['sitting', 'slouched', '隨性癱坐', '隨性地癱坐，身體放鬆沉重，肩膀垂下，軀幹自然陷進座位。', [
+      clause('core', '', 'She sits casually slumped with a loose, heavy body'),
+      clause('upper', ', ', 'her shoulders dropped and her torso settling naturally into the seat')],
+      'Her upper body slouches loosely and heavily with dropped shoulders and a relaxed torso.'],
+    ['sitting', 'leg-cross', '翹二郎腿', '坐著翹二郎腿。', [clause('core', '', 'She sits'), clause('lower', ' with ', 'one leg crossed over the other')]],
+    ['sitting', 'one-knee-up', '單腿屈起坐姿', '坐著，一腳屈膝抬起，另一腳放鬆。', [clause('core', '', 'She sits'),
+      clause('lower', ' with ', 'one knee drawn up and the other leg relaxed')]],
+    ['sitting', 'legs-to-side', '雙腿側放坐姿', '坐著，雙腿往同一側斜放，下半身線條柔和不對稱。', [clause('core', '', 'She sits'),
+      clause('lower', ' with ', 'both legs angled to one side in a soft asymmetrical line')]],
+    ['sitting', 'open-confident', '開闊自信坐姿', '開闊穩定的坐姿，膝蓋舒適分開，重心落在髖部，上身放鬆挺直。', [
+      clause('core', '', 'She sits in an open, grounded posture with her weight settled through her hips'),
+      clause('lower', ', ', 'her knees comfortably apart'), clause('upper', '. ', 'Her torso is relaxed and upright')],
+      'Her upper body is open and relaxed, her torso upright and her shoulders at ease.'],
+    ['kneeling', 'seiza', '跪坐', '正座跪坐，臀部坐在腳跟上，雙膝併攏，上身挺直。', [
+      clause('core', '', 'She kneels in a seiza posture with her hips resting on her heels'),
+      clause('lower', ', ', 'her knees together'), clause('upper', ', ', 'her torso upright')]],
+    ['kneeling', 'wide', '分腿跪坐', '雙膝著地、自然分開，小腿往兩側後折，臀部坐在雙腿之間的地面，上身挺直。', [
+      clause('core', '', 'She kneels with both knees grounded and naturally apart, her hips resting on the ground between her legs'),
+      clause('lower', ', ', 'her lower legs folded back on either side'), clause('upper', ', ', 'her torso upright')]],
+    ['kneeling', 'forward-lean', '前傾跪姿', '雙膝著地的高跪姿，臀部離開腳跟，上身從髖部往前傾。', [
+      clause('core', '', 'She kneels high with both knees grounded and her hips lifted clear of her heels'),
+      clause('upper', ', ', 'her upper body inclined forward from the hips')],
+      'Her torso leans forward from the hips.'],
+    ['kneeling', 'upright-poised', '直立端正跪姿', '雙膝著地的直立高跪姿，大腿接近垂直，臀部離開腳跟、位於膝蓋上方，上身挺拔、肩膀放鬆。', [
+      clause('core', '', 'She kneels upright with both knees grounded, her thighs nearly vertical and her hips lifted clear of her heels above her knees'),
+      clause('upper', ', ', 'her torso tall with relaxed shoulders')],
+      'Her upper body is tall and relaxed.'],
+    ['kneeling', 'side-sit', '側坐跪姿', '從跪姿側坐，臀部落在折起雙腿的一側，上身放鬆挺直。', [
+      clause('core', '', 'She kneels in a side-sitting posture with her hips lowered beside her folded legs'),
+      clause('upper', ', ', 'her torso relaxed and upright')]],
+    ['kneeling', 'one-knee-forward', '單膝前跨跪姿', '單膝著地，另一腳往前跨、前膝彎曲。', [
+      clause('core', '', 'She half-kneels with one knee grounded'),
+      clause('lower', ', ', 'the other leg stepped forward with the front knee bent')]],
+  ].map(([baseId, key, zh, descriptionZh, clauses, upperBodyEn = '']) => createAction({
+    id: `specified-${baseId}-${key}`, zh, baseId, descriptionZh, clauses, handsMode: 'free',
+    upperBodyEn, upperBodyOmitted: !upperBodyEn,
+    validation: { status: 'accepted', evidence: 'Cooper 2026-10-21: reviewed free-composer wording; image round deferred' },
+  })),
+
 ]);
 
 // expression-pose-v2 §3.1 menu choices (Cooper 2026-10-19): 隨機 draws an accepted
