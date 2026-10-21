@@ -84,6 +84,26 @@ export const GESTURE_OPTIONS = freeze([
   gesture('gesture-supine-forearm-forehead', '一手放在額頭', 'one forearm resting across her forehead', 'lying-supine'),
   gesture('gesture-side-head-on-arm', '頭枕在彎曲的手臂上', 'her head resting on her bent lower arm', 'lying-side'),
   gesture('gesture-side-hand-hip', '上手放在腰側', 'her upper hand resting on her hip', 'lying-side'),
+  // Squatting library v1 (Docs/specs/pose-library-squatting-v1.md §3–§4, Cooper 2026-10-21):
+  // the seven reviewed squat hands, shoulder wording left to the body (O2) and plainer
+  // wording (O3, O4). Medium crops use the reviewed upper-body fragment; chest-up omits them.
+  ...[
+    ['elbows-forward', '雙肘靠膝自然垂手', 'both elbows resting lightly on her thighs near the knees, forearms falling naturally forward and downward beyond the knees, with loose wrists and relaxed fingers',
+      'both forearms angled naturally downward with relaxed hands'],
+    ['hands-outer-legs', '雙手沿腿側自然下垂', 'both arms hanging naturally along the outer sides of the legs with softly bent elbows, hands relaxed beside the lower shins or outer ankles, with loose wrists and fingers',
+      'both arms relaxed along the sides of the body with softly bent elbows'],
+    ['one-hand-cheek', '單手托腮一手自然垂落', 'one elbow resting lightly on her thigh near the knee with the raised palm gently cradling the cheek, the other elbow resting near the opposite knee with that forearm falling forward and downward, its wrist and fingers relaxed',
+      'one raised palm gently cradling the cheek, the other forearm angled downward with a relaxed hand', true],
+    ['both-hands-cheeks', '雙手托腮', 'both elbows resting lightly on her thighs near the knees, forearms raised with both palms gently cradling the cheeks, fingers relaxed along the cheeks and jaw',
+      'both palms gently cradling the cheeks with fingers relaxed along the cheeks and jaw', true],
+    ['one-hand-v-sign', '單手在臉旁比 V', 'one elbow resting lightly on her thigh near the knee with the raised hand forming a relaxed V sign beside the cheek and clear of the eyes, the other elbow resting near the opposite knee with that forearm falling forward and downward, its wrist and fingers relaxed',
+      'one raised hand forming a relaxed V sign beside the cheek and clear of the eyes, the other forearm angled downward with a relaxed hand', true],
+    ['forearms-outward', '雙臂搭膝外展垂手', 'both arms spreading naturally to the sides with softly bent elbows, each forearm near the wrist resting lightly across the knee on that side, hands hanging beyond the outer knee edges with loose wrists and fingers',
+      'both arms spreading naturally to the sides with softly bent elbows, loose wrists and fingers'],
+    ['elbows-center', '雙肘靠膝中央垂手', 'both elbows resting lightly on her thighs near the knees, forearms slanting inward and downward between the knees, hands hanging loosely near each other at the center in front of the body with fingers pointing down',
+      'both forearms slanting inward and downward, hands relaxed near each other in front of the body'],
+  ].map(([key, zh, en, upperBodyEn, requiresFaceVisibility = false]) => gesture(`gesture-squat-${key}`, zh, en, 'squatting',
+    { upperBodyEn, omitInChestUp: true, ...(requiresFaceVisibility ? { requiresFaceVisibility } : {}) })),
 ]);
 
 const CONCRETE_GESTURES = GESTURE_OPTIONS.filter(option => option.scope);
@@ -95,7 +115,9 @@ export function actionAcceptsGesture(action) {
 
 export function gestureFitsAction(option, action) {
   if (!actionAcceptsGesture(action) || !option?.scope) return false;
-  return isLyingOrientation(action.orientationId) ? option.scope === action.orientationId : option.scope === 'general';
+  if (isLyingOrientation(action.orientationId)) return option.scope === action.orientationId;
+  // Squats use their own reviewed hands; the general list was written for standing.
+  return option.scope === (action.family === 'squatting' ? 'squatting' : 'general');
 }
 
 export function applicableGestureOptions(action) {
@@ -103,12 +125,14 @@ export function applicableGestureOptions(action) {
 }
 
 /** A concrete choice is honored when it fits the action; 隨機 draws (one random()
- * call) only gestures whose wardrobe requirement is positively present. */
-export function resolveGesture(gestureId, action, { wardrobeSignals = {} } = {}, random = Math.random) {
+ * call) only gestures whose wardrobe requirement is positively present, and no
+ * face-touching gesture under a back-view orbit. */
+export function resolveGesture(gestureId, action, { wardrobeSignals = {}, orbit = null } = {}, random = Math.random) {
   if (!gestureId || gestureId === 'none' || !actionAcceptsGesture(action)) return null;
   if (gestureId === 'random') {
     const pool = applicableGestureOptions(action)
       .filter(option => option.meta.randomEligible !== false)
+      .filter(option => !(option.meta.requiresFaceVisibility && isBackView(orbit)))
       .filter(option => !option.meta.requiresWardrobeRole || wardrobeSignals[option.meta.requiresWardrobeRole] === 'present');
     return pool.length ? pool[Math.min(pool.length - 1, Math.floor(random() * pool.length))] : null;
   }
@@ -117,14 +141,24 @@ export function resolveGesture(gestureId, action, { wardrobeSignals = {} } = {},
 }
 
 /** The action English with the gesture added as an upper-body clause after its
- * last upper clause, so full-body and upper-body crops both keep it. */
-export function actionTextWithGesture(action, option) {
-  if (!option) return { en: action.en, upperBodyEn: action.upperBodyEn };
+ * last upper clause, so full-body and upper-body crops both keep it. A gesture may
+ * carry its own medium-crop fragment and drop out of chest-up; an action may omit
+ * its own upper-body text (squatting v1 O6), leaving only the gesture. */
+export function actionTextWithGesture(action, option, { chestUp = false } = {}) {
+  const ownUpper = action.meta?.upperBodyOmitted ? '' : action.upperBodyEn;
+  if (!option) return { en: action.en, upperBodyEn: ownUpper };
   const clauses = [...action.clauses];
   const lastUpper = clauses.map(item => item.region).lastIndexOf('upper');
   const at = lastUpper >= 0 ? lastUpper + 1 : clauses.map(item => item.region).lastIndexOf('core') + 1;
   clauses.splice(at, 0, { region: 'upper', join: ', ', en: option.en });
-  return { en: joinSpecifiedActionClauses(clauses), upperBodyEn: joinSpecifiedActionClauses(clauses, ['core', 'upper']) };
+  const en = joinSpecifiedActionClauses(clauses);
+  const fragment = chestUp && option.meta?.omitInChestUp ? '' : option.meta?.upperBodyEn || option.en;
+  if (!fragment) return { en, upperBodyEn: ownUpper };
+  if (!ownUpper) return { en, upperBodyEn: `She has ${fragment}.` };
+  if (fragment === option.en && ownUpper === joinSpecifiedActionClauses(action.clauses, ['core', 'upper'])) {
+    return { en, upperBodyEn: joinSpecifiedActionClauses(clauses, ['core', 'upper']) };
+  }
+  return { en, upperBodyEn: `${ownUpper.replace(/\.$/, '')}, ${fragment}.` };
 }
 
 export const CAPTURE_STYLE_OPTIONS = freeze([

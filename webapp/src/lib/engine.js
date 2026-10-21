@@ -5648,7 +5648,7 @@ function buildPoseComposerItem(context) {
     const orientation = getPoseComposerOption(POSE_COMPOSER_ORIENTATION_OPTIONS, specifiedAction.orientationId);
     const head = resolveHead(null, orientation);
     const headText = isActivePoseComposerOption(head) ? `She has ${normalizePoseComposerHeadPhrase(head)}.` : '';
-    const gesture = resolveGesture(context.locks?.gestureId, specifiedAction, { wardrobeSignals: context.wardrobeSignals }, random);
+    const gesture = resolveGesture(context.locks?.gestureId, specifiedAction, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random);
     if (context.poseResolution) context.poseResolution.gesture = gesture;
     const actionText = actionTextWithGesture(specifiedAction, gesture);
     return {
@@ -6151,7 +6151,8 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
     if (projection.pose?.mode === 'fullCanonical' || projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE) return poseComposer.en;
     const head = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, poseComposer.meta?.poseHeadId);
     const gesture = GESTURE_OPTIONS.find(option => option.scope && option.id === poseComposer.meta?.gestureId) || null;
-    return [withLyingSurface(actionTextWithGesture(specifiedAction, gesture).upperBodyEn, lyingSurfaceFor(specifiedAction, context.location)),
+    const chestUp = projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP;
+    return [withLyingSurface(actionTextWithGesture(specifiedAction, gesture, { chestUp }).upperBodyEn, lyingSurfaceFor(specifiedAction, context.location)),
       isActivePoseComposerOption(head) ? `She has ${normalizePoseComposerHeadPhrase(head)}.` : '',
     ].filter(Boolean).join(' ');
   }

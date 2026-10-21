@@ -37,7 +37,12 @@ Last updated: 2026-10-20
 - 使用獨立工作目錄、分支 `codex/moss-optional-lora`，原工作區及其他參考資料保留。本批沒有付費生成，GUI 的先前成功出圖不代替 DLL API 驗收，私人 LoRA 的 API 可見性、扣額及原圖下載待後續驗證。
 
 
-## 站姿動作庫 v1（2026-10-20，本機實作，PR #14）
+## 蹲姿動作庫 v1（2026-10-21，本機實作）
+
+- 4 組已確認的蹲姿做成指定動作（accepted，加入隨機）；7 組蹲姿手部改成蹲姿專屬手勢（刪肩膀描述、改白話用字），蹲姿只配這 7 句。寬膝在中景與胸上省略動作句。選擇器新增「蹲姿」分類。草案與紀錄 [pose-library-squatting-v1](specs/pose-library-squatting-v1.md)。
+- 驗證：與 main 比對既有輸出逐字相同，全部隨機只因抽到不同動作而改變；strict audit 相同；`npm test` 1752/1752、Prompt Quality 745/745、lint、build、sync、Python、公開資產、diff-check；瀏覽器 1440×1000／390×900。
+
+## 站姿動作庫 v1（2026-10-20，已合併 main，PR #14）
 
 - 新增 20 個站姿指定動作：第一批 9 個由舊自由組合站姿改寫（accepted，加入隨機，手空著可搭配手勢）；第二批 11 個依 `Docs/站姿/` 參考圖（pending，可手動選、不進隨機）。通用手勢增為 8 句（新 4 句不進隨機）。選擇器分類「站立動態」改名「站姿」、pending 動作加「未驗收」小標、「隨機」說明更新。出圖實測延後到神情姿態改版完成後統一進行（Cooper）。草案與紀錄 [pose-library-standing-v1](specs/pose-library-standing-v1.md)。
 - 驗證：與 main 比對，代表性、預設隨機、既有動作×景別逐字相同；全部隨機 150 組只因抽到不同動作而改變；strict audit 相同；`npm test` 1748/1748、Prompt Quality 745/745、lint、build、sync、Python、公開資產、diff-check；瀏覽器 1440×1000／390×900。比對工具 `scripts/dump_prompt_outputs.mjs`。

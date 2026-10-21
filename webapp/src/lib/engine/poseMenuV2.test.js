@@ -29,8 +29,8 @@ test('the menu lists 全無, 隨機, 任意 and then the library; 隨機 draws o
   assert.deepEqual(SPECIFIED_ACTION_OPTIONS.slice(0, 3).map(o => [o.id, o.zh]), [['none', '全無'], ['random', '隨機'], ['any', '任意']]);
   assert.deepEqual(SPECIFIED_ACTION_RANDOM_POOL.map(a => a.id),
     SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(a => a.validation.status === 'accepted' && a.family !== 'lying' && !a.meta.requiresWardrobeRole).map(a => a.id));
-  // 9 earlier accepted actions + 9 standing batch-1 actions (Cooper 2026-10-20).
-  assert.equal(SPECIFIED_ACTION_RANDOM_POOL.length, 18);
+  // 9 earlier accepted actions + 9 standing batch-1 (2026-10-20) + 4 squatting (2026-10-21).
+  assert.equal(SPECIFIED_ACTION_RANDOM_POOL.length, 22);
   assert.equal(SPECIFIED_ACTION_ANY.en, SPECIFIED_ACTION_ANY_EN);
   assert.equal(controls.find(c => c.key === 'specifiedActionId').defaultValue, 'none', 'Cooper: the untouched menu is 全無');
 });

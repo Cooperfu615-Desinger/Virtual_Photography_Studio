@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { Check, ChevronDown, Copy, Images, X } from 'lucide-react';
 import './specifiedActionPicker.css';
 
-const BASE_LABELS = { all: '全部', standing: '站姿', none: '上身互動', sitting: '坐姿', kneeling: '跪姿', lying: '躺姿' };
+const BASE_LABELS = { all: '全部', standing: '站姿', squatting: '蹲姿', none: '上身互動', sitting: '坐姿', kneeling: '跪姿', lying: '躺姿' };
 const REFERENCE_SHEET = `${import.meta.env.BASE_URL}reference/specified-actions/pose-reference-sheet.jpeg`;
 const REFERENCE_COLUMNS = [0, 261, 506, 754, 1000, 1254];
 const REFERENCE_ROWS = [0, 252, 495, 739, 987, 1254];

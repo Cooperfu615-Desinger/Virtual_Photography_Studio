@@ -72,7 +72,7 @@ test('gestures: only free-hand library actions, scoped by orientation; inserted 
   assert.equal(actionAcceptsGesture(action(HUG_KNEES)), false);
   assert.equal(actionAcceptsGesture(SPECIFIED_ACTION_ANY), false, '任意 leaves the hands to the model');
   assert.deepEqual(applicableGestureOptions(action(PRONE)).map(o => o.zh), ['下巴靠在交疊的雙手上', '雙手托腮', '一手撥頭髮', '雙手輕放在前方']);
-  assert.equal(GESTURE_OPTIONS.filter(o => o.scope).length, 17, '8 general (4 out of 隨機 until the image round) + 9 lying');
+  assert.equal(GESTURE_OPTIONS.filter(o => o.scope).length, 24, '8 general (4 out of 隨機 until the image round) + 9 lying + 7 squatting');
   const chin = GESTURE_OPTIONS.find(o => o.id === 'gesture-prone-chin-hands');
   const text = actionTextWithGesture(action(PRONE), chin);
   assert.match(text.en, /propped on her forearms resting flat in front of her, her chin resting on her stacked hands\. Her hips rest/);
@@ -182,4 +182,51 @@ test('a standing action renders in every main output and crops its lower clause 
   for (const text of main(full)) assert.match(text, /She stands with one hip subtly shifted, her legs naturally crossed\./);
   assert.match(chest(full), /She stands with one hip subtly shifted\./);
   assert.doesNotMatch(chest(full), /legs naturally crossed/);
+});
+
+// Squatting library v1 (Docs/specs/pose-library-squatting-v1.md, Cooper 2026-10-21).
+const SQUAT = id => action(`specified-squatting-${id}`);
+const MEDIUM = option('framingId', '中景鏡頭 (Medium Shot)');
+
+test('the four squats are accepted, hands free, and offer only the seven squat gestures', () => {
+  const squats = ['natural', 'compact', 'forward-lean', 'wide-knee'].map(SQUAT);
+  for (const squat of squats) {
+    assert.equal(squat.validation.status, 'accepted', squat.id);
+    assert.equal(squat.family, 'squatting', squat.id);
+    assert.deepEqual(applicableGestureOptions(squat).map(o => o.zh), ['雙肘靠膝自然垂手', '雙手沿腿側自然下垂', '單手托腮一手自然垂落',
+      '雙手托腮', '單手在臉旁比 V', '雙臂搭膝外展垂手', '雙肘靠膝中央垂手'], squat.id);
+  }
+  for (const option of GESTURE_OPTIONS.filter(o => o.scope === 'squatting')) {
+    assert.doesNotMatch(`${option.en} ${option.meta.upperBodyEn}`, /shoulder|proximal|distal|same-side/, option.zh);
+  }
+  assert.equal(applicableGestureOptions(action('specified-standing-natural')).some(o => o.scope === 'squatting'), false);
+});
+
+test('squat crops: full body keeps everything, medium keeps reviewed fragments, chest-up drops the gesture', () => {
+  const locks = { specifiedActionId: SQUAT('natural').id, gestureId: 'gesture-squat-elbows-forward' };
+  const full = generate(locks);
+  assert.match(full.grokPrompt, /She holds a relaxed low squat .*Her torso inclines gently forward with relaxed shoulders, both elbows resting lightly on her thighs near the knees/);
+  assert.equal(chest(full).includes('Her upper body leans gently forward with relaxed shoulders.'), true);
+  assert.doesNotMatch(chest(full), /forearms|elbows/);
+  const medium = generate({ ...locks, framingId: MEDIUM });
+  assert.match(medium.grokPrompt, /Her upper body leans gently forward with relaxed shoulders, both forearms angled naturally downward with relaxed hands\./);
+  assert.doesNotMatch(medium.grokPrompt, /squat|knees|heels/);
+});
+
+test('the wide-knee squat omits its own upper-body text in medium and chest-up crops (O6 b)', () => {
+  const medium = generate({ specifiedActionId: SQUAT('wide-knee').id, framingId: MEDIUM });
+  assert.doesNotMatch(medium.grokPrompt, /\nPose and Composition:\n/);
+  const withGesture = generate({ specifiedActionId: SQUAT('wide-knee').id, framingId: MEDIUM, gestureId: 'gesture-squat-both-hands-cheeks' });
+  assert.match(withGesture.grokPrompt, /She has both palms gently cradling the cheeks with fingers relaxed along the cheeks and jaw\./);
+  assert.match(generate({ specifiedActionId: SQUAT('wide-knee').id }).grokPrompt, /She holds a relaxed wide-knee low squat/);
+});
+
+test('隨機 squat gestures skip face-touching hands under a back view', () => {
+  const back = controls.find(c => c.key === 'orbitId').options.find(o => o.id === BACK);
+  const face = ['gesture-squat-one-hand-cheek', 'gesture-squat-both-hands-cheeks', 'gesture-squat-one-hand-v-sign'];
+  for (let index = 0; index < 40; index += 1) {
+    const drawn = resolveGesture('random', SQUAT('natural'), { orbit: back }, () => index / 40);
+    assert.ok(drawn && !face.includes(drawn.id), `${index}: ${drawn?.id}`);
+  }
+  assert.ok(Array.from({ length: 40 }, (_, index) => resolveGesture('random', SQUAT('natural'), {}, () => index / 40).id).some(id => face.includes(id)));
 });

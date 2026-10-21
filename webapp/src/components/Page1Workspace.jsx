@@ -923,7 +923,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     if (control.key === 'gestureId') {
       const applicable = new Set(applicableGestureOptions(activeSpecifiedAction).map(o => o.id));
       return { ...control, options: control.options.filter(o => ['none', 'random'].includes(o.id) || applicable.has(o.id) || o.id === locks.gestureId),
-        helpText: applicable.has('gesture-front-pockets') ? '雙手插前口袋需要穿搭有前口袋；隨機只在確定有褲裝時抽到。' : '' };
+        // Squatting v1: a kept choice that this action cannot use is explained, as for gaze.
+        helpText: !['none', 'random'].includes(locks.gestureId) && !applicable.has(locks.gestureId) ? '目前的姿勢不適用這個手勢，暫不寫入；換回適用的姿勢後恢復。'
+          : applicable.has('gesture-front-pockets') ? '雙手插前口袋需要穿搭有前口袋；隨機只在確定有褲裝時抽到。' : '' };
     }
     if (control.key === 'captureStyleId' && isSelfieCaptureStyle(locks.captureStyleId)) {
       return { ...control, helpText: locks.subjectCount !== '1' ? '雙人模式不使用拍攝方式。'
