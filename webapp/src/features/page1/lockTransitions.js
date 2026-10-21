@@ -5,6 +5,7 @@ import {
 } from '../../lib/engine.js';
 import { DUO_ROLE_WARDROBE_KEYS } from './page1Schema.js';
 import { applicableGestureOptions } from '../../lib/engine/gazeGesture.js';
+import { postureConflictsWithGaze } from '../../lib/engine/headPosture.js';
 import { SPECIFIED_ACTION_RANDOM_ID, getSpecifiedAction } from '../../lib/engine/specifiedActions.js';
 import { isNoneSelected } from './page1Selectors.js';
 import { reconcilePage1SingleWardrobeLocks } from './page1WardrobeExclusivity.js';
@@ -128,6 +129,9 @@ export function transitionPage1Locks({
       : action && applicableGestureOptions(action).some(option => option.id === next.gestureId || next.gestureId === 'random');
     if (!fits) next.gestureId = 'none';
   }
+
+  // A lowered gaze and a head posture that lifts the chin contradict each other.
+  if (postureConflictsWithGaze(next.headPostureId, next.gazeId)) next.headPostureId = 'none';
 
   if (next.subjectCount !== '1') {
     next.actionPoseCardId = '';

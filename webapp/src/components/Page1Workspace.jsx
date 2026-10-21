@@ -4,6 +4,7 @@ import { getReferencePersonPreview, hasReferencePersonPreview } from '../lib/ref
 import { prepareBottomRiseControl } from '../lib/engine/bottomRiseCompatibility.js';
 import { prepareHeadDominantAngleControl } from '../lib/engine/headDominantFraming.js';
 import { isLyingAction, lyingSurfaceFor } from '../lib/engine/lyingSurface.js';
+import { postureConflictsWithGaze } from '../lib/engine/headPosture.js';
 import { applicableGestureOptions, availableGazeOptions, isSelfieCaptureStyle } from '../lib/engine/gazeGesture.js';
 import { getSpecifiedAction, getSpecifiedActionEffectiveLocks, specifiedActionOwnsControl, getSpecifiedActionCameraConflict } from '../lib/engine/specifiedActions.js';
 import { prepareAccessoryControl } from '../lib/engine/accessoryPolicy.js';
@@ -901,7 +902,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     if (specifiedActionOwnsControl(activeSpecifiedAction, control.key)) {
       // P5a: only 表情 and 視線 are still rendered among the keys an action can own.
       const label = control.key === 'expressionId' ? activeSpecifiedAction.expressionLabel
-        : control.key === 'gazeId' ? activeSpecifiedAction.headLabel : '由指定動作決定';
+        : ['gazeId', 'headPostureId'].includes(control.key) ? activeSpecifiedAction.headLabel : '由指定動作決定';
       return {
         ...control,
         label: `${control.label}（指定動作接管）`,
@@ -916,6 +917,11 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       const available = new Set(availableGazeOptions({ orientationId: activeSpecifiedAction?.orientationId, orbit: backView ? orbitOption : null }).map(o => o.id));
       return { ...control,
         options: control.options.filter(o => ['none', 'random'].includes(o.id) || available.has(o.id) || o.id === locks.gazeId) };
+    }
+    if (control.key === 'headPostureId') {
+      // A lowered gaze already tips the head down: the two lifting postures are unavailable.
+      return { ...control, options: control.options.map(o => postureConflictsWithGaze(o.id, locks.gazeId)
+        ? { ...o, zh: `${o.zh}（低頭時不適用）`, disabled: true } : o) };
     }
     if (control.key === 'gestureId') {
       // Pose UI v2 (Cooper 2026-10-21): always shown; locked unless a hand-free action is chosen

@@ -8,6 +8,7 @@ export const PAGE1_POSE_SUBPANELS = [
       'specifiedActionId',
       'gestureId',
       'expressionId',
+      'headPostureId',
       'gazeId',
     ],
   },

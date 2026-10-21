@@ -32,6 +32,7 @@ test('page1 pose panels split single and duo settings without legacy pose contro
     'specifiedActionId',
     'gestureId',
     'expressionId',
+    'headPostureId',
     'gazeId',
   ]);
   assert.deepEqual(duoPanel.keys, [

@@ -258,3 +258,54 @@ test('sitting and kneeling crops keep reviewed fragments or omit the action wher
   const gesture = generate({ specifiedActionId: 'specified-sitting-cross-legged', gestureId: 'gesture-collarbone' });
   assert.match(gesture.grokPrompt, /She sits cross-legged, one hand resting on her collarbone and the other relaxed at her side\./);
 });
+
+// Pose UI v2 part 2 (Cooper 2026-10-21): 頭部 is its own group next to 視線.
+const POSTURES = ['head-slight-tilt', 'chin-slightly-raised', 'chin-slightly-lowered', 'head-near-shoulder', 'head-slightly-back'];
+
+test('頭部 offers 全無, 隨機 and five posture options, and is independent of the legacy head lock', () => {
+  const head = controls.find(c => c.key === 'headPostureId');
+  assert.deepEqual(head.options.map(o => o.id), ['none', 'random', ...POSTURES]);
+  assert.equal(controls.find(c => c.key === 'poseHeadId').options.some(o => o.id === 'random'), true, 'legacy poseHeadId 隨機 untouched');
+});
+
+test('a head posture alone writes its own head sentence in every main output and the chest crop', () => {
+  const prompt = generate({ headPostureId: 'chin-slightly-raised' });
+  for (const text of [...main(prompt), chest(prompt)]) assert.match(text, /She has her chin slightly raised\./);
+  assert.equal(prompt.selection.headPostureId, 'chin-slightly-raised');
+  assert.ok(!('poseHeadId' in prompt.selection) || prompt.selection.poseHeadId === 'none' || prompt.selection.poseHeadId === '');
+  const withAction = generate({ specifiedActionId: HUG_KNEES, headPostureId: 'head-slight-tilt' });
+  assert.match(withAction.grokPrompt, /She has her head slightly tilted\./);
+});
+
+test('posture and gaze join into one head sentence; 低頭 drops the two chin-lifting postures', () => {
+  const both = generate({ gazeId: 'gaze-camera', headPostureId: 'chin-slightly-raised' });
+  for (const text of [...main(both), chest(both)]) assert.match(text, /She has her head naturally facing the camera, her chin slightly raised\./);
+  assert.equal(both.selection.gazeId, 'gaze-camera');
+  assert.equal(both.selection.headPostureId, 'chin-slightly-raised');
+  for (const id of ['chin-slightly-raised', 'head-slightly-back']) {
+    assert.doesNotMatch(generate({ gazeId: 'gaze-down', headPostureId: id }).grokPrompt, /chin slightly raised|tilted slightly backward/, id);
+  }
+  assert.match(generate({ gazeId: 'gaze-down', headPostureId: 'chin-slightly-lowered' }).grokPrompt, /three-quarter side angle, her chin slightly lowered/);
+});
+
+test('隨機 頭部 draws one of the five (never a conflicting one), and the Saved Card keeps the resolved posture', () => {
+  const seen = new Set();
+  for (let index = 0; index < 40; index += 1) {
+    const prompt = generate({ headPostureId: 'random' }, `head-random-${index}`);
+    assert.ok(POSTURES.includes(prompt.selection.headPostureId), `${index}`);
+    seen.add(prompt.selection.headPostureId);
+    const restored = buildRestoreLocks(deserializeFavoritePrompt(serializeFavoritePrompt(prompt)).selection, controls);
+    assert.equal(restored.headPostureId, prompt.selection.headPostureId);
+  }
+  assert.ok(seen.size >= 3);
+  for (let index = 0; index < 40; index += 1) {
+    const prompt = generate({ gazeId: 'gaze-down', headPostureId: 'random' }, `head-down-${index}`);
+    assert.ok(!['chin-slightly-raised', 'head-slightly-back'].includes(prompt.selection.headPostureId), `${index}`);
+  }
+});
+
+test('an action that owns the head ignores 頭部; unused 頭部 keeps the old selection shape', () => {
+  const owned = generate({ specifiedActionId: OWNS_HEAD, headPostureId: 'head-near-shoulder' });
+  assert.doesNotMatch(owned.grokPrompt, /head angled close to one shoulder/);
+  assert.ok(!('headPostureId' in generate({}).selection));
+});

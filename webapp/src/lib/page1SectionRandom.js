@@ -10,7 +10,7 @@ import {
 // P4 (Cooper 2026-10-20): gaze replaces the head layer and gestures join; the
 // retired composer layers, props included, reset to 全無. 拍攝方式 is a mode and
 // survives random. Menus whose own 隨機 option is the random value:
-const EXPLICIT_RANDOM_KEYS = new Set(['specifiedActionId', 'lyingCameraId', 'gazeId', 'gestureId']);
+const EXPLICIT_RANDOM_KEYS = new Set(['specifiedActionId', 'lyingCameraId', 'gazeId', 'gestureId', 'headPostureId']);
 
 const RESET_TO_DEFAULT_KEYS = new Set([
   'specialSubjectId',

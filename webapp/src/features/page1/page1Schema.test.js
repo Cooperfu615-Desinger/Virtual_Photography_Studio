@@ -54,8 +54,8 @@ test('Z-Image exact visible text has a dedicated opt-in scene panel', () => {
 });
 
 // expression-pose-v2 P5a (2026-10-20): the single B panel keys replace the free composer.
-test('single pose keys are the action, gesture and gaze; the seven composer layers are retired', () => {
-  assert.deepEqual(SINGLE_POSE_CONTROL_KEYS, ['specifiedActionId', 'gestureId', 'gazeId']);
+test('single pose keys are the action, gesture, head and gaze; the seven composer layers are retired', () => {
+  assert.deepEqual(SINGLE_POSE_CONTROL_KEYS, ['specifiedActionId', 'gestureId', 'headPostureId', 'gazeId']);
   assert.deepEqual(RETIRED_POSE_COMPOSER_KEYS, [
     'poseBaseId', 'poseOrientationId', 'poseArrangementId', 'poseHandId', 'posePropId', 'poseHeadId', 'poseAnchorId',
   ]);

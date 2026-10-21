@@ -250,3 +250,14 @@ test('a gesture that the new pose cannot use is cleared; usable and 隨機 gestu
   assert.equal(random.gestureId, 'random');
   assert.equal(transition(initialLocks({ specifiedActionId: free }), { gestureId: 'random' }).gestureId, 'random');
 });
+
+// Pose UI v2 part 2 (Cooper 2026-10-21): 低頭 and the chin-lifting head postures contradict.
+test('choosing 低頭 clears a chin-lifting head posture; other postures stay', () => {
+  const raised = transition(initialLocks({ specifiedActionId: 'specified-standing-natural' }), { headPostureId: 'chin-slightly-raised' });
+  assert.equal(raised.headPostureId, 'chin-slightly-raised');
+  assert.equal(transition(raised, { gazeId: 'gaze-down' }).headPostureId, 'none');
+  assert.equal(transition(raised, { gazeId: 'gaze-camera' }).headPostureId, 'chin-slightly-raised');
+  const lowered = transition(initialLocks({ specifiedActionId: 'specified-standing-natural' }), { headPostureId: 'chin-slightly-lowered' });
+  assert.equal(transition(lowered, { gazeId: 'gaze-down' }).headPostureId, 'chin-slightly-lowered');
+  assert.equal(transition(raised, { headPostureId: 'head-slightly-back', gazeId: 'gaze-down' }).headPostureId, 'none');
+});

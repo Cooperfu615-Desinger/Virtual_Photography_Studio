@@ -247,7 +247,7 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
       applicableGestureOptions(specifiedAction).some(option => option.id === locks.gestureId)
         ? getControlOptionLabel(controls, 'gestureId', locks.gestureId) : '',
       specifiedAction.ownsHead ? specifiedAction.headLabel
-        : getControlOptionLabel(controls, 'gazeId', locks.gazeId),
+        : [getControlOptionLabel(controls, 'headPostureId', locks.headPostureId), getControlOptionLabel(controls, 'gazeId', locks.gazeId)].filter(Boolean).join(' / '),
     ])
     : buildSummaryText([
       getControlOptionLabel(controls, 'expressionId', locks.expressionId),
@@ -255,6 +255,7 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
       getControlOptionLabel(controls, 'duoPoseId', locks.duoPoseId),
       getControlOptionLabel(controls, 'duoPoseBaseId', locks.duoPoseBaseId),
       // P5a: the retired free-composer layers are always 全無 in workspace state.
+      locks.subjectCount === '1' ? getControlOptionLabel(controls, 'headPostureId', locks.headPostureId) : '',
       locks.subjectCount === '1' ? getControlOptionLabel(controls, 'gazeId', locks.gazeId) : '',
     ]);
   const wardrobeSummary = isSpecialSubjectMode ? '' : buildSummaryText([

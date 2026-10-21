@@ -6,6 +6,7 @@ import { PAGE1_POSE_SUBPANELS } from '../../lib/page1WorkspacePanels.js';
 export const SINGLE_POSE_CONTROL_KEYS = [
   'specifiedActionId',
   'gestureId',
+  'headPostureId',
   'gazeId',
 ];
 

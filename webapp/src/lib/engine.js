@@ -6,6 +6,7 @@ import { extractMidjourneyItemNames, midjourneyItemName, naturalIdentity, natura
 import { midjourneyBodyDescription } from './engine/midjourneyBodyDescriptions.js';
 import { SPECIFIED_ACTION_OPTIONS, getSpecifiedAction, getSpecifiedActionEffectiveLocks, resolveRandomSpecifiedAction, specifiedActionSupportsCamera } from './engine/specifiedActions.js';
 import { LYING_CAMERA_OPTIONS, isLyingAction, lyingSurfaceFor, resolveLyingCamera, withLyingSurface } from './engine/lyingSurface.js';
+import { HEAD_POSTURE_OPTIONS, headPostureById, mergeHeadPosture, resolveHeadPosture } from './engine/headPosture.js';
 import { CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, actionTextWithGesture, applyCaptureStyleLocks, gazeAvoidsBackView, isBackViewOrbit, resolveGaze, resolveGesture } from './engine/gazeGesture.js';
 import { applyDefaultEthnicity, applyDefaultEthnicityToCharacter, resolveDefaultEthnicity } from './engine/defaultEthnicity.js';
 import { renderNanoBananaNarrative } from './engine/nanoBananaPrompt.js';
@@ -1163,6 +1164,7 @@ const LOCK_DEFINITIONS = [
   { key: 'poseAnchorId', label: '接觸 / 支撐', options: POSE_COMPOSER_ANCHOR_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   // expression-pose-v2 P4: gaze replaces the head layer; gestures fill free-hand actions.
   { key: 'gestureId', label: '手勢', options: GESTURE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
+  { key: 'headPostureId', label: '頭部', options: HEAD_POSTURE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'gazeId', label: '視線', options: GAZE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'specialOutfitId', label: '特殊穿搭', category: '特殊穿搭 (Special Outfits)', section: 'wardrobe' },
   { key: 'specialOutfitAId', label: '人物 1 特殊穿搭', category: '特殊穿搭 (Special Outfits)', section: 'wardrobe' },
@@ -5609,10 +5611,18 @@ function buildPoseComposerItem(context) {
     ? null : resolveGaze(context.locks?.gazeId, { orientationId: specifiedAction?.orientationId, orbit: context.orbit }, random);
   if (context.poseResolution) context.poseResolution.gaze = gaze;
   const headLockId = gaze ? gaze.headId || 'none' : context.locks?.poseHeadId;
+  // Pose UI v2 part 2: 頭部 posture joins the gaze (or legacy head) in one head sentence.
+  const posture = context.rawLocks?.captureMode === 'observation' || specifiedAction?.ownsHead
+    ? null : resolveHeadPosture(context.locks?.headPostureId, gaze, random);
+  if (context.poseResolution) context.poseResolution.posture = posture;
+  // headPostureId appears only when a posture is in use, so older structured data keeps its shape.
+  const headIds = head => ({ poseHeadId: head?.meta?.headPostureOnly ? 'none' : head?.id || 'none',
+    ...(head?.meta?.headPostureId ? { headPostureId: head.meta.headPostureId } : {}) });
 
   const requestedHead = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, headLockId);
 
-  const resolveHead = (arrangementForHead = null, orientationForHead = null) => {
+  const resolveHead = (arrangementForHead = null, orientationForHead = null) => mergeHeadPosture(resolveHeadBase(arrangementForHead, orientationForHead), posture);
+  const resolveHeadBase = (arrangementForHead = null, orientationForHead = null) => {
     // Compatibility constrains only the random pool. A concrete user lock is
     // intentional and must remain visible rather than being silently replaced.
     const predicate = isRandomOption(requestedHead)
@@ -5662,7 +5672,7 @@ function buildPoseComposerItem(context) {
         supineGroundOnly: specifiedAction.meta?.supineGroundOnly === true,
         poseBaseId: specifiedAction.baseId, poseOrientationId: specifiedAction.orientationId,
         poseArrangementId: 'none', poseHandId: 'none', posePropId: 'none',
-        poseHeadId: head?.id || 'none', poseAnchorId: 'none',
+        ...headIds(head), poseAnchorId: 'none',
         gestureId: gesture?.id || 'none',
       },
     };
@@ -5707,7 +5717,7 @@ function buildPoseComposerItem(context) {
         poseArrangementId: 'none',
         poseHandId: handPose?.id || 'none',
         posePropId: propAction?.id || 'none',
-        poseHeadId: head?.id || 'none',
+        ...headIds(head),
         poseAnchorId: 'none',
       },
     };
@@ -5819,7 +5829,7 @@ function buildPoseComposerItem(context) {
       poseArrangementId: arrangement?.id || 'none',
       poseHandId: handPose?.id || 'none',
       posePropId: propAction?.id || 'none',
-      poseHeadId: head?.id || 'none',
+      ...headIds(head),
       poseAnchorId: anchor?.id || 'none',
     },
   };
@@ -6141,6 +6151,11 @@ function buildChestUpPoseComposerSentence({ orientation, arrangement, handPose, 
   });
 }
 
+/** The head option a composed pose recorded: its gaze or legacy head, joined with any 頭部 posture. */
+function headOptionFromMeta(meta) {
+  return mergeHeadPosture(getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, meta?.poseHeadId), headPostureById(meta?.headPostureId));
+}
+
 function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = false, omitHand = false, omitProp = false } = {}) {
   if (!poseComposer || isNoneLikeItem(poseComposer)) return '';
   const projection = getCompositionVisibilityProjection(context);
@@ -6149,7 +6164,7 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
   if (specifiedAction) {
     if (projection.pose?.mode === 'omit') return specifiedAction.faceEn || (specifiedAction.meta?.supineGroundOnly ? 'She is lying on her back on the ground.' : '');
     if (projection.pose?.mode === 'fullCanonical' || projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE) return poseComposer.en;
-    const head = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, poseComposer.meta?.poseHeadId);
+    const head = headOptionFromMeta(poseComposer.meta);
     const gesture = GESTURE_OPTIONS.find(option => option.scope && option.id === poseComposer.meta?.gestureId) || null;
     const chestUp = projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP;
     return [withLyingSurface(actionTextWithGesture(specifiedAction, gesture, { chestUp }).upperBodyEn, lyingSurfaceFor(specifiedAction, context.location)),
@@ -6159,7 +6174,7 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
   if (context.fixedSetPosition?.carriagePose || context.fixedSetPosition?.stationPose) {
     if (projection.pose?.mode === 'omit') return '';
     const position = context.fixedSetPosition;
-    const head = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, poseComposer.meta?.poseHeadId);
+    const head = headOptionFromMeta(poseComposer.meta);
     return [projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP ? position.chestEn : position.en,
       isActivePoseComposerOption(head) && !isRandomOption(head) ? `She has ${normalizePoseComposerHeadPhrase(head)}.` : '',
     ].filter(Boolean).join(' ');
@@ -6177,7 +6192,8 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
   const orientation = activeOption(POSE_COMPOSER_ORIENTATION_OPTIONS, poseComposer.meta?.poseOrientationId);
   const handPose = omitHand ? null : activeOption(POSE_COMPOSER_HAND_OPTIONS, poseComposer.meta?.poseHandId);
   const propAction = omitProp ? null : activeOption(POSE_COMPOSER_PROP_OPTIONS, poseComposer.meta?.posePropId);
-  const head = activeOption(POSE_COMPOSER_HEAD_OPTIONS, poseComposer.meta?.poseHeadId);
+  const mergedHead = headOptionFromMeta(poseComposer.meta);
+  const head = isActivePoseComposerOption(mergedHead) ? mergedHead : null;
   const anchor = omitAnchor ? null : activeOption(POSE_COMPOSER_ANCHOR_OPTIONS, poseComposer.meta?.poseAnchorId);
   const bucket = projection.bucket;
   const isSupineSurfaceLed = projection.pose?.supineSurfaceMode === 'fullSource'
@@ -16405,6 +16421,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     poseHandId: characterSlots.poseComposer?.meta?.poseHandId || 'none',
     posePropId: characterSlots.poseComposer?.meta?.posePropId || 'none',
     poseHeadId: characterSlots.poseComposer?.meta?.poseHeadId || 'none',
+    headPostureId: characterSlots.poseComposer?.meta?.headPostureId || 'none',
     poseAnchorId: characterSlots.poseComposer?.meta?.poseAnchorId || 'none',
     topId: wardrobeSlots.top?.id || '',
     topAId: wardrobeSlots.topA?.id?.replace(/:a$/, '') || '',
@@ -16544,10 +16561,11 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
   const { gaze, gesture } = context.poseResolution || {};
   resolvedSelection.gazeId = gaze ? gaze.id : context.rawLocks.gazeId || 'none';
   resolvedSelection.gestureId = gesture ? gesture.id : context.rawLocks.gestureId || 'none';
+  resolvedSelection.headPostureId = context.poseResolution?.posture?.id || context.rawLocks.headPostureId || 'none';
   resolvedSelection.captureStyleId = context.rawLocks.captureStyleId || 'standard';
   const snapshot = createSelectionSnapshot(LOCK_DEFINITIONS, resolvedSelection);
   if (!snapshot.lyingCameraId || snapshot.lyingCameraId === 'none') delete snapshot.lyingCameraId;
-  for (const [key, unused] of [['gazeId', 'none'], ['gestureId', 'none'], ['captureStyleId', 'standard']]) {
+  for (const [key, unused] of [['gazeId', 'none'], ['gestureId', 'none'], ['headPostureId', 'none'], ['captureStyleId', 'standard']]) {
     if (!snapshot[key] || snapshot[key] === unused) delete snapshot[key];
   }
   if (!storedAction) {
