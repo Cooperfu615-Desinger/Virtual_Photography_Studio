@@ -194,6 +194,18 @@
   font-size: 13px;
 }
 
+.specified-action-pending {
+  flex: none;
+  margin-left: auto;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--warning-soft);
+  color: var(--warning);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 .specified-action-selected {
   border-color: var(--accent);
   background: var(--surface-selected);

@@ -70,6 +70,11 @@ export const GESTURE_OPTIONS = freeze([
   gesture('gesture-collarbone', '一手放鎖骨', 'one hand resting on her collarbone and the other relaxed at her side', 'general'),
   gesture('gesture-tuck-hair', '撥頭髮到耳後', 'one hand lightly tucking a strand of hair behind her ear', 'general'),
   gesture('gesture-front-pockets', '雙手插前口袋', 'both hands slipped into her front pockets', 'general', { requiresWardrobeRole: 'pants' }),
+  // Standing library v1 §7 (Cooper 2026-10-20): selectable now, out of 隨機 until the image round.
+  gesture('gesture-hand-on-head', '一手扶頭', 'one hand resting on top of her head', 'general', { randomEligible: false }),
+  gesture('gesture-hands-behind-head', '雙手抱頭後', 'both hands raised to the back of her head, elbows spread out', 'general', { randomEligible: false }),
+  gesture('gesture-hands-behind-back', '雙手背後', 'both hands clasped behind her back', 'general', { randomEligible: false }),
+  gesture('gesture-arms-overhead', '雙臂上舉', 'both arms raised overhead', 'general', { randomEligible: false }),
   gesture('gesture-prone-chin-hands', '下巴靠在交疊的雙手上', 'her chin resting on her stacked hands', 'lying-prone'),
   gesture('gesture-prone-cheeks-cupped', '雙手托腮', 'her cheeks cupped in both hands', 'lying-prone'),
   gesture('gesture-prone-tuck-hair', '一手撥頭髮', 'one hand lightly tucking her hair behind her ear', 'lying-prone'),
@@ -103,6 +108,7 @@ export function resolveGesture(gestureId, action, { wardrobeSignals = {} } = {},
   if (!gestureId || gestureId === 'none' || !actionAcceptsGesture(action)) return null;
   if (gestureId === 'random') {
     const pool = applicableGestureOptions(action)
+      .filter(option => option.meta.randomEligible !== false)
       .filter(option => !option.meta.requiresWardrobeRole || wardrobeSignals[option.meta.requiresWardrobeRole] === 'present');
     return pool.length ? pool[Math.min(pool.length - 1, Math.floor(random() * pool.length))] : null;
   }

@@ -72,7 +72,7 @@ test('gestures: only free-hand library actions, scoped by orientation; inserted 
   assert.equal(actionAcceptsGesture(action(HUG_KNEES)), false);
   assert.equal(actionAcceptsGesture(SPECIFIED_ACTION_ANY), false, '任意 leaves the hands to the model');
   assert.deepEqual(applicableGestureOptions(action(PRONE)).map(o => o.zh), ['下巴靠在交疊的雙手上', '雙手托腮', '一手撥頭髮', '雙手輕放在前方']);
-  assert.equal(GESTURE_OPTIONS.filter(o => o.scope).length, 13, '4 general + 9 lying (Cooper-approved lists)');
+  assert.equal(GESTURE_OPTIONS.filter(o => o.scope).length, 17, '8 general (4 out of 隨機 until the image round) + 9 lying');
   const chin = GESTURE_OPTIONS.find(o => o.id === 'gesture-prone-chin-hands');
   const text = actionTextWithGesture(action(PRONE), chin);
   assert.match(text.en, /propped on her forearms resting flat in front of her, her chin resting on her stacked hands\. Her hips rest/);
@@ -150,4 +150,36 @@ test('Cooper option B: an explicit non-回眸 gaze keeps a random orbit off back
   assert.doesNotMatch(locked.grokPrompt, /naturally facing the camera/);
   const backDrawn = Array.from({ length: 60 }, (_, index) => generate({ gazeId: 'gaze-back' }, `gaze-back-orbit-${index}`).selection.orbitId);
   assert.ok(backDrawn.includes(BACK) || backDrawn.some(id => /後|背/.test(id)), '回眸 leaves back views in the random orbit pool');
+});
+
+// Standing library v1 (Docs/specs/pose-library-standing-v1.md, Cooper 2026-10-20).
+test('standing batch 1 is accepted with free hands; batch 2 is pending and out of 隨機', () => {
+  const standing = SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(a => a.id.startsWith('specified-standing-'));
+  assert.equal(standing.length, 20);
+  const accepted = standing.filter(a => a.validation.status === 'accepted');
+  assert.equal(accepted.length, 9);
+  for (const a of accepted) assert.equal(a.hands.mode, 'free', a.id);
+  for (const a of standing.filter(a => a.validation.status === 'pending')) assert.equal(a.hands.mode, 'fixed', a.id);
+  for (const a of standing) assert.equal(a.family, 'standing', a.id);
+  const pockets = standing.filter(a => a.meta.requiresWardrobeRole === 'pants').map(a => a.zh);
+  assert.deepEqual(pockets, ['一手扶頭・一手插口袋', '上身前傾・雙手插口袋・一腳前踏']);
+});
+
+test('a free-hand standing action offers 8 general gestures; the 4 new ones never come from 隨機', () => {
+  const natural = action('specified-standing-natural');
+  assert.equal(applicableGestureOptions(natural).length, 8);
+  const newIds = ['gesture-hand-on-head', 'gesture-hands-behind-head', 'gesture-hands-behind-back', 'gesture-arms-overhead'];
+  for (let index = 0; index < 40; index += 1) {
+    const drawn = resolveGesture('random', natural, { wardrobeSignals: { pants: 'present' } }, () => index / 40);
+    assert.ok(drawn && !newIds.includes(drawn.id), `${index}: ${drawn?.id}`);
+  }
+  const chosen = generate({ specifiedActionId: 'specified-standing-natural', gestureId: 'gesture-hands-behind-back' });
+  for (const text of [...main(chosen), chest(chosen)]) assert.match(text, /She stands in a relaxed neutral posture, both hands clasped behind her back\./);
+});
+
+test('a standing action renders in every main output and crops its lower clause above the knees', () => {
+  const full = generate({ specifiedActionId: 'specified-standing-crossed-legs' });
+  for (const text of main(full)) assert.match(text, /She stands with one hip subtly shifted, her legs naturally crossed\./);
+  assert.match(chest(full), /She stands with one hip subtly shifted\./);
+  assert.doesNotMatch(chest(full), /legs naturally crossed/);
 });

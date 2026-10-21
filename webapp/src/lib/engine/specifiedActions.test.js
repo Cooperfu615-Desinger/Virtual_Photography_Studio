@@ -19,13 +19,14 @@ const fixtures = [
 ];
 
 test('manual catalog pins eight reviewed actions, their base and reference provenance', () => {
-  // 全無 + 隨機 + 任意 menu choices (v2 P2) + 11 v1 actions + 3 lying library v1 actions (v2 P1).
-  assert.equal(SPECIFIED_ACTION_OPTIONS.length, 17);
+  // 全無 + 隨機 + 任意 menu choices (v2 P2) + 11 v1 actions + 3 lying library v1 actions (v2 P1)
+  // + 20 standing library v1 actions (2026-10-20).
+  assert.equal(SPECIFIED_ACTION_OPTIONS.length, 37);
   assert.equal(SPECIFIED_ACTION_OPTIONS[0].id, 'none');
   assert.equal(SPECIFIED_ACTION_OPTIONS[0].en, '');
   assert.deepEqual(SPECIFIED_ACTION_OPTIONS.slice(1, 3).map((option) => option.id), ['random', 'any']);
-  assert.equal(SPECIFIED_ACTION_CONCRETE_OPTIONS.length, 14);
-  assert.equal(new Set(SPECIFIED_ACTION_OPTIONS.map((option) => option.id)).size, 17);
+  assert.equal(SPECIFIED_ACTION_CONCRETE_OPTIONS.length, 34);
+  assert.equal(new Set(SPECIFIED_ACTION_OPTIONS.map((option) => option.id)).size, 37);
   assert.ok(!SPECIFIED_ACTION_CONCRETE_OPTIONS.some((option) => ['random', 'any'].includes(option.id)));
   for (const [id, baseId, orientationId, referenceNumber, sources] of fixtures) {
     const action = SPECIFIED_ACTION_CONCRETE_OPTIONS.find((option) => option.id === id);

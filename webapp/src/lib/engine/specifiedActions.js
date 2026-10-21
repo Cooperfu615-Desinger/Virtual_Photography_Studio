@@ -23,13 +23,14 @@ export function joinSpecifiedActionClauses(clauses, regions = SPECIFIED_ACTION_R
 
 function createAction({ id, zh, baseId, orientationId = 'none', clauses, upperBodyEn,
   descriptionZh, referenceNumber, supineGroundOnly = false, legacyCardId = '', ownsExpression = false, ownsHead = false, expressionLabel = '', headLabel = '', faceEn = '', supportSurface = 'ground',
-  family = baseId && baseId !== 'none' ? baseId : 'free', handsMode = 'fixed', validation = { status: 'accepted', evidence: '' } }) {
+  family = baseId && baseId !== 'none' ? baseId : 'free', handsMode = 'fixed', validation = { status: 'accepted', evidence: '' }, requiresWardrobeRole = '' }) {
   const en = joinSpecifiedActionClauses(clauses);
   return deepFreeze({ id, zh, baseId, orientationId, en, upperBodyEn, descriptionZh, referenceNumber, legacyCardId, ownsExpression, ownsHead, expressionLabel, headLabel, faceEn,
     family, clauses, hands: { mode: handsMode }, scene: { support: supportSurface || 'none' }, validation,
     meta: {
       tags: ['specified_action'],
       supportSurface,
+      ...(requiresWardrobeRole ? { requiresWardrobeRole } : {}),
       randomEligible: false,
       supineGroundOnly,
       projectionByBucket: {
@@ -221,6 +222,75 @@ export const SPECIFIED_ACTION_CONCRETE_OPTIONS = Object.freeze([
     validation: { status: 'pending', evidence: 'Z-Image drew a supine raised knee; rewrite pending (results.md §4)' },
   }),
 
+  // Standing library v1 (Docs/specs/pose-library-standing-v1.md). Batch 1 (§3) keeps the
+  // reviewed free-composer standing wording and is accepted without an image round
+  // (Cooper 2026-10-20: image tests wait until the expression-pose revision is done);
+  // batch 2 (§6, reference images in Docs/站姿/) stays pending until that round.
+  ...[
+    ['natural', '自然站姿', '自然放鬆的中性站姿。', [clause('core', '', 'She stands in a relaxed neutral posture')]],
+    ['one-leg-weight', '單腳重心', '放鬆站立，重心放在一腳，身體自然不對稱。', [clause('core', '', 'She stands in a relaxed posture with her weight shifted onto one leg and a natural asymmetrical balance')]],
+    ['crossed-legs', '交叉腿站姿', '雙腿自然交叉，一側髖部微微偏移。', [clause('core', '', 'She stands with one hip subtly shifted'), clause('lower', ', ', 'her legs naturally crossed')]],
+    ['narrow-side', '側身窄站姿', '側身站立，雙腳靠攏，身形修長。', [clause('core', '', 'She stands in a narrow side-facing posture with a clean elongated body line'), clause('lower', ', ', 'her feet close together')]],
+    ['feet-together-soft-knees', '併腿微屈站姿', '雙腳靠攏、膝蓋微彎，髖部偏向一側，軀幹帶出柔和側彎。', [
+      clause('core', '', 'She stands with her hips shifted slightly to one side and her torso following a gentle lateral curve'),
+      clause('lower', '. ', 'Her feet are close together and her knees softly bent')]],
+    ['wide-weight-shift', '開腿偏重心站姿', '雙腳打開、腳尖微微外開，重心放在一腳，另一腳向側邊伸出。', [
+      clause('core', '', 'She stands with most of her weight settled onto one leg, her hips held at standing height'),
+      clause('lower', '. ', 'Her feet are set apart with the toes angled slightly outward, the other leg extending to the side')]],
+    ['bent-leg-lift', '單腳屈膝抬腿站姿', '單腳站立，另一腳屈膝抬起、在支撐腿前方微微交叉，小腿往後收、腳離地。', [
+      clause('core', '', 'She stands on one leg'),
+      clause('lower', ', ', 'the free leg lifted and bent at the knee, crossing slightly in front of the supporting leg, with the lower leg folded back and the foot raised off the ground')]],
+    ['forward-lean', '上身前傾探身站姿', '上身從髖部明顯前傾，臉與肩膀位於腰臀之前。', [
+      clause('core', '', 'She stands with her upper body leaning markedly forward from the hips'),
+      clause('upper', ', ', 'her face and shoulders brought ahead of her waist and hips')]],
+    ['pelvis-back-curve', '骨盆後推曲線站姿', '骨盆往後推、臀部位於軀幹後方，下背到臀部弧線明顯，上身只微微前傾。', [
+      clause('core', '', 'She stands with her pelvis shifted distinctly backward, her hips projecting behind her torso and a smooth pronounced curve running through her lower back into her buttocks'),
+      clause('upper', ', ', 'her upper torso only slightly inclined forward')]],
+  ].map(([key, zh, descriptionZh, clauses]) => createAction({
+    id: `specified-standing-${key}`, zh, baseId: 'standing', descriptionZh, clauses,
+    upperBodyEn: joinSpecifiedActionClauses(clauses, ['core', 'upper']), handsMode: 'free',
+    validation: { status: 'accepted', evidence: 'Cooper 2026-10-20: reviewed free-composer wording; image round deferred' },
+  })),
+  ...[
+    ['hands-behind-knee-in', '雙手背後・單膝內扣', '單腳打直承重，雙手在背後交握；另一腳膝蓋微微內扣，腳輕放在支撐腳旁。', '010c1243cfa3389e3b108cf9c75fa8a8.jpg', [
+      clause('core', '', 'She stands with her weight on one straight leg'), clause('upper', ', ', 'both hands clasped behind her back'),
+      clause('lower', '. ', 'Her other knee bends softly inward, its foot resting lightly beside the supporting foot')]],
+    ['hand-on-head-stride', '一手扶頭・跨步', '擺姿勢的跨步，一手放在頭頂，另一手自然垂下；前腳腳跟著地、腳尖翹起，後腳打直。', '1d7b9d0491d59db07fc80a23bc5be49a.jpg', [
+      clause('core', '', 'She stands in a posed mid-stride'), clause('upper', ', ', 'one hand resting on top of her head and the other arm hanging loosely at her side'),
+      clause('lower', '. ', 'Her front foot steps forward with the heel on the ground and the toes lifted, the back leg straight')]],
+    ['hand-on-head-pocket', '一手扶頭・一手插口袋', '雙腳微開，一手舉到頭側，另一手插在前口袋；膝蓋微微內扣。需要有前口袋的穿搭。', '3e884f394a163fff1b6a3cf4e30bf5cd.jpg', [
+      clause('core', '', 'She stands with her feet slightly apart'), clause('upper', ', ', 'one hand raised to the side of her head and the other hand tucked into her front pocket'),
+      clause('lower', '. ', 'Her knees turn slightly inward')], 'pants'],
+    ['lean-pockets-step', '上身前傾・雙手插口袋・一腳前踏', '上身從髖部前傾，雙手插在前口袋；一腳踏在前方，後腳腳跟微抬。需要有前口袋的穿搭。', '5ba40b62320ca0622169b21f5bcaabef.jpg', [
+      clause('core', '', 'She stands with her upper body leaning forward from the hips'), clause('upper', ', ', 'both hands tucked into her front pockets'),
+      clause('lower', '. ', 'One foot steps forward ahead of the other, the back heel slightly lifted')], 'pants'],
+    ['side-kick-fists', '單腳站・側後抬腿・雙拳胸前', '活潑的單腳站姿，雙手握拳放在胸前；另一腳屈膝往側邊踢起、腳明顯離地。', '824cc953f4a58d4bcd9bd9fe84dde35b.jpg', [
+      clause('core', '', 'She stands on one leg in a playful pose'), clause('upper', ', ', 'both hands curled into loose fists in front of her chest'),
+      clause('lower', '. ', 'Her other leg kicks out to the side with the knee bent and the foot raised well off the ground')]],
+    ['front-kick-hand-up', '單腳站・前踢抬腿・一手舉高', '活潑的單腳站姿，一手舉在頭側、食指朝上，另一手往後擺；另一腳往前上方踢到約髖部高度。', 'c4ca80214af80abd58b0ad30bb543f0a.jpg', [
+      clause('core', '', 'She stands on one leg in a playful pose'), clause('upper', ', ', 'one hand raised beside her head with the index finger pointing up and the other arm swinging back'),
+      clause('lower', '. ', 'Her other leg kicks forward and up, the foot raised to hip height')]],
+    ['hands-behind-head-knees-in', '雙手抱頭後・併腿內扣', '雙腳靠攏，雙手舉到後腦、手肘向兩側張開；膝蓋微微內扣。', 'cd7fb25489834cf7b3d8a957aef72f28.jpg', [
+      clause('core', '', 'She stands with her feet close together'), clause('upper', ', ', 'both hands raised to the back of her head, her elbows spread out to the sides'),
+      clause('lower', '. ', 'Her knees turn slightly inward')]],
+    ['arm-overhead-stretch', '單臂上舉・一手扶臂伸展', '雙腳與肩同寬，一手向上伸直，另一手彎曲、扶在上舉手臂的手肘附近。', 'f512ed9b7b53c9ebb4c2b0376782633d.jpg', [
+      clause('core', '', 'She stands with her feet planted shoulder-width apart'),
+      clause('upper', ', ', 'one arm stretched straight overhead and the other arm bent with its hand holding the raised arm near the elbow')]],
+    ['wide-toes-out-hand-chest', '外八開腿・一手放胸前', '雙腳張開、腳尖外八，一手放在胸前，另一手垂直貼在身側。', 'images.jpeg', [
+      clause('core', '', 'She stands with her feet set wide apart and her toes turned outward'),
+      clause('upper', ', ', 'one hand resting on her chest and the other arm hanging straight at her side')]],
+    ['one-leg-v-sign-hip', '單腳站・一手比耶・一手叉腰', '單腳站立，一手向上伸直比耶，另一手叉腰；另一腳屈膝抬在支撐腿前方、腳往後收。', 'v2-60d44e901558586d8b79ee02b7962376_1440w.jpg', [
+      clause('core', '', 'She stands on one leg'), clause('upper', ', ', 'one arm raised straight overhead making a V sign and the other hand resting on her waist'),
+      clause('lower', '. ', 'Her other leg bends at the knee, lifted in front of the supporting leg with the foot tucked back')]],
+    ['arms-open-v', '雙手向上張開', '雙腿打直、一膝微彎，雙臂向上舉起並張開成 V 字，掌心打開。', 'v2-c5761de237bb95a4fc2f108b89902da3_1440w.jpg', [
+      clause('core', '', 'She stands with her legs straight and one knee softly bent'),
+      clause('upper', ', ', 'both arms raised overhead and spread wide in a V, palms open')]],
+  ].map(([key, zh, descriptionZh, reference, clauses, requiresWardrobeRole = '']) => createAction({
+    id: `specified-standing-${key}`, zh, baseId: 'standing', descriptionZh, clauses,
+    upperBodyEn: joinSpecifiedActionClauses(clauses, ['core', 'upper']), requiresWardrobeRole,
+    validation: { status: 'pending', evidence: `reference Docs/站姿/${reference}; image round deferred (Cooper 2026-10-20)` },
+  })),
+
 ]);
 
 // expression-pose-v2 §3.1 menu choices (Cooper 2026-10-19): 隨機 draws an accepted
@@ -237,7 +307,7 @@ const menuChoice = definition => {
 /** 隨機 is resolved before generation; the record only drives menus and takeover UI. */
 export const SPECIFIED_ACTION_RANDOM = menuChoice({
   id: SPECIFIED_ACTION_RANDOM_ID, zh: '隨機', upperBodyEn: '',
-  descriptionZh: '每次生成時，從已驗收的指定動作中隨機抽一個（躺姿待場景表面完成後加入）。',
+  descriptionZh: '每次生成時，從已驗收的指定動作中隨機抽一個；躺姿只在鎖定的場景可以躺時才會抽到，未驗收的動作不會抽到。',
   clauses: [clause('core', '', 'A specified action is drawn at generation time')],
 });
 
@@ -264,9 +334,10 @@ export const SPECIFIED_ACTION_OPTIONS = Object.freeze([
 const ACTIONS_BY_ID = new Map([...SPECIFIED_ACTION_CONCRETE_OPTIONS, SPECIFIED_ACTION_RANDOM, SPECIFIED_ACTION_ANY]
   .map((action) => [action.id, action]));
 
-/** Library actions 隨機 may always draw: accepted and not lying. */
+/** Library actions 隨機 may always draw: accepted and not lying. Actions that need a
+ * wardrobe item (front pockets) stay out because the random wardrobe is unresolved here. */
 export const SPECIFIED_ACTION_RANDOM_POOL = Object.freeze(SPECIFIED_ACTION_CONCRETE_OPTIONS
-  .filter(action => action.validation.status === 'accepted' && action.family !== 'lying'));
+  .filter(action => action.validation.status === 'accepted' && action.family !== 'lying' && !action.meta.requiresWardrobeRole));
 
 /** Accepted lying actions join the draw only when the locked scene offers a lying
  * surface (P3); an unresolved random scene cannot be checked, so lying stays out. */
