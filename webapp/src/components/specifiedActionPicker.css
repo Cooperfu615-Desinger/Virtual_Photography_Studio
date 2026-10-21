@@ -2,9 +2,8 @@
   min-width: 0;
 }
 
-.specified-action-menu-card:hover:not(:disabled),
-.specified-action-card:hover,
-.specified-action-summary:hover {
+.specified-action-cell:hover:not(:disabled),
+.specified-action-card:hover {
   border-color: var(--accent-border);
   background: var(--surface-selected);
 }
@@ -221,56 +220,67 @@
   color: var(--text-muted-choice);
 }
 
-.specified-action-menu {
+/* Nine-cell picker: grid on the left, a same-height summary card on the right. */
+.specified-action-layout {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
 }
 
-.specified-action-menu-card {
+.specified-action-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  justify-content: stretch;
-  align-content: start;
-  gap: 6px;
-  min-width: 0;
-  padding: 12px;
-  border: 1px solid var(--border-muted);
-  border-radius: 14px;
-  background: var(--surface-control);
-  color: var(--text-primary);
-  text-align: left;
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-.specified-action-categories {
-  display: flex;
-  flex-wrap: wrap;
+  grid-template-columns: repeat(3, 76px);
+  grid-auto-rows: 76px;
   gap: 8px;
 }
 
-.specified-action-categories button {
-  display: inline-flex;
+.specified-action-cell {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 7px 12px;
-  border: 1px solid var(--border);
-  border-radius: 9px;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+  padding: 4px;
+  border: 1px solid var(--border-muted);
+  border-radius: 12px;
+  background: var(--surface-control);
   color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.3;
+  text-align: center;
 }
 
-.specified-action-categories small {
+.specified-action-cell small {
   color: var(--text-secondary);
   font-size: 11px;
 }
 
+.specified-action-cell-direct {
+  border-style: dashed;
+}
+
+/* After the base cell rule so the selected colors win. */
+.specified-action-cell.specified-action-selected {
+  border-color: var(--accent);
+  background: var(--surface-selected);
+}
+
+/* The grid sets the row height; the card fills it and scrolls if its text is longer. */
+.specified-action-summary-wrap {
+  position: relative;
+  min-width: 0;
+}
+
 .specified-action-summary {
-  display: grid;
-  grid-template-columns: 72px minmax(0, 1fr) auto;
-  align-items: start;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
   gap: 12px;
   padding: 12px;
+  overflow-y: auto;
   border: 1px solid var(--accent);
   border-radius: 14px;
   background: var(--surface-selected);
@@ -278,34 +288,45 @@
   line-height: 1.6;
 }
 
+.specified-action-summary .specified-action-card-copy {
+  flex: 1;
+}
+
+.specified-action-slot-large {
+  width: 84px;
+  height: 126px;
+}
+
 .specified-action-change {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  justify-self: start;
 }
 
 @media (max-width: 640px) {
   .page1-pose-controls .control-section-header { flex-direction: column; align-items: stretch; }
   .page1-pose-controls .page1-section-header-actions { align-self: flex-start; }
-}
 
-/* Mobile overrides come after the base rules they replace. */
-@media (max-width: 640px) {
-  .specified-action-slot {
-    width: 56px;
-    height: 84px;
-  }
-
-  .specified-action-menu {
+  .specified-action-layout {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .specified-action-summary {
-    grid-template-columns: 56px minmax(0, 1fr);
+  .specified-action-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: auto;
   }
 
-  .specified-action-change {
-    grid-column: 1 / -1;
-    justify-self: start;
+  .specified-action-cell {
+    aspect-ratio: 1;
+  }
+
+  .specified-action-summary {
+    position: static;
+  }
+
+  .specified-action-slot-large {
+    width: 56px;
+    height: 84px;
   }
 }

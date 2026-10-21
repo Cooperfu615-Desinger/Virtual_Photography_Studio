@@ -3,7 +3,7 @@ export const PAGE1_POSE_SUBPANELS = [
     id: 'single',
     label: '單人設置',
     // expression-pose-v2 P4 (Cooper 2026-10-20): 姿勢、手勢、表情、視線; the free composer is retired.
-    description: '先選姿勢，再搭配手勢、表情與視線。手勢只在動作的雙手空著時出現；自拍請到 E 攝影成像的「拍攝方式」。',
+    description: '先選姿勢，再搭配手勢、表情、頭部與視線；自拍請到 E 攝影成像的「拍攝方式」。',
     keys: [
       'specifiedActionId',
       'gestureId',

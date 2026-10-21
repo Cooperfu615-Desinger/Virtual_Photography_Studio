@@ -3,15 +3,16 @@ import { createPortal } from 'react-dom';
 import { Check, Copy, Images, Pencil, X } from 'lucide-react';
 import './specifiedActionPicker.css';
 
-// Pose UI v2 (Cooper 2026-10-21): the main panel shows 全無／隨機／任意 as cards plus six
-// category buttons; a category button opens a dialog listing only that category.
+// Pose UI v2 (Cooper 2026-10-21): the main panel is a 3×3 grid of square cells (站姿 蹲姿 坐姿 /
+// 跪姿 躺姿 上身互動 / 全無 隨機 任意) beside a same-height summary card; a category cell opens a
+// dialog listing only that category, the bottom row chooses directly.
 const CATEGORIES = [
   { baseId: 'standing', label: '站姿' },
   { baseId: 'squatting', label: '蹲姿' },
-  { baseId: 'none', label: '上身互動' },
   { baseId: 'sitting', label: '坐姿' },
   { baseId: 'kneeling', label: '跪姿' },
   { baseId: 'lying', label: '躺姿' },
+  { baseId: 'none', label: '上身互動' },
 ];
 const NONE_CARD = { id: 'none', zh: '全無', descriptionZh: '不寫任何姿勢。' };
 const REFERENCE_SHEET = `${import.meta.env.BASE_URL}reference/specified-actions/pose-reference-sheet.jpeg`;
@@ -38,10 +39,10 @@ function PoseReferenceImage({ option }) {
 
 // A fixed 2:3 slot: the existing sheet crop sits inside it, and actions without a
 // schematic show a neutral placeholder, so adding images later does not move the layout.
-function ActionImageSlot({ option }) {
+function ActionImageSlot({ option, large = false }) {
   const image = option?.referenceNumber ? <PoseReferenceImage option={option} /> : null;
   return (
-    <span className={`specified-action-slot${image ? '' : ' specified-action-slot-empty'}`} aria-hidden="true">
+    <span className={`specified-action-slot${large ? ' specified-action-slot-large' : ''}${image ? '' : ' specified-action-slot-empty'}`} aria-hidden="true">
       {image || <Images size={20} />}
     </span>
   );
@@ -136,6 +137,7 @@ export default function SpecifiedActionPicker({ control, value, disabled = false
   const helpText = disabledReason || control.helpText;
   const currentValue = value || 'none';
   const counts = Object.fromEntries(CATEGORIES.map(({ baseId }) => [baseId, options.filter((option) => option.baseId === baseId).length]));
+  const shown = selected || menuCards.find((card) => card.id === currentValue) || NONE_CARD;
   const dialogCategory = CATEGORIES.find((category) => category.baseId === dialogBaseId);
 
   if (dialogBaseId && disabled) setDialogBaseId(null);
@@ -161,52 +163,52 @@ export default function SpecifiedActionPicker({ control, value, disabled = false
           <Copy size={14} aria-hidden="true" />
         </button>
       </div>
-      <div className="specified-action-menu" role="group" aria-label="姿勢方式">
-        {menuCards.map((card) => {
-          const active = currentValue === card.id;
-          return (
-            <button key={card.id} type="button" disabled={disabled}
-              className={`specified-action-menu-card${active ? ' specified-action-selected' : ''}`}
-              aria-pressed={active} aria-describedby={helpText ? helpId : undefined}
-              onClick={() => onChange(card.id)}>
-              <span className="specified-action-card-title">
-                <strong>{card.zh}</strong>
-                {active ? <Check size={17} aria-hidden="true" /> : null}
-              </span>
-              <span className="specified-action-card-description">{card.descriptionZh}</span>
-            </button>
-          );
-        })}
-      </div>
-      <div className="specified-action-categories" role="group" aria-label="動作分類">
-        {CATEGORIES.map(({ baseId, label }) => {
-          const active = selected?.baseId === baseId;
-          return (
-            <button key={baseId} type="button" disabled={disabled} aria-haspopup="dialog"
-              aria-expanded={dialogBaseId === baseId && !disabled} aria-pressed={active}
-              className={active ? 'specified-action-selected' : 'secondary'}
-              onClick={(event) => openDialog(baseId, event.currentTarget)}>
-              {label}<small>{counts[baseId]}</small>
-            </button>
-          );
-        })}
-      </div>
-      {selected ? (
-        <div className="specified-action-summary">
-          <ActionImageSlot option={selected} />
-          <span className="specified-action-card-copy">
-            <span className="specified-action-card-title">
-              <strong>{selected.zh}</strong>
-              {selected.validation?.status === 'pending' ? <span className="specified-action-pending">未驗收</span> : null}
-            </span>
-            <span className="specified-action-card-description">{selected.descriptionZh}</span>
-          </span>
-          <button type="button" className="secondary specified-action-change" disabled={disabled}
-            onClick={(event) => openDialog(selected.baseId, event.currentTarget)}>
-            <Pencil size={14} aria-hidden="true" />更換
-          </button>
+      <div className="specified-action-layout">
+        {/* Nine square cells: two rows of categories (open a dialog), one row of direct choices. */}
+        <div className="specified-action-grid" role="group" aria-label="姿勢選擇">
+          {CATEGORIES.map(({ baseId, label }) => {
+            const active = selected?.baseId === baseId;
+            return (
+              <button key={baseId} type="button" disabled={disabled} aria-haspopup="dialog"
+                aria-expanded={dialogBaseId === baseId && !disabled} aria-pressed={active}
+                className={`specified-action-cell${active ? ' specified-action-selected' : ''}`}
+                onClick={(event) => openDialog(baseId, event.currentTarget)}>
+                <span>{label}</span><small>{counts[baseId]}</small>
+              </button>
+            );
+          })}
+          {menuCards.map((card) => {
+            const active = currentValue === card.id;
+            return (
+              <button key={card.id} type="button" disabled={disabled}
+                className={`specified-action-cell specified-action-cell-direct${active ? ' specified-action-selected' : ''}`}
+                aria-pressed={active} aria-describedby={helpText ? helpId : undefined}
+                onClick={() => onChange(card.id)}>
+                <span>{card.zh}</span>
+              </button>
+            );
+          })}
         </div>
-      ) : null}
+        {/* Same height as the grid; names the chosen action, or explains 全無／隨機／任意. */}
+        <div className="specified-action-summary-wrap">
+          <div className={`specified-action-summary${selected ? '' : ' specified-action-summary-menu'}`} aria-live="polite">
+            {selected ? <ActionImageSlot option={selected} large /> : null}
+            <span className="specified-action-card-copy">
+              <span className="specified-action-card-title">
+                <strong>{shown.zh}</strong>
+                {selected?.validation?.status === 'pending' ? <span className="specified-action-pending">未驗收</span> : null}
+              </span>
+              <span className="specified-action-card-description">{shown.descriptionZh}</span>
+              {selected ? (
+                <button type="button" className="secondary specified-action-change" disabled={disabled}
+                  onClick={(event) => openDialog(selected.baseId, event.currentTarget)}>
+                  <Pencil size={14} aria-hidden="true" />更換
+                </button>
+              ) : null}
+            </span>
+          </div>
+        </div>
+      </div>
       {helpText ? <small id={helpId} className="field-help">{helpText}</small> : null}
       {dialogCategory && !disabled ? <SpecifiedActionDialog category={dialogCategory}
         options={options.filter((option) => option.baseId === dialogCategory.baseId)} value={currentValue}
