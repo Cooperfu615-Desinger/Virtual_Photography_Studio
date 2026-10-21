@@ -125,6 +125,7 @@ export default function DllPicProPanel({
   title = 'DLL_PIC Pro',
   description = '用目前 prompt 直接生成圖像並預覽結果。',
   promptSources = [],
+  fullWorkspacePromptSources,
   defaultSourceId = '',
   compact = false,
   workspaceId = 'Prompt 工作台',
@@ -336,7 +337,7 @@ export default function DllPicProPanel({
           <div className="control-section-title">{title}</div>
         </div>
         <div className="dll-pic-header-actions">
-          {!full && <button type="button" className="secondary" onClick={() => openDllWorkspace({ sources: promptSources, settings: { modelKey, loraStrength, selectedSourceId, aspectRatio, resolution: activeResolution, count }, workspaceId, taskId: sharedTask?.id })}>開啟完整版</button>}
+          {!full && <button type="button" className="secondary" onClick={() => openDllWorkspace({ sources: fullWorkspacePromptSources ?? promptSources, settings: { modelKey, loraStrength, selectedSourceId, aspectRatio, resolution: activeResolution, count }, workspaceId, taskId: sharedTask?.id })}>開啟完整版</button>}
           <button className="secondary dll-pic-api-settings-btn" type="button" onClick={openApiKeyModal}>
             API Keys
           </button>

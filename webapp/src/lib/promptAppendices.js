@@ -1,4 +1,5 @@
-// Optional display/copy actions only. Never feed these back into source generation.
+// Temporary presentation actions; explicit full-workspace transfer may use the composed text.
+// Never feed these back into source generation.
 export const PROMPT_APPENDICES = Object.freeze([
   Object.freeze({
     id: 'four-free-variations',
@@ -36,11 +37,17 @@ Generate all four photographs together for comparison, as four separate images, 
   }),
 ]);
 
-export function appendPromptInstruction(original, templateId, { referencePerson = false } = {}) {
+export function appendPromptInstruction(original, templateId, {
+  referencePerson = false, customEnabled = false, customText = '',
+} = {}) {
+  if (!original?.trim()) return original;
   const template = PROMPT_APPENDICES.find(({ id }) => id === templateId);
-  if (!template || !original?.trim()) return original;
-  const text = referencePerson
-    ? template.text.replace('same person, outfit, and setting described above', 'same person and outfit from the attached reference image, and the setting described above')
-    : template.text;
-  return `${original}\n\n${text}`;
+  const parts = [original];
+  if (template) {
+    parts.push(referencePerson
+      ? template.text.replace('same person, outfit, and setting described above', 'same person and outfit from the attached reference image, and the setting described above')
+      : template.text);
+  }
+  if (customEnabled && customText.trim()) parts.push(customText);
+  return parts.join('\n\n');
 }

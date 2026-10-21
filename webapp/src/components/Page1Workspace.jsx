@@ -22,7 +22,7 @@ import SelectControlField from './SelectControlField';
 import LightingReferenceModal from './LightingReferenceModal';
 import MidjourneyParameterControls from './MidjourneyParameterControls';
 import PromptPreviewCard from './PromptPreviewCard';
-import { PROMPT_APPENDICES, appendPromptInstruction } from '../lib/promptAppendices.js';
+import { PROMPT_APPENDICES } from '../lib/promptAppendices.js';
 import ZImageVisibleTextControls from './ZImageVisibleTextControls';
 import SceneEnvironmentControls from './SceneEnvironmentControls';
 import PhotographyControls from './PhotographyControls';
@@ -56,6 +56,7 @@ import {
 import {
   buildPage1DllPromptSources,
   buildPage1GenerationPromptCards,
+  buildPage1DisplayOutputs,
 } from '../lib/page1PromptOutputs.js';
 import {
   getPage1SectionActionLabels,
@@ -696,6 +697,12 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   if (referenceState.source !== previewPrompt) {
     setReferenceState({ source: previewPrompt, enabled: false });
   }
+  const [customAppendix, setCustomAppendix] = useState({ source: previewPrompt, enabled: false, text: '' });
+  if (customAppendix.source !== previewPrompt) {
+    setCustomAppendix({ source: previewPrompt, enabled: false, text: '' });
+  }
+  const customEnabled = customAppendix.source === previewPrompt && customAppendix.enabled;
+  const customText = customAppendix.source === previewPrompt ? customAppendix.text : '';
   const referenceAvailable = hasReferencePersonPreview(previewPrompt);
   const referenceEnabled = referenceAvailable && referenceState.source === previewPrompt && referenceState.enabled;
   const displayPrompt = useMemo(() => referenceEnabled ? getReferencePersonPreview(previewPrompt) : previewPrompt,
@@ -1568,10 +1575,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   };
 
   const originalPromptCards = buildPage1GenerationPromptCards(previewPrompt);
-  const generationPromptCards = buildPage1GenerationPromptCards(displayPrompt).map((card) => ({
-    ...card,
-    value: appendPromptInstruction(card.value, appendixId, { referencePerson: referenceEnabled }),
-  }));
+  const { cards: generationPromptCards, dllSources: fullWorkspacePromptSources } = buildPage1DisplayOutputs(
+    displayPrompt, appendixId, { referencePerson: referenceEnabled, customEnabled, customText },
+  );
   const hasPromptOutput = originalPromptCards.some((card) => card.value.trim());
   const activeAppendix = PROMPT_APPENDICES.find(({ id }) => id === appendixId);
   const dllPromptSources = buildPage1DllPromptSources(previewPrompt);
@@ -1750,7 +1756,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
               <div className="page1-appendix-toolbar" role="group" aria-label="附加指令">
                 <div className="page1-appendix-heading">
                   <strong>附加指令</strong>
-                  <span role="status">{[referenceEnabled ? '參考圖已啟用' : '', activeAppendix ? `已附加：${activeAppendix.label}` : referenceEnabled ? '' : '尚未附加'].filter(Boolean).join(' · ')}</span>
+                  <span role="status">{[referenceEnabled ? '參考圖已啟用' : '', activeAppendix ? `已附加：${activeAppendix.label}` : '', customEnabled ? customText.trim() ? '自訂附加已啟用' : '請輸入攝影備註' : ''].filter(Boolean).join(' · ') || '尚未附加'}</span>
                 </div>
                 <div className="page1-appendix-actions">
                   <button
@@ -1775,17 +1781,36 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
                   ))}
                   <button
                     type="button"
+                    className="secondary"
+                    aria-pressed={customEnabled}
+                    aria-expanded={customEnabled}
+                    aria-controls="page1-custom-appendix"
+                    disabled={!hasPromptOutput}
+                    onClick={() => setCustomAppendix({ source: previewPrompt, enabled: !customEnabled, text: customText })}
+                  >自訂附加</button>
+                  <button
+                    type="button"
                     className="secondary page1-appendix-clear"
-                    disabled={!appendixId}
-                    onClick={() => setAppendixState({ source: previewPrompt, id: '' })}
+                    disabled={!appendixId && !customEnabled && !customText}
+                    onClick={() => {
+                      setAppendixState({ source: previewPrompt, id: '' });
+                      setCustomAppendix({ source: previewPrompt, enabled: false, text: '' });
+                    }}
                   >清除附加</button>
                 </div>
-                <p>套用至下方所有非空白 Prompt 的預覽與複製內容；不影響加入最愛、DLL 圖片生成或原始設定。新預覽會重設參考圖模式與附加指令。</p>
-                <p>{referenceAvailable
-                  ? referenceEnabled ? '已啟用參考圖人物與穿搭：請在外部生成工具附上角色圖片。人物外觀與穿搭依圖片，其他設定沿用目前 Prompt。'
-                    : '參考圖人物與穿搭可獨立開關，並搭配上方附加指令；角色圖片需在外部生成工具附上。'
-                  : '參考圖人物與穿搭目前僅支援一般單人；雙人、角色卡、自訂身份及特殊主體暫不適用。'}</p>
-                <p>這是文字指令，實際張數與變化由生成模型決定。</p>
+                {customEnabled && (
+                  <label className="field page1-custom-appendix" id="page1-custom-appendix">
+                    <span>自訂攝影備註</span>
+                    <textarea
+                      className="text-input"
+                      rows={4}
+                      value={customText}
+                      autoFocus
+                      placeholder="補充構圖、光線、色調或背景，例如：柔和側光，背景保持簡潔。"
+                      onChange={event => setCustomAppendix({ source: previewPrompt, enabled: true, text: event.target.value })}
+                    />
+                  </label>
+                )}
               </div>
               {generationPromptCards.map((card) => (
                 <PromptPreviewCard
@@ -1804,6 +1829,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
             title="DLL_PIC Pro"
             description="使用目前 prompt 直接生成圖像預覽。"
             promptSources={dllPromptSources}
+            fullWorkspacePromptSources={fullWorkspacePromptSources}
             defaultSourceId="gpt"
           />
 

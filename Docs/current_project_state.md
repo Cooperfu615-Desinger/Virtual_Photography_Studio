@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-21
 
+## Prompt 工作台：自訂攝影附加（2026-10-21，使用者已驗收）
+
+- 附加指令新增「自訂附加」與多行攝影備註，可單獨或搭配參考圖及四款既有模板；關閉保留本次文字、清除移除，重新生成或離頁重設。預覽／複製／明確帶入 DLL 完整版使用相同最終文字，快速面板、原始輸出、收藏與其他工作區不變。詳見 [規格與驗證](specs/page1-prompt-appendices-v1.md)。
+- main `90ed932` 上實作；相關33/33、完整1770/1770、Prompt Quality745/745、lint／build通過，同 seed200 strict audit前後完全相同（0 blockers／18診斷）。桌面1440×1000／手機390×900共28項檢查，48次六輸出剪貼簿比對、DLL草稿保護／reload與五工作區通過，無新錯誤或橫向溢出。
+- 使用者已驗收並授權僅提交／推送本批；依要求移除附加區說明文字，保留按鈕、狀態及輸入框。移除後 lint／build、桌面／手機版面與附加操作再次通過。Git 與 Pages 交付結果以本批提交及 Actions 為準。只用隔離瀏覽器及本機模擬，外部 POST 為0，其他未提交內容保持不變。
+
+
 ## DLL：Qwen 2.1 v1.3b LoRA（2026-10-21，已推送 main／四項 Functions 已部署）
 
 - Qwen 2.1 新增「套用 v1.3b LoRA」開關，預設關閉；強度預設 0.7、0–1／0.05 刻度。三快速面板及完整版進階設定共用，保留 25 steps／CFG1／Euler／simple 與原 Prompt。詳見 [規格與驗證](specs/comfy-qwen21-lora-v1.md)。
