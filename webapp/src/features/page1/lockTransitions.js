@@ -4,6 +4,8 @@ import {
   sanitizeLocksForCloseupMode,
 } from '../../lib/engine.js';
 import { DUO_ROLE_WARDROBE_KEYS } from './page1Schema.js';
+import { applicableGestureOptions } from '../../lib/engine/gazeGesture.js';
+import { SPECIFIED_ACTION_RANDOM_ID, getSpecifiedAction } from '../../lib/engine/specifiedActions.js';
 import { isNoneSelected } from './page1Selectors.js';
 import { reconcilePage1SingleWardrobeLocks } from './page1WardrobeExclusivity.js';
 import {
@@ -116,6 +118,15 @@ export function transitionPage1Locks({
       const noneOption = control.options?.find((option) => option.zh === '全無');
       next[control.key] = noneOption ? noneOption.id : '';
     });
+  }
+
+  // Pose UI v2 (Cooper 2026-10-21): a gesture the chosen pose cannot use returns to 全無
+  // instead of staying hidden; 隨機 keeps only 全無／隨機.
+  if (next.gestureId && next.gestureId !== 'none') {
+    const action = getSpecifiedAction(next, { ignoreOwners: true });
+    const fits = next.specifiedActionId === SPECIFIED_ACTION_RANDOM_ID ? next.gestureId === 'random'
+      : action && applicableGestureOptions(action).some(option => option.id === next.gestureId || next.gestureId === 'random');
+    if (!fits) next.gestureId = 'none';
   }
 
   if (next.subjectCount !== '1') {

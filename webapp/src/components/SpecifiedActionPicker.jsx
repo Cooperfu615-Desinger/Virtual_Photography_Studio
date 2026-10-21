@@ -1,14 +1,24 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Check, ChevronDown, Copy, Images, X } from 'lucide-react';
+import { Check, Copy, Images, Pencil, X } from 'lucide-react';
 import './specifiedActionPicker.css';
 
-const BASE_LABELS = { all: '全部', standing: '站姿', squatting: '蹲姿', none: '上身互動', sitting: '坐姿', kneeling: '跪姿', lying: '躺姿' };
+// Pose UI v2 (Cooper 2026-10-21): the main panel shows 全無／隨機／任意 as cards plus six
+// category buttons; a category button opens a dialog listing only that category.
+const CATEGORIES = [
+  { baseId: 'standing', label: '站姿' },
+  { baseId: 'squatting', label: '蹲姿' },
+  { baseId: 'none', label: '上身互動' },
+  { baseId: 'sitting', label: '坐姿' },
+  { baseId: 'kneeling', label: '跪姿' },
+  { baseId: 'lying', label: '躺姿' },
+];
+const NONE_CARD = { id: 'none', zh: '全無', descriptionZh: '不寫任何姿勢。' };
 const REFERENCE_SHEET = `${import.meta.env.BASE_URL}reference/specified-actions/pose-reference-sheet.jpeg`;
 const REFERENCE_COLUMNS = [0, 261, 506, 754, 1000, 1254];
 const REFERENCE_ROWS = [0, 252, 495, 739, 987, 1254];
 
-function PoseReferenceImage({ option, compact = false }) {
+function PoseReferenceImage({ option }) {
   const cell = Number(option?.referenceNumber) - 1;
   if (!Number.isInteger(cell) || cell < 0 || cell >= 25) return null;
   const column = cell % 5;
@@ -18,18 +28,28 @@ function PoseReferenceImage({ option, compact = false }) {
   const width = REFERENCE_COLUMNS[column + 1] - x - 2;
   const height = REFERENCE_ROWS[row + 1] - y - 2;
   return (
-    <span className={`specified-action-image${compact ? ' specified-action-image-compact' : ''}`} aria-hidden="true">
-      <img src={REFERENCE_SHEET} alt="" decoding="async"
+    <span className="specified-action-image" aria-hidden="true">
+      <img src={REFERENCE_SHEET} alt="" decoding="async" loading="lazy"
         style={{ width: `${1254 / width * 100}%`, height: `${1254 / height * 100}%`,
           left: `${-x / width * 100}%`, top: `${-y / height * 100}%` }} />
     </span>
   );
 }
 
+// A fixed 2:3 slot: the existing sheet crop sits inside it, and actions without a
+// schematic show a neutral placeholder, so adding images later does not move the layout.
+function ActionImageSlot({ option }) {
+  const image = option?.referenceNumber ? <PoseReferenceImage option={option} /> : null;
+  return (
+    <span className={`specified-action-slot${image ? '' : ' specified-action-slot-empty'}`} aria-hidden="true">
+      {image || <Images size={20} />}
+    </span>
+  );
+}
+
 const isMenuChoice = option => Boolean(option?.meta?.tags?.includes('menu_choice'));
 
-function SpecifiedActionDialog({ options, choices, value, onClose, onSelect }) {
-  const [category, setCategory] = useState('all');
+function SpecifiedActionDialog({ category, options, value, onClose, onSelect }) {
   const titleId = useId();
   const descriptionId = useId();
   const closeRef = useRef(null);
@@ -68,44 +88,27 @@ function SpecifiedActionDialog({ options, choices, value, onClose, onSelect }) {
       <div className="modal-panel specified-action-dialog" role="dialog" aria-modal="true"
         aria-labelledby={titleId} aria-describedby={descriptionId} onKeyDown={handleKeyDown}>
         <div className="specified-action-dialog-header">
-          <h3 id={titleId}>選擇指定動作 · {options.length} 組</h3>
+          <h3 id={titleId}>{category.label} · {options.length} 組</h3>
           <button ref={closeRef} type="button" className="icon-btn specified-action-close"
             aria-label="關閉指定動作選擇" onClick={onClose}>
             <X size={18} aria-hidden="true" />
           </button>
         </div>
-        <p id={descriptionId} className="specified-action-reference-note">一次選取一組動作。圖像僅供姿勢參考；接管範圍以動作描述為準；沒有參考圖的動作以文字呈現。</p>
-        <div className="specified-action-filters" role="group" aria-label="動作分類">
-          {Object.entries(BASE_LABELS).map(([id, label]) => <button key={id} type="button"
-            className={category === id ? 'specified-action-selected' : 'secondary'} aria-pressed={category === id}
-            onClick={() => setCategory(id)}>{label}</button>)}
-        </div>
-        <div className="specified-action-options" role="group" aria-label="指定動作清單">
-          <button type="button" className={`specified-action-none${value === 'none' ? ' specified-action-selected' : ''}`}
-            aria-pressed={value === 'none'} onClick={() => onSelect('none')}>
-            <span>全無 · 使用原本的姿勢設定</span>
-            {value === 'none' ? <Check size={17} aria-hidden="true" /> : null}
-          </button>
-          {choices.map((choice) => (
-            <button key={choice.id} type="button" className={`specified-action-none${value === choice.id ? ' specified-action-selected' : ''}`}
-              aria-pressed={value === choice.id} onClick={() => onSelect(choice.id)}>
-              <span>{choice.zh} · {choice.descriptionZh}</span>
-              {value === choice.id ? <Check size={17} aria-hidden="true" /> : null}
-            </button>
-          ))}
+        <p id={descriptionId} className="specified-action-reference-note">一次選取一組動作；接管範圍以動作描述為準。</p>
+        <div className="specified-action-options" role="group" aria-label={`${category.label}動作清單`}>
           <div className="specified-action-card-grid">
-            {options.filter(option => category === 'all' || option.baseId === category).map((option) => {
+            {options.map((option) => {
               const selected = option.id === value;
               return (
                 <button key={option.id} type="button"
-                  className={`specified-action-card${!option.referenceNumber ? ' specified-action-text-card' : ''}${selected ? ' specified-action-selected' : ''}`}
+                  className={`specified-action-card${selected ? ' specified-action-selected' : ''}`}
                   aria-pressed={selected} aria-label={`指定動作：${option.zh}`}
                   aria-describedby={`specified-action-${option.id}-description`}
                   onClick={() => onSelect(option.id)}>
-                  <PoseReferenceImage option={option} />
+                  <ActionImageSlot option={option} />
                   <span className="specified-action-card-copy">
                     <span className="specified-action-card-title">
-                      <strong>{options.indexOf(option) + 1}. {option.zh}</strong>
+                      <strong>{option.zh}</strong>
                       {/* Standing library v1 (Cooper 2026-10-20): pending actions are selectable but not in 隨機. */}
                       {option.validation?.status === 'pending' ? <span className="specified-action-pending">未驗收</span> : null}
                       {selected ? <Check size={17} aria-hidden="true" /> : null}
@@ -123,19 +126,26 @@ function SpecifiedActionDialog({ options, choices, value, onClose, onSelect }) {
 }
 
 export default function SpecifiedActionPicker({ control, value, disabled = false, disabledReason = '', onChange, onCopy }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [dialogBaseId, setDialogBaseId] = useState(null);
   const triggerRef = useRef(null);
   const options = control.options.filter((option) => option.id !== 'none' && !isMenuChoice(option));
-  const choices = control.options.filter(isMenuChoice);
-  const selected = control.options.find((option) => option.id === value && option.baseId);
+  const menuCards = [NONE_CARD, ...control.options.filter(isMenuChoice)];
+  // 隨機 and 任意 carry a baseId too; they are menu cards, never the summary card.
+  const selected = control.options.find((option) => option.id === value && option.baseId && !isMenuChoice(option));
   const helpId = `${control.key}-help`;
   const helpText = disabledReason || control.helpText;
   const currentValue = value || 'none';
+  const counts = Object.fromEntries(CATEGORIES.map(({ baseId }) => [baseId, options.filter((option) => option.baseId === baseId).length]));
+  const dialogCategory = CATEGORIES.find((category) => category.baseId === dialogBaseId);
 
-  if (isOpen && disabled) setIsOpen(false);
+  if (dialogBaseId && disabled) setDialogBaseId(null);
 
+  const openDialog = (baseId, trigger) => {
+    triggerRef.current = trigger;
+    setDialogBaseId(baseId);
+  };
   const closeDialog = () => {
-    setIsOpen(false);
+    setDialogBaseId(null);
     requestAnimationFrame(() => {
       if (triggerRef.current?.isConnected) triggerRef.current.focus();
     });
@@ -151,16 +161,55 @@ export default function SpecifiedActionPicker({ control, value, disabled = false
           <Copy size={14} aria-hidden="true" />
         </button>
       </div>
-      <button ref={triggerRef} type="button" className={`specified-action-trigger${selected ? ' specified-action-trigger-selected' : ''}`}
-        aria-label={`${control.label}：${selected?.zh || '全無'}`} aria-haspopup="dialog"
-        aria-expanded={isOpen && !disabled} aria-describedby={helpText ? helpId : undefined} disabled={disabled}
-        onClick={() => { setIsOpen(true); }}>
-        {selected?.referenceNumber ? <PoseReferenceImage option={selected} compact /> : <Images size={19} aria-hidden="true" />}
-        <span>{selected?.zh || '全無'}<small>選擇 {options.length} 組指定動作</small></span>
-        <ChevronDown size={16} aria-hidden="true" />
-      </button>
+      <div className="specified-action-menu" role="group" aria-label="姿勢方式">
+        {menuCards.map((card) => {
+          const active = currentValue === card.id;
+          return (
+            <button key={card.id} type="button" disabled={disabled}
+              className={`specified-action-menu-card${active ? ' specified-action-selected' : ''}`}
+              aria-pressed={active} aria-describedby={helpText ? helpId : undefined}
+              onClick={() => onChange(card.id)}>
+              <span className="specified-action-card-title">
+                <strong>{card.zh}</strong>
+                {active ? <Check size={17} aria-hidden="true" /> : null}
+              </span>
+              <span className="specified-action-card-description">{card.descriptionZh}</span>
+            </button>
+          );
+        })}
+      </div>
+      <div className="specified-action-categories" role="group" aria-label="動作分類">
+        {CATEGORIES.map(({ baseId, label }) => {
+          const active = selected?.baseId === baseId;
+          return (
+            <button key={baseId} type="button" disabled={disabled} aria-haspopup="dialog"
+              aria-expanded={dialogBaseId === baseId && !disabled} aria-pressed={active}
+              className={active ? 'specified-action-selected' : 'secondary'}
+              onClick={(event) => openDialog(baseId, event.currentTarget)}>
+              {label}<small>{counts[baseId]}</small>
+            </button>
+          );
+        })}
+      </div>
+      {selected ? (
+        <div className="specified-action-summary">
+          <ActionImageSlot option={selected} />
+          <span className="specified-action-card-copy">
+            <span className="specified-action-card-title">
+              <strong>{selected.zh}</strong>
+              {selected.validation?.status === 'pending' ? <span className="specified-action-pending">未驗收</span> : null}
+            </span>
+            <span className="specified-action-card-description">{selected.descriptionZh}</span>
+          </span>
+          <button type="button" className="secondary specified-action-change" disabled={disabled}
+            onClick={(event) => openDialog(selected.baseId, event.currentTarget)}>
+            <Pencil size={14} aria-hidden="true" />更換
+          </button>
+        </div>
+      ) : null}
       {helpText ? <small id={helpId} className="field-help">{helpText}</small> : null}
-      {isOpen && !disabled ? <SpecifiedActionDialog options={options} choices={choices} value={currentValue}
+      {dialogCategory && !disabled ? <SpecifiedActionDialog category={dialogCategory}
+        options={options.filter((option) => option.baseId === dialogCategory.baseId)} value={currentValue}
         onClose={closeDialog} onSelect={(id) => { onChange(id); closeDialog(); }} /> : null}
     </div>
   );

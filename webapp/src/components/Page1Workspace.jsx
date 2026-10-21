@@ -914,18 +914,19 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       const orbitOption = lockControls.find(c => c.key === 'orbitId')?.options?.find(o => o.id === locks.orbitId);
       const backView = !isLyingAction(activeSpecifiedAction) && Boolean(orbitOption?.meta?.tags?.includes('back_view'));
       const available = new Set(availableGazeOptions({ orientationId: activeSpecifiedAction?.orientationId, orbit: backView ? orbitOption : null }).map(o => o.id));
-      const unavailableSelected = !['none', 'random'].includes(locks.gazeId) && !available.has(locks.gazeId);
       return { ...control,
-        options: control.options.filter(o => ['none', 'random'].includes(o.id) || available.has(o.id) || o.id === locks.gazeId),
-        helpText: unavailableSelected ? '目前的姿勢或機位不適用這個視線，暫不寫入；調整後恢復。'
-          : backView ? '背面機位只能回眸。' : isLyingAction(activeSpecifiedAction) ? '躺姿不提供低頭與回眸。' : '' };
+        options: control.options.filter(o => ['none', 'random'].includes(o.id) || available.has(o.id) || o.id === locks.gazeId) };
     }
     if (control.key === 'gestureId') {
+      // Pose UI v2 (Cooper 2026-10-21): always shown; locked unless a hand-free action is chosen
+      // (隨機 offers only 全無／隨機). The lock reason is the displayed value, not a note.
       const applicable = new Set(applicableGestureOptions(activeSpecifiedAction).map(o => o.id));
-      return { ...control, options: control.options.filter(o => ['none', 'random'].includes(o.id) || applicable.has(o.id) || o.id === locks.gestureId),
-        // Squatting v1: a kept choice that this action cannot use is explained, as for gaze.
-        helpText: !['none', 'random'].includes(locks.gestureId) && !applicable.has(locks.gestureId) ? '目前的姿勢不適用這個手勢，暫不寫入；換回適用的姿勢後恢復。'
-          : applicable.has('gesture-front-pockets') ? '雙手插前口袋需要穿搭有前口袋；隨機只在確定有褲裝時抽到。' : '' };
+      if (applicable.size) return { ...control, options: control.options.filter(o => ['none', 'random'].includes(o.id) || applicable.has(o.id)) };
+      if (activeSpecifiedAction?.id === 'random') return { ...control, options: control.options.filter(o => ['none', 'random'].includes(o.id)) };
+      const reason = fixedScenePosition ? '由場景位置決定' : !activeSpecifiedAction ? '需先選擇動作'
+        : activeSpecifiedAction.id === 'any' ? '由「任意」決定' : '由動作決定';
+      return { ...control, disabled: true, suppressDefaultRandomOption: true, closureDisplayValue: 'gesture-locked',
+        options: [{ id: 'gesture-locked', zh: reason, en: '' }] };
     }
     if (control.key === 'captureStyleId' && isSelfieCaptureStyle(locks.captureStyleId)) {
       return { ...control, helpText: locks.subjectCount !== '1' ? '雙人模式不使用拍攝方式。'
@@ -1470,19 +1471,17 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       </div>
       {fixedScenePosition ? <div className="context-note">固定場景人物位置「{fixedScenePosition.zh}」接管姿勢與手部動作。表情與頭部動作仍可調整；選回全無或離開此場景後恢復原設定。</div> : null}
       {!isDuoMode ? renderControlGrid(filterControlsByKeys(characterLockControls, ['specifiedActionId'])) : null}
-      {activeSpecifiedAction ? (
+      {activeSpecifiedAction && (activeSpecifiedAction.orientationId === 'lying-supine' || isLyingAction(activeSpecifiedAction)) ? (
+        // Scene facts only; the action text and field hints now live on the picker card and locked fields.
         <div className="context-note specified-action-context-note">
-          <span>{activeSpecifiedAction.descriptionZh}<br />{applicableGestureOptions(activeSpecifiedAction).length ? '雙手空著，可搭配手勢；' : '手部由動作決定；'}{activeSpecifiedAction.ownsExpression ? '表情由動作決定；' : '表情可調；'}{activeSpecifiedAction.ownsHead ? '視線由動作決定。' : '視線可調。'}{activeSpecifiedAction.orientationId === 'lying-supine' ? '仰躺由地面承托，場景設定暫停，光線仍可調整。' : ''}{isLyingAction(activeSpecifiedAction) && activeSpecifiedAction.orientationId !== 'lying-supine' ? <><br />{lyingPoseNote}</> : null}</span>
-          <button type="button" className="secondary page1-section-random-btn"
-            onClick={() => updateLocks((prev) => ({ ...prev, specifiedActionId: 'none', actionPoseCardId: '' }))}>取消指定動作</button>
+          <span>{activeSpecifiedAction.orientationId === 'lying-supine' ? '仰躺由地面承托，場景設定暫停，光線仍可調整。'
+            : lyingPoseNote}</span>
         </div>
       ) : selectedSpecifiedAction && fixedScenePosition ? (
         <div className="context-note">指定動作「{selectedSpecifiedAction.zh}」已保留，暫由固定場景人物位置接管；取消接管後恢復。</div>
       ) : null}
       {selectedSpecifiedAction && !fixedScenePosition && specifiedActionCameraConflict ? <div className="context-note specified-action-context-note"><span>指定動作「{selectedSpecifiedAction.zh}」暫停：{specifiedActionCameraConflict}。E 區選值已保留；調整鏡位後恢復動作，目前使用原本姿勢。</span><button type="button" className="secondary" onClick={() => updateLocks(prev => ({...prev, specifiedActionId: 'none', actionPoseCardId: ''}))}>取消指定動作</button></div> : null}
-      {renderControlGrid((resolvedActiveSubpanel?.keys || []).filter(key => key !== 'specifiedActionId'
-        // P4: 手勢 appears only when the action's hands are free.
-        && (key !== 'gestureId' || applicableGestureOptions(activeSpecifiedAction).length > 0))
+      {renderControlGrid((resolvedActiveSubpanel?.keys || []).filter(key => key !== 'specifiedActionId')
         .map(key => characterLockControls.find(control => control.key === key)).filter(Boolean))}
     </div>
   );

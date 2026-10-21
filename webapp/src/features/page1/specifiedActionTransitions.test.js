@@ -234,3 +234,19 @@ test('global clear resets the supine snapshot and does not restore the scene it 
   assert.equal(cleared.sceneAttributeId, 'none');
   assert.equal(cleared.locationId, optionId('locationId', '全無'));
 });
+
+// Pose UI v2 (Cooper 2026-10-21): a gesture the chosen pose cannot use returns to 全無.
+test('a gesture that the new pose cannot use is cleared; usable and 隨機 gestures stay', () => {
+  const free = 'specified-standing-natural';
+  const withGesture = transition(initialLocks({ specifiedActionId: free }), { gestureId: 'gesture-collarbone' });
+  assert.equal(withGesture.gestureId, 'gesture-collarbone');
+  assert.equal(transition(withGesture, { specifiedActionId: 'specified-sitting-natural' }).gestureId, 'gesture-collarbone', 'the same list still applies');
+  assert.equal(transition(withGesture, { specifiedActionId: 'specified-squatting-natural' }).gestureId, 'none', 'squats have their own list');
+  assert.equal(transition(withGesture, { specifiedActionId: ACTION.sitting }).gestureId, 'none', 'hands fixed by the action');
+  assert.equal(transition(withGesture, { specifiedActionId: 'any' }).gestureId, 'none');
+  assert.equal(transition(withGesture, { specifiedActionId: 'none' }).gestureId, 'none');
+  assert.equal(transition(withGesture, { specifiedActionId: 'random' }).gestureId, 'none', '隨機 keeps only 全無 and 隨機');
+  const random = transition(initialLocks({ specifiedActionId: 'random' }), { gestureId: 'random' });
+  assert.equal(random.gestureId, 'random');
+  assert.equal(transition(initialLocks({ specifiedActionId: free }), { gestureId: 'random' }).gestureId, 'random');
+});
