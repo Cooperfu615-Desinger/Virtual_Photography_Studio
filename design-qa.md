@@ -427,3 +427,14 @@ Visual QA: PASS（本機模擬與未登入 UI）；真實 API、扣額、下載�
 final result: passed (local UI and automated checks); user acceptance pending. No staging, commit, push or deployment.
 
 2026-10-20 使用者驗收補記：使用者確認本機驗收沒有問題，並授權本批 commit／push 到 main。上述待驗收／未提交為本機交付當時狀態；雲端真實出圖的驗證界線不變。
+
+## 2026-10-21：Qwen 2.1 v1.3b LoRA
+
+- Scope：沿用既有 LoRA 控制與版面，在三快速面板／完整版加入 Qwen 開關及強度；沒有 CSS 或 breakpoint 變更。主線既有動作姿勢分頁退休狀態保留。
+- Visual QA: PASS（本機）。URL：http://127.0.0.1:5175/Virtual_Photography_Studio/?dllAcceptance=1；Chrome 1440×1000／390×900。現行五工作區／三快速面板均無頁面橫向溢出或破圖，控制無可見重疊、可鍵盤操作；console warning/error 空。
+- 開關預設關閉／強度0.7、方向鍵+0.05、0有效、空白／1.2停用；Qwen0.65與Asian0.4分開保存、MOSS固定0.7、INT8無控制。兩張模擬loading／成功、排入後修改不影響快照、歷史沿用／reload、快速面板帶入完整版通過。Saved Cards只讀空狀態，未修改收藏或Prompt引擎。
+- 自動驗證：前端1766/1766、Functions106/106、兩端lint、前端build；建置既有chunk及混用import提示保留。專項前端18/18、Functions15/15通過。
+- 證據：Docs/reports/comfy-qwen-lora-2026-10-21/ 的 desktop.png、mobile.png、mobile-quick.png、checks.json。桌面成果圖為既有模擬素材，不代表本次模型輸出。詳細規格與未驗證界線見 Docs/specs/comfy-qwen21-lora-v1.md。
+- Result：local checks passed; user acceptance pending。未 stage、commit、push 或部署；未新增付費生成。真實 DLL API 的出圖、扣額、下載待後續部署驗收。
+
+2026-10-21 交付授權補記：使用者確認可以先 commit／push 到 main，再部署四項相關 Functions。上列未提交狀態為本機交付當時紀錄；本次不新增付費生成，真實 API 驗收界線不變。

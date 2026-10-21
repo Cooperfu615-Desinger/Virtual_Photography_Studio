@@ -2,7 +2,14 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-20
+Last updated: 2026-10-21
+
+## DLL：Qwen 2.1 v1.3b LoRA（2026-10-21，本機整合完成，已授權發布）
+
+- Qwen 2.1 新增「套用 v1.3b LoRA」開關，預設關閉；強度預設 0.7、0–1／0.05 刻度。三快速面板及完整版進階設定共用，保留 25 steps／CFG1／Euler／simple 與原 Prompt。詳見 [規格與驗證](specs/comfy-qwen21-lora-v1.md)。
+- Qwen／Asian Mix 各自保存強度，草稿／快照／歷史／Seed 沿用與額度分桶保留實際 variant；MOSS 固定 0.7 不變。只新增固定 LoRA 接線，無任意工作流或檔案輸入。
+- Node22 前端 1766/1766、Node24 Functions 106/106、兩端 lint、前端 build 通過；桌面1440×1000／手機390×900五個現行工作區、三快速面板、兩張模擬及歷史／reload通過，無新 console warning/error、破圖或橫向溢出。
+- 使用者已授權先 commit／push 到 main，再部署 Submit／WorkspaceSubmit／Status／Quota 四項 Functions。使用既有 main 工作目錄，未新增付費生成；發布結果另補記。先前 GUI 對照成功不代替真實 DLL API 的私有模型可見性、扣額與下載驗收。
 
 
 ## 開扣襯衫套裝固定黑色下身（2026-10-20，使用者已驗收）

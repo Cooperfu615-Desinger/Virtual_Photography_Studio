@@ -22,9 +22,12 @@ export function formatDllPicGenerationMessage(result) {
   return `已生成 ${images.length} 張圖像${details}`;
 }
 
-export function getComfyGenerationNote(model, loraStrength = 1) {
+export function getComfyGenerationNote(model, loraStrength = model.comfyModel === 'qwenImage21Lora' ? 0.7 : 1) {
   const start = '依序生成 1–2 張；';
   const end = '完成後請下載保存，圖像網址會到期。';
+  if (model.comfyModel === 'qwenImage21Lora') {
+    return `${start}已套用 v1.3b LoRA（強度 ${loraStrength}），直接使用目前 Prompt。${end}`;
+  }
   if (model.comfyModel === 'zImageTurboAsianMix') {
     return `${start}已套用 Asian Mix LoKr（強度 ${loraStrength}），直接使用目前 Prompt。${end}`;
   }

@@ -1,0 +1,66 @@
+{
+  "viewports": [
+    {
+      "workspace": "Prompt 工作台",
+      "viewport": "390x900",
+      "brokenImages": 0,
+      "overflow": false
+    },
+    {
+      "workspace": "角色建模",
+      "viewport": "390x900",
+      "brokenImages": 0,
+      "overflow": false
+    },
+    {
+      "workspace": "場景建模",
+      "viewport": "390x900",
+      "brokenImages": 0,
+      "overflow": false
+    },
+    {
+      "workspace": "Saved Cards",
+      "viewport": "390x900",
+      "brokenImages": 0,
+      "overflow": false
+    },
+    {
+      "workspace": "DLL_PIC Pro",
+      "viewport": "390x900",
+      "brokenImages": 0,
+      "overflow": false
+    },
+    {
+      "workspace": "Prompt 工作台",
+      "viewport": "1440x1000",
+      "brokenImages": 0,
+      "overflow": false
+    },
+    {
+      "workspace": "角色建模",
+      "viewport": "1440x1000",
+      "brokenImages": 0,
+      "overflow": false
+    },
+    {
+      "workspace": "場景建模",
+      "viewport": "1440x1000",
+      "brokenImages": 0,
+      "overflow": false
+    },
+    {
+      "workspace": "Saved Cards",
+      "viewport": "1440x1000",
+      "brokenImages": 0,
+      "overflow": false
+    },
+    {
+      "workspace": "DLL_PIC Pro",
+      "viewport": "1440x1000",
+      "brokenImages": 0,
+      "overflow": false
+    }
+  ],
+  "console": [],
+  "mode": "local mock; no paid generation"
+}

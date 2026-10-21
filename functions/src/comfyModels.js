@@ -56,6 +56,17 @@ asianMix.template['60'] = { class_type: 'LoraLoaderModelOnly', inputs: {
 asianMix.template['57:11'].inputs.model = ['60', 0];
 models.zImageTurboAsianMix = { ...asianMix, loraNode: '60' };
 
+// Preserve Qwen's sampler, encoder, cache and output; inject only the adapter.
+const qwenLora = local('qwenImage21', '459:452', 'prompt', '459:456', '459:458');
+qwenLora.template = structuredClone(qwenLora.template);
+qwenLora.template['600'] = { class_type: 'LoraLoaderModelOnly', inputs: {
+  model: ['459:451', 0],
+  lora_name: 'qwen2_1-femaledVaginus-nsfw-v1_3-fine_L22-31.safetensors',
+  strength_model: 0.7,
+} };
+qwenLora.template['459:480'].inputs.model = ['600', 0];
+models.qwenImage21Lora = { ...qwenLora, loraNode: '600' };
+
 function getComfyModel(modelKey) {
   const model = Object.hasOwn(models, modelKey) && models[modelKey];
   if (!model) throw new Error('不支援的 Comfy Cloud 模型');

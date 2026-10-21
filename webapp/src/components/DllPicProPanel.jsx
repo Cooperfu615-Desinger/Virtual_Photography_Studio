@@ -13,6 +13,7 @@ import {
   getDllPicLoraSelection,
   getDllPicLoraModelKey,
   getDllPicLoraSettings,
+  readDllPicLoraStrength,
   getDllPicResolutionOption,
   getDllPicResolutionOptions,
   getDllPicSelectableModelEntries,
@@ -37,12 +38,8 @@ function loadStoredModelKey(fallback = 'google31FlashLiteImage') {
   return normalizeDllPicModelKey(loadStoredValue(DLL_PIC_STORAGE_KEYS.model, fallback), fallback);
 }
 
-function loadStoredLoraStrength() {
-  try {
-    return getDllPicLoraSettings('comfyZImageTurboAsianMix', Number(loadStoredValue(DLL_PIC_STORAGE_KEYS.asianMixStrength, '1'))).loraStrength;
-  } catch {
-    return 1;
-  }
+function loadStoredLoraStrength(modelKey) {
+  return readDllPicLoraStrength(modelKey, key => loadStoredValue(key));
 }
 
 function loadStoredApiKey(modelKey) {
@@ -145,7 +142,7 @@ export default function DllPicProPanel({
   const [customPrompt, setCustomPrompt] = useState(initialSettings.customPrompt || '');
   const [seed, setSeed] = useState(initialSettings.seed ?? '');
   const [promptExpanded, setPromptExpanded] = useState(Boolean(initialSettings.custom));
-  const [loraStrength, setLoraStrength] = useState(() => initialSettings.loraStrength ?? loadStoredLoraStrength());
+  const [loraStrength, setLoraStrength] = useState(() => initialSettings.loraStrength ?? loadStoredLoraStrength(modelKey));
   const [apiKeys, setApiKeys] = useState(loadStoredProviderApiKeys);
   const [apiKeyDrafts, setApiKeyDrafts] = useState(loadStoredProviderApiKeys);
   const [isApiKeyModalOpen, setIsApiKeyModalOpen] = useState(false);
@@ -166,6 +163,7 @@ export default function DllPicProPanel({
 
   const activeModel = getDllPicModelConfig(modelKey);
   const loraSelection = getDllPicLoraSelection(modelKey);
+  const loraLabel = loraSelection.label || 'MOSS LoRA';
   let loraSettings = {};
   let loraError = '';
   try { loraSettings = getDllPicLoraSettings(modelKey, loraStrength); }
@@ -173,8 +171,8 @@ export default function DllPicProPanel({
   const changeLoraStrength = value => {
     setLoraStrength(value);
     try {
-      const valid = getDllPicLoraSettings('comfyZImageTurboAsianMix', value);
-      window.localStorage.setItem(DLL_PIC_STORAGE_KEYS.asianMixStrength, String(valid.loraStrength));
+      const valid = getDllPicLoraSettings(loraSelection.loraModelKey, value);
+      window.localStorage.setItem(loraSelection.storageKey, String(valid.loraStrength));
     } catch { /* Keep incomplete input editable without persisting it. */ }
   };
   const activeResolution = getDllPicResolutionOption(modelKey, resolution).value;
@@ -310,23 +308,23 @@ export default function DllPicProPanel({
 
   const loraControls = <>
         {loraSelection.supported && <label className="dll-pic-lora-control">
-          <input type="checkbox" aria-label={loraSelection.adjustable ? '套用 Asian Mix LoKr' : '套用 MOSS LoRA'} checked={loraSelection.enabled} disabled={!full && isGenerating}
+          <input type="checkbox" aria-label={`套用 ${loraLabel}`} checked={loraSelection.enabled} disabled={!full && isGenerating}
             onChange={event => {
               const nextModelKey = getDllPicLoraModelKey(modelKey, event.target.checked);
               setModelKey(nextModelKey);
               saveStoredGenerationSettings(nextModelKey, activeResolution);
             }} />
-          <span>{loraSelection.adjustable ? '套用 Asian Mix LoKr' : '套用 MOSS LoRA'}{!loraSelection.adjustable && <small>強度 {loraSelection.strength}</small>}</span>
+          <span>套用 {loraLabel}{!loraSelection.adjustable && <small>強度 {loraSelection.strength}</small>}</span>
         </label>}
         {loraSelection.adjustable && loraSelection.enabled && <div className="dll-pic-lora-strength">
-          <span>LoKr 強度</span>
+          <span>{loraSelection.strengthLabel}</span>
           <div className="dll-pic-lora-strength-inputs">
-            <input type="range" aria-label="LoKr 強度滑桿" min="0" max="1" step="0.05" value={typeof loraStrength === 'number' ? loraStrength : 1}
+            <input type="range" aria-label={`${loraSelection.strengthLabel}滑桿`} min="0" max="1" step="0.05" value={typeof loraStrength === 'number' ? loraStrength : loraSelection.strength}
               disabled={!full && isGenerating} onChange={event => changeLoraStrength(Number(event.target.value))} />
-            <input type="number" aria-label="LoKr 強度數值" min="0" max="1" step="0.05" value={loraStrength}
+            <input type="number" aria-label={`${loraSelection.strengthLabel}數值`} min="0" max="1" step="0.05" value={loraStrength}
               disabled={!full && isGenerating} onChange={event => changeLoraStrength(event.target.value === '' ? '' : Number(event.target.value))} />
           </div>
-          <small>0–1，每次調整 0.05。需要時可在提示詞加入 asian woman。</small>
+          <small>0–1，每次調整 0.05。{loraSelection.hint}</small>
           {loraError && <small className="dll-pic-quota-error" role="alert">{loraError}</small>}
         </div>}
   </>;
@@ -352,7 +350,7 @@ export default function DllPicProPanel({
           <span className="dll-sticky-hint"><Pin size={13} />操作列固定可見</span>
         </div>
         <p className="dll-generation-summary">{activeModel.label} · {aspectRatio} · {activeResolution.toUpperCase()} · {count} 張</p>
-        <p className="dll-generation-context">{custom ? '自訂 Prompt' : selectedSource?.label || '尚未帶入來源'}{activeModel.provider === 'comfyCloud' && ` · Seed：${seed === '' ? '隨機' : seed}`}{loraSelection.enabled && ` · ${loraSelection.adjustable ? `Asian Mix LoKr ${loraStrength}` : 'MOSS LoRA 0.7'}`}</p>
+        <p className="dll-generation-context">{custom ? '自訂 Prompt' : selectedSource?.label || '尚未帶入來源'}{activeModel.provider === 'comfyCloud' && ` · Seed：${seed === '' ? '隨機' : seed}`}{loraSelection.enabled && ` · ${loraLabel} ${loraSelection.adjustable ? loraStrength : loraSelection.strength}`}</p>
         {(modelCompatibilityNote || loraError || !selectedPrompt.trim() || comfyPending || (!DLL_LOCAL_ACCEPTANCE && !activeModel.usesServerProxy && !activeApiKey)) && <p className="dll-generation-notice" role="status">{modelCompatibilityNote || loraError || (!selectedPrompt.trim() ? '請先帶入來源或編輯本次 Prompt。' : comfyPending ? '請先查詢上次 Comfy 任務，再開始生成。' : '請先在 API Keys 設定此模型的金鑰。')}</p>}
         {activeModel.provider === 'comfyCloud' && !DLL_LOCAL_ACCEPTANCE && !loraError && <ComfyQuotaPanel compact modelKey={activeModel.comfyModel} {...loraSettings} resolution={activeResolution} aspectRatio={aspectRatio} refreshToken={images} />}
       </div>}
@@ -383,7 +381,7 @@ export default function DllPicProPanel({
               const nextModelKey = event.target.value;
               const nextResolution = getDllPicResolutionOption(nextModelKey, resolution).value;
               setModelKey(nextModelKey);
-              changeLoraStrength(1);
+              setLoraStrength(loadStoredLoraStrength(nextModelKey));
               setCount(1);
               setSeed('');
               setResolution(nextResolution);
@@ -469,7 +467,7 @@ export default function DllPicProPanel({
       </div>}
 
       {full && loraSelection.supported && <details className="dll-advanced-settings">
-        <summary>進階設定 · {loraSelection.adjustable ? 'Asian Mix LoKr' : 'MOSS LoRA'}{loraSelection.enabled ? ` 已套用（${loraSelection.adjustable ? loraStrength : loraSelection.strength}）` : ' 未套用'}</summary>
+        <summary>進階設定 · {loraLabel}{loraSelection.enabled ? ` 已套用（${loraSelection.adjustable ? loraStrength : loraSelection.strength}）` : ' 未套用'}</summary>
         <div>{loraControls}</div>
       </details>}
 
