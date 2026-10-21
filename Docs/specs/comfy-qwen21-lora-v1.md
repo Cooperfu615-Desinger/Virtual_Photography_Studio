@@ -46,3 +46,13 @@
 ## 交付授權
 
 使用者於本機整合回報後確認「可以，請先幫我 commit/push 到 main，再部署這四個 Firebase Functions」。提交範圍為本規格列出的 Qwen LoRA 程式、專項測試、狀態／QA 文件與四份瀏覽器驗收證據。沿用本批已通過的完整驗證；未再更動程式。main 推送會觸發既有 Pages 流程，部署與線上檢查結果另補記；本次不新增付費生成。
+
+## 後端部署結果
+
+2026-10-21 16:56（台北）核對完成。功能提交 `fe28d86d1437865a766ae160ea3d3d8d9c504abf` 已推送 origin/main，隨後 Firebase CLI 回報四項 update operation 成功及 Deploy complete。
+
+- `comfyCloudSubmit`、`comfyCloudWorkspaceSubmit`、`comfyCloudStatus`、`comfyCloudQuota` 均為 ACTIVE、nodejs24、us-central1。部署雜湊更新為 `40c6e241d0738059d08ee0187c6a516c5e0b958b`；僅 source／hash／labels 改變。
+- 四項 Secret 綁定、應用環境、CPU／記憶體／timeout／instances／concurrency／service account／ingress 保留；其他七項 Functions 完整 metadata 與部署前一致。[部署摘要](../reports/comfy-qwen-lora-2026-10-21/functions-deployment.json)。
+- 四項匿名 POST 均回401／UNAUTHENTICATED；正式站 Origin 的 OPTIONS 均回204及正確 allow-origin，共8項通過。[健康檢查](../reports/comfy-qwen-lora-2026-10-21/functions-smoke.json)。未送出圖片生成或耗用 Comfy 額度。
+- CLI 提示 firebase-functions 套件有新版，未擴大本批範圍升級依賴。main 推送會執行[CI 與 Pages 發布](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/workflows/deploy.yml)，其成功與否需另以對應 run 確認。
+- 以上證明後端部署、配置保留及公開端點保護；登入後使用私人 LoRA 的實際 API 出圖、扣額、下載仍待獨立驗收。
