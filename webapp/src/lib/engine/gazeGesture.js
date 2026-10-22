@@ -4,6 +4,7 @@
 // 拍攝方式 maps onto the existing selfie hand and prop options so their camera,
 // orbit and Z-Image capture behavior stays unchanged.
 import { joinSpecifiedActionClauses } from './specifiedActions.js';
+import { POSE_COMPOSER_PROP_OPTIONS } from './poseComposerOptions.js';
 
 const freeze = value => Object.freeze(value);
 const choice = (id, zh) => freeze({ id, zh, en: '', meta: freeze({ tags: freeze([id]) }) });
@@ -109,9 +110,9 @@ export const GESTURE_OPTIONS = freeze([
     ['gather-hair', '雙手抓著整束頭髮與髮尾整理', 'both hands gathering one thick bundle of hair behind and above the head, one hand holding near the base while the other grips and smooths the loose lengths toward the ends in a natural ponytail-prep motion',
       {}],
   ].map(([key, zh, en, extra]) => gesture(`gesture-legacy-${key}`, zh, en, 'general', extra)),
-  // The glasses hands also work with squats and every lying orientation (Cooper 2026-10-22).
+  // The two glasses hands also work with squats and every lying orientation (Cooper 2026-10-22);
+  // 單手拿著眼鏡 moved to the 道具 control.
   ...[
-    ['hold-glasses', '單手拿著眼鏡', 'one hand holding the glasses by one temple, with the glasses removed from the face and hanging naturally beside the cheek'],
     ['pull-down-glasses', '單手把眼鏡拉下', 'one hand pulling the glasses slightly down the nose bridge so the eyes remain visible above the frame'],
     ['bite-glasses-temple', '咬著眼鏡腳', 'one glasses temple held lightly between the teeth, with the frames removed from the face and hanging beside the cheek while both hands stay relaxed'],
   ].map(([key, zh, en]) => gesture(`gesture-legacy-${key}`, zh, en, 'general',
@@ -187,25 +188,54 @@ export function resolveGesture(gestureId, action, { wardrobeSignals = {}, orbit 
   return role && wardrobeSignals[role] === 'absent' ? null : option;
 }
 
+// 道具 control (Cooper 2026-10-22): the earlier prop actions plus the glasses hand and a book,
+// reusing the free-composer catalog so the standalone (no action) path shares one source.
+// Props sit beside every action unfiltered; only 隨機 skips face-touching props under a back-view
+// orbit and the glasses when the resolved wardrobe has none.
+const propEntry = option => freeze({ id: option.id, zh: option.zh, en: option.en, meta: freeze({ ...option.meta,
+  requiresFaceVisibility: option.meta?.tags?.includes('face_action') === true }) });
+export const PROP_OPTIONS = freeze([
+  choice('none', '全無'),
+  choice('random', '隨機'),
+  ...POSE_COMPOSER_PROP_OPTIONS.filter(option => option.meta?.tags?.includes('prop_action') && !option.meta.tags.includes('selfie_hand_pose')).map(propEntry),
+]);
+const CONCRETE_PROPS = PROP_OPTIONS.filter(option => option.en);
+
+export function resolveProp(propId, { wardrobeSignals = {}, orbit = null } = {}, random = Math.random) {
+  if (!propId || propId === 'none') return null;
+  if (propId === 'random') {
+    const pool = CONCRETE_PROPS
+      .filter(option => !(option.meta.requiresFaceVisibility && isBackView(orbit)))
+      .filter(option => !option.meta.requiresWardrobeRole || wardrobeSignals[option.meta.requiresWardrobeRole] === 'present');
+    return pool.length ? pool[Math.min(pool.length - 1, Math.floor(random() * pool.length))] : null;
+  }
+  const option = CONCRETE_PROPS.find(item => item.id === propId);
+  const role = option?.meta.requiresWardrobeRole;
+  return role && wardrobeSignals[role] === 'absent' ? null : option || null;
+}
+
 /** The action English with the gesture added as an upper-body clause after its
  * last upper clause, so full-body and upper-body crops both keep it. A gesture may
  * carry its own medium-crop fragment and drop out of chest-up; an action may omit
  * its own upper-body text (squatting v1 O6), leaving only the gesture. */
-export function actionTextWithGesture(action, option, { chestUp = false } = {}) {
+export function actionTextWithGesture(action, option, { chestUp = false } = {}, prop = null) {
   const ownUpper = action.meta?.upperBodyOmitted ? '' : action.upperBodyEn;
-  if (!option) return { en: action.en, upperBodyEn: ownUpper };
+  if (!option && !prop) return { en: action.en, upperBodyEn: ownUpper };
   const clauses = [...action.clauses];
   const lastUpper = clauses.map(item => item.region).lastIndexOf('upper');
-  const at = lastUpper >= 0 ? lastUpper + 1 : clauses.map(item => item.region).lastIndexOf('core') + 1;
-  clauses.splice(at, 0, { region: 'upper', join: ', ', en: option.en });
+  let at = lastUpper >= 0 ? lastUpper + 1 : clauses.map(item => item.region).lastIndexOf('core') + 1;
+  const added = [option, prop].filter(Boolean);
+  for (const extra of added) clauses.splice(at++, 0, { region: 'upper', join: ', ', en: extra.en });
   const en = joinSpecifiedActionClauses(clauses);
-  const fragment = chestUp && option.meta?.omitInChestUp ? '' : option.meta?.upperBodyEn || option.en;
-  if (!fragment) return { en, upperBodyEn: ownUpper };
-  if (!ownUpper) return { en, upperBodyEn: `She has ${fragment}.` };
-  if (fragment === option.en && ownUpper === joinSpecifiedActionClauses(action.clauses, ['core', 'upper'])) {
+  // A gesture may carry its own medium-crop fragment and drop out of chest-up; a prop keeps its sentence.
+  const fragments = added.map(extra => (chestUp && extra.meta?.omitInChestUp ? '' : extra.meta?.upperBodyEn || extra.en));
+  const shown = fragments.filter(Boolean);
+  if (!shown.length) return { en, upperBodyEn: ownUpper };
+  if (!ownUpper) return { en, upperBodyEn: `She has ${shown.join(', ')}.` };
+  if (added.every((extra, index) => fragments[index] === extra.en) && ownUpper === joinSpecifiedActionClauses(action.clauses, ['core', 'upper'])) {
     return { en, upperBodyEn: joinSpecifiedActionClauses(clauses, ['core', 'upper']) };
   }
-  return { en, upperBodyEn: `${ownUpper.replace(/\.$/, '')}, ${fragment}.` };
+  return { en, upperBodyEn: `${ownUpper.replace(/\.$/, '')}, ${shown.join(', ')}.` };
 }
 
 export const CAPTURE_STYLE_OPTIONS = freeze([
@@ -225,7 +255,8 @@ export const isSelfieCaptureStyle = id => CAPTURE_STYLE_OPTIONS.some(option => o
 export function applyCaptureStyleLocks(locks = {}) {
   const option = CAPTURE_STYLE_OPTIONS.find(item => item.id === locks.captureStyleId);
   if (!option || (!option.hand && !option.prop) || locks.subjectCount !== '1' || locks.captureMode === 'observation') return locks;
-  return { ...locks, poseHandId: option.hand || 'none', posePropId: option.prop || 'none' };
+  // The mirror selfie owns the phone prop, so the 道具 control steps aside.
+  return { ...locks, poseHandId: option.hand || 'none', posePropId: option.prop || 'none', ...(option.prop ? { propId: 'none' } : {}) };
 }
 
 /** The 拍攝方式 an older selection implies through its selfie hand or prop. */

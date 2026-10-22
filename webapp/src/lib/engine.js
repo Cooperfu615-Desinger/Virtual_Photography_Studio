@@ -7,7 +7,7 @@ import { midjourneyBodyDescription } from './engine/midjourneyBodyDescriptions.j
 import { SPECIFIED_ACTION_OPTIONS, getSpecifiedAction, getSpecifiedActionEffectiveLocks, resolveRandomSpecifiedAction, specifiedActionSupportsCamera } from './engine/specifiedActions.js';
 import { LYING_CAMERA_OPTIONS, isLyingAction, lyingSurfaceFor, resolveLyingCamera, withLyingSurface } from './engine/lyingSurface.js';
 import { HEAD_POSTURE_OPTIONS, headPostureById, mergeHeadPosture, resolveHeadPosture } from './engine/headPosture.js';
-import { CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, actionTextWithGesture, applyCaptureStyleLocks, gazeAvoidsBackView, isBackViewOrbit, resolveGaze, resolveGesture } from './engine/gazeGesture.js';
+import { CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, actionTextWithGesture, applyCaptureStyleLocks, gazeAvoidsBackView, isBackViewOrbit, resolveGaze, resolveGesture, resolveProp } from './engine/gazeGesture.js';
 import { applyDefaultEthnicity, applyDefaultEthnicityToCharacter, resolveDefaultEthnicity } from './engine/defaultEthnicity.js';
 import { renderNanoBananaNarrative } from './engine/nanoBananaPrompt.js';
 import { polishPublicPromptText } from './engine/publicPromptPolish.js';
@@ -1164,6 +1164,7 @@ const LOCK_DEFINITIONS = [
   { key: 'poseAnchorId', label: '接觸 / 支撐', options: POSE_COMPOSER_ANCHOR_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   // expression-pose-v2 P4: gaze replaces the head layer; gestures fill free-hand actions.
   { key: 'gestureId', label: '手勢', options: GESTURE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
+  { key: 'propId', label: '道具', options: PROP_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'headPostureId', label: '頭部', options: HEAD_POSTURE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'gazeId', label: '視線', options: GAZE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'specialOutfitId', label: '特殊穿搭', category: '特殊穿搭 (Special Outfits)', section: 'wardrobe' },
@@ -5660,7 +5661,9 @@ function buildPoseComposerItem(context) {
     const headText = isActivePoseComposerOption(head) ? `She has ${normalizePoseComposerHeadPhrase(head)}.` : '';
     const gesture = resolveGesture(context.locks?.gestureId, specifiedAction, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random);
     if (context.poseResolution) context.poseResolution.gesture = gesture;
-    const actionText = actionTextWithGesture(specifiedAction, gesture);
+    const prop = resolveProp(context.locks?.propId, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random);
+    if (context.poseResolution) context.poseResolution.prop = prop;
+    const actionText = actionTextWithGesture(specifiedAction, gesture, {}, prop);
     return {
       id: `character:姿勢組合器-pose-composer:${specifiedAction.id}:${head?.id || 'none'}`,
       zh: [specifiedAction.zh, head?.zh].filter(Boolean).join(' + '),
@@ -5674,6 +5677,7 @@ function buildPoseComposerItem(context) {
         poseArrangementId: 'none', poseHandId: 'none', posePropId: 'none',
         ...headIds(head), poseAnchorId: 'none',
         gestureId: gesture?.id || 'none',
+        ...(prop ? { propId: prop.id } : {}),
       },
     };
   }
@@ -5691,7 +5695,11 @@ function buildPoseComposerItem(context) {
       random
     );
     const head = resolveHead();
-    const propAction = resolvePoseComposerOption(
+    // The 道具 control (2026-10-22) runs here when no action is chosen; the retired prop lock still wins.
+    const newProp = !context.locks?.posePropId || context.locks.posePropId === 'none'
+      ? resolveProp(context.locks?.propId, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random) : null;
+    if (context.poseResolution) context.poseResolution.prop = newProp;
+    const propAction = newProp || resolvePoseComposerOption(
       POSE_COMPOSER_PROP_OPTIONS,
       context.locks?.posePropId,
       isRandomOption(requestedProp)
@@ -6166,8 +6174,9 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
     if (projection.pose?.mode === 'fullCanonical' || projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE) return poseComposer.en;
     const head = headOptionFromMeta(poseComposer.meta);
     const gesture = GESTURE_OPTIONS.find(option => option.scope && option.id === poseComposer.meta?.gestureId) || null;
+    const prop = PROP_OPTIONS.find(option => option.en && option.id === poseComposer.meta?.propId) || null;
     const chestUp = projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP;
-    return [withLyingSurface(actionTextWithGesture(specifiedAction, gesture, { chestUp }).upperBodyEn, lyingSurfaceFor(specifiedAction, context.location)),
+    return [withLyingSurface(actionTextWithGesture(specifiedAction, gesture, { chestUp }, prop).upperBodyEn, lyingSurfaceFor(specifiedAction, context.location)),
       isActivePoseComposerOption(head) ? `She has ${normalizePoseComposerHeadPhrase(head)}.` : '',
     ].filter(Boolean).join(' ');
   }
@@ -16558,14 +16567,15 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
   resolvedSelection.lyingCameraId = context.lyingCamera?.id || context.rawLocks.lyingCameraId || 'none';
   // expression-pose-v2 P4: record resolved gaze and gesture (raw choice when unused)
   // and the 拍攝方式; unused defaults keep old snapshots' shape.
-  const { gaze, gesture } = context.poseResolution || {};
+  const { gaze, gesture, prop } = context.poseResolution || {};
   resolvedSelection.gazeId = gaze ? gaze.id : context.rawLocks.gazeId || 'none';
   resolvedSelection.gestureId = gesture ? gesture.id : context.rawLocks.gestureId || 'none';
+  resolvedSelection.propId = prop ? prop.id : context.rawLocks.propId || 'none';
   resolvedSelection.headPostureId = context.poseResolution?.posture?.id || context.rawLocks.headPostureId || 'none';
   resolvedSelection.captureStyleId = context.rawLocks.captureStyleId || 'standard';
   const snapshot = createSelectionSnapshot(LOCK_DEFINITIONS, resolvedSelection);
   if (!snapshot.lyingCameraId || snapshot.lyingCameraId === 'none') delete snapshot.lyingCameraId;
-  for (const [key, unused] of [['gazeId', 'none'], ['gestureId', 'none'], ['headPostureId', 'none'], ['captureStyleId', 'standard']]) {
+  for (const [key, unused] of [['gazeId', 'none'], ['gestureId', 'none'], ['propId', 'none'], ['headPostureId', 'none'], ['captureStyleId', 'standard']]) {
     if (!snapshot[key] || snapshot[key] === unused) delete snapshot[key];
   }
   if (!storedAction) {

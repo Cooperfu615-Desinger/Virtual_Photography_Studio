@@ -71,8 +71,8 @@ test('an action that owns the head ignores gaze and keeps the raw choice', () =>
 test('gestures: only free-hand library actions, scoped by orientation; inserted after the upper clauses', () => {
   assert.equal(actionAcceptsGesture(action(HUG_KNEES)), false);
   assert.equal(actionAcceptsGesture(SPECIFIED_ACTION_ANY), false, '任意 leaves the hands to the model');
-  assert.deepEqual(applicableGestureOptions(action(PRONE)).map(o => o.zh), ['單手拿著眼鏡', '單手把眼鏡拉下', '咬著眼鏡腳', '下巴靠在交疊的雙手上', '雙手托腮', '一手撥頭髮', '雙手輕放在前方']);
-  assert.equal(GESTURE_OPTIONS.filter(o => o.scope).length, 42, '8 general + 18 restored legacy hands + 9 lying + 7 squatting');
+  assert.deepEqual(applicableGestureOptions(action(PRONE)).map(o => o.zh), ['單手把眼鏡拉下', '咬著眼鏡腳', '下巴靠在交疊的雙手上', '雙手托腮', '一手撥頭髮', '雙手輕放在前方']);
+  assert.equal(GESTURE_OPTIONS.filter(o => o.scope).length, 41, '8 general + 18 restored legacy hands + 9 lying + 7 squatting');
   const chin = GESTURE_OPTIONS.find(o => o.id === 'gesture-prone-chin-hands');
   const text = actionTextWithGesture(action(PRONE), chin);
   assert.match(text.en, /propped on her forearms resting flat in front of her, her chin resting on her stacked hands\. Her hips rest/);
@@ -167,7 +167,7 @@ test('standing batch 1 is accepted with free hands; batch 2 is pending and out o
 
 test('a free-hand standing action offers the general gestures; the 4 new ones never come from 隨機', () => {
   const natural = action('specified-standing-natural');
-  assert.equal(applicableGestureOptions(natural).length, 25, '8 general + 14 restored hands + 3 glasses');
+  assert.equal(applicableGestureOptions(natural).length, 24, '8 general + 14 restored hands + 2 glasses');
   const newIds = ['gesture-hand-on-head', 'gesture-hands-behind-head', 'gesture-hands-behind-back', 'gesture-arms-overhead'];
   for (let index = 0; index < 40; index += 1) {
     const drawn = resolveGesture('random', natural, { wardrobeSignals: { pants: 'present' } }, () => index / 40);
@@ -194,7 +194,7 @@ test('the four squats are accepted, hands free, and offer only the seven squat g
   for (const squat of squats) {
     assert.equal(squat.validation.status, 'accepted', squat.id);
     assert.equal(squat.family, 'squatting', squat.id);
-    assert.deepEqual(applicableGestureOptions(squat).map(o => o.zh), ['單手拿著眼鏡', '單手把眼鏡拉下', '咬著眼鏡腳', '雙肘靠膝自然垂手', '雙手沿腿側自然下垂', '單手托腮一手自然垂落',
+    assert.deepEqual(applicableGestureOptions(squat).map(o => o.zh), ['單手把眼鏡拉下', '咬著眼鏡腳', '雙肘靠膝自然垂手', '雙手沿腿側自然下垂', '單手托腮一手自然垂落',
       '雙手托腮', '單手在臉旁比 V', '雙臂搭膝外展垂手', '雙肘靠膝中央垂手'], squat.id);
   }
   for (const option of GESTURE_OPTIONS.filter(o => o.scope === 'squatting')) {
@@ -242,7 +242,7 @@ test('16 sitting and kneeling actions: accepted, hands free with the general ges
     assert.ok(a, 'exists');
     assert.equal(a.validation.status, 'accepted', a.id);
     assert.equal(a.hands.mode, 'free', a.id);
-    assert.equal(applicableGestureOptions(a).length, 25, a.id);
+    assert.equal(applicableGestureOptions(a).length, 24, a.id);
     assert.doesNotMatch(a.en, /arrangement/, a.id);
   }
   assert.equal(action('specified-kneeling-all-fours'), undefined, 'all-fours stays with the two support-hand actions');
@@ -317,7 +317,7 @@ const GLASSES = LEGACY.filter(o => o.meta.requiresWardrobeRole === 'eyewear');
 const ALL_PRESENT = { upperGarment: 'present', bottom: 'present', outerwear: 'present', eyewear: 'present', pants: 'present' };
 
 test('the 18 restored hands exist; the camera-facing four carry no camera or lens wording', () => {
-  assert.equal(LEGACY.length, 18);
+  assert.equal(LEGACY.length, 17, '18 restored hands minus 單手拿著眼鏡, which moved to 道具');
   for (const o of LEGACY) assert.doesNotMatch(o.en, /\b(?:camera|lens)\b/i, o.zh);
   assert.match(LEGACY.find(o => o.zh === '手指愛心').en, /held naturally in front of her, while the other hand rests naturally/);
 });
@@ -346,7 +346,7 @@ test('a chosen wardrobe hand is skipped silently only when the resolved wardrobe
   assert.doesNotMatch(skipped.grokPrompt, /side pockets of her jacket/);
 });
 
-test('the three glasses hands also fit squats and every lying orientation; the other 15 do not', () => {
+test('the two glasses hands also fit squats and every lying orientation; the other 15 do not', () => {
   const squat = SQUAT('natural');
   // Only the prone lying actions have free hands today; model the other orientations on them.
   const supine = { ...PRONE_ACTION, orientationId: 'lying-supine' };

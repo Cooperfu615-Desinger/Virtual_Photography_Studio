@@ -96,7 +96,7 @@ export function runSceneFixture(fixture, customLibrary = []) {
       : key === 'observationCapture' ? Boolean(value)
       : key === 'specifiedActionId' ? Boolean(value && value !== 'none')
       : key === 'lyingCameraId' ? Boolean(value && value !== 'none') // lying camera (P3, 2026-10-19)
-      : ['gazeId', 'gestureId', 'headPostureId'].includes(key) ? Boolean(value && value !== 'none') // gaze and gesture (P4, 2026-10-20)
+      : ['gazeId', 'gestureId', 'propId', 'headPostureId'].includes(key) ? Boolean(value && value !== 'none') // gaze and gesture (P4, 2026-10-20)
       : key === 'captureStyleId' ? Boolean(value && value !== 'standard') // 拍攝方式 (P4, 2026-10-20)
       : key === 'specifiedActionSceneRestore' ? Boolean(value)
       : /^(headphones|faceCovering)[AB]?(Color)?Id$/.test(key)

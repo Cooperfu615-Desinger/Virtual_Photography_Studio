@@ -13,6 +13,7 @@ import {
 const EXPLICIT_RANDOM_KEYS = new Set(['specifiedActionId', 'lyingCameraId', 'gazeId', 'gestureId', 'headPostureId']);
 
 const RESET_TO_DEFAULT_KEYS = new Set([
+  'propId', // 道具 (2026-10-22): the panel's 隨機 never forces a prop; only its own 隨機 option draws one
   'specialSubjectId',
   'characterProfileId',
   'imageTypePresetId',

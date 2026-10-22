@@ -68,7 +68,7 @@ test('Pose Composer exposes prop actions separately from hand actions', () => {
     propControl.options
       .filter((item) => item.zh !== '全無' && item.zh !== '隨機')
       .map((item) => item.zh),
-    ['塗口紅｜自由妝感', '手持冰咖啡', '手持威士忌', '手持香檳', '手持礦泉水瓶', '手持單眼 FUJI X-100V 相機', '手持波板糖', '含著圓形棒棒糖｜右手持棒', '手持香菸', '滑手機', '手持手機對鏡自拍'],
+    ['塗口紅｜自由妝感', '手持冰咖啡', '手持威士忌', '手持香檳', '手持礦泉水瓶', '手持單眼 FUJI X-100V 相機', '手持波板糖', '含著圓形棒棒糖｜右手持棒', '手持香菸', '滑手機', '單手拿著眼鏡', '拿著打開的書', '手持手機對鏡自拍'],
   );
   assert.equal(option('posePropId', '塗口紅｜自由妝感').id, 'hand-apply-lipstick');
   assert.equal(option('posePropId', '塗口紅｜自由妝感').en, LIPSTICK_PROMPT);

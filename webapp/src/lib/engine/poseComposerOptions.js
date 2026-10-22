@@ -1100,6 +1100,9 @@ export const POSE_COMPOSER_PROP_OPTIONS = [
   },
   { id: 'hand-hold-cigarette', zh: '手持香菸', en: 'a cigarette held naturally between the fingers in one hand, faint smoke around the hand', desc: '手指自然夾著香菸，位置由模型自然決定。', meta: { tags: ['prop_action'] } },
   { id: 'hand-use-phone', zh: '滑手機', en: 'a cell phone held in one hand while scrolling or checking the screen', desc: '單手拿手機滑動或查看畫面。', meta: { tags: ['prop_action'] } },
+  // Props restored as their own 道具 control (Cooper 2026-10-22): the glasses hand moved here and a book was added.
+  { id: 'hand-hold-glasses', zh: '單手拿著眼鏡', en: 'one hand holding the glasses by one temple, with the glasses removed from the face and hanging naturally beside the cheek', desc: '單手捏著鏡腳拿著眼鏡，眼鏡離開臉部垂在臉頰旁。', meta: { tags: ['prop_action', 'face_action'], requiresWardrobeRole: 'eyewear', randomEligible: false } },
+  { id: 'hand-hold-open-book', zh: '拿著打開的書', en: 'an open book held in one hand at chest height, its pages facing her as if reading', desc: '單手在胸前拿著一本打開的書，書頁朝向自己，像在閱讀。', meta: { tags: ['prop_action'], randomEligible: false } },
   {
     id: 'selfie-mirror-phone-visible',
     zh: '手持手機對鏡自拍',

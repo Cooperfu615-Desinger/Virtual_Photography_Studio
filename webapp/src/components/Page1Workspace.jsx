@@ -930,6 +930,17 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       return { ...control, options: control.options.map(o => postureConflictsWithGaze(o.id, locks.gazeId)
         ? { ...o, zh: `${o.zh}（低頭時不適用）`, disabled: true } : o) };
     }
+    if (control.key === 'propId') {
+      // 道具 (Cooper 2026-10-22): beside every action, unfiltered. The glasses need glasses in the wardrobe;
+      // the mirror selfie owns the phone, so the control steps aside.
+      if (locks.captureStyleId === 'mirror') {
+        return { ...control, disabled: true, suppressDefaultRandomOption: true, closureDisplayValue: 'prop-locked',
+          options: [{ id: 'prop-locked', zh: '由鏡子自拍決定', en: '' }] };
+      }
+      const noEyewear = Boolean(locks.eyewearId) && locks.eyewearId !== 'random' && isNoneSelected('eyewearId', locks.eyewearId, wardrobeLockControls);
+      return { ...control, options: control.options.map(o => noEyewear && o.meta?.requiresWardrobeRole === 'eyewear'
+        ? { ...o, zh: `${o.zh}（需要眼鏡）`, disabled: true } : o) };
+    }
     if (control.key === 'gestureId') {
       // Pose UI v2 (Cooper 2026-10-21): always shown; locked unless a hand-free action is chosen
       // (隨機 offers only 全無／隨機). The lock reason is the displayed value, not a note.
@@ -1147,7 +1158,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   }
 
   const prepareControlField = (rawControl, inDuoGroup = false) => {
-    if (captureActive && (CAPTURE_OWNED_KEYS.includes(rawControl.key) || ['gazeId', 'gestureId'].includes(rawControl.key))) return { control: { ...rawControl, options: [{ id: 'capture-owned', zh: '由觀察式抓拍決定', en: '' }], suppressDefaultRandomOption: true }, value: 'capture-owned', disabled: true, dividerLabel: '' };
+    if (captureActive && (CAPTURE_OWNED_KEYS.includes(rawControl.key) || ['gazeId', 'gestureId', 'propId'].includes(rawControl.key))) return { control: { ...rawControl, options: [{ id: 'capture-owned', zh: '由觀察式抓拍決定', en: '' }], suppressDefaultRandomOption: true }, value: 'capture-owned', disabled: true, dividerLabel: '' };
     if (captureActive && rawControl.key === 'framingId') rawControl = { ...rawControl, options: rawControl.options.map(option => ({ ...option, disabled: option.zh !== '全無' && !/全身鏡頭|中景鏡頭|牛仔/.test(option.zh) })), helpText: '抓拍主輸出支援全身、膝上、腰上；胸上特寫由衍生輸出提供。' };
     const preparedBaseControl = prepareHeadDominantAngleControl(prepareBottomRiseControl(prepareUnderbustTopControl(prepareOuterwearClosureControl(prepareAccessoryControl(buildFixedSetControl(buildPoseComposerControl(rawControl)), locks), locks, lockControls), locks, lockControls), locks, lockControls), locks, lockControls);
     const baseControl = activeSection === 'wardrobe' && resolvedActiveSubpanel?.id === 'layers'
