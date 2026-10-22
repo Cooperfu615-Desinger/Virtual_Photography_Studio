@@ -6446,7 +6446,7 @@ function selectedSpecialOutfitHasHairstyle(context, catalog, role = null) {
   return specialOutfitHasHairstyle(roleOutfit);
 }
 
-function resolvePoseComposerWardrobeSignals(context, catalog) {
+export function resolvePoseComposerWardrobeSignals(context, catalog) {
   const sourceCatalog = catalog?.catalog || catalog || {};
   const wardrobe = sourceCatalog.wardrobe || {};
 

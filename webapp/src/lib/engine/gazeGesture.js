@@ -75,6 +75,49 @@ export const GESTURE_OPTIONS = freeze([
   gesture('gesture-hands-behind-head', '雙手抱頭後', 'both hands raised to the back of her head, elbows spread out', 'general', { randomEligible: false }),
   gesture('gesture-hands-behind-back', '雙手背後', 'both hands clasped behind her back', 'general', { randomEligible: false }),
   gesture('gesture-arms-overhead', '雙臂上舉', 'both arms raised overhead', 'general', { randomEligible: false }),
+  // Legacy hand gestures restored (Cooper 2026-10-22, stage 1; wording rewrite is stage 2): the
+  // reviewed English of the old free-composer hands, with the camera wording removed from the
+  // two camera-facing ones. Wardrobe roles gate 隨機 (needs 'present') and skip a manual pick
+  // whose item the resolved wardrobe lacks ('absent'). Waist-level hands drop out of chest-up.
+  ...[
+    ['adjust-top', '拉下上身服裝整理', 'one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally',
+      { requiresWardrobeRole: 'upperGarment' }],
+    ['lift-top-underbust', '雙手上拉上衣露出胸下緣', 'both hands gripping the front lower hem of her upper garment at the left and right sides and raising it from the waist to the upper ribcage, holding the gathered hem across the lower third of the bust to visibly reveal the underboob, while the upper bust remains covered and the garment stays worn on her shoulders',
+      { requiresWardrobeRole: 'upperGarment', randomEligible: false, omitInChestUp: true }],
+    ['lift-waistband', '雙手把褲頭往上拉', 'both hands lightly gripping the garment at both sides of the waist and making a small upward adjustment to settle it naturally into place, with the elbows relaxed outward',
+      { requiresWardrobeRole: 'bottom', omitInChestUp: true }],
+    ['pull-open-outerwear', '雙手拉開外套（雙肩滑落）', 'both hands firmly gripping the front edges of her open outerwear near chest height and pulling them far outward while the outer layer is halfway shrugged off, its collar and shoulder seams slipped completely below both shoulders and resting around her upper arms, with both arms still loosely inside the sleeves, spreading the garment into two broad open panels',
+      { requiresWardrobeRole: 'outerwear', randomEligible: false }],
+    ['cover-breasts', '雙手遮住胸部', 'both palms placed directly over her nipples, one palm covering each, with the fingers naturally relaxed across her breasts',
+      { randomEligible: false }],
+    ['outerwear-pockets', '雙手插外套口袋', 'both hands tucked into the two side pockets of her jacket or coat, elbows relaxed and angled slightly outward',
+      { requiresWardrobeRole: 'outerwear', omitInChestUp: true }],
+    ['rock-horns', '雙手比 ROCK 手勢', 'both hands raised beside the shoulders, each forming a clear rock-horns gesture, with the index and little fingers extended, the middle and ring fingers folded into the palm, and the thumbs resting across the folded fingers',
+      { randomEligible: false }],
+    ['heart-near-face', '雙手比愛心', 'both hands forming one clear heart shape beside the lower face, held near either the left or right side of the chin, with the thumb tips meeting below and the curved index fingers meeting above, wrists relaxed and elbows naturally bent in a casual photo pose',
+      { randomEligible: false, requiresFaceVisibility: true }],
+    ['finger-heart', '手指愛心', 'one hand making a Korean finger-heart gesture, with the thumb and index finger gently crossed near their tips and the remaining fingers loosely curled, held naturally in front of her, while the other hand rests naturally',
+      { randomEligible: false }],
+    ['open-palm', '單手向前張開手掌', 'one arm extended forward with the open palm facing outward and five fingers naturally spread and slightly relaxed',
+      { randomEligible: false }],
+    ['support-chin', '單手托下巴', 'one hand supporting the chin lightly, fingertips under the jaw, with the other hand relaxed along the body or support surface',
+      { requiresFaceVisibility: true }],
+    ['bite-finger', '單手輕咬食指', 'one hand lightly biting the index finger at the first knuckle near the lips, with gentle lip contact, the remaining fingers softly curled, and the hand not covering the face',
+      { requiresFaceVisibility: true }],
+    ['sweep-bangs', '單手往後撥瀏海', 'one hand sweeping the bangs backward across the forehead with the fingers combing the fringe into place in a confident, cool grooming gesture',
+      {}],
+    ['gather-hair', '雙手抓著整束頭髮與髮尾整理', 'both hands gathering one thick bundle of hair behind and above the head, one hand holding near the base while the other grips and smooths the loose lengths toward the ends in a natural ponytail-prep motion',
+      {}],
+  ].map(([key, zh, en, extra]) => gesture(`gesture-legacy-${key}`, zh, en, 'general', extra)),
+  // The glasses hands also work with squats and every lying orientation (Cooper 2026-10-22).
+  ...[
+    ['hold-glasses', '單手拿著眼鏡', 'one hand holding the glasses by one temple, with the glasses removed from the face and hanging naturally beside the cheek'],
+    ['pull-down-glasses', '單手把眼鏡拉下', 'one hand pulling the glasses slightly down the nose bridge so the eyes remain visible above the frame'],
+    ['bite-glasses-temple', '咬著眼鏡腳', 'one glasses temple held lightly between the teeth, with the frames removed from the face and hanging beside the cheek while both hands stay relaxed'],
+  ].map(([key, zh, en]) => gesture(`gesture-legacy-${key}`, zh, en, 'general',
+    { requiresWardrobeRole: 'eyewear', randomEligible: false, requiresFaceVisibility: true, alsoScopes: freeze(['squatting', 'lying-supine', 'lying-side', 'lying-prone']) })),
+  gesture('gesture-legacy-supine-palms-cheek', '仰躺雙手合掌靠在臉側', 'both palms together beside one cheek with relaxed elbows', 'lying-supine',
+    { requiresFaceVisibility: true }),
   gesture('gesture-prone-chin-hands', '下巴靠在交疊的雙手上', 'her chin resting on her stacked hands', 'lying-prone'),
   gesture('gesture-prone-cheeks-cupped', '雙手托腮', 'her cheeks cupped in both hands', 'lying-prone'),
   gesture('gesture-prone-tuck-hair', '一手撥頭髮', 'one hand lightly tucking her hair behind her ear', 'lying-prone'),
@@ -115,9 +158,10 @@ export function actionAcceptsGesture(action) {
 
 export function gestureFitsAction(option, action) {
   if (!actionAcceptsGesture(action) || !option?.scope) return false;
-  if (isLyingOrientation(action.orientationId)) return option.scope === action.orientationId;
+  const scopes = [option.scope, ...(option.meta?.alsoScopes || [])];
+  if (isLyingOrientation(action.orientationId)) return scopes.includes(action.orientationId);
   // Squats use their own reviewed hands; the general list was written for standing.
-  return option.scope === (action.family === 'squatting' ? 'squatting' : 'general');
+  return scopes.includes(action.family === 'squatting' ? 'squatting' : 'general');
 }
 
 export function applicableGestureOptions(action) {
@@ -137,7 +181,10 @@ export function resolveGesture(gestureId, action, { wardrobeSignals = {}, orbit 
     return pool.length ? pool[Math.min(pool.length - 1, Math.floor(random() * pool.length))] : null;
   }
   const option = CONCRETE_GESTURES.find(item => item.id === gestureId);
-  return gestureFitsAction(option, action) ? option : null;
+  if (!gestureFitsAction(option, action)) return null;
+  // A chosen gesture is skipped silently when the resolved wardrobe positively lacks its item.
+  const role = option.meta.requiresWardrobeRole;
+  return role && wardrobeSignals[role] === 'absent' ? null : option;
 }
 
 /** The action English with the gesture added as an upper-body clause after its

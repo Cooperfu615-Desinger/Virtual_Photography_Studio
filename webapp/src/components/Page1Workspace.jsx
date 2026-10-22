@@ -934,7 +934,15 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       // Pose UI v2 (Cooper 2026-10-21): always shown; locked unless a hand-free action is chosen
       // (隨機 offers only 全無／隨機). The lock reason is the displayed value, not a note.
       const applicable = new Set(applicableGestureOptions(activeSpecifiedAction).map(o => o.id));
-      if (applicable.size) return { ...control, options: control.options.filter(o => ['none', 'random'].includes(o.id) || applicable.has(o.id)) };
+      // Wardrobe-gated hands (Cooper 2026-10-22): disabled with the missing item only when that
+      // wardrobe lock is explicitly 全無; random or unset wardrobe stays selectable.
+      const explicitNone = key => Boolean(locks[key]) && locks[key] !== 'random' && isNoneSelected(key, locks[key], wardrobeLockControls);
+      const missingItem = { pants: explicitNone('pantsId') ? '褲裝' : '', outerwear: explicitNone('outerwearId') ? '外套' : '', eyewear: explicitNone('eyewearId') ? '眼鏡' : '',
+        bottom: explicitNone('pantsId') && explicitNone('skirtId') ? '下身' : '' };
+      if (applicable.size) {
+        return { ...control, options: control.options.filter(o => ['none', 'random'].includes(o.id) || applicable.has(o.id))
+          .map(o => { const missing = missingItem[o.meta?.requiresWardrobeRole]; return missing ? { ...o, zh: `${o.zh}（需要${missing}）`, disabled: true } : o; }) };
+      }
       if (activeSpecifiedAction?.id === 'random') return { ...control, options: control.options.filter(o => ['none', 'random'].includes(o.id)) };
       const reason = fixedScenePosition ? '由場景位置決定' : !activeSpecifiedAction ? '需先選擇動作'
         : activeSpecifiedAction.id === 'any' ? '由「任意」決定' : '由動作決定';

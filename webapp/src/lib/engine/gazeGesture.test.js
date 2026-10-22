@@ -71,8 +71,8 @@ test('an action that owns the head ignores gaze and keeps the raw choice', () =>
 test('gestures: only free-hand library actions, scoped by orientation; inserted after the upper clauses', () => {
   assert.equal(actionAcceptsGesture(action(HUG_KNEES)), false);
   assert.equal(actionAcceptsGesture(SPECIFIED_ACTION_ANY), false, '任意 leaves the hands to the model');
-  assert.deepEqual(applicableGestureOptions(action(PRONE)).map(o => o.zh), ['下巴靠在交疊的雙手上', '雙手托腮', '一手撥頭髮', '雙手輕放在前方']);
-  assert.equal(GESTURE_OPTIONS.filter(o => o.scope).length, 24, '8 general (4 out of 隨機 until the image round) + 9 lying + 7 squatting');
+  assert.deepEqual(applicableGestureOptions(action(PRONE)).map(o => o.zh), ['單手拿著眼鏡', '單手把眼鏡拉下', '咬著眼鏡腳', '下巴靠在交疊的雙手上', '雙手托腮', '一手撥頭髮', '雙手輕放在前方']);
+  assert.equal(GESTURE_OPTIONS.filter(o => o.scope).length, 42, '8 general + 18 restored legacy hands + 9 lying + 7 squatting');
   const chin = GESTURE_OPTIONS.find(o => o.id === 'gesture-prone-chin-hands');
   const text = actionTextWithGesture(action(PRONE), chin);
   assert.match(text.en, /propped on her forearms resting flat in front of her, her chin resting on her stacked hands\. Her hips rest/);
@@ -165,9 +165,9 @@ test('standing batch 1 is accepted with free hands; batch 2 is pending and out o
   assert.deepEqual(pockets, ['一手扶頭・一手插口袋', '上身前傾・雙手插口袋・一腳前踏']);
 });
 
-test('a free-hand standing action offers 8 general gestures; the 4 new ones never come from 隨機', () => {
+test('a free-hand standing action offers the general gestures; the 4 new ones never come from 隨機', () => {
   const natural = action('specified-standing-natural');
-  assert.equal(applicableGestureOptions(natural).length, 8);
+  assert.equal(applicableGestureOptions(natural).length, 25, '8 general + 14 restored hands + 3 glasses');
   const newIds = ['gesture-hand-on-head', 'gesture-hands-behind-head', 'gesture-hands-behind-back', 'gesture-arms-overhead'];
   for (let index = 0; index < 40; index += 1) {
     const drawn = resolveGesture('random', natural, { wardrobeSignals: { pants: 'present' } }, () => index / 40);
@@ -185,6 +185,7 @@ test('a standing action renders in every main output and crops its lower clause 
 });
 
 // Squatting library v1 (Docs/specs/pose-library-squatting-v1.md, Cooper 2026-10-21).
+const PRONE_ACTION = action(PRONE);
 const SQUAT = id => action(`specified-squatting-${id}`);
 const MEDIUM = option('framingId', '中景鏡頭 (Medium Shot)');
 
@@ -193,7 +194,7 @@ test('the four squats are accepted, hands free, and offer only the seven squat g
   for (const squat of squats) {
     assert.equal(squat.validation.status, 'accepted', squat.id);
     assert.equal(squat.family, 'squatting', squat.id);
-    assert.deepEqual(applicableGestureOptions(squat).map(o => o.zh), ['雙肘靠膝自然垂手', '雙手沿腿側自然下垂', '單手托腮一手自然垂落',
+    assert.deepEqual(applicableGestureOptions(squat).map(o => o.zh), ['單手拿著眼鏡', '單手把眼鏡拉下', '咬著眼鏡腳', '雙肘靠膝自然垂手', '雙手沿腿側自然下垂', '單手托腮一手自然垂落',
       '雙手托腮', '單手在臉旁比 V', '雙臂搭膝外展垂手', '雙肘靠膝中央垂手'], squat.id);
   }
   for (const option of GESTURE_OPTIONS.filter(o => o.scope === 'squatting')) {
@@ -241,7 +242,7 @@ test('16 sitting and kneeling actions: accepted, hands free with the general ges
     assert.ok(a, 'exists');
     assert.equal(a.validation.status, 'accepted', a.id);
     assert.equal(a.hands.mode, 'free', a.id);
-    assert.equal(applicableGestureOptions(a).length, 8, a.id);
+    assert.equal(applicableGestureOptions(a).length, 25, a.id);
     assert.doesNotMatch(a.en, /arrangement/, a.id);
   }
   assert.equal(action('specified-kneeling-all-fours'), undefined, 'all-fours stays with the two support-hand actions');
@@ -308,4 +309,60 @@ test('an action that owns the head ignores 頭部; unused 頭部 keeps the old s
   const owned = generate({ specifiedActionId: OWNS_HEAD, headPostureId: 'head-near-shoulder' });
   assert.doesNotMatch(owned.grokPrompt, /head angled close to one shoulder/);
   assert.ok(!('headPostureId' in generate({}).selection));
+});
+
+// Legacy hand gestures restored (Cooper 2026-10-22, stage 1).
+const LEGACY = GESTURE_OPTIONS.filter(o => o.id.startsWith('gesture-legacy-'));
+const GLASSES = LEGACY.filter(o => o.meta.requiresWardrobeRole === 'eyewear');
+const ALL_PRESENT = { upperGarment: 'present', bottom: 'present', outerwear: 'present', eyewear: 'present', pants: 'present' };
+
+test('the 18 restored hands exist; the camera-facing four carry no camera or lens wording', () => {
+  assert.equal(LEGACY.length, 18);
+  for (const o of LEGACY) assert.doesNotMatch(o.en, /\b(?:camera|lens)\b/i, o.zh);
+  assert.match(LEGACY.find(o => o.zh === '手指愛心').en, /held naturally in front of her, while the other hand rests naturally/);
+});
+
+test('隨機 pool: only the seven reviewed hands come from 隨機, each gated by wardrobe and face visibility', () => {
+  const natural = action('specified-standing-natural');
+  const seen = new Set();
+  for (let index = 0; index < 400; index += 1) {
+    const drawn = resolveGesture('random', natural, { wardrobeSignals: ALL_PRESENT }, () => index / 400);
+    if (drawn?.id.startsWith('gesture-legacy-')) seen.add(drawn.zh);
+  }
+  assert.deepEqual([...seen].sort(), ['單手托下巴', '單手往後撥瀏海', '單手輕咬食指', '拉下上身服裝整理', '雙手把褲頭往上拉', '雙手抓著整束頭髮與髮尾整理', '雙手插外套口袋'].sort());
+  for (let index = 0; index < 100; index += 1) {
+    const none = resolveGesture('random', natural, { wardrobeSignals: { upperGarment: 'unknown', bottom: 'absent', outerwear: 'absent' } }, () => index / 100);
+    assert.ok(!['拉下上身服裝整理', '雙手把褲頭往上拉', '雙手插外套口袋'].includes(none?.zh), none?.zh);
+  }
+});
+
+test('a chosen wardrobe hand is skipped silently only when the resolved wardrobe lacks the item', () => {
+  const natural = action('specified-standing-natural');
+  const pockets = 'gesture-legacy-outerwear-pockets';
+  assert.equal(resolveGesture(pockets, natural, { wardrobeSignals: { outerwear: 'absent' } })?.id, undefined);
+  assert.equal(resolveGesture(pockets, natural, { wardrobeSignals: { outerwear: 'unknown' } })?.id, pockets);
+  assert.equal(resolveGesture(pockets, natural, { wardrobeSignals: { outerwear: 'present' } })?.id, pockets);
+  const skipped = generate({ specifiedActionId: natural.id, gestureId: pockets, outerwearId: option('outerwearId', '全無') });
+  assert.doesNotMatch(skipped.grokPrompt, /side pockets of her jacket/);
+});
+
+test('the three glasses hands also fit squats and every lying orientation; the other 15 do not', () => {
+  const squat = SQUAT('natural');
+  // Only the prone lying actions have free hands today; model the other orientations on them.
+  const supine = { ...PRONE_ACTION, orientationId: 'lying-supine' };
+  const side = { ...PRONE_ACTION, orientationId: 'lying-side' };
+  for (const target of [squat, supine, side, PRONE_ACTION]) {
+    const zh = applicableGestureOptions(target).filter(o => o.id.startsWith('gesture-legacy-')).map(o => o.zh);
+    for (const g of GLASSES) assert.ok(zh.includes(g.zh), `${target.id} offers ${g.zh}`);
+    assert.deepEqual(zh.filter(name => !GLASSES.some(g => g.zh === name)), target === supine ? ['仰躺雙手合掌靠在臉側'] : [], target.id);
+  }
+});
+
+test('waist-level hands drop out of chest-up; face and hair hands stay', () => {
+  const natural = 'specified-standing-natural';
+  const chestOf = id => chest(generate({ specifiedActionId: natural, gestureId: id }));
+  assert.doesNotMatch(chestOf('gesture-legacy-lift-waistband'), /waist/);
+  assert.doesNotMatch(chestOf('gesture-legacy-outerwear-pockets'), /pockets/);
+  assert.match(chestOf('gesture-legacy-support-chin'), /supporting the chin/);
+  assert.match(chestOf('gesture-legacy-heart-near-face'), /heart shape/);
 });
