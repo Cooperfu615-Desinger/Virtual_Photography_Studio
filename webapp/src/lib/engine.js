@@ -6493,6 +6493,8 @@ export function resolvePoseComposerWardrobeSignals(context, catalog) {
     outerwear,
     eyewear,
     upperGarment: combine([top, dress, outerwear, outfitPreset, specialOutfit]),
+    // A top with a hem the hands can lift: not a dress, and not 全無 on top.
+    topHem: dress === 'present' ? 'absent' : top,
   };
 }
 
