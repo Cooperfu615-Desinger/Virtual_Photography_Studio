@@ -4222,6 +4222,17 @@ export function setLegacyWardrobeModifierOrderForTests(enabled) {
   legacyWardrobeModifierOrder = Boolean(enabled);
 }
 
+const ACCESSORY_DEDUPE_CATEGORIES = new Set([
+  '頭部配件 (Head Accessories)', '耳環 (Earrings)', '頸部 (Neck Accessories)', '腰部配件 (Waist Accessories)', '襪類 (Legwear)', '鞋款 (Shoes)',
+]);
+
+/** The accessory's own name ("lace ribbon choker" from "lace ribbon choker detail, subtle … accent"). */
+function accessoryCorePhrase(item) {
+  if (!item || isNoneLikeItem(item)) return '';
+  const lead = String(item.en || '').split(',')[0].trim().toLowerCase().replace(/\s+(?:detail|accent|styling)$/, '');
+  return lead.split(/\s+/).length >= 2 ? lead : '';
+}
+
 function buildTopColoredPrompt(topItem, color = null, { pattern = null, fit = null, styling = null } = {}) {
   if (!topItem || isNoneLikeItem(topItem)) return '';
   const base = normalizeWardrobePromptText(topItem.en);
@@ -7138,6 +7149,10 @@ function buildWardrobe(context, locks, catalog) {
     && !locks?.headAccessoryId
     && Boolean(getGarmentColorOption(locks?.headAccessoryColorId))
     && !isNoneLikeItem(getGarmentColorOption(locks?.headAccessoryColorId));
+  const duplicatesPlacedPiece = (item) => {
+    const core = accessoryCorePhrase(item);
+    return Boolean(core) && pieces.some((piece) => piece !== item && String(piece?.en || '').toLowerCase().includes(core));
+  };
   const maybePick = (categoryKey, probability = 1, extraPredicate = () => true, { allowNoneWhenUnlocked = false } = {}) => {
     const lockKey = categoryLockMap[categoryKey];
     const categoryItems = getByKey(catalog.catalog.wardrobe, categoryKey);
@@ -7173,7 +7188,15 @@ function buildWardrobe(context, locks, catalog) {
         extraPredicate(item)
     );
     if (candidates.length === 0) return null;
-    const picked = sampleItem(candidates);
+    let picked = sampleItem(candidates);
+    // Random accessory dedupe (Cooper 2026-10-23): an accessory the outfit already names (a preset's
+    // choker or belt) is drawn again from the rest. The extra draw happens only in that case, so every
+    // other result keeps its random stream.
+    if (ACCESSORY_DEDUPE_CATEGORIES.has(categoryKey) && duplicatesPlacedPiece(picked)) {
+      const others = candidates.filter((item) => !duplicatesPlacedPiece(item));
+      if (others.length === 0) return null;
+      picked = sampleItem(others);
+    }
     addPiece(picked);
     return picked;
   };
