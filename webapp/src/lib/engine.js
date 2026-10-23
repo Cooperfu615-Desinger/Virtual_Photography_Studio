@@ -527,7 +527,7 @@ const BOTTOM_RISE_OPTIONS = [
   { id: 'mid-rise', zh: '正常腰線', en: 'mid-rise waistband sitting at the natural waist' },
   { id: 'low-rise', zh: '低腰', en: 'low-rise waistband sitting on the hips' },
   { id: 'ultra-low-rise', zh: '超低腰', en: 'ultra-low-rise waistband sitting very low on the hips' },
-  { id: 'unbuttoned-slightly-unzipped', zh: '扣子解開拉鏈微開', en: 'pants waist button undone and front zipper slightly lowered, relaxed loosened waistband styling, still worn securely on the hips' },
+  { id: 'unbuttoned-slightly-unzipped', zh: '扣子解開拉鏈微開', en: 'waist button undone and front zipper slightly lowered, relaxed loosened waistband styling, still worn securely on the hips' },
 ];
 
 const LEGWEAR_COLOR_OPTIONS = [
@@ -4215,6 +4215,13 @@ function appendWardrobePromptSearchAlias(item, text) {
   return aliases.length > 0 ? `${text}, ${aliases.join(', ')}` : text;
 }
 
+// Frozen pre-2026-10-23 baselines still describe the modifier-first wardrobe order; their tests
+// switch to it here so they keep protecting every other byte (Docs/specs/wardrobe-modifier-order-v1.md).
+let legacyWardrobeModifierOrder = false;
+export function setLegacyWardrobeModifierOrderForTests(enabled) {
+  legacyWardrobeModifierOrder = Boolean(enabled);
+}
+
 function buildTopColoredPrompt(topItem, color = null, { pattern = null, fit = null, styling = null } = {}) {
   if (!topItem || isNoneLikeItem(topItem)) return '';
   const base = normalizeWardrobePromptText(topItem.en);
@@ -4225,10 +4232,15 @@ function buildTopColoredPrompt(topItem, color = null, { pattern = null, fit = nu
   const patternText = pattern && !isNoneLikeItem(pattern) ? normalizeWardrobePromptText(pattern.en) : '';
   const coloredBase = composeItemWearableColorPrompt(topItem, base, color);
 
-  if (isHemOverlapStyling(styling)) {
-    return [fitText, coloredBase, patternText, stylingText].filter(Boolean).join(', ');
+  // Wardrobe order v1 (Cooper 2026-10-23): the garment name leads, its fit, styling and pattern follow.
+  if (legacyWardrobeModifierOrder) {
+    if (isHemOverlapStyling(styling)) return [fitText, coloredBase, patternText, stylingText].filter(Boolean).join(', ');
+    return [fitText, stylingText, coloredBase, patternText].filter(Boolean).join(', ');
   }
-  return [fitText, stylingText, coloredBase, patternText].filter(Boolean).join(', ');
+  if (isHemOverlapStyling(styling)) {
+    return [coloredBase, fitText, patternText, stylingText].filter(Boolean).join(', ');
+  }
+  return [coloredBase, fitText, stylingText, patternText].filter(Boolean).join(', ');
 }
 
 function getOuterwearFastenerTypes(outerwearItem) {
@@ -4336,7 +4348,7 @@ function buildBottomColoredPrompt(bottomItem, color = null, { pattern = null, fi
   const patternText = pattern && !isNoneLikeItem(pattern) ? normalizeWardrobePromptText(pattern.en) : '';
   const coloredBase = composeWearableColorPrompt(base, color);
 
-  return [riseText, fitText, coloredBase, patternText].filter(Boolean).join(', ');
+  return (legacyWardrobeModifierOrder ? [riseText, fitText, coloredBase, patternText] : [coloredBase, riseText, fitText, patternText]).filter(Boolean).join(', ');
 }
 
 function buildBottomWardrobePrompt(bottomItem, wardrobeSlots, wardrobeColors) {
@@ -9499,7 +9511,8 @@ function filterZImagePoseForFraming(value, context) {
 }
 
 const OUTERWEAR_SINGLE_SHOULDER_STYLING_TEXT = 'slipped down over one upper arm, with the neckline lowered on that side and the opposite shoulder still covered';
-const OUTERWEAR_DOUBLE_SHOULDER_STYLING_TEXT = 'halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves';
+const OUTERWEAR_DOUBLE_SHOULDER_STYLING_TEXT = 'slid down off both shoulders and hanging around both upper arms, both arms still in the sleeves';
+const LEGACY_OUTERWEAR_DOUBLE_SHOULDER_STYLING_TEXT = 'halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves';
 
 function buildOuterwearStylingLeadText(styling, { minimal = false } = {}) {
   if (!styling || isNoneLikeItem(styling)) return '';
@@ -9510,7 +9523,7 @@ function buildOuterwearStylingLeadText(styling, { minimal = false } = {}) {
     return OUTERWEAR_SINGLE_SHOULDER_STYLING_TEXT;
   }
   if (styling.zh === '雙肩露出') {
-    return OUTERWEAR_DOUBLE_SHOULDER_STYLING_TEXT;
+    return legacyWardrobeModifierOrder ? LEGACY_OUTERWEAR_DOUBLE_SHOULDER_STYLING_TEXT : OUTERWEAR_DOUBLE_SHOULDER_STYLING_TEXT;
   }
   return stripMarkdown(styling.en || '').replace(/\s+/g, ' ').trim();
 }

@@ -13,6 +13,10 @@ import { runLegacySceneFixture as runSceneFixture, digest, OUTPUT_FIELDS } from 
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 import { getLockControls } from '../engine.js';
 import { buildCloseWormEyeText } from './closeWormEye.js';
+import { setLegacyWardrobeModifierOrderForTests } from '../engine.js';
+
+// Frozen baseline written before the wardrobe order change of 2026-10-23.
+setLegacyWardrobeModifierOrderForTests(true);
 
 test('close camera source matches approved copy and leaves every other crop/angle untouched', () => {
   const angle = { zh: '蟲眼視角鏡頭' };

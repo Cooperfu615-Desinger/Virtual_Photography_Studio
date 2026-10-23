@@ -74,6 +74,7 @@ Last updated: 2026-10-21
 
 ## 蹲姿動作庫 v1（2026-10-21，已推送 main，3681356）
 
+- 服裝描述順序 v1：上衣與下身改成「衣物名稱 → 版型／褲腰 → 穿法 → 圖案」，`layered over` 接內搭衣物名稱而不是它的版型；解開褲頭不再寫 `pants`；雙肩露出輸出句改成 `slid down off both shoulders and hanging around both upper arms, both arms still in the sleeves`（目錄原文不變）。凍結基準以測試專用開關維持舊順序。規格 [wardrobe-modifier-order-v1](specs/wardrobe-modifier-order-v1.md)。
 - 手勢英文第二階段改寫：17 句改成不替服裝與髮型下結論、去掉露骨詞與鏡頭用語、25 字左右；撥瀏海改成通用的撥頭髮；上拉上衣保留露胸下緣意圖（含蓄用詞），洋裝時略過；遮胸保留未穿上衣意圖，新增單臂橫擋遮胸。規格 [pose-gestures-wording-v2](specs/pose-gestures-wording-v2.md)。
 - 新增「道具」欄（手勢旁，`propId`）：舊道具 10 個＋單手拿著眼鏡（從手勢搬來）＋拿著打開的書，共 12 個；所有動作皆可選、不篩選衝突；隨機背面機位不抽碰臉道具；眼鏡需穿搭有眼鏡；鏡子自拍時鎖住；面板的隨機不強加道具。規格 [pose-props-v1](specs/pose-props-v1.md)。
 - 舊版 18 個手勢放回手勢欄（穿搭互動 6、鏡頭互動 4、眼鏡 3、臉部與頭髮 5）：手空著的動作可選，眼鏡 3 個另可配蹲姿與躺姿；缺少外套／下身／眼鏡時選項停用並標示，生成時缺少則略過；隨機只抽 7 個；鏡頭互動 4 個拿掉鏡頭用語。英文改寫為第二階段。規格 [pose-gestures-legacy-restore-v1](specs/pose-gestures-legacy-restore-v1.md)。

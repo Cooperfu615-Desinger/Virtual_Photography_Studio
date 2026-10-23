@@ -1,0 +1,62 @@
+eyewearId=粗框眼鏡 | eyewearColorId=黑色 | eyewearPlacementId=正常戴在臉上 | earringsId=小型金屬耳環 | neckAccessoryId=金屬細頸圈 | headAccessoryId=棒球帽 | headphonesId=耳罩式耳機（戴在頭上） | waistAccessoryId=細版皮革腰帶 | nosePiercingId=小型鼻釘 | lipPiercingId=單側下唇細環
+
+## gpt 
+Image Type:
+Create a photorealistic editorial portrait.
+
+Composition:
+Full-body portrait, eye-level view, rear-right three-quarter view. Her entire figure is framed with natural-looking proportions.
+
+Subject:
+The subject is one 20-year-old adult Japanese woman with black frame, bold thick-frame glasses, worn normally on the face, lenses aligned over the eyes, small metallic earring detail, subtle understated jewelry styling, a tiny silver stud piercing on one nostril, a small silver hoop piercing through one side of the lower lip, and slim metal choker detail, subtle close-fitting neck accent. Delicate innocent expression, relaxed brows, softly open eyes, gently closed lips, relaxed cheek muscles. Baseball cap, curved brim, adjustable back closure, structured casual crown.
+
+Wardrobe:
+She wears neon yellow nurse uniform outfit, clean tunic or uniform dress, neat collar, front placket, nurse cap, crisp medical-service silhouette. Cyan western boots, pointed or almond toe, stacked heel, western shaft detailing. Decorative slim leather waist belt worn loosely around hips with a simple off-center buckle.
+
+Scene:
+The portrait takes place in Shoreditch red-brick graffiti wall edge, painted wall panels, sticker-covered surfaces, layered posters, sidewalk curb, metal shutter fragment, side alley detail.
+
+Lighting:
+Cold winter ambience with cool ambient brightness from snow, pale sky where visible. Hard direct flash from near the camera axis, bright highlights on the visible subject and crisp compact shadows, natural light falloff.
+
+Camera Look:
+Inspired by Miles Aldridge, hyper-stylized fashion image language. Hyper-stylized fashion portraiture, saturated retro palette, elaborate color staging, glossy cinematic light, lacquered color precision, artificial high-production polish. Shot on tilt-shift lens, shifted perspective control, tilted focus plane, selective plane-of-focus effect, corrected vertical lines, controlled miniature-like depth compression. Heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights, optical blur balls. Medium-format digital rendering, ultra-high resolution, broad dynamic range, smooth tonal transitions, refined color depth, organic large-sensor depth.
+
+## z 
+Photorealistic editorial portrait.
+
+The setting is Shoreditch red-brick graffiti wall edge, painted wall panels, sticker-covered surfaces. Full-body portrait, eye-level view, rear-right three-quarter view. Her entire figure is framed with natural-looking proportions. Photographed from the woman's rear-right side. Her right shoulder blade and right hip are nearer the lens, with her back, legs, and feet forming a rear-right three-quarter silhouette.
+
+A 20-year-old seductive stunning adult Japanese woman with black frame, bold thick-frame glasses, small metallic earring detail, subtle understated jewelry styling, a tiny silver stud piercing on one nostril, a small silver hoop piercing through one side of the lower lip, and slim metal choker detail, subtle close-fitting neck accent, A–B cup bust, narrow ribcage, slim arms and legs, narrow waist, gently rounded hips, compact balanced proportions, moderate-length limbs, petite slender model silhouette; height 150–155 cm, bust–waist–hip 78–58–84 cm, baseball cap, curved brim, adjustable back closure, structured casual crown, delicate innocent expression, relaxed brows, softly open eyes, gently closed lips, relaxed cheek muscles.
+
+She wears neon yellow nurse uniform outfit, clean tunic or uniform dress, neat collar, front placket, nurse cap, crisp medical-service silhouette, cyan western boots, pointed or almond toe, stacked heel, western shaft detailing, decorative slim leather waist belt worn loosely around hips with a simple off-center buckle.
+
+Cold winter ambience with cool ambient brightness from snow, pale sky where visible, hard direct flash from near the camera axis, bright highlights on the visible subject and crisp compact shadows.
+
+Miles Aldridge-inspired hyper-stylized fashion image language.
+
+Shot on tilt-shift lens, shifted perspective control, tilted focus plane, heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles.
+
+Medium-format digital rendering, ultra-high resolution, broad dynamic range, smooth tonal transitions, refined color depth.
+
+## mj 
+Photorealistic editorial portrait. Full-body portrait, eye-level view, rear-right three-quarter view. A 20-year-old adult Japanese woman. Delicate innocent expression. A petite, slender figure with balanced proportions and soft, delicate lines.
+
+She wears a dress, a nurse cap, western boots, a leather waist belt, a baseball cap, bold thick-frame glasses, a metallic earring, a metal choker, a nostril stud and a lip ring.
+
+Shoreditch red-brick graffiti wall edge, painted wall panels, sticker-covered surfaces, layered posters. Snow-bright winter environment, cold pale sky, hard direct flash from near the camera axis, bright highlights on the visible subject and crisp compact shadows, natural light falloff.
+
+Inspired by Miles Aldridge, hyper-stylized fashion portraiture, saturated retro palette, elaborate color staging, glossy cinematic light. Tilt-shift lens, shifted perspective control, corrected vertical lines, tilted focus plane, heavy bokeh rendering. Medium-format digital rendering, ultra-high resolution, broad dynamic range, smooth tonal transitions, refined color depth, organic large-sensor depth. --v 8.2 --ar 2:3 --raw --s 25 --c 0 --w 0 --sd
+
+## nano 
+Create a photorealistic editorial portrait. Full-body portrait, eye-level view, rear-right three-quarter view. Her entire figure is framed with natural-looking proportions.
+
+The subject is one 20-year-old adult Japanese woman with black frame, bold thick-frame glasses, worn normally on the face, lenses aligned over the eyes, small metallic earring detail, subtle understated jewelry styling, a tiny silver stud piercing on one nostril, a small silver hoop piercing through one side of the lower lip, and slim metal choker detail, subtle close-fitting neck accent. Her expression is delicate innocent expression, relaxed brows, softly open eyes, gently closed lips, relaxed cheek muscles. She wears baseball cap, curved brim, adjustable back closure, structured casual crown. She has A–B cup bust, narrow ribcage, slim arms and legs, narrow waist, gently rounded hips, compact balanced proportions, moderate-length limbs, petite slender model silhouette; height 150–155 cm, bust–waist–hip 78–58–84 cm.
+
+She wears neon yellow nurse uniform outfit, clean tunic or uniform dress, neat collar, front placket, nurse cap, crisp medical-service silhouette. Cyan western boots, pointed or almond toe, stacked heel, western shaft detailing. Decorative slim leather waist belt worn loosely around hips with a simple off-center buckle.
+
+The setting is Shoreditch red-brick graffiti wall edge, painted wall panels, sticker-covered surfaces, layered posters, sidewalk curb, metal shutter fragment, side alley detail.
+
+Cold winter ambience with cool ambient brightness from snow, pale sky where visible, hard direct flash from near the camera axis, bright highlights on the visible subject and crisp compact shadows, natural light falloff.
+
+Inspired by Miles Aldridge, hyper-stylized fashion image language. Hyper-stylized fashion portraiture, saturated retro palette, elaborate color staging, glossy cinematic light, lacquered color precision, artificial high-production polish, shot on tilt-shift lens, shifted perspective control, tilted focus plane, selective plane-of-focus effect, corrected vertical lines, controlled miniature-like depth compression, heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights, optical blur balls, medium-format digital rendering, ultra-high resolution, broad dynamic range, smooth tonal transitions, refined color depth, organic large-sensor depth.

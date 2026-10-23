@@ -13,6 +13,10 @@ import { polishPublicPromptText } from './publicPromptPolish.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
 import { restorePreEthnicityOutputs, restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
+import { setLegacyWardrobeModifierOrderForTests } from '../engine.js';
+
+// Frozen baseline written before the wardrobe order change of 2026-10-23.
+setLegacyWardrobeModifierOrderForTests(true);
 
 const baseline = JSON.parse(readFileSync(new URL('./zImageUpperSceneBaseline.json', import.meta.url), 'utf8'));
 const controls = getLockControls();

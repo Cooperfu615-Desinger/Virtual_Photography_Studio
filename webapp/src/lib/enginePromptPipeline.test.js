@@ -300,9 +300,8 @@ test('Gpt single-subject prompt preserves full-fidelity normal subject and wardr
   assert.doesNotMatch(subject, /tall slim-curvy hourglass body, long legs, narrow waist, rounded hips/i);
   assert.doesNotMatch(subject, /\.\s*,/);
 
-  assert.match(wardrobe, /tight body-skimming upper-body fit, white cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line/i);
-  assert.match(wardrobe, /high-rise waistband sitting above the natural waist, fitted lower-body line following the garment shape/i);
-  assert.match(wardrobe, /indigo straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction/i);
+  assert.match(wardrobe, /white cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line, tight body-skimming upper-body fit/i);
+  assert.match(wardrobe, /indigo straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction, high-rise waistband sitting above the natural waist, fitted lower-body line following the garment shape/i);
   assert.doesNotMatch(wardrobe, /tight white ribbed cotton camisole with slim straps|high-rise fitted indigo straight-leg jeans/i);
   assert.doesNotMatch(wardrobe, /\.\s*,/);
 

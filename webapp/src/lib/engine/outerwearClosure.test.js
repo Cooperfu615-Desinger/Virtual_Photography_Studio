@@ -32,7 +32,7 @@ test('every active coat closes using authored hardware, without inventing hardwa
     const hardware = coat.meta.outerwear.fasteners;
     for (const text of texts(result)) {
       assert.match(text, hardware.includes('zip') ? /front zipper fully zipped closed/ : hardware.includes('button') ? /all front (?:buttons|snap buttons) fastened/ : /front fully fastened closed/);
-      assert.doesNotMatch(text, /halfway taken off|both shoulders fully uncovered|worn open at the front/);
+      assert.doesNotMatch(text, /slid down off both shoulders|worn open at the front/);
       if (coat.meta.outerwear.closedInnerLayerVisibility === 'through-fabric') {
         assert.match(text, /[Ss]ilk camisole/);
         assert.match(text, /visible through the closed/);
@@ -53,7 +53,7 @@ test('Saved Card preserves hidden choices and reopening restores original inner 
   assert.equal(restored.selection.outerwearOpeningId, FULLY_CLOSED_OPENING_ID);
   const reopened = generate({ ...restored.selection, outerwearOpeningId: option('outerwearOpeningId', '敞開穿').id });
   assert.match(reopened.grokPrompt, /silk camisole/);
-  assert.match(reopened.grokPrompt, /both shoulders fully uncovered/);
+  assert.match(reopened.grokPrompt, /slid down off both shoulders/);
   assert.doesNotMatch(closed.grokPrompt, /silk camisole|stripes across the top/);
   assert.match(closed.grokPrompt, /Straight-leg jeans/);
 });
@@ -133,7 +133,7 @@ test('duo visibility and styling are resolved independently per woman', () => {
     outerwearBId: option('outerwearBId', '蕾絲罩衫').id, outerwearBOpeningId: FULLY_CLOSED_OPENING_ID };
   const result = generate(locks);
   for (const text of texts(result)) {
-    assert.doesNotMatch(text, /silk camisole|both shoulders fully uncovered/);
+    assert.doesNotMatch(text, /silk camisole|slid down off both shoulders/);
     assert.match(text, /short-sleeve top/);
     assert.match(text, /visible through the closed/);
   }

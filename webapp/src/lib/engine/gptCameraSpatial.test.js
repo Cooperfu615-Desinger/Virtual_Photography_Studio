@@ -13,6 +13,10 @@ import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport
 import { getLockControls } from '../engine.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
+import { setLegacyWardrobeModifierOrderForTests } from '../engine.js';
+
+// Frozen baseline written before the wardrobe order change of 2026-10-23.
+setLegacyWardrobeModifierOrderForTests(true);
 
 test('GPT main Composition expresses camera distance without changing crop, pose or orbit',()=>{
   const floor = runSceneFixture(fullCameraFixture('地面高度鏡頭')).outputs;
