@@ -43,3 +43,8 @@ Last updated: 2026-10-01
 覆蓋房間／公園平視與蟲眼、三車廂、全無、床不代換、手勢、座位接管、字面保留及 JSON／Markdown round trip。執行 frontend tests、Prompt Quality、lint/build、同 seed `200 / prompt-quality-baseline` strict audit；瀏覽器 desktop/mobile 六預覽與五工作區 smoke。
 
 [實際 renderer 的三組實測文字](z-image-on-location-v1-test-prompts.md) 供使用者下一輪生圖；不能以程式測試代替外部影像驗收。提交／推送須另獲授權。
+
+
+## 2026-10-23 更新
+
+同場段落的環境光句、側面機位句與開頭行已依 [Z-Image 同場段落整理 v1](z-image-scene-first-tidy-v1.md) 調整（Cooper 選版本 C）：環境光句併入光線句尾、機位標籤去重、側面幾何句用 `She is positioned completely sideways`、開頭補 `of one young adult woman`。本文件其餘內容仍有效；上方「必須保留」中的獨立環境光句描述以新版為準。

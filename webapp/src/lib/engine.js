@@ -11169,6 +11169,13 @@ function buildZImageSubjectLead(context) {
   return resolveImageTypePreset(context).zImageLead || 'Create a photorealistic editorial portrait of';
 }
 
+/** Version C (Cooper 2026-10-23): the scene-first capture paragraph says "She …" before the person is
+ * introduced, so the opening line names her. Other image types keep their line. */
+function zImageOnLocationImageTypeLine(line) {
+  if (legacyWardrobeModifierOrder) return line;
+  return line === 'Photorealistic editorial portrait.' ? 'Photorealistic editorial portrait of one young adult woman.' : line;
+}
+
 function buildZImageTypePromptLine(context) {
   if (context.observationCapture) return ensureTerminalPeriod(context.imageTypePreset.en);
   const preset = resolveImageTypePreset(context);
@@ -13981,12 +13988,12 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
     // never infer a seat, surface, light source or replacement object.
     const onLocation = Boolean(identity && poseText);
     return renderSections([
-      { id: 'imageType', text: imageTypeLine },
+      { id: 'imageType', text: onLocation ? zImageOnLocationImageTypeLine(imageTypeLine) : imageTypeLine },
       { id: 'composition', preserveSourceLines: onLocation, text: onLocation ? buildZImageOnLocationCapture({
         scene: settingText, pose: poseText, hand: handText, lighting: lightingText,
         hasAmbientLight: Boolean(context.lighting && !isNoneLikeItem(context.lighting)
           && stripMarkdown(context.lighting.en || '').trim()),
-        composition: compositionLine,
+        composition: compositionLine, tidy: !legacyWardrobeModifierOrder,
       }) : [settingText, compositionLine, handText].filter(Boolean).join(' ') },
       { id: 'subject', text: buildCharacterText() },
       { id: 'pose', text: onLocation ? '' : poseText },
@@ -14005,10 +14012,10 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
     && !useCharacterIdentityAnchor && !supineSurfaceLed && isCarriageFixedSet(context.fixedCompositionSet)) {
     const poseText = buildSinglePoseText();
     if (poseText) return renderSections([
-      { id: 'imageType', text: imageTypeLine },
+      { id: 'imageType', text: zImageOnLocationImageTypeLine(imageTypeLine) },
       { id: 'composition', preserveSourceLines: true, text: buildZImageOnLocationCapture({
         scene: buildSceneText(), pose: poseText, lighting: buildLightingText(),
-        sceneSharesAmbientLight: true, composition: compositionLine,
+        sceneSharesAmbientLight: true, composition: compositionLine, tidy: !legacyWardrobeModifierOrder,
       }) },
       { id: 'subject', text: buildCharacterText() },
       { id: 'wardrobe', text: buildWardrobeText() },

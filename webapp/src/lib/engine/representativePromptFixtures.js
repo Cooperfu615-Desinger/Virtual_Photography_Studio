@@ -1312,7 +1312,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
         includes: [
           'Knee-up cowboy shot.',
           'At a relatively close portrait distance, roughly 1.5–2 meters from her, the camera is positioned above her and angled downward, revealing the top planes of her shoulders and waistband.',
-          'She stands completely sideways, facing the left edge of the image.',
+          'She is positioned completely sideways, facing the left edge of the image.',
           'The camera sees only the right side of her body.',
           'Her right shoulder fully hides her left shoulder, and her right hip fully hides her left hip',
           'This is a strict 90-degree lateral body view.',

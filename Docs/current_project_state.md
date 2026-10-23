@@ -74,6 +74,7 @@ Last updated: 2026-10-21
 
 ## 蹲姿動作庫 v1（2026-10-21，已推送 main，3681356）
 
+- Z-Image 同場段落整理 v1（版本 C）：開頭補 `of one young adult woman`；機位方位標籤在幾何句已寫明時刪除；環境光句併入光線句；側面幾何句改 `She is positioned completely sideways`。只改主 Z-Image，其他輸出與選擇快照不變；場景在前順序保留，主體在前（B）留作實測對照。公開輸出契約 `1.63.0`。規格 [z-image-scene-first-tidy-v1](specs/z-image-scene-first-tidy-v1.md)。
 - 隨機配件去重 v1：隨機抽到的頭部配件、耳環、頸部、腰部、襪類、鞋款若已被套裝或衣物寫過（例如套裝內建的 choker、腰帶、鞋），從其餘候選重抽；只在重複時多抽一次亂數，鎖定的配件不動。規格 [accessory-dedupe-v1](specs/accessory-dedupe-v1.md)。
 - 配件合成一句 v1：一般單人的頭、臉、頸部配件改成一句 `She wears …`（分號分項，眼鏡名稱在前），GPT 放身份句之後、Z 放人物段落最後、Nano 取代兩處舊寫法；Z 與 Nano 刪填充詞與預設配戴方式；Nano 表情句去掉重複 expression。主 MJ、選擇快照不變。規格 [accessory-sentence-v1](specs/accessory-sentence-v1.md)。
 - 服裝描述順序 v1：上衣與下身改成「衣物名稱 → 版型／褲腰 → 穿法 → 圖案」，`layered over` 接內搭衣物名稱而不是它的版型；解開褲頭不再寫 `pants`；雙肩露出輸出句改成 `slid down off both shoulders and hanging around both upper arms, both arms still in the sleeves`（目錄原文不變）。凍結基準以測試專用開關維持舊順序。規格 [wardrobe-modifier-order-v1](specs/wardrobe-modifier-order-v1.md)。

@@ -14,6 +14,10 @@ import {
 } from './aiPromptLengthContract.js';
 import { AI_PROMPT_LENGTH_FIXTURES } from './aiPromptLengthFixtures.js';
 import { validatePromptOutputContract } from './promptOutputContracts.js';
+import { setLegacyWardrobeModifierOrderForTests } from '../engine.js';
+
+// Frozen baseline written before the assembly changes of 2026-10-23.
+setLegacyWardrobeModifierOrderForTests(true);
 
 const controls = getLockControls();
 const PRIMARY_OUTPUT_FIELDS = Object.freeze([

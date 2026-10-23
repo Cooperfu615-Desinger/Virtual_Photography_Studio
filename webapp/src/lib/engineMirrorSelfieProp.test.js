@@ -12,6 +12,10 @@ import { RETIRED_POSE_COMPOSER_KEYS } from '../features/page1/retiredPoseLocks.j
 import { PAGE1_POSE_SUBPANELS } from './page1WorkspacePanels.js';
 import { poseComposerOptionVisibleForBase, poseComposerOptionVisibleForOrientation } from './engine/poseComposerCompatibility.js';
 import { buildKneelingSupportControl, isFourPointKneeling, reconcileKneelingSupportLocks } from './engine/kneelingSupport.js';
+import { setLegacyWardrobeModifierOrderForTests } from './engine.js';
+
+// Frozen baseline written before the assembly changes of 2026-10-23.
+setLegacyWardrobeModifierOrderForTests(true);
 
 const MIRROR_ID = 'selfie-mirror-phone-visible';
 const MIRROR_SOURCE = 'one hand holding a visible phone toward a mirror for a mirror selfie, with the phone overlapping the face or positioned beside it in the reflection';

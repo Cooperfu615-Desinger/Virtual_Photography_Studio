@@ -1164,7 +1164,7 @@ test('Z-Image prompt remains natural language with blank-line paragraphs and AI 
 
   // Facial Features are drawn by the seed; none renders the 2026-10-17 Japanese default.
   const mjLead = expectedSubjectText(prompt, 'A 20-year-old adult woman.');
-  assert.match(prompt.zImagePrompt, /^Photorealistic editorial portrait\./);
+  assert.match(prompt.zImagePrompt, /^Photorealistic editorial portrait(?: of one young adult woman)?\./);
   assert.match(prompt.zImagePrompt, new RegExp(`\\n\\n${escapeRegExp(expectedSubjectText(prompt, 'A 20-year-old seductive stunning adult woman'))}(?:[.,]| with)`));
   assertNaturalZImageParagraphs(prompt, 'outfit preset z-image prompt');
   assert.match(prompt.zImagePrompt, /\n\nThe setting is horizonless seamless matte deep black color field/i);

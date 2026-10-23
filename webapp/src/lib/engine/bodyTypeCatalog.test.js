@@ -9,6 +9,10 @@ import { BODY_TYPE_CATALOG_V2 } from './bodyTypeCatalogFixtures.js';
 import { normalizeLegacyBodyPrompt } from './bodyTypeLegacyTestSupport.js';
 import { assertFullBodyCharacterBody, assertFullBodyCharacterHasNoBody } from './fullBodyCharacterBodyTestSupport.js';
 import { polishPublicPromptText } from './publicPromptPolish.js';
+import { setLegacyWardrobeModifierOrderForTests } from '../engine.js';
+
+// Frozen baseline written before the assembly changes of 2026-10-23.
+setLegacyWardrobeModifierOrderForTests(true);
 // Public prompt polish (publicPromptPolish.js) capitalizes sentence starts. A
 // catalog source keeps every word; accept only its exact polished letter case.
 const sourceForms = (source) => [...new Set([source, polishPublicPromptText(source), source[0] + polishPublicPromptText(source).slice(1)])];
