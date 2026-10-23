@@ -91,3 +91,38 @@ Cooper 2026-10-23 補充原則：**六組都要調整（MJ 本身沒問題可不
 1. 配件合成一句、放在人物段落身份句之後，可以嗎？（替代：放進服裝段落，但臉特寫會看不到）
 2. Z／Nano 要不要刪填充詞（`subtle understated jewelry styling` 等）？GPT 維持完整保留。
 3. 目錄文字是否也要整理（填充詞、`worn normally on the face…`）？建議之後另案。
+
+## 6. 第 2 項改動 × 官方規範稽核對照（2026-10-23，待 Cooper 確認後才寫程式）
+
+來源：[官方規範檢視報告](../prompt-official-review-2026-10-13/README.md) 與其四份稽核（`audits/`）；專案規則見 [壓縮指南](../../specs/page1-single-prompt-compression-guide.md)。判定欄：**官方一致**＝稽核已建議同方向；**專案規則允許**＝官方沒說，但不違反專案規則；**專案自訂**＝你的新原則或我的優化，官方沒有涵蓋；**核准取捨**＝已核准的設計，不動。
+
+| # | 改動 | 輸出 | 對應稽核 | 判定 |
+| --- | --- | --- | --- | --- |
+| C1 | 臉、頭、頸部配件合成一句 `She wears …`，放在人物段落、身份句之後 | GPT、Z、Nano、胸上、全身角色照 | Z §4.2（選項 b、c；官方改寫範例即 `She wears slim geometric drop earrings…`）；壓縮指南 line 350 允許 `She wears` 作最小連接語，line 514／520 已有 `She wears` 配件句範例；Nano F3／R1（敘事取代詞串） | Z、Nano：**官方一致**；GPT：**專案規則允許**（AGENTS 允許 GPT 重組格式，不刪內容） |
+| C2 | 不再用 `woman with <配件>, <胸型>…` 把配件掛在身份句上 | 同上 | Z §4.2：`woman with slim geometric drop earrings…, I–K cup bust` 讀起來像胸型是耳環的屬性 | **官方一致** |
+| C3 | 眼鏡改「名稱在前、顏色與配戴在後」，不再 `with black frame, bold … glasses` | 同上 | Z §4.5「屬性順序」（材質寫在衣物名之前）是同類問題；眼鏡本身稽核沒提 | **專案自訂**（類比 §4.5 與第 1 項已完成的衣物順序） |
+| C4 | 帽子（頭部配件）不再是無主語、無大寫的單獨片語（GPT `Baseball cap,…`）；Z 不再夾在體態數字之後 | GPT、Z、Nano | Z §4.5「句首小寫、缺主語」，修法為大寫或最小主語 | **官方一致** |
+| C5 | Nano 兩個 `She wears`（配件、衣服）合併 | Nano、（GPT 衍生輸出沿用） | Nano F3／R1；「不要有組裝造成的類似句子」是 Cooper 2026-10-23 新原則，官方稽核沒有明文 | **專案自訂**（Cooper 原則） |
+| C6 | 腰帶、肚臍環等身體飾品併進服裝句，不另開 `She wears`或 `Decorative…` 單獨片語 | GPT、Z、Nano、胸上、全身角色照 | 壓縮指南 line 514／520 已示範把腰鍊放在同一個 `She wears` 配件句 | **專案規則允許** |
+| C7 | Nano `Her expression is delicate innocent expression`：去掉重複的 expression | Nano | 無對應稽核；Z §4.5 有「近似重複」同類項（僅限同一句內） | **專案自訂**（Cooper 原則） |
+| C8 | GPT 眼鏡配戴方式 `worn normally on the face, lenses aligned over the eyes` | GPT | GPT O13：冗詞、重複官方 `not_stated`；GPT F13：catalog 抽象美感詞為**核准取捨** | **核准取捨：GPT 不動**（完整保留所選英文） |
+| C9 | 刪填充詞（`subtle understated jewelry styling`、`subtle close-fitting neck accent`） | 只 Z、Nano | Z §4.3 主觀／比喻詞（PE 風格的「客觀具象」原則）；Nano 稽核沒有明文 | Z：**官方一致**；Nano：**專案自訂**（需你決定）；GPT：**核准取捨，不動** |
+| C10 | 配戴方式 `worn normally on the face…` 在 Nano 是否也刪 | Nano | 同 C8；Nano 不屬「來源可追溯縮減」範圍時應保留 | **待你決定** |
+
+### 不在第 2 項、但屬同一原則的項目（留給第 3 項）
+
+| # | 項目 | 對應稽核 | 判定 |
+| --- | --- | --- | --- |
+| E1 | Z 機位寫兩次（`rear-right three-quarter view` 與 `Photographed from the woman's rear-right side…`） | Z §4.5：head-dominant 的 `front view.` 與 `Photographed directly from the front.` 重複 | 官方一致 |
+| E2 | Z 的 `She is photographed within the scene's ambient light.` | Z §4.8：同場段落是已核准的決定 | 核准取捨（第 3 項重新評估） |
+| E3 | Z 的姿勢句早於人物介紹 | GPT F7（代名詞先於主體）；Z §4.8 場景在前為核准取捨 | 第 3 項 |
+
+### 不會碰的邊界
+
+- 主 MJ：不動。
+- GPT：完整保留所選英文；只重組結構與刪除完全相同的片語。
+- Z 的「場景在前、空行分段」：核准取捨，第 2 項不動。
+- 頭戴式耳機與帽子衝突時省略耳機：既有行為不動。
+
+
+> 2026-10-23：第 2 項已實作（C6 除外），見 [accessory-sentence-v1](../../specs/accessory-sentence-v1.md)。

@@ -5523,6 +5523,14 @@ function normalizePoseComposerPropPhrase(propAction) {
   return stripTerminalPromptPunctuation(propAction?.en || '');
 }
 
+/** "Her expression is delicate innocent expression, …" repeats the word, so a value that already
+ * names an expression becomes "She has a delicate innocent expression, …" (Accessory v1, Nano). */
+function nanoBananaExpressionSentence(value, lead) {
+  if (!value) return '';
+  if (legacyWardrobeModifierOrder || !/^[^,]*\bexpression\b\s*(?:,|$)/i.test(value)) return lead('Her expression is', value);
+  return lead('She has', withIndefiniteArticle(value));
+}
+
 function withIndefiniteArticle(phrase) {
   const text = stripTerminalPromptPunctuation(phrase || '');
   if (!text || /^(?:a|an)\b/i.test(text)) return text;
@@ -10046,6 +10054,47 @@ function buildSubjectAccessoryPrompt({ eyewear, eyewearColor, eyewearPlacement, 
   return dedupedParts.length > 0 ? `with ${joinNaturalList(dedupedParts)}` : '';
 }
 
+const ACCESSORY_FILLER_CLAUSE = /^(?:a |an )?(?:subtle|understated)\b[^,]*\b(?:accent|styling|detail)$/i;
+const DEFAULT_EYEWEAR_PLACEMENT_TEXT = 'worn normally on the face, lenses aligned over the eyes';
+
+/** Accessory v1 (Cooper 2026-10-23): one list for a single subject's head, face and neck accessories,
+ * item first (eyewear name before its colour, then its placement). `compact` is for Z-Image and Nano:
+ * it drops filler clauses and the default "worn normally on the face" placement. GPT keeps every
+ * selected description. */
+function buildSingleSubjectAccessoryList(wardrobeSlots, wardrobeColors, { compact = false } = {}) {
+  const clean = (text) => {
+    if (!compact) return text;
+    return String(text || '').replace(DEFAULT_EYEWEAR_PLACEMENT_TEXT, '').split(/\s*,\s*/).map((clause) => clause.trim())
+      .filter((clause) => clause && !ACCESSORY_FILLER_CLAUSE.test(clause)).join(', ');
+  };
+  const eyewearBase = buildAccessoryPrompt(wardrobeSlots.eyewear);
+  const eyewearItem = wardrobeSlots.eyewear && !isNoneLikeItem(wardrobeSlots.eyewear)
+    ? (() => {
+        const color = wardrobeSlots.eyewearColor;
+        const targeted = buildTargetedEyewearColorPrompt(wardrobeSlots.eyewear, eyewearBase, color);
+        const colorText = color && !isNoneLikeItem(color) ? buildAccessoryPrompt(color) : '';
+        const placement = wardrobeSlots.eyewearPlacement;
+        const placementText = wardrobeSlots.eyewear.eyewearPlacementMode === 'fixed-face' || (placement && isNoneLikeItem(placement))
+          ? '' : placement && !isNoneLikeItem(placement) ? buildAccessoryPrompt(placement) : DEFAULT_EYEWEAR_PLACEMENT_TEXT;
+        return [targeted || [eyewearBase, colorText].filter(Boolean).join(', '), placementText].filter(Boolean).join(', ');
+      })()
+    : '';
+  const parts = [
+    cleanSubjectAccessoryPrompt(buildHeadAccessoryPrompt(wardrobeSlots.headAccessory, wardrobeColors?.headAccessoryColor)),
+    eyewearItem,
+    cleanSubjectAccessoryPrompt(wardrobeSlots.earrings),
+    cleanSubjectAccessoryPrompt(wardrobeSlots.headphones),
+    cleanSubjectAccessoryPrompt(wardrobeSlots.faceCovering),
+    cleanSubjectAccessoryPrompt(wardrobeSlots.nosePiercing),
+    cleanSubjectAccessoryPrompt(wardrobeSlots.lipPiercing),
+    cleanSubjectAccessoryPrompt(wardrobeSlots.neckAccessory),
+  ].map(clean).filter(Boolean);
+  const deduped = dedupeRepeatedCommaFragments(parts);
+  // Items carry their own commas, so they are separated by semicolons to keep the boundaries readable.
+  if (deduped.length <= 1) return deduped[0] || '';
+  return `${deduped.slice(0, -1).join('; ')}; and ${deduped[deduped.length - 1]}`;
+}
+
 function appendSubjectAccessories(subjectText, accessoryText) {
   const cleanedSubject = stripMarkdown(subjectText || '').replace(/\s+/g, ' ').trim();
   if (!cleanedSubject) return accessoryText || '';
@@ -10388,6 +10437,7 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
       || wardrobeSlots.outfitPresetA
       || wardrobeSlots.outfitPresetB
     );
+  const singleAccessoryLines = !legacyWardrobeModifierOrder && context.subject.count === 1 && !specialSubjectMode && !characterProfileMode;
   const buildGrokSubjectText = () => {
     const subjectText = buildCharacterCardSubjectPrompt(context.subject, context.locks, context, wardrobe);
     const baseSubjectText = useCharacterIdentityAnchor ? `${subjectText} ${context.characterProfilePrompt}` : subjectText;
@@ -10402,6 +10452,9 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
       return roleAccessoryText ? `${baseSubjectText}, ${roleAccessoryText}` : baseSubjectText;
     }
 
+    // Accessory v1: an ordinary single subject keeps its accessories out of the identity sentence;
+    // they go in their own 'Subject Accessories' lines below.
+    if (singleAccessoryLines) return baseSubjectText;
     return appendSubjectAccessories(baseSubjectText, buildSubjectAccessoryPrompt({
       eyewear: wardrobeSlots.eyewear,
       eyewearColor: wardrobeSlots.eyewearColor,
@@ -10495,6 +10548,13 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
   addLine('Duo Scene Anchor', duoSceneAnchorText);
   if (!hasDuoSceneAnchor) {
     addLine('Subject Count', buildGrokSubjectText());
+  }
+  if (!hasDuoSceneAnchor && singleAccessoryLines) {
+    const accessoryList = buildSingleSubjectAccessoryList(wardrobeSlots, wardrobeColors);
+    if (accessoryList) {
+      addLine('Subject Accessories', `She wears ${accessoryList}`);
+      addLine('Subject Accessories Compact', buildSingleSubjectAccessoryList(wardrobeSlots, wardrobeColors, { compact: true }));
+    }
   }
   if (context.subject.reference) {
     addLine('Reference Guidance', 'use the attached reference image as the primary facial identity guide, keep the facial features and overall likeness consistent with the image');
@@ -11222,9 +11282,13 @@ function buildGptPromptSectionSources(valuesByLabel, context, { includeBodyType 
   // Omit only standalone catalog Body Type; card identity and pose sources stay intact.
   // The full-body character reference is an approved exception (2026-10-14): it is a
   // reusable character backup, so it keeps the single Body Type at its original position.
+  // Accessory v1: when the single subject has its own accessory line, the separate Head Accessory
+  // value is part of it and must not be written twice.
+  const hasSubjectAccessoryLine = valuesByLabel.has('Subject Accessories');
   const subjectValues = getStructuredValues(valuesByLabel, [
     'Duo Scene Anchor',
     'Subject Count',
+    'Subject Accessories',
     'Reference Guidance',
     ...(includeBodyType ? ['Body Type'] : []),
     'Facial Features',
@@ -11247,7 +11311,7 @@ function buildGptPromptSectionSources(valuesByLabel, context, { includeBodyType 
     'Woman 1 Expression',
     'Woman 2 Expression',
     'Character Identity',
-    'Head Accessory',
+    ...(hasSubjectAccessoryLine ? [] : ['Head Accessory']),
     'Woman 1 Head Accessory',
     'Woman 2 Head Accessory',
   ]);
@@ -13007,8 +13071,8 @@ function renderNanoBananaPrompt(promptModel, { cameraSpatial = false, sceneMirro
       lead('Her hair is', joinNaturalPromptValues(getStructuredValues(valuesByLabel, ['Hairstyle']))),
       lead('Her hair styling has', joinNaturalPromptValues(getStructuredValues(valuesByLabel, ['Hair Styling State']))),
       lead('Her hair color is', joinNaturalPromptValues(getStructuredValues(valuesByLabel, ['Hair Color']))),
-      lead('Her expression is', joinNaturalPromptValues(getStructuredValues(valuesByLabel, ['Expression']))),
-      lead('She wears', joinNaturalPromptValues(getStructuredValues(valuesByLabel, ['Head Accessory']))),
+      nanoBananaExpressionSentence(joinNaturalPromptValues(getStructuredValues(valuesByLabel, ['Expression'])), lead),
+      lead('She wears', joinNaturalPromptValues(getStructuredValues(valuesByLabel, valuesByLabel.has('Subject Accessories Compact') ? ['Subject Accessories Compact'] : ['Head Accessory']))),
       lead('She has', joinNaturalPromptValues(getStructuredValues(valuesByLabel, ['Body Type']))),
       sentence(specialGroups?.hairAndBodyText),
     ]));
@@ -13389,6 +13453,9 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
           buildHeadAccessoryPrompt(wardrobeSlots.headAccessoryB, wardrobeColors.headAccessoryBColor) ? `woman 2 wearing ${cleanSubjectAccessoryPrompt(buildHeadAccessoryPrompt(wardrobeSlots.headAccessoryB, wardrobeColors.headAccessoryBColor))}` : '',
         ].filter(Boolean).join(', ')
       : cleanSubjectAccessoryPrompt(buildHeadAccessoryPrompt(wardrobeSlots.headAccessory, wardrobeColors.headAccessoryColor));
+    // Accessory v1: Z-Image writes an ordinary single subject's accessories as their own sentence after the person chain.
+    const zAccessoryList = !legacyWardrobeModifierOrder && context.subject.count === 1
+      ? buildSingleSubjectAccessoryList(wardrobeSlots, wardrobeColors, { compact: true }) : '';
     const usesFixedSingleSubjectLead = context.subject.count === 1 && shouldUseFixedNormalSingleSubjectLead(context);
     const subjectBaseText = usesFixedSingleSubjectLead
       ? applyDefaultEthnicity(FIXED_SINGLE_NORMAL_SUBJECT_SENTENCE, context.defaultEthnicity)
@@ -13398,7 +13465,7 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
     const parts = [
       stripTerminalPromptPunctuation(appendSubjectAccessories(
         subjectBaseText,
-        subjectAccessoryText
+        context.subject.count === 1 && !legacyWardrobeModifierOrder ? '' : subjectAccessoryText
       )),
       context.subject.count === 2
         ? [buildRoleHasPrompt(characterSlots.bodyTypeA, 'woman 1'), buildRoleHasPrompt(characterSlots.bodyTypeB, 'woman 2')].filter(Boolean).join(', ')
@@ -13428,7 +13495,7 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
             characterSlots.hairColor && !isNoneLikeItem(characterSlots.hairColor) ? characterSlots.hairColor.en : '',
           ].filter(Boolean).join(', '),
       context.subject.count === 1 ? singleSpecialOutfitContent.personText : '',
-      headAccessoryText,
+      context.subject.count === 1 && !legacyWardrobeModifierOrder ? '' : headAccessoryText,
       context.subject.count === 2
         ? [buildRoleHasPrompt(characterSlots.skinDetailsA, 'woman 1'), buildRoleHasPrompt(characterSlots.skinDetailsB, 'woman 2')].filter(Boolean).join(', ')
         : (!useCharacterIdentityAnchor && characterSlots.skinDetails && !isNoneLikeItem(characterSlots.skinDetails) ? characterSlots.skinDetails.en : ''),
@@ -13442,7 +13509,7 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
     ].filter(Boolean);
 
     const text = context.subject.count === 1
-      ? sentence(parts.join(', '))
+      ? [sentence(parts.join(', ')), zAccessoryList ? sentence(`She wears ${zAccessoryList}`) : ''].filter(Boolean).join(' ')
       : leadSentence(buildZImageSubjectLead(context), parts);
     return context.subject.count === 1 ? compressZImageSingleSubjectText(text, context) : text;
   };

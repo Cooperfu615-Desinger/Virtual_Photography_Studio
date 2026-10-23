@@ -530,12 +530,12 @@ test('single-subject eyewear earrings and neck accessories are bound to the subj
 
   const subjectLine = prompt.grokPrompt.match(/Subject:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
   assert.ok(subjectLine);
-  assert.match(subjectLine, /with .*retro round.*glasses.*pearl.*earrings?.*slim metal choker/i);
+  assert.match(subjectLine, /She wears .*retro round.*glasses.*pearl.*earrings?.*slim metal choker/i);
   assert.doesNotMatch(prompt.grokPrompt, /^Eyewear:/m);
   assert.doesNotMatch(prompt.grokPrompt, /^Earrings:/m);
   assert.doesNotMatch(prompt.grokPrompt, /^Neck Accessory:/m);
 
-  assert.match(prompt.zImagePrompt, /with .*retro round.*glasses.*pearl.*earrings?.*slim metal choker/i);
+  assert.match(prompt.zImagePrompt, /She wears .*retro round.*glasses.*pearl.*earrings?.*slim metal choker/i);
 });
 
 test('new earring and dog-tag options remain traceable in single-subject outputs', () => {

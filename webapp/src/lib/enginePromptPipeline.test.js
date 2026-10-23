@@ -185,7 +185,7 @@ test('full-body character prompt keeps complete separate wardrobe regardless of 
   assert.match(fullBodyPrompt, /\n\nSubject:\nThe subject is /);
   assert.match(fullBodyPrompt, /half-up long hair, defined crown structure, clean lower lengths/i);
   assert.match(fullBodyPrompt, /deep coffee-brown hair/i);
-  assert.match(fullBodyPrompt, /black .*glasses/i);
+  assert.match(fullBodyPrompt, /glasses, black frame/i);
   assert.match(fullBodyPrompt, /\n\nWardrobe:\nShe wears /);
   assert.match(fullBodyPrompt, /off-white shirt/i);
   assert.match(fullBodyPrompt, /dark grey .*pleated mini skirt/i);
@@ -291,7 +291,7 @@ test('Gpt single-subject prompt preserves full-fidelity normal subject and wardr
   const subject = gptSection(prompt, 'Subject');
   const wardrobe = gptSection(prompt, 'Wardrobe');
 
-  assert.match(subject, /black frame, bold thick-frame glasses, worn normally on the face, lenses aligned over the eyes/i);
+  assert.match(subject, /She wears bold thick-frame glasses, black frame, worn normally on the face, lenses aligned over the eyes\./i);
   assert.doesNotMatch(subject, /F–G cup bust|height 168–173 cm|bust–waist–hip|dramatic lean hourglass silhouette/i);
   assert.match(subject, /20-year-old adult woman/i);
   assert.match(subject, /young seductive alluring Korean beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence/i);
