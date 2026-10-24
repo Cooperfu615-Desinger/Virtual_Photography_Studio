@@ -1,12 +1,21 @@
 # 目錄資料架構 v1：穩定 ID、正式 schema、語意資料化
 
-- 狀態：已核准，待實作。Cooper 於 2026-10-13 確認四項前提；本文已經過 fresh-context 反向重述審查並修訂。
-- 範圍：只含 Phase 1 到 Phase 3。三個階段都**不改變任何公開 Prompt、UI 顯示或存檔格式**。
-- 依據：[資料庫完整分析報告](../reports/database-analysis-2026-10-11/README.md) §4 B 類、§5 Phase 0/2
-- 決策紀錄：[2026-10-13 目錄資料架構決策](../decisions/2026-10-13-catalog-data-architecture.md)
-- 參照版本：本文的行號與數字取自 `codex/specified-actions-v1` @ `e86703e`（211 個 controls、4,637 個 options）。撰寫時這個分支尚未合併；`main` @ `60b6489` 的對應數字是 209 與 4,628，`engine.js` 行號約差 5 行。
-- 實作基準：**以開始 1a 時的 `main` 為準**，實際數字以 1a 產生的快照為準。本文的數字只供參考；行號有落差時，以函式或常數名稱定位。
-- 開始條件：`codex/specified-actions-v1` 也會修改 `engine.js`。建議等它合併進 `main` 之後再開始 1a；若要提前開始，必須先向 Cooper 確認如何處理兩條分支的重疊。
+- 文件修訂：**v1.1，2026-10-24**；保留既有檔名，供原連結繼續使用。
+- 狀態：原架構方向於 2026-10-13 核准；Cooper 於 2026-10-24 授權依最新 main 修訂驗收、ID 保護與遷移順序。**後續已授權 A 階段；A 原基準與驗收工具已由 Cooper 驗收；後續授權對齊最新 main、保留舊基準並補全身角色匯入驗收。本輪對齊已由 Cooper 驗收，並授權僅 stage／commit／push A 文件、基準與驗收工具；B–E 與資料遷移未開始，沒有手動 deploy 授權。**
+- 範圍：保留原 Phase 1–3 的工作內容，執行順序改為 §7 的 A–E 階段；所有遷移均不改公開 Prompt、UI 顯示、隨機選取行為或使用者存檔格式。已知內容問題另立 Phase 4。
+- 依據：[資料庫完整分析報告](../reports/database-analysis-2026-10-11/README.md) 與 [2026-10-13 決策](../decisions/2026-10-13-catalog-data-architecture.md)。原決策保留為歷史紀錄；執行細節以本修訂為準。
+- 原 A 基準版本：`0746b280cc9f5c00daec7dadc73329779ac658e9`。2026-10-24 後續授權對齊的本機與 GitHub `main` 為 `2f56438804e751de4556060b293231966d6ea3b3`；原基準永久保留，新版本另建 manifest。基礎目錄為 6 分區、56 分類、1,050 條，37 條有 `stableId`；執行期為 219 個 controls、4,771 個 options。這些是基準觀察值，不是永久限制。
+- 實作基準：開始 A 時重新核對最新 `main`、遠端 SHA、工作樹與相關 diff，記錄明確的 `baselineCommit`。原 `e86703e` 指定動作已納入 main，不再以等待該分支合併為前置條件。原 A 使用 `0746b28`，本輪新增 `2f56438` 的獨立對齊紀錄；詳見 §11。
+- 工作目錄：目前 main 位於 `/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio`。依 root AGENTS 直接在現有 main 開發，不另建功能分支；開始前仍須重新確認路徑與分支，保護原專案目錄及其他 session 的工作。
+- 下文保留的舊程式行號僅供歷史追查，實作一律依函式／常數名稱定位；不得將舊資料數字、測試數量或舊驗收結果當成新版已通過的證據。
+
+### 本次對齊的現況與邊界
+
+- 目前仍以 Markdown＋metadata＋manifest 產出 `database.json`；`knowledge_base/catalog/`、登記簿、正式完整性腳本仍是**待建立產物**；A 已建立目錄快照與輸出基準。
+- 新增 `lyingSurface` 來源欄位，目前 47 條場景具有此資料；新版指定動作、站／蹲／坐／跪／躺姿、頭部／視線與觀察式抓拍均須納入基準。
+- Z-Image 已有 2026-10-23 的[同場段落版本 C](z-image-scene-first-tidy-v1.md)：人物開頭、方位去重、環境光句合併及側面幾何改寫都屬既有行為，不得用舊版快照還原。
+- 現行五個主工作區是 Prompt 工作台、角色建模、場景建模、DLL_PIC Pro、Saved Cards。動作與觀察式抓拍在主工作台內驗證，舊資料仍保留相容性。
+- 四主輸出為 Gpt／Z-Image／Midjourney／Nano Banana，另有 GPT 胸上與全身角色照；依當前輸出契約保留各模式的有效／不適用狀態。歷史 MJ 胸上只做舊卡還原與序列化驗證，不恢復生成入口。
 
 ---
 
@@ -19,8 +28,8 @@
    - Markdown 四欄表格
    - `item_metadata.json`
    - `outfit_preset_metadata.json`
-   - engine 的欄位白名單（`engine.js:3301-3350`）
-3. **語意靠推論。** 相容 tags 主要由 `infer*Meta` 從 zh、en、desc 文字推論（`engine.js:1585-1587`、`:1680-2600`）。唯一的例外是 6 條 Light Style 有顯式的 `subjectLight.tags`（`engine.js:3333`、`:3350`）。因此改一句 desc，就可能靜默改變相容矩陣。
+   - engine 的條件式欄位讀取與映射（`buildEntries`；不是獨立的正式 schema）
+3. **語意靠推論。** 相容 tags 主要由 `infer*Meta` 從 zh、en、desc 文字推論（`engine.js:1585-1587`、`:1680-2600`）。已有 6 條 Light Style 使用顯式的 `subjectLight.tags`，但多數語意仍依賴推論（`engine.js:3333`、`:3350`）。因此改一句 desc，就可能靜默改變相容矩陣。
 
 ## 2. 目標與非目標
 
@@ -41,27 +50,53 @@
 
 ## 3. 驗收不變量
 
-每個子步驟完成時，以下 9 項必須全部成立，任何一項不成立就算失敗。
+以下是不改行為的實作驗收契約。每個執行階段交付時須列出 I1–I9 證據；尚未建立的工具明列不適用與其開始生效階段，不可視為已通過。最初的 v1.1 文件修訂僅做連結／路徑、內容一致性與 diff 檢查；後續 A 授權與驗收見 §11。
 
 | # | 不變量 | 驗證方式 |
 | --- | --- | --- |
 | I1 | 每個 control 的選項 ID 陣列（含順序）與快照相同 | 控制項快照（§4.1），鍵為 `controlKey` |
 | I2 | 每個 control 選項的 legacyIds 與快照相同；目錄層每條的 ID 與 legacyIds 也與快照相同，包含不在任何 control 裡的 Negative 19 條 | 控制項快照＋目錄快照（§4.1） |
 | I3 | 每個 control 選項與目錄條目編譯後的 `meta` 逐鍵相同，包括鍵的順序與 tags 順序 | 語意快照（§4.1） |
-| I4 | 代表性 fixtures 的所有輸出逐字相同 | `npm run test:prompt-quality` |
-| I5 | 同 seed audit 的輸出前後一致 | 從 repo 根目錄執行 `node scripts/validate_prompt_logic.mjs 200 prompt-quality-baseline --strict`，把變更前後的 stdout 存到 repo 外再 diff |
-| I6 | Saved Cards 還原、舊 lock 遷移、匯入匯出相容 | `npm test` 既有相關測試全部通過 |
-| I7 | 前端完整檢查通過 | 在 `webapp/` 執行 `npm test`、`npm run lint`、`npm run build`。已知的不穩定測試 `engineOutfitPresetDressCleanup.test.js:627`（見 `current_project_state.md:43`）如果失敗，必須證明它在變更前的 HEAD 用同一個 seed 也會失敗，並在報告中附上證據；不能證明的話，就視為本次造成的失敗 |
-| I8 | 資料層檢查通過 | `python3 scripts/sync_to_json.py --check`、`python3 -m unittest discover -s scripts/tests`、`python3 scripts/check_public_assets.py`；從 1b 起再加上 `node scripts/check_catalog_integrity.mjs --strict`（1a 時這支腳本還不存在，不適用） |
-| I9 | 瀏覽器實際操作正常 | 依 `Docs/specs/frontend-visual-validation.md`，在 1440×1000 與 390×900 檢查**全部六個工作區**：Prompt Control Deck（PAGE1）、Character Card Lab、Action Pose Lab、World Street Scene Builder、Observation Capture Lab、Saved Cards。必須實際操作 PAGE1 生成，以及 Saved Cards 的儲存與還原 |
+| I4 | 全部固定驗收案例的有效輸出、選擇與摘要不變，案例集合完整 | §3.1 的不可變基準與完整差異比對；另跑 `npm run test:prompt-quality`，後者不代替跨版本逐字比較 |
+| I5 | 同 seed 抽選結果與亂數呼叫次數不變，audit 無新增診斷／阻擋 | 根目錄執行 `node scripts/validate_prompt_logic.mjs 200 prompt-quality-baseline --strict` 並比對報告；§3.1 另保存同一 audit 情境的完整輸出、selection 與亂數計數，不能以統計相同代替內容相同 |
+| I6 | Saved Cards 還原、舊 lock 遷移、匯入匯出相容 | 既有測試＋§3.2 固定舊 payload／Markdown／JSON round-trip 案例；不得重寫歷史 Prompt 或使用者資料 |
+| I7 | 前端完整檢查通過 | `webapp/` 執行 `npm test`、`npm run lint`、`npm run build`。失敗須以變更前 `baselineCommit`、相同環境與 seed 證明是否既有；不沿用舊文件指稱的 flaky 豁免，不修改無關程式 |
+| I8 | 資料層與歷史 ID 保護通過 | sync `--check`、Python unit tests、公開資產檢查；B 起加完整性 strict 與 schema 測試；C 起加 §4.4 的歷史登記簿比較，不能只查目前檔案自洽 |
+| I9 | 瀏覽器實際操作與下游正常 | 依 frontend visual validation，1440×1000／390×900 檢查現行五工作區及 §3.2 路徑；使用隔離收藏／草稿與模擬生成，不提交付費請求，不改使用者實際收藏 |
 
-快照只能用 `scripts/update_catalog_snapshots.mjs` 改寫。任何快照 diff 都要在交付報告中逐條說明原因；本規格三個階段的預期快照 diff 是**零**。
+目錄快照只能用A 建立的 `scripts/update_catalog_snapshots.mjs` 產生。A 完成後封存基準；遷移不得重新錄製預期值來消除差異。所有階段的編譯後目錄、完整輸出與行為基準預期差異為零；來源檔格式與新增明確 ID／semantic 的差異則依 §4.3.6、§6.1 單獨驗證。
+
+### 3.1 完整輸出基準與比較工具（A 階段建立）
+
+1. **先修工具，再封存舊行為。** 可沿用 `scripts/dump_prompt_outputs.mjs` 的取樣與輸出資料，但須先修正比較模式只看交集、`UNRESOLVED` 可通過與固定 exit 0 的缺口。工具變更先在未改引擎行為的版本驗證，再記錄基準 commit；不能用遷移後 renderer 補錄舊預期值。
+2. 保存 baseline manifest：完整 `baselineCommit`、Node／套件鎖版本、生成器與 fixtures 雜湊、案例 ID 清單、原始 locks、每案 seed、模式、預期有效輸出欄位，以及基準檔 SHA-256。產生器與案例集合在比較兩端使用同一份；固定原始輸入，不能兩端各自解析改名後標籤或產生不同的全部隨機規則。
+3. 每案保存全部公開主／衍生 Prompt、resolved selection、summaryFields、結構化還原資料與亂數呼叫次數；對不適用輸出記錄明確狀態。保留字串的標點、空白、換行與陣列順序，不做語意正規化來掩蓋差異。
+4. 只排除經清點的執行期 ID、時間戳等非決定性欄位；排除清單以精確欄位路徑保存並審查，禁止遞迴刪除所有名為 `id` 的鍵。同版本同輸入重跑須相同，否則先處理測試基準的非決定性。
+5. 比較時，缺檔、解析錯誤、重複案例 ID、未解析 fixture、案例新增／缺少、有效欄位缺少／新增、任何受保護值差異，都必須非零退出。報告列案例 ID、欄位路徑及前後差異，不能只印摘要後回傳成功。
+6. 案例包含所有當前 representative fixtures、同一 audit 場景清單的 `200 / prompt-quality-baseline` 樣本，以及固定輸入的全部隨機、指定動作、§3.2 矩陣。每組的案例數由 manifest 固定，不以總樣本數宣稱所有模式均覆蓋。
+7. 工具自身須有通過／失敗驗證：只改標點、調換同長文字、刪除一個案例、雙端均未解析、改 selection、改亂數次數、缺少一種輸出，均須被攔下。只改已核准排除欄位則通過。
+8. 基準產物須隨 A 交付保存於版本控制的測試資料位置，manifest 指向產生該證據的完整 commit；中間報告可存 repo 外，但不能只留下暫存目錄路徑作長期證據。新增／調整基準須有獨立審查與原因，不得與遷移差異混在一起。
+
+Prompt Quality 證明契約與片語要求，audit 證明診斷結果，完整基準證明列明案例的逐字與狀態相等；三者皆保留，且有限案例不宣稱涵蓋全部排列組合。
+
+### 3.2 當前案例與還原矩陣
+
+| 面向 | 必須涵蓋 |
+| --- | --- |
+| 人物／模式 | 一般單人、雙人、角色卡／匯入身份、特殊主體、固定構圖及三種車廂、觀察式抓拍（角色卡與全身角色匯入）；各路徑採自己的有效輸出契約 |
+| 動作／鏡位 | 指定動作各群組、頭部／視線、站／蹲／坐／跪／側躺／俯臥／仰躺、躺姿表面、手動座位、自拍道具、主要景別與方向；保留退役 Pose Composer 輸入的既有解析 |
+| 資料保護 | 六種 Body Type 與全無、套裝固定黑色下身、外套開合／穿法、配件、`lyingSurface`、環境光／人物光、Z 版本 C、精確畫面文字 |
+| 選值與隨機 | 全無／固定／隨機／任意、全部隨機與局部重抽、互斥選項、可選光線集合；保留選項順序及亂數消耗 |
+| 使用者資料 | 固定舊 raw ID／legacy ID payload、新舊 JSON 與 Markdown 匯入、收藏保存／reload／還原／重新生成；歷史 Prompt 文字及已退役衍生輸出不得被改寫 |
+| 下游 | 角色／場景套用至 PAGE1、六種現行輸出預覽／複製、附加文字與明確帶入 DLL 的最終文字、DLL 隔離草稿恢復；不改生成供應商或發送真實請求 |
+
+基礎目錄的每個既有 ID／別名都須在目錄與最終 control 層驗證擁有者、解析結果及順序；沒有 control 的 Negative 仍由目錄快照覆蓋。抽樣舊收藏不能代替逐 ID 檢查；也不能把暫時未在 UI 顯示的舊選項當成可刪資料。
 
 ---
 
 ## 4. Phase 1：安全網與 ID 凍結
 
-### 4.1 1a：快照
+### 4.1 1a：快照（A）
 
 #### 4.1.1 授權的 engine 修改（測試專用匯出）
 
@@ -103,7 +138,7 @@
 - 序列化時保留原始鍵順序與陣列順序，不做排序。I3 要求順序也必須相同。
 - 快照測試要被 `npm test` 的 glob（`src/lib/engine/*.test.js`）收入，不放進 `test:prompt-quality`。
 
-### 4.2 1b：完整性檢查進 CI
+### 4.2 1b：完整性檢查進 CI（B）
 
 #### 4.2.1 腳本
 
@@ -122,7 +157,7 @@
   - 有 `confirmed` 且不在允許清單內 → exit 1。
   - `possible` 只輸出報告，不影響 exit code。
 - 允許清單 `scripts/catalog_integrity_allowlist.json` 以「問題代碼＋項目鍵」為比對單位，每項必填 `reason` 與 `decisionRef`。如果清單中的某項，在本次執行已不再出現，`--strict` 同樣 exit 1，視為「清單過期」。
-- 初始允許清單只有一項：`LEGACY_ID_AMBIGUOUS` + `duoPoseId:shoulder-lean`、`duoPoseId:leaning-shoulders`，`decisionRef` 為報告 J12。
+- 2026-10-24 唯讀複核仍只有一種 confirmed 代碼，初始允許清單拆成兩筆項目鍵：`LEGACY_ID_AMBIGUOUS` + `duoPoseId:shoulder-lean`、`duoPoseId:leaning-shoulders`，`decisionRef` 為報告 J12。B 開始時重新核對，不自動把新問題加入允許清單。
   - `CARD_LAYER_DUPLICATION`（12 段不一致）屬於 `possible`，不必列入允許清單。
 
 #### 4.2.3 CI 位置
@@ -139,13 +174,13 @@ node scripts/check_catalog_integrity.mjs --strict
 
 1c、3a、3b 都會改動此腳本依賴的來源，例如：
 
-- 1c 刪除 `item_metadata.json`。
+- 1c 刪除已併入紀錄的 `item_metadata.json`，並切換讀取來源。
 - 3a 讓 tags 變成顯式資料。
-- 3b 把 targetZh 改成 id。
+- 3b 搬移 legacy 表的來源檔路徑；targetZh 值與既有比對邏輯完全不變。
 
 這三個子步驟都必須在同一次交付中更新本腳本與允許清單，並通過 `--strict`。
 
-### 4.3 1c：格式遷移與 ID 凍結
+### 4.3 1c：格式遷移與 ID 凍結（C）
 
 #### 4.3.1 新的資料來源結構
 
@@ -194,7 +229,7 @@ knowledge_base/catalog/
 - **Regional 分區**的紀錄要拆開存放：`inspiration`（來源專用欄位，不輸出）與 `desc`（只放本文）。sync 輸出時用 `inspiration | desc` 組回，結果必須與現行相同（`sync_to_json.py:74-75`）。現有 26 條都恰好含一個 ` | ` 分隔符。
 - 假值必須保留，不能被當成空值移除，例如 `outerwearFastenerRequirement: ""`、`randomEligible: false`（`engine.js:3345-3346`）。
 - 欄位的鍵順序必須與現行 `database.json` 相同。
-- `entries` 陣列的順序決定 UI 的顯示順序，**不再影響 ID**。
+- `entries` 陣列的順序不再決定 ID，但仍可能影響 UI、候選池與同 seed 抽樣。此次保持全部順序不變；日後重排須另驗證，不因 ID 固定而視為無行為影響。
 
 #### 4.3.3 凍結內容
 
@@ -216,12 +251,12 @@ knowledge_base/catalog/
 
 **`sync_to_json.py`：**
 
-- 改為讀取 `knowledge_base/catalog/**/*.json`。
+- 依 `knowledge_base/catalog/index.json` 的明確清單與順序讀取分類 JSON，不把 schema、登記簿或 legacy 表當成分類。拒絕重複、缺少、多餘分類檔及超出目錄的路徑；不得依檔案系統列舉順序改變抽樣池。
 - 輸出的 `database.json` 每條帶 `stableId`（等於 `id`）與 `legacyIds`；其餘欄位的內容與鍵順序維持不變。
 - 保留「同分類 zh 唯一」檢查（`sync_to_json.py:109-117`），因為 manifest 是依名稱合併的。
 - 保留 manifest 的合併與驗證邏輯。
 - 新增驗證：zh、en、desc 不得含 `|` 或換行，以保護 Markdown 總覽與舊解析器。
-- 新增驗證：`id`、`zh`、`en`、`desc` 不得為空字串。這項在 1c 由 sync 自己檢查；2a 建立 schema 後改由 schema 負責。
+- 新增驗證：`id`、`zh`、`en`、`desc` 不得為空字串。B／2a 先完成 schema 驗證器，C／1c 切換來源時即強制套用，不保留無 schema 的正式過渡期。
 
 **engine `buildEntries`：**
 
@@ -232,7 +267,7 @@ knowledge_base/catalog/
 **物件型自訂 library：**
 
 - `getKnowledgeBaseSnapshot()`（`engine.js:3456`）回傳的條目，在 1c 後會帶 `stableId` 與 `legacyIds`。
-- 唯一會產生重複 ID 的測試是 `engineSubjectKeyLightCompatibility.test.js:62-66`：它以 `structuredClone` 複製「機頂直閃」，改 zh 後 push 回同一分類。
+- 已知例子是 `engineSubjectKeyLightCompatibility.test.js`：它以 `structuredClone` 複製「機頂直閃」，改 zh 後 push 回同一分類；此例不是完整清單，需依當前 main 重新搜尋。
   - 本步驟要調整這支測試：**只對新複製出來的那一條**刪除 `stableId` 與 `legacyIds`。斷言的意圖不變。
 - 以下兩支測試**不調整**：
   - `shibuyaCrowdScene.test.js:80-86` 只修改既有條目的 `en`，沒有複製。
@@ -244,11 +279,11 @@ knowledge_base/catalog/
 
 - `item_metadata.json`、`outfit_preset_metadata.json` 的內容併入紀錄後刪除。
 - 6 份 Markdown 改為自動產生的唯讀總覽，見 §4.3.5。
-- `scripts/tests/test_sync_to_json.py` 改為測試新的讀取與合併流程，現有 2 個測試的意圖要保留。
+- `scripts/tests/test_sync_to_json.py` 改為測試新的讀取與合併流程，保留當前同步測試的意圖，數量以實作基準為準。
 
 #### 4.3.5 唯讀 Markdown 總覽
 
-- `sync_to_json.py` 依紀錄重新產生 `knowledge_base/*.md`，檔名、表格欄位與現在相同，所以 40 份既有文件的路徑引用不會失效。
+- `sync_to_json.py` 依紀錄重新產生 `knowledge_base/*.md`，檔名、表格欄位與現在相同，以保留既有文件路徑引用；C 開始前重新清點實際引用。
 - 遷移時，把每份 Markdown 的標題、前言、表頭行、分隔行**逐字擷取**進 `index.json`，產生時原樣輸出。這樣 `scripts/prompt_generator.py` 跳過表頭的規則（依賴 `| :---`、`| 維度分類`、`| 攝影風格` 等字面前綴）仍然成立。
 - 產生表格列的規則：
   - 欄位順序、反引號包法與現行相同。
@@ -262,18 +297,20 @@ knowledge_base/catalog/
 
 #### 4.3.6 遷移驗收
 
-1. **database.json**：新舊兩邊的每條都先剝除 `stableId` 與 `legacyIds`（舊版原本有 37 條 stableId、36 條 legacyIds），用保留鍵順序的 `JSON.stringify(…, null, 2)` 序列化後，位元組必須相同。
+1. **database.json**：新舊兩邊的每條都先剝除 `stableId` 與 `legacyIds`（明確 ID／別名數量以 A 清點結果為準），用保留鍵順序的 `JSON.stringify(…, null, 2)` 序列化後，位元組必須相同。
 2. **Markdown**：用現行 `parse_markdown_table` 分別解析新產生的總覽與舊 Markdown，結果必須相同。用 `prompt_generator.py` 的解析函式比對，結果也必須相同。
-3. I1–I9 全部通過，三份快照零 diff。
+3. I1–I9 全部通過，目錄／控制項／語意快照及完整輸出基準零 diff；ID／別名另逐條驗證，不能因第 1 項剝除欄位而漏檢。
+4. C 切換前，B 已完成 schema、登記簿驗證器及產生器的測試，但正式來源仍是 Markdown。C 同批啟用分類 JSON、ID 登記、schema strict、產生物一致性與 §5.3 操作文件；不得提交一個新來源尚無驗證或文件仍指向舊來源的中間狀態。
+5. `--check` 只讀、正常 sync 先完整驗證再產生所有輸出；驗證失敗不得留下部分新檔。執行前後檢查非允許清單檔案與使用者資料不變。
 
 #### 4.3.7 凍結期與前置檢查
 
-開始 1c 之前：
+開始 C／1c 之前：
 
 - `git status` 中，`knowledge_base/`、`webapp/src/data/`、`webapp/src/lib/engine.js`、`webapp/src/lib/engine/`、`scripts/` 都不得有未提交修改。如果有，停止並回報，不得覆蓋。
-- 用 AGENTS.md 的 Session Synchronization 機制通知進行中的 session：1c 完成並提交前，不新增或修改目錄資料，也不改 `engine.js`。
+- 確認其他 session 沒有修改同批來源、engine、fixtures 與操作文件；由使用者或已獲明確授權的協調者傳達 Session Synchronization 與凍結範圍。此規格不自行授權跨 chat 傳訊。C 完成、驗收並提交前，不平行修改這些路徑；有重疊即停下確認，不覆蓋他人工作。
 
-1c 提交後解除凍結。
+C 完整切換交付驗收並獲授權提交後解除凍結；若使用者尚未授權提交，保持交付邊界並回報，不能自行提交解鎖。
 
 ### 4.4 1d：ID 規則
 
@@ -291,25 +328,36 @@ knowledge_base/catalog/
 - `<英文短名>` 是小寫英文 kebab-case，**不含列序**。
 - 範例：`wardrobe:上身-tops:cropped-knit-cardigan`
 
-`sync_to_json.py` 驗證以下規則：
+登記簿每筆至少保存 `id`、不可變的初始來源分區／分類、建立基準或決策來源，以及 `status`；退役另記 `reason`、決策、`replacedBy`（沒有則為 null）與還原政策。這些是維護資料，不進入使用者存檔；初始來源分類不是禁止既有跨分類 migration 的限制。
 
-1. 每條都有 `id`，且全域唯一。
-2. 紀錄中的每個 `id` 都必須已在登記簿中，狀態為 `frozen` 或 `active`。新增條目要同時新增登記。
-3. 登記為 `active` 的 ID 必須符合新格式；`frozen` 不受此限。
-4. 改名時只改 `zh`、`en`、`desc`，**不改 `id`**。
-5. 刪除條目時，登記簿要把該 ID 改為 `retired`。若要讓舊存檔導向替代條目，就把舊 ID 加入替代條目的 `legacyIds`。
-   - 替代條目必須在**同一分類**，因為舊 ID 只會在同一 control 內解析（`engine.js:3897-3901`）。
-6. 任何 `legacyIds` 都不得與同分類內其他條目的 `id` 或 `legacyIds` 重複。
-7. 登記簿中的 ID 不得刪除，也不得改給其他條目使用。
-8. **反向檢查**：登記為 `frozen` 或 `active` 的每個 ID，都必須存在於某一條紀錄的 `id`。直接刪除紀錄、卻沒有把登記改成 `retired`，就會失敗。
+`sync_to_json.py` 與完整性檢查共同驗證：
 
-1d 必須附 Python 單元測試，涵蓋以上 8 條規則的通過與失敗案例。
+1. 每條目都有全域唯一 `id`，且登記狀態是 `frozen` 或 `active`；反向驗證每個這類登記都有對應條目。
+2. 初次遷移僅將 A 封存的既有主 ID 標記 `frozen`；之後新增只能登記為 `active`，符合 `<group>:<分類slug>:<英文短名>`。分類前綴在發號時固定，不能因重新命名分類重發既有 ID。
+3. 名稱、描述與語意可依後續授權更新，但不能重發／變更 ID 或拿已發 ID 代表另一個項目。檢查器比較 ID 與不可變來源欄位；同一 ID 的語意是否被改作他用仍須差異審查，不能宣稱程式可自動判定。
+4. 合法狀態轉換只有保持原狀、`frozen → retired`、`active → retired`；`retired` 不得復活。禁止 `frozen ↔ active`。此次 A–E 不退役、不刪除任何既有條目。
+5. 來源內別名不得指向不同條目；允許同一條目的主 ID 也存在於自己的 legacyIds（現有合法行為）。在**後處理完成的每個 control**再檢查主 ID／legacyIds 衝突，不只檢查單一分類。J12 兩項保留舊命中順序並使用精確允許清單。
+6. `replacedBy` 必須指向存在且可還原的有效條目；禁止自指、循環、懸空及指向另一個 retired ID。多次替代時更新為最終有效目標，保留原退役紀錄與審查證據。
+7. 替代是否有效由實際 control 解析與既有 migration 決定，不能只用「同分類」推定。跨分類只能沿用已存在的 migration；新增跨分類行為另立規格。每個替代案例須固定舊 payload、還原結果與重新生成結果。
+8. **沒有替代項不等於可丟棄歷史資料。** 預設保留原條目作還原用途；如欲從有效目錄移除，須先另立退役規格，明定舊卡保存、缺失選值呈現及恢復流程。本次不新增 runtime fallback，也不以靜默變全無視為相容。
+
+#### 4.4.1 歷史比較：防止條目與登記一起被刪
+
+- 初次登記必須對照 A 的封存 ID 清單，逐項驗證完整集合；不能以同批新資料反推「歷史」。
+- 後續每次驗證都指定不可變 `registryBaseCommit`：必須是候選變更之前已審查／提交的版本。在 CI 使用受信任的事件基準或明確固定提交，在本機指定該提交；不得使用工作樹當基準或以待驗證版本自己當基準。
+- 從該 Git object 讀取歷史登記，檢查所有舊 ID 仍存在、不可變欄位未改、狀態轉換合法；再檢查當前登記與分類資料雙向一致。基準 commit 不存在／不是可接受祖先／缺少應存在的登記時，非零退出，不退回只查當前檔案。
+- CI 需取得該基準 object；目前 workflow 的預設 checkout 深度不能假定足夠。初次尚無登記簿的引入批次只能使用 A 的封存清單及 manifest 所記的基準，例外須明確且不可延續到後續批次。
+- 基準提交與基準檔 SHA 隨報告列出；更新基準是一個經審查的版本變更，不得修改候選檔內的基準指標來繞過檢查。
+
+#### 4.4.2 驗證器交付時點與測試
+
+B 先用 fixtures 完成登記簿驗證器與 schema；C 產生實際登記簿並啟用強制檢查。測試包含上述通過／失敗情境，尤其是「同時刪條目與登記」「刪除 retired 歷史」「重用 ID」「跨分類但同 control 的別名衝突」「主 ID 作自己的別名」「替代循環／懸空」「不可取得歷史基準」。不得只測當前兩份 JSON 是否互相一致。
 
 ---
 
 ## 5. Phase 2：正式 schema
 
-### 5.1 2a：目錄紀錄 schema
+### 5.1 2a：目錄紀錄 schema（B 建立，C 啟用）
 
 新增 `knowledge_base/catalog/schema.json`，結構如下：
 
@@ -325,15 +373,13 @@ knowledge_base/catalog/
 }
 ```
 
-- **欄位合併**：每條紀錄允許的欄位，是 `common`、所屬 `section`、所屬 `category` 三層的 `properties` 合併結果。每一層的欄位定義使用 JSON Schema 子集。
+- **欄位合併**：依 common → section → category 組成完整 properties；required 採去重聯集。同名欄位定義相同可共用，不同即報錯，不暗中覆寫；如需不同定義，先修 schema 結構。巢狀物件、陣列 items 遞迴驗證，additionalProperties 在完整欄位合併後判定。這是本專案的 schema 包裝格式，不宣稱整份檔案可直接交給任意 JSON Schema 工具。
 - **最小驗證器**：`sync_to_json.py` 內建一個最小驗證器，只支援 `type`、`enum`、`required`、`properties`、`items`、`additionalProperties`、`pattern`、`minLength`。不新增 Python 依賴。
-- **未知欄位**：遇到未知欄位直接報錯。
+- **未知欄位與關鍵字**：資料的未知欄位及 schema 中不支援的關鍵字都報錯，不能靜默忽略。空值、boolean false、數字 0 與空字串依各欄位明確規則驗證，不能用 truthiness 過濾。
 - **必填與空值**：必填字串不得為空字串；但是 schema 明確允許的假值必須保留，例如 `outerwearFastenerRequirement: ""`。
-- **與 engine 白名單一致**：先對 schema 的頂層欄位做兩步轉換：
-  1. 移除 sync 專用欄位。目前只有 `inspiration`。
-  2. 把 `id` 換成 sync 實際輸出的 `stableId`。
-
-  轉換後的欄位集合，必須等於 engine `buildEntries` 的讀取白名單（`engine.js:3301-3350`）。sync 專用欄位的清單寫在 `schema.json` 的 `syncOnly` 陣列中。完整性檢查會比對兩者，避免新欄位被 engine 靜默丟棄。
+- **來源到 runtime 的映射**：建立版本控制的欄位責任清單，列出來源路徑、生成路徑、runtime 路徑、適用分類、條件與假值政策。至少區分：`id → stableId → id`、`inspiration` 僅組回 Regional desc、直接保留的 `mj`／`lyingSurface`、移入 `meta` 的 `outerwear`／`topUnderbust`／`subjectLight`、manifest 衍生圖片鍵，以及 D 才加入的 `meta.semantic`。
+- `lyingSurface` 的 47 筆來源與 runtime 值須完整比較；未來數量由實作基準清點，不寫死為固定門檻。對所有目前欄位與巢狀內容建立映射，未知或未消費欄位不能自行刪除，須先報告處置。
+- 完整性檢查除了來源欄位集合，還須驗證實際編譯結果、覆蓋順序與保留值。現行 `buildEntries` 是條件式讀取，單純比較頂層名稱集合不足以證明資料無遺失；不為此進行廣泛 engine 重構。
 - **錯誤訊息**：要包含檔案、條目 `id`、欄位路徑、預期值、實際值。
 - **測試**：附 Python 單元測試，涵蓋驗證器支援的每個關鍵字，以及三層合併的情境。
 
@@ -345,14 +391,14 @@ knowledge_base/catalog/
 | --- | --- |
 | `webapp/src/lib/engine/characterProfiles.js` | 必填結構化欄位存在且非空；`distinctiveFeatures` 正好 4 項；`legacyIdentityAndBody` 非空 |
 | `webapp/src/lib/engine/characterProfiles.js`、`webapp/src/lib/characterCardLab.js`、`webapp/src/lib/engine/midjourneyCardItemNames.js`、`knowledge_base/character_reference_manifest.json`、`webapp/src/lib/engine.js` 的 `CHARACTER_PROFILE_CONTROL_ORDER`（`:342`） | 五方的角色卡 ID 集合一致。排序表缺項的卡片會被靜默過濾（`engine.js:380`） |
-| `webapp/src/lib/engine/poseComposerOptions.js`、`duoOptions.js`、`fixedCompositionOptions.js` | ID 唯一；`hiddenForBases` 等 meta 引用的值存在；legacyIds 沒有歧義 |
+| `webapp/src/lib/engine/poseComposerOptions.js`、`specifiedActions.js`、`duoOptions.js`、`fixedCompositionOptions.js` 及其來源資料 | 依命名空間／實際 control 驗證 ID 與別名；子句、頭部／視線、表面、姿勢群組與其他 meta 引用存在；保留 J12 的已知例外與舊順序 |
 | `webapp/src/lib/engine/` 下的 overlay：`ambientLightDescriptions.js`、`zImageSceneDetailPriority.js`、`midjourneyItemNames.js` 等 | key 存在於目錄。有「原文 pin」的 overlay，pin 必須等於目錄目前的原文。「原文 pin」是指 overlay 除了 ID 之外，另外存了目錄條目的 zh、en 等原文（例如 `ambientLightDescriptions.js` 的 `source`），用來在原文改動時阻擋 overlay 繼續套用 |
 
 已知不一致的處理依 §4.2.2 的嚴重度規則。
 
-### 5.3 2c：文件與工作流程更新
+### 5.3 2c：文件與工作流程更新（與 C／1c 同批切換）
 
-修改 `Docs/` 下既有檔案之前，先建立 `.bak` 副本。需要更新的文件：
+修改既有文件前保留原文備份；若 `.bak` 已存在，不覆蓋，另用可辨識日期／版本的備份名。本次 v1.1 只修改本規格並保存原版備份。以下是未來 C 必須與來源切換一起交付的文件，不是本次已完成項目：
 
 - `AGENTS.md`：
   - Validation Matrix 的「Knowledge-base Markdown or manifests」列，改為以 `knowledge_base/catalog/*.json` 為來源。
@@ -361,10 +407,10 @@ knowledge_base/catalog/
 - A、B、C、D 四份撰寫指引：
   - 「新增選項流程」改為 JSON 紀錄流程。
   - 補上 ID 規則、schema、快照更新流程。
-  - 移除「只能 append」的限制。
+  - 說明 ID 已與列序解耦，但顯示／抽樣順序仍屬行為；此次不重排，日後調序另驗證，不能把穩定 ID 誤當任意重排授權。
 - `Docs/current_project_state.md`：更新「Key Files」的資料來源路徑，並新增一條本規格的狀態紀錄。
 - `Docs/specs/engine-architecture.md`：更新資料流說明。
-- `AGENTS.md` 與 `Docs/specs/frontend-visual-validation.md:15`：目前寫「five」個工作區，改為實際的六個，名稱與 I9 列出的一致。
+- `AGENTS.md` 與 `Docs/specs/frontend-visual-validation.md`：統一列出 §3.2 所述五個現行工作區與整合模式，移除把動作／抓拍當成獨立主導覽的舊敘述；實作時再次核對 App 入口。
 
 ---
 
@@ -389,9 +435,9 @@ knowledge_base/catalog/
 - 以 `meta.semantic` **取代** `inferredMeta` 原本的位置，不再呼叫 `infer*Meta`。
 - 從 sourceMeta 中**剝除** `semantic` 鍵後再展開，讓編譯後的 meta 不出現 `semantic` 鍵。
 - 覆蓋順序維持為：semantic（原 inferred）→ sourceMeta → 各個顯式欄位 → `tags`。
-- `tags` 合併式改為 `withTags([...semantic.tags, ...sourceTags, ...subjectLightTags])`，順序與現行相同。
+- `tags` 合併維持 semantic tags → sourceTags → subjectLightTags，沿用 withTags 的順序與去重行為；semantic 未提供 tags 時視為空陣列，不能假定每個 infer 回傳物件都有 tags。
 
-沒有 `meta.semantic` 的條目，維持推論。目前只會出現在物件型或陣列型的自訂 library。
+完成 D 後，正式基礎目錄必須有 `meta.semantic`；未帶 semantic 的自訂 library 與歷史 fixtures 維持原推論路徑。帶著 semantic 的物件型 library 採顯式資料優先；欲評估推論時只在副本移除 semantic。測試與診斷工具不得改動預設 runtime 快取。
 
 #### 6.1.3 schema 與驗收
 
@@ -405,13 +451,15 @@ knowledge_base/catalog/
 - `戶外：倫敦排屋街道` 的 `subterranean`
 - 被 `small`→`mall` 誤標的 17 個 `commercial`
 
-這些錯誤要逐條列入 `Docs/reports/database-analysis-2026-10-11/frozen-known-issues.md`，交給 Phase 4。
+這些歷史例子須先對照 D 的基準重新確認，不能把已修復問題重新寫回。仍存在者逐條列入待建立的 `Docs/reports/database-analysis-2026-10-11/frozen-known-issues.md`，保存項目 ID、錯誤欄位／值、實際影響、基準 commit、決策引用、後續處理狀態與驗收條件。倫敦排屋的 subterranean 已於本次核對確認仍存在；歷史 17 個 commercial 的數字不能代替重新清點。
+
+「已知問題紀錄」不等於新增 strict 允許清單；只有相應檢查實際會阻擋且獲核准的項目，才可用代碼＋項目鍵加入允許清單。語意修改須檢查候選池與輸出差異；不在本次遷移修正。
 
 #### 6.1.5 保留推論函式
 
 - `infer*Meta` 函式保留，作為自訂 library 的退路，也作為 Phase 4 的比對基準。
-- 新增條目時，必須手動明確填寫 `meta.semantic`。
-- 另提供常駐腳本 `scripts/suggest_catalog_semantics.mjs <id>`，只輸出推論建議值，不會寫入檔案。它的做法是：在記憶體中複製一份 database，把該條的 semantic 拿掉，傳給 `getCompiledCatalogForTesting(modifiedDatabase)` 編譯，再讀出該條的 `inferredMeta`。
+- 新增條目時，必須明確填寫並審閱 `meta.semantic`；更改 zh／en／desc 時須列出 semantic 是否需變動及原因，避免原推論錯誤或過期語意永久保留。
+- 另提供常駐腳本 `scripts/suggest_catalog_semantics.mjs <id>`，只輸出現行顯式語意與推論建議的差異，不寫檔、不自動覆蓋人工決策。它在記憶體複製 database、移除該條 semantic，經測試專用 export 取得 inferredMeta；不得重算或污染正式快取。
 
 ### 6.2 3b：舊資料對照集中
 
@@ -465,25 +513,25 @@ knowledge_base/catalog/
 
 ---
 
-## 7. 交付方式
+## 7. 交付方式與實際執行順序
 
-| 順序 | 子步驟 | 主要產出 | engine 修改 |
-| --- | --- | --- | --- |
-| 1 | 1a 快照 | 三份快照、快照測試、更新指令 | 新增 `getCompiledCatalogForTesting()`，只供測試；在 buildEntries 階段取得 `entries` 與 `inferredMeta` |
-| 2 | 1b 完整性檢查進 CI | `check_catalog_integrity.mjs`、允許清單、CI 步驟 | 否 |
-| 3 | 1c 格式遷移與 ID 凍結 | `knowledge_base/catalog/`、新版 sync、Markdown 總覽、複製條目類測試的調整 | `buildEntries` 改為：同時有 stableId 與 legacyIds 時，不產生別名 |
-| 4 | 1d ID 規則 | `id_registry.json` 驗證、`retired` 流程、Python 測試 | 否 |
-| 5 | 2a schema | `schema.json`、最小驗證器、Python 測試 | 否 |
-| 6 | 2b 內嵌目錄檢查 | 完整性檢查擴充 | 否 |
-| 7 | 2c 文件更新 | AGENTS.md、README、四份撰寫指引等 | 否 |
-| 8 | 3a 語意資料化 | `meta.semantic`、凍結問題清單 | `buildEntries` 改讀 semantic |
-| 9 | 3b 舊資料集中 | 3b-0 清點表（停下確認）→ `legacy_mappings.json`、`legacyMappings.json`、等價測試 | legacy 表改從資料檔讀取來源資料；衍生計算與比對邏輯不變 |
+原 1a–3b 代號保留作條文索引，**不再代表依章節先後執行**；以下 A–E 是唯一執行順序。原文件修訂不啟動 A；2026-10-24 的後續指示已單獨授權 A，尚未授權 B。
 
-- **執行順序**：依上表順序執行。每個子步驟獨立實作、獨立驗收，交付報告要列出 I1–I9 的結果與快照 diff。
-- **提交**：每個子步驟完成後，向 Cooper 回報並**停下等待**。只有 Cooper 明確指示才 commit；下一個子步驟必須在前一個子步驟已提交之後才開始。不得 push 或 deploy。
-- **其他 session 有新提交時**：如果子步驟之間有其他 session 提交，先更新到最新 HEAD，再用 `update_catalog_snapshots.mjs` 重新產生基準快照並檢查 diff。確認 diff 只來自對方的變更後，才繼續下一步。
-- **一次性腳本**：`scripts/migrations/` 下的遷移腳本執行完畢後保留在 repo，作為稽核紀錄，不接進 CI 或 npm scripts。每支腳本開頭都要註明「一次性，已於 <commit> 套用，請勿重跑」。
-- **回退**：每個子步驟一個 commit，可以單獨 revert。但 1c 之後的子步驟都依賴 1c，回退 1c 時必須一併回退後續子步驟。
+| 階段 | 原步驟對照 | 交付與邊界 |
+| --- | --- | --- |
+| A：基準 | 1a＋§3.1／3.2 | 核對 main，完成測試專用 export、三份目錄快照、完整輸出比較工具與封存 manifest；不改正式資料格式或 renderer 行為 |
+| B：切換準備 | 1b＋2a＋2b＋1d 驗證器 | 完整性檢查進 CI，完成 schema、欄位映射、歷史 ID 驗證與 migration／產生器的測試；以 fixtures 或 repo 外暫存資料演練，正式 sync 仍讀 Markdown |
+| C：完整來源切換 | 1c＋1d 實際登記＋2c | 一起交付分類 JSON、固定 ID／別名、登記簿、正式讀取切換、schema／歷史檢查啟用、自動 Markdown、舊 metadata 退役及操作文件；不得留下半套正式來源 |
+| D：語意資料化 | 3a | 從真實編譯點搬入 semantic，保持最終 meta／候選池／輸出，保存已知問題與唯讀建議工具 |
+| E：舊映射集中 | 3b | 先清點並等 Cooper 確認，再只搬表；不改 targetZh、不改匹配或載入時計算，保留等價基準 |
+
+- **第一個完整產品交付目標是 C。** D、E 後續分別授權與驗收；完成 C 不得宣稱整份 v1.1 已實作。
+- **驗收與提交**：各階段交付 I1–I9 的適用證據、檔案允許清單與風險。僅準備文件的批次做文件檢查；程式／資料批次依 root AGENTS 完成相應檢查。未完成的檢查須明列，不能視為通過。
+- **授權**：各階段完成後回報，只有 Cooper 明確指示才 stage／commit；下一階段須在前一階段已提交且獲授權後開始。push／deploy 另須明確授權，main 的本機修改或 commit 不等於部署授權。
+- **直接 main**：依當前 root AGENTS 使用現有 main 工作目錄，不自行建立功能分支、不切換或清理原專案目錄。開始前再次確認分支、HEAD 與重疊檔案。
+- **其他 session 前進 main 時**：先確認差異與任務邊界，停止依舊基準執行後續遷移。舊 baseline 永久保留；經審查另建新 manifest，記錄新舊 commit、對方已核准變更與基準差異，再重新執行受影響驗證。禁止在包含未驗收遷移的工作樹直接重錄 baseline。
+- **一次性腳本**：保留於 `scripts/migrations/`，使用來源 SHA／預期格式與目標存在檢查阻止誤重跑；不接 CI 自動遷移。註明執行紀錄與所屬交付提交的查核位置，不以必須把自身最終 commit hash 寫回同一提交的方式造成循環。
+- **回退**：A、B 可獨立審查；C 是來源、驗證與文件一致的回退單位，D、E 依賴 C。回退 C 前先處理後續依賴與新增資料，須另獲授權，不能覆寫使用者已保存內容。
 
 ## 8. 風險與對策
 
@@ -493,8 +541,10 @@ knowledge_base/catalog/
 | 其他 session 在凍結期修改資料或 engine | 執行 §4.3.7 前置檢查並發出通知。發現衝突時停止並回報，不自行合併 |
 | 漏掉某種舊 ID 形式，造成舊存檔失效 | I2 比對完整 legacyIds；I6 跑 Saved Cards 還原測試；I9 實際還原至少一張舊存檔 |
 | 自訂 library 複製條目，造成 ID 重複 | §4.3.4 調整測試資料；完整性檢查新增「同 control 內 ID 唯一」 |
-| Codex 依舊習慣直接改 Markdown | 總覽開頭有警語；`--check` 會讓 CI 失敗；2c 同步更新 AGENTS.md 與撰寫指引 |
-| 快照淪為「改了就更新」 | 只能用專用指令更新；交付報告必須逐條說明 diff；本規格三個階段的預期 diff 為零 |
+| 維護者仍修改 Markdown | 總覽標示生成來源；C 同批更新 AGENTS 與撰寫指引；`--check` 阻擋漂移 |
+| 快照淪為「改了就更新」 | manifest 綁定基準 commit／工具／案例雜湊，舊基準不可覆蓋；完整比較失敗即阻擋，不以新預期消除遷移差異 |
+| 條目與登記同時刪除 | §4.4 歷史 Git object 比較與雙向查核，缺基準即失敗 |
+| 正式來源切換途中失去驗證或指引 | B 先完成護欄，C 同批切換來源／驗證／文件，驗證失敗不得留下部分產出 |
 
 ## 9. 待決事項（不阻擋本規格）
 
@@ -503,3 +553,33 @@ knowledge_base/catalog/
 | J12 | 雙人 `shoulder-lean`、`leaning-shoulders` 舊值的正確去向 | 維持現行行為，列入允許清單 |
 | B3 | 角色卡 cardLab 與 profile 之間 12 段不一致 | 列為 `possible`，只報告 |
 | Phase 4 | 修正報告 §4 A 類問題：控制語、錯誤標籤、相容漏洞、固定色套裝、角色卡成年身份 | 另立規格，逐項核准 |
+
+
+## 10. v1.1 文件修訂紀錄與完成狀態
+
+- 2026-10-24：對齊 main `0746b280cc9f5c00daec7dadc73329779ac658e9`，補上完整輸出基準、歷史 ID 保護、schema／欄位映射與 A–E 執行順序；保留 2026-10-13 決策與原文備份。
+- v1.1 文件修訂當時只修改本規格與其原文備份，未實作 A–E。後續 A 授權及交付記錄另列 §11；JSON 遷移、schema 與登記簿仍未實作。
+- 文件驗證範圍：既有連結／路徑、待建立產物標示、條文與階段依賴一致性、Git diff／空白檢查。未執行 code suites、browser QA、外部生成或部署；不能把本次文件驗證當成未來 I1–I9 的實作通過證據。
+
+
+## 11. A 階段本機完成（2026-10-24）
+
+- Cooper 後續明確授權執行 A，止於基準與驗收工具，禁止 B、commit 與 push。
+- 已完成測試專用 export、三份目錄快照、核心 2,540 案及有效躺姿補充 141 案、不可覆蓋的輸出封存與 SHA-256 manifest、逐 ID／alias 解析、存檔往返與失敗退出測試。補充另重播同一 200 audit 樣本。
+- 完整測試 1,810/1,810、Prompt Quality 745/745、lint／build、資料檢查與同 seed audit 通過；Node25 的既有 reporter 相容問題已在原始 main 重現並以 TAP 執行設定驗證，不改無關程式。
+- 詳見 [A 交付報告與 I1–I9 證據](../reports/catalog-architecture-a-2026-10-24/README.md)、[基準操作說明](../../webapp/src/lib/engine/catalogBaseline/README.md)。
+- A 仍為本機未提交交付；B–E 不因本狀態而獲授權。封存基準不得因後續遷移失敗而重新錄製。
+
+### 11.1 A 對齊最新 main（2026-10-24）
+
+- Cooper 已驗收原 A，另明確授權同步 main、保留舊基準、合併文件及補全身角色匯入案例；仍不授權 stage／commit／push／B。
+- 對齊來源 `2f56438804e751de4556060b293231966d6ea3b3` 包含觀察式抓拍全身角色匯入 PR #15 與姿勢舊資料去向文件。`engine.js` 的 A 測試專用匯出乾淨合併；current state 保留兩邊新增段落。沒有把姿勢盤點文件當成 E 階段實作授權。
+- 舊基準、核心／躺姿補充 manifest、三份目錄快照全部原位保留，SHA-256 不變。獨立 revision 位於 `webapp/src/lib/engine/catalogBaseline/revisions/2f56438/`，記錄舊／新 commit、上游變更、舊檔雜湊及零差異比較。不得改舊 manifest 的 baselineCommit 冒充新基準。
+- 新增 170 固定案例（120 場景／景別、40 流程、5 休眠角色卡、5 回一般模式）、5 組人物來源／匯入 API 流程與 10 份 JSON／Markdown 收藏；另重播同一 200 audit。累計 2,851 個不同案例，三組完整重播共 3,251 筆。
+- 新流程須保持完整人物、穿搭、配色、full-body reference、原始隨機／全無選值，驗證重抽、候選更新不自行換人、明確重匯入、角色卡切換、JSON 重載、Markdown 還原與無效來源拒絕。來源建立本身也比較完整輸出、快照及 RNG；不能只測已產生的 importedPerson payload。
+- 追加驗收指令：`node scripts/catalog_alignment_baseline.mjs verify`、`node scripts/catalog_alignment_baseline.mjs check`、`node --test webapp/src/lib/engine/catalogAlignment.test.js`。原基準／快照測試仍必須執行；完整測試會自動包含新測試。
+- 實際驗證與 I1–I9 證據見 [A 對齊報告](../reports/catalog-architecture-a-alignment-2026-10-24/README.md)。原報告保留為舊來源的驗收歷史，不用本輪結果改寫。
+
+### 11.2 A 對齊驗收與 Git 交付授權（2026-10-24）
+
+Cooper 已確認 §11.1 的對齊驗收通過，授權只提交並 push 本次 A 的文件、原／新基準及驗收工具；包含原 A 測試專用 catalog 匯出與比較器修正。提交範圍見 [交付允許清單](../reports/catalog-architecture-a-alignment-2026-10-24/delivery-allowlist.json)。本輪不進入 B；原專案及其他 worktree 的未追蹤資料／備份保留。前述「未提交／未授權 Git」文字為當時驗收歷史，最新授權以本節為準。既有 main push workflow 的結果需另外核對，不將 Git 推送等同全部 CI／發布完成。

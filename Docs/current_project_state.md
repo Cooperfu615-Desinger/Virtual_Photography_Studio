@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-24
 
+## 目錄資料架構 v1.1：A 對齊驗收通過、授權交付（2026-10-24）
+
+- Cooper 已驗收原 A，後續明確授權只對齊最新 main `2f56438804e751de4556060b293231966d6ea3b3`。舊 `0746b28` 基準／目錄快照原位保留且 SHA 不變；文件合併保留上游全身角色匯入紀錄。Cooper 已確認本輪對齊驗收通過，明確授權僅提交並推送 A 文件、基準與驗收工具；其他未提交內容保留，B–E 未授權。
+- 新獨立 revision 補 170 固定案例、5 組來源與匯入 API 流程、10 份 JSON／Markdown 收藏；連同原 A 共 2,851 個不同案例。三套重播 3,251 筆皆零差異（含重複 audit）。正式資料格式、renderer、存檔契約與 ID 沒有新增改動。
+- 本輪完整 1,821/1,821、Prompt Quality 754/754、lint／build／資料檢查通過；同 seed200 audit 與乾淨最新 main 完全相同，0 blockers／18 diagnostics。桌手機新匯入與舊流程各22項通過，五工作區、六輸出複製／DLL傳遞、收藏回填及無來源停用均正常，無瀏覽器錯誤／外部 POST。
+- [最新 A 對齊報告](reports/catalog-architecture-a-alignment-2026-10-24/README.md)、[原 A 驗收歷史](reports/catalog-architecture-a-2026-10-24/README.md)、[v1.1 規格](specs/catalog-data-architecture-v1.md)、[基準操作說明](../webapp/src/lib/engine/catalogBaseline/README.md)。B 的 schema／完整性 CI、C 的 JSON 來源切換與歷史 ID 登記簿均未實作；不能重錄基準消除未驗收遷移差異。
+
 ## 觀察式抓拍匯入全身角色照（2026-10-24，本機驗收通過）
 
 - 依使用者核准示意圖，拍攝人物新增「匯入全身角色照」，取用切入抓拍前一般單人預覽的完整人物與穿搭快照，以「生成摘要」兩列呈現。完整來源、配色、選值與全身 reference 保留；重抽抓拍不更換人物。提供重新匯入／回一般拍攝調整，詳見 [匯入 v1](specs/observation-capture-full-body-import-v1.md)。

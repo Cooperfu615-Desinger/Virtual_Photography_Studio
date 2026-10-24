@@ -1,0 +1,12 @@
+{
+  "webapp/src/lib/engine/catalogBaseline/corpus.json.gz": "e7050130d9d4aaa13cc5717533258ed07407724442fc0fb28b65e5f7928cee8e",
+  "webapp/src/lib/engine/catalogBaseline/coverage-corpus.json.gz": "37d3aeba0255585157c82c2cb0d9977fc14048b1ddedb2f004975ad42f1601f2",
+  "webapp/src/lib/engine/catalogBaseline/coverage-manifest.json": "a56fa350f56f64cd399aa57a87adb1229e1c1e2930f4eb66d63f2b8e1a8fa00c",
+  "webapp/src/lib/engine/catalogBaseline/coverage-outputs.json.gz": "ab7a0688db7cacba3bc9b85a219a8f0597e26132e8ad6d4295e83e4b786bd1f1",
+  "webapp/src/lib/engine/catalogBaseline/manifest.json": "be55a947c7a2fe45c59433a346af2f017e2892c39e5fc0a5d3811d8d241300a6",
+  "webapp/src/lib/engine/catalogBaseline/outputs.json.gz": "5561d0ae42e91cee0d33df295613e47c8513d4489890b68fdb4267ed1fa9633f",
+  "webapp/src/lib/engine/catalogSnapshot.catalog.json": "425a2460d718d26313c6749c5988ee523fe33ba35ca8dc891e363ba2f91c574d",
+  "webapp/src/lib/engine/catalogSnapshot.controls.json": "0e60f11dd9c09f944c50ddd0efe6d7d4d8c4df848ebc5e72249bac8e6e918826",
+  "webapp/src/lib/engine/catalogSnapshot.meta.json": "0291f24a36a2bfa6e10b4c03cfef8d4aff5db260378e9e1342f5ad7f29067aeb",
+  "webapp/src/lib/engine/catalogSnapshot.test.js": "d7d806d344b6834c093f538192580afba01f544bfafdf865fb8cbedb78a3ede4"
+}

@@ -1,0 +1,47 @@
+{
+  "url": "http://127.0.0.1:5175/Virtual_Photography_Studio/?dllAcceptance=1",
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      900
+    ]
+  ],
+  "checks": [
+    "1440: full-body import / three rerolls preserve complete person",
+    "1440: card source switch preserves import",
+    "1440: explicit reimport by keyboard",
+    "1440: browser JSON storage / reload / Saved Card restore preserves six outputs",
+    "1440: frozen Markdown ZIP import / restore retains six outputs",
+    "1440: Prompt 工作台",
+    "1440: 角色建模",
+    "1440: 場景建模",
+    "1440: DLL_PIC Pro",
+    "1440: Saved Cards",
+    "1440: missing-source disabled state",
+    "390: full-body import / three rerolls preserve complete person",
+    "390: card source switch preserves import",
+    "390: explicit reimport by keyboard",
+    "390: browser JSON storage / reload / Saved Card restore preserves six outputs",
+    "390: frozen Markdown ZIP import / restore retains six outputs",
+    "390: Prompt 工作台",
+    "390: 角色建模",
+    "390: 場景建模",
+    "390: DLL_PIC Pro",
+    "390: Saved Cards",
+    "390: missing-source disabled state"
+  ],
+  "errors": [],
+  "externalPosts": [],
+  "screenshots": [
+    "1440-capture-import.png",
+    "1440-markdown-restored.png",
+    "1440-missing-source.png",
+    "390-capture-import.png",
+    "390-markdown-restored.png",
+    "390-missing-source.png"
+  ]
+}

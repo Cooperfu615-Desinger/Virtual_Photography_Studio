@@ -1,0 +1,91 @@
+{
+  "phase": "A only; alignment authorized after original A acceptance",
+  "previousBaselineCommit": "0746b280cc9f5c00daec7dadc73329779ac658e9",
+  "sourceCommit": "2f56438804e751de4556060b293231966d6ea3b3",
+  "branch": "main",
+  "staged": false,
+  "commitOrPush": false,
+  "phaseBStarted": false,
+  "preservedBaselineFiles": 10,
+  "coreCases": 2540,
+  "supplementalCases": 341,
+  "supplementalDistinctCases": 141,
+  "newImportCases": 170,
+  "newCaptureRowsIncludingRepeatedAudit": 370,
+  "distinctCases": 2851,
+  "replayedRecords": 3251,
+  "sourceScenarios": 5,
+  "newSavedPayloads": 10,
+  "newGroups": {
+    "sceneCrop": 120,
+    "flows": 40,
+    "dormantCard": 5,
+    "returnToStandard": 5
+  },
+  "differences": {
+    "oldCore": 0,
+    "oldSupplement": 0,
+    "newImports": 0,
+    "sourceAndApiFlows": 0,
+    "catalog": 0,
+    "controls": 0,
+    "meta": 0
+  },
+  "tests": {
+    "focusedImportAndSnapshots": {
+      "pass": 12,
+      "fail": 0
+    },
+    "alignmentAndTamperGuard": {
+      "pass": 2,
+      "fail": 0
+    },
+    "full": {
+      "pass": 1821,
+      "fail": 0
+    },
+    "promptQuality": {
+      "pass": 754,
+      "fail": 0
+    },
+    "python": {
+      "pass": 2,
+      "fail": 0
+    }
+  },
+  "lint": "pass",
+  "build": "pass; existing 500 kB chunk warning",
+  "syncCheck": "pass",
+  "publicAssets": 207,
+  "audit": {
+    "count": 200,
+    "seed": "prompt-quality-baseline",
+    "blockers": 0,
+    "diagnostics": 18,
+    "beforeAfterTextIdentical": true
+  },
+  "browser": {
+    "url": "http://127.0.0.1:5175/Virtual_Photography_Studio/?dllAcceptance=1",
+    "viewports": [
+      [
+        1440,
+        1000
+      ],
+      [
+        390,
+        900
+      ]
+    ],
+    "importChecks": 22,
+    "regressionChecks": 22,
+    "screenshots": 16,
+    "errors": [],
+    "externalPosts": [],
+    "visualInspection": "five-workspace desktop/mobile views and import/restore/missing-source details inspected"
+  },
+  "limits": [
+    "finite fixed corpus, not all option combinations",
+    "no external image generation, paid API, deployment or user data modification",
+    "B schema, registry and migrations remain unimplemented"
+  ]
+}

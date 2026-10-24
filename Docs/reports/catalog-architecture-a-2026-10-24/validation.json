@@ -1,0 +1,128 @@
+{
+  "sourceCommit": "0746b280cc9f5c00daec7dadc73329779ac658e9",
+  "branch": "main",
+  "node": "v25.8.2",
+  "phase": "A only",
+  "staged": false,
+  "commitOrPush": false,
+  "coreCases": 2540,
+  "additionalEffectiveSurfaceCases": 141,
+  "replayedAuditInSupplement": 200,
+  "controls": 219,
+  "options": 4771,
+  "aliasOccurrences": 3253,
+  "sourceEntries": 1050,
+  "compiledEntries": 1052,
+  "negativeEntries": 19,
+  "tests": {
+    "full": {
+      "pass": 1810,
+      "fail": 0,
+      "command": "NODE_OPTIONS=--test-reporter=tap npm test"
+    },
+    "quality": {
+      "pass": 745,
+      "fail": 0
+    },
+    "python": {
+      "pass": 2,
+      "fail": 0
+    },
+    "lint": "pass",
+    "build": "pass with nonblocking large-chunk warning",
+    "syncCheck": "pass",
+    "publicAssets": 207,
+    "diffCheck": "pass"
+  },
+  "audit": {
+    "seed": "prompt-quality-baseline",
+    "count": 200,
+    "beforeEqualsAfter": true,
+    "blockingSignals": 0,
+    "diagnosticSignals": 18
+  },
+  "browser": {
+    "checks": 22,
+    "viewports": [
+      [
+        1440,
+        1000
+      ],
+      [
+        390,
+        900
+      ]
+    ],
+    "externalPosts": 0,
+    "consoleErrors": 0,
+    "pageErrors": 0,
+    "screenshotsInspected": 10
+  },
+  "notApplicable": {
+    "B": "integrity CI, schema and ID history validator not implemented",
+    "C": "JSON source switch and ID registry not implemented"
+  },
+  "productionTestExportImports": [],
+  "changedFiles": [
+    "Docs/current_project_state.md",
+    "Docs/specs/catalog-data-architecture-v1.md",
+    "scripts/dump_prompt_outputs.mjs",
+    "webapp/src/lib/engine.js",
+    "Docs/reports/catalog-architecture-a-2026-10-24/README.md",
+    "Docs/reports/catalog-architecture-a-2026-10-24/assets.txt",
+    "Docs/reports/catalog-architecture-a-2026-10-24/audit-after.json",
+    "Docs/reports/catalog-architecture-a-2026-10-24/audit-before.json",
+    "Docs/reports/catalog-architecture-a-2026-10-24/browser/1440-1.png",
+    "Docs/reports/catalog-architecture-a-2026-10-24/browser/1440-2.png",
+    "Docs/reports/catalog-architecture-a-2026-10-24/browser/1440-3.png",
+    "Docs/reports/catalog-architecture-a-2026-10-24/browser/1440-4.png",
+    "Docs/reports/catalog-architecture-a-2026-10-24/browser/1440-5.png",
+    "Docs/reports/catalog-architecture-a-2026-10-24/browser/390-1.png",
+    "Docs/reports/catalog-architecture-a-2026-10-24/browser/390-2.png",
+    "Docs/reports/catalog-architecture-a-2026-10-24/browser/390-3.png",
+    "Docs/reports/catalog-architecture-a-2026-10-24/browser/390-4.png",
+    "Docs/reports/catalog-architecture-a-2026-10-24/browser/390-5.png",
+    "Docs/reports/catalog-architecture-a-2026-10-24/browser/results.json",
+    "Docs/reports/catalog-architecture-a-2026-10-24/build.txt",
+    "Docs/reports/catalog-architecture-a-2026-10-24/comparator-cli-tests.txt",
+    "Docs/reports/catalog-architecture-a-2026-10-24/frontend-tests.txt",
+    "Docs/reports/catalog-architecture-a-2026-10-24/lint.txt",
+    "Docs/reports/catalog-architecture-a-2026-10-24/original-main-node25-runner.txt",
+    "Docs/reports/catalog-architecture-a-2026-10-24/prompt-quality.txt",
+    "Docs/reports/catalog-architecture-a-2026-10-24/python-tests.txt",
+    "Docs/reports/catalog-architecture-a-2026-10-24/sync.txt",
+    "Docs/specs/catalog-data-architecture-v1.md.bak-20261024-v1",
+    "scripts/catalog_baseline.mjs",
+    "scripts/catalog_baseline_browser.mjs",
+    "scripts/catalog_coverage_baseline.mjs",
+    "scripts/lib/catalogBaseline.mjs",
+    "scripts/lib/catalogCorpus.mjs",
+    "scripts/update_catalog_snapshots.mjs",
+    "webapp/src/lib/engine/catalogBaseline.test.js",
+    "webapp/src/lib/engine/catalogBaseline/README.md",
+    "webapp/src/lib/engine/catalogBaseline/corpus.json.gz",
+    "webapp/src/lib/engine/catalogBaseline/coverage-corpus.json.gz",
+    "webapp/src/lib/engine/catalogBaseline/coverage-manifest.json",
+    "webapp/src/lib/engine/catalogBaseline/coverage-outputs.json.gz",
+    "webapp/src/lib/engine/catalogBaseline/manifest.json",
+    "webapp/src/lib/engine/catalogBaseline/outputs.json.gz",
+    "webapp/src/lib/engine/catalogBaselineCli.test.js",
+    "webapp/src/lib/engine/catalogCoverage.test.js",
+    "webapp/src/lib/engine/catalogSnapshot.catalog.json",
+    "webapp/src/lib/engine/catalogSnapshot.controls.json",
+    "webapp/src/lib/engine/catalogSnapshot.meta.json",
+    "webapp/src/lib/engine/catalogSnapshot.test.js",
+    "Docs/reports/catalog-architecture-a-2026-10-24/validation.json"
+  ],
+  "toolHashes": {
+    "scripts/dump_prompt_outputs.mjs": "9e819cac0c76cf5ecff2108571a08e0f13637dc76c923477c78376d183ffe9cc",
+    "scripts/catalog_baseline.mjs": "4c2e63bc57e95f195c4d7ec91d457d665a755ec14c7d1cbbb6121f2efa2af81f",
+    "scripts/catalog_baseline_browser.mjs": "e36ee26b0c9b0c3a2524fdf5daa350c94a4a578106f6e5978f26c0688e47540f",
+    "scripts/catalog_coverage_baseline.mjs": "2e4d5b82c10899c008ac59f6da9525254677bb751c658e8c016ed094b5dc83df",
+    "scripts/lib/catalogBaseline.mjs": "c19ae0c281929bc63f084ab201b5e11e3b39094a3323343e2456ded359e025c8",
+    "scripts/lib/catalogCorpus.mjs": "3e491755e5093a26aca0a9b18ecae1d57073e6c1758a0b599ac7e6d341cc70b5",
+    "scripts/update_catalog_snapshots.mjs": "8df29feed20666ca12ab9d4e7ac7926e9eda04f653ef284b308543b24b9541a7"
+  },
+  "remoteMainAtCompletion": "0746b280cc9f5c00daec7dadc73329779ac658e9",
+  "otherWorktree": "Original project worktree has independent uncommitted observation-capture work; not modified by this task."
+}

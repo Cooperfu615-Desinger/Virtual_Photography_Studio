@@ -1,0 +1,4992 @@
+{
+  "format": "catalog-alignment-v1",
+  "baselineCommit": "2f56438804e751de4556060b293231966d6ea3b3",
+  "previousBaselineCommit": "0746b280cc9f5c00daec7dadc73329779ac658e9",
+  "reason": "User approved A alignment after observation full-body import PR #15 and pose inventory docs. No B migration or renderer change.",
+  "acceptedUpstreamCommits": [
+    "d469a329c34f8f325f0af065639acaac2c55e2da",
+    "9c1a58fa350f0cff1dc6c0827c1dc8f040fe4a24",
+    "a70cf8511e4a77bcb248f558da7cd44f8e105c2a",
+    "2f56438804e751de4556060b293231966d6ea3b3"
+  ],
+  "node": "v25.8.2",
+  "platform": "darwin",
+  "timezone": "Asia/Taipei",
+  "locale": "en-US",
+  "lockfile": {
+    "path": "webapp/package-lock.json",
+    "sha256": "0ff18077b10257014563bfed20b66409286dbb42da4a852cbf76caf527ddf1ad"
+  },
+  "volatilePaths": [
+    "prompt.id",
+    "prompt.date"
+  ],
+  "sourceGitBlobHashes": {
+    "scripts/validate_prompt_logic.mjs": "2db5e681ef97e77533ef26e7359d54922f867584",
+    "webapp/package-lock.json": "8f4cb57914ece25920dc0f404973dac79db35167",
+    "webapp/package.json": "a3d68d1f08732426508060e4e4f3bd4a9226292d",
+    "webapp/src/App.jsx": "98d4ce01fa7c17f28330d2bd4d903c2fe41fc4c8",
+    "webapp/src/components/ComfyQuotaPanel.jsx": "88710dea25219da35ae7a7d027dd8d0726d16f77",
+    "webapp/src/components/DllDialog.jsx": "c2410fd5751ab69c1bf74ddc4ffd352189fe9ec9",
+    "webapp/src/components/DllImageViewer.jsx": "51fe448a8732b740968731e9073a88177ff0cde4",
+    "webapp/src/components/DllPicProPanel.jsx": "4869ad6334cfac846c1bf2fc024c8f2de0b070e1",
+    "webapp/src/components/DllPicWorkspace.jsx": "41fb9625ff48a3185ec0d93ca20004cc151529e6",
+    "webapp/src/components/LightingReferenceModal.jsx": "ca2f6f8d770a3eb3b032ad7582095063ee9dd10c",
+    "webapp/src/components/MidjourneyParameterControls.jsx": "bae3664a7a0fbe3b48364d9ffa91de99663b4da2",
+    "webapp/src/components/ObservationCapturePanel.jsx": "7705e8c92f08ba93ec193ae6d808c07cb68b9636",
+    "webapp/src/components/ObservationCaptureWorkspace.jsx": "9eaecd6577264780b002833895deb8e3d5855aad",
+    "webapp/src/components/Page1Workspace.jsx": "edf11f414a926459e7ff4774704cd6422dd57e27",
+    "webapp/src/components/Page2Workspace.jsx": "15a0089d7f5dc2e6a8559be6b6ef0827a3cb7792",
+    "webapp/src/components/Page3Workspace.jsx": "def0bd3a8df28b1b0bcd2651bf584a3802a942ed",
+    "webapp/src/components/PhotographyControls.jsx": "5c94dd390b7ef84e752ca2be31431e00cb0af8ae",
+    "webapp/src/components/PromptCard.jsx": "3469b7f6e9211e8c1d2410c16f4c4d2da66ae823",
+    "webapp/src/components/PromptPreviewCard.jsx": "f44dd1611124cc74b5e6853db3b27e58303e1493",
+    "webapp/src/components/SavedCardsWorkspace.jsx": "3087354f2c1b5a39f0846a136d868a8da2ec6633",
+    "webapp/src/components/SceneEnvironmentControls.jsx": "1ce3734ce18841eac0375e2ad1a4692c48b00974",
+    "webapp/src/components/SceneLocationField.jsx": "721d67a0f165ccc28fa58ac18e0fb6655df4f8e1",
+    "webapp/src/components/SelectControlField.jsx": "a973d25f067bd822f010d36f33965bc71c37d79e",
+    "webapp/src/components/SpecifiedActionPicker.jsx": "6a52379542f37ac653e7cd1a2fb122bf085da696",
+    "webapp/src/components/VideoWorkspace.jsx": "1d144f3bf0d4b27b1d764a1817095176153a849d",
+    "webapp/src/components/ZImageVisibleTextControls.jsx": "700e3194fa0d6d83a881b97f44f4eab1459202f9",
+    "webapp/src/components/observationCapturePanel.css": "4a401f2f02a423e7b138d508d58c9e3f67402128",
+    "webapp/src/components/sceneLocationField.css": "c3dc13b5eb9334c8e6f0390cf517d4a16ef985c1",
+    "webapp/src/components/specifiedActionPicker.css": "70e9d21b79c15cf1c6c75c1fff63023519eff4ca",
+    "webapp/src/data/actionPoseCards.js": "8f04be123d16b7878cee3bf950827f6ec7bf2148",
+    "webapp/src/data/database.json": "bac803becbd9b56b1cd4f0a22c4094dbb117f797",
+    "webapp/src/data/observationCapturePromptOptions.js": "661a4361a8ef6e89b6998158db258532b344e5fd",
+    "webapp/src/data/page3WorldScenes.js": "186c3c5cfbf44d5dc40427130e20b4f5c2784f73",
+    "webapp/src/features/page1/duoEditor.js": "bb1af4c9d9975eeab420aa425928df621db743d3",
+    "webapp/src/features/page1/duoEditor.test.js": "06fc2b029bd6a3b27ad0ed44edc5eb310ea0cc9e",
+    "webapp/src/features/page1/lockTransitions.js": "ede6a30a8ad325c92469c7b180e51e18e93fc7a1",
+    "webapp/src/features/page1/lockTransitions.test.js": "8c9da214447fad48c6b0fbd32e1b1fc14b94c8ef",
+    "webapp/src/features/page1/midjourneyParameterState.js": "75eb5ded25caf9cdd128d65d007f6ebc1a66d7bf",
+    "webapp/src/features/page1/midjourneyParameterUi.js": "fa83fe32a183173a3ec6ef66d614c68ec14f611d",
+    "webapp/src/features/page1/midjourneyParameterUi.test.js": "4d3cb4e510f145b23b6cf8904e23145887506f88",
+    "webapp/src/features/page1/page1.css": "3410ebd2f3417d5e0f9e6159d78928bfbe50450b",
+    "webapp/src/features/page1/page1Schema.js": "fa50f2200f85b7d5a7febf20285d80fb9ac62439",
+    "webapp/src/features/page1/page1Schema.test.js": "2a474ddcfc1b407a57a9ba7aa1f855afa17e1f99",
+    "webapp/src/features/page1/page1Selectors.js": "c3b39600cef1657f5892deac69d1e57b7416402a",
+    "webapp/src/features/page1/page1Selectors.test.js": "24ff4e3b01ef7877dd70ba4e46da96620578d42e",
+    "webapp/src/features/page1/page1WardrobeExclusivity.js": "42c0c9102079d876392143c0a817176f345f22c2",
+    "webapp/src/features/page1/photographyEditor.css": "7287b8cddd828330167367da22db77742fb88c15",
+    "webapp/src/features/page1/photographyEditor.js": "c508625245c393b725d36636874ccb3f4f8c652b",
+    "webapp/src/features/page1/photographyEditor.test.js": "5358a5ed11199edad0edb6103590a5dad57fcd46",
+    "webapp/src/features/page1/retiredPoseLocks.js": "269db28522dbd114bfd78ac0bf37e3e48943006c",
+    "webapp/src/features/page1/sceneEditor.js": "38e2bc14355f25451ec1bb14f4cafc16c6a95a87",
+    "webapp/src/features/page1/sceneEditor.test.js": "0da2a511e9b8f99125db5266020c0ce68325afe4",
+    "webapp/src/features/page1/sceneEnvironment.css": "8adbe30a7a88e86788669ee3e703a4d7d9237f48",
+    "webapp/src/features/page1/sceneLocationOptions.js": "9e272383b5ae68979c86bc7b8c65fc3a8d36865c",
+    "webapp/src/features/page1/sceneLocationOptions.test.js": "187022e58d93560051255fd0bf3e704355584ada",
+    "webapp/src/features/page1/specifiedActionTransitions.test.js": "8d5c15d2d7496626fd731d6589d7b3b4b5932090",
+    "webapp/src/features/page1/usePromptWorkspace.js": "d066bcc0f68a54baa8fe47947e5cea82a156a7d4",
+    "webapp/src/features/page1/wardrobeEditor.js": "25b91b6572e3a55707be4ef839b04a9d6c8b0e69",
+    "webapp/src/features/page1/wardrobeEditor.test.js": "d7f96077b9c946a5a7aec6e35b3537dd773f664d",
+    "webapp/src/features/page2/characterCard.css": "1184a9ef8179f3d02535da6678bc8c1336f3b2e4",
+    "webapp/src/features/page3/page3SavedCard.js": "5336120dddf175426c40b9817db0fdeec0a678c1",
+    "webapp/src/features/qa/webappTestRunner.test.js": "c88a66ab287982012df41d24e41f983b2da32ed4",
+    "webapp/src/features/saved-cards/cardCodec.js": "20c5da7ba9635afb5e072fd2945616e84be58815",
+    "webapp/src/features/saved-cards/cardCodec.test.js": "59a21e99118d59261476ff2df6ee24b908597c9c",
+    "webapp/src/features/saved-cards/localRepository.js": "6dba119aabf9ad23d6b61eee56f3743d0bdd5bd1",
+    "webapp/src/features/saved-cards/localRepository.test.js": "c02ac8996de73b2bbaf749f07441da2a2ee2187a",
+    "webapp/src/features/saved-cards/promptLabels.js": "7cf9eff14b882dce4b8df2a0fa4a685676849f36",
+    "webapp/src/features/saved-cards/promptLabels.test.js": "a126c18e4f93104ef9118b4c21527ed7f5cdc69c",
+    "webapp/src/features/saved-cards/savedCardArchive.js": "d62064e83fe4d50813591ad18d8ba045036673ca",
+    "webapp/src/features/saved-cards/savedCardArchive.test.js": "8705f218cdc2ddb1d698de172d5cc12ee2dc0b30",
+    "webapp/src/features/saved-cards/savedCards.css": "85194fdef499e69219a7dbc428abe7448bc75d4f",
+    "webapp/src/features/saved-cards/useFavoritesWorkspace.js": "04aaa75cadbb85eacbca5b16345eea5c7b55e71b",
+    "webapp/src/features/storage/browserStorage.js": "7598fbb9068a0c1bed1fb58b1f8e4abba558fa04",
+    "webapp/src/features/storage/browserStorage.test.js": "9e328c9dfa6abe6b3ec0d28c3f56fab1d7e14aae",
+    "webapp/src/index.css": "fa0dc50da43c0cd8f0be62c29af6c420c859a6ed",
+    "webapp/src/lib/accessorySummary.js": "32e00dc209ad14c764e2d846bdae8133853733fc",
+    "webapp/src/lib/accessorySummary.test.js": "d2be16e375c3545e97d8c3d6973262b0b6e1be7f",
+    "webapp/src/lib/actionPoseLab.js": "0d021c2e409bbd4c4a50b403ac916c35de617c43",
+    "webapp/src/lib/actionPoseLab.test.js": "1830ffa83d85c6676396a37338bdac3019f67e0e",
+    "webapp/src/lib/asianMixIntegration.test.js": "372dd072b540cab3aa506f6a24c94c1b8624558e",
+    "webapp/src/lib/bytePlusProxyClient.js": "d982bf9da47cfbbff0e1e45a3d8840ec398ae559",
+    "webapp/src/lib/characterCardLab.js": "220df402e0764f4093e60abcde5c7862d8b55e8e",
+    "webapp/src/lib/characterCardLab.test.js": "c42051f57c0bb6758aa2fdf531b179cab06f5efe",
+    "webapp/src/lib/clipboard.js": "77daa9b91ba2cb5c6a5aad9d831b359ba94c1498",
+    "webapp/src/lib/comfyCloudProxyClient.js": "2c0da07db2ba3db5d46d97a5946d9aebd9c28b16",
+    "webapp/src/lib/comfyCloudProxyClient.test.js": "777573eae7ae4edc9f3887abc7e896767f5cd401",
+    "webapp/src/lib/comfyModelExpansion.test.js": "a7fc7f29b7a2ff829de0633a00b45d4aa95768cf",
+    "webapp/src/lib/comfyQuotaDisplay.js": "972d0a31460c5e2ed51a0ce12e4603040dd8bf8d",
+    "webapp/src/lib/comfyQuotaDisplay.test.js": "a651456cf5c90e050a00bf9bdc969a49ddc6d014",
+    "webapp/src/lib/comfyVideoClient.js": "a3dc04884ccebfbce49aef86f83dedc3dd0bb71a",
+    "webapp/src/lib/dllPicGenerationPresentation.js": "bf77cf0e5b020f74010cffd075a3099176b7e08d",
+    "webapp/src/lib/dllPicGenerationPresentation.test.js": "fa21ff2805287a92a2f96483f55dc0c351bced90",
+    "webapp/src/lib/dllPicProClient.js": "2ad615aaadfc0e6d4002263bcbd073a2cf322e31",
+    "webapp/src/lib/dllPicProClient.test.js": "84fe1a5d0ffbf919c5163155f63e31a4f7d60ca0",
+    "webapp/src/lib/dllWorkspaceAcceptance.js": "a05489c163c6555426771f9aec399cdd0b670657",
+    "webapp/src/lib/dllWorkspaceController.js": "7192166b2dcb8d80c6ee59eb87ffd9313d8d9f4e",
+    "webapp/src/lib/dllWorkspaceController.test.js": "6221d164acba040f616bfb6d790fddce96f6d0c5",
+    "webapp/src/lib/dllWorkspaceRuntime.js": "52131ccb1d211ff4cb15127c9966f7f2476d29dd",
+    "webapp/src/lib/dllWorkspaceStorage.js": "c150f4d4067e7277e1198e1236b2a171ad3bf1a0",
+    "webapp/src/lib/engine.js": "29da0504ec2031ba32d384e2dfa9625c6e40cae2",
+    "webapp/src/lib/engine/accessoryDedupe.test.js": "31faf1ea2271c4768e46191305d215760dad5398",
+    "webapp/src/lib/engine/accessoryPolicy.js": "5c51a1e924cb1ee860106e63f52400ee6adb3253",
+    "webapp/src/lib/engine/accessorySentence.test.js": "47193f9809d8182fea4da358433ad760b4334eec",
+    "webapp/src/lib/engine/adidasTrackwear.test.js": "561c6d2cf0727c3e5e7d6ca1508cbc52d3807d7e",
+    "webapp/src/lib/engine/aiPromptBudget.js": "08a3ac3fc4380d45e16860e8ba8eebcb4234ba24",
+    "webapp/src/lib/engine/aiPromptBudget.test.js": "a07e709802bf74805f5eadefdb7e7c435f286a86",
+    "webapp/src/lib/engine/aiPromptLengthContract.js": "840660b192c1edeed42e62d45cf5ef1d8f776998",
+    "webapp/src/lib/engine/aiPromptLengthContract.test.js": "a21c0d3f1cbd5906cc26437144af8f94751d0188",
+    "webapp/src/lib/engine/aiPromptLengthFixtures.js": "b892c22ea83b7999965561af57f6e1b1c91d1805",
+    "webapp/src/lib/engine/aiPromptLengthIntegration.test.js": "377d90ca38953892f279ed60f6160639502e0130",
+    "webapp/src/lib/engine/ambientLightBaseline.json": "f3e5564b7693e144261524424d462f5ec3abd13c",
+    "webapp/src/lib/engine/ambientLightDescriptions.js": "b4cde925dd92be33634d3bfaaa071cdc4c0f44a8",
+    "webapp/src/lib/engine/ambientLightDescriptions.test.js": "28fe95a790d03694c23f372bf050dc6e49c18081",
+    "webapp/src/lib/engine/ambientLightFixtures.js": "c349f3450ca9a7b6ef8a24ac45c0cec9565b42d8",
+    "webapp/src/lib/engine/ambientLightTestSupport.js": "08487dd9801e5a125806b86b593bf8b223e8be3f",
+    "webapp/src/lib/engine/bandagePasties.test.js": "37d329edc37141f7ca965b8dbe86a738896f332a",
+    "webapp/src/lib/engine/bandagePastiesBaseline.json": "43d3baae8b900c13b163ee6be133ed6eddb9701c",
+    "webapp/src/lib/engine/bathroomVanityMirrorReflection.js": "00147138ed6f5ebec4908cbc342f907a9c304f2f",
+    "webapp/src/lib/engine/bathroomVanityMirrorReflection.test.js": "0ef9bf5442901303c59a5ae5bbcd1483fc0b0109",
+    "webapp/src/lib/engine/bathroomVanityMirrorReflectionTestSupport.js": "036333c136dfc8b5ba6db8c4ef42d2f61256aafe",
+    "webapp/src/lib/engine/bodyTypeCatalog.test.js": "aa0a7b98b5351d7e07d951d7d4fa81ece377fb1f",
+    "webapp/src/lib/engine/bodyTypeCatalogFixtures.js": "e2d5f2ccc4dd74489471f04e8d6658afc7c0a463",
+    "webapp/src/lib/engine/bodyTypeLegacyFixtures.json": "c565a889c895e9dc1f30014040656615b3677c28",
+    "webapp/src/lib/engine/bodyTypeLegacyTestSupport.js": "9ef15ba813d94ae36f9ca2985d5f21d78b46fe58",
+    "webapp/src/lib/engine/bottomRiseCompatibility.js": "fdc25ce59e4de82ef257068011d4ec03676770b8",
+    "webapp/src/lib/engine/cameraAngleDistance.js": "aad2905e5f1b4c080426573255c8a6f0d0908aca",
+    "webapp/src/lib/engine/carriageFixedComposition.js": "7b200110b03cf57ef4ad6a29dc228cbcc0cd9b8b",
+    "webapp/src/lib/engine/carriageFixedComposition.test.js": "aef79fa241eac710cb1d7fd8b895ac7cae4fd55a",
+    "webapp/src/lib/engine/characterProfiles.js": "9a77612afc4b74538e2acefa7ae1943f9b69c010",
+    "webapp/src/lib/engine/chestUpSameState.test.js": "e6899d92533ad092606c636948173508cb4532cc",
+    "webapp/src/lib/engine/chestUpSameStateTestSupport.js": "f18af2389e66d441931a04c9888ca8293414c95a",
+    "webapp/src/lib/engine/closeWormEye.js": "34a0072e9b9d161cac2efdcefe04bfc00416d0df",
+    "webapp/src/lib/engine/closeWormEye.test.js": "b0a5a4e7fc371bd464a8b42baa65691333c2f6b3",
+    "webapp/src/lib/engine/closeWormEyeBaseline.json": "8df34fbb1d7bef108406c313a7eddfc0108733e2",
+    "webapp/src/lib/engine/closeWormEyeFixtures.js": "0fbadb7772a122589f578ebb2c580dba3955d0dd",
+    "webapp/src/lib/engine/closeWormEyeTestSupport.js": "7714b746bd8177db309f4f70195d947ef241a298",
+    "webapp/src/lib/engine/compositionBodyProjection.js": "21a1f705ff53659176eda26dc75eae0b5c1b6040",
+    "webapp/src/lib/engine/compositionBodyPromptIntegration.test.js": "d51018f7c847e5e53b719bd328c9b4a99a4217d7",
+    "webapp/src/lib/engine/compositionBodyVisibilityContract.test.js": "13494b3b35e255e1abc136610f0a51f0bb945977",
+    "webapp/src/lib/engine/compositionBodyVisibilityFixtures.js": "e9e994fdf1ea6da6f33a2f91d70f3359c70201d7",
+    "webapp/src/lib/engine/compositionBodyVisibilityIntegration.test.js": "49bb863aadf9c6182bd676a07554953e19057402",
+    "webapp/src/lib/engine/compositionVisibilityContract.js": "c7e56eac4116287849d4a1d8a4c47aea9fb56fce",
+    "webapp/src/lib/engine/compositionVisibilityContract.test.js": "00074217cb3c62d870d9f9e5ce802a223d812b4f",
+    "webapp/src/lib/engine/compositionVisibilityFixtures.js": "7b04a481743f710979543b9784ea263a140ea741",
+    "webapp/src/lib/engine/compositionVisibilityIntegration.test.js": "405bb3978f600247c91d8b7f2623b98565cbc8e3",
+    "webapp/src/lib/engine/compositionVisibilityPose.test.js": "7f3ec686150a08acb17848e38205f70465e95525",
+    "webapp/src/lib/engine/compositionVisibilityScene.test.js": "1ab6f0c0945c74a60b8454c79d51f6a31ab9b09c",
+    "webapp/src/lib/engine/compositionVisibilityState.test.js": "7709a29c9792cec5503c9a85422e104332007238",
+    "webapp/src/lib/engine/compositionVisibilityWardrobe.test.js": "690db9328875725913ef3bffc6add7797d7a0924",
+    "webapp/src/lib/engine/conditionalGarterBelt.js": "36c473a586b490632d558a2cfe180d366f7dfa11",
+    "webapp/src/lib/engine/crewNeckTee.test.js": "0b9731d88c00c5c669fbd089689633be149cd69c",
+    "webapp/src/lib/engine/crewNeckTeeTestSupport.js": "b21f1ac230b22e2e09854f518c93563dd900654f",
+    "webapp/src/lib/engine/defaultEthnicity.js": "941eaaf32a325750d504141364637ccf08f32fb1",
+    "webapp/src/lib/engine/defaultEthnicity.test.js": "c165120845765c2e4c54a42181d3dfbd648038d7",
+    "webapp/src/lib/engine/defaultEthnicityTestSupport.js": "a697c54f8136ae9ba4b8de93198491652c46d63c",
+    "webapp/src/lib/engine/duoOptions.js": "9a00db5211dd9169fa3543f2e9d18f0a473edcb0",
+    "webapp/src/lib/engine/ethnicityFacialFeatures.test.js": "b7906f0ae088e9411e19f6b878d16bd2af5ee7aa",
+    "webapp/src/lib/engine/ethnicityRevisionTestSupport.js": "0ce2e7bfc105215a270678834c69627fbcf5d8b7",
+    "webapp/src/lib/engine/ethnicityRevisionTestSupport.test.js": "0e71850492b8eb84af61eaf33b7e29cc91c93b2c",
+    "webapp/src/lib/engine/expressionGazeSharedPrompt.test.js": "69babc67fd32f9ea4b113d4d9a6cb3717eee83bb",
+    "webapp/src/lib/engine/expressionNoneCamera.test.js": "f4148fc6e18dd28bee37905d637d6e85922f7a57",
+    "webapp/src/lib/engine/fixedCompositionOptions.js": "aeca6417313cae3f3950fece1de11166c4540a7b",
+    "webapp/src/lib/engine/fixedCompositionPromptIntegration.test.js": "759fa0642d2ea4c7681a9e5e31134dd538b47b80",
+    "webapp/src/lib/engine/fixedCompositionPromptProjection.js": "e92d568f6b520896700de759b3ad137e67f6d022",
+    "webapp/src/lib/engine/fixedCompositionPromptProjection.test.js": "acefa6b6cdc45c2d657de18699cfe3982bdd6950",
+    "webapp/src/lib/engine/fixedFramingDerivedPrompt.js": "52bfc84dae8899ad9b718dd17bd4502fb82cb223",
+    "webapp/src/lib/engine/fixedFramingDerivedPromptContract.js": "db6eb51f9ec79b37f184eff4f4bd9d43e18c2325",
+    "webapp/src/lib/engine/fixedFramingDerivedPromptContract.test.js": "9aa2acd140a8b5579cbe2525762620a366efd630",
+    "webapp/src/lib/engine/fixedFramingDerivedPromptFixtures.js": "5fa9cc19b2e3cdcd470fca239ef0bc44b8bd7780",
+    "webapp/src/lib/engine/fixedFramingDerivedPromptInfrastructure.test.js": "d9797b794bb60b53c2de171181b5926cdc00add2",
+    "webapp/src/lib/engine/fixedFramingDerivedPromptRuntime.test.js": "820b01dc2b6bdf694ab680220c88eb08c3942111",
+    "webapp/src/lib/engine/fixedFramingMainPrompt.js": "bc7890bbe6ffdc9d852265f056a7589cd40d9b17",
+    "webapp/src/lib/engine/fixedFramingMainPrompt.test.js": "abd27879aac18a955faecfedc5371845844389c8",
+    "webapp/src/lib/engine/fixedFramingPromptIntegration.test.js": "b18f69169043331c7a13916bb91954aca79427dd",
+    "webapp/src/lib/engine/fixedFramingPromptIntegrationFixtures.js": "6c738a5a11935927cffe27a1565c4ae06339b785",
+    "webapp/src/lib/engine/fixedScenePose.js": "d4d4dbbb145eb3dae5857c0c60cf819f2a01596e",
+    "webapp/src/lib/engine/fullBodyCharacterBodyTestSupport.js": "9c5b9f0a74641f92e4f05b46f1353d541c09614f",
+    "webapp/src/lib/engine/gazeGesture.js": "ac0a5a031e89bb2f3d4e566c6e222419008e6cc6",
+    "webapp/src/lib/engine/gazeGesture.test.js": "bbf8e087de3b33fb7233f85da475da5a630779c2",
+    "webapp/src/lib/engine/gptBodyTypeOmission.test.js": "b70fff74b89d689014484b1084ed12c24bd811ff",
+    "webapp/src/lib/engine/gptCameraSpatial.js": "3f11482225972fc939a84d5546283e9d44aefa54",
+    "webapp/src/lib/engine/gptCameraSpatial.test.js": "1c46badfe8f7516d12791f85a8364af8ca661e24",
+    "webapp/src/lib/engine/gptCameraSpatialBaseline.json": "6568bab25d9fb772d14cf2d03a6b204d62577b3b",
+    "webapp/src/lib/engine/gptCameraSpatialFixtures.js": "88a2445ca962bcf2eae04d5814a668ece7319e1f",
+    "webapp/src/lib/engine/gptCameraSpatialTestSupport.js": "53dd95a39c0981cc2cad4aa2f96329ab8db42621",
+    "webapp/src/lib/engine/gptSceneVisibility.js": "8d1b11cf6d8d05f55f3a9c5aa5e28ef4c35a8cbd",
+    "webapp/src/lib/engine/gptSceneVisibility.test.js": "40a6233ff45ef7fb4312dc1c52be290adddd5722",
+    "webapp/src/lib/engine/gptSceneVisibilityBaseline.json": "930956653e2dfdb406a221c81eec235debb33c8f",
+    "webapp/src/lib/engine/gptSceneVisibilityFixtures.js": "097c539c3c615388cb089bf3958c50c2f1e602c9",
+    "webapp/src/lib/engine/gptSceneVisibilityLegacyScenes.json": "07e96135cae9439c2edc15bdf320f0091b7efc4d",
+    "webapp/src/lib/engine/gptSceneVisibilityTestSupport.js": "c717385d83d09def67287ad5f59405fa88bd2bad",
+    "webapp/src/lib/engine/headDominantFraming.js": "bf5e0c1431c4cd58da8b585b988e954f9e861bd6",
+    "webapp/src/lib/engine/headDominantFraming.test.js": "7928bd56b4603edef0ae0ff155a5b112a035dcad",
+    "webapp/src/lib/engine/headPosture.js": "317e3eeaa4c016ae9564b5ee03aa27d73d38cbf1",
+    "webapp/src/lib/engine/historicalFixtureMemo.test.js": "ae807d2636f2617c22c82049b2521f9d8fc85155",
+    "webapp/src/lib/engine/historicalFixtureMemoTestSupport.js": "073ad2697919cabcbc3a8b31d02d1a7d268d1645",
+    "webapp/src/lib/engine/historicalSceneMatrices.test.js": "4963971f8449363f78ecfca1556f36b68c4db851",
+    "webapp/src/lib/engine/hourglassBikiniBody.test.js": "326994db8892c627b251255610da8ea0b730f4c8",
+    "webapp/src/lib/engine/kneelingCatalog.test.js": "a7576b839ab2f0a0ff8f058a98dec4e10837b12b",
+    "webapp/src/lib/engine/kneelingSupport.js": "3057133a55e558f0a887253234a57020f222a231",
+    "webapp/src/lib/engine/lyingSurface.js": "2a3351cfc8d21a09ee7ed13a92d783081251e6e2",
+    "webapp/src/lib/engine/lyingSurface.test.js": "223e8a0ed2a6ee64a92b81cf5e2e1ac3b8a21912",
+    "webapp/src/lib/engine/lyingSurfaceTestSupport.js": "decfcf67589b5e2c00eab6ba12c9fd8369112530",
+    "webapp/src/lib/engine/midjourneyBodyDescriptions.js": "f3d6db7e8c704f24073550a484933787a9da3116",
+    "webapp/src/lib/engine/midjourneyBodyPreservationBaseline.json": "42f1bca0a7077fe28d322a0305a3836312b40e76",
+    "webapp/src/lib/engine/midjourneyCardItemNames.js": "0e9bd9e3bec2cbe59d421d477a18f5e6b3c699bf",
+    "webapp/src/lib/engine/midjourneyCompletionGate.test.js": "fb1efddf98aca13cbf953abd72b0771ebcfbeabf",
+    "webapp/src/lib/engine/midjourneyDescriptionContract.js": "e9dc0123aec63c5d939440939e58268226b2d352",
+    "webapp/src/lib/engine/midjourneyDescriptionContract.test.js": "b1494cba5eca81adbd20b0ff8f4a9ac6d39f4177",
+    "webapp/src/lib/engine/midjourneyDescriptionFixtures.js": "ce969d8e7a4a9d2f3af468e2924b796ab5ecd1dd",
+    "webapp/src/lib/engine/midjourneyDescriptionOpening.test.js": "a920c33b3f9d78c44951114394e91f2d193e0667",
+    "webapp/src/lib/engine/midjourneyFacialFeatureVariant.test.js": "71d26868b4a095356a9bc600de1990f4bd5206db",
+    "webapp/src/lib/engine/midjourneyFramingAspectRatio.test.js": "b5525a7bec7601ee9479b8bd259ab409f7083325",
+    "webapp/src/lib/engine/midjourneyFramingAspectTestSupport.js": "ff34c7b0071fba519465af7ed984ddfcef0964a4",
+    "webapp/src/lib/engine/midjourneyFramingPoseAdaptation.js": "fba0f11edf1a06ebed01409a0ca50719d5356b91",
+    "webapp/src/lib/engine/midjourneyFramingPoseAdaptation.test.js": "1e4accbc9ce14c9555184572a6921d91a8bf96eb",
+    "webapp/src/lib/engine/midjourneyItemNames.js": "1d1a462a1e56daa6cd77355229b5b6a9d6dff415",
+    "webapp/src/lib/engine/midjourneyNativeStructure.js": "f98d94a1971a4bb79dd42b2dd3c104aa4093d8ce",
+    "webapp/src/lib/engine/midjourneyNativeStructure.test.js": "3730caaeed16f27e4bae279e43df10969a75ab63",
+    "webapp/src/lib/engine/midjourneyNativeStructureFixtures.js": "b9b6d92581d1b10ed4908ffd2b2cb85817450c1d",
+    "webapp/src/lib/engine/midjourneyNaturalAccepted.json": "90981502d79cd1576ad21d1d8b84584611ff71f6",
+    "webapp/src/lib/engine/midjourneyNaturalCatalogProtected.json": "34b2d6c3422fd96ec94809cf887b5dc7a1beb549",
+    "webapp/src/lib/engine/midjourneyNaturalFixtures.js": "dd33ca8757dcf466c753a4a7ccd8c0570662dcb7",
+    "webapp/src/lib/engine/midjourneyNaturalHistoricalProtected.json": "74d03bb80e479552a9efeb9541297e6c894610a6",
+    "webapp/src/lib/engine/midjourneyNaturalMinimalProtected.json": "f4cfb806aad21c096161d51c2c9d8a0836d77410",
+    "webapp/src/lib/engine/midjourneyNaturalMirrorProtected.json": "f20a57dcd694ece9a013761fa3a0716b002b6fad",
+    "webapp/src/lib/engine/midjourneyNaturalPrompt.js": "896d3add5917169bbbfa9390ad49a2b633fceacd",
+    "webapp/src/lib/engine/midjourneyNaturalPrompt.test.js": "0c025fad9d0fcbfa8a0a1d4c1cfad86f7fae9fd9",
+    "webapp/src/lib/engine/midjourneyNaturalProtectedBaseline.json": "536fea54d628d782d95a311468531f37ce28cc71",
+    "webapp/src/lib/engine/midjourneyParameterContract.js": "9e1cc554dce03dc4fb07a9c714f23cc3531c963b",
+    "webapp/src/lib/engine/midjourneyParameterContract.test.js": "55b4e78289d9fb29f58a035b6ff026e200f4605a",
+    "webapp/src/lib/engine/midjourneyParameterFixtures.js": "c2032c76f1e3f083419a46a97ec8a0eba58053c9",
+    "webapp/src/lib/engine/midjourneyParameterState.test.js": "c3ac51cc749a3a7ca2b78550d0ccac7588ed0031",
+    "webapp/src/lib/engine/midjourneyParameterTail.js": "52887a52e67917abdca2d10f9a9330d7d07e9a1d",
+    "webapp/src/lib/engine/midjourneyParameterTail.test.js": "c47afe54cc687fe013232b476f8a0f625c99f541",
+    "webapp/src/lib/engine/midjourneySceneImaging.test.js": "287ef4822c51d97368b7a582110bc971a4a496f6",
+    "webapp/src/lib/engine/midjourneySpecialModes.test.js": "f544b9f9258c96bc7356e94833391684d7c7041b",
+    "webapp/src/lib/engine/midjourneySubjectWardrobe.test.js": "798f3c582d1bc77e2bc80f28b6140bda06078e80",
+    "webapp/src/lib/engine/midjourneyTopPattern.test.js": "d7d829bc34a78d860938cdc9e91b08923eeebd96",
+    "webapp/src/lib/engine/minimalCoverageWardrobe.js": "bb64e6a0cfbfe36325da2c568082d62efd462a5b",
+    "webapp/src/lib/engine/minimalCoverageWardrobe.test.js": "3740b8c9fd19a2a073aed81a45e4a7168b1a1365",
+    "webapp/src/lib/engine/minimalCoverageWardrobeBaseline.json": "3dcba9b8486b7f7e1a87c2a208abd60bff45d965",
+    "webapp/src/lib/engine/mjChestUpRemoval.test.js": "c26682fcbc7142589bc8c45745225d7e640e7cf0",
+    "webapp/src/lib/engine/nanoBananaFacialFeatures.js": "8837246772c895ba079ac8d1c65b4fb9c27fe584",
+    "webapp/src/lib/engine/nanoBananaFacialFeaturesFixtures.js": "716267d0107e7f20f2abcd1338f42d3f0e1a69bd",
+    "webapp/src/lib/engine/nanoBananaFacialFeaturesProtectedBaseline.json": "4598933ff895a8065f29a432aac2d356b77ebec0",
+    "webapp/src/lib/engine/nanoBananaFixtures.js": "3575b900b707ef4826222ee3963254b8841698a4",
+    "webapp/src/lib/engine/nanoBananaPrompt.js": "8bf9bc7d087e3b7bd4fd8ebfa6b79b0a4ccc6212",
+    "webapp/src/lib/engine/nanoBananaPrompt.test.js": "27e5c262facdc6b37ef62422ec6d0c3bd88eed22",
+    "webapp/src/lib/engine/nanoBananaProtectedBaseline.json": "7c73d6496aae97d7b567d8e7f5a46bf6a5605a71",
+    "webapp/src/lib/engine/openPalmTestSupport.js": "c1720f36b647deb65723bc7b799d87b67214d6cc",
+    "webapp/src/lib/engine/opticalEffectMainPrompt.js": "0c0893c08dae68e25b277838f2498d8882a935af",
+    "webapp/src/lib/engine/opticalEffectMainPrompt.test.js": "57ac537346ca7a719dd0de513a78fab243e97125",
+    "webapp/src/lib/engine/outerwearCatalogTestSupport.js": "3ae8c9e21230a9f2797bd89e2a1b64018a997b0c",
+    "webapp/src/lib/engine/outerwearClosure.js": "8c08520e80ba3c01738cae81f72296b54e90a64e",
+    "webapp/src/lib/engine/outerwearClosure.test.js": "61bcfcaa5af5fb3e55560c04051fd337deecd8ae",
+    "webapp/src/lib/engine/outerwearModel.js": "d44495e5c00151f2b9bf58b110abf24c839dd56c",
+    "webapp/src/lib/engine/outerwearStyling.js": "70797484a058557be2250912af6a4bbdb5cb54bb",
+    "webapp/src/lib/engine/outerwearStyling.test.js": "b796818c3077c469b12c238b6e64b54d2bba5821",
+    "webapp/src/lib/engine/poseComposerCompatibility.js": "26acc87a78dbb84201f5346a826a1ac3090bdc74",
+    "webapp/src/lib/engine/poseComposerCompatibility.test.js": "42575b1e9a52443b85c6577b1dc593baff6db415",
+    "webapp/src/lib/engine/poseComposerOptions.js": "4e23d7d5fc49019edf57100722816fee3e97ddc1",
+    "webapp/src/lib/engine/poseComposerProjection.js": "268b5b052dbff118c3325edda4e316b03ca47fde",
+    "webapp/src/lib/engine/poseComposerProjection.test.js": "3de05857a4b8916463a83ef9625b9e8ab4dc482e",
+    "webapp/src/lib/engine/poseMenuV2.test.js": "7d2413e5cc03b0edbace025b311921830b7b3549",
+    "webapp/src/lib/engine/poseScenePolicy.js": "4beaa482917499c97c74d29070807280dfbbd1f6",
+    "webapp/src/lib/engine/promptModel.js": "54fab94aaab0e6ee2a808911d408db42364c4832",
+    "webapp/src/lib/engine/promptModel.test.js": "e4a475cb23a697a857058ba53a29fae1ba6ee9ed",
+    "webapp/src/lib/engine/promptOutputContracts.js": "7969c4821e41c8f0b71d3737ef4d46be56156ed2",
+    "webapp/src/lib/engine/promptOutputContracts.test.js": "54accf545b4fe6b010b2656f66070fc0c0a0c8ba",
+    "webapp/src/lib/engine/promptTextDeduplication.js": "5516faa148dc16197ebbb530eb1999666a7132c7",
+    "webapp/src/lib/engine/propControl.test.js": "bc94cba3fd44a55e451c471eac4c7107f6d1b312",
+    "webapp/src/lib/engine/publicPromptPolish.js": "e36edc43d59bbdd1ab318c940fd40350303a79fe",
+    "webapp/src/lib/engine/publicPromptPolish.test.js": "4328b336d213b5d0fda40298f8ce9dc8a6c3c21b",
+    "webapp/src/lib/engine/representativePromptFixtures.js": "bf046409cf1081d10a62e5860f52b2f6c6319d93",
+    "webapp/src/lib/engine/runtimeCache.js": "d79ad2ece36c5f76a64342f780981ee766663c95",
+    "webapp/src/lib/engine/runtimeCache.test.js": "c721d0777419b4a664ee15149c50242dcf30bc4a",
+    "webapp/src/lib/engine/sceneDirectionalZImageExpected.json": "3bdab4640c739a378c3f10de2715c85dccc3b2d5",
+    "webapp/src/lib/engine/sceneIntegratedAssemblyBaseline.json": "bb3abd4b257e85b0115ee1523cc15cf19c75c3f7",
+    "webapp/src/lib/engine/sceneIntegratedAssemblyBaseline.test.js": "3119629800f30450cddd35401fc5d9e49bbbdcdc",
+    "webapp/src/lib/engine/sceneIntegratedAssemblyFixtures.js": "68735a54714bb06d002453b8bf411f9406f0146e",
+    "webapp/src/lib/engine/sceneIntegratedAssemblyTestSupport.js": "d16b58ea90304cc1163450353b12f3a076dd242b",
+    "webapp/src/lib/engine/sceneIntegratedMidjourneyExpected.json": "dca1921a3da715c0815f977af97be7f43bee5475",
+    "webapp/src/lib/engine/selectionSchema.js": "846de64772be8738b830d40938fbe6be3a6592a9",
+    "webapp/src/lib/engine/selectionSchema.test.js": "f6b2154241150e91f5747ccc9da0cc16f169cf60",
+    "webapp/src/lib/engine/shibuyaCrowdScene.test.js": "4c76b5f5d070d1d395f43d85c8178bf11a1818a4",
+    "webapp/src/lib/engine/shibuyaSceneTestSupport.js": "15789a7c4ed7f7875c0ea6ee145371b27729aa51",
+    "webapp/src/lib/engine/shirtBlackBottom.test.js": "6dca8f211bc7d80f74143d035823bee0a4efb142",
+    "webapp/src/lib/engine/shirtBlackBottomLegacy.json": "0c6f32996f5e43c6efb86d278f33c15a0ee6921c",
+    "webapp/src/lib/engine/shirtBlackBottomProtected.json": "cca7954c9977dc40f4e9ac3c20b9e4e6afbd12d2",
+    "webapp/src/lib/engine/shirtBlackBottomTestSupport.js": "75e85a4d7dd2cec7fedf4012031475a62483e4b4",
+    "webapp/src/lib/engine/specifiedActionIntegration.test.js": "205eb92515ff92c7eb6ac5895f6572c8d0f05679",
+    "webapp/src/lib/engine/specifiedActionUnified.test.js": "27c96a05c2fb55c30236a6681af80e92bb06d814",
+    "webapp/src/lib/engine/specifiedActions.js": "781827fe152cf0927c50bbdd80d1d1685129d13f",
+    "webapp/src/lib/engine/specifiedActions.test.js": "e91c988fa919617e2e5988b03855d55be831da53",
+    "webapp/src/lib/engine/specifiedActionsV1Sources.json": "6eb42d2dabdbdb66a6895fe4e5b40327ddd0c899",
+    "webapp/src/lib/engine/specifiedActionsV2Data.test.js": "82b6e4d5d289e28a407a23342f447323dd405a51",
+    "webapp/src/lib/engine/squattingCatalog.test.js": "191c5decbb33c5f7218a561edb14cac52afb764c",
+    "webapp/src/lib/engine/squattingCatalogTestSupport.js": "5460b158b46a964e092143511f79f97267f26da1",
+    "webapp/src/lib/engine/squattingHands.test.js": "8fb8b82c7b0e53ac2daf16ba4bcb4a9ea2fb398d",
+    "webapp/src/lib/engine/standingCatalog.test.js": "98278eb366bbd97d7df1511f7685209bee81f21d",
+    "webapp/src/lib/engine/stationFixedComposition.js": "a5f8065e93397681392893104975cbb7fcf419ec",
+    "webapp/src/lib/engine/stationFixedComposition.test.js": "ccf6f6fb09340449a5cfe5b8ddd46de888af498c",
+    "webapp/src/lib/engine/subjectLightFixtures.js": "459aa7e96f8e656320aed7a964c39fcc7f3320f0",
+    "webapp/src/lib/engine/topHemOverlap.test.js": "b18c49d5f778649f62115a9d6869a7902e1349e1",
+    "webapp/src/lib/engine/underbustTopFit.js": "fd58852ef29653d6c57e28179fd3e06ce182316e",
+    "webapp/src/lib/engine/underbustTopFit.test.js": "7f572c080a4d536f8dc2c00b55e1a059b971a29f",
+    "webapp/src/lib/engine/wardrobeFitTestSupport.js": "18ed368f45c53499c902b9621de3040b0e9f95c3",
+    "webapp/src/lib/engine/wardrobeModifierOrder.test.js": "e79f01861cfb27a2f8670f8af4ebe5764f688131",
+    "webapp/src/lib/engine/zImageFullBodyCamera.js": "5efedff959cf185f26443006b1f7f2f7be85202b",
+    "webapp/src/lib/engine/zImageFullBodyCamera.test.js": "95c83832755f242562a6897eda0f13af77c25e8e",
+    "webapp/src/lib/engine/zImageFullBodyCameraBaseline.json": "b11fe4066715d9e083483c02d140dfe92ae4cc97",
+    "webapp/src/lib/engine/zImageFullBodyCameraFixtures.js": "8e4e4fae456c764a1c34eef97f23daaf56abda25",
+    "webapp/src/lib/engine/zImageFullBodyCameraTestSupport.js": "a885f3377a3aa21ec0858f5cfcfc7e5eea6b43b4",
+    "webapp/src/lib/engine/zImageOnLocationBaseline.json": "9053cf1fa1a69a5e9e46992d235e5ae3b0ae3d32",
+    "webapp/src/lib/engine/zImageOnLocationCapture.js": "c8a61fa14d233f7c4bc8b7cfdab6a561341cf6ec",
+    "webapp/src/lib/engine/zImageOnLocationCapture.test.js": "a19b6e67c08918e73b85451543e75b3b4635403e",
+    "webapp/src/lib/engine/zImageOnLocationFixtures.js": "059783edc0d01d4118f96fc0e71d7b6b11607ddc",
+    "webapp/src/lib/engine/zImageOnLocationTestSupport.js": "1ad098af2b92f72d6e4224c74a7b2d035ff11890",
+    "webapp/src/lib/engine/zImageSceneDetailPriority.js": "ec31df785119898ec472c3b590355368c6da454c",
+    "webapp/src/lib/engine/zImageSceneDetailPriority.test.js": "5fb9cd498b69f84779a75c6d5176d903dcc77ef2",
+    "webapp/src/lib/engine/zImageSceneDetailPriorityBaseline.json": "05350a8d72273976687ebe966123d25eb7c3057c",
+    "webapp/src/lib/engine/zImageSceneDetailPriorityFixtures.js": "c4d2d4e45527a3a46866b652e4c109e742032b29",
+    "webapp/src/lib/engine/zImageSceneDirection.js": "a62767bd0767e995f9d2e65884b8e914bdda00b5",
+    "webapp/src/lib/engine/zImageSceneDirection.test.js": "d5277e222b421f3c93a9bdc72c3b1f969fc05c5c",
+    "webapp/src/lib/engine/zImageSceneFirstTidy.test.js": "bd3063dc3b3c88525fca624514965c76b81bfabf",
+    "webapp/src/lib/engine/zImageTurboCameraGeometry.js": "7117a567c36a14c9baa4174879d2f2b9e2bc5b6a",
+    "webapp/src/lib/engine/zImageTurboCameraGeometry.test.js": "23e4a51be157c084baf24558b2be4b4232171594",
+    "webapp/src/lib/engine/zImageTurboPromptContract.js": "f307f91e34fce7c01d2ad6b5baa869a26d064558",
+    "webapp/src/lib/engine/zImageTurboPromptContract.test.js": "93fd89a1ba76e09e1eab1e7d5186d4ff4b199005",
+    "webapp/src/lib/engine/zImageUpperScene.js": "72ce6f9aca12f357f51c6882f8aef152d8a3b1aa",
+    "webapp/src/lib/engine/zImageUpperScene.test.js": "f4d40fbabbad8ec69b7d5d645064dd70a197c83c",
+    "webapp/src/lib/engine/zImageUpperSceneBaseline.json": "9b53216f2fd0ab9eb1c19a267db408726b184dad",
+    "webapp/src/lib/engine/zImageUpperSceneExtension.test.js": "7ac7e6c92fbf5ef35765d1d5a049710acae4814d",
+    "webapp/src/lib/engine/zImageUpperSceneExtensionBaseline.json": "b571c8b52a94a87db01b5cfabad075f5d048edb7",
+    "webapp/src/lib/engine/zImageUpperSceneExtensionFixtures.js": "07f6a9fbd4ae9dfbf3129d2277653c67204695fb",
+    "webapp/src/lib/engine/zImageUpperSceneFixtures.js": "019ea1ffab8e664173c8cccea2b8a70166be128d",
+    "webapp/src/lib/engine/zImageVisibleText.js": "ae64d498ceb023f3af9db7ff97db69de344585ab",
+    "webapp/src/lib/engine/zImageVisibleText.test.js": "48a0c8646202b754ff3f3983b5998511b68f768f",
+    "webapp/src/lib/engineAccessoryEyewearCleanup.test.js": "8e20da0744777ce567ea154a7b7f86267cdc4ec9",
+    "webapp/src/lib/engineAccessorySeparation.test.js": "2ca8ed674507e36f2a23783ce976ac6ebfbbc3a5",
+    "webapp/src/lib/engineActionPose.test.js": "6a681604a0616ff5912f7e5b1f69f4ef355ac344",
+    "webapp/src/lib/engineAiFreedomPrompt.test.js": "4924cd8e4f8f423774922369e049ef66370f8029",
+    "webapp/src/lib/engineBlackTieShirt.test.js": "a2e24005a49f5f265eaddb5eb04227ee0c189c8a",
+    "webapp/src/lib/engineCharacterCardVariant.test.js": "ac49d238aa5acdf0d8d3dbb35cc6d03b6438541d",
+    "webapp/src/lib/engineCharacterIdentityBase.test.js": "6ae6723fd8290548185b4e0dfa48ec45271e165e",
+    "webapp/src/lib/engineCompositionPrompt.test.js": "604643f9bc5591094f896c07be4b89a07e70f4e3",
+    "webapp/src/lib/engineConditionalGarterBelt.test.js": "71218d7db77426417946d2ee995fd838de026b29",
+    "webapp/src/lib/engineCottonBriefs.test.js": "28fcefe25d15042fc1b07bb38307512a9f6ffe3c",
+    "webapp/src/lib/engineExpressionPoseCleanup.test.js": "9b87afc6c1891d284d1277b4187438019993ec68",
+    "webapp/src/lib/engineFacialPiercings.test.js": "47b423a6725c722dfaf4cae741b245c77e0a74c1",
+    "webapp/src/lib/engineFixedCompositionSet.test.js": "9ef4f1cdb9d24ba40b6d875fd6237cee75aeccef",
+    "webapp/src/lib/engineGrokScenePriority.test.js": "af66dfd0b101c40b5bdcaf60e253370ed213ab02",
+    "webapp/src/lib/engineHeartGestures.test.js": "686f7ffcda2b413e70a08eb68f6758a1cf27677c",
+    "webapp/src/lib/engineLightingCompatibility.test.js": "be400caf2f7d64107d5615c194ccae18bb0a4b88",
+    "webapp/src/lib/engineLightingPromptCleanup.test.js": "3a9e9abc6c47a623cbc510d794b226fd19af5ea8",
+    "webapp/src/lib/engineMirrorSelfieProp.test.js": "dff68715f400037d5fd7a105013d260a7b25df06",
+    "webapp/src/lib/engineOptionalSilence.test.js": "d9c368483dafe5964f11d898d832b01d9085a0ee",
+    "webapp/src/lib/engineOuterwearCatalog.test.js": "44e9af7abefc2adf88b37f4a9694cc332d29ce81",
+    "webapp/src/lib/engineOuterwearShoulderWear.test.js": "61e8467eacfb60ce8d221ea27f524a95da3e226a",
+    "webapp/src/lib/engineOutfitPresetDressCleanup.test.js": "1cfef1bd22efb9d8c36905ef7294f734df034917",
+    "webapp/src/lib/enginePhotographyImagingCleanup.test.js": "76ac796b90188d7b16efd0e9a4de9e035038f44d",
+    "webapp/src/lib/enginePoseComposer.test.js": "f6c30a0ca7275398f57f5d37fcf2447686f11449",
+    "webapp/src/lib/enginePosePropAndAnchorRedesign.test.js": "81f0c29145099b2f3e264c9eedea7af888f76683",
+    "webapp/src/lib/enginePreviewRerollExclusion.test.js": "f877a8b811b5be9d8a3ce8cd074a94a3cdd606ad",
+    "webapp/src/lib/enginePromptCompatibility.test.js": "8f18370d924e977a857916164ab45b2cec2a851a",
+    "webapp/src/lib/enginePromptDeduplication.test.js": "d6d66cf15910e712ae1d79400962356cc5731dc1",
+    "webapp/src/lib/enginePromptPipeline.test.js": "0c45b795c50769030020a00bb43fb98b8d08d40d",
+    "webapp/src/lib/engineRandom.js": "8417afdb6af4156faf27d4b2cb838495084fd4d5",
+    "webapp/src/lib/engineRandom.test.js": "130d0484ee86eed980c6692b87fc4afac025c84a",
+    "webapp/src/lib/engineSailorSeparates.test.js": "798c581f0c1174a86c3217dd69d6fbf9f0d7a458",
+    "webapp/src/lib/engineSceneBaseCleanup.test.js": "401627d6fc4a1394b7fc79b2132bf62c5a23c44f",
+    "webapp/src/lib/engineSpecialActionCleanup.test.js": "21f3cfb7f9d44c4256c40203a8ea6d1516713d26",
+    "webapp/src/lib/engineSpecialOutfitCleanup.test.js": "6f599f1aa4429a94ee10d14d125c139b4cb0cf6b",
+    "webapp/src/lib/engineSpecialSubjects.test.js": "9170e436642f5af92525654cfb18d971f53524cc",
+    "webapp/src/lib/engineSubjectKeyLightCompatibility.test.js": "2ae162773284f5bd8ac1fb1442d72636daf609a3",
+    "webapp/src/lib/engineSubjectLightAdditions.test.js": "e645c7d5658b3959a73169ff980da7b5854f0dbb",
+    "webapp/src/lib/engineWardrobeControls.test.js": "18a2e53ddaa35b40e35454fc9c8efa9e05b4bcaf",
+    "webapp/src/lib/engineWardrobeTopCleanup.test.js": "a21940f3d788d0bcd5b3d6487458a3e3f22130ba",
+    "webapp/src/lib/engineZImageTurboPrompt.test.js": "ccbc82dea3d799f7293ede4c1f8944e6d3cba046",
+    "webapp/src/lib/engineZImageWardrobeLanguage.test.js": "6737691a79ec0a1be77513ea53ee2b111950917e",
+    "webapp/src/lib/favoriteAuthState.js": "c59ead89aff4cb16ab942f785820029f78a6a568",
+    "webapp/src/lib/favoriteAuthState.test.js": "b72ea7089d972d711322eb7edf19e9594a551ea8",
+    "webapp/src/lib/favoritesRepository.js": "8bb01cfd408e088a01369404af0780473bc63e9f",
+    "webapp/src/lib/firebase.js": "029b8f8c470e05800d6da1b039aeee93677a83d5",
+    "webapp/src/lib/imageDownload.js": "50e546afd9904571b3e9204fe8753f5522cd44c4",
+    "webapp/src/lib/imageDownload.test.js": "e2685aac9e7c77441757a8a8e113ab3e8d930177",
+    "webapp/src/lib/magnificProxyClient.js": "01eb32d47203d8a1a3c80476c5f06082b6f1c080",
+    "webapp/src/lib/mossModelIntegration.test.js": "75e53a13bcb71056c29c71fda39f6d47f6f2731c",
+    "webapp/src/lib/observationCaptureImport.js": "08ea51e3b890805f4563e722e0394dd96e8a0791",
+    "webapp/src/lib/observationCaptureImport.test.js": "587ff3b5519eb69658c968788fde72901e41cb70",
+    "webapp/src/lib/observationCaptureLab.js": "54b30a638c70e7d6dd05b679286129204022a711",
+    "webapp/src/lib/observationCaptureLab.test.js": "057b71e5a076793efc69cbeea6d5d68ca3c03492",
+    "webapp/src/lib/observationCaptureMode.js": "039c5b830566926e1691a85f3914a6470ce42de4",
+    "webapp/src/lib/observationCaptureMode.test.js": "b161ef12f750b74ac2555ccdbcefb9adbf2975be",
+    "webapp/src/lib/page1CameraLabels.js": "de908d28ec99e56750d3e6783900c2159deb0d3b",
+    "webapp/src/lib/page1ControlOrders.js": "a04bb8c15243d77ea766990e84f3ddc2173f1e33",
+    "webapp/src/lib/page1ControlOrders.test.js": "9e8d3b03ff4f363d5f614ee711f4d31e9edd6d40",
+    "webapp/src/lib/page1PromptOutputs.js": "cd4eeed4fc99bc49f4834094c4b1f100e9a3bb49",
+    "webapp/src/lib/page1PromptOutputs.test.js": "2443de59046fe11d51f2258243fd9d08318436c9",
+    "webapp/src/lib/page1SectionRandom.js": "29964c567862f0726d6dbd81124aa089b09ad015",
+    "webapp/src/lib/page1SectionRandom.test.js": "622056976f997c191553bff411b57f8826b23447",
+    "webapp/src/lib/page1WorkspacePanels.js": "3a81c07c21494b317ee0384942af7bee21e4699b",
+    "webapp/src/lib/page1WorkspacePanels.test.js": "70358571561fe803b203f67204b4a6b927d882d8",
+    "webapp/src/lib/page1WorkspaceSummary.js": "150a35e8ef4eebd9825734ed7ec17eccb3ba4a8b",
+    "webapp/src/lib/page1WorkspaceSummary.test.js": "8f1bd83890736eeed1100fed3b2a8826d4356bf9",
+    "webapp/src/lib/page3WorldScene.js": "1bc7132ecac9b8e2a83aebe5734f40c6a086e126",
+    "webapp/src/lib/page3WorldScene.test.js": "a6cfe9684a9b2c3563dcddce57f69a2b80ab2f94",
+    "webapp/src/lib/promptAppendices.js": "bee6d38bcfce05c244c3b1ab5091b10a036ac46f",
+    "webapp/src/lib/promptAppendices.test.js": "911d514526c334ef8b69887fd4d1eafd4165741b",
+    "webapp/src/lib/providerContract.js": "b551dd4098863e2edcd2ffd1d4061c06591ccff1",
+    "webapp/src/lib/providerContract.test.js": "deba6c080e8ef7a844066684968e721c55024c9f",
+    "webapp/src/lib/qwenLoraIntegration.test.js": "7c6ebf385254b7deaa5547416bf3d95e515f2a6b",
+    "webapp/src/lib/referencePersonPreview.js": "ddbc8ba3ec8dc7c741c5dbaab9a60f105730805a",
+    "webapp/src/lib/referencePersonPreview.test.js": "8d02235dde3408f4a5317537954901ecfb5560c2",
+    "webapp/src/lib/savedCardsMigration.js": "585e64161bb17cb15cb930d2aadf032e05703aab",
+    "webapp/src/lib/savedCardsMigration.test.js": "9f9ff8535a0e0387dc561b756cc26be5a60ce446",
+    "webapp/src/lib/videoWorkspaceController.js": "5b31355e6ac9abd5c8fcfa3ea2eabad88dcf2b0d",
+    "webapp/src/lib/videoWorkspaceController.test.js": "b1cfc6f167f1485dde8a97120c42a29848bd30a5",
+    "webapp/src/lib/videoWorkspaceStorage.js": "18d5b15def663cfded4dd74b6c32b6778308abc9",
+    "webapp/src/lib/wardrobeAtomicOptions.test.js": "421e8334352c7d6f55686e7fd6b9a0fab3b701c4",
+    "webapp/src/main.jsx": "031440c2fa5893ec38e81ae4828e14f57d47456c",
+    "webapp/src/styles/dllWorkspace.css": "b96b610af72a4d1dce8348a2af23c5de23e0819e",
+    "webapp/src/styles/generation.css": "73a636eed37df65e4733156499aa9d4565b8a22f",
+    "webapp/src/styles/videoWorkspace.css": "4219893f6709a8a10d2314168d348fcfbacd46c6",
+    "webapp/src/styles/workspaceLabs.css": "4dce3c14ea266f189e863531949672706695ed4d"
+  },
+  "inheritedArtifacts": {
+    "manifest.json": "be55a947c7a2fe45c59433a346af2f017e2892c39e5fc0a5d3811d8d241300a6",
+    "corpus.json.gz": "e7050130d9d4aaa13cc5717533258ed07407724442fc0fb28b65e5f7928cee8e",
+    "outputs.json.gz": "5561d0ae42e91cee0d33df295613e47c8513d4489890b68fdb4267ed1fa9633f",
+    "coverage-manifest.json": "a56fa350f56f64cd399aa57a87adb1229e1c1e2930f4eb66d63f2b8e1a8fa00c",
+    "coverage-corpus.json.gz": "37d3aeba0255585157c82c2cb0d9977fc14048b1ddedb2f004975ad42f1601f2",
+    "coverage-outputs.json.gz": "ab7a0688db7cacba3bc9b85a219a8f0597e26132e8ad6d4295e83e4b786bd1f1",
+    "../catalogSnapshot.controls.json": "0e60f11dd9c09f944c50ddd0efe6d7d4d8c4df848ebc5e72249bac8e6e918826",
+    "../catalogSnapshot.catalog.json": "425a2460d718d26313c6749c5988ee523fe33ba35ca8dc891e363ba2f91c574d",
+    "../catalogSnapshot.meta.json": "0291f24a36a2bfa6e10b4c03cfef8d4aff5db260378e9e1342f5ad7f29067aeb"
+  },
+  "inheritedComparisons": {
+    "core": {
+      "cases": 2540,
+      "differences": 0,
+      "audit": {
+        "prompts": 200,
+        "promptsWithFindings": 17,
+        "logicIssues": 15,
+        "contractIssues": 0,
+        "exactDuplicateSignals": 0,
+        "nearDuplicateSignals": 3,
+        "leakageSignals": 0,
+        "contradictionSignals": 0,
+        "promptsWithLogicIssues": 14,
+        "promptsWithContractIssues": 0,
+        "promptsWithDuplicateSignals": 3,
+        "promptsWithLeakageSignals": 0,
+        "promptsWithContradictionSignals": 0,
+        "coverageIssues": 0,
+        "totalSignals": 18,
+        "blockingSignals": 0,
+        "diagnosticSignals": 18
+      }
+    },
+    "coverage": {
+      "cases": 341,
+      "differences": 0,
+      "audit": {
+        "prompts": 200,
+        "promptsWithFindings": 17,
+        "logicIssues": 15,
+        "contractIssues": 0,
+        "exactDuplicateSignals": 0,
+        "nearDuplicateSignals": 3,
+        "leakageSignals": 0,
+        "contradictionSignals": 0,
+        "promptsWithLogicIssues": 14,
+        "promptsWithContractIssues": 0,
+        "promptsWithDuplicateSignals": 3,
+        "promptsWithLeakageSignals": 0,
+        "promptsWithContradictionSignals": 0,
+        "coverageIssues": 0,
+        "totalSignals": 18,
+        "blockingSignals": 0,
+        "diagnosticSignals": 18
+      }
+    }
+  },
+  "generatorAndFixtureHashes": {
+    "scripts/catalog_baseline.mjs": "4c2e63bc57e95f195c4d7ec91d457d665a755ec14c7d1cbbb6121f2efa2af81f",
+    "scripts/dump_prompt_outputs.mjs": "9e819cac0c76cf5ecff2108571a08e0f13637dc76c923477c78376d183ffe9cc",
+    "scripts/lib/catalogBaseline.mjs": "c19ae0c281929bc63f084ab201b5e11e3b39094a3323343e2456ded359e025c8",
+    "scripts/lib/catalogCorpus.mjs": "3e491755e5093a26aca0a9b18ecae1d57073e6c1758a0b599ac7e6d341cc70b5",
+    "scripts/validate_prompt_logic.mjs": "fd5eded68e08caec6542b81d899b8941594a1e89dfd0fdf65a2c35245b05db80",
+    "webapp/src/lib/engine/representativePromptFixtures.js": "4bac4e65733b45ef0a6d27a47f6d965b533553da046de62472d768c4e8f510e2",
+    "webapp/src/lib/engine/promptOutputContracts.js": "6bddb43a48ce228b392d08a334bf3553f01ebb5d844e97f2ff2b02594fffd2ea",
+    "webapp/src/lib/engine/specifiedActions.js": "c773fe27b1ee0a4a33e7f73f888dbfb243f1a967988101806be342c0cb3ff945",
+    "webapp/src/lib/page1SectionRandom.js": "12a74a16a82aeb2da3ea5fbb1a15e440371aaddc3f777e1982cb88095b7105a6",
+    "scripts/catalog_alignment_baseline.mjs": "f5c471f842208c0829bcbd1f0b5b0a227103a7a8b6cb8e1621fcce863c5d5fb6",
+    "scripts/lib/catalogImportCorpus.mjs": "c0cebed9246eb7c109ac7a964734e8e602c3f4994cc014eebbbb12a73d8e1b23"
+  },
+  "caseIds": [
+    "audit:single:0",
+    "audit:single:1",
+    "audit:single:2",
+    "audit:single:3",
+    "audit:single:4",
+    "audit:single:5",
+    "audit:single:6",
+    "audit:single:7",
+    "audit:single:8",
+    "audit:single:9",
+    "audit:single:10",
+    "audit:single:11",
+    "audit:single:12",
+    "audit:duo:0",
+    "audit:duo:1",
+    "audit:duo:2",
+    "audit:duo:3",
+    "audit:duo:4",
+    "audit:duo:5",
+    "audit:duo:6",
+    "audit:duo:7",
+    "audit:duo:8",
+    "audit:duo:9",
+    "audit:duo:10",
+    "audit:duo:11",
+    "audit:duo:12",
+    "audit:fixed-composition:concrete-wall-chesterfield-sofa:0",
+    "audit:fixed-composition:concrete-wall-chesterfield-sofa:1",
+    "audit:fixed-composition:concrete-wall-chesterfield-sofa:2",
+    "audit:fixed-composition:concrete-wall-chesterfield-sofa:3",
+    "audit:fixed-composition:concrete-wall-chesterfield-sofa:4",
+    "audit:fixed-composition:concrete-wall-chesterfield-sofa:5",
+    "audit:fixed-composition:concrete-wall-chesterfield-sofa:6",
+    "audit:fixed-composition:concrete-wall-chesterfield-sofa:7",
+    "audit:fixed-composition:concrete-wall-chesterfield-sofa:8",
+    "audit:fixed-composition:concrete-wall-chesterfield-sofa:9",
+    "audit:fixed-composition:concrete-wall-chesterfield-sofa:10",
+    "audit:fixed-composition:concrete-wall-chesterfield-sofa:11",
+    "audit:fixed-composition:concrete-wall-chesterfield-sofa:12",
+    "audit:fixed-composition:limewash-black-velvet-industrial-sofa:0",
+    "audit:fixed-composition:limewash-black-velvet-industrial-sofa:1",
+    "audit:fixed-composition:limewash-black-velvet-industrial-sofa:2",
+    "audit:fixed-composition:limewash-black-velvet-industrial-sofa:3",
+    "audit:fixed-composition:limewash-black-velvet-industrial-sofa:4",
+    "audit:fixed-composition:limewash-black-velvet-industrial-sofa:5",
+    "audit:fixed-composition:limewash-black-velvet-industrial-sofa:6",
+    "audit:fixed-composition:limewash-black-velvet-industrial-sofa:7",
+    "audit:fixed-composition:limewash-black-velvet-industrial-sofa:8",
+    "audit:fixed-composition:limewash-black-velvet-industrial-sofa:9",
+    "audit:fixed-composition:limewash-black-velvet-industrial-sofa:10",
+    "audit:fixed-composition:limewash-black-velvet-industrial-sofa:11",
+    "audit:fixed-composition:limewash-black-velvet-industrial-sofa:12",
+    "audit:fixed-composition:luxury-hotel-window-nyc:0",
+    "audit:fixed-composition:luxury-hotel-window-nyc:1",
+    "audit:fixed-composition:luxury-hotel-window-nyc:2",
+    "audit:fixed-composition:luxury-hotel-window-nyc:3",
+    "audit:fixed-composition:luxury-hotel-window-nyc:4",
+    "audit:fixed-composition:luxury-hotel-window-nyc:5",
+    "audit:fixed-composition:luxury-hotel-window-nyc:6",
+    "audit:fixed-composition:luxury-hotel-window-nyc:7",
+    "audit:fixed-composition:luxury-hotel-window-nyc:8",
+    "audit:fixed-composition:luxury-hotel-window-nyc:9",
+    "audit:fixed-composition:luxury-hotel-window-nyc:10",
+    "audit:fixed-composition:luxury-hotel-window-nyc:11",
+    "audit:fixed-composition:luxury-hotel-window-nyc:12",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:0",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:1",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:2",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:3",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:4",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:5",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:6",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:7",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:8",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:9",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:10",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:11",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:12",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:0",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:1",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:2",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:3",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:4",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:5",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:6",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:7",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:8",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:9",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:10",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:11",
+    "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:12",
+    "audit:fixed-composition:retro-tile-bathtub:0",
+    "audit:fixed-composition:retro-tile-bathtub:1",
+    "audit:fixed-composition:retro-tile-bathtub:2",
+    "audit:fixed-composition:retro-tile-bathtub:3",
+    "audit:fixed-composition:retro-tile-bathtub:4",
+    "audit:fixed-composition:retro-tile-bathtub:5",
+    "audit:fixed-composition:retro-tile-bathtub:6",
+    "audit:fixed-composition:retro-tile-bathtub:7",
+    "audit:fixed-composition:retro-tile-bathtub:8",
+    "audit:fixed-composition:retro-tile-bathtub:9",
+    "audit:fixed-composition:retro-tile-bathtub:10",
+    "audit:fixed-composition:retro-tile-bathtub:11",
+    "audit:fixed-composition:retro-tile-bathtub:12",
+    "audit:fixed-composition:seaside-slope-railway-crossing:0",
+    "audit:fixed-composition:seaside-slope-railway-crossing:1",
+    "audit:fixed-composition:seaside-slope-railway-crossing:2",
+    "audit:fixed-composition:seaside-slope-railway-crossing:3",
+    "audit:fixed-composition:seaside-slope-railway-crossing:4",
+    "audit:fixed-composition:seaside-slope-railway-crossing:5",
+    "audit:fixed-composition:seaside-slope-railway-crossing:6",
+    "audit:fixed-composition:seaside-slope-railway-crossing:7",
+    "audit:fixed-composition:seaside-slope-railway-crossing:8",
+    "audit:fixed-composition:seaside-slope-railway-crossing:9",
+    "audit:fixed-composition:seaside-slope-railway-crossing:10",
+    "audit:fixed-composition:seaside-slope-railway-crossing:11",
+    "audit:fixed-composition:seaside-stair-alley:0",
+    "audit:fixed-composition:seaside-stair-alley:1",
+    "audit:fixed-composition:seaside-stair-alley:2",
+    "audit:fixed-composition:seaside-stair-alley:3",
+    "audit:fixed-composition:seaside-stair-alley:4",
+    "audit:fixed-composition:seaside-stair-alley:5",
+    "audit:fixed-composition:seaside-stair-alley:6",
+    "audit:fixed-composition:seaside-stair-alley:7",
+    "audit:fixed-composition:seaside-stair-alley:8",
+    "audit:fixed-composition:seaside-stair-alley:9",
+    "audit:fixed-composition:seaside-stair-alley:10",
+    "audit:fixed-composition:seaside-stair-alley:11",
+    "audit:fixed-composition:nyc-subway-bench-platform:0",
+    "audit:fixed-composition:nyc-subway-bench-platform:1",
+    "audit:fixed-composition:nyc-subway-bench-platform:2",
+    "audit:fixed-composition:nyc-subway-bench-platform:3",
+    "audit:fixed-composition:nyc-subway-bench-platform:4",
+    "audit:fixed-composition:nyc-subway-bench-platform:5",
+    "audit:fixed-composition:nyc-subway-bench-platform:6",
+    "audit:fixed-composition:nyc-subway-bench-platform:7",
+    "audit:fixed-composition:nyc-subway-bench-platform:8",
+    "audit:fixed-composition:nyc-subway-bench-platform:9",
+    "audit:fixed-composition:nyc-subway-bench-platform:10",
+    "audit:fixed-composition:nyc-subway-bench-platform:11",
+    "audit:fixed-composition:london-tube-arriving-platform:0",
+    "audit:fixed-composition:london-tube-arriving-platform:1",
+    "audit:fixed-composition:london-tube-arriving-platform:2",
+    "audit:fixed-composition:london-tube-arriving-platform:3",
+    "audit:fixed-composition:london-tube-arriving-platform:4",
+    "audit:fixed-composition:london-tube-arriving-platform:5",
+    "audit:fixed-composition:london-tube-arriving-platform:6",
+    "audit:fixed-composition:london-tube-arriving-platform:7",
+    "audit:fixed-composition:london-tube-arriving-platform:8",
+    "audit:fixed-composition:london-tube-arriving-platform:9",
+    "audit:fixed-composition:london-tube-arriving-platform:10",
+    "audit:fixed-composition:london-tube-arriving-platform:11",
+    "audit:fixed-composition:yamanote-platform-advertising:0",
+    "audit:fixed-composition:yamanote-platform-advertising:1",
+    "audit:fixed-composition:yamanote-platform-advertising:2",
+    "audit:fixed-composition:yamanote-platform-advertising:3",
+    "audit:fixed-composition:yamanote-platform-advertising:4",
+    "audit:fixed-composition:yamanote-platform-advertising:5",
+    "audit:fixed-composition:yamanote-platform-advertising:6",
+    "audit:fixed-composition:yamanote-platform-advertising:7",
+    "audit:fixed-composition:yamanote-platform-advertising:8",
+    "audit:fixed-composition:yamanote-platform-advertising:9",
+    "audit:fixed-composition:yamanote-platform-advertising:10",
+    "audit:fixed-composition:yamanote-platform-advertising:11",
+    "audit:fixed-composition:japan-carriage-bench-front:0",
+    "audit:fixed-composition:japan-carriage-bench-front:1",
+    "audit:fixed-composition:japan-carriage-bench-front:2",
+    "audit:fixed-composition:japan-carriage-bench-front:3",
+    "audit:fixed-composition:japan-carriage-bench-front:4",
+    "audit:fixed-composition:japan-carriage-bench-front:5",
+    "audit:fixed-composition:japan-carriage-bench-front:6",
+    "audit:fixed-composition:japan-carriage-bench-front:7",
+    "audit:fixed-composition:japan-carriage-bench-front:8",
+    "audit:fixed-composition:japan-carriage-bench-front:9",
+    "audit:fixed-composition:japan-carriage-bench-front:10",
+    "audit:fixed-composition:japan-carriage-bench-front:11",
+    "audit:fixed-composition:japan-carriage-side-aisle:0",
+    "audit:fixed-composition:japan-carriage-side-aisle:1",
+    "audit:fixed-composition:japan-carriage-side-aisle:2",
+    "audit:fixed-composition:japan-carriage-side-aisle:3",
+    "audit:fixed-composition:japan-carriage-side-aisle:4",
+    "audit:fixed-composition:japan-carriage-side-aisle:5",
+    "audit:fixed-composition:japan-carriage-side-aisle:6",
+    "audit:fixed-composition:japan-carriage-side-aisle:7",
+    "audit:fixed-composition:japan-carriage-side-aisle:8",
+    "audit:fixed-composition:japan-carriage-side-aisle:9",
+    "audit:fixed-composition:japan-carriage-side-aisle:10",
+    "audit:fixed-composition:japan-carriage-side-aisle:11",
+    "audit:fixed-composition:japan-carriage-rush-hour:0",
+    "audit:fixed-composition:japan-carriage-rush-hour:1",
+    "audit:fixed-composition:japan-carriage-rush-hour:2",
+    "audit:fixed-composition:japan-carriage-rush-hour:3",
+    "audit:fixed-composition:japan-carriage-rush-hour:4",
+    "audit:fixed-composition:japan-carriage-rush-hour:5",
+    "audit:fixed-composition:japan-carriage-rush-hour:6",
+    "audit:fixed-composition:japan-carriage-rush-hour:7",
+    "audit:fixed-composition:japan-carriage-rush-hour:8",
+    "audit:fixed-composition:japan-carriage-rush-hour:9",
+    "audit:fixed-composition:japan-carriage-rush-hour:10",
+    "audit:fixed-composition:japan-carriage-rush-hour:11",
+    "import-matrix:random:cafe-corner:0",
+    "import-matrix:random:cafe-corner:1",
+    "import-matrix:random:cafe-corner:2",
+    "import-matrix:random:shopping-mall:0",
+    "import-matrix:random:shopping-mall:1",
+    "import-matrix:random:shopping-mall:2",
+    "import-matrix:random:convenience-store:0",
+    "import-matrix:random:convenience-store:1",
+    "import-matrix:random:convenience-store:2",
+    "import-matrix:random:bookstore-aisle:0",
+    "import-matrix:random:bookstore-aisle:1",
+    "import-matrix:random:bookstore-aisle:2",
+    "import-matrix:random:train-station:0",
+    "import-matrix:random:train-station:1",
+    "import-matrix:random:train-station:2",
+    "import-matrix:random:street-corner:0",
+    "import-matrix:random:street-corner:1",
+    "import-matrix:random:street-corner:2",
+    "import-matrix:random:park-path:0",
+    "import-matrix:random:park-path:1",
+    "import-matrix:random:park-path:2",
+    "import-matrix:random:commercial-street:0",
+    "import-matrix:random:commercial-street:1",
+    "import-matrix:random:commercial-street:2",
+    "import-flow:random:initial",
+    "import-flow:random:reroll-1",
+    "import-flow:random:reroll-2",
+    "import-flow:random:reroll-3",
+    "import-flow:random:new-candidate-keeps-person",
+    "import-flow:random:explicit-reimport",
+    "import-flow:random:card-and-back",
+    "import-flow:random:reload",
+    "import-dormant-card:random",
+    "import-return-standard:random",
+    "import-matrix:dressed:cafe-corner:0",
+    "import-matrix:dressed:cafe-corner:1",
+    "import-matrix:dressed:cafe-corner:2",
+    "import-matrix:dressed:shopping-mall:0",
+    "import-matrix:dressed:shopping-mall:1",
+    "import-matrix:dressed:shopping-mall:2",
+    "import-matrix:dressed:convenience-store:0",
+    "import-matrix:dressed:convenience-store:1",
+    "import-matrix:dressed:convenience-store:2",
+    "import-matrix:dressed:bookstore-aisle:0",
+    "import-matrix:dressed:bookstore-aisle:1",
+    "import-matrix:dressed:bookstore-aisle:2",
+    "import-matrix:dressed:train-station:0",
+    "import-matrix:dressed:train-station:1",
+    "import-matrix:dressed:train-station:2",
+    "import-matrix:dressed:street-corner:0",
+    "import-matrix:dressed:street-corner:1",
+    "import-matrix:dressed:street-corner:2",
+    "import-matrix:dressed:park-path:0",
+    "import-matrix:dressed:park-path:1",
+    "import-matrix:dressed:park-path:2",
+    "import-matrix:dressed:commercial-street:0",
+    "import-matrix:dressed:commercial-street:1",
+    "import-matrix:dressed:commercial-street:2",
+    "import-flow:dressed:initial",
+    "import-flow:dressed:reroll-1",
+    "import-flow:dressed:reroll-2",
+    "import-flow:dressed:reroll-3",
+    "import-flow:dressed:new-candidate-keeps-person",
+    "import-flow:dressed:explicit-reimport",
+    "import-flow:dressed:card-and-back",
+    "import-flow:dressed:reload",
+    "import-dormant-card:dressed",
+    "import-return-standard:dressed",
+    "import-matrix:none:cafe-corner:0",
+    "import-matrix:none:cafe-corner:1",
+    "import-matrix:none:cafe-corner:2",
+    "import-matrix:none:shopping-mall:0",
+    "import-matrix:none:shopping-mall:1",
+    "import-matrix:none:shopping-mall:2",
+    "import-matrix:none:convenience-store:0",
+    "import-matrix:none:convenience-store:1",
+    "import-matrix:none:convenience-store:2",
+    "import-matrix:none:bookstore-aisle:0",
+    "import-matrix:none:bookstore-aisle:1",
+    "import-matrix:none:bookstore-aisle:2",
+    "import-matrix:none:train-station:0",
+    "import-matrix:none:train-station:1",
+    "import-matrix:none:train-station:2",
+    "import-matrix:none:street-corner:0",
+    "import-matrix:none:street-corner:1",
+    "import-matrix:none:street-corner:2",
+    "import-matrix:none:park-path:0",
+    "import-matrix:none:park-path:1",
+    "import-matrix:none:park-path:2",
+    "import-matrix:none:commercial-street:0",
+    "import-matrix:none:commercial-street:1",
+    "import-matrix:none:commercial-street:2",
+    "import-flow:none:initial",
+    "import-flow:none:reroll-1",
+    "import-flow:none:reroll-2",
+    "import-flow:none:reroll-3",
+    "import-flow:none:new-candidate-keeps-person",
+    "import-flow:none:explicit-reimport",
+    "import-flow:none:card-and-back",
+    "import-flow:none:reload",
+    "import-dormant-card:none",
+    "import-return-standard:none",
+    "import-matrix:close-crop:cafe-corner:0",
+    "import-matrix:close-crop:cafe-corner:1",
+    "import-matrix:close-crop:cafe-corner:2",
+    "import-matrix:close-crop:shopping-mall:0",
+    "import-matrix:close-crop:shopping-mall:1",
+    "import-matrix:close-crop:shopping-mall:2",
+    "import-matrix:close-crop:convenience-store:0",
+    "import-matrix:close-crop:convenience-store:1",
+    "import-matrix:close-crop:convenience-store:2",
+    "import-matrix:close-crop:bookstore-aisle:0",
+    "import-matrix:close-crop:bookstore-aisle:1",
+    "import-matrix:close-crop:bookstore-aisle:2",
+    "import-matrix:close-crop:train-station:0",
+    "import-matrix:close-crop:train-station:1",
+    "import-matrix:close-crop:train-station:2",
+    "import-matrix:close-crop:street-corner:0",
+    "import-matrix:close-crop:street-corner:1",
+    "import-matrix:close-crop:street-corner:2",
+    "import-matrix:close-crop:park-path:0",
+    "import-matrix:close-crop:park-path:1",
+    "import-matrix:close-crop:park-path:2",
+    "import-matrix:close-crop:commercial-street:0",
+    "import-matrix:close-crop:commercial-street:1",
+    "import-matrix:close-crop:commercial-street:2",
+    "import-flow:close-crop:initial",
+    "import-flow:close-crop:reroll-1",
+    "import-flow:close-crop:reroll-2",
+    "import-flow:close-crop:reroll-3",
+    "import-flow:close-crop:new-candidate-keeps-person",
+    "import-flow:close-crop:explicit-reimport",
+    "import-flow:close-crop:card-and-back",
+    "import-flow:close-crop:reload",
+    "import-dormant-card:close-crop",
+    "import-return-standard:close-crop",
+    "import-matrix:dormant-duo:cafe-corner:0",
+    "import-matrix:dormant-duo:cafe-corner:1",
+    "import-matrix:dormant-duo:cafe-corner:2",
+    "import-matrix:dormant-duo:shopping-mall:0",
+    "import-matrix:dormant-duo:shopping-mall:1",
+    "import-matrix:dormant-duo:shopping-mall:2",
+    "import-matrix:dormant-duo:convenience-store:0",
+    "import-matrix:dormant-duo:convenience-store:1",
+    "import-matrix:dormant-duo:convenience-store:2",
+    "import-matrix:dormant-duo:bookstore-aisle:0",
+    "import-matrix:dormant-duo:bookstore-aisle:1",
+    "import-matrix:dormant-duo:bookstore-aisle:2",
+    "import-matrix:dormant-duo:train-station:0",
+    "import-matrix:dormant-duo:train-station:1",
+    "import-matrix:dormant-duo:train-station:2",
+    "import-matrix:dormant-duo:street-corner:0",
+    "import-matrix:dormant-duo:street-corner:1",
+    "import-matrix:dormant-duo:street-corner:2",
+    "import-matrix:dormant-duo:park-path:0",
+    "import-matrix:dormant-duo:park-path:1",
+    "import-matrix:dormant-duo:park-path:2",
+    "import-matrix:dormant-duo:commercial-street:0",
+    "import-matrix:dormant-duo:commercial-street:1",
+    "import-matrix:dormant-duo:commercial-street:2",
+    "import-flow:dormant-duo:initial",
+    "import-flow:dormant-duo:reroll-1",
+    "import-flow:dormant-duo:reroll-2",
+    "import-flow:dormant-duo:reroll-3",
+    "import-flow:dormant-duo:new-candidate-keeps-person",
+    "import-flow:dormant-duo:explicit-reimport",
+    "import-flow:dormant-duo:card-and-back",
+    "import-flow:dormant-duo:reload",
+    "import-dormant-card:dormant-duo",
+    "import-return-standard:dormant-duo"
+  ],
+  "savedPayloadIds": [
+    "random-json",
+    "random-markdown",
+    "dressed-json",
+    "dressed-markdown",
+    "none-json",
+    "none-markdown",
+    "close-crop-json",
+    "close-crop-markdown",
+    "dormant-duo-json",
+    "dormant-duo-markdown"
+  ],
+  "groups": {
+    "audit": 200,
+    "import-matrix": 120,
+    "import-flow": 40,
+    "import-dormant-card": 5,
+    "import-return-standard": 5
+  },
+  "expectedOutputs": [
+    {
+      "id": "audit:single:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:single:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:single:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:single:3",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:single:4",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:single:5",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:single:6",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:single:7",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:single:8",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:single:9",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:single:10",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:single:11",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:single:12",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:duo:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "not-applicable",
+        "full-body-character": "not-applicable"
+      }
+    },
+    {
+      "id": "audit:duo:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "not-applicable",
+        "full-body-character": "not-applicable"
+      }
+    },
+    {
+      "id": "audit:duo:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "not-applicable",
+        "full-body-character": "not-applicable"
+      }
+    },
+    {
+      "id": "audit:duo:3",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "not-applicable",
+        "full-body-character": "not-applicable"
+      }
+    },
+    {
+      "id": "audit:duo:4",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "not-applicable",
+        "full-body-character": "not-applicable"
+      }
+    },
+    {
+      "id": "audit:duo:5",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "not-applicable",
+        "full-body-character": "not-applicable"
+      }
+    },
+    {
+      "id": "audit:duo:6",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "not-applicable",
+        "full-body-character": "not-applicable"
+      }
+    },
+    {
+      "id": "audit:duo:7",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "not-applicable",
+        "full-body-character": "not-applicable"
+      }
+    },
+    {
+      "id": "audit:duo:8",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "not-applicable",
+        "full-body-character": "not-applicable"
+      }
+    },
+    {
+      "id": "audit:duo:9",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "not-applicable",
+        "full-body-character": "not-applicable"
+      }
+    },
+    {
+      "id": "audit:duo:10",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "not-applicable",
+        "full-body-character": "not-applicable"
+      }
+    },
+    {
+      "id": "audit:duo:11",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "not-applicable",
+        "full-body-character": "not-applicable"
+      }
+    },
+    {
+      "id": "audit:duo:12",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "not-applicable",
+        "full-body-character": "not-applicable"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:concrete-wall-chesterfield-sofa:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:concrete-wall-chesterfield-sofa:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:concrete-wall-chesterfield-sofa:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:concrete-wall-chesterfield-sofa:3",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:concrete-wall-chesterfield-sofa:4",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:concrete-wall-chesterfield-sofa:5",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:concrete-wall-chesterfield-sofa:6",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:concrete-wall-chesterfield-sofa:7",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:concrete-wall-chesterfield-sofa:8",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:concrete-wall-chesterfield-sofa:9",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:concrete-wall-chesterfield-sofa:10",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:concrete-wall-chesterfield-sofa:11",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:concrete-wall-chesterfield-sofa:12",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:limewash-black-velvet-industrial-sofa:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:limewash-black-velvet-industrial-sofa:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:limewash-black-velvet-industrial-sofa:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:limewash-black-velvet-industrial-sofa:3",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:limewash-black-velvet-industrial-sofa:4",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:limewash-black-velvet-industrial-sofa:5",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:limewash-black-velvet-industrial-sofa:6",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:limewash-black-velvet-industrial-sofa:7",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:limewash-black-velvet-industrial-sofa:8",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:limewash-black-velvet-industrial-sofa:9",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:limewash-black-velvet-industrial-sofa:10",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:limewash-black-velvet-industrial-sofa:11",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:limewash-black-velvet-industrial-sofa:12",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-nyc:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-nyc:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-nyc:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-nyc:3",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-nyc:4",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-nyc:5",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-nyc:6",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-nyc:7",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-nyc:8",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-nyc:9",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-nyc:10",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-nyc:11",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-nyc:12",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:3",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:4",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:5",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:6",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:7",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:8",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:9",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:10",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:11",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-spring:12",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:3",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:4",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:5",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:6",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:7",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:8",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:9",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:10",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:11",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:luxury-hotel-window-mount-fuji-winter:12",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:retro-tile-bathtub:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:retro-tile-bathtub:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:retro-tile-bathtub:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:retro-tile-bathtub:3",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:retro-tile-bathtub:4",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:retro-tile-bathtub:5",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:retro-tile-bathtub:6",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:retro-tile-bathtub:7",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:retro-tile-bathtub:8",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:retro-tile-bathtub:9",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:retro-tile-bathtub:10",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:retro-tile-bathtub:11",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:retro-tile-bathtub:12",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-slope-railway-crossing:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-slope-railway-crossing:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-slope-railway-crossing:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-slope-railway-crossing:3",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-slope-railway-crossing:4",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-slope-railway-crossing:5",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-slope-railway-crossing:6",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-slope-railway-crossing:7",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-slope-railway-crossing:8",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-slope-railway-crossing:9",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-slope-railway-crossing:10",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-slope-railway-crossing:11",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-stair-alley:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-stair-alley:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-stair-alley:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-stair-alley:3",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-stair-alley:4",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-stair-alley:5",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-stair-alley:6",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-stair-alley:7",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-stair-alley:8",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-stair-alley:9",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-stair-alley:10",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:seaside-stair-alley:11",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:nyc-subway-bench-platform:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:nyc-subway-bench-platform:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:nyc-subway-bench-platform:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:nyc-subway-bench-platform:3",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:nyc-subway-bench-platform:4",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:nyc-subway-bench-platform:5",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:nyc-subway-bench-platform:6",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:nyc-subway-bench-platform:7",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:nyc-subway-bench-platform:8",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:nyc-subway-bench-platform:9",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:nyc-subway-bench-platform:10",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:nyc-subway-bench-platform:11",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:london-tube-arriving-platform:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:london-tube-arriving-platform:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:london-tube-arriving-platform:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:london-tube-arriving-platform:3",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:london-tube-arriving-platform:4",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:london-tube-arriving-platform:5",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:london-tube-arriving-platform:6",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:london-tube-arriving-platform:7",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:london-tube-arriving-platform:8",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:london-tube-arriving-platform:9",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:london-tube-arriving-platform:10",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:london-tube-arriving-platform:11",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:yamanote-platform-advertising:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:yamanote-platform-advertising:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:yamanote-platform-advertising:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:yamanote-platform-advertising:3",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:yamanote-platform-advertising:4",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:yamanote-platform-advertising:5",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:yamanote-platform-advertising:6",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:yamanote-platform-advertising:7",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:yamanote-platform-advertising:8",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:yamanote-platform-advertising:9",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:yamanote-platform-advertising:10",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:yamanote-platform-advertising:11",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-bench-front:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-bench-front:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-bench-front:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-bench-front:3",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-bench-front:4",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-bench-front:5",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-bench-front:6",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-bench-front:7",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-bench-front:8",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-bench-front:9",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-bench-front:10",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-bench-front:11",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-side-aisle:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-side-aisle:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-side-aisle:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-side-aisle:3",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-side-aisle:4",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-side-aisle:5",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-side-aisle:6",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-side-aisle:7",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-side-aisle:8",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-side-aisle:9",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-side-aisle:10",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-side-aisle:11",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-rush-hour:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-rush-hour:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-rush-hour:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-rush-hour:3",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-rush-hour:4",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-rush-hour:5",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-rush-hour:6",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-rush-hour:7",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-rush-hour:8",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-rush-hour:9",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-rush-hour:10",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "audit:fixed-composition:japan-carriage-rush-hour:11",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:cafe-corner:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:cafe-corner:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:cafe-corner:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:shopping-mall:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:shopping-mall:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:shopping-mall:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:convenience-store:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:convenience-store:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:convenience-store:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:bookstore-aisle:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:bookstore-aisle:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:bookstore-aisle:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:train-station:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:train-station:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:train-station:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:street-corner:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:street-corner:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:street-corner:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:park-path:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:park-path:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:park-path:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:commercial-street:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:commercial-street:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:random:commercial-street:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:random:initial",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:random:reroll-1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:random:reroll-2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:random:reroll-3",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:random:new-candidate-keeps-person",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:random:explicit-reimport",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:random:card-and-back",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:random:reload",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-dormant-card:random",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-return-standard:random",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:cafe-corner:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:cafe-corner:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:cafe-corner:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:shopping-mall:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:shopping-mall:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:shopping-mall:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:convenience-store:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:convenience-store:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:convenience-store:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:bookstore-aisle:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:bookstore-aisle:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:bookstore-aisle:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:train-station:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:train-station:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:train-station:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:street-corner:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:street-corner:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:street-corner:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:park-path:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:park-path:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:park-path:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:commercial-street:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:commercial-street:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dressed:commercial-street:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:dressed:initial",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:dressed:reroll-1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:dressed:reroll-2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:dressed:reroll-3",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:dressed:new-candidate-keeps-person",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:dressed:explicit-reimport",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:dressed:card-and-back",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:dressed:reload",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-dormant-card:dressed",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-return-standard:dressed",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:cafe-corner:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:cafe-corner:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:cafe-corner:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:shopping-mall:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:shopping-mall:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:shopping-mall:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:convenience-store:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:convenience-store:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:convenience-store:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:bookstore-aisle:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:bookstore-aisle:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:bookstore-aisle:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:train-station:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:train-station:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:train-station:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:street-corner:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:street-corner:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:street-corner:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:park-path:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:park-path:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:park-path:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:commercial-street:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:commercial-street:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:none:commercial-street:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:none:initial",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:none:reroll-1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:none:reroll-2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:none:reroll-3",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:none:new-candidate-keeps-person",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:none:explicit-reimport",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:none:card-and-back",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:none:reload",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-dormant-card:none",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-return-standard:none",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:cafe-corner:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:cafe-corner:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:cafe-corner:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:shopping-mall:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:shopping-mall:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:shopping-mall:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:convenience-store:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:convenience-store:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:convenience-store:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:bookstore-aisle:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:bookstore-aisle:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:bookstore-aisle:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:train-station:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:train-station:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:train-station:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:street-corner:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:street-corner:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:street-corner:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:park-path:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:park-path:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:park-path:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:commercial-street:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:commercial-street:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:close-crop:commercial-street:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:close-crop:initial",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:close-crop:reroll-1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:close-crop:reroll-2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:close-crop:reroll-3",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:close-crop:new-candidate-keeps-person",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:close-crop:explicit-reimport",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:close-crop:card-and-back",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:close-crop:reload",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-dormant-card:close-crop",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-return-standard:close-crop",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:cafe-corner:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:cafe-corner:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:cafe-corner:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:shopping-mall:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:shopping-mall:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:shopping-mall:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:convenience-store:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:convenience-store:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:convenience-store:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:bookstore-aisle:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:bookstore-aisle:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:bookstore-aisle:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:train-station:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:train-station:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:train-station:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:street-corner:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:street-corner:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:street-corner:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:park-path:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:park-path:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:park-path:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:commercial-street:0",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:commercial-street:1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-matrix:dormant-duo:commercial-street:2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:dormant-duo:initial",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:dormant-duo:reroll-1",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:dormant-duo:reroll-2",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:dormant-duo:reroll-3",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:dormant-duo:new-candidate-keeps-person",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:dormant-duo:explicit-reimport",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:dormant-duo:card-and-back",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-flow:dormant-duo:reload",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-dormant-card:dormant-duo",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    },
+    {
+      "id": "import-return-standard:dormant-duo",
+      "outputs": {
+        "grokPrompt": "effective",
+        "zImagePrompt": "effective",
+        "midjourneyPrompt": "effective",
+        "nanoBananaPrompt": "effective",
+        "chest-up-portrait": "effective",
+        "full-body-character": "effective"
+      }
+    }
+  ],
+  "artifacts": {
+    "corpus.json.gz": "6053200d025e7069e5ba26b96676914c9ee6dd249778555e6f775f47affda6c5",
+    "outputs.json.gz": "47fa27c4ab9d9552c98ed02a9ea79dad4a9bd4901ad57580c7454f9e5098f19b",
+    "flows.json.gz": "b2309cd5c4239b345353b7b9ef6f438a7a83ddfacd1e6d612c442adaad042f2b"
+  }
+}

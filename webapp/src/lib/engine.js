@@ -3309,7 +3309,7 @@ function applyCharacterExpressionPoseLegacyOptionIds(catalog) {
   applyCharacterLegacyOptionIds(catalog, CHARACTER_EXPRESSION_POSE_LEGACY_OPTION_MAP);
 }
 
-function buildEntries(groupName, groupedData, inferMeta) {
+function buildEntries(groupName, groupedData, inferMeta, captureInference = false) {
   return Object.entries(groupedData).reduce((acc, [category, items]) => {
     acc[category] = items.map((item, index) => {
       const rawZh = stripMarkdown(item.zh);
@@ -3358,6 +3358,7 @@ function buildEntries(groupName, groupedData, inferMeta) {
 
       return {
         ...normalized,
+        ...(captureInference ? { inferredMeta: structuredClone(inferredMeta) } : {}),
         meta: {
           ...inferredMeta,
           ...sourceMeta,
@@ -3410,17 +3411,26 @@ function mergeCustomLibrary(customLibrary = []) {
   return merged;
 }
 
-function buildCatalog(customLibrary = []) {
+function buildCatalog(customLibrary = [], captureEntries = null) {
   const mergedDatabase = mergeCustomLibrary(customLibrary);
 
   const catalog = {
-    regional: buildEntries('regional', mergedDatabase.Regional || {}, inferStyleMeta),
-    wardrobe: buildEntries('wardrobe', mergedDatabase.Wardrobe || {}, inferWardrobeMeta),
-    camera: buildEntries('camera', mergedDatabase.CameraLighting || {}, inferCameraMeta),
-    locations: buildEntries('locations', mergedDatabase.Locations || {}, inferLocationMeta),
-    character: buildEntries('character', mergedDatabase.Character || {}, inferCharacterMeta),
-    negative: buildEntries('negative', mergedDatabase.Negative || {}, inferNegativeMeta),
+    regional: buildEntries('regional', mergedDatabase.Regional || {}, inferStyleMeta, Boolean(captureEntries)),
+    wardrobe: buildEntries('wardrobe', mergedDatabase.Wardrobe || {}, inferWardrobeMeta, Boolean(captureEntries)),
+    camera: buildEntries('camera', mergedDatabase.CameraLighting || {}, inferCameraMeta, Boolean(captureEntries)),
+    locations: buildEntries('locations', mergedDatabase.Locations || {}, inferLocationMeta, Boolean(captureEntries)),
+    character: buildEntries('character', mergedDatabase.Character || {}, inferCharacterMeta, Boolean(captureEntries)),
+    negative: buildEntries('negative', mergedDatabase.Negative || {}, inferNegativeMeta, Boolean(captureEntries)),
   };
+  if (captureEntries) {
+    // Snapshot before aliases mutate entries and accessory categories move them.
+    captureEntries(structuredClone(catalog));
+    for (const categories of Object.values(catalog)) {
+      for (const items of Object.values(categories)) {
+        for (const item of items) delete item.inferredMeta;
+      }
+    }
+  }
   applyRegionalLegacyOptionIds(catalog);
   applyWardrobeLegacyOptionIds(catalog);
   applyWardrobeLegacyPromptAliases(catalog);
@@ -3456,6 +3466,16 @@ function buildCatalog(customLibrary = []) {
     },
     mergedDatabase,
   };
+}
+
+// Test/tool-only: deliberately bypass the shared runtime cache.
+export function getCompiledCatalogForTesting(sourceDatabase) {
+  if (sourceDatabase !== undefined && (!sourceDatabase || typeof sourceDatabase !== 'object' || Array.isArray(sourceDatabase))) {
+    throw new TypeError('Expected a database object');
+  }
+  let entries;
+  const { catalog } = buildCatalog(sourceDatabase ?? [], snapshot => { entries = snapshot; });
+  return { entries, catalog };
 }
 
 function compileEngineRuntime(customLibrary = []) {

@@ -1,0 +1,80 @@
+✔ complete historical group substitutes one entry and preserves all other arguments in order (1.684959ms)
+✔ full npm test selection retains the exact test-file union without a duplicate historical entry (5.176042ms)
+✔ prompt quality selection retains every original selected suite and all three historical matrices (0.692542ms)
+✔ focused single and partial matrix selections never expand or drop their scope (0.294959ms)
+✔ native flag values are preserved even when they look exactly like a matrix test path (0.189292ms)
+✔ absolute paths, relative aliases and the native option delimiter identify the same complete group (0.095ms)
+✔ an explicitly selected aggregator is retained once and does not need another generated entry (0.086459ms)
+✔ runner starts the same Node binary with native test isolation and preserves caller flags (0.175708ms)
+✖ CLI returns the native test success and failure status without swallowing failed assertions (253.533958ms)
+✖ grouped original suites keep real historical fixture reuse enabled for their entire lifecycle (564.155542ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 8
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 924.623041
+
+✖ failing tests:
+
+test at ../../../../../../private/tmp/catalog-a-original-main/webapp/src/features/qa/webappTestRunner.test.js:109:1
+✖ CLI returns the native test success and failure status without swallowing failed assertions (253.533958ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /# pass 1/. Input:
+  
+  '✔ pass (0.683209ms)\n' +
+    'ℹ tests 1\n' +
+    'ℹ suites 0\n' +
+    'ℹ pass 1\n' +
+    'ℹ fail 0\n' +
+    'ℹ cancelled 0\n' +
+    'ℹ skipped 0\n' +
+    'ℹ todo 0\n' +
+    'ℹ duration_ms 93.836459\n'
+  
+      at TestContext.<anonymous> (file:///private/tmp/catalog-a-original-main/webapp/src/features/qa/webappTestRunner.test.js:126:14)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '✔ pass (0.683209ms)\nℹ tests 1\nℹ suites 0\nℹ pass 1\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 93.836459\n',
+    expected: /# pass 1/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at ../../../../../../private/tmp/catalog-a-original-main/webapp/src/features/qa/webappTestRunner.test.js:133:1
+✖ grouped original suites keep real historical fixture reuse enabled for their entire lifecycle (564.155542ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /# pass 2/. Input:
+  
+  '✔ approved near-contact medium and cowboy copy appears exactly once in main GPT/Z only (215.047084ms)\n' +
+    '✔ historical scene fixture reuse stays enabled across original suite registration (4.904542ms)\n' +
+    'ℹ historical scene fixture reuse: 31 generations, 1 hits\n' +
+    'ℹ tests 2\n' +
+    'ℹ suites 0\n' +
+    'ℹ pass 2\n' +
+    'ℹ fail 0\n' +
+    'ℹ cancelled 0\n' +
+    'ℹ skipped 0\n' +
+    'ℹ todo 0\n' +
+    'ℹ duration_ms 416.769875\n'
+  
+      at TestContext.<anonymous> (file:///private/tmp/catalog-a-original-main/webapp/src/features/qa/webappTestRunner.test.js:143:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '✔ approved near-contact medium and cowboy copy appears exactly once in main GPT/Z only (215.047084ms)\n✔ historical scene fixture reuse stays enabled across original suite registration (4.904542ms)\nℹ historical scene fixture reuse: 31 generations, 1 hits\nℹ tests 2\nℹ suites 0\nℹ pass 2\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 416.769875\n',
+    expected: /# pass 2/,
+    operator: 'match',
+    diff: 'simple'
+  }

@@ -9,22 +9,25 @@
 //   rnd:<n>      200 組預設鎖定的隨機樣本（seed p1-dump）
 //   act:<id>:<景別>:<0|1>  每個指定動作 × 每個景別 × 2 seed
 //   allrandom:<n>  150 組「全部隨機」（用當時版本自己的 randomizeLockKeys 規則）
-// 每筆記錄六種輸出、選擇快照與摘要。比較時只看兩邊都有的鍵，另列只在一邊的鍵。
+// 每筆記錄六種輸出、選擇快照與摘要。比較時所有案例與欄位必須相同；錯誤或未解析輸入回傳非零。
+// 架構遷移請使用 catalog_baseline.mjs；本工具保留舊版抽樣格式，不作 A 的封存基準。
 import { readFileSync, writeFileSync } from 'node:fs';
 
 if (process.argv[2] === '--compare') {
-  const [before, after] = process.argv.slice(3).map(file => JSON.parse(readFileSync(file, 'utf8')));
-  const common = Object.keys(before).filter(key => key in after);
-  const changed = common.filter(key => JSON.stringify(before[key]) !== JSON.stringify(after[key]));
-  const byGroup = list => list.reduce((acc, key) => ({ ...acc, [key.split(':')[0]]: (acc[key.split(':')[0]] || 0) + 1 }), {});
-  console.log(JSON.stringify({
-    before: Object.keys(before).length, after: Object.keys(after).length, common: common.length,
-    changed: changed.length, changedByGroup: byGroup(changed),
-    onlyBefore: Object.keys(before).filter(key => !(key in after)).length,
-    onlyAfter: Object.keys(after).filter(key => !(key in before)).length,
-    changedSample: changed.slice(0, 10),
-  }, null, 2));
-  process.exit(0);
+  try {
+    const { differences } = await import('./lib/catalogBaseline.mjs');
+    const [before, after] = process.argv.slice(3).map(file => JSON.parse(readFileSync(file, 'utf8')));
+    for (const data of [before, after]) {
+      if (!data || Array.isArray(data) || !Object.keys(data).length) throw new Error('empty/invalid snapshot');
+      for (const [id, value] of Object.entries(data)) {
+        if (!value || typeof value !== 'object' || JSON.stringify(value).includes('UNRESOLVED')) throw new Error(`unresolved case ${id}`);
+        for (const key of ['gpt', 'z', 'mj', 'nano', 'sel', 'sum']) if (typeof value[key] !== 'string') throw new Error(`missing field ${id}.${key}`);
+      }
+    }
+    const diff = differences(before, after);
+    console.log(JSON.stringify({ differences: diff.length, sample: diff.slice(0, 20) }, null, 2));
+    process.exit(diff.length ? 1 : 0);
+  } catch (error) { console.error(error.message); process.exit(1); }
 }
 
 const root = process.cwd();
@@ -47,7 +50,7 @@ const fixtureLocks = fixture => {
   for (const [key, spec] of Object.entries(fixture.locks)) {
     if (typeof spec === 'string' || Array.isArray(spec)) { locks[key] = spec; continue; }
     const id = opt(key, spec.byZh);
-    if (!id) return null;
+    if (!id) throw new Error(`UNRESOLVED ${fixture.id}.${key}`);
     locks[key] = id;
   }
   return locks;
