@@ -2,7 +2,12 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-21
+Last updated: 2026-10-24
+
+## DLL：FLUX 3 Base INT8 模型檔名修正（2026-10-24，本機完成／尚未部署）
+
+- Cloud 模型庫實際檔名為 `flux3-image-klein-base-int8-convrot.safetensors`，已修正 DLL 模板原本的底線名稱，以處理 `UNETLoader value_not_in_list`。保留 Base INT8、50 steps／CFG3.5、關閉擴寫及所有 UI／請求契約。[規格、證據與驗證](specs/comfy-flux3-klein-v1.md#cloud-模型檔名修正2026-10-24本機完成尚未部署)。
+- Functions 106/106、lint、前端相關45/45及 diff-check 通過；僅後端模板與測試／文件變更，未重跑前端全套或版面驗收，未付費生成。未 commit／push／部署；正式生效需更新 Submit／WorkspaceSubmit／Status／Quota 四項 Functions。
 
 ## Prompt 工作台：自訂攝影附加（2026-10-21，使用者已驗收）
 
