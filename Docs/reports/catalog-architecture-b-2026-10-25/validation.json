@@ -1,0 +1,122 @@
+{
+  "date": "2026-10-25",
+  "timezone": "Asia/Taipei",
+  "phase": "B",
+  "status": "local acceptance passed; pending user review",
+  "branch": "main",
+  "sourceCommit": "548a5c402b025e243bda16c873527dca6c95b75d",
+  "remoteMainAtCompletion": "548a5c402b025e243bda16c873527dca6c95b75d",
+  "node": "v25.8.2",
+  "frontendTestReporter": "tap",
+  "python": "Python 3.9.6",
+  "productionSource": "Markdown + metadata + manifests",
+  "productionRegistryActivated": false,
+  "phaseC": false,
+  "phaseP5b": false,
+  "frontendTests": {
+    "passed": 1821,
+    "failed": 0
+  },
+  "promptQuality": {
+    "passed": 754,
+    "failed": 0
+  },
+  "nodeToolTests": {
+    "passed": 10,
+    "failed": 0
+  },
+  "pythonTests": {
+    "passed": 21,
+    "failed": 0
+  },
+  "lint": "passed",
+  "build": "passed; existing >500 kB chunk warning",
+  "syncCheck": "passed",
+  "assets": {
+    "files": 207,
+    "bytes": 3201415,
+    "status": "passed"
+  },
+  "snapshots": {
+    "controls": 219,
+    "options": 4771,
+    "differences": 0
+  },
+  "AReplay": {
+    "uniqueCases": 2851,
+    "totalReplays": 3251,
+    "differences": 0,
+    "performedBy": "npm test: catalogBaseline, catalogCoverage, catalogAlignment, catalogSnapshot"
+  },
+  "audit": {
+    "count": 200,
+    "seed": "prompt-quality-baseline",
+    "blocking": 0,
+    "diagnostics": 18,
+    "beforeAfterBytesEqual": true
+  },
+  "integrity": {
+    "confirmed": 2,
+    "allowedExactItems": 2,
+    "blocking": 0,
+    "staleAllowlist": 0,
+    "possibleTypes": 5,
+    "sourceFields": 22,
+    "declaredPaths": 67,
+    "schemaRecords": 1050,
+    "categories": 56,
+    "characterSets": [
+      33,
+      33,
+      33,
+      33,
+      33
+    ],
+    "lyingSurfaceRecords": 47
+  },
+  "rehearsal": {
+    "phase": "B",
+    "sourceSha": "548a5c402b025e243bda16c873527dca6c95b75d",
+    "frozenBaselineCommit": "0746b280cc9f5c00daec7dadc73329779ac658e9",
+    "records": 1050,
+    "categories": 56,
+    "markdownParsers": 12,
+    "registry": 1050,
+    "databaseDifferences": 0,
+    "compiledDifferences": 0,
+    "controlDifferences": 0,
+    "productionReader": "Markdown",
+    "output": "/private/tmp/catalog-b-20261025/rehearsal-delivery"
+  },
+  "browser": {
+    "regressionChecks": 22,
+    "importChecks": 22,
+    "viewports": [
+      [
+        1440,
+        1000
+      ],
+      [
+        390,
+        900
+      ]
+    ],
+    "errors": 0,
+    "externalPosts": 0,
+    "screenshots": 16,
+    "visualInspection": "five current workspaces and import/restoration/missing-source states inspected",
+    "firstAttempt": "final screenshot timeout with 22 checks and no browser errors; independent unchanged rerun passed"
+  },
+  "preservation": {
+    "trackedFilesBefore": 1475,
+    "unrelatedFilesProtected": 140,
+    "unrelatedDifferences": 0,
+    "sealedDifferences": 0
+  },
+  "remoteCI": "not run for uncommitted B changes",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "deployed": false,
+  "evidenceLogs": "ANSI color and trailing whitespace removed from report copies only; original logs remain in /private/tmp/catalog-b-20261025; prompt baselines unchanged"
+}

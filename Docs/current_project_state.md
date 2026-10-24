@@ -2,7 +2,15 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-24
+Last updated: 2026-10-25
+
+## 目錄資料架構 v1.1：B 已驗收、授權交付（2026-10-25）
+
+- 依 Cooper 授權，以 main `548a5c402b025e243bda16c873527dca6c95b75d` 完成 B：strict 完整性 CI 接線、56 分類 schema、22 頂層／67 含巢狀路徑責任映射、歷史 ID 驗證器及 repo 外隔離演練。正式來源仍是六份 Markdown＋metadata＋manifest；C 的 JSON 來源／正式 registry 啟用未開始，P5b 未開始。
+- 演練 1,050 筆、56 分類、1,050 初始 frozen ID、兩個 parser 共 12 組 Markdown round-trip；database、compiled catalog、final controls 零差異。僅保留 J12 兩個精確歷史別名例外，0 新 blocker／0 過期例外。所有正式資料、runtime、舊 A 基準與 140 份其他未提交內容 SHA 不變。
+- 本機前端 1,821/1,821、Prompt Quality 754/754、Python 21/21、Node 工具 10/10；lint／build／sync／公開資產通過。A 重播 3,251 筆（2,851 不同案例）零差異；同 seed 200 audit 前後一致，0 blockers／18 既有診斷。桌手機五工作區、舊還原及全身匯入各 22 項通過，無瀏覽器錯誤／外部 POST。
+- [B 報告與檔案清單](reports/catalog-architecture-b-2026-10-25/README.md)、[工具操作與邊界](../knowledge_base/catalog/README.md)、[v1.1 §12](specs/catalog-data-architecture-v1.md#12-b-切換準備交付2026-10-25)。Cooper 已確認本輪 B 驗收通過，授權只提交並 push 本批文件、schema、驗收工具與 CI 設定；其他未提交內容保留。Git 與該提交 CI 的實際結果另行核對，不將授權當成已成功交付。下方 A 及文件交付段落保留為歷史，B 的最新授權與狀態以本段為準。
+
 
 ## 神情姿態文件整理、原稿歸檔與姿勢去向盤點（2026-10-24，已驗收、授權交付）
 

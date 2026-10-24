@@ -1,0 +1,593 @@
+{
+  "common": {
+    "required": [
+      "id",
+      "legacyIds",
+      "zh",
+      "en",
+      "desc"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "legacyIds": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "zh": {
+        "type": "string",
+        "minLength": 1
+      },
+      "en": {
+        "type": "string",
+        "minLength": 1
+      },
+      "desc": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "sections": {
+    "Regional": {
+      "properties": {
+        "inspiration": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "inspiration"
+      ],
+      "categories": {
+        "攝影風格": {
+          "properties": {}
+        }
+      }
+    },
+    "Wardrobe": {
+      "properties": {},
+      "required": [],
+      "categories": {
+        "特殊穿搭 (Special Outfits)": {
+          "properties": {}
+        },
+        "套裝 (Outfit Presets)": {
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "series": {
+                  "type": "string"
+                },
+                "colorMode": {
+                  "type": "string"
+                },
+                "contrastBehavior": {
+                  "type": "string"
+                },
+                "lockedOptional": {
+                  "type": "boolean"
+                },
+                "colorTargets": {
+                  "type": "object",
+                  "properties": {
+                    "primary": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "contrast": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "locked": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "embeddedOuterwear": {
+                  "type": "boolean"
+                },
+                "shirtBlackBottom": {
+                  "type": "string"
+                },
+                "legacyPromptAliases": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "primaryColorBehavior": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "上身 (Tops)": {
+          "properties": {
+            "topUnderbust": {
+              "type": "object",
+              "properties": {
+                "baseEn": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            "wearableColorTarget": {
+              "type": "string"
+            },
+            "legacyPromptAliases": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "legacyLabels": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "上身圖案 (Top Surface Design)": {
+          "properties": {}
+        },
+        "連身 (Dresses)": {
+          "properties": {
+            "legacyPromptAliases": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "褲裝 (Pants)": {
+          "properties": {
+            "legacyLabels": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "legacyPromptAliases": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "bottomWaist": {
+              "type": "object",
+              "properties": {
+                "supportsUnfastenedFly": {
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "裙裝 (Skirts)": {
+          "properties": {}
+        },
+        "下身圖案 (Bottom Surface Design)": {
+          "properties": {}
+        },
+        "襪類 (Legwear)": {
+          "properties": {}
+        },
+        "外套版型 (Outerwear Fit)": {
+          "properties": {
+            "outerwearFit": {
+              "type": "object",
+              "properties": {
+                "fit": {
+                  "type": "string"
+                },
+                "length": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "外套 (Outerwear)": {
+          "properties": {
+            "outerwear": {
+              "type": "object",
+              "properties": {
+                "baseEn": {
+                  "type": "string"
+                },
+                "fasteners": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "rollableSleeves": {
+                  "type": "boolean"
+                },
+                "retired": {
+                  "type": "boolean"
+                },
+                "defaultFit": {
+                  "type": "string"
+                },
+                "defaultLength": {
+                  "type": "string"
+                },
+                "canonicalLegacy": {
+                  "type": "boolean"
+                },
+                "closedInnerLayerVisibility": {
+                  "type": "string"
+                },
+                "colorTargetsBody": {
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            },
+            "legacyPromptAliases": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "legacyLabels": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "外套開合 (Outerwear Opening)": {
+          "properties": {
+            "outerwearFastenerRequirement": {
+              "type": "string"
+            },
+            "legacyPromptAliases": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "外套穿法 (Outerwear Styling)": {
+          "properties": {
+            "legacyPromptAliases": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "randomEligible": {
+              "type": "boolean"
+            },
+            "outerwearStyling": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string"
+                },
+                "throughFabricEn": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "外套圖案 (Outerwear Surface Design)": {
+          "properties": {
+            "legacyPromptAliases": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "鞋款 (Shoes)": {
+          "properties": {}
+        },
+        "頭部配件 (Head Accessories)": {
+          "properties": {
+            "headAccessoryColorTarget": {
+              "type": "string"
+            }
+          }
+        },
+        "眼鏡 (Eyewear)": {
+          "properties": {
+            "eyewearColorTarget": {
+              "type": "string"
+            },
+            "eyewearPlacementMode": {
+              "type": "string"
+            }
+          }
+        },
+        "眼鏡配色 (Eyewear Color)": {
+          "properties": {}
+        },
+        "眼鏡配戴方式 (Eyewear Placement)": {
+          "properties": {}
+        },
+        "耳環 (Earrings)": {
+          "properties": {}
+        },
+        "鼻部穿孔 (Nose Piercings)": {
+          "properties": {}
+        },
+        "唇部穿孔 (Lip Piercings)": {
+          "properties": {}
+        },
+        "頸部 (Neck Accessories)": {
+          "properties": {}
+        },
+        "腰部配件 (Waist Accessories)": {
+          "properties": {}
+        }
+      }
+    },
+    "CameraLighting": {
+      "properties": {},
+      "required": [],
+      "categories": {
+        "景別構圖 (Framing)": {
+          "properties": {}
+        },
+        "相機視角 (Angle)": {
+          "properties": {}
+        },
+        "拍攝方位 (Orbit Angle)": {
+          "properties": {}
+        },
+        "鏡頭焦段 (Focal Length)": {
+          "properties": {}
+        },
+        "光圈 / 景深 (Aperture & Depth of Field)": {
+          "properties": {}
+        },
+        "快門 / 動態殘影 (Shutter & Motion Blur)": {
+          "properties": {}
+        },
+        "環境光條件 (Ambient Light Conditions)": {
+          "properties": {}
+        },
+        "光線表現 (Light Style)": {
+          "properties": {
+            "subjectLight": {
+              "type": "object",
+              "properties": {
+                "independentKey": {
+                  "type": "boolean"
+                },
+                "sourceEn": {
+                  "type": "string"
+                },
+                "tags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "底片與相機模擬 (Camera & Film Simulation)": {
+          "properties": {}
+        },
+        "光學效果 (Optical Effects)": {
+          "properties": {}
+        }
+      }
+    },
+    "Locations": {
+      "properties": {},
+      "required": [],
+      "categories": {
+        "攝影棚與背景 (Studio Sets)": {
+          "properties": {
+            "lyingSurface": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "en": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "生活感室內 (Indoor & Lifestyle)": {
+          "properties": {
+            "lyingSurface": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "en": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "地下與廢墟風格 (Abandoned & Underground)": {
+          "properties": {
+            "lyingSurface": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "en": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "城市與社群感 (Urban & Social Snapshots)": {
+          "properties": {
+            "lyingSurface": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "en": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "自然與戶外 (Nature & Outdoors)": {
+          "properties": {
+            "lyingSurface": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "en": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "其他專屬場景 (Other Dedicated Scenes)": {
+          "properties": {
+            "lyingSurface": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "en": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    },
+    "Character": {
+      "properties": {},
+      "required": [],
+      "categories": {
+        "五官特徵 (Facial Features)": {
+          "properties": {
+            "mj": {
+              "type": "object",
+              "properties": {
+                "face": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            "legacyPromptAliases": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "膚質特徵 (Skin Details)": {
+          "properties": {}
+        },
+        "體態 (Body Type)": {
+          "properties": {
+            "legacyPromptAliases": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "髮型 (Hairstyle)": {
+          "properties": {}
+        },
+        "髮絲整理狀態 (Hair Styling State)": {
+          "properties": {}
+        },
+        "髮色 (Hair Color)": {
+          "properties": {}
+        },
+        "表情 (Facial Expression)": {
+          "properties": {}
+        },
+        "姿勢與肢體語言 (Pose & Body Language)": {
+          "properties": {}
+        },
+        "特殊動作 (Special Actions)": {
+          "properties": {}
+        }
+      }
+    },
+    "Negative": {
+      "properties": {},
+      "required": [],
+      "categories": {
+        "通用人體防護": {
+          "properties": {}
+        },
+        "畫質與渲染防護": {
+          "properties": {}
+        },
+        "風格與寫實度防護": {
+          "properties": {}
+        },
+        "場景與物理防護": {
+          "properties": {}
+        },
+        "服裝與材質防護": {
+          "properties": {}
+        },
+        "特定主題防護 (依需求加入)": {
+          "properties": {}
+        }
+      }
+    }
+  }
+}

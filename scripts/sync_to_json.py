@@ -254,6 +254,130 @@ def merge_explicit_item_metadata(database, metadata):
     return merged_count
 
 
+# Catalog architecture B: dormant validators. build_database still reads Markdown.
+CATALOG_SCHEMA_KEYWORDS = {'type', 'enum', 'required', 'properties', 'items', 'additionalProperties', 'pattern', 'minLength'}
+CATALOG_TYPES = {'object', 'array', 'string', 'boolean', 'number', 'integer', 'null'}
+
+
+def catalog_error(file, entry_id, path, expected, actual):
+    raise SyncValidationError(f'{file}: id={entry_id} field={path}: expected {expected}; actual {actual!r}')
+
+
+def validate_schema_definition(schema, file='<schema>', path='$'):
+    if not isinstance(schema, dict) or not schema:
+        catalog_error(file, '<schema>', path, 'nonempty schema object', schema)
+    unknown = set(schema) - CATALOG_SCHEMA_KEYWORDS
+    if unknown:
+        catalog_error(file, '<schema>', path, 'supported keywords', sorted(unknown))
+    types = schema.get('type')
+    types = types if isinstance(types, list) else [types]
+    if not types or any(not isinstance(t, str) for t in types) or len(set(types)) != len(types) or any(t not in CATALOG_TYPES for t in types):
+        catalog_error(file, '<schema>', path, 'explicit supported type(s)', types)
+    if 'enum' in schema and (not isinstance(schema['enum'], list) or not schema['enum']):
+        catalog_error(file, '<schema>', path, 'nonempty enum array', schema['enum'])
+    for keyword in ('properties', 'required', 'additionalProperties'):
+        if keyword in schema and 'object' not in types:
+            catalog_error(file, '<schema>', path, 'object type for '+keyword, types)
+    if 'properties' in schema:
+        if not isinstance(schema['properties'], dict):
+            catalog_error(file, '<schema>', path, 'properties object', schema['properties'])
+        for key, value in schema['properties'].items():
+            validate_schema_definition(value, file, path+'.'+key)
+    required = schema.get('required', [])
+    if not isinstance(required, list) or any(not isinstance(k, str) for k in required) or len(set(required)) != len(required):
+        catalog_error(file, '<schema>', path, 'unique required names', required)
+    if set(required) - set(schema.get('properties', {})):
+        catalog_error(file, '<schema>', path, 'required names declared in properties', required)
+    if 'additionalProperties' in schema and type(schema['additionalProperties']) is not bool:
+        catalog_error(file, '<schema>', path, 'boolean additionalProperties', schema['additionalProperties'])
+    if 'array' in types:
+        if 'items' not in schema:
+            catalog_error(file, '<schema>', path, 'explicit array items schema', schema)
+        validate_schema_definition(schema['items'], file, path+'[]')
+    elif 'items' in schema:
+        catalog_error(file, '<schema>', path, 'array type for items', types)
+    if 'minLength' in schema:
+        if 'string' not in types or type(schema['minLength']) is not int or schema['minLength'] < 0:
+            catalog_error(file, '<schema>', path, 'nonnegative integer minLength on string', schema['minLength'])
+    if 'pattern' in schema:
+        if 'string' not in types or not isinstance(schema['pattern'], str):
+            catalog_error(file, '<schema>', path, 'string pattern on string', schema['pattern'])
+        try:
+            re.compile(schema['pattern'])
+        except re.error as exc:
+            catalog_error(file, '<schema>', path, 'valid regex', str(exc))
+
+
+def validate_catalog_value(value, schema, file='<catalog>', entry_id='<unknown>', path='$', check_schema=True):
+    if check_schema:
+        validate_schema_definition(schema, file)
+    types = schema['type'] if isinstance(schema['type'], list) else [schema['type']]
+    matches = {'object': isinstance(value, dict), 'array': isinstance(value, list), 'string': isinstance(value, str),
+               'boolean': type(value) is bool, 'integer': type(value) is int,
+               'number': type(value) in (int, float), 'null': value is None}
+    if not any(matches[t] for t in types):
+        catalog_error(file, entry_id, path, types, value)
+    # bool is an int subclass in Python; enum comparison must preserve JSON types.
+    if 'enum' in schema and not any(type(value) is type(v) and value == v for v in schema['enum']):
+        catalog_error(file, entry_id, path, schema['enum'], value)
+    if isinstance(value, str):
+        if len(value) < schema.get('minLength', 0) or (schema.get('minLength', 0) > 0 and not value.strip()):
+            catalog_error(file, entry_id, path, 'nonempty string of required length', value)
+        if 'pattern' in schema and not re.search(schema['pattern'], value):
+            catalog_error(file, entry_id, path, schema['pattern'], value)
+    if isinstance(value, dict):
+        for key in schema.get('required', []):
+            if key not in value:
+                catalog_error(file, entry_id, path+'.'+key, 'required field', '<missing>')
+        properties = schema.get('properties', {})
+        for key, child in value.items():
+            if key not in properties:
+                if schema.get('additionalProperties', True) is False:
+                    catalog_error(file, entry_id, path+'.'+key, 'known field', child)
+            else:
+                validate_catalog_value(child, properties[key], file, entry_id, path+'.'+key, False)
+    if isinstance(value, list):
+        for i, child in enumerate(value):
+            validate_catalog_value(child, schema['items'], file, entry_id, f'{path}[{i}]', False)
+
+
+def merged_catalog_schema(wrapper, section, category):
+    if set(wrapper) != {'common', 'sections'} or not isinstance(wrapper['sections'], dict):
+        raise SyncValidationError('schema wrapper must contain common and sections only')
+    if section not in wrapper['sections']:
+        raise SyncValidationError(f'Unknown schema section {section}')
+    scope = wrapper['sections'][section]
+    if set(scope) - {'properties', 'required', 'categories'} or category not in scope.get('categories', {}):
+        raise SyncValidationError(f'Unknown schema category/keyword {section}/{category}')
+    result = {'type': 'object', 'properties': {}, 'required': [], 'additionalProperties': False}
+    for layer in (wrapper['common'], {k: v for k, v in scope.items() if k != 'categories'}, scope['categories'][category]):
+        if not isinstance(layer, dict) or set(layer) - {'properties', 'required'}:
+            raise SyncValidationError(f'Unknown wrapper keyword in {section}/{category}')
+        if not isinstance(layer.get('properties', {}), dict) or not isinstance(layer.get('required', []), list):
+            raise SyncValidationError(f'Invalid schema layer in {section}/{category}')
+        for key, value in layer.get('properties', {}).items():
+            if key in result['properties'] and result['properties'][key] != value:
+                raise SyncValidationError(f'Conflicting schema definition {section}/{category}/{key}')
+            result['properties'][key] = value
+        for key in layer.get('required', []):
+            if key not in result['required']:
+                result['required'].append(key)
+    validate_schema_definition(result)
+    return result
+
+
+def validate_catalog_records(wrapper, section, category, records, file='<catalog>'):
+    schema = merged_catalog_schema(wrapper, section, category)
+    if not isinstance(records, list) or not records:
+        raise SyncValidationError(f'{file}: expected nonempty entries array')
+    for row in records:
+        entry_id = row.get('id', '<missing>') if isinstance(row, dict) else '<invalid>'
+        validate_catalog_value(row, schema, file, entry_id, check_schema=False)
+        for key in ('zh', 'en', 'desc', 'inspiration'):
+            if key in row and ('|' in row[key] or '\n' in row[key] or '\r' in row[key]):
+                catalog_error(file, entry_id, key, 'single Markdown cell without pipes/newlines', row[key])
+
+
 def build_database():
     print('Starting sync from MD to JSON...')
     database = {}

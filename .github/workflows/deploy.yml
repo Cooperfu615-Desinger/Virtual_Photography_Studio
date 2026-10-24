@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Test data sync validation
         run: python3 -m unittest discover -s scripts/tests
@@ -43,6 +45,15 @@ jobs:
       - name: Install dependencies
         working-directory: webapp
         run: npm ci
+
+      - name: Validate catalog integrity
+        run: node scripts/check_catalog_integrity.mjs --strict
+
+      - name: Test catalog preparation tools
+        run: node --test scripts/tests/catalog-integrity.test.mjs
+
+      - name: Rehearse catalog conversion outside the repository
+        run: node scripts/migrations/migrate_catalog_to_json.mjs --output "$RUNNER_TEMP/catalog-b-rehearsal" --source-sha "$(git rev-parse HEAD)"
 
       - name: Test
         working-directory: webapp

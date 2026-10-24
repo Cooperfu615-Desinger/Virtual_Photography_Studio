@@ -1,0 +1,14 @@
+[
+  {
+    "code": "LEGACY_ID_AMBIGUOUS",
+    "itemKey": "duoPoseId:shoulder-lean",
+    "reason": "保留既有雙人姿勢別名命中順序；本階段不修正產品資料。",
+    "decisionRef": "Docs/reports/database-analysis-2026-10-11/README.md (decision table J12)"
+  },
+  {
+    "code": "LEGACY_ID_AMBIGUOUS",
+    "itemKey": "duoPoseId:leaning-shoulders",
+    "reason": "保留既有雙人姿勢別名命中順序；本階段不修正產品資料。",
+    "decisionRef": "Docs/reports/database-analysis-2026-10-11/README.md (decision table J12)"
+  }
+]

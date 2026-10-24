@@ -1,0 +1,1650 @@
+{
+  "generatedAt": "2026-10-24T16:29:04.954Z",
+  "repo": "/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio",
+  "confirmedIssues": [
+    {
+      "code": "LEGACY_ID_AMBIGUOUS",
+      "itemKey": "duoPoseId:shoulder-lean",
+      "message": "Token has multiple owners in this control",
+      "evidence": [
+        "fashion-editorial-models",
+        "best-friends-selfie"
+      ]
+    },
+    {
+      "code": "LEGACY_ID_AMBIGUOUS",
+      "itemKey": "duoPoseId:leaning-shoulders",
+      "message": "Token has multiple owners in this control",
+      "evidence": [
+        "fashion-editorial-models",
+        "best-friends-selfie"
+      ]
+    }
+  ],
+  "possibleIssues": [
+    {
+      "code": "TAGS_INFERRED_FROM_TEXT",
+      "message": "785 個目錄選項的 2291 個 tags（192 種）全部由 engine.js 依 zh/en 文字推論；database.json 沒有任何顯式 tags，改寫 en 可能靜默改變相容性過濾",
+      "evidence": []
+    },
+    {
+      "code": "DANGLING_ID_TEST",
+      "message": "測試/fixture 中 6 個硬寫目錄 ID 找不到（可能是刻意的舊資料案例）",
+      "evidence": [
+        "webapp/src/lib/engineExpressionPoseCleanup.test.js:479 character:特殊動作-special-actions:男友視角拍攝:26",
+        "webapp/src/lib/engineMirrorSelfieProp.test.js:121 character:特殊動作-special-actions:鏡子自拍:25",
+        "webapp/src/lib/engineMirrorSelfieProp.test.js:144 character:特殊動作-special-actions:鏡子自拍:25",
+        "webapp/src/lib/engineOutfitPresetDressCleanup.test.js:801 wardrobe:套裝-outfit-presets:玫瑰粉乳膠迷你洋裝套裝:3",
+        "webapp/src/lib/engineOutfitPresetDressCleanup.test.js:808 wardrobe:套裝-outfit-presets:套裝-乳膠迷你洋裝:3",
+        "webapp/src/lib/engineOutfitPresetDressCleanup.test.js:827 wardrobe:套裝-outfit-presets:經典漢服套裝:26"
+      ]
+    },
+    {
+      "code": "DANGLING_ZH_LITERAL",
+      "message": "1 個 zh 比對字串在目錄/controls 找不到（可能比對的是內嵌目錄或已退役條目，需人工確認）",
+      "evidence": [
+        "webapp/src/lib/engine.js:2002 霓虹夜色"
+      ]
+    },
+    {
+      "code": "UNKNOWN_CATEGORY_LITERAL",
+      "message": "9 個硬寫分類名稱不在 database.json（多為舊分類名，用於 legacy/fallback）",
+      "evidence": [
+        "webapp/src/lib/engine.js:169 神情與眼神 (Expression & Gaze)",
+        "webapp/src/lib/engine.js:1035 環境光氛 (Environment Mood)",
+        "webapp/src/lib/engine.js:2626 特殊效果 (Special Effects)",
+        "webapp/src/lib/engine.js:2710 平視角 (Eye-Level Angle)",
+        "webapp/src/lib/engine.js:2714 仰角 (Low Angle)",
+        "webapp/src/lib/engine.js:2715 俯角 (High Angle)",
+        "webapp/src/lib/engine.js:2742 拍立得效果 (Polaroid Style)",
+        "webapp/src/lib/engine.js:2755 中片幅數位單眼 (Medium Format DSLR)",
+        "webapp/src/lib/engine.js:3459 特殊效果 (Special Effects)"
+      ]
+    },
+    {
+      "code": "CARD_LAYER_DUPLICATION",
+      "message": "characterCardLab.js 的 134 段 wardrobeLayers 文字中 122 段與 characterProfiles.js 逐字重複；其餘 12 段不一致（改寫或漂移，需人工判斷）",
+      "evidence": [
+        "characterCardLab.js:148 shoes",
+        "characterCardLab.js:208 outerwear",
+        "characterCardLab.js:218 top",
+        "characterCardLab.js:220 shoes",
+        "characterCardLab.js:247 shoes",
+        "characterCardLab.js:282 top",
+        "characterCardLab.js:293 outerwear",
+        "characterCardLab.js:313 outerwear",
+        "characterCardLab.js:315 neckAccessory",
+        "characterCardLab.js:317 ring",
+        "characterCardLab.js:352 shoes",
+        "characterCardLab.js:353 neckAccessory"
+      ]
+    }
+  ],
+  "sections": {
+    "catalog": {
+      "databaseBytes": 471445,
+      "totalItems": 1050,
+      "noneRows": 43,
+      "groups": {
+        "Regional": {
+          "categories": {
+            "攝影風格": 26
+          },
+          "items": 26
+        },
+        "Wardrobe": {
+          "categories": {
+            "特殊穿搭 (Special Outfits)": 91,
+            "套裝 (Outfit Presets)": 59,
+            "上身 (Tops)": 46,
+            "上身圖案 (Top Surface Design)": 26,
+            "連身 (Dresses)": 25,
+            "褲裝 (Pants)": 34,
+            "裙裝 (Skirts)": 32,
+            "下身圖案 (Bottom Surface Design)": 15,
+            "襪類 (Legwear)": 12,
+            "外套版型 (Outerwear Fit)": 10,
+            "外套 (Outerwear)": 23,
+            "外套開合 (Outerwear Opening)": 6,
+            "外套穿法 (Outerwear Styling)": 8,
+            "外套圖案 (Outerwear Surface Design)": 8,
+            "鞋款 (Shoes)": 36,
+            "頭部配件 (Head Accessories)": 19,
+            "眼鏡 (Eyewear)": 11,
+            "眼鏡配色 (Eyewear Color)": 13,
+            "眼鏡配戴方式 (Eyewear Placement)": 3,
+            "耳環 (Earrings)": 10,
+            "鼻部穿孔 (Nose Piercings)": 5,
+            "唇部穿孔 (Lip Piercings)": 5,
+            "頸部 (Neck Accessories)": 31,
+            "腰部配件 (Waist Accessories)": 11
+          },
+          "items": 539
+        },
+        "CameraLighting": {
+          "categories": {
+            "景別構圖 (Framing)": 11,
+            "相機視角 (Angle)": 11,
+            "拍攝方位 (Orbit Angle)": 9,
+            "鏡頭焦段 (Focal Length)": 13,
+            "光圈 / 景深 (Aperture & Depth of Field)": 6,
+            "快門 / 動態殘影 (Shutter & Motion Blur)": 7,
+            "環境光條件 (Ambient Light Conditions)": 37,
+            "光線表現 (Light Style)": 32,
+            "底片與相機模擬 (Camera & Film Simulation)": 26,
+            "光學效果 (Optical Effects)": 20
+          },
+          "items": 172
+        },
+        "Locations": {
+          "categories": {
+            "攝影棚與背景 (Studio Sets)": 15,
+            "生活感室內 (Indoor & Lifestyle)": 39,
+            "地下與廢墟風格 (Abandoned & Underground)": 27,
+            "城市與社群感 (Urban & Social Snapshots)": 57,
+            "自然與戶外 (Nature & Outdoors)": 12,
+            "其他專屬場景 (Other Dedicated Scenes)": 5
+          },
+          "items": 155
+        },
+        "Character": {
+          "categories": {
+            "五官特徵 (Facial Features)": 7,
+            "膚質特徵 (Skin Details)": 6,
+            "體態 (Body Type)": 7,
+            "髮型 (Hairstyle)": 32,
+            "髮絲整理狀態 (Hair Styling State)": 5,
+            "髮色 (Hair Color)": 14,
+            "表情 (Facial Expression)": 16,
+            "姿勢與肢體語言 (Pose & Body Language)": 28,
+            "特殊動作 (Special Actions)": 24
+          },
+          "items": 139
+        },
+        "Negative": {
+          "categories": {
+            "通用人體防護": 5,
+            "畫質與渲染防護": 3,
+            "風格與寫實度防護": 3,
+            "場景與物理防護": 3,
+            "服裝與材質防護": 1,
+            "特定主題防護 (依需求加入)": 4
+          },
+          "items": 19
+        }
+      },
+      "fieldCoverage": {
+        "zh": {
+          "count": 1050,
+          "percent": 100
+        },
+        "en": {
+          "count": 1050,
+          "percent": 100
+        },
+        "desc": {
+          "count": 1050,
+          "percent": 100
+        },
+        "meta": {
+          "count": 173,
+          "percent": 16.5
+        },
+        "lyingSurface": {
+          "count": 47,
+          "percent": 4.5
+        },
+        "legacyPromptAliases": {
+          "count": 45,
+          "percent": 4.3
+        },
+        "topUnderbust": {
+          "count": 39,
+          "percent": 3.7
+        },
+        "stableId": {
+          "count": 37,
+          "percent": 3.5
+        },
+        "legacyIds": {
+          "count": 36,
+          "percent": 3.4
+        },
+        "outerwear": {
+          "count": 22,
+          "percent": 2.1
+        },
+        "outerwearFit": {
+          "count": 9,
+          "percent": 0.9
+        },
+        "legacyLabels": {
+          "count": 6,
+          "percent": 0.6
+        },
+        "subjectLight": {
+          "count": 6,
+          "percent": 0.6
+        },
+        "mj": {
+          "count": 6,
+          "percent": 0.6
+        },
+        "outerwearFastenerRequirement": {
+          "count": 4,
+          "percent": 0.4
+        },
+        "randomEligible": {
+          "count": 4,
+          "percent": 0.4
+        },
+        "outerwearStyling": {
+          "count": 4,
+          "percent": 0.4
+        },
+        "wearableColorTarget": {
+          "count": 1,
+          "percent": 0.1
+        },
+        "bottomWaist": {
+          "count": 1,
+          "percent": 0.1
+        },
+        "headAccessoryColorTarget": {
+          "count": 1,
+          "percent": 0.1
+        },
+        "eyewearColorTarget": {
+          "count": 1,
+          "percent": 0.1
+        },
+        "eyewearPlacementMode": {
+          "count": 1,
+          "percent": 0.1
+        }
+      },
+      "emptyEnNonNone": 0,
+      "emptyDescNonNone": 0,
+      "duplicateEnTexts": [],
+      "crossCategoryDuplicateZh": [
+        {
+          "zh": "長版襯衫",
+          "refs": [
+            "Wardrobe/上身 (Tops)",
+            "Wardrobe/外套 (Outerwear)"
+          ]
+        },
+        {
+          "zh": "粗橫條紋",
+          "refs": [
+            "Wardrobe/上身圖案 (Top Surface Design)",
+            "Wardrobe/下身圖案 (Bottom Surface Design)",
+            "Wardrobe/外套圖案 (Outerwear Surface Design)"
+          ]
+        },
+        {
+          "zh": "細直條紋",
+          "refs": [
+            "Wardrobe/上身圖案 (Top Surface Design)",
+            "Wardrobe/下身圖案 (Bottom Surface Design)",
+            "Wardrobe/外套圖案 (Outerwear Surface Design)"
+          ]
+        },
+        {
+          "zh": "胸前龐克塗鴉印花",
+          "refs": [
+            "Wardrobe/上身圖案 (Top Surface Design)",
+            "Wardrobe/外套圖案 (Outerwear Surface Design)"
+          ]
+        },
+        {
+          "zh": "滿版龐克塗鴉印花",
+          "refs": [
+            "Wardrobe/上身圖案 (Top Surface Design)",
+            "Wardrobe/下身圖案 (Bottom Surface Design)",
+            "Wardrobe/外套圖案 (Outerwear Surface Design)"
+          ]
+        },
+        {
+          "zh": "滿版黑白龐克標語塗鴉",
+          "refs": [
+            "Wardrobe/上身圖案 (Top Surface Design)",
+            "Wardrobe/下身圖案 (Bottom Surface Design)"
+          ]
+        },
+        {
+          "zh": "滿版紅黑龐克海報塗鴉",
+          "refs": [
+            "Wardrobe/上身圖案 (Top Surface Design)",
+            "Wardrobe/下身圖案 (Bottom Surface Design)"
+          ]
+        },
+        {
+          "zh": "滿版噴漆標籤龐克塗鴉",
+          "refs": [
+            "Wardrobe/上身圖案 (Top Surface Design)",
+            "Wardrobe/下身圖案 (Bottom Surface Design)"
+          ]
+        },
+        {
+          "zh": "滿版龐克貼紙炸彈印花",
+          "refs": [
+            "Wardrobe/上身圖案 (Top Surface Design)",
+            "Wardrobe/下身圖案 (Bottom Surface Design)"
+          ]
+        },
+        {
+          "zh": "胸前卡通塗鴉印花",
+          "refs": [
+            "Wardrobe/上身圖案 (Top Surface Design)",
+            "Wardrobe/外套圖案 (Outerwear Surface Design)"
+          ]
+        },
+        {
+          "zh": "滿版卡通塗鴉印花",
+          "refs": [
+            "Wardrobe/上身圖案 (Top Surface Design)",
+            "Wardrobe/下身圖案 (Bottom Surface Design)",
+            "Wardrobe/外套圖案 (Outerwear Surface Design)"
+          ]
+        },
+        {
+          "zh": "滿版可愛角色塗鴉印花",
+          "refs": [
+            "Wardrobe/上身圖案 (Top Surface Design)",
+            "Wardrobe/下身圖案 (Bottom Surface Design)"
+          ]
+        },
+        {
+          "zh": "滿版怪奇小怪物塗鴉",
+          "refs": [
+            "Wardrobe/上身圖案 (Top Surface Design)",
+            "Wardrobe/下身圖案 (Bottom Surface Design)"
+          ]
+        },
+        {
+          "zh": "滿版漫畫符號塗鴉",
+          "refs": [
+            "Wardrobe/上身圖案 (Top Surface Design)",
+            "Wardrobe/下身圖案 (Bottom Surface Design)"
+          ]
+        },
+        {
+          "zh": "滿版粉彩手帳塗鴉",
+          "refs": [
+            "Wardrobe/上身圖案 (Top Surface Design)",
+            "Wardrobe/下身圖案 (Bottom Surface Design)"
+          ]
+        },
+        {
+          "zh": "滿版卡通貼紙拼貼印花",
+          "refs": [
+            "Wardrobe/上身圖案 (Top Surface Design)",
+            "Wardrobe/下身圖案 (Bottom Surface Design)"
+          ]
+        },
+        {
+          "zh": "胸前復古標語印花",
+          "refs": [
+            "Wardrobe/上身圖案 (Top Surface Design)",
+            "Wardrobe/外套圖案 (Outerwear Surface Design)"
+          ]
+        }
+      ],
+      "slugLossLabels": []
+    },
+    "runtimeMeta": {
+      "catalogOptionsInControls": 1033,
+      "optionsWithTags": 785,
+      "totalTags": 2291,
+      "distinctTags": 192,
+      "distinctRuntimeMetaKeys": [
+        "accessorySlot",
+        "archetype",
+        "bottomWaist",
+        "colorMode",
+        "colorTargets",
+        "contrastBehavior",
+        "embeddedOuterwear",
+        "family",
+        "legacyLabels",
+        "legacyPromptAliases",
+        "lockedOptional",
+        "minVisibility",
+        "outerwear",
+        "outerwearFastenerRequirement",
+        "outerwearFit",
+        "outerwearStyling",
+        "primaryColorBehavior",
+        "randomEligible",
+        "referenceImage",
+        "referenceImageFormat",
+        "referenceImageId",
+        "series",
+        "shirtBlackBottom",
+        "subjectLight",
+        "tags",
+        "topUnderbust",
+        "visibility",
+        "wearableColorTarget"
+      ],
+      "dbItemsWithExplicitTags": 0
+    },
+    "ids": {
+      "compiledControls": 219,
+      "compiledOptions": 4771,
+      "compiledUniqueIds": 1728,
+      "catalogItemsWithStableId": 37,
+      "catalogItemsWithPositionalId": 1013,
+      "positionalIdPercent": 96.5,
+      "idFormula": "`${group}:${slugify(category)}:${slugify(displayZh)}:${rowIndex}` unless stableId",
+      "categoriesNotFullyReachableByControls": [
+        {
+          "category": "Negative/通用人體防護",
+          "items": 5,
+          "reachedByControls": 0
+        },
+        {
+          "category": "Negative/畫質與渲染防護",
+          "items": 3,
+          "reachedByControls": 0
+        },
+        {
+          "category": "Negative/風格與寫實度防護",
+          "items": 3,
+          "reachedByControls": 0
+        },
+        {
+          "category": "Negative/場景與物理防護",
+          "items": 3,
+          "reachedByControls": 0
+        },
+        {
+          "category": "Negative/服裝與材質防護",
+          "items": 1,
+          "reachedByControls": 0
+        },
+        {
+          "category": "Negative/特定主題防護 (依需求加入)",
+          "items": 4,
+          "reachedByControls": 0
+        }
+      ],
+      "legacyIdTotalDistinct": 1457,
+      "legacyConflicts": [
+        {
+          "control": "duoPoseId",
+          "legacyId": "shoulder-lean",
+          "owners": [
+            "fashion-editorial-models",
+            "best-friends-selfie"
+          ]
+        },
+        {
+          "control": "duoPoseId",
+          "legacyId": "leaning-shoulders",
+          "owners": [
+            "fashion-editorial-models",
+            "best-friends-selfie"
+          ]
+        }
+      ],
+      "legacyShadows": []
+    },
+    "hardcodedReferences": {
+      "idLiterals": {
+        "source": {
+          "current": 454,
+          "legacyOnly": 1,
+          "dangling": []
+        },
+        "test": {
+          "current": 47,
+          "legacyOnly": 53,
+          "dangling": [
+            {
+              "id": "character:特殊動作-special-actions:男友視角拍攝:26",
+              "at": "webapp/src/lib/engineExpressionPoseCleanup.test.js:479"
+            },
+            {
+              "id": "character:特殊動作-special-actions:鏡子自拍:25",
+              "at": "webapp/src/lib/engineMirrorSelfieProp.test.js:121"
+            },
+            {
+              "id": "character:特殊動作-special-actions:鏡子自拍:25",
+              "at": "webapp/src/lib/engineMirrorSelfieProp.test.js:144"
+            },
+            {
+              "id": "wardrobe:套裝-outfit-presets:玫瑰粉乳膠迷你洋裝套裝:3",
+              "at": "webapp/src/lib/engineOutfitPresetDressCleanup.test.js:801"
+            },
+            {
+              "id": "wardrobe:套裝-outfit-presets:套裝-乳膠迷你洋裝:3",
+              "at": "webapp/src/lib/engineOutfitPresetDressCleanup.test.js:808"
+            },
+            {
+              "id": "wardrobe:套裝-outfit-presets:經典漢服套裝:26",
+              "at": "webapp/src/lib/engineOutfitPresetDressCleanup.test.js:827"
+            }
+          ]
+        }
+      },
+      "zhComparisons": {
+        "checked": 94,
+        "dangling": [
+          {
+            "zh": "霓虹夜色",
+            "at": "webapp/src/lib/engine.js:2002"
+          }
+        ]
+      },
+      "targetZh": {
+        "checked": 242,
+        "dangling": []
+      },
+      "categoryLiterals": {
+        "checked": 405,
+        "unknown": [
+          {
+            "category": "神情與眼神 (Expression & Gaze)",
+            "at": "webapp/src/lib/engine.js:169"
+          },
+          {
+            "category": "環境光氛 (Environment Mood)",
+            "at": "webapp/src/lib/engine.js:1035"
+          },
+          {
+            "category": "特殊效果 (Special Effects)",
+            "at": "webapp/src/lib/engine.js:2626"
+          },
+          {
+            "category": "平視角 (Eye-Level Angle)",
+            "at": "webapp/src/lib/engine.js:2710"
+          },
+          {
+            "category": "仰角 (Low Angle)",
+            "at": "webapp/src/lib/engine.js:2714"
+          },
+          {
+            "category": "俯角 (High Angle)",
+            "at": "webapp/src/lib/engine.js:2715"
+          },
+          {
+            "category": "拍立得效果 (Polaroid Style)",
+            "at": "webapp/src/lib/engine.js:2742"
+          },
+          {
+            "category": "中片幅數位單眼 (Medium Format DSLR)",
+            "at": "webapp/src/lib/engine.js:2755"
+          },
+          {
+            "category": "特殊效果 (Special Effects)",
+            "at": "webapp/src/lib/engine.js:3459"
+          }
+        ]
+      }
+    },
+    "embeddedMaps": {
+      "midjourneyItemNames": {
+        "entries": 286,
+        "dangling": [],
+        "compiledWardrobeOptionsNonNone": 518,
+        "coveredWardrobeOptions": 286,
+        "coveragePercent": 55.2,
+        "byCategory": {
+          "特殊穿搭-special-outfits": {
+            "covered": 0,
+            "total": 90
+          },
+          "套裝-outfit-presets": {
+            "covered": 0,
+            "total": 59
+          },
+          "連身-dresses": {
+            "covered": 24,
+            "total": 24
+          },
+          "上身-tops": {
+            "covered": 45,
+            "total": 45
+          },
+          "上身圖案-top-surface-design": {
+            "covered": 0,
+            "total": 25
+          },
+          "褲裝-pants": {
+            "covered": 33,
+            "total": 33
+          },
+          "裙裝-skirts": {
+            "covered": 31,
+            "total": 31
+          },
+          "下身圖案-bottom-surface-design": {
+            "covered": 0,
+            "total": 14
+          },
+          "外套-outerwear": {
+            "covered": 22,
+            "total": 22
+          },
+          "外套版型-outerwear-fit": {
+            "covered": 0,
+            "total": 9
+          },
+          "外套圖案-outerwear-surface-design": {
+            "covered": 0,
+            "total": 7
+          },
+          "外套開合-outerwear-opening": {
+            "covered": 0,
+            "total": 5
+          },
+          "外套穿法-outerwear-styling": {
+            "covered": 0,
+            "total": 7
+          },
+          "襪類-legwear": {
+            "covered": 11,
+            "total": 11
+          },
+          "鞋款-shoes": {
+            "covered": 35,
+            "total": 35
+          },
+          "headphones": {
+            "covered": 0,
+            "total": 1
+          },
+          "頭部配件-head-accessories": {
+            "covered": 18,
+            "total": 18
+          },
+          "faceCovering": {
+            "covered": 0,
+            "total": 1
+          },
+          "眼鏡-eyewear": {
+            "covered": 10,
+            "total": 10
+          },
+          "眼鏡配色-eyewear-color": {
+            "covered": 0,
+            "total": 12
+          },
+          "眼鏡配戴方式-eyewear-placement": {
+            "covered": 0,
+            "total": 2
+          },
+          "耳環-earrings": {
+            "covered": 9,
+            "total": 9
+          },
+          "鼻部穿孔-nose-piercings": {
+            "covered": 4,
+            "total": 4
+          },
+          "唇部穿孔-lip-piercings": {
+            "covered": 4,
+            "total": 4
+          },
+          "頸部-neck-accessories": {
+            "covered": 30,
+            "total": 30
+          },
+          "腰部配件-waist-accessories": {
+            "covered": 10,
+            "total": 10
+          }
+        }
+      },
+      "midjourneyBodyDescriptions": {
+        "entries": 6,
+        "dangling": []
+      },
+      "ambientLightDescriptions": {
+        "entries": 36,
+        "exactMatch": 36,
+        "missingId": [],
+        "zhDrift": [],
+        "enDrift": [],
+        "catalogLightingWithoutDescription": []
+      },
+      "characterCards": {
+        "labWardrobeLayerStrings": 134,
+        "labWardrobeLayersVerbatimInProfiles": 122,
+        "labWardrobeLayersNotVerbatim": [
+          "characterCardLab.js:148 shoes",
+          "characterCardLab.js:208 outerwear",
+          "characterCardLab.js:218 top",
+          "characterCardLab.js:220 shoes",
+          "characterCardLab.js:247 shoes",
+          "characterCardLab.js:282 top",
+          "characterCardLab.js:293 outerwear",
+          "characterCardLab.js:313 outerwear",
+          "characterCardLab.js:315 neckAccessory",
+          "characterCardLab.js:317 ring",
+          "characterCardLab.js:352 shoes",
+          "characterCardLab.js:353 neckAccessory"
+        ],
+        "profiles": 33,
+        "mjCardNameEntries": 33,
+        "mjCardNamesDangling": [],
+        "profilesWithoutMjCardNames": [],
+        "manifestItems": 33,
+        "profilesNotInManifestById": [],
+        "manifestIdsWithoutProfile": [],
+        "profileImageNotInManifest": [],
+        "missingProfileImages": [],
+        "manifestFileProblems": []
+      }
+    },
+    "manifests": {
+      "wardrobeReferenceEntries": 173,
+      "wardrobeDuplicateIds": [],
+      "wardrobeProblems": [],
+      "itemMetadataTargets": 179,
+      "itemMetadataFieldCounts": {
+        "mj": 6,
+        "legacyPromptAliases": 45,
+        "stableId": 37,
+        "legacyIds": 36,
+        "topUnderbust": 39,
+        "wearableColorTarget": 1,
+        "legacyLabels": 6,
+        "bottomWaist": 1,
+        "headAccessoryColorTarget": 1,
+        "eyewearColorTarget": 1,
+        "eyewearPlacementMode": 1,
+        "outerwearFit": 9,
+        "outerwear": 22,
+        "outerwearFastenerRequirement": 4,
+        "randomEligible": 4,
+        "outerwearStyling": 4,
+        "subjectLight": 6,
+        "lyingSurface": 47
+      },
+      "itemMetadataTargetsMissing": [],
+      "itemMetadataLegacyIds": {
+        "current": 0,
+        "legacyOnlyOrSelf": 36,
+        "notCompiled": []
+      },
+      "outfitPresetMetadataEntries": 59,
+      "outfitPresetMetadataMissing": []
+    },
+    "itemMetadataWhitelist": {
+      "buildEntriesConsumedKeys": [
+        "bottomWaist",
+        "desc",
+        "en",
+        "eyewearColorTarget",
+        "eyewearPlacementMode",
+        "headAccessoryColorTarget",
+        "legacyIds",
+        "legacyLabels",
+        "legacyPromptAliases",
+        "lyingSurface",
+        "meta",
+        "mj",
+        "outerwear",
+        "outerwearFastenerRequirement",
+        "outerwearFit",
+        "outerwearStyling",
+        "randomEligible",
+        "stableId",
+        "subjectLight",
+        "topUnderbust",
+        "wearableColorTarget",
+        "zh"
+      ],
+      "itemMetadataKeys": [
+        "bottomWaist",
+        "eyewearColorTarget",
+        "eyewearPlacementMode",
+        "headAccessoryColorTarget",
+        "legacyIds",
+        "legacyLabels",
+        "legacyPromptAliases",
+        "lyingSurface",
+        "mj",
+        "outerwear",
+        "outerwearFastenerRequirement",
+        "outerwearFit",
+        "outerwearStyling",
+        "randomEligible",
+        "stableId",
+        "subjectLight",
+        "topUnderbust",
+        "wearableColorTarget"
+      ],
+      "ignoredKeys": []
+    },
+    "embeddedInventory": {
+      "modules": [
+        {
+          "file": "webapp/src/lib/engine/characterProfiles.js",
+          "lines": 1061,
+          "exports": {
+            "CHARACTER_PROFILE_OPTIONS": 34
+          },
+          "entries": 34
+        },
+        {
+          "file": "webapp/src/lib/engine/poseComposerOptions.js",
+          "lines": 1635,
+          "exports": {
+            "POSE_COMPOSER_ANCHOR_OPTIONS": 80,
+            "POSE_COMPOSER_ARRANGEMENT_OPTIONS": 82,
+            "POSE_COMPOSER_BASE_OPTIONS": 7,
+            "POSE_COMPOSER_HAND_OPTIONS": 74,
+            "POSE_COMPOSER_HEAD_OPTIONS": 26,
+            "POSE_COMPOSER_ORIENTATION_OPTIONS": 5,
+            "POSE_COMPOSER_PROP_OPTIONS": 15
+          },
+          "entries": 289
+        },
+        {
+          "file": "webapp/src/lib/engine/duoOptions.js",
+          "lines": 298,
+          "exports": {
+            "DUO_EXPRESSION_OPTIONS": 17,
+            "DUO_INTERACTION_OPTIONS": 6,
+            "DUO_POSE_BASE_OPTIONS": 9,
+            "DUO_POSE_OPTIONS": 12
+          },
+          "entries": 44
+        },
+        {
+          "file": "webapp/src/lib/engine/fixedCompositionOptions.js",
+          "lines": 396,
+          "exports": {
+            "FIXED_COMPOSITION_SET_OPTIONS": 15,
+            "FIXED_SET_BACKGROUND_STATE_OPTIONS": 11,
+            "FIXED_SET_CAPTURE_MODE_OPTIONS": 4,
+            "FIXED_SET_PERFORMANCE_STATE_OPTIONS": 11,
+            "FIXED_SET_POSITION_OPTIONS": 44
+          },
+          "entries": 85
+        },
+        {
+          "file": "webapp/src/lib/engine/ambientLightDescriptions.js",
+          "lines": 415,
+          "exports": {
+            "AMBIENT_LIGHT_DESCRIPTIONS": 36
+          },
+          "entries": 36
+        },
+        {
+          "file": "webapp/src/lib/engine/midjourneyItemNames.js",
+          "lines": 290,
+          "exports": {
+            "MIDJOURNEY_ITEM_NAMES": 286
+          },
+          "entries": 286
+        },
+        {
+          "file": "webapp/src/lib/engine/midjourneyCardItemNames.js",
+          "lines": 38,
+          "exports": {
+            "MIDJOURNEY_CARD_ITEM_NAMES": 33
+          },
+          "entries": 33
+        },
+        {
+          "file": "webapp/src/lib/engine/midjourneyBodyDescriptions.js",
+          "lines": 17,
+          "exports": {
+            "MIDJOURNEY_BODY_DESCRIPTIONS": 6
+          },
+          "entries": 6
+        },
+        {
+          "file": "webapp/src/data/actionPoseCards.js",
+          "lines": 65,
+          "exports": {
+            "ACTION_POSE_CARDS": 3,
+            "ACTION_POSE_MODES": 2
+          },
+          "entries": 5
+        },
+        {
+          "file": "webapp/src/data/observationCapturePromptOptions.js",
+          "lines": 298,
+          "exports": {
+            "OBSERVATION_CAPTURE_ACTIONS": 9,
+            "OBSERVATION_CAPTURE_DISCOVERY_STATES": 3,
+            "OBSERVATION_CAPTURE_FOREGROUNDS": 6,
+            "OBSERVATION_CAPTURE_LENSES": 4,
+            "OBSERVATION_CAPTURE_LIGHTING": 6,
+            "OBSERVATION_CAPTURE_OPTION_GROUPS": 8,
+            "OBSERVATION_CAPTURE_POSITIONS": 6,
+            "OBSERVATION_CAPTURE_SCENES": 8,
+            "OBSERVATION_CAPTURE_TEXTURES": 5
+          },
+          "entries": 55
+        },
+        {
+          "file": "webapp/src/data/page3WorldScenes.js",
+          "lines": 791,
+          "exports": {
+            "SPECIAL_SCENE_LOCATIONS": 7,
+            "WORLD_SCENE_LOCATIONS": 50
+          },
+          "entries": 57
+        }
+      ],
+      "deprecationBurden": [
+        {
+          "file": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_ANCHOR_OPTIONS",
+          "total": 80,
+          "deprecated": 52,
+          "uiHidden": 52,
+          "withLegacyIds": 0
+        },
+        {
+          "file": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_ARRANGEMENT_OPTIONS",
+          "total": 82,
+          "deprecated": 40,
+          "uiHidden": 40,
+          "withLegacyIds": 0
+        },
+        {
+          "file": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_HAND_OPTIONS",
+          "total": 74,
+          "deprecated": 23,
+          "uiHidden": 23,
+          "withLegacyIds": 0
+        },
+        {
+          "file": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_HEAD_OPTIONS",
+          "total": 26,
+          "deprecated": 3,
+          "uiHidden": 3,
+          "withLegacyIds": 0
+        },
+        {
+          "file": "webapp/src/lib/engine/duoOptions.js",
+          "export": "DUO_EXPRESSION_OPTIONS",
+          "total": 17,
+          "deprecated": 0,
+          "uiHidden": 8,
+          "withLegacyIds": 0
+        },
+        {
+          "file": "webapp/src/lib/engine/duoOptions.js",
+          "export": "DUO_POSE_OPTIONS",
+          "total": 12,
+          "deprecated": 0,
+          "uiHidden": 0,
+          "withLegacyIds": 6
+        }
+      ],
+      "modulesTotalLines": 5304,
+      "modulesTotalEntries": 930,
+      "engineJs": {
+        "lines": 17189,
+        "topLevelDataTables": 82,
+        "topLevelDataTableLines": 2383,
+        "dataTablePercentOfFile": 13.9,
+        "legacyOrMigrationTables": 21,
+        "legacyOrMigrationTableLines": 536,
+        "legacyOrMigrationTableEntries": 340,
+        "largestTables": [
+          {
+            "name": "TOP_BOTTOM_PALETTE_OPTIONS",
+            "line": 718,
+            "lines": 298,
+            "entries": 44,
+            "legacy": false
+          },
+          {
+            "name": "LOCK_DEFINITIONS",
+            "line": 1084,
+            "lines": 219,
+            "entries": 213,
+            "legacy": false
+          },
+          {
+            "name": "PARTIAL_REROLL_OPTIONS",
+            "line": 1307,
+            "lines": 178,
+            "entries": 176,
+            "legacy": false
+          },
+          {
+            "name": "CHARACTER_EXPRESSION_POSE_LEGACY_OPTION_MAP",
+            "line": 2812,
+            "lines": 114,
+            "entries": 42,
+            "legacy": true
+          },
+          {
+            "name": "WARDROBE_LEGACY_OPTION_MAP",
+            "line": 3022,
+            "lines": 114,
+            "entries": 80,
+            "legacy": true
+          },
+          {
+            "name": "TOP_BOTTOM_PALETTE_SWATCH_HEX",
+            "line": 623,
+            "lines": 79,
+            "entries": 77,
+            "legacy": false
+          },
+          {
+            "name": "CLOSEUP_ALWAYS_ALLOWED_KEYS",
+            "line": 2386,
+            "lines": 70,
+            "entries": 77,
+            "legacy": false
+          },
+          {
+            "name": "DUO_PROMPT_OVERRIDES",
+            "line": 8430,
+            "lines": 69,
+            "entries": 6,
+            "legacy": false
+          },
+          {
+            "name": "EFFECTIVE_WARDROBE_LOCK_KEYS",
+            "line": 2322,
+            "lines": 64,
+            "entries": 71,
+            "legacy": false
+          },
+          {
+            "name": "IMAGE_TYPE_PRESET_OPTIONS",
+            "line": 176,
+            "lines": 62,
+            "entries": 6,
+            "legacy": false
+          },
+          {
+            "name": "GARMENT_COLOR_OPTIONS",
+            "line": 415,
+            "lines": 57,
+            "entries": 26,
+            "legacy": false
+          },
+          {
+            "name": "Z_IMAGE_REDUNDANT_SOURCE_FRAGMENTS",
+            "line": 12571,
+            "lines": 56,
+            "entries": 54,
+            "legacy": false
+          },
+          {
+            "name": "SPECIAL_SUBJECT_OPTIONS",
+            "line": 295,
+            "lines": 54,
+            "entries": 6,
+            "legacy": false
+          },
+          {
+            "name": "CHARACTER_CARD_WARDROBE_CONFLICT_TOKENS",
+            "line": 5150,
+            "lines": 46,
+            "entries": 12,
+            "legacy": false
+          },
+          {
+            "name": "SINGLE_BODY_TYPE_ANCHOR_RULES",
+            "line": 12217,
+            "lines": 42,
+            "entries": 10,
+            "legacy": false
+          },
+          {
+            "name": "CHARACTER_IDENTITY_LEGACY_OPTION_MAP",
+            "line": 2771,
+            "lines": 40,
+            "entries": 38,
+            "legacy": true
+          },
+          {
+            "name": "CHEST_VISIBLE_HAND_IDS",
+            "line": 5898,
+            "lines": 38,
+            "entries": 36,
+            "legacy": false
+          },
+          {
+            "name": "CHARACTER_PROFILE_CONTROL_ORDER",
+            "line": 351,
+            "lines": 35,
+            "entries": 33,
+            "legacy": false
+          },
+          {
+            "name": "WARDROBE_LEGACY_PROMPT_ALIASES",
+            "line": 3137,
+            "lines": 31,
+            "entries": 6,
+            "legacy": true
+          },
+          {
+            "name": "CHARACTER_POSE_TO_POSE_COMPOSER_MIGRATIONS",
+            "line": 2987,
+            "lines": 29,
+            "entries": 27,
+            "legacy": true
+          },
+          {
+            "name": "REGIONAL_STYLE_LEGACY_OPTION_MAP",
+            "line": 2672,
+            "lines": 28,
+            "entries": 26,
+            "legacy": true
+          },
+          {
+            "name": "STYLE_PROMPT_INTROS",
+            "line": 8384,
+            "lines": 28,
+            "entries": 26,
+            "legacy": false
+          },
+          {
+            "name": "HEAD_ACCESSORY_COLOR_TERMS",
+            "line": 9979,
+            "lines": 28,
+            "entries": 26,
+            "legacy": false
+          },
+          {
+            "name": "WARDROBE_RANDOM_OPTIONS",
+            "line": 1563,
+            "lines": 26,
+            "entries": 3,
+            "legacy": false
+          },
+          {
+            "name": "CHARACTER_SPECIAL_ACTION_TO_POSE_COMPOSER_MIGRATIONS",
+            "line": 2951,
+            "lines": 25,
+            "entries": 23,
+            "legacy": true
+          },
+          {
+            "name": "FACE_ONLY_CLOSEUP_ALLOWED_KEYS",
+            "line": 2456,
+            "lines": 24,
+            "entries": 22,
+            "legacy": false
+          },
+          {
+            "name": "LAYER_COLOR_OPTIONS",
+            "line": 473,
+            "lines": 23,
+            "entries": 21,
+            "legacy": false
+          },
+          {
+            "name": "UPPER_BODY_ARRANGEMENT_PHRASES",
+            "line": 5958,
+            "lines": 20,
+            "entries": 18,
+            "legacy": false
+          },
+          {
+            "name": "CAMERA_FILM_LEGACY_OPTION_MAP",
+            "line": 2741,
+            "lines": 18,
+            "entries": 16,
+            "legacy": true
+          },
+          {
+            "name": "LOCATION_LEGACY_PROMPT_ALIASES",
+            "line": 3169,
+            "lines": 18,
+            "entries": 2,
+            "legacy": true
+          },
+          {
+            "name": "GPT_SINGLE_HAIR_COLOR_MERGE_RULES",
+            "line": 12201,
+            "lines": 15,
+            "entries": 13,
+            "legacy": false
+          },
+          {
+            "name": "LEGWEAR_COLOR_OPTIONS",
+            "line": 534,
+            "lines": 14,
+            "entries": 12,
+            "legacy": false
+          },
+          {
+            "name": "OUTFIT_PRESET_PRIMARY_MATERIAL_OPTIONS",
+            "line": 575,
+            "lines": 14,
+            "entries": 2,
+            "legacy": false
+          },
+          {
+            "name": "CHARACTER_EXPRESSION_POSE_LEGACY_SOCIAL_POSE_MIGRATIONS",
+            "line": 2927,
+            "lines": 13,
+            "entries": 8,
+            "legacy": true
+          },
+          {
+            "name": "ADDITIONAL_SHARED_COLOR_OPTIONS",
+            "line": 549,
+            "lines": 12,
+            "entries": 10,
+            "legacy": false
+          },
+          {
+            "name": "COMPLETE_LOOK_PALETTE_OPTIONS",
+            "line": 610,
+            "lines": 12,
+            "entries": 10,
+            "legacy": false
+          },
+          {
+            "name": "LEGACY_EYEWEAR_LOCK_MIGRATIONS",
+            "line": 3777,
+            "lines": 12,
+            "entries": 7,
+            "legacy": true
+          },
+          {
+            "name": "AI_COMPLETE_LOOK_SIGNATURE_PATTERNS",
+            "line": 15224,
+            "lines": 12,
+            "entries": 10,
+            "legacy": false
+          },
+          {
+            "name": "CAMERA_SYSTEM_OPTIONS",
+            "line": 1042,
+            "lines": 11,
+            "entries": 9,
+            "legacy": false
+          },
+          {
+            "name": "CAMERA_AMBIENT_LIGHT_RENAME_LEGACY_OPTION_MAP",
+            "line": 2729,
+            "lines": 11,
+            "entries": 9,
+            "legacy": true
+          },
+          {
+            "name": "AI_CHARACTER_CARD_SELECTED_WARDROBE_LABELS",
+            "line": 14351,
+            "lines": 11,
+            "entries": 9,
+            "legacy": false
+          },
+          {
+            "name": "AI_LEGACY_SINGLE_RENDERER_HELPERS",
+            "line": 15963,
+            "lines": 11,
+            "entries": 9,
+            "legacy": true
+          },
+          {
+            "name": "EUROPEAN_KNIGHT_MJ_PROMPT_BY_BUCKET",
+            "line": 239,
+            "lines": 10,
+            "entries": 8,
+            "legacy": false
+          },
+          {
+            "name": "SENGOKU_SAMURAI_MJ_PROMPT_BY_BUCKET",
+            "line": 273,
+            "lines": 10,
+            "entries": 8,
+            "legacy": false
+          },
+          {
+            "name": "FEMALE_ANDROID_MJ_PROMPT_BY_BUCKET",
+            "line": 284,
+            "lines": 10,
+            "entries": 8,
+            "legacy": false
+          },
+          {
+            "name": "CAMERA_ORBIT_LEGACY_OPTION_MAP",
+            "line": 2718,
+            "lines": 10,
+            "entries": 8,
+            "legacy": true
+          },
+          {
+            "name": "CAMERA_PROFILE_RENDERING_MIGRATIONS",
+            "line": 2760,
+            "lines": 10,
+            "entries": 8,
+            "legacy": true
+          },
+          {
+            "name": "LEGACY_OUTERWEAR_OPENING_LOCK_MIGRATIONS",
+            "line": 3814,
+            "lines": 10,
+            "entries": 5,
+            "legacy": true
+          },
+          {
+            "name": "Z_IMAGE_FIXED_SET_OPENING_PARAGRAPHS",
+            "line": 10848,
+            "lines": 10,
+            "entries": 8,
+            "legacy": false
+          },
+          {
+            "name": "AI_FIXED_SET_SCENE_PHRASES",
+            "line": 10859,
+            "lines": 10,
+            "entries": 8,
+            "legacy": false
+          },
+          {
+            "name": "TOP_FIT_OPTIONS",
+            "line": 497,
+            "lines": 9,
+            "entries": 7,
+            "legacy": false
+          },
+          {
+            "name": "TOP_STYLING_OPTIONS",
+            "line": 507,
+            "lines": 9,
+            "entries": 7,
+            "legacy": false
+          },
+          {
+            "name": "OUTFIT_PRESET_LOCKED_PALETTE_OPTIONS",
+            "line": 600,
+            "lines": 9,
+            "entries": 7,
+            "legacy": false
+          },
+          {
+            "name": "CHARACTER_LEGACY_SELFIE_SPECIAL_ACTION_MIGRATIONS",
+            "line": 2941,
+            "lines": 9,
+            "entries": 4,
+            "legacy": true
+          },
+          {
+            "name": "LEGACY_POSE_HAND_TO_PROP_ID",
+            "line": 2977,
+            "lines": 9,
+            "entries": 7,
+            "legacy": true
+          },
+          {
+            "name": "WARDROBE_OUTFIT_TO_DRESS_LEGACY_LOCK_MIGRATIONS",
+            "line": 3188,
+            "lines": 9,
+            "entries": 4,
+            "legacy": true
+          },
+          {
+            "name": "MEDIUM_HIDDEN_HAND_IDS",
+            "line": 5937,
+            "lines": 9,
+            "entries": 7,
+            "legacy": false
+          },
+          {
+            "name": "AI_CHARACTER_CARD_ACCESSORY_LAYERS",
+            "line": 15590,
+            "lines": 9,
+            "entries": 7,
+            "legacy": false
+          },
+          {
+            "name": "ASPECT_RATIO_POOL",
+            "line": 399,
+            "lines": 8,
+            "entries": 6,
+            "legacy": false
+          },
+          {
+            "name": "BOTTOM_RISE_OPTIONS",
+            "line": 525,
+            "lines": 8,
+            "entries": 6,
+            "legacy": false
+          },
+          {
+            "name": "CAMERA_ANGLE_LEGACY_OPTION_MAP",
+            "line": 2709,
+            "lines": 8,
+            "entries": 6,
+            "legacy": true
+          },
+          {
+            "name": "AI_CHARACTER_CARD_OUTFIT_LAYERS",
+            "line": 15581,
+            "lines": 8,
+            "entries": 6,
+            "legacy": false
+          },
+          {
+            "name": "BOTTOM_FIT_OPTIONS",
+            "line": 517,
+            "lines": 7,
+            "entries": 5,
+            "legacy": false
+          },
+          {
+            "name": "STYLE_NONE_OPTION",
+            "line": 1018,
+            "lines": 7,
+            "entries": 5,
+            "legacy": false
+          },
+          {
+            "name": "OUTFIT_PRESET_NONE_OPTION",
+            "line": 1026,
+            "lines": 7,
+            "entries": 5,
+            "legacy": false
+          },
+          {
+            "name": "CUSTOM_GROUP_OPTIONS",
+            "line": 1486,
+            "lines": 7,
+            "entries": 5,
+            "legacy": false
+          },
+          {
+            "name": "VISIBILITY_ORDER",
+            "line": 1494,
+            "lines": 7,
+            "entries": 5,
+            "legacy": false
+          },
+          {
+            "name": "CAMERA_FRAMING_LEGACY_OPTION_MAP",
+            "line": 2701,
+            "lines": 7,
+            "entries": 5,
+            "legacy": true
+          },
+          {
+            "name": "CHARACTER_CARD_PAGE1_FILLER_LOCKS",
+            "line": 5206,
+            "lines": 7,
+            "entries": 5,
+            "legacy": false
+          },
+          {
+            "name": "SUBJECT_COUNT_OPTIONS",
+            "line": 161,
+            "lines": 6,
+            "entries": 2,
+            "legacy": false
+          },
+          {
+            "name": "CHARACTER_PROFILE_CONTROL_OPTIONS",
+            "line": 387,
+            "lines": 6,
+            "entries": 2,
+            "legacy": false
+          },
+          {
+            "name": "SCENE_ATTRIBUTE_OPTIONS",
+            "line": 1054,
+            "lines": 6,
+            "entries": 4,
+            "legacy": false
+          },
+          {
+            "name": "SCENE_NONE_LOCATION_OPTION",
+            "line": 1060,
+            "lines": 6,
+            "entries": 4,
+            "legacy": false
+          },
+          {
+            "name": "BLACK_SKELETON_MJ_PROMPT_BY_BUCKET",
+            "line": 261,
+            "lines": 5,
+            "entries": 3,
+            "legacy": false
+          },
+          {
+            "name": "WHITE_SKELETON_MJ_PROMPT_BY_BUCKET",
+            "line": 267,
+            "lines": 5,
+            "entries": 3,
+            "legacy": false
+          },
+          {
+            "name": "ASPECT_RATIO_OPTIONS",
+            "line": 408,
+            "lines": 5,
+            "entries": 3,
+            "legacy": false
+          },
+          {
+            "name": "OUTFIT_PRESET_EXTRA_COLOR_OPTIONS",
+            "line": 569,
+            "lines": 5,
+            "entries": 3,
+            "legacy": false
+          },
+          {
+            "name": "OUTFIT_PRESET_COLOR_OPTIONS",
+            "line": 590,
+            "lines": 5,
+            "entries": 3,
+            "legacy": false
+          },
+          {
+            "name": "PROJECTED_HAND_PHRASES",
+            "line": 5952,
+            "lines": 5,
+            "entries": 3,
+            "legacy": false
+          },
+          {
+            "name": "FULL_ONLY_ANCHOR_IDS",
+            "line": 5984,
+            "lines": 5,
+            "entries": 3,
+            "legacy": false
+          },
+          {
+            "name": "EXPLICIT_WARDROBE_FIT_ANCHOR_CONFIGS",
+            "line": 9328,
+            "lines": 5,
+            "entries": 3,
+            "legacy": false
+          },
+          {
+            "name": "AI_CHARACTER_CARD_DIRECT_ACCESSORY_LAYERS",
+            "line": 14363,
+            "lines": 5,
+            "entries": 3,
+            "legacy": false
+          }
+        ]
+      }
+    },
+    "extended": {
+      "issues": [],
+      "characterSets": {
+        "profiles": 33,
+        "lab": 33,
+        "names": 33,
+        "manifest": 33,
+        "order": 33
+      },
+      "fieldCoverage": {
+        "zh": 1050,
+        "en": 1050,
+        "desc": 1050,
+        "meta": 173,
+        "legacyIds": 36,
+        "topUnderbust": 39,
+        "wearableColorTarget": 1,
+        "legacyPromptAliases": 45,
+        "stableId": 37,
+        "legacyLabels": 6,
+        "bottomWaist": 1,
+        "outerwearFit": 9,
+        "outerwear": 22,
+        "outerwearFastenerRequirement": 4,
+        "randomEligible": 4,
+        "outerwearStyling": 4,
+        "headAccessoryColorTarget": 1,
+        "eyewearColorTarget": 1,
+        "eyewearPlacementMode": 1,
+        "subjectLight": 6,
+        "lyingSurface": 47,
+        "mj": 6
+      },
+      "observedPaths": 67,
+      "schemaResult": {
+        "schemaRecords": 1050
+      },
+      "overlayFiles": [
+        "ambientLightDescriptions.js",
+        "midjourneyBodyDescriptions.js",
+        "midjourneyCardItemNames.js",
+        "midjourneyItemNames.js",
+        "zImageSceneDetailPriority.js"
+      ]
+    }
+  },
+  "allowlist": {
+    "allowed": [
+      {
+        "code": "LEGACY_ID_AMBIGUOUS",
+        "itemKey": "duoPoseId:shoulder-lean",
+        "message": "Token has multiple owners in this control",
+        "evidence": [
+          "fashion-editorial-models",
+          "best-friends-selfie"
+        ]
+      },
+      {
+        "code": "LEGACY_ID_AMBIGUOUS",
+        "itemKey": "duoPoseId:leaning-shoulders",
+        "message": "Token has multiple owners in this control",
+        "evidence": [
+          "fashion-editorial-models",
+          "best-friends-selfie"
+        ]
+      }
+    ],
+    "blocking": [],
+    "stale": []
+  },
+  "summary": {
+    "totalItems": 1050,
+    "confirmedIssueCount": 2,
+    "possibleIssueCount": 5
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "checks": [
+    "empty Saved Cards",
+    "legacy card reload / restore / regenerate",
+    "character card apply to PAGE1",
+    "observation capture generation",
+    "scene field and outputs",
+    "scene architecture applied to PAGE1",
+    "saved new prompt",
+    "fixed historical Markdown ZIP import creates one new card",
+    "1440: all six previews equal clipboard with appendices",
+    "1440: explicit DLL transfer and isolated draft reload",
+    "1440: Prompt 工作台",
+    "1440: 角色建模",
+    "1440: 場景建模",
+    "1440: DLL_PIC Pro",
+    "1440: Saved Cards",
+    "390: all six previews equal clipboard with appendices",
+    "390: explicit DLL transfer and isolated draft reload",
+    "390: Prompt 工作台",
+    "390: 角色建模",
+    "390: 場景建模",
+    "390: DLL_PIC Pro",
+    "390: Saved Cards"
+  ],
+  "errors": [],
+  "externalPosts": [],
+  "error": "page.screenshot: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - taking page screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n"
+}
