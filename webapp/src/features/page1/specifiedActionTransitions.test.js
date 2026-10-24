@@ -108,12 +108,11 @@ test('specified action bypasses the free four-point kneeling bind without discar
   for (const key of latentKeys) assert.equal(canceled[key], original[key], key);
 });
 
-test('a changed pose base or duo mode clears the specified action', () => {
+// P5a (2026-10-20): the pose base is no longer a workspace control; duo still clears the action.
+test('duo mode clears the specified action', () => {
   const entered = transition(initialLocks(), { specifiedActionId: ACTION.sitting });
-  assert.equal(transition(entered, { poseBaseId: 'standing' }).specifiedActionId, 'none');
   const duo = transition(entered, { subjectCount: '2' });
   assert.equal(duo.specifiedActionId, 'none');
-  assert.equal(duo.posePropId, 'none');
 });
 
 test('specified side-lying overrides latent supine orientation while leaving ordinary scene intact', () => {
@@ -209,13 +208,19 @@ test('restoring an active specified-supine Saved Card uses its own persisted sce
   assert.equal(canceled.sceneAttributeId, source.sceneAttributeId);
 });
 
-test('pose batch random resets specified action and preserves explicit prop; other sections leave action alone', () => {
+// expression-pose-v2 P2 (Cooper 2026-10-19): pose random draws from the action
+// library (隨機) instead of clearing the action and randomizing the free composer.
+// P4 (2026-10-20): the pose panel is 姿勢／手勢／表情／視線; its random sets the
+// pose, gesture and gaze menus to 隨機 and no longer touches retired composer keys.
+test('pose batch random sets the action, gesture and gaze menus to random; other sections leave action alone', () => {
   const original = initialLocks({ specifiedActionId: ACTION.sitting });
   const keys = PAGE1_POSE_SUBPANELS.find(panel => panel.id === 'single').keys;
   const randomized = randomizeLockKeys(original, keys, createEmptyLocks(), controls);
-  assert.equal(randomized.specifiedActionId, 'none');
+  assert.equal(randomized.specifiedActionId, 'random');
+  assert.equal(randomized.gestureId, 'random');
+  assert.equal(randomized.gazeId, 'random');
   assert.equal(randomized.posePropId, original.posePropId);
-  assert.equal(randomized.poseBaseId, 'random');
+  assert.equal(randomized.poseBaseId, original.poseBaseId);
   assert.equal(randomizeLockKeys(original, ['lightingId'], createEmptyLocks(), controls).specifiedActionId, ACTION.sitting);
   assert.equal(setLockKeysToNone(original, keys, controls).specifiedActionId, 'none');
 });
@@ -228,4 +233,31 @@ test('global clear resets the supine snapshot and does not restore the scene it 
   assert.equal(cleared.specifiedActionSceneRestore, null);
   assert.equal(cleared.sceneAttributeId, 'none');
   assert.equal(cleared.locationId, optionId('locationId', '全無'));
+});
+
+// Pose UI v2 (Cooper 2026-10-21): a gesture the chosen pose cannot use returns to 全無.
+test('a gesture that the new pose cannot use is cleared; usable and 隨機 gestures stay', () => {
+  const free = 'specified-standing-natural';
+  const withGesture = transition(initialLocks({ specifiedActionId: free }), { gestureId: 'gesture-collarbone' });
+  assert.equal(withGesture.gestureId, 'gesture-collarbone');
+  assert.equal(transition(withGesture, { specifiedActionId: 'specified-sitting-natural' }).gestureId, 'gesture-collarbone', 'the same list still applies');
+  assert.equal(transition(withGesture, { specifiedActionId: 'specified-squatting-natural' }).gestureId, 'none', 'squats have their own list');
+  assert.equal(transition(withGesture, { specifiedActionId: ACTION.sitting }).gestureId, 'none', 'hands fixed by the action');
+  assert.equal(transition(withGesture, { specifiedActionId: 'any' }).gestureId, 'none');
+  assert.equal(transition(withGesture, { specifiedActionId: 'none' }).gestureId, 'none');
+  assert.equal(transition(withGesture, { specifiedActionId: 'random' }).gestureId, 'none', '隨機 keeps only 全無 and 隨機');
+  const random = transition(initialLocks({ specifiedActionId: 'random' }), { gestureId: 'random' });
+  assert.equal(random.gestureId, 'random');
+  assert.equal(transition(initialLocks({ specifiedActionId: free }), { gestureId: 'random' }).gestureId, 'random');
+});
+
+// Pose UI v2 part 2 (Cooper 2026-10-21): 低頭 and the chin-lifting head postures contradict.
+test('choosing 低頭 clears a chin-lifting head posture; other postures stay', () => {
+  const raised = transition(initialLocks({ specifiedActionId: 'specified-standing-natural' }), { headPostureId: 'chin-slightly-raised' });
+  assert.equal(raised.headPostureId, 'chin-slightly-raised');
+  assert.equal(transition(raised, { gazeId: 'gaze-down' }).headPostureId, 'none');
+  assert.equal(transition(raised, { gazeId: 'gaze-camera' }).headPostureId, 'chin-slightly-raised');
+  const lowered = transition(initialLocks({ specifiedActionId: 'specified-standing-natural' }), { headPostureId: 'chin-slightly-lowered' });
+  assert.equal(transition(lowered, { gazeId: 'gaze-down' }).headPostureId, 'chin-slightly-lowered');
+  assert.equal(transition(raised, { headPostureId: 'head-slightly-back', gazeId: 'gaze-down' }).headPostureId, 'none');
 });

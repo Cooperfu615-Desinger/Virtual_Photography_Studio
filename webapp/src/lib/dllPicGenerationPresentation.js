@@ -22,9 +22,19 @@ export function formatDllPicGenerationMessage(result) {
   return `已生成 ${images.length} 張圖像${details}`;
 }
 
-export function getComfyGenerationNote(model) {
+export function getComfyGenerationNote(model, loraStrength = model.comfyModel === 'qwenImage21Lora' ? 0.7 : 1) {
   const start = '依序生成 1–2 張；';
   const end = '完成後請下載保存，圖像網址會到期。';
+  if (model.comfyModel === 'qwenImage21Lora') {
+    return `${start}已套用 v1.3b LoRA（強度 ${loraStrength}），直接使用目前 Prompt。${end}`;
+  }
+  if (model.comfyModel === 'zImageTurboAsianMix') {
+    return `${start}已套用 Asian Mix LoKr（強度 ${loraStrength}），直接使用目前 Prompt。${end}`;
+  }
+  if (['mossImageSftInt8', 'mossImageSftInt8Lora'].includes(model.comfyModel)) {
+    const lora = model.comfyModel === 'mossImageSftInt8Lora' ? '已套用 MOSS LoRA（強度 0.7）' : '未套用 LoRA';
+    return `${start}1K，依比例決定尺寸。${lora}，直接使用目前 Prompt。${end}`;
+  }
   if (model.comfyModel?.startsWith('krea2')) {
     return `${start}1K，依比例生成。合作夥伴節點另計耗額。${end}`;
   }

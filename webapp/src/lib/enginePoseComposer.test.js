@@ -1603,7 +1603,8 @@ test('a random hand resolved to a non-selfie preserves an explicitly locked rear
   assert.equal(selfieHandIds.includes(prompt.selection.poseHandId), false);
   assert.equal(prompt.selection.orbitId, rearOrbit);
   for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
-    assert.match(text, /back view/i);
+    // Z-Image states the rear view once, through its geometry sentence, instead of also labelling it.
+    assert.match(text, text === prompt.zImagePrompt ? /back view|Photographed directly from behind/i : /back view/i);
     assert.doesNotMatch(text, /front-camera self-shot|mirror selfie|companion snapshot/i);
   }
 });

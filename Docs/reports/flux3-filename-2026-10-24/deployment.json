@@ -1,0 +1,118 @@
+{
+  "verifiedAtUtc": "2026-10-24T04:41:52.544505+00:00",
+  "commit": "66a47cef3bac968d427993919c9effc674c263a0",
+  "functions": [
+    {
+      "name": "comfyCloudSubmit",
+      "state": "ACTIVE",
+      "runtime": "nodejs24",
+      "region": "us-central1",
+      "hash": "2fc61486e7348616163d48621167dcfd28742316",
+      "changedFields": [
+        "hash",
+        "labels",
+        "source"
+      ],
+      "configurationPreserved": true
+    },
+    {
+      "name": "comfyCloudWorkspaceSubmit",
+      "state": "ACTIVE",
+      "runtime": "nodejs24",
+      "region": "us-central1",
+      "hash": "2fc61486e7348616163d48621167dcfd28742316",
+      "changedFields": [
+        "hash",
+        "labels",
+        "source"
+      ],
+      "configurationPreserved": true
+    },
+    {
+      "name": "comfyCloudStatus",
+      "state": "ACTIVE",
+      "runtime": "nodejs24",
+      "region": "us-central1",
+      "hash": "2fc61486e7348616163d48621167dcfd28742316",
+      "changedFields": [
+        "hash",
+        "labels",
+        "source"
+      ],
+      "configurationPreserved": true
+    },
+    {
+      "name": "comfyCloudQuota",
+      "state": "ACTIVE",
+      "runtime": "nodejs24",
+      "region": "us-central1",
+      "hash": "2fc61486e7348616163d48621167dcfd28742316",
+      "changedFields": [
+        "hash",
+        "labels",
+        "source"
+      ],
+      "configurationPreserved": true
+    }
+  ],
+  "unchangedOtherFunctions": [
+    "bytePlusGenerate",
+    "comfyCloudImageWorkspace",
+    "comfyCloudVideo",
+    "comfyCloudVideoDownload",
+    "magnificDownloadImage",
+    "magnificGenerate",
+    "magnificGenerateClassic"
+  ],
+  "smoke": [
+    {
+      "name": "comfyCloudSubmit",
+      "method": "POST",
+      "status": 401,
+      "corsOrigin": "https://cooperfu615-desinger.github.io"
+    },
+    {
+      "name": "comfyCloudSubmit",
+      "method": "OPTIONS",
+      "status": 204,
+      "corsOrigin": "https://cooperfu615-desinger.github.io"
+    },
+    {
+      "name": "comfyCloudWorkspaceSubmit",
+      "method": "POST",
+      "status": 401,
+      "corsOrigin": "https://cooperfu615-desinger.github.io"
+    },
+    {
+      "name": "comfyCloudWorkspaceSubmit",
+      "method": "OPTIONS",
+      "status": 204,
+      "corsOrigin": "https://cooperfu615-desinger.github.io"
+    },
+    {
+      "name": "comfyCloudStatus",
+      "method": "POST",
+      "status": 401,
+      "corsOrigin": "https://cooperfu615-desinger.github.io"
+    },
+    {
+      "name": "comfyCloudStatus",
+      "method": "OPTIONS",
+      "status": 204,
+      "corsOrigin": "https://cooperfu615-desinger.github.io"
+    },
+    {
+      "name": "comfyCloudQuota",
+      "method": "POST",
+      "status": 401,
+      "corsOrigin": "https://cooperfu615-desinger.github.io"
+    },
+    {
+      "name": "comfyCloudQuota",
+      "method": "OPTIONS",
+      "status": 204,
+      "corsOrigin": "https://cooperfu615-desinger.github.io"
+    }
+  ],
+  "paidGenerationSubmitted": false
+}

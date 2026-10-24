@@ -13,6 +13,10 @@ import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
 import { restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
+import { setLegacyWardrobeModifierOrderForTests } from '../engine.js';
+
+// Frozen baseline written before the wardrobe order change of 2026-10-23.
+setLegacyWardrobeModifierOrderForTests(true);
 
 test('full camera policy has six groups; Dutch keeps roll; no unknown/default angle injection', () => {
   assert.equal(new Set(Object.values(FULL_BODY_CAMERA_GROUPS)).size, 6);

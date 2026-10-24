@@ -15,6 +15,10 @@ import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 import { normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';
 import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
 import { restorePreEthnicityOutputs } from './ethnicityRevisionTestSupport.js';
+import { setLegacyWardrobeModifierOrderForTests } from '../engine.js';
+
+// Frozen baseline written before the wardrobe order change of 2026-10-23.
+setLegacyWardrobeModifierOrderForTests(true);
 
 const controls = getLockControls();
 const locations = controls.find(c => c.key === 'locationId').options;

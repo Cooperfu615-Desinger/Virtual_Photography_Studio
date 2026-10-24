@@ -1,6 +1,6 @@
 # 開扣襯衫套裝固定黑色下身 v1
 
-日期：2026-10-20。使用者已驗收實際 Prompt，授權僅提交／推送本批；不合併 main 或手動部署。
+日期：2026-10-20。使用者已驗收實際 Prompt，先授權獨立提交／推送本批，後於同日授權合併最新 main 並確認 Pages 部署。
 
 ## 核准範圍
 
@@ -50,3 +50,15 @@
 ## 使用者驗收與 Git 交付授權
 
 2026-10-20 使用者確認上述實際 Prompt，授權 commit／push，且明確限定本次兩套襯衫套裝。上方未提交註記是驗證當下狀態。由已驗證的 `e9e7745` 建立 `codex/shirt-black-bottom`，只提交本次 22 個資料、程式、測試與文件檔案；另一工作目錄的 main 與其他未追蹤內容維持原樣。遠端結果以交付時的 SHA 核對為準。
+
+## 最新 main 整合驗證（2026-10-20）
+
+依使用者後續授權，在隔離工作目錄由 `origin/main` 的 `bdfe2c7` 合併 `6aad88b`，保留 main 已有姿勢 v2、MOSS、Asian Mix 與 DLL 版面。只整合原 22 個套裝相關檔案；唯一衝突為 current-state 新增段落，保留雙方紀錄。沒有新增功能或改寫其他套裝。
+
+- 合併前以最新 main 重算原 486 組其他套裝，全部與原基準一致，未重產／覆寫快照；合併後仍全數通過。
+- 聚焦 17/17、完整前端 1744/1744、Prompt Quality 745/745、lint、build、sync check、Python 2/2、207 公開資產、diff-check 均通過。既有 Vite 大型 chunk 提示保留。
+- 最新 main 同 seed `200 / prompt-quality-baseline` 前後皆 0 blockers／18 diagnostics；字數只出現此次配色的預期差異。
+- 隔離 Chromium 1440×1000／390×900 共 23 項檢查通過：兩套配色、主 MJ 複製、六輸出收藏還原／reload、手機換色、五現行工作區。14 張截圖已檢視，無 console/page error、破圖或頁面橫向溢位。使用獨立 5177，既有服務與使用者儲存空間不變，無外部生圖。
+- 本次合併推送 main 觸發既有 GitHub Pages workflow；CI／部署以合併 SHA 對應的 Actions 結果另行核對，未手動部署 Firebase Functions。
+
+證據：`/tmp/vps-shirt-merge-{focused,tests,quality,lint,build,audit-before,audit-after}.log`、`/tmp/vps-shirt-merge-browser/results.json` 與同目錄截圖。原目錄 67 個未追蹤檔案以 SHA256 保護；另一 main 工作目錄不切換、不拉取、不修改。

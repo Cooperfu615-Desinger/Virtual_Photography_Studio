@@ -8,6 +8,20 @@ export function getProviderContract(providerKey) {
   return provider;
 }
 
+export function normalizeProviderLoraStrength(model, value) {
+  const rules = model.loraStrength;
+  if (!rules) {
+    if (value !== undefined) throw new Error('此模型不支援調整 LoRA／LoKr 強度');
+    return {};
+  }
+  const strength = value === undefined ? rules.default : value;
+  if (typeof strength !== 'number' || !Number.isFinite(strength) || strength < rules.min || strength > rules.max
+    || Math.abs(strength / rules.step - Math.round(strength / rules.step)) > 1e-8) {
+    throw new Error('LoRA／LoKr 強度需為 0～1，且以 0.05 為間距');
+  }
+  return { loraStrength: Number(strength.toFixed(2)) };
+}
+
 export function normalizeProviderGenerationRequest(providerKey, payload = {}) {
   const provider = getProviderContract(providerKey);
   const modelKey = String(payload.modelKey || provider.defaultModelKey);
@@ -32,7 +46,8 @@ export function normalizeProviderGenerationRequest(providerKey, payload = {}) {
     ? requestedResolution
     : model.defaultResolution;
 
-  return { ...payload, modelKey, prompt, count, aspectRatio, resolution };
+  return { ...payload, modelKey, prompt, count, aspectRatio, resolution,
+    ...(providerKey === 'comfyCloud' ? normalizeProviderLoraStrength(model, payload.loraStrength) : {}) };
 }
 
 export function normalizeProviderGenerationResponse(payload = {}) {

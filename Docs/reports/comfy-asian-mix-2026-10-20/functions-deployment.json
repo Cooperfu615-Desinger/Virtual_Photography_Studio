@@ -1,0 +1,81 @@
+{
+  "project": "virtualphotographystudio",
+  "verifiedAtUtc": "2026-10-20T08:20:54.200456+00:00",
+  "sourceCommit": "3d9cc30ccff083d90c17f87f377bb28ad7040de2",
+  "targets": [
+    {
+      "function": "comfyCloudSubmit",
+      "state": "ACTIVE",
+      "runtime": "nodejs24",
+      "region": "us-central1",
+      "hashBefore": "f2da04e9a794ae3e76990b13538c17060d7ca5ac",
+      "hashAfter": "21e6407ed0e3f0c61dae48799e3e0dae7e0bf87e",
+      "changedFields": [
+        "hash",
+        "labels",
+        "source"
+      ],
+      "secretBindingUnchanged": true,
+      "resourceConfigUnchanged": true,
+      "applicationEnvironmentUnchanged": true
+    },
+    {
+      "function": "comfyCloudWorkspaceSubmit",
+      "state": "ACTIVE",
+      "runtime": "nodejs24",
+      "region": "us-central1",
+      "hashBefore": "f2da04e9a794ae3e76990b13538c17060d7ca5ac",
+      "hashAfter": "21e6407ed0e3f0c61dae48799e3e0dae7e0bf87e",
+      "changedFields": [
+        "hash",
+        "labels",
+        "source"
+      ],
+      "secretBindingUnchanged": true,
+      "resourceConfigUnchanged": true,
+      "applicationEnvironmentUnchanged": true
+    },
+    {
+      "function": "comfyCloudStatus",
+      "state": "ACTIVE",
+      "runtime": "nodejs24",
+      "region": "us-central1",
+      "hashBefore": "f2da04e9a794ae3e76990b13538c17060d7ca5ac",
+      "hashAfter": "21e6407ed0e3f0c61dae48799e3e0dae7e0bf87e",
+      "changedFields": [
+        "hash",
+        "labels",
+        "source"
+      ],
+      "secretBindingUnchanged": true,
+      "resourceConfigUnchanged": true,
+      "applicationEnvironmentUnchanged": true
+    },
+    {
+      "function": "comfyCloudQuota",
+      "state": "ACTIVE",
+      "runtime": "nodejs24",
+      "region": "us-central1",
+      "hashBefore": "f2da04e9a794ae3e76990b13538c17060d7ca5ac",
+      "hashAfter": "21e6407ed0e3f0c61dae48799e3e0dae7e0bf87e",
+      "changedFields": [
+        "hash",
+        "labels",
+        "source"
+      ],
+      "secretBindingUnchanged": true,
+      "resourceConfigUnchanged": true,
+      "applicationEnvironmentUnchanged": true
+    }
+  ],
+  "otherFunctionsUnchanged": true,
+  "otherFunctions": [
+    "bytePlusGenerate",
+    "comfyCloudImageWorkspace",
+    "comfyCloudVideo",
+    "comfyCloudVideoDownload",
+    "magnificDownloadImage",
+    "magnificGenerate",
+    "magnificGenerateClassic"
+  ]
+}

@@ -27,6 +27,10 @@ import { REPRESENTATIVE_PROMPT_FIXTURES } from './representativePromptFixtures.j
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 import { restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
 import { PRE_HOURGLASS_BODY_CATALOG } from './sceneIntegratedAssemblyTestSupport.js';
+import { setLegacyWardrobeModifierOrderForTests } from '../engine.js';
+
+// Frozen baseline written before the assembly changes of 2026-10-23.
+setLegacyWardrobeModifierOrderForTests(true);
 
 const controls = getLockControls();
 

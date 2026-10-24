@@ -80,7 +80,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.62.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.63.0';
 
 export const SHIRT_BLACK_BOTTOM_CONTRACT = deepFreeze({
   version: '1.0.0',
@@ -278,7 +278,8 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
       modes: {
         single: {
           requiredPrefix: '',
-          requiredPrefixes: [...Object.values(MIDJOURNEY_DESCRIPTION_CONTRACT.imageTypeOpenings), 'Photorealistic staged candid observation photograph of an adult fictional woman'],
+          // 1.63.0: the scene-first capture paragraph is introduced by "… portrait of one young adult woman."
+          requiredPrefixes: [...Object.values(MIDJOURNEY_DESCRIPTION_CONTRACT.imageTypeOpenings), 'Photorealistic editorial portrait of one young adult woman.', 'Photorealistic staged candid observation photograph of an adult fictional woman'],
           requiredLabels: [],
           optionalLabels: [],
           forbiddenLabels: [

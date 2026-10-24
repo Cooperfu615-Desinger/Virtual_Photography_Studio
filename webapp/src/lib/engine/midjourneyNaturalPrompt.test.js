@@ -15,6 +15,10 @@ import { restoreUnquotedShibuyaSignage } from './shibuyaSceneTestSupport.js';
 import { stripFramingDerivedMidjourneyRatio } from './midjourneyFramingAspectTestSupport.js';
 import { stripFullBodyCharacterBodySource } from './fullBodyCharacterBodyTestSupport.js';
 import { restorePreEthnicityText, restorePreEthnicityValue } from './ethnicityRevisionTestSupport.js';
+import { setLegacyWardrobeModifierOrderForTests } from '../engine.js';
+
+// Frozen baseline written before the wardrobe order change of 2026-10-23.
+setLegacyWardrobeModifierOrderForTests(true);
 // Public prompt polish (publicPromptPolish.js) capitalizes sentence starts. A
 // catalog source keeps every word; accept only its exact polished letter case.
 const sourceForms = (source) => [...new Set([source, polishPublicPromptText(source), source[0] + polishPublicPromptText(source).slice(1)])];

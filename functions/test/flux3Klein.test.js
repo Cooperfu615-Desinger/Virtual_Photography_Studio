@@ -7,7 +7,8 @@ const payload = { modelKey: 'flux3KleinBaseInt8', prompt: 'Exact DLL prompt.\nDo
 test('FLUX Base uses direct prompt and original 50-step sampler without upsampler or layout nodes', () => {
   const { workflow: w } = buildComfyWorkflow(payload, 42);
   assert.equal(Object.keys(w).length, 9);
-  assert.equal(w['18:1'].inputs.unet_name, 'flux3_image_klein_base_int8_convrot.safetensors');
+  // Cloud model library verified 2026-10-24: Base INT8 now uses hyphens.
+  assert.equal(w['18:1'].inputs.unet_name, 'flux3-image-klein-base-int8-convrot.safetensors');
   assert.equal(w['18:2'].inputs.clip_name, 'qwen3vl_4b_int8_convrot.safetensors');
   assert.equal(w['18:3'].inputs.vae_name, 'flux2-vae.safetensors');
   assert.equal(w['18:4'].inputs.text, payload.prompt);
@@ -51,9 +52,11 @@ test('FLUX estimate requires its own exact workflow samples and rejects changed 
   const built = buildComfyWorkflow(payload, 42);
   const records = [0, 1, 2].map(i => ({ jobId: `aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee${i}`, meta: built.meta }));
   let changed = false;
+  let legacyFilename = false;
   const fetchImpl = async url => {
     const workflow = structuredClone(built.workflow);
     if (changed) workflow['18:7'].inputs.steps = 16;
+    if (legacyFilename) workflow['18:1'].inputs.unet_name = 'flux3_image_klein_base_int8_convrot.safetensors';
     return { ok: true, json: async () => url.includes('/billing/')
       ? { summary: { balance: { currency: 'USD', amount_micros: 100 } } }
       : url.endsWith('/workflow') ? { format: 'api', workflow }
@@ -63,5 +66,9 @@ test('FLUX estimate requires its own exact workflow samples and rejects changed 
   assert.equal((await readComfyQuota(request)).sampleCount, 3);
   changed = true;
   assert.equal((await readComfyQuota(request)).estimatedImages, null);
+  changed = false;
+  legacyFilename = true;
+  assert.equal((await readComfyQuota(request)).sampleCount, 0);
+  legacyFilename = false;
   assert.equal((await readComfyQuota({ ...request, records: records.map(r => ({ ...r, meta: { ...r.meta, modelKey: 'zImageTurbo' } })) })).sampleCount, 0);
 });

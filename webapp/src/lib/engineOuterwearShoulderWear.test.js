@@ -17,10 +17,12 @@ const noneLocks = () => {
   }
   return locks;
 };
+// Prompt wording (the double-shoulder sentence changed 2026-10-23) versus the catalog row, which keeps its original text.
 const styles = [
   ['單肩露出', 'slipped down over one upper arm, with the neckline lowered on that side and the opposite shoulder still covered'],
-  ['雙肩露出', 'halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves'],
+  ['雙肩露出', 'slid down off both shoulders and hanging around both upper arms, both arms still in the sleeves'],
 ];
+const catalogStyles = [styles[0], ['雙肩露出', 'halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves']];
 
 test('button-up longline shirt can randomly resolve a half-buttoned opening, never a zipper', () => {
   const seen = new Set();
@@ -44,7 +46,7 @@ test('button-up longline shirt can randomly resolve a half-buttoned opening, nev
 test('outerwear shirt keeps its identity without changing the top shirt or option IDs', () => {
   assert.equal(option('outerwearId', '長版襯衫').en, 'longline cotton-poplin button-up shirt');
   assert.match(option('topId', '長版襯衫').en, /tailored longline men's dress shirt, crisp woven poplin/);
-  for (const [zh, text] of styles) {
+  for (const [zh, text] of catalogStyles) {
     const item = option('outerwearStylingId', zh);
     assert.equal(item.en, text);
     assert.equal(normalizeLocks({ ...noneLocks(), outerwearStylingId: item.id }).outerwearStylingId, item.id);

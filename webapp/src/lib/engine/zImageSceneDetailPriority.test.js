@@ -21,6 +21,10 @@ import { normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestS
 import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
 import { restorePreEthnicityOutputs } from './ethnicityRevisionTestSupport.js';
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
+import { setLegacyWardrobeModifierOrderForTests } from '../engine.js';
+
+// Frozen baseline written before the wardrobe order change of 2026-10-23.
+setLegacyWardrobeModifierOrderForTests(true);
 
 const controls = getLockControls();
 const locations = controls.find(c => c.key === 'locationId').options;

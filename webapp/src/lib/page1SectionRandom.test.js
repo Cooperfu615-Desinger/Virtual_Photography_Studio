@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { SPECIFIED_ACTION_RANDOM_POOL } from './engine/specifiedActions.js';
 import { test } from 'node:test';
 
 import {
@@ -15,7 +16,8 @@ import {
   setLockKeysToNone,
 } from './page1SectionRandom.js';
 import { PAGE1_POSE_SUBPANELS } from './page1WorkspacePanels.js';
-import { POSE_COMPOSER_KEYS, SECTION_SUBPANELS } from '../features/page1/page1Schema.js';
+import { SECTION_SUBPANELS } from '../features/page1/page1Schema.js';
+import { RETIRED_POSE_COMPOSER_KEYS } from '../features/page1/retiredPoseLocks.js';
 import {
   PAGE1_SINGLE_COMPLETE_LOOK_STATE_KEYS,
   PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS,
@@ -149,7 +151,8 @@ test('randomizeLockKeys preserves required fields and resets non-random takeover
   assert.equal(next.subjectCount, '2');
   assert.equal(next.specialSubjectId, 'none');
   assert.equal(next.characterProfileId, 'none');
-  assert.equal(next.poseBaseId, 'random');
+  // expression-pose-v2 P2: free-composer body layers reset instead of randomizing.
+  assert.equal(next.poseBaseId, 'none');
   assert.equal(next.imageTypePresetId, 'photorealistic-photo');
   assert.equal(next.topId, '');
 });
@@ -183,7 +186,12 @@ test('Z-Image exact visible text stays outside global random and clear operation
   });
 });
 
-test('single pose panel randomizes the six Pose Composer layers and leaves props independent', () => {
+// expression-pose-v2 P2 (Cooper 2026-10-19): pose random sets the menu to 隨機,
+// resets the free-composer body, hand and support layers, keeps the head layer
+// random until it becomes gaze (P4) and leaves the prop layer independent.
+// P4 (2026-10-20): the panel holds 姿勢／手勢／表情／視線; random sets the three
+// menus to 隨機, and the retired composer layers stay 全無.
+test('single pose panel sets the pose, gesture and gaze menus to random and leaves composer layers silent', () => {
   const controls = getLockControls();
   const defaults = createEmptyLocks();
   const singlePosePanel = PAGE1_POSE_SUBPANELS.find((panel) => panel.id === 'single');
@@ -196,52 +204,26 @@ test('single pose panel randomizes the six Pose Composer layers and leaves props
     controls,
   );
 
-  for (const key of POSE_COMPOSER_KEYS) {
-    const control = controls.find((entry) => entry.key === key);
-    const explicitRandom = control?.options?.find((option) => option.meta?.tags?.includes('random'));
-    assert.ok(explicitRandom, `Expected an explicit random option for ${key}`);
-    assert.equal(randomized[key], explicitRandom.id, `${key} should enter explicit random mode`);
+  assert.equal(randomized.specifiedActionId, 'random');
+  assert.equal(randomized.gestureId, 'random');
+  assert.equal(randomized.gazeId, 'random');
+  for (const key of RETIRED_POSE_COMPOSER_KEYS) {
+    assert.equal(randomized[key], 'none', `${key} no longer randomizes`);
   }
-  assert.equal(randomized.posePropId, 'none', 'The independent prop layer should keep its current none value');
+  assert.equal(randomized.posePropId, 'none', 'the retired prop layer stays silent');
 
-  const [prompt] = generatePrompts(1, randomized, [], {
-    random: createSeededRandom('pose-panel-random-contract-v1'),
+  const fullBody = controls.find((entry) => entry.key === 'framingId').options.find((option) => option.zh === '全身鏡頭 (Full Body Shot)').id;
+  const [prompt] = generatePrompts(1, { ...randomized, framingId: fullBody }, [], {
+    random: createSeededRandom('pose-panel-random-contract-v2'),
   });
-
-  for (const key of POSE_COMPOSER_KEYS) {
+  const drawn = SPECIFIED_ACTION_RANDOM_POOL.find((action) => action.id === prompt.selection.specifiedActionId);
+  assert.ok(drawn, 'the selection names one accepted library action');
+  assert.notEqual(drawn.family, 'lying', 'lying waits for scene surfaces (P3)');
+  // Compare the first clause: a drawn free-hand action may carry a random gesture after it.
+  assert.ok(prompt.grokPrompt.includes(drawn.clauses[0].en), 'the drawn action is rendered at full body');
+  // An action that owns the head keeps the raw head lock for a later cancel.
+  for (const key of RETIRED_POSE_COMPOSER_KEYS.filter((key) => !(key === 'poseHeadId' && drawn.ownsHead))) {
     assert.notEqual(prompt.selection[key], 'random', `${key} should not expose the random sentinel`);
-    if (key !== 'poseAnchorId' && !(key === 'poseOrientationId' && prompt.selection.poseBaseId !== 'lying')) {
-      assert.notEqual(prompt.selection[key], 'none', `${key} should resolve to a concrete selection`);
-    }
-  }
-
-  assert.deepEqual(
-    Object.fromEntries(POSE_COMPOSER_KEYS.map((key) => [key, prompt.selection[key]])),
-    {
-      poseBaseId: 'squatting',
-      poseOrientationId: 'none',
-      poseArrangementId: 'squatting-natural',
-      poseHandId: 'squatting-elbows-center-drape',
-      poseHeadId: 'head-away-profile',
-      poseAnchorId: 'none',
-    },
-    'The seed preserves layer order with the reviewed seven-hand squatting pool',
-  );
-
-  const arrangement = controls
-    .find((entry) => entry.key === 'poseArrangementId')
-    ?.options.find((option) => option.id === prompt.selection.poseArrangementId);
-  const anchor = controls
-    .find((entry) => entry.key === 'poseAnchorId')
-    ?.options.find((option) => option.id === prompt.selection.poseAnchorId);
-  const supportsBase = (option) => option?.base === prompt.selection.poseBaseId
-    || option?.bases?.includes(prompt.selection.poseBaseId);
-
-  assert.equal(supportsBase(arrangement), true, 'Resolved arrangement should match the resolved base');
-  if (prompt.selection.poseAnchorId === 'none') {
-    assert.equal(anchor?.id, 'none', 'Free arrangement should resolve through the canonical none option');
-  } else {
-    assert.equal(supportsBase(anchor), true, 'Resolved anchor should match the resolved base');
   }
 });
 
@@ -265,11 +247,14 @@ test('single pose panel preserves an explicit prop while rerandomizing compatibl
   const [prompt] = generatePrompts(1, randomized, [], {
     random: createSeededRandom('pose-panel-fixed-prop-contract-v1'),
   });
-  assert.equal(prompt.selection.posePropId, propId);
-  assert.equal(prompt.selection.poseHandId, 'none', 'The fixed prop should take over the hand layer');
+  // v2 P2 interim: the drawn action takes over the prop layer in the prompt while
+  // the raw prop selection is kept (props leave the composer in P4/P5, decision 2A).
+  assert.equal(randomized.specifiedActionId, 'random');
+  const drawn = SPECIFIED_ACTION_RANDOM_POOL.find((action) => action.id === prompt.selection.specifiedActionId);
+  assert.ok(drawn, 'the selection names one accepted library action');
+  assert.equal(prompt.selection.poseHandId, 'none');
   assert.notEqual(prompt.selection.poseBaseId, 'random');
   assert.notEqual(prompt.selection.poseArrangementId, 'random');
-  assert.notEqual(prompt.selection.poseHeadId, 'random');
   assert.notEqual(prompt.selection.poseAnchorId, 'random');
 });
 

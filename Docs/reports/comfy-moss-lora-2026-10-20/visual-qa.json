@@ -1,0 +1,130 @@
+{
+  "url": "http://127.0.0.1:5175/Virtual_Photography_Studio/?dllAcceptance=1",
+  "cases": [
+    {
+      "viewport": "1440x1000",
+      "state": "base one image and LoRA two-image immutable task",
+      "layout": {
+        "brokenImages": 0,
+        "scrollWidth": 1425,
+        "width": 1425
+      }
+    },
+    {
+      "viewport": "390x900",
+      "state": "full workspace MOSS LoRA keyboard toggle",
+      "layout": {
+        "brokenImages": 0,
+        "scrollWidth": 375,
+        "width": 375
+      }
+    },
+    {
+      "viewport": "390x900",
+      "state": "Prompt quick panel MOSS LoRA off",
+      "layout": {
+        "brokenImages": 0,
+        "scrollWidth": 375,
+        "width": 375
+      }
+    },
+    {
+      "viewport": "390x900",
+      "state": "two-image LoRA results labels wrap",
+      "layout": {
+        "brokenImages": 0,
+        "scrollWidth": 375,
+        "width": 375
+      }
+    },
+    {
+      "viewport": "390x900",
+      "state": "character quick panel",
+      "layout": {
+        "brokenImages": 0,
+        "scrollWidth": 375,
+        "width": 375
+      }
+    },
+    {
+      "viewport": "390x900",
+      "state": "scene quick panel",
+      "layout": {
+        "brokenImages": 0,
+        "scrollWidth": 375,
+        "width": 375
+      }
+    },
+    {
+      "viewport": "390x900",
+      "state": "Saved Cards navigation smoke",
+      "layout": {
+        "brokenImages": 0,
+        "scrollWidth": 375,
+        "width": 375
+      }
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "Prompt 工作台 MOSS quick panel",
+      "layout": {
+        "brokenImages": 0,
+        "scrollWidth": 1425,
+        "width": 1425
+      }
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "角色建模 MOSS quick panel",
+      "layout": {
+        "brokenImages": 0,
+        "scrollWidth": 1425,
+        "width": 1425
+      }
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "場景建模 MOSS quick panel",
+      "layout": {
+        "brokenImages": 0,
+        "scrollWidth": 1425,
+        "width": 1425
+      }
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "Saved Cards navigation smoke",
+      "layout": {
+        "brokenImages": 0,
+        "scrollWidth": 1425,
+        "width": 1425
+      }
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "mock offline -> uncertain -> manual query -> succeeded; no resubmit",
+      "layout": {
+        "brokenImages": 0,
+        "scrollWidth": 1425,
+        "width": 1425
+      }
+    }
+  ],
+  "consoleWarningsAndErrors": [],
+  "simulatedOnly": true,
+  "newMockTasks": 3,
+  "priorSavedCardsPreserved": 11,
+  "normalModeCheck": {
+    "firebaseSignedIn": false,
+    "quotaText": "請先登入",
+    "refreshDisabled": true,
+    "noGenerationSubmitted": true,
+    "consoleWarningsAndErrors": []
+  },
+  "unverified": [
+    "API key private LoRA visibility",
+    "paid MOSS API generation",
+    "billing delta",
+    "original generated PNG download"
+  ]
+}

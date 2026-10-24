@@ -9,14 +9,124 @@ Last updated: 2026-10-24
 - 依使用者核准示意圖，拍攝人物新增「匯入全身角色照」，取用切入抓拍前一般單人預覽的完整人物與穿搭快照，以「生成摘要」兩列呈現。完整來源、配色、選值與全身 reference 保留；重抽抓拍不更換人物。提供重新匯入／回一般拍攝調整，詳見 [匯入 v1](specs/observation-capture-full-body-import-v1.md)。
 - 原一般設定保留，角色卡來源沿用；A／C 匯入模式欄位停用並顯示提示。六輸出、JSON／Markdown 收藏還原及重載保留資料；不擴充雙人、特殊主體、圖片上傳或純文字反向解析。
 - 新增 9 項測試；Node 22 前端 1711/1711、Prompt Quality 755/755、lint／build 通過；同 seed 200 strict audit 與基線一致，0 blockers／22 既有 diagnostics。桌面／手機與 639／641px 面板斷點、現行五工作區、匯入重抽與收藏回填檢查通過。外部出圖未驗證。
-- **使用者已確認本機驗收通過，授權僅提交並推送本批。** 交付至 `origin/codex/shirt-black-bottom`，不合併或部署；保留其他未追蹤文件，本機服務使用 5175。
+- **使用者已確認本機驗收通過，授權僅提交並推送本批。** 功能提交 `d469a32` 已交付至 `origin/codex/shirt-black-bottom`；使用者後續授權 CI 通過後合併 main，透過 PR #15 在隔離工作目錄整合，保留其他未追蹤文件。
+
+## DLL：FLUX 3 Base INT8 模型檔名修正（2026-10-24，已推送 main／四項 Functions 已部署）
+
+- Cloud 模型庫實際檔名為 `flux3-image-klein-base-int8-convrot.safetensors`，已修正 DLL 模板原本的底線名稱，以處理 `UNETLoader value_not_in_list`。保留 Base INT8、50 steps／CFG3.5、關閉擴寫及所有 UI／請求契約。[規格、證據與驗證](specs/comfy-flux3-klein-v1.md#cloud-模型檔名修正2026-10-24本機完成尚未部署)。
+- Functions 106/106、lint、前端相關45/45及 diff-check 通過；僅後端模板與測試／文件變更，未重跑前端全套或版面驗收，未付費生成。修正 `66a47ce` 已推送 main，Submit／WorkspaceSubmit／Status／Quota 四項 Functions 於台北 12:41 核對為 ACTIVE／Node24，Secret／環境／資源保留，其餘七項服務 metadata 不變；匿名 POST401／正式站 CORS OPTIONS204 共8項通過。[部署證據](reports/flux3-filename-2026-10-24/deployment.json)。正式站新生成請求使用已更新後端；真實出圖、扣額與下載仍待驗收。
+
+## Prompt 工作台：自訂攝影附加（2026-10-21，使用者已驗收）
+
+- 附加指令新增「自訂附加」與多行攝影備註，可單獨或搭配參考圖及四款既有模板；關閉保留本次文字、清除移除，重新生成或離頁重設。預覽／複製／明確帶入 DLL 完整版使用相同最終文字，快速面板、原始輸出、收藏與其他工作區不變。詳見 [規格與驗證](specs/page1-prompt-appendices-v1.md)。
+- main `90ed932` 上實作；相關33/33、完整1770/1770、Prompt Quality745/745、lint／build通過，同 seed200 strict audit前後完全相同（0 blockers／18診斷）。桌面1440×1000／手機390×900共28項檢查，48次六輸出剪貼簿比對、DLL草稿保護／reload與五工作區通過，無新錯誤或橫向溢出。
+- 使用者已驗收並授權僅提交／推送本批；依要求移除附加區說明文字，保留按鈕、狀態及輸入框。移除後 lint／build、桌面／手機版面與附加操作再次通過。Git 與 Pages 交付結果以本批提交及 Actions 為準。只用隔離瀏覽器及本機模擬，外部 POST 為0，其他未提交內容保持不變。
+
+
+## DLL：Qwen 2.1 v1.3b LoRA（2026-10-21，已推送 main／四項 Functions 已部署）
+
+- Qwen 2.1 新增「套用 v1.3b LoRA」開關，預設關閉；強度預設 0.7、0–1／0.05 刻度。三快速面板及完整版進階設定共用，保留 25 steps／CFG1／Euler／simple 與原 Prompt。詳見 [規格與驗證](specs/comfy-qwen21-lora-v1.md)。
+- Qwen／Asian Mix 各自保存強度，草稿／快照／歷史／Seed 沿用與額度分桶保留實際 variant；MOSS 固定 0.7 不變。只新增固定 LoRA 接線，無任意工作流或檔案輸入。
+- Node22 前端 1766/1766、Node24 Functions 106/106、兩端 lint、前端 build 通過；桌面1440×1000／手機390×900五個現行工作區、三快速面板、兩張模擬及歷史／reload通過，無新 console warning/error、破圖或橫向溢出。
+- 功能提交 `fe28d86` 已推送 main；Submit／WorkspaceSubmit／Status／Quota 四項 Functions 已成功部署至 virtualphotographystudio／us-central1，均 ACTIVE／Node24。Secret、環境與資源配置不變，其餘七項服務 metadata 不變；匿名 POST401／正式站 CORS OPTIONS204 共8項通過。[部署及健康檢查紀錄](specs/comfy-qwen21-lora-v1.md#後端部署結果)。
+- main 推送觸發既有 Pages CI，正式前端發布狀態以對應 Actions 為準。未新增付費生成；先前 GUI 對照成功不代替真實 DLL API 的私有模型可見性、扣額與下載驗收。
+
 
 ## 開扣襯衫套裝固定黑色下身（2026-10-20，使用者已驗收）
 
 - 僅「開扣短袖襯衫熱褲」「開扣長袖襯衫包臀裙」的下身固定黑色，套裝主色／完整造型色系只影響襯衫。主 MJ 增加限定例外，保留可見上衣主色與黑色下身名稱；其他套裝、ID、圖片與舊英文回填不變。詳見 [規格及驗證](specs/shirt-outfit-black-bottom-v1.md)，Public contract `1.62.0`。
 - 8 項專項測試含所有色票、隨機色、雙人、固定構圖、裁切、閉合外套、匯入與還原；另以修改前 486 組其他套裝六輸出與資料雜湊確認不變。完整前端 1702/1702、Prompt Quality 746/746；同 seed 200 strict audit 仍是 0 blockers／22 項既有 diagnostics。
 - lint／build、KB sync／Python／資產及 diff-check 通過；隔離瀏覽器 1440×1000／390×900 共 23 項檢查與 14 張截圖檢視通過，六輸出收藏還原正常。5175 為另一工作目錄的服務，本批以 5176 驗證，無新錯誤、破圖或橫向溢位。
-- 使用者已確認實際 Prompt，授權僅提交／推送本批。交付分支 `codex/shirt-black-bottom`，不合併或更新另一工作目錄的 `main`；原有未追蹤文件與參考資料保留。
+- 最新 main `bdfe2c7` 整合驗證：前端1744/1744、Prompt Quality745/745、聚焦17/17、lint／build／資料檢查通過；同 seed audit 前後0 blockers／18 diagnostics，桌手機23項與14張截圖通過。舊分支與最新 main 測試數量分開記錄，未覆寫歷史基準。
+- 使用者已確認實際 Prompt，並於 2026-10-20 授權將 `codex/shirt-black-bottom` 合併最新 main 及推送。以隔離目錄整合，原有未追蹤文件與其他工作目錄保留；整合驗證與發布結果見本次規格。
+
+## DLL：完整版等寬版面與置頂生成操作（2026-10-20，本機驗收通過）
+
+- 依核准示意調整完整版為左右等寬，生成／加入待生成移到左欄上方並隨捲動固定；常用參數並排、Prompt可收合／編輯、Seed快捷清空、LoRA進階設定與精簡額度。保留三快速面板與既有生成／儲存契約。詳見 [規格及驗證](specs/dll-workspace-layout-v1.md)。
+- 直接在現有 main 工作目錄實作，原 detached 目錄未動。前端1736/1736、相關40/40、lint、build通過；桌面／手機／兩組斷點、五工作區與三快速面板檢查通過，無新console warning/error或水平溢出。
+- 本機模擬驗收入口 `http://127.0.0.1:5175/Virtual_Photography_Studio/?dllAcceptance=1`。無付費生成；本機未配置Firebase，實際登入額度待驗收。使用者已確認本機驗收通過並授權本批 commit／push 到 main；Pages 結果以對應 Actions 為準，本批不需部署 Functions。
+
+## DLL：Asian Mix LoKr 可調強度（2026-10-20，已合併 main／四項 Functions 已部署）
+
+- Z-Image-Turbo BF16 新增「套用 Asian Mix LoKr」，首次選模型預設關閉；開啟後可用滑桿／數字調整 0–1（間距 0.05，預設 1）。INT8 不提供此開關，MOSS 仍固定 0.7。詳見 [規格與驗收](specs/comfy-asian-mix-lokr-v1.md)。
+- 固定使用已匯入 Cloud 的 v7.0-R-rev1 FP32 檔案；強度跟隨快速設定、完整版草稿、任務快照、歷史沿用與結果 metadata，額度樣本／快取按強度隔離。原基底工作流及 Prompt 不變。
+- Node22 前端 1736/1736、Node24 Functions 102/102、兩端 lint、前端 build、diff-check 通過。桌面1440×1000／手機390×900檢查現行五工作區、三快速入口與完整版；開關、0／空白／超界、滑桿刻度、快照隔離、歷史沿用／reload、兩張模擬完成，無新 console warning/error 或頁面橫向溢出。
+- 功能提交 `3d9cc30` 已依使用者授權快轉合併並推送 `main`，觸發 GitHub Pages CI／發布。`comfyCloudSubmit`、`comfyCloudWorkspaceSubmit`、`comfyCloudStatus`、`comfyCloudQuota` 已部署至 `virtualphotographystudio/us-central1`，四者 ACTIVE／Node24，Secret、環境與資源配置保留，其他七項服務 metadata 完全不變。匿名 POST401／正式網站 CORS OPTIONS204。詳見 [部署紀錄](specs/comfy-asian-mix-lokr-v1.md)。真實 DLL API 私有模型可見性、扣額、下載與不同強度效果尚待驗收。
+- 後續依使用者要求直接在 `main` 開發，不再建立功能分支；已寫入 `AGENTS.md`。目前 main 位於 `/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio`。原專案目錄停在 detached `e9e7745`，為避免新版 main 覆蓋四份內容不同的同名未追蹤文件；全部66個未追蹤檔已驗證內容未變。請接續現有 main 工作目錄，不要自行清理原目錄。
+
+## DLL：MOSS 與可選 LoRA（2026-10-20，已發布正式版與四項 Functions）
+
+- DLL 完整版與三個現用快速面板新增 MOSS-Image SFT INT8；核取「套用 MOSS LoRA」以固定強度 0.7 套用本對話已匯入的相容命名副本，首次選模型預設關閉。初版 1K、六比例、30 steps／CFG 3、直接使用 DLL Prompt，預設一張、可選兩張依序生成。詳見 [MOSS／LoRA v1](specs/comfy-moss-lora-v1.md)。
+- 兩個固定 modelKey 保留草稿、任務快照、歷史沿用／Seed、查詢恢復與額度樣本隔離；未新增任意 LoRA 或工作流編輯、storage migration 或 HF token 收集。原模型模板保持 byte equality，Prompt engine、Saved Cards 不改。
+- Node22 前端 1735/1735、lint／build；Node24 Functions 98/98、lint 通過。桌面1440×1000／手機390×900檢查現行五工作區、三個快速入口、LoRA 開關、草稿重載、歷史沿用、兩張模擬及中斷查詢恢復；無新 console error/warning、破圖或 document 橫向溢出。證據見規格與 design-qa。
+- 功能提交 `295c46d` 已推送 `origin/codex/moss-optional-lora` 並快轉 `origin/main`；[Actions 39376331565](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/39376331565) 四項工作全成功，2026-10-20 13:46（台北）完成 Pages。正式資產與瀏覽器均確認 MOSS 選項、LoRA 開關與 0.7 強度；檢查後還原模型選項，無 console warning/error。
+- `virtualphotographystudio/us-central1` 的 `comfyCloudSubmit`、`comfyCloudWorkspaceSubmit`、`comfyCloudStatus`、`comfyCloudQuota` 已部署，四者 ACTIVE／Node24，Secret、應用設定與資源配置保留；其餘七個 Functions metadata 未變。匿名 POST 均 401、正式網站 CORS OPTIONS 均 204。部署工具僅為 WorkspaceSubmit 補上框架環境標記 `FUNCTION_SIGNATURE_TYPE=http`，未新增 Secret。實際紀錄見 [規格](specs/comfy-moss-lora-v1.md)。
+- 使用獨立工作目錄、分支 `codex/moss-optional-lora`，原工作區及其他參考資料保留。本批沒有付費生成，GUI 的先前成功出圖不代替 DLL API 驗收，私人 LoRA 的 API 可見性、扣額及原圖下載待後續驗證。
+
+
+## B 區選擇器九宮格版面（2026-10-21，本機實作）
+
+- 姿勢選擇改成左邊 3×3 方形按鈕（站姿蹲姿坐姿／跪姿躺姿上身互動／全無隨機任意；第三排直接選、虛線框）、右邊與九宮格同高的摘要卡（選全無、隨機、任意時顯示說明）；手機上下排列；欄位說明文字簡化。Prompt 不變。規格 [pose-ui-v2 §1](specs/pose-ui-v2.md)。
+
+## B 區頭部（2026-10-21，已推送 main，8889085，指定動作選擇器改版第二部分）
+
+- 「頭部」成為獨立一組（新欄位 `headPostureId`）：全無／隨機＋頭部微微側傾、下巴微抬、下巴微收、頭靠近肩膀、頭部微微後仰，可搭配任何動作；與視線並存時合併成一句；視線選低頭時，下巴微抬與頭部後仰停用。全部隨機會把頭部設為隨機。規格 [pose-ui-v2 §5](specs/pose-ui-v2.md)。
+- 驗證：沒選頭部時 1492 筆輸出與 main 逐字相同、strict audit 相同；全部隨機因多一次抽籤而位移；`npm test` 1761/1761、Prompt Quality 745/745、lint、build、sync、Python、公開資產、diff-check；瀏覽器 1440×1000／390×900。
+
+## B 區指定動作選擇器改版（2026-10-21，已推送 main，第一部分）
+
+- 主介面改為全無／隨機／任意三張卡＋六顆分類按鈕（站姿、蹲姿、上身互動、坐姿、跪姿、躺姿）＋已選動作摘要卡；分類按鈕開只列該類動作的彈窗，卡片左圖右文（2:3 圖片格先預留，示意圖須自製、不用參考照片）。手勢、表情、視線永遠顯示：手勢依動作鎖住並顯示原因，換動作時不適用的手勢清回全無；備注移除。規格 [pose-ui-v2](specs/pose-ui-v2.md)。
+- 第一部分 Prompt 輸出與 main 逐字相同（已推送 main，38238b4）。
+- 驗證：1642 筆輸出比對相同、strict audit 相同；`npm test` 1755/1755、Prompt Quality 745/745、lint、build、sync、Python、公開資產、diff-check；瀏覽器 1440×1000／390×900。
+
+## 坐姿與跪姿動作庫 v1（2026-10-21，已推送 main，62702d3）
+
+- 舊自由組合的坐姿 10 個、跪姿 6 個轉成指定動作（accepted，加入隨機，手空著可配通用手勢）；原本中景與胸上省略的沿用省略。坐具之後比照躺姿表面由場景提供；四足跪姿不轉（已有兩個撐地動作）。紀錄 [pose-library-sitting-kneeling-v1](specs/pose-library-sitting-kneeling-v1.md)。
+- 驗證：與 main 比對既有輸出逐字相同，全部隨機只因抽到不同動作而改變；strict audit 相同；`npm test` 1754/1754、Prompt Quality 745/745、lint、build、sync、Python、公開資產、diff-check；瀏覽器 1440×1000／390×900。
+
+## 蹲姿動作庫 v1（2026-10-21，已推送 main，3681356）
+
+- Z-Image 同場段落整理 v1（版本 C）：開頭補 `of one young adult woman`；機位方位標籤在幾何句已寫明時刪除；環境光句併入光線句；側面幾何句改 `She is positioned completely sideways`。只改主 Z-Image，其他輸出與選擇快照不變；場景在前順序保留，主體在前（B）留作實測對照。公開輸出契約 `1.63.0`。規格 [z-image-scene-first-tidy-v1](specs/z-image-scene-first-tidy-v1.md)。
+- 隨機配件去重 v1：隨機抽到的頭部配件、耳環、頸部、腰部、襪類、鞋款若已被套裝或衣物寫過（例如套裝內建的 choker、腰帶、鞋），從其餘候選重抽；只在重複時多抽一次亂數，鎖定的配件不動。規格 [accessory-dedupe-v1](specs/accessory-dedupe-v1.md)。
+- 配件合成一句 v1：一般單人的頭、臉、頸部配件改成一句 `She wears …`（分號分項，眼鏡名稱在前），GPT 放身份句之後、Z 放人物段落最後、Nano 取代兩處舊寫法；Z 與 Nano 刪填充詞與預設配戴方式；Nano 表情句去掉重複 expression。主 MJ、選擇快照不變。規格 [accessory-sentence-v1](specs/accessory-sentence-v1.md)。
+- 服裝描述順序 v1：上衣與下身改成「衣物名稱 → 版型／褲腰 → 穿法 → 圖案」，`layered over` 接內搭衣物名稱而不是它的版型；解開褲頭不再寫 `pants`；雙肩露出輸出句改成 `slid down off both shoulders and hanging around both upper arms, both arms still in the sleeves`（目錄原文不變）。凍結基準以測試專用開關維持舊順序。規格 [wardrobe-modifier-order-v1](specs/wardrobe-modifier-order-v1.md)。
+- 手勢英文第二階段改寫：17 句改成不替服裝與髮型下結論、去掉露骨詞與鏡頭用語、25 字左右；撥瀏海改成通用的撥頭髮；上拉上衣保留露胸下緣意圖（含蓄用詞），洋裝時略過；遮胸保留未穿上衣意圖，新增單臂橫擋遮胸。規格 [pose-gestures-wording-v2](specs/pose-gestures-wording-v2.md)。
+- 新增「道具」欄（手勢旁，`propId`）：舊道具 10 個＋單手拿著眼鏡（從手勢搬來）＋拿著打開的書，共 12 個；所有動作皆可選、不篩選衝突；隨機背面機位不抽碰臉道具；眼鏡需穿搭有眼鏡；鏡子自拍時鎖住；面板的隨機不強加道具。規格 [pose-props-v1](specs/pose-props-v1.md)。
+- 舊版 18 個手勢放回手勢欄（穿搭互動 6、鏡頭互動 4、眼鏡 3、臉部與頭髮 5）：手空著的動作可選，眼鏡 3 個另可配蹲姿與躺姿；缺少外套／下身／眼鏡時選項停用並標示，生成時缺少則略過；隨機只抽 7 個；鏡頭互動 4 個拿掉鏡頭用語。英文改寫為第二階段。規格 [pose-gestures-legacy-restore-v1](specs/pose-gestures-legacy-restore-v1.md)。
+- 4 組已確認的蹲姿做成指定動作（accepted，加入隨機）；7 組蹲姿手部改成蹲姿專屬手勢（刪肩膀描述、改白話用字），蹲姿只配這 7 句。寬膝在中景與胸上省略動作句。選擇器新增「蹲姿」分類。草案與紀錄 [pose-library-squatting-v1](specs/pose-library-squatting-v1.md)。
+- 驗證：與 main 比對既有輸出逐字相同，全部隨機只因抽到不同動作而改變；strict audit 相同；`npm test` 1752/1752、Prompt Quality 745/745、lint、build、sync、Python、公開資產、diff-check；瀏覽器 1440×1000／390×900。
+
+## 站姿動作庫 v1（2026-10-20，已合併 main，PR #14）
+
+- 新增 20 個站姿指定動作：第一批 9 個由舊自由組合站姿改寫（accepted，加入隨機，手空著可搭配手勢）；第二批 11 個依 `Docs/站姿/` 參考圖（pending，可手動選、不進隨機）。通用手勢增為 8 句（新 4 句不進隨機）。選擇器分類「站立動態」改名「站姿」、pending 動作加「未驗收」小標、「隨機」說明更新。出圖實測延後到神情姿態改版完成後統一進行（Cooper）。草案與紀錄 [pose-library-standing-v1](specs/pose-library-standing-v1.md)。
+- 驗證：與 main 比對，代表性、預設隨機、既有動作×景別逐字相同；全部隨機 150 組只因抽到不同動作而改變；strict audit 相同；`npm test` 1748/1748、Prompt Quality 745/745、lint、build、sync、Python、公開資產、diff-check；瀏覽器 1440×1000／390×900。比對工具 `scripts/dump_prompt_outputs.mjs`。
+
+## 神情姿態 v2：P5a 介面層清理（2026-10-20，已合併 main，PR #12；P5b 延後）
+
+- 依 Cooper 決定，P5 分兩步：P5a 清掉介面與工作台層的自由組合殘留和 4 個孤兒檔（Prompt 不變、不重產基準）；P5b 再刪引擎中只服務舊組合的程式。範圍見 [P5 清理範圍](specs/expression-pose-v2-p5-cleanup-scope.md)，紀錄見 [實作計畫 §8](specs/expression-pose-v2-implementation-plan.md)。
+- 驗證：612 組與全部隨機 150 組與 P4 逐位元組相同、strict audit 相同；`npm test` 1728/1728、Prompt Quality 737/737、lint、build、sync、Python、公開資產、diff-check；瀏覽器 1440×1000／390×900。分支 `claude/pose-v2-p5-cleanup`。
+- P5b（刪引擎舊組合程式）延後（Cooper 2026-10-20）：逐 fixture 調查約 2.4 萬列基準會變，且會失去手動坐具、仰躺 surface-led、近距離蟲眼站姿等契約；等站姿／坐具類指定動作補齊後再評估。見 [清理範圍 §6](specs/expression-pose-v2-p5-cleanup-scope.md)。
+
+## 神情姿態 v2：P4 新 B 面板（2026-10-20，已合併 main，PR #11）
+
+- B 單人只剩姿勢、手勢、表情、視線（Cooper 依示意圖確認）。手勢只在動作的手空著時出現（目前是趴躺動作）；視線取代頭部方向，沿用既有頭部英文，背面只留回眸；明確選了其他視線時，環繞隨機不抽背面（Cooper 選 B）。自拍移到 E 構圖與視角的「拍攝方式」，生成前轉成既有自拍手部／鏡子道具，Prompt 與舊鎖定逐字相同。舊自由組合欄位在工作台與套用 Saved Card 時清除。
+- 驗證：未使用新欄位時 612 組輸出與 P3 逐字相同；場景隨機時，全部隨機只有頭部句改變（鎖定可躺場景時還會加上手勢句）；strict audit 與 P3 相同；`npm test` 1731/1731（連跑 2 次）、Prompt Quality 738/738、lint、build、sync、Python、公開資產、diff-check；瀏覽器 1440×1000／390×900。細節與已知限制見 [實作計畫 §7](specs/expression-pose-v2-implementation-plan.md)。分支 `claude/pose-v2-p4-panel`。
+
+## 神情姿態 v2：P3 躺姿機位與表面（2026-10-20，已合併 main，PR #10）
+
+- 47 個場景加上躺姿表面（逐字取自場景英文，Cooper 審核定案）；躺姿動作會寫成 `She lies on her stomach on the white bed surface …`。E「構圖與視角」新增躺姿機位（全無／隨機／正上方俯拍／斜上方俯拍／貼地平視／從頭頂方向／從腳底方向 △），只在躺姿動作下取代俯仰與環繞。姿勢「隨機」只在鎖定的可躺場景抽躺姿。D 區顯示可躺表面提示。
+- 驗證：代表性 104 組、隨機 200 組與 P2 逐字相同；躺姿輸出 110 組差異只有 35 處表面插入；`npm test` 1718/1718、Prompt Quality 738/738、lint、build、strict audit 與 P2 相同、sync、Python、公開資產、diff-check；瀏覽器 1440×1000／390×900。細節見 [pose-library-lying-v1 §7](specs/pose-library-lying-v1.md)。分支 `claude/pose-v2-p3-lying`。
+
+## 神情姿態 v2：P2 姿勢選單機制（2026-10-19，已合併 main，PR #9）
+
+- 姿勢選單＝全無／隨機／任意／各指定動作。未動時為全無（Cooper），不再從舊「姿勢與肢體語言」目錄自動抽姿勢；隨機在生成時從已驗收、非躺姿的 9 個動作抽一個並記入快照；任意輸出第三輪定案的 B 句。姿勢區或全域「全部隨機」改設為隨機並清空自由組合身體層（頭部仍隨機、道具保留）。
+- 驗證：代表性與指定動作 412 組逐字不變；隨機樣本以鎖定重播證明只有姿勢相關差異；MJ natural 基準 71 組以 `scripts/rebaseline_mj_natural_fixtures.mjs` 重產；`npm test` 1709/1709（連跑 2 次）、Prompt Quality 738/738、lint、build、strict audit exit 0、sync、Python、公開資產、diff-check；瀏覽器 1440×1000／390×900。細節見 [實作計畫 §5](specs/expression-pose-v2-implementation-plan.md)。分支 `claude/pose-v2-p2-menu`。
+
+## 神情姿態 v2：P1 動作資料（2026-10-19，已合併 main，PR #8）
+
+- 方向（Cooper 定案）：B 神情姿態改以指定動作為主體，姿勢選單＝隨機（從動作庫抽已驗收動作）／任意（交給模型的 B 寫法）／全無／各指定動作；自由組合之後移除，舊 Saved Cards 不需還原。規格 [expression-pose-v2](specs/expression-pose-v2.md)、計畫 [implementation-plan](specs/expression-pose-v2-implementation-plan.md)、躺姿 [pose-library-lying-v1](specs/pose-library-lying-v1.md)、決策 [decisions](decisions/2026-10-17-expression-pose-direction.md)。
+- P1：11 個指定動作改成帶部位標記的子句（逐字切分，串回後與原文相同），加 family／手部模式／表面需求／驗收狀態；11 個依 Cooper 決定視為已驗收。新增躺姿 3 個（側躺抱枕、趴躺腳踝交叉 accepted；趴躺單腿屈起 pending），排在清單最後。隨機池行為未變（P2 處理）。
+- 驗證：546 組輸出（含選擇快照與摘要）前後逐字相同；同 seed strict audit 報告與 main 逐位元組相同；`npm test` 1701/1701、Prompt Quality 738/738、lint、build、sync、Python、公開資產、diff-check 通過；瀏覽器 1440×1000／390×900 指定動作對話框顯示 14 組、躺姿分類 5 組、選擇後五種輸出帶入動作，無主控台錯誤。分支 `claude/pose-v2-p1-action-data`。
 
 ## 觀察式抓拍整合工作台（2026-10-19，本機驗收通過）
 

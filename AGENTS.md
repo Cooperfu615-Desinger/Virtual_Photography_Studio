@@ -20,6 +20,7 @@ These instructions apply to the whole repository. Optimize for the requested pro
 
 ## Scope and Autonomy
 
+- User preference (2026-10-20): develop directly on `main`; do not create feature branches unless the user explicitly requests one. Continue to inspect and preserve unrelated work before editing. This does not grant standing permission to commit, push, or deploy.
 - For analysis or diagnosis, inspect and report; do not silently implement a fix.
 - For an implementation request, make the smallest coherent change, add proportionate tests, validate it, and report the result.
 - Do not broaden the task into unrelated cleanup, dependency upgrades, data migrations, deployment, commits, pushes, or external changes without authorization.

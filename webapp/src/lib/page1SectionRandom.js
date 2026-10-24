@@ -1,12 +1,19 @@
-import { POSE_COMPOSER_KEYS } from '../features/page1/page1Schema.js';
+import { RETIRED_POSE_COMPOSER_KEYS } from '../features/page1/retiredPoseLocks.js';
 import {
   PAGE1_SINGLE_COMPLETE_LOOK_STATE_KEYS,
   PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS,
   clearPage1WardrobeKeys,
 } from '../features/page1/page1WardrobeExclusivity.js';
 
+// expression-pose-v2 P2 (Cooper 2026-10-19): random sets the pose menu to 隨機
+// (a library draw at generation); free-composer layers no longer randomize.
+// P4 (Cooper 2026-10-20): gaze replaces the head layer and gestures join; the
+// retired composer layers, props included, reset to 全無. 拍攝方式 is a mode and
+// survives random. Menus whose own 隨機 option is the random value:
+const EXPLICIT_RANDOM_KEYS = new Set(['specifiedActionId', 'lyingCameraId', 'gazeId', 'gestureId', 'headPostureId']);
+
 const RESET_TO_DEFAULT_KEYS = new Set([
-  'specifiedActionId',
+  'propId', // 道具 (2026-10-22): the panel's 隨機 never forces a prop; only its own 隨機 option draws one
   'specialSubjectId',
   'characterProfileId',
   'imageTypePresetId',
@@ -24,7 +31,7 @@ const RESET_TO_DEFAULT_KEYS = new Set([
   'topBottomPaletteBId',
 ]);
 
-const PRESERVE_KEYS = new Set(['subjectCount', 'posePropId']);
+const PRESERVE_KEYS = new Set(['subjectCount', 'captureStyleId']);
 
 function getControlByKey(controls, key) {
   return controls.find((control) => control.key === key) || null;
@@ -39,7 +46,8 @@ export function getPage1ControlActionMode(controlOrKey, controls = []) {
   if (control?.section === 'midjourney' || control?.randomization === 'excluded') return 'preserve';
   if (control?.compatibilityOnly) return 'reset';
   if (PRESERVE_KEYS.has(key) || control?.required) return 'preserve';
-  if (POSE_COMPOSER_KEYS.includes(key)) return 'random';
+  if (EXPLICIT_RANDOM_KEYS.has(key)) return 'random';
+  if (RETIRED_POSE_COMPOSER_KEYS.includes(key)) return 'reset';
   if (RESET_TO_DEFAULT_KEYS.has(key) || control?.section === 'hidden') return 'reset';
   if (control?.suppressDefaultRandomOption) return 'reset';
   return 'random';
@@ -80,7 +88,7 @@ export function randomizeLockKeys(locks, keys, defaultLocks = {}, controls = [])
       next[key] = getNoneOrDefaultValue(control, defaultLocks[key] ?? '');
       return;
     }
-    next[key] = POSE_COMPOSER_KEYS.includes(key)
+    next[key] = EXPLICIT_RANDOM_KEYS.has(key)
       ? (control?.options?.find((option) => option.id === 'random')?.id || 'random')
       : '';
   });

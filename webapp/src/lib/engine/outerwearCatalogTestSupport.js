@@ -1,9 +1,12 @@
 // Test-only exact phrase bridge for immutable pre-catalog snapshots. The focused
 // catalog tests assert the new phrases; no whole wardrobe/section is discarded.
 export function normalizeOuterwearCatalogForLegacy(text, field) {
+  const preCatalog = 'slipped down around both upper arms, with the neckline resting below both shoulders and both arms still in the sleeves';
+  // Both the 2026-10-23 wording and the wording legacy-order baselines still render map back.
   let result = text.replaceAll(
-    'halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves',
-    'slipped down around both upper arms, with the neckline resting below both shoulders and both arms still in the sleeves',
+    'slid down off both shoulders and hanging around both upper arms, both arms still in the sleeves', preCatalog,
+  ).replaceAll(
+    'halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves', preCatalog,
   );
   const mj = field === 'midjourneyPrompt';
   result = result.replaceAll('longline cotton-poplin button-up shirt', mj

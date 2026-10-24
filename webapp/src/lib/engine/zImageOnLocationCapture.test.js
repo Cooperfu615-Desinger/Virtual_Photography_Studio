@@ -11,6 +11,10 @@ import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport
 import { getLockControls } from '../engine.js';
 import { polishPublicPromptText } from './publicPromptPolish.js';
 import { restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
+import { setLegacyWardrobeModifierOrderForTests } from '../engine.js';
+
+// Frozen baseline written before the wardrobe order change of 2026-10-23.
+setLegacyWardrobeModifierOrderForTests(true);
 
 const baseline = JSON.parse(readFileSync(new URL('./zImageOnLocationBaseline.json', import.meta.url), 'utf8'));
 const runFrozenFixture = (fixture) => runSceneFixture(fixture, PRE_HOURGLASS_BODY_CATALOG);

@@ -1,6 +1,6 @@
 # 觀察式抓拍：匯入全身角色照 v1
 
-日期：2026-10-24。狀態：使用者已確認本機驗收通過，授權僅提交並推送本批至 `origin/codex/shirt-black-bottom`；不合併或部署，其他未追蹤檔案保持原樣。
+日期：2026-10-24。狀態：使用者已確認本機驗收通過，功能提交 `d469a32` 已推送至 `origin/codex/shirt-black-bottom`；使用者後續授權 CI 通過後合併 main，其他未追蹤檔案保持原樣。
 
 ## 產品行為
 
@@ -57,3 +57,8 @@ Saved Cards JSON、Markdown 的選項 metadata 及瀏覽器重載保存完整 pr
 - 本機入口：`http://127.0.0.1:5175/Virtual_Photography_Studio/`。
 - 測試 log 與瀏覽器機器紀錄：`/tmp/vps-capture-import-*-final.log`、`/tmp/vps-capture-browser-results.json`、`/tmp/vps-capture-empty-results.json`；原始基線 `/tmp/vps-capture-import-before.log`。
 - 最終截圖目錄：`/Users/cooperfu/.codex/visualizations/2026/10/24/01a16cd9-607a-7452-a052-f90ae6cf11b9/`，含 `capture-import-desktop.png`、`capture-import-summary.png`、`capture-import-mobile.png`、`capture-import-empty.png`。五工作區畫面另存 `/tmp/vps-capture-workspace-{1440,390}-{0..4}.png` 及 `/tmp/vps-capture-viewport-{1440,390}-{0..4}.png`，已逐張檢視桌面／手機主要畫面與匯入面板。
+
+## 最新 main 整合
+
+- 以 `0746b28` 為 main 基線，在隔離工作目錄整合 PR #15。保留 main 的拍攝方式轉換與隨機指定動作解析，在有效 locks 解析後讀取匯入人物；兩份 current-state 紀錄均保留。
+- 此次只整合已驗收功能及必要衝突解決，不更新原工作區或其他工作目錄；main 的既有 Pages 工作流將隨合併自動執行。

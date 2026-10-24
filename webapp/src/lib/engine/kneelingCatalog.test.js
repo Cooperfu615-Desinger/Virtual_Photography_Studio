@@ -22,7 +22,6 @@ function locksFor(id, hand = 'none', frame = '全身鏡頭 (Full Body Shot)') {
 const generate = locks => generatePrompts(1, locks, [], { random: createSeededRandom('kneeling-catalog-v2') })[0];
 const extra = (p, id) => p.extraPrompts.find(e => e.id === id).text;
 const main = p => [p.grokPrompt, p.zImagePrompt, p.midjourneyPrompt];
-const transition = (prev, patch) => transitionPage1Locks({ previousLocks: prev, candidateLocks: { ...prev, ...patch }, lockControls: controls });
 
 test('seven kneeling choices retire side kneeling without losing saved ids or prose', () => {
   assert.deepEqual(POSE_COMPOSER_ARRANGEMENT_OPTIONS.filter(o => o.base === 'kneeling' && !o.meta?.uiHidden).map(o => o.id), publicIds);
@@ -52,18 +51,7 @@ test('seated hips, floor-seated wide knees and high kneeling are distinct', () =
   }
 });
 
-test('new all-fours selection binds palms, elbows persist, exit releases support', () => {
-  const previous = locksFor('kneeling-seiza', 'arms-crossed');
-  const entered = transition(previous, { poseArrangementId: 'kneeling-all-fours', posePropId: 'prop-hold-iced-coffee' });
-  assert.equal(entered.poseHandId, palms);
-  assert.equal(entered.posePropId, 'none');
-  const changed = transition(entered, { poseHandId: elbows });
-  assert.equal(changed.poseHandId, elbows);
-  assert.equal(transition(changed, { aspectRatio: '4:5' }).poseHandId, elbows);
-  assert.equal(transition(changed, { posePropId: 'random' }).posePropId, 'none');
-  assert.equal(transition(changed, { poseArrangementId: 'kneeling-seiza' }).poseHandId, 'none');
-  assert.equal(previous.poseHandId, 'arms-crossed');
-});
+// P5a (2026-10-20): the workspace no longer binds four-point support hands; the hand layer is retired.
 
 test('all-fours picker has exactly two support choices and no competing prop pool', () => {
   const locks = locksFor('kneeling-all-fours', palms);

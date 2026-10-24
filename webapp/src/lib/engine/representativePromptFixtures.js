@@ -289,7 +289,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
     expectedOutputs: Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'fullBodyCharacterPrompt'].map(field => [field, {
       includes: [closure, ...(sheer ? ['silk camisole', 'visible through the closed'] : [])],
-      excludes: ['both shoulders fully uncovered', ...(sheer ? [] : ['silk camisole', 'delicate straps', 'fluid sheen'])],
+      excludes: ['slid down off both shoulders', ...(sheer ? [] : ['silk camisole', 'delicate straps', 'fluid sheen'])],
     }])),
   })),
   ...[
@@ -487,7 +487,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   },
   ...[
     ['single', '單肩露出', 'slipped down over one upper arm, with the neckline lowered on that side and the opposite shoulder still covered'],
-    ['double', '雙肩露出', 'halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves'],
+    ['double', '雙肩露出', 'slid down off both shoulders and hanging around both upper arms, both arms still in the sleeves'],
   ].map(([id, label, wearText]) => ({
     id: `longline-shirt-${id}-shoulder`,
     title: `Longline shirt retains ${id}-shoulder wear across all outputs`,
@@ -1312,7 +1312,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
         includes: [
           'Knee-up cowboy shot.',
           'At a relatively close portrait distance, roughly 1.5–2 meters from her, the camera is positioned above her and angled downward, revealing the top planes of her shoulders and waistband.',
-          'She stands completely sideways, facing the left edge of the image.',
+          'She is positioned completely sideways, facing the left edge of the image.',
           'The camera sees only the right side of her body.',
           'Her right shoulder fully hides her left shoulder, and her right hip fully hides her left hip',
           'This is a strict 90-degree lateral body view.',

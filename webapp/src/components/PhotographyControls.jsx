@@ -68,7 +68,10 @@ function QuickChoiceField({ field, onChange, onCopy, showHeading = true }) {
   const { control, value, disabled } = field;
   const noneOption = control.required ? null : control.options.find((option) => option.zh === '全無');
   const options = control.options.filter((option) => option.id !== noneOption?.id && option.zh !== '隨機');
-  const allowRandom = !control.required && !control.suppressDefaultRandomOption;
+  // Menus that own a 隨機 option (lying camera) store 'random' instead of an empty value.
+  const explicitRandom = control.suppressDefaultRandomOption ? control.options.find((option) => option.id === 'random') : null;
+  const allowRandom = Boolean(explicitRandom) || (!control.required && !control.suppressDefaultRandomOption);
+  const randomActive = explicitRandom ? value === explicitRandom.id : !value;
 
   return (
     <div
@@ -95,10 +98,10 @@ function QuickChoiceField({ field, onChange, onCopy, showHeading = true }) {
             {allowRandom ? (
               <button
                 type="button"
-                className={`secondary photography-editor-small-choice${!value ? ' photography-editor-small-choice-active' : ''}`}
-                aria-pressed={!value}
+                className={`secondary photography-editor-small-choice${randomActive ? ' photography-editor-small-choice-active' : ''}`}
+                aria-pressed={randomActive}
                 disabled={disabled}
-                onClick={() => onChange(control, '')}
+                onClick={() => onChange(control, explicitRandom ? explicitRandom.id : '')}
               >隨機</button>
             ) : null}
           </div>
@@ -115,7 +118,7 @@ function QuickChoiceField({ field, onChange, onCopy, showHeading = true }) {
             onClick={() => onChange(control, option.id)}
             title={option.zh}
           >
-            <span>{getCameraControlDisplayLabel(control.key, option)}</span>
+            <span>{getCameraControlDisplayLabel(control.key, option)}{option.meta?.caution ? ' △' : ''}</span>
             {value === option.id ? <Check size={16} aria-hidden="true" /> : null}
           </button>
         ))}
@@ -128,7 +131,7 @@ function QuickChoiceField({ field, onChange, onCopy, showHeading = true }) {
 function PhotographyField({ field, onChange, onCopy }) {
   if (field.management) return <ManagedField field={field} />;
 
-  if (field.control.key === 'framingId' || field.control.key === 'imageTypePresetId') {
+  if (['framingId', 'imageTypePresetId', 'lyingCameraId', 'captureStyleId'].includes(field.control.key)) {
     return <QuickChoiceField field={field} onChange={onChange} onCopy={onCopy} showHeading={field.control.key !== 'imageTypePresetId'} />;
   }
 
@@ -185,6 +188,9 @@ export default function PhotographyControls({ model, onChange, onCopy, onAction,
             </div>
             <GroupActions group={group} onAction={onAction} />
           </header>
+          {group.id === 'composition' && model.lyingNotice ? (
+            <small className="photography-editor-field-note">{model.lyingNotice}</small>
+          ) : null}
           {group.id === 'composition' && model.fixedNotice ? (
             <div className="photography-editor-fixed-notice">
               <div>
@@ -200,7 +206,7 @@ export default function PhotographyControls({ model, onChange, onCopy, onAction,
             {group.fields.map((field) => (
               <div
                 key={field.control.key}
-                className={`photography-editor-field-slot${field.control.key === 'framingId' || field.control.key === 'imageTypePresetId' ? ' photography-editor-field-slot--full' : ''}`}
+                className={`photography-editor-field-slot${['framingId', 'imageTypePresetId', 'lyingCameraId', 'captureStyleId'].includes(field.control.key) ? ' photography-editor-field-slot--full' : ''}`}
               >
                 <PhotographyField field={field} onChange={onChange} onCopy={onCopy} />
               </div>

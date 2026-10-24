@@ -8,6 +8,10 @@ import legacy from './shirtBlackBottomLegacy.json' with { type: 'json' };
 import { buildRestoreLocks, parseLocksFromStandardPrompt, serializeFavoritePrompt, deserializeFavoritePrompt } from '../../features/saved-cards/cardCodec.js';
 
 import { FULLY_CLOSED_OPENING_ID } from './outerwearClosure.js';
+import { setLegacyWardrobeModifierOrderForTests } from '../engine.js';
+
+// Frozen baseline written before the accessory and wardrobe assembly changes of 2026-10-23.
+setLegacyWardrobeModifierOrderForTests(true);
 
 const controls = getLockControls();
 const names = ['套裝：開扣短袖襯衫熱褲', '套裝：開扣長袖襯衫包臀裙'];

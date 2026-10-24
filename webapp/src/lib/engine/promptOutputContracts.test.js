@@ -16,6 +16,7 @@ import {
 } from './promptOutputContracts.js';
 import { REPRESENTATIVE_PROMPT_FIXTURES } from './representativePromptFixtures.js';
 
+
 const controls = getLockControls();
 
 function controlByKey(key) {
@@ -107,7 +108,7 @@ function assertLiteralExpectations(text, expectations, fixtureId, field) {
 }
 
 test('prompt output contracts are frozen serializable data with stable public fields', () => {
-  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.62.0');
+  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.63.0');
   assert.deepEqual(Object.keys(PROMPT_OUTPUT_CONTRACTS), [
     'grokPrompt',
     'zImagePrompt',

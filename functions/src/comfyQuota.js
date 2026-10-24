@@ -17,7 +17,7 @@ function quotaSelection(payload = {}) {
     throw new Error('不支援的 Comfy Cloud 額度查詢設定');
   }
   return buildComfyWorkflow({ modelKey: payload.modelKey, resolution: payload.resolution,
-    aspectRatio: payload.aspectRatio, count: 1, prompt: 'quota reference' }, 0);
+    aspectRatio: payload.aspectRatio, loraStrength: payload.loraStrength, count: 1, prompt: 'quota reference' }, 0);
 }
 
 function normalizeWorkflow(workflow, modelKey) {
@@ -67,7 +67,8 @@ async function readComfyQuota({ apiKey, payload, records, fetchImpl = fetch, now
   const candidates = records.filter((r) => {
     if (!uuid.test(r.jobId) || seen.has(r.jobId) || r.meta?.modelKey !== meta.modelKey
       || r.meta?.resolution !== meta.resolution || r.meta?.aspectRatio !== meta.aspectRatio
-      || r.meta?.width !== meta.width || r.meta?.height !== meta.height) return false;
+      || r.meta?.width !== meta.width || r.meta?.height !== meta.height
+      || r.meta?.loraStrength !== meta.loraStrength) return false;
     seen.add(r.jobId);
     return true;
   }).slice(0, MAX_SAMPLES);
@@ -94,7 +95,8 @@ async function readComfyQuota({ apiKey, payload, records, fetchImpl = fetch, now
   const creditsPerImage = meanSeconds === null ? null : meanSeconds * CREDITS_PER_SECOND;
   const estimatedImages = credits !== null && times.length >= MIN_SAMPLES && !sampleReadFailed
     ? Math.floor(Math.max(0, credits) / creditsPerImage) : null;
-  return { selection: { modelKey: meta.modelKey, resolution: meta.resolution, aspectRatio: meta.aspectRatio },
+  return { selection: { modelKey: meta.modelKey, resolution: meta.resolution, aspectRatio: meta.aspectRatio,
+    ...(meta.loraStrength !== undefined ? { loraStrength: meta.loraStrength } : {}) },
     credits, estimatedImages, sampleCount: times.length, minimumSamples: MIN_SAMPLES,
     creditsPerImage, sampleReadFailed, checkedAt: now(), rateDate: '2026-10-05' };
 }
@@ -104,7 +106,7 @@ function createQuotaReader({ now = Date.now } = {}) {
   const cache = new Map();
   return async (options) => {
     const { meta } = quotaSelection(options.payload);
-    const key = JSON.stringify([options.uid, createHash('sha256').update(options.apiKey).digest('hex'), meta.modelKey, meta.resolution, meta.aspectRatio]);
+    const key = JSON.stringify([options.uid, createHash('sha256').update(options.apiKey).digest('hex'), meta.modelKey, meta.resolution, meta.aspectRatio, meta.loraStrength]);
     const previous = cache.get(key);
     if (previous && now() - previous.at < 30000) return previous.promise;
     if (cache.size >= 64) cache.delete(cache.keys().next().value);

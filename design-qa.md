@@ -1,3 +1,14 @@
+# Asian Mix LoKr 強度控制驗收（2026-10-20）
+
+- 正式站發布檢查發現深色模式數字欄位使用不存在的背景token而退回白底；已在main改用既有`--surface-control`／`--text-primary`／`--border`。深色欄位實際為rgb(58,58,60)底＋rgb(245,245,247)字，桌面與手機控制可讀，淺色模式正常；前端1736/1736、lint、build重新通過，無console warning/error。證據`asian-dll-qa/dark-mobile-fixed.jpg`；不涉及Functions或生成行為。
+- 本機功能分支 `codex/asian-mix-lokr-strength`；入口 `http://127.0.0.1:5175/Virtual_Photography_Studio/?dllAcceptance=1`，使用獨立模擬任務儲存，不呼叫生成服務、不扣額。
+- 沿用 DLL 原有核取框、色彩、欄位和響應式配置；新強度控制佔設定網格整列，滑桿自適應＋76px數字輸入，沒有新增斷點或變更整體面板寬度。
+- 桌面1440×1000／手機390×900、DPR1，現行五工作區與三快速面板皆完成 render-and-inspect。桌面 document scrollWidth1425／手機375，均不超過 viewport；控件與說明可讀、無重疊，原有文字區內部捲動保留。
+- 已檢查開關／1預設／0有效／0.05刻度／空白與1.2錯誤／停用生成、INT8不顯示、MOSS固定0.7、排入後改值不影響任務、歷史沿用／reload、來源帶入、兩張模擬成功與實際強度保存。無新 console warning/error；成果圖片均載入。
+- Node22前端1736/1736、Node24 Functions102/102、兩端lint／前端build通過；build有既有大型chunk提醒。Node24前端曾因既有TAP格式斷言不符而失敗，Node22完整重跑通過。
+- 證據資料夾：`/Users/cooperfu/.codex/visualizations/2026/09/21/01a0c277-5451-7130-b31f-c16c71e86b2c/asian-dll-qa/`。`final-desktop.jpg`顯示兩張模擬成果與0.4強度，`desktop-prompt.jpg`／`desktop-character.jpg`／`desktop-scene.jpg`是桌面三快速入口；`mobile.jpg`／`mobile-prompt.jpg`／`mobile-character.jpg`／`mobile-scene.jpg`是手機控制。瀏覽器截圖可能扣除捲軸／邊界（桌面1425×990、手機375×865或900），未修改圖片內容。
+- 完成的是本機實作及模擬驗證；使用者後續另授權合併main與部署，功能提交`3d9cc30`已進main，四個Functions更新與匿名／CORS健康檢查通過。真實DLL API生圖仍待進行，詳見功能規格部署章節。
+
 # 場景環境卡片 UI 驗證
 
 日期：2026-10-10
@@ -377,3 +388,53 @@ Result: local UI and automated checks passed; user acceptance, download-to-disk,
 ### 2026-10-19 使用者驗收補記
 
 使用者確認「實際測試沒問題，可以 commit/push」，本機版本驗收通過。授權本批 Git 提交／推送；交付 `codex/dll-pic-pro-workspace-v1`，保留暫不部署限制，不合併會觸發 Pages 的 main。上方自動化證據與真實 Cloud 尚未驗證範圍維持原紀錄；未把一般本機驗收推定成雲端付費出圖驗收。
+
+## 2026-10-20：MOSS 與固定 LoRA 開關
+
+Visual QA: PASS（本機模擬與未登入 UI）；真實 API、扣額、下載待部署後驗收。
+
+- URL：`http://127.0.0.1:5175/Virtual_Photography_Studio/?dllAcceptance=1`；一般入口僅查看未登入額度保護。
+- Viewports：1440×1000、390×900；沒有新增斷點。現用五工作區與三個快速面板均已檢查；動作姿勢導覽沿用最新主線退休狀態。
+- 新增單一 MOSS 模型選項與「套用 MOSS LoRA」checkbox，強度固定0.7。跨滿原有格線並保留原生鍵盤焦點／Space，完整版一般input樣式不再拉寬此checkbox；其他模型與既有視覺語言不變。
+- 驗證 base一張、LoRA兩張、Seed42/43、immutable排程、歷史沿用／單張Seed、草稿reload、快速→完整版明確帶入、模擬loading／中斷／手動查詢恢復。只用獨立模擬資料庫，新增三筆測試任務，既有11張收藏只讀；不是實際MOSS畫質測試。
+- Console/page errors：沒有新的console warning/error。水平溢出／破圖：沒有；clientWidth等於scrollWidth，桌面1425／手機375。正常模式未登入時額度刷新停用。
+- 自動檢查：Node22前端1735/1735、lint/build；Node24 Functions98/98、lint；diff-check通過。建置保留大型chunk及混用import提示。
+- [桌面](Docs/reports/comfy-moss-lora-2026-10-20/desktop-final.png)、[手機](Docs/reports/comfy-moss-lora-2026-10-20/mobile.png)、[完整檢查紀錄](Docs/reports/comfy-moss-lora-2026-10-20/visual-qa.json)。詳見 [MOSS／LoRA規格](Docs/specs/comfy-moss-lora-v1.md)。
+- 獨立分支 `codex/moss-optional-lora`；尚未 stage／commit／push／部署。本機新工作目錄未複製Firebase環境設定；私有LoRA的正式API可見性、真實執行／扣額／下載未驗收，不以既有GUI成功替代。
+
+2026-10-20 使用者確認整合並授權 commit／push、合併 main 發布正式 DLL，及部署四項 Functions；上列「尚未」為完成本機驗收當下狀態。Git／Pages／Functions 的實際結果另記於 MOSS 規格。
+
+
+## 2026-10-20 — DLL 完整版等寬與置頂操作列
+
+### Reference and visual comparison
+
+- 已核准示意：`Docs/reports/dll-workspace-layout-2026-10-20/approved-reference.png`；實作：同目錄 `desktop-1536.png`。以1536×1024版面檢視比較，另檢查1440×1000與390×900。
+- Typography：沿用站內字型，DLL標題縮為28px、次要文字12–13px；主生成鈕46px高。層級依序為操作、模型參數、Prompt、Seed／進階。
+- Layout／spacing：桌面等寬兩欄、18px欄距、20px內距；上方標題與導覽整併。生成列sticky維持原文件捲動，Prompt有意保留欄內捲動與展開。手機使用兩欄導覽、設定／成果切換，控制項未重疊或溢出。
+- Colors／icons：沿用panel、control、accent、text、border等主題tokens及lucide圖示；主動作藍色、次要灰色、停用狀態保留。沒有導入示意中額外漸層或不同字型。
+- Images／copy：保留真正結果卡與現有fixture圖片，示意風景不作為生成成果。Seed使用原留空隨機契約及清空按鈕；進階區只在模型支援LoRA時顯示。額度使用真實資料與登入提示，未採示意假值。模擬橫幅增加高度，正式入口無此橫幅。
+- 修正檢查過程發現的手機API Keys換行；保持與左側標題同列。手機截圖保存前重新核對DOM viewport，避免另一分頁接收尺寸覆寫造成證據尺寸不符。
+
+### Interaction and regression
+
+- 生成／loading／成功／排程取消、來源切換／帶入／比例鎖定、自訂Prompt／展開／還原、空白文字停用、Seed0／清除、LoKr驗證、reload草稿通過。
+- 歷史捲動5072px後生成列頂部8px；比較與大圖保留，Escape還原焦點。沒有操作付費生成。
+- 1440×1000、390×900五工作區與三快速面板；819／821、1099／1101斷點已檢查，無水平溢出、破圖或不可讀重疊。動作姿勢導覽沿用主線退休狀態；11張Saved Cards只讀。
+- 一般模式未登入空狀態與精簡額度通過。最終console warning/error空。登入額度、真實Cloud與觸控硬體手勢不屬於本次已驗收項目。
+- Node22完整前端1736/1736、相關40/40、lint/build、diff-check通過。既有大型chunk提醒保留。
+
+final result: passed (local UI and automated checks); user acceptance pending. No staging, commit, push or deployment.
+
+2026-10-20 使用者驗收補記：使用者確認本機驗收沒有問題，並授權本批 commit／push 到 main。上述待驗收／未提交為本機交付當時狀態；雲端真實出圖的驗證界線不變。
+
+## 2026-10-21：Qwen 2.1 v1.3b LoRA
+
+- Scope：沿用既有 LoRA 控制與版面，在三快速面板／完整版加入 Qwen 開關及強度；沒有 CSS 或 breakpoint 變更。主線既有動作姿勢分頁退休狀態保留。
+- Visual QA: PASS（本機）。URL：http://127.0.0.1:5175/Virtual_Photography_Studio/?dllAcceptance=1；Chrome 1440×1000／390×900。現行五工作區／三快速面板均無頁面橫向溢出或破圖，控制無可見重疊、可鍵盤操作；console warning/error 空。
+- 開關預設關閉／強度0.7、方向鍵+0.05、0有效、空白／1.2停用；Qwen0.65與Asian0.4分開保存、MOSS固定0.7、INT8無控制。兩張模擬loading／成功、排入後修改不影響快照、歷史沿用／reload、快速面板帶入完整版通過。Saved Cards只讀空狀態，未修改收藏或Prompt引擎。
+- 自動驗證：前端1766/1766、Functions106/106、兩端lint、前端build；建置既有chunk及混用import提示保留。專項前端18/18、Functions15/15通過。
+- 證據：Docs/reports/comfy-qwen-lora-2026-10-21/ 的 desktop.png、mobile.png、mobile-quick.png、checks.json。桌面成果圖為既有模擬素材，不代表本次模型輸出。詳細規格與未驗證界線見 Docs/specs/comfy-qwen21-lora-v1.md。
+- Result：local checks passed; user acceptance pending。未 stage、commit、push 或部署；未新增付費生成。真實 DLL API 的出圖、扣額、下載待後續部署驗收。
+
+2026-10-21 交付授權補記：使用者確認可以先 commit／push 到 main，再部署四項相關 Functions。上列未提交狀態為本機交付當時紀錄；本次不新增付費生成，真實 API 驗收界線不變。

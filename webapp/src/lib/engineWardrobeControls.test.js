@@ -78,7 +78,7 @@ test('bottom rise controls include a slightly unbuttoned and unzipped pants stat
   assert.match(promptText, /直筒牛仔褲|straight-leg jeans/);
 });
 
-test('bottom rise and fit appear before the bottom garment in generated wardrobe text', () => {
+test('the bottom garment leads, then its rise and fit, in generated wardrobe text', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
@@ -89,24 +89,10 @@ test('bottom rise and fit appear before the bottom garment in generated wardrobe
 
   const grokPantsLine = prompt.grokPrompt.match(/Wardrobe:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
   assert.ok(grokPantsLine);
-  assert.ok(
-    grokPantsLine.indexOf('low-rise waistband sitting on the hips') < grokPantsLine.indexOf('wide-leg volume with a broad lower-body opening'),
-    'bottom rise should appear before bottom fit'
-  );
-  assert.ok(
-    grokPantsLine.indexOf('wide-leg volume with a broad lower-body opening') < grokPantsLine.indexOf('straight-leg jeans'),
-    'bottom fit should appear before the pants item'
-  );
-
-  const zImageText = prompt.zImagePrompt;
-  assert.ok(
-    zImageText.indexOf('low-rise waistband sitting on the hips') < zImageText.indexOf('wide-leg volume with a broad lower-body opening'),
-    'Z-Image bottom rise should appear before bottom fit'
-  );
-  assert.ok(
-    zImageText.indexOf('wide-leg volume with a broad lower-body opening') < zImageText.indexOf('straight-leg jeans'),
-    'Z-Image bottom fit should appear before the pants item'
-  );
+  assert.ok(grokPantsLine.indexOf('straight-leg jeans') < grokPantsLine.indexOf('low-rise waistband sitting on the hips'), 'the pants item leads its rise');
+  assert.ok(grokPantsLine.indexOf('low-rise waistband sitting on the hips') < grokPantsLine.indexOf('wide-leg volume with a broad lower-body opening'), 'rise comes before fit');
+  // Z-Image compacts the rise away; the item still leads its fit.
+  assert.ok(prompt.zImagePrompt.indexOf('straight-leg jeans') < prompt.zImagePrompt.indexOf('wide-leg volume with a broad lower-body opening'), 'Z-Image item leads fit');
 });
 
 test('multi-phrase garment colors use natural syntax across wardrobe layers and outfit targets', () => {
@@ -273,7 +259,7 @@ test('single garment prompts remove contradictory wearing states and styling pol
   assert.doesNotMatch(leatherChoker.en, /not a wide belt-like collar/i);
 });
 
-test('top fit and styling appear before the top garment in generated wardrobe text', () => {
+test('the top garment leads, then its fit and styling, in generated wardrobe text', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
@@ -284,25 +270,11 @@ test('top fit and styling appear before the top garment in generated wardrobe te
 
   const grokTopLine = prompt.grokPrompt.match(/Wardrobe:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
   assert.ok(grokTopLine);
-  assert.ok(
-    grokTopLine.indexOf('tight body-skimming upper-body fit') < grokTopLine.indexOf('front hem tied into a compact knot below the waist'),
-    'top fit should appear before top styling'
-  );
-  assert.ok(
-    grokTopLine.indexOf('front hem tied into a compact knot below the waist') < grokTopLine.indexOf('shirt, crisp cotton poplin'),
-    'top styling should appear before the top item'
-  );
-
-  const zImageText = prompt.zImagePrompt;
-  assert.ok(
-    zImageText.indexOf('tight body-skimming upper-body fit') < zImageText.indexOf('front hem tied into a compact knot below the waist'),
-    'Z-Image top fit should appear before top styling'
-  );
-  assert.ok(
-    zImageText.indexOf('front hem tied into a compact knot below the waist') < zImageText.indexOf('shirt, crisp cotton poplin'),
-    'Z-Image top styling should appear before the top item'
-  );
-  assert.doesNotMatch(zImageText, /paired with crisp cotton poplin/);
+  for (const text of [grokTopLine, prompt.zImagePrompt]) {
+    assert.ok(text.indexOf('shirt, crisp cotton poplin') < text.indexOf('tight body-skimming upper-body fit'), 'the top item leads its fit');
+    assert.ok(text.indexOf('tight body-skimming upper-body fit') < text.indexOf('front hem tied into a compact knot below the waist'), 'fit comes before styling');
+  }
+  assert.doesNotMatch(prompt.zImagePrompt, /paired with crisp cotton poplin/);
 });
 
 test('outerwear styling appears after the outerwear garment while avoiding legacy normal-wear wording', () => {
@@ -506,9 +478,9 @@ test('outerwear fit and opening compose before pattern and shoulder styling', ()
     outerwearStylingId: optionId('outerwearStylingId', '雙肩露出'),
     topId: optionId('topId', '襯衫'),
   });
-  assert.match(doubleShoulderPrompt.grokPrompt, /halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves/);
-  assert.match(doubleShoulderPrompt.zImagePrompt, /halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves/);
-  assert.doesNotMatch(doubleShoulderPrompt.midjourneyPrompt, /halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves/);
+  assert.match(doubleShoulderPrompt.grokPrompt, /slid down off both shoulders and hanging around both upper arms, both arms still in the sleeves/);
+  assert.match(doubleShoulderPrompt.zImagePrompt, /slid down off both shoulders and hanging around both upper arms, both arms still in the sleeves/);
+  assert.doesNotMatch(doubleShoulderPrompt.midjourneyPrompt, /slid down off both shoulders and hanging around both upper arms, both arms still in the sleeves/);
 });
 
 test('model-specific shoes stay concise while preserving signature accent details', () => {
@@ -558,12 +530,12 @@ test('single-subject eyewear earrings and neck accessories are bound to the subj
 
   const subjectLine = prompt.grokPrompt.match(/Subject:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
   assert.ok(subjectLine);
-  assert.match(subjectLine, /with .*retro round.*glasses.*pearl.*earrings?.*slim metal choker/i);
+  assert.match(subjectLine, /She wears .*retro round.*glasses.*pearl.*earrings?.*slim metal choker/i);
   assert.doesNotMatch(prompt.grokPrompt, /^Eyewear:/m);
   assert.doesNotMatch(prompt.grokPrompt, /^Earrings:/m);
   assert.doesNotMatch(prompt.grokPrompt, /^Neck Accessory:/m);
 
-  assert.match(prompt.zImagePrompt, /with .*retro round.*glasses.*pearl.*earrings?.*slim metal choker/i);
+  assert.match(prompt.zImagePrompt, /She wears .*retro round.*glasses.*pearl.*earrings?.*slim metal choker/i);
 });
 
 test('new earring and dog-tag options remain traceable in single-subject outputs', () => {

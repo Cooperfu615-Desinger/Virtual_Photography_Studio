@@ -14,6 +14,8 @@ export const SCENE_CAMERA_CONTROL_ORDER = [
   'framingId',
   'angleId',
   'orbitId',
+  'lyingCameraId',
+  'captureStyleId',
   'lensId',
   'apertureId',
   'shutterId',

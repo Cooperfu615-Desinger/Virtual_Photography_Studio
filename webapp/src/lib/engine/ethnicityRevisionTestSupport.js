@@ -11,6 +11,9 @@ import { DEFAULT_ETHNICITY_ADDED_ALIASES, restorePreDefaultEthnicityText } from 
 // The independent 2026-10-18 crew-neck tee wording (crewNeckTeeTestSupport.js)
 // is reversed here too, so frozen baselines keep one entry point.
 import { isCrewNeckTeeAddedAlias, restorePreCrewNeckTeeText } from './crewNeckTeeTestSupport.js';
+// The additive 2026-10-19 scene `lyingSurface` field (lyingSurfaceTestSupport.js) is
+// dropped here too.
+import { LYING_SURFACE_FIELD } from './lyingSurfaceTestSupport.js';
 
 // Main MJ (midjourneyPrompt) owns its own opening sentence.
 const MAIN_MIDJOURNEY_FIELD = 'midjourneyPrompt';
@@ -103,6 +106,7 @@ export function restorePreEthnicityValue(value, field) {
   const object = withoutAddedAliases(value);
   const restored = {};
   for (const [key, child] of Object.entries(object)) {
+    if (key === LYING_SURFACE_FIELD) continue;
     if (key === 'meta' && isPlainObject(child) && isPlainObject(value.meta)) {
       let meta = restorePreEthnicityValue(child, key);
       if (isFaceWithAddedArchetype(value) && meta.archetype === 'korean') meta = { ...meta, archetype: null };

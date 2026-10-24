@@ -15,6 +15,7 @@ export default function SceneEnvironmentControls({
   sourceName,
   isDuoMode,
   supineSurfaceOnly,
+  lyingSurfaceNote = null,
   fixedActive,
   onReleaseFixed,
   fixedDetails = [],
@@ -82,6 +83,9 @@ export default function SceneEnvironmentControls({
           <div className="scene-editor-fields scene-editor-fields--base">
             {renderFields(['sceneAttributeId', 'locationId'])}
           </div>
+          {lyingSurfaceNote ? (
+            <p className={`scene-editor-switch-note scene-lying-note scene-lying-note--${lyingSurfaceNote.tone}`}>{lyingSurfaceNote.text}</p>
+          ) : null}
         </section>
       ) : activePanel === 'fixed' ? (
         isDuoMode ? (

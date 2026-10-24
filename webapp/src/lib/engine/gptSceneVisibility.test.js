@@ -14,6 +14,10 @@ import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 import { normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';
 import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
+import { setLegacyWardrobeModifierOrderForTests } from '../engine.js';
+
+// Frozen baseline written before the wardrobe order change of 2026-10-23.
+setLegacyWardrobeModifierOrderForTests(true);
 const baseline = JSON.parse(readFileSync(new URL('./gptSceneVisibilityBaseline.json', import.meta.url), 'utf8'));
 const controls = getLockControls();
 const angles = controls.find(c => c.key === 'angleId').options;

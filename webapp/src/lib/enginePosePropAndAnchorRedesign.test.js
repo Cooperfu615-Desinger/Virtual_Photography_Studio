@@ -68,7 +68,7 @@ test('Pose Composer exposes prop actions separately from hand actions', () => {
     propControl.options
       .filter((item) => item.zh !== '全無' && item.zh !== '隨機')
       .map((item) => item.zh),
-    ['塗口紅｜自由妝感', '手持冰咖啡', '手持威士忌', '手持香檳', '手持礦泉水瓶', '手持單眼 FUJI X-100V 相機', '手持波板糖', '含著圓形棒棒糖｜右手持棒', '手持香菸', '滑手機', '手持手機對鏡自拍'],
+    ['塗口紅｜自由妝感', '手持冰咖啡', '手持威士忌', '手持香檳', '手持礦泉水瓶', '手持單眼 FUJI X-100V 相機', '手持波板糖', '含著圓形棒棒糖｜右手持棒', '手持香菸', '滑手機', '單手拿著眼鏡', '拿著打開的書', '手持手機對鏡自拍'],
   );
   assert.equal(option('posePropId', '塗口紅｜自由妝感').id, 'hand-apply-lipstick');
   assert.equal(option('posePropId', '塗口紅｜自由妝感').en, LIPSTICK_PROMPT);
@@ -142,10 +142,8 @@ test('retired pose options stay restorable while the public picker excludes them
       locks,
       sceneDependentOptions: getSceneDependentOptions([], locks),
     });
-    const picker = groups.characterLockControls.find((item) => item.key === key);
-    assert.ok(picker, `Expected picker for ${key}`);
-    assert.equal(picker.options.some((item) => item.id === retired.id), true, `${label} should remain visible when selected`);
-    assert.equal(picker.options.some((item) => item.meta?.uiHidden && item.id !== retired.id), false, `${label} should hide other retired options`);
+    // P5a (2026-10-20): retired composer layers no longer have a public picker.
+    assert.equal(groups.characterLockControls.some((item) => item.key === key), false, `${key} has no picker`);
   }
 
   const renamed = option('poseArrangementId', '雙腿屈起');
@@ -327,9 +325,8 @@ test('manual sitting objects are public while generic relationship anchors stay 
     locks,
     sceneDependentOptions: getSceneDependentOptions([], locks),
   });
-  const pickerAnchors = groups.characterLockControls.find((item) => item.key === 'poseAnchorId').options;
-  assert.equal(pickerAnchors.some((item) => item.id === legacyDoorway.id), true);
-  assert.equal(pickerAnchors.some((item) => item.meta?.uiHidden && item.id !== legacyDoorway.id), false);
+  // P5a (2026-10-20): retired composer layers no longer have a public picker.
+  assert.equal(groups.characterLockControls.some((item) => item.key === 'poseAnchorId'), false);
 });
 
 test('standing kneeling and squatting expose no external support choices while sitting exposes nine manual objects', () => {
@@ -418,9 +415,8 @@ test('cube plinth anchors stay restorable but leave the public picker and random
       locks,
       sceneDependentOptions: getSceneDependentOptions([], locks),
     });
-    const pickerAnchors = groups.characterLockControls.find((item) => item.key === 'poseAnchorId').options;
-    assert.equal(pickerAnchors.some((item) => item.id === cubeAnchor.id), true);
-    assert.equal(pickerAnchors.some((item) => item.meta?.uiHidden && item.id !== cubeAnchor.id), false);
+    // P5a (2026-10-20): retired composer layers no longer have a public picker.
+    assert.equal(groups.characterLockControls.some((item) => item.key === 'poseAnchorId'), false);
 
     const [prompt] = generatePrompts(1, locks);
     assert.equal(prompt.selection.poseAnchorId, cubeAnchor.id);
@@ -483,9 +479,8 @@ test('lying body variations are public while previous specialized arrangements s
     locks,
     sceneDependentOptions: getSceneDependentOptions([], locks),
   });
-  const pickerArrangements = groups.characterLockControls.find((item) => item.key === 'poseArrangementId').options;
-  assert.equal(pickerArrangements.some((item) => item.id === legacyArrangement.id), true);
-  assert.equal(pickerArrangements.some((item) => item.meta?.uiHidden && item.id !== legacyArrangement.id), false);
+  // P5a (2026-10-20): retired composer layers no longer have a public picker.
+  assert.equal(groups.characterLockControls.some((item) => item.key === 'poseArrangementId'), false);
 });
 
 test('non-lying random anchors resolve to free arrangement without adding objects', () => {

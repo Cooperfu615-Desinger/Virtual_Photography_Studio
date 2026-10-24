@@ -8,10 +8,14 @@ import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls,
 import { buildPage1ControlGroups } from '../features/page1/page1Selectors.js';
 import { deserializeFavoritePrompt, parseLocksFromStandardPrompt, serializeFavoritePrompt } from '../features/saved-cards/cardCodec.js';
 import { randomizeLockKeys } from './page1SectionRandom.js';
-import { POSE_COMPOSER_KEYS } from '../features/page1/page1Schema.js';
+import { RETIRED_POSE_COMPOSER_KEYS } from '../features/page1/retiredPoseLocks.js';
 import { PAGE1_POSE_SUBPANELS } from './page1WorkspacePanels.js';
 import { poseComposerOptionVisibleForBase, poseComposerOptionVisibleForOrientation } from './engine/poseComposerCompatibility.js';
 import { buildKneelingSupportControl, isFourPointKneeling, reconcileKneelingSupportLocks } from './engine/kneelingSupport.js';
+import { setLegacyWardrobeModifierOrderForTests } from './engine.js';
+
+// Frozen baseline written before the assembly changes of 2026-10-23.
+setLegacyWardrobeModifierOrderForTests(true);
 
 const MIRROR_ID = 'selfie-mirror-phone-visible';
 const MIRROR_SOURCE = 'one hand holding a visible phone toward a mirror for a mirror selfie, with the phone overlapping the face or positioned beside it in the reflection';
@@ -89,11 +93,12 @@ test('mirror selfie is a manual prop with its stable ID and unchanged English so
   assert.equal(option('posePropId', '滑手機').id, 'hand-use-phone');
 });
 
-test('public hand picker omits old mirror entry and the prop picker exposes the new name', () => {
+// P5a (2026-10-20): the mirror selfie is chosen through 拍攝方式; the hand and prop pickers are retired.
+test('mirror selfie is offered by 拍攝方式, not by the retired hand or prop pickers', () => {
   const locks = silentLocks();
   const groups = buildPage1ControlGroups({ lockControls: controls, locks, sceneDependentOptions: getSceneDependentOptions([], locks) });
-  assert.equal(groups.characterLockControls.find(row => row.key === 'poseHandId').options.some(row => row.id === MIRROR_ID), false);
-  assert.equal(groups.characterLockControls.find(row => row.key === 'posePropId').options.some(row => row.id === MIRROR_ID && row.zh === '手持手機對鏡自拍'), true);
+  assert.equal(groups.characterLockControls.some(row => ['poseHandId', 'posePropId'].includes(row.key)), false);
+  assert.ok(groups.coreLockControls.find(row => row.key === 'captureStyleId').options.some(row => row.id === 'mirror' && row.zh === '鏡子自拍'));
 });
 
 test('legacy mirror hand locks migrate without mutating the caller and remain idempotent', () => {
@@ -213,15 +218,17 @@ test('mirror remains excluded from randomized hand and prop pools', () => {
   }
 });
 
-test('pose panel and global batch randomness preserve an explicitly chosen mirror prop', () => {
+// P4 (2026-10-20): the mirror selfie is the 拍攝方式「鏡子自拍」; batch random keeps
+// that mode while the retired prop layer resets.
+test('pose panel and global batch randomness preserve an explicitly chosen mirror selfie style', () => {
   const panel = PAGE1_POSE_SUBPANELS.find(row => row.id === 'single');
   for (const keys of [panel.keys, controls.map(row => row.key)]) {
-    const randomized = randomizeLockKeys(silentLocks(), keys, createEmptyLocks(), controls);
-    assert.equal(randomized.posePropId, MIRROR_ID);
+    const randomized = randomizeLockKeys(silentLocks({ posePropId: 'none', captureStyleId: 'mirror' }), keys, createEmptyLocks(), controls);
+    assert.equal(randomized.captureStyleId, 'mirror');
     const prompt = generate(randomized);
     assert.equal(prompt.selection.posePropId, MIRROR_ID);
     assert.equal(prompt.selection.poseHandId, 'none');
-    for (const key of POSE_COMPOSER_KEYS) assert.notEqual(prompt.selection[key], 'random');
+    for (const key of RETIRED_POSE_COMPOSER_KEYS) assert.notEqual(prompt.selection[key], 'random');
   }
 });
 

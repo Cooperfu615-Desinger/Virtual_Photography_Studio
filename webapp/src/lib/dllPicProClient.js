@@ -1,8 +1,20 @@
-import { getProviderContract } from './providerContract.js';
+import { getProviderContract, normalizeProviderLoraStrength } from './providerContract.js';
 
 const MAGNIFIC_CONTRACT = getProviderContract('magnific');
 const BYTEPLUS_CONTRACT = getProviderContract('byteplus');
 const COMFY_CONTRACT = getProviderContract('comfyCloud');
+
+// Fixed variants keep each job, restored setting and quota sample immutable.
+export const DLL_MOSS_MODEL_KEYS = Object.freeze({
+  base: 'comfyMossImageSftInt8',
+  lora: 'comfyMossImageSftInt8Lora',
+});
+export const DLL_ASIAN_MIX_MODEL_KEYS = Object.freeze({
+  base: 'comfyZImageTurbo', lora: 'comfyZImageTurboAsianMix',
+});
+export const DLL_QWEN_MODEL_KEYS = Object.freeze({
+  base: 'comfyQwenImage21', lora: 'comfyQwenImage21Lora',
+});
 
 export const DLL_PIC_STORAGE_KEYS = {
   apiKey: 'dll_pic_pro_api_key',
@@ -10,6 +22,8 @@ export const DLL_PIC_STORAGE_KEYS = {
   xaiApiKey: 'dll_pic_pro_xai_api_key',
   model: 'dll_pic_pro_model',
   resolution: 'dll_pic_pro_resolution',
+  asianMixStrength: 'dll_pic_pro_asian_mix_strength',
+  qwenLoraStrength: 'dll_pic_pro_qwen_v13b_strength',
 };
 
 export const DLL_PIC_MODEL_CONFIG = {
@@ -176,7 +190,9 @@ export const DLL_PIC_MODEL_CONFIG = {
       analysisModel: '', usesServerProxy: true, supportsResolution: true,
       defaultResolution: model.defaultResolution, resolutionOptions: model.resolutions,
       maxCount: model.maxCount, aspectRatios: model.aspectRatios,
-      partnerPricing: Boolean(model.partnerPricing) },
+      partnerPricing: Boolean(model.partnerPricing),
+      ...(model.loraStrength ? { loraStrength: model.loraStrength } : {}),
+      ...(['mossImageSftInt8Lora', 'zImageTurboAsianMix', 'qwenImage21Lora'].includes(key) ? { hidden: true } : {}) },
   ])),
 };
 
@@ -280,7 +296,51 @@ export function normalizeDllPicModelKey(modelKey, fallback = 'google31FlashLiteI
   if (modelKey === 'grok') return 'xaiGrokImagineQuality';
   const modelConfig = DLL_PIC_MODEL_CONFIG[modelKey];
   if (modelConfig?.redirectModelKey) return modelConfig.redirectModelKey;
-  return modelConfig && !modelConfig.hidden ? modelKey : fallback;
+  return modelConfig && (!modelConfig.hidden || [DLL_MOSS_MODEL_KEYS.lora, DLL_ASIAN_MIX_MODEL_KEYS.lora, DLL_QWEN_MODEL_KEYS.lora].includes(modelKey)) ? modelKey : fallback;
+}
+
+export function getDllPicLoraSelection(modelKey) {
+  if (Object.values(DLL_ASIAN_MIX_MODEL_KEYS).includes(modelKey)) {
+    return { modelKey: DLL_ASIAN_MIX_MODEL_KEYS.base, supported: true, enabled: modelKey === DLL_ASIAN_MIX_MODEL_KEYS.lora,
+      adjustable: true, strength: COMFY_CONTRACT.models.zImageTurboAsianMix.loraStrength.default,
+      label: 'Asian Mix LoKr', strengthLabel: 'LoKr 強度', loraModelKey: DLL_ASIAN_MIX_MODEL_KEYS.lora,
+      storageKey: DLL_PIC_STORAGE_KEYS.asianMixStrength, hint: '需要時可在提示詞加入 asian woman。' };
+  }
+  if (Object.values(DLL_QWEN_MODEL_KEYS).includes(modelKey)) {
+    return { modelKey: DLL_QWEN_MODEL_KEYS.base, supported: true, enabled: modelKey === DLL_QWEN_MODEL_KEYS.lora,
+      adjustable: true, strength: COMFY_CONTRACT.models.qwenImage21Lora.loraStrength.default,
+      label: 'v1.3b LoRA', strengthLabel: 'LoRA 強度', loraModelKey: DLL_QWEN_MODEL_KEYS.lora,
+      storageKey: DLL_PIC_STORAGE_KEYS.qwenLoraStrength, hint: '直接使用目前 Prompt。' };
+  }
+  const supported = Object.values(DLL_MOSS_MODEL_KEYS).includes(modelKey);
+  return { modelKey: supported ? DLL_MOSS_MODEL_KEYS.base : modelKey,
+    supported, enabled: modelKey === DLL_MOSS_MODEL_KEYS.lora, strength: supported ? 0.7 : null };
+}
+
+export function getDllPicLoraModelKey(modelKey, enabled) {
+  const selection = getDllPicLoraSelection(modelKey);
+  if (!selection.supported) return modelKey;
+  if (selection.adjustable) {
+    return enabled === true ? selection.loraModelKey : selection.modelKey;
+  }
+  return enabled === true ? DLL_MOSS_MODEL_KEYS.lora : DLL_MOSS_MODEL_KEYS.base;
+}
+
+export function getDllPicLoraSettings(modelKey, strength) {
+  const model = getDllPicModelConfig(modelKey);
+  return model.loraStrength ? normalizeProviderLoraStrength(model, strength) : {};
+}
+
+export function readDllPicLoraStrength(modelKey, readValue) {
+  const selection = getDllPicLoraSelection(modelKey);
+  if (!selection.adjustable) return selection.strength;
+  try {
+    const stored = readValue(selection.storageKey);
+    const value = stored == null || String(stored).trim() === '' ? undefined : Number(stored);
+    return getDllPicLoraSettings(selection.loraModelKey, value).loraStrength;
+  } catch {
+    return selection.strength;
+  }
 }
 
 export function isDllPicAspectRatioSupported(modelKey, aspectRatio) {
@@ -504,7 +564,7 @@ export async function generateDllPicImages({
   magnificGenerate = null,
   bytePlusGenerate = null,
   comfyGenerate = null,
-  seed, requestId,
+  seed, requestId, loraStrength,
   onProgress,
   onImages,
 }) {
@@ -520,6 +580,7 @@ export async function generateDllPicImages({
     if (!modelConfig.resolutionOptions.includes(resolution)) throw new Error(`${modelConfig.label} 不支援 ${resolution} 解析度`);
     const result = await comfyGenerate({
       modelKey: modelConfig.comfyModel, prompt, aspectRatio, count: normalizedCount, resolution,
+      ...getDllPicLoraSettings(modelKey, loraStrength),
       ...(seed !== undefined ? { seed } : {}), ...(requestId ? { requestId } : {}),
     }, { onProgress, onImages });
     if (result.images.length === 0) throw new Error(result.errors[0] || 'API 回應中未包含圖像資料。');

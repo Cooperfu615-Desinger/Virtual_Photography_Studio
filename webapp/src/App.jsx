@@ -409,7 +409,7 @@ export default function App() {
   const pageHeaderCopy = PAGE_MODE_COPY[pageMode] || PAGE_MODE_COPY.page1;
 
   return (
-    <div className="container">
+    <div className={`container ${pageMode === 'dll' ? 'dll-page' : ''}`}>
       <header className="page-header">
         <div className="page-header-content">
           <p className="eyebrow">Virtual Photography Studio</p>

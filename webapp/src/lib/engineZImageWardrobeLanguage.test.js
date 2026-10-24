@@ -53,7 +53,8 @@ test('Z-Image keeps outerwear secondary when layered over an outfit preset', () 
     shoesColorId: optionId('shoesColorId', '黑色'),
   });
 
-  const wardrobeSentence = prompt.zImagePrompt.match(/She wears[^.]+\./)?.[0] || '';
+  // A random accessory sentence (also "She wears …") may come first; the wardrobe sentence is the last one.
+  const wardrobeSentence = [...prompt.zImagePrompt.matchAll(/She wears[^.]+\./g)].at(-1)?.[0] || '';
 
   assert.doesNotMatch(prompt.zImagePrompt, /Wardrobe details:/);
   assert.match(wardrobeSentence, /^She wears white sport zip-up hoodie/);

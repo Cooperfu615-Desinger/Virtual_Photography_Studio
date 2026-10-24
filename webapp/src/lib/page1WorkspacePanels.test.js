@@ -27,16 +27,14 @@ test('page1 pose panels split single and duo settings without legacy pose contro
   assert.ok(duoPanel);
   assert.equal(singlePanel.label, '單人設置');
   assert.equal(duoPanel.label, '雙人設置');
+  // P4 (Cooper 2026-10-20): 姿勢、手勢、表情、視線; the free composer is retired.
   assert.deepEqual(singlePanel.keys, [
     'specifiedActionId',
+    'gestureId',
+    'propId',
     'expressionId',
-    'poseHeadId',
-    'poseBaseId',
-    'poseOrientationId',
-    'poseArrangementId',
-    'poseHandId',
-    'posePropId',
-    'poseAnchorId',
+    'headPostureId',
+    'gazeId',
   ]);
   assert.deepEqual(duoPanel.keys, [
     'duoPoseId',

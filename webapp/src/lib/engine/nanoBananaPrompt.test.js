@@ -18,6 +18,10 @@ import {
 } from './nanoBananaFixtures.js';
 import { stripFullBodyCharacterBodySource } from './fullBodyCharacterBodyTestSupport.js';
 import { restorePreEthnicityText, restorePreEthnicityValue } from './ethnicityRevisionTestSupport.js';
+import { setLegacyWardrobeModifierOrderForTests } from '../engine.js';
+
+// Frozen baseline written before the accessory and wardrobe assembly changes of 2026-10-23.
+setLegacyWardrobeModifierOrderForTests(true);
 
 const fixtures = nanoBananaFixtures();
 const generated = fixtures.map(fixture => ({ fixture, prompt: generateNanoBananaFixture(fixture) }));

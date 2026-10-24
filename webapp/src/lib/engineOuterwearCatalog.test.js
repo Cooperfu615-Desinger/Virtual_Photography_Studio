@@ -20,7 +20,7 @@ function locksFor(values = {}) {
 }
 const generate = locks => generatePrompts(1, locks, [], { random: createSeededRandom('outerwear-catalog-v1') })[0];
 const outputs = r => [r.grokPrompt, r.zImagePrompt, ...r.extraPrompts.map(e => e.text)];
-const doubleShoulder = 'halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves';
+const doubleShoulder = 'slid down off both shoulders and hanging around both upper arms, both arms still in the sleeves';
 
 test('18 active coats and four restore-only coats retain historical IDs', () => {
   const items = controls.find(c => c.key === 'outerwearId').options.filter(o => o.zh !== '全無');

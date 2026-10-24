@@ -1,3 +1,5 @@
+import { appendPromptInstruction } from './promptAppendices.js';
+
 const PRIMARY_PROMPT_OUTPUTS = Object.freeze([
   Object.freeze({
     id: 'gpt',
@@ -98,4 +100,18 @@ export function buildPage1DllPromptSources(previewPrompt) {
   }));
 
   return [...primarySources, ...fixedFramingSources];
+}
+
+
+// Copy and explicit DLL transfer consume the same final text. The caller supplies
+// either the original preview or its existing reference-person projection.
+export function buildPage1DisplayOutputs(previewPrompt, templateId = '', options = {}) {
+  const cards = buildPage1GenerationPromptCards(previewPrompt).map(card => ({
+    ...card, value: appendPromptInstruction(card.value, templateId, options),
+  }));
+  const values = new Map(cards.map(card => [card.id, card.value]));
+  const dllSources = buildPage1DllPromptSources(previewPrompt).map(source => ({
+    ...source, value: values.get(source.id),
+  }));
+  return { cards, dllSources };
 }

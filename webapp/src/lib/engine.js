@@ -5,7 +5,10 @@ import { MIDJOURNEY_CARD_ITEM_NAMES } from './engine/midjourneyCardItemNames.js'
 import { bottomRiseConflict, resolveBottomRiseCompatibility } from './engine/bottomRiseCompatibility.js';
 import { extractMidjourneyItemNames, midjourneyItemName, naturalIdentity, naturalSentence, naturalWardrobeSentence, renderNaturalMidjourney, uniqueNames } from './engine/midjourneyNaturalPrompt.js';
 import { midjourneyBodyDescription } from './engine/midjourneyBodyDescriptions.js';
-import { SPECIFIED_ACTION_OPTIONS, getSpecifiedAction, getSpecifiedActionEffectiveLocks, specifiedActionSupportsCamera } from './engine/specifiedActions.js';
+import { SPECIFIED_ACTION_OPTIONS, getSpecifiedAction, getSpecifiedActionEffectiveLocks, resolveRandomSpecifiedAction, specifiedActionSupportsCamera } from './engine/specifiedActions.js';
+import { LYING_CAMERA_OPTIONS, isLyingAction, lyingSurfaceFor, resolveLyingCamera, withLyingSurface } from './engine/lyingSurface.js';
+import { HEAD_POSTURE_OPTIONS, headPostureById, mergeHeadPosture, resolveHeadPosture } from './engine/headPosture.js';
+import { CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, actionTextWithGesture, applyCaptureStyleLocks, gazeAvoidsBackView, isBackViewOrbit, resolveGaze, resolveGesture, resolveProp } from './engine/gazeGesture.js';
 import { applyDefaultEthnicity, applyDefaultEthnicityToCharacter, resolveDefaultEthnicity } from './engine/defaultEthnicity.js';
 import { renderNanoBananaNarrative } from './engine/nanoBananaPrompt.js';
 import { polishPublicPromptText } from './engine/publicPromptPolish.js';
@@ -525,7 +528,7 @@ const BOTTOM_RISE_OPTIONS = [
   { id: 'mid-rise', zh: '正常腰線', en: 'mid-rise waistband sitting at the natural waist' },
   { id: 'low-rise', zh: '低腰', en: 'low-rise waistband sitting on the hips' },
   { id: 'ultra-low-rise', zh: '超低腰', en: 'ultra-low-rise waistband sitting very low on the hips' },
-  { id: 'unbuttoned-slightly-unzipped', zh: '扣子解開拉鏈微開', en: 'pants waist button undone and front zipper slightly lowered, relaxed loosened waistband styling, still worn securely on the hips' },
+  { id: 'unbuttoned-slightly-unzipped', zh: '扣子解開拉鏈微開', en: 'waist button undone and front zipper slightly lowered, relaxed loosened waistband styling, still worn securely on the hips' },
 ];
 
 const LEGWEAR_COLOR_OPTIONS = [
@@ -1112,6 +1115,10 @@ const LOCK_DEFINITIONS = [
   { key: 'framingId', label: '構圖景別', category: '景別構圖 (Framing)', section: 'core' },
   { key: 'angleId', label: '俯仰角度', category: '相機視角 (Angle)', section: 'core' },
   { key: 'orbitId', label: '環繞角度', category: '拍攝方位 (Orbit Angle)', section: 'core' },
+  // Lying library P3: replaces angle and orbit while a lying action is active.
+  { key: 'lyingCameraId', label: '躺姿機位', options: LYING_CAMERA_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'core' },
+  // expression-pose-v2 P4: selfie styles map onto the existing selfie hand and prop options.
+  { key: 'captureStyleId', label: '拍攝方式', options: CAPTURE_STYLE_OPTIONS, defaultValue: 'standard', suppressDefaultRandomOption: true, section: 'core' },
   { key: 'lensId', label: '鏡頭焦段', category: FOCAL_LENGTH_CATEGORY, section: 'core' },
   { key: 'apertureId', label: '光圈 / 景深', category: APERTURE_CATEGORY, section: 'core' },
   { key: 'shutterId', label: '快門 / 動態殘影', category: SHUTTER_CATEGORY, section: 'core' },
@@ -1156,6 +1163,11 @@ const LOCK_DEFINITIONS = [
   { key: 'posePropId', label: '道具動作', options: POSE_COMPOSER_PROP_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'poseHeadId', label: '頭部方向', options: POSE_COMPOSER_HEAD_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'poseAnchorId', label: '接觸 / 支撐', options: POSE_COMPOSER_ANCHOR_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
+  // expression-pose-v2 P4: gaze replaces the head layer; gestures fill free-hand actions.
+  { key: 'gestureId', label: '手勢', options: GESTURE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
+  { key: 'propId', label: '道具', options: PROP_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
+  { key: 'headPostureId', label: '頭部', options: HEAD_POSTURE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
+  { key: 'gazeId', label: '視線', options: GAZE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'specialOutfitId', label: '特殊穿搭', category: '特殊穿搭 (Special Outfits)', section: 'wardrobe' },
   { key: 'specialOutfitAId', label: '人物 1 特殊穿搭', category: '特殊穿搭 (Special Outfits)', section: 'wardrobe' },
   { key: 'specialOutfitBId', label: '人物 2 特殊穿搭', category: '特殊穿搭 (Special Outfits)', section: 'wardrobe' },
@@ -3323,6 +3335,9 @@ function buildEntries(groupName, groupedData, inferMeta) {
         ...(item.eyewearPlacementMode
           ? { eyewearPlacementMode: item.eyewearPlacementMode }
           : {}),
+        ...(item.lyingSurface && typeof item.lyingSurface === 'object'
+          ? { lyingSurface: { ...item.lyingSurface } }
+          : {}),
         legacyIds: Array.from(new Set([
           ...(Array.isArray(item.legacyIds) ? item.legacyIds : []),
           ...ambientLightLegacyIds,
@@ -4201,6 +4216,24 @@ function appendWardrobePromptSearchAlias(item, text) {
   return aliases.length > 0 ? `${text}, ${aliases.join(', ')}` : text;
 }
 
+// Frozen pre-2026-10-23 baselines still describe the modifier-first wardrobe order; their tests
+// switch to it here so they keep protecting every other byte (Docs/specs/wardrobe-modifier-order-v1.md).
+let legacyWardrobeModifierOrder = false;
+export function setLegacyWardrobeModifierOrderForTests(enabled) {
+  legacyWardrobeModifierOrder = Boolean(enabled);
+}
+
+const ACCESSORY_DEDUPE_CATEGORIES = new Set([
+  '頭部配件 (Head Accessories)', '耳環 (Earrings)', '頸部 (Neck Accessories)', '腰部配件 (Waist Accessories)', '襪類 (Legwear)', '鞋款 (Shoes)',
+]);
+
+/** The accessory's own name ("lace ribbon choker" from "lace ribbon choker detail, subtle … accent"). */
+function accessoryCorePhrase(item) {
+  if (!item || isNoneLikeItem(item)) return '';
+  const lead = String(item.en || '').split(',')[0].trim().toLowerCase().replace(/\s+(?:detail|accent|styling)$/, '');
+  return lead.split(/\s+/).length >= 2 ? lead : '';
+}
+
 function buildTopColoredPrompt(topItem, color = null, { pattern = null, fit = null, styling = null } = {}) {
   if (!topItem || isNoneLikeItem(topItem)) return '';
   const base = normalizeWardrobePromptText(topItem.en);
@@ -4211,10 +4244,15 @@ function buildTopColoredPrompt(topItem, color = null, { pattern = null, fit = nu
   const patternText = pattern && !isNoneLikeItem(pattern) ? normalizeWardrobePromptText(pattern.en) : '';
   const coloredBase = composeItemWearableColorPrompt(topItem, base, color);
 
-  if (isHemOverlapStyling(styling)) {
-    return [fitText, coloredBase, patternText, stylingText].filter(Boolean).join(', ');
+  // Wardrobe order v1 (Cooper 2026-10-23): the garment name leads, its fit, styling and pattern follow.
+  if (legacyWardrobeModifierOrder) {
+    if (isHemOverlapStyling(styling)) return [fitText, coloredBase, patternText, stylingText].filter(Boolean).join(', ');
+    return [fitText, stylingText, coloredBase, patternText].filter(Boolean).join(', ');
   }
-  return [fitText, stylingText, coloredBase, patternText].filter(Boolean).join(', ');
+  if (isHemOverlapStyling(styling)) {
+    return [coloredBase, fitText, patternText, stylingText].filter(Boolean).join(', ');
+  }
+  return [coloredBase, fitText, stylingText, patternText].filter(Boolean).join(', ');
 }
 
 function getOuterwearFastenerTypes(outerwearItem) {
@@ -4322,7 +4360,7 @@ function buildBottomColoredPrompt(bottomItem, color = null, { pattern = null, fi
   const patternText = pattern && !isNoneLikeItem(pattern) ? normalizeWardrobePromptText(pattern.en) : '';
   const coloredBase = composeWearableColorPrompt(base, color);
 
-  return [riseText, fitText, coloredBase, patternText].filter(Boolean).join(', ');
+  return (legacyWardrobeModifierOrder ? [riseText, fitText, coloredBase, patternText] : [coloredBase, riseText, fitText, patternText]).filter(Boolean).join(', ');
 }
 
 function buildBottomWardrobePrompt(bottomItem, wardrobeSlots, wardrobeColors) {
@@ -4960,20 +4998,6 @@ function detailAllowed(item, framing) {
   return visibilityAtLeast(framing.meta.visibility, item.meta.minVisibility);
 }
 
-function isOutdoorLocationContext(context) {
-  if (context.sceneAttribute?.id === 'outdoor') return true;
-  const locationTags = new Set(context.location?.meta?.tags || []);
-  return locationTags.has('outdoor') || locationTags.has('natural') || locationTags.has('waterfront') || locationTags.has('green_space');
-}
-
-function poseSupportsLocationContext(item, context) {
-  if (!item || isNoneLikeItem(item)) return true;
-  if (!isOutdoorLocationContext(context)) return true;
-
-  const poseText = toHaystack(item.zh, item.en, item.desc);
-  return !hasAny(poseText, ['mirror selfie', '鏡子自拍']);
-}
-
 function getSubjectOption(id) {
   return SUBJECT_COUNT_OPTIONS.find((option) => option.id === id) || SUBJECT_COUNT_OPTIONS[0];
 }
@@ -5511,6 +5535,14 @@ function normalizePoseComposerPropPhrase(propAction) {
   return stripTerminalPromptPunctuation(propAction?.en || '');
 }
 
+/** "Her expression is delicate innocent expression, …" repeats the word, so a value that already
+ * names an expression becomes "She has a delicate innocent expression, …" (Accessory v1, Nano). */
+function nanoBananaExpressionSentence(value, lead) {
+  if (!value) return '';
+  if (legacyWardrobeModifierOrder || !/^[^,]*\bexpression\b\s*(?:,|$)/i.test(value)) return lead('Her expression is', value);
+  return lead('She has', withIndefiniteArticle(value));
+}
+
 function withIndefiniteArticle(phrase) {
   const text = stripTerminalPromptPunctuation(phrase || '');
   if (!text || /^(?:a|an)\b/i.test(text)) return text;
@@ -5603,11 +5635,27 @@ function buildPoseComposerItem(context) {
   const requestedOrientation = getPoseComposerOption(POSE_COMPOSER_ORIENTATION_OPTIONS, context.locks?.poseOrientationId);
   const requestedArrangement = getPoseComposerOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, context.locks?.poseArrangementId);
   const requestedHand = getPoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId);
-  const requestedHead = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId);
   const requestedProp = getPoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, context.locks?.posePropId);
   const requestedAnchor = getPoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, context.locks?.poseAnchorId);
+  // expression-pose-v2 P4: an active gaze supplies the head option; unused gaze
+  // leaves older head locks in charge. An action that owns the head keeps it.
+  const specifiedAction = getSpecifiedAction(context.locks);
+  const gaze = context.rawLocks?.captureMode === 'observation' || specifiedAction?.ownsHead
+    ? null : resolveGaze(context.locks?.gazeId, { orientationId: specifiedAction?.orientationId, orbit: context.orbit }, random);
+  if (context.poseResolution) context.poseResolution.gaze = gaze;
+  const headLockId = gaze ? gaze.headId || 'none' : context.locks?.poseHeadId;
+  // Pose UI v2 part 2: 頭部 posture joins the gaze (or legacy head) in one head sentence.
+  const posture = context.rawLocks?.captureMode === 'observation' || specifiedAction?.ownsHead
+    ? null : resolveHeadPosture(context.locks?.headPostureId, gaze, random);
+  if (context.poseResolution) context.poseResolution.posture = posture;
+  // headPostureId appears only when a posture is in use, so older structured data keeps its shape.
+  const headIds = head => ({ poseHeadId: head?.meta?.headPostureOnly ? 'none' : head?.id || 'none',
+    ...(head?.meta?.headPostureId ? { headPostureId: head.meta.headPostureId } : {}) });
 
-  const resolveHead = (arrangementForHead = null, orientationForHead = null) => {
+  const requestedHead = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, headLockId);
+
+  const resolveHead = (arrangementForHead = null, orientationForHead = null) => mergeHeadPosture(resolveHeadBase(arrangementForHead, orientationForHead), posture);
+  const resolveHeadBase = (arrangementForHead = null, orientationForHead = null) => {
     // Compatibility constrains only the random pool. A concrete user lock is
     // intentional and must remain visible rather than being silently replaced.
     const predicate = isRandomOption(requestedHead)
@@ -5621,7 +5669,7 @@ function buildPoseComposerItem(context) {
       : () => true;
     return resolvePoseComposerOption(
       POSE_COMPOSER_HEAD_OPTIONS,
-      context.locks?.poseHeadId,
+      headLockId,
       predicate,
       exclusions,
       ['poseHeadId'],
@@ -5639,15 +5687,19 @@ function buildPoseComposerItem(context) {
     random
   );
 
-  const specifiedAction = getSpecifiedAction(context.locks);
   if (specifiedAction) {
     const orientation = getPoseComposerOption(POSE_COMPOSER_ORIENTATION_OPTIONS, specifiedAction.orientationId);
     const head = resolveHead(null, orientation);
-    const headText = isActivePoseComposerOption(head) ? `She has ${stripTerminalPromptPunctuation(head.en)}.` : '';
+    const headText = isActivePoseComposerOption(head) ? `She has ${normalizePoseComposerHeadPhrase(head)}.` : '';
+    const gesture = resolveGesture(context.locks?.gestureId, specifiedAction, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random);
+    if (context.poseResolution) context.poseResolution.gesture = gesture;
+    const prop = resolveProp(context.locks?.propId, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random);
+    if (context.poseResolution) context.poseResolution.prop = prop;
+    const actionText = actionTextWithGesture(specifiedAction, gesture, {}, prop);
     return {
       id: `character:姿勢組合器-pose-composer:${specifiedAction.id}:${head?.id || 'none'}`,
       zh: [specifiedAction.zh, head?.zh].filter(Boolean).join(' + '),
-      en: [specifiedAction.en, headText].filter(Boolean).join(' '),
+      en: [withLyingSurface(actionText.en, lyingSurfaceFor(specifiedAction, context.location)), headText].filter(Boolean).join(' '),
       desc: specifiedAction.descriptionZh,
       meta: {
         tags: ['pose_composer'], minVisibility: 'full',
@@ -5655,7 +5707,9 @@ function buildPoseComposerItem(context) {
         supineGroundOnly: specifiedAction.meta?.supineGroundOnly === true,
         poseBaseId: specifiedAction.baseId, poseOrientationId: specifiedAction.orientationId,
         poseArrangementId: 'none', poseHandId: 'none', posePropId: 'none',
-        poseHeadId: head?.id || 'none', poseAnchorId: 'none',
+        ...headIds(head), poseAnchorId: 'none',
+        gestureId: gesture?.id || 'none',
+        ...(prop ? { propId: prop.id } : {}),
       },
     };
   }
@@ -5673,7 +5727,11 @@ function buildPoseComposerItem(context) {
       random
     );
     const head = resolveHead();
-    const propAction = resolvePoseComposerOption(
+    // The 道具 control (2026-10-22) runs here when no action is chosen; the retired prop lock still wins.
+    const newProp = !context.locks?.posePropId || context.locks.posePropId === 'none'
+      ? resolveProp(context.locks?.propId, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random) : null;
+    if (context.poseResolution) context.poseResolution.prop = newProp;
+    const propAction = newProp || resolvePoseComposerOption(
       POSE_COMPOSER_PROP_OPTIONS,
       context.locks?.posePropId,
       isRandomOption(requestedProp)
@@ -5699,7 +5757,7 @@ function buildPoseComposerItem(context) {
         poseArrangementId: 'none',
         poseHandId: handPose?.id || 'none',
         posePropId: propAction?.id || 'none',
-        poseHeadId: head?.id || 'none',
+        ...headIds(head),
         poseAnchorId: 'none',
       },
     };
@@ -5811,7 +5869,7 @@ function buildPoseComposerItem(context) {
       poseArrangementId: arrangement?.id || 'none',
       poseHandId: handPose?.id || 'none',
       posePropId: propAction?.id || 'none',
-      poseHeadId: head?.id || 'none',
+      ...headIds(head),
       poseAnchorId: anchor?.id || 'none',
     },
   };
@@ -6133,6 +6191,11 @@ function buildChestUpPoseComposerSentence({ orientation, arrangement, handPose, 
   });
 }
 
+/** The head option a composed pose recorded: its gaze or legacy head, joined with any 頭部 posture. */
+function headOptionFromMeta(meta) {
+  return mergeHeadPosture(getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, meta?.poseHeadId), headPostureById(meta?.headPostureId));
+}
+
 function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = false, omitHand = false, omitProp = false } = {}) {
   if (!poseComposer || isNoneLikeItem(poseComposer)) return '';
   const projection = getCompositionVisibilityProjection(context);
@@ -6141,17 +6204,20 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
   if (specifiedAction) {
     if (projection.pose?.mode === 'omit') return specifiedAction.faceEn || (specifiedAction.meta?.supineGroundOnly ? 'She is lying on her back on the ground.' : '');
     if (projection.pose?.mode === 'fullCanonical' || projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE) return poseComposer.en;
-    const head = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, poseComposer.meta?.poseHeadId);
-    return [specifiedAction.upperBodyEn,
-      isActivePoseComposerOption(head) ? `She has ${stripTerminalPromptPunctuation(head.en)}.` : '',
+    const head = headOptionFromMeta(poseComposer.meta);
+    const gesture = GESTURE_OPTIONS.find(option => option.scope && option.id === poseComposer.meta?.gestureId) || null;
+    const prop = PROP_OPTIONS.find(option => option.en && option.id === poseComposer.meta?.propId) || null;
+    const chestUp = projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP;
+    return [withLyingSurface(actionTextWithGesture(specifiedAction, gesture, { chestUp }, prop).upperBodyEn, lyingSurfaceFor(specifiedAction, context.location)),
+      isActivePoseComposerOption(head) ? `She has ${normalizePoseComposerHeadPhrase(head)}.` : '',
     ].filter(Boolean).join(' ');
   }
   if (context.fixedSetPosition?.carriagePose || context.fixedSetPosition?.stationPose) {
     if (projection.pose?.mode === 'omit') return '';
     const position = context.fixedSetPosition;
-    const head = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, poseComposer.meta?.poseHeadId);
+    const head = headOptionFromMeta(poseComposer.meta);
     return [projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP ? position.chestEn : position.en,
-      isActivePoseComposerOption(head) && !isRandomOption(head) ? `She has ${stripTerminalPromptPunctuation(head.en)}.` : '',
+      isActivePoseComposerOption(head) && !isRandomOption(head) ? `She has ${normalizePoseComposerHeadPhrase(head)}.` : '',
     ].filter(Boolean).join(' ');
   }
 
@@ -6167,7 +6233,8 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
   const orientation = activeOption(POSE_COMPOSER_ORIENTATION_OPTIONS, poseComposer.meta?.poseOrientationId);
   const handPose = omitHand ? null : activeOption(POSE_COMPOSER_HAND_OPTIONS, poseComposer.meta?.poseHandId);
   const propAction = omitProp ? null : activeOption(POSE_COMPOSER_PROP_OPTIONS, poseComposer.meta?.posePropId);
-  const head = activeOption(POSE_COMPOSER_HEAD_OPTIONS, poseComposer.meta?.poseHeadId);
+  const mergedHead = headOptionFromMeta(poseComposer.meta);
+  const head = isActivePoseComposerOption(mergedHead) ? mergedHead : null;
   const anchor = omitAnchor ? null : activeOption(POSE_COMPOSER_ANCHOR_OPTIONS, poseComposer.meta?.poseAnchorId);
   const bucket = projection.bucket;
   const isSupineSurfaceLed = projection.pose?.supineSurfaceMode === 'fullSource'
@@ -6420,7 +6487,7 @@ function selectedSpecialOutfitHasHairstyle(context, catalog, role = null) {
   return specialOutfitHasHairstyle(roleOutfit);
 }
 
-function resolvePoseComposerWardrobeSignals(context, catalog) {
+export function resolvePoseComposerWardrobeSignals(context, catalog) {
   const sourceCatalog = catalog?.catalog || catalog || {};
   const wardrobe = sourceCatalog.wardrobe || {};
 
@@ -6458,6 +6525,8 @@ function resolvePoseComposerWardrobeSignals(context, catalog) {
     outerwear,
     eyewear,
     upperGarment: combine([top, dress, outerwear, outfitPreset, specialOutfit]),
+    // A top with a hem the hands can lift: not a dress, and not 全無 on top.
+    topHem: dress === 'present' ? 'absent' : top,
   };
 }
 
@@ -6746,7 +6815,6 @@ function buildCharacter(context, catalog) {
     if (hairColorB) character.push(hairColorB);
   }
 
-  let expression = null;
   if (context.subject.count === 2) {
     const duoExpressionOption = context.locks?.duoExpressionId
       ? getDuoExpressionOption(context.locks.duoExpressionId)
@@ -6761,7 +6829,7 @@ function buildCharacter(context, catalog) {
   } else if (actionPose && !isNoneLikeItem(actionPose)) {
     character.push(actionPose);
   } else {
-    expression = pickCategory(CHARACTER_EXPRESSION_CATEGORY, context.locks, (item) => expressionSupportsComposition(item, context));
+    pickCategory(CHARACTER_EXPRESSION_CATEGORY, context.locks, (item) => expressionSupportsComposition(item, context));
   }
 
   if (context.subject.count > 1) {
@@ -6793,20 +6861,11 @@ function buildCharacter(context, catalog) {
     : null;
   if (specialAction && !isNoneLikeItem(specialAction) && !isSocialShootingAction(specialAction)) return character;
 
+  // expression-pose-v2 P2 (Cooper 2026-10-19): 全無 writes no pose. Only an
+  // explicitly locked legacy pose still resolves; an unset pose no longer draws
+  // from the old Pose & Body Language catalog.
   if (context.locks?.poseId) {
     pickCategory('姿勢與肢體語言 (Pose & Body Language)', context.locks, () => true, sampleItem, false);
-  } else if (visibility === 'close') {
-    return character;
-  } else if (visibilityAtLeast(visibility, 'full')) {
-    pickCategory('姿勢與肢體語言 (Pose & Body Language)', context.locks, (item) => poseSupportsLocationContext(item, context));
-  } else if (!expression) {
-    pickCategory(
-      '姿勢與肢體語言 (Pose & Body Language)',
-      context.locks,
-      (item) => detailAllowed(item, context.framing) && poseSupportsLocationContext(item, context),
-      sampleItem,
-      false
-    );
   }
 
   return character;
@@ -7091,6 +7150,10 @@ function buildWardrobe(context, locks, catalog) {
     && !locks?.headAccessoryId
     && Boolean(getGarmentColorOption(locks?.headAccessoryColorId))
     && !isNoneLikeItem(getGarmentColorOption(locks?.headAccessoryColorId));
+  const duplicatesPlacedPiece = (item) => {
+    const core = accessoryCorePhrase(item);
+    return Boolean(core) && pieces.some((piece) => piece !== item && String(piece?.en || '').toLowerCase().includes(core));
+  };
   const maybePick = (categoryKey, probability = 1, extraPredicate = () => true, { allowNoneWhenUnlocked = false } = {}) => {
     const lockKey = categoryLockMap[categoryKey];
     const categoryItems = getByKey(catalog.catalog.wardrobe, categoryKey);
@@ -7126,7 +7189,15 @@ function buildWardrobe(context, locks, catalog) {
         extraPredicate(item)
     );
     if (candidates.length === 0) return null;
-    const picked = sampleItem(candidates);
+    let picked = sampleItem(candidates);
+    // Random accessory dedupe (Cooper 2026-10-23): an accessory the outfit already names (a preset's
+    // choker or belt) is drawn again from the rest. The extra draw happens only in that case, so every
+    // other result keeps its random stream.
+    if (ACCESSORY_DEDUPE_CATEGORIES.has(categoryKey) && duplicatesPlacedPiece(picked)) {
+      const others = candidates.filter((item) => !duplicatesPlacedPiece(item));
+      if (others.length === 0) return null;
+      picked = sampleItem(others);
+    }
     addPiece(picked);
     return picked;
   };
@@ -9472,7 +9543,8 @@ function filterZImagePoseForFraming(value, context) {
 }
 
 const OUTERWEAR_SINGLE_SHOULDER_STYLING_TEXT = 'slipped down over one upper arm, with the neckline lowered on that side and the opposite shoulder still covered';
-const OUTERWEAR_DOUBLE_SHOULDER_STYLING_TEXT = 'halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves';
+const OUTERWEAR_DOUBLE_SHOULDER_STYLING_TEXT = 'slid down off both shoulders and hanging around both upper arms, both arms still in the sleeves';
+const LEGACY_OUTERWEAR_DOUBLE_SHOULDER_STYLING_TEXT = 'halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves';
 
 function buildOuterwearStylingLeadText(styling, { minimal = false } = {}) {
   if (!styling || isNoneLikeItem(styling)) return '';
@@ -9483,7 +9555,7 @@ function buildOuterwearStylingLeadText(styling, { minimal = false } = {}) {
     return OUTERWEAR_SINGLE_SHOULDER_STYLING_TEXT;
   }
   if (styling.zh === '雙肩露出') {
-    return OUTERWEAR_DOUBLE_SHOULDER_STYLING_TEXT;
+    return legacyWardrobeModifierOrder ? LEGACY_OUTERWEAR_DOUBLE_SHOULDER_STYLING_TEXT : OUTERWEAR_DOUBLE_SHOULDER_STYLING_TEXT;
   }
   return stripMarkdown(styling.en || '').replace(/\s+/g, ' ').trim();
 }
@@ -10006,6 +10078,47 @@ function buildSubjectAccessoryPrompt({ eyewear, eyewearColor, eyewearPlacement, 
   return dedupedParts.length > 0 ? `with ${joinNaturalList(dedupedParts)}` : '';
 }
 
+const ACCESSORY_FILLER_CLAUSE = /^(?:a |an )?(?:subtle|understated)\b[^,]*\b(?:accent|styling|detail)$/i;
+const DEFAULT_EYEWEAR_PLACEMENT_TEXT = 'worn normally on the face, lenses aligned over the eyes';
+
+/** Accessory v1 (Cooper 2026-10-23): one list for a single subject's head, face and neck accessories,
+ * item first (eyewear name before its colour, then its placement). `compact` is for Z-Image and Nano:
+ * it drops filler clauses and the default "worn normally on the face" placement. GPT keeps every
+ * selected description. */
+function buildSingleSubjectAccessoryList(wardrobeSlots, wardrobeColors, { compact = false } = {}) {
+  const clean = (text) => {
+    if (!compact) return text;
+    return String(text || '').replace(DEFAULT_EYEWEAR_PLACEMENT_TEXT, '').split(/\s*,\s*/).map((clause) => clause.trim())
+      .filter((clause) => clause && !ACCESSORY_FILLER_CLAUSE.test(clause)).join(', ');
+  };
+  const eyewearBase = buildAccessoryPrompt(wardrobeSlots.eyewear);
+  const eyewearItem = wardrobeSlots.eyewear && !isNoneLikeItem(wardrobeSlots.eyewear)
+    ? (() => {
+        const color = wardrobeSlots.eyewearColor;
+        const targeted = buildTargetedEyewearColorPrompt(wardrobeSlots.eyewear, eyewearBase, color);
+        const colorText = color && !isNoneLikeItem(color) ? buildAccessoryPrompt(color) : '';
+        const placement = wardrobeSlots.eyewearPlacement;
+        const placementText = wardrobeSlots.eyewear.eyewearPlacementMode === 'fixed-face' || (placement && isNoneLikeItem(placement))
+          ? '' : placement && !isNoneLikeItem(placement) ? buildAccessoryPrompt(placement) : DEFAULT_EYEWEAR_PLACEMENT_TEXT;
+        return [targeted || [eyewearBase, colorText].filter(Boolean).join(', '), placementText].filter(Boolean).join(', ');
+      })()
+    : '';
+  const parts = [
+    cleanSubjectAccessoryPrompt(buildHeadAccessoryPrompt(wardrobeSlots.headAccessory, wardrobeColors?.headAccessoryColor)),
+    eyewearItem,
+    cleanSubjectAccessoryPrompt(wardrobeSlots.earrings),
+    cleanSubjectAccessoryPrompt(wardrobeSlots.headphones),
+    cleanSubjectAccessoryPrompt(wardrobeSlots.faceCovering),
+    cleanSubjectAccessoryPrompt(wardrobeSlots.nosePiercing),
+    cleanSubjectAccessoryPrompt(wardrobeSlots.lipPiercing),
+    cleanSubjectAccessoryPrompt(wardrobeSlots.neckAccessory),
+  ].map(clean).filter(Boolean);
+  const deduped = dedupeRepeatedCommaFragments(parts);
+  // Items carry their own commas, so they are separated by semicolons to keep the boundaries readable.
+  if (deduped.length <= 1) return deduped[0] || '';
+  return `${deduped.slice(0, -1).join('; ')}; and ${deduped[deduped.length - 1]}`;
+}
+
 function appendSubjectAccessories(subjectText, accessoryText) {
   const cleanedSubject = stripMarkdown(subjectText || '').replace(/\s+/g, ' ').trim();
   if (!cleanedSubject) return accessoryText || '';
@@ -10348,6 +10461,7 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
       || wardrobeSlots.outfitPresetA
       || wardrobeSlots.outfitPresetB
     );
+  const singleAccessoryLines = !legacyWardrobeModifierOrder && context.subject.count === 1 && !specialSubjectMode && !characterProfileMode;
   const buildGrokSubjectText = () => {
     const subjectText = buildCharacterCardSubjectPrompt(context.subject, context.locks, context, wardrobe);
     const baseSubjectText = useCharacterIdentityAnchor ? `${subjectText} ${context.characterProfilePrompt}` : subjectText;
@@ -10362,6 +10476,9 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
       return roleAccessoryText ? `${baseSubjectText}, ${roleAccessoryText}` : baseSubjectText;
     }
 
+    // Accessory v1: an ordinary single subject keeps its accessories out of the identity sentence;
+    // they go in their own 'Subject Accessories' lines below.
+    if (singleAccessoryLines) return baseSubjectText;
     return appendSubjectAccessories(baseSubjectText, buildSubjectAccessoryPrompt({
       eyewear: wardrobeSlots.eyewear,
       eyewearColor: wardrobeSlots.eyewearColor,
@@ -10455,6 +10572,13 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
   addLine('Duo Scene Anchor', duoSceneAnchorText);
   if (!hasDuoSceneAnchor) {
     addLine('Subject Count', buildGrokSubjectText());
+  }
+  if (!hasDuoSceneAnchor && singleAccessoryLines) {
+    const accessoryList = buildSingleSubjectAccessoryList(wardrobeSlots, wardrobeColors);
+    if (accessoryList) {
+      addLine('Subject Accessories', `She wears ${accessoryList}`);
+      addLine('Subject Accessories Compact', buildSingleSubjectAccessoryList(wardrobeSlots, wardrobeColors, { compact: true }));
+    }
   }
   if (context.subject.reference) {
     addLine('Reference Guidance', 'use the attached reference image as the primary facial identity guide, keep the facial features and overall likeness consistent with the image');
@@ -11046,6 +11170,13 @@ function buildZImageSubjectLead(context) {
   return resolveImageTypePreset(context).zImageLead || 'Create a photorealistic editorial portrait of';
 }
 
+/** Version C (Cooper 2026-10-23): the scene-first capture paragraph says "She …" before the person is
+ * introduced, so the opening line names her. Other image types keep their line. */
+function zImageOnLocationImageTypeLine(line) {
+  if (legacyWardrobeModifierOrder) return line;
+  return line === 'Photorealistic editorial portrait.' ? 'Photorealistic editorial portrait of one young adult woman.' : line;
+}
+
 function buildZImageTypePromptLine(context) {
   if (context.observationCapture) return ensureTerminalPeriod(context.imageTypePreset.en);
   const preset = resolveImageTypePreset(context);
@@ -11134,6 +11265,7 @@ function buildCompositionPromptLine(context, {
   }
   const parts = [
     context?.fixedFramingCompositionOpening || compactCameraDescriptor(context?.framing, 'framing'),
+    context?.lyingCamera?.en || '',
     omitAngle ? '' : compactCameraDescriptor(context?.angle, 'angle'),
     omitOrbit ? '' : compactCameraDescriptor(context?.orbit, 'orbit'),
     ...(adaptation?.compositionAdditions || []),
@@ -11181,9 +11313,13 @@ function buildGptPromptSectionSources(valuesByLabel, context, { includeBodyType 
   // Omit only standalone catalog Body Type; card identity and pose sources stay intact.
   // The full-body character reference is an approved exception (2026-10-14): it is a
   // reusable character backup, so it keeps the single Body Type at its original position.
+  // Accessory v1: when the single subject has its own accessory line, the separate Head Accessory
+  // value is part of it and must not be written twice.
+  const hasSubjectAccessoryLine = valuesByLabel.has('Subject Accessories');
   const subjectValues = getStructuredValues(valuesByLabel, [
     'Duo Scene Anchor',
     'Subject Count',
+    'Subject Accessories',
     'Reference Guidance',
     ...(includeBodyType ? ['Body Type'] : []),
     'Facial Features',
@@ -11206,7 +11342,7 @@ function buildGptPromptSectionSources(valuesByLabel, context, { includeBodyType 
     'Woman 1 Expression',
     'Woman 2 Expression',
     'Character Identity',
-    'Head Accessory',
+    ...(hasSubjectAccessoryLine ? [] : ['Head Accessory']),
     'Woman 1 Head Accessory',
     'Woman 2 Head Accessory',
   ]);
@@ -12966,8 +13102,8 @@ function renderNanoBananaPrompt(promptModel, { cameraSpatial = false, sceneMirro
       lead('Her hair is', joinNaturalPromptValues(getStructuredValues(valuesByLabel, ['Hairstyle']))),
       lead('Her hair styling has', joinNaturalPromptValues(getStructuredValues(valuesByLabel, ['Hair Styling State']))),
       lead('Her hair color is', joinNaturalPromptValues(getStructuredValues(valuesByLabel, ['Hair Color']))),
-      lead('Her expression is', joinNaturalPromptValues(getStructuredValues(valuesByLabel, ['Expression']))),
-      lead('She wears', joinNaturalPromptValues(getStructuredValues(valuesByLabel, ['Head Accessory']))),
+      nanoBananaExpressionSentence(joinNaturalPromptValues(getStructuredValues(valuesByLabel, ['Expression'])), lead),
+      lead('She wears', joinNaturalPromptValues(getStructuredValues(valuesByLabel, valuesByLabel.has('Subject Accessories Compact') ? ['Subject Accessories Compact'] : ['Head Accessory']))),
       lead('She has', joinNaturalPromptValues(getStructuredValues(valuesByLabel, ['Body Type']))),
       sentence(specialGroups?.hairAndBodyText),
     ]));
@@ -13348,6 +13484,9 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
           buildHeadAccessoryPrompt(wardrobeSlots.headAccessoryB, wardrobeColors.headAccessoryBColor) ? `woman 2 wearing ${cleanSubjectAccessoryPrompt(buildHeadAccessoryPrompt(wardrobeSlots.headAccessoryB, wardrobeColors.headAccessoryBColor))}` : '',
         ].filter(Boolean).join(', ')
       : cleanSubjectAccessoryPrompt(buildHeadAccessoryPrompt(wardrobeSlots.headAccessory, wardrobeColors.headAccessoryColor));
+    // Accessory v1: Z-Image writes an ordinary single subject's accessories as their own sentence after the person chain.
+    const zAccessoryList = !legacyWardrobeModifierOrder && context.subject.count === 1
+      ? buildSingleSubjectAccessoryList(wardrobeSlots, wardrobeColors, { compact: true }) : '';
     const usesFixedSingleSubjectLead = context.subject.count === 1 && shouldUseFixedNormalSingleSubjectLead(context);
     const subjectBaseText = usesFixedSingleSubjectLead
       ? applyDefaultEthnicity(FIXED_SINGLE_NORMAL_SUBJECT_SENTENCE, context.defaultEthnicity)
@@ -13357,7 +13496,7 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
     const parts = [
       stripTerminalPromptPunctuation(appendSubjectAccessories(
         subjectBaseText,
-        subjectAccessoryText
+        context.subject.count === 1 && !legacyWardrobeModifierOrder ? '' : subjectAccessoryText
       )),
       context.subject.count === 2
         ? [buildRoleHasPrompt(characterSlots.bodyTypeA, 'woman 1'), buildRoleHasPrompt(characterSlots.bodyTypeB, 'woman 2')].filter(Boolean).join(', ')
@@ -13387,7 +13526,7 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
             characterSlots.hairColor && !isNoneLikeItem(characterSlots.hairColor) ? characterSlots.hairColor.en : '',
           ].filter(Boolean).join(', '),
       context.subject.count === 1 ? singleSpecialOutfitContent.personText : '',
-      headAccessoryText,
+      context.subject.count === 1 && !legacyWardrobeModifierOrder ? '' : headAccessoryText,
       context.subject.count === 2
         ? [buildRoleHasPrompt(characterSlots.skinDetailsA, 'woman 1'), buildRoleHasPrompt(characterSlots.skinDetailsB, 'woman 2')].filter(Boolean).join(', ')
         : (!useCharacterIdentityAnchor && characterSlots.skinDetails && !isNoneLikeItem(characterSlots.skinDetails) ? characterSlots.skinDetails.en : ''),
@@ -13401,7 +13540,7 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
     ].filter(Boolean);
 
     const text = context.subject.count === 1
-      ? sentence(parts.join(', '))
+      ? [sentence(parts.join(', ')), zAccessoryList ? sentence(`She wears ${zAccessoryList}`) : ''].filter(Boolean).join(' ')
       : leadSentence(buildZImageSubjectLead(context), parts);
     return context.subject.count === 1 ? compressZImageSingleSubjectText(text, context) : text;
   };
@@ -13850,12 +13989,12 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
     // never infer a seat, surface, light source or replacement object.
     const onLocation = Boolean(identity && poseText);
     return renderSections([
-      { id: 'imageType', text: imageTypeLine },
+      { id: 'imageType', text: onLocation ? zImageOnLocationImageTypeLine(imageTypeLine) : imageTypeLine },
       { id: 'composition', preserveSourceLines: onLocation, text: onLocation ? buildZImageOnLocationCapture({
         scene: settingText, pose: poseText, hand: handText, lighting: lightingText,
         hasAmbientLight: Boolean(context.lighting && !isNoneLikeItem(context.lighting)
           && stripMarkdown(context.lighting.en || '').trim()),
-        composition: compositionLine,
+        composition: compositionLine, tidy: !legacyWardrobeModifierOrder,
       }) : [settingText, compositionLine, handText].filter(Boolean).join(' ') },
       { id: 'subject', text: buildCharacterText() },
       { id: 'pose', text: onLocation ? '' : poseText },
@@ -13874,10 +14013,10 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
     && !useCharacterIdentityAnchor && !supineSurfaceLed && isCarriageFixedSet(context.fixedCompositionSet)) {
     const poseText = buildSinglePoseText();
     if (poseText) return renderSections([
-      { id: 'imageType', text: imageTypeLine },
+      { id: 'imageType', text: zImageOnLocationImageTypeLine(imageTypeLine) },
       { id: 'composition', preserveSourceLines: true, text: buildZImageOnLocationCapture({
         scene: buildSceneText(), pose: poseText, lighting: buildLightingText(),
-        sceneSharesAmbientLight: true, composition: compositionLine,
+        sceneSharesAmbientLight: true, composition: compositionLine, tidy: !legacyWardrobeModifierOrder,
       }) },
       { id: 'subject', text: buildCharacterText() },
       { id: 'wardrobe', text: buildWardrobeText() },
@@ -16405,6 +16544,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     poseHandId: characterSlots.poseComposer?.meta?.poseHandId || 'none',
     posePropId: characterSlots.poseComposer?.meta?.posePropId || 'none',
     poseHeadId: characterSlots.poseComposer?.meta?.poseHeadId || 'none',
+    headPostureId: characterSlots.poseComposer?.meta?.headPostureId || 'none',
     poseAnchorId: characterSlots.poseComposer?.meta?.poseAnchorId || 'none',
     topId: wardrobeSlots.top?.id || '',
     topAId: wardrobeSlots.topA?.id?.replace(/:a$/, '') || '',
@@ -16532,7 +16672,26 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     }
     resolvedSelection.specifiedActionId = storedAction.id;
   }
+  // Lying library P3: keep the user's raw angle and orbit for a later cancel, and
+  // record the resolved lying camera; an unused 全無 keeps old snapshots' shape.
+  if (context.lyingActionActive) {
+    resolvedSelection.angleId = context.rawLocks.angleId;
+    resolvedSelection.orbitId = context.rawLocks.orbitId;
+  }
+  resolvedSelection.lyingCameraId = context.lyingCamera?.id || context.rawLocks.lyingCameraId || 'none';
+  // expression-pose-v2 P4: record resolved gaze and gesture (raw choice when unused)
+  // and the 拍攝方式; unused defaults keep old snapshots' shape.
+  const { gaze, gesture, prop } = context.poseResolution || {};
+  resolvedSelection.gazeId = gaze ? gaze.id : context.rawLocks.gazeId || 'none';
+  resolvedSelection.gestureId = gesture ? gesture.id : context.rawLocks.gestureId || 'none';
+  resolvedSelection.propId = prop ? prop.id : context.rawLocks.propId || 'none';
+  resolvedSelection.headPostureId = context.poseResolution?.posture?.id || context.rawLocks.headPostureId || 'none';
+  resolvedSelection.captureStyleId = context.rawLocks.captureStyleId || 'standard';
   const snapshot = createSelectionSnapshot(LOCK_DEFINITIONS, resolvedSelection);
+  if (!snapshot.lyingCameraId || snapshot.lyingCameraId === 'none') delete snapshot.lyingCameraId;
+  for (const [key, unused] of [['gazeId', 'none'], ['gestureId', 'none'], ['propId', 'none'], ['headPostureId', 'none'], ['captureStyleId', 'standard']]) {
+    if (!snapshot[key] || snapshot[key] === unused) delete snapshot[key];
+  }
   if (!storedAction) {
     // Old results keep their exact selection shape. Missing additive fields
     // restore to the new defaults without a compatibility migration.
@@ -16562,14 +16721,19 @@ export function buildLocksFromPrompt(prompt, keepKeys = []) {
   return base;
 }
 
-function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
+function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
   const lockControls = runtime.controls;
-  const capture = locks.captureMode === 'observation' ? resolveCapture(locks.observationCapture) : null;
-  if (capture && (capture.error || captureEligibility(locks, lockControls))) return null;
-  const importedCapturePerson = capture ? activeImportedPerson(locks) : null;
-  const generationLocks = capture ? captureEffectiveLocks(locks) : locks;
+  // expression-pose-v2 P4: a selfie 拍攝方式 becomes its selfie hand or prop lock.
+  const requestedLocks = applyCaptureStyleLocks(inputLocks);
+  const capture = requestedLocks.captureMode === 'observation' ? resolveCapture(requestedLocks.observationCapture) : null;
+  if (capture && (capture.error || captureEligibility(requestedLocks, lockControls))) return null;
   let captureRandomState = 1977;
   const random = capture ? () => { captureRandomState = (Math.imul(captureRandomState, 1664525) + 1013904223) >>> 0; return captureRandomState / 4294967296; } : normalizeRandom(runtimeOptions.random);
+  // expression-pose-v2 P2: 隨機 becomes one concrete library action before any
+  // other resolution, so the result, snapshot and Saved Card all name it.
+  const locks = capture ? requestedLocks : resolveRandomSpecifiedAction(requestedLocks, random, { cameraControls: lockControls });
+  const importedCapturePerson = capture ? activeImportedPerson(locks) : null;
+  const generationLocks = capture ? captureEffectiveLocks(locks) : locks;
   const previewRerollExclusions = buildPreviewRerollExclusions(runtimeOptions.excludePreviousSelection);
   const withPreviewExclusions = (picker, lockedId, exclusionKeys) => (candidates, pickerRandom) => {
     const shouldExcludePrevious = !lockedId || isRandomLockValue(lockedId);
@@ -16599,6 +16763,13 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
   const effectiveLocks = sanitizeLocksForCloseupMode(getSpecifiedActionEffectiveLocks(fixedScenePoseLocks(generationLocks), { cameraControls: lockControls }), lockControls);
   if (isFullyClosedOpening(effectiveLocks.outerwearOpeningId) && effectiveLocks.poseHandId === PULL_OPEN_HAND_ID) {
     effectiveLocks.poseHandId = 'none';
+  }
+  // Lying library P3: a lying action replaces the standing-based angle and orbit
+  // with the lying camera (one random() call only when 隨機 is chosen).
+  const lyingActionActive = isLyingAction(getSpecifiedAction(effectiveLocks));
+  const lyingCamera = lyingActionActive ? resolveLyingCamera(effectiveLocks.lyingCameraId, random) : null;
+  if (lyingActionActive) {
+    for (const key of ['angleId', 'orbitId']) effectiveLocks[key] = getControlOptionByZh(lockControls, key, '全無')?.id || '';
   }
   const supineSurfaceOnly = isSupinePoseSelection(effectiveLocks);
   const selectedFixedCompositionSet = getFixedCompositionSetOption(effectiveLocks.fixedCompositionSetId);
@@ -16739,10 +16910,15 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     lowFrequencyPicker('low_frequency_angle'),
     ['angleId'],
   );
+  // expression-pose-v2 P4 (Cooper option B): an explicit non-回眸 gaze steers an
+  // unlocked orbit away from back views; a locked orbit is never replaced.
+  const gazeKeepsFrontOrbit = subject.count === 1 && !capture && !specifiedCameraAction?.ownsHead
+    && gazeAvoidsBackView(effectiveLocks.gazeId) && (!effectiveLocks.orbitId || isRandomLockValue(effectiveLocks.orbitId));
   let orbit = pickCameraWithExpressionLock(
     runtime.flatCatalog.orbit,
     effectiveLocks.orbitId,
-    (item) => framingSupportsOrbit(framing, item) && lockedExpressions.every((expression) => orbitSupportsExpression(item, expression)) && specialActionSupportsOrbit(item, lockedActionConstraint) && specifiedActionSupportsCamera(specifiedCameraAction, 'orbitId', item),
+    (item) => framingSupportsOrbit(framing, item) && lockedExpressions.every((expression) => orbitSupportsExpression(item, expression)) && specialActionSupportsOrbit(item, lockedActionConstraint) && specifiedActionSupportsCamera(specifiedCameraAction, 'orbitId', item)
+      && !(gazeKeepsFrontOrbit && isBackViewOrbit(item)),
     sample,
     ['orbitId'],
   );
@@ -16840,6 +17016,10 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     fixedFramingCompositionOpening,
     angle,
     orbit,
+    lyingCamera,
+    lyingActionActive,
+    // Shared by reference so context copies report the composer's gaze and gesture.
+    poseResolution: {},
     lens,
     aperture,
     shutter,

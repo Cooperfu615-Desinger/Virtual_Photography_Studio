@@ -117,7 +117,7 @@ test('Z-Image Turbo single prompt uses direct visual paragraphs in priority orde
   }, 'z-image-turbo-direct-single');
   const text = prompt.zImagePrompt;
 
-  assert.match(text, /^Photorealistic editorial portrait\./);
+  assert.match(text, /^Photorealistic editorial portrait(?: of one young adult woman)?\./);
   assert.doesNotMatch(text, /[\u3400-\u9fff]/u);
   assert.doesNotMatch(text, /\bCreate (?:a|an)\b|^(?:Image Type|Subject|Wardrobe|Lighting|Camera Look):/m);
   assert.match(text, /Full-body portrait, eye-level view\./);
@@ -132,7 +132,7 @@ test('Z-Image Turbo single prompt uses direct visual paragraphs in priority orde
     'large cylindrical mixing tank',
     'Indoor low-light warm night ambience',
     'Full-body portrait, eye-level view',
-    'She stands completely sideways, facing the left edge of the image',
+    'She is positioned completely sideways, facing the left edge of the image',
     'A 20-year-old seductive stunning adult Japanese woman',
     'She wears',
     'Mika Ninagawa',
@@ -338,7 +338,7 @@ test('Z-Image Turbo duo prompt removes Grok-style labels and internal control wo
   }, 'z-image-turbo-direct-duo');
   const text = prompt.zImagePrompt;
 
-  assert.match(text, /^Photorealistic editorial portrait\./);
+  assert.match(text, /^Photorealistic editorial portrait(?: of one young adult woman)?\./);
   assert.match(text, /Two stunning seductive 20-year-old adult Japanese women\./);
   assert.match(text, /Woman 1 has [^.]+\. She wears /);
   assert.match(text, /Woman 2 has [^.]+\. She wears /);

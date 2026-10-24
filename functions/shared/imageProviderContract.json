@@ -50,6 +50,15 @@
           ],
           "label": "Z-Image-Turbo"
         },
+        "zImageTurboAsianMix": {
+          "resolutions": ["1k", "2k"],
+          "defaultResolution": "1k",
+          "maxCount": 2,
+          "oneImagePerJob": true,
+          "aspectRatios": ["1:1", "4:3", "3:4", "16:9", "9:16", "4:5"],
+          "label": "Z-Image-Turbo + Asian Mix LoKr",
+          "loraStrength": { "min": 0, "max": 1, "step": 0.05, "default": 1 }
+        },
         "qwenImage21": {
           "resolutions": [
             "1k",
@@ -67,6 +76,15 @@
             "4:5"
           ],
           "label": "Qwen-Image-2.1"
+        },
+        "qwenImage21Lora": {
+          "resolutions": ["1k", "2k"],
+          "defaultResolution": "1k",
+          "maxCount": 2,
+          "oneImagePerJob": true,
+          "aspectRatios": ["1:1", "4:3", "3:4", "16:9", "9:16", "4:5"],
+          "label": "Qwen-Image-2.1 + v1.3b LoRA",
+          "loraStrength": { "min": 0, "max": 1, "step": 0.05, "default": 0.7 }
         },
         "zImageTurboInt8": {
           "resolutions": [
@@ -193,6 +211,22 @@
             "4:5"
           ],
           "label": "FLUX 3 Image Klein Base INT8"
+        },
+        "mossImageSftInt8": {
+          "resolutions": ["1k"],
+          "defaultResolution": "1k",
+          "maxCount": 2,
+          "oneImagePerJob": true,
+          "aspectRatios": ["1:1", "4:3", "3:4", "16:9", "9:16", "4:5"],
+          "label": "MOSS-Image SFT INT8"
+        },
+        "mossImageSftInt8Lora": {
+          "resolutions": ["1k"],
+          "defaultResolution": "1k",
+          "maxCount": 2,
+          "oneImagePerJob": true,
+          "aspectRatios": ["1:1", "4:3", "3:4", "16:9", "9:16", "4:5"],
+          "label": "MOSS-Image SFT INT8 + MOSS LoRA"
         }
       }
     },

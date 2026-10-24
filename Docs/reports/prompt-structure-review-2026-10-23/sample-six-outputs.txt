@@ -1,0 +1,107 @@
+
+######## GPT grokPrompt
+Image Type:
+Create a photorealistic editorial portrait.
+
+Composition:
+Knee-up cowboy shot, waist-level view, left profile view.
+
+Subject:
+The subject is one 20-year-old adult woman. Young beautiful Japanese transparent face, soft natural features, clean gentle eyes, airy fresh beauty, subtle innocent portrait presence. Medium-to-long hair with subtle natural bends, softly curved ends, clean natural silhouette. Sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face. Rose cocoa-brown hair, soft rosy brunette tone. Calm absorbed expression, softly lowered eyelids, relaxed brows, softly closed lips, relaxed facial muscles.
+
+Wardrobe:
+She wears fitted bodice, bright red plaid camisole handkerchief-hem dress, main fabric color controlled by dress color selection, one-piece fit-and-flare silhouette, slim shoulder straps, gathered waist, airy uneven pointed hem. Silver heart-charm waist chain, multiple open heart motifs spaced across the front, a short vertical chain hanging from the center heart and ending in a smaller heart pendant, delicate jewelry around the waist and upper hips.
+
+Pose and Composition:
+She stands in a relaxed neutral posture, an open book held in one hand at chest height, its pages facing her as if reading.
+
+Scene:
+The portrait takes place in lived-in Japanese tatami ground plane, shoji screen edge.
+
+Lighting:
+Indoor daylight ambience with natural window-lit room brightness, daytime exterior brightness where visible. Soft frontal subject light, even illumination across face and upper body, gentle shadow modeling, low contrast.
+
+Camera Look:
+Inspired by Yuhki Toyama, tender cinematic image language. Tender cinematic youth portraiture, gentle diffused summer light, quiet presence, translucent coming-of-age atmosphere, soft narrative color. Shot on 24mm wide-angle lens, broad field of view, clear spatial context, moderate perspective stretch, close camera-to-subject distance, readable foreground-to-background depth. Heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights, optical blur balls. VHS camcorder image degradation, analog tape noise, scanlines, color bleeding, chromatic aberration, low-resolution interlaced texture, tracking glitches.
+
+######## Z-Image zImagePrompt
+Photorealistic editorial portrait.
+
+The setting is lived-in Japanese tatami ground plane, shoji screen edge.
+She stands in a relaxed neutral posture, an open book held in one hand at chest height, its pages facing her as if reading.
+Indoor daylight ambience with natural window-lit room brightness, daytime exterior brightness where visible, soft frontal subject light, even illumination across face and upper body.
+She is photographed within the scene's ambient light.
+Knee-up cowboy shot, waist-level view. She stands completely sideways, facing the right edge of the image. The camera sees only the left side of her body. Her left shoulder fully hides her right shoulder, and her left hip fully hides her right hip, creating one narrow side silhouette from head to mid-thigh. This is a strict 90-degree lateral body view.
+
+A 20-year-old seductive stunning adult woman, F–G cup bust, lean limbs, narrow defined waist, rounded hips, long legs, dramatic lean hourglass silhouette; height 168–173 cm, bust–waist–hip 94–58–92 cm, young beautiful Japanese transparent face, soft natural features, clean gentle eyes, airy fresh beauty, medium-to-long hair with subtle natural bends, softly curved ends, clean natural silhouette, sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face, rose cocoa-brown hair, soft rosy brunette tone, calm absorbed expression, softly lowered eyelids, relaxed brows, softly closed lips, relaxed facial muscles.
+
+She wears fitted bodice, bright red plaid camisole handkerchief-hem dress, one-piece fit-and-flare silhouette, slim shoulder straps, gathered waist, airy uneven pointed hem, silver heart-charm waist chain, multiple open heart motifs spaced across the front, a short vertical chain hanging from the center heart and ending in a smaller heart pendant, delicate jewelry around the waist and upper hips.
+
+Yuhki Toyama-inspired tender cinematic image language.
+
+Shot on 24mm wide-angle lens, broad field of view, clear spatial context, heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles.
+
+VHS camcorder image degradation, analog tape noise, scanlines, color bleeding, chromatic aberration.
+
+######## MJ midjourneyPrompt
+Photorealistic editorial portrait. Knee-up cowboy shot, waist-level view, left profile view, subject kept near the center of the frame. A 20-year-old adult woman. Soft natural oval Japanese face, gentle almond eyes with natural brows, small nose and softly defined lips, calm absorbed expression, medium-to-long hair with subtle natural bends, sleek close-to-head roots, rose cocoa-brown hair. A well-defined curvy figure with a slender waist, long legs and graceful lines. She stands in a relaxed neutral posture, an open book held in one hand at chest height, its pages facing her as if reading.
+
+She wears a plaid camisole handkerchief-hem dress and a silver heart-charm waist chain.
+
+Lived-in Japanese tatami ground plane, woven mat texture filling the floor, shoji screen edge, low domestic detail. Indoor window-daylight environment, natural window-lit room brightness, soft frontal subject light, even illumination across face and upper body, gentle shadow modeling.
+
+Inspired by Yuhki Toyama, tender cinematic youth portraiture, gentle diffused summer light, quiet presence, translucent coming-of-age atmosphere. 24mm wide-angle lens, broad field of view, heavy bokeh rendering. VHS camcorder image degradation, analog tape noise, scanlines, color bleeding, chromatic aberration, low-resolution interlaced texture. --v 8.2 --ar 2:3 --raw --s 25 --c 0 --w 0 --sd
+
+######## Nano nanoBananaPrompt
+Create a photorealistic editorial portrait. Knee-up cowboy shot, waist-level view, left profile view.
+
+The subject is one 20-year-old adult woman. Her facial features include a soft natural oval Japanese face with smooth cheek contours and a gently tapered jaw, gentle almond eyes with moderate spacing, shallow natural eyelids and softly shaped natural brows, a small straight nose with a low smooth bridge and a neat tip, softly defined lips with a subtle cupid bow and balanced upper and lower contours. Her hair is medium-to-long hair with subtle natural bends, softly curved ends, clean natural silhouette. Her hair styling has sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face. Her hair color is rose cocoa-brown hair, soft rosy brunette tone. Her expression is calm absorbed expression, softly lowered eyelids, relaxed brows, softly closed lips, relaxed facial muscles. She has F–G cup bust, lean limbs, narrow defined waist, rounded hips, long legs, dramatic lean hourglass silhouette; height 168–173 cm, bust–waist–hip 94–58–92 cm.
+
+She wears fitted bodice, bright red plaid camisole handkerchief-hem dress, main fabric color controlled by dress color selection, one-piece fit-and-flare silhouette, slim shoulder straps, gathered waist, airy uneven pointed hem. Silver heart-charm waist chain, multiple open heart motifs spaced across the front, a short vertical chain hanging from the center heart and ending in a smaller heart pendant, delicate jewelry around the waist and upper hips.
+
+She stands in a relaxed neutral posture, an open book held in one hand at chest height, its pages facing her as if reading. The setting is lived-in Japanese tatami ground plane, shoji screen edge.
+
+Indoor daylight ambience with natural window-lit room brightness, daytime exterior brightness where visible, soft frontal subject light, even illumination across face and upper body, gentle shadow modeling, low contrast.
+
+Inspired by Yuhki Toyama, tender cinematic image language. Tender cinematic youth portraiture, gentle diffused summer light, quiet presence, translucent coming-of-age atmosphere, soft narrative color, shot on 24mm wide-angle lens, broad field of view, clear spatial context, moderate perspective stretch, close camera-to-subject distance, readable foreground-to-background depth, heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights, optical blur balls, VHS camcorder image degradation, analog tape noise, scanlines, color bleeding, chromatic aberration, low-resolution interlaced texture, tracking glitches.
+
+######## EXTRA chest-up-portrait
+Image Type:
+Create a photorealistic editorial portrait.
+
+Composition:
+Vertical portrait composition at a 4:5 aspect ratio, chest-up portrait, waist-level view, left profile view.
+
+Subject:
+The subject is one 20-year-old adult woman. Young beautiful Japanese transparent face, soft natural features, clean gentle eyes, airy fresh beauty, subtle innocent portrait presence. Medium-to-long hair with subtle natural bends, softly curved ends, clean natural silhouette. Sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face. Rose cocoa-brown hair, soft rosy brunette tone. Calm absorbed expression, softly lowered eyelids, relaxed brows, softly closed lips, relaxed facial muscles.
+
+Wardrobe:
+She wears fitted bodice, bright red plaid camisole handkerchief-hem dress, main fabric color controlled by dress color selection, one-piece fit-and-flare silhouette, slim shoulder straps, gathered waist, airy uneven pointed hem.
+
+Pose and Composition:
+She stands in a relaxed neutral posture, an open book held in one hand at chest height, its pages facing her as if reading.
+
+Scene:
+The portrait takes place in lived-in Japanese tatami ground plane, shoji screen edge.
+
+Lighting:
+Indoor daylight ambience with natural window-lit room brightness, daytime exterior brightness where visible. Soft frontal subject light, even illumination across face and upper body, gentle shadow modeling, low contrast.
+
+Camera Look:
+Inspired by Yuhki Toyama, tender cinematic image language. Tender cinematic youth portraiture, gentle diffused summer light, quiet presence, translucent coming-of-age atmosphere, soft narrative color. Shot on 24mm wide-angle lens, broad field of view, clear spatial context, moderate perspective stretch, close camera-to-subject distance, readable foreground-to-background depth. Heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights, optical blur balls. VHS camcorder image degradation, analog tape noise, scanlines, color bleeding, chromatic aberration, low-resolution interlaced texture, tracking glitches.
+
+######## EXTRA full-body-character
+Image Type:
+Create a photorealistic character reference portrait in a single 9:16 vertical image.
+
+Subject:
+The subject is one 20-year-old adult woman. F–G cup bust, lean limbs, narrow defined waist, rounded hips, long legs, dramatic lean hourglass silhouette; height 168–173 cm, bust–waist–hip 94–58–92 cm. Young beautiful Japanese transparent face, soft natural features, clean gentle eyes, airy fresh beauty, subtle innocent portrait presence. Medium-to-long hair with subtle natural bends, softly curved ends, clean natural silhouette. Sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face. Rose cocoa-brown hair, soft rosy brunette tone. Calm absorbed expression, softly lowered eyelids, relaxed brows, softly closed lips, relaxed facial muscles.
+
+Wardrobe:
+She wears bright red plaid camisole handkerchief-hem dress, one-piece fit-and-flare silhouette, slim shoulder straps, fitted bodice, gathered waist, airy uneven pointed hem, main fabric color controlled by dress color selection. Silver heart-charm waist chain, multiple open heart motifs spaced across the front, a short vertical chain hanging from the center heart and ending in a smaller heart pendant, delicate jewelry around the waist and upper hips.
+
+Lighting:
+Clean even lighting with clear facial, body, fabric, and footwear readability.
+
+Camera Look:
+Full-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text.

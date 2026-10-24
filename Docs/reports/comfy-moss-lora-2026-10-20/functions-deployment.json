@@ -1,0 +1,91 @@
+{
+  "project": "virtualphotographystudio",
+  "verifiedAtUtc": "2026-10-20T05:45:19Z",
+  "sourceCommit": "295c46d3a9d97e3215a5a08f9de09da25041b019",
+  "targets": [
+    {
+      "function": "comfyCloudSubmit",
+      "state": "ACTIVE",
+      "runtime": "nodejs24",
+      "region": "us-central1",
+      "platform": "gcfv2",
+      "hashBefore": "609b0084632b76ae00c82853a729be9c0d8d77e6",
+      "hashAfter": "f2da04e9a794ae3e76990b13538c17060d7ca5ac",
+      "changedFields": [
+        "hash",
+        "labels",
+        "source"
+      ],
+      "secretBindingUnchanged": true,
+      "resourceConfigUnchanged": true,
+      "applicationEnvironmentUnchanged": true,
+      "frameworkSignatureMarkerAdded": false
+    },
+    {
+      "function": "comfyCloudWorkspaceSubmit",
+      "state": "ACTIVE",
+      "runtime": "nodejs24",
+      "region": "us-central1",
+      "platform": "gcfv2",
+      "hashBefore": "d2f7ee359f00b206b583d83871a3aaddf1487b95",
+      "hashAfter": "f2da04e9a794ae3e76990b13538c17060d7ca5ac",
+      "changedFields": [
+        "environmentVariables",
+        "hash",
+        "labels",
+        "source"
+      ],
+      "secretBindingUnchanged": true,
+      "resourceConfigUnchanged": true,
+      "applicationEnvironmentUnchanged": true,
+      "frameworkSignatureMarkerAdded": true
+    },
+    {
+      "function": "comfyCloudStatus",
+      "state": "ACTIVE",
+      "runtime": "nodejs24",
+      "region": "us-central1",
+      "platform": "gcfv2",
+      "hashBefore": "609b0084632b76ae00c82853a729be9c0d8d77e6",
+      "hashAfter": "f2da04e9a794ae3e76990b13538c17060d7ca5ac",
+      "changedFields": [
+        "hash",
+        "labels",
+        "source"
+      ],
+      "secretBindingUnchanged": true,
+      "resourceConfigUnchanged": true,
+      "applicationEnvironmentUnchanged": true,
+      "frameworkSignatureMarkerAdded": false
+    },
+    {
+      "function": "comfyCloudQuota",
+      "state": "ACTIVE",
+      "runtime": "nodejs24",
+      "region": "us-central1",
+      "platform": "gcfv2",
+      "hashBefore": "609b0084632b76ae00c82853a729be9c0d8d77e6",
+      "hashAfter": "f2da04e9a794ae3e76990b13538c17060d7ca5ac",
+      "changedFields": [
+        "hash",
+        "labels",
+        "source"
+      ],
+      "secretBindingUnchanged": true,
+      "resourceConfigUnchanged": true,
+      "applicationEnvironmentUnchanged": true,
+      "frameworkSignatureMarkerAdded": false
+    }
+  ],
+  "nonTargetsMetadataUnchanged": [
+    "bytePlusGenerate",
+    "comfyCloudImageWorkspace",
+    "comfyCloudVideo",
+    "comfyCloudVideoDownload",
+    "magnificDownloadImage",
+    "magnificGenerate",
+    "magnificGenerateClassic"
+  ],
+  "newFunctionsCreated": false,
+  "paidGenerationSubmitted": false
+}

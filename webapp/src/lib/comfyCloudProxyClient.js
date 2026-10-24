@@ -99,6 +99,7 @@ export async function readComfyQuotaViaFirebase(selection, { session = null } = 
   const current = session || await getComfySession();
   return current.call('comfyCloudQuota', {
     modelKey: selection.modelKey, resolution: selection.resolution, aspectRatio: selection.aspectRatio,
+    ...(selection.loraStrength !== undefined ? { loraStrength: selection.loraStrength } : {}),
   });
 }
 

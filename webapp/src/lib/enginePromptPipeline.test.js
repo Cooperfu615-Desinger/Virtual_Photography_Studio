@@ -185,7 +185,7 @@ test('full-body character prompt keeps complete separate wardrobe regardless of 
   assert.match(fullBodyPrompt, /\n\nSubject:\nThe subject is /);
   assert.match(fullBodyPrompt, /half-up long hair, defined crown structure, clean lower lengths/i);
   assert.match(fullBodyPrompt, /deep coffee-brown hair/i);
-  assert.match(fullBodyPrompt, /black .*glasses/i);
+  assert.match(fullBodyPrompt, /glasses, black frame/i);
   assert.match(fullBodyPrompt, /\n\nWardrobe:\nShe wears /);
   assert.match(fullBodyPrompt, /off-white shirt/i);
   assert.match(fullBodyPrompt, /dark grey .*pleated mini skirt/i);
@@ -291,7 +291,7 @@ test('Gpt single-subject prompt preserves full-fidelity normal subject and wardr
   const subject = gptSection(prompt, 'Subject');
   const wardrobe = gptSection(prompt, 'Wardrobe');
 
-  assert.match(subject, /black frame, bold thick-frame glasses, worn normally on the face, lenses aligned over the eyes/i);
+  assert.match(subject, /She wears bold thick-frame glasses, black frame, worn normally on the face, lenses aligned over the eyes\./i);
   assert.doesNotMatch(subject, /F–G cup bust|height 168–173 cm|bust–waist–hip|dramatic lean hourglass silhouette/i);
   assert.match(subject, /20-year-old adult woman/i);
   assert.match(subject, /young seductive alluring Korean beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence/i);
@@ -300,9 +300,8 @@ test('Gpt single-subject prompt preserves full-fidelity normal subject and wardr
   assert.doesNotMatch(subject, /tall slim-curvy hourglass body, long legs, narrow waist, rounded hips/i);
   assert.doesNotMatch(subject, /\.\s*,/);
 
-  assert.match(wardrobe, /tight body-skimming upper-body fit, white cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line/i);
-  assert.match(wardrobe, /high-rise waistband sitting above the natural waist, fitted lower-body line following the garment shape/i);
-  assert.match(wardrobe, /indigo straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction/i);
+  assert.match(wardrobe, /white cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line, tight body-skimming upper-body fit/i);
+  assert.match(wardrobe, /indigo straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction, high-rise waistband sitting above the natural waist, fitted lower-body line following the garment shape/i);
   assert.doesNotMatch(wardrobe, /tight white ribbed cotton camisole with slim straps|high-rise fitted indigo straight-leg jeans/i);
   assert.doesNotMatch(wardrobe, /\.\s*,/);
 
@@ -1165,7 +1164,7 @@ test('Z-Image prompt remains natural language with blank-line paragraphs and AI 
 
   // Facial Features are drawn by the seed; none renders the 2026-10-17 Japanese default.
   const mjLead = expectedSubjectText(prompt, 'A 20-year-old adult woman.');
-  assert.match(prompt.zImagePrompt, /^Photorealistic editorial portrait\./);
+  assert.match(prompt.zImagePrompt, /^Photorealistic editorial portrait(?: of one young adult woman)?\./);
   assert.match(prompt.zImagePrompt, new RegExp(`\\n\\n${escapeRegExp(expectedSubjectText(prompt, 'A 20-year-old seductive stunning adult woman'))}(?:[.,]| with)`));
   assertNaturalZImageParagraphs(prompt, 'outfit preset z-image prompt');
   assert.match(prompt.zImagePrompt, /\n\nThe setting is horizonless seamless matte deep black color field/i);

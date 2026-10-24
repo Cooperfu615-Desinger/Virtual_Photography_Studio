@@ -5,7 +5,7 @@ import DllDialog from './DllDialog.jsx';
 import DllImageViewer from './DllImageViewer.jsx';
 import { dllWorkspace, DLL_LOCAL_ACCEPTANCE } from '../lib/dllWorkspaceRuntime.js';
 import { DLL_TASK_LABELS, taskNeedsAttention } from '../lib/dllWorkspaceController.js';
-import { getDllPicModelConfig } from '../lib/dllPicProClient.js';
+import { getDllPicModelConfig, getDllPicLoraSelection } from '../lib/dllPicProClient.js';
 import { openVideoWorkspace } from '../lib/comfyVideoClient.js';
 import { downloadImageFile } from '../lib/imageDownload.js';
 import { downloadMagnificImageViaFirebase } from '../lib/magnificProxyClient.js';
@@ -42,12 +42,11 @@ export default function DllPicWorkspace({ sources, incoming }) {
   if (!state.ready) return <p role="status">{state.error || '正在載入此瀏覽器的圖片工作區…'}</p>;
   return <main className="dll-workspace">
     {DLL_LOCAL_ACCEPTANCE && <p className="dll-workspace-error" role="status">本機模擬驗收 · 不呼叫生成服務、不扣額；範例圖片與放大效果均為測試資料，使用獨立儲存空間。</p>}
-    <div className="dll-workspace-toolbar"><p>生成、比較與整理圖片 <span>・保存在此瀏覽器</span></p>
-      <button className="secondary" onClick={bringSources}>帶入{incoming?.workspaceId || 'Prompt 工作台'}來源</button></div>
+
     <div className="dll-mobile-tabs"><button className={mobile === 'settings' ? 'tab-primary-active' : 'secondary'} onClick={() => setMobile('settings')}>設定</button><button className={mobile === 'results' ? 'tab-primary-active' : 'secondary'} onClick={() => setMobile('results')}>成果（{allImages.length}）</button></div>
     {(error || state.error) && <p role="alert" className="dll-workspace-error">{error || state.error}</p>}
     <div className={`dll-workspace-grid mobile-${mobile}`}>
-      <aside className="dll-workspace-form"><DllPicProPanel key={`${state.owner}:${revision}`} full title="DLL_PIC Pro" workspaceId={draft.workspaceId || '完整版'} promptSources={draft.sources || sources} initialSettings={draft} /></aside>
+      <aside className="dll-workspace-form"><DllPicProPanel key={`${state.owner}:${revision}`} full title="生成設定" onBringSources={bringSources} sourceWorkspace={incoming?.workspaceId} workspaceId={draft.workspaceId || '完整版'} promptSources={draft.sources || sources} initialSettings={draft} /></aside>
       <div className="dll-workspace-main">
         <section className="dll-results" aria-label="圖片成果">
           <div className="dll-results-toolbar"><div className="dll-row"><button className={tab === 'current' ? 'tab-primary-active' : 'secondary'} onClick={() => setTab('current')}>本次成果</button><button className={tab === 'history' ? 'tab-primary-active' : 'secondary'} onClick={() => setTab('history')}>歷史成果</button></div>
@@ -65,7 +64,7 @@ export default function DllPicWorkspace({ sources, incoming }) {
               {Number.isSafeInteger(image.meta?.seed) && task.snapshot.kind !== 'upscale' && <button className="dll-text-button" onClick={() => applyDraft({ ...task.snapshot, seed: image.meta.seed, count: 1, sources: draft.sources, custom: true, customPrompt: task.snapshot.prompt, workspaceId: task.snapshot.workspace })}>沿用此張 Seed</button>}
               {task.snapshot.parentId && <button className="dll-text-button" onClick={() => { const parent = allImages.find(i => i.key === task.snapshot.parentId); if (parent) setViewer([parent, image]); else setError('原圖已從此瀏覽器刪除'); }}>比較原圖與放大版本</button>}
             </article>)}</div>
-            <details className="dll-task-details"><summary>查看實際生成設定</summary><p>{task.snapshot.kind === 'upscale' ? `SeedVR2 · ${task.snapshot.scale} 倍 · 保留原圖` : `${task.snapshot.aspectRatio} · ${task.snapshot.resolution} · ${task.snapshot.count} 張 · ${task.snapshot.workspace}`}</p><pre>{task.snapshot.prompt || '此筆為圖片放大或舊任務，沒有保存 Prompt'}</pre>{task.message && <p>{task.message}</p>}</details>
+            <details className="dll-task-details"><summary>查看實際生成設定</summary><p>{task.snapshot.kind === 'upscale' ? `SeedVR2 · ${task.snapshot.scale} 倍 · 保留原圖` : `${task.snapshot.aspectRatio} · ${task.snapshot.resolution} · ${task.snapshot.count} 張 · ${task.snapshot.workspace}`}</p>{task.snapshot.loraStrength !== undefined && <p>{getDllPicLoraSelection(task.snapshot.modelKey).label || 'LoRA'} · 強度 {task.snapshot.loraStrength}</p>}<pre>{task.snapshot.prompt || '此筆為圖片放大或舊任務，沒有保存 Prompt'}</pre>{task.message && <p>{task.message}</p>}</details>
           </section>)}
           {tab === 'history' && tasks.length > historyLimit && <button className="secondary" onClick={() => setHistoryLimit(value => value + 10)}>載入更多歷史</button>}
         </section>
