@@ -1,4 +1,5 @@
 import { OBSERVATION_CAPTURE_OPTION_GROUPS } from '../data/observationCapturePromptOptions.js';
+import { activeImportedPerson, importedPersonLocks, normalizeImportedPerson } from './observationCaptureImport.js';
 
 const optional = { id: 'none', zh: '不額外添加', en: '' };
 export const CAPTURE_GROUPS = [
@@ -23,15 +24,20 @@ export function normalizeCaptureProfile(raw = {}) {
   return { version: 1, seed: Number.isSafeInteger(value.seed) && value.seed > 0 ? value.seed : 1,
     selected: Object.fromEntries(CAPTURE_GROUPS.map(({ key }) => [key, typeof value.selected?.[key] === 'string' ? value.selected[key] : ''])),
     fixed: Object.fromEntries(CAPTURE_GROUPS.map(({ key }) => [key, value.fixed?.[key] === true])),
+    ...(value.personSource === 'full-body' ? { personSource: 'full-body', importedPerson: normalizeImportedPerson(value.importedPerson) }
+      : value.importedPerson ? { importedPerson: normalizeImportedPerson(value.importedPerson) } : {}),
+    ...('availablePerson' in value ? { availablePerson: normalizeImportedPerson(value.availablePerson) } : {}),
   };
 }
 const present = value => Boolean(value && !['none', 'random'].includes(value));
 export function captureEligibility(locks, controls) {
-  if (locks.subjectCount !== '1') return '第一版僅支援單人角色卡，請先切回單人。';
+  if (locks.subjectCount !== '1') return '觀察式抓拍僅支援單人，請先切回單人。';
   if (present(locks.specialSubjectId)) return '請先解除特殊主體，再選擇角色卡。';
   if (present(locks.fixedCompositionSetId)) return '請先解除固定構圖場景。';
   const card = controls.find(c => c.key === 'characterProfileId')?.options?.find(o => o.id === locks.characterProfileId);
-  if (card?.specialSubject !== 'character-profile') return '請選擇角色卡。';
+  if (locks.observationCapture?.personSource === 'full-body') {
+    if (!activeImportedPerson(locks)) return '請先在一般拍攝產生單人全身角色照，再匯入人物與穿搭。';
+  } else if (card?.specialSubject !== 'character-profile') return '請選擇角色卡，或匯入全身角色照。';
   if (present(locks.framingId)) {
     const framing = controls.find(c => c.key === 'framingId')?.options?.find(o => o.id === locks.framingId);
     if (!framing || !/full_body|medium_shot|cowboy/i.test((framing.meta?.tags || []).join(' ')) && !/全身鏡頭|中景鏡頭|牛仔/.test(framing.zh)) return '請在 E 區選擇全身、膝上或腰上景別。';
@@ -113,7 +119,8 @@ export function captureOptionReason(raw, key, id) {
   return resolveCapture({ ...p, selected: { ...p.selected, [key]: id }, fixed: { ...p.fixed, [key]: true } }).error;
 }
 export function captureEffectiveLocks(locks) {
-  return { ...locks, ...Object.fromEntries(CAPTURE_OWNED_KEYS.map(key => [key, 'none'])),
+  const person = activeImportedPerson(locks);
+  return { ...locks, ...(person ? importedPersonLocks(person) : {}), ...Object.fromEntries(CAPTURE_OWNED_KEYS.map(key => [key, 'none'])),
     actionPoseCardId: '', importedWorldSceneMode: 'none', importedWorldSceneLabel: '', importedWorldSceneArchitectureText: '',
     imageTypePresetId: 'photography', specifiedActionSceneRestore: null,
   };

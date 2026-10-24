@@ -1,3 +1,4 @@
+import { activeImportedPerson, importedPersonLocks } from './observationCaptureImport.js';
 import { CAPTURE_GROUPS, resolveCapture } from './observationCaptureMode.js';
 import { DUO_ROLES, getDuoRoleSummary } from '../features/page1/duoEditor.js';
 import { getSpecifiedAction } from './engine/specifiedActions.js';
@@ -172,6 +173,8 @@ export function normalizeCharacterCardLayerIds(layerIds) {
 }
 
 export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {}) {
+  const person = activeImportedPerson(locks);
+  const importedSummary = person ? buildWorkspaceSummary(importedPersonLocks(person), controls) : null;
   const specialSubjectControl = controls.find((control) => control.key === 'specialSubjectId');
   const specialSubjectOption = specialSubjectControl?.options?.find((option) => option.id === locks.specialSubjectId);
   const characterProfileControl = controls.find((control) => control.key === 'characterProfileId');
@@ -370,7 +373,7 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
   return {
     character: {
       roles: duoSummaries?.character,
-      summary: duoSummaries ? duoSummaries.character.map(role => `${role.label}：${role.summary}`).join('；') : characterSummary,
+      summary: importedSummary?.character.summary || (duoSummaries ? duoSummaries.character.map(role => `${role.label}：${role.summary}`).join('；') : characterSummary),
       meta: '',
     },
     pose: {
@@ -379,7 +382,7 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
     },
     wardrobe: {
       roles: duoSummaries?.wardrobe,
-      summary: duoSummaries ? duoSummaries.wardrobe.map(role => `${role.label}：${role.summary}`).join('；') : wardrobeSummary,
+      summary: importedSummary?.wardrobe.summary || (duoSummaries ? duoSummaries.wardrobe.map(role => `${role.label}：${role.summary}`).join('；') : wardrobeSummary),
       meta: '',
     },
     scene: {

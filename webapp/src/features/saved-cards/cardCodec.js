@@ -1,3 +1,4 @@
+import { isImportedPersonKey } from '../../lib/observationCaptureImport.js';
 import { accessoryRestoreNotices } from '../../lib/engine/accessoryPolicy.js';
 import { matchResolvedOuterwear } from '../../lib/engine/outerwearModel.js';
 import { isUnderbustTopFit, matchResolvedUnderbustTop, UNDERBUST_UNTUCKED_SOURCE } from '../../lib/engine/underbustTopFit.js';
@@ -504,6 +505,8 @@ export function buildRestoreLocks(nextLocks, controls) {
   const restoredLocks = { ...createEmptyLocks(), ...nextLocks };
 
   controls.forEach((control) => {
+    if (nextLocks.captureMode === 'observation' && nextLocks.observationCapture?.personSource === 'full-body'
+      && isImportedPersonKey(control.key) && Object.hasOwn(nextLocks, control.key)) return;
     if (/^bodyType[AB]?Id$/.test(control.key)) {
       const value = restoredLocks[control.key];
       const current = control.options?.some(option => option.id === value);
@@ -632,6 +635,7 @@ export function compactPromptSelection(selection) {
   return Object.fromEntries(
     Object.entries(normalized).filter(([key, value]) => {
       if (key === 'subjectCount' || key === 'aspectRatio') return true;
+      if (normalized.captureMode === 'observation' && normalized.observationCapture?.personSource === 'full-body' && isImportedPersonKey(key)) return true;
       if (['specialSubjectId', 'characterProfileId', 'importedWorldSceneMode', 'topBottomPaletteId'].includes(key) && value === 'none') return false;
       return Array.isArray(value) ? value.length > 0 : Boolean(value);
     })

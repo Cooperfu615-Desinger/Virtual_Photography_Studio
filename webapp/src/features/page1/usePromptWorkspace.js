@@ -1,3 +1,4 @@
+import { prepareCaptureEntry } from '../../lib/observationCaptureImport.js';
 import { rerollCapture, CAPTURE_GROUPS } from '../../lib/observationCaptureMode.js';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
@@ -96,6 +97,10 @@ export function usePromptWorkspace() {
         ? updater(previousLocks)
         : { ...previousLocks, ...updater };
 
+      if (!restoringSelection && previousLocks.captureMode !== 'observation' && candidateLocks.captureMode === 'observation') {
+        candidateLocks = { ...candidateLocks, observationCapture: prepareCaptureEntry(candidateLocks.observationCapture, previewPromptBase) };
+      }
+
       // An explicit global clear must not recover the scene it just removed.
       if (discardSupineSceneRestore) supineSceneRestoreRef.current = null;
 
@@ -140,7 +145,7 @@ export function usePromptWorkspace() {
         restoringSelection,
       });
     });
-  }, [activeLibrary, lockControls]);
+  }, [activeLibrary, lockControls, previewPromptBase]);
 
   const rerollPreview = useCallback(() => {
     if (locks.captureMode === 'observation') {

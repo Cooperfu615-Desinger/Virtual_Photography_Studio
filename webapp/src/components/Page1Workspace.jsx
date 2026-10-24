@@ -715,8 +715,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const [wardrobePickerQuery, setWardrobePickerQuery] = useState('');
   const [activeSection, setActiveSection] = useState(locks.captureMode === 'observation' ? 'capture' : 'character');
   const captureActive = locks.captureMode === 'observation';
+  const importedCaptureActive = captureActive && locks.observationCapture?.personSource === 'full-body';
   const captureResult = useMemo(() => resolveCapture(locks.observationCapture), [locks.observationCapture]);
-  const captureEntryReason = captureEligibility({ ...locks, characterProfileId: lockControls.find(c => c.key === 'characterProfileId')?.options?.find(o => o.specialSubject === 'character-profile')?.id }, lockControls);
+  const captureEntryReason = captureEligibility({ ...locks, observationCapture: { ...locks.observationCapture, personSource: 'card' }, characterProfileId: lockControls.find(c => c.key === 'characterProfileId')?.options?.find(o => o.specialSubject === 'character-profile')?.id }, lockControls);
   const captureError = captureActive ? captureEligibility(locks, lockControls) || captureResult.error : '';
   const captureShowing = captureActive && activeSection === 'capture';
   if (!captureActive && activeSection === 'capture') setActiveSection('character');
@@ -1719,7 +1720,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
                 >
                   <span className="page1-section-heading">
                     <span className="page1-section-label">{section.label}</span>
-                    <span className="page1-section-status">{captureActive && ['pose','scene','photography'].includes(section.id) ? section.id === 'photography' ? '部分接管' : '抓拍接管' : diagnostics.status}</span>
+                    <span className="page1-section-status">{importedCaptureActive && ['character','wardrobe'].includes(section.id) ? locks.observationCapture?.importedPerson ? '已匯入' : '尚未匯入' : captureActive && ['pose','scene','photography'].includes(section.id) ? section.id === 'photography' ? '部分接管' : '抓拍接管' : diagnostics.status}</span>
                   </span>
                   {snapshot.roles ? <span className="duo-sidebar-summary">{snapshot.roles.map(role => <span key={role.id}><b>{role.label}</b><span>{role.summary}</span></span>)}</span> : <strong className="page1-section-value">{captureActive && ['pose','scene','photography'].includes(section.id) ? section.id === 'pose' ? captureResult.selections?.action.zh : section.id === 'scene' ? captureResult.selections?.scene.zh : captureResult.selections?.lens.zh : snapshot.summary}</strong>}
                   {snapshot.meta ? <span className="page1-section-meta">{snapshot.meta}</span> : null}
@@ -1799,9 +1800,10 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
               })}
             </div> : null}
             {captureActive && ['pose','scene','photography'].includes(activeSection) ? <p className="context-note">觀察式抓拍接管本區的有效輸出；以下原選值保留，切回一般拍攝後恢復。</p> : null}
-            {captureActive && ['pose','scene'].includes(activeSection) ? <fieldset className="capture-owned-fields" disabled>{renderEditorPanel()}</fieldset> : renderEditorPanel()}
+            {importedCaptureActive && ['character', 'wardrobe'].includes(activeSection) ? <p className="context-note">人物與穿搭使用已匯入的全身角色照。請回一般拍攝調整，再重新匯入。</p> : null}
+            {captureActive && ['pose','scene'].includes(activeSection) || importedCaptureActive && ['character', 'wardrobe'].includes(activeSection) ? <fieldset className="capture-owned-fields" disabled>{renderEditorPanel()}</fieldset> : renderEditorPanel()}
             </div>
-            {captureShowing ? <ObservationCapturePanel locks={locks} controls={lockControls} updateLocks={updateLocks} onWardrobe={() => setActiveSection('wardrobe')} /> : null}
+            {captureShowing ? <ObservationCapturePanel locks={locks} controls={lockControls} updateLocks={updateLocks} onWardrobe={() => setActiveSection('wardrobe')} onStandard={() => { updateLocks({ captureMode: 'standard' }); setActiveSection('character'); }} /> : null}
           </section>
 
           <section className="page1-preview-panel page1-output-panel lock-panel reference-output-panel">
