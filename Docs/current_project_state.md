@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-24
 
+## 觀察式抓拍匯入全身角色照（2026-10-24，本機驗收通過）
+
+- 依使用者核准示意圖，拍攝人物新增「匯入全身角色照」，取用切入抓拍前一般單人預覽的完整人物與穿搭快照，以「生成摘要」兩列呈現。完整來源、配色、選值與全身 reference 保留；重抽抓拍不更換人物。提供重新匯入／回一般拍攝調整，詳見 [匯入 v1](specs/observation-capture-full-body-import-v1.md)。
+- 原一般設定保留，角色卡來源沿用；A／C 匯入模式欄位停用並顯示提示。六輸出、JSON／Markdown 收藏還原及重載保留資料；不擴充雙人、特殊主體、圖片上傳或純文字反向解析。
+- 新增 9 項測試；Node 22 前端 1711/1711、Prompt Quality 755/755、lint／build 通過；同 seed 200 strict audit 與基線一致，0 blockers／22 既有 diagnostics。桌面／手機與 639／641px 面板斷點、現行五工作區、匯入重抽與收藏回填檢查通過。外部出圖未驗證。
+- **使用者已確認本機驗收通過，授權僅提交並推送本批。** 功能提交 `d469a32` 已交付至 `origin/codex/shirt-black-bottom`；使用者後續授權 CI 通過後合併 main，透過 PR #15 在隔離工作目錄整合，保留其他未追蹤文件。
+
 ## DLL：FLUX 3 Base INT8 模型檔名修正（2026-10-24，已推送 main／四項 Functions 已部署）
 
 - Cloud 模型庫實際檔名為 `flux3-image-klein-base-int8-convrot.safetensors`，已修正 DLL 模板原本的底線名稱，以處理 `UNETLoader value_not_in_list`。保留 Base INT8、50 steps／CFG3.5、關閉擴寫及所有 UI／請求契約。[規格、證據與驗證](specs/comfy-flux3-klein-v1.md#cloud-模型檔名修正2026-10-24本機完成尚未部署)。

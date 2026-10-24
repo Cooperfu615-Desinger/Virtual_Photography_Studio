@@ -1,3 +1,4 @@
+import { activeImportedPerson, isImportedPersonKey, registerFullBodyImportSource } from './observationCaptureImport.js';
 import { captureEligibility, resolveCapture, normalizeCaptureProfile, captureEffectiveLocks, captureContext, capturePoseText, capturePoseItem, captureChestScene, CAPTURE_OWNED_KEYS } from './observationCaptureMode.js';
 import { registerReferencePersonPreview, REFERENCE_PERSON_INSTRUCTION } from './referencePersonPreview.js';
 import { MIDJOURNEY_CARD_ITEM_NAMES } from './engine/midjourneyCardItemNames.js';
@@ -6531,7 +6532,7 @@ export function resolvePoseComposerWardrobeSignals(context, catalog) {
 
 function buildCharacter(context, catalog) {
   const character = [buildSubjectBase(context.subject)];
-  if (context.observationCapture) return [...character, capturePoseItem(context.observationCapture)];
+  if (context.observationCapture) return [...character, ...(context.importedCapturePerson?.character || []), capturePoseItem(context.observationCapture)];
   const poseComposerContext = context.wardrobeSignals
     ? context
     : { ...context, wardrobeSignals: resolvePoseComposerWardrobeSignals(context, catalog) };
@@ -16407,7 +16408,8 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     FIXED_FRAMING_DERIVED_PROMPT_PRESETS.chestUpPortrait,
     { cameraSpatial: ambientEligible, sceneMirrorReflectionText },
   );
-  const fullBodyCharacterPrompt = renderFullBodyCharacterPrompt(fullBodyCharacterPromptModel);
+  const fullBodyCharacterPrompt = !context.referencePersonPreview && context.importedCapturePerson
+    ? context.importedCapturePerson.fullBodyPrompt : renderFullBodyCharacterPrompt(fullBodyCharacterPromptModel);
   const nanoBananaPrompt = renderNanoBananaPrompt(gptPromptModel, {
     cameraSpatial: ambientEligible, sceneMirrorReflectionText,
   });
@@ -16700,6 +16702,10 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     for (const key of [...CAPTURE_OWNED_KEYS, 'specifiedActionSceneRestore']) snapshot[key] = context.rawLocks[key];
     snapshot.captureMode = 'observation';
     snapshot.observationCapture = resolveCapture(context.rawLocks.observationCapture).profile;
+    if (context.importedCapturePerson) {
+      for (const key of Object.keys(context.rawLocks).filter(isImportedPersonKey)) snapshot[key] = context.rawLocks[key];
+      for (const key of ['characterProfileId', 'characterCardHairVariantId', 'characterCardEyewearMode', 'characterCardWardrobeMode', 'characterCardWardrobeLayerIds', 'characterCardPromptOverride']) snapshot[key] = context.rawLocks[key];
+    }
   } else { delete snapshot.captureMode; delete snapshot.observationCapture; }
   return snapshot;
 }
@@ -16726,6 +16732,7 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
   // expression-pose-v2 P2: 隨機 becomes one concrete library action before any
   // other resolution, so the result, snapshot and Saved Card all name it.
   const locks = capture ? requestedLocks : resolveRandomSpecifiedAction(requestedLocks, random, { cameraControls: lockControls });
+  const importedCapturePerson = capture ? activeImportedPerson(locks) : null;
   const generationLocks = capture ? captureEffectiveLocks(locks) : locks;
   const previewRerollExclusions = buildPreviewRerollExclusions(runtimeOptions.excludePreviousSelection);
   const withPreviewExclusions = (picker, lockedId, exclusionKeys) => (candidates, pickerRandom) => {
@@ -17033,7 +17040,7 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
     previewRerollExclusions,
     characterProfilePrompt: String(runtimeOptions.characterProfilePrompt || '').trim(),
   };
-  if (capture) Object.assign(context, captureContext(capture.selections));
+  if (capture) Object.assign(context, captureContext(capture.selections), { importedCapturePerson });
   const character = buildCharacter(context, runtime.catalog);
   const defaultEthnicitySlots = extractCharacterSlots(character);
   context.defaultEthnicity = resolveDefaultEthnicity({
@@ -17059,14 +17066,14 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
   }
   const cardLayers = getCharacterCardImportedLayers(subject, effectiveLocks);
   const cardWardrobeMode = getCharacterCardWardrobeMode(effectiveLocks);
-  const rawPage1Wardrobe = isDedicatedSpecialSubject(subject) || (isCharacterProfileSubject(subject) && cardWardrobeMode === 'full-default')
+  const rawPage1Wardrobe = importedCapturePerson ? [] : isDedicatedSpecialSubject(subject) || (isCharacterProfileSubject(subject) && cardWardrobeMode === 'full-default')
     ? []
     : buildWardrobe({ ...context }, effectiveLocks, runtime);
   const filteredPage1Wardrobe = filterPage1WardrobeForCharacterCardLayers(rawPage1Wardrobe, cardLayers);
   const page1Wardrobe = appendLockedPage1FillersForCharacterCardLayers(filteredPage1Wardrobe, cardLayers, effectiveLocks, lockControls);
-  const wardrobe = resolveBottomRiseCompatibility([...cardLayers, ...page1Wardrobe]);
+  const wardrobe = importedCapturePerson ? structuredClone(importedCapturePerson.wardrobe) : resolveBottomRiseCompatibility([...cardLayers, ...page1Wardrobe]);
   context.wardrobe = wardrobe;
-  const wardrobeColors = buildWardrobeColors(extractWardrobeSlots(wardrobe), effectiveLocks, random);
+  const wardrobeColors = importedCapturePerson ? structuredClone(importedCapturePerson.wardrobeColors) : buildWardrobeColors(extractWardrobeSlots(wardrobe), effectiveLocks, random);
 
   const {
     midjourneyPrompt,
@@ -17143,6 +17150,13 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
             : referenceOutputs.fullBodyCharacterPrompt,
         ) })),
       };
+    });
+  }
+  if (!capture && subject.count === 1 && !isSpecialSubject(subject) && !context.characterProfilePrompt) {
+    const slots = extractCharacterSlots(character);
+    registerFullBodyImportSource(prompt, {
+      character: ['bodyType', 'facialFeatures', 'skinDetails', 'hairstyle', 'hairStylingState', 'hairColor'].map(key => slots[key]).filter(Boolean),
+      wardrobe, wardrobeColors, locks,
     });
   }
   return prompt;
