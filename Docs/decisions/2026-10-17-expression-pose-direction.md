@@ -1,7 +1,15 @@
 # 2026-10-17 神情姿態 v2 方向決策
 
-- 規格草案：[expression-pose-v2.md](../specs/expression-pose-v2.md)
+- 規格與實作狀態：[expression-pose-v2.md](../specs/expression-pose-v2.md)
 - 實驗包：[手部寫法實驗](../reports/pose-hand-experiment-2026-10-17/README.md)
+
+## 閱讀方式與目前邊界（2026-10-24 整理）
+
+本文件是按時間追加的決策歷史，保留當時的提案、驗收與被取代方案。同一事項需連同後續決定閱讀，不能只取早期一列當作新的實作授權。原稿另存於[草稿歸檔索引](../archive/2026-10-24-expression-pose-drafts/README.md)。
+
+- 實作階段與驗證紀錄以[實作計畫](../specs/expression-pose-v2-implementation-plan.md)為入口：P1–P4、P5a 已完成；[P5b 延後決定](../specs/expression-pose-v2-p5-cleanup-scope.md)仍保留，不能由較早的「移除舊資料」文字推導完整刪除授權。
+- 下方「目前引擎」、測試數量、待測動作等描述，指各筆記錄當時的狀態。目前專案與相容性邊界另見[現況文件](../current_project_state.md)及 root AGENTS。
+- 本次只補文件標示，不修改決策表、重新驗收動作或啟動目錄資料架構 B。
 
 ## Cooper 確認的方向（2026-10-17）
 
