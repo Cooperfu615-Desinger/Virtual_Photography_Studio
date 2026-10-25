@@ -3,14 +3,17 @@ import json
 import os
 import re
 import sys
+from pathlib import Path
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    sys.modules["scripts.sync_to_json"] = sys.modules[__name__]
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 KB_DIR = os.path.join(BASE_DIR, 'knowledge_base')
 OUTPUT_DIR = os.path.join(BASE_DIR, 'webapp', 'src', 'data')
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, 'database.json')
-OUTFIT_PRESET_METADATA_FILE = os.path.join(KB_DIR, 'outfit_preset_metadata.json')
-ITEM_METADATA_FILE = os.path.join(KB_DIR, 'item_metadata.json')
 WARDROBE_REFERENCE_MANIFEST_FILE = os.path.join(KB_DIR, 'wardrobe_reference_manifest.json')
 WARDROBE_SOURCE_IMAGE_ROOT = os.path.join(BASE_DIR, 'source-assets', 'wardrobe')
 WARDROBE_PREVIEW_IMAGE_ROOT = os.path.join(BASE_DIR, 'webapp', 'public', 'reference', 'wardrobe')
@@ -117,6 +120,7 @@ def validate_unique_item_names(database):
                 )
 
 
+# Historical pure merge helper; formal C sync never reads retired metadata files.
 def merge_outfit_preset_metadata(grouped_data, metadata_by_name):
     category = '套裝 (Outfit Presets)'
     items = [item for item in grouped_data.get(category, []) if item.get('zh') != '全無']
@@ -230,6 +234,7 @@ def merge_wardrobe_reference_images(grouped_data, manifest):
     return merged_count
 
 
+# Historical pure merge helper; formal C sync uses catalog records directly.
 def merge_explicit_item_metadata(database, metadata):
     merged_count = 0
     for db_key, categories in metadata.items():
@@ -378,72 +383,96 @@ def validate_catalog_records(wrapper, section, category, records, file='<catalog
                 catalog_error(file, entry_id, key, 'single Markdown cell without pipes/newlines', row[key])
 
 
-def build_database():
-    print('Starting sync from MD to JSON...')
-    database = {}
-    outfit_preset_metadata = load_json_file(OUTFIT_PRESET_METADATA_FILE, required=True)
-    item_metadata = load_json_file(ITEM_METADATA_FILE, required=True)
-    wardrobe_reference_manifest = load_json_file(WARDROBE_REFERENCE_MANIFEST_FILE, required=True)
-
-    for filename, db_key in FILES_TO_SYNC.items():
-        file_path = os.path.join(KB_DIR, filename)
-        print(f'Parsing {filename}...')
-        parsed_data = parse_markdown_table(file_path)
-        if filename == 'wardrobe_and_styling.md':
-            merged_count = merge_outfit_preset_metadata(parsed_data, outfit_preset_metadata)
-            print(f'  Outfit preset metadata merged: {merged_count}')
-            image_count = merge_wardrobe_reference_images(parsed_data, wardrobe_reference_manifest)
-            print(f'  Wardrobe reference images merged: {image_count}')
-        print(f'  Categories: {len(parsed_data)} | Entries: {count_entries(parsed_data)}')
-        database[db_key] = parsed_data
-
+def build_outputs(base_commit=None):
+    # Import lazily: catalog_prepare shares pure schema/parser helpers from this module.
+    from pathlib import Path
+    from scripts.catalog_prepare import read_catalog_bundle, generated_database, render_markdown
+    from scripts.catalog_history import validate_history
+    catalog = Path(KB_DIR)/'catalog'
+    schema = load_json_file(str(catalog/'schema.json'), required=True)
+    records, index = read_catalog_bundle(catalog, schema)
+    flat = [r for cs in records.values() for rows in cs.values() for r in rows]
+    registry = load_json_file(str(catalog/'id_registry.json'), required=True)
+    proof = validate_history(BASE_DIR, flat, registry, base_commit)
+    manifest = load_json_file(WARDROBE_REFERENCE_MANIFEST_FILE, required=True)
+    database = generated_database(records, manifest)
+    # Retain all manifest/name/file/asset checks, not just image field generation.
+    merge_wardrobe_reference_images(database['Wardrobe'], manifest)
     validate_unique_item_names(database)
-    metadata_count = merge_explicit_item_metadata(database, item_metadata)
-    print(f'Explicit item metadata fields merged: {metadata_count}')
+    by_id = {r['id']: r for r in flat}
+    outputs = {Path(OUTPUT_FILE): render_database(database)}
+    for layout in index['markdown']:
+        outputs[Path(KB_DIR)/layout['file']] = render_markdown(layout, by_id)
+    return outputs, proof
 
-    character_total = count_entries(database.get('Character', {}))
-    if character_total < 10:
-        raise SyncValidationError(f'Character database looks too small ({character_total} entries)')
 
-    return database
+def build_database(base_commit=None):
+    outputs, _ = build_outputs(base_commit)
+    from pathlib import Path
+    return json.loads(outputs[Path(OUTPUT_FILE)])
 
 
 def render_database(database):
     return json.dumps(database, ensure_ascii=False, indent=2) + '\n'
 
 
+def publish_outputs(outputs):
+    """Prepare every output before replacement; rollback ordinary I/O failures.
+
+    The source freeze excludes concurrent writers. This is not a multi-file
+    power-loss transaction; after a process/power interruption rerun sync/check.
+    """
+    import tempfile
+    from pathlib import Path
+    staged, originals, replaced = {}, {}, []
+    try:
+        for path, content in outputs.items():
+            path = Path(path)
+            if path.is_symlink():
+                raise SyncValidationError(f'Refusing symlink output: {path}')
+            originals[path] = path.read_bytes() if path.exists() else None
+            with tempfile.NamedTemporaryFile(dir=path.parent, prefix='.catalog-sync-', delete=False) as f:
+                staged[path] = Path(f.name)
+                f.write(content.encode('utf-8')); f.flush(); os.fsync(f.fileno())
+            if path.exists():
+                os.chmod(staged[path], path.stat().st_mode)
+        for path, temporary in staged.items():
+            os.replace(temporary, path); replaced.append(path)
+    except Exception:
+        for path in reversed(replaced):
+            if originals[path] is None:
+                path.unlink()
+            else:
+                path.write_bytes(originals[path])
+        raise
+    finally:
+        for temporary in staged.values():
+            if temporary.exists():
+                temporary.unlink()
+
+
 def parse_args(argv=None):
-    parser = argparse.ArgumentParser(description='Sync knowledge-base Markdown into database.json')
-    parser.add_argument(
-        '--check',
-        action='store_true',
-        help='validate all inputs and fail if database.json is not exactly up to date',
-    )
+    parser = argparse.ArgumentParser(description='Validate catalog JSON and generate database plus six Markdown overviews')
+    parser.add_argument('--check', action='store_true', help='read-only validation of all seven outputs')
+    parser.add_argument('--registry-base-commit', help='reviewed full Git SHA before candidate changes')
+    parser.add_argument('--report-json', action='store_true', help='print validation/history evidence as JSON')
     return parser.parse_args(argv)
 
 
 def main(argv=None):
     args = parse_args(argv)
     try:
-        rendered_database = render_database(build_database())
+        outputs, proof = build_outputs(args.registry_base_commit)
         if args.check:
-            if not os.path.exists(OUTPUT_FILE):
-                raise SyncValidationError(f'Missing generated database: {OUTPUT_FILE}')
-            with open(OUTPUT_FILE, 'r', encoding='utf-8') as file_handle:
-                current_database = file_handle.read()
-            if current_database != rendered_database:
-                raise SyncValidationError(
-                    'Generated database is stale. Run python3 scripts/sync_to_json.py and commit the result.'
-                )
-            print('Database check passed: generated output is up to date.')
-            return 0
-
-        os.makedirs(OUTPUT_DIR, exist_ok=True)
-        with open(OUTPUT_FILE, 'w', encoding='utf-8') as file_handle:
-            file_handle.write(rendered_database)
-        print(f'Successfully synced dictionaries to {OUTPUT_FILE}')
+            stale = [str(p) for p, text in outputs.items() if not p.is_file() or p.read_bytes() != text.encode('utf-8')]
+            if stale:
+                raise SyncValidationError('Generated outputs stale; run sync: '+', '.join(stale))
+        else:
+            publish_outputs(outputs)
+        report = dict(proof, outputs=len(outputs), source='catalog JSON', check=args.check)
+        print(json.dumps(report, ensure_ascii=False) if args.report_json else f'Catalog validation passed: {report}')
         return 0
-    except (OSError, ValueError, SyncValidationError) as error:
+    except (OSError, ValueError, KeyError, TypeError, SyncValidationError) as error:
         print(f'ERROR: {error}', file=sys.stderr)
         return 1
 

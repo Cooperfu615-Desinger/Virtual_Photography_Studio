@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-25
 
+## 目錄資料架構 v1.1：C 已驗收、授權交付（2026-10-25）
+
+- Cooper 已確認共用範圍凍結，依最新 main `64870460e8a153a07baf953df0d6cf784ce2aca4` 完成 C。正式目錄來源切換為 index 指定的 56 份分類 JSON／1,050 筆 frozen ID；schema、欄位映射、歷史 ID 與七份生成物檢查同批啟用。六份 Markdown 為唯讀總覽，兩份 metadata 已併入紀錄並移除。
+- 原始內容、逐筆 ID／有序別名、編譯結果、控制項與兩種 Markdown parser 零差異。A 封存不變；前端 1,823/1,823、Prompt Quality 754/754、Python 33/33、Node 工具 10/10、lint／build／資料與資產檢查通過。A 3,251 次重播零差異，同 seed200 audit 前後相同，0 blockers／18 既有診斷；strict 保留 J12 精確兩項，0 新 blocker／0 過期例外。
+- 桌手機五工作區、舊還原與全身匯入共44項及16張畫面檢查通過，無瀏覽器錯誤／外部 POST。其他140份未提交檔案 SHA 不變；14份操作文件原稿另行歸檔。
+- [C 報告與驗收證據](reports/catalog-architecture-c-2026-10-25/README.md)、[正式操作流程](../knowledge_base/catalog/README.md)、[規格 §13](specs/catalog-data-architecture-v1.md#13-c-json-正式來源切換2026-10-25)。Cooper 已確認 C 驗收通過，授權只提交並 push 本批資料、程式、文件、工具與 CI 設定；其他未提交內容保留。實際提交、推送與 CI 結果另行核對，不以授權代表已成功交付。D、E、P5b 未開始。下方 A／B 為歷史狀態，不代表目前仍是 Markdown 來源。
+
 ## 目錄資料架構 v1.1：B 已驗收、授權交付（2026-10-25）
 
 - 依 Cooper 授權，以 main `548a5c402b025e243bda16c873527dca6c95b75d` 完成 B：strict 完整性 CI 接線、56 分類 schema、22 頂層／67 含巢狀路徑責任映射、歷史 ID 驗證器及 repo 外隔離演練。正式來源仍是六份 Markdown＋metadata＋manifest；C 的 JSON 來源／正式 registry 啟用未開始，P5b 未開始。
@@ -1361,7 +1368,7 @@ Knowledge base:
 
 - `/Users/cooperfu/Projects/Virtual_Photography_Studio/knowledge_base`
 - `/Users/cooperfu/Projects/Virtual_Photography_Studio/knowledge_base/wardrobe_reference_manifest.json`
-- `/Users/cooperfu/Projects/Virtual_Photography_Studio/knowledge_base/item_metadata.json`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/knowledge_base/catalog/index.json`（正式分類 JSON 順序；含 schema／registry／field mapping）
 - `/Users/cooperfu/Projects/Virtual_Photography_Studio/source-assets`
 - `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/data/database.json`
 - `/Users/cooperfu/Projects/Virtual_Photography_Studio/scripts/sync_to_json.py`

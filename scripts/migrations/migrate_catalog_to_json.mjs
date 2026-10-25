@@ -32,6 +32,7 @@ export async function publishRehearsal(target, produce) {
 
 export async function rehearse({ output, sourceSha }) {
   if (!/^[a-f0-9]{40}$/.test(sourceSha || '') || git('rev-parse', 'HEAD') !== sourceSha) throw new Error('explicit current committed --source-sha required');
+  if (existsSync(join(repo, 'knowledge_base/catalog/index.json'))) throw new Error('Source already cut over. Rehearse only from immutable pre-C 6487046 in an external checkout.');
   const target = assertOutputPath(output);
   // The B tools may be dirty, but runtime, data and source authoring files must equal the specified commit.
   const paths = git('ls-files', 'webapp/src', 'knowledge_base').split('\n').filter(Boolean);

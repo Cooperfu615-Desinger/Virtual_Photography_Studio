@@ -71,7 +71,7 @@ The default prompt audit is diagnostic. `npm run audit:prompts:strict` fails onl
 
 ## Data and Asset Integrity
 
-Wardrobe reference images are mapped through `knowledge_base/wardrobe_reference_manifest.json`, not by list position. The sync fails on missing files, duplicate IDs/names, unexpected files, or stale generated JSON. Item metadata that cannot live in Markdown is versioned in explicit JSON sources instead of being copied from the previous `database.json`.
+Wardrobe reference images are mapped through `knowledge_base/wardrobe_reference_manifest.json`, not by list position. The sync fails on missing files, duplicate IDs/names, unexpected files, or stale generated JSON. Catalog records and metadata are authored in the category JSON listed by `knowledge_base/catalog/index.json`. The six Markdown dictionaries and `database.json` are generated, read-only outputs. Set a reviewed `REGISTRY_BASE_COMMIT` before sync; schema, append-only historical ID validation and all seven output checks are mandatory. See [catalog workflow](knowledge_base/catalog/README.md).
 
 The browser receives AVIF previews from `webapp/public`; original images remain under `source-assets` and are not copied into the GitHub Pages artifact. CI runs the sync tests, `--check`, and the public asset budget check before the frontend quality gates.
 

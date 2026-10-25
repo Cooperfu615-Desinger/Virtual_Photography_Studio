@@ -1,0 +1,95 @@
+{
+  "section": "Character",
+  "category": "體態 (Body Type)",
+  "entries": [
+    {
+      "id": "character:體態-body-type:高挑時裝模特:0",
+      "legacyIds": [
+        "character:體態-body-type:高挑時裝模特:0"
+      ],
+      "zh": "高挑時裝模特",
+      "en": "A–B cup bust, narrow ribcage, slim arms and legs, narrow waist, high waistline, slightly wider hips, short torso, long legs, tall slender model silhouette; height 170–175 cm, bust–waist–hip 80–58–88 cm",
+      "desc": "A–B Cup，窄胸廓、纖細四肢與窄腰，高腰線、短上身與長腿，臀圍略寬；高挑纖長的模特輪廓。身高 170–175 cm，三圍 80–58–88 cm。",
+      "legacyPromptAliases": [
+        "tall slim fashion body, about 170-175 cm visual height, 80-58-88 body proportion anchor, long legs with about 3.5:6.5 torso-to-leg balance, shorter upper torso, high waistline, narrow ribcage, gently wider hips, clean editorial silhouette",
+        "Tall fashion-model silhouette, long legs, high waistline"
+      ]
+    },
+    {
+      "id": "character:體態-body-type:柔和沙漏身形:2",
+      "legacyIds": [
+        "character:體態-body-type:一般基本體型:1",
+        "character:體態-body-type:柔和沙漏身形:1"
+      ],
+      "zh": "柔和沙漏身形",
+      "en": "C–D cup bust, soft proportionate arms, gently defined waist, slightly low waistline, rounded wider hips, moderately full thighs, tapered calves, slightly long torso, balanced legs, soft hourglass silhouette; height 165–170 cm, bust–waist–hip 90–62–94 cm",
+      "desc": "C–D Cup，手臂柔和勻稱、腰部自然收束，腰線略低、上身略長；臀部圓潤較寬、大腿適度豐滿、小腿收窄，腿長平衡。身高 165–170 cm，三圍 90–62–94 cm。",
+      "legacyPromptAliases": [
+        "soft natural hourglass body, about 165-170 cm visual height, 90-62-94 body proportion anchor, balanced torso-to-leg ratio around 4:6, longer upper torso, lower waistline, fuller bust, wider hips, elongated abdomen with subtle contour lines",
+        "Soft hourglass silhouette, fuller bust, wider hips",
+        "natural basic body, about 160-165 cm visual height, 83-62-88 body proportion anchor, balanced torso-to-leg ratio around 4:6, low-contrast waist curve, modest bust and hips, smooth natural silhouette",
+        "Natural balanced silhouette, gentle waist curve, natural bust and hips"
+      ]
+    },
+    {
+      "id": "character:體態-body-type:性感曲線身形:3",
+      "legacyIds": [
+        "character:體態-body-type:性感曲線身形:2"
+      ],
+      "zh": "性感曲線身形",
+      "en": "F–G cup bust, lean limbs, narrow defined waist, rounded hips, long legs, dramatic lean hourglass silhouette; height 168–173 cm, bust–waist–hip 94–58–92 cm",
+      "desc": "F–G Cup，四肢精瘦、長腿、窄腰與圓潤臀部，胸腰臀落差明顯，整體仍纖瘦。身高 168–173 cm，三圍 94–58–92 cm。",
+      "legacyPromptAliases": [
+        "sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight, 94-58-92 body proportion anchor, long legs with about 3.8:6.2 torso-to-leg balance, full F-to-G-cup-scale bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve",
+        "Curvy hourglass silhouette, fuller bust, defined waist, rounded hips"
+      ]
+    },
+    {
+      "id": "character:體態-body-type:運動緊實身形:4",
+      "legacyIds": [
+        "character:體態-body-type:運動緊實身形:3"
+      ],
+      "zh": "運動緊實身形",
+      "en": "moderate bust, level shoulders, prominent collarbones, slim lightly toned arms, slender firm waist, flat toned abdomen, rounded lifted glutes of moderate size, slightly thicker firm thighs, firm calves, balanced proportions, straight-lined slim athletic silhouette; height 165–170 cm, bust–waist–hip 86–64–92 cm",
+      "desc": "適中胸量，肩線水平、鎖骨明顯，手臂纖細並有輕微肌肉線條；腰部纖細緊實、腹部平坦，臀部適中圓翹，大腿稍粗結實、小腿緊實，比例平衡、輪廓偏直線。身高 165–170 cm，三圍 86–64–92 cm。",
+      "legacyPromptAliases": [
+        "fit toned athletic female body, healthy firm silhouette, subtle muscle definition, energetic balanced proportions",
+        "Fit athletic silhouette, firm build, subtle muscle definition"
+      ]
+    },
+    {
+      "id": "character:體態-body-type:小隻精緻身形:5",
+      "legacyIds": [
+        "character:體態-body-type:小隻精緻身形:4"
+      ],
+      "zh": "小隻精緻身形",
+      "en": "A–B cup bust, narrow ribcage, slim arms and legs, narrow waist, gently rounded hips, compact balanced proportions, moderate-length limbs, petite slender model silhouette; height 150–155 cm, bust–waist–hip 78–58–84 cm",
+      "desc": "A–B Cup，窄胸廓、纖細四肢與窄腰，臀部自然圓潤；整體嬌小、比例緊湊平衡，四肢長度適中。身高 150–155 cm，三圍 78–58–84 cm。",
+      "legacyPromptAliases": [
+        "petite polished female body, compact refined proportions, delicate idol-like silhouette, graceful small-frame presence",
+        "Petite refined silhouette, compact frame, delicate proportions"
+      ]
+    },
+    {
+      "id": "character:體態-body-type:全無:6",
+      "legacyIds": [
+        "character:體態-body-type:全無:5"
+      ],
+      "zh": "全無",
+      "en": "none",
+      "desc": "不指定體態，不輸出身形、身高或比例描述。"
+    },
+    {
+      "id": "character:體態-body-type:豐胸纖腰沙漏身形:7",
+      "legacyIds": [
+        "character:體態-body-type:豐胸纖腰沙漏身形:6"
+      ],
+      "zh": "豐胸纖腰沙漏身形",
+      "en": "I–K cup bust, slim arms, narrow waist, wide hips, fuller upper thighs, slim calves, balanced proportions, pronounced hourglass silhouette, curves stretching fitted fabric with soft flesh bulges at snug garment edges; height 163–168 cm, bust–waist–hip 103–60–98 cm",
+      "desc": "I–K Cup，手臂、腰部與小腿纖細，寬臀與較豐滿的大腿上段，比例平衡、沙漏曲線明顯；合身衣料被曲線撐緊，緊貼邊緣帶柔和溢肉感。身高 163–168 cm，三圍 103–60–98 cm。",
+      "legacyPromptAliases": [
+        "I-cup bust, slender arms, narrow waist, wider hips, fuller upper thighs, slim calves, defined hourglass silhouette"
+      ]
+    }
+  ]
+}

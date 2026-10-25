@@ -1,0 +1,258 @@
+{
+  "section": "Character",
+  "category": "姿勢與肢體語言 (Pose & Body Language)",
+  "entries": [
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:全無:0",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:全無:0"
+      ],
+      "zh": "全無",
+      "en": "none",
+      "desc": "不指定姿勢動作，讓模型自行決定人物肢體語言。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:站姿-自然站姿:1",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:站姿-自然站姿:1"
+      ],
+      "zh": "站姿｜自然站姿",
+      "en": "natural standing pose, relaxed balanced posture, everyday body language, unforced presence",
+      "desc": "身體自然站立，重心平均，沒有明顯擺拍感。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:站姿-單腳重心:2",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:站姿-單腳重心:2"
+      ],
+      "zh": "站姿｜單腳重心",
+      "en": "weight-on-one-leg standing pose, relaxed asymmetrical stance, casual natural posture",
+      "desc": "重心落在單腳，另一腳自然放鬆，整體更有鬆弛感。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:站姿-雙手自然垂放:3",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:站姿-雙手自然垂放:3"
+      ],
+      "zh": "站姿｜雙手自然垂放",
+      "en": "standing pose with arms naturally at sides, simple clean posture, unforced body line",
+      "desc": "雙手自然下垂，畫面乾淨，適合簡約人像。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:站姿-雙臂交疊:4",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:站姿-雙臂交疊:4"
+      ],
+      "zh": "站姿｜雙臂交疊",
+      "en": "standing pose with loosely crossed arms, relaxed closed posture, cool composed body language",
+      "desc": "手臂自然交疊在身前，身體線條收斂而穩定。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:坐姿-自然坐姿:5",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:坐姿-自然坐姿:5"
+      ],
+      "zh": "坐姿｜自然坐姿",
+      "en": "natural seated pose, relaxed upright sitting posture, everyday calm body language",
+      "desc": "坐姿穩定放鬆，上半身自然伸展。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:坐姿-微微前傾:6",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:坐姿-微微前傾:6"
+      ],
+      "zh": "坐姿｜微微前傾",
+      "en": "seated pose leaning slightly forward, engaged natural posture, subtle interactive body language",
+      "desc": "上半身稍微前傾，讓人物更靠近鏡頭且更有參與感。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:坐姿-雙手後撐:7",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:坐姿-雙手後撐:7"
+      ],
+      "zh": "坐姿｜雙手後撐",
+      "en": "seated pose with both hands placed behind for support, open chest, relaxed stretched posture",
+      "desc": "雙手向後撐住身體，姿態放鬆並帶伸展感。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:坐姿-單腿放鬆:8",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:坐姿-單腿放鬆:8"
+      ],
+      "zh": "坐姿｜單腿放鬆",
+      "en": "asymmetrical seated pose with one leg relaxed, casual uneven body rhythm, natural sitting line",
+      "desc": "一側腿部較放鬆延伸，另一側自然收起，形成不對稱節奏。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:坐姿-雙腿自然伸展:9",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:坐姿-雙腿自然伸展:9"
+      ],
+      "zh": "坐姿｜雙腿自然伸展",
+      "en": "seated pose with legs naturally extended, loose comfortable posture, laid-back body language",
+      "desc": "腿部自然往前延伸，不過度端正，保留輕鬆感。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:坐姿-盤腿坐姿:10",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:坐姿-盤腿坐姿:10"
+      ],
+      "zh": "坐姿｜盤腿坐姿",
+      "en": "cross-legged seated pose, relaxed casual sitting posture, intimate everyday body language",
+      "desc": "雙腿自然盤起，姿勢輕鬆，適合私密生活感構圖。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:坐姿-側身坐姿:11",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:坐姿-側身坐姿:11"
+      ],
+      "zh": "坐姿｜側身坐姿",
+      "en": "side-facing seated pose, slightly turned torso, natural dimensional sitting posture",
+      "desc": "身體略微側向鏡頭，避免正面坐直的僵硬感。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:坐姿-抱膝坐姿:12",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:坐姿-抱膝坐姿:12"
+      ],
+      "zh": "坐姿｜抱膝坐姿",
+      "en": "seated pose hugging knees, compact self-contained posture, quiet relaxed body language",
+      "desc": "雙手或手臂自然抱膝，身體線條較集中而收斂。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:半躺低姿態-側身半躺:13",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:半躺低姿態-側身半躺:13"
+      ],
+      "zh": "半躺低姿態｜側身半躺",
+      "en": "side reclined pose, body gently extended, relaxed low posture, soft flowing body line",
+      "desc": "身體側向延展，整體姿勢放鬆，適合柔和低姿態畫面。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:半躺低姿態-正面仰躺:14",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:半躺低姿態-正面仰躺:14"
+      ],
+      "zh": "半躺低姿態｜正面仰躺",
+      "en": "relaxed supine pose, lying on her back facing upward, one arm raised loosely above the head, the other resting casually beside the body, legs bent naturally in a soft asymmetrical way, upright non-inverted body orientation",
+      "desc": "正面朝上的舒服仰躺姿勢，手腳自然不對稱，避免頭下腳上的倒置構圖。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:半躺低姿態-手撐半躺:15",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:半躺低姿態-手撐半躺:15"
+      ],
+      "zh": "半躺低姿態｜手撐半躺",
+      "en": "reclined pose supported by one arm, lifted upper body, natural relaxed asymmetry",
+      "desc": "以單手或手肘支撐上半身，讓姿勢更有層次。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:半躺低姿態-微蜷放鬆:16",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:半躺低姿態-微蜷放鬆:16"
+      ],
+      "zh": "半躺低姿態｜微蜷放鬆",
+      "en": "slightly curled relaxed low pose, soft compact body line, intimate restful posture",
+      "desc": "身體略微收起，帶休息感、柔軟感與生活感。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:半躺低姿態-趴姿:17",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:半躺低姿態-趴姿:17"
+      ],
+      "zh": "半躺低姿態｜趴姿",
+      "en": "low prone pose, upper body close to the surface, relaxed intimate body line",
+      "desc": "上半身接近低平面，身體趴臥放鬆，適合低姿態構圖。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:半躺低姿態-側躺延伸:18",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:半躺低姿態-側躺延伸:18"
+      ],
+      "zh": "半躺低姿態｜側躺延伸",
+      "en": "elongated side-lying pose, extended body line, calm graceful low posture",
+      "desc": "身體橫向延展，線條完整，適合全身構圖。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:蹲姿-自然蹲姿:19",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:蹲姿-自然蹲姿:19"
+      ],
+      "zh": "蹲姿｜自然蹲姿",
+      "en": "natural squatting pose, relaxed low posture, balanced body weight, casual grounded body language",
+      "desc": "身體自然下蹲，重心穩定不誇張。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:蹲姿-單膝蹲姿:20",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:蹲姿-單膝蹲姿:20"
+      ],
+      "zh": "蹲姿｜單膝蹲姿",
+      "en": "one-knee squat pose, asymmetrical low stance, stable grounded posture, natural visual rhythm",
+      "desc": "一膝較低、一膝支撐，姿態更有層次。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:蹲姿-手扶膝蓋蹲姿:21",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:蹲姿-手扶膝蓋蹲姿:21"
+      ],
+      "zh": "蹲姿｜手扶膝蓋蹲姿",
+      "en": "squatting pose with one hand resting on knee, relaxed low stance, casual confident body language",
+      "desc": "下蹲時手自然扶在膝上，姿態清楚且穩定。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:動態-輕步移動:22",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:動態-輕步移動:22"
+      ],
+      "zh": "動態｜輕步移動",
+      "en": "light stepping motion, subtle body movement, natural transitional pose, candid rhythm",
+      "desc": "像正在慢慢走動或移動重心，避免人物太靜止。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:動態-整理頭髮:23",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:動態-整理頭髮:23"
+      ],
+      "zh": "動態｜整理頭髮",
+      "en": "adjusting hair while moving, candid grooming gesture, natural in-between motion",
+      "desc": "手正在整理頭髮，像被捕捉到的自然瞬間。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:動態-整理衣襬:24",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:動態-整理衣襬:24"
+      ],
+      "zh": "動態｜整理衣襬",
+      "en": "adjusting clothing hem, subtle styling gesture, candid everyday movement",
+      "desc": "手碰觸衣物或衣襬，帶自然日常的整理動作。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:動態-抬手整理肩頸:25",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:動態-抬手整理肩頸:25"
+      ],
+      "zh": "動態｜抬手整理肩頸",
+      "en": "hand lifting toward shoulder or neck, soft adjustment gesture, delicate natural motion",
+      "desc": "手靠近肩頸、鎖骨或耳側，適合細膩近景人物狀態。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:動態-回身動作:26",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:動態-回身動作:26"
+      ],
+      "zh": "動態｜回身動作",
+      "en": "body turning in motion, torso rotating naturally, transitional pose with subtle tension",
+      "desc": "身體正在轉向或回身，增加動勢與不僵硬的過渡感。"
+    },
+    {
+      "id": "character:姿勢與肢體語言-pose-body-language:動態-停步姿勢:27",
+      "legacyIds": [
+        "character:姿勢與肢體語言-pose-body-language:動態-停步姿勢:27"
+      ],
+      "zh": "動態｜停步姿勢",
+      "en": "just-stopped movement pose, stillness after motion, balanced transitional body language",
+      "desc": "像剛停下腳步的狀態，保留動作後的穩定停格。"
+    }
+  ]
+}

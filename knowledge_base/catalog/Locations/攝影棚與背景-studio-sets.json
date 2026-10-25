@@ -1,0 +1,197 @@
+{
+  "section": "Locations",
+  "category": "攝影棚與背景 (Studio Sets)",
+  "entries": [
+    {
+      "id": "locations:攝影棚與背景-studio-sets:全無:0",
+      "legacyIds": [
+        "locations:攝影棚與背景-studio-sets:全無:0"
+      ],
+      "zh": "全無",
+      "en": "none",
+      "desc": "不指定場景，讓模型自行決定背景環境與空間佈局。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-鏡面地板攝影棚:1",
+      "legacyIds": [
+        "locations:攝影棚與背景-studio-sets:室內-鏡面地板攝影棚:1"
+      ],
+      "zh": "室內：鏡面地板攝影棚",
+      "en": "five-sided mirror chamber studio, three mirrored walls, mirrored floor and mirrored ceiling, infinite reflective commercial space, isolated subject",
+      "desc": "三面牆、地板與天花板皆為鏡面的特殊攝影棚空間，形成全方位鏡面延伸與商業時裝感。",
+      "lyingSurface": {
+        "type": "floor",
+        "en": "mirrored floor"
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純潔白幕:2",
+      "legacyIds": [
+        "locations:攝影棚與背景-studio-sets:室內-純潔白幕:2"
+      ],
+      "zh": "室內：純潔白幕",
+      "en": "horizonless seamless matte pure white color field, continuous white ground-and-background plane blending into a solid white void, full-bleed white surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "desc": "以純白無縫單色空間為主，地面與背景融合成滿版白色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+      "lyingSurface": {
+        "type": "ground",
+        "en": "white surface"
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-深邃黑幕:3",
+      "legacyIds": [
+        "locations:攝影棚與背景-studio-sets:室內-深邃黑幕:3"
+      ],
+      "zh": "室內：深邃黑幕",
+      "en": "horizonless seamless matte deep black color field, continuous black ground-and-background plane blending into a solid black void, full-bleed black surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "desc": "以深黑無縫單色空間為主，地面與背景融合成滿版黑色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+      "lyingSurface": {
+        "type": "ground",
+        "en": "black surface"
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-莫蘭迪灰背景:4",
+      "legacyIds": [
+        "locations:攝影棚與背景-studio-sets:室內-莫蘭迪灰背景:4"
+      ],
+      "zh": "室內：莫蘭迪灰背景",
+      "en": "horizonless seamless matte muted grey color field, continuous neutral-grey ground-and-background plane blending into a solid grey void, full-bleed low-saturation grey surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "desc": "以低飽和灰色無縫單色空間為主，地面與背景融合成滿版中性灰，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+      "lyingSurface": {
+        "type": "ground",
+        "en": "grey surface"
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純藍背景:5",
+      "legacyIds": [
+        "locations:攝影棚與背景-studio-sets:室內-純藍背景:5"
+      ],
+      "zh": "室內：純藍背景",
+      "en": "horizonless seamless matte saturated pure blue color field, continuous vivid blue ground-and-background plane blending into a solid blue void, full-bleed clean blue surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "desc": "以高飽和純藍無縫單色空間為主，地面與背景融合成滿版藍色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+      "lyingSurface": {
+        "type": "ground",
+        "en": "blue surface"
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純橘背景:6",
+      "legacyIds": [
+        "locations:攝影棚與背景-studio-sets:室內-純橘背景:6"
+      ],
+      "zh": "室內：純橘背景",
+      "en": "horizonless seamless matte saturated pure orange color field, continuous vivid orange ground-and-background plane blending into a solid orange void, full-bleed clean orange surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "desc": "以高飽和純橘無縫單色空間為主，地面與背景融合成滿版橘色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+      "lyingSurface": {
+        "type": "ground",
+        "en": "orange surface"
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純紅背景:7",
+      "legacyIds": [
+        "locations:攝影棚與背景-studio-sets:室內-純紅背景:7"
+      ],
+      "zh": "室內：純紅背景",
+      "en": "horizonless seamless matte saturated pure red color field, continuous vivid red ground-and-background plane blending into a solid red void, full-bleed clean red surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "desc": "以高飽和純紅無縫單色空間為主，地面與背景融合成滿版紅色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+      "lyingSurface": {
+        "type": "ground",
+        "en": "red surface"
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純黃背景:8",
+      "legacyIds": [
+        "locations:攝影棚與背景-studio-sets:室內-純黃背景:8"
+      ],
+      "zh": "室內：純黃背景",
+      "en": "horizonless seamless matte saturated pure yellow color field, continuous vivid yellow ground-and-background plane blending into a solid yellow void, full-bleed clean yellow surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "desc": "以高飽和純黃無縫單色空間為主，地面與背景融合成滿版黃色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+      "lyingSurface": {
+        "type": "ground",
+        "en": "yellow surface"
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純紫背景:9",
+      "legacyIds": [
+        "locations:攝影棚與背景-studio-sets:室內-純紫背景:9"
+      ],
+      "zh": "室內：純紫背景",
+      "en": "horizonless seamless matte saturated pure purple color field, continuous vivid purple ground-and-background plane blending into a solid purple void, full-bleed clean purple surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "desc": "以高飽和純紫無縫單色空間為主，地面與背景融合成滿版紫色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+      "lyingSurface": {
+        "type": "ground",
+        "en": "purple surface"
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純綠背景:10",
+      "legacyIds": [
+        "locations:攝影棚與背景-studio-sets:室內-純綠背景:10"
+      ],
+      "zh": "室內：純綠背景",
+      "en": "horizonless seamless matte saturated pure green color field, continuous vivid green ground-and-background plane blending into a solid green void, full-bleed clean green surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "desc": "以高飽和純綠無縫單色空間為主，地面與背景融合成滿版綠色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+      "lyingSurface": {
+        "type": "ground",
+        "en": "green surface"
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-鮮豔撞色背景:11",
+      "legacyIds": [
+        "locations:攝影棚與背景-studio-sets:室內-鮮豔撞色背景:11"
+      ],
+      "zh": "室內：鮮豔撞色背景",
+      "en": "horizonless seamless matte single vivid pop-color field, continuous saturated ground-and-background plane blending into a solid graphic color void, full-bleed clean color-block surface, subtle natural contact shadow under the subject, no gradient, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "desc": "以單一高飽和色塊無縫空間為主，地面與背景融合成滿版純色，人物腳下保留自然接觸陰影；避免漸層、紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+      "lyingSurface": {
+        "type": "ground",
+        "en": "color-block surface"
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-漸層打光背景:12",
+      "legacyIds": [
+        "locations:攝影棚與背景-studio-sets:室內-漸層打光背景:12"
+      ],
+      "zh": "室內：漸層打光背景",
+      "en": "horizonless seamless smooth gradient color field, continuous gradient ground-and-background plane with no visible boundary, full-bleed tonal transition surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "desc": "以無縫漸層色場為主，地面與背景融合成沒有邊界的漸層平面，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+      "lyingSurface": {
+        "type": "ground",
+        "en": "gradient ground-and-background plane"
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-crt-電視牆攝影棚:13",
+      "legacyIds": [
+        "locations:攝影棚與背景-studio-sets:室內-crt-電視牆攝影棚:13"
+      ],
+      "zh": "室內：CRT 電視牆攝影棚",
+      "en": "studio set with assorted CRT televisions and vintage computer monitors in an irregular high-low cluster, retro cathode-ray displays with varied gaps and heights, glowing screens with analog static, scan lines, news footage, or the subject's face, scattered VHS tapes, coiled cables, security monitors and VCR decks, seamless desaturated blue-grey floor and backdrop, isolated subject",
+      "desc": "以不同尺寸 CRT 電視與復古螢幕高低錯落堆疊，形成不規則顯示器群；螢幕可顯示雜訊、掃描線、新聞或主角畫面，周圍有錄影帶、線材與舊電子設備，地面與背景維持低飽和藍灰色。",
+      "lyingSurface": {
+        "type": "floor",
+        "en": "desaturated blue-grey floor"
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-多色塊撞色背景:14",
+      "legacyIds": [
+        "locations:攝影棚與背景-studio-sets:室內-多色塊撞色背景:14"
+      ],
+      "zh": "室內：多色塊撞色背景",
+      "en": "horizonless seamless indoor studio background formed by two to four large adjacent vivid color fields in freely varied hues, color fields of unequal widths and heights with crisp boundaries in an asymmetrical full-bleed layout, continuous ground-and-background color surface with a subtle natural contact shadow under the subject, no gradient, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "desc": "無縫室內攝影棚由 2～4 個相鄰的大面積鮮豔色塊構成，色彩與各色塊長寬由模型自由變化；色塊邊界清晰、大小不等並形成不對稱滿版背景，地面與背景連續，人物腳下保留自然接觸陰影，避免露出牆角、地板接縫、天花板或棚內設備。",
+      "lyingSurface": {
+        "type": "ground",
+        "en": "ground-and-background color surface"
+      }
+    }
+  ]
+}

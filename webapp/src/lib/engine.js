@@ -3338,7 +3338,9 @@ function buildEntries(groupName, groupedData, inferMeta, captureInference = fals
         ...(item.lyingSurface && typeof item.lyingSurface === 'object'
           ? { lyingSurface: { ...item.lyingSurface } }
           : {}),
-        legacyIds: Array.from(new Set([
+        legacyIds: item.stableId && Array.isArray(item.legacyIds)
+          ? [...item.legacyIds]
+          : Array.from(new Set([
           ...(Array.isArray(item.legacyIds) ? item.legacyIds : []),
           ...ambientLightLegacyIds,
           legacyId,

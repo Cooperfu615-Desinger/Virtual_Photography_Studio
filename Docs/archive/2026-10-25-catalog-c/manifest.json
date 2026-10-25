@@ -1,0 +1,19 @@
+{
+  "sourceCommit": "64870460e8a153a07baf953df0d6cf784ce2aca4",
+  "files": {
+    "AGENTS.md": "aa08aa420b170a3cbb2cfd00e48a831ecd8f31e15cea62deb3587498bfd75ad1",
+    "README.md": "1b3800e5265400602ab2a16be9cecb206e318d09d0a8ecc6122bd1e2c3437b57",
+    "Docs/THE_ARCHITECT.md": "80f5cd17a5e1ba3a2b79206a287b60560af479fb6045db7040b9a1d34fe9f25f",
+    "Docs/outfit_preset_schema_migration.md": "dbf38806854c9f2c4a0ac4eb51407f793314effa715c2ae1420af0dc288c8191",
+    "Docs/current_project_state.md": "5eb8ae4d64542159220a030bf777d03849b6c496271154a30e19ff4a896ba0f5",
+    "Docs/specs/engine-architecture.md": "6e345a83a909ba21f621cfe4885d042d5d447fc5c4ff616d7285c6f1ca73b3b3",
+    "Docs/specs/frontend-visual-validation.md": "9a64473344bab58a7931e2039be8f4607176f821f0ab9c94963e3d63dcf02873",
+    "Docs/specs/catalog-data-architecture-v1.md": "adeb4331eab1beeb8aae7d290f72e4f225334315dea128d4027c784ca97ff7f3",
+    "Docs/姿勢整理_舊資料去向.md": "3c787672312343d3687bad64c7af5a23d62e6ab9e15f9b66c84881fa76f8fdfc",
+    "knowledge_base/catalog/README.md": "1f30e4e0783f15b6a15fedf9c5c8197e270da4fd5a16d01bd24a2c2c2d54a28d",
+    "Docs/specs/character-section-a-authoring-guide.md": "42ad8b07cb1fa30682152686b8dde66046a5dfe34ff6ce406bb86ee2b000b9e5",
+    "Docs/specs/wardrobe-section-b-authoring-guide.md": "47094f70e7edeecfd07f980c5c0fb1f2426bad952db5a1c6a51a8a6dbe1252aa",
+    "Docs/specs/scene-section-c-authoring-guide.md": "adec9ae262b492162ae8c07e4ef8431d8fe8d64706eeacab68d4ea2cd31c6821",
+    "Docs/specs/photography-section-d-authoring-guide.md": "2e38f10b94f5da0b7772a578108a429985814d1a3eecbce15158ee6a50f89e93"
+  }
+}

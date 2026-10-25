@@ -1,0 +1,132 @@
+{
+  "section": "Character",
+  "category": "髮色 (Hair Color)",
+  "entries": [
+    {
+      "id": "character:髮色-hair-color:全無:0",
+      "legacyIds": [
+        "character:髮色-hair-color:全無:0"
+      ],
+      "zh": "全無",
+      "en": "none",
+      "desc": "不指定髮色，讓模型自行決定髮色深淺與色調。"
+    },
+    {
+      "id": "character:髮色-hair-color:自然黑:1",
+      "legacyIds": [
+        "character:髮色-hair-color:自然黑:1"
+      ],
+      "zh": "自然黑",
+      "en": "natural black hair, soft realistic shine, clean dark depth",
+      "desc": "最穩定百搭的自然黑髮，適合多數日韓女性人像。"
+    },
+    {
+      "id": "character:髮色-hair-color:柔霧黑茶:2",
+      "legacyIds": [
+        "character:髮色-hair-color:柔霧黑茶:2"
+      ],
+      "zh": "柔霧黑茶",
+      "en": "soft black-tea brown hair, muted brown-black salon tone",
+      "desc": "黑中帶茶棕感，低調柔和。"
+    },
+    {
+      "id": "character:髮色-hair-color:深咖啡棕:3",
+      "legacyIds": [
+        "character:髮色-hair-color:深咖啡棕:3"
+      ],
+      "zh": "深咖啡棕",
+      "en": "deep coffee-brown hair, rich brunette depth, soft warm reflection",
+      "desc": "穩定成熟的深棕色，帶柔和暖反光。"
+    },
+    {
+      "id": "character:髮色-hair-color:栗子棕:4",
+      "legacyIds": [
+        "character:髮色-hair-color:栗子棕:4"
+      ],
+      "zh": "栗子棕",
+      "en": "chestnut-brown hair, warm natural brown salon color",
+      "desc": "溫暖日常的栗棕色。"
+    },
+    {
+      "id": "character:髮色-hair-color:奶茶棕:5",
+      "legacyIds": [
+        "character:髮色-hair-color:奶茶棕:5"
+      ],
+      "zh": "奶茶棕",
+      "en": "milk-tea brown hair, soft beige-brown muted salon color",
+      "desc": "柔霧淺棕，日韓沙龍染髮感。"
+    },
+    {
+      "id": "character:髮色-hair-color:亞麻米棕:6",
+      "legacyIds": [
+        "character:髮色-hair-color:亞麻米棕:6"
+      ],
+      "zh": "亞麻米棕",
+      "en": "ashy beige-brown hair, muted cool-beige tone, airy soft color",
+      "desc": "帶灰感的米棕色，輕盈乾淨。"
+    },
+    {
+      "id": "character:髮色-hair-color:蜂蜜焦糖棕:7",
+      "legacyIds": [
+        "character:髮色-hair-color:蜂蜜焦糖棕:7"
+      ],
+      "zh": "蜂蜜焦糖棕",
+      "en": "honey caramel-brown hair, warm golden brown salon color",
+      "desc": "暖焦糖棕，甜美明亮但仍自然。"
+    },
+    {
+      "id": "character:髮色-hair-color:玫瑰可可棕:8",
+      "legacyIds": [
+        "character:髮色-hair-color:玫瑰可可棕:8"
+      ],
+      "zh": "玫瑰可可棕",
+      "en": "rose cocoa-brown hair, soft rosy brunette tone",
+      "desc": "可可棕裡帶微玫瑰調，甜度剛好。"
+    },
+    {
+      "id": "character:髮色-hair-color:淺金髮:9",
+      "legacyIds": [
+        "character:髮色-hair-color:淺金髮:9"
+      ],
+      "zh": "淺金髮",
+      "en": "light blonde hair, soft golden-beige tone, realistic dyed hair texture",
+      "desc": "柔和米金色，保留真實染髮質地。"
+    },
+    {
+      "id": "character:髮色-hair-color:銀灰白:10",
+      "legacyIds": [
+        "character:髮色-hair-color:銀灰白:10"
+      ],
+      "zh": "銀灰白",
+      "en": "silver-gray white hair, cool pale fashion color, realistic dyed hair texture",
+      "desc": "冷調銀灰白，特殊但較高級。"
+    },
+    {
+      "id": "character:髮色-hair-color:亮桃粉:11",
+      "legacyIds": [
+        "character:髮色-hair-color:亮桃粉:11"
+      ],
+      "zh": "亮桃粉",
+      "en": "hot-pink fashion hair color, vivid pink tone with realistic dyed hair texture",
+      "desc": "鮮明桃粉色，保留時裝感與真實染髮質地。"
+    },
+    {
+      "id": "character:髮色-hair-color:寶石藍:12",
+      "legacyIds": [
+        "character:髮色-hair-color:寶石藍:12"
+      ],
+      "zh": "寶石藍",
+      "en": "jewel cobalt-blue fashion hair color, rich blue tone with realistic dyed hair texture",
+      "desc": "寶石感深藍，色彩存在感強但不螢光。"
+    },
+    {
+      "id": "character:髮色-hair-color:深森林綠:13",
+      "legacyIds": [
+        "character:髮色-hair-color:深森林綠:13"
+      ],
+      "zh": "深森林綠",
+      "en": "deep forest-green fashion hair color, dark moody green tone with realistic dyed hair texture",
+      "desc": "深森林綠，保留特殊色但比亮綠更穩定。"
+    }
+  ]
+}

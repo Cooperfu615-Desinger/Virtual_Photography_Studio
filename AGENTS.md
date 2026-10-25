@@ -9,6 +9,13 @@ These instructions apply to the whole repository. Optimize for the requested pro
 3. Inspect `git status` and the relevant diff before editing. Existing changes and untracked files may belong to the user or another session.
 4. State the intended outcome, success criteria, affected surfaces, and validation scope. Keep the implementation limited to that outcome.
 
+## Catalog Source Workflow
+
+- Edit only classification JSON listed in `knowledge_base/catalog/index.json`; six knowledge-base Markdown files and `database.json` are generated. Follow `knowledge_base/catalog/README.md`.
+- Preserve issued IDs and ordered aliases; append new permanent kebab-case IDs to `id_registry.json` as active. Never delete/reuse issued IDs or mint new frozen IDs. No retirement is authorized by C.
+- Select a reviewed full `REGISTRY_BASE_COMMIT` before changes; sync and strict checks require historical registry validation. Initial C bootstrap is limited to the fixed pre-C commit; it cannot be reused after C is committed. Run sync, read-only `--check`, schema/history tests and strict integrity before frontend gates.
+- Stable IDs do not authorize changing display/random order. Existing A seals and outputs must not be re-recorded to hide migration differences. Pose and Observation Capture are integrated Prompt modes, not separate navigation workspaces.
+
 ## Product and Compatibility Boundaries
 
 - Preserve the existing visual language and interaction patterns unless the user has approved a new direction. Layout, workflow, or visual-hierarchy changes should be aligned with the user before implementation; a wireframe is discussion material unless explicitly approved as the specification.
@@ -60,7 +67,7 @@ Run focused checks first. Expand to the full gates appropriate to the changed su
 | Focused frontend logic | Relevant `node --test <test-file>` files | From `webapp`: `npm test`, `npm run lint`, `npm run build`; inspect the affected browser flow when behavior is user-visible |
 | Prompt data, renderer, or compatibility | Relevant prompt-pipeline/feature tests plus `npm run test:prompt-quality` | Frontend full gates, same-seed `npm run audit:prompts:strict`, and browser smoke across all five active workspaces |
 | UI, CSS, assets, or interaction | Relevant state/helper tests | Frontend full gates and the render-and-inspect workflow in `Docs/specs/frontend-visual-validation.md` |
-| Knowledge-base Markdown or manifests | Relevant sync/manifest tests | From root: run `python3 scripts/sync_to_json.py` when source Markdown changed, then `python3 scripts/sync_to_json.py --check` and `python3 -m unittest discover -s scripts/tests`; add `python3 scripts/check_public_assets.py` for deployable assets |
+| Catalog JSON or reference manifests | Relevant sync/manifest tests | From root: run `python3 scripts/sync_to_json.py` when catalog JSON or manifests changed, then `python3 scripts/sync_to_json.py --check` and `python3 -m unittest discover -s scripts/tests`; add `python3 scripts/check_public_assets.py` for deployable assets |
 | Firebase Functions or shared provider contract | Relevant Functions/client tests | From `functions`: `npm test`, `npm run lint`; also run affected frontend gates and shared-contract tests |
 
 For a narrow change, a failing unrelated pre-existing check is not permission to edit outside scope. Confirm it is pre-existing, preserve evidence, and report it.
@@ -70,7 +77,7 @@ For a narrow change, a failing unrelated pre-existing check is not permission to
 A user-visible change is not complete after code review, tests, or build alone. Render the app at `http://127.0.0.1:5175/Virtual_Photography_Studio/`, exercise the affected state, and inspect it at desktop and mobile sizes.
 
 - Check the affected workspace and any downstream import/restore/output consumer.
-- For shared shell, navigation, typography, generation, or workspace CSS, inspect all five active workspaces: Prompt 工作台, 角色建模, 動作姿勢, 場景建模, and Saved Cards.
+- For shared shell, navigation, typography, generation, or workspace CSS, inspect all five active workspaces: Prompt 工作台, 角色建模, 場景建模, DLL_PIC Pro, and Saved Cards.
 - Confirm no unexpected horizontal page overflow, clipped or overlapping controls, unreadable wrapping, broken images, missing content, or layout shift.
 - Exercise the primary interaction and its selected, disabled, loading, success, empty, or error states when affected.
 - Inspect browser console errors and uncaught page errors. Do not dismiss new errors because the page still renders.

@@ -1,0 +1,101 @@
+{
+  "section": "Wardrobe",
+  "category": "外套穿法 (Outerwear Styling)",
+  "entries": [
+    {
+      "id": "wardrobe:外套穿法-outerwear-styling:全無:0",
+      "legacyIds": [
+        "wardrobe:外套穿法-outerwear-styling:全無:0"
+      ],
+      "zh": "全無",
+      "en": "no additional outerwear styling adjustment",
+      "desc": "不額外指定外套穿法，保留外套本身的自然穿著狀態。"
+    },
+    {
+      "id": "wardrobe:外套穿法-outerwear-styling:正常穿著:1",
+      "legacyIds": [
+        "wardrobe:外套穿法-outerwear-styling:正常穿著:1"
+      ],
+      "zh": "正常穿著",
+      "en": "outerwear worn normally on both shoulders in a standard outer-layer position",
+      "desc": "外套正常穿在雙肩上，作為標準外層，不額外指定肩線完全覆蓋。"
+    },
+    {
+      "id": "wardrobe:外套穿法-outerwear-styling:單肩露出:2",
+      "legacyIds": [
+        "wardrobe:外套穿法-outerwear-styling:單肩露出:2"
+      ],
+      "zh": "單肩露出",
+      "en": "slipped down over one upper arm, with the neckline lowered on that side and the opposite shoulder still covered",
+      "desc": "衣服滑到單側上臂，領口同側一起降低，另一側肩膀仍被衣服覆蓋；不指定左右側，也不改變前襟開合。"
+    },
+    {
+      "id": "wardrobe:外套穿法-outerwear-styling:雙肩露出:3",
+      "legacyIds": [
+        "wardrobe:外套穿法-outerwear-styling:雙肩露出:3"
+      ],
+      "zh": "雙肩露出",
+      "en": "halfway taken off, hanging around both upper arms with both shoulders fully uncovered and both arms still in the sleeves",
+      "desc": "外套脫到一半，落於雙上臂，雙肩露出且雙臂仍留在袖內；開合由獨立選項控制。",
+      "legacyPromptAliases": [
+        "slipped down around both upper arms, with the neckline resting below both shoulders and both arms still in the sleeves"
+      ]
+    },
+    {
+      "id": "wardrobe:外套穿法-outerwear-styling:衣襬遮住部分下身:4",
+      "legacyIds": [
+        "wardrobe:外套穿法-outerwear-styling:衣襬遮住部分下身:4"
+      ],
+      "zh": "衣襬遮住部分下身",
+      "en": "its hem draping naturally over the waistband and upper portion of the lower garment, partially concealing it",
+      "desc": "外套衣襬自然覆在下身腰頭與上緣；依衣長及材質判斷，僅手動選用。",
+      "randomEligible": false,
+      "outerwearStyling": {
+        "kind": "hem-overlap",
+        "throughFabricEn": "its hem overlapping the waistband and upper portion of the lower garment, which remains visible through the fabric"
+      },
+      "legacyPromptAliases": [
+        "its hem overlapping the waistband and upper portion of the lower garment, which remains visible through the fabric"
+      ]
+    },
+    {
+      "id": "wardrobe:外套穿法-outerwear-styling:披在雙肩（不穿袖）:5",
+      "legacyIds": [
+        "wardrobe:外套穿法-outerwear-styling:披在雙肩-不穿袖:5"
+      ],
+      "zh": "披在雙肩（不穿袖）",
+      "en": "draped over both shoulders, both arms outside the sleeves, with the empty sleeves hanging naturally",
+      "desc": "外套披在雙肩，雙臂留在袖外，空袖自然垂下；不適用半扣、半拉鏈或完全閉合，僅手動選用。",
+      "randomEligible": false,
+      "outerwearStyling": {
+        "kind": "drape-both"
+      }
+    },
+    {
+      "id": "wardrobe:外套穿法-outerwear-styling:披在單肩（不穿袖）:6",
+      "legacyIds": [
+        "wardrobe:外套穿法-outerwear-styling:披在單肩-不穿袖:6"
+      ],
+      "zh": "披在單肩（不穿袖）",
+      "en": "draped over one shoulder, both arms outside the sleeves, with the garment and empty sleeves hanging to that side",
+      "desc": "外套披在一側肩膀，雙臂留在袖外，衣身及空袖垂向同側；不指定左右，僅手動選用。",
+      "randomEligible": false,
+      "outerwearStyling": {
+        "kind": "drape-one"
+      }
+    },
+    {
+      "id": "wardrobe:外套穿法-outerwear-styling:袖口捲至前臂:7",
+      "legacyIds": [
+        "wardrobe:外套穿法-outerwear-styling:袖口捲至前臂:7"
+      ],
+      "zh": "袖口捲至前臂",
+      "en": "sleeves rolled up to mid-forearm, with visible folded cuffs",
+      "desc": "外套袖子捲至前臂中段，保留可見折捲袖口；只適用已標註可捲袖款式，不改內搭袖子，僅手動選用。",
+      "randomEligible": false,
+      "outerwearStyling": {
+        "kind": "rolled-sleeves"
+      }
+    }
+  ]
+}

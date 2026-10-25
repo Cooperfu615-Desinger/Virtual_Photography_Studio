@@ -1,0 +1,294 @@
+{
+  "section": "Character",
+  "category": "髮型 (Hairstyle)",
+  "entries": [
+    {
+      "id": "character:髮型-hairstyle:全無:0",
+      "legacyIds": [
+        "character:髮型-hairstyle:全無:0"
+      ],
+      "zh": "全無",
+      "en": "none",
+      "desc": "不指定髮型，讓模型自行決定頭髮長度與輪廓。"
+    },
+    {
+      "id": "character:髮型-hairstyle:帥氣濕亮油頭:1",
+      "legacyIds": [
+        "character:髮型-hairstyle:帥氣濕亮油頭:1"
+      ],
+      "zh": "帥氣濕亮油頭",
+      "en": "slicked-back short hair, hair combed away from the forehead, sharp compact fashion silhouette",
+      "desc": "短髮向後梳開，輪廓俐落緊湊；是否濕亮、分束或受風吹拂交由整理狀態控制。"
+    },
+    {
+      "id": "character:髮型-hairstyle:乾淨短鮑伯:2",
+      "legacyIds": [
+        "character:髮型-hairstyle:乾淨短鮑伯:2"
+      ],
+      "zh": "乾淨短鮑伯",
+      "en": "clean short bob haircut, softly blunt ends, polished face-framing line, neat modern shape",
+      "desc": "合併乾淨短鮑伯類型，重點是短髮輪廓俐落、髮尾乾淨、臉側線條清楚。"
+    },
+    {
+      "id": "character:髮型-hairstyle:齊瀏海圓弧鮑伯:3",
+      "legacyIds": [
+        "character:髮型-hairstyle:齊瀏海圓弧鮑伯:3"
+      ],
+      "zh": "齊瀏海圓弧鮑伯",
+      "en": "rounded short bob with full straight bangs, smooth curved ends, cute Japanese bob silhouette",
+      "desc": "齊瀏海搭配圓弧感短鮑伯，日系娃娃感明確。"
+    },
+    {
+      "id": "character:髮型-hairstyle:不對稱濕感短鮑伯:4",
+      "legacyIds": [
+        "character:髮型-hairstyle:不對稱濕感短鮑伯:4"
+      ],
+      "zh": "不對稱濕感短鮑伯",
+      "en": "asymmetrical short bob, one side falling near the eye, sharp uneven silhouette",
+      "desc": "一側髮長靠近眼周，重點是不對稱短鮑伯的輪廓與髮尾位置；濕感與動態交由整理狀態控制。"
+    },
+    {
+      "id": "character:髮型-hairstyle:復古外翹短髮:5",
+      "legacyIds": [
+        "character:髮型-hairstyle:復古外翹短髮:5"
+      ],
+      "zh": "復古外翹短髮",
+      "en": "short flipped-out hair, retro outward ends, polished playful movement around the jawline",
+      "desc": "短髮髮尾向外翻起，復古、俏皮且有線條感。"
+    },
+    {
+      "id": "character:髮型-hairstyle:自然層次鎖骨髮:6",
+      "legacyIds": [
+        "character:髮型-hairstyle:自然層次鎖骨髮:6"
+      ],
+      "zh": "自然層次鎖骨髮",
+      "en": "collarbone-length layered hair, defined face-framing layers, clean tapered ends",
+      "desc": "鎖骨附近長度，重點是層次、臉側線條與乾淨髮尾；髮量與動態交由整理狀態控制。"
+    },
+    {
+      "id": "character:髮型-hairstyle:韓系柔順中長髮:7",
+      "legacyIds": [
+        "character:髮型-hairstyle:韓系柔順中長髮:7"
+      ],
+      "zh": "韓系柔順中長髮",
+      "en": "smooth Korean medium-length hair, gentle inward curve, clean soft modern silhouette",
+      "desc": "柔順中長髮，髮尾自然內彎，乾淨溫柔且穩定。"
+    },
+    {
+      "id": "character:髮型-hairstyle:側分柔波中長髮:8",
+      "legacyIds": [
+        "character:髮型-hairstyle:側分柔波中長髮:8"
+      ],
+      "zh": "側分柔波中長髮",
+      "en": "side-parted medium soft waves, collarbone-length shape, defined face-framing layers",
+      "desc": "中長度側分柔波，重點是波形、長度與臉側層次；濕感與動態交由整理狀態控制。"
+    },
+    {
+      "id": "character:髮型-hairstyle:半濕感中長髮:9",
+      "legacyIds": [
+        "character:髮型-hairstyle:半濕感中長髮:9"
+      ],
+      "zh": "半濕感中長髮",
+      "en": "medium-length hair with softly tapered ends, clean natural face-framing shape",
+      "desc": "中長髮自然垂落，保留乾淨臉側輪廓；光澤、分束與風吹方向交由整理狀態控制。"
+    },
+    {
+      "id": "character:髮型-hairstyle:直髮-中分:10",
+      "legacyIds": [
+        "character:髮型-hairstyle:直髮-中分:10"
+      ],
+      "zh": "直髮：中分",
+      "en": "long straight hair with a center part, sleek clean vertical flow",
+      "desc": "長直髮搭配中分，線條垂直乾淨。"
+    },
+    {
+      "id": "character:髮型-hairstyle:直髮-旁分:11",
+      "legacyIds": [
+        "character:髮型-hairstyle:直髮-旁分:11"
+      ],
+      "zh": "直髮：旁分",
+      "en": "long straight hair with a side part, smooth polished length, elegant face-framing line",
+      "desc": "長直髮搭配旁分，較成熟優雅。"
+    },
+    {
+      "id": "character:髮型-hairstyle:直髮-日式瀏海:12",
+      "legacyIds": [
+        "character:髮型-hairstyle:直髮-日式瀏海:12"
+      ],
+      "zh": "直髮：日式瀏海",
+      "en": "long straight hair with full Japanese bangs, smooth clean silhouette",
+      "desc": "長直髮搭配日式厚瀏海，柔和且辨識度高。"
+    },
+    {
+      "id": "character:髮型-hairstyle:直髮-濕感:13",
+      "legacyIds": [
+        "character:髮型-hairstyle:直髮-濕感:13"
+      ],
+      "zh": "直髮：濕感",
+      "en": "straight medium-to-long hair with clean vertical lengths, softly tapered ends, compact natural silhouette",
+      "desc": "中長直髮自然垂落，重點是垂直線條與髮尾位置；濕感與動態交由整理狀態控制。"
+    },
+    {
+      "id": "character:髮型-hairstyle:自然微彎-中分:14",
+      "legacyIds": [
+        "character:髮型-hairstyle:自然微彎-中分:14"
+      ],
+      "zh": "自然微彎：中分",
+      "en": "medium-to-long hair with a center part, subtle natural bends, softly curved ends, clean face-framing shape",
+      "desc": "介於直髮與柔波之間，中分長髮帶輕微自然弧度與清楚髮尾。"
+    },
+    {
+      "id": "character:髮型-hairstyle:自然微彎-深側分:15",
+      "legacyIds": [
+        "character:髮型-hairstyle:自然微彎-深側分:15"
+      ],
+      "zh": "自然微彎：深側分",
+      "en": "medium-to-long hair with a deep side part, subtle natural bends, asymmetric face-framing shape",
+      "desc": "介於直髮與柔波之間，深側分帶輕微自然弧度與不對稱臉側輪廓。"
+    },
+    {
+      "id": "character:髮型-hairstyle:自然微彎-瀏海:16",
+      "legacyIds": [
+        "character:髮型-hairstyle:自然微彎-瀏海:16"
+      ],
+      "zh": "自然微彎：瀏海",
+      "en": "medium-to-long hair with soft bangs, subtle natural bends, lightly curved ends, clean face-framing shape",
+      "desc": "介於直髮與柔波之間，柔和瀏海搭配輕微自然弧度與乾淨髮尾。"
+    },
+    {
+      "id": "character:髮型-hairstyle:自然微彎-濕感:17",
+      "legacyIds": [
+        "character:髮型-hairstyle:自然微彎-濕感:17"
+      ],
+      "zh": "自然微彎：濕感",
+      "en": "medium-to-long hair with subtle natural bends, softly curved ends, clean natural silhouette",
+      "desc": "介於直髮與柔波之間，自然垂落並保留輕微彎度；濕感與動態交由整理狀態控制。"
+    },
+    {
+      "id": "character:髮型-hairstyle:柔波-中分:18",
+      "legacyIds": [
+        "character:髮型-hairstyle:柔波-中分:18"
+      ],
+      "zh": "柔波：中分",
+      "en": "long soft waves with a center part, defined wave shape, clean tapered ends",
+      "desc": "長髮柔波搭配中分，重點是波形與乾淨髮尾。"
+    },
+    {
+      "id": "character:髮型-hairstyle:柔波-深側分:19",
+      "legacyIds": [
+        "character:髮型-hairstyle:柔波-深側分:19"
+      ],
+      "zh": "柔波：深側分",
+      "en": "deep side-parted long soft waves, defined face-framing layers, polished wave shape",
+      "desc": "長髮柔波搭配深側分，成熟精緻，重點是臉側層次與波形。"
+    },
+    {
+      "id": "character:髮型-hairstyle:柔波-瀏海:20",
+      "legacyIds": [
+        "character:髮型-hairstyle:柔波-瀏海:20"
+      ],
+      "zh": "柔波：瀏海",
+      "en": "long soft waves with see-through bangs, defined romantic wave shape, clean face-framing ends",
+      "desc": "長髮柔波搭配空氣瀏海，重點是瀏海、波形與臉側髮尾。"
+    },
+    {
+      "id": "character:髮型-hairstyle:濕潤感長波浪:21",
+      "legacyIds": [
+        "character:髮型-hairstyle:濕潤感長波浪:21"
+      ],
+      "zh": "濕潤感長波浪",
+      "en": "long soft waves with defined wave shape, clean tapered ends, natural face-framing silhouette",
+      "desc": "長髮柔波保留清楚波形與乾淨髮尾；濕感與動態交由整理狀態控制。"
+    },
+    {
+      "id": "character:髮型-hairstyle:高位雙馬尾:22",
+      "legacyIds": [
+        "character:髮型-hairstyle:高位雙馬尾:22"
+      ],
+      "zh": "高位雙馬尾",
+      "en": "high double pigtails, youthful twin-tail shape, clean lifted volume",
+      "desc": "高位雙馬尾，青春、活潑、Y2K 或偶像感。"
+    },
+    {
+      "id": "character:髮型-hairstyle:蓬鬆高馬尾:23",
+      "legacyIds": [
+        "character:髮型-hairstyle:蓬鬆高馬尾:23"
+      ],
+      "zh": "蓬鬆高馬尾",
+      "en": "high ponytail with a defined tied-up silhouette, clean crown shape, tapered ponytail ends",
+      "desc": "高馬尾的綁髮位置與輪廓清楚；髮量、碎髮與動態交由整理狀態控制。"
+    },
+    {
+      "id": "character:髮型-hairstyle:低馬尾:24",
+      "legacyIds": [
+        "character:髮型-hairstyle:低馬尾:24"
+      ],
+      "zh": "低馬尾",
+      "en": "minimal low ponytail, fine face-framing strands, clean understated elegance",
+      "desc": "低馬尾乾淨成熟，臉側保留細碎髮。"
+    },
+    {
+      "id": "character:髮型-hairstyle:低包頭盤髮:25",
+      "legacyIds": [
+        "character:髮型-hairstyle:低包頭盤髮:25"
+      ],
+      "zh": "低包頭盤髮",
+      "en": "low bun or low chignon, soft wispy face-framing strands, elegant tied-up silhouette",
+      "desc": "合併低包頭與低盤髮，優雅、成熟、乾淨。"
+    },
+    {
+      "id": "character:髮型-hairstyle:半綁公主頭:26",
+      "legacyIds": [
+        "character:髮型-hairstyle:半綁公主頭:26"
+      ],
+      "zh": "半綁公主頭",
+      "en": "half-up long hair, defined crown structure, clean lower lengths, clear face-framing shape",
+      "desc": "上半部輕束、下半部垂落，重點是綁髮結構與臉側輪廓。"
+    },
+    {
+      "id": "character:髮型-hairstyle:柔和編髮造型:27",
+      "legacyIds": [
+        "character:髮型-hairstyle:柔和編髮造型:27"
+      ],
+      "zh": "柔和編髮造型",
+      "en": "soft braided hairstyle, clean woven structure, defined tied-up silhouette",
+      "desc": "合併柔和編髮造型，保留清楚編織結構與綁髮輪廓。"
+    },
+    {
+      "id": "character:髮型-hairstyle:輕透齊瀏海內彎鮑伯:28",
+      "legacyIds": [
+        "character:髮型-hairstyle:輕透齊瀏海內彎鮑伯:28"
+      ],
+      "zh": "輕透齊瀏海內彎鮑伯",
+      "en": "chin-length inward-curved bob, airy straight bangs, smooth face-framing rounded ends, clean salon shape",
+      "desc": "下巴到頸側的短鮑伯，搭配輕透齊瀏海與向內包臉的圓弧髮尾，貼近自然日韓寫真感。"
+    },
+    {
+      "id": "character:髮型-hairstyle:韓系蓬鬆鎖骨柔波髮:29",
+      "legacyIds": [
+        "character:髮型-hairstyle:韓系蓬鬆鎖骨柔波髮:29"
+      ],
+      "zh": "韓系蓬鬆鎖骨柔波髮",
+      "en": "Korean collarbone-length soft waves, defined layered shape, clean face-framing ends",
+      "desc": "鎖骨到肩下的中長柔波髮，保留韓系層次與臉側輪廓；髮量與動態交由整理狀態控制。"
+    },
+    {
+      "id": "character:髮型-hairstyle:輕透瀏海自然微彎長髮:30",
+      "legacyIds": [
+        "character:髮型-hairstyle:輕透瀏海自然微彎長髮:30"
+      ],
+      "zh": "輕透瀏海自然微彎長髮",
+      "en": "long naturally slightly wavy hair with airy see-through bangs, soft side-draped face-framing strands",
+      "desc": "自然微彎長髮搭配輕透瀏海，部分髮絲自然偏向一側垂落，乾淨清爽且帶日系寫真感。"
+    },
+    {
+      "id": "character:髮型-hairstyle:雙包子頭:31",
+      "legacyIds": [
+        "character:髮型-hairstyle:雙包子頭:31"
+      ],
+      "zh": "雙包子頭",
+      "en": "Chinese-inspired twin buns, two rounded high buns, two red fabric ribbons, one tied around each bun, center part",
+      "desc": "中國風雙包子頭，左右兩側形成高位圓形包子頭，中分整理，並由兩條紅色布質緞帶分別綁在左右包子頭上；髮色仍由髮色欄位控制。"
+    }
+  ]
+}

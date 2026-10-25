@@ -1,5 +1,7 @@
 # Locations & Sets Dictionary (場景與佈景變數庫辭典)
 
+> AUTO-GENERATED from `knowledge_base/catalog/`. Do not edit. Run `python3 scripts/sync_to_json.py`.
+
 此辭典專供 AI 攝影師在整合場景時進行參數抽樣，用來建構畫面中的環境背景與空間透視，為人物肖像賦予更深層的敘事氛圍與地區風格。
 
 

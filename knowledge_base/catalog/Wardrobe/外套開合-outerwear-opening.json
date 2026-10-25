@@ -1,0 +1,78 @@
+{
+  "section": "Wardrobe",
+  "category": "外套開合 (Outerwear Opening)",
+  "entries": [
+    {
+      "id": "wardrobe:外套開合-outerwear-opening:正常:0",
+      "legacyIds": [
+        "wardrobe:外套開合-outerwear-opening:正常:0"
+      ],
+      "zh": "正常",
+      "en": "front panels resting naturally",
+      "desc": "外套前襟維持自然、標準的開合狀態；此選項只控制前襟開合，不代表雙肩穿著或滑落肩部。",
+      "outerwearFastenerRequirement": "",
+      "legacyPromptAliases": [
+        "outerwear worn with its front closure in the normal default position, front panels aligned naturally"
+      ]
+    },
+    {
+      "id": "wardrobe:外套開合-outerwear-opening:扣子扣一半:1",
+      "legacyIds": [
+        "wardrobe:外套開合-outerwear-opening:扣子扣一半:1"
+      ],
+      "zh": "扣子扣一半",
+      "en": "partially buttoned at the front",
+      "desc": "適用有扣子的外套，部分扣子扣上，其餘前片自然打開。",
+      "outerwearFastenerRequirement": "button",
+      "legacyPromptAliases": [
+        "button-front outerwear partially buttoned, with some buttons fastened and the remaining front panels naturally open"
+      ]
+    },
+    {
+      "id": "wardrobe:外套開合-outerwear-opening:拉鏈拉一半:2",
+      "legacyIds": [
+        "wardrobe:外套開合-outerwear-opening:拉鏈拉一半:2"
+      ],
+      "zh": "拉鏈拉一半",
+      "en": "zipped halfway up, open above the zipper",
+      "desc": "適用有拉鍊的外套，拉鍊拉到前襟中段，上方前片自然打開。",
+      "outerwearFastenerRequirement": "zip",
+      "legacyPromptAliases": [
+        "zip-front outerwear partially zipped, zipper closed to the mid-front while the upper front remains naturally open"
+      ]
+    },
+    {
+      "id": "wardrobe:外套開合-outerwear-opening:敞開穿:3",
+      "legacyIds": [
+        "wardrobe:外套開合-outerwear-opening:敞開穿:3"
+      ],
+      "zh": "敞開穿",
+      "en": "worn open at the front",
+      "desc": "正面敞開，不強制內搭必須完整可見；開合與露肩穿法分開控制。"
+    },
+    {
+      "id": "wardrobe:外套開合-outerwear-opening:全無:4",
+      "legacyIds": [
+        "wardrobe:外套開合-outerwear-opening:全無:4"
+      ],
+      "zh": "全無",
+      "en": "none",
+      "desc": "不指定前襟開合，保留已選外套與其他穿法。"
+    },
+    {
+      "id": "wardrobe:外套開合-outerwear-opening:fully-closed:5",
+      "legacyIds": [
+        "wardrobe:外套開合-outerwear-opening:全扣上-全拉上:5"
+      ],
+      "zh": "全扣上／全拉上",
+      "en": "front fully fastened closed",
+      "desc": "依外套的扣子或拉鏈完全閉合前襟；既有露肩穿法不生效；有效衣襬遮擋與捲袖可保留。不透明外套遮住上身內搭，薄紗與蕾絲保留透過閉合布料可見的內搭；不改變衣長與下身配件。僅供手動選擇。",
+      "outerwearFastenerRequirement": "",
+      "legacyPromptAliases": [
+        "front zipper fully zipped closed",
+        "all front buttons fastened",
+        "all front snap buttons fastened"
+      ]
+    }
+  ]
+}

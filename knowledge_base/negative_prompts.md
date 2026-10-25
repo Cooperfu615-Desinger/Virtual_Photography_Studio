@@ -1,5 +1,7 @@
 # Negative Prompts Dictionary (負面提示詞防護辭典)
 
+> AUTO-GENERATED from `knowledge_base/catalog/`. Do not edit. Run `python3 scripts/sync_to_json.py`.
+
 此辭典專供 AI 攝影師在遞交最終生圖指令時，依據場景與人物特性**強制加入**的反向提示詞。用途在於防止 AI 生成模型產生肢體變異、畫質崩壞或風格偏移。
 
 | 維度分類 (Dimension) | 參數名稱 (Parameter) | 英文 Negative Prompt 關鍵字 (避免生成的精準詞彙) | 防護目標與適用情境 (Protection Target & Context) |

@@ -1,0 +1,186 @@
+{
+  "section": "CameraLighting",
+  "category": "光學效果 (Optical Effects)",
+  "entries": [
+    {
+      "id": "camera:光學效果-optical-effects:全無:0",
+      "legacyIds": [
+        "camera:光學效果-optical-effects:全無:0"
+      ],
+      "zh": "全無",
+      "en": "none",
+      "desc": "不指定光學效果，讓模型自行決定是否加入 flare、散景、柔焦、暗角等鏡頭特徵。"
+    },
+    {
+      "id": "camera:光學效果-optical-effects:重散景光斑:1",
+      "legacyIds": [
+        "camera:光學效果-optical-effects:重散景光斑:1"
+      ],
+      "zh": "重散景光斑",
+      "en": "heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights, optical blur balls",
+      "desc": "讓離焦高光形成大型光斑或光圈形狀，重點是散景形狀、尺寸與離焦高光的光學表現。"
+    },
+    {
+      "id": "camera:光學效果-optical-effects:旋渦散景-swirly-bokeh:2",
+      "legacyIds": [
+        "camera:光學效果-optical-effects:旋渦散景-swirly-bokeh:2"
+      ],
+      "zh": "旋渦散景 Swirly Bokeh",
+      "en": "swirly bokeh rendering, curved out-of-focus background highlights circling around the subject, vintage edge swirl, rotational peripheral blur character",
+      "desc": "背景散景在畫面邊緣形成旋繞流動感，重點是復古鏡頭式的周邊旋渦散景，而不是單純背景模糊。"
+    },
+    {
+      "id": "camera:光學效果-optical-effects:貓眼散景-cat-eye-bokeh:3",
+      "legacyIds": [
+        "camera:光學效果-optical-effects:貓眼散景-cat-eye-bokeh:3"
+      ],
+      "zh": "貓眼散景 Cat-eye Bokeh",
+      "en": "cat-eye bokeh rendering, oval edge highlights near the frame perimeter, lens-edge compression of blur discs, stretched off-axis background bokeh",
+      "desc": "畫面邊緣的散景光斑被拉成貓眼形橢圓，重點是離軸位置的鏡頭邊緣散景特徵。"
+    },
+    {
+      "id": "camera:光學效果-optical-effects:肥皂泡散景-soap-bubble-bokeh:4",
+      "legacyIds": [
+        "camera:光學效果-optical-effects:肥皂泡散景-soap-bubble-bokeh:4"
+      ],
+      "zh": "肥皂泡散景 Soap-bubble Bokeh",
+      "en": "soap-bubble bokeh rendering, bright-rimmed blur circles, hollow-edged highlight discs, vintage triplet-lens background highlights, crisp bubble-like specular outlines",
+      "desc": "散景光斑邊緣有明亮輪廓、中央較空，形成像肥皂泡般的老鏡式高光圓圈。"
+    },
+    {
+      "id": "camera:光學效果-optical-effects:前景遮擋散景:5",
+      "legacyIds": [
+        "camera:光學效果-optical-effects:前景遮擋散景:5"
+      ],
+      "zh": "前景遮擋散景",
+      "en": "blurred foreground occlusion near the lens, out-of-focus shapes crossing one or more frame edges, meaningful partial frame coverage, thick near-field bokeh veil, clear opening toward the subject",
+      "desc": "鏡頭前方有失焦遮擋物形成近景模糊層，必須遮住部分畫面邊緣或局部視線，但保留能看清主體的開口與前景深度層次。"
+    },
+    {
+      "id": "camera:光學效果-optical-effects:玻璃前景折射:6",
+      "legacyIds": [
+        "camera:光學效果-optical-effects:玻璃前景折射:6"
+      ],
+      "zh": "玻璃前景折射",
+      "en": "foreground glass refraction near the lens, transparent distorted shapes crossing the frame, warped highlights, refracted subject-edge fragments, clear central viewing opening",
+      "desc": "像隔著玻璃、透明板或水晶邊緣拍攝，畫面前景帶透明折射扭曲，但仍保留能看見主體的清楚開口。"
+    },
+    {
+      "id": "camera:光學效果-optical-effects:稜鏡折射-prism-refraction:7",
+      "legacyIds": [
+        "camera:光學效果-optical-effects:稜鏡折射-prism-refraction:7"
+      ],
+      "zh": "稜鏡折射 Prism Refraction",
+      "en": "prism refraction effect, split-image fragments, rainbow spectral streaks, duplicated edge reflections, crystalline light scattering near the frame",
+      "desc": "利用稜鏡或折射介質讓畫面邊緣出現分裂影像、彩虹色譜與晶體式反射碎片。"
+    },
+    {
+      "id": "camera:光學效果-optical-effects:星芒光圈-starburst:8",
+      "legacyIds": [
+        "camera:光學效果-optical-effects:星芒光圈-starburst:8"
+      ],
+      "zh": "星芒光圈 Starburst",
+      "en": "starburst diffraction spikes on bright point lights, crisp radiating light rays, stopped-down aperture sparkle, sharp multi-point highlight stars",
+      "desc": "明亮點光源產生清楚放射狀星芒，重點是光圈繞射形成的多角星形高光。"
+    },
+    {
+      "id": "camera:光學效果-optical-effects:鏡頭光斑-lens-flare:9",
+      "legacyIds": [
+        "camera:光學效果-optical-effects:鏡頭光斑-lens-flare:9"
+      ],
+      "zh": "鏡頭光斑 Lens Flare",
+      "en": "lens flare artifacts, internal lens reflections, veiling flare, ghosting shapes, streaking flare artifacts from a strong off-axis light source",
+      "desc": "強光進入鏡頭後造成內部反射、鬼影、光暈或條狀 flare，重點是鏡頭內部反射瑕疵。"
+    },
+    {
+      "id": "camera:光學效果-optical-effects:變形鏡頭光斑-anamorphic-flare:10",
+      "legacyIds": [
+        "camera:光學效果-optical-effects:變形鏡頭光斑-anamorphic-flare:10"
+      ],
+      "zh": "變形鏡頭光斑 Anamorphic Flare",
+      "en": "anamorphic lens flare artifacts, horizontal flare streaks, cylindrical lens reflection behavior, oval bokeh response, stretched optical highlights",
+      "desc": "變形鏡頭造成水平 flare、橢圓散景與被拉伸的高光反射，重點是柱面光學特徵。"
+    },
+    {
+      "id": "camera:光學效果-optical-effects:局部炫光霧面反差:11",
+      "legacyIds": [
+        "camera:光學效果-optical-effects:局部炫光霧面反差:11"
+      ],
+      "zh": "局部炫光霧面反差",
+      "en": "localized veiling flare, partial low-contrast haze around strong light entry, washed highlight patching, matte glare bloom without full-frame fog",
+      "desc": "局部強光進入鏡頭後形成一塊對比下降的霧面炫光區，像鍍膜失守或半片式 glare，而不是整張都起霧。"
+    },
+    {
+      "id": "camera:光學效果-optical-effects:漏光效果-light-leaks:12",
+      "legacyIds": [
+        "camera:光學效果-optical-effects:漏光效果-light-leaks:12"
+      ],
+      "zh": "漏光效果 Light Leaks",
+      "en": "analog film light leak artifacts, irregular edge exposure burns, translucent red-orange film-gate leaks, uneven accidental exposure streaks, frame-edge chemical light contamination",
+      "desc": "模擬底片或膠片匣漏光造成的不規則邊緣曝光、暖色光痕與局部化學感覆蓋。"
+    },
+    {
+      "id": "camera:光學效果-optical-effects:柔焦濾鏡-soft-focus:13",
+      "legacyIds": [
+        "camera:光學效果-optical-effects:柔焦濾鏡-soft-focus:13"
+      ],
+      "zh": "柔焦濾鏡 Soft Focus",
+      "en": "soft focus diffusion filter, lowered microcontrast, softened fine detail, gentle glow around high-contrast edges, preserved overall facial and subject structure",
+      "desc": "柔焦或擴散濾鏡降低微對比與細節銳度，在高反差邊緣產生柔和暈散，但仍保留主體結構。"
+    },
+    {
+      "id": "camera:光學效果-optical-effects:霧化高光-bloom:14",
+      "legacyIds": [
+        "camera:光學效果-optical-effects:霧化高光-bloom:14"
+      ],
+      "zh": "霧化高光 Bloom",
+      "en": "highlight bloom, halation around bright areas, local luminance bleeding, softened highlight edges, optical glow spill limited to high-value regions",
+      "desc": "高亮區域邊緣向外暈散，形成局部亮度溢出與 halation，重點是高光反應而非整體場景狀態。"
+    },
+    {
+      "id": "camera:光學效果-optical-effects:暗角-vignette:15",
+      "legacyIds": [
+        "camera:光學效果-optical-effects:暗角-vignette:15"
+      ],
+      "zh": "暗角 Vignette",
+      "en": "optical vignetting, darker frame corners, radial edge exposure falloff, center-weighted brightness, subtle lens shading toward the image perimeter",
+      "desc": "鏡頭邊緣進光量下降，畫面角落與邊緣呈現徑向變暗，中心亮度相對更集中。"
+    },
+    {
+      "id": "camera:光學效果-optical-effects:色差-chromatic-aberration:16",
+      "legacyIds": [
+        "camera:光學效果-optical-effects:色差-chromatic-aberration:16"
+      ],
+      "zh": "色差 Chromatic Aberration",
+      "en": "chromatic aberration, subtle RGB edge fringing, lateral color separation along high-contrast edges, minor lens dispersion artifact",
+      "desc": "高反差邊緣出現輕微 RGB 分離或彩色邊，重點是鏡片色散造成的光學瑕疵。"
+    },
+    {
+      "id": "camera:光學效果-optical-effects:邊緣模糊:17",
+      "legacyIds": [
+        "camera:光學效果-optical-effects:邊緣模糊:17"
+      ],
+      "zh": "邊緣模糊",
+      "en": "peripheral edge blur, center sharpness with soft frame edges, field curvature softness, reduced corner resolution, lens falloff away from the image center",
+      "desc": "中心解析較高，越接近畫面邊緣越柔，模擬場曲、邊角解析下降或鏡頭周邊成像衰減。"
+    },
+    {
+      "id": "camera:光學效果-optical-effects:中央清晰邊緣拉抹:18",
+      "legacyIds": [
+        "camera:光學效果-optical-effects:中央清晰邊緣拉抹:18"
+      ],
+      "zh": "中央清晰邊緣拉抹",
+      "en": "sharp center with smeared frame edges, radial edge stretching, directional peripheral blur, center-held subject clarity, warped outer image field",
+      "desc": "中央主體相對清楚，但畫面外圈有明顯方向性拉抹與扭曲，像低品質濾鏡或實驗鏡片造成的邊緣拖拽感。"
+    },
+    {
+      "id": "camera:光學效果-optical-effects:光學朦朧薄霧:19",
+      "legacyIds": [
+        "camera:光學效果-optical-effects:光學朦朧薄霧:19"
+      ],
+      "zh": "光學朦朧薄霧",
+      "en": "lens-only mist-filter haze, veiling glare, lowered global contrast, softened black levels, diffused highlight edges, optical diffusion layer",
+      "desc": "像鏡頭前加了 mist 濾鏡或產生遮蔽眩光，使整體對比下降、黑位抬高與高光邊緣變柔；重點是鏡頭濾鏡感，不是場景天氣。"
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "section": "Wardrobe",
+  "category": "外套圖案 (Outerwear Surface Design)",
+  "entries": [
+    {
+      "id": "wardrobe:外套圖案-outerwear-surface-design:全無:0",
+      "legacyIds": [
+        "wardrobe:外套圖案-outerwear-surface-design:全無:0"
+      ],
+      "zh": "全無",
+      "en": "no added outerwear pattern, clean solid-color outer layer styling",
+      "desc": "不額外加入外套圖案，保留外套本身的輪廓、材質與層次。"
+    },
+    {
+      "id": "wardrobe:外套圖案-outerwear-surface-design:粗橫條紋:1",
+      "legacyIds": [
+        "wardrobe:外套圖案-outerwear-surface-design:粗橫條紋:1"
+      ],
+      "zh": "粗橫條紋",
+      "en": "bold horizontal stripes across the outerwear",
+      "desc": "以明顯橫向條帶覆蓋外套，使用中性的 outerwear 語言適配夾克、風衣與外層單品。",
+      "legacyPromptAliases": [
+        "bold horizontal stripes across the outerwear, strong graphic layering"
+      ]
+    },
+    {
+      "id": "wardrobe:外套圖案-outerwear-surface-design:細直條紋:2",
+      "legacyIds": [
+        "wardrobe:外套圖案-outerwear-surface-design:細直條紋:2"
+      ],
+      "zh": "細直條紋",
+      "en": "narrow vertical stripes across the outerwear",
+      "desc": "以俐落直條紋覆蓋外套表面，形成結構化外層單品的線性節奏。",
+      "legacyPromptAliases": [
+        "clear vertical stripe outerwear, narrow repeated stripe lines, tailored linear rhythm across the jacket"
+      ]
+    },
+    {
+      "id": "wardrobe:外套圖案-outerwear-surface-design:胸前龐克塗鴉印花:3",
+      "legacyIds": [
+        "wardrobe:外套圖案-outerwear-surface-design:胸前龐克塗鴉印花:3"
+      ],
+      "zh": "胸前龐克塗鴉印花",
+      "en": "large punk graffiti graphic on the front",
+      "desc": "以外套正面的大面積龐克塗鴉圖像為主，讓外層成為穿搭的主要視覺焦點。",
+      "legacyPromptAliases": [
+        "large punk graffiti graphic on the front of the outerwear, bold statement artwork, rebellious streetwear focal point"
+      ]
+    },
+    {
+      "id": "wardrobe:外套圖案-outerwear-surface-design:滿版龐克塗鴉印花:4",
+      "legacyIds": [
+        "wardrobe:外套圖案-outerwear-surface-design:滿版龐克塗鴉印花:4"
+      ],
+      "zh": "滿版龐克塗鴉印花",
+      "en": "all-over punk graffiti print",
+      "desc": "以整件外套都覆蓋龐克塗鴉圖樣為重點，整體更街頭、更具次文化感。",
+      "legacyPromptAliases": [
+        "all-over punk graffiti print across the outerwear, rebellious hand-drawn markings, dense graphic streetwear shell"
+      ]
+    },
+    {
+      "id": "wardrobe:外套圖案-outerwear-surface-design:胸前卡通塗鴉印花:5",
+      "legacyIds": [
+        "wardrobe:外套圖案-outerwear-surface-design:胸前卡通塗鴉印花:5"
+      ],
+      "zh": "胸前卡通塗鴉印花",
+      "en": "large cartoon doodle graphic on the front",
+      "desc": "以外套正面的大面積卡通塗鴉圖像為主，整體更年輕、活潑，也更有 casual layering 感。",
+      "legacyPromptAliases": [
+        "large cartoon doodle graphic on the front of the outerwear, playful illustrated focal artwork, bold casual layering"
+      ]
+    },
+    {
+      "id": "wardrobe:外套圖案-outerwear-surface-design:滿版卡通塗鴉印花:6",
+      "legacyIds": [
+        "wardrobe:外套圖案-outerwear-surface-design:滿版卡通塗鴉印花:6"
+      ],
+      "zh": "滿版卡通塗鴉印花",
+      "en": "all-over cartoon doodle print",
+      "desc": "以卡通塗鴉與插畫感圖樣覆蓋整件外套，整體更活潑且圖案存在感更高。",
+      "legacyPromptAliases": [
+        "all-over cartoon doodle print across the outerwear, playful illustrated motifs, colorful youthful outer layer surface"
+      ]
+    },
+    {
+      "id": "wardrobe:外套圖案-outerwear-surface-design:胸前復古標語印花:7",
+      "legacyIds": [
+        "wardrobe:外套圖案-outerwear-surface-design:胸前復古標語印花:7"
+      ],
+      "zh": "胸前復古標語印花",
+      "en": "large centered vintage slogan graphic on the front",
+      "desc": "以外套正面的大型復古標語或字樣圖像為主，形成置中的 graphic outerwear 主視覺。",
+      "legacyPromptAliases": [
+        "large vintage slogan graphic on the front of the outerwear, centered typographic statement, retro casual streetwear styling"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "section": "Locations",
+  "category": "其他專屬場景 (Other Dedicated Scenes)",
+  "entries": [
+    {
+      "id": "locations:其他專屬場景-other-dedicated-scenes:其他-草地:0",
+      "legacyIds": [
+        "locations:其他專屬場景-other-dedicated-scenes:其他-草地:0"
+      ],
+      "zh": "其他：草地",
+      "en": "close grassy ground plane, dense green lawn texture, short grass blades, simple natural surface filling the frame, near-ground scene base",
+      "desc": "近距離草地平面場景，重點是密集綠色草皮、短草葉材質與滿版自然地面，不拉成遠景草原。",
+      "lyingSurface": {
+        "type": "grass",
+        "en": "green lawn"
+      }
+    },
+    {
+      "id": "locations:其他專屬場景-other-dedicated-scenes:其他-白色床鋪:1",
+      "legacyIds": [
+        "locations:其他專屬場景-other-dedicated-scenes:其他-白色床鋪:1"
+      ],
+      "zh": "其他：白色床鋪",
+      "en": "lived-in white bed surface, casually rumpled white comforter, two loose white pillows, cotton bedding texture, close bed-surface scene base filling the frame",
+      "desc": "生活感白色床鋪場景，重點是隨意擺放的兩顆枕頭、白色棉被、棉質床品紋理與近距離床面，不強調完整臥室遠景。",
+      "lyingSurface": {
+        "type": "bed",
+        "en": "white bed surface"
+      }
+    },
+    {
+      "id": "locations:其他專屬場景-other-dedicated-scenes:其他-生活感日式榻榻米房間:2",
+      "legacyIds": [
+        "locations:其他專屬場景-other-dedicated-scenes:其他-生活感日式榻榻米房間:2"
+      ],
+      "zh": "其他：生活感日式榻榻米房間",
+      "en": "lived-in Japanese tatami ground plane, woven mat texture filling the floor, shoji screen edge, low domestic detail, small personal items near a corner, tatami seam geometry",
+      "desc": "生活感日式榻榻米基底，重點是榻榻米編織紋理、障子或紙門邊緣、低矮生活細節、角落小物與榻榻米接縫。",
+      "lyingSurface": {
+        "type": "tatami",
+        "en": "tatami ground plane"
+      }
+    },
+    {
+      "id": "locations:其他專屬場景-other-dedicated-scenes:其他-樹下草地:3",
+      "legacyIds": [
+        "locations:其他專屬場景-other-dedicated-scenes:其他-樹下草地:3"
+      ],
+      "zh": "其他：樹下草地",
+      "en": "green lawn under tree canopy, visible grass blade texture, tree roots breaking through the grass, tree trunk base near one side, low branch and leaf fragments, natural ground scene base",
+      "desc": "樹下草地場景，重點是綠色草坪、草葉材質、局部樹根、偏側樹幹基部與低處枝葉片段。",
+      "lyingSurface": {
+        "type": "grass",
+        "en": "green lawn"
+      }
+    },
+    {
+      "id": "locations:其他專屬場景-other-dedicated-scenes:其他-沙灘海岸線:4",
+      "legacyIds": [
+        "locations:其他專屬場景-other-dedicated-scenes:其他-沙灘海岸線:4"
+      ],
+      "zh": "其他：沙灘海岸線",
+      "en": "pale sandy beach ground plane, clean fine sand surface, shallow clear seawater at the edge, thin transparent wave line across wet sand, calm shoreline scene base",
+      "desc": "沙灘海岸線場景，重點是乾淨細沙、透明淺水、薄浪緣、濕沙材質與平緩海岸線。",
+      "lyingSurface": {
+        "type": "sand",
+        "en": "fine sand surface"
+      }
+    }
+  ]
+}

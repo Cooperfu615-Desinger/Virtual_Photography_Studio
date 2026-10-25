@@ -1,0 +1,240 @@
+{
+  "section": "Wardrobe",
+  "category": "上身圖案 (Top Surface Design)",
+  "entries": [
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:全無:0",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:全無:0"
+      ],
+      "zh": "全無",
+      "en": "no added top pattern, clean solid-color surface styling",
+      "desc": "不額外加入上身表面圖案，保留單色與乾淨版型表現。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:粗橫條紋:1",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:粗橫條紋:1"
+      ],
+      "zh": "粗橫條紋",
+      "en": "bold horizontal stripe top, clearly defined stripe bands across the torso, strong Breton-style graphic rhythm",
+      "desc": "以明顯橫向條帶貫穿整件上身，條紋方向清楚、辨識度高，整體更像經典橫條紋上衣而不是淡淡表面紋理。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:細橫條紋:2",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:細橫條紋:2"
+      ],
+      "zh": "細橫條紋",
+      "en": "fine horizontal stripe top, narrow repeated stripe bands across the torso, delicate Breton-inspired surface rhythm",
+      "desc": "以細緻而連續的橫向條帶覆蓋整件上身，保留清楚的橫條紋識別，同時比粗條紋更日常、更輕盈。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:細直條紋:3",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:細直條紋:3"
+      ],
+      "zh": "細直條紋",
+      "en": "clear vertical stripe pattern from shoulder to hem, narrow repeated stripe lines, crisp linear surface rhythm",
+      "desc": "以肩線延伸到衣襬的清楚直條紋為重點，條紋方向明確，整體更俐落也更像真正的直條紋服裝。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:粗直條紋:4",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:粗直條紋:4"
+      ],
+      "zh": "粗直條紋",
+      "en": "bold vertical stripe top, wide repeated stripe columns from shoulder to hem, strong linear statement styling",
+      "desc": "以寬幅直條紋從肩線延伸到衣襬，方向更明確、存在感更強，整體更接近視覺鮮明的粗直條紋上衣。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:胸前龐克塗鴉印花:5",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:胸前龐克塗鴉印花:5"
+      ],
+      "zh": "胸前龐克塗鴉印花",
+      "en": "large punk graffiti chest graphic, single bold front print, rebellious hand-drawn artwork centered on the chest",
+      "desc": "以胸前大面積單張龐克塗鴉圖像為主，像樂團 T 或街頭圖像 Tee 的正面主視覺。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:胸前黑白龐克標語塗鴉:6",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:胸前黑白龐克標語塗鴉:6"
+      ],
+      "zh": "胸前黑白龐克標語塗鴉",
+      "en": "large black-and-white punk slogan chest graphic, rough marker strokes, chaotic handwritten symbols, zine-inspired front print",
+      "desc": "以黑白手寫標語、粗麥克筆痕與地下刊物感圖像作為胸前主視覺，龐克感更直接但配色不會過度混亂。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:胸前紅黑龐克海報塗鴉:7",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:胸前紅黑龐克海報塗鴉:7"
+      ],
+      "zh": "胸前紅黑龐克海報塗鴉",
+      "en": "large red-and-black punk band-poster chest graphic, distressed screenprint texture, torn flyer fragments, rebellious DIY music scene artwork",
+      "desc": "以紅黑樂團海報、撕裂傳單與復古網版印刷感做成胸前單張圖案，主題明確且帶刷舊印花質地。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:胸前龐克貼紙拼貼塗鴉:8",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:胸前龐克貼紙拼貼塗鴉:8"
+      ],
+      "zh": "胸前龐克貼紙拼貼塗鴉",
+      "en": "large sticker-bomb punk chest graphic, layered sticker shapes, scratched icons, ransom-note fragments, messy street subculture front print",
+      "desc": "以貼紙炸彈、刮痕符號與剪貼字母組成胸前主圖，呈現零碎拼貼與街頭服飾印花感。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:胸前骷髏龐克塗鴉:9",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:胸前骷髏龐克塗鴉:9"
+      ],
+      "zh": "胸前骷髏龐克塗鴉",
+      "en": "large punk skull doodle chest graphic, safety-pin symbols, rough stars, jagged hand-drawn lettering, distressed rebellious artwork",
+      "desc": "以骷髏、別針、粗糙星形與鋸齒手寫字作為胸前主視覺，讓龐克符號更具體。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:滿版龐克塗鴉印花:10",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:滿版龐克塗鴉印花:10"
+      ],
+      "zh": "滿版龐克塗鴉印花",
+      "en": "all-over punk graffiti print, rebellious hand-drawn markings covering the entire garment, dense graphic streetwear surface",
+      "desc": "以整件上衣都被龐克塗鴉圖樣覆蓋的滿版印花為重點，整體更街頭也更張揚。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:滿版黑白龐克標語塗鴉:11",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:滿版黑白龐克標語塗鴉:11"
+      ],
+      "zh": "滿版黑白龐克標語塗鴉",
+      "en": "all-over black-and-white punk slogan graffiti print, rough handwritten text fragments, marker scratches, zine-like DIY surface pattern",
+      "desc": "以黑白標語碎片與手寫刮痕鋪滿整件上衣，適合想要高密度但不過度彩色的龐克圖案。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:滿版紅黑龐克海報塗鴉:12",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:滿版紅黑龐克海報塗鴉:12"
+      ],
+      "zh": "滿版紅黑龐克海報塗鴉",
+      "en": "all-over red-and-black punk flyer graffiti print, torn poster fragments, distressed ink texture, DIY underground music graphic surface",
+      "desc": "以撕裂海報、紅黑油墨與地下樂團傳單感覆蓋整件上衣，圖像語彙比一般塗鴉更有主題。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:滿版噴漆標籤龐克塗鴉:13",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:滿版噴漆標籤龐克塗鴉:13"
+      ],
+      "zh": "滿版噴漆標籤龐克塗鴉",
+      "en": "all-over spray-paint tag punk graffiti print, uneven aerosol edges, overlapping street tags, gritty urban wall-inspired garment surface",
+      "desc": "以噴漆標籤、霧化邊緣與重疊街頭 tag 做成滿版印花，更接近城市牆面塗鴉的質感。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:滿版龐克貼紙炸彈印花:14",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:滿版龐克貼紙炸彈印花:14"
+      ],
+      "zh": "滿版龐克貼紙炸彈印花",
+      "en": "all-over sticker-bomb punk print, layered sticker graphics, scratched warning icons, ransom-note letters, chaotic streetwear surface",
+      "desc": "以貼紙、警示符號與剪貼字母鋪滿上衣，形成高密度、零碎且不規則的街頭印花。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:胸前卡通塗鴉印花:15",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:胸前卡通塗鴉印花:15"
+      ],
+      "zh": "胸前卡通塗鴉印花",
+      "en": "large cartoon doodle chest graphic, single playful illustrated front print, bold character artwork centered on the chest",
+      "desc": "以胸前大面積單張卡通塗鴉圖像為主，重點像插畫 Tee 或角色圖像 T 的正面主視覺。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:胸前可愛角色塗鴉印花:16",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:胸前可愛角色塗鴉印花:16"
+      ],
+      "zh": "胸前可愛角色塗鴉印花",
+      "en": "large cute cartoon character chest graphic, playful doodle face, rounded marker outlines, colorful sticker-like front print",
+      "desc": "以單一可愛角色臉、圓潤線條與貼紙感色塊作為胸前主圖，比泛用卡通塗鴉更明確。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:胸前怪奇小怪物塗鴉:17",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:胸前怪奇小怪物塗鴉:17"
+      ],
+      "zh": "胸前怪奇小怪物塗鴉",
+      "en": "large quirky cartoon monster chest graphic, silly creature doodle, uneven hand-drawn outline, playful colorful front artwork",
+      "desc": "以怪奇但可愛的小怪物塗鴉作為胸前圖像，增加幽默感與不規則手繪感。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:胸前漫畫泡泡塗鴉:18",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:胸前漫畫泡泡塗鴉:18"
+      ],
+      "zh": "胸前漫畫泡泡塗鴉",
+      "en": "large comic doodle chest graphic, bold speech bubble shape, tiny action marks, playful pop-art front print",
+      "desc": "以漫畫對話框、動作符號與 pop-art 感形成胸前主視覺，圖形感集中且活潑。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:滿版卡通塗鴉印花:19",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:滿版卡通塗鴉印花:19"
+      ],
+      "zh": "滿版卡通塗鴉印花",
+      "en": "all-over cartoon doodle print, playful illustrated motifs covering the entire garment, colorful graphic casual surface",
+      "desc": "以卡通塗鴉與插畫感圖樣鋪滿整件衣服，整體更活潑、年輕、視覺密度更高。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:滿版可愛角色塗鴉印花:20",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:滿版可愛角色塗鴉印花:20"
+      ],
+      "zh": "滿版可愛角色塗鴉印花",
+      "en": "all-over cute cartoon doodle print, tiny character faces, stars, hearts, speech bubbles, colorful hand-drawn casual surface",
+      "desc": "以小角色臉、星星、愛心與對話泡泡鋪滿整件上衣，讓滿版圖案更可愛且元素更多。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:滿版怪奇小怪物塗鴉:21",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:滿版怪奇小怪物塗鴉:21"
+      ],
+      "zh": "滿版怪奇小怪物塗鴉",
+      "en": "all-over quirky cartoon monster doodle print, silly creature icons, uneven outlines, playful sticker-like motifs, colorful youth graphic surface",
+      "desc": "以各種小怪物、歪斜線條與貼紙感符號做成滿版印花，讓卡通塗鴉更有怪趣味。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:滿版漫畫符號塗鴉:22",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:滿版漫畫符號塗鴉:22"
+      ],
+      "zh": "滿版漫畫符號塗鴉",
+      "en": "all-over comic doodle print, bold speech bubbles, action marks, tiny illustrated symbols, playful pop-art casual garment graphic",
+      "desc": "以漫畫泡泡、速度線、驚嘆符與小圖示鋪滿上衣，畫面更有漫畫節奏。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:滿版粉彩手帳塗鴉:23",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:滿版粉彩手帳塗鴉:23"
+      ],
+      "zh": "滿版粉彩手帳塗鴉",
+      "en": "all-over pastel cartoon doodle print, diary-like hand-drawn icons, soft marker colors, cute casual illustrated surface",
+      "desc": "以粉彩手帳風小圖示、柔和麥克筆色與手繪感圖案為主，卡通感更輕盈可愛。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:滿版卡通貼紙拼貼印花:24",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:滿版卡通貼紙拼貼印花:24"
+      ],
+      "zh": "滿版卡通貼紙拼貼印花",
+      "en": "all-over cartoon sticker collage print, layered cute doodle decals, mismatched icons, playful colorful street-casual graphic surface",
+      "desc": "以卡通貼紙、不同大小圖示與拼貼式排列覆蓋上衣，形成隨機但清楚的滿版貼紙表面。"
+    },
+    {
+      "id": "wardrobe:上身圖案-top-surface-design:胸前復古標語印花:25",
+      "legacyIds": [
+        "wardrobe:上身圖案-top-surface-design:胸前復古標語印花:25"
+      ],
+      "zh": "胸前復古標語印花",
+      "en": "large vintage slogan chest print, single centered typographic graphic, retro casual t-shirt styling",
+      "desc": "以胸前單張復古字樣或標語圖像為主，形成清楚置中的 graphic tee 主視覺。"
+    }
+  ]
+}

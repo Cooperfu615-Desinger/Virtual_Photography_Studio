@@ -1,0 +1,107 @@
+{
+  "section": "Wardrobe",
+  "category": "眼鏡 (Eyewear)",
+  "entries": [
+    {
+      "id": "wardrobe:眼鏡-eyewear:全無:0",
+      "legacyIds": [
+        "wardrobe:眼鏡-eyewear:全無:0"
+      ],
+      "zh": "全無",
+      "en": "no eyewear, clean face styling",
+      "desc": "不加眼鏡，讓臉部與五官維持乾淨俐落。"
+    },
+    {
+      "id": "wardrobe:眼鏡-eyewear:粗框眼鏡:1",
+      "legacyIds": [
+        "wardrobe:眼鏡-eyewear:粗框眼鏡:1"
+      ],
+      "zh": "粗框眼鏡",
+      "en": "bold thick-frame glasses",
+      "desc": "以較厚、辨識度高的鏡框本體為主。"
+    },
+    {
+      "id": "wardrobe:眼鏡-eyewear:細框眼鏡:2",
+      "legacyIds": [
+        "wardrobe:眼鏡-eyewear:細框眼鏡:2"
+      ],
+      "zh": "細框眼鏡",
+      "en": "thin-frame glasses",
+      "desc": "以細窄輕量鏡框本體為主。"
+    },
+    {
+      "id": "wardrobe:眼鏡-eyewear:復古圓框眼鏡:3",
+      "legacyIds": [
+        "wardrobe:眼鏡-eyewear:復古圓框眼鏡:3"
+      ],
+      "zh": "復古圓框眼鏡",
+      "en": "retro round-frame glasses",
+      "desc": "以圓形鏡框與復古比例為主。"
+    },
+    {
+      "id": "wardrobe:眼鏡-eyewear:窄版橢圓眼鏡:4",
+      "legacyIds": [
+        "wardrobe:眼鏡-eyewear:窄版橢圓眼鏡:4"
+      ],
+      "zh": "窄版橢圓眼鏡",
+      "en": "narrow oval glasses",
+      "desc": "以窄版橢圓鏡框與細長橫向比例為主。"
+    },
+    {
+      "id": "wardrobe:眼鏡-eyewear:太陽眼鏡:5",
+      "legacyIds": [
+        "wardrobe:眼鏡-eyewear:太陽眼鏡:5"
+      ],
+      "zh": "太陽眼鏡",
+      "en": "sunglasses with tinted lenses",
+      "desc": "以深色或染色鏡片與太陽眼鏡本體為主。"
+    },
+    {
+      "id": "wardrobe:眼鏡-eyewear:矩形眼鏡:6",
+      "legacyIds": [
+        "wardrobe:眼鏡-eyewear:矩形眼鏡:6"
+      ],
+      "zh": "矩形眼鏡",
+      "en": "rectangular-frame glasses",
+      "desc": "以水平矩形鏡框與俐落直線比例為主。"
+    },
+    {
+      "id": "wardrobe:眼鏡-eyewear:飛行員眼鏡:7",
+      "legacyIds": [
+        "wardrobe:眼鏡-eyewear:飛行員眼鏡:7"
+      ],
+      "zh": "飛行員眼鏡",
+      "en": "aviator-frame glasses",
+      "desc": "以飛行員鏡框的下垂水滴比例與金屬框架輪廓為主。"
+    },
+    {
+      "id": "wardrobe:眼鏡-eyewear:貓眼眼鏡:8",
+      "legacyIds": [
+        "wardrobe:眼鏡-eyewear:貓眼眼鏡:8"
+      ],
+      "zh": "貓眼眼鏡",
+      "en": "cat-eye glasses",
+      "desc": "以外側上揚的貓眼鏡框比例為主。"
+    },
+    {
+      "id": "wardrobe:眼鏡-eyewear:無框眼鏡:9",
+      "legacyIds": [
+        "wardrobe:眼鏡-eyewear:無框眼鏡:9"
+      ],
+      "zh": "無框眼鏡",
+      "en": "rimless glasses",
+      "desc": "以無明顯鏡框、鏡片直接連接鼻橋與鏡腳的輕量結構為主。"
+    },
+    {
+      "id": "wardrobe:眼鏡-eyewear:眼布:10",
+      "legacyIds": [
+        "wardrobe:眼鏡-eyewear:眼布:10"
+      ],
+      "zh": "眼布",
+      "en": "black elastic stretch-fabric eye covering fitted directly over both eyes, smooth flat surface, hair fully visible and hairstyle preserved, nose and mouth uncovered",
+      "desc": "黑色彈性布質眼布直接貼合雙眼，平整覆蓋眼部；不包覆頭頂或頭髮，原有髮型保持可見且不被改變，鼻子與嘴巴露出。",
+      "eyewearColorTarget": "black elastic stretch-fabric eye covering",
+      "eyewearPlacementMode": "fixed-face"
+    }
+  ]
+}

@@ -62,6 +62,8 @@ test('source marker does not grant arbitrary or existing lights the independent-
   const catalog = copyCatalog();
   const approved = sourceRow(catalog, '機頂直閃');
   const unknown = structuredClone(approved);
+  delete unknown.stableId;
+  delete unknown.legacyIds;
   unknown.zh = '未核准人物主光';
   catalog.CameraLighting[category].push(unknown);
   const oldSun = sourceRow(catalog, '硬質晴光');

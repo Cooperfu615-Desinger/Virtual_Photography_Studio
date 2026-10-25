@@ -1,5 +1,7 @@
 # Camera & Lighting Dictionary (攝影技術與光影變數庫辭典)
 
+> AUTO-GENERATED from `knowledge_base/catalog/`. Do not edit. Run `python3 scripts/sync_to_json.py`.
+
 此辭典專供 AI 攝影師在整合場景時進行參數抽樣。請結合構圖、相機、鏡頭、光學、光影與底片，為畫面賦予專業的攝影質感。
 
 

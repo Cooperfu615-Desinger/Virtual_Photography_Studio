@@ -28,18 +28,20 @@ B 區只負責「人物穿什麼、怎麼穿、服裝表面與配件細節」。
 
 Prompt 應使用短而準的英文片語。中文描述用來幫助維護者理解服裝方向，英文 prompt 用來控制生成結果。
 
+> C 來源規則（2026-10-25）：下列目錄路徑依 `knowledge_base/catalog/index.json` 找到分類檔。維護永久 `id`、有序 `legacyIds` 與 `id_registry.json`；新 ID 用英文 kebab-case 並登記 active，舊 frozen 不重發／刪除。同步前設定受信任的歷史完整 SHA，執行 schema/history 與七份產生物檢查。Markdown 總覽唯讀；順序仍屬顯示／抽樣行為，不能任意重排。A 快照保持封存；核准產品變更另建有審查理由的 revision，不能重錄以消除遷移差異。完整命令及新增列 layout 要求見 [catalog 操作流程](../../knowledge_base/catalog/README.md)。
+
 ## 2. 資料來源
 
 | 控制項 | 主要來源 | 備註 |
 | --- | --- | --- |
-| 特殊穿搭、套裝、連身、上身、下身、鞋襪、外套、配件 | `knowledge_base/wardrobe_and_styling.md` | 編輯後需同步到 `webapp/src/data/database.json`。 |
+| 特殊穿搭、套裝、連身、上身、下身、鞋襪、外套、配件 | `knowledge_base/catalog/Wardrobe/` | 編輯後需同步到 `webapp/src/data/database.json`。 |
 | 上身/下身/外套/鞋襪/配件組合邏輯 | `webapp/src/lib/engine.js` | 控制 prompt 組裝順序、角色 A/B 分流、特殊穿搭優先權與 legacy mapping。 |
-| 胸下短版上身版型與服裝變體 | `webapp/src/lib/engine.js` 的 `TOP_FIT_OPTIONS`、`knowledge_base/item_metadata.json` 的 `topUnderbust` | 兩項新版型只手動選用；有效衣長／穿法先共用解析，未選用維持原單品來源。 |
+| 胸下短版上身版型與服裝變體 | `webapp/src/lib/engine.js` 的 `TOP_FIT_OPTIONS`、`knowledge_base/catalog/（對應分類紀錄）` 的 `topUnderbust` | 兩項新版型只手動選用；有效衣長／穿法先共用解析，未選用維持原單品來源。 |
 | B 區 UI 顯示、分隔線與控制項摘要 | `webapp/src/components/Page1Workspace.jsx`、`webapp/src/index.css` | 新增控制鍵時需同步 UI 分組與摘要。 |
 | 相容舊選項 | `webapp/src/lib/engine.js` | 合併、改名、移除時需加 legacy mapping 或 migration。 |
 | 測試 | `webapp/src/lib/*Wardrobe*.test.js`、`engineSpecialOutfitCleanup.test.js`、`engineAccessoryEyewearCleanup.test.js` | 依修改範圍更新。 |
 
-Markdown 資料同步流程：
+JSON 正式來源同步流程（先設定已審查的 `REGISTRY_BASE_COMMIT`）：
 
 ```bash
 python3 scripts/sync_to_json.py
@@ -146,7 +148,7 @@ complete outfit: relaxed vintage band streetwear. faded oversized graphic T-shir
 
 隨機外套規則：
 
-- 套裝若已包含 blazer、jacket、coat、cardigan、robe 或其他明確外層，必須在 `knowledge_base/outfit_preset_metadata.json` 為該名稱設為 `"embeddedOuterwear": true`。
+- 套裝若已包含 blazer、jacket、coat、cardigan、robe 或其他明確外層，必須在 `knowledge_base/catalog/Wardrobe/（套裝紀錄的 meta）` 為該名稱設為 `"embeddedOuterwear": true`。
 - 這個 metadata 只阻止未鎖定狀態的額外外套抽選；使用者明確選擇外套或任何外套 modifier 時，保留作為有意識的外層覆寫。
 - 不得在 renderer 或 engine 以英文關鍵字推測套裝是否含外套；新增或修改套裝時應依資料與參考圖做明確標記。
 
@@ -383,7 +385,7 @@ lace bra top, delicate lace cups, intimate lingerie structure, slim strap detail
 - 頭戴耳機與帽子、頭巾、皇冠、兔耳髮箍、女僕頭飾互斥；小髮夾可共存。掛頸耳機、有線耳機不受這項限制。
 - 口罩／防毒面具與鼻部、唇部穿孔雙向互斥；鼻部和唇部穿孔可共存，仍維持手動限定。
 - 新欄位預設全無；使用者設為隨機時，耳機與口鼻遮擋分別採 16%／8% 出現率，先尊重已鎖定項目再過濾衝突候選。
-- 新欄位與雙人 A/B 欄位保留原本配件 ID。Markdown 頭部配件來源列暫留原順序以維持索引 ID；runtime 透過 `engine/accessoryPolicy.js` 分類。不要移動來源列來變更 UI。
+- 新欄位與雙人 A/B 欄位保留原本配件 ID。分類 JSON 頭部配件紀錄保留原順序與凍結 ID；runtime 透過 `engine/accessoryPolicy.js` 分類。不要移動來源列來變更 UI。
 - 舊頭部配色隨遷移單品保存在相容欄位；UI 改選耳機／遮擋時回到原配色。舊遮擋＋穿孔資料回填時保留遮擋並顯示通知，原收藏 prompt 不改寫。
 
 ### 11.2 眼鏡
@@ -463,7 +465,7 @@ lace bra top, delicate lace cups, intimate lingerie structure, slim strap detail
 
 ## 14. 改名、合併與舊資料相容
 
-多數 wardrobe option id 會由 category、中文標籤與 row index 產生。因此改名、合併、調整排序都可能讓舊 favorite 或 saved lock 找不到選項。
+正式分類 JSON 的 id 已凍結，不隨中文名稱或列序重發；legacyIds 與歷史登記保留。排序仍影響顯示與抽樣，合併／退役須另立相容規格。
 
 維護規則：
 
@@ -486,7 +488,7 @@ lace bra top, delicate lace cups, intimate lingerie structure, slim strap detail
 
 1. 確認它屬於特殊穿搭、套裝、連身、上身、下身、modifier、配色、圖案、鞋襪、外套或配件。
 2. 檢查現有選項是否已能覆蓋，能合併就不要新增。
-3. 在 `knowledge_base/wardrobe_and_styling.md` 新增或修改 row。
+3. 在 `knowledge_base/catalog/Wardrobe/` 依 index 指定檔新增或修改 JSON 紀錄。
 4. 跑 `python3 scripts/sync_to_json.py`。
 5. 如果有改名、合併、刪除或維度拆分，更新 `engine.js` legacy mapping 或 migration。
 6. 若新增控制鍵，更新 `LOCK_DEFINITIONS`、`getLockControls`、`EFFECTIVE_WARDROBE_LOCK_KEYS`、`buildWardrobeSlots`、selection output、Page1 UI summary。

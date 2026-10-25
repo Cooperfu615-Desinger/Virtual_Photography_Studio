@@ -1,0 +1,422 @@
+{
+  "section": "Wardrobe",
+  "category": "外套 (Outerwear)",
+  "entries": [
+    {
+      "id": "wardrobe:外套-outerwear:全無:0",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:全無:0"
+      ],
+      "zh": "全無",
+      "en": "no outerwear, uncluttered silhouette",
+      "desc": "不加外套，保留上身與下身單品的主要輪廓。"
+    },
+    {
+      "id": "wardrobe:外套-outerwear:西裝外套:1",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:西裝外套:1"
+      ],
+      "zh": "西裝外套",
+      "en": "blazer in suiting fabric",
+      "desc": "西裝布料外套；版型、衣長與穿法由獨立選項指定。",
+      "outerwear": {
+        "baseEn": "blazer in suiting fabric",
+        "fasteners": [
+          "button"
+        ],
+        "rollableSleeves": true
+      },
+      "legacyPromptAliases": [
+        "blazer, tailored jacket structure, defined lapels, clean shoulder line, polished suiting fabric"
+      ]
+    },
+    {
+      "id": "wardrobe:外套-outerwear:連帽外套:2",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:連帽外套:2"
+      ],
+      "zh": "連帽外套",
+      "en": "sport zip-up hoodie in performance knit",
+      "desc": "運動機能針織的拉鍊連帽外套。",
+      "outerwear": {
+        "baseEn": "sport zip-up hoodie in performance knit",
+        "fasteners": [
+          "zip"
+        ],
+        "rollableSleeves": true
+      },
+      "legacyPromptAliases": [
+        "sport zip-up hoodie, athletic hooded jacket, ribbed cuffs and hem, casual performance knit structure"
+      ]
+    },
+    {
+      "id": "wardrobe:外套-outerwear:龐克皮衣:3",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:龐克風皮衣:3"
+      ],
+      "zh": "龐克風皮衣",
+      "en": "punk leather jacket with metal studs and prominent zipper hardware",
+      "desc": "以鉚釘與醒目金屬拉鍊五金呈現龐克風。",
+      "outerwear": {
+        "baseEn": "punk leather jacket with metal studs and prominent zipper hardware",
+        "fasteners": [
+          "zip"
+        ]
+      },
+      "legacyPromptAliases": [
+        "punk leather jacket, moto-inspired leather outerwear, sharp lapels, zipper hardware, structured edgy silhouette"
+      ],
+      "legacyLabels": [
+        "龐克皮衣"
+      ]
+    },
+    {
+      "id": "wardrobe:外套-outerwear:賽博反光科技風衣:4",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:賽博反光科技風衣:4"
+      ],
+      "zh": "賽博反光科技風衣",
+      "en": "iridescent reflective techwear trench coat, waterproof shell texture",
+      "desc": "以虹彩反光、防水機能布與俐落科技感材質為主，風衣輪廓由單品名稱本身帶出。",
+      "outerwear": {
+        "baseEn": "iridescent reflective techwear trench coat, waterproof shell texture",
+        "fasteners": []
+      }
+    },
+    {
+      "id": "wardrobe:外套-outerwear:柔軟毛絨泰迪熊外套:5",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:柔軟毛絨泰迪熊外套:5"
+      ],
+      "zh": "柔軟毛絨泰迪熊外套",
+      "en": "teddy fleece jacket with a plush pile texture",
+      "desc": "保留泰迪絨的蓬鬆刷毛質感。",
+      "outerwear": {
+        "baseEn": "teddy fleece jacket with a plush pile texture",
+        "fasteners": []
+      },
+      "legacyPromptAliases": [
+        "fluffy teddy fleece jacket, plush pile texture, rounded cozy outerwear structure"
+      ]
+    },
+    {
+      "id": "wardrobe:外套-outerwear:飛行夾克:6",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:飛行夾克:6"
+      ],
+      "zh": "飛行夾克",
+      "en": "nylon bomber jacket",
+      "desc": "尼龍飛行夾克，與撞色棒球外套區分。",
+      "outerwear": {
+        "baseEn": "nylon bomber jacket",
+        "fasteners": [
+          "zip"
+        ]
+      },
+      "legacyPromptAliases": [
+        "bomber jacket, flight jacket structure, ribbed collar cuffs and hem, rounded casual outerwear volume"
+      ]
+    },
+    {
+      "id": "wardrobe:外套-outerwear:短版皮外套:7",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:騎士風皮衣:7"
+      ],
+      "zh": "騎士風皮衣",
+      "en": "leather biker jacket with an asymmetrical front zipper",
+      "desc": "以斜向前拉鍊呈現騎士風；衣長由版型控制。",
+      "outerwear": {
+        "baseEn": "leather biker jacket with an asymmetrical front zipper",
+        "fasteners": [
+          "zip"
+        ]
+      },
+      "legacyPromptAliases": [
+        "cropped leather moto jacket, short hem, leather panels, zipper hardware, structured cropped outerwear shape"
+      ],
+      "legacyLabels": [
+        "短版皮外套"
+      ]
+    },
+    {
+      "id": "wardrobe:外套-outerwear:丹寧外套:8",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:丹寧外套:8"
+      ],
+      "zh": "丹寧外套",
+      "en": "washed denim jacket",
+      "desc": "水洗丹寧外套。",
+      "outerwear": {
+        "baseEn": "washed denim jacket",
+        "fasteners": [
+          "button"
+        ],
+        "rollableSleeves": true
+      },
+      "legacyPromptAliases": [
+        "denim jacket, washed denim texture, chest pockets, metal buttons, casual structured outerwear"
+      ]
+    },
+    {
+      "id": "wardrobe:外套-outerwear:連帽外套-戴:9",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:連帽外套-戴帽:9"
+      ],
+      "zh": "連帽外套（戴帽）",
+      "en": "soft zip-up hoodie in sweatshirt fabric, hood worn up",
+      "desc": "柔軟衛衣布料的拉鍊連帽外套，帽子戴起。",
+      "outerwear": {
+        "baseEn": "soft zip-up hoodie in sweatshirt fabric, hood worn up",
+        "fasteners": [
+          "zip"
+        ],
+        "rollableSleeves": true
+      },
+      "legacyPromptAliases": [
+        "soft zip hoodie, hooded sweatshirt jacket, front zipper, relaxed knit body, ribbed cuffs and hem, hood worn up framing the hair"
+      ],
+      "legacyLabels": [
+        "連帽外套_戴"
+      ]
+    },
+    {
+      "id": "wardrobe:外套-outerwear:寬鬆西裝外套:10",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:寬鬆西裝外套:10"
+      ],
+      "zh": "寬鬆西裝外套",
+      "en": "oversized blazer, roomy tailored jacket, broad shoulder line, softened suiting structure",
+      "desc": "歷史款式，僅供舊資料還原，不再提供新選用或隨機抽取。以寬版西裝輪廓、放大肩線、較寬衣身與柔化西裝結構為主。",
+      "outerwear": {
+        "baseEn": "blazer in suiting fabric",
+        "fasteners": [
+          "button"
+        ],
+        "retired": true,
+        "defaultFit": "oversized",
+        "defaultLength": "",
+        "canonicalLegacy": true
+      }
+    },
+    {
+      "id": "wardrobe:外套-outerwear:合身西裝外套:11",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:合身西裝外套:11"
+      ],
+      "zh": "合身西裝外套",
+      "en": "tailored fitted blazer, close-cut jacket structure, defined waist shaping, polished suiting fabric",
+      "desc": "歷史款式，僅供舊資料還原，不再提供新選用或隨機抽取。以合身西裝剪裁、收腰線條、俐落肩線與挺版西裝布為主。",
+      "outerwear": {
+        "baseEn": "blazer in suiting fabric",
+        "fasteners": [
+          "button"
+        ],
+        "retired": true,
+        "defaultFit": "fitted",
+        "defaultLength": "",
+        "canonicalLegacy": true
+      }
+    },
+    {
+      "id": "wardrobe:外套-outerwear:短版合身西裝外套:12",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:短版合身西裝外套:12"
+      ],
+      "zh": "短版合身西裝外套",
+      "en": "cropped fitted blazer, short tailored jacket, waist-defining cut, structured shoulders, slim sleeves, clean notched lapels, polished suiting fabric",
+      "desc": "歷史款式，僅供舊資料還原，不再提供新選用或隨機抽取。以短版西裝衣長、收腰剪裁、俐落肩線、窄袖與翻領為主，不綁定開合狀態、內搭、下身或姿勢。",
+      "outerwear": {
+        "baseEn": "blazer in suiting fabric",
+        "fasteners": [
+          "button"
+        ],
+        "retired": true,
+        "defaultFit": "fitted",
+        "defaultLength": "cropped",
+        "canonicalLegacy": true
+      }
+    },
+    {
+      "id": "wardrobe:外套-outerwear:人造毛皮草外套:13",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:人造毛皮草外套:13"
+      ],
+      "zh": "人造毛皮草外套",
+      "en": "faux fur coat with a fluffy pile",
+      "desc": "蓬鬆人造毛皮外套，保留毛皮質地。",
+      "outerwear": {
+        "baseEn": "faux fur coat with a fluffy pile",
+        "fasteners": []
+      },
+      "legacyPromptAliases": [
+        "faux fur coat, plush textured outerwear, voluminous soft pile, cold-weather fashion layer"
+      ]
+    },
+    {
+      "id": "wardrobe:外套-outerwear:薄紗輕薄披衣外套:14",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:薄紗輕薄披衣外套:14"
+      ],
+      "zh": "薄紗輕薄披衣外套",
+      "en": "sheer gauze cover-up jacket with short sleeves",
+      "desc": "透明薄紗短袖披衣。",
+      "outerwear": {
+        "baseEn": "sheer gauze cover-up jacket with short sleeves",
+        "fasteners": [],
+        "closedInnerLayerVisibility": "through-fabric"
+      },
+      "legacyPromptAliases": [
+        "sheer lightweight cover-up jacket, translucent gauze mesh fabric, short sleeves, soft draped outerwear"
+      ]
+    },
+    {
+      "id": "wardrobe:外套-outerwear:長版外套:15",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:毛呢大衣:15"
+      ],
+      "zh": "毛呢大衣",
+      "en": "long wool coat",
+      "desc": "長版毛呢大衣；明確衣長選項可覆寫預設長度。",
+      "outerwear": {
+        "baseEn": "wool coat",
+        "fasteners": [
+          "button"
+        ],
+        "defaultLength": "long"
+      },
+      "legacyPromptAliases": [
+        "long coat, elongated outer layer, structured shoulders, full-length or below-knee hem"
+      ],
+      "legacyLabels": [
+        "長版外套"
+      ]
+    },
+    {
+      "id": "wardrobe:外套-outerwear:風衣:16",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:風衣:16"
+      ],
+      "zh": "風衣",
+      "en": "trench coat, long structured outer layer, lapel collar, belted waist or storm-flap detailing",
+      "desc": "以長版結構外層、翻領、腰帶或防風片細節為主。",
+      "outerwear": {
+        "baseEn": "trench coat, structured outer layer, lapel collar, belted waist or storm-flap detailing",
+        "fasteners": [
+          "button"
+        ],
+        "defaultLength": "long",
+        "rollableSleeves": true
+      }
+    },
+    {
+      "id": "wardrobe:外套-outerwear:針織開襟外套:17",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:針織開襟外套:17"
+      ],
+      "zh": "針織開襟外套",
+      "en": "knit cardigan",
+      "desc": "針織開襟外套；當下開合由獨立選項控制。",
+      "outerwear": {
+        "baseEn": "knit cardigan",
+        "fasteners": [
+          "button"
+        ],
+        "rollableSleeves": true
+      },
+      "legacyPromptAliases": [
+        "knit cardigan, open-front knit layer, soft drape, ribbed or textured knit surface"
+      ]
+    },
+    {
+      "id": "wardrobe:外套-outerwear:棒球外套:18",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:棒球外套:18"
+      ],
+      "zh": "棒球外套",
+      "en": "varsity jacket with contrasting sleeves and snap buttons",
+      "desc": "撞色袖身與按扣；所選配色作為衣身主色，袖色由模型搭配。",
+      "outerwear": {
+        "baseEn": "varsity jacket with contrasting sleeves and snap buttons",
+        "fasteners": [
+          "button"
+        ],
+        "colorTargetsBody": true
+      },
+      "legacyPromptAliases": [
+        "varsity jacket, ribbed collar and cuffs, contrast stripe trim, structured sporty outer layer"
+      ]
+    },
+    {
+      "id": "wardrobe:外套-outerwear:短版粗花呢外套:19",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:短版粗花呢外套:19"
+      ],
+      "zh": "短版粗花呢外套",
+      "en": "cropped tweed jacket, textured woven surface, structured short silhouette, polished button front",
+      "desc": "歷史款式，僅供舊資料還原，不再提供新選用或隨機抽取。以短版衣長、粗花呢織紋、硬挺輪廓與整齊排釦為主。",
+      "outerwear": {
+        "baseEn": "tweed jacket, textured woven surface, structured silhouette, polished button front",
+        "fasteners": [
+          "button"
+        ],
+        "retired": true,
+        "defaultFit": "",
+        "defaultLength": "cropped"
+      }
+    },
+    {
+      "id": "wardrobe:外套-outerwear:蕾絲罩衫:20",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:蕾絲罩衫:20"
+      ],
+      "zh": "蕾絲罩衫",
+      "en": "long lace cover-up",
+      "desc": "長版蕾絲罩衫。",
+      "outerwear": {
+        "baseEn": "lace cover-up",
+        "fasteners": [],
+        "defaultLength": "long",
+        "closedInnerLayerVisibility": "through-fabric"
+      },
+      "legacyPromptAliases": [
+        "lace robe cardigan, long open-front silhouette, lightweight lace texture, ruffled or scalloped hem"
+      ]
+    },
+    {
+      "id": "wardrobe:外套-outerwear:長版襯衫:21",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:長版襯衫:21"
+      ],
+      "zh": "長版襯衫",
+      "en": "longline cotton-poplin button-up shirt",
+      "desc": "長版棉質府綢排扣襯衫，可作為外層疊穿。",
+      "outerwear": {
+        "baseEn": "cotton-poplin button-up shirt",
+        "fasteners": [
+          "button"
+        ],
+        "defaultLength": "longline",
+        "rollableSleeves": true
+      },
+      "legacyPromptAliases": [
+        "longline button-up shirt in cotton poplin, pointed collar, long sleeves with buttoned cuffs, curved shirttail hem"
+      ]
+    },
+    {
+      "id": "wardrobe:外套-outerwear:愛迪達立領三線外套:22",
+      "legacyIds": [
+        "wardrobe:外套-outerwear:愛迪達立領三線外套:22"
+      ],
+      "zh": "愛迪達立領三線外套",
+      "en": "adidas zip-front track jacket, stand-up collar, smooth tricot fabric, three parallel contrast stripes from shoulders to cuffs on both sleeves",
+      "desc": "立領拉鍊運動外套，平滑針織運動布料，雙袖各有三條從肩部延伸至袖口的平行撞色線條。",
+      "outerwear": {
+        "baseEn": "adidas zip-front track jacket, stand-up collar, smooth tricot fabric, three parallel contrast stripes from shoulders to cuffs on both sleeves",
+        "fasteners": [
+          "zip"
+        ],
+        "rollableSleeves": true
+      }
+    }
+  ]
+}

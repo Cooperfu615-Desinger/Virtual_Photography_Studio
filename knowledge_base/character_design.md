@@ -1,5 +1,7 @@
 # Character Design Dictionary — Female (女性角色人物設計辭典)
 
+> AUTO-GENERATED from `knowledge_base/catalog/`. Do not edit. Run `python3 scripts/sync_to_json.py`.
+
 > ⚠️ 本辭典僅收錄**女性角色**相關設定參數，供 AI 造型師與 AI 攝影師進行人物外觀設計與抽樣使用。
 
 

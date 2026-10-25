@@ -1,5 +1,7 @@
 # Wardrobe & Styling Dictionary (服裝與造型變數庫辭典)
 
+> AUTO-GENERATED from `knowledge_base/catalog/`. Do not edit. Run `python3 scripts/sync_to_json.py`.
+
 此辭典專供 AI 造型師在生成人物外觀時進行參數抽樣，重點放在高頻可用的單品、下身拆分與小型飾品點綴，降低彼此衝突的機率。
 
 

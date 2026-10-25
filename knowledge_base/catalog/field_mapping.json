@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "baselineCommit": "548a5c402b025e243bda16c873527dca6c95b75d",
+  "baselineCommit": "64870460e8a153a07baf953df0d6cf784ce2aca4",
   "fields": {
     "zh": {
-      "source": "Markdown",
+      "source": "catalog record.zh",
       "generated": "zh",
       "runtime": "zh",
       "categories": [
@@ -67,7 +67,7 @@
       "policy": "Raw label preserved in source; runtime display formatting remains unchanged and is sealed by A."
     },
     "en": {
-      "source": "Markdown",
+      "source": "catalog record.en",
       "generated": "en",
       "runtime": "en",
       "categories": [
@@ -131,7 +131,7 @@
       "policy": "Preserve source bytes; runtime stripMarkdown whitespace/markup behavior stays unchanged."
     },
     "desc": {
-      "source": "Markdown",
+      "source": "catalog record.inspiration + \" | \" + desc (Regional); record.desc otherwise",
       "generated": "desc",
       "runtime": "desc",
       "categories": [
@@ -195,7 +195,7 @@
       "policy": "Preserve source bytes; runtime stripMarkdown whitespace/markup behavior stays unchanged."
     },
     "meta": {
-      "source": "outfit_preset_metadata.json + wardrobe_reference_manifest.json",
+      "source": "catalog record.meta + wardrobe_reference_manifest.json generated image fields",
       "generated": "meta",
       "runtime": "meta",
       "categories": [
@@ -206,19 +206,71 @@
       "policy": "Merge inferred then explicit meta then dedicated top-level fields; tags union keeps order. Manifest referenceImageId/referenceImage/referenceImageFormat are generated only."
     },
     "legacyIds": {
-      "source": "item_metadata.json",
+      "source": "catalog record.legacyIds",
       "generated": "legacyIds",
       "runtime": "legacyIds",
       "categories": [
+        "Regional/攝影風格",
+        "Wardrobe/特殊穿搭 (Special Outfits)",
+        "Wardrobe/套裝 (Outfit Presets)",
         "Wardrobe/上身 (Tops)",
+        "Wardrobe/上身圖案 (Top Surface Design)",
+        "Wardrobe/連身 (Dresses)",
         "Wardrobe/褲裝 (Pants)",
         "Wardrobe/裙裝 (Skirts)",
-        "Character/體態 (Body Type)"
+        "Wardrobe/下身圖案 (Bottom Surface Design)",
+        "Wardrobe/襪類 (Legwear)",
+        "Wardrobe/外套版型 (Outerwear Fit)",
+        "Wardrobe/外套 (Outerwear)",
+        "Wardrobe/外套開合 (Outerwear Opening)",
+        "Wardrobe/外套穿法 (Outerwear Styling)",
+        "Wardrobe/外套圖案 (Outerwear Surface Design)",
+        "Wardrobe/鞋款 (Shoes)",
+        "Wardrobe/頭部配件 (Head Accessories)",
+        "Wardrobe/眼鏡 (Eyewear)",
+        "Wardrobe/眼鏡配色 (Eyewear Color)",
+        "Wardrobe/眼鏡配戴方式 (Eyewear Placement)",
+        "Wardrobe/耳環 (Earrings)",
+        "Wardrobe/鼻部穿孔 (Nose Piercings)",
+        "Wardrobe/唇部穿孔 (Lip Piercings)",
+        "Wardrobe/頸部 (Neck Accessories)",
+        "Wardrobe/腰部配件 (Waist Accessories)",
+        "CameraLighting/景別構圖 (Framing)",
+        "CameraLighting/相機視角 (Angle)",
+        "CameraLighting/拍攝方位 (Orbit Angle)",
+        "CameraLighting/鏡頭焦段 (Focal Length)",
+        "CameraLighting/光圈 / 景深 (Aperture & Depth of Field)",
+        "CameraLighting/快門 / 動態殘影 (Shutter & Motion Blur)",
+        "CameraLighting/環境光條件 (Ambient Light Conditions)",
+        "CameraLighting/光線表現 (Light Style)",
+        "CameraLighting/底片與相機模擬 (Camera & Film Simulation)",
+        "CameraLighting/光學效果 (Optical Effects)",
+        "Locations/攝影棚與背景 (Studio Sets)",
+        "Locations/生活感室內 (Indoor & Lifestyle)",
+        "Locations/地下與廢墟風格 (Abandoned & Underground)",
+        "Locations/城市與社群感 (Urban & Social Snapshots)",
+        "Locations/自然與戶外 (Nature & Outdoors)",
+        "Locations/其他專屬場景 (Other Dedicated Scenes)",
+        "Character/五官特徵 (Facial Features)",
+        "Character/膚質特徵 (Skin Details)",
+        "Character/體態 (Body Type)",
+        "Character/髮型 (Hairstyle)",
+        "Character/髮絲整理狀態 (Hair Styling State)",
+        "Character/髮色 (Hair Color)",
+        "Character/表情 (Facial Expression)",
+        "Character/姿勢與肢體語言 (Pose & Body Language)",
+        "Character/特殊動作 (Special Actions)",
+        "Negative/通用人體防護",
+        "Negative/畫質與渲染防護",
+        "Negative/風格與寫實度防護",
+        "Negative/場景與物理防護",
+        "Negative/服裝與材質防護",
+        "Negative/特定主題防護 (依需求加入)"
       ],
       "policy": "Explicit aliases precede inferred raw-label/ambient aliases; migration freezes entries aliases only, not catalog postprocessing aliases."
     },
     "topUnderbust": {
-      "source": "item_metadata.json",
+      "source": "catalog record.topUnderbust",
       "generated": "topUnderbust",
       "runtime": "meta.topUnderbust",
       "categories": [
@@ -227,7 +279,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "wearableColorTarget": {
-      "source": "item_metadata.json",
+      "source": "catalog record.wearableColorTarget",
       "generated": "wearableColorTarget",
       "runtime": "meta.wearableColorTarget",
       "categories": [
@@ -236,7 +288,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "legacyPromptAliases": {
-      "source": "item_metadata.json",
+      "source": "catalog record.legacyPromptAliases",
       "generated": "legacyPromptAliases",
       "runtime": "meta.legacyPromptAliases",
       "categories": [
@@ -253,21 +305,71 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "stableId": {
-      "source": "item_metadata.json",
+      "source": "catalog record.id",
       "generated": "stableId",
       "runtime": "id",
       "categories": [
+        "Regional/攝影風格",
+        "Wardrobe/特殊穿搭 (Special Outfits)",
+        "Wardrobe/套裝 (Outfit Presets)",
         "Wardrobe/上身 (Tops)",
+        "Wardrobe/上身圖案 (Top Surface Design)",
+        "Wardrobe/連身 (Dresses)",
         "Wardrobe/褲裝 (Pants)",
+        "Wardrobe/裙裝 (Skirts)",
+        "Wardrobe/下身圖案 (Bottom Surface Design)",
+        "Wardrobe/襪類 (Legwear)",
+        "Wardrobe/外套版型 (Outerwear Fit)",
         "Wardrobe/外套 (Outerwear)",
         "Wardrobe/外套開合 (Outerwear Opening)",
         "Wardrobe/外套穿法 (Outerwear Styling)",
-        "Character/體態 (Body Type)"
+        "Wardrobe/外套圖案 (Outerwear Surface Design)",
+        "Wardrobe/鞋款 (Shoes)",
+        "Wardrobe/頭部配件 (Head Accessories)",
+        "Wardrobe/眼鏡 (Eyewear)",
+        "Wardrobe/眼鏡配色 (Eyewear Color)",
+        "Wardrobe/眼鏡配戴方式 (Eyewear Placement)",
+        "Wardrobe/耳環 (Earrings)",
+        "Wardrobe/鼻部穿孔 (Nose Piercings)",
+        "Wardrobe/唇部穿孔 (Lip Piercings)",
+        "Wardrobe/頸部 (Neck Accessories)",
+        "Wardrobe/腰部配件 (Waist Accessories)",
+        "CameraLighting/景別構圖 (Framing)",
+        "CameraLighting/相機視角 (Angle)",
+        "CameraLighting/拍攝方位 (Orbit Angle)",
+        "CameraLighting/鏡頭焦段 (Focal Length)",
+        "CameraLighting/光圈 / 景深 (Aperture & Depth of Field)",
+        "CameraLighting/快門 / 動態殘影 (Shutter & Motion Blur)",
+        "CameraLighting/環境光條件 (Ambient Light Conditions)",
+        "CameraLighting/光線表現 (Light Style)",
+        "CameraLighting/底片與相機模擬 (Camera & Film Simulation)",
+        "CameraLighting/光學效果 (Optical Effects)",
+        "Locations/攝影棚與背景 (Studio Sets)",
+        "Locations/生活感室內 (Indoor & Lifestyle)",
+        "Locations/地下與廢墟風格 (Abandoned & Underground)",
+        "Locations/城市與社群感 (Urban & Social Snapshots)",
+        "Locations/自然與戶外 (Nature & Outdoors)",
+        "Locations/其他專屬場景 (Other Dedicated Scenes)",
+        "Character/五官特徵 (Facial Features)",
+        "Character/膚質特徵 (Skin Details)",
+        "Character/體態 (Body Type)",
+        "Character/髮型 (Hairstyle)",
+        "Character/髮絲整理狀態 (Hair Styling State)",
+        "Character/髮色 (Hair Color)",
+        "Character/表情 (Facial Expression)",
+        "Character/姿勢與肢體語言 (Pose & Body Language)",
+        "Character/特殊動作 (Special Actions)",
+        "Negative/通用人體防護",
+        "Negative/畫質與渲染防護",
+        "Negative/風格與寫實度防護",
+        "Negative/場景與物理防護",
+        "Negative/服裝與材質防護",
+        "Negative/特定主題防護 (依需求加入)"
       ],
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "legacyLabels": {
-      "source": "item_metadata.json",
+      "source": "catalog record.legacyLabels",
       "generated": "legacyLabels",
       "runtime": "meta.legacyLabels",
       "categories": [
@@ -278,7 +380,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "bottomWaist": {
-      "source": "item_metadata.json",
+      "source": "catalog record.bottomWaist",
       "generated": "bottomWaist",
       "runtime": "meta.bottomWaist",
       "categories": [
@@ -287,7 +389,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "outerwearFit": {
-      "source": "item_metadata.json",
+      "source": "catalog record.outerwearFit",
       "generated": "outerwearFit",
       "runtime": "meta.outerwearFit",
       "categories": [
@@ -296,7 +398,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "outerwear": {
-      "source": "item_metadata.json",
+      "source": "catalog record.outerwear",
       "generated": "outerwear",
       "runtime": "meta.outerwear",
       "categories": [
@@ -305,7 +407,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "outerwearFastenerRequirement": {
-      "source": "item_metadata.json",
+      "source": "catalog record.outerwearFastenerRequirement",
       "generated": "outerwearFastenerRequirement",
       "runtime": "meta.outerwearFastenerRequirement",
       "categories": [
@@ -314,7 +416,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "randomEligible": {
-      "source": "item_metadata.json",
+      "source": "catalog record.randomEligible",
       "generated": "randomEligible",
       "runtime": "meta.randomEligible",
       "categories": [
@@ -323,7 +425,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "outerwearStyling": {
-      "source": "item_metadata.json",
+      "source": "catalog record.outerwearStyling",
       "generated": "outerwearStyling",
       "runtime": "meta.outerwearStyling",
       "categories": [
@@ -332,7 +434,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "headAccessoryColorTarget": {
-      "source": "item_metadata.json",
+      "source": "catalog record.headAccessoryColorTarget",
       "generated": "headAccessoryColorTarget",
       "runtime": "headAccessoryColorTarget",
       "categories": [
@@ -341,7 +443,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "eyewearColorTarget": {
-      "source": "item_metadata.json",
+      "source": "catalog record.eyewearColorTarget",
       "generated": "eyewearColorTarget",
       "runtime": "eyewearColorTarget",
       "categories": [
@@ -350,7 +452,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "eyewearPlacementMode": {
-      "source": "item_metadata.json",
+      "source": "catalog record.eyewearPlacementMode",
       "generated": "eyewearPlacementMode",
       "runtime": "eyewearPlacementMode",
       "categories": [
@@ -359,7 +461,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "subjectLight": {
-      "source": "item_metadata.json",
+      "source": "catalog record.subjectLight",
       "generated": "subjectLight",
       "runtime": "meta.subjectLight",
       "categories": [
@@ -368,7 +470,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "lyingSurface": {
-      "source": "item_metadata.json",
+      "source": "catalog record.lyingSurface",
       "generated": "lyingSurface",
       "runtime": "lyingSurface",
       "categories": [
@@ -382,7 +484,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "mj": {
-      "source": "item_metadata.json",
+      "source": "catalog record.mj",
       "generated": "mj",
       "runtime": "mj",
       "categories": [
@@ -392,14 +494,12 @@
     }
   },
   "future": {
-    "id": "C: id -> stableId -> id",
-    "inspiration": "C: Regional source-only; inspiration + \" | \" + desc restores generated desc",
     "meta.semantic": "D only; not introduced in B/C"
   },
   "nestedPolicy": "schema.json enumerates all source nested properties; FIELD_MAPPING compares objects/arrays recursively without sorting. Generated manifest keys stay outside authored records.",
   "paths": {
     "zh": {
-      "source": "Markdown:zh",
+      "source": "catalog record.zh",
       "generated": "zh",
       "runtime": "zh",
       "categories": [
@@ -463,7 +563,7 @@
       "policy": "Raw label preserved in source; runtime display formatting remains unchanged and is sealed by A."
     },
     "en": {
-      "source": "Markdown:en",
+      "source": "catalog record.en",
       "generated": "en",
       "runtime": "en",
       "categories": [
@@ -527,7 +627,7 @@
       "policy": "Preserve source bytes; runtime stripMarkdown whitespace/markup behavior stays unchanged."
     },
     "desc": {
-      "source": "Markdown:desc",
+      "source": "catalog record.desc; Regional inspiration + \" | \" + desc",
       "generated": "desc",
       "runtime": "desc",
       "categories": [
@@ -591,7 +691,7 @@
       "policy": "Preserve source bytes; runtime stripMarkdown whitespace/markup behavior stays unchanged."
     },
     "meta": {
-      "source": "outfit_preset_metadata.json + wardrobe_reference_manifest.json:meta",
+      "source": "catalog record.meta + wardrobe_reference_manifest.json generated image fields",
       "generated": "meta",
       "runtime": "meta",
       "categories": [
@@ -602,7 +702,7 @@
       "policy": "Merge inferred then explicit meta then dedicated top-level fields; tags union keeps order. Manifest referenceImageId/referenceImage/referenceImageFormat are generated only."
     },
     "meta.referenceImageId": {
-      "source": "wardrobe_reference_manifest.json",
+      "source": "wardrobe_reference_manifest.json -> meta.referenceImageId",
       "generated": "meta.referenceImageId",
       "runtime": "meta.referenceImageId",
       "categories": [
@@ -613,7 +713,7 @@
       "policy": "Generated only from manifest; excluded from source catalog records; exact runtime value required."
     },
     "meta.referenceImage": {
-      "source": "wardrobe_reference_manifest.json",
+      "source": "wardrobe_reference_manifest.json -> meta.referenceImage",
       "generated": "meta.referenceImage",
       "runtime": "meta.referenceImage",
       "categories": [
@@ -624,7 +724,7 @@
       "policy": "Generated only from manifest; excluded from source catalog records; exact runtime value required."
     },
     "meta.referenceImageFormat": {
-      "source": "wardrobe_reference_manifest.json",
+      "source": "wardrobe_reference_manifest.json -> meta.referenceImageFormat",
       "generated": "meta.referenceImageFormat",
       "runtime": "meta.referenceImageFormat",
       "categories": [
@@ -635,7 +735,7 @@
       "policy": "Generated only from manifest; excluded from source catalog records; exact runtime value required."
     },
     "meta.series": {
-      "source": "outfit_preset_metadata.json + wardrobe_reference_manifest.json:meta.series",
+      "source": "catalog record.meta.series",
       "generated": "meta.series",
       "runtime": "meta.series",
       "categories": [
@@ -644,7 +744,7 @@
       "policy": "Merge inferred then explicit meta then dedicated top-level fields; tags union keeps order. Manifest referenceImageId/referenceImage/referenceImageFormat are generated only."
     },
     "meta.colorMode": {
-      "source": "outfit_preset_metadata.json + wardrobe_reference_manifest.json:meta.colorMode",
+      "source": "catalog record.meta.colorMode",
       "generated": "meta.colorMode",
       "runtime": "meta.colorMode",
       "categories": [
@@ -653,7 +753,7 @@
       "policy": "Merge inferred then explicit meta then dedicated top-level fields; tags union keeps order. Manifest referenceImageId/referenceImage/referenceImageFormat are generated only."
     },
     "meta.contrastBehavior": {
-      "source": "outfit_preset_metadata.json + wardrobe_reference_manifest.json:meta.contrastBehavior",
+      "source": "catalog record.meta.contrastBehavior",
       "generated": "meta.contrastBehavior",
       "runtime": "meta.contrastBehavior",
       "categories": [
@@ -662,7 +762,7 @@
       "policy": "Merge inferred then explicit meta then dedicated top-level fields; tags union keeps order. Manifest referenceImageId/referenceImage/referenceImageFormat are generated only."
     },
     "meta.lockedOptional": {
-      "source": "outfit_preset_metadata.json + wardrobe_reference_manifest.json:meta.lockedOptional",
+      "source": "catalog record.meta.lockedOptional",
       "generated": "meta.lockedOptional",
       "runtime": "meta.lockedOptional",
       "categories": [
@@ -671,7 +771,7 @@
       "policy": "Merge inferred then explicit meta then dedicated top-level fields; tags union keeps order. Manifest referenceImageId/referenceImage/referenceImageFormat are generated only."
     },
     "meta.colorTargets": {
-      "source": "outfit_preset_metadata.json + wardrobe_reference_manifest.json:meta.colorTargets",
+      "source": "catalog record.meta.colorTargets",
       "generated": "meta.colorTargets",
       "runtime": "meta.colorTargets",
       "categories": [
@@ -680,7 +780,7 @@
       "policy": "Merge inferred then explicit meta then dedicated top-level fields; tags union keeps order. Manifest referenceImageId/referenceImage/referenceImageFormat are generated only."
     },
     "meta.colorTargets.primary": {
-      "source": "outfit_preset_metadata.json + wardrobe_reference_manifest.json:meta.colorTargets.primary",
+      "source": "catalog record.meta.colorTargets.primary",
       "generated": "meta.colorTargets.primary",
       "runtime": "meta.colorTargets.primary",
       "categories": [
@@ -689,7 +789,7 @@
       "policy": "Merge inferred then explicit meta then dedicated top-level fields; tags union keeps order. Manifest referenceImageId/referenceImage/referenceImageFormat are generated only."
     },
     "meta.colorTargets.primary[]": {
-      "source": "outfit_preset_metadata.json + wardrobe_reference_manifest.json:meta.colorTargets.primary[]",
+      "source": "catalog record.meta.colorTargets.primary[]",
       "generated": "meta.colorTargets.primary[]",
       "runtime": "meta.colorTargets.primary[]",
       "categories": [
@@ -698,7 +798,7 @@
       "policy": "Merge inferred then explicit meta then dedicated top-level fields; tags union keeps order. Manifest referenceImageId/referenceImage/referenceImageFormat are generated only."
     },
     "meta.colorTargets.contrast": {
-      "source": "outfit_preset_metadata.json + wardrobe_reference_manifest.json:meta.colorTargets.contrast",
+      "source": "catalog record.meta.colorTargets.contrast",
       "generated": "meta.colorTargets.contrast",
       "runtime": "meta.colorTargets.contrast",
       "categories": [
@@ -707,7 +807,7 @@
       "policy": "Merge inferred then explicit meta then dedicated top-level fields; tags union keeps order. Manifest referenceImageId/referenceImage/referenceImageFormat are generated only."
     },
     "meta.colorTargets.contrast[]": {
-      "source": "outfit_preset_metadata.json + wardrobe_reference_manifest.json:meta.colorTargets.contrast[]",
+      "source": "catalog record.meta.colorTargets.contrast[]",
       "generated": "meta.colorTargets.contrast[]",
       "runtime": "meta.colorTargets.contrast[]",
       "categories": [
@@ -716,7 +816,7 @@
       "policy": "Merge inferred then explicit meta then dedicated top-level fields; tags union keeps order. Manifest referenceImageId/referenceImage/referenceImageFormat are generated only."
     },
     "meta.colorTargets.locked": {
-      "source": "outfit_preset_metadata.json + wardrobe_reference_manifest.json:meta.colorTargets.locked",
+      "source": "catalog record.meta.colorTargets.locked",
       "generated": "meta.colorTargets.locked",
       "runtime": "meta.colorTargets.locked",
       "categories": [
@@ -725,7 +825,7 @@
       "policy": "Merge inferred then explicit meta then dedicated top-level fields; tags union keeps order. Manifest referenceImageId/referenceImage/referenceImageFormat are generated only."
     },
     "meta.colorTargets.locked[]": {
-      "source": "outfit_preset_metadata.json + wardrobe_reference_manifest.json:meta.colorTargets.locked[]",
+      "source": "catalog record.meta.colorTargets.locked[]",
       "generated": "meta.colorTargets.locked[]",
       "runtime": "meta.colorTargets.locked[]",
       "categories": [
@@ -734,7 +834,7 @@
       "policy": "Merge inferred then explicit meta then dedicated top-level fields; tags union keeps order. Manifest referenceImageId/referenceImage/referenceImageFormat are generated only."
     },
     "meta.embeddedOuterwear": {
-      "source": "outfit_preset_metadata.json + wardrobe_reference_manifest.json:meta.embeddedOuterwear",
+      "source": "catalog record.meta.embeddedOuterwear",
       "generated": "meta.embeddedOuterwear",
       "runtime": "meta.embeddedOuterwear",
       "categories": [
@@ -743,7 +843,7 @@
       "policy": "Merge inferred then explicit meta then dedicated top-level fields; tags union keeps order. Manifest referenceImageId/referenceImage/referenceImageFormat are generated only."
     },
     "meta.shirtBlackBottom": {
-      "source": "outfit_preset_metadata.json + wardrobe_reference_manifest.json:meta.shirtBlackBottom",
+      "source": "catalog record.meta.shirtBlackBottom",
       "generated": "meta.shirtBlackBottom",
       "runtime": "meta.shirtBlackBottom",
       "categories": [
@@ -752,7 +852,7 @@
       "policy": "Merge inferred then explicit meta then dedicated top-level fields; tags union keeps order. Manifest referenceImageId/referenceImage/referenceImageFormat are generated only."
     },
     "meta.legacyPromptAliases": {
-      "source": "outfit_preset_metadata.json + wardrobe_reference_manifest.json:meta.legacyPromptAliases",
+      "source": "catalog record.meta.legacyPromptAliases",
       "generated": "meta.legacyPromptAliases",
       "runtime": "meta.legacyPromptAliases",
       "categories": [
@@ -761,7 +861,7 @@
       "policy": "Merge inferred then explicit meta then dedicated top-level fields; tags union keeps order. Manifest referenceImageId/referenceImage/referenceImageFormat are generated only."
     },
     "meta.legacyPromptAliases[]": {
-      "source": "outfit_preset_metadata.json + wardrobe_reference_manifest.json:meta.legacyPromptAliases[]",
+      "source": "catalog record.meta.legacyPromptAliases[]",
       "generated": "meta.legacyPromptAliases[]",
       "runtime": "meta.legacyPromptAliases[]",
       "categories": [
@@ -770,7 +870,7 @@
       "policy": "Merge inferred then explicit meta then dedicated top-level fields; tags union keeps order. Manifest referenceImageId/referenceImage/referenceImageFormat are generated only."
     },
     "meta.primaryColorBehavior": {
-      "source": "outfit_preset_metadata.json + wardrobe_reference_manifest.json:meta.primaryColorBehavior",
+      "source": "catalog record.meta.primaryColorBehavior",
       "generated": "meta.primaryColorBehavior",
       "runtime": "meta.primaryColorBehavior",
       "categories": [
@@ -779,31 +879,135 @@
       "policy": "Merge inferred then explicit meta then dedicated top-level fields; tags union keeps order. Manifest referenceImageId/referenceImage/referenceImageFormat are generated only."
     },
     "legacyIds": {
-      "source": "item_metadata.json:legacyIds",
+      "source": "catalog record.legacyIds",
       "generated": "legacyIds",
       "runtime": "legacyIds",
       "categories": [
+        "Regional/攝影風格",
+        "Wardrobe/特殊穿搭 (Special Outfits)",
+        "Wardrobe/套裝 (Outfit Presets)",
         "Wardrobe/上身 (Tops)",
+        "Wardrobe/上身圖案 (Top Surface Design)",
+        "Wardrobe/連身 (Dresses)",
         "Wardrobe/褲裝 (Pants)",
         "Wardrobe/裙裝 (Skirts)",
-        "Character/體態 (Body Type)"
+        "Wardrobe/下身圖案 (Bottom Surface Design)",
+        "Wardrobe/襪類 (Legwear)",
+        "Wardrobe/外套版型 (Outerwear Fit)",
+        "Wardrobe/外套 (Outerwear)",
+        "Wardrobe/外套開合 (Outerwear Opening)",
+        "Wardrobe/外套穿法 (Outerwear Styling)",
+        "Wardrobe/外套圖案 (Outerwear Surface Design)",
+        "Wardrobe/鞋款 (Shoes)",
+        "Wardrobe/頭部配件 (Head Accessories)",
+        "Wardrobe/眼鏡 (Eyewear)",
+        "Wardrobe/眼鏡配色 (Eyewear Color)",
+        "Wardrobe/眼鏡配戴方式 (Eyewear Placement)",
+        "Wardrobe/耳環 (Earrings)",
+        "Wardrobe/鼻部穿孔 (Nose Piercings)",
+        "Wardrobe/唇部穿孔 (Lip Piercings)",
+        "Wardrobe/頸部 (Neck Accessories)",
+        "Wardrobe/腰部配件 (Waist Accessories)",
+        "CameraLighting/景別構圖 (Framing)",
+        "CameraLighting/相機視角 (Angle)",
+        "CameraLighting/拍攝方位 (Orbit Angle)",
+        "CameraLighting/鏡頭焦段 (Focal Length)",
+        "CameraLighting/光圈 / 景深 (Aperture & Depth of Field)",
+        "CameraLighting/快門 / 動態殘影 (Shutter & Motion Blur)",
+        "CameraLighting/環境光條件 (Ambient Light Conditions)",
+        "CameraLighting/光線表現 (Light Style)",
+        "CameraLighting/底片與相機模擬 (Camera & Film Simulation)",
+        "CameraLighting/光學效果 (Optical Effects)",
+        "Locations/攝影棚與背景 (Studio Sets)",
+        "Locations/生活感室內 (Indoor & Lifestyle)",
+        "Locations/地下與廢墟風格 (Abandoned & Underground)",
+        "Locations/城市與社群感 (Urban & Social Snapshots)",
+        "Locations/自然與戶外 (Nature & Outdoors)",
+        "Locations/其他專屬場景 (Other Dedicated Scenes)",
+        "Character/五官特徵 (Facial Features)",
+        "Character/膚質特徵 (Skin Details)",
+        "Character/體態 (Body Type)",
+        "Character/髮型 (Hairstyle)",
+        "Character/髮絲整理狀態 (Hair Styling State)",
+        "Character/髮色 (Hair Color)",
+        "Character/表情 (Facial Expression)",
+        "Character/姿勢與肢體語言 (Pose & Body Language)",
+        "Character/特殊動作 (Special Actions)",
+        "Negative/通用人體防護",
+        "Negative/畫質與渲染防護",
+        "Negative/風格與寫實度防護",
+        "Negative/場景與物理防護",
+        "Negative/服裝與材質防護",
+        "Negative/特定主題防護 (依需求加入)"
       ],
       "policy": "Explicit aliases precede inferred raw-label/ambient aliases; migration freezes entries aliases only, not catalog postprocessing aliases."
     },
     "legacyIds[]": {
-      "source": "item_metadata.json:legacyIds[]",
+      "source": "catalog record.legacyIds[]",
       "generated": "legacyIds[]",
       "runtime": "legacyIds[]",
       "categories": [
+        "Regional/攝影風格",
+        "Wardrobe/特殊穿搭 (Special Outfits)",
+        "Wardrobe/套裝 (Outfit Presets)",
         "Wardrobe/上身 (Tops)",
+        "Wardrobe/上身圖案 (Top Surface Design)",
+        "Wardrobe/連身 (Dresses)",
         "Wardrobe/褲裝 (Pants)",
         "Wardrobe/裙裝 (Skirts)",
-        "Character/體態 (Body Type)"
+        "Wardrobe/下身圖案 (Bottom Surface Design)",
+        "Wardrobe/襪類 (Legwear)",
+        "Wardrobe/外套版型 (Outerwear Fit)",
+        "Wardrobe/外套 (Outerwear)",
+        "Wardrobe/外套開合 (Outerwear Opening)",
+        "Wardrobe/外套穿法 (Outerwear Styling)",
+        "Wardrobe/外套圖案 (Outerwear Surface Design)",
+        "Wardrobe/鞋款 (Shoes)",
+        "Wardrobe/頭部配件 (Head Accessories)",
+        "Wardrobe/眼鏡 (Eyewear)",
+        "Wardrobe/眼鏡配色 (Eyewear Color)",
+        "Wardrobe/眼鏡配戴方式 (Eyewear Placement)",
+        "Wardrobe/耳環 (Earrings)",
+        "Wardrobe/鼻部穿孔 (Nose Piercings)",
+        "Wardrobe/唇部穿孔 (Lip Piercings)",
+        "Wardrobe/頸部 (Neck Accessories)",
+        "Wardrobe/腰部配件 (Waist Accessories)",
+        "CameraLighting/景別構圖 (Framing)",
+        "CameraLighting/相機視角 (Angle)",
+        "CameraLighting/拍攝方位 (Orbit Angle)",
+        "CameraLighting/鏡頭焦段 (Focal Length)",
+        "CameraLighting/光圈 / 景深 (Aperture & Depth of Field)",
+        "CameraLighting/快門 / 動態殘影 (Shutter & Motion Blur)",
+        "CameraLighting/環境光條件 (Ambient Light Conditions)",
+        "CameraLighting/光線表現 (Light Style)",
+        "CameraLighting/底片與相機模擬 (Camera & Film Simulation)",
+        "CameraLighting/光學效果 (Optical Effects)",
+        "Locations/攝影棚與背景 (Studio Sets)",
+        "Locations/生活感室內 (Indoor & Lifestyle)",
+        "Locations/地下與廢墟風格 (Abandoned & Underground)",
+        "Locations/城市與社群感 (Urban & Social Snapshots)",
+        "Locations/自然與戶外 (Nature & Outdoors)",
+        "Locations/其他專屬場景 (Other Dedicated Scenes)",
+        "Character/五官特徵 (Facial Features)",
+        "Character/膚質特徵 (Skin Details)",
+        "Character/體態 (Body Type)",
+        "Character/髮型 (Hairstyle)",
+        "Character/髮絲整理狀態 (Hair Styling State)",
+        "Character/髮色 (Hair Color)",
+        "Character/表情 (Facial Expression)",
+        "Character/姿勢與肢體語言 (Pose & Body Language)",
+        "Character/特殊動作 (Special Actions)",
+        "Negative/通用人體防護",
+        "Negative/畫質與渲染防護",
+        "Negative/風格與寫實度防護",
+        "Negative/場景與物理防護",
+        "Negative/服裝與材質防護",
+        "Negative/特定主題防護 (依需求加入)"
       ],
       "policy": "Explicit aliases precede inferred raw-label/ambient aliases; migration freezes entries aliases only, not catalog postprocessing aliases."
     },
     "topUnderbust": {
-      "source": "item_metadata.json:topUnderbust",
+      "source": "catalog record.topUnderbust",
       "generated": "topUnderbust",
       "runtime": "meta.topUnderbust",
       "categories": [
@@ -812,7 +1016,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "topUnderbust.baseEn": {
-      "source": "item_metadata.json:topUnderbust.baseEn",
+      "source": "catalog record.topUnderbust.baseEn",
       "generated": "topUnderbust.baseEn",
       "runtime": "meta.topUnderbust.baseEn",
       "categories": [
@@ -821,7 +1025,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "wearableColorTarget": {
-      "source": "item_metadata.json:wearableColorTarget",
+      "source": "catalog record.wearableColorTarget",
       "generated": "wearableColorTarget",
       "runtime": "meta.wearableColorTarget",
       "categories": [
@@ -830,7 +1034,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "legacyPromptAliases": {
-      "source": "item_metadata.json:legacyPromptAliases",
+      "source": "catalog record.legacyPromptAliases",
       "generated": "legacyPromptAliases",
       "runtime": "meta.legacyPromptAliases",
       "categories": [
@@ -847,7 +1051,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "legacyPromptAliases[]": {
-      "source": "item_metadata.json:legacyPromptAliases[]",
+      "source": "catalog record.legacyPromptAliases[]",
       "generated": "legacyPromptAliases[]",
       "runtime": "meta.legacyPromptAliases[]",
       "categories": [
@@ -864,21 +1068,71 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "stableId": {
-      "source": "item_metadata.json:stableId",
+      "source": "catalog record.id",
       "generated": "stableId",
       "runtime": "id",
       "categories": [
+        "Regional/攝影風格",
+        "Wardrobe/特殊穿搭 (Special Outfits)",
+        "Wardrobe/套裝 (Outfit Presets)",
         "Wardrobe/上身 (Tops)",
+        "Wardrobe/上身圖案 (Top Surface Design)",
+        "Wardrobe/連身 (Dresses)",
         "Wardrobe/褲裝 (Pants)",
+        "Wardrobe/裙裝 (Skirts)",
+        "Wardrobe/下身圖案 (Bottom Surface Design)",
+        "Wardrobe/襪類 (Legwear)",
+        "Wardrobe/外套版型 (Outerwear Fit)",
         "Wardrobe/外套 (Outerwear)",
         "Wardrobe/外套開合 (Outerwear Opening)",
         "Wardrobe/外套穿法 (Outerwear Styling)",
-        "Character/體態 (Body Type)"
+        "Wardrobe/外套圖案 (Outerwear Surface Design)",
+        "Wardrobe/鞋款 (Shoes)",
+        "Wardrobe/頭部配件 (Head Accessories)",
+        "Wardrobe/眼鏡 (Eyewear)",
+        "Wardrobe/眼鏡配色 (Eyewear Color)",
+        "Wardrobe/眼鏡配戴方式 (Eyewear Placement)",
+        "Wardrobe/耳環 (Earrings)",
+        "Wardrobe/鼻部穿孔 (Nose Piercings)",
+        "Wardrobe/唇部穿孔 (Lip Piercings)",
+        "Wardrobe/頸部 (Neck Accessories)",
+        "Wardrobe/腰部配件 (Waist Accessories)",
+        "CameraLighting/景別構圖 (Framing)",
+        "CameraLighting/相機視角 (Angle)",
+        "CameraLighting/拍攝方位 (Orbit Angle)",
+        "CameraLighting/鏡頭焦段 (Focal Length)",
+        "CameraLighting/光圈 / 景深 (Aperture & Depth of Field)",
+        "CameraLighting/快門 / 動態殘影 (Shutter & Motion Blur)",
+        "CameraLighting/環境光條件 (Ambient Light Conditions)",
+        "CameraLighting/光線表現 (Light Style)",
+        "CameraLighting/底片與相機模擬 (Camera & Film Simulation)",
+        "CameraLighting/光學效果 (Optical Effects)",
+        "Locations/攝影棚與背景 (Studio Sets)",
+        "Locations/生活感室內 (Indoor & Lifestyle)",
+        "Locations/地下與廢墟風格 (Abandoned & Underground)",
+        "Locations/城市與社群感 (Urban & Social Snapshots)",
+        "Locations/自然與戶外 (Nature & Outdoors)",
+        "Locations/其他專屬場景 (Other Dedicated Scenes)",
+        "Character/五官特徵 (Facial Features)",
+        "Character/膚質特徵 (Skin Details)",
+        "Character/體態 (Body Type)",
+        "Character/髮型 (Hairstyle)",
+        "Character/髮絲整理狀態 (Hair Styling State)",
+        "Character/髮色 (Hair Color)",
+        "Character/表情 (Facial Expression)",
+        "Character/姿勢與肢體語言 (Pose & Body Language)",
+        "Character/特殊動作 (Special Actions)",
+        "Negative/通用人體防護",
+        "Negative/畫質與渲染防護",
+        "Negative/風格與寫實度防護",
+        "Negative/場景與物理防護",
+        "Negative/服裝與材質防護",
+        "Negative/特定主題防護 (依需求加入)"
       ],
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "legacyLabels": {
-      "source": "item_metadata.json:legacyLabels",
+      "source": "catalog record.legacyLabels",
       "generated": "legacyLabels",
       "runtime": "meta.legacyLabels",
       "categories": [
@@ -889,7 +1143,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "legacyLabels[]": {
-      "source": "item_metadata.json:legacyLabels[]",
+      "source": "catalog record.legacyLabels[]",
       "generated": "legacyLabels[]",
       "runtime": "meta.legacyLabels[]",
       "categories": [
@@ -900,7 +1154,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "bottomWaist": {
-      "source": "item_metadata.json:bottomWaist",
+      "source": "catalog record.bottomWaist",
       "generated": "bottomWaist",
       "runtime": "meta.bottomWaist",
       "categories": [
@@ -909,7 +1163,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "bottomWaist.supportsUnfastenedFly": {
-      "source": "item_metadata.json:bottomWaist.supportsUnfastenedFly",
+      "source": "catalog record.bottomWaist.supportsUnfastenedFly",
       "generated": "bottomWaist.supportsUnfastenedFly",
       "runtime": "meta.bottomWaist.supportsUnfastenedFly",
       "categories": [
@@ -918,7 +1172,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "outerwearFit": {
-      "source": "item_metadata.json:outerwearFit",
+      "source": "catalog record.outerwearFit",
       "generated": "outerwearFit",
       "runtime": "meta.outerwearFit",
       "categories": [
@@ -927,7 +1181,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "outerwearFit.fit": {
-      "source": "item_metadata.json:outerwearFit.fit",
+      "source": "catalog record.outerwearFit.fit",
       "generated": "outerwearFit.fit",
       "runtime": "meta.outerwearFit.fit",
       "categories": [
@@ -936,7 +1190,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "outerwearFit.length": {
-      "source": "item_metadata.json:outerwearFit.length",
+      "source": "catalog record.outerwearFit.length",
       "generated": "outerwearFit.length",
       "runtime": "meta.outerwearFit.length",
       "categories": [
@@ -945,7 +1199,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "outerwear": {
-      "source": "item_metadata.json:outerwear",
+      "source": "catalog record.outerwear",
       "generated": "outerwear",
       "runtime": "meta.outerwear",
       "categories": [
@@ -954,7 +1208,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "outerwear.baseEn": {
-      "source": "item_metadata.json:outerwear.baseEn",
+      "source": "catalog record.outerwear.baseEn",
       "generated": "outerwear.baseEn",
       "runtime": "meta.outerwear.baseEn",
       "categories": [
@@ -963,7 +1217,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "outerwear.fasteners": {
-      "source": "item_metadata.json:outerwear.fasteners",
+      "source": "catalog record.outerwear.fasteners",
       "generated": "outerwear.fasteners",
       "runtime": "meta.outerwear.fasteners",
       "categories": [
@@ -972,7 +1226,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "outerwear.fasteners[]": {
-      "source": "item_metadata.json:outerwear.fasteners[]",
+      "source": "catalog record.outerwear.fasteners[]",
       "generated": "outerwear.fasteners[]",
       "runtime": "meta.outerwear.fasteners[]",
       "categories": [
@@ -981,7 +1235,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "outerwear.rollableSleeves": {
-      "source": "item_metadata.json:outerwear.rollableSleeves",
+      "source": "catalog record.outerwear.rollableSleeves",
       "generated": "outerwear.rollableSleeves",
       "runtime": "meta.outerwear.rollableSleeves",
       "categories": [
@@ -990,7 +1244,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "outerwear.retired": {
-      "source": "item_metadata.json:outerwear.retired",
+      "source": "catalog record.outerwear.retired",
       "generated": "outerwear.retired",
       "runtime": "meta.outerwear.retired",
       "categories": [
@@ -999,7 +1253,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "outerwear.defaultFit": {
-      "source": "item_metadata.json:outerwear.defaultFit",
+      "source": "catalog record.outerwear.defaultFit",
       "generated": "outerwear.defaultFit",
       "runtime": "meta.outerwear.defaultFit",
       "categories": [
@@ -1008,7 +1262,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "outerwear.defaultLength": {
-      "source": "item_metadata.json:outerwear.defaultLength",
+      "source": "catalog record.outerwear.defaultLength",
       "generated": "outerwear.defaultLength",
       "runtime": "meta.outerwear.defaultLength",
       "categories": [
@@ -1017,7 +1271,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "outerwear.canonicalLegacy": {
-      "source": "item_metadata.json:outerwear.canonicalLegacy",
+      "source": "catalog record.outerwear.canonicalLegacy",
       "generated": "outerwear.canonicalLegacy",
       "runtime": "meta.outerwear.canonicalLegacy",
       "categories": [
@@ -1026,7 +1280,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "outerwear.closedInnerLayerVisibility": {
-      "source": "item_metadata.json:outerwear.closedInnerLayerVisibility",
+      "source": "catalog record.outerwear.closedInnerLayerVisibility",
       "generated": "outerwear.closedInnerLayerVisibility",
       "runtime": "meta.outerwear.closedInnerLayerVisibility",
       "categories": [
@@ -1035,7 +1289,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "outerwear.colorTargetsBody": {
-      "source": "item_metadata.json:outerwear.colorTargetsBody",
+      "source": "catalog record.outerwear.colorTargetsBody",
       "generated": "outerwear.colorTargetsBody",
       "runtime": "meta.outerwear.colorTargetsBody",
       "categories": [
@@ -1044,7 +1298,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "outerwearFastenerRequirement": {
-      "source": "item_metadata.json:outerwearFastenerRequirement",
+      "source": "catalog record.outerwearFastenerRequirement",
       "generated": "outerwearFastenerRequirement",
       "runtime": "meta.outerwearFastenerRequirement",
       "categories": [
@@ -1053,7 +1307,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "randomEligible": {
-      "source": "item_metadata.json:randomEligible",
+      "source": "catalog record.randomEligible",
       "generated": "randomEligible",
       "runtime": "meta.randomEligible",
       "categories": [
@@ -1062,7 +1316,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "outerwearStyling": {
-      "source": "item_metadata.json:outerwearStyling",
+      "source": "catalog record.outerwearStyling",
       "generated": "outerwearStyling",
       "runtime": "meta.outerwearStyling",
       "categories": [
@@ -1071,7 +1325,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "outerwearStyling.kind": {
-      "source": "item_metadata.json:outerwearStyling.kind",
+      "source": "catalog record.outerwearStyling.kind",
       "generated": "outerwearStyling.kind",
       "runtime": "meta.outerwearStyling.kind",
       "categories": [
@@ -1080,7 +1334,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "outerwearStyling.throughFabricEn": {
-      "source": "item_metadata.json:outerwearStyling.throughFabricEn",
+      "source": "catalog record.outerwearStyling.throughFabricEn",
       "generated": "outerwearStyling.throughFabricEn",
       "runtime": "meta.outerwearStyling.throughFabricEn",
       "categories": [
@@ -1089,7 +1343,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "headAccessoryColorTarget": {
-      "source": "item_metadata.json:headAccessoryColorTarget",
+      "source": "catalog record.headAccessoryColorTarget",
       "generated": "headAccessoryColorTarget",
       "runtime": "headAccessoryColorTarget",
       "categories": [
@@ -1098,7 +1352,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "eyewearColorTarget": {
-      "source": "item_metadata.json:eyewearColorTarget",
+      "source": "catalog record.eyewearColorTarget",
       "generated": "eyewearColorTarget",
       "runtime": "eyewearColorTarget",
       "categories": [
@@ -1107,7 +1361,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "eyewearPlacementMode": {
-      "source": "item_metadata.json:eyewearPlacementMode",
+      "source": "catalog record.eyewearPlacementMode",
       "generated": "eyewearPlacementMode",
       "runtime": "eyewearPlacementMode",
       "categories": [
@@ -1116,7 +1370,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "subjectLight": {
-      "source": "item_metadata.json:subjectLight",
+      "source": "catalog record.subjectLight",
       "generated": "subjectLight",
       "runtime": "meta.subjectLight",
       "categories": [
@@ -1125,7 +1379,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "subjectLight.independentKey": {
-      "source": "item_metadata.json:subjectLight.independentKey",
+      "source": "catalog record.subjectLight.independentKey",
       "generated": "subjectLight.independentKey",
       "runtime": "meta.subjectLight.independentKey",
       "categories": [
@@ -1134,7 +1388,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "subjectLight.sourceEn": {
-      "source": "item_metadata.json:subjectLight.sourceEn",
+      "source": "catalog record.subjectLight.sourceEn",
       "generated": "subjectLight.sourceEn",
       "runtime": "meta.subjectLight.sourceEn",
       "categories": [
@@ -1143,7 +1397,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "subjectLight.tags": {
-      "source": "item_metadata.json:subjectLight.tags",
+      "source": "catalog record.subjectLight.tags",
       "generated": "subjectLight.tags",
       "runtime": "meta.subjectLight.tags",
       "categories": [
@@ -1152,7 +1406,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "subjectLight.tags[]": {
-      "source": "item_metadata.json:subjectLight.tags[]",
+      "source": "catalog record.subjectLight.tags[]",
       "generated": "subjectLight.tags[]",
       "runtime": "meta.subjectLight.tags[]",
       "categories": [
@@ -1161,7 +1415,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "lyingSurface": {
-      "source": "item_metadata.json:lyingSurface",
+      "source": "catalog record.lyingSurface",
       "generated": "lyingSurface",
       "runtime": "lyingSurface",
       "categories": [
@@ -1175,7 +1429,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "lyingSurface.type": {
-      "source": "item_metadata.json:lyingSurface.type",
+      "source": "catalog record.lyingSurface.type",
       "generated": "lyingSurface.type",
       "runtime": "lyingSurface.type",
       "categories": [
@@ -1189,7 +1443,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "lyingSurface.en": {
-      "source": "item_metadata.json:lyingSurface.en",
+      "source": "catalog record.lyingSurface.en",
       "generated": "lyingSurface.en",
       "runtime": "lyingSurface.en",
       "categories": [
@@ -1203,7 +1457,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "mj": {
-      "source": "item_metadata.json:mj",
+      "source": "catalog record.mj",
       "generated": "mj",
       "runtime": "mj",
       "categories": [
@@ -1212,7 +1466,7 @@
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
     "mj.face": {
-      "source": "item_metadata.json:mj.face",
+      "source": "catalog record.mj.face",
       "generated": "mj.face",
       "runtime": "mj.face",
       "categories": [
@@ -1234,5 +1488,17 @@
     "lyingSurface": "Copied as object, including every nested value; source and runtime compared for all rows.",
     "truthyDedicatedFields": "outerwear,bottomWaist,topUnderbust,wearableColorTarget,outerwearFit,outerwearStyling,legacyPromptAliases,legacyLabels use current truthy guards. B does not change engine guards. A newly supplied false/0/empty value must be allowed by schema AND demonstrably consumed or integrity fails.",
     "meta": "Inferred meta overwritten by explicit source meta then dedicated fields. Nested objects are replaced, not recursively merged; tags use ordered union. Unknown fields fail schema."
+  },
+  "sourceOnlyFields": {
+    "id": {
+      "generated": "stableId",
+      "runtime": "id",
+      "policy": "frozen source primary ID"
+    },
+    "inspiration": {
+      "generated": "Regional.desc prefix joined with |",
+      "runtime": "desc",
+      "policy": "lossless Regional reconstruction"
+    }
   }
 }

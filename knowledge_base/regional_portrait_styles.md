@@ -1,5 +1,7 @@
 # Photography Styles (現代人像攝影風格)
 
+> AUTO-GENERATED from `knowledge_base/catalog/`. Do not edit. Run `python3 scripts/sync_to_json.py`.
+
 | 攝影風格 (Photography Style) | 靈感備註 (Inspiration Note) | 英文 Prompt 關鍵字 (Prompt Keywords) | 風格說明 (Style Description) |
 | :--- | :--- | :--- | :--- |
 | 蜷川實花｜濃烈色彩戲劇感 | 鮮豔複雜色彩與非花卉裝飾色層 | `Inspired by Mika Ninagawa, hyper-saturated vivid-color portraiture, complex non-floral color layers, glossy reds hot pinks cyan accents and jewel-tone surfaces, no floral or botanical motifs` | 強烈飽和、鮮豔紅粉、青色與寶石色系交錯，形成複雜而密集的非花卉裝飾性色層；以色彩、表面光澤與圖像張力主導，不加入花朵或植物圖案元素。 |

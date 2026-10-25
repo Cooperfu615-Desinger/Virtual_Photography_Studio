@@ -1,0 +1,178 @@
+{
+  "section": "Wardrobe",
+  "category": "頭部配件 (Head Accessories)",
+  "entries": [
+    {
+      "id": "wardrobe:頭部配件-head-accessories:全無:0",
+      "legacyIds": [
+        "wardrobe:頭部配件-head-accessories:全無:0"
+      ],
+      "zh": "全無",
+      "en": "no head accessories, clean head styling",
+      "desc": "不加頭部配件，讓髮型與頭部輪廓維持乾淨俐落。"
+    },
+    {
+      "id": "wardrobe:頭部配件-head-accessories:耳罩式耳機-戴在頭上:1",
+      "legacyIds": [
+        "wardrobe:頭部配件-head-accessories:耳罩式耳機-戴在頭上:1"
+      ],
+      "zh": "耳罩式耳機（戴在頭上）",
+      "en": "black Marshall Major V on-ear headphones worn on the head, compact black earcups, slim structured headband",
+      "desc": "以黑色 Marshall Major V 耳罩式耳機為主，清楚呈現小巧黑色耳罩、細窄頭帶與頭戴位置。"
+    },
+    {
+      "id": "wardrobe:頭部配件-head-accessories:耳罩式耳機-掛在脖子上:2",
+      "legacyIds": [
+        "wardrobe:頭部配件-head-accessories:耳罩式耳機-掛在脖子上:2"
+      ],
+      "zh": "耳罩式耳機（掛在脖子上）",
+      "en": "black Marshall Major V on-ear headphones resting around the neck, compact black earcups, slim structured headband visible at the collar",
+      "desc": "以同款黑色 Marshall Major V 掛在脖子上為主，耳罩落在領口附近，頭帶自然跨過後頸。"
+    },
+    {
+      "id": "wardrobe:頭部配件-head-accessories:有線耳機:3",
+      "legacyIds": [
+        "wardrobe:頭部配件-head-accessories:有線耳機:3"
+      ],
+      "zh": "有線耳機",
+      "en": "wired in-ear earphones with a continuous cable running from the earbuds down along the torso toward either side of the waist or the hip, where it is tucked beneath the clothing and its end is concealed, with no loose cable end dangling",
+      "desc": "以入耳式耳機、細線材與可見垂落線條為主。"
+    },
+    {
+      "id": "wardrobe:頭部配件-head-accessories:黑色口罩:4",
+      "legacyIds": [
+        "wardrobe:頭部配件-head-accessories:黑色口罩:4"
+      ],
+      "zh": "黑色口罩",
+      "en": "black disposable pleated face mask, covering the nose and mouth, fitted ear loops, lower face concealed",
+      "desc": "黑色百褶拋棄式口罩完整遮住鼻子與嘴巴，以貼合耳掛固定，下半臉維持不可見。"
+    },
+    {
+      "id": "wardrobe:頭部配件-head-accessories:防毒面具-3m-6200:5",
+      "legacyIds": [
+        "wardrobe:頭部配件-head-accessories:防毒面具-3m-6200:5"
+      ],
+      "zh": "防毒面具（3M 6200）",
+      "en": "grey 3M 6200 reusable half-face respirator, snug nose-and-mouth seal, twin side filter cartridges, adjustable head straps",
+      "desc": "灰色 3M 6200 可重複使用半面式防護面具貼合鼻子與嘴巴，左右裝有雙濾罐並以可調頭帶固定，眼睛保持露出。"
+    },
+    {
+      "id": "wardrobe:頭部配件-head-accessories:棒球帽:6",
+      "legacyIds": [
+        "wardrobe:頭部配件-head-accessories:棒球帽:6"
+      ],
+      "zh": "棒球帽",
+      "en": "baseball cap, curved brim, adjustable back closure, structured casual crown",
+      "desc": "以彎帽簷、可調後扣與休閒硬挺帽冠為主。"
+    },
+    {
+      "id": "wardrobe:頭部配件-head-accessories:漁夫帽:7",
+      "legacyIds": [
+        "wardrobe:頭部配件-head-accessories:漁夫帽:7"
+      ],
+      "zh": "漁夫帽",
+      "en": "bucket hat, soft downward brim, rounded crown, casual fabric construction",
+      "desc": "以柔軟下垂帽簷、圓帽冠與休閒布料結構為主。"
+    },
+    {
+      "id": "wardrobe:頭部配件-head-accessories:寬簷帽:8",
+      "legacyIds": [
+        "wardrobe:頭部配件-head-accessories:寬簷帽:8"
+      ],
+      "zh": "寬簷帽",
+      "en": "wide-brim hat, broad structured brim, defined crown, statement head silhouette",
+      "desc": "以寬大硬挺帽簷、明確帽冠與醒目頭部輪廓為主。"
+    },
+    {
+      "id": "wardrobe:頭部配件-head-accessories:毛帽:9",
+      "legacyIds": [
+        "wardrobe:頭部配件-head-accessories:毛帽:9"
+      ],
+      "zh": "毛帽",
+      "en": "knit beanie, close-fitting ribbed crown, soft folded brim",
+      "desc": "以貼頭羅紋針織帽冠與柔軟翻折帽緣為主。"
+    },
+    {
+      "id": "wardrobe:頭部配件-head-accessories:貝雷帽:10",
+      "legacyIds": [
+        "wardrobe:頭部配件-head-accessories:貝雷帽:10"
+      ],
+      "zh": "貝雷帽",
+      "en": "beret, soft rounded crown, compact flat-hat silhouette",
+      "desc": "以柔軟圓帽冠與緊湊平頂帽型為主。"
+    },
+    {
+      "id": "wardrobe:頭部配件-head-accessories:頭巾:11",
+      "legacyIds": [
+        "wardrobe:頭部配件-head-accessories:頭巾:11"
+      ],
+      "zh": "頭巾",
+      "en": "headscarf or bandana, wrapped hair covering, tied fabric ends",
+      "desc": "以包覆頭髮的頭巾或方巾、綁結與垂落布端為主。"
+    },
+    {
+      "id": "wardrobe:頭部配件-head-accessories:牛仔帽:12",
+      "legacyIds": [
+        "wardrobe:頭部配件-head-accessories:牛仔帽:12"
+      ],
+      "zh": "牛仔帽",
+      "en": "denim cowboy hat, structured western crown, curved brim, western hat silhouette",
+      "desc": "以西部硬挺帽冠、彎帽簷與牛仔帽輪廓為主。"
+    },
+    {
+      "id": "wardrobe:頭部配件-head-accessories:兔耳髮箍:13",
+      "legacyIds": [
+        "wardrobe:頭部配件-head-accessories:兔耳髮箍:13"
+      ],
+      "zh": "兔耳髮箍",
+      "en": "bunny-ear headband, upright or softly drooping ears, compact headband base",
+      "desc": "以兔耳造型、直立或柔軟下垂耳朵與緊湊髮箍底座為主。"
+    },
+    {
+      "id": "wardrobe:頭部配件-head-accessories:女僕頭飾:14",
+      "legacyIds": [
+        "wardrobe:頭部配件-head-accessories:女僕頭飾:14"
+      ],
+      "zh": "女僕頭飾",
+      "en": "ruffled maid headpiece, compact lace-trimmed headband, neat service-style accessory",
+      "desc": "以荷葉邊女僕頭飾、蕾絲滾邊髮箍與整齊服務風格為主。"
+    },
+    {
+      "id": "wardrobe:頭部配件-head-accessories:小禮帽:15",
+      "legacyIds": [
+        "wardrobe:頭部配件-head-accessories:小禮帽:15"
+      ],
+      "zh": "小禮帽",
+      "en": "pillbox hat, compact structured crown, short brimless formal hat silhouette",
+      "desc": "以緊湊硬挺帽冠與無帽簷正式小禮帽輪廓為主。"
+    },
+    {
+      "id": "wardrobe:頭部配件-head-accessories:護士帽:16",
+      "legacyIds": [
+        "wardrobe:頭部配件-head-accessories:護士帽:16"
+      ],
+      "zh": "護士帽",
+      "en": "nurse cap, compact structured medical headpiece, clean folded crown",
+      "desc": "以緊湊硬挺的醫護頭飾、乾淨折疊帽冠與制服配件輪廓為主。"
+    },
+    {
+      "id": "wardrobe:頭部配件-head-accessories:蝴蝶結髮夾:17",
+      "legacyIds": [
+        "wardrobe:頭部配件-head-accessories:蝴蝶結髮夾:17"
+      ],
+      "zh": "蝴蝶結髮夾",
+      "en": "bow hair clip, compact ribbon bow secured into the hair",
+      "desc": "以固定在髮絲中的緊湊緞帶蝴蝶結為主。"
+    },
+    {
+      "id": "wardrobe:頭部配件-head-accessories:紅絨金飾水鑽皇冠:18",
+      "legacyIds": [
+        "wardrobe:頭部配件-head-accessories:紅絨金飾水鑽皇冠:18"
+      ],
+      "zh": "紅絨金飾水鑽皇冠",
+      "en": "ornate royal crown with a red velvet crown body, gold filigree arches, gold bead trim, crystal rhinestones, central cross finial, red gemstone accents, white fur base",
+      "desc": "華麗皇家皇冠，紅色絨布帽身搭配金色鏤空拱架、珠飾邊緣、水鑽、中央十字尖頂、紅色寶石與白色毛絨襯邊；指定頭部配件配色時只改變紅色絨布帽身。",
+      "headAccessoryColorTarget": "red velvet crown body"
+    }
+  ]
+}

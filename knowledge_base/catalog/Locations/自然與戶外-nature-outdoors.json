@@ -1,0 +1,142 @@
+{
+  "section": "Locations",
+  "category": "自然與戶外 (Nature & Outdoors)",
+  "entries": [
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-金色海灘與浪線:0",
+      "legacyIds": [
+        "locations:自然與戶外-nature-outdoors:戶外-金色海灘與浪線:0"
+      ],
+      "zh": "戶外：金色海灘與浪線",
+      "en": "golden sandy beach edge, shallow clear seawater, thin transparent receding wave line across wet sand, clean waterline, open seaside ground plane, smooth beach surface",
+      "desc": "高頻好用的海邊場景，重點是金色沙灘、透明淺水、薄薄退潮浪緣、清楚水線與濕潤沙面。",
+      "lyingSurface": {
+        "type": "sand",
+        "en": "wet sand"
+      }
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-清澈海灣岩岸:1",
+      "legacyIds": [
+        "locations:自然與戶外-nature-outdoors:戶外-清澈海灣岩岸:1"
+      ],
+      "zh": "戶外：清澈海灣岩岸",
+      "en": "clear turquoise cove shoreline, pale rocky coast, shallow transparent seawater, irregular coastal stones, cliff wall edge, small inlet waterline, uneven shoreline surface",
+      "desc": "以清澈淺藍海水、淺色岩岸與被海水包圍的小海灣為核心，重點是岩石、峭壁邊、水線與不平整岸邊表面，而不是平坦沙灘。"
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-岩洞感海灣淺灘:2",
+      "legacyIds": [
+        "locations:自然與戶外-nature-outdoors:戶外-岩洞感海灣淺灘:2"
+      ],
+      "zh": "戶外：岩洞感海灣淺灘",
+      "en": "rocky seaside cove with cave-like cliff openings, shallow crystalline water, irregular stone shoreline, recessed rock wall, coastal rock textures, uneven shallow-water edge",
+      "desc": "岩壁上帶有洞口或凹陷感的海灣淺灘，重點是碎石、淺水、凹入岩壁、岩面材質與不規則水邊。"
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-草地與樹木:3",
+      "legacyIds": [
+        "locations:自然與戶外-nature-outdoors:戶外-草地與樹木:3"
+      ],
+      "zh": "戶外：草地與樹木",
+      "en": "small grassy park patch, uneven lawn texture, scattered tree trunks at varied depths, low shrubs, ground-level natural surface, off-center tree edge",
+      "desc": "小型草地與樹木邊緣，重點是不均勻草皮、不同距離的樹幹、低矮灌木與偏側樹木錨點。",
+      "lyingSurface": {
+        "type": "grass",
+        "en": "lawn"
+      }
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-廣闊草原平原與天空:4",
+      "legacyIds": [
+        "locations:自然與戶外-nature-outdoors:戶外-廣闊草原平原與天空:4"
+      ],
+      "zh": "戶外：廣闊草原平原與天空",
+      "en": "wide open grassland plain, low meadow grasses and wild plants, flat horizon line, expansive open sky, distant tree line, spacious countryside field",
+      "desc": "廣闊草原與平原感的戶外場景，重點是低矮草叢、野生植物、平坦地平線、大面積天空與遠方樹線。",
+      "lyingSurface": {
+        "type": "grass",
+        "en": "grassland plain"
+      }
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-向日葵花田:5",
+      "legacyIds": [
+        "locations:自然與戶外-nature-outdoors:戶外-向日葵花田:5"
+      ],
+      "zh": "戶外：向日葵花田",
+      "en": "sunflower field edge, dense sunflower stems, large yellow flower heads, irregular plant clusters broken by leaves, soil path fragment on one side, rural field background",
+      "desc": "向日葵花田邊緣，重點是密集花莖、大型黃色花頭、被葉片打斷的不規則植株群、單側土路片段與田野背景。"
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-霧感森林步道:6",
+      "legacyIds": [
+        "locations:自然與戶外-nature-outdoors:戶外-霧感森林步道:6"
+      ],
+      "zh": "戶外：霧感森林步道",
+      "en": "forest path edge, dark tree trunks at varied distances, uneven ground, mossy roots, leaf litter, partial trail curve, dense woodland background",
+      "desc": "森林步道邊緣，重點是不同距離的樹幹、不平地面、苔蘚樹根、落葉、局部彎曲小徑與密林背景。"
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-森林營地帳篷營火:7",
+      "legacyIds": [
+        "locations:自然與戶外-nature-outdoors:戶外-森林營地帳篷營火:7"
+      ],
+      "zh": "戶外：森林營地帳篷營火",
+      "en": "forest campsite clearing, canvas tent edge, campfire pit, hanging lantern stand, tree trunks at varied depths, leaf-litter ground, asymmetric camp setup",
+      "desc": "森林營地的局部戶外場景，重點是帆布帳篷邊、營火盆、吊掛油燈架、不同深度的樹幹、落葉地面與偏側營地配置。",
+      "lyingSurface": {
+        "type": "ground",
+        "en": "leaf-litter ground"
+      }
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-湖邊木棧道:8",
+      "legacyIds": [
+        "locations:自然與戶外-nature-outdoors:戶外-湖邊木棧道:8"
+      ],
+      "zh": "戶外：湖邊木棧道",
+      "en": "lakeside wooden deck edge, weathered planks, low railing section, calm water surface beside the deck, reeds or shoreline plants on one side, natural bank detail",
+      "desc": "湖邊木棧道邊緣，重點是風化木板、低欄杆片段、棧道旁水面、單側蘆葦或岸邊植物與自然岸線細節。",
+      "lyingSurface": {
+        "type": "floor",
+        "en": "wooden deck"
+      }
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-海邊岩岸:9",
+      "legacyIds": [
+        "locations:自然與戶外-nature-outdoors:戶外-海邊岩岸:9"
+      ],
+      "zh": "戶外：海邊岩岸",
+      "en": "rocky shoreline edge, irregular stone slabs, tide-pool pockets, rough coastal rock texture, seawater visible beside the rocks, uneven standing surface",
+      "desc": "海邊岩岸邊緣，重點是不規則石板、潮池凹洞、粗糙岩面、岩石旁海水與不平整可站立表面。"
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-沙丘與風痕地景:10",
+      "legacyIds": [
+        "locations:自然與戶外-nature-outdoors:戶外-沙丘與風痕地景:10"
+      ],
+      "zh": "戶外：沙丘與風痕地景",
+      "en": "sand dune slope, wind-shaped sand ripples, uneven dune ridge, sparse dry grass tufts, open sandy ground plane, off-center crest line",
+      "desc": "沙丘坡面與風痕地景，重點是砂紋、不均勻沙脊、稀疏乾草、開闊沙地平面與偏離中心的稜線。",
+      "lyingSurface": {
+        "type": "sand",
+        "en": "sandy ground plane"
+      }
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-白色鹽湖乾裂荒漠:11",
+      "legacyIds": [
+        "locations:自然與戶外-nature-outdoors:戶外-白色鹽湖乾裂荒漠:11"
+      ],
+      "zh": "戶外：白色鹽湖乾裂荒漠",
+      "en": "white salt flat playa edge, cracked salt crust ground, pale polygon surface texture, open dry basin, distant low mountain range, wide blue-sky desert horizon",
+      "desc": "白色鹽湖或乾涸 playa 荒漠場景，重點是乾裂鹽殼地面、淡色多邊形表面紋理、開闊乾盆地、遠方低山與寬闊沙漠地平線。",
+      "lyingSurface": {
+        "type": "ground",
+        "en": "salt crust ground"
+      }
+    }
+  ]
+}

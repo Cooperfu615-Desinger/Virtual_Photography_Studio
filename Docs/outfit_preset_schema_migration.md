@@ -1,5 +1,8 @@
 # Outfit Preset Schema Migration Plan
 
+> 2026-10-25 C 現況：本文以下保留早期套裝規格與遷移設計歷史，不是現行來源操作手冊。套裝已採結構化 meta，正式來源為 `knowledge_base/catalog/Wardrobe/` 內 index 指定的套裝紀錄；舊 outfit_preset_metadata 已合併並退役。請依 [catalog 流程](../knowledge_base/catalog/README.md) 編輯 JSON、維護 ID 登記並產生唯讀 Markdown；不要照下方舊計畫直接修改 Markdown 或另建 metadata 檔。
+
+
 ## Goal
 
 Refactor current `套裝 (Outfit Presets)` handling from a single-color preset model:

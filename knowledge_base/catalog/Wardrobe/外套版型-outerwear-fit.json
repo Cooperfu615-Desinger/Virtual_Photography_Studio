@@ -1,0 +1,129 @@
+{
+  "section": "Wardrobe",
+  "category": "外套版型 (Outerwear Fit)",
+  "entries": [
+    {
+      "id": "wardrobe:外套版型-outerwear-fit:全無:0",
+      "legacyIds": [
+        "wardrobe:外套版型-outerwear-fit:全無:0"
+      ],
+      "zh": "全無",
+      "en": "no additional outerwear fit adjustment",
+      "desc": "不額外指定外套長度或鬆緊版型，保留外套本體原始輪廓。"
+    },
+    {
+      "id": "wardrobe:外套版型-outerwear-fit:合身:1",
+      "legacyIds": [
+        "wardrobe:外套版型-outerwear-fit:合身:1"
+      ],
+      "zh": "合身",
+      "en": "fitted outerwear proportion",
+      "desc": "正常衣長的合身外套比例，僅強化剪裁貼合度，不改變外套長度。",
+      "outerwearFit": {
+        "fit": "fitted"
+      }
+    },
+    {
+      "id": "wardrobe:外套版型-outerwear-fit:緊身:2",
+      "legacyIds": [
+        "wardrobe:外套版型-outerwear-fit:緊身:2"
+      ],
+      "zh": "緊身",
+      "en": "tight body-skimming outerwear fit",
+      "desc": "正常衣長的緊身外套比例，貼近身體線條但仍維持外套結構。",
+      "outerwearFit": {
+        "fit": "tight body-skimming"
+      }
+    },
+    {
+      "id": "wardrobe:外套版型-outerwear-fit:oversize:3",
+      "legacyIds": [
+        "wardrobe:外套版型-outerwear-fit:oversize:3"
+      ],
+      "zh": "Oversize",
+      "en": "oversized outerwear proportion with roomy shoulders and body",
+      "desc": "正常衣長的 oversize 外套比例，肩線與衣身更寬鬆。",
+      "outerwearFit": {
+        "fit": "oversized"
+      }
+    },
+    {
+      "id": "wardrobe:外套版型-outerwear-fit:長版合身:4",
+      "legacyIds": [
+        "wardrobe:外套版型-outerwear-fit:長版合身:4"
+      ],
+      "zh": "長版合身",
+      "en": "hip-length fitted outerwear, ending around the widest part of the hips",
+      "desc": "長版外套長度約到臀部最寬的位置，並保持合身剪裁。",
+      "outerwearFit": {
+        "fit": "fitted",
+        "length": "hip-length"
+      }
+    },
+    {
+      "id": "wardrobe:外套版型-outerwear-fit:短版合身:5",
+      "legacyIds": [
+        "wardrobe:外套版型-outerwear-fit:短版合身:5"
+      ],
+      "zh": "短版合身",
+      "en": "underbust-cropped fitted outerwear, ending just below the bust",
+      "desc": "短版外套長度約到胸下位置，並保持合身剪裁。",
+      "outerwearFit": {
+        "fit": "fitted",
+        "length": "underbust-cropped"
+      }
+    },
+    {
+      "id": "wardrobe:外套版型-outerwear-fit:長版緊身:6",
+      "legacyIds": [
+        "wardrobe:外套版型-outerwear-fit:長版緊身:6"
+      ],
+      "zh": "長版緊身",
+      "en": "hip-length tight body-skimming outerwear, ending around the widest part of the hips",
+      "desc": "長版外套長度約到臀部最寬的位置，並貼近身體線條。",
+      "outerwearFit": {
+        "fit": "tight body-skimming",
+        "length": "hip-length"
+      }
+    },
+    {
+      "id": "wardrobe:外套版型-outerwear-fit:短版緊身:7",
+      "legacyIds": [
+        "wardrobe:外套版型-outerwear-fit:短版緊身:7"
+      ],
+      "zh": "短版緊身",
+      "en": "underbust-cropped tight outerwear, ending just below the bust",
+      "desc": "短版外套長度約到胸下位置，並呈現緊身外層比例。",
+      "outerwearFit": {
+        "fit": "tight body-skimming",
+        "length": "underbust-cropped"
+      }
+    },
+    {
+      "id": "wardrobe:外套版型-outerwear-fit:長版-oversize:8",
+      "legacyIds": [
+        "wardrobe:外套版型-outerwear-fit:長版-oversize:8"
+      ],
+      "zh": "長版 Oversize",
+      "en": "hip-length oversized outerwear, roomy shoulders and body, ending around the widest part of the hips",
+      "desc": "長版外套長度約到臀部最寬的位置，同時保留寬鬆肩線與寬大衣身。",
+      "outerwearFit": {
+        "fit": "oversized",
+        "length": "hip-length"
+      }
+    },
+    {
+      "id": "wardrobe:外套版型-outerwear-fit:短版-oversize:9",
+      "legacyIds": [
+        "wardrobe:外套版型-outerwear-fit:短版-oversize:9"
+      ],
+      "zh": "短版 Oversize",
+      "en": "underbust-cropped oversized outerwear, roomy shoulders, ending just below the bust",
+      "desc": "短版外套長度約到胸下位置，同時保留寬鬆肩線與短版寬鬆比例。",
+      "outerwearFit": {
+        "fit": "oversized",
+        "length": "underbust-cropped"
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 # 目錄資料架構 v1：穩定 ID、正式 schema、語意資料化
 
 - 文件修訂：**v1.1，2026-10-24**；保留既有檔名，供原連結繼續使用。
-- 狀態：原架構方向於 2026-10-13 核准；v1.1 的 A 與對齊驗收、Git 交付授權歷史見 §11。**Cooper 後續已授權 B；2026-10-25 依 main `548a5c4` 完成 B 本機實作與驗收，Cooper 已確認驗收通過，授權僅提交並 push 本次 B（§12.1）。正式來源仍是 Markdown；C–E、P5b 及正式資料來源切換未開始。** 詳見 §12。
+- 狀態：A／B 已驗收交付；Cooper 已確認凍結並授權 C。2026-10-25 以最新 main `64870460e8a153a07baf953df0d6cf784ce2aca4` 完成 C 本機切換及 I1–I9 驗收，正式來源為分類 JSON。Cooper 已確認驗收通過並授權僅提交／推送本批 C；實際交付與 CI 結果另行核對。D、E、P5b 未開始。見 §13、§13.1。
 - 範圍：保留原 Phase 1–3 的工作內容，執行順序改為 §7 的 A–E 階段；所有遷移均不改公開 Prompt、UI 顯示、隨機選取行為或使用者存檔格式。已知內容問題另立 Phase 4。
 - 依據：[資料庫完整分析報告](../reports/database-analysis-2026-10-11/README.md) 與 [2026-10-13 決策](../decisions/2026-10-13-catalog-data-architecture.md)。原決策保留為歷史紀錄；執行細節以本修訂為準。
 - 原 A 基準版本：`0746b280cc9f5c00daec7dadc73329779ac658e9`。2026-10-24 後續授權對齊的本機與 GitHub `main` 為 `2f56438804e751de4556060b293231966d6ea3b3`；原基準永久保留，新版本另建 manifest。基礎目錄為 6 分區、56 分類、1,050 條，37 條有 `stableId`；執行期為 219 個 controls、4,771 個 options。這些是基準觀察值，不是永久限制。
@@ -11,7 +11,7 @@
 
 ### 本次對齊的現況與邊界
 
-- 目前仍以 Markdown＋metadata＋manifest 產出 `database.json`。B 已建立 `knowledge_base/catalog/` 的 schema／欄位映射與正式完整性檢查工具；分類 JSON、index、id_registry 與生成 Markdown 僅在 repo 外演練，正式啟用仍屬 C。A 目錄快照與輸出基準保持不變。
+- C 已啟用分類 JSON＋index＋id_registry＋manifest，經 schema／歷史 ID 驗證後產生 `database.json` 與六份唯讀 Markdown。舊 metadata 已完整併入分類紀錄；A 快照與輸出基準不變。B 的 Markdown／隔離演練敘述保留為切換前歷史。
 - 新增 `lyingSurface` 來源欄位，目前 47 條場景具有此資料；新版指定動作、站／蹲／坐／跪／躺姿、頭部／視線與觀察式抓拍均須納入基準。
 - Z-Image 已有 2026-10-23 的[同場段落版本 C](z-image-scene-first-tidy-v1.md)：人物開頭、方位去重、環境光句合併及側面幾何改寫都屬既有行為，不得用舊版快照還原。
 - 現行五個主工作區是 Prompt 工作台、角色建模、場景建模、DLL_PIC Pro、Saved Cards。動作與觀察式抓拍在主工作台內驗證，舊資料仍保留相容性。
@@ -599,3 +599,15 @@ Cooper 明確授權依 v1.1 完成 B 的完整性檢查、schema、歷史 ID 驗
 ### 12.1 B 驗收與 Git 交付授權（2026-10-25）
 
 Cooper 已確認 B 驗收通過，明確授權僅提交並 push 本次 B 的文件、schema、驗收工具與 CI 設定，之後確認該提交的 CI。範圍以 [52 份檔案允許清單](../reports/catalog-architecture-b-2026-10-25/delivery-allowlist.json) 為準；正式來源仍為 Markdown，其他未提交內容保留，不進入 C 或 P5b。§12 及驗收報告的未提交文字保留為本機驗收時點的歷史；此授權不代表 push 或遠端 CI 已完成，實際結果須另行查核。
+
+## 13. C JSON 正式來源切換（2026-10-25）
+
+- 使用者確認其他 session 暫停共用範圍修改後，核對本機／遠端 main `64870460e8a153a07baf953df0d6cf784ce2aca4` 並開始 C。依 §4.3／4.4／5.3 完成分類 JSON、正式 reader、歷史 registry、七份生成物檢查、CI 接線與操作文件，同時保留14份原稿與其他140份未提交內容。
+- 1,050 筆、56 分類；內容與鍵順序、ID／別名、compiled entries/catalog／controls 全部零差異，兩種 Markdown parser 共12組一致。I1–I9 本機通過：前端1823、quality754、Python33、工具10；三套 A 重播3251次／2851個不同案例；同 seed200 audit 0 blockers／18既有診斷，strict 僅 J12 精確兩項；桌手機44項、16張畫面檢視通過。
+- 正式歷史基準從 CLI／環境與受信任 CI 事件取得；初次只准固定 pre-C 的直接引入，使用固定 SHA 的 A inventory 與 Git 中的 A snapshot。一般批次不得缺歷史回退。CI 須提供 candidate，工作樹本機在 C 提交後必須換成已有 registry 的已審查基準。
+- 同步先驗證／render 全部輸出，再準備暫存與替換；一般 I/O 失敗回復原檔，`--check` 只讀。不是跨檔斷電交易；中斷後須重跑 sync/check。單筆語意挪用仍靠人工審查，非 registry 可自動證明。
+- 詳細檔案、指令、SHA 與驗收見 [C 報告](../reports/catalog-architecture-c-2026-10-25/README.md)、[操作流程](../../knowledge_base/catalog/README.md)。本節記錄本機完成，不代替 Cooper 驗收或遠端 CI；未 stage／commit／push。D、E、P5b 未開始，凍結不自行解除。
+
+### 13.1 C 驗收與 Git 交付授權（2026-10-25）
+
+Cooper 已確認 C 階段驗收通過，明確授權只提交並 push 本次 C 的資料、程式、文件、驗收工具與 CI 設定，保留其他未提交內容，完成後確認對應提交的 CI。上節保留本機驗收當時的狀態；此次授權不代表 Git／CI 已成功。僅依 C 交付清單提交，不進入 D、E 或 P5b。

@@ -14,7 +14,7 @@ Last updated: 2026-10-11
 
 2026-09-28 車站補充：[車站固定構圖 v1](station-fixed-composition-v1.md) 新增紐約／倫敦／山手線獨立固定場景。一般場景資料列保留不變；新場景各自固定左右配置與縱深軸線，人物面向不交換場景位置，焦段可裁切周邊。
 
-目前有效狀態（2026-09-15）：B 區共有 48 個既有來源項目，首批 10 組包含 7 組修改與 3 組不變對照；另有 38 組已完成低機位優先來源接入。runtime 的 `zImageSceneDetailPriority.js` 維護 45 個實際 location ID（7 組歷史修改加 38 組新增），3 組不變對照只作為 fixtures 控制組。25 組 `光線表現 (Light Style)` 則以 `knowledge_base/camera_and_lighting.md` 為唯一來源，再同步到 JSON；完整文字與 renderer 邊界分別見 [既有細節優先 v1](z-image-existing-scene-detail-priority-v1.md)、[既有細節優先 v2](z-image-existing-scene-detail-priority-v2.md) 與 [主體光線 v1](subject-light-styles-v1.md)。以下日期補充保留作批次歷史紀錄，本段是目前的總數與責任邊界。
+目前有效狀態（2026-09-15）：B 區共有 48 個既有來源項目，首批 10 組包含 7 組修改與 3 組不變對照；另有 38 組已完成低機位優先來源接入。runtime 的 `zImageSceneDetailPriority.js` 維護 45 個實際 location ID（7 組歷史修改加 38 組新增），3 組不變對照只作為 fixtures 控制組。25 組 `光線表現 (Light Style)` 則以 `knowledge_base/catalog/CameraLighting/` 為唯一來源，再同步到 JSON；完整文字與 renderer 邊界分別見 [既有細節優先 v1](z-image-existing-scene-detail-priority-v1.md)、[既有細節優先 v2](z-image-existing-scene-detail-priority-v2.md) 與 [主體光線 v1](subject-light-styles-v1.md)。以下日期補充保留作批次歷史紀錄，本段是目前的總數與責任邊界。
 
 2026-09-14 GPT 核准可見性例外：一般單人主 GPT 的完整有效場景／環境光，按有效鏡頭方向投影審查過的地面／天空細節；保持原 Scene／Lighting 區段，不套用 Z 壓縮或上方新增描述。資料維護來源與 UI 不變，見 [正式規格](gpt-scene-lighting-visibility-v1.md)。
 
@@ -48,19 +48,21 @@ C 區只負責「人物在哪裡、整個場景處於什麼環境狀態、人物
 
 Prompt 應使用短而準的英文片語。中文描述用來幫助維護者理解空間與光線方向，英文 prompt 用來控制生成結果。
 
+> C 來源規則（2026-10-25）：下列目錄路徑依 `knowledge_base/catalog/index.json` 找到分類檔。維護永久 `id`、有序 `legacyIds` 與 `id_registry.json`；新 ID 用英文 kebab-case 並登記 active，舊 frozen 不重發／刪除。同步前設定受信任的歷史完整 SHA，執行 schema/history 與七份產生物檢查。Markdown 總覽唯讀；順序仍屬顯示／抽樣行為，不能任意重排。A 快照保持封存；核准產品變更另建有審查理由的 revision，不能重錄以消除遷移差異。完整命令及新增列 layout 要求見 [catalog 操作流程](../../knowledge_base/catalog/README.md)。
+
 ## 2. 資料來源
 
 | 控制項 | 主要來源 | 備註 |
 | --- | --- | --- |
 | 場景屬性 `sceneAttributeId` | `webapp/src/lib/engine.js` 的 `SCENE_ATTRIBUTE_OPTIONS` | 目前有 `未指定`、`室內`、`戶外`、`其他`。 |
-| 場景基底 `locationId` | `knowledge_base/locations_and_sets.md` | 編輯後需同步到 `webapp/src/data/database.json`。 |
-| 環境光條件 `lightingId` | `knowledge_base/camera_and_lighting.md` 的 `環境光條件 (Ambient Light Conditions)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
-| 光線表現 `lightDirectionId` | `knowledge_base/camera_and_lighting.md` 的 `光線表現 (Light Style)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
+| 場景基底 `locationId` | `knowledge_base/catalog/Locations/` | 編輯後需同步到 `webapp/src/data/database.json`。 |
+| 環境光條件 `lightingId` | `knowledge_base/catalog/CameraLighting/` 的 `環境光條件 (Ambient Light Conditions)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
+| 光線表現 `lightDirectionId` | `knowledge_base/catalog/CameraLighting/` 的 `光線表現 (Light Style)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
 | 場景與光線相容性 | `webapp/src/lib/engine.js` | 主要是 `locationMatchesSceneAttribute`、`lightingMatchesSceneAttribute`、`locationSupportsLighting`、`lightDirectionSupportsScene`。 |
 | C 區 UI 顯示與摘要 | `webapp/src/components/Page1Workspace.jsx`、`webapp/src/components/LightingReferenceModal.jsx` | 新增控制鍵或改定位時需同步 UI 文案。 |
 | 測試 | `webapp/src/lib/engineSceneBaseCleanup.test.js`、`engineLightingPromptCleanup.test.js`、`engineLightingCompatibility.test.js` | 依修改範圍更新。 |
 
-Markdown 資料同步流程：
+JSON 正式來源同步流程（先設定已審查的 `REGISTRY_BASE_COMMIT`）：
 
 ```bash
 python3 scripts/sync_to_json.py
@@ -294,7 +296,7 @@ C 區依賴 metadata tags 來避免明顯不合理的組合。只改 prompt 文�
 - `location.meta.tags` 是否有 indoor、outdoor、studio、natural、urban、residential、hospitality、heritage、commercial、subterranean、other_scene 等必要標籤。
 - `lighting.meta.tags` 是否有 ambient_indoor、ambient_outdoor、ambient_studio、day、sunlight、cloudy、rain、mist、dusk、night_ambient、window_light、studio_light 等必要標籤。
 - `lightDirection.meta.tags` 是否有 supports_indoor、supports_outdoor、window_light、sunlight、portrait_light、backlight、overhead、artificial_light、wet_surface 等必要標籤。
-- 新增 Markdown row 後，若 sync 沒有自動產生新 metadata，必須補上或調整資料來源，並用測試確認選項能在 UI 中正確出現。
+- 新增 JSON 紀錄 後，若 sync 沒有自動產生新 metadata，必須補上或調整資料來源，並用測試確認選項能在 UI 中正確出現。
 
 ## 9. 場景優先權
 
@@ -310,7 +312,7 @@ C 區場景要能和 A 區特殊角色、B 區特殊穿搭、D 區攝影與成�
 
 ## 10. 改名、合併與舊資料相容
 
-多數 location、lighting、lightDirection option id 會由 category、中文標籤與 row index 產生。因此改名、合併、調整排序都可能讓舊 favorite 或 saved lock 找不到選項。
+正式分類 JSON 的 id 已凍結，不隨中文名稱或列序重發；legacyIds 與歷史登記保留。排序仍影響顯示與抽樣，合併／退役須另立相容規格。
 
 維護規則：
 
@@ -326,7 +328,7 @@ C 區場景要能和 A 區特殊角色、B 區特殊穿搭、D 區攝影與成�
 
 1. 確認它屬於室內、戶外或其他專屬場景。
 2. 檢查現有 143 個場景是否已能覆蓋，能合併就不要新增。
-3. 在 `knowledge_base/locations_and_sets.md` 新增或修改 row。
+3. 在 `knowledge_base/catalog/Locations/` 依 index 指定檔新增或修改 JSON 紀錄。
 4. 跑 `python3 scripts/sync_to_json.py`。
 5. 確認 `webapp/src/data/database.json` 的 zh、en、desc 與 meta tags 正確。
 6. 若涉及新場景類型，更新 `locationMatchesSceneAttribute`、`locationSupportsLighting` 或相關相容性 helper。
@@ -335,7 +337,7 @@ C 區場景要能和 A 區特殊角色、B 區特殊穿搭、D 區攝影與成�
 新增環境光條件：
 
 1. 確認它是環境狀態，不是人物受光。
-2. 在 `knowledge_base/camera_and_lighting.md` 的 `環境光條件 (Ambient Light Conditions)` 新增 row。
+2. 在 `knowledge_base/catalog/CameraLighting/` 的 `環境光條件 (Ambient Light Conditions)` 新增 JSON 紀錄。
 3. 跑 `python3 scripts/sync_to_json.py`。
 4. 補齊 ambient tags，確認 indoor/outdoor/studio 過濾正確。
 5. 檢查是否會和既有 light style 發生不合理組合，必要時更新 `lightDirectionSupportsAmbientLight`。
@@ -344,7 +346,7 @@ C 區場景要能和 A 區特殊角色、B 區特殊穿搭、D 區攝影與成�
 新增光線表現：
 
 1. 確認它是人物受光，不是環境天氣或場景。
-2. 在 `knowledge_base/camera_and_lighting.md` 的 `光線表現 (Light Style)` 新增 row。
+2. 在 `knowledge_base/catalog/CameraLighting/` 的 `光線表現 (Light Style)` 新增 JSON 紀錄。
 3. 跑 `python3 scripts/sync_to_json.py`。
 4. 補齊 lightDirection tags，確認室內、戶外、棚內與構圖景別限制正確。
 5. 若它需要特定場景支撐，例如窗格、樹影、濕地面，必須更新相容性規則與測試。

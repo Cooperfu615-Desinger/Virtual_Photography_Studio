@@ -1,0 +1,60 @@
+{
+  "section": "CameraLighting",
+  "category": "光圈 / 景深 (Aperture & Depth of Field)",
+  "entries": [
+    {
+      "id": "camera:光圈-景深-aperture-depth-of-field:全無:0",
+      "legacyIds": [
+        "camera:光圈-景深-aperture-depth-of-field:全無:0"
+      ],
+      "zh": "全無",
+      "en": "none",
+      "desc": "不指定光圈或景深傾向，讓模型依焦段、構圖與場景自行決定焦點深度。"
+    },
+    {
+      "id": "camera:光圈-景深-aperture-depth-of-field:f-11-深焦清晰:1",
+      "legacyIds": [
+        "camera:光圈-景深-aperture-depth-of-field:f-11-深焦清晰:1"
+      ],
+      "zh": "f/11 深焦清晰",
+      "en": "f/11-style deep focus, broad depth of field, foreground subject and background held readable, crisp scenic detail",
+      "desc": "小光圈深焦語言，前景人物與背景資訊都維持可讀，適合希望環境細節清楚的畫面。"
+    },
+    {
+      "id": "camera:光圈-景深-aperture-depth-of-field:f-5-6-中等景深:2",
+      "legacyIds": [
+        "camera:光圈-景深-aperture-depth-of-field:f-5-6-中等景深:2"
+      ],
+      "zh": "f/5.6 中等景深",
+      "en": "f/5.6-style balanced depth of field, subject cleanly readable, background gently softened but still recognizable, natural optical separation",
+      "desc": "中等景深，主體清楚，背景略柔但仍可辨識，適合人像與環境都要保留的平衡拍法。"
+    },
+    {
+      "id": "camera:光圈-景深-aperture-depth-of-field:f-2-8-淺景深:3",
+      "legacyIds": [
+        "camera:光圈-景深-aperture-depth-of-field:f-2-8-淺景深:3"
+      ],
+      "zh": "f/2.8 淺景深",
+      "en": "f/2.8-style shallow depth of field, clear subject plane, soft background defocus, natural portrait separation",
+      "desc": "淺景深人像語言，主體焦平面明確，背景柔化並產生自然分離感。"
+    },
+    {
+      "id": "camera:光圈-景深-aperture-depth-of-field:f-2-0-強背景分離:4",
+      "legacyIds": [
+        "camera:光圈-景深-aperture-depth-of-field:f-2-0-強背景分離:4"
+      ],
+      "zh": "f/2.0 強背景分離",
+      "en": "f/2.0-style large-aperture portrait depth, strong subject-background separation, creamy optical falloff, softened foreground and background planes",
+      "desc": "大光圈人像分離感，背景與前景明顯柔化，主體從空間中浮出。"
+    },
+    {
+      "id": "camera:光圈-景深-aperture-depth-of-field:f-1-4-極淺景深散景:5",
+      "legacyIds": [
+        "camera:光圈-景深-aperture-depth-of-field:f-1-4-極淺景深散景:5"
+      ],
+      "zh": "f/1.4 極淺景深散景",
+      "en": "f/1.4-style ultra shallow depth of field, razor-thin focus plane, strong foreground and background defocus, large soft bokeh discs",
+      "desc": "超大光圈極淺景深，焦平面非常薄，前後景快速離焦，散景光斑更大且更柔。"
+    }
+  ]
+}

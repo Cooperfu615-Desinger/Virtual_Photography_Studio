@@ -1,0 +1,43 @@
+file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/check_catalog_integrity.mjs:46
+  if (['--repo', '--json-out', '--allowlist'].includes(argv[i])) { if (!argv[++i] || argv[i].startsWith('--')) throw new Error('Missing CLI argument value'); }
+                                                                                                                     ^
+
+Error: Missing CLI argument value
+    at file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/check_catalog_integrity.mjs:46:118
+    at ModuleJob.run (node:internal/modules/esm/module_job:430:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:639:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v25.8.2
+找不到 repo 根目錄；請用 --repo 指定 Virtual_Photography_Studio 路徑
+✔ aliases are scoped by actual control, self aliases legal, cross-category owners conflict (1.660042ms)
+✔ primary ID duplication and alias shadowing are blocking (0.17475ms)
+✔ allowlist rejects stale, incomplete, duplicate and broad exceptions (0.196041ms)
+✔ action source references, clauses, validation and family errors are detected (0.230208ms)
+✔ field mapping preserves false, empty strings, nested values and reports unknown source fields (0.470708ms)
+✔ strict CLI succeeds for exact exceptions and fails for stale exceptions (2137.648792ms)
+✔ rehearsal refuses repo output, symlink escape into repo, existing targets and wrong source without writes (17.148542ms)
+✔ failed staged conversion leaves no target or staging; racing target is preserved (1.578958ms)
+✔ nested source paths and category membership require explicit responsibility (0.270917ms)
+✔ pose metadata validates nested support, arrangement, orientation and crop references (0.379458ms)
+✔ A catalog snapshots preserve ordered IDs, aliases and complete compiled metadata (107.78675ms)
+✔ test export captures pre-postprocessing inference once and isolates supplied data and default cache (125.333875ms)
+✔ snapshot builder rejects duplicate control and entry identities instead of overwriting (0.176167ms)
+✔ 正面強硬光 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings (10.326333ms)
+✔ 機頂直閃 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings (6.385125ms)
+✔ 蝴蝶光 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings (5.716291ms)
+✔ 倫勃朗光 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings (10.025375ms)
+✔ 分割光 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings (8.353083ms)
+✔ 下方硬質主光 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings (6.815625ms)
+✔ independent subject-key compatibility fails closed when the authored source changes without repinning (33.236958ms)
+✔ source marker does not grant arbitrary or existing lights the independent-key exemption (62.221083ms)
+✔ independent-key exemptions retain authored indoor/outdoor scope boundaries (511.44325ms)
+✔ new subject keys do not widen old portrait, sun, projection or high-key compatibility rules (2.556917ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2270.437667

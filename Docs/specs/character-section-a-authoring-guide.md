@@ -31,19 +31,21 @@ A 區只負責「人物是誰、長什麼樣、當下表情與身體狀態」。
 
 Prompt 應使用短而準的英文片語，避免堆疊同義詞。中文描述用來幫助選項理解，英文 prompt 用來控制生成結果。
 
+> C 來源規則（2026-10-25）：下列目錄路徑依 `knowledge_base/catalog/index.json` 找到分類檔。維護永久 `id`、有序 `legacyIds` 與 `id_registry.json`；新 ID 用英文 kebab-case 並登記 active，舊 frozen 不重發／刪除。同步前設定受信任的歷史完整 SHA，執行 schema/history 與七份產生物檢查。Markdown 總覽唯讀；順序仍屬顯示／抽樣行為，不能任意重排。A 快照保持封存；核准產品變更另建有審查理由的 revision，不能重錄以消除遷移差異。完整命令及新增列 layout 要求見 [catalog 操作流程](../../knowledge_base/catalog/README.md)。
+
 ## 2. 資料來源
 
 | 控制項 | 主要來源 | 備註 |
 | --- | --- | --- |
 | 人物數量 `subjectCount` | `webapp/src/lib/engine.js` 的 `SUBJECT_COUNT_OPTIONS` | 只決定 1 位、2 位，不承擔美感或性感描述；舊 `reference` lock 會轉成 1 位。 |
-| 特殊角色 `specialSubjectId` | `webapp/src/lib/engine.js` 的 `SPECIAL_SUBJECT_OPTIONS` | 直接 code-defined，不走 Markdown sync。 |
+| 特殊角色 `specialSubjectId` | `webapp/src/lib/engine.js` 的 `SPECIAL_SUBJECT_OPTIONS` | 直接 code-defined，不走分類 JSON sync。 |
 | 角色卡 `characterProfileId` | `webapp/src/lib/engine.js` 的 `CHARACTER_PROFILE_OPTIONS` | 直接 code-defined，獨立於特殊角色；用來接管人物身份與固定穿搭。 |
-| 體態、五官、膚質、髮型、髮絲整理狀態、髮色 | `knowledge_base/character_design.md` | 編輯後需同步到 `webapp/src/data/database.json`。 |
-| 神情、姿勢、特殊動作 | `knowledge_base/character_design.md` | `特殊動作` 目前保留為 legacy hidden 資料；一般新增請優先放入 Pose Composer。編輯 Markdown 後需同步到 `webapp/src/data/database.json`。 |
-| Pose Composer 姿勢基底、肢體變化、手部動作、道具動作、頭部方向、接觸 / 支撐 | `webapp/src/lib/engine/poseComposerOptions.js` 的 `POSE_COMPOSER_*_OPTIONS` | 直接 code-defined，不走 Markdown sync。 |
+| 體態、五官、膚質、髮型、髮絲整理狀態、髮色 | `knowledge_base/catalog/Character/` | 編輯後需同步到 `webapp/src/data/database.json`。 |
+| 神情、姿勢、特殊動作 | `knowledge_base/catalog/Character/` | `特殊動作` 目前保留為 legacy hidden 資料；一般新增請優先放入 Pose Composer。編輯分類 JSON 後需同步到 `webapp/src/data/database.json`。 |
+| Pose Composer 姿勢基底、肢體變化、手部動作、道具動作、頭部方向、接觸 / 支撐 | `webapp/src/lib/engine/poseComposerOptions.js` 的 `POSE_COMPOSER_*_OPTIONS` | 直接 code-defined，不走分類 JSON sync。 |
 | 相容舊選項 | `webapp/src/lib/engine.js` | 合併、改名、移除時需加 legacy mapping。 |
 
-Markdown 資料同步流程：
+JSON 正式來源同步流程（先設定已審查的 `REGISTRY_BASE_COMMIT`）：
 
 ```bash
 python3 scripts/sync_to_json.py
@@ -172,7 +174,7 @@ fit toned athletic female body, healthy firm silhouette, subtle muscle definitio
 | 混血立體臉 | 不指定日／韓 | 維持 `mixed editorial face` | 不變 |
 | 全無 | 預設日本（2026-10-17） | — | 主體句渲染為 `adult Japanese woman`；雙人只有一人全無時，該位加 `Japanese facial features`，見 [預設日本族裔 v1](default-japanese-ethnicity-v1.md) |
 
-新增五官時，必須同時決定族裔，並同步寫進共用 `en`、`mj.face`（`knowledge_base/item_metadata.json`）與 Nano 五官描述（`webapp/src/lib/engine/nanoBananaFacialFeatures.js`）。改寫既有 `en` 時，舊英文要加入 `legacyPromptAliases`。角色卡（`East Asian`）的身份句由卡片本身承接，不在此規則內。詳見 [官方規範修正 v1](prompt-official-fixes-v1.md)。
+新增五官時，必須同時決定族裔，並同步寫進共用 `en`、`mj.face`（`knowledge_base/catalog/（對應分類紀錄）`）與 Nano 五官描述（`webapp/src/lib/engine/nanoBananaFacialFeatures.js`）。改寫既有 `en` 時，舊英文要加入 `legacyPromptAliases`。角色卡（`East Asian`）的身份句由卡片本身承接，不在此規則內。詳見 [官方規範修正 v1](prompt-official-fixes-v1.md)。
 
 ### 五官結構定案（2026-08-09）
 
@@ -208,7 +210,7 @@ fit toned athletic female body, healthy firm silhouette, subtle muscle definitio
 - 每個選項只抓 2-3 個臉部氣質，例如 idol、transparent、sweet、cool editorial、seductive alluring、mixed editorial。
 - 可愛選項要避免幼態，中文描述可明確寫「可愛但不幼態」。
 - 不要加入表情、妝容、髮型、鏡頭或光線。
-- `Gpt` 與 `Grok/Z-Image` 繼續使用同一份資料列的 `en` 原始描述；一般單人 `AI`（內部欄位 `midjourneyPrompt`）可使用同一選項下由 `knowledge_base/item_metadata.json` 提供的 `mj.face` 專用短描述。
+- `Gpt` 與 `Grok/Z-Image` 繼續使用同一份資料列的 `en` 原始描述；一般單人 `AI`（內部欄位 `midjourneyPrompt`）可使用同一選項下由 `knowledge_base/catalog/（對應分類紀錄）` 提供的 `mj.face` 專用短描述。
 - `mj.face` 不是第二個選項或第二份 resolved selection，而是同一五官選項針對 Midjourney 的另一種表面表達；沒有 `mj.face` 時，renderer 必須回退到既有 `en` 主錨點。
 - `mj.face` 以「臉型輪廓＋眼型眉型＋鼻子嘴唇」三段可見結構為目標，例如 `small refined oval face, clear almond eyes with straight brows, slender nose bridge and softly shaped lips`；不得加入表情、妝容、髮型、鏡頭、光線或姿勢。
 - `AI` 的 MJ 變體可保留完整三段結構，不套用既有 `en` 的單一主錨點截取；`Gpt`、`Grok/Z-Image`、Character Card 與原始 `en` 不受影響。
@@ -507,7 +509,7 @@ Pose Composer `接觸 / 支撐` legacy policy：
 
 ### 6.3 特殊動作
 
-狀態：`specialActionId` 目前已從 PAGE1 `B 神情姿態` 的獨立 UI 欄位隱藏。資料仍保留在 `knowledge_base/character_design.md` 與 `database.json`，用途是 legacy saved cards / restore 遷移與回溯相容；確認新 Pose Composer 路徑長期穩定後，可再評估移除舊資料。
+狀態：`specialActionId` 目前已從 PAGE1 `B 神情姿態` 的獨立 UI 欄位隱藏。資料仍保留在 `knowledge_base/catalog/Character/` 與 `database.json`，用途是 legacy saved cards / restore 遷移與回溯相容；確認新 Pose Composer 路徑長期穩定後，可再評估移除舊資料。
 
 維護規則：
 
@@ -644,7 +646,7 @@ MJ 專用投影規則：
 
 ## 8. 改名、合併與舊資料相容
 
-多數 option id 會由 category、中文標籤與 row index 產生。因此改名、合併、調整排序都可能讓舊 favorite 或 saved lock 找不到選項。
+分類 JSON 的 id 已凍結，改名不得重發 ID；legacyIds 與登記歷史必須保留。排序仍影響顯示／抽樣，合併或退役須另立相容規格。
 
 維護規則：
 
@@ -685,7 +687,7 @@ MJ 專用投影規則：
 
 1. 確認它屬於哪一個欄位，不跨欄位混寫。
 2. 檢查現有選項是否已能覆蓋，能合併就不要新增。
-3. 在 `knowledge_base/character_design.md` 新增或修改 row。
+3. 在 `knowledge_base/catalog/Character/` 依 index 指定檔新增或修改 JSON 紀錄。
 4. 跑 `python3 scripts/sync_to_json.py`。
 5. 如果有改名、合併、刪除，更新 `engine.js` legacy mapping。
 6. 更新對應測試的標準選項清單或 prompt 斷言。

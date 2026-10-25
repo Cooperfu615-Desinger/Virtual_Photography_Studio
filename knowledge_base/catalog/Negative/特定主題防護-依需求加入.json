@@ -1,0 +1,42 @@
+{
+  "section": "Negative",
+  "category": "特定主題防護 (依需求加入)",
+  "entries": [
+    {
+      "id": "negative:特定主題防護-依需求加入:自然派防護-剔除不自然元素:0",
+      "legacyIds": [
+        "negative:特定主題防護-依需求加入:自然派防護-剔除不自然元素:0"
+      ],
+      "zh": "自然派防護 (剔除不自然元素)",
+      "en": "artificial light, studio light, flash, posed, fake, unnatural colors, synthetic nature",
+      "desc": "當「AI 攝影師」選擇了自然或戶外主題時加入。避免自然環境中出現明顯的棚內反光板或人造光的斧鑿痕跡。"
+    },
+    {
+      "id": "negative:特定主題防護-依需求加入:黑暗恐怖防護-維持唯美:1",
+      "legacyIds": [
+        "negative:特定主題防護-依需求加入:黑暗恐怖防護-維持唯美:1"
+      ],
+      "zh": "黑暗恐怖防護 (維持唯美)",
+      "en": "horror, scary, gore, blood, creepy, zombie, grotesque, macabre, disturbing",
+      "desc": "除非主題為 BDSM 或廢墟，否則即使在暗調光影下，也必須加入此組以防止畫面過度恐怖或出現血腥驚悚元素。"
+    },
+    {
+      "id": "negative:特定主題防護-依需求加入:過度暴露防護-維持時尚:2",
+      "legacyIds": [
+        "negative:特定主題防護-依需求加入:過度暴露防護-維持時尚:2"
+      ],
+      "zh": "過度暴露防護 (維持時尚)",
+      "en": "nsfw, explicit, nude, naked, highly revealing, pornographic, lewd",
+      "desc": "確保大尺度內衣或泳裝攝影僅停留在「性感與時尚」的邊界，防止生成被審查的成人限制級畫面。"
+    },
+    {
+      "id": "negative:特定主題防護-依需求加入:現代物品防護-針對復古主題:3",
+      "legacyIds": [
+        "negative:特定主題防護-依需求加入:現代物品防護-針對復古主題:3"
+      ],
+      "zh": "現代物品防護 (針對復古主題)",
+      "en": "modern technology, smartphone, modern cars, led lights, contemporary clothing, digital screen",
+      "desc": "拍攝維多利亞、巴洛克或古典主題時必加。防止畫面上出現手機、現代汽車或電子螢幕這類破壞時代感的物品。"
+    }
+  ]
+}

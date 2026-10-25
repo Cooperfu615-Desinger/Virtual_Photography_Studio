@@ -2,6 +2,7 @@ import copy
 import json
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 from scripts import sync_to_json as s
 from scripts import catalog_prepare as p
@@ -82,12 +83,13 @@ class CatalogPreparationTests(unittest.TestCase):
         bad=copy.deepcopy(self.comp);bad['regional']['風格'][0]['en']='different'
         with self.assertRaises(ValueError):p.prepare_records(self.raw,bad,self.schema)
 
+    @mock.patch.dict(s.FILES_TO_SYNC, {'regional_portrait_styles.md': 'Regional'}, clear=True)
     def test_index_missing_extra_duplicate_and_traversal_rejected(self):
         records=p.prepare_records(self.raw,self.comp,self.schema)
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp);(root/'Regional').mkdir()
             f=root/'Regional/style.json';f.write_text(json.dumps({'section':'Regional','category':'風格','entries':records['Regional']['風格']}))
-            index={'version':1,'sections':[{'name':'Regional','categories':[{'name':'風格','path':'Regional/style.json'}]}],'markdown':[]}
+            index={'version':1,'sections':[{'name':'Regional','categories':[{'name':'風格','path':'Regional/style.json'}]}],'markdown':[{'file':'regional_portrait_styles.md','lines':['# Fixture\n',{'id':'regional:風格:style:0','cells':['','','',''],'columns':{'0':'zh','1':'inspiration','2':'en','3':'desc'},'affixes':{str(i):['',''] for i in range(4)}}]}]}
             def save(x): (root/'index.json').write_text(json.dumps(x))
             save(index);p.read_catalog_bundle(root,self.schema)
             for changed in ['../outside.json','/tmp/outside.json','Regional/missing.json']:

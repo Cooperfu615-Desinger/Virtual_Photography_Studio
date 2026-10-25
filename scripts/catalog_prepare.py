@@ -1,4 +1,4 @@
-"""Dormant Phase B source conversion/rendering. Never used by production sync."""
+"""Catalog source reader/rendering; legacy conversion is explicitly rehearsal-only."""
 import argparse
 import copy
 import json
@@ -162,11 +162,37 @@ def read_catalog_bundle(directory, schema):
                 raise ValueError('category identity mismatch')
             sync.validate_catalog_records(schema, data['section'], data['category'], data['entries'], str(path))
             records[data['section']][data['category']] = data['entries']
-    actual = {p.resolve() for p in directory.rglob('*.json')} - {directory/'index.json', directory/'id_registry.json'}
+    actual = {p.resolve() for p in directory.rglob('*.json')} - {directory/name for name in ('index.json', 'id_registry.json', 'schema.json', 'field_mapping.json')}
     if actual != paths:
         raise ValueError('missing or unexpected category files')
     if set(records) != set(schema['sections']) or any(set(cs) != set(schema['sections'][s]['categories']) for s, cs in records.items()):
         raise ValueError('index does not cover all schema categories')
+    expected_files = list(sync.FILES_TO_SYNC)
+    if [layout.get('file') for layout in index['markdown']] != expected_files:
+        raise ValueError('Markdown layouts must cover the six known paths in order')
+    for layout in index['markdown']:
+        section = sync.FILES_TO_SYNC[layout['file']]
+        expected = {c: [r['id'] for r in rows] for c, rows in records[section].items()}
+        owners = {r['id']: c for c, rows in records[section].items() for r in rows}
+        seen = {c: [] for c in expected}
+        for line in layout['lines']:
+            if isinstance(line, str):
+                if line.strip().startswith('|') and '---' not in line and sync.clean_cell(line.split('|')[1]) not in HEADERS:
+                    raise ValueError('Unmapped data row in Markdown layout')
+                continue
+            if set(line) != {'id', 'cells', 'columns', 'affixes'} or line['id'] not in owners:
+                raise ValueError('Unknown or malformed Markdown row')
+            category = owners[line['id']]
+            columns = {'0': 'zh', '1': 'inspiration', '2': 'en', '3': 'desc'} if section == 'Regional' else ({'2': 'zh', '3': 'en', '4': 'desc'} if len(line['cells']) == 5 else {'1': 'zh', '2': 'en', '3': 'desc'})
+            if line['columns'] != columns or set(line['affixes']) != set(columns):
+                raise ValueError('Invalid Markdown column mapping')
+            if section != 'Regional' and sync.clean_cell(line['cells'][1 if len(line['cells']) == 5 else 0]) != category:
+                raise ValueError('Markdown category label differs from source')
+            if any(not isinstance(pair, list) or len(pair) != 2 or any(not isinstance(v, str) or not re.fullmatch(r'[`*]*', v) for v in pair) for pair in line['affixes'].values()):
+                raise ValueError('Invalid Markdown affixes')
+            seen[category].append(line['id'])
+        if seen != expected:
+            raise ValueError('Markdown layout must cover every source ID once in category order')
     return records, index
 
 

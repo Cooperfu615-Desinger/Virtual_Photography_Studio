@@ -75,7 +75,7 @@ export function checkFieldMapping(database, entries, responsibility) {
         if (key === 'zh') continue; // display formatting is separately sealed by A snapshots
         if (key === 'en' || key === 'desc') { actual = out[key]; expected = clean(value); }
         else if (key === 'stableId') actual = out.id;
-        else if (key === 'legacyIds') { if (value.some(id => !out.legacyIds.includes(id))) fail(out.id, key, out.legacyIds, value); continue; }
+        else if (key === 'legacyIds') { actual = out.legacyIds; }
         else if (key === 'meta') { for (const [k, v] of Object.entries(value)) {
           if (k === 'tags') { if (v.some(t => !out.meta.tags.includes(t))) fail(out.id, 'meta.tags', out.meta.tags, v); }
           else if (!isDeepStrictEqual(out.meta[k], v)) fail(out.id, `meta.${k}`, out.meta[k], v);
@@ -219,9 +219,7 @@ export async function extendedChecks(repo, controls, parseFile) {
   }
   const scopes = new Set(['general', 'standing', 'sitting', 'kneeling', 'squatting', 'lying', 'lying-side', 'lying-prone', 'lying-supine']);
   for (const g of gaze.GESTURE_OPTIONS) for (const scope of [g.scope, ...(g.meta?.alsoScopes || [])].filter(Boolean)) if (!scopes.has(scope)) add('GESTURE_SCOPE', g.id, 'Missing gesture scope', [scope]);
-  const schemaResult = JSON.parse(execFileSync('python3', ['-B', join(repo, 'scripts/catalog_prepare.py'), '--repo', repo], {
-    input: JSON.stringify({ database: read('webapp/src/data/database.json'), entries: compiled.entries }), encoding: 'utf8', maxBuffer: 8*1024*1024,
-  }));
+  const schemaResult = JSON.parse(execFileSync('python3', ['-B', join(repo, 'scripts/sync_to_json.py'), '--check', '--report-json'], { encoding: 'utf8', maxBuffer: 8*1024*1024 }));
   const mapping = checkFieldMapping(read('webapp/src/data/database.json'), compiled.entries, read('knowledge_base/catalog/field_mapping.json'));
   const paths = checkDeclaredPaths(read('webapp/src/data/database.json'), read('knowledge_base/catalog/field_mapping.json'));
   errors.push(...mapping.issues, ...paths.issues);

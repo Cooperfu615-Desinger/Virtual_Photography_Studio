@@ -28,24 +28,26 @@ D 區只負責「照片怎麼被拍、用什麼攝影語言與成像質感呈現
 
 Prompt 應使用短而準的英文片語。中文描述用來幫助維護者理解攝影方向，英文 prompt 用來控制生成結果。
 
+> C 來源規則（2026-10-25）：下列目錄路徑依 `knowledge_base/catalog/index.json` 找到分類檔。維護永久 `id`、有序 `legacyIds` 與 `id_registry.json`；新 ID 用英文 kebab-case 並登記 active，舊 frozen 不重發／刪除。同步前設定受信任的歷史完整 SHA，執行 schema/history 與七份產生物檢查。Markdown 總覽唯讀；順序仍屬顯示／抽樣行為，不能任意重排。A 快照保持封存；核准產品變更另建有審查理由的 revision，不能重錄以消除遷移差異。完整命令及新增列 layout 要求見 [catalog 操作流程](../../knowledge_base/catalog/README.md)。
+
 ## 2. 資料來源
 
 | 控制項 | 主要來源 | 備註 |
 | --- | --- | --- |
-| 攝影風格 `styleId` | `knowledge_base/regional_portrait_styles.md` | 編輯後需同步到 `webapp/src/data/database.json`。 |
-| 構圖景別 `framingId` | `knowledge_base/camera_and_lighting.md` 的 `景別構圖 (Framing)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
-| 俯仰角度 `angleId` | `knowledge_base/camera_and_lighting.md` 的 `相機視角 (Angle)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
-| 環繞角度 `orbitId` | `knowledge_base/camera_and_lighting.md` 的 `拍攝方位 (Orbit Angle)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
-| 鏡頭焦段 `lensId` | `knowledge_base/camera_and_lighting.md` 的 `鏡頭焦段 (Focal Length)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
-| 光圈 / 景深 `apertureId` | `knowledge_base/camera_and_lighting.md` 的 `光圈 / 景深 (Aperture & Depth of Field)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
-| 快門 / 動態殘影 `shutterId` | `knowledge_base/camera_and_lighting.md` 的 `快門 / 動態殘影 (Shutter & Motion Blur)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
-| 光學效果 `opticalEffectId` | `knowledge_base/camera_and_lighting.md` 的 `光學效果 (Optical Effects)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
-| 相機 profile | `webapp/src/lib/engine.js` 的 `CAMERA_SYSTEM_OPTIONS` | code-defined，併入 `filmId` 選項，不走 Markdown sync。 |
+| 攝影風格 `styleId` | `knowledge_base/catalog/Regional/` | 編輯後需同步到 `webapp/src/data/database.json`。 |
+| 構圖景別 `framingId` | `knowledge_base/catalog/CameraLighting/` 的 `景別構圖 (Framing)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
+| 俯仰角度 `angleId` | `knowledge_base/catalog/CameraLighting/` 的 `相機視角 (Angle)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
+| 環繞角度 `orbitId` | `knowledge_base/catalog/CameraLighting/` 的 `拍攝方位 (Orbit Angle)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
+| 鏡頭焦段 `lensId` | `knowledge_base/catalog/CameraLighting/` 的 `鏡頭焦段 (Focal Length)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
+| 光圈 / 景深 `apertureId` | `knowledge_base/catalog/CameraLighting/` 的 `光圈 / 景深 (Aperture & Depth of Field)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
+| 快門 / 動態殘影 `shutterId` | `knowledge_base/catalog/CameraLighting/` 的 `快門 / 動態殘影 (Shutter & Motion Blur)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
+| 光學效果 `opticalEffectId` | `knowledge_base/catalog/CameraLighting/` 的 `光學效果 (Optical Effects)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
+| 相機 profile | `webapp/src/lib/engine.js` 的 `CAMERA_SYSTEM_OPTIONS` | code-defined，併入 `filmId` 選項，不走分類 JSON sync。 |
 | 相機 / 底片 `filmId` | `CAMERA_SYSTEM_OPTIONS` 加上 `底片與相機模擬 (Camera & Film Simulation)` | UI label 是 `相機 / 底片`，選項包含相機 profile 與 rendering look。 |
 | 舊資料相容 | `webapp/src/lib/engine.js` | 主要是 `CAMERA_FILM_LEGACY_OPTION_MAP`、`buildImagingSimulationOptions`、`normalizeLocks`。 |
 | 測試 | `webapp/src/lib/enginePhotographyImagingCleanup.test.js`、`engineGrokScenePriority.test.js`、`engineLightingCompatibility.test.js` | 依修改範圍更新。 |
 
-Markdown 資料同步流程：
+JSON 正式來源同步流程（先設定已審查的 `REGISTRY_BASE_COMMIT`）：
 
 ```bash
 python3 scripts/sync_to_json.py
@@ -326,14 +328,14 @@ high-acutance snapshot rendering, snap-focus clarity, contrasty black levels, cr
 PAGE1 的 `filmId` 控制現在承擔 `相機 / 底片`：
 
 - 相機 profile 來自 `CAMERA_SYSTEM_OPTIONS`。
-- 底片 / 成像 rendering 來自 Markdown 的 `底片與相機模擬 (Camera & Film Simulation)`。
+- 底片 / 成像 rendering 來自分類 JSON 的 `底片與相機模擬 (Camera & Film Simulation)`。
 - `buildImagingSimulationOptions` 會把兩者合併成同一個 UI 選項集。
 - `cameraSystemId` 是 hidden legacy control，保留給舊資料遷移。
 
 維護規則：
 
 - 新增相機 profile 時，直接更新 `CAMERA_SYSTEM_OPTIONS`，並補測試。
-- 新增底片 / 成像 rendering 時，更新 `knowledge_base/camera_and_lighting.md` 並跑 sync。
+- 新增底片 / 成像 rendering 時，更新 `knowledge_base/catalog/CameraLighting/` 並跑 sync。
 - 相機 profile 和 rendering look 可以一起存在，但 prompt 應可組合，不能互相覆蓋。
 - 如果改名、抽象化或合併 rendering look，必須更新 `CAMERA_FILM_LEGACY_OPTION_MAP`。
 - 舊 `cameraSystemId` lock 必須能遷移到新的 `filmId` selection。
@@ -344,8 +346,8 @@ D 區有多種 id 來源，改名時風險不同。
 
 | 類型 | id 來源 | 改名風險 |
 | --- | --- | --- |
-| 攝影師風格 | Markdown category + label + index | 改中文 label 可能影響舊 lock。 |
-| 構圖、視角、鏡頭、光學、底片 rendering | Markdown category + label + index | 改中文 label 或排序可能影響舊 lock。 |
+| 攝影師風格 | JSON 永久 id + id_registry | 改名仍須保留 id 與 legacyIds。 |
+| 構圖、視角、鏡頭、光學、底片 rendering | JSON 永久 id + id_registry | ID 不隨改名或列序重發；排序仍影響顯示與抽樣。 |
 | 相機 profile | `CAMERA_SYSTEM_OPTIONS.id` | id 手動指定，label 可改但 id 不應改。 |
 | 舊相機 `cameraSystemId` | hidden control | 必須繼續可遷移到 `filmId`。 |
 
@@ -362,7 +364,7 @@ D 區有多種 id 來源，改名時風險不同。
 新增攝影師風格：
 
 1. 確認它是 image language，不是相機、底片、場景或人物設定。
-2. 在 `knowledge_base/regional_portrait_styles.md` 新增 row。
+2. 在 `knowledge_base/catalog/Regional/` 新增 JSON 紀錄。
 3. 跑 `python3 scripts/sync_to_json.py`。
 4. 若需要特殊 style tags，更新 `inferStyleMeta`。
 5. 更新或新增攝影風格 prompt 測試。
@@ -370,7 +372,7 @@ D 區有多種 id 來源，改名時風險不同。
 新增構圖、視角或方位：
 
 1. 確認它是 camera geometry。
-2. 在 `knowledge_base/camera_and_lighting.md` 的對應 category 新增 row。
+2. 在 `knowledge_base/catalog/CameraLighting/` 的對應 category 新增 JSON 紀錄。
 3. 跑 `python3 scripts/sync_to_json.py`。
 4. 更新 `inferFramingMeta`、`inferAngleMeta` 或 `inferOrbitMeta`。
 5. 檢查 close-up mode、wardrobe compatibility、special action compatibility。
@@ -386,7 +388,7 @@ D 區有多種 id 來源，改名時風險不同。
 
 新增鏡頭或光學效果：
 
-1. 在 `knowledge_base/camera_and_lighting.md` 的 `鏡頭焦段` 或 `光學效果` 新增 row。
+1. 在 `knowledge_base/catalog/CameraLighting/` 的 `鏡頭焦段` 或 `光學效果` 新增 JSON 紀錄。
 2. 跑 `python3 scripts/sync_to_json.py`。
 3. 更新 `inferLensMeta` 或 `inferEffectMeta`。
 4. 若效果會影響構圖可讀性，例如前景遮擋，必須補測試。
@@ -394,7 +396,7 @@ D 區有多種 id 來源，改名時風險不同。
 新增底片 / 成像 rendering：
 
 1. 確認它是色彩、階調、顆粒或媒介質地，不是相機 profile。
-2. 在 `knowledge_base/camera_and_lighting.md` 的 `底片與相機模擬` 新增 row。
+2. 在 `knowledge_base/catalog/CameraLighting/` 的 `底片與相機模擬` 新增 JSON 紀錄。
 3. 跑 `python3 scripts/sync_to_json.py`。
 4. 更新 `inferFilmMeta`。
 5. 若改名或合併舊選項，補 `CAMERA_FILM_LEGACY_OPTION_MAP`。

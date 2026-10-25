@@ -16,7 +16,10 @@ The objective is to make future prompt changes safer and faster without changing
 
 ```mermaid
 flowchart LR
-    A[database.json] --> C[buildCatalog]
+    S[Catalog JSON + index + registry + manifests] --> V0[Schema and historical ID validation]
+    V0 --> A[database.json]
+    V0 --> MD[Six read-only Markdown overviews]
+    A --> C[buildCatalog]
     B[Custom library overlay] --> C
     C --> D[compileEngineRuntime]
     D --> E[Catalog, flat lookups, controls]
@@ -402,3 +405,7 @@ The current optimization deliberately leaves high-coupling behavior in `engine.j
 6. Re-run focused tests, the full frontend and Functions suites, lint, build, deterministic audit, and browser smoke tests.
 
 Avoid mixing a compatibility migration, output wording change, and performance refactor in the same commit. The seeded generator makes each of those changes easier to evaluate separately.
+
+## Catalog source cutover C（2026-10-25）
+
+正式來源、ID 保護與同步順序見 [catalog 操作流程](../../knowledge_base/catalog/README.md)。每筆 database 帶 stableId 與有序 legacyIds；兩者齊備時 buildEntries 直接採用，不再生成列序／環境光舊分類別名。缺少其中之一的舊 custom library／fixture 維持 fallback。infer*Meta、後處理 legacy 表、renderer、storage 均不搬移；D／E 未開始。

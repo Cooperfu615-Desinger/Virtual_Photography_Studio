@@ -1,0 +1,51 @@
+{
+  "section": "Wardrobe",
+  "category": "唇部穿孔 (Lip Piercings)",
+  "entries": [
+    {
+      "id": "wardrobe:唇部穿孔-lip-piercings:全無:0",
+      "legacyIds": [
+        "wardrobe:唇部穿孔-lip-piercings:全無:0"
+      ],
+      "zh": "全無",
+      "en": "no lip piercing",
+      "desc": "不加唇部穿孔飾品。"
+    },
+    {
+      "id": "wardrobe:唇部穿孔-lip-piercings:單側下唇細環:1",
+      "legacyIds": [
+        "wardrobe:唇部穿孔-lip-piercings:單側下唇細環:1"
+      ],
+      "zh": "單側下唇細環",
+      "en": "a small silver hoop piercing through one side of the lower lip",
+      "desc": "下唇任一側配戴一個小型銀色細環。"
+    },
+    {
+      "id": "wardrobe:唇部穿孔-lip-piercings:右側下唇雙珠開口環:2",
+      "legacyIds": [
+        "wardrobe:唇部穿孔-lip-piercings:右側下唇雙珠開口環:2"
+      ],
+      "zh": "右側下唇雙珠開口環",
+      "en": "a single small silver horseshoe-shaped lip ring on her right side of the lower lip, with two polished ball ends arranged vertically, one against the lower lip and the other just below its edge",
+      "desc": "人物自身右側下唇配戴單個小型銀色馬蹄形開口環，兩端金屬圓珠上下排列，一顆貼近下唇，另一顆位於唇緣下方。"
+    },
+    {
+      "id": "wardrobe:唇部穿孔-lip-piercings:下唇中央穿孔:3",
+      "legacyIds": [
+        "wardrobe:唇部穿孔-lip-piercings:下唇中央穿孔:3"
+      ],
+      "zh": "下唇中央穿孔",
+      "en": "a small silver stud piercing centered beneath the lower lip",
+      "desc": "下唇中央下方配戴小型銀色唇釘。"
+    },
+    {
+      "id": "wardrobe:唇部穿孔-lip-piercings:垂直唇釘:4",
+      "legacyIds": [
+        "wardrobe:唇部穿孔-lip-piercings:垂直唇釘:4"
+      ],
+      "zh": "垂直唇釘",
+      "en": "a slim vertical labret piercing through the center of the lower lip, with two small silver beads visible",
+      "desc": "下唇中央以垂直唇釘穿過，清楚呈現上下兩顆小型銀珠。"
+    }
+  ]
+}

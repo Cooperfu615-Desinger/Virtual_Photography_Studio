@@ -16,11 +16,11 @@ The app has five active workspaces that share the shell and parts of the style s
 
 1. Prompt 工作台 (`page1`)
 2. 角色建模 / Character Card Lab (`page2`)
-3. 動作姿勢 / Action Pose Lab (`actionPose`)
-4. 場景建模 / World Street Scene Builder (`page3`)
+3. 場景建模 / World Street Scene Builder (`page3`)
+4. DLL_PIC Pro (`dll`)
 5. Saved Cards (`page4`)
 
-SUNO is not an active workspace and is outside this validation set.
+Pose / Action Pose and Observation Capture are integrated Prompt modes, not separate navigation workspaces. Exercise them within Prompt when affected. SUNO is not active.
 
 ## Validation Depth
 
@@ -139,7 +139,7 @@ Run the scenarios affected by the change. For shell/global changes, run at least
 - When relevant, exercise hair, eyewear, wardrobe-layer choices, all six copy outputs, PAGE1 import, and the DLL PIC Pro prompt-source selector.
 - Desktop should preserve the intended five-card grid where the layout has room; mobile should collapse without document overflow.
 
-### 動作姿勢
+### Prompt 內動作姿勢整合模式
 
 - **Select a card and confirm the configuration and output panels reflect it.**
 - Exercise save/apply-to-PAGE1 behavior when affected.

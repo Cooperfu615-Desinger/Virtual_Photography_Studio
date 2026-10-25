@@ -1,0 +1,96 @@
+{
+  "section": "Wardrobe",
+  "category": "耳環 (Earrings)",
+  "entries": [
+    {
+      "id": "wardrobe:耳環-earrings:全無:0",
+      "legacyIds": [
+        "wardrobe:耳環-earrings:全無:0"
+      ],
+      "zh": "全無",
+      "en": "no earrings, clean ear styling",
+      "desc": "不加耳環，讓耳側與臉部輪廓保持乾淨。"
+    },
+    {
+      "id": "wardrobe:耳環-earrings:小型金屬耳環:1",
+      "legacyIds": [
+        "wardrobe:耳環-earrings:小型金屬耳環:1"
+      ],
+      "zh": "小型金屬耳環",
+      "en": "small metallic earring detail, subtle understated jewelry styling",
+      "desc": "最穩定的點綴型耳環，存在感更低，適合大多數風格。"
+    },
+    {
+      "id": "wardrobe:耳環-earrings:珍珠耳釘:2",
+      "legacyIds": [
+        "wardrobe:耳環-earrings:珍珠耳釘:2"
+      ],
+      "zh": "珍珠耳釘",
+      "en": "small pearl stud earring detail, soft understated pearl accent",
+      "desc": "以小巧珍珠與柔亮珠光為主，精緻典雅，但刻意降低搶戲程度。"
+    },
+    {
+      "id": "wardrobe:耳環-earrings:水滴寶石耳墜:3",
+      "legacyIds": [
+        "wardrobe:耳環-earrings:水滴寶石耳墜:3"
+      ],
+      "zh": "水滴寶石耳墜",
+      "en": "small teardrop gemstone earring detail, delicate understated sparkle",
+      "desc": "以水滴形寶石與小型垂墜結構為主，保留精緻感但不過度主導畫面。"
+    },
+    {
+      "id": "wardrobe:耳環-earrings:雕塑感金屬耳圈:4",
+      "legacyIds": [
+        "wardrobe:耳環-earrings:雕塑感金屬耳圈:4"
+      ],
+      "zh": "雕塑感金屬耳圈",
+      "en": "small sculptural hoop earring detail, subtle polished metal accent",
+      "desc": "以帶弧度的金屬輪廓為主，改成較低干擾的點綴型語氣。"
+    },
+    {
+      "id": "wardrobe:耳環-earrings:十字垂墜耳環:5",
+      "legacyIds": [
+        "wardrobe:耳環-earrings:十字垂墜耳環:5"
+      ],
+      "zh": "十字垂墜耳環",
+      "en": "small cross earring detail, subtle gothic-inspired accessory accent",
+      "desc": "保留哥德、地下與偏冷感，但控制在較低存在感的配件層級。"
+    },
+    {
+      "id": "wardrobe:耳環-earrings:中型光滑金屬圈耳環:6",
+      "legacyIds": [
+        "wardrobe:耳環-earrings:中型光滑金屬圈耳環:6"
+      ],
+      "zh": "中型光滑金屬圈耳環",
+      "en": "medium smooth hoop earrings, clean polished metal circular silhouette, versatile jewelry accent",
+      "desc": "以中型、光滑且輪廓清楚的金屬圈環為主，補足經典日常造型。"
+    },
+    {
+      "id": "wardrobe:耳環-earrings:長條幾何耳墜:7",
+      "legacyIds": [
+        "wardrobe:耳環-earrings:長條幾何耳墜:7"
+      ],
+      "zh": "長條幾何耳墜",
+      "en": "slim geometric drop earrings, elongated rectangular metal pendant shapes, clean modern jewelry accent",
+      "desc": "以細長矩形或幾何片狀垂墜為主，與水滴寶石造型區隔。"
+    },
+    {
+      "id": "wardrobe:耳環-earrings:耳骨夾:8",
+      "legacyIds": [
+        "wardrobe:耳環-earrings:耳骨夾:8"
+      ],
+      "zh": "耳骨夾",
+      "en": "minimal metal ear cuff, small curved cuff fitted along the outer ear cartilage, subtle jewelry accent",
+      "desc": "以貼合外耳耳骨的簡約金屬耳夾為主，不強調大型垂墜。"
+    },
+    {
+      "id": "wardrobe:耳環-earrings:細鏈條耳墜:9",
+      "legacyIds": [
+        "wardrobe:耳環-earrings:細鏈條耳墜:9"
+      ],
+      "zh": "細鏈條耳墜",
+      "en": "fine chain drop earrings, delicate metal chains hanging from the earlobes, understated movement",
+      "desc": "以細金屬鏈從耳垂自然垂下，增加輕微動態感但保持日常可搭配性。"
+    }
+  ]
+}

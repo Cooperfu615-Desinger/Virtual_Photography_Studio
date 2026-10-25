@@ -1,0 +1,69 @@
+{
+  "section": "CameraLighting",
+  "category": "快門 / 動態殘影 (Shutter & Motion Blur)",
+  "entries": [
+    {
+      "id": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+      "legacyIds": [
+        "camera:快門-動態殘影-shutter-motion-blur:全無:0"
+      ],
+      "zh": "全無",
+      "en": "none",
+      "desc": "不指定快門速度或動態殘影，讓模型依場景自行決定是否有 motion blur。"
+    },
+    {
+      "id": "camera:快門-動態殘影-shutter-motion-blur:1-1000s-凍結瞬間:1",
+      "legacyIds": [
+        "camera:快門-動態殘影-shutter-motion-blur:1-1000s-凍結瞬間:1"
+      ],
+      "zh": "1/1000s 凍結瞬間",
+      "en": "1/1000s fast-shutter look, frozen movement, crisp subject edges, no motion blur, clean action stillness",
+      "desc": "超高速快門語言，動作被定格，邊緣清楚，不帶可見殘影。"
+    },
+    {
+      "id": "camera:快門-動態殘影-shutter-motion-blur:1-250s-日常清晰:2",
+      "legacyIds": [
+        "camera:快門-動態殘影-shutter-motion-blur:1-250s-日常清晰:2"
+      ],
+      "zh": "1/250s 日常清晰",
+      "en": "1/250s handheld shutter look, mostly sharp subject, minimal natural motion blur, stable everyday photographic clarity",
+      "desc": "日常手持清晰快門，主體大多銳利，只保留極少自然動態模糊。"
+    },
+    {
+      "id": "camera:快門-動態殘影-shutter-motion-blur:1-60s-背景動態拖影:3",
+      "legacyIds": [
+        "camera:快門-動態殘影-shutter-motion-blur:1-60s-背景動態拖影:3"
+      ],
+      "zh": "1/60s 背景動態拖影",
+      "en": "1/60s slow-shutter background smear, sharp central subject, moving surroundings softly blurred, subtle ambient motion trails",
+      "desc": "慢一點的快門感，中央主體保持清楚，周圍移動物件或背景帶輕微拖影。"
+    },
+    {
+      "id": "camera:快門-動態殘影-shutter-motion-blur:1-30s-主體動態殘影:4",
+      "legacyIds": [
+        "camera:快門-動態殘影-shutter-motion-blur:1-30s-主體動態殘影:4"
+      ],
+      "zh": "1/30s 主體動態殘影",
+      "en": "1/30s slow-shutter portrait blur, subject movement creates visible face and body smear, expressive photographic motion trail",
+      "desc": "主體本身也可被慢門拖出殘影，適合甩頭、轉身、手部動作或實驗肖像。"
+    },
+    {
+      "id": "camera:快門-動態殘影-shutter-motion-blur:1-15s-全畫面慢門拖影:5",
+      "legacyIds": [
+        "camera:快門-動態殘影-shutter-motion-blur:1-15s-全畫面慢門拖影:5"
+      ],
+      "zh": "1/15s 全畫面慢門拖影",
+      "en": "1/15s slow-shutter drag, subject and surroundings both carry motion smear, dreamy unstable photographic blur, stretched light traces",
+      "desc": "全畫面慢門拖影，主體與環境都帶不穩定殘影，可形成迷幻或 MV 感。"
+    },
+    {
+      "id": "camera:快門-動態殘影-shutter-motion-blur:後簾同步閃光殘影:6",
+      "legacyIds": [
+        "camera:快門-動態殘影-shutter-motion-blur:後簾同步閃光殘影:6"
+      ],
+      "zh": "後簾同步閃光殘影",
+      "en": "rear-curtain flash look, flash-frozen subject edge with trailing motion blur, sharp strobe imprint over slow-shutter drag",
+      "desc": "後簾同步閃光語言，主體邊緣有閃光定格，同時保留慢門拖出的移動殘影。"
+    }
+  ]
+}

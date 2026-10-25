@@ -13,7 +13,7 @@
  *     6. 程式中硬寫的分類名稱 '中文 (English)' 是否存在於 database.json
  *     7. 內嵌對照表：MIDJOURNEY_ITEM_NAMES、MIDJOURNEY_BODY_DESCRIPTIONS、AMBIENT_LIGHT_DESCRIPTIONS、
  *        MIDJOURNEY_CARD_ITEM_NAMES 與目錄/角色卡的一致性
- *     8. manifest（wardrobe/character reference）與實體檔案、item_metadata 目標條目是否存在
+ *     8. manifest（wardrobe/character reference）與實體檔案、正式分類紀錄及產生物是否一致
  *     9. 程式內嵌目錄模組的條目數與行數盤點
  *
  * 用法（在 repo 根目錄或任何位置皆可）
@@ -155,6 +155,7 @@ if (slugLossLabels.length) possible('SLUG_DROPS_LETTERS', `${slugLossLabels.leng
 // ---------- 2. 編譯後 controls 與 ID 策略 ----------
 const engine = await importRepo('webapp', 'src', 'lib', 'engine.js');
 const controls = engine.getLockControls();
+const entryIds = new Set(Object.values(engine.getCompiledCatalogForTesting().entries).flatMap(cs => Object.values(cs).flat()).map(row => row.id));
 const compiledIds = new Map(); // id -> [{control, zh}]
 const legacyIdOwners = new Map(); // legacyId -> Set(`${control}|${optionId}`)
 const compiledZh = new Set();
@@ -529,7 +530,7 @@ report.sections.embeddedMaps = embeddedChecks;
       if (!fs.existsSync(P('webapp', 'public', 'reference', 'wardrobe', cat.directory, item.preview))) fileProblems.push(`preview missing: ${cat.directory}/${item.preview}`);
     }
   }
-  const itemMetadata = readJson(P('knowledge_base', 'item_metadata.json'));
+  const itemMetadata = Object.fromEntries(Object.entries(database).map(([section, cs]) => [section, Object.fromEntries(Object.entries(cs).map(([category, rows]) => [category, Object.fromEntries(rows.map(row => [row.zh, Object.fromEntries(Object.entries(row).filter(([key]) => !['zh', 'en', 'desc', 'meta'].includes(key)))]))]))]));
   const metaTargetsMissing = [];
   let metaTargets = 0;
   const metaFieldCounts = {};
@@ -543,13 +544,13 @@ report.sections.embeddedMaps = embeddedChecks;
         for (const key of Object.keys(meta)) metaFieldCounts[key] = (metaFieldCounts[key] || 0) + 1;
         for (const legacyId of meta.legacyIds || []) {
           if (legacyIdOwners.has(legacyId)) metaLegacyIdStatus.legacyOnlyOrSelf += 1;
-          else if (compiledIds.has(legacyId)) metaLegacyIdStatus.current += 1;
+          else if (compiledIds.has(legacyId) || entryIds.has(legacyId)) metaLegacyIdStatus.current += 1;
           else metaLegacyIdStatus.notCompiled.push(`${group}/${category}/${name}: ${legacyId}`);
         }
       }
     }
   }
-  const outfitMeta = readJson(P('knowledge_base', 'outfit_preset_metadata.json'));
+  const outfitMeta = Object.fromEntries(database.Wardrobe['套裝 (Outfit Presets)'].filter(row => row.meta).map(row => [row.zh, row.meta]));
   const outfitZh = zhByCategory.get('Wardrobe|套裝 (Outfit Presets)') || new Set();
   const outfitMissing = Object.keys(outfitMeta).filter((name) => !outfitZh.has(name));
   report.sections.manifests = {
@@ -560,7 +561,7 @@ report.sections.embeddedMaps = embeddedChecks;
   };
   if (fileProblems.length || dupIds.length) confirmed('WARDROBE_MANIFEST', '服裝參考圖 manifest 問題', [...fileProblems, ...dupIds]);
   if (metaTargetsMissing.length || outfitMissing.length) confirmed('METADATA_TARGET_MISSING', 'metadata 指向不存在的條目', [...metaTargetsMissing, ...outfitMissing]);
-  if (metaLegacyIdStatus.notCompiled.length) possible('META_LEGACY_ID_NOT_IN_CONTROLS', `${metaLegacyIdStatus.notCompiled.length} 個 item_metadata legacyIds 未出現在任何 control 的 legacyIds（可能該分類不屬 lock control，或已失效）`, metaLegacyIdStatus.notCompiled);
+  if (metaLegacyIdStatus.notCompiled.length) possible('META_LEGACY_ID_NOT_IN_CONTROLS', `${metaLegacyIdStatus.notCompiled.length} 個 catalog source legacyIds 未出現在任何 control 的 legacyIds（可能該分類不屬 lock control，或已失效）`, metaLegacyIdStatus.notCompiled);
 }
 
 // ---------- 6. 內嵌目錄盤點 ----------
@@ -612,7 +613,7 @@ for (const stmt of engineAst.body) {
 }
 engineTables.sort((a, b) => b.lines - a.lines);
 const engineLines = countLines(P('webapp', 'src', 'lib', 'engine.js'));
-// item_metadata 欄位白名單：buildEntries 實際讀取的 item.<key>；未被讀取的 key 會被靜默丟棄
+// 正式產生物欄位白名單：buildEntries 實際讀取的 item.<key>；未被讀取的 key 會被靜默丟棄
 const consumedItemKeys = new Set();
 walk(engineAst, (node) => {
   if (node.type !== 'FunctionDeclaration' || node.id?.name !== 'buildEntries') return;
@@ -621,12 +622,12 @@ walk(engineAst, (node) => {
   });
 });
 {
-  const itemMetadata = readJson(P('knowledge_base', 'item_metadata.json'));
+  const itemMetadata = Object.fromEntries(Object.entries(database).map(([section, cs]) => [section, Object.fromEntries(Object.entries(cs).map(([category, rows]) => [category, Object.fromEntries(rows.map(row => [row.zh, Object.fromEntries(Object.entries(row).filter(([key]) => !['zh', 'en', 'desc', 'meta'].includes(key)))]))]))]));
   const metaKeys = new Set();
   for (const categories of Object.values(itemMetadata)) for (const items of Object.values(categories)) for (const meta of Object.values(items)) Object.keys(meta).forEach((k) => metaKeys.add(k));
   const ignored = [...metaKeys].filter((k) => !consumedItemKeys.has(k));
   report.sections.itemMetadataWhitelist = { buildEntriesConsumedKeys: [...consumedItemKeys].sort(), itemMetadataKeys: [...metaKeys].sort(), ignoredKeys: ignored };
-  if (ignored.length) confirmed('META_KEY_IGNORED', `item_metadata.json 有 ${ignored.length} 種欄位不被 buildEntries 讀取（會被靜默丟棄）`, ignored);
+  if (ignored.length) confirmed('META_KEY_IGNORED', `JSON 目錄產生物有 ${ignored.length} 種欄位不被 buildEntries 讀取（會被靜默丟棄）`, ignored);
 }
 // 內嵌選項的 deprecated / uiHidden / legacyIds 負擔
 const deprecation = [];
@@ -701,7 +702,7 @@ if (wantJson) {
   lines.push(`內嵌目錄模組: ${inv.modules.length} 檔 / ${inv.modulesTotalLines} 行 / ${inv.modulesTotalEntries} 個匯出條目`);
   for (const m of inv.modules) lines.push(`  ${m.file}: ${m.lines} 行, ${JSON.stringify(m.exports)}`);
   for (const d of inv.deprecationBurden) lines.push(`  退役負擔 ${d.export}: ${d.total} 條, deprecated ${d.deprecated}, uiHidden ${d.uiHidden}, 帶 legacyIds ${d.withLegacyIds}`);
-  lines.push(`item_metadata 欄位白名單: ${report.sections.itemMetadataWhitelist.itemMetadataKeys.length} 種皆${report.sections.itemMetadataWhitelist.ignoredKeys.length ? '「未」' : ''}被 buildEntries 讀取（被忽略: ${report.sections.itemMetadataWhitelist.ignoredKeys.join(',') || '無'}）`);
+  lines.push(`目錄產生物欄位白名單: ${report.sections.itemMetadataWhitelist.itemMetadataKeys.length} 種皆${report.sections.itemMetadataWhitelist.ignoredKeys.length ? '「未」' : ''}被 buildEntries 讀取（被忽略: ${report.sections.itemMetadataWhitelist.ignoredKeys.join(',') || '無'}）`);
   lines.push(`engine.js: ${inv.engineJs.lines} 行, 頂層資料表 ${inv.engineJs.topLevelDataTables} 個 / ${inv.engineJs.topLevelDataTableLines} 行 (${inv.engineJs.dataTablePercentOfFile}%), 其中 legacy/migration 表 ${inv.engineJs.legacyOrMigrationTables} 個 / ${inv.engineJs.legacyOrMigrationTableLines} 行 / ${inv.engineJs.legacyOrMigrationTableEntries} 條`);
   lines.push(`Allowlist: ${report.allowlist.allowed.length} allowed; ${report.allowlist.blocking.length} blocking; ${report.allowlist.stale.length} stale`);
   lines.push(`\n確定問題 ${report.confirmedIssues.length}:`);

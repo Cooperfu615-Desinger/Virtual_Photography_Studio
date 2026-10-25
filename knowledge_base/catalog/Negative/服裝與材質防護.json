@@ -1,0 +1,15 @@
+{
+  "section": "Negative",
+  "category": "服裝與材質防護",
+  "entries": [
+    {
+      "id": "negative:服裝與材質防護:服裝穿模防護:0",
+      "legacyIds": [
+        "negative:服裝與材質防護:服裝穿模防護:0"
+      ],
+      "zh": "服裝穿模防護",
+      "en": "clothing clipping through skin, missing clothes, floating clothes, inconsistent fashion, merging fabrics",
+      "desc": "避免皮膚與衣物邊緣融合、衣服懸空，或是上衣跟下裝的材質不可理喻地縫合在一起。"
+    }
+  ]
+}
