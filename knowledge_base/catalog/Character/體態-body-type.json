@@ -13,7 +13,14 @@
       "legacyPromptAliases": [
         "tall slim fashion body, about 170-175 cm visual height, 80-58-88 body proportion anchor, long legs with about 3.5:6.5 torso-to-leg balance, shorter upper torso, high waistline, narrow ribcage, gently wider hips, clean editorial silhouette",
         "Tall fashion-model silhouette, long legs, high waistline"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "minVisibility": "full",
+          "tags": [],
+          "archetype": null
+        }
+      }
     },
     {
       "id": "character:體態-body-type:柔和沙漏身形:2",
@@ -29,7 +36,14 @@
         "Soft hourglass silhouette, fuller bust, wider hips",
         "natural basic body, about 160-165 cm visual height, 83-62-88 body proportion anchor, balanced torso-to-leg ratio around 4:6, low-contrast waist curve, modest bust and hips, smooth natural silhouette",
         "Natural balanced silhouette, gentle waist curve, natural bust and hips"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "minVisibility": "full",
+          "tags": [],
+          "archetype": null
+        }
+      }
     },
     {
       "id": "character:體態-body-type:性感曲線身形:3",
@@ -42,7 +56,14 @@
       "legacyPromptAliases": [
         "sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight, 94-58-92 body proportion anchor, long legs with about 3.8:6.2 torso-to-leg balance, full F-to-G-cup-scale bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve",
         "Curvy hourglass silhouette, fuller bust, defined waist, rounded hips"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "minVisibility": "full",
+          "tags": [],
+          "archetype": null
+        }
+      }
     },
     {
       "id": "character:體態-body-type:運動緊實身形:4",
@@ -55,7 +76,14 @@
       "legacyPromptAliases": [
         "fit toned athletic female body, healthy firm silhouette, subtle muscle definition, energetic balanced proportions",
         "Fit athletic silhouette, firm build, subtle muscle definition"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "minVisibility": "full",
+          "tags": [],
+          "archetype": null
+        }
+      }
     },
     {
       "id": "character:體態-body-type:小隻精緻身形:5",
@@ -68,7 +96,14 @@
       "legacyPromptAliases": [
         "petite polished female body, compact refined proportions, delicate idol-like silhouette, graceful small-frame presence",
         "Petite refined silhouette, compact frame, delicate proportions"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "minVisibility": "full",
+          "tags": [],
+          "archetype": null
+        }
+      }
     },
     {
       "id": "character:體態-body-type:全無:6",
@@ -77,7 +112,17 @@
       ],
       "zh": "全無",
       "en": "none",
-      "desc": "不指定體態，不輸出身形、身高或比例描述。"
+      "desc": "不指定體態，不輸出身形、身高或比例描述。",
+      "meta": {
+        "semantic": {
+          "minVisibility": "full",
+          "tags": [
+            "manual_only",
+            "optional_silence"
+          ],
+          "archetype": null
+        }
+      }
     },
     {
       "id": "character:體態-body-type:豐胸纖腰沙漏身形:7",
@@ -89,7 +134,14 @@
       "desc": "I–K Cup，手臂、腰部與小腿纖細，寬臀與較豐滿的大腿上段，比例平衡、沙漏曲線明顯；合身衣料被曲線撐緊，緊貼邊緣帶柔和溢肉感。身高 163–168 cm，三圍 103–60–98 cm。",
       "legacyPromptAliases": [
         "I-cup bust, slender arms, narrow waist, wider hips, fuller upper thighs, slim calves, defined hourglass silhouette"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "minVisibility": "full",
+          "tags": [],
+          "archetype": null
+        }
+      }
     }
   ]
 }

@@ -9,7 +9,15 @@
       ],
       "zh": "全無",
       "en": "no explicit shoe styling, footwear unspecified",
-      "desc": "不特別指定鞋款，讓畫面避免額外鞋部細節。"
+      "desc": "不特別指定鞋款，讓畫面避免額外鞋部細節。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "no_accessory"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:赤腳:1",
@@ -18,7 +26,13 @@
       ],
       "zh": "赤腳",
       "en": "bare feet, natural barefoot state",
-      "desc": "明確要求不穿鞋，保留自然腳部狀態；腳趾是否可見交由構圖決定。"
+      "desc": "明確要求不穿鞋，保留自然腳部狀態；腳趾是否可見交由構圖決定。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:低筒球鞋:2",
@@ -27,7 +41,15 @@
       ],
       "zh": "低筒球鞋",
       "en": "low-top sneakers, clean everyday casual shoe shape",
-      "desc": "以低筒鞋口、簡潔鞋面與日常球鞋輪廓為主。"
+      "desc": "以低筒鞋口、簡潔鞋面與日常球鞋輪廓為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "casual"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:adizero-evo-sl-js4506:3",
@@ -36,7 +58,13 @@
       ],
       "zh": "ADIZERO EVO SL JS4506",
       "en": "adidas adizero evo sl js4506 running shoes, sleek speed-runner shape, contrast three-stripe side mark, lightweight athletic outsole",
-      "desc": "以速度型跑鞋輪廓、俐落鞋身、側邊三線標記與輕量運動鞋底為主。"
+      "desc": "以速度型跑鞋輪廓、俐落鞋身、側邊三線標記與輕量運動鞋底為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:samba-og:4",
@@ -45,7 +73,15 @@
       ],
       "zh": "Samba OG",
       "en": "adidas samba og sneakers, gum sole, three-stripe side detail, terrace football styling",
-      "desc": "以薄底復古球鞋、膠底、側邊三線與足球訓練鞋輪廓為主。"
+      "desc": "以薄底復古球鞋、膠底、側邊三線與足球訓練鞋輪廓為主。",
+      "meta": {
+        "semantic": {
+          "family": "retro",
+          "tags": [
+            "casual"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:dr-martens-1461-bex:5",
@@ -54,7 +90,16 @@
       ],
       "zh": "Dr. Martens 1461 Bex",
       "en": "dr martens 1461 bex shoes, three-eye lace-up front, chunky bex platform sole, yellow welt stitching",
-      "desc": "以三孔綁帶、Bex 厚底、黃線縫邊與低筒皮鞋輪廓為主。"
+      "desc": "以三孔綁帶、Bex 厚底、黃線縫邊與低筒皮鞋輪廓為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "romantic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:dr-martens-1461-lace-up-shoes:6",
@@ -63,7 +108,16 @@
       ],
       "zh": "Dr. Martens 1461 Lace Up Shoes",
       "en": "dr martens 1461 lace up shoes, three-eye lace-up front, yellow welt stitching, classic smooth leather oxford shape",
-      "desc": "以三孔綁帶、黃線縫邊與經典低筒 smooth leather Oxford 鞋型為主。"
+      "desc": "以三孔綁帶、黃線縫邊與經典低筒 smooth leather Oxford 鞋型為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "romantic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:dr-martens-1460-round-toe-lace-up-boots:7",
@@ -72,7 +126,16 @@
       ],
       "zh": "Dr. Martens 1460 Round Toe Lace-Up Boots",
       "en": "dr martens 1460 round toe lace-up boots, eight-eye ankle boot shape, yellow welt stitching, heel pull-tab accent",
-      "desc": "以八孔短靴、圓頭鞋楦、黃線縫邊與後跟拉環為主。"
+      "desc": "以八孔短靴、圓頭鞋楦、黃線縫邊與後跟拉環為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "romantic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:dr-martens-jadon-max-platform-boots:8",
@@ -81,7 +144,16 @@
       ],
       "zh": "Dr. Martens Jadon Max Platform Boots",
       "en": "dr martens jadon max platform boots, extra-thick platform sole, eight-eye lace-up front, yellow welt stitching",
-      "desc": "以超厚防水台鞋底、八孔綁帶與厚重短靴輪廓為主。"
+      "desc": "以超厚防水台鞋底、八孔綁帶與厚重短靴輪廓為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "romantic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:dr-martens-1b99-mid-calf-lace-up-boots:9",
@@ -90,7 +162,17 @@
       ],
       "zh": "Dr. Martens 1B99 Mid Calf Lace-Up Boots",
       "en": "dr martens 1b99 mid calf lace-up boots, tall slim lace-up shaft, yellow welt stitching, gothic punk boot shape",
-      "desc": "以中筒高度、修長綁帶筒身、黃線縫邊與窄長靴型為主。"
+      "desc": "以中筒高度、修長綁帶筒身、黃線縫邊與窄長靴型為主。",
+      "meta": {
+        "semantic": {
+          "family": "punk",
+          "tags": [
+            "ornate",
+            "romantic",
+            "edgy"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:慢跑鞋:10",
@@ -99,7 +181,13 @@
       ],
       "zh": "慢跑鞋",
       "en": "running shoes, lightweight athletic shoe shape",
-      "desc": "以輕量運動鞋身、彈性鞋底與基礎跑鞋輪廓為主。"
+      "desc": "以輕量運動鞋身、彈性鞋底與基礎跑鞋輪廓為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:nike-p-6000:11",
@@ -108,7 +196,15 @@
       ],
       "zh": "Nike P-6000",
       "en": "nike p-6000 running shoes, layered mesh panels, metallic-like overlay accents, early-2000s runner styling",
-      "desc": "以多層網布鞋面、金屬感覆片、厚實跑鞋底與復古跑鞋線條為主。"
+      "desc": "以多層網布鞋面、金屬感覆片、厚實跑鞋底與復古跑鞋線條為主。",
+      "meta": {
+        "semantic": {
+          "family": "retro",
+          "tags": [
+            "futuristic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:onitsuka-tiger-mexico-66:12",
@@ -117,7 +213,15 @@
       ],
       "zh": "Onitsuka Tiger Mexico 66",
       "en": "onitsuka tiger mexico 66 sneakers, low-profile slim upper, signature side stripe accents, vintage track-shoe styling",
-      "desc": "以低扁鞋身、修長鞋面、側邊條紋與復古田徑鞋輪廓為主。"
+      "desc": "以低扁鞋身、修長鞋面、側邊條紋與復古田徑鞋輪廓為主。",
+      "meta": {
+        "semantic": {
+          "family": "retro",
+          "tags": [
+            "casual"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:瑪莉珍鞋:13",
@@ -126,7 +230,15 @@
       ],
       "zh": "瑪莉珍鞋",
       "en": "mary jane shoes, classic instep strap, rounded feminine shoe shape",
-      "desc": "以腳背扣帶、圓潤鞋頭與經典 Mary Jane 鞋型為主。"
+      "desc": "以腳背扣帶、圓潤鞋頭與經典 Mary Jane 鞋型為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "uniform"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:厚底瑪莉珍鞋:14",
@@ -135,7 +247,15 @@
       ],
       "zh": "厚底瑪莉珍鞋",
       "en": "platform mary jane shoes, chunky sole, classic instep strap",
-      "desc": "以 Mary Jane 扣帶結構、厚底鞋底與較重的鞋型份量為主。"
+      "desc": "以 Mary Jane 扣帶結構、厚底鞋底與較重的鞋型份量為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "uniform"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:樂福鞋:15",
@@ -144,7 +264,15 @@
       ],
       "zh": "樂福鞋",
       "en": "classic loafers, polished leather slip-on shape",
-      "desc": "以無鞋帶套入式鞋口、拋光皮革與簡潔樂福鞋輪廓為主。"
+      "desc": "以無鞋帶套入式鞋口、拋光皮革與簡潔樂福鞋輪廓為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "elegant"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:厚底樂福鞋:16",
@@ -153,7 +281,15 @@
       ],
       "zh": "厚底樂福鞋",
       "en": "platform loafers, chunky sole, polished leather slip-on shape",
-      "desc": "以樂福鞋套入式結構、厚底鞋底與拋光皮革表面為主。"
+      "desc": "以樂福鞋套入式結構、厚底鞋底與拋光皮革表面為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "elegant"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:芭蕾平底鞋:17",
@@ -162,7 +298,13 @@
       ],
       "zh": "芭蕾平底鞋",
       "en": "ballet flats, delicate flat shoe shape, soft rounded vamp",
-      "desc": "以低平鞋底、柔和鞋面開口與圓潤前襟為主。"
+      "desc": "以低平鞋底、柔和鞋面開口與圓潤前襟為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:高跟鞋:18",
@@ -171,7 +313,15 @@
       ],
       "zh": "高跟鞋",
       "en": "glossy pointed-toe stiletto pumps, slender high heel, sleek sharp silhouette",
-      "desc": "以亮面材質、尖頭鞋楦、細跟與俐落淺口高跟輪廓為主；主色由鞋款配色控制。"
+      "desc": "以亮面材質、尖頭鞋楦、細跟與俐落淺口高跟輪廓為主；主色由鞋款配色控制。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "revealing"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:經典淺口高跟鞋:19",
@@ -180,7 +330,13 @@
       ],
       "zh": "經典淺口高跟鞋",
       "en": "classic pumps, shallow-cut upper, clean pointed or almond toe, polished heel shape",
-      "desc": "以淺口鞋面、尖頭或杏仁頭鞋楦與乾淨高跟鞋型為主。"
+      "desc": "以淺口鞋面、尖頭或杏仁頭鞋楦與乾淨高跟鞋型為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:尖頭細跟高跟鞋:20",
@@ -189,7 +345,13 @@
       ],
       "zh": "尖頭細跟高跟鞋",
       "en": "pointed-toe stiletto heels, slender high heel, sharp feminine shoe shape",
-      "desc": "以尖頭鞋楦、細長高跟與銳利修長的高跟鞋輪廓為主。"
+      "desc": "以尖頭鞋楦、細長高跟與銳利修長的高跟鞋輪廓為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:貓跟高跟鞋:21",
@@ -198,7 +360,13 @@
       ],
       "zh": "貓跟高跟鞋",
       "en": "kitten heels, low delicate heel, refined feminine shoe shape",
-      "desc": "以低細跟、輕巧鞋身與精緻女性化鞋型為主。"
+      "desc": "以低細跟、輕巧鞋身與精緻女性化鞋型為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:細帶高跟涼鞋:22",
@@ -207,7 +375,15 @@
       ],
       "zh": "細帶高跟涼鞋",
       "en": "strappy heeled sandals, delicate narrow straps, slim heel",
-      "desc": "以細窄鞋帶、露趾涼鞋結構與纖細高跟為主。"
+      "desc": "以細窄鞋帶、露趾涼鞋結構與纖細高跟為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "elegant"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:綁帶高跟涼鞋:23",
@@ -216,7 +392,16 @@
       ],
       "zh": "綁帶高跟涼鞋",
       "en": "lace-up heeled sandals, wraparound ankle straps, slim heel",
-      "desc": "以繞踝綁帶、細高跟與露趾涼鞋結構為主。"
+      "desc": "以繞踝綁帶、細高跟與露趾涼鞋結構為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "romantic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:防水台高跟鞋:24",
@@ -225,7 +410,13 @@
       ],
       "zh": "防水台高跟鞋",
       "en": "platform high heels, elevated front sole, bold high-heel shape",
-      "desc": "以加高前掌防水台、厚實鞋底與高跟鞋輪廓為主。"
+      "desc": "以加高前掌防水台、厚實鞋底與高跟鞋輪廓為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:合身過膝長靴:25",
@@ -234,7 +425,13 @@
       ],
       "zh": "合身過膝長靴",
       "en": "fitted over-the-knee boots, sleek leg-hugging shaft",
-      "desc": "以過膝高度、貼腿靴筒與順直長靴線條為主。"
+      "desc": "以過膝高度、貼腿靴筒與順直長靴線條為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:尖頭短靴:26",
@@ -243,7 +440,13 @@
       ],
       "zh": "尖頭短靴",
       "en": "pointed ankle boots, sharp toe, sleek ankle-height shape",
-      "desc": "以尖頭鞋楦、踝高靴筒與俐落短靴輪廓為主。"
+      "desc": "以尖頭鞋楦、踝高靴筒與俐落短靴輪廓為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:漆皮過膝長靴:27",
@@ -252,7 +455,15 @@
       ],
       "zh": "漆皮過膝長靴",
       "en": "patent leather thigh-high boots, glossy leg-hugging shaft",
-      "desc": "以亮面漆皮、過膝到大腿高度與貼腿靴筒為主。"
+      "desc": "以亮面漆皮、過膝到大腿高度與貼腿靴筒為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "revealing"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:戰鬥靴:28",
@@ -261,7 +472,18 @@
       ],
       "zh": "戰鬥靴",
       "en": "combat boots, chunky lace-up shaft, rugged sole, utility punk silhouette",
-      "desc": "以粗綁帶靴筒、厚實耐磨鞋底與機能龐克輪廓為主。"
+      "desc": "以粗綁帶靴筒、厚實耐磨鞋底與機能龐克輪廓為主。",
+      "meta": {
+        "semantic": {
+          "family": "techwear",
+          "tags": [
+            "utilitarian",
+            "ornate",
+            "romantic",
+            "edgy"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:西部靴:29",
@@ -270,7 +492,13 @@
       ],
       "zh": "西部靴",
       "en": "western boots, pointed or almond toe, stacked heel, western shaft detailing",
-      "desc": "以尖頭或杏仁頭、粗跟與西部靴筒裝飾為主。"
+      "desc": "以尖頭或杏仁頭、粗跟與西部靴筒裝飾為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:騎士靴:30",
@@ -279,7 +507,15 @@
       ],
       "zh": "騎士靴",
       "en": "knee-high biker boots, structured shaft, multiple buckle straps, flat or low heel",
-      "desc": "以膝高硬挺靴筒、多重扣帶與低跟或平底為主。"
+      "desc": "以膝高硬挺靴筒、多重扣帶與低跟或平底為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "edgy"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:帆布鞋:31",
@@ -288,7 +524,15 @@
       ],
       "zh": "帆布鞋",
       "en": "canvas sneakers, low-top casual shape, woven canvas upper, rubber toe cap",
-      "desc": "以低筒休閒鞋型、帆布鞋面與橡膠鞋頭為主。"
+      "desc": "以低筒休閒鞋型、帆布鞋面與橡膠鞋頭為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "casual"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:尖頭平底鞋:32",
@@ -297,7 +541,13 @@
       ],
       "zh": "尖頭平底鞋",
       "en": "pointed flats, sleek pointed toe, low flat sole, polished feminine shape",
-      "desc": "以尖頭鞋楦、低平鞋底與俐落女性化鞋型為主。"
+      "desc": "以尖頭鞋楦、低平鞋底與俐落女性化鞋型為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:分趾鞋:33",
@@ -306,7 +556,13 @@
       ],
       "zh": "分趾鞋",
       "en": "tabi shoes, split-toe front, low-profile Japanese-inspired shape",
-      "desc": "以分趾鞋頭、低輪廓鞋身與日系鞋型為主。"
+      "desc": "以分趾鞋頭、低輪廓鞋身與日系鞋型為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:厚底拖鞋:34",
@@ -315,7 +571,13 @@
       ],
       "zh": "厚底拖鞋",
       "en": "platform slide sandals, open slip-on upper, elevated chunky sole",
-      "desc": "以開口套入式鞋面與加厚粗底為主。"
+      "desc": "以開口套入式鞋面與加厚粗底為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:鞋款-shoes:厚底楔形涼鞋:35",
@@ -324,7 +586,13 @@
       ],
       "zh": "厚底楔形涼鞋",
       "en": "platform wedge sandals, open-toe straps, elevated wedge sole",
-      "desc": "以露趾鞋帶、加高楔形鞋底與夏日涼鞋輪廓為主。"
+      "desc": "以露趾鞋帶、加高楔形鞋底與夏日涼鞋輪廓為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     }
   ]
 }

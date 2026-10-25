@@ -3347,10 +3347,16 @@ function buildEntries(groupName, groupedData, inferMeta, captureInference = fals
         ])),
       };
 
-      const inferredMeta = inferMeta(category, normalized);
-      const sourceMeta = item.meta && typeof item.meta === 'object' && !Array.isArray(item.meta)
+      const rawSourceMeta = item.meta && typeof item.meta === 'object' && !Array.isArray(item.meta)
         ? item.meta
         : {};
+      const { semantic, ...sourceMeta } = rawSourceMeta;
+      const hasSemantic = Object.hasOwn(rawSourceMeta, 'semantic');
+      if (hasSemantic && (!semantic || typeof semantic !== 'object' || Array.isArray(semantic))) {
+        throw new TypeError(`Invalid catalog semantic object: ${normalized.id}`);
+      }
+      // Formal sources own semantics; legacy/custom libraries retain text inference.
+      const inferredMeta = hasSemantic ? semantic : inferMeta(category, normalized);
       const sourceTags = Array.isArray(sourceMeta.tags) ? sourceMeta.tags : [];
       const inferredTags = Array.isArray(inferredMeta.tags) ? inferredMeta.tags : [];
       const subjectLight = groupName === 'camera' && category === LIGHT_STYLE_CATEGORY

@@ -9,7 +9,12 @@
       ],
       "zh": "全無",
       "en": "none",
-      "desc": "不指定鏡頭焦段，讓模型自行決定視角、透視與空間壓縮感。"
+      "desc": "不指定鏡頭焦段，讓模型自行決定視角、透視與空間壓縮感。",
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
+      }
     },
     {
       "id": "camera:鏡頭焦段-focal-length:20mm-超廣角:1",
@@ -18,7 +23,14 @@
       ],
       "zh": "20mm 超廣角",
       "en": "shot on 20mm ultra-wide-angle lens, very wide field of view, strong perspective expansion, close foreground enlargement, visible edge stretching, deep subject-to-background spatial inclusion",
-      "desc": "極廣視角與明顯透視延展，近距離物體會被放大，畫面邊緣更容易拉伸，能讓人物與背景保持強烈空間關係。"
+      "desc": "極廣視角與明顯透視延展，近距離物體會被放大，畫面邊緣更容易拉伸，能讓人物與背景保持強烈空間關係。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "wide_lens"
+          ]
+        }
+      }
     },
     {
       "id": "camera:鏡頭焦段-focal-length:24mm-廣角:2",
@@ -27,7 +39,14 @@
       ],
       "zh": "24mm 廣角",
       "en": "shot on 24mm wide-angle lens, broad field of view, clear spatial context, moderate perspective stretch, close camera-to-subject distance, readable foreground-to-background depth",
-      "desc": "廣角視野保留大量周圍空間，透視延展比 20mm 溫和，但仍會強化前景到背景的距離感。"
+      "desc": "廣角視野保留大量周圍空間，透視延展比 20mm 溫和，但仍會強化前景到背景的距離感。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "wide_lens"
+          ]
+        }
+      }
     },
     {
       "id": "camera:鏡頭焦段-focal-length:28mm-廣角:3",
@@ -36,7 +55,14 @@
       ],
       "zh": "28mm 廣角",
       "en": "shot on 28mm wide-angle lens, natural wide perspective, mild perspective expansion, balanced subject and environment visibility, moderate working distance, controlled edge distortion",
-      "desc": "比 24mm 更接近自然廣角，仍保留空間參與感，但邊緣變形較易控制，人物比例較穩定。"
+      "desc": "比 24mm 更接近自然廣角，仍保留空間參與感，但邊緣變形較易控制，人物比例較穩定。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "wide_lens"
+          ]
+        }
+      }
     },
     {
       "id": "camera:鏡頭焦段-focal-length:35mm-廣角-人文視角:4",
@@ -45,7 +71,14 @@
       ],
       "zh": "35mm 廣角 (人文視角)",
       "en": "shot on 35mm lens, slightly wide natural perspective, human-scale field of view, low geometric distortion, balanced subject-to-background relationship, realistic spatial depth",
-      "desc": "介於廣角與標準鏡之間，保留背景資訊但不過度變形，人物與環境的比例關係自然。"
+      "desc": "介於廣角與標準鏡之間，保留背景資訊但不過度變形，人物與環境的比例關係自然。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "wide_lens"
+          ]
+        }
+      }
     },
     {
       "id": "camera:鏡頭焦段-focal-length:50mm-標準鏡頭-standard:5",
@@ -54,7 +87,15 @@
       ],
       "zh": "50mm 標準鏡頭 (Standard)",
       "en": "shot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression",
-      "desc": "標準視角與自然比例，幾何變形少，人物與背景的距離感維持中性，不特別誇張也不過度壓縮。"
+      "desc": "標準視角與自然比例，幾何變形少，人物與背景的距離感維持中性，不特別誇張也不過度壓縮。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "standard_lens",
+            "telephoto_lens"
+          ]
+        }
+      }
     },
     {
       "id": "camera:鏡頭焦段-focal-length:85mm-中長焦-人像鏡皇:6",
@@ -63,7 +104,14 @@
       ],
       "zh": "85mm 中長焦 (人像鏡皇)",
       "en": "shot on 85mm short telephoto portrait lens, compressed facial perspective, flattering subject proportions, smooth background separation, reduced spatial depth, narrow field of view",
-      "desc": "中長焦會壓縮臉部與身體透視，背景參與度降低，主體與背景分離更明顯，視角較窄。"
+      "desc": "中長焦會壓縮臉部與身體透視，背景參與度降低，主體與背景分離更明顯，視角較窄。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "telephoto_lens"
+          ]
+        }
+      }
     },
     {
       "id": "camera:鏡頭焦段-focal-length:105mm-中長焦:7",
@@ -72,7 +120,14 @@
       ],
       "zh": "105mm 中長焦",
       "en": "shot on 105mm medium telephoto lens, stronger perspective compression, narrowed field of view, increased subject-background separation, flattened spatial layers, controlled facial proportion rendering",
-      "desc": "比 85mm 更壓縮空間層次，視角更窄，人物與背景分離更強，臉部比例更受長焦壓縮影響。"
+      "desc": "比 85mm 更壓縮空間層次，視角更窄，人物與背景分離更強，臉部比例更受長焦壓縮影響。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "telephoto_lens"
+          ]
+        }
+      }
     },
     {
       "id": "camera:鏡頭焦段-focal-length:135mm-長焦壓縮:8",
@@ -81,7 +136,15 @@
       ],
       "zh": "135mm 長焦壓縮",
       "en": "shot on 135mm long telephoto lens, strong background compression, narrow field of view, flattened spatial layers, pronounced subject isolation, distant working distance",
-      "desc": "長焦會大幅壓縮遠近距離，讓背景看起來被拉近且扁平化，主體隔離感最強，拍攝距離通常較遠。"
+      "desc": "長焦會大幅壓縮遠近距離，讓背景看起來被拉近且扁平化，主體隔離感最強，拍攝距離通常較遠。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "wide_lens",
+            "telephoto_lens"
+          ]
+        }
+      }
     },
     {
       "id": "camera:鏡頭焦段-focal-length:微距鏡頭-macro:9",
@@ -90,7 +153,14 @@
       ],
       "zh": "微距鏡頭 Macro",
       "en": "shot on macro lens, close focusing distance, high magnification, razor-thin focus plane, enlarged small surface details, shallow close-range depth",
-      "desc": "微距鏡頭強調近距離對焦與放大率，能把小範圍表面細節放大；近拍時焦平面很薄，景深快速衰減。"
+      "desc": "微距鏡頭強調近距離對焦與放大率，能把小範圍表面細節放大；近拍時焦平面很薄，景深快速衰減。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "macro_lens"
+          ]
+        }
+      }
     },
     {
       "id": "camera:鏡頭焦段-focal-length:魚眼鏡頭-fisheye:10",
@@ -99,7 +169,14 @@
       ],
       "zh": "魚眼鏡頭 Fisheye",
       "en": "shot on fisheye lens, extreme hemispherical field of view, barrel distortion, curved straight lines near frame edges, exaggerated spatial wraparound, expanded peripheral visibility",
-      "desc": "魚眼鏡頭具有半球形超廣視野與明顯桶狀變形，直線靠近邊緣會彎曲，空間有包覆感。"
+      "desc": "魚眼鏡頭具有半球形超廣視野與明顯桶狀變形，直線靠近邊緣會彎曲，空間有包覆感。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "fisheye_lens"
+          ]
+        }
+      }
     },
     {
       "id": "camera:鏡頭焦段-focal-length:移軸鏡頭-tilt-shift:11",
@@ -108,7 +185,15 @@
       ],
       "zh": "移軸鏡頭 Tilt-Shift",
       "en": "shot on tilt-shift lens, shifted perspective control, tilted focus plane, selective plane-of-focus effect, corrected vertical lines, controlled miniature-like depth compression",
-      "desc": "移軸鏡頭可控制透視與焦平面，能修正垂直線或讓焦點沿特定平面延伸，也可能造成局部模型化的景深壓縮。"
+      "desc": "移軸鏡頭可控制透視與焦平面，能修正垂直線或讓焦點沿特定平面延伸，也可能造成局部模型化的景深壓縮。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "telephoto_lens",
+            "tilt_shift_lens"
+          ]
+        }
+      }
     },
     {
       "id": "camera:鏡頭焦段-focal-length:變形寬銀幕鏡頭-anamorphic:12",
@@ -117,7 +202,14 @@
       ],
       "zh": "變形寬銀幕鏡頭 Anamorphic",
       "en": "shot on anamorphic lens, horizontally squeezed widescreen optics, oval bokeh rendering, horizontal flare behavior, widened field of view, edge character",
-      "desc": "變形鏡頭以水平壓縮成像與寬銀幕視野為核心，常帶橢圓散景、水平 flare 與邊緣光學個性。"
+      "desc": "變形鏡頭以水平壓縮成像與寬銀幕視野為核心，常帶橢圓散景、水平 flare 與邊緣光學個性。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "anamorphic_lens"
+          ]
+        }
+      }
     }
   ]
 }

@@ -9,7 +9,13 @@
       ],
       "zh": "全無",
       "en": "none",
-      "desc": "不指定景別構圖，讓模型自行決定畫面距離與主體範圍。"
+      "desc": "不指定景別構圖，讓模型自行決定畫面距離與主體範圍。",
+      "meta": {
+        "semantic": {
+          "visibility": "medium",
+          "tags": []
+        }
+      }
     },
     {
       "id": "camera:景別構圖-framing:半臉傾斜特寫:1",
@@ -18,7 +24,17 @@
       ],
       "zh": "半臉傾斜特寫",
       "en": "asymmetrical half-face close-up, off-center crop, slight tilted frame",
-      "desc": "只保留左半臉或右半臉，並帶明顯荷蘭角與偏移裁切，重點是刻意不完整的近距離臉部構圖。"
+      "desc": "只保留左半臉或右半臉，並帶明顯荷蘭角與偏移裁切，重點是刻意不完整的近距離臉部構圖。",
+      "meta": {
+        "semantic": {
+          "visibility": "close",
+          "tags": [
+            "face_detail",
+            "partial_face",
+            "dutch_bias"
+          ]
+        }
+      }
     },
     {
       "id": "camera:景別構圖-framing:局部五官特寫:2",
@@ -27,7 +43,16 @@
       ],
       "zh": "局部五官特寫",
       "en": "tight facial-detail close-up, cropped eyes and upper face, partial-feature framing",
-      "desc": "只保留局部五官，像是雙眼與眼鏡、眼睛與鼻子、鼻子與嘴巴等極近距離片段，強調壓迫感、細節與刻意裁切的臉部構圖。"
+      "desc": "只保留局部五官，像是雙眼與眼鏡、眼睛與鼻子、鼻子與嘴巴等極近距離片段，強調壓迫感、細節與刻意裁切的臉部構圖。",
+      "meta": {
+        "semantic": {
+          "visibility": "close",
+          "tags": [
+            "face_detail",
+            "partial_face"
+          ]
+        }
+      }
     },
     {
       "id": "camera:景別構圖-framing:臉部特寫:3",
@@ -36,7 +61,16 @@
       ],
       "zh": "臉部特寫",
       "en": "tight facial close-up, face dominant in frame, minimal headroom",
-      "desc": "整張臉幾乎塞滿畫面，額頭、下巴與左右臉只留極少空隙，適合五官辨識、妝容、神情與臉部存在感最強的拍法。"
+      "desc": "整張臉幾乎塞滿畫面，額頭、下巴與左右臉只留極少空隙，適合五官辨識、妝容、神情與臉部存在感最強的拍法。",
+      "meta": {
+        "semantic": {
+          "visibility": "close",
+          "tags": [
+            "face_detail",
+            "full_face_tight"
+          ]
+        }
+      }
     },
     {
       "id": "camera:景別構圖-framing:特寫鏡頭-close-up:4",
@@ -45,7 +79,16 @@
       ],
       "zh": "特寫鏡頭 (Close-Up)",
       "en": "head and shoulders close-up, tight portrait crop",
-      "desc": "構圖包含頭部至肩膀，適合展現人物神情與精緻妝容，為經典近距離構圖。"
+      "desc": "構圖包含頭部至肩膀，適合展現人物神情與精緻妝容，為經典近距離構圖。",
+      "meta": {
+        "semantic": {
+          "visibility": "portrait",
+          "tags": [
+            "eye_contact_ok",
+            "face_detail"
+          ]
+        }
+      }
     },
     {
       "id": "camera:景別構圖-framing:胸上特寫:5",
@@ -54,7 +97,17 @@
       ],
       "zh": "胸上特寫",
       "en": "tight bust-up portrait, chest-up framing, shoulders and torso visible",
-      "desc": "構圖從胸口以上，保留臉部、肩頸與部分上身資訊，適合兼顧表情、髮型、頸部配件與少量穿搭。"
+      "desc": "構圖從胸口以上，保留臉部、肩頸與部分上身資訊，適合兼顧表情、髮型、頸部配件與少量穿搭。",
+      "meta": {
+        "semantic": {
+          "visibility": "portrait",
+          "tags": [
+            "eye_contact_ok",
+            "face_detail",
+            "upper_body_focus"
+          ]
+        }
+      }
     },
     {
       "id": "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
@@ -63,7 +116,15 @@
       ],
       "zh": "中景鏡頭 (Medium Shot)",
       "en": "medium shot, waist up framing, moderate background presence",
-      "desc": "構圖從腰部以上，人物與背景取得平衡，適合展現半身穿搭與周圍環境的互動。"
+      "desc": "構圖從腰部以上，人物與背景取得平衡，適合展現半身穿搭與周圍環境的互動。",
+      "meta": {
+        "semantic": {
+          "visibility": "medium",
+          "tags": [
+            "eye_contact_ok"
+          ]
+        }
+      }
     },
     {
       "id": "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
@@ -72,7 +133,15 @@
       ],
       "zh": "牛仔中景 (Cowboy Shot)",
       "en": "cowboy shot, knee up figure framing, readable outfit proportions",
-      "desc": "從膝蓋上方截斷，保留上身、腰腿比例與大部分穿搭資訊，介於中景與全身之間。"
+      "desc": "從膝蓋上方截斷，保留上身、腰腿比例與大部分穿搭資訊，介於中景與全身之間。",
+      "meta": {
+        "semantic": {
+          "visibility": "medium",
+          "tags": [
+            "pose_focus"
+          ]
+        }
+      }
     },
     {
       "id": "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
@@ -81,7 +150,15 @@
       ],
       "zh": "全身鏡頭 (Full Body Shot)",
       "en": "full body shot, head-to-toe figure, environmental scale",
-      "desc": "完整拍攝人物從頭到腳，強調整體穿搭比例、下半身完整可見，以及人物在廣大環境中的位置。"
+      "desc": "完整拍攝人物從頭到腳，強調整體穿搭比例、下半身完整可見，以及人物在廣大環境中的位置。",
+      "meta": {
+        "semantic": {
+          "visibility": "full",
+          "tags": [
+            "outfit_focus"
+          ]
+        }
+      }
     },
     {
       "id": "camera:景別構圖-framing:全臉傾斜特寫:9",
@@ -90,7 +167,17 @@
       ],
       "zh": "全臉傾斜特寫",
       "en": "asymmetrical full-face close-up, off-center, slight tilt, entire face visible",
-      "desc": "完整臉部保留在畫面內，人物隨機靠左或靠右且嚴禁置中，對側保留大面積負空間，並帶輕微傾斜的近距離構圖。"
+      "desc": "完整臉部保留在畫面內，人物隨機靠左或靠右且嚴禁置中，對側保留大面積負空間，並帶輕微傾斜的近距離構圖。",
+      "meta": {
+        "semantic": {
+          "visibility": "close",
+          "tags": [
+            "face_detail",
+            "full_face_offset",
+            "dutch_bias"
+          ]
+        }
+      }
     },
     {
       "id": "camera:景別構圖-framing:頭部主導近景:10",
@@ -99,7 +186,16 @@
       ],
       "zh": "頭部主導近景",
       "en": "head-dominant close portrait, close camera distance, head from hair crown to chin occupying 50–60% of frame height, full face and chin within the crop, little headroom, shoulders, upper torso and arms visible below, recognizable scene around the head and body",
-      "desc": "頭頂至下巴約佔畫面高度 50–60%，保留完整臉部與下巴、少量頭頂留白；下方仍見肩膀、上身與手臂，周圍場景可辨識。只開放高位俯視、平視與正上方；頭部角度由原選項控制。"
+      "desc": "頭頂至下巴約佔畫面高度 50–60%，保留完整臉部與下巴、少量頭頂留白；下方仍見肩膀、上身與手臂，周圍場景可辨識。只開放高位俯視、平視與正上方；頭部角度由原選項控制。",
+      "meta": {
+        "semantic": {
+          "visibility": "portrait",
+          "tags": [
+            "face_detail",
+            "upper_body_focus"
+          ]
+        }
+      }
     }
   ]
 }

@@ -13,6 +13,15 @@
       "lyingSurface": {
         "type": "sand",
         "en": "wet sand"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "outdoor",
+            "natural",
+            "waterfront"
+          ]
+        }
       }
     },
     {
@@ -22,7 +31,17 @@
       ],
       "zh": "戶外：清澈海灣岩岸",
       "en": "clear turquoise cove shoreline, pale rocky coast, shallow transparent seawater, irregular coastal stones, cliff wall edge, small inlet waterline, uneven shoreline surface",
-      "desc": "以清澈淺藍海水、淺色岩岸與被海水包圍的小海灣為核心，重點是岩石、峭壁邊、水線與不平整岸邊表面，而不是平坦沙灘。"
+      "desc": "以清澈淺藍海水、淺色岩岸與被海水包圍的小海灣為核心，重點是岩石、峭壁邊、水線與不平整岸邊表面，而不是平坦沙灘。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "outdoor",
+            "natural",
+            "commercial",
+            "waterfront"
+          ]
+        }
+      }
     },
     {
       "id": "locations:自然與戶外-nature-outdoors:戶外-岩洞感海灣淺灘:2",
@@ -31,7 +50,16 @@
       ],
       "zh": "戶外：岩洞感海灣淺灘",
       "en": "rocky seaside cove with cave-like cliff openings, shallow crystalline water, irregular stone shoreline, recessed rock wall, coastal rock textures, uneven shallow-water edge",
-      "desc": "岩壁上帶有洞口或凹陷感的海灣淺灘，重點是碎石、淺水、凹入岩壁、岩面材質與不規則水邊。"
+      "desc": "岩壁上帶有洞口或凹陷感的海灣淺灘，重點是碎石、淺水、凹入岩壁、岩面材質與不規則水邊。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "outdoor",
+            "natural",
+            "waterfront"
+          ]
+        }
+      }
     },
     {
       "id": "locations:自然與戶外-nature-outdoors:戶外-草地與樹木:3",
@@ -44,6 +72,16 @@
       "lyingSurface": {
         "type": "grass",
         "en": "lawn"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "outdoor",
+            "natural",
+            "commercial",
+            "green_space"
+          ]
+        }
       }
     },
     {
@@ -57,6 +95,15 @@
       "lyingSurface": {
         "type": "grass",
         "en": "grassland plain"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "outdoor",
+            "natural",
+            "green_space"
+          ]
+        }
       }
     },
     {
@@ -66,7 +113,16 @@
       ],
       "zh": "戶外：向日葵花田",
       "en": "sunflower field edge, dense sunflower stems, large yellow flower heads, irregular plant clusters broken by leaves, soil path fragment on one side, rural field background",
-      "desc": "向日葵花田邊緣，重點是密集花莖、大型黃色花頭、被葉片打斷的不規則植株群、單側土路片段與田野背景。"
+      "desc": "向日葵花田邊緣，重點是密集花莖、大型黃色花頭、被葉片打斷的不規則植株群、單側土路片段與田野背景。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "outdoor",
+            "natural",
+            "green_space"
+          ]
+        }
+      }
     },
     {
       "id": "locations:自然與戶外-nature-outdoors:戶外-霧感森林步道:6",
@@ -75,7 +131,16 @@
       ],
       "zh": "戶外：霧感森林步道",
       "en": "forest path edge, dark tree trunks at varied distances, uneven ground, mossy roots, leaf litter, partial trail curve, dense woodland background",
-      "desc": "森林步道邊緣，重點是不同距離的樹幹、不平地面、苔蘚樹根、落葉、局部彎曲小徑與密林背景。"
+      "desc": "森林步道邊緣，重點是不同距離的樹幹、不平地面、苔蘚樹根、落葉、局部彎曲小徑與密林背景。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "outdoor",
+            "natural",
+            "green_space"
+          ]
+        }
+      }
     },
     {
       "id": "locations:自然與戶外-nature-outdoors:戶外-森林營地帳篷營火:7",
@@ -88,6 +153,15 @@
       "lyingSurface": {
         "type": "ground",
         "en": "leaf-litter ground"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "outdoor",
+            "natural",
+            "green_space"
+          ]
+        }
       }
     },
     {
@@ -101,6 +175,15 @@
       "lyingSurface": {
         "type": "floor",
         "en": "wooden deck"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "outdoor",
+            "natural",
+            "waterfront"
+          ]
+        }
       }
     },
     {
@@ -110,7 +193,16 @@
       ],
       "zh": "戶外：海邊岩岸",
       "en": "rocky shoreline edge, irregular stone slabs, tide-pool pockets, rough coastal rock texture, seawater visible beside the rocks, uneven standing surface",
-      "desc": "海邊岩岸邊緣，重點是不規則石板、潮池凹洞、粗糙岩面、岩石旁海水與不平整可站立表面。"
+      "desc": "海邊岩岸邊緣，重點是不規則石板、潮池凹洞、粗糙岩面、岩石旁海水與不平整可站立表面。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "outdoor",
+            "natural",
+            "waterfront"
+          ]
+        }
+      }
     },
     {
       "id": "locations:自然與戶外-nature-outdoors:戶外-沙丘與風痕地景:10",
@@ -123,6 +215,16 @@
       "lyingSurface": {
         "type": "sand",
         "en": "sandy ground plane"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "outdoor",
+            "natural",
+            "waterfront",
+            "green_space"
+          ]
+        }
       }
     },
     {
@@ -136,6 +238,14 @@
       "lyingSurface": {
         "type": "ground",
         "en": "salt crust ground"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "outdoor",
+            "natural"
+          ]
+        }
       }
     }
   ]

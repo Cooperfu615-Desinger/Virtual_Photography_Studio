@@ -9,7 +9,13 @@
       ],
       "zh": "低畫質與模糊防護",
       "en": "worst quality, low quality, normal quality, lowres, blurry, out of focus, jpeg artifacts, pixelated",
-      "desc": "強制模型提升輸出解析度與清晰度，避免出現像素化、邊緣模糊或壓縮產生的鋸齒亮斑。"
+      "desc": "強制模型提升輸出解析度與清晰度，避免出現像素化、邊緣模糊或壓縮產生的鋸齒亮斑。",
+      "meta": {
+        "semantic": {
+          "conflictTags": [],
+          "useTags": []
+        }
+      }
     },
     {
       "id": "negative:畫質與渲染防護:浮水印與文字防護:1",
@@ -18,7 +24,13 @@
       ],
       "zh": "浮水印與文字防護",
       "en": "watermark, text, signature, logo, username, typography, letters, stamped",
-      "desc": "避免 AI 模仿圖庫網站（如 Getty Images）而在畫面中隨機生成無意義的浮水印、簽名或亂碼文字。"
+      "desc": "避免 AI 模仿圖庫網站（如 Getty Images）而在畫面中隨機生成無意義的浮水印、簽名或亂碼文字。",
+      "meta": {
+        "semantic": {
+          "conflictTags": [],
+          "useTags": []
+        }
+      }
     },
     {
       "id": "negative:畫質與渲染防護:邊框與裁切防護:2",
@@ -27,7 +39,13 @@
       ],
       "zh": "邊框與裁切防護",
       "en": "cropped, out of frame, cut off, border, frame, white margins",
-      "desc": "確保人物或主體不會被不自然的裁切在畫布邊緣，同時避免生成相框狀的邊框（除非刻意要求拍立得）。"
+      "desc": "確保人物或主體不會被不自然的裁切在畫布邊緣，同時避免生成相框狀的邊框（除非刻意要求拍立得）。",
+      "meta": {
+        "semantic": {
+          "conflictTags": [],
+          "useTags": []
+        }
+      }
     }
   ]
 }

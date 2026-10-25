@@ -9,7 +9,17 @@
       ],
       "zh": "全無",
       "en": "none",
-      "desc": "不指定場景，讓模型自行決定背景環境與空間佈局。"
+      "desc": "不指定場景，讓模型自行決定背景環境與空間佈局。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "indoor",
+            "set",
+            "controlled",
+            "studio"
+          ]
+        }
+      }
     },
     {
       "id": "locations:攝影棚與背景-studio-sets:室內-鏡面地板攝影棚:1",
@@ -22,6 +32,18 @@
       "lyingSurface": {
         "type": "floor",
         "en": "mirrored floor"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "indoor",
+            "set",
+            "controlled",
+            "studio",
+            "mirror_studio",
+            "studio_lighting_scene"
+          ]
+        }
       }
     },
     {
@@ -35,6 +57,18 @@
       "lyingSurface": {
         "type": "ground",
         "en": "white surface"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "indoor",
+            "set",
+            "controlled",
+            "studio",
+            "solid_color_studio",
+            "studio_lighting_scene"
+          ]
+        }
       }
     },
     {
@@ -48,6 +82,18 @@
       "lyingSurface": {
         "type": "ground",
         "en": "black surface"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "indoor",
+            "set",
+            "controlled",
+            "studio",
+            "solid_color_studio",
+            "studio_lighting_scene"
+          ]
+        }
       }
     },
     {
@@ -61,6 +107,18 @@
       "lyingSurface": {
         "type": "ground",
         "en": "grey surface"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "indoor",
+            "set",
+            "controlled",
+            "studio",
+            "solid_color_studio",
+            "studio_lighting_scene"
+          ]
+        }
       }
     },
     {
@@ -74,6 +132,18 @@
       "lyingSurface": {
         "type": "ground",
         "en": "blue surface"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "indoor",
+            "set",
+            "controlled",
+            "studio",
+            "solid_color_studio",
+            "studio_lighting_scene"
+          ]
+        }
       }
     },
     {
@@ -87,6 +157,18 @@
       "lyingSurface": {
         "type": "ground",
         "en": "orange surface"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "indoor",
+            "set",
+            "controlled",
+            "studio",
+            "solid_color_studio",
+            "studio_lighting_scene"
+          ]
+        }
       }
     },
     {
@@ -100,6 +182,18 @@
       "lyingSurface": {
         "type": "ground",
         "en": "red surface"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "indoor",
+            "set",
+            "controlled",
+            "studio",
+            "solid_color_studio",
+            "studio_lighting_scene"
+          ]
+        }
       }
     },
     {
@@ -113,6 +207,18 @@
       "lyingSurface": {
         "type": "ground",
         "en": "yellow surface"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "indoor",
+            "set",
+            "controlled",
+            "studio",
+            "solid_color_studio",
+            "studio_lighting_scene"
+          ]
+        }
       }
     },
     {
@@ -126,6 +232,18 @@
       "lyingSurface": {
         "type": "ground",
         "en": "purple surface"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "indoor",
+            "set",
+            "controlled",
+            "studio",
+            "solid_color_studio",
+            "studio_lighting_scene"
+          ]
+        }
       }
     },
     {
@@ -139,6 +257,18 @@
       "lyingSurface": {
         "type": "ground",
         "en": "green surface"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "indoor",
+            "set",
+            "controlled",
+            "studio",
+            "solid_color_studio",
+            "studio_lighting_scene"
+          ]
+        }
       }
     },
     {
@@ -152,6 +282,18 @@
       "lyingSurface": {
         "type": "ground",
         "en": "color-block surface"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "indoor",
+            "set",
+            "controlled",
+            "studio",
+            "solid_color_studio",
+            "studio_lighting_scene"
+          ]
+        }
       }
     },
     {
@@ -165,6 +307,16 @@
       "lyingSurface": {
         "type": "ground",
         "en": "gradient ground-and-background plane"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "indoor",
+            "set",
+            "controlled",
+            "studio"
+          ]
+        }
       }
     },
     {
@@ -178,6 +330,18 @@
       "lyingSurface": {
         "type": "floor",
         "en": "desaturated blue-grey floor"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "indoor",
+            "set",
+            "controlled",
+            "studio",
+            "outdoor",
+            "studio_lighting_scene"
+          ]
+        }
       }
     },
     {
@@ -191,6 +355,16 @@
       "lyingSurface": {
         "type": "ground",
         "en": "ground-and-background color surface"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "indoor",
+            "set",
+            "controlled",
+            "studio"
+          ]
+        }
       }
     }
   ]

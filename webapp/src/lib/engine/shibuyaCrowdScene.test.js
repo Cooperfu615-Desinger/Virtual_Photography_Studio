@@ -86,6 +86,7 @@ function legacyLibrary() {
   const entry = Object.values(library.Locations).flat().find(o => o.zh === label);
   assert.ok(entry);
   entry.en = legacySource;
+  delete entry.meta.semantic; // Replay historical text through the legacy inference path.
   if (entry.meta?.legacyPromptAliases) delete entry.meta.legacyPromptAliases;
   return library;
 }

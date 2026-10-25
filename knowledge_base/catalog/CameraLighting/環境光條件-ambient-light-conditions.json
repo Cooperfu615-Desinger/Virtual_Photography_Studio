@@ -10,7 +10,12 @@
       ],
       "zh": "全無",
       "en": "none",
-      "desc": "不指定環境條件，讓模型自行決定天空、時段、空氣狀態與室內外明暗。"
+      "desc": "不指定環境條件，讓模型自行決定天空、時段、空氣狀態與室內外明暗。",
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:晴朗白日:1",
@@ -20,7 +25,20 @@
       ],
       "zh": "晴朗白日",
       "en": "clear daylight environment, bright daytime sky, clean distant visibility, neutral outdoor air",
-      "desc": "明亮乾淨的通用白天環境，若畫面有天空或遠景，應呈現清晰日間天空與高能見度空氣狀態。"
+      "desc": "明亮乾淨的通用白天環境，若畫面有天空或遠景，應呈現清晰日間天空與高能見度空氣狀態。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "natural_light",
+            "sunlight",
+            "day",
+            "supports_outdoor",
+            "supports_urban",
+            "supports_natural",
+            "ambient_outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:藍天白雲:2",
@@ -30,7 +48,21 @@
       ],
       "zh": "藍天白雲",
       "en": "clear blue-sky daylight, saturated azure sky, brilliant white cloud shapes, open airy distance, crisp blue-and-white atmosphere",
-      "desc": "若畫面包含天空、窗外或遠景，強化藍天與白雲的色彩對比，藍色乾淨飽和、白雲明亮純白，空氣通透清澈。"
+      "desc": "若畫面包含天空、窗外或遠景，強化藍天與白雲的色彩對比，藍色乾淨飽和、白雲明亮純白，空氣通透清澈。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "natural_light",
+            "sunlight",
+            "day",
+            "clean_sky",
+            "supports_outdoor",
+            "supports_urban",
+            "supports_natural",
+            "ambient_outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:夏日深藍積雲:3",
@@ -40,7 +72,22 @@
       ],
       "zh": "夏日深藍積雲",
       "en": "deep azure summer sky, saturated clean blue atmosphere, towering luminous white cumulus clouds, crisp cloud-edge detail, vivid blue-and-white daylight",
-      "desc": "夏季大天空環境，強調大面積深藍天空、高聳明亮白色積雲、清楚雲邊與藍白分離度；白雲明亮但保留細節。"
+      "desc": "夏季大天空環境，強調大面積深藍天空、高聳明亮白色積雲、清楚雲邊與藍白分離度；白雲明亮但保留細節。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "natural_light",
+            "sunlight",
+            "day",
+            "clean_sky",
+            "summer_sky",
+            "supports_outdoor",
+            "supports_urban",
+            "supports_natural",
+            "ambient_outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:雨前灰黑天空:4",
@@ -50,7 +97,22 @@
       ],
       "zh": "雨前灰黑天空",
       "en": "charcoal-gray pre-rain sky, layered dark storm clouds, dense gray-black cloud mass, low cloud ceiling, preserved cloud detail before rainfall",
-      "desc": "陰天雨前版本的大天空環境，重點是大面積灰黑天空、層層堆疊的厚重烏雲、低壓天幕與清楚雲層邊界。"
+      "desc": "陰天雨前版本的大天空環境，重點是大面積灰黑天空、層層堆疊的厚重烏雲、低壓天幕與清楚雲層邊界。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "natural_light",
+            "cloudy",
+            "dark",
+            "dramatic",
+            "pre_rain_sky",
+            "supports_outdoor",
+            "supports_urban",
+            "supports_natural",
+            "ambient_outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:正午烈日:5",
@@ -60,7 +122,21 @@
       ],
       "zh": "正午烈日",
       "en": "harsh midday environment, overhead summer sun position, glaring bright sky, heat-baked outdoor air, high-clarity dry distance",
-      "desc": "接近正午的強烈日間環境，天空刺亮、太陽位置高，戶外空氣帶炎熱曝曬與乾燥高能見度。"
+      "desc": "接近正午的強烈日間環境，天空刺亮、太陽位置高，戶外空氣帶炎熱曝曬與乾燥高能見度。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "natural_light",
+            "sunlight",
+            "day",
+            "harsh",
+            "supports_outdoor",
+            "supports_urban",
+            "supports_natural",
+            "ambient_outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:陰天漫射:6",
@@ -70,7 +146,20 @@
       ],
       "zh": "陰天漫射",
       "en": "overcast daylight environment, cloud-covered sky, soft diffused air, muted distant contrast, neutral grey-white sky cover",
-      "desc": "雲層厚而均勻，若有天空或遠景，應偏灰白低對比，整體環境明暗更柔和。"
+      "desc": "雲層厚而均勻，若有天空或遠景，應偏灰白低對比，整體環境明暗更柔和。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "natural_light",
+            "diffused",
+            "cloudy",
+            "supports_outdoor",
+            "supports_urban",
+            "supports_natural",
+            "ambient_outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:清晨薄霧:7",
@@ -80,7 +169,21 @@
       ],
       "zh": "清晨薄霧",
       "en": "misty morning environment, pale cool sky, soft distant haze, low-contrast dawn air, visible atmospheric perspective",
-      "desc": "清晨霧感與偏冷晨間空氣，若有遠景應略帶霧化與空氣透視。"
+      "desc": "清晨霧感與偏冷晨間空氣，若有遠景應略帶霧化與空氣透視。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "natural_light",
+            "diffused",
+            "mist",
+            "cool",
+            "supports_outdoor",
+            "supports_urban",
+            "supports_natural",
+            "ambient_outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:晨光日出:8",
@@ -90,7 +193,21 @@
       ],
       "zh": "晨光日出",
       "en": "sunrise environment, early golden morning sky, fresh crisp air, soft warm horizon glow, low-angle dawn brightness",
-      "desc": "剛日出的晨間環境，遠景可保留低角度晨光、暖色地平線與清新空氣。"
+      "desc": "剛日出的晨間環境，遠景可保留低角度晨光、暖色地平線與清新空氣。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "natural_light",
+            "sunlight",
+            "day",
+            "warm",
+            "supports_outdoor",
+            "supports_urban",
+            "supports_natural",
+            "ambient_outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:黃昏夕陽:9",
@@ -100,7 +217,21 @@
       ],
       "zh": "黃昏夕陽",
       "en": "golden sunset environment, warm orange-pink sky gradient, low sun near the horizon, distant amber evening atmosphere",
-      "desc": "若畫面包含天空或遠景，應呈現橙金到粉暖色過渡、低角度夕陽與傍晚空氣感。"
+      "desc": "若畫面包含天空或遠景，應呈現橙金到粉暖色過渡、低角度夕陽與傍晚空氣感。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "natural_light",
+            "sunlight",
+            "warm",
+            "dusk",
+            "supports_outdoor",
+            "supports_urban",
+            "supports_natural",
+            "ambient_outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:藍調傍晚:10",
@@ -110,7 +241,20 @@
       ],
       "zh": "藍調傍晚",
       "en": "blue hour environment, deep blue dusk sky, fading ambient daylight, cool evening transition, faint remaining distance light",
-      "desc": "日落後到入夜前的藍調時段，天空偏深藍，遠景仍保留些微殘光。"
+      "desc": "日落後到入夜前的藍調時段，天空偏深藍，遠景仍保留些微殘光。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "natural_light",
+            "dusk",
+            "cool",
+            "supports_outdoor",
+            "supports_urban",
+            "supports_natural",
+            "ambient_outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:城市夜間混合光:11",
@@ -120,7 +264,22 @@
       ],
       "zh": "城市夜間混合光",
       "en": "urban night ambience, dark blue-black sky if visible, warm-cool mixed city glow, low nocturnal visibility",
-      "desc": "一般城市夜晚環境，若有天空通常接近深藍黑色，以城市溢光、低照度可見度與冷暖混合色溫表現夜間氣氛，不指定可見燈具。"
+      "desc": "一般城市夜晚環境，若有天空通常接近深藍黑色，以城市溢光、低照度可見度與冷暖混合色溫表現夜間氣氛，不指定可見燈具。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "artificial_light",
+            "dark",
+            "night_ambient",
+            "requires_urban_context",
+            "supports_outdoor",
+            "supports_urban",
+            "supports_commercial",
+            "supports_subterranean",
+            "ambient_outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
@@ -130,7 +289,21 @@
       ],
       "zh": "月光夜色",
       "en": "moonlit night environment, cool silvery darkness, faint moon glow, natural blue-black night sky, low nocturnal visibility",
-      "desc": "以自然月光為主的夜色環境，整體偏冷、銀藍，戶外可見度較低。"
+      "desc": "以自然月光為主的夜色環境，整體偏冷、銀藍，戶外可見度較低。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "natural_light",
+            "dark",
+            "cool",
+            "night_ambient",
+            "supports_outdoor",
+            "supports_natural",
+            "supports_urban",
+            "ambient_outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:城市高彩度夜色:13",
@@ -140,7 +313,23 @@
       ],
       "zh": "城市高彩度夜色",
       "en": "saturated-color urban night ambience, dark night sky, vivid colored city glow, high-chroma reflection tint, low nocturnal visibility",
-      "desc": "夜色基底下混入高彩度城市色偏，若有遠景應帶彩色反射、都會夜間溢光與低照度可見度，不指定可見招牌或燈具。"
+      "desc": "夜色基底下混入高彩度城市色偏，若有遠景應帶彩色反射、都會夜間溢光與低照度可見度，不指定可見招牌或燈具。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "artificial_light",
+            "dark",
+            "night_ambient",
+            "requires_urban_context",
+            "supports_outdoor",
+            "supports_urban",
+            "supports_commercial",
+            "supports_subterranean",
+            "neon",
+            "ambient_outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:陰雨將至:14",
@@ -150,7 +339,21 @@
       ],
       "zh": "陰雨將至",
       "en": "storm-brewing humid environment, heavy dark cloud cover, charged damp air, pre-rain pressure, dense low cloud ceiling",
-      "desc": "暴雨前的潮悶低壓環境，重點是厚重雲層、濕度、壓迫感與降雨前空氣。"
+      "desc": "暴雨前的潮悶低壓環境，重點是厚重雲層、濕度、壓迫感與降雨前空氣。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "natural_light",
+            "cloudy",
+            "dark",
+            "dramatic",
+            "supports_outdoor",
+            "supports_urban",
+            "supports_natural",
+            "ambient_outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:雨天陰濕:15",
@@ -160,7 +363,21 @@
       ],
       "zh": "雨天陰濕",
       "en": "rainy overcast environment, grey-blue rain sky, damp air, wet surfaces, muted visibility, cold daylight atmosphere",
-      "desc": "若畫面含天空與遠景，應呈現厚重灰藍雲層、濕冷空氣、濕表面與低能見度。"
+      "desc": "若畫面含天空與遠景，應呈現厚重灰藍雲層、濕冷空氣、濕表面與低能見度。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "natural_light",
+            "rain",
+            "diffused",
+            "dark",
+            "supports_outdoor",
+            "supports_urban",
+            "supports_natural",
+            "ambient_outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:雨後反光:16",
@@ -170,7 +387,20 @@
       ],
       "zh": "雨後反光",
       "en": "post-rain environment, freshly damp surfaces, reflective stone and wall textures, leftover cloud cover, fresh humid air after rainfall",
-      "desc": "雨剛停後的潮濕反光環境，重點是濕潤表面、石材、牆面與局部反射；若有遠景可保留殘雲與較通透空氣。"
+      "desc": "雨剛停後的潮濕反光環境，重點是濕潤表面、石材、牆面與局部反射；若有遠景可保留殘雲與較通透空氣。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "natural_light",
+            "rain",
+            "reflective",
+            "supports_outdoor",
+            "supports_urban",
+            "supports_natural",
+            "ambient_outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
@@ -180,7 +410,21 @@
       ],
       "zh": "雪地冷光",
       "en": "snow-bright winter environment, cold pale sky, reflective snowy distance, crisp winter air, cool ambient brightness from snow",
-      "desc": "若畫面有遠景與天空，應帶冷白冬日感與雪地反射造成的清冽亮度。"
+      "desc": "若畫面有遠景與天空，應帶冷白冬日感與雪地反射造成的清冽亮度。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "natural_light",
+            "snow",
+            "cool",
+            "reflective",
+            "supports_outdoor",
+            "supports_natural",
+            "supports_urban",
+            "ambient_outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:冬季灰冷:18",
@@ -190,7 +434,20 @@
       ],
       "zh": "冬季灰冷",
       "en": "cold winter overcast environment, pale grey sky, dry freezing air, subdued daylight, low-saturation winter distance",
-      "desc": "不一定下雪，但整體帶有冬季灰冷、乾燥、偏冷白的環境狀態。"
+      "desc": "不一定下雪，但整體帶有冬季灰冷、乾燥、偏冷白的環境狀態。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "natural_light",
+            "cloudy",
+            "cool",
+            "supports_outdoor",
+            "supports_natural",
+            "supports_urban",
+            "ambient_outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
@@ -200,7 +457,22 @@
       ],
       "zh": "室內窗邊日光",
       "en": "indoor window-daylight environment, natural window-lit room brightness, daytime exterior sky if visible",
-      "desc": "以白天室內窗光為主；若畫面看得到窗外，外部應明確保持白天天空與日光狀態。"
+      "desc": "以白天室內窗光為主；若畫面看得到窗外，外部應明確保持白天天空與日光狀態。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "window_light",
+            "natural_light",
+            "indoor",
+            "day",
+            "supports_indoor",
+            "supports_residential",
+            "supports_hospitality",
+            "supports_heritage",
+            "ambient_indoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
@@ -210,7 +482,23 @@
       ],
       "zh": "室內清晨冷白日光",
       "en": "indoor early-morning daylight environment, cool pale window brightness, crisp interior air, faint cool exterior brightness if visible",
-      "desc": "偏清晨的室內自然光，色溫較冷、亮度乾淨；若窗外可見，應保留早晨偏冷的亮度感。"
+      "desc": "偏清晨的室內自然光，色溫較冷、亮度乾淨；若窗外可見，應保留早晨偏冷的亮度感。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "window_light",
+            "natural_light",
+            "indoor",
+            "day",
+            "cool",
+            "supports_indoor",
+            "supports_residential",
+            "supports_hospitality",
+            "supports_heritage",
+            "ambient_indoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
@@ -220,7 +508,24 @@
       ],
       "zh": "室內午後柔亮日光",
       "en": "indoor late-afternoon daylight environment, bright softened room illumination, warm-neutral daylight spread, mellow exterior brightness if visible",
-      "desc": "偏午後的室內自然光，亮度柔和、偏暖中性，是均勻的白天室內明度。"
+      "desc": "偏午後的室內自然光，亮度柔和、偏暖中性，是均勻的白天室內明度。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "window_light",
+            "natural_light",
+            "indoor",
+            "day",
+            "soft_light",
+            "warm",
+            "supports_indoor",
+            "supports_residential",
+            "supports_hospitality",
+            "supports_heritage",
+            "ambient_indoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
@@ -230,7 +535,22 @@
       ],
       "zh": "室內陰影日光",
       "en": "indoor shaded daylight environment, daylight falling deeper into the room, subdued exterior brightness if visible, dim interior air",
-      "desc": "白天室內但不在強窗邊，空間較內收；若看得到窗外，外部仍應維持日間亮度。"
+      "desc": "白天室內但不在強窗邊，空間較內收；若看得到窗外，外部仍應維持日間亮度。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "window_light",
+            "natural_light",
+            "indoor",
+            "diffused",
+            "supports_indoor",
+            "supports_residential",
+            "supports_hospitality",
+            "supports_heritage",
+            "ambient_indoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
@@ -240,7 +560,25 @@
       ],
       "zh": "室內陰雨昏暗天光",
       "en": "indoor rainy-day daylight environment, dim grey window brightness, subdued overcast room light, muted exterior sky if visible",
-      "desc": "陰雨天的室內自然光，整體更灰、更暗；若窗外可見，應偏灰白低亮度。"
+      "desc": "陰雨天的室內自然光，整體更灰、更暗；若窗外可見，應偏灰白低亮度。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "window_light",
+            "natural_light",
+            "indoor",
+            "rain",
+            "cloudy",
+            "diffused",
+            "dark",
+            "supports_indoor",
+            "supports_residential",
+            "supports_hospitality",
+            "supports_heritage",
+            "ambient_indoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
@@ -250,7 +588,24 @@
       ],
       "zh": "室內黃昏微暖餘光",
       "en": "indoor dusk afterglow environment, faint warm residual daylight, dimming room brightness, fading exterior light if visible",
-      "desc": "接近傍晚但不直接生成夕陽，保留微暖色餘光、正在變暗的室內明度與窗外漸暗狀態。"
+      "desc": "接近傍晚但不直接生成夕陽，保留微暖色餘光、正在變暗的室內明度與窗外漸暗狀態。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "window_light",
+            "natural_light",
+            "indoor",
+            "dusk",
+            "warm",
+            "dark",
+            "supports_indoor",
+            "supports_residential",
+            "supports_hospitality",
+            "supports_heritage",
+            "ambient_indoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
@@ -260,7 +615,23 @@
       ],
       "zh": "室內暖色夜景",
       "en": "indoor warm night ambience, warm amber room brightness, gentle low-contrast interior glow, dark exterior beyond windows if visible",
-      "desc": "晚上室內偏暖色溫的環境光；若窗外可見，應為明確夜色而非白天，不指定可見燈具。"
+      "desc": "晚上室內偏暖色溫的環境光；若窗外可見，應為明確夜色而非白天，不指定可見燈具。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "artificial_light",
+            "indoor",
+            "warm",
+            "dark",
+            "supports_indoor",
+            "supports_residential",
+            "supports_hospitality",
+            "supports_commercial",
+            "supports_heritage",
+            "ambient_indoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
@@ -270,7 +641,24 @@
       ],
       "zh": "室內低照度暖色夜景",
       "en": "indoor low-light warm night ambience, dim amber room brightness, soft shadowed corners, dark exterior if visible",
-      "desc": "比一般室內暖光夜景更暗，重點是低照度、暖色環境色溫、柔暗角落與夜間可見度，不指定可見燈具。"
+      "desc": "比一般室內暖光夜景更暗，重點是低照度、暖色環境色溫、柔暗角落與夜間可見度，不指定可見燈具。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "artificial_light",
+            "indoor",
+            "warm",
+            "dark",
+            "supports_indoor",
+            "supports_residential",
+            "supports_hospitality",
+            "supports_commercial",
+            "supports_heritage",
+            "soft_light",
+            "ambient_indoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
@@ -280,7 +668,21 @@
       ],
       "zh": "室內社交暖色夜景",
       "en": "warm low-light social interior ambience, dim amber room brightness, dark background depth, crowded night interior visibility",
-      "desc": "夜間家庭派對或小型室內社交聚會的環境光，重點是暖色低照度、昏暗社交空間、背景深度與夜間室內可見度，不指定可見燈具。"
+      "desc": "夜間家庭派對或小型室內社交聚會的環境光，重點是暖色低照度、昏暗社交空間、背景深度與夜間室內可見度，不指定可見燈具。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "artificial_light",
+            "indoor",
+            "warm",
+            "dark",
+            "soft_light",
+            "supports_indoor",
+            "supports_residential",
+            "ambient_indoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
@@ -290,7 +692,22 @@
       ],
       "zh": "室內極暖低照度",
       "en": "very warm low-light interior ambience, soft amber room darkness, gentle unstable warm tonal variation, deep shadowed corners",
-      "desc": "極暖低照度的室內夜景，重點是柔暗琥珀色環境、暖色波動感與深暗角落，不指定可見火光或實體光源。"
+      "desc": "極暖低照度的室內夜景，重點是柔暗琥珀色環境、暖色波動感與深暗角落，不指定可見火光或實體光源。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "artificial_light",
+            "indoor",
+            "warm",
+            "dark",
+            "supports_indoor",
+            "supports_residential",
+            "supports_hospitality",
+            "supports_heritage",
+            "ambient_indoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
@@ -300,7 +717,23 @@
       ],
       "zh": "室內冷白環境光",
       "en": "indoor cool artificial ambience, cool-white ambient cast, clean neutral room brightness, dim exterior if visible",
-      "desc": "偏冷白的人造光室內環境，若有窗外通常不主導，重點是冷白環境色、乾淨中性亮度與室內可見度。"
+      "desc": "偏冷白的人造光室內環境，若有窗外通常不主導，重點是冷白環境色、乾淨中性亮度與室內可見度。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "artificial_light",
+            "indoor",
+            "cool",
+            "supports_indoor",
+            "supports_residential",
+            "supports_hospitality",
+            "supports_commercial",
+            "supports_heritage",
+            "supports_subterranean",
+            "ambient_indoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
@@ -310,7 +743,23 @@
       ],
       "zh": "室內冷白高亮日常",
       "en": "cool-white everyday interior ambience, clean high room brightness, neutral-cool ambient cast, plain daily visibility",
-      "desc": "更生活化的冷白高亮室內環境，像住宅、辦公室、便利空間或普通日常場景，不偏棚拍或強風格化，也不指定可見燈具。"
+      "desc": "更生活化的冷白高亮室內環境，像住宅、辦公室、便利空間或普通日常場景，不偏棚拍或強風格化，也不指定可見燈具。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "artificial_light",
+            "indoor",
+            "cool",
+            "controlled",
+            "supports_indoor",
+            "supports_residential",
+            "supports_commercial",
+            "supports_hospitality",
+            "supports_subterranean",
+            "ambient_indoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
@@ -320,7 +769,22 @@
       ],
       "zh": "室內高彩度色光夜景",
       "en": "indoor saturated-color night ambience, vivid colored ambient spill, dark exterior if visible, high-chroma low-light atmosphere",
-      "desc": "高彩度色偏的室內夜景環境，適合旅館、酒吧、浴室、夜店與都會感室內畫面，但只描述彩色環境光與低照度氛圍。"
+      "desc": "高彩度色偏的室內夜景環境，適合旅館、酒吧、浴室、夜店與都會感室內畫面，但只描述彩色環境光與低照度氛圍。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "artificial_light",
+            "indoor",
+            "neon",
+            "dark",
+            "supports_indoor",
+            "supports_commercial",
+            "supports_hospitality",
+            "supports_subterranean",
+            "ambient_indoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
@@ -330,7 +794,23 @@
       ],
       "zh": "室內外光滲入微暗空間",
       "en": "dim interior spill-light environment, exterior light leaking into a mostly dark room, shadowed interior corners, strong dark-room contrast",
-      "desc": "室內幾乎沒開燈，主要靠窗外、門外或走廊外部光源滲進空間來照亮；重點是暗室、外部漏光與明暗落差。"
+      "desc": "室內幾乎沒開燈，主要靠窗外、門外或走廊外部光源滲進空間來照亮；重點是暗室、外部漏光與明暗落差。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "window_light",
+            "natural_light",
+            "indoor",
+            "dark",
+            "diffused",
+            "supports_indoor",
+            "supports_residential",
+            "supports_hospitality",
+            "supports_heritage",
+            "ambient_indoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
@@ -340,7 +820,26 @@
       ],
       "zh": "室內深夜冷暗微光",
       "en": "very dark late-night interior ambience, faint cool residual brightness, near-unlit room, low nocturnal visibility",
-      "desc": "比「室內外光滲入微暗空間」更深夜、更冷、更暗，像房間幾乎完全沒開燈，只剩微弱冷色殘光與低夜間可見度。"
+      "desc": "比「室內外光滲入微暗空間」更深夜、更冷、更暗，像房間幾乎完全沒開燈，只剩微弱冷色殘光與低夜間可見度。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "window_light",
+            "natural_light",
+            "indoor",
+            "dark",
+            "diffused",
+            "supports_indoor",
+            "supports_residential",
+            "supports_hospitality",
+            "supports_heritage",
+            "cool",
+            "night_ambient",
+            "supports_subterranean",
+            "ambient_indoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:高調純白攝影棚:34",
@@ -350,7 +849,24 @@
       ],
       "zh": "高調純白攝影棚",
       "en": "high-key white studio environment, ultra-clean bright commercial illumination, near-shadowless studio ambience, no background structure specified",
-      "desc": "高調白光與均勻棚燈主導的商業攝影環境，整體明亮乾淨、陰影極淡或近乎消失，不額外指定背景結構。"
+      "desc": "高調白光與均勻棚燈主導的商業攝影環境，整體明亮乾淨、陰影極淡或近乎消失，不額外指定背景結構。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "artificial_light",
+            "indoor",
+            "studio_light",
+            "studio_scene_only",
+            "controlled",
+            "soft_light",
+            "supports_indoor",
+            "supports_studio",
+            "supports_commercial",
+            "ambient_studio",
+            "ambient_indoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:柔霧美妝攝影棚:35",
@@ -360,7 +876,25 @@
       ],
       "zh": "柔霧美妝攝影棚",
       "en": "soft beauty studio environment, diffused shadowless illumination, creamy clean light quality, polished commercial portrait ambience, no background structure specified",
-      "desc": "以大型柔光與均勻棚燈營造的美妝棚拍環境，陰影極輕、膚質細膩、畫面乾淨柔順，不額外指定背景結構。"
+      "desc": "以大型柔光與均勻棚燈營造的美妝棚拍環境，陰影極輕、膚質細膩、畫面乾淨柔順，不額外指定背景結構。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "artificial_light",
+            "indoor",
+            "studio_light",
+            "studio_scene_only",
+            "controlled",
+            "soft_light",
+            "portrait_light",
+            "supports_indoor",
+            "supports_studio",
+            "supports_commercial",
+            "ambient_studio",
+            "ambient_indoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:環境光條件-ambient-light-conditions:舞台演出燈光:36",
@@ -370,7 +904,22 @@
       ],
       "zh": "舞台演出燈光",
       "en": "stage-inspired studio environment, controlled colored light beams, performance-like ambience, artificial light shafts without generating a stage venue",
-      "desc": "以舞台感燈束與強人工燈具主導的攝影棚環境，保留彩色燈束與表演式照明，但不生成實際演出場館。"
+      "desc": "以舞台感燈束與強人工燈具主導的攝影棚環境，保留彩色燈束與表演式照明，但不生成實際演出場館。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "artificial_light",
+            "stage_light",
+            "studio_scene_only",
+            "dramatic",
+            "supports_indoor",
+            "supports_commercial",
+            "supports_studio",
+            "ambient_studio",
+            "ambient_indoor"
+          ]
+        }
+      }
     }
   ]
 }

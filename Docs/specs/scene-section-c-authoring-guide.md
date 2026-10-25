@@ -1,5 +1,7 @@
 # C 場景與環境新增與維護規格
 
+2026-10-25 D 語意來源規則：正式分類 JSON 每筆必填並審閱 `meta.semantic`，保存 tags 及該分區的 family／visibility／minVisibility／archetype 等語意欄位。更改 zh／en／desc 須註明語意是否需要變動；請以 `scripts/suggest_catalog_semantics.mjs <id>` 在副本上比較推論建議，不自動覆寫決策。既有值、鍵序、tag 順序與 null 保留；專用欄位和 source meta 仍獨立。正式資料不再靠修改 infer*Meta 生效；缺少 semantic 的歷史／自訂 library 才使用退路。新增／修改須同步 schema 與 field_mapping 並驗證，完整步驟見 [catalog 操作流程](../../knowledge_base/catalog/README.md)。本次只搬移語意，不修正既有問題，不啟動 E 或 P5b。
+
 Last updated: 2026-10-11
 
 2026-10-11 主體光線新增：尾端追加正面強硬光、機頂直閃、蝴蝶光、倫勃朗光、分割光、下方硬質主光；共 31 款有效光線與全無（32 個選項）。新款為可主動設置的獨立人物主光，明確來源標記支援日間補光、夜間及全身景別；舊 25 款規則與各 renderer 結構不變。來源、相容性及驗證見 [六款人物主光 v1](subject-light-additions-v1.md)。以下 25／26 筆的日期紀錄為歷史批次，不回寫舊驗證結果。

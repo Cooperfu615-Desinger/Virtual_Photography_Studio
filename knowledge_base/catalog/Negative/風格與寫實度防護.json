@@ -9,7 +9,13 @@
       ],
       "zh": "3D / CG 渲染防護",
       "en": "3D render, CGI, octane render, unreal engine, plastic skin, smooth skin, doll, toy, artificial",
-      "desc": "為了維持「寫實攝影」的質感，必須剔除任何帶有塑膠感、假人感或 3D 動畫引擎渲染效果的特徵。"
+      "desc": "為了維持「寫實攝影」的質感，必須剔除任何帶有塑膠感、假人感或 3D 動畫引擎渲染效果的特徵。",
+      "meta": {
+        "semantic": {
+          "conflictTags": [],
+          "useTags": []
+        }
+      }
     },
     {
       "id": "negative:風格與寫實度防護:2d-插畫風格防護:1",
@@ -18,7 +24,13 @@
       ],
       "zh": "2D / 插畫風格防護",
       "en": "illustration, painting, drawing, sketch, anime, cartoon, monochrome painting, vector art, flat color",
-      "desc": "防止生圖變成二次元動漫、手繪素描或油畫，維護真實物理世界的光影與三維立體感。"
+      "desc": "防止生圖變成二次元動漫、手繪素描或油畫，維護真實物理世界的光影與三維立體感。",
+      "meta": {
+        "semantic": {
+          "conflictTags": [],
+          "useTags": []
+        }
+      }
     },
     {
       "id": "negative:風格與寫實度防護:過度修圖防護:2",
@@ -27,7 +39,16 @@
       ],
       "zh": "過度修圖防護",
       "en": "oversaturated, overly bright, bleached, artificial lighting, overly smooth face, heavy makeup filter",
-      "desc": "避免畫面呈現出如「美圖秀秀」般極端不自然的美顏濾鏡感、死白膚色或刺眼的過高飽和度。"
+      "desc": "避免畫面呈現出如「美圖秀秀」般極端不自然的美顏濾鏡感、死白膚色或刺眼的過高飽和度。",
+      "meta": {
+        "semantic": {
+          "conflictTags": [
+            "artificial_light",
+            "neon"
+          ],
+          "useTags": []
+        }
+      }
     }
   ]
 }

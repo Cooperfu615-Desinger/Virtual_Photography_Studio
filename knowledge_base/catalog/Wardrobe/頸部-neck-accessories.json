@@ -9,7 +9,16 @@
       ],
       "zh": "全無",
       "en": "no neck accessories, open neckline styling",
-      "desc": "不加頸部飾品，讓領口與鎖骨區域維持簡潔。"
+      "desc": "不加頸部飾品，讓領口與鎖骨區域維持簡潔。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small",
+            "no_accessory"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:金屬細頸圈:1",
@@ -18,7 +27,17 @@
       ],
       "zh": "金屬細頸圈",
       "en": "slim metal choker detail, subtle close-fitting neck accent",
-      "desc": "比粗頸鍊更俐落，調整為低干擾的頸部點綴。"
+      "desc": "比粗頸鍊更俐落，調整為低干擾的頸部點綴。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small",
+            "edgy_accessory",
+            "futuristic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:雕塑感金屬頸圈:2",
@@ -27,7 +46,17 @@
       ],
       "zh": "雕塑感金屬頸圈",
       "en": "sculptural metal collar detail, subtle polished neck accent",
-      "desc": "保留金屬雕塑感，但降低成為主體 statement piece 的機率。"
+      "desc": "保留金屬雕塑感，但降低成為主體 statement piece 的機率。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small",
+            "edgy_accessory",
+            "futuristic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:多條層疊的金項鏈:3",
@@ -36,7 +65,17 @@
       ],
       "zh": "多條層疊的金項鏈",
       "en": "layered gold necklace detail, subtle stacked chain accent",
-      "desc": "多層金色項鍊保留成熟與時裝感，但以輕量配件語氣呈現。"
+      "desc": "多層金色項鍊保留成熟與時裝感，但以輕量配件語氣呈現。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "accessory_small",
+            "romantic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:多條層疊的珍珠項鍊:4",
@@ -45,7 +84,17 @@
       ],
       "zh": "多條層疊的珍珠項鍊",
       "en": "layered pearl necklace detail, soft understated pearl accent",
-      "desc": "多層珍珠串仍有復古感，但降低華麗程度避免搶戲。"
+      "desc": "多層珍珠串仍有復古感，但降低華麗程度避免搶戲。",
+      "meta": {
+        "semantic": {
+          "family": "retro",
+          "tags": [
+            "ornate",
+            "accessory_small",
+            "romantic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:單圈珍珠項鍊:5",
@@ -54,7 +103,17 @@
       ],
       "zh": "單圈珍珠項鍊",
       "en": "single-strand pearl necklace detail, subtle classic pearl accent",
-      "desc": "以單圈珍珠與溫潤珠光為主，存在感更低更穩定。"
+      "desc": "以單圈珍珠與溫潤珠光為主，存在感更低更穩定。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "accessory_small",
+            "romantic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:多條層疊的水晶項鍊與頸鏈:6",
@@ -63,7 +122,18 @@
       ],
       "zh": "多條層疊的水晶項鍊與頸鏈",
       "en": "layered crystal necklace detail, subtle reflective neck accent",
-      "desc": "保留水晶反光，但降低 ornate 與誇張珠寶感。"
+      "desc": "保留水晶反光，但降低 ornate 與誇張珠寶感。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "accessory_small",
+            "romantic",
+            "futuristic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:水滴寶石吊墜項鍊:7",
@@ -72,7 +142,17 @@
       ],
       "zh": "水滴寶石吊墜項鍊",
       "en": "small teardrop pendant necklace detail, delicate understated jewel accent",
-      "desc": "保留精緻主墜感，但縮小寶石主導畫面的機率。"
+      "desc": "保留精緻主墜感，但縮小寶石主導畫面的機率。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "accessory_small",
+            "romantic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:復古浮雕墜飾頸鍊:8",
@@ -81,7 +161,16 @@
       ],
       "zh": "復古浮雕墜飾頸鍊",
       "en": "vintage cameo pendant detail, subtle antique-inspired neck accent",
-      "desc": "保留復古收藏感，但改為較輕的點綴描述。"
+      "desc": "保留復古收藏感，但改為較輕的點綴描述。",
+      "meta": {
+        "semantic": {
+          "family": "retro",
+          "tags": [
+            "accessory_small",
+            "edgy_accessory"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:皮質扣環頸鏈:9",
@@ -90,7 +179,16 @@
       ],
       "zh": "皮質扣環頸鏈",
       "en": "thin leather buckle choker detail, narrow slim leather strap around the neck, subtle edgy neck accent",
-      "desc": "保留冷感與地下風格，並以細窄皮革頸鏈控制尺寸與位置。"
+      "desc": "保留冷感與地下風格，並以細窄皮革頸鏈控制尺寸與位置。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small",
+            "edgy_accessory"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:緞帶頸圈:10",
@@ -99,7 +197,16 @@
       ],
       "zh": "緞帶頸圈",
       "en": "ribbon choker detail, soft understated neck accent",
-      "desc": "緞帶材質讓頸圈更柔和，語氣調整為低存在感裝飾。"
+      "desc": "緞帶材質讓頸圈更柔和，語氣調整為低存在感裝飾。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small",
+            "edgy_accessory"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:蕾絲緞帶頸圈:11",
@@ -108,7 +215,19 @@
       ],
       "zh": "蕾絲緞帶頸圈",
       "en": "lace ribbon choker detail, subtle romantic neck accent",
-      "desc": "保留浪漫風格，但不讓蕾絲頸圈過度搶戲。"
+      "desc": "保留浪漫風格，但不讓蕾絲頸圈過度搶戲。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "accessory_small",
+            "edgy_accessory",
+            "romantic",
+            "heritage"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:絲絨蝴蝶結頸圈:12",
@@ -117,7 +236,16 @@
       ],
       "zh": "絲絨蝴蝶結頸圈",
       "en": "velvet bow choker detail, subtle vintage ribbon accent",
-      "desc": "保留復古甜感，但降低中央蝴蝶結的主視覺強度。"
+      "desc": "保留復古甜感，但降低中央蝴蝶結的主視覺強度。",
+      "meta": {
+        "semantic": {
+          "family": "retro",
+          "tags": [
+            "accessory_small",
+            "edgy_accessory"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:鎖骨細金屬鏈:13",
@@ -126,7 +254,16 @@
       ],
       "zh": "鎖骨細金屬鏈",
       "en": "delicate collarbone chain detail, subtle metallic neck accent",
-      "desc": "細緻金屬鏈條剛好落在鎖骨位置，維持低存在感。"
+      "desc": "細緻金屬鏈條剛好落在鎖骨位置，維持低存在感。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small",
+            "futuristic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:細鍊鎖頭吊墜項鍊:14",
@@ -135,7 +272,17 @@
       ],
       "zh": "細鍊鎖頭吊墜項鍊",
       "en": "small lock pendant necklace detail, understated edgy neck accent",
-      "desc": "保留低調街頭感與小型吊墜語氣，避免誇張放大。"
+      "desc": "保留低調街頭感與小型吊墜語氣，避免誇張放大。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "accessory_small",
+            "romantic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:十字吊墜層疊頸鏈:15",
@@ -144,7 +291,17 @@
       ],
       "zh": "十字吊墜層疊頸鏈",
       "en": "layered cross pendant necklace detail, subtle gothic-inspired neck accent",
-      "desc": "保留哥德與街頭混搭感，但控制在細節層級。"
+      "desc": "保留哥德與街頭混搭感，但控制在細節層級。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "accessory_small",
+            "romantic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:鑽石網球項鍊:16",
@@ -153,7 +310,17 @@
       ],
       "zh": "鑽石網球項鍊",
       "en": "diamond tennis necklace detail, subtle luxury neck accent",
-      "desc": "保留乾淨奢華感，但不讓鑽石高光成為主畫面焦點。"
+      "desc": "保留乾淨奢華感，但不讓鑽石高光成為主畫面焦點。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "accessory_small",
+            "romantic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:街頭風格金項鏈:17",
@@ -162,7 +329,18 @@
       ],
       "zh": "街頭風格金項鏈",
       "en": "short gold curb-link necklace worn around the base of the neck at collarbone level, understated streetwear jewelry",
-      "desc": "以短版金色 curb-link 項鍊明確貼近頸根與鎖骨位置，保留街頭感並避免被理解成延伸到軀幹的裝飾鏈。"
+      "desc": "以短版金色 curb-link 項鍊明確貼近頸根與鎖骨位置，保留街頭感並避免被理解成延伸到軀幹的裝飾鏈。",
+      "meta": {
+        "semantic": {
+          "family": "streetwear",
+          "tags": [
+            "ornate",
+            "streetwear",
+            "accessory_small",
+            "romantic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:細領帶:18",
@@ -171,7 +349,15 @@
       ],
       "zh": "細領帶",
       "en": "slim necktie detail, narrow straight tie hanging from the collar",
-      "desc": "以窄版直落領帶與衣領下方的整齊垂墜為主。"
+      "desc": "以窄版直落領帶與衣領下方的整齊垂墜為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:波洛領帶:19",
@@ -180,7 +366,16 @@
       ],
       "zh": "波洛領帶",
       "en": "bolo tie detail, slim cord necktie with small metal tips",
-      "desc": "以細繩領帶、滑扣與小型金屬繩頭為主。"
+      "desc": "以細繩領帶、滑扣與小型金屬繩頭為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small",
+            "futuristic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:串珠頸鏈:20",
@@ -189,7 +384,16 @@
       ],
       "zh": "串珠頸鏈",
       "en": "beaded choker detail, short strand of small beads fitted around the neck",
-      "desc": "以貼合頸部的短串小珠與輕量頸鏈輪廓為主。"
+      "desc": "以貼合頸部的短串小珠與輕量頸鏈輪廓為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small",
+            "edgy_accessory"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:銀色粗鏈項鍊:21",
@@ -198,7 +402,18 @@
       ],
       "zh": "銀色粗鏈項鍊",
       "en": "thick silver chain necklace, substantial linked metal chain, understated street accessory",
-      "desc": "以較厚實的銀色鏈節為主，補足現有細鏈與金色街頭項鏈之外的街頭金屬感。"
+      "desc": "以較厚實的銀色鏈節為主，補足現有細鏈與金色街頭項鏈之外的街頭金屬感。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "accessory_small",
+            "romantic",
+            "futuristic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:y字垂墜項鍊:22",
@@ -207,7 +422,17 @@
       ],
       "zh": "Y字垂墜項鍊",
       "en": "Y-drop lariat necklace, fine chain descending to a single central drop, delicate neck accessory",
-      "desc": "項鍊中央向下延伸成 Y 字，提供清楚但不誇張的垂墜線條。"
+      "desc": "項鍊中央向下延伸成 Y 字，提供清楚但不誇張的垂墜線條。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "accessory_small",
+            "romantic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:圓形徽章吊墜項鍊:23",
@@ -216,7 +441,17 @@
       ],
       "zh": "圓形徽章吊墜項鍊",
       "en": "round medallion pendant necklace, simple circular metal pendant on a fine chain, understated vintage accessory",
-      "desc": "以簡潔圓形徽章吊墜為主，補充鎖頭、十字與水滴以外的吊墜形狀。"
+      "desc": "以簡潔圓形徽章吊墜為主，補充鎖頭、十字與水滴以外的吊墜形狀。",
+      "meta": {
+        "semantic": {
+          "family": "retro",
+          "tags": [
+            "ornate",
+            "accessory_small",
+            "romantic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:鑰匙吊墜項鍊:24",
@@ -225,7 +460,18 @@
       ],
       "zh": "鑰匙吊墜項鍊",
       "en": "small key pendant necklace, fine chain with a simple metal key charm, understated vintage accessory",
-      "desc": "以小型金屬鑰匙吊墜為主，維持復古感但不讓吊墜過度放大。"
+      "desc": "以小型金屬鑰匙吊墜為主，維持復古感但不讓吊墜過度放大。",
+      "meta": {
+        "semantic": {
+          "family": "retro",
+          "tags": [
+            "ornate",
+            "accessory_small",
+            "romantic",
+            "futuristic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:皮革-o-環頸圈:25",
@@ -234,7 +480,17 @@
       ],
       "zh": "皮革 O 環頸圈",
       "en": "thin leather O-ring choker, narrow leather strap with a small metal O-ring, subtle edgy neck accent",
-      "desc": "以細窄皮革頸圈與小型金屬 O 環為主，和既有扣環頸鏈區隔。"
+      "desc": "以細窄皮革頸圈與小型金屬 O 環為主，和既有扣環頸鏈區隔。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small",
+            "edgy_accessory",
+            "futuristic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:金屬狗牌項鍊:26",
@@ -243,7 +499,19 @@
       ],
       "zh": "金屬狗牌項鍊",
       "en": "metal dog tag necklace, rectangular identification tag pendant on a fine chain, understated utilitarian accessory",
-      "desc": "以矩形金屬狗牌與細鏈為主，加入實用、軍用與工裝風格的頸部配件。"
+      "desc": "以矩形金屬狗牌與細鏈為主，加入實用、軍用與工裝風格的頸部配件。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "accessory_small",
+            "romantic",
+            "edgy",
+            "futuristic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:彩色切面珠短項鍊:27",
@@ -252,7 +520,17 @@
       ],
       "zh": "彩色切面珠短項鍊",
       "en": "short necklace of small faceted multicolored glass beads, subtle colorful neck accent",
-      "desc": "以細小的彩色切面玻璃珠串成短項鍊，與貼頸的單色串珠頸鏈區隔。"
+      "desc": "以細小的彩色切面玻璃珠串成短項鍊，與貼頸的單色串珠頸鏈區隔。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "accessory_small",
+            "romantic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:單顆圓形晶石吊墜項鍊:28",
@@ -261,7 +539,17 @@
       ],
       "zh": "單顆圓形晶石吊墜項鍊",
       "en": "fine chain necklace with a single round clear crystal pendant, understated sparkle",
-      "desc": "細鏈中央垂掛一顆圓形透明晶石，與水滴形寶石吊墜區隔。"
+      "desc": "細鏈中央垂掛一顆圓形透明晶石，與水滴形寶石吊墜區隔。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "accessory_small",
+            "romantic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:四葉草吊墜項鍊:29",
@@ -270,7 +558,17 @@
       ],
       "zh": "四葉草吊墜項鍊",
       "en": "fine chain necklace with a small four-leaf clover pendant, subtle everyday accent",
-      "desc": "以細鏈搭配小型四葉草輪廓吊墜，適合日常穿搭。"
+      "desc": "以細鏈搭配小型四葉草輪廓吊墜，適合日常穿搭。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "accessory_small",
+            "romantic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:頸部-neck-accessories:銀色鯨尾吊墜項鍊:30",
@@ -279,7 +577,17 @@
       ],
       "zh": "銀色鯨尾吊墜項鍊",
       "en": "fine silver chain necklace with a small silver whale-tail pendant, understated ocean-inspired detail",
-      "desc": "細銀鏈搭配小型銀色鯨尾輪廓吊墜，保持清楚造型與低調存在感。"
+      "desc": "細銀鏈搭配小型銀色鯨尾輪廓吊墜，保持清楚造型與低調存在感。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "accessory_small",
+            "romantic"
+          ]
+        }
+      }
     }
   ]
 }

@@ -1,0 +1,28 @@
+✔ Shibuya crowd source preserves the public label, ID, order and legacy English identity (4.488875ms)
+✔ all public main crops and both same-state chest outputs retain landmark and three-layer moving crowd sources (66.171833ms)
+✔ all four effective low-camera angles keep crowds instead of replacing them with empty facades (54.259209ms)
+✔ scene identity does not override selected high viewpoints, orbit or focal length (12.974ms)
+✔ all other location descriptions, metadata and positions remain byte-identical (0.995625ms)
+✔ scene-source-only revision preserves selections, random draws and the scene-free full-body character (124.097667ms)
+✔ new and historical full English sources import to the same stable Shibuya location (72.653666ms)
+✔ Saved Cards preserve both historical prompt bytes and stable location restore with new generation (29.797917ms)
+✔ historical snapshot inverse recognizes only the exact approved Shibuya scene sources (21.996916ms)
+✔ historical inverse fails closed on wrong identities or changed scenes and cannot hide arbitrary added content (5.710542ms)
+✔ 正面強硬光 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings (11.222542ms)
+✔ 機頂直閃 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings (7.4555ms)
+✔ 蝴蝶光 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings (6.654625ms)
+✔ 倫勃朗光 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings (6.656458ms)
+✔ 分割光 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings (6.551ms)
+✔ 下方硬質主光 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings (6.618333ms)
+✔ independent subject-key compatibility fails closed when the authored source changes without repinning (17.833459ms)
+✔ source marker does not grant arbitrary or existing lights the independent-key exemption (27.159375ms)
+✔ independent-key exemptions retain authored indoor/outdoor scope boundaries (201.330166ms)
+✔ new subject keys do not widen old portrait, sun, projection or high-key compatibility rules (2.624ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 544.542875

@@ -9,7 +9,14 @@
       ],
       "zh": "柔順自然",
       "en": "sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face",
-      "desc": "乾淨控制版：髮根服貼、髮量收斂、髮絲排列整齊，降低毛躁、亂髮與過度膨鬆。"
+      "desc": "乾淨控制版：髮根服貼、髮量收斂、髮絲排列整齊，降低毛躁、亂髮與過度膨鬆。",
+      "meta": {
+        "semantic": {
+          "minVisibility": "medium",
+          "tags": [],
+          "archetype": null
+        }
+      }
     },
     {
       "id": "character:髮絲整理狀態-hair-styling-state:濕髮分束:1",
@@ -18,7 +25,14 @@
       ],
       "zh": "濕髮分束",
       "en": "sleek wet finish, defined damp sections, neat separated strands, controlled close-to-head shape",
-      "desc": "濕感版：以清楚分束與受控的服貼輪廓呈現濕髮，不主動增加風吹動態。"
+      "desc": "濕感版：以清楚分束與受控的服貼輪廓呈現濕髮，不主動增加風吹動態。",
+      "meta": {
+        "semantic": {
+          "minVisibility": "medium",
+          "tags": [],
+          "archetype": null
+        }
+      }
     },
     {
       "id": "character:髮絲整理狀態-hair-styling-state:微風吹拂:2",
@@ -27,7 +41,14 @@
       ],
       "zh": "微風吹拂",
       "en": "lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette",
-      "desc": "微風版：只有輕微方向性與少量鬆散髮絲，整體髮型輪廓仍保持穩定。"
+      "desc": "微風版：只有輕微方向性與少量鬆散髮絲，整體髮型輪廓仍保持穩定。",
+      "meta": {
+        "semantic": {
+          "minVisibility": "medium",
+          "tags": [],
+          "archetype": null
+        }
+      }
     },
     {
       "id": "character:髮絲整理狀態-hair-styling-state:強烈風感:3",
@@ -36,7 +57,14 @@
       ],
       "zh": "強烈風感",
       "en": "strong directional wind, visibly lifted and swept strands, pronounced flowing movement, dynamic but coherent silhouette",
-      "desc": "強風版：明確的受風方向與被吹起的髮絲，保留整體輪廓一致，避免隨機爆量亂髮。"
+      "desc": "強風版：明確的受風方向與被吹起的髮絲，保留整體輪廓一致，避免隨機爆量亂髮。",
+      "meta": {
+        "semantic": {
+          "minVisibility": "medium",
+          "tags": [],
+          "archetype": null
+        }
+      }
     },
     {
       "id": "character:髮絲整理狀態-hair-styling-state:全無:4",
@@ -45,7 +73,17 @@
       ],
       "zh": "全無",
       "en": "none",
-      "desc": "不指定髮絲整理狀態，保留已選髮型與髮色。"
+      "desc": "不指定髮絲整理狀態，保留已選髮型與髮色。",
+      "meta": {
+        "semantic": {
+          "minVisibility": "medium",
+          "tags": [
+            "manual_only",
+            "optional_silence"
+          ],
+          "archetype": null
+        }
+      }
     }
   ]
 }

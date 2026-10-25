@@ -183,7 +183,7 @@ for (const control of controls) {
 }
 if (duplicateIdsInControl.length) confirmed('DUPLICATE_ID_IN_CONTROL', `${duplicateIdsInControl.length} 個選項 ID 在同一 control 內重複`, duplicateIdsInControl);
 
-// 執行期推論的 meta（tags 等）：database.json 幾乎不帶 tags，標籤由 engine.js infer*Meta 依 zh/en 關鍵字推論
+// D: 正式來源以 meta.semantic 保存語意；僅自訂／歷史 library 缺少 semantic 時才推論。
 {
   const catalogOptions = new Map();
   for (const control of controls) for (const option of control.options || []) {
@@ -200,6 +200,7 @@ if (duplicateIdsInControl.length) confirmed('DUPLICATE_ID_IN_CONTROL', `${duplic
     tags.forEach((t) => tagSet.add(t));
     Object.keys(option.meta || {}).forEach((k) => metaKeys.add(k));
   }
+  const dbItemsWithSemantic = Object.values(database).flatMap(c => Object.values(c).flat()).filter(i => Object.hasOwn(i.meta || {}, 'semantic')).length;
   const dbItemsWithExplicitTags = Object.values(database).flatMap((c) => Object.values(c).flat()).filter((i) => Array.isArray(i.meta?.tags) && i.meta.tags.length).length;
   report.sections.runtimeMeta = {
     catalogOptionsInControls: catalogOptions.size,
@@ -208,8 +209,9 @@ if (duplicateIdsInControl.length) confirmed('DUPLICATE_ID_IN_CONTROL', `${duplic
     distinctTags: tagSet.size,
     distinctRuntimeMetaKeys: [...metaKeys].sort(),
     dbItemsWithExplicitTags,
+    dbItemsWithSemantic,
   };
-  if (dbItemsWithExplicitTags === 0 && withTags > 0) possible('TAGS_INFERRED_FROM_TEXT', `${withTags} 個目錄選項的 ${tagCount} 個 tags（${tagSet.size} 種）全部由 engine.js 依 zh/en 文字推論；database.json 沒有任何顯式 tags，改寫 en 可能靜默改變相容性過濾`);
+  if (dbItemsWithSemantic === 0 && dbItemsWithExplicitTags === 0 && withTags > 0) possible('TAGS_INFERRED_FROM_TEXT', `${withTags} 個目錄選項的 ${tagCount} 個 tags（${tagSet.size} 種）全部由 engine.js 依 zh/en 文字推論；database.json 沒有任何顯式 tags，改寫 en 可能靜默改變相容性過濾`);
 }
 
 // 同一 control 內：一個 legacyId 對到多個選項 / legacyId 等於另一選項現行 ID
@@ -696,7 +698,7 @@ if (wantJson) {
   lines.push(`MJ 名稱表: ${e.midjourneyItemNames.entries} 條, 懸空 ${e.midjourneyItemNames.dangling.length}, 覆蓋服裝選項 ${e.midjourneyItemNames.coveredWardrobeOptions}/${e.midjourneyItemNames.compiledWardrobeOptionsNonNone} (${e.midjourneyItemNames.coveragePercent}%)`);
   lines.push(`  MJ 名稱分類覆蓋: ${Object.entries(e.midjourneyItemNames.byCategory).map(([k, v]) => `${k} ${v.covered}/${v.total}`).join(', ')}`);
   const rm = report.sections.runtimeMeta;
-  lines.push(`執行期 meta: ${rm.optionsWithTags}/${rm.catalogOptionsInControls} 目錄選項帶 tags，共 ${rm.totalTags} 個（${rm.distinctTags} 種）；database.json 顯式 tags 條目 ${rm.dbItemsWithExplicitTags}；執行期 meta 欄位 ${rm.distinctRuntimeMetaKeys.length} 種`);
+  lines.push(`執行期 meta: ${rm.optionsWithTags}/${rm.catalogOptionsInControls} 目錄選項帶 tags，共 ${rm.totalTags} 個（${rm.distinctTags} 種）；database.json 顯式 semantic 條目 ${rm.dbItemsWithSemantic}／來源額外 tags 條目 ${rm.dbItemsWithExplicitTags}；執行期 meta 欄位 ${rm.distinctRuntimeMetaKeys.length} 種`);
   lines.push(`環境光描述: ${e.ambientLightDescriptions.entries} 條, 完全一致 ${e.ambientLightDescriptions.exactMatch}, 缺描述的環境光選項 ${e.ambientLightDescriptions.catalogLightingWithoutDescription.length}`);
   lines.push(`角色卡: ${e.characterCards.profiles} 張, MJ 卡名 ${e.characterCards.mjCardNameEntries}, manifest ${e.characterCards.manifestItems}, Lab wardrobeLayers ${e.characterCards.labWardrobeLayerStrings} 段（逐字重複 ${e.characterCards.labWardrobeLayersVerbatimInProfiles}）`);
   lines.push(`內嵌目錄模組: ${inv.modules.length} 檔 / ${inv.modulesTotalLines} 行 / ${inv.modulesTotalEntries} 個匯出條目`);

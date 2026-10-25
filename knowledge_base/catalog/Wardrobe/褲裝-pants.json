@@ -9,7 +9,16 @@
       ],
       "zh": "全無",
       "en": "no pants, lower-body styling omitted",
-      "desc": "不使用褲裝，方便和裙裝、泳裝或更簡化的造型邏輯搭配。"
+      "desc": "不使用褲裝，方便和裙裝、泳裝或更簡化的造型邏輯搭配。",
+      "meta": {
+        "semantic": {
+          "family": "swimwear",
+          "tags": [
+            "pants",
+            "no_accessory"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:直筒牛仔褲:1",
@@ -19,7 +28,16 @@
       ],
       "zh": "直筒牛仔褲",
       "en": "straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction",
-      "desc": "以直筒褲管、標準丹寧結構與清楚褲線比例為主，重點在穩定耐看的基礎版型。"
+      "desc": "以直筒褲管、標準丹寧結構與清楚褲線比例為主，重點在穩定耐看的基礎版型。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "pants",
+            "casual"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:低腰牛仔褲:2",
@@ -28,7 +46,16 @@
       ],
       "zh": "低腰牛仔褲",
       "en": "low-rise jeans, waistband sitting on the hips, casual denim silhouette, clean denim structure",
-      "desc": "千禧與街頭感很強的低腰褲型，重點在腰頭位置與丹寧褲身，不預設上身露腰效果。"
+      "desc": "千禧與街頭感很強的低腰褲型，重點在腰頭位置與丹寧褲身，不預設上身露腰效果。",
+      "meta": {
+        "semantic": {
+          "family": "y2k",
+          "tags": [
+            "pants",
+            "casual"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:牛仔短褲:3",
@@ -38,7 +65,16 @@
       ],
       "zh": "牛仔短褲",
       "en": "denim shorts, short hemline, compact fitted seat, clean cut-off-inspired silhouette",
-      "desc": "以短褲長度、丹寧布面與俐落褲口比例為主，重點是簡潔直接的短版結構。"
+      "desc": "以短褲長度、丹寧布面與俐落褲口比例為主，重點是簡潔直接的短版結構。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "pants",
+            "casual"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:超短運動短褲:4",
@@ -47,7 +83,15 @@
       ],
       "zh": "超短運動短褲",
       "en": "micro athletic shorts, compact sporty cut, minimal hem length, lightweight activewear structure",
-      "desc": "以超短褲長、運動褲口與輕量機能結構為主，整體偏精簡直接的 activewear 語言。"
+      "desc": "以超短褲長、運動褲口與輕量機能結構為主，整體偏精簡直接的 activewear 語言。",
+      "meta": {
+        "semantic": {
+          "family": "techwear",
+          "tags": [
+            "pants"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:真理褲:5",
@@ -57,7 +101,17 @@
       ],
       "zh": "真理褲",
       "en": "low-rise dolphin micro shorts, contrast piping, contrast elastic waistband, front drawstring, side lace-up grommet detail, compact athletic hot-pants silhouette",
-      "desc": "以低腰 dolphin 熱褲為核心，包含撞色滾邊、對比鬆緊腰頭、前方抽繩與側邊綁孔細節，重點是短版運動熱褲比例。"
+      "desc": "以低腰 dolphin 熱褲為核心，包含撞色滾邊、對比鬆緊腰頭、前方抽繩與側邊綁孔細節，重點是短版運動熱褲比例。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "pants",
+            "romantic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:韻律緊身短褲:6",
@@ -66,7 +120,15 @@
       ],
       "zh": "韻律緊身短褲",
       "en": "knee-length stretch leggings shorts, fitted rhythmic dance shorts, elastic activewear fabric, streamlined mid-leg silhouette",
-      "desc": "以五分長度的緊身韻律短褲為主，像 leggings 的貼身彈性布料但長度停在膝上到膝位附近，不是長褲。"
+      "desc": "以五分長度的緊身韻律短褲為主，像 leggings 的貼身彈性布料但長度停在膝上到膝位附近，不是長褲。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "pants"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:蕾絲內褲:7",
@@ -81,7 +143,15 @@
       ],
       "legacyPromptAliases": [
         "low-rise lace panties, lingerie bottoms, delicate lace texture, close-fitting hip line, compact lower-body structure"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "family": "lingerie",
+          "tags": [
+            "pants"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:蕾絲丁字褲:8",
@@ -90,7 +160,18 @@
       ],
       "zh": "蕾絲丁字褲",
       "en": "seamless lace thong bottoms, ultra-thin side straps, low-rise V-front, minimal back panel",
-      "desc": "以無痕蕾絲丁字褲為主，低腰 V 字前片、極細側帶與極少後片結構，和一般蕾絲內褲做出清楚區隔。"
+      "desc": "以無痕蕾絲丁字褲為主，低腰 V 字前片、極細側帶與極少後片結構，和一般蕾絲內褲做出清楚區隔。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "pants",
+            "romantic",
+            "heritage"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:皮革短褲:9",
@@ -100,7 +181,16 @@
       ],
       "zh": "皮革短褲",
       "en": "leather shorts, glossy leather surface, compact fitted seat, sharp short-bottom silhouette",
-      "desc": "以皮革表面、俐落短褲比例與較硬挺的下身結構為主，重點在材質與剪裁態度。"
+      "desc": "以皮革表面、俐落短褲比例與較硬挺的下身結構為主，重點在材質與剪裁態度。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "revealing",
+            "pants"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:工裝長褲:10",
@@ -109,7 +199,17 @@
       ],
       "zh": "工裝長褲",
       "en": "cargo pants, structured utility silhouette, practical pocket detailing",
-      "desc": "工裝、街頭與機能感都很穩，輪廓偏直筒或微寬鬆。"
+      "desc": "工裝、街頭與機能感都很穩，輪廓偏直筒或微寬鬆。",
+      "meta": {
+        "semantic": {
+          "family": "techwear",
+          "tags": [
+            "utilitarian",
+            "pants",
+            "edgy"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:西裝長褲:11",
@@ -118,7 +218,16 @@
       ],
       "zh": "西裝長褲",
       "en": "tailored trousers, sharp clean lines, polished formal drape",
-      "desc": "都會、正式與俐落感很強，適合極簡與成熟造型。"
+      "desc": "都會、正式與俐落感很強，適合極簡與成熟造型。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "pants",
+            "elegant"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:寬褲:12",
@@ -128,7 +237,16 @@
       ],
       "zh": "寬褲",
       "en": "wide-leg trousers, elongated drape, broad leg opening, fluid tailored volume",
-      "desc": "以寬褲管、拉長垂墜與流動份量感為核心，重點在褲型展幅與線條延伸。"
+      "desc": "以寬褲管、拉長垂墜與流動份量感為核心，重點在褲型展幅與線條延伸。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "pants",
+            "elegant"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:leggings:13",
@@ -138,7 +256,15 @@
       ],
       "zh": "leggings",
       "en": "leggings, stretch knit structure, continuous leg line, streamlined athletic silhouette",
-      "desc": "以連續腿線、彈性針織布面與簡潔機能結構為主，重點在流線下身比例。"
+      "desc": "以連續腿線、彈性針織布面與簡潔機能結構為主，重點在流線下身比例。",
+      "meta": {
+        "semantic": {
+          "family": "techwear",
+          "tags": [
+            "pants"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:運動棉褲:14",
@@ -148,7 +274,15 @@
       ],
       "zh": "運動棉褲",
       "en": "sweatpants, soft knit body, elastic waistband construction, relaxed athletic drape",
-      "desc": "以棉質針織布身、鬆緊腰頭與自然垂墜的運動褲結構為主。"
+      "desc": "以棉質針織布身、鬆緊腰頭與自然垂墜的運動褲結構為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "pants"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:短褲:15",
@@ -158,7 +292,15 @@
       ],
       "zh": "短褲",
       "en": "shorts, concise hem length, compact lower-body proportion, clean casual bottom structure",
-      "desc": "以短褲長度、俐落褲口與直接的下身比例為主，可再透過腰線與版型欄位延伸風格。"
+      "desc": "以短褲長度、俐落褲口與直接的下身比例為主，可再透過腰線與版型欄位延伸風格。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "pants"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:皮革長褲:16",
@@ -167,7 +309,15 @@
       ],
       "zh": "皮革長褲",
       "en": "leather trousers, sleek fitted structure, cool fashion attitude",
-      "desc": "比短褲更完整且更冷調，適合夜景、時裝與強勢造型。"
+      "desc": "比短褲更完整且更冷調，適合夜景、時裝與強勢造型。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "pants"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:尼龍工裝褲:17",
@@ -177,7 +327,17 @@
       ],
       "zh": "尼龍工裝褲",
       "en": "nylon cargo pants, lightweight technical fabric, utility pocket construction, crisp utilitarian line",
-      "desc": "以尼龍面料、工裝口袋與較俐落的功能性褲身結構為主，重點在材質與機能細節。"
+      "desc": "以尼龍面料、工裝口袋與較俐落的功能性褲身結構為主，重點在材質與機能細節。",
+      "meta": {
+        "semantic": {
+          "family": "techwear",
+          "tags": [
+            "utilitarian",
+            "pants",
+            "edgy"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:破壞牛仔寬褲:18",
@@ -187,7 +347,16 @@
       ],
       "zh": "破壞牛仔寬褲",
       "en": "distressed wide-leg denim, frayed edge detailing, heavy-wash texture, expanded leg volume",
-      "desc": "以破壞刷色、抽鬚邊緣與寬版褲管為主，重點在表面處理與份量感。"
+      "desc": "以破壞刷色、抽鬚邊緣與寬版褲管為主，重點在表面處理與份量感。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "pants",
+            "casual"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:絲絨喇叭褲:19",
@@ -196,7 +365,15 @@
       ],
       "zh": "絲絨喇叭褲",
       "en": "velvet flared pants, 70s retro style, soft plush texture",
-      "desc": "帶有復古戲劇感與柔軟光澤。"
+      "desc": "帶有復古戲劇感與柔軟光澤。",
+      "meta": {
+        "semantic": {
+          "family": "retro",
+          "tags": [
+            "pants"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:亮面皮革長褲:20",
@@ -206,7 +383,16 @@
       ],
       "zh": "亮面皮革長褲",
       "en": "gloss-finish leather trousers, reflective surface treatment, elongated leg line, sharp lower-body structure",
-      "desc": "以亮面皮革、拉長褲身線條與更明確的表面反光處理為主，重點在材質態度。"
+      "desc": "以亮面皮革、拉長褲身線條與更明確的表面反光處理為主，重點在材質態度。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "pants",
+            "futuristic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:乳膠長褲:21",
@@ -216,7 +402,17 @@
       ],
       "zh": "乳膠長褲",
       "en": "latex trousers, high-shine latex surface, continuous leg contour, polished synthetic finish",
-      "desc": "以乳膠表面、高反光塗層與連續腿線為主，重點在材質與完整褲身結構。"
+      "desc": "以乳膠表面、高反光塗層與連續腿線為主，重點在材質與完整褲身結構。",
+      "meta": {
+        "semantic": {
+          "family": "bdsm",
+          "tags": [
+            "revealing",
+            "pants",
+            "futuristic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:乳膠短褲:22",
@@ -226,7 +422,17 @@
       ],
       "zh": "乳膠短褲",
       "en": "latex shorts, high-shine latex surface, concise short-bottom block, polished synthetic finish",
-      "desc": "以乳膠表面、短褲比例與更直接的材質反光為主，重點在精簡下身結構。"
+      "desc": "以乳膠表面、短褲比例與更直接的材質反光為主，重點在精簡下身結構。",
+      "meta": {
+        "semantic": {
+          "family": "bdsm",
+          "tags": [
+            "revealing",
+            "pants",
+            "futuristic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:比基尼下身:23",
@@ -235,7 +441,17 @@
       ],
       "zh": "比基尼下身",
       "en": "low-rise side-tie bikini bottoms, string-tied hips, minimal swimwear coverage, clean swim-bottom silhouette",
-      "desc": "作為泳裝下身使用時，改成更接近兩側綁帶的低腰比基尼褲型，重點是髖部綁結、簡潔包覆與俐落泳裝下身輪廓。"
+      "desc": "作為泳裝下身使用時，改成更接近兩側綁帶的低腰比基尼褲型，重點是髖部綁結、簡潔包覆與俐落泳裝下身輪廓。",
+      "meta": {
+        "semantic": {
+          "family": "swimwear",
+          "tags": [
+            "revealing",
+            "outdoor_bias",
+            "pants"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:波西米亞風長褲:24",
@@ -244,7 +460,15 @@
       ],
       "zh": "波西米亞風長褲",
       "en": "bohemian draped trousers, loose soft volume, washed rayon or crinkled cotton fabric, gathered relaxed waist, folk-pattern panels",
-      "desc": "褲身更寬鬆柔軟，帶自然堆疊與民俗圖案面料；整體不是俐落剪裁，而是強調鬆弛、垂墜與寬鬆份量。"
+      "desc": "褲身更寬鬆柔軟，帶自然堆疊與民俗圖案面料；整體不是俐落剪裁，而是強調鬆弛、垂墜與寬鬆份量。",
+      "meta": {
+        "semantic": {
+          "family": "bohemian",
+          "tags": [
+            "pants"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:丹寧吊帶長褲:25",
@@ -253,7 +477,17 @@
       ],
       "zh": "丹寧吊帶長褲",
       "en": "denim overalls, full-length wide-legged silhouette, casual utility straps, relaxed vintage styling",
-      "desc": "以丹寧吊帶與長褲輪廓為主的休閒單品，帶有復古、工裝與青春感。"
+      "desc": "以丹寧吊帶與長褲輪廓為主的休閒單品，帶有復古、工裝與青春感。",
+      "meta": {
+        "semantic": {
+          "family": "retro",
+          "tags": [
+            "utilitarian",
+            "pants",
+            "edgy"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:丹寧吊帶短褲:26",
@@ -262,7 +496,16 @@
       ],
       "zh": "丹寧吊帶短褲",
       "en": "denim short overalls, casual bib-front silhouette, youthful utility styling, relaxed summer mood",
-      "desc": "以丹寧吊帶短褲為核心的夏日單品，整體更輕鬆、可愛，也更生活化。"
+      "desc": "以丹寧吊帶短褲為核心的夏日單品，整體更輕鬆、可愛，也更生活化。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "utilitarian",
+            "pants"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:喇叭褲:27",
@@ -271,7 +514,15 @@
       ],
       "zh": "喇叭褲",
       "en": "flared trousers, fitted through the hips, widening from the knees, elongated leg line",
-      "desc": "以臀部至大腿合身、膝下逐漸放寬與拉長腿部線條為主。"
+      "desc": "以臀部至大腿合身、膝下逐漸放寬與拉長腿部線條為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "pants"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:工裝短褲:28",
@@ -280,7 +531,17 @@
       ],
       "zh": "工裝短褲",
       "en": "cargo shorts, compact utility cut, side cargo pockets, structured casual silhouette",
-      "desc": "以短褲長度、側邊工裝口袋與硬挺休閒輪廓為主。"
+      "desc": "以短褲長度、側邊工裝口袋與硬挺休閒輪廓為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "utilitarian",
+            "pants",
+            "edgy"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:氣球工裝褲:29",
@@ -289,7 +550,16 @@
       ],
       "zh": "氣球工裝褲",
       "en": "balloon cargo pants, high-volume barrel legs, deep knee shaping, large bellows side pockets, tapered cuffs",
-      "desc": "以高份量氣球褲管、膝部立體剪裁、大型風箱口袋與收束褲口為主。"
+      "desc": "以高份量氣球褲管、膝部立體剪裁、大型風箱口袋與收束褲口為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "pants",
+            "edgy"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:七分褲:30",
@@ -298,7 +568,15 @@
       ],
       "zh": "七分褲",
       "en": "cropped capri pants, straight or fitted leg, hem ending below the knee, clean cropped silhouette",
-      "desc": "以膝下截短褲長、直筒或合身褲管與乾淨七分比例為主。"
+      "desc": "以膝下截短褲長、直筒或合身褲管與乾淨七分比例為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "pants"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:窄前片細繩蕾絲丁字褲:31",
@@ -307,7 +585,18 @@
       ],
       "zh": "窄前片細繩蕾絲丁字褲",
       "en": "narrow-front lace G-string bottoms, low-rise narrow triangular lace front panel, G-string back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties",
-      "desc": "低腰窄三角蕾絲前片與細繩後片；細側繫繩拉緊貼合髖部，接觸處有可見淺壓痕，保留繩帶張力與局部貼合輪廓。"
+      "desc": "低腰窄三角蕾絲前片與細繩後片；細側繫繩拉緊貼合髖部，接觸處有可見淺壓痕，保留繩帶張力與局部貼合輪廓。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "pants",
+            "romantic",
+            "heritage"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:窄前片細繩比基尼下身:32",
@@ -319,7 +608,16 @@
       "desc": "窄前片細繩比基尼下身，極少量平滑泳裝布料形成小型低腰三角前片，搭配高腿口與丁字後片；細側繫繩拉緊貼合髖部，接觸處有可見淺壓痕。",
       "legacyPromptAliases": [
         "narrow-front string thong bikini bottoms, low-rise narrow triangular swim front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "family": "swimwear",
+          "tags": [
+            "revealing",
+            "pants"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:褲裝-pants:愛迪達三線運動長褲:33",
@@ -331,6 +629,14 @@
       "desc": "全長運動長褲，平滑針織運動布料、鬆緊抽繩腰頭，兩側褲管各有三條平行撞色線條。",
       "bottomWaist": {
         "supportsUnfastenedFly": false
+      },
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "pants"
+          ]
+        }
       }
     }
   ]

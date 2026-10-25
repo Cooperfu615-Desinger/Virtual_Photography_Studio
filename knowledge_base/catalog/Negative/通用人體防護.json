@@ -9,7 +9,13 @@
       ],
       "zh": "基礎肢體崩壞防護",
       "en": "deformed, bad anatomy, disfigured, poorly drawn face, mutation, mutated, ugly, disgusting",
-      "desc": "最基礎且必備的防護牆。防止 AI 隨機生成嚴重扭曲的人體結構或面部器官。"
+      "desc": "最基礎且必備的防護牆。防止 AI 隨機生成嚴重扭曲的人體結構或面部器官。",
+      "meta": {
+        "semantic": {
+          "conflictTags": [],
+          "useTags": []
+        }
+      }
     },
     {
       "id": "negative:通用人體防護:手部與手指變異防護:1",
@@ -18,7 +24,13 @@
       ],
       "zh": "手部與手指變異防護",
       "en": "bad hands, missing fingers, extra digit, fewer digits, poorly drawn hands, twisted fingers, fused fingers",
-      "desc": "針對 AI 最弱的「手部細節」加強防護，避免出現六根手指、手指融合或不合邏輯的折疊。"
+      "desc": "針對 AI 最弱的「手部細節」加強防護，避免出現六根手指、手指融合或不合邏輯的折疊。",
+      "meta": {
+        "semantic": {
+          "conflictTags": [],
+          "useTags": []
+        }
+      }
     },
     {
       "id": "negative:通用人體防護:腿部與關節防護:2",
@@ -27,7 +39,13 @@
       ],
       "zh": "腿部與關節防護",
       "en": "missing legs, extra legs, bad feet, twisted legs, broken bone, unnatural posture, disconnected limbs",
-      "desc": "避免站姿或坐姿時，腿部憑空消失、多出一條腿，或是關節朝反方向彎折。"
+      "desc": "避免站姿或坐姿時，腿部憑空消失、多出一條腿，或是關節朝反方向彎折。",
+      "meta": {
+        "semantic": {
+          "conflictTags": [],
+          "useTags": []
+        }
+      }
     },
     {
       "id": "negative:通用人體防護:頸部與頭部防護:3",
@@ -36,7 +54,13 @@
       ],
       "zh": "頸部與頭部防護",
       "en": "long neck, detached head, weird jaw, out of frame head, multiple heads, elongated face",
-      "desc": "避免頭部與身體脫節、脖子異常拉長如蛇，或是同一個畫面上出現多顆頭顱。"
+      "desc": "避免頭部與身體脫節、脖子異常拉長如蛇，或是同一個畫面上出現多顆頭顱。",
+      "meta": {
+        "semantic": {
+          "conflictTags": [],
+          "useTags": []
+        }
+      }
     },
     {
       "id": "negative:通用人體防護:五官細節防護:4",
@@ -45,7 +69,13 @@
       ],
       "zh": "五官細節防護",
       "en": "cross-eyed, asymmetric eyes, weird eyes, missing nose, bad teeth, malformed lips, unrealistic facial proportions",
-      "desc": "強制五官對稱，避免鬥雞眼、大小眼，或是張嘴時出現恐怖的牙齒結構。"
+      "desc": "強制五官對稱，避免鬥雞眼、大小眼，或是張嘴時出現恐怖的牙齒結構。",
+      "meta": {
+        "semantic": {
+          "conflictTags": [],
+          "useTags": []
+        }
+      }
     }
   ]
 }

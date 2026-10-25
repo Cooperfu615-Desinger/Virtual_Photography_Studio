@@ -9,7 +9,15 @@
       ],
       "zh": "全無",
       "en": "no additional outerwear fit adjustment",
-      "desc": "不額外指定外套長度或鬆緊版型，保留外套本體原始輪廓。"
+      "desc": "不額外指定外套長度或鬆緊版型，保留外套本體原始輪廓。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "no_accessory"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:外套版型-outerwear-fit:合身:1",
@@ -21,6 +29,12 @@
       "desc": "正常衣長的合身外套比例，僅強化剪裁貼合度，不改變外套長度。",
       "outerwearFit": {
         "fit": "fitted"
+      },
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
       }
     },
     {
@@ -33,6 +47,12 @@
       "desc": "正常衣長的緊身外套比例，貼近身體線條但仍維持外套結構。",
       "outerwearFit": {
         "fit": "tight body-skimming"
+      },
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
       }
     },
     {
@@ -45,6 +65,14 @@
       "desc": "正常衣長的 oversize 外套比例，肩線與衣身更寬鬆。",
       "outerwearFit": {
         "fit": "oversized"
+      },
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "streetwear"
+          ]
+        }
       }
     },
     {
@@ -58,6 +86,12 @@
       "outerwearFit": {
         "fit": "fitted",
         "length": "hip-length"
+      },
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
       }
     },
     {
@@ -71,6 +105,12 @@
       "outerwearFit": {
         "fit": "fitted",
         "length": "underbust-cropped"
+      },
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
       }
     },
     {
@@ -84,6 +124,12 @@
       "outerwearFit": {
         "fit": "tight body-skimming",
         "length": "hip-length"
+      },
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
       }
     },
     {
@@ -97,6 +143,12 @@
       "outerwearFit": {
         "fit": "tight body-skimming",
         "length": "underbust-cropped"
+      },
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
       }
     },
     {
@@ -110,6 +162,14 @@
       "outerwearFit": {
         "fit": "oversized",
         "length": "hip-length"
+      },
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "streetwear"
+          ]
+        }
       }
     },
     {
@@ -123,6 +183,14 @@
       "outerwearFit": {
         "fit": "oversized",
         "length": "underbust-cropped"
+      },
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "streetwear"
+          ]
+        }
       }
     }
   ]

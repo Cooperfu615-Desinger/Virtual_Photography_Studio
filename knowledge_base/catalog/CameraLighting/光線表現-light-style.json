@@ -9,7 +9,12 @@
       ],
       "zh": "全無",
       "en": "none",
-      "desc": "不指定人物受光方式，讓模型自行決定光源方向、硬度、反差、投影與反射。"
+      "desc": "不指定人物受光方式，讓模型自行決定光源方向、硬度、反差、投影與反射。",
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:柔和順光:1",
@@ -18,7 +23,20 @@
       ],
       "zh": "柔和順光",
       "en": "soft frontal subject light, even illumination across face and upper body, gentle shadow modeling, low contrast",
-      "desc": "正面柔光均勻照亮臉部與上身，保留輕微陰影塑形，整體反差低。"
+      "desc": "正面柔光均勻照亮臉部與上身，保留輕微陰影塑形，整體反差低。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "soft_light",
+            "portrait_light",
+            "supports_indoor",
+            "supports_outdoor",
+            "supports_studio",
+            "supports_urban",
+            "supports_natural"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:均勻平光:2",
@@ -27,7 +45,20 @@
       ],
       "zh": "均勻平光",
       "en": "flat even subject light, balanced face and clothing exposure, minimal shadow modeling, neutral contrast",
-      "desc": "人物受光平均、臉部與服裝曝光平衡，幾乎不做立體陰影塑形。"
+      "desc": "人物受光平均、臉部與服裝曝光平衡，幾乎不做立體陰影塑形。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "soft_light",
+            "controlled",
+            "supports_indoor",
+            "supports_outdoor",
+            "supports_studio",
+            "supports_urban",
+            "supports_natural"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:側向柔光:3",
@@ -36,7 +67,18 @@
       ],
       "zh": "側向柔光",
       "en": "soft side light across the subject, gentle cheek and shoulder contour, gradual shadow transition, natural dimension",
-      "desc": "柔和側光描出臉頰與肩線，陰影平順過渡，保留自然立體感。"
+      "desc": "柔和側光描出臉頰與肩線，陰影平順過渡，保留自然立體感。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "soft_light",
+            "portrait_light",
+            "supports_indoor",
+            "supports_outdoor",
+            "supports_studio"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:側向硬光:4",
@@ -45,7 +87,18 @@
       ],
       "zh": "側向硬光",
       "en": "hard side light across the subject, crisp facial-plane shadows, sculpted body contrast, sharp highlight separation",
-      "desc": "硬側光切出清楚臉部陰影，強化身體明暗對比與亮暗分界。"
+      "desc": "硬側光切出清楚臉部陰影，強化身體明暗對比與亮暗分界。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "portrait_light",
+            "harsh",
+            "supports_indoor",
+            "supports_outdoor",
+            "supports_studio"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:側逆光:5",
@@ -54,7 +107,17 @@
       ],
       "zh": "側逆光",
       "en": "soft diagonal rear-side light, narrow rim along hair and shoulder, partial facial fill, separated subject edge",
-      "desc": "斜後方柔光勾出髮絲與肩線窄輪廓，臉部保留部分補光並與背景分離。"
+      "desc": "斜後方柔光勾出髮絲與肩線窄輪廓，臉部保留部分補光並與背景分離。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "backlight",
+            "supports_indoor",
+            "supports_outdoor",
+            "supports_studio"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:逆光輪廓光:6",
@@ -63,7 +126,17 @@
       ],
       "zh": "逆光輪廓光",
       "en": "strong back rim light, bright outline along hair shoulders and body edges, restrained shadow-side detail",
-      "desc": "強逆光在髮絲、肩線與身體邊緣形成明亮輪廓，暗面只保留必要細節。"
+      "desc": "強逆光在髮絲、肩線與身體邊緣形成明亮輪廓，暗面只保留必要細節。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "backlight",
+            "supports_indoor",
+            "supports_outdoor",
+            "supports_studio"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:頂部照明:7",
@@ -72,7 +145,17 @@
       ],
       "zh": "頂部照明",
       "en": "overhead subject light, downward illumination across face and torso, defined eye-socket and nose shadows, vertical falloff",
-      "desc": "上方光向下照過臉部與軀幹，眼窩、鼻下與身體呈現明確垂直明暗落差。"
+      "desc": "上方光向下照過臉部與軀幹，眼窩、鼻下與身體呈現明確垂直明暗落差。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "overhead",
+            "supports_indoor",
+            "supports_outdoor",
+            "supports_studio"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:下方反射光:8",
@@ -81,7 +164,18 @@
       ],
       "zh": "下方反射光",
       "en": "upward reflected fill on the subject, subtle lift under the face, softened chin and neck shadows, gentle lower-body bounce",
-      "desc": "下方反射補光抬亮臉部下緣，柔化下巴與頸部陰影，讓下半身受光更柔和。"
+      "desc": "下方反射補光抬亮臉部下緣，柔化下巴與頸部陰影，讓下半身受光更柔和。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "soft_light",
+            "portrait_light",
+            "reflective",
+            "supports_indoor",
+            "supports_outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:漫射霧光:9",
@@ -90,7 +184,18 @@
       ],
       "zh": "漫射霧光",
       "en": "diffused wraparound light, broad soft fill across the subject, softened shadow edges, low-contrast detail",
-      "desc": "漫射光包覆人物，臉部與衣物有寬廣柔和補光，陰影邊緣柔化且反差低。"
+      "desc": "漫射光包覆人物，臉部與衣物有寬廣柔和補光，陰影邊緣柔化且反差低。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "soft_light",
+            "diffused",
+            "mist",
+            "supports_indoor",
+            "supports_outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:硬質晴光:10",
@@ -99,7 +204,19 @@
       ],
       "zh": "硬質晴光",
       "en": "hard direct sunlight on the subject, crisp cast-shadow edges, strong side contrast, bright specular highlights",
-      "desc": "直射陽光形成清楚投影邊緣與強側向對比，皮膚與衣物亮部明亮銳利。"
+      "desc": "直射陽光形成清楚投影邊緣與強側向對比，皮膚與衣物亮部明亮銳利。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "sunlight",
+            "harsh",
+            "hard_direct_sun",
+            "supports_outdoor",
+            "supports_urban",
+            "supports_natural"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:低光高反差:11",
@@ -108,7 +225,20 @@
       ],
       "zh": "低光高反差",
       "en": "low-key subject light, deep face and body shadows, selective highlight accents, strong tonal contrast",
-      "desc": "臉部與身體大面積位於暗部，只留下選擇性的亮面與強烈明暗反差。"
+      "desc": "臉部與身體大面積位於暗部，只留下選擇性的亮面與強烈明暗反差。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "dark",
+            "dramatic",
+            "artificial_light",
+            "low_key_subject",
+            "supports_indoor",
+            "supports_outdoor",
+            "supports_studio"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:高調亮光:12",
@@ -117,7 +247,20 @@
       ],
       "zh": "高調亮光",
       "en": "high-key subject light, bright even exposure across face and clothing, pale soft shadows, clean highlights",
-      "desc": "臉部與服裝整體明亮均勻，陰影淡而柔軟，亮部保持乾淨。"
+      "desc": "臉部與服裝整體明亮均勻，陰影淡而柔軟，亮部保持乾淨。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "soft_light",
+            "studio_light",
+            "controlled",
+            "high_key_subject",
+            "supports_indoor",
+            "supports_outdoor",
+            "supports_studio"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
@@ -126,7 +269,21 @@
       ],
       "zh": "暖金黃昏色溫",
       "en": "warm golden-amber subject color, honey-toned highlights on skin and clothing, gentle warm shadow bias, controlled saturation",
-      "desc": "只讓人物受光呈暖金蜜色與柔和暖陰影，維持受控彩度，不指定夕陽或天空。"
+      "desc": "只讓人物受光呈暖金蜜色與柔和暖陰影，維持受控彩度，不指定夕陽或天空。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "soft_light",
+            "warm",
+            "color_temperature",
+            "supports_indoor",
+            "supports_outdoor",
+            "supports_studio",
+            "supports_urban",
+            "supports_natural"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:冷白日光色溫:14",
@@ -135,7 +292,21 @@
       ],
       "zh": "冷白日光色溫",
       "en": "cool clean daylight subject color, pale neutral highlights, restrained cool shadows, clear skin and clothing detail",
-      "desc": "人物受光偏冷白乾淨，亮部中性，陰影帶克制冷色並保留皮膚與服裝細節。"
+      "desc": "人物受光偏冷白乾淨，亮部中性，陰影帶克制冷色並保留皮膚與服裝細節。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "soft_light",
+            "cool",
+            "color_temperature",
+            "supports_indoor",
+            "supports_outdoor",
+            "supports_studio",
+            "supports_urban",
+            "supports_natural"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
@@ -144,7 +315,22 @@
       ],
       "zh": "室內暖白燈色溫",
       "en": "warm-white indoor subject color, neutral-warm highlights, gentle household warmth, restrained amber saturation",
-      "desc": "人物受光呈乾淨的室內暖白色，帶中性暖亮部與克制的琥珀彩度。"
+      "desc": "人物受光呈乾淨的室內暖白色，帶中性暖亮部與克制的琥珀彩度。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "soft_light",
+            "warm",
+            "color_temperature",
+            "indoor",
+            "supports_indoor",
+            "supports_residential",
+            "supports_hospitality",
+            "supports_commercial",
+            "supports_studio"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:冷藍夜色光:16",
@@ -153,7 +339,22 @@
       ],
       "zh": "冷藍夜色光",
       "en": "cool blue night-toned subject light, restrained cyan fill or rim, cool shadow tint, subdued highlight intensity",
-      "desc": "人物受光偏冷藍，僅以克制青色補光或輪廓光勾勒，亮部不過度強烈。"
+      "desc": "人物受光偏冷藍，僅以克制青色補光或輪廓光勾勒，亮部不過度強烈。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "cool",
+            "dark",
+            "color_temperature",
+            "night_subject",
+            "supports_indoor",
+            "supports_outdoor",
+            "supports_studio",
+            "supports_urban",
+            "supports_subterranean"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:混合色溫光:17",
@@ -162,7 +363,20 @@
       ],
       "zh": "混合色溫光",
       "en": "mixed warm and cool subject light, layered highlight temperatures across face and clothing, controlled color separation",
-      "desc": "臉部與服裝同時呈現冷暖亮部，色溫分層清楚但維持受控分離。"
+      "desc": "臉部與服裝同時呈現冷暖亮部，色溫分層清楚但維持受控分離。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "artificial_light",
+            "mixed_color",
+            "supports_indoor",
+            "supports_outdoor",
+            "supports_commercial",
+            "supports_urban",
+            "supports_subterranean"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:霓虹染色光:18",
@@ -171,7 +385,21 @@
       ],
       "zh": "霓虹染色光",
       "en": "saturated neon color spill across the subject, vivid colored edge highlights on skin hair and clothing, controlled chromatic cast",
-      "desc": "高彩度霓虹色溢光染上皮膚、髮絲與衣物邊緣，維持可控的色彩偏移。"
+      "desc": "高彩度霓虹色溢光染上皮膚、髮絲與衣物邊緣，維持可控的色彩偏移。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "artificial_light",
+            "neon",
+            "neon_subject",
+            "supports_indoor",
+            "supports_outdoor",
+            "supports_commercial",
+            "supports_urban",
+            "supports_subterranean"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:窗格投影光:19",
@@ -180,7 +408,19 @@
       ],
       "zh": "窗格投影光",
       "en": "window-frame pattern light across the subject, geometric daylight bands on face and clothing, defined shadow edges",
-      "desc": "窗框幾何日光帶落在臉部與服裝上，形成清楚的幾何陰影邊緣。"
+      "desc": "窗框幾何日光帶落在臉部與服裝上，形成清楚的幾何陰影邊緣。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "window_light",
+            "window_projection",
+            "supports_indoor",
+            "supports_residential",
+            "supports_hospitality",
+            "supports_heritage"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:百葉窗條紋投影光:20",
@@ -189,7 +429,20 @@
       ],
       "zh": "百葉窗條紋投影光",
       "en": "window-blind stripe light across the subject, horizontal slatted bands on face and clothing, crisp alternating light and shadow",
-      "desc": "百葉窗水平條紋落在臉部與服裝上，形成清楚交錯的明暗帶。"
+      "desc": "百葉窗水平條紋落在臉部與服裝上，形成清楚交錯的明暗帶。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "window_light",
+            "portrait_light",
+            "window_projection",
+            "supports_indoor",
+            "supports_residential",
+            "supports_hospitality",
+            "supports_heritage"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:冷調窗邊輪廓光:21",
@@ -198,7 +451,21 @@
       ],
       "zh": "冷調窗邊輪廓光",
       "en": "cool window-side edge light, clean illumination along hair and shoulder, soft shadow-side falloff, subtle contour separation",
-      "desc": "冷色窗邊光乾淨勾出髮絲與肩線，暗面柔和衰減，輪廓與背景微妙分離。"
+      "desc": "冷色窗邊光乾淨勾出髮絲與肩線，暗面柔和衰減，輪廓與背景微妙分離。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "backlight",
+            "portrait_light",
+            "cool",
+            "indoor",
+            "supports_indoor",
+            "supports_residential",
+            "supports_hospitality",
+            "supports_heritage"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:斑駁樹影光:22",
@@ -207,7 +474,19 @@
       ],
       "zh": "斑駁樹影光",
       "en": "dappled leaf-shadow light across the subject, irregular sunlight patches on skin and clothing, broken branch-and-leaf pattern",
-      "desc": "穿過枝葉的陽光在皮膚與衣物上形成不規則斑駁光影。"
+      "desc": "穿過枝葉的陽光在皮膚與衣物上形成不規則斑駁光影。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "natural_light",
+            "sunlight",
+            "dappled_subject_light",
+            "supports_outdoor",
+            "supports_natural",
+            "supports_urban"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:潮濕反射光:23",
@@ -216,7 +495,18 @@
       ],
       "zh": "潮濕反射光",
       "en": "wet-surface reflected fill on the subject, soft upward bounce from nearby surfaces, cool glossy highlights along lower contours",
-      "desc": "附近濕潤表面的柔和反射從下方回補人物，讓下緣輪廓帶冷色亮面。"
+      "desc": "附近濕潤表面的柔和反射從下方回補人物，讓下緣輪廓帶冷色亮面。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "reflective",
+            "wet_surface",
+            "outdoor_only",
+            "supports_outdoor",
+            "supports_urban"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:局部暖光:24",
@@ -225,7 +515,19 @@
       ],
       "zh": "局部暖光",
       "en": "localized warm subject light, concentrated amber highlight zone across face and hands, gentle warm falloff, soft surrounding shadows",
-      "desc": "臉部與手部形成集中琥珀暖亮區，向外柔和衰減並保留周圍柔軟陰影。"
+      "desc": "臉部與手部形成集中琥珀暖亮區，向外柔和衰減並保留周圍柔軟陰影。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "artificial_light",
+            "warm",
+            "supports_indoor",
+            "supports_hospitality",
+            "supports_residential",
+            "supports_commercial"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:深夜邊緣微光:25",
@@ -234,7 +536,22 @@
       ],
       "zh": "深夜邊緣微光",
       "en": "minimal nocturnal rim light, faint cool edge tracing hair shoulders and body outline, mostly shadowed subject mass",
-      "desc": "主體大多留在暗部，只沿髮絲、肩線與身體外輪廓保留微弱冷色邊光。"
+      "desc": "主體大多留在暗部，只沿髮絲、肩線與身體外輪廓保留微弱冷色邊光。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "backlight",
+            "dark",
+            "cool",
+            "night_subject",
+            "supports_indoor",
+            "supports_outdoor",
+            "supports_studio",
+            "supports_urban",
+            "supports_subterranean"
+          ]
+        }
+      }
     },
     {
       "id": "camera:光線表現-light-style:正面強硬光:26",
@@ -253,6 +570,11 @@
           "supports_outdoor",
           "supports_studio"
         ]
+      },
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
       }
     },
     {
@@ -273,6 +595,11 @@
           "supports_outdoor",
           "supports_studio"
         ]
+      },
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
       }
     },
     {
@@ -292,6 +619,11 @@
           "supports_outdoor",
           "supports_studio"
         ]
+      },
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
       }
     },
     {
@@ -311,6 +643,11 @@
           "supports_outdoor",
           "supports_studio"
         ]
+      },
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
       }
     },
     {
@@ -330,6 +667,11 @@
           "supports_outdoor",
           "supports_studio"
         ]
+      },
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
       }
     },
     {
@@ -349,6 +691,11 @@
           "supports_outdoor",
           "supports_studio"
         ]
+      },
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
       }
     }
   ]

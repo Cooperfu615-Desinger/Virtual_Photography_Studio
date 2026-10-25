@@ -46,7 +46,70 @@
       ],
       "categories": {
         "攝影風格": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "high_saturation",
+                          "dreamlike",
+                          "artificial_light",
+                          "controlled",
+                          "moody",
+                          "cool_grade",
+                          "dramatic",
+                          "natural_light_bias",
+                          "low_key_bias",
+                          "minimal",
+                          "structured",
+                          "conceptual",
+                          "soft_grade",
+                          "high_key",
+                          "film",
+                          "lively",
+                          "bright_grade",
+                          "elegant",
+                          "flash_bias",
+                          "editorial",
+                          "warm_grade",
+                          "raw",
+                          "intimate",
+                          "clean_grade",
+                          "documentary",
+                          "monochrome",
+                          "heritage_style",
+                          "low_frequency_style",
+                          "high_contrast",
+                          "beauty",
+                          "cinematic",
+                          "neon",
+                          "night_bias"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         }
       }
     },
@@ -55,7 +118,80 @@
       "required": [],
       "categories": {
         "特殊穿搭 (Special Outfits)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "套裝 (Outfit Presets)": {
           "properties": {
@@ -112,11 +248,77 @@
                 },
                 "primaryColorBehavior": {
                   "type": "string"
+                },
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
                 }
               },
-              "additionalProperties": false
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
             }
-          }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "上身 (Tops)": {
           "properties": {
@@ -143,11 +345,156 @@
               "items": {
                 "type": "string"
               }
+            },
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
             }
-          }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "上身圖案 (Top Surface Design)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "連身 (Dresses)": {
           "properties": {
@@ -156,8 +503,80 @@
               "items": {
                 "type": "string"
               }
+            },
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
             }
-          }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "褲裝 (Pants)": {
           "properties": {
@@ -181,17 +600,308 @@
                 }
               },
               "additionalProperties": false
+            },
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
             }
-          }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "裙裝 (Skirts)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "下身圖案 (Bottom Surface Design)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "襪類 (Legwear)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "外套版型 (Outerwear Fit)": {
           "properties": {
@@ -206,8 +916,80 @@
                 }
               },
               "additionalProperties": false
+            },
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
             }
-          }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "外套 (Outerwear)": {
           "properties": {
@@ -258,8 +1040,80 @@
               "items": {
                 "type": "string"
               }
+            },
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
             }
-          }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "外套開合 (Outerwear Opening)": {
           "properties": {
@@ -271,8 +1125,80 @@
               "items": {
                 "type": "string"
               }
+            },
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
             }
-          }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "外套穿法 (Outerwear Styling)": {
           "properties": {
@@ -296,8 +1222,80 @@
                 }
               },
               "additionalProperties": false
+            },
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
             }
-          }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "外套圖案 (Outerwear Surface Design)": {
           "properties": {
@@ -306,18 +1304,235 @@
               "items": {
                 "type": "string"
               }
+            },
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
             }
-          }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "鞋款 (Shoes)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "頭部配件 (Head Accessories)": {
           "properties": {
             "headAccessoryColorTarget": {
               "type": "string"
+            },
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
             }
-          }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "眼鏡 (Eyewear)": {
           "properties": {
@@ -326,29 +1541,612 @@
             },
             "eyewearPlacementMode": {
               "type": "string"
+            },
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
             }
-          }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "眼鏡配色 (Eyewear Color)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "眼鏡配戴方式 (Eyewear Placement)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "耳環 (Earrings)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "鼻部穿孔 (Nose Piercings)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "唇部穿孔 (Lip Piercings)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "頸部 (Neck Accessories)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "腰部配件 (Waist Accessories)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "enum": [
+                        "neutral",
+                        "punk",
+                        "techwear",
+                        "military",
+                        "streetwear",
+                        "y2k",
+                        "bohemian",
+                        "retro",
+                        "victorian",
+                        "parisian",
+                        "minimal",
+                        "bdsm",
+                        "lingerie",
+                        "lolita",
+                        "swimwear",
+                        "schoolgirl",
+                        "cyberpunk"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "no_accessory",
+                          "revealing",
+                          "ornate",
+                          "streetwear",
+                          "elegant",
+                          "romantic",
+                          "heritage",
+                          "edgy_accessory",
+                          "edgy",
+                          "futuristic",
+                          "utilitarian",
+                          "casual",
+                          "uniform",
+                          "outdoor_bias",
+                          "dress",
+                          "pants",
+                          "skirt",
+                          "legwear",
+                          "optional_silence",
+                          "accessory_small"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         }
       }
     },
@@ -357,25 +2155,1022 @@
       "required": [],
       "categories": {
         "景別構圖 (Framing)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "visibility": {
+                      "type": "string",
+                      "enum": [
+                        "medium",
+                        "close",
+                        "portrait",
+                        "full"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "face_detail",
+                          "partial_face",
+                          "dutch_bias",
+                          "full_face_tight",
+                          "eye_contact_ok",
+                          "upper_body_focus",
+                          "pose_focus",
+                          "outfit_focus",
+                          "full_face_offset",
+                          "high_angle",
+                          "low_camera_height",
+                          "low_frequency_angle",
+                          "low_angle",
+                          "near_foreground_perspective",
+                          "aerial",
+                          "no_eye_contact",
+                          "dynamic",
+                          "front_view",
+                          "front_three_quarter",
+                          "three_quarter",
+                          "profile_view",
+                          "rear_three_quarter",
+                          "back_view",
+                          "wide_lens",
+                          "standard_lens",
+                          "telephoto_lens",
+                          "macro_lens",
+                          "fisheye_lens",
+                          "tilt_shift_lens",
+                          "anamorphic_lens",
+                          "bokeh",
+                          "motion",
+                          "natural_light",
+                          "sunlight",
+                          "day",
+                          "supports_outdoor",
+                          "supports_urban",
+                          "supports_natural",
+                          "ambient_outdoor",
+                          "clean_sky",
+                          "summer_sky",
+                          "cloudy",
+                          "dark",
+                          "dramatic",
+                          "pre_rain_sky",
+                          "harsh",
+                          "diffused",
+                          "mist",
+                          "cool",
+                          "warm",
+                          "dusk",
+                          "artificial_light",
+                          "night_ambient",
+                          "requires_urban_context",
+                          "supports_commercial",
+                          "supports_subterranean",
+                          "neon",
+                          "rain",
+                          "reflective",
+                          "snow",
+                          "window_light",
+                          "indoor",
+                          "supports_indoor",
+                          "supports_residential",
+                          "supports_hospitality",
+                          "supports_heritage",
+                          "ambient_indoor",
+                          "soft_light",
+                          "controlled",
+                          "studio_light",
+                          "studio_scene_only",
+                          "supports_studio",
+                          "ambient_studio",
+                          "portrait_light",
+                          "stage_light",
+                          "backlight",
+                          "overhead",
+                          "hard_direct_sun",
+                          "low_key_subject",
+                          "high_key_subject",
+                          "color_temperature",
+                          "night_subject",
+                          "mixed_color",
+                          "neon_subject",
+                          "window_projection",
+                          "dappled_subject_light",
+                          "wet_surface",
+                          "outdoor_only",
+                          "retro",
+                          "film",
+                          "high_acutance",
+                          "hard_black_levels",
+                          "low_frequency_film",
+                          "soft_focus",
+                          "diffusion_filter",
+                          "vignette",
+                          "foreground_occlusion",
+                          "depth_layering",
+                          "refraction_artifact",
+                          "light_artifact",
+                          "starburst",
+                          "flare_artifact",
+                          "anamorphic_artifact",
+                          "optical_haze",
+                          "analog_artifact",
+                          "light_leak",
+                          "bloom",
+                          "halation",
+                          "chromatic_aberration",
+                          "edge_blur",
+                          "softened_black_levels"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "visibility",
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "相機視角 (Angle)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "face_detail",
+                          "partial_face",
+                          "dutch_bias",
+                          "full_face_tight",
+                          "eye_contact_ok",
+                          "upper_body_focus",
+                          "pose_focus",
+                          "outfit_focus",
+                          "full_face_offset",
+                          "high_angle",
+                          "low_camera_height",
+                          "low_frequency_angle",
+                          "low_angle",
+                          "near_foreground_perspective",
+                          "aerial",
+                          "no_eye_contact",
+                          "dynamic",
+                          "front_view",
+                          "front_three_quarter",
+                          "three_quarter",
+                          "profile_view",
+                          "rear_three_quarter",
+                          "back_view",
+                          "wide_lens",
+                          "standard_lens",
+                          "telephoto_lens",
+                          "macro_lens",
+                          "fisheye_lens",
+                          "tilt_shift_lens",
+                          "anamorphic_lens",
+                          "bokeh",
+                          "motion",
+                          "natural_light",
+                          "sunlight",
+                          "day",
+                          "supports_outdoor",
+                          "supports_urban",
+                          "supports_natural",
+                          "ambient_outdoor",
+                          "clean_sky",
+                          "summer_sky",
+                          "cloudy",
+                          "dark",
+                          "dramatic",
+                          "pre_rain_sky",
+                          "harsh",
+                          "diffused",
+                          "mist",
+                          "cool",
+                          "warm",
+                          "dusk",
+                          "artificial_light",
+                          "night_ambient",
+                          "requires_urban_context",
+                          "supports_commercial",
+                          "supports_subterranean",
+                          "neon",
+                          "rain",
+                          "reflective",
+                          "snow",
+                          "window_light",
+                          "indoor",
+                          "supports_indoor",
+                          "supports_residential",
+                          "supports_hospitality",
+                          "supports_heritage",
+                          "ambient_indoor",
+                          "soft_light",
+                          "controlled",
+                          "studio_light",
+                          "studio_scene_only",
+                          "supports_studio",
+                          "ambient_studio",
+                          "portrait_light",
+                          "stage_light",
+                          "backlight",
+                          "overhead",
+                          "hard_direct_sun",
+                          "low_key_subject",
+                          "high_key_subject",
+                          "color_temperature",
+                          "night_subject",
+                          "mixed_color",
+                          "neon_subject",
+                          "window_projection",
+                          "dappled_subject_light",
+                          "wet_surface",
+                          "outdoor_only",
+                          "retro",
+                          "film",
+                          "high_acutance",
+                          "hard_black_levels",
+                          "low_frequency_film",
+                          "soft_focus",
+                          "diffusion_filter",
+                          "vignette",
+                          "foreground_occlusion",
+                          "depth_layering",
+                          "refraction_artifact",
+                          "light_artifact",
+                          "starburst",
+                          "flare_artifact",
+                          "anamorphic_artifact",
+                          "optical_haze",
+                          "analog_artifact",
+                          "light_leak",
+                          "bloom",
+                          "halation",
+                          "chromatic_aberration",
+                          "edge_blur",
+                          "softened_black_levels"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "拍攝方位 (Orbit Angle)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "face_detail",
+                          "partial_face",
+                          "dutch_bias",
+                          "full_face_tight",
+                          "eye_contact_ok",
+                          "upper_body_focus",
+                          "pose_focus",
+                          "outfit_focus",
+                          "full_face_offset",
+                          "high_angle",
+                          "low_camera_height",
+                          "low_frequency_angle",
+                          "low_angle",
+                          "near_foreground_perspective",
+                          "aerial",
+                          "no_eye_contact",
+                          "dynamic",
+                          "front_view",
+                          "front_three_quarter",
+                          "three_quarter",
+                          "profile_view",
+                          "rear_three_quarter",
+                          "back_view",
+                          "wide_lens",
+                          "standard_lens",
+                          "telephoto_lens",
+                          "macro_lens",
+                          "fisheye_lens",
+                          "tilt_shift_lens",
+                          "anamorphic_lens",
+                          "bokeh",
+                          "motion",
+                          "natural_light",
+                          "sunlight",
+                          "day",
+                          "supports_outdoor",
+                          "supports_urban",
+                          "supports_natural",
+                          "ambient_outdoor",
+                          "clean_sky",
+                          "summer_sky",
+                          "cloudy",
+                          "dark",
+                          "dramatic",
+                          "pre_rain_sky",
+                          "harsh",
+                          "diffused",
+                          "mist",
+                          "cool",
+                          "warm",
+                          "dusk",
+                          "artificial_light",
+                          "night_ambient",
+                          "requires_urban_context",
+                          "supports_commercial",
+                          "supports_subterranean",
+                          "neon",
+                          "rain",
+                          "reflective",
+                          "snow",
+                          "window_light",
+                          "indoor",
+                          "supports_indoor",
+                          "supports_residential",
+                          "supports_hospitality",
+                          "supports_heritage",
+                          "ambient_indoor",
+                          "soft_light",
+                          "controlled",
+                          "studio_light",
+                          "studio_scene_only",
+                          "supports_studio",
+                          "ambient_studio",
+                          "portrait_light",
+                          "stage_light",
+                          "backlight",
+                          "overhead",
+                          "hard_direct_sun",
+                          "low_key_subject",
+                          "high_key_subject",
+                          "color_temperature",
+                          "night_subject",
+                          "mixed_color",
+                          "neon_subject",
+                          "window_projection",
+                          "dappled_subject_light",
+                          "wet_surface",
+                          "outdoor_only",
+                          "retro",
+                          "film",
+                          "high_acutance",
+                          "hard_black_levels",
+                          "low_frequency_film",
+                          "soft_focus",
+                          "diffusion_filter",
+                          "vignette",
+                          "foreground_occlusion",
+                          "depth_layering",
+                          "refraction_artifact",
+                          "light_artifact",
+                          "starburst",
+                          "flare_artifact",
+                          "anamorphic_artifact",
+                          "optical_haze",
+                          "analog_artifact",
+                          "light_leak",
+                          "bloom",
+                          "halation",
+                          "chromatic_aberration",
+                          "edge_blur",
+                          "softened_black_levels"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "鏡頭焦段 (Focal Length)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "face_detail",
+                          "partial_face",
+                          "dutch_bias",
+                          "full_face_tight",
+                          "eye_contact_ok",
+                          "upper_body_focus",
+                          "pose_focus",
+                          "outfit_focus",
+                          "full_face_offset",
+                          "high_angle",
+                          "low_camera_height",
+                          "low_frequency_angle",
+                          "low_angle",
+                          "near_foreground_perspective",
+                          "aerial",
+                          "no_eye_contact",
+                          "dynamic",
+                          "front_view",
+                          "front_three_quarter",
+                          "three_quarter",
+                          "profile_view",
+                          "rear_three_quarter",
+                          "back_view",
+                          "wide_lens",
+                          "standard_lens",
+                          "telephoto_lens",
+                          "macro_lens",
+                          "fisheye_lens",
+                          "tilt_shift_lens",
+                          "anamorphic_lens",
+                          "bokeh",
+                          "motion",
+                          "natural_light",
+                          "sunlight",
+                          "day",
+                          "supports_outdoor",
+                          "supports_urban",
+                          "supports_natural",
+                          "ambient_outdoor",
+                          "clean_sky",
+                          "summer_sky",
+                          "cloudy",
+                          "dark",
+                          "dramatic",
+                          "pre_rain_sky",
+                          "harsh",
+                          "diffused",
+                          "mist",
+                          "cool",
+                          "warm",
+                          "dusk",
+                          "artificial_light",
+                          "night_ambient",
+                          "requires_urban_context",
+                          "supports_commercial",
+                          "supports_subterranean",
+                          "neon",
+                          "rain",
+                          "reflective",
+                          "snow",
+                          "window_light",
+                          "indoor",
+                          "supports_indoor",
+                          "supports_residential",
+                          "supports_hospitality",
+                          "supports_heritage",
+                          "ambient_indoor",
+                          "soft_light",
+                          "controlled",
+                          "studio_light",
+                          "studio_scene_only",
+                          "supports_studio",
+                          "ambient_studio",
+                          "portrait_light",
+                          "stage_light",
+                          "backlight",
+                          "overhead",
+                          "hard_direct_sun",
+                          "low_key_subject",
+                          "high_key_subject",
+                          "color_temperature",
+                          "night_subject",
+                          "mixed_color",
+                          "neon_subject",
+                          "window_projection",
+                          "dappled_subject_light",
+                          "wet_surface",
+                          "outdoor_only",
+                          "retro",
+                          "film",
+                          "high_acutance",
+                          "hard_black_levels",
+                          "low_frequency_film",
+                          "soft_focus",
+                          "diffusion_filter",
+                          "vignette",
+                          "foreground_occlusion",
+                          "depth_layering",
+                          "refraction_artifact",
+                          "light_artifact",
+                          "starburst",
+                          "flare_artifact",
+                          "anamorphic_artifact",
+                          "optical_haze",
+                          "analog_artifact",
+                          "light_leak",
+                          "bloom",
+                          "halation",
+                          "chromatic_aberration",
+                          "edge_blur",
+                          "softened_black_levels"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "光圈 / 景深 (Aperture & Depth of Field)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "face_detail",
+                          "partial_face",
+                          "dutch_bias",
+                          "full_face_tight",
+                          "eye_contact_ok",
+                          "upper_body_focus",
+                          "pose_focus",
+                          "outfit_focus",
+                          "full_face_offset",
+                          "high_angle",
+                          "low_camera_height",
+                          "low_frequency_angle",
+                          "low_angle",
+                          "near_foreground_perspective",
+                          "aerial",
+                          "no_eye_contact",
+                          "dynamic",
+                          "front_view",
+                          "front_three_quarter",
+                          "three_quarter",
+                          "profile_view",
+                          "rear_three_quarter",
+                          "back_view",
+                          "wide_lens",
+                          "standard_lens",
+                          "telephoto_lens",
+                          "macro_lens",
+                          "fisheye_lens",
+                          "tilt_shift_lens",
+                          "anamorphic_lens",
+                          "bokeh",
+                          "motion",
+                          "natural_light",
+                          "sunlight",
+                          "day",
+                          "supports_outdoor",
+                          "supports_urban",
+                          "supports_natural",
+                          "ambient_outdoor",
+                          "clean_sky",
+                          "summer_sky",
+                          "cloudy",
+                          "dark",
+                          "dramatic",
+                          "pre_rain_sky",
+                          "harsh",
+                          "diffused",
+                          "mist",
+                          "cool",
+                          "warm",
+                          "dusk",
+                          "artificial_light",
+                          "night_ambient",
+                          "requires_urban_context",
+                          "supports_commercial",
+                          "supports_subterranean",
+                          "neon",
+                          "rain",
+                          "reflective",
+                          "snow",
+                          "window_light",
+                          "indoor",
+                          "supports_indoor",
+                          "supports_residential",
+                          "supports_hospitality",
+                          "supports_heritage",
+                          "ambient_indoor",
+                          "soft_light",
+                          "controlled",
+                          "studio_light",
+                          "studio_scene_only",
+                          "supports_studio",
+                          "ambient_studio",
+                          "portrait_light",
+                          "stage_light",
+                          "backlight",
+                          "overhead",
+                          "hard_direct_sun",
+                          "low_key_subject",
+                          "high_key_subject",
+                          "color_temperature",
+                          "night_subject",
+                          "mixed_color",
+                          "neon_subject",
+                          "window_projection",
+                          "dappled_subject_light",
+                          "wet_surface",
+                          "outdoor_only",
+                          "retro",
+                          "film",
+                          "high_acutance",
+                          "hard_black_levels",
+                          "low_frequency_film",
+                          "soft_focus",
+                          "diffusion_filter",
+                          "vignette",
+                          "foreground_occlusion",
+                          "depth_layering",
+                          "refraction_artifact",
+                          "light_artifact",
+                          "starburst",
+                          "flare_artifact",
+                          "anamorphic_artifact",
+                          "optical_haze",
+                          "analog_artifact",
+                          "light_leak",
+                          "bloom",
+                          "halation",
+                          "chromatic_aberration",
+                          "edge_blur",
+                          "softened_black_levels"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "快門 / 動態殘影 (Shutter & Motion Blur)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "face_detail",
+                          "partial_face",
+                          "dutch_bias",
+                          "full_face_tight",
+                          "eye_contact_ok",
+                          "upper_body_focus",
+                          "pose_focus",
+                          "outfit_focus",
+                          "full_face_offset",
+                          "high_angle",
+                          "low_camera_height",
+                          "low_frequency_angle",
+                          "low_angle",
+                          "near_foreground_perspective",
+                          "aerial",
+                          "no_eye_contact",
+                          "dynamic",
+                          "front_view",
+                          "front_three_quarter",
+                          "three_quarter",
+                          "profile_view",
+                          "rear_three_quarter",
+                          "back_view",
+                          "wide_lens",
+                          "standard_lens",
+                          "telephoto_lens",
+                          "macro_lens",
+                          "fisheye_lens",
+                          "tilt_shift_lens",
+                          "anamorphic_lens",
+                          "bokeh",
+                          "motion",
+                          "natural_light",
+                          "sunlight",
+                          "day",
+                          "supports_outdoor",
+                          "supports_urban",
+                          "supports_natural",
+                          "ambient_outdoor",
+                          "clean_sky",
+                          "summer_sky",
+                          "cloudy",
+                          "dark",
+                          "dramatic",
+                          "pre_rain_sky",
+                          "harsh",
+                          "diffused",
+                          "mist",
+                          "cool",
+                          "warm",
+                          "dusk",
+                          "artificial_light",
+                          "night_ambient",
+                          "requires_urban_context",
+                          "supports_commercial",
+                          "supports_subterranean",
+                          "neon",
+                          "rain",
+                          "reflective",
+                          "snow",
+                          "window_light",
+                          "indoor",
+                          "supports_indoor",
+                          "supports_residential",
+                          "supports_hospitality",
+                          "supports_heritage",
+                          "ambient_indoor",
+                          "soft_light",
+                          "controlled",
+                          "studio_light",
+                          "studio_scene_only",
+                          "supports_studio",
+                          "ambient_studio",
+                          "portrait_light",
+                          "stage_light",
+                          "backlight",
+                          "overhead",
+                          "hard_direct_sun",
+                          "low_key_subject",
+                          "high_key_subject",
+                          "color_temperature",
+                          "night_subject",
+                          "mixed_color",
+                          "neon_subject",
+                          "window_projection",
+                          "dappled_subject_light",
+                          "wet_surface",
+                          "outdoor_only",
+                          "retro",
+                          "film",
+                          "high_acutance",
+                          "hard_black_levels",
+                          "low_frequency_film",
+                          "soft_focus",
+                          "diffusion_filter",
+                          "vignette",
+                          "foreground_occlusion",
+                          "depth_layering",
+                          "refraction_artifact",
+                          "light_artifact",
+                          "starburst",
+                          "flare_artifact",
+                          "anamorphic_artifact",
+                          "optical_haze",
+                          "analog_artifact",
+                          "light_leak",
+                          "bloom",
+                          "halation",
+                          "chromatic_aberration",
+                          "edge_blur",
+                          "softened_black_levels"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "環境光條件 (Ambient Light Conditions)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "face_detail",
+                          "partial_face",
+                          "dutch_bias",
+                          "full_face_tight",
+                          "eye_contact_ok",
+                          "upper_body_focus",
+                          "pose_focus",
+                          "outfit_focus",
+                          "full_face_offset",
+                          "high_angle",
+                          "low_camera_height",
+                          "low_frequency_angle",
+                          "low_angle",
+                          "near_foreground_perspective",
+                          "aerial",
+                          "no_eye_contact",
+                          "dynamic",
+                          "front_view",
+                          "front_three_quarter",
+                          "three_quarter",
+                          "profile_view",
+                          "rear_three_quarter",
+                          "back_view",
+                          "wide_lens",
+                          "standard_lens",
+                          "telephoto_lens",
+                          "macro_lens",
+                          "fisheye_lens",
+                          "tilt_shift_lens",
+                          "anamorphic_lens",
+                          "bokeh",
+                          "motion",
+                          "natural_light",
+                          "sunlight",
+                          "day",
+                          "supports_outdoor",
+                          "supports_urban",
+                          "supports_natural",
+                          "ambient_outdoor",
+                          "clean_sky",
+                          "summer_sky",
+                          "cloudy",
+                          "dark",
+                          "dramatic",
+                          "pre_rain_sky",
+                          "harsh",
+                          "diffused",
+                          "mist",
+                          "cool",
+                          "warm",
+                          "dusk",
+                          "artificial_light",
+                          "night_ambient",
+                          "requires_urban_context",
+                          "supports_commercial",
+                          "supports_subterranean",
+                          "neon",
+                          "rain",
+                          "reflective",
+                          "snow",
+                          "window_light",
+                          "indoor",
+                          "supports_indoor",
+                          "supports_residential",
+                          "supports_hospitality",
+                          "supports_heritage",
+                          "ambient_indoor",
+                          "soft_light",
+                          "controlled",
+                          "studio_light",
+                          "studio_scene_only",
+                          "supports_studio",
+                          "ambient_studio",
+                          "portrait_light",
+                          "stage_light",
+                          "backlight",
+                          "overhead",
+                          "hard_direct_sun",
+                          "low_key_subject",
+                          "high_key_subject",
+                          "color_temperature",
+                          "night_subject",
+                          "mixed_color",
+                          "neon_subject",
+                          "window_projection",
+                          "dappled_subject_light",
+                          "wet_surface",
+                          "outdoor_only",
+                          "retro",
+                          "film",
+                          "high_acutance",
+                          "hard_black_levels",
+                          "low_frequency_film",
+                          "soft_focus",
+                          "diffusion_filter",
+                          "vignette",
+                          "foreground_occlusion",
+                          "depth_layering",
+                          "refraction_artifact",
+                          "light_artifact",
+                          "starburst",
+                          "flare_artifact",
+                          "anamorphic_artifact",
+                          "optical_haze",
+                          "analog_artifact",
+                          "light_leak",
+                          "bloom",
+                          "halation",
+                          "chromatic_aberration",
+                          "edge_blur",
+                          "softened_black_levels"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "光線表現 (Light Style)": {
           "properties": {
@@ -396,14 +3191,436 @@
                 }
               },
               "additionalProperties": false
+            },
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "face_detail",
+                          "partial_face",
+                          "dutch_bias",
+                          "full_face_tight",
+                          "eye_contact_ok",
+                          "upper_body_focus",
+                          "pose_focus",
+                          "outfit_focus",
+                          "full_face_offset",
+                          "high_angle",
+                          "low_camera_height",
+                          "low_frequency_angle",
+                          "low_angle",
+                          "near_foreground_perspective",
+                          "aerial",
+                          "no_eye_contact",
+                          "dynamic",
+                          "front_view",
+                          "front_three_quarter",
+                          "three_quarter",
+                          "profile_view",
+                          "rear_three_quarter",
+                          "back_view",
+                          "wide_lens",
+                          "standard_lens",
+                          "telephoto_lens",
+                          "macro_lens",
+                          "fisheye_lens",
+                          "tilt_shift_lens",
+                          "anamorphic_lens",
+                          "bokeh",
+                          "motion",
+                          "natural_light",
+                          "sunlight",
+                          "day",
+                          "supports_outdoor",
+                          "supports_urban",
+                          "supports_natural",
+                          "ambient_outdoor",
+                          "clean_sky",
+                          "summer_sky",
+                          "cloudy",
+                          "dark",
+                          "dramatic",
+                          "pre_rain_sky",
+                          "harsh",
+                          "diffused",
+                          "mist",
+                          "cool",
+                          "warm",
+                          "dusk",
+                          "artificial_light",
+                          "night_ambient",
+                          "requires_urban_context",
+                          "supports_commercial",
+                          "supports_subterranean",
+                          "neon",
+                          "rain",
+                          "reflective",
+                          "snow",
+                          "window_light",
+                          "indoor",
+                          "supports_indoor",
+                          "supports_residential",
+                          "supports_hospitality",
+                          "supports_heritage",
+                          "ambient_indoor",
+                          "soft_light",
+                          "controlled",
+                          "studio_light",
+                          "studio_scene_only",
+                          "supports_studio",
+                          "ambient_studio",
+                          "portrait_light",
+                          "stage_light",
+                          "backlight",
+                          "overhead",
+                          "hard_direct_sun",
+                          "low_key_subject",
+                          "high_key_subject",
+                          "color_temperature",
+                          "night_subject",
+                          "mixed_color",
+                          "neon_subject",
+                          "window_projection",
+                          "dappled_subject_light",
+                          "wet_surface",
+                          "outdoor_only",
+                          "retro",
+                          "film",
+                          "high_acutance",
+                          "hard_black_levels",
+                          "low_frequency_film",
+                          "soft_focus",
+                          "diffusion_filter",
+                          "vignette",
+                          "foreground_occlusion",
+                          "depth_layering",
+                          "refraction_artifact",
+                          "light_artifact",
+                          "starburst",
+                          "flare_artifact",
+                          "anamorphic_artifact",
+                          "optical_haze",
+                          "analog_artifact",
+                          "light_leak",
+                          "bloom",
+                          "halation",
+                          "chromatic_aberration",
+                          "edge_blur",
+                          "softened_black_levels"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
             }
-          }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "底片與相機模擬 (Camera & Film Simulation)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "face_detail",
+                          "partial_face",
+                          "dutch_bias",
+                          "full_face_tight",
+                          "eye_contact_ok",
+                          "upper_body_focus",
+                          "pose_focus",
+                          "outfit_focus",
+                          "full_face_offset",
+                          "high_angle",
+                          "low_camera_height",
+                          "low_frequency_angle",
+                          "low_angle",
+                          "near_foreground_perspective",
+                          "aerial",
+                          "no_eye_contact",
+                          "dynamic",
+                          "front_view",
+                          "front_three_quarter",
+                          "three_quarter",
+                          "profile_view",
+                          "rear_three_quarter",
+                          "back_view",
+                          "wide_lens",
+                          "standard_lens",
+                          "telephoto_lens",
+                          "macro_lens",
+                          "fisheye_lens",
+                          "tilt_shift_lens",
+                          "anamorphic_lens",
+                          "bokeh",
+                          "motion",
+                          "natural_light",
+                          "sunlight",
+                          "day",
+                          "supports_outdoor",
+                          "supports_urban",
+                          "supports_natural",
+                          "ambient_outdoor",
+                          "clean_sky",
+                          "summer_sky",
+                          "cloudy",
+                          "dark",
+                          "dramatic",
+                          "pre_rain_sky",
+                          "harsh",
+                          "diffused",
+                          "mist",
+                          "cool",
+                          "warm",
+                          "dusk",
+                          "artificial_light",
+                          "night_ambient",
+                          "requires_urban_context",
+                          "supports_commercial",
+                          "supports_subterranean",
+                          "neon",
+                          "rain",
+                          "reflective",
+                          "snow",
+                          "window_light",
+                          "indoor",
+                          "supports_indoor",
+                          "supports_residential",
+                          "supports_hospitality",
+                          "supports_heritage",
+                          "ambient_indoor",
+                          "soft_light",
+                          "controlled",
+                          "studio_light",
+                          "studio_scene_only",
+                          "supports_studio",
+                          "ambient_studio",
+                          "portrait_light",
+                          "stage_light",
+                          "backlight",
+                          "overhead",
+                          "hard_direct_sun",
+                          "low_key_subject",
+                          "high_key_subject",
+                          "color_temperature",
+                          "night_subject",
+                          "mixed_color",
+                          "neon_subject",
+                          "window_projection",
+                          "dappled_subject_light",
+                          "wet_surface",
+                          "outdoor_only",
+                          "retro",
+                          "film",
+                          "high_acutance",
+                          "hard_black_levels",
+                          "low_frequency_film",
+                          "soft_focus",
+                          "diffusion_filter",
+                          "vignette",
+                          "foreground_occlusion",
+                          "depth_layering",
+                          "refraction_artifact",
+                          "light_artifact",
+                          "starburst",
+                          "flare_artifact",
+                          "anamorphic_artifact",
+                          "optical_haze",
+                          "analog_artifact",
+                          "light_leak",
+                          "bloom",
+                          "halation",
+                          "chromatic_aberration",
+                          "edge_blur",
+                          "softened_black_levels"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "光學效果 (Optical Effects)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "face_detail",
+                          "partial_face",
+                          "dutch_bias",
+                          "full_face_tight",
+                          "eye_contact_ok",
+                          "upper_body_focus",
+                          "pose_focus",
+                          "outfit_focus",
+                          "full_face_offset",
+                          "high_angle",
+                          "low_camera_height",
+                          "low_frequency_angle",
+                          "low_angle",
+                          "near_foreground_perspective",
+                          "aerial",
+                          "no_eye_contact",
+                          "dynamic",
+                          "front_view",
+                          "front_three_quarter",
+                          "three_quarter",
+                          "profile_view",
+                          "rear_three_quarter",
+                          "back_view",
+                          "wide_lens",
+                          "standard_lens",
+                          "telephoto_lens",
+                          "macro_lens",
+                          "fisheye_lens",
+                          "tilt_shift_lens",
+                          "anamorphic_lens",
+                          "bokeh",
+                          "motion",
+                          "natural_light",
+                          "sunlight",
+                          "day",
+                          "supports_outdoor",
+                          "supports_urban",
+                          "supports_natural",
+                          "ambient_outdoor",
+                          "clean_sky",
+                          "summer_sky",
+                          "cloudy",
+                          "dark",
+                          "dramatic",
+                          "pre_rain_sky",
+                          "harsh",
+                          "diffused",
+                          "mist",
+                          "cool",
+                          "warm",
+                          "dusk",
+                          "artificial_light",
+                          "night_ambient",
+                          "requires_urban_context",
+                          "supports_commercial",
+                          "supports_subterranean",
+                          "neon",
+                          "rain",
+                          "reflective",
+                          "snow",
+                          "window_light",
+                          "indoor",
+                          "supports_indoor",
+                          "supports_residential",
+                          "supports_hospitality",
+                          "supports_heritage",
+                          "ambient_indoor",
+                          "soft_light",
+                          "controlled",
+                          "studio_light",
+                          "studio_scene_only",
+                          "supports_studio",
+                          "ambient_studio",
+                          "portrait_light",
+                          "stage_light",
+                          "backlight",
+                          "overhead",
+                          "hard_direct_sun",
+                          "low_key_subject",
+                          "high_key_subject",
+                          "color_temperature",
+                          "night_subject",
+                          "mixed_color",
+                          "neon_subject",
+                          "window_projection",
+                          "dappled_subject_light",
+                          "wet_surface",
+                          "outdoor_only",
+                          "retro",
+                          "film",
+                          "high_acutance",
+                          "hard_black_levels",
+                          "low_frequency_film",
+                          "soft_focus",
+                          "diffusion_filter",
+                          "vignette",
+                          "foreground_occlusion",
+                          "depth_layering",
+                          "refraction_artifact",
+                          "light_artifact",
+                          "starburst",
+                          "flare_artifact",
+                          "anamorphic_artifact",
+                          "optical_haze",
+                          "analog_artifact",
+                          "light_leak",
+                          "bloom",
+                          "halation",
+                          "chromatic_aberration",
+                          "edge_blur",
+                          "softened_black_levels"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         }
       }
     },
@@ -424,8 +3641,59 @@
                 }
               },
               "additionalProperties": false
+            },
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "indoor",
+                          "set",
+                          "controlled",
+                          "studio",
+                          "mirror_studio",
+                          "studio_lighting_scene",
+                          "solid_color_studio",
+                          "outdoor",
+                          "hospitality",
+                          "residential",
+                          "commercial",
+                          "heritage",
+                          "subterranean",
+                          "institutional",
+                          "green_space",
+                          "ruin",
+                          "industrial",
+                          "transit",
+                          "urban",
+                          "waterfront",
+                          "natural",
+                          "other_scene"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
             }
-          }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "生活感室內 (Indoor & Lifestyle)": {
           "properties": {
@@ -440,8 +3708,59 @@
                 }
               },
               "additionalProperties": false
+            },
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "indoor",
+                          "set",
+                          "controlled",
+                          "studio",
+                          "mirror_studio",
+                          "studio_lighting_scene",
+                          "solid_color_studio",
+                          "outdoor",
+                          "hospitality",
+                          "residential",
+                          "commercial",
+                          "heritage",
+                          "subterranean",
+                          "institutional",
+                          "green_space",
+                          "ruin",
+                          "industrial",
+                          "transit",
+                          "urban",
+                          "waterfront",
+                          "natural",
+                          "other_scene"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
             }
-          }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "地下與廢墟風格 (Abandoned & Underground)": {
           "properties": {
@@ -456,8 +3775,59 @@
                 }
               },
               "additionalProperties": false
+            },
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "indoor",
+                          "set",
+                          "controlled",
+                          "studio",
+                          "mirror_studio",
+                          "studio_lighting_scene",
+                          "solid_color_studio",
+                          "outdoor",
+                          "hospitality",
+                          "residential",
+                          "commercial",
+                          "heritage",
+                          "subterranean",
+                          "institutional",
+                          "green_space",
+                          "ruin",
+                          "industrial",
+                          "transit",
+                          "urban",
+                          "waterfront",
+                          "natural",
+                          "other_scene"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
             }
-          }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "城市與社群感 (Urban & Social Snapshots)": {
           "properties": {
@@ -472,8 +3842,59 @@
                 }
               },
               "additionalProperties": false
+            },
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "indoor",
+                          "set",
+                          "controlled",
+                          "studio",
+                          "mirror_studio",
+                          "studio_lighting_scene",
+                          "solid_color_studio",
+                          "outdoor",
+                          "hospitality",
+                          "residential",
+                          "commercial",
+                          "heritage",
+                          "subterranean",
+                          "institutional",
+                          "green_space",
+                          "ruin",
+                          "industrial",
+                          "transit",
+                          "urban",
+                          "waterfront",
+                          "natural",
+                          "other_scene"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
             }
-          }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "自然與戶外 (Nature & Outdoors)": {
           "properties": {
@@ -488,8 +3909,59 @@
                 }
               },
               "additionalProperties": false
+            },
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "indoor",
+                          "set",
+                          "controlled",
+                          "studio",
+                          "mirror_studio",
+                          "studio_lighting_scene",
+                          "solid_color_studio",
+                          "outdoor",
+                          "hospitality",
+                          "residential",
+                          "commercial",
+                          "heritage",
+                          "subterranean",
+                          "institutional",
+                          "green_space",
+                          "ruin",
+                          "industrial",
+                          "transit",
+                          "urban",
+                          "waterfront",
+                          "natural",
+                          "other_scene"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
             }
-          }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "其他專屬場景 (Other Dedicated Scenes)": {
           "properties": {
@@ -504,8 +3976,59 @@
                 }
               },
               "additionalProperties": false
+            },
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "indoor",
+                          "set",
+                          "controlled",
+                          "studio",
+                          "mirror_studio",
+                          "studio_lighting_scene",
+                          "solid_color_studio",
+                          "outdoor",
+                          "hospitality",
+                          "residential",
+                          "commercial",
+                          "heritage",
+                          "subterranean",
+                          "institutional",
+                          "green_space",
+                          "ruin",
+                          "industrial",
+                          "transit",
+                          "urban",
+                          "waterfront",
+                          "natural",
+                          "other_scene"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "tags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
             }
-          }
+          },
+          "required": [
+            "meta"
+          ]
         }
       }
     },
@@ -529,11 +4052,135 @@
               "items": {
                 "type": "string"
               }
+            },
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "minVisibility": {
+                      "type": "string",
+                      "enum": [
+                        "medium",
+                        "portrait",
+                        "full"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "fine_detail",
+                          "skin_detail",
+                          "manual_only",
+                          "optional_silence",
+                          "mainstream_hair_color",
+                          "special_hair_color",
+                          "special_action",
+                          "prop_action",
+                          "face_action",
+                          "leg_focus_action",
+                          "full_body_action",
+                          "wardrobe_action",
+                          "scene_override",
+                          "large_prop_action"
+                        ]
+                      }
+                    },
+                    "archetype": {
+                      "type": [
+                        "null",
+                        "string"
+                      ],
+                      "enum": [
+                        null,
+                        "korean"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "minVisibility",
+                    "tags",
+                    "archetype"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
             }
-          }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "膚質特徵 (Skin Details)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "minVisibility": {
+                      "type": "string",
+                      "enum": [
+                        "medium",
+                        "portrait",
+                        "full"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "fine_detail",
+                          "skin_detail",
+                          "manual_only",
+                          "optional_silence",
+                          "mainstream_hair_color",
+                          "special_hair_color",
+                          "special_action",
+                          "prop_action",
+                          "face_action",
+                          "leg_focus_action",
+                          "full_body_action",
+                          "wardrobe_action",
+                          "scene_override",
+                          "large_prop_action"
+                        ]
+                      }
+                    },
+                    "archetype": {
+                      "type": "null",
+                      "enum": [
+                        null,
+                        "korean"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "minVisibility",
+                    "tags",
+                    "archetype"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "體態 (Body Type)": {
           "properties": {
@@ -542,26 +4189,455 @@
               "items": {
                 "type": "string"
               }
+            },
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "minVisibility": {
+                      "type": "string",
+                      "enum": [
+                        "medium",
+                        "portrait",
+                        "full"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "fine_detail",
+                          "skin_detail",
+                          "manual_only",
+                          "optional_silence",
+                          "mainstream_hair_color",
+                          "special_hair_color",
+                          "special_action",
+                          "prop_action",
+                          "face_action",
+                          "leg_focus_action",
+                          "full_body_action",
+                          "wardrobe_action",
+                          "scene_override",
+                          "large_prop_action"
+                        ]
+                      }
+                    },
+                    "archetype": {
+                      "type": "null",
+                      "enum": [
+                        null,
+                        "korean"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "minVisibility",
+                    "tags",
+                    "archetype"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
             }
-          }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "髮型 (Hairstyle)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "minVisibility": {
+                      "type": "string",
+                      "enum": [
+                        "medium",
+                        "portrait",
+                        "full"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "fine_detail",
+                          "skin_detail",
+                          "manual_only",
+                          "optional_silence",
+                          "mainstream_hair_color",
+                          "special_hair_color",
+                          "special_action",
+                          "prop_action",
+                          "face_action",
+                          "leg_focus_action",
+                          "full_body_action",
+                          "wardrobe_action",
+                          "scene_override",
+                          "large_prop_action"
+                        ]
+                      }
+                    },
+                    "archetype": {
+                      "type": [
+                        "null",
+                        "string"
+                      ],
+                      "enum": [
+                        null,
+                        "korean"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "minVisibility",
+                    "tags",
+                    "archetype"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "髮絲整理狀態 (Hair Styling State)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "minVisibility": {
+                      "type": "string",
+                      "enum": [
+                        "medium",
+                        "portrait",
+                        "full"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "fine_detail",
+                          "skin_detail",
+                          "manual_only",
+                          "optional_silence",
+                          "mainstream_hair_color",
+                          "special_hair_color",
+                          "special_action",
+                          "prop_action",
+                          "face_action",
+                          "leg_focus_action",
+                          "full_body_action",
+                          "wardrobe_action",
+                          "scene_override",
+                          "large_prop_action"
+                        ]
+                      }
+                    },
+                    "archetype": {
+                      "type": "null",
+                      "enum": [
+                        null,
+                        "korean"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "minVisibility",
+                    "tags",
+                    "archetype"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "髮色 (Hair Color)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "minVisibility": {
+                      "type": "string",
+                      "enum": [
+                        "medium",
+                        "portrait",
+                        "full"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "fine_detail",
+                          "skin_detail",
+                          "manual_only",
+                          "optional_silence",
+                          "mainstream_hair_color",
+                          "special_hair_color",
+                          "special_action",
+                          "prop_action",
+                          "face_action",
+                          "leg_focus_action",
+                          "full_body_action",
+                          "wardrobe_action",
+                          "scene_override",
+                          "large_prop_action"
+                        ]
+                      }
+                    },
+                    "archetype": {
+                      "type": "null",
+                      "enum": [
+                        null,
+                        "korean"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "minVisibility",
+                    "tags",
+                    "archetype"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "表情 (Facial Expression)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "minVisibility": {
+                      "type": "string",
+                      "enum": [
+                        "medium",
+                        "portrait",
+                        "full"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "fine_detail",
+                          "skin_detail",
+                          "manual_only",
+                          "optional_silence",
+                          "mainstream_hair_color",
+                          "special_hair_color",
+                          "special_action",
+                          "prop_action",
+                          "face_action",
+                          "leg_focus_action",
+                          "full_body_action",
+                          "wardrobe_action",
+                          "scene_override",
+                          "large_prop_action"
+                        ]
+                      }
+                    },
+                    "archetype": {
+                      "type": "null",
+                      "enum": [
+                        null,
+                        "korean"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "minVisibility",
+                    "tags",
+                    "archetype"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "姿勢與肢體語言 (Pose & Body Language)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "minVisibility": {
+                      "type": "string",
+                      "enum": [
+                        "medium",
+                        "portrait",
+                        "full"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "fine_detail",
+                          "skin_detail",
+                          "manual_only",
+                          "optional_silence",
+                          "mainstream_hair_color",
+                          "special_hair_color",
+                          "special_action",
+                          "prop_action",
+                          "face_action",
+                          "leg_focus_action",
+                          "full_body_action",
+                          "wardrobe_action",
+                          "scene_override",
+                          "large_prop_action"
+                        ]
+                      }
+                    },
+                    "archetype": {
+                      "type": "null",
+                      "enum": [
+                        null,
+                        "korean"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "minVisibility",
+                    "tags",
+                    "archetype"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "特殊動作 (Special Actions)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "minVisibility": {
+                      "type": "string",
+                      "enum": [
+                        "medium",
+                        "portrait",
+                        "full"
+                      ]
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "fine_detail",
+                          "skin_detail",
+                          "manual_only",
+                          "optional_silence",
+                          "mainstream_hair_color",
+                          "special_hair_color",
+                          "special_action",
+                          "prop_action",
+                          "face_action",
+                          "leg_focus_action",
+                          "full_body_action",
+                          "wardrobe_action",
+                          "scene_override",
+                          "large_prop_action"
+                        ]
+                      }
+                    },
+                    "archetype": {
+                      "type": "null",
+                      "enum": [
+                        null,
+                        "korean"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "minVisibility",
+                    "tags",
+                    "archetype"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         }
       }
     },
@@ -570,22 +4646,292 @@
       "required": [],
       "categories": {
         "通用人體防護": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "conflictTags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "artificial_light",
+                          "neon"
+                        ]
+                      }
+                    },
+                    "useTags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "clean_background",
+                          "avoid_horror",
+                          "avoid_nsfw",
+                          "period_piece"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "conflictTags",
+                    "useTags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "畫質與渲染防護": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "conflictTags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "artificial_light",
+                          "neon"
+                        ]
+                      }
+                    },
+                    "useTags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "clean_background",
+                          "avoid_horror",
+                          "avoid_nsfw",
+                          "period_piece"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "conflictTags",
+                    "useTags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "風格與寫實度防護": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "conflictTags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "artificial_light",
+                          "neon"
+                        ]
+                      }
+                    },
+                    "useTags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "clean_background",
+                          "avoid_horror",
+                          "avoid_nsfw",
+                          "period_piece"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "conflictTags",
+                    "useTags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "場景與物理防護": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "conflictTags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "artificial_light",
+                          "neon"
+                        ]
+                      }
+                    },
+                    "useTags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "clean_background",
+                          "avoid_horror",
+                          "avoid_nsfw",
+                          "period_piece"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "conflictTags",
+                    "useTags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "服裝與材質防護": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "conflictTags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "artificial_light",
+                          "neon"
+                        ]
+                      }
+                    },
+                    "useTags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "clean_background",
+                          "avoid_horror",
+                          "avoid_nsfw",
+                          "period_piece"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "conflictTags",
+                    "useTags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         },
         "特定主題防護 (依需求加入)": {
-          "properties": {}
+          "properties": {
+            "meta": {
+              "type": "object",
+              "properties": {
+                "semantic": {
+                  "type": "object",
+                  "properties": {
+                    "conflictTags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "artificial_light",
+                          "neon"
+                        ]
+                      }
+                    },
+                    "useTags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "clean_background",
+                          "avoid_horror",
+                          "avoid_nsfw",
+                          "period_piece"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "conflictTags",
+                    "useTags"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "semantic"
+              ]
+            }
+          },
+          "required": [
+            "meta"
+          ]
         }
       }
     }

@@ -9,7 +9,17 @@
       ],
       "zh": "正常戴在臉上",
       "en": "worn normally on the face, lenses aligned over the eyes",
-      "desc": "眼鏡正常戴在臉上，鏡片對齊雙眼。"
+      "desc": "眼鏡正常戴在臉上，鏡片對齊雙眼。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "accessory_small",
+            "romantic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:眼鏡配戴方式-eyewear-placement:戴在頭頂:1",
@@ -18,7 +28,17 @@
       ],
       "zh": "戴在頭頂",
       "en": "resting on top of the head, pushed into the hair, eyes unobstructed",
-      "desc": "眼鏡推到頭頂並卡在髮絲上方，臉部與眼睛保持清楚可見。"
+      "desc": "眼鏡推到頭頂並卡在髮絲上方，臉部與眼睛保持清楚可見。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "accessory_small",
+            "romantic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:眼鏡配戴方式-eyewear-placement:全無:2",
@@ -27,7 +47,19 @@
       ],
       "zh": "全無",
       "en": "none",
-      "desc": "不指定眼鏡位置，保留已選眼鏡款式與配色。"
+      "desc": "不指定眼鏡位置，保留已選眼鏡款式與配色。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "optional_silence",
+            "ornate",
+            "accessory_small",
+            "no_accessory",
+            "romantic"
+          ]
+        }
+      }
     }
   ]
 }

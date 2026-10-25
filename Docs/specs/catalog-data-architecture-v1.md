@@ -1,7 +1,7 @@
 # 目錄資料架構 v1：穩定 ID、正式 schema、語意資料化
 
 - 文件修訂：**v1.1，2026-10-24**；保留既有檔名，供原連結繼續使用。
-- 狀態：A／B 已驗收交付；Cooper 已確認凍結並授權 C。2026-10-25 以最新 main `64870460e8a153a07baf953df0d6cf784ce2aca4` 完成 C 本機切換及 I1–I9 驗收，正式來源為分類 JSON。Cooper 已確認驗收通過並授權僅提交／推送本批 C；實際交付與 CI 結果另行核對。D、E、P5b 未開始。見 §13、§13.1。
+- 狀態：A／B／C 已驗收交付；C 提交 `17074fb` 的 CI 已通過。Cooper 已確認 D 凍結並授權實作，2026-10-25 以該完整提交為 pre-D 完成語意原樣搬移與本機驗收，Cooper 已確認 D 驗收通過並授權僅提交／推送本批，實際 Git 與 CI 結果另行核對。E／P5b 未開始。最新證據見 §14，下方 A／B／C 為各階段歷史。
 - 範圍：保留原 Phase 1–3 的工作內容，執行順序改為 §7 的 A–E 階段；所有遷移均不改公開 Prompt、UI 顯示、隨機選取行為或使用者存檔格式。已知內容問題另立 Phase 4。
 - 依據：[資料庫完整分析報告](../reports/database-analysis-2026-10-11/README.md) 與 [2026-10-13 決策](../decisions/2026-10-13-catalog-data-architecture.md)。原決策保留為歷史紀錄；執行細節以本修訂為準。
 - 原 A 基準版本：`0746b280cc9f5c00daec7dadc73329779ac658e9`。2026-10-24 後續授權對齊的本機與 GitHub `main` 為 `2f56438804e751de4556060b293231966d6ea3b3`；原基準永久保留，新版本另建 manifest。基礎目錄為 6 分區、56 分類、1,050 條，37 條有 `stableId`；執行期為 219 個 controls、4,771 個 options。這些是基準觀察值，不是永久限制。
@@ -110,7 +110,7 @@ Prompt Quality 證明契約與片語要求，audit 證明診斷結果，完整�
 
 | 欄位 | 內容 | 用途 |
 | --- | --- | --- |
-| `entries` | **`buildEntries` 剛輸出時**的結果，以 `group` → `category` → 陣列組織，陣列索引與 database.json 相同。每條含 `id`、`legacyIds`（只有 buildEntries 產生的部分）、`inferredMeta`（`infer*Meta` 對該條的原始回傳值）、`meta` | 1c 遷移、3a 寫入 semantic、目錄層快照 |
+| `entries` | **`buildEntries` 剛輸出時**的結果，以 `group` → `category` → 陣列組織，陣列索引與 database.json 相同。每條含 `id`、`legacyIds`（只有 buildEntries 產生的部分）、`inferredMeta`（A–C 為 `infer*Meta` 原始回傳值；D 後有 semantic 時為顯式語意底層，缺少時仍推論）、`meta` | 1c 遷移、3a 寫入 semantic、目錄層快照 |
 | `catalog` | `buildCatalog` 後處理完成的最終 catalog，包含 `splitAccessoryCatalog` 拆出的合成分類（`engine.js:3403`），以及 legacy 表追加的 legacyIds（`:3400-3407`） | 參考比對 |
 
 實作要求：
@@ -611,3 +611,16 @@ Cooper 已確認 B 驗收通過，明確授權僅提交並 push 本次 B 的文�
 ### 13.1 C 驗收與 Git 交付授權（2026-10-25）
 
 Cooper 已確認 C 階段驗收通過，明確授權只提交並 push 本次 C 的資料、程式、文件、驗收工具與 CI 設定，保留其他未提交內容，完成後確認對應提交的 CI。上節保留本機驗收當時的狀態；此次授權不代表 Git／CI 已成功。僅依 C 交付清單提交，不進入 D、E 或 P5b。
+
+## 14. D 明確語意原樣搬移（2026-10-25）
+
+- Cooper 重新確認 D 共用範圍凍結；HEAD／origin/main／遠端 main 為 `17074fbe3850e2e9fea300b36697643913f707a1`，C 已交付且 CI 成功。先封存十份操作原稿，維持其他140份未提交內容。
+- 隔離候選取固定 Git object 的原引擎實際 entries.inferredMeta，逐筆寫入56分類／1,050筆meta.semantic，再切換正式資料及 engine。全物件保留keys/tags順序/null/空陣列；Negative沒有tags，套裝原meta與專用欄位不併入semantic。schema各分區列舉tag、逐分類要求完整語意欄位。
+- 引擎有semantic即優先，剝除容器後保持原覆寫順序；缺少semantic的自訂／歷史library保留推論。建議工具只改副本、不寫正式來源或快取。舊library測試只調整副本來源宣告，預期值與A封存保持不變。
+- I1–I9證據見[D驗收報告](../reports/catalog-architecture-d-2026-10-25/README.md)：逐筆source／generated fields／compiled／controls零差異；A3,251次重播、前端1,828、Prompt Quality754、Python36、工具15全部通過；同seed200 audit逐位元組一致。strict J12兩項保留、0 blocker／0 stale，桌手機44項與16張畫面通過。
+- [凍結問題](../reports/database-analysis-2026-10-11/frozen-known-issues.md)重新確認倫敦與17筆commercial並列ID、候選池影響及後續驗收；未修正或加入新allowlist。姿勢去向文件只追加追溯，沒有內容或狀態變動。
+- 本機完成待使用者驗收，未stage／commit／push；D無遠端CI run。一次性工具不接CI遷移，常駐schema／歷史ID／完整性及測試接線已更新。E與P5b未開始，未授權提交前不自行解除凍結。
+
+### 14.1 D 驗收與 Git 交付授權（2026-10-25）
+
+Cooper 已確認 D 階段驗收通過，明確授權只提交並 push 本次 D 的資料、程式、文件、驗收工具與 CI 設定，保留其他未提交內容。僅依 D 交付清單提交，完成後確認該提交的 CI；上節保留本機驗收當時的狀態，本節授權不代表 Git／CI 已成功。不進入 E 或 P5b。

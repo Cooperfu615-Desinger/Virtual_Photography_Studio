@@ -408,4 +408,10 @@ Avoid mixing a compatibility migration, output wording change, and performance r
 
 ## Catalog source cutover C（2026-10-25）
 
-正式來源、ID 保護與同步順序見 [catalog 操作流程](../../knowledge_base/catalog/README.md)。每筆 database 帶 stableId 與有序 legacyIds；兩者齊備時 buildEntries 直接採用，不再生成列序／環境光舊分類別名。缺少其中之一的舊 custom library／fixture 維持 fallback。infer*Meta、後處理 legacy 表、renderer、storage 均不搬移；D／E 未開始。
+正式來源、ID 保護與同步順序見 [catalog 操作流程](../../knowledge_base/catalog/README.md)。每筆 database 帶 stableId 與有序 legacyIds；兩者齊備時 buildEntries 直接採用，不再生成列序／環境光舊分類別名。缺少其中之一的舊 custom library／fixture 維持 fallback。此段記錄 C 完成時的邊界；後續 D 狀態以下段為準。後處理 legacy 表、renderer、storage 仍不搬移，E 未開始。
+
+## Catalog semantic source D（2026-10-25）
+
+`catalog/<section>/<category>.json → schema／歷史 ID 驗證 → database.json → buildEntries → catalog 後處理 → controls／resolved selections → renderers`。正式 1,050 筆的 `meta.semantic` 原樣來自 pre-D `17074fb` 的實際 inferredMeta。buildEntries 有 semantic 即取代文字推論底層，從 sourceMeta 剝除容器，再依原順序套用 source meta、專用欄位、semantic/source/subjectLight tags 的有序去重。Negative 的語意物件沒有 tags，合併時才以空陣列處理。
+
+沒有 semantic 的舊 library 保留 infer*Meta；存在但型別無效會拒絕，明確空物件不退回推論。測試 export 的 inferredMeta 欄位現在回傳有效底層，診斷工具只在副本刪除單筆 semantic 取得真實推論，預設快取不受影響。D 比對來源剝除新增欄位、compiled entries/catalog、controls 與 A 重播；[工具與報告](../reports/catalog-architecture-d-2026-10-25/README.md)。本次沒有更改 prompt contract 或 legacy tables。

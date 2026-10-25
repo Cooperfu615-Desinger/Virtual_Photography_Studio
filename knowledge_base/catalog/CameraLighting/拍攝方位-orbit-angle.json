@@ -9,7 +9,12 @@
       ],
       "zh": "全無",
       "en": "none",
-      "desc": "不指定環繞角度，讓模型自行決定人物相對鏡頭的朝向。"
+      "desc": "不指定環繞角度，讓模型自行決定人物相對鏡頭的朝向。",
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
+      }
     },
     {
       "id": "camera:拍攝方位-orbit-angle:正面-0-度:1",
@@ -18,7 +23,15 @@
       ],
       "zh": "正面 0 度",
       "en": "0-degree front view, frontal torso toward camera",
-      "desc": "鏡頭位於人物正前方，人物身體正面朝向鏡頭，臉部與身體資訊最完整。"
+      "desc": "鏡頭位於人物正前方，人物身體正面朝向鏡頭，臉部與身體資訊最完整。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "front_view",
+            "eye_contact_ok"
+          ]
+        }
+      }
     },
     {
       "id": "camera:拍攝方位-orbit-angle:左前-45-度:2",
@@ -27,7 +40,17 @@
       ],
       "zh": "左前 45 度",
       "en": "45-degree front-left view, front three-quarter torso angle",
-      "desc": "鏡頭位於人物左前方 45 度，呈現正面與側面兼具的前斜側身體方位。"
+      "desc": "鏡頭位於人物左前方 45 度，呈現正面與側面兼具的前斜側身體方位。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "front_view",
+            "eye_contact_ok",
+            "front_three_quarter",
+            "three_quarter"
+          ]
+        }
+      }
     },
     {
       "id": "camera:拍攝方位-orbit-angle:左側-90-度:3",
@@ -36,7 +59,14 @@
       ],
       "zh": "左側 90 度",
       "en": "90-degree left profile view, lateral torso orientation",
-      "desc": "鏡頭位於人物左側 90 度，以左側臉與左側身體輪廓為主。"
+      "desc": "鏡頭位於人物左側 90 度，以左側臉與左側身體輪廓為主。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "profile_view"
+          ]
+        }
+      }
     },
     {
       "id": "camera:拍攝方位-orbit-angle:左後-135-度:4",
@@ -45,7 +75,17 @@
       ],
       "zh": "左後 135 度",
       "en": "135-degree rear-left view, torso stays rear-facing if head turns",
-      "desc": "鏡頭位於人物左後方 135 度，以背部、肩線與少量側面輪廓為主；即使頭部回看，身體仍維持背側方位。"
+      "desc": "鏡頭位於人物左後方 135 度，以背部、肩線與少量側面輪廓為主；即使頭部回看，身體仍維持背側方位。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "rear_three_quarter",
+            "three_quarter",
+            "back_view",
+            "no_eye_contact"
+          ]
+        }
+      }
     },
     {
       "id": "camera:拍攝方位-orbit-angle:背面-180-度:5",
@@ -54,7 +94,15 @@
       ],
       "zh": "背面 180 度",
       "en": "180-degree rear view, back to camera, rear-facing torso, head may turn",
-      "desc": "鏡頭位於人物正後方 180 度，人物背部朝向鏡頭；可允許頭部回看，但身體方位仍保持背面。"
+      "desc": "鏡頭位於人物正後方 180 度，人物背部朝向鏡頭；可允許頭部回看，但身體方位仍保持背面。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "back_view",
+            "no_eye_contact"
+          ]
+        }
+      }
     },
     {
       "id": "camera:拍攝方位-orbit-angle:右後-225-度:6",
@@ -63,7 +111,17 @@
       ],
       "zh": "右後 225 度",
       "en": "225-degree rear-right view, torso stays rear-facing if head turns",
-      "desc": "鏡頭位於人物右後方 225 度，以背部、肩線與少量側面輪廓為主；即使頭部回看，身體仍維持背側方位。"
+      "desc": "鏡頭位於人物右後方 225 度，以背部、肩線與少量側面輪廓為主；即使頭部回看，身體仍維持背側方位。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "rear_three_quarter",
+            "three_quarter",
+            "back_view",
+            "no_eye_contact"
+          ]
+        }
+      }
     },
     {
       "id": "camera:拍攝方位-orbit-angle:右側-270-度:7",
@@ -72,7 +130,14 @@
       ],
       "zh": "右側 270 度",
       "en": "270-degree right profile view, lateral torso orientation",
-      "desc": "鏡頭位於人物右側 270 度，以右側臉與右側身體輪廓為主。"
+      "desc": "鏡頭位於人物右側 270 度，以右側臉與右側身體輪廓為主。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "profile_view"
+          ]
+        }
+      }
     },
     {
       "id": "camera:拍攝方位-orbit-angle:右前-315-度:8",
@@ -81,7 +146,17 @@
       ],
       "zh": "右前 315 度",
       "en": "315-degree front-right view, front three-quarter torso angle",
-      "desc": "鏡頭位於人物右前方 315 度，呈現正面與側面兼具的前斜側身體方位。"
+      "desc": "鏡頭位於人物右前方 315 度，呈現正面與側面兼具的前斜側身體方位。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "front_view",
+            "eye_contact_ok",
+            "front_three_quarter",
+            "three_quarter"
+          ]
+        }
+      }
     }
   ]
 }

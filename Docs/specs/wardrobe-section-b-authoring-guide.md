@@ -1,5 +1,7 @@
 # B 穿搭設定新增與維護規格
 
+2026-10-25 D 語意來源規則：正式分類 JSON 每筆必填並審閱 `meta.semantic`，保存 tags 及該分區的 family／visibility／minVisibility／archetype 等語意欄位。更改 zh／en／desc 須註明語意是否需要變動；請以 `scripts/suggest_catalog_semantics.mjs <id>` 在副本上比較推論建議，不自動覆寫決策。既有值、鍵序、tag 順序與 null 保留；專用欄位和 source meta 仍獨立。正式資料不再靠修改 infer*Meta 生效；缺少 semantic 的歷史／自訂 library 才使用退路。新增／修改須同步 schema 與 field_mapping 並驗證，完整步驟見 [catalog 操作流程](../../knowledge_base/catalog/README.md)。本次只搬移語意，不修正既有問題，不啟動 E 或 P5b。
+
 2026-10-20 核准例外：兩套開扣襯衫的熱褲／包臀迷你裙固定黑色，套裝主色及完整造型配色只作用於襯衫。主 MJ 保留可見上衣主色與黑色下身名稱，其他套裝維持原規則；詳見 [開扣襯衫套裝固定黑色下身 v1](shirt-outfit-black-bottom-v1.md)。
 
 2026-10-11 核准主 MJ 例外：主 `midjourneyPrompt` 穿搭只留經可見性投影的單品名稱；不輸出獨立配色、圖案、版型、腰線、穿法、開合或受力描述。新增目錄／角色卡 layer 須檢查主 MJ 專用短名稱表。原始英文與其他五組輸出（含 MJ 胸上）維持既有契約，見 [主 Midjourney 自然精簡 v1](midjourney-natural-main-v1.md)。

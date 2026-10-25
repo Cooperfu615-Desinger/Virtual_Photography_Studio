@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-25
 
+## 目錄資料架構 v1.1：D 已驗收、授權交付（2026-10-25）
+
+- 最新 main／遠端 main 為 `17074fbe3850e2e9fea300b36697643913f707a1`；C 已提交推送，[CI 40160077808](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40160077808)成功。Cooper 本輪重新確認 D 共用路徑凍結，僅本工作修改。
+- D 將固定 pre-D 引擎的實際 inferredMeta 原樣寫入 56 分類、1,050 筆 meta.semantic，完成 schema／責任映射、引擎優先讀取、一次性隔離搬移、唯讀建議與零差異驗證。原始欄位、ID／別名、compiled catalog、controls 與 A 基準不變；6份 Markdown／兩份 manifest／registry／index hash 不變。
+- 前端1,828/1,828、Prompt Quality754/754、Python36/36、工具15/15、lint/build/資料資產檢查通過；A3,251次重播零差異，同seed200 audit完全相同，0 blockers／18既有診斷；strict保留J12兩項，0 blockers／0 stale。桌手機44項、16張畫面通過，無瀏覽器錯誤／外部POST。
+- 姿勢去向文件僅追加來源追溯，保留原文與所有狀態。倫敦 subterranean 與重新量測17筆 small→mall commercial 原樣列管。十份操作原稿歸檔，其他140份未提交內容SHA不變。
+- [D 報告與 I1–I9 證據](reports/catalog-architecture-d-2026-10-25/README.md)、[規格 §14](specs/catalog-data-architecture-v1.md#14-d-明確語意原樣搬移2026-10-25)、[現行操作](../knowledge_base/catalog/README.md)。Cooper 已確認 D 驗收通過，授權只提交並 push 本批 D 資料、程式、文件、驗收工具與 CI 設定，保留其他未提交內容；實際 Git 與 CI 結果另行核對，不以授權代表交付成功。不進入 E 或 P5b。下方各階段為歷史紀錄，當前狀態以本段為準。
+
 ## 目錄資料架構 v1.1：C 已驗收、授權交付（2026-10-25）
 
 - Cooper 已確認共用範圍凍結，依最新 main `64870460e8a153a07baf953df0d6cf784ce2aca4` 完成 C。正式目錄來源切換為 index 指定的 56 份分類 JSON／1,050 筆 frozen ID；schema、欄位映射、歷史 ID 與七份生成物檢查同批啟用。六份 Markdown 為唯讀總覽，兩份 metadata 已併入紀錄並移除。

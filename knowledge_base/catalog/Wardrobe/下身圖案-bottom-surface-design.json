@@ -9,7 +9,15 @@
       ],
       "zh": "全無",
       "en": "no added bottom pattern, clean solid-color lower-body styling",
-      "desc": "不額外加入下身圖案，保留褲裝或裙裝本身的材質與輪廓。"
+      "desc": "不額外加入下身圖案，保留褲裝或裙裝本身的材質與輪廓。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "no_accessory"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:下身圖案-bottom-surface-design:粗橫條紋:1",
@@ -18,7 +26,13 @@
       ],
       "zh": "粗橫條紋",
       "en": "bold horizontal stripe pattern across the lower garment, clearly defined stripe bands, graphic statement styling",
-      "desc": "以明顯橫向條帶覆蓋下身單品，整體更有視覺節奏與強烈圖案存在感。"
+      "desc": "以明顯橫向條帶覆蓋下身單品，整體更有視覺節奏與強烈圖案存在感。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:下身圖案-bottom-surface-design:細直條紋:2",
@@ -27,7 +41,13 @@
       ],
       "zh": "細直條紋",
       "en": "clear vertical stripe pattern running through the lower garment, narrow repeated stripe lines, elongated linear rhythm",
-      "desc": "以清楚直條紋延伸整件下身單品，能讓輪廓更俐落，也更接近真正條紋褲或條紋裙。"
+      "desc": "以清楚直條紋延伸整件下身單品，能讓輪廓更俐落，也更接近真正條紋褲或條紋裙。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:下身圖案-bottom-surface-design:滿版龐克塗鴉印花:3",
@@ -36,7 +56,16 @@
       ],
       "zh": "滿版龐克塗鴉印花",
       "en": "all-over punk graffiti print across the lower garment, rebellious hand-drawn markings, dense graphic streetwear surface",
-      "desc": "以整件下身都覆蓋龐克塗鴉圖樣為主，形成高密度手繪標記與街頭印花表面。"
+      "desc": "以整件下身都覆蓋龐克塗鴉圖樣為主，形成高密度手繪標記與街頭印花表面。",
+      "meta": {
+        "semantic": {
+          "family": "streetwear",
+          "tags": [
+            "streetwear",
+            "edgy"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:下身圖案-bottom-surface-design:滿版黑白龐克標語塗鴉:4",
@@ -45,7 +74,15 @@
       ],
       "zh": "滿版黑白龐克標語塗鴉",
       "en": "all-over black-and-white punk slogan graffiti across the lower garment, rough handwritten text fragments, marker scratches, zine-like DIY pattern",
-      "desc": "以黑白手寫標語與刮痕鋪滿褲裝或裙裝，保留龐克密度但不讓色彩過度搶戲。"
+      "desc": "以黑白手寫標語與刮痕鋪滿褲裝或裙裝，保留龐克密度但不讓色彩過度搶戲。",
+      "meta": {
+        "semantic": {
+          "family": "punk",
+          "tags": [
+            "edgy"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:下身圖案-bottom-surface-design:滿版紅黑龐克海報塗鴉:5",
@@ -54,7 +91,15 @@
       ],
       "zh": "滿版紅黑龐克海報塗鴉",
       "en": "all-over red-and-black punk flyer graffiti across the lower garment, torn poster fragments, distressed ink texture, DIY underground music pattern",
-      "desc": "以紅黑樂團傳單、撕裂海報與刷舊油墨質感覆蓋下身，主題明確且有海報拼貼感。"
+      "desc": "以紅黑樂團傳單、撕裂海報與刷舊油墨質感覆蓋下身，主題明確且有海報拼貼感。",
+      "meta": {
+        "semantic": {
+          "family": "punk",
+          "tags": [
+            "edgy"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:下身圖案-bottom-surface-design:滿版噴漆標籤龐克塗鴉:6",
@@ -63,7 +108,15 @@
       ],
       "zh": "滿版噴漆標籤龐克塗鴉",
       "en": "all-over spray-paint tag punk graffiti across the lower garment, uneven aerosol edges, overlapping street tags, gritty urban wall-inspired pattern",
-      "desc": "以噴漆 tag 與重疊街頭標記覆蓋下身，讓圖案更像街頭牆面轉印到服裝上。"
+      "desc": "以噴漆 tag 與重疊街頭標記覆蓋下身，讓圖案更像街頭牆面轉印到服裝上。",
+      "meta": {
+        "semantic": {
+          "family": "punk",
+          "tags": [
+            "edgy"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:下身圖案-bottom-surface-design:滿版龐克貼紙炸彈印花:7",
@@ -72,7 +125,16 @@
       ],
       "zh": "滿版龐克貼紙炸彈印花",
       "en": "all-over sticker-bomb punk print across the lower garment, layered sticker graphics, scratched warning icons, ransom-note letters, chaotic streetwear pattern",
-      "desc": "以貼紙炸彈、警示符號與剪貼字母覆蓋下身，形成零碎、重疊且高密度的印花表面。"
+      "desc": "以貼紙炸彈、警示符號與剪貼字母覆蓋下身，形成零碎、重疊且高密度的印花表面。",
+      "meta": {
+        "semantic": {
+          "family": "streetwear",
+          "tags": [
+            "streetwear",
+            "edgy"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:下身圖案-bottom-surface-design:滿版骷髏龐克塗鴉:8",
@@ -81,7 +143,15 @@
       ],
       "zh": "滿版骷髏龐克塗鴉",
       "en": "all-over punk skull doodle print across the lower garment, safety-pin symbols, rough stars, jagged hand-drawn lettering, distressed rebellious pattern",
-      "desc": "以骷髏、別針與粗糙手寫字鋪滿下身，增加龐克符號辨識度。"
+      "desc": "以骷髏、別針與粗糙手寫字鋪滿下身，增加龐克符號辨識度。",
+      "meta": {
+        "semantic": {
+          "family": "punk",
+          "tags": [
+            "edgy"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:下身圖案-bottom-surface-design:滿版卡通塗鴉印花:9",
@@ -90,7 +160,13 @@
       ],
       "zh": "滿版卡通塗鴉印花",
       "en": "all-over cartoon doodle print across the lower garment, playful illustrated motifs, colorful youthful graphic surface",
-      "desc": "以卡通塗鴉圖樣覆蓋整件下身，形成明確的圖案褲或印花裙表面。"
+      "desc": "以卡通塗鴉圖樣覆蓋整件下身，形成明確的圖案褲或印花裙表面。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:下身圖案-bottom-surface-design:滿版可愛角色塗鴉印花:10",
@@ -99,7 +175,13 @@
       ],
       "zh": "滿版可愛角色塗鴉印花",
       "en": "all-over cute cartoon doodle print across the lower garment, tiny character faces, stars, hearts, speech bubbles, colorful hand-drawn pattern",
-      "desc": "以小角色臉、星星、愛心與泡泡圖案鋪滿下身，更像可愛插畫感圖案褲或印花裙。"
+      "desc": "以小角色臉、星星、愛心與泡泡圖案鋪滿下身，更像可愛插畫感圖案褲或印花裙。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:下身圖案-bottom-surface-design:滿版怪奇小怪物塗鴉:11",
@@ -108,7 +190,13 @@
       ],
       "zh": "滿版怪奇小怪物塗鴉",
       "en": "all-over quirky cartoon monster doodle print across the lower garment, silly creature icons, uneven outlines, playful sticker-like motifs",
-      "desc": "以怪奇小怪物與歪斜手繪線條覆蓋下身，卡通感更有個性。"
+      "desc": "以怪奇小怪物與歪斜手繪線條覆蓋下身，卡通感更有個性。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:下身圖案-bottom-surface-design:滿版漫畫符號塗鴉:12",
@@ -117,7 +205,13 @@
       ],
       "zh": "滿版漫畫符號塗鴉",
       "en": "all-over comic doodle print across the lower garment, bold speech bubbles, action marks, tiny illustrated symbols, playful pop-art pattern",
-      "desc": "以漫畫泡泡、速度線與小圖示鋪滿下身，讓圖案更有漫畫節奏與視覺動態。"
+      "desc": "以漫畫泡泡、速度線與小圖示鋪滿下身，讓圖案更有漫畫節奏與視覺動態。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:下身圖案-bottom-surface-design:滿版粉彩手帳塗鴉:13",
@@ -126,7 +220,13 @@
       ],
       "zh": "滿版粉彩手帳塗鴉",
       "en": "all-over pastel cartoon doodle print across the lower garment, diary-like hand-drawn icons, soft marker colors, cute casual illustrated pattern",
-      "desc": "以粉彩手帳圖示與柔和色彩覆蓋下身，形成輕盈、柔和的手繪圖案表面。"
+      "desc": "以粉彩手帳圖示與柔和色彩覆蓋下身，形成輕盈、柔和的手繪圖案表面。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:下身圖案-bottom-surface-design:滿版卡通貼紙拼貼印花:14",
@@ -135,7 +235,13 @@
       ],
       "zh": "滿版卡通貼紙拼貼印花",
       "en": "all-over cartoon sticker collage print across the lower garment, layered cute doodle decals, mismatched icons, playful colorful street-casual pattern",
-      "desc": "以卡通貼紙拼貼與不同大小的小圖示覆蓋下身，形成隨機排列的滿版貼紙表面。"
+      "desc": "以卡通貼紙拼貼與不同大小的小圖示覆蓋下身，形成隨機排列的滿版貼紙表面。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     }
   ]
 }

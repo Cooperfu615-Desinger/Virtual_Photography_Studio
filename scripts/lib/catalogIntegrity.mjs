@@ -77,7 +77,18 @@ export function checkFieldMapping(database, entries, responsibility) {
         else if (key === 'stableId') actual = out.id;
         else if (key === 'legacyIds') { actual = out.legacyIds; }
         else if (key === 'meta') { for (const [k, v] of Object.entries(value)) {
-          if (k === 'tags') { if (v.some(t => !out.meta.tags.includes(t))) fail(out.id, 'meta.tags', out.meta.tags, v); }
+          if (k === 'semantic') {
+            if (JSON.stringify(out.inferredMeta) !== JSON.stringify(v)) fail(out.id, 'meta.semantic', out.inferredMeta, v);
+            if (Object.hasOwn(out.meta, 'semantic')) fail(out.id, 'meta.semantic.leak', out.meta.semantic, 'absent');
+            for (const [semanticKey, semanticValue] of Object.entries(v)) {
+              if (semanticKey === 'tags' || Object.hasOwn(value, semanticKey) || Object.hasOwn(row, semanticKey)) continue;
+              if (!isDeepStrictEqual(out.meta[semanticKey], semanticValue)) fail(out.id, `meta.semantic.${semanticKey}`, out.meta[semanticKey], semanticValue);
+            }
+            const subjectTags = section === 'CameraLighting' && category === '光線表現 (Light Style)' ? row.subjectLight?.tags || [] : [];
+            const expectedTags = [...new Set([...(v.tags || []), ...(value.tags || []), ...subjectTags].filter(Boolean).map(String))];
+            if (!isDeepStrictEqual(out.meta.tags, expectedTags)) fail(out.id, 'meta.tags.order', out.meta.tags, expectedTags);
+          }
+          else if (k === 'tags') { if (v.some(t => !out.meta.tags.includes(t))) fail(out.id, 'meta.tags', out.meta.tags, v); }
           else if (!isDeepStrictEqual(out.meta[k], v)) fail(out.id, `meta.${k}`, out.meta[k], v);
         } continue; }
         else { actual = mapping.runtime.startsWith('meta.') ? out.meta[mapping.runtime.slice(5)] : out[mapping.runtime]; }

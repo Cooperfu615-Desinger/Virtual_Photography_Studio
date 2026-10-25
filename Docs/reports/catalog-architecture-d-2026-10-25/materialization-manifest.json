@@ -1,0 +1,287 @@
+{
+  "phase": "D",
+  "sourceSha": "17074fbe3850e2e9fea300b36697643913f707a1",
+  "records": 1050,
+  "files": [
+    {
+      "path": "knowledge_base/catalog/Regional/攝影風格.json",
+      "beforeSha256": "c1f3b612d58c059c66b9b211c5a0b4a0f3b83d5b0eb357279773760d7941c1d9",
+      "afterSha256": "b689eadb5520a50b7517afe0f41055ee03737ea4a39ce7dc83873e7df15ba239"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/特殊穿搭-special-outfits.json",
+      "beforeSha256": "977d03cbf4b11d6852b442b6f374cbd58a2f2747f98965bb1a564c0478f26254",
+      "afterSha256": "6efd5609290a019832e71eb2c42d888a5264e7c1a33ecfb816af428357e4ac8c"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/套裝-outfit-presets.json",
+      "beforeSha256": "dede81254c3cb5681648da8601a5f731efc2774c61d64d1bcb66d1c62f6844d3",
+      "afterSha256": "e3b496b39701cb1e361a13c8eccc3650d6c6be0b7f3869a40d9b31eb43699a63"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/上身-tops.json",
+      "beforeSha256": "5d1a1a8178ba1de67397b0a0626ece67e7155b16639a7d906f375bb6cc511b11",
+      "afterSha256": "f8f05b3ae9f120d7e67d43a54c0893043ca7673934b728cb0c628c70059b844c"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/上身圖案-top-surface-design.json",
+      "beforeSha256": "86b6c15d9d0c6577ad6b123987e430a749a0a4816731a56802e93cf0ba6663c1",
+      "afterSha256": "11077ebb937f8751d44ec30f725fd77af5e947b54c0181cdd7e560abce22fe6b"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/連身-dresses.json",
+      "beforeSha256": "f49dce7d1863a1c1c803c7796f37184623c4fee4cc5640087f9aca4309f79486",
+      "afterSha256": "716f41c9ff4c4623cee80ab0fe17440042e6a72b64fa4c5c157e34431a25740b"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/褲裝-pants.json",
+      "beforeSha256": "8dad2e49807296278ceb6a7ee215485380fff40eea74700ae0a0824cf11c185f",
+      "afterSha256": "b696b2239efba1347a451ddad5461fe9ba78019e10e6bb77bcb692dfed77cc14"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/裙裝-skirts.json",
+      "beforeSha256": "377b3aa12515550f4d7f98e10faec63d33454637eccd885df24425a62c3ec2a1",
+      "afterSha256": "21b1c26a96c2ef7aa6b334a2edb5da6349a3ca0779d2d60a49ff998e66984000"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/下身圖案-bottom-surface-design.json",
+      "beforeSha256": "855cf79818fabc57aba28029a004da14796f6ba0e9d8b102c5498e4a17bef99b",
+      "afterSha256": "45b99294207ebbe6e3647b4f55bc0118785ca8cc9ae7803f309eeadabf563f21"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/襪類-legwear.json",
+      "beforeSha256": "115f0a391b7dfe0ed7866fbae301bb5497d6ee3d1b7bd95fa3b90746c25213ca",
+      "afterSha256": "627cb1c543cf4bd1be8bc47687a74253b04906e18386813a444aca375ee9192c"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/外套版型-outerwear-fit.json",
+      "beforeSha256": "982d5f9d9e5322f9ef4457eeae6e29f247011c5739d88f46f12c2afa5d10e1a8",
+      "afterSha256": "e104e6eeca426b3656cfb37e78e9a04410c3682ca445b1d3c9ceb7c53add6818"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/外套-outerwear.json",
+      "beforeSha256": "c47af63ec7e0a96418fdbcb2c18c204e763970d8695c4f0de806d68c499dfff5",
+      "afterSha256": "7f8e2f3a25082c2faf8f6ac70e0391c17ba5168ccf59e953d9ac127b4404cfbc"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/外套開合-outerwear-opening.json",
+      "beforeSha256": "41554fc5452468ae7818c6ccf6bd5ec0827896d4a97f9a7e284ec733881d2e83",
+      "afterSha256": "bcd058c346292cf3209a32dcb94c85b55d88c24c5764b1582d47857d678d7acb"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/外套穿法-outerwear-styling.json",
+      "beforeSha256": "6d9b802f378002eb2359c87309c2a1d607650dfd8048ffa6c6e02e216219e4a2",
+      "afterSha256": "bcc4bde2a89879a19bece775cddd78ac7266ee0f3729bdce9bf568902adfe795"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/外套圖案-outerwear-surface-design.json",
+      "beforeSha256": "33144ab34ddd4204348bbd53cd5d5a1015b363cc6b29e5e388366fdb9376424d",
+      "afterSha256": "005b2e5772775e68423e20ead3dafc7518a2029a519898ff4bc19dc4ae06b0f7"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/鞋款-shoes.json",
+      "beforeSha256": "149723a8b33529a53a80a58988790674a4055b6adaab5d9d0e366b7eb913ce81",
+      "afterSha256": "1059d14fb9f329311767831ee5c2dec05ebf5659d0f97b74516671575bf7d900"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/頭部配件-head-accessories.json",
+      "beforeSha256": "697e8b3148f5eb235dec63b6bf3ade92bb08df2bd2cb338e98d40929e26a8772",
+      "afterSha256": "d31fe7de5c04e7337d9abfc24a417498ccabe08df215e6a9a3acb9d83f661166"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/眼鏡-eyewear.json",
+      "beforeSha256": "19a3ac81f56fec82d7cb9c5747f014184423470c7e43fdf3591921739a2e1d99",
+      "afterSha256": "a721aa33d61293519480bcb03dbe1efd8893c766cf5d1abecc698be6229f61e4"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/眼鏡配色-eyewear-color.json",
+      "beforeSha256": "2110aa6113c47f420b7a8b8b1a522bc2162a06c20c8cb3a6cfe572d367a082f7",
+      "afterSha256": "4f13bd5dfbcf6e413f826a05bd2e7d40431f9815f4ccefd3698d0662c47811b6"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/眼鏡配戴方式-eyewear-placement.json",
+      "beforeSha256": "46261101ece767e6cf8a5a1b9ac944ac32ff2a4911fe6b0a6cee06378ab6e088",
+      "afterSha256": "6f6c64728bfbb609cf79b72d819c02ce3db54e010d244fb14455b9edc1fbdf4e"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/耳環-earrings.json",
+      "beforeSha256": "8e3cd314a112a3268667ce3be4f74d2097bc181d3c6eb13d3131fb0484d21b82",
+      "afterSha256": "a6aa622ef216542b1feb0f141f35db0748261c62057bb72d14803b3ae90b1b21"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/鼻部穿孔-nose-piercings.json",
+      "beforeSha256": "e784beba920078d5c34ba9125ff638f8fe48183b9b2a5ad6d3ebef901773a4bb",
+      "afterSha256": "178ef3e0842588da758b7e9a9ec1ccf3586ebef0b1157366e91c0cec6343c373"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/唇部穿孔-lip-piercings.json",
+      "beforeSha256": "2019b5bfeedc4a427239d3df00675508972bbb4f587eccadbd191b9b2770b067",
+      "afterSha256": "61b155267f7d12e0bac6832b00b5a50720508a739c600276fbcc3110f500272d"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/頸部-neck-accessories.json",
+      "beforeSha256": "0436e898e4d95149bf2fa3464ad287e10302cd6e24562f212c85fd8d73194679",
+      "afterSha256": "c69a14524f5a1ae965acf5856dfbc48b03ec1ddaef7e6b1d6f617d765f96b792"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/腰部配件-waist-accessories.json",
+      "beforeSha256": "7c40ad6aa9567b176d406d0350afdef8a1122bedd6457403849bce5e10c8dc02",
+      "afterSha256": "1727badf6d2c7546047f42d0428d165e3bc95fcaf4f22abcd7fb77607806bc7e"
+    },
+    {
+      "path": "knowledge_base/catalog/CameraLighting/景別構圖-framing.json",
+      "beforeSha256": "833a943d15d0ad6f06450ec958b8155a6b28fd52778cba6da3b01c0b42fefe83",
+      "afterSha256": "7595f6330304fed7eaac4e864fb1afacaf09017d2d684b960dba4c372688e12a"
+    },
+    {
+      "path": "knowledge_base/catalog/CameraLighting/相機視角-angle.json",
+      "beforeSha256": "2926d7be6649358520a55eaadab976ded5a643f38aab2277b40413f11e326808",
+      "afterSha256": "5d9ed03c22dba21dca194c7c33db0ddf925306fd77cb1f3c8fdb438efc603f68"
+    },
+    {
+      "path": "knowledge_base/catalog/CameraLighting/拍攝方位-orbit-angle.json",
+      "beforeSha256": "ad6e8938a78e1bad52028dce78f4fbf0b05184bc8403734760d6a77dc0ad9581",
+      "afterSha256": "64d9774fd3e7382a665681a8ca0c8ed095064eb13f0fdd1e2f0d10205b3892a1"
+    },
+    {
+      "path": "knowledge_base/catalog/CameraLighting/鏡頭焦段-focal-length.json",
+      "beforeSha256": "cb61b020229ae97cc97ac84d80d76e6094420dd090264b6ab1f0fe3170c0a0f1",
+      "afterSha256": "523b57f5e96aab9d5b5c6c792c8defd78d7d7c5f0223c1e4ce87b7688a8578be"
+    },
+    {
+      "path": "knowledge_base/catalog/CameraLighting/光圈-景深-aperture-depth-of-field.json",
+      "beforeSha256": "5c2c638074862a4cbf76d0d9daee47a1caeccec005ba791896dc0f8e22ec7a0d",
+      "afterSha256": "97a7eaa35d1756d4debbf04a1a98be31b7193c2fa9dab458e885053f41afc7bb"
+    },
+    {
+      "path": "knowledge_base/catalog/CameraLighting/快門-動態殘影-shutter-motion-blur.json",
+      "beforeSha256": "8287382d9ebc24b5dfd58766c2fd865776c4bb7eef3df1e85b809a166747a360",
+      "afterSha256": "5def720bf9f8609c10e56f7eea8f85611cb4c92a53f9e4c7ef295fc75808cf3a"
+    },
+    {
+      "path": "knowledge_base/catalog/CameraLighting/環境光條件-ambient-light-conditions.json",
+      "beforeSha256": "c68fcc59001e4a54c10f6d577c4ad91ccfc66b0206c83e490ce8c886e69e2843",
+      "afterSha256": "783f4203273590319134bcaa2c36fa3b6bc704202b7d252a18d845fef24ba75b"
+    },
+    {
+      "path": "knowledge_base/catalog/CameraLighting/光線表現-light-style.json",
+      "beforeSha256": "922e06a98fd18ee2748199af76f504e873df2dcd3d9a72cfd567611355ffa33d",
+      "afterSha256": "611572b2a464b215c9327e04d612dda2c731a77ae82314575775a01ed2a8a72c"
+    },
+    {
+      "path": "knowledge_base/catalog/CameraLighting/底片與相機模擬-camera-film-simulation.json",
+      "beforeSha256": "75b5baf8a471a2838138125ff7a736f7748fbcf08e20bb82196a6b799dbeca3e",
+      "afterSha256": "952415e0546875fe413c8a8a2dc513bab7b2acfb7f6123a949d7d2f513a30f31"
+    },
+    {
+      "path": "knowledge_base/catalog/CameraLighting/光學效果-optical-effects.json",
+      "beforeSha256": "eb91d1cb0080c48c8d676cf5f22288b173eea139ebc6a77d95d829acd304ad86",
+      "afterSha256": "b95251821a910aa3b78e616f2f994d5c36a558d392c69daaf73fcda25f06b256"
+    },
+    {
+      "path": "knowledge_base/catalog/Locations/攝影棚與背景-studio-sets.json",
+      "beforeSha256": "a114b8824fdb55ae31dc7815877cc13955a5d94ac83ec7a4203cc7cb5cd237c8",
+      "afterSha256": "910c3732593279a3dae7ba943afef377d649881937d7e931c84748497d392b4f"
+    },
+    {
+      "path": "knowledge_base/catalog/Locations/生活感室內-indoor-lifestyle.json",
+      "beforeSha256": "0d6d6c8926ce85140f47652cc3b9a3b7d79b207fe473355454f56ad3423ae60f",
+      "afterSha256": "ab8ffba095945bad67c8bf3a96f0eceb7da14e8aa46d41616600076cb59296d5"
+    },
+    {
+      "path": "knowledge_base/catalog/Locations/地下與廢墟風格-abandoned-underground.json",
+      "beforeSha256": "b06c5a3e89989bf78e21e990d6803bbf6342e7fd260263e46abf3cbd17046fa6",
+      "afterSha256": "e7b3756a5854530f5f68236d6ea94b907a87c2986096c399502f43dcbd2a8723"
+    },
+    {
+      "path": "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+      "beforeSha256": "1a34b2a9d33adbe7f9948968adea4c13506d56346ef5e060e6aad17760101961",
+      "afterSha256": "06d8be05e258a1fda7433ecfe77f39b15f2e1c6dec37ed91c40d9041db2679e7"
+    },
+    {
+      "path": "knowledge_base/catalog/Locations/自然與戶外-nature-outdoors.json",
+      "beforeSha256": "a0e9bdbadaf57cc5ba446d1858f5edd3bef0a6fea41011e425c033d2ef64b4fe",
+      "afterSha256": "66211933b41300ba8040e019b4fcd1bd70e7d5a3efc32487e4ef5dcd05912f52"
+    },
+    {
+      "path": "knowledge_base/catalog/Locations/其他專屬場景-other-dedicated-scenes.json",
+      "beforeSha256": "603548d4d7cc3d2d0fdcd2e1b23cd5ea6e6ce285a8032787f3463c9907d010c9",
+      "afterSha256": "062f9ede377e100d639170e1a3895a692a4d4242d4da37683afab9fa8163e8ac"
+    },
+    {
+      "path": "knowledge_base/catalog/Character/五官特徵-facial-features.json",
+      "beforeSha256": "c923f77a2be37e93baba5eb4b091ca4282e04881f6e8c5b86442807e5c583c28",
+      "afterSha256": "c5dd301df9fbbca24638ccb631c70041028eede609a267b84dae943a198eb5e4"
+    },
+    {
+      "path": "knowledge_base/catalog/Character/膚質特徵-skin-details.json",
+      "beforeSha256": "522eb37fb74f7c7e519ba453e4b604718fdebbcfc55546906cc1c796c42c29d8",
+      "afterSha256": "c385fd07850126a75348a1883e8c71cbfb97dfcdee8a00f4a93d974fd6f86105"
+    },
+    {
+      "path": "knowledge_base/catalog/Character/體態-body-type.json",
+      "beforeSha256": "2c3fc6076daa47f938f3f277ce36486c94fc5d7001d4244421590a8c74cad9f9",
+      "afterSha256": "dbb435cd168dea64f67cab035674af974fa3fe9be9f13c961d1f8954e36720ae"
+    },
+    {
+      "path": "knowledge_base/catalog/Character/髮型-hairstyle.json",
+      "beforeSha256": "7bc55cc4ee6db1f6326350135db40a1a3a0730791c6a7ea482d10dc7a62a6ede",
+      "afterSha256": "3565082935bbff6a4a1d36448b03b81fe33fcbe1982d4c326f48f17c3898d181"
+    },
+    {
+      "path": "knowledge_base/catalog/Character/髮絲整理狀態-hair-styling-state.json",
+      "beforeSha256": "7033834dafb2531041fa468cf7d9a9b57e78aa4713f6384129488c7504d75266",
+      "afterSha256": "158e5bb3a35cf595190090cd13f1afca5cae118ca344d2069d134314eb4cd997"
+    },
+    {
+      "path": "knowledge_base/catalog/Character/髮色-hair-color.json",
+      "beforeSha256": "ac63c29d73387017c72d9925cc7ffb126fdab026bd06fb795e31263dbbc369ec",
+      "afterSha256": "da802e386ac6e2df56e4ead882da79ccc8b5acfc0055a6f1967d4913f4c53ce0"
+    },
+    {
+      "path": "knowledge_base/catalog/Character/表情-facial-expression.json",
+      "beforeSha256": "9a654bcf3db937ce0eea13d3f163c15e55bc61f5d48221810484fdf76ecc1646",
+      "afterSha256": "4ff5f53a58a9b7b6f13d64a7ff3de7b7867736cb20b9aef1f0fe29651c7d3371"
+    },
+    {
+      "path": "knowledge_base/catalog/Character/姿勢與肢體語言-pose-body-language.json",
+      "beforeSha256": "7319c69fd567c659b79ce6a0523d5c49702891da98f7fead8635c062f567b338",
+      "afterSha256": "2f4ab146338ab8746b4e04355b72842dd0d343ba1b4c0efbba623a4e534d3f51"
+    },
+    {
+      "path": "knowledge_base/catalog/Character/特殊動作-special-actions.json",
+      "beforeSha256": "145156caea2277d1f2b7ea85b11b883c6dd2d09615d5a79a5fb6b0b6fcb9d4b5",
+      "afterSha256": "734846ab168fdab8697e50fd94aa19de2c3d533edbdb2fe06cae2c7c4adbacb6"
+    },
+    {
+      "path": "knowledge_base/catalog/Negative/通用人體防護.json",
+      "beforeSha256": "354956aa6697118620cabead167c80f6bdf6f40a5c37e7f925f4d11fa428f9bf",
+      "afterSha256": "bc8d15c1be731f6f09accf9bdb3c89d202ccbe5ff40d4a0887daa2a77924b607"
+    },
+    {
+      "path": "knowledge_base/catalog/Negative/畫質與渲染防護.json",
+      "beforeSha256": "93bf81f746a533dfd1ff6f06af37d43ae5b27872bc548fe880b55c93a0eff8a1",
+      "afterSha256": "c490ed55c5c9d03b4b77347decb19fab3fafdbebb0bab807419a1928dae331db"
+    },
+    {
+      "path": "knowledge_base/catalog/Negative/風格與寫實度防護.json",
+      "beforeSha256": "a210b06c5613bc71434035ea7b0de8fd7ce680e468066d12685a77e05aefe09b",
+      "afterSha256": "d6e4c6068a75cafeafce5640c1eb79238052e9ba989c806107a02a6d1f5aface"
+    },
+    {
+      "path": "knowledge_base/catalog/Negative/場景與物理防護.json",
+      "beforeSha256": "23c9d48ca9277bb67f0239bd7fdd45b228b1c408cdbc10d74a24dbc241587e80",
+      "afterSha256": "0d840f51c62950bb91b8136d586085835011696da7d5abc25201e0ca4651e1dd"
+    },
+    {
+      "path": "knowledge_base/catalog/Negative/服裝與材質防護.json",
+      "beforeSha256": "1079f0ec21efed58087d74ea564b7155ae1205a6fec68f17c3701e0a525ac3f8",
+      "afterSha256": "4c370c535462267484860ecedb738ef1b8fb3747dc64842735905805bfa474f4"
+    },
+    {
+      "path": "knowledge_base/catalog/Negative/特定主題防護-依需求加入.json",
+      "beforeSha256": "c32d3d8306c097f02b402574b017ffa87705ad0a7d49d840c41b9bc36427be60",
+      "afterSha256": "130b75814bfc6d9ec6a89e3c2b77fe0f2597cd77f38684965b16973c9e1489c5"
+    }
+  ]
+}

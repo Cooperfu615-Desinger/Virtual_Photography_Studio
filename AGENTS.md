@@ -16,6 +16,13 @@ These instructions apply to the whole repository. Optimize for the requested pro
 - Select a reviewed full `REGISTRY_BASE_COMMIT` before changes; sync and strict checks require historical registry validation. Initial C bootstrap is limited to the fixed pre-C commit; it cannot be reused after C is committed. Run sync, read-only `--check`, schema/history tests and strict integrity before frontend gates.
 - Stable IDs do not authorize changing display/random order. Existing A seals and outputs must not be re-recorded to hide migration differences. Pose and Observation Capture are integrated Prompt modes, not separate navigation workspaces.
 
+## Catalog Semantic Source (D)
+
+- Formal category JSON requires reviewed `meta.semantic`; generated Markdown/database must not be edited by hand. Follow `knowledge_base/catalog/README.md`.
+- Preserve ordered semantic values, IDs and aliases. When editing zh/en/desc, record whether semantics change and why; use `scripts/suggest_catalog_semantics.mjs <id>` for read-only advice, never automatic replacement.
+- Explicit semantic replaces inference before source metadata and dedicated fields; only historical/custom libraries without semantic use inference. Keep default runtime caches isolated.
+- D preserves known semantic mistakes and all legacy tables; no E or P5b work without separate authorization.
+
 ## Product and Compatibility Boundaries
 
 - Preserve the existing visual language and interaction patterns unless the user has approved a new direction. Layout, workflow, or visual-hierarchy changes should be aligned with the user before implementation; a wireframe is discussion material unless explicitly approved as the specification.

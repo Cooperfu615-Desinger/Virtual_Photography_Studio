@@ -9,7 +9,16 @@
       ],
       "zh": "室內：廢棄水泥工廠破碎輸送帶區",
       "en": "abandoned cement factory conveyor-belt corner, broken conveyor rollers, gravel piles, cement dust on the floor, rusted metal supports, cracked concrete wall edge, loose machine parts",
-      "desc": "廢棄輸送設備周圍的工業場景，重點是輸送滾輪、碎石、水泥粉塵、金屬支架、裂開牆面與散落機械零件。"
+      "desc": "廢棄輸送設備周圍的工業場景，重點是輸送滾輪、碎石、水泥粉塵、金屬支架、裂開牆面與散落機械零件。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "indoor",
+            "industrial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄水泥工廠生鏽控制室:1",
@@ -18,7 +27,16 @@
       ],
       "zh": "室內：廢棄水泥工廠生鏽控制室",
       "en": "rusted cement factory control room, industrial switch panels, broken glass on the console, dust-covered dials, peeling metal cabinets, concrete corner, exposed cable bundles",
-      "desc": "小型控制空間，重點是工業開關面板、破玻璃、蒙塵儀表、剝落金屬櫃、混凝土角落與外露線束。"
+      "desc": "小型控制空間，重點是工業開關面板、破玻璃、蒙塵儀表、剝落金屬櫃、混凝土角落與外露線束。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "indoor",
+            "industrial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄水泥工廠攪拌槽旁:2",
@@ -27,7 +45,18 @@
       ],
       "zh": "室內：廢棄水泥工廠攪拌槽旁",
       "en": "cement-mixer tank side area, large cylindrical mixing tank, concrete dust, iron ladder, rust stains, thick pipe joints, heavy concrete support column, uneven service platform",
-      "desc": "靠近大型槽體與厚重混凝土結構的區域，重點是圓筒攪拌槽、鐵梯、鏽痕、管線接頭、支柱與不平整工作平台。"
+      "desc": "靠近大型槽體與厚重混凝土結構的區域，重點是圓筒攪拌槽、鐵梯、鏽痕、管線接頭、支柱與不平整工作平台。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "indoor",
+            "transit",
+            "urban",
+            "industrial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄水泥工廠機具堆放區:3",
@@ -36,7 +65,16 @@
       ],
       "zh": "室內：廢棄水泥工廠機具堆放區",
       "en": "abandoned machinery storage corner, heavy machine parts, loose chains, bent metal sheets, dusty concrete floor, stacked gears, tool fragments, wall-side industrial clutter",
-      "desc": "大量廢棄零件與重機散落的角落，重點是鏈條、金屬板、齒輪、工具碎片、混凝土地面與靠牆堆放的工業雜物。"
+      "desc": "大量廢棄零件與重機散落的角落，重點是鏈條、金屬板、齒輪、工具碎片、混凝土地面與靠牆堆放的工業雜物。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "indoor",
+            "industrial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:地下與廢墟風格-abandoned-underground:室內-地下排洪道積水牆角:4",
@@ -45,7 +83,16 @@
       ],
       "zh": "室內：地下排洪道積水牆角",
       "en": "flood-tunnel pooled-water corner, stained concrete wall, shallow water on the floor, wet pipe openings, dark drainage channel edge, algae marks, reflective concrete surface",
-      "desc": "地下排洪道積水牆角，重點是染色混凝土牆、地面淺水、管口、排水溝邊、藻痕與潮濕反光表面。"
+      "desc": "地下排洪道積水牆角，重點是染色混凝土牆、地面淺水、管口、排水溝邊、藻痕與潮濕反光表面。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "indoor",
+            "subterranean"
+          ]
+        }
+      }
     },
     {
       "id": "locations:地下與廢墟風格-abandoned-underground:室內-地下排洪道排水閘門旁:5",
@@ -54,7 +101,16 @@
       ],
       "zh": "室內：地下排洪道排水閘門旁",
       "en": "drainage gate side area, rusted steel floodgate, wet concrete floor, exposed pipes, valve wheel, grated drain channel, stained utility wall, metal hinge detail",
-      "desc": "靠近閘門與金屬結構的地下區域，重點是生鏽閘門、濕混凝土地面、外露管線、閥輪、排水格柵與牆面污痕。"
+      "desc": "靠近閘門與金屬結構的地下區域，重點是生鏽閘門、濕混凝土地面、外露管線、閥輪、排水格柵與牆面污痕。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "indoor",
+            "subterranean"
+          ]
+        }
+      }
     },
     {
       "id": "locations:地下與廢墟風格-abandoned-underground:室內-地下排洪道機房通道口:6",
@@ -63,7 +119,17 @@
       ],
       "zh": "室內：地下排洪道機房通道口",
       "en": "underground machine-room entrance, heavy steel door, pipework along the wall, electrical box, damp concrete threshold, grated floor panel, side corridor edge",
-      "desc": "像機房入口的混凝土地下空間，重點是厚重鋼門、牆邊管線、電箱、潮濕門檻、格柵地板與側邊通道。"
+      "desc": "像機房入口的混凝土地下空間，重點是厚重鋼門、牆邊管線、電箱、潮濕門檻、格柵地板與側邊通道。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "indoor",
+            "industrial",
+            "subterranean"
+          ]
+        }
+      }
     },
     {
       "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄手術室:7",
@@ -72,7 +138,16 @@
       ],
       "zh": "室內：廢棄手術室",
       "en": "abandoned operating room, broken surgical table, metal tray stand, medicine bottles, peeling tiled walls, ceiling rail, cracked floor tiles, instrument cart at one side",
-      "desc": "荒廢手術室，重點是破損手術台、金屬托盤架、藥瓶、剝落磁磚牆、天花軌道、裂開地磚與側邊器械車。"
+      "desc": "荒廢手術室，重點是破損手術台、金屬托盤架、藥瓶、剝落磁磚牆、天花軌道、裂開地磚與側邊器械車。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "indoor",
+            "institutional"
+          ]
+        }
+      }
     },
     {
       "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄病房:8",
@@ -81,7 +156,16 @@
       ],
       "zh": "室內：廢棄病房",
       "en": "abandoned hospital ward corner, old metal bed frame, hanging privacy curtain, medicine cabinet, worn floor tiles, chipped wall paint, bedside table, loose bedding remnants",
-      "desc": "舊病房角落，重點是金屬病床、隔簾、藥櫃、磨損地磚、剝落牆漆、床邊桌與殘留床品。"
+      "desc": "舊病房角落，重點是金屬病床、隔簾、藥櫃、磨損地磚、剝落牆漆、床邊桌與殘留床品。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "indoor",
+            "institutional"
+          ]
+        }
+      }
     },
     {
       "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄藥品室:9",
@@ -90,7 +174,15 @@
       ],
       "zh": "室內：廢棄藥品室",
       "en": "abandoned medicine storage room, dusty glass bottles, metal cabinet, labeled medicine jars, narrow utility shelves, cracked tile floor, cabinet door hanging open",
-      "desc": "小型封閉藥品空間，重點是玻璃瓶、金屬櫃、藥罐、窄貨架、裂開地磚與半開櫃門。"
+      "desc": "小型封閉藥品空間，重點是玻璃瓶、金屬櫃、藥罐、窄貨架、裂開地磚與半開櫃門。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "indoor"
+          ]
+        }
+      }
     },
     {
       "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄診療室:10",
@@ -103,6 +195,15 @@
       "lyingSurface": {
         "type": "bed",
         "en": "medical bed"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "indoor",
+            "institutional"
+          ]
+        }
       }
     },
     {
@@ -112,7 +213,16 @@
       ],
       "zh": "室內：廢棄校舍散亂課桌教室",
       "en": "abandoned classroom, scattered wooden desks at uneven angles, chalkboard, torn papers, broken window panes, dusty schoolroom floor, chair legs and wall bulletin scraps",
-      "desc": "課桌椅凌亂散落的老教室，重點是不規則角度桌椅、黑板、撕裂紙張、破窗、灰塵地面與牆上公告殘片。"
+      "desc": "課桌椅凌亂散落的老教室，重點是不規則角度桌椅、黑板、撕裂紙張、破窗、灰塵地面與牆上公告殘片。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "indoor",
+            "institutional"
+          ]
+        }
+      }
     },
     {
       "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄校舍破窗音樂教室:12",
@@ -125,6 +235,15 @@
       "lyingSurface": {
         "type": "floor",
         "en": "wooden floor"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "indoor",
+            "institutional"
+          ]
+        }
       }
     },
     {
@@ -138,6 +257,16 @@
       "lyingSurface": {
         "type": "bed",
         "en": "examination bed"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "indoor",
+            "commercial",
+            "institutional"
+          ]
+        }
       }
     },
     {
@@ -151,6 +280,15 @@
       "lyingSurface": {
         "type": "other",
         "en": "gym mats"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "indoor",
+            "institutional"
+          ]
+        }
       }
     },
     {
@@ -164,6 +302,15 @@
       "lyingSurface": {
         "type": "floor",
         "en": "concrete floor"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "indoor",
+            "subterranean"
+          ]
+        }
       }
     },
     {
@@ -177,6 +324,15 @@
       "lyingSurface": {
         "type": "floor",
         "en": "dusty wooden floor"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "indoor",
+            "heritage"
+          ]
+        }
       }
     },
     {
@@ -186,7 +342,16 @@
       ],
       "zh": "室內：廢棄商場停用手扶梯旁",
       "en": "abandoned mall escalator corner, stopped escalator steps, broken signage, dusty floor tiles, railing edge, shuttered shopfront fragment, loose ceiling panel",
-      "desc": "靠近停用手扶梯的商場角落，重點是靜止梯階、破招牌、灰塵地磚、扶手邊、關閉店面片段與掉落天花板。"
+      "desc": "靠近停用手扶梯的商場角落，重點是靜止梯階、破招牌、灰塵地磚、扶手邊、關閉店面片段與掉落天花板。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "indoor",
+            "commercial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄商場破損櫥窗前:18",
@@ -195,7 +360,16 @@
       ],
       "zh": "室內：廢棄商場破損櫥窗前",
       "en": "abandoned storefront window, damaged mannequins, broken glass on the floor, dusty retail display base, metal shutter edge, cracked tile walkway, torn sale poster",
-      "desc": "廢棄店面櫥窗與玻璃殘骸構成的局部場景，重點是假人、碎玻璃、展示台、鐵捲門邊、裂開走道地磚與破海報。"
+      "desc": "廢棄店面櫥窗與玻璃殘骸構成的局部場景，重點是假人、碎玻璃、展示台、鐵捲門邊、裂開走道地磚與破海報。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "indoor",
+            "commercial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄商場空置美食街角落:19",
@@ -204,7 +378,17 @@
       ],
       "zh": "室內：廢棄商場空置美食街角落",
       "en": "abandoned food-court corner, plastic tables, mismatched chairs, empty counter, menu board remnants, tile floor reflections, tray-return shelf, shuttered stall edge",
-      "desc": "有桌椅與招牌殘留的商場餐飲區，重點是塑膠桌、不同角度椅子、空櫃台、菜單板殘片、地磚反射、餐盤回收架與關閉攤位邊。"
+      "desc": "有桌椅與招牌殘留的商場餐飲區，重點是塑膠桌、不同角度椅子、空櫃台、菜單板殘片、地磚反射、餐盤回收架與關閉攤位邊。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "indoor",
+            "outdoor",
+            "commercial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄商場服務台殘骸:20",
@@ -213,7 +397,16 @@
       ],
       "zh": "室內：廢棄商場服務台殘骸",
       "en": "abandoned mall service desk remains, fallen signage, scattered papers, glass fragments, cracked counter surface, broken directory board, floor debris around the desk",
-      "desc": "服務台周圍的破敗區域，重點是倒落招牌、散落紙張、玻璃碎片、裂開櫃台、破損樓層導覽牌與桌邊碎屑。"
+      "desc": "服務台周圍的破敗區域，重點是倒落招牌、散落紙張、玻璃碎片、裂開櫃台、破損樓層導覽牌與桌邊碎屑。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "indoor",
+            "commercial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:地下與廢墟風格-abandoned-underground:戶外-雜草叢生的廢棄公園:21",
@@ -222,7 +415,16 @@
       ],
       "zh": "戶外：雜草叢生的廢棄公園",
       "en": "abandoned overgrown park edge, cracked pavement textures, rusted play structures, weeds pushing through concrete, broken bench, tilted fence section, uneven outdoor ground",
-      "desc": "比遊樂園更貼近日常遺跡的戶外區域，重點是裂開鋪面、生鏽遊具、雜草穿出水泥、破長椅、歪斜圍欄與不平地面。"
+      "desc": "比遊樂園更貼近日常遺跡的戶外區域，重點是裂開鋪面、生鏽遊具、雜草穿出水泥、破長椅、歪斜圍欄與不平地面。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "outdoor",
+            "green_space"
+          ]
+        }
+      }
     },
     {
       "id": "locations:地下與廢墟風格-abandoned-underground:戶外-滿佈塗鴉的火車調車場:22",
@@ -231,7 +433,18 @@
       ],
       "zh": "戶外：滿佈塗鴉的火車調車場",
       "en": "graffiti-covered train yard edge, rusty railcar side, spray-painted metal surfaces, gravel track bed, rail switch hardware, chain-link fence fragment, weeds along the rails",
-      "desc": "生鏽車廂與強烈塗鴉形成的調車場邊緣，重點是車廂側面、噴漆金屬、碎石軌床、轉轍器、鐵絲網片段與鐵軌旁雜草。"
+      "desc": "生鏽車廂與強烈塗鴉形成的調車場邊緣，重點是車廂側面、噴漆金屬、碎石軌床、轉轍器、鐵絲網片段與鐵軌旁雜草。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "outdoor",
+            "transit",
+            "urban",
+            "industrial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:地下與廢墟風格-abandoned-underground:戶外-高樓建築骨架裸露混凝土地板:23",
@@ -244,6 +457,15 @@
       "lyingSurface": {
         "type": "floor",
         "en": "exposed high-rise floor slab"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "outdoor",
+            "industrial"
+          ]
+        }
       }
     },
     {
@@ -253,7 +475,16 @@
       ],
       "zh": "戶外：高樓建築骨架施工鷹架旁",
       "en": "construction scaffolding side area, steel pipes, dusty tarp, raw building materials, unfinished concrete column, clamp joints, plank walkway, wall edge",
-      "desc": "鷹架與工地結構形成的粗糙空間，重點是鋼管、防塵帆布、建材、未完成混凝土柱、扣件、木板走道與牆邊。"
+      "desc": "鷹架與工地結構形成的粗糙空間，重點是鋼管、防塵帆布、建材、未完成混凝土柱、扣件、木板走道與牆邊。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "outdoor",
+            "industrial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:地下與廢墟風格-abandoned-underground:戶外-高樓建築骨架開放樓層邊緣:25",
@@ -262,7 +493,15 @@
       ],
       "zh": "戶外：高樓建築骨架開放樓層邊緣",
       "en": "open high-rise floor edge, exposed beams, concrete lip, temporary railing gap, scattered rebar, floor dust, distant city buildings visible beyond the side opening",
-      "desc": "開放樓層邊緣與城市景色交會的位置，重點是裸露樑、混凝土邊、臨時欄杆缺口、散落鋼筋、地面灰塵與側邊開口外的城市建築。"
+      "desc": "開放樓層邊緣與城市景色交會的位置，重點是裸露樑、混凝土邊、臨時欄杆缺口、散落鋼筋、地面灰塵與側邊開口外的城市建築。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "locations:地下與廢墟風格-abandoned-underground:戶外-高樓建築骨架建材堆放角落:26",
@@ -271,7 +510,16 @@
       ],
       "zh": "戶外：高樓建築骨架建材堆放角落",
       "en": "construction-material corner, stacked boards, cement bags, tool box, dust, unfinished concrete wall, bundled pipes, loose fasteners on the floor",
-      "desc": "堆滿板材與工具的局部區域，重點是堆疊木板、水泥袋、工具箱、灰塵、未完成混凝土牆、成束管材與地面零件。"
+      "desc": "堆滿板材與工具的局部區域，重點是堆疊木板、水泥袋、工具箱、灰塵、未完成混凝土牆、成束管材與地面零件。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "ruin",
+            "outdoor",
+            "industrial"
+          ]
+        }
+      }
     }
   ]
 }

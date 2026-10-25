@@ -1,5 +1,7 @@
 # D 攝影與成像新增與維護規格
 
+2026-10-25 D 語意來源規則：正式分類 JSON 每筆必填並審閱 `meta.semantic`，保存 tags 及該分區的 family／visibility／minVisibility／archetype 等語意欄位。更改 zh／en／desc 須註明語意是否需要變動；請以 `scripts/suggest_catalog_semantics.mjs <id>` 在副本上比較推論建議，不自動覆寫決策。既有值、鍵序、tag 順序與 null 保留；專用欄位和 source meta 仍獨立。正式資料不再靠修改 infer*Meta 生效；缺少 semantic 的歷史／自訂 library 才使用退路。新增／修改須同步 schema 與 field_mapping 並驗證，完整步驟見 [catalog 操作流程](../../knowledge_base/catalog/README.md)。本次只搬移語意，不修正既有問題，不啟動 E 或 P5b。
+
 Last updated: 2026-07-07
 
 2026-09-28 核准例外：[車站固定構圖 v1](station-fixed-composition-v1.md) 的三組新場景開放焦段，環繞欄位僅描述人物面向；相機取景軸線固定、俯仰仍可變。既有固定構圖與普通場景規則不變。
@@ -366,7 +368,7 @@ D 區有多種 id 來源，改名時風險不同。
 1. 確認它是 image language，不是相機、底片、場景或人物設定。
 2. 在 `knowledge_base/catalog/Regional/` 新增 JSON 紀錄。
 3. 跑 `python3 scripts/sync_to_json.py`。
-4. 若需要特殊 style tags，更新 `inferStyleMeta`。
+4. 若需要特殊 style tags，審閱並明填該筆 `meta.semantic.tags`，同步 enum／責任映射；`inferStyleMeta` 只供自訂 library 退路與唯讀建議。
 5. 更新或新增攝影風格 prompt 測試。
 
 新增構圖、視角或方位：
@@ -374,7 +376,7 @@ D 區有多種 id 來源，改名時風險不同。
 1. 確認它是 camera geometry。
 2. 在 `knowledge_base/catalog/CameraLighting/` 的對應 category 新增 JSON 紀錄。
 3. 跑 `python3 scripts/sync_to_json.py`。
-4. 更新 `inferFramingMeta`、`inferAngleMeta` 或 `inferOrbitMeta`。
+4. 明填該筆 `meta.semantic`，用 `inferFramingMeta`、`inferAngleMeta` 或 `inferOrbitMeta` 的唯讀建議核對，勿靠改推論函式改變正式資料。
 5. 檢查 close-up mode、wardrobe compatibility、special action compatibility。
 6. 更新 `enginePhotographyImagingCleanup.test.js` 或相關相容性測試。
 
@@ -390,7 +392,7 @@ D 區有多種 id 來源，改名時風險不同。
 
 1. 在 `knowledge_base/catalog/CameraLighting/` 的 `鏡頭焦段` 或 `光學效果` 新增 JSON 紀錄。
 2. 跑 `python3 scripts/sync_to_json.py`。
-3. 更新 `inferLensMeta` 或 `inferEffectMeta`。
+3. 明填該筆 `meta.semantic`，用 `inferLensMeta` 或 `inferEffectMeta` 的唯讀建議核對。
 4. 若效果會影響構圖可讀性，例如前景遮擋，必須補測試。
 
 新增底片 / 成像 rendering：
@@ -398,7 +400,7 @@ D 區有多種 id 來源，改名時風險不同。
 1. 確認它是色彩、階調、顆粒或媒介質地，不是相機 profile。
 2. 在 `knowledge_base/catalog/CameraLighting/` 的 `底片與相機模擬` 新增 JSON 紀錄。
 3. 跑 `python3 scripts/sync_to_json.py`。
-4. 更新 `inferFilmMeta`。
+4. 明填該筆 `meta.semantic`，用 `inferFilmMeta` 的唯讀建議核對。
 5. 若改名或合併舊選項，補 `CAMERA_FILM_LEGACY_OPTION_MAP`。
 
 ## 13. 測試與驗證

@@ -1,0 +1,6153 @@
+{
+  "sourceSha": "17074fbe3850e2e9fea300b36697643913f707a1",
+  "commercialCount": 17,
+  "issues": [
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-臥室窗邊:6",
+      "label": "室內：臥室窗邊",
+      "category": "生活感室內 (Indoor & Lifestyle)",
+      "field": "commercial",
+      "tags": [
+        "indoor",
+        "residential",
+        "commercial"
+      ],
+      "cause": "small substring matches mall",
+      "poolComparisons": [
+        {
+          "sceneAttributeId": "indoor",
+          "lightingBefore": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "lightingWithoutTag": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "subjectBefore": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ],
+          "subjectWithoutTag": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-更衣室-試衣間:10",
+      "label": "室內：更衣室 / 試衣間",
+      "category": "生活感室內 (Indoor & Lifestyle)",
+      "field": "commercial",
+      "tags": [
+        "indoor",
+        "commercial"
+      ],
+      "cause": "small substring matches mall",
+      "poolComparisons": [
+        {
+          "sceneAttributeId": "indoor",
+          "lightingBefore": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "lightingWithoutTag": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "subjectBefore": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ],
+          "subjectWithoutTag": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-英式小旅館房間:18",
+      "label": "室內：英式小旅館房間",
+      "category": "生活感室內 (Indoor & Lifestyle)",
+      "field": "commercial",
+      "tags": [
+        "indoor",
+        "hospitality",
+        "commercial",
+        "heritage"
+      ],
+      "cause": "small substring matches mall",
+      "poolComparisons": [
+        {
+          "sceneAttributeId": "indoor",
+          "lightingBefore": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "lightingWithoutTag": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "subjectBefore": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ],
+          "subjectWithoutTag": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-傳統酒吧二樓包廂:19",
+      "label": "室內：傳統酒吧二樓包廂",
+      "category": "生活感室內 (Indoor & Lifestyle)",
+      "field": "commercial",
+      "tags": [
+        "indoor",
+        "commercial"
+      ],
+      "cause": "small substring matches mall",
+      "poolComparisons": [
+        {
+          "sceneAttributeId": "indoor",
+          "lightingBefore": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "lightingWithoutTag": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "subjectBefore": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ],
+          "subjectWithoutTag": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-黑膠唱片聆聽角:21",
+      "label": "室內：黑膠唱片聆聽角",
+      "category": "生活感室內 (Indoor & Lifestyle)",
+      "field": "commercial",
+      "tags": [
+        "indoor",
+        "commercial"
+      ],
+      "cause": "small substring matches mall",
+      "poolComparisons": [
+        {
+          "sceneAttributeId": "indoor",
+          "lightingBefore": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "lightingWithoutTag": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "subjectBefore": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ],
+          "subjectWithoutTag": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-女高生房間:24",
+      "label": "室內：女高生房間",
+      "category": "生活感室內 (Indoor & Lifestyle)",
+      "field": "commercial",
+      "tags": [
+        "indoor",
+        "residential",
+        "commercial",
+        "institutional"
+      ],
+      "cause": "small substring matches mall",
+      "poolComparisons": [
+        {
+          "sceneAttributeId": "indoor",
+          "lightingBefore": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "lightingWithoutTag": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "subjectBefore": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ],
+          "subjectWithoutTag": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-狹小都會旅館房間:38",
+      "label": "室內：狹小都會旅館房間",
+      "category": "生活感室內 (Indoor & Lifestyle)",
+      "field": "commercial",
+      "tags": [
+        "indoor",
+        "hospitality",
+        "commercial"
+      ],
+      "cause": "small substring matches mall",
+      "poolComparisons": [
+        {
+          "sceneAttributeId": "indoor",
+          "lightingBefore": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "lightingWithoutTag": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "subjectBefore": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ],
+          "subjectWithoutTag": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄校舍保健室:13",
+      "label": "室內：廢棄校舍保健室",
+      "category": "地下與廢墟風格 (Abandoned & Underground)",
+      "field": "commercial",
+      "tags": [
+        "ruin",
+        "indoor",
+        "commercial",
+        "institutional"
+      ],
+      "cause": "small substring matches mall",
+      "poolComparisons": [
+        {
+          "sceneAttributeId": "indoor",
+          "lightingBefore": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "lightingWithoutTag": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "subjectBefore": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ],
+          "subjectWithoutTag": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-無人月台長椅區:4",
+      "label": "室內：無人月台長椅區",
+      "category": "城市與社群感 (Urban & Social Snapshots)",
+      "field": "commercial",
+      "tags": [
+        "urban",
+        "indoor",
+        "commercial",
+        "transit"
+      ],
+      "cause": "small substring matches mall",
+      "poolComparisons": [
+        {
+          "sceneAttributeId": "indoor",
+          "lightingBefore": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "lightingWithoutTag": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "subjectBefore": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ],
+          "subjectWithoutTag": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂正面長椅視角:8",
+      "label": "室內：電車車廂正面長椅視角",
+      "category": "城市與社群感 (Urban & Social Snapshots)",
+      "field": "commercial",
+      "tags": [
+        "urban",
+        "indoor",
+        "commercial",
+        "transit",
+        "institutional"
+      ],
+      "cause": "small substring matches mall",
+      "poolComparisons": [
+        {
+          "sceneAttributeId": "indoor",
+          "lightingBefore": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "lightingWithoutTag": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "subjectBefore": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ],
+          "subjectWithoutTag": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂坐滿與站滿乘客:10",
+      "label": "室內：電車車廂坐滿與站滿乘客",
+      "category": "城市與社群感 (Urban & Social Snapshots)",
+      "field": "commercial",
+      "tags": [
+        "urban",
+        "indoor",
+        "commercial",
+        "transit"
+      ],
+      "cause": "small substring matches mall",
+      "poolComparisons": [
+        {
+          "sceneAttributeId": "indoor",
+          "lightingBefore": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "lightingWithoutTag": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "subjectBefore": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ],
+          "subjectWithoutTag": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-八公銅像旁行人區:12",
+      "label": "戶外：八公銅像旁行人區",
+      "category": "城市與社群感 (Urban & Social Snapshots)",
+      "field": "commercial",
+      "tags": [
+        "urban",
+        "outdoor",
+        "commercial",
+        "transit"
+      ],
+      "cause": "small substring matches mall",
+      "poolComparisons": [
+        {
+          "sceneAttributeId": "outdoor",
+          "lightingBefore": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:晴朗白日:1",
+              "zh": "晴朗白日"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:藍天白雲:2",
+              "zh": "藍天白雲"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:夏日深藍積雲:3",
+              "zh": "夏日深藍積雲"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨前灰黑天空:4",
+              "zh": "雨前灰黑天空"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:正午烈日:5",
+              "zh": "正午烈日"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:陰天漫射:6",
+              "zh": "陰天漫射"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:清晨薄霧:7",
+              "zh": "清晨薄霧"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:晨光日出:8",
+              "zh": "晨光日出"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:黃昏夕陽:9",
+              "zh": "黃昏夕陽"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:藍調傍晚:10",
+              "zh": "藍調傍晚"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:城市夜間混合光:11",
+              "zh": "城市夜間混合光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+              "zh": "月光夜色"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:城市高彩度夜色:13",
+              "zh": "城市高彩度夜色"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:陰雨將至:14",
+              "zh": "陰雨將至"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨天陰濕:15",
+              "zh": "雨天陰濕"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨後反光:16",
+              "zh": "雨後反光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+              "zh": "雪地冷光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:冬季灰冷:18",
+              "zh": "冬季灰冷"
+            }
+          ],
+          "lightingWithoutTag": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:晴朗白日:1",
+              "zh": "晴朗白日"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:藍天白雲:2",
+              "zh": "藍天白雲"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:夏日深藍積雲:3",
+              "zh": "夏日深藍積雲"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨前灰黑天空:4",
+              "zh": "雨前灰黑天空"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:正午烈日:5",
+              "zh": "正午烈日"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:陰天漫射:6",
+              "zh": "陰天漫射"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:清晨薄霧:7",
+              "zh": "清晨薄霧"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:晨光日出:8",
+              "zh": "晨光日出"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:黃昏夕陽:9",
+              "zh": "黃昏夕陽"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:藍調傍晚:10",
+              "zh": "藍調傍晚"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:城市夜間混合光:11",
+              "zh": "城市夜間混合光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+              "zh": "月光夜色"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:城市高彩度夜色:13",
+              "zh": "城市高彩度夜色"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:陰雨將至:14",
+              "zh": "陰雨將至"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨天陰濕:15",
+              "zh": "雨天陰濕"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨後反光:16",
+              "zh": "雨後反光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+              "zh": "雪地冷光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:冬季灰冷:18",
+              "zh": "冬季灰冷"
+            }
+          ],
+          "subjectBefore": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:硬質晴光:10",
+              "zh": "硬質晴光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:斑駁樹影光:22",
+              "zh": "斑駁樹影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:潮濕反射光:23",
+              "zh": "潮濕反射光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ],
+          "subjectWithoutTag": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:硬質晴光:10",
+              "zh": "硬質晴光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:斑駁樹影光:22",
+              "zh": "斑駁樹影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:潮濕反射光:23",
+              "zh": "潮濕反射光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-目黑川旁的櫻花隧道:14",
+      "label": "戶外：目黑川旁的櫻花隧道",
+      "category": "城市與社群感 (Urban & Social Snapshots)",
+      "field": "commercial",
+      "tags": [
+        "urban",
+        "outdoor",
+        "commercial",
+        "waterfront"
+      ],
+      "cause": "small substring matches mall",
+      "poolComparisons": [
+        {
+          "sceneAttributeId": "outdoor",
+          "lightingBefore": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:晴朗白日:1",
+              "zh": "晴朗白日"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:藍天白雲:2",
+              "zh": "藍天白雲"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:夏日深藍積雲:3",
+              "zh": "夏日深藍積雲"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨前灰黑天空:4",
+              "zh": "雨前灰黑天空"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:正午烈日:5",
+              "zh": "正午烈日"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:陰天漫射:6",
+              "zh": "陰天漫射"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:清晨薄霧:7",
+              "zh": "清晨薄霧"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:晨光日出:8",
+              "zh": "晨光日出"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:黃昏夕陽:9",
+              "zh": "黃昏夕陽"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:藍調傍晚:10",
+              "zh": "藍調傍晚"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:城市夜間混合光:11",
+              "zh": "城市夜間混合光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+              "zh": "月光夜色"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:城市高彩度夜色:13",
+              "zh": "城市高彩度夜色"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:陰雨將至:14",
+              "zh": "陰雨將至"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨天陰濕:15",
+              "zh": "雨天陰濕"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨後反光:16",
+              "zh": "雨後反光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+              "zh": "雪地冷光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:冬季灰冷:18",
+              "zh": "冬季灰冷"
+            }
+          ],
+          "lightingWithoutTag": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:晴朗白日:1",
+              "zh": "晴朗白日"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:藍天白雲:2",
+              "zh": "藍天白雲"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:夏日深藍積雲:3",
+              "zh": "夏日深藍積雲"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨前灰黑天空:4",
+              "zh": "雨前灰黑天空"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:正午烈日:5",
+              "zh": "正午烈日"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:陰天漫射:6",
+              "zh": "陰天漫射"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:清晨薄霧:7",
+              "zh": "清晨薄霧"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:晨光日出:8",
+              "zh": "晨光日出"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:黃昏夕陽:9",
+              "zh": "黃昏夕陽"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:藍調傍晚:10",
+              "zh": "藍調傍晚"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:城市夜間混合光:11",
+              "zh": "城市夜間混合光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+              "zh": "月光夜色"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:城市高彩度夜色:13",
+              "zh": "城市高彩度夜色"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:陰雨將至:14",
+              "zh": "陰雨將至"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨天陰濕:15",
+              "zh": "雨天陰濕"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨後反光:16",
+              "zh": "雨後反光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+              "zh": "雪地冷光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:冬季灰冷:18",
+              "zh": "冬季灰冷"
+            }
+          ],
+          "subjectBefore": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:硬質晴光:10",
+              "zh": "硬質晴光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:斑駁樹影光:22",
+              "zh": "斑駁樹影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:潮濕反射光:23",
+              "zh": "潮濕反射光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ],
+          "subjectWithoutTag": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:硬質晴光:10",
+              "zh": "硬質晴光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:斑駁樹影光:22",
+              "zh": "斑駁樹影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:潮濕反射光:23",
+              "zh": "潮濕反射光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町販賣機旁:31",
+      "label": "戶外：新宿歌舞伎町販賣機旁",
+      "category": "城市與社群感 (Urban & Social Snapshots)",
+      "field": "commercial",
+      "tags": [
+        "urban",
+        "outdoor",
+        "commercial"
+      ],
+      "cause": "small substring matches mall",
+      "poolComparisons": [
+        {
+          "sceneAttributeId": "outdoor",
+          "lightingBefore": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:晴朗白日:1",
+              "zh": "晴朗白日"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:藍天白雲:2",
+              "zh": "藍天白雲"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:夏日深藍積雲:3",
+              "zh": "夏日深藍積雲"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨前灰黑天空:4",
+              "zh": "雨前灰黑天空"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:正午烈日:5",
+              "zh": "正午烈日"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:陰天漫射:6",
+              "zh": "陰天漫射"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:清晨薄霧:7",
+              "zh": "清晨薄霧"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:晨光日出:8",
+              "zh": "晨光日出"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:黃昏夕陽:9",
+              "zh": "黃昏夕陽"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:藍調傍晚:10",
+              "zh": "藍調傍晚"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:城市夜間混合光:11",
+              "zh": "城市夜間混合光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+              "zh": "月光夜色"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:城市高彩度夜色:13",
+              "zh": "城市高彩度夜色"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:陰雨將至:14",
+              "zh": "陰雨將至"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨天陰濕:15",
+              "zh": "雨天陰濕"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨後反光:16",
+              "zh": "雨後反光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+              "zh": "雪地冷光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:冬季灰冷:18",
+              "zh": "冬季灰冷"
+            }
+          ],
+          "lightingWithoutTag": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:晴朗白日:1",
+              "zh": "晴朗白日"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:藍天白雲:2",
+              "zh": "藍天白雲"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:夏日深藍積雲:3",
+              "zh": "夏日深藍積雲"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨前灰黑天空:4",
+              "zh": "雨前灰黑天空"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:正午烈日:5",
+              "zh": "正午烈日"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:陰天漫射:6",
+              "zh": "陰天漫射"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:清晨薄霧:7",
+              "zh": "清晨薄霧"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:晨光日出:8",
+              "zh": "晨光日出"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:黃昏夕陽:9",
+              "zh": "黃昏夕陽"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:藍調傍晚:10",
+              "zh": "藍調傍晚"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:城市夜間混合光:11",
+              "zh": "城市夜間混合光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+              "zh": "月光夜色"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:城市高彩度夜色:13",
+              "zh": "城市高彩度夜色"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:陰雨將至:14",
+              "zh": "陰雨將至"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨天陰濕:15",
+              "zh": "雨天陰濕"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨後反光:16",
+              "zh": "雨後反光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+              "zh": "雪地冷光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:冬季灰冷:18",
+              "zh": "冬季灰冷"
+            }
+          ],
+          "subjectBefore": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:硬質晴光:10",
+              "zh": "硬質晴光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:斑駁樹影光:22",
+              "zh": "斑駁樹影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:潮濕反射光:23",
+              "zh": "潮濕反射光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ],
+          "subjectWithoutTag": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:硬質晴光:10",
+              "zh": "硬質晴光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:斑駁樹影光:22",
+              "zh": "斑駁樹影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:潮濕反射光:23",
+              "zh": "潮濕反射光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-倫敦排屋街道:41",
+      "label": "戶外：倫敦排屋街道",
+      "category": "城市與社群感 (Urban & Social Snapshots)",
+      "field": "subterranean",
+      "tags": [
+        "urban",
+        "outdoor",
+        "heritage",
+        "subterranean"
+      ],
+      "cause": "drainage pipes matches drainage",
+      "poolComparisons": [
+        {
+          "sceneAttributeId": "outdoor",
+          "lightingBefore": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:清晨薄霧:7",
+              "zh": "清晨薄霧"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨天陰濕:15",
+              "zh": "雨天陰濕"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨後反光:16",
+              "zh": "雨後反光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+              "zh": "雪地冷光"
+            }
+          ],
+          "lightingWithoutTag": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:晴朗白日:1",
+              "zh": "晴朗白日"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:藍天白雲:2",
+              "zh": "藍天白雲"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:夏日深藍積雲:3",
+              "zh": "夏日深藍積雲"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨前灰黑天空:4",
+              "zh": "雨前灰黑天空"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:正午烈日:5",
+              "zh": "正午烈日"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:陰天漫射:6",
+              "zh": "陰天漫射"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:清晨薄霧:7",
+              "zh": "清晨薄霧"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:晨光日出:8",
+              "zh": "晨光日出"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:黃昏夕陽:9",
+              "zh": "黃昏夕陽"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:藍調傍晚:10",
+              "zh": "藍調傍晚"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:城市夜間混合光:11",
+              "zh": "城市夜間混合光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+              "zh": "月光夜色"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:城市高彩度夜色:13",
+              "zh": "城市高彩度夜色"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:陰雨將至:14",
+              "zh": "陰雨將至"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨天陰濕:15",
+              "zh": "雨天陰濕"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨後反光:16",
+              "zh": "雨後反光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+              "zh": "雪地冷光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:冬季灰冷:18",
+              "zh": "冬季灰冷"
+            }
+          ],
+          "subjectBefore": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:硬質晴光:10",
+              "zh": "硬質晴光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:斑駁樹影光:22",
+              "zh": "斑駁樹影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:潮濕反射光:23",
+              "zh": "潮濕反射光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ],
+          "subjectWithoutTag": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:硬質晴光:10",
+              "zh": "硬質晴光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:斑駁樹影光:22",
+              "zh": "斑駁樹影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:潮濕反射光:23",
+              "zh": "潮濕反射光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-清澈海灣岩岸:1",
+      "label": "戶外：清澈海灣岩岸",
+      "category": "自然與戶外 (Nature & Outdoors)",
+      "field": "commercial",
+      "tags": [
+        "outdoor",
+        "natural",
+        "commercial",
+        "waterfront"
+      ],
+      "cause": "small substring matches mall",
+      "poolComparisons": [
+        {
+          "sceneAttributeId": "outdoor",
+          "lightingBefore": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:晴朗白日:1",
+              "zh": "晴朗白日"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:藍天白雲:2",
+              "zh": "藍天白雲"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:夏日深藍積雲:3",
+              "zh": "夏日深藍積雲"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨前灰黑天空:4",
+              "zh": "雨前灰黑天空"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:正午烈日:5",
+              "zh": "正午烈日"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:陰天漫射:6",
+              "zh": "陰天漫射"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:清晨薄霧:7",
+              "zh": "清晨薄霧"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:晨光日出:8",
+              "zh": "晨光日出"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:黃昏夕陽:9",
+              "zh": "黃昏夕陽"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:藍調傍晚:10",
+              "zh": "藍調傍晚"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:城市夜間混合光:11",
+              "zh": "城市夜間混合光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+              "zh": "月光夜色"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:城市高彩度夜色:13",
+              "zh": "城市高彩度夜色"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:陰雨將至:14",
+              "zh": "陰雨將至"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨天陰濕:15",
+              "zh": "雨天陰濕"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨後反光:16",
+              "zh": "雨後反光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+              "zh": "雪地冷光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:冬季灰冷:18",
+              "zh": "冬季灰冷"
+            }
+          ],
+          "lightingWithoutTag": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:晴朗白日:1",
+              "zh": "晴朗白日"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:藍天白雲:2",
+              "zh": "藍天白雲"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:夏日深藍積雲:3",
+              "zh": "夏日深藍積雲"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨前灰黑天空:4",
+              "zh": "雨前灰黑天空"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:正午烈日:5",
+              "zh": "正午烈日"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:陰天漫射:6",
+              "zh": "陰天漫射"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:清晨薄霧:7",
+              "zh": "清晨薄霧"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:晨光日出:8",
+              "zh": "晨光日出"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:黃昏夕陽:9",
+              "zh": "黃昏夕陽"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:藍調傍晚:10",
+              "zh": "藍調傍晚"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+              "zh": "月光夜色"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:陰雨將至:14",
+              "zh": "陰雨將至"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨天陰濕:15",
+              "zh": "雨天陰濕"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨後反光:16",
+              "zh": "雨後反光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+              "zh": "雪地冷光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:冬季灰冷:18",
+              "zh": "冬季灰冷"
+            }
+          ],
+          "subjectBefore": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:硬質晴光:10",
+              "zh": "硬質晴光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:斑駁樹影光:22",
+              "zh": "斑駁樹影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:潮濕反射光:23",
+              "zh": "潮濕反射光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ],
+          "subjectWithoutTag": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:硬質晴光:10",
+              "zh": "硬質晴光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:斑駁樹影光:22",
+              "zh": "斑駁樹影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:潮濕反射光:23",
+              "zh": "潮濕反射光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-草地與樹木:3",
+      "label": "戶外：草地與樹木",
+      "category": "自然與戶外 (Nature & Outdoors)",
+      "field": "commercial",
+      "tags": [
+        "outdoor",
+        "natural",
+        "commercial",
+        "green_space"
+      ],
+      "cause": "small substring matches mall",
+      "poolComparisons": [
+        {
+          "sceneAttributeId": "outdoor",
+          "lightingBefore": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:晴朗白日:1",
+              "zh": "晴朗白日"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:藍天白雲:2",
+              "zh": "藍天白雲"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:夏日深藍積雲:3",
+              "zh": "夏日深藍積雲"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨前灰黑天空:4",
+              "zh": "雨前灰黑天空"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:正午烈日:5",
+              "zh": "正午烈日"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:陰天漫射:6",
+              "zh": "陰天漫射"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:清晨薄霧:7",
+              "zh": "清晨薄霧"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:晨光日出:8",
+              "zh": "晨光日出"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:黃昏夕陽:9",
+              "zh": "黃昏夕陽"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:藍調傍晚:10",
+              "zh": "藍調傍晚"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:城市夜間混合光:11",
+              "zh": "城市夜間混合光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+              "zh": "月光夜色"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:城市高彩度夜色:13",
+              "zh": "城市高彩度夜色"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:陰雨將至:14",
+              "zh": "陰雨將至"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨天陰濕:15",
+              "zh": "雨天陰濕"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨後反光:16",
+              "zh": "雨後反光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+              "zh": "雪地冷光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:冬季灰冷:18",
+              "zh": "冬季灰冷"
+            }
+          ],
+          "lightingWithoutTag": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:晴朗白日:1",
+              "zh": "晴朗白日"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:藍天白雲:2",
+              "zh": "藍天白雲"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:夏日深藍積雲:3",
+              "zh": "夏日深藍積雲"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨前灰黑天空:4",
+              "zh": "雨前灰黑天空"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:正午烈日:5",
+              "zh": "正午烈日"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:陰天漫射:6",
+              "zh": "陰天漫射"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:清晨薄霧:7",
+              "zh": "清晨薄霧"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:晨光日出:8",
+              "zh": "晨光日出"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:黃昏夕陽:9",
+              "zh": "黃昏夕陽"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:藍調傍晚:10",
+              "zh": "藍調傍晚"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+              "zh": "月光夜色"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:陰雨將至:14",
+              "zh": "陰雨將至"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨天陰濕:15",
+              "zh": "雨天陰濕"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雨後反光:16",
+              "zh": "雨後反光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+              "zh": "雪地冷光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:冬季灰冷:18",
+              "zh": "冬季灰冷"
+            }
+          ],
+          "subjectBefore": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:硬質晴光:10",
+              "zh": "硬質晴光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:斑駁樹影光:22",
+              "zh": "斑駁樹影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:潮濕反射光:23",
+              "zh": "潮濕反射光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ],
+          "subjectWithoutTag": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:硬質晴光:10",
+              "zh": "硬質晴光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:斑駁樹影光:22",
+              "zh": "斑駁樹影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:潮濕反射光:23",
+              "zh": "潮濕反射光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "locations:其他專屬場景-other-dedicated-scenes:其他-生活感日式榻榻米房間:2",
+      "label": "其他：生活感日式榻榻米房間",
+      "category": "其他專屬場景 (Other Dedicated Scenes)",
+      "field": "commercial",
+      "tags": [
+        "other_scene",
+        "indoor",
+        "commercial"
+      ],
+      "cause": "small substring matches mall",
+      "poolComparisons": [
+        {
+          "sceneAttributeId": "indoor",
+          "lightingBefore": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "lightingWithoutTag": [
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+              "zh": "室內窗邊日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+              "zh": "室內清晨冷白日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+              "zh": "室內午後柔亮日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+              "zh": "室內陰影日光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+              "zh": "室內陰雨昏暗天光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+              "zh": "室內黃昏微暖餘光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+              "zh": "室內暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+              "zh": "室內低照度暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+              "zh": "室內社交暖色夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+              "zh": "室內極暖低照度"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+              "zh": "室內冷白環境光"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+              "zh": "室內冷白高亮日常"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+              "zh": "室內高彩度色光夜景"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+              "zh": "室內外光滲入微暗空間"
+            },
+            {
+              "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+              "zh": "室內深夜冷暗微光"
+            }
+          ],
+          "subjectBefore": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ],
+          "subjectWithoutTag": [
+            {
+              "id": "camera:光線表現-light-style:全無:0",
+              "zh": "全無"
+            },
+            {
+              "id": "camera:光線表現-light-style:均勻平光:2",
+              "zh": "均勻平光"
+            },
+            {
+              "id": "camera:光線表現-light-style:側逆光:5",
+              "zh": "側逆光"
+            },
+            {
+              "id": "camera:光線表現-light-style:逆光輪廓光:6",
+              "zh": "逆光輪廓光"
+            },
+            {
+              "id": "camera:光線表現-light-style:頂部照明:7",
+              "zh": "頂部照明"
+            },
+            {
+              "id": "camera:光線表現-light-style:漫射霧光:9",
+              "zh": "漫射霧光"
+            },
+            {
+              "id": "camera:光線表現-light-style:低光高反差:11",
+              "zh": "低光高反差"
+            },
+            {
+              "id": "camera:光線表現-light-style:高調亮光:12",
+              "zh": "高調亮光"
+            },
+            {
+              "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+              "zh": "暖金黃昏色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷白日光色溫:14",
+              "zh": "冷白日光色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+              "zh": "室內暖白燈色溫"
+            },
+            {
+              "id": "camera:光線表現-light-style:冷藍夜色光:16",
+              "zh": "冷藍夜色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:混合色溫光:17",
+              "zh": "混合色溫光"
+            },
+            {
+              "id": "camera:光線表現-light-style:霓虹染色光:18",
+              "zh": "霓虹染色光"
+            },
+            {
+              "id": "camera:光線表現-light-style:窗格投影光:19",
+              "zh": "窗格投影光"
+            },
+            {
+              "id": "camera:光線表現-light-style:局部暖光:24",
+              "zh": "局部暖光"
+            },
+            {
+              "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+              "zh": "深夜邊緣微光"
+            },
+            {
+              "id": "camera:光線表現-light-style:正面強硬光:26",
+              "zh": "正面強硬光"
+            },
+            {
+              "id": "camera:光線表現-light-style:機頂直閃:27",
+              "zh": "機頂直閃"
+            },
+            {
+              "id": "camera:光線表現-light-style:蝴蝶光:28",
+              "zh": "蝴蝶光"
+            },
+            {
+              "id": "camera:光線表現-light-style:倫勃朗光:29",
+              "zh": "倫勃朗光"
+            },
+            {
+              "id": "camera:光線表現-light-style:分割光:30",
+              "zh": "分割光"
+            },
+            {
+              "id": "camera:光線表現-light-style:下方硬質主光:31",
+              "zh": "下方硬質主光"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -9,7 +9,16 @@
       ],
       "zh": "全無",
       "en": "none",
-      "desc": "不指定膚質特徵，讓模型自行決定肌膚表面細節。"
+      "desc": "不指定膚質特徵，讓模型自行決定肌膚表面細節。",
+      "meta": {
+        "semantic": {
+          "minVisibility": "portrait",
+          "tags": [
+            "skin_detail"
+          ],
+          "archetype": null
+        }
+      }
     },
     {
       "id": "character:膚質特徵-skin-details:玻璃水光肌:1",
@@ -18,7 +27,16 @@
       ],
       "zh": "玻璃水光肌",
       "en": "glass skin, dewy luminous skin texture, hydrated reflective complexion",
-      "desc": "光澤明顯、飽水感高，適合韓系棚拍與近距離人像。"
+      "desc": "光澤明顯、飽水感高，適合韓系棚拍與近距離人像。",
+      "meta": {
+        "semantic": {
+          "minVisibility": "portrait",
+          "tags": [
+            "skin_detail"
+          ],
+          "archetype": null
+        }
+      }
     },
     {
       "id": "character:膚質特徵-skin-details:柔霧細緻肌:2",
@@ -27,7 +45,16 @@
       ],
       "zh": "柔霧細緻肌",
       "en": "soft matte skin texture, refined pores, velvety smooth finish",
-      "desc": "細膩柔霧、不強調油光，適合高級時裝與乾淨妝面。"
+      "desc": "細膩柔霧、不強調油光，適合高級時裝與乾淨妝面。",
+      "meta": {
+        "semantic": {
+          "minVisibility": "portrait",
+          "tags": [
+            "skin_detail"
+          ],
+          "archetype": null
+        }
+      }
     },
     {
       "id": "character:膚質特徵-skin-details:自然雀斑:3",
@@ -36,7 +63,17 @@
       ],
       "zh": "自然雀斑",
       "en": "natural freckles across nose and cheeks, sun-kissed freckles, authentic skin detail",
-      "desc": "鼻樑與臉頰帶有自然雀斑，能增加真實感與辨識度。"
+      "desc": "鼻樑與臉頰帶有自然雀斑，能增加真實感與辨識度。",
+      "meta": {
+        "semantic": {
+          "minVisibility": "portrait",
+          "tags": [
+            "fine_detail",
+            "skin_detail"
+          ],
+          "archetype": null
+        }
+      }
     },
     {
       "id": "character:膚質特徵-skin-details:淚痣-唇邊痣:4",
@@ -45,7 +82,17 @@
       ],
       "zh": "淚痣／唇邊痣",
       "en": "small beauty mark under eye or near lips, delicate facial mole detail",
-      "desc": "臉上有細小痣點，位置通常在眼下或唇邊，能增加個性與記憶點。"
+      "desc": "臉上有細小痣點，位置通常在眼下或唇邊，能增加個性與記憶點。",
+      "meta": {
+        "semantic": {
+          "minVisibility": "portrait",
+          "tags": [
+            "fine_detail",
+            "skin_detail"
+          ],
+          "archetype": null
+        }
+      }
     },
     {
       "id": "character:膚質特徵-skin-details:微曬陽光感膚質:5",
@@ -54,7 +101,16 @@
       ],
       "zh": "微曬陽光感膚質",
       "en": "slightly sun-kissed skin texture, subtle warm flush, healthy outdoor glow",
-      "desc": "像曬過太陽後留下的自然暖感，帶有生活感與戶外氣息。"
+      "desc": "像曬過太陽後留下的自然暖感，帶有生活感與戶外氣息。",
+      "meta": {
+        "semantic": {
+          "minVisibility": "portrait",
+          "tags": [
+            "skin_detail"
+          ],
+          "archetype": null
+        }
+      }
     }
   ]
 }

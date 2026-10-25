@@ -9,7 +9,12 @@
       ],
       "zh": "全無",
       "en": "none",
-      "desc": "不指定成像風格，讓模型自行決定畫面質感與成像方式。"
+      "desc": "不指定成像風格，讓模型自行決定畫面質感與成像方式。",
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:拍立得柔淡即時成像:1",
@@ -18,7 +23,14 @@
       ],
       "zh": "拍立得柔淡即時成像",
       "en": "Polaroid instant-film rendering, faded pastel color response, low contrast curve, soft chemical development texture, subtle edge softness, classic white border",
-      "desc": "模擬拍立得即時成像的低對比、淡粉 pastel 色彩、柔和邊緣與化學顯影質地，白色相紙邊框作為成像特徵保留。"
+      "desc": "模擬拍立得即時成像的低對比、淡粉 pastel 色彩、柔和邊緣與化學顯影質地，白色相紙邊框作為成像特徵保留。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "retro"
+          ]
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:柯達-portra-暖膚底片:2",
@@ -27,7 +39,14 @@
       ],
       "zh": "柯達 Portra 暖膚底片",
       "en": "Kodak Portra film rendering, warm accurate skin-tone response, fine film grain, broad highlight latitude, smooth contrast curve, gentle analog color density",
-      "desc": "強調 Portra 系列的暖膚色反應、細緻底片顆粒、寬亮部容忍度與柔順對比曲線，整體色彩濃度溫和自然。"
+      "desc": "強調 Portra 系列的暖膚色反應、細緻底片顆粒、寬亮部容忍度與柔順對比曲線，整體色彩濃度溫和自然。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "film"
+          ]
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:富士-superia-青綠陰影底片:3",
@@ -36,7 +55,14 @@
       ],
       "zh": "富士 Superia 青綠陰影底片",
       "en": "Fujifilm Superia film rendering, cool-green shadow tint, punchy reds and greens, medium-high contrast curve, visible consumer-film grain, crisp analog color response",
-      "desc": "偏冷的陰影青綠色、較鮮明的紅綠色反應、中高對比與可見消費級底片顆粒，呈現清楚而有個性的類比色彩。"
+      "desc": "偏冷的陰影青綠色、較鮮明的紅綠色反應、中高對比與可見消費級底片顆粒，呈現清楚而有個性的類比色彩。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "film"
+          ]
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:富士-classic-chrome-低彩編輯感:4",
@@ -45,7 +71,12 @@
       ],
       "zh": "富士 Classic Chrome 低彩編輯感",
       "en": "Fujifilm Classic Chrome film simulation, muted color palette, subdued blues and reds, gentle contrast curve, dry editorial color response, restrained midtone density",
-      "desc": "低飽和、藍紅色受控、對比柔和且中間調密度較穩，呈現乾淨克制的雜誌式色彩反應。"
+      "desc": "低飽和、藍紅色受控、對比柔和且中間調密度較穩，呈現乾淨克制的雜誌式色彩反應。",
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5",
@@ -54,7 +85,12 @@
       ],
       "zh": "富士 Provia 清透明亮",
       "en": "Fujifilm Provia film simulation, clean balanced color, transparent skin tones, bright natural contrast, crisp daylight-neutral rendering, smooth saturation response",
-      "desc": "比 Classic Chrome 更乾淨明亮，色彩平衡、膚色透明、對比清爽且飽和度過渡平順，偏向標準日光中性的富士色彩。"
+      "desc": "比 Classic Chrome 更乾淨明亮，色彩平衡、膚色透明、對比清爽且飽和度過渡平順，偏向標準日光中性的富士色彩。",
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6",
@@ -63,7 +99,12 @@
       ],
       "zh": "高階黑白灰階",
       "en": "premium monochrome rendering, black-and-white tonal response, rich grayscale separation, crisp micro-detail, deep blacks, luminous highlight control",
-      "desc": "不是一般黑白濾鏡，而是以細膩灰階層次、深黑位、清楚微細節與乾淨亮部控制形成高階黑白成像。"
+      "desc": "不是一般黑白濾鏡，而是以細膩灰階層次、深黑位、清楚微細節與乾淨亮部控制形成高階黑白成像。",
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:leica-風格鹽粒黑白:7",
@@ -72,7 +113,12 @@
       ],
       "zh": "Leica 風格鹽粒黑白",
       "en": "Leica-like monochrome rendering, rich grayscale separation, fine salt-and-pepper grain, deep blacks, crisp micro-detail, luminous skin highlights",
-      "desc": "以 Leica Monochrom 類型的細鹽粒黑白、高灰階分離、深黑位、清楚微細節與乾淨膚色亮部為核心。"
+      "desc": "以 Leica Monochrom 類型的細鹽粒黑白、高灰階分離、深黑位、清楚微細節與乾淨膚色亮部為核心。",
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:復古微對比銳利感:8",
@@ -81,7 +127,12 @@
       ],
       "zh": "復古微對比銳利感",
       "en": "vintage sharp rendering, rich micro-contrast, subtle warm highlights, clean 35mm color density, precise edge definition",
-      "desc": "帶有復古銳利感，重點是清楚邊緣、豐富微對比、微暖亮部與 35mm 色彩密度，而不是柔糊朦朧。"
+      "desc": "帶有復古銳利感，重點是清楚邊緣、豐富微對比、微暖亮部與 35mm 色彩密度，而不是柔糊朦朧。",
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:暖膚數位人像:9",
@@ -90,7 +141,14 @@
       ],
       "zh": "暖膚數位人像",
       "en": "warm digital portrait rendering, flattering skin-tone response, soft highlight roll-off, smooth color transitions, gentle contrast curve, polished color",
-      "desc": "強調暖膚色、柔順亮部 roll-off、平滑色彩過渡與穩定數位色彩，讓人物膚色更討喜。"
+      "desc": "強調暖膚色、柔順亮部 roll-off、平滑色彩過渡與穩定數位色彩，讓人物膚色更討喜。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "film"
+          ]
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:暖白-jpeg-直出:10",
@@ -99,7 +157,12 @@
       ],
       "zh": "暖白 JPEG 直出",
       "en": "warm JPEG color rendering, bright warm white balance, pleasing skin tones, soft contrast, clean consumer color, smooth in-camera processing",
-      "desc": "偏向 JPEG 直出的明亮暖白平衡、舒服膚色、柔和對比與乾淨機內色彩處理，成像自然親和。"
+      "desc": "偏向 JPEG 直出的明亮暖白平衡、舒服膚色、柔和對比與乾淨機內色彩處理，成像自然親和。",
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:冷調清晰寫實:11",
@@ -108,7 +171,12 @@
       ],
       "zh": "冷調清晰寫實",
       "en": "cool-neutral digital rendering, crisp detail, cool white balance, strong clarity, realistic tonal depth, firm contrast curve, precise color separation",
-      "desc": "強調冷中性白平衡、清楚細節、較強 clarity、紮實階調深度與明確色彩分離。"
+      "desc": "強調冷中性白平衡、清楚細節、較強 clarity、紮實階調深度與明確色彩分離。",
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:高動態通透明亮:12",
@@ -117,7 +185,12 @@
       ],
       "zh": "高動態通透明亮",
       "en": "high-dynamic-range digital rendering, transparent shadows, crisp natural color, daylight-neutral contrast, clear highlight retention, high-resolution detail",
-      "desc": "強調高動態範圍、透明陰影、乾淨自然色、亮部保留與高解析細節，適合需要通透明亮成像的畫面。"
+      "desc": "強調高動態範圍、透明陰影、乾淨自然色、亮部保留與高解析細節，適合需要通透明亮成像的畫面。",
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:高銳利快照黑位:13",
@@ -126,7 +199,15 @@
       ],
       "zh": "高銳利快照黑位",
       "en": "high-acutance snapshot rendering, snap-focus clarity, contrasty black levels, crisp APS-C-like color response, candid compact-camera texture",
-      "desc": "保留快照成像的 snap 清晰度、高銳利細節、偏硬黑位與小型相機質地，但不指定特定相機或場景。"
+      "desc": "保留快照成像的 snap 清晰度、高銳利細節、偏硬黑位與小型相機質地，但不指定特定相機或場景。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "high_acutance",
+            "hard_black_levels"
+          ]
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:中片幅數位色深:14",
@@ -135,7 +216,12 @@
       ],
       "zh": "中片幅數位色深",
       "en": "medium-format digital rendering, ultra-high resolution, broad dynamic range, smooth tonal transitions, refined color depth, organic large-sensor depth",
-      "desc": "模擬中片幅數位的高解析、寬動態範圍、平滑階調過渡、細緻色彩深度與大感光元件立體感。"
+      "desc": "模擬中片幅數位的高解析、寬動態範圍、平滑階調過渡、細緻色彩深度與大感光元件立體感。",
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:手機-hdr-直出:15",
@@ -144,7 +230,12 @@
       ],
       "zh": "手機 HDR 直出",
       "en": "smartphone HDR JPEG rendering, automatic exposure balance, computational highlight recovery, crisp sharpening, noise-reduced shadows, clean modern phone color",
-      "desc": "模擬現代手機直出的 HDR 合成感、自動曝光、亮部追回、銳化、降噪陰影與乾淨手機色彩。"
+      "desc": "模擬現代手機直出的 HDR 合成感、自動曝光、亮部追回、銳化、降噪陰影與乾淨手機色彩。",
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:vhs-錄影帶低畫質:16",
@@ -153,7 +244,15 @@
       ],
       "zh": "VHS 錄影帶低畫質",
       "en": "VHS camcorder image degradation, analog tape noise, scanlines, color bleeding, chromatic aberration, low-resolution interlaced texture, tracking glitches",
-      "desc": "模擬老舊錄影帶的低解析、類比雜訊、掃描線、色彩滲色、色差與追蹤故障，用於明確的低畫質成像效果。"
+      "desc": "模擬老舊錄影帶的低解析、類比雜訊、掃描線、色彩滲色、色差與追蹤故障，用於明確的低畫質成像效果。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "retro",
+            "low_frequency_film"
+          ]
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:y2k-ccd-低清快照:17",
@@ -162,7 +261,12 @@
       ],
       "zh": "Y2K CCD 低清快照",
       "en": "early-2000s compact-digital rendering, on-camera flash glare, low-resolution CCD softness, narrow dynamic range, clipped highlights, crushed noisy shadows, magenta-green color cast, blocky JPEG artifacts",
-      "desc": "以 2000 年代家用 CCD 小型數位相機的低清快照為核心，強化機頂閃光眩光、低解析 CCD 柔化、狹窄動態範圍、亮部剪切、暗部壓黑噪點、粉綠白平衡偏色與方塊狀 JPEG 壓縮痕跡。"
+      "desc": "以 2000 年代家用 CCD 小型數位相機的低清快照為核心，強化機頂閃光眩光、低解析 CCD 柔化、狹窄動態範圍、亮部剪切、暗部壓黑噪點、粉綠白平衡偏色與方塊狀 JPEG 壓縮痕跡。",
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:復古-ccd-晃動快照:18",
@@ -171,7 +275,12 @@
       ],
       "zh": "復古 CCD 晃動快照",
       "en": "retro CCD failure-snapshot rendering, heavy motion smear, soft low-pixel detail, blown unstable highlights, muddy chroma noise, purple edge fringing, banded gradients, low-end JPEG compression",
-      "desc": "以早期 CCD 失手快照的強烈成像失真為核心，保留明顯手持晃動拖影、低像素柔化、亮部爆白不穩、髒色彩噪點、邊緣紫邊、階調色帶斷裂與低階 JPEG 壓縮感。"
+      "desc": "以早期 CCD 失手快照的強烈成像失真為核心，保留明顯手持晃動拖影、低像素柔化、亮部爆白不穩、髒色彩噪點、邊緣紫邊、階調色帶斷裂與低階 JPEG 壓縮感。",
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:日系亮膚高彩濾鏡:19",
@@ -180,7 +289,14 @@
       ],
       "zh": "日系亮膚高彩濾鏡",
       "en": "glossy Japanese portrait color grade, lifted midtones, creamy pale highlights, warm peach skin-tone protection, cyan-green shadows, vivid saturation, clean deep blacks",
-      "desc": "以日系高完成度亮膚高彩為核心，中間調明顯上提，亮部偏奶白，膚色維持暖桃色保護，陰影帶青綠偏色，彩度鮮明但黑位仍保持乾淨深黑。"
+      "desc": "以日系高完成度亮膚高彩為核心，中間調明顯上提，亮部偏奶白，膚色維持暖桃色保護，陰影帶青綠偏色，彩度鮮明但黑位仍保持乾淨深黑。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "film"
+          ]
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:日系清透淡彩濾鏡:20",
@@ -189,7 +305,14 @@
       ],
       "zh": "日系清透淡彩濾鏡",
       "en": "transparent Japanese portrait color grade, airy low-contrast tonality, milky white highlights, pastel saturation, neutral-clean skin tones, delicate cool shadow tint",
-      "desc": "以清透淡彩為核心，整體對比壓低、亮部偏奶白，彩度維持輕柔 pastel，膚色乾淨中性，陰影只帶很淡的冷色偏移。"
+      "desc": "以清透淡彩為核心，整體對比壓低、亮部偏奶白，彩度維持輕柔 pastel，膚色乾淨中性，陰影只帶很淡的冷色偏移。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "film"
+          ]
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:日系高曝光奶油膚色:21",
@@ -198,7 +321,14 @@
       ],
       "zh": "日系高曝光奶油膚色",
       "en": "high-key Japanese portrait color grade, elevated exposure, creamy porcelain highlights, softened shadow floor, restrained saturation, protected dark-material density",
-      "desc": "比亮膚高彩更偏 high-key 高曝光，亮部走奶油瓷白，陰影底被柔化，整體飽和度較克制，但深色服裝與黑色材質仍保留足夠密度。"
+      "desc": "比亮膚高彩更偏 high-key 高曝光，亮部走奶油瓷白，陰影底被柔化，整體飽和度較克制，但深色服裝與黑色材質仍保留足夠密度。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "film"
+          ]
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:日系夜景亮膚霓虹:22",
@@ -207,7 +337,14 @@
       ],
       "zh": "日系夜景亮膚霓虹",
       "en": "neon-tinted Japanese portrait color grade, protected bright skin tones, cool cyan shadow bias, warm-magenta highlights, clean black levels, controlled luminous saturation",
-      "desc": "以日系夜景亮膚霓虹為出發，但改寫為可跨場景套用的霓虹調色邏輯：膚色亮度受保護，陰影往冷青偏移，亮部混入暖洋紅霓虹感，黑位乾淨，彩色高光維持發亮但不失控。"
+      "desc": "以日系夜景亮膚霓虹為出發，但改寫為可跨場景套用的霓虹調色邏輯：膚色亮度受保護，陰影往冷青偏移，亮部混入暖洋紅霓虹感，黑位乾淨，彩色高光維持發亮但不失控。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "film"
+          ]
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:日系雜誌高彩銳利:23",
@@ -216,7 +353,12 @@
       ],
       "zh": "日系雜誌高彩銳利",
       "en": "Japanese magazine color grade, vivid editorial saturation, polished highlight brightness, crisp micro-contrast, sharp edge definition, clean dense blacks, print-finish contrast",
-      "desc": "偏日系雜誌與偶像寫真的高完成度調色，保留鮮明但受控的高彩，亮部帶拋光感，微對比與邊線清楚，黑位緊實乾淨，整體接近高級印刷輸出的商業完成度。"
+      "desc": "偏日系雜誌與偶像寫真的高完成度調色，保留鮮明但受控的高彩，亮部帶拋光感，微對比與邊線清楚，黑位緊實乾淨，整體接近高級印刷輸出的商業完成度。",
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:日系柔霧亮膚:24",
@@ -225,7 +367,14 @@
       ],
       "zh": "日系柔霧亮膚",
       "en": "soft-tonal Japanese portrait color grade, luminous pale highlights, gentle bloom, lowered micro-contrast, airy contrast, pastel shadow softness",
-      "desc": "在亮膚基礎上加入柔霧式階調，亮部更柔更亮，伴隨輕微 bloom，微對比被壓低，整體對比更輕，陰影維持淡 pastel 柔軟感。"
+      "desc": "在亮膚基礎上加入柔霧式階調，亮部更柔更亮，伴隨輕微 bloom，微對比被壓低，整體對比更輕，陰影維持淡 pastel 柔軟感。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "film"
+          ]
+        }
+      }
     },
     {
       "id": "camera:底片與相機模擬-camera-film-simulation:跨沖霓虹剪影濾鏡:25",
@@ -234,7 +383,12 @@
       ],
       "zh": "跨沖霓虹剪影濾鏡",
       "en": "neon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels, cold porcelain highlights",
-      "desc": "以跨沖式霓虹剪影為核心，整體色相向冷青藍偏移，紅黃等原色飽和被強力拉起，對比呈現海報式硬階調，中間調明顯壓暗、黑位積極收深，只保留冷白偏瓷感的亮部，整體形成強烈暗黑時裝感與數位化反轉片式成像。"
+      "desc": "以跨沖式霓虹剪影為核心，整體色相向冷青藍偏移，紅黃等原色飽和被強力拉起，對比呈現海報式硬階調，中間調明顯壓暗、黑位積極收深，只保留冷白偏瓷感的亮部，整體形成強烈暗黑時裝感與數位化反轉片式成像。",
+      "meta": {
+        "semantic": {
+          "tags": []
+        }
+      }
     }
   ]
 }

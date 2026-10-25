@@ -9,7 +9,13 @@
       ],
       "zh": "漂浮與反重力防護",
       "en": "floating objects, defying gravity, floating limbs, flying, unconnected items, messy physics",
-      "desc": "確保畫面中（特別是室內場景）的物件符合重力邏輯，避免杯子、椅子等物品懸浮在半空中。"
+      "desc": "確保畫面中（特別是室內場景）的物件符合重力邏輯，避免杯子、椅子等物品懸浮在半空中。",
+      "meta": {
+        "semantic": {
+          "conflictTags": [],
+          "useTags": []
+        }
+      }
     },
     {
       "id": "negative:場景與物理防護:背景干擾物防護:1",
@@ -18,7 +24,15 @@
       ],
       "zh": "背景干擾物防護",
       "en": "messy background, cluttered space, distracting background elements, messy room, trash",
-      "desc": "適用於需要凸顯人物的棚拍或商業攝影，強制清除背景中多餘的雜物與干擾視線的髒亂。"
+      "desc": "適用於需要凸顯人物的棚拍或商業攝影，強制清除背景中多餘的雜物與干擾視線的髒亂。",
+      "meta": {
+        "semantic": {
+          "conflictTags": [],
+          "useTags": [
+            "clean_background"
+          ]
+        }
+      }
     },
     {
       "id": "negative:場景與物理防護:錯誤透視防護:2",
@@ -27,7 +41,13 @@
       ],
       "zh": "錯誤透視防護",
       "en": "bad perspective, warped architecture, distorted buildings, twisted walls, physically impossible architecture",
-      "desc": "特別針對都市街景或室內空間，防止建築物、牆壁與背景街道出現扭曲變形，如全面啟動般的空間坍塌。"
+      "desc": "特別針對都市街景或室內空間，防止建築物、牆壁與背景街道出現扭曲變形，如全面啟動般的空間坍塌。",
+      "meta": {
+        "semantic": {
+          "conflictTags": [],
+          "useTags": []
+        }
+      }
     }
   ]
 }

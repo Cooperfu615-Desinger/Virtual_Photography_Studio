@@ -9,7 +9,15 @@
       ],
       "zh": "全無",
       "en": "no outerwear, uncluttered silhouette",
-      "desc": "不加外套，保留上身與下身單品的主要輪廓。"
+      "desc": "不加外套，保留上身與下身單品的主要輪廓。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "no_accessory"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:外套-outerwear:西裝外套:1",
@@ -28,7 +36,15 @@
       },
       "legacyPromptAliases": [
         "blazer, tailored jacket structure, defined lapels, clean shoulder line, polished suiting fabric"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "elegant"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:外套-outerwear:連帽外套:2",
@@ -47,7 +63,13 @@
       },
       "legacyPromptAliases": [
         "sport zip-up hoodie, athletic hooded jacket, ribbed cuffs and hem, casual performance knit structure"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "family": "techwear",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:外套-outerwear:龐克皮衣:3",
@@ -68,7 +90,16 @@
       ],
       "legacyLabels": [
         "龐克皮衣"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "family": "punk",
+          "tags": [
+            "edgy",
+            "futuristic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:外套-outerwear:賽博反光科技風衣:4",
@@ -81,6 +112,14 @@
       "outerwear": {
         "baseEn": "iridescent reflective techwear trench coat, waterproof shell texture",
         "fasteners": []
+      },
+      "meta": {
+        "semantic": {
+          "family": "cyberpunk",
+          "tags": [
+            "futuristic"
+          ]
+        }
       }
     },
     {
@@ -97,7 +136,13 @@
       },
       "legacyPromptAliases": [
         "fluffy teddy fleece jacket, plush pile texture, rounded cozy outerwear structure"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:外套-outerwear:飛行夾克:6",
@@ -115,7 +160,13 @@
       },
       "legacyPromptAliases": [
         "bomber jacket, flight jacket structure, ribbed collar cuffs and hem, rounded casual outerwear volume"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:外套-outerwear:短版皮外套:7",
@@ -136,7 +187,15 @@
       ],
       "legacyLabels": [
         "短版皮外套"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "edgy"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:外套-outerwear:丹寧外套:8",
@@ -155,7 +214,13 @@
       },
       "legacyPromptAliases": [
         "denim jacket, washed denim texture, chest pockets, metal buttons, casual structured outerwear"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:外套-outerwear:連帽外套-戴:9",
@@ -177,7 +242,13 @@
       ],
       "legacyLabels": [
         "連帽外套_戴"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:外套-outerwear:寬鬆西裝外套:10",
@@ -196,6 +267,15 @@
         "defaultFit": "oversized",
         "defaultLength": "",
         "canonicalLegacy": true
+      },
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "streetwear",
+            "elegant"
+          ]
+        }
       }
     },
     {
@@ -215,6 +295,14 @@
         "defaultFit": "fitted",
         "defaultLength": "",
         "canonicalLegacy": true
+      },
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "elegant"
+          ]
+        }
       }
     },
     {
@@ -234,6 +322,14 @@
         "defaultFit": "fitted",
         "defaultLength": "cropped",
         "canonicalLegacy": true
+      },
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "elegant"
+          ]
+        }
       }
     },
     {
@@ -250,7 +346,13 @@
       },
       "legacyPromptAliases": [
         "faux fur coat, plush textured outerwear, voluminous soft pile, cold-weather fashion layer"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:外套-outerwear:薄紗輕薄披衣外套:14",
@@ -267,7 +369,15 @@
       },
       "legacyPromptAliases": [
         "sheer lightweight cover-up jacket, translucent gauze mesh fabric, short sleeves, soft draped outerwear"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "revealing"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:外套-outerwear:長版外套:15",
@@ -289,7 +399,13 @@
       ],
       "legacyLabels": [
         "長版外套"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:外套-outerwear:風衣:16",
@@ -306,6 +422,12 @@
         ],
         "defaultLength": "long",
         "rollableSleeves": true
+      },
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
       }
     },
     {
@@ -325,7 +447,13 @@
       },
       "legacyPromptAliases": [
         "knit cardigan, open-front knit layer, soft drape, ribbed or textured knit surface"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:外套-outerwear:棒球外套:18",
@@ -344,7 +472,13 @@
       },
       "legacyPromptAliases": [
         "varsity jacket, ribbed collar and cuffs, contrast stripe trim, structured sporty outer layer"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:外套-outerwear:短版粗花呢外套:19",
@@ -362,6 +496,14 @@
         "retired": true,
         "defaultFit": "",
         "defaultLength": "cropped"
+      },
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "heritage"
+          ]
+        }
       }
     },
     {
@@ -380,7 +522,17 @@
       },
       "legacyPromptAliases": [
         "lace robe cardigan, long open-front silhouette, lightweight lace texture, ruffled or scalloped hem"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "ornate",
+            "romantic",
+            "heritage"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:外套-outerwear:長版襯衫:21",
@@ -400,7 +552,13 @@
       },
       "legacyPromptAliases": [
         "longline button-up shirt in cotton poplin, pointed collar, long sleeves with buttoned cuffs, curved shirttail hem"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     },
     {
       "id": "wardrobe:外套-outerwear:愛迪達立領三線外套:22",
@@ -416,6 +574,12 @@
           "zip"
         ],
         "rollableSleeves": true
+      },
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
       }
     }
   ]

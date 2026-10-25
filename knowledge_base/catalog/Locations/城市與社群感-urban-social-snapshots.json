@@ -9,7 +9,15 @@
       ],
       "zh": "室內：九龍城寨內部狹窄走道",
       "en": "Kowloon Walled City interior passage, narrow wall-to-wall corridor, water-stained concrete walls, exposed wiring bundles, stacked signboards, overhead pipes, cramped layered surfaces close to the subject",
-      "desc": "狹窄城寨內部走道，重點是貼近人物的水痕牆面、外露線束、堆疊招牌、頭頂管線與壓縮的多層表面。"
+      "desc": "狹窄城寨內部走道，重點是貼近人物的水痕牆面、外露線束、堆疊招牌、頭頂管線與壓縮的多層表面。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "indoor"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:室內-九龍城寨樓梯井與鐵窗:1",
@@ -18,7 +26,15 @@
       ],
       "zh": "室內：九龍城寨樓梯井與鐵窗",
       "en": "Kowloon Walled City stairwell shaft, iron window grilles, stained stair rail, tiled wall stains, narrow vertical interior, landing edge, exposed pipework",
-      "desc": "城寨樓梯井與鐵窗，重點是鐵窗格、斑駁扶手、磁磚牆污痕、樓梯平台邊緣與外露管線。"
+      "desc": "城寨樓梯井與鐵窗，重點是鐵窗格、斑駁扶手、磁磚牆污痕、樓梯平台邊緣與外露管線。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "indoor"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:室內-興記煲仔飯店內桌椅區:2",
@@ -27,7 +43,16 @@
       ],
       "zh": "室內：興記煲仔飯店內桌椅區",
       "en": "Hing Kee claypot rice interior seating corner, compact tables, tiled walls, plastic stools, menu board edge, narrow gap between table and wall, stacked tableware",
-      "desc": "店內桌椅與牆邊角落構成貼近人物的餐館空間，重點是小桌、磁磚牆、塑膠凳、菜單牌邊、桌牆縫隙與堆疊餐具。"
+      "desc": "店內桌椅與牆邊角落構成貼近人物的餐館空間，重點是小桌、磁磚牆、塑膠凳、菜單牌邊、桌牆縫隙與堆疊餐具。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "hospitality",
+            "indoor"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:室內-塗鴉牆面旁的地鐵月台角落:3",
@@ -36,7 +61,16 @@
       ],
       "zh": "室內：塗鴉牆面旁的地鐵月台角落",
       "en": "New York subway platform corner, graffiti-covered wall, stained tile panels, scratched metal column, platform warning strip, wall-side waiting zone",
-      "desc": "以月台角落的塗鴉牆、污漬磁磚、刮痕金屬柱、月台警示線與靠牆等待區構成局部背景。"
+      "desc": "以月台角落的塗鴉牆、污漬磁磚、刮痕金屬柱、月台警示線與靠牆等待區構成局部背景。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "indoor",
+            "transit"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:室內-無人月台長椅區:4",
@@ -45,7 +79,17 @@
       ],
       "zh": "室內：無人月台長椅區",
       "en": "subway bench zone, worn plastic seating, tiled wall panels, platform edge markings, metal column edge, small sign plate, underground transit wall surface",
-      "desc": "月台長椅區與月台邊線，重點是磨損塑膠椅、磁磚牆板、月台標線、金屬柱邊與小型指示牌。"
+      "desc": "月台長椅區與月台邊線，重點是磨損塑膠椅、磁磚牆板、月台標線、金屬柱邊與小型指示牌。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "indoor",
+            "commercial",
+            "transit"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:室內-列車高速進站的月台邊:5",
@@ -54,7 +98,16 @@
       ],
       "zh": "室內：列車高速進站的月台邊",
       "en": "subway platform edge with passing train body, tiled wall, warning strip, carriage side blur, platform column, floor edge markings",
-      "desc": "列車經過的月台邊，重點是列車車體、磁磚牆、警示線、月台柱、地面標線與車廂側面動態模糊。"
+      "desc": "列車經過的月台邊，重點是列車車體、磁磚牆、警示線、月台柱、地面標線與車廂側面動態模糊。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "indoor",
+            "transit"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:室內-髒污磁磚牆與金屬柱之間:6",
@@ -63,7 +116,16 @@
       ],
       "zh": "室內：髒污磁磚牆與金屬柱之間",
       "en": "dirty subway tile wall, scratched metal column, aged grout lines, narrow standing zone, chipped tile edges, underground wall texture",
-      "desc": "聚焦於磁磚牆與金屬柱之間狹窄可站立的局部空間，重點是磁磚缺角、灰縫、刮痕柱面與牆面材質。"
+      "desc": "聚焦於磁磚牆與金屬柱之間狹窄可站立的局部空間，重點是磁磚缺角、灰縫、刮痕柱面與牆面材質。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "indoor",
+            "transit"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:室內-地下月台電子看板與海報牆:7",
@@ -72,7 +134,17 @@
       ],
       "zh": "室內：地下月台電子看板與海報牆",
       "en": "underground subway platform signboard corner, amber LED next-train display overhead, stained white tile wall, graffiti tags, movie poster frame, fluorescent ceiling tubes, dark tunnel edge",
-      "desc": "地下月台的電子到站看板與海報牆區域，重點是琥珀色 LED 看板、髒白磁磚、塗鴉、海報框、日光燈管與暗色隧道邊。"
+      "desc": "地下月台的電子到站看板與海報牆區域，重點是琥珀色 LED 看板、髒白磁磚、塗鴉、海報框、日光燈管與暗色隧道邊。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "indoor",
+            "transit",
+            "subterranean"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂正面長椅視角:8",
@@ -81,7 +153,18 @@
       ],
       "zh": "室內：電車車廂正面長椅視角",
       "en": "Japanese commuter train car interior, slight offset view toward a blue fabric bench seat, window and sliding door panels behind the subject, stainless steel wall surfaces, overhead hand straps, route maps, small carriage posters, passing scenery glimpsed through windows",
-      "desc": "指定為車廂內長椅視角，但以略偏側角度避免過度置中；背景包含車窗、滑門、金屬牆面、吊環、路線圖、車廂海報與窗外掠過景色。"
+      "desc": "指定為車廂內長椅視角，但以略偏側角度避免過度置中；背景包含車窗、滑門、金屬牆面、吊環、路線圖、車廂海報與窗外掠過景色。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "indoor",
+            "commercial",
+            "transit",
+            "institutional"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂側面走道視角:9",
@@ -90,7 +173,16 @@
       ],
       "zh": "室內：電車車廂側面走道視角",
       "en": "Japanese commuter train car side aisle section, vertical grab pole near the subject, overhead hand straps, side bench seats, sliding doors, train windows, route map panels, nearby commuters as background context",
-      "desc": "指定為車廂內側面走道區，人物靠近扶手柱；重點是吊環、側邊長椅、滑門、車窗、路線圖與附近通勤乘客。"
+      "desc": "指定為車廂內側面走道區，人物靠近扶手柱；重點是吊環、側邊長椅、滑門、車窗、路線圖與附近通勤乘客。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "indoor",
+            "transit"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂坐滿與站滿乘客:10",
@@ -99,7 +191,17 @@
       ],
       "zh": "室內：電車車廂坐滿與站滿乘客",
       "en": "crowded Japanese commuter train car, seated passengers on bench seats, standing commuters around vertical grab poles, overhead hand straps in use, sliding doors and train windows behind layered bodies, route map panels, small carriage ads, compressed public-transit density",
-      "desc": "擁擠日本通勤車廂，長椅坐滿、走道站滿，重點是吊環、扶手柱、滑門、車窗、路線圖、車廂廣告與層層人物密度。"
+      "desc": "擁擠日本通勤車廂，長椅坐滿、走道站滿，重點是吊環、扶手柱、滑門、車窗、路線圖、車廂廣告與層層人物密度。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "indoor",
+            "commercial",
+            "transit"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-澀谷站前廣場人潮邊緣:11",
@@ -108,7 +210,16 @@
       ],
       "zh": "戶外：澀谷站前廣場人潮邊緣",
       "en": "Shibuya Station front plaza with the QFRONT glass facade carrying \"TSUTAYA\" and \"STARBUCKS\" signage and large advertising screens in the background, the subject as one person within a dense pedestrian flow with people passing in different directions beside and in front of and behind her; everyone sharing the same physical space and perspective with apparent size varying naturally by distance, pedestrians in varied everyday clothing in mixed colors and styles sharing the same ambient light as the subject; nearby passersby naturally overlapping and partly cropped at frame edges, surrounding Japanese shop signs",
-      "desc": "澀谷站前廣場，以 QFRONT 玻璃立面、TSUTAYA／STARBUCKS 招牌、大型廣告螢幕與周邊日文店家招牌為背景；主角是密集人流中的一員，行人從身旁、前方與後方朝不同方向經過。所有人共享實體空間、透視與環境光，畫面大小隨距離自然變化；路人穿著不同色彩與款式的日常服裝，近處自然重疊並可局部裁切。不鎖姿勢、鏡頭或新增地面要求。"
+      "desc": "澀谷站前廣場，以 QFRONT 玻璃立面、TSUTAYA／STARBUCKS 招牌、大型廣告螢幕與周邊日文店家招牌為背景；主角是密集人流中的一員，行人從身旁、前方與後方朝不同方向經過。所有人共享實體空間、透視與環境光，畫面大小隨距離自然變化；路人穿著不同色彩與款式的日常服裝，近處自然重疊並可局部裁切。不鎖姿勢、鏡頭或新增地面要求。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "transit"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-八公銅像旁行人區:12",
@@ -117,7 +228,17 @@
       ],
       "zh": "戶外：八公銅像旁行人區",
       "en": "Shibuya Hachiko Square pedestrian waiting area beside the small bronze Hachiko dog statue, modest stone pedestal, low queue railings, station-front plaza paving, clustered meeting crowds, Shibuya Station frontage and nearby commercial facades, realistic landmark scale",
-      "desc": "澀谷站前忠犬八公銅像周邊等候區，重點是小型青銅八公雕像、石座、低矮欄杆、站前鋪面、等候人潮與商業立面。"
+      "desc": "澀谷站前忠犬八公銅像周邊等候區，重點是小型青銅八公雕像、石座、低矮欄杆、站前鋪面、等候人潮與商業立面。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "commercial",
+            "transit"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-澀谷站前大型看板下穿越口:13",
@@ -126,7 +247,16 @@
       ],
       "zh": "戶外：澀谷站前大型看板下穿越口",
       "en": "Shibuya station-side crossing entrance beneath oversized commercial billboards, bold crosswalk stripes at the intersection edge, waiting pedestrian clusters, tower facades packed with signage, curb corner, traffic-light pole, station-front crossing detail",
-      "desc": "澀谷站前大型看板下方穿越口邊緣，重點是斑馬線、頭頂大型看板、等待人群、高樓招牌立面、路口轉角與號誌桿。"
+      "desc": "澀谷站前大型看板下方穿越口邊緣，重點是斑馬線、頭頂大型看板、等待人群、高樓招牌立面、路口轉角與號誌桿。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "transit"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-目黑川旁的櫻花隧道:14",
@@ -135,7 +265,17 @@
       ],
       "zh": "戶外：目黑川旁的櫻花隧道",
       "en": "Meguro River bridge viewpoint, bridge railing in the foreground, river channel offset along one side, one riverside cherry blossom canopy, layered Tokyo buildings behind the riverbank, pale pink petals as small physical details, asymmetric riverside composition",
-      "desc": "構圖以橋上視角為核心，前景先看到橋面或欄杆，河道偏向畫面一側，櫻花集中在單側河岸與城市建築之間，形成不對稱沿河場景。"
+      "desc": "構圖以橋上視角為核心，前景先看到橋面或欄杆，河道偏向畫面一側，櫻花集中在單側河岸與城市建築之間，形成不對稱沿河場景。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "commercial",
+            "waterfront"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-大阪道頓堀心齋橋河道:15",
@@ -144,7 +284,16 @@
       ],
       "zh": "戶外：大阪道頓堀心齋橋河道",
       "en": "Dotonbori Shinsaibashi riverside edge in Osaka, iconic billboard signage, Shinsaibashi bridge railing in the foreground, canal water visible below, dense commercial facade layers, famous advertisement boards, sidewalk edge near the bridge",
-      "desc": "大阪道頓堀與心齋橋周邊，重點是橋欄、河道、大型廣告招牌、商業立面、知名看板與橋邊人行道。"
+      "desc": "大阪道頓堀與心齋橋周邊，重點是橋欄、河道、大型廣告招牌、商業立面、知名看板與橋邊人行道。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "waterfront"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-九龍城寨雜貨店門口:16",
@@ -153,7 +302,16 @@
       ],
       "zh": "戶外：九龍城寨雜貨店門口",
       "en": "Kowloon Walled City grocery storefront, narrow shop entrance, stacked goods, hanging signs, water-stained concrete, exposed cable clutter, doorway threshold, crate piles",
-      "desc": "以雜貨店門口為主體的城寨場景，重點是狹窄入口、堆疊貨物、懸掛招牌、水痕混凝土、外露線材、門檻與箱籃。"
+      "desc": "以雜貨店門口為主體的城寨場景，重點是狹窄入口、堆疊貨物、懸掛招牌、水痕混凝土、外露線材、門檻與箱籃。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "commercial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-九龍城寨電器行外牆與管線:17",
@@ -162,7 +320,15 @@
       ],
       "zh": "戶外：九龍城寨電器行外牆與管線",
       "en": "Kowloon Walled City appliance shop wall, exposed conduits, old electrical boxes, peeling tiles, hanging shop signs, compressed alley edge, appliance display fragments",
-      "desc": "電器行外牆與大量外露管線構成辨識度，重點是電箱、剝落磁磚、招牌、巷邊牆面與電器展示片段。"
+      "desc": "電器行外牆與大量外露管線構成辨識度，重點是電箱、剝落磁磚、招牌、巷邊牆面與電器展示片段。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-興記煲仔飯店門口騎樓區:18",
@@ -171,7 +337,18 @@
       ],
       "zh": "戶外：興記煲仔飯店門口騎樓區",
       "en": "Hing Kee claypot rice storefront arcade, tiled pavement, restaurant signboard, entrance threshold, compact Temple Street frontage, menu board edge, stacked stools",
-      "desc": "興記煲仔飯店門口與騎樓區，重點是磁磚鋪面、店招、入口門檻、廟街店面、小菜單牌與堆疊凳子。"
+      "desc": "興記煲仔飯店門口與騎樓區，重點是磁磚鋪面、店招、入口門檻、廟街店面、小菜單牌與堆疊凳子。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "hospitality",
+            "indoor",
+            "outdoor",
+            "commercial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-廟街小吃店外桌邊角落:19",
@@ -180,7 +357,16 @@
       ],
       "zh": "戶外：廟街小吃店外桌邊角落",
       "en": "Temple Street eatery sidewalk table corner, plastic stools, tiled storefront edge, stacked utensils, curbside dining surface, shop threshold, table leg details",
-      "desc": "小吃店外桌與店面邊角，重點是塑膠凳、磁磚店面邊、餐具堆、路邊桌面、店門檻與桌腳細節。"
+      "desc": "小吃店外桌與店面邊角，重點是塑膠凳、磁磚店面邊、餐具堆、路邊桌面、店門檻與桌腳細節。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "commercial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-孚日廣場拱廊下:20",
@@ -189,7 +375,15 @@
       ],
       "zh": "戶外：孚日廣場拱廊下",
       "en": "Place des Vosges arcade side bay, brick arch segment, stone floor, recessed residential entrance, column base, wall-side walkway, shuttered window detail",
-      "desc": "孚日廣場拱廊下的側邊柱廊，重點是紅磚拱段、石地面、凹入住宅門口、柱基、牆邊走道與百葉窗細節。"
+      "desc": "孚日廣場拱廊下的側邊柱廊，重點是紅磚拱段、石地面、凹入住宅門口、柱基、牆邊走道與百葉窗細節。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-孚日廣場草地邊與紅磚立面:21",
@@ -202,6 +396,15 @@
       "lyingSurface": {
         "type": "grass",
         "en": "lawn"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "green_space"
+          ]
+        }
       }
     },
     {
@@ -211,7 +414,15 @@
       ],
       "zh": "戶外：瑪黑區高級住宅門前石牆",
       "en": "Le Marais upscale residence entrance, stone doorway, wrought-iron detail, polished wall texture, door threshold, brass hardware, narrow sidewalk edge",
-      "desc": "瑪黑區高級住宅入口與石牆質地，重點是石門框、鐵件、牆面、門檻、黃銅五金與窄人行道邊。"
+      "desc": "瑪黑區高級住宅入口與石牆質地，重點是石門框、鐵件、牆面、門檻、黃銅五金與窄人行道邊。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-曼哈頓精品櫥窗前人行道:23",
@@ -220,7 +431,16 @@
       ],
       "zh": "戶外：曼哈頓精品櫥窗前人行道",
       "en": "Manhattan fashion storefront sidewalk, large display window, polished glass, curbside edge, layered storefront reflections, window-display base, building entrance seam",
-      "desc": "曼哈頓精品櫥窗前的人行道，重點是大片展示窗、玻璃反射、路緣、展示底座、店面入口縫與商業立面。"
+      "desc": "曼哈頓精品櫥窗前的人行道，重點是大片展示窗、玻璃反射、路緣、展示底座、店面入口縫與商業立面。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "commercial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-曼哈頓街角玻璃反射牆面:24",
@@ -229,7 +449,16 @@
       ],
       "zh": "戶外：曼哈頓街角玻璃反射牆面",
       "en": "Manhattan corner glass facade, reflective storefront wall, taxi shapes reflected in glass, steam plume reflection, tower reflections layered behind, sidewalk corner edge",
-      "desc": "曼哈頓街角玻璃牆面，重點是反射店面牆、計程車形狀倒影、蒸氣倒影、高樓反射與人行道轉角。"
+      "desc": "曼哈頓街角玻璃牆面，重點是反射店面牆、計程車形狀倒影、蒸氣倒影、高樓反射與人行道轉角。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "commercial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-曼哈頓店面轉角櫥窗邊:25",
@@ -238,7 +467,16 @@
       ],
       "zh": "戶外：曼哈頓店面轉角櫥窗邊",
       "en": "Manhattan corner display window, angled storefront glass, crosswalk edge, reflected traffic shapes, polished commercial facade, corner mullion, sidewalk curb detail",
-      "desc": "店面轉角與斜切玻璃櫥窗，重點是斜面櫥窗、斑馬線邊、交通倒影、轉角窗框、路緣與商業牆面。"
+      "desc": "店面轉角與斜切玻璃櫥窗，重點是斜面櫥窗、斑馬線邊、交通倒影、轉角窗框、路緣與商業牆面。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "commercial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-首爾聖水洞街區:26",
@@ -247,7 +485,16 @@
       ],
       "zh": "戶外：首爾聖水洞街區",
       "en": "Seoul Seongsu-dong urban corner, industrial cafe frontage, muted concrete textures, shop entrance edge, metal-framed window, sidewalk curb, small signboard",
-      "desc": "首爾聖水洞街區轉角，重點是工業風咖啡店立面、混凝土質地、店門邊、金屬窗框、人行道路緣與小招牌。"
+      "desc": "首爾聖水洞街區轉角，重點是工業風咖啡店立面、混凝土質地、店門邊、金屬窗框、人行道路緣與小招牌。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "commercial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-首爾弘大街頭:27",
@@ -256,7 +503,16 @@
       ],
       "zh": "戶外：首爾弘大街頭",
       "en": "Seoul Hongdae youth-culture storefront edge, colorful signboards, layered shopfronts, stickered pole, narrow sidewalk corner, small retail signs, curb detail",
-      "desc": "弘大街頭店面邊緣，重點是彩色招牌、層疊店面、貼紙電線桿、窄人行道轉角、小型店招與路緣。"
+      "desc": "弘大街頭店面邊緣，重點是彩色招牌、層疊店面、貼紙電線桿、窄人行道轉角、小型店招與路緣。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "commercial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-台北西門町街頭:28",
@@ -265,7 +521,17 @@
       ],
       "zh": "戶外：台北西門町街頭",
       "en": "Taipei Ximending street corner, dense commercial signboards, humid-looking storefront reflections, shopfront layers, arcade edge, scooter parking fragment, curbside paving",
-      "desc": "台北西門町街頭轉角，重點是密集商業招牌、店面反射、騎樓邊、機車停放片段、路緣鋪面與層疊商店立面。"
+      "desc": "台北西門町街頭轉角，重點是密集商業招牌、店面反射、騎樓邊、機車停放片段、路緣鋪面與層疊商店立面。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "commercial",
+            "green_space"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-洛杉磯日落大道街景:29",
@@ -274,7 +540,15 @@
       ],
       "zh": "戶外：洛杉磯日落大道街景",
       "en": "Los Angeles Sunset Boulevard sidewalk edge, palm tree trunk segment, large billboard structure, broad boulevard curb, low commercial facade, street-sign pole, asphalt edge",
-      "desc": "洛杉磯日落大道街景，重點是人行道邊、棕櫚樹幹片段、大型看板結構、寬路緣、低層商業立面、路牌桿與柏油邊。"
+      "desc": "洛杉磯日落大道街景，重點是人行道邊、棕櫚樹幹片段、大型看板結構、寬路緣、低層商業立面、路牌桿與柏油邊。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町招牌下:30",
@@ -283,7 +557,16 @@
       ],
       "zh": "戶外：新宿歌舞伎町招牌下",
       "en": "Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign, steel arch supports, dense nightlife storefronts and layered signboards, glossy pavement patches, narrow curb and doorway edges",
-      "desc": "人物位於新宿歌舞伎町一番街入口的著名紅色發光拱形招牌下；拱門橫跨通道上方，周圍保留拱架鋼柱、繁華街店面與層疊招牌，並可見地面反光片段、窄路緣與門口邊緣。"
+      "desc": "人物位於新宿歌舞伎町一番街入口的著名紅色發光拱形招牌下；拱門橫跨通道上方，周圍保留拱架鋼柱、繁華街店面與層疊招牌，並可見地面反光片段、窄路緣與門口邊緣。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "commercial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町販賣機旁:31",
@@ -292,7 +575,16 @@
       ],
       "zh": "戶外：新宿歌舞伎町販賣機旁",
       "en": "Shinjuku vending machine corner, metallic vending-machine surfaces, wall edge, pavement texture, small product display windows, curbside standing space",
-      "desc": "販賣機、牆面與地面材質構成局部都市場景，重點是金屬機身、商品窗、牆邊、鋪面與路邊站位。"
+      "desc": "販賣機、牆面與地面材質構成局部都市場景，重點是金屬機身、商品窗、牆邊、鋪面與路邊站位。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "commercial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町酒吧門口:32",
@@ -301,7 +593,16 @@
       ],
       "zh": "戶外：新宿歌舞伎町酒吧門口",
       "en": "Kabukicho bar entrance, compact signboard, doorway recess, narrow threshold, wall texture, small exterior light fixture as a physical object, side poster panel",
-      "desc": "酒吧門口與小型招牌構成局部都市場景，重點是門口凹位、門檻、牆面、小燈具物件與側邊海報板。"
+      "desc": "酒吧門口與小型招牌構成局部都市場景，重點是門口凹位、門檻、牆面、小燈具物件與側邊海報板。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "commercial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町濕地反光角落:33",
@@ -310,7 +611,16 @@
       ],
       "zh": "戶外：新宿歌舞伎町濕地反光角落",
       "en": "Kabukicho street corner, reflective pavement patches, wall edge, layered signboards, storefront corner, curb detail, glossy ground texture",
-      "desc": "街角反光與多層招牌構成局部都市背景，重點是反光鋪面、牆邊、招牌層、店面轉角、路緣與地面材質。"
+      "desc": "街角反光與多層招牌構成局部都市背景，重點是反光鋪面、牆邊、招牌層、店面轉角、路緣與地面材質。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "commercial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-蘇荷區酒吧門口:34",
@@ -319,7 +629,15 @@
       ],
       "zh": "戶外：蘇荷區酒吧門口",
       "en": "Soho pub entrance, doorway frame, wall texture, glossy pavement patches, pub sign bracket, narrow threshold, window trim",
-      "desc": "蘇荷酒吧入口與門面，重點是門框、牆面、地面反光片段、酒吧招牌支架、窄門檻與窗框。"
+      "desc": "蘇荷酒吧入口與門面，重點是門框、牆面、地面反光片段、酒吧招牌支架、窄門檻與窗框。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-蘇荷區店面櫥窗邊:35",
@@ -328,7 +646,16 @@
       ],
       "zh": "戶外：蘇荷區店面櫥窗邊",
       "en": "Soho storefront window edge, reflective glass, pavement texture, shop threshold, display-window base, side wall detail",
-      "desc": "靠近櫥窗與街面反射的局部街景，重點是玻璃反射、店門檻、展示窗底座、側牆與鋪面。"
+      "desc": "靠近櫥窗與街面反射的局部街景，重點是玻璃反射、店門檻、展示窗底座、側牆與鋪面。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "commercial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-蘇荷區招牌下:36",
@@ -337,7 +664,16 @@
       ],
       "zh": "戶外：蘇荷區招牌下",
       "en": "Soho signboard corner, neon sign structure, wall edge, glossy ground patches, layered storefront reflections, sign bracket detail",
-      "desc": "人物站在招牌與門面下方，重點是招牌結構、牆邊、地面反光片段、店面反射與招牌支架。"
+      "desc": "人物站在招牌與門面下方，重點是招牌結構、牆邊、地面反光片段、店面反射與招牌支架。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "commercial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-蘇荷區濕地反光街角:37",
@@ -346,7 +682,16 @@
       ],
       "zh": "戶外：蘇荷區濕地反光街角",
       "en": "Soho street corner, pub frontage reflections, turning wall, glossy pavement patches, curb edge, storefront base detail",
-      "desc": "街角與地面反射構成局部街拍背景，重點是酒吧立面反射、轉角牆、反光鋪面、路緣與店面底座。"
+      "desc": "街角與地面反射構成局部街拍背景，重點是酒吧立面反射、轉角牆、反光鋪面、路緣與店面底座。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "commercial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-brick-lane-海報牆巷口:38",
@@ -355,7 +700,15 @@
       ],
       "zh": "戶外：Brick Lane 海報牆巷口",
       "en": "Brick Lane poster-covered brick wall, graffiti tags, layered pasted flyers, worn metal shutters, pavement edge, alley entrance corner, stickered pole",
-      "desc": "東倫敦 Brick Lane 紅磚牆與海報巷口，重點是塗鴉、層疊傳單、金屬百葉門、鋪面邊、巷口轉角與貼紙柱。"
+      "desc": "東倫敦 Brick Lane 紅磚牆與海報巷口，重點是塗鴉、層疊傳單、金屬百葉門、鋪面邊、巷口轉角與貼紙柱。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-shoreditch-紅磚塗鴉街:39",
@@ -364,7 +717,15 @@
       ],
       "zh": "戶外：Shoreditch 紅磚塗鴉街",
       "en": "Shoreditch red-brick graffiti wall edge, painted wall panels, sticker-covered surfaces, layered posters, sidewalk curb, metal shutter fragment, side alley detail",
-      "desc": "Shoreditch 紅磚塗鴉牆邊，重點是彩繪牆面、貼紙、海報層、人行道路緣、金屬百葉門片段與側巷細節。"
+      "desc": "Shoreditch 紅磚塗鴉牆邊，重點是彩繪牆面、貼紙、海報層、人行道路緣、金屬百葉門片段與側巷細節。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-camden-龐克街角:40",
@@ -373,7 +734,16 @@
       ],
       "zh": "戶外：Camden 龐克街角",
       "en": "Camden punk street corner, red-brick storefront edge, band posters, sticker-covered pole, graffiti wall section, pavement curb, shop sign fragments",
-      "desc": "Camden 龐克街角，重點是紅磚店面邊、樂團海報、貼紙柱、塗鴉牆段、路緣與店招碎片。"
+      "desc": "Camden 龐克街角，重點是紅磚店面邊、樂團海報、貼紙柱、塗鴉牆段、路緣與店招碎片。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "commercial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-倫敦排屋街道:41",
@@ -382,7 +752,17 @@
       ],
       "zh": "戶外：倫敦排屋街道",
       "en": "London townhouse frontage edge, Victorian terrace facade section, black iron railings, stone steps, pavement edge, basement window grille, doorway threshold",
-      "desc": "倫敦排屋立面，重點是維多利亞式住宅牆段、黑鐵欄杆、石階、鋪面邊、地下室窗格與門檻。"
+      "desc": "倫敦排屋立面，重點是維多利亞式住宅牆段、黑鐵欄杆、石階、鋪面邊、地下室窗格與門檻。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "heritage",
+            "subterranean"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-雨後-mews-巷弄:42",
@@ -391,7 +771,15 @@
       ],
       "zh": "戶外：雨後 mews 巷弄",
       "en": "London mews lane corner, brick garage fronts, narrow cobbled passage, glossy cobblestone patches, garage door edge, wall-mounted utility boxes, side entrance detail",
-      "desc": "倫敦 mews 巷弄，重點是磚造車庫門、窄石板通道、局部反光石板、車庫門邊、牆上電箱與側門細節。"
+      "desc": "倫敦 mews 巷弄，重點是磚造車庫門、窄石板通道、局部反光石板、車庫門邊、牆上電箱與側門細節。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-法租界老洋房門口:43",
@@ -400,7 +788,16 @@
       ],
       "zh": "戶外：法租界老洋房門口",
       "en": "French Concession townhouse entrance, old doorway frame, iron railing, tree trunk segment off to one side, stone step, wall plaque, sidewalk edge",
-      "desc": "靠近老洋房入口與門框的場景，重點是舊門框、鐵欄杆、偏側樹幹、石階、牆牌與人行道邊。"
+      "desc": "靠近老洋房入口與門框的場景，重點是舊門框、鐵欄杆、偏側樹幹、石階、牆牌與人行道邊。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "heritage"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:室內-法租界咖啡館靠窗座位:44",
@@ -409,7 +806,18 @@
       ],
       "zh": "室內：法租界咖啡館靠窗座位",
       "en": "French Concession cafe window seat, large floor-to-ceiling window, sidewalk and park trees outside, reflective glass, small table edge, chair back, window frame detail",
-      "desc": "法租界咖啡館內靠窗座位，重點是落地窗、窗外人行道與公園樹、玻璃反射、小桌邊、椅背與窗框細節。"
+      "desc": "法租界咖啡館內靠窗座位，重點是落地窗、窗外人行道與公園樹、玻璃反射、小桌邊、椅背與窗框細節。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "indoor",
+            "outdoor",
+            "commercial",
+            "green_space"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-法租界咖啡館窗外露台座位:45",
@@ -418,7 +826,16 @@
       ],
       "zh": "戶外：法租界咖啡館窗外露台座位",
       "en": "French Concession cafe window terrace, small round table, metal chairs, street tree trunk off to one side, reflective glass, sidewalk edge, cafe threshold",
-      "desc": "咖啡館窗外露台座位，重點是小圓桌、鐵椅、偏側街樹幹、玻璃反射、人行道邊與店門檻。"
+      "desc": "咖啡館窗外露台座位，重點是小圓桌、鐵椅、偏側街樹幹、玻璃反射、人行道邊與店門檻。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "commercial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-法租界街角轉角牆面:46",
@@ -427,7 +844,16 @@
       ],
       "zh": "戶外：法租界街角轉角牆面",
       "en": "French Concession corner wall, aged brick textures, small shop signage, street tree trunk fragment, sidewalk corner, wall base, narrow storefront edge",
-      "desc": "法租界街角轉角牆面，重點是老磚牆、小型店招、街樹片段、人行道轉角、牆基與窄店面邊。"
+      "desc": "法租界街角轉角牆面，重點是老磚牆、小型店招、街樹片段、人行道轉角、牆基與窄店面邊。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "commercial"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-法租界鐵欄杆前:47",
@@ -436,7 +862,15 @@
       ],
       "zh": "戶外：法租界鐵欄杆前",
       "en": "French Concession iron railing, stone wall, window frame, layered wall textures, sidewalk edge, railing post detail, old residential frontage",
-      "desc": "舊式欄杆與牆面形成穩定都會背景，重點是鐵欄杆、石牆、窗框、牆面層次、人行道邊與欄杆柱。"
+      "desc": "舊式欄杆與牆面形成穩定都會背景，重點是鐵欄杆、石牆、窗框、牆面層次、人行道邊與欄杆柱。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-羅馬老城石牆轉角:48",
@@ -445,7 +879,16 @@
       ],
       "zh": "戶外：羅馬老城石牆轉角",
       "en": "Rome old-town stone corner, warm-toned wall texture, cobblestone ground, wall base, narrow doorway edge, uneven stone blocks",
-      "desc": "羅馬老城石牆轉角，重點是暖色石牆、鵝卵石地面、牆基、窄門邊與不規則石塊。"
+      "desc": "羅馬老城石牆轉角，重點是暖色石牆、鵝卵石地面、牆基、窄門邊與不規則石塊。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "heritage"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-羅馬老城咖啡館外桌旁:49",
@@ -454,7 +897,18 @@
       ],
       "zh": "戶外：羅馬老城咖啡館外桌旁",
       "en": "Rome cafe terrace edge, outdoor chairs, textured stone wall, small table edge, cafe threshold, cobblestone pavement, wall-side seating detail",
-      "desc": "羅馬咖啡館外桌旁，重點是戶外椅、小桌邊、石牆、店門檻、鵝卵石鋪面與靠牆座位。"
+      "desc": "羅馬咖啡館外桌旁，重點是戶外椅、小桌邊、石牆、店門檻、鵝卵石鋪面與靠牆座位。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "indoor",
+            "outdoor",
+            "commercial",
+            "heritage"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-羅馬老城老木門前:50",
@@ -463,7 +917,16 @@
       ],
       "zh": "戶外：羅馬老城老木門前",
       "en": "Rome aged wooden door, stone wall texture, iron handle detail, doorway threshold, worn step, wall plaque, side hinge detail",
-      "desc": "老木門與牆面紋理主導畫面，重點是舊木門、石牆、鐵把手、門檻、磨損階面、牆牌與側邊鉸鏈。"
+      "desc": "老木門與牆面紋理主導畫面，重點是舊木門、石牆、鐵把手、門檻、磨損階面、牆牌與側邊鉸鏈。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "heritage"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-羅馬老城窗台邊:51",
@@ -472,7 +935,17 @@
       ],
       "zh": "戶外：羅馬老城窗台邊",
       "en": "Rome old-town window ledge, stone wall, cafe frontage detail, potted plants, sill edge, textured plaster, narrow sidewalk strip",
-      "desc": "靠近窗台與牆面拍攝，重點是窗台、石牆、咖啡館門面片段、盆栽、窗沿、灰泥牆與窄人行道。"
+      "desc": "靠近窗台與牆面拍攝，重點是窗台、石牆、咖啡館門面片段、盆栽、窗沿、灰泥牆與窄人行道。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "commercial",
+            "heritage"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-城市遊艇碼頭欄杆旁:52",
@@ -481,7 +954,17 @@
       ],
       "zh": "戶外：城市遊艇碼頭欄杆旁",
       "en": "urban yacht marina promenade, slim stainless-steel pedestrian handrail with round tubular rails, weathered dock planks, timber pier decking, moored sailboats and yacht masts, calm harbor water, distant city skyline and mountain silhouettes",
-      "desc": "參考城市港灣或遊艇碼頭旁的人像場景，前景是細圓管不鏽鋼行人欄杆、木棧橋與碼頭木板材質，中後景是停泊帆船、桅杆、港灣水面、遠方城市與山影。"
+      "desc": "參考城市港灣或遊艇碼頭旁的人像場景，前景是細圓管不鏽鋼行人欄杆、木棧橋與碼頭木板材質，中後景是停泊帆船、桅杆、港灣水面、遠方城市與山影。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "waterfront",
+            "natural"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-奧地利-hallstatt-湖畔山村觀景欄杆:53",
@@ -490,7 +973,18 @@
       ],
       "zh": "戶外：奧地利 Hallstatt 湖畔山村觀景欄杆",
       "en": "Hallstatt lakeside village overlook, metal railing foreground, Hallstatter See water edge, clustered alpine timber houses, church spire and steep mountain backdrop, asymmetric travel-portrait composition",
-      "desc": "以奧地利 Hallstatt 湖畔觀景欄杆為前景，湖水、木屋屋頂、教堂尖塔與阿爾卑斯山背景形成旅拍山村場景。"
+      "desc": "以奧地利 Hallstatt 湖畔觀景欄杆為前景，湖水、木屋屋頂、教堂尖塔與阿爾卑斯山背景形成旅拍山村場景。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor",
+            "waterfront",
+            "natural",
+            "studio"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-高樓頂樓城市天際線:54",
@@ -499,7 +993,15 @@
       ],
       "zh": "戶外：高樓頂樓城市天際線",
       "en": "high-rise rooftop edge, rooftop guardrail and concrete parapet, modern city skyline in the distance, layered urban towers, broad rooftop ledge, elevated metropolitan overlook",
-      "desc": "參考高樓大廈頂樓或屋頂邊緣的人像場景，前景是頂樓欄杆、矮牆與屋頂平台，遠景是現代化都市、高樓群與天際線。"
+      "desc": "參考高樓大廈頂樓或屋頂邊緣的人像場景，前景是頂樓欄杆、矮牆與屋頂平台，遠景是現代化都市、高樓群與天際線。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "outdoor"
+          ]
+        }
+      }
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-飯店度假村泳池露台:55",
@@ -512,6 +1014,17 @@
       "lyingSurface": {
         "type": "floor",
         "en": "wet stone deck"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "hospitality",
+            "indoor",
+            "outdoor",
+            "waterfront"
+          ]
+        }
       }
     },
     {
@@ -521,7 +1034,18 @@
       ],
       "zh": "戶外：高級飯店陽台城市河景",
       "en": "luxury hotel balcony river-view terrace, glass railing, balcony ledge, high-rise facade edge, broad river below, dense skyline towers, asymmetric metropolitan overlook",
-      "desc": "參考高級飯店或高樓住宿陽台的人像場景，重點是玻璃欄杆、陽台邊、建築立面、下方寬闊河流與遠方密集都市天際線。"
+      "desc": "參考高級飯店或高樓住宿陽台的人像場景，重點是玻璃欄杆、陽台邊、建築立面、下方寬闊河流與遠方密集都市天際線。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "urban",
+            "hospitality",
+            "indoor",
+            "outdoor",
+            "waterfront"
+          ]
+        }
+      }
     }
   ]
 }

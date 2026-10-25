@@ -64,6 +64,7 @@ test('source marker does not grant arbitrary or existing lights the independent-
   const unknown = structuredClone(approved);
   delete unknown.stableId;
   delete unknown.legacyIds;
+  delete unknown.meta.semantic; // This fixture represents an unreviewed legacy/custom source.
   unknown.zh = '未核准人物主光';
   catalog.CameraLighting[category].push(unknown);
   const oldSun = sourceRow(catalog, '硬質晴光');

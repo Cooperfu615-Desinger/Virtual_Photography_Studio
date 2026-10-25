@@ -9,7 +9,17 @@
       ],
       "zh": "全無",
       "en": "no legwear, bare legs, clean leg styling",
-      "desc": "不加絲襪、膝上襪或其他襪類，讓腿部線條保持乾淨直接。"
+      "desc": "不加絲襪、膝上襪或其他襪類，讓腿部線條保持乾淨直接。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "legwear",
+            "no_accessory",
+            "uniform"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:襪類-legwear:透膚絲襪:1",
@@ -18,7 +28,16 @@
       ],
       "zh": "透膚絲襪",
       "en": "sheer pantyhose, translucent smooth hosiery",
-      "desc": "以薄透尼龍、平滑腿部表面與貼腿包覆為主，透明度低調。"
+      "desc": "以薄透尼龍、平滑腿部表面與貼腿包覆為主，透明度低調。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "revealing",
+            "legwear"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:襪類-legwear:半透明絲襪:2",
@@ -27,7 +46,16 @@
       ],
       "zh": "半透明絲襪",
       "en": "semi-sheer pantyhose, stronger translucent hosiery finish",
-      "desc": "以更明顯的半透明尼龍質感與平滑包覆為主，襪面存在感比透膚絲襪更強。"
+      "desc": "以更明顯的半透明尼龍質感與平滑包覆為主，襪面存在感比透膚絲襪更強。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "revealing",
+            "legwear"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:襪類-legwear:蕾絲大腿絲襪:3",
@@ -36,7 +64,19 @@
       ],
       "zh": "蕾絲大腿絲襪",
       "en": "lace-top thigh-high stockings, fitted sheer hosiery",
-      "desc": "以大腿長度、貼腿絲襪本體與蕾絲襪口為主，保留上緣裝飾細節。"
+      "desc": "以大腿長度、貼腿絲襪本體與蕾絲襪口為主，保留上緣裝飾細節。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "revealing",
+            "ornate",
+            "legwear",
+            "romantic",
+            "heritage"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:襪類-legwear:漁網絲襪:4",
@@ -45,7 +85,16 @@
       ],
       "zh": "漁網絲襪",
       "en": "fishnet tights, open net hosiery texture",
-      "desc": "以清楚開孔網格、貼腿彈性結構與強烈表面紋理為主。"
+      "desc": "以清楚開孔網格、貼腿彈性結構與強烈表面紋理為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "legwear",
+            "edgy"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:襪類-legwear:膝上蕾絲吊帶襪:5",
@@ -54,7 +103,19 @@
       ],
       "zh": "膝上蕾絲吊帶襪",
       "en": "thigh-high sheer garter stockings, lace top band, visible garter straps, delicate nylon hosiery",
-      "desc": "以膝上絲襪本體、半透明尼龍、蕾絲襪口與可見吊帶結構為主，避免只生成吊襪帶。"
+      "desc": "以膝上絲襪本體、半透明尼龍、蕾絲襪口與可見吊帶結構為主，避免只生成吊襪帶。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "revealing",
+            "ornate",
+            "legwear",
+            "romantic",
+            "heritage"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:襪類-legwear:柔和過膝絲襪:6",
@@ -63,7 +124,15 @@
       ],
       "zh": "柔和過膝絲襪",
       "en": "over-knee stockings, smooth fitted legwear",
-      "desc": "以過膝長度、平滑貼腿布面與柔和襪口線條為主。"
+      "desc": "以過膝長度、平滑貼腿布面與柔和襪口線條為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "legwear"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:襪類-legwear:俐落過膝絲襪:7",
@@ -72,7 +141,15 @@
       ],
       "zh": "俐落過膝絲襪",
       "en": "over-knee stockings, sleek fitted legwear",
-      "desc": "以過膝長度、俐落貼合輪廓與較清楚的襪口邊界為主。"
+      "desc": "以過膝長度、俐落貼合輪廓與較清楚的襪口邊界為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "legwear"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:襪類-legwear:羅紋短襪:8",
@@ -81,7 +158,16 @@
       ],
       "zh": "羅紋短襪",
       "en": "ribbed ankle socks, soft cotton texture",
-      "desc": "以腳踝高度、棉質羅紋與柔軟襪口為主。"
+      "desc": "以腳踝高度、棉質羅紋與柔軟襪口為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "legwear",
+            "casual"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:襪類-legwear:短襪:9",
@@ -90,7 +176,16 @@
       ],
       "zh": "短襪",
       "en": "ankle socks, clean casual cotton legwear",
-      "desc": "以腳踝高度、乾淨棉質表面與簡潔襪口為主。"
+      "desc": "以腳踝高度、乾淨棉質表面與簡潔襪口為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "legwear",
+            "casual"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:襪類-legwear:長筒襪:10",
@@ -99,7 +194,15 @@
       ],
       "zh": "長筒襪",
       "en": "knee-high socks, clean youthful legwear",
-      "desc": "以膝下到膝高長度、平整襪面與清楚襪口線條為主。"
+      "desc": "以膝下到膝高長度、平整襪面與清楚襪口線條為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "legwear"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:襪類-legwear:泡泡襪:11",
@@ -108,7 +211,15 @@
       ],
       "zh": "泡泡襪",
       "en": "slouchy leg warmers, soft gathered texture, scrunched lower-leg styling",
-      "desc": "以柔軟堆疊、聚皺襪面與小腿處的泡泡感為主。"
+      "desc": "以柔軟堆疊、聚皺襪面與小腿處的泡泡感為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "legwear"
+          ]
+        }
+      }
     }
   ]
 }

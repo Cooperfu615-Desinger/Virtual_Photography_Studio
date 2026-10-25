@@ -1,0 +1,15 @@
+{
+  "sourceCommit": "17074fbe3850e2e9fea300b36697643913f707a1",
+  "files": {
+    "AGENTS.md": "8e6361895b8f2494748cdca431bd6089ad017f570d78b62abaf1b52d7837d165",
+    "Docs/current_project_state.md": "c10f8fde2125fa3ffa6cd5bbe0e23977e5462dae109d6c0593478bd45308554f",
+    "Docs/specs/catalog-data-architecture-v1.md": "8382325e5c70bdba424c9f774d585290b70c1b9f92ed2edbc7bbec9fe9a34e4c",
+    "Docs/specs/engine-architecture.md": "583d8c03dd7290ae1ff3d509090f13c29b957b4f5f66ccb0ba835d379f806e0e",
+    "Docs/姿勢整理_舊資料去向.md": "034d846eda9a0b5c5ce69f497b594e60d250beb9668447c8a40fec008dc1f54d",
+    "knowledge_base/catalog/README.md": "5cb1d52cded46f0f45b247731483760ee4a6d72321fb9c1f13ce1b478a01ac1c",
+    "Docs/specs/character-section-a-authoring-guide.md": "7278e3ab1e497b0bdf0162bce8e00d7f4ea4032e844f7eb34a48c2ad1f3ffe68",
+    "Docs/specs/wardrobe-section-b-authoring-guide.md": "1e75c20dffdc36c19d566354474f718c87d756c9641be8afb72b165498125a30",
+    "Docs/specs/scene-section-c-authoring-guide.md": "a07c54705770b7c1b8af7b5264e6a75eb1fafb86a3f57332cd71fe35f5abf692",
+    "Docs/specs/photography-section-d-authoring-guide.md": "77de1e3103e64b795c18165895d63f163d96f33a180817c87c995b35daa79a05"
+  }
+}

@@ -9,7 +9,14 @@
       ],
       "zh": "全無",
       "en": "none",
-      "desc": "不指定五官特徵，讓模型自行決定臉部輪廓與辨識度。"
+      "desc": "不指定五官特徵，讓模型自行決定臉部輪廓與辨識度。",
+      "meta": {
+        "semantic": {
+          "minVisibility": "medium",
+          "tags": [],
+          "archetype": null
+        }
+      }
     },
     {
       "id": "character:五官特徵-facial-features:韓系偶像臉:1",
@@ -21,6 +28,13 @@
       "desc": "韓系偶像感的年輕漂亮臉，重點是精緻、上鏡、明亮與乾淨。",
       "mj": {
         "face": "small refined oval Korean face, clear almond eyes with straight brows, slender nose bridge and softly shaped lips"
+      },
+      "meta": {
+        "semantic": {
+          "minVisibility": "medium",
+          "tags": [],
+          "archetype": "korean"
+        }
       }
     },
     {
@@ -33,6 +47,13 @@
       "desc": "日系清透淡顏，重點是自然、透明、乾淨與柔和的寫真感。",
       "mj": {
         "face": "soft natural oval Japanese face, gentle almond eyes with natural brows, small nose and softly defined lips"
+      },
+      "meta": {
+        "semantic": {
+          "minVisibility": "medium",
+          "tags": [],
+          "archetype": null
+        }
       }
     },
     {
@@ -48,7 +69,14 @@
       },
       "legacyPromptAliases": [
         "young sweet pretty face, soft rounded charm, bright friendly eyes, gentle cute beauty, approachable youthful portrait look"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "minVisibility": "medium",
+          "tags": [],
+          "archetype": null
+        }
+      }
     },
     {
       "id": "character:五官特徵-facial-features:冷感高級臉:4",
@@ -63,7 +91,16 @@
       },
       "legacyPromptAliases": [
         "young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, high-fashion understated presence"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "minVisibility": "portrait",
+          "tags": [
+            "fine_detail"
+          ],
+          "archetype": "korean"
+        }
+      }
     },
     {
       "id": "character:五官特徵-facial-features:成熟性感臉:5",
@@ -78,7 +115,16 @@
       },
       "legacyPromptAliases": [
         "young seductive alluring beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence"
-      ]
+      ],
+      "meta": {
+        "semantic": {
+          "minVisibility": "portrait",
+          "tags": [
+            "fine_detail"
+          ],
+          "archetype": "korean"
+        }
+      }
     },
     {
       "id": "character:五官特徵-facial-features:混血立體臉:6",
@@ -90,6 +136,15 @@
       "desc": "立體骨相與國際 editorial 感，仍可服務日韓女性角色主線。",
       "mj": {
         "face": "dimensional elongated oval face, deep-set round eyes with defined brows, high nose bridge and sculpted lips"
+      },
+      "meta": {
+        "semantic": {
+          "minVisibility": "portrait",
+          "tags": [
+            "fine_detail"
+          ],
+          "archetype": null
+        }
       }
     }
   ]

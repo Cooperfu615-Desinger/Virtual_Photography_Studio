@@ -13,6 +13,14 @@
       "lyingSurface": {
         "type": "grass",
         "en": "green lawn"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "other_scene",
+            "green_space"
+          ]
+        }
       }
     },
     {
@@ -26,6 +34,15 @@
       "lyingSurface": {
         "type": "bed",
         "en": "white bed surface"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "other_scene",
+            "residential",
+            "indoor"
+          ]
+        }
       }
     },
     {
@@ -39,6 +56,15 @@
       "lyingSurface": {
         "type": "tatami",
         "en": "tatami ground plane"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "other_scene",
+            "indoor",
+            "commercial"
+          ]
+        }
       }
     },
     {
@@ -52,6 +78,14 @@
       "lyingSurface": {
         "type": "grass",
         "en": "green lawn"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "other_scene",
+            "green_space"
+          ]
+        }
       }
     },
     {
@@ -65,6 +99,16 @@
       "lyingSurface": {
         "type": "sand",
         "en": "fine sand surface"
+      },
+      "meta": {
+        "semantic": {
+          "tags": [
+            "other_scene",
+            "outdoor",
+            "waterfront",
+            "natural"
+          ]
+        }
       }
     }
   ]

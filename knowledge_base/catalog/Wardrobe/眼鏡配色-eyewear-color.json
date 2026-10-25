@@ -9,7 +9,16 @@
       ],
       "zh": "全無",
       "en": "no specified eyewear frame color",
-      "desc": "不指定眼鏡顏色或材質，保留眼鏡本體輪廓。"
+      "desc": "不指定眼鏡顏色或材質，保留眼鏡本體輪廓。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small",
+            "no_accessory"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:眼鏡配色-eyewear-color:黑色:1",
@@ -18,7 +27,15 @@
       ],
       "zh": "黑色",
       "en": "black frame",
-      "desc": "以黑色鏡框表面為主。"
+      "desc": "以黑色鏡框表面為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:眼鏡配色-eyewear-color:白色:2",
@@ -27,7 +44,15 @@
       ],
       "zh": "白色",
       "en": "white frame",
-      "desc": "以白色鏡框表面為主。"
+      "desc": "以白色鏡框表面為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:眼鏡配色-eyewear-color:玳瑁色:3",
@@ -36,7 +61,15 @@
       ],
       "zh": "玳瑁色",
       "en": "tortoiseshell frame",
-      "desc": "以琥珀棕與深色斑紋交錯的玳瑁鏡框為主。"
+      "desc": "以琥珀棕與深色斑紋交錯的玳瑁鏡框為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:眼鏡配色-eyewear-color:金屬銀:4",
@@ -45,7 +78,16 @@
       ],
       "zh": "金屬銀",
       "en": "silver metal frame",
-      "desc": "以銀色金屬鏡框材質為主。"
+      "desc": "以銀色金屬鏡框材質為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small",
+            "futuristic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:眼鏡配色-eyewear-color:金屬金:5",
@@ -54,7 +96,16 @@
       ],
       "zh": "金屬金",
       "en": "gold metal frame",
-      "desc": "以金色金屬鏡框材質為主。"
+      "desc": "以金色金屬鏡框材質為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small",
+            "futuristic"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:眼鏡配色-eyewear-color:透明框:6",
@@ -63,7 +114,15 @@
       ],
       "zh": "透明框",
       "en": "clear transparent frame",
-      "desc": "以透明或半透明膠框材質為主。"
+      "desc": "以透明或半透明膠框材質為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:眼鏡配色-eyewear-color:棕色:7",
@@ -72,7 +131,15 @@
       ],
       "zh": "棕色",
       "en": "brown frame",
-      "desc": "以棕色鏡框表面為主。"
+      "desc": "以棕色鏡框表面為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:眼鏡配色-eyewear-color:琥珀色:8",
@@ -81,7 +148,15 @@
       ],
       "zh": "琥珀色",
       "en": "amber translucent frame",
-      "desc": "以琥珀色半透明鏡框材質為主。"
+      "desc": "以琥珀色半透明鏡框材質為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:眼鏡配色-eyewear-color:藍色:9",
@@ -90,7 +165,15 @@
       ],
       "zh": "藍色",
       "en": "blue frame",
-      "desc": "以藍色鏡框表面為主。"
+      "desc": "以藍色鏡框表面為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:眼鏡配色-eyewear-color:紅色:10",
@@ -99,7 +182,15 @@
       ],
       "zh": "紅色",
       "en": "red frame",
-      "desc": "以紅色鏡框表面為主。"
+      "desc": "以紅色鏡框表面為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:眼鏡配色-eyewear-color:紫色:11",
@@ -108,7 +199,15 @@
       ],
       "zh": "紫色",
       "en": "purple frame",
-      "desc": "以紫色鏡框表面為主。"
+      "desc": "以紫色鏡框表面為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:眼鏡配色-eyewear-color:粉色:12",
@@ -117,7 +216,15 @@
       ],
       "zh": "粉色",
       "en": "pink frame",
-      "desc": "以粉色鏡框表面為主。"
+      "desc": "以粉色鏡框表面為主。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small"
+          ]
+        }
+      }
     }
   ]
 }

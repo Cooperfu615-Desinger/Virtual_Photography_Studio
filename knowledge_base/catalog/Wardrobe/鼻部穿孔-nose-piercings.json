@@ -9,7 +9,16 @@
       ],
       "zh": "全無",
       "en": "no nose piercing",
-      "desc": "不加鼻部穿孔飾品。"
+      "desc": "不加鼻部穿孔飾品。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small",
+            "no_accessory"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鼻部穿孔-nose-piercings:小型鼻釘:1",
@@ -18,7 +27,15 @@
       ],
       "zh": "小型鼻釘",
       "en": "a tiny silver stud piercing on one nostril",
-      "desc": "單側鼻翼配戴小型銀色鼻釘，位置清楚但保持低調。"
+      "desc": "單側鼻翼配戴小型銀色鼻釘，位置清楚但保持低調。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鼻部穿孔-nose-piercings:單側鼻翼細環:2",
@@ -27,7 +44,15 @@
       ],
       "zh": "單側鼻翼細環",
       "en": "a slim silver hoop piercing through one nostril",
-      "desc": "單側鼻翼配戴細窄銀色圓環。"
+      "desc": "單側鼻翼配戴細窄銀色圓環。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鼻部穿孔-nose-piercings:鼻中隔細環:3",
@@ -36,7 +61,15 @@
       ],
       "zh": "鼻中隔細環",
       "en": "a slim silver septum ring centered beneath the nose",
-      "desc": "鼻中隔中央配戴細窄銀色圓環。"
+      "desc": "鼻中隔中央配戴細窄銀色圓環。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small"
+          ]
+        }
+      }
     },
     {
       "id": "wardrobe:鼻部穿孔-nose-piercings:雙側鼻翼細環:4",
@@ -45,7 +78,15 @@
       ],
       "zh": "雙側鼻翼細環",
       "en": "two slim silver hoops piercing both nostrils",
-      "desc": "左右鼻翼各配戴一個細窄銀色圓環。"
+      "desc": "左右鼻翼各配戴一個細窄銀色圓環。",
+      "meta": {
+        "semantic": {
+          "family": "neutral",
+          "tags": [
+            "accessory_small"
+          ]
+        }
+      }
     }
   ]
 }
