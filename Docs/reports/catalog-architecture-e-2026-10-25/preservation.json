@@ -1,0 +1,20 @@
+{
+  "sourceSha": "5e7ed02952ceea4a2f76b81583c5f783748ff308",
+  "head": "5e7ed02952ceea4a2f76b81583c5f783748ff308",
+  "originMain": "5e7ed02952ceea4a2f76b81583c5f783748ff308",
+  "remoteMainVerified": "5e7ed02952ceea4a2f76b81583c5f783748ff308",
+  "unrelatedDirtyFiles": 140,
+  "changedUnrelatedFiles": [],
+  "unchangedTrackedOutsideE": 1679,
+  "archivedOperatingDocs": 10,
+  "archiveHashMismatches": 0,
+  "poseDocumentOriginalPrefixPreserved": true,
+  "stagedFiles": [],
+  "addedLocalLinksChecked": 49,
+  "invalidAddedLocalLinks": [],
+  "diffCheck": "passed including new text files",
+  "trackedFilesInE": 17,
+  "newFilesInE": 67,
+  "historicalABCDArtifactsChanged": false,
+  "baselineFixtureSha256": "27418a72920655416cdbe38b50ee89f97388e6e261dc2f512d4ac237fe937a6c"
+}

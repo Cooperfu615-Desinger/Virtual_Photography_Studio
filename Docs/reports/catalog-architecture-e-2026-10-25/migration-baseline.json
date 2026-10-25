@@ -1,0 +1,252 @@
+{
+  "sourceCommit": "5e7ed02952ceea4a2f76b81583c5f783748ff308",
+  "engineSha256": "65860b7ccc7c6fc2fc143bc9a8ff224d2dd016fa11d4776ba462474fbb3803ec",
+  "fixtureSha256": "27418a72920655416cdbe38b50ee89f97388e6e261dc2f512d4ac237fe937a6c",
+  "sourceSha256": "20fbfa2686ece0a9d7031a7a2b6f262402559e227ceb2b5e4f6f63c4fbd382fe",
+  "compiledSha256": "1321006cce0b7e5012b89ca4910ee1e08d514be21d34d91c0ac8780f3608ee55",
+  "controlsSha256": "c16a6712cd367e76293a0ddcd7da3e2675cbd06783a63a173e647a4bdf78caba",
+  "tables": 22,
+  "constants": 2,
+  "sourceRows": 334,
+  "restoreCases": 1098,
+  "inventory": [
+    {
+      "name": "LEGACY_CHARACTER_EXPRESSION_CATEGORY",
+      "line": 169,
+      "calculation": "literal",
+      "sourceHash": "14373f4c413e7c9b12c4a93ef86faab37d97e1bbd738b6143dd65eca9c2fd65d",
+      "rows": 1,
+      "consumers": []
+    },
+    {
+      "name": "LEGACY_ENVIRONMENT_MOOD_CATEGORY",
+      "line": 1035,
+      "calculation": "literal",
+      "sourceHash": "554a98e460f58a5072e2753422838a4ccf92d2664d01d3cd8eb62e2332ddc8bd",
+      "rows": 1,
+      "consumers": [
+        "buildEntries"
+      ]
+    },
+    {
+      "name": "REGIONAL_STYLE_LEGACY_OPTION_MAP",
+      "line": 2672,
+      "calculation": "literal",
+      "sourceHash": "5fecd77a4929b8b7a5bb26c60b818d90c434ef5c9ef5cb21cb781d790f584878",
+      "rows": 26,
+      "consumers": [
+        "applyRegionalLegacyOptionIds"
+      ]
+    },
+    {
+      "name": "CAMERA_FRAMING_LEGACY_OPTION_MAP",
+      "line": 2701,
+      "calculation": "literal",
+      "sourceHash": "40ff1c66f335cc68c2e4f2f311573be6fcaf028cdf6cbbcc1f842cd1dff15eb5",
+      "rows": 5,
+      "consumers": [
+        "applyCameraLegacyOptionIds"
+      ]
+    },
+    {
+      "name": "CAMERA_ANGLE_LEGACY_OPTION_MAP",
+      "line": 2709,
+      "calculation": "literal",
+      "sourceHash": "2c50fadd1c25422db1672b19ae159e6bc74e63b3182d3b04bea4e120f05014f1",
+      "rows": 6,
+      "consumers": [
+        "applyCameraLegacyOptionIds"
+      ]
+    },
+    {
+      "name": "CAMERA_ORBIT_LEGACY_OPTION_MAP",
+      "line": 2718,
+      "calculation": "literal",
+      "sourceHash": "c64131049e54915bc85687ee458b93114c4e98f78561e60fc81aebf4284c8a47",
+      "rows": 8,
+      "consumers": [
+        "applyCameraLegacyOptionIds"
+      ]
+    },
+    {
+      "name": "CAMERA_AMBIENT_LIGHT_RENAME_LEGACY_OPTION_MAP",
+      "line": 2729,
+      "calculation": "literal",
+      "sourceHash": "108414c90ecb409d99d539763a5ce3615b0ed1d5aa4ecd7946933f2d4f60d668",
+      "rows": 9,
+      "consumers": [
+        "applyCameraLegacyOptionIds"
+      ]
+    },
+    {
+      "name": "CAMERA_FILM_LEGACY_OPTION_MAP",
+      "line": 2741,
+      "calculation": "literal",
+      "sourceHash": "35ffed900c52e2bae1f9b06e4c4185c3c66fd66456ec29b9239787beb316053d",
+      "rows": 16,
+      "consumers": [
+        "applyCameraLegacyOptionIds"
+      ]
+    },
+    {
+      "name": "CAMERA_PROFILE_RENDERING_MIGRATIONS",
+      "line": 2760,
+      "calculation": "literal",
+      "sourceHash": "f86f219d696ec7de4822d439d36dcb457ec3e4a994b346ff042ea3eae93678f2",
+      "rows": 8,
+      "consumers": [
+        "normalizeLocks"
+      ]
+    },
+    {
+      "name": "CHARACTER_IDENTITY_LEGACY_OPTION_MAP",
+      "line": 2771,
+      "calculation": "literal",
+      "sourceHash": "77ec12abd43efe500ab41dafc4a7fb275891420fb0b5e25f58ac4c66a084e6b4",
+      "rows": 38,
+      "consumers": [
+        "applyCharacterIdentityLegacyOptionIds"
+      ]
+    },
+    {
+      "name": "CHARACTER_EXPRESSION_POSE_LEGACY_OPTION_MAP",
+      "line": 2812,
+      "calculation": "literal",
+      "sourceHash": "b918823da0605585fb93f5a05d6bf29b24267d5643f00b7b9dbe450230850e47",
+      "rows": 42,
+      "consumers": [
+        "applyCharacterExpressionPoseLegacyOptionIds"
+      ]
+    },
+    {
+      "name": "CHARACTER_EXPRESSION_POSE_LEGACY_SOCIAL_POSE_MIGRATIONS",
+      "line": 2927,
+      "calculation": "load-time map",
+      "sourceHash": "72d4aaa2e70a00b362dc364885cc764ba4c2297a25ca9ca95d129e2861300e4b",
+      "rows": 8,
+      "consumers": [
+        "applyExpressionPoseLegacySocialLockMigration"
+      ]
+    },
+    {
+      "name": "CHARACTER_LEGACY_SELFIE_SPECIAL_ACTION_MIGRATIONS",
+      "line": 2941,
+      "calculation": "load-time map",
+      "sourceHash": "b9775ce0993acfdfa04f3a00cc0130079206d4c520cb10ebd687f9d77828b214",
+      "rows": 4,
+      "consumers": [
+        "applyLegacySelfieSpecialActionMigration"
+      ]
+    },
+    {
+      "name": "CHARACTER_SPECIAL_ACTION_TO_POSE_COMPOSER_MIGRATIONS",
+      "line": 2951,
+      "calculation": "literal",
+      "sourceHash": "c366257fb94211a4ad3d0b0b6e8a1a326f8474b0ad9b5b4392d21df2e3612ac8",
+      "rows": 23,
+      "consumers": [
+        "applySpecialActionPoseComposerMigration"
+      ]
+    },
+    {
+      "name": "LEGACY_POSE_HAND_TO_PROP_ID",
+      "line": 2977,
+      "calculation": "load-time Map",
+      "sourceHash": "55cb881f25e1c99b7ceb29e74d1c108508c10618dc0dabf88b53574585065eae",
+      "rows": 7,
+      "consumers": [
+        "applyLegacyPoseHandPropMigration"
+      ]
+    },
+    {
+      "name": "CHARACTER_POSE_TO_POSE_COMPOSER_MIGRATIONS",
+      "line": 2987,
+      "calculation": "literal",
+      "sourceHash": "1aa90e076e8116216e070dc42d356440ecf74a8c092f2a1180e2fcffb06e2902",
+      "rows": 27,
+      "consumers": [
+        "applyPoseIdPoseComposerMigration"
+      ]
+    },
+    {
+      "name": "POSE_COMPOSER_ARRANGEMENT_TO_ANCHOR_MIGRATIONS",
+      "line": 3017,
+      "calculation": "literal",
+      "sourceHash": "9c8bfb953d97e8d93ef52faf03f095a1a1c3ecd8578db52a319de0ff6f42f65b",
+      "rows": 2,
+      "consumers": [
+        "applyPoseArrangementAnchorMigration"
+      ]
+    },
+    {
+      "name": "WARDROBE_LEGACY_OPTION_MAP",
+      "line": 3022,
+      "calculation": "literal",
+      "sourceHash": "f73d975a2ece419efb4919dd250aabcb9329dd9ba516a8521b56c9342bb24cf3",
+      "rows": 80,
+      "consumers": [
+        "applyWardrobeLegacyOptionIds"
+      ]
+    },
+    {
+      "name": "WARDROBE_LEGACY_PROMPT_ALIASES",
+      "line": 3137,
+      "calculation": "literal",
+      "sourceHash": "c9f8092aa71bac7fabe73fea31f18dc64e6c977bbbdfa46e5166797a9544574e",
+      "rows": 6,
+      "consumers": [
+        "applyWardrobeLegacyPromptAliases"
+      ]
+    },
+    {
+      "name": "LOCATION_LEGACY_PROMPT_ALIASES",
+      "line": 3169,
+      "calculation": "literal",
+      "sourceHash": "bd512df2bb17754598435b924ad409419c42cd2f28fce7bc73a2fe8c6331fc83",
+      "rows": 2,
+      "consumers": [
+        "applyLocationLegacyPromptAliases"
+      ]
+    },
+    {
+      "name": "WARDROBE_OUTFIT_TO_DRESS_LEGACY_LOCK_MIGRATIONS",
+      "line": 3188,
+      "calculation": "load-time map",
+      "sourceHash": "4f911034c7a6be5278f4931829f33284bad83cfcfa26097bca7c4bc823a9be9c",
+      "rows": 4,
+      "consumers": [
+        "applyOutfitPresetToDressLegacyLockMigration"
+      ]
+    },
+    {
+      "name": "LEGACY_HAIR_STYLING_STATE_MIGRATIONS",
+      "line": 3543,
+      "calculation": "literal",
+      "sourceHash": "d3e7154c7f51e16ec662d83f3caf52514b01e89e3cbcffbf892ed701173be5b0",
+      "rows": 1,
+      "consumers": [
+        "applyLegacyHairStylingStateMigration"
+      ]
+    },
+    {
+      "name": "LEGACY_EYEWEAR_LOCK_MIGRATIONS",
+      "line": 3785,
+      "calculation": "load-time map",
+      "sourceHash": "c55971951bcaf14b22d823e714861d26692a74b9b1261b7381a97706dfae689b",
+      "rows": 7,
+      "consumers": [
+        "applyEyewearLegacyLockMigration"
+      ]
+    },
+    {
+      "name": "LEGACY_OUTERWEAR_OPENING_LOCK_MIGRATIONS",
+      "line": 3822,
+      "calculation": "load-time map",
+      "sourceHash": "a5f5fc1e89a29c2dec32fa365860d4ba9e61e05e50f624c71296121e7963fd7c",
+      "rows": 5,
+      "consumers": [
+        "applyOuterwearOpeningLegacyLockMigration"
+      ]
+    }
+  ]
+}

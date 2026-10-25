@@ -21,7 +21,14 @@ These instructions apply to the whole repository. Optimize for the requested pro
 - Formal category JSON requires reviewed `meta.semantic`; generated Markdown/database must not be edited by hand. Follow `knowledge_base/catalog/README.md`.
 - Preserve ordered semantic values, IDs and aliases. When editing zh/en/desc, record whether semantics change and why; use `scripts/suggest_catalog_semantics.mjs <id>` for read-only advice, never automatic replacement.
 - Explicit semantic replaces inference before source metadata and dedicated fields; only historical/custom libraries without semantic use inference. Keep default runtime caches isolated.
-- D preserves known semantic mistakes and all legacy tables; no E or P5b work without separate authorization.
+- D preserves known semantic mistakes. E was separately authorized and only relocates legacy data; P5b remains out of scope.
+
+## Catalog Legacy Source (E)
+
+- The approved 22 tables and two legacy category constants live in `knowledge_base/catalog/legacy_mappings.json`; `webapp/src/data/legacyMappings.json` is its byte-identical generated copy. Neither is a category file or an ID registry.
+- Keep table/row/tuple order, labels, indices, targetZh and old IDs. Engine retains load-time maps, Map construction, slugify, first-match and missing-target fallback. Renderer text remains in engine.
+- Every field follows `scripts/lib/legacyMappingContract.json`; source contract changes require review. Sync rejects malformed/duplicate-key source, and strict integrity checks catalog displayZh, embedded targets, attributes and legacy-key collisions. Run E tool tests as well as the normal matrix.
+- Never re-record `engine/legacyMappings.baseline.json` to hide a migration difference. It seals pre-E computed values and 1,098 restore cases. Future approved behavior changes need a separately justified revision while preserving historical evidence.
 
 ## Product and Compatibility Boundaries
 

@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-25
 
+## 目錄資料架構 v1.1：E 已驗收、授權交付（2026-10-25）
+
+- HEAD／origin/main／遠端 main 均核對為 `5e7ed02952ceea4a2f76b81583c5f783748ff308`；D 已提交推送，[CI 40185121595](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40185121595)成功。Cooper 本輪核准22表＋2常數、renderer文字留原位，並確認 E 共用範圍凍結，僅本工作修改。
+- 完成 legacy_mappings.json → legacyMappings.json 原樣來源集中，共334筆；載入時 map／Map、slugify、所有 migration／renderer、first-match、靜默退路與資料順序保持。永久 pre-E fixture 封存真實計算表及1,098還原案例；437參照全有效，9個自身ID相等合法，兩處「雙腿屈起」與J12原結果不變。
+- 前端1,830/1,830、Prompt Quality754/754、Python41/41、工具21/21、lint/build／資料資產檢查通過。A3,251次重播與200同seed audit零差異（0 blockers／18既有診斷）；strict僅J12兩項、0 blocker／0 stale。桌手機44項、16張畫面通過，無瀏覽器錯誤或外部POST。
+- 56分類／1,050來源、schema／registry／index／semantic、database、六份Markdown與manifest不變；其他140份未提交內容SHA不變。十份操作原稿歸檔；姿勢去向文件只追加E來源追溯，原文與狀態保持。
+- [E報告與I1–I9](reports/catalog-architecture-e-2026-10-25/README.md)、[規格§15](specs/catalog-data-architecture-v1.md#15-e-舊映射集中2026-10-25)、[操作流程](../knowledge_base/catalog/README.md)。Cooper 已確認 E 驗收通過，授權只提交並 push 本批資料、程式、文件、基準、驗收工具與 CI 設定，保留其他未提交內容；實際 Git 與該提交 CI 結果另行核對，不以授權代表交付成功。P5b未開始。下方A–D保留當時歷史，現況以本段為準。
+
 ## 目錄資料架構 v1.1：D 已驗收、授權交付（2026-10-25）
 
 - 最新 main／遠端 main 為 `17074fbe3850e2e9fea300b36697643913f707a1`；C 已提交推送，[CI 40160077808](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40160077808)成功。Cooper 本輪重新確認 D 共用路徑凍結，僅本工作修改。

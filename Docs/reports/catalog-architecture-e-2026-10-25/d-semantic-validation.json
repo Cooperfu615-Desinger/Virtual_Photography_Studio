@@ -1,0 +1,14 @@
+{
+  "phase": "D",
+  "sourceSha": "17074fbe3850e2e9fea300b36697643913f707a1",
+  "records": 1050,
+  "categories": 56,
+  "semanticDifferences": 0,
+  "sourceDifferences": 0,
+  "databaseDifferences": 0,
+  "compiledDifferences": 0,
+  "controlDifferences": 0,
+  "protectedFiles": 10,
+  "compiledSha256": "1321006cce0b7e5012b89ca4910ee1e08d514be21d34d91c0ac8780f3608ee55",
+  "controlsSha256": "c16a6712cd367e76293a0ddcd7da3e2675cbd06783a63a173e647a4bdf78caba"
+}

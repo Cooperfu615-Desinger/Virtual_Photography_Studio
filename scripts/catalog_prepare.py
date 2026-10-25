@@ -162,7 +162,7 @@ def read_catalog_bundle(directory, schema):
                 raise ValueError('category identity mismatch')
             sync.validate_catalog_records(schema, data['section'], data['category'], data['entries'], str(path))
             records[data['section']][data['category']] = data['entries']
-    actual = {p.resolve() for p in directory.rglob('*.json')} - {directory/name for name in ('index.json', 'id_registry.json', 'schema.json', 'field_mapping.json')}
+    actual = {p.resolve() for p in directory.rglob('*.json')} - {directory/name for name in ('index.json', 'id_registry.json', 'schema.json', 'field_mapping.json', 'legacy_mappings.json')}
     if actual != paths:
         raise ValueError('missing or unexpected category files')
     if set(records) != set(schema['sections']) or any(set(cs) != set(schema['sections'][s]['categories']) for s, cs in records.items()):

@@ -50,11 +50,11 @@ class FormalSourceTests(unittest.TestCase):
     def test_real_source_metadata_management_files_and_order(self):
         self.assertEqual(sum(len(rs) for cs in self.records.values() for rs in cs.values()), 1050)
         outputs, proof = sync.build_outputs(self.base)
-        self.assertEqual(len(outputs), 7); self.assertEqual(proof['historicalIds'], 1050)
+        self.assertEqual(len(outputs), 8); self.assertEqual(proof['historicalIds'], 1050)
         self.assertEqual(list(self.records), list(sync.FILES_TO_SYNC.values()))
         self.assertTrue(any(row.get('outerwearFastenerRequirement') == '' for cs in self.records.values() for rs in cs.values() for row in rs))
 
-    def test_check_readonly_idempotent_and_all_seven_outputs(self):
+    def test_check_readonly_idempotent_and_all_eight_outputs(self):
         outputs, _ = sync.build_outputs(self.base); sync.publish_outputs(outputs)
         before = self.snapshot()
         with contextlib.redirect_stdout(io.StringIO()): self.assertEqual(sync.main(['--check']), 0)
@@ -75,8 +75,18 @@ class FormalSourceTests(unittest.TestCase):
         after=self.snapshot();before.pop('knowledge_base/catalog/'+relative);after.pop('knowledge_base/catalog/'+relative)
         self.assertEqual(before,after)
 
+    def test_legacy_source_failure_leaves_all_eight_outputs_unchanged(self):
+        sync.publish_outputs(sync.build_outputs(self.base)[0]); before=self.snapshot()
+        relative='legacy_mappings.json'
+        data=json.loads((self.kb/'catalog'/relative).read_text())
+        data['tables']['REGIONAL_STYLE_LEGACY_OPTION_MAP']['fields']['targetZh']['fieldKind']='legacy-key'
+        self.write(relative,data)
+        with contextlib.redirect_stderr(io.StringIO()): self.assertEqual(sync.main([]),1)
+        after=self.snapshot();before.pop('knowledge_base/catalog/'+relative);after.pop('knowledge_base/catalog/'+relative)
+        self.assertEqual(before,after)
+
     def test_replace_failure_rolls_back_every_output(self):
-        outputs={self.root/f'{n}.txt':'new' for n in range(7)}
+        outputs={self.root/f'{n}.txt':'new' for n in range(8)}
         for p in outputs:p.write_text('old')
         original=os.replace;calls=[]
         def fail_fourth(a,b):

@@ -403,6 +403,8 @@ def build_outputs(base_commit=None):
     outputs = {Path(OUTPUT_FILE): render_database(database)}
     for layout in index['markdown']:
         outputs[Path(KB_DIR)/layout['file']] = render_markdown(layout, by_id)
+    from scripts.catalog_legacy import read_legacy_source
+    outputs[Path(OUTPUT_FILE).with_name('legacyMappings.json')] = read_legacy_source(catalog/'legacy_mappings.json')
     return outputs, proof
 
 

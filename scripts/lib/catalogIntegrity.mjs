@@ -4,6 +4,7 @@ import { pathToFileURL } from 'node:url';
 import { createRequire } from 'node:module';
 import { isDeepStrictEqual } from 'node:util';
 import { execFileSync } from 'node:child_process';
+import { validateLegacyReferences } from './catalogLegacy.mjs';
 
 export function controlIssues(controls) {
   const issues = [];
@@ -233,6 +234,7 @@ export async function extendedChecks(repo, controls, parseFile) {
   const schemaResult = JSON.parse(execFileSync('python3', ['-B', join(repo, 'scripts/sync_to_json.py'), '--check', '--report-json'], { encoding: 'utf8', maxBuffer: 8*1024*1024 }));
   const mapping = checkFieldMapping(read('webapp/src/data/database.json'), compiled.entries, read('knowledge_base/catalog/field_mapping.json'));
   const paths = checkDeclaredPaths(read('webapp/src/data/database.json'), read('knowledge_base/catalog/field_mapping.json'));
-  errors.push(...mapping.issues, ...paths.issues);
-  return { issues: errors, characterSets: Object.fromEntries(Object.entries(sets).map(([k, v]) => [k, v.length])), fieldCoverage: mapping.coverage, observedPaths: paths.observedPaths, schemaResult, overlayFiles };
+  const legacy = await validateLegacyReferences(repo, read('knowledge_base/catalog/legacy_mappings.json'), engine);
+  errors.push(...mapping.issues, ...paths.issues, ...legacy.issues);
+  return { issues: errors, characterSets: Object.fromEntries(Object.entries(sets).map(([k, v]) => [k, v.length])), fieldCoverage: mapping.coverage, observedPaths: paths.observedPaths, schemaResult, overlayFiles, legacy };
 }

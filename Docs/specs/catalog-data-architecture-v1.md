@@ -1,7 +1,7 @@
 # 目錄資料架構 v1：穩定 ID、正式 schema、語意資料化
 
 - 文件修訂：**v1.1，2026-10-24**；保留既有檔名，供原連結繼續使用。
-- 狀態：A／B／C 已驗收交付；C 提交 `17074fb` 的 CI 已通過。Cooper 已確認 D 凍結並授權實作，2026-10-25 以該完整提交為 pre-D 完成語意原樣搬移與本機驗收，Cooper 已確認 D 驗收通過並授權僅提交／推送本批，實際 Git 與 CI 結果另行核對。E／P5b 未開始。最新證據見 §14，下方 A／B／C 為各階段歷史。
+- 狀態：A–D 已驗收交付；D 提交 `5e7ed02952ceea4a2f76b81583c5f783748ff308` 的 CI 40185121595 已通過。Cooper 已確認 E 的 22 表＋2 常數範圍及共用凍結，本輪依此固定 pre-E 完成原樣搬移與本機驗收，Cooper 已確認驗收通過並授權僅提交／推送本批 E；實際 Git 與 CI 結果另行核對。P5b 未開始。最新證據見 §15，下方 A–D 為歷史。
 - 範圍：保留原 Phase 1–3 的工作內容，執行順序改為 §7 的 A–E 階段；所有遷移均不改公開 Prompt、UI 顯示、隨機選取行為或使用者存檔格式。已知內容問題另立 Phase 4。
 - 依據：[資料庫完整分析報告](../reports/database-analysis-2026-10-11/README.md) 與 [2026-10-13 決策](../decisions/2026-10-13-catalog-data-architecture.md)。原決策保留為歷史紀錄；執行細節以本修訂為準。
 - 原 A 基準版本：`0746b280cc9f5c00daec7dadc73329779ac658e9`。2026-10-24 後續授權對齊的本機與 GitHub `main` 為 `2f56438804e751de4556060b293231966d6ea3b3`；原基準永久保留，新版本另建 manifest。基礎目錄為 6 分區、56 分類、1,050 條，37 條有 `stableId`；執行期為 219 個 controls、4,771 個 options。這些是基準觀察值，不是永久限制。
@@ -624,3 +624,17 @@ Cooper 已確認 C 階段驗收通過，明確授權只提交並 push 本次 C �
 ### 14.1 D 驗收與 Git 交付授權（2026-10-25）
 
 Cooper 已確認 D 階段驗收通過，明確授權只提交並 push 本次 D 的資料、程式、文件、驗收工具與 CI 設定，保留其他未提交內容。僅依 D 交付清單提交，完成後確認該提交的 CI；上節保留本機驗收當時的狀態，本節授權不代表 Git／CI 已成功。不進入 E 或 P5b。
+
+## 15. E 舊映射集中（2026-10-25）
+
+- 以最新 main `5e7ed02952ceea4a2f76b81583c5f783748ff308` 為固定 pre-E；D 的 [CI 40185121595](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40185121595) 已成功。Cooper 依 §6.2.1 明確選定 22 張映射表＋2 個舊分類常數，renderer 文字留原位，並重新確認共用範圍只由本次 E 修改。
+- 先封存原稿、原始 source hash、原引擎計算值及 1,098 個還原案例，再接入 JSON。來源共334筆；五個載入時 map 與一個 Map 建構原樣，髮絲 Map 仍在函式呼叫時計算。所有 migration 函式與 renderer 逐位元組不變。
+- fields 固定契約新增 catalog-category／legacy-category；tuple 使用 pair／pairs format 檢查 label 與非負整數索引。分類為上下文，不是把 targetZh 改成 ID。完整性工具使用原編譯 displayZh 與 JS 嵌入選項驗證 437 處參照，9 個自身 ID 相等合法。重複舊鍵按同表／分類／欄位與完整 tuple 判定；不得用改 fields 繞過檢查。
+- `legacy_mappings.json` 是管理來源，不列入分類 index；同步原樣複製為 legacyMappings.json，與原七份生成物一起準備及失敗回復。schema、registry、全部分類、六份 Markdown、database、manifest 原值不變。
+- 兩筆「雙腿屈起」保留既有順序，先命中 sitting-hug-knees；J12 兩個精確例外不變。renderer 文字、函式陣列、函式內局部映射及其他模組不搬。姿勢去向文件只追加必要追溯，既有內容與狀態保持，P5b 未開始。
+- [E 報告與 I1–I9](../reports/catalog-architecture-e-2026-10-25/README.md)、[完整 inventory／來源行號與 consumers](../reports/catalog-architecture-e-2026-10-25/migration-baseline.json)、[操作方式](../../knowledge_base/catalog/README.md#e-舊映射集中)、[十份原稿](../archive/2026-10-25-catalog-e/ARCHIVE_INDEX.md)。基準 fixture 永久保存，失敗時不得重新錄製。
+- 本輪只本機實作與驗收，不 stage／commit／push。E 遠端 CI 尚不存在，D CI 不代表 E 已發布。完成後仍需 Cooper 驗收與另行交付授權。
+
+### 15.1 E 驗收與交付授權
+
+Cooper 已確認 E 階段驗收通過，授權只提交並 push 本批 E 的資料、程式、文件、基準、驗收工具與 CI 設定，保留其他未提交內容。僅依84份 E 交付清單提交，完成後確認該提交的 CI。上節保留本機驗收時的狀態，本節授權不等同 Git／CI 已成功；不進入 P5b。

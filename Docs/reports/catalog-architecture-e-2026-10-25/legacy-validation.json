@@ -1,0 +1,44 @@
+{
+  "phase": "E",
+  "sourceSha": "5e7ed02952ceea4a2f76b81583c5f783748ff308",
+  "tables": 22,
+  "constants": 2,
+  "sourceRows": 334,
+  "restoreCases": 1098,
+  "sourceDifferences": 0,
+  "computedDifferences": 0,
+  "restoreDifferences": 0,
+  "compiledDifferences": 0,
+  "controlDifferences": 0,
+  "engineLogicDifferences": 0,
+  "protectedFiles": 72,
+  "sourceSha256": "20fbfa2686ece0a9d7031a7a2b6f262402559e227ceb2b5e4f6f63c4fbd382fe",
+  "fixtureSha256": "27418a72920655416cdbe38b50ee89f97388e6e261dc2f512d4ac237fe937a6c",
+  "references": {
+    "issues": [],
+    "tables": 22,
+    "constants": 2,
+    "references": 437,
+    "selfAliases": 9,
+    "ambiguous": [
+      {
+        "key": "CHARACTER_SPECIAL_ACTION_TO_POSE_COMPOSER_MIGRATIONS[8].arrangementZh",
+        "value": "雙腿屈起",
+        "orderedMatches": [
+          "sitting-hug-knees",
+          "lying-body-legs-bent"
+        ],
+        "firstMatch": "sitting-hug-knees"
+      },
+      {
+        "key": "CHARACTER_POSE_TO_POSE_COMPOSER_MIGRATIONS[11].arrangementZh",
+        "value": "雙腿屈起",
+        "orderedMatches": [
+          "sitting-hug-knees",
+          "lying-body-legs-bent"
+        ],
+        "firstMatch": "sitting-hug-knees"
+      }
+    ]
+  }
+}

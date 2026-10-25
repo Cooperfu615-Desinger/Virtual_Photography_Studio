@@ -1,0 +1,530 @@
+{
+  "version": 1,
+  "constants": {
+    "LEGACY_CHARACTER_EXPRESSION_CATEGORY": {
+      "fieldKind": "legacy-category"
+    },
+    "LEGACY_ENVIRONMENT_MOOD_CATEGORY": {
+      "fieldKind": "legacy-category"
+    }
+  },
+  "tables": {
+    "REGIONAL_STYLE_LEGACY_OPTION_MAP": {
+      "shape": "records",
+      "fields": {
+        "category": {
+          "fieldKind": "catalog-category",
+          "group": "regional",
+          "required": true
+        },
+        "targetZh": {
+          "fieldKind": "catalog-zh",
+          "group": "regional",
+          "categoryField": "category",
+          "required": true
+        },
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pairs",
+          "required": true
+        }
+      }
+    },
+    "CAMERA_FRAMING_LEGACY_OPTION_MAP": {
+      "shape": "records",
+      "fields": {
+        "category": {
+          "fieldKind": "catalog-category",
+          "group": "camera",
+          "required": true
+        },
+        "targetZh": {
+          "fieldKind": "catalog-zh",
+          "group": "camera",
+          "categoryField": "category",
+          "required": true
+        },
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pairs",
+          "required": true
+        }
+      }
+    },
+    "CAMERA_ANGLE_LEGACY_OPTION_MAP": {
+      "shape": "records",
+      "fields": {
+        "category": {
+          "fieldKind": "catalog-category",
+          "group": "camera",
+          "required": true
+        },
+        "targetZh": {
+          "fieldKind": "catalog-zh",
+          "group": "camera",
+          "categoryField": "category",
+          "required": true
+        },
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pairs",
+          "required": true
+        }
+      }
+    },
+    "CAMERA_ORBIT_LEGACY_OPTION_MAP": {
+      "shape": "records",
+      "fields": {
+        "category": {
+          "fieldKind": "catalog-category",
+          "group": "camera",
+          "required": true
+        },
+        "targetZh": {
+          "fieldKind": "catalog-zh",
+          "group": "camera",
+          "categoryField": "category",
+          "required": true
+        },
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pairs",
+          "required": true
+        }
+      }
+    },
+    "CAMERA_AMBIENT_LIGHT_RENAME_LEGACY_OPTION_MAP": {
+      "shape": "records",
+      "fields": {
+        "category": {
+          "fieldKind": "catalog-category",
+          "group": "camera",
+          "required": true
+        },
+        "targetZh": {
+          "fieldKind": "catalog-zh",
+          "group": "camera",
+          "categoryField": "category",
+          "required": true
+        },
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pairs",
+          "required": true
+        }
+      }
+    },
+    "CAMERA_FILM_LEGACY_OPTION_MAP": {
+      "shape": "records",
+      "fields": {
+        "category": {
+          "fieldKind": "catalog-category",
+          "group": "camera",
+          "required": true
+        },
+        "targetZh": {
+          "fieldKind": "catalog-zh",
+          "group": "camera",
+          "categoryField": "category",
+          "required": true
+        },
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pairs",
+          "required": true
+        }
+      }
+    },
+    "CAMERA_PROFILE_RENDERING_MIGRATIONS": {
+      "shape": "dictionary",
+      "fields": {
+        "$key": {
+          "fieldKind": "legacy-key"
+        },
+        "$value": {
+          "fieldKind": "catalog-zh",
+          "group": "camera",
+          "category": "底片與相機模擬 (Camera & Film Simulation)"
+        }
+      }
+    },
+    "CHARACTER_IDENTITY_LEGACY_OPTION_MAP": {
+      "shape": "records",
+      "fields": {
+        "category": {
+          "fieldKind": "catalog-category",
+          "group": "character",
+          "required": true
+        },
+        "targetZh": {
+          "fieldKind": "catalog-zh",
+          "group": "character",
+          "categoryField": "category",
+          "required": true
+        },
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pairs",
+          "required": true
+        }
+      }
+    },
+    "CHARACTER_EXPRESSION_POSE_LEGACY_OPTION_MAP": {
+      "shape": "records",
+      "fields": {
+        "category": {
+          "fieldKind": "catalog-category",
+          "group": "character",
+          "required": true
+        },
+        "legacyCategory": {
+          "fieldKind": "legacy-category",
+          "required": false
+        },
+        "targetZh": {
+          "fieldKind": "catalog-zh",
+          "group": "character",
+          "categoryField": "category",
+          "required": true
+        },
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pairs",
+          "required": true
+        }
+      }
+    },
+    "CHARACTER_EXPRESSION_POSE_LEGACY_SOCIAL_POSE_MIGRATIONS": {
+      "shape": "records",
+      "fields": {
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pair",
+          "required": true
+        },
+        "baseZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_BASE_OPTIONS",
+          "match": "zh",
+          "required": true
+        },
+        "arrangementZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_ARRANGEMENT_OPTIONS",
+          "match": "zh",
+          "required": true
+        },
+        "handZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_HAND_OPTIONS",
+          "match": "zh",
+          "required": false
+        },
+        "propZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_PROP_OPTIONS",
+          "match": "zh",
+          "required": false
+        }
+      }
+    },
+    "CHARACTER_LEGACY_SELFIE_SPECIAL_ACTION_MIGRATIONS": {
+      "shape": "records",
+      "fields": {
+        "label": {
+          "fieldKind": "legacy-key",
+          "required": true
+        },
+        "handZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_HAND_OPTIONS",
+          "match": "zh",
+          "required": false
+        },
+        "propZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_PROP_OPTIONS",
+          "match": "zh",
+          "required": false
+        }
+      }
+    },
+    "CHARACTER_SPECIAL_ACTION_TO_POSE_COMPOSER_MIGRATIONS": {
+      "shape": "records",
+      "fields": {
+        "label": {
+          "fieldKind": "legacy-key",
+          "required": true
+        },
+        "baseZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_BASE_OPTIONS",
+          "match": "zh",
+          "required": true
+        },
+        "propZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_PROP_OPTIONS",
+          "match": "zh",
+          "required": false
+        },
+        "handZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_HAND_OPTIONS",
+          "match": "zh",
+          "required": false
+        },
+        "arrangementZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_ARRANGEMENT_OPTIONS",
+          "match": "zh",
+          "required": false
+        },
+        "headZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_HEAD_OPTIONS",
+          "match": "zh",
+          "required": false
+        },
+        "anchorZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_ANCHOR_OPTIONS",
+          "match": "zh",
+          "required": false
+        }
+      }
+    },
+    "LEGACY_POSE_HAND_TO_PROP_ID": {
+      "shape": "pairs",
+      "fields": {
+        "0": {
+          "fieldKind": "legacy-key"
+        },
+        "1": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_PROP_OPTIONS",
+          "match": "id"
+        }
+      }
+    },
+    "CHARACTER_POSE_TO_POSE_COMPOSER_MIGRATIONS": {
+      "shape": "records",
+      "fields": {
+        "label": {
+          "fieldKind": "legacy-key",
+          "required": true
+        },
+        "baseZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_BASE_OPTIONS",
+          "match": "zh",
+          "required": true
+        },
+        "arrangementZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_ARRANGEMENT_OPTIONS",
+          "match": "zh",
+          "required": true
+        },
+        "handZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_HAND_OPTIONS",
+          "match": "zh",
+          "required": false
+        },
+        "headZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_HEAD_OPTIONS",
+          "match": "zh",
+          "required": false
+        }
+      }
+    },
+    "POSE_COMPOSER_ARRANGEMENT_TO_ANCHOR_MIGRATIONS": {
+      "shape": "records",
+      "fields": {
+        "arrangementId": {
+          "fieldKind": "legacy-key",
+          "required": true
+        },
+        "baseZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_BASE_OPTIONS",
+          "match": "zh",
+          "required": true
+        },
+        "anchorZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_ANCHOR_OPTIONS",
+          "match": "zh",
+          "required": true
+        },
+        "arrangementZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_ARRANGEMENT_OPTIONS",
+          "match": "zh",
+          "required": false
+        }
+      }
+    },
+    "WARDROBE_LEGACY_OPTION_MAP": {
+      "shape": "records",
+      "fields": {
+        "category": {
+          "fieldKind": "catalog-category",
+          "group": "wardrobe",
+          "required": true
+        },
+        "targetZh": {
+          "fieldKind": "catalog-zh",
+          "group": "wardrobe",
+          "categoryField": "category",
+          "required": true
+        },
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pairs",
+          "required": true
+        }
+      }
+    },
+    "WARDROBE_LEGACY_PROMPT_ALIASES": {
+      "shape": "records",
+      "fields": {
+        "category": {
+          "fieldKind": "catalog-category",
+          "group": "wardrobe",
+          "required": true
+        },
+        "targetZh": {
+          "fieldKind": "catalog-zh",
+          "group": "wardrobe",
+          "categoryField": "category",
+          "required": true
+        },
+        "prompts": {
+          "fieldKind": "legacy-key",
+          "format": "strings",
+          "required": true
+        }
+      }
+    },
+    "LOCATION_LEGACY_PROMPT_ALIASES": {
+      "shape": "records",
+      "fields": {
+        "category": {
+          "fieldKind": "catalog-category",
+          "group": "locations",
+          "required": true
+        },
+        "targetZh": {
+          "fieldKind": "catalog-zh",
+          "group": "locations",
+          "categoryField": "category",
+          "required": true
+        },
+        "prompts": {
+          "fieldKind": "legacy-key",
+          "format": "strings",
+          "required": true
+        }
+      }
+    },
+    "WARDROBE_OUTFIT_TO_DRESS_LEGACY_LOCK_MIGRATIONS": {
+      "shape": "records",
+      "fields": {
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pair",
+          "required": true
+        },
+        "dressZh": {
+          "fieldKind": "catalog-zh",
+          "group": "wardrobe",
+          "category": "連身 (Dresses)",
+          "required": true
+        }
+      }
+    },
+    "LEGACY_HAIR_STYLING_STATE_MIGRATIONS": {
+      "shape": "records",
+      "fields": {
+        "stateZh": {
+          "fieldKind": "attribute",
+          "group": "character",
+          "category": "髮絲整理狀態 (Hair Styling State)",
+          "required": true
+        },
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pairs",
+          "required": true
+        }
+      }
+    },
+    "LEGACY_EYEWEAR_LOCK_MIGRATIONS": {
+      "shape": "records",
+      "fields": {
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pair",
+          "required": true
+        },
+        "frameZh": {
+          "fieldKind": "attribute",
+          "group": "wardrobe",
+          "category": "眼鏡 (Eyewear)",
+          "required": true
+        },
+        "colorZh": {
+          "fieldKind": "attribute",
+          "group": "wardrobe",
+          "category": "眼鏡配色 (Eyewear Color)",
+          "required": false
+        },
+        "placementZh": {
+          "fieldKind": "attribute",
+          "group": "wardrobe",
+          "category": "眼鏡配戴方式 (Eyewear Placement)",
+          "required": true
+        }
+      }
+    },
+    "LEGACY_OUTERWEAR_OPENING_LOCK_MIGRATIONS": {
+      "shape": "records",
+      "fields": {
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pair",
+          "required": true
+        },
+        "openingZh": {
+          "fieldKind": "attribute",
+          "group": "wardrobe",
+          "category": "外套開合 (Outerwear Opening)",
+          "required": true
+        }
+      }
+    }
+  }
+}

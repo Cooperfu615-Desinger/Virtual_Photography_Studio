@@ -58,7 +58,7 @@ jobs:
         run: node scripts/check_catalog_integrity.mjs --strict
 
       - name: Test catalog preparation tools
-        run: node --test scripts/tests/catalog-integrity.test.mjs scripts/tests/catalog-semantics.test.mjs
+        run: node --test scripts/tests/catalog-integrity.test.mjs scripts/tests/catalog-semantics.test.mjs scripts/tests/catalog-legacy.test.mjs
 
       - name: Verify formal catalog history and all generated outputs
         run: python3 scripts/sync_to_json.py --check --report-json

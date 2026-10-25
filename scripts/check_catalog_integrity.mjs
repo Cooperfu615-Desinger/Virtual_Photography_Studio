@@ -610,7 +610,7 @@ for (const stmt of engineAst.body) {
     if (!init || !['ArrayExpression', 'ObjectExpression'].includes(init.type)) continue;
     const size = init.type === 'ArrayExpression' ? init.elements.length : init.properties.length;
     const lines = d.loc.end.line - d.loc.start.line + 1;
-    if (lines >= 5) engineTables.push({ name: d.id.name, line: d.loc.start.line, lines, entries: size, legacy: /LEGACY|MIGRATION/.test(d.id.name) });
+    if ((lines >= 5 || /LEGACY|MIGRATION/.test(d.id.name)) && d.id.name !== 'AI_LEGACY_SINGLE_RENDERER_HELPERS') engineTables.push({ name: d.id.name, line: d.loc.start.line, lines, entries: size, legacy: /LEGACY|MIGRATION/.test(d.id.name) });
   }
 }
 engineTables.sort((a, b) => b.lines - a.lines);
@@ -647,6 +647,12 @@ for (const [file] of embeddedModules) {
 }
 const tableLines = engineTables.reduce((a, t) => a + t.lines, 0);
 const legacyTables = engineTables.filter((t) => t.legacy);
+const relocatedLegacy = JSON.parse(fs.readFileSync(P('knowledge_base/catalog/legacy_mappings.json'), 'utf8'));
+report.sections.legacySourceInventory = {
+  tables: Object.entries(relocatedLegacy.tables).map(([name, t]) => ({name, entries: Object.keys(t.source).length, fields: t.fields})),
+  constants: Object.keys(relocatedLegacy.constants),
+  excluded: ['LEGACY_OUTERWEAR_DOUBLE_SHOULDER_STYLING_TEXT (renderer text)', 'AI_LEGACY_SINGLE_RENDERER_HELPERS (functions)'],
+};
 report.sections.embeddedInventory = {
   modules: inventory,
   deprecationBurden: deprecation,

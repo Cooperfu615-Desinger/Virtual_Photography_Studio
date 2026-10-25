@@ -1,0 +1,3819 @@
+{
+  "version": 1,
+  "constants": {
+    "LEGACY_CHARACTER_EXPRESSION_CATEGORY": {
+      "fieldKind": "legacy-category",
+      "value": "神情與眼神 (Expression & Gaze)"
+    },
+    "LEGACY_ENVIRONMENT_MOOD_CATEGORY": {
+      "fieldKind": "legacy-category",
+      "value": "環境光氛 (Environment Mood)"
+    }
+  },
+  "tables": {
+    "REGIONAL_STYLE_LEGACY_OPTION_MAP": {
+      "shape": "records",
+      "fields": {
+        "category": {
+          "fieldKind": "catalog-category",
+          "group": "regional",
+          "required": true
+        },
+        "targetZh": {
+          "fieldKind": "catalog-zh",
+          "group": "regional",
+          "categoryField": "category",
+          "required": true
+        },
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pairs",
+          "required": true
+        }
+      },
+      "source": [
+        {
+          "category": "攝影風格",
+          "targetZh": "蜷川實花｜濃烈色彩戲劇感",
+          "legacy": [
+            [
+              "Mika Ninagawa（蜷川實花）",
+              0
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "上田義彥｜靜默自然暗調",
+          "legacy": [
+            [
+              "Yoshihiko Ueda（上田義彥）",
+              1
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "橫浪修｜群像留白秩序",
+          "legacy": [
+            [
+              "Osamu Yokonami（橫浪修）",
+              2
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "川內倫子｜輕盈日常微光",
+          "legacy": [
+            [
+              "Rinko Kawauchi（川內倫子）",
+              3
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "石田真澄｜柔亮底片空氣感",
+          "legacy": [
+            [
+              "Masumi Ishida（石田真澄）",
+              4
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "市橋織江｜透明自然低飽和",
+          "legacy": [
+            [
+              "Orie Ichihashi（市橋織江）",
+              5
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "高橋洋子｜乾爽日光褪色",
+          "legacy": [
+            [
+              "Yoko Takahashi（高橋ヨーコ）",
+              6
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "保羅・羅韋爾西｜柔霧高級時裝",
+          "legacy": [
+            [
+              "Paolo Roversi（保羅・羅韋爾西）",
+              7
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "艾倫・馮・昂沃斯｜俏皮抓拍雜誌",
+          "legacy": [
+            [
+              "Ellen von Unwerth（艾倫・馮・昂沃斯）",
+              8
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "南・戈爾丁｜私人相簿粗粒子",
+          "legacy": [
+            [
+              "Nan Goldin（南・戈爾丁）",
+              9
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "尤爾根・特勒｜直閃反精緻",
+          "legacy": [
+            [
+              "Juergen Teller（尤爾根・特勒）",
+              10
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "理察・阿維頓｜極簡留白肖像",
+          "legacy": [
+            [
+              "Richard Avedon（理察・阿維頓）",
+              11
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "亞歷克・索斯｜寬鬆紀實敘事",
+          "legacy": [
+            [
+              "Alec Soth（亞歷克・索斯）",
+              12
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "莎莉・曼｜古典濕版記憶感",
+          "legacy": [
+            [
+              "Sally Mann（莎莉・曼）",
+              13
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "沃夫岡・提爾曼斯｜生活切片隨拍",
+          "legacy": [
+            [
+              "Wolfgang Tillmans（沃夫岡・提爾曼斯）",
+              14
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "森山大道｜噪訊黑白暗調",
+          "legacy": [
+            [
+              "Daido Moriyama（森山大道）",
+              15
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "荒木經惟｜私寫真親密",
+          "legacy": [
+            [
+              "Nobuyoshi Araki（荒木經惟）",
+              16
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "篠山紀信｜經典寫真名人肖像",
+          "legacy": [
+            [
+              "Kishin Shinoyama（篠山紀信）",
+              17
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "鈴木親｜年輕時尚生活感",
+          "legacy": [
+            [
+              "Chikashi Suzuki（鈴木親）",
+              18
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "青山裕企｜青春寫真直接人像",
+          "legacy": [
+            [
+              "Yuki Aoyama（青山裕企）",
+              19
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "奧山由之｜青春電影透明敘事",
+          "legacy": [
+            [
+              "Yuhki Toyama（奧山由之）",
+              20
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "萊斯利・基｜華麗明星商業感",
+          "legacy": [
+            [
+              "Leslie Kee（レスリー・キー）",
+              21
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "細江英公｜戲劇黑白藝術張力",
+          "legacy": [
+            [
+              "Eikoh Hosoe（細江英公）",
+              22
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "蓋・布爾丁｜鮮豔敘事時裝",
+          "legacy": [
+            [
+              "Guy Bourdin（蓋・布爾丁）",
+              23
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "邁爾斯・奧爾德里奇｜復古濃彩高製作",
+          "legacy": [
+            [
+              "Miles Aldridge（邁爾斯・奧爾德里奇）",
+              24
+            ]
+          ]
+        },
+        {
+          "category": "攝影風格",
+          "targetZh": "艾爾莎・布萊達｜霓虹低光孤寂",
+          "legacy": [
+            [
+              "Elsa Bleda（艾爾莎·布萊達）",
+              25
+            ]
+          ]
+        }
+      ]
+    },
+    "CAMERA_FRAMING_LEGACY_OPTION_MAP": {
+      "shape": "records",
+      "fields": {
+        "category": {
+          "fieldKind": "catalog-category",
+          "group": "camera",
+          "required": true
+        },
+        "targetZh": {
+          "fieldKind": "catalog-zh",
+          "group": "camera",
+          "categoryField": "category",
+          "required": true
+        },
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pairs",
+          "required": true
+        }
+      },
+      "source": [
+        {
+          "category": "景別構圖 (Framing)",
+          "targetZh": "特寫鏡頭 (Close-Up)",
+          "legacy": [
+            [
+              "特寫鏡頭 (Close-Up)",
+              1
+            ]
+          ]
+        },
+        {
+          "category": "景別構圖 (Framing)",
+          "targetZh": "臉部特寫",
+          "legacy": [
+            [
+              "臉部特寫",
+              2
+            ]
+          ]
+        },
+        {
+          "category": "景別構圖 (Framing)",
+          "targetZh": "胸上特寫",
+          "legacy": [
+            [
+              "胸上特寫",
+              3
+            ]
+          ]
+        },
+        {
+          "category": "景別構圖 (Framing)",
+          "targetZh": "局部五官特寫",
+          "legacy": [
+            [
+              "局部五官特寫",
+              4
+            ]
+          ]
+        },
+        {
+          "category": "景別構圖 (Framing)",
+          "targetZh": "半臉傾斜特寫",
+          "legacy": [
+            [
+              "半臉傾斜特寫",
+              5
+            ]
+          ]
+        }
+      ]
+    },
+    "CAMERA_ANGLE_LEGACY_OPTION_MAP": {
+      "shape": "records",
+      "fields": {
+        "category": {
+          "fieldKind": "catalog-category",
+          "group": "camera",
+          "required": true
+        },
+        "targetZh": {
+          "fieldKind": "catalog-zh",
+          "group": "camera",
+          "categoryField": "category",
+          "required": true
+        },
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pairs",
+          "required": true
+        }
+      },
+      "source": [
+        {
+          "category": "相機視角 (Angle)",
+          "targetZh": "平視高度鏡頭",
+          "legacy": [
+            [
+              "平視角 (Eye-Level Angle)",
+              1
+            ]
+          ]
+        },
+        {
+          "category": "相機視角 (Angle)",
+          "targetZh": "肩部高度鏡頭",
+          "legacy": [
+            [
+              "肩部高度鏡頭",
+              2
+            ]
+          ]
+        },
+        {
+          "category": "相機視角 (Angle)",
+          "targetZh": "腰部高度鏡頭",
+          "legacy": [
+            [
+              "腰部高度鏡頭",
+              3
+            ]
+          ]
+        },
+        {
+          "category": "相機視角 (Angle)",
+          "targetZh": "膝蓋高度鏡頭",
+          "legacy": [
+            [
+              "膝蓋高度鏡頭",
+              4
+            ]
+          ]
+        },
+        {
+          "category": "相機視角 (Angle)",
+          "targetZh": "地面高度鏡頭",
+          "legacy": [
+            [
+              "地面高度鏡頭",
+              5
+            ],
+            [
+              "仰角 (Low Angle)",
+              6
+            ]
+          ]
+        },
+        {
+          "category": "相機視角 (Angle)",
+          "targetZh": "高位俯視鏡頭",
+          "legacy": [
+            [
+              "俯角 (High Angle)",
+              7
+            ]
+          ]
+        }
+      ]
+    },
+    "CAMERA_ORBIT_LEGACY_OPTION_MAP": {
+      "shape": "records",
+      "fields": {
+        "category": {
+          "fieldKind": "catalog-category",
+          "group": "camera",
+          "required": true
+        },
+        "targetZh": {
+          "fieldKind": "catalog-zh",
+          "group": "camera",
+          "categoryField": "category",
+          "required": true
+        },
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pairs",
+          "required": true
+        }
+      },
+      "source": [
+        {
+          "category": "拍攝方位 (Orbit Angle)",
+          "targetZh": "正面 0 度",
+          "legacy": [
+            [
+              "正面",
+              1
+            ]
+          ]
+        },
+        {
+          "category": "拍攝方位 (Orbit Angle)",
+          "targetZh": "左前 45 度",
+          "legacy": [
+            [
+              "左前斜側",
+              2
+            ]
+          ]
+        },
+        {
+          "category": "拍攝方位 (Orbit Angle)",
+          "targetZh": "左側 90 度",
+          "legacy": [
+            [
+              "左側",
+              3
+            ]
+          ]
+        },
+        {
+          "category": "拍攝方位 (Orbit Angle)",
+          "targetZh": "左後 135 度",
+          "legacy": [
+            [
+              "左後斜側",
+              4
+            ]
+          ]
+        },
+        {
+          "category": "拍攝方位 (Orbit Angle)",
+          "targetZh": "背面 180 度",
+          "legacy": [
+            [
+              "背面",
+              5
+            ]
+          ]
+        },
+        {
+          "category": "拍攝方位 (Orbit Angle)",
+          "targetZh": "右後 225 度",
+          "legacy": [
+            [
+              "右後斜側",
+              6
+            ]
+          ]
+        },
+        {
+          "category": "拍攝方位 (Orbit Angle)",
+          "targetZh": "右側 270 度",
+          "legacy": [
+            [
+              "右側",
+              7
+            ]
+          ]
+        },
+        {
+          "category": "拍攝方位 (Orbit Angle)",
+          "targetZh": "右前 315 度",
+          "legacy": [
+            [
+              "右前斜側",
+              8
+            ]
+          ]
+        }
+      ]
+    },
+    "CAMERA_AMBIENT_LIGHT_RENAME_LEGACY_OPTION_MAP": {
+      "shape": "records",
+      "fields": {
+        "category": {
+          "fieldKind": "catalog-category",
+          "group": "camera",
+          "required": true
+        },
+        "targetZh": {
+          "fieldKind": "catalog-zh",
+          "group": "camera",
+          "categoryField": "category",
+          "required": true
+        },
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pairs",
+          "required": true
+        }
+      },
+      "source": [
+        {
+          "category": "環境光條件 (Ambient Light Conditions)",
+          "targetZh": "城市夜間混合光",
+          "legacy": [
+            [
+              "夜晚街燈",
+              11
+            ]
+          ]
+        },
+        {
+          "category": "環境光條件 (Ambient Light Conditions)",
+          "targetZh": "城市高彩度夜色",
+          "legacy": [
+            [
+              "霓虹夜色",
+              13
+            ]
+          ]
+        },
+        {
+          "category": "環境光條件 (Ambient Light Conditions)",
+          "targetZh": "室內暖色夜景",
+          "legacy": [
+            [
+              "室內暖光夜景",
+              25
+            ]
+          ]
+        },
+        {
+          "category": "環境光條件 (Ambient Light Conditions)",
+          "targetZh": "室內低照度暖色夜景",
+          "legacy": [
+            [
+              "室內夜晚低照度暖光",
+              26
+            ]
+          ]
+        },
+        {
+          "category": "環境光條件 (Ambient Light Conditions)",
+          "targetZh": "室內社交暖色夜景",
+          "legacy": [
+            [
+              "室內派對暖光夜景",
+              27
+            ]
+          ]
+        },
+        {
+          "category": "環境光條件 (Ambient Light Conditions)",
+          "targetZh": "室內極暖低照度",
+          "legacy": [
+            [
+              "室內燭光",
+              28
+            ]
+          ]
+        },
+        {
+          "category": "環境光條件 (Ambient Light Conditions)",
+          "targetZh": "室內冷白環境光",
+          "legacy": [
+            [
+              "室內冷色人造光",
+              29
+            ]
+          ]
+        },
+        {
+          "category": "環境光條件 (Ambient Light Conditions)",
+          "targetZh": "室內冷白高亮日常",
+          "legacy": [
+            [
+              "室內冷白螢光日常",
+              30
+            ]
+          ]
+        },
+        {
+          "category": "環境光條件 (Ambient Light Conditions)",
+          "targetZh": "室內高彩度色光夜景",
+          "legacy": [
+            [
+              "室內霓虹夜色",
+              31
+            ]
+          ]
+        }
+      ]
+    },
+    "CAMERA_FILM_LEGACY_OPTION_MAP": {
+      "shape": "records",
+      "fields": {
+        "category": {
+          "fieldKind": "catalog-category",
+          "group": "camera",
+          "required": true
+        },
+        "targetZh": {
+          "fieldKind": "catalog-zh",
+          "group": "camera",
+          "categoryField": "category",
+          "required": true
+        },
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pairs",
+          "required": true
+        }
+      },
+      "source": [
+        {
+          "category": "底片與相機模擬 (Camera & Film Simulation)",
+          "targetZh": "拍立得柔淡即時成像",
+          "legacy": [
+            [
+              "拍立得效果 (Polaroid Style)",
+              1
+            ]
+          ]
+        },
+        {
+          "category": "底片與相機模擬 (Camera & Film Simulation)",
+          "targetZh": "柯達 Portra 暖膚底片",
+          "legacy": [
+            [
+              "柯達 Portra 400 底片",
+              2
+            ]
+          ]
+        },
+        {
+          "category": "底片與相機模擬 (Camera & Film Simulation)",
+          "targetZh": "富士 Superia 青綠陰影底片",
+          "legacy": [
+            [
+              "富士 Superia 400 底片",
+              3
+            ]
+          ]
+        },
+        {
+          "category": "底片與相機模擬 (Camera & Film Simulation)",
+          "targetZh": "復古微對比銳利感",
+          "legacy": [
+            [
+              "數位微對比紀實感",
+              4
+            ],
+            [
+              "Leica 數位紀實感",
+              4
+            ],
+            [
+              "復古微對比銳利感",
+              8
+            ],
+            [
+              "Contax Zeiss 復古銳利感",
+              8
+            ]
+          ]
+        },
+        {
+          "category": "底片與相機模擬 (Camera & Film Simulation)",
+          "targetZh": "富士 Classic Chrome 低彩編輯感",
+          "legacy": [
+            [
+              "富士 Classic Chrome 電影感",
+              5
+            ]
+          ]
+        },
+        {
+          "category": "底片與相機模擬 (Camera & Film Simulation)",
+          "targetZh": "富士 Provia 清透明亮",
+          "legacy": [
+            [
+              "富士 Provia 清透明亮感",
+              6
+            ]
+          ]
+        },
+        {
+          "category": "底片與相機模擬 (Camera & Film Simulation)",
+          "targetZh": "高階黑白灰階",
+          "legacy": [
+            [
+              "高階黑白灰階",
+              7
+            ]
+          ]
+        },
+        {
+          "category": "底片與相機模擬 (Camera & Film Simulation)",
+          "targetZh": "Leica 風格鹽粒黑白",
+          "legacy": [
+            [
+              "Leica Monochrom 黑白灰階",
+              7
+            ]
+          ]
+        },
+        {
+          "category": "底片與相機模擬 (Camera & Film Simulation)",
+          "targetZh": "暖膚數位人像",
+          "legacy": [
+            [
+              "暖膚數位人像",
+              9
+            ],
+            [
+              "Canon 暖膚人像感",
+              9
+            ]
+          ]
+        },
+        {
+          "category": "底片與相機模擬 (Camera & Film Simulation)",
+          "targetZh": "暖白 JPEG 直出",
+          "legacy": [
+            [
+              "暖白 JPEG 直出",
+              10
+            ],
+            [
+              "Canon 直出生活感",
+              10
+            ]
+          ]
+        },
+        {
+          "category": "底片與相機模擬 (Camera & Film Simulation)",
+          "targetZh": "冷調清晰寫實",
+          "legacy": [
+            [
+              "冷調清晰寫實",
+              11
+            ],
+            [
+              "Nikon 冷調寫實感",
+              11
+            ]
+          ]
+        },
+        {
+          "category": "底片與相機模擬 (Camera & Film Simulation)",
+          "targetZh": "高動態通透明亮",
+          "legacy": [
+            [
+              "高動態通透明亮",
+              12
+            ],
+            [
+              "Nikon 通透明亮外景感",
+              12
+            ]
+          ]
+        },
+        {
+          "category": "底片與相機模擬 (Camera & Film Simulation)",
+          "targetZh": "高銳利快照黑位",
+          "legacy": [
+            [
+              "高銳利快照黑位",
+              13
+            ],
+            [
+              "Ricoh GR 街頭快照感",
+              13
+            ]
+          ]
+        },
+        {
+          "category": "底片與相機模擬 (Camera & Film Simulation)",
+          "targetZh": "中片幅數位色深",
+          "legacy": [
+            [
+              "中片幅數位色深",
+              14
+            ],
+            [
+              "中片幅數位單眼 (Medium Format DSLR)",
+              14
+            ]
+          ]
+        },
+        {
+          "category": "底片與相機模擬 (Camera & Film Simulation)",
+          "targetZh": "VHS 錄影帶低畫質",
+          "legacy": [
+            [
+              "VHS 錄影帶低畫質",
+              15
+            ]
+          ]
+        },
+        {
+          "category": "底片與相機模擬 (Camera & Film Simulation)",
+          "targetZh": "日系高曝光奶油膚色",
+          "legacy": [
+            [
+              "韓系冷白亮膚濾鏡",
+              23
+            ]
+          ]
+        }
+      ]
+    },
+    "CAMERA_PROFILE_RENDERING_MIGRATIONS": {
+      "shape": "dictionary",
+      "fields": {
+        "$key": {
+          "fieldKind": "legacy-key"
+        },
+        "$value": {
+          "fieldKind": "catalog-zh",
+          "group": "camera",
+          "category": "底片與相機模擬 (Camera & Film Simulation)"
+        }
+      },
+      "source": {
+        "leica-m-rangefinder": "復古微對比銳利感",
+        "ricoh-gr-snapshot": "高銳利快照黑位",
+        "fujifilm-x100": "富士 Provia 清透明亮",
+        "sony-full-frame-mirrorless": "冷調清晰寫實",
+        "canon-nikon-dslr": "暖白 JPEG 直出",
+        "digital-medium-format": "中片幅數位色深",
+        "drone-camera": "高動態通透明亮",
+        "smartphone-documentary": "手機 HDR 直出"
+      }
+    },
+    "CHARACTER_IDENTITY_LEGACY_OPTION_MAP": {
+      "shape": "records",
+      "fields": {
+        "category": {
+          "fieldKind": "catalog-category",
+          "group": "character",
+          "required": true
+        },
+        "targetZh": {
+          "fieldKind": "catalog-zh",
+          "group": "character",
+          "categoryField": "category",
+          "required": true
+        },
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pairs",
+          "required": true
+        }
+      },
+      "source": [
+        {
+          "category": "體態 (Body Type)",
+          "targetZh": "高挑時裝模特",
+          "legacy": [
+            [
+              "模特兒",
+              0
+            ]
+          ]
+        },
+        {
+          "category": "體態 (Body Type)",
+          "targetZh": "柔和沙漏身形",
+          "legacy": [
+            [
+              "優雅曲線模特",
+              1
+            ],
+            [
+              "優雅曲線模特兒",
+              1
+            ]
+          ]
+        },
+        {
+          "category": "體態 (Body Type)",
+          "targetZh": "柔和沙漏身形",
+          "legacy": [
+            [
+              "柔和沙漏身形",
+              2
+            ]
+          ]
+        },
+        {
+          "category": "五官特徵 (Facial Features)",
+          "targetZh": "韓系偶像臉",
+          "legacy": [
+            [
+              "KPOP",
+              1
+            ]
+          ]
+        },
+        {
+          "category": "五官特徵 (Facial Features)",
+          "targetZh": "日系清透臉",
+          "legacy": [
+            [
+              "日系透明",
+              2
+            ]
+          ]
+        },
+        {
+          "category": "五官特徵 (Facial Features)",
+          "targetZh": "成熟性感臉",
+          "legacy": [
+            [
+              "性感",
+              3
+            ]
+          ]
+        },
+        {
+          "category": "五官特徵 (Facial Features)",
+          "targetZh": "混血立體臉",
+          "legacy": [
+            [
+              "歐美",
+              4
+            ]
+          ]
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "帥氣濕亮油頭",
+          "legacy": [
+            [
+              "短髮｜帥氣濕亮油頭",
+              1
+            ],
+            [
+              "短髮｜精靈短髮",
+              2
+            ]
+          ]
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "乾淨短鮑伯",
+          "legacy": [
+            [
+              "短髮｜齊耳法式短鮑伯",
+              3
+            ],
+            [
+              "短髮｜A 字線條鮑伯",
+              4
+            ],
+            [
+              "短髮｜服貼光澤短鮑伯",
+              5
+            ]
+          ]
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "齊瀏海圓弧鮑伯",
+          "legacy": [
+            [
+              "短髮｜齊瀏海圓弧鮑伯",
+              6
+            ]
+          ]
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "不對稱濕感短鮑伯",
+          "legacy": [
+            [
+              "短髮｜不對稱濕感短鮑伯",
+              7
+            ]
+          ]
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "復古外翹短髮",
+          "legacy": [
+            [
+              "短髮｜復古外翹短髮",
+              8
+            ]
+          ]
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "自然層次鎖骨髮",
+          "legacy": [
+            [
+              "中長髮｜自然蓬鬆鎖骨髮",
+              9
+            ],
+            [
+              "中長髮｜輕盈層次剪",
+              13
+            ]
+          ]
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "韓系柔順中長髮",
+          "legacy": [
+            [
+              "中長髮｜韓系柔順中長髮",
+              10
+            ],
+            [
+              "中長髮｜及肩內彎鮑伯",
+              11
+            ]
+          ]
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "側分柔波中長髮",
+          "legacy": [
+            [
+              "中長髮｜側分鎖骨波浪髮",
+              12
+            ]
+          ]
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "半濕感中長髮",
+          "legacy": [
+            [
+              "中長髮｜半濕感中長髮",
+              14
+            ]
+          ]
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "直髮：中分",
+          "legacy": [
+            [
+              "長髮（放髮）｜中分長直髮",
+              15
+            ]
+          ]
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "直髮：日式瀏海",
+          "legacy": [
+            [
+              "長髮（放髮）｜日系厚瀏海長直髮",
+              16
+            ],
+            [
+              "長髮（放髮）｜姬髮式長直髮",
+              17
+            ]
+          ]
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "直髮：濕感",
+          "legacy": []
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "自然微彎：濕感",
+          "legacy": []
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "柔波：深側分",
+          "legacy": [
+            [
+              "長髮（放髮）｜韓系深側分柔波長髮",
+              18
+            ]
+          ]
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "柔波：中分",
+          "legacy": [
+            [
+              "長髮（放髮）｜中分柔波長髮",
+              19
+            ]
+          ]
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "濕潤感長波浪",
+          "legacy": [
+            [
+              "長髮（放髮）｜濕潤感長波浪",
+              20
+            ]
+          ]
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "柔波：瀏海",
+          "legacy": [
+            [
+              "長髮（放髮）｜空氣瀏海長捲髮",
+              21
+            ]
+          ]
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "高位雙馬尾",
+          "legacy": [
+            [
+              "長髮（綁髮）｜高位雙馬尾",
+              22
+            ]
+          ]
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "蓬鬆高馬尾",
+          "legacy": [
+            [
+              "長髮（綁髮）｜蓬鬆高馬尾",
+              23
+            ]
+          ]
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "低馬尾",
+          "legacy": [
+            [
+              "長髮（綁髮）｜極簡低馬尾",
+              24
+            ]
+          ]
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "低包頭盤髮",
+          "legacy": [
+            [
+              "長髮（綁髮）｜韓系低包頭",
+              25
+            ],
+            [
+              "長髮（綁髮）｜高級感低盤髮",
+              26
+            ]
+          ]
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "半綁公主頭",
+          "legacy": [
+            [
+              "長髮（綁髮）｜半綁公主頭長髮",
+              27
+            ]
+          ]
+        },
+        {
+          "category": "髮型 (Hairstyle)",
+          "targetZh": "柔和編髮造型",
+          "legacy": [
+            [
+              "長髮（編髮）｜瀑布編髮",
+              28
+            ],
+            [
+              "長髮（編髮）｜魚骨辮",
+              29
+            ]
+          ]
+        },
+        {
+          "category": "髮色 (Hair Color)",
+          "targetZh": "亞麻米棕",
+          "legacy": [
+            [
+              "亞麻米棕",
+              7
+            ],
+            [
+              "霧灰棕",
+              10
+            ]
+          ]
+        },
+        {
+          "category": "髮色 (Hair Color)",
+          "targetZh": "蜂蜜焦糖棕",
+          "legacy": [
+            [
+              "蜂蜜焦糖棕",
+              11
+            ]
+          ]
+        },
+        {
+          "category": "髮色 (Hair Color)",
+          "targetZh": "玫瑰可可棕",
+          "legacy": [
+            [
+              "玫瑰可可棕",
+              9
+            ],
+            [
+              "銅紅髮",
+              19
+            ]
+          ]
+        },
+        {
+          "category": "髮色 (Hair Color)",
+          "targetZh": "淺金髮",
+          "legacy": [
+            [
+              "黑底金色挑染",
+              6
+            ],
+            [
+              "亮黃色",
+              15
+            ],
+            [
+              "淺金髮",
+              18
+            ]
+          ]
+        },
+        {
+          "category": "髮色 (Hair Color)",
+          "targetZh": "銀灰白",
+          "legacy": [
+            [
+              "灰白色",
+              17
+            ]
+          ]
+        },
+        {
+          "category": "髮色 (Hair Color)",
+          "targetZh": "亮桃粉",
+          "legacy": [
+            [
+              "桃紅色",
+              13
+            ],
+            [
+              "亮紫色",
+              16
+            ]
+          ]
+        },
+        {
+          "category": "髮色 (Hair Color)",
+          "targetZh": "寶石藍",
+          "legacy": [
+            [
+              "寶藍色",
+              14
+            ]
+          ]
+        },
+        {
+          "category": "髮色 (Hair Color)",
+          "targetZh": "深森林綠",
+          "legacy": [
+            [
+              "霧感橄欖棕",
+              8
+            ],
+            [
+              "亮綠色",
+              12
+            ],
+            [
+              "深綠色",
+              20
+            ]
+          ]
+        }
+      ]
+    },
+    "CHARACTER_EXPRESSION_POSE_LEGACY_OPTION_MAP": {
+      "shape": "records",
+      "fields": {
+        "category": {
+          "fieldKind": "catalog-category",
+          "group": "character",
+          "required": true
+        },
+        "legacyCategory": {
+          "fieldKind": "legacy-category",
+          "required": false
+        },
+        "targetZh": {
+          "fieldKind": "catalog-zh",
+          "group": "character",
+          "categoryField": "category",
+          "required": true
+        },
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pairs",
+          "required": true
+        }
+      },
+      "source": [
+        {
+          "category": "表情 (Facial Expression)",
+          "legacyCategory": "神情與眼神 (Expression & Gaze)",
+          "targetZh": "無額外表情",
+          "legacy": [
+            [
+              "全無",
+              0
+            ]
+          ]
+        },
+        {
+          "category": "表情 (Facial Expression)",
+          "legacyCategory": "神情與眼神 (Expression & Gaze)",
+          "targetZh": "柔和微笑",
+          "legacy": [
+            [
+              "直視鏡頭｜柔和微笑",
+              1
+            ],
+            [
+              "直視鏡頭｜清透微笑",
+              1
+            ],
+            [
+              "直視鏡頭｜自信淡笑",
+              3
+            ],
+            [
+              "直視鏡頭｜若有似無微笑",
+              5
+            ]
+          ]
+        },
+        {
+          "category": "表情 (Facial Expression)",
+          "legacyCategory": "神情與眼神 (Expression & Gaze)",
+          "targetZh": "平靜淡然",
+          "legacy": [
+            [
+              "直視鏡頭｜平靜淡然",
+              2
+            ],
+            [
+              "直視鏡頭｜平靜凝視",
+              2
+            ],
+            [
+              "直視鏡頭｜慵懶淡然",
+              4
+            ]
+          ]
+        },
+        {
+          "category": "表情 (Facial Expression)",
+          "legacyCategory": "神情與眼神 (Expression & Gaze)",
+          "targetZh": "無辜清透",
+          "legacy": [
+            [
+              "直視鏡頭｜無辜清透",
+              3
+            ],
+            [
+              "直視鏡頭｜無辜清透眼神",
+              6
+            ]
+          ]
+        },
+        {
+          "category": "表情 (Facial Expression)",
+          "legacyCategory": "神情與眼神 (Expression & Gaze)",
+          "targetZh": "俏皮忍笑",
+          "legacy": [
+            [
+              "抿唇忍笑｜俏皮",
+              4
+            ],
+            [
+              "抿唇忍笑｜俏皮輕鬆",
+              7
+            ]
+          ]
+        },
+        {
+          "category": "表情 (Facial Expression)",
+          "legacyCategory": "神情與眼神 (Expression & Gaze)",
+          "targetZh": "若有所思",
+          "legacy": [
+            [
+              "離鏡凝視｜若有所思",
+              5
+            ],
+            [
+              "望向遠方｜若有所思",
+              8
+            ],
+            [
+              "側望｜安靜出神",
+              9
+            ]
+          ]
+        },
+        {
+          "category": "表情 (Facial Expression)",
+          "legacyCategory": "神情與眼神 (Expression & Gaze)",
+          "targetZh": "內斂克制",
+          "legacy": [
+            [
+              "向下視線｜內斂",
+              6
+            ],
+            [
+              "低頭垂眼｜內斂",
+              6
+            ],
+            [
+              "低頭不看鏡頭｜內斂情緒",
+              10
+            ]
+          ]
+        },
+        {
+          "category": "表情 (Facial Expression)",
+          "legacyCategory": "神情與眼神 (Expression & Gaze)",
+          "targetZh": "溫柔含蓄",
+          "legacy": [
+            [
+              "側向視線｜輕柔注意",
+              7
+            ],
+            [
+              "回眸側看｜輕柔注意",
+              7
+            ],
+            [
+              "回眸側看｜輕柔注意",
+              11
+            ]
+          ]
+        },
+        {
+          "category": "表情 (Facial Expression)",
+          "legacyCategory": "神情與眼神 (Expression & Gaze)",
+          "targetZh": "沉浸平靜",
+          "legacy": [
+            [
+              "閉眼沉浸",
+              8
+            ],
+            [
+              "閉眼感受光線｜安靜沉浸",
+              12
+            ]
+          ]
+        },
+        {
+          "category": "表情 (Facial Expression)",
+          "legacyCategory": "神情與眼神 (Expression & Gaze)",
+          "targetZh": "自然喜悅",
+          "legacy": [
+            [
+              "大笑｜自然喜悅",
+              9
+            ],
+            [
+              "大笑｜自然喜悅",
+              13
+            ]
+          ]
+        },
+        {
+          "category": "表情 (Facial Expression)",
+          "legacyCategory": "神情與眼神 (Expression & Gaze)",
+          "targetZh": "撒嬌生氣",
+          "legacy": [
+            [
+              "直視鏡頭｜撒嬌生氣",
+              10
+            ]
+          ]
+        },
+        {
+          "category": "表情 (Facial Expression)",
+          "legacyCategory": "神情與眼神 (Expression & Gaze)",
+          "targetZh": "內斂悲傷",
+          "legacy": [
+            [
+              "向下視線｜內斂悲傷",
+              11
+            ]
+          ]
+        },
+        {
+          "category": "表情 (Facial Expression)",
+          "legacyCategory": "神情與眼神 (Expression & Gaze)",
+          "targetZh": "克制憤怒",
+          "legacy": [
+            [
+              "直視鏡頭｜克制憤怒",
+              12
+            ]
+          ]
+        },
+        {
+          "category": "表情 (Facial Expression)",
+          "legacyCategory": "神情與眼神 (Expression & Gaze)",
+          "targetZh": "輕微驚訝",
+          "legacy": [
+            [
+              "直視鏡頭｜輕微驚訝",
+              13
+            ]
+          ]
+        },
+        {
+          "category": "表情 (Facial Expression)",
+          "legacyCategory": "神情與眼神 (Expression & Gaze)",
+          "targetZh": "緊張不安",
+          "legacy": [
+            [
+              "直視鏡頭｜緊張不安",
+              14
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "站姿｜單腳重心",
+          "legacy": [
+            [
+              "站姿｜單腳重心放鬆站姿",
+              2
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "站姿｜雙手自然垂放",
+          "legacy": [
+            [
+              "站姿｜雙手自然垂放站姿",
+              5
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "站姿｜雙臂交疊",
+          "legacy": [
+            [
+              "站姿｜雙臂交疊放鬆站姿",
+              8
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "站姿｜自然站姿",
+          "legacy": [
+            [
+              "站姿｜低頭側望站姿",
+              6
+            ],
+            [
+              "站姿｜自然自拍姿勢",
+              9
+            ],
+            [
+              "站姿｜鏡子自拍姿勢",
+              10
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "坐姿｜自然坐姿",
+          "legacy": [
+            [
+              "坐姿｜自然坐姿",
+              11
+            ],
+            [
+              "坐姿｜低頭坐姿",
+              18
+            ],
+            [
+              "坐姿｜自然自拍姿勢",
+              21
+            ],
+            [
+              "坐姿｜鏡子自拍姿勢",
+              22
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "坐姿｜微微前傾",
+          "legacy": [
+            [
+              "坐姿｜微微前傾坐姿",
+              12
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "坐姿｜雙手後撐",
+          "legacy": [
+            [
+              "坐姿｜雙手向後支撐坐姿",
+              13
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "坐姿｜單腿放鬆",
+          "legacy": [
+            [
+              "坐姿｜單腿放鬆坐姿",
+              14
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "坐姿｜雙腿自然伸展",
+          "legacy": [
+            [
+              "坐姿｜雙腿自然伸展坐姿",
+              15
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "坐姿｜盤腿坐姿",
+          "legacy": [
+            [
+              "坐姿｜盤腿坐姿",
+              16
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "坐姿｜側身坐姿",
+          "legacy": [
+            [
+              "坐姿｜側身坐姿",
+              17
+            ],
+            [
+              "坐姿｜坐姿回頭看鏡頭",
+              19
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "坐姿｜抱膝坐姿",
+          "legacy": [
+            [
+              "坐姿｜抱膝坐姿",
+              20
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "半躺低姿態｜側身半躺",
+          "legacy": [
+            [
+              "半躺低姿態｜側身半躺姿勢",
+              23
+            ],
+            [
+              "半躺低姿態｜側身半躺回頭看鏡頭",
+              25
+            ],
+            [
+              "半躺低姿態｜半躺低頭姿勢",
+              26
+            ],
+            [
+              "半躺低姿態｜自然自拍姿勢",
+              32
+            ],
+            [
+              "半躺低姿態｜鏡子自拍姿勢",
+              33
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "半躺低姿態｜正面仰躺",
+          "legacy": [
+            [
+              "半躺低姿態｜舒適正面仰躺姿勢",
+              24
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "半躺低姿態｜手撐半躺",
+          "legacy": [
+            [
+              "半躺低姿態｜手撐上半身半躺姿勢",
+              27
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "半躺低姿態｜微蜷放鬆",
+          "legacy": [
+            [
+              "半躺低姿態｜微蜷放鬆姿勢",
+              28
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "半躺低姿態｜趴姿",
+          "legacy": [
+            [
+              "半躺低姿態｜趴姿回頭看鏡頭",
+              29
+            ],
+            [
+              "半躺低姿態｜趴姿低頭放鬆",
+              30
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "半躺低姿態｜側躺延伸",
+          "legacy": [
+            [
+              "半躺低姿態｜側躺延伸姿勢",
+              31
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "蹲姿｜自然蹲姿",
+          "legacy": [
+            [
+              "蹲姿｜自然蹲姿",
+              35
+            ],
+            [
+              "蹲姿｜蹲姿回頭看鏡頭",
+              38
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "蹲姿｜單膝蹲姿",
+          "legacy": [
+            [
+              "蹲姿｜單膝蹲姿",
+              36
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "蹲姿｜手扶膝蓋蹲姿",
+          "legacy": [
+            [
+              "蹲姿｜手扶膝蓋蹲姿",
+              37
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "動態｜輕步移動",
+          "legacy": [
+            [
+              "動態互動｜輕步移動姿勢",
+              39
+            ],
+            [
+              "動態互動｜低頭行進姿勢",
+              45
+            ],
+            [
+              "動態互動｜自然自拍姿勢",
+              46
+            ],
+            [
+              "動態互動｜鏡子自拍姿勢",
+              47
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "動態｜整理頭髮",
+          "legacy": [
+            [
+              "站姿｜一手撥髮站姿",
+              3
+            ],
+            [
+              "站姿｜一手撥髮低頭站姿",
+              4
+            ],
+            [
+              "動態互動｜整理頭髮動作",
+              40
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "動態｜整理衣襬",
+          "legacy": [
+            [
+              "動態互動｜低頭整理衣襬",
+              41
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "動態｜抬手整理肩頸",
+          "legacy": [
+            [
+              "動態互動｜抬手整理肩頸姿勢",
+              42
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "動態｜回身動作",
+          "legacy": [
+            [
+              "站姿｜回頭站姿",
+              7
+            ],
+            [
+              "動態互動｜行走中回頭",
+              34
+            ],
+            [
+              "動態互動｜回身側望姿勢",
+              43
+            ]
+          ]
+        },
+        {
+          "category": "姿勢與肢體語言 (Pose & Body Language)",
+          "targetZh": "動態｜停步姿勢",
+          "legacy": [
+            [
+              "動態互動｜停步凝視姿勢",
+              44
+            ]
+          ]
+        }
+      ]
+    },
+    "CHARACTER_EXPRESSION_POSE_LEGACY_SOCIAL_POSE_MIGRATIONS": {
+      "shape": "records",
+      "fields": {
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pair",
+          "required": true
+        },
+        "baseZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_BASE_OPTIONS",
+          "match": "zh",
+          "required": true
+        },
+        "arrangementZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_ARRANGEMENT_OPTIONS",
+          "match": "zh",
+          "required": true
+        },
+        "handZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_HAND_OPTIONS",
+          "match": "zh",
+          "required": false
+        },
+        "propZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_PROP_OPTIONS",
+          "match": "zh",
+          "required": false
+        }
+      },
+      "source": [
+        {
+          "legacy": [
+            "站姿｜自然自拍姿勢",
+            9
+          ],
+          "baseZh": "站姿",
+          "arrangementZh": "自然站姿",
+          "handZh": "自然自拍"
+        },
+        {
+          "legacy": [
+            "站姿｜鏡子自拍姿勢",
+            10
+          ],
+          "baseZh": "站姿",
+          "arrangementZh": "自然站姿",
+          "propZh": "手持手機對鏡自拍"
+        },
+        {
+          "legacy": [
+            "坐姿｜自然自拍姿勢",
+            21
+          ],
+          "baseZh": "坐姿",
+          "arrangementZh": "自然坐姿",
+          "handZh": "自然自拍"
+        },
+        {
+          "legacy": [
+            "坐姿｜鏡子自拍姿勢",
+            22
+          ],
+          "baseZh": "坐姿",
+          "arrangementZh": "自然坐姿",
+          "propZh": "手持手機對鏡自拍"
+        },
+        {
+          "legacy": [
+            "半躺低姿態｜自然自拍姿勢",
+            32
+          ],
+          "baseZh": "躺姿",
+          "arrangementZh": "側躺",
+          "handZh": "自然自拍"
+        },
+        {
+          "legacy": [
+            "半躺低姿態｜鏡子自拍姿勢",
+            33
+          ],
+          "baseZh": "躺姿",
+          "arrangementZh": "側躺",
+          "propZh": "手持手機對鏡自拍"
+        },
+        {
+          "legacy": [
+            "動態互動｜自然自拍姿勢",
+            46
+          ],
+          "baseZh": "站姿",
+          "arrangementZh": "自然站姿",
+          "handZh": "自然自拍"
+        },
+        {
+          "legacy": [
+            "動態互動｜鏡子自拍姿勢",
+            47
+          ],
+          "baseZh": "站姿",
+          "arrangementZh": "自然站姿",
+          "propZh": "手持手機對鏡自拍"
+        }
+      ]
+    },
+    "CHARACTER_LEGACY_SELFIE_SPECIAL_ACTION_MIGRATIONS": {
+      "shape": "records",
+      "fields": {
+        "label": {
+          "fieldKind": "legacy-key",
+          "required": true
+        },
+        "handZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_HAND_OPTIONS",
+          "match": "zh",
+          "required": false
+        },
+        "propZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_PROP_OPTIONS",
+          "match": "zh",
+          "required": false
+        }
+      },
+      "source": [
+        {
+          "label": "自然自拍感",
+          "handZh": "自然自拍"
+        },
+        {
+          "label": "鏡子自拍",
+          "propZh": "手持手機對鏡自拍"
+        },
+        {
+          "label": "男友視角拍攝",
+          "handZh": "男友/閨蜜自拍"
+        },
+        {
+          "label": "閨蜜視角拍攝",
+          "handZh": "男友/閨蜜自拍"
+        }
+      ]
+    },
+    "CHARACTER_SPECIAL_ACTION_TO_POSE_COMPOSER_MIGRATIONS": {
+      "shape": "records",
+      "fields": {
+        "label": {
+          "fieldKind": "legacy-key",
+          "required": true
+        },
+        "baseZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_BASE_OPTIONS",
+          "match": "zh",
+          "required": true
+        },
+        "propZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_PROP_OPTIONS",
+          "match": "zh",
+          "required": false
+        },
+        "handZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_HAND_OPTIONS",
+          "match": "zh",
+          "required": false
+        },
+        "arrangementZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_ARRANGEMENT_OPTIONS",
+          "match": "zh",
+          "required": false
+        },
+        "headZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_HEAD_OPTIONS",
+          "match": "zh",
+          "required": false
+        },
+        "anchorZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_ANCHOR_OPTIONS",
+          "match": "zh",
+          "required": false
+        }
+      },
+      "source": [
+        {
+          "label": "塗口紅",
+          "baseZh": "站姿",
+          "propZh": "塗口紅｜自由妝感"
+        },
+        {
+          "label": "塗歪口紅",
+          "baseZh": "站姿",
+          "propZh": "塗口紅｜自由妝感"
+        },
+        {
+          "label": "喝冰咖啡",
+          "baseZh": "站姿",
+          "propZh": "手持冰咖啡"
+        },
+        {
+          "label": "咬著波板糖",
+          "baseZh": "站姿",
+          "propZh": "手持波板糖"
+        },
+        {
+          "label": "抽煙",
+          "baseZh": "站姿",
+          "propZh": "手持香菸"
+        },
+        {
+          "label": "整理絲襪",
+          "baseZh": "站姿",
+          "handZh": "整理下身"
+        },
+        {
+          "label": "前傾抓住褲腰",
+          "baseZh": "站姿",
+          "arrangementZh": "上身大幅度前傾",
+          "handZh": "雙手抓住褲腰"
+        },
+        {
+          "label": "側坐單手後撐",
+          "baseZh": "坐姿",
+          "arrangementZh": "雙腿側放坐姿",
+          "handZh": "一手撐地一手放腿上"
+        },
+        {
+          "label": "抱膝托腮坐姿",
+          "baseZh": "坐姿",
+          "arrangementZh": "雙腿屈起",
+          "handZh": "雙手扶臉頰"
+        },
+        {
+          "label": "仰躺雙手微抬",
+          "baseZh": "躺姿",
+          "arrangementZh": "仰躺",
+          "handZh": "雙手放在頭後"
+        },
+        {
+          "label": "跪坐回眸撩髮",
+          "baseZh": "跪姿",
+          "arrangementZh": "跪坐",
+          "handZh": "單手撩髮",
+          "headZh": "越肩回望"
+        },
+        {
+          "label": "半脫上衣整理肩線",
+          "baseZh": "站姿",
+          "handZh": "拉下上身服裝整理"
+        },
+        {
+          "label": "隨性癱坐在雕花單人絨布沙發上",
+          "baseZh": "坐姿",
+          "arrangementZh": "隨性癱坐",
+          "anchorZh": "坐在單人雕花絨布椅"
+        },
+        {
+          "label": "趴臥滑手機",
+          "baseZh": "躺姿",
+          "arrangementZh": "趴臥手肘撐起",
+          "propZh": "滑手機"
+        },
+        {
+          "label": "靠牆站立",
+          "baseZh": "站姿",
+          "anchorZh": "靠牆"
+        },
+        {
+          "label": "靠牆坐姿",
+          "baseZh": "坐姿",
+          "arrangementZh": "雙腿自然伸展",
+          "anchorZh": "背靠牆坐在地面"
+        },
+        {
+          "label": "靠牆後仰站姿",
+          "baseZh": "站姿",
+          "arrangementZh": "身體微後仰",
+          "anchorZh": "靠牆"
+        },
+        {
+          "label": "靠牆仰躺抬腿",
+          "baseZh": "躺姿",
+          "arrangementZh": "靠牆仰躺抬腿"
+        },
+        {
+          "label": "側身斜躺伸腿",
+          "baseZh": "躺姿",
+          "arrangementZh": "側躺"
+        },
+        {
+          "label": "跪姿前傾倚靠高背",
+          "baseZh": "跪姿",
+          "arrangementZh": "前傾跪姿",
+          "anchorZh": "倚靠高背椅"
+        },
+        {
+          "label": "四足跪姿前傾",
+          "baseZh": "跪姿",
+          "arrangementZh": "四足跪姿"
+        },
+        {
+          "label": "抱枕俯臥回眸",
+          "baseZh": "躺姿",
+          "arrangementZh": "抱枕俯臥回眸"
+        },
+        {
+          "label": "分腿跪坐仰視",
+          "baseZh": "跪姿",
+          "arrangementZh": "分腿跪坐",
+          "handZh": "一手撐地一手放腿上",
+          "headZh": "下巴微抬"
+        }
+      ]
+    },
+    "LEGACY_POSE_HAND_TO_PROP_ID": {
+      "shape": "pairs",
+      "fields": {
+        "0": {
+          "fieldKind": "legacy-key"
+        },
+        "1": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_PROP_OPTIONS",
+          "match": "id"
+        }
+      },
+      "source": [
+        [
+          "hand-apply-lipstick",
+          "hand-apply-lipstick"
+        ],
+        [
+          "hand-messy-lipstick",
+          "hand-apply-lipstick"
+        ],
+        [
+          "hand-hold-iced-coffee",
+          "hand-hold-iced-coffee"
+        ],
+        [
+          "hand-hold-whirly-lollipop",
+          "hand-hold-whirly-lollipop"
+        ],
+        [
+          "hand-hold-cigarette",
+          "hand-hold-cigarette"
+        ],
+        [
+          "hand-use-phone",
+          "hand-use-phone"
+        ],
+        [
+          "selfie-mirror-phone-visible",
+          "selfie-mirror-phone-visible"
+        ]
+      ]
+    },
+    "CHARACTER_POSE_TO_POSE_COMPOSER_MIGRATIONS": {
+      "shape": "records",
+      "fields": {
+        "label": {
+          "fieldKind": "legacy-key",
+          "required": true
+        },
+        "baseZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_BASE_OPTIONS",
+          "match": "zh",
+          "required": true
+        },
+        "arrangementZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_ARRANGEMENT_OPTIONS",
+          "match": "zh",
+          "required": true
+        },
+        "handZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_HAND_OPTIONS",
+          "match": "zh",
+          "required": false
+        },
+        "headZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_HEAD_OPTIONS",
+          "match": "zh",
+          "required": false
+        }
+      },
+      "source": [
+        {
+          "label": "站姿｜自然站姿",
+          "baseZh": "站姿",
+          "arrangementZh": "自然站姿"
+        },
+        {
+          "label": "站姿｜單腳重心",
+          "baseZh": "站姿",
+          "arrangementZh": "單腳重心"
+        },
+        {
+          "label": "站姿｜雙手自然垂放",
+          "baseZh": "站姿",
+          "arrangementZh": "自然站姿",
+          "handZh": "雙手自然垂放"
+        },
+        {
+          "label": "站姿｜雙臂交疊",
+          "baseZh": "站姿",
+          "arrangementZh": "自然站姿",
+          "handZh": "雙臂交疊"
+        },
+        {
+          "label": "坐姿｜自然坐姿",
+          "baseZh": "坐姿",
+          "arrangementZh": "自然坐姿"
+        },
+        {
+          "label": "坐姿｜微微前傾",
+          "baseZh": "坐姿",
+          "arrangementZh": "微微前傾"
+        },
+        {
+          "label": "坐姿｜雙手後撐",
+          "baseZh": "坐姿",
+          "arrangementZh": "雙手後撐"
+        },
+        {
+          "label": "坐姿｜單腿放鬆",
+          "baseZh": "坐姿",
+          "arrangementZh": "單腿放鬆"
+        },
+        {
+          "label": "坐姿｜雙腿自然伸展",
+          "baseZh": "坐姿",
+          "arrangementZh": "雙腿自然伸展"
+        },
+        {
+          "label": "坐姿｜盤腿坐姿",
+          "baseZh": "坐姿",
+          "arrangementZh": "盤腿坐姿"
+        },
+        {
+          "label": "坐姿｜側身坐姿",
+          "baseZh": "坐姿",
+          "arrangementZh": "雙腿側放坐姿"
+        },
+        {
+          "label": "坐姿｜抱膝坐姿",
+          "baseZh": "坐姿",
+          "arrangementZh": "雙腿屈起"
+        },
+        {
+          "label": "半躺低姿態｜側身半躺",
+          "baseZh": "躺姿",
+          "arrangementZh": "側躺"
+        },
+        {
+          "label": "半躺低姿態｜正面仰躺",
+          "baseZh": "躺姿",
+          "arrangementZh": "仰躺"
+        },
+        {
+          "label": "半躺低姿態｜手撐半躺",
+          "baseZh": "躺姿",
+          "arrangementZh": "半躺倚靠",
+          "handZh": "一手撐地一手放腿上"
+        },
+        {
+          "label": "半躺低姿態｜微蜷放鬆",
+          "baseZh": "躺姿",
+          "arrangementZh": "側躺屈膝"
+        },
+        {
+          "label": "半躺低姿態｜趴姿",
+          "baseZh": "躺姿",
+          "arrangementZh": "趴臥"
+        },
+        {
+          "label": "半躺低姿態｜側躺延伸",
+          "baseZh": "躺姿",
+          "arrangementZh": "側躺"
+        },
+        {
+          "label": "蹲姿｜自然蹲姿",
+          "baseZh": "蹲姿",
+          "arrangementZh": "自然蹲姿"
+        },
+        {
+          "label": "蹲姿｜單膝蹲姿",
+          "baseZh": "蹲姿",
+          "arrangementZh": "單膝抬起不對稱蹲姿"
+        },
+        {
+          "label": "蹲姿｜手扶膝蓋蹲姿",
+          "baseZh": "蹲姿",
+          "arrangementZh": "自然蹲姿",
+          "handZh": "雙手抱膝"
+        },
+        {
+          "label": "動態｜輕步移動",
+          "baseZh": "站姿",
+          "arrangementZh": "一腳向前點地"
+        },
+        {
+          "label": "動態｜整理頭髮",
+          "baseZh": "站姿",
+          "arrangementZh": "自然站姿",
+          "handZh": "單手撩髮"
+        },
+        {
+          "label": "動態｜整理衣襬",
+          "baseZh": "站姿",
+          "arrangementZh": "自然站姿",
+          "handZh": "整理下身",
+          "headZh": "低頭看向手部"
+        },
+        {
+          "label": "動態｜抬手整理肩頸",
+          "baseZh": "站姿",
+          "arrangementZh": "自然站姿",
+          "handZh": "單手搭肩",
+          "headZh": "頭部微微側傾"
+        },
+        {
+          "label": "動態｜回身動作",
+          "baseZh": "站姿",
+          "arrangementZh": "回身轉向",
+          "headZh": "回頭朝向鏡頭"
+        },
+        {
+          "label": "動態｜停步姿勢",
+          "baseZh": "站姿",
+          "arrangementZh": "膝蓋微彎站姿"
+        }
+      ]
+    },
+    "POSE_COMPOSER_ARRANGEMENT_TO_ANCHOR_MIGRATIONS": {
+      "shape": "records",
+      "fields": {
+        "arrangementId": {
+          "fieldKind": "legacy-key",
+          "required": true
+        },
+        "baseZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_BASE_OPTIONS",
+          "match": "zh",
+          "required": true
+        },
+        "anchorZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_ANCHOR_OPTIONS",
+          "match": "zh",
+          "required": true
+        },
+        "arrangementZh": {
+          "fieldKind": "embedded-ref",
+          "module": "webapp/src/lib/engine/poseComposerOptions.js",
+          "export": "POSE_COMPOSER_ARRANGEMENT_OPTIONS",
+          "match": "zh",
+          "required": false
+        }
+      },
+      "source": [
+        {
+          "arrangementId": "sitting-edge-poised",
+          "baseZh": "坐姿",
+          "anchorZh": "坐在椅緣"
+        },
+        {
+          "arrangementId": "sitting-wall-lean",
+          "baseZh": "坐姿",
+          "arrangementZh": "雙腿自然伸展",
+          "anchorZh": "背靠牆坐在地面"
+        }
+      ]
+    },
+    "WARDROBE_LEGACY_OPTION_MAP": {
+      "shape": "records",
+      "fields": {
+        "category": {
+          "fieldKind": "catalog-category",
+          "group": "wardrobe",
+          "required": true
+        },
+        "targetZh": {
+          "fieldKind": "catalog-zh",
+          "group": "wardrobe",
+          "categoryField": "category",
+          "required": true
+        },
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pairs",
+          "required": true
+        }
+      },
+      "source": [
+        {
+          "category": "唇部穿孔 (Lip Piercings)",
+          "targetZh": "右側下唇雙珠開口環",
+          "legacy": [
+            [
+              "下唇不對稱雙環",
+              2
+            ]
+          ]
+        },
+        {
+          "category": "眼鏡 (Eyewear)",
+          "targetZh": "粗框眼鏡",
+          "legacy": [
+            [
+              "黑框眼鏡",
+              1
+            ],
+            [
+              "白色鏡框眼鏡",
+              2
+            ]
+          ]
+        },
+        {
+          "category": "眼鏡 (Eyewear)",
+          "targetZh": "細框眼鏡",
+          "legacy": [
+            [
+              "細框眼鏡",
+              4
+            ],
+            [
+              "眼鏡戴在頭頂",
+              7
+            ]
+          ]
+        },
+        {
+          "category": "眼鏡 (Eyewear)",
+          "targetZh": "復古圓框眼鏡",
+          "legacy": [
+            [
+              "復古圓框眼鏡",
+              5
+            ]
+          ]
+        },
+        {
+          "category": "眼鏡 (Eyewear)",
+          "targetZh": "太陽眼鏡",
+          "legacy": [
+            [
+              "太陽眼鏡",
+              6
+            ]
+          ]
+        },
+        {
+          "category": "頸部 (Neck Accessories)",
+          "targetZh": "全無",
+          "legacy": [
+            [
+              "刺繡絲巾",
+              17
+            ],
+            [
+              "薄長圍巾",
+              18
+            ],
+            [
+              "厚長圍巾",
+              19
+            ]
+          ]
+        },
+        {
+          "category": "頸部 (Neck Accessories)",
+          "targetZh": "街頭風格金項鏈",
+          "legacy": [
+            [
+              "街頭風格金項鏈",
+              20
+            ]
+          ]
+        },
+        {
+          "category": "頸部 (Neck Accessories)",
+          "targetZh": "細領帶",
+          "legacy": [
+            [
+              "細領帶",
+              21
+            ]
+          ]
+        },
+        {
+          "category": "頸部 (Neck Accessories)",
+          "targetZh": "波洛領帶",
+          "legacy": [
+            [
+              "波洛領帶",
+              22
+            ]
+          ]
+        },
+        {
+          "category": "頸部 (Neck Accessories)",
+          "targetZh": "串珠頸鏈",
+          "legacy": [
+            [
+              "串珠頸鏈",
+              23
+            ]
+          ]
+        },
+        {
+          "category": "腰部配件 (Waist Accessories)",
+          "targetZh": "雙層銀鏈水晶腰鍊",
+          "legacy": [
+            [
+              "金屬鏈條腰鍊",
+              3
+            ]
+          ]
+        },
+        {
+          "category": "腰部配件 (Waist Accessories)",
+          "targetZh": "雙層銀鏈愛心腰鍊",
+          "legacy": [
+            [
+              "雙層金屬腰鏈",
+              4
+            ]
+          ]
+        },
+        {
+          "category": "腰部配件 (Waist Accessories)",
+          "targetZh": "全無",
+          "legacy": [
+            [
+              "布質腰封",
+              6
+            ]
+          ]
+        },
+        {
+          "category": "腰部配件 (Waist Accessories)",
+          "targetZh": "鉚釘皮革腰帶",
+          "legacy": [
+            [
+              "鉚釘皮革腰帶",
+              5
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "長版襯衫",
+          "legacy": [
+            [
+              "長版襯衫",
+              10
+            ]
+          ]
+        },
+        {
+          "category": "外套開合 (Outerwear Opening)",
+          "targetZh": "正常",
+          "legacy": [
+            [
+              "全無",
+              0
+            ]
+          ]
+        },
+        {
+          "category": "外套開合 (Outerwear Opening)",
+          "targetZh": "扣子扣一半",
+          "legacy": [
+            [
+              "不扣扣子",
+              2
+            ]
+          ]
+        },
+        {
+          "category": "外套開合 (Outerwear Opening)",
+          "targetZh": "拉鏈拉一半",
+          "legacy": [
+            [
+              "不拉拉鍊",
+              3
+            ]
+          ]
+        },
+        {
+          "category": "外套開合 (Outerwear Opening)",
+          "targetZh": "敞開穿",
+          "legacy": [
+            [
+              "敞開穿",
+              1
+            ]
+          ]
+        },
+        {
+          "category": "外套穿法 (Outerwear Styling)",
+          "targetZh": "單肩露出",
+          "legacy": [
+            [
+              "滑落肩部",
+              2
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "領帶襯衫",
+          "legacy": [
+            [
+              "領帶襯衫",
+              12
+            ],
+            [
+              "鬆領帶襯衫",
+              13
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "落肩 T 恤",
+          "legacy": [
+            [
+              "落肩 T 恤",
+              14
+            ],
+            [
+              "長版落肩 T 恤",
+              15
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "短版 T 恤",
+          "legacy": [
+            [
+              "短版 T 恤",
+              16
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "棉質細肩背心",
+          "legacy": [
+            [
+              "棉質細肩背心",
+              2
+            ],
+            [
+              "細肩帶上衣",
+              6
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "絲質細肩帶上衣",
+          "legacy": [
+            [
+              "絲質細肩帶上衣",
+              5
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "削肩針織上衣",
+          "legacy": [
+            [
+              "削肩針織上衣",
+              3
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "坦克背心",
+          "legacy": [
+            [
+              "坦克背心",
+              31
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "高領針織上衣",
+          "legacy": [
+            [
+              "高領針織上衣",
+              7
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "高領連身上衣",
+          "legacy": [
+            [
+              "高領連身上衣",
+              8
+            ],
+            [
+              "羅紋高領連身上衣",
+              9
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "長版寬鬆麻花針織毛衣",
+          "legacy": [
+            [
+              "長版寬鬆麻花針織毛衣",
+              11
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "短版針織背心",
+          "legacy": [
+            [
+              "短版針織背心",
+              17
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "短版蕾絲背心",
+          "legacy": [
+            [
+              "短版蕾絲背心",
+              18
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "平口上衣",
+          "legacy": [
+            [
+              "平口上衣",
+              19
+            ],
+            [
+              "削肩平口連身上衣",
+              21
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "一字領上衣",
+          "legacy": [
+            [
+              "一字領上衣",
+              20
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "絲綢緞面襯衫",
+          "legacy": [
+            [
+              "絲綢緞面襯衫",
+              22
+            ],
+            [
+              "荷葉袖絲綢襯衫",
+              23
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "透膚刺繡襯衫",
+          "legacy": [
+            [
+              "透膚刺繡襯衫",
+              24
+            ],
+            [
+              "柔垂透膚刺繡襯衫",
+              25
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "網紗透視上衣",
+          "legacy": [
+            [
+              "網紗透視上衣",
+              26
+            ],
+            [
+              "裝飾網紗上衣",
+              27
+            ],
+            [
+              "透膚蕾絲連身上衣",
+              40
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "短版吊帶背心",
+          "legacy": [
+            [
+              "短版吊帶背心",
+              28
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "短版帽T",
+          "legacy": [
+            [
+              "短版帽T",
+              29
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "球衣 / 運動 jersey",
+          "legacy": [
+            [
+              "球衣 / 運動 jersey",
+              30
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "維多利亞高領蕾絲襯衫",
+          "legacy": [
+            [
+              "維多利亞高領蕾絲襯衫",
+              32
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "雪紡荷葉蝴蝶結襯衫",
+          "legacy": [
+            [
+              "雪紡荷葉高領蝴蝶結襯衫",
+              33
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "素色緞面旗袍上衣",
+          "legacy": [
+            [
+              "素色緞面旗袍上衣",
+              34
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "精緻刺繡旗袍上衣",
+          "legacy": [
+            [
+              "精緻刺繡旗袍上衣",
+              35
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "和服式上衣",
+          "legacy": [
+            [
+              "和服式上衣",
+              36
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "浴衣式上衣",
+          "legacy": [
+            [
+              "浴衣式上衣",
+              37
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "比基尼上身",
+          "legacy": [
+            [
+              "比基尼",
+              41
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "蕾絲胸罩",
+          "legacy": [
+            [
+              "細肩帶蕾絲胸罩",
+              42
+            ],
+            [
+              "無肩帶蕾絲胸罩",
+              47
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "運動型內衣",
+          "legacy": [
+            [
+              "運動型內衣",
+              43
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "蕾絲睡衣上身",
+          "legacy": [
+            [
+              "蕾絲緊身睡衣",
+              44
+            ],
+            [
+              "蕾絲寬鬆睡衣",
+              45
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "波西米亞風上衣",
+          "legacy": [
+            [
+              "波西米亞風上衣",
+              46
+            ]
+          ]
+        },
+        {
+          "category": "上身 (Tops)",
+          "targetZh": "全無",
+          "legacy": [
+            [
+              "漢服式上衣",
+              38
+            ],
+            [
+              "改良漢服式上衣",
+              39
+            ]
+          ]
+        },
+        {
+          "category": "外套 (Outerwear)",
+          "targetZh": "西裝外套",
+          "legacy": [
+            [
+              "西裝外套（不扣扣子）",
+              1
+            ]
+          ]
+        },
+        {
+          "category": "外套 (Outerwear)",
+          "targetZh": "飛行夾克",
+          "legacy": [
+            [
+              "飛行夾克（敞開穿）",
+              6
+            ]
+          ]
+        },
+        {
+          "category": "外套 (Outerwear)",
+          "targetZh": "騎士風皮衣",
+          "legacy": [
+            [
+              "短版皮外套（不扣）",
+              7
+            ]
+          ]
+        },
+        {
+          "category": "外套 (Outerwear)",
+          "targetZh": "丹寧外套",
+          "legacy": [
+            [
+              "丹寧外套（敞開穿）",
+              8
+            ]
+          ]
+        },
+        {
+          "category": "外套 (Outerwear)",
+          "targetZh": "連帽外套",
+          "legacy": [
+            [
+              "運動連帽外套",
+              2
+            ]
+          ]
+        },
+        {
+          "category": "外套 (Outerwear)",
+          "targetZh": "連帽外套（戴帽）",
+          "legacy": [
+            [
+              "連帽拉鍊外套（不拉拉鍊）",
+              9
+            ],
+            [
+              "連帽拉鍊外套",
+              9
+            ]
+          ]
+        },
+        {
+          "category": "套裝 (Outfit Presets)",
+          "targetZh": "套裝：鏈條緞面內衣",
+          "legacy": [
+            [
+              "酒紅鏈條緞面內衣套裝",
+              1
+            ]
+          ]
+        },
+        {
+          "category": "套裝 (Outfit Presets)",
+          "targetZh": "套裝：春日巴黎亞麻長褲",
+          "legacy": [
+            [
+              "象牙白春日巴黎套裝",
+              4
+            ]
+          ]
+        },
+        {
+          "category": "套裝 (Outfit Presets)",
+          "targetZh": "套裝：長版襯衫百褶長裙",
+          "legacy": [
+            [
+              "全黑長版襯衫百褶長裙套裝",
+              9
+            ]
+          ]
+        },
+        {
+          "category": "套裝 (Outfit Presets)",
+          "targetZh": "套裝：BDSM 束縛",
+          "legacy": [
+            [
+              "BDSM 束縛套裝",
+              17
+            ]
+          ]
+        },
+        {
+          "category": "套裝 (Outfit Presets)",
+          "targetZh": "套裝：維多利亞古典",
+          "legacy": [
+            [
+              "維多利亞古典套裝",
+              18
+            ]
+          ]
+        },
+        {
+          "category": "套裝 (Outfit Presets)",
+          "targetZh": "套裝：蘿莉塔",
+          "legacy": [
+            [
+              "蘿莉塔套裝",
+              19
+            ]
+          ]
+        },
+        {
+          "category": "套裝 (Outfit Presets)",
+          "targetZh": "套裝：內衣寫真",
+          "legacy": [
+            [
+              "內衣寫真套裝",
+              20
+            ]
+          ]
+        },
+        {
+          "category": "套裝 (Outfit Presets)",
+          "targetZh": "套裝：泳裝度假",
+          "legacy": [
+            [
+              "泳裝度假套裝",
+              21
+            ]
+          ]
+        },
+        {
+          "category": "套裝 (Outfit Presets)",
+          "targetZh": "套裝：素色緞面旗袍",
+          "legacy": [
+            [
+              "素色緞面旗袍套裝",
+              22
+            ]
+          ]
+        },
+        {
+          "category": "套裝 (Outfit Presets)",
+          "targetZh": "套裝：精緻刺繡旗袍",
+          "legacy": [
+            [
+              "精緻刺繡旗袍套裝",
+              23
+            ]
+          ]
+        },
+        {
+          "category": "套裝 (Outfit Presets)",
+          "targetZh": "套裝：經典和服",
+          "legacy": [
+            [
+              "經典和服套裝",
+              24
+            ]
+          ]
+        },
+        {
+          "category": "套裝 (Outfit Presets)",
+          "targetZh": "套裝：輕盈浴衣",
+          "legacy": [
+            [
+              "輕盈浴衣套裝",
+              25
+            ]
+          ]
+        },
+        {
+          "category": "套裝 (Outfit Presets)",
+          "targetZh": "套裝：兔女郎",
+          "legacy": [
+            [
+              "兔女郎套裝",
+              28
+            ]
+          ]
+        },
+        {
+          "category": "套裝 (Outfit Presets)",
+          "targetZh": "套裝：女僕",
+          "legacy": [
+            [
+              "女僕套裝",
+              29
+            ]
+          ]
+        },
+        {
+          "category": "套裝 (Outfit Presets)",
+          "targetZh": "套裝：女僕風荷葉比基尼",
+          "legacy": [
+            [
+              "女僕風荷葉比基尼套裝",
+              30
+            ]
+          ]
+        },
+        {
+          "category": "套裝 (Outfit Presets)",
+          "targetZh": "套裝：短袖女高生水手服",
+          "legacy": [
+            [
+              "短袖女高生水手服",
+              31
+            ]
+          ]
+        },
+        {
+          "category": "套裝 (Outfit Presets)",
+          "targetZh": "套裝：長袖女高生水手服",
+          "legacy": [
+            [
+              "長袖女高生水手服",
+              32
+            ]
+          ]
+        },
+        {
+          "category": "套裝 (Outfit Presets)",
+          "targetZh": "套裝：玫瑰哥德蘿莉塔洋裝",
+          "legacy": [
+            [
+              "玫瑰哥德蘿莉塔洋裝套裝",
+              34
+            ]
+          ]
+        },
+        {
+          "category": "套裝 (Outfit Presets)",
+          "targetZh": "套裝：哥德休閒針織荷葉短裙",
+          "legacy": [
+            [
+              "哥德休閒針織荷葉短裙套裝",
+              35
+            ]
+          ]
+        },
+        {
+          "category": "連身 (Dresses)",
+          "targetZh": "連身：短版｜無袖迷你洋裝",
+          "legacy": [
+            [
+              "無袖連身洋裝",
+              1
+            ]
+          ]
+        },
+        {
+          "category": "連身 (Dresses)",
+          "targetZh": "連身：短版｜細肩帶迷你洋裝",
+          "legacy": [
+            [
+              "細肩帶連身洋裝",
+              2
+            ]
+          ]
+        },
+        {
+          "category": "連身 (Dresses)",
+          "targetZh": "連身：長版｜波希米亞罩衫洋裝",
+          "legacy": [
+            [
+              "波希米亞刺繡蕾絲寬鬆罩衫洋裝",
+              4
+            ]
+          ]
+        }
+      ]
+    },
+    "WARDROBE_LEGACY_PROMPT_ALIASES": {
+      "shape": "records",
+      "fields": {
+        "category": {
+          "fieldKind": "catalog-category",
+          "group": "wardrobe",
+          "required": true
+        },
+        "targetZh": {
+          "fieldKind": "catalog-zh",
+          "group": "wardrobe",
+          "categoryField": "category",
+          "required": true
+        },
+        "prompts": {
+          "fieldKind": "legacy-key",
+          "format": "strings",
+          "required": true
+        }
+      },
+      "source": [
+        {
+          "category": "唇部穿孔 (Lip Piercings)",
+          "targetZh": "右側下唇雙珠開口環",
+          "prompts": [
+            "two small silver hoops placed asymmetrically along the lower lip, with their side and spacing varying naturally"
+          ]
+        },
+        {
+          "category": "外套 (Outerwear)",
+          "targetZh": "長版襯衫",
+          "prompts": [
+            "tailored longline men's dress shirt, crisp woven poplin, pointed collar, full button-front placket, structured cuffs, extended shirttail hem, relaxed sleeve volume, clean formal menswear silhouette"
+          ]
+        },
+        {
+          "category": "外套開合 (Outerwear Opening)",
+          "targetZh": "敞開穿",
+          "prompts": [
+            "outerwear worn open at the front, front panels parted naturally"
+          ]
+        },
+        {
+          "category": "外套穿法 (Outerwear Styling)",
+          "targetZh": "單肩露出",
+          "prompts": [
+            "outerwear deliberately draped off one shoulder with one shoulder line exposed while the opposite shoulder remains in a standard outer-layer position, sleeves relaxed on the arms"
+          ]
+        },
+        {
+          "category": "外套穿法 (Outerwear Styling)",
+          "targetZh": "雙肩露出",
+          "prompts": [
+            "outerwear deliberately worn off both shoulders with both shoulder lines exposed and the upper back exposed in rear or three-quarter views, jacket draped around the upper arms with sleeves still on the arms"
+          ]
+        },
+        {
+          "category": "頸部 (Neck Accessories)",
+          "targetZh": "街頭風格金項鏈",
+          "prompts": [
+            "street-style gold chain detail, subtle urban neck accent"
+          ]
+        }
+      ]
+    },
+    "LOCATION_LEGACY_PROMPT_ALIASES": {
+      "shape": "records",
+      "fields": {
+        "category": {
+          "fieldKind": "catalog-category",
+          "group": "locations",
+          "required": true
+        },
+        "targetZh": {
+          "fieldKind": "catalog-zh",
+          "group": "locations",
+          "categoryField": "category",
+          "required": true
+        },
+        "prompts": {
+          "fieldKind": "legacy-key",
+          "format": "strings",
+          "required": true
+        }
+      },
+      "source": [
+        {
+          "category": "城市與社群感 (Urban & Social Snapshots)",
+          "targetZh": "戶外：澀谷站前廣場人潮邊緣",
+          "prompts": [
+            "Shibuya Station front plaza with the QFRONT glass facade carrying TSUTAYA and STARBUCKS signage and large advertising screens in the background, the subject as one person within a dense pedestrian flow with people passing in different directions beside and in front of and behind her; everyone sharing the same physical space and perspective with apparent size varying naturally by distance, pedestrians in varied everyday clothing in mixed colors and styles sharing the same ambient light as the subject; nearby passersby naturally overlapping and partly cropped at frame edges, surrounding Japanese shop signs",
+            "Shibuya Station front plaza with the QFRONT glass facade carrying TSUTAYA and STARBUCKS signage and large advertising screens in the background, dense varied crowds walking in different directions around the subject through the foreground and midground into the background, nearby passersby partly cropped at frame edges, surrounding Japanese shop signs",
+            "Shibuya Station front plaza edge near Hachiko Square, broad pedestrian paving, dense realistic foot traffic, station-front commercial facade layers, meeting crowd clusters, curb and railing fragments, recognizable public-plaza ground plane without focusing on a single monument"
+          ]
+        },
+        {
+          "category": "城市與社群感 (Urban & Social Snapshots)",
+          "targetZh": "戶外：新宿歌舞伎町招牌下",
+          "prompts": [
+            "Kabukicho signboard corner, stacked sign structures, storefront edge, glossy pavement patches, narrow curb, doorway seam, overhead sign brackets"
+          ]
+        }
+      ]
+    },
+    "WARDROBE_OUTFIT_TO_DRESS_LEGACY_LOCK_MIGRATIONS": {
+      "shape": "records",
+      "fields": {
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pair",
+          "required": true
+        },
+        "dressZh": {
+          "fieldKind": "catalog-zh",
+          "group": "wardrobe",
+          "category": "連身 (Dresses)",
+          "required": true
+        }
+      },
+      "source": [
+        {
+          "legacy": [
+            "玫瑰粉乳膠迷你洋裝套裝",
+            3
+          ],
+          "dressZh": "連身：短版｜亮面乳膠迷你洋裝"
+        },
+        {
+          "legacy": [
+            "黑色細節一字領哥德洋裝套裝",
+            15
+          ],
+          "dressZh": "連身：短版｜一字領哥德迷你洋裝"
+        },
+        {
+          "legacy": [
+            "銀色亮面深V掛脖迷你洋裝套裝",
+            16
+          ],
+          "dressZh": "連身：短版｜亮面深V掛脖迷你洋裝"
+        },
+        {
+          "legacy": [
+            "復古雙排釦洋裝套裝",
+            33
+          ],
+          "dressZh": "連身：短版｜復古雙排釦迷你洋裝"
+        }
+      ]
+    },
+    "LEGACY_HAIR_STYLING_STATE_MIGRATIONS": {
+      "shape": "records",
+      "fields": {
+        "stateZh": {
+          "fieldKind": "attribute",
+          "group": "character",
+          "category": "髮絲整理狀態 (Hair Styling State)",
+          "required": true
+        },
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pairs",
+          "required": true
+        }
+      },
+      "source": [
+        {
+          "stateZh": "濕髮分束",
+          "legacy": [
+            [
+              "帥氣濕亮油頭",
+              1
+            ],
+            [
+              "不對稱濕感短鮑伯",
+              4
+            ],
+            [
+              "短髮｜不對稱濕感短鮑伯",
+              7
+            ],
+            [
+              "半濕感中長髮",
+              9
+            ],
+            [
+              "中長髮｜半濕感中長髮",
+              14
+            ],
+            [
+              "直髮：濕感",
+              13
+            ],
+            [
+              "自然微彎：濕感",
+              17
+            ],
+            [
+              "濕潤感長波浪",
+              21
+            ],
+            [
+              "長髮（放髮）｜濕潤感長波浪",
+              20
+            ]
+          ]
+        }
+      ]
+    },
+    "LEGACY_EYEWEAR_LOCK_MIGRATIONS": {
+      "shape": "records",
+      "fields": {
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pair",
+          "required": true
+        },
+        "frameZh": {
+          "fieldKind": "attribute",
+          "group": "wardrobe",
+          "category": "眼鏡 (Eyewear)",
+          "required": true
+        },
+        "colorZh": {
+          "fieldKind": "attribute",
+          "group": "wardrobe",
+          "category": "眼鏡配色 (Eyewear Color)",
+          "required": false
+        },
+        "placementZh": {
+          "fieldKind": "attribute",
+          "group": "wardrobe",
+          "category": "眼鏡配戴方式 (Eyewear Placement)",
+          "required": true
+        }
+      },
+      "source": [
+        {
+          "legacy": [
+            "黑框眼鏡",
+            1
+          ],
+          "frameZh": "粗框眼鏡",
+          "colorZh": "黑色",
+          "placementZh": "正常戴在臉上"
+        },
+        {
+          "legacy": [
+            "白色鏡框眼鏡",
+            2
+          ],
+          "frameZh": "粗框眼鏡",
+          "colorZh": "白色",
+          "placementZh": "正常戴在臉上"
+        },
+        {
+          "legacy": [
+            "玳瑁色鏡框眼鏡",
+            3
+          ],
+          "frameZh": "粗框眼鏡",
+          "colorZh": "玳瑁色",
+          "placementZh": "正常戴在臉上"
+        },
+        {
+          "legacy": [
+            "細框眼鏡",
+            4
+          ],
+          "frameZh": "細框眼鏡",
+          "placementZh": "正常戴在臉上"
+        },
+        {
+          "legacy": [
+            "復古圓框眼鏡",
+            5
+          ],
+          "frameZh": "復古圓框眼鏡",
+          "placementZh": "正常戴在臉上"
+        },
+        {
+          "legacy": [
+            "太陽眼鏡",
+            6
+          ],
+          "frameZh": "太陽眼鏡",
+          "colorZh": "黑色",
+          "placementZh": "正常戴在臉上"
+        },
+        {
+          "legacy": [
+            "眼鏡戴在頭頂",
+            7
+          ],
+          "frameZh": "細框眼鏡",
+          "placementZh": "戴在頭頂"
+        }
+      ]
+    },
+    "LEGACY_OUTERWEAR_OPENING_LOCK_MIGRATIONS": {
+      "shape": "records",
+      "fields": {
+        "legacy": {
+          "fieldKind": "legacy-key",
+          "format": "pair",
+          "required": true
+        },
+        "openingZh": {
+          "fieldKind": "attribute",
+          "group": "wardrobe",
+          "category": "外套開合 (Outerwear Opening)",
+          "required": true
+        }
+      },
+      "source": [
+        {
+          "legacy": [
+            "西裝外套（不扣扣子）",
+            1
+          ],
+          "openingZh": "扣子扣一半"
+        },
+        {
+          "legacy": [
+            "飛行夾克（敞開穿）",
+            6
+          ],
+          "openingZh": "敞開穿"
+        },
+        {
+          "legacy": [
+            "短版皮外套（不扣）",
+            7
+          ],
+          "openingZh": "扣子扣一半"
+        },
+        {
+          "legacy": [
+            "丹寧外套（敞開穿）",
+            8
+          ],
+          "openingZh": "敞開穿"
+        },
+        {
+          "legacy": [
+            "連帽拉鍊外套（不拉拉鍊）",
+            9
+          ],
+          "openingZh": "拉鏈拉一半"
+        }
+      ]
+    }
+  }
+}
