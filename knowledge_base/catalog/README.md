@@ -1,4 +1,4 @@
-# Catalog JSON 正式來源與明確語意（C／D）
+# Catalog JSON 正式來源、明確語意與舊映射（C／D／E）
 
 2026-10-25：由 main `64870460e8a153a07baf953df0d6cf784ce2aca4` 切換。正式目錄為 `index.json` 指定順序的 56 份分類 JSON，共 1,050 筆。`schema.json`、`field_mapping.json`、`id_registry.json`、`legacy_mappings.json` 是管理文件，不是分類。manifest 繼續負責參考圖；不把圖片衍生鍵寫回來源。
 
@@ -9,10 +9,10 @@
 3. 新增、移動列時同步維護 index 的 Markdown layout ID 位置；每類順序須等於 entries，每 ID 恰好一次。layout 的 cells 只保存結構欄，英文／名稱／描述由紀錄產生；標題、前言、表頭與分隔行保留原文。
 4. schema 驗證所有來源及巢狀欄位；`id/zh/en/desc` 非空，表格文字不得含 `|` 或換行。Regional 的 `inspiration` 與 `desc` 分別填寫，生成時以 ` | ` 組回。允許的 false、0、空字串依 schema 原樣保留。
 5. 更新欄位責任清單的實際 source/generated/runtime 分工及分類範圍。`outerwear`、`topUnderbust`、`subjectLight` 仍保留來源頂層，engine 依現有順序投影至 meta。`lyingSurface`、`mj` 及 manifest 圖片映射保留；D 已啟用 `meta.semantic`，保存整個推論底層物件；不是最終合併 meta。新增條目必填並人工審閱；修改 zh／en／desc 時須明列語意是否改變及原因。各分區 tag enum、null／空陣列與有序值依 schema 驗證。Negative 保存 conflictTags／useTags，不添加 tags。
-6. 修改前選定已審查的完整 Git SHA，不能從候選 JSON 取得基準。C 已以 `17074fb` 交付；本次 E 使用 D 已交付、具正式 registry 的完整提交。後續選用當次已審查、早於候選的可信任提交；不能回到 pre-C bootstrap。
+6. 修改前選定已審查的完整 Git SHA，不能從候選 JSON 取得基準。A–E 已交付；以下日常驗證以已交付 E `2bd28c5a` 為本次收尾的可信任基準。後續選用當次已審查、早於候選的可信任提交；不能回到 pre-C bootstrap。
 
 ```bash
-export REGISTRY_BASE_COMMIT=5e7ed02952ceea4a2f76b81583c5f783748ff308
+export REGISTRY_BASE_COMMIT=2bd28c5a26ddcc748ed2af7c347a3874a192a4a0
 python3 scripts/sync_to_json.py
 python3 scripts/sync_to_json.py --check --report-json
 python3 -m unittest discover -s scripts/tests
@@ -53,7 +53,7 @@ node scripts/validate_catalog_semantics.mjs --source-sha 17074fbe3850e2e9fea300b
 
 ## E 舊映射集中
 
-基準為 D 已交付 `5e7ed02952ceea4a2f76b81583c5f783748ff308`，D 的 CI 40185121595 已成功。Cooper 確認 E 範圍及共用凍結，僅本工作修改。22 表／334 筆與兩個舊分類常數只搬來源形式；JSON 不含 `.map()` 產生的 legacyId(s)，Map 保留有序 pairs。五個 `.map()` 與 Map 建構仍在 engine 載入時執行；髮絲狀態函式內的 Map 也維持呼叫時計算。
+E 搬移的歷史基準為 D 已交付 `5e7ed02952ceea4a2f76b81583c5f783748ff308`；當時 Cooper 確認 E 範圍及共用凍結，僅該工作修改。E 現已由 `2bd28c5a` 交付，CI 40192867913 成功。22 表／334 筆與兩個舊分類常數只搬來源形式；JSON 不含 `.map()` 產生的 legacyId(s)，Map 保留有序 pairs。五個 `.map()` 與 Map 建構仍在 engine 載入時執行；髮絲狀態函式內的 Map 也維持呼叫時計算。
 
 `legacy_mappings.json` 的 envelope 為 version、constants、tables。各表有 shape、fields、source；欄位依固定的 `scripts/lib/legacyMappingContract.json` 宣告 fieldKind。除 catalog-zh、embedded-ref、attribute、legacy-key，增加 catalog-category／legacy-category；歷史 tuple 的非負整數索引由 pair／pairs format 檢查。舊分類可已退役，不要求它存在於現行分類。legacy-key 唯一性以同表、分類與欄位為範圍，tuple 含原索引；不能只以中文標籤判定重複。自己舊 ID 等於自己現行 ID 合法，等於其他現行條目則阻擋。`prompts[]` 保留歷史英文，不改寫為中文名或 ID。
 
@@ -70,4 +70,12 @@ node --test webapp/src/lib/engine/legacyMappings.test.js scripts/tests/catalog-l
 
 永久 fixture 包含 22 表計算結果、2 常數、實際 helper 推導的 aliases，以及 1,098 個完整 normalizeLocks／舊英文解析結果雜湊；單人、雙人 A/B、顯式選值、未知舊鍵與 first-match 均納入。來源與 compiled/controls 的整體零差異則由一次性驗收及既有 A 封存保護。J12 兩項及「雙腿屈起」兩處既有首筆選擇保留，無新豁免。renderer 的 LEGACY_OUTERWEAR_DOUBLE_SHOULDER_STYLING_TEXT、函式陣列與其他模組不搬；P5b 未開始。
 
-詳見 [E 報告](../../Docs/reports/catalog-architecture-e-2026-10-25/README.md)與 [E 前原稿歸檔](../../Docs/archive/2026-10-25-catalog-e/ARCHIVE_INDEX.md)。Cooper 已確認本機驗收通過並授權 E 限定範圍提交／推送；交付後須確認該提交的遠端 CI。授權不等同 Git／CI 已成功，P5b 仍未開始。
+詳見 [E 報告](../../Docs/reports/catalog-architecture-e-2026-10-25/README.md)與 [E 前原稿歸檔](../../Docs/archive/2026-10-25-catalog-e/ARCHIVE_INDEX.md)。E 已提交／推送，對應 [CI 40192867913](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40192867913) 成功。固定 pre-E／pre-D SHA 保留作歷史等價驗收，不能換成新 HEAD。P5b 仍未開始。
+
+## 驗證護欄收尾
+
+`check_catalog_integrity.mjs --strict` 現在同時禁止正式程式使用兩個測試專用匯出，並列出 22 表的 ID／文字檢查方式。正式程式使用 named public imports；不要 namespace／wildcard／dynamic import 整個 engine，也不要透過測試檔轉接。測試檔只允許 `.test.*`／`.spec.*`；一般 helper／fixture 檔仍接受掃描，解析失敗阻擋。
+
+獨立遷移按真正輸入 control 查 ID，涵蓋單人及雙人 A/B；原有合法跨欄位配對由不可重錄的 pre-E 映射與 A control 封存共同保護。新的衝突不能藉由修改同批來源或放寬 allowlist 解決。既有 9 個自身 option alias 與 27 個含角色欄位的歷史配對保持；兩張 Prompt aliases 是文字比對，沒有 ID 推導。
+
+僅工具／文件變更時，執行三份工具測試、Python／同步／strict 與受影響的封存回歸；是否擴至前端／瀏覽器依 root AGENTS。本次另跑完整前端、lint/build、E 零差異與相同 seed audit，正式資料／引擎未變，所以未重跑瀏覽器或外部出圖。[本機收尾證據](../../Docs/reports/catalog-architecture-closure-2026-10-25/README.md)已完成本機驗收並獲授權限定提交／push；實際交付結果另核對，不將 E 已成功的 CI 當作收尾 CI。

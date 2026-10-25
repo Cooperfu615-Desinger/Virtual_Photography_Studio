@@ -1,7 +1,7 @@
 # 目錄資料架構 v1：穩定 ID、正式 schema、語意資料化
 
 - 文件修訂：**v1.1，2026-10-24**；保留既有檔名，供原連結繼續使用。
-- 狀態：A–D 已驗收交付；D 提交 `5e7ed02952ceea4a2f76b81583c5f783748ff308` 的 CI 40185121595 已通過。Cooper 已確認 E 的 22 表＋2 常數範圍及共用凍結，本輪依此固定 pre-E 完成原樣搬移與本機驗收，Cooper 已確認驗收通過並授權僅提交／推送本批 E；實際 Git 與 CI 結果另行核對。P5b 未開始。最新證據見 §15，下方 A–D 為歷史。
+- 狀態：A–E 已驗收、提交並推送 main；E 為 `2bd28c5a26ddcc748ed2af7c347a3874a192a4a0`，CI 40192867913 成功。逐條複核後的兩項驗證護欄已依新授權補齊，本批本機驗收通過，Cooper 已授權限定範圍提交／推送；實際 Git／CI 結果另行核對。最終交付與收尾見 §16；§11–15 保留各階段當時的驗收／授權歷史。Phase 4 與 P5b 未啟動。
 - 範圍：保留原 Phase 1–3 的工作內容，執行順序改為 §7 的 A–E 階段；所有遷移均不改公開 Prompt、UI 顯示、隨機選取行為或使用者存檔格式。已知內容問題另立 Phase 4。
 - 依據：[資料庫完整分析報告](../reports/database-analysis-2026-10-11/README.md) 與 [2026-10-13 決策](../decisions/2026-10-13-catalog-data-architecture.md)。原決策保留為歷史紀錄；執行細節以本修訂為準。
 - 原 A 基準版本：`0746b280cc9f5c00daec7dadc73329779ac658e9`。2026-10-24 後續授權對齊的本機與 GitHub `main` 為 `2f56438804e751de4556060b293231966d6ea3b3`；原基準永久保留，新版本另建 manifest。基礎目錄為 6 分區、56 分類、1,050 條，37 條有 `stableId`；執行期為 219 個 controls、4,771 個 options。這些是基準觀察值，不是永久限制。
@@ -121,6 +121,7 @@ Prompt Quality 證明契約與片語要求，audit 證明診斷結果，完整�
   - 原因：`infer*Meta` 接收的是正規化後的物件，zh 已經過 `formatWardrobeOptionDisplayName`（`engine.js:2614`）轉換。外部腳本無法重現這個輸入。
 - 這個 export 只供測試與 `scripts/` 使用，正式程式碼不得 import。完整性檢查要掃描並禁止正式程式碼 import 它。
 - 正式路徑不呼叫這個 export，所以不影響任何既有行為。保存 `inferredMeta` 只在這個 export 的編譯路徑中進行。
+- 收尾護欄：`scripts/lib/catalogTestExports.mjs` 掃描 `webapp/src/` 的 JS／JSX，測試檔及 repo 外 `scripts/` 才可使用；TestSupport／Fixtures 命名不構成豁免。禁止 named import（含改名）、轉匯出、engine namespace／wildcard／靜態路徑 dynamic import 或 require，以及測試專用成員存取；正式程式亦不得透過測試檔轉接。`getLegacyMappingsForTesting` 同受保護。引擎既有測試匯出宣告本身不算引用，解析失敗列 confirmed；既有 strict CI 命令直接阻擋。
 
 #### 4.1.2 快照檔與測試
 
@@ -492,6 +493,10 @@ B 先用 fixtures 完成登記簿驗證器與 schema；C 產生實際登記簿�
 
 如果清點時遇到無法歸入以上四類的欄位，就新增類型並在清點表中說明，不得硬塞進既有類型。
 
+收尾護欄按來源控制欄位查核：9 張 option map 使用真實 helper 衍生 ID；其餘 11 張 ID／label migration 涵蓋 dictionary、Map pairs、載入時 legacyId(s)、呼叫時計算髮絲 ID、resolved-label 及自拍 includes(label) 路徑，含單人與雙人 A/B。2 張英文 Prompt aliases 不產生 ID，檢查文字鍵重複與目標參照，明確列為非 ID 路徑；新增未知表必須有明確檢查方式。
+
+自身目標 ID 合法；既有跨欄位行為使用「封存 pre-E 完整映射列＋A 控制項的歷史主 ID＋該列實際歷史輸入 ID」共同確認所有權。兩份證據均驗 SHA，不從候選來源產生豁免。這保留相機／濕髮／鏡子自拍共 27 個含角色欄位的合法既有配對，也會拒絕新控制項占用舊鍵、任意換目標或來源與 runtime 計算表漂移。不修改 J12 允許清單；同 ID 被改作另一語意仍須人工審查。後續核准改變這些配對時應另立可追溯的新規則／revision，原封存不可重錄。
+
 #### 6.2.3 搬遷
 
 - 把清點確認後的表，以**來源形式**寫入 `knowledge_base/catalog/legacy_mappings.json`：
@@ -515,7 +520,7 @@ B 先用 fixtures 完成登記簿驗證器與 schema；C 產生實際登記簿�
 
 ## 7. 交付方式與實際執行順序
 
-原 1a–3b 代號保留作條文索引，**不再代表依章節先後執行**；以下 A–E 是唯一執行順序。原文件修訂不啟動 A；2026-10-24 的後續指示已單獨授權 A，尚未授權 B。
+原 1a–3b 代號保留作條文索引，**不再代表依章節先後執行**；以下 A–E 是唯一執行順序。原文件修訂當時不啟動 A；2026-10-24 的首次實作授權當時只涵蓋 A。後續 B–E 已各別核准並交付，最新狀態見 §16。
 
 | 階段 | 原步驟對照 | 交付與邊界 |
 | --- | --- | --- |
@@ -638,3 +643,19 @@ Cooper 已確認 D 階段驗收通過，明確授權只提交並 push 本次 D �
 ### 15.1 E 驗收與交付授權
 
 Cooper 已確認 E 階段驗收通過，授權只提交並 push 本批 E 的資料、程式、文件、基準、驗收工具與 CI 設定，保留其他未提交內容。僅依84份 E 交付清單提交，完成後確認該提交的 CI。上節保留本機驗收時的狀態，本節授權不等同 Git／CI 已成功；不進入 P5b。
+
+## 16. A–E 交付核對與驗證護欄收尾（2026-10-25）
+
+以 GitHub main、各提交的 workflow run 及本機 main 查核；下表五個 run 均 completed／success。這是已交付 A–E 的證據，不代表尚未提交的收尾修改已通過遠端 CI。
+
+| 階段 | 已交付提交 | 對應 CI |
+| --- | --- | --- |
+| A | `8854670bb55a2be54c053a5c21a9a22a973819db` | [成功：40101509806](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40101509806) |
+| B | `64870460e8a153a07baf953df0d6cf784ce2aca4` | [成功：40136849217](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40136849217) |
+| C | `17074fbe3850e2e9fea300b36697643913f707a1` | [成功：40160077808](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40160077808) |
+| D | `5e7ed02952ceea4a2f76b81583c5f783748ff308` | [成功：40185121595](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40185121595) |
+| E | `2bd28c5a26ddcc748ed2af7c347a3874a192a4a0` | [成功：40192867913](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40192867913) |
+
+本次只補 §4.1.1 的正式引用禁止規則、§6.2.2 的各類 ID 所有權檢查與反例，以及目前狀態／操作文件。檢查沿用現有 `check_catalog_integrity.mjs --strict` 與三個工具測試檔的 CI 接線；未改 workflow、正式分類／schema／registry、引擎、renderer、Prompt 或任何封存。
+
+工具 32/32、Python 41/41、前端 1,830/1,830、lint/build、同步／歷史 ID 檢查通過；strict 僅原 J12 兩項允許，0 blocker／0 stale。A 重播與 E 1,098 還原零差異；同 seed 200 audit 與 E 完全一致。詳見 [收尾報告](../reports/catalog-architecture-closure-2026-10-25/README.md)。Cooper 已授權完成本批驗收與交付；提交前工具 32/32、同步／strict 與其他 140 份未提交內容保護再次通過。僅依收尾交付清單提交／push，最終 Git 與 CI 結果另行核對。Phase 4 與 P5b 維持另案，原本刻意凍結的內容問題不在此次修正範圍。

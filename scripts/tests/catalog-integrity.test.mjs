@@ -53,6 +53,9 @@ test('field mapping preserves false, empty strings, nested values and reports un
 test('strict CLI succeeds for exact exceptions and fails for stale exceptions', () => {
   const run = args => execFileSync(process.execPath, ['scripts/check_catalog_integrity.mjs', '--strict', '--json', ...args], { cwd: root, encoding: 'utf8', maxBuffer: 16*1024*1024 });
   const result = JSON.parse(run([]));assert.equal(result.allowlist.allowed.length, 2);assert.equal(result.allowlist.blocking.length, 0);
+  assert(result.sections.testExportBoundary.files > 0);
+  assert.deepEqual(result.sections.testExportBoundary.issues, []);
+  assert.equal(Object.keys(result.sections.extended.legacy.identityCoverage).length, 22);
   const dir = temp();
   try {
     const p = join(dir, 'allow.json');writeFileSync(p, JSON.stringify([exception]));
@@ -103,4 +106,54 @@ test('pose metadata validates nested support, arrangement, orientation and crop 
   const meta = { randomEligibleForArrangements: { lying: ['relaxed'] }, supportVariants: { palms: { projectionByBucket: { chest: { mode: 'projected', en: 'source text' } } } }, supineEnvironmentByOrientation: { supine: 'source' }, visibleBuckets: ['chest'], supportSurface: 'ground' };
   assert.deepEqual(validatePoseMetadata({ id:'x', meta }, ctx), []);
   for (const update of [{ randomEligibleForArrangements: { lying:['missing'] } }, { supportVariants: { missing:{} } }, { projectionByBucket:{ unknown:{ mode:'projected', en:'x' } } }, { projectionByBucket:{ chest:{ mode:'unknown', en:'' } } }, { supineEnvironmentByOrientation:{ missing:'x' } }, { supportSurface:'typo' }, { requiresWardrobeRole:'typo' }, { requiresSceneType:'typo' }, { visibleBuckets:['missing'] }]) assert(validatePoseMetadata({id:'x',meta:{...meta,...update}},ctx).length);
+});
+
+// A/B closure: the static gate must reject aliases and module-wide escape paths.
+const { testExportIssues, scanCatalogTestExports } = await import('../lib/catalogTestExports.mjs');
+const { createRequire } = await import('node:module');
+const parseBoundary = createRequire(join(root, 'webapp/package.json'))('espree').parse;
+const boundary = source => testExportIssues(parseBoundary(source, {
+  ecmaVersion: 'latest', sourceType: 'module', loc: true, ecmaFeatures: { jsx: true },
+}), join(root, 'webapp/src/lib/boundary-fixture.js'), root);
+
+test('catalog testing exports cannot enter production through imports, aliases or namespaces', () => {
+  for (const source of [
+    "import { getCompiledCatalogForTesting as snapshot } from './engine.js';",
+    "import { getLegacyMappingsForTesting } from './engine.js';",
+    "import * as e from './engine.js'; const alias = e;",
+    "export { getCompiledCatalogForTesting as publicSnapshot } from './engine.js';",
+    "export * from './engine.js';",
+    "export * as publicEngine from './engine.js';",
+    "const e = await import('./engine.js?raw');",
+    "const e = require('./engine.js');",
+    "const { getCompiledCatalogForTesting: renamed } = e;",
+    "e['getLegacyMappingsForTesting']();",
+    "getCompiledCatalogForTesting();",
+    "import { publicAlias } from './leaking.test.js';",
+    "export * from './leaking.spec.js';",
+    "await import('./leaking.test.js');",
+  ]) assert(boundary(source).length, source);
+  assert.deepEqual(boundary("import { getLockControls } from './engine.js'; export { getLockControls };"), []);
+  assert.deepEqual(boundary("export function getCompiledCatalogForTesting() {}"), []);
+  assert.deepEqual(boundary("// getCompiledCatalogForTesting()\nconst text = 'getLegacyMappingsForTesting';"), []);
+});
+
+test('production scan includes JSX and helper files, excludes only test files, and fails closed on parse errors', () => {
+  const dir = temp();
+  try {
+    mkdirSync(join(dir, 'webapp/src/nested'), { recursive: true });
+    symlinkSync(join(root, 'webapp/node_modules'), join(dir, 'webapp/node_modules'));
+    writeFileSync(join(dir, 'webapp/package.json'), '{}');
+    const bad = "import { getCompiledCatalogForTesting as renamed } from '../lib/engine.js';";
+    writeFileSync(join(dir, 'webapp/src/nested/helperTestSupport.js'), bad);
+    writeFileSync(join(dir, 'webapp/src/component.jsx'), bad + 'const a = <div/>;');
+    writeFileSync(join(dir, 'webapp/src/example.test.js'), bad);
+    writeFileSync(join(dir, 'webapp/src/broken.js'), 'const =');
+    const result = scanCatalogTestExports(dir);
+    assert.equal(result.files, 3);
+    assert.equal(result.issues.filter(i => i.code === 'CATALOG_TEST_EXPORT_IN_PRODUCTION').length, 2);
+    assert.equal(result.issues.filter(i => i.code === 'CATALOG_PRODUCTION_PARSE').length, 1);
+    assert.equal(applyAllowlist(result.issues, []).blocking.length, 3);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+  assert.deepEqual(scanCatalogTestExports(root).issues, []);
 });

@@ -1,3 +1,4 @@
+import { migrationIdentityIssues } from './catalogLegacyCollisions.mjs';
 // E: source-only relocation. Runtime formulas remain in engine.js.
 import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync, mkdtempSync, rmSync } from 'node:fs';
@@ -155,7 +156,7 @@ export async function validateLegacyReferences(root, document, engine, snapshot 
       else selfAliases++;
     }
   }
-  // Also protect runtime control namespaces, including computed migration IDs and J12.
+  // Option-alias controls; standalone migration inputs are checked separately below.
   // The shared controlIssues gate owns exact J12 allowlisting; no new exception is introduced here.
   for(const row of snapshot.optionAliases)for(const id of row.ids) {
     const target=compiled.catalog[row.group][row.category].find(o=>o.zh===row.targetZh);
@@ -163,5 +164,7 @@ export async function validateLegacyReferences(root, document, engine, snapshot 
       if(c.options.some(o=>o.id===id && o.id!==target.id))issue('LEGACY_CURRENT_ID_COLLISION',c.key+':'+id,'Old ID shadows a different control entry');
     }
   }
-  return {issues,tables:Object.keys(document.tables).length,constants:Object.keys(document.constants).length,references,selfAliases,ambiguous};
+  const identities = migrationIdentityIssues(root, document, snapshot, compiled, controls, OPTION_TABLES);
+  issues.push(...identities.issues);
+  return {issues,tables:Object.keys(document.tables).length,constants:Object.keys(document.constants).length,references,selfAliases,ambiguous,identityCoverage:identities.coverage,checkedMigrationIds:identities.checkedIds,preservedMigrationOwners:identities.preservedOwners};
 }

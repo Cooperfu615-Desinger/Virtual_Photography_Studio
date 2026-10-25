@@ -1,0 +1,336 @@
+{
+  "date": "2026-10-25",
+  "baselineCommit": "2bd28c5a26ddcc748ed2af7c347a3874a192a4a0",
+  "status": "local validation passed; scoped commit/push authorized; final Git and CI verified in delivery response",
+  "tests": {
+    "catalogTools": {
+      "pass": 32,
+      "fail": 0
+    },
+    "python": {
+      "pass": 41,
+      "fail": 0
+    },
+    "frontend": {
+      "pass": 1830,
+      "fail": 0
+    },
+    "lint": "pass",
+    "build": "pass; existing >500 kB chunk warning"
+  },
+  "sync": {
+    "records": 1050,
+    "historicalIds": 1050,
+    "initialFrozen": 0,
+    "mode": "historical",
+    "registryBaseCommit": "2bd28c5a26ddcc748ed2af7c347a3874a192a4a0",
+    "registrySha256": "b79fa41d64a2954c28a3c716669c4deb929fabd2c85115159f3567822bbc7b25",
+    "outputs": 8,
+    "source": "catalog JSON",
+    "check": true
+  },
+  "integrity": {
+    "productionScan": {
+      "files": 196,
+      "issues": []
+    },
+    "allowed": [
+      {
+        "code": "LEGACY_ID_AMBIGUOUS",
+        "itemKey": "duoPoseId:shoulder-lean",
+        "message": "Token has multiple owners in this control",
+        "evidence": [
+          "fashion-editorial-models",
+          "best-friends-selfie"
+        ]
+      },
+      {
+        "code": "LEGACY_ID_AMBIGUOUS",
+        "itemKey": "duoPoseId:leaning-shoulders",
+        "message": "Token has multiple owners in this control",
+        "evidence": [
+          "fashion-editorial-models",
+          "best-friends-selfie"
+        ]
+      }
+    ],
+    "blocking": [],
+    "stale": [],
+    "possibleCodes": [
+      "DANGLING_ID_TEST",
+      "DANGLING_ZH_LITERAL",
+      "UNKNOWN_CATEGORY_LITERAL",
+      "CARD_LAYER_DUPLICATION"
+    ],
+    "legacy": {
+      "issues": [],
+      "tables": 22,
+      "constants": 2,
+      "references": 437,
+      "selfAliases": 9,
+      "ambiguous": [
+        {
+          "key": "CHARACTER_SPECIAL_ACTION_TO_POSE_COMPOSER_MIGRATIONS[8].arrangementZh",
+          "value": "雙腿屈起",
+          "orderedMatches": [
+            "sitting-hug-knees",
+            "lying-body-legs-bent"
+          ],
+          "firstMatch": "sitting-hug-knees"
+        },
+        {
+          "key": "CHARACTER_POSE_TO_POSE_COMPOSER_MIGRATIONS[11].arrangementZh",
+          "value": "雙腿屈起",
+          "orderedMatches": [
+            "sitting-hug-knees",
+            "lying-body-legs-bent"
+          ],
+          "firstMatch": "sitting-hug-knees"
+        }
+      ],
+      "identityCoverage": {
+        "REGIONAL_STYLE_LEGACY_OPTION_MAP": "option-alias: actual helper IDs and target ownership",
+        "CAMERA_FRAMING_LEGACY_OPTION_MAP": "option-alias: actual helper IDs and target ownership",
+        "CAMERA_ANGLE_LEGACY_OPTION_MAP": "option-alias: actual helper IDs and target ownership",
+        "CAMERA_ORBIT_LEGACY_OPTION_MAP": "option-alias: actual helper IDs and target ownership",
+        "CAMERA_AMBIENT_LIGHT_RENAME_LEGACY_OPTION_MAP": "option-alias: actual helper IDs and target ownership",
+        "CAMERA_FILM_LEGACY_OPTION_MAP": "option-alias: actual helper IDs and target ownership",
+        "CAMERA_PROFILE_RENDERING_MIGRATIONS": "migration-input: current catalog and source control ownership",
+        "CHARACTER_IDENTITY_LEGACY_OPTION_MAP": "option-alias: actual helper IDs and target ownership",
+        "CHARACTER_EXPRESSION_POSE_LEGACY_OPTION_MAP": "option-alias: actual helper IDs and target ownership",
+        "CHARACTER_EXPRESSION_POSE_LEGACY_SOCIAL_POSE_MIGRATIONS": "migration-input: current catalog and source control ownership",
+        "CHARACTER_LEGACY_SELFIE_SPECIAL_ACTION_MIGRATIONS": "migration-input: current catalog and source control ownership",
+        "CHARACTER_SPECIAL_ACTION_TO_POSE_COMPOSER_MIGRATIONS": "resolved-label: current source owner primary/aliases, then cross-field migration",
+        "LEGACY_POSE_HAND_TO_PROP_ID": "migration-input: current catalog and source control ownership",
+        "CHARACTER_POSE_TO_POSE_COMPOSER_MIGRATIONS": "resolved-label: current source owner primary/aliases, then cross-field migration",
+        "POSE_COMPOSER_ARRANGEMENT_TO_ANCHOR_MIGRATIONS": "migration-input: current catalog and source control ownership",
+        "WARDROBE_LEGACY_OPTION_MAP": "option-alias: actual helper IDs and target ownership",
+        "WARDROBE_LEGACY_PROMPT_ALIASES": "prompt-text: no ID derivation; duplicate keys and target references checked",
+        "LOCATION_LEGACY_PROMPT_ALIASES": "prompt-text: no ID derivation; duplicate keys and target references checked",
+        "WARDROBE_OUTFIT_TO_DRESS_LEGACY_LOCK_MIGRATIONS": "migration-input: current catalog and source control ownership",
+        "LEGACY_HAIR_STYLING_STATE_MIGRATIONS": "migration-input: current catalog and source control ownership",
+        "LEGACY_EYEWEAR_LOCK_MIGRATIONS": "migration-input: current catalog and source control ownership",
+        "LEGACY_OUTERWEAR_OPENING_LOCK_MIGRATIONS": "migration-input: current catalog and source control ownership"
+      },
+      "checkedMigrationIds": 204,
+      "preservedMigrationOwners": 27
+    }
+  },
+  "equivalence": {
+    "phase": "E",
+    "sourceSha": "5e7ed02952ceea4a2f76b81583c5f783748ff308",
+    "tables": 22,
+    "constants": 2,
+    "sourceRows": 334,
+    "restoreCases": 1098,
+    "sourceDifferences": 0,
+    "computedDifferences": 0,
+    "restoreDifferences": 0,
+    "compiledDifferences": 0,
+    "controlDifferences": 0,
+    "engineLogicDifferences": 0,
+    "protectedFiles": 72,
+    "sourceSha256": "20fbfa2686ece0a9d7031a7a2b6f262402559e227ceb2b5e4f6f63c4fbd382fe",
+    "fixtureSha256": "27418a72920655416cdbe38b50ee89f97388e6e261dc2f512d4ac237fe937a6c",
+    "references": {
+      "issues": [],
+      "tables": 22,
+      "constants": 2,
+      "references": 437,
+      "selfAliases": 9,
+      "ambiguous": [
+        {
+          "key": "CHARACTER_SPECIAL_ACTION_TO_POSE_COMPOSER_MIGRATIONS[8].arrangementZh",
+          "value": "雙腿屈起",
+          "orderedMatches": [
+            "sitting-hug-knees",
+            "lying-body-legs-bent"
+          ],
+          "firstMatch": "sitting-hug-knees"
+        },
+        {
+          "key": "CHARACTER_POSE_TO_POSE_COMPOSER_MIGRATIONS[11].arrangementZh",
+          "value": "雙腿屈起",
+          "orderedMatches": [
+            "sitting-hug-knees",
+            "lying-body-legs-bent"
+          ],
+          "firstMatch": "sitting-hug-knees"
+        }
+      ],
+      "identityCoverage": {
+        "REGIONAL_STYLE_LEGACY_OPTION_MAP": "option-alias: actual helper IDs and target ownership",
+        "CAMERA_FRAMING_LEGACY_OPTION_MAP": "option-alias: actual helper IDs and target ownership",
+        "CAMERA_ANGLE_LEGACY_OPTION_MAP": "option-alias: actual helper IDs and target ownership",
+        "CAMERA_ORBIT_LEGACY_OPTION_MAP": "option-alias: actual helper IDs and target ownership",
+        "CAMERA_AMBIENT_LIGHT_RENAME_LEGACY_OPTION_MAP": "option-alias: actual helper IDs and target ownership",
+        "CAMERA_FILM_LEGACY_OPTION_MAP": "option-alias: actual helper IDs and target ownership",
+        "CAMERA_PROFILE_RENDERING_MIGRATIONS": "migration-input: current catalog and source control ownership",
+        "CHARACTER_IDENTITY_LEGACY_OPTION_MAP": "option-alias: actual helper IDs and target ownership",
+        "CHARACTER_EXPRESSION_POSE_LEGACY_OPTION_MAP": "option-alias: actual helper IDs and target ownership",
+        "CHARACTER_EXPRESSION_POSE_LEGACY_SOCIAL_POSE_MIGRATIONS": "migration-input: current catalog and source control ownership",
+        "CHARACTER_LEGACY_SELFIE_SPECIAL_ACTION_MIGRATIONS": "migration-input: current catalog and source control ownership",
+        "CHARACTER_SPECIAL_ACTION_TO_POSE_COMPOSER_MIGRATIONS": "resolved-label: current source owner primary/aliases, then cross-field migration",
+        "LEGACY_POSE_HAND_TO_PROP_ID": "migration-input: current catalog and source control ownership",
+        "CHARACTER_POSE_TO_POSE_COMPOSER_MIGRATIONS": "resolved-label: current source owner primary/aliases, then cross-field migration",
+        "POSE_COMPOSER_ARRANGEMENT_TO_ANCHOR_MIGRATIONS": "migration-input: current catalog and source control ownership",
+        "WARDROBE_LEGACY_OPTION_MAP": "option-alias: actual helper IDs and target ownership",
+        "WARDROBE_LEGACY_PROMPT_ALIASES": "prompt-text: no ID derivation; duplicate keys and target references checked",
+        "LOCATION_LEGACY_PROMPT_ALIASES": "prompt-text: no ID derivation; duplicate keys and target references checked",
+        "WARDROBE_OUTFIT_TO_DRESS_LEGACY_LOCK_MIGRATIONS": "migration-input: current catalog and source control ownership",
+        "LEGACY_HAIR_STYLING_STATE_MIGRATIONS": "migration-input: current catalog and source control ownership",
+        "LEGACY_EYEWEAR_LOCK_MIGRATIONS": "migration-input: current catalog and source control ownership",
+        "LEGACY_OUTERWEAR_OPENING_LOCK_MIGRATIONS": "migration-input: current catalog and source control ownership"
+      },
+      "checkedMigrationIds": 204,
+      "preservedMigrationOwners": 27
+    }
+  },
+  "sameSeedAudit": {
+    "count": 200,
+    "seed": "prompt-quality-baseline",
+    "byteEqualTo": "Docs/reports/catalog-architecture-e-2026-10-25/audit-after.txt",
+    "sha256": "1942683ee2967f76fd64cf8b665a8a832d58301f3b7881fbbc49c84a288cae2d",
+    "blocking": 0,
+    "existingDiagnostics": 18
+  },
+  "preservation": {
+    "trackedMainFilesBefore": 1763,
+    "unchangedTrackedMainFiles": 1755,
+    "changedTrackedFiles": [
+      "Docs/current_project_state.md",
+      "Docs/reports/catalog-architecture-e-2026-10-25/README.md",
+      "Docs/specs/catalog-data-architecture-v1.md",
+      "knowledge_base/catalog/README.md",
+      "scripts/check_catalog_integrity.mjs",
+      "scripts/lib/catalogLegacy.mjs",
+      "scripts/tests/catalog-integrity.test.mjs",
+      "scripts/tests/catalog-legacy.test.mjs"
+    ],
+    "protectedOtherWorktrees": [
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio",
+        "dirtyFiles": 91,
+        "unchanged": true
+      },
+      {
+        "path": "/Users/cooperfu/.codex/worktrees/capture-import-integration/Virtual_Photography_Studio",
+        "dirtyFiles": 0,
+        "unchanged": true
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/ethnicity-default-japanese",
+        "dirtyFiles": 4,
+        "unchanged": true
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-gest",
+        "dirtyFiles": 1,
+        "unchanged": true
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-grid",
+        "dirtyFiles": 3,
+        "unchanged": true
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-head",
+        "dirtyFiles": 3,
+        "unchanged": true
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-props",
+        "dirtyFiles": 3,
+        "unchanged": true
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-sit-kneel",
+        "dirtyFiles": 2,
+        "unchanged": true
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-squatting",
+        "dirtyFiles": 2,
+        "unchanged": true
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-standing",
+        "dirtyFiles": 3,
+        "unchanged": true
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-ui",
+        "dirtyFiles": 2,
+        "unchanged": true
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p1",
+        "dirtyFiles": 1,
+        "unchanged": true
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p2",
+        "dirtyFiles": 5,
+        "unchanged": true
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p3",
+        "dirtyFiles": 4,
+        "unchanged": true
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p4",
+        "dirtyFiles": 4,
+        "unchanged": true
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p5",
+        "dirtyFiles": 7,
+        "unchanged": true
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p5b",
+        "dirtyFiles": 4,
+        "unchanged": true
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/preview-prompt-test",
+        "dirtyFiles": 0,
+        "unchanged": true
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/reference-person-preview",
+        "dirtyFiles": 0,
+        "unchanged": true
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/tshirt-crew-neck",
+        "dirtyFiles": 1,
+        "unchanged": true
+      }
+    ],
+    "protectedDirtyFileTotal": 140,
+    "runtimeAndCatalogAndSealedBaselinesUnchanged": true,
+    "indexEmpty": true
+  },
+  "browser": "not rerun: no runtime, source data, generated output or UI changes",
+  "remoteCI": "existing E 40192867913 success; no CI for this uncommitted closure",
+  "deliveryPreflight": {
+    "baselineCommit": "2bd28c5a26ddcc748ed2af7c347a3874a192a4a0",
+    "catalogTools": {
+      "pass": 32,
+      "fail": 0
+    },
+    "sync": "pass",
+    "strict": {
+      "productionFiles": 196,
+      "tables": 22,
+      "allowed": 2,
+      "blocking": 0,
+      "stale": 0
+    },
+    "protectedDirtyFiles": 140,
+    "protectedHashesUnchanged": true,
+    "codeChangedAfterLocalValidation": false
+  }
+}

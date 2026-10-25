@@ -1,0 +1,35 @@
+{
+  "baselineCommit": "2bd28c5a26ddcc748ed2af7c347a3874a192a4a0",
+  "scope": "catalog architecture guardrail closure only; P5b deferred; no Phase 4",
+  "files": [
+    "Docs/current_project_state.md",
+    "Docs/reports/catalog-architecture-closure-2026-10-25/README.md",
+    "Docs/reports/catalog-architecture-closure-2026-10-25/validation.json",
+    "Docs/reports/catalog-architecture-e-2026-10-25/README.md",
+    "Docs/specs/catalog-data-architecture-v1.md",
+    "knowledge_base/catalog/README.md",
+    "scripts/check_catalog_integrity.mjs",
+    "scripts/lib/catalogLegacy.mjs",
+    "scripts/lib/catalogLegacyCollisions.mjs",
+    "scripts/lib/catalogTestExports.mjs",
+    "scripts/tests/catalog-integrity.test.mjs",
+    "scripts/tests/catalog-legacy.test.mjs",
+    "Docs/reports/catalog-architecture-closure-2026-10-25/delivery-allowlist.json"
+  ],
+  "sha256": {
+    "Docs/current_project_state.md": "13a8e3a28fd13ad56f761fd630abed5f48dff9cebd8d15c8a9bd1402fb19a33f",
+    "Docs/reports/catalog-architecture-closure-2026-10-25/README.md": "b3eb5d0579fa27be385edb8bd2363c5892e3085a0b587ddb3f0eae2d587969b3",
+    "Docs/reports/catalog-architecture-closure-2026-10-25/validation.json": "b5e3bdad38cba6339d27e6056f21ba349d0ab7f8802d54515aa25d0a0fa80da4",
+    "Docs/reports/catalog-architecture-e-2026-10-25/README.md": "fb544f073f835c2ba98f7d8c29e0836f9bd6b0498cbd33a3deabcb14f2b3e211",
+    "Docs/specs/catalog-data-architecture-v1.md": "d0e3ca1793871d530eba909a1700e7be41525aa8b6e25f9c7e9c4d0a7b036968",
+    "knowledge_base/catalog/README.md": "3dd1f188bd9ca3109ac49f956aacfcae4ff2214950294607566770a04c2fa4c8",
+    "scripts/check_catalog_integrity.mjs": "72ad1da499b590ffd24b639ecded67cc931363292eed985aff5a4b95bf19383c",
+    "scripts/lib/catalogLegacy.mjs": "8907b4c8f8c4c37e62cb2986ab7af1ea515ef5d43a0bb5cb2de60bf3ad4eb77c",
+    "scripts/lib/catalogLegacyCollisions.mjs": "4c403d8a6f525b49211b2604239a6cc6fe95ea4c203afee037d5b2d7b4a21039",
+    "scripts/lib/catalogTestExports.mjs": "935e2f1696c253bb9b72ecb133896ef3d3cc6eb6ef32cf392b13bfd0ba2eb8e4",
+    "scripts/tests/catalog-integrity.test.mjs": "2e0c931ba4b06256b24a72a2e543c0e33cd9796f0b311bb35076ba6898f5189f",
+    "scripts/tests/catalog-legacy.test.mjs": "5b451a69f24ddbadc771e12ea161f3742ca4550d93c2c2b23290b47f849c22e3"
+  },
+  "protectedDirtyFiles": 140,
+  "ownHashOmitted": true
+}

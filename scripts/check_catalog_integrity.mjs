@@ -28,6 +28,7 @@
  * 安全性：只讀檔、只 import 模組；不呼叫 generatePrompts、不寫 repo、不使用網路。
  */
 
+import { scanCatalogTestExports } from './lib/catalogTestExports.mjs';
 import { controlIssues, applyAllowlist, extendedChecks } from './lib/catalogIntegrity.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -672,7 +673,8 @@ report.sections.embeddedInventory = {
 
 // ---------- 輸出 ----------
 // This checker is read-only. CI runs an external rehearsal in a separate step.
-report.confirmedIssues.push(...controlIssues(controls));
+report.sections.testExportBoundary = scanCatalogTestExports(REPO);
+report.confirmedIssues.push(...report.sections.testExportBoundary.issues, ...controlIssues(controls));
 report.sections.extended = await extendedChecks(REPO, controls, parseFile);
 report.confirmedIssues.push(...report.sections.extended.issues);
 const allowPath = argValue('--allowlist') || P('scripts', 'catalog_integrity_allowlist.json');

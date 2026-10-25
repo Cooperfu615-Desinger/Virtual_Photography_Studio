@@ -4,13 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-25
 
-## 目錄資料架構 v1.1：E 已驗收、授權交付（2026-10-25）
+## 目錄資料架構 v1.1：A–E 已交付，驗證護欄收尾已驗證、授權交付（2026-10-25）
 
-- HEAD／origin/main／遠端 main 均核對為 `5e7ed02952ceea4a2f76b81583c5f783748ff308`；D 已提交推送，[CI 40185121595](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40185121595)成功。Cooper 本輪核准22表＋2常數、renderer文字留原位，並確認 E 共用範圍凍結，僅本工作修改。
-- 完成 legacy_mappings.json → legacyMappings.json 原樣來源集中，共334筆；載入時 map／Map、slugify、所有 migration／renderer、first-match、靜默退路與資料順序保持。永久 pre-E fixture 封存真實計算表及1,098還原案例；437參照全有效，9個自身ID相等合法，兩處「雙腿屈起」與J12原結果不變。
-- 前端1,830/1,830、Prompt Quality754/754、Python41/41、工具21/21、lint/build／資料資產檢查通過。A3,251次重播與200同seed audit零差異（0 blockers／18既有診斷）；strict僅J12兩項、0 blocker／0 stale。桌手機44項、16張畫面通過，無瀏覽器錯誤或外部POST。
-- 56分類／1,050來源、schema／registry／index／semantic、database、六份Markdown與manifest不變；其他140份未提交內容SHA不變。十份操作原稿歸檔；姿勢去向文件只追加E來源追溯，原文與狀態保持。
-- [E報告與I1–I9](reports/catalog-architecture-e-2026-10-25/README.md)、[規格§15](specs/catalog-data-architecture-v1.md#15-e-舊映射集中2026-10-25)、[操作流程](../knowledge_base/catalog/README.md)。Cooper 已確認 E 驗收通過，授權只提交並 push 本批資料、程式、文件、基準、驗收工具與 CI 設定，保留其他未提交內容；實際 Git 與該提交 CI 結果另行核對，不以授權代表交付成功。P5b未開始。下方A–D保留當時歷史，現況以本段為準。
+- 本批交付基準為已交付 E `2bd28c5a26ddcc748ed2af7c347a3874a192a4a0`；提交前本機 HEAD／origin/main 與 GitHub main 一致。E 的 [CI 40192867913](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40192867913) 已完成且成功，包含品質檢查、建置與 Pages 部署。A–E 各提交與 CI 見 [規格 §16](specs/catalog-data-architecture-v1.md#16-ae-交付核對與驗證護欄收尾2026-10-25)。
+- 正式來源為 56 分類 JSON／1,050 筆顯式 semantic，舊映射集中為 22 表＋2 常數／334 筆；database、六份 Markdown 與 legacyMappings.json 共八份生成物受同步檢查保護。原 ID／有序別名、載入時計算、first-match、renderer 與還原契約保持。
+- Cooper 授權只實作後續順序第 1 點：補正式程式引用測試匯出的禁止檢查、各類 legacy ID 衝突與來源所有權檢查、反例測試及交付文件。沿用既有 main，修改限定 scripts 與文件；正式資料、引擎、A–E 封存與其他 140 份未提交內容保持。
+- 本機驗證：工具 32/32、Python 41/41、前端 1,830/1,830、lint/build 通過；strict 掃描 196 份正式程式，22 表皆有明確檢查方式，204 次遷移輸入 ID 檢查。僅原 J12 兩項允許例外，0 blocker／0 stale；E 1,098 還原與 A 3,251 次重播零差異，同 seed 200 audit 與 E 交付證據逐位元組一致。
+- [收尾報告](reports/catalog-architecture-closure-2026-10-25/README.md)、[E 歷史驗收](reports/catalog-architecture-e-2026-10-25/README.md)、[現行操作](../knowledge_base/catalog/README.md)。Cooper 已授權完成本批驗收與交付；提交前工具 32/32、同步／strict 再次通過，其他 140 份未提交內容 SHA 不變。僅依本批交付清單提交／push；實際提交與該提交 CI 結果另行核對，E 的成功 CI 不代替本批 CI。已知語意問題、J12 決策、B3 與 Phase 4 另案，P5b 未開始。
+- 下方 A–D 的「未開始／待提交／授權」為各階段當時的歷史，最新交付狀態以本段與規格 §16 為準。E 原本驗收及授權過程保留於 E 報告，歷史基準與清單不重錄。
 
 ## 目錄資料架構 v1.1：D 已驗收、授權交付（2026-10-25）
 

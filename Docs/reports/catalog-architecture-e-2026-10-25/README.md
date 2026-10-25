@@ -1,6 +1,6 @@
 # Catalog E：舊映射集中驗收（2026-10-25）
 
-狀態：Cooper 已確認 E 驗收通過，授權只提交並推送本批 E，完成後核對對應 CI。下方保留本機驗收時的證據；授權不等同 Git／CI 已成功。P5b 未開始，共用範圍仍依本輪凍結確認辦理。正式目錄來源維持分類 JSON，六份 Markdown 是唯讀生成總覽。
+狀態：E 已交付 main `2bd28c5a26ddcc748ed2af7c347a3874a192a4a0`，[CI 40192867913](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40192867913) 已完成且成功。下方「沒有 E run／未提交／授權」均為搬移當時的歷史紀錄；交付核對及後續驗證護欄收尾見本文末節。原來源、fixture、測試證據與交付清單保留，不因更新本文件狀態而重算歷史雜湊。正式來源維持分類 JSON，P5b 未開始。
 
 ## 基準、範圍與結果
 
@@ -47,3 +47,9 @@ node scripts/validate_catalog_semantics.mjs --source-sha 17074fbe3850e2e9fea300b
 ## 交付授權補註
 
 2026-10-25：Cooper 已驗收並授權只提交／push 本批 E。提交前再次核對84份交付清單、83份雜湊與其他140份未提交內容，遠端 main 仍為 pre-E `5e7ed029`。本輪只補目前狀態、規格、操作文件與本報告的驗收授權文字，更新清單雜湊；程式、資料、基準、驗收工具、CI 與所有已保存的測試證據不改。不進入 P5b。最終提交 SHA 與 CI 結果於交付回報核對，不為把自身 SHA 寫回同一提交而追加循環提交。
+
+## 交付結果與後續收尾核對
+
+2026-10-25 重新讀取 GitHub main 與 workflow run：E 提交 `2bd28c5a26ddcc748ed2af7c347a3874a192a4a0` 已在遠端 main，CI 40192867913 為 completed／success，品質檢查、建置及 Pages 部署成功。84 份原交付清單與其 hash 描述 E 提交當時的檔案，不套用到後續文件修訂。
+
+逐條核對 v1.1 後，使用者另行授權補齊正式程式引用測試匯出的禁止規則，以及獨立遷移表的 ID 衝突／所有權檢查。新增護欄與反例不改 E 的來源、引擎或封存；重新驗證 1,098 還原、全部計算表／compiled／controls／引擎邏輯仍零差異。詳見 [收尾報告](../catalog-architecture-closure-2026-10-25/README.md)。這批收尾已完成本機驗收並獲 Cooper 授權限定提交／push，實際 Git 與該提交 CI 結果另核對；Phase 4、姿勢內容／狀態及 P5b 未啟動。
