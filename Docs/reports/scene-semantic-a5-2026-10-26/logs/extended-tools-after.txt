@@ -1,0 +1,92 @@
+file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/check_catalog_integrity.mjs:47
+  if (['--repo', '--json-out', '--allowlist'].includes(argv[i])) { if (!argv[++i] || argv[i].startsWith('--')) throw new Error('Missing CLI argument value'); }
+                                                                                                                     ^
+
+Error: Missing CLI argument value
+    at file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/check_catalog_integrity.mjs:47:118
+    at ModuleJob.run (node:internal/modules/esm/module_job:430:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:639:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v25.8.2
+找不到 repo 根目錄；請用 --repo 指定 Virtual_Photography_Studio 路徑
+✔ aliases are scoped by actual control, self aliases legal, cross-category owners conflict (2.060541ms)
+✔ primary ID duplication and alias shadowing are blocking (0.215209ms)
+✔ allowlist rejects stale, incomplete, duplicate and broad exceptions (15.683042ms)
+✔ action source references, clauses, validation and family errors are detected (0.259459ms)
+✔ field mapping preserves false, empty strings, nested values and reports unknown source fields (0.551042ms)
+✔ strict CLI succeeds for exact exceptions and fails for stale exceptions (2933.957542ms)
+✔ rehearsal refuses repo output, symlink escape into repo, existing targets and wrong source without writes (18.194ms)
+✔ failed staged conversion leaves no target or staging; racing target is preserved (2.054125ms)
+✔ nested source paths and category membership require explicit responsibility (0.287667ms)
+✔ pose metadata validates nested support, arrangement, orientation and crop references (0.454541ms)
+✔ catalog testing exports cannot enter production through imports, aliases or namespaces (5.526292ms)
+✔ production scan includes JSX and helper files, excludes only test files, and fails closed on parse errors (291.029458ms)
+✔ all declared targets resolve; own-current aliases and ambiguous first matches stay legal (126.005708ms)
+✔ catalog, embedded, attribute and category failures are blocking (505.131333ms)
+✔ duplicate historical tuples, labels, prompt text and Map keys fail in their own namespace (332.299791ms)
+✔ derived legacy ID cannot shadow another current entry (96.015125ms)
+✔ source extraction rejects expressions instead of executing arbitrary code (10.871125ms)
+✔ rehearsal refuses wrong SHA, existing/internal output and already relocated engine (400.506125ms)
+✔ all 22 tables have explicit ownership policy; legacy text is not mistaken for an ID (163.152583ms)
+✔ each option alias family rejects another current ID and preserves its own target ID (1591.444875ms)
+✔ standalone raw and computed migration keys cannot shadow current source IDs (689.938791ms)
+✔ hand-to-prop rejects the original counterexample, but unrelated control IDs do not collide (129.219292ms)
+✔ new embedded source ID cannot claim a historical migration key (52.078417ms)
+✔ label-based migrations check source owners and cannot hide another primary ID in aliases (254.720375ms)
+✔ computed eye-wear keys are checked in single and both duo role namespaces (156.519416ms)
+✔ selfie substring matching and source/computed drift fail closed (152.880875ms)
+✔ historical ownership cannot authorize a different migration target (165.075ms)
+✔ materialization preserves ordered whole inference and source fields without mutating inputs (9.672042ms)
+✔ acceptance rejects tag order, key order, field loss and changed falsy values (1.200958ms)
+✔ suggestion removes only the target semantic in a copy, preserves explicit source and default cache (66.010458ms)
+✔ field mapping detects lost semantic fields, leaked container and reordered merged tags (0.70825ms)
+✔ one-time rehearsal rejects unsafe output, wrong baseline and already materialized source without publication (653.209958ms)
+✔ countWords treats hyphenated and ratio tokens as one word (1.853292ms)
+✔ summarizeNumbers returns stable descriptive statistics (0.928791ms)
+✔ findDuplicateSegments reports exact and near duplicates (0.988792ms)
+✔ duo audit does not treat one source-traceable phrase per role as an exact duplicate (2.984459ms)
+✔ detectControlLanguage identifies internal renderer vocabulary (0.684917ms)
+✔ detectContradictions reports incompatible single-subject constraints (0.251458ms)
+✔ validateOutputContracts accepts a complete single-subject fixture (0.730584ms)
+✔ validateOutputContracts accepts a Gpt prompt without the legacy terminator (0.788416ms)
+✖ validateOutputContracts requires both duo roles and omits the single extra output (1.27425ms)
+✔ legacy wardrobe and scene heuristics remain active (0.157333ms)
+✔ auditPrompts aggregates word lengths and diagnostic categories (18.077458ms)
+✔ mixed-mode word statistics only expect single-subject derived outputs where applicable (0.817584ms)
+✔ prompt audit plan allocates the total sample count across every required scenario (0.421916ms)
+✔ runPromptAudit covers single, duo, and every fixed-composition set deterministically (345.095167ms)
+✔ strict accounting blocks incomplete required scenario coverage (113.747375ms)
+✔ legacy compatibility heuristics are diagnostic-only in strict accounting (0.4405ms)
+✔ parseCliArgs supports deterministic seed, JSON, and strict mode (0.292875ms)
+ℹ tests 49
+ℹ suites 0
+ℹ pass 48
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4994.62625
+
+✖ failing tests:
+
+test at scripts/tests/prompt_audit.test.mjs:153:1
+✖ validateOutputContracts requires both duo roles and omits the single extra output (1.27425ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  0 !== 2
+
+      at TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/tests/prompt_audit.test.mjs:158:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

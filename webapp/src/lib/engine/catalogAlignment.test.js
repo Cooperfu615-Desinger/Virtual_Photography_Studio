@@ -1,12 +1,13 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { mkdtempSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
+import { withPreA5ReplayRoot } from '../../../../scripts/lib/a5HistoricalReplay.mjs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { alignmentDir, verifyAlignment, checkAlignment } from '../../../../scripts/catalog_alignment_baseline.mjs';
 
 test('aligned A replays imported people, scene/crop matrix, transitions and JSON/Markdown restores', async () => {
-  const result = await checkAlignment();
+  const result = await withPreA5ReplayRoot(repo => checkAlignment(repo));
   assert.equal(result.sourceScenarios, 5);
   assert.equal(result.importCases, 170);
   assert.equal(result.savedPayloads, 10);

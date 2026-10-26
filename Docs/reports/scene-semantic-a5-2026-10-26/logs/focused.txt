@@ -1,0 +1,15 @@
+✔ A5 only the three approved formal scene semantics override historical text inference (21.609042ms)
+✔ A5 ordered ambient pools work for every crop (37.518125ms)
+✔ A5 valid explicit light and scene IDs survive all six outputs and JSON/Markdown restores (233.724584ms)
+✔ A5 preserves explicit historical city-light locks while excluding them from natural candidate pools (16.596209ms)
+✔ A5 historical inverse is exact, isolated, and rejects unreviewed tag changes (13.065334ms)
+✔ A5 random generation uses only the new candidate pools and explicit none remains none (294.1785ms)
+✔ A5 existing UI transitions clear unavailable city lights without rewriting saved payloads (3.7245ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 780.830417

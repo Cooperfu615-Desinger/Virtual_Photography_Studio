@@ -1,0 +1,48 @@
+✔ countWords treats hyphenated and ratio tokens as one word (1.711042ms)
+✔ summarizeNumbers returns stable descriptive statistics (0.89175ms)
+✔ findDuplicateSegments reports exact and near duplicates (0.967833ms)
+✔ duo audit does not treat one source-traceable phrase per role as an exact duplicate (2.975791ms)
+✔ detectControlLanguage identifies internal renderer vocabulary (0.65825ms)
+✔ detectContradictions reports incompatible single-subject constraints (0.234625ms)
+✔ validateOutputContracts accepts a complete single-subject fixture (0.952625ms)
+✔ validateOutputContracts accepts a Gpt prompt without the legacy terminator (0.582ms)
+✖ validateOutputContracts requires both duo roles and omits the single extra output (0.906417ms)
+✔ legacy wardrobe and scene heuristics remain active (0.128208ms)
+✔ auditPrompts aggregates word lengths and diagnostic categories (18.734416ms)
+✔ mixed-mode word statistics only expect single-subject derived outputs where applicable (1.106584ms)
+✔ prompt audit plan allocates the total sample count across every required scenario (0.248833ms)
+✔ runPromptAudit covers single, duo, and every fixed-composition set deterministically (316.91025ms)
+✔ strict accounting blocks incomplete required scenario coverage (111.71925ms)
+✔ legacy compatibility heuristics are diagnostic-only in strict accounting (0.858417ms)
+✔ parseCliArgs supports deterministic seed, JSON, and strict mode (0.337583ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 16
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 636.329375
+
+✖ failing tests:
+
+test at scripts/tests/prompt_audit.test.mjs:153:1
+✖ validateOutputContracts requires both duo roles and omits the single extra output (0.906417ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  0 !== 2
+
+      at TestContext.<anonymous> (file:///private/tmp/vps-a5-2026-10-26/reference/scripts/tests/prompt_audit.test.mjs:158:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

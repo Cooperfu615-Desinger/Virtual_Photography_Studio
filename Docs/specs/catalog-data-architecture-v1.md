@@ -659,3 +659,9 @@ Cooper 已確認 E 階段驗收通過，授權只提交並 push 本批 E 的資�
 本次只補 §4.1.1 的正式引用禁止規則、§6.2.2 的各類 ID 所有權檢查與反例，以及目前狀態／操作文件。檢查沿用現有 `check_catalog_integrity.mjs --strict` 與三個工具測試檔的 CI 接線；未改 workflow、正式分類／schema／registry、引擎、renderer、Prompt 或任何封存。
 
 工具 32/32、Python 41/41、前端 1,830/1,830、lint/build、同步／歷史 ID 檢查通過；strict 僅原 J12 兩項允許，0 blocker／0 stale。A 重播與 E 1,098 還原零差異；同 seed 200 audit 與 E 完全一致。詳見 [收尾報告](../reports/catalog-architecture-closure-2026-10-25/README.md)。Cooper 已授權完成本批驗收與交付；提交前工具 32/32、同步／strict 與其他 140 份未提交內容保護再次通過。僅依收尾交付清單提交／push，最終 Git 與 CI 結果另行核對。Phase 4 與 P5b 維持另案，原本刻意凍結的內容問題不在此次修正範圍。
+
+## 17. Phase 4 A5 三筆核准語意修正（2026-10-26）
+
+A～E 歷史交付與 §6.1.4 的原樣遷移原則不變。Cooper 另行授權只修正倫敦排屋、清澈海灣岩岸、草地與樹木；這是 explicit semantic 的產品變更，不重做 D。詳見 [獨立規格](scene-semantic-a5-three-locations-v1.md)及 [驗收報告](../reports/scene-semantic-a5-2026-10-26/README.md)。
+
+本批以 pre-A5 main `a9dd3616bc6596cdb199420f3189a420c6f1ed17` 確認原始資料與六輸出差異；既有 A～E 封存及生成工具原位保護。歷史回播只在測試副本還原三個核准 tags，正式候選池與收藏相容另有專用回歸及獨立前後對照。倫敦成因改為中文「地下室」命中「地下」，舊 D JSON 不回寫，以 [勘誤](../reports/database-analysis-2026-10-11/frozen-known-issues.md#2026-10-26-成因勘誤與-a5-限定修正)追溯。Cooper 已確認本批驗收通過，授權限定提交／push 本批資料、文件、回歸案例與驗收工具；其他問題及 P5b 未授權。

@@ -1,3 +1,5 @@
+import { preA5Database } from '../../../../scripts/lib/a5HistoricalReplay.mjs';
+import { prepareImmutableRuntimeLibrary } from './runtimeCache.js';
 import { PRE_BLACK_BOTTOM_CATALOG, usesBlackBottomPreset } from './shirtBlackBottomTestSupport.js';
 import { restorePreOpenPalmV2 } from './openPalmTestSupport.js';
 import { restorePreSquattingV2 } from './squattingCatalogTestSupport.js';
@@ -62,15 +64,18 @@ test('main MJ CRT has the approved short body, item names, freckles, style and f
 
 test('all mode baselines protect five other outputs, raw selections, structured data and summaries byte for byte', () => {
   const fixtures = midjourneyNaturalFixtures();
+  // Keep the sealed pre-A5 hashes: replay only this historical test with exact old tags.
+  const historicalCatalog = prepareImmutableRuntimeLibrary(preA5Database());
+  const historicalBlackBottomCatalog = prepareImmutableRuntimeLibrary(preA5Database(PRE_BLACK_BOTTOM_CATALOG));
   assert.equal(fixtures.length, baseline.length);
   for (let index = 0; index < fixtures.length; index += 1) {
     const fixture = fixtures[index];
     assert.equal(fixture.id, baseline[index].id);
-    const current = generatePrompts(1, fixture.locks, [], { random: createSeededRandom(fixture.seed) })[0];
+    const current = generatePrompts(1, fixture.locks, historicalCatalog, { random: createSeededRandom(fixture.seed) })[0];
     // Only the two approved source revisions use their exact historical input.
     // All other live presets still compare against the immutable old hashes.
     const prompt = usesBlackBottomPreset(current)
-      ? generatePrompts(1, fixture.locks, PRE_BLACK_BOTTOM_CATALOG, { random: createSeededRandom(fixture.seed) })[0]
+      ? generatePrompts(1, fixture.locks, historicalBlackBottomCatalog, { random: createSeededRandom(fixture.seed) })[0]
       : current;
     assert.equal(fixture.id, bodyBaseline[index].id);
     // Frozen baselines predate the approved signage, ethnicity, squat and

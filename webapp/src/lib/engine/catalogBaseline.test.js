@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { OUTPUTS, compareCaptures, differences } from '../../../../scripts/lib/catalogBaseline.mjs';
 import { verifySeal, captureCorpus } from '../../../../scripts/catalog_baseline.mjs';
-import { fileURLToPath } from 'node:url';
+import { withPreA5ReplayRoot } from '../../../../scripts/lib/a5HistoricalReplay.mjs';
 
 function fixture() {
   const prompt = { grokPrompt: 'One.\n', zImagePrompt: 'Two.', midjourneyPrompt: 'Three.', nanoBananaPrompt: 'Four.',
@@ -42,8 +42,7 @@ test('comparator fails closed on punctuation, same-length words, cases, outputs,
 
 test('sealed A corpus replays every case, output, restoration, alias and RNG count', async () => {
   const { corpus, capture } = verifySeal();
-  const repo = fileURLToPath(new URL('../../../../', import.meta.url));
-  const actual = await captureCorpus(repo, corpus);
+  const actual = await withPreA5ReplayRoot(repo => captureCorpus(repo, corpus));
   const diff = compareCaptures(capture, actual);
   assert.equal(diff.length, 0, JSON.stringify(diff.slice(0, 8), null, 2));
 });

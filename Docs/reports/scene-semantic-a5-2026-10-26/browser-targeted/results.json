@@ -1,0 +1,34 @@
+{
+  "checks": [
+    "1440/戶外：倫敦排屋街道: pool, daylight, six outputs",
+    "1440/戶外：倫敦排屋街道: Saved Cards reload and restore",
+    "1440/戶外：倫敦排屋街道: random light",
+    "1440/戶外：清澈海灣岩岸: pool, daylight, six outputs",
+    "1440/戶外：清澈海灣岩岸: Saved Cards reload and restore",
+    "1440/戶外：清澈海灣岩岸: random light",
+    "1440/戶外：草地與樹木: pool, daylight, six outputs",
+    "1440/戶外：草地與樹木: Saved Cards reload and restore",
+    "1440/戶外：草地與樹木: random light",
+    "1440: changing to natural scene clears incompatible city light",
+    "390/戶外：倫敦排屋街道: pool, daylight, six outputs",
+    "390/戶外：倫敦排屋街道: Saved Cards reload and restore",
+    "390/戶外：倫敦排屋街道: random light",
+    "390/戶外：清澈海灣岩岸: pool, daylight, six outputs",
+    "390/戶外：清澈海灣岩岸: Saved Cards reload and restore",
+    "390/戶外：清澈海灣岩岸: random light",
+    "390/戶外：草地與樹木: pool, daylight, six outputs",
+    "390/戶外：草地與樹木: Saved Cards reload and restore",
+    "390/戶外：草地與樹木: random light",
+    "390: changing to natural scene clears incompatible city light"
+  ],
+  "errors": [],
+  "externalPosts": [],
+  "screenshots": [
+    "1440-1.png",
+    "1440-2.png",
+    "1440-3.png",
+    "390-1.png",
+    "390-2.png",
+    "390-3.png"
+  ]
+}

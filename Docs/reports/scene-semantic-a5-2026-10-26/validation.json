@@ -1,0 +1,94 @@
+{
+  "baseCommit": "a9dd3616bc6596cdb199420f3189a420c6f1ed17",
+  "status": "local-validation-passed-with-confirmed-preexisting-extended-test-failure",
+  "commitPush": "not-authorized-not-performed",
+  "focused": {
+    "passed": 7,
+    "failed": 0,
+    "redChecks": 2
+  },
+  "frontend": {
+    "passed": 1837,
+    "failed": 0
+  },
+  "promptQuality": {
+    "passed": 754,
+    "failed": 0
+  },
+  "catalogTools": {
+    "passed": 32,
+    "failed": 0
+  },
+  "python": {
+    "passed": 41,
+    "failed": 0
+  },
+  "lint": "passed",
+  "build": "passed (existing >500 kB chunk warning)",
+  "sameSeedAudit": {
+    "count": 200,
+    "seed": "prompt-quality-baseline",
+    "byteIdentical": true,
+    "blockers": 0,
+    "diagnostics": 18
+  },
+  "strict": {
+    "blockers": 0,
+    "stale": 0,
+    "unchangedJ12Exceptions": 2
+  },
+  "sync": {
+    "records": 1050,
+    "historicalIds": 1050,
+    "outputs": 8
+  },
+  "assets": {
+    "files": 207,
+    "bytes": 3201415
+  },
+  "independentComparison": {
+    "protectedFilesChecked": 246,
+    "unaffectedLocations": 152,
+    "cases": 1740,
+    "changedCases": 452,
+    "rngChangedCases": 0,
+    "oracleMismatches": 0
+  },
+  "outputChangingCases": 136,
+  "browser": {
+    "url": "http://127.0.0.1:5175/Virtual_Photography_Studio/?dllAcceptance=1",
+    "viewports": [
+      [
+        1440,
+        1000
+      ],
+      [
+        390,
+        900
+      ]
+    ],
+    "generalPassed": 22,
+    "targetedPassed": 20,
+    "screenshots": 16,
+    "consoleErrors": 0,
+    "pageErrors": 0,
+    "externalPosts": 0,
+    "visualReview": "16 screenshots overview; three mobile scene panels inspected at readable size",
+    "savedScriptRerunPassed": 20
+  },
+  "preexistingExtendedFailure": {
+    "file": "scripts/tests/prompt_audit.test.mjs",
+    "line": 153,
+    "test": "validateOutputContracts requires both duo roles and omits the single extra output",
+    "expected": 2,
+    "actual": 0,
+    "reproducedOnBase": true,
+    "extendedSuitePassed": 48,
+    "extendedSuiteFailed": 1,
+    "ciCatalogToolGateAffected": false
+  },
+  "historicalArtifacts": "unchanged; A sealed replay uses exact three-tag inverse in isolated current-code module graph; E 1098 restores remain live",
+  "otherDirtyFilesProtected": 140,
+  "historicalFilesCompared": 228,
+  "historicalDifferences": 0
+}

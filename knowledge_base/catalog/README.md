@@ -79,3 +79,20 @@ node --test webapp/src/lib/engine/legacyMappings.test.js scripts/tests/catalog-l
 獨立遷移按真正輸入 control 查 ID，涵蓋單人及雙人 A/B；原有合法跨欄位配對由不可重錄的 pre-E 映射與 A control 封存共同保護。新的衝突不能藉由修改同批來源或放寬 allowlist 解決。既有 9 個自身 option alias 與 27 個含角色欄位的歷史配對保持；兩張 Prompt aliases 是文字比對，沒有 ID 推導。
 
 僅工具／文件變更時，執行三份工具測試、Python／同步／strict 與受影響的封存回歸；是否擴至前端／瀏覽器依 root AGENTS。本次另跑完整前端、lint/build、E 零差異與相同 seed audit，正式資料／引擎未變，所以未重跑瀏覽器或外部出圖。[本機收尾證據](../../Docs/reports/catalog-architecture-closure-2026-10-25/README.md)已完成本機驗收並獲授權限定提交／push；實際交付結果另核對，不將 E 已成功的 CI 當作收尾 CI。
+
+## A5 核准產品變更與歷史回播（2026-10-26）
+
+三筆場景已依 [獨立規格](../../Docs/specs/scene-semantic-a5-three-locations-v1.md)修正 explicit tags：倫敦移除 subterranean；清澈海灣岩岸、草地與樹木移除 commercial。原文、ID、aliases、順序與推論相容退路不變。其他問題及 P5b 不在本批。
+
+A～E 原始基準／manifest／generator seals 保持不變；前端歷史測試只在隔離副本用 `scripts/lib/a5HistoricalReplay.mjs` 反轉這三筆精確 tags，再以當前引擎及原始封存工具回播。新的正式行為由 `sceneSemanticA5.test.js` 驗證。不得將歷史副本當正式來源，也不得擴大反轉條件掩蓋未審查差異。
+
+```bash
+# 當前正式行為；完整 npm test 也會執行
+node --test webapp/src/lib/engine/sceneSemanticA5.test.js
+# 本批一次性獨立對照：固定 pre-A5 Git 引擎 + 只有三個核准標籤差異
+node scripts/scene_semantic_a5_acceptance.mjs /tmp/a5-acceptance.json
+# 原始 A 封存重播由上述隔離副本承接
+node --test webapp/src/lib/engine/catalogBaseline.test.js webapp/src/lib/engine/catalogCoverage.test.js webapp/src/lib/engine/catalogAlignment.test.js
+```
+
+直接對修正後正式資料執行原 A capture 或 D／E 的一次性「遷移零差異」命令，會正確看見本批產品差異；不可重錄舊基準、放寬比較器或宣稱原命令仍零差異。D／E 原始來源與完整等價證據保留於固定 Git／封存；常駐 schema、ID、strict、E 1,098 還原及前端門檻照常執行。本批新證據見 [A5 報告](../../Docs/reports/scene-semantic-a5-2026-10-26/README.md)。

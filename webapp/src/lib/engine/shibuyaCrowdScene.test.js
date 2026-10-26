@@ -1,3 +1,4 @@
+import { preA5Database } from '../../../../scripts/lib/a5HistoricalReplay.mjs';
 import assert from 'node:assert/strict';
 import { withoutLyingSurface } from './lyingSurfaceTestSupport.js';
 import { createHash } from 'node:crypto';
@@ -156,8 +157,10 @@ test('scene identity does not override selected high viewpoints, orbit or focal 
 });
 
 test('all other location descriptions, metadata and positions remain byte-identical', () => {
+  // A5 changes only three reviewed tags; the original digest stays sealed.
+  const historicalOptions = getLockControls(preA5Database()).find(c => c.key === 'locationId').options;
   // Scenes gained an additive reviewed lyingSurface field (2026-10-19); compare without it.
-  assert.equal(digest(withoutLyingSurface(locationOptions.filter(o => o.id !== id))), '9e65a646d08541af7ad4b797c39de4cde31893b81ff120821d96d899498f2de6');
+  assert.equal(digest(withoutLyingSurface(historicalOptions.filter(o => o.id !== id))), '9e65a646d08541af7ad4b797c39de4cde31893b81ff120821d96d899498f2de6');
 });
 
 test('scene-source-only revision preserves selections, random draws and the scene-free full-body character', () => {

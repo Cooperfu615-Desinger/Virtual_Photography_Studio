@@ -1,0 +1,61 @@
+✖ A5 only the three approved formal scene semantics override historical text inference (8.285375ms)
+✖ A5 ordered ambient pools work for every crop (2.843916ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 166.603083
+
+✖ failing tests:
+
+test at webapp/src/lib/engine/sceneSemanticA5.test.js:20:1
+✖ A5 only the three approved formal scene semantics override historical text inference (8.285375ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+
+    [
+      'urban',
+      'outdoor',
+      'heritage',
+  +   'subterranean'
+    ]
+
+      at TestContext.<anonymous> (file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-a5-history-Tx0gAe/webapp/src/lib/engine/sceneSemanticA5.test.js:25:12)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'urban', 'outdoor', 'heritage', 'subterranean' ],
+    expected: [ 'urban', 'outdoor', 'heritage' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at webapp/src/lib/engine/sceneSemanticA5.test.js:37:1
+✖ A5 ordered ambient pools work for every crop (2.843916ms)
+  AssertionError [ERR_ASSERTION]: 戶外：倫敦排屋街道/全無/none
+
+  5 !== 19
+
+      at TestContext.<anonymous> (file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-a5-history-Tx0gAe/webapp/src/lib/engine/sceneSemanticA5.test.js:41:12)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 5,
+    expected: 19,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+
+EXPECTED RED: final tag/pool regressions reject the exact pre-A5 tags.

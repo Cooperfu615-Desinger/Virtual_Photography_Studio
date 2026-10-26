@@ -2,7 +2,15 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-25
+Last updated: 2026-10-26
+
+## Phase 4 A5：三筆場景語意修正（2026-10-26，已驗收、授權交付）
+
+- 依 Cooper 授權，只移除倫敦排屋的 subterranean，以及清澈海灣岩岸／草地與樹木的 commercial。一般全身環境光候選含全無為 5→19、19→17、19→17；原文、ID、aliases、順序、lyingSurface 與推論相容退路不變。倫敦成因文件更正為中文「地下室」命中「地下」，D 歷史 JSON 不回寫。
+- 基準及遠端 main 為 `a9dd3616bc6596cdb199420f3189a420c6f1ed17`。獨立 pre-A5 Git 引擎對照 1,740 組，0 超出核准差異；136 組公開文字隨光線改變，RNG 次數及全身角色照不變。其餘 152 個場景選項保持。
+- 7 項專用回歸、前端 1,837、Prompt Quality 754、Python 41、catalog 工具 32 全通過；lint／build／歷史 ID／同步／strict／資產通過。同 seed 200 audit 前後相同，0 blockers／18 既有診斷。額外全 scripts 測試的 1 項 duo audit fixture 失敗已在原 main 重現，未跨範圍修正。
+- 桌手機五工作區與三場景共 42 項、16 張畫面通過；無瀏覽器錯誤、破圖、橫向溢出或外部 POST。舊收藏原文字／ID 保留；直接引擎的顯式光線與 UI transition 清除不可用鎖值的既有政策分開驗證。
+- A～E 封存／生成工具不變，歷史測試只在隔離副本精確反轉三個 tags，正式行為另有回歸與獨立對照。其他 140 份未提交內容 SHA 不變。Cooper 已確認本批驗收通過，授權只提交並 push 本次資料、文件、回歸案例與驗收工具；實際提交及該提交 CI 結果另行核對。其他項目與 P5b 未開始。詳見 [規格](specs/scene-semantic-a5-three-locations-v1.md)、[驗收報告](reports/scene-semantic-a5-2026-10-26/README.md)。下方為歷史交付紀錄。
 
 ## 目錄資料架構 v1.1：A–E 已交付，驗證護欄收尾已驗證、授權交付（2026-10-25）
 
