@@ -1,0 +1,83 @@
+{
+  "baseCommit": "ffb2e91e61787159d7dbc724dc0129e87537dfcb",
+  "nodeVersion": "22.22.3",
+  "localStatus": "passed",
+  "userAcceptance": "delivery-authorized",
+  "a1CommitPush": false,
+  "frontend": {
+    "passed": 1851,
+    "failed": 0,
+    "log": "logs/npm-test-passed.txt"
+  },
+  "promptQuality": {
+    "passed": 759,
+    "failed": 0,
+    "log": "logs/prompt-quality-passed.txt"
+  },
+  "focused": {
+    "passed": 5,
+    "failed": 0,
+    "log": "logs/focused.txt"
+  },
+  "redBefore": {
+    "expectedFailures": 3,
+    "log": "logs/red-final.txt"
+  },
+  "lint": {
+    "passed": true,
+    "log": "logs/lint-final.txt"
+  },
+  "build": {
+    "passed": true,
+    "log": "logs/build.txt"
+  },
+  "catalogSyncAndHistory": {
+    "passed": true,
+    "log": "logs/sync.txt"
+  },
+  "catalogIntegrity": {
+    "passed": true,
+    "log": "logs/integrity.txt"
+  },
+  "audit": {
+    "count": 200,
+    "seed": "prompt-quality-baseline",
+    "blockers": 0,
+    "existingDiagnostics": 18,
+    "equalAfterExcluding": [
+      "findings[].promptId"
+    ]
+  },
+  "history": {
+    "ximendingCases": 3834,
+    "crtCases": 3834,
+    "commercialCases": 3804,
+    "firstA5Cases": 1740,
+    "ximendingImportCases": 2,
+    "crtImportCases": 2,
+    "oracleMismatches": 0,
+    "historicalMatrixGenerations": 6373,
+    "historicalMatrixCacheHits": 12058
+  },
+  "browser": {
+    "viewports": [
+      [
+        1440,
+        1000
+      ],
+      [
+        390,
+        900
+      ]
+    ],
+    "targetedChecks": 14,
+    "generalChecks": 22,
+    "screenshots": 16,
+    "errors": 0,
+    "externalPosts": 0
+  },
+  "externalModelGeneration": "not performed",
+  "localServerStopped": true,
+  "snapshotStage": "pre-commit",
+  "commitPushAuthorized": true
+}

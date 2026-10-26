@@ -1,3 +1,5 @@
+import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
+const historicalTest = preA1HistoricalTest(import.meta.url);
 import { generateLegacyBodyPrompts } from './bodyTypeLegacyTestSupport.js';
 import { assertZImagePoseProjection } from './sceneIntegratedAssemblyTestSupport.js';
 import assert from 'node:assert/strict';
@@ -112,7 +114,7 @@ function assertParameterSelection(actual, parameterFixture, label) {
   }
 }
 
-test('phase 6 blocks any engine or public-contract drift across all Midjourney fixtures', () => {
+historicalTest('phase 6 blocks any engine or public-contract drift across all Midjourney fixtures', () => {
   for (const parameterFixture of MIDJOURNEY_PARAMETER_FIXTURES) {
     const { mode, prompt } = generateFixture(parameterFixture);
     const nativeFixture = MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES.find(

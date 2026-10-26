@@ -1,3 +1,5 @@
+import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
+const historicalTest = preA1HistoricalTest(import.meta.url);
 import { preAllA5Database as preA5Database } from '../../../../scripts/lib/a5XimendingHistoricalReplay.mjs';
 import { prepareImmutableRuntimeLibrary } from './runtimeCache.js';
 import { PRE_BLACK_BOTTOM_CATALOG, usesBlackBottomPreset } from './shirtBlackBottomTestSupport.js';
@@ -62,7 +64,7 @@ test('main MJ CRT has the approved short body, item names, freckles, style and f
   assert.equal(parseMidjourneyParameterTail(prompt.midjourneyPrompt).tail, '--v 8.2 --ar 2:3 --raw --s 25 --c 0 --w 0 --sd');
 });
 
-test('all mode baselines protect five other outputs, raw selections, structured data and summaries byte for byte', () => {
+historicalTest('all mode baselines protect five other outputs, raw selections, structured data and summaries byte for byte', () => {
   const fixtures = midjourneyNaturalFixtures();
   // Keep the sealed pre-A5 hashes: replay only this historical test with exact old tags.
   const historicalCatalog = prepareImmutableRuntimeLibrary(preA5Database());

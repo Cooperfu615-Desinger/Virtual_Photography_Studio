@@ -1,3 +1,5 @@
+import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
+const historicalTest = preA1HistoricalTest(import.meta.url);
 import { generateLegacyBodyPrompts } from './bodyTypeLegacyTestSupport.js';
 import { normalizeOuterwearCatalogForLegacy } from './outerwearCatalogTestSupport.js';
 import assert from 'node:assert/strict';
@@ -136,7 +138,7 @@ test('phase-2 shared preset builds a full-body derived context without mutating 
   assert.equal(preset.lockAspectRatio, compatibility.lockAspectRatio);
 });
 
-test('phase-2 full-body migration preserves exact output bytes for representative resolved sources', () => {
+historicalTest('phase-2 full-body migration preserves exact output bytes for representative resolved sources', () => {
   for (const promptCase of FULL_BODY_CHARACTER_BASELINES) {
     const locks = materializeLocks(promptCase);
     const [prompt] = generateLegacyBodyPrompts(1, locks, PRE_HOURGLASS_BODY_CATALOG, {

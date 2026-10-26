@@ -1,0 +1,121 @@
+TAP version 13
+# Subtest: close camera source matches approved copy and leaves every other crop/angle untouched
+ok 1 - close camera source matches approved copy and leaves every other crop/angle untouched
+  ---
+  duration_ms: 1.844792
+  type: 'test'
+  ...
+# Subtest: approved near-contact medium and cowboy copy appears exactly once in main GPT/Z only
+ok 2 - approved near-contact medium and cowboy copy appears exactly once in main GPT/Z only
+  ---
+  duration_ms: 255.970041
+  type: 'test'
+  ...
+# Subtest: frozen matrix permits only the exact GPT/Z camera text and no selection or RNG changes
+ok 3 - frozen matrix permits only the exact GPT/Z camera text and no selection or RNG changes
+  ---
+  duration_ms: 37374.093
+  type: 'test'
+  ...
+# Subtest: near-contact text round trips through saved cards and Markdown without changing camera choices
+ok 4 - near-contact text round trips through saved cards and Markdown without changing camera choices
+  ---
+  duration_ms: 114.767208
+  type: 'test'
+  ...
+# Subtest: GPT main Composition expresses camera distance without changing crop, pose or orbit
+ok 5 - GPT main Composition expresses camera distance without changing crop, pose or orbit
+  ---
+  duration_ms: 12.778792
+  type: 'test'
+  ...
+# Subtest: camera source distinguishes six full-body groups and preserves non-full crop boundaries
+ok 6 - camera source distinguishes six full-body groups and preserves non-full crop boundaries
+  ---
+  duration_ms: 1.22225
+  type: 'test'
+  ...
+# Subtest: GPT keeps the high-angle distance families distinct outside full body
+ok 7 - GPT keeps the high-angle distance families distinct outside full body
+  ---
+  duration_ms: 1.072458
+  type: 'test'
+  ...
+# Subtest: GPT distance bridge retains the prior GPT camera policy
+ok 8 - GPT distance bridge retains the prior GPT camera policy
+  ---
+  duration_ms: 0.1785
+  type: 'test'
+  ...
+# Subtest: frozen camera/scene/lighting matrix permits only the exact main GPT Composition change
+ok 9 - frozen camera/scene/lighting matrix permits only the exact main GPT Composition change
+  ---
+  duration_ms: 40203.420791
+  type: 'test'
+  ...
+# Subtest: new camera text survives Saved Cards and Markdown; exact bridge does not hide regressions
+ok 10 - new camera text survives Saved Cards and Markdown; exact bridge does not hide regressions
+  ---
+  duration_ms: 27.998084
+  type: 'test'
+  ...
+# Subtest: GPT reviewed source projection preserves identity, mixed fragments, unknown prose and punctuation
+ok 11 - GPT reviewed source projection preserves identity, mixed fragments, unknown prose and punctuation
+  ---
+  duration_ms: 0.190833
+  type: 'test'
+  ...
+# Subtest: GPT projection clones source roles, preserves full scene detail and all non-scene roles
+ok 12 - GPT projection clones source roles, preserves full scene detail and all non-scene roles
+  ---
+  duration_ms: 0.217
+  type: 'test'
+  ...
+# Subtest: frozen all-scene / ambient matrix changes only approved GPT Scene and Lighting; every other byte and selection stays fixed
+ok 13 - frozen all-scene / ambient matrix changes only approved GPT Scene and Lighting; every other byte and selection stays fixed
+  ---
+  duration_ms: 37897.508834
+  type: 'test'
+  ...
+# Subtest: projected GPT texts survive Saved Cards and Markdown without changing stored selection
+ok 14 - projected GPT texts survive Saved Cards and Markdown without changing stored selection
+  ---
+  duration_ms: 1213.916334
+  type: 'test'
+  ...
+# Subtest: historical scene fixture reuse stays enabled across original suite registration
+ok 15 - historical scene fixture reuse stays enabled across original suite registration
+  ---
+  duration_ms: 0.611292
+  type: 'test'
+  ...
+not ok 16 - /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/historicalSceneMatrices.test.js
+  ---
+  duration_ms: 46.447792
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/historicalSceneMatrices.test.js:31:1'
+  failureType: 'hookFailed'
+  error: 'all 6,370 unique frozen fixtures must execute'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/historicalSceneMatrices.test.js:36:14)
+    TestHook.runInAsyncScope (node:async_hooks:214:14)
+    TestHook.run (node:internal/test_runner/test:1047:25)
+    TestHook.run (node:internal/test_runner/test:1354:18)
+    TestHook.run (node:internal/util:569:20)
+    Test.runHook (node:internal/test_runner/test:965:20)
+    after (node:internal/test_runner/test:1005:20)
+    Test.run (node:internal/test_runner/test:1070:13)
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 15
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 117486.4345

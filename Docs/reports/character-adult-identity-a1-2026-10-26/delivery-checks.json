@@ -1,0 +1,53 @@
+{
+  "baseCommit": "ffb2e91e61787159d7dbc724dc0129e87537dfcb",
+  "remoteMainBeforeDelivery": "ffb2e91e61787159d7dbc724dc0129e87537dfcb",
+  "reviewedFilesVerified": 92,
+  "acceptedEvidenceManifestSha256": "5b9b7e0194bc4bec62e91533284f02e7004a71994ed2b83f8968250311dc61a0",
+  "runtimeAndDataUnchangedSinceAcceptance": true,
+  "protectedOtherWorktrees": 20,
+  "protectedUncommittedFiles": 140,
+  "unrelatedFilesUnchanged": true,
+  "authorization": "Only this A1 batch commit and push",
+  "scopeExcluded": [
+    "PAGE2 identity changes",
+    "other Phase 4 items",
+    "P5b"
+  ],
+  "gitAndCiStatus": "verify after commit/push",
+  "logWhitespaceNormalization": {
+    "rawArchive": "Docs/reports/character-adult-identity-a1-2026-10-26/delivery-raw-logs.json.gz",
+    "files": [
+      {
+        "path": "Docs/reports/character-adult-identity-a1-2026-10-26/logs/build.txt",
+        "beforeSha256": "c4a8e98262b4df6348ceb32a318f5940ba05671370a70347dc06a3bc22085bf2",
+        "afterSha256": "0ec429999c600768e58f8f84d213a7b4a9db6b793680517c4a8085765f25dbc1"
+      },
+      {
+        "path": "Docs/reports/character-adult-identity-a1-2026-10-26/logs/lint-final.txt",
+        "beforeSha256": "4cc3750d21346cf65740526345613cc28b068e42b7624120db0bc04da500cb79",
+        "afterSha256": "11c589c29aaed990d921824fec88aaa4aa89623c52cc32fe7d2ab00ac7920311"
+      },
+      {
+        "path": "Docs/reports/character-adult-identity-a1-2026-10-26/logs/lint.txt",
+        "beforeSha256": "4cc3750d21346cf65740526345613cc28b068e42b7624120db0bc04da500cb79",
+        "afterSha256": "11c589c29aaed990d921824fec88aaa4aa89623c52cc32fe7d2ab00ac7920311"
+      },
+      {
+        "path": "Docs/reports/character-adult-identity-a1-2026-10-26/logs/npm-test.txt",
+        "beforeSha256": "0087cc04f49fb112962d5ff4e44a4dcf40f5e138b4eec3f4e4cafc83e8f9da0e",
+        "afterSha256": "299eec852afa7d2be3cdf6ca4c58d7bfbf18e80e574133eb4c8d49fe9159e21d"
+      },
+      {
+        "path": "Docs/reports/character-adult-identity-a1-2026-10-26/logs/red-final.txt",
+        "beforeSha256": "af3babe866b1d30504b0be7e07df5bc193377cf3a347855b48ce51612b157835",
+        "afterSha256": "6487ca1c9eb197fbcea7a3100fb399b69c61420704c43d455500e8185228b1cf"
+      },
+      {
+        "path": "Docs/reports/character-adult-identity-a1-2026-10-26/logs/red.txt",
+        "beforeSha256": "0879cddf8939e8a88c6207f1bb1459e9e3480ddfa165d3ea985904997db8c956",
+        "afterSha256": "995826785fbb0b22df61a4a4fa1619132c1058c30f33121f0878b702e351cdb3"
+      }
+    ],
+    "onlyChanges": "trailing whitespace and blank EOF lines"
+  }
+}

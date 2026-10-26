@@ -1,3 +1,5 @@
+import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
+const historicalTest = preA1HistoricalTest(import.meta.url);
 import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
 import assert from 'node:assert/strict';
 import { restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
@@ -74,7 +76,7 @@ test('GPT distance bridge retains the prior GPT camera policy', () => {
   assert.equal(normalizeGptHighAngleDistanceForLegacy(natural), natural);
 });
 
-test('frozen camera/scene/lighting matrix permits only the exact main GPT Composition change',()=>{
+historicalTest('frozen camera/scene/lighting matrix permits only the exact main GPT Composition change',()=>{
   const results = GPT_CAMERA_SPATIAL_FIXTURES.map(runSceneFixture);
   assert.equal(results.length,cameraBaseline.count);
   assertChestUpRevision('camera', results);

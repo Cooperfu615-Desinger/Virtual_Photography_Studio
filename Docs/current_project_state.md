@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-26
 
+## Phase 4 A1：PAGE1 角色卡成年身份（2026-10-26，本機驗收完成，授權交付）
+
+- A5 西門町收尾已提交推送 main `ffb2e91e61787159d7dbc724dc0129e87537dfcb`，[CI 40294656608](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40294656608) 的前端、Functions、build、deploy 均成功。下方 A5 的授權交付文字為當時紀錄，原始證據保留。
+- Cooper 授權接續順序 2：A1。只在 PAGE1 角色卡兩個 GPT builder 的結構化分支補回來源已有的成年身份句；主 GPT、胸上、全身三輸出適用，Eleanor 保留 demonic。其餘內容、正式資料、選值、RNG、Z／MJ／Nano／PAGE2 保持。
+- 固定 Git 對照 33 卡 × 三輸出由 0/99 變為 99/99；1,273 案例、66 組 PAGE2、66 份舊 JSON／Markdown 及五種一般人物匯入來源無超出核准差異。舊快照採測試端精確 inverse，不重錄 A～E、四批 A5 或其他歷史基準。
+- 最終前端 1,851/1,851、Prompt Quality 759/759、聚焦 5/5、lint／build／來源同步／歷史 ID／strict 通過；同 seed 200 audit 相同，0 blocker／18 既有診斷。桌手機 36 項／16 張畫面通過，四批 A5 原工具回放及其他 20 個工作目錄／140 份檔案保護通過。
+- [規格](specs/character-adult-identity-a1-v1.md)、[決策](decisions/2026-10-26-a1-adult-identity.md)、[驗收報告](reports/character-adult-identity-a1-2026-10-26/README.md)。Cooper 已授權只提交並 push 本批 A1，實際 Git 與對應 CI 結果另行核對；其他未提交內容保持，其他項目及 P5b 未開始。PAGE2 自有 GPT／Z 的身份覆蓋另列後續，不擴成本批修正。
+
 ## Phase 4 A5：西門町與狀態收尾（2026-10-26，已驗收，授權限定交付）
 
 - 本批基準為本機／GitHub main `5110401f3eee4aaa6cc59ee9175625cc96326d9e`。只移除西門町的 green_space，保留停車原文、ID／aliases／順序與其他語意；正式分類及生成 database 各少一個 tag。engine／renderer／推論退路不改。

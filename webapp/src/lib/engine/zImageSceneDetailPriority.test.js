@@ -1,3 +1,5 @@
+import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
+const historicalTest = preA1HistoricalTest(import.meta.url);
 import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
 import assert from 'node:assert/strict';
 import { normalizeGptVisibilityForLegacy } from './gptSceneVisibilityTestSupport.js';
@@ -97,7 +99,7 @@ test('scene-integrated assembly does not duplicate a selected location detail', 
   assert.ok(sceneBlock.split('glowing screens with analog static').length - 1 <= 1, sceneBlock);
 });
 
-test('1430 frozen cases permit only reviewed low-camera scene substitutions', () => {
+historicalTest('1430 frozen cases permit only reviewed low-camera scene substitutions', () => {
   const baseline = JSON.parse(readFileSync(new URL('./zImageSceneDetailPriorityBaseline.json', import.meta.url), 'utf8'));
   const results = SCENE_DETAIL_PRIORITY_REGRESSION.map(runSceneFixture);
   assert.equal(results.length, baseline.count);

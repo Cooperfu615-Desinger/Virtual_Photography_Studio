@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: 33 cards retain source adult identity once in three PAGE1 GPT outputs (full-default)
+ok 1 - 33 cards retain source adult identity once in three PAGE1 GPT outputs (full-default)
+  ---
+  duration_ms: 267.110083
+  type: 'test'
+  ...
+# Subtest: 33 cards retain source adult identity once in three PAGE1 GPT outputs (selected-layers)
+ok 2 - 33 cards retain source adult identity once in three PAGE1 GPT outputs (selected-layers)
+  ---
+  duration_ms: 298.121042
+  type: 'test'
+  ...
+# Subtest: card capture keeps adult identity through rerolls, JSON and Markdown without enabling full-body import
+ok 3 - card capture keeps adult identity through rerolls, JSON and Markdown without enabling full-body import
+  ---
+  duration_ms: 77.967959
+  type: 'test'
+  ...
+# Subtest: historical inverse rejects missing, duplicate and altered patches while retaining unrelated code
+ok 4 - historical inverse rejects missing, duplicate and altered patches while retaining unrelated code
+  ---
+  duration_ms: 4.657083
+  type: 'test'
+  ...
+# Subtest: both real GPT builder bodies preserve legacy-only, missing and unsupported identity sources
+ok 5 - both real GPT builder bodies preserve legacy-only, missing and unsupported identity sources
+  ---
+  duration_ms: 3.516541
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 757.911125

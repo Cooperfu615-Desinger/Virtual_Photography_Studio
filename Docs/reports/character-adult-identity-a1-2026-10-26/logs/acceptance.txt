@@ -1,0 +1,1 @@
+{"baseCommit":"ffb2e91e61787159d7dbc724dc0129e87537dfcb","protectedFiles":268,"cases":1273,"cards":33,"adultIdentityBefore":0,"adultIdentityAfter":99,"page2BundlesUnchanged":66,"oldSavedJsonAndMarkdown":66,"ordinaryImportSources":5,"differencesOutsideAllowance":0}

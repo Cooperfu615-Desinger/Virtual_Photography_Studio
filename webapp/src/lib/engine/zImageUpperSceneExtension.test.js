@@ -1,3 +1,5 @@
+import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
+const historicalTest = preA1HistoricalTest(import.meta.url);
 import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
 import assert from 'node:assert/strict';
 import { normalizeGptVisibilityForLegacy } from './gptSceneVisibilityTestSupport.js';
@@ -49,7 +51,7 @@ test('14 approved additions bind exact catalog IDs and retain the four original 
   }
 });
 
-test('930 frozen cases permit only the 14 authored additions in eligible main Z openings', () => {
+historicalTest('930 frozen cases permit only the 14 authored additions in eligible main Z openings', () => {
   const baseline = JSON.parse(readFileSync(new URL('./zImageUpperSceneExtensionBaseline.json', import.meta.url), 'utf8'));
   const results = UPPER_SCENE_EXTENSION_REGRESSION.map(runSceneFixture);
   assert.equal(results.length, baseline.count);

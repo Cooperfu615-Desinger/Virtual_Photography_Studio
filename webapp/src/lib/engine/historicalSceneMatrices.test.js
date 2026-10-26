@@ -2,28 +2,42 @@
 // results in this process. Each original file remains directly runnable.
 import assert from 'node:assert/strict';
 import process from 'node:process';
-import { after, before, test } from 'node:test';
-import { enableHistoricalSceneFixtureMemoization, runLegacySceneFixture } from './sceneIntegratedAssemblyTestSupport.js';
-import { GPT_VISIBILITY_ALL } from './gptSceneVisibilityFixtures.js';
-import './closeWormEye.test.js';
-import './gptCameraSpatial.test.js';
-import './gptSceneVisibility.test.js';
+import { after, test } from 'node:test';
+import { realpathSync } from 'node:fs';
+import { pathToFileURL } from 'node:url';
+import { openPreA1ReplayRoot } from '../../../../scripts/lib/a1AdultIdentityHistoricalReplay.mjs';
 
-let stopMemoization;
-before(() => {
-  stopMemoization = enableHistoricalSceneFixtureMemoization();
-});
+// Keep the original shared 6,370-fixture / 11,934-hit gate in one isolated
+// pre-A1 graph. Splitting the three frozen suites would invalidate that gate.
+const replay = openPreA1ReplayRoot();
+const load = file => import(pathToFileURL(`${replay.directory}/webapp/src/lib/engine/${file}`).href);
+const { enableHistoricalSceneFixtureMemoization, runLegacySceneFixture } = await load('sceneIntegratedAssemblyTestSupport.js');
+const { GPT_VISIBILITY_ALL } = await load('gptSceneVisibilityFixtures.js');
+// Enable before asynchronous suite imports can register and start any tests.
+const stopMemoization = enableHistoricalSceneFixtureMemoization();
+const previousReplayRoot = process.env.VPS_A1_REPLAY_ROOT;
+try {
+  process.env.VPS_A1_REPLAY_ROOT = realpathSync(replay.directory);
+  await load('closeWormEye.test.js');
+  await load('gptCameraSpatial.test.js');
+  await load('gptSceneVisibility.test.js');
+} finally {
+  if (previousReplayRoot === undefined) delete process.env.VPS_A1_REPLAY_ROOT;
+  else process.env.VPS_A1_REPLAY_ROOT = previousReplayRoot;
+}
+
 after(context => {
   try {
     const statistics = stopMemoization.statistics();
+    context.diagnostic(`historical scene fixture reuse: ${statistics.generations} generations, ${statistics.hits} hits`);
     const filtered = process.execArgv.some(argument => /^--test-(?:name-pattern|skip-pattern|only)(?:=|$)/.test(argument));
     if (!filtered) {
       assert.ok(statistics.generations >= 6370, 'all 6,370 unique frozen fixtures must execute');
       assert.ok(statistics.hits >= 11934, 'the 11,934 overlapping frozen fixtures must reuse this run\'s results');
     }
-    context.diagnostic(`historical scene fixture reuse: ${statistics.generations} generations, ${statistics.hits} hits`);
   } finally {
     stopMemoization();
+    replay.cleanup();
   }
 });
 

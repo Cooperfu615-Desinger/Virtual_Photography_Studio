@@ -1,0 +1,122 @@
+[
+  {
+    "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio",
+    "head": "d469a329c34f8f325f0af065639acaac2c55e2da",
+    "protectedFiles": 91,
+    "unchanged": true
+  },
+  {
+    "path": "/Users/cooperfu/.codex/worktrees/capture-import-integration/Virtual_Photography_Studio",
+    "head": "9c1a58fa350f0cff1dc6c0827c1dc8f040fe4a24",
+    "protectedFiles": 0,
+    "unchanged": true
+  },
+  {
+    "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/ethnicity-default-japanese",
+    "head": "713f74fa229a2a1de2a07a13ba643665efd00ddd",
+    "protectedFiles": 4,
+    "unchanged": true
+  },
+  {
+    "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-gest",
+    "head": "528ba5bb51659b41619ee62906dc073dbb2c702e",
+    "protectedFiles": 1,
+    "unchanged": true
+  },
+  {
+    "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-grid",
+    "head": "e86c6823fbf9fc6d423385511c258c19d8464fc9",
+    "protectedFiles": 3,
+    "unchanged": true
+  },
+  {
+    "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-head",
+    "head": "88890855df269cdc1e7b23e857a8280d986e4a40",
+    "protectedFiles": 3,
+    "unchanged": true
+  },
+  {
+    "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-props",
+    "head": "2f56438804e751de4556060b293231966d6ea3b3",
+    "protectedFiles": 3,
+    "unchanged": true
+  },
+  {
+    "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-sit-kneel",
+    "head": "62702d3cd8eac2baa1280b89ee5fc0dae8eb494d",
+    "protectedFiles": 2,
+    "unchanged": true
+  },
+  {
+    "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-squatting",
+    "head": "3681356d061a8eca388c8aa5d77d66a5ca1082a7",
+    "protectedFiles": 2,
+    "unchanged": true
+  },
+  {
+    "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-standing",
+    "head": "24b419b77a23bc718ae574f8acf6c61565c2009e",
+    "protectedFiles": 3,
+    "unchanged": true
+  },
+  {
+    "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-ui",
+    "head": "38238b4d5e9ec7a524c46fa2807d32869e30d566",
+    "protectedFiles": 2,
+    "unchanged": true
+  },
+  {
+    "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p1",
+    "head": "6d07242c8f65c740dec292fdd10428f6f0597344",
+    "protectedFiles": 1,
+    "unchanged": true
+  },
+  {
+    "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p2",
+    "head": "d9d596a9958347760a331a6f6a0278d3f9ab37e4",
+    "protectedFiles": 5,
+    "unchanged": true
+  },
+  {
+    "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p3",
+    "head": "15b49f7787a259d52a6aa4f60b317d686ab3baf7",
+    "protectedFiles": 4,
+    "unchanged": true
+  },
+  {
+    "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p4",
+    "head": "b8ea0ce46e5f94e2b1e1858017c29b7af4621f75",
+    "protectedFiles": 4,
+    "unchanged": true
+  },
+  {
+    "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p5",
+    "head": "ee3fb3f410406e2facbfeb0bcaa2b0f3d4b79af2",
+    "protectedFiles": 7,
+    "unchanged": true
+  },
+  {
+    "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p5b",
+    "head": "58c456d7c37461c6ffc63f12ee6995596fa2b6d2",
+    "protectedFiles": 4,
+    "unchanged": true
+  },
+  {
+    "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/preview-prompt-test",
+    "head": "9cba339751022ca205f09d7f326d8035742da7fb",
+    "protectedFiles": 0,
+    "unchanged": true
+  },
+  {
+    "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/reference-person-preview",
+    "head": "a5a3126e05b655de0840671b620f056c7bc961f9",
+    "protectedFiles": 0,
+    "unchanged": true
+  },
+  {
+    "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/tshirt-crew-neck",
+    "head": "f1cb26dc42b8c03f6a69a1de798db8d9ba3a362c",
+    "protectedFiles": 1,
+    "unchanged": true
+  }
+]

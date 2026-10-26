@@ -11674,7 +11674,11 @@ function buildGptCharacterProfileSubjectBlock(
   return [
     groupLine('Character Profile Card', subject.zh || subject.specialToneZh || 'Character Profile'),
     ...(structuredIdentityLines.length > 0
-      ? structuredIdentityLines
+      ? [
+          ensureTerminalPeriod(cleanCharacterProfileGroupText(groups.identityAndBody)
+            .match(/^a\s+20-year-old\s+adult\s+[^,]*?\bwoman\b/i)?.[0] || ''),
+          ...structuredIdentityLines,
+        ]
       : [groupLine('Identity and body', groups.identityAndBody)]),
     groupLine('Hair', [groups.hair, buildCharacterCardHairVariantText(subject, locks)].filter(Boolean).join(', ')),
     includeOutfit ? groupLine('Outfit', filterCompleteLookPromptForFraming(groups.outfit, context)) : '',
@@ -11705,7 +11709,11 @@ function buildGptFullBodyCharacterProfileSubjectBlock(subject, locks = {}, wardr
   return [
     groupLine('Character Profile Card', subject.zh || subject.specialToneZh || 'Character Profile'),
     ...(structuredIdentityLines.length > 0
-      ? structuredIdentityLines
+      ? [
+          ensureTerminalPeriod(cleanCharacterProfileGroupText(groups.identityAndBody)
+            .match(/^a\s+20-year-old\s+adult\s+[^,]*?\bwoman\b/i)?.[0] || ''),
+          ...structuredIdentityLines,
+        ]
       : [groupLine('Identity and body', groups.identityAndBody)]),
     groupLine('Hair', [groups.hair, buildCharacterCardHairVariantText(subject, locks)].filter(Boolean).join(', ')),
     groupLine('Accessories', groups.accessories),

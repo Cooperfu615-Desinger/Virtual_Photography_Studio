@@ -1,5 +1,7 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
+2026-10-26 A1：角色卡主 GPT／GPT 胸上／全身角色照在卡名後補回 `identityAndBody` 原有成年身份開頭，再接既有結構化欄位；保留四錨點、body、衣著、所有排除路徑與收藏原文，不改 Z／MJ／Nano 或 PAGE2。詳見 [A1 規格](character-adult-identity-a1-v1.md)。
+
 2026-10-20 核准例外：兩套開扣襯衫的熱褲／包臀迷你裙固定黑色，套裝主色及完整造型配色只作用於襯衫。主 MJ 保留可見上衣主色與黑色下身名稱，其他套裝維持原規則；詳見 [開扣襯衫套裝固定黑色下身 v1](shirt-outfit-black-bottom-v1.md)。
 
 2026-10-19 觀察式抓拍：使用核准面板的同一組解析來源接管 B／D／E 有效描述，保留 A／C、比例與相容景別。四主與胸上共用拍攝狀態，角色卡攝影方向在抓拍主／胸上省略，全身角色照仍沿用既有 reference 契約。Public contract `1.61.0`；範圍、胸上投影及公園欄杆明確來源見 [觀察式抓拍整合 v1](observation-capture-workspace-v1.md)。

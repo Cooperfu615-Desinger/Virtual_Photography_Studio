@@ -1,0 +1,38 @@
+{
+  "inspectedScreenshots": [
+    "browser-general/1440-1.png",
+    "browser-general/1440-2.png",
+    "browser-general/1440-3.png",
+    "browser-general/1440-4.png",
+    "browser-general/1440-5.png",
+    "browser-general/390-1.png",
+    "browser-general/390-2.png",
+    "browser-general/390-3.png",
+    "browser-general/390-4.png",
+    "browser-general/390-5.png",
+    "browser-targeted/1440-capture.png",
+    "browser-targeted/1440-character-eleanor.png",
+    "browser-targeted/1440-character-rika.png",
+    "browser-targeted/390-capture.png",
+    "browser-targeted/390-character-eleanor.png",
+    "browser-targeted/390-character-rika.png"
+  ],
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      900
+    ]
+  ],
+  "result": "passed",
+  "notes": [
+    "Five active workspaces rendered at both widths.",
+    "Adult source shown in full-body reference; all three GPT values and six clipboard values asserted.",
+    "Card capture, old/new saved restore, Markdown import and DLL transfer exercised.",
+    "Textarea scrolling and existing narrow-button ellipsis retained; no new layout or page overflow.",
+    "No provider request or external image generation."
+  ]
+}

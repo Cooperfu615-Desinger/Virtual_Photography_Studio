@@ -1,3 +1,5 @@
+import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
+const historicalTest = preA1HistoricalTest(import.meta.url);
 import { restorePreOpenPalmV2 } from './openPalmTestSupport.js';
 import { restorePreSquattingV2 } from './squattingCatalogTestSupport.js';
 import { normalizeOuterwearCatalogForLegacy } from './outerwearCatalogTestSupport.js';
@@ -127,7 +129,7 @@ test('fixture selectors fail closed instead of falling back or silently acceptin
 });
 
 for (const fixture of fixtures) {
-  test(`scene assembly scoped Z/MJ revisions and unchanged baseline: ${fixture.id}`, () => {
+  (fixture.id === 'R16-character-card' ? historicalTest : test)(`scene assembly scoped Z/MJ revisions and unchanged baseline: ${fixture.id}`, () => {
     const first = get(fixture.id);
     const repeated = runSceneFixture(fixture);
     const entry = baseline.cases[fixture.id];

@@ -1,3 +1,5 @@
+import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
+const historicalTest = preA1HistoricalTest(import.meta.url);
 import { restorePreOpenPalmV2 } from './openPalmTestSupport.js';
 import { restorePreSquattingV2 } from './squattingCatalogTestSupport.js';
 import assert from 'node:assert/strict';
@@ -37,7 +39,7 @@ test('published test prompts are the actual main renderer outputs', () => {
     .map((id) => restorePreEthnicityText(get(id).outputs.zImagePrompt, 'zImagePrompt')));
 });
 
-for (const fixture of fixtures) test(`main-Z-only source relocation: ${fixture.id}`, () => {
+for (const fixture of fixtures) (fixture.id === 'historical-R16-character-card' ? historicalTest : test)(`main-Z-only source relocation: ${fixture.id}`, () => {
   const current = get(fixture.id);
   const before = baseline.cases[fixture.id];
   const rawLocks = materializeSceneFixture(fixture);

@@ -1,3 +1,5 @@
+import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
+const historicalTest = preA1HistoricalTest(import.meta.url);
 import { generateLegacyBodyPrompts } from './bodyTypeLegacyTestSupport.js';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
@@ -155,7 +157,7 @@ test('phase 4 appends, parses, and replaces only the final parameter tail', () =
   });
 });
 
-test('phase 4 appends parameters only to AI while preserving descriptive baselines', () => {
+historicalTest('phase 4 appends parameters only to AI while preserving descriptive baselines', () => {
   for (const fixture of MIDJOURNEY_PARAMETER_FIXTURES) {
     const prompt = generateFixture(fixture);
     const content = stripMidjourneyParameterTail(prompt.midjourneyPrompt);

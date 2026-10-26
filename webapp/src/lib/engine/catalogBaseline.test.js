@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { OUTPUTS, compareCaptures, differences } from '../../../../scripts/lib/catalogBaseline.mjs';
 import { verifySeal, captureCorpus } from '../../../../scripts/catalog_baseline.mjs';
-import { withPreAllA5ReplayRoot as withPreA5ReplayRoot } from '../../../../scripts/lib/a5XimendingHistoricalReplay.mjs';
+import { withPreAllA5ReplayRoot as withPreA5ReplayRoot } from '../../../../scripts/lib/a1AdultIdentityHistoricalReplay.mjs';
 
 function fixture() {
   const prompt = { grokPrompt: 'One.\n', zImagePrompt: 'Two.', midjourneyPrompt: 'Three.', nanoBananaPrompt: 'Four.',

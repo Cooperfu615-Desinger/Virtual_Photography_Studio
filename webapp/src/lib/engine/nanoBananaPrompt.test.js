@@ -1,3 +1,5 @@
+import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
+const historicalTest = preA1HistoricalTest(import.meta.url);
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
@@ -36,7 +38,7 @@ const text = ({ fixture, prompt }) => {
 };
 const count = (value, source) => value.split(source).length - 1;
 
-test('Nano Banana preserves all six legacy texts, extra prompts, selections, structured data and summaries', () => {
+historicalTest('Nano Banana preserves all six legacy texts, extra prompts, selections, structured data and summaries', () => {
   assert.equal(fixtures.length, 382);
   assert.equal(baseline.length, fixtures.length);
   for (let index = 0; index < generated.length; index += 1) {
@@ -249,7 +251,7 @@ const facialFixtures = nanoBananaFacialFeaturesFixtures();
 const facialGenerated = facialFixtures.map(fixture => ({ fixture, prompt: generateNanoBananaFixture(fixture) }));
 const facialBaseline = JSON.parse(readFileSync(new URL('./nanoBananaFacialFeaturesProtectedBaseline.json', import.meta.url), 'utf8'));
 
-test('Nano facial expansion preserves all other texts and data and changes only effective generic face phrases', () => {
+historicalTest('Nano facial expansion preserves all other texts and data and changes only effective generic face phrases', () => {
   assert.equal(facialFixtures.length, 1078);
   assert.equal(facialBaseline.length, facialFixtures.length);
   for (let index = 0; index < facialGenerated.length; index += 1) {

@@ -1,0 +1,197 @@
+{
+  "version": 1,
+  "baseCommit": "5110401f3eee4aaa6cc59ee9175625cc96326d9e",
+  "sourceDelta": [
+    {
+      "path": "$.Locations.城市與社群感 (Urban & Social Snapshots).28.meta.semantic.tags.[keys/order]",
+      "before": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "after": [
+        "0",
+        "1",
+        "2"
+      ]
+    },
+    {
+      "path": "$.Locations.城市與社群感 (Urban & Social Snapshots).28.meta.semantic.tags.3",
+      "before": "green_space"
+    }
+  ],
+  "protectedFiles": 290,
+  "poolCases": 836,
+  "cases": 3834,
+  "outputChangedCases": 0,
+  "selectionChangedCases": 0,
+  "rngChangedCases": 0,
+  "oracleMismatches": 0,
+  "unaffectedLocations": 154,
+  "importSources": 5,
+  "savedCards": 12,
+  "transitions": 24
+}
+{
+  "baseCommit": "5110401f3eee4aaa6cc59ee9175625cc96326d9e",
+  "cases": 2,
+  "oracleMismatches": 0,
+  "rerollsPerCase": 3,
+  "jsonMarkdownRoundTrips": true,
+  "results": [
+    {
+      "id": "manual-swimsuit",
+      "sha256": "401cc39f4ab355d2162d13f13a4a25ff5b0f2ee37d4f7a821871648bd6afbe8b"
+    },
+    {
+      "id": "random-garments",
+      "sha256": "33e58c5f071469bdde17f48bbfc1b07586d47efcea4a78c950bb74612aadfefc"
+    }
+  ]
+}
+scene_semantic_a5_crt_acceptance.mjs
+{
+  "version": 1,
+  "baseCommit": "321404ecd041343f4a764260ef59ffc08a74a199",
+  "sourceDelta": [
+    {
+      "path": "$.Locations.攝影棚與背景 (Studio Sets).13.meta.semantic.tags.[keys/order]",
+      "before": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "after": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "path": "$.Locations.攝影棚與背景 (Studio Sets).13.meta.semantic.tags.4",
+      "before": "outdoor",
+      "after": "studio_lighting_scene"
+    },
+    {
+      "path": "$.Locations.攝影棚與背景 (Studio Sets).13.meta.semantic.tags.5",
+      "before": "studio_lighting_scene"
+    }
+  ],
+  "protectedFiles": 290,
+  "poolCases": 836,
+  "cases": 3834,
+  "outputChangedCases": 868,
+  "selectionChangedCases": 871,
+  "rngChangedCases": 492,
+  "oracleMismatches": 0,
+  "unaffectedLocations": 154,
+  "importSources": 5,
+  "savedCards": 12,
+  "transitions": 24
+}
+scene_semantic_a5_crt_imports.mjs
+{
+  "baseCommit": "321404ecd041343f4a764260ef59ffc08a74a199",
+  "cases": 2,
+  "oracleMismatches": 0,
+  "rerollsPerCase": 3,
+  "jsonMarkdownRoundTrips": true,
+  "results": [
+    {
+      "id": "manual-swimsuit",
+      "sha256": "1a7aed54af443dc5d04f9f70af2eb409a2bce4b3dfbfa32541b3c9056a32b41b"
+    },
+    {
+      "id": "random-garments",
+      "sha256": "d517f72d38d3825d7dafe472cb1bf8a803781e66fe2e303b26c5d73c18d52db1"
+    }
+  ]
+}
+scene_semantic_a5_crt_history.mjs
+scene_semantic_a5_commercial_acceptance.mjs
+{
+  "version": 1,
+  "baseCommit": "22d1103e2f88984af7ed33249b08b4e2729ba466",
+  "sourceFiles": [
+    "knowledge_base/catalog/Locations/其他專屬場景-other-dedicated-scenes.json",
+    "knowledge_base/catalog/Locations/地下與廢墟風格-abandoned-underground.json",
+    "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+    "knowledge_base/catalog/Locations/生活感室內-indoor-lifestyle.json"
+  ],
+  "removed": 11,
+  "retained": 4,
+  "protectedFiles": 290,
+  "sourceDelta": [
+    "$.Locations.生活感室內 (Indoor & Lifestyle).6.meta.semantic.tags.[keys/order]",
+    "$.Locations.生活感室內 (Indoor & Lifestyle).6.meta.semantic.tags.2",
+    "$.Locations.生活感室內 (Indoor & Lifestyle).18.meta.semantic.tags.[keys/order]",
+    "$.Locations.生活感室內 (Indoor & Lifestyle).18.meta.semantic.tags.2",
+    "$.Locations.生活感室內 (Indoor & Lifestyle).18.meta.semantic.tags.3",
+    "$.Locations.生活感室內 (Indoor & Lifestyle).21.meta.semantic.tags.[keys/order]",
+    "$.Locations.生活感室內 (Indoor & Lifestyle).21.meta.semantic.tags.1",
+    "$.Locations.生活感室內 (Indoor & Lifestyle).24.meta.semantic.tags.[keys/order]",
+    "$.Locations.生活感室內 (Indoor & Lifestyle).24.meta.semantic.tags.2",
+    "$.Locations.生活感室內 (Indoor & Lifestyle).24.meta.semantic.tags.3",
+    "$.Locations.生活感室內 (Indoor & Lifestyle).38.meta.semantic.tags.[keys/order]",
+    "$.Locations.生活感室內 (Indoor & Lifestyle).38.meta.semantic.tags.2",
+    "$.Locations.地下與廢墟風格 (Abandoned & Underground).13.meta.semantic.tags.[keys/order]",
+    "$.Locations.地下與廢墟風格 (Abandoned & Underground).13.meta.semantic.tags.2",
+    "$.Locations.地下與廢墟風格 (Abandoned & Underground).13.meta.semantic.tags.3",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).4.meta.semantic.tags.[keys/order]",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).4.meta.semantic.tags.2",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).4.meta.semantic.tags.3",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).8.meta.semantic.tags.[keys/order]",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).8.meta.semantic.tags.2",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).8.meta.semantic.tags.3",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).8.meta.semantic.tags.4",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).10.meta.semantic.tags.[keys/order]",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).10.meta.semantic.tags.2",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).10.meta.semantic.tags.3",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).14.meta.semantic.tags.[keys/order]",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).14.meta.semantic.tags.2",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).14.meta.semantic.tags.3",
+    "$.Locations.其他專屬場景 (Other Dedicated Scenes).2.meta.semantic.tags.[keys/order]",
+    "$.Locations.其他專屬場景 (Other Dedicated Scenes).2.meta.semantic.tags.2"
+  ],
+  "poolCases": 12540,
+  "cases": 3804,
+  "changedMetadataCases": 1599,
+  "outputDifferences": 0,
+  "selectionDifferences": 0,
+  "rngDifferences": 0,
+  "oracleMismatches": 0,
+  "savedCards": 45,
+  "transitions": 150,
+  "unaffectedLocations": 144,
+  "importFlowSources": 5,
+  "importFlowsSha256": "57e2f27f6450a03a18718728c813ab0c8a5e55d02f695157e0cde56bb91f4657"
+}
+scene_semantic_a5_commercial_history.mjs
+{
+  "version": 1,
+  "baseCommit": "a9dd3616bc6596cdb199420f3189a420c6f1ed17",
+  "protectedFilesChecked": 246,
+  "sourceDelta": [
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).41.meta.semantic.tags.[keys/order]",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).41.meta.semantic.tags.3",
+    "$.Locations.自然與戶外 (Nature & Outdoors).1.meta.semantic.tags.[keys/order]",
+    "$.Locations.自然與戶外 (Nature & Outdoors).1.meta.semantic.tags.2",
+    "$.Locations.自然與戶外 (Nature & Outdoors).1.meta.semantic.tags.3",
+    "$.Locations.自然與戶外 (Nature & Outdoors).3.meta.semantic.tags.[keys/order]",
+    "$.Locations.自然與戶外 (Nature & Outdoors).3.meta.semantic.tags.2",
+    "$.Locations.自然與戶外 (Nature & Outdoors).3.meta.semantic.tags.3"
+  ],
+  "pools": 66,
+  "unaffectedLocations": 152,
+  "cases": 1740,
+  "changedCases": 452,
+  "rngChangedCases": 0,
+  "oracleMismatches": 0,
+  "savedCards": 6
+}

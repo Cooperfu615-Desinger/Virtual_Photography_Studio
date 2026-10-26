@@ -1,3 +1,5 @@
+import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
+const historicalTest = preA1HistoricalTest(import.meta.url);
 import { generateLegacyBodyPrompts } from './bodyTypeLegacyTestSupport.js';
 import { assertZImagePoseProjection, PRE_HOURGLASS_BODY_CATALOG } from './sceneIntegratedAssemblyTestSupport.js';
 import { normalizeOnLocationAndFullCameraForLegacy as normalizeFullCameraForLegacy } from './zImageOnLocationTestSupport.js';
@@ -101,7 +103,7 @@ test('phase 5 emits one Midjourney-native description block before the canonical
   }
 });
 
-test('phase 5 changes only AI structure and preserves every non-AI baseline', () => {
+historicalTest('phase 5 changes only AI structure and preserves every non-AI baseline', () => {
   for (const parameterFixture of MIDJOURNEY_PARAMETER_FIXTURES) {
     const { prompt } = generateFixture(parameterFixture);
 

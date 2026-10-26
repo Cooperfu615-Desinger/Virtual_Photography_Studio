@@ -1,0 +1,38 @@
+{
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      900
+    ]
+  ],
+  "checks": [
+    "1440: old stored GPT retained; apply and regenerate restores adult source",
+    "1440: character-rika: three GPT identities once; all six clipboards equal previews",
+    "1440: character-rika: saved/reloaded/applied six texts unchanged",
+    "1440: character-rika: card capture reroll preserves adult identity",
+    "1440: character-eleanor: three GPT identities once; all six clipboards equal previews",
+    "1440: character-eleanor: saved/reloaded/applied six texts unchanged",
+    "1440: character-eleanor: card capture reroll preserves adult identity",
+    "390: old stored GPT retained; apply and regenerate restores adult source",
+    "390: character-rika: three GPT identities once; all six clipboards equal previews",
+    "390: character-rika: saved/reloaded/applied six texts unchanged",
+    "390: character-rika: card capture reroll preserves adult identity",
+    "390: character-eleanor: three GPT identities once; all six clipboards equal previews",
+    "390: character-eleanor: saved/reloaded/applied six texts unchanged",
+    "390: character-eleanor: card capture reroll preserves adult identity"
+  ],
+  "screenshots": [
+    "1440-character-rika.png",
+    "1440-character-eleanor.png",
+    "1440-capture.png",
+    "390-character-rika.png",
+    "390-character-eleanor.png",
+    "390-capture.png"
+  ],
+  "errors": [],
+  "externalPosts": []
+}

@@ -1,3 +1,5 @@
+import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
+const historicalTest = preA1HistoricalTest(import.meta.url);
 import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
 import assert from 'node:assert/strict';
 import { restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
@@ -44,7 +46,7 @@ test('approved near-contact medium and cowboy copy appears exactly once in main 
   }
 });
 
-test('frozen matrix permits only the exact GPT/Z camera text and no selection or RNG changes', () => {
+historicalTest('frozen matrix permits only the exact GPT/Z camera text and no selection or RNG changes', () => {
   const baseline = JSON.parse(readFileSync(new URL('./closeWormEyeBaseline.json', import.meta.url), 'utf8'));
   const rows = [...GPT_CAMERA_SPATIAL_FIXTURES, ...CLOSE_WORM_CASES, ...CLOSE_WORM_EXCLUDED].map(runSceneFixture);
   assert.equal(rows.length, baseline.count);

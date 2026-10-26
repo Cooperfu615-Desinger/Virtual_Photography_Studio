@@ -49,7 +49,9 @@ New full-fidelity prompt code uses the structured blocks instead of repeating th
 
 ### Full-fidelity PAGE1 and PAGE2 outputs
 
-For a formal card, serialize identity in this order:
+2026-10-26 PAGE1 A1 correction: the three GPT outputs now insert the existing adult identity lead from `profile.identityAndBody` after the card label and before facial geometry. Only the source lead through `woman` is added; the full legacy paragraph and structured fields are not duplicated. PAGE2 keeps its existing serialization. See [A1 scope and acceptance](character-adult-identity-a1-v1.md).
+
+The remaining structured sequence is unchanged:
 
 1. Character Profile Card label
 2. `facialGeometry`

@@ -1,3 +1,5 @@
+import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
+const historicalTest = preA1HistoricalTest(import.meta.url);
 import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
 import assert from 'node:assert/strict';
 import { normalizeGptVisibilityForLegacy } from './gptSceneVisibilityTestSupport.js';
@@ -92,7 +94,7 @@ test('main full-body runtime retains height/roll hints and replaces only effecti
   }
 });
 
-test('431-case frozen baseline: only approved main Z camera text changes; selections and other outputs identical', () => {
+historicalTest('431-case frozen baseline: only approved main Z camera text changes; selections and other outputs identical', () => {
   const baseline = JSON.parse(readFileSync(new URL('./zImageFullBodyCameraBaseline.json', import.meta.url), 'utf8'));
   const results = FULL_CAMERA_REGRESSION.map(runSceneFixture);
   assert.equal(results.length, baseline.count);

@@ -1,3 +1,5 @@
+import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
+const historicalTest = preA1HistoricalTest(import.meta.url);
 import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
 import assert from 'node:assert/strict';
 import { restorePreEthnicityOutputs } from './ethnicityRevisionTestSupport.js';
@@ -47,7 +49,7 @@ test('36 authored ambient descriptions retain light cores, exact source pins and
   assert.match(renderAmbientLightDescription(byZh('雨後反光'), 'z', { zh: '地面高度鏡頭' }), /reflective wall textures/);
 });
 
-test('720 frozen main cases change only authored directional GPT/Z ambient', () => {
+historicalTest('720 frozen main cases change only authored directional GPT/Z ambient', () => {
   const results = AMBIENT_MATRIX.map(runSceneFixture);
   assert.equal(results.length, baseline.count);
   const normalized = results.map((r, i) => {

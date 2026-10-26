@@ -1,0 +1,8 @@
+{
+  "sameCount": 200,
+  "sameSeed": "prompt-quality-baseline",
+  "excluded": [
+    "findings[].promptId"
+  ],
+  "equal": true
+}

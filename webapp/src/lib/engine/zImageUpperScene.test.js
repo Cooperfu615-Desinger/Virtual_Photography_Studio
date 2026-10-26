@@ -1,3 +1,5 @@
+import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
+const historicalTest = preA1HistoricalTest(import.meta.url);
 import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
 import assert from 'node:assert/strict';
 import { normalizeGptVisibilityForLegacy } from './gptSceneVisibilityTestSupport.js';
@@ -65,7 +67,7 @@ test('four user-accepted waist-up B prompts match the test pack verbatim', () =>
   }
 });
 
-test('230-case pre-change baseline: only approved low-camera main Z scene clauses change', () => {
+historicalTest('230-case pre-change baseline: only approved low-camera main Z scene clauses change', () => {
   assert.equal(results.length, baseline.count);
   const normalized = results.map((result, index) => {
     const angle = angles.find((a) => a.id === result.selection.angleId);

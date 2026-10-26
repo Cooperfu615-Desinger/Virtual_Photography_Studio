@@ -1,3 +1,5 @@
+import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
+const historicalTest = preA1HistoricalTest(import.meta.url);
 import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
 import assert from 'node:assert/strict';
 import { restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
@@ -52,7 +54,7 @@ test('GPT projection clones source roles, preserves full scene detail and all no
 });
 
 const capitalizeFirst = (text) => text && text[0].toUpperCase() + text.slice(1);
-test('frozen all-scene / ambient matrix changes only approved GPT Scene and Lighting; every other byte and selection stays fixed', () => {
+historicalTest('frozen all-scene / ambient matrix changes only approved GPT Scene and Lighting; every other byte and selection stays fixed', () => {
   const results = GPT_VISIBILITY_ALL.map(runSceneFixture);
   assert.equal(results.length, baseline.count);
   for (const [i, r] of results.entries()) {

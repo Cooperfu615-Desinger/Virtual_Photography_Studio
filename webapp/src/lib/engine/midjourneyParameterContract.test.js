@@ -1,3 +1,5 @@
+import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
+const historicalTest = preA1HistoricalTest(import.meta.url);
 import { generateLegacyBodyPrompts } from './bodyTypeLegacyTestSupport.js';
 import { assertZImagePoseProjection } from './sceneIntegratedAssemblyTestSupport.js';
 import { normalizeOnLocationAndFullCameraForLegacy as normalizeFullCameraForLegacy } from './zImageOnLocationTestSupport.js';
@@ -211,7 +213,7 @@ test('Midjourney phase-1 fixtures cover the approved parameter and prompt bounda
   }
 });
 
-test('phase 4 preserves representative content while adding only the approved AI tail', () => {
+historicalTest('phase 4 preserves representative content while adding only the approved AI tail', () => {
   for (const fixture of MIDJOURNEY_PARAMETER_FIXTURES) {
     const first = generateFixture(fixture);
     const repeated = generateFixture(fixture);
