@@ -4,6 +4,15 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-26
 
+## Phase 4 A5：CRT outdoor 修正（2026-10-26，已驗收、授權交付）
+
+- 以已核對本機／遠端 main `321404ecd041343f4a764260ef59ffc08a74a199` 為基準，只移除「室內：CRT 電視牆攝影棚」的 outdoor。正式差異只有一份 Locations JSON 與生成 database 各一個 tag；保留 VCR decks 原文、ID／有序 aliases、其他 tags、lyingSurface、renderer 及推論退路。
+- 沿用室內規則：環境光 19 項不變，一般全身／環境光全無時主體光 22→23；其他景別依原規則恢復窗光。隨機服裝、自動外套及 RNG 可改變，手動比基尼等有效鎖值保持；舊支撐候選排除四個戶外表面，仰躺表面主導與正式風格池不變。
+- 獨立固定 Git 引擎加唯一 tag 差異對照 3,834 案例／836 候選池，0 超出核准差異；154 個其他場景選項、12 舊收藏、24 transition、5 既有匯入來源及 2 個 CRT 全身抓拍匯入案例通過。868 案例公開輸出有核准連帶變化，包含隨機服裝改變全身角色照，不宣稱全面零差異。
+- Node 22 前端 1,847／1,847、Prompt Quality 754／754、Python 41、catalog 工具 32、sync／歷史 ID／strict／lint／build／資產通過。同 seed 200 audit 只排除 runtime promptId 後完全相同，0 blockers／18 既有診斷。桌手機 46 項、14 張畫面通過，0 瀏覽器錯誤／外部 POST。
+- A～E 與前兩批 A5 原始證據不改；新精確 inverse 只在隔離副本還原 CRT，再接原 commercial／三筆回放。原 commercial 3,804 與首批 1,740 案例及原 commercial 七項回歸通過。其他 20 個工作目錄的 140 份未提交內容保持。
+- [規格](specs/scene-semantic-a5-crt-v1.md)、[決策](decisions/2026-10-26-a5-crt-outdoor.md)、[完整報告與清單](reports/scene-semantic-a5-crt-2026-10-26/README.md)。Cooper 已確認本批驗收通過，授權只提交並 push 本次資料、文件、回歸案例、歷史回放與驗收工具；實際 Git 及該提交 CI 結果另行核對。其他未提交內容與歷史基準保持，其他項目及 P5b 未開始。下方「CRT 另批」為前兩批當時的歷史狀態。
+
 ## Phase 4 A5：11 筆 commercial 修正／4 筆保留（2026-10-26，已驗收、授權交付）
 
 - 基準為已核對遠端 main `22d1103e2f88984af7ed33249b08b4e2729ba466`。依 Cooper 核准，只移除 11 筆 commercial，保留試衣間、酒吧包廂、八公商業立面與販賣機四筆；CRT 另批。原文、永久 ID、有序 aliases、其他 tags、lyingSurface、renderer／推論退路均不變。

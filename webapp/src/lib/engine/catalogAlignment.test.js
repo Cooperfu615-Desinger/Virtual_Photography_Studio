@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { mkdtempSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
-import { withPreAllA5ReplayRoot as withPreA5ReplayRoot } from '../../../../scripts/lib/a5CommercialHistoricalReplay.mjs';
+import { withPreAllA5ReplayRoot as withPreA5ReplayRoot } from '../../../../scripts/lib/a5CrtHistoricalReplay.mjs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { alignmentDir, verifyAlignment, checkAlignment } from '../../../../scripts/catalog_alignment_baseline.mjs';

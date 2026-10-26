@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "baseCommit": "321404ecd041343f4a764260ef59ffc08a74a199",
+  "sourceDelta": [
+    {
+      "path": "$.Locations.攝影棚與背景 (Studio Sets).13.meta.semantic.tags.[keys/order]",
+      "before": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "after": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "path": "$.Locations.攝影棚與背景 (Studio Sets).13.meta.semantic.tags.4",
+      "before": "outdoor",
+      "after": "studio_lighting_scene"
+    },
+    {
+      "path": "$.Locations.攝影棚與背景 (Studio Sets).13.meta.semantic.tags.5",
+      "before": "studio_lighting_scene"
+    }
+  ],
+  "protectedFiles": 290,
+  "poolCases": 836,
+  "cases": 3834,
+  "outputChangedCases": 868,
+  "selectionChangedCases": 871,
+  "rngChangedCases": 492,
+  "oracleMismatches": 0,
+  "unaffectedLocations": 154,
+  "importSources": 5,
+  "savedCards": 12,
+  "transitions": 24
+}

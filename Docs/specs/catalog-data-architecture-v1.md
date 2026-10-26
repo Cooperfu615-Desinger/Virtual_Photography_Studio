@@ -671,3 +671,11 @@ A～E 歷史交付與 §6.1.4 的原樣遷移原則不變。Cooper 另行授權�
 Cooper 以 main `22d1103e` 核准 11 筆 commercial 移除、4 筆保留，CRT 另批。這是 D 之後獨立的語意修正，維持 JSON 正式來源與 A～E 原樣遷移歷史；不修改 ID、推論／相容規則、renderer 或舊基準。
 
 詳見[本批規格](scene-semantic-a5-commercial-v1.md)、[逐筆決策](../decisions/2026-10-26-a5-commercial-review.md)、[本機驗收](../reports/scene-semantic-a5-commercial-2026-10-26/README.md)。新增精確反轉 11 筆的測試輸入，再接原三筆 inverse 回播 A～E；前批 A5 工具與封存不改寫。Cooper 已確認本機驗收通過，授權限定提交／推送本批資料、文件、回歸案例與驗收工具；實際 Git／CI 結果另行核對。其他項目及 P5b 未授權。
+
+## 19. Phase 4 A5 CRT outdoor 修正（2026-10-26）
+
+以已核對 main `321404ecd041343f4a764260ef59ffc08a74a199` 執行獨立產品修正：僅從 CRT 的 explicit semantic 移除 outdoor，保留來源文本與其餘資料。`VCR decks` 誤中舊 deck 子字串推論；D 依當時契約原樣保存，並非 D 遷移新增錯誤。現行室內光線／隨機穿搭／外套／舊支撐規則直接生效，不新增 renderer 或相容退路特例。
+
+詳見 [CRT 規格](scene-semantic-a5-crt-v1.md)、[決策追溯](../decisions/2026-10-26-a5-crt-outdoor.md)及 [完整驗收](../reports/scene-semantic-a5-crt-2026-10-26/README.md)。新測試入口精確還原 CRT 後，接原 11 筆及三筆 inverse；前兩批原驗收工具與 A～E 封存不變。原 commercial 七項測試由固定 Git 原檔在 current code＋pre-CRT 隔離資料執行，當前 15 筆狀態另由新回歸保護，不能直接刪除舊 CRT 不變斷言。
+
+本機 3,834 案例／836 候選池對獨立 oracle 零差異；Node 22 全套 1,847、Prompt Quality 754、資料及完整門檻通過，桌手機 46 項通過。Cooper 已確認本批驗收通過，授權限定提交／push 本批資料、文件、回歸案例、歷史回放及驗收工具；實際 Git 與該提交 CI 結果另行核對。A～E 與前兩批 A5 歷史保持，其他項目及 P5b 未開始。

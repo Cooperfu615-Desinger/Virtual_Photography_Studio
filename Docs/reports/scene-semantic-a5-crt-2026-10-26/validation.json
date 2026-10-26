@@ -1,0 +1,103 @@
+{
+  "status": "user-accepted-authorized-scoped-delivery",
+  "baseCommit": "321404ecd041343f4a764260ef59ffc08a74a199",
+  "node": "22.22.3",
+  "checks": {
+    "focusedRegression": {
+      "pass": 10,
+      "fail": 0,
+      "note": "9 CRT tests plus wrapper running 7 original commercial tests; all 9 CRT tests failed against pre-change data as expected."
+    },
+    "frontend": {
+      "pass": 1847,
+      "fail": 0
+    },
+    "promptQuality": {
+      "pass": 754,
+      "fail": 0
+    },
+    "python": {
+      "pass": 41,
+      "fail": 0
+    },
+    "catalogTools": {
+      "pass": 32,
+      "fail": 0
+    },
+    "sync": {
+      "records": 1050,
+      "historicalIds": 1050,
+      "outputs": 8,
+      "registryBaseCommit": "321404ecd041343f4a764260ef59ffc08a74a199",
+      "passed": true
+    },
+    "strictIntegrity": {
+      "allowedHistoricalJ12": 2,
+      "blocking": 0,
+      "stale": 0,
+      "passed": true
+    },
+    "lint": {
+      "passed": true
+    },
+    "build": {
+      "passed": true,
+      "knownWarning": "Some chunks are larger than 500 kB after minification"
+    },
+    "publicAssets": {
+      "passed": true,
+      "files": 207
+    },
+    "independentOracle": {
+      "cases": 3834,
+      "pools": 836,
+      "mismatches": 0,
+      "otherLocationOptions": 154,
+      "outputChangedCases": 868,
+      "selectionChangedCases": 871,
+      "rngChangedCases": 492,
+      "oldCards": 12,
+      "transitions": 24,
+      "existingImportSources": 5
+    },
+    "crtImportOracle": {
+      "cases": 2,
+      "rerollsPerCase": 3,
+      "mismatches": 0,
+      "jsonMarkdownRoundTrips": true
+    },
+    "historicalReplay": {
+      "commercialCases": 3804,
+      "commercialPools": 12540,
+      "firstA5Cases": 1740,
+      "mismatches": 0
+    },
+    "sameSeedAudit": {
+      "count": 200,
+      "seed": "prompt-quality-baseline",
+      "blocking": 0,
+      "diagnostics": 18,
+      "stableEqual": true
+    },
+    "browser": {
+      "general": 22,
+      "targeted": 24,
+      "screenshots": 14,
+      "errors": 0,
+      "externalPosts": 0
+    },
+    "protection": {
+      "historicalFiles": 357,
+      "otherWorktrees": 20,
+      "otherDirtyFiles": 140,
+      "differences": 0
+    }
+  },
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "remoteCI": "not-run-uncommitted",
+  "externalImageGeneration": "not-run",
+  "userAccepted": true,
+  "deliveryAuthorized": true
+}

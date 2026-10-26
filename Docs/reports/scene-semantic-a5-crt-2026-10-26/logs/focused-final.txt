@@ -1,0 +1,70 @@
+TAP version 13
+# Subtest: all seven sealed commercial regressions pass on exact pre-CRT data and current engine
+ok 1 - all seven sealed commercial regressions pass on exact pre-CRT data and current engine
+  ---
+  duration_ms: 17694.619083
+  type: 'test'
+  ...
+# Subtest: CRT source changes exactly one outdoor tag with issued ID and all text intact
+ok 2 - CRT source changes exactly one outdoor tag with issued ID and all text intact
+  ---
+  duration_ms: 24.637584
+  type: 'test'
+  ...
+# Subtest: VCR decks cause legacy inference; explicit semantics win without changing default cache
+ok 3 - VCR decks cause legacy inference; explicit semantics win without changing default cache
+  ---
+  duration_ms: 50.255667
+  type: 'test'
+  ...
+# Subtest: CRT inverse matches exact base and rejects source changes, reordered tags, missing and duplicate IDs
+ok 4 - CRT inverse matches exact base and rejects source changes, reordered tags, missing and duplicate IDs
+  ---
+  duration_ms: 58.399667
+  type: 'test'
+  ...
+# Subtest: the previous fifteen commercial decisions and entire non-CRT database remain current
+ok 5 - the previous fifteen commercial decisions and entire non-CRT database remain current
+  ---
+  duration_ms: 8.21975
+  type: 'test'
+  ...
+# Subtest: all crops and ambient states allow only reviewed window-light and legacy anchor deltas
+ok 6 - all crops and ambient states allow only reviewed window-light and legacy anchor deltas
+  ---
+  duration_ms: 915.311375
+  type: 'test'
+  ...
+# Subtest: locked CRT swimsuit and all crops retain selections, six outputs and RNG
+ok 7 - locked CRT swimsuit and all crops retain selections, six outputs and RNG
+  ---
+  duration_ms: 286.784209
+  type: 'test'
+  ...
+# Subtest: existing random garment and automatic outerwear rules can change full-body reference; subject light alone cannot
+ok 8 - existing random garment and automatic outerwear rules can change full-body reference; subject light alone cannot
+  ---
+  duration_ms: 1117.086667
+  type: 'test'
+  ...
+# Subtest: supine surface-owned scene pools stay unchanged and formal styles have no affected bias tags
+ok 9 - supine surface-owned scene pools stay unchanged and formal styles have no affected bias tags
+  ---
+  duration_ms: 25.656208
+  type: 'test'
+  ...
+# Subtest: UI restores newly available window light while explicit engine locks retain existing behavior
+ok 10 - UI restores newly available window light while explicit engine locks retain existing behavior
+  ---
+  duration_ms: 38.041875
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 17742.533542

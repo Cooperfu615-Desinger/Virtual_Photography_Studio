@@ -1,0 +1,1 @@
+{"records": 1050, "historicalIds": 1050, "initialFrozen": 0, "mode": "historical", "registryBaseCommit": "321404ecd041343f4a764260ef59ffc08a74a199", "registrySha256": "b79fa41d64a2954c28a3c716669c4deb929fabd2c85115159f3567822bbc7b25", "outputs": 8, "source": "catalog JSON", "check": true}

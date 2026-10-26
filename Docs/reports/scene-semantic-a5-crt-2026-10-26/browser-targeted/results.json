@@ -1,0 +1,46 @@
+{
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      900
+    ]
+  ],
+  "checks": [
+    "1440: pre-CRT JSON card retains old text and existing baseline storage normalization",
+    "1440: 全身鏡頭 (Full Body Shot): reviewed ambient/subject pools, manual swimsuit and six outputs",
+    "1440: 全身鏡頭 (Full Body Shot): dark ambient excludes and clears window light",
+    "1440: 全身鏡頭 (Full Body Shot): window-light card reload and apply",
+    "1440: 牛仔中景 (Cowboy Shot): reviewed ambient/subject pools, manual swimsuit and six outputs",
+    "1440: 牛仔中景 (Cowboy Shot): dark ambient excludes and clears window light",
+    "1440: 牛仔中景 (Cowboy Shot): window-light card reload and apply",
+    "1440: 胸上特寫: reviewed ambient/subject pools, manual swimsuit and six outputs",
+    "1440: 胸上特寫: dark ambient excludes and clears window light",
+    "1440: 胸上特寫: window-light card reload and apply",
+    "1440: integrated natural standing with CRT",
+    "1440: random garments and automatic outerwear generate successfully",
+    "390: pre-CRT JSON card retains old text and existing baseline storage normalization",
+    "390: 全身鏡頭 (Full Body Shot): reviewed ambient/subject pools, manual swimsuit and six outputs",
+    "390: 全身鏡頭 (Full Body Shot): dark ambient excludes and clears window light",
+    "390: 全身鏡頭 (Full Body Shot): window-light card reload and apply",
+    "390: 牛仔中景 (Cowboy Shot): reviewed ambient/subject pools, manual swimsuit and six outputs",
+    "390: 牛仔中景 (Cowboy Shot): dark ambient excludes and clears window light",
+    "390: 牛仔中景 (Cowboy Shot): window-light card reload and apply",
+    "390: 胸上特寫: reviewed ambient/subject pools, manual swimsuit and six outputs",
+    "390: 胸上特寫: dark ambient excludes and clears window light",
+    "390: 胸上特寫: window-light card reload and apply",
+    "390: integrated natural standing with CRT",
+    "390: random garments and automatic outerwear generate successfully"
+  ],
+  "errors": [],
+  "externalPosts": [],
+  "screenshots": [
+    "1440-crt-light.png",
+    "1440-crt-output.png",
+    "390-crt-light.png",
+    "390-crt-output.png"
+  ]
+}

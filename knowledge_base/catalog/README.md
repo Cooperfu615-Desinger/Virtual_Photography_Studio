@@ -104,3 +104,23 @@ node --test webapp/src/lib/engine/catalogBaseline.test.js webapp/src/lib/engine/
 當前產品驗收用 `node scripts/scene_semantic_a5_commercial_acceptance.mjs /tmp/a5-commercial.json.gz`。前批 A5 原工具改由 `node scripts/scene_semantic_a5_commercial_history.mjs /tmp/a5-previous.json` 在隔離副本重演：精確回復本批 11 個 tags，再執行未修改的原工具。A～E 測試輸入先用新 helper 回復 11 筆，再交給舊 helper 回復三筆；extra tag、缺 ID、重複 ID 或四筆保留資料變動均拒絕。不能直接把新正式資料交給前批一次性驗收後重錄其預期值。
 
 新增回歸位於 `webapp/src/lib/engine/sceneSemanticA5Commercial.test.js`，已由原 `npm test` glob 收入，不需改 CI。CI 使用 Node 22；本機也以 Node 22 為完整前端通過依據。CRT、其他內容問題與 P5b 維持另案。
+
+## A5 CRT outdoor 修正與第三層回播（2026-10-26）
+
+本批基準 `321404ecd041343f4a764260ef59ffc08a74a199`。只移除 CRT 的 outdoor，沿用既有室內政策，原文／ID／其他 tags／lyingSurface 保持。正式來源為分類 JSON；同步後只有 database 同步移除一個 tag，其他七份生成物不變。[規格](../../Docs/specs/scene-semantic-a5-crt-v1.md)、[決策](../../Docs/decisions/2026-10-26-a5-crt-outdoor.md)、[驗收報告](../../Docs/reports/scene-semantic-a5-crt-2026-10-26/README.md)。
+
+```bash
+# 當前正式產品回歸；npm test 會納入
+node --test webapp/src/lib/engine/sceneSemanticA5Crt.test.js webapp/src/lib/engine/sceneSemanticA5Commercial.test.js
+# 獨立固定 Git 引擎 + 單一核准 tag 差異 oracle
+node scripts/scene_semantic_a5_crt_acceptance.mjs /tmp/a5-crt-acceptance.json.gz
+node scripts/scene_semantic_a5_crt_imports.mjs /tmp/a5-crt-imports.json.gz
+# 精確還原 CRT 的隔離副本，執行前兩批原工具；正式來源不回退
+node scripts/scene_semantic_a5_crt_history.mjs /tmp/a5-crt-history
+# 與本批 trusted main 核對；後續交付改用當次可信 base，不能重錄 registry
+python3 scripts/sync_to_json.py --check --registry-base-commit 321404ecd041343f4a764260ef59ffc08a74a199 --report-json
+```
+
+`a5CrtHistoricalReplay.mjs` 先核對 CRT 整筆資料與有序 tags，再精確回復 outdoor；拒絕額外 tag、順序、來源變動、missing／duplicate ID，保持輸入與預設快取。接原 commercial inverse，再接原三筆 inverse，可重播 A～E。前兩批原 acceptance／history／inverse 與封存不改；不能直接在修正後正式資料執行舊一次性驗收並重錄預期值。原 commercial 七項回歸由固定 Git 原檔在 current code＋pre-CRT 隔離副本執行，保留原斷言；現行 15 筆狀態由 CRT 回歸另行保護。
+
+測試需 Node 22 與完整 Git 歷史；既有 CI 已是 Node 22／fetch-depth 0，不需改 workflow。獨立 oracle 需固定 Git object；缺歷史時明確失敗，不以當前候選自證通過。資料檢查、歷史 ID、strict、完整前端、Prompt Quality、相同 seed audit、桌手機仍為產品變更門檻。舊 Saved Cards 文字保留；瀏覽器儲存既有的 none 欄位補齊以修正前 codec 對照。其他項目及 P5b 未開始。

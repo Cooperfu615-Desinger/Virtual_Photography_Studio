@@ -1,0 +1,41 @@
+{
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      900
+    ]
+  ],
+  "generalChecks": 22,
+  "targetedChecks": 24,
+  "manuallyInspectedScreenshots": [
+    "browser-general/1440-1.png",
+    "browser-general/1440-2.png",
+    "browser-general/1440-3.png",
+    "browser-general/1440-4.png",
+    "browser-general/1440-5.png",
+    "browser-general/390-1.png",
+    "browser-general/390-2.png",
+    "browser-general/390-3.png",
+    "browser-general/390-4.png",
+    "browser-general/390-5.png",
+    "browser-targeted/1440-crt-light.png",
+    "browser-targeted/1440-crt-output.png",
+    "browser-targeted/390-crt-light.png",
+    "browser-targeted/390-crt-output.png"
+  ],
+  "result": "pass",
+  "observations": [
+    "Desktop panels and mobile stacked layouts remain legible and aligned.",
+    "CRT remains indoor and retains floor support; window light can be selected and restored.",
+    "All six outputs remain present; text areas retain intentional internal scrolling.",
+    "No unexpected document horizontal overflow, broken images or overlapping controls observed."
+  ],
+  "consoleErrors": 0,
+  "pageErrors": 0,
+  "externalPosts": 0,
+  "storageComparison": "Pre-CRT codec round-trip; pre-existing none-field normalization preserved, original output text retained."
+}

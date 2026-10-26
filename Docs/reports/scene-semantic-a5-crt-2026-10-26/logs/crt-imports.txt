@@ -1,0 +1,17 @@
+{
+  "baseCommit": "321404ecd041343f4a764260ef59ffc08a74a199",
+  "cases": 2,
+  "oracleMismatches": 0,
+  "rerollsPerCase": 3,
+  "jsonMarkdownRoundTrips": true,
+  "results": [
+    {
+      "id": "manual-swimsuit",
+      "sha256": "1a7aed54af443dc5d04f9f70af2eb409a2bce4b3dfbfa32541b3c9056a32b41b"
+    },
+    {
+      "id": "random-garments",
+      "sha256": "d517f72d38d3825d7dafe472cb1bf8a803781e66fe2e303b26c5d73c18d52db1"
+    }
+  ]
+}

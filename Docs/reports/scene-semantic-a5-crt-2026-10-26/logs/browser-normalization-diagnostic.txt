@@ -1,0 +1,501 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+... Skipped lines
+
+  {
+    an: [],
+    b: '',
+    d: '2026-10-26T00:00:00.000Z',
+    e: [
+...
+      characterCardWardrobeMode: 'full-default',
++     completeLookPaletteAId: 'none',
++     completeLookPaletteBId: 'none',
++     completeLookPaletteId: 'none',
+      earringsId: 'wardrobe:耳環-earrings:全無:0',
+      expressionId: 'character:表情-facial-expression:柔和微笑:1',
+      eyewearAPlacementId: 'wardrobe:眼鏡配戴方式-eyewear-placement:全無:2',
+      eyewearBPlacementId: 'wardrobe:眼鏡配戴方式-eyewear-placement:全無:2',
+      eyewearColorId: 'wardrobe:眼鏡配色-eyewear-color:全無:0',
+...
+      hairstyleId: 'character:髮型-hairstyle:柔波-瀏海:20',
++     headAccessoryAColorId: 'none',
++     headAccessoryBColorId: 'none',
++     headAccessoryColorId: 'none',
+      headAccessoryId: 'wardrobe:頭部配件-head-accessories:全無:0',
+      headPostureId: 'none',
+      headphonesAColorId: 'none',
+      headphonesAId: 'wardrobe:headphones:none',
+      headphonesBColorId: 'none',
+...
+      lightingId: 'camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20',
++     lipPiercingId: 'wardrobe:唇部穿孔-lip-piercings:全無:0',
+      locationId: 'locations:攝影棚與背景-studio-sets:室內-crt-電視牆攝影棚:13',
+      lyingCameraId: 'none',
+      mjAspectRatio: 'page1',
+      mjRawMode: 'raw',
+      mjResolution: 'sd',
+...
+      neckAccessoryId: 'wardrobe:頸部-neck-accessories:全無:0',
++     nosePiercingId: 'wardrobe:鼻部穿孔-nose-piercings:全無:0',
+      opticalEffectId: 'camera:光學效果-optical-effects:全無:0',
+      orbitId: 'camera:拍攝方位-orbit-angle:全無:0',
+      outerwearAOpeningId: 'wardrobe:外套開合-outerwear-opening:全無:4',
+      outerwearBOpeningId: 'wardrobe:外套開合-outerwear-opening:全無:4',
+      outerwearId: 'wardrobe:外套-outerwear:全無:0',
+...
+      subjectCount: '1',
++     topBottomPaletteAId: 'none',
++     topBottomPaletteBId: 'none',
+      topColorId: 'none',
+      topFitId: 'tight',
+      topId: 'wardrobe:上身-tops:比基尼上身:30',
+      topPatternId: 'wardrobe:上身圖案-top-surface-design:全無:0',
+      waistAccessoryAId: 'wardrobe:腰部配件-waist-accessories:全無:0',
+
+    at file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/scene_semantic_a5_crt_browser.mjs:25:152 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: {
+    v: 3,
+    an: [],
+    i: 'crt-old-0',
+    o: 'page1',
+    b: '',
+    d: '2026-10-26T00:00:00.000Z',
+    s: '風格：時尚廣告 / 蜷川實花｜濃烈色彩戲劇感 | 人物：一位性感驚豔的日系或韓系女性 / 豐胸纖腰沙漏身形 / 甜美可愛臉 / 柔波：瀏海 / 柔順自然 / 自然黑 / 柔和微笑 | 服裝：比基尼上身 / 窄前片細繩比基尼下身 / Dr. Martens 1460 Round Toe Lace-Up Boots | 場景：室內：CRT 電視牆攝影棚 | 鏡頭：全身鏡頭 (Full Body Shot) / 跨沖霓虹剪影濾鏡 | 光影：室內清晨冷白日光 / 暖金黃昏色溫',
+    m: 'Premium fashion advertising image. Full-body portrait. A 20-year-old adult woman. Soft natural oval Japanese face, bright round eyes with curved brows, small rounded nose and softly shaped lips, soft natural smile, natural freckles across nose and cheeks, long soft waves with see-through bangs, sleek close-to-head roots, natural black hair. A full, well-proportioned figure with a slender waist and naturally graceful curves.\n' +
+      '\n' +
+      'She wears a bikini top, narrow-front string bikini bottoms, lace-top thigh-high stockings and dr martens 1460 round toe lace-up boots.\n' +
+      '\n' +
+      'Studio set with assorted CRT televisions and vintage computer monitors in an irregular high-low cluster, seamless desaturated blue-grey floor and backdrop, retro cathode-ray displays with varied gaps and heights, glowing screens with analog static. Indoor early-morning daylight environment, cool pale window brightness, warm golden-amber subject color, honey-toned highlights on skin and clothing, gentle warm shadow bias.\n' +
+      '\n' +
+      'Inspired by Mika Ninagawa, hyper-saturated vivid-color portraiture, complex non-floral color layers, glossy reds hot pinks cyan accents and jewel-tone surfaces, no floral or botanical motifs. Neon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels, cold porcelain highlights. --v 8.2 --ar 2:3 --raw --s 25 --c 0 --w 0 --sd',
+    g: 'Image Type:\n' +
+      'Create a premium fashion advertising image.\n' +
+      '\n' +
+      'Composition:\n' +
+      'Full-body portrait.\n' +
+      '\n' +
+      'Subject:\n' +
+      'The subject is one 20-year-old adult woman. Young sweet pretty Japanese face, soft rounded charm, bright friendly eyes, gentle cute beauty, approachable youthful portrait look. Long soft waves with see-through bangs, defined romantic wave shape, clean face-framing ends. Sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face. Natural black hair, soft realistic shine, clean dark depth. Natural freckles across nose and cheeks, sun-kissed freckles, authentic skin detail. Soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n' +
+      '\n' +
+      'Wardrobe:\n' +
+      'She wears triangle bikini top, slim halter strings, minimal sliding triangle cups, smooth stretch swim fabric, tight body-skimming upper-body fit. Narrow-front string thong bikini bottoms, ultra-minimal smooth swim fabric forming a tiny low-rise triangular front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties, ultra-low-rise waistband sitting very low on the hips. Lace-top thigh-high stockings, fitted sheer hosiery. Dr martens 1460 round toe lace-up boots, eight-eye ankle boot shape, yellow welt stitching, heel pull-tab accent.\n' +
+      '\n' +
+      'Scene:\n' +
+      "The portrait takes place in studio set with assorted CRT televisions and vintage computer monitors in an irregular high-low cluster, retro cathode-ray displays with varied gaps and heights, glowing screens with analog static, scan lines, news footage, or the subject's face, scattered VHS tapes, coiled cables, security monitors and VCR decks, seamless desaturated blue-grey floor and backdrop, isolated subject.\n" +
+      '\n' +
+      'Lighting:\n' +
+      'Indoor early-morning ambience with cool pale daylight and crisp air, faint cool exterior brightness where visible. Warm golden-amber subject color, honey-toned highlights on skin and clothing, gentle warm shadow bias, controlled saturation.\n' +
+      '\n' +
+      'Camera Look:\n' +
+      'Inspired by Mika Ninagawa, explosive vivid complex color image language. Hyper-saturated vivid-color portraiture, complex non-floral color layers, glossy reds hot pinks cyan accents and jewel-tone surfaces, no floral or botanical motifs. Neon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels, cold porcelain highlights.',
+    z: 'Premium fashion advertising image.\n' +
+      '\n' +
+      'The setting is studio set with assorted CRT televisions and vintage computer monitors in an irregular high-low cluster, retro cathode-ray displays with varied gaps and heights, glowing screens with analog static. Full-body portrait.\n' +
+      '\n' +
+      'A 20-year-old seductive stunning adult woman, I–K cup bust, slim arms, narrow waist, wide hips, fuller upper thighs, slim calves, balanced proportions, pronounced hourglass silhouette, curves stretching fitted fabric with soft flesh bulges at snug garment edges; height 163–168 cm, bust–waist–hip 103–60–98 cm, young sweet pretty Japanese face, soft rounded charm, bright friendly eyes, gentle cute beauty, long soft waves with see-through bangs, defined romantic wave shape, clean face-framing ends, sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face, natural black hair, natural freckles across nose and cheeks, sun-kissed freckles, soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n' +
+      '\n' +
+      'She wears triangle bikini top with slim halter strings, minimal sliding triangle cups, smooth stretch swim fabric, paired with tight body-skimming upper-body fit, narrow-front string thong bikini bottoms, ultra-minimal smooth swim fabric forming a tiny low-rise triangular front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties, ultra-low-rise waistband sitting very low on the hips, lace-top thigh-high stockings, fitted sheer hosiery, dr martens 1460 round toe lace-up boots, eight-eye ankle boot shape, yellow welt stitching, heel pull-tab accent.\n' +
+      '\n' +
+      'Indoor early-morning ambience with cool pale daylight and crisp air, faint cool exterior brightness where visible, warm golden-amber subject color, honey-toned highlights on skin and clothing.\n' +
+      '\n' +
+      'Mika Ninagawa-inspired explosive vivid complex color image language.\n' +
+      '\n' +
+      'Neon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels.',
+    nb: 'Create a premium fashion advertising image. Full-body portrait.\n' +
+      '\n' +
+      'The subject is one 20-year-old adult woman. Her facial features include a soft natural oval Japanese face with smooth cheek contours and a gently tapered jaw, bright round eyes with open natural eyelids and gently curved brows, a small rounded nose with a low smooth bridge and a compact rounded tip, softly shaped lips with a shallow cupid bow and a moderately fuller lower lip. Her skin shows natural freckles across nose and cheeks, sun-kissed freckles, authentic skin detail. Her hair is long soft waves with see-through bangs, defined romantic wave shape, clean face-framing ends. Her hair styling has sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face. Her hair color is natural black hair, soft realistic shine, clean dark depth. Her expression is soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks. She has I–K cup bust, slim arms, narrow waist, wide hips, fuller upper thighs, slim calves, balanced proportions, pronounced hourglass silhouette, curves stretching fitted fabric with soft flesh bulges at snug garment edges; height 163–168 cm, bust–waist–hip 103–60–98 cm.\n' +
+      '\n' +
+      'She wears triangle bikini top, slim halter strings, minimal sliding triangle cups, smooth stretch swim fabric, tight body-skimming upper-body fit. Narrow-front string thong bikini bottoms, ultra-minimal smooth swim fabric forming a tiny low-rise triangular front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties, ultra-low-rise waistband sitting very low on the hips. Lace-top thigh-high stockings, fitted sheer hosiery. Dr martens 1460 round toe lace-up boots, eight-eye ankle boot shape, yellow welt stitching, heel pull-tab accent.\n' +
+      '\n' +
+      "The setting is studio set with assorted CRT televisions and vintage computer monitors in an irregular high-low cluster, retro cathode-ray displays with varied gaps and heights, glowing screens with analog static, scan lines, news footage, or the subject's face, scattered VHS tapes, coiled cables, security monitors and VCR decks, seamless desaturated blue-grey floor and backdrop, isolated subject.\n" +
+      '\n' +
+      'Indoor early-morning ambience with cool pale daylight and crisp air, faint cool exterior brightness where visible, warm golden-amber subject color, honey-toned highlights on skin and clothing, gentle warm shadow bias, controlled saturation.\n' +
+      '\n' +
+      'Inspired by Mika Ninagawa, explosive vivid complex color image language. Hyper-saturated vivid-color portraiture, complex non-floral color layers, glossy reds hot pinks cyan accents and jewel-tone surfaces, no floral or botanical motifs, neon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels, cold porcelain highlights.',
+    e: [
+      {
+        id: 'chest-up-portrait',
+        label: '胸上特寫照',
+        text: 'Image Type:\n' +
+          'Create a premium fashion advertising image.\n' +
+          '\n' +
+          'Composition:\n' +
+          'Vertical portrait composition at a 4:5 aspect ratio, chest-up portrait.\n' +
+          '\n' +
+          'Subject:\n' +
+          'The subject is one 20-year-old adult woman. Young sweet pretty Japanese face, soft rounded charm, bright friendly eyes, gentle cute beauty, approachable youthful portrait look. Long soft waves with see-through bangs, defined romantic wave shape, clean face-framing ends. Sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face. Natural black hair, soft realistic shine, clean dark depth. Natural freckles across nose and cheeks, sun-kissed freckles, authentic skin detail. Soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n' +
+          '\n' +
+          'Wardrobe:\n' +
+          'She wears triangle bikini top, slim halter strings, minimal sliding triangle cups, smooth stretch swim fabric, tight body-skimming upper-body fit.\n' +
+          '\n' +
+          'Scene:\n' +
+          "The portrait takes place in studio set with assorted CRT televisions and vintage computer monitors in an irregular high-low cluster, retro cathode-ray displays with varied gaps and heights, glowing screens with analog static, scan lines, news footage, or the subject's face, scattered VHS tapes, coiled cables, security monitors and VCR decks, seamless desaturated blue-grey floor and backdrop, isolated subject.\n" +
+          '\n' +
+          'Lighting:\n' +
+          'Indoor early-morning ambience with cool pale daylight and crisp air, faint cool exterior brightness where visible. Warm golden-amber subject color, honey-toned highlights on skin and clothing, gentle warm shadow bias, controlled saturation.\n' +
+          '\n' +
+          'Camera Look:\n' +
+          'Inspired by Mika Ninagawa, explosive vivid complex color image language. Hyper-saturated vivid-color portraiture, complex non-floral color layers, glossy reds hot pinks cyan accents and jewel-tone surfaces, no floral or botanical motifs. Neon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels, cold porcelain highlights.'
+      },
+      {
+        id: 'full-body-character',
+        label: '全身角色照',
+        text: 'Image Type:\n' +
+          'Create a photorealistic character reference portrait in a single 9:16 vertical image.\n' +
+          '\n' +
+          'Subject:\n' +
+          'The subject is one 20-year-old adult woman. I–K cup bust, slim arms, narrow waist, wide hips, fuller upper thighs, slim calves, balanced proportions, pronounced hourglass silhouette, curves stretching fitted fabric with soft flesh bulges at snug garment edges; height 163–168 cm, bust–waist–hip 103–60–98 cm. Young sweet pretty Japanese face, soft rounded charm, bright friendly eyes, gentle cute beauty, approachable youthful portrait look. Long soft waves with see-through bangs, defined romantic wave shape, clean face-framing ends. Sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face. Natural black hair, soft realistic shine, clean dark depth. Natural freckles across nose and cheeks, sun-kissed freckles, authentic skin detail. Soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n' +
+          '\n' +
+          'Wardrobe:\n' +
+          'She wears triangle bikini top, slim halter strings, minimal sliding triangle cups, smooth stretch swim fabric, tight body-skimming upper-body fit. Narrow-front string thong bikini bottoms, ultra-minimal smooth swim fabric forming a tiny low-rise triangular front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties, ultra-low-rise waistband sitting very low on the hips. Lace-top thigh-high stockings, fitted sheer hosiery. Dr martens 1460 round toe lace-up boots, eight-eye ankle boot shape, yellow welt stitching, heel pull-tab accent.\n' +
+          '\n' +
+          'Lighting:\n' +
+          'Clean even lighting with clear facial, body, fabric, and footwear readability.\n' +
+          '\n' +
+          'Camera Look:\n' +
+          'Full-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text.'
+      }
+    ],
+    y: null,
+    l: {
+      captureMode: 'standard',
+      subjectCount: '1',
+      characterCardHairVariantId: 'default',
+      characterCardEyewearMode: 'default',
+      characterCardWardrobeMode: 'full-default',
+      aspectRatio: 'none',
+      mjVersionId: 'v8-2',
+      mjAspectRatio: 'page1',
+      mjRawMode: 'raw',
+      mjStylize: 25,
+      mjResolution: 'sd',
+      imageTypePresetId: 'fashion-advertising',
+      styleId: 'regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0',
+      sceneAttributeId: 'indoor',
+      locationId: 'locations:攝影棚與背景-studio-sets:室內-crt-電視牆攝影棚:13',
+      zImageVisibleTextLanguage: 'traditional-chinese',
+      zImageVisibleTextPlacement: 'background-storefront-sign',
+      fixedCompositionSetId: 'none',
+      fixedSetPositionId: 'none',
+      fixedSetBackgroundStateId: 'none',
+      fixedSetCaptureModeId: 'photographer-shot',
+      fixedSetPerformanceStateId: 'model-natural',
+      framingId: 'camera:景別構圖-framing:全身鏡頭-full-body-shot:8',
+      angleId: 'camera:相機視角-angle:全無:0',
+      orbitId: 'camera:拍攝方位-orbit-angle:全無:0',
+      lyingCameraId: 'none',
+      captureStyleId: 'standard',
+      lensId: 'camera:鏡頭焦段-focal-length:全無:0',
+      apertureId: 'camera:光圈-景深-aperture-depth-of-field:全無:0',
+      shutterId: 'camera:快門-動態殘影-shutter-motion-blur:全無:0',
+      opticalEffectId: 'camera:光學效果-optical-effects:全無:0',
+      lightingId: 'camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20',
+      lightDirectionId: 'camera:光線表現-light-style:暖金黃昏色溫:13',
+      filmId: 'camera:底片與相機模擬-camera-film-simulation:跨沖霓虹剪影濾鏡:25',
+      bodyTypeId: 'character:體態-body-type:豐胸纖腰沙漏身形:7',
+      bodyTypeAId: 'character:體態-body-type:全無:6',
+      bodyTypeBId: 'character:體態-body-type:全無:6',
+      facialFeaturesId: 'character:五官特徵-facial-features:甜美可愛臉:3',
+      skinDetailsId: 'character:膚質特徵-skin-details:自然雀斑:3',
+      hairstyleId: 'character:髮型-hairstyle:柔波-瀏海:20',
+      hairStylingStateId: 'character:髮絲整理狀態-hair-styling-state:柔順自然:0',
+      hairStylingStateAId: 'character:髮絲整理狀態-hair-styling-state:全無:4',
+      hairStylingStateBId: 'character:髮絲整理狀態-hair-styling-state:全無:4',
+      hairColorId: 'character:髮色-hair-color:自然黑:1',
+      expressionId: 'character:表情-facial-expression:柔和微笑:1',
+      poseId: 'character:姿勢與肢體語言-pose-body-language:全無:0',
+      specialActionId: 'character:特殊動作-special-actions:全無:0',
+      poseBaseId: 'none',
+      specifiedActionId: 'none',
+      poseOrientationId: 'none',
+      poseArrangementId: 'none',
+      poseHandId: 'none',
+      posePropId: 'none',
+      poseHeadId: 'none',
+      poseAnchorId: 'none',
+      gestureId: 'none',
+      propId: 'none',
+      headPostureId: 'none',
+      gazeId: 'none',
+      completeLookPaletteId: 'none',
+      completeLookPaletteAId: 'none',
+      completeLookPaletteBId: 'none',
+      topId: 'wardrobe:上身-tops:比基尼上身:30',
+      topFitId: 'tight',
+      topBottomPaletteAId: 'none',
+      topBottomPaletteBId: 'none',
+      topColorId: 'none',
+      topPatternId: 'wardrobe:上身圖案-top-surface-design:全無:0',
+      pantsId: 'wardrobe:褲裝-pants:窄前片細繩比基尼下身:32',
+      bottomRiseId: 'ultra-low-rise',
+      bottomColorId: 'none',
+      bottomPatternId: 'wardrobe:下身圖案-bottom-surface-design:全無:0',
+      outerwearId: 'wardrobe:外套-outerwear:全無:0',
+      outerwearOpeningId: 'wardrobe:外套開合-outerwear-opening:全無:4',
+      legwearId: 'wardrobe:襪類-legwear:蕾絲大腿絲襪:3',
+      legwearColorId: 'none',
+      shoesId: 'wardrobe:鞋款-shoes:dr-martens-1460-round-toe-lace-up-boots:7',
+      shoesColorId: 'none',
+      outerwearAOpeningId: 'wardrobe:外套開合-outerwear-opening:全無:4',
+      outerwearBOpeningId: 'wardrobe:外套開合-outerwear-opening:全無:4',
+      headphonesId: 'wardrobe:headphones:none',
+      headphonesColorId: 'none',
+      faceCoveringId: 'wardrobe:faceCovering:none',
+      faceCoveringColorId: 'none',
+      headAccessoryId: 'wardrobe:頭部配件-head-accessories:全無:0',
+      headAccessoryColorId: 'none',
+      eyewearId: 'wardrobe:眼鏡-eyewear:全無:0',
+      eyewearColorId: 'wardrobe:眼鏡配色-eyewear-color:全無:0',
+      eyewearPlacementId: 'wardrobe:眼鏡配戴方式-eyewear-placement:全無:2',
+      earringsId: 'wardrobe:耳環-earrings:全無:0',
+      nosePiercingId: 'wardrobe:鼻部穿孔-nose-piercings:全無:0',
+      lipPiercingId: 'wardrobe:唇部穿孔-lip-piercings:全無:0',
+      neckAccessoryId: 'wardrobe:頸部-neck-accessories:全無:0',
+      waistAccessoryId: 'wardrobe:腰部配件-waist-accessories:全無:0',
+      headphonesAId: 'wardrobe:headphones:none',
+      headphonesAColorId: 'none',
+      faceCoveringAId: 'wardrobe:faceCovering:none',
+      faceCoveringAColorId: 'none',
+      headAccessoryAColorId: 'none',
+      eyewearAPlacementId: 'wardrobe:眼鏡配戴方式-eyewear-placement:全無:2',
+      waistAccessoryAId: 'wardrobe:腰部配件-waist-accessories:全無:0',
+      headphonesBId: 'wardrobe:headphones:none',
+      headphonesBColorId: 'none',
+      faceCoveringBId: 'wardrobe:faceCovering:none',
+      faceCoveringBColorId: 'none',
+      headAccessoryBColorId: 'none',
+      eyewearBPlacementId: 'wardrobe:眼鏡配戴方式-eyewear-placement:全無:2',
+      waistAccessoryBId: 'wardrobe:腰部配件-waist-accessories:全無:0'
+    },
+    p: null,
+    n: null,
+    r: null,
+    q: '',
+    u: '',
+    f: '',
+    t: []
+  },
+  expected: {
+    v: 3,
+    an: [],
+    i: 'crt-old-0',
+    o: 'page1',
+    b: '',
+    d: '2026-10-26T00:00:00.000Z',
+    s: '風格：時尚廣告 / 蜷川實花｜濃烈色彩戲劇感 | 人物：一位性感驚豔的日系或韓系女性 / 豐胸纖腰沙漏身形 / 甜美可愛臉 / 柔波：瀏海 / 柔順自然 / 自然黑 / 柔和微笑 | 服裝：比基尼上身 / 窄前片細繩比基尼下身 / Dr. Martens 1460 Round Toe Lace-Up Boots | 場景：室內：CRT 電視牆攝影棚 | 鏡頭：全身鏡頭 (Full Body Shot) / 跨沖霓虹剪影濾鏡 | 光影：室內清晨冷白日光 / 暖金黃昏色溫',
+    m: 'Premium fashion advertising image. Full-body portrait. A 20-year-old adult woman. Soft natural oval Japanese face, bright round eyes with curved brows, small rounded nose and softly shaped lips, soft natural smile, natural freckles across nose and cheeks, long soft waves with see-through bangs, sleek close-to-head roots, natural black hair. A full, well-proportioned figure with a slender waist and naturally graceful curves.\n' +
+      '\n' +
+      'She wears a bikini top, narrow-front string bikini bottoms, lace-top thigh-high stockings and dr martens 1460 round toe lace-up boots.\n' +
+      '\n' +
+      'Studio set with assorted CRT televisions and vintage computer monitors in an irregular high-low cluster, seamless desaturated blue-grey floor and backdrop, retro cathode-ray displays with varied gaps and heights, glowing screens with analog static. Indoor early-morning daylight environment, cool pale window brightness, warm golden-amber subject color, honey-toned highlights on skin and clothing, gentle warm shadow bias.\n' +
+      '\n' +
+      'Inspired by Mika Ninagawa, hyper-saturated vivid-color portraiture, complex non-floral color layers, glossy reds hot pinks cyan accents and jewel-tone surfaces, no floral or botanical motifs. Neon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels, cold porcelain highlights. --v 8.2 --ar 2:3 --raw --s 25 --c 0 --w 0 --sd',
+    g: 'Image Type:\n' +
+      'Create a premium fashion advertising image.\n' +
+      '\n' +
+      'Composition:\n' +
+      'Full-body portrait.\n' +
+      '\n' +
+      'Subject:\n' +
+      'The subject is one 20-year-old adult woman. Young sweet pretty Japanese face, soft rounded charm, bright friendly eyes, gentle cute beauty, approachable youthful portrait look. Long soft waves with see-through bangs, defined romantic wave shape, clean face-framing ends. Sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face. Natural black hair, soft realistic shine, clean dark depth. Natural freckles across nose and cheeks, sun-kissed freckles, authentic skin detail. Soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n' +
+      '\n' +
+      'Wardrobe:\n' +
+      'She wears triangle bikini top, slim halter strings, minimal sliding triangle cups, smooth stretch swim fabric, tight body-skimming upper-body fit. Narrow-front string thong bikini bottoms, ultra-minimal smooth swim fabric forming a tiny low-rise triangular front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties, ultra-low-rise waistband sitting very low on the hips. Lace-top thigh-high stockings, fitted sheer hosiery. Dr martens 1460 round toe lace-up boots, eight-eye ankle boot shape, yellow welt stitching, heel pull-tab accent.\n' +
+      '\n' +
+      'Scene:\n' +
+      "The portrait takes place in studio set with assorted CRT televisions and vintage computer monitors in an irregular high-low cluster, retro cathode-ray displays with varied gaps and heights, glowing screens with analog static, scan lines, news footage, or the subject's face, scattered VHS tapes, coiled cables, security monitors and VCR decks, seamless desaturated blue-grey floor and backdrop, isolated subject.\n" +
+      '\n' +
+      'Lighting:\n' +
+      'Indoor early-morning ambience with cool pale daylight and crisp air, faint cool exterior brightness where visible. Warm golden-amber subject color, honey-toned highlights on skin and clothing, gentle warm shadow bias, controlled saturation.\n' +
+      '\n' +
+      'Camera Look:\n' +
+      'Inspired by Mika Ninagawa, explosive vivid complex color image language. Hyper-saturated vivid-color portraiture, complex non-floral color layers, glossy reds hot pinks cyan accents and jewel-tone surfaces, no floral or botanical motifs. Neon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels, cold porcelain highlights.',
+    z: 'Premium fashion advertising image.\n' +
+      '\n' +
+      'The setting is studio set with assorted CRT televisions and vintage computer monitors in an irregular high-low cluster, retro cathode-ray displays with varied gaps and heights, glowing screens with analog static. Full-body portrait.\n' +
+      '\n' +
+      'A 20-year-old seductive stunning adult woman, I–K cup bust, slim arms, narrow waist, wide hips, fuller upper thighs, slim calves, balanced proportions, pronounced hourglass silhouette, curves stretching fitted fabric with soft flesh bulges at snug garment edges; height 163–168 cm, bust–waist–hip 103–60–98 cm, young sweet pretty Japanese face, soft rounded charm, bright friendly eyes, gentle cute beauty, long soft waves with see-through bangs, defined romantic wave shape, clean face-framing ends, sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face, natural black hair, natural freckles across nose and cheeks, sun-kissed freckles, soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n' +
+      '\n' +
+      'She wears triangle bikini top with slim halter strings, minimal sliding triangle cups, smooth stretch swim fabric, paired with tight body-skimming upper-body fit, narrow-front string thong bikini bottoms, ultra-minimal smooth swim fabric forming a tiny low-rise triangular front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties, ultra-low-rise waistband sitting very low on the hips, lace-top thigh-high stockings, fitted sheer hosiery, dr martens 1460 round toe lace-up boots, eight-eye ankle boot shape, yellow welt stitching, heel pull-tab accent.\n' +
+      '\n' +
+      'Indoor early-morning ambience with cool pale daylight and crisp air, faint cool exterior brightness where visible, warm golden-amber subject color, honey-toned highlights on skin and clothing.\n' +
+      '\n' +
+      'Mika Ninagawa-inspired explosive vivid complex color image language.\n' +
+      '\n' +
+      'Neon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels.',
+    nb: 'Create a premium fashion advertising image. Full-body portrait.\n' +
+      '\n' +
+      'The subject is one 20-year-old adult woman. Her facial features include a soft natural oval Japanese face with smooth cheek contours and a gently tapered jaw, bright round eyes with open natural eyelids and gently curved brows, a small rounded nose with a low smooth bridge and a compact rounded tip, softly shaped lips with a shallow cupid bow and a moderately fuller lower lip. Her skin shows natural freckles across nose and cheeks, sun-kissed freckles, authentic skin detail. Her hair is long soft waves with see-through bangs, defined romantic wave shape, clean face-framing ends. Her hair styling has sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face. Her hair color is natural black hair, soft realistic shine, clean dark depth. Her expression is soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks. She has I–K cup bust, slim arms, narrow waist, wide hips, fuller upper thighs, slim calves, balanced proportions, pronounced hourglass silhouette, curves stretching fitted fabric with soft flesh bulges at snug garment edges; height 163–168 cm, bust–waist–hip 103–60–98 cm.\n' +
+      '\n' +
+      'She wears triangle bikini top, slim halter strings, minimal sliding triangle cups, smooth stretch swim fabric, tight body-skimming upper-body fit. Narrow-front string thong bikini bottoms, ultra-minimal smooth swim fabric forming a tiny low-rise triangular front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties, ultra-low-rise waistband sitting very low on the hips. Lace-top thigh-high stockings, fitted sheer hosiery. Dr martens 1460 round toe lace-up boots, eight-eye ankle boot shape, yellow welt stitching, heel pull-tab accent.\n' +
+      '\n' +
+      "The setting is studio set with assorted CRT televisions and vintage computer monitors in an irregular high-low cluster, retro cathode-ray displays with varied gaps and heights, glowing screens with analog static, scan lines, news footage, or the subject's face, scattered VHS tapes, coiled cables, security monitors and VCR decks, seamless desaturated blue-grey floor and backdrop, isolated subject.\n" +
+      '\n' +
+      'Indoor early-morning ambience with cool pale daylight and crisp air, faint cool exterior brightness where visible, warm golden-amber subject color, honey-toned highlights on skin and clothing, gentle warm shadow bias, controlled saturation.\n' +
+      '\n' +
+      'Inspired by Mika Ninagawa, explosive vivid complex color image language. Hyper-saturated vivid-color portraiture, complex non-floral color layers, glossy reds hot pinks cyan accents and jewel-tone surfaces, no floral or botanical motifs, neon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels, cold porcelain highlights.',
+    e: [
+      {
+        id: 'chest-up-portrait',
+        label: '胸上特寫照',
+        text: 'Image Type:\n' +
+          'Create a premium fashion advertising image.\n' +
+          '\n' +
+          'Composition:\n' +
+          'Vertical portrait composition at a 4:5 aspect ratio, chest-up portrait.\n' +
+          '\n' +
+          'Subject:\n' +
+          'The subject is one 20-year-old adult woman. Young sweet pretty Japanese face, soft rounded charm, bright friendly eyes, gentle cute beauty, approachable youthful portrait look. Long soft waves with see-through bangs, defined romantic wave shape, clean face-framing ends. Sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face. Natural black hair, soft realistic shine, clean dark depth. Natural freckles across nose and cheeks, sun-kissed freckles, authentic skin detail. Soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n' +
+          '\n' +
+          'Wardrobe:\n' +
+          'She wears triangle bikini top, slim halter strings, minimal sliding triangle cups, smooth stretch swim fabric, tight body-skimming upper-body fit.\n' +
+          '\n' +
+          'Scene:\n' +
+          "The portrait takes place in studio set with assorted CRT televisions and vintage computer monitors in an irregular high-low cluster, retro cathode-ray displays with varied gaps and heights, glowing screens with analog static, scan lines, news footage, or the subject's face, scattered VHS tapes, coiled cables, security monitors and VCR decks, seamless desaturated blue-grey floor and backdrop, isolated subject.\n" +
+          '\n' +
+          'Lighting:\n' +
+          'Indoor early-morning ambience with cool pale daylight and crisp air, faint cool exterior brightness where visible. Warm golden-amber subject color, honey-toned highlights on skin and clothing, gentle warm shadow bias, controlled saturation.\n' +
+          '\n' +
+          'Camera Look:\n' +
+          'Inspired by Mika Ninagawa, explosive vivid complex color image language. Hyper-saturated vivid-color portraiture, complex non-floral color layers, glossy reds hot pinks cyan accents and jewel-tone surfaces, no floral or botanical motifs. Neon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels, cold porcelain highlights.'
+      },
+      {
+        id: 'full-body-character',
+        label: '全身角色照',
+        text: 'Image Type:\n' +
+          'Create a photorealistic character reference portrait in a single 9:16 vertical image.\n' +
+          '\n' +
+          'Subject:\n' +
+          'The subject is one 20-year-old adult woman. I–K cup bust, slim arms, narrow waist, wide hips, fuller upper thighs, slim calves, balanced proportions, pronounced hourglass silhouette, curves stretching fitted fabric with soft flesh bulges at snug garment edges; height 163–168 cm, bust–waist–hip 103–60–98 cm. Young sweet pretty Japanese face, soft rounded charm, bright friendly eyes, gentle cute beauty, approachable youthful portrait look. Long soft waves with see-through bangs, defined romantic wave shape, clean face-framing ends. Sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face. Natural black hair, soft realistic shine, clean dark depth. Natural freckles across nose and cheeks, sun-kissed freckles, authentic skin detail. Soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n' +
+          '\n' +
+          'Wardrobe:\n' +
+          'She wears triangle bikini top, slim halter strings, minimal sliding triangle cups, smooth stretch swim fabric, tight body-skimming upper-body fit. Narrow-front string thong bikini bottoms, ultra-minimal smooth swim fabric forming a tiny low-rise triangular front panel, high-cut leg openings, thong back, taut slender side ties fitted tightly around the hips, visible shallow indentations beneath the ties, ultra-low-rise waistband sitting very low on the hips. Lace-top thigh-high stockings, fitted sheer hosiery. Dr martens 1460 round toe lace-up boots, eight-eye ankle boot shape, yellow welt stitching, heel pull-tab accent.\n' +
+          '\n' +
+          'Lighting:\n' +
+          'Clean even lighting with clear facial, body, fabric, and footwear readability.\n' +
+          '\n' +
+          'Camera Look:\n' +
+          'Full-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text.'
+      }
+    ],
+    y: null,
+    l: {
+      captureMode: 'standard',
+      subjectCount: '1',
+      characterCardHairVariantId: 'default',
+      characterCardEyewearMode: 'default',
+      characterCardWardrobeMode: 'full-default',
+      aspectRatio: 'none',
+      mjVersionId: 'v8-2',
+      mjAspectRatio: 'page1',
+      mjRawMode: 'raw',
+      mjStylize: 25,
+      mjResolution: 'sd',
+      imageTypePresetId: 'fashion-advertising',
+      styleId: 'regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0',
+      sceneAttributeId: 'indoor',
+      locationId: 'locations:攝影棚與背景-studio-sets:室內-crt-電視牆攝影棚:13',
+      zImageVisibleTextLanguage: 'traditional-chinese',
+      zImageVisibleTextPlacement: 'background-storefront-sign',
+      fixedCompositionSetId: 'none',
+      fixedSetPositionId: 'none',
+      fixedSetBackgroundStateId: 'none',
+      fixedSetCaptureModeId: 'photographer-shot',
+      fixedSetPerformanceStateId: 'model-natural',
+      framingId: 'camera:景別構圖-framing:全身鏡頭-full-body-shot:8',
+      angleId: 'camera:相機視角-angle:全無:0',
+      orbitId: 'camera:拍攝方位-orbit-angle:全無:0',
+      lyingCameraId: 'none',
+      captureStyleId: 'standard',
+      lensId: 'camera:鏡頭焦段-focal-length:全無:0',
+      apertureId: 'camera:光圈-景深-aperture-depth-of-field:全無:0',
+      shutterId: 'camera:快門-動態殘影-shutter-motion-blur:全無:0',
+      opticalEffectId: 'camera:光學效果-optical-effects:全無:0',
+      lightingId: 'camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20',
+      lightDirectionId: 'camera:光線表現-light-style:暖金黃昏色溫:13',
+      filmId: 'camera:底片與相機模擬-camera-film-simulation:跨沖霓虹剪影濾鏡:25',
+      bodyTypeId: 'character:體態-body-type:豐胸纖腰沙漏身形:7',
+      bodyTypeAId: 'character:體態-body-type:全無:6',
+      bodyTypeBId: 'character:體態-body-type:全無:6',
+      facialFeaturesId: 'character:五官特徵-facial-features:甜美可愛臉:3',
+      skinDetailsId: 'character:膚質特徵-skin-details:自然雀斑:3',
+      hairstyleId: 'character:髮型-hairstyle:柔波-瀏海:20',
+      hairStylingStateId: 'character:髮絲整理狀態-hair-styling-state:柔順自然:0',
+      hairStylingStateAId: 'character:髮絲整理狀態-hair-styling-state:全無:4',
+      hairStylingStateBId: 'character:髮絲整理狀態-hair-styling-state:全無:4',
+      hairColorId: 'character:髮色-hair-color:自然黑:1',
+      expressionId: 'character:表情-facial-expression:柔和微笑:1',
+      poseId: 'character:姿勢與肢體語言-pose-body-language:全無:0',
+      specialActionId: 'character:特殊動作-special-actions:全無:0',
+      poseBaseId: 'none',
+      specifiedActionId: 'none',
+      poseOrientationId: 'none',
+      poseArrangementId: 'none',
+      poseHandId: 'none',
+      posePropId: 'none',
+      poseHeadId: 'none',
+      poseAnchorId: 'none',
+      gestureId: 'none',
+      propId: 'none',
+      headPostureId: 'none',
+      gazeId: 'none',
+      topId: 'wardrobe:上身-tops:比基尼上身:30',
+      topFitId: 'tight',
+      topColorId: 'none',
+      topPatternId: 'wardrobe:上身圖案-top-surface-design:全無:0',
+      pantsId: 'wardrobe:褲裝-pants:窄前片細繩比基尼下身:32',
+      bottomRiseId: 'ultra-low-rise',
+      bottomColorId: 'none',
+      bottomPatternId: 'wardrobe:下身圖案-bottom-surface-design:全無:0',
+      outerwearId: 'wardrobe:外套-outerwear:全無:0',
+      outerwearOpeningId: 'wardrobe:外套開合-outerwear-opening:全無:4',
+      legwearId: 'wardrobe:襪類-legwear:蕾絲大腿絲襪:3',
+      legwearColorId: 'none',
+      shoesId: 'wardrobe:鞋款-shoes:dr-martens-1460-round-toe-lace-up-boots:7',
+      shoesColorId: 'none',
+      outerwearAOpeningId: 'wardrobe:外套開合-outerwear-opening:全無:4',
+      outerwearBOpeningId: 'wardrobe:外套開合-outerwear-opening:全無:4',
+      headphonesId: 'wardrobe:headphones:none',
+      headphonesColorId: 'none',
+      faceCoveringId: 'wardrobe:faceCovering:none',
+      faceCoveringColorId: 'none',
+      headAccessoryId: 'wardrobe:頭部配件-head-accessories:全無:0',
+      eyewearId: 'wardrobe:眼鏡-eyewear:全無:0',
+      eyewearColorId: 'wardrobe:眼鏡配色-eyewear-color:全無:0',
+      eyewearPlacementId: 'wardrobe:眼鏡配戴方式-eyewear-placement:全無:2',
+      earringsId: 'wardrobe:耳環-earrings:全無:0',
+      neckAccessoryId: 'wardrobe:頸部-neck-accessories:全無:0',
+      waistAccessoryId: 'wardrobe:腰部配件-waist-accessories:全無:0',
+      headphonesAId: 'wardrobe:headphones:none',
+      headphonesAColorId: 'none',
+      faceCoveringAId: 'wardrobe:faceCovering:none',
+      faceCoveringAColorId: 'none',
+      eyewearAPlacementId: 'wardrobe:眼鏡配戴方式-eyewear-placement:全無:2',
+      waistAccessoryAId: 'wardrobe:腰部配件-waist-accessories:全無:0',
+      headphonesBId: 'wardrobe:headphones:none',
+      headphonesBColorId: 'none',
+      faceCoveringBId: 'wardrobe:faceCovering:none',
+      faceCoveringBColorId: 'none',
+      eyewearBPlacementId: 'wardrobe:眼鏡配戴方式-eyewear-placement:全無:2',
+      waistAccessoryBId: 'wardrobe:腰部配件-waist-accessories:全無:0'
+    },
+    p: null,
+    n: null,
+    r: null,
+    q: '',
+    u: '',
+    f: '',
+    t: []
+  },
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.22.3

@@ -42,3 +42,9 @@ Cooper 本次只授權修正倫敦排屋、清澈海灣岩岸與草地樹木三�
 以已交付三場景修正的 main `22d1103e` 為新基準，Cooper 核准 15 筆中 11 移除、4 保留。保留者為零售試衣間、酒吧包廂、八公商業立面與販賣機；small 命中原因不能代替實際語意判定。15 筆永久 ID、原文、判準與有序 before／after 見[逐筆決策](../../decisions/2026-10-26-a5-commercial-review.md)及[規格](../../specs/scene-semantic-a5-commercial-v1.md)。
 
 本機 12,540 組候選與 3,804 組生成對照通過，公開輸出／selection／RNG 不變，只有核准 metadata 改變；[完整驗收](../scene-semantic-a5-commercial-2026-10-26/README.md)。上方 D 原值與量測數值保持歷史用途，不作當前待修清單。CRT outdoor 錯標另批，本批不變；A6 與 P5b 未啟動。
+
+## 2026-10-26 CRT outdoor 限定修正（已驗收、授權交付）
+
+Cooper 核准以 main `321404ec` 修正 `locations:攝影棚與背景-studio-sets:室內-crt-電視牆攝影棚:13`：只移除 outdoor，保留原文、ID／aliases、室內棚景 tags 與地板 lyingSurface。成因為錄影設備 `VCR decks` 誤中舊戶外 `deck` 子字串；D 只保存當時推論，不能歸因於 D 或前兩批 A5。來源歷史與精確值見 [決策](../../decisions/2026-10-26-a5-crt-outdoor.md)。
+
+沿用現行室內規則，窗光候選、隨機服裝與自動外套可改變；手動指定及仰躺表面主導維持。3,834 案例／836 候選池獨立對照、完整自動及桌手機驗收通過；詳見 [規格](../../specs/scene-semantic-a5-crt-v1.md)與 [報告](../scene-semantic-a5-crt-2026-10-26/README.md)。Cooper 已確認本批驗收通過並授權限定提交／推送，實際 Git 與 CI 結果另行核對。上方 D 數值與前兩批的「CRT 另批」均保留為歷史；其他項目與 P5b 不在本次範圍。

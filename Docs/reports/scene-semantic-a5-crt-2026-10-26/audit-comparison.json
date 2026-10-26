@@ -1,0 +1,12 @@
+{
+  "seed": "prompt-quality-baseline",
+  "count": 200,
+  "excludedPaths": [
+    "findings[*].promptId"
+  ],
+  "stableEqual": true,
+  "blockingSignals": 0,
+  "diagnosticSignals": 18,
+  "beforeSha256": "ffb8bbc332377e8d40ede38e90605b48c524b51e41cc11cf5632493f6445a0e5",
+  "afterSha256": "2d1565b7741f147f28f2269174b01be3587a889453385a5bcc4de0216d876d18"
+}

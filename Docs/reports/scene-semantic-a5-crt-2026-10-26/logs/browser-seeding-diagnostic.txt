@@ -1,0 +1,11 @@
+file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/scene_semantic_a5_crt_browser.mjs:25
+  assert.equal(decoded.selection.locationId,r.id);const persisted=await page.evaluate(()=>JSON.parse(localStorage.getItem('vps.favorites'))[0]);assert.deepEqual(persisted,oldCard);
+                       ^
+
+TypeError: Cannot read properties of null (reading 'selection')
+    at file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/scene_semantic_a5_crt_browser.mjs:25:24
+    at runNextTicks (node:internal/process/task_queues:64:5)
+    at process.processImmediate (node:internal/timers:452:9)
+    at process.callbackTrampoline (node:internal/async_hooks:130:17)
+
+Node.js v22.22.3
