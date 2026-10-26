@@ -6,6 +6,19 @@
       "resolutions": ["720P", "1080P", "480P"], "minDuration": 2, "maxDuration": 30,
       "audioToggle": true, "creditsPerSecond": {"480P": 15.09, "720P": 30.17, "1080P": 60.35}
     },
+    "seedance25": {
+      "rateDate": "2026-10-26",
+      "label": "Seedance 2.5", "node": "ByteDance2ReferenceNodeV2", "model": "Seedance 2.5",
+      "resolutions": ["720p", "1080p", "480p"], "minDuration": 4, "maxDuration": 30,
+      "audioToggle": true, "referenceImage": true,
+      "ratios": ["16:9", "4:3", "1:1", "3:4", "9:16", "21:9", "adaptive"],
+      "creditsPerThousandTokens": {"480p": 3.229, "720p": 3.229, "1080p": 3.530},
+      "tokensPerFrame": {
+        "480p": {"16:9": 400.3125, "9:16": 400.3125, "1:1": 400, "4:3": 411.25, "3:4": 411.25, "21:9": 418.5},
+        "720p": {"16:9": 900, "9:16": 900, "1:1": 900, "4:3": 905.6719, "3:4": 905.6719, "21:9": 904.3945},
+        "1080p": {"16:9": 2025, "9:16": 2025, "1:1": 2025, "4:3": 2028, "3:4": 2028, "21:9": 2037.9648}
+      }
+    },
     "minimaxH3": {
       "label": "MiniMax H3", "node": "MinimaxHailuo03FirstLastFrameNode", "model": "MiniMax H3",
       "resolutions": ["768P", "2K"], "minDuration": 4, "maxDuration": 15,

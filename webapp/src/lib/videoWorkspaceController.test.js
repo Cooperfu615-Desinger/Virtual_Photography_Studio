@@ -68,6 +68,10 @@ test('storage and cross-tab lock failures stop paid requests', async () => {
     await ready(controller); await controller.generate();
     assert.equal(f.calls.filter(x => x.action === 'submit').length, 0);
     assert.ok(controller.getSnapshot().error);
+    if (fault === 'pending') {
+      assert.equal(controller.getSnapshot().results[0].status, 'rejected');
+      assert.match(controller.getSnapshot().results[0].error, /未送出生成任務/);
+    }
   }
 });
 
@@ -104,4 +108,66 @@ test('multi-part download assembles only complete chunks from the same video ass
   assert.deepEqual(offsets, [0, size]); assert.equal(blob.size, size + 3);
   await assert.rejects(collectVideoDownload(async () => response('ab', 3)), /不完整/);
   await assert.rejects(collectVideoDownload(async offset => response(new Uint8Array(offset ? 3 : size), size + 3, offset ? 'changed' : 'original')), /不一致/);
+});
+
+test('independent workspace retains multiple sources and reuses immutable settings without a paid call', async () => {
+  const f = fixture(); await ready(f.controller);
+  await f.controller.generate(); const first = f.controller.getSnapshot().results[0];
+  f.controller.open({ src: 'https://example.org/second.png', name: 'Second image' });
+  f.controller.draft({ modelKey: 'seedance25' });
+  f.controller.draft({ motion: 'New motion' });
+  await f.controller.generate();
+  const state = f.controller.getSnapshot();
+  assert.equal(state.results.length, 2); assert.equal(Object.keys(state.sources).length, 2);
+  assert.equal(state.results[0].draft.motion, 'Turn slowly');
+  assert.equal(state.results[1].draft.modelKey, 'seedance25');
+  assert.equal(f.calls.at(-1).ratio, '9:16');
+  const before = f.calls.length;
+  f.controller.select(first.requestId); f.controller.reuse(first.requestId);
+  assert.equal(f.controller.getSnapshot().draft.motion, 'Turn slowly');
+  assert.equal(f.controller.getSnapshot().source.id, first.sourceId);
+  assert.equal(f.calls.length, before);
+  await f.controller.setUser('a');
+  assert.equal(f.controller.getSnapshot().results.length, 2);
+});
+
+test('failed generation remains in history and legacy successes retain their source after migration', async () => {
+  const f = fixture();
+  f.data.set('a', { source: { id: 'legacy-source', src: 'data:image/png;base64,test' }, draft: defaultVideoDraft(),
+    results: [{ requestId: 'old', sourceId: 'legacy-source', video: { src: 'old.mp4' }, draft: { ...defaultVideoDraft(), motion: 'Legacy' } }] });
+  await f.controller.setUser('a');
+  assert.equal(f.controller.getSnapshot().results[0].status, 'succeeded');
+  assert.equal(f.controller.getSnapshot().sources['legacy-source'].src, 'data:image/png;base64,test');
+  const failed = fixture({ session: async () => ({ uid: 'a', call: async p => p.action === 'prepare'
+    ? { sourceId: 'uploaded' } : { status: 'failed', error: 'Rejected by provider' } }) });
+  await ready(failed.controller); await failed.controller.generate();
+  assert.equal(failed.controller.getSnapshot().results[0].status, 'failed');
+  assert.equal(failed.controller.getSnapshot().pending, null);
+  assert.equal(failed.data.get('a').results[0].draft.motion, 'Turn slowly');
+});
+
+test('Seedance model switch and aspect mapping preserve legacy defaults and reject unknown model keys', async () => {
+  const { videoSourceRatio } = await import('./comfyVideoClient.js');
+  const seedance = changeVideoModel(defaultVideoDraft(), 'seedance25');
+  assert.equal(seedance.resolution, '720p'); assert.equal(seedance.duration, 5); assert.equal(seedance.audio, false);
+  assert.equal(videoSourceRatio({ width: 1920, height: 1080 }), '16:9');
+  assert.equal(videoSourceRatio({ width: 576, height: 1024 }), '9:16');
+  assert.equal(videoSourceRatio({ width: 1000, height: 1500 }), 'adaptive');
+  assert.equal(videoSourceRatio(null), 'adaptive');
+  assert.equal(changeVideoModel(seedance, '__proto__'), seedance);
+});
+
+test('switching account while a paid response arrives never starts polling the old account', async () => {
+  let release; const calls = [];
+  const f = fixture({ session: async () => ({ uid: 'a', call: async p => {
+    calls.push(p.action);
+    if (p.action === 'prepare') return { sourceId: 'uploaded' };
+    return new Promise(resolve => { release = resolve; });
+  } }) });
+  await ready(f.controller); const work = f.controller.generate();
+  while (!release) await new Promise(resolve => setTimeout(resolve, 0));
+  await f.controller.setUser('b'); release({ status: 'queued' }); await work;
+  assert.deepEqual(calls, ['prepare', 'submit']);
+  assert.equal(f.controller.getSnapshot().uid, 'b'); assert.equal(f.controller.getSnapshot().results.length, 0);
+  assert.ok(f.pending.get('a'));
 });

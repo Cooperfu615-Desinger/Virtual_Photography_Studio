@@ -11,7 +11,12 @@ function videoSettings(payload) {
   if (!Object.hasOwn(contract.models, payload.modelKey) || !model.resolutions.includes(payload.resolution)
     || !Number.isInteger(payload.duration) || payload.duration < model.minDuration || payload.duration > model.maxDuration
     || typeof payload.audio !== 'boolean' || (!model.audioToggle && !payload.audio)) throw new Error('不支援的影片設定');
-  return { modelKey: payload.modelKey, resolution: payload.resolution, duration: payload.duration, audio: payload.audio };
+  const settings = { modelKey: payload.modelKey, resolution: payload.resolution, duration: payload.duration, audio: payload.audio };
+  if (model.referenceImage) {
+    if (!model.ratios.includes(payload.ratio || 'adaptive')) throw new Error('不支援的影片比例');
+    settings.ratio = payload.ratio || 'adaptive';
+  }
+  return settings;
 }
 
 function parseInputPng(src) {
@@ -70,6 +75,14 @@ function buildVideoWorkflow(payload, source, seed = randomInt(0, 2147483647)) {
     'model.duration': settings.modelKey === 'wan3' ? String(settings.duration) : settings.duration,
     first_frame: ['1', 0], seed, watermark: false };
   if (settings.modelKey === 'wan3') Object.assign(inputs, { 'model.ratio': 'adaptive', 'model.audio': settings.audio, 'model.prompt_extend': false });
+  if (model.referenceImage) {
+    if (!Number.isFinite(source.width) || !Number.isFinite(source.height) || source.width < 300 || source.height < 300
+      || source.width / source.height < 0.4 || source.width / source.height > 2.5) throw new Error('Seedance 來源圖片需至少 300×300，比例介於 2:5 與 5:2');
+    delete inputs.first_frame;
+    Object.assign(inputs, { 'model.reference_images.image_1': ['1', 0], 'model.ratio': settings.ratio,
+      'model.generate_audio': settings.audio, 'model.task_type': 'reference', 'model.output_format': 'mp4',
+      'model.auto_downscale': true, 'model.auto_upscale': false });
+  }
   return { workflow: {
     '1': { class_type: 'LoadImage', inputs: { image: { __type: 'core/ASSET', info: { id: validateRequestId(source.assetId) } } } },
     '2': { class_type: model.node, inputs },
@@ -148,9 +161,16 @@ async function readVideoQuota({ apiKey, payload, fetchImpl = fetch }) {
   });
   if (!response.ok) throw new Error('額度查詢失敗，請稍後重新整理');
   const credits = balanceCredits(await response.json());
-  const estimatedCredits = Number((contract.models[settings.modelKey].creditsPerSecond[settings.resolution] * settings.duration).toFixed(2));
+  const model = contract.models[settings.modelKey];
+  // Seedance uses 24 fps token estimates, not the Wan/MiniMax per-second tariff.
+  // For adaptive ratio, budget the largest supported pixel area conservatively.
+  const frames = model.tokensPerFrame?.[settings.resolution];
+  const tokensPerFrame = frames && (frames[settings.ratio] || Math.max(...Object.values(frames)));
+  const estimatedCredits = Number((frames
+    ? tokensPerFrame * 24 * settings.duration / 1000 * model.creditsPerThousandTokens[settings.resolution]
+    : model.creditsPerSecond[settings.resolution] * settings.duration).toFixed(2));
   return { credits, estimatedCredits, estimatedVideos: credits === null ? null : Math.floor(Math.max(0, credits) / estimatedCredits),
-    checkedAt: Date.now(), rateDate: contract.rateDate, selection: settings };
+    checkedAt: Date.now(), rateDate: model.rateDate || contract.rateDate, selection: settings };
 }
 
 async function videoOperation(options) {

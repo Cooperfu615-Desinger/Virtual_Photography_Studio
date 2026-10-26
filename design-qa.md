@@ -438,3 +438,15 @@ final result: passed (local UI and automated checks); user acceptance pending. N
 - Result：local checks passed; user acceptance pending。未 stage、commit、push 或部署；未新增付費生成。真實 DLL API 的出圖、扣額、下載待後續部署驗收。
 
 2026-10-21 交付授權補記：使用者確認可以先 commit／push 到 main，再部署四項相關 Functions。上列未提交狀態為本機交付當時紀錄；本次不新增付費生成，真實 API 驗收界線不變。
+
+
+# DLL_VIDEO Pro 獨立分頁（2026-10-27）
+
+final result: passed (local UI and simulated workflow; live Seedance acceptance pending)
+
+- 依核准示意圖實作三欄工作區；來源圖 `/Users/cooperfu/.codex/generated_images/01a0c277-5451-7130-b31f-c16c71e86b2c/exec-d67e5457-aca7-4606-b2c4-bcba82c4bb2a.png`。
+- 原稿與實作已置於同一張 [比較圖](Docs/reports/dll-video-pro-2026-10-27/comparison.png)，實作擷取為1586×992淺色模擬成功狀態。素材內容、原生播放器、既有導覽及測試標示差異已註記，沒有逐像素一致宣稱。
+- 初次發現P2：右側內容過長，額度及生成鈕需要捲動才可用。修正為設定區內部捲動、底部額度與生成區固定保留，桌面額度三項橫排。再次同尺寸擷取比較後無未處理P0/P1/P2。
+- 桌面1440×1000、1586×992、手機390×900與819／821／1099／1101px斷點均檢查；五個既有工作區導覽、圖片帶入、手機面板切換、深色、模擬成功／失敗／待確認、播放及下載均有證據。
+- 前端1,859項、Functions108項、lint及build通過。沒有付費生成、Git交付或部署；真實帳號權限、Seedance生成與扣額仍待後續驗收。
+- [完整驗收與截圖](Docs/reports/dll-video-pro-2026-10-27/README.md)、[實作規格](Docs/specs/dll-video-pro-v1.md)。

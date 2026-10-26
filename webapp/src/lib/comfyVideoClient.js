@@ -5,9 +5,18 @@ export const VIDEO_CAMERA_PRESETS = ['固定鏡頭', '緩慢推近', '緩慢拉�
 export const defaultVideoDraft = () => ({ modelKey: 'wan3', duration: 5, resolution: '720P', audio: false, motion: '', camera: '' });
 export function changeVideoModel(draft, modelKey) {
   const model = VIDEO_MODELS[modelKey];
+  if (!Object.hasOwn(VIDEO_MODELS, modelKey)) return draft;
   return { ...draft, modelKey, duration: Math.min(model.maxDuration, Math.max(model.minDuration, draft.duration)),
-    resolution: model.resolutions.includes(draft.resolution) ? draft.resolution : model.resolutions[0],
+    resolution: model.resolutions.find(value => value.toLowerCase() === draft.resolution?.toLowerCase()) || model.resolutions[0],
     audio: model.audioToggle ? false : true };
+}
+export function videoSourceRatio(source) {
+  if (!source?.width || !source?.height) return 'adaptive';
+  const aspect = source.width / source.height;
+  return VIDEO_MODELS.seedance25.ratios.find(ratio => {
+    const [w, h] = ratio.split(':').map(Number);
+    return Number.isFinite(w / h) && Math.abs(aspect / (w / h) - 1) < 0.01;
+  }) || 'adaptive';
 }
 export function videoMessage(error) {
   if (error?.code === 'functions/not-found') return '影片服務尚未部署；設定與來源圖片已保留';

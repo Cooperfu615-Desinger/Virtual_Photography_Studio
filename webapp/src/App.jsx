@@ -43,6 +43,7 @@ import { usePromptWorkspace } from './features/page1/usePromptWorkspace.js';
 import { buildPage3SavedCard } from './features/page3/page3SavedCard.js';
 import { loadJsonStorage, loadStringStorage, saveJsonStorage } from './features/storage/browserStorage.js';
 import './index.css';
+import VideoWorkspace from './components/VideoWorkspace.jsx';
 
 const DllPicWorkspace = lazy(() => import('./components/DllPicWorkspace.jsx'));
 const Page1Workspace = lazy(() => import('./components/Page1Workspace.jsx'));
@@ -55,6 +56,7 @@ const PAGE2_PROFILE_KEY = 'vps.page2Profile';
 const PAGE3_PROFILE_KEY = 'vps.page3Profile';
 const APPEARANCE_STORAGE_KEY = 'vps.appearance';
 const PAGE_MODE_COPY = {
+  video: { title: 'DLL_VIDEO Pro', subtitle: '讓圖片動起來，集中生成、播放與整理影片。' },
   dll: { title: 'DLL_PIC Pro', subtitle: '集中生成、比較與整理圖片，保留每次創作的設定與成果。' },
   page1: {
     title: 'Prompt Control Deck',
@@ -408,8 +410,14 @@ export default function App() {
 
   const pageHeaderCopy = PAGE_MODE_COPY[pageMode] || PAGE_MODE_COPY.page1;
 
+  useEffect(() => {
+    const open = () => setPageMode('video');
+    window.addEventListener('dll-video-open', open);
+    return () => window.removeEventListener('dll-video-open', open);
+  }, []);
+
   return (
-    <div className={`container ${pageMode === 'dll' ? 'dll-page' : ''}`}>
+    <div className={`container ${pageMode === 'dll' ? 'dll-page' : pageMode === 'video' ? 'video-page' : ''}`}>
       <header className="page-header">
         <div className="page-header-content">
           <p className="eyebrow">Virtual Photography Studio</p>
@@ -439,6 +447,7 @@ export default function App() {
                 場景建模
               </button>
               <button type="button" className={pageMode === 'dll' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'} onClick={() => setPageMode('dll')}>DLL_PIC Pro</button>
+              <button type="button" className={pageMode === 'video' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'} onClick={() => setPageMode('video')}>DLL_VIDEO Pro</button>
               <button
                 type="button"
                 className={pageMode === 'page4' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'}
@@ -502,7 +511,7 @@ export default function App() {
       </header>
 
       <Suspense fallback={<WorkspaceFallback />}>
-        {pageMode === 'dll' ? <DllPicWorkspace sources={buildPage1DllPromptSources(previewPrompt)} incoming={dllIncoming} /> : pageMode === 'page1' ? (
+        {pageMode === 'video' ? null : pageMode === 'dll' ? <DllPicWorkspace sources={buildPage1DllPromptSources(previewPrompt)} incoming={dllIncoming} /> : pageMode === 'page1' ? (
           <Page1Workspace
             workspace={{
               coreLockControls,
@@ -572,6 +581,7 @@ export default function App() {
         />
         )}
       </Suspense>
+      <VideoWorkspace active={pageMode === 'video'} onChooseImage={() => setPageMode('dll')} onNavigate={() => setPageMode('video')} />
 
       {copiedLabel ? (
         <div className="toast" role="status" aria-live="polite" aria-atomic="true">
