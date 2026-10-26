@@ -124,3 +124,20 @@ python3 scripts/sync_to_json.py --check --registry-base-commit 321404ecd041343f4
 `a5CrtHistoricalReplay.mjs` 先核對 CRT 整筆資料與有序 tags，再精確回復 outdoor；拒絕額外 tag、順序、來源變動、missing／duplicate ID，保持輸入與預設快取。接原 commercial inverse，再接原三筆 inverse，可重播 A～E。前兩批原 acceptance／history／inverse 與封存不改；不能直接在修正後正式資料執行舊一次性驗收並重錄預期值。原 commercial 七項回歸由固定 Git 原檔在 current code＋pre-CRT 隔離副本執行，保留原斷言；現行 15 筆狀態由 CRT 回歸另行保護。
 
 測試需 Node 22 與完整 Git 歷史；既有 CI 已是 Node 22／fetch-depth 0，不需改 workflow。獨立 oracle 需固定 Git object；缺歷史時明確失敗，不以當前候選自證通過。資料檢查、歷史 ID、strict、完整前端、Prompt Quality、相同 seed audit、桌手機仍為產品變更門檻。舊 Saved Cards 文字保留；瀏覽器儲存既有的 none 欄位補齊以修正前 codec 對照。其他項目及 P5b 未開始。
+
+## A5 西門町與第四層精確回放（2026-10-26）
+
+本批可信基準 `5110401f3eee4aaa6cc59ee9175625cc96326d9e`，只去西門町 green_space。保留 parking 原文與 outdoor／commercial，現有候選與公開行為預期不變。11 筆雙標籤只審查，全部原值保留；前三批已交付與本批待交付的狀態分開，見 [A5 總表](../../Docs/decisions/2026-10-26-a5-closure-review.md)及 [本批規格](../../Docs/specs/scene-semantic-a5-ximending-v1.md)。
+
+```bash
+export REGISTRY_BASE_COMMIT=5110401f3eee4aaa6cc59ee9175625cc96326d9e
+python3 scripts/sync_to_json.py --check --report-json
+node --test webapp/src/lib/engine/sceneSemanticA5Ximending.test.js webapp/src/lib/engine/sceneSemanticA5Crt.test.js webapp/src/lib/engine/sceneSemanticA5Commercial.test.js
+node scripts/scene_semantic_a5_ximending_acceptance.mjs /tmp/a5-ximending.json.gz
+node scripts/scene_semantic_a5_ximending_imports.mjs /tmp/a5-ximending-imports.json.gz
+node scripts/scene_semantic_a5_ximending_history.mjs /tmp/a5-ximending-history
+```
+
+此為本批固定 SHA；後續新變更仍須選當次受信任的基準。`a5XimendingHistoricalReplay.mjs` 僅精確還原西門町整筆核准資料，再接原 CRT／commercial／三筆 inverse。原 CRT 九項回歸、原 commercial 七項回歸由固定 Git 原檔隔離執行，不重寫原斷言。前述三批一次性 acceptance 不應直接對新正式資料執行；請透過本節 history 指令逐層回放。新的當前產品回歸另驗全 database 與 11 筆未決原值。
+
+Node 22／完整 Git 歷史、既有 npm test glob 與 CI 接線沿用，不需要變更 workflow。其餘 schema／ID／strict、完整前端、同 seed audit 與桌手機門檻依 root AGENTS 執行。[本批驗收報告](../../Docs/reports/scene-semantic-a5-ximending-2026-10-26/README.md)。不修改歷史基準，不進入其他內容問題或 P5b。

@@ -1,0 +1,25 @@
+{
+  "count": 200,
+  "seed": "prompt-quality-baseline",
+  "excludedOnly": "findings[].promptId",
+  "equal": true,
+  "summary": {
+    "prompts": 200,
+    "promptsWithFindings": 17,
+    "logicIssues": 15,
+    "contractIssues": 0,
+    "exactDuplicateSignals": 0,
+    "nearDuplicateSignals": 3,
+    "leakageSignals": 0,
+    "contradictionSignals": 0,
+    "promptsWithLogicIssues": 14,
+    "promptsWithContractIssues": 0,
+    "promptsWithDuplicateSignals": 3,
+    "promptsWithLeakageSignals": 0,
+    "promptsWithContradictionSignals": 0,
+    "coverageIssues": 0,
+    "totalSignals": 18,
+    "blockingSignals": 0,
+    "diagnosticSignals": 18
+  }
+}

@@ -1,0 +1,405 @@
+{
+  "baseCommit": "5110401f3eee4aaa6cc59ee9175625cc96326d9e",
+  "status": "user-accepted-authorized-scoped-delivery",
+  "trackedChanged": 14,
+  "newFiles": 63,
+  "totalBatchFiles": 77,
+  "files": [
+    {
+      "path": "Docs/current_project_state.md",
+      "status": "modified",
+      "sha256": "f455a88039b2a67cfb2101390cd0438830413318ec700ce5a64358cd975299a4"
+    },
+    {
+      "path": "Docs/decisions/2026-10-26-a5-closure-review.md",
+      "status": "new",
+      "sha256": "4a7f66f17a96cd4634f95a963a81de3f489b0333dca0fa0642a9427c33f85444"
+    },
+    {
+      "path": "Docs/reports/database-analysis-2026-10-11/frozen-known-issues.md",
+      "status": "modified",
+      "sha256": "9c55bdd080a56dd740114c9bf9d0e200bf9585fab0407d638f8f6bb547d2d018"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/README.md",
+      "status": "new",
+      "sha256": "37a0fd3cb210be44da8f3f04fd57ba0cfea374570abeba660ff88510e09d8efc"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/acceptance.json.gz",
+      "status": "new",
+      "sha256": "de214b1c59e7ca917ccc102a150a346febf3aba77d772b7cfc20e66a14d8255f"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/audit-after.json",
+      "status": "new",
+      "sha256": "1e91472a855d08760b69ff90e0a6beea712b433a1fb4e7939273d3b064bd1549"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/audit-before.json",
+      "status": "new",
+      "sha256": "2152a5a34ddf1818046a39a21b3ced91852baab1921ea7751090956ccf276fdc"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/audit-comparison.json",
+      "status": "new",
+      "sha256": "657a8db9a5cfc0ee742da5c18cd39ef41fdfbf13b98c36d21ec80b1bb2ac62c4"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/before-protection.json",
+      "status": "new",
+      "sha256": "3f7b9e30d2248b8fb89dcc01b3386cfa34bd5ab67dff5330238a9890561fd9b1"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/browser-general/1440-1.png",
+      "status": "new",
+      "sha256": "2777d2897ddae491f142016d8c86b972bc3408561059a2777d1ae1bbb453492d"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/browser-general/1440-2.png",
+      "status": "new",
+      "sha256": "1afc55f242d5b9073e85e6bef69102a3a8dc224381ec7ae3abeb4dd28066741f"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/browser-general/1440-3.png",
+      "status": "new",
+      "sha256": "91769318711f9a7f1e6538577ea780001d060a2701aee5b962a86a2af684898a"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/browser-general/1440-4.png",
+      "status": "new",
+      "sha256": "a9245fcb0c25204d0e1fc09312172dbd8ee369602e595e6d3b949951a6c3c114"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/browser-general/1440-5.png",
+      "status": "new",
+      "sha256": "3c67a615c5b82a5cb75b594c7d6a2c023a1a1a0130fec47f85aae0abe0558c45"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/browser-general/390-1.png",
+      "status": "new",
+      "sha256": "e85c2142ff475151f3927d67a9c4546594cc800242db991c733f404e9db44b6e"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/browser-general/390-2.png",
+      "status": "new",
+      "sha256": "1ce11f9c97622f30b3149e6b282d6753ca4e32df72683230dec8660de1cc6164"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/browser-general/390-3.png",
+      "status": "new",
+      "sha256": "33fa6cfad59d20c8280b21e19121270991f4e4e909194d700df1caa6bd303979"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/browser-general/390-4.png",
+      "status": "new",
+      "sha256": "74bc28df8e8bf86e031e9db0e4314c082d55b06c2cf90143961cb33d628a363d"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/browser-general/390-5.png",
+      "status": "new",
+      "sha256": "5afdd24ab299a823453bbea863c71c45b77c4b7844116e71b2bf69aa2237d74e"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/browser-general/results.json",
+      "status": "new",
+      "sha256": "28f8c471810f84e06c8147c3755e0aefc2ef61eff9bfe705b837a06c45653f90"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/browser-review.json",
+      "status": "new",
+      "sha256": "909f95f88be352f58bacf4a7167dee1eedad863f4dca30afd717cb2b829c38d9"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/browser-targeted/1440-ximending-capture.png",
+      "status": "new",
+      "sha256": "1b82af184c7c4abf20dd88f70b68286d01a0edb28ec89dc2489c8877dd42124d"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/browser-targeted/1440-ximending-scene.png",
+      "status": "new",
+      "sha256": "66be558c3876827e45f8882a788c9fb48806a9e684a5347f36f7f7da8d987da7"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/browser-targeted/390-ximending-capture.png",
+      "status": "new",
+      "sha256": "b5465c203221f4a31ac54788ae4786682b0ffea581eb7e965f06f2484d43fb3e"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/browser-targeted/390-ximending-scene.png",
+      "status": "new",
+      "sha256": "b08e0631440ff6b65d95c089e8635c52cfe6a601adf8a3f41e5df87193ac0ca2"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/browser-targeted/results.json",
+      "status": "new",
+      "sha256": "99e5f67071f8ad7f8fd7c3123267804ab8c0bdb1bd3974265cc3799eac8eb91a"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/change-inventory.json",
+      "status": "new",
+      "sha256": null
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/delivered-ci.json",
+      "status": "new",
+      "sha256": "4af9a656fdfe1d1935fd42608a531363ea3e032b480152c6bd27eba5b5ae40a0"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/delivery-checks.json",
+      "status": "new",
+      "sha256": "e5ed81c0d4e7cb556005cd9e5cf2c912dacbb3abdec40fd9a6b6e77b42e8c9aa"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/evidence-sha256.json",
+      "status": "new",
+      "sha256": "c14bc8066512250847c277db0a298a562a5a504000eb96fae2d5e8c75435144b"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/final-verification.json",
+      "status": "new",
+      "sha256": "5dece86c3b408d844bd297598e6e4a06bca1f8d09305da1e8bb9b7d44b19c877"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/history/crt-imports.json.gz",
+      "status": "new",
+      "sha256": "484c837d5b8808b4f549075e2ee716a1a944e546c58181922187b234ee730d86"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/history/crt.json.gz",
+      "status": "new",
+      "sha256": "6d5ccc95ad6afa3327dbfa14ff907d5c66cc45d406e5e3f59cace55ff7a8fece"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/history/previous/commercial.json.gz",
+      "status": "new",
+      "sha256": "43fa404c55692e92dddf68c98c8f6d7ce77d673bce8268a2ac680bb2db1df6e7"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/history/previous/first-a5.json",
+      "status": "new",
+      "sha256": "7e1441c56e0dcac16675d1bd7d4f61c1fac89120084b228f0d6bd82439ecdd46"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/imports.json.gz",
+      "status": "new",
+      "sha256": "17fe7315ab5f32e0fdfc283be3feb31fdb5b098ab8a5ac074ee0f090f025ee11"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/logs/acceptance.txt.gz",
+      "status": "new",
+      "sha256": "edee939583e092725fabc6b842303d969beda200fce90cbf04678864a550f646"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/logs/assets.txt.gz",
+      "status": "new",
+      "sha256": "83d4a447c42f38ed14e7e320c30481ad7204089ccb0d3c5ba7e5841b5c9a3b8c"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/logs/audit-after.txt.gz",
+      "status": "new",
+      "sha256": "743e07c05ffcf47ef140b0ec2b5d5f6dfb30a32934d7bd34453ac61ea6e5c67d"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/logs/browser-control-diagnostic.txt.gz",
+      "status": "new",
+      "sha256": "3d05971f61634a1bea2c27eeabda6ef72626a7bf9e9c12e6d14b0c7549e0a84f"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/logs/browser-general.txt.gz",
+      "status": "new",
+      "sha256": "64e1af2d5977c30dd6648e0e3d250e7b58ba232fa737ef9ffd2dc393b8edc979"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/logs/browser-targeted-diagnostic.txt.gz",
+      "status": "new",
+      "sha256": "f9d1d83a6113c40354e02ee0b70f70d2c182e464e11d0b24693e4cc87e390b4a"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/logs/browser-targeted.txt.gz",
+      "status": "new",
+      "sha256": "2d47a86127c572e8f35dd097d426275fc47609ff7ba2e590c8e9bc86e458df7d"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/logs/build.txt.gz",
+      "status": "new",
+      "sha256": "c58d23f2b702ffba2156d00e0e5d2de1279311174d8a7c06497a020b892d453e"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/logs/catalog-tools.txt.gz",
+      "status": "new",
+      "sha256": "7115da7171bc10640a9551a30bde1f33358169d880945dd99880577d591088a4"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/logs/focused.txt.gz",
+      "status": "new",
+      "sha256": "5582a40b2ecc936983e6ba3d9ffad5d638a3771f4b00bc6fce66045f1546ee8a"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/logs/frontend.txt.gz",
+      "status": "new",
+      "sha256": "61f3c49634986f98123ec5e09f990127ae3de32b55c9867895f7e1d3ebcfa59c"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/logs/history.txt.gz",
+      "status": "new",
+      "sha256": "e8ab6a25ffe719539a5a17481be9d96edbcc76ab7efe32257b0eb8bac6419da9"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/logs/imports.txt.gz",
+      "status": "new",
+      "sha256": "8d5a820f94e98dcba6433e34c3169dc355fe2e66d11178bcca856730a09dc1cb"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/logs/lint.txt.gz",
+      "status": "new",
+      "sha256": "b260dc530ef2af473f11dd95140f8b06d63c39520661e5d4b36d3f363d5b6fa8"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/logs/prompt-quality.txt.gz",
+      "status": "new",
+      "sha256": "c72e39254bc1fafcea04051eb033e4ee394a74ac06dd0c3cb0ece8a4a9bf9dcf"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/logs/python.txt.gz",
+      "status": "new",
+      "sha256": "33bc626f7230f7549fc3729e5f967e90508b24472501f7cac3f7df015a4768ad"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/logs/red.txt.gz",
+      "status": "new",
+      "sha256": "1ce35d23aec88526cf0e7175ded852e3f5c50024063991576423cac98e0d4dde"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/logs/strict.txt.gz",
+      "status": "new",
+      "sha256": "ce9333534e35ac8d6c00ad9bcc30a5a3ffcea60b5c2c460a88a39cd443785350"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/logs/sync-check.txt.gz",
+      "status": "new",
+      "sha256": "aa7b37715c4805256cf156fcb40d6b08ac49ddb3b3c9b4828afd51db525890ec"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/protection.json",
+      "status": "new",
+      "sha256": "b33b90a98957352b0292615c48d3a5cbfa72117c9849ec121d951da9d6224920"
+    },
+    {
+      "path": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/validation.json",
+      "status": "new",
+      "sha256": "db18936e6f2f8d3ab96a02d8db517e5a9a4ecfc5b46c99adad0d3cbc40e0a0e7"
+    },
+    {
+      "path": "Docs/specs/catalog-data-architecture-v1.md",
+      "status": "modified",
+      "sha256": "6302b4a21ad5f7b04e66c157164d436daaa887c73cd0a4b364b84f5ee3b247b1"
+    },
+    {
+      "path": "Docs/specs/scene-semantic-a5-ximending-v1.md",
+      "status": "new",
+      "sha256": "0bdcc76152b7ad5263d640b6ee4c13b8aca830112333880a5430d3d5a7ffbff9"
+    },
+    {
+      "path": "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+      "status": "modified",
+      "sha256": "64d5867449894f37bafbbe0f02ef2227a203ea0ade1aabd52125d736253ac231"
+    },
+    {
+      "path": "knowledge_base/catalog/README.md",
+      "status": "modified",
+      "sha256": "62abacbcfde37b781ecc2d4a43667cfa3b46e92a9a46c3d8977d568076059bd5"
+    },
+    {
+      "path": "scripts/lib/a5XimendingHistoricalReplay.mjs",
+      "status": "new",
+      "sha256": "28e2cc8529ccc6d4d4358705030affa0fd931c06b9d060d264ddefdd092bc3ec"
+    },
+    {
+      "path": "scripts/lib/a5XimendingReview.json",
+      "status": "new",
+      "sha256": "3b65d632c96bd3648903c65bb3355f8d6a2ae1ff9c7330c20072850c8e3cb42c"
+    },
+    {
+      "path": "scripts/scene_semantic_a5_ximending_acceptance.mjs",
+      "status": "new",
+      "sha256": "4780f58e9c644e0be9e467597699b2744a562cf33c66c251d4195b57f54922cb"
+    },
+    {
+      "path": "scripts/scene_semantic_a5_ximending_browser.mjs",
+      "status": "new",
+      "sha256": "d5d29d860011ac4e23c517fdfb0d02fde66e322f5dfa91a71612f268b525fb82"
+    },
+    {
+      "path": "scripts/scene_semantic_a5_ximending_history.mjs",
+      "status": "new",
+      "sha256": "c67c4295fc414503c133e97aa807e9befe7cebd553af1925f4b46a4ea22d60e6"
+    },
+    {
+      "path": "scripts/scene_semantic_a5_ximending_imports.mjs",
+      "status": "new",
+      "sha256": "95ebf8f398790bee9ecbbc32d45dfec5ddb9f334a4897fb046dca04ce009e36c"
+    },
+    {
+      "path": "webapp/src/data/database.json",
+      "status": "modified",
+      "sha256": "572bf1662a35ed940496b6df220dae3fecce1572bbe48baa2f3cc932604bf30d"
+    },
+    {
+      "path": "webapp/src/lib/engine/catalogAlignment.test.js",
+      "status": "modified",
+      "sha256": "79f5e2aff57fe12b3566738e2c0bfa0ea2a213090734bc99a732409ec37d80b3"
+    },
+    {
+      "path": "webapp/src/lib/engine/catalogBaseline.test.js",
+      "status": "modified",
+      "sha256": "5e3737bc562862ea249b898574add8cdc144a78303e8881dd1434e0f981b6698"
+    },
+    {
+      "path": "webapp/src/lib/engine/catalogCoverage.test.js",
+      "status": "modified",
+      "sha256": "ac420c2d9a07b6e51e448ea8e6ae2154283835b9ad130c5a5d1c017c3a61bfc8"
+    },
+    {
+      "path": "webapp/src/lib/engine/catalogSnapshot.test.js",
+      "status": "modified",
+      "sha256": "32f8c584d9a9ab0a055303822a63ce4693a993705bc988a1e2ed6d98b7148b7b"
+    },
+    {
+      "path": "webapp/src/lib/engine/midjourneyNaturalPrompt.test.js",
+      "status": "modified",
+      "sha256": "67c99eabb7df83247fff4d98bd6006d78f8b53fec630904ab6533a46ea53da4e"
+    },
+    {
+      "path": "webapp/src/lib/engine/sceneSemanticA5Commercial.test.js",
+      "status": "modified",
+      "sha256": "096545258d3f927012ea235425eb39e986bbcdf6c536047ac73f2ac0c364de27"
+    },
+    {
+      "path": "webapp/src/lib/engine/sceneSemanticA5Crt.test.js",
+      "status": "modified",
+      "sha256": "b3004b38fd13414f79d2645a3f122256c0412e3f6c253e3696a9bad9be2a408e"
+    },
+    {
+      "path": "webapp/src/lib/engine/sceneSemanticA5Ximending.test.js",
+      "status": "new",
+      "sha256": "050a297032fb8e7c24d134275d87cdbf8c771b7ff33bcf91736b08eca56dd69d"
+    },
+    {
+      "path": "webapp/src/lib/engine/shibuyaCrowdScene.test.js",
+      "status": "modified",
+      "sha256": "ec817bf0f3a0bf6b7bf0e72b54c31063d4a5ea1e91d61cd291d126e31c458839"
+    }
+  ],
+  "selfExcludedFromHash": "Docs/reports/scene-semantic-a5-ximending-2026-10-26/change-inventory.json",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "reviewedInventorySha256BeforeStatusUpdate": "561562ae26465c0a0fc650dec3476a99a266ee81361cbb2c87b081e3cce0ec81",
+  "deliveryStatusOnlyUpdates": [
+    "Docs/current_project_state.md",
+    "Docs/specs/scene-semantic-a5-ximending-v1.md",
+    "Docs/specs/catalog-data-architecture-v1.md",
+    "Docs/reports/scene-semantic-a5-ximending-2026-10-26/README.md"
+  ]
+}

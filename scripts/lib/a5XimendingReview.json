@@ -1,0 +1,320 @@
+{
+  "version": 1,
+  "baseCommit": "5110401f3eee4aaa6cc59ee9175625cc96326d9e",
+  "id": "locations:城市與社群感-urban-social-snapshots:戶外-台北西門町街頭:28",
+  "sourceFile": "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+  "beforeTags": [
+    "urban",
+    "outdoor",
+    "commercial",
+    "green_space"
+  ],
+  "afterTags": [
+    "urban",
+    "outdoor",
+    "commercial"
+  ],
+  "source": {
+    "id": "locations:城市與社群感-urban-social-snapshots:戶外-台北西門町街頭:28",
+    "legacyIds": [
+      "locations:城市與社群感-urban-social-snapshots:戶外-台北西門町街頭:28"
+    ],
+    "zh": "戶外：台北西門町街頭",
+    "en": "Taipei Ximending street corner, dense commercial signboards, humid-looking storefront reflections, shopfront layers, arcade edge, scooter parking fragment, curbside paving",
+    "desc": "台北西門町街頭轉角，重點是密集商業招牌、店面反射、騎樓邊、機車停放片段、路緣鋪面與層疊商店立面。",
+    "meta": {
+      "semantic": {
+        "tags": [
+          "urban",
+          "outdoor",
+          "commercial",
+          "green_space"
+        ]
+      }
+    }
+  },
+  "generatedBefore": {
+    "zh": "戶外：台北西門町街頭",
+    "en": "Taipei Ximending street corner, dense commercial signboards, humid-looking storefront reflections, shopfront layers, arcade edge, scooter parking fragment, curbside paving",
+    "desc": "台北西門町街頭轉角，重點是密集商業招牌、店面反射、騎樓邊、機車停放片段、路緣鋪面與層疊商店立面。",
+    "meta": {
+      "semantic": {
+        "tags": [
+          "urban",
+          "outdoor",
+          "commercial",
+          "green_space"
+        ]
+      }
+    },
+    "stableId": "locations:城市與社群感-urban-social-snapshots:戶外-台北西門町街頭:28",
+    "legacyIds": [
+      "locations:城市與社群感-urban-social-snapshots:戶外-台北西門町街頭:28"
+    ]
+  },
+  "decision": "Remove only green_space. Preserve parking text, IDs, aliases, order and all 11 dual-tag rows.",
+  "pendingDoubleTags": [
+    {
+      "sourceFile": "knowledge_base/catalog/Locations/地下與廢墟風格-abandoned-underground.json",
+      "source": {
+        "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄商場空置美食街角落:19",
+        "legacyIds": [
+          "locations:地下與廢墟風格-abandoned-underground:室內-廢棄商場空置美食街角落:19"
+        ],
+        "zh": "室內：廢棄商場空置美食街角落",
+        "en": "abandoned food-court corner, plastic tables, mismatched chairs, empty counter, menu board remnants, tile floor reflections, tray-return shelf, shuttered stall edge",
+        "desc": "有桌椅與招牌殘留的商場餐飲區，重點是塑膠桌、不同角度椅子、空櫃台、菜單板殘片、地磚反射、餐盤回收架與關閉攤位邊。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "ruin",
+              "indoor",
+              "outdoor",
+              "commercial"
+            ]
+          }
+        }
+      },
+      "status": "reviewed-pending-decision-unchanged"
+    },
+    {
+      "sourceFile": "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+      "source": {
+        "id": "locations:城市與社群感-urban-social-snapshots:戶外-興記煲仔飯店門口騎樓區:18",
+        "legacyIds": [
+          "locations:城市與社群感-urban-social-snapshots:戶外-興記煲仔飯店門口騎樓區:18"
+        ],
+        "zh": "戶外：興記煲仔飯店門口騎樓區",
+        "en": "Hing Kee claypot rice storefront arcade, tiled pavement, restaurant signboard, entrance threshold, compact Temple Street frontage, menu board edge, stacked stools",
+        "desc": "興記煲仔飯店門口與騎樓區，重點是磁磚鋪面、店招、入口門檻、廟街店面、小菜單牌與堆疊凳子。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "urban",
+              "hospitality",
+              "indoor",
+              "outdoor",
+              "commercial"
+            ]
+          }
+        }
+      },
+      "status": "reviewed-pending-decision-unchanged"
+    },
+    {
+      "sourceFile": "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+      "source": {
+        "id": "locations:城市與社群感-urban-social-snapshots:室內-法租界咖啡館靠窗座位:44",
+        "legacyIds": [
+          "locations:城市與社群感-urban-social-snapshots:室內-法租界咖啡館靠窗座位:44"
+        ],
+        "zh": "室內：法租界咖啡館靠窗座位",
+        "en": "French Concession cafe window seat, large floor-to-ceiling window, sidewalk and park trees outside, reflective glass, small table edge, chair back, window frame detail",
+        "desc": "法租界咖啡館內靠窗座位，重點是落地窗、窗外人行道與公園樹、玻璃反射、小桌邊、椅背與窗框細節。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "urban",
+              "indoor",
+              "outdoor",
+              "commercial",
+              "green_space"
+            ]
+          }
+        }
+      },
+      "status": "reviewed-pending-decision-unchanged"
+    },
+    {
+      "sourceFile": "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+      "source": {
+        "id": "locations:城市與社群感-urban-social-snapshots:戶外-羅馬老城咖啡館外桌旁:49",
+        "legacyIds": [
+          "locations:城市與社群感-urban-social-snapshots:戶外-羅馬老城咖啡館外桌旁:49"
+        ],
+        "zh": "戶外：羅馬老城咖啡館外桌旁",
+        "en": "Rome cafe terrace edge, outdoor chairs, textured stone wall, small table edge, cafe threshold, cobblestone pavement, wall-side seating detail",
+        "desc": "羅馬咖啡館外桌旁，重點是戶外椅、小桌邊、石牆、店門檻、鵝卵石鋪面與靠牆座位。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "urban",
+              "indoor",
+              "outdoor",
+              "commercial",
+              "heritage"
+            ]
+          }
+        }
+      },
+      "status": "reviewed-pending-decision-unchanged"
+    },
+    {
+      "sourceFile": "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+      "source": {
+        "id": "locations:城市與社群感-urban-social-snapshots:戶外-飯店度假村泳池露台:55",
+        "legacyIds": [
+          "locations:城市與社群感-urban-social-snapshots:戶外-飯店度假村泳池露台:55"
+        ],
+        "zh": "戶外：飯店度假村泳池露台",
+        "en": "hotel resort poolside terrace, wet stone deck, swimming pool edge, lounge chair corner, balcony facade, palm planters, wall-lamp fixtures, asymmetric poolside composition",
+        "desc": "參考戶外飯店或度假村泳池邊的人像場景，重點是濕石材露台、泳池邊線、躺椅角落、陽台立面、棕櫚植栽與牆燈物件，形成偏側池畔構圖。",
+        "lyingSurface": {
+          "type": "floor",
+          "en": "wet stone deck"
+        },
+        "meta": {
+          "semantic": {
+            "tags": [
+              "urban",
+              "hospitality",
+              "indoor",
+              "outdoor",
+              "waterfront"
+            ]
+          }
+        }
+      },
+      "status": "reviewed-pending-decision-unchanged"
+    },
+    {
+      "sourceFile": "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+      "source": {
+        "id": "locations:城市與社群感-urban-social-snapshots:戶外-高級飯店陽台城市河景:56",
+        "legacyIds": [
+          "locations:城市與社群感-urban-social-snapshots:戶外-高級飯店陽台城市河景:56"
+        ],
+        "zh": "戶外：高級飯店陽台城市河景",
+        "en": "luxury hotel balcony river-view terrace, glass railing, balcony ledge, high-rise facade edge, broad river below, dense skyline towers, asymmetric metropolitan overlook",
+        "desc": "參考高級飯店或高樓住宿陽台的人像場景，重點是玻璃欄杆、陽台邊、建築立面、下方寬闊河流與遠方密集都市天際線。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "urban",
+              "hospitality",
+              "indoor",
+              "outdoor",
+              "waterfront"
+            ]
+          }
+        }
+      },
+      "status": "reviewed-pending-decision-unchanged"
+    },
+    {
+      "sourceFile": "knowledge_base/catalog/Locations/生活感室內-indoor-lifestyle.json",
+      "source": {
+        "id": "locations:生活感室內-indoor-lifestyle:戶外-日本住宅陽台曬衣架旁:32",
+        "legacyIds": [
+          "locations:生活感室內-indoor-lifestyle:戶外-日本住宅陽台曬衣架旁:32"
+        ],
+        "zh": "戶外：日本住宅陽台曬衣架旁",
+        "en": "Japanese apartment balcony with laundry rack, freshly washed clothes hanging to dry, metal railing, compact residential veranda, neighboring apartment facades, balcony floor edge and wall corner",
+        "desc": "日本住宅或公寓陽台上的生活化場景，重點是欄杆、曬衣架、洗好的衣物、鄰近住宅立面、陽台地面邊緣與牆角。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "indoor",
+              "residential",
+              "outdoor"
+            ]
+          }
+        }
+      },
+      "status": "reviewed-pending-decision-unchanged"
+    },
+    {
+      "sourceFile": "knowledge_base/catalog/Locations/生活感室內-indoor-lifestyle.json",
+      "source": {
+        "id": "locations:生活感室內-indoor-lifestyle:戶外-日本住宅外樓梯間:33",
+        "legacyIds": [
+          "locations:生活感室內-indoor-lifestyle:戶外-日本住宅外樓梯間:33"
+        ],
+        "zh": "戶外：日本住宅外樓梯間",
+        "en": "narrow exterior metal stairway on a Japanese apartment building, white painted steel structure, open-grate steps, slim railings, stacked landings, tight vertical side facade, compact residential side passage",
+        "desc": "參考日式公寓外掛式鐵製樓梯，白色鋼構、鏤空踏板、細窄扶手、垂直堆疊平台與住宅側面通道形成狹窄空間。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "indoor",
+              "residential",
+              "outdoor"
+            ]
+          }
+        }
+      },
+      "status": "reviewed-pending-decision-unchanged"
+    },
+    {
+      "sourceFile": "knowledge_base/catalog/Locations/生活感室內-indoor-lifestyle.json",
+      "source": {
+        "id": "locations:生活感室內-indoor-lifestyle:戶外-社區自動販賣機旁:34",
+        "legacyIds": [
+          "locations:生活感室內-indoor-lifestyle:戶外-社區自動販賣機旁:34"
+        ],
+        "zh": "戶外：社區自動販賣機旁",
+        "en": "Japanese residential vending-machine corner, two or three machines beside a wall, utility pole fragment, overhead power lines, quiet curbside asphalt, apartment facade edge, detached house detail, compact neighborhood roadside surface",
+        "desc": "日本住宅區道路旁的自動販賣機場景，重點是牆邊兩三台販賣機、電線桿片段、架空電線、安靜路緣、民宅或公寓立面與近距離路面細節。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "indoor",
+              "residential",
+              "outdoor"
+            ]
+          }
+        }
+      },
+      "status": "reviewed-pending-decision-unchanged"
+    },
+    {
+      "sourceFile": "knowledge_base/catalog/Locations/生活感室內-indoor-lifestyle.json",
+      "source": {
+        "id": "locations:生活感室內-indoor-lifestyle:戶外-辦公大樓人行道-上班途中:35",
+        "legacyIds": [
+          "locations:生活感室內-indoor-lifestyle:戶外-辦公大樓人行道-上班途中:35"
+        ],
+        "zh": "戶外：辦公大樓人行道（上班途中）",
+        "en": "Japanese business-district office sidewalk, glass-and-steel office tower frontage, clean paving, building entrance edge, curbside detail, commuter path fragment offset to one side",
+        "desc": "日本都心商辦區常見的人行道與辦公樓立面，重點是玻璃鋼構辦公樓、乾淨鋪面、入口邊緣、路緣細節與偏側通勤動線片段。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "indoor",
+              "outdoor"
+            ]
+          }
+        }
+      },
+      "status": "reviewed-pending-decision-unchanged"
+    },
+    {
+      "sourceFile": "knowledge_base/catalog/Locations/生活感室內-indoor-lifestyle.json",
+      "source": {
+        "id": "locations:生活感室內-indoor-lifestyle:戶外-日式旅館緣側木廊:36",
+        "legacyIds": [
+          "locations:生活感室內-indoor-lifestyle:戶外-日式旅館緣側木廊:36"
+        ],
+        "zh": "戶外：日式旅館緣側木廊",
+        "en": "traditional Japanese ryokan engawa veranda, raised wooden deck edge, sliding door frames, polished timber posts, stone step, garden greenery below, asymmetric threshold composition",
+        "desc": "參考日式旅館或傳統和風建築的緣側空間，重點是抬高木廊、拉門框、木柱、石階、庭院綠意與偏側門檻構圖。",
+        "lyingSurface": {
+          "type": "floor",
+          "en": "raised wooden deck"
+        },
+        "meta": {
+          "semantic": {
+            "tags": [
+              "indoor",
+              "hospitality",
+              "outdoor",
+              "heritage",
+              "green_space"
+            ]
+          }
+        }
+      },
+      "status": "reviewed-pending-decision-unchanged"
+    }
+  ]
+}

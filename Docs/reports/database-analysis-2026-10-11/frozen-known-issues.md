@@ -48,3 +48,9 @@ Cooper 本次只授權修正倫敦排屋、清澈海灣岩岸與草地樹木三�
 Cooper 核准以 main `321404ec` 修正 `locations:攝影棚與背景-studio-sets:室內-crt-電視牆攝影棚:13`：只移除 outdoor，保留原文、ID／aliases、室內棚景 tags 與地板 lyingSurface。成因為錄影設備 `VCR decks` 誤中舊戶外 `deck` 子字串；D 只保存當時推論，不能歸因於 D 或前兩批 A5。來源歷史與精確值見 [決策](../../decisions/2026-10-26-a5-crt-outdoor.md)。
 
 沿用現行室內規則，窗光候選、隨機服裝與自動外套可改變；手動指定及仰躺表面主導維持。3,834 案例／836 候選池獨立對照、完整自動及桌手機驗收通過；詳見 [規格](../../specs/scene-semantic-a5-crt-v1.md)與 [報告](../scene-semantic-a5-crt-2026-10-26/README.md)。Cooper 已確認本批驗收通過並授權限定提交／推送，實際 Git 與 CI 結果另行核對。上方 D 數值與前兩批的「CRT 另批」均保留為歷史；其他項目與 P5b 不在本次範圍。
+
+## 2026-10-26 A5 當前狀態入口：西門町與雙標籤
+
+前三批 A5 已交付（22d1103e、321404ec、5110401f），其 CI 均成功；上方當時的「未提交」「另批」「授權」保留為歷史。完整 ID、逐筆狀態、提交與 CI 見 [A5 狀態總表](../../decisions/2026-10-26-a5-closure-review.md)，不能把這份 D 凍結表當現行待修清單。
+
+原 scene-lighting C1 已列西門町 parking→park，以及室內外雙標籤；這些沒有隨前三批 19 筆全部結案。本批只修正西門町 green_space，原文與其他欄位不變；11 筆雙標籤（9 戶外＋2 室內）只審查，不改值。其完整來源及 aliases 由固定 main review fixture 與回歸保護。[本批規格](../../specs/scene-semantic-a5-ximending-v1.md)／[驗收](../scene-semantic-a5-ximending-2026-10-26/README.md)。本批未提交／推送，其他 A 項及 P5b 不在範圍。

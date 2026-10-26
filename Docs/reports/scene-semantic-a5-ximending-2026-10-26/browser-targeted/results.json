@@ -1,0 +1,50 @@
+{
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      900
+    ]
+  ],
+  "checks": [
+    "1440: old JSON card retains source text and baseline codec normalization",
+    "1440: 全身鏡頭 (Full Body Shot): scene picker, original ordered ambient/subject pools and six outputs",
+    "1440: 全身鏡頭 (Full Body Shot): saved, reloaded and applied",
+    "1440: 全身鏡頭 (Full Body Shot): randomized ambient and subject light",
+    "1440: 牛仔中景 (Cowboy Shot): scene picker, original ordered ambient/subject pools and six outputs",
+    "1440: 牛仔中景 (Cowboy Shot): saved, reloaded and applied",
+    "1440: 牛仔中景 (Cowboy Shot): randomized ambient and subject light",
+    "1440: 胸上特寫: scene picker, original ordered ambient/subject pools and six outputs",
+    "1440: 胸上特寫: saved, reloaded and applied",
+    "1440: 胸上特寫: randomized ambient and subject light",
+    "1440: integrated natural standing with Ximending",
+    "1440: chest crop correctly disables capture; selecting full body enables it",
+    "1440: full-body import and three capture rerolls retain person/wardrobe",
+    "1440: new candidate retains imported person until explicit reimport",
+    "390: old JSON card retains source text and baseline codec normalization",
+    "390: 全身鏡頭 (Full Body Shot): scene picker, original ordered ambient/subject pools and six outputs",
+    "390: 全身鏡頭 (Full Body Shot): saved, reloaded and applied",
+    "390: 全身鏡頭 (Full Body Shot): randomized ambient and subject light",
+    "390: 牛仔中景 (Cowboy Shot): scene picker, original ordered ambient/subject pools and six outputs",
+    "390: 牛仔中景 (Cowboy Shot): saved, reloaded and applied",
+    "390: 牛仔中景 (Cowboy Shot): randomized ambient and subject light",
+    "390: 胸上特寫: scene picker, original ordered ambient/subject pools and six outputs",
+    "390: 胸上特寫: saved, reloaded and applied",
+    "390: 胸上特寫: randomized ambient and subject light",
+    "390: integrated natural standing with Ximending",
+    "390: chest crop correctly disables capture; selecting full body enables it",
+    "390: full-body import and three capture rerolls retain person/wardrobe",
+    "390: new candidate retains imported person until explicit reimport"
+  ],
+  "errors": [],
+  "externalPosts": [],
+  "screenshots": [
+    "1440-ximending-scene.png",
+    "1440-ximending-capture.png",
+    "390-ximending-scene.png",
+    "390-ximending-capture.png"
+  ]
+}

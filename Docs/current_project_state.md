@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-26
 
+## Phase 4 A5：西門町與狀態收尾（2026-10-26，已驗收，授權限定交付）
+
+- 本批基準為本機／GitHub main `5110401f3eee4aaa6cc59ee9175625cc96326d9e`。只移除西門町的 green_space，保留停車原文、ID／aliases／順序與其他語意；正式分類及生成 database 各少一個 tag。engine／renderer／推論退路不改。
+- [A5 狀態總表](decisions/2026-10-26-a5-closure-review.md)區分 15 筆已交付修正、4 筆核准保留、1 筆本機修正、11 筆雙標籤待決。雙標籤只審查、原值保持，A5 不宣稱全面結案；其他項目與 P5b 未開始。
+- 前三批 `22d1103e`／`321404ec`／`5110401f` 的 CI 已重新核對均成功；護欄 `a9dd3616` 亦已交付且 CI 成功。下方各批「授權交付」「CRT 另批」「Phase 4 未啟動」皆為當時歷史，本段及狀態總表優先。
+- 獨立對照 3,834 生成／836 候選組合，公開輸出／selection／RNG 不變；完整前端 1,846、Prompt Quality 754、Python 41、catalog 工具 32、資料／歷史 ID／strict／lint／build／資產通過。同 seed 200 audit 相同，0 blocker／18 既有診斷；桌手機 50 項、14 張畫面通過。三批原 A5 工具回放及 461 份歷史檔保護通過，其他 140 份未提交內容保持。
+- [規格](specs/scene-semantic-a5-ximending-v1.md)、[驗收報告](reports/scene-semantic-a5-ximending-2026-10-26/README.md)。Cooper 已確認本批並授權只提交／推送 A5 收尾，再續作 A1；本批 Git 與 CI 結果另行核對；保留 A～E、前三批 A5 與其他未提交內容。
+
 ## Phase 4 A5：CRT outdoor 修正（2026-10-26，已驗收、授權交付）
 
 - 以已核對本機／遠端 main `321404ecd041343f4a764260ef59ffc08a74a199` 為基準，只移除「室內：CRT 電視牆攝影棚」的 outdoor。正式差異只有一份 Locations JSON 與生成 database 各一個 tag；保留 VCR decks 原文、ID／有序 aliases、其他 tags、lyingSurface、renderer 及推論退路。

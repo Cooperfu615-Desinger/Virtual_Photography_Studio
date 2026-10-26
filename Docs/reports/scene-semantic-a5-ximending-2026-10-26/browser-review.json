@@ -1,0 +1,42 @@
+{
+  "url": "http://127.0.0.1:5175/Virtual_Photography_Studio/?dllAcceptance=1",
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      900
+    ]
+  ],
+  "checks": 50,
+  "screenshotsInspected": [
+    "browser-targeted/1440-ximending-capture.png",
+    "browser-targeted/1440-ximending-scene.png",
+    "browser-targeted/390-ximending-capture.png",
+    "browser-targeted/390-ximending-scene.png",
+    "browser-general/1440-1.png",
+    "browser-general/1440-2.png",
+    "browser-general/1440-3.png",
+    "browser-general/1440-4.png",
+    "browser-general/1440-5.png",
+    "browser-general/390-1.png",
+    "browser-general/390-2.png",
+    "browser-general/390-3.png",
+    "browser-general/390-4.png",
+    "browser-general/390-5.png"
+  ],
+  "result": "PASS",
+  "consoleErrors": 0,
+  "pageErrors": 0,
+  "externalPosts": 0,
+  "horizontalPageOverflow": false,
+  "brokenImages": false,
+  "notes": [
+    "All five workspaces and targeted scene/capture screenshots visually reviewed.",
+    "Existing bounded text areas and mobile vertical scrolling retained.",
+    "No layout or production UI code changed."
+  ],
+  "externalModelGeneration": "not run"
+}

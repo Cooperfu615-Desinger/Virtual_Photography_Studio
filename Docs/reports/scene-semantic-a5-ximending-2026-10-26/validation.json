@@ -1,0 +1,129 @@
+[
+  {
+    "name": "sync-check",
+    "command": [
+      "python3",
+      "scripts/sync_to_json.py",
+      "--check",
+      "--report-json"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 0.36,
+    "log": "logs/sync-check.txt.gz"
+  },
+  {
+    "name": "python",
+    "command": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "scripts/tests"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 6.95,
+    "log": "logs/python.txt.gz"
+  },
+  {
+    "name": "strict",
+    "command": [
+      "node",
+      "scripts/check_catalog_integrity.mjs",
+      "--strict"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 1.79,
+    "log": "logs/strict.txt.gz"
+  },
+  {
+    "name": "catalog-tools",
+    "command": [
+      "node",
+      "--test",
+      "scripts/tests/catalog-integrity.test.mjs",
+      "scripts/tests/catalog-semantics.test.mjs",
+      "scripts/tests/catalog-legacy.test.mjs"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 6.21,
+    "log": "logs/catalog-tools.txt.gz"
+  },
+  {
+    "name": "frontend",
+    "command": [
+      "npm",
+      "test"
+    ],
+    "cwd": "webapp",
+    "exitCode": 0,
+    "seconds": 122.98,
+    "log": "logs/frontend.txt.gz"
+  },
+  {
+    "name": "prompt-quality",
+    "command": [
+      "npm",
+      "run",
+      "test:prompt-quality"
+    ],
+    "cwd": "webapp",
+    "exitCode": 0,
+    "seconds": 81.41,
+    "log": "logs/prompt-quality.txt.gz"
+  },
+  {
+    "name": "lint",
+    "command": [
+      "npm",
+      "run",
+      "lint"
+    ],
+    "cwd": "webapp",
+    "exitCode": 0,
+    "seconds": 8.64,
+    "log": "logs/lint.txt.gz"
+  },
+  {
+    "name": "build",
+    "command": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "cwd": "webapp",
+    "exitCode": 0,
+    "seconds": 3.21,
+    "log": "logs/build.txt.gz"
+  },
+  {
+    "name": "assets",
+    "command": [
+      "python3",
+      "scripts/check_public_assets.py"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 0.07,
+    "log": "logs/assets.txt.gz"
+  },
+  {
+    "name": "audit-after",
+    "command": [
+      "node",
+      "scripts/validate_prompt_logic.mjs",
+      "200",
+      "prompt-quality-baseline",
+      "--strict",
+      "--json"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 1.98,
+    "log": "logs/audit-after.txt.gz"
+  }
+]
