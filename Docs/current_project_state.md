@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-26
 
+## Phase 4 A5：11 筆 commercial 修正／4 筆保留（2026-10-26，已驗收、授權交付）
+
+- 基準為已核對遠端 main `22d1103e2f88984af7ed33249b08b4e2729ba466`。依 Cooper 核准，只移除 11 筆 commercial，保留試衣間、酒吧包廂、八公商業立面與販賣機四筆；CRT 另批。原文、永久 ID、有序 aliases、其他 tags、lyingSurface、renderer／推論退路均不變。
+- 正式差異只有四份 Locations JSON 及生成 database。獨立 Git 引擎對照 3,804 組、12,540 組有序候選、45 舊收藏、150 UI transition 與 5 匯入流程來源均通過；1,599 組只有核准 metadata 差異，公開六輸出／selection／summary／RNG 不變。
+- 新增 7 項回歸；CI 同版 Node 22 前端 1,844／1,844、Prompt Quality 754、Python 41、catalog 工具 32 全通過，sync／schema／歷史 ID／strict／lint／build／資產通過。固定 seed 200 audit 排除 runtime promptId 後完全相同，0 blockers／18 既有診斷。
+- 桌手機 116 項流程、20 張截圖通過；五工作區、全部 15 場景、整合姿勢／抓拍、匯入、六輸出及收藏重載保持。無瀏覽器錯誤／外部 POST。A～E 與前批 A5 封存不改，前批原工具在精確還原本批資料的隔離副本重跑 1,740 組通過。
+- Cooper 已確認本批驗收通過，授權只提交並 push 本次資料、文件、回歸案例與驗收工具；實際提交及對應 CI 結果另行核對。其他未提交內容保持；CRT、其他問題與 P5b 未開始。[規格](specs/scene-semantic-a5-commercial-v1.md)、[逐筆決策](decisions/2026-10-26-a5-commercial-review.md)、[本批報告](reports/scene-semantic-a5-commercial-2026-10-26/README.md)。下方保留歷史交付紀錄。
+
 ## Phase 4 A5：三筆場景語意修正（2026-10-26，已驗收、授權交付）
 
 - 依 Cooper 授權，只移除倫敦排屋的 subterranean，以及清澈海灣岩岸／草地與樹木的 commercial。一般全身環境光候選含全無為 5→19、19→17、19→17；原文、ID、aliases、順序、lyingSurface 與推論相容退路不變。倫敦成因文件更正為中文「地下室」命中「地下」，D 歷史 JSON 不回寫。

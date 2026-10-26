@@ -1,0 +1,52 @@
+file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/check_catalog_integrity.mjs:47
+  if (['--repo', '--json-out', '--allowlist'].includes(argv[i])) { if (!argv[++i] || argv[i].startsWith('--')) throw new Error('Missing CLI argument value'); }
+                                                                                                                     ^
+
+Error: Missing CLI argument value
+    at file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/check_catalog_integrity.mjs:47:118
+    at ModuleJob.run (node:internal/modules/esm/module_job:430:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:639:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v25.8.2
+找不到 repo 根目錄；請用 --repo 指定 Virtual_Photography_Studio 路徑
+✔ aliases are scoped by actual control, self aliases legal, cross-category owners conflict (1.88675ms)
+✔ primary ID duplication and alias shadowing are blocking (0.205708ms)
+✔ allowlist rejects stale, incomplete, duplicate and broad exceptions (13.194666ms)
+✔ action source references, clauses, validation and family errors are detected (0.249ms)
+✔ field mapping preserves false, empty strings, nested values and reports unknown source fields (0.496792ms)
+✔ strict CLI succeeds for exact exceptions and fails for stale exceptions (4405.602292ms)
+✔ rehearsal refuses repo output, symlink escape into repo, existing targets and wrong source without writes (18.859917ms)
+✔ failed staged conversion leaves no target or staging; racing target is preserved (1.927583ms)
+✔ nested source paths and category membership require explicit responsibility (0.307667ms)
+✔ pose metadata validates nested support, arrangement, orientation and crop references (0.514791ms)
+✔ catalog testing exports cannot enter production through imports, aliases or namespaces (6.315667ms)
+✔ production scan includes JSX and helper files, excludes only test files, and fails closed on parse errors (337.882375ms)
+✔ all declared targets resolve; own-current aliases and ambiguous first matches stay legal (208.304084ms)
+✔ catalog, embedded, attribute and category failures are blocking (928.277167ms)
+✔ duplicate historical tuples, labels, prompt text and Map keys fail in their own namespace (586.827209ms)
+✔ derived legacy ID cannot shadow another current entry (178.603583ms)
+✔ source extraction rejects expressions instead of executing arbitrary code (28.766375ms)
+✔ rehearsal refuses wrong SHA, existing/internal output and already relocated engine (592.436125ms)
+✔ all 22 tables have explicit ownership policy; legacy text is not mistaken for an ID (203.899625ms)
+✔ each option alias family rejects another current ID and preserves its own target ID (1957.531ms)
+✔ standalone raw and computed migration keys cannot shadow current source IDs (764.406458ms)
+✔ hand-to-prop rejects the original counterexample, but unrelated control IDs do not collide (143.052958ms)
+✔ new embedded source ID cannot claim a historical migration key (58.264625ms)
+✔ label-based migrations check source owners and cannot hide another primary ID in aliases (282.764166ms)
+✔ computed eye-wear keys are checked in single and both duo role namespaces (174.7795ms)
+✔ selfie substring matching and source/computed drift fail closed (191.306292ms)
+✔ historical ownership cannot authorize a different migration target (254.3315ms)
+✔ materialization preserves ordered whole inference and source fields without mutating inputs (10.528375ms)
+✔ acceptance rejects tag order, key order, field loss and changed falsy values (0.283ms)
+✔ suggestion removes only the target semantic in a copy, preserves explicit source and default cache (74.679417ms)
+✔ field mapping detects lost semantic fields, leaked container and reordered merged tags (1.738291ms)
+✔ one-time rehearsal rejects unsafe output, wrong baseline and already materialized source without publication (1542.662333ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 32
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6783.756375

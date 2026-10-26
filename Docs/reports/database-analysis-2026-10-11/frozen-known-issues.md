@@ -36,3 +36,9 @@ D 凍結當時，倫敦的環境光只保留全無、清晨薄霧、雨天陰濕
 先前本頁將倫敦成因寫為 `drainage pipes`，為文件錯誤。重新核對固定 pre-D `17074fbe3850e2e9fea300b36697643913f707a1` 及 pre-A5 `a9dd3616bc6596cdb199420f3189a420c6f1ed17`：英文均為 `London townhouse frontage edge, Victorian terrace facade section, black iron railings, stone steps, pavement edge, basement window grille, doorway threshold`；中文均含「地下室窗格」。以保留推論的相容路徑在記憶體移除「地下室」後，`subterranean` 消失；這是立面細節被誤當作地下場景。D 的 [known-issues.json](../catalog-architecture-d-2026-10-25/known-issues.json) 是不可改寫的歷史證據，其中舊成因文字請以本註記勘誤，數值與候選名單仍保留。
 
 Cooper 本次只授權修正倫敦排屋、清澈海灣岩岸與草地樹木三筆 explicit semantic。依 [三場景規格](../../specs/scene-semantic-a5-three-locations-v1.md)執行；不修改推論函式或其他 15 筆 commercial，也不擴及 CRT／P5b。當前實作與驗收狀態見 [A5 報告](../scene-semantic-a5-2026-10-26/README.md)，不以本頁歷史表格判定三筆仍待實作。
+
+## 2026-10-26 後續 commercial 審查（本機完成、未提交）
+
+以已交付三場景修正的 main `22d1103e` 為新基準，Cooper 核准 15 筆中 11 移除、4 保留。保留者為零售試衣間、酒吧包廂、八公商業立面與販賣機；small 命中原因不能代替實際語意判定。15 筆永久 ID、原文、判準與有序 before／after 見[逐筆決策](../../decisions/2026-10-26-a5-commercial-review.md)及[規格](../../specs/scene-semantic-a5-commercial-v1.md)。
+
+本機 12,540 組候選與 3,804 組生成對照通過，公開輸出／selection／RNG 不變，只有核准 metadata 改變；[完整驗收](../scene-semantic-a5-commercial-2026-10-26/README.md)。上方 D 原值與量測數值保持歷史用途，不作當前待修清單。CRT outdoor 錯標另批，本批不變；A6 與 P5b 未啟動。

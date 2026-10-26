@@ -1,0 +1,179 @@
+{
+  "url": "http://127.0.0.1:5175/Virtual_Photography_Studio/?dllAcceptance=1",
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      900
+    ]
+  ],
+  "reviewed": [
+    {
+      "id": "locations:其他專屬場景-other-dedicated-scenes:其他-生活感日式榻榻米房間:2",
+      "decision": "remove"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄校舍保健室:13",
+      "decision": "remove"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-無人月台長椅區:4",
+      "decision": "remove"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂正面長椅視角:8",
+      "decision": "remove"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂坐滿與站滿乘客:10",
+      "decision": "remove"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-八公銅像旁行人區:12",
+      "decision": "retain"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-目黑川旁的櫻花隧道:14",
+      "decision": "remove"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町販賣機旁:31",
+      "decision": "retain"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-臥室窗邊:6",
+      "decision": "remove"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-更衣室-試衣間:10",
+      "decision": "retain"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-英式小旅館房間:18",
+      "decision": "remove"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-傳統酒吧二樓包廂:19",
+      "decision": "retain"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-黑膠唱片聆聽角:21",
+      "decision": "remove"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-女高生房間:24",
+      "decision": "remove"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-狹小都會旅館房間:38",
+      "decision": "remove"
+    }
+  ],
+  "checks": [
+    "1440/其他：生活感日式榻榻米房間: selected scene, ordered candidates and six outputs",
+    "1440/其他：生活感日式榻榻米房間: Saved Cards persisted, reloaded and applied",
+    "1440/其他：生活感日式榻榻米房間: random ambient",
+    "1440/室內：廢棄校舍保健室: selected scene, ordered candidates and six outputs",
+    "1440/室內：廢棄校舍保健室: Saved Cards persisted, reloaded and applied",
+    "1440/室內：廢棄校舍保健室: random ambient",
+    "1440/室內：無人月台長椅區: selected scene, ordered candidates and six outputs",
+    "1440/室內：無人月台長椅區: Saved Cards persisted, reloaded and applied",
+    "1440/室內：無人月台長椅區: random ambient",
+    "1440/室內：電車車廂正面長椅視角: selected scene, ordered candidates and six outputs",
+    "1440/室內：電車車廂正面長椅視角: Saved Cards persisted, reloaded and applied",
+    "1440/室內：電車車廂正面長椅視角: random ambient",
+    "1440/室內：電車車廂坐滿與站滿乘客: selected scene, ordered candidates and six outputs",
+    "1440/室內：電車車廂坐滿與站滿乘客: Saved Cards persisted, reloaded and applied",
+    "1440/室內：電車車廂坐滿與站滿乘客: random ambient",
+    "1440/戶外：八公銅像旁行人區: selected scene, ordered candidates and six outputs",
+    "1440/戶外：八公銅像旁行人區: Saved Cards persisted, reloaded and applied",
+    "1440/戶外：八公銅像旁行人區: random ambient",
+    "1440/戶外：目黑川旁的櫻花隧道: selected scene, ordered candidates and six outputs",
+    "1440/戶外：目黑川旁的櫻花隧道: Saved Cards persisted, reloaded and applied",
+    "1440/戶外：目黑川旁的櫻花隧道: random ambient",
+    "1440/戶外：新宿歌舞伎町販賣機旁: selected scene, ordered candidates and six outputs",
+    "1440/戶外：新宿歌舞伎町販賣機旁: Saved Cards persisted, reloaded and applied",
+    "1440/戶外：新宿歌舞伎町販賣機旁: random ambient",
+    "1440/室內：臥室窗邊: selected scene, ordered candidates and six outputs",
+    "1440/室內：臥室窗邊: Saved Cards persisted, reloaded and applied",
+    "1440/室內：臥室窗邊: random ambient",
+    "1440/室內：更衣室 / 試衣間: selected scene, ordered candidates and six outputs",
+    "1440/室內：更衣室 / 試衣間: Saved Cards persisted, reloaded and applied",
+    "1440/室內：更衣室 / 試衣間: random ambient",
+    "1440/室內：英式小旅館房間: selected scene, ordered candidates and six outputs",
+    "1440/室內：英式小旅館房間: Saved Cards persisted, reloaded and applied",
+    "1440/室內：英式小旅館房間: random ambient",
+    "1440/室內：傳統酒吧二樓包廂: selected scene, ordered candidates and six outputs",
+    "1440/室內：傳統酒吧二樓包廂: Saved Cards persisted, reloaded and applied",
+    "1440/室內：傳統酒吧二樓包廂: random ambient",
+    "1440/室內：黑膠唱片聆聽角: selected scene, ordered candidates and six outputs",
+    "1440/室內：黑膠唱片聆聽角: Saved Cards persisted, reloaded and applied",
+    "1440/室內：黑膠唱片聆聽角: random ambient",
+    "1440/室內：女高生房間: selected scene, ordered candidates and six outputs",
+    "1440/室內：女高生房間: Saved Cards persisted, reloaded and applied",
+    "1440/室內：女高生房間: random ambient",
+    "1440/室內：狹小都會旅館房間: selected scene, ordered candidates and six outputs",
+    "1440/室內：狹小都會旅館房間: Saved Cards persisted, reloaded and applied",
+    "1440/室內：狹小都會旅館房間: random ambient",
+    "390/其他：生活感日式榻榻米房間: selected scene, ordered candidates and six outputs",
+    "390/其他：生活感日式榻榻米房間: Saved Cards persisted, reloaded and applied",
+    "390/其他：生活感日式榻榻米房間: random ambient",
+    "390/室內：廢棄校舍保健室: selected scene, ordered candidates and six outputs",
+    "390/室內：廢棄校舍保健室: Saved Cards persisted, reloaded and applied",
+    "390/室內：廢棄校舍保健室: random ambient",
+    "390/室內：無人月台長椅區: selected scene, ordered candidates and six outputs",
+    "390/室內：無人月台長椅區: Saved Cards persisted, reloaded and applied",
+    "390/室內：無人月台長椅區: random ambient",
+    "390/室內：電車車廂正面長椅視角: selected scene, ordered candidates and six outputs",
+    "390/室內：電車車廂正面長椅視角: Saved Cards persisted, reloaded and applied",
+    "390/室內：電車車廂正面長椅視角: random ambient",
+    "390/室內：電車車廂坐滿與站滿乘客: selected scene, ordered candidates and six outputs",
+    "390/室內：電車車廂坐滿與站滿乘客: Saved Cards persisted, reloaded and applied",
+    "390/室內：電車車廂坐滿與站滿乘客: random ambient",
+    "390/戶外：八公銅像旁行人區: selected scene, ordered candidates and six outputs",
+    "390/戶外：八公銅像旁行人區: Saved Cards persisted, reloaded and applied",
+    "390/戶外：八公銅像旁行人區: random ambient",
+    "390/戶外：目黑川旁的櫻花隧道: selected scene, ordered candidates and six outputs",
+    "390/戶外：目黑川旁的櫻花隧道: Saved Cards persisted, reloaded and applied",
+    "390/戶外：目黑川旁的櫻花隧道: random ambient",
+    "390/戶外：新宿歌舞伎町販賣機旁: selected scene, ordered candidates and six outputs",
+    "390/戶外：新宿歌舞伎町販賣機旁: Saved Cards persisted, reloaded and applied",
+    "390/戶外：新宿歌舞伎町販賣機旁: random ambient",
+    "390/室內：臥室窗邊: selected scene, ordered candidates and six outputs",
+    "390/室內：臥室窗邊: Saved Cards persisted, reloaded and applied",
+    "390/室內：臥室窗邊: random ambient",
+    "390/室內：更衣室 / 試衣間: selected scene, ordered candidates and six outputs",
+    "390/室內：更衣室 / 試衣間: Saved Cards persisted, reloaded and applied",
+    "390/室內：更衣室 / 試衣間: random ambient",
+    "390/室內：英式小旅館房間: selected scene, ordered candidates and six outputs",
+    "390/室內：英式小旅館房間: Saved Cards persisted, reloaded and applied",
+    "390/室內：英式小旅館房間: random ambient",
+    "390/室內：傳統酒吧二樓包廂: selected scene, ordered candidates and six outputs",
+    "390/室內：傳統酒吧二樓包廂: Saved Cards persisted, reloaded and applied",
+    "390/室內：傳統酒吧二樓包廂: random ambient",
+    "390/室內：黑膠唱片聆聽角: selected scene, ordered candidates and six outputs",
+    "390/室內：黑膠唱片聆聽角: Saved Cards persisted, reloaded and applied",
+    "390/室內：黑膠唱片聆聽角: random ambient",
+    "390/室內：女高生房間: selected scene, ordered candidates and six outputs",
+    "390/室內：女高生房間: Saved Cards persisted, reloaded and applied",
+    "390/室內：女高生房間: random ambient",
+    "390/室內：狹小都會旅館房間: selected scene, ordered candidates and six outputs",
+    "390/室內：狹小都會旅館房間: Saved Cards persisted, reloaded and applied",
+    "390/室內：狹小都會旅館房間: random ambient"
+  ],
+  "errors": [],
+  "externalPosts": [],
+  "screenshots": [
+    "1440-0.png",
+    "1440-5.png",
+    "1440-8.png",
+    "1440-14.png",
+    "390-0.png",
+    "390-5.png",
+    "390-8.png",
+    "390-14.png"
+  ]
+}

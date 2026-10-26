@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "baseCommit": "a9dd3616bc6596cdb199420f3189a420c6f1ed17",
+  "protectedFilesChecked": 246,
+  "sourceDelta": [
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).41.meta.semantic.tags.[keys/order]",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).41.meta.semantic.tags.3",
+    "$.Locations.自然與戶外 (Nature & Outdoors).1.meta.semantic.tags.[keys/order]",
+    "$.Locations.自然與戶外 (Nature & Outdoors).1.meta.semantic.tags.2",
+    "$.Locations.自然與戶外 (Nature & Outdoors).1.meta.semantic.tags.3",
+    "$.Locations.自然與戶外 (Nature & Outdoors).3.meta.semantic.tags.[keys/order]",
+    "$.Locations.自然與戶外 (Nature & Outdoors).3.meta.semantic.tags.2",
+    "$.Locations.自然與戶外 (Nature & Outdoors).3.meta.semantic.tags.3"
+  ],
+  "pools": 66,
+  "unaffectedLocations": 152,
+  "cases": 1740,
+  "changedCases": 452,
+  "rngChangedCases": 0,
+  "oracleMismatches": 0,
+  "savedCards": 6
+}

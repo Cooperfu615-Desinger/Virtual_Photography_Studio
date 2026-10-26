@@ -133,8 +133,7 @@
         "semantic": {
           "tags": [
             "indoor",
-            "residential",
-            "commercial"
+            "residential"
           ]
         }
       }
@@ -344,7 +343,6 @@
           "tags": [
             "indoor",
             "hospitality",
-            "commercial",
             "heritage"
           ]
         }
@@ -398,8 +396,7 @@
       "meta": {
         "semantic": {
           "tags": [
-            "indoor",
-            "commercial"
+            "indoor"
           ]
         }
       }
@@ -458,7 +455,6 @@
           "tags": [
             "indoor",
             "residential",
-            "commercial",
             "institutional"
           ]
         }
@@ -715,8 +711,7 @@
         "semantic": {
           "tags": [
             "indoor",
-            "hospitality",
-            "commercial"
+            "hospitality"
           ]
         }
       }

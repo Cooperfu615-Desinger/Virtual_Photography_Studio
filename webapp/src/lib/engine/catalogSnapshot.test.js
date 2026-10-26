@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { getCompiledCatalogForTesting, getLockControls, getKnowledgeBaseSnapshot } from '../engine.js';
-import { preA5Database } from '../../../../scripts/lib/a5HistoricalReplay.mjs';
+import { preAllA5Database as preA5Database } from '../../../../scripts/lib/a5CommercialHistoricalReplay.mjs';
 import { createCatalogSnapshots, differences } from '../../../../scripts/lib/catalogBaseline.mjs';
 
 test('A catalog snapshots preserve ordered IDs, aliases and complete compiled metadata', () => {

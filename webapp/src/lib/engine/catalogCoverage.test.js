@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { pathToFileURL } from 'node:url';
-import { withPreA5ReplayRoot } from '../../../../scripts/lib/a5HistoricalReplay.mjs';
+import { withPreAllA5ReplayRoot as withPreA5ReplayRoot } from '../../../../scripts/lib/a5CommercialHistoricalReplay.mjs';
 
 test('all 47 lying-surface scenes retain effective side, prone and supine orientations', async () => {
   const result = await withPreA5ReplayRoot(async repo => {

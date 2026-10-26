@@ -1,0 +1,15 @@
+✔ commercial review pins eleven removals and four retained entries without touching CRT (1.668292ms)
+✔ historical/custom fallback still infers commercial; formal semantics override it (24.075917ms)
+✔ inverse restores exact previous database and rejects extra tags, missing IDs, duplicates and retained-item changes (64.322583ms)
+✔ all fifteen scenes preserve ordered candidate pools for every crop, effective attribute and ambient state (10306.390042ms)
+✔ single, duo and all crops preserve selections, six output states and RNG (3231.583667ms)
+✔ old JSON and Markdown preserve public text and IDs; restored generation remains equivalent (2184.290542ms)
+✔ UI scene switches and Saved Cards apply retain the prior availability policy (192.770625ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 16228.78

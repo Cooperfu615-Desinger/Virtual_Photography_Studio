@@ -1,0 +1,57 @@
+{
+  "checkedAt": "2026-10-26T03:45:35.164504+00:00",
+  "baseCommit": "22d1103e2f88984af7ed33249b08b4e2729ba466",
+  "authorization": "Cooper accepted this batch and authorized only its data, documentation, regression cases and acceptance tools for commit/push. CRT and all other items/P5b excluded.",
+  "acceptedReviewFileCount": 77,
+  "authorizationDocumentRevisions": {
+    "Docs/current_project_state.md": {
+      "beforeSha256": "3f776e8691874ea2ec73a14c27c6c7a6751a5b0b220f8ae48a0218600b0b1705",
+      "afterSha256": "ed6c5bf22409bdb48d6e8c4c714d94d9ab4ea08a8ffe4975a33e88710344686f"
+    },
+    "Docs/specs/scene-semantic-a5-commercial-v1.md": {
+      "beforeSha256": "5e59bb1b4913a377b1a2697f0923e947b425bcb87ea4b7ff70bedf23621a1a9b",
+      "afterSha256": "bf40df1aa6de68355b9df156d6d45357fd4ff651d557ba6342e9b1393fcd5593"
+    },
+    "Docs/specs/catalog-data-architecture-v1.md": {
+      "beforeSha256": "0a11f66e6e294bfec023e4d68310dae8d80d502f788a4278919610830ed3048d",
+      "afterSha256": "9b23a7b06fb4880d6b04abede1d33bf26533bd777ff656f7a7732bf6f5756374"
+    },
+    "Docs/reports/scene-semantic-a5-commercial-2026-10-26/README.md": {
+      "beforeSha256": "1fb1c5c81dad96d516f6095ed616cccc4afc66e6b0dcd8ad17480a64813637cb",
+      "afterSha256": "b668561531dd5c61702ba71670ea0f15d91ffe296d09af06a841a4d8918064ad"
+    },
+    "Docs/reports/scene-semantic-a5-commercial-2026-10-26/evidence-sha256.json": {
+      "beforeSha256": "1b961e803b5a48704e04a89867d6abc486b9a6984fd1a1807e81f49f6b2b404a",
+      "afterSha256": "fc190b9bceb7107f4bda81063e33ff0e553e133473559235a10099c06ce10911",
+      "reason": "Only README authorization prose hash refreshed; all acceptance artifact hashes unchanged."
+    }
+  },
+  "acceptedCodeDataTestsAndEvidenceUnchanged": true,
+  "sync": {
+    "records": 1050,
+    "historicalIds": 1050,
+    "initialFrozen": 0,
+    "mode": "historical",
+    "registryBaseCommit": "22d1103e2f88984af7ed33249b08b4e2729ba466",
+    "registrySha256": "b79fa41d64a2954c28a3c716669c4deb929fabd2c85115159f3567822bbc7b25",
+    "outputs": 8,
+    "source": "catalog JSON",
+    "check": true
+  },
+  "focusedTests": {
+    "passed": 7,
+    "failed": 0,
+    "node": "22.22.3"
+  },
+  "strict": {
+    "allowed": 2,
+    "blocking": 0,
+    "stale": 0
+  },
+  "otherDirtyFilesCompared": 140,
+  "otherDirtyDifferences": 0,
+  "historicalFilesCompared": 294,
+  "historicalDifferences": 0,
+  "previewPort5175": "released",
+  "remoteCI": "pending actual pushed commit"
+}

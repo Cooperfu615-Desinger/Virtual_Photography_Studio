@@ -1,0 +1,176 @@
+✖ commercial review pins eleven removals and four retained entries without touching CRT (2.702333ms)
+✔ historical/custom fallback still infers commercial; formal semantics override it (25.819292ms)
+✖ inverse restores exact previous database and rejects extra tags, missing IDs, duplicates and retained-item changes (33.400583ms)
+✖ all fifteen scenes preserve ordered candidate pools for every crop, effective attribute and ambient state (5.297708ms)
+✖ single, duo and all crops preserve selections, six output states and RNG (5.073ms)
+✖ old JSON and Markdown preserve public text and IDs; restored generation remains equivalent (5.5975ms)
+✖ UI scene switches and Saved Cards apply retain the prior availability policy (5.838208ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 1
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 291.606125
+
+✖ failing tests:
+
+test at webapp/src/lib/engine/sceneSemanticA5Commercial.test.js:21:1
+✖ commercial review pins eleven removals and four retained entries without touching CRT (2.702333ms)
+  AssertionError [ERR_ASSERTION]: 其他：生活感日式榻榻米房間
+  + actual - expected
+
+    [
+      'other_scene',
+      'indoor',
+  +   'commercial'
+    ]
+
+      at TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/sceneSemanticA5Commercial.test.js:26:12)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 'other_scene', 'indoor', 'commercial' ],
+    expected: [ 'other_scene', 'indoor' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at webapp/src/lib/engine/sceneSemanticA5Commercial.test.js:38:1
+✖ inverse restores exact previous database and rejects extra tags, missing IDs, duplicates and retained-item changes (33.400583ms)
+  AssertionError [ERR_ASSERTION]: commercial inverse rejects an unreviewed change: locations:其他專屬場景-other-dedicated-scenes:其他-生活感日式榻榻米房間:2
+  + actual - expected
+
+    [
+      'other_scene',
+      'indoor',
+  +   'commercial'
+    ]
+
+      at preCommercialDatabase (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/a5CommercialHistoricalReplay.mjs:15:12)
+      at TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/sceneSemanticA5Commercial.test.js:41:20)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 'other_scene', 'indoor', 'commercial' ],
+    expected: [ 'other_scene', 'indoor' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at webapp/src/lib/engine/sceneSemanticA5Commercial.test.js:55:1
+✖ all fifteen scenes preserve ordered candidate pools for every crop, effective attribute and ambient state (5.297708ms)
+  AssertionError [ERR_ASSERTION]: commercial inverse rejects an unreviewed change: locations:其他專屬場景-other-dedicated-scenes:其他-生活感日式榻榻米房間:2
+  + actual - expected
+
+    [
+      'other_scene',
+      'indoor',
+  +   'commercial'
+    ]
+
+      at preCommercialDatabase (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/a5CommercialHistoricalReplay.mjs:15:12)
+      at TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/sceneSemanticA5Commercial.test.js:56:49)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 'other_scene', 'indoor', 'commercial' ],
+    expected: [ 'other_scene', 'indoor' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at webapp/src/lib/engine/sceneSemanticA5Commercial.test.js:63:1
+✖ single, duo and all crops preserve selections, six output states and RNG (5.073ms)
+  AssertionError [ERR_ASSERTION]: commercial inverse rejects an unreviewed change: locations:其他專屬場景-other-dedicated-scenes:其他-生活感日式榻榻米房間:2
+  + actual - expected
+
+    [
+      'other_scene',
+      'indoor',
+  +   'commercial'
+    ]
+
+      at preCommercialDatabase (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/a5CommercialHistoricalReplay.mjs:15:12)
+      at TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/sceneSemanticA5Commercial.test.js:64:49)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 'other_scene', 'indoor', 'commercial' ],
+    expected: [ 'other_scene', 'indoor' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at webapp/src/lib/engine/sceneSemanticA5Commercial.test.js:71:1
+✖ old JSON and Markdown preserve public text and IDs; restored generation remains equivalent (5.5975ms)
+  AssertionError [ERR_ASSERTION]: commercial inverse rejects an unreviewed change: locations:其他專屬場景-other-dedicated-scenes:其他-生活感日式榻榻米房間:2
+  + actual - expected
+
+    [
+      'other_scene',
+      'indoor',
+  +   'commercial'
+    ]
+
+      at preCommercialDatabase (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/a5CommercialHistoricalReplay.mjs:15:12)
+      at TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/sceneSemanticA5Commercial.test.js:72:49)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 'other_scene', 'indoor', 'commercial' ],
+    expected: [ 'other_scene', 'indoor' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at webapp/src/lib/engine/sceneSemanticA5Commercial.test.js:86:1
+✖ UI scene switches and Saved Cards apply retain the prior availability policy (5.838208ms)
+  AssertionError [ERR_ASSERTION]: commercial inverse rejects an unreviewed change: locations:其他專屬場景-other-dedicated-scenes:其他-生活感日式榻榻米房間:2
+  + actual - expected
+
+    [
+      'other_scene',
+      'indoor',
+  +   'commercial'
+    ]
+
+      at preCommercialDatabase (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/a5CommercialHistoricalReplay.mjs:15:12)
+      at TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/sceneSemanticA5Commercial.test.js:87:49)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 'other_scene', 'indoor', 'commercial' ],
+    expected: [ 'other_scene', 'indoor' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

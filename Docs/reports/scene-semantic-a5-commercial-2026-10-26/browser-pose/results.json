@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "1440: existing natural standing action selected and six outputs generated in reviewed bedroom",
+    "1440: pose and reviewed scene survive Saved Cards reload/apply",
+    "390: existing natural standing action selected and six outputs generated in reviewed bedroom",
+    "390: pose and reviewed scene survive Saved Cards reload/apply"
+  ],
+  "errors": [],
+  "externalPosts": [],
+  "screenshots": [
+    "1440-pose.png",
+    "390-pose.png"
+  ]
+}

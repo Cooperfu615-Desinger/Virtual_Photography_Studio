@@ -1,0 +1,125 @@
+{
+  "status": "local-validation-passed-user-review-pending",
+  "baseCommit": "22d1103e2f88984af7ed33249b08b4e2729ba466",
+  "commit": false,
+  "push": false,
+  "formalRemovals": 11,
+  "retained": 4,
+  "CRT": "unchanged-deferred",
+  "focused": {
+    "passed": 7,
+    "failed": 0,
+    "before": {
+      "passed": 1,
+      "failed": 6,
+      "cause": "current pre-change tags do not match approved after values"
+    }
+  },
+  "frontend": {
+    "node": "22.22.3",
+    "passed": 1844,
+    "failed": 0
+  },
+  "promptQuality": {
+    "passed": 754,
+    "failed": 0
+  },
+  "python": {
+    "passed": 41,
+    "failed": 0
+  },
+  "catalogTools": {
+    "passed": 32,
+    "failed": 0
+  },
+  "strict": {
+    "allowed": 2,
+    "blocking": 0,
+    "stale": 0
+  },
+  "sync": {
+    "records": 1050,
+    "historicalIds": 1050,
+    "initialFrozen": 0,
+    "mode": "historical",
+    "registryBaseCommit": "22d1103e2f88984af7ed33249b08b4e2729ba466",
+    "registrySha256": "b79fa41d64a2954c28a3c716669c4deb929fabd2c85115159f3567822bbc7b25",
+    "outputs": 8,
+    "source": "catalog JSON",
+    "check": true
+  },
+  "acceptance": {
+    "poolCases": 12540,
+    "cases": 3804,
+    "changedMetadataCases": 1599,
+    "outputDifferences": 0,
+    "selectionDifferences": 0,
+    "rngDifferences": 0,
+    "oracleMismatches": 0,
+    "unaffectedLocations": 144,
+    "importFlowSources": 5
+  },
+  "oldSavedCards": 45,
+  "transitions": 150,
+  "previousA5Replay": {
+    "cases": 1740,
+    "oracleMismatches": 0
+  },
+  "browser": {
+    "viewports": [
+      [
+        1440,
+        1000
+      ],
+      [
+        390,
+        900
+      ]
+    ],
+    "checks": 116,
+    "screenshots": 20,
+    "errors": 0,
+    "externalPosts": 0
+  },
+  "audit": {
+    "count": 200,
+    "seed": "prompt-quality-baseline",
+    "excludedVolatilePaths": [
+      "findings[*].promptId"
+    ],
+    "beforeSha256": "7aec7252b8668c4a1396cc7bbb0c85187152bfd3fac823d84063ead30e8eeaf1",
+    "afterSha256": "7aec7252b8668c4a1396cc7bbb0c85187152bfd3fac823d84063ead30e8eeaf1",
+    "differences": 0,
+    "summary": {
+      "prompts": 200,
+      "promptsWithFindings": 17,
+      "logicIssues": 15,
+      "contractIssues": 0,
+      "exactDuplicateSignals": 0,
+      "nearDuplicateSignals": 3,
+      "leakageSignals": 0,
+      "contradictionSignals": 0,
+      "promptsWithLogicIssues": 14,
+      "promptsWithContractIssues": 0,
+      "promptsWithDuplicateSignals": 3,
+      "promptsWithLeakageSignals": 0,
+      "promptsWithContradictionSignals": 0,
+      "coverageIssues": 0,
+      "totalSignals": 18,
+      "blockingSignals": 0,
+      "diagnosticSignals": 18
+    }
+  },
+  "lint": "passed",
+  "build": "passed-existing-large-chunk-notice",
+  "assets": "passed",
+  "runtimeNote": "Node 25 default reporter produced two runner-format assertion failures; complete final validation uses CI Node 22. No runner/dependency changes.",
+  "finalChecks": {
+    "links": "passed",
+    "diff": "passed",
+    "newFilesAllowlist": "passed",
+    "otherDirtyFileDifferences": 0,
+    "historicalDifferences": 0,
+    "browserScreenshotsInspected": 20
+  }
+}

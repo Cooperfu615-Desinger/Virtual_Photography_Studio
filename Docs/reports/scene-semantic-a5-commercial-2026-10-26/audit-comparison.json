@@ -1,0 +1,29 @@
+{
+  "count": 200,
+  "seed": "prompt-quality-baseline",
+  "excludedVolatilePaths": [
+    "findings[*].promptId"
+  ],
+  "beforeSha256": "7aec7252b8668c4a1396cc7bbb0c85187152bfd3fac823d84063ead30e8eeaf1",
+  "afterSha256": "7aec7252b8668c4a1396cc7bbb0c85187152bfd3fac823d84063ead30e8eeaf1",
+  "differences": 0,
+  "summary": {
+    "prompts": 200,
+    "promptsWithFindings": 17,
+    "logicIssues": 15,
+    "contractIssues": 0,
+    "exactDuplicateSignals": 0,
+    "nearDuplicateSignals": 3,
+    "leakageSignals": 0,
+    "contradictionSignals": 0,
+    "promptsWithLogicIssues": 14,
+    "promptsWithContractIssues": 0,
+    "promptsWithDuplicateSignals": 3,
+    "promptsWithLeakageSignals": 0,
+    "promptsWithContradictionSignals": 0,
+    "coverageIssues": 0,
+    "totalSignals": 18,
+    "blockingSignals": 0,
+    "diagnosticSignals": 18
+  }
+}

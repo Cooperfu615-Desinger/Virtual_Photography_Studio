@@ -665,3 +665,9 @@ Cooper 已確認 E 階段驗收通過，授權只提交並 push 本批 E 的資�
 A～E 歷史交付與 §6.1.4 的原樣遷移原則不變。Cooper 另行授權只修正倫敦排屋、清澈海灣岩岸、草地與樹木；這是 explicit semantic 的產品變更，不重做 D。詳見 [獨立規格](scene-semantic-a5-three-locations-v1.md)及 [驗收報告](../reports/scene-semantic-a5-2026-10-26/README.md)。
 
 本批以 pre-A5 main `a9dd3616bc6596cdb199420f3189a420c6f1ed17` 確認原始資料與六輸出差異；既有 A～E 封存及生成工具原位保護。歷史回播只在測試副本還原三個核准 tags，正式候選池與收藏相容另有專用回歸及獨立前後對照。倫敦成因改為中文「地下室」命中「地下」，舊 D JSON 不回寫，以 [勘誤](../reports/database-analysis-2026-10-11/frozen-known-issues.md#2026-10-26-成因勘誤與-a5-限定修正)追溯。Cooper 已確認本批驗收通過，授權限定提交／push 本批資料、文件、回歸案例與驗收工具；其他問題及 P5b 未授權。
+
+## 18. Phase 4 A5 commercial 後續審查（2026-10-26）
+
+Cooper 以 main `22d1103e` 核准 11 筆 commercial 移除、4 筆保留，CRT 另批。這是 D 之後獨立的語意修正，維持 JSON 正式來源與 A～E 原樣遷移歷史；不修改 ID、推論／相容規則、renderer 或舊基準。
+
+詳見[本批規格](scene-semantic-a5-commercial-v1.md)、[逐筆決策](../decisions/2026-10-26-a5-commercial-review.md)、[本機驗收](../reports/scene-semantic-a5-commercial-2026-10-26/README.md)。新增精確反轉 11 筆的測試輸入，再接原三筆 inverse 回播 A～E；前批 A5 工具與封存不改寫。Cooper 已確認本機驗收通過，授權限定提交／推送本批資料、文件、回歸案例與驗收工具；實際 Git／CI 結果另行核對。其他項目及 P5b 未授權。

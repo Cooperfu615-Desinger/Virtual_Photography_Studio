@@ -96,3 +96,11 @@ node --test webapp/src/lib/engine/catalogBaseline.test.js webapp/src/lib/engine/
 ```
 
 直接對修正後正式資料執行原 A capture 或 D／E 的一次性「遷移零差異」命令，會正確看見本批產品差異；不可重錄舊基準、放寬比較器或宣稱原命令仍零差異。D／E 原始來源與完整等價證據保留於固定 Git／封存；常駐 schema、ID、strict、E 1,098 還原及前端門檻照常執行。本批新證據見 [A5 報告](../../Docs/reports/scene-semantic-a5-2026-10-26/README.md)。
+
+## A5 commercial 後續修正與分層回播（2026-10-26）
+
+本批基準為 `22d1103e2f88984af7ed33249b08b4e2729ba466`。只移除 11 個 commercial，4 筆保留；[規格](../../Docs/specs/scene-semantic-a5-commercial-v1.md)與[逐筆依據](../../Docs/decisions/2026-10-26-a5-commercial-review.md)。使用這個完整 SHA 執行本批 registry／sync／strict 檢查；八份生成物照常受同步驗證。
+
+當前產品驗收用 `node scripts/scene_semantic_a5_commercial_acceptance.mjs /tmp/a5-commercial.json.gz`。前批 A5 原工具改由 `node scripts/scene_semantic_a5_commercial_history.mjs /tmp/a5-previous.json` 在隔離副本重演：精確回復本批 11 個 tags，再執行未修改的原工具。A～E 測試輸入先用新 helper 回復 11 筆，再交給舊 helper 回復三筆；extra tag、缺 ID、重複 ID 或四筆保留資料變動均拒絕。不能直接把新正式資料交給前批一次性驗收後重錄其預期值。
+
+新增回歸位於 `webapp/src/lib/engine/sceneSemanticA5Commercial.test.js`，已由原 `npm test` glob 收入，不需改 CI。CI 使用 Node 22；本機也以 Node 22 為完整前端通過依據。CRT、其他內容問題與 P5b 維持另案。

@@ -15223,8 +15223,7 @@
           "semantic": {
             "tags": [
               "indoor",
-              "residential",
-              "commercial"
+              "residential"
             ]
           }
         },
@@ -15434,7 +15433,6 @@
             "tags": [
               "indoor",
               "hospitality",
-              "commercial",
               "heritage"
             ]
           }
@@ -15492,8 +15490,7 @@
         "meta": {
           "semantic": {
             "tags": [
-              "indoor",
-              "commercial"
+              "indoor"
             ]
           }
         },
@@ -15548,7 +15545,6 @@
             "tags": [
               "indoor",
               "residential",
-              "commercial",
               "institutional"
             ]
           }
@@ -15805,8 +15801,7 @@
           "semantic": {
             "tags": [
               "indoor",
-              "hospitality",
-              "commercial"
+              "hospitality"
             ]
           }
         },
@@ -16074,7 +16069,6 @@
             "tags": [
               "ruin",
               "indoor",
-              "commercial",
               "institutional"
             ]
           }
@@ -16421,7 +16415,6 @@
             "tags": [
               "urban",
               "indoor",
-              "commercial",
               "transit"
             ]
           }
@@ -16495,7 +16488,6 @@
             "tags": [
               "urban",
               "indoor",
-              "commercial",
               "transit",
               "institutional"
             ]
@@ -16533,7 +16525,6 @@
             "tags": [
               "urban",
               "indoor",
-              "commercial",
               "transit"
             ]
           }
@@ -16607,7 +16598,6 @@
             "tags": [
               "urban",
               "outdoor",
-              "commercial",
               "waterfront"
             ]
           }
@@ -17685,8 +17675,7 @@
           "semantic": {
             "tags": [
               "other_scene",
-              "indoor",
-              "commercial"
+              "indoor"
             ]
           }
         },
