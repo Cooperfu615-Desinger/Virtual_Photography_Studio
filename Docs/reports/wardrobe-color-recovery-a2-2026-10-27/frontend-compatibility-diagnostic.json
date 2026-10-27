@@ -1,0 +1,6 @@
+[
+  {
+    "check": "frontend-tests",
+    "exitCode": 1
+  }
+]

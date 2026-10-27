@@ -1,0 +1,11 @@
+{
+  "message": "locator.scrollIntoViewIfNeeded: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /^套裝主色：/ }).first()\u001b[22m\n",
+  "stack": "locator.scrollIntoViewIfNeeded: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /^套裝主色：/ }).first()\u001b[22m\n\n    at /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/wardrobe_color_recovery_a2_browser.mjs:41:91",
+  "checks": [
+    "1440: existing JSON card public text unchanged",
+    "1440: single ZIP apply preserves source and recovers colors",
+    "1440: single regenerate save reload",
+    "1440: duo ZIP apply preserves source and recovers colors"
+  ],
+  "errors": []
+}

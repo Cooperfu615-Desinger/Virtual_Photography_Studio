@@ -1,3 +1,4 @@
+import { createWardrobeRecoveryContext, wardrobeItemRecoveryScope, recoverWardrobeColors } from './wardrobeColorRecovery.js';
 import { isImportedPersonKey } from '../../lib/observationCaptureImport.js';
 import { accessoryRestoreNotices } from '../../lib/engine/accessoryPolicy.js';
 import { matchResolvedOuterwear } from '../../lib/engine/outerwearModel.js';
@@ -324,6 +325,7 @@ export function parseLocksFromStandardPrompt(promptText, controls) {
   const parsedMidjourneyTail = parseMidjourneyParameterTail(promptText);
   const normalizedPrompt = normalizePromptText(parsedMidjourneyTail.content);
   const locks = createEmptyLocks();
+  const wardrobeRecovery = createWardrobeRecoveryContext(promptText);
   const matchedControls = [];
   const controlMap = new Map(controls.map((control) => [control.key, control]));
   const visibleTextSettings = parseZImageVisibleTextSentence(promptText);
@@ -362,7 +364,8 @@ export function parseLocksFromStandardPrompt(promptText, controls) {
       const topControl = scopedUnderbustDuo && control.key.match(/^top(?:Fit|Styling)?([AB]?)Id$/);
       const option = findBestOptionMatch(control.options,
         topControl ? topPromptForRole(topControl[1])
-          : /^outerwear[AB]?StylingId$/.test(control.key) ? outerwearStylingPrompt : normalizedPrompt);
+          : /^outerwear[AB]?StylingId$/.test(control.key) ? outerwearStylingPrompt
+            : wardrobeItemRecoveryScope(control.key, wardrobeRecovery, normalizedPrompt));
       if (!option) return;
       locks[control.key] = option.id;
       matchedControls.push({ key: control.key, label: control.label, option });
@@ -408,12 +411,13 @@ export function parseLocksFromStandardPrompt(promptText, controls) {
       const fitKey = `outerwear${role}FitId`;
       const itemControl = controlMap.get(itemKey);
       const fitControl = controlMap.get(fitKey);
-      const match = matchResolvedOuterwear(normalizedPrompt, itemControl?.options || [], fitControl?.options || []);
+      const itemPrompt = wardrobeItemRecoveryScope(itemKey, wardrobeRecovery, normalizedPrompt);
+      const match = matchResolvedOuterwear(itemPrompt, itemControl?.options || [], fitControl?.options || []);
       // Longer historical source aliases keep their original item identity.
       const existing = itemControl?.options.find(item => item.id === locks[itemKey]);
       const hasHistoricalSource = existing && [existing.en, ...(existing.meta?.legacyPromptAliases || [])]
         .some(source => normalizePromptText(source).length > (match?.phrase.length || 0)
-          && normalizedPrompt.includes(normalizePromptText(source)));
+          && itemPrompt.includes(normalizePromptText(source)));
       if (!match || hasHistoricalSource) continue;
       for (const [key, option] of [[itemKey, match.item], [fitKey, match.fit]]) {
         if (!option) continue;
@@ -497,6 +501,14 @@ export function parseLocksFromStandardPrompt(promptText, controls) {
     locks.specifiedActionId = specifiedAction.id;
     locks.poseBaseId = specifiedAction.baseId;
     locks.poseOrientationId = specifiedAction.orientationId;
+  }
+  for (const [key, option] of recoverWardrobeColors(wardrobeRecovery, locks, controls)) {
+    // Retain explicit silence already established by an authored fixed-detail rule.
+    if (option.zh === '全無' && locks[key] === option.id) continue;
+    locks[key] = option.zh === '全無' ? '' : option.id;
+    const index = matchedControls.findIndex(entry => entry.key === key);
+    if (index >= 0) matchedControls.splice(index, 1);
+    if (option.zh !== '全無') matchedControls.push({ key, label: controlMap.get(key)?.label || key, option });
   }
   return { locks, matchedControls };
 }

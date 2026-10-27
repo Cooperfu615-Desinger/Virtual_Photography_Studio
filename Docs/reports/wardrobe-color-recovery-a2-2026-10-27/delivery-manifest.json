@@ -1,0 +1,493 @@
+{
+  "baseCommit": "471115c08e4415643b8acbb87b7c2709f98e117c",
+  "status": "user-accepted-authorized-scoped-delivery",
+  "excludes": [
+    "P5b",
+    "Markdown full selection snapshot",
+    "special outfit source cleanup",
+    "runtime palette wording"
+  ],
+  "files": [
+    {
+      "path": "Docs/current_project_state.md",
+      "sha256": "2dfd7137c39d888ec27cf0ff927336454931da3dfdbacf19b34c985fe646c6fd",
+      "bytes": 387094
+    },
+    {
+      "path": "Docs/decisions/2026-10-27-a2-wardrobe-color-recovery.md",
+      "sha256": "438f9400d5f8728a21feaeca554bdc4dc2d65618c4e87c309ae7cd756f3bfa56",
+      "bytes": 1750
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/README.md",
+      "sha256": "a473d9ff8937b8066927102d9005660160b5665b64f98947b7624c0189c9bc7b",
+      "bytes": 6549
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/acceptance/acceptance.json",
+      "sha256": "8d77be4b6bc6e5e9c8ed585c25a581bbd19c3dd294fe680dc51c9320a31731eb",
+      "bytes": 221
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/acceptance/baseline-and-results.json.gz",
+      "sha256": "bd6d2682f02f1aff4d19a86573a62218a91434fa2c13bdea8e9e82fa56158e40",
+      "bytes": 121619
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/audit-after.json",
+      "sha256": "3736954710800d50470a7cc4899d39674078968b526f689e10027799dadf41b5",
+      "bytes": 113267
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/audit-before.json",
+      "sha256": "3f7f991769b5c184c7fa2524ea80dd0d2d1a7d94ba5b8c9c1a26a9a807b86267",
+      "bytes": 113267
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/audit-comparison.json",
+      "sha256": "be8bdb2581c8e5d02104356a32bb97f7c237253e1cd379931b256fc5e2feacca",
+      "bytes": 642
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/before-protection.json",
+      "sha256": "ec1edbbb47a3883f84484f62c99d945809efacb3f401218833664d5e1e81f2b7",
+      "bytes": 347812
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/1440-capture.png",
+      "sha256": "82c0e5df40a75a90ba4c1f324d5d741e0f83b0a19ce3cea2fffe9353e289dd3b",
+      "bytes": 458698
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/1440-duo-applied.png",
+      "sha256": "f8590eb4af2fc10f2ba3aad9c88bbc0566c99960487b8271942b6120e8dcc3eb",
+      "bytes": 428221
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/1440-duo-colors.png",
+      "sha256": "5666e8916c679dd97151f24d73c20bd92f29c22587a8aa8b2ca7156c85b59894",
+      "bytes": 173940
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/1440-paste-duo.png",
+      "sha256": "6019dab086f1861d058eb02b50f6eee887190d18f8f04e71949a4296930424f9",
+      "bytes": 358732
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/1440-single-applied.png",
+      "sha256": "c77d7e3bcc2a2e50c9f45ebc06e7ea7ef5237c3e04115a415d7cae6472975723",
+      "bytes": 381151
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/1440-single-colors.png",
+      "sha256": "ae48502fff9b45b6e2137d6d71c4e7184eae85236e90c8cb9ffab19cf001b7b3",
+      "bytes": 211343
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/1440-workspace-0.png",
+      "sha256": "41835928b1180b4164f4b8a7bb41faafba6c8174a86715340f67192035f5d740",
+      "bytes": 366665
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/1440-workspace-1.png",
+      "sha256": "b89f60cb3f310cd997bc1e6a68598f90262958c3ca2c1dedbd58d89d889cc1e2",
+      "bytes": 1320411
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/1440-workspace-2.png",
+      "sha256": "cd6deaa2332f4383cd086decf7ea854d1177fd693e1acfbb0b523a31023800cf",
+      "bytes": 267030
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/1440-workspace-3.png",
+      "sha256": "f247f7019dfc79f3bdabd08db392f8a2a35a9f14de0710a8bba81ee90df90181",
+      "bytes": 125864
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/1440-workspace-4.png",
+      "sha256": "398ab94c0fd9d9a8c701df139a574e738c74db133194c50a03787439a08ffa81",
+      "bytes": 139650
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/1440-workspace-5.png",
+      "sha256": "c35b1515ce6d3a0d707909da16d961e473af5b7cc409ae63d5d6d0d1f55623fe",
+      "bytes": 254695
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/1440-zip-import.png",
+      "sha256": "f9c7b23cd66259eb6b77a44a14386aadf9593bb98821d247913b2e155c8aec34",
+      "bytes": 187216
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/390-capture.png",
+      "sha256": "7f483a056f1532701ca1adfa202c5b4230c16c3c0b728be5c4a13dc0e35339cd",
+      "bytes": 462809
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/390-duo-applied.png",
+      "sha256": "af257a33d4efb827ebd3b766ac9f6799d1d10833cd7d304d705441bd69d993f6",
+      "bytes": 456030
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/390-duo-colors.png",
+      "sha256": "168ef15e214f6e6daa54a85dc327b2bf29edc7a6694d69de9ac450ac1b6264e8",
+      "bytes": 66908
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/390-paste-duo.png",
+      "sha256": "c9efb20f39b3735642a476c2e83cb0a9995cfced0413a1f0b4daed392ffb8aa4",
+      "bytes": 383157
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/390-single-applied.png",
+      "sha256": "7edb27a3cb1d0c0d833957f5d776f70a0c3c3f87d282ccc23134ae59cc785c8c",
+      "bytes": 373598
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/390-single-colors.png",
+      "sha256": "5fcae372d8ebc54ad3969d8a7fab2896c9a4c7b4ea6fe3539ce65f3b382651b7",
+      "bytes": 51542
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/390-workspace-0.png",
+      "sha256": "e1be86d87ac6b2c7510f76ea390b313eb2d17fb2c0f7ede5e6e788a821ff722a",
+      "bytes": 383926
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/390-workspace-1.png",
+      "sha256": "83f1b7469a46c3f8bfef734179c39fb2033971990ee486010851bcff4e4b467d",
+      "bytes": 601147
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/390-workspace-2.png",
+      "sha256": "1e5266f3707d82b0726d5c6dacb4278b3f06dbd2a922fca7b3694ffe31c9fe99",
+      "bytes": 255769
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/390-workspace-3.png",
+      "sha256": "e7f33f6ccde3ff71084bb6d518b88e2e93cb501af302f9fa6081e8d50d43b466",
+      "bytes": 99038
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/390-workspace-4.png",
+      "sha256": "cc634429e035bc33595a52267d96e682fa56b2a0317fe6e3942f3d08555f7313",
+      "bytes": 118561
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/390-workspace-5.png",
+      "sha256": "9468344036dae55f0dfa41b0a91088f8e0b88f1e9fe569817652b88407221b4a",
+      "bytes": 317513
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/390-zip-import.png",
+      "sha256": "b9474ddafeb5323d9f9d2d41efcc4cba7bc5ac5abfcbb338cc2c579c867d4727",
+      "bytes": 228593
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/results.json",
+      "sha256": "f60100163904a5e0a60ad6a40e47d79e334dc61db4b856e019e776e14051328a",
+      "bytes": 1984
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/selector-diagnostic.json",
+      "sha256": "b33be305f97c53882cd40ab45378a093485a9ff1471e73c926a85b9ded4a4ac5",
+      "bytes": 764
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/browser/visual-review.json",
+      "sha256": "458813ce1b7a9589b06a1d0e360406fae3423ae81782baf6cf78af0b4d3f27d9",
+      "bytes": 720
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/catalog-results.json",
+      "sha256": "bc915803fb8b57abec4c75c91a14828bd889718e4f53ddf1da70419221b03f28",
+      "bytes": 164
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/final-protection.json",
+      "sha256": "a3c8483fbe3c5cfb8d7e2f1ec1bd6731c61f681ff120292bb9978fa44b495374",
+      "bytes": 4853
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/frontend-compatibility-diagnostic.json",
+      "sha256": "04b06d672f9f2ad82a204aae6c280f02ea4cde4faa347c973093e0d454276bcb",
+      "bytes": 61
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/frontend-results.json",
+      "sha256": "ef15bbbfe39236cc423f77bd404d31afdc586ba83201bed0d878ae28ff608f83",
+      "bytes": 61
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/history-results.json",
+      "sha256": "70ff35c3a0ea074edee01e362fcc3e00b850aca825adf4a4b569b2f55acfab63",
+      "bytes": 54
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/history/a2-outfits/acceptance.json.gz",
+      "sha256": "2d97a7863c02a1e3942f075e2ec6f7c572c3d28da10997c2bf131d22b85289b5",
+      "bytes": 729127
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/history/a2-outfits/baseline-and-saved.json.gz",
+      "sha256": "2b3d210f224df5ff717ccbb800fa704a93e5411743b049efb862d7e582a37371",
+      "bytes": 243529
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/history/earlier/a1-a5/a1/acceptance.json",
+      "sha256": "ddd83073240d6e4e94db614f483dfc11e84ee20d6c228b83cbfb9e559762196d",
+      "bytes": 555707
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/history/earlier/a1-a5/a1/baseline-and-saved.json.gz",
+      "sha256": "acc1a6171e642757d44e9d14e5d7d6b83c2ffd733c205c202330f8800909260c",
+      "bytes": 214094
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/history/earlier/a1-a5/a5/previous/crt-imports.json.gz",
+      "sha256": "484c837d5b8808b4f549075e2ee716a1a944e546c58181922187b234ee730d86",
+      "bytes": 57395
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/history/earlier/a1-a5/a5/previous/crt.json.gz",
+      "sha256": "6d5ccc95ad6afa3327dbfa14ff907d5c66cc45d406e5e3f59cace55ff7a8fece",
+      "bytes": 325429
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/history/earlier/a1-a5/a5/previous/previous/commercial.json.gz",
+      "sha256": "43fa404c55692e92dddf68c98c8f6d7ce77d673bce8268a2ac680bb2db1df6e7",
+      "bytes": 393489
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/history/earlier/a1-a5/a5/previous/previous/first-a5.json",
+      "sha256": "7e1441c56e0dcac16675d1bd7d4f61c1fac89120084b228f0d6bd82439ecdd46",
+      "bytes": 1583535
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/history/earlier/a1-a5/a5/ximending-imports.json.gz",
+      "sha256": "17fe7315ab5f32e0fdfc283be3feb31fdb5b098ab8a5ac074ee0f090f025ee11",
+      "bytes": 58703
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/history/earlier/a1-a5/a5/ximending.json.gz",
+      "sha256": "de214b1c59e7ca917ccc102a150a346febf3aba77d772b7cfc20e66a14d8255f",
+      "bytes": 297558
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/history/earlier/a2-dresses/acceptance.json.gz",
+      "sha256": "ba1e6376e0280abbf3cd2208042171ab321516845a0ec7b40a08023ec42cfed3",
+      "bytes": 302659
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/history/earlier/a2-dresses/baseline-and-saved.json.gz",
+      "sha256": "04870978da8dcd7f7b83da75d8209dfd4c7fb1feaba25da27119059bf86b97ed",
+      "bytes": 135283
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/acceptance.log.gz",
+      "sha256": "6d236dca7a637d39cf8b738831a8e1a76bf99544a63d98f8bb6b4c247c81717e",
+      "bytes": 157
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/assets.log.gz",
+      "sha256": "83d4a447c42f38ed14e7e320c30481ad7204089ccb0d3c5ba7e5841b5c9a3b8c",
+      "bytes": 76
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/browser-selector-diagnostic.log.gz",
+      "sha256": "28dfe7b3eed990d1e27f4719d4b77a2203de0ba619d5c58bd827a521612d6542",
+      "bytes": 363
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/browser.log.gz",
+      "sha256": "5e81bea3fc8848f153789256bbae0cecef7fe85ea33979202cca552e15df7500",
+      "bytes": 74
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/build.log.gz",
+      "sha256": "60a062a0b29c1aa54bbf8eea43d57e1458596f3fdc981e1617babe7120eecfb2",
+      "bytes": 1231
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/catalog-tools-initial.log.gz",
+      "sha256": "86aca9469ae7181dd6a1808c9e45bb15f733b78eb6cbbc5580196b8a65ee288e",
+      "bytes": 2782
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/catalog-tools.log.gz",
+      "sha256": "ce47a4278aee3d0294256020b2aac785b6b852c0a15c4a7978838732e5fe561d",
+      "bytes": 2409
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/focused-before.log.gz",
+      "sha256": "37dd985a3e59a41af2d67929c56bfbe5d43837d12e906a203641204524b742b7",
+      "bytes": 1280
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/focused-compatibility.log.gz",
+      "sha256": "8429356b4e9e713888bcf2ba565d7c301f1835ea1bef04dfa809ca65379ef3f5",
+      "bytes": 4874
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/focused-final.log.gz",
+      "sha256": "725e0e0a84f2821e039c4094376676d6ccfde5d7f6f3c563c7c79bbb342efc1f",
+      "bytes": 2768
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/focused-matrix.log.gz",
+      "sha256": "aff98e96cf0e92d9846d11d2e2489a762df615d37cf6c58205fafb7c812e631f",
+      "bytes": 1670
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/focused-working.log.gz",
+      "sha256": "12a9c55961d323364748ab2fbe237a33fd7f62123ca909d57da34338e8b2b69a",
+      "bytes": 2227
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/frontend-tests-compatibility-diagnostic.log.gz",
+      "sha256": "e8206b5c2655adf91afc29339e2c05f581cf6db8f04971961ee5eba04a4b5438",
+      "bytes": 78749
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/frontend-tests-initial.log.gz",
+      "sha256": "593304ce88455d7c16d9a65197ad79a27792695f70b583996bbec0f5c49c1008",
+      "bytes": 79033
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/frontend-tests.log.gz",
+      "sha256": "c2e8ebba511710067a96bbd7182758ce577d42452f1d65bf5c049f86396a0f3a",
+      "bytes": 78006
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/history-focused.log.gz",
+      "sha256": "13f342ba8795543794cdc36ed961707c0a7ffc747c875020bcf4cd4822d593b0",
+      "bytes": 298
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/history-initial.log.gz",
+      "sha256": "bfe3f319f6a717d9cf670d591ba043bf132f16fff44b6aa6a7b766162fbfb756",
+      "bytes": 2389
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/history.log.gz",
+      "sha256": "6f94d492185de25f173b8c6861ccf55a64e29e7384af3956c2213589caa161c9",
+      "bytes": 3083
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/integrity.log.gz",
+      "sha256": "0a2baee06b5506d1f942f6a213170eb3e61bbb784b427166c7b202b0f69aca89",
+      "bytes": 3319
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/legacy-focused.log.gz",
+      "sha256": "3987f24d6e6f61775a48db4e5bb49303bd1af86eb3f921f3e3863d6c891e0262",
+      "bytes": 1815
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/lint.log.gz",
+      "sha256": "b260dc530ef2af473f11dd95140f8b06d63c39520661e5d4b36d3f363d5b6fa8",
+      "bytes": 49
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/prompt-quality-compatibility-diagnostic.log.gz",
+      "sha256": "c87305b45943736e58aaa748ac7068a6314519b9439132316ccf4eadf09550cb",
+      "bytes": 33321
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/prompt-quality.log.gz",
+      "sha256": "ca95334beabf0f53d4fc4c37e1c889abfc7461334173b534e009954c838b9ba0",
+      "bytes": 33038
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/python.log.gz",
+      "sha256": "6884d797e7ba2b7fbbe2e13202fa01130cf3563d68c466d3ad02a04c3c3cda8d",
+      "bytes": 57
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/logs/sync.log.gz",
+      "sha256": "f67ab5549b9e083e4d36a49e375fde92f28a56c680e677d0f792746058b16bf4",
+      "bytes": 220
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/quality-compatibility-diagnostic.json",
+      "sha256": "3afbb2963c629b80aab2d70de914acddf3a3ef0e4dece5f65e8135c1c43e078c",
+      "bytes": 61
+    },
+    {
+      "path": "Docs/reports/wardrobe-color-recovery-a2-2026-10-27/quality-results.json",
+      "sha256": "5c3250dbb05ab76b2cf7a3e6d6d13ad9ae160a355f9df32a2e028e2ec196c3a7",
+      "bytes": 158
+    },
+    {
+      "path": "Docs/specs/wardrobe-color-recovery-a2-v1.md",
+      "sha256": "c738296388f50baeeba3c82427f3d81e551ddf063801a643efeac3d04e78a019",
+      "bytes": 4646
+    },
+    {
+      "path": "Docs/specs/wardrobe-section-b-authoring-guide.md",
+      "sha256": "1f79c2d854d4277638aff64f9bc5649e508ed844fbbb215c3ed318a080613c89",
+      "bytes": 41657
+    },
+    {
+      "path": "scripts/lib/a2OutfitControlHistoricalReplay.mjs",
+      "sha256": "38680d1e3e61b5853ec718b791fe96337c80a8622e0ab9b106da59a12cd3a12a",
+      "bytes": 6473
+    },
+    {
+      "path": "scripts/lib/a2WardrobeColorRecoveryPatches.json",
+      "sha256": "c5be8f95cf609877ad5d655db9c62cebef1c17fd78de57c5571cb407000ce6e1",
+      "bytes": 80710
+    },
+    {
+      "path": "scripts/lib/a2WardrobeColorRecoveryReplay.mjs",
+      "sha256": "ccea885255ba1bf056c10c1a7b4bc3b561e475eb2072b681ec3ee80e96beae44",
+      "bytes": 2902
+    },
+    {
+      "path": "scripts/wardrobe_color_recovery_a2_acceptance.mjs",
+      "sha256": "6bb2c6ddeb3d530b1f1a18809572d1e5a43c2c207a25b29ed6a772b7a9e86b58",
+      "bytes": 6624
+    },
+    {
+      "path": "scripts/wardrobe_color_recovery_a2_browser.mjs",
+      "sha256": "edb9a701a51be5cb49fbce32cbf5ed13050f4096d8ddc6c18c5217cb1801613e",
+      "bytes": 8687
+    },
+    {
+      "path": "scripts/wardrobe_color_recovery_a2_history.mjs",
+      "sha256": "c13e1baccd11bfe2b6186abb7bcf27c631ae1588544ab4455dc5437bdd78422b",
+      "bytes": 1465
+    },
+    {
+      "path": "webapp/package.json",
+      "sha256": "f29174a9fe59043752cb30ed82035311df364dc03b7203e59573468bcdf5fcb8",
+      "bytes": 4657
+    },
+    {
+      "path": "webapp/src/features/saved-cards/cardCodec.js",
+      "sha256": "01be3338690d6831e2bee21ed7bf3af550a84cf3c664e6f0ffa0d4376128b318",
+      "bytes": 34742
+    },
+    {
+      "path": "webapp/src/features/saved-cards/wardrobeColorRecovery.js",
+      "sha256": "cd9951406549ebdde499ca3a2c198ce85186643a7ba97e183fc49a93097a0cc1",
+      "bytes": 10568
+    },
+    {
+      "path": "webapp/src/features/saved-cards/wardrobeColorRecovery.test.js",
+      "sha256": "70744a205f218c5e09e38b6f39376f440091ea086e7cbed541333dfbd5c01bab",
+      "bytes": 8474
+    },
+    {
+      "path": "webapp/src/features/saved-cards/wardrobeColorRecoveryHistory.test.js",
+      "sha256": "176fad030d56ca32b6a8e1d038197030ddd7358685e9f728a24f78cd7d4cfc28",
+      "bytes": 1944
+    },
+    {
+      "path": "webapp/src/lib/engine/legacyMappings.test.js",
+      "sha256": "4381dd6cadc3cb3031c9a95e4ce758ca371856c8ba5805820f08ea1fba017053",
+      "bytes": 1770
+    }
+  ],
+  "deliveryStatusNote": "Only current-state and spec approval wording updated after acceptance. Technical sources, baselines and acceptance reports are unchanged."
+}

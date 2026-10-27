@@ -1,3 +1,4 @@
+import { restorePreA2WardrobeRecoveryFiles } from './a2WardrobeColorRecoveryReplay.mjs';
 // Test-only inverse; validate the whole reviewed state before writing an isolated replay.
 import assert from 'node:assert/strict';
 import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
@@ -92,6 +93,7 @@ export function openPreA2OutfitReplayRoot() {
     for (const path of ['webapp/src', 'scripts', 'knowledge_base']) cpSync(join(A2_OUTFIT_ROOT, path), join(directory, path), { recursive: true });
     for (const file of ['package.json', 'package-lock.json']) cpSync(join(A2_OUTFIT_ROOT, 'webapp', file), join(directory, 'webapp', file));
     symlinkSync(join(A2_OUTFIT_ROOT, 'webapp/node_modules'), join(directory, 'webapp/node_modules'), 'dir');
+    restorePreA2WardrobeRecoveryFiles(directory);
     restorePreA2OutfitFiles(directory);
     return { directory, cleanup: () => rmSync(directory, { recursive: true, force: true }) };
   } catch (error) { rmSync(directory, { recursive: true, force: true }); throw error; }

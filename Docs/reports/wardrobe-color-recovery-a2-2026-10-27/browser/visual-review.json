@@ -1,0 +1,30 @@
+{
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      900
+    ]
+  ],
+  "reviewedStates": [
+    "ZIP populated Saved Cards",
+    "single no-color outfit",
+    "duo A light-blue and white / B red",
+    "capture metadata apply",
+    "Prompt workspace",
+    "Character Card Lab",
+    "World Street Scene Builder",
+    "DLL_PIC Pro",
+    "DLL_VIDEO Pro",
+    "Saved Cards"
+  ],
+  "findings": [],
+  "notes": [
+    "Existing responsive layout and bounded prompt scrolling retained.",
+    "Final navigation images wait for transitions; character-card lazy images are scrolled into view and decoded before capture.",
+    "No product UI, styling or navigation changes. No external model generation."
+  ]
+}

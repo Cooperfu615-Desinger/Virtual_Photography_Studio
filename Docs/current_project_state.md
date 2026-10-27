@@ -4,6 +4,15 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-27
 
+## Phase 4 A2：舊 Markdown 穿搭配色還原（2026-10-27，驗收通過，授權限定交付）
+
+- 本批基準與最後核對遠端 main 為 `471115c08e4415643b8acbb87b7c2709f98e117c`，即前批 40 套裝已提交版本；下方前批「授權交付」保留當時狀態。
+- 只改文字還原：完整 GPT 的角色／衣物／部位證據優先，修正顏色子字串、固定細節污染與雙人後續外套辨識。40 份無色封存中的 18 假 red／2 假 white 已排除；真正色票及材質保留，缺證據不猜。原公開文字、JSON／抓拍 metadata、生成引擎與正式 catalog 不改。
+- 固定 Git 338 組直接生成保持；378 份文字匯入無核准外差異，40 JSON／80 抓拍案例精確保持。前端 1,889／1,889、Prompt Quality 789／789、聚焦 108／108、Python 43／43、目錄工具 32／32、lint／build／sync／ID／strict／assets 通過。同 seed 200 audit 仍為 0 blocker／18 既有診斷。
+- A2 8,611／3,545 案、A1 1,273 案及四批 A5 原工具隔離回放通過；E 舊文字 expectedHash 使用隔離舊 codec 回放，現行行為另有回歸，不重錄歷史基準。971 份歷史檔及其他 20 工作目錄／140 份既有未提交內容保持。
+- 5175 桌手機：28 項操作、26 張畫面，涵蓋 ZIP／貼上回填、原文複製、套用／生成／收藏／重載、抓拍與六工作區；0 error／外部 POST／意外頁面水平溢位。
+- [規格](specs/wardrobe-color-recovery-a2-v1.md)、[決策](decisions/2026-10-27-a2-wardrobe-color-recovery.md)、[報告](reports/wardrobe-color-recovery-a2-2026-10-27/README.md)。Cooper 已確認本批驗收通過，授權只提交並 push 本次程式、文件、基準、回歸案例、歷史回放與驗收工具；實際 Git 與對應 CI 結果另行核對。驗收報告與保護快照保留提交前狀態。Markdown 完整快照、特殊穿搭與 runtime 配色句另批，其他項目／P5b 未進入。
+
 ## Phase 4 A2 第二批：40 筆套裝控制語（2026-10-27，驗收通過，授權限定交付）
 
 - 可信基準與最後核對的遠端 main 為 `048a2348869c9348d18f4e0b71d4ceed92c69232`（A2 第一批）。下方第一批「授權交付」與「未提交」段落保留歷史狀態。

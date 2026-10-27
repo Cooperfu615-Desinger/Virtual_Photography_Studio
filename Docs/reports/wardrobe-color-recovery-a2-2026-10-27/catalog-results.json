@@ -1,0 +1,14 @@
+[
+  {
+    "check": "catalog-tools",
+    "exitCode": 0
+  },
+  {
+    "check": "assets",
+    "exitCode": 0
+  },
+  {
+    "check": "acceptance",
+    "exitCode": 0
+  }
+]
