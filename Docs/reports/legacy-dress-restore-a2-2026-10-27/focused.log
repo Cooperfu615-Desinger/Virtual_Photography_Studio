@@ -1,0 +1,184 @@
+TAP version 13
+# Subtest: A2 legacy dress: structured apply and storage initialization retain all 42 existing palettes
+ok 1 - A2 legacy dress: structured apply and storage initialization retain all 42 existing palettes
+  ---
+  duration_ms: 693.898917
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: unrelated updates retain palette and do not mutate input
+ok 2 - A2 legacy dress: unrelated updates retain palette and do not mutate input
+  ---
+  duration_ms: 9.961125
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: explicit dress/color changes remove the old palette including none and random
+ok 3 - A2 legacy dress: explicit dress/color changes remove the old palette including none and random
+  ---
+  duration_ms: 7.285042
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: restoration still clears conflicting separates; manual separates clear dress and old pair
+ok 4 - A2 legacy dress: restoration still clears conflicting separates; manual separates clear dress and old pair
+  ---
+  duration_ms: 4.119417
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: preset and special takeover, explicit new paired selection and invalid palette retain policy
+ok 5 - A2 legacy dress: preset and special takeover, explicit new paired selection and invalid palette retain policy
+  ---
+  duration_ms: 4.051167
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: JSON and shared Markdown snapshot preserve original outputs through apply and re-save
+ok 6 - A2 legacy dress: JSON and shared Markdown snapshot preserve original outputs through apply and re-save
+  ---
+  duration_ms: 41.196291
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: duo A/B fields survive and dormant single state returns without crossing roles
+ok 7 - A2 legacy dress: duo A/B fields survive and dormant single state returns without crossing roles
+  ---
+  duration_ms: 1.557084
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: prose same-ID normalization and missing palette remain deferred
+ok 8 - A2 legacy dress: prose same-ID normalization and missing palette remain deferred
+  ---
+  duration_ms: 45.904666
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: workspace summary names the retained palette only for the applicable single state
+ok 9 - A2 legacy dress: workspace summary names the retained palette only for the applicable single state
+  ---
+  duration_ms: 3.390584
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress inverse restores exact fixed sources atomically and is idempotent only in isolated copies
+ok 10 - A2 legacy dress inverse restores exact fixed sources atomically and is idempotent only in isolated copies
+  ---
+  duration_ms: 45.247625
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress inverse rejects unknown, missing, mixed and Git inputs before any writes
+ok 11 - A2 legacy dress inverse rejects unknown, missing, mixed and Git inputs before any writes
+  ---
+  duration_ms: 296.102458
+  type: 'test'
+  ...
+# Subtest: A2 special palette history restores exact fixed transition and is idempotent only in isolated copies
+ok 12 - A2 special palette history restores exact fixed transition and is idempotent only in isolated copies
+  ---
+  duration_ms: 13.283875
+  type: 'test'
+  ...
+# Subtest: A2 special palette inverse rejects missing, changed, mixed and Git inputs before writing
+ok 13 - A2 special palette inverse rejects missing, changed, mixed and Git inputs before writing
+  ---
+  duration_ms: 44.15025
+  type: 'test'
+  ...
+# Subtest: E immutable pre-move snapshot: 22 computed tables and 2 legacy constants
+ok 14 - E immutable pre-move snapshot: 22 computed tables and 2 legacy constants
+  ---
+  duration_ms: 10.707416
+  type: 'test'
+  ...
+# Subtest: E every legacy source path restores exactly as pre-E, including first-match and explicit selections
+ok 15 - E every legacy source path restores exactly as pre-E, including first-match and explicit selections
+  ---
+  duration_ms: 927.426084
+  type: 'test'
+  ...
+# Subtest: A2 runtime complete-look palettes describe the exact selected family without instructions
+ok 16 - A2 runtime complete-look palettes describe the exact selected family without instructions
+  ---
+  duration_ms: 263.349416
+  type: 'test'
+  ...
+# Subtest: A2 runtime generic color roles preserve every color and material description
+ok 17 - A2 runtime generic color roles preserve every color and material description
+  ---
+  duration_ms: 218.213708
+  type: 'test'
+  ...
+# Subtest: A2 runtime new and historical role clauses restore colors without cross-role inference
+ok 18 - A2 runtime new and historical role clauses restore colors without cross-role inference
+  ---
+  duration_ms: 269.679625
+  type: 'test'
+  ...
+# Subtest: A2 runtime dress palette retains upper and lower ownership
+ok 19 - A2 runtime dress palette retains upper and lower ownership
+  ---
+  duration_ms: 4.514291
+  type: 'test'
+  ...
+# Subtest: A2 runtime historical inverse is exact, atomic, idempotent and isolated
+ok 20 - A2 runtime historical inverse is exact, atomic, idempotent and isolated
+  ---
+  duration_ms: 153.056542
+  type: 'test'
+  ...
+# Subtest: A2 runtime prose recovers every new primary and secondary swatch, including material-only details
+ok 21 - A2 runtime prose recovers every new primary and secondary swatch, including material-only details
+  ---
+  duration_ms: 1334.9915
+  type: 'test'
+  ...
+# Subtest: A2 runtime new role evidence remains scoped and conflicts stay unresolved
+ok 22 - A2 runtime new role evidence remains scoped and conflicts stay unresolved
+  ---
+  duration_ms: 52.163875
+  type: 'test'
+  ...
+# Subtest: A2 special tape source changes exactly two controls, no fixed red, and appends old English
+ok 23 - A2 special tape source changes exactly two controls, no fixed red, and appends old English
+  ---
+  duration_ms: 80.94225
+  type: 'test'
+  ...
+# Subtest: A2 special tape every crop and all nine palettes retain existing scope without source controls
+ok 24 - A2 special tape every crop and all nine palettes retain existing scope without source controls
+  ---
+  duration_ms: 655.791833
+  type: 'test'
+  ...
+# Subtest: A2 special tape old full English and issued IDs retain ownership
+ok 25 - A2 special tape old full English and issued IDs retain ownership
+  ---
+  duration_ms: 26.904292
+  type: 'test'
+  ...
+# Subtest: A2 special tape database inverse rejects unknown text, metadata, aliases, ID order and duplicates
+ok 26 - A2 special tape database inverse rejects unknown text, metadata, aliases, ID order and duplicates
+  ---
+  duration_ms: 103.550583
+  type: 'test'
+  ...
+# Subtest: A2 special tape file inverse validates all five surfaces before writes and forbids live tree
+ok 27 - A2 special tape file inverse validates all five surfaces before writes and forbids live tree
+  ---
+  duration_ms: 401.933917
+  type: 'test'
+  ...
+# Subtest: A2 paired capture inverse restores exact fixed sources atomically and is idempotent only in isolated copies
+ok 28 - A2 paired capture inverse restores exact fixed sources atomically and is idempotent only in isolated copies
+  ---
+  duration_ms: 20.320459
+  type: 'test'
+  ...
+# Subtest: A2 paired capture inverse rejects unknown, missing, mixed and Git inputs before any writes
+ok 29 - A2 paired capture inverse rejects unknown, missing, mixed and Git inputs before any writes
+  ---
+  duration_ms: 50.713125
+  type: 'test'
+  ...
+1..29
+# tests 29
+# suites 0
+# pass 29
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2537.855

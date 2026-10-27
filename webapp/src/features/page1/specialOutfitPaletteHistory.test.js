@@ -1,3 +1,4 @@
+import {preLegacyDressSource} from '../../../../scripts/lib/a2LegacyDressReplay.mjs';
 import {prePairedCaptureSource} from '../../../../scripts/lib/a2PairedCaptureReplay.mjs';
 import assert from 'node:assert/strict';
 import test from 'node:test';
@@ -11,7 +12,7 @@ test('A2 special palette history restores exact fixed transition and is idempote
  assert.throws(()=>restore(root),/isolated/);
  const dir=mkdtempSync(join(tmpdir(),'special-palette-inverse-'));
  try{
-  for(const p of [review.path,...Object.keys(review.newTests)]){mkdirSync(dirname(join(dir,p)),{recursive:true});writeFileSync(join(dir,p),prePairedCaptureSource(p,readFileSync(join(root,p))));}
+  for(const p of [review.path,...Object.keys(review.newTests)]){mkdirSync(dirname(join(dir,p)),{recursive:true});writeFileSync(join(dir,p),prePairedCaptureSource(p,preLegacyDressSource(p,readFileSync(join(root,p)))));}
   restore(dir);assert.equal(hash(readFileSync(join(dir,review.path))),review.beforeHash);
   for(const p of Object.keys(review.newTests))assert.equal(existsSync(join(dir,p)),false);
   restore(dir);assert.equal(hash(readFileSync(join(dir,review.path))),review.beforeHash);
@@ -19,7 +20,7 @@ test('A2 special palette history restores exact fixed transition and is idempote
 });
 test('A2 special palette inverse rejects missing, changed, mixed and Git inputs before writing',()=>{
  const dir=mkdtempSync(join(tmpdir(),'special-palette-invalid-')),paths=[review.path,...Object.keys(review.newTests)];
- const seed=()=>{for(const p of paths){mkdirSync(dirname(join(dir,p)),{recursive:true});writeFileSync(join(dir,p),prePairedCaptureSource(p,readFileSync(join(root,p))));}};
+ const seed=()=>{for(const p of paths){mkdirSync(dirname(join(dir,p)),{recursive:true});writeFileSync(join(dir,p),prePairedCaptureSource(p,preLegacyDressSource(p,readFileSync(join(root,p)))));}};
  const snapshot=()=>paths.map(p=>existsSync(join(dir,p))?readFileSync(join(dir,p)):null);
  try{
   for(const p of paths)for(const type of ['missing','changed']){seed();if(type==='missing')rmSync(join(dir,p));else writeFileSync(join(dir,p),readFileSync(join(dir,p),'utf8')+'\n// unknown');const before=snapshot();assert.throws(()=>restore(dir),/rejects|missing/);assert.deepEqual(snapshot(),before);}

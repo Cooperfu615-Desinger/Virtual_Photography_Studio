@@ -67,12 +67,43 @@ function changedToActive(previousLocks, nextLocks, keys, lockControls) {
   ));
 }
 
+// A known legacy combination, not permission to create a new manual mixture.
+export function getLegacyDressPalette(locks, lockControls) {
+  if (locks.subjectCount !== '1'
+    || !isActiveSelection(locks, 'dressId', lockControls)
+    || isActiveSelection(locks, 'outfitPresetId', lockControls)
+    || isActiveSelection(locks, 'specialOutfitId', lockControls)) return null;
+  const dress = getControlByKey(lockControls, 'dressId')?.options?.find(item => item.id === locks.dressId);
+  const palette = getControlByKey(lockControls, 'topBottomPaletteId')?.options?.find(item => item.id === locks.topBottomPaletteId);
+  return dress && !['', 'none', 'random'].includes(dress.id)
+    && palette && !['', 'none', 'random'].includes(palette.id) && palette.topColor && palette.bottomColor
+    ? palette : null;
+}
+
 export function reconcilePage1SingleWardrobeLocks({
   previousLocks = {},
   candidateLocks,
   lockControls,
+  restoringSelection = false,
 }) {
   if (candidateLocks.subjectCount !== '1') return { ...candidateLocks };
+
+  const separateKeys = PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS.filter(key => key !== 'topBottomPaletteId');
+  // Single fields can remain dormant while editing A/B; they never borrow role fields.
+  const previousPalette = getLegacyDressPalette({ ...previousLocks, subjectCount: '1' }, lockControls);
+  const changingDress = ['dressId', 'dressColorId'].some(key => previousLocks[key] !== candidateLocks[key]);
+  const activatingSeparate = changedToActive(previousLocks, candidateLocks, separateKeys, lockControls);
+  if (!restoringSelection && previousPalette
+    && candidateLocks.topBottomPaletteId === previousPalette.id && (changingDress || activatingSeparate)) {
+    candidateLocks = clearPage1WardrobeKeys(candidateLocks, ['topBottomPaletteId'], lockControls);
+  }
+  const palette = getLegacyDressPalette(candidateLocks, lockControls);
+  const continuingLegacy = previousPalette && !changingDress && !activatingSeparate
+    && previousPalette.id === palette?.id;
+  if (palette && (restoringSelection || continuingLegacy)) {
+    return clearPage1WardrobeKeys(candidateLocks,
+      [...PAGE1_SINGLE_OUTFIT_PRESET_STATE_KEYS, ...separateKeys], lockControls);
+  }
 
   // Special outfits retain their existing full-wardrobe takeover contract.
   if (isActiveSelection(candidateLocks, 'specialOutfitId', lockControls)) {

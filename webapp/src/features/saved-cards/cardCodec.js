@@ -514,7 +514,7 @@ export function parseLocksFromStandardPrompt(promptText, controls) {
   return { locks, matchedControls };
 }
 
-export function buildRestoreLocks(nextLocks, controls) {
+export function buildRestoreLocks(nextLocks, controls, { restoringSelection = true } = {}) {
   const restoredLocks = { ...createEmptyLocks(), ...nextLocks };
 
   controls.forEach((control) => {
@@ -535,6 +535,7 @@ export function buildRestoreLocks(nextLocks, controls) {
     previousLocks: {},
     candidateLocks: restoredLocks,
     lockControls: controls,
+    restoringSelection,
   });
 }
 
@@ -641,7 +642,7 @@ export function parseExportedMarkdownPrompt(markdownText, controls, fallbackId) 
     if (captureSelection.captureMode !== 'observation') throw new Error('invalid observation capture metadata');
     Object.assign(parsed.locks, captureSelection);
   }
-  const selection = buildRestoreLocks(parsed.locks, controls);
+  const selection = buildRestoreLocks(parsed.locks, controls, { restoringSelection: Boolean(captureMatch) });
   const prompt = {
     id: fallbackId || `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
     date: new Date().toISOString(),

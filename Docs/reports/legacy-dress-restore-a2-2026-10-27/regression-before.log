@@ -1,0 +1,214 @@
+TAP version 13
+# Subtest: A2 legacy dress: structured apply and storage initialization retain all 42 existing palettes
+not ok 1 - A2 legacy dress: structured apply and storage initialization retain all 42 existing palettes
+  ---
+  duration_ms: 8.692833
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/page1/legacyDressRestore.test.js:18:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'none'
+    - 'cherry-blossom-cream'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'cherry-blossom-cream'
+  actual: 'none'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/page1/legacyDressRestore.test.js:23:14)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: A2 legacy dress: unrelated updates retain palette and do not mutate input
+not ok 2 - A2 legacy dress: unrelated updates retain palette and do not mutate input
+  ---
+  duration_ms: 4.108167
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/page1/legacyDressRestore.test.js:32:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'none'
+    - 'cherry-blossom-cream'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'cherry-blossom-cream'
+  actual: 'none'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/page1/legacyDressRestore.test.js:35:12)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: A2 legacy dress: explicit dress/color changes remove the old palette including none and random
+not ok 3 - A2 legacy dress: explicit dress/color changes remove the old palette including none and random
+  ---
+  duration_ms: 4.736083
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/page1/legacyDressRestore.test.js:40:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'cherry-blossom-cream'
+    - 'none'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'none'
+  actual: 'cherry-blossom-cream'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/page1/legacyDressRestore.test.js:43:12)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: A2 legacy dress: restoration still clears conflicting separates; manual separates clear dress and old pair
+not ok 4 - A2 legacy dress: restoration still clears conflicting separates; manual separates clear dress and old pair
+  ---
+  duration_ms: 0.703958
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/page1/legacyDressRestore.test.js:51:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'none'
+    - 'cherry-blossom-cream'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'cherry-blossom-cream'
+  actual: 'none'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/page1/legacyDressRestore.test.js:54:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: A2 legacy dress: preset and special takeover, explicit new paired selection and invalid palette retain policy
+ok 5 - A2 legacy dress: preset and special takeover, explicit new paired selection and invalid palette retain policy
+  ---
+  duration_ms: 4.447584
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: JSON and shared Markdown snapshot preserve original outputs through apply and re-save
+not ok 6 - A2 legacy dress: JSON and shared Markdown snapshot preserve original outputs through apply and re-save
+  ---
+  duration_ms: 101.196917
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/page1/legacyDressRestore.test.js:75:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + ''
+    - 'cherry-blossom-cream'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'cherry-blossom-cream'
+  actual: ''
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/page1/legacyDressRestore.test.js:81:12)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: A2 legacy dress: duo A/B fields survive and dormant single state returns without crossing roles
+not ok 7 - A2 legacy dress: duo A/B fields survive and dormant single state returns without crossing roles
+  ---
+  duration_ms: 1.684291
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/page1/legacyDressRestore.test.js:87:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'none'
+    - 'cherry-blossom-cream'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'cherry-blossom-cream'
+  actual: 'none'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/page1/legacyDressRestore.test.js:91:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: A2 legacy dress: prose same-ID normalization and missing palette remain deferred
+ok 8 - A2 legacy dress: prose same-ID normalization and missing palette remain deferred
+  ---
+  duration_ms: 42.035458
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: workspace summary names the retained palette only for the applicable single state
+not ok 9 - A2 legacy dress: workspace summary names the retained palette only for the applicable single state
+  ---
+  duration_ms: 7.870709
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/page1/legacyDressRestore.test.js:99:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(buildWorkspaceSummary(legacy(), controls).wardrobe.summary.includes('連身配色：' + active('topBottomPaletteId')[0].zh))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/page1/legacyDressRestore.test.js:100:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 2
+# fail 7
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 381.880417

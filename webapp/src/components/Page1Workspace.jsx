@@ -1,4 +1,5 @@
 import ObservationCapturePanel from './ObservationCapturePanel';
+import { getLegacyDressPalette } from '../features/page1/page1WardrobeExclusivity.js';
 import { CAPTURE_OWNED_KEYS, captureEligibility, resolveCapture } from '../lib/observationCaptureMode.js';
 import { getReferencePersonPreview, hasReferencePersonPreview } from '../lib/referencePersonPreview.js';
 import { prepareBottomRiseControl } from '../lib/engine/bottomRiseCompatibility.js';
@@ -1016,6 +1017,10 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     if (captureActive && CAPTURE_OWNED_KEYS.includes(control.key)) return;
     updateLocks((prev) => {
       const next = { ...prev, [control.key]: value };
+      // Choosing even the same dress/color is an explicit replacement of the legacy pair.
+      if (['dressId', 'dressColorId'].includes(control.key) && getLegacyDressPalette(prev, lockControls)) {
+        next.topBottomPaletteId = 'none';
+      }
       if (/^(headphones|faceCovering)[AB]?Id$/.test(control.key) && prev[control.key] !== value) {
         next[control.key.replace(/Id$/, 'ColorId')] = 'none';
       }
@@ -1363,11 +1368,20 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         </> : <p className="wardrobe-card-note">目前由完整造型管理。</p>}
       </section>;
     }
+    const legacyDressPalette = !role && group.id === 'dress' ? getLegacyDressPalette(locks, lockControls) : null;
     const paletteKey = `topBottomPalette${role}Id`;
     const paired = ['top', 'bottom'].includes(group.id) && getControlOptionLabel(lockControls, paletteKey, locks[paletteKey]);
     return <section key={group.id} className={`wardrobe-editor-card wardrobe-editor-card--${group.id}${active ? ' wardrobe-editor-card-active' : ''}`} aria-label={`${prefix}${group.label}`}>
       <h4>{group.label}{selected ? <span> · {selected}</span> : null}</h4>
       {fields.length ? renderControlGrid(fields, true) : <p className="wardrobe-card-note">目前由完整造型管理，請先解除完整造型再調整。</p>}
+      {legacyDressPalette ? <div className="legacy-dress-palette">
+        <p className="wardrobe-card-note" role="status">保留的連身配色：{legacyDressPalette.zh}。上半部：{legacyDressPalette.topColor.zh}；下擺：{legacyDressPalette.bottomColor.zh}。</p>
+        <p className="wardrobe-card-note">此配色優先於連身配色；改款式或連身配色時會解除。</p>
+        <div className="wardrobe-palette-actions">
+          <button type="button" className="secondary" disabled={allDisabled}
+            onClick={() => applyControlValue(lockControls.find(control => control.key === 'topBottomPaletteId'), 'none')}>解除連身舊配色</button>
+        </div>
+      </div> : null}
       {paired ? <p className="wardrobe-card-note">配色由「特殊上下身配色」控制。</p> : null}
       {fields.length > 0 && allDisabled ? <p className="wardrobe-card-note">目前設定下暫不適用，原設定保留。</p> : null}
       {group.id === 'special' && !fields.some(control => control.key === `completeLookPalette${role}Id`) ? <p className="wardrobe-card-note">選擇特殊穿搭後，可在此調整對應色系。</p> : null}

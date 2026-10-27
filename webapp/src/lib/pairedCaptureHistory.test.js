@@ -1,3 +1,4 @@
+import {preLegacyDressSource} from '../../../scripts/lib/a2LegacyDressReplay.mjs';
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {readFileSync,writeFileSync,mkdirSync,mkdtempSync,rmSync,existsSync} from 'node:fs';
@@ -7,7 +8,7 @@ import {createHash} from 'node:crypto';
 import {PAIRED_CAPTURE_ROOT as root,PAIRED_CAPTURE_REVIEW as review,restorePreA2PairedCaptureFiles as restore} from '../../../scripts/lib/a2PairedCaptureReplay.mjs';
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const paths=[...review.files.map(f=>f.path),...Object.keys(review.newTests)];
-function seed(dir){for(const p of paths){mkdirSync(dirname(join(dir,p)),{recursive:true});writeFileSync(join(dir,p),readFileSync(join(root,p)));}}
+function seed(dir){for(const p of paths){mkdirSync(dirname(join(dir,p)),{recursive:true});writeFileSync(join(dir,p),preLegacyDressSource(p,readFileSync(join(root,p))));}}
 test('A2 paired capture inverse restores exact fixed sources atomically and is idempotent only in isolated copies',()=>{
  assert.throws(()=>restore(root),/isolated/);
  const dir=mkdtempSync(join(tmpdir(),'paired-capture-inverse-'));

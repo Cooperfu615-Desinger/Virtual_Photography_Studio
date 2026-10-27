@@ -1,0 +1,82 @@
+{
+  "baseCommit": "0babbebb8c5fabfe9a1fa16d8824e1c5651ffffd",
+  "finalInverseSources": 15,
+  "allBeforeSourcesMatchRunningHistoricalInput": true,
+  "files": [
+    {
+      "path": "scripts/lib/a1AdultIdentityHistoricalReplay.mjs",
+      "beforeHash": "bd3a2b6da8a8b909fce3b6b788f84b305b918a9da19d03f43dcf5d27583b0903",
+      "matchesFixedMain": true
+    },
+    {
+      "path": "scripts/lib/a2DressControlHistoricalReplay.mjs",
+      "beforeHash": "7b3a088f7ef9792285a55ad8dae67c769cb31107bf329e696a0b34251410a90d",
+      "matchesFixedMain": true
+    },
+    {
+      "path": "scripts/lib/a2OutfitControlHistoricalReplay.mjs",
+      "beforeHash": "27c1c8c8af85a73e6b9fc6a2d6cb908a5e9780e4580fb10b2b187c32f33fd58a",
+      "matchesFixedMain": true
+    },
+    {
+      "path": "scripts/lib/a2WardrobeColorRecoveryReplay.mjs",
+      "beforeHash": "12006d07dc27d32d77d0561872709391faf8694f36583cb0e97810c1bacc32f6",
+      "matchesFixedMain": true
+    },
+    {
+      "path": "webapp/src/components/Page1Workspace.jsx",
+      "beforeHash": "c84a0ed35f80cc75383351e87cffffbd8e5e1f23f5c2b1de1719e6967555eefd",
+      "matchesFixedMain": true
+    },
+    {
+      "path": "webapp/src/features/page1/lockTransitions.js",
+      "beforeHash": "cf7a2887aa5d1b22a0b239c61edc9850bd9edb4c911ef59f100475608e2b7947",
+      "matchesFixedMain": true
+    },
+    {
+      "path": "webapp/src/features/page1/page1WardrobeExclusivity.js",
+      "beforeHash": "7345da7b4af0754f0294968d2154ae039d7566a482f7efe1f01eaa29e06f9229",
+      "matchesFixedMain": true
+    },
+    {
+      "path": "webapp/src/features/page1/specialOutfitPalette.test.js",
+      "beforeHash": "1e497470e783a46d30226a3127074159597a3274e449a5a083b23c93b45ab996",
+      "matchesFixedMain": true
+    },
+    {
+      "path": "webapp/src/features/page1/specialOutfitPaletteHistory.test.js",
+      "beforeHash": "4e348d8813f7a0b1381fec5e94597c27c228b1ae59a2c35f7e472436e4f13874",
+      "matchesFixedMain": true
+    },
+    {
+      "path": "webapp/src/features/page1/usePromptWorkspace.js",
+      "beforeHash": "051665c4c76b323f6b5a29f39929627acc283f454b08012bb8267eeb4e937bce",
+      "matchesFixedMain": true
+    },
+    {
+      "path": "webapp/src/features/saved-cards/cardCodec.js",
+      "beforeHash": "268a814ef7d4cbdf141545aad5ea19656c4dfebe0b53d12d800bb0d170402982",
+      "matchesFixedMain": true
+    },
+    {
+      "path": "webapp/src/lib/page1WorkspaceSummary.js",
+      "beforeHash": "c993103ca1a2ed94b22f17d820ec1913536826391358a49b4b49095ac129caf8",
+      "matchesFixedMain": true
+    },
+    {
+      "path": "webapp/src/lib/pairedCaptureHistory.test.js",
+      "beforeHash": "48868a3488678f9523ed1c446ec407104c3f8cb9c1dc071892b5b7eb45c6919e",
+      "matchesFixedMain": true
+    },
+    {
+      "path": "webapp/src/lib/engine/specialTapeControlLanguage.test.js",
+      "beforeHash": "b0b3f782269d99c4959c04a7012ec24148e49cd6efb375a42b7430419631fafa",
+      "matchesFixedMain": true
+    },
+    {
+      "path": "webapp/src/lib/engine/runtimeWardrobeColor.test.js",
+      "beforeHash": "340efd39d7fdf4c733274abd41cbfc0d0c34c9396c0446d2ab3375b479fc5a1b",
+      "matchesFixedMain": true
+    }
+  ]
+}

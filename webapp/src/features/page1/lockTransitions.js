@@ -91,6 +91,7 @@ export function transitionPage1Locks({
     previousLocks,
     candidateLocks: next,
     lockControls,
+    restoringSelection,
   });
 
   const activeDuoSpecialOutfitRoles = next.subjectCount === '2'

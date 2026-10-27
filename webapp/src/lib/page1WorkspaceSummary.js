@@ -11,7 +11,7 @@ import { isUnderbustTopFit, isUnderbustIncompatibleStyle, underbustTopConflict, 
 import { isNewOuterwearStyling, outerwearStylingAllowsClosed, outerwearStylingConflict, outerwearStylingControlContext } from './engine/outerwearStyling.js';
 import { buildAccessorySummaryEntries } from './accessorySummary.js';
 import { getCameraControlDisplayLabel } from './page1CameraLabels.js';
-import { PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS } from '../features/page1/page1WardrobeExclusivity.js';
+import { PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS, getLegacyDressPalette } from '../features/page1/page1WardrobeExclusivity.js';
 import {
   CONDITIONAL_GARTER_BELT_SUMMARY_LABEL,
   hasConditionalGarterBeltLabels,
@@ -261,6 +261,7 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
       locks.subjectCount === '1' ? getControlOptionLabel(controls, 'headPostureId', locks.headPostureId) : '',
       locks.subjectCount === '1' ? getControlOptionLabel(controls, 'gazeId', locks.gazeId) : '',
     ]);
+  const legacyDressPalette = getLegacyDressPalette(locks, controls);
   const wardrobeSummary = isSpecialSubjectMode ? '' : buildSummaryText([
     ...importedCharacterCardWardrobe,
     wardrobeLabel('specialOutfitId'),
@@ -273,6 +274,7 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
     wardrobeLabel('completeLookPaletteAId'),
     wardrobeLabel('completeLookPaletteBId'),
     wardrobeLabel('dressId'),
+    legacyDressPalette ? `連身配色：${legacyDressPalette.zh}` : '',
     wardrobeLabel('dressAId'),
     wardrobeLabel('dressBId'),
     wardrobeLabel('topId'),

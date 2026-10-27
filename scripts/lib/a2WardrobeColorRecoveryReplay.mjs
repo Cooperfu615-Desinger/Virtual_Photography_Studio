@@ -1,3 +1,4 @@
+import { restorePreA2LegacyDressFiles } from './a2LegacyDressReplay.mjs';
 import { restorePreA2SpecialTapeDatabaseFile, restorePreA2SpecialTapeReplayFiles } from './a2SpecialTapeReplay.mjs';
 import { restorePreA2MarkdownSnapshotFiles } from './a2MarkdownSnapshotReplay.mjs';
 // Restore only the reviewed parser delta in an isolated copy. Historical seals stay immutable.
@@ -45,6 +46,7 @@ export async function withPreA2WardrobeRecoveryReplay(run) {
     cpSync(join(RECOVERY_ROOT,'webapp/package.json'),join(directory,'webapp/package.json'));
     symlinkSync(join(RECOVERY_ROOT,'webapp/node_modules'),join(directory,'webapp/node_modules'),'dir');
     cpSync(join(RECOVERY_ROOT,'scripts/lib'),join(directory,'scripts/lib'),{recursive:true});
+    restorePreA2LegacyDressFiles(directory);
     restorePreA2SpecialTapeDatabaseFile(directory);
     restorePreA2SpecialTapeReplayFiles(directory);
     restorePreA2MarkdownSnapshotFiles(directory);

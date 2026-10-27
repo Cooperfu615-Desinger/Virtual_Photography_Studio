@@ -1,3 +1,4 @@
+import { preLegacyDressSource } from '../../../../scripts/lib/a2LegacyDressReplay.mjs';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { readFileSync, writeFileSync, mkdtempSync, mkdirSync, rmSync } from 'node:fs';
@@ -61,7 +62,7 @@ test('A2 special tape file inverse validates all five surfaces before writes and
   assert.throws(() => restorePreA2SpecialTapeFiles(TAPE_ROOT), /isolated/);
   const paths = [r.sourceFile, 'webapp/src/data/database.json', 'knowledge_base/wardrobe_and_styling.md', ...r.management.map(x => x.path), ...r.replayFiles.map(x => x.path)];
   const dir = mkdtempSync(join(tmpdir(), 'tape-inverse-test-'));
-  const seed = () => { for (const path of paths) { const dest = join(dir, path); mkdirSync(join(dest, '..'), { recursive: true }); writeFileSync(dest, readFileSync(join(TAPE_ROOT, path))); } };
+  const seed = () => { for (const path of paths) { const dest = join(dir, path); mkdirSync(join(dest, '..'), { recursive: true }); writeFileSync(dest, preLegacyDressSource(path, readFileSync(join(TAPE_ROOT, path)))); } };
   try {
     seed(); restorePreA2SpecialTapeFiles(dir); restorePreA2SpecialTapeFiles(dir);
     for (const path of paths) assert.deepEqual(readFileSync(join(dir, path)), git(path));

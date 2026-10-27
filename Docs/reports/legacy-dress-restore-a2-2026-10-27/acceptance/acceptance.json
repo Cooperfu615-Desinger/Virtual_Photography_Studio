@@ -1,0 +1,15 @@
+{
+  "baseCommit": "0babbebb8c5fabfe9a1fa16d8824e1c5651ffffd",
+  "matrix": 1008,
+  "transitions": 18238,
+  "generations": 4439,
+  "storedRoundTrips": 2016,
+  "prose": 1032,
+  "captures": 96,
+  "archivedCards": 24,
+  "saved": 24,
+  "protectedFiles": 322,
+  "oracleMismatches": 0,
+  "oracle": "Fixed Git restore/transition with only reviewed pair-retain or explicit-release inputs; unchanged fixed Git engine for all six outputs and RNG.",
+  "deferred": "Prose normalization, prose palette recognition and chest projection unchanged"
+}

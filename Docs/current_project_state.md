@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-27
 
+## Phase 4 A2：舊連身結構化還原（2026-10-27，驗收通過，授權限定交付）
+
+- 基準及最後核對本機／遠端 main `0babbebb8c5fabfe9a1fa16d8824e1c5651ffffd`。合法單人連身＋上下配色在結構化套用、重載與非穿搭更新時保留；明確換款／改連身色或解除時清理。連身卡片與摘要顯示方案及解除按鈕，維持互斥與雙人 A／B 隔離。
+- 固定 Git：1,008 組、18,238 次轉換、4,439 次生成、2,016 次存檔往返、1,032 例文字保護、96 次抓拍，0 核准外差異。前端 1,965、Prompt Quality 825、Python 43、目錄工具 32、lint／build／sync／歷史 ID／strict／207 assets 通過；200 同 seed audit 前後逐字一致。
+- 5175 桌手機 50 項操作、36 張畫面通過並已人工檢視；0 error／外部 POST／意外水平溢位，專用服務停止。上一批抓拍及完整 A2／A1／A5 原工具隔離回放通過。2,846 原追蹤檔、1,427 歷史檔及其他 20 工作目錄／140 未提交檔受到保護；僅本批清單變更。
+- [規格](specs/legacy-dress-restore-a2-v1.md)、[決策](decisions/2026-10-27-a2-legacy-dress-restore.md)、[報告](reports/legacy-dress-restore-a2-2026-10-27/README.md)。Cooper 已確認驗收通過，授權只提交並 push 本批程式、文件、基準、回歸案例、歷史回放與驗收工具；實際 Git 與該提交 CI 結果另行核對。原驗收報告與 manifest 保留提交前證據。純文字還原、胸上區域投影、其他項目與 P5b 未進入，其他未提交內容及歷史基準保持。下方保留各批當時狀態。
+
 ## Phase 4 A2：上下配色抓拍相容（2026-10-27，驗收通過，授權限定交付）
 
 - 基準本機／遠端 main `58516b20c6631b1a61faa48ee22abfb05ea29384`。只修正快照驗證，接受對應方案的無 ID 上下色塊；不新增 ID、不改配色結構、引擎、穿搭互斥或存檔格式。

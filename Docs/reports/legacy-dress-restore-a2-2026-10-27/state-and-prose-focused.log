@@ -1,0 +1,262 @@
+TAP version 13
+# Subtest: A2 legacy dress: structured apply and storage initialization retain all 42 existing palettes
+ok 1 - A2 legacy dress: structured apply and storage initialization retain all 42 existing palettes
+  ---
+  duration_ms: 573.39525
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: unrelated updates retain palette and do not mutate input
+ok 2 - A2 legacy dress: unrelated updates retain palette and do not mutate input
+  ---
+  duration_ms: 9.830791
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: explicit dress/color changes remove the old palette including none and random
+ok 3 - A2 legacy dress: explicit dress/color changes remove the old palette including none and random
+  ---
+  duration_ms: 6.062875
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: restoration still clears conflicting separates; manual separates clear dress and old pair
+ok 4 - A2 legacy dress: restoration still clears conflicting separates; manual separates clear dress and old pair
+  ---
+  duration_ms: 2.818333
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: preset and special takeover, explicit new paired selection and invalid palette retain policy
+ok 5 - A2 legacy dress: preset and special takeover, explicit new paired selection and invalid palette retain policy
+  ---
+  duration_ms: 4.849667
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: JSON and shared Markdown snapshot preserve original outputs through apply and re-save
+ok 6 - A2 legacy dress: JSON and shared Markdown snapshot preserve original outputs through apply and re-save
+  ---
+  duration_ms: 64.561917
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: duo A/B fields survive and dormant single state returns without crossing roles
+ok 7 - A2 legacy dress: duo A/B fields survive and dormant single state returns without crossing roles
+  ---
+  duration_ms: 1.311583
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: prose same-ID normalization and missing palette remain deferred
+ok 8 - A2 legacy dress: prose same-ID normalization and missing palette remain deferred
+  ---
+  duration_ms: 39.714708
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: workspace summary names the retained palette only for the applicable single state
+ok 9 - A2 legacy dress: workspace summary names the retained palette only for the applicable single state
+  ---
+  duration_ms: 3.273375
+  type: 'test'
+  ...
+# Subtest: page1 transition keeps special subject and character profile mutually exclusive
+ok 10 - page1 transition keeps special subject and character profile mutually exclusive
+  ---
+  duration_ms: 24.783125
+  type: 'test'
+  ...
+# Subtest: page1 transition locks supine scene and fixed-composition controls to none
+ok 11 - page1 transition locks supine scene and fixed-composition controls to none
+  ---
+  duration_ms: 1.908333
+  type: 'test'
+  ...
+# Subtest: page1 close-up transitions preserve hidden selections and restore them at full body
+ok 12 - page1 close-up transitions preserve hidden selections and restore them at full body
+  ---
+  duration_ms: 3.053208
+  type: 'test'
+  ...
+# Subtest: page1 transition lets a newly selected dress replace normal separates while preserving outer layers
+ok 13 - page1 transition lets a newly selected dress replace normal separates while preserving outer layers
+  ---
+  duration_ms: 2.7175
+  type: 'test'
+  ...
+# Subtest: page1 transition lets a newly selected separate replace a dress while preserving outer layers
+ok 14 - page1 transition lets a newly selected separate replace a dress while preserving outer layers
+  ---
+  duration_ms: 1.51775
+  type: 'test'
+  ...
+# Subtest: page1 transition lets complete-look choices replace each other by explicit action order
+ok 15 - page1 transition lets complete-look choices replace each other by explicit action order
+  ---
+  duration_ms: 3.328125
+  type: 'test'
+  ...
+# Subtest: page1 bulk wardrobe restore keeps complete-look priority over conflicting separates
+ok 16 - page1 bulk wardrobe restore keeps complete-look priority over conflicting separates
+  ---
+  duration_ms: 1.239125
+  type: 'test'
+  ...
+# Subtest: page1 duo transition scopes special-outfit takeover to the selected person
+ok 17 - page1 duo transition scopes special-outfit takeover to the selected person
+  ---
+  duration_ms: 2.238916
+  type: 'test'
+  ...
+# Subtest: A2 all 90 single special outfits preserve all nine palettes and explicit none through manual, restore and unrelated updates
+ok 18 - A2 all 90 single special outfits preserve all nine palettes and explicit none through manual, restore and unrelated updates
+  ---
+  duration_ms: 2836.826167
+  type: 'test'
+  ...
+# Subtest: A2 preserving a special palette does not retain covered clothes, layers or accessories
+ok 19 - A2 preserving a special palette does not retain covered clothes, layers or accessories
+  ---
+  duration_ms: 1.499458
+  type: 'test'
+  ...
+# Subtest: A2 switching special outfits, explicit palette none and reload retain the intended complete-look state
+ok 20 - A2 switching special outfits, explicit palette none and reload retain the intended complete-look state
+  ---
+  duration_ms: 5.974542
+  type: 'test'
+  ...
+# Subtest: A2 duo A and B special palettes remain isolated and the other person stays intact
+ok 21 - A2 duo A and B special palettes remain isolated and the other person stays intact
+  ---
+  duration_ms: 20.765166
+  type: 'test'
+  ...
+# Subtest: A2 JSON and complete Markdown retain original outputs and special palette after apply
+ok 22 - A2 JSON and complete Markdown retain original outputs and special palette after apply
+  ---
+  duration_ms: 79.06625
+  type: 'test'
+  ...
+# Subtest: A2 special capture source keeps its palette and frozen reference across capture generation
+ok 23 - A2 special capture source keeps its palette and frozen reference across capture generation
+  ---
+  duration_ms: 17.89625
+  type: 'test'
+  ...
+# Subtest: A2 structured dress restore retains its pair while paired-color capture accepts resolved colors
+ok 24 - A2 structured dress restore retains its pair while paired-color capture accepts resolved colors
+  ---
+  duration_ms: 10.878708
+  type: 'test'
+  ...
+# Subtest: A2 recovery: all 40 archived no-color outfits keep main and contrast unspecified and public text intact
+ok 25 - A2 recovery: all 40 archived no-color outfits keep main and contrast unspecified and public text intact
+  ---
+  duration_ms: 852.575291
+  type: 'test'
+  ...
+# Subtest: A2 recovery: non-color substrings and unrelated body/scene colors cannot recolor garments
+ok 26 - A2 recovery: non-color substrings and unrelated body/scene colors cannot recolor garments
+  ---
+  duration_ms: 27.07275
+  type: 'test'
+  ...
+# Subtest: A2 recovery: structured outfit bindings distinguish primary contrast and fixed gold
+ok 27 - A2 recovery: structured outfit bindings distinguish primary contrast and fixed gold
+  ---
+  duration_ms: 81.62425
+  type: 'test'
+  ...
+# Subtest: A2 recovery: generic outfit channels and genuine red are retained
+ok 28 - A2 recovery: generic outfit channels and genuine red are retained
+  ---
+  duration_ms: 31.4415
+  type: 'test'
+  ...
+# Subtest: A2 recovery: duo garment ownership and four independent colors stay with each woman
+ok 29 - A2 recovery: duo garment ownership and four independent colors stay with each woman
+  ---
+  duration_ms: 42.345875
+  type: 'test'
+  ...
+# Subtest: A2 recovery: unlabelled duo prose and contradictory channel evidence are conservative
+ok 30 - A2 recovery: unlabelled duo prose and contradictory channel evidence are conservative
+  ---
+  duration_ms: 23.484083
+  type: 'test'
+  ...
+# Subtest: A2 recovery: every supported swatch with an explicit visible target, 鏈條緞面/outfitPresetPrimaryColorId
+ok 31 - A2 recovery: every supported swatch with an explicit visible target, 鏈條緞面/outfitPresetPrimaryColorId
+  ---
+  duration_ms: 873.883125
+  type: 'test'
+  ...
+# Subtest: A2 recovery: every supported swatch with an explicit visible target, 粉紅哥德/outfitPresetPrimaryColorId
+ok 32 - A2 recovery: every supported swatch with an explicit visible target, 粉紅哥德/outfitPresetPrimaryColorId
+  ---
+  duration_ms: 962.036041
+  type: 'test'
+  ...
+# Subtest: A2 recovery: every supported swatch with an explicit visible target, 粉紅哥德/outfitPresetContrastColorId
+ok 33 - A2 recovery: every supported swatch with an explicit visible target, 粉紅哥德/outfitPresetContrastColorId
+  ---
+  duration_ms: 907.575584
+  type: 'test'
+  ...
+# Subtest: A2 recovery: every supported swatch with an explicit visible target, 素色緞面旗袍/outfitPresetPrimaryColorId
+ok 34 - A2 recovery: every supported swatch with an explicit visible target, 素色緞面旗袍/outfitPresetPrimaryColorId
+  ---
+  duration_ms: 1006.244708
+  type: 'test'
+  ...
+# Subtest: A2 recovery: every supported swatch with an explicit visible target, 高領挖腰/dressColorId
+ok 35 - A2 recovery: every supported swatch with an explicit visible target, 高領挖腰/dressColorId
+  ---
+  duration_ms: 1332.54325
+  type: 'test'
+  ...
+# Subtest: A2 recovery: independent dress and footwear keep separate colors
+ok 36 - A2 recovery: independent dress and footwear keep separate colors
+  ---
+  duration_ms: 26.964125
+  type: 'test'
+  ...
+# Subtest: A2 recovery: color-word overlap does not hide a separate contradictory assertion
+ok 37 - A2 recovery: color-word overlap does not hide a separate contradictory assertion
+  ---
+  duration_ms: 16.399209
+  type: 'test'
+  ...
+# Subtest: A2 recovery: old alias bindings and role labels remain readable without data rewrites
+ok 38 - A2 recovery: old alias bindings and role labels remain readable without data rewrites
+  ---
+  duration_ms: 23.089709
+  type: 'test'
+  ...
+# Subtest: A2 recovery: all 40 reviewed outfits retain explicit primary and eligible contrast colors
+ok 39 - A2 recovery: all 40 reviewed outfits retain explicit primary and eligible contrast colors
+  ---
+  duration_ms: 899.461417
+  type: 'test'
+  ...
+# Subtest: A2 recovery: separate garments in explicit duo sections do not inherit the other role colors
+ok 40 - A2 recovery: separate garments in explicit duo sections do not inherit the other role colors
+  ---
+  duration_ms: 35.508709
+  type: 'test'
+  ...
+# Subtest: A2 recovery: resolved outerwear fallback stays within each explicit role
+ok 41 - A2 recovery: resolved outerwear fallback stays within each explicit role
+  ---
+  duration_ms: 26.176209
+  type: 'test'
+  ...
+# Subtest: A2 recovery: authored fixed-detail silence remains explicit in raw parsing
+ok 42 - A2 recovery: authored fixed-detail silence remains explicit in raw parsing
+  ---
+  duration_ms: 20.698542
+  type: 'test'
+  ...
+1..42
+# tests 42
+# suites 0
+# pass 42
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 7418.702583

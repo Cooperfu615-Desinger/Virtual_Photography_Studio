@@ -1,3 +1,4 @@
+import { preLegacyDressSource } from '../../../../scripts/lib/a2LegacyDressReplay.mjs';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls } from '../engine.js';
@@ -63,7 +64,7 @@ test('A2 runtime historical inverse is exact, atomic, idempotent and isolated', 
   assert.throws(()=>restorePreA2RuntimeColorFiles(RUNTIME_ROOT),/isolated/);
   const dir=mkdtempSync(join(tmpdir(),'runtime-inverse-test-'));
   const paths=[...RUNTIME_PATCHES.files.map(f=>f.path),...Object.keys(RUNTIME_PATCHES.newTests)];
-  const seed=()=>{for(const p of paths){mkdirSync(dirname(join(dir,p)),{recursive:true});writeFileSync(join(dir,p),readFileSync(join(RUNTIME_ROOT,p)));}};
+  const seed=()=>{for(const p of paths){mkdirSync(dirname(join(dir,p)),{recursive:true});writeFileSync(join(dir,p),preLegacyDressSource(p,readFileSync(join(RUNTIME_ROOT,p))));}};
   const snapshot=()=>paths.map(p=>readFileSync(join(dir,p)));
   try{
     seed();restorePreA2RuntimeColorFiles(dir);restorePreA2RuntimeColorFiles(dir);

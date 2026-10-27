@@ -44,6 +44,7 @@ export function usePromptWorkspace() {
       previousLocks: emptyLocks,
       candidateLocks: normalizedLocks,
       lockControls,
+      restoringSelection: true,
     }));
   });
   const [previewGenerationNonce, setPreviewGenerationNonce] = useState(0);
