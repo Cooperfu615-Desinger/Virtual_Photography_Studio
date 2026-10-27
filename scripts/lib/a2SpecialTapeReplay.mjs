@@ -1,3 +1,4 @@
+import { preA2RuntimeColorSources, preparePreA2RuntimeColorFiles, applyPreA2RuntimeColorFiles } from './a2RuntimeColorReplay.mjs';
 // Test-only exact inverse of the one approved special-outfit source change.
 import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync, realpathSync } from 'node:fs';
@@ -27,11 +28,14 @@ function requireIsolated(directory) {
 }
 export function restorePreA2SpecialTapeDatabaseFile(directory) {
   requireIsolated(directory);
+  const runtime = preparePreA2RuntimeColorFiles(directory, { optional: true });
   const file = join(directory, 'webapp/src/data/database.json');
   const restored = preA2SpecialTapeDatabase(JSON.parse(readFileSync(file)));
+  applyPreA2RuntimeColorFiles(directory, runtime);
   writeFileSync(file, JSON.stringify(restored, null, 2) + '\n');
 }
 export function preA2SpecialTapeManagementSources(sources) {
+  sources = preA2RuntimeColorSources(sources);
   const restored = { ...sources }, states = [];
   const hash = v => createHash('sha256').update(v).digest('hex');
   for (const file of TAPE_REVIEW.management) {
@@ -68,11 +72,14 @@ function prepareReplayFiles(directory) {
 }
 export function restorePreA2SpecialTapeReplayFiles(directory) {
   requireIsolated(directory);
+  const runtime = preparePreA2RuntimeColorFiles(directory, { optional: true });
   const prepared = prepareReplayFiles(directory);
+  applyPreA2RuntimeColorFiles(directory, runtime);
   for (const [path, text] of prepared) writeFileSync(join(directory, path), text);
 }
 export function restorePreA2SpecialTapeFiles(directory) {
   requireIsolated(directory);
+  const runtime = preparePreA2RuntimeColorFiles(directory, { optional: true });
   const sourceFile = join(directory, TAPE_REVIEW.sourceFile);
   const source = JSON.parse(readFileSync(sourceFile));
   const state = inverse(source.entries, 'id', 'before', 'after');
@@ -102,6 +109,7 @@ export function restorePreA2SpecialTapeFiles(directory) {
   });
   const replayFiles = prepareReplayFiles(directory);
   // Every input passed before the first write; all writes are in a disposable copy.
+  applyPreA2RuntimeColorFiles(directory, runtime);
   writeFileSync(sourceFile, JSON.stringify(source, null, 2) + '\n');
   writeFileSync(dbFile, JSON.stringify(db, null, 2) + '\n');
   writeFileSync(mdFile, restoredMd);

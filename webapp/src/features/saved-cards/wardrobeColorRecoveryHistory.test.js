@@ -1,3 +1,4 @@
+import { preA2RuntimeColorSources } from '../../../../scripts/lib/a2RuntimeColorReplay.mjs';
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from 'node:fs';
@@ -7,7 +8,7 @@ import { RECOVERY_ROOT, RECOVERY_PATCHES, restorePreA2WardrobeRecoveryFiles } fr
 const fixture = () => {
  const directory=mkdtempSync(join(tmpdir(),'a2-recovery-inverse-test-'));
  for(const file of RECOVERY_PATCHES.files){const path=join(directory,file.path);mkdirSync(dirname(path),{recursive:true});writeFileSync(path,file.patches[0].after);}
- for(const file of Object.keys(RECOVERY_PATCHES.newFiles)){const path=join(directory,file);mkdirSync(dirname(path),{recursive:true});writeFileSync(path,readFileSync(join(RECOVERY_ROOT,file)));}
+ for(const file of Object.keys(RECOVERY_PATCHES.newFiles)){const path=join(directory,file);mkdirSync(dirname(path),{recursive:true});writeFileSync(path,preA2RuntimeColorSources({[file]:readFileSync(join(RECOVERY_ROOT,file),'utf8')})[file]);}
  return directory;
 };
 test('A2 recovery inverse restores exact prior code and is idempotent',()=>{

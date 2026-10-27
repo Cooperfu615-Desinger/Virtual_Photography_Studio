@@ -105,7 +105,8 @@ export function recoverWardrobeColors(context, locks, controls) {
     let found = null;
     if (text) found = uniqueColor(control.options, text, (phrase, color, text) => {
       if (key === 'completeLookPaletteId') {
-        return matches(text, `complete outfit palette direction: shift the complete outfit palette toward a ${phrase}`)
+        return matches(text, `outfit palette: ${phrase}`)
+          || matches(text, `complete outfit palette direction: shift the complete outfit palette toward a ${phrase}`)
           || (outfit?.meta?.shirtBlackBottom && matches(text, `shirt palette inspired by ${phrase}`));
       }
       if (key === 'topBottomPaletteId') return matches(text, phrase); // Never infer a palette from two incidental colors.
@@ -129,7 +130,10 @@ export function recoverWardrobeColors(context, locks, controls) {
         if (targets.length && targetColor(text, phrase, targets)) return true;
         if (channel === 'primary' && matches(text, `the primary outfit surfaces rendered in ${phrase}`)) return true;
         if (!meta.colorMode || !Object.keys(meta.colorTargets || {}).length) {
-          if (matches(text, `${channel === 'primary' ? 'primary' : 'secondary'} garment color ${phrase}`)
+          if (matches(text, `${channel === 'primary' ? 'primary' : 'secondary'} garment in ${phrase}`)
+            || (phrase === `with ${normalize(color.meta?.wearableColorSyntax?.detail)}`
+              && matches(text, `${channel === 'primary' ? 'primary' : 'secondary'} garment ${phrase}`))
+            || matches(text, `${channel === 'primary' ? 'primary' : 'secondary'} garment color ${phrase}`)
             || matches(text, `${channel === 'primary' ? 'primary' : 'secondary'} garment color in ${phrase}`)
             || matches(text, `${channel === 'primary' ? 'primary' : 'secondary'} garment color expressed as ${phrase}`)) return true;
           return channel === 'primary' && itemColor(text, outfit, phrase, color, items);

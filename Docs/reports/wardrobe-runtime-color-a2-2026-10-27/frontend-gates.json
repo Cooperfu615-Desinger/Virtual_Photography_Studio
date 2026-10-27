@@ -1,0 +1,22 @@
+[
+  {
+    "name": "frontend",
+    "exitCode": 0
+  },
+  {
+    "name": "quality",
+    "exitCode": 0
+  },
+  {
+    "name": "lint",
+    "exitCode": 0
+  },
+  {
+    "name": "build",
+    "exitCode": 0
+  },
+  {
+    "name": "audit-after",
+    "exitCode": 0
+  }
+]

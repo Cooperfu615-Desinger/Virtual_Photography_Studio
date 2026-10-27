@@ -1,5 +1,7 @@
 # B 穿搭設定新增與維護規格
 
+2026-10-27 A2 runtime 配色：完整造型、主／次色及連身上下句改為描述語，色票／部位／固定色／材質責任保持；`target set to color` 與襯衫固定黑色下身分支不改。舊 Markdown 增加新句型辨識，特殊穿搭套用清色系仍另批。見 [runtime 規格](wardrobe-runtime-color-a2-v1.md)。
+
 2026-10-27 A2 特殊穿搭單筆：膠帶造型只移除 palette-controlled 前綴與色系選擇操作句，不補固定紅色；所有有效衣物細節保持。原全文 alias、舊存檔／抓拍原文保留；既有 runtime 配色句另批。見 [單筆規格](wardrobe-control-a2-special-tape-v1.md)。
 
 2026-10-27 A2 舊文字配色還原：Markdown／ZIP／貼上 Prompt 的顏色辨識必須具有同角色、同衣物或配色部位的來源證據；不可用全段子字串猜顏色。保留 `colorTextBindings`、`colorTargets`、`wearableColorTarget` 與舊別名的可追溯性，並驗證固定細節不污染其他衣物。JSON／抓拍 metadata 優先；完整 Markdown 快照、特殊穿搭與 runtime 配色句另批。詳見[還原規格](wardrobe-color-recovery-a2-v1.md)。

@@ -1910,7 +1910,7 @@ function buildCompleteLookPaletteDirection(palette) {
   if (!palette || isNoneLikeItem(palette)) return '';
   const paletteText = stripMarkdown(palette.en || '').replace(/\s+/g, ' ').trim();
   if (!paletteText || paletteText === 'none') return '';
-  return `complete outfit palette direction: shift the complete outfit palette toward a ${paletteText}, preserving garment structure, accessory separation, material contrast, and multi-piece color variation`;
+  return `outfit palette: ${paletteText}`;
 }
 
 function appendCompleteLookPaletteDirection(text, palette) {
@@ -3737,10 +3737,7 @@ function composeItemWearableColorPrompt(item, base, color) {
 
 function describeGarmentColorRole(label, color) {
   if (!color || isNoneLikeItem(color)) return '';
-  const syntax = getWearableColorSyntax(color);
-  if (!syntax) return `${label} ${normalizeWardrobePromptText(color.en)}`;
-  if (syntax.prefix) return describeWearableColorTarget(label, color);
-  return `${label} expressed as ${syntax.detail}`;
+  return describeWearableColorTarget(label, color);
 }
 
 function appendWardrobePromptSearchAlias(item, text) {
@@ -8438,7 +8435,7 @@ function buildColoredGrokPrompt(item, color = null, { preset = false, pattern = 
     ? stripMarkdown(rise.en).replace(/\s+/g, ' ').trim()
     : '';
   const secondaryColorText = secondaryColor && color && !isNoneLikeItem(secondaryColor) && !isNoneLikeItem(color)
-    ? `coordinated top-to-bottom palette: ${describeWearableColorTarget('upper/main dress area', color)}, ${describeWearableColorTarget('lower hem or skirt area', secondaryColor)}`
+    ? `dress palette from top to bottom: ${describeWearableColorTarget('upper/main dress area', color)}, ${describeWearableColorTarget('lower hem or skirt area', secondaryColor)}`
     : '';
   let stylingText = styling && !isNoneLikeItem(styling)
     ? stripMarkdown(styling.en).replace(/\s+/g, ' ').trim()
@@ -8698,12 +8695,12 @@ function buildUnprojectedOutfitPresetPrompt(item, colorState = {}) {
     const visualBase = stripOutfitColorSelectionControls(primaryBehavior.text);
     if (primaryBehavior.consumedPrimary) {
       const contrastSuffix = contrastColor && !isNoneLikeItem(contrastColor)
-        ? `, ${describeGarmentColorRole('secondary garment color', contrastColor)}`
+        ? `, ${describeGarmentColorRole('secondary garment', contrastColor)}`
         : '';
       return appendCompleteLookPaletteDirection(`${visualBase}${contrastSuffix}`, completeLookPalette);
     }
     if (primaryColor && contrastColor && !isNoneLikeItem(primaryColor) && !isNoneLikeItem(contrastColor)) {
-      return appendCompleteLookPaletteDirection(`${visualBase}, ${describeGarmentColorRole('primary garment color', primaryColor)}, ${describeGarmentColorRole('secondary garment color', contrastColor)}`, completeLookPalette);
+      return appendCompleteLookPaletteDirection(`${visualBase}, ${describeGarmentColorRole('primary garment', primaryColor)}, ${describeGarmentColorRole('secondary garment', contrastColor)}`, completeLookPalette);
     }
     return appendCompleteLookPaletteDirection(composeWearableColorPrompt(visualBase, primaryColor), completeLookPalette);
   }
@@ -11096,6 +11093,10 @@ function cleanPublicDuoPromptText(value) {
 function cleanZImageTurboInternalLanguage(value) {
   return cleanZImageSinglePromptText(value)
     .replace(
+      /outfit palette:\s*(.+?)\s+color family(?:\s+with\s+dark accent balance)?/gi,
+      (_, palette) => `${buildGptCompletePaletteModifier(palette)} palette`
+    )
+    .replace(
       /complete outfit palette direction:\s*shift the complete outfit palette toward a\s+(.+?)\s+color family(?:\s+with\s+dark accent balance)?\s*,\s*preserving garment structure,\s*accessory separation,\s*material contrast,\s*and multi-piece color variation/gi,
       (_, palette) => `${buildGptCompletePaletteModifier(palette)} palette`
     )
@@ -12352,6 +12353,13 @@ function compressZImageSingleWardrobeText(value, context, { preserveFitAnchors =
     .replace(/,\s*metal hardware in fixed metallic tones/gi, '')
     .replace(/,\s*grommets,\s*buckles,\s*and rings in fixed metallic tones/gi, '')
     .replace(/,\s*metal ring in fixed metallic tones,\s*rose print palette preserved/gi, '')
+    .replace(
+      /[,.]\s*outfit palette:\s*(.+?)\s+color family(?:\s+with\s+dark accent balance)?\.?/gi,
+      (_, palette) => {
+        const modifier = buildGptCompletePaletteModifier(palette);
+        return modifier ? `, ${modifier} palette` : '';
+      }
+    )
     .replace(
       /[,.]\s*complete outfit palette direction:\s*shift the complete outfit palette toward a\s+(.+?)\s+color family(?:\s+with\s+dark accent balance)?\s*,\s*preserving garment structure,\s*accessory separation,\s*material contrast,\s*and multi-piece color variation\.?/gi,
       (_, palette) => {
@@ -14421,6 +14429,7 @@ function buildAiMinimalMoodTail(valuesByLabel) {
 
 function cleanAiDuoCompactText(value) {
   return cleanAiMinimalFragment(value)
+    .replace(/\boutfit palette:\s*.+?\s+color family(?:\s+with\s+dark accent balance)?/gi, '')
     .replace(/\bcomplete outfit palette direction:\s*shift the complete outfit palette toward [^.]+?(?:multi-piece color variation|$)/gi, '')
     .replace(/\b(?:dominant|main|secondary|contrast|tonal)\s+[^,.]*?\s+controlled by\s+[^,.]+/gi, '')
     .replace(/\bcolor controlled by\s+[^,.]+/gi, '')
@@ -14819,7 +14828,7 @@ function buildAiCompleteLookCoreText(
 
   for (const fragment of splitAiSourceFragments(value)) {
     if (isAiSpecialPersonFragment(fragment)) continue;
-    if (/\b(?:controlled by|color selection|palette direction|coordinated top-to-bottom palette|upper\/main garment|lower or secondary garment|preserving garment structure|accessory separation|material contrast|multi-piece color variation)\b/i.test(fragment)) continue;
+    if (/\b(?:controlled by|color selection|palette direction|outfit palette|dress palette|coordinated top-to-bottom palette|upper\/main garment|lower or secondary garment|preserving garment structure|accessory separation|material contrast|multi-piece color variation)\b/i.test(fragment)) continue;
     if (/\b(?:the\s+)?(?:\w+\s+)?(?:body|fabric|main color|primary color|catsuit|bodysuit|dress)\s+in\s+[a-z -]+$/i.test(fragment)) continue;
 
     let role = classifyCompleteLookWardrobeFragment(fragment);

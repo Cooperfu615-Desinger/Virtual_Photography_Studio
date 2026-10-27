@@ -157,3 +157,15 @@ node scripts/wardrobe_control_a2_special_tape_history.mjs /tmp/a2-special-tape-h
 新的 test-only inverse 先驗證本筆紀錄、分類順序、source／database／Markdown 狀態、兩份管理檔及兩份回放銜接檔，再在隔離副本精確回復。既有 A～E／A1／A5 與前批 A2 回放接上本層；E 僅複製 runtime 的測試副本使用同樣嚴格的單筆 database inverse，並精確還原本批回放銜接檔後再進入原快照／還原工具。舊工具及基準不重錄。history 在全新暫存輸出目錄運行原工具，保留它們的歷史路徑保護規則，再保存本批新證據。
 
 舊無快照的渲染文字辨識限制以固定 Git 保持，不視為完整選值往返；舊原始英文 alias、JSON 及 PAGE1 完整快照另驗精確還原。[規格](../../Docs/specs/wardrobe-control-a2-special-tape-v1.md)及[驗收報告](../../Docs/reports/wardrobe-control-a2-special-tape-2026-10-27/README.md)。本機驗收與歷史回放已通過，Cooper 已授權本批限定交付；其他項目及 P5b 未開始，實際 Git／CI 結果另行回報。
+
+## A2 runtime 配色文字（2026-10-27）
+
+本批正式 catalog、生成 Markdown／database、ID／aliases／semantic 不變。配色 builder 與新舊文字還原採 [runtime 規格](../../Docs/specs/wardrobe-runtime-color-a2-v1.md)。以 main `bd31bd34f0bfa8986193a6048fe1a69a265e3668` 執行 sync `--check` 與歷史 ID；不重錄任何 A～E／A5／前批 A2 基準。
+
+```bash
+node --test webapp/src/lib/engine/runtimeWardrobeColor.test.js
+node scripts/wardrobe_runtime_color_a2_acceptance.mjs /tmp/a2-runtime-acceptance
+node scripts/wardrobe_runtime_color_a2_history.mjs /tmp/a2-runtime-history
+```
+
+歷史工具先經新的精確隔離 inverse，再執行前批膠帶原工具及完整回放鏈；現行新句型由本批回歸／固定 Git 對照另驗。已知特殊穿搭套用清色系不在本批修復。實際結果見[本批報告](../../Docs/reports/wardrobe-runtime-color-a2-2026-10-27/README.md)。

@@ -35,7 +35,7 @@ test('A2 special tape every crop and all nine palettes retain existing scope wit
     const full = p.extraPrompts.find(x => x.id === 'full-body-character').text;
     for (const phrase of ['latex-like tape strips stuck directly onto the skin', 'matching high-cut tape bottom', 'hip and thigh tape bands']) assert.ok(full.includes(phrase));
     if (palette.id === 'none') assert.doesNotMatch(full, /\bred\b|complete outfit palette direction/i);
-    else assert.ok(full.includes('complete outfit palette direction: shift the complete outfit palette toward a ' + palette.en), 'runtime wording remains exact');
+    else assert.ok(full.includes('outfit palette: ' + palette.en), 'current runtime keeps the selected family');
   }
 });
 

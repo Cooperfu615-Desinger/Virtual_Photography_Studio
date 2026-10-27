@@ -886,8 +886,8 @@ test('Gpt single-subject prompt preserves preset and effective palette wording w
     completeLookPaletteId: optionId('completeLookPaletteId', '黑紅街頭'),
   });
   assert.doesNotMatch(cheongsam.wardrobe, /dominant satin color controlled by the outfit color selection/i);
-  assert.match(cheongsam.wardrobe, /complete outfit palette direction: shift the complete outfit palette toward a black-and-red street color family/i);
-  assert.match(cheongsam.wardrobe, controlPhrase);
+  assert.match(cheongsam.wardrobe, /outfit palette: black-and-red street color family/i);
+  assert.doesNotMatch(cheongsam.wardrobe, controlPhrase);
   assert.doesNotMatch(cheongsam.prompt.zImagePrompt, /complete outfit palette direction: shift the complete outfit palette/i);
 
   const lingerie = buildWardrobe({
@@ -895,16 +895,16 @@ test('Gpt single-subject prompt preserves preset and effective palette wording w
     dressId: optionId('dressId', '全無'),
     completeLookPaletteId: optionId('completeLookPaletteId', '銀灰金屬'),
   });
-  assert.match(lingerie.wardrobe, /complete outfit palette direction:/i);
-  assert.match(lingerie.wardrobe, controlPhrase);
+  assert.match(lingerie.wardrobe, /outfit palette:/i);
+  assert.doesNotMatch(lingerie.wardrobe, controlPhrase);
 
   const maid = buildWardrobe({
     outfitPresetId: optionId('outfitPresetId', '套裝：女僕'),
     dressId: optionId('dressId', '全無'),
     completeLookPaletteId: optionId('completeLookPaletteId', '粉色甜酷'),
   });
-  assert.match(maid.wardrobe, /complete outfit palette direction:/i);
-  assert.match(maid.wardrobe, controlPhrase);
+  assert.match(maid.wardrobe, /outfit palette:/i);
+  assert.doesNotMatch(maid.wardrobe, controlPhrase);
 
   const laceDress = buildWardrobe({
     outfitPresetId: optionId('outfitPresetId', '全無'),
@@ -912,7 +912,7 @@ test('Gpt single-subject prompt preserves preset and effective palette wording w
     completeLookPaletteId: optionId('completeLookPaletteId', '奶油米白'),
   });
   assert.doesNotMatch(laceDress.wardrobe, /main fabric color controlled by dress color selection/i);
-  assert.match(laceDress.wardrobe, controlPhrase);
+  assert.doesNotMatch(laceDress.wardrobe, controlPhrase);
 
   const cutoutSwimsuit = buildWardrobe({
     outfitPresetId: optionId('outfitPresetId', '全無'),
@@ -920,14 +920,14 @@ test('Gpt single-subject prompt preserves preset and effective palette wording w
     completeLookPaletteId: optionId('completeLookPaletteId', '黑紅街頭'),
   });
   assert.doesNotMatch(cutoutSwimsuit.wardrobe, /main swim fabric color controlled by dress color selection/i);
-  assert.match(cutoutSwimsuit.wardrobe, controlPhrase);
+  assert.doesNotMatch(cutoutSwimsuit.wardrobe, controlPhrase);
 
   const halterDress = buildWardrobe({
     outfitPresetId: optionId('outfitPresetId', '全無'),
     dressId: optionId('dressId', '連身：短版｜亮面深V掛脖迷你洋裝'),
     topBottomPaletteId: optionId('topBottomPaletteId', '日蝕紫 × 萊姆低語'),
   });
-  assert.match(halterDress.wardrobe, /coordinated top-to-bottom palette: upper\/main dress area/i);
+  assert.match(halterDress.wardrobe, /dress palette from top to bottom: upper\/main dress area/i);
   assert.match(halterDress.wardrobe, /lower hem or skirt area/i);
 });
 

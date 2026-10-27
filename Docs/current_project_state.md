@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-27
 
+## Phase 4 A2：runtime 配色句（2026-10-27，驗收通過，授權限定交付）
+
+- 基準與最後核對的本機／遠端 main 為 `bd31bd34f0bfa8986193a6048fe1a69a265e3668`（前批膠帶已交付）。Cooper 核准順序 2＋3 合併：完整造型色系、通用主／次色、連身上下區域改為描述句；保留配色責任、材質、固定色、裁切、選值及 RNG。正式 catalog／生成物與 UI 不改。
+- 新舊 Markdown／貼上句型相容；舊 JSON／快照公開原文與抓拍全身來源保持。Z／AI 原精簡政策延續，AI/MJ 在 4,375 固定 Git 對照案例逐字不變。0 超出核准差異；74 份來源／生成物相同。
+- 聚焦 43、前端 1,936、Prompt Quality 818、Python 43、目錄工具 32，lint／build／sync／歷史 ID／strict／assets 通過。200 同 seed audit 前後逐字一致，0 blocker／18 既有診斷；前批膠帶及完整 A2／A1／A5 歷史鏈原工具隔離回放通過。1,183 歷史檔與其他 20 工作目錄／140 份未提交檔保持。
+- 5175 桌手機 44 項／26 張畫面，涵蓋三種文字的生成／原文還原、A/B、複製、收藏、Markdown／ZIP、抓拍與六工作區；0 error／外部 POST／意外水平溢位。特殊穿搭套用清色系仍另批；舊連身＋上下配色固定案例的 UI 互斥及抓拍來源限制仍維持，細節見報告。
+- [規格](specs/wardrobe-runtime-color-a2-v1.md)、[決策](decisions/2026-10-27-a2-runtime-color-language.md)、[完整報告](reports/wardrobe-runtime-color-a2-2026-10-27/README.md)。Cooper 已確認驗收通過，授權只提交並 push 本批程式、文件、基準、回歸案例、歷史回放與驗收工具；實際 Git 與該提交 CI 結果另行核對。本機報告保留提交前證據。特殊穿搭色系套用與舊連身相容限制另批；其他項目／P5b 未進入。下方各批狀態保留當時歷史。
+
 ## Phase 4 A2：膠帶特殊穿搭控制語（2026-10-27，驗收通過，授權限定交付）
 
 - 前批 PAGE1 Markdown 快照已交付 main `3a18fc2c2529dce38782135638ffd67c38a62187`，本批以此為可信基準。只移除「紅色亮面膠帶束帶造型」英文的 `palette-controlled` 及色系選擇操作句，不補固定紅色；名稱／ID／semantic／圖片／其他服裝細節保持。
