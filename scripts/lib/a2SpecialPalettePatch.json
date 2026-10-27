@@ -1,0 +1,12 @@
+{
+  "baseCommit": "15580949ac1f00e7a2628209d91a301434504965",
+  "path": "webapp/src/features/page1/lockTransitions.js",
+  "beforeHash": "32c5e5dcb93f68617c09d935b851e7c6ef7dc54f86814aeaae4c468cd38088ce",
+  "afterHash": "cf7a2887aa5d1b22a0b239c61edc9850bd9edb4c911ef59f100475608e2b7947",
+  "before": "      if (['specialOutfitId', 'specialOutfitAId', 'specialOutfitBId'].includes(control.key)) return;",
+  "after": "      // The single complete-look palette belongs to the active special outfit.\n      if (['specialOutfitId', 'specialOutfitAId', 'specialOutfitBId', 'completeLookPaletteId'].includes(control.key)) return;",
+  "newTests": {
+    "webapp/src/features/page1/specialOutfitPalette.test.js": "716a5e912e77b947db95db1bc0d5f5f1386ec94f85f3ee9e754069e4178a8ead",
+    "webapp/src/features/page1/specialOutfitPaletteHistory.test.js": "981ca46ddf610d6043e7dce4e7f304a861c78fc6d1d9d103198d7fa0670ce802"
+  }
+}

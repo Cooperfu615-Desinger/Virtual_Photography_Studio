@@ -4,6 +4,15 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-27
 
+## Phase 4 A2：單人特殊穿搭保留完整造型色系（2026-10-27，驗收通過，授權限定交付）
+
+- 基準本機／遠端 main `15580949ac1f00e7a2628209d91a301434504965`（上一批 runtime 已交付）。只修正單人特殊穿搭清理規則，保留自身 `completeLookPaletteId`；手動、回填、收藏套用及後續更新共用。其他穿搭接管、雙人 A／B、全無／區域隨機／清空保持；引擎、catalog、儲存格式與 renderer 不改。
+- 固定 Git oracle：6,957 次狀態轉換、2,564 次生成，0 核准外差異；90 款 × 九色系與全無、30 舊卡片、90 還原、60 抓拍案例。533 份既有正式資料與程式逐字保持。
+- 聚焦 25／25、前端 1,945／1,945、Prompt Quality 818／818、43 Python、32 目錄工具、lint／build／sync／ID／strict／207 assets 通過。200 同 seed audit 前後逐字一致，0 blocker／18 既有診斷。上一批 runtime 4,375 案及完整 A2／A1／A5 原工具隔離回放通過；A～E 與其他封存未重錄。
+- 5175 桌面 1440×1000／手機 390×900：42 項操作、32 張畫面，涵蓋實際選色、回填、六輸出複製、收藏、單張／ZIP、雙人、抓拍明確重新匯入及六工作區。0 console／page error／外部 POST／意外水平溢位；已檢視主要畫面與局部。驗收服務已停止。
+- 2,656 原追蹤檔、1,256 歷史檔及其他 20 工作目錄／140 份既有未提交檔受到保護。Cooper 已確認驗收通過，授權只提交並 push 本批程式、文件、基準、回歸案例、歷史回放與驗收工具；實際 Git 與該提交 CI 結果另行核對。原始驗收報告與保護快照保留提交前證據。上下配色抓拍相容、舊連身還原、其他項目／P5b 另批。
+- [規格](specs/special-outfit-palette-a2-v1.md)、[決策](decisions/2026-10-27-a2-special-outfit-palette.md)、[完整報告](reports/special-outfit-palette-a2-2026-10-27/README.md)。下方紀錄保留各批當時狀態與已知限制。
+
 ## Phase 4 A2：runtime 配色句（2026-10-27，驗收通過，授權限定交付）
 
 - 基準與最後核對的本機／遠端 main 為 `bd31bd34f0bfa8986193a6048fe1a69a265e3668`（前批膠帶已交付）。Cooper 核准順序 2＋3 合併：完整造型色系、通用主／次色、連身上下區域改為描述句；保留配色責任、材質、固定色、裁切、選值及 RNG。正式 catalog／生成物與 UI 不改。

@@ -1,0 +1,29 @@
+{
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      900
+    ]
+  ],
+  "reviewed": [
+    "1440-single-selected.png",
+    "390-single-selected-detail-0.png",
+    "390-duo-detail-0.png",
+    "390-duo-detail-1.png",
+    "390-capture-detail-0.png",
+    "1440-workspace-1.png",
+    "1440-workspace-2.png",
+    "1440-workspace-3.png",
+    "1440-workspace-4.png",
+    "1440-workspace-5.png",
+    "390-workspace-2.png",
+    "390-workspace-4.png",
+    "390-workspace-5.png"
+  ],
+  "result": "pass",
+  "notes": "Single palette, takeover cards, A/B and capture summary remain readable. Existing panel scrolling and wrapping retained; no layout/CSS change."
+}

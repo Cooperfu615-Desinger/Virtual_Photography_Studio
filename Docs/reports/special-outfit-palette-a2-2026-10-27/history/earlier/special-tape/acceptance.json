@@ -1,0 +1,73 @@
+{
+  "baseCommit": "3a18fc2c2529dce38782135638ffd67c38a62187",
+  "sourceRecords": 1,
+  "cases": 1321,
+  "protectedCases": 729,
+  "protectedFiles": 267,
+  "savedRecords": 10,
+  "markdownImports": 30,
+  "changedOutputs": {
+    "grokPrompt": 442,
+    "zImagePrompt": 442,
+    "nanoBananaPrompt": 442,
+    "chest-up-portrait": 242,
+    "full-body-character": 242
+  },
+  "oracleMismatches": 0,
+  "knownLimitations": [
+    {
+      "kind": "pre-existing-special-outfit-ui-clears-palette",
+      "savedPalette": "black-white-cool",
+      "appliedPalette": "none",
+      "identicalAtBase": true
+    },
+    {
+      "kind": "pre-existing-special-outfit-ui-clears-palette",
+      "savedPalette": "black-red-street",
+      "appliedPalette": "none",
+      "identicalAtBase": true
+    },
+    {
+      "kind": "pre-existing-special-outfit-ui-clears-palette",
+      "savedPalette": "deep-denim",
+      "appliedPalette": "none",
+      "identicalAtBase": true
+    },
+    {
+      "kind": "pre-existing-special-outfit-ui-clears-palette",
+      "savedPalette": "cream-neutral",
+      "appliedPalette": "none",
+      "identicalAtBase": true
+    },
+    {
+      "kind": "pre-existing-special-outfit-ui-clears-palette",
+      "savedPalette": "pink-sweet-cool",
+      "appliedPalette": "none",
+      "identicalAtBase": true
+    },
+    {
+      "kind": "pre-existing-special-outfit-ui-clears-palette",
+      "savedPalette": "brown-vintage",
+      "appliedPalette": "none",
+      "identicalAtBase": true
+    },
+    {
+      "kind": "pre-existing-special-outfit-ui-clears-palette",
+      "savedPalette": "silver-metallic",
+      "appliedPalette": "none",
+      "identicalAtBase": true
+    },
+    {
+      "kind": "pre-existing-special-outfit-ui-clears-palette",
+      "savedPalette": "green-utility",
+      "appliedPalette": "none",
+      "identicalAtBase": true
+    },
+    {
+      "kind": "pre-existing-special-outfit-ui-clears-palette",
+      "savedPalette": "yellow-orange-bright",
+      "appliedPalette": "none",
+      "identicalAtBase": true
+    }
+  ]
+}

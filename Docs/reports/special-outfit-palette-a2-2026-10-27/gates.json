@@ -1,0 +1,118 @@
+[
+  {
+    "name": "frontend",
+    "command": [
+      "npm",
+      "test"
+    ],
+    "cwd": "webapp",
+    "exitCode": 0,
+    "seconds": 115.93
+  },
+  {
+    "name": "quality",
+    "command": [
+      "npm",
+      "run",
+      "test:prompt-quality"
+    ],
+    "cwd": "webapp",
+    "exitCode": 0,
+    "seconds": 92.49
+  },
+  {
+    "name": "lint",
+    "command": [
+      "npm",
+      "run",
+      "lint"
+    ],
+    "cwd": "webapp",
+    "exitCode": 0,
+    "seconds": 8.72
+  },
+  {
+    "name": "build",
+    "command": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "cwd": "webapp",
+    "exitCode": 0,
+    "seconds": 3.09
+  },
+  {
+    "name": "audit",
+    "command": [
+      "node",
+      "scripts/validate_prompt_logic.mjs",
+      "200",
+      "prompt-quality-baseline",
+      "--strict"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 1.93
+  },
+  {
+    "name": "sync",
+    "command": [
+      "python3",
+      "scripts/sync_to_json.py",
+      "--check",
+      "--report-json"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 0.29
+  },
+  {
+    "name": "python",
+    "command": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "scripts/tests"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 6.32
+  },
+  {
+    "name": "catalog",
+    "command": [
+      "node",
+      "scripts/check_catalog_integrity.mjs",
+      "--strict"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 1.35
+  },
+  {
+    "name": "catalog-tools",
+    "command": [
+      "node",
+      "--test",
+      "scripts/tests/catalog-integrity.test.mjs",
+      "scripts/tests/catalog-semantics.test.mjs",
+      "scripts/tests/catalog-legacy.test.mjs"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 5.52
+  },
+  {
+    "name": "assets",
+    "command": [
+      "python3",
+      "scripts/check_public_assets.py"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 0.05
+  }
+]

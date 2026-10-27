@@ -115,7 +115,8 @@ export function transitionPage1Locks({
   } else if (specialOutfitIsActive) {
     lockControls.forEach((control) => {
       if (control.section !== 'wardrobe') return;
-      if (['specialOutfitId', 'specialOutfitAId', 'specialOutfitBId'].includes(control.key)) return;
+      // The single complete-look palette belongs to the active special outfit.
+      if (['specialOutfitId', 'specialOutfitAId', 'specialOutfitBId', 'completeLookPaletteId'].includes(control.key)) return;
       const noneOption = control.options?.find((option) => option.zh === '全無');
       next[control.key] = noneOption ? noneOption.id : '';
     });
