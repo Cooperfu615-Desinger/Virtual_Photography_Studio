@@ -2548,7 +2548,7 @@
       },
       {
         "zh": "紅色亮面膠帶束帶造型",
-        "en": "complete outfit: glossy adhesive tape body-wrap look. palette-controlled latex-like tape strips stuck directly onto the skin, crossing over the torso as a halter bralette, multiple horizontal and diagonal shiny bands tightly wrapping the body, strategic coverage over key areas, matching high-cut tape bottom, hip and thigh tape bands, exposed banded cutout structure, tape color follows complete-look palette selection, bold monochrome performance styling.",
+        "en": "complete outfit: glossy adhesive tape body-wrap look. latex-like tape strips stuck directly onto the skin, crossing over the torso as a halter bralette, multiple horizontal and diagonal shiny bands tightly wrapping the body, strategic coverage over key areas, matching high-cut tape bottom, hip and thigh tape bands, exposed banded cutout structure, bold monochrome performance styling.",
         "desc": "完整特殊穿搭：亮面膠帶直接黏貼並纏繞身體，形成掛脖胸衣、高衩下身、臀側與大腿束帶，遮覆重點部位並呈現捆綁感；膠帶顏色由完整造型配色控制。",
         "meta": {
           "semantic": {
@@ -2561,6 +2561,9 @@
           "referenceImage": "reference/wardrobe/special-outfits/90_紅色亮面膠帶束帶.avif",
           "referenceImageFormat": "avif"
         },
+        "legacyPromptAliases": [
+          "complete outfit: glossy adhesive tape body-wrap look. palette-controlled latex-like tape strips stuck directly onto the skin, crossing over the torso as a halter bralette, multiple horizontal and diagonal shiny bands tightly wrapping the body, strategic coverage over key areas, matching high-cut tape bottom, hip and thigh tape bands, exposed banded cutout structure, tape color follows complete-look palette selection, bold monochrome performance styling."
+        ],
         "stableId": "wardrobe:特殊穿搭-special-outfits:紅色亮面膠帶束帶造型:90",
         "legacyIds": [
           "wardrobe:特殊穿搭-special-outfits:紅色亮面膠帶束帶造型:90"

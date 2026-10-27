@@ -1,5 +1,7 @@
 # B 穿搭設定新增與維護規格
 
+2026-10-27 A2 特殊穿搭單筆：膠帶造型只移除 palette-controlled 前綴與色系選擇操作句，不補固定紅色；所有有效衣物細節保持。原全文 alias、舊存檔／抓拍原文保留；既有 runtime 配色句另批。見 [單筆規格](wardrobe-control-a2-special-tape-v1.md)。
+
 2026-10-27 A2 舊文字配色還原：Markdown／ZIP／貼上 Prompt 的顏色辨識必須具有同角色、同衣物或配色部位的來源證據；不可用全段子字串猜顏色。保留 `colorTextBindings`、`colorTargets`、`wearableColorTarget` 與舊別名的可追溯性，並驗證固定細節不污染其他衣物。JSON／抓拍 metadata 優先；完整 Markdown 快照、特殊穿搭與 runtime 配色句另批。詳見[還原規格](wardrobe-color-recovery-a2-v1.md)。
 
 2026-10-25 E 舊映射來源規則：已授權集中 22 張映射表與 2 個舊分類常數，來源為 `knowledge_base/catalog/legacy_mappings.json`，同步生成 `webapp/src/data/legacyMappings.json`。engine 保留 5 處載入時 `.map()`、`new Map()`、slugify、匹配順序及靜默找不到的退路；renderer 文字仍在原位。分類／文字目標須通過 fieldKind 參照驗證，歷史 ID、別名及 first-match 不得隨意變更。永久 pre-E 基準與還原案例不重錄，流程見 [catalog 操作](../../knowledge_base/catalog/README.md)。此段取代下方 D 歷史紀錄的「E 未開始」狀態；P5b 仍未開始。

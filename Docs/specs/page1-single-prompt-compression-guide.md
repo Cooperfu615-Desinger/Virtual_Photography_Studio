@@ -1,5 +1,7 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
+2026-10-27 A2 特殊穿搭單筆：膠帶造型只移除 palette-controlled 前綴與色系選擇操作句，不補固定紅色；所有有效衣物細節保持。原全文 alias、舊存檔／抓拍原文保留；既有 runtime 配色句另批。見 [單筆規格](wardrobe-control-a2-special-tape-v1.md)。
+
 2026-10-27 A2 第二批：40 筆套裝移除正式來源中的配色控制句；19 筆原解析配色目標移到 `meta.colorTextBindings`，21 筆沿用通用配色。Gpt 保留修訂後完整衣物來源與既有已選配色，未選色不輸出本批控制句。renderer 精簡、固定色、材質色與其他 runtime 配色句保持；特殊穿搭另批。舊 JSON／抓拍快照保持；舊 Markdown 的啟發式辨識差異另列限制，不能宣稱選值完全等價。見 [A2 第二批規格](wardrobe-control-a2-outfits-v1.md)。
 
 2026-10-26 A2 第一批：連身 24 筆移除資料中的色票控制句，前版全文追加為 legacy alias；Gpt 仍完整保留修訂後有效衣物來源，未改 renderer 的精簡／配色／投影。既有收藏原文和已匯入人物快照維持，重新生成或明確重新匯入採新來源。此批未處理套裝、特殊穿搭或 runtime 配色句。詳見 [A2 第一批規格](wardrobe-control-a2-dresses-v1.md)。

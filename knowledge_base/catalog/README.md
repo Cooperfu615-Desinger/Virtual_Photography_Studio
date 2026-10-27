@@ -141,3 +141,19 @@ node scripts/scene_semantic_a5_ximending_history.mjs /tmp/a5-ximending-history
 此為本批固定 SHA；後續新變更仍須選當次受信任的基準。`a5XimendingHistoricalReplay.mjs` 僅精確還原西門町整筆核准資料，再接原 CRT／commercial／三筆 inverse。原 CRT 九項回歸、原 commercial 七項回歸由固定 Git 原檔隔離執行，不重寫原斷言。前述三批一次性 acceptance 不應直接對新正式資料執行；請透過本節 history 指令逐層回放。新的當前產品回歸另驗全 database 與 11 筆未決原值。
 
 Node 22／完整 Git 歷史、既有 npm test glob 與 CI 接線沿用，不需要變更 workflow。其餘 schema／ID／strict、完整前端、同 seed audit 與桌手機門檻依 root AGENTS 執行。[本批驗收報告](../../Docs/reports/scene-semantic-a5-ximending-2026-10-26/README.md)。不修改歷史基準，不進入其他內容問題或 P5b。
+
+## A2 特殊穿搭膠帶控制語（2026-10-27）
+
+可信基準 `3a18fc2c2529dce38782135638ffd67c38a62187`。只修改膠帶造型的兩段非視覺操作語，新增完整舊英文 alias，保留 semantic／ID／排序／中文／圖片，不補紅色。分類 schema 及 field_mapping 追加既有 alias 欄位的特殊穿搭範圍；生成 Markdown／database 由 sync 更新。runtime、renderer、存檔格式與其他資料不變。
+
+```bash
+export REGISTRY_BASE_COMMIT=3a18fc2c2529dce38782135638ffd67c38a62187
+python3 scripts/sync_to_json.py --check --report-json
+node --test webapp/src/lib/engine/specialTapeControlLanguage.test.js
+node scripts/wardrobe_control_a2_special_tape_acceptance.mjs /tmp/a2-special-tape-acceptance
+node scripts/wardrobe_control_a2_special_tape_history.mjs /tmp/a2-special-tape-history
+```
+
+新的 test-only inverse 先驗證本筆紀錄、分類順序、source／database／Markdown 狀態、兩份管理檔及兩份回放銜接檔，再在隔離副本精確回復。既有 A～E／A1／A5 與前批 A2 回放接上本層；E 僅複製 runtime 的測試副本使用同樣嚴格的單筆 database inverse，並精確還原本批回放銜接檔後再進入原快照／還原工具。舊工具及基準不重錄。history 在全新暫存輸出目錄運行原工具，保留它們的歷史路徑保護規則，再保存本批新證據。
+
+舊無快照的渲染文字辨識限制以固定 Git 保持，不視為完整選值往返；舊原始英文 alias、JSON 及 PAGE1 完整快照另驗精確還原。[規格](../../Docs/specs/wardrobe-control-a2-special-tape-v1.md)及[驗收報告](../../Docs/reports/wardrobe-control-a2-special-tape-2026-10-27/README.md)。本機驗收與歷史回放已通過，Cooper 已授權本批限定交付；其他項目及 P5b 未開始，實際 Git／CI 結果另行回報。

@@ -469,10 +469,9 @@ test('special outfit reference looks 83 to 90 preserve outfit accessories and pr
     ],
     紅色亮面膠帶束帶造型: [
       'glossy adhesive tape body-wrap look',
-      'palette-controlled latex-like tape strips stuck directly onto the skin',
+      'latex-like tape strips stuck directly onto the skin',
       'multiple horizontal and diagonal shiny bands tightly wrapping the body',
       'strategic coverage over key areas',
-      'tape color follows complete-look palette selection',
       'reference/wardrobe/special-outfits/90_紅色亮面膠帶束帶.avif',
     ],
   };

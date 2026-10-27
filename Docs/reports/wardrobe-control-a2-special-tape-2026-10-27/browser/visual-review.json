@@ -1,0 +1,29 @@
+{
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      900
+    ]
+  ],
+  "originalScreenshots": 20,
+  "automatedChecks": 38,
+  "reviewed": [
+    "1440-contact-sheet.png",
+    "390-contact-sheet.png",
+    "390-special-tape-0-segments.png",
+    "390-capture-reimport-segments.png",
+    "390-workspace-5-segments.png",
+    "1440-special-tape-2.png"
+  ],
+  "result": "pass",
+  "notes": [
+    "已檢視六工作區頂部導覽與主要狀態，並逐段檢視手機生成、抓拍、收藏長頁面。",
+    "未見新增控制重疊、破圖、意外水平溢位或文字換行異常。",
+    "Prompt 文字區保留既有固定高度與內部捲動；手機按鈕的既有縮略及成功通知不當作本批新增版面問題。",
+    "已記錄特殊穿搭套用收藏時的既有色系重設問題，未變更該共用規則。"
+  ]
+}

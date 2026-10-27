@@ -1,0 +1,119 @@
+{
+  "passed": true,
+  "exitCode": 0,
+  "originalBaselinesRewritten": false,
+  "batches": [
+    {
+      "artifact": "history/earlier/a2-recovery/acceptance.json",
+      "baseCommit": "471115c08e4415643b8acbb87b7c2709f98e117c",
+      "generationCases": 338,
+      "archivedMarkdownCases": 40,
+      "archivedJsonCases": 40,
+      "captureCases": 80,
+      "importCases": 378,
+      "unapprovedDifferences": 0
+    },
+    {
+      "artifact": "history/earlier/earlier/a2-outfits/acceptance.json.gz",
+      "baseCommit": "048a2348869c9348d18f4e0b71d4ceed92c69232",
+      "cases": 8611,
+      "protectedFiles": 264,
+      "sourceRecords": 40,
+      "structuredBindings": 19,
+      "genericPresets": 21,
+      "priorSavedRecords": 40,
+      "oracleMismatches": 0
+    },
+    {
+      "artifact": "history/earlier/earlier/earlier/a1-a5/a1/acceptance.json",
+      "baseCommit": "ffb2e91e61787159d7dbc724dc0129e87537dfcb",
+      "protectedFiles": 268,
+      "cases": 1273,
+      "cards": 33,
+      "adultIdentityBefore": 0,
+      "adultIdentityAfter": 99,
+      "page2BundlesUnchanged": 66,
+      "oldSavedJsonAndMarkdown": 66,
+      "ordinaryImportSources": 5,
+      "differencesOutsideAllowance": 0
+    },
+    {
+      "artifact": "history/earlier/earlier/earlier/a1-a5/a5/previous/crt.json.gz",
+      "version": 1,
+      "baseCommit": "321404ecd041343f4a764260ef59ffc08a74a199",
+      "protectedFiles": 290,
+      "poolCases": 836,
+      "cases": 3834,
+      "outputChangedCases": 868,
+      "selectionChangedCases": 871,
+      "rngChangedCases": 492,
+      "oracleMismatches": 0,
+      "unaffectedLocations": 154,
+      "importSources": 5
+    },
+    {
+      "artifact": "history/earlier/earlier/earlier/a1-a5/a5/previous/previous/commercial.json.gz",
+      "version": 1,
+      "baseCommit": "22d1103e2f88984af7ed33249b08b4e2729ba466",
+      "removed": 11,
+      "retained": 4,
+      "protectedFiles": 290,
+      "poolCases": 12540,
+      "cases": 3804,
+      "changedMetadataCases": 1599,
+      "outputDifferences": 0,
+      "selectionDifferences": 0,
+      "rngDifferences": 0,
+      "oracleMismatches": 0,
+      "unaffectedLocations": 144,
+      "importFlowSources": 5,
+      "importFlowsSha256": "57e2f27f6450a03a18718728c813ab0c8a5e55d02f695157e0cde56bb91f4657"
+    },
+    {
+      "artifact": "history/earlier/earlier/earlier/a1-a5/a5/previous/previous/first-a5.json",
+      "version": 1,
+      "baseCommit": "a9dd3616bc6596cdb199420f3189a420c6f1ed17",
+      "protectedFilesChecked": 246,
+      "unaffectedLocations": 152,
+      "cases": 1740,
+      "changedCases": 452,
+      "rngChangedCases": 0,
+      "oracleMismatches": 0
+    },
+    {
+      "artifact": "history/earlier/earlier/earlier/a1-a5/a5/ximending.json.gz",
+      "version": 1,
+      "baseCommit": "5110401f3eee4aaa6cc59ee9175625cc96326d9e",
+      "protectedFiles": 290,
+      "poolCases": 836,
+      "cases": 3834,
+      "outputChangedCases": 0,
+      "selectionChangedCases": 0,
+      "rngChangedCases": 0,
+      "oracleMismatches": 0,
+      "unaffectedLocations": 154,
+      "importSources": 5
+    },
+    {
+      "artifact": "history/earlier/earlier/earlier/a2-dresses/acceptance.json.gz",
+      "baseCommit": "4e35912f82280c058d0c86b6de3f44fcb019f9df",
+      "integrationCommit": "e9983769e326ead175b381834c6e2df4fd02e28d",
+      "cases": 3545,
+      "protectedFiles": 267,
+      "sourceRecords": 24,
+      "priorSavedRecords": 24,
+      "oracleMismatches": 0
+    },
+    {
+      "artifact": "history/snapshot/acceptance.json",
+      "baseCommit": "943ab65fa153fbc5050ee2c9690e429c326296f2",
+      "generationCases": 550,
+      "snapshotRoundTrips": 1100,
+      "legacyMarkdownCases": 590,
+      "legacyJsonCases": 40,
+      "legacyPasteCases": 550,
+      "readableExportBodiesUnchanged": 1100,
+      "unapprovedDifferences": 0
+    }
+  ]
+}

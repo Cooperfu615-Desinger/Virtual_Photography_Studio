@@ -1,0 +1,27 @@
+{
+  "tests": {
+    "tests": 1929,
+    "pass": 1929,
+    "fail": 0
+  },
+  "quality": {
+    "tests": 818,
+    "pass": 818,
+    "fail": 0
+  },
+  "focused": {
+    "tests": 25,
+    "pass": 25,
+    "fail": 0
+  },
+  "focused-replay": {
+    "tests": 14,
+    "pass": 14,
+    "fail": 0
+  },
+  "catalog-tests": {
+    "tests": 32,
+    "pass": 32,
+    "fail": 0
+  }
+}

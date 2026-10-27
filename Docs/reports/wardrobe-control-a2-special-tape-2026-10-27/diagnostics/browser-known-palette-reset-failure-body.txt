@@ -1,0 +1,204 @@
+VIRTUAL PHOTOGRAPHY STUDIO
+
+Prompt Control Deck
+
+一個為個人創作流程設計的虛擬攝影 Prompt 生成工具，支援快速組合、批次生成與風格探索。
+
+Prompt 工作台
+角色建模
+場景建模
+DLL_PIC Pro
+DLL_VIDEO Pro
+Saved Cards
+設置
+拍攝模式
+一般拍攝
+觀察式抓拍
+切回一般拍攝後恢復原設定
+Prompt Workspace
+CURRENT MODES
+特殊穿搭
+A 人物設定
+已選 1
+尚未形成明確選項
+B 神情姿態
+已選 1
+沉浸平靜
+C 穿搭設定
+接管中
+紅色亮面膠帶束帶造型
+特殊穿搭接管
+D 場景環境
+已選 2
+尚未形成明確選項
+E 攝影成像
+已選 3
+寫實攝影 / 全身鏡頭 (Full Body Shot)
+F MJ 參數設定
+獨立設定
+V8.2 / AR 跟隨 PAGE1 / Raw / S25 / C0 / W0 / SD
+清除可選欄位
+全部隨機
+全部全無
+回填 Prompt
+A 人物設定
+身份基底
+特殊角色
+角色卡
+CHARACTER SETUP
+
+確立人物數量、體態、五官、膚質、髮型輪廓、整理狀態與髮色，讓角色身份基底先穩定下來。
+
+全部隨機
+清空可清除項目
+人物數量
+1 位
+2 位
+外貌
+
+尚未指定外貌
+
+體態
+隨機
+高挑時裝模特
+柔和沙漏身形
+性感曲線身形
+運動緊實身形
+小隻精緻身形
+全無
+豐胸纖腰沙漏身形
+五官特徵
+隨機
+全無
+韓系偶像臉
+日系清透臉
+甜美可愛臉
+冷感高級臉
+成熟性感臉
+混血立體臉
+膚質特徵
+隨機
+全無
+玻璃水光肌
+柔霧細緻肌
+自然雀斑
+淚痣／唇邊痣
+微曬陽光感膚質
+頭髮
+
+尚未指定頭髮
+
+髮型輪廓
+隨機
+全無
+帥氣濕亮油頭
+乾淨短鮑伯
+齊瀏海圓弧鮑伯
+不對稱濕感短鮑伯
+復古外翹短髮
+自然層次鎖骨髮
+韓系柔順中長髮
+側分柔波中長髮
+半濕感中長髮
+直髮：中分
+直髮：旁分
+直髮：日式瀏海
+直髮：濕感
+自然微彎：中分
+自然微彎：深側分
+自然微彎：瀏海
+自然微彎：濕感
+柔波：中分
+柔波：深側分
+柔波：瀏海
+濕潤感長波浪
+高位雙馬尾
+蓬鬆高馬尾
+低馬尾
+低包頭盤髮
+半綁公主頭
+柔和編髮造型
+輕透齊瀏海內彎鮑伯
+韓系蓬鬆鎖骨柔波髮
+輕透瀏海自然微彎長髮
+雙包子頭
+整理狀態
+隨機
+柔順自然
+濕髮分束
+微風吹拂
+強烈風感
+全無
+髮色
+隨機
+全無
+自然黑
+柔霧黑茶
+深咖啡棕
+栗子棕
+奶茶棕
+亞麻米棕
+蜂蜜焦糖棕
+玫瑰可可棕
+淺金髮
+銀灰白
+亮桃粉
+寶石藍
+深森林綠
+GENERATION OUTPUTS
+
+集中整理目前工作台可用的主 Prompt 與固定景別輸出。
+
+隨機生成
+套用目前預覽
+加入最愛
+生成摘要
+尚未形成明確選項 / 沉浸平靜 / 紅色亮面膠帶束帶造型 / 尚未形成明確選項 / 寫實攝影 / 全身鏡頭 (Full Body Shot)
+附加指令
+尚未附加
+參考圖人物與穿搭
+四張自由變化
+四張多機位
+素人失敗自拍
+日常生活照
+自訂附加
+清除附加
+GPT
+Z-IMAGE
+MIDJOURNEY
+NANO BANANA 2.1
+胸上特寫照
+全身角色照
+DLL_PIC PRO
+開啟完整版
+API Keys
+Gpt
+Z-Image
+MIDJOURNEY
+Nano Banana 2.1
+胸上特寫照
+全身角色照
+Google Gemini Nano Banana 2 Lite
+xAI Grok
+xAI Grok Quality
+Comfy Cloud · Z-Image-Turbo
+Comfy Cloud · Qwen-Image-2.1
+Comfy Cloud · Z-Image-Turbo INT8
+Comfy Cloud · Ideogram 4.5
+Comfy Cloud · Seedream 5.0 Pro
+Comfy Cloud · Krea 2 Medium
+Comfy Cloud · Krea 2 Medium Turbo
+Comfy Cloud · Krea 2 Large
+Comfy Cloud · FLUX 3 Image Klein Base INT8
+Comfy Cloud · MOSS-Image SFT INT8
+16:9
+9:16
+1:1
+4:3
+3:4
+4:5
+1 張
+2 張
+gemini-3.1-flash-lite-image / 1K
+生成圖像
+尚未生成預覽圖

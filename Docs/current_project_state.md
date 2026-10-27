@@ -4,6 +4,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-27
 
+## Phase 4 A2：膠帶特殊穿搭控制語（2026-10-27，驗收通過，授權限定交付）
+
+- 前批 PAGE1 Markdown 快照已交付 main `3a18fc2c2529dce38782135638ffd67c38a62187`，本批以此為可信基準。只移除「紅色亮面膠帶束帶造型」英文的 `palette-controlled` 及色系選擇操作句，不補固定紅色；名稱／ID／semantic／圖片／其他服裝細節保持。
+- 修改前完整英文追加為 alias；特殊穿搭 schema 與欄位映射僅開放既有 alias 欄位，無新 runtime 配色政策。正式來源及兩份產物同步；配色句、引擎與 renderer 不改。歷史公開原文／已匯入抓拍快照保持，明確重新生成／重新匯入才採新來源。
+- [規格](specs/wardrobe-control-a2-special-tape-v1.md)、[決策](decisions/2026-10-27-a2-special-tape-control-language.md)、[驗收報告](reports/wardrobe-control-a2-special-tape-2026-10-27/README.md)。1,321 組固定 Git 對照、1,929 前端、818 Prompt Quality、43 Python、32 目錄工具、lint／build／sync／ID／strict／assets 及歷史回放通過；200 同 seed audit 前後逐字一致。桌手機 38 項操作／20 張畫面通過，1,106 歷史檔與其他 20 工作目錄／140 份未提交檔保持。Cooper 已驗收並授權只提交／push 本批；實際 Git 與對應 CI 另報。runtime 配色句與既有特殊穿搭色系套用問題另批處理，其他項目或 P5b 未進入。以下各批文字保留當時歷史。
+
 ## Phase 4 A2：PAGE1 Markdown 完整選值快照（2026-10-27，驗收通過，授權限定交付）
 
 - 可信 main 基準 `943ab65fa153fbc5050ee2c9690e429c326296f2`。本批只新增 PAGE1 Markdown 快照、衍生輸出還原與驗證；單張／ZIP 共用編碼，公開正文保持。合法新快照優先；無快照舊檔沿用既有解析。JSON 版本、引擎、正式 catalog 與公開生成文字不改。

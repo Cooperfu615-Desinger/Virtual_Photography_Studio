@@ -1,0 +1,14 @@
+[
+  {
+    "tool": "acceptance",
+    "rejectedHistoricalOutput": true
+  },
+  {
+    "tool": "history",
+    "rejectedHistoricalOutput": true
+  },
+  {
+    "tool": "browser",
+    "rejectedHistoricalOutput": true
+  }
+]

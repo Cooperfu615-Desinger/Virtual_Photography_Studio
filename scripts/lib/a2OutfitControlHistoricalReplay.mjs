@@ -1,3 +1,4 @@
+import { preA2SpecialTapeDatabase, preA2SpecialTapeManagementSources, restorePreA2SpecialTapeFiles } from './a2SpecialTapeReplay.mjs';
 import { restorePreA2WardrobeRecoveryFiles } from './a2WardrobeColorRecoveryReplay.mjs';
 // Test-only inverse; validate the whole reviewed state before writing an isolated replay.
 import assert from 'node:assert/strict';
@@ -24,12 +25,16 @@ function inverse(rows, key, beforeKey, afterKey) {
   return matches[0].state;
 }
 export function preA2OutfitDatabase(database) {
-  const copy = structuredClone(database);
+  const copy = preA2SpecialTapeDatabase(database);
   inverse(copy.Wardrobe[A2_OUTFIT_REVIEW.category], 'stableId', 'generatedBefore', 'generatedAfter');
   return copy;
 }
 export function preA2OutfitProgramSources(sources, state) {
   assert.ok(['before', 'after'].includes(state));
+  if (state === 'after') {
+    try { sources = preA2SpecialTapeManagementSources(sources); }
+    catch (error) { throw new Error('A2 outfit inverse rejects special-tape management: ' + error.message, { cause: error }); }
+  }
   const restored = { ...sources };
   for (const [path, hashes] of Object.entries(patches.hashes)) {
     assert.equal(typeof sources[path], 'string', 'A2 outfit inverse missing program source: ' + path);
@@ -62,6 +67,7 @@ export function preA2OutfitProgramSources(sources, state) {
 }
 export function restorePreA2OutfitFiles(directory) {
   assert.notEqual(realpathSync(directory), realpathSync(A2_OUTFIT_ROOT), 'A2 outfit inverse only writes an isolated copy');
+  restorePreA2SpecialTapeFiles(directory);
   const categoryFile = join(directory, A2_OUTFIT_REVIEW.sourceFile);
   const category = JSON.parse(readFileSync(categoryFile));
   const state = inverse(category.entries, 'id', 'before', 'after');

@@ -1,0 +1,14 @@
+{
+  "error": "page.waitForFunction: Timeout 15000ms exceeded.",
+  "stack": "page.waitForFunction: Timeout 15000ms exceeded.\n    at /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/wardrobe_control_a2_special_tape_browser.mjs:97:18",
+  "checks": [
+    "1440: old saved prompt copied verbatim",
+    "1440: old single Markdown download and ZIP import preserve exact original and ID",
+    "1440: apply old ID and regenerate uses clean source",
+    "1440: 紅色亮面膠帶束帶造型: clean six outputs and exact clipboard",
+    "1440: 紅色亮面膠帶束帶造型: save reload restore",
+    "1440: 紅色亮面膠帶束帶造型: clean six outputs and exact clipboard"
+  ],
+  "errors": [],
+  "externalPosts": []
+}

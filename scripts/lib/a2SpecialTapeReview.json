@@ -1,0 +1,325 @@
+{
+  "baseCommit": "3a18fc2c2529dce38782135638ffd67c38a62187",
+  "sourceFile": "knowledge_base/catalog/Wardrobe/特殊穿搭-special-outfits.json",
+  "category": "特殊穿搭 (Special Outfits)",
+  "id": "wardrobe:特殊穿搭-special-outfits:紅色亮面膠帶束帶造型:90",
+  "categoryIds": [
+    "wardrobe:特殊穿搭-special-outfits:全無:0",
+    "wardrobe:特殊穿搭-special-outfits:黑色波點頭巾透紗套裝:1",
+    "wardrobe:特殊穿搭-special-outfits:藍灰長外套蕾絲胸衣寬褲造型:2",
+    "wardrobe:特殊穿搭-special-outfits:黑白條紋哥德蕾絲層次造型:3",
+    "wardrobe:特殊穿搭-special-outfits:黑色背心豹紋單車褲機能造型:4",
+    "wardrobe:特殊穿搭-special-outfits:迷彩透紗白蕾絲束胸裙裝:5",
+    "wardrobe:特殊穿搭-special-outfits:復古樂團寬版短褲街頭造型:6",
+    "wardrobe:特殊穿搭-special-outfits:metallica-圖像t黑罩衫熱褲造型:7",
+    "wardrobe:特殊穿搭-special-outfits:酒紅格紋吊帶牛仔短裙長靴造型:8",
+    "wardrobe:特殊穿搭-special-outfits:粉紫蕾絲豹紋低腰喇叭褲造型:9",
+    "wardrobe:特殊穿搭-special-outfits:深色牛仔短外套條紋襯衫寬褲造型:10",
+    "wardrobe:特殊穿搭-special-outfits:淺色牛仔外套白粉t灰牛仔寬褲造型:11",
+    "wardrobe:特殊穿搭-special-outfits:黑色亮片花卉透膚套裝:12",
+    "wardrobe:特殊穿搭-special-outfits:白色花卉刺繡外套紅寬褲造型:13",
+    "wardrobe:特殊穿搭-special-outfits:灰格紋西裝短版背心破壞牛仔寬褲造型:14",
+    "wardrobe:特殊穿搭-special-outfits:棕格紋西裝絲巾白寬褲造型:15",
+    "wardrobe:特殊穿搭-special-outfits:白色短版背心垂墜牛仔寬褲造型:16",
+    "wardrobe:特殊穿搭-special-outfits:黑色運動外套抹胸寬版訓練褲造型:17",
+    "wardrobe:特殊穿搭-special-outfits:紅色棒球外套藍t格紋裙造型:18",
+    "wardrobe:特殊穿搭-special-outfits:棕色皮革飛行外套角色針織牛仔褲造型:19",
+    "wardrobe:特殊穿搭-special-outfits:黑粉透膚蕾絲流蘇長裙造型:20",
+    "wardrobe:特殊穿搭-special-outfits:米色潑染破壞工裝套裝造型:21",
+    "wardrobe:特殊穿搭-special-outfits:粉白絨格外套蕾絲胸衣黃紗裙造型:22",
+    "wardrobe:特殊穿搭-special-outfits:藍色束胸粉格裙白綁帶長襪造型:23",
+    "wardrobe:特殊穿搭-special-outfits:海軍針織背心條紋巨袋褲紅靴造型:24",
+    "wardrobe:特殊穿搭-special-outfits:橄欖亮面長外套奶油針織牛仔造型:25",
+    "wardrobe:特殊穿搭-special-outfits:白色寬簷帽丹寧抹胸開衩裙造型:26",
+    "wardrobe:特殊穿搭-special-outfits:鏽橘紮染工裝吊帶褲帽t造型:27",
+    "wardrobe:特殊穿搭-special-outfits:白色字母短t條紋蕾絲裙靴造型:28",
+    "wardrobe:特殊穿搭-special-outfits:金色貝雷帽皮草外套寬牛仔造型:29",
+    "wardrobe:特殊穿搭-special-outfits:棕色開襟外套細肩背心條紋工裝褲造型:30",
+    "wardrobe:特殊穿搭-special-outfits:黑毛帽白短背心鏈條工裝寬褲造型:31",
+    "wardrobe:特殊穿搭-special-outfits:粉色圖像背心格紋襯衫破壞寬褲造型:32",
+    "wardrobe:特殊穿搭-special-outfits:灰色長版圖像t腰帶短裙靴造型:33",
+    "wardrobe:特殊穿搭-special-outfits:黑色破壞圖像上衣紅格裙破壞牛仔造型:34",
+    "wardrobe:特殊穿搭-special-outfits:鼠尾草圖像t白蕾絲長裙靴造型:35",
+    "wardrobe:特殊穿搭-special-outfits:黃色寬t條紋襯衫橄欖工裝褲造型:36",
+    "wardrobe:特殊穿搭-special-outfits:黑皮革短外套佩斯利襯衫鉛筆裙造型:37",
+    "wardrobe:特殊穿搭-special-outfits:棕皮草披肩條紋西裝洋裝造型:38",
+    "wardrobe:特殊穿搭-special-outfits:黑皮革騎士外套鉛筆裙套裝造型:39",
+    "wardrobe:特殊穿搭-special-outfits:黑皮革短外套水鑽蛇紋喇叭褲造型:40",
+    "wardrobe:特殊穿搭-special-outfits:黃色皮革外套紅花洋裝銀靴造型:41",
+    "wardrobe:特殊穿搭-special-outfits:紅緞背心牛仔迷你裙騎士靴造型:42",
+    "wardrobe:特殊穿搭-special-outfits:米色細肩背心蕾絲胸衣工裝寬褲造型:43",
+    "wardrobe:特殊穿搭-special-outfits:粉色蝴蝶結背心牛仔短褲泡泡襪造型:44",
+    "wardrobe:特殊穿搭-special-outfits:白色短袖背心格紋迷你裙白蕾絲襪造型:45",
+    "wardrobe:特殊穿搭-special-outfits:黑色哥德蕾絲短袖熱褲長靴造型:46",
+    "wardrobe:特殊穿搭-special-outfits:灰透紗荷葉吊帶熱褲涼鞋造型:47",
+    "wardrobe:特殊穿搭-special-outfits:奶白蕾絲荷葉短裙高筒襪造型:48",
+    "wardrobe:特殊穿搭-special-outfits:米白高領荷葉背心短裙涼鞋造型:49",
+    "wardrobe:特殊穿搭-special-outfits:白色透紗綁帶洋裝長襪軍靴造型:50",
+    "wardrobe:特殊穿搭-special-outfits:奶白透膚襯衫腰帶層裙短靴造型:51",
+    "wardrobe:特殊穿搭-special-outfits:螢光綠熱帶襯衫短褲運動鞋造型:52",
+    "wardrobe:特殊穿搭-special-outfits:白橘圖案襯衫工裝寬褲帆布鞋造型:53",
+    "wardrobe:特殊穿搭-special-outfits:灰色圖案衛衣紅傘裙高跟鞋造型:54",
+    "wardrobe:特殊穿搭-special-outfits:黑透膚連帽流蘇短褲綁帶鞋造型:55",
+    "wardrobe:特殊穿搭-special-outfits:粉色花朵抹胸洋裝草帽拖鞋造型:56",
+    "wardrobe:特殊穿搭-special-outfits:格紋襯衫短褲條紋襪球鞋造型:57",
+    "wardrobe:特殊穿搭-special-outfits:藍白條紋寬襯衫白短裙球鞋造型:58",
+    "wardrobe:特殊穿搭-special-outfits:酒紅圖像t黑寬牛仔工裝靴造型:59",
+    "wardrobe:特殊穿搭-special-outfits:紅色短t低腰寬牛仔耳機造型:60",
+    "wardrobe:特殊穿搭-special-outfits:黃色圖像短t格紋喇叭褲分趾鞋造型:61",
+    "wardrobe:特殊穿搭-special-outfits:綠針織運動短褲藍包造型:62",
+    "wardrobe:特殊穿搭-special-outfits:紅色圖像t格紋短褲長襪造型:63",
+    "wardrobe:特殊穿搭-special-outfits:紫色佩斯利襯衫短褲軍靴造型:64",
+    "wardrobe:特殊穿搭-special-outfits:巴西色背心單肩吊帶牛仔造型:65",
+    "wardrobe:特殊穿搭-special-outfits:紫條紋襯衫洋裝紅包造型:66",
+    "wardrobe:特殊穿搭-special-outfits:紅帽波點背心寬牛仔造型:67",
+    "wardrobe:特殊穿搭-special-outfits:粉色愛心t黑寬褲造型:68",
+    "wardrobe:特殊穿搭-special-outfits:白荷葉襯衫黑吊帶長裙波點包造型:69",
+    "wardrobe:特殊穿搭-special-outfits:白襯衫黑短褲西部靴造型:70",
+    "wardrobe:特殊穿搭-special-outfits:奶油掛脖棕紗裙軍靴造型:71",
+    "wardrobe:特殊穿搭-special-outfits:海軍t灰色工裝長裙造型:72",
+    "wardrobe:特殊穿搭-special-outfits:黑短外套牛仔短褲樂福造型:73",
+    "wardrobe:特殊穿搭-special-outfits:乳牛紋連身丹寧開洞褲造型:74",
+    "wardrobe:特殊穿搭-special-outfits:紅條紋毛衣拼接紗裙造型:75",
+    "wardrobe:特殊穿搭-special-outfits:薄荷蕾絲短上衣水鑽牛仔造型:76",
+    "wardrobe:特殊穿搭-special-outfits:黑短t低腰黑牛仔造型:77",
+    "wardrobe:特殊穿搭-special-outfits:白t紫格長裙灰球鞋造型:78",
+    "wardrobe:特殊穿搭-special-outfits:黑皮外套波點絲襪長靴造型:79",
+    "wardrobe:特殊穿搭-special-outfits:黃條紋polo領帶寬牛仔造型:80",
+    "wardrobe:特殊穿搭-special-outfits:菱格背心黑寬短褲長襪造型:81",
+    "wardrobe:特殊穿搭-special-outfits:藍荷葉背心白紗長裙造型:82",
+    "wardrobe:特殊穿搭-special-outfits:紫橘籃球球衣球鞋造型:83",
+    "wardrobe:特殊穿搭-special-outfits:彩虹綁結上衣橘紅開衩長裙造型:84",
+    "wardrobe:特殊穿搭-special-outfits:紫色綁帶短上衣荷葉開衩長裙造型:85",
+    "wardrobe:特殊穿搭-special-outfits:橄欖西裝條紋寬褲咖啡袋造型:86",
+    "wardrobe:特殊穿搭-special-outfits:白色馬甲黑色七分褲金飾造型:87",
+    "wardrobe:特殊穿搭-special-outfits:白襯衫黑色氣球工裝褲造型:88",
+    "wardrobe:特殊穿搭-special-outfits:白襯衫黑色長裙細領帶造型:89",
+    "wardrobe:特殊穿搭-special-outfits:紅色亮面膠帶束帶造型:90"
+  ],
+  "before": {
+    "id": "wardrobe:特殊穿搭-special-outfits:紅色亮面膠帶束帶造型:90",
+    "legacyIds": [
+      "wardrobe:特殊穿搭-special-outfits:紅色亮面膠帶束帶造型:90"
+    ],
+    "zh": "紅色亮面膠帶束帶造型",
+    "en": "complete outfit: glossy adhesive tape body-wrap look. palette-controlled latex-like tape strips stuck directly onto the skin, crossing over the torso as a halter bralette, multiple horizontal and diagonal shiny bands tightly wrapping the body, strategic coverage over key areas, matching high-cut tape bottom, hip and thigh tape bands, exposed banded cutout structure, tape color follows complete-look palette selection, bold monochrome performance styling.",
+    "desc": "完整特殊穿搭：亮面膠帶直接黏貼並纏繞身體，形成掛脖胸衣、高衩下身、臀側與大腿束帶，遮覆重點部位並呈現捆綁感；膠帶顏色由完整造型配色控制。",
+    "meta": {
+      "semantic": {
+        "family": "bdsm",
+        "tags": [
+          "revealing"
+        ]
+      }
+    }
+  },
+  "after": {
+    "id": "wardrobe:特殊穿搭-special-outfits:紅色亮面膠帶束帶造型:90",
+    "legacyIds": [
+      "wardrobe:特殊穿搭-special-outfits:紅色亮面膠帶束帶造型:90"
+    ],
+    "zh": "紅色亮面膠帶束帶造型",
+    "en": "complete outfit: glossy adhesive tape body-wrap look. latex-like tape strips stuck directly onto the skin, crossing over the torso as a halter bralette, multiple horizontal and diagonal shiny bands tightly wrapping the body, strategic coverage over key areas, matching high-cut tape bottom, hip and thigh tape bands, exposed banded cutout structure, bold monochrome performance styling.",
+    "desc": "完整特殊穿搭：亮面膠帶直接黏貼並纏繞身體，形成掛脖胸衣、高衩下身、臀側與大腿束帶，遮覆重點部位並呈現捆綁感；膠帶顏色由完整造型配色控制。",
+    "meta": {
+      "semantic": {
+        "family": "bdsm",
+        "tags": [
+          "revealing"
+        ]
+      }
+    },
+    "legacyPromptAliases": [
+      "complete outfit: glossy adhesive tape body-wrap look. palette-controlled latex-like tape strips stuck directly onto the skin, crossing over the torso as a halter bralette, multiple horizontal and diagonal shiny bands tightly wrapping the body, strategic coverage over key areas, matching high-cut tape bottom, hip and thigh tape bands, exposed banded cutout structure, tape color follows complete-look palette selection, bold monochrome performance styling."
+    ]
+  },
+  "generatedBefore": {
+    "zh": "紅色亮面膠帶束帶造型",
+    "en": "complete outfit: glossy adhesive tape body-wrap look. palette-controlled latex-like tape strips stuck directly onto the skin, crossing over the torso as a halter bralette, multiple horizontal and diagonal shiny bands tightly wrapping the body, strategic coverage over key areas, matching high-cut tape bottom, hip and thigh tape bands, exposed banded cutout structure, tape color follows complete-look palette selection, bold monochrome performance styling.",
+    "desc": "完整特殊穿搭：亮面膠帶直接黏貼並纏繞身體，形成掛脖胸衣、高衩下身、臀側與大腿束帶，遮覆重點部位並呈現捆綁感；膠帶顏色由完整造型配色控制。",
+    "meta": {
+      "semantic": {
+        "family": "bdsm",
+        "tags": [
+          "revealing"
+        ]
+      },
+      "referenceImageId": "special-outfits-090",
+      "referenceImage": "reference/wardrobe/special-outfits/90_紅色亮面膠帶束帶.avif",
+      "referenceImageFormat": "avif"
+    },
+    "stableId": "wardrobe:特殊穿搭-special-outfits:紅色亮面膠帶束帶造型:90",
+    "legacyIds": [
+      "wardrobe:特殊穿搭-special-outfits:紅色亮面膠帶束帶造型:90"
+    ]
+  },
+  "generatedAfter": {
+    "zh": "紅色亮面膠帶束帶造型",
+    "en": "complete outfit: glossy adhesive tape body-wrap look. latex-like tape strips stuck directly onto the skin, crossing over the torso as a halter bralette, multiple horizontal and diagonal shiny bands tightly wrapping the body, strategic coverage over key areas, matching high-cut tape bottom, hip and thigh tape bands, exposed banded cutout structure, bold monochrome performance styling.",
+    "desc": "完整特殊穿搭：亮面膠帶直接黏貼並纏繞身體，形成掛脖胸衣、高衩下身、臀側與大腿束帶，遮覆重點部位並呈現捆綁感；膠帶顏色由完整造型配色控制。",
+    "meta": {
+      "semantic": {
+        "family": "bdsm",
+        "tags": [
+          "revealing"
+        ]
+      },
+      "referenceImageId": "special-outfits-090",
+      "referenceImage": "reference/wardrobe/special-outfits/90_紅色亮面膠帶束帶.avif",
+      "referenceImageFormat": "avif"
+    },
+    "stableId": "wardrobe:特殊穿搭-special-outfits:紅色亮面膠帶束帶造型:90",
+    "legacyIds": [
+      "wardrobe:特殊穿搭-special-outfits:紅色亮面膠帶束帶造型:90"
+    ],
+    "legacyPromptAliases": [
+      "complete outfit: glossy adhesive tape body-wrap look. palette-controlled latex-like tape strips stuck directly onto the skin, crossing over the torso as a halter bralette, multiple horizontal and diagonal shiny bands tightly wrapping the body, strategic coverage over key areas, matching high-cut tape bottom, hip and thigh tape bands, exposed banded cutout structure, tape color follows complete-look palette selection, bold monochrome performance styling."
+    ]
+  },
+  "management": [
+    {
+      "path": "knowledge_base/catalog/schema.json",
+      "beforeHash": "cf3744e4899ef885d550e03acbfae9010bc2a9bf9828b3d0ecd1bd063b185e7b",
+      "afterHash": "1f75928d3322cc94dcd81108cfe1bcf851c8a51dd1db426ed5fb335ae67adfef",
+      "patches": [
+        {
+          "keys": [
+            "sections",
+            "Wardrobe",
+            "categories",
+            "特殊穿搭 (Special Outfits)",
+            "properties",
+            "legacyPromptAliases"
+          ],
+          "beforePresent": false,
+          "after": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/catalog/field_mapping.json",
+      "beforeHash": "0c037df59daa7713fb33e378bee2b61e7f2c743b63b8caf2a0db6ff1f398364e",
+      "afterHash": "5d940df14a64b0fa16cd9abec8d84d1d108ebf66e2c5fa02ddd7957fac3be47d",
+      "patches": [
+        {
+          "keys": [
+            "fields",
+            "legacyPromptAliases",
+            "categories"
+          ],
+          "beforePresent": true,
+          "before": [
+            "Wardrobe/套裝 (Outfit Presets)",
+            "Wardrobe/上身 (Tops)",
+            "Wardrobe/連身 (Dresses)",
+            "Wardrobe/褲裝 (Pants)",
+            "Wardrobe/外套 (Outerwear)",
+            "Wardrobe/外套開合 (Outerwear Opening)",
+            "Wardrobe/外套穿法 (Outerwear Styling)",
+            "Wardrobe/外套圖案 (Outerwear Surface Design)",
+            "Character/五官特徵 (Facial Features)",
+            "Character/體態 (Body Type)"
+          ],
+          "after": [
+            "Wardrobe/套裝 (Outfit Presets)",
+            "Wardrobe/上身 (Tops)",
+            "Wardrobe/連身 (Dresses)",
+            "Wardrobe/褲裝 (Pants)",
+            "Wardrobe/外套 (Outerwear)",
+            "Wardrobe/外套開合 (Outerwear Opening)",
+            "Wardrobe/外套穿法 (Outerwear Styling)",
+            "Wardrobe/外套圖案 (Outerwear Surface Design)",
+            "Character/五官特徵 (Facial Features)",
+            "Character/體態 (Body Type)",
+            "Wardrobe/特殊穿搭 (Special Outfits)"
+          ]
+        },
+        {
+          "keys": [
+            "paths",
+            "legacyPromptAliases",
+            "categories"
+          ],
+          "beforePresent": true,
+          "before": [
+            "Wardrobe/套裝 (Outfit Presets)",
+            "Wardrobe/上身 (Tops)",
+            "Wardrobe/連身 (Dresses)",
+            "Wardrobe/褲裝 (Pants)",
+            "Wardrobe/外套 (Outerwear)",
+            "Wardrobe/外套開合 (Outerwear Opening)",
+            "Wardrobe/外套穿法 (Outerwear Styling)",
+            "Wardrobe/外套圖案 (Outerwear Surface Design)",
+            "Character/五官特徵 (Facial Features)",
+            "Character/體態 (Body Type)"
+          ],
+          "after": [
+            "Wardrobe/套裝 (Outfit Presets)",
+            "Wardrobe/上身 (Tops)",
+            "Wardrobe/連身 (Dresses)",
+            "Wardrobe/褲裝 (Pants)",
+            "Wardrobe/外套 (Outerwear)",
+            "Wardrobe/外套開合 (Outerwear Opening)",
+            "Wardrobe/外套穿法 (Outerwear Styling)",
+            "Wardrobe/外套圖案 (Outerwear Surface Design)",
+            "Character/五官特徵 (Facial Features)",
+            "Character/體態 (Body Type)",
+            "Wardrobe/特殊穿搭 (Special Outfits)"
+          ]
+        },
+        {
+          "keys": [
+            "paths",
+            "legacyPromptAliases[]",
+            "categories"
+          ],
+          "beforePresent": true,
+          "before": [
+            "Wardrobe/套裝 (Outfit Presets)",
+            "Wardrobe/上身 (Tops)",
+            "Wardrobe/連身 (Dresses)",
+            "Wardrobe/褲裝 (Pants)",
+            "Wardrobe/外套 (Outerwear)",
+            "Wardrobe/外套開合 (Outerwear Opening)",
+            "Wardrobe/外套穿法 (Outerwear Styling)",
+            "Wardrobe/外套圖案 (Outerwear Surface Design)",
+            "Character/五官特徵 (Facial Features)",
+            "Character/體態 (Body Type)"
+          ],
+          "after": [
+            "Wardrobe/套裝 (Outfit Presets)",
+            "Wardrobe/上身 (Tops)",
+            "Wardrobe/連身 (Dresses)",
+            "Wardrobe/褲裝 (Pants)",
+            "Wardrobe/外套 (Outerwear)",
+            "Wardrobe/外套開合 (Outerwear Opening)",
+            "Wardrobe/外套穿法 (Outerwear Styling)",
+            "Wardrobe/外套圖案 (Outerwear Surface Design)",
+            "Character/五官特徵 (Facial Features)",
+            "Character/體態 (Body Type)",
+            "Wardrobe/特殊穿搭 (Special Outfits)"
+          ]
+        }
+      ]
+    }
+  ],
+  "replayFiles": [
+    {
+      "path": "scripts/lib/a2OutfitControlHistoricalReplay.mjs",
+      "before": "import { restorePreA2WardrobeRecoveryFiles } from './a2WardrobeColorRecoveryReplay.mjs';\n// Test-only inverse; validate the whole reviewed state before writing an isolated replay.\nimport assert from 'node:assert/strict';\nimport { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';\nimport { join } from 'node:path';\nimport { tmpdir } from 'node:os';\nimport { fileURLToPath } from 'node:url';\nimport { isDeepStrictEqual } from 'node:util';\nimport { createHash } from 'node:crypto';\nexport const A2_OUTFIT_ROOT = fileURLToPath(new URL('../../', import.meta.url));\nexport const A2_OUTFIT_REVIEW = JSON.parse(readFileSync(new URL('./a2OutfitControlReview.json', import.meta.url)));\nconst patches = JSON.parse(readFileSync(new URL('./a2OutfitControlPatches.json', import.meta.url)));\nconst hash = text => createHash('sha256').update(text).digest('hex');\nfunction inverse(rows, key, beforeKey, afterKey) {\n  assert.deepEqual(rows.map(x => x[key]), patches.categoryIds, 'A2 outfit inverse rejects changed ID order or missing/duplicate IDs');\n  const matches = A2_OUTFIT_REVIEW.rows.map(r => {\n    const index = rows.findIndex(x => x[key] === r.id), value = rows[index];\n    const state = isDeepStrictEqual(value, r[afterKey]) ? 'after' : isDeepStrictEqual(value, r[beforeKey]) ? 'before' : 'unknown';\n    assert.notEqual(state, 'unknown', 'A2 outfit inverse rejects changed text, aliases or metadata: ' + r.id);\n    return { index, state, r };\n  });\n  assert.equal(new Set(matches.map(x => x.state)).size, 1, 'A2 outfit inverse rejects mixed migration states');\n  for (const { index, r } of matches) rows[index] = structuredClone(r[beforeKey]);\n  return matches[0].state;\n}\nexport function preA2OutfitDatabase(database) {\n  const copy = structuredClone(database);\n  inverse(copy.Wardrobe[A2_OUTFIT_REVIEW.category], 'stableId', 'generatedBefore', 'generatedAfter');\n  return copy;\n}\nexport function preA2OutfitProgramSources(sources, state) {\n  assert.ok(['before', 'after'].includes(state));\n  const restored = { ...sources };\n  for (const [path, hashes] of Object.entries(patches.hashes)) {\n    assert.equal(typeof sources[path], 'string', 'A2 outfit inverse missing program source: ' + path);\n    const accepted = [hashes[state], ...(state === 'before' ? hashes.earlierBefore || [] : [])];\n    assert.ok(accepted.includes(hash(sources[path])), 'A2 outfit inverse rejects unreviewed or mixed program source: ' + path);\n  }\n  for (const [path, expected] of Object.entries(patches.newFiles)) {\n    if (state === 'after' || sources[path] !== undefined) assert.equal(hash(sources[path] || ''), expected, 'A2 outfit inverse rejects missing or changed new helper');\n    delete restored[path];\n  }\n  if (state === 'after') {\n    for (const p of patches.patches) {\n      assert.equal(restored[p.path].split(p.after).length - 1, 1, 'A2 outfit inverse requires exact insertion');\n      restored[p.path] = restored[p.path].replace(p.after, p.before);\n    }\n    for (const file of patches.management) {\n      const value = JSON.parse(restored[file.path]);\n      for (const change of file.changes) {\n        const keys = [...change.keys], last = keys.pop();\n        const parent = keys.reduce((x, key) => x[key], value);\n        assert.deepEqual(parent[last], change.after);\n        if (change.beforePresent) parent[last] = change.before;\n        else delete parent[last];\n      }\n      restored[file.path] = JSON.stringify(value, null, 2) + '\\n';\n    }\n    for (const [path, hashes] of Object.entries(patches.hashes)) assert.equal(hash(restored[path]), hashes.before, 'A2 outfit inverse must exactly restore base: ' + path);\n  }\n  return restored;\n}\nexport function restorePreA2OutfitFiles(directory) {\n  assert.notEqual(realpathSync(directory), realpathSync(A2_OUTFIT_ROOT), 'A2 outfit inverse only writes an isolated copy');\n  const categoryFile = join(directory, A2_OUTFIT_REVIEW.sourceFile);\n  const category = JSON.parse(readFileSync(categoryFile));\n  const state = inverse(category.entries, 'id', 'before', 'after');\n  const databaseFile = join(directory, 'webapp/src/data/database.json');\n  const database = JSON.parse(readFileSync(databaseFile));\n  const dbState = inverse(database.Wardrobe[A2_OUTFIT_REVIEW.category], 'stableId', 'generatedBefore', 'generatedAfter');\n  assert.equal(state, dbState, 'A2 outfit inverse requires matching source and generated states');\n  const markdownFile = join(directory, 'knowledge_base/wardrobe_and_styling.md');\n  let markdown = readFileSync(markdownFile, 'utf8');\n  for (const row of A2_OUTFIT_REVIEW.rows) {\n    const from = '| `' + row[state].en + '` |';\n    assert.equal(markdown.split(from).length - 1, 1, 'A2 outfit inverse Markdown must agree: ' + row.id);\n    if (state === 'after') markdown = markdown.replace(from, '| `' + row.before.en + '` |');\n  }\n  const sources = Object.fromEntries([...Object.keys(patches.hashes), ...Object.keys(patches.newFiles)]\n    .filter(path => existsSync(join(directory, path))).map(path => [path, readFileSync(join(directory, path), 'utf8')]));\n  const restored = preA2OutfitProgramSources(sources, state);\n  // All source, generated, Markdown and program checks succeeded before the first write.\n  writeFileSync(categoryFile, JSON.stringify(category, null, 2) + '\\n');\n  writeFileSync(databaseFile, JSON.stringify(database, null, 2) + '\\n');\n  writeFileSync(markdownFile, markdown);\n  for (const [path, text] of Object.entries(restored)) writeFileSync(join(directory, path), text);\n  for (const path of Object.keys(patches.newFiles)) rmSync(join(directory, path), { force: true });\n}\nexport function openPreA2OutfitReplayRoot() {\n  const directory = mkdtempSync(join(tmpdir(), 'vps-a2-outfits-history-'));\n  try {\n    mkdirSync(join(directory, 'webapp'));\n    for (const path of ['webapp/src', 'scripts', 'knowledge_base']) cpSync(join(A2_OUTFIT_ROOT, path), join(directory, path), { recursive: true });\n    for (const file of ['package.json', 'package-lock.json']) cpSync(join(A2_OUTFIT_ROOT, 'webapp', file), join(directory, 'webapp', file));\n    symlinkSync(join(A2_OUTFIT_ROOT, 'webapp/node_modules'), join(directory, 'webapp/node_modules'), 'dir');\n    restorePreA2WardrobeRecoveryFiles(directory);\n    restorePreA2OutfitFiles(directory);\n    return { directory, cleanup: () => rmSync(directory, { recursive: true, force: true }) };\n  } catch (error) { rmSync(directory, { recursive: true, force: true }); throw error; }\n}\n",
+      "beforeHash": "38680d1e3e61b5853ec718b791fe96337c80a8622e0ab9b106da59a12cd3a12a",
+      "afterHash": "27c1c8c8af85a73e6b9fc6a2d6cb908a5e9780e4580fb10b2b187c32f33fd58a"
+    },
+    {
+      "path": "scripts/lib/a2WardrobeColorRecoveryReplay.mjs",
+      "before": "import { restorePreA2MarkdownSnapshotFiles } from './a2MarkdownSnapshotReplay.mjs';\n// Restore only the reviewed parser delta in an isolated copy. Historical seals stay immutable.\nimport assert from 'node:assert/strict';\nimport { readFileSync, writeFileSync, existsSync, realpathSync, rmSync, cpSync, mkdirSync, mkdtempSync, symlinkSync } from 'node:fs';\nimport { createHash } from 'node:crypto';\nimport { fileURLToPath } from 'node:url';\nimport { join } from 'node:path';\nimport { tmpdir } from 'node:os';\nexport const RECOVERY_ROOT = fileURLToPath(new URL('../../', import.meta.url));\nexport const RECOVERY_PATCHES = JSON.parse(readFileSync(new URL('./a2WardrobeColorRecoveryPatches.json', import.meta.url)));\nconst hash = text => createHash('sha256').update(text).digest('hex');\nexport function restorePreA2WardrobeRecoveryFiles(directory) {\n  assert.notEqual(realpathSync(directory),realpathSync(RECOVERY_ROOT),'Recovery inverse must use an isolated copy');\n  const prepared = [];\n  const states = [];\n  for (const entry of RECOVERY_PATCHES.files) {\n    const text = readFileSync(join(directory,entry.path),'utf8');\n    const state = hash(text) === entry.afterHash ? 'after' : hash(text) === entry.beforeHash ? 'before' : 'unknown';\n    assert.notEqual(state,'unknown','Recovery inverse rejects unreviewed source: '+entry.path);\n    states.push(state);\n    let before = text;\n    if(state === 'after') for(const patch of entry.patches){\n      assert.equal(before.split(patch.after).length-1,1,'Recovery inverse requires exact insertion');\n      before=before.replace(patch.after,patch.before);\n    }\n    assert.equal(hash(before),entry.beforeHash,'Recovery inverse must restore exact base');\n    prepared.push([entry.path,before]);\n  }\n  assert.equal(new Set(states).size,1,'Recovery inverse rejects mixed source states');\n  const state=states[0];\n  for(const [path,sha] of Object.entries(RECOVERY_PATCHES.newFiles)){\n    if(state==='after'||existsSync(join(directory,path)))assert.equal(hash(readFileSync(join(directory,path))),sha,'Recovery inverse rejects changed helper');\n  }\n  // No writes until every input passed. Idempotent historical roots are valid.\n  if(state==='after') for(const [path,text] of prepared)writeFileSync(join(directory,path),text);\n  for(const path of Object.keys(RECOVERY_PATCHES.newFiles))rmSync(join(directory,path),{force:true});\n}\n\nexport async function withPreA2WardrobeRecoveryReplay(run) {\n  const directory=mkdtempSync(join(tmpdir(),'vps-a2-recovery-test-'));\n  try {\n    mkdirSync(join(directory,'webapp'));\n    cpSync(join(RECOVERY_ROOT,'webapp/src'),join(directory,'webapp/src'),{recursive:true});\n    cpSync(join(RECOVERY_ROOT,'webapp/package.json'),join(directory,'webapp/package.json'));\n    symlinkSync(join(RECOVERY_ROOT,'webapp/node_modules'),join(directory,'webapp/node_modules'),'dir');\n    cpSync(join(RECOVERY_ROOT,'scripts/lib'),join(directory,'scripts/lib'),{recursive:true});\n    restorePreA2MarkdownSnapshotFiles(directory);\n    restorePreA2WardrobeRecoveryFiles(directory);\n    return await run(directory);\n  } finally { rmSync(directory,{recursive:true,force:true}); }\n}\n",
+      "beforeHash": "f032f45f2afc4b99b8a9ceecc8398d9973d3f5a1ec0f78623133d249927fa52c",
+      "afterHash": "12006d07dc27d32d77d0561872709391faf8694f36583cb0e97810c1bacc32f6"
+    }
+  ]
+}
