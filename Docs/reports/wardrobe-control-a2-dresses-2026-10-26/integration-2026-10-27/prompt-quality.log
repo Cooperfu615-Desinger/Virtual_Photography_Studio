@@ -1,0 +1,4599 @@
+
+> webapp@0.0.0 test:prompt-quality
+> node ../scripts/run_webapp_tests.mjs src/lib/engine/dressControlLanguage.test.js src/lib/engine/characterAdultIdentity.test.js src/lib/observationCaptureImport.test.js src/lib/engine/shirtBlackBottom.test.js src/lib/engine/specifiedActionUnified.test.js src/lib/observationCaptureMode.test.js src/lib/engine/squattingHands.test.js src/lib/engine/squattingCatalog.test.js src/lib/engine/specifiedActions.test.js src/lib/engine/specifiedActionIntegration.test.js src/lib/engine/nanoBananaPrompt.test.js src/lib/engine/midjourneyNaturalPrompt.test.js src/lib/engineBlackTieShirt.test.js src/lib/engineMirrorSelfieProp.test.js src/lib/engineSubjectLightAdditions.test.js src/lib/engineSubjectKeyLightCompatibility.test.js src/lib/engine/headDominantFraming.test.js src/lib/engine/shibuyaCrowdScene.test.js src/lib/engine/adidasTrackwear.test.js src/lib/engine/bandagePasties.test.js src/lib/engine/underbustTopFit.test.js src/lib/engine/outerwearStyling.test.js src/lib/engine/minimalCoverageWardrobe.test.js src/lib/engine/bodyTypeCatalog.test.js src/lib/engine/gptBodyTypeOmission.test.js src/lib/engine/kneelingCatalog.test.js src/lib/engine/hourglassBikiniBody.test.js src/lib/engine/zImageOnLocationCapture.test.js src/lib/engine/outerwearClosure.test.js src/lib/engine/stationFixedComposition.test.js src/lib/engineFixedCompositionSet.test.js src/lib/engine/topHemOverlap.test.js src/lib/engine/standingCatalog.test.js src/lib/engineOptionalSilence.test.js src/lib/engine/midjourneyTopPattern.test.js src/lib/engine/chestUpSameState.test.js src/lib/engine/closeWormEye.test.js src/lib/engine/gptCameraSpatial.test.js src/lib/engine/gptSceneVisibility.test.js src/lib/engine/ambientLightDescriptions.test.js src/lib/engine/zImageSceneDetailPriority.test.js src/lib/engine/zImageUpperSceneExtension.test.js src/lib/engine/zImageFullBodyCamera.test.js src/lib/engine/zImageUpperScene.test.js src/lib/engine/zImageSceneDirection.test.js src/lib/engine/sceneIntegratedAssemblyBaseline.test.js src/lib/engine/promptOutputContracts.test.js src/lib/engine/zImageTurboPromptContract.test.js src/lib/engine/zImageTurboCameraGeometry.test.js src/lib/engineZImageTurboPrompt.test.js src/lib/engine/aiPromptLengthContract.test.js src/lib/engine/aiPromptBudget.test.js src/lib/engine/aiPromptLengthIntegration.test.js src/lib/engine/midjourneyDescriptionContract.test.js src/lib/engine/midjourneyDescriptionOpening.test.js src/lib/engine/midjourneySubjectWardrobe.test.js src/lib/engine/midjourneySceneImaging.test.js src/lib/engine/midjourneySpecialModes.test.js src/lib/engine/midjourneyParameterContract.test.js src/lib/engine/midjourneyParameterTail.test.js src/lib/engine/midjourneyNativeStructure.test.js src/lib/engine/midjourneyFacialFeatureVariant.test.js src/lib/engine/expressionGazeSharedPrompt.test.js src/lib/engine/midjourneyCompletionGate.test.js src/lib/enginePromptDeduplication.test.js src/lib/engine/compositionBodyVisibilityContract.test.js src/lib/engine/compositionBodyVisibilityIntegration.test.js src/lib/engine/compositionBodyPromptIntegration.test.js src/lib/engine/compositionVisibilityIntegration.test.js src/lib/engine/fixedCompositionPromptIntegration.test.js src/lib/engine/fixedFramingDerivedPromptContract.test.js src/lib/engine/fixedFramingDerivedPromptInfrastructure.test.js src/lib/engine/fixedFramingDerivedPromptRuntime.test.js src/lib/engine/fixedFramingMainPrompt.test.js src/lib/engine/fixedFramingPromptIntegration.test.js src/lib/page1PromptOutputs.test.js
+
+TAP version 13
+# Subtest: new trackwear appends stable identities and keeps its authored detail across six outputs
+ok 1 - new trackwear appends stable identities and keeps its authored detail across six outputs
+  ---
+  duration_ms: 46.140125
+  type: 'test'
+  ...
+# Subtest: new jacket uses existing fit, zip closure, sleeve styling and hidden inner-layer contracts
+ok 2 - new jacket uses existing fit, zip closure, sleeve styling and hidden inner-layer contracts
+  ---
+  duration_ms: 73.756916
+  type: 'test'
+  ...
+# Subtest: elastic waist suppresses only incompatible fly styling while keeping stored choice and restoration
+ok 3 - elastic waist suppresses only incompatible fly styling while keeping stored choice and restoration
+  ---
+  duration_ms: 73.633833
+  type: 'test'
+  ...
+# Subtest: duo waist compatibility is scoped to the selected wearer
+ok 4 - duo waist compatibility is scoped to the selected wearer
+  ---
+  duration_ms: 17.301042
+  type: 'test'
+  ...
+# Subtest: standard prompt import and saved cards retain both separate garment selections
+ok 5 - standard prompt import and saved cards retain both separate garment selections
+  ---
+  duration_ms: 71.37925
+  type: 'test'
+  ...
+# Subtest: section-aware budget model records stable order, immutable sections, and diagnostics
+ok 6 - section-aware budget model records stable order, immutable sections, and diagnostics
+  ---
+  duration_ms: 1.266875
+  type: 'test'
+  ...
+# Subtest: scene-integrated main order is opt-in and preserves section content and measurements
+ok 7 - scene-integrated main order is opt-in and preserves section content and measurements
+  ---
+  duration_ms: 0.360916
+  type: 'test'
+  ...
+# Subtest: global arbitration reduces complete imaging then scene alternatives without touching immutable sections
+ok 8 - global arbitration reduces complete imaging then scene alternatives without touching immutable sections
+  ---
+  duration_ms: 0.247042
+  type: 'test'
+  ...
+# Subtest: budget policy selection keeps Character Card precedence and complete-look isolation
+ok 9 - budget policy selection keeps Character Card precedence and complete-look isolation
+  ---
+  duration_ms: 0.123292
+  type: 'test'
+  ...
+# Subtest: Midjourney native structure records duo length diagnostics without a deletion gate
+ok 10 - Midjourney native structure records duo length diagnostics without a deletion gate
+  ---
+  duration_ms: 125.171584
+  type: 'test'
+  ...
+# Subtest: normal and complete-look outputs preserve fixture anchors after MJ compression
+ok 11 - normal and complete-look outputs preserve fixture anchors after MJ compression
+  ---
+  duration_ms: 168.540084
+  type: 'test'
+  ...
+# Subtest: Character Card outputs preserve permanent identity and wardrobe anchors without hard length gating
+ok 12 - Character Card outputs preserve permanent identity and wardrobe anchors without hard length gating
+  ---
+  duration_ms: 42.419875
+  type: 'test'
+  ...
+# Subtest: Midjourney native structure freezes every accepted AI description
+ok 13 - Midjourney native structure freezes every accepted AI description
+  ---
+  duration_ms: 96.8155
+  type: 'test'
+  ...
+# Subtest: cross-section pressure preserves source identities without dropping visual items
+ok 14 - cross-section pressure preserves source identities without dropping visual items
+  ---
+  duration_ms: 6.368666
+  type: 'test'
+  ...
+# Subtest: AI Prompt length contract is frozen serializable policy data
+ok 15 - AI Prompt length contract is frozen serializable policy data
+  ---
+  duration_ms: 0.959834
+  type: 'test'
+  ...
+# Subtest: AI Prompt length fixtures cover every approved pressure boundary
+ok 16 - AI Prompt length fixtures cover every approved pressure boundary
+  ---
+  duration_ms: 0.100459
+  type: 'test'
+  ...
+# Subtest: phase-1 AI fixtures are deterministic, contract-valid, and preserve required anchors
+ok 17 - phase-1 AI fixtures are deterministic, contract-valid, and preserve required anchors
+  ---
+  duration_ms: 405.295041
+  type: 'test'
+  ...
+# Subtest: historical word budgets remain diagnostics and do not gate MJ visual retention
+ok 18 - historical word budgets remain diagnostics and do not gate MJ visual retention
+  ---
+  duration_ms: 103.943792
+  type: 'test'
+  ...
+# Subtest: phase-6 integration gate preserves mappings, selections, contracts, anchors, and MJ diagnostics
+ok 19 - phase-6 integration gate preserves mappings, selections, contracts, anchors, and MJ diagnostics
+  ---
+  duration_ms: 306.653541
+  type: 'test'
+  ...
+# Subtest: phase-6 gate records the approved single/duo and immutable-section boundaries
+ok 20 - phase-6 gate records the approved single/duo and immutable-section boundaries
+  ---
+  duration_ms: 0.511416
+  type: 'test'
+  ...
+# Subtest: 36 authored ambient descriptions retain light cores, exact source pins and renderer-only details
+ok 21 - 36 authored ambient descriptions retain light cores, exact source pins and renderer-only details
+  ---
+  duration_ms: 1.637083
+  type: 'test'
+  ...
+# Subtest: 720 frozen main cases change only authored directional GPT/Z ambient
+ok 22 - 720 frozen main cases change only authored directional GPT/Z ambient
+  ---
+  duration_ms: 10942.249209
+  type: 'test'
+  ...
+# Subtest: ambient text survives Saved Cards and Markdown without changing selection IDs
+ok 23 - ambient text survives Saved Cards and Markdown without changing selection IDs
+  ---
+  duration_ms: 1234.917334
+  type: 'test'
+  ...
+# Subtest: bandage pasties append one independent option to single and duo catalogs without moving old IDs
+ok 24 - bandage pasties append one independent option to single and duo catalogs without moving old IDs
+  ---
+  duration_ms: 10.962291
+  type: 'test'
+  ...
+# Subtest: all 225 existing top/crop selections and six outputs retain their pre-change bytes
+ok 25 - all 225 existing top/crop selections and six outputs retain their pre-change bytes
+  ---
+  duration_ms: 1744.6295
+  type: 'test'
+  ...
+# Subtest: each visible output retains one full pair source including casual horizontal placement
+ok 26 - each visible output retains one full pair source including casual horizontal placement
+  ---
+  duration_ms: 32.87675
+  type: 'test'
+  ...
+# Subtest: shared color and pattern remain attached to the independent bandage source
+ok 27 - shared color and pattern remain attached to the independent bandage source
+  ---
+  duration_ms: 5.360667
+  type: 'test'
+  ...
+# Subtest: short top fits remain disabled and latent instead of inventing a pasties hem
+ok 28 - short top fits remain disabled and latent instead of inventing a pasties hem
+  ---
+  duration_ms: 7.921375
+  type: 'test'
+  ...
+# Subtest: duo source follows the selected wearer without replacing the other X-shaped pair
+ok 29 - duo source follows the selected wearer without replacing the other X-shaped pair
+  ---
+  duration_ms: 45.945083
+  type: 'test'
+  ...
+# Subtest: Saved Cards and standard prose restore the new top without colliding with X-shaped pasties
+ok 30 - Saved Cards and standard prose restore the new top without colliding with X-shaped pasties
+  ---
+  duration_ms: 122.437833
+  type: 'test'
+  ...
+# Subtest: closed opaque outerwear and complete presets retain existing top precedence
+ok 31 - closed opaque outerwear and complete presets retain existing top precedence
+  ---
+  duration_ms: 35.689416
+  type: 'test'
+  ...
+# Subtest: six reviewed body sources and none retain stable IDs in single and duo controls
+ok 32 - six reviewed body sources and none retain stable IDs in single and duo controls
+  ---
+  duration_ms: 0.893875
+  type: 'test'
+  ...
+# Subtest: 高挑時裝模特: main/chest GPT omit body, full-body keeps it once, other outputs retain the source at every framing and with overlapping hems
+ok 33 - 高挑時裝模特: main/chest GPT omit body, full-body keeps it once, other outputs retain the source at every framing and with overlapping hems
+  ---
+  duration_ms: 289.625625
+  type: 'test'
+  ...
+# Subtest: 柔和沙漏身形: main/chest GPT omit body, full-body keeps it once, other outputs retain the source at every framing and with overlapping hems
+ok 34 - 柔和沙漏身形: main/chest GPT omit body, full-body keeps it once, other outputs retain the source at every framing and with overlapping hems
+  ---
+  duration_ms: 123.736375
+  type: 'test'
+  ...
+# Subtest: 性感曲線身形: main/chest GPT omit body, full-body keeps it once, other outputs retain the source at every framing and with overlapping hems
+ok 35 - 性感曲線身形: main/chest GPT omit body, full-body keeps it once, other outputs retain the source at every framing and with overlapping hems
+  ---
+  duration_ms: 132.61
+  type: 'test'
+  ...
+# Subtest: 運動緊實身形: main/chest GPT omit body, full-body keeps it once, other outputs retain the source at every framing and with overlapping hems
+ok 36 - 運動緊實身形: main/chest GPT omit body, full-body keeps it once, other outputs retain the source at every framing and with overlapping hems
+  ---
+  duration_ms: 146.038792
+  type: 'test'
+  ...
+# Subtest: 小隻精緻身形: main/chest GPT omit body, full-body keeps it once, other outputs retain the source at every framing and with overlapping hems
+ok 37 - 小隻精緻身形: main/chest GPT omit body, full-body keeps it once, other outputs retain the source at every framing and with overlapping hems
+  ---
+  duration_ms: 166.159291
+  type: 'test'
+  ...
+# Subtest: 豐胸纖腰沙漏身形: main/chest GPT omit body, full-body keeps it once, other outputs retain the source at every framing and with overlapping hems
+ok 38 - 豐胸纖腰沙漏身形: main/chest GPT omit body, full-body keeps it once, other outputs retain the source at every framing and with overlapping hems
+  ---
+  duration_ms: 121.787333
+  type: 'test'
+  ...
+# Subtest: duo body sources stay with their selected person without compacting or cross-person changes
+ok 39 - duo body sources stay with their selected person without compacting or cross-person changes
+  ---
+  duration_ms: 76.766292
+  type: 'test'
+  ...
+# Subtest: old basic IDs, old English sources and Saved Card payloads resolve to the merged option
+ok 40 - old basic IDs, old English sources and Saved Card payloads resolve to the merged option
+  ---
+  duration_ms: 416.210125
+  type: 'test'
+  ...
+# Subtest: none remains silent and the fixed chest and full-body ratios remain unchanged
+ok 41 - none remains silent and the fixed chest and full-body ratios remain unchanged
+  ---
+  duration_ms: 12.334625
+  type: 'test'
+  ...
+# Subtest: 60 pre-change body/framing cases keep every non-body output byte and selection
+ok 42 - 60 pre-change body/framing cases keep every non-body output byte and selection
+  ---
+  duration_ms: 495.03575
+  type: 'test'
+  ...
+# Subtest: 33 cards retain source adult identity once in three PAGE1 GPT outputs (full-default)
+ok 43 - 33 cards retain source adult identity once in three PAGE1 GPT outputs (full-default)
+  ---
+  duration_ms: 482.272666
+  type: 'test'
+  ...
+# Subtest: 33 cards retain source adult identity once in three PAGE1 GPT outputs (selected-layers)
+ok 44 - 33 cards retain source adult identity once in three PAGE1 GPT outputs (selected-layers)
+  ---
+  duration_ms: 681.124958
+  type: 'test'
+  ...
+# Subtest: card capture keeps adult identity through rerolls, JSON and Markdown without enabling full-body import
+ok 45 - card capture keeps adult identity through rerolls, JSON and Markdown without enabling full-body import
+  ---
+  duration_ms: 202.753
+  type: 'test'
+  ...
+# Subtest: historical inverse rejects missing, duplicate and altered patches while retaining unrelated code
+ok 46 - historical inverse rejects missing, duplicate and altered patches while retaining unrelated code
+  ---
+  duration_ms: 9.633042
+  type: 'test'
+  ...
+# Subtest: both real GPT builder bodies preserve legacy-only, missing and unsupported identity sources
+ok 47 - both real GPT builder bodies preserve legacy-only, missing and unsupported identity sources
+  ---
+  duration_ms: 3.920583
+  type: 'test'
+  ...
+# Subtest: both chest crops own 4:5 without changing the source ratio or selection
+ok 48 - both chest crops own 4:5 without changing the source ratio or selection
+  ---
+  duration_ms: 90.487375
+  type: 'test'
+  ...
+# Subtest: chest GPT uses the main lighting, camera and scene policy with full source identity
+ok 49 - chest GPT uses the main lighting, camera and scene policy with full source identity
+  ---
+  duration_ms: 11.474917
+  type: 'test'
+  ...
+# Subtest: fixed chest identity and scene are independent of the parent crop
+ok 50 - fixed chest identity and scene are independent of the parent crop
+  ---
+  duration_ms: 17.639041
+  type: 'test'
+  ...
+# Subtest: chest crops retain the selected posture and manual seat without demanding hidden legs
+ok 51 - chest crops retain the selected posture and manual seat without demanding hidden legs
+  ---
+  duration_ms: 19.009792
+  type: 'test'
+  ...
+# Subtest: all nine manual sitting objects survive both chest crops as posture context
+ok 52 - all nine manual sitting objects survive both chest crops as posture context
+  ---
+  duration_ms: 71.929084
+  type: 'test'
+  ...
+# Subtest: chest crops retain visible rock hands and the selected upper torso inclination
+ok 53 - chest crops retain visible rock hands and the selected upper torso inclination
+  ---
+  duration_ms: 6.131083
+  type: 'test'
+  ...
+# Subtest: chest crops preserve kneeling, lying orientation and rear orbit
+ok 54 - chest crops preserve kneeling, lying orientation and rear orbit
+  ---
+  duration_ms: 34.227667
+  type: 'test'
+  ...
+# Subtest: preview F settings update both MJ tails and survive save/restore without rerolling
+ok 55 - preview F settings update both MJ tails and survive save/restore without rerolling
+  ---
+  duration_ms: 11.763458
+  type: 'test'
+  ...
+# Subtest: phase-4 gate covers every public framing alias for every normal Body Type
+ok 56 - phase-4 gate covers every public framing alias for every normal Body Type
+  ---
+  duration_ms: 517.823208
+  type: 'test'
+  ...
+# Subtest: phase-4 gate keeps fixed composition full-source and projects duo A/B across public framings
+ok 57 - phase-4 gate keeps fixed composition full-source and projects duo A/B across public framings
+  ---
+  duration_ms: 260.95825
+  type: 'test'
+  ...
+# Subtest: phase-4 gate covers every formal Character Card without removing permanent identity
+ok 58 - phase-4 gate covers every formal Character Card without removing permanent identity
+  ---
+  duration_ms: 4047.372584
+  type: 'test'
+  ...
+# Subtest: phase-4 gate projects every tattoo-bearing special-outfit person detail
+ok 59 - phase-4 gate projects every tattoo-bearing special-outfit person detail
+  ---
+  duration_ms: 394.32625
+  type: 'test'
+  ...
+# Subtest: phase-1 body visibility policy records the approved progressive crop zones
+ok 60 - phase-1 body visibility policy records the approved progressive crop zones
+  ---
+  duration_ms: 0.879917
+  type: 'test'
+  ...
+# Subtest: phase-1 body profiles cover every public Body Type and retain the canonical full source
+ok 61 - phase-1 body profiles cover every public Body Type and retain the canonical full source
+  ---
+  duration_ms: 0.208291
+  type: 'test'
+  ...
+# Subtest: standalone body profiles retain the full reviewed source across every visibility bucket
+ok 62 - standalone body profiles retain the full reviewed source across every visibility bucket
+  ---
+  duration_ms: 0.076208
+  type: 'test'
+  ...
+# Subtest: phase-1 body fixtures resolve public controls and cover compatibility sources
+ok 63 - phase-1 body fixtures resolve public controls and cover compatibility sources
+  ---
+  duration_ms: 0.376417
+  type: 'test'
+  ...
+# Subtest: phase-1 fixtures preserve face identity while only body content is projected
+ok 64 - phase-1 fixtures preserve face identity while only body content is projected
+  ---
+  duration_ms: 0.088875
+  type: 'test'
+  ...
+# Subtest: compatibility character cards author explicit crop-specific body sources
+ok 65 - compatibility character cards author explicit crop-specific body sources
+  ---
+  duration_ms: 0.695042
+  type: 'test'
+  ...
+# Subtest: phase-4 integration matrix covers every public framing alias and compatibility source
+ok 66 - phase-4 integration matrix covers every public framing alias and compatibility source
+  ---
+  duration_ms: 0.157917
+  type: 'test'
+  ...
+# Subtest: normal single Body Types stay resolved while main GPT omits them, full-body keeps them, and Z and AI retain them
+ok 67 - normal single Body Types stay resolved while main GPT omits them, full-body keeps them, and Z and AI retain them
+  ---
+  duration_ms: 332.761875
+  type: 'test'
+  ...
+# Subtest: duo role Body Types reuse the shared projected body source without changing selections
+ok 68 - duo role Body Types reuse the shared projected body source without changing selections
+  ---
+  duration_ms: 19.371083
+  type: 'test'
+  ...
+# Subtest: Character Card body projection removes only body text and full-body output restores its source
+ok 69 - Character Card body projection removes only body text and full-body output restores its source
+  ---
+  duration_ms: 12.69425
+  type: 'test'
+  ...
+# Subtest: face crop removes the structured body source from every formal Character Card
+ok 70 - face crop removes the structured body source from every formal Character Card
+  ---
+  duration_ms: 392.786916
+  type: 'test'
+  ...
+# Subtest: Character Card partial crops use authored chest, waist, and hip sources
+ok 71 - Character Card partial crops use authored chest, waist, and hip sources
+  ---
+  duration_ms: 22.703416
+  type: 'test'
+  ...
+# Subtest: special-outfit hair and tattoo details remain while its normal Body Type is projected
+ok 72 - special-outfit hair and tattoo details remain while its normal Body Type is projected
+  ---
+  duration_ms: 24.178375
+  type: 'test'
+  ...
+# Subtest: face crop keeps special-outfit hair, removes body-position tattoos, and restores them for full-body output
+ok 73 - face crop keeps special-outfit hair, removes body-position tattoos, and restores them for full-body output
+  ---
+  duration_ms: 16.587083
+  type: 'test'
+  ...
+# Subtest: all composition fixtures preserve source selections without exposing retired visibility branches
+ok 74 - all composition fixtures preserve source selections without exposing retired visibility branches
+  ---
+  duration_ms: 360.184333
+  type: 'test'
+  ...
+# Subtest: A2 dresses change only reviewed control clauses and append exact old text aliases
+ok 75 - A2 dresses change only reviewed control clauses and append exact old text aliases
+  ---
+  duration_ms: 1.936708
+  type: 'test'
+  ...
+# Subtest: A2 all 24 dresses are free of selection controls across every crop and three colors in six outputs
+ok 76 - A2 all 24 dresses are free of selection controls across every crop and three colors in six outputs
+  ---
+  duration_ms: 6172.073917
+  type: 'test'
+  ...
+# Subtest: A2 every prior dress text and legacy ID resolves to the same issued option
+ok 77 - A2 every prior dress text and legacy ID resolves to the same issued option
+  ---
+  duration_ms: 465.425334
+  type: 'test'
+  ...
+# Subtest: A2 inverse rejects changed entries, missing or duplicate IDs and mixed migration states
+ok 78 - A2 inverse rejects changed entries, missing or duplicate IDs and mixed migration states
+  ---
+  duration_ms: 82.002375
+  type: 'test'
+  ...
+# Subtest: A2 video history accepts only the exact reviewed before or after tree and rejects missing, changed or mixed sources
+ok 79 - A2 video history accepts only the exact reviewed before or after tree and rejects missing, changed or mixed sources
+  ---
+  duration_ms: 0.49975
+  type: 'test'
+  ...
+# Subtest: shared soft smile remains complete across the three main renderers
+ok 80 - shared soft smile remains complete across the three main renderers
+  ---
+  duration_ms: 66.77775
+  type: 'test'
+  ...
+# Subtest: expression options do not inject gaze or head/body action language
+ok 81 - expression options do not inject gaze or head/body action language
+  ---
+  duration_ms: 41.822708
+  type: 'test'
+  ...
+# Subtest: playful mock annoyance is a shared low-intensity expression
+ok 82 - playful mock annoyance is a shared low-intensity expression
+  ---
+  duration_ms: 10.753917
+  type: 'test'
+  ...
+# Subtest: renamed expression labels preserve current and earlier saved expression locks
+ok 83 - renamed expression labels preserve current and earlier saved expression locks
+  ---
+  duration_ms: 1.426209
+  type: 'test'
+  ...
+# Subtest: fixed composition integration preserves canonical order for separates
+ok 84 - fixed composition integration preserves canonical order for separates
+  ---
+  duration_ms: 46.750083
+  type: 'test'
+  ...
+# Subtest: fixed composition integration preserves canonical order for special-outfit
+ok 85 - fixed composition integration preserves canonical order for special-outfit
+  ---
+  duration_ms: 27.285583
+  type: 'test'
+  ...
+# Subtest: fixed composition integration preserves canonical order for outfit-preset
+ok 86 - fixed composition integration preserves canonical order for outfit-preset
+  ---
+  duration_ms: 8.559625
+  type: 'test'
+  ...
+# Subtest: fixed composition integration preserves canonical order for dress
+ok 87 - fixed composition integration preserves canonical order for dress
+  ---
+  duration_ms: 8.900291
+  type: 'test'
+  ...
+# Subtest: fixed-framing contract is frozen serializable target data and records runtime plus consumer and main framing activation
+ok 88 - fixed-framing contract is frozen serializable target data and records runtime plus consumer and main framing activation
+  ---
+  duration_ms: 0.98625
+  type: 'test'
+  ...
+# Subtest: phase-1 main framing policy partitions every existing option without changing legacy ids
+ok 89 - phase-1 main framing policy partitions every existing option without changing legacy ids
+  ---
+  duration_ms: 0.310042
+  type: 'test'
+  ...
+# Subtest: phase-1 derived output policies record the legacy face boundary and active chest boundaries
+ok 90 - phase-1 derived output policies record the legacy face boundary and active chest boundaries
+  ---
+  duration_ms: 0.105583
+  type: 'test'
+  ...
+# Subtest: phase-1 deterministic fixtures resolve controls and cover every approved compatibility boundary
+ok 91 - phase-1 deterministic fixtures resolve controls and cover every approved compatibility boundary
+  ---
+  duration_ms: 1.008208
+  type: 'test'
+  ...
+# Subtest: phase-1 half-face target resolves one explicit edge with opposite negative space and visible upper body
+ok 92 - phase-1 half-face target resolves one explicit edge with opposite negative space and visible upper body
+  ---
+  duration_ms: 0.378958
+  type: 'test'
+  ...
+# Subtest: full-face target resolves left or right only, keeps the whole face visible, and forbids centering
+ok 93 - full-face target resolves left or right only, keeps the whole face visible, and forbids centering
+  ---
+  duration_ms: 0.367958
+  type: 'test'
+  ...
+# Subtest: phase-3 connects single derived outputs while preserving the raw framing selection
+ok 94 - phase-3 connects single derived outputs while preserving the raw framing selection
+  ---
+  duration_ms: 45.894125
+  type: 'test'
+  ...
+# Subtest: phase-2 shared preset builds a full-body derived context without mutating its resolved source
+ok 95 - phase-2 shared preset builds a full-body derived context without mutating its resolved source
+  ---
+  duration_ms: 0.883542
+  type: 'test'
+  ...
+# Subtest: phase-2 full-body migration preserves exact output bytes for representative resolved sources
+ok 96 - phase-2 full-body migration preserves exact output bytes for representative resolved sources
+  ---
+  duration_ms: 1387.692292
+  type: 'test'
+  ...
+# Subtest: phase-3 single runtime emits the active fixed-framing outputs from the same preserved selections
+ok 97 - phase-3 single runtime emits the active fixed-framing outputs from the same preserved selections
+  ---
+  duration_ms: 312.901375
+  type: 'test'
+  ...
+# Subtest: phase-3 chest output uses the projected canonical upper-body pose and compact source scene
+ok 98 - phase-3 chest output uses the projected canonical upper-body pose and compact source scene
+  ---
+  duration_ms: 23.879167
+  type: 'test'
+  ...
+# Subtest: phase-3 derived outputs retain fixed-set anchors without the conflicting fixed camera distance
+ok 99 - phase-3 derived outputs retain fixed-set anchors without the conflicting fixed camera distance
+  ---
+  duration_ms: 12.78175
+  type: 'test'
+  ...
+# Subtest: phase-3 retired facial output is absent and duo stays unsupported
+ok 100 - phase-3 retired facial output is absent and duo stays unsupported
+  ---
+  duration_ms: 37.804083
+  type: 'test'
+  ...
+# Subtest: phase-5 PAGE1 framing selector exposes only the approved main options
+ok 101 - phase-5 PAGE1 framing selector exposes only the approved main options
+  ---
+  duration_ms: 17.009958
+  type: 'test'
+  ...
+# Subtest: phase-5 legacy framing ids remain restorable but cannot become a new UI selection
+ok 102 - phase-5 legacy framing ids remain restorable but cannot become a new UI selection
+  ---
+  duration_ms: 206.953292
+  type: 'test'
+  ...
+# Subtest: phase-5 unlocked framing resolution excludes every legacy-only option
+ok 103 - phase-5 unlocked framing resolution excludes every legacy-only option
+  ---
+  duration_ms: 890.027458
+  type: 'test'
+  ...
+# Subtest: phase-5 half-face framing resolves one edge placement shared by all primary prompts
+ok 104 - phase-5 half-face framing resolves one edge placement shared by all primary prompts
+  ---
+  duration_ms: 26.064208
+  type: 'test'
+  ...
+# Subtest: phase-5 half-face framing keeps selected upper clothing and does not trigger face-only UI suppression
+ok 105 - phase-5 half-face framing keeps selected upper clothing and does not trigger face-only UI suppression
+  ---
+  duration_ms: 8.653584
+  type: 'test'
+  ...
+# Subtest: full-face framing resolves only left or right and shares the non-centered opening across primary prompts
+ok 106 - full-face framing resolves only left or right and shares the non-centered opening across primary prompts
+  ---
+  duration_ms: 26.36475
+  type: 'test'
+  ...
+# Subtest: full-face framing coexists with half-face and keeps the head-shoulders wardrobe boundary
+ok 107 - full-face framing coexists with half-face and keeps the head-shoulders wardrobe boundary
+  ---
+  duration_ms: 11.31275
+  type: 'test'
+  ...
+# Subtest: phase-6 current main framings preserve one resolved source across all six single outputs
+ok 108 - phase-6 current main framings preserve one resolved source across all six single outputs
+  ---
+  duration_ms: 194.338958
+  type: 'test'
+  ...
+# Subtest: phase-6 every retired framing remains restorable and contract-valid without rejoining the current selector
+ok 109 - phase-6 every retired framing remains restorable and contract-valid without rejoining the current selector
+  ---
+  duration_ms: 112.045709
+  type: 'test'
+  ...
+# Subtest: phase-6 unlocked single, Character Card, and duo generation cannot resolve a retired framing
+ok 110 - phase-6 unlocked single, Character Card, and duo generation cannot resolve a retired framing
+  ---
+  duration_ms: 1121.427042
+  type: 'test'
+  ...
+# Subtest: phase-6 fixed-composition and duo boundaries remain independent from single fixed-framing outputs
+ok 111 - phase-6 fixed-composition and duo boundaries remain independent from single fixed-framing outputs
+  ---
+  duration_ms: 22.3755
+  type: 'test'
+  ...
+# Subtest: all six independent body selections keep main/chest GPT equal to none and add only the body to full-body
+ok 112 - all six independent body selections keep main/chest GPT equal to none and add only the body to full-body
+  ---
+  duration_ms: 375.194167
+  type: 'test'
+  ...
+# Subtest: GPT omission and the full-body body exception leave selected clothing, main canonical pose and the chest pose unchanged
+ok 113 - GPT omission and the full-body body exception leave selected clothing, main canonical pose and the chest pose unchanged
+  ---
+  duration_ms: 93.95975
+  type: 'test'
+  ...
+# Subtest: duo GPT omits both independently selected body sources while Z and AI preserve role order
+ok 114 - duo GPT omits both independently selected body sources while Z and AI preserve role order
+  ---
+  duration_ms: 148.860458
+  type: 'test'
+  ...
+# Subtest: all character cards preserve their own body and permanent identity sources in GPT
+ok 115 - all character cards preserve their own body and permanent identity sources in GPT
+  ---
+  duration_ms: 798.648875
+  type: 'test'
+  ...
+# Subtest: Saved Cards restore omitted body IDs while old GPT text still imports and new GPT text does not invent them
+ok 116 - Saved Cards restore omitted body IDs while old GPT text still imports and new GPT text does not invent them
+  ---
+  duration_ms: 182.352833
+  type: 'test'
+  ...
+# Subtest: historical GPT inverse uses only the selected ordinary body and keeps none, card and nonmatching text unchanged
+ok 117 - historical GPT inverse uses only the selected ordinary body and keeps none, card and nonmatching text unchanged
+  ---
+  duration_ms: 23.505791
+  type: 'test'
+  ...
+# Subtest: historical single inverse restores body after the complete adult and accessory sentence before other Subject fragments
+ok 118 - historical single inverse restores body after the complete adult and accessory sentence before other Subject fragments
+  ---
+  duration_ms: 14.704833
+  type: 'test'
+  ...
+# Subtest: historical duo inverse restores first Has sources and missing body-only roles without inventing none roles
+ok 119 - historical duo inverse restores first Has sources and missing body-only roles without inventing none roles
+  ---
+  duration_ms: 103.44325
+  type: 'test'
+  ...
+# Subtest: full-body body inverse removes only the inserted sentence and leaves none, card, duo and special subjects unchanged
+ok 120 - full-body body inverse removes only the inserted sentence and leaves none, card, duo and special subjects unchanged
+  ---
+  duration_ms: 46.071458
+  type: 'test'
+  ...
+# Subtest: head-dominant framing appends a stable selectable identity and shares chest visibility
+ok 121 - head-dominant framing appends a stable selectable identity and shares chest visibility
+  ---
+  duration_ms: 0.748959
+  type: 'test'
+  ...
+# Subtest: three main outputs retain the head scale, body context and authored scene while omitting lower garments
+ok 122 - three main outputs retain the head scale, body context and authored scene while omitting lower garments
+  ---
+  duration_ms: 76.537375
+  type: 'test'
+  ...
+# Subtest: only high, eye-level, top-down and explicit silence remain selectable for the new framing
+ok 123 - only high, eye-level, top-down and explicit silence remain selectable for the new framing
+  ---
+  duration_ms: 65.163958
+  type: 'test'
+  ...
+# Subtest: incompatible explicit camera angles are silent but remain stored and restore outside the new framing
+ok 124 - incompatible explicit camera angles are silent but remain stored and restore outside the new framing
+  ---
+  duration_ms: 282.997
+  type: 'test'
+  ...
+# Subtest: seeded random camera resolution stays inside the three real allowed angles
+ok 125 - seeded random camera resolution stays inside the three real allowed angles
+  ---
+  duration_ms: 603.740167
+  type: 'test'
+  ...
+# Subtest: new main camera distance is close while chest derivatives retain their own framing and distance policy
+ok 126 - new main camera distance is close while chest derivatives retain their own framing and distance policy
+  ---
+  duration_ms: 171.074041
+  type: 'test'
+  ...
+# Subtest: top-down keeps selected head direction and lens without inventing an upward-looking pose
+ok 127 - top-down keeps selected head direction and lens without inventing an upward-looking pose
+  ---
+  duration_ms: 126.912958
+  type: 'test'
+  ...
+# Subtest: Saved Cards and standard prompt import preserve the new framing and latent incompatible angle
+ok 128 - Saved Cards and standard prompt import preserve the new framing and latent incompatible angle
+  ---
+  duration_ms: 239.406667
+  type: 'test'
+  ...
+# Subtest: close camera source matches approved copy and leaves every other crop/angle untouched
+ok 129 - close camera source matches approved copy and leaves every other crop/angle untouched
+  ---
+  duration_ms: 20.638875
+  type: 'test'
+  ...
+# Subtest: approved near-contact medium and cowboy copy appears exactly once in main GPT/Z only
+ok 130 - approved near-contact medium and cowboy copy appears exactly once in main GPT/Z only
+  ---
+  duration_ms: 651.90725
+  type: 'test'
+  ...
+# Subtest: frozen matrix permits only the exact GPT/Z camera text and no selection or RNG changes
+ok 131 - frozen matrix permits only the exact GPT/Z camera text and no selection or RNG changes
+  ---
+  duration_ms: 63218.352875
+  type: 'test'
+  ...
+# Subtest: near-contact text round trips through saved cards and Markdown without changing camera choices
+ok 132 - near-contact text round trips through saved cards and Markdown without changing camera choices
+  ---
+  duration_ms: 114.234583
+  type: 'test'
+  ...
+# Subtest: GPT main Composition expresses camera distance without changing crop, pose or orbit
+ok 133 - GPT main Composition expresses camera distance without changing crop, pose or orbit
+  ---
+  duration_ms: 20.060792
+  type: 'test'
+  ...
+# Subtest: camera source distinguishes six full-body groups and preserves non-full crop boundaries
+ok 134 - camera source distinguishes six full-body groups and preserves non-full crop boundaries
+  ---
+  duration_ms: 3.129458
+  type: 'test'
+  ...
+# Subtest: GPT keeps the high-angle distance families distinct outside full body
+ok 135 - GPT keeps the high-angle distance families distinct outside full body
+  ---
+  duration_ms: 1.114667
+  type: 'test'
+  ...
+# Subtest: GPT distance bridge retains the prior GPT camera policy
+ok 136 - GPT distance bridge retains the prior GPT camera policy
+  ---
+  duration_ms: 0.659041
+  type: 'test'
+  ...
+# Subtest: frozen camera/scene/lighting matrix permits only the exact main GPT Composition change
+ok 137 - frozen camera/scene/lighting matrix permits only the exact main GPT Composition change
+  ---
+  duration_ms: 8537.253208
+  type: 'test'
+  ...
+# Subtest: new camera text survives Saved Cards and Markdown; exact bridge does not hide regressions
+ok 138 - new camera text survives Saved Cards and Markdown; exact bridge does not hide regressions
+  ---
+  duration_ms: 43.407
+  type: 'test'
+  ...
+# Subtest: GPT reviewed source projection preserves identity, mixed fragments, unknown prose and punctuation
+ok 139 - GPT reviewed source projection preserves identity, mixed fragments, unknown prose and punctuation
+  ---
+  duration_ms: 0.635667
+  type: 'test'
+  ...
+# Subtest: GPT projection clones source roles, preserves full scene detail and all non-scene roles
+ok 140 - GPT projection clones source roles, preserves full scene detail and all non-scene roles
+  ---
+  duration_ms: 0.216208
+  type: 'test'
+  ...
+# Subtest: frozen all-scene / ambient matrix changes only approved GPT Scene and Lighting; every other byte and selection stays fixed
+ok 141 - frozen all-scene / ambient matrix changes only approved GPT Scene and Lighting; every other byte and selection stays fixed
+  ---
+  duration_ms: 5614.21375
+  type: 'test'
+  ...
+# Subtest: projected GPT texts survive Saved Cards and Markdown without changing stored selection
+ok 142 - projected GPT texts survive Saved Cards and Markdown without changing stored selection
+  ---
+  duration_ms: 1342.306084
+  type: 'test'
+  ...
+# Subtest: historical scene fixture reuse stays enabled across original suite registration
+ok 143 - historical scene fixture reuse stays enabled across original suite registration
+  ---
+  duration_ms: 0.539125
+  type: 'test'
+  ...
+# historical scene fixture reuse: 6373 generations, 12058 hits
+# Subtest: selected hourglass Body Type is omitted by main/chest GPT, kept once by full-body and verbatim in Z and AI at every crop
+ok 144 - selected hourglass Body Type is omitted by main/chest GPT, kept once by full-body and verbatim in Z and AI at every crop
+  ---
+  duration_ms: 158.776667
+  type: 'test'
+  ...
+# Subtest: overlapping top hem preserves the body source in Z and AI and keeps GPT body-free
+ok 145 - overlapping top hem preserves the body source in Z and AI and keeps GPT body-free
+  ---
+  duration_ms: 37.959667
+  type: 'test'
+  ...
+# Subtest: bikini pieces keep only their catalog wording with the I-cup Body Type
+ok 146 - bikini pieces keep only their catalog wording with the I-cup Body Type
+  ---
+  duration_ms: 11.332667
+  type: 'test'
+  ...
+# Subtest: the same source belongs only to the selected person in duo prompts
+ok 147 - the same source belongs only to the selected person in duo prompts
+  ---
+  duration_ms: 30.177417
+  type: 'test'
+  ...
+# Subtest: seven kneeling choices retire side kneeling without losing saved ids or prose
+ok 148 - seven kneeling choices retire side kneeling without losing saved ids or prose
+  ---
+  duration_ms: 58.928792
+  type: 'test'
+  ...
+# Subtest: seated hips, floor-seated wide knees and high kneeling are distinct
+ok 149 - seated hips, floor-seated wide knees and high kneeling are distinct
+  ---
+  duration_ms: 75.091
+  type: 'test'
+  ...
+# Subtest: all-fours picker has exactly two support choices and no competing prop pool
+ok 150 - all-fours picker has exactly two support choices and no competing prop pool
+  ---
+  duration_ms: 1.925417
+  type: 'test'
+  ...
+# Subtest: palms and elbows produce different shared torso geometry before crop projection
+ok 151 - palms and elbows produce different shared torso geometry before crop projection
+  ---
+  duration_ms: 143.815542
+  type: 'test'
+  ...
+# Subtest: default and random support resolve once, even when contact lies outside crop
+ok 152 - default and random support resolve once, even when contact lies outside crop
+  ---
+  duration_ms: 696.466375
+  type: 'test'
+  ...
+# Subtest: legacy incompatible explicit hands remain restorable without being silently rebound
+ok 153 - legacy incompatible explicit hands remain restorable without being silently rebound
+  ---
+  duration_ms: 6.378958
+  type: 'test'
+  ...
+# Subtest: all kneeling ids round trip through saved cards and changed prose retains historical aliases
+ok 154 - all kneeling ids round trip through saved cards and changed prose retains historical aliases
+  ---
+  duration_ms: 221.323
+  type: 'test'
+  ...
+# Subtest: random kneeling excludes retired side kneeling and reaches all seven arrangements
+ok 155 - random kneeling excludes retired side kneeling and reaches all seven arrangements
+  ---
+  duration_ms: 1197.309
+  type: 'test'
+  ...
+# Subtest: saved-card, import and preview refill preserve explicit support and historical choices
+ok 156 - saved-card, import and preview refill preserve explicit support and historical choices
+  ---
+  duration_ms: 13.336583
+  type: 'test'
+  ...
+# Subtest: random prop cannot replace required ground supports
+ok 157 - random prop cannot replace required ground supports
+  ---
+  duration_ms: 269.549125
+  type: 'test'
+  ...
+# Subtest: phase 6 blocks any engine or public-contract drift across all Midjourney fixtures
+ok 158 - phase 6 blocks any engine or public-contract drift across all Midjourney fixtures
+  ---
+  duration_ms: 1233.355792
+  type: 'test'
+  ...
+# Subtest: phase 6 keeps PAGE1 cards and DLL sources byte-identical to engine outputs
+ok 159 - phase 6 keeps PAGE1 cards and DLL sources byte-identical to engine outputs
+  ---
+  duration_ms: 172.5005
+  type: 'test'
+  ...
+# Subtest: phase 6 preserves Midjourney settings through Standard Prompt and Saved Cards
+ok 160 - phase 6 preserves Midjourney settings through Standard Prompt and Saved Cards
+  ---
+  duration_ms: 374.903167
+  type: 'test'
+  ...
+# Subtest: phase 6 keeps the canonical pose verbatim in all three primary outputs
+ok 161 - phase 6 keeps the canonical pose verbatim in all three primary outputs
+  ---
+  duration_ms: 25.086042
+  type: 'test'
+  ...
+# Subtest: description phase 7 freezes direct syntax, mappings, and downstream consumers
+ok 162 - description phase 7 freezes direct syntax, mappings, and downstream consumers
+  ---
+  duration_ms: 79.264
+  type: 'test'
+  ...
+# Subtest: Midjourney description contract freezes the approved seven-phase target
+ok 163 - Midjourney description contract freezes the approved seven-phase target
+  ---
+  duration_ms: 0.831208
+  type: 'test'
+  ...
+# Subtest: phase-1 targets cover every image type and representative compatibility mode
+ok 164 - phase-1 targets cover every image type and representative compatibility mode
+  ---
+  duration_ms: 0.107959
+  type: 'test'
+  ...
+# Subtest: phase 5 freezes direct special modes and the accepted compact structure
+ok 165 - phase 5 freezes direct special modes and the accepted compact structure
+  ---
+  duration_ms: 193.400167
+  type: 'test'
+  ...
+# Subtest: phase 3 keeps direct image-type openings before the normal subject lead
+ok 166 - phase 3 keeps direct image-type openings before the normal subject lead
+  ---
+  duration_ms: 73.957958
+  type: 'test'
+  ...
+# Subtest: phase 2 applies the same direct opening and sentence boundary to duo AI
+ok 167 - phase 2 applies the same direct opening and sentence boundary to duo AI
+  ---
+  duration_ms: 15.320083
+  type: 'test'
+  ...
+# Subtest: MJ facial-feature metadata preserves structural face wording without changing shared sources
+ok 168 - MJ facial-feature metadata preserves structural face wording without changing shared sources
+  ---
+  duration_ms: 100.714875
+  type: 'test'
+  ...
+# Subtest: phase 5 emits one Midjourney-native description block before the canonical tail
+ok 169 - phase 5 emits one Midjourney-native description block before the canonical tail
+  ---
+  duration_ms: 192.666875
+  type: 'test'
+  ...
+# Subtest: phase 5 changes only AI structure and preserves every non-AI baseline
+ok 170 - phase 5 changes only AI structure and preserves every non-AI baseline
+  ---
+  duration_ms: 1410.852166
+  type: 'test'
+  ...
+# Subtest: phase 5 preserves positive Body Type anchors and canonical pose verbatim
+ok 171 - phase 5 preserves positive Body Type anchors and canonical pose verbatim
+  ---
+  duration_ms: 68.931375
+  type: 'test'
+  ...
+# Subtest: main MJ CRT has the approved short body, item names, freckles, style and film without measurements or hidden boots
+ok 172 - main MJ CRT has the approved short body, item names, freckles, style and film without measurements or hidden boots
+  ---
+  duration_ms: 89.468083
+  type: 'test'
+  ...
+# Subtest: all mode baselines protect five other outputs, raw selections, structured data and summaries byte for byte
+ok 173 - all mode baselines protect five other outputs, raw selections, structured data and summaries byte for byte
+  ---
+  duration_ms: 14018.832166
+  type: 'test'
+  ...
+# Subtest: fit and additional garment colors do not influence main MJ or consume another random choice
+ok 174 - fit and additional garment colors do not influence main MJ or consume another random choice
+  ---
+  duration_ms: 81.825417
+  type: 'test'
+  ...
+# Subtest: six reviewed bodies and none preserve CRT scene, lighting, imaging and parameter wording at every crop
+ok 175 - six reviewed bodies and none preserve CRT scene, lighting, imaging and parameter wording at every crop
+  ---
+  duration_ms: 349.199417
+  type: 'test'
+  ...
+# Subtest: duo bodies keep A/B ownership for distinct, identical and none selections without changing other main wording
+ok 176 - duo bodies keep A/B ownership for distinct, identical and none selections without changing other main wording
+  ---
+  duration_ms: 400.084125
+  type: 'test'
+  ...
+# Subtest: card and dedicated modes ignore latent body locks while outfit and fixed modes keep the effective body
+ok 177 - card and dedicated modes ignore latent body locks while outfit and fixed modes keep the effective body
+  ---
+  duration_ms: 3231.33325
+  type: 'test'
+  ...
+# Subtest: catalog short names are explicit, nonempty and never contain construction or fit prose
+ok 178 - catalog short names are explicit, nonempty and never contain construction or fit prose
+  ---
+  duration_ms: 99.230125
+  type: 'test'
+  ...
+# Subtest: card selected layers keep PAGE1 garments in vacant slots and never reintroduce removed default layers
+ok 179 - card selected layers keep PAGE1 garments in vacant slots and never reintroduce removed default layers
+  ---
+  duration_ms: 18.601459
+  type: 'test'
+  ...
+# Subtest: duo item names remain assigned to the selected role without leaking dress construction
+ok 180 - duo item names remain assigned to the selected role without leaking dress construction
+  ---
+  duration_ms: 6.229708
+  type: 'test'
+  ...
+# Subtest: Midjourney parameter contract is frozen serializable rollout policy data
+ok 181 - Midjourney parameter contract is frozen serializable rollout policy data
+  ---
+  duration_ms: 1.243542
+  type: 'test'
+  ...
+# Subtest: Midjourney parameter defaults, ranges, presets, and ordering are valid
+ok 182 - Midjourney parameter defaults, ranges, presets, and ordering are valid
+  ---
+  duration_ms: 0.335417
+  type: 'test'
+  ...
+# Subtest: Midjourney phase-1 fixtures cover the approved parameter and prompt boundaries
+ok 183 - Midjourney phase-1 fixtures cover the approved parameter and prompt boundaries
+  ---
+  duration_ms: 0.150291
+  type: 'test'
+  ...
+# Subtest: phase 4 preserves representative content while adding only the approved AI tail
+ok 184 - phase 4 preserves representative content while adding only the approved AI tail
+  ---
+  duration_ms: 1457.744833
+  type: 'test'
+  ...
+# Subtest: phase 1 preserves source-derived positive Body Type anchors and exact canonical pose reuse
+ok 185 - phase 1 preserves source-derived positive Body Type anchors and exact canonical pose reuse
+  ---
+  duration_ms: 100.792833
+  type: 'test'
+  ...
+# Subtest: phase 4 assembles one normalized Midjourney tail in contract order
+ok 186 - phase 4 assembles one normalized Midjourney tail in contract order
+  ---
+  duration_ms: 0.570833
+  type: 'test'
+  ...
+# Subtest: phase 7 allows the F AI ratio to differ from the PAGE1 composition ratio
+ok 187 - phase 7 allows the F AI ratio to differ from the PAGE1 composition ratio
+  ---
+  duration_ms: 0.179208
+  type: 'test'
+  ...
+# Subtest: phase 4 appends, parses, and replaces only the final parameter tail
+ok 188 - phase 4 appends, parses, and replaces only the final parameter tail
+  ---
+  duration_ms: 0.582292
+  type: 'test'
+  ...
+# Subtest: phase 4 appends parameters only to AI while preserving descriptive baselines
+ok 189 - phase 4 appends parameters only to AI while preserving descriptive baselines
+  ---
+  duration_ms: 1258.546792
+  type: 'test'
+  ...
+# Subtest: phase 4 restores F settings and aspect ratio from a standard AI Prompt tail
+ok 190 - phase 4 restores F settings and aspect ratio from a standard AI Prompt tail
+  ---
+  duration_ms: 12.444167
+  type: 'test'
+  ...
+# Subtest: main scene integration keeps scene sources and optics with selected style and film
+ok 191 - main scene integration keeps scene sources and optics with selected style and film
+  ---
+  duration_ms: 40.080041
+  type: 'test'
+  ...
+# Subtest: phase 4 preserves canonical Pose Composer text verbatim in all primary outputs
+ok 192 - phase 4 preserves canonical Pose Composer text verbatim in all primary outputs
+  ---
+  duration_ms: 13.894208
+  type: 'test'
+  ...
+# Subtest: phase 5 keeps Character Card identity anchors without control-language hair instructions
+ok 193 - phase 5 keeps Character Card identity anchors without control-language hair instructions
+  ---
+  duration_ms: 37.909083
+  type: 'test'
+  ...
+# Subtest: phase 5 removes redundant complete-look category words without losing garments
+ok 194 - phase 5 removes redundant complete-look category words without losing garments
+  ---
+  duration_ms: 41.978208
+  type: 'test'
+  ...
+# Subtest: phase 7 keeps every selected MJ accessory as a compact visual phrase
+ok 195 - phase 7 keeps every selected MJ accessory as a compact visual phrase
+  ---
+  duration_ms: 17.489292
+  type: 'test'
+  ...
+# Subtest: phase 5 renders duo AI as direct role sentences without section labels
+ok 196 - phase 5 renders duo AI as direct role sentences without section labels
+  ---
+  duration_ms: 21.161833
+  type: 'test'
+  ...
+# Subtest: phase 5 keeps fixed-composition special outfits before the direct set sentence
+ok 197 - phase 5 keeps fixed-composition special outfits before the direct set sentence
+  ---
+  duration_ms: 10.13175
+  type: 'test'
+  ...
+# Subtest: phase 3 gives normal AI subjects a direct Midjourney identity lead
+ok 198 - phase 3 gives normal AI subjects a direct Midjourney identity lead
+  ---
+  duration_ms: 56.095666
+  type: 'test'
+  ...
+# Subtest: phase 3 emits the lower-crop wardrobe visibility boundary only once
+ok 199 - phase 3 emits the lower-crop wardrobe visibility boundary only once
+  ---
+  duration_ms: 19.014291
+  type: 'test'
+  ...
+# Subtest: all 25 top patterns keep their selection across three top identities
+ok 200 - all 25 top patterns keep their selection across three top identities
+  ---
+  duration_ms: 473.769917
+  type: 'test'
+  ...
+# Subtest: top patterns remain in GPT chest and out of main MJ across current and legacy parent crops
+ok 201 - top patterns remain in GPT chest and out of main MJ across current and legacy parent crops
+  ---
+  duration_ms: 41.385542
+  type: 'test'
+  ...
+# Subtest: selected pattern survives Saved Cards serialization and restoration
+ok 202 - selected pattern survives Saved Cards serialization and restoration
+  ---
+  duration_ms: 5.124875
+  type: 'test'
+  ...
+# Subtest: new pieces append to existing single and duo catalogs without changing prior IDs
+ok 203 - new pieces append to existing single and duo catalogs without changing prior IDs
+  ---
+  duration_ms: 1.159667
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 1/蕾絲胸罩/全身鏡頭 (Full Body Shot)/柔和沙漏身形
+ok 204 - legacy bytes unchanged: 1/蕾絲胸罩/全身鏡頭 (Full Body Shot)/柔和沙漏身形
+  ---
+  duration_ms: 40.834625
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 1/蕾絲胸罩/全身鏡頭 (Full Body Shot)/豐胸纖腰沙漏身形
+ok 205 - legacy bytes unchanged: 1/蕾絲胸罩/全身鏡頭 (Full Body Shot)/豐胸纖腰沙漏身形
+  ---
+  duration_ms: 13.304958
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 1/蕾絲胸罩/中景鏡頭 (Medium Shot)/柔和沙漏身形
+ok 206 - legacy bytes unchanged: 1/蕾絲胸罩/中景鏡頭 (Medium Shot)/柔和沙漏身形
+  ---
+  duration_ms: 9.344541
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 1/蕾絲胸罩/中景鏡頭 (Medium Shot)/豐胸纖腰沙漏身形
+ok 207 - legacy bytes unchanged: 1/蕾絲胸罩/中景鏡頭 (Medium Shot)/豐胸纖腰沙漏身形
+  ---
+  duration_ms: 28.816833
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 1/蕾絲胸罩/胸上特寫/柔和沙漏身形
+ok 208 - legacy bytes unchanged: 1/蕾絲胸罩/胸上特寫/柔和沙漏身形
+  ---
+  duration_ms: 16.364166
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 1/蕾絲胸罩/胸上特寫/豐胸纖腰沙漏身形
+ok 209 - legacy bytes unchanged: 1/蕾絲胸罩/胸上特寫/豐胸纖腰沙漏身形
+  ---
+  duration_ms: 10.027375
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 1/比基尼上身/全身鏡頭 (Full Body Shot)/柔和沙漏身形
+ok 210 - legacy bytes unchanged: 1/比基尼上身/全身鏡頭 (Full Body Shot)/柔和沙漏身形
+  ---
+  duration_ms: 15.624875
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 1/比基尼上身/全身鏡頭 (Full Body Shot)/豐胸纖腰沙漏身形
+ok 211 - legacy bytes unchanged: 1/比基尼上身/全身鏡頭 (Full Body Shot)/豐胸纖腰沙漏身形
+  ---
+  duration_ms: 11.683333
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 1/比基尼上身/中景鏡頭 (Medium Shot)/柔和沙漏身形
+ok 212 - legacy bytes unchanged: 1/比基尼上身/中景鏡頭 (Medium Shot)/柔和沙漏身形
+  ---
+  duration_ms: 15.27125
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 1/比基尼上身/中景鏡頭 (Medium Shot)/豐胸纖腰沙漏身形
+ok 213 - legacy bytes unchanged: 1/比基尼上身/中景鏡頭 (Medium Shot)/豐胸纖腰沙漏身形
+  ---
+  duration_ms: 6.074208
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 1/比基尼上身/胸上特寫/柔和沙漏身形
+ok 214 - legacy bytes unchanged: 1/比基尼上身/胸上特寫/柔和沙漏身形
+  ---
+  duration_ms: 5.145625
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 1/比基尼上身/胸上特寫/豐胸纖腰沙漏身形
+ok 215 - legacy bytes unchanged: 1/比基尼上身/胸上特寫/豐胸纖腰沙漏身形
+  ---
+  duration_ms: 14.075958
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 2/蕾絲胸罩/全身鏡頭 (Full Body Shot)/柔和沙漏身形
+ok 216 - legacy bytes unchanged: 2/蕾絲胸罩/全身鏡頭 (Full Body Shot)/柔和沙漏身形
+  ---
+  duration_ms: 32.0905
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 2/蕾絲胸罩/全身鏡頭 (Full Body Shot)/豐胸纖腰沙漏身形
+ok 217 - legacy bytes unchanged: 2/蕾絲胸罩/全身鏡頭 (Full Body Shot)/豐胸纖腰沙漏身形
+  ---
+  duration_ms: 7.259375
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 2/蕾絲胸罩/中景鏡頭 (Medium Shot)/柔和沙漏身形
+ok 218 - legacy bytes unchanged: 2/蕾絲胸罩/中景鏡頭 (Medium Shot)/柔和沙漏身形
+  ---
+  duration_ms: 5.773208
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 2/蕾絲胸罩/中景鏡頭 (Medium Shot)/豐胸纖腰沙漏身形
+ok 219 - legacy bytes unchanged: 2/蕾絲胸罩/中景鏡頭 (Medium Shot)/豐胸纖腰沙漏身形
+  ---
+  duration_ms: 14.76925
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 2/蕾絲胸罩/胸上特寫/柔和沙漏身形
+ok 220 - legacy bytes unchanged: 2/蕾絲胸罩/胸上特寫/柔和沙漏身形
+  ---
+  duration_ms: 7.812
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 2/蕾絲胸罩/胸上特寫/豐胸纖腰沙漏身形
+ok 221 - legacy bytes unchanged: 2/蕾絲胸罩/胸上特寫/豐胸纖腰沙漏身形
+  ---
+  duration_ms: 5.798083
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 2/比基尼上身/全身鏡頭 (Full Body Shot)/柔和沙漏身形
+ok 222 - legacy bytes unchanged: 2/比基尼上身/全身鏡頭 (Full Body Shot)/柔和沙漏身形
+  ---
+  duration_ms: 12.895333
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 2/比基尼上身/全身鏡頭 (Full Body Shot)/豐胸纖腰沙漏身形
+ok 223 - legacy bytes unchanged: 2/比基尼上身/全身鏡頭 (Full Body Shot)/豐胸纖腰沙漏身形
+  ---
+  duration_ms: 17.544458
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 2/比基尼上身/中景鏡頭 (Medium Shot)/柔和沙漏身形
+ok 224 - legacy bytes unchanged: 2/比基尼上身/中景鏡頭 (Medium Shot)/柔和沙漏身形
+  ---
+  duration_ms: 5.700333
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 2/比基尼上身/中景鏡頭 (Medium Shot)/豐胸纖腰沙漏身形
+ok 225 - legacy bytes unchanged: 2/比基尼上身/中景鏡頭 (Medium Shot)/豐胸纖腰沙漏身形
+  ---
+  duration_ms: 17.14775
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 2/比基尼上身/胸上特寫/柔和沙漏身形
+ok 226 - legacy bytes unchanged: 2/比基尼上身/胸上特寫/柔和沙漏身形
+  ---
+  duration_ms: 5.252542
+  type: 'test'
+  ...
+# Subtest: legacy bytes unchanged: 2/比基尼上身/胸上特寫/豐胸纖腰沙漏身形
+ok 227 - legacy bytes unchanged: 2/比基尼上身/胸上特寫/豐胸纖腰沙漏身形
+  ---
+  duration_ms: 19.325333
+  type: 'test'
+  ...
+# Subtest: X形胸貼: fit details survive visible main/derived outputs with main/chest GPT body omission and full-body body
+ok 228 - X形胸貼: fit details survive visible main/derived outputs with main/chest GPT body omission and full-body body
+  ---
+  duration_ms: 54.54775
+  type: 'test'
+  ...
+# Subtest: 窄前片細繩蕾絲丁字褲: crop hides lower details but preserves locks and full-body wardrobe
+ok 229 - 窄前片細繩蕾絲丁字褲: crop hides lower details but preserves locks and full-body wardrobe
+  ---
+  duration_ms: 30.34075
+  type: 'test'
+  ...
+# Subtest: X形胸貼: existing colors, pattern and hem-overlap exclusion remain coherent
+ok 230 - X形胸貼: existing colors, pattern and hem-overlap exclusion remain coherent
+  ---
+  duration_ms: 13.843792
+  type: 'test'
+  ...
+# Subtest: X形胸貼: Saved Cards and standard prompt imports retain the independent selections
+ok 231 - X形胸貼: Saved Cards and standard prompt imports retain the independent selections
+  ---
+  duration_ms: 39.763125
+  type: 'test'
+  ...
+# Subtest: 小三角細繩比基尼上身: fit details survive visible main/derived outputs with main/chest GPT body omission and full-body body
+ok 232 - 小三角細繩比基尼上身: fit details survive visible main/derived outputs with main/chest GPT body omission and full-body body
+  ---
+  duration_ms: 38.669
+  type: 'test'
+  ...
+# Subtest: 窄前片細繩比基尼下身: crop hides lower details but preserves locks and full-body wardrobe
+ok 233 - 窄前片細繩比基尼下身: crop hides lower details but preserves locks and full-body wardrobe
+  ---
+  duration_ms: 18.203459
+  type: 'test'
+  ...
+# Subtest: 小三角細繩比基尼上身: existing colors, pattern and hem-overlap exclusion remain coherent
+ok 234 - 小三角細繩比基尼上身: existing colors, pattern and hem-overlap exclusion remain coherent
+  ---
+  duration_ms: 7.758541
+  type: 'test'
+  ...
+# Subtest: 小三角細繩比基尼上身: Saved Cards and standard prompt imports retain the independent selections
+ok 235 - 小三角細繩比基尼上身: Saved Cards and standard prompt imports retain the independent selections
+  ---
+  duration_ms: 24.823417
+  type: 'test'
+  ...
+# Subtest: reviewed bikini fabric source survives all six outputs without restoring cup language
+ok 236 - reviewed bikini fabric source survives all six outputs without restoring cup language
+  ---
+  duration_ms: 16.872958
+  type: 'test'
+  ...
+# Subtest: X-shaped pasties replace the bra label while retaining single/duo IDs and catalog position
+ok 237 - X-shaped pasties replace the bra label while retaining single/duo IDs and catalog position
+  ---
+  duration_ms: 3.64175
+  type: 'test'
+  ...
+# Subtest: reviewed opaque X-shaped pasties source survives all six outputs and respects crop visibility
+ok 238 - reviewed opaque X-shaped pasties source survives all six outputs and respects crop visibility
+  ---
+  duration_ms: 24.951083
+  type: 'test'
+  ...
+# Subtest: old bra English imports and historical Saved Cards regenerate the pasties without rewriting stored text
+ok 239 - old bra English imports and historical Saved Cards regenerate the pasties without rewriting stored text
+  ---
+  duration_ms: 78.036916
+  type: 'test'
+  ...
+# Subtest: X-shaped pasties source stays with the selected duo wearer in visible crops
+ok 240 - X-shaped pasties source stays with the selected duo wearer in visible crops
+  ---
+  duration_ms: 76.01475
+  type: 'test'
+  ...
+# Subtest: old bikini wording imports to the same ID and regenerates the reviewed source
+ok 241 - old bikini wording imports to the same ID and regenerates the reviewed source
+  ---
+  duration_ms: 20.648292
+  type: 'test'
+  ...
+# Subtest: bikini bottom fabric source stays complete in visible outputs and absent from chest crops
+ok 242 - bikini bottom fabric source stays complete in visible outputs and absent from chest crops
+  ---
+  duration_ms: 27.183833
+  type: 'test'
+  ...
+# Subtest: old bikini bottom wording imports to its existing ID and regenerates the fabric source
+ok 243 - old bikini bottom wording imports to its existing ID and regenerates the fabric source
+  ---
+  duration_ms: 45.343167
+  type: 'test'
+  ...
+# Subtest: bikini bottom fabric and tie details stay with the selected duo wearer
+ok 244 - bikini bottom fabric and tie details stay with the selected duo wearer
+  ---
+  duration_ms: 33.840958
+  type: 'test'
+  ...
+# Subtest: duo fit details stay with the selected wearer and respect chest visibility
+ok 245 - duo fit details stay with the selected wearer and respect chest visibility
+  ---
+  duration_ms: 14.155583
+  type: 'test'
+  ...
+# Subtest: new bottoms preserve the existing reviewed garter-belt allowlist
+ok 246 - new bottoms preserve the existing reviewed garter-belt allowlist
+  ---
+  duration_ms: 10.03675
+  type: 'test'
+  ...
+# Subtest: Nano Banana preserves all six legacy texts, extra prompts, selections, structured data and summaries
+ok 247 - Nano Banana preserves all six legacy texts, extra prompts, selections, structured data and summaries
+  ---
+  duration_ms: 11739.015417
+  type: 'test'
+  ...
+# Subtest: every PAGE1 mode has natural Nano Banana paragraphs without MJ parameters or internal control prose
+ok 248 - every PAGE1 mode has natural Nano Banana paragraphs without MJ parameters or internal control prose
+  ---
+  duration_ms: 3.91125
+  type: 'test'
+  ...
+# Subtest: all 33 Character Cards retain full facial fields and permanent anchors once across wardrobe modes and crops
+ok 249 - all 33 Character Cards retain full facial fields and permanent anchors once across wardrobe modes and crops
+  ---
+  duration_ms: 2.925291
+  type: 'test'
+  ...
+# Subtest: ordinary facial options use Nano-only anatomy while preserving shared source data and card identities
+ok 250 - ordinary facial options use Nano-only anatomy while preserving shared source data and card identities
+  ---
+  duration_ms: 0.773833
+  type: 'test'
+  ...
+# Subtest: Character Card headwear and expression remain separate natural sentences
+ok 251 - Character Card headwear and expression remain separate natural sentences
+  ---
+  duration_ms: 5.806333
+  type: 'test'
+  ...
+# Subtest: Character Card accessories follow the selected crop while visible facewear is retained
+ok 252 - Character Card accessories follow the selected crop while visible facewear is retained
+  ---
+  duration_ms: 29.580625
+  type: 'test'
+  ...
+# Subtest: duo Nano faces and unchanged full body descriptions retain A/B ownership
+ok 253 - duo Nano faces and unchanged full body descriptions retain A/B ownership
+  ---
+  duration_ms: 0.631667
+  type: 'test'
+  ...
+# Subtest: duo wardrobe sources belong to the corresponding woman and silent facial selections are omitted
+ok 254 - duo wardrobe sources belong to the corresponding woman and silent facial selections are omitted
+  ---
+  duration_ms: 7.505417
+  type: 'test'
+  ...
+# Subtest: all SpecialOutfits use natural Nano Banana wardrobe prose at full, cowboy and close crops
+ok 255 - all SpecialOutfits use natural Nano Banana wardrobe prose at full, cowboy and close crops
+  ---
+  duration_ms: 1301.705459
+  type: 'test'
+  ...
+# Subtest: custom identities are preserved verbatim without card fallback or standalone body injection
+ok 256 - custom identities are preserved verbatim without card fallback or standalone body injection
+  ---
+  duration_ms: 0.618042
+  type: 'test'
+  ...
+# Subtest: ordinary standing, mirror-selfie and supine outputs preserve the complete canonical Pose Composer source
+ok 257 - ordinary standing, mirror-selfie and supine outputs preserve the complete canonical Pose Composer source
+  ---
+  duration_ms: 0.185083
+  type: 'test'
+  ...
+# Subtest: Nano facial expansion preserves all other texts and data and changes only effective generic face phrases
+ok 258 - Nano facial expansion preserves all other texts and data and changes only effective generic face phrases
+  ---
+  duration_ms: 10611.063417
+  type: 'test'
+  ...
+# Subtest: six Nano facial mappings retain the approved geometry and omit styling and permanent identities
+ok 259 - six Nano facial mappings retain the approved geometry and omit styling and permanent identities
+  ---
+  duration_ms: 1.476333
+  type: 'test'
+  ...
+# Subtest: Nano facial mapper handles canonical role IDs, silence, effective-source omission and unknown fallback
+ok 260 - Nano facial mapper handles canonical role IDs, silence, effective-source omission and unknown fallback
+  ---
+  duration_ms: 0.230292
+  type: 'test'
+  ...
+# Subtest: Nano faces appear once in their own role across crops, all 49 duo combinations, fixed sets, outfits and poses
+ok 261 - Nano faces appear once in their own role across crops, all 49 duo combinations, fixed sets, outfits and poses
+  ---
+  duration_ms: 7.147875
+  type: 'test'
+  ...
+# Subtest: every active coat closes using authored hardware, without inventing hardware
+ok 262 - every active coat closes using authored hardware, without inventing hardware
+  ---
+  duration_ms: 366.823708
+  type: 'test'
+  ...
+# Subtest: Saved Card preserves hidden choices and reopening restores original inner top and shoulder wear
+ok 263 - Saved Card preserves hidden choices and reopening restores original inner top and shoulder wear
+  ---
+  duration_ms: 19.178041
+  type: 'test'
+  ...
+# Subtest: closed legacy styling displays none while compatible new choices stay enabled and stored choice survives
+ok 264 - closed legacy styling displays none while compatible new choices stay enabled and stored choice survives
+  ---
+  duration_ms: 5.594958
+  type: 'test'
+  ...
+# Subtest: incompatible imported pull-open hand resolves to none when the front is closed
+ok 265 - incompatible imported pull-open hand resolves to none when the front is closed
+  ---
+  duration_ms: 11.691416
+  type: 'test'
+  ...
+# Subtest: new closure never enters random opening pool
+ok 266 - new closure never enters random opening pool
+  ---
+  duration_ms: 619.044708
+  type: 'test'
+  ...
+# Subtest: cropped length and lower garments/accessories survive closure and all crops reproject the same sources
+ok 267 - cropped length and lower garments/accessories survive closure and all crops reproject the same sources
+  ---
+  duration_ms: 11.748958
+  type: 'test'
+  ...
+# Subtest: a closed jacket projects only upper details out of bundled looks and dresses
+ok 268 - a closed jacket projects only upper details out of bundled looks and dresses
+  ---
+  duration_ms: 49.260084
+  type: 'test'
+  ...
+# Subtest: duo visibility and styling are resolved independently per woman
+ok 269 - duo visibility and styling are resolved independently per woman
+  ---
+  duration_ms: 24.54975
+  type: 'test'
+  ...
+# Subtest: Character Card identity and lower wardrobe survive while a closed opaque layer hides its top
+ok 270 - Character Card identity and lower wardrobe survive while a closed opaque layer hides its top
+  ---
+  duration_ms: 26.883208
+  type: 'test'
+  ...
+# Subtest: four manual styles append after legacy choices and retain exact source once after the coat
+ok 271 - four manual styles append after legacy choices and retain exact source once after the coat
+  ---
+  duration_ms: 121.189833
+  type: 'test'
+  ...
+# Subtest: hem source resolves transparency once and accepts a minimal inner top without changing body
+ok 272 - hem source resolves transparency once and accepts a minimal inner top without changing body
+  ---
+  duration_ms: 43.617916
+  type: 'test'
+  ...
+# Subtest: closed coats retain hem and rolled sleeves but suppress drapes without mutating locks
+ok 273 - closed coats retain hem and rolled sleeves but suppress drapes without mutating locks
+  ---
+  duration_ms: 42.864917
+  type: 'test'
+  ...
+# Subtest: invalid hem and sleeve combinations stay latent and are restored with compatible garments
+ok 274 - invalid hem and sleeve combinations stay latent and are restored with compatible garments
+  ---
+  duration_ms: 31.007709
+  type: 'test'
+  ...
+# Subtest: waist and sleeve crop exclusions do not rewrite visible sources or full-body derivative
+ok 275 - waist and sleeve crop exclusions do not rewrite visible sources or full-body derivative
+  ---
+  duration_ms: 24.227042
+  type: 'test'
+  ...
+# Subtest: drapes reject partial closures and preserve a conflicting explicit sleeve-bound hand pose
+ok 276 - drapes reject partial closures and preserve a conflicting explicit sleeve-bound hand pose
+  ---
+  duration_ms: 38.798416
+  type: 'test'
+  ...
+# Subtest: UI disables incompatible choices individually and keeps compatible closed choices enabled
+ok 277 - UI disables incompatible choices individually and keeps compatible closed choices enabled
+  ---
+  duration_ms: 0.753916
+  type: 'test'
+  ...
+# Subtest: top and coat hem instructions stay separate, and opaque closure hides only the inner instruction
+ok 278 - top and coat hem instructions stay separate, and opaque closure hides only the inner instruction
+  ---
+  duration_ms: 9.1795
+  type: 'test'
+  ...
+# Subtest: prose import does not mistake the longer inner-top hem source for an outerwear style
+ok 279 - prose import does not mistake the longer inner-top hem source for an outerwear style
+  ---
+  duration_ms: 34.410791
+  type: 'test'
+  ...
+# Subtest: manual draping limits random opening to compatible choices and restores after conflicting closure
+ok 280 - manual draping limits random opening to compatible choices and restores after conflicting closure
+  ---
+  duration_ms: 218.061917
+  type: 'test'
+  ...
+# Subtest: duo styles remain attached to their own coat and random styles retain the legacy pool
+ok 281 - duo styles remain attached to their own coat and random styles retain the legacy pool
+  ---
+  duration_ms: 211.231083
+  type: 'test'
+  ...
+# Subtest: prompt output contracts are frozen serializable data with stable public fields
+ok 282 - prompt output contracts are frozen serializable data with stable public fields
+  ---
+  duration_ms: 1.712417
+  type: 'test'
+  ...
+# Subtest: mirror selfie prop contract preserves the source and compatibility boundaries
+ok 283 - mirror selfie prop contract preserves the source and compatibility boundaries
+  ---
+  duration_ms: 0.100875
+  type: 'test'
+  ...
+# Subtest: contract validator reports unknown, unsupported, tail, language, and control-leakage failures
+ok 284 - contract validator reports unknown, unsupported, tail, language, and control-leakage failures
+  ---
+  duration_ms: 1.024084
+  type: 'test'
+  ...
+# Subtest: representative fixture: gpt-standalone-body-omission
+ok 285 - representative fixture: gpt-standalone-body-omission
+  ---
+  duration_ms: 41.076166
+  type: 'test'
+  ...
+# Subtest: representative fixture: gpt-duo-standalone-body-omission
+ok 286 - representative fixture: gpt-duo-standalone-body-omission
+  ---
+  duration_ms: 24.063166
+  type: 'test'
+  ...
+# Subtest: representative fixture: black-tie-shirt-none
+ok 287 - representative fixture: black-tie-shirt-none
+  ---
+  duration_ms: 21.872959
+  type: 'test'
+  ...
+# Subtest: representative fixture: black-tie-shirt-red
+ok 288 - representative fixture: black-tie-shirt-red
+  ---
+  duration_ms: 13.669084
+  type: 'test'
+  ...
+# Subtest: representative fixture: black-tie-shirt-chrome
+ok 289 - representative fixture: black-tie-shirt-chrome
+  ---
+  duration_ms: 14.865292
+  type: 'test'
+  ...
+# Subtest: representative fixture: subject-key-light-0
+ok 290 - representative fixture: subject-key-light-0
+  ---
+  duration_ms: 17.242875
+  type: 'test'
+  ...
+# Subtest: representative fixture: subject-key-light-1
+ok 291 - representative fixture: subject-key-light-1
+  ---
+  duration_ms: 10.93275
+  type: 'test'
+  ...
+# Subtest: representative fixture: subject-key-light-2
+ok 292 - representative fixture: subject-key-light-2
+  ---
+  duration_ms: 19.441542
+  type: 'test'
+  ...
+# Subtest: representative fixture: subject-key-light-3
+ok 293 - representative fixture: subject-key-light-3
+  ---
+  duration_ms: 14.03225
+  type: 'test'
+  ...
+# Subtest: representative fixture: subject-key-light-4
+ok 294 - representative fixture: subject-key-light-4
+  ---
+  duration_ms: 17.22925
+  type: 'test'
+  ...
+# Subtest: representative fixture: subject-key-light-5
+ok 295 - representative fixture: subject-key-light-5
+  ---
+  duration_ms: 9.117333
+  type: 'test'
+  ...
+# Subtest: representative fixture: head-dominant-top-down
+ok 296 - representative fixture: head-dominant-top-down
+  ---
+  duration_ms: 13.355667
+  type: 'test'
+  ...
+# Subtest: representative fixture: shibuya-moving-crowds
+ok 297 - representative fixture: shibuya-moving-crowds
+  ---
+  duration_ms: 20.077375
+  type: 'test'
+  ...
+# Subtest: representative fixture: adidas-trackwear
+ok 298 - representative fixture: adidas-trackwear
+  ---
+  duration_ms: 15.825334
+  type: 'test'
+  ...
+# Subtest: representative fixture: bandage-pasties
+ok 299 - representative fixture: bandage-pasties
+  ---
+  duration_ms: 21.459417
+  type: 'test'
+  ...
+# Subtest: representative fixture: underbust-top-tight
+ok 300 - representative fixture: underbust-top-tight
+  ---
+  duration_ms: 12.027959
+  type: 'test'
+  ...
+# Subtest: representative fixture: underbust-top-fitted
+ok 301 - representative fixture: underbust-top-fitted
+  ---
+  duration_ms: 8.90675
+  type: 'test'
+  ...
+# Subtest: representative fixture: outerwear-styling-v2-hem
+ok 302 - representative fixture: outerwear-styling-v2-hem
+  ---
+  duration_ms: 10.928541
+  type: 'test'
+  ...
+# Subtest: representative fixture: outerwear-styling-v2-drape-both
+ok 303 - representative fixture: outerwear-styling-v2-drape-both
+  ---
+  duration_ms: 8.180917
+  type: 'test'
+  ...
+# Subtest: representative fixture: outerwear-styling-v2-drape-one
+ok 304 - representative fixture: outerwear-styling-v2-drape-one
+  ---
+  duration_ms: 14.769292
+  type: 'test'
+  ...
+# Subtest: representative fixture: outerwear-styling-v2-rolled
+ok 305 - representative fixture: outerwear-styling-v2-rolled
+  ---
+  duration_ms: 7.846459
+  type: 'test'
+  ...
+# Subtest: representative fixture: whirly-lollipop-mouth
+ok 306 - representative fixture: whirly-lollipop-mouth
+  ---
+  duration_ms: 19.55775
+  type: 'test'
+  ...
+# Subtest: representative fixture: minimal-coverage-pasties
+ok 307 - representative fixture: minimal-coverage-pasties
+  ---
+  duration_ms: 9.846375
+  type: 'test'
+  ...
+# Subtest: representative fixture: minimal-coverage-bikini
+ok 308 - representative fixture: minimal-coverage-bikini
+  ---
+  duration_ms: 19.322167
+  type: 'test'
+  ...
+# Subtest: representative fixture: kneeling-support-hands-palms-planted-ground
+ok 309 - representative fixture: kneeling-support-hands-palms-planted-ground
+  ---
+  duration_ms: 13.66425
+  type: 'test'
+  ...
+# Subtest: representative fixture: kneeling-support-hands-elbows-planted-ground
+ok 310 - representative fixture: kneeling-support-hands-elbows-planted-ground
+  ---
+  duration_ms: 7.986792
+  type: 'test'
+  ...
+# Subtest: representative fixture: transit-explicit-lighting
+ok 311 - representative fixture: transit-explicit-lighting
+  ---
+  duration_ms: 16.188708
+  type: 'test'
+  ...
+# Subtest: representative fixture: station-position-station-nyc-seated
+ok 312 - representative fixture: station-position-station-nyc-seated
+  ---
+  duration_ms: 10.952583
+  type: 'test'
+  ...
+# Subtest: representative fixture: station-position-station-london-wall
+ok 313 - representative fixture: station-position-station-london-wall
+  ---
+  duration_ms: 12.5585
+  type: 'test'
+  ...
+# Subtest: representative fixture: station-position-station-yamanote-waiting
+ok 314 - representative fixture: station-position-station-yamanote-waiting
+  ---
+  duration_ms: 7.687917
+  type: 'test'
+  ...
+# Subtest: representative fixture: carriage-position-carriage-bench-upright
+ok 315 - representative fixture: carriage-position-carriage-bench-upright
+  ---
+  duration_ms: 17.45075
+  type: 'test'
+  ...
+# Subtest: representative fixture: carriage-position-carriage-aisle-strap
+ok 316 - representative fixture: carriage-position-carriage-aisle-strap
+  ---
+  duration_ms: 14.26675
+  type: 'test'
+  ...
+# Subtest: representative fixture: carriage-position-carriage-crowd-pole
+ok 317 - representative fixture: carriage-position-carriage-crowd-pole
+  ---
+  duration_ms: 11.463458
+  type: 'test'
+  ...
+# Subtest: representative fixture: fully-closed-opaque-outerwear
+ok 318 - representative fixture: fully-closed-opaque-outerwear
+  ---
+  duration_ms: 7.629084
+  type: 'test'
+  ...
+# Subtest: representative fixture: fully-closed-sheer-outerwear
+ok 319 - representative fixture: fully-closed-sheer-outerwear
+  ---
+  duration_ms: 16.592792
+  type: 'test'
+  ...
+# Subtest: representative fixture: carriage-fixed-japan-carriage-bench-front
+ok 320 - representative fixture: carriage-fixed-japan-carriage-bench-front
+  ---
+  duration_ms: 11.171667
+  type: 'test'
+  ...
+# Subtest: representative fixture: carriage-fixed-japan-carriage-side-aisle
+ok 321 - representative fixture: carriage-fixed-japan-carriage-side-aisle
+  ---
+  duration_ms: 19.936417
+  type: 'test'
+  ...
+# Subtest: representative fixture: carriage-fixed-japan-carriage-rush-hour
+ok 322 - representative fixture: carriage-fixed-japan-carriage-rush-hour
+  ---
+  duration_ms: 11.915459
+  type: 'test'
+  ...
+# Subtest: representative fixture: station-fixed-nyc-subway-bench-platform
+ok 323 - representative fixture: station-fixed-nyc-subway-bench-platform
+  ---
+  duration_ms: 9.890125
+  type: 'test'
+  ...
+# Subtest: representative fixture: station-fixed-london-tube-arriving-platform
+ok 324 - representative fixture: station-fixed-london-tube-arriving-platform
+  ---
+  duration_ms: 10.093833
+  type: 'test'
+  ...
+# Subtest: representative fixture: station-fixed-yamanote-platform-advertising
+ok 325 - representative fixture: station-fixed-yamanote-platform-advertising
+  ---
+  duration_ms: 14.6325
+  type: 'test'
+  ...
+# Subtest: representative fixture: top-hem-overlap
+ok 326 - representative fixture: top-hem-overlap
+  ---
+  duration_ms: 25.056875
+  type: 'test'
+  ...
+# Subtest: representative fixture: conditional-lace-garter-belt
+ok 327 - representative fixture: conditional-lace-garter-belt
+  ---
+  duration_ms: 13.10775
+  type: 'test'
+  ...
+# Subtest: representative fixture: conditional-lace-garter-belt-outfit-preset-excluded
+ok 328 - representative fixture: conditional-lace-garter-belt-outfit-preset-excluded
+  ---
+  duration_ms: 35.693666
+  type: 'test'
+  ...
+# Subtest: representative fixture: independent-wired-earphones
+ok 329 - representative fixture: independent-wired-earphones
+  ---
+  duration_ms: 17.475125
+  type: 'test'
+  ...
+# Subtest: representative fixture: necklace-彩色切面珠短項鍊
+ok 330 - representative fixture: necklace-彩色切面珠短項鍊
+  ---
+  duration_ms: 16.377292
+  type: 'test'
+  ...
+# Subtest: representative fixture: necklace-單顆圓形晶石吊墜項鍊
+ok 331 - representative fixture: necklace-單顆圓形晶石吊墜項鍊
+  ---
+  duration_ms: 7.474084
+  type: 'test'
+  ...
+# Subtest: representative fixture: necklace-四葉草吊墜項鍊
+ok 332 - representative fixture: necklace-四葉草吊墜項鍊
+  ---
+  duration_ms: 7.167792
+  type: 'test'
+  ...
+# Subtest: representative fixture: necklace-銀色鯨尾吊墜項鍊
+ok 333 - representative fixture: necklace-銀色鯨尾吊墜項鍊
+  ---
+  duration_ms: 12.483667
+  type: 'test'
+  ...
+# Subtest: representative fixture: sailor-separates-short
+ok 334 - representative fixture: sailor-separates-short
+  ---
+  duration_ms: 9.006375
+  type: 'test'
+  ...
+# Subtest: representative fixture: sailor-separates-long-tight
+ok 335 - representative fixture: sailor-separates-long-tight
+  ---
+  duration_ms: 12.520708
+  type: 'test'
+  ...
+# Subtest: representative fixture: heart-gesture-both-hands-heart-near-face
+ok 336 - representative fixture: heart-gesture-both-hands-heart-near-face
+  ---
+  duration_ms: 34.773625
+  type: 'test'
+  ...
+# Subtest: representative fixture: heart-gesture-one-hand-finger-heart
+ok 337 - representative fixture: heart-gesture-one-hand-finger-heart
+  ---
+  duration_ms: 12.27025
+  type: 'test'
+  ...
+# Subtest: representative fixture: selected-top-chest-graphic
+ok 338 - representative fixture: selected-top-chest-graphic
+  ---
+  duration_ms: 7.238875
+  type: 'test'
+  ...
+# Subtest: representative fixture: longline-shirt-single-shoulder
+ok 339 - representative fixture: longline-shirt-single-shoulder
+  ---
+  duration_ms: 11.279875
+  type: 'test'
+  ...
+# Subtest: representative fixture: longline-shirt-double-shoulder
+ok 340 - representative fixture: longline-shirt-double-shoulder
+  ---
+  duration_ms: 12.898041
+  type: 'test'
+  ...
+# Subtest: representative fixture: bathroom-vanity-generic-reflection
+ok 341 - representative fixture: bathroom-vanity-generic-reflection
+  ---
+  duration_ms: 12.388167
+  type: 'test'
+  ...
+# Subtest: representative fixture: normal-single
+ok 342 - representative fixture: normal-single
+  ---
+  duration_ms: 20.661792
+  type: 'test'
+  ...
+# Subtest: representative fixture: multicolor-studio-background
+ok 343 - representative fixture: multicolor-studio-background
+  ---
+  duration_ms: 13.934667
+  type: 'test'
+  ...
+# Subtest: representative fixture: upper-garment-adjustment
+ok 344 - representative fixture: upper-garment-adjustment
+  ---
+  duration_ms: 17.846625
+  type: 'test'
+  ...
+# Subtest: representative fixture: upper-garment-lift-underbust
+ok 345 - representative fixture: upper-garment-lift-underbust
+  ---
+  duration_ms: 12.727084
+  type: 'test'
+  ...
+# Subtest: representative fixture: hands-cover-breasts
+ok 346 - representative fixture: hands-cover-breasts
+  ---
+  duration_ms: 19.366167
+  type: 'test'
+  ...
+# Subtest: representative fixture: outerwear-shoulders-down-wide-open
+ok 347 - representative fixture: outerwear-shoulders-down-wide-open
+  ---
+  duration_ms: 15.891291
+  type: 'test'
+  ...
+# Subtest: representative fixture: standing-pelvis-back-curve
+ok 348 - representative fixture: standing-pelvis-back-curve
+  ---
+  duration_ms: 9.218292
+  type: 'test'
+  ...
+# Subtest: representative fixture: open-palm-lens-occlusion
+ok 349 - representative fixture: open-palm-lens-occlusion
+  ---
+  duration_ms: 14.738417
+  type: 'test'
+  ...
+# Subtest: representative fixture: restored-companion-selfie
+ok 350 - representative fixture: restored-companion-selfie
+  ---
+  duration_ms: 13.759541
+  type: 'test'
+  ...
+# Subtest: representative fixture: neutral-upward-waist-adjustment
+ok 351 - representative fixture: neutral-upward-waist-adjustment
+  ---
+  duration_ms: 13.840458
+  type: 'test'
+  ...
+# Subtest: representative fixture: squatting-forward-elbows-on-knees
+ok 352 - representative fixture: squatting-forward-elbows-on-knees
+  ---
+  duration_ms: 13.409291
+  type: 'test'
+  ...
+# Subtest: representative fixture: lying-prone-upper-propped
+ok 353 - representative fixture: lying-prone-upper-propped
+  ---
+  duration_ms: 14.134167
+  type: 'test'
+  ...
+# Subtest: representative fixture: supine-medium-water-overhead-arms
+ok 354 - representative fixture: supine-medium-water-overhead-arms
+  ---
+  duration_ms: 15.23875
+  type: 'test'
+  ...
+# Subtest: representative fixture: multi-phrase-garment-color-syntax
+ok 355 - representative fixture: multi-phrase-garment-color-syntax
+  ---
+  duration_ms: 15.85425
+  type: 'test'
+  ...
+# Subtest: representative fixture: street-gold-necklace-placement
+ok 356 - representative fixture: street-gold-necklace-placement
+  ---
+  duration_ms: 20.096542
+  type: 'test'
+  ...
+# Subtest: representative fixture: waist-accessory-designs
+ok 357 - representative fixture: waist-accessory-designs
+  ---
+  duration_ms: 10.059
+  type: 'test'
+  ...
+# Subtest: representative fixture: outfit-preset-waist-chain-cowboy
+ok 358 - representative fixture: outfit-preset-waist-chain-cowboy
+  ---
+  duration_ms: 13.998458
+  type: 'test'
+  ...
+# Subtest: representative fixture: waist-belt-decorative-wear
+ok 359 - representative fixture: waist-belt-decorative-wear
+  ---
+  duration_ms: 14.469083
+  type: 'test'
+  ...
+# Subtest: representative fixture: double-buns-red-headband
+ok 360 - representative fixture: double-buns-red-headband
+  ---
+  duration_ms: 15.008791
+  type: 'test'
+  ...
+# Subtest: representative fixture: normal-single-3m-6200-respirator
+ok 361 - representative fixture: normal-single-3m-6200-respirator
+  ---
+  duration_ms: 24.889667
+  type: 'test'
+  ...
+# Subtest: representative fixture: normal-single-crown-targeted-color
+ok 362 - representative fixture: normal-single-crown-targeted-color
+  ---
+  duration_ms: 11.276334
+  type: 'test'
+  ...
+# Subtest: representative fixture: normal-single-ai-compression-source-retention
+ok 363 - representative fixture: normal-single-ai-compression-source-retention
+  ---
+  duration_ms: 26.459667
+  type: 'test'
+  ...
+# Subtest: representative fixture: z-image-turbo-strict-side-real-generation
+ok 364 - representative fixture: z-image-turbo-strict-side-real-generation
+  ---
+  duration_ms: 24.550542
+  type: 'test'
+  ...
+# Subtest: representative fixture: latex-mirror-catsuit-outfit-preset
+ok 365 - representative fixture: latex-mirror-catsuit-outfit-preset
+  ---
+  duration_ms: 26.628042
+  type: 'test'
+  ...
+# Subtest: representative fixture: reusable-outfit-primary-latex-material
+ok 366 - representative fixture: reusable-outfit-primary-latex-material
+  ---
+  duration_ms: 18.258584
+  type: 'test'
+  ...
+# Subtest: representative fixture: adhesive-caution-tape-default
+ok 367 - representative fixture: adhesive-caution-tape-default
+  ---
+  duration_ms: 18.994584
+  type: 'test'
+  ...
+# Subtest: representative fixture: adhesive-tape-primary-color-override
+ok 368 - representative fixture: adhesive-tape-primary-color-override
+  ---
+  duration_ms: 24.664125
+  type: 'test'
+  ...
+# Subtest: representative fixture: bdsm-leather-harness-outfit-preset
+ok 369 - representative fixture: bdsm-leather-harness-outfit-preset
+  ---
+  duration_ms: 12.994167
+  type: 'test'
+  ...
+# Subtest: representative fixture: leather-corset-outfit-preset
+ok 370 - representative fixture: leather-corset-outfit-preset
+  ---
+  duration_ms: 31.690542
+  type: 'test'
+  ...
+# Subtest: representative fixture: pose-composer-canonical
+ok 371 - representative fixture: pose-composer-canonical
+  ---
+  duration_ms: 9.015625
+  type: 'test'
+  ...
+# Subtest: representative fixture: pose-composer-squatting-hand
+ok 372 - representative fixture: pose-composer-squatting-hand
+  ---
+  duration_ms: 9.374709
+  type: 'test'
+  ...
+# Subtest: representative fixture: pose-composer-half-reclining-b2
+ok 373 - representative fixture: pose-composer-half-reclining-b2
+  ---
+  duration_ms: 12.037084
+  type: 'test'
+  ...
+# Subtest: representative fixture: pose-composer-random-selfie-orbit
+ok 374 - representative fixture: pose-composer-random-selfie-orbit
+  ---
+  duration_ms: 8.360083
+  type: 'test'
+  ...
+# Subtest: representative fixture: character-card
+ok 375 - representative fixture: character-card
+  ---
+  duration_ms: 27.713708
+  type: 'test'
+  ...
+# Subtest: representative fixture: character-card-new-batch
+ok 376 - representative fixture: character-card-new-batch
+  ---
+  duration_ms: 32.214667
+  type: 'test'
+  ...
+# Subtest: representative fixture: special-outfit
+ok 377 - representative fixture: special-outfit
+  ---
+  duration_ms: 9.369791
+  type: 'test'
+  ...
+# Subtest: representative fixture: duo
+ok 378 - representative fixture: duo
+  ---
+  duration_ms: 30.030792
+  type: 'test'
+  ...
+# Subtest: representative fixture: duo-public-language
+ok 379 - representative fixture: duo-public-language
+  ---
+  duration_ms: 21.200709
+  type: 'test'
+  ...
+# Subtest: representative fixture: fixed-composition
+ok 380 - representative fixture: fixed-composition
+  ---
+  duration_ms: 19.16825
+  type: 'test'
+  ...
+# Subtest: representative fixture: fixed-composition-special-outfit
+ok 381 - representative fixture: fixed-composition-special-outfit
+  ---
+  duration_ms: 10.652375
+  type: 'test'
+  ...
+# Subtest: representative fixture: fixed-composition-outfit-preset
+ok 382 - representative fixture: fixed-composition-outfit-preset
+  ---
+  duration_ms: 20.740375
+  type: 'test'
+  ...
+# Subtest: representative fixture: fixed-composition-dress
+ok 383 - representative fixture: fixed-composition-dress
+  ---
+  duration_ms: 18.323583
+  type: 'test'
+  ...
+# Subtest: representative fixture: close-up
+ok 384 - representative fixture: close-up
+  ---
+  duration_ms: 9.626791
+  type: 'test'
+  ...
+# Subtest: representative fixture: spider-man-cosplay-outfit-preset
+ok 385 - representative fixture: spider-man-cosplay-outfit-preset
+  ---
+  duration_ms: 14.398125
+  type: 'test'
+  ...
+# Subtest: representative fixture: venom-cosplay-outfit-preset
+ok 386 - representative fixture: venom-cosplay-outfit-preset
+  ---
+  duration_ms: 22.617833
+  type: 'test'
+  ...
+# Subtest: representative fixture: spider-gwen-cosplay-outfit-preset
+ok 387 - representative fixture: spider-gwen-cosplay-outfit-preset
+  ---
+  duration_ms: 13.66575
+  type: 'test'
+  ...
+# Subtest: representative fixture: full-body-reference
+ok 388 - representative fixture: full-body-reference
+  ---
+  duration_ms: 34.742
+  type: 'test'
+  ...
+# Subtest: main MJ integrates location and intact pose before wardrobe, with optics and selected style/film
+ok 389 - main MJ integrates location and intact pose before wardrobe, with optics and selected style/film
+  ---
+  duration_ms: 1.080584
+  type: 'test'
+  ...
+# Subtest: MJ style/film retention is source-owned, with no effect on selected optics or saved choices
+ok 390 - MJ style/film retention is source-owned, with no effect on selected optics or saved choices
+  ---
+  duration_ms: 590.916708
+  type: 'test'
+  ...
+# Subtest: MJ source order retains capture once, omits hidden hands, and keeps composition modifiers early
+ok 391 - MJ source order retains capture once, omits hidden hands, and keeps composition modifiers early
+  ---
+  duration_ms: 0.390417
+  type: 'test'
+  ...
+# Subtest: scene assembly baseline covers all 19 families with immutable test inputs
+ok 392 - scene assembly baseline covers all 19 families with immutable test inputs
+  ---
+  duration_ms: 0.198833
+  type: 'test'
+  ...
+# Subtest: fixture selectors fail closed instead of falling back or silently accepting ambiguous labels
+ok 393 - fixture selectors fail closed instead of falling back or silently accepting ambiguous labels
+  ---
+  duration_ms: 1.308666
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R01-squat-low-selfie
+ok 394 - scene assembly scoped Z/MJ revisions and unchanged baseline: R01-squat-low-selfie
+  ---
+  duration_ms: 29.741583
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R02-kneel-high-selfie
+ok 395 - scene assembly scoped Z/MJ revisions and unchanged baseline: R02-kneel-high-selfie
+  ---
+  duration_ms: 43.906584
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R03-squat-no-anchor
+ok 396 - scene assembly scoped Z/MJ revisions and unchanged baseline: R03-squat-no-anchor
+  ---
+  duration_ms: 24.209083
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R04-standing
+ok 397 - scene assembly scoped Z/MJ revisions and unchanged baseline: R04-standing
+  ---
+  duration_ms: 25.394666
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R04-sitting
+ok 398 - scene assembly scoped Z/MJ revisions and unchanged baseline: R04-sitting
+  ---
+  duration_ms: 18.486167
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R05-elbows-on-knees
+ok 399 - scene assembly scoped Z/MJ revisions and unchanged baseline: R05-elbows-on-knees
+  ---
+  duration_ms: 20.610375
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R06-mirror-selfie
+ok 400 - scene assembly scoped Z/MJ revisions and unchanged baseline: R06-mirror-selfie
+  ---
+  duration_ms: 31.949542
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R07-companion-selfie
+ok 401 - scene assembly scoped Z/MJ revisions and unchanged baseline: R07-companion-selfie
+  ---
+  duration_ms: 47.861084
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R08-crop-full
+ok 402 - scene assembly scoped Z/MJ revisions and unchanged baseline: R08-crop-full
+  ---
+  duration_ms: 17.583958
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R08-crop-cowboy
+ok 403 - scene assembly scoped Z/MJ revisions and unchanged baseline: R08-crop-cowboy
+  ---
+  duration_ms: 27.738792
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R08-crop-medium
+ok 404 - scene assembly scoped Z/MJ revisions and unchanged baseline: R08-crop-medium
+  ---
+  duration_ms: 27.776666
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R08-crop-chest
+ok 405 - scene assembly scoped Z/MJ revisions and unchanged baseline: R08-crop-chest
+  ---
+  duration_ms: 19.467583
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R08-crop-head
+ok 406 - scene assembly scoped Z/MJ revisions and unchanged baseline: R08-crop-head
+  ---
+  duration_ms: 15.330458
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R08-crop-face
+ok 407 - scene assembly scoped Z/MJ revisions and unchanged baseline: R08-crop-face
+  ---
+  duration_ms: 17.467875
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R09-orbit-front
+ok 408 - scene assembly scoped Z/MJ revisions and unchanged baseline: R09-orbit-front
+  ---
+  duration_ms: 19.171375
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R09-orbit-left
+ok 409 - scene assembly scoped Z/MJ revisions and unchanged baseline: R09-orbit-left
+  ---
+  duration_ms: 23.471333
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R09-orbit-right
+ok 410 - scene assembly scoped Z/MJ revisions and unchanged baseline: R09-orbit-right
+  ---
+  duration_ms: 23.160458
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R09-orbit-rear
+ok 411 - scene assembly scoped Z/MJ revisions and unchanged baseline: R09-orbit-rear
+  ---
+  duration_ms: 20.053542
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R09-half-face
+ok 412 - scene assembly scoped Z/MJ revisions and unchanged baseline: R09-half-face
+  ---
+  duration_ms: 29.8305
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R10-palm-occlusion
+ok 413 - scene assembly scoped Z/MJ revisions and unchanged baseline: R10-palm-occlusion
+  ---
+  duration_ms: 17.058917
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R11-shirt-shoulder-1
+ok 414 - scene assembly scoped Z/MJ revisions and unchanged baseline: R11-shirt-shoulder-1
+  ---
+  duration_ms: 27.565833
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R11-shirt-shoulder-2
+ok 415 - scene assembly scoped Z/MJ revisions and unchanged baseline: R11-shirt-shoulder-2
+  ---
+  duration_ms: 21.972583
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R11-dress
+ok 416 - scene assembly scoped Z/MJ revisions and unchanged baseline: R11-dress
+  ---
+  duration_ms: 1710.665708
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R11-complete-look
+ok 417 - scene assembly scoped Z/MJ revisions and unchanged baseline: R11-complete-look
+  ---
+  duration_ms: 25.633208
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R11-waist-chain
+ok 418 - scene assembly scoped Z/MJ revisions and unchanged baseline: R11-waist-chain
+  ---
+  duration_ms: 19.836167
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R12-scene-indoor
+ok 419 - scene assembly scoped Z/MJ revisions and unchanged baseline: R12-scene-indoor
+  ---
+  duration_ms: 13.521834
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R12-scene-studio
+ok 420 - scene assembly scoped Z/MJ revisions and unchanged baseline: R12-scene-studio
+  ---
+  duration_ms: 21.803875
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R12-scene-none
+ok 421 - scene assembly scoped Z/MJ revisions and unchanged baseline: R12-scene-none
+  ---
+  duration_ms: 14.051792
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R12-watercolor
+ok 422 - scene assembly scoped Z/MJ revisions and unchanged baseline: R12-watercolor
+  ---
+  duration_ms: 41.0855
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R13-optics
+ok 423 - scene assembly scoped Z/MJ revisions and unchanged baseline: R13-optics
+  ---
+  duration_ms: 25.710375
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R14-mj-imaging
+ok 424 - scene assembly scoped Z/MJ revisions and unchanged baseline: R14-mj-imaging
+  ---
+  duration_ms: 17.44125
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R15-derived-isolation
+ok 425 - scene assembly scoped Z/MJ revisions and unchanged baseline: R15-derived-isolation
+  ---
+  duration_ms: 27.03775
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R16-duo
+ok 426 - scene assembly scoped Z/MJ revisions and unchanged baseline: R16-duo
+  ---
+  duration_ms: 58.638375
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R16-fixed
+ok 427 - scene assembly scoped Z/MJ revisions and unchanged baseline: R16-fixed
+  ---
+  duration_ms: 82.040625
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R16-special
+ok 428 - scene assembly scoped Z/MJ revisions and unchanged baseline: R16-special
+  ---
+  duration_ms: 33.485917
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R16-character-card
+ok 429 - scene assembly scoped Z/MJ revisions and unchanged baseline: R16-character-card
+  ---
+  duration_ms: 1561.507875
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R17-lying-bed-surface-0
+ok 430 - scene assembly scoped Z/MJ revisions and unchanged baseline: R17-lying-bed-surface-0
+  ---
+  duration_ms: 8.820458
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R17-lying-bed-surface-1
+ok 431 - scene assembly scoped Z/MJ revisions and unchanged baseline: R17-lying-bed-surface-1
+  ---
+  duration_ms: 11.44
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R17-water-immersed-0
+ok 432 - scene assembly scoped Z/MJ revisions and unchanged baseline: R17-water-immersed-0
+  ---
+  duration_ms: 9.335583
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R17-water-immersed-1
+ok 433 - scene assembly scoped Z/MJ revisions and unchanged baseline: R17-water-immersed-1
+  ---
+  duration_ms: 8.631792
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R17-lying-clear-sea-surface-0
+ok 434 - scene assembly scoped Z/MJ revisions and unchanged baseline: R17-lying-clear-sea-surface-0
+  ---
+  duration_ms: 10.0945
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R17-lying-clear-sea-surface-1
+ok 435 - scene assembly scoped Z/MJ revisions and unchanged baseline: R17-lying-clear-sea-surface-1
+  ---
+  duration_ms: 8.39075
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R18-exact-text-on
+ok 436 - scene assembly scoped Z/MJ revisions and unchanged baseline: R18-exact-text-on
+  ---
+  duration_ms: 18.20425
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R18-exact-text-off
+ok 437 - scene assembly scoped Z/MJ revisions and unchanged baseline: R18-exact-text-off
+  ---
+  duration_ms: 18.779042
+  type: 'test'
+  ...
+# Subtest: scene assembly scoped Z/MJ revisions and unchanged baseline: R19-random-pose
+ok 438 - scene assembly scoped Z/MJ revisions and unchanged baseline: R19-random-pose
+  ---
+  duration_ms: 19.034458
+  type: 'test'
+  ...
+# Subtest: random non-lying support resolves to free arrangement without adding an external object
+ok 439 - random non-lying support resolves to free arrangement without adding an external object
+  ---
+  duration_ms: 0.1855
+  type: 'test'
+  ...
+# Subtest: GPT and MJ retain canonical contact while Z omits only the independent anchor
+ok 440 - GPT and MJ retain canonical contact while Z omits only the independent anchor
+  ---
+  duration_ms: 272.989417
+  type: 'test'
+  ...
+# Subtest: core Z cases reorder existing scene and capture without reducing subject, wardrobe or imaging
+ok 441 - core Z cases reorder existing scene and capture without reducing subject, wardrobe or imaging
+  ---
+  duration_ms: 2.105667
+  type: 'test'
+  ...
+# Subtest: Z does not invent settings or restore selfie hands hidden by the selected crop
+ok 442 - Z does not invent settings or restore selfie hands hidden by the selected crop
+  ---
+  duration_ms: 0.184417
+  type: 'test'
+  ...
+# Subtest: an explicit prop keeps priority and cannot leak a second selfie action into capture context
+ok 443 - an explicit prop keeps priority and cannot leak a second selfie action into capture context
+  ---
+  duration_ms: 20.120833
+  type: 'test'
+  ...
+# Subtest: selfie types, arbitrary kneeling and optics keep their existing source semantics
+ok 444 - selfie types, arbitrary kneeling and optics keep their existing source semantics
+  ---
+  duration_ms: 0.240625
+  type: 'test'
+  ...
+# Subtest: supine surface sources survive tight crops while ordinary hidden footwear stays omitted
+ok 445 - supine surface sources survive tight crops while ordinary hidden footwear stays omitted
+  ---
+  duration_ms: 0.193375
+  type: 'test'
+  ...
+# Subtest: exact visible text remains Z-only and saved text round-trips through the existing codec
+ok 446 - exact visible text remains Z-only and saved text round-trips through the existing codec
+  ---
+  duration_ms: 428.444625
+  type: 'test'
+  ...
+# Subtest: reverse generation order and independent observation workspace preserve baseline state
+ok 447 - reverse generation order and independent observation workspace preserve baseline state
+  ---
+  duration_ms: 629.329291
+  type: 'test'
+  ...
+# Subtest: Shibuya crowd source preserves the public label, ID, order and legacy English identity
+ok 448 - Shibuya crowd source preserves the public label, ID, order and legacy English identity
+  ---
+  duration_ms: 3.809916
+  type: 'test'
+  ...
+# Subtest: all public main crops and both same-state chest outputs retain landmark and three-layer moving crowd sources
+ok 449 - all public main crops and both same-state chest outputs retain landmark and three-layer moving crowd sources
+  ---
+  duration_ms: 106.591833
+  type: 'test'
+  ...
+# Subtest: all four effective low-camera angles keep crowds instead of replacing them with empty facades
+ok 450 - all four effective low-camera angles keep crowds instead of replacing them with empty facades
+  ---
+  duration_ms: 106.296208
+  type: 'test'
+  ...
+# Subtest: scene identity does not override selected high viewpoints, orbit or focal length
+ok 451 - scene identity does not override selected high viewpoints, orbit or focal length
+  ---
+  duration_ms: 18.581333
+  type: 'test'
+  ...
+# Subtest: all other location descriptions, metadata and positions remain byte-identical
+ok 452 - all other location descriptions, metadata and positions remain byte-identical
+  ---
+  duration_ms: 33.878459
+  type: 'test'
+  ...
+# Subtest: scene-source-only revision preserves selections, random draws and the scene-free full-body character
+ok 453 - scene-source-only revision preserves selections, random draws and the scene-free full-body character
+  ---
+  duration_ms: 251.663167
+  type: 'test'
+  ...
+# Subtest: new and historical full English sources import to the same stable Shibuya location
+ok 454 - new and historical full English sources import to the same stable Shibuya location
+  ---
+  duration_ms: 168.803709
+  type: 'test'
+  ...
+# Subtest: Saved Cards preserve both historical prompt bytes and stable location restore with new generation
+ok 455 - Saved Cards preserve both historical prompt bytes and stable location restore with new generation
+  ---
+  duration_ms: 60.666875
+  type: 'test'
+  ...
+# Subtest: historical snapshot inverse recognizes only the exact approved Shibuya scene sources
+ok 456 - historical snapshot inverse recognizes only the exact approved Shibuya scene sources
+  ---
+  duration_ms: 35.796916
+  type: 'test'
+  ...
+# Subtest: historical inverse fails closed on wrong identities or changed scenes and cannot hide arbitrary added content
+ok 457 - historical inverse fails closed on wrong identities or changed scenes and cannot hide arbitrary added content
+  ---
+  duration_ms: 7.581833
+  type: 'test'
+  ...
+# Subtest: all other presets preserve every output, selection and structured source byte for byte
+ok 458 - all other presets preserve every output, selection and structured source byte for byte
+  ---
+  duration_ms: 4641.293208
+  type: 'test'
+  ...
+# Subtest: the two shirt presets keep black bottoms and direct primary colors only to the shirt
+ok 459 - the two shirt presets keep black bottoms and direct primary colors only to the shirt
+  ---
+  duration_ms: 96.546666
+  type: 'test'
+  ...
+# Subtest: contrasting, locked and complete-look palettes cannot recolor fixed black bottoms
+ok 460 - contrasting, locked and complete-look palettes cannot recolor fixed black bottoms
+  ---
+  duration_ms: 22.113291
+  type: 'test'
+  ...
+# Subtest: duo primary colors stay with their own shirt and both bottoms remain black
+ok 461 - duo primary colors stay with their own shirt and both bottoms remain black
+  ---
+  duration_ms: 16.27425
+  type: 'test'
+  ...
+# Subtest: crop and closed outerwear projection do not restore invisible garments or their color
+ok 462 - crop and closed outerwear projection do not restore invisible garments or their color
+  ---
+  duration_ms: 25.096042
+  type: 'test'
+  ...
+# Subtest: old English imports and Saved Cards retain the same preset IDs and color selections
+ok 463 - old English imports and Saved Cards retain the same preset IDs and color selections
+  ---
+  duration_ms: 52.137833
+  type: 'test'
+  ...
+# Subtest: all color swatches and seeded random colors preserve the fixed lower garment
+ok 464 - all color swatches and seeded random colors preserve the fixed lower garment
+  ---
+  duration_ms: 1045.605625
+  type: 'test'
+  ...
+# Subtest: fixed composition retains the shirt exception with its original geometry and MJ tail
+ok 465 - fixed composition retains the shirt exception with its original geometry and MJ tail
+  ---
+  duration_ms: 42.708833
+  type: 'test'
+  ...
+# Subtest: all eight actions share full canonical source across four main outputs without latent hands or props
+ok 466 - all eight actions share full canonical source across four main outputs without latent hands or props
+  ---
+  duration_ms: 675.870458
+  type: 'test'
+  ...
+# Subtest: upper-body crops and chest derivatives reuse the same resolved action projection
+ok 467 - upper-body crops and chest derivatives reuse the same resolved action projection
+  ---
+  duration_ms: 338.678167
+  type: 'test'
+  ...
+# Subtest: stored selection survives normalization, Saved Cards and restore with latent independent choices
+ok 468 - stored selection survives normalization, Saved Cards and restore with latent independent choices
+  ---
+  duration_ms: 1340.349958
+  type: 'test'
+  ...
+# Subtest: supine action uses only ground without a bed, blanket, drink or ordinary scene
+ok 469 - supine action uses only ground without a bed, blanket, drink or ordinary scene
+  ---
+  duration_ms: 6.506042
+  type: 'test'
+  ...
+# Subtest: expression and head remain effective, and dormant selfie cannot clear selected orbit
+ok 470 - expression and head remain effective, and dormant selfie cannot clear selected orbit
+  ---
+  duration_ms: 53.866166
+  type: 'test'
+  ...
+# Subtest: supine Saved Card restores its stored scene and original support after reload and cancel
+ok 471 - supine Saved Card restores its stored scene and original support after reload and cancel
+  ---
+  duration_ms: 8.396458
+  type: 'test'
+  ...
+# Subtest: old results retain the exact selection shape and missing action defaults restore silently
+ok 472 - old results retain the exact selection shape and missing action defaults restore silently
+  ---
+  duration_ms: 4.623291
+  type: 'test'
+  ...
+# Subtest: normalization and Saved Cards keep only the supported scalar scene snapshot fields
+ok 473 - normalization and Saved Cards keep only the supported scalar scene snapshot fields
+  ---
+  duration_ms: 20.581458
+  type: 'test'
+  ...
+# Subtest: all fifty-four actions can be selected without a matching free base
+ok 474 - all fifty-four actions can be selected without a matching free base
+  ---
+  duration_ms: 12.4355
+  type: 'test'
+  ...
+# Subtest: new actions share the full source, suppress latent choices and preserve them through Saved Cards
+ok 475 - new actions share the full source, suppress latent choices and preserve them through Saved Cards
+  ---
+  duration_ms: 95.568916
+  type: 'test'
+  ...
+# Subtest: kick allows head adjustment, lens gesture omits lower body, cats retain companions
+ok 476 - kick allows head adjustment, lens gesture omits lower body, cats retain companions
+  ---
+  duration_ms: 37.213708
+  type: 'test'
+  ...
+# Subtest: legacy card IDs resolve through the same unified pose pipeline
+ok 477 - legacy card IDs resolve through the same unified pose pipeline
+  ---
+  duration_ms: 43.240125
+  type: 'test'
+  ...
+# Subtest: explicit camera conflicts pause owned gaze without rewriting camera choices and resume after release
+ok 478 - explicit camera conflicts pause owned gaze without rewriting camera choices and resume after release
+  ---
+  duration_ms: 72.899292
+  type: 'test'
+  ...
+# Subtest: switching across action bases preserves original free choices and independently edited head
+ok 479 - switching across action bases preserves original free choices and independently edited head
+  ---
+  duration_ms: 58.775375
+  type: 'test'
+  ...
+# Subtest: manual catalog pins eight reviewed actions, their base and reference provenance
+ok 480 - manual catalog pins eight reviewed actions, their base and reference provenance
+  ---
+  duration_ms: 2.632459
+  type: 'test'
+  ...
+# Subtest: shared full and upper sources leave expression, head, camera and furniture independent
+ok 481 - shared full and upper sources leave expression, head, camera and furniture independent
+  ---
+  duration_ms: 0.848834
+  type: 'test'
+  ...
+# Subtest: only a concrete single-person action is active, independent of the free base
+ok 482 - only a concrete single-person action is active, independent of the free base
+  ---
+  duration_ms: 0.447916
+  type: 'test'
+  ...
+# Subtest: fixed scene position pauses the action without destroying its selection
+ok 483 - fixed scene position pauses the action without destroying its selection
+  ---
+  duration_ms: 0.165375
+  type: 'test'
+  ...
+# Subtest: effective locks mask four latent layers and own lying orientation while preserving raw storage
+ok 484 - effective locks mask four latent layers and own lying orientation while preserving raw storage
+  ---
+  duration_ms: 0.598375
+  type: 'test'
+  ...
+# Subtest: four casual squat choices retain stable ids and retire three old poses
+ok 485 - four casual squat choices retain stable ids and retire three old poses
+  ---
+  duration_ms: 48.657792
+  type: 'test'
+  ...
+# Subtest: four main outputs share relaxed geometry, free heel placement and independent hands
+ok 486 - four main outputs share relaxed geometry, free heel placement and independent hands
+  ---
+  duration_ms: 44.003291
+  type: 'test'
+  ...
+# Subtest: upper crops retain gentle posture without off-frame legs and full-body reference stays standing
+ok 487 - upper crops retain gentle posture without off-frame legs and full-body reference stays standing
+  ---
+  duration_ms: 67.865375
+  type: 'test'
+  ...
+# Subtest: saved cards and old English restore all changed squat ids without rewriting saved text
+ok 488 - saved cards and old English restore all changed squat ids without rewriting saved text
+  ---
+  duration_ms: 131.013542
+  type: 'test'
+  ...
+# Subtest: random squatting reaches all four reviewed poses and excludes retired poses
+ok 489 - random squatting reaches all four reviewed poses and excludes retired poses
+  ---
+  duration_ms: 665.402667
+  type: 'test'
+  ...
+# Subtest: seven public squat hands merge cheeks and retain historical mouth restore
+ok 490 - seven public squat hands merge cheeks and retain historical mouth restore
+  ---
+  duration_ms: 33.653
+  type: 'test'
+  ...
+# Subtest: all 28 combinations share exact hand sources without overriding squat, head or support
+ok 491 - all 28 combinations share exact hand sources without overriding squat, head or support
+  ---
+  duration_ms: 173.525917
+  type: 'test'
+  ...
+# Subtest: upper crops omit off-frame support and full-body reference stays independent
+ok 492 - upper crops omit off-frame support and full-body reference stays independent
+  ---
+  duration_ms: 124.147875
+  type: 'test'
+  ...
+# Subtest: old English and Saved Cards retain IDs and original stored prose
+ok 493 - old English and Saved Cards retain IDs and original stored prose
+  ---
+  duration_ms: 245.131291
+  type: 'test'
+  ...
+# Subtest: seeded random uses the seven dedicated hands, never retired mouth
+ok 494 - seeded random uses the seven dedicated hands, never retired mouth
+  ---
+  duration_ms: 846.222667
+  type: 'test'
+  ...
+# Subtest: standing catalog has nine public options and three newly retired restore-only options
+ok 495 - standing catalog has nine public options and three newly retired restore-only options
+  ---
+  duration_ms: 52.456167
+  type: 'test'
+  ...
+# Subtest: all nine standing sources reach the three main outputs and survive saved-card and prose restore
+ok 496 - all nine standing sources reach the three main outputs and survive saved-card and prose restore
+  ---
+  duration_ms: 277.042042
+  type: 'test'
+  ...
+# Subtest: changed standing prose remains importable by its historical English
+ok 497 - changed standing prose remains importable by its historical English
+  ---
+  duration_ms: 16.32575
+  type: 'test'
+  ...
+# Subtest: standing crops keep visible intent without leaking off-frame feet or changing chest policy
+ok 498 - standing crops keep visible intent without leaking off-frame feet or changing chest policy
+  ---
+  duration_ms: 164.147625
+  type: 'test'
+  ...
+# Subtest: random standing arrangements sample only the current catalog
+ok 499 - random standing arrangements sample only the current catalog
+  ---
+  duration_ms: 1181.657708
+  type: 'test'
+  ...
+# Subtest: nine station positions own one canonical pose, preserve facing and lens and restore
+ok 500 - nine station positions own one canonical pose, preserve facing and lens and restore
+  ---
+  duration_ms: 1048.116
+  type: 'test'
+  ...
+# Subtest: station takeover is pure and excludes none, foreign scenes and duo
+ok 501 - station takeover is pure and excludes none, foreign scenes and duo
+  ---
+  duration_ms: 5.553125
+  type: 'test'
+  ...
+# Subtest: station spatial sources retain image-side layout, shared light and stopped Yamanote train
+ok 502 - station spatial sources retain image-side layout, shared light and stopped Yamanote train
+  ---
+  duration_ms: 7.497625
+  type: 'test'
+  ...
+# Subtest: transit UI keeps manual options and does not clear a selected light on ambient changes
+ok 503 - transit UI keeps manual options and does not clear a selected light on ambient changes
+  ---
+  duration_ms: 19.535667
+  type: 'test'
+  ...
+# Subtest: transit random ambient uses actual scene metadata, not the cleared ordinary location
+ok 504 - transit random ambient uses actual scene metadata, not the cleared ordinary location
+  ---
+  duration_ms: 1405.357041
+  type: 'test'
+  ...
+# Subtest: legacy fixed-set compatibility remains while ordinary explicit lighting stays unchanged
+ok 505 - legacy fixed-set compatibility remains while ordinary explicit lighting stays unchanged
+  ---
+  duration_ms: 12.670583
+  type: 'test'
+  ...
+# Subtest: six transit sets preserve explicit ambient and subject lighting across scene-bearing outputs
+ok 506 - six transit sets preserve explicit ambient and subject lighting across scene-bearing outputs
+  ---
+  duration_ms: 391.664916
+  type: 'test'
+  ...
+# Subtest: London scene keeps the existing label and a stationary train in every scene-bearing output
+ok 507 - London scene keeps the existing label and a stationary train in every scene-bearing output
+  ---
+  duration_ms: 8.720416
+  type: 'test'
+  ...
+# Subtest: nyc-subway-bench-platform: source layout and subject facing survive wide and telephoto outputs
+ok 508 - nyc-subway-bench-platform: source layout and subject facing survive wide and telephoto outputs
+  ---
+  duration_ms: 14.681667
+  type: 'test'
+  ...
+# Subtest: london-tube-arriving-platform: source layout and subject facing survive wide and telephoto outputs
+ok 509 - london-tube-arriving-platform: source layout and subject facing survive wide and telephoto outputs
+  ---
+  duration_ms: 9.385666
+  type: 'test'
+  ...
+# Subtest: yamanote-platform-advertising: source layout and subject facing survive wide and telephoto outputs
+ok 510 - yamanote-platform-advertising: source layout and subject facing survive wide and telephoto outputs
+  ---
+  duration_ms: 7.989791
+  type: 'test'
+  ...
+# Subtest: legacy fixed sets still suppress selected lens and ordinary scenes retain it
+ok 511 - legacy fixed sets still suppress selected lens and ordinary scenes retain it
+  ---
+  duration_ms: 17.264042
+  type: 'test'
+  ...
+# Subtest: eight body facings do not exchange the station sides or canonical pose
+ok 512 - eight body facings do not exchange the station sides or canonical pose
+  ---
+  duration_ms: 170.228709
+  type: 'test'
+  ...
+# Subtest: same resolved station selections regenerate after JSON restore without a lens reset
+ok 513 - same resolved station selections regenerate after JSON restore without a lens reset
+  ---
+  duration_ms: 13.450541
+  type: 'test'
+  ...
+# Subtest: lens permission is opt-in and camera heights remain independently selectable
+ok 514 - lens permission is opt-in and camera heights remain independently selectable
+  ---
+  duration_ms: 87.578667
+  type: 'test'
+  ...
+# Subtest: overlap keeps micro shorts identity and survives visible outputs and saved-card restore
+ok 515 - overlap keeps micro shorts identity and survives visible outputs and saved-card restore
+  ---
+  duration_ms: 32.904583
+  type: 'test'
+  ...
+# Subtest: hem overlap keeps Z, AI and full-body body sources while main GPT omits body and retains effective wardrobe styling
+ok 516 - hem overlap keeps Z, AI and full-body body sources while main GPT omits body and retains effective wardrobe styling
+  ---
+  duration_ms: 499.0295
+  type: 'test'
+  ...
+# Subtest: duo hem overlap preserves both sources and remains attached only to its wearer
+ok 517 - duo hem overlap preserves both sources and remains attached only to its wearer
+  ---
+  duration_ms: 23.106
+  type: 'test'
+  ...
+# Subtest: overlap works for silk tops and independent skirts without editing garment length
+ok 518 - overlap works for silk tops and independent skirts without editing garment length
+  ---
+  duration_ms: 6.017833
+  type: 'test'
+  ...
+# Subtest: incompatible tops and absent bottoms do not get an overlap instruction
+ok 519 - incompatible tops and absent bottoms do not get an overlap instruction
+  ---
+  duration_ms: 112.703208
+  type: 'test'
+  ...
+# Subtest: existing untucked remains a separate selectable option
+ok 520 - existing untucked remains a separate selectable option
+  ---
+  duration_ms: 4.098459
+  type: 'test'
+  ...
+# Subtest: jeans and regular sailor tops retain overlap, and close crops restore it only in full-body derivative
+ok 521 - jeans and regular sailor tops retain overlap, and close crops restore it only in full-body derivative
+  ---
+  duration_ms: 18.504625
+  type: 'test'
+  ...
+# Subtest: duo overlap is scoped to the person with compatible separates
+ok 522 - duo overlap is scoped to the person with compatible separates
+  ---
+  duration_ms: 10.710458
+  type: 'test'
+  ...
+# Subtest: random styling keeps the pre-existing pool
+ok 523 - random styling keeps the pre-existing pool
+  ---
+  duration_ms: 143.220333
+  type: 'test'
+  ...
+# Subtest: two manual short fits append without changing the five old options
+ok 524 - two manual short fits append without changing the five old options
+  ---
+  duration_ms: 1.113625
+  type: 'test'
+  ...
+# Subtest: every eligible top including existing cropped garments resolves one underbust length across six outputs
+ok 525 - every eligible top including existing cropped garments resolves one underbust length across six outputs
+  ---
+  duration_ms: 1852.493625
+  type: 'test'
+  ...
+# Subtest: shortened garments preserve authored fabric, collars, sleeves and construction
+ok 526 - shortened garments preserve authored fabric, collars, sleeves and construction
+  ---
+  duration_ms: 42.372541
+  type: 'test'
+  ...
+# Subtest: color and surface variants keep the new fit, selected garment and natural-hem prose import
+ok 527 - color and surface variants keep the new fit, selected garment and natural-hem prose import
+  ---
+  duration_ms: 76.372666
+  type: 'test'
+  ...
+# Subtest: short fits retain non-GPT and full-body body sources and preserve the main/chest GPT omission
+ok 528 - short fits retain non-GPT and full-body body sources and preserve the main/chest GPT omission
+  ---
+  duration_ms: 43.829208
+  type: 'test'
+  ...
+# Subtest: bras, swimwear and pasties keep their source while short fit remains latent
+ok 529 - bras, swimwear and pasties keep their source while short fit remains latent
+  ---
+  duration_ms: 87.949416
+  type: 'test'
+  ...
+# Subtest: waist-bound styles are suppressed without changing their stored choice; natural hem uses underbust source
+ok 530 - waist-bound styles are suppressed without changing their stored choice; natural hem uses underbust source
+  ---
+  duration_ms: 56.992541
+  type: 'test'
+  ...
+# Subtest: UI disables incompatible short fits and styles individually, preserves values and copies effective source
+ok 531 - UI disables incompatible short fits and styles individually, preserves values and copies effective source
+  ---
+  duration_ms: 0.541334
+  type: 'test'
+  ...
+# Subtest: framing omits off-screen short fit and full-body output restores it from the same source
+ok 532 - framing omits off-screen short fit and full-body output restores it from the same source
+  ---
+  duration_ms: 6.665333
+  type: 'test'
+  ...
+# Subtest: outerwear keeps its own length and hem relationship while the inner top is cropped
+ok 533 - outerwear keeps its own length and hem relationship while the inner top is cropped
+  ---
+  duration_ms: 17.561875
+  type: 'test'
+  ...
+# Subtest: complete presets own the outfit and do not acquire an independent short top
+ok 534 - complete presets own the outfit and do not acquire an independent short top
+  ---
+  duration_ms: 32.812542
+  type: 'test'
+  ...
+# Subtest: duo short fits remain attached to each wearer and do not override the other top
+ok 535 - duo short fits remain attached to each wearer and do not override the other top
+  ---
+  duration_ms: 66.233834
+  type: 'test'
+  ...
+# Subtest: manual short fits never enter the old random fit pool and absent tops preserve the selected short fit
+ok 536 - manual short fits never enter the old random fit pool and absent tops preserve the selected short fit
+  ---
+  duration_ms: 177.83525
+  type: 'test'
+  ...
+# Subtest: full camera policy has six groups; Dutch keeps roll; no unknown/default angle injection
+ok 537 - full camera policy has six groups; Dutch keeps roll; no unknown/default angle injection
+  ---
+  duration_ms: 0.4455
+  type: 'test'
+  ...
+# Subtest: full camera wording matches approved sources without imposing pose, footwear, or fisheye
+ok 538 - full camera wording matches approved sources without imposing pose, footwear, or fisheye
+  ---
+  duration_ms: 0.40975
+  type: 'test'
+  ...
+# Subtest: high-angle families use distinct soft distance and geometry cues
+ok 539 - high-angle families use distinct soft distance and geometry cues
+  ---
+  duration_ms: 1.137042
+  type: 'test'
+  ...
+# Subtest: distance-only bridge preserves the already-approved full-body camera policy
+ok 540 - distance-only bridge preserves the already-approved full-body camera policy
+  ---
+  duration_ms: 0.58675
+  type: 'test'
+  ...
+# Subtest: main full-body runtime retains height/roll hints and replaces only effective angle sentences
+ok 541 - main full-body runtime retains height/roll hints and replaces only effective angle sentences
+  ---
+  duration_ms: 332.128166
+  type: 'test'
+  ...
+# Subtest: 431-case frozen baseline: only approved main Z camera text changes; selections and other outputs identical
+ok 542 - 431-case frozen baseline: only approved main Z camera text changes; selections and other outputs identical
+  ---
+  duration_ms: 6246.302792
+  type: 'test'
+  ...
+# Subtest: new full camera output round-trips through saved text and Markdown without a schema change
+ok 543 - new full camera output round-trips through saved text and Markdown without a schema change
+  ---
+  duration_ms: 129.802833
+  type: 'test'
+  ...
+# Subtest: capture helper joins only supplied sources without changing or inventing them
+ok 544 - capture helper joins only supplied sources without changing or inventing them
+  ---
+  duration_ms: 0.852417
+  type: 'test'
+  ...
+# Subtest: published test prompts are the actual main renderer outputs
+ok 545 - published test prompts are the actual main renderer outputs
+  ---
+  duration_ms: 3.47075
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: bedroom-eye
+ok 546 - main-Z-only source relocation: bedroom-eye
+  ---
+  duration_ms: 22.550542
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: bedroom-worm
+ok 547 - main-Z-only source relocation: bedroom-worm
+  ---
+  duration_ms: 18.252
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: park-eye
+ok 548 - main-Z-only source relocation: park-eye
+  ---
+  duration_ms: 20.033583
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: park-worm
+ok 549 - main-Z-only source relocation: park-worm
+  ---
+  duration_ms: 30.803792
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: carriage-0
+ok 550 - main-Z-only source relocation: carriage-0
+  ---
+  duration_ms: 12.456584
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: carriage-1
+ok 551 - main-Z-only source relocation: carriage-1
+  ---
+  duration_ms: 8.372709
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: carriage-2
+ok 552 - main-Z-only source relocation: carriage-2
+  ---
+  duration_ms: 10.530333
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: no-scene
+ok 553 - main-Z-only source relocation: no-scene
+  ---
+  duration_ms: 19.774292
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: no-pose
+ok 554 - main-Z-only source relocation: no-pose
+  ---
+  duration_ms: 18.834084
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: no-lights
+ok 555 - main-Z-only source relocation: no-lights
+  ---
+  duration_ms: 16.568333
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: subject-light-only
+ok 556 - main-Z-only source relocation: subject-light-only
+  ---
+  duration_ms: 24.609875
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: park-bed-not-replaced
+ok 557 - main-Z-only source relocation: park-bed-not-replaced
+  ---
+  duration_ms: 26.018542
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R01-squat-low-selfie
+ok 558 - main-Z-only source relocation: historical-R01-squat-low-selfie
+  ---
+  duration_ms: 31.340667
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R02-kneel-high-selfie
+ok 559 - main-Z-only source relocation: historical-R02-kneel-high-selfie
+  ---
+  duration_ms: 33.69825
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R03-squat-no-anchor
+ok 560 - main-Z-only source relocation: historical-R03-squat-no-anchor
+  ---
+  duration_ms: 24.389458
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R04-standing
+ok 561 - main-Z-only source relocation: historical-R04-standing
+  ---
+  duration_ms: 30.063333
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R04-sitting
+ok 562 - main-Z-only source relocation: historical-R04-sitting
+  ---
+  duration_ms: 17.8695
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R05-elbows-on-knees
+ok 563 - main-Z-only source relocation: historical-R05-elbows-on-knees
+  ---
+  duration_ms: 28.513875
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R06-mirror-selfie
+ok 564 - main-Z-only source relocation: historical-R06-mirror-selfie
+  ---
+  duration_ms: 19.296791
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R07-companion-selfie
+ok 565 - main-Z-only source relocation: historical-R07-companion-selfie
+  ---
+  duration_ms: 23.744458
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R08-crop-full
+ok 566 - main-Z-only source relocation: historical-R08-crop-full
+  ---
+  duration_ms: 46.580291
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R08-crop-cowboy
+ok 567 - main-Z-only source relocation: historical-R08-crop-cowboy
+  ---
+  duration_ms: 18.738709
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R08-crop-medium
+ok 568 - main-Z-only source relocation: historical-R08-crop-medium
+  ---
+  duration_ms: 26.276417
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R08-crop-chest
+ok 569 - main-Z-only source relocation: historical-R08-crop-chest
+  ---
+  duration_ms: 22.663167
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R08-crop-head
+ok 570 - main-Z-only source relocation: historical-R08-crop-head
+  ---
+  duration_ms: 22.776666
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R08-crop-face
+ok 571 - main-Z-only source relocation: historical-R08-crop-face
+  ---
+  duration_ms: 22.382375
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R09-orbit-front
+ok 572 - main-Z-only source relocation: historical-R09-orbit-front
+  ---
+  duration_ms: 21.731792
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R09-orbit-left
+ok 573 - main-Z-only source relocation: historical-R09-orbit-left
+  ---
+  duration_ms: 33.279334
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R09-orbit-right
+ok 574 - main-Z-only source relocation: historical-R09-orbit-right
+  ---
+  duration_ms: 22.640542
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R09-orbit-rear
+ok 575 - main-Z-only source relocation: historical-R09-orbit-rear
+  ---
+  duration_ms: 19.901792
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R09-half-face
+ok 576 - main-Z-only source relocation: historical-R09-half-face
+  ---
+  duration_ms: 16.302417
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R10-palm-occlusion
+ok 577 - main-Z-only source relocation: historical-R10-palm-occlusion
+  ---
+  duration_ms: 36.212958
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R11-shirt-shoulder-1
+ok 578 - main-Z-only source relocation: historical-R11-shirt-shoulder-1
+  ---
+  duration_ms: 23.760125
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R11-shirt-shoulder-2
+ok 579 - main-Z-only source relocation: historical-R11-shirt-shoulder-2
+  ---
+  duration_ms: 29.045916
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R11-dress
+ok 580 - main-Z-only source relocation: historical-R11-dress
+  ---
+  duration_ms: 1870.453208
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R11-complete-look
+ok 581 - main-Z-only source relocation: historical-R11-complete-look
+  ---
+  duration_ms: 32.362792
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R11-waist-chain
+ok 582 - main-Z-only source relocation: historical-R11-waist-chain
+  ---
+  duration_ms: 25.676
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R12-scene-indoor
+ok 583 - main-Z-only source relocation: historical-R12-scene-indoor
+  ---
+  duration_ms: 27.5355
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R12-scene-studio
+ok 584 - main-Z-only source relocation: historical-R12-scene-studio
+  ---
+  duration_ms: 23.417125
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R12-scene-none
+ok 585 - main-Z-only source relocation: historical-R12-scene-none
+  ---
+  duration_ms: 18.810667
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R12-watercolor
+ok 586 - main-Z-only source relocation: historical-R12-watercolor
+  ---
+  duration_ms: 24.263833
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R13-optics
+ok 587 - main-Z-only source relocation: historical-R13-optics
+  ---
+  duration_ms: 23.204208
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R14-mj-imaging
+ok 588 - main-Z-only source relocation: historical-R14-mj-imaging
+  ---
+  duration_ms: 17.954334
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R15-derived-isolation
+ok 589 - main-Z-only source relocation: historical-R15-derived-isolation
+  ---
+  duration_ms: 16.668166
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R16-duo
+ok 590 - main-Z-only source relocation: historical-R16-duo
+  ---
+  duration_ms: 13.094125
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R16-fixed
+ok 591 - main-Z-only source relocation: historical-R16-fixed
+  ---
+  duration_ms: 5.807042
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R16-special
+ok 592 - main-Z-only source relocation: historical-R16-special
+  ---
+  duration_ms: 5.734792
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R16-character-card
+ok 593 - main-Z-only source relocation: historical-R16-character-card
+  ---
+  duration_ms: 1941.067458
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R17-lying-bed-surface-0
+ok 594 - main-Z-only source relocation: historical-R17-lying-bed-surface-0
+  ---
+  duration_ms: 7.745833
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R17-lying-bed-surface-1
+ok 595 - main-Z-only source relocation: historical-R17-lying-bed-surface-1
+  ---
+  duration_ms: 8.07525
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R17-water-immersed-0
+ok 596 - main-Z-only source relocation: historical-R17-water-immersed-0
+  ---
+  duration_ms: 11.342834
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R17-water-immersed-1
+ok 597 - main-Z-only source relocation: historical-R17-water-immersed-1
+  ---
+  duration_ms: 10.433167
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R17-lying-clear-sea-surface-0
+ok 598 - main-Z-only source relocation: historical-R17-lying-clear-sea-surface-0
+  ---
+  duration_ms: 12.566959
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R17-lying-clear-sea-surface-1
+ok 599 - main-Z-only source relocation: historical-R17-lying-clear-sea-surface-1
+  ---
+  duration_ms: 19.043958
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R18-exact-text-on
+ok 600 - main-Z-only source relocation: historical-R18-exact-text-on
+  ---
+  duration_ms: 18.272958
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R18-exact-text-off
+ok 601 - main-Z-only source relocation: historical-R18-exact-text-off
+  ---
+  duration_ms: 20.320291
+  type: 'test'
+  ...
+# Subtest: main-Z-only source relocation: historical-R19-random-pose
+ok 602 - main-Z-only source relocation: historical-R19-random-pose
+  ---
+  duration_ms: 38.952167
+  type: 'test'
+  ...
+# Subtest: bedroom and park bind selected seats, hands and light without replacing support
+ok 603 - bedroom and park bind selected seats, hands and light without replacing support
+  ---
+  duration_ms: 0.274125
+  type: 'test'
+  ...
+# Subtest: fixed carriage keeps preset takeover, window/camera layout and one ambient relationship
+ok 604 - fixed carriage keeps preset takeover, window/camera layout and one ambient relationship
+  ---
+  duration_ms: 0.105417
+  type: 'test'
+  ...
+# Subtest: none and excluded paths do not acquire a fictitious capture or ambient source
+ok 605 - none and excluded paths do not acquire a fictitious capture or ambient source
+  ---
+  duration_ms: 0.476625
+  type: 'test'
+  ...
+# Subtest: new capture text round-trips without a new selection/storage schema
+ok 606 - new capture text round-trips without a new selection/storage schema
+  ---
+  duration_ms: 111.949333
+  type: 'test'
+  ...
+# Subtest: reviewed priorities are source-backed, low-only, idempotent and fail closed
+ok 607 - reviewed priorities are source-backed, low-only, idempotent and fail closed
+  ---
+  duration_ms: 5.206
+  type: 'test'
+  ...
+# Subtest: 38 remaining priorities use only exact catalog clauses and preserve non-low cameras
+ok 608 - 38 remaining priorities use only exact catalog clauses and preserve non-low cameras
+  ---
+  duration_ms: 1.011375
+  type: 'test'
+  ...
+# Subtest: remaining priorities integrate into the low-camera Z-Image scene opening
+ok 609 - remaining priorities integrate into the low-camera Z-Image scene opening
+  ---
+  duration_ms: 5158.895459
+  type: 'test'
+  ...
+# Subtest: scene-integrated assembly does not duplicate a selected location detail
+ok 610 - scene-integrated assembly does not duplicate a selected location detail
+  ---
+  duration_ms: 43.547375
+  type: 'test'
+  ...
+# Subtest: 1430 frozen cases permit only reviewed low-camera scene substitutions
+ok 611 - 1430 frozen cases permit only reviewed low-camera scene substitutions
+  ---
+  duration_ms: 14136.311125
+  type: 'test'
+  ...
+# Subtest: Saved Cards retain six texts; Markdown exports six and restores the established three primary texts
+ok 612 - Saved Cards retain six texts; Markdown exports six and restores the established three primary texts
+  ---
+  duration_ms: 216.4645
+  type: 'test'
+  ...
+# Subtest: every authored reduction is traceable to the current catalog or exact reviewed Shibuya legacy source
+ok 613 - every authored reduction is traceable to the current catalog or exact reviewed Shibuya legacy source
+  ---
+  duration_ms: 20.368583
+  type: 'test'
+  ...
+# Subtest: camera height, not framing or word occurrence, owns the ground omission
+ok 614 - camera height, not framing or word occurrence, owns the ground omission
+  ---
+  duration_ms: 0.195625
+  type: 'test'
+  ...
+# Subtest: mixed fragments retain walls and ceilings; place identity and unknown source survive
+ok 615 - mixed fragments retain walls and ceilings; place identity and unknown source survive
+  ---
+  duration_ms: 0.069583
+  type: 'test'
+  ...
+# Subtest: downward cameras omit visible sky but preserve ambient state and light effects
+ok 616 - downward cameras omit visible sky but preserve ambient state and light effects
+  ---
+  duration_ms: 0.145333
+  type: 'test'
+  ...
+# Subtest: runtime merges filtered scene before subject and never backfills hidden source clauses
+ok 617 - runtime merges filtered scene before subject and never backfills hidden source clauses
+  ---
+  duration_ms: 138.304375
+  type: 'test'
+  ...
+# Subtest: indoor and street ground details are omitted, while unknown angle retains them
+ok 618 - indoor and street ground details are omitted, while unknown angle retains them
+  ---
+  duration_ms: 84.835875
+  type: 'test'
+  ...
+# Subtest: all ambient options keep valid source-only output and light direction remains untouched
+ok 619 - all ambient options keep valid source-only output and light direction remains untouched
+  ---
+  duration_ms: 369.384875
+  type: 'test'
+  ...
+# Subtest: Z-Image Turbo camera geometry covers all eight public orbit directions
+ok 620 - Z-Image Turbo camera geometry covers all eight public orbit directions
+  ---
+  duration_ms: 1.597334
+  type: 'test'
+  ...
+# Subtest: Z-Image Turbo camera geometry uses only crop-visible body anchors
+ok 621 - Z-Image Turbo camera geometry uses only crop-visible body anchors
+  ---
+  duration_ms: 0.985667
+  type: 'test'
+  ...
+# Subtest: left and right 90-degree side templates use mirrored image-edge and visible-side geometry
+ok 622 - left and right 90-degree side templates use mirrored image-edge and visible-side geometry
+  ---
+  duration_ms: 0.577667
+  type: 'test'
+  ...
+# Subtest: high and low camera positions use explicit camera subjects and crop-visible perspective evidence
+ok 623 - high and low camera positions use explicit camera subjects and crop-visible perspective evidence
+  ---
+  duration_ms: 0.36175
+  type: 'test'
+  ...
+# Subtest: high-angle families retain distinct soft distance cues for Z-Image crops
+ok 624 - high-angle families retain distinct soft distance cues for Z-Image crops
+  ---
+  duration_ms: 0.497833
+  type: 'test'
+  ...
+# Subtest: missing and none orbit selections do not invent camera geometry
+ok 625 - missing and none orbit selections do not invent camera geometry
+  ---
+  duration_ms: 0.094375
+  type: 'test'
+  ...
+# Subtest: dedicated special subjects use neutral camera geometry language
+ok 626 - dedicated special subjects use neutral camera geometry language
+  ---
+  duration_ms: 0.233042
+  type: 'test'
+  ...
+# Subtest: distance profiles are opt-in so excluded subject paths keep legacy camera wording
+ok 627 - distance profiles are opt-in so excluded subject paths keep legacy camera wording
+  ---
+  duration_ms: 0.125708
+  type: 'test'
+  ...
+# Subtest: Z-Image Turbo contract preserves the historical field and records the Magnific profile
+ok 628 - Z-Image Turbo contract preserves the historical field and records the Magnific profile
+  ---
+  duration_ms: 2.304084
+  type: 'test'
+  ...
+# Subtest: Z-Image Turbo keeps UI Chinese metadata outside the English public prompt
+ok 629 - Z-Image Turbo keeps UI Chinese metadata outside the English public prompt
+  ---
+  duration_ms: 1.178916
+  type: 'test'
+  ...
+# Subtest: Z-Image Turbo section model orders primary content before secondary imaging and measures length
+ok 630 - Z-Image Turbo section model orders primary content before secondary imaging and measures length
+  ---
+  duration_ms: 0.283458
+  type: 'test'
+  ...
+# Subtest: scene-integrated order is opt-in and leaves the default section contract intact
+ok 631 - scene-integrated order is opt-in and leaves the default section contract intact
+  ---
+  duration_ms: 0.14675
+  type: 'test'
+  ...
+# Subtest: original four approved sources retain their catalog IDs, identities and wording
+ok 632 - original four approved sources retain their catalog IDs, identities and wording
+  ---
+  duration_ms: 1.398958
+  type: 'test'
+  ...
+# Subtest: helper preserves empty/custom sources, ignores other angles, and is clause-idempotent
+ok 633 - helper preserves empty/custom sources, ignores other angles, and is clause-idempotent
+  ---
+  duration_ms: 0.506542
+  type: 'test'
+  ...
+# Subtest: four user-accepted waist-up B prompts match the test pack verbatim
+ok 634 - four user-accepted waist-up B prompts match the test pack verbatim
+  ---
+  duration_ms: 36.773167
+  type: 'test'
+  ...
+# Subtest: 230-case pre-change baseline: only approved low-camera main Z scene clauses change
+ok 635 - 230-case pre-change baseline: only approved low-camera main Z scene clauses change
+  ---
+  duration_ms: 4183.5745
+  type: 'test'
+  ...
+# Subtest: 14 approved additions bind exact catalog IDs and retain the four original records
+ok 636 - 14 approved additions bind exact catalog IDs and retain the four original records
+  ---
+  duration_ms: 1.437792
+  type: 'test'
+  ...
+# Subtest: 930 frozen cases permit only the 14 authored additions in eligible main Z openings
+ok 637 - 930 frozen cases permit only the 14 authored additions in eligible main Z openings
+  ---
+  duration_ms: 10029.6905
+  type: 'test'
+  ...
+# Subtest: all 14 additions preserve saved selections and exported text; legacy Markdown scene inference is unchanged
+ok 638 - all 14 additions preserve saved selections and exported text; legacy Markdown scene inference is unchanged
+  ---
+  duration_ms: 450.695459
+  type: 'test'
+  ...
+# Subtest: 405 explicitly selected non-target top cases preserve selection and all six output bytes
+ok 639 - 405 explicitly selected non-target top cases preserve selection and all six output bytes
+  ---
+  duration_ms: 2591.78975
+  type: 'test'
+  ...
+# Subtest: the existing tie-shirt identity fixes only the necktie black and declares its fabric color target
+ok 640 - the existing tie-shirt identity fixes only the necktie black and declares its fabric color target
+  ---
+  duration_ms: 0.229667
+  type: 'test'
+  ...
+# Subtest: no chosen color keeps an unspecified shirt fabric and exactly one black necktie per visible output
+ok 641 - no chosen color keeps an unspecified shirt fabric and exactly one black necktie per visible output
+  ---
+  duration_ms: 29.598625
+  type: 'test'
+  ...
+# Subtest: ordinary swatches color only shirt fabric, never the fixed black tie
+ok 642 - ordinary swatches color only shirt fabric, never the fixed black tie
+  ---
+  duration_ms: 18.796083
+  type: 'test'
+  ...
+# Subtest: special swatch finish and stripe detail remain confined to the authored shirt-fabric target
+ok 643 - special swatch finish and stripe detail remain confined to the authored shirt-fabric target
+  ---
+  duration_ms: 22.907125
+  type: 'test'
+  ...
+# Subtest: short fits retain the same black tie and fabric-only color across all six outputs
+ok 644 - short fits retain the same black tie and fabric-only color across all six outputs
+  ---
+  duration_ms: 7.81725
+  type: 'test'
+  ...
+# Subtest: visible crops retain the black tie while face-only crops do not reintroduce hidden wardrobe
+ok 645 - visible crops retain the black tie while face-only crops do not reintroduce hidden wardrobe
+  ---
+  duration_ms: 75.792375
+  type: 'test'
+  ...
+# Subtest: duo colors and short fits stay attached to their own shirt without recoloring either tie
+ok 646 - duo colors and short fits stay attached to their own shirt without recoloring either tie
+  ---
+  duration_ms: 15.871667
+  type: 'test'
+  ...
+# Subtest: closed opaque outerwear hides the entire inner shirt and tie without deleting its raw selection
+ok 647 - closed opaque outerwear hides the entire inner shirt and tie without deleting its raw selection
+  ---
+  duration_ms: 5.539333
+  type: 'test'
+  ...
+# Subtest: complete-look precedence does not acquire a hidden independent black tie
+ok 648 - complete-look precedence does not acquire a hidden independent black tie
+  ---
+  duration_ms: 33.923708
+  type: 'test'
+  ...
+# Subtest: the whole legacy English description still imports the original top and regenerates the new black tie
+ok 649 - the whole legacy English description still imports the original top and regenerates the new black tie
+  ---
+  duration_ms: 30.271667
+  type: 'test'
+  ...
+# Subtest: current shirt color and short fit prose imports without confusing black tie with top color
+ok 650 - current shirt color and short fit prose imports without confusing black tie with top color
+  ---
+  duration_ms: 65.698
+  type: 'test'
+  ...
+# Subtest: duo prose import restores each shirt color without treating either fixed tie as its fabric color
+ok 651 - duo prose import restores each shirt color without treating either fixed tie as its fabric color
+  ---
+  duration_ms: 24.969625
+  type: 'test'
+  ...
+# Subtest: Saved Cards keep stored historical text and stable IDs while regeneration uses the revised source
+ok 652 - Saved Cards keep stored historical text and stable IDs while regeneration uses the revised source
+  ---
+  duration_ms: 22.100666
+  type: 'test'
+  ...
+# Subtest: fixed composition controls expose fixed sets and fixed-set-only option groups
+ok 653 - fixed composition controls expose fixed sets and fixed-set-only option groups
+  ---
+  duration_ms: 23.312959
+  type: 'test'
+  ...
+# Subtest: outdoor fixed compositions add locked coastal road and stair sets with background state control
+ok 654 - outdoor fixed compositions add locked coastal road and stair sets with background state control
+  ---
+  duration_ms: 78.621167
+  type: 'test'
+  ...
+# Subtest: fixed composition capture mode and performance state can be set to none
+ok 655 - fixed composition capture mode and performance state can be set to none
+  ---
+  duration_ms: 13.421709
+  type: 'test'
+  ...
+# Subtest: sofa fixed composition keeps flexible camera angle and orbit while overriding normal location, PAGE3 import, framing, lens, and optical effect
+ok 656 - sofa fixed composition keeps flexible camera angle and orbit while overriding normal location, PAGE3 import, framing, lens, and optical effect
+  ---
+  duration_ms: 11.106959
+  type: 'test'
+  ...
+# Subtest: black velvet industrial sofa fixed composition shares sofa placement controls with distinct set anchors
+ok 657 - black velvet industrial sofa fixed composition shares sofa placement controls with distinct set anchors
+  ---
+  duration_ms: 14.955875
+  type: 'test'
+  ...
+# Subtest: Gpt fixed composition scene uses full-fidelity three-paragraph self-shot format
+ok 658 - Gpt fixed composition scene uses full-fidelity three-paragraph self-shot format
+  ---
+  duration_ms: 14.697542
+  type: 'test'
+  ...
+# Subtest: Gpt fixed composition preserves full-fidelity sofa set and interaction wording
+ok 659 - Gpt fixed composition preserves full-fidelity sofa set and interaction wording
+  ---
+  duration_ms: 9.61925
+  type: 'test'
+  ...
+# Subtest: Gpt fixed composition preserves full-fidelity hotel window guards
+ok 660 - Gpt fixed composition preserves full-fidelity hotel window guards
+  ---
+  duration_ms: 10.822833
+  type: 'test'
+  ...
+# Subtest: Gpt fixed composition preserves bathtub and outdoor full-fidelity guards
+ok 661 - Gpt fixed composition preserves bathtub and outdoor full-fidelity guards
+  ---
+  duration_ms: 25.044666
+  type: 'test'
+  ...
+# Subtest: Grok Z-Image and AI fixed composition scene use compact model-specific wording
+ok 662 - Grok Z-Image and AI fixed composition scene use compact model-specific wording
+  ---
+  duration_ms: 8.751583
+  type: 'test'
+  ...
+# Subtest: hotel and bathtub fixed compositions preserve camera angle and orbit locks
+ok 663 - hotel and bathtub fixed compositions preserve camera angle and orbit locks
+  ---
+  duration_ms: 26.531208
+  type: 'test'
+  ...
+# Subtest: hotel window fixed composition uses shared real-scale set structure and free interaction placement
+ok 664 - hotel window fixed composition uses shared real-scale set structure and free interaction placement
+  ---
+  duration_ms: 29.658
+  type: 'test'
+  ...
+# Subtest: Fuji hotel fixed compositions share hotel placement controls and seasonal landscape anchors
+ok 665 - Fuji hotel fixed compositions share hotel placement controls and seasonal landscape anchors
+  ---
+  duration_ms: 29.116209
+  type: 'test'
+  ...
+# Subtest: self-shot fixed composition mode relaxes set, focus, face, and wardrobe completeness guards
+ok 666 - self-shot fixed composition mode relaxes set, focus, face, and wardrobe completeness guards
+  ---
+  duration_ms: 16.526583
+  type: 'test'
+  ...
+# Subtest: fixed composition prompts reinforce set anchors while allowing self-shot fragments
+ok 667 - fixed composition prompts reinforce set anchors while allowing self-shot fragments
+  ---
+  duration_ms: 15.790167
+  type: 'test'
+  ...
+# Subtest: bathtub fixed composition keeps a frontal wall plane and sink mirror interaction anchors
+ok 668 - bathtub fixed composition keeps a frontal wall plane and sink mirror interaction anchors
+  ---
+  duration_ms: 15.153583
+  type: 'test'
+  ...
+# Subtest: fixed composition sets are ignored for duo mode in V1
+ok 669 - fixed composition sets are ignored for duo mode in V1
+  ---
+  duration_ms: 25.197334
+  type: 'test'
+  ...
+# Subtest: five protected output hashes match the pre-natural-MJ capture for mirror and untouched capture modes
+ok 670 - five protected output hashes match the pre-natural-MJ capture for mirror and untouched capture modes
+  ---
+  duration_ms: 138.804917
+  type: 'test'
+  ...
+# Subtest: mirror selfie is a manual prop with its stable ID and unchanged English source
+ok 671 - mirror selfie is a manual prop with its stable ID and unchanged English source
+  ---
+  duration_ms: 0.215209
+  type: 'test'
+  ...
+# Subtest: mirror selfie is offered by 拍攝方式, not by the retired hand or prop pickers
+ok 672 - mirror selfie is offered by 拍攝方式, not by the retired hand or prop pickers
+  ---
+  duration_ms: 10.350125
+  type: 'test'
+  ...
+# Subtest: legacy mirror hand locks migrate without mutating the caller and remain idempotent
+ok 673 - legacy mirror hand locks migrate without mutating the caller and remain idempotent
+  ---
+  duration_ms: 14.1535
+  type: 'test'
+  ...
+# Subtest: an existing explicit prop wins over the legacy mirror hand or special action
+ok 674 - an existing explicit prop wins over the legacy mirror hand or special action
+  ---
+  duration_ms: 30.961583
+  type: 'test'
+  ...
+# Subtest: all retired mirror social pose IDs and mirror special action migrate to the prop
+ok 675 - all retired mirror social pose IDs and mirror special action migrate to the prop
+  ---
+  duration_ms: 3.030625
+  type: 'test'
+  ...
+# Subtest: unchanged English imports resolve to the prop and retain a single source
+ok 676 - unchanged English imports resolve to the prop and retain a single source
+  ---
+  duration_ms: 90.933667
+  type: 'test'
+  ...
+# Subtest: Saved Cards preserve stored prompt text and migrate only normalized old selections
+ok 677 - Saved Cards preserve stored prompt text and migrate only normalized old selections
+  ---
+  duration_ms: 68.620166
+  type: 'test'
+  ...
+# Subtest: mirror prop is manually available for five posture bases and every lying orientation
+ok 678 - mirror prop is manually available for five posture bases and every lying orientation
+  ---
+  duration_ms: 1.112292
+  type: 'test'
+  ...
+# Subtest: legacy and new mirror locks produce byte-identical six outputs across crops and posture
+ok 679 - legacy and new mirror locks produce byte-identical six outputs across crops and posture
+  ---
+  duration_ms: 558.157625
+  type: 'test'
+  ...
+# Subtest: mirror prop locks orbit and relocates the same visible source only once in main Z capture
+ok 680 - mirror prop locks orbit and relocates the same visible source only once in main Z capture
+  ---
+  duration_ms: 9.278041
+  type: 'test'
+  ...
+# Subtest: tight main crops omit mirror text while chest derivatives reproject the saved source
+ok 681 - tight main crops omit mirror text while chest derivatives reproject the saved source
+  ---
+  duration_ms: 13.930917
+  type: 'test'
+  ...
+# Subtest: mirror remains excluded from randomized hand and prop pools
+ok 682 - mirror remains excluded from randomized hand and prop pools
+  ---
+  duration_ms: 249.096875
+  type: 'test'
+  ...
+# Subtest: pose panel and global batch randomness preserve an explicitly chosen mirror selfie style
+ok 683 - pose panel and global batch randomness preserve an explicitly chosen mirror selfie style
+  ---
+  duration_ms: 23.179958
+  type: 'test'
+  ...
+# Subtest: new manual four-point edits bind support and cannot be taken over by mirror prop
+ok 684 - new manual four-point edits bind support and cannot be taken over by mirror prop
+  ---
+  duration_ms: 69.19375
+  type: 'test'
+  ...
+# Subtest: random prop requests preserve required four-point support and never choose the manual mirror prop
+ok 685 - random prop requests preserve required four-point support and never choose the manual mirror prop
+  ---
+  duration_ms: 151.667334
+  type: 'test'
+  ...
+# Subtest: fixed carriage pose takeover suppresses mirror text in either storage layer
+ok 686 - fixed carriage pose takeover suppresses mirror text in either storage layer
+  ---
+  duration_ms: 21.181875
+  type: 'test'
+  ...
+# Subtest: supine surface-led mirror source remains identical through hand-to-prop relocation
+ok 687 - supine surface-led mirror source remains identical through hand-to-prop relocation
+  ---
+  duration_ms: 45.513583
+  type: 'test'
+  ...
+# Subtest: natural selfie and scrolling keep their distinct sources and classification
+ok 688 - natural selfie and scrolling keep their distinct sources and classification
+  ---
+  duration_ms: 7.199333
+  type: 'test'
+  ...
+# Subtest: optional none preserves each companion selection without replacement
+ok 689 - optional none preserves each companion selection without replacement
+  ---
+  duration_ms: 88.6735
+  type: 'test'
+  ...
+# Subtest: none scene and lighting produce no main scene or lighting fallback
+ok 690 - none scene and lighting produce no main scene or lighting fallback
+  ---
+  duration_ms: 20.836125
+  type: 'test'
+  ...
+# Subtest: retired PAGE1 ratio does not randomly set new prompt proportions
+ok 691 - retired PAGE1 ratio does not randomly set new prompt proportions
+  ---
+  duration_ms: 15.96275
+  type: 'test'
+  ...
+# Subtest: empty single and duo optional sections remain contract-valid
+ok 692 - empty single and duo optional sections remain contract-valid
+  ---
+  duration_ms: 21.856333
+  type: 'test'
+  ...
+# Subtest: silence selections survive Saved Cards and Markdown restore
+ok 693 - silence selections survive Saved Cards and Markdown restore
+  ---
+  duration_ms: 58.558125
+  type: 'test'
+  ...
+# Subtest: dedupeRepeatedCommaFragments removes only exact repeated accessory fragments
+ok 694 - dedupeRepeatedCommaFragments removes only exact repeated accessory fragments
+  ---
+  duration_ms: 0.923875
+  type: 'test'
+  ...
+# Subtest: dedupeExactPromptText removes exact repeated sentences and comma fragments only
+ok 695 - dedupeExactPromptText removes exact repeated sentences and comma fragments only
+  ---
+  duration_ms: 0.344792
+  type: 'test'
+  ...
+# Subtest: materializeOutfitColorControls replaces redundant target lists with explicit selected colors
+ok 696 - materializeOutfitColorControls replaces redundant target lists with explicit selected colors
+  ---
+  duration_ms: 0.306084
+  type: 'test'
+  ...
+# Subtest: generated prompts state a controlled outfit color without repeating its garment target phrases
+ok 697 - generated prompts state a controlled outfit color without repeating its garment target phrases
+  ---
+  duration_ms: 111.950666
+  type: 'test'
+  ...
+# Subtest: generated subject accessories remove an exact repeated visual accent once
+ok 698 - generated subject accessories remove an exact repeated visual accent once
+  ---
+  duration_ms: 21.488
+  type: 'test'
+  ...
+# Subtest: 正面強硬光 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings
+ok 699 - 正面強硬光 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings
+  ---
+  duration_ms: 19.963333
+  type: 'test'
+  ...
+# Subtest: 機頂直閃 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings
+ok 700 - 機頂直閃 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings
+  ---
+  duration_ms: 9.8855
+  type: 'test'
+  ...
+# Subtest: 蝴蝶光 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings
+ok 701 - 蝴蝶光 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings
+  ---
+  duration_ms: 10.935958
+  type: 'test'
+  ...
+# Subtest: 倫勃朗光 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings
+ok 702 - 倫勃朗光 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings
+  ---
+  duration_ms: 14.937709
+  type: 'test'
+  ...
+# Subtest: 分割光 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings
+ok 703 - 分割光 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings
+  ---
+  duration_ms: 8.124458
+  type: 'test'
+  ...
+# Subtest: 下方硬質主光 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings
+ok 704 - 下方硬質主光 stays selectable as a full-body subject key in indoor, outdoor, day, night and studio settings
+  ---
+  duration_ms: 12.806458
+  type: 'test'
+  ...
+# Subtest: independent subject-key compatibility fails closed when the authored source changes without repinning
+ok 705 - independent subject-key compatibility fails closed when the authored source changes without repinning
+  ---
+  duration_ms: 25.695125
+  type: 'test'
+  ...
+# Subtest: source marker does not grant arbitrary or existing lights the independent-key exemption
+ok 706 - source marker does not grant arbitrary or existing lights the independent-key exemption
+  ---
+  duration_ms: 61.346833
+  type: 'test'
+  ...
+# Subtest: independent-key exemptions retain authored indoor/outdoor scope boundaries
+ok 707 - independent-key exemptions retain authored indoor/outdoor scope boundaries
+  ---
+  duration_ms: 443.319
+  type: 'test'
+  ...
+# Subtest: new subject keys do not widen old portrait, sun, projection or high-key compatibility rules
+ok 708 - new subject keys do not widen old portrait, sun, projection or high-key compatibility rules
+  ---
+  duration_ms: 4.269625
+  type: 'test'
+  ...
+# Subtest: six subject lights append stable ids without changing the previous 26 choices
+ok 709 - six subject lights append stable ids without changing the previous 26 choices
+  ---
+  duration_ms: 1.473958
+  type: 'test'
+  ...
+# Subtest: six additions describe only subject light and keep their distinctive geometry first
+ok 710 - six additions describe only subject light and keep their distinctive geometry first
+  ---
+  duration_ms: 0.716625
+  type: 'test'
+  ...
+# Subtest: 正面強硬光 retains the same selected light in main and chest outputs without changing the character reference
+ok 711 - 正面強硬光 retains the same selected light in main and chest outputs without changing the character reference
+  ---
+  duration_ms: 33.99925
+  type: 'test'
+  ...
+# Subtest: 正面強硬光 survives full-source text refill and saved-selection restore
+ok 712 - 正面強硬光 survives full-source text refill and saved-selection restore
+  ---
+  duration_ms: 21.362
+  type: 'test'
+  ...
+# Subtest: 機頂直閃 retains the same selected light in main and chest outputs without changing the character reference
+ok 713 - 機頂直閃 retains the same selected light in main and chest outputs without changing the character reference
+  ---
+  duration_ms: 7.133292
+  type: 'test'
+  ...
+# Subtest: 機頂直閃 survives full-source text refill and saved-selection restore
+ok 714 - 機頂直閃 survives full-source text refill and saved-selection restore
+  ---
+  duration_ms: 15.721416
+  type: 'test'
+  ...
+# Subtest: 蝴蝶光 retains the same selected light in main and chest outputs without changing the character reference
+ok 715 - 蝴蝶光 retains the same selected light in main and chest outputs without changing the character reference
+  ---
+  duration_ms: 5.776083
+  type: 'test'
+  ...
+# Subtest: 蝴蝶光 survives full-source text refill and saved-selection restore
+ok 716 - 蝴蝶光 survives full-source text refill and saved-selection restore
+  ---
+  duration_ms: 26.361666
+  type: 'test'
+  ...
+# Subtest: 倫勃朗光 retains the same selected light in main and chest outputs without changing the character reference
+ok 717 - 倫勃朗光 retains the same selected light in main and chest outputs without changing the character reference
+  ---
+  duration_ms: 6.459083
+  type: 'test'
+  ...
+# Subtest: 倫勃朗光 survives full-source text refill and saved-selection restore
+ok 718 - 倫勃朗光 survives full-source text refill and saved-selection restore
+  ---
+  duration_ms: 17.556125
+  type: 'test'
+  ...
+# Subtest: 分割光 retains the same selected light in main and chest outputs without changing the character reference
+ok 719 - 分割光 retains the same selected light in main and chest outputs without changing the character reference
+  ---
+  duration_ms: 11.924
+  type: 'test'
+  ...
+# Subtest: 分割光 survives full-source text refill and saved-selection restore
+ok 720 - 分割光 survives full-source text refill and saved-selection restore
+  ---
+  duration_ms: 23.413375
+  type: 'test'
+  ...
+# Subtest: 下方硬質主光 retains the same selected light in main and chest outputs without changing the character reference
+ok 721 - 下方硬質主光 retains the same selected light in main and chest outputs without changing the character reference
+  ---
+  duration_ms: 10.037167
+  type: 'test'
+  ...
+# Subtest: 下方硬質主光 survives full-source text refill and saved-selection restore
+ok 722 - 下方硬質主光 survives full-source text refill and saved-selection restore
+  ---
+  duration_ms: 17.693084
+  type: 'test'
+  ...
+# Subtest: subject-light none remains silent without replacing the character-reference lighting policy
+ok 723 - subject-light none remains silent without replacing the character-reference lighting policy
+  ---
+  duration_ms: 18.464292
+  type: 'test'
+  ...
+# Subtest: frontal key and camera-axis flash do not turn back or side views toward the camera
+ok 724 - frontal key and camera-axis flash do not turn back or side views toward the camera
+  ---
+  duration_ms: 36.258917
+  type: 'test'
+  ...
+# Subtest: fixed Japanese carriage smoke retains each newly selected shared light source
+ok 725 - fixed Japanese carriage smoke retains each newly selected shared light source
+  ---
+  duration_ms: 51.130125
+  type: 'test'
+  ...
+# Subtest: duo smoke uses the same subject-light source without inventing a second lighting setup
+ok 726 - duo smoke uses the same subject-light source without inventing a second lighting setup
+  ---
+  duration_ms: 57.091333
+  type: 'test'
+  ...
+# Subtest: Z-Image Turbo keeps the historical zImagePrompt field while PAGE1 displays Z-Image
+ok 727 - Z-Image Turbo keeps the historical zImagePrompt field while PAGE1 displays Z-Image
+  ---
+  duration_ms: 52.017084
+  type: 'test'
+  ...
+# Subtest: Z-Image exact visible text is opt-in, source-exact, and isolated from other outputs
+ok 728 - Z-Image exact visible text is opt-in, source-exact, and isolated from other outputs
+  ---
+  duration_ms: 24.477458
+  type: 'test'
+  ...
+# Subtest: Z-Image Turbo single prompt uses direct visual paragraphs in priority order
+ok 729 - Z-Image Turbo single prompt uses direct visual paragraphs in priority order
+  ---
+  duration_ms: 12.361542
+  type: 'test'
+  ...
+# Subtest: Z-Image Turbo keeps a strict right-side seated body when the canonical head turns to camera
+ok 730 - Z-Image Turbo keeps a strict right-side seated body when the canonical head turns to camera
+  ---
+  duration_ms: 59.195375
+  type: 'test'
+  ...
+# Subtest: Z-Image Turbo retains the ornate velvet armchair across every explicit shoe choice
+ok 731 - Z-Image Turbo retains the ornate velvet armchair across every explicit shoe choice
+  ---
+  duration_ms: 303.755291
+  type: 'test'
+  ...
+# Subtest: Z-Image and Midjourney preserve explicitly selected clothing fit anchors
+ok 732 - Z-Image and Midjourney preserve explicitly selected clothing fit anchors
+  ---
+  duration_ms: 20.724833
+  type: 'test'
+  ...
+# Subtest: Z-Image and Midjourney do not invent a fit anchor when the fit is explicitly unset
+ok 733 - Z-Image and Midjourney do not invent a fit anchor when the fit is explicitly unset
+  ---
+  duration_ms: 12.503417
+  type: 'test'
+  ...
+# Subtest: Z-Image Turbo adds side-view depth for the tested two-hand waistband action without rewriting the canonical pose
+ok 734 - Z-Image Turbo adds side-view depth for the tested two-hand waistband action without rewriting the canonical pose
+  ---
+  duration_ms: 4.934083
+  type: 'test'
+  ...
+# Subtest: Z-Image Turbo keeps the upward waist adjustment garment-neutral in canonical and side-depth text
+ok 735 - Z-Image Turbo keeps the upward waist adjustment garment-neutral in canonical and side-depth text
+  ---
+  duration_ms: 4.782625
+  type: 'test'
+  ...
+# Subtest: Z-Image Turbo uses neutral camera geometry for a dedicated special subject
+ok 736 - Z-Image Turbo uses neutral camera geometry for a dedicated special subject
+  ---
+  duration_ms: 12.185667
+  type: 'test'
+  ...
+# Subtest: Z-Image Turbo duo prompt removes Grok-style labels and internal control wording
+ok 737 - Z-Image Turbo duo prompt removes Grok-style labels and internal control wording
+  ---
+  duration_ms: 16.018208
+  type: 'test'
+  ...
+# Subtest: Z-Image Turbo character cards use the four permanent anchors once without lock language
+ok 738 - Z-Image Turbo character cards use the four permanent anchors once without lock language
+  ---
+  duration_ms: 8.25425
+  type: 'test'
+  ...
+# Subtest: PAGE2 exposes the Z-Image name and direct Character Card prompt
+ok 739 - PAGE2 exposes the Z-Image name and direct Character Card prompt
+  ---
+  duration_ms: 0.763167
+  type: 'test'
+  ...
+# Subtest: Z-Image Turbo fixed composition becomes concrete spatial description without instruction guards
+ok 740 - Z-Image Turbo fixed composition becomes concrete spatial description without instruction guards
+  ---
+  duration_ms: 12.991375
+  type: 'test'
+  ...
+# Subtest: imported summaries omit dormant duo fields and use the same resolved person
+ok 741 - imported summaries omit dormant duo fields and use the same resolved person
+  ---
+  duration_ms: 66.239459
+  type: 'test'
+  ...
+# Subtest: full-body import captures resolved data, colors and original settings without altering the source
+ok 742 - full-body import captures resolved data, colors and original settings without altering the source
+  ---
+  duration_ms: 29.052667
+  type: 'test'
+  ...
+# Subtest: capture reroll preserves imported identity, wardrobe and full-body output across seeds
+ok 743 - capture reroll preserves imported identity, wardrobe and full-body output across seeds
+  ---
+  duration_ms: 226.607833
+  type: 'test'
+  ...
+# Subtest: six outputs survive JSON, markdown and reload while dormant standard choices are preserved
+ok 744 - six outputs survive JSON, markdown and reload while dormant standard choices are preserved
+  ---
+  duration_ms: 143.765208
+  type: 'test'
+  ...
+# Subtest: missing source cannot generate, reimport is explicit, and unsupported sources cannot be used
+ok 745 - missing source cannot generate, reimport is explicit, and unsupported sources cannot be used
+  ---
+  duration_ms: 82.113542
+  type: 'test'
+  ...
+# Subtest: explicit face, skin, hair and body survive import; main GPT body omission and full-body retention remain
+ok 746 - explicit face, skin, hair and body survive import; main GPT body omission and full-body retention remain
+  ---
+  duration_ms: 25.078958
+  type: 'test'
+  ...
+# Subtest: none stays silent, close-up source retains hidden clothing and source snapshots are immutable copies
+ok 747 - none stays silent, close-up source retains hidden clothing and source snapshots are immutable copies
+  ---
+  duration_ms: 32.633083
+  type: 'test'
+  ...
+# Subtest: imported source passes six-output contracts for every capture scene and supported framing
+ok 748 - imported source passes six-output contracts for every capture scene and supported framing
+  ---
+  duration_ms: 277.278625
+  type: 'test'
+  ...
+# Subtest: invalid imported records fail closed and card selection cannot leak into imported identity
+ok 749 - invalid imported records fail closed and card selection cannot leak into imported identity
+  ---
+  duration_ms: 19.653541
+  type: 'test'
+  ...
+# Subtest: capture solver respects fixed fields regardless of dependency order and randomizes only unlocked items
+ok 750 - capture solver respects fixed fields regardless of dependency order and randomizes only unlocked items
+  ---
+  duration_ms: 1.553375
+  type: 'test'
+  ...
+# Subtest: all sources remain reachable and hundreds of seeds satisfy the constraints
+ok 751 - all sources remain reachable and hundreds of seeds satisfy the constraints
+  ---
+  duration_ms: 11.758709
+  type: 'test'
+  ...
+# Subtest: invalid fixed selections and incompatible pairs block instead of silently replacing
+ok 752 - invalid fixed selections and incompatible pairs block instead of silently replacing
+  ---
+  duration_ms: 0.571083
+  type: 'test'
+  ...
+# Subtest: capture uses one source in four main outputs and chest, preserves raw locks and normal standing full body
+ok 753 - capture uses one source in four main outputs and chest, preserves raw locks and normal standing full body
+  ---
+  duration_ms: 53.39125
+  type: 'test'
+  ...
+# Subtest: capture blocks unavailable identity, duo, fixed scene and invalid saved combinations
+ok 754 - capture blocks unavailable identity, duo, fixed scene and invalid saved combinations
+  ---
+  duration_ms: 0.438042
+  type: 'test'
+  ...
+# Subtest: ordinary selections keep their historic shape
+ok 755 - ordinary selections keep their historic shape
+  ---
+  duration_ms: 8.242334
+  type: 'test'
+  ...
+# Subtest: every action preserves canonical source in all main outputs; chest projects feet and full-body stays independent
+ok 756 - every action preserves canonical source in all main outputs; chest projects feet and full-body stays independent
+  ---
+  duration_ms: 120.77925
+  type: 'test'
+  ...
+# Subtest: GPT retains complete effective capture sources without the character card photographic direction
+ok 757 - GPT retains complete effective capture sources without the character card photographic direction
+  ---
+  duration_ms: 235.756917
+  type: 'test'
+  ...
+# Subtest: capture reroll preserves resolved character and current wardrobe; changing modes preserves dormant selections
+ok 758 - capture reroll preserves resolved character and current wardrobe; changing modes preserves dormant selections
+  ---
+  duration_ms: 42.518208
+  type: 'test'
+  ...
+# Subtest: saved and exported capture survives the existing codec without rewriting historical prompt text
+ok 759 - saved and exported capture survives the existing codec without rewriting historical prompt text
+  ---
+  duration_ms: 74.437875
+  type: 'test'
+  ...
+# Subtest: capture fixture matrix passes all six public output contracts
+ok 760 - capture fixture matrix passes all six public output contracts
+  ---
+  duration_ms: 88.281375
+  type: 'test'
+  ...
+# Subtest: PAGE1 single output consumers expose three primary and two fixed-framing prompts in one order
+ok 761 - PAGE1 single output consumers expose three primary and two fixed-framing prompts in one order
+  ---
+  duration_ms: 148.49325
+  type: 'test'
+  ...
+# Subtest: PAGE1 duo output consumers omit every single-subject fixed-framing prompt
+ok 762 - PAGE1 duo output consumers omit every single-subject fixed-framing prompt
+  ---
+  duration_ms: 27.714875
+  type: 'test'
+  ...
+# Subtest: Nano Banana output adds one exact main source before fixed-framing extras without changing legacy sources
+ok 763 - Nano Banana output adds one exact main source before fixed-framing extras without changing legacy sources
+  ---
+  duration_ms: 17.888292
+  type: 'test'
+  ...
+# Subtest: Nano Banana output is optional for legacy, blank and duo records
+ok 764 - Nano Banana output is optional for legacy, blank and duo records
+  ---
+  duration_ms: 28.399541
+  type: 'test'
+  ...
+1..764
+# tests 764
+# suites 0
+# pass 764
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 84588.417625

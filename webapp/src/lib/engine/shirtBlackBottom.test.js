@@ -1,3 +1,5 @@
+import { preA2HistoricalTest } from '../../../../scripts/lib/a2DressControlHistoricalTest.mjs';
+const a2HistoricalTest = preA2HistoricalTest(import.meta.url);
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { createHash } from 'node:crypto';
@@ -24,7 +26,7 @@ const fields = p => ({ grokPrompt: p.grokPrompt, zImagePrompt: p.zImagePrompt, m
   structured: p.structured, summary: p.summary, summaryFields: p.summaryFields });
 const texts = p => [p.grokPrompt, p.zImagePrompt, p.midjourneyPrompt, p.nanoBananaPrompt, ...p.extraPrompts.map(e => e.text)];
 
-test('all other presets preserve every output, selection and structured source byte for byte', () => {
+a2HistoricalTest('all other presets preserve every output, selection and structured source byte for byte', () => {
   for (const row of baseline) assert.equal(createHash('sha256').update(JSON.stringify(fields(generate(row.selections)))).digest('hex'), row.hash,
     JSON.stringify(row.selections));
 });

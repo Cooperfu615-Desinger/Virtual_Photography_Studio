@@ -605,7 +605,7 @@ test('reference dress entries describe garments without accessory or shoe detail
     });
 
     assert.doesNotMatch(text, /sandals|shoes|bag|bracelet|necklace|choker|cuff|earrings|bracelets|手環|項鍊|鞋|包|耳環/i);
-    assert.match(text, /controlled by dress color selection/i);
+    assert.doesNotMatch(text, /controlled by dress color selection/i);
   });
 });
 
@@ -620,7 +620,7 @@ test('zippered latex mini dress preserves collared short sleeves and default low
   assert.match(text, /zipper slider at navel level and the front zipped closed below it/i);
   assert.doesNotMatch(text, /exposing the cleavage and a vertical strip/i);
   assert.doesNotMatch(text, /navel piercing|臍環/i);
-  assert.match(text, /controlled by dress color selection/i);
+  assert.doesNotMatch(text, /controlled by dress color selection/i);
   assert.doesNotMatch(text, /white|glasses|earrings|stockings|kitchen|coffee maker/i);
   assert.equal(dress.meta.referenceImageId, 'dresses-024');
   assert.equal(dress.meta.referenceImage, 'reference/wardrobe/dresses/50_短版亮面乳膠拉鏈洋裝.avif');

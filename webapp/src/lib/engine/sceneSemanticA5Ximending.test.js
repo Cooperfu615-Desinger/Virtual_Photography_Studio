@@ -1,3 +1,5 @@
+import { preA2HistoricalTest } from '../../../../scripts/lib/a2DressControlHistoricalTest.mjs';
+const a2HistoricalTest = preA2HistoricalTest(import.meta.url);
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -17,7 +19,7 @@ const locks = { ...createEmptyLocks(), subjectCount: '1', sceneAttributeId: 'out
 const ids = list => list.map(x => x.id);
 const beforeLibrary = () => prepareImmutableRuntimeLibrary(preXimendingDatabase());
 const run = (input, library, seed = 'ximending-0') => { let draws = 0; const rand = createSeededRandom(seed); const p = generatePrompts(1, input, library, { random: () => { draws++; return rand(); } })[0]; return { p, draws }; };
-test('Ximending removes exactly green_space; complete database and formal source match pinned Git plus one change', () => {
+a2HistoricalTest('Ximending removes exactly green_space; complete database and formal source match pinned Git plus one change', () => {
   assert.deepEqual(find(source).meta.semantic.tags, r.afterTags);
   const expected = JSON.parse(historicalGit('show', r.baseCommit + ':webapp/src/data/database.json'));
   assert.deepEqual(find(expected), r.generatedBefore);
@@ -33,7 +35,7 @@ test('parking explains legacy park match; explicit semantics and default cache r
   assert.deepEqual(tags(legacy), r.beforeTags); find(legacy).en = find(legacy).en.replace('scooter parking fragment', 'scooter standing area');
   assert.deepEqual(tags(legacy), r.afterTags); assert.deepEqual(tags(source), r.afterTags); assert.equal(JSON.stringify(getKnowledgeBaseSnapshot()), bytes);
 });
-test('exact inverse rejects extra/reordered tags, text, aliases, missing and duplicate IDs; all four layers restore pre-A5', () => {
+a2HistoricalTest('exact inverse rejects extra/reordered tags, text, aliases, missing and duplicate IDs; all four layers restore pre-A5', () => {
   const bytes = JSON.stringify(source);
   assert.deepEqual(preXimendingDatabase(), JSON.parse(historicalGit('show', r.baseCommit + ':webapp/src/data/database.json')));
   assert.deepEqual(preAllA5Database(), JSON.parse(historicalGit('show', 'a9dd3616bc6596cdb199420f3189a420c6f1ed17:webapp/src/data/database.json')));

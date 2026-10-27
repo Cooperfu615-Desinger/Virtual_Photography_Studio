@@ -1,0 +1,55 @@
+{
+  "baseCommit": "4e35912f82280c058d0c86b6de3f44fcb019f9df",
+  "status": "local-acceptance-passed",
+  "frontend": {
+    "passed": 1855,
+    "failed": 0
+  },
+  "promptQuality": {
+    "passed": 763,
+    "failed": 0
+  },
+  "python": {
+    "passed": 41,
+    "failed": 0
+  },
+  "catalogTools": {
+    "passed": 32,
+    "failed": 0
+  },
+  "independentOracle": {
+    "cases": 3545,
+    "mismatches": 0
+  },
+  "historicalReplay": "A1 and four A5 original tools passed; sealed architecture tests passed in full frontend suite",
+  "lint": "passed",
+  "build": "passed with existing chunk size warning",
+  "sync": "8 generated files match",
+  "registry": "1050 issued IDs preserved",
+  "strict": "0 blocking; 0 stale; 2 existing exceptions",
+  "audit": "200 same seed; 0 blocking; 18 unchanged diagnostics",
+  "browser": {
+    "checks": 44,
+    "screenshots": 18,
+    "viewports": [
+      [
+        1440,
+        1000
+      ],
+      [
+        390,
+        900
+      ]
+    ],
+    "externalPosts": 0,
+    "errors": 0,
+    "visuallyReviewed": true
+  },
+  "otherWorktrees": 20,
+  "otherProtectedFiles": 140,
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "newCiRun": false,
+  "service5175": "stopped after acceptance"
+}

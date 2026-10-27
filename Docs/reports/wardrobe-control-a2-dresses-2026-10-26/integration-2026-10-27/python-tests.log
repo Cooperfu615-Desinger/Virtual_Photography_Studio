@@ -1,0 +1,145 @@
+EEEEEEEEE............E...................
+======================================================================
+ERROR: test_check_readonly_idempotent_and_all_eight_outputs (test_catalog_cutover.FormalSourceTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/vps-a2-delivery-qp6lo0g0/scripts/tests/test_catalog_cutover.py", line 32, in setUp
+    git('init'); git('config', 'user.email', 'fixture@example.invalid'); git('config', 'user.name', 'Fixture')
+  File "/private/tmp/vps-a2-delivery-qp6lo0g0/scripts/tests/test_catalog_cutover.py", line 31, in git
+    return subprocess.check_output(['git', '-C', str(self.root), *args], stderr=subprocess.DEVNULL, text=True).strip()
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 424, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', '-C', '/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/tmpmqvp7__d', 'init']' returned non-zero exit status 128.
+
+======================================================================
+ERROR: test_last_source_failure_leaves_all_outputs_unchanged (test_catalog_cutover.FormalSourceTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/vps-a2-delivery-qp6lo0g0/scripts/tests/test_catalog_cutover.py", line 32, in setUp
+    git('init'); git('config', 'user.email', 'fixture@example.invalid'); git('config', 'user.name', 'Fixture')
+  File "/private/tmp/vps-a2-delivery-qp6lo0g0/scripts/tests/test_catalog_cutover.py", line 31, in git
+    return subprocess.check_output(['git', '-C', str(self.root), *args], stderr=subprocess.DEVNULL, text=True).strip()
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 424, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', '-C', '/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/tmph5uhh50p', 'init']' returned non-zero exit status 128.
+
+======================================================================
+ERROR: test_legacy_source_failure_leaves_all_eight_outputs_unchanged (test_catalog_cutover.FormalSourceTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/vps-a2-delivery-qp6lo0g0/scripts/tests/test_catalog_cutover.py", line 32, in setUp
+    git('init'); git('config', 'user.email', 'fixture@example.invalid'); git('config', 'user.name', 'Fixture')
+  File "/private/tmp/vps-a2-delivery-qp6lo0g0/scripts/tests/test_catalog_cutover.py", line 31, in git
+    return subprocess.check_output(['git', '-C', str(self.root), *args], stderr=subprocess.DEVNULL, text=True).strip()
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 424, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', '-C', '/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/tmpy6hkprkj', 'init']' returned non-zero exit status 128.
+
+======================================================================
+ERROR: test_manifest_stale_name_fails_before_outputs (test_catalog_cutover.FormalSourceTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/vps-a2-delivery-qp6lo0g0/scripts/tests/test_catalog_cutover.py", line 32, in setUp
+    git('init'); git('config', 'user.email', 'fixture@example.invalid'); git('config', 'user.name', 'Fixture')
+  File "/private/tmp/vps-a2-delivery-qp6lo0g0/scripts/tests/test_catalog_cutover.py", line 31, in git
+    return subprocess.check_output(['git', '-C', str(self.root), *args], stderr=subprocess.DEVNULL, text=True).strip()
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 424, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', '-C', '/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/tmpj6kxnwv4', 'init']' returned non-zero exit status 128.
+
+======================================================================
+ERROR: test_missing_extra_duplicate_and_traversal_paths_rejected (test_catalog_cutover.FormalSourceTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/vps-a2-delivery-qp6lo0g0/scripts/tests/test_catalog_cutover.py", line 32, in setUp
+    git('init'); git('config', 'user.email', 'fixture@example.invalid'); git('config', 'user.name', 'Fixture')
+  File "/private/tmp/vps-a2-delivery-qp6lo0g0/scripts/tests/test_catalog_cutover.py", line 31, in git
+    return subprocess.check_output(['git', '-C', str(self.root), *args], stderr=subprocess.DEVNULL, text=True).strip()
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 424, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', '-C', '/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/tmpf1d7smh2', 'init']' returned non-zero exit status 128.
+
+======================================================================
+ERROR: test_overview_missing_duplicate_wrong_order_and_unsafe_output_rejected (test_catalog_cutover.FormalSourceTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/vps-a2-delivery-qp6lo0g0/scripts/tests/test_catalog_cutover.py", line 32, in setUp
+    git('init'); git('config', 'user.email', 'fixture@example.invalid'); git('config', 'user.name', 'Fixture')
+  File "/private/tmp/vps-a2-delivery-qp6lo0g0/scripts/tests/test_catalog_cutover.py", line 31, in git
+    return subprocess.check_output(['git', '-C', str(self.root), *args], stderr=subprocess.DEVNULL, text=True).strip()
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 424, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', '-C', '/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/tmpg26723wy', 'init']' returned non-zero exit status 128.
+
+======================================================================
+ERROR: test_real_source_metadata_management_files_and_order (test_catalog_cutover.FormalSourceTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/vps-a2-delivery-qp6lo0g0/scripts/tests/test_catalog_cutover.py", line 32, in setUp
+    git('init'); git('config', 'user.email', 'fixture@example.invalid'); git('config', 'user.name', 'Fixture')
+  File "/private/tmp/vps-a2-delivery-qp6lo0g0/scripts/tests/test_catalog_cutover.py", line 31, in git
+    return subprocess.check_output(['git', '-C', str(self.root), *args], stderr=subprocess.DEVNULL, text=True).strip()
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 424, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', '-C', '/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/tmp3_5vt9li', 'init']' returned non-zero exit status 128.
+
+======================================================================
+ERROR: test_registry_and_record_deletion_together_fails (test_catalog_cutover.FormalSourceTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/vps-a2-delivery-qp6lo0g0/scripts/tests/test_catalog_cutover.py", line 32, in setUp
+    git('init'); git('config', 'user.email', 'fixture@example.invalid'); git('config', 'user.name', 'Fixture')
+  File "/private/tmp/vps-a2-delivery-qp6lo0g0/scripts/tests/test_catalog_cutover.py", line 31, in git
+    return subprocess.check_output(['git', '-C', str(self.root), *args], stderr=subprocess.DEVNULL, text=True).strip()
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 424, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', '-C', '/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/tmpu8m_hrgy', 'init']' returned non-zero exit status 128.
+
+======================================================================
+ERROR: test_replace_failure_rolls_back_every_output (test_catalog_cutover.FormalSourceTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/vps-a2-delivery-qp6lo0g0/scripts/tests/test_catalog_cutover.py", line 32, in setUp
+    git('init'); git('config', 'user.email', 'fixture@example.invalid'); git('config', 'user.name', 'Fixture')
+  File "/private/tmp/vps-a2-delivery-qp6lo0g0/scripts/tests/test_catalog_cutover.py", line 31, in git
+    return subprocess.check_output(['git', '-C', str(self.root), *args], stderr=subprocess.DEVNULL, text=True).strip()
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 424, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', '-C', '/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/tmpfl4xkxzp', 'init']' returned non-zero exit status 128.
+
+======================================================================
+ERROR: test_real_git_history_missing_candidate_and_nonancestor (test_catalog_registry.RegistryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/vps-a2-delivery-qp6lo0g0/scripts/tests/test_catalog_registry.py", line 85, in test_real_git_history_missing_candidate_and_nonancestor
+    git('init','-q');git('config','user.name','Fixture');git('config','user.email','fixture@example.invalid')
+  File "/private/tmp/vps-a2-delivery-qp6lo0g0/scripts/tests/test_catalog_registry.py", line 84, in git
+    def git(*args):return subprocess.check_output(['git','-C',temp,*args],stderr=subprocess.PIPE).decode().strip()
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 424, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', '-C', '/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/tmph3hujl3c', 'init', '-q']' returned non-zero exit status 128.
+
+----------------------------------------------------------------------
+Ran 41 tests in 1.505s
+
+FAILED (errors=10)

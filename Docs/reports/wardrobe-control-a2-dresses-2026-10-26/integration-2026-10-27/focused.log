@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: A2 dresses change only reviewed control clauses and append exact old text aliases
+ok 1 - A2 dresses change only reviewed control clauses and append exact old text aliases
+  ---
+  duration_ms: 2.180375
+  type: 'test'
+  ...
+# Subtest: A2 all 24 dresses are free of selection controls across every crop and three colors in six outputs
+ok 2 - A2 all 24 dresses are free of selection controls across every crop and three colors in six outputs
+  ---
+  duration_ms: 5369.400167
+  type: 'test'
+  ...
+# Subtest: A2 every prior dress text and legacy ID resolves to the same issued option
+ok 3 - A2 every prior dress text and legacy ID resolves to the same issued option
+  ---
+  duration_ms: 401.450625
+  type: 'test'
+  ...
+# Subtest: A2 inverse rejects changed entries, missing or duplicate IDs and mixed migration states
+ok 4 - A2 inverse rejects changed entries, missing or duplicate IDs and mixed migration states
+  ---
+  duration_ms: 149.617042
+  type: 'test'
+  ...
+# Subtest: A2 video history accepts only the exact reviewed before or after tree and rejects missing, changed or mixed sources
+ok 5 - A2 video history accepts only the exact reviewed before or after tree and rejects missing, changed or mixed sources
+  ---
+  duration_ms: 1.271708
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6080.129333

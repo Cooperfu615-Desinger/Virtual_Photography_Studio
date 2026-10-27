@@ -1,0 +1,18 @@
+{
+  "otherWorktrees": 20,
+  "originalDirtyFiles": 140,
+  "mismatches": [],
+  "originalA2DeliveryFiles": 80,
+  "originalA2AmendedPaths": [
+    "Docs/current_project_state.md",
+    "Docs/decisions/2026-10-26-a2-dresses-control-language.md",
+    "Docs/reports/wardrobe-control-a2-dresses-2026-10-26/README.md",
+    "Docs/specs/wardrobe-control-a2-dresses-v1.md",
+    "scripts/lib/a2DressControlHistoricalReplay.mjs",
+    "scripts/wardrobe_control_a2_acceptance.mjs",
+    "scripts/wardrobe_control_a2_browser.mjs",
+    "webapp/src/lib/engine/dressControlLanguage.test.js"
+  ],
+  "validatedCodeAndDataMatch": true,
+  "mainBase": "e9983769e326ead175b381834c6e2df4fd02e28d"
+}

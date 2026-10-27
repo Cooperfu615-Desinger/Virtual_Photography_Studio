@@ -1,5 +1,7 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
+2026-10-26 A2 第一批：連身 24 筆移除資料中的色票控制句，前版全文追加為 legacy alias；Gpt 仍完整保留修訂後有效衣物來源，未改 renderer 的精簡／配色／投影。既有收藏原文和已匯入人物快照維持，重新生成或明確重新匯入採新來源。此批未處理套裝、特殊穿搭或 runtime 配色句。詳見 [A2 第一批規格](wardrobe-control-a2-dresses-v1.md)。
+
 2026-10-26 A1：角色卡主 GPT／GPT 胸上／全身角色照在卡名後補回 `identityAndBody` 原有成年身份開頭，再接既有結構化欄位；保留四錨點、body、衣著、所有排除路徑與收藏原文，不改 Z／MJ／Nano 或 PAGE2。詳見 [A1 規格](character-adult-identity-a1-v1.md)。
 
 2026-10-20 核准例外：兩套開扣襯衫的熱褲／包臀迷你裙固定黑色，套裝主色及完整造型配色只作用於襯衫。主 MJ 保留可見上衣主色與黑色下身名稱，其他套裝維持原規則；詳見 [開扣襯衫套裝固定黑色下身 v1](shirt-outfit-black-bottom-v1.md)。

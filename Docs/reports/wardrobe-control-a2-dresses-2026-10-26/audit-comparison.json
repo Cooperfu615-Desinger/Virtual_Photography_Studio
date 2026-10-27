@@ -1,0 +1,152 @@
+{
+  "seed": "prompt-quality-baseline",
+  "count": 200,
+  "excludedDynamicFields": [
+    "findings[].promptId"
+  ],
+  "sameCoverage": true,
+  "sameFindings": true,
+  "summary": {
+    "prompts": 200,
+    "promptsWithFindings": 17,
+    "logicIssues": 15,
+    "contractIssues": 0,
+    "exactDuplicateSignals": 0,
+    "nearDuplicateSignals": 3,
+    "leakageSignals": 0,
+    "contradictionSignals": 0,
+    "promptsWithLogicIssues": 14,
+    "promptsWithContractIssues": 0,
+    "promptsWithDuplicateSignals": 3,
+    "promptsWithLeakageSignals": 0,
+    "promptsWithContradictionSignals": 0,
+    "coverageIssues": 0,
+    "totalSignals": 18,
+    "blockingSignals": 0,
+    "diagnosticSignals": 18
+  },
+  "wordLengthsBefore": [
+    {
+      "key": "gpt",
+      "label": "Gpt",
+      "expected": 200,
+      "missing": 0,
+      "samples": 200,
+      "min": 242,
+      "max": 693,
+      "average": 483.285,
+      "median": 480,
+      "p95": 651
+    },
+    {
+      "key": "grokZImage",
+      "label": "Z-Image",
+      "expected": 200,
+      "missing": 0,
+      "samples": 200,
+      "min": 250,
+      "max": 468,
+      "average": 334.065,
+      "median": 333,
+      "p95": 402
+    },
+    {
+      "key": "ai",
+      "label": "AI",
+      "expected": 200,
+      "missing": 0,
+      "samples": 200,
+      "min": 115,
+      "max": 336,
+      "average": 190.335,
+      "median": 161,
+      "p95": 271
+    },
+    {
+      "key": "extra:chest-up-portrait",
+      "label": "胸上特寫照",
+      "expected": 187,
+      "missing": 0,
+      "samples": 187,
+      "min": 178,
+      "max": 427,
+      "average": 286.9197860962567,
+      "median": 273,
+      "p95": 385
+    },
+    {
+      "key": "extra:full-body-character",
+      "label": "全身角色照",
+      "expected": 187,
+      "missing": 0,
+      "samples": 187,
+      "min": 176,
+      "max": 362,
+      "average": 255.07486631016042,
+      "median": 250,
+      "p95": 313
+    }
+  ],
+  "wordLengthsAfter": [
+    {
+      "key": "gpt",
+      "label": "Gpt",
+      "expected": 200,
+      "missing": 0,
+      "samples": 200,
+      "min": 242,
+      "max": 693,
+      "average": 481.2,
+      "median": 477.5,
+      "p95": 650
+    },
+    {
+      "key": "grokZImage",
+      "label": "Z-Image",
+      "expected": 200,
+      "missing": 0,
+      "samples": 200,
+      "min": 250,
+      "max": 468,
+      "average": 334.065,
+      "median": 333,
+      "p95": 402
+    },
+    {
+      "key": "ai",
+      "label": "AI",
+      "expected": 200,
+      "missing": 0,
+      "samples": 200,
+      "min": 115,
+      "max": 336,
+      "average": 190.335,
+      "median": 161,
+      "p95": 271
+    },
+    {
+      "key": "extra:chest-up-portrait",
+      "label": "胸上特寫照",
+      "expected": 187,
+      "missing": 0,
+      "samples": 187,
+      "min": 178,
+      "max": 427,
+      "average": 284.6898395721925,
+      "median": 271,
+      "p95": 385
+    },
+    {
+      "key": "extra:full-body-character",
+      "label": "全身角色照",
+      "expected": 187,
+      "missing": 0,
+      "samples": 187,
+      "min": 168,
+      "max": 362,
+      "average": 252.84491978609626,
+      "median": 247,
+      "p95": 309
+    }
+  ]
+}

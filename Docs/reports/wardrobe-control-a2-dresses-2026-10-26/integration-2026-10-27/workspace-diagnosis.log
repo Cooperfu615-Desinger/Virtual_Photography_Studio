@@ -1,0 +1,2 @@
+TypeError: Cannot read properties of null (reading 'sources')
+    at file:///private/tmp/vps-a2-delivery-qp6lo0g0/scripts/diagnose_a2_workspace.mjs:113:47

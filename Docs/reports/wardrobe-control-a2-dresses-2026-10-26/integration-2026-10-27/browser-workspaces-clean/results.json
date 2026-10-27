@@ -1,0 +1,51 @@
+{
+  "url": "http://127.0.0.1:5176/Virtual_Photography_Studio/?dllAcceptance=1",
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      900
+    ]
+  ],
+  "checks": [
+    "empty Saved Cards",
+    "legacy card reload / restore / regenerate",
+    "character card apply to PAGE1",
+    "observation capture generation",
+    "scene field and outputs",
+    "scene architecture applied to PAGE1",
+    "saved new prompt",
+    "fixed historical Markdown ZIP import creates one new card",
+    "1440: all six previews equal clipboard with appendices",
+    "1440: explicit DLL transfer and isolated draft reload",
+    "1440: Prompt 工作台",
+    "1440: 角色建模",
+    "1440: 場景建模",
+    "1440: DLL_PIC Pro",
+    "1440: Saved Cards",
+    "390: all six previews equal clipboard with appendices",
+    "390: explicit DLL transfer and isolated draft reload",
+    "390: Prompt 工作台",
+    "390: 角色建模",
+    "390: 場景建模",
+    "390: DLL_PIC Pro",
+    "390: Saved Cards"
+  ],
+  "errors": [],
+  "externalPosts": [],
+  "screenshots": [
+    "1440-1.png",
+    "1440-2.png",
+    "1440-3.png",
+    "1440-4.png",
+    "1440-5.png",
+    "390-1.png",
+    "390-2.png",
+    "390-3.png",
+    "390-4.png",
+    "390-5.png"
+  ]
+}

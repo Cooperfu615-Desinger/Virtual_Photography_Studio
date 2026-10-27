@@ -4,6 +4,7 @@ import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writ
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { restorePreA2Files } from './a2DressControlHistoricalReplay.mjs';
 export const A1_BASE_COMMIT = 'ffb2e91e61787159d7dbc724dc0129e87537dfcb';
 export const A1_ROOT = fileURLToPath(new URL('../../', import.meta.url));
 export const A1_BEFORE = `? structuredIdentityLines
@@ -26,6 +27,7 @@ export function openPreA1ReplayRoot() {
     for (const path of ['webapp/src', 'scripts', 'knowledge_base']) cpSync(join(A1_ROOT, path), join(directory, path), { recursive: true });
     for (const file of ['package.json', 'package-lock.json']) cpSync(join(A1_ROOT, 'webapp', file), join(directory, 'webapp', file));
     symlinkSync(join(A1_ROOT, 'webapp/node_modules'), join(directory, 'webapp/node_modules'), 'dir');
+    restorePreA2Files(directory);
     const file = join(directory, 'webapp/src/lib/engine.js');
     writeFileSync(file, preA1EngineSource(readFileSync(file, 'utf8')));
     return { directory, cleanup: () => rmSync(directory, { recursive: true, force: true }) };

@@ -172,6 +172,8 @@ Prompt 規則：
 
 ### 6.2 連身
 
+2026-10-26 A2 第一批：24 筆連身來源移除 `main … color controlled by dress color selection`，哥德迷你洋裝另移除對比色控制句，保留衣物結構與既有配色行為。不在資料中新增色彩事實；ID／semantic／舊別名維持，前版全文追加為還原 alias。舊收藏文字與已匯入快照保留，重新生成或明確重新匯入採新來源。40 筆套裝及 1 筆特殊穿搭控制語另批，不代表已全面清除。詳見 [A2 第一批規格](wardrobe-control-a2-dresses-v1.md)。
+
 責任：one-piece 服裝本體。它不屬於上身加下身，不應再拆成 top/bottom。
 
 2026-10-10「短版｜亮面乳膠拉鏈洋裝」：拉鏈預設敞開至肚臍位置（`zipper opened down to the navel by default`），移除單品自帶的肚臍環描述。肚臍環仍由獨立腰部配件選項決定，不加入禁止配件的負面句。名稱、ID、順序、配色與六組既有投影／精簡規則不變；舊完整英文保留為回填 alias。回歸位於 `engineOutfitPresetDressCleanup.test.js`，包含無配件六輸出、明確選配件及舊來源回填。

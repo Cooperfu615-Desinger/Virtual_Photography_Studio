@@ -1,0 +1,38 @@
+[
+  {
+    "path": "Docs/reports/wardrobe-control-a2-dresses-2026-10-26/integration-2026-10-27/build.log",
+    "rawSha256": "86a01ed37dcbb6c00fac18fc82a07d10184704604abeccf24a471251accd9329",
+    "rawArchive": "Docs/reports/wardrobe-control-a2-dresses-2026-10-26/integration-2026-10-27/raw-logs/integration-2026-10-27/build.log.gz",
+    "displaySha256": "87243465770a920af49eeb15cf7087e584b10fb52a9ca1eb4b7b5075241ba0eb"
+  },
+  {
+    "path": "Docs/reports/wardrobe-control-a2-dresses-2026-10-26/integration-2026-10-27/functions-lint.log",
+    "rawSha256": "6ba41d3386946f3480608c0bcb80bb893d785c187db4178012a840ea9081d89b",
+    "rawArchive": "Docs/reports/wardrobe-control-a2-dresses-2026-10-26/integration-2026-10-27/raw-logs/integration-2026-10-27/functions-lint.log.gz",
+    "displaySha256": "b936abfefef25d5e5df6d3cf22f9c47bdbe3d5199b0917b5aa280965a10b8d45"
+  },
+  {
+    "path": "Docs/reports/wardrobe-control-a2-dresses-2026-10-26/integration-2026-10-27/web-lint.log",
+    "rawSha256": "4cc3750d21346cf65740526345613cc28b068e42b7624120db0bc04da500cb79",
+    "rawArchive": "Docs/reports/wardrobe-control-a2-dresses-2026-10-26/integration-2026-10-27/raw-logs/integration-2026-10-27/web-lint.log.gz",
+    "displaySha256": "11c589c29aaed990d921824fec88aaa4aa89623c52cc32fe7d2ab00ac7920311"
+  },
+  {
+    "path": "Docs/reports/wardrobe-control-a2-dresses-2026-10-26/logs/build.txt",
+    "rawSha256": "f51793a365846484109a3a9edb4ab6fe9ad0c63e5136a3ce84846e1bf9b9daf8",
+    "rawArchive": "Docs/reports/wardrobe-control-a2-dresses-2026-10-26/integration-2026-10-27/raw-logs/logs/build.txt.gz",
+    "displaySha256": "a9c3b29a01e2db2573d2f14531a1fd9ef7f4986b16a406fcfbf7c09e8f87ec50"
+  },
+  {
+    "path": "Docs/reports/wardrobe-control-a2-dresses-2026-10-26/logs/lint.txt",
+    "rawSha256": "4cc3750d21346cf65740526345613cc28b068e42b7624120db0bc04da500cb79",
+    "rawArchive": "Docs/reports/wardrobe-control-a2-dresses-2026-10-26/integration-2026-10-27/raw-logs/logs/lint.txt.gz",
+    "displaySha256": "11c589c29aaed990d921824fec88aaa4aa89623c52cc32fe7d2ab00ac7920311"
+  },
+  {
+    "path": "Docs/reports/wardrobe-control-a2-dresses-2026-10-26/logs/red.txt",
+    "rawSha256": "92839f1bb5b00dfcb830125b043b514771fab3f4376e20099985f2b2ee27e68f",
+    "rawArchive": "Docs/reports/wardrobe-control-a2-dresses-2026-10-26/integration-2026-10-27/raw-logs/logs/red.txt.gz",
+    "displaySha256": "82ff08bd4486385a67e300897dc418fbbdfb5bb09517524910d8001037e3ca0c"
+  }
+]

@@ -129,7 +129,7 @@ test('fixture selectors fail closed instead of falling back or silently acceptin
 });
 
 for (const fixture of fixtures) {
-  (fixture.id === 'R16-character-card' ? historicalTest : test)(`scene assembly scoped Z/MJ revisions and unchanged baseline: ${fixture.id}`, () => {
+  (['R16-character-card', 'R11-dress'].includes(fixture.id) ? historicalTest : test)(`scene assembly scoped Z/MJ revisions and unchanged baseline: ${fixture.id}`, () => {
     const first = get(fixture.id);
     const repeated = runSceneFixture(fixture);
     const entry = baseline.cases[fixture.id];

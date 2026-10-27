@@ -1,0 +1,32 @@
+[
+  {
+    "name": "python-tests-retry",
+    "exitCode": 0,
+    "seconds": 12.0
+  },
+  {
+    "name": "integrity",
+    "exitCode": 0,
+    "seconds": 3.25
+  },
+  {
+    "name": "catalog-tests",
+    "exitCode": 0,
+    "seconds": 7.61
+  },
+  {
+    "name": "assets",
+    "exitCode": 0,
+    "seconds": 0.08
+  },
+  {
+    "name": "functions-tests",
+    "exitCode": 0,
+    "seconds": 1.11
+  },
+  {
+    "name": "functions-lint",
+    "exitCode": 0,
+    "seconds": 1.06
+  }
+]

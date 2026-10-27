@@ -849,7 +849,7 @@ test('Gpt single-subject prompt preserves full-fidelity outfit preset and dress 
     dressId: optionId('dressId', '連身：短版｜無袖迷你洋裝'),
   });
   assert.match(sleevelessDress.wardrobe, /sleeveless mini dress, one-piece silhouette, clean shoulder line, compact short hem/i);
-  assert.match(sleevelessDress.wardrobe, /main fabric color controlled by dress color selection/i);
+  assert.doesNotMatch(sleevelessDress.wardrobe, /main fabric color controlled by dress color selection/i);
   assert.doesNotMatch(sleevelessDress.prompt.zImagePrompt, /one-piece silhouette/i);
 
   const cutoutSwimsuit = buildWardrobe({
@@ -860,11 +860,11 @@ test('Gpt single-subject prompt preserves full-fidelity outfit preset and dress 
   assert.match(cutoutSwimsuit.wardrobe, /bikini-like one-piece construction/i);
   assert.match(cutoutSwimsuit.wardrobe, /separate high-neck chest panel and high-cut bikini bottom connected only by thin side straps/i);
   assert.match(cutoutSwimsuit.wardrobe, /oversized open front torso gap exposing most of the abdomen and navel/i);
-  assert.match(cutoutSwimsuit.wardrobe, /main swim fabric color controlled by dress color selection/i);
+  assert.doesNotMatch(cutoutSwimsuit.wardrobe, /main swim fabric color controlled by dress color selection/i);
   assert.doesNotMatch(cutoutSwimsuit.prompt.zImagePrompt, /bikini-like one-piece construction/i);
 });
 
-test('Gpt single-subject prompt preserves outfit preset and dress palette control wording', () => {
+test('Gpt single-subject prompt preserves preset and effective palette wording without retired dress controls', () => {
   const baseLocks = {
     ...createAllNoneLocks(),
     subjectCount: '1',
@@ -911,7 +911,7 @@ test('Gpt single-subject prompt preserves outfit preset and dress palette contro
     dressId: optionId('dressId', '連身：短版｜細肩帶蕾絲棉質迷你洋裝'),
     completeLookPaletteId: optionId('completeLookPaletteId', '奶油米白'),
   });
-  assert.match(laceDress.wardrobe, /main fabric color controlled by dress color selection/i);
+  assert.doesNotMatch(laceDress.wardrobe, /main fabric color controlled by dress color selection/i);
   assert.match(laceDress.wardrobe, controlPhrase);
 
   const cutoutSwimsuit = buildWardrobe({
@@ -919,7 +919,7 @@ test('Gpt single-subject prompt preserves outfit preset and dress palette contro
     dressId: optionId('dressId', '連身：短版｜高領挖腰連身泳裝'),
     completeLookPaletteId: optionId('completeLookPaletteId', '黑紅街頭'),
   });
-  assert.match(cutoutSwimsuit.wardrobe, /main swim fabric color controlled by dress color selection/i);
+  assert.doesNotMatch(cutoutSwimsuit.wardrobe, /main swim fabric color controlled by dress color selection/i);
   assert.match(cutoutSwimsuit.wardrobe, controlPhrase);
 
   const halterDress = buildWardrobe({

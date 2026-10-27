@@ -1,0 +1,17 @@
+{
+  "checks": [
+    "empty Saved Cards",
+    "legacy card reload / restore / regenerate",
+    "character card apply to PAGE1",
+    "observation capture generation",
+    "scene field and outputs",
+    "scene architecture applied to PAGE1",
+    "saved new prompt",
+    "fixed historical Markdown ZIP import creates one new card",
+    "1440: all six previews equal clipboard with appendices"
+  ],
+  "errors": [],
+  "externalPosts": [],
+  "error": "Cannot read properties of null (reading 'sources')",
+  "visibleText": "DLL_PIC Pro\n\n集中生成、比較與整理圖片，保留每次創作的設定與成果。\n\nPrompt 工作台\n角色建模\n場景建模\nDLL_PIC Pro\nDLL_VIDEO Pro\nSaved Cards\n設置\n\n本機模擬驗收 · 不呼叫生成服務、不扣額；範例圖片與放大效果均為測試資料，使用獨立儲存空間。\n\n生成設定\nAPI Keys\n生成圖像\n加入待生成\n操作列固定可見\n\nGoogle Gemini Nano Banana 2 Lite · 9:16 · 1K · 1 張\n\n全身角色照\n\n模型\nGoogle Gemini Nano Banana 2 Lite\nxAI Grok\nxAI Grok Quality\nComfy Cloud · Z-Image-Turbo\nComfy Cloud · Qwen-Image-2.1\nComfy Cloud · Z-Image-Turbo INT8\nComfy Cloud · Ideogram 4.5\nComfy Cloud · Seedream 5.0 Pro\nComfy Cloud · Krea 2 Medium\nComfy Cloud · Krea 2 Medium Turbo\nComfy Cloud · Krea 2 Large\nComfy Cloud · FLUX 3 Image Klein Base INT8\nComfy Cloud · MOSS-Image SFT INT8\n比例\n16:9\n9:16\n1:1\n4:3\n3:4\n4:5\n張數\n1 張\n2 張\nPrompt 來源\n帶入Prompt 工作台來源\nGpt\nZ-Image\nMIDJOURNEY\nNano Banana 2.1\n胸上特寫照\n全身角色照\n目前使用的 Prompt\n展開全文\n編輯本次 Prompt\n本次成果\n歷史成果\n比較已選（0/2）\n從一張圖片開始\n\n選擇左側 Prompt 與模型，生成後在這裡查看、比較與提升解析度。\n\n任務清單 待執行 0 筆\n開始清單\n暫停清單\n\n依序執行；暫停只停止下一筆。重新開啟後，待生成清單需手動開始。\n\n還沒有任務。"
+}

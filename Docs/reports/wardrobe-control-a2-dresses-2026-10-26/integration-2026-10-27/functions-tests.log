@@ -1,0 +1,666 @@
+
+> test
+> node --test test/*.test.js
+
+TAP version 13
+# Subtest: builds BytePlus Seedream 5.0 Pro request body
+ok 1 - builds BytePlus Seedream 5.0 Pro request body
+  ---
+  duration_ms: 0.939167
+  type: 'test'
+  ...
+# Subtest: builds BytePlus Seedream 5.0 Lite request body
+ok 2 - builds BytePlus Seedream 5.0 Lite request body
+  ---
+  duration_ms: 0.086917
+  type: 'test'
+  ...
+# Subtest: parses BytePlus base64 and URL responses into DLL PIC image objects
+ok 3 - parses BytePlus base64 and URL responses into DLL PIC image objects
+  ---
+  duration_ms: 0.261084
+  type: 'test'
+  ...
+# Subtest: falls back from tutorial Pro model id to listed Pro model id when unavailable
+ok 4 - falls back from tutorial Pro model id to listed Pro model id when unavailable
+  ---
+  duration_ms: 0.481875
+  type: 'test'
+  ...
+# Subtest: generates one BytePlus request per image within the shared two-image limit
+ok 5 - generates one BytePlus request per image within the shared two-image limit
+  ---
+  duration_ms: 0.262833
+  type: 'test'
+  ...
+# Subtest: Asian Mix adds only the verified adapter to BF16 and preserves direct prompt and sampling
+ok 6 - Asian Mix adds only the verified adapter to BF16 and preserves direct prompt and sampling
+  ---
+  duration_ms: 3.871291
+  type: 'test'
+  ...
+# Subtest: invalid or unsupported strengths fail before claim and paid submission
+ok 7 - invalid or unsupported strengths fail before claim and paid submission
+  ---
+  duration_ms: 1.796417
+  type: 'test'
+  ...
+# Subtest: same request ID preserves original adapter strength without a second paid call
+ok 8 - same request ID preserves original adapter strength without a second paid call
+  ---
+  duration_ms: 1.347083
+  type: 'test'
+  ...
+# Subtest: quota samples and cache isolate each strength and verify upstream workflow
+ok 9 - quota samples and cache isolate each strength and verify upstream workflow
+  ---
+  duration_ms: 4.909834
+  type: 'test'
+  ...
+# Comfy Cloud asset mismatch {"jobId":"job1","contentType":"image/png","urlOrigin":"https://cloud.comfy.org","urlPath":"/api/v2/assets/11111111-2222-3333-4444-555555555555/content","queryKeys":[]}
+# Comfy Cloud asset mismatch {"jobId":"job1","contentType":"image/png","urlOrigin":"http://unsafe.example","urlPath":"/image.png","queryKeys":[]}
+# Comfy Cloud asset mismatch {"jobId":"job1","contentType":"text/plain","urlOrigin":"https://storage.example","urlPath":"/image.png","queryKeys":[]}
+# Comfy Cloud asset mismatch {"jobId":"job1","contentType":"","urlOrigin":"https://storage.example","urlPath":"/image.png","queryKeys":[]}
+# Subtest: both exported workflows retain sampling and model settings, bypass rewriting and LoRA
+ok 10 - both exported workflows retain sampling and model settings, bypass rewriting and LoRA
+  ---
+  duration_ms: 6.286625
+  type: 'test'
+  ...
+# Subtest: paid submission has one claim and duplicate requests only query the same job
+ok 11 - paid submission has one claim and duplicate requests only query the same job
+  ---
+  duration_ms: 1.248167
+  type: 'test'
+  ...
+# Subtest: lost submission response remains uncertain and never reposts
+ok 12 - lost submission response remains uncertain and never reposts
+  ---
+  duration_ms: 0.287959
+  type: 'test'
+  ...
+# Subtest: output parsing keeps final asset identity and diagnostics without exposing content URLs or retention as signed expiry
+ok 13 - output parsing keeps final asset identity and diagnostics without exposing content URLs or retention as signed expiry
+  ---
+  duration_ms: 0.103833
+  type: 'test'
+  ...
+# Subtest: untrusted self links and definitive HTTP errors do not leak credentials or retry
+ok 14 - untrusted self links and definitive HTTP errors do not leak credentials or retry
+  ---
+  duration_ms: 0.41875
+  type: 'test'
+  ...
+# Subtest: expired jobs finish tracking and GET uses only the stored provider job
+ok 15 - expired jobs finish tracking and GET uses only the stored provider job
+  ---
+  duration_ms: 0.193709
+  type: 'test'
+  ...
+# Subtest: successful jobs resolve asset metadata to fresh signed URLs without exposing authenticated content routes
+ok 16 - successful jobs resolve asset metadata to fresh signed URLs without exposing authenticated content routes
+  ---
+  duration_ms: 1.154083
+  type: 'test'
+  ...
+# Subtest: a download URL lookup failure retains the paid job and recovery never resubmits
+ok 17 - a download URL lookup failure retains the paid job and recovery never resubmits
+  ---
+  duration_ms: 2.007167
+  type: 'test'
+  ...
+# Subtest: live Cloud image output may omit MIME; final node and Asset metadata still identify the image
+ok 18 - live Cloud image output may omit MIME; final node and Asset metadata still identify the image
+  ---
+  duration_ms: 4.243458
+  type: 'test'
+  ...
+# Subtest: fixed SeedVR2 graph keeps original aspect, seed and output; bounds large images
+ok 19 - fixed SeedVR2 graph keeps original aspect, seed and output; bounds large images
+  ---
+  duration_ms: 2.404417
+  type: 'test'
+  ...
+# Subtest: specified image seed is honored and out-of-range seeds rejected
+ok 20 - specified image seed is honored and out-of-range seeds rejected
+  ---
+  duration_ms: 0.436209
+  type: 'test'
+  ...
+# Subtest: lost upscale response claims before submit and retries are query-only
+ok 21 - lost upscale response claims before submit and retries are query-only
+  ---
+  duration_ms: 3.2135
+  type: 'test'
+  ...
+# Subtest: upscale source is scoped to owner store and cancel never sends new generation
+ok 22 - upscale source is scoped to owner store and cancel never sends new generation
+  ---
+  duration_ms: 1.581667
+  type: 'test'
+  ...
+# Subtest: completed upscale resolves only the final image and repeat submit never posts again
+ok 23 - completed upscale resolves only the final image and repeat submit never posts again
+  ---
+  duration_ms: 2.605583
+  type: 'test'
+  ...
+# Subtest: partner submissions forward only the server credential and duplicates never resubmit
+ok 24 - partner submissions forward only the server credential and duplicates never resubmit
+  ---
+  duration_ms: 11.711625
+  type: 'test'
+  ...
+# Subtest: partner credential is redacted if an upstream failure echoes it
+ok 25 - partner credential is redacted if an upstream failure echoes it
+  ---
+  duration_ms: 11.898334
+  type: 'test'
+  ...
+# Subtest: INT8 keeps the selected prompt, quantized model files and original sampler
+ok 26 - INT8 keeps the selected prompt, quantized model files and original sampler
+  ---
+  duration_ms: 0.243709
+  type: 'test'
+  ...
+# Subtest: partner models map all DLL ratios and resolutions to valid explicit sizes and bounded seeds
+ok 27 - partner models map all DLL ratios and resolutions to valid explicit sizes and bounded seeds
+  ---
+  duration_ms: 1.013417
+  type: 'test'
+  ...
+# Subtest: Ideogram rejects excessive prompt before submitting; existing models retain 30K limit
+ok 28 - Ideogram rejects excessive prompt before submitting; existing models retain 30K limit
+  ---
+  duration_ms: 0.217667
+  type: 'test'
+  ...
+# Subtest: final image filtering uses each model SaveImage and ignores partner text outputs
+ok 29 - final image filtering uses each model SaveImage and ignores partner text outputs
+  ---
+  duration_ms: 0.145458
+  type: 'test'
+  ...
+# Subtest: partner quota reads balance without guessing GPU-only cost or requesting history
+ok 30 - partner quota reads balance without guessing GPU-only cost or requesting history
+  ---
+  duration_ms: 3.20975
+  type: 'test'
+  ...
+# Subtest: INT8 estimates use only INT8 records and exact quantized workflow samples
+ok 31 - INT8 estimates use only INT8 records and exact quantized workflow samples
+  ---
+  duration_ms: 1.320292
+  type: 'test'
+  ...
+# Subtest: adding models preserves old Z and Qwen deterministic workflows and metadata
+ok 32 - adding models preserves old Z and Qwen deterministic workflows and metadata
+  ---
+  duration_ms: 0.5795
+  type: 'test'
+  ...
+# Subtest: MOSS variants preserve direct prompt and verified sampling, differing only by the fixed model adapter
+ok 33 - MOSS variants preserve direct prompt and verified sampling, differing only by the fixed model adapter
+  ---
+  duration_ms: 3.95175
+  type: 'test'
+  ...
+# Subtest: both MOSS variants expose one-megapixel six-ratio canvases with a single image per job
+ok 34 - both MOSS variants expose one-megapixel six-ratio canvases with a single image per job
+  ---
+  duration_ms: 3.064833
+  type: 'test'
+  ...
+# Subtest: MOSS cannot accept arbitrary LoRA, sampling, negative prompt, graph or credential overrides
+ok 35 - MOSS cannot accept arbitrary LoRA, sampling, negative prompt, graph or credential overrides
+  ---
+  duration_ms: 0.224875
+  type: 'test'
+  ...
+# Subtest: MOSS final images are limited to its verified SaveImage output
+ok 36 - MOSS final images are limited to its verified SaveImage output
+  ---
+  duration_ms: 0.300792
+  type: 'test'
+  ...
+# Subtest: MOSS paid requests use no partner credential and duplicate IDs preserve the original variant
+ok 37 - MOSS paid requests use no partner credential and duplicate IDs preserve the original variant
+  ---
+  duration_ms: 1.973333
+  type: 'test'
+  ...
+# Subtest: MOSS quota uses separate base and LoRA samples and rejects other adapter strengths
+ok 38 - MOSS quota uses separate base and LoRA samples and rejects other adapter strengths
+  ---
+  duration_ms: 3.240833
+  type: 'test'
+  ...
+# Subtest: MOSS quota caches coalesce each variant independently without sharing their estimates
+ok 39 - MOSS quota caches coalesce each variant independently without sharing their estimates
+  ---
+  duration_ms: 2.94275
+  type: 'test'
+  ...
+# Subtest: balance uses cents and USD conversion; absent, null, NaN and other currencies are unavailable
+ok 40 - balance uses cents and USD conversion; absent, null, NaN and other currencies are unavailable
+  ---
+  duration_ms: 0.822125
+  type: 'test'
+  ...
+# Subtest: estimate uses successful execution only, excludes duplicate IDs and never sends paid POST
+ok 41 - estimate uses successful execution only, excludes duplicate IDs and never sends paid POST
+  ---
+  duration_ms: 4.206542
+  type: 'test'
+  ...
+# Subtest: requires 3 samples and exact model, resolution and ratio
+ok 42 - requires 3 samples and exact model, resolution and ratio
+  ---
+  duration_ms: 1.284083
+  type: 'test'
+  ...
+# Subtest: changed sampler or extra LoRA invalidates samples, prompt and seed differences are allowed
+ok 43 - changed sampler or extra LoRA invalidates samples, prompt and seed differences are allowed
+  ---
+  duration_ms: 2.051792
+  type: 'test'
+  ...
+# Subtest: missing or invalid execution metrics cannot use queue time as fallback
+ok 44 - missing or invalid execution metrics cannot use queue time as fallback
+  ---
+  duration_ms: 0.7985
+  type: 'test'
+  ...
+# Subtest: missing balance stays unavailable; negative balance yields zero capacity
+ok 45 - missing balance stays unavailable; negative balance yields zero capacity
+  ---
+  duration_ms: 1.085792
+  type: 'test'
+  ...
+# Subtest: sample errors retain balance but do not yield biased estimate; upstream error body is never exposed
+ok 46 - sample errors retain balance but do not yield biased estimate; upstream error body is never exposed
+  ---
+  duration_ms: 1.851625
+  type: 'test'
+  ...
+# Subtest: cache coalesces, expires and isolates users, settings and rotated keys
+ok 47 - cache coalesces, expires and isolates users, settings and rotated keys
+  ---
+  duration_ms: 1.458958
+  type: 'test'
+  ...
+# Subtest: unsupported input fails before network or datastore reads
+ok 48 - unsupported input fails before network or datastore reads
+  ---
+  duration_ms: 0.779916
+  type: 'test'
+  ...
+# Subtest: Qwen v1.3b adds only the verified adapter, retaining cache, direct prompt, sampling and output
+ok 49 - Qwen v1.3b adds only the verified adapter, retaining cache, direct prompt, sampling and output
+  ---
+  duration_ms: 7.890709
+  type: 'test'
+  ...
+# Subtest: Qwen rejects invalid strengths before claim/payment and ignores client graph overrides
+ok 50 - Qwen rejects invalid strengths before claim/payment and ignores client graph overrides
+  ---
+  duration_ms: 0.83375
+  type: 'test'
+  ...
+# Subtest: Qwen repeated request ID preserves original strength without resubmission
+ok 51 - Qwen repeated request ID preserves original strength without resubmission
+  ---
+  duration_ms: 0.771208
+  type: 'test'
+  ...
+# Subtest: Qwen quota isolates base, adapter strength and cache; mismatched graphs cannot supply estimates
+ok 52 - Qwen quota isolates base, adapter strength and cache; mismatched graphs cannot supply estimates
+  ---
+  duration_ms: 6.010583
+  type: 'test'
+  ...
+# Subtest: Comfy account expectation matches exactly and remains optional for existing clients
+ok 53 - Comfy account expectation matches exactly and remains optional for existing clients
+  ---
+  duration_ms: 2.099042
+  type: 'test'
+  ...
+# Subtest: both Comfy callables stop changed accounts before creating a store or reaching submission/status operations
+ok 54 - both Comfy callables stop changed accounts before creating a store or reaching submission/status operations
+  ---
+  duration_ms: 284.548625
+  type: 'test'
+  ...
+# Subtest: two explicit I2V graphs bind owned input, motion/camera, final MP4 and real model capabilities
+ok 55 - two explicit I2V graphs bind owned input, motion/camera, final MP4 and real model capabilities
+  ---
+  duration_ms: 5.671334
+  type: 'test'
+  ...
+# Subtest: input limits inspect PNG dimensions, disallow silent crops and reject arbitrary URL uploads
+ok 56 - input limits inspect PNG dimensions, disallow silent crops and reject arbitrary URL uploads
+  ---
+  duration_ms: 2.508375
+  type: 'test'
+  ...
+# Subtest: new sources are scoped to store; duplicate upload is not a new paid job
+ok 57 - new sources are scoped to store; duplicate upload is not a new paid job
+  ---
+  duration_ms: 0.405709
+  type: 'test'
+  ...
+# Subtest: submit has one paid POST, server-only partner credential, and repeated calls only poll
+ok 58 - submit has one paid POST, server-only partner credential, and repeated calls only poll
+  ---
+  duration_ms: 0.810583
+  type: 'test'
+  ...
+# Subtest: lost response and duplicate idempotency response stay uncertain without resubmission
+ok 59 - lost response and duplicate idempotency response stay uncertain without resubmission
+  ---
+  duration_ms: 0.683917
+  type: 'test'
+  ...
+# Subtest: completed job resolves exactly one final video and refreshes expiring asset URL
+ok 60 - completed job resolves exactly one final video and refreshes expiring asset URL
+  ---
+  duration_ms: 1.739666
+  type: 'test'
+  ...
+# Subtest: quota uses current per-second model rates and missing balance never means zero
+ok 61 - quota uses current per-second model rates and missing balance never means zero
+  ---
+  duration_ms: 0.311459
+  type: 'test'
+  ...
+# Subtest: new PNG upload uses multipart v2 assets and records no image payload
+ok 62 - new PNG upload uses multipart v2 assets and records no image payload
+  ---
+  duration_ms: 24.631458
+  type: 'test'
+  ...
+# Subtest: authenticated owned download validates ranges, bounds, DNS and complete bytes without forwarding credentials
+ok 63 - authenticated owned download validates ranges, bounds, DNS and complete bytes without forwarding credentials
+  ---
+  duration_ms: 23.364667
+  type: 'test'
+  ...
+# Subtest: new callable denies anonymous, disallowed and changed-account requests before provider access
+ok 64 - new callable denies anonymous, disallowed and changed-account requests before provider access
+  ---
+  duration_ms: 248.665625
+  type: 'test'
+  ...
+# Subtest: Comfy creates a default Firestore app when token verification already created a named Admin app
+ok 65 - Comfy creates a default Firestore app when token verification already created a named Admin app
+  ---
+  duration_ms: 2.930667
+  type: 'test'
+  ...
+# Subtest: the existing account and the approved new account reach input validation
+ok 66 - the existing account and the approved new account reach input validation
+  ---
+  duration_ms: 0.945584
+  type: 'test'
+  ...
+# Subtest: account email comparison remains case insensitive
+ok 67 - account email comparison remains case insensitive
+  ---
+  duration_ms: 1.855041
+  type: 'test'
+  ...
+# Subtest: anonymous callers are rejected before any paid submission or download
+ok 68 - anonymous callers are rejected before any paid submission or download
+  ---
+  duration_ms: 1.214708
+  type: 'test'
+  ...
+# Subtest: unlisted accounts remain rejected by every affected callable
+ok 69 - unlisted accounts remain rejected by every affected callable
+  ---
+  duration_ms: 0.497084
+  type: 'test'
+  ...
+# Subtest: an explicitly configured allowlist continues to override the default
+ok 70 - an explicitly configured allowlist continues to override the default
+  ---
+  duration_ms: 0.473292
+  type: 'test'
+  ...
+# Subtest: FLUX Base uses direct prompt and original 50-step sampler without upsampler or layout nodes
+ok 71 - FLUX Base uses direct prompt and original 50-step sampler without upsampler or layout nodes
+  ---
+  duration_ms: 2.76125
+  type: 'test'
+  ...
+# Subtest: FLUX dimensions preserve exact ratios on a 16-pixel grid; old local model dimensions stay unchanged
+ok 72 - FLUX dimensions preserve exact ratios on a 16-pixel grid; old local model dimensions stay unchanged
+  ---
+  duration_ms: 2.290333
+  type: 'test'
+  ...
+# Subtest: FLUX accepts only final SaveImage output
+ok 73 - FLUX accepts only final SaveImage output
+  ---
+  duration_ms: 0.35275
+  type: 'test'
+  ...
+# Subtest: FLUX estimate requires its own exact workflow samples and rejects changed sampling settings
+ok 74 - FLUX estimate requires its own exact workflow samples and rejects changed sampling settings
+  ---
+  duration_ms: 5.378917
+  type: 'test'
+  ...
+# Subtest: normalizes only HTTPS remote image URLs
+ok 75 - normalizes only HTTPS remote image URLs
+  ---
+  duration_ms: 6.677375
+  type: 'test'
+  ...
+# Subtest: blocks obvious private download hosts
+ok 76 - blocks obvious private download hosts
+  ---
+  duration_ms: 0.4325
+  type: 'test'
+  ...
+# Subtest: infers image MIME type from URL extension
+ok 77 - infers image MIME type from URL extension
+  ---
+  duration_ms: 0.146958
+  type: 'test'
+  ...
+# Subtest: downloads remote image as a data URL
+ok 78 - downloads remote image as a data URL
+  ---
+  duration_ms: 0.70225
+  type: 'test'
+  ...
+# Subtest: uses URL MIME inference when response content type is generic
+ok 79 - uses URL MIME inference when response content type is generic
+  ---
+  duration_ms: 0.204416
+  type: 'test'
+  ...
+# Subtest: rejects remote images above the proxy size limit
+ok 80 - rejects remote images above the proxy size limit
+  ---
+  duration_ms: 0.175083
+  type: 'test'
+  ...
+# Subtest: revalidates every HTTPS redirect before downloading
+ok 81 - revalidates every HTTPS redirect before downloading
+  ---
+  duration_ms: 0.220791
+  type: 'test'
+  ...
+# Subtest: rejects redirects to private hosts
+ok 82 - rejects redirects to private hosts
+  ---
+  duration_ms: 0.117334
+  type: 'test'
+  ...
+# Subtest: rejects insecure or excessive redirect chains
+ok 83 - rejects insecure or excessive redirect chains
+  ---
+  duration_ms: 0.956834
+  type: 'test'
+  ...
+# Subtest: rejects public-looking hosts that resolve to private addresses
+ok 84 - rejects public-looking hosts that resolve to private addresses
+  ---
+  duration_ms: 0.438583
+  type: 'test'
+  ...
+# Subtest: Krea variants preserve the supplied node controls and use native ratio without inventing pixel sizes
+ok 85 - Krea variants preserve the supplied node controls and use native ratio without inventing pixel sizes
+  ---
+  duration_ms: 1.903875
+  type: 'test'
+  ...
+# Subtest: Krea rejects unsupported ratio, resolution and out-of-range seed before any paid call
+ok 86 - Krea rejects unsupported ratio, resolution and out-of-range seed before any paid call
+  ---
+  duration_ms: 0.963833
+  type: 'test'
+  ...
+# Subtest: DLL total count can be two while every Comfy backend job remains exactly one image
+ok 87 - DLL total count can be two while every Comfy backend job remains exactly one image
+  ---
+  duration_ms: 0.500666
+  type: 'test'
+  ...
+# Subtest: Krea random seeds stay within the official signed 32-bit range
+ok 88 - Krea random seeds stay within the official signed 32-bit range
+  ---
+  duration_ms: 0.222125
+  type: 'test'
+  ...
+# Subtest: sequential Comfy jobs exclude the previous valid seed without retrying or changing explicit fixture seeds
+ok 89 - sequential Comfy jobs exclude the previous valid seed without retrying or changing explicit fixture seeds
+  ---
+  duration_ms: 3.151583
+  type: 'test'
+  ...
+# Subtest: a lost Krea submit response stays uncertain and cannot submit the same job again
+ok 90 - a lost Krea submit response stays uncertain and cannot submit the same job again
+  ---
+  duration_ms: 0.713792
+  type: 'test'
+  ...
+# Subtest: the original one-image Z and Qwen request bodies retain their exact serialized workflow bytes
+ok 91 - the original one-image Z and Qwen request bodies retain their exact serialized workflow bytes
+  ---
+  duration_ms: 0.681833
+  type: 'test'
+  ...
+# Subtest: maps DLL PIC aspect ratios to Magnific Classic image sizes
+ok 92 - maps DLL PIC aspect ratios to Magnific Classic image sizes
+  ---
+  duration_ms: 0.472458
+  type: 'test'
+  ...
+# Subtest: clamps Magnific Classic generation count to supported range
+ok 93 - clamps Magnific Classic generation count to supported range
+  ---
+  duration_ms: 0.244375
+  type: 'test'
+  ...
+# Subtest: builds a Magnific Classic request body
+ok 94 - builds a Magnific Classic request body
+  ---
+  duration_ms: 0.767042
+  type: 'test'
+  ...
+# Subtest: parses Magnific Classic base64 images into DLL PIC image objects
+ok 95 - parses Magnific Classic base64 images into DLL PIC image objects
+  ---
+  duration_ms: 0.637125
+  type: 'test'
+  ...
+# Subtest: infers Magnific Classic image MIME type from base64 magic bytes
+ok 96 - infers Magnific Classic image MIME type from base64 magic bytes
+  ---
+  duration_ms: 0.324875
+  type: 'test'
+  ...
+# Subtest: honors Magnific Classic declared image MIME type when present
+ok 97 - honors Magnific Classic declared image MIME type when present
+  ---
+  duration_ms: 0.2835
+  type: 'test'
+  ...
+# Subtest: builds Magnific Z-Image Turbo request body
+ok 98 - builds Magnific Z-Image Turbo request body
+  ---
+  duration_ms: 1.309542
+  type: 'test'
+  ...
+# Subtest: builds Magnific Mystic request body with 1K/2K resolution mapping
+ok 99 - builds Magnific Mystic request body with 1K/2K resolution mapping
+  ---
+  duration_ms: 0.18075
+  type: 'test'
+  ...
+# Subtest: builds Nano Banana Pro Flash and Seedream V5 Lite request bodies
+ok 100 - builds Nano Banana Pro Flash and Seedream V5 Lite request bodies
+  ---
+  duration_ms: 0.094208
+  type: 'test'
+  ...
+# Subtest: builds Gemini 2.5 Flash Image Preview request body
+ok 101 - builds Gemini 2.5 Flash Image Preview request body
+  ---
+  duration_ms: 0.058125
+  type: 'test'
+  ...
+# Subtest: normalizes async task response into DLL PIC image objects
+ok 102 - normalizes async task response into DLL PIC image objects
+  ---
+  duration_ms: 2.381375
+  type: 'test'
+  ...
+# Subtest: generates async Magnific images by creating and polling tasks
+ok 103 - generates async Magnific images by creating and polling tasks
+  ---
+  duration_ms: 1.064167
+  type: 'test'
+  ...
+# Subtest: builds Classic request when model key is omitted for backwards compatibility
+ok 104 - builds Classic request when model key is omitted for backwards compatibility
+  ---
+  duration_ms: 0.209709
+  type: 'test'
+  ...
+# Subtest: functions consume the versioned shared provider contract
+ok 105 - functions consume the versioned shared provider contract
+  ---
+  duration_ms: 1.555708
+  type: 'test'
+  ...
+# Subtest: functions reject provider model keys outside the shared contract
+ok 106 - functions reject provider model keys outside the shared contract
+  ---
+  duration_ms: 0.250042
+  type: 'test'
+  ...
+# Subtest: Seedance R2V binds one owned reference, explicit task, audio and MP4 without first-frame or expansion
+ok 107 - Seedance R2V binds one owned reference, explicit task, audio and MP4 without first-frame or expansion
+  ---
+  duration_ms: 2.047416
+  type: 'test'
+  ...
+# Subtest: Seedance credit estimate tracks resolution, duration and ratio, not audio; adaptive uses conservative area
+ok 108 - Seedance credit estimate tracks resolution, duration and ratio, not audio; adaptive uses conservative area
+  ---
+  duration_ms: 0.519125
+  type: 'test'
+  ...
+1..108
+# tests 108
+# suites 0
+# pass 108
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 597.5745

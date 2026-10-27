@@ -1,0 +1,27 @@
+[
+  {
+    "name": "web-tests",
+    "exitCode": 0,
+    "seconds": 120.57
+  },
+  {
+    "name": "prompt-quality",
+    "exitCode": 0,
+    "seconds": 84.88
+  },
+  {
+    "name": "web-lint",
+    "exitCode": 0,
+    "seconds": 9.4
+  },
+  {
+    "name": "build",
+    "exitCode": 0,
+    "seconds": 3.41
+  },
+  {
+    "name": "audit",
+    "exitCode": 0,
+    "seconds": 2.03
+  }
+]

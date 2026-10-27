@@ -2,7 +2,24 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-26
+Last updated: 2026-10-27
+
+## Phase 4 A2 第一批：最新 main 整合與限定交付（2026-10-27）
+
+- Cooper 已授權確認影片提交後限定 commit/push 本批，再確認 CI，之後接續 A2 第二批範圍分析。
+- 最新 main 為影片提交 `e9983769e326ead175b381834c6e2df4fd02e28d`；[CI 40358847158](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40358847158) 四項成功。影片沒有改到 A2 原 80 檔或 Prompt／目錄契約。現行導覽新增 DLL_VIDEO Pro，整合驗收涵蓋六工作區。
+- 原始 A2 Prompt oracle 保持 `4e35912f82280c058d0c86b6de3f44fcb019f9df`；保護檢查對齊影片提交，六個影片前端檔只於隔離歷史回放精確還原，拒絕混合或未審查版本。產品引擎與影片程式不改。
+- 新整合驗收：前端 1,860／1,860、Prompt Quality 764／764、聚焦 5／5、Python 41／41、目錄工具 32／32、Functions 108／108；sync／歷史 ID／strict／lint／build／資產通過。3,545 案與原 A2 結果一致；200 同 seed audit 維持 0 blocker／18 既有診斷。A1／四批 A5 原工具回放及 A～E 封存測試通過。
+- 桌手機 5175 的 A2／六工作區 36 項，乾淨 5176 的原五工作區工具 22 項通過；共 30 張畫面，0 error、0 外部 POST。原 5175 熱更新模組與舊工具固定網址不一致的診斷已記錄，未為此改產品。
+- [整合交付紀錄](reports/wardrobe-control-a2-dresses-2026-10-26/integration-2026-10-27/README.md)。以下 2026-10-26「未提交」及五工作區驗收為歷史狀態；實際 Git／CI 結果以本批提交紀錄為準。A2 後批與其他 Phase 4／P5b 尚未實作。
+
+## Phase 4 A2 第一批：24 筆連身控制語（2026-10-26，本機驗收完成，未提交）
+
+- 基準及最後核對的遠端 main 為 `4e35912f82280c058d0c86b6de3f44fcb019f9df`，即已交付 A1。下方 A1「授權交付」保留當時紀錄。
+- 只移除連身 24 筆英文中的 dress color selection 控制句，哥德迷你洋裝另移除 contrast palette 控制句；原衣物細節／ID／semantic／順序保留，修改前全文追加為舊別名。正式來源 JSON 與兩份生成物同步；引擎、renderer、UI、依賴與 CI 設定不改。
+- 固定 Git 加核准資料差異的 oracle 共 3,545 案例，0 核准外差異，選值與 RNG 保持。24 份舊 JSON／24 份 Markdown、已匯入全身快照的原文保留；收藏 structured 沿用依 ID 重建目前資料的既有行為。「套用目前預覽」立即重新生成，新匯入使用新來源，舊抓拍重抽保持快照。
+- 前端 1,855/1,855、Prompt Quality 763/763、Python 41/41、catalog 工具 32/32、sync／歷史 ID／strict／lint／build／資產通過。同 seed 200 audit 維持 0 blocker／18 既有診斷；桌手機 44 項／18 張畫面通過。A1、四批 A5 原工具隔離回放與 A～E 封存檢查通過，其他 20 工作目錄／140 份原有檔案保持。
+- [規格](specs/wardrobe-control-a2-dresses-v1.md)、[決策](decisions/2026-10-26-a2-dresses-control-language.md)、[驗收報告](reports/wardrobe-control-a2-dresses-2026-10-26/README.md)。本批尚未 stage／commit／push，沒有本批新 CI；40 筆套裝、1 筆特殊穿搭、runtime 配色句與其他 Phase 4／P5b 未處理。影片工作區由「APIKEY分析」另行處理，共用文件／套件設定／5175 服務仍需檢查重疊。
 
 ## Phase 4 A1：PAGE1 角色卡成年身份（2026-10-26，本機驗收完成，授權交付）
 

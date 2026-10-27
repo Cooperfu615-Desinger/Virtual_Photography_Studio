@@ -1,0 +1,194 @@
+TAP version 13
+# Subtest: A2 dresses change only reviewed control clauses and append exact old text aliases
+ok 1 - A2 dresses change only reviewed control clauses and append exact old text aliases
+  ---
+  duration_ms: 1.708083
+  type: 'test'
+  ...
+# Subtest: A2 all 24 dresses are free of selection controls across every crop and three colors in six outputs
+ok 2 - A2 all 24 dresses are free of selection controls across every crop and three colors in six outputs
+  ---
+  duration_ms: 2308.120917
+  type: 'test'
+  ...
+# Subtest: A2 every prior dress text and legacy ID resolves to the same issued option
+not ok 3 - A2 every prior dress text and legacy ID resolves to the same issued option
+  ---
+  duration_ms: 11.596292
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/dressControlLanguage.test.js:51:1'
+  failureType: 'testCodeFailure'
+  error: 'wardrobe:連身-dresses:連身-短版-無袖迷你洋裝:1: old text'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/dressControlLanguage.test.js:55:14)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: outfit presets expose themed options and remove abstract style presets
+ok 4 - outfit presets expose themed options and remove abstract style presets
+  ---
+  duration_ms: 0.741917
+  type: 'test'
+  ...
+# Subtest: reference outfit presets 27 to 38 preserve complete styling anchors and image metadata
+ok 5 - reference outfit presets 27 to 38 preserve complete styling anchors and image metadata
+  ---
+  duration_ms: 1.0455
+  type: 'test'
+  ...
+# Subtest: sporty ringer tee hot-pants outfit preserves key garment and accessory anchors
+ok 6 - sporty ringer tee hot-pants outfit preserves key garment and accessory anchors
+  ---
+  duration_ms: 53.06325
+  type: 'test'
+  ...
+# Subtest: lightweight yukata outfit preserves wrap styling patterns and pouch
+ok 7 - lightweight yukata outfit preserves wrap styling patterns and pouch
+  ---
+  duration_ms: 14.450334
+  type: 'test'
+  ...
+# Subtest: open-button fitted shirt outfit presets preserve shorts and skirt variants
+ok 8 - open-button fitted shirt outfit presets preserve shorts and skirt variants
+  ---
+  duration_ms: 20.501542
+  type: 'test'
+  ...
+# Subtest: gothic lingerie outfit presets 52 to 54 stay recolorable while preserving trim anchors
+ok 9 - gothic lingerie outfit presets 52 to 54 stay recolorable while preserving trim anchors
+  ---
+  duration_ms: 0.919459
+  type: 'test'
+  ...
+# Subtest: qipao outfit presets preserve updated mini and high-slit silhouettes
+ok 10 - qipao outfit presets preserve updated mini and high-slit silhouettes
+  ---
+  duration_ms: 16.077584
+  type: 'test'
+  ...
+# Subtest: street reference outfit presets 40 to 48 preserve full outfit accessories and footwear
+ok 11 - street reference outfit presets 40 to 48 preserve full outfit accessories and footwear
+  ---
+  duration_ms: 0.87625
+  type: 'test'
+  ...
+# Subtest: dress controls expose short and long one-piece silhouettes only
+ok 12 - dress controls expose short and long one-piece silhouettes only
+  ---
+  duration_ms: 0.355875
+  type: 'test'
+  ...
+# Subtest: reference dress entries describe garments without accessory or shoe details
+ok 13 - reference dress entries describe garments without accessory or shoe details
+  ---
+  duration_ms: 0.830208
+  type: 'test'
+  ...
+# Subtest: zippered latex mini dress preserves collared short sleeves and default lowered zipper styling
+ok 14 - zippered latex mini dress preserves collared short sleeves and default lowered zipper styling
+  ---
+  duration_ms: 0.29725
+  type: 'test'
+  ...
+# Subtest: zippered latex mini dress uses the shared dress color and single-dress wardrobe flow
+ok 15 - zippered latex mini dress uses the shared dress color and single-dress wardrobe flow
+  ---
+  duration_ms: 9.027542
+  type: 'test'
+  ...
+# Subtest: zippered latex mini dress retains an explicitly selected navel piercing
+ok 16 - zippered latex mini dress retains an explicitly selected navel piercing
+  ---
+  duration_ms: 12.365875
+  type: 'test'
+  ...
+# Subtest: zippered latex dress has no built-in piercing across all six outputs and preserves legacy import
+ok 17 - zippered latex dress has no built-in piercing across all six outputs and preserves legacy import
+  ---
+  duration_ms: 39.692875
+  type: 'test'
+  ...
+# Subtest: mirror chrome garment color applies scene-reflective material to the new cut-out one-piece
+ok 18 - mirror chrome garment color applies scene-reflective material to the new cut-out one-piece
+  ---
+  duration_ms: 5.753708
+  type: 'test'
+  ...
+# Subtest: cleaned outfit and dress prompts avoid fixed color wording
+ok 19 - cleaned outfit and dress prompts avoid fixed color wording
+  ---
+  duration_ms: 0.243375
+  type: 'test'
+  ...
+# Subtest: nurse uniform outfit prompt does not include apron-like panel wording
+ok 20 - nurse uniform outfit prompt does not include apron-like panel wording
+  ---
+  duration_ms: 7.663666
+  type: 'test'
+  ...
+# Subtest: doctor and secretary outfit prompts include updated signature props and silhouettes
+ok 21 - doctor and secretary outfit prompts include updated signature props and silhouettes
+  ---
+  duration_ms: 12.259167
+  type: 'test'
+  ...
+# Subtest: wardrobe image metadata is available for outfit presets and dresses
+ok 22 - wardrobe image metadata is available for outfit presets and dresses
+  ---
+  duration_ms: 0.11925
+  type: 'test'
+  ...
+# Subtest: wardrobe image metadata is available for special outfits
+ok 23 - wardrobe image metadata is available for special outfits
+  ---
+  duration_ms: 0.042208
+  type: 'test'
+  ...
+# Subtest: moved and renamed outfit preset legacy locks normalize safely
+ok 24 - moved and renamed outfit preset legacy locks normalize safely
+  ---
+  duration_ms: 2.146833
+  type: 'test'
+  ...
+# Subtest: generated prompts keep outfit preset color separate from clothing structure
+ok 25 - generated prompts keep outfit preset color separate from clothing structure
+  ---
+  duration_ms: 6.960917
+  type: 'test'
+  ...
+# Subtest: portrait outfit preset output keeps visible upper garments and removes hidden lower-body fragments
+ok 26 - portrait outfit preset output keeps visible upper garments and removes hidden lower-body fragments
+  ---
+  duration_ms: 6.631875
+  type: 'test'
+  ...
+# Subtest: cowboy outfit preset output keeps bottoms but removes shoes
+ok 27 - cowboy outfit preset output keeps bottoms but removes shoes
+  ---
+  duration_ms: 7.590125
+  type: 'test'
+  ...
+# Subtest: complete look palette applies to special outfits, outfit presets, and dresses only
+ok 28 - complete look palette applies to special outfits, outfit presets, and dresses only
+  ---
+  duration_ms: 32.273166
+  type: 'test'
+  ...
+1..28
+# tests 28
+# suites 0
+# pass 27
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2452.186542

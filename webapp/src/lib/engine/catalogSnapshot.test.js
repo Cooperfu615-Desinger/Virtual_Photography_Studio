@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { preA2Database } from '../../../../scripts/lib/a2DressControlHistoricalReplay.mjs';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { getCompiledCatalogForTesting, getLockControls, getKnowledgeBaseSnapshot } from '../engine.js';
@@ -6,7 +7,7 @@ import { preAllA5Database as preA5Database } from '../../../../scripts/lib/a5Xim
 import { createCatalogSnapshots, differences } from '../../../../scripts/lib/catalogBaseline.mjs';
 
 test('A catalog snapshots preserve ordered IDs, aliases and complete compiled metadata', () => {
-  const historicalSource = preA5Database();
+  const historicalSource = preA5Database(preA2Database(getKnowledgeBaseSnapshot()));
   const actual = createCatalogSnapshots(getCompiledCatalogForTesting(historicalSource), getLockControls(historicalSource));
   for (const [kind, snapshot] of Object.entries(actual)) {
     const expected = JSON.parse(readFileSync(new URL(`catalogSnapshot.${kind}.json`, import.meta.url), 'utf8'));
