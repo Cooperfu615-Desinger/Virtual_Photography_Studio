@@ -1,3 +1,4 @@
+import { restorePreA2MarkdownSnapshotFiles } from './a2MarkdownSnapshotReplay.mjs';
 // Restore only the reviewed parser delta in an isolated copy. Historical seals stay immutable.
 import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync, existsSync, realpathSync, rmSync, cpSync, mkdirSync, mkdtempSync, symlinkSync } from 'node:fs';
@@ -42,6 +43,8 @@ export async function withPreA2WardrobeRecoveryReplay(run) {
     cpSync(join(RECOVERY_ROOT,'webapp/src'),join(directory,'webapp/src'),{recursive:true});
     cpSync(join(RECOVERY_ROOT,'webapp/package.json'),join(directory,'webapp/package.json'));
     symlinkSync(join(RECOVERY_ROOT,'webapp/node_modules'),join(directory,'webapp/node_modules'),'dir');
+    cpSync(join(RECOVERY_ROOT,'scripts/lib'),join(directory,'scripts/lib'),{recursive:true});
+    restorePreA2MarkdownSnapshotFiles(directory);
     restorePreA2WardrobeRecoveryFiles(directory);
     return await run(directory);
   } finally { rmSync(directory,{recursive:true,force:true}); }

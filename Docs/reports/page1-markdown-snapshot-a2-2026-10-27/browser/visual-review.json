@@ -1,0 +1,41 @@
+{
+  "viewports": [
+    "1440x1000",
+    "390x900"
+  ],
+  "reviewedScreenshots": [
+    "1440-A2-snapshot-single.png",
+    "1440-A2-snapshot-duo.png",
+    "1440-A2-snapshot-capture.png",
+    "1440-invalid.png",
+    "1440-workspace-0.png",
+    "1440-workspace-1.png",
+    "1440-workspace-2.png",
+    "1440-workspace-3.png",
+    "1440-workspace-4.png",
+    "1440-workspace-5.png",
+    "390-A2-snapshot-single.png",
+    "390-A2-snapshot-duo.png",
+    "390-A2-snapshot-capture.png",
+    "390-invalid.png",
+    "390-workspace-0.png",
+    "390-workspace-1.png",
+    "390-workspace-2.png",
+    "390-workspace-3.png",
+    "390-workspace-4.png",
+    "390-workspace-5.png"
+  ],
+  "contactSheets": [
+    "1440-workspace-review.png",
+    "390-workspace-review.png",
+    "1440-flows-review.png",
+    "390-flows-review.png"
+  ],
+  "result": "passed",
+  "observations": [
+    "六工作區維持既有版面，桌面欄位與卡片、手機直排與長頁面可讀。",
+    "匯入單人／雙人／抓拍卡片可套用，胸上／全身輸出按鈕保留；文字預覽維持內部捲動。",
+    "錯誤 ZIP 提示可讀，收藏數未受失敗匯入影響。",
+    "無非預期水平溢位、破圖或新增控制重疊；未修改 CSS 或視覺階層。"
+  ]
+}

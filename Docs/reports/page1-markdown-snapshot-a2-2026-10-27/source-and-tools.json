@@ -1,0 +1,27 @@
+{
+  "baseCommit": "943ab65fa153fbc5050ee2c9690e429c326296f2",
+  "files": {
+    "Docs/current_project_state.md": "1a16ebe3a4ef5737a8bba1c884111cfb162c93ce42264f65b0dc2ed69e400ec5",
+    "scripts/lib/a2WardrobeColorRecoveryReplay.mjs": "f032f45f2afc4b99b8a9ceecc8398d9973d3f5a1ec0f78623133d249927fa52c",
+    "webapp/package.json": "3102f5e772413e3d8bd98024cca9b670d53fc74e46ac4717f8e0859210194e22",
+    "webapp/src/components/PromptCard.jsx": "7469e8b2f021d9652f5cfeceb7605ee0fa29d5495679bb5d58c84705895d382c",
+    "webapp/src/features/saved-cards/cardCodec.js": "268a814ef7d4cbdf141545aad5ea19656c4dfebe0b53d12d800bb0d170402982",
+    "webapp/src/features/saved-cards/savedCardArchive.test.js": "f8de022c87f943fd427beaf8a832d78fbe24bb3c81266317fa00847d5e55edd1",
+    "webapp/src/features/saved-cards/wardrobeColorRecovery.test.js": "f328841ad7cc9bddbdccd223b13e136acbdfcccf3e0869625234c5824432bf96",
+    "webapp/src/lib/engine/midjourneyFramingAspectRatio.test.js": "f07191308783a6d0a2fe14138df5584d6ca7caa845da0e3dbf473b92c9ab63e8",
+    "webapp/src/lib/engine/sceneIntegratedAssemblyBaseline.test.js": "ab4a61f2ed0e4a573d286753e43ea0d7c2f3bf58361cfe8f0dd6bca293108f7b",
+    "webapp/src/lib/engine/zImageSceneDetailPriority.test.js": "214321824b048d4fcdd6568fa0ca423efb33bd0748b558f3b0ad688a72566142",
+    "webapp/src/lib/engine/zImageUpperSceneExtension.test.js": "2530e0d029f0b3e1534e3563146867dc22eea1d2a03ddb715b89fe15abdf903c",
+    "Docs/decisions/2026-10-27-a2-page1-markdown-snapshot.md": "fc2ce05057d496b4c2c81a3b4bdd6632df148cebdc05e76ee371e07c4b06857a",
+    "Docs/specs/page1-markdown-snapshot-a2-v1.md": "323616a77d4d3c17932b936832fe4f7798c4a7e2a4470ee0048f5d6904497232",
+    "scripts/lib/a2MarkdownSnapshotPatches.json": "aad949f360d88b7f21cc3933540681bc719ff941e122adccf0b7c389d97e7cfd",
+    "scripts/lib/a2MarkdownSnapshotReplay.mjs": "baea859b1b5d081acb937b8ae62b38dd682815793f6a53c14713bc5d591727fa",
+    "scripts/page1_markdown_snapshot_a2_acceptance.mjs": "c29dd114af4e9f4ca4cdc419038ba9291d3dcbdf06769d5ae3eb4926551226b5",
+    "scripts/page1_markdown_snapshot_a2_browser.mjs": "6e69ad82c4271d7d6bcbe716b57c61565d8bc1a1c5360ff0028159622fcf5694",
+    "scripts/page1_markdown_snapshot_a2_history.mjs": "97cc4119250b643936959f3bc23f2314d0092b4cb303fc08586168a2b2811ce4",
+    "scripts/page1_markdown_snapshot_a2_protection.py": "1f5505cbb630f8a3da50595bb5fe3136538c5ef3ba7f45fe71b180409fd1ea85",
+    "webapp/src/features/saved-cards/page1MarkdownSnapshot.js": "14ebce2db465d562ce07cbf35f1f979bae7b67c8c887752a606905dd7712a99a",
+    "webapp/src/features/saved-cards/page1MarkdownSnapshot.test.js": "3d14f7896a59ce5ca362e7b9c6c73d20e531188a80027db446de984c42aa6094",
+    "webapp/src/features/saved-cards/page1MarkdownSnapshotHistory.test.js": "10169f6000991d67dab2e1beb8a51f64cddee4fb0f3a9b09085c89436865fd49"
+  }
+}

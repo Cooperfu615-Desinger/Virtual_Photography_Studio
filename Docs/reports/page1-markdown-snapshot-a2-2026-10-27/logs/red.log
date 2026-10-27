@@ -1,0 +1,27 @@
+TAP version 13
+# Subtest: PAGE1 Markdown restores complete selections before prose and preserves every output byte
+not ok 1 - PAGE1 Markdown restores complete selections before prose and preserves every output byte
+  ---
+  duration_ms: 73.648084
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/saved-cards/page1MarkdownSnapshot.test.js:14:1'
+  failureType: 'testCodeFailure'
+  error: 'no recoverable controls found in prompt'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    parseExportedMarkdownPrompt (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/saved-cards/cardCodec.js:606:11)
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/saved-cards/page1MarkdownSnapshot.test.js:16:18)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 229.382333

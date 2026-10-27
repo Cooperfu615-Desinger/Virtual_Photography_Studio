@@ -81,7 +81,7 @@ test('manifest sourceId restores safe-filename exports while old markdown-only a
   assert.equal(importedLegacy[0].id, 'legacy-card');
 });
 
-test('markdown archive import restores Midjourney tail settings and aspect ratio', async () => {
+test('legacy markdown archive without a snapshot restores Midjourney tail settings and aspect ratio', async () => {
   const locks = {
     ...createEmptyLocks(),
     aspectRatio: '3:4',
@@ -99,7 +99,11 @@ test('markdown archive import restores Midjourney tail settings and aspect ratio
     date: '2026-07-29T00:00:00.000Z',
   };
   const bytes = await createSavedCardsArchive([prompt], 3, 'uint8array');
-  const [restored] = await parseSavedCardsArchive(bytes, getLockControls());
+  const legacyZip = await JSZip.loadAsync(bytes);
+  for (const file of Object.values(legacyZip.files).filter(file => file.name.endsWith('.md'))) {
+    legacyZip.file(file.name, (await file.async('string')).replace(/^<!-- VPStudio PAGE1 Snapshot:.* -->\n/, ''));
+  }
+  const [restored] = await parseSavedCardsArchive(await legacyZip.generateAsync({ type: 'uint8array' }), getLockControls());
 
   assert.equal(restored.midjourneyPrompt, prompt.midjourneyPrompt);
   assert.deepEqual({

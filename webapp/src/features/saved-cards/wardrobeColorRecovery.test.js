@@ -36,7 +36,7 @@ test('A2 recovery: non-color substrings and unrelated body/scene colors cannot r
 
 test('A2 recovery: structured outfit bindings distinguish primary contrast and fixed gold', () => {
   const locks = { outfitPresetId: option('outfitPresetId','粉紅哥德').id, outfitPresetPrimaryColorId:'light-blue', outfitPresetContrastColorId:'white', outfitPresetLockedPaletteId:'metallic-gold' };
-  const p=generate(locks), s=parseExportedMarkdownPrompt(buildMarkdownExport(p),controls,'colored').selection;
+  const p=generate(locks), s=parseExportedMarkdownPrompt(buildMarkdownExport(p).replace(/^<!-- VPStudio PAGE1 Snapshot:.* -->\n/, ''),controls,'colored').selection;
   for (const [key,value] of Object.entries(locks)) assert.equal(s[key],value,key);
 });
 
@@ -48,7 +48,7 @@ test('A2 recovery: generic outfit channels and genuine red are retained', () => 
 
 test('A2 recovery: duo garment ownership and four independent colors stay with each woman', () => {
   const locks={subjectCount:'2',outfitPresetAId:option('outfitPresetAId','粉紅哥德').id,outfitPresetBId:option('outfitPresetBId','鏈條緞面').id,outfitPresetAPrimaryColorId:'light-blue',outfitPresetAContrastColorId:'white',outfitPresetBPrimaryColorId:'red',outfitPresetBContrastColorId:'black'};
-  const p=generate(locks),s=parseExportedMarkdownPrompt(buildMarkdownExport(p),controls,'duo').selection;
+  const p=generate(locks),s=parseExportedMarkdownPrompt(buildMarkdownExport(p).replace(/^<!-- VPStudio PAGE1 Snapshot:.* -->\n/, ''),controls,'duo').selection;
   for(const [key,value] of Object.entries(locks)) assert.equal(s[key],value,key);
   for(const key of ['outfitPresetPrimaryColorId','outfitPresetContrastColorId']) assert.equal(s[key],'none',key);
 });

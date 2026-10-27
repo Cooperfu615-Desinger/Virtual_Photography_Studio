@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-27
 
+## Phase 4 A2：PAGE1 Markdown 完整選值快照（2026-10-27，驗收通過，授權限定交付）
+
+- 可信 main 基準 `943ab65fa153fbc5050ee2c9690e429c326296f2`。本批只新增 PAGE1 Markdown 快照、衍生輸出還原與驗證；單張／ZIP 共用編碼，公開正文保持。合法新快照優先；無快照舊檔沿用既有解析。JSON 版本、引擎、正式 catalog 與公開生成文字不改。
+- 已完成：550 組固定 Git 生成／RNG 零差異、1,100 新檔往返／正文不變、590 舊 Markdown、40 JSON、550 貼上解析保持。92 聚焦、1,924 前端、818 Prompt Quality、43 Python、32 目錄工具、lint／build／sync／ID／strict／assets 通過；200 同 seed audit 前後逐字一致，0 blocker／18 既有診斷。
+- 5175 桌手機 34 項操作、20 張原始畫面，涵蓋實際單張／ZIP 下載、衍生複製、套用／生成／重載、抓拍及六工作區，0 error／外部 POST／意外水平溢位。前批 A2、A1 與四批 A5 隔離回放通過，E 原 expectedHash 保持；2,409 原追蹤檔僅 allowlist 變動，1,038 歷史檔及其他 20 工作目錄／140 份既有未提交檔保持。
+- [規格](specs/page1-markdown-snapshot-a2-v1.md)、[決策](decisions/2026-10-27-a2-page1-markdown-snapshot.md)、[報告](reports/page1-markdown-snapshot-a2-2026-10-27/README.md)。Cooper 已確認驗收通過，授權只提交並 push 本批程式、文件、基準、回歸案例、歷史回放與驗收工具；實際 Git 與對應 CI 結果另行核對，報告保留提交前驗收證據。特殊穿搭、runtime 配色句、其他 Phase 4 與 P5b 未進入。以下各批狀態保留當時歷史。
+
 ## Phase 4 A2：舊 Markdown 穿搭配色還原（2026-10-27，驗收通過，授權限定交付）
 
 - 本批基準與最後核對遠端 main 為 `471115c08e4415643b8acbb87b7c2709f98e117c`，即前批 40 套裝已提交版本；下方前批「授權交付」保留當時狀態。

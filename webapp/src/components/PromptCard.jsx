@@ -1,3 +1,4 @@
+import { encodePage1MarkdownSnapshot } from '../features/saved-cards/page1MarkdownSnapshot.js';
 import React, { memo, useState } from 'react';
 import { Download, Trash2 } from 'lucide-react';
 import { copyTextToClipboard } from '../lib/clipboard';
@@ -10,7 +11,7 @@ function buildMarkdownExport(data) {
     zImage: normalizeZImageDisplayLabel(data.promptLabels?.zImage, 'Z-Image'),
   });
 
-  return `# Generated Prompt - ${new Date(data.date).toLocaleString()}
+  return `${encodePage1MarkdownSnapshot(data)}# Generated Prompt - ${new Date(data.date).toLocaleString()}
 **Source:** ${data.sourceLabel || 'Prompt 工作台'}
 **Summary:** ${data.summary}
 

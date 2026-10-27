@@ -1,0 +1,400 @@
+TAP version 13
+# Subtest: Nano Banana optional text round-trips through raw and compact saved records without a storage version change
+ok 1 - Nano Banana optional text round-trips through raw and compact saved records without a storage version change
+  ---
+  duration_ms: 27.521167
+  type: 'test'
+  ...
+# Subtest: legacy saved records stay without a Nano Banana field and preserve old prompt bytes
+ok 2 - legacy saved records stay without a Nano Banana field and preserve old prompt bytes
+  ---
+  duration_ms: 0.367875
+  type: 'test'
+  ...
+# Subtest: Markdown export and import preserve optional Nano Banana text separately from recoverable legacy selections
+ok 3 - Markdown export and import preserve optional Nano Banana text separately from recoverable legacy selections
+  ---
+  duration_ms: 25.441541
+  type: 'test'
+  ...
+# Subtest: Markdown import accepts historical and current Z-Image section headings
+ok 4 - Markdown import accepts historical and current Z-Image section headings
+  ---
+  duration_ms: 52.680167
+  type: 'test'
+  ...
+# Subtest: Markdown import preserves both legacy unlabeled and current labeled GPT composition text
+ok 5 - Markdown import preserves both legacy unlabeled and current labeled GPT composition text
+  ---
+  duration_ms: 28.59975
+  type: 'test'
+  ...
+# Subtest: favorite codec preserves card identity, prompts, selection, and lineage
+ok 6 - favorite codec preserves card identity, prompts, selection, and lineage
+  ---
+  duration_ms: 1.993792
+  type: 'test'
+  ...
+# Subtest: favorite codec preserves single and duo head accessory color controls
+ok 7 - favorite codec preserves single and duo head accessory color controls
+  ---
+  duration_ms: 2.015
+  type: 'test'
+  ...
+# Subtest: saved card structured scheme keeps duo complete-look, layer, and accessory selections
+ok 8 - saved card structured scheme keeps duo complete-look, layer, and accessory selections
+  ---
+  duration_ms: 0.292834
+  type: 'test'
+  ...
+# Subtest: favorite codec and Markdown import preserve Z-Image exact visible text settings
+ok 9 - favorite codec and Markdown import preserve Z-Image exact visible text settings
+  ---
+  duration_ms: 6.401833
+  type: 'test'
+  ...
+# Subtest: favorite codec round-trips a normalized dress selection without stale separates
+ok 10 - favorite codec round-trips a normalized dress selection without stale separates
+  ---
+  duration_ms: 3.479875
+  type: 'test'
+  ...
+# Subtest: favorite restore normalizes legacy wardrobe conflicts with complete-look priority
+ok 11 - favorite restore normalizes legacy wardrobe conflicts with complete-look priority
+  ---
+  duration_ms: 0.447833
+  type: 'test'
+  ...
+# Subtest: standard prompt parser restores prop actions only into posePropId
+ok 12 - standard prompt parser restores prop actions only into posePropId
+  ---
+  duration_ms: 16.22575
+  type: 'test'
+  ...
+# Subtest: standard prompt parser restores both pocket hand actions and the retired generic wording
+ok 13 - standard prompt parser restores both pocket hand actions and the retired generic wording
+  ---
+  duration_ms: 40.858416
+  type: 'test'
+  ...
+# Subtest: standard prompt parser restores revised hand actions from current and legacy wording
+ok 14 - standard prompt parser restores revised hand actions from current and legacy wording
+  ---
+  duration_ms: 104.767875
+  type: 'test'
+  ...
+# Subtest: open-palm current and historical descriptions restore the same ID without rewriting stored prompt text
+ok 15 - open-palm current and historical descriptions restore the same ID without rewriting stored prompt text
+  ---
+  duration_ms: 57.959792
+  type: 'test'
+  ...
+# Subtest: standard prompt parser restores the two garment-lift actions to separate IDs
+ok 16 - standard prompt parser restores the two garment-lift actions to separate IDs
+  ---
+  duration_ms: 25.71175
+  type: 'test'
+  ...
+# Subtest: standard prompt parser restores only the strict Z-Image exact visible text wrapper
+ok 17 - standard prompt parser restores only the strict Z-Image exact visible text wrapper
+  ---
+  duration_ms: 25.352958
+  type: 'test'
+  ...
+# Subtest: standard prompt parser migrates both legacy lipstick descriptions into the merged prop action
+ok 18 - standard prompt parser migrates both legacy lipstick descriptions into the merged prop action
+  ---
+  duration_ms: 25.22775
+  type: 'test'
+  ...
+# Subtest: standard prompt parser prefers the longest matching option text
+ok 19 - standard prompt parser prefers the longest matching option text
+  ---
+  duration_ms: 12.869666
+  type: 'test'
+  ...
+# Subtest: standard prompt parser restores current and legacy street gold necklace wording
+ok 20 - standard prompt parser restores current and legacy street gold necklace wording
+  ---
+  duration_ms: 25.485167
+  type: 'test'
+  ...
+# Subtest: standard prompt parser restores current and legacy Kabukicho Ichibangai scene wording
+ok 21 - standard prompt parser restores current and legacy Kabukicho Ichibangai scene wording
+  ---
+  duration_ms: 24.906708
+  type: 'test'
+  ...
+# Subtest: standard prompt parser restores natural multi-phrase garment color syntax
+ok 22 - standard prompt parser restores natural multi-phrase garment color syntax
+  ---
+  duration_ms: 40.402291
+  type: 'test'
+  ...
+# Subtest: saved card manifest exports structured source tags without AI inference
+ok 23 - saved card manifest exports structured source tags without AI inference
+  ---
+  duration_ms: 0.761083
+  type: 'test'
+  ...
+# Subtest: manifest summary fields normalize PAGE2 and PAGE3 aliases into the fixed schema
+ok 24 - manifest summary fields normalize PAGE2 and PAGE3 aliases into the fixed schema
+  ---
+  duration_ms: 0.098708
+  type: 'test'
+  ...
+# Subtest: source tags dedupe by stable id even when categories differ
+ok 25 - source tags dedupe by stable id even when categories differ
+  ---
+  duration_ms: 0.073125
+  type: 'test'
+  ...
+# Subtest: v4 Saved Cards records remain readable while local-detail fields are discarded
+ok 26 - v4 Saved Cards records remain readable while local-detail fields are discarded
+  ---
+  duration_ms: 1.48175
+  type: 'test'
+  ...
+# Subtest: PAGE1 Markdown restores complete selections before prose and preserves every output byte
+ok 27 - PAGE1 Markdown restores complete selections before prose and preserves every output byte
+  ---
+  duration_ms: 22.76725
+  type: 'test'
+  ...
+# Subtest: actual single-card and ZIP exporters share identical metadata and preserve their readable bodies
+ok 28 - actual single-card and ZIP exporters share identical metadata and preserve their readable bodies
+  ---
+  duration_ms: 36.714041
+  type: 'test'
+  ...
+# Subtest: CRLF, whitespace, Unicode, comment tokens and historical extra outputs preserve exact text
+ok 29 - CRLF, whitespace, Unicode, comment tokens and historical extra outputs preserve exact text
+  ---
+  duration_ms: 10.05375
+  type: 'test'
+  ...
+# Subtest: new snapshots preserve PAGE1 MJ ratio ownership instead of inferring the rendered ratio
+ok 30 - new snapshots preserve PAGE1 MJ ratio ownership instead of inferring the rendered ratio
+  ---
+  duration_ms: 5.348
+  type: 'test'
+  ...
+# Subtest: non-PAGE1 and cards without selections retain legacy format
+ok 31 - non-PAGE1 and cards without selections retain legacy format
+  ---
+  duration_ms: 1.7665
+  type: 'test'
+  ...
+# Subtest: new metadata rejects version without prose fallback
+ok 32 - new metadata rejects version without prose fallback
+  ---
+  duration_ms: 3.238042
+  type: 'test'
+  ...
+# Subtest: new metadata rejects source without prose fallback
+ok 33 - new metadata rejects source without prose fallback
+  ---
+  duration_ms: 3.379333
+  type: 'test'
+  ...
+# Subtest: new metadata rejects missing key without prose fallback
+ok 34 - new metadata rejects missing key without prose fallback
+  ---
+  duration_ms: 4.498583
+  type: 'test'
+  ...
+# Subtest: new metadata rejects extra key without prose fallback
+ok 35 - new metadata rejects extra key without prose fallback
+  ---
+  duration_ms: 3.870625
+  type: 'test'
+  ...
+# Subtest: new metadata rejects unknown ID without prose fallback
+ok 36 - new metadata rejects unknown ID without prose fallback
+  ---
+  duration_ms: 3.736167
+  type: 'test'
+  ...
+# Subtest: new metadata rejects wrong type without prose fallback
+ok 37 - new metadata rejects wrong type without prose fallback
+  ---
+  duration_ms: 4.0745
+  type: 'test'
+  ...
+# Subtest: new metadata rejects bad numeric range without prose fallback
+ok 38 - new metadata rejects bad numeric range without prose fallback
+  ---
+  duration_ms: 6.079459
+  type: 'test'
+  ...
+# Subtest: new metadata rejects bad hidden enum without prose fallback
+ok 39 - new metadata rejects bad hidden enum without prose fallback
+  ---
+  duration_ms: 6.1055
+  type: 'test'
+  ...
+# Subtest: new metadata rejects bad nested capture without prose fallback
+ok 40 - new metadata rejects bad nested capture without prose fallback
+  ---
+  duration_ms: 4.580375
+  type: 'test'
+  ...
+# Subtest: new metadata rejects bad output without prose fallback
+ok 41 - new metadata rejects bad output without prose fallback
+  ---
+  duration_ms: 3.352125
+  type: 'test'
+  ...
+# Subtest: new metadata rejects duplicate extra ID without prose fallback
+ok 42 - new metadata rejects duplicate extra ID without prose fallback
+  ---
+  duration_ms: 2.992833
+  type: 'test'
+  ...
+# Subtest: new metadata rejects bad label without prose fallback
+ok 43 - new metadata rejects bad label without prose fallback
+  ---
+  duration_ms: 2.887083
+  type: 'test'
+  ...
+# Subtest: new metadata rejects unknown payload field without prose fallback
+ok 44 - new metadata rejects unknown payload field without prose fallback
+  ---
+  duration_ms: 3.069375
+  type: 'test'
+  ...
+# Subtest: new metadata rejects truncated
+ok 45 - new metadata rejects truncated
+  ---
+  duration_ms: 2.963458
+  type: 'test'
+  ...
+# Subtest: new metadata rejects duplicate marker
+ok 46 - new metadata rejects duplicate marker
+  ---
+  duration_ms: 4.452333
+  type: 'test'
+  ...
+# Subtest: new metadata rejects duplicate JSON key
+ok 47 - new metadata rejects duplicate JSON key
+  ---
+  duration_ms: 2.612167
+  type: 'test'
+  ...
+# Subtest: new metadata rejects unsafe key
+ok 48 - new metadata rejects unsafe key
+  ---
+  duration_ms: 2.798875
+  type: 'test'
+  ...
+# Subtest: new metadata rejects changed visible text
+ok 49 - new metadata rejects changed visible text
+  ---
+  duration_ms: 4.524917
+  type: 'test'
+  ...
+# Subtest: new metadata rejects missing extra block
+ok 50 - new metadata rejects missing extra block
+  ---
+  duration_ms: 4.893875
+  type: 'test'
+  ...
+# Subtest: new metadata rejects legacy conflict
+ok 51 - new metadata rejects legacy conflict
+  ---
+  duration_ms: 4.50425
+  type: 'test'
+  ...
+# Subtest: known issued legacy option IDs migrate while other IDs are rejected
+ok 52 - known issued legacy option IDs migrate while other IDs are rejected
+  ---
+  duration_ms: 5.059417
+  type: 'test'
+  ...
+# Subtest: saved card archive contains manifest and unchanged markdown exports
+ok 53 - saved card archive contains manifest and unchanged markdown exports
+  ---
+  duration_ms: 90.334459
+  type: 'test'
+  ...
+# Subtest: archive file names stay unique for sanitized id collisions and invalid items are skipped
+ok 54 - archive file names stay unique for sanitized id collisions and invalid items are skipped
+  ---
+  duration_ms: 43.210417
+  type: 'test'
+  ...
+# Subtest: manifest sourceId restores safe-filename exports while old markdown-only archives remain importable
+ok 55 - manifest sourceId restores safe-filename exports while old markdown-only archives remain importable
+  ---
+  duration_ms: 31.076125
+  type: 'test'
+  ...
+# Subtest: legacy markdown archive without a snapshot restores Midjourney tail settings and aspect ratio
+ok 56 - legacy markdown archive without a snapshot restores Midjourney tail settings and aspect ratio
+  ---
+  duration_ms: 50.5885
+  type: 'test'
+  ...
+# Subtest: imported summaries omit dormant duo fields and use the same resolved person
+ok 57 - imported summaries omit dormant duo fields and use the same resolved person
+  ---
+  duration_ms: 59.278708
+  type: 'test'
+  ...
+# Subtest: full-body import captures resolved data, colors and original settings without altering the source
+ok 58 - full-body import captures resolved data, colors and original settings without altering the source
+  ---
+  duration_ms: 23.419791
+  type: 'test'
+  ...
+# Subtest: capture reroll preserves imported identity, wardrobe and full-body output across seeds
+ok 59 - capture reroll preserves imported identity, wardrobe and full-body output across seeds
+  ---
+  duration_ms: 113.01
+  type: 'test'
+  ...
+# Subtest: six outputs survive JSON, markdown and reload while dormant standard choices are preserved
+ok 60 - six outputs survive JSON, markdown and reload while dormant standard choices are preserved
+  ---
+  duration_ms: 75.234916
+  type: 'test'
+  ...
+# Subtest: missing source cannot generate, reimport is explicit, and unsupported sources cannot be used
+ok 61 - missing source cannot generate, reimport is explicit, and unsupported sources cannot be used
+  ---
+  duration_ms: 33.527708
+  type: 'test'
+  ...
+# Subtest: explicit face, skin, hair and body survive import; main GPT body omission and full-body retention remain
+ok 62 - explicit face, skin, hair and body survive import; main GPT body omission and full-body retention remain
+  ---
+  duration_ms: 12.345458
+  type: 'test'
+  ...
+# Subtest: none stays silent, close-up source retains hidden clothing and source snapshots are immutable copies
+ok 63 - none stays silent, close-up source retains hidden clothing and source snapshots are immutable copies
+  ---
+  duration_ms: 18.934583
+  type: 'test'
+  ...
+# Subtest: imported source passes six-output contracts for every capture scene and supported framing
+ok 64 - imported source passes six-output contracts for every capture scene and supported framing
+  ---
+  duration_ms: 149.434833
+  type: 'test'
+  ...
+# Subtest: invalid imported records fail closed and card selection cannot leak into imported identity
+ok 65 - invalid imported records fail closed and card selection cannot leak into imported identity
+  ---
+  duration_ms: 13.659292
+  type: 'test'
+  ...
+1..65
+# tests 65
+# suites 0
+# pass 65
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 687.107959

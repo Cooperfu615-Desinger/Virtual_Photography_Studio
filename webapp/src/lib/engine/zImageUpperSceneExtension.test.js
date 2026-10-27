@@ -1,3 +1,4 @@
+// These Markdown assertions pin the legacy prose path without PAGE1 snapshot metadata.
 import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
 const historicalTest = preA1HistoricalTest(import.meta.url);
 import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
@@ -86,7 +87,7 @@ test('all 14 additions preserve saved selections and exported text; legacy Markd
     const { prompt } = runSceneFixture(upperSceneFixture(label, '腰部高度鏡頭'));
     assert.ok(prompt.zImagePrompt.includes(addition));
     const saved = deserializeFavoritePrompt(serializeFavoritePrompt(prompt));
-    const parsed = parseExportedMarkdownPrompt(buildMarkdownExport(prompt), controls, 'upper-extension-test');
+    const parsed = parseExportedMarkdownPrompt(buildMarkdownExport(prompt).replace(/^<!-- VPStudio PAGE1 Snapshot:.* -->\n/, ''), controls, 'upper-extension-test');
     for (const restored of [saved, parsed]) {
       for (const field of ['grokPrompt', 'zImagePrompt', ]) assert.equal(restored[field], prompt[field]);
     }

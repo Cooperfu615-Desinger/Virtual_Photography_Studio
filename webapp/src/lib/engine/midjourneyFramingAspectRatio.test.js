@@ -1,3 +1,4 @@
+// These Markdown assertions pin the legacy prose path without PAGE1 snapshot metadata.
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
@@ -104,7 +105,7 @@ test('carriage sets that allow framing variation keep the framing ratio through 
 
   // Carriage Markdown text does not round-trip its crop (existing importer limit),
   // so the ratio is kept as the MJ-only F ratio and PAGE1 stays unset.
-  const restored = parseExportedMarkdownPrompt(buildMarkdownExport(prompt), controls, 'carriage-ratio');
+  const restored = parseExportedMarkdownPrompt(buildMarkdownExport(prompt).replace(/^<!-- VPStudio PAGE1 Snapshot:.* -->\n/, ''), controls, 'carriage-ratio');
   assert.equal(restored.selection.aspectRatio, prompt.selection.aspectRatio);
   assert.equal(restored.selection.mjAspectRatio, '3:4');
 });

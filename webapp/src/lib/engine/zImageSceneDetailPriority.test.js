@@ -1,3 +1,4 @@
+// These Markdown assertions pin the legacy prose path without PAGE1 snapshot metadata.
 import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
 const historicalTest = preA1HistoricalTest(import.meta.url);
 import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
@@ -135,7 +136,7 @@ test('Saved Cards retain six texts; Markdown exports six and restores the establ
   for (const [label] of SCENE_DETAIL_PRIORITY_CASES) {
     const { prompt } = runSceneFixture(upperSceneFixture(label, '地面高度鏡頭'));
     const saved = deserializeFavoritePrompt(serializeFavoritePrompt(prompt));
-    const markdown = buildMarkdownExport(prompt);
+    const markdown = buildMarkdownExport(prompt).replace(/^<!-- VPStudio PAGE1 Snapshot:.* -->\n/, '');
     const parsed = parseExportedMarkdownPrompt(markdown, controls, 'priority-roundtrip');
     assert.equal(saved.selection.locationId, prompt.selection.locationId);
     assert.deepEqual(saved.extraPrompts, prompt.extraPrompts);

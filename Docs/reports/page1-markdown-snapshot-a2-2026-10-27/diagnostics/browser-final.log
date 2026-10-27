@@ -1,0 +1,16 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+locator.click: Timeout 25000ms exceeded.
+Call log:
+[2m  - waiting for getByRole('button', { name: '隨機生成', exact: true })[22m
+
+    at /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/page1_markdown_snapshot_a2_browser.mjs:64:28 {
+  log: [
+    "  - waiting for getByRole('button', { name: '隨機生成', exact: true })"
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v22.23.3

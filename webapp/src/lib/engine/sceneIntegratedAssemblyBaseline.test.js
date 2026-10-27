@@ -1,3 +1,4 @@
+// These Markdown assertions pin the legacy prose path without PAGE1 snapshot metadata.
 import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
 const historicalTest = preA1HistoricalTest(import.meta.url);
 import { restorePreOpenPalmV2 } from './openPalmTestSupport.js';
@@ -305,7 +306,7 @@ test('exact visible text remains Z-only and saved text round-trips through the e
     }
     // Markdown historically restores primary text and inferred locks, not a
     // lossless ZIP round trip. Do not silently demand a new import contract.
-    const markdown = buildMarkdownExport(prompt);
+    const markdown = buildMarkdownExport(prompt).replace(/^<!-- VPStudio PAGE1 Snapshot:.* -->\n/, '');
     for (const heading of ['Z-Image', 'Grok/Z-Image', 'Z-Image Prompt']) {
       const parsed = parseExportedMarkdownPrompt(markdown.replace('## Z-Image\n', `## ${heading}\n`), getLockControls(), 'test-import');
       for (const field of ['grokPrompt', 'zImagePrompt']) {

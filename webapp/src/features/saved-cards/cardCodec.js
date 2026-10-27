@@ -1,3 +1,4 @@
+import { encodePage1MarkdownSnapshot, decodePage1MarkdownSnapshot } from './page1MarkdownSnapshot.js';
 import { createWardrobeRecoveryContext, wardrobeItemRecoveryScope, recoverWardrobeColors } from './wardrobeColorRecovery.js';
 import { isImportedPersonKey } from '../../lib/observationCaptureImport.js';
 import { accessoryRestoreNotices } from '../../lib/engine/accessoryPolicy.js';
@@ -114,7 +115,7 @@ export function buildMarkdownExport(data) {
   const captureMetadata = data.selection?.captureMode === 'observation'
     ? `<!-- VPStudio Observation Capture: ${JSON.stringify(data.selection).replace(/</g, '\\u003c').replace(/>/g, '\\u003e')} -->\n` : '';
 
-  return `${silenceMetadata}${captureMetadata}# Generated Prompt - ${new Date(data.date).toLocaleString()}
+  return `${encodePage1MarkdownSnapshot(data)}${silenceMetadata}${captureMetadata}# Generated Prompt - ${new Date(data.date).toLocaleString()}
 **Source:** ${data.sourceLabel || 'Prompt 工作台'}
 **Summary:** ${data.summary}
 
@@ -563,6 +564,23 @@ export function createLineage(prompt) {
 }
 
 export function parseExportedMarkdownPrompt(markdownText, controls, fallbackId) {
+  const snapshot = decodePage1MarkdownSnapshot(markdownText, controls);
+  if (snapshot) {
+    const text = String(markdownText).replace(/\r\n/g, '\n');
+    const header = text.slice(text.indexOf(' -->\n') + 5).split('\n\n## ')[0];
+    const summary = header.match(/^\*\*Summary:\*\*[^\S\r\n]*(.*)$/m)?.[1]?.trim();
+    if (!summary) throw new Error('missing markdown summary');
+    const prompt = {
+      id: fallbackId || `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      date: new Date().toISOString(), source: 'page1',
+      sourceLabel: header.match(/^\*\*Source:\*\*[^\S\r\n]*(.*)$/m)?.[1]?.trim() || '',
+      summary, summaryFields: parseSummaryFields(summary), ...snapshot.outputs,
+      promptLabels: snapshot.promptLabels, selection: snapshot.selection,
+      accessoryRestoreNotices: accessoryRestoreNotices(snapshot.selection),
+      structured: buildImportedStructured(snapshot.selection, controls),
+    };
+    return { ...prompt, lineage: createLineage(prompt) };
+  }
   const text = String(markdownText || '').replace(/\r\n/g, '\n');
   const sourceMatch = text.match(/\*\*Source:\*\*\s*(.+)/);
   const summaryMatch = text.match(/\*\*Summary:\*\*\s*(.+)/);
