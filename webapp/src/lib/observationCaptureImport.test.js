@@ -161,3 +161,134 @@ test('invalid imported records fail closed and card selection cannot leak into i
     assert.equal(generate({ ...next, observationCapture: { ...next.observationCapture, importedPerson: invalid } }), undefined);
   }
 });
+
+// A2 paired-color import contract: palette leaves are resolved colors, not catalog IDs.
+const pairedOptions = controls.find(c => c.key === 'topBottomPaletteId').options.filter(o => o.topColor && o.bottomColor);
+const pairedLocks = (paletteId = pairedOptions[0].id) => ({ ...silentLocks(), topId: byZh('topId', '領帶襯衫'), pantsId: byZh('pantsId', '牛仔'), topBottomPaletteId: paletteId });
+const pairSnapshot = () => {
+  const person = getFullBodyImportSource(generate({ ...pairedLocks(), topBottomPaletteId: 'none' }));
+  const palette = structuredClone(pairedOptions[0]);
+  person.wardrobeColors.topBottomPalette = palette;
+  person.wardrobeColors.topColor = structuredClone(palette.topColor);
+  person.wardrobeColors.bottomColor = structuredClone(palette.bottomColor);
+  person.selection.topBottomPaletteId = palette.id;
+  return person;
+};
+
+test('A2 paired capture accepts all 42 palettes on tops, pants, skirts and legacy dresses without minting IDs', () => {
+  assert.equal(pairedOptions.length, 42);
+  const families = [
+    {}, { pantsId: byZh('pantsId', '全無'), skirtId: byZh('skirtId', '短裙') },
+    { pantsId: byZh('pantsId', '全無') }, { topId: byZh('topId', '全無') },
+    { topId: byZh('topId', '全無'), pantsId: byZh('pantsId', '全無'), dressId: byZh('dressId', '無袖迷你') },
+  ];
+  for (const palette of pairedOptions) for (const family of families) {
+    const source = generate({ ...pairedLocks(palette.id), ...family });
+    const person = getFullBodyImportSource(source);
+    assert.ok(person, palette.id + JSON.stringify(family));
+    assert.deepEqual(person.wardrobeColors.topBottomPalette, palette);
+    assert.equal(Object.hasOwn(person.wardrobeColors.topBottomPalette.topColor, 'id'), false);
+    assert.equal(Object.hasOwn(person.wardrobeColors.topBottomPalette.bottomColor, 'id'), false);
+    assert.deepEqual(person.wardrobe, source.structured.Wardrobe);
+    assert.equal(person.fullBodyPrompt, source.extraPrompts.find(x => x.id === 'full-body-character').text);
+  }
+});
+
+test('A2 paired capture validates owned idless leaves by channel and role', () => {
+  for (const role of ['', 'A', 'B']) for (const [key, side] of [
+    ['top', 'topColor'], ['dress', 'topColor'], ['bottom', 'bottomColor'],
+    ['outfitPreset', 'topColor'], ['outfitPresetPrimary', 'topColor'], ['outfitPresetContrast', 'bottomColor'],
+  ]) {
+    const person = pairSnapshot(), palette = structuredClone(pairedOptions[1]);
+    const field = key.startsWith('outfitPreset') ? `outfitPreset${role}${key.slice(12)}Color` : `${key}${role}Color`;
+    person.wardrobeColors[`topBottomPalette${role}`] = palette;
+    // Each case has one additional leaf, without borrowing the other role's palette.
+    person.wardrobeColors.topColor = null; person.wardrobeColors.bottomColor = null;
+    person.wardrobeColors[field] = structuredClone(palette[side]);
+    assert.deepEqual(normalizeImportedPerson(person), person, field);
+  }
+});
+
+test('A2 paired capture rejects unowned, malformed, conflicting and unknown idless values atomically', () => {
+  const changes = [
+    p => { delete p.wardrobeColors.topBottomPalette; },
+    p => { p.wardrobeColors.topBottomPalette.id = 'random'; },
+    p => { p.wardrobeColors.topBottomPalette.id = 3; },
+    p => { p.wardrobeColors.topColor.en = ''; },
+    p => { p.wardrobeColors.topColor.en = 'unrelated red'; },
+    p => { p.wardrobeColors.topColor.id = 3; },
+    p => { p.wardrobeColors.topColor.hex = 'not a color'; },
+    p => { p.wardrobeColors.topColor.extra = true; },
+    p => { p.wardrobeColors.topColor = p.wardrobeColors.topBottomPalette.bottomColor; },
+    p => { p.wardrobeColors.topAColor = p.wardrobeColors.topColor; },
+    p => { p.wardrobeColors.shoesColor = p.wardrobeColors.topColor; },
+    p => { p.wardrobeColors.unknownColor = p.wardrobeColors.topColor; },
+    p => { p.wardrobeColors.topBottomPalette.topColor = null; },
+    p => { p.wardrobeColors.topColor.zh = null; },
+    p => { p.fullBodyPrompt = ''; },
+    p => { p.character[0] = { id: 'invalid' }; },
+    p => { p.wardrobe = 'invalid'; },
+  ];
+  for (const change of changes) {
+    const person = pairSnapshot(); change(person); const before = JSON.stringify(person);
+    assert.equal(normalizeImportedPerson(person), null);
+    assert.equal(JSON.stringify(person), before);
+  }
+});
+
+test('A2 paired capture retains the existing ID-bearing snapshot contract and deep copies leaves', () => {
+  const old = getFullBodyImportSource(generate({ ...pairedLocks(), topBottomPaletteId: 'none', topColorId: 'red' }));
+  assert.deepEqual(normalizeImportedPerson(old), old);
+  const person = pairSnapshot(), normalized = normalizeImportedPerson(person);
+  assert.deepEqual(normalized, person);
+  normalized.wardrobeColors.topColor.en = 'changed';
+  normalized.wardrobeColors.topBottomPalette.bottomColor.en = 'changed';
+  assert.notEqual(person.wardrobeColors.topColor.en, 'changed');
+  assert.notEqual(person.wardrobeColors.topBottomPalette.bottomColor.en, 'changed');
+});
+
+test('A2 paired random palette resolves once and capture rerolls preserve source colors and reference', () => {
+  for (let i = 0; i < 8; i++) {
+    const locks = pairedLocks('random'), source = generate(locks, `paired-random-${i}`);
+    const person = getFullBodyImportSource(source);
+    assert.ok(person); assert.equal(person.rawSelection.topBottomPaletteId, 'random');
+    assert.ok(pairedOptions.some(p => p.id === person.selection.topBottomPaletteId));
+    const next = imported(locks, source), frozen = JSON.stringify(next.observationCapture.importedPerson);
+    for (let j = 0; j < 3; j++) {
+      next.observationCapture = rerollCapture(next.observationCapture).profile;
+      const result = generate(next, `paired-reroll-${j}`);
+      assert.equal(JSON.stringify(next.observationCapture.importedPerson), frozen);
+      assert.equal(result.selection.topBottomPaletteId, locks.topBottomPaletteId); // Dormant ordinary locks retain random.
+      assert.equal(result.selection.observationCapture.importedPerson.selection.topBottomPaletteId, person.selection.topBottomPaletteId);
+      assert.equal(result.extraPrompts.find(x => x.id === 'full-body-character').text, person.fullBodyPrompt);
+    }
+  }
+});
+
+test('A2 paired capture JSON, Markdown and reload preserve the complete source and all six outputs', () => {
+  for (const palette of pairedOptions.slice(0, 3)) {
+    const locks = pairedLocks(palette.id), next = imported(locks, generate(locks)), first = generate(next);
+    assert.ok(first);
+    for (const restored of [
+      normalizeLocks(JSON.parse(JSON.stringify(next))),
+      normalizeLocks(buildRestoreLocks(deserializeFavoritePrompt(serializeFavoritePrompt(first)).selection, controls)),
+      normalizeLocks(parseExportedMarkdownPrompt(buildMarkdownExport(first), controls, 'paired-import').selection),
+    ]) {
+      assert.deepEqual(restored.observationCapture.importedPerson, next.observationCapture.importedPerson);
+      assert.deepEqual(outputs(generate(restored)), outputs(first));
+    }
+  }
+});
+
+test('A2 paired capture keeps the old imported person until explicit reimport and rejects unsupported sources', () => {
+  const locks = pairedLocks(), old = imported(locks, generate(locks));
+  const fresh = generate(pairedLocks(pairedOptions[1].id));
+  const prepared = prepareCaptureEntry(old.observationCapture, fresh);
+  assert.deepEqual(prepared.importedPerson, old.observationCapture.importedPerson);
+  const replaced = importCapturePerson(prepared);
+  assert.equal(replaced.importedPerson.selection.topBottomPaletteId, pairedOptions[1].id);
+  assert.deepEqual(old.observationCapture.importedPerson.wardrobeColors.topBottomPalette, pairedOptions[0]);
+  assert.equal(getFullBodyImportSource(generate({ ...locks, subjectCount: '2' })), null);
+  assert.equal(getFullBodyImportSource(generate(old)), null);
+  assert.equal(getFullBodyImportSource(generate({ ...locks, characterProfileId: controls.find(c => c.key === 'characterProfileId').options.find(o => !['none', 'random'].includes(o.id)).id })), null);
+});

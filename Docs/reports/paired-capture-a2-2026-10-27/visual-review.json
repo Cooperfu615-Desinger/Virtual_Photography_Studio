@@ -1,0 +1,41 @@
+{
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      900
+    ]
+  ],
+  "reviewedImages": [
+    "1440-paired-import.png",
+    "1440-paired-reimport-detail.png",
+    "390-paired-standard-detail.png",
+    "390-paired-empty-detail.png",
+    "390-paired-reimport-detail.png",
+    "390-paired-random-detail.png",
+    "390-paired-import.png",
+    "1440-workspace-0.png",
+    "1440-workspace-1.png",
+    "1440-workspace-2.png",
+    "1440-workspace-3.png",
+    "1440-workspace-4.png",
+    "1440-workspace-5.png",
+    "390-workspace-0.png",
+    "390-workspace-1.png",
+    "390-workspace-2.png",
+    "390-workspace-3.png",
+    "390-workspace-4.png",
+    "390-workspace-5.png"
+  ],
+  "method": "Rendered browser interactions plus manual image inspection; original-resolution mobile workspace images and affected component details.",
+  "result": "No new clipping, missing content, broken images, unreadable wrapping or unexpected document overflow observed. Capture source and reimport controls are visible and usable in both sizes.",
+  "existingPresentation": "Transient generation toast overlays and mobile button ellipsis remain existing presentation; all six outputs copy exactly and primary actions were exercised.",
+  "scope": "Six current navigation workspaces; no layout or CSS edits; no external image/video generation.",
+  "browserChecks": 38,
+  "screenshots": 36,
+  "consoleAndPageErrors": [],
+  "externalPosts": []
+}

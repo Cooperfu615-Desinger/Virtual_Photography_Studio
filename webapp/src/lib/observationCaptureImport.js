@@ -10,13 +10,33 @@ const selectionOnly = value => Object.fromEntries(Object.entries(value || {}).fi
 const record = value => value && typeof value === 'object' && !Array.isArray(value);
 const sourceItem = item => record(item) && typeof item.id === 'string' && typeof item.en === 'string' && record(item.meta);
 
+// An ID-less swatch is valid only when it is the exact resolved leaf of the
+// same role's paired palette. Keep the established ID-bearing path unchanged.
+const paletteLeaf = value => record(value)
+  && Object.keys(value).every(key => ['zh', 'en', 'hex'].includes(key))
+  && typeof value.zh === 'string' && Boolean(value.zh.trim())
+  && typeof value.en === 'string' && Boolean(value.en.trim())
+  && (!Object.hasOwn(value, 'hex') || typeof value.hex === 'string' && /^#[a-f0-9]{6}$/i.test(value.hex));
+
+function wardrobeColorSource(key, item, colors) {
+  if (item === null || record(item) && typeof item.id === 'string') return true;
+  if (!paletteLeaf(item)) return false;
+  const match = key.match(/^(top|dress|bottom|outfitPreset)([AB]?)(Color|PrimaryColor|ContrastColor)$/);
+  if (!match || match[1] !== 'outfitPreset' && match[3] !== 'Color') return false;
+  const palette = colors[`topBottomPalette${match[2]}`];
+  if (!record(palette) || typeof palette.id !== 'string' || !palette.id.trim()
+    || ['none', 'random'].includes(palette.id)) return false;
+  const source = palette[match[1] === 'bottom' || match[3] === 'ContrastColor' ? 'bottomColor' : 'topColor'];
+  return paletteLeaf(source) && ['zh', 'en', 'hex'].every(field =>
+    Object.hasOwn(item, field) === Object.hasOwn(source, field) && item[field] === source[field]);
+}
+
 export function normalizeImportedPerson(value) {
   if (!record(value) || value.version !== 1 || typeof value.fullBodyPrompt !== 'string' || !value.fullBodyPrompt.trim()
     || !Array.isArray(value.character) || !value.character.every(sourceItem)
     || !Array.isArray(value.wardrobe) || !value.wardrobe.every(sourceItem)
     || !record(value.wardrobeColors) || !record(value.selection) || !record(value.rawSelection)) return null;
-  // Palette records also carry nested top/bottom colors and need not have item metadata.
-  if (!Object.values(value.wardrobeColors).every(item => item === null || record(item) && typeof item.id === 'string')) return null;
+  if (!Object.entries(value.wardrobeColors).every(([key, item]) => wardrobeColorSource(key, item, value.wardrobeColors))) return null;
   return copy({ version: 1, character: value.character, wardrobe: value.wardrobe, wardrobeColors: value.wardrobeColors,
     selection: selectionOnly(value.selection), rawSelection: selectionOnly(value.rawSelection), fullBodyPrompt: value.fullBodyPrompt });
 }

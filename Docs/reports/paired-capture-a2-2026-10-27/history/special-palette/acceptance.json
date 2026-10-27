@@ -1,0 +1,13 @@
+{
+  "baseCommit": "15580949ac1f00e7a2628209d91a301434504965",
+  "transitions": 6957,
+  "changedTransitions": 4462,
+  "generations": 2564,
+  "directGenerations": 1030,
+  "restores": 90,
+  "frozenCaptures": 60,
+  "saved": 30,
+  "protectedFiles": 533,
+  "oracleMismatches": 0,
+  "deferredLimits": "split-dress restore and capture remain unchanged"
+}

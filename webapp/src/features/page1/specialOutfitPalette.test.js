@@ -88,9 +88,9 @@ test('A2 special capture source keeps its palette and frozen reference across ca
   assert.equal(JSON.stringify(person), frozen);
 });
 
-test('A2 deferred split-dress restore and paired-color capture limits remain unchanged', () => {
+test('A2 split-dress restore stays deferred while paired-color capture accepts resolved colors', () => {
   const locks = { ...empty(), dressId: concrete('dressId')[0].id, topBottomPaletteId: concrete('topBottomPaletteId')[0].id };
   assert.equal(buildRestoreLocks(locks, controls).topBottomPaletteId, 'none');
-  assert.equal(getFullBodyImportSource(generate(locks)), null);
+  assert.ok(getFullBodyImportSource(generate(locks)));
   assert.ok(getFullBodyImportSource(generate({ ...locks, topBottomPaletteId: 'none' })));
 });

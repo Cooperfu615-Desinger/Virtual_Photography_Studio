@@ -4,6 +4,15 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-27
 
+## Phase 4 A2：上下配色抓拍相容（2026-10-27，驗收通過，授權限定交付）
+
+- 基準本機／遠端 main `58516b20c6631b1a61faa48ee22abfb05ea29384`。只修正快照驗證，接受對應方案的無 ID 上下色塊；不新增 ID、不改配色結構、引擎、穿搭互斥或存檔格式。
+- 固定 Git：1,485 組普通生成／轉換與 1,431 組抓拍生成通過，1,364 組原受阻來源可用；357 組還原與 357 組重抽保持，0 非核准差異。聚焦 27、前端 1,954、Prompt Quality 825、Python 43、目錄工具 32，lint／build／sync／歷史 ID／strict／207 assets 通過；200 同 seed audit 前後逐字一致，0 blocker／18 既有診斷。
+- 前批特殊穿搭及完整 A2／A1／A5 原工具隔離回放通過。5175 桌面 1440×1000／手機 390×900 共 38 項操作、36 張畫面通過，包含選色、首次／重新匯入、重抽、單張／ZIP、重載與六工作區；0 console／page error／外部 POST／意外水平溢位。已人工檢視，專用驗收服務已停止。
+- 2,747 原追蹤檔僅允許本批七份變動，1,337 歷史檔、其他 20 工作目錄／140 份既有未提交檔保持。Cooper 已確認驗收通過，授權只提交並 push 本批程式、文件、基準、回歸案例、歷史回放與驗收工具；實際 Git 與該提交 CI 結果另行核對。原驗收報告與 manifest 保留提交前證據。
+- 舊連身結構化與純文字還原、胸上區域投影、其他項目／P5b 另批；本次交付保留其他未提交內容與歷史基準。
+- [規格](specs/paired-capture-a2-v1.md)、[決策](decisions/2026-10-27-a2-paired-capture.md)、[報告](reports/paired-capture-a2-2026-10-27/README.md)。下方保留各批當時狀態。
+
 ## Phase 4 A2：單人特殊穿搭保留完整造型色系（2026-10-27，驗收通過，授權限定交付）
 
 - 基準本機／遠端 main `15580949ac1f00e7a2628209d91a301434504965`（上一批 runtime 已交付）。只修正單人特殊穿搭清理規則，保留自身 `completeLookPaletteId`；手動、回填、收藏套用及後續更新共用。其他穿搭接管、雙人 A／B、全無／區域隨機／清空保持；引擎、catalog、儲存格式與 renderer 不改。
