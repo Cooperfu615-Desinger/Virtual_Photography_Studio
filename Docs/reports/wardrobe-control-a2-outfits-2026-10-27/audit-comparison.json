@@ -1,0 +1,9 @@
+{
+  "seed": "prompt-quality-baseline",
+  "generatedCount": 200,
+  "sameSummary": true,
+  "sameFindingsExcludingRuntimeIds": true,
+  "blockingSignals": 0,
+  "diagnosticSignals": 18,
+  "newFindings": []
+}

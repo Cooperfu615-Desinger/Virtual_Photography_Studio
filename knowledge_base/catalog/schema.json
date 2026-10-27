@@ -308,12 +308,47 @@
                     "tags"
                   ],
                   "additionalProperties": false
+                },
+                "colorTextBindings": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "channel",
+                      "target",
+                      "omitForPrimaryMaterial"
+                    ],
+                    "properties": {
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "primary",
+                          "contrast"
+                        ]
+                      },
+                      "target": {
+                        "type": "string",
+                        "minLength": 1,
+                        "pattern": "^(?!.*controlled by)\\S(?:.*\\S)?$"
+                      },
+                      "omitForPrimaryMaterial": {
+                        "type": "boolean"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
                 }
               },
               "additionalProperties": false,
               "required": [
                 "semantic"
               ]
+            },
+            "legacyPromptAliases": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           },
           "required": [

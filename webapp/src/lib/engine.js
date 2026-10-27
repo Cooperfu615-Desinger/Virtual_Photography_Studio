@@ -61,6 +61,7 @@ import {
   dedupeRepeatedCommaFragments,
   materializeOutfitColorControls,
 } from './engine/promptTextDeduplication.js';
+import { materializeOutfitColorBindings } from './engine/outfitColorBindings.js';
 import {
   MIDJOURNEY_PARAMETER_CONTRACT,
   normalizeMidjourneyParameterSettings,
@@ -8688,7 +8689,10 @@ function buildUnprojectedOutfitPresetPrompt(item, colorState = {}) {
   const completeLookPalette = colorState.completeLookPalette || null;
   const primaryColorText = buildWearableColorDescription(primaryColor);
   const contrastColorText = buildWearableColorDescription(contrastColor);
-  const primaryBehavior = materializeOutfitPresetPrimaryColorBehavior(base, meta, primaryColor);
+  const bindings = materializeOutfitColorBindings(base, meta.colorTextBindings, {
+    primaryColorText, contrastColorText, primaryMaterial: primaryColor?.meta?.primaryMaterial === true,
+  });
+  const primaryBehavior = materializeOutfitPresetPrimaryColorBehavior(bindings?.text ?? base, meta, primaryColor);
 
   if (!meta.colorMode || !colorTargets || Object.keys(colorTargets).length === 0) {
     const visualBase = stripOutfitColorSelectionControls(primaryBehavior.text);
@@ -8704,10 +8708,9 @@ function buildUnprojectedOutfitPresetPrompt(item, colorState = {}) {
     return appendCompleteLookPaletteDirection(composeWearableColorPrompt(visualBase, primaryColor), completeLookPalette);
   }
 
-  const materializedBase = materializeOutfitColorControls(primaryBehavior.text, {
-    primaryColorText,
-    contrastColorText,
-  });
+  const materializedBase = bindings
+    ? { ...bindings, text: primaryBehavior.text }
+    : materializeOutfitColorControls(primaryBehavior.text, { primaryColorText, contrastColorText });
   const details = [];
   const primaryTargets = colorTargets.primary || [];
   const contrastTargets = colorTargets.contrast || [];

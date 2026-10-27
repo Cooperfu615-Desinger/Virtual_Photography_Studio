@@ -1,0 +1,345 @@
+{
+  "baseCommit": "048a2348869c9348d18f4e0b71d4ceed92c69232",
+  "patches": [
+    {
+      "path": "webapp/src/lib/engine.js",
+      "before": "} from './engine/promptTextDeduplication.js';\nimport {\n",
+      "after": "} from './engine/promptTextDeduplication.js';\nimport { materializeOutfitColorBindings } from './engine/outfitColorBindings.js';\nimport {\n"
+    },
+    {
+      "path": "webapp/src/lib/engine.js",
+      "before": "  const contrastColorText = buildWearableColorDescription(contrastColor);\n  const primaryBehavior = materializeOutfitPresetPrimaryColorBehavior(base, meta, primaryColor);\n\n",
+      "after": "  const contrastColorText = buildWearableColorDescription(contrastColor);\n  const bindings = materializeOutfitColorBindings(base, meta.colorTextBindings, {\n    primaryColorText, contrastColorText, primaryMaterial: primaryColor?.meta?.primaryMaterial === true,\n  });\n  const primaryBehavior = materializeOutfitPresetPrimaryColorBehavior(bindings?.text ?? base, meta, primaryColor);\n\n"
+    },
+    {
+      "path": "webapp/src/lib/engine.js",
+      "before": "\n  const materializedBase = materializeOutfitColorControls(primaryBehavior.text, {\n    primaryColorText,\n    contrastColorText,\n  });\n  const details = [];\n",
+      "after": "\n  const materializedBase = bindings\n    ? { ...bindings, text: primaryBehavior.text }\n    : materializeOutfitColorControls(primaryBehavior.text, { primaryColorText, contrastColorText });\n  const details = [];\n"
+    }
+  ],
+  "management": [
+    {
+      "path": "knowledge_base/catalog/schema.json",
+      "changes": [
+        {
+          "keys": [
+            "sections",
+            "Wardrobe",
+            "categories",
+            "套裝 (Outfit Presets)",
+            "properties",
+            "meta",
+            "properties",
+            "colorTextBindings"
+          ],
+          "beforePresent": false,
+          "after": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "channel",
+                "target",
+                "omitForPrimaryMaterial"
+              ],
+              "properties": {
+                "channel": {
+                  "type": "string",
+                  "enum": [
+                    "primary",
+                    "contrast"
+                  ]
+                },
+                "target": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^(?!.*controlled by)\\S(?:.*\\S)?$"
+                },
+                "omitForPrimaryMaterial": {
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        {
+          "keys": [
+            "sections",
+            "Wardrobe",
+            "categories",
+            "套裝 (Outfit Presets)",
+            "properties",
+            "legacyPromptAliases"
+          ],
+          "beforePresent": false,
+          "after": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/catalog/field_mapping.json",
+      "changes": [
+        {
+          "keys": [
+            "fields",
+            "legacyPromptAliases",
+            "categories"
+          ],
+          "beforePresent": true,
+          "before": [
+            "Wardrobe/上身 (Tops)",
+            "Wardrobe/連身 (Dresses)",
+            "Wardrobe/褲裝 (Pants)",
+            "Wardrobe/外套 (Outerwear)",
+            "Wardrobe/外套開合 (Outerwear Opening)",
+            "Wardrobe/外套穿法 (Outerwear Styling)",
+            "Wardrobe/外套圖案 (Outerwear Surface Design)",
+            "Character/五官特徵 (Facial Features)",
+            "Character/體態 (Body Type)"
+          ],
+          "after": [
+            "Wardrobe/套裝 (Outfit Presets)",
+            "Wardrobe/上身 (Tops)",
+            "Wardrobe/連身 (Dresses)",
+            "Wardrobe/褲裝 (Pants)",
+            "Wardrobe/外套 (Outerwear)",
+            "Wardrobe/外套開合 (Outerwear Opening)",
+            "Wardrobe/外套穿法 (Outerwear Styling)",
+            "Wardrobe/外套圖案 (Outerwear Surface Design)",
+            "Character/五官特徵 (Facial Features)",
+            "Character/體態 (Body Type)"
+          ]
+        },
+        {
+          "keys": [
+            "paths",
+            "legacyPromptAliases",
+            "categories"
+          ],
+          "beforePresent": true,
+          "before": [
+            "Wardrobe/上身 (Tops)",
+            "Wardrobe/連身 (Dresses)",
+            "Wardrobe/褲裝 (Pants)",
+            "Wardrobe/外套 (Outerwear)",
+            "Wardrobe/外套開合 (Outerwear Opening)",
+            "Wardrobe/外套穿法 (Outerwear Styling)",
+            "Wardrobe/外套圖案 (Outerwear Surface Design)",
+            "Character/五官特徵 (Facial Features)",
+            "Character/體態 (Body Type)"
+          ],
+          "after": [
+            "Wardrobe/套裝 (Outfit Presets)",
+            "Wardrobe/上身 (Tops)",
+            "Wardrobe/連身 (Dresses)",
+            "Wardrobe/褲裝 (Pants)",
+            "Wardrobe/外套 (Outerwear)",
+            "Wardrobe/外套開合 (Outerwear Opening)",
+            "Wardrobe/外套穿法 (Outerwear Styling)",
+            "Wardrobe/外套圖案 (Outerwear Surface Design)",
+            "Character/五官特徵 (Facial Features)",
+            "Character/體態 (Body Type)"
+          ]
+        },
+        {
+          "keys": [
+            "paths",
+            "legacyPromptAliases[]",
+            "categories"
+          ],
+          "beforePresent": true,
+          "before": [
+            "Wardrobe/上身 (Tops)",
+            "Wardrobe/連身 (Dresses)",
+            "Wardrobe/褲裝 (Pants)",
+            "Wardrobe/外套 (Outerwear)",
+            "Wardrobe/外套開合 (Outerwear Opening)",
+            "Wardrobe/外套穿法 (Outerwear Styling)",
+            "Wardrobe/外套圖案 (Outerwear Surface Design)",
+            "Character/五官特徵 (Facial Features)",
+            "Character/體態 (Body Type)"
+          ],
+          "after": [
+            "Wardrobe/套裝 (Outfit Presets)",
+            "Wardrobe/上身 (Tops)",
+            "Wardrobe/連身 (Dresses)",
+            "Wardrobe/褲裝 (Pants)",
+            "Wardrobe/外套 (Outerwear)",
+            "Wardrobe/外套開合 (Outerwear Opening)",
+            "Wardrobe/外套穿法 (Outerwear Styling)",
+            "Wardrobe/外套圖案 (Outerwear Surface Design)",
+            "Character/五官特徵 (Facial Features)",
+            "Character/體態 (Body Type)"
+          ]
+        },
+        {
+          "keys": [
+            "paths",
+            "meta.colorTextBindings"
+          ],
+          "beforePresent": false,
+          "after": {
+            "source": "catalog record.meta.colorTextBindings",
+            "generated": "meta.colorTextBindings",
+            "runtime": "meta.colorTextBindings",
+            "categories": [
+              "Wardrobe/套裝 (Outfit Presets)"
+            ],
+            "policy": "A2 第二批審查的舊解析配色責任；保留順序、原目標文字與材質色省略規則，不輸出選擇控制語。"
+          }
+        },
+        {
+          "keys": [
+            "paths",
+            "meta.colorTextBindings[]"
+          ],
+          "beforePresent": false,
+          "after": {
+            "source": "catalog record.meta.colorTextBindings[]",
+            "generated": "meta.colorTextBindings[]",
+            "runtime": "meta.colorTextBindings[]",
+            "categories": [
+              "Wardrobe/套裝 (Outfit Presets)"
+            ],
+            "policy": "A2 第二批審查的舊解析配色責任；保留順序、原目標文字與材質色省略規則，不輸出選擇控制語。"
+          }
+        },
+        {
+          "keys": [
+            "paths",
+            "meta.colorTextBindings[].channel"
+          ],
+          "beforePresent": false,
+          "after": {
+            "source": "catalog record.meta.colorTextBindings[].channel",
+            "generated": "meta.colorTextBindings[].channel",
+            "runtime": "meta.colorTextBindings[].channel",
+            "categories": [
+              "Wardrobe/套裝 (Outfit Presets)"
+            ],
+            "policy": "A2 第二批審查的舊解析配色責任；保留順序、原目標文字與材質色省略規則，不輸出選擇控制語。"
+          }
+        },
+        {
+          "keys": [
+            "paths",
+            "meta.colorTextBindings[].target"
+          ],
+          "beforePresent": false,
+          "after": {
+            "source": "catalog record.meta.colorTextBindings[].target",
+            "generated": "meta.colorTextBindings[].target",
+            "runtime": "meta.colorTextBindings[].target",
+            "categories": [
+              "Wardrobe/套裝 (Outfit Presets)"
+            ],
+            "policy": "A2 第二批審查的舊解析配色責任；保留順序、原目標文字與材質色省略規則，不輸出選擇控制語。"
+          }
+        },
+        {
+          "keys": [
+            "paths",
+            "meta.colorTextBindings[].omitForPrimaryMaterial"
+          ],
+          "beforePresent": false,
+          "after": {
+            "source": "catalog record.meta.colorTextBindings[].omitForPrimaryMaterial",
+            "generated": "meta.colorTextBindings[].omitForPrimaryMaterial",
+            "runtime": "meta.colorTextBindings[].omitForPrimaryMaterial",
+            "categories": [
+              "Wardrobe/套裝 (Outfit Presets)"
+            ],
+            "policy": "A2 第二批審查的舊解析配色責任；保留順序、原目標文字與材質色省略規則，不輸出選擇控制語。"
+          }
+        }
+      ]
+    }
+  ],
+  "hashes": {
+    "webapp/src/lib/engine.js": {
+      "before": "0125e5e6de867b5993e8a448bb7c271c37553f34bae3070998cffd96a8546d21",
+      "after": "ab2abb7da960e8ab34eb3ec7f556f3e2c40675c2416da4ae85f1bebc1d747cc0",
+      "earlierBefore": [
+        "8e30fbf8868d73ebc5a16e6b177d899c5f5105927d8d02efb6156950a30a0b43"
+      ]
+    },
+    "knowledge_base/catalog/schema.json": {
+      "before": "ac4bffb2e32f24004d8dd5f50a78c111827314aaf5635965bd2099ec3d9a632d",
+      "after": "cf3744e4899ef885d550e03acbfae9010bc2a9bf9828b3d0ecd1bd063b185e7b"
+    },
+    "knowledge_base/catalog/field_mapping.json": {
+      "before": "0acc5fd5caa7e1db0212f9ca58b7ff4591da41b6e7bd2f432fef05f85fc96f74",
+      "after": "0c037df59daa7713fb33e378bee2b61e7f2c743b63b8caf2a0db6ff1f398364e"
+    }
+  },
+  "newFiles": {
+    "webapp/src/lib/engine/outfitColorBindings.js": "77161dae64e9168abc8a99afbda629b2d574aa08e2130b77b6c97b33f2590280"
+  },
+  "categoryIds": [
+    "wardrobe:套裝-outfit-presets:套裝-亮面乳膠束帶:0",
+    "wardrobe:套裝-outfit-presets:套裝-鏈條緞面內衣:1",
+    "wardrobe:套裝-outfit-presets:套裝-皮革馬甲束腰:2",
+    "wardrobe:套裝-outfit-presets:套裝-春日巴黎亞麻長褲:3",
+    "wardrobe:套裝-outfit-presets:套裝-長版襯衫百褶長裙:4",
+    "wardrobe:套裝-outfit-presets:套裝-西裝長褲:5",
+    "wardrobe:套裝-outfit-presets:套裝-秘書短裙:6",
+    "wardrobe:套裝-outfit-presets:套裝-空服員制服:7",
+    "wardrobe:套裝-outfit-presets:套裝-護士制服:8",
+    "wardrobe:套裝-outfit-presets:套裝-醫生診療袍:9",
+    "wardrobe:套裝-outfit-presets:套裝-bdsm-束縛:10",
+    "wardrobe:套裝-outfit-presets:套裝-維多利亞古典:11",
+    "wardrobe:套裝-outfit-presets:套裝-蘿莉塔:12",
+    "wardrobe:套裝-outfit-presets:套裝-內衣寫真:13",
+    "wardrobe:套裝-outfit-presets:套裝-泳裝度假:14",
+    "wardrobe:套裝-outfit-presets:套裝-素色緞面旗袍:15",
+    "wardrobe:套裝-outfit-presets:套裝-精緻刺繡旗袍:16",
+    "wardrobe:套裝-outfit-presets:套裝-經典和服:17",
+    "wardrobe:套裝-outfit-presets:套裝-輕盈浴衣:18",
+    "wardrobe:套裝-outfit-presets:套裝-兔女郎:19",
+    "wardrobe:套裝-outfit-presets:套裝-女僕:20",
+    "wardrobe:套裝-outfit-presets:套裝-女僕風荷葉比基尼:21",
+    "wardrobe:套裝-outfit-presets:套裝-短袖女高生水手服:22",
+    "wardrobe:套裝-outfit-presets:套裝-長袖女高生水手服:23",
+    "wardrobe:套裝-outfit-presets:套裝-玫瑰哥德蘿莉塔洋裝:24",
+    "wardrobe:套裝-outfit-presets:套裝-哥德休閒針織荷葉短裙:25",
+    "wardrobe:套裝-outfit-presets:套裝-豹紋蕾絲抹胸喇叭牛仔:26",
+    "wardrobe:套裝-outfit-presets:套裝-網紗掛脖背心牛仔迷你裙:27",
+    "wardrobe:套裝-outfit-presets:套裝-天使翅膀三角比基尼:28",
+    "wardrobe:套裝-outfit-presets:套裝-透視背心漆皮短褲長靴:29",
+    "wardrobe:套裝-outfit-presets:套裝-馬甲吊帶喇叭褲:30",
+    "wardrobe:套裝-outfit-presets:套裝-豹紋荷葉吊帶漆皮短褲:31",
+    "wardrobe:套裝-outfit-presets:套裝-拼接掛脖長背心漆皮短褲:32",
+    "wardrobe:套裝-outfit-presets:套裝-金屬三角比基尼:33",
+    "wardrobe:套裝-outfit-presets:套裝-單肩短上衣印花圍裙短裙:34",
+    "wardrobe:套裝-outfit-presets:套裝-垂墜背心腰鏈短裙:35",
+    "wardrobe:套裝-outfit-presets:套裝-皮革掛脖背心短褲長靴:36",
+    "wardrobe:套裝-outfit-presets:套裝-斑馬紋馬甲短褲長靴:37",
+    "wardrobe:套裝-outfit-presets:套裝-短版運動t熱褲:38",
+    "wardrobe:套裝-outfit-presets:套裝-白蕾絲泡袖七分褲:39",
+    "wardrobe:套裝-outfit-presets:套裝-粉針織罩衫寬牛仔:40",
+    "wardrobe:套裝-outfit-presets:套裝-深灰短背心氣球寬褲:41",
+    "wardrobe:套裝-outfit-presets:套裝-白襯衫緞面背心寬牛仔:42",
+    "wardrobe:套裝-outfit-presets:套裝-西裝外套蕾絲迷你洋裝:43",
+    "wardrobe:套裝-outfit-presets:套裝-球衣荷葉迷你裙:44",
+    "wardrobe:套裝-outfit-presets:套裝-綁帶針織寬牛仔:45",
+    "wardrobe:套裝-outfit-presets:套裝-運動外套荷葉七分褲:46",
+    "wardrobe:套裝-outfit-presets:套裝-白蕾絲長罩衫牛仔褲:47",
+    "wardrobe:套裝-outfit-presets:套裝-浴巾裹身:48",
+    "wardrobe:套裝-outfit-presets:套裝-開扣短袖襯衫熱褲:49",
+    "wardrobe:套裝-outfit-presets:套裝-開扣長袖襯衫包臀裙:50",
+    "wardrobe:套裝-outfit-presets:套裝-粉紅哥德兔耳吊帶束身:51",
+    "wardrobe:套裝-outfit-presets:套裝-米白緞面蕾絲馬甲短裙:52",
+    "wardrobe:套裝-outfit-presets:套裝-哥德圖示包臀迷你裙:53",
+    "wardrobe:套裝-outfit-presets:套裝-網狀蕾絲馬甲短裙長靴:54",
+    "wardrobe:套裝-outfit-presets:套裝-亮面膠帶束帶:55",
+    "wardrobe:套裝-outfit-presets:套裝-spider-man-cosplay-緊身衣:56",
+    "wardrobe:套裝-outfit-presets:套裝-venom-cosplay-緊身衣:57",
+    "wardrobe:套裝-outfit-presets:套裝-spider-gwen-cosplay-緊身衣:58"
+  ]
+}

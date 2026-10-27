@@ -1,0 +1,746 @@
+[
+  {
+    "id": "wardrobe:套裝-outfit-presets:套裝-鏈條緞面內衣:1",
+    "zh": "鏈條緞面內衣套裝",
+    "changes": [
+      {
+        "key": "outfitPresetId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-鏈條緞面內衣:1",
+        "original": "wardrobe:套裝-outfit-presets:套裝-鏈條緞面內衣:1"
+      },
+      {
+        "key": "outfitPresetAId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-鏈條緞面內衣:1",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetBId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-鏈條緞面內衣:1",
+        "original": ""
+      }
+    ]
+  },
+  {
+    "id": "wardrobe:套裝-outfit-presets:套裝-春日巴黎亞麻長褲:3",
+    "zh": "春日巴黎亞麻長褲套裝",
+    "changes": [
+      {
+        "key": "outfitPresetId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-春日巴黎亞麻長褲:3",
+        "original": "wardrobe:套裝-outfit-presets:套裝-春日巴黎亞麻長褲:3"
+      },
+      {
+        "key": "outfitPresetAId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-春日巴黎亞麻長褲:3",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetBId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-春日巴黎亞麻長褲:3",
+        "original": ""
+      }
+    ]
+  },
+  {
+    "id": "wardrobe:套裝-outfit-presets:套裝-長版襯衫百褶長裙:4",
+    "zh": "長版襯衫百褶長裙套裝",
+    "changes": [
+      {
+        "key": "outfitPresetId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-長版襯衫百褶長裙:4",
+        "original": "wardrobe:套裝-outfit-presets:套裝-長版襯衫百褶長裙:4"
+      },
+      {
+        "key": "outfitPresetAId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-長版襯衫百褶長裙:4",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetBId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-長版襯衫百褶長裙:4",
+        "original": ""
+      }
+    ]
+  },
+  {
+    "id": "wardrobe:套裝-outfit-presets:套裝-西裝長褲:5",
+    "zh": "西裝長褲套裝",
+    "changes": [
+      {
+        "key": "outfitPresetId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-西裝長褲:5",
+        "original": "wardrobe:套裝-outfit-presets:套裝-西裝長褲:5"
+      },
+      {
+        "key": "outfitPresetColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "outfitPresetAId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-西裝長褲:5",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetBId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-西裝長褲:5",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetPrimaryColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "outfitPresetContrastColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "topColorId",
+        "before": "red",
+        "after": "none",
+        "original": ""
+      },
+      {
+        "key": "bottomColorId",
+        "before": "red",
+        "after": "none",
+        "original": ""
+      }
+    ]
+  },
+  {
+    "id": "wardrobe:套裝-outfit-presets:套裝-秘書短裙:6",
+    "zh": "秘書短裙套裝",
+    "changes": [
+      {
+        "key": "outfitPresetId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-秘書短裙:6",
+        "original": "wardrobe:套裝-outfit-presets:套裝-秘書短裙:6"
+      },
+      {
+        "key": "outfitPresetAId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-秘書短裙:6",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetBId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-秘書短裙:6",
+        "original": ""
+      }
+    ]
+  },
+  {
+    "id": "wardrobe:套裝-outfit-presets:套裝-空服員制服:7",
+    "zh": "空服員制服套裝",
+    "changes": [
+      {
+        "key": "outfitPresetId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-空服員制服:7",
+        "original": "wardrobe:套裝-outfit-presets:套裝-空服員制服:7"
+      },
+      {
+        "key": "outfitPresetColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "outfitPresetAId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-空服員制服:7",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetBId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-空服員制服:7",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetPrimaryColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "outfitPresetContrastColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "topColorId",
+        "before": "red",
+        "after": "none",
+        "original": ""
+      },
+      {
+        "key": "bottomColorId",
+        "before": "red",
+        "after": "none",
+        "original": ""
+      }
+    ]
+  },
+  {
+    "id": "wardrobe:套裝-outfit-presets:套裝-護士制服:8",
+    "zh": "護士制服套裝",
+    "changes": [
+      {
+        "key": "outfitPresetId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-護士制服:8",
+        "original": "wardrobe:套裝-outfit-presets:套裝-護士制服:8"
+      },
+      {
+        "key": "outfitPresetAId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-護士制服:8",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetBId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-護士制服:8",
+        "original": ""
+      }
+    ]
+  },
+  {
+    "id": "wardrobe:套裝-outfit-presets:套裝-醫生診療袍:9",
+    "zh": "醫生診療袍套裝",
+    "changes": [
+      {
+        "key": "outfitPresetId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-醫生診療袍:9",
+        "original": "wardrobe:套裝-outfit-presets:套裝-醫生診療袍:9"
+      },
+      {
+        "key": "outfitPresetColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "outfitPresetAId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-醫生診療袍:9",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetBId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-醫生診療袍:9",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetPrimaryColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "outfitPresetContrastColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "topColorId",
+        "before": "red",
+        "after": "none",
+        "original": ""
+      },
+      {
+        "key": "bottomColorId",
+        "before": "red",
+        "after": "none",
+        "original": ""
+      }
+    ]
+  },
+  {
+    "id": "wardrobe:套裝-outfit-presets:套裝-豹紋蕾絲抹胸喇叭牛仔:26",
+    "zh": "豹紋蕾絲抹胸喇叭牛仔",
+    "changes": [
+      {
+        "key": "outfitPresetId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-豹紋蕾絲抹胸喇叭牛仔:26",
+        "original": "wardrobe:套裝-outfit-presets:套裝-豹紋蕾絲抹胸喇叭牛仔:26"
+      },
+      {
+        "key": "outfitPresetColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "outfitPresetAId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-豹紋蕾絲抹胸喇叭牛仔:26",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetBId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-豹紋蕾絲抹胸喇叭牛仔:26",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetPrimaryColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "outfitPresetContrastColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "topColorId",
+        "before": "red",
+        "after": "none",
+        "original": ""
+      },
+      {
+        "key": "bottomColorId",
+        "before": "red",
+        "after": "none",
+        "original": ""
+      }
+    ]
+  },
+  {
+    "id": "wardrobe:套裝-outfit-presets:套裝-網紗掛脖背心牛仔迷你裙:27",
+    "zh": "網紗掛脖背心牛仔迷你裙",
+    "changes": [
+      {
+        "key": "outfitPresetId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-網紗掛脖背心牛仔迷你裙:27",
+        "original": "wardrobe:套裝-outfit-presets:套裝-網紗掛脖背心牛仔迷你裙:27"
+      },
+      {
+        "key": "outfitPresetAId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-網紗掛脖背心牛仔迷你裙:27",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetBId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-網紗掛脖背心牛仔迷你裙:27",
+        "original": ""
+      }
+    ]
+  },
+  {
+    "id": "wardrobe:套裝-outfit-presets:套裝-天使翅膀三角比基尼:28",
+    "zh": "天使翅膀三角比基尼",
+    "changes": [
+      {
+        "key": "outfitPresetId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-天使翅膀三角比基尼:28",
+        "original": "wardrobe:套裝-outfit-presets:套裝-天使翅膀三角比基尼:28"
+      },
+      {
+        "key": "outfitPresetColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "outfitPresetAId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-天使翅膀三角比基尼:28",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetBId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-天使翅膀三角比基尼:28",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetPrimaryColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "outfitPresetContrastColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "topColorId",
+        "before": "red",
+        "after": "none",
+        "original": ""
+      },
+      {
+        "key": "bottomColorId",
+        "before": "red",
+        "after": "none",
+        "original": ""
+      }
+    ]
+  },
+  {
+    "id": "wardrobe:套裝-outfit-presets:套裝-透視背心漆皮短褲長靴:29",
+    "zh": "透視背心漆皮短褲長靴",
+    "changes": [
+      {
+        "key": "outfitPresetId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-透視背心漆皮短褲長靴:29",
+        "original": "wardrobe:套裝-outfit-presets:套裝-透視背心漆皮短褲長靴:29"
+      },
+      {
+        "key": "outfitPresetAId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-透視背心漆皮短褲長靴:29",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetBId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-透視背心漆皮短褲長靴:29",
+        "original": ""
+      }
+    ]
+  },
+  {
+    "id": "wardrobe:套裝-outfit-presets:套裝-馬甲吊帶喇叭褲:30",
+    "zh": "馬甲吊帶喇叭褲",
+    "changes": [
+      {
+        "key": "outfitPresetId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-馬甲吊帶喇叭褲:30",
+        "original": "wardrobe:套裝-outfit-presets:套裝-馬甲吊帶喇叭褲:30"
+      },
+      {
+        "key": "outfitPresetColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "outfitPresetAId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-馬甲吊帶喇叭褲:30",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetBId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-馬甲吊帶喇叭褲:30",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetPrimaryColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "outfitPresetContrastColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "topColorId",
+        "before": "red",
+        "after": "none",
+        "original": ""
+      },
+      {
+        "key": "bottomColorId",
+        "before": "red",
+        "after": "none",
+        "original": ""
+      }
+    ]
+  },
+  {
+    "id": "wardrobe:套裝-outfit-presets:套裝-豹紋荷葉吊帶漆皮短褲:31",
+    "zh": "豹紋荷葉吊帶漆皮短褲",
+    "changes": [
+      {
+        "key": "outfitPresetId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-豹紋荷葉吊帶漆皮短褲:31",
+        "original": "wardrobe:套裝-outfit-presets:套裝-豹紋荷葉吊帶漆皮短褲:31"
+      },
+      {
+        "key": "outfitPresetAId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-豹紋荷葉吊帶漆皮短褲:31",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetBId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-豹紋荷葉吊帶漆皮短褲:31",
+        "original": ""
+      }
+    ]
+  },
+  {
+    "id": "wardrobe:套裝-outfit-presets:套裝-金屬三角比基尼:33",
+    "zh": "金屬三角比基尼",
+    "changes": [
+      {
+        "key": "outfitPresetId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-金屬三角比基尼:33",
+        "original": "wardrobe:套裝-outfit-presets:套裝-金屬三角比基尼:33"
+      },
+      {
+        "key": "outfitPresetColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "outfitPresetAId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-金屬三角比基尼:33",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetBId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-金屬三角比基尼:33",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetPrimaryColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "outfitPresetContrastColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "topColorId",
+        "before": "red",
+        "after": "none",
+        "original": ""
+      },
+      {
+        "key": "bottomColorId",
+        "before": "red",
+        "after": "none",
+        "original": ""
+      }
+    ]
+  },
+  {
+    "id": "wardrobe:套裝-outfit-presets:套裝-單肩短上衣印花圍裙短裙:34",
+    "zh": "單肩短上衣印花圍裙短裙",
+    "changes": [
+      {
+        "key": "outfitPresetId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-單肩短上衣印花圍裙短裙:34",
+        "original": "wardrobe:套裝-outfit-presets:套裝-單肩短上衣印花圍裙短裙:34"
+      },
+      {
+        "key": "outfitPresetAId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-單肩短上衣印花圍裙短裙:34",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetBId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-單肩短上衣印花圍裙短裙:34",
+        "original": ""
+      }
+    ]
+  },
+  {
+    "id": "wardrobe:套裝-outfit-presets:套裝-垂墜背心腰鏈短裙:35",
+    "zh": "垂墜背心腰鏈短裙",
+    "changes": [
+      {
+        "key": "outfitPresetId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-垂墜背心腰鏈短裙:35",
+        "original": "wardrobe:套裝-outfit-presets:套裝-垂墜背心腰鏈短裙:35"
+      },
+      {
+        "key": "outfitPresetAId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-垂墜背心腰鏈短裙:35",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetBId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-垂墜背心腰鏈短裙:35",
+        "original": ""
+      }
+    ]
+  },
+  {
+    "id": "wardrobe:套裝-outfit-presets:套裝-皮革掛脖背心短褲長靴:36",
+    "zh": "皮革掛脖背心短褲長靴",
+    "changes": [
+      {
+        "key": "outfitPresetId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-皮革掛脖背心短褲長靴:36",
+        "original": "wardrobe:套裝-outfit-presets:套裝-皮革掛脖背心短褲長靴:36"
+      },
+      {
+        "key": "outfitPresetAId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-皮革掛脖背心短褲長靴:36",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetBId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-皮革掛脖背心短褲長靴:36",
+        "original": ""
+      }
+    ]
+  },
+  {
+    "id": "wardrobe:套裝-outfit-presets:套裝-斑馬紋馬甲短褲長靴:37",
+    "zh": "斑馬紋馬甲短褲長靴",
+    "changes": [
+      {
+        "key": "outfitPresetId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-斑馬紋馬甲短褲長靴:37",
+        "original": "wardrobe:套裝-outfit-presets:套裝-斑馬紋馬甲短褲長靴:37"
+      },
+      {
+        "key": "outfitPresetAId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-斑馬紋馬甲短褲長靴:37",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetBId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-斑馬紋馬甲短褲長靴:37",
+        "original": ""
+      }
+    ]
+  },
+  {
+    "id": "wardrobe:套裝-outfit-presets:套裝-短版運動t熱褲:38",
+    "zh": "短版運動T熱褲套裝",
+    "changes": [
+      {
+        "key": "outfitPresetId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-短版運動t熱褲:38",
+        "original": "wardrobe:套裝-outfit-presets:套裝-短版運動t熱褲:38"
+      },
+      {
+        "key": "outfitPresetAId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-短版運動t熱褲:38",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetBId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-短版運動t熱褲:38",
+        "original": ""
+      }
+    ]
+  },
+  {
+    "id": "wardrobe:套裝-outfit-presets:套裝-浴巾裹身:48",
+    "zh": "浴巾裹身",
+    "changes": [
+      {
+        "key": "outfitPresetId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-浴巾裹身:48",
+        "original": "wardrobe:套裝-outfit-presets:套裝-浴巾裹身:48"
+      },
+      {
+        "key": "outfitPresetColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "outfitPresetAId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-浴巾裹身:48",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetBId",
+        "before": "outfit-preset-none",
+        "after": "wardrobe:套裝-outfit-presets:套裝-浴巾裹身:48",
+        "original": ""
+      },
+      {
+        "key": "outfitPresetPrimaryColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "outfitPresetContrastColorId",
+        "before": "none",
+        "after": "red",
+        "original": "none"
+      },
+      {
+        "key": "topColorId",
+        "before": "red",
+        "after": "none",
+        "original": ""
+      },
+      {
+        "key": "bottomColorId",
+        "before": "red",
+        "after": "none",
+        "original": ""
+      }
+    ]
+  }
+]

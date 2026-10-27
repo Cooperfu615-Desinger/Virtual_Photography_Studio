@@ -829,8 +829,8 @@ test('Gpt single-subject prompt preserves full-fidelity outfit preset and dress 
   assert.match(bunnyCorset.wardrobe, /bow accents placed clearly on both the left and right sides of the headband/i);
   assert.match(bunnyCorset.wardrobe, /fitted corset bodysuit with shaped cup seams and vertical boning lines/i);
   assert.match(bunnyCorset.wardrobe, /matching main-color garter lace thigh-high stockings, leather neck choker with metal cross pendant/i);
-  assert.match(bunnyCorset.wardrobe, /main fabric color controlled by outfit primary color/i);
-  assert.match(bunnyCorset.wardrobe, /cross decorations controlled by contrast palette/i);
+  assert.doesNotMatch(bunnyCorset.wardrobe, /main fabric color controlled by outfit primary color/i);
+  assert.doesNotMatch(bunnyCorset.wardrobe, /cross decorations controlled by contrast palette/i);
   assert.doesNotMatch(bunnyCorset.prompt.zImagePrompt, /bow accents placed clearly on both the left and right sides/i);
 
   const openButtonSet = buildWardrobe({
@@ -885,7 +885,7 @@ test('Gpt single-subject prompt preserves preset and effective palette wording w
     dressId: optionId('dressId', '全無'),
     completeLookPaletteId: optionId('completeLookPaletteId', '黑紅街頭'),
   });
-  assert.match(cheongsam.wardrobe, /dominant satin color controlled by the outfit color selection/i);
+  assert.doesNotMatch(cheongsam.wardrobe, /dominant satin color controlled by the outfit color selection/i);
   assert.match(cheongsam.wardrobe, /complete outfit palette direction: shift the complete outfit palette toward a black-and-red street color family/i);
   assert.match(cheongsam.wardrobe, controlPhrase);
   assert.doesNotMatch(cheongsam.prompt.zImagePrompt, /complete outfit palette direction: shift the complete outfit palette/i);

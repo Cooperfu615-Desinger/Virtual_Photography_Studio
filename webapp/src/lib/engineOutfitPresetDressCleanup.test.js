@@ -153,7 +153,7 @@ test('reference outfit presets 27 to 38 preserve complete styling anchors and im
       assert.match(text, /long pointed draped hem/i);
       assert.doesNotMatch(text, /controlled by the outfit color selection/i);
     } else {
-      assert.match(text, /controlled by the outfit color selection/i);
+      assert.doesNotMatch(text, /controlled by the outfit color selection/i);
     }
     assert.doesNotMatch(text, /side sash|側邊垂墜薄紗片|側邊腰帶/i);
     assert.equal(option.meta.referenceImage, referenceImage);
@@ -172,7 +172,7 @@ test('sporty ringer tee hot-pants outfit preserves key garment and accessory anc
   assert.match(text, /front drawstring and side lace-up grommet detail/i);
   assert.match(text, /knee-high athletic socks/i);
   assert.doesNotMatch(text, /shoulder bag|handbag/i);
-  assert.match(text, /controlled by the outfit color selection/i);
+  assert.doesNotMatch(text, /controlled by the outfit color selection/i);
   assert.equal(outfit.meta.referenceImage, 'reference/wardrobe/outfit-presets/39_短版熱褲運動T.avif');
   assert.equal(outfit.meta.referenceImageFormat, 'avif');
 
@@ -214,7 +214,7 @@ test('lightweight yukata outfit preserves wrap styling patterns and pouch', () =
     assert.match(text, pattern);
   });
 
-  assert.match(text, /controlled by the outfit color selection/i);
+  assert.doesNotMatch(text, /controlled by the outfit color selection/i);
   assert.doesNotMatch(text, /hair|hairstyle|髮型|頭髮/i);
 
   const [prompt] = generatePrompts(1, {
@@ -321,8 +321,6 @@ test('gothic lingerie outfit presets 52 to 54 stay recolorable while preserving 
       /cross appliques/i,
       /matching main-color garter lace thigh-high stockings/i,
       /leather neck choker with metal cross pendant/i,
-      /main fabric color controlled by outfit primary color/i,
-      /lace ribbons garter straps and trims controlled by outfit contrast color/i,
       'reference/wardrobe/outfit-presets/52_粉紅哥德兔耳吊帶束身.avif',
     ],
     [
@@ -336,8 +334,6 @@ test('gothic lingerie outfit presets 52 to 54 stay recolorable while preserving 
       /flared satin peplum overskirt/i,
       /lace micro-skirt layer visible underneath the peplum/i,
       /scalloped lace mini hem/i,
-      /satin base controlled by outfit primary color/i,
-      /lace cord eyelet and bow details controlled by outfit contrast color/i,
       'reference/wardrobe/outfit-presets/53_米白緞面蕾絲馬甲短裙.avif',
     ],
     [
@@ -350,8 +346,6 @@ test('gothic lingerie outfit presets 52 to 54 stay recolorable while preserving 
       /hand-drawn gothic cross symbols and handwritten icon graphics scattered irregularly/i,
       /non-repeating imperfect marker-like placement/i,
       /choker with cross pendant/i,
-      /dress base controlled by outfit primary color/i,
-      /lace trims and gothic hand-drawn graphics controlled by outfit contrast color/i,
       'reference/wardrobe/outfit-presets/54_白色哥德圖示包臀迷你裙.avif',
     ],
   ].forEach(([label, ...expectations]) => {
@@ -363,6 +357,9 @@ test('gothic lingerie outfit presets 52 to 54 stay recolorable while preserving 
       assert.match(text, pattern);
     });
 
+    assert.doesNotMatch(text, /controlled by/i);
+    assert.ok(option.meta.colorTextBindings.some(x => x.channel === "primary"));
+    assert.ok(option.meta.colorTextBindings.some(x => x.channel === "contrast"));
     assert.doesNotMatch(text, /hair|hairstyle|髮型|頭髮/i);
     assert.doesNotMatch(text, /\bsoft pink\b|\bivory\b|\bwhite\b|\bblack\b|\bpink\b/i);
     assert.equal(option.meta.referenceImage, referenceImage);
@@ -391,8 +388,8 @@ test('qipao outfit presets preserve updated mini and high-slit silhouettes', () 
     assert.match(text, pattern);
   });
 
-  assert.match(solidQipao.en, /controlled by the outfit color selection/i);
-  assert.match(embroideredQipao.en, /controlled by outfit color selection/i);
+  assert.doesNotMatch(solidQipao.en, /controlled by the outfit color selection/i);
+  assert.doesNotMatch(embroideredQipao.en, /controlled by outfit color selection/i);
   assert.equal(solidQipao.meta.referenceImage, 'reference/wardrobe/outfit-presets/16_素面旗袍.avif');
   assert.equal(embroideredQipao.meta.referenceImage, 'reference/wardrobe/outfit-presets/17_緞面旗袍.avif');
 

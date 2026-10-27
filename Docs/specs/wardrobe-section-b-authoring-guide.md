@@ -170,9 +170,11 @@ Prompt 規則：
 - 工作套裝可以包含對應帽子、領口、裙褲形式或制服結構。
 - 不自帶人物身份、場景、工作場所或職業行為。
 
+2026-10-27 A2 第二批：40 筆套裝正式來源清除配色控制句；其中 19 筆既有解析目標搬至有序 `meta.colorTextBindings`（channel、target、omitForPrimaryMaterial），21 筆保留通用配色路徑。此欄位只承接已審查的既有目標與材質規則，不能取代 `colorTargets` 的 fallback／locked 責任或憑空增加部位。原英文追加為 top-level `legacyPromptAliases`，經 schema／field_mapping 宣告及 sync 生成。固定色六筆、粉紅哥德十字裝飾重疊與網狀蕾絲 inactive locked 均保持。特殊穿搭 1 筆、runtime 配色句仍待後批。舊 Markdown 的文字推測不等價於 JSON 精確還原，限制與逐筆責任見 [第二批規格](wardrobe-control-a2-outfits-v1.md)／[決策](../decisions/2026-10-27-a2-outfits-control-language.md)。
+
 ### 6.2 連身
 
-2026-10-26 A2 第一批：24 筆連身來源移除 `main … color controlled by dress color selection`，哥德迷你洋裝另移除對比色控制句，保留衣物結構與既有配色行為。不在資料中新增色彩事實；ID／semantic／舊別名維持，前版全文追加為還原 alias。舊收藏文字與已匯入快照保留，重新生成或明確重新匯入採新來源。40 筆套裝及 1 筆特殊穿搭控制語另批，不代表已全面清除。詳見 [A2 第一批規格](wardrobe-control-a2-dresses-v1.md)。
+2026-10-26 A2 第一批：24 筆連身來源移除 `main … color controlled by dress color selection`，哥德迷你洋裝另移除對比色控制句，保留衣物結構與既有配色行為。不在資料中新增色彩事實；ID／semantic／舊別名維持，前版全文追加為還原 alias。舊收藏文字與已匯入快照保留，重新生成或明確重新匯入採新來源。此第一批當時未包含套裝與特殊穿搭；40 筆套裝的後續狀態見上方 2026-10-27 紀錄，1 筆特殊穿搭及 runtime 控制語仍未清除。詳見 [A2 第一批規格](wardrobe-control-a2-dresses-v1.md)。
 
 責任：one-piece 服裝本體。它不屬於上身加下身，不應再拆成 top/bottom。
 

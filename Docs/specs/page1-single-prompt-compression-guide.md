@@ -1,5 +1,7 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
+2026-10-27 A2 第二批：40 筆套裝移除正式來源中的配色控制句；19 筆原解析配色目標移到 `meta.colorTextBindings`，21 筆沿用通用配色。Gpt 保留修訂後完整衣物來源與既有已選配色，未選色不輸出本批控制句。renderer 精簡、固定色、材質色與其他 runtime 配色句保持；特殊穿搭另批。舊 JSON／抓拍快照保持；舊 Markdown 的啟發式辨識差異另列限制，不能宣稱選值完全等價。見 [A2 第二批規格](wardrobe-control-a2-outfits-v1.md)。
+
 2026-10-26 A2 第一批：連身 24 筆移除資料中的色票控制句，前版全文追加為 legacy alias；Gpt 仍完整保留修訂後有效衣物來源，未改 renderer 的精簡／配色／投影。既有收藏原文和已匯入人物快照維持，重新生成或明確重新匯入採新來源。此批未處理套裝、特殊穿搭或 runtime 配色句。詳見 [A2 第一批規格](wardrobe-control-a2-dresses-v1.md)。
 
 2026-10-26 A1：角色卡主 GPT／GPT 胸上／全身角色照在卡名後補回 `identityAndBody` 原有成年身份開頭，再接既有結構化欄位；保留四錨點、body、衣著、所有排除路徑與收藏原文，不改 Z／MJ／Nano 或 PAGE2。詳見 [A1 規格](character-adult-identity-a1-v1.md)。

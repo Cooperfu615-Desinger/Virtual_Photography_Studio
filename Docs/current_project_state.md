@@ -4,6 +4,15 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-27
 
+## Phase 4 A2 第二批：40 筆套裝控制語（2026-10-27，驗收通過，授權限定交付）
+
+- 可信基準與最後核對的遠端 main 為 `048a2348869c9348d18f4e0b71d4ceed92c69232`（A2 第一批）。下方第一批「授權交付」與「未提交」段落保留歷史狀態。
+- 40 筆逐筆確認主色／對比色／固定色責任後清理來源控制句：21 筆保留通用配色，19 筆將原解析目標移到 29 項 `meta.colorTextBindings`，由 shared builder 保持原配色文字。固定色與材質規則不改；前版完整英文追加為舊 alias，ID／semantic／順序／圖片保持。
+- 8,611 案固定 Git oracle：0 核准外差異，選值與 RNG 保持；40 份舊 JSON／Markdown、舊抓拍快照與新匯入已驗證。一般 Markdown 仍為文字推測：21 筆現在認回同一套裝，其中 8 筆既有 red 誤推測會轉入套裝配色。公開原文保持；這項限制未修復，不能視為 JSON 的精確 round-trip。
+- 前端 1,867／1,867、Prompt Quality 771／771、聚焦 84／84、Python 43／43、目錄工具 32／32；sync／歷史 ID／strict／lint／build／資產通過。200 同 seed audit 的 0 blocker／18 既有診斷逐項相同。A2 第一批 3,545 案、A1 與四批 A5 原工具隔離回放通過，A～E 及歷史證據未重錄。
+- 5175 桌面 1440×1000／手機 390×900：48 項、28 張畫面，涵蓋五套代表款、主色切換／全無、對比色／固定金色、六輸出剪貼簿、收藏、抓拍明確重新匯入，以及六工作區；0 error／0 外部 POST／無意外頁面水平溢位。
+- [規格](specs/wardrobe-control-a2-outfits-v1.md)、[逐筆決策](decisions/2026-10-27-a2-outfits-control-language.md)、[驗收報告](reports/wardrobe-control-a2-outfits-2026-10-27/README.md)。其他 20 工作目錄的 140 份既有檔案與狀態保持。Cooper 已確認本批驗收通過，授權只提交並 push 40 筆套裝的資料、程式、文件、基準、回歸案例與驗收工具；實際提交與對應 CI 結果另行核對。驗收報告保留提交前狀態。舊 Markdown 還原、特殊穿搭 1 筆及 runtime 配色句另批；其他項目與 P5b 未進入。
+
 ## Phase 4 A2 第一批：最新 main 整合與限定交付（2026-10-27）
 
 - Cooper 已授權確認影片提交後限定 commit/push 本批，再確認 CI，之後接續 A2 第二批範圍分析。

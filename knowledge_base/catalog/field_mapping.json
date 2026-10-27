@@ -345,6 +345,7 @@
       "generated": "legacyPromptAliases",
       "runtime": "meta.legacyPromptAliases",
       "categories": [
+        "Wardrobe/套裝 (Outfit Presets)",
         "Wardrobe/上身 (Tops)",
         "Wardrobe/連身 (Dresses)",
         "Wardrobe/褲裝 (Pants)",
@@ -1142,6 +1143,7 @@
       "generated": "legacyPromptAliases",
       "runtime": "meta.legacyPromptAliases",
       "categories": [
+        "Wardrobe/套裝 (Outfit Presets)",
         "Wardrobe/上身 (Tops)",
         "Wardrobe/連身 (Dresses)",
         "Wardrobe/褲裝 (Pants)",
@@ -1159,6 +1161,7 @@
       "generated": "legacyPromptAliases[]",
       "runtime": "meta.legacyPromptAliases[]",
       "categories": [
+        "Wardrobe/套裝 (Outfit Presets)",
         "Wardrobe/上身 (Tops)",
         "Wardrobe/連身 (Dresses)",
         "Wardrobe/褲裝 (Pants)",
@@ -1879,6 +1882,51 @@
         "Negative/特定主題防護 (依需求加入)"
       ],
       "policy": "D explicit semantic base; flattened before source metadata and dedicated fields; ordered tags union. Container does not enter runtime meta."
+    },
+    "meta.colorTextBindings": {
+      "source": "catalog record.meta.colorTextBindings",
+      "generated": "meta.colorTextBindings",
+      "runtime": "meta.colorTextBindings",
+      "categories": [
+        "Wardrobe/套裝 (Outfit Presets)"
+      ],
+      "policy": "A2 第二批審查的舊解析配色責任；保留順序、原目標文字與材質色省略規則，不輸出選擇控制語。"
+    },
+    "meta.colorTextBindings[]": {
+      "source": "catalog record.meta.colorTextBindings[]",
+      "generated": "meta.colorTextBindings[]",
+      "runtime": "meta.colorTextBindings[]",
+      "categories": [
+        "Wardrobe/套裝 (Outfit Presets)"
+      ],
+      "policy": "A2 第二批審查的舊解析配色責任；保留順序、原目標文字與材質色省略規則，不輸出選擇控制語。"
+    },
+    "meta.colorTextBindings[].channel": {
+      "source": "catalog record.meta.colorTextBindings[].channel",
+      "generated": "meta.colorTextBindings[].channel",
+      "runtime": "meta.colorTextBindings[].channel",
+      "categories": [
+        "Wardrobe/套裝 (Outfit Presets)"
+      ],
+      "policy": "A2 第二批審查的舊解析配色責任；保留順序、原目標文字與材質色省略規則，不輸出選擇控制語。"
+    },
+    "meta.colorTextBindings[].target": {
+      "source": "catalog record.meta.colorTextBindings[].target",
+      "generated": "meta.colorTextBindings[].target",
+      "runtime": "meta.colorTextBindings[].target",
+      "categories": [
+        "Wardrobe/套裝 (Outfit Presets)"
+      ],
+      "policy": "A2 第二批審查的舊解析配色責任；保留順序、原目標文字與材質色省略規則，不輸出選擇控制語。"
+    },
+    "meta.colorTextBindings[].omitForPrimaryMaterial": {
+      "source": "catalog record.meta.colorTextBindings[].omitForPrimaryMaterial",
+      "generated": "meta.colorTextBindings[].omitForPrimaryMaterial",
+      "runtime": "meta.colorTextBindings[].omitForPrimaryMaterial",
+      "categories": [
+        "Wardrobe/套裝 (Outfit Presets)"
+      ],
+      "policy": "A2 第二批審查的舊解析配色責任；保留順序、原目標文字與材質色省略規則，不輸出選擇控制語。"
     }
   },
   "overwriteOrder": [

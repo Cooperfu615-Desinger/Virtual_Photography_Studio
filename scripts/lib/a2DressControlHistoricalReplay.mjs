@@ -1,5 +1,6 @@
 // Test-only exact data inverse. No public renderer or historical seal is rewritten.
 import assert from 'node:assert/strict';
+import { preA2OutfitDatabase, restorePreA2OutfitFiles } from './a2OutfitControlHistoricalReplay.mjs';
 import { execFileSync } from 'node:child_process';
 import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -54,11 +55,12 @@ function inverse(rows, key, beforeKey, afterKey) {
   return matches[0].state;
 }
 export function preA2Database(database) {
-  const copy = structuredClone(database);
+  const copy = preA2OutfitDatabase(database);
   inverse(copy.Wardrobe['連身 (Dresses)'], 'stableId', 'generatedBefore', 'generatedAfter');
   return copy;
 }
 export function restorePreA2Files(directory) {
+  restorePreA2OutfitFiles(directory);
   const categoryFile = join(directory, A2_REVIEW.sourceFile);
   const category = JSON.parse(readFileSync(categoryFile));
   const state = inverse(category.entries, 'id', 'before', 'after');
