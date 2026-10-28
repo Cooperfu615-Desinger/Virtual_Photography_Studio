@@ -123,3 +123,15 @@ test('metadata limits reject excessive size or nesting', () => {
   assert.throws(() => parseExportedMarkdownPrompt(change(md, p => { p.outputs.grokPrompt = 'x'.repeat(8 * 1024 * 1024); }), controls));
   assert.throws(() => parseExportedMarkdownPrompt(change(md, p => { let v = {}; p.selection.observationCapture = v; for (let n = 0; n < 65; n++) { v.child = {}; v = v.child; } }), controls));
 });
+
+test('supine scene-none sentinel remains a valid round-trip without allowing arbitrary location IDs', () => {
+  const p = card();
+  p.selection = normalizeLocks({ ...p.selection, subjectCount: '1', poseBaseId: 'lying', poseOrientationId: 'lying-supine' });
+  assert.equal(p.selection.locationId, 'none');
+  const markdown = buildMarkdownExport(p);
+  assert.ok(markdown.startsWith('<!-- VPStudio PAGE1 Snapshot:'));
+  assert.deepEqual(parseExportedMarkdownPrompt(markdown, controls, 'supine').selection, p.selection);
+  assert.throws(() => parseExportedMarkdownPrompt(change(markdown, payload => {
+    payload.selection.locationId = 'unknown-location';
+  }), controls, 'bad'), /unknown ID: locationId/);
+});

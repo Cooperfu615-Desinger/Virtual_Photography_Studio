@@ -17,6 +17,7 @@ export default function SavedCardsWorkspace({
   favoritePrompts,
   displayPrompts,
   handleDownloadAll,
+  isDownloadingCards = false,
   handleClearFavorites,
   importSavedCardsInputRef,
   handleOpenImportSavedCards,
@@ -72,8 +73,8 @@ export default function SavedCardsWorkspace({
       <section className="saved-cards-panel lock-panel">
         <div className="saved-cards-toolbar">
           <div className="tab-row saved-cards-actions">
-            <button className="secondary" onClick={() => handleDownloadAll(filteredPrompts)} disabled={filteredPrompts.length === 0}>
-              Download
+            <button className="secondary" onClick={() => handleDownloadAll(filteredPrompts)} disabled={filteredPrompts.length === 0 || isDownloadingCards} aria-busy={isDownloadingCards}>
+              {isDownloadingCards ? 'Preparing…' : 'Download'}
             </button>
             <button className="secondary danger" onClick={handleClearFavorites} disabled={favoritePrompts.length === 0}>
               Clear Favorites

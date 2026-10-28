@@ -1,0 +1,244 @@
+TAP version 13
+# Subtest: PAGE1 Markdown restores complete selections before prose and preserves every output byte
+ok 1 - PAGE1 Markdown restores complete selections before prose and preserves every output byte
+  ---
+  duration_ms: 20.796042
+  type: 'test'
+  ...
+# Subtest: actual single-card and ZIP exporters share identical metadata and preserve their readable bodies
+ok 2 - actual single-card and ZIP exporters share identical metadata and preserve their readable bodies
+  ---
+  duration_ms: 35.721792
+  type: 'test'
+  ...
+# Subtest: CRLF, whitespace, Unicode, comment tokens and historical extra outputs preserve exact text
+ok 3 - CRLF, whitespace, Unicode, comment tokens and historical extra outputs preserve exact text
+  ---
+  duration_ms: 9.167666
+  type: 'test'
+  ...
+# Subtest: new snapshots preserve PAGE1 MJ ratio ownership instead of inferring the rendered ratio
+ok 4 - new snapshots preserve PAGE1 MJ ratio ownership instead of inferring the rendered ratio
+  ---
+  duration_ms: 5.039708
+  type: 'test'
+  ...
+# Subtest: non-PAGE1 and cards without selections retain legacy format
+ok 5 - non-PAGE1 and cards without selections retain legacy format
+  ---
+  duration_ms: 1.882167
+  type: 'test'
+  ...
+# Subtest: new metadata rejects version without prose fallback
+ok 6 - new metadata rejects version without prose fallback
+  ---
+  duration_ms: 2.817083
+  type: 'test'
+  ...
+# Subtest: new metadata rejects source without prose fallback
+ok 7 - new metadata rejects source without prose fallback
+  ---
+  duration_ms: 2.530334
+  type: 'test'
+  ...
+# Subtest: new metadata rejects missing key without prose fallback
+ok 8 - new metadata rejects missing key without prose fallback
+  ---
+  duration_ms: 3.732833
+  type: 'test'
+  ...
+# Subtest: new metadata rejects extra key without prose fallback
+ok 9 - new metadata rejects extra key without prose fallback
+  ---
+  duration_ms: 3.425416
+  type: 'test'
+  ...
+# Subtest: new metadata rejects unknown ID without prose fallback
+ok 10 - new metadata rejects unknown ID without prose fallback
+  ---
+  duration_ms: 3.778833
+  type: 'test'
+  ...
+# Subtest: new metadata rejects wrong type without prose fallback
+ok 11 - new metadata rejects wrong type without prose fallback
+  ---
+  duration_ms: 3.442958
+  type: 'test'
+  ...
+# Subtest: new metadata rejects bad numeric range without prose fallback
+ok 12 - new metadata rejects bad numeric range without prose fallback
+  ---
+  duration_ms: 4.180583
+  type: 'test'
+  ...
+# Subtest: new metadata rejects bad hidden enum without prose fallback
+ok 13 - new metadata rejects bad hidden enum without prose fallback
+  ---
+  duration_ms: 4.602917
+  type: 'test'
+  ...
+# Subtest: new metadata rejects bad nested capture without prose fallback
+ok 14 - new metadata rejects bad nested capture without prose fallback
+  ---
+  duration_ms: 4.702458
+  type: 'test'
+  ...
+# Subtest: new metadata rejects bad output without prose fallback
+ok 15 - new metadata rejects bad output without prose fallback
+  ---
+  duration_ms: 3.076208
+  type: 'test'
+  ...
+# Subtest: new metadata rejects duplicate extra ID without prose fallback
+ok 16 - new metadata rejects duplicate extra ID without prose fallback
+  ---
+  duration_ms: 2.736375
+  type: 'test'
+  ...
+# Subtest: new metadata rejects bad label without prose fallback
+ok 17 - new metadata rejects bad label without prose fallback
+  ---
+  duration_ms: 2.81525
+  type: 'test'
+  ...
+# Subtest: new metadata rejects unknown payload field without prose fallback
+ok 18 - new metadata rejects unknown payload field without prose fallback
+  ---
+  duration_ms: 2.983375
+  type: 'test'
+  ...
+# Subtest: new metadata rejects truncated
+ok 19 - new metadata rejects truncated
+  ---
+  duration_ms: 2.475625
+  type: 'test'
+  ...
+# Subtest: new metadata rejects duplicate marker
+ok 20 - new metadata rejects duplicate marker
+  ---
+  duration_ms: 4.237
+  type: 'test'
+  ...
+# Subtest: new metadata rejects duplicate JSON key
+ok 21 - new metadata rejects duplicate JSON key
+  ---
+  duration_ms: 2.811916
+  type: 'test'
+  ...
+# Subtest: new metadata rejects unsafe key
+ok 22 - new metadata rejects unsafe key
+  ---
+  duration_ms: 2.8115
+  type: 'test'
+  ...
+# Subtest: new metadata rejects changed visible text
+ok 23 - new metadata rejects changed visible text
+  ---
+  duration_ms: 4.413
+  type: 'test'
+  ...
+# Subtest: new metadata rejects missing extra block
+ok 24 - new metadata rejects missing extra block
+  ---
+  duration_ms: 5.336459
+  type: 'test'
+  ...
+# Subtest: new metadata rejects legacy conflict
+ok 25 - new metadata rejects legacy conflict
+  ---
+  duration_ms: 4.222
+  type: 'test'
+  ...
+# Subtest: known issued legacy option IDs migrate while other IDs are rejected
+ok 26 - known issued legacy option IDs migrate while other IDs are rejected
+  ---
+  duration_ms: 5.155667
+  type: 'test'
+  ...
+# Subtest: header-like public text cannot replace the real card summary
+ok 27 - header-like public text cannot replace the real card summary
+  ---
+  duration_ms: 3.971958
+  type: 'test'
+  ...
+# Subtest: nested capture IDs and dormant scene restore are validated even in capture mode
+ok 28 - nested capture IDs and dormant scene restore are validated even in capture mode
+  ---
+  duration_ms: 6.097666
+  type: 'test'
+  ...
+# Subtest: metadata limits reject excessive size or nesting
+ok 29 - metadata limits reject excessive size or nesting
+  ---
+  duration_ms: 31.087
+  type: 'test'
+  ...
+# Subtest: supine scene-none sentinel remains a valid round-trip without allowing arbitrary location IDs
+ok 30 - supine scene-none sentinel remains a valid round-trip without allowing arbitrary location IDs
+  ---
+  duration_ms: 5.986042
+  type: 'test'
+  ...
+# Subtest: saved card archive contains manifest and unchanged markdown exports
+ok 31 - saved card archive contains manifest and unchanged markdown exports
+  ---
+  duration_ms: 81.713708
+  type: 'test'
+  ...
+# Subtest: archive file names stay unique for sanitized id collisions and invalid items are skipped
+ok 32 - archive file names stay unique for sanitized id collisions and invalid items are skipped
+  ---
+  duration_ms: 36.838459
+  type: 'test'
+  ...
+# Subtest: manifest sourceId restores safe-filename exports while old markdown-only archives remain importable
+ok 33 - manifest sourceId restores safe-filename exports while old markdown-only archives remain importable
+  ---
+  duration_ms: 28.787
+  type: 'test'
+  ...
+# Subtest: legacy markdown archive without a snapshot restores Midjourney tail settings and aspect ratio
+ok 34 - legacy markdown archive without a snapshot restores Midjourney tail settings and aspect ratio
+  ---
+  duration_ms: 50.616875
+  type: 'test'
+  ...
+# Subtest: 131 cards including an unknown historical location download without losing records or original data
+ok 35 - 131 cards including an unknown historical location download without losing records or original data
+  ---
+  duration_ms: 1461.4925
+  type: 'test'
+  ...
+# Subtest: single and archive Markdown preserve identical raw backup and readable original text
+ok 36 - single and archive Markdown preserve identical raw backup and readable original text
+  ---
+  duration_ms: 34.495083
+  type: 'test'
+  ...
+# Subtest: historical extra-output identity conflicts can be backed up without pretending to be valid snapshots
+ok 37 - historical extra-output identity conflicts can be backed up without pretending to be valid snapshots
+  ---
+  duration_ms: 2.021
+  type: 'test'
+  ...
+# Subtest: unexpected serialization faults are not silently swallowed
+ok 38 - unexpected serialization faults are not silently swallowed
+  ---
+  duration_ms: 0.246166
+  type: 'test'
+  ...
+# Subtest: ordinary historical unknown IDs are preserved before normalization can replace them
+ok 39 - ordinary historical unknown IDs are preserved before normalization can replace them
+  ---
+  duration_ms: 0.207666
+  type: 'test'
+  ...
+1..39
+# tests 39
+# suites 0
+# pass 39
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1799.556625

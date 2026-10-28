@@ -126,3 +126,24 @@ test('legacy markdown archive without a snapshot restores Midjourney tail settin
     mjResolution: 'hd',
   });
 });
+
+test('131 cards including an unknown historical location download without losing records or original data', async () => {
+  const prompts = Array.from({ length: 131 }, (_, index) => createPrompt(`backup-${index}`));
+  prompts[73].selection.captureMode = 'observation';
+  prompts[73].selection.locationId = 'retired-location-not-in-current-catalog';
+  prompts[73].grokPrompt = '  Original <text> -->\nunchanged  ';
+  const original = structuredClone(prompts);
+  const bytes = await createSavedCardsArchive(prompts, 0, 'uint8array');
+  const zip = await JSZip.loadAsync(bytes);
+  const manifest = JSON.parse(await zip.file('manifest.json').async('string'));
+  assert.equal(manifest.items.length, 131);
+  assert.equal(Object.keys(zip.files).filter(name => name.endsWith('.md')).length, 131);
+  const backup = JSON.parse(await zip.file('saved-cards-backup.json').async('string'));
+  assert.deepEqual(backup.items, original);
+  assert.deepEqual(prompts, original);
+  const markdown = await zip.file('prompt_backup-73.md').async('string');
+  assert.ok(markdown.startsWith('<!-- VPStudio Saved Card Backup:'));
+  assert.ok(markdown.includes(prompts[73].grokPrompt));
+  assert.ok(!markdown.startsWith('<!-- VPStudio PAGE1 Snapshot:'));
+  await assert.rejects(parseSavedCardsArchive(bytes, getLockControls()), /備份.*無法直接匯入/);
+});

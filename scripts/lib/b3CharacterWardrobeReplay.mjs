@@ -1,3 +1,4 @@
+import { preSavedCardsDownloadSource, preparePreSavedCardsDownloadFiles } from './savedCardsDownloadReplay.mjs';
 // Test-only inverse for the narrow B3 follow-up. No production imports.
 import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync, realpathSync, existsSync, rmSync } from 'node:fs';
@@ -9,6 +10,7 @@ export const B3_REVIEW = JSON.parse(readFileSync(new URL('./b3CharacterWardrobeP
 export const B3_BASE = B3_REVIEW.baseCommit;
 const hash = value => createHash('sha256').update(value).digest('hex');
 export function preB3WardrobeSource(path, source) {
+  source = preSavedCardsDownloadSource(path, source);
   const file = B3_REVIEW.files.find(f => f.path === path);
   if (!file || hash(source) !== file.afterHash) return source;
   assert.equal(hash(file.beforeSource), file.beforeHash, 'B3 inverse corrupt oracle');
@@ -17,7 +19,8 @@ export function preB3WardrobeSource(path, source) {
 export function restorePreB3WardrobeFiles(directory, { allowPartial = false, prepareOnly = false } = {}) {
   assert.notEqual(realpathSync(directory), realpathSync(B3_ROOT), 'B3 inverse requires isolated copy');
   assert.ok(!existsSync(join(directory, '.git')), 'B3 inverse rejects Git checkout');
-  const empty = { sources: new Map(), apply() {} };
+  const download = preparePreSavedCardsDownloadFiles(directory);
+  const empty = download;
   if (allowPartial && !B3_REVIEW.files.some(f => existsSync(join(directory, f.path))
     && hash(readFileSync(join(directory, f.path))) === f.afterHash)) return empty;
   const prepared = [], states = [];
@@ -41,9 +44,10 @@ export function restorePreB3WardrobeFiles(directory, { allowPartial = false, pre
   }
   if (!after) return empty;
   const plan = {
-    sources: new Map(B3_REVIEW.files.filter(f => prepared.some(([path]) => path === join(directory, f.path)))
-      .map(f => [f.path, Buffer.from(f.beforeSource)])),
+    sources: new Map([...download.sources, ...B3_REVIEW.files.filter(f => prepared.some(([path]) => path === join(directory, f.path)))
+      .map(f => [f.path, Buffer.from(f.beforeSource)])]),
     apply() {
+      download.apply();
       for (const [path, source] of prepared) writeFileSync(path, source);
       for (const path of remove) rmSync(path);
     },

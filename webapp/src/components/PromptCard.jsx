@@ -1,4 +1,4 @@
-import { encodePage1MarkdownSnapshot } from '../features/saved-cards/page1MarkdownSnapshot.js';
+import { encodeSavedCardExportMetadata as encodePage1MarkdownSnapshot } from '../features/saved-cards/page1MarkdownSnapshot.js';
 import React, { memo, useState } from 'react';
 import { Download, Trash2 } from 'lucide-react';
 import { copyTextToClipboard } from '../lib/clipboard';
@@ -65,6 +65,7 @@ function buildMetadataChips(data, promptEntries) {
 }
 
 function PromptCard({ data, density = 'compact', onDelete, onApplySelection }) {
+  const [downloadError, setDownloadError] = useState('');
   const [copiedLabel, setCopiedLabel] = useState('');
   const [expanded, setExpanded] = useState(false);
   const [activePromptKey, setActivePromptKey] = useState('');
@@ -89,6 +90,8 @@ function PromptCard({ data, density = 'compact', onDelete, onApplySelection }) {
   };
 
   const handleDownload = () => {
+    try {
+    setDownloadError('');
     const blob = new Blob([buildMarkdownExport(data)], { type: 'text/markdown' });
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement('a');
@@ -97,7 +100,10 @@ function PromptCard({ data, density = 'compact', onDelete, onApplySelection }) {
     document.body.appendChild(anchor);
     anchor.click();
     document.body.removeChild(anchor);
-    URL.revokeObjectURL(url);
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    } catch {
+      setDownloadError('下載失敗，收藏仍保留在本頁。請勿重新整理，請稍後重試。');
+    }
   };
 
   const shortId = `#${String(data.id).slice(-6).toUpperCase()}`;
@@ -132,6 +138,7 @@ function PromptCard({ data, density = 'compact', onDelete, onApplySelection }) {
         </div>
       </div>
 
+      {downloadError && <p role="alert">{downloadError}</p>}
       <section className="summary-panel">
         <div className="summary-panel-header">摘要</div>
         <div className="summary-grid">

@@ -1,9 +1,10 @@
 // PAGE1 persistence metadata only; never regenerate or infer a public output.
 import { createEmptyLocks, getLockControls, normalizeLocks } from '../../lib/engine.js';
 import { CAPTURE_GROUPS } from '../../lib/observationCaptureMode.js';
-import { normalizeSpecifiedActionSceneRestore } from '../../lib/engine/poseScenePolicy.js';
+import { normalizeSpecifiedActionSceneRestore, isSupinePoseSelection, SUPINE_SCENE_NONE_LOCKS } from '../../lib/engine/poseScenePolicy.js';
 import { normalizeZImageDisplayLabel } from './promptLabels.js';
 
+export const SAVED_CARD_BACKUP_MARKER = '<!-- VPStudio Saved Card Backup:';
 const MARKER = '<!-- VPStudio PAGE1 Snapshot:';
 const LIMIT = 8 * 1024 * 1024;
 const record = value => value !== null && typeof value === 'object' && !Array.isArray(value);
@@ -51,6 +52,7 @@ function validateSelection(selection, controls) {
     } else if (typeof value !== typeof expected || typeof value === 'number' && !Number.isFinite(value)) fail(key);
     const options = controls.find(control => control.key === key)?.options || [];
     if (options.length) for (const id of Array.isArray(value) ? value : [value]) {
+      if (id === 'none' && SUPINE_SCENE_NONE_LOCKS[key] === 'none' && isSupinePoseSelection(selection)) continue;
       if (id && !options.some(option => option.id === id || option.legacyIds?.includes(id))) fail(`unknown ID: ${key}`);
     }
   }
@@ -116,9 +118,34 @@ export function encodePage1MarkdownSnapshot(data) {
   validatePayload(safeJson(json), getLockControls());
   return `${MARKER} ${json} -->\n`;
 }
+// Export must preserve readable cards even when current restore validation cannot
+// accept their settings. This is an explicit backup, never a valid PAGE1 snapshot.
+export function encodeSavedCardExportMetadata(data) {
+  try {
+    // Do not let normalization silently replace an unrecognized stored ID in a backup.
+    if ((data.source || 'page1') === 'page1' && record(data.selection)) {
+      for (const control of getLockControls()) {
+        const value = data.selection[control.key];
+        if (!control.options?.length || !value) continue;
+        for (const id of Array.isArray(value) ? value : [value]) {
+          if (id === 'none' && SUPINE_SCENE_NONE_LOCKS[control.key] === 'none' && isSupinePoseSelection(data.selection)) continue;
+          if (id && !control.options.some(option => option.id === id || option.legacyIds?.includes(id))) fail(`unknown stored ID: ${control.key}`);
+        }
+      }
+    }
+    return encodePage1MarkdownSnapshot(data);
+  } catch (error) {
+    if (!error.message?.startsWith('Invalid PAGE1 Markdown snapshot:')) throw error;
+    const backup = { version: 1, restoreStatus: 'backup-only', reason: error.message, card: data };
+    const json = JSON.stringify(backup).replace(/</g, '\\u003c').replace(/>/g, '\\u003e');
+    return `${SAVED_CARD_BACKUP_MARKER} ${json} -->\n> 此卡片已完整備份原文與設定；目前版本無法直接匯入此備份，請保留原檔。\n\n`;
+  }
+}
+
 export function decodePage1MarkdownSnapshot(markdown, controls = getLockControls()) {
   // A new marker, including a truncated one, must never fall through to guessing.
   const text = newline(String(markdown || ''));
+  if (text.startsWith(SAVED_CARD_BACKUP_MARKER)) throw new Error('此卡片為原始備份，目前無法直接匯入；請保留備份原檔。');
   if (!text.includes(MARKER)) return null;
   if (!text.startsWith(MARKER)) fail('misplaced metadata');
   const end = text.indexOf(' -->\n');

@@ -1,0 +1,29 @@
+[
+  {
+    "width": 1440,
+    "zipRecords": 131,
+    "singleBackup": true,
+    "loading": true,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "zipRecords": 131,
+    "singleBackup": true,
+    "loading": true,
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "errorState": true,
+    "pageErrors": []
+  },
+  {
+    "width": 390,
+    "errorState": true,
+    "pageErrors": []
+  },
+  {
+    "emptyDisabled": true
+  }
+]

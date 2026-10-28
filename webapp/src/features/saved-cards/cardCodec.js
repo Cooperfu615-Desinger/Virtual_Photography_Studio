@@ -1,4 +1,4 @@
-import { encodePage1MarkdownSnapshot, decodePage1MarkdownSnapshot } from './page1MarkdownSnapshot.js';
+import { encodeSavedCardExportMetadata as encodePage1MarkdownSnapshot, decodePage1MarkdownSnapshot } from './page1MarkdownSnapshot.js';
 import { createWardrobeRecoveryContext, wardrobeItemRecoveryScope, recoverWardrobeColors } from './wardrobeColorRecovery.js';
 import { prepareLegacyDressProseRecovery, applyLegacyDressProseColors } from './legacyDressProseRecovery.js';
 import { isImportedPersonKey } from '../../lib/observationCaptureImport.js';

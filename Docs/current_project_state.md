@@ -2,7 +2,13 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-28
+Last updated: 2026-10-29
+
+## Saved Cards 下載修復（2026-10-29，本機驗收通過）
+
+- Chrome 131 筆 Download 被單張 PAGE1 快照 `unknown ID: locationId` 中斷。新增保留原文／設定的備份匯出、合法仰躺 none 驗證及下載 loading／錯誤提示；正常卡片與嚴格匯入契約保持。
+- 122 是本機位元組預算裁切結果，不是下載筆數上限；未完成真實 131 筆備份前，不刷新使用者原分頁。本批不變更雲端或容量。
+- Cooper 已授權本批 commit／push；提交、CI 與部署結果於交付後核對，真實收藏下載仍需另行確認。見 [規格](specs/saved-cards-download-resilience-v1.md)、[決策](decisions/2026-10-29-saved-cards-download.md)。
 
 ## B3 正式版白屏緊急修復（2026-10-28）
 

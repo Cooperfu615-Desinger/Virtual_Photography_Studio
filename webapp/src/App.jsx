@@ -93,6 +93,8 @@ function readAppearancePreference() {
 }
 
 export default function App() {
+  const downloadInProgressRef = useRef(false);
+  const [isDownloadingCards, setIsDownloadingCards] = useState(false);
   const importSavedCardsInputRef = useRef(null);
   const [copiedLabel, setCopiedLabel] = useState('');
   const [isImportPromptOpen, setIsImportPromptOpen] = useState(false);
@@ -267,9 +269,19 @@ export default function App() {
   }, [deleteFavoritePrompt]);
 
   const handleDownloadAll = async (items = displayPrompts) => {
-    if (items.length === 0) return;
-    const { downloadSavedCardsArchive } = await import('./features/saved-cards/savedCardArchive.js');
-    await downloadSavedCardsArchive(items);
+    if (items.length === 0 || downloadInProgressRef.current) return;
+    downloadInProgressRef.current = true;
+    setIsDownloadingCards(true);
+    try {
+      const { downloadSavedCardsArchive } = await import('./features/saved-cards/savedCardArchive.js');
+      await downloadSavedCardsArchive(items);
+      showToast(`已送出 ${items.length} 筆收藏的下載，請查看瀏覽器下載紀錄。`);
+    } catch {
+      showToast('下載失敗，收藏仍保留在本頁。請勿重新整理，請稍後重試。');
+    } finally {
+      downloadInProgressRef.current = false;
+      setIsDownloadingCards(false);
+    }
   };
 
   const handleClearFavorites = () => {
@@ -572,6 +584,7 @@ export default function App() {
           favoritePrompts={favoritePrompts}
           displayPrompts={displayPrompts}
           handleDownloadAll={handleDownloadAll}
+          isDownloadingCards={isDownloadingCards}
           handleClearFavorites={handleClearFavorites}
           importSavedCardsInputRef={importSavedCardsInputRef}
           handleOpenImportSavedCards={handleOpenImportSavedCards}

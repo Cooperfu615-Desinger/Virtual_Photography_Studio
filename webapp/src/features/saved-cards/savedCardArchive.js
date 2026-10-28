@@ -7,6 +7,8 @@ import {
   parseExportedMarkdownPrompt,
 } from './cardCodec.js';
 
+import { SAVED_CARD_BACKUP_MARKER } from './page1MarkdownSnapshot.js';
+
 const { saveAs } = fileSaver;
 
 const SOURCE_PROJECT = 'virtual-photography-studio';
@@ -85,16 +87,25 @@ export async function createSavedCardsArchive(items, now = Date.now(), type = 'b
   const zip = new JSZip();
   const manifestItems = [];
   const files = buildArchiveFileNames(exportItems);
+  const backupOnlyFiles = [];
   exportItems.forEach((prompt, index) => {
     const file = files[index];
-    zip.file(file, buildMarkdownExport(prompt));
+    const markdown = buildMarkdownExport(prompt);
+    zip.file(file, markdown);
+    if (markdown.startsWith(SAVED_CARD_BACKUP_MARKER)) backupOnlyFiles.push(file);
     manifestItems.push(buildSavedCardManifestItem(prompt, file));
   });
+  if (backupOnlyFiles.length) {
+    zip.file('saved-cards-backup.json', JSON.stringify({
+      version: 1, restoreStatus: 'backup-only', sourceProject: SOURCE_PROJECT, items: exportItems,
+    }, null, 2));
+  }
   zip.file('manifest.json', JSON.stringify({
     schemaVersion: 1,
     sourceProject: SOURCE_PROJECT,
     exportedAt: new Date(now).toISOString(),
     items: manifestItems,
+    ...(backupOnlyFiles.length ? { backupFile: 'saved-cards-backup.json', backupOnlyFiles } : {}),
   }, null, 2));
   return zip.generateAsync({ type });
 }
