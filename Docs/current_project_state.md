@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-28
 
+## PAGE2 GPT／Z 成年身份補齊（2026-10-28，驗收通過，授權限定交付）
+
+- 固定且再次核對本機／遠端 main `bfc2d5baafc8aaede8f774527d0f1aaa187da27f`。33 張角色的新 GPT／Z 重用各自 `identityAndBody` 成年身份；Eleanor 保留 demonic，缺來源不猜，legacy 完整 fallback 不重複。其他四個 PAGE2 輸出、PAGE1 六輸出、穿搭圖層、原角色資料及舊收藏原文保持。
+- 固定 Git 2,396 組 PAGE2／452 組 PAGE1、66 組新舊 JSON 與 Markdown 內容對照、496 份其他正式來源／程式逐字保護通過。前端 2,009、品質 849、Python 43、目錄 32，lint／build／sync／schema／歷史 ID／strict／207 assets 通過；200 同 seed audit 與修改前逐字一致，0 blocker／18 既有診斷。
+- 新 inverse 精確還原固定 Git，原 Phase 4／胸上／完整 A2／A1／A5 隔離歷史鏈通過。桌面 1440×1000／手機 390×900 共 42 項操作／20 畫面與六工作區通過，無 console／page error／外部 POST／意外溢位；自己的 5175 服務已停止。
+- 已確認既有 PAGE2 Markdown／ZIP 標題與解析器不相容：66 組仍保持修改前失敗結果，未宣稱能成功往返；JSON 儲存／重載及公開下載文字保持。格式相容另批，詳見 [規格](specs/page2-adult-identity-v1.md)、[決策](decisions/2026-10-28-page2-adult-identity.md)、[驗收報告](reports/page2-adult-identity-2026-10-28/README.md)。
+- Cooper 已確認本批驗收通過，授權只提交並 push 本次程式、文件、基準、回歸案例、歷史回放與驗收工具；實際提交及對應 CI 結果於交付後核對。原驗收報告及保護紀錄保留提交前證據；2,145 歷史檔及其他 20 工作目錄／140 未提交檔保持。下方 Phase 4 的 PAGE2 待辦由本節更新；J12、B3、C 類另批，P5b 繼續暫緩。
+
 ## Phase 4 已完整結案（2026-10-28）
 
 - A1–A7 原列管內容與 A2 相依還原／快照／抓拍／近景投影全部完成，22 筆實作提交已 push main 且各自 CI 全數成功；最後產品提交 `4ad709f1`。本批為結案文件、完整歷史鏈及驗證證據交付，自己的提交／CI 結果於完成後回報。

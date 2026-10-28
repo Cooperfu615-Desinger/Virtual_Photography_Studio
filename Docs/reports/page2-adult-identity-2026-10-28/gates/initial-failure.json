@@ -1,0 +1,90 @@
+{
+  "originalCompressedLogSha256": "b73ca0fd3bc857a9c4eb60447852f3d471e8d2bd6c181c7043323180eb5c9155",
+  "failures": [
+    {
+      "test": "not ok 423 - A2 chest dress region inverse restores exact fixed sources atomically and is idempotent only in isolated copies",
+      "details": [
+        "not ok 423 - A2 chest dress region inverse restores exact fixed sources atomically and is idempotent only in isolated copies",
+        "  ---",
+        "  duration_ms: 23.728375",
+        "  type: 'test'",
+        "  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/chestDressRegionHistory.test.js:12:1'",
+        "  failureType: 'testCodeFailure'",
+        "  error: 'Chest dress region inverse rejects unknown source: webapp/package.json'",
+        "  code: 'ERR_ASSERTION'",
+        "  name: 'AssertionError'",
+        "  expected: true",
+        "  actual: false",
+        "  operator: '=='",
+        "  stack: |-",
+        "    preChestDressRegionSource (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/a2ChestDressRegionReplay.mjs:15:32)",
+        "    restorePreChestDressRegionFiles (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/a2ChestDressRegionReplay.mjs:25:55)",
+        "    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/chestDressRegionHistory.test.js:15:16)"
+      ]
+    },
+    {
+      "test": "not ok 424 - A2 chest dress region inverse rejects unknown, missing, mixed and Git inputs before any writes",
+      "details": [
+        "not ok 424 - A2 chest dress region inverse rejects unknown, missing, mixed and Git inputs before any writes",
+        "  ---",
+        "  duration_ms: 207.275459",
+        "  type: 'test'",
+        "  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/chestDressRegionHistory.test.js:20:1'",
+        "  failureType: 'testCodeFailure'",
+        "  error: |-",
+        "    The input did not match the regular expression /mixed/. Input:",
+        "    ",
+        "    'AssertionError [ERR_ASSERTION]: Chest dress region inverse rejects unknown source: webapp/package.json'",
+        "    ",
+        "  code: 'ERR_ASSERTION'",
+        "  name: 'AssertionError'",
+        "  expected:",
+        "  actual:",
+        "  error: 'Chest dress region inverse rejects unknown source: webapp/package.json'"
+      ]
+    },
+    {
+      "test": "not ok 824 - A2 Phase 4 inverse restores exact fixed sources atomically and is idempotent only in isolated copies",
+      "details": [
+        "not ok 824 - A2 Phase 4 inverse restores exact fixed sources atomically and is idempotent only in isolated copies",
+        "  ---",
+        "  duration_ms: 73.555417",
+        "  type: 'test'",
+        "  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/phase4History.test.js:11:1'",
+        "  failureType: 'testCodeFailure'",
+        "  error: 'PAGE2 inverse rejects unknown source: webapp/package.json'",
+        "  code: 'ERR_ASSERTION'",
+        "  name: 'AssertionError'",
+        "  expected: true",
+        "  actual: false",
+        "  operator: '=='",
+        "  stack: |-",
+        "    restorePrePage2AdultFiles (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/page2AdultIdentityReplay.mjs:21:12)",
+        "    restorePrePhase4Files (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/phase4Replay.mjs:23:2)",
+        "    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/phase4History.test.js:16:2)"
+      ]
+    },
+    {
+      "test": "not ok 825 - A2 Phase 4 inverse rejects unknown, missing, mixed and Git inputs before any writes",
+      "details": [
+        "not ok 825 - A2 Phase 4 inverse rejects unknown, missing, mixed and Git inputs before any writes",
+        "  ---",
+        "  duration_ms: 8174.940792",
+        "  type: 'test'",
+        "  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/phase4History.test.js:19:1'",
+        "  failureType: 'testCodeFailure'",
+        "  error: |-",
+        "    Expected values to be strictly deep-equal:",
+        "    + actual - expected",
+        "    ... Skipped lines",
+        "    ",
+        "      [",
+        "        null,",
+        "        Buffer(34972) [Uint8Array] [",
+        "          123,",
+        "          10,"
+      ]
+    }
+  ],
+  "resolution": "New PAGE2 inverse now composes pure-source and atomic Phase 4 paths. Original historical assertions unchanged; final full suite passes 2009/2009."
+}

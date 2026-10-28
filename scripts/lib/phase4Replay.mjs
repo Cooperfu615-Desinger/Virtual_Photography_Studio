@@ -1,3 +1,4 @@
+import { restorePrePage2AdultFiles, prePage2AdultSource } from './page2AdultIdentityReplay.mjs';
 // Exact, atomic test-only inverse. Historical evidence is never re-recorded.
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync,existsSync,realpathSync,rmSync} from 'node:fs';
@@ -8,6 +9,7 @@ export const PHASE4_ROOT=fileURLToPath(new URL('../../',import.meta.url));
 export const PHASE4_REVIEW=JSON.parse(readFileSync(new URL('./phase4Patches.json',import.meta.url)));
 const hash=value=>createHash('sha256').update(value).digest('hex');
 export function prePhase4Source(path,source){
+ source=prePage2AdultSource(path,source);
  const file=PHASE4_REVIEW.files.find(f=>f.path===path);if(!file)return source;
  const sha=hash(source);if(sha!==file.afterHash)return source;
  assert.equal(hash(file.beforeSource),file.beforeHash,'Phase 4 inverse invalid fixed source');
@@ -19,10 +21,11 @@ export function prePhase4Json(path,value){
 export function restorePrePhase4Files(directory){
  assert.notEqual(realpathSync(directory),realpathSync(PHASE4_ROOT),'Phase 4 inverse requires isolated copy');
  assert.ok(!existsSync(join(directory,'.git')),'Phase 4 inverse rejects Git checkout');
+ const page2 = restorePrePage2AdultFiles(directory, { allowPartial: true, prepareOnly: true });
  const prepared=[],states=[];
  for(const file of PHASE4_REVIEW.files){
   const path=join(directory,file.path);assert.ok(existsSync(path),'Phase 4 inverse missing source');
-  const source=readFileSync(path);assert.ok([file.beforeHash,file.afterHash].includes(hash(source)),'Phase 4 inverse rejects unknown source: '+file.path);prepared.push([path,prePhase4Source(file.path,source)]);
+  const source=page2.sources.get(file.path)??readFileSync(path);assert.ok([file.beforeHash,file.afterHash].includes(hash(source)),'Phase 4 inverse rejects unknown source: '+file.path);prepared.push([path,prePhase4Source(file.path,source)]);
   states.push(hash(source)===file.afterHash?'after':'before');
  }
  assert.equal(new Set(states).size,1,'Phase 4 inverse rejects mixed sources');
@@ -32,6 +35,7 @@ export function restorePrePhase4Files(directory){
   if(after)assert.equal(hash(readFileSync(join(directory,path))),sha,'Phase 4 inverse rejects changed test');
  }
  if(!after)return;
+ page2.apply();
  for(const [path,bytes]of prepared)writeFileSync(path,bytes);
  for(const path of Object.keys(PHASE4_REVIEW.newFiles))rmSync(join(directory,path));
 }

@@ -2,6 +2,8 @@
 
 Status: implemented on `main` after the 2026-07-11 facial-identity optimization.
 
+2026-10-28 PAGE2 成年身份補齊：GPT 結構化分組與 Z-Image 新生成輸出重用既有 `identityAndBody` 成年開頭，無來源不猜；其他四輸出、PAGE1、穿搭層及舊收藏原文保持。此批不改 33 張角色資料或下方身份規格。見 [PAGE2 契約](page2-adult-identity-v1.md)。
+
 ## Purpose and scope
 
 This specification keeps the 33 formal Character Card identities visually distinct when PAGE1 or PAGE2 changes hair, wardrobe, accessories, makeup, framing, or photographic treatment. It covers only formal built-in Character Cards, their prompt serialization, and their Saved Cards compatibility contract.

@@ -535,6 +535,11 @@ function normalizePromptOverrideText(value) {
   return String(value || '').replace(/\s+/g, ' ').trim();
 }
 
+function characterAdultIdentity(card) {
+  return String(card.identityAndBody || '').replace(/\s+/g, ' ').trim()
+    .match(/^a\s+20-year-old\s+adult\s+[^,]*?\bwoman\b/i)?.[0] || '';
+}
+
 function buildCharacterIdentityText(card, hairVariant) {
   const structuredIdentityLines = [
     `Facial geometry:\n${cleanSentence(card.facialGeometry)}`,
@@ -550,7 +555,10 @@ function buildCharacterIdentityText(card, hairVariant) {
   return [
     `Character Profile Card:\n${card.label}`,
     ...(structuredIdentityLines.length > 0
-      ? structuredIdentityLines
+      ? [
+        ...(characterAdultIdentity(card) ? [cleanSentence(characterAdultIdentity(card).replace(/^a /i, 'A '))] : []),
+        ...structuredIdentityLines,
+      ]
       : [`Identity and body:\n${cleanSentence(card.identityAndBody)}`]),
     `Hair:\n${cleanSentence(`${card.baseHair}, ${hairVariant.prompt}`)}`,
     `Photographic direction:\n${cleanSentence(card.photographicDirection || 'photorealistic editorial portrait, coherent facial identity, natural photographic detail')}`,
@@ -582,6 +590,7 @@ export function buildCharacterCardPromptBundle(cards = [], rawVariant = {}) {
   ].join('\n\n');
   const grokZImage = cleanSentence([
     `Natural photorealistic character reference of ${card.label}`,
+    characterAdultIdentity(card),
     card.distinctiveFeatures,
     card.skinSignature,
     card.body,

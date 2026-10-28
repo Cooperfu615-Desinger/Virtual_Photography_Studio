@@ -1,0 +1,10 @@
+{
+  "ownServerStopped": true,
+  "port": 5175,
+  "listenCheck": "lsof -nP -iTCP:5175 -sTCP:LISTEN returned no listener",
+  "remoteMain": "bfc2d5baafc8aaede8f774527d0f1aaa187da27f",
+  "remoteVerifiedAgain": true,
+  "staged": false,
+  "commit": false,
+  "push": false
+}

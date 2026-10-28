@@ -1,0 +1,230 @@
+{
+  "baseCommit": "bfc2d5baafc8aaede8f774527d0f1aaa187da27f",
+  "head": "bfc2d5baafc8aaede8f774527d0f1aaa187da27f",
+  "branch": "main",
+  "trackedFilesChecked": 3625,
+  "changedTrackedFiles": [
+    "Docs/current_project_state.md",
+    "Docs/specs/character-card-facial-identity.md",
+    "scripts/lib/phase4Replay.mjs",
+    "webapp/package.json",
+    "webapp/src/lib/characterCardLab.js"
+  ],
+  "unexpectedChanges": [],
+  "historicalFilesChecked": 2145,
+  "historicalChanged": [],
+  "newFiles": [
+    "Docs/decisions/2026-10-28-page2-adult-identity.md",
+    "Docs/reports/page2-adult-identity-2026-10-28/README.md",
+    "Docs/reports/page2-adult-identity-2026-10-28/acceptance/acceptance.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/acceptance/baseline.json.gz",
+    "Docs/reports/page2-adult-identity-2026-10-28/audit-before.log.gz",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/1440-eleanor.png",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/1440-old-card.md",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/1440-page2-default.png",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/1440-page2-variant.png",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/1440-saved-original-and-import-limit.png",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/1440-workspace-0.png",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/1440-workspace-1.png",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/1440-workspace-2.png",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/1440-workspace-3.png",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/1440-workspace-4.png",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/1440-workspace-5.png",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/390-eleanor.png",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/390-old-card.md",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/390-page2-default.png",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/390-page2-variant.png",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/390-saved-original-and-import-limit.png",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/390-workspace-0.png",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/390-workspace-1.png",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/390-workspace-2.png",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/390-workspace-3.png",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/390-workspace-4.png",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/390-workspace-5.png",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/results.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/browser/visual-review.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/focused.log.gz",
+    "Docs/reports/page2-adult-identity-2026-10-28/gates/assets.log.gz",
+    "Docs/reports/page2-adult-identity-2026-10-28/gates/audit.log.gz",
+    "Docs/reports/page2-adult-identity-2026-10-28/gates/build.log.gz",
+    "Docs/reports/page2-adult-identity-2026-10-28/gates/catalog.log.gz",
+    "Docs/reports/page2-adult-identity-2026-10-28/gates/initial-failure.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/gates/lint.log.gz",
+    "Docs/reports/page2-adult-identity-2026-10-28/gates/python.log.gz",
+    "Docs/reports/page2-adult-identity-2026-10-28/gates/quality.log.gz",
+    "Docs/reports/page2-adult-identity-2026-10-28/gates/results.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/gates/strict.log.gz",
+    "Docs/reports/page2-adult-identity-2026-10-28/gates/sync.log.gz",
+    "Docs/reports/page2-adult-identity-2026-10-28/gates/test.log.gz",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/artifact-index.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a2-recovery/acceptance.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/earlier/earlier/earlier/earlier/earlier/earlier/earlier/snapshot/acceptance.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/earlier/earlier/earlier/earlier/earlier/earlier/special-tape/acceptance.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/earlier/earlier/earlier/earlier/earlier/history.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/earlier/earlier/earlier/earlier/earlier/runtime/acceptance.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/earlier/earlier/earlier/earlier/earlier/runtime/oracle-mismatches.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/earlier/earlier/earlier/earlier/history.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/earlier/earlier/earlier/earlier/special-palette/acceptance.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/earlier/earlier/earlier/earlier/special-palette/oracle-mismatches.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/earlier/earlier/earlier/history.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/earlier/earlier/earlier/paired-capture/acceptance.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/earlier/earlier/earlier/paired-capture/oracle-mismatches.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/earlier/earlier/history.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/earlier/earlier/legacy-dress/acceptance.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/earlier/earlier/legacy-dress/oracle-mismatches.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/earlier/history.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/earlier/legacy-dress/acceptance.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/earlier/legacy-dress/oracle-mismatches.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/history.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/legacy-dress/acceptance.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/legacy-dress/oracle-mismatches.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/page2-history.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/history/replay.log.gz",
+    "Docs/reports/page2-adult-identity-2026-10-28/inverse-final.log.gz",
+    "Docs/reports/page2-adult-identity-2026-10-28/protection-before.json",
+    "Docs/reports/page2-adult-identity-2026-10-28/red.log.gz",
+    "Docs/reports/page2-adult-identity-2026-10-28/service-cleanup.json",
+    "Docs/specs/page2-adult-identity-v1.md",
+    "scripts/lib/page2AdultIdentityPatches.json",
+    "scripts/lib/page2AdultIdentityReplay.mjs",
+    "scripts/page2_adult_identity_acceptance.mjs",
+    "scripts/page2_adult_identity_browser.mjs",
+    "scripts/page2_adult_identity_gates.py",
+    "scripts/page2_adult_identity_history.mjs",
+    "scripts/page2_adult_identity_protection.py",
+    "webapp/src/lib/page2AdultIdentity.test.js",
+    "webapp/src/lib/page2AdultIdentityHistory.test.js"
+  ],
+  "unexpectedNewFiles": [],
+  "otherWorktrees": [
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/.codex/worktrees/capture-import-integration/Virtual_Photography_Studio",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/ethnicity-default-japanese",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-gest",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-grid",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-head",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-props",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-sit-kneel",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-squatting",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-standing",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-ui",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p1",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p2",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p3",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p4",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p5",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p5b",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/preview-prompt-test",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/reference-person-preview",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/tshirt-crew-neck",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    }
+  ],
+  "otherDirtyFilesChecked": 140,
+  "missingWorktrees": [
+    {
+      "path": "/private/tmp/vps-duo-ci-review",
+      "unchanged": true
+    }
+  ],
+  "stagedFiles": [],
+  "passed": true
+}

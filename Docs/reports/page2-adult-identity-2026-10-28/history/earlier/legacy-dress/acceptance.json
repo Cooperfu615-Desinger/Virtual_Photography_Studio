@@ -1,0 +1,16 @@
+{
+  "baseCommit": "2caa6fdcd2ab63931339ee3018ca52025d3cef3f",
+  "counts": {
+    "mono": 960,
+    "pairs": 2016,
+    "duo": 84,
+    "restores": 6120,
+    "generations": 8172,
+    "structured": 67,
+    "zip": 67,
+    "archived": 24
+  },
+  "protectedFiles": 327,
+  "oracleMismatches": 0,
+  "passed": true
+}
