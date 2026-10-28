@@ -1,0 +1,226 @@
+{
+  "missingWorktrees": [
+    {
+      "path": "/private/tmp/vps-duo-ci-review",
+      "stillMissing": true,
+      "registrationUnchanged": true
+    }
+  ],
+  "baseCommit": "ae57e34341890d2ac77b2deb133a317a7451a2b9",
+  "head": "6fc0517e4d7df585849404392e33b5f8ab69c308",
+  "branch": "main",
+  "trackedFilesChecked": 3239,
+  "changedTrackedFiles": [
+    "Docs/current_project_state.md",
+    "Docs/decisions/2026-10-26-a5-closure-review.md",
+    "Docs/specs/scene-section-c-authoring-guide.md",
+    "Docs/specs/wardrobe-runtime-color-a2-v1.md",
+    "Docs/specs/wardrobe-section-b-authoring-guide.md",
+    "knowledge_base/camera_and_lighting.md",
+    "knowledge_base/catalog/CameraLighting/環境光條件-ambient-light-conditions.json",
+    "knowledge_base/catalog/Locations/地下與廢墟風格-abandoned-underground.json",
+    "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+    "knowledge_base/catalog/Locations/攝影棚與背景-studio-sets.json",
+    "knowledge_base/catalog/Locations/生活感室內-indoor-lifestyle.json",
+    "knowledge_base/catalog/Wardrobe/套裝-outfit-presets.json",
+    "knowledge_base/catalog/field_mapping.json",
+    "knowledge_base/catalog/schema.json",
+    "scripts/lib/a1AdultIdentityHistoricalReplay.mjs",
+    "scripts/lib/a2ChestDressRegionReplay.mjs",
+    "scripts/lib/a2DressControlHistoricalReplay.mjs",
+    "scripts/lib/a2OutfitControlHistoricalReplay.mjs",
+    "scripts/lib/a2WardrobeColorRecoveryReplay.mjs",
+    "webapp/package.json",
+    "webapp/src/components/Page1Workspace.jsx",
+    "webapp/src/data/database.json",
+    "webapp/src/features/page1/page1Selectors.js",
+    "webapp/src/lib/engine.js",
+    "webapp/src/lib/engine/ambientLightDescriptions.js",
+    "webapp/src/lib/engine/chestDressRegionHistory.test.js",
+    "webapp/src/lib/engine/publicPromptPolish.js",
+    "webapp/src/lib/engine/sceneSemanticA5Ximending.test.js",
+    "webapp/src/lib/engine/shibuyaCrowdScene.test.js",
+    "webapp/src/lib/engine/specialTapeControlLanguage.test.js",
+    "webapp/src/lib/enginePromptPipeline.test.js",
+    "webapp/src/lib/engineSpecialSubjects.test.js",
+    "webapp/src/lib/page3WorldScene.js"
+  ],
+  "newFiles": [
+    "Docs/decisions/2026-10-28-phase4-a6-lighting.md",
+    "Docs/reports/phase4-completion-2026-10-28/a6/acceptance.json",
+    "Docs/reports/phase4-completion-2026-10-28/a6/assets.log.gz",
+    "Docs/reports/phase4-completion-2026-10-28/a6/audit-before.log.gz",
+    "Docs/reports/phase4-completion-2026-10-28/a6/audit-diff.txt.gz",
+    "Docs/reports/phase4-completion-2026-10-28/a6/audit.log.gz",
+    "Docs/reports/phase4-completion-2026-10-28/a6/baseline.json.gz",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/1440-case-0.png",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/1440-case-1.png",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/1440-case-2.png",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/1440-outputs.png",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/1440-workspace-0.png",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/1440-workspace-1.png",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/1440-workspace-2.png",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/1440-workspace-3.png",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/1440-workspace-4.png",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/1440-workspace-5.png",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/390-case-0.png",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/390-case-1.png",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/390-case-2.png",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/390-outputs.png",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/390-workspace-0.png",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/390-workspace-1.png",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/390-workspace-2.png",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/390-workspace-3.png",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/390-workspace-4.png",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/390-workspace-5.png",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/automation-note.md",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/failure-body.txt",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/failure.png",
+    "Docs/reports/phase4-completion-2026-10-28/a6/browser/results.json",
+    "Docs/reports/phase4-completion-2026-10-28/a6/build.log.gz",
+    "Docs/reports/phase4-completion-2026-10-28/a6/catalog.log.gz",
+    "Docs/reports/phase4-completion-2026-10-28/a6/focused.log.gz",
+    "Docs/reports/phase4-completion-2026-10-28/a6/gates-latest.json",
+    "Docs/reports/phase4-completion-2026-10-28/a6/lint.log.gz",
+    "Docs/reports/phase4-completion-2026-10-28/a6/previous-a5-ci.json",
+    "Docs/reports/phase4-completion-2026-10-28/a6/protection-after.json",
+    "Docs/reports/phase4-completion-2026-10-28/a6/python.log.gz",
+    "Docs/reports/phase4-completion-2026-10-28/a6/quality.log.gz",
+    "Docs/reports/phase4-completion-2026-10-28/a6/red.log.gz",
+    "Docs/reports/phase4-completion-2026-10-28/a6/review.json",
+    "Docs/reports/phase4-completion-2026-10-28/a6/strict.log.gz",
+    "Docs/reports/phase4-completion-2026-10-28/a6/sync.log.gz",
+    "Docs/reports/phase4-completion-2026-10-28/a6/test.log.gz",
+    "Docs/specs/phase4-a6-lighting-compatibility-v1.md",
+    "scripts/phase4_a6_acceptance.mjs",
+    "webapp/src/lib/engine/phase4LightingCompatibility.test.js"
+  ],
+  "historicalFilesChecked": 1789,
+  "historicalChanged": [],
+  "otherWorktrees": [
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/.codex/worktrees/capture-import-integration/Virtual_Photography_Studio",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/ethnicity-default-japanese",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-gest",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-grid",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-head",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-props",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-sit-kneel",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-squatting",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-standing",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-ui",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p1",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p2",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p3",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p4",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p5",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p5b",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/preview-prompt-test",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/reference-person-preview",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/tshirt-crew-neck",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    }
+  ],
+  "otherDirtyFilesChecked": 140,
+  "stagedFiles": [],
+  "changedCommittedReports": [],
+  "passed": true
+}

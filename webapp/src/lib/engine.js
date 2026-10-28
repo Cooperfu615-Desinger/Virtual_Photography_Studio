@@ -4076,6 +4076,12 @@ function locationSupportsLighting(location, lighting) {
   const locationEnvironment = getLocationEnvironmentFlags(location);
   const lightingEnvironment = getLightingEnvironmentFlags(lighting);
 
+  // A6: evaluate enclosed source requirements before generic indoor support.
+  const enclosedStudio = !isNoneLikeItem(location) && locTags.has('studio')
+    && locationEnvironment.indoor && !locationEnvironment.outdoor;
+  const underground = locTags.has('subterranean') || locTags.has('underground');
+  if ((enclosedStudio || underground) && hasAnyTag(lightTags, ['natural_light', 'window_light', 'sunlight'])) return false;
+
   // City-glow and neon-night ambience describe a built urban source, not just
   // an outdoor time of day. Keep those options out of natural locations such
   // as salt flats even though both sides are technically outdoors.
@@ -4227,6 +4233,11 @@ function lightDirectionSupportsScene(lightDirection, framing, location, lighting
   // Keep authored indoor/outdoor scope checks above; exempt only the six
   // source-pinned subject keys from legacy daylight/artificial-light coupling.
   if (isReviewedIndependentSubjectKey(lightDirection)) return true;
+  const enclosedStudio = !isNoneLikeItem(location) && locationTags.has('studio')
+    && locationEnvironment.indoor && !locationEnvironment.outdoor;
+  const underground = locationTags.has('subterranean') || locationTags.has('underground');
+  if ((enclosedStudio || underground) && hasAnyTag(directionTags, ['natural_light', 'window_light', 'sunlight'])) return false;
+  if (enclosedStudio && hasAnyTag(directionTags, ['outdoor_only', 'wet_surface', 'dappled_subject_light'])) return false;
   if (directionTags.has('window_light') && !(locationTags.has('indoor') || locationTags.has('residential') || locationTags.has('hospitality') || locationTags.has('heritage'))) return false;
   if (directionTags.has('portrait_light') && lightingTags.has('natural_light') && !lightingTags.has('window_light') && !lightingTags.has('soft_light')) return false;
   if ((locationTags.has('outdoor') || locationTags.has('natural')) && directionTags.has('window_light')) return false;
@@ -4317,23 +4328,27 @@ export function getSceneDependentOptions(customLibrary = [], rawLocks = {}) {
   const runtime = getEngineRuntime(customLibrary);
   const locks = normalizeLocks(rawLocks);
   const fixedSet = getFixedCompositionSetOption(locks.fixedCompositionSetId);
-  const transitManualLighting = locks.subjectCount !== '2'
+  const fixedActive = locks.subjectCount !== '2' && isFixedCompositionSetActive(fixedSet);
+  const transitManualLighting = fixedActive
     && (isStationFixedSet(fixedSet) || isCarriageFixedSet(fixedSet));
   const supineSurfaceOnly = isSupinePoseSelection(locks);
   const fallbackFraming = runtime.flatCatalog.framing.find((item) => item.en.includes('medium shot')) || runtime.flatCatalog.framing[0];
-  const sceneAttribute = getSceneAttributeOption(locks.sceneAttributeId);
+  const sceneAttribute = fixedActive ? null : getSceneAttributeOption(locks.sceneAttributeId);
   const locationOptions = supineSurfaceOnly
     ? []
     : runtime.flatCatalog.locations.filter((item) => locationMatchesSceneAttribute(item, sceneAttribute));
   const location = findById(locationOptions, locks.locationId);
+  const lightingLocation = fixedActive ? fixedSet : location;
   const selectedLighting = findById(runtime.flatCatalog.lighting, locks.lightingId);
-  const framing = findById(runtime.flatCatalog.framing, locks.framingId) || fallbackFraming;
+  const framing = fixedActive && !fixedSetAllowsFramingVariation(fixedSet)
+    ? runtime.flatCatalog.framing.find(item => item.zh === '全無') || fallbackFraming
+    : findById(runtime.flatCatalog.framing, locks.framingId) || fallbackFraming;
 
   const lightingOptions = runtime.flatCatalog.lighting.filter((item) => {
     if (transitManualLighting) return true;
     if (item.zh === '全無') return true;
     if (!lightingMatchesSceneAttribute(item, sceneAttribute)) return false;
-    return location ? locationSupportsLighting(location, item) : true;
+    return lightingLocation ? locationSupportsLighting(lightingLocation, item) : true;
   });
 
   const lightingForDirection = selectedLighting && lightingOptions.some((item) => item.id === selectedLighting.id) ? selectedLighting : null;
@@ -4342,7 +4357,7 @@ export function getSceneDependentOptions(customLibrary = [], rawLocks = {}) {
     if (transitManualLighting) return true;
     if (item.zh === '全無') return true;
     if (!lightDirectionMatchesSceneAttribute(item, sceneAttribute)) return false;
-    return lightDirectionSupportsScene(item, framing, location, lightingForDirection);
+    return lightDirectionSupportsScene(item, framing, lightingLocation, lightingForDirection);
   });
 
   const poseAnchorOptions = supineSurfaceOnly
@@ -16511,7 +16526,6 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
   const transitFixedLighting = fixedCompositionSetActive
     && (isStationFixedSet(selectedFixedCompositionSet) || isCarriageFixedSet(selectedFixedCompositionSet));
   const fixedSetLightingCompatibilityAnchor = fixedCompositionSetActive
-    && (transitFixedLighting || selectedFixedCompositionSet?.meta?.tags?.includes('outdoor'))
     ? selectedFixedCompositionSet
     : null;
   const locationForLightingCompatibility = supineSurfaceOnly

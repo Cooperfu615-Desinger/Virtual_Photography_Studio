@@ -15434,7 +15434,8 @@
               "indoor",
               "set",
               "controlled",
-              "studio"
+              "studio",
+              "studio_lighting_scene"
             ]
           }
         },
@@ -15481,7 +15482,8 @@
               "indoor",
               "set",
               "controlled",
-              "studio"
+              "studio",
+              "studio_lighting_scene"
             ]
           }
         },

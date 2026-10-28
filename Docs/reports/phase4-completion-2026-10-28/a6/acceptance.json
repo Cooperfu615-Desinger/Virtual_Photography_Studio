@@ -1,0 +1,11 @@
+{
+  "baseCommit": "6fc0517e4d7df585849404392e33b5f8ab69c308",
+  "passed": true,
+  "cases": 1626,
+  "generations": 14818,
+  "pools": 11396,
+  "fixedChoices": 10292,
+  "roundTrips": 16,
+  "protectedFiles": 237,
+  "changed": 364
+}

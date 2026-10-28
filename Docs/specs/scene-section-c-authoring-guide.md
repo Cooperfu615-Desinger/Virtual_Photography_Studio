@@ -284,6 +284,8 @@ diagonal rear-side subject light, soft rim edge along hair and shoulder, partial
 
 ## 8. 場景與光線相容性
 
+2026-10-28 A6：14 棚景／6 地下的自然、窗與日光候選先排除，再套一般支援矩陣；保留六款獨立人物主光、明確舊 engine 鎖值與運輸手動例外。兩筆漸層／多色塊只補棚光支援。固定構圖 UI 與 resolver 用實際固定場景。完整邊界與舊值套用方式見 [Phase 4 A6](phase4-a6-lighting-compatibility-v1.md)。
+
 C 區依賴 metadata tags 來避免明顯不合理的組合。只改 prompt 文字通常不需要改 engine；新增或拆分選項時，必須檢查 tags 與相容性。
 
 主要規則：

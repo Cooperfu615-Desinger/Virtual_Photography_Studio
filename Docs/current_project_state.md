@@ -4,6 +4,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-28
 
+## Phase 4 A6：場景光線相容（2026-10-28，本機驗收完成）
+
+- A5 已交付 `6fc0517e`，CI 40638180863 全數成功。A6 修正棚／地下自然窗光候選、兩背景棚光支援及固定構圖 UI／resolver 一致性，保留明確舊鎖與運輸手動例外。
+- 11,396 候選池／14,818 次生成／10,292 固定構圖選取／16 往返通過。前端 1,999、品質 841 及完整閘門成功，200 audit 無新增診斷。桌手機 38 操作／20 畫面通過，歷史及其他工作目錄保持。
+- [規格](specs/phase4-a6-lighting-compatibility-v1.md)、[決策](decisions/2026-10-28-phase4-a6-lighting.md)、[報告](reports/phase4-completion-2026-10-28/a6/README.md)。接續 A7 與整體收尾；P5b 暫緩。
+
 ## Phase 4 A5：十一筆位置語意（2026-10-28，本機驗收完成）
 
 - A4 已交付 `74316be0`，CI 40636880280 全數成功。A5 三十一筆列管現為 27 修正／4 保留／0 待決；十一筆只刪矛盾 indoor 或 outdoor，騎樓與緣側保留戶外及遮蔽來源。
