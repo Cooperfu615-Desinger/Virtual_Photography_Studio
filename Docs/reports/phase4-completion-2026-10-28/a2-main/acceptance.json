@@ -1,0 +1,13 @@
+{
+  "baseCommit": "ae57e34341890d2ac77b2deb133a317a7451a2b9",
+  "counts": {
+    "matrix": 3024,
+    "boundaries": 162,
+    "capture": 24,
+    "changed": 3186,
+    "generations": 9606,
+    "roundTrips": 12
+  },
+  "oracleMismatches": 0,
+  "passed": true
+}

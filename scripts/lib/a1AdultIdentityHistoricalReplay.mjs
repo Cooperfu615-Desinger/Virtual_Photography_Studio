@@ -1,3 +1,4 @@
+import { restorePrePhase4Files } from './phase4Replay.mjs';
 import { restorePreChestDressRegionFiles } from './a2ChestDressRegionReplay.mjs';
 import { restorePreA2LegacyDressProseFiles } from './a2LegacyDressProseReplay.mjs';
 import { restorePreA2LegacyDressFiles } from './a2LegacyDressReplay.mjs';
@@ -30,6 +31,7 @@ export function openPreA1ReplayRoot() {
     for (const path of ['webapp/src', 'scripts', 'knowledge_base']) cpSync(join(A1_ROOT, path), join(directory, path), { recursive: true });
     for (const file of ['package.json', 'package-lock.json']) cpSync(join(A1_ROOT, 'webapp', file), join(directory, 'webapp', file));
     symlinkSync(join(A1_ROOT, 'webapp/node_modules'), join(directory, 'webapp/node_modules'), 'dir');
+    restorePrePhase4Files(directory);
     restorePreChestDressRegionFiles(directory);
     restorePreA2LegacyDressProseFiles(directory);
     restorePreA2LegacyDressFiles(directory);

@@ -43,3 +43,7 @@ GPT 主輸出、胸上、全身與其他消費共用 builder 的路徑只允許�
 7. 比對本批 allowlist、其他工作目錄與歷史檔，完成後回報本機驗收；Git／CI 交付須另獲授權。
 
 [決策](../decisions/2026-10-27-a2-runtime-color-language.md) · [本批報告](../reports/wardrobe-runtime-color-a2-2026-10-27/README.md)
+
+## 2026-10-28 Phase 4 主工作台可見區域補充
+
+主 GPT／Z／Nano 的有效連身上下配色，在肩頸／胸上／腰上景別只投影可見上區色並服從外套遮蔽；不把上區主色當整件衣物前綴，不把下區色當成可見事實。雙人各自 resolved 配色保持隔離，完整來源不變。MJ、兩組衍生、臉部／膝上／全身及固定完整構圖保持原契約。見 [整體規格](phase4-completion-v1.md) 與 [決策](../decisions/2026-10-28-phase4-a2-main.md)。

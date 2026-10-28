@@ -1,3 +1,4 @@
+import {prePhase4Source} from '../../../../scripts/lib/phase4Replay.mjs';
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {readFileSync,writeFileSync,mkdirSync,mkdtempSync,rmSync,existsSync} from 'node:fs';
@@ -7,7 +8,7 @@ import {createHash} from 'node:crypto';
 import {CHEST_DRESS_REGION_ROOT as root,CHEST_DRESS_REGION_REVIEW as review,restorePreChestDressRegionFiles as restore} from '../../../../scripts/lib/a2ChestDressRegionReplay.mjs';
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const paths=[...review.files.map(f=>f.path),...Object.keys(review.newFiles)];
-function seed(dir){for(const p of paths){mkdirSync(dirname(join(dir,p)),{recursive:true});writeFileSync(join(dir,p),readFileSync(join(root,p)));}}
+function seed(dir){for(const p of paths){mkdirSync(dirname(join(dir,p)),{recursive:true});writeFileSync(join(dir,p),prePhase4Source(p,readFileSync(join(root,p))));}}
 test('A2 chest dress region inverse restores exact fixed sources atomically and is idempotent only in isolated copies',()=>{
  assert.throws(()=>restore(root),/isolated/);
  const dir=mkdtempSync(join(tmpdir(),'legacy-dress-inverse-'));

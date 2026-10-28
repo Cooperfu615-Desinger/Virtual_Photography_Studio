@@ -1,0 +1,12 @@
+{
+  "message": "Cannot convert undefined or null to object",
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at stablePrompt (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/catalogBaseline.mjs:17:3)\n    at check (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/phase4_a2_acceptance.mjs:20:65)\n    at file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/phase4_a2_acceptance.mjs:33:431",
+  "counts": {
+    "matrix": 3024,
+    "boundaries": 162,
+    "capture": 0,
+    "changed": 3162,
+    "generations": 9537,
+    "roundTrips": 0
+  }
+}

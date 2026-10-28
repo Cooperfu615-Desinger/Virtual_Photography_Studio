@@ -8472,7 +8472,7 @@ function buildChestDressRegionalPrompt(item, colors, context, completeText) {
     && pair?.topColor?.en && pair?.bottomColor?.en
     && !isNoneLikeItem(pair.topColor) && !isNoneLikeItem(pair.bottomColor)
     && colors.dressColor?.en === pair.topColor.en;
-  if (!eligible) return filterCompleteLookPromptForFraming(completeText, context);
+  if (!eligible) return buildMainDressRegionalPrompt(item, colors.dressColor, colors.completeLookPalette, pair?.bottomColor, context, completeText);
 
   // Reproject authored dress details without painting the whole dress with its upper color.
   // Fixed source colors and complete-look palette details remain in their original source.
@@ -8481,6 +8481,21 @@ function buildChestDressRegionalPrompt(item, colors, context, completeText) {
   return visible
     ? `${visible}, ${describeWearableColorTarget('upper/main dress area', pair.topColor)}`
     : visible;
+}
+
+// Main near crops use region ownership from the resolved pair, independently per person.
+function buildMainDressRegionalPrompt(item, color, palette, secondaryColor, context, completeText = null) {
+  const source = completeText ?? buildCompleteLookDressPrompt(item, color, palette, { secondaryColor });
+  const projection = getCompositionVisibilityProjection(context);
+  if (context?.framing?.id === 'chest-up-portrait-reference'
+    || !['headShoulders', 'chestUp', 'mediumWaist'].includes(projection.bucket)
+    || !item?.id?.startsWith('wardrobe:連身-dresses:')
+    || item.meta?.closedOuterwearProjection
+    || !color?.en || !secondaryColor?.en || isNoneLikeItem(color) || isNoneLikeItem(secondaryColor)) {
+    return filterCompleteLookPromptForFraming(source, context);
+  }
+  const visible = filterCompleteLookPromptForFraming(buildCompleteLookDressPrompt(item, null, palette), context);
+  return visible ? `${visible}, ${describeWearableColorTarget('upper/main dress area', color)}` : visible;
 }
 
 function joinNaturalList(parts = []) {
@@ -11264,12 +11279,7 @@ function buildGptDuoSharedMainWardrobeText(wardrobeSlots, wardrobeColors, contex
   if (presetText) return presetText;
 
   const dressText = cleanGptDuoFullWardrobePart(
-    filterCompleteLookPromptForFraming(buildCompleteLookDressPrompt(
-      wardrobeSlots.dress,
-      wardrobeColors.dressColor,
-      wardrobeColors.completeLookPalette,
-      { secondaryColor: wardrobeColors.topBottomPalette?.bottomColor }
-    ), context)
+    buildMainDressRegionalPrompt(wardrobeSlots.dress, wardrobeColors.dressColor, wardrobeColors.completeLookPalette, wardrobeColors.topBottomPalette?.bottomColor, context)
   );
   if (dressText) return dressText;
 
@@ -11302,12 +11312,7 @@ function buildGptDuoRoleMainWardrobeText(wardrobeSlots, wardrobeColors, role, co
   if (presetText) return presetText;
 
   const dressText = cleanGptDuoFullWardrobePart(
-    filterCompleteLookPromptForFraming(buildCompleteLookDressPrompt(
-      wardrobeSlots[`dress${suffix}`],
-      wardrobeColors[`dress${suffix}Color`],
-      wardrobeColors[`completeLookPalette${suffix}`],
-      { secondaryColor: wardrobeColors[`topBottomPalette${suffix}`]?.bottomColor }
-    ), context)
+    buildMainDressRegionalPrompt(wardrobeSlots[`dress${suffix}`], wardrobeColors[`dress${suffix}Color`], wardrobeColors[`completeLookPalette${suffix}`], wardrobeColors[`topBottomPalette${suffix}`]?.bottomColor, context)
   );
   if (dressText) return dressText;
 
@@ -13216,10 +13221,7 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
         }, context);
       }
 
-      const dressText = filterCompleteLookPromptForFraming(
-        buildCompleteLookDressPrompt(wardrobeSlots[`dress${suffix}`], wardrobeColors[`dress${suffix}Color`], wardrobeColors[`completeLookPalette${suffix}`], { secondaryColor: wardrobeColors[`topBottomPalette${suffix}`]?.bottomColor }),
-        context
-      );
+      const dressText = buildMainDressRegionalPrompt(wardrobeSlots[`dress${suffix}`], wardrobeColors[`dress${suffix}Color`], wardrobeColors[`completeLookPalette${suffix}`], wardrobeColors[`topBottomPalette${suffix}`]?.bottomColor, context);
       const outerwearFirstDressText = buildOuterwearFirstPrompt(
         dressText,
         wardrobeSlots[`outerwear${suffix}`],
@@ -13285,10 +13287,7 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
       const waistAccessoryText = filterZImageWardrobeAddonForFraming(buildAccessoryPrompt(wardrobeSlots.waistAccessory), context, 'waistAccessory');
       if (waistAccessoryText) add(waistAccessoryText);
     } else {
-      const dressText = filterCompleteLookPromptForFraming(
-        buildCompleteLookDressPrompt(wardrobeSlots.dress, wardrobeColors.dressColor, wardrobeColors.completeLookPalette, { secondaryColor: wardrobeColors.topBottomPalette?.bottomColor }),
-        context
-      );
+      const dressText = buildMainDressRegionalPrompt(wardrobeSlots.dress, wardrobeColors.dressColor, wardrobeColors.completeLookPalette, wardrobeColors.topBottomPalette?.bottomColor, context);
       const topText = buildTopWardrobePrompt(wardrobeSlots, wardrobeColors);
       const outerwearFirstDressText = buildOuterwearFirstPrompt(
         dressText,

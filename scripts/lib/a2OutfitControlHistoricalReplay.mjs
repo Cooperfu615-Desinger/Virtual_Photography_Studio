@@ -1,3 +1,4 @@
+import { restorePrePhase4Files, prePhase4Source } from './phase4Replay.mjs';
 import { CHEST_DRESS_REGION_REVIEW, preChestDressRegionSource, restorePreChestDressRegionFiles } from './a2ChestDressRegionReplay.mjs';
 import { restorePreA2LegacyDressProseFiles } from './a2LegacyDressProseReplay.mjs';
 import { restorePreA2LegacyDressFiles } from './a2LegacyDressReplay.mjs';
@@ -37,6 +38,7 @@ export function preA2OutfitProgramSources(sources, state) {
   if (state === 'after') {
     try {
       sources = Object.fromEntries(Object.entries(sources).map(([path, source]) => {
+        source = prePhase4Source(path, source);
         const current = CHEST_DRESS_REGION_REVIEW.files.find(file => file.path === path);
         return [path, current && hash(source) === current.afterHash ? preChestDressRegionSource(path, source) : source];
       }));
@@ -108,6 +110,7 @@ export function openPreA2OutfitReplayRoot() {
     for (const path of ['webapp/src', 'scripts', 'knowledge_base']) cpSync(join(A2_OUTFIT_ROOT, path), join(directory, path), { recursive: true });
     for (const file of ['package.json', 'package-lock.json']) cpSync(join(A2_OUTFIT_ROOT, 'webapp', file), join(directory, 'webapp', file));
     symlinkSync(join(A2_OUTFIT_ROOT, 'webapp/node_modules'), join(directory, 'webapp/node_modules'), 'dir');
+    restorePrePhase4Files(directory);
     restorePreChestDressRegionFiles(directory);
     restorePreA2LegacyDressProseFiles(directory);
     restorePreA2LegacyDressFiles(directory);

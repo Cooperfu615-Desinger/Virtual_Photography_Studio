@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-28
 
+## Phase 4 整體交付進行中（2026-10-28）
+
+- Cooper 已授權完成剩餘 A2、A3–A7、整體收尾並依序 commit／push，不再逐批等確認；P5b 及 B3／J12／C 類擴充仍暫緩。執行契約：[Phase 4](specs/phase4-completion-v1.md)。
+- A2 胸上已交付 `ae57e343`，[CI 40632928103](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40632928103) 前端／Functions／build／deploy 全數成功。下方該批狀態保留當時紀錄。
+- A2 主工作台近景已完成本機驗收：24 款 × 42 配色 × 3 景別，另含邊界／抓拍，共 9,606 次生成，MJ／兩組衍生／完整選值及 RNG 保持；主 GPT／Z／Nano 只保留可見上區，服從外套遮蔽。前端 1,990、品質 832、Python 43、目錄 32、lint／build／sync／strict／207 assets 通過；200 同 seed audit 0 blocker／18 既有診斷。桌手機 34 項操作、28 張畫面，0 error／外部 POST／溢位。
+- [A2 決策](decisions/2026-10-28-phase4-a2-main.md)、[報告](reports/phase4-completion-2026-10-28/a2-main/README.md)。A3–A7 依序續作；1,789 份既有歷史檔、其他 20 工作目錄／140 份未提交檔與失效 worktree 登記保持。
+
 ## Phase 4 A2：單人胸上連身區域配色（2026-10-28，本機驗收完成，授權交付）
 
 - 固定本機／最新遠端 main 基準 `9a0c4f2df7790d2728701e384b9dfc635d428a73`。單人胸上特寫照從同次 resolved 連身來源保留可見上區色，省略下區色並服從外套遮蔽；主工作台近景另批。不透明全扣外套保持遮蔽，透膚可見內搭保留上區色。

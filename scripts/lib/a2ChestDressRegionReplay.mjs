@@ -1,3 +1,4 @@
+import {prePhase4Source} from './phase4Replay.mjs';
 // Exact, atomic test-only inverse. Historical evidence is never re-recorded.
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync,existsSync,realpathSync,rmSync} from 'node:fs';
@@ -8,7 +9,9 @@ export const CHEST_DRESS_REGION_ROOT=fileURLToPath(new URL('../../',import.meta.
 export const CHEST_DRESS_REGION_REVIEW=JSON.parse(readFileSync(new URL('./a2ChestDressRegionPatches.json',import.meta.url)));
 const hash=value=>createHash('sha256').update(value).digest('hex');
 export function preChestDressRegionSource(path,source){
- const file=CHEST_DRESS_REGION_REVIEW.files.find(f=>f.path===path);if(!file)return source;
+ const file=CHEST_DRESS_REGION_REVIEW.files.find(f=>f.path===path);
+ if(!file||hash(source)!==file.beforeHash)source=prePhase4Source(path,source);
+ if(!file)return source;
  const sha=hash(source);assert.ok(sha===file.beforeHash||sha===file.afterHash,'Chest dress region inverse rejects unknown source: '+path);
  assert.equal(hash(file.beforeSource),file.beforeHash,'Chest dress region inverse invalid fixed source');
  return Buffer.isBuffer(source)?Buffer.from(file.beforeSource):file.beforeSource;
