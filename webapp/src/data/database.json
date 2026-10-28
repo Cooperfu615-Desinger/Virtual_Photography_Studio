@@ -16084,7 +16084,6 @@
         "meta": {
           "semantic": {
             "tags": [
-              "indoor",
               "residential",
               "outdoor"
             ]
@@ -16102,7 +16101,6 @@
         "meta": {
           "semantic": {
             "tags": [
-              "indoor",
               "residential",
               "outdoor"
             ]
@@ -16120,7 +16118,6 @@
         "meta": {
           "semantic": {
             "tags": [
-              "indoor",
               "residential",
               "outdoor"
             ]
@@ -16138,7 +16135,6 @@
         "meta": {
           "semantic": {
             "tags": [
-              "indoor",
               "outdoor"
             ]
           }
@@ -16155,7 +16151,6 @@
         "meta": {
           "semantic": {
             "tags": [
-              "indoor",
               "hospitality",
               "outdoor",
               "heritage",
@@ -16589,7 +16584,6 @@
             "tags": [
               "ruin",
               "indoor",
-              "outdoor",
               "commercial"
             ]
           }
@@ -17065,7 +17059,6 @@
             "tags": [
               "urban",
               "hospitality",
-              "indoor",
               "outdoor",
               "commercial"
             ]
@@ -17532,7 +17525,6 @@
             "tags": [
               "urban",
               "indoor",
-              "outdoor",
               "commercial",
               "green_space"
             ]
@@ -17622,7 +17614,6 @@
           "semantic": {
             "tags": [
               "urban",
-              "indoor",
               "outdoor",
               "commercial",
               "heritage"
@@ -17736,7 +17727,6 @@
             "tags": [
               "urban",
               "hospitality",
-              "indoor",
               "outdoor",
               "waterfront"
             ]
@@ -17760,7 +17750,6 @@
             "tags": [
               "urban",
               "hospitality",
-              "indoor",
               "outdoor",
               "waterfront"
             ]

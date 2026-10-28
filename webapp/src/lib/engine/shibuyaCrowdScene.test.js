@@ -1,3 +1,5 @@
+import { preA2HistoricalTest } from '../../../../scripts/lib/a2DressControlHistoricalTest.mjs';
+const a2HistoricalTest = preA2HistoricalTest(import.meta.url);
 import { preAllA5Database as preA5Database } from '../../../../scripts/lib/a5XimendingHistoricalReplay.mjs';
 import assert from 'node:assert/strict';
 import { withoutLyingSurface } from './lyingSurfaceTestSupport.js';
@@ -156,7 +158,7 @@ test('scene identity does not override selected high viewpoints, orbit or focal 
   }
 });
 
-test('all other location descriptions, metadata and positions remain byte-identical', () => {
+a2HistoricalTest('all other location descriptions, metadata and positions remain byte-identical', () => {
   // A5 changes only three reviewed tags; the original digest stays sealed.
   const historicalOptions = getLockControls(preA5Database()).find(c => c.key === 'locationId').options;
   // Scenes gained an additive reviewed lyingSurface field (2026-10-19); compare without it.

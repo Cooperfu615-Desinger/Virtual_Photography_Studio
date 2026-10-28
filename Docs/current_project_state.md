@@ -4,6 +4,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-28
 
+## Phase 4 A5：十一筆位置語意（2026-10-28，本機驗收完成）
+
+- A4 已交付 `74316be0`，CI 40636880280 全數成功。A5 三十一筆列管現為 27 修正／4 保留／0 待決；十一筆只刪矛盾 indoor 或 outdoor，騎樓與緣側保留戶外及遮蔽來源。
+- 固定 Git 1,980 案／5,940 次生成／836 候選池／44 往返通過。前端 1,996、品質 838 及完整閘門成功；200 audit 0 blocker／18 既有診斷。桌手機 44 操作／20 畫面通過，歷史及其他工作目錄保持。
+- [規格](specs/phase4-a5-scene-position-v1.md)、[決策](decisions/2026-10-28-phase4-a5-scene-position.md)、[報告](reports/phase4-completion-2026-10-28/a5/README.md)。接續 A6、A7 及整體收尾；P5b 暫緩。
+
 ## Phase 4 A4：十二筆固定配色套裝（2026-10-28，本機驗收完成）
 
 - A3 已交付 `37f24aa8`，CI 40635766241 前端／Functions／build／deploy 成功。A4 保留十二筆原文配色，只增 fixed metadata，統一 renderer／摘要與 UI 有效控制；雙人隔離、ID、原文、其他套裝及 RNG 保持。

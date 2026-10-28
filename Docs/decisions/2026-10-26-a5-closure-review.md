@@ -1,5 +1,13 @@
 # Phase 4 A5 狀態總表與剩餘雙標籤審查
 
+## 2026-10-28 更新：A5 本機已完整結案
+
+原 31 筆唯一場景目前為 **27 筆修正、4 筆核准保留、0 筆待決**。西門町已交付 `ffb2e91e`（CI 40294656608 成功）；最新十一筆依 [空間規格](../specs/phase4-a5-scene-position-v1.md) 處理，逐筆原件與差異見 [review](../reports/phase4-completion-2026-10-28/a5/review.json)。九筆去 indoor、兩筆去 outdoor；騎樓／緣側保留戶外與原遮蔽描述，其他標籤及支撐不變。四筆 commercial 保留理由維持。
+
+下列 2026-10-26 清單及「待決／本機未交付」文字是當時歷史快照，最新狀態以上段為準；不再構成等待核准門檻。Phase 4 已整體授權，後續 A6、A7 依序進行，P5b 仍暫緩。
+
+## 2026-10-26 歷史審查紀錄
+
 核對日期：2026-10-26。可信任 main：`5110401f3eee4aaa6cc59ee9175625cc96326d9e`。此頁是 A5 當前狀態入口；各批規格／報告的「授權交付」「另批」保留為當時歷史，不作目前未交付的判斷。
 
 ## 結案口徑
@@ -26,8 +34,8 @@
 | 永久 ID | 本批結束後狀態 | 決策與來源 |
 | --- | --- | --- |
 | `locations:城市與社群感-urban-social-snapshots:戶外-倫敦排屋街道:41` | 已交付修正 | 只去 subterranean；22d1103e。倫敦成因為中文「地下室」命中「地下」。 |
-| `locations:自然與戶外-nature-outdoors:戶外-清澈海灣岩岸:1` | 已交付修正 | 只去 commercial；22d1103e。倫敦成因為中文「地下室」命中「地下」。 |
-| `locations:自然與戶外-nature-outdoors:戶外-草地與樹木:3` | 已交付修正 | 只去 commercial；22d1103e。倫敦成因為中文「地下室」命中「地下」。 |
+| `locations:自然與戶外-nature-outdoors:戶外-清澈海灣岩岸:1` | 已交付修正 | 只去 commercial；22d1103e。small 被子字串 mall 誤判為商業場所。 |
+| `locations:自然與戶外-nature-outdoors:戶外-草地與樹木:3` | 已交付修正 | 只去 commercial；22d1103e。small 被子字串 mall 誤判為商業場所。 |
 | `locations:其他專屬場景-other-dedicated-scenes:其他-生活感日式榻榻米房間:2` | 已交付修正 | 去 commercial；321404ec。家居榻榻米與 personal items，沒有商業場所來源。 |
 | `locations:地下與廢墟風格-abandoned-underground:室內-廢棄校舍保健室:13` | 已交付修正 | 去 commercial；321404ec。廢棄學校醫務設施，保留 ruin 與 institutional。 |
 | `locations:城市與社群感-urban-social-snapshots:室內-無人月台長椅區:4` | 已交付修正 | 去 commercial；321404ec。交通設施、座椅與站牌不是商業空間。 |

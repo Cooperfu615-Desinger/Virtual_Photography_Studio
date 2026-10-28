@@ -288,6 +288,8 @@ C 區依賴 metadata tags 來避免明顯不合理的組合。只改 prompt 文�
 
 主要規則：
 
+- indoor／outdoor 以主體實際所在位置為準。窗外景觀不把室內座位改成戶外；有屋簷的外部騎樓、緣側仍是戶外，遮蔽由來源原文保留。分類目錄或 hospitality／residential 不代替主體位置。Phase 4 A5 的十一筆決策見 `phase4-a5-scene-position-v1.md`。
+
 - 場景屬性會過濾 location、ambient light 與 light style。
 - 室內場景不應自動搭配純戶外天空、雨天或日照環境，除非該環境光明確支援室內窗外狀態。
 - 戶外場景不應搭配純室內棚燈環境，除非該光線本身允許戶外閃光或柔光。

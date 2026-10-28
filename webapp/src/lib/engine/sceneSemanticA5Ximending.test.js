@@ -51,7 +51,7 @@ a2HistoricalTest('exact inverse rejects extra/reordered tags, text, aliases, mis
     assert.throws(() => preXimendingDatabase(bad), /XIMENDING inverse/);
   }
 });
-test('all 11 pending dual-tag rows retain entire formal records and current classification', () => {
+a2HistoricalTest('all 11 pending dual-tag rows retain entire formal records and current classification', () => {
   const rows = Object.values(source.Locations).flat().filter(x => x.meta.semantic.tags.includes('indoor') && x.meta.semantic.tags.includes('outdoor'));
   assert.equal(rows.length, 11); assert.deepEqual(rows.map(x => x.stableId).sort(), r.pendingDoubleTags.map(x => x.source.id).sort());
   for (const pending of r.pendingDoubleTags) {
