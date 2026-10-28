@@ -173,6 +173,9 @@ jobs:
           VITE_FIREBASE_ALLOWED_EMAILS: ${{ secrets.VITE_FIREBASE_ALLOWED_EMAILS }}
         run: npm run build
 
+      - name: Validate production prompt catalog initialization
+        run: node scripts/check_prompt_bundle.mjs
+
       - name: Setup Pages
         uses: actions/configure-pages@v6
 

@@ -4,6 +4,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-28
 
+## B3 正式版白屏緊急修復（2026-10-28）
+
+- `02c12b37` 已交付，CI 40710136090 四作業成功，但正式打包的 catalog／engine 循環依賴導致初始化白屏；開發服務驗收未覆蓋此路徑。
+- 修復將角色與穿搭共用來源一起打包至 catalog，不改資料與輸出；新增實際建置產物初始化檢查，於部署上傳前執行。驗收使用正式版 preview，另核對推送後 CI 與線上啟動。
+- 原 B3 驗收報告保留當時證據，以下「未提交」為歷史狀態。詳見 [事故與修復決策](decisions/2026-10-28-b3-production-startup-hotfix.md)。
+
 ## B3 第一批：角色穿搭共用來源（2026-10-28，本機驗收通過）
 
 - 基準為最新本機／遠端 main `887b149a42047bbc3bc1adbb45aa0f68c9e5487e`。33 角色、134 圖層，118 段同角色原文集中共用，16 段用途差異保持；profile.outfit/accessories 與 PAGE2 圖層共同讀取 `characterWardrobeSources.js`。完整 legacy en、身份、髮型政策、圖層 metadata／順序／ID、MJ 名稱與圖片 manifest 保持。
