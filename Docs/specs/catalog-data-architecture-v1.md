@@ -1,7 +1,7 @@
 # 目錄資料架構 v1：穩定 ID、正式 schema、語意資料化
 
 - 文件修訂：**v1.1，2026-10-24**；保留既有檔名，供原連結繼續使用。
-- 狀態：A–E 已驗收、提交並推送 main；驗證護欄已由 `a9dd3616` 交付，CI 40209186796 成功。Phase 4 A5 前三批已交付，最新為 CRT `5110401f`，CI 40275779631 成功；本批西門町與狀態收尾已通過驗收，Cooper 已授權限定提交／推送，實際 Git／CI 另行核對。11 筆室內外雙標籤只審查、原值保留；P5b 暫緩。當前清單見 §20；§11–19 保留當時驗收／授權歷史。
+- 狀態：A–E 已驗收並交付；護欄 `a9dd3616` 已交付。Phase 4 A1–A7 已實作、驗收並逐批交付，22 筆 CI 全數成功；最終歷史鏈／保護核對通過，收尾依整體授權交付；31 筆 A5 為 27 修正、4 保留、0 待決。最新交付入口見 [Phase 4 結案](../reports/phase4-completion-2026-10-28/README.md)；§11–20 為當時驗收與授權歷史。P5b 暫緩。
 - 範圍：保留原 Phase 1–3 的工作內容，執行順序改為 §7 的 A–E 階段；所有遷移均不改公開 Prompt、UI 顯示、隨機選取行為或使用者存檔格式。已知內容問題另立 Phase 4。
 - 依據：[資料庫完整分析報告](../reports/database-analysis-2026-10-11/README.md) 與 [2026-10-13 決策](../decisions/2026-10-13-catalog-data-architecture.md)。原決策保留為歷史紀錄；執行細節以本修訂為準。
 - 原 A 基準版本：`0746b280cc9f5c00daec7dadc73329779ac658e9`。2026-10-24 後續授權對齊的本機與 GitHub `main` 為 `2f56438804e751de4556060b293231966d6ea3b3`；原基準永久保留，新版本另建 manifest。基礎目錄為 6 分區、56 分類、1,050 條，37 條有 `stableId`；執行期為 219 個 controls、4,771 個 options。這些是基準觀察值，不是永久限制。
@@ -680,7 +680,7 @@ Cooper 以 main `22d1103e` 核准 11 筆 commercial 移除、4 筆保留，CRT �
 
 本機 3,834 案例／836 候選池對獨立 oracle 零差異；Node 22 全套 1,847、Prompt Quality 754、資料及完整門檻通過，桌手機 46 項通過。Cooper 已確認本批驗收通過，授權限定提交／push 本批資料、文件、回歸案例、歷史回放及驗收工具；實際 Git 與該提交 CI 結果另行核對。A～E 與前兩批 A5 歷史保持，其他項目及 P5b 未開始。
 
-## 20. Phase 4 A5 西門町與狀態收尾（2026-10-26）
+## 20. Phase 4 A5 西門町與狀態收尾（2026-10-26，歷史紀錄）
 
 以已核對 main `5110401f3eee4aaa6cc59ee9175625cc96326d9e` 為基準，只從西門町移除 green_space。parking 原文、永久 ID／有序 aliases、其他 tags 與順序保持；正式分類 JSON 同步生成 database，其餘七份生成物不變。不改 engine／renderer／fallback，不增加政策。
 
@@ -689,3 +689,11 @@ A5 前三批 19 筆（15 修正／4 保留）已交付，對應提交及 CI 集�
 [本批規格](scene-semantic-a5-ximending-v1.md)要求獨立固定 Git oracle、原三批分層回放、A～E seals 保護、完整資料／前端／Prompt／桌手機門檻。新 inverse 只在隔離副本還原單一精確 tag；原 CRT／commercial／三筆工具與歷史檔案不改。原測試入口接新回放層，不放寬舊斷言或重錄基準。
 
 實作與當前驗收狀態見 [本批報告](../reports/scene-semantic-a5-ximending-2026-10-26/README.md)。Cooper 已確認本批驗收通過，後續授權只提交／push 本批，再續作 A1；各批交付與實作分開。本機驗收不替代使用者確認、Git 交付或新提交 CI。
+
+## 21. Phase 4 整體收尾（2026-10-28）
+
+依 [整體契約](phase4-completion-v1.md) 完成剩餘 A2、A3–A7，A1 已交付結果納入現行測試。最新規格／提交／CI 與可重跑的驗收索引見 [結案報告](../reports/phase4-completion-2026-10-28/README.md)，逐項保留理由與範圍外待辦見 [收尾決策](../decisions/2026-10-28-phase4-closure.md)。
+
+A～E 的資料架構原則不變：正式分類 JSON、永久 ID 登記、明確 semantic、22 張舊映射＋2 常數、renderer 原位置與 first-match 均保持。Phase 4 的行為變更另有審閱資料與固定 Git oracle；舊 seals 不重錄。整體逆轉固定回到 ae57e343，再接胸上／完整 A2／A1／A5／A～E 鏈，只作用於隔離副本。已交付各批報告不可回寫。
+
+§20 的十一筆「待決」現已由 `6fc0517e` 實作交付；九筆去 indoor、兩筆去 outdoor。四筆 commercial 保留有來源依據。先前「A5 非全面結案」「其他 Phase 4 未開始」均只描述當時時點。P5b、B3、J12 和原報告 C 類擴充未啟動。

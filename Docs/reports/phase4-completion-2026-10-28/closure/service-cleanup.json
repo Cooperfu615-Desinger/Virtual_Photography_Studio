@@ -1,0 +1,7 @@
+{
+  "service": "own Vite acceptance session 17955",
+  "port": 5175,
+  "stopped": true,
+  "listenerAfterStop": false,
+  "otherServicesStopped": false
+}

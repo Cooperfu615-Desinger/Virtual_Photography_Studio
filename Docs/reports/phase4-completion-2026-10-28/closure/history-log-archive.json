@@ -1,0 +1,7 @@
+{
+  "source": "history/earlier/legacy-dress/regression-fixed-main.log",
+  "archive": "history/earlier/legacy-dress/regression-fixed-main.log.gz",
+  "sha256": "bdbb60e77e5cf8682231f80fd15b725946e65c6ab66d59a2c8e585c80846bffc",
+  "lossless": true,
+  "reason": "Preserve original TAP whitespace without introducing text whitespace errors."
+}

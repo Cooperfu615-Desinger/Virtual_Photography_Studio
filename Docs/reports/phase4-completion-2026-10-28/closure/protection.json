@@ -1,0 +1,252 @@
+{
+  "missingWorktrees": [
+    {
+      "path": "/private/tmp/vps-duo-ci-review",
+      "stillMissing": true,
+      "registrationUnchanged": true
+    }
+  ],
+  "baseCommit": "ae57e34341890d2ac77b2deb133a317a7451a2b9",
+  "head": "4ad709f190ab11c9ee4a2827a1b5018795874065",
+  "branch": "main",
+  "trackedFilesChecked": 3239,
+  "changedTrackedFiles": [
+    "Docs/current_project_state.md",
+    "Docs/decisions/2026-10-26-a5-closure-review.md",
+    "Docs/specs/catalog-data-architecture-v1.md",
+    "Docs/specs/character-adult-identity-a1-v1.md",
+    "Docs/specs/character-section-a-authoring-guide.md",
+    "Docs/specs/chest-dress-region-a2-v1.md",
+    "Docs/specs/legacy-dress-prose-a2-v1.md",
+    "Docs/specs/legacy-dress-restore-a2-v1.md",
+    "Docs/specs/page1-markdown-snapshot-a2-v1.md",
+    "Docs/specs/page1-single-prompt-compression-guide.md",
+    "Docs/specs/paired-capture-a2-v1.md",
+    "Docs/specs/scene-section-c-authoring-guide.md",
+    "Docs/specs/special-outfit-palette-a2-v1.md",
+    "Docs/specs/wardrobe-color-recovery-a2-v1.md",
+    "Docs/specs/wardrobe-control-a2-dresses-v1.md",
+    "Docs/specs/wardrobe-control-a2-outfits-v1.md",
+    "Docs/specs/wardrobe-control-a2-special-tape-v1.md",
+    "Docs/specs/wardrobe-runtime-color-a2-v1.md",
+    "Docs/specs/wardrobe-section-b-authoring-guide.md",
+    "knowledge_base/camera_and_lighting.md",
+    "knowledge_base/catalog/CameraLighting/環境光條件-ambient-light-conditions.json",
+    "knowledge_base/catalog/Locations/地下與廢墟風格-abandoned-underground.json",
+    "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+    "knowledge_base/catalog/Locations/攝影棚與背景-studio-sets.json",
+    "knowledge_base/catalog/Locations/生活感室內-indoor-lifestyle.json",
+    "knowledge_base/catalog/Wardrobe/套裝-outfit-presets.json",
+    "knowledge_base/catalog/field_mapping.json",
+    "knowledge_base/catalog/schema.json",
+    "scripts/lib/a1AdultIdentityHistoricalReplay.mjs",
+    "scripts/lib/a2ChestDressRegionReplay.mjs",
+    "scripts/lib/a2DressControlHistoricalReplay.mjs",
+    "scripts/lib/a2OutfitControlHistoricalReplay.mjs",
+    "scripts/lib/a2WardrobeColorRecoveryReplay.mjs",
+    "webapp/package.json",
+    "webapp/src/components/Page1Workspace.jsx",
+    "webapp/src/data/database.json",
+    "webapp/src/features/page1/page1Selectors.js",
+    "webapp/src/lib/engine.js",
+    "webapp/src/lib/engine/ambientLightDescriptions.js",
+    "webapp/src/lib/engine/chestDressRegionHistory.test.js",
+    "webapp/src/lib/engine/publicPromptPolish.js",
+    "webapp/src/lib/engine/sceneSemanticA5Ximending.test.js",
+    "webapp/src/lib/engine/shibuyaCrowdScene.test.js",
+    "webapp/src/lib/engine/specialTapeControlLanguage.test.js",
+    "webapp/src/lib/enginePromptPipeline.test.js",
+    "webapp/src/lib/engineSpecialSubjects.test.js",
+    "webapp/src/lib/page3WorldScene.js"
+  ],
+  "newFiles": [
+    "Docs/decisions/2026-10-28-phase4-closure.md",
+    "Docs/reports/phase4-completion-2026-10-28/README.md",
+    "Docs/reports/phase4-completion-2026-10-28/closure/a7-ci.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/ci-index.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/deliveries.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/delivery-labels.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/document-links.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/final-source-audit.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/guard-check/overwrite-refusal.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/guard-check/success.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history-summary.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history.log.gz",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a2-recovery/acceptance.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a2-recovery/baseline-and-results.json.gz",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a2-outfits/acceptance.json.gz",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a2-outfits/baseline-and-saved.json.gz",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a1/acceptance.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a1/baseline-and-saved.json.gz",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a5/previous/crt-imports.json.gz",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a5/previous/crt.json.gz",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a5/previous/previous/commercial.json.gz",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a5/previous/previous/first-a5.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a5/ximending-imports.json.gz",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a5/ximending.json.gz",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a2-dresses/acceptance.json.gz",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a2-dresses/baseline-and-saved.json.gz",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/earlier/earlier/earlier/snapshot/acceptance.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/earlier/earlier/earlier/snapshot/baseline-and-results.json.gz",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/earlier/earlier/special-tape/acceptance.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/earlier/earlier/special-tape/baseline-and-saved.json.gz",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/earlier/history.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/earlier/runtime/acceptance.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/earlier/runtime/baseline-and-saved.json.gz",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/earlier/runtime/oracle-mismatches.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/history.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/special-palette/acceptance.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/special-palette/baseline-and-saved.json.gz",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/earlier/special-palette/oracle-mismatches.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/history.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/paired-capture/acceptance.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/paired-capture/baseline-and-saved.json.gz",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/earlier/paired-capture/oracle-mismatches.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/history.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/legacy-dress/acceptance.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/legacy-dress/baseline-and-saved.json.gz",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/earlier/legacy-dress/oracle-mismatches.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/history.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/legacy-dress/acceptance.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/legacy-dress/baseline-and-saved.json.gz",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/legacy-dress/oracle-mismatches.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/earlier/legacy-dress/regression-fixed-main.log",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/history.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/legacy-dress/acceptance.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/legacy-dress/baseline-and-saved.json.gz",
+    "Docs/reports/phase4-completion-2026-10-28/closure/history/legacy-dress/oracle-mismatches.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/inverse-tests.log.gz",
+    "Docs/reports/phase4-completion-2026-10-28/closure/product-validation-transfer.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/protection.json",
+    "Docs/reports/phase4-completion-2026-10-28/closure/service-cleanup.json",
+    "scripts/phase4_closure_check.mjs"
+  ],
+  "historicalFilesChecked": 1789,
+  "historicalChanged": [],
+  "otherWorktrees": [
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/.codex/worktrees/capture-import-integration/Virtual_Photography_Studio",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/ethnicity-default-japanese",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-gest",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-grid",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-head",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-props",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-sit-kneel",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-squatting",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-standing",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-ui",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p1",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p2",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p3",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p4",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p5",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p5b",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/preview-prompt-test",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/reference-person-preview",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/tshirt-crew-neck",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    }
+  ],
+  "otherDirtyFilesChecked": 140,
+  "stagedFiles": [],
+  "changedCommittedReports": [],
+  "passed": true
+}
