@@ -1,0 +1,72 @@
+{
+  "baseCommit": "2caa6fdcd2ab63931339ee3018ca52025d3cef3f",
+  "passed": true,
+  "files": [
+    {
+      "path": "webapp/src/features/saved-cards/cardCodec.js",
+      "afterHashMatches": true,
+      "beforeMatchesGit": true,
+      "beforeHashMatches": true
+    },
+    {
+      "path": "webapp/src/features/saved-cards/wardrobeColorRecovery.test.js",
+      "afterHashMatches": true,
+      "beforeMatchesGit": true,
+      "beforeHashMatches": true
+    },
+    {
+      "path": "webapp/src/features/page1/legacyDressRestore.test.js",
+      "afterHashMatches": true,
+      "beforeMatchesGit": true,
+      "beforeHashMatches": true
+    },
+    {
+      "path": "webapp/src/features/page1/legacyDressRestoreHistory.test.js",
+      "afterHashMatches": true,
+      "beforeMatchesGit": true,
+      "beforeHashMatches": true
+    },
+    {
+      "path": "scripts/lib/a2LegacyDressReplay.mjs",
+      "afterHashMatches": true,
+      "beforeMatchesGit": true,
+      "beforeHashMatches": true
+    },
+    {
+      "path": "scripts/lib/a1AdultIdentityHistoricalReplay.mjs",
+      "afterHashMatches": true,
+      "beforeMatchesGit": true,
+      "beforeHashMatches": true
+    },
+    {
+      "path": "scripts/lib/a2DressControlHistoricalReplay.mjs",
+      "afterHashMatches": true,
+      "beforeMatchesGit": true,
+      "beforeHashMatches": true
+    },
+    {
+      "path": "scripts/lib/a2OutfitControlHistoricalReplay.mjs",
+      "afterHashMatches": true,
+      "beforeMatchesGit": true,
+      "beforeHashMatches": true
+    },
+    {
+      "path": "scripts/lib/a2WardrobeColorRecoveryReplay.mjs",
+      "afterHashMatches": true,
+      "beforeMatchesGit": true,
+      "beforeHashMatches": true
+    },
+    {
+      "path": "webapp/src/features/saved-cards/legacyDressProseRecovery.js",
+      "afterHashMatches": true
+    },
+    {
+      "path": "webapp/src/features/saved-cards/legacyDressProseRecovery.test.js",
+      "afterHashMatches": true
+    },
+    {
+      "path": "webapp/src/features/saved-cards/legacyDressProseHistory.test.js",
+      "afterHashMatches": true
+    }
+  ]
+}

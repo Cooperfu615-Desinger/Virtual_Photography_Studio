@@ -1,5 +1,6 @@
 import { encodePage1MarkdownSnapshot, decodePage1MarkdownSnapshot } from './page1MarkdownSnapshot.js';
 import { createWardrobeRecoveryContext, wardrobeItemRecoveryScope, recoverWardrobeColors } from './wardrobeColorRecovery.js';
+import { prepareLegacyDressProseRecovery, applyLegacyDressProseColors } from './legacyDressProseRecovery.js';
 import { isImportedPersonKey } from '../../lib/observationCaptureImport.js';
 import { accessoryRestoreNotices } from '../../lib/engine/accessoryPolicy.js';
 import { matchResolvedOuterwear } from '../../lib/engine/outerwearModel.js';
@@ -322,7 +323,7 @@ function findWearableTargetColorMatch(options, prompt, target) {
     .find(entry => prompt.includes(entry.phrase))?.option || null;
 }
 
-export function parseLocksFromStandardPrompt(promptText, controls) {
+export function parseLocksFromStandardPrompt(promptText, controls, { legacyDressPrompt = promptText } = {}) {
   const parsedMidjourneyTail = parseMidjourneyParameterTail(promptText);
   const normalizedPrompt = normalizePromptText(parsedMidjourneyTail.content);
   const locks = createEmptyLocks();
@@ -503,7 +504,16 @@ export function parseLocksFromStandardPrompt(promptText, controls) {
     locks.poseBaseId = specifiedAction.baseId;
     locks.poseOrientationId = specifiedAction.orientationId;
   }
-  for (const [key, option] of recoverWardrobeColors(wardrobeRecovery, locks, controls)) {
+  const legacyDress = prepareLegacyDressProseRecovery(legacyDressPrompt, locks, controls);
+  const recoveredColors = recoverWardrobeColors(wardrobeRecovery, locks, controls);
+  const hasRecoveredLegacyDressPalette = applyLegacyDressProseColors(legacyDress, locks, controls, recoveredColors);
+  for (const key of legacyDress.keys) {
+    const index = matchedControls.findIndex(entry => entry.key === key);
+    if (index >= 0) matchedControls.splice(index, 1);
+    const option = controlMap.get(key)?.options.find(item => item.id === locks[key] && item.zh !== '全無');
+    if (option) matchedControls.push({ key, label: controlMap.get(key).label, option });
+  }
+  for (const [key, option] of recoveredColors) {
     // Retain explicit silence already established by an authored fixed-detail rule.
     if (option.zh === '全無' && locks[key] === option.id) continue;
     locks[key] = option.zh === '全無' ? '' : option.id;
@@ -511,7 +521,7 @@ export function parseLocksFromStandardPrompt(promptText, controls) {
     if (index >= 0) matchedControls.splice(index, 1);
     if (option.zh !== '全無') matchedControls.push({ key, label: controlMap.get(key)?.label || key, option });
   }
-  return { locks, matchedControls };
+  return { locks, matchedControls, hasRecoveredLegacyDressPalette };
 }
 
 export function buildRestoreLocks(nextLocks, controls, { restoringSelection = true } = {}) {
@@ -620,6 +630,7 @@ export function parseExportedMarkdownPrompt(markdownText, controls, fallbackId) 
   const parsed = parseLocksFromStandardPrompt(
     `${grokPrompt}\n${zImagePrompt}\n${midjourneyPrompt}`,
     controls,
+    { legacyDressPrompt: grokPrompt },
   );
   if (parsed.matchedControls.length === 0) {
     throw new Error('no recoverable controls found in prompt');
@@ -642,7 +653,7 @@ export function parseExportedMarkdownPrompt(markdownText, controls, fallbackId) 
     if (captureSelection.captureMode !== 'observation') throw new Error('invalid observation capture metadata');
     Object.assign(parsed.locks, captureSelection);
   }
-  const selection = buildRestoreLocks(parsed.locks, controls, { restoringSelection: Boolean(captureMatch) });
+  const selection = buildRestoreLocks(parsed.locks, controls, { restoringSelection: Boolean(captureMatch) || parsed.hasRecoveredLegacyDressPalette });
   const prompt = {
     id: fallbackId || `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
     date: new Date().toISOString(),

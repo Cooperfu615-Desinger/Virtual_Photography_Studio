@@ -1,0 +1,153 @@
+{
+  "diffCheckPassed": true,
+  "newTextFilesChecked": [
+    "Docs/decisions/2026-10-28-a2-legacy-dress-prose.md",
+    "Docs/specs/legacy-dress-prose-a2-v1.md",
+    "scripts/legacy_dress_prose_a2_acceptance.mjs",
+    "scripts/legacy_dress_prose_a2_browser.mjs",
+    "scripts/legacy_dress_prose_a2_history.mjs",
+    "scripts/legacy_dress_prose_a2_protection.py",
+    "scripts/lib/a2LegacyDressProseReplay.mjs",
+    "webapp/src/features/saved-cards/legacyDressProseHistory.test.js",
+    "webapp/src/features/saved-cards/legacyDressProseRecovery.js",
+    "webapp/src/features/saved-cards/legacyDressProseRecovery.test.js"
+  ],
+  "links": [
+    {
+      "from": "Docs/current_project_state.md",
+      "target": "specs/legacy-dress-prose-a2-v1.md",
+      "exists": true
+    },
+    {
+      "from": "Docs/current_project_state.md",
+      "target": "decisions/2026-10-28-a2-legacy-dress-prose.md",
+      "exists": true
+    },
+    {
+      "from": "Docs/current_project_state.md",
+      "target": "reports/legacy-dress-prose-a2-2026-10-28/README.md",
+      "exists": true
+    },
+    {
+      "from": "Docs/specs/wardrobe-section-b-authoring-guide.md",
+      "target": "legacy-dress-prose-a2-v1.md",
+      "exists": true
+    },
+    {
+      "from": "Docs/specs/legacy-dress-prose-a2-v1.md",
+      "target": "../decisions/2026-10-28-a2-legacy-dress-prose.md",
+      "exists": true
+    },
+    {
+      "from": "Docs/specs/legacy-dress-prose-a2-v1.md",
+      "target": "../reports/legacy-dress-prose-a2-2026-10-28/README.md",
+      "exists": true
+    },
+    {
+      "from": "Docs/decisions/2026-10-28-a2-legacy-dress-prose.md",
+      "target": "../specs/legacy-dress-prose-a2-v1.md",
+      "exists": true
+    },
+    {
+      "from": "Docs/reports/legacy-dress-prose-a2-2026-10-28/README.md",
+      "target": "../../specs/legacy-dress-prose-a2-v1.md",
+      "exists": true
+    },
+    {
+      "from": "Docs/reports/legacy-dress-prose-a2-2026-10-28/README.md",
+      "target": "../../decisions/2026-10-28-a2-legacy-dress-prose.md",
+      "exists": true
+    },
+    {
+      "from": "Docs/reports/legacy-dress-prose-a2-2026-10-28/README.md",
+      "target": "acceptance/acceptance.json",
+      "exists": true
+    },
+    {
+      "from": "Docs/reports/legacy-dress-prose-a2-2026-10-28/README.md",
+      "target": "acceptance/baseline-and-saved.json.gz",
+      "exists": true
+    },
+    {
+      "from": "Docs/reports/legacy-dress-prose-a2-2026-10-28/README.md",
+      "target": "acceptance/oracle-mismatches.json",
+      "exists": true
+    },
+    {
+      "from": "Docs/reports/legacy-dress-prose-a2-2026-10-28/README.md",
+      "target": "acceptance/regression-fixed-main.log",
+      "exists": true
+    },
+    {
+      "from": "Docs/reports/legacy-dress-prose-a2-2026-10-28/README.md",
+      "target": "source-seal-check.json",
+      "exists": true
+    },
+    {
+      "from": "Docs/reports/legacy-dress-prose-a2-2026-10-28/README.md",
+      "target": "inverse-focused.log",
+      "exists": true
+    },
+    {
+      "from": "Docs/reports/legacy-dress-prose-a2-2026-10-28/README.md",
+      "target": "gates.json",
+      "exists": true
+    },
+    {
+      "from": "Docs/reports/legacy-dress-prose-a2-2026-10-28/README.md",
+      "target": "audit-comparison.json",
+      "exists": true
+    },
+    {
+      "from": "Docs/reports/legacy-dress-prose-a2-2026-10-28/README.md",
+      "target": "history/history.json",
+      "exists": true
+    },
+    {
+      "from": "Docs/reports/legacy-dress-prose-a2-2026-10-28/README.md",
+      "target": "browser/results.json",
+      "exists": true
+    },
+    {
+      "from": "Docs/reports/legacy-dress-prose-a2-2026-10-28/README.md",
+      "target": "browser/visual-review.json",
+      "exists": true
+    },
+    {
+      "from": "Docs/reports/legacy-dress-prose-a2-2026-10-28/README.md",
+      "target": "browser/1440-paste-pair-new-detail.png",
+      "exists": true
+    },
+    {
+      "from": "Docs/reports/legacy-dress-prose-a2-2026-10-28/README.md",
+      "target": "browser/390-paste-pair-new-detail.png",
+      "exists": true
+    },
+    {
+      "from": "Docs/reports/legacy-dress-prose-a2-2026-10-28/README.md",
+      "target": "browser/390-workspace-5.png",
+      "exists": true
+    },
+    {
+      "from": "Docs/reports/legacy-dress-prose-a2-2026-10-28/README.md",
+      "target": "service-status.json",
+      "exists": true
+    },
+    {
+      "from": "Docs/reports/legacy-dress-prose-a2-2026-10-28/README.md",
+      "target": "protection-before.json",
+      "exists": true
+    },
+    {
+      "from": "Docs/reports/legacy-dress-prose-a2-2026-10-28/README.md",
+      "target": "protection-after.json",
+      "exists": true
+    },
+    {
+      "from": "Docs/reports/legacy-dress-prose-a2-2026-10-28/README.md",
+      "target": "remote-main-check.json",
+      "exists": true
+    }
+  ],
+  "passed": true
+}

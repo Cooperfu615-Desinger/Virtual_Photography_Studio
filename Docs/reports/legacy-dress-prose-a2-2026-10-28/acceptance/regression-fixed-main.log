@@ -1,0 +1,277 @@
+TAP version 13
+# Subtest: A2 dress prose: 24 single dresses use canonical dress fields and do not populate dormant roles
+not ok 1 - A2 dress prose: 24 single dresses use canonical dress fields and do not populate dormant roles
+  ---
+  duration_ms: 66.281125
+  type: 'test'
+  location: '/private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-dress-prose-oracle-IH9RTp/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:19:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'wardrobe:連身-dresses:全無:0'
+    - 'wardrobe:連身-dresses:連身-短版-無袖迷你洋裝:1'
+                           ^
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'wardrobe:連身-dresses:連身-短版-無袖迷你洋裝:1'
+  actual: 'wardrobe:連身-dresses:全無:0'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-dress-prose-oracle-IH9RTp/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:20:98)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: A2 dress prose: all 40 swatches survive apply and regeneration, including material and pattern
+not ok 2 - A2 dress prose: all 40 swatches survive apply and regeneration, including material and pattern
+  ---
+  duration_ms: 28.915917
+  type: 'test'
+  location: '/private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-dress-prose-oracle-IH9RTp/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:22:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    'none' !== 'black'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'black'
+  actual: 'none'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-dress-prose-oracle-IH9RTp/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:23:133)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: A2 dress prose: all 42 ordered palettes in both runtime grammars survive paste and old Markdown
+not ok 3 - A2 dress prose: all 42 ordered palettes in both runtime grammars survive paste and old Markdown
+  ---
+  duration_ms: 66.237292
+  type: 'test'
+  location: '/private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-dress-prose-oracle-IH9RTp/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:25:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'wardrobe:連身-dresses:全無:0'
+    - 'wardrobe:連身-dresses:連身-短版-無袖迷你洋裝:1'
+                           ^
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'wardrobe:連身-dresses:連身-短版-無袖迷你洋裝:1'
+  actual: 'wardrobe:連身-dresses:全無:0'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-dress-prose-oracle-IH9RTp/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:28:111)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: A2 dress prose: ordered targets do not borrow short color words or accept incomplete/conflicting regions
+not ok 4 - A2 dress prose: ordered targets do not borrow short color words or accept incomplete/conflicting regions
+  ---
+  duration_ms: 15.551541
+  type: 'test'
+  location: '/private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-dress-prose-oracle-IH9RTp/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:31:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'wardrobe:連身-dresses:全無:0'
+    - 'wardrobe:連身-dresses:連身-短版-無袖迷你洋裝:1'
+                           ^
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'wardrobe:連身-dresses:連身-短版-無袖迷你洋裝:1'
+  actual: 'wardrobe:連身-dresses:全無:0'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-dress-prose-oracle-IH9RTp/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:34:76)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: A2 dress prose: A/B source sections preserve different dresses and colors without shared-field override
+not ok 5 - A2 dress prose: A/B source sections preserve different dresses and colors without shared-field override
+  ---
+  duration_ms: 39.1825
+  type: 'test'
+  location: '/private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-dress-prose-oracle-IH9RTp/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:38:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'wardrobe:連身-dresses:連身-短版-細肩帶迷你洋裝:2'
+    - 'wardrobe:連身-dresses:全無:0'
+                           ^
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'wardrobe:連身-dresses:全無:0'
+  actual: 'wardrobe:連身-dresses:連身-短版-細肩帶迷你洋裝:2'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-dress-prose-oracle-IH9RTp/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:40:9)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: A2 dress prose: same dress with distinct role palettes and absent role markers never guesses ownership
+not ok 6 - A2 dress prose: same dress with distinct role palettes and absent role markers never guesses ownership
+  ---
+  duration_ms: 29.947458
+  type: 'test'
+  location: '/private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-dress-prose-oracle-IH9RTp/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:44:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'none'
+    - 'cherry-blossom-cream'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'cherry-blossom-cream'
+  actual: 'none'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-dress-prose-oracle-IH9RTp/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:46:9)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: A2 dress prose: conflicting garments do not choose an arbitrary same-family winner
+ok 7 - A2 dress prose: conflicting garments do not choose an arbitrary same-family winner
+  ---
+  duration_ms: 16.676167
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: true outfits and special takeover keep their original ownership
+ok 8 - A2 dress prose: true outfits and special takeover keep their original ownership
+  ---
+  duration_ms: 41.453958
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: old Markdown uses full GPT rather than conflicting compact color evidence and keeps public text
+not ok 9 - A2 dress prose: old Markdown uses full GPT rather than conflicting compact color evidence and keeps public text
+  ---
+  duration_ms: 28.485959
+  type: 'test'
+  location: '/private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-dress-prose-oracle-IH9RTp/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:55:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'wardrobe:連身-dresses:全無:0'
+    - 'wardrobe:連身-dresses:連身-短版-無袖迷你洋裝:1'
+                           ^
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'wardrobe:連身-dresses:連身-短版-無袖迷你洋裝:1'
+  actual: 'wardrobe:連身-dresses:全無:0'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-dress-prose-oracle-IH9RTp/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:56:203)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: A2 dress prose: old ZIP shares Markdown recovery and preserves source text
+not ok 10 - A2 dress prose: old ZIP shares Markdown recovery and preserves source text
+  ---
+  duration_ms: 34.829667
+  type: 'test'
+  location: '/private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-dress-prose-oracle-IH9RTp/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:58:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'none'
+    - 'cherry-blossom-cream'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'cherry-blossom-cream'
+  actual: 'none'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-dress-prose-oracle-IH9RTp/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:59:225)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: A2 dress prose: structured JSON and PAGE1 snapshots remain authoritative over parseable public prose
+ok 11 - A2 dress prose: structured JSON and PAGE1 snapshots remain authoritative over parseable public prose
+  ---
+  duration_ms: 25.632666
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: mixed true outfit and dress preserve role selection without shared takeover
+not ok 12 - A2 dress prose: mixed true outfit and dress preserve role selection without shared takeover
+  ---
+  duration_ms: 32.70475
+  type: 'test'
+  location: '/private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-dress-prose-oracle-IH9RTp/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:67:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'wardrobe:連身-dresses:連身-短版-無袖迷你洋裝:1'
+    - 'outfit-preset-none'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'outfit-preset-none'
+  actual: 'wardrobe:連身-dresses:連身-短版-無袖迷你洋裝:1'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-dress-prose-oracle-IH9RTp/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:73:63)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 3
+# fail 9
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 557.93

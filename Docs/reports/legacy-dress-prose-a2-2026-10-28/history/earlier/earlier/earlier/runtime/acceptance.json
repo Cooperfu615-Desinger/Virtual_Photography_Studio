@@ -1,0 +1,123 @@
+{
+  "baseCommit": "bd31bd34f0bfa8986193a6048fe1a69a265e3668",
+  "cases": 4375,
+  "protectedCases": 33,
+  "protectedFiles": 74,
+  "saved": 30,
+  "compatibility": 60,
+  "changedOutputs": {
+    "grokPrompt": 3508,
+    "nanoBananaPrompt": 3508,
+    "chest-up-portrait": 2429,
+    "full-body-character": 3393,
+    "zImagePrompt": 1526
+  },
+  "oracleMismatches": 0,
+  "knownLimitations": [
+    {
+      "key": "specialOutfitId",
+      "palette": "black-white-cool",
+      "applied": "none"
+    },
+    {
+      "key": "specialOutfitId",
+      "palette": "black-red-street",
+      "applied": "none"
+    },
+    {
+      "key": "specialOutfitId",
+      "palette": "deep-denim",
+      "applied": "none"
+    },
+    {
+      "key": "specialOutfitId",
+      "palette": "cream-neutral",
+      "applied": "none"
+    },
+    {
+      "key": "specialOutfitId",
+      "palette": "pink-sweet-cool",
+      "applied": "none"
+    },
+    {
+      "key": "specialOutfitId",
+      "palette": "brown-vintage",
+      "applied": "none"
+    },
+    {
+      "key": "specialOutfitId",
+      "palette": "silver-metallic",
+      "applied": "none"
+    },
+    {
+      "key": "specialOutfitId",
+      "palette": "green-utility",
+      "applied": "none"
+    },
+    {
+      "key": "specialOutfitId",
+      "palette": "yellow-orange-bright",
+      "applied": "none"
+    },
+    {
+      "kind": "pre-existing-split-dress-import-unavailable",
+      "key": "dressId",
+      "palette": "none",
+      "identicalAtBase": true
+    },
+    {
+      "kind": "pre-existing-split-dress-import-unavailable",
+      "key": "dressId",
+      "palette": "black-white-cool",
+      "identicalAtBase": true
+    },
+    {
+      "kind": "pre-existing-split-dress-import-unavailable",
+      "key": "dressId",
+      "palette": "black-red-street",
+      "identicalAtBase": true
+    },
+    {
+      "kind": "pre-existing-split-dress-import-unavailable",
+      "key": "dressId",
+      "palette": "deep-denim",
+      "identicalAtBase": true
+    },
+    {
+      "kind": "pre-existing-split-dress-import-unavailable",
+      "key": "dressId",
+      "palette": "cream-neutral",
+      "identicalAtBase": true
+    },
+    {
+      "kind": "pre-existing-split-dress-import-unavailable",
+      "key": "dressId",
+      "palette": "pink-sweet-cool",
+      "identicalAtBase": true
+    },
+    {
+      "kind": "pre-existing-split-dress-import-unavailable",
+      "key": "dressId",
+      "palette": "brown-vintage",
+      "identicalAtBase": true
+    },
+    {
+      "kind": "pre-existing-split-dress-import-unavailable",
+      "key": "dressId",
+      "palette": "silver-metallic",
+      "identicalAtBase": true
+    },
+    {
+      "kind": "pre-existing-split-dress-import-unavailable",
+      "key": "dressId",
+      "palette": "green-utility",
+      "identicalAtBase": true
+    },
+    {
+      "kind": "pre-existing-split-dress-import-unavailable",
+      "key": "dressId",
+      "palette": "yellow-orange-bright",
+      "identicalAtBase": true
+    }
+  ]
+}

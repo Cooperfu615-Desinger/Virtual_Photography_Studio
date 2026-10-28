@@ -68,7 +68,7 @@ for (const [label,key] of [['鏈條緞面','outfitPresetPrimaryColorId'],['粉�
       const garmentKey=key.startsWith('dress')?'dressId':'outfitPresetId';
       const locks={ [garmentKey]:option(garmentKey,label).id, [key]:color.id };
       const p=generate(locks),s=parse(p.grokPrompt);
-      assert.equal(s[key === 'dressColorId' ? 'outfitPresetPrimaryColorId' : key],color.id,`${label}/${color.id}: ${p.grokPrompt}`);
+      assert.equal(s[key],color.id,`${label}/${color.id}: ${p.grokPrompt}`);
     }
   });
 }
@@ -76,7 +76,7 @@ for (const [label,key] of [['鏈條緞面','outfitPresetPrimaryColorId'],['粉�
 test('A2 recovery: independent dress and footwear keep separate colors',()=>{
   const locks={dressId:option('dressId','高領挖腰').id,dressColorId:'red',shoesId:option('shoesId','高跟鞋').id,shoesColorId:'white'};
   const p=generate(locks),s=parse(p.grokPrompt);
-  assert.equal(s.outfitPresetPrimaryColorId,'red');assert.equal(s.shoesColorId,'white');
+  assert.equal(s.dressColorId,'red');assert.equal(s.shoesColorId,'white');
 });
 
 test('A2 recovery: color-word overlap does not hide a separate contradictory assertion',()=>{

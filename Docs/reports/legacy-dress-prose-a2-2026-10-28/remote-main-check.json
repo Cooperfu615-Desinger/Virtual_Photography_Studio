@@ -1,0 +1,7 @@
+{
+  "branch": "main",
+  "remote": "origin",
+  "commit": "2caa6fdcd2ab63931339ee3018ca52025d3cef3f",
+  "method": "git ls-remote origin refs/heads/main",
+  "unchanged": true
+}

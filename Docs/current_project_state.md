@@ -2,7 +2,16 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-27
+Last updated: 2026-10-28
+
+## Phase 4 A2：舊連身純文字還原（2026-10-28，驗收通過，授權限定交付）
+
+- 固定基準及最後唯讀核對遠端 main 為 `2caa6fdcd2ab63931339ee3018ca52025d3cef3f`。完整現行／歷史來源統一回到連身欄位，依同人物、同衣物辨識單色及新舊上下區域配色；貼回、舊 Markdown／ZIP 共用。缺少或衝突證據不猜，明確 A／B 不交叉覆寫。新版快照／JSON／抓拍 metadata 優先，舊卡公開原文保持。
+- 固定 Git 對照：960 組單色、2,016 組新舊上下配色句、84 組雙人案例，6,120 次還原、8,172 次生成、67 組結構化往返及 67 張舊 ZIP、24 張歷史 Markdown，0 核准外差異；327 份其他正式來源／程式逐字一致。相同原選值的六輸出／RNG 保持，還原後選值以固定 Git 引擎驗證。
+- 前端 1,979、Prompt Quality 825、Python 43、目錄工具 32、lint／build／sync／歷史 ID／strict／207 assets 通過；200 同 seed audit 前後逐字一致，0 blocker／18 既有診斷。上一批結構化連身與完整 A2／A1／A5 隔離歷史鏈通過；最終九份還原來源均與固定 Git 逐字一致，見本批報告。
+- 5175 桌面 1440×1000／手機 390×900 共 68 項操作、44 張畫面通過並檢視關鍵畫面；0 console／page error／外部 POST／意外水平溢位，專用服務已停止。現行 Import 只接受 ZIP；單張 Markdown 驗證共用解析與下載往返，未新增 UI 入口。套用後重新生成不等於舊卡公開原文；景別等非本批文字還原限制保留。
+- 2,948 原追蹤檔、1,519 歷史檔及其他 20 個工作目錄／140 份既有未提交檔受保護；另有一個既存失效 worktree 登記原樣保留。Cooper 已確認驗收通過，授權只提交並 push 本批程式、文件、基準、回歸案例、歷史回放與驗收工具。原驗收報告與 manifest 保留提交前證據，實際 Git 與對應 CI 結果另行核對。胸上區域投影另批處理，其他項目與 P5b 未進入。
+- [規格](specs/legacy-dress-prose-a2-v1.md)、[決策](decisions/2026-10-28-a2-legacy-dress-prose.md)、[報告](reports/legacy-dress-prose-a2-2026-10-28/README.md)。下方保留各批當時狀態。
 
 ## Phase 4 A2：舊連身結構化還原（2026-10-27，驗收通過，授權限定交付）
 

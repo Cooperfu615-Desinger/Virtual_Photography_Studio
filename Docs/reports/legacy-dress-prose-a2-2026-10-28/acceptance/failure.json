@@ -1,0 +1,36 @@
+{
+  "message": "mono:wardrobe:連身-dresses:連身-短版-無袖迷你洋裝:1black:markdown\n+ actual - expected\n\n+ [\n+   {\n+     after: 'character:髮絲整理狀態-hair-styling-state:全無:4',\n+     before: 'character:髮絲整理狀態-hair-styling-state:柔順自然:0',\n+     path: '$.hairStylingStateId'\n+   },\n+   {\n+     after: 'character:髮絲整理狀態-hair-styling-state:全無:4',\n+     before: 'character:髮絲整理狀態-hair-styling-state:柔順自然:0',\n+     path: '$.hairStylingStateAId'\n+   },\n+   {\n+     after: 'character:髮絲整理狀態-hair-styling-state:全無:4',\n+     before: 'character:髮絲整理狀態-hair-styling-state:柔順自然:0',\n+     path: '$.hairStylingStateBId'\n+   }\n+ ]\n- []\n",
+  "stack": "AssertionError [ERR_ASSERTION]: mono:wardrobe:連身-dresses:連身-短版-無袖迷你洋裝:1black:markdown\n+ actual - expected\n\n+ [\n+   {\n+     after: 'character:髮絲整理狀態-hair-styling-state:全無:4',\n+     before: 'character:髮絲整理狀態-hair-styling-state:柔順自然:0',\n+     path: '$.hairStylingStateId'\n+   },\n+   {\n+     after: 'character:髮絲整理狀態-hair-styling-state:全無:4',\n+     before: 'character:髮絲整理狀態-hair-styling-state:柔順自然:0',\n+     path: '$.hairStylingStateAId'\n+   },\n+   {\n+     after: 'character:髮絲整理狀態-hair-styling-state:全無:4',\n+     before: 'character:髮絲整理狀態-hair-styling-state:柔順自然:0',\n+     path: '$.hairStylingStateBId'\n+   }\n+ ]\n- []\n\n    at same (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/legacy_dress_prose_a2_acceptance.mjs:21:106)\n    at check (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/legacy_dress_prose_a2_acceptance.mjs:53:4)\n    at file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/legacy_dress_prose_a2_acceptance.mjs:64:199",
+  "counts": {
+    "mono": 0,
+    "pairs": 0,
+    "duo": 0,
+    "restores": 1,
+    "generations": 2,
+    "structured": 0,
+    "zip": 0,
+    "archived": 0
+  },
+  "mismatches": [
+    {
+      "label": "mono:wardrobe:連身-dresses:連身-短版-無袖迷你洋裝:1black:markdown",
+      "diff": [
+        {
+          "path": "$.hairStylingStateId",
+          "before": "character:髮絲整理狀態-hair-styling-state:柔順自然:0",
+          "after": "character:髮絲整理狀態-hair-styling-state:全無:4"
+        },
+        {
+          "path": "$.hairStylingStateAId",
+          "before": "character:髮絲整理狀態-hair-styling-state:柔順自然:0",
+          "after": "character:髮絲整理狀態-hair-styling-state:全無:4"
+        },
+        {
+          "path": "$.hairStylingStateBId",
+          "before": "character:髮絲整理狀態-hair-styling-state:柔順自然:0",
+          "after": "character:髮絲整理狀態-hair-styling-state:全無:4"
+        }
+      ]
+    }
+  ]
+}

@@ -91,9 +91,9 @@ test('A2 legacy dress: duo A/B fields survive and dormant single state returns w
   assert.equal(back.topBottomPaletteId, input.topBottomPaletteId);
 });
 
-test('A2 legacy dress: prose same-ID normalization and missing palette remain deferred', () => {
+test('A2 legacy dress: prose follow-up restores canonical dress and exact palette', () => {
   const p = generate(legacy()), parsed = buildRestoreLocks(parseLocksFromStandardPrompt(p.grokPrompt, controls).locks, controls);
-  assert.equal(parsed.topBottomPaletteId, 'none'); assert.equal(parsed.dressId, none('dressId')); assert.equal(parsed.outfitPresetId, legacy().dressId);
+  assert.equal(parsed.topBottomPaletteId, legacy().topBottomPaletteId); assert.equal(parsed.dressId, legacy().dressId); assert.equal(parsed.outfitPresetId, none('outfitPresetId'));
 });
 
 test('A2 legacy dress: workspace summary names the retained palette only for the applicable single state', () => {

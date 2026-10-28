@@ -1,0 +1,18 @@
+{
+  "message": "Expected values to be strictly equal:\n+ actual - expected\n\n  'Image Type:\\n' +\n    'Create a photorealistic editorial portrait.\\n' +\n    '\\n' +\n    'Composition:\\n' +\n    'Full-body portrait.\\n' +\n    '\\n' +\n    'Subject:\\n' +\n+   'Two 20-year-old adult Japanese women.\\n' +\n-   'The subject is one 20-year-old adult Japanese woman.\\n' +\n    '\\n' +\n+   'Woman 1:\\n' +\n+   'Wears cherry blossom pink sleeveless mini dress, one-piece silhouette, clean shoulder line, compact short hem, dress palette from top to bottom: upper/main dress area in cherry blossom pink, lower hem or skirt area in cream yellow.\\n' +\n+   '\\n' +\n+   'Woman 2:\\n' +\n+   'Wears regal navy spaghetti-strap mini dress, one-piece silhouette, slim straps, fitted bodice, short hem, dress palette from top to bottom: upper/main dress area in regal navy, lower hem or skirt area in lemon chiffon.\\n' +\n+   '\\n' +\n+   'Pose and Composition:\\n' +\n+   'Use a loose full-body or wider two-person composition as a loose photographic guide, allowing natural crop, overlap, body blocking, and partial occlusion when it makes the moment feel candid and real.'\n-   'Wardrobe:\\n' +\n-   'She wears cherry blossom pink sleeveless mini dress, one-piece silhouette, clean shoulder line, compact short hem, dress palette from top to bottom: upper/main dress area in cherry blossom pink, lower hem or skirt area in cream yellow.'\n",
+  "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n  'Image Type:\\n' +\n    'Create a photorealistic editorial portrait.\\n' +\n    '\\n' +\n    'Composition:\\n' +\n    'Full-body portrait.\\n' +\n    '\\n' +\n    'Subject:\\n' +\n+   'Two 20-year-old adult Japanese women.\\n' +\n-   'The subject is one 20-year-old adult Japanese woman.\\n' +\n    '\\n' +\n+   'Woman 1:\\n' +\n+   'Wears cherry blossom pink sleeveless mini dress, one-piece silhouette, clean shoulder line, compact short hem, dress palette from top to bottom: upper/main dress area in cherry blossom pink, lower hem or skirt area in cream yellow.\\n' +\n+   '\\n' +\n+   'Woman 2:\\n' +\n+   'Wears regal navy spaghetti-strap mini dress, one-piece silhouette, slim straps, fitted bodice, short hem, dress palette from top to bottom: upper/main dress area in regal navy, lower hem or skirt area in lemon chiffon.\\n' +\n+   '\\n' +\n+   'Pose and Composition:\\n' +\n+   'Use a loose full-body or wider two-person composition as a loose photographic guide, allowing natural crop, overlap, body blocking, and partial occlusion when it makes the moment feel candid and real.'\n-   'Wardrobe:\\n' +\n-   'She wears cherry blossom pink sleeveless mini dress, one-piece silhouette, clean shoulder line, compact short hem, dress palette from top to bottom: upper/main dress area in cherry blossom pink, lower hem or skirt area in cream yellow.'\n\n    at file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/legacy_dress_prose_a2_browser.mjs:55:152",
+  "checks": [
+    "1440: actual paste: mono",
+    "1440: actual paste: pair-new",
+    "1440: actual paste: pair-old",
+    "1440: actual paste: duo",
+    "1440: incomplete pair cannot become a guessed swatch",
+    "1440: prose saved original and regenerated selection: mono.zip",
+    "1440: prose saved original and regenerated selection: pair-new.zip",
+    "1440: prose saved original and regenerated selection: pair-old.zip",
+    "1440: prose saved original and regenerated selection: duo.zip",
+    "1440: pasted palette survives reload"
+  ],
+  "errors": [],
+  "externalPosts": []
+}

@@ -1,0 +1,13 @@
+{
+  "message": "Expected values to be strictly equal:\n+ actual - expected\n\n  'Image Type:\\n' +\n    'Create a photorealistic editorial portrait.\\n' +\n    '\\n' +\n-   'Composition:\\n' +\n-   'Full-body portrait.\\n' +\n-   '\\n' +\n    'Subject:\\n' +\n+   'The subject is one 20-year-old adult Japanese woman. Gentle demure expression, relaxed brows, softly open eyelids, softly closed lips, relaxed cheeks.\\n' +\n-   'The subject is one 20-year-old adult Japanese woman.\\n' +\n    '\\n' +\n    'Wardrobe:\\n' +\n    'She wears red sleeveless mini dress, one-piece silhouette, clean shoulder line, compact short hem.'\n",
+  "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n  'Image Type:\\n' +\n    'Create a photorealistic editorial portrait.\\n' +\n    '\\n' +\n-   'Composition:\\n' +\n-   'Full-body portrait.\\n' +\n-   '\\n' +\n    'Subject:\\n' +\n+   'The subject is one 20-year-old adult Japanese woman. Gentle demure expression, relaxed brows, softly open eyelids, softly closed lips, relaxed cheeks.\\n' +\n-   'The subject is one 20-year-old adult Japanese woman.\\n' +\n    '\\n' +\n    'Wardrobe:\\n' +\n    'She wears red sleeveless mini dress, one-piece silhouette, clean shoulder line, compact short hem.'\n\n    at file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/legacy_dress_prose_a2_browser.mjs:50:149",
+  "checks": [
+    "1440: actual paste: mono",
+    "1440: actual paste: pair-new",
+    "1440: actual paste: pair-old",
+    "1440: actual paste: duo",
+    "1440: incomplete pair cannot become a guessed swatch"
+  ],
+  "errors": [],
+  "externalPosts": []
+}

@@ -1,0 +1,244 @@
+TAP version 13
+# Subtest: A2 legacy dress: structured apply and storage initialization retain all 42 existing palettes
+ok 1 - A2 legacy dress: structured apply and storage initialization retain all 42 existing palettes
+  ---
+  duration_ms: 547.053417
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: unrelated updates retain palette and do not mutate input
+ok 2 - A2 legacy dress: unrelated updates retain palette and do not mutate input
+  ---
+  duration_ms: 6.735084
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: explicit dress/color changes remove the old palette including none and random
+ok 3 - A2 legacy dress: explicit dress/color changes remove the old palette including none and random
+  ---
+  duration_ms: 5.74925
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: restoration still clears conflicting separates; manual separates clear dress and old pair
+ok 4 - A2 legacy dress: restoration still clears conflicting separates; manual separates clear dress and old pair
+  ---
+  duration_ms: 4.81175
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: preset and special takeover, explicit new paired selection and invalid palette retain policy
+ok 5 - A2 legacy dress: preset and special takeover, explicit new paired selection and invalid palette retain policy
+  ---
+  duration_ms: 4.064167
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: JSON and shared Markdown snapshot preserve original outputs through apply and re-save
+ok 6 - A2 legacy dress: JSON and shared Markdown snapshot preserve original outputs through apply and re-save
+  ---
+  duration_ms: 39.179791
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: duo A/B fields survive and dormant single state returns without crossing roles
+ok 7 - A2 legacy dress: duo A/B fields survive and dormant single state returns without crossing roles
+  ---
+  duration_ms: 1.316375
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: prose follow-up restores canonical dress and exact palette
+ok 8 - A2 legacy dress: prose follow-up restores canonical dress and exact palette
+  ---
+  duration_ms: 37.145125
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress: workspace summary names the retained palette only for the applicable single state
+ok 9 - A2 legacy dress: workspace summary names the retained palette only for the applicable single state
+  ---
+  duration_ms: 3.363084
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: 24 single dresses use canonical dress fields and do not populate dormant roles
+ok 10 - A2 dress prose: 24 single dresses use canonical dress fields and do not populate dormant roles
+  ---
+  duration_ms: 707.558458
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: all 40 swatches survive apply and regeneration, including material and pattern
+ok 11 - A2 dress prose: all 40 swatches survive apply and regeneration, including material and pattern
+  ---
+  duration_ms: 1119.13675
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: all 42 ordered palettes in both runtime grammars survive paste and old Markdown
+ok 12 - A2 dress prose: all 42 ordered palettes in both runtime grammars survive paste and old Markdown
+  ---
+  duration_ms: 4103.3905
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: ordered targets do not borrow short color words or accept incomplete/conflicting regions
+ok 13 - A2 dress prose: ordered targets do not borrow short color words or accept incomplete/conflicting regions
+  ---
+  duration_ms: 121.761875
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: A/B source sections preserve different dresses and colors without shared-field override
+ok 14 - A2 dress prose: A/B source sections preserve different dresses and colors without shared-field override
+  ---
+  duration_ms: 48.596292
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: same dress with distinct role palettes and absent role markers never guesses ownership
+ok 15 - A2 dress prose: same dress with distinct role palettes and absent role markers never guesses ownership
+  ---
+  duration_ms: 46.6245
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: conflicting garments do not choose an arbitrary same-family winner
+ok 16 - A2 dress prose: conflicting garments do not choose an arbitrary same-family winner
+  ---
+  duration_ms: 20.760083
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: true outfits and special takeover keep their original ownership
+ok 17 - A2 dress prose: true outfits and special takeover keep their original ownership
+  ---
+  duration_ms: 43.22175
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: old Markdown uses full GPT rather than conflicting compact color evidence and keeps public text
+ok 18 - A2 dress prose: old Markdown uses full GPT rather than conflicting compact color evidence and keeps public text
+  ---
+  duration_ms: 28.77625
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: old ZIP shares Markdown recovery and preserves source text
+ok 19 - A2 dress prose: old ZIP shares Markdown recovery and preserves source text
+  ---
+  duration_ms: 35.189334
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: structured JSON and PAGE1 snapshots remain authoritative over parseable public prose
+ok 20 - A2 dress prose: structured JSON and PAGE1 snapshots remain authoritative over parseable public prose
+  ---
+  duration_ms: 23.198875
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: mixed true outfit and dress preserve role selection without shared takeover
+ok 21 - A2 dress prose: mixed true outfit and dress preserve role selection without shared takeover
+  ---
+  duration_ms: 105.442167
+  type: 'test'
+  ...
+# Subtest: A2 recovery: all 40 archived no-color outfits keep main and contrast unspecified and public text intact
+ok 22 - A2 recovery: all 40 archived no-color outfits keep main and contrast unspecified and public text intact
+  ---
+  duration_ms: 884.681666
+  type: 'test'
+  ...
+# Subtest: A2 recovery: non-color substrings and unrelated body/scene colors cannot recolor garments
+ok 23 - A2 recovery: non-color substrings and unrelated body/scene colors cannot recolor garments
+  ---
+  duration_ms: 27.220875
+  type: 'test'
+  ...
+# Subtest: A2 recovery: structured outfit bindings distinguish primary contrast and fixed gold
+ok 24 - A2 recovery: structured outfit bindings distinguish primary contrast and fixed gold
+  ---
+  duration_ms: 79.263209
+  type: 'test'
+  ...
+# Subtest: A2 recovery: generic outfit channels and genuine red are retained
+ok 25 - A2 recovery: generic outfit channels and genuine red are retained
+  ---
+  duration_ms: 33.275208
+  type: 'test'
+  ...
+# Subtest: A2 recovery: duo garment ownership and four independent colors stay with each woman
+ok 26 - A2 recovery: duo garment ownership and four independent colors stay with each woman
+  ---
+  duration_ms: 43.39275
+  type: 'test'
+  ...
+# Subtest: A2 recovery: unlabelled duo prose and contradictory channel evidence are conservative
+ok 27 - A2 recovery: unlabelled duo prose and contradictory channel evidence are conservative
+  ---
+  duration_ms: 24.766041
+  type: 'test'
+  ...
+# Subtest: A2 recovery: every supported swatch with an explicit visible target, 鏈條緞面/outfitPresetPrimaryColorId
+ok 28 - A2 recovery: every supported swatch with an explicit visible target, 鏈條緞面/outfitPresetPrimaryColorId
+  ---
+  duration_ms: 890.44325
+  type: 'test'
+  ...
+# Subtest: A2 recovery: every supported swatch with an explicit visible target, 粉紅哥德/outfitPresetPrimaryColorId
+ok 29 - A2 recovery: every supported swatch with an explicit visible target, 粉紅哥德/outfitPresetPrimaryColorId
+  ---
+  duration_ms: 946.179
+  type: 'test'
+  ...
+# Subtest: A2 recovery: every supported swatch with an explicit visible target, 粉紅哥德/outfitPresetContrastColorId
+ok 30 - A2 recovery: every supported swatch with an explicit visible target, 粉紅哥德/outfitPresetContrastColorId
+  ---
+  duration_ms: 917.234083
+  type: 'test'
+  ...
+# Subtest: A2 recovery: every supported swatch with an explicit visible target, 素色緞面旗袍/outfitPresetPrimaryColorId
+ok 31 - A2 recovery: every supported swatch with an explicit visible target, 素色緞面旗袍/outfitPresetPrimaryColorId
+  ---
+  duration_ms: 801.718292
+  type: 'test'
+  ...
+# Subtest: A2 recovery: every supported swatch with an explicit visible target, 高領挖腰/dressColorId
+ok 32 - A2 recovery: every supported swatch with an explicit visible target, 高領挖腰/dressColorId
+  ---
+  duration_ms: 1023.117792
+  type: 'test'
+  ...
+# Subtest: A2 recovery: independent dress and footwear keep separate colors
+ok 33 - A2 recovery: independent dress and footwear keep separate colors
+  ---
+  duration_ms: 29.280708
+  type: 'test'
+  ...
+# Subtest: A2 recovery: color-word overlap does not hide a separate contradictory assertion
+ok 34 - A2 recovery: color-word overlap does not hide a separate contradictory assertion
+  ---
+  duration_ms: 15.350208
+  type: 'test'
+  ...
+# Subtest: A2 recovery: old alias bindings and role labels remain readable without data rewrites
+ok 35 - A2 recovery: old alias bindings and role labels remain readable without data rewrites
+  ---
+  duration_ms: 23.189667
+  type: 'test'
+  ...
+# Subtest: A2 recovery: all 40 reviewed outfits retain explicit primary and eligible contrast colors
+ok 36 - A2 recovery: all 40 reviewed outfits retain explicit primary and eligible contrast colors
+  ---
+  duration_ms: 818.990667
+  type: 'test'
+  ...
+# Subtest: A2 recovery: separate garments in explicit duo sections do not inherit the other role colors
+ok 37 - A2 recovery: separate garments in explicit duo sections do not inherit the other role colors
+  ---
+  duration_ms: 32.754792
+  type: 'test'
+  ...
+# Subtest: A2 recovery: resolved outerwear fallback stays within each explicit role
+ok 38 - A2 recovery: resolved outerwear fallback stays within each explicit role
+  ---
+  duration_ms: 24.888333
+  type: 'test'
+  ...
+# Subtest: A2 recovery: authored fixed-detail silence remains explicit in raw parsing
+ok 39 - A2 recovery: authored fixed-detail silence remains explicit in raw parsing
+  ---
+  duration_ms: 21.034209
+  type: 'test'
+  ...
+1..39
+# tests 39
+# suites 0
+# pass 39
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6851.603166

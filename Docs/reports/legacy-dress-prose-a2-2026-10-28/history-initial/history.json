@@ -1,0 +1,14 @@
+{
+  "baseCommit": "2caa6fdcd2ab63931339ee3018ca52025d3cef3f",
+  "inverseExact": true,
+  "log": [
+    {
+      "script": "legacy_dress_restore_a2_acceptance.mjs",
+      "passed": true
+    },
+    {
+      "script": "legacy_dress_restore_a2_history.mjs",
+      "passed": true
+    }
+  ]
+}

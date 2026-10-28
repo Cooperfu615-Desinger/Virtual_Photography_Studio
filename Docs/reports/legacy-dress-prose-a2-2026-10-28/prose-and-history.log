@@ -1,0 +1,123 @@
+TAP version 13
+# Subtest: A2 legacy dress inverse restores exact fixed sources atomically and is idempotent only in isolated copies
+not ok 1 - A2 legacy dress inverse restores exact fixed sources atomically and is idempotent only in isolated copies
+  ---
+  duration_ms: 18.689958
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/page1/legacyDressRestoreHistory.test.js:12:1'
+  failureType: 'testCodeFailure'
+  error: 'Legacy dress prose inverse rejects unknown source: webapp/src/features/saved-cards/cardCodec.js'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    preLegacyDressProseSource (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/a2LegacyDressProseReplay.mjs:12:32)
+    preLegacyDressSource (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/a2LegacyDressReplay.mjs:12:9)
+    restorePreA2LegacyDressFiles (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/a2LegacyDressReplay.mjs:24:55)
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/page1/legacyDressRestoreHistory.test.js:17:2)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: A2 legacy dress inverse rejects unknown, missing, mixed and Git inputs before any writes
+ok 2 - A2 legacy dress inverse rejects unknown, missing, mixed and Git inputs before any writes
+  ---
+  duration_ms: 172.479542
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress prose inverse restores exact fixed sources atomically and is idempotent only in isolated copies
+ok 3 - A2 legacy dress prose inverse restores exact fixed sources atomically and is idempotent only in isolated copies
+  ---
+  duration_ms: 11.099083
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress prose inverse rejects unknown, missing, mixed and Git inputs before any writes
+ok 4 - A2 legacy dress prose inverse rejects unknown, missing, mixed and Git inputs before any writes
+  ---
+  duration_ms: 52.080209
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: 24 single dresses use canonical dress fields and do not populate dormant roles
+ok 5 - A2 dress prose: 24 single dresses use canonical dress fields and do not populate dormant roles
+  ---
+  duration_ms: 678.840917
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: all 40 swatches survive apply and regeneration, including material and pattern
+ok 6 - A2 dress prose: all 40 swatches survive apply and regeneration, including material and pattern
+  ---
+  duration_ms: 1051.995208
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: all 42 ordered palettes in both runtime grammars survive paste and old Markdown
+ok 7 - A2 dress prose: all 42 ordered palettes in both runtime grammars survive paste and old Markdown
+  ---
+  duration_ms: 4021.2835
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: ordered targets do not borrow short color words or accept incomplete/conflicting regions
+ok 8 - A2 dress prose: ordered targets do not borrow short color words or accept incomplete/conflicting regions
+  ---
+  duration_ms: 119.070083
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: A/B source sections preserve different dresses and colors without shared-field override
+ok 9 - A2 dress prose: A/B source sections preserve different dresses and colors without shared-field override
+  ---
+  duration_ms: 46.619417
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: same dress with distinct role palettes and absent role markers never guesses ownership
+ok 10 - A2 dress prose: same dress with distinct role palettes and absent role markers never guesses ownership
+  ---
+  duration_ms: 46.740958
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: conflicting garments do not choose an arbitrary same-family winner
+ok 11 - A2 dress prose: conflicting garments do not choose an arbitrary same-family winner
+  ---
+  duration_ms: 20.145167
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: true outfits and special takeover keep their original ownership
+ok 12 - A2 dress prose: true outfits and special takeover keep their original ownership
+  ---
+  duration_ms: 42.160125
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: old Markdown uses full GPT rather than conflicting compact color evidence and keeps public text
+ok 13 - A2 dress prose: old Markdown uses full GPT rather than conflicting compact color evidence and keeps public text
+  ---
+  duration_ms: 28.051625
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: old ZIP shares Markdown recovery and preserves source text
+ok 14 - A2 dress prose: old ZIP shares Markdown recovery and preserves source text
+  ---
+  duration_ms: 35.978959
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: structured JSON and PAGE1 snapshots remain authoritative over parseable public prose
+ok 15 - A2 dress prose: structured JSON and PAGE1 snapshots remain authoritative over parseable public prose
+  ---
+  duration_ms: 23.246917
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: mixed true outfit and dress preserve role selection without shared takeover
+ok 16 - A2 dress prose: mixed true outfit and dress preserve role selection without shared takeover
+  ---
+  duration_ms: 102.935875
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 15
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6353.241791

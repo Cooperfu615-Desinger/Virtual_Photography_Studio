@@ -1,0 +1,10 @@
+{
+  "port": 5175,
+  "ownedPids": [
+    38685,
+    51065
+  ],
+  "stoppedAfterBrowser": true,
+  "listening": false,
+  "externalGenerationCalls": 0
+}

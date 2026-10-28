@@ -1,0 +1,15 @@
+{
+  "message": "Command failed: git -C /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/ show 2caa6fdcd2ab63931339ee3018ca52025d3cef3f:\"knowledge_base/catalog/CameraLighting/\\345\\205\\211\\345\\234\\210-\\346\\231\\257\\346\\267\\261-aperture-depth-of-field.json\"\nfatal: path '\"knowledge_base/catalog/CameraLighting/\\345\\205\\211\\345\\234\\210-\\346\\231\\257\\346\\267\\261-aperture-depth-of-field.json\"' does not exist in '2caa6fdcd2ab63931339ee3018ca52025d3cef3f'\n",
+  "stack": "Error: Command failed: git -C /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/ show 2caa6fdcd2ab63931339ee3018ca52025d3cef3f:\"knowledge_base/catalog/CameraLighting/\\345\\205\\211\\345\\234\\210-\\346\\231\\257\\346\\267\\261-aperture-depth-of-field.json\"\nfatal: path '\"knowledge_base/catalog/CameraLighting/\\345\\205\\211\\345\\234\\210-\\346\\231\\257\\346\\267\\261-aperture-depth-of-field.json\"' does not exist in '2caa6fdcd2ab63931339ee3018ca52025d3cef3f'\n\n    at genericNodeError (node:internal/errors:983:15)\n    at wrappedFn (node:internal/errors:537:14)\n    at checkExecSyncError (node:child_process:916:11)\n    at execFileSync (node:child_process:952:15)\n    at git (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/legacy_dress_prose_a2_acceptance.mjs:20:22)\n    at file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/legacy_dress_prose_a2_acceptance.mjs:83:48",
+  "counts": {
+    "mono": 960,
+    "pairs": 2016,
+    "duo": 84,
+    "restores": 6120,
+    "generations": 8172,
+    "structured": 67,
+    "zip": 67,
+    "archived": 24
+  },
+  "mismatches": []
+}

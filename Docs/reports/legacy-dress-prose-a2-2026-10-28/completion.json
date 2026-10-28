@@ -1,0 +1,16 @@
+{
+  "localAcceptancePassed": true,
+  "baseCommit": "2caa6fdcd2ab63931339ee3018ca52025d3cef3f",
+  "historyPassed": true,
+  "exactHistoricalInputs": 9,
+  "browserChecks": 68,
+  "browserScreenshots": 44,
+  "userAcceptance": "pending",
+  "commitPush": "not performed",
+  "newCI": "not triggered",
+  "deferred": [
+    "chest region projection",
+    "other Phase 4 items",
+    "P5b"
+  ]
+}

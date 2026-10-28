@@ -1,0 +1,13 @@
+{
+  "message": "page.waitForFunction: Timeout 18000ms exceeded.",
+  "stack": "page.waitForFunction: Timeout 18000ms exceeded.\n    at /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/legacy_dress_prose_a2_browser.mjs:48:16",
+  "checks": [
+    "1440: actual paste: mono",
+    "1440: actual paste: pair-new",
+    "1440: actual paste: pair-old",
+    "1440: actual paste: duo",
+    "1440: incomplete pair cannot become a guessed swatch"
+  ],
+  "errors": [],
+  "externalPosts": []
+}

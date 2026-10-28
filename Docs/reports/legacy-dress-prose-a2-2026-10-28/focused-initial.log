@@ -1,0 +1,185 @@
+TAP version 13
+# Subtest: A2 dress prose: 24 single dresses use canonical dress fields and do not populate dormant roles
+not ok 1 - A2 dress prose: 24 single dresses use canonical dress fields and do not populate dormant roles
+  ---
+  duration_ms: 68.554458
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:19:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'outfit-preset-none'
+    - 'none'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'none'
+  actual: 'outfit-preset-none'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:20:162)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: A2 dress prose: all 40 swatches survive apply and regeneration, including material and pattern
+ok 2 - A2 dress prose: all 40 swatches survive apply and regeneration, including material and pattern
+  ---
+  duration_ms: 1088.757
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: all 42 ordered palettes in both runtime grammars survive paste and old Markdown
+not ok 3 - A2 dress prose: all 42 ordered palettes in both runtime grammars survive paste and old Markdown
+  ---
+  duration_ms: 87.400709
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:25:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'outfit-preset-none'
+    - 'none'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'none'
+  actual: 'outfit-preset-none'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:28:231)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: A2 dress prose: ordered targets do not borrow short color words or accept incomplete/conflicting regions
+not ok 4 - A2 dress prose: ordered targets do not borrow short color words or accept incomplete/conflicting regions
+  ---
+  duration_ms: 61.146292
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:31:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'cherry-blossom-cream'
+    - 'none'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'none'
+  actual: 'cherry-blossom-cream'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:34:105)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: A2 dress prose: A/B source sections preserve different dresses and colors without shared-field override
+not ok 5 - A2 dress prose: A/B source sections preserve different dresses and colors without shared-field override
+  ---
+  duration_ms: 40.764958
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:38:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'outfit-preset-none'
+    - 'none'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'none'
+  actual: 'outfit-preset-none'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:40:49)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: A2 dress prose: same dress with distinct role palettes and absent role markers never guesses ownership
+ok 6 - A2 dress prose: same dress with distinct role palettes and absent role markers never guesses ownership
+  ---
+  duration_ms: 46.29575
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: conflicting garments do not choose an arbitrary same-family winner
+ok 7 - A2 dress prose: conflicting garments do not choose an arbitrary same-family winner
+  ---
+  duration_ms: 20.28225
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: true outfits and special takeover keep their original ownership
+not ok 8 - A2 dress prose: true outfits and special takeover keep their original ownership
+  ---
+  duration_ms: 68.844666
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:52:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'wardrobe:特殊穿搭-special-outfits:全無:0'
+    - 'wardrobe:特殊穿搭-special-outfits:黑色波點頭巾透紗套裝:1'
+                                     ^
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'wardrobe:特殊穿搭-special-outfits:黑色波點頭巾透紗套裝:1'
+  actual: 'wardrobe:特殊穿搭-special-outfits:全無:0'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/saved-cards/legacyDressProseRecovery.test.js:53:171)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: A2 dress prose: old Markdown uses full GPT rather than conflicting compact color evidence and keeps public text
+ok 9 - A2 dress prose: old Markdown uses full GPT rather than conflicting compact color evidence and keeps public text
+  ---
+  duration_ms: 29.0845
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: old ZIP shares Markdown recovery and preserves source text
+ok 10 - A2 dress prose: old ZIP shares Markdown recovery and preserves source text
+  ---
+  duration_ms: 37.901667
+  type: 'test'
+  ...
+# Subtest: A2 dress prose: structured JSON and PAGE1 snapshots remain authoritative over parseable public prose
+ok 11 - A2 dress prose: structured JSON and PAGE1 snapshots remain authoritative over parseable public prose
+  ---
+  duration_ms: 11.643667
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 6
+# fail 5
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1732.777542

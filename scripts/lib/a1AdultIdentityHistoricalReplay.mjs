@@ -1,3 +1,4 @@
+import { restorePreA2LegacyDressProseFiles } from './a2LegacyDressProseReplay.mjs';
 import { restorePreA2LegacyDressFiles } from './a2LegacyDressReplay.mjs';
 // Test-only exact inverse. Preserve all other current code and historical evidence.
 import assert from 'node:assert/strict';
@@ -28,6 +29,7 @@ export function openPreA1ReplayRoot() {
     for (const path of ['webapp/src', 'scripts', 'knowledge_base']) cpSync(join(A1_ROOT, path), join(directory, path), { recursive: true });
     for (const file of ['package.json', 'package-lock.json']) cpSync(join(A1_ROOT, 'webapp', file), join(directory, 'webapp', file));
     symlinkSync(join(A1_ROOT, 'webapp/node_modules'), join(directory, 'webapp/node_modules'), 'dir');
+    restorePreA2LegacyDressProseFiles(directory);
     restorePreA2LegacyDressFiles(directory);
     restorePreA2Files(directory);
     const file = join(directory, 'webapp/src/lib/engine.js');

@@ -1,0 +1,155 @@
+{
+  "missingWorktrees": [
+    {
+      "path": "/private/tmp/vps-duo-ci-review",
+      "stillMissing": true,
+      "registrationUnchanged": true
+    }
+  ],
+  "baseCommit": "2caa6fdcd2ab63931339ee3018ca52025d3cef3f",
+  "head": "2caa6fdcd2ab63931339ee3018ca52025d3cef3f",
+  "branch": "main",
+  "trackedFilesChecked": 2948,
+  "allowedChangedTrackedFiles": [
+    "Docs/current_project_state.md",
+    "Docs/specs/wardrobe-section-b-authoring-guide.md",
+    "scripts/lib/a1AdultIdentityHistoricalReplay.mjs",
+    "scripts/lib/a2DressControlHistoricalReplay.mjs",
+    "scripts/lib/a2LegacyDressReplay.mjs",
+    "scripts/lib/a2OutfitControlHistoricalReplay.mjs",
+    "scripts/lib/a2WardrobeColorRecoveryReplay.mjs",
+    "webapp/src/features/page1/legacyDressRestore.test.js",
+    "webapp/src/features/page1/legacyDressRestoreHistory.test.js",
+    "webapp/src/features/saved-cards/cardCodec.js",
+    "webapp/src/features/saved-cards/wardrobeColorRecovery.test.js"
+  ],
+  "unexpectedChanges": [],
+  "unexpectedNewFiles": [],
+  "historicalFilesChecked": 1519,
+  "historicalChanged": [],
+  "otherWorktrees": [
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/.codex/worktrees/capture-import-integration/Virtual_Photography_Studio",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/ethnicity-default-japanese",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-gest",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-grid",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-head",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-props",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-sit-kneel",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-squatting",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-standing",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-ui",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p1",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p2",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p3",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p4",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p5",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p5b",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/preview-prompt-test",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/reference-person-preview",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/tshirt-crew-neck",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    }
+  ],
+  "otherDirtyFilesChecked": 140,
+  "stagedFiles": [],
+  "passed": true
+}

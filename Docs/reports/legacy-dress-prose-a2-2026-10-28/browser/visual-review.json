@@ -1,0 +1,43 @@
+{
+  "reviewedBy": "Codex visual inspection",
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      900
+    ]
+  ],
+  "reviewedFiles": [
+    "1440-paste-pair-new-detail.png",
+    "390-paste-pair-new-detail.png",
+    "1440-paste-duo-detail.png",
+    "390-released-detail.png",
+    "1440-capture-disabled-detail.png",
+    "390-capture-reimport-detail.png",
+    "1440-workspace-0.png",
+    "1440-workspace-1.png",
+    "1440-workspace-2.png",
+    "1440-workspace-3.png",
+    "1440-workspace-4.png",
+    "1440-workspace-5.png",
+    "390-workspace-0.png",
+    "390-workspace-1.png",
+    "390-workspace-2.png",
+    "390-workspace-3.png",
+    "390-workspace-4.png",
+    "390-workspace-5.png"
+  ],
+  "result": "No new overlap, clipped controls, missing images or unintended horizontal overflow. Mobile retains intentional vertical stacking; textareas retain bounded scrolling.",
+  "passed": true,
+  "finalRunInput": "acceptance/baseline-and-saved.json.gz",
+  "finalRunCardIdentity": "ZIP imported record id prose verified before apply",
+  "finalRunReinspected": [
+    "1440-paste-pair-new-detail.png",
+    "390-paste-pair-new-detail.png",
+    "390-capture-disabled-detail.png",
+    "1440-workspace-5.png"
+  ]
+}
