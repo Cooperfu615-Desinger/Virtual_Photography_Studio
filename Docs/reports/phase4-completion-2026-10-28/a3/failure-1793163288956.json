@@ -1,0 +1,10 @@
+{
+  "message": "light:camera:環境光條件-ambient-light-conditions:高調純白攝影棚:34none\n+ actual - expected\n... Skipped lines\n\n  {\n    extraPrompts: [\n      {\n        id: 'chest-up-portrait',\n        label: '胸上特寫照',\n...\n          meta: {\n+           legacyPromptAliases: [\n+             'high-key white studio environment, ultra-clean bright commercial illumination, near-shadowless studio ambience, no background structure specified'\n+           ],\n            tags: [\n              'artificial_light',\n              'indoor',\n              'studio_light',\n              'studio_scene_only',\n",
+  "stack": "AssertionError [ERR_ASSERTION]: light:camera:環境光條件-ambient-light-conditions:高調純白攝影棚:34none\n+ actual - expected\n... Skipped lines\n\n  {\n    extraPrompts: [\n      {\n        id: 'chest-up-portrait',\n        label: '胸上特寫照',\n...\n          meta: {\n+           legacyPromptAliases: [\n+             'high-key white studio environment, ultra-clean bright commercial illumination, near-shadowless studio ambience, no background structure specified'\n+           ],\n            tags: [\n              'artificial_light',\n              'indoor',\n              'studio_light',\n              'studio_scene_only',\n\n    at check (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/phase4_a3_acceptance.mjs:21:472)\n    at file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/phase4_a3_acceptance.mjs:22:108",
+  "counts": {
+    "cases": 495,
+    "generations": 992,
+    "changed": 0,
+    "roundTrips": 0
+  }
+}

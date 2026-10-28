@@ -327,7 +327,7 @@ test('Gpt character profile cards use curated identity hair outfit and accessory
       identityIncludes: [/large round warm gray-brown eyes/i, /small near-round oval face/i, /slim petite delicate proportions/i],
       identityExcludes: /calm quiet gaze|eyeglasses|sage-mint green sleeveless/i,
       hairIncludes: [/pale silver-lilac short bob/i, /soft ash roots/i],
-      outfitIncludes: [/loose sage-mint green sleeveless tunic tank top/i, /matching sage-mint green relaxed short shorts/i, /bare feet as the locked footwear state/i],
+      outfitIncludes: [/loose sage-mint green sleeveless tunic tank top/i, /matching sage-mint green relaxed short shorts/i, /bare feet/i],
       accessoriesIncludes: [/round thin black metal eyeglasses/i],
     },
   ];
@@ -665,7 +665,8 @@ test('hina character profile card preserves silver lilac bob round glasses mint 
   assert.match(promptText, /loose sage-mint green sleeveless tunic tank top/);
   assert.match(promptText, /wide armholes with a subtle black inner layer visible at the side/);
   assert.match(promptText, /matching sage-mint green relaxed short shorts/);
-  assert.match(promptText, /bare feet as the locked footwear state/);
+  assert.match(promptText, /bare feet/);
+  assert.doesNotMatch(promptText, /as the locked footwear state/);
   assert.doesNotMatch(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
   assert.doesNotMatch(promptText, /unknown anomalous figure/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);

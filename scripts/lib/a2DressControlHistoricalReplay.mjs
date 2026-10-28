@@ -1,4 +1,4 @@
-import { restorePrePhase4Files } from './phase4Replay.mjs';
+import { restorePrePhase4Files, prePhase4Json } from './phase4Replay.mjs';
 import { restorePreChestDressRegionFiles } from './a2ChestDressRegionReplay.mjs';
 import { restorePreA2LegacyDressProseFiles } from './a2LegacyDressProseReplay.mjs';
 import { restorePreA2LegacyDressFiles } from './a2LegacyDressReplay.mjs';
@@ -59,6 +59,7 @@ function inverse(rows, key, beforeKey, afterKey) {
   return matches[0].state;
 }
 export function preA2Database(database) {
+  database = prePhase4Json('webapp/src/data/database.json', database);
   const copy = preA2OutfitDatabase(database);
   inverse(copy.Wardrobe['連身 (Dresses)'], 'stableId', 'generatedBefore', 'generatedAfter');
   return copy;

@@ -13,6 +13,9 @@ export function prePhase4Source(path,source){
  assert.equal(hash(file.beforeSource),file.beforeHash,'Phase 4 inverse invalid fixed source');
  return Buffer.isBuffer(source)?Buffer.from(file.beforeSource):file.beforeSource;
 }
+export function prePhase4Json(path,value){
+ return JSON.parse(prePhase4Source(path,JSON.stringify(value,null,2)+'\n'));
+}
 export function restorePrePhase4Files(directory){
  assert.notEqual(realpathSync(directory),realpathSync(PHASE4_ROOT),'Phase 4 inverse requires isolated copy');
  assert.ok(!existsSync(join(directory,'.git')),'Phase 4 inverse rejects Git checkout');

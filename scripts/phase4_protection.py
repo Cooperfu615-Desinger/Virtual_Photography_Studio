@@ -39,7 +39,8 @@ def check(before):
               'historicalFilesChecked': len(historical), 'historicalChanged': [p for p in historical if p in changed],
               'otherWorktrees': other, 'otherDirtyFilesChecked': sum(len(x['files']) for x in before['otherWorktrees']),
               'stagedFiles': git(ROOT, 'diff', '--cached', '--name-only').splitlines()}
-    result['passed'] = (before['baseCommit'] == BASE and result['branch'] == 'main' and not result['historicalChanged'] and all(x['headUnchanged'] and x['statusUnchanged']
+    result['changedCommittedReports'] = [p for p in git(ROOT, 'diff', 'HEAD', '--name-only').splitlines() if p.startswith('Docs/reports/')]
+    result['passed'] = (before['baseCommit'] == BASE and result['branch'] == 'main' and not result['historicalChanged'] and not result['changedCommittedReports'] and all(x['headUnchanged'] and x['statusUnchanged']
                         and not x['changedFiles'] for x in other)
                         and all(x['stillMissing'] and x['registrationUnchanged'] for x in missing))
     return result

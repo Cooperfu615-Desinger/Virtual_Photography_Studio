@@ -1,3 +1,4 @@
+import { prePhase4Json } from '../../../../scripts/lib/phase4Replay.mjs';
 import { preLegacyDressSource } from '../../../../scripts/lib/a2LegacyDressReplay.mjs';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
@@ -24,7 +25,7 @@ test('A2 special tape source changes exactly two controls, no fixed red, and app
   assert.deepEqual(source, base, 'all other 90 source rows and ordered fields stay unchanged');
   const db = JSON.parse(git('webapp/src/data/database.json'));
   db.Wardrobe[r.category][db.Wardrobe[r.category].findIndex(x => x.stableId === r.id)] = r.generatedAfter;
-  assert.deepEqual(getKnowledgeBaseSnapshot(), db);
+  assert.deepEqual(prePhase4Json('webapp/src/data/database.json',getKnowledgeBaseSnapshot()), db);
 });
 
 test('A2 special tape every crop and all nine palettes retain existing scope without source controls', () => {
@@ -50,9 +51,9 @@ test('A2 special tape old full English and issued IDs retain ownership', () => {
 });
 
 test('A2 special tape database inverse rejects unknown text, metadata, aliases, ID order and duplicates', () => {
-  const db = getKnowledgeBaseSnapshot(), old = preA2SpecialTapeDatabase(db);
+  const db = prePhase4Json('webapp/src/data/database.json',getKnowledgeBaseSnapshot()), old = preA2SpecialTapeDatabase(db);
   assert.deepEqual(old, JSON.parse(git('webapp/src/data/database.json')));
-  assert.deepEqual(preA2SpecialTapeDatabase(old), old); assert.deepEqual(db, getKnowledgeBaseSnapshot());
+  assert.deepEqual(preA2SpecialTapeDatabase(old), old); assert.deepEqual(db, prePhase4Json('webapp/src/data/database.json',getKnowledgeBaseSnapshot()));
   for (const mutate of [x => x.at(-1).en += ' extra', x => x.at(-1).meta.semantic.tags.push('extra'), x => x.at(-1).legacyPromptAliases.push('extra'), x => x.pop(), x => x.push(x.at(-1)), x => x.reverse()]) {
     const bad = structuredClone(db); mutate(bad.Wardrobe[r.category]); assert.throws(() => preA2SpecialTapeDatabase(bad), /Tape inverse/);
   }

@@ -49,6 +49,7 @@ export async function withPreA2WardrobeRecoveryReplay(run) {
     cpSync(join(RECOVERY_ROOT,'webapp/package.json'),join(directory,'webapp/package.json'));
     symlinkSync(join(RECOVERY_ROOT,'webapp/node_modules'),join(directory,'webapp/node_modules'),'dir');
     cpSync(join(RECOVERY_ROOT,'scripts/lib'),join(directory,'scripts/lib'),{recursive:true});
+    cpSync(join(RECOVERY_ROOT,'knowledge_base'),join(directory,'knowledge_base'),{recursive:true});
     restorePrePhase4Files(directory);
     restorePreChestDressRegionFiles(directory);
     restorePreA2LegacyDressProseFiles(directory);

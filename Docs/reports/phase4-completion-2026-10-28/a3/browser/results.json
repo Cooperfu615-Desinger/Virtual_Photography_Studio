@@ -1,0 +1,66 @@
+{
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      900
+    ]
+  ],
+  "checks": [
+    "1440:old card copies original control phrase",
+    "1440:apply projects bare feet and preserves identity",
+    "1440:all six output copy consumers",
+    "1440:Markdown download retains original six outputs",
+    "1440:ZIP apply and reload keep public projection",
+    "1440:legacy PAGE3 payload remains stored while public labels are projected",
+    "1440:actual PAGE3 architecture import uses current source language",
+    "1440:studio light light:camera:環境光條件-ambient-light-conditions:高調純白攝影棚:34none",
+    "1440:studio light light:camera:環境光條件-ambient-light-conditions:柔霧美妝攝影棚:35none",
+    "1440:studio light light:camera:環境光條件-ambient-light-conditions:舞台演出燈光:36none",
+    "1440:workspace Prompt 工作台",
+    "1440:workspace 角色建模",
+    "1440:workspace 場景建模",
+    "1440:workspace DLL_PIC Pro",
+    "1440:workspace DLL_VIDEO Pro",
+    "1440:workspace Saved Cards",
+    "390:old card copies original control phrase",
+    "390:apply projects bare feet and preserves identity",
+    "390:all six output copy consumers",
+    "390:Markdown download retains original six outputs",
+    "390:ZIP apply and reload keep public projection",
+    "390:legacy PAGE3 payload remains stored while public labels are projected",
+    "390:actual PAGE3 architecture import uses current source language",
+    "390:studio light light:camera:環境光條件-ambient-light-conditions:高調純白攝影棚:34none",
+    "390:studio light light:camera:環境光條件-ambient-light-conditions:柔霧美妝攝影棚:35none",
+    "390:studio light light:camera:環境光條件-ambient-light-conditions:舞台演出燈光:36none",
+    "390:workspace Prompt 工作台",
+    "390:workspace 角色建模",
+    "390:workspace 場景建模",
+    "390:workspace DLL_PIC Pro",
+    "390:workspace DLL_VIDEO Pro",
+    "390:workspace Saved Cards"
+  ],
+  "screenshots": [
+    "1440-hina.png",
+    "1440-world-import.png",
+    "1440-workspace-0.png",
+    "1440-workspace-1.png",
+    "1440-workspace-2.png",
+    "1440-workspace-3.png",
+    "1440-workspace-4.png",
+    "1440-workspace-5.png",
+    "390-hina.png",
+    "390-world-import.png",
+    "390-workspace-0.png",
+    "390-workspace-1.png",
+    "390-workspace-2.png",
+    "390-workspace-3.png",
+    "390-workspace-4.png",
+    "390-workspace-5.png"
+  ],
+  "errors": [],
+  "externalPosts": []
+}

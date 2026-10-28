@@ -13601,7 +13601,7 @@
       },
       {
         "zh": "高調純白攝影棚",
-        "en": "high-key white studio environment, ultra-clean bright commercial illumination, near-shadowless studio ambience, no background structure specified",
+        "en": "high-key white studio environment, ultra-clean bright commercial illumination, near-shadowless studio ambience",
         "desc": "高調白光與均勻棚燈主導的商業攝影環境，整體明亮乾淨、陰影極淡或近乎消失，不額外指定背景結構。",
         "meta": {
           "semantic": {
@@ -13620,6 +13620,9 @@
             ]
           }
         },
+        "legacyPromptAliases": [
+          "high-key white studio environment, ultra-clean bright commercial illumination, near-shadowless studio ambience, no background structure specified"
+        ],
         "stableId": "camera:環境光條件-ambient-light-conditions:高調純白攝影棚:34",
         "legacyIds": [
           "camera:環境光氛-environment-mood:高調純白攝影棚:34",
@@ -13628,7 +13631,7 @@
       },
       {
         "zh": "柔霧美妝攝影棚",
-        "en": "soft beauty studio environment, diffused shadowless illumination, creamy clean light quality, polished commercial portrait ambience, no background structure specified",
+        "en": "soft beauty studio environment, diffused shadowless illumination, creamy clean light quality, polished commercial portrait ambience",
         "desc": "以大型柔光與均勻棚燈營造的美妝棚拍環境，陰影極輕、膚質細膩、畫面乾淨柔順，不額外指定背景結構。",
         "meta": {
           "semantic": {
@@ -13648,6 +13651,9 @@
             ]
           }
         },
+        "legacyPromptAliases": [
+          "soft beauty studio environment, diffused shadowless illumination, creamy clean light quality, polished commercial portrait ambience, no background structure specified"
+        ],
         "stableId": "camera:環境光條件-ambient-light-conditions:柔霧美妝攝影棚:35",
         "legacyIds": [
           "camera:環境光氛-environment-mood:柔霧美妝攝影棚:35",
@@ -13656,7 +13662,7 @@
       },
       {
         "zh": "舞台演出燈光",
-        "en": "stage-inspired studio environment, controlled colored light beams, performance-like ambience, artificial light shafts without generating a stage venue",
+        "en": "stage-inspired studio environment, controlled colored light beams, performance-like ambience, artificial light shafts",
         "desc": "以舞台感燈束與強人工燈具主導的攝影棚環境，保留彩色燈束與表演式照明，但不生成實際演出場館。",
         "meta": {
           "semantic": {
@@ -13673,6 +13679,9 @@
             ]
           }
         },
+        "legacyPromptAliases": [
+          "stage-inspired studio environment, controlled colored light beams, performance-like ambience, artificial light shafts without generating a stage venue"
+        ],
         "stableId": "camera:環境光條件-ambient-light-conditions:舞台演出燈光:36",
         "legacyIds": [
           "camera:環境光氛-environment-mood:舞台演出燈光:36",

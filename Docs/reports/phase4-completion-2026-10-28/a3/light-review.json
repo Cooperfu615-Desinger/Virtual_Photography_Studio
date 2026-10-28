@@ -1,0 +1,64 @@
+[
+  {
+    "id": "camera:環境光條件-ambient-light-conditions:高調純白攝影棚:34",
+    "zh": "高調純白攝影棚",
+    "before": "high-key white studio environment, ultra-clean bright commercial illumination, near-shadowless studio ambience, no background structure specified",
+    "after": "high-key white studio environment, ultra-clean bright commercial illumination, near-shadowless studio ambience",
+    "semantic": {
+      "tags": [
+        "artificial_light",
+        "indoor",
+        "studio_light",
+        "studio_scene_only",
+        "controlled",
+        "soft_light",
+        "supports_indoor",
+        "supports_studio",
+        "supports_commercial",
+        "ambient_studio",
+        "ambient_indoor"
+      ]
+    }
+  },
+  {
+    "id": "camera:環境光條件-ambient-light-conditions:柔霧美妝攝影棚:35",
+    "zh": "柔霧美妝攝影棚",
+    "before": "soft beauty studio environment, diffused shadowless illumination, creamy clean light quality, polished commercial portrait ambience, no background structure specified",
+    "after": "soft beauty studio environment, diffused shadowless illumination, creamy clean light quality, polished commercial portrait ambience",
+    "semantic": {
+      "tags": [
+        "artificial_light",
+        "indoor",
+        "studio_light",
+        "studio_scene_only",
+        "controlled",
+        "soft_light",
+        "portrait_light",
+        "supports_indoor",
+        "supports_studio",
+        "supports_commercial",
+        "ambient_studio",
+        "ambient_indoor"
+      ]
+    }
+  },
+  {
+    "id": "camera:環境光條件-ambient-light-conditions:舞台演出燈光:36",
+    "zh": "舞台演出燈光",
+    "before": "stage-inspired studio environment, controlled colored light beams, performance-like ambience, artificial light shafts without generating a stage venue",
+    "after": "stage-inspired studio environment, controlled colored light beams, performance-like ambience, artificial light shafts",
+    "semantic": {
+      "tags": [
+        "artificial_light",
+        "stage_light",
+        "studio_scene_only",
+        "dramatic",
+        "supports_indoor",
+        "supports_commercial",
+        "supports_studio",
+        "ambient_studio",
+        "ambient_indoor"
+      ]
+    }
+  }
+]

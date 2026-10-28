@@ -1,4 +1,6 @@
-// Final punctuation polish for public prompt text. It only repairs assembly
+import { projectPublicSourceLanguage } from './publicSourceLanguage.js';
+
+// Phase 4 first projects the five reviewed internal phrases; then final punctuation polish for public prompt text. It only repairs assembly
 // artifacts (doubled punctuation, a dangling comma after the wardrobe lead and
 // lowercase sentence starts); it never adds, removes or reorders visual facts.
 // See Docs/reports/prompt-official-review-2026-10-13/README.md §2 X3/X4.
@@ -16,7 +18,7 @@ function capitalizeSentenceStarts(text) {
 
 export function polishPublicPromptText(value) {
   if (typeof value !== 'string' || !value) return value;
-  const text = value
+  const text = projectPublicSourceLanguage(value)
     // "where visible., soft" -> "where visible, soft"
     .replace(/\.[ \t]*,/g, ',')
     // "She wears, black t-shirt" -> "She wears black t-shirt"

@@ -3207,6 +3207,12 @@
               "required": [
                 "semantic"
               ]
+            },
+            "legacyPromptAliases": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           },
           "required": [

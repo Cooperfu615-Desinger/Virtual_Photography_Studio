@@ -355,7 +355,8 @@
         "Wardrobe/外套圖案 (Outerwear Surface Design)",
         "Character/五官特徵 (Facial Features)",
         "Character/體態 (Body Type)",
-        "Wardrobe/特殊穿搭 (Special Outfits)"
+        "Wardrobe/特殊穿搭 (Special Outfits)",
+        "CameraLighting/環境光條件 (Ambient Light Conditions)"
       ],
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
@@ -1154,7 +1155,8 @@
         "Wardrobe/外套圖案 (Outerwear Surface Design)",
         "Character/五官特徵 (Facial Features)",
         "Character/體態 (Body Type)",
-        "Wardrobe/特殊穿搭 (Special Outfits)"
+        "Wardrobe/特殊穿搭 (Special Outfits)",
+        "CameraLighting/環境光條件 (Ambient Light Conditions)"
       ],
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
@@ -1173,7 +1175,8 @@
         "Wardrobe/外套圖案 (Outerwear Surface Design)",
         "Character/五官特徵 (Facial Features)",
         "Character/體態 (Body Type)",
-        "Wardrobe/特殊穿搭 (Special Outfits)"
+        "Wardrobe/特殊穿搭 (Special Outfits)",
+        "CameraLighting/環境光條件 (Ambient Light Conditions)"
       ],
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },

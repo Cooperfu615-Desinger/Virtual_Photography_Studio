@@ -1,3 +1,4 @@
+import { projectPublicSourceLanguage } from './engine/publicSourceLanguage.js';
 import { SPECIAL_SCENE_LOCATIONS, WORLD_SCENE_LOCATIONS } from '../data/page3WorldScenes.js';
 import { buildPhotographyStylePrompt, getPhotographyStyleOptions } from './engine.js';
 
@@ -359,7 +360,7 @@ export function buildPage1WorldSceneArchitecture(profile = {}) {
 
   return {
     label: location.labelZh || formatAnchorLocation(location),
-    text,
+    text: projectPublicSourceLanguage(text),
   };
 }
 

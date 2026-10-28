@@ -375,21 +375,21 @@ export const AMBIENT_LIGHT_DESCRIPTIONS = freeze(Object.fromEntries([
   {
     "id": "camera:環境光條件-ambient-light-conditions:高調純白攝影棚:34",
     "zh": "高調純白攝影棚",
-    "source": "high-key white studio environment, ultra-clean bright commercial illumination, near-shadowless studio ambience, no background structure specified",
+    "source": "high-key white studio environment, ultra-clean bright commercial illumination, near-shadowless studio ambience",
     "core": "high-key white illumination with bright even commercial light and very pale shadows",
     "details": []
   },
   {
     "id": "camera:環境光條件-ambient-light-conditions:柔霧美妝攝影棚:35",
     "zh": "柔霧美妝攝影棚",
-    "source": "soft beauty studio environment, diffused shadowless illumination, creamy clean light quality, polished commercial portrait ambience, no background structure specified",
+    "source": "soft beauty studio environment, diffused shadowless illumination, creamy clean light quality, polished commercial portrait ambience",
     "core": "soft diffused beauty lighting with creamy light quality and very gentle shadows",
     "details": []
   },
   {
     "id": "camera:環境光條件-ambient-light-conditions:舞台演出燈光:36",
     "zh": "舞台演出燈光",
-    "source": "stage-inspired studio environment, controlled colored light beams, performance-like ambience, artificial light shafts without generating a stage venue",
+    "source": "stage-inspired studio environment, controlled colored light beams, performance-like ambience, artificial light shafts",
     "core": "stage-inspired illumination with controlled colored light beams",
     "details": []
   }

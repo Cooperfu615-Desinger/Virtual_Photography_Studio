@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-28
 
+## Phase 4 A3：公開控制語（2026-10-28，本機驗收完成）
+
+- A2 主工作台已交付 `8bbc6056`，CI 40634606533 前端／Functions／build／deploy 全數成功。
+- 三筆棚光來源只刪內部控制句並保留舊英文 aliases；PAGE3 匯入標籤與赤腳鎖定狀態採精確公開投影，舊卡與原角色資料不遷移。720 組固定 Git 案例／1,440 次生成／28 次往返通過。
+- 前端 1,993、品質 835、Python 43、目錄 32 及完整閘門通過；200 同 seed audit 與修改前相同。桌手機 32 操作／16 畫面無 error。其他工作目錄與歷史基準保持。
+- [規格](specs/phase4-a3-public-language-v1.md)、[決策](decisions/2026-10-28-phase4-a3-public-language.md)、[報告](reports/phase4-completion-2026-10-28/a3/README.md)。依已授權順序交付後續作 A4 固定色套裝，再 A5／A6／A7 與整體收尾；P5b 暫緩。
+
 ## Phase 4 整體交付進行中（2026-10-28）
 
 - Cooper 已授權完成剩餘 A2、A3–A7、整體收尾並依序 commit／push，不再逐批等確認；P5b 及 B3／J12／C 類擴充仍暫緩。執行契約：[Phase 4](specs/phase4-completion-v1.md)。
