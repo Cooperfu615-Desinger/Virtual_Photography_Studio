@@ -23,12 +23,13 @@ checks = [
  ('catalog', ['node', '--test', 'scripts/tests/catalog-integrity.test.mjs', 'scripts/tests/catalog-semantics.test.mjs', 'scripts/tests/catalog-legacy.test.mjs'], '.'),
  ('assets', ['python3', 'scripts/check_public_assets.py'], '.'),
 ]
-results = []
+results = json.loads((OUT / 'gates-latest.json').read_text()) if len(sys.argv) > 3 and (OUT / 'gates-latest.json').exists() else []
 for name, command, cwd in checks:
  if len(sys.argv) > 3 and name not in sys.argv[3:]:
   continue
  r = subprocess.run(command, cwd=ROOT / cwd, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
  (OUT / (name + '.log.gz')).write_bytes(gzip.compress(r.stdout, mtime=0))
+ results = [item for item in results if item['name'] != name]
  results.append(dict(name=name, exitCode=r.returncode, log=name + '.log.gz'))
  (OUT / 'gates-latest.json').write_text(json.dumps(results, indent=2) + '\n')
  print(name, r.returncode, flush=True)

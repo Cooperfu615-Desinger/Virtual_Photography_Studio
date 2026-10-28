@@ -1,0 +1,66 @@
+{
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      900
+    ]
+  ],
+  "checks": [
+    "1440:old card copies original conflicting color",
+    "1440:apply preserves authored colors",
+    "1440:all six output copy consumers",
+    "1440:Markdown download retains original six outputs",
+    "1440:ZIP apply and reload keep public projection",
+    "1440:fixed palette note replaces ineffective color controls",
+    "1440:actual preset picker restores editable color controls",
+    "1440:duo fixed A preserves editable B color",
+    "1440:workspace Prompt 工作台",
+    "1440:workspace 角色建模",
+    "1440:workspace 場景建模",
+    "1440:workspace DLL_PIC Pro",
+    "1440:workspace DLL_VIDEO Pro",
+    "1440:workspace Saved Cards",
+    "390:old card copies original conflicting color",
+    "390:apply preserves authored colors",
+    "390:all six output copy consumers",
+    "390:Markdown download retains original six outputs",
+    "390:ZIP apply and reload keep public projection",
+    "390:fixed palette note replaces ineffective color controls",
+    "390:actual preset picker restores editable color controls",
+    "390:duo fixed A preserves editable B color",
+    "390:workspace Prompt 工作台",
+    "390:workspace 角色建模",
+    "390:workspace 場景建模",
+    "390:workspace DLL_PIC Pro",
+    "390:workspace DLL_VIDEO Pro",
+    "390:workspace Saved Cards"
+  ],
+  "screenshots": [
+    "1440-fixed-outfit.png",
+    "1440-fixed-controls.png",
+    "1440-editable-controls.png",
+    "1440-duo.png",
+    "1440-workspace-0.png",
+    "1440-workspace-1.png",
+    "1440-workspace-2.png",
+    "1440-workspace-3.png",
+    "1440-workspace-4.png",
+    "1440-workspace-5.png",
+    "390-fixed-outfit.png",
+    "390-fixed-controls.png",
+    "390-editable-controls.png",
+    "390-duo.png",
+    "390-workspace-0.png",
+    "390-workspace-1.png",
+    "390-workspace-2.png",
+    "390-workspace-3.png",
+    "390-workspace-4.png",
+    "390-workspace-5.png"
+  ],
+  "errors": [],
+  "externalPosts": []
+}

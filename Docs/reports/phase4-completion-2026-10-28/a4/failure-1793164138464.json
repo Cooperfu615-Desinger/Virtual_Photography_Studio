@@ -1,0 +1,10 @@
+{
+  "message": "duo:wardrobe:套裝-outfit-presets:套裝-白蕾絲泡袖七分褲:39camera:景別構圖-framing:特寫鏡頭-close-up:4:wardrobe\n+ actual - expected\n... Skipped lines\n\n  [\n    {\n      desc: '以白色蕾絲泡袖綁帶上衣、荷葉下襬、深棕七分褲、白色蕾絲襪、黑色亮面 Mary Jane 鞋、銀色肩背包與小十字項鍊構成的甜美復古套裝。',\n      en: 'white lace puff-sleeve tie-front blouse, peplum hem, dark brown cropped capri pants, white lace socks, black patent Mary Jane shoes, silver shoulder bag, small cross pendant necklace',\n      id: 'wardrobe:套裝-outfit-presets:套裝-白蕾絲泡袖七分褲:39:a',\n...\n      meta: {\n+       colorMode: 'fixed',\n        family: 'retro',\n        outfitRole: 'a',\n        referenceImage: 'reference/wardrobe/outfit-presets/40_白蕾絲泡袖七分褲.avif',\n        referenceImageFormat: 'avif',\n        referenceImageId: 'outfit-presets-040',\n",
+  "stack": "AssertionError [ERR_ASSERTION]: duo:wardrobe:套裝-outfit-presets:套裝-白蕾絲泡袖七分褲:39camera:景別構圖-framing:特寫鏡頭-close-up:4:wardrobe\n+ actual - expected\n... Skipped lines\n\n  [\n    {\n      desc: '以白色蕾絲泡袖綁帶上衣、荷葉下襬、深棕七分褲、白色蕾絲襪、黑色亮面 Mary Jane 鞋、銀色肩背包與小十字項鍊構成的甜美復古套裝。',\n      en: 'white lace puff-sleeve tie-front blouse, peplum hem, dark brown cropped capri pants, white lace socks, black patent Mary Jane shoes, silver shoulder bag, small cross pendant necklace',\n      id: 'wardrobe:套裝-outfit-presets:套裝-白蕾絲泡袖七分褲:39:a',\n...\n      meta: {\n+       colorMode: 'fixed',\n        family: 'retro',\n        outfitRole: 'a',\n        referenceImage: 'reference/wardrobe/outfit-presets/40_白蕾絲泡袖七分褲.avif',\n        referenceImageFormat: 'avif',\n        referenceImageId: 'outfit-presets-040',\n\n    at check (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/phase4_a4_acceptance.mjs:14:128)\n    at file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/phase4_a4_acceptance.mjs:22:69",
+  "counts": {
+    "cases": 1767,
+    "generations": 5304,
+    "changed": 1728,
+    "roundTrips": 0
+  }
+}

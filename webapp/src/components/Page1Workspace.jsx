@@ -1368,6 +1368,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         </> : <p className="wardrobe-card-note">目前由完整造型管理。</p>}
       </section>;
     }
+    const fixedPresetPalette = group.id === 'preset' && lockControls.find(control => control.key === `outfitPreset${role}Id`)
+      ?.options.find(option => option.id === locks[`outfitPreset${role}Id`])?.meta?.colorMode === 'fixed';
     const legacyDressPalette = !role && group.id === 'dress' ? getLegacyDressPalette(locks, lockControls) : null;
     const paletteKey = `topBottomPalette${role}Id`;
     const paired = ['top', 'bottom'].includes(group.id) && getControlOptionLabel(lockControls, paletteKey, locks[paletteKey]);
@@ -1385,7 +1387,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       {paired ? <p className="wardrobe-card-note">配色由「特殊上下身配色」控制。</p> : null}
       {fields.length > 0 && allDisabled ? <p className="wardrobe-card-note">目前設定下暫不適用，原設定保留。</p> : null}
       {group.id === 'special' && !fields.some(control => control.key === `completeLookPalette${role}Id`) ? <p className="wardrobe-card-note">選擇特殊穿搭後，可在此調整對應色系。</p> : null}
-      {group.id === 'preset' && !fields.some(control => control.key === `outfitPreset${role}PrimaryColorId`) ? <p className="wardrobe-card-note">配色欄位依所選套裝顯示。</p> : null}
+      {group.id === 'preset' && !fields.some(control => control.key === `outfitPreset${role}PrimaryColorId`) ? <p className="wardrobe-card-note" role="status">{fixedPresetPalette ? '此套裝保留原有配色；改選可配色套裝後可調整主色與色系。' : '配色欄位依所選套裝顯示。'}</p> : null}
     </section>;
   };
 

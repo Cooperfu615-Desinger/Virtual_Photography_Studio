@@ -162,6 +162,8 @@ complete outfit: relaxed vintage band streetwear. faded oversized graphic T-shir
 
 ### 6.1 套裝
 
+2026-10-28 核准有限例外：A4 審閱的 9 款時尚＋3 款 cosplay 保留既有固定配色，`meta.colorMode: fixed` 明確阻止額外主色／對比色／完整色系。一般套裝仍依可配色規則；不得據此自動將其他資料改成 fixed。完整 ID、責任與驗收見 [A4 規格](phase4-a4-fixed-palettes-v1.md)。
+
 責任：定義一個可被配色控制的完整服裝方向，但不一定包含鞋襪、外套或配件。
 
 隨機外套規則：

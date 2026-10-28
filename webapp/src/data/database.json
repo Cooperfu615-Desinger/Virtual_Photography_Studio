@@ -3924,6 +3924,7 @@
               "heritage"
             ]
           },
+          "colorMode": "fixed",
           "referenceImageId": "outfit-presets-040",
           "referenceImage": "reference/wardrobe/outfit-presets/40_白蕾絲泡袖七分褲.avif",
           "referenceImageFormat": "avif"
@@ -3949,6 +3950,7 @@
               "heritage"
             ]
           },
+          "colorMode": "fixed",
           "referenceImageId": "outfit-presets-041",
           "referenceImage": "reference/wardrobe/outfit-presets/41_粉針織罩衫寬牛仔.avif",
           "referenceImageFormat": "avif"
@@ -3970,6 +3972,7 @@
               "casual"
             ]
           },
+          "colorMode": "fixed",
           "referenceImageId": "outfit-presets-042",
           "referenceImage": "reference/wardrobe/outfit-presets/42_深灰短背心氣球寬褲.avif",
           "referenceImageFormat": "avif"
@@ -3994,6 +3997,7 @@
               "casual"
             ]
           },
+          "colorMode": "fixed",
           "referenceImageId": "outfit-presets-043",
           "referenceImage": "reference/wardrobe/outfit-presets/43_白襯衫緞面背心寬牛仔.avif",
           "referenceImageFormat": "avif"
@@ -4020,6 +4024,7 @@
               "heritage"
             ]
           },
+          "colorMode": "fixed",
           "referenceImageId": "outfit-presets-044",
           "referenceImage": "reference/wardrobe/outfit-presets/44_西裝外套蕾絲迷你洋裝.avif",
           "referenceImageFormat": "avif"
@@ -4041,6 +4046,7 @@
               "uniform"
             ]
           },
+          "colorMode": "fixed",
           "referenceImageId": "outfit-presets-045",
           "referenceImage": "reference/wardrobe/outfit-presets/45_球衣荷葉迷你裙.avif",
           "referenceImageFormat": "avif"
@@ -4065,6 +4071,7 @@
               "heritage"
             ]
           },
+          "colorMode": "fixed",
           "referenceImageId": "outfit-presets-046",
           "referenceImage": "reference/wardrobe/outfit-presets/46_酒紅綁帶針織寬牛仔.avif",
           "referenceImageFormat": "avif"
@@ -4086,6 +4093,7 @@
               "romantic"
             ]
           },
+          "colorMode": "fixed",
           "referenceImageId": "outfit-presets-047",
           "referenceImage": "reference/wardrobe/outfit-presets/47_運動外套荷葉七分褲.avif",
           "referenceImageFormat": "avif"
@@ -4110,6 +4118,7 @@
               "heritage"
             ]
           },
+          "colorMode": "fixed",
           "referenceImageId": "outfit-presets-048",
           "referenceImage": "reference/wardrobe/outfit-presets/48_白蕾絲長罩衫牛仔褲.avif",
           "referenceImageFormat": "avif"
@@ -4479,6 +4488,7 @@
             "family": "neutral",
             "tags": []
           },
+          "colorMode": "fixed",
           "referenceImageId": "outfit-presets-057",
           "referenceImage": "reference/wardrobe/outfit-presets/57_Spider-Man_Cosplay.avif",
           "referenceImageFormat": "avif"
@@ -4499,6 +4509,7 @@
               "revealing"
             ]
           },
+          "colorMode": "fixed",
           "referenceImageId": "outfit-presets-058",
           "referenceImage": "reference/wardrobe/outfit-presets/58_Venom_Cosplay.avif",
           "referenceImageFormat": "avif"
@@ -4517,6 +4528,7 @@
             "family": "neutral",
             "tags": []
           },
+          "colorMode": "fixed",
           "referenceImageId": "outfit-presets-059",
           "referenceImage": "reference/wardrobe/outfit-presets/59_Spider-Gwen_Cosplay.avif",
           "referenceImageFormat": "avif"

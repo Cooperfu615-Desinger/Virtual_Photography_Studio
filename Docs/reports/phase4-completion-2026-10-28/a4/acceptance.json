@@ -1,0 +1,11 @@
+{
+  "baseCommit": "37f24aa8fb87633fd87e7fff44258291f862f5c8",
+  "counts": {
+    "cases": 2077,
+    "generations": 6232,
+    "changed": 1902,
+    "roundTrips": 8,
+    "capture": 48
+  },
+  "passed": true
+}

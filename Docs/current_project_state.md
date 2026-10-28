@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-28
 
+## Phase 4 A4：十二筆固定配色套裝（2026-10-28，本機驗收完成）
+
+- A3 已交付 `37f24aa8`，CI 40635766241 前端／Functions／build／deploy 成功。A4 保留十二筆原文配色，只增 fixed metadata，統一 renderer／摘要與 UI 有效控制；雙人隔離、ID、原文、其他套裝及 RNG 保持。
+- 固定 Git 2,077 案例、6,232 次生成、48 次抓拍／重抽、8 次存檔往返通過。既有卡與凍結抓拍來源不追溯改寫，重新生成／匯入採新來源。
+- 前端 1,995、品質 837、Python 43、目錄 32 與完整閘門通過；200 同 seed audit 0 blocker／18 既有診斷，字數隨核准刪除額外色句改變。桌手機 28 操作／20 畫面通過，0 errors／外部 POST／溢位。其他未提交內容與歷史保持。
+- [規格](specs/phase4-a4-fixed-palettes-v1.md)、[決策](decisions/2026-10-28-phase4-a4-fixed-palettes.md)、[報告](reports/phase4-completion-2026-10-28/a4/README.md)。接續 A5 十一筆室內外語意、A6 光線相容、A7 角色攝影方向及整體收尾。P5b 暫緩。
+
 ## Phase 4 A3：公開控制語（2026-10-28，本機驗收完成）
 
 - A2 主工作台已交付 `8bbc6056`，CI 40634606533 前端／Functions／build／deploy 全數成功。

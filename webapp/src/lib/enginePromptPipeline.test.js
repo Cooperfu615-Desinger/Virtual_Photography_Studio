@@ -1134,7 +1134,8 @@ test('Z-Image duo prompt uses compact direct paragraphs', () => {
   assert.match(zPrompt, /^Photorealistic editorial portrait\./i);
   // Faces are unlocked (unseeded); both none renders the 2026-10-17 Japanese default.
   assert.match(zPrompt, new RegExp(`\\n\\n${expectedSubjectText(prompt, 'Two stunning seductive 20-year-old adult women')}\\.`));
-  assert.match(zPrompt, /Woman 1 has [\s\S]+?She wears [^.]*cropped sleeveless tank[\s\S]*balloon wide pants[\s\S]*deep indigo denim palette/i);
+  assert.match(zPrompt, /Woman 1 has [\s\S]+?She wears dark gray cropped sleeveless tank[\s\S]*light gray balloon wide pants/i);
+  assert.doesNotMatch(zPrompt, /deep indigo denim palette/i);
   assert.match(zPrompt, /Woman 2 has [\s\S]+?She wears [^.]*sheer mesh halter camisole[\s\S]*denim micro mini skirt[\s\S]*silver graphite metallic palette/i);
   assert.match(zPrompt, /laugh naturally with each other/i);
   assert.match(zPrompt, /posing like fashion magazine models/i);

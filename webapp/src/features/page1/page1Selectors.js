@@ -74,13 +74,13 @@ export function createPresetColorVisibility(controls, locks) {
     const singleMode = selectedSingle?.meta?.colorMode || '';
     const modeA = selectedA?.meta?.colorMode || '';
     const modeB = selectedB?.meta?.colorMode || '';
-    if (controlKey === 'outfitPresetPrimaryColorId') return isActiveOption(selectedSingle);
+    if (controlKey === 'outfitPresetPrimaryColorId') return isActiveOption(selectedSingle) && singleMode !== 'fixed';
     if (controlKey === 'outfitPresetContrastColorId') return ['primary_contrast', 'primary_contrast_locked'].includes(singleMode);
     if (controlKey === 'outfitPresetLockedPaletteId') return singleMode === 'primary_contrast_locked' && hasLockedTargets(selectedSingle);
-    if (controlKey === 'outfitPresetAPrimaryColorId') return isActiveOption(selectedA);
+    if (controlKey === 'outfitPresetAPrimaryColorId') return isActiveOption(selectedA) && modeA !== 'fixed';
     if (controlKey === 'outfitPresetAContrastColorId') return ['primary_contrast', 'primary_contrast_locked'].includes(modeA);
     if (controlKey === 'outfitPresetALockedPaletteId') return modeA === 'primary_contrast_locked' && hasLockedTargets(selectedA);
-    if (controlKey === 'outfitPresetBPrimaryColorId') return isActiveOption(selectedB);
+    if (controlKey === 'outfitPresetBPrimaryColorId') return isActiveOption(selectedB) && modeB !== 'fixed';
     if (controlKey === 'outfitPresetBContrastColorId') return ['primary_contrast', 'primary_contrast_locked'].includes(modeB);
     if (controlKey === 'outfitPresetBLockedPaletteId') return modeB === 'primary_contrast_locked' && hasLockedTargets(selectedB);
     return true;
@@ -170,11 +170,14 @@ function buildWardrobeControls(lockControls, locks) {
     ? activeDuoSpecialOutfitRoles.length > 0
     : Boolean(locks.specialOutfitId) && !isNoneSelected('specialOutfitId', locks.specialOutfitId, lockControls);
   const hasCompleteLookSingle = ['specialOutfitId', 'outfitPresetId', 'dressId']
-    .some((key) => Boolean(locks[key]) && !isNoneSelected(key, locks[key], lockControls));
+    .some((key) => Boolean(locks[key]) && !isNoneSelected(key, locks[key], lockControls)
+      && (key !== 'outfitPresetId' || getSelectedOption(lockControls, key, locks[key])?.meta?.colorMode !== 'fixed'));
   const hasCompleteLookA = ['specialOutfitAId', 'outfitPresetAId', 'dressAId']
-    .some((key) => Boolean(locks[key]) && !isNoneSelected(key, locks[key], lockControls));
+    .some((key) => Boolean(locks[key]) && !isNoneSelected(key, locks[key], lockControls)
+      && (key !== 'outfitPresetAId' || getSelectedOption(lockControls, key, locks[key])?.meta?.colorMode !== 'fixed'));
   const hasCompleteLookB = ['specialOutfitBId', 'outfitPresetBId', 'dressBId']
-    .some((key) => Boolean(locks[key]) && !isNoneSelected(key, locks[key], lockControls));
+    .some((key) => Boolean(locks[key]) && !isNoneSelected(key, locks[key], lockControls)
+      && (key !== 'outfitPresetBId' || getSelectedOption(lockControls, key, locks[key])?.meta?.colorMode !== 'fixed'));
 
   return sortControls(lockControls.filter((control) => {
     if (control.section !== 'wardrobe' || control.compatibilityOnly) return false;

@@ -7579,6 +7579,7 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
   const opticalEffectLabel = context.opticalEffect && !isNoneLikeItem(context.opticalEffect) ? context.opticalEffect.zh : '-';
   const formatPresetSummary = (preset, primaryColor) => {
     if (!preset) return '';
+    if (preset.meta?.colorMode === 'fixed') return preset.zh;
     return primaryColor?.zh ? `${primaryColor.zh}｜${preset.zh}` : preset.zh;
   };
   const accessoryItemLabel = (item) => (
@@ -8714,6 +8715,8 @@ function buildUnprojectedOutfitPresetPrompt(item, colorState = {}) {
   const meta = item.meta || {};
   const colorTargets = meta.colorTargets || {};
   const colorMode = meta.colorMode || 'primary';
+  // Authored fixed palettes own every garment color; retain latent saved controls.
+  if (colorMode === 'fixed') return base;
   const lockedOptional = Boolean(meta.lockedOptional);
 
   const primaryColor = meta.shirtBlackBottom && meta.closedOuterwearProjection && !colorTargets.primary?.length
