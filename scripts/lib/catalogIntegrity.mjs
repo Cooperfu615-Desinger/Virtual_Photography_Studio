@@ -167,6 +167,13 @@ export async function extendedChecks(repo, controls, parseFile) {
     }
     if (p.profile?.distinctiveFeatures?.split(',').map(s => s.trim()).filter(Boolean).length !== 4) add('CHARACTER_ANCHORS', p.id, 'Exactly four permanent identity anchors required');
   }
+  try {
+    const { CHARACTER_WARDROBE_SOURCES } = await load('webapp/src/lib/engine/characterWardrobeSources.js');
+    const { getCharacterCardOptions } = await load('webapp/src/lib/characterCardLab.js');
+    const { validateCharacterWardrobeSources } = await load('scripts/lib/b3CharacterWardrobeChecks.mjs');
+    validateCharacterWardrobeSources(CHARACTER_WARDROBE_SOURCES, CHARACTER_PROFILE_OPTIONS,
+      getCharacterCardOptions([{ key: 'characterProfileId', options: CHARACTER_PROFILE_OPTIONS }]), read('scripts/lib/b3CharacterWardrobeReview.json'));
+  } catch (error) { add('CHARACTER_WARDROBE_SOURCE', 'character-wardrobe', error.message); }
   const pose = await load('webapp/src/lib/engine/poseComposerOptions.js');
   const bases = new Set(pose.POSE_COMPOSER_BASE_OPTIONS.map(x => x.id)), orientations = new Set(pose.POSE_COMPOSER_ORIENTATION_OPTIONS.map(x => x.id));
   const hands = new Set(pose.POSE_COMPOSER_HAND_OPTIONS.map(x => x.id)), props = new Set(pose.POSE_COMPOSER_PROP_OPTIONS.map(x => x.id)), heads = new Set(pose.POSE_COMPOSER_HEAD_OPTIONS.map(x => x.id));

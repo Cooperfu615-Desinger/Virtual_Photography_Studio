@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-28
 
+## B3 第一批：角色穿搭共用來源（2026-10-28，本機驗收通過）
+
+- 基準為最新本機／遠端 main `887b149a42047bbc3bc1adbb45aa0f68c9e5487e`。33 角色、134 圖層，118 段同角色原文集中共用，16 段用途差異保持；profile.outfit/accessories 與 PAGE2 圖層共同讀取 `characterWardrobeSources.js`。完整 legacy en、身份、髮型政策、圖層 metadata／順序／ID、MJ 名稱與圖片 manifest 保持。
+- 固定 Git 2,396 組 PAGE2／815 組 PAGE1 的六輸出、選值、RNG 全等；66 組 JSON／Markdown 公開內容與 ZIP 既有結果保持。前端 2,014、品質 852、Python 43、目錄 32，lint／build／sync／schema／歷史 ID／strict／207 assets 通過；200 同 seed audit 與修改前逐字相同，0 blocker／18 既有診斷。
+- CI 原 strict 入口新增同角色來源護欄，缺漏或篡改會阻擋；舊全域搜尋診斷的 122／12 改為同角色 118／16，原歷史報告保留。桌手機 54 操作／26 畫面、六工作區通過，專用 5175 服務已停止。
+- 原 PAGE2／Phase 4／胸上／完整 A2／A1／A5 隔離歷史鏈通過；2,217 歷史檔及其他 20 工作目錄／140 未提交檔保持。未 stage／commit／push。詳見 [規格](specs/b3-character-wardrobe-source-v1.md)、[決策](decisions/2026-10-28-b3-character-wardrobe.md)、[本批報告](reports/b3-character-wardrobe-2026-10-28/README.md)。
+- Cooper 已將 PAGE2 Markdown／ZIP 匯入相容及 J12 舊映射暫緩；B3 其他來源、C 類另批，P5b 繼續暫緩。下方是各批當時交付狀態；PAGE2 身份已由 `887b149a` 交付，CI `40652487642` 全數通過。
+
 ## PAGE2 GPT／Z 成年身份補齊（2026-10-28，驗收通過，授權限定交付）
 
 - 固定且再次核對本機／遠端 main `bfc2d5baafc8aaede8f774527d0f1aaa187da27f`。33 張角色的新 GPT／Z 重用各自 `identityAndBody` 成年身份；Eleanor 保留 demonic，缺來源不猜，legacy 完整 fallback 不重複。其他四個 PAGE2 輸出、PAGE1 六輸出、穿搭圖層、原角色資料及舊收藏原文保持。

@@ -1,0 +1,16 @@
+{
+  "baseCommit": "58516b20c6631b1a61faa48ee22abfb05ea29384",
+  "ordinary": 1485,
+  "captures": 1431,
+  "newlyAccepted": 1364,
+  "unchangedSources": 112,
+  "restores": 357,
+  "rerolls": 357,
+  "transitions": 1485,
+  "captureExcluded": 45,
+  "saved": 30,
+  "protectedFiles": 327,
+  "oracleMismatches": 0,
+  "oracle": "Fixed Git ordinary engine; isolated ID-gate bypass exposes trusted generated snapshots only. Negative validation is tested separately.",
+  "deferred": "Legacy dress structured/prose restore and wardrobe exclusivity unchanged"
+}

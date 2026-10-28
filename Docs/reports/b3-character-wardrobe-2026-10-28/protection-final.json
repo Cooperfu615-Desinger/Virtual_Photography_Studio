@@ -1,0 +1,248 @@
+{
+  "baseCommit": "887b149a42047bbc3bc1adbb45aa0f68c9e5487e",
+  "head": "887b149a42047bbc3bc1adbb45aa0f68c9e5487e",
+  "branch": "main",
+  "trackedFilesChecked": 3707,
+  "changedTrackedFiles": [
+    "Docs/current_project_state.md",
+    "Docs/specs/character-card-facial-identity.md",
+    "scripts/check_catalog_integrity.mjs",
+    "scripts/lib/catalogIntegrity.mjs",
+    "scripts/lib/page2AdultIdentityReplay.mjs",
+    "webapp/package.json",
+    "webapp/src/lib/characterCardLab.js",
+    "webapp/src/lib/engine/characterProfiles.js"
+  ],
+  "unexpectedChanges": [],
+  "historicalFilesChecked": 2217,
+  "historicalChanged": [],
+  "newFiles": [
+    "Docs/decisions/2026-10-28-b3-character-wardrobe.md",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/README.md",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/SOURCE_REVIEW.md",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/acceptance/acceptance.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/acceptance/baseline.json.gz",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/audit-before.log.gz",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/1440-character-amy.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/1440-character-kaori.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/1440-character-yui.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/1440-eleanor.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/1440-old-card.md",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/1440-page2-default.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/1440-page2-variant.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/1440-saved-original-and-import-limit.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/1440-workspace-0.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/1440-workspace-1.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/1440-workspace-2.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/1440-workspace-3.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/1440-workspace-4.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/1440-workspace-5.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/390-character-amy.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/390-character-kaori.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/390-character-yui.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/390-eleanor.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/390-old-card.md",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/390-page2-default.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/390-page2-variant.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/390-saved-original-and-import-limit.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/390-workspace-0.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/390-workspace-1.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/390-workspace-2.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/390-workspace-3.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/390-workspace-4.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/390-workspace-5.png",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/results.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/browser/visual-review.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/focused.log.gz",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/gates/assets.log.gz",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/gates/audit.log.gz",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/gates/build.log.gz",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/gates/catalog.log.gz",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/gates/lint.log.gz",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/gates/python.log.gz",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/gates/quality.log.gz",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/gates/results.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/gates/strict.log.gz",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/gates/sync.log.gz",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/gates/test.log.gz",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/guard/results.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/artifact-index.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/b3-history.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a2-recovery/acceptance.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/snapshot/acceptance.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/earlier/earlier/earlier/earlier/earlier/earlier/special-tape/acceptance.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/earlier/earlier/earlier/earlier/earlier/history.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/earlier/earlier/earlier/earlier/earlier/runtime/acceptance.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/earlier/earlier/earlier/earlier/earlier/runtime/oracle-mismatches.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/earlier/earlier/earlier/earlier/history.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/earlier/earlier/earlier/earlier/special-palette/acceptance.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/earlier/earlier/earlier/earlier/special-palette/oracle-mismatches.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/earlier/earlier/earlier/history.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/earlier/earlier/earlier/paired-capture/acceptance.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/earlier/earlier/earlier/paired-capture/oracle-mismatches.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/earlier/earlier/history.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/earlier/earlier/legacy-dress/acceptance.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/earlier/earlier/legacy-dress/oracle-mismatches.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/earlier/history.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/earlier/legacy-dress/acceptance.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/earlier/legacy-dress/oracle-mismatches.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/earlier/legacy-dress/regression-fixed-main.log.gz",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/history.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/legacy-dress/acceptance.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/legacy-dress/oracle-mismatches.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/page2-history.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/earlier/replay.log.gz",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/page2-acceptance/acceptance.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/history/replay.log.gz",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/inverse.log.gz",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/protection-before.json",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/red.log.gz",
+    "Docs/reports/b3-character-wardrobe-2026-10-28/service-cleanup.json",
+    "Docs/specs/b3-character-wardrobe-source-v1.md",
+    "scripts/b3_character_wardrobe_acceptance.mjs",
+    "scripts/b3_character_wardrobe_browser.mjs",
+    "scripts/b3_character_wardrobe_gates.py",
+    "scripts/b3_character_wardrobe_guard_acceptance.mjs",
+    "scripts/b3_character_wardrobe_history.mjs",
+    "scripts/b3_character_wardrobe_protection.py",
+    "scripts/lib/b3CharacterWardrobeChecks.mjs",
+    "scripts/lib/b3CharacterWardrobePatches.json",
+    "scripts/lib/b3CharacterWardrobeReplay.mjs",
+    "scripts/lib/b3CharacterWardrobeReview.json",
+    "webapp/src/lib/characterWardrobeHistory.test.js",
+    "webapp/src/lib/characterWardrobeSources.test.js",
+    "webapp/src/lib/engine/characterWardrobeSources.js"
+  ],
+  "unexpectedNewFiles": [],
+  "otherWorktrees": [
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/.codex/worktrees/capture-import-integration/Virtual_Photography_Studio",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/ethnicity-default-japanese",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-gest",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-grid",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-head",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-props",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-sit-kneel",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-squatting",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-standing",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-ui",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p1",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p2",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p3",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p4",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p5",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p5b",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/preview-prompt-test",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/reference-person-preview",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/tshirt-crew-neck",
+      "headUnchanged": true,
+      "statusUnchanged": true,
+      "changedFiles": []
+    }
+  ],
+  "otherDirtyFilesChecked": 140,
+  "missingWorktrees": [
+    {
+      "path": "/private/tmp/vps-duo-ci-review",
+      "unchanged": true
+    }
+  ],
+  "stagedFiles": [],
+  "passed": true
+}

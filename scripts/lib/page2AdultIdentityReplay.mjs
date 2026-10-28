@@ -1,3 +1,4 @@
+import { preB3WardrobeSource, restorePreB3WardrobeFiles } from './b3CharacterWardrobeReplay.mjs';
 // Test-only inverse for the narrow PAGE2 follow-up. No production imports.
 import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync, realpathSync, existsSync, rmSync } from 'node:fs';
@@ -9,6 +10,7 @@ export const PAGE2_REVIEW = JSON.parse(readFileSync(new URL('./page2AdultIdentit
 export const PAGE2_BASE = PAGE2_REVIEW.baseCommit;
 const hash = value => createHash('sha256').update(value).digest('hex');
 export function prePage2AdultSource(path, source) {
+  source = preB3WardrobeSource(path, source);
   const file = PAGE2_REVIEW.files.find(f => f.path === path);
   if (!file || hash(source) !== file.afterHash) return source;
   assert.equal(hash(file.beforeSource), file.beforeHash, 'PAGE2 inverse corrupt oracle');
@@ -19,14 +21,15 @@ export function restorePrePage2AdultFiles(directory, { allowPartial = false, pre
   assert.ok(!existsSync(join(directory, '.git')), 'PAGE2 inverse rejects Git checkout');
   const empty = { sources: new Map(), apply() {} };
   if (allowPartial && !PAGE2_REVIEW.files.some(f => existsSync(join(directory, f.path))
-    && hash(readFileSync(join(directory, f.path))) === f.afterHash)) return empty;
+    && hash(preB3WardrobeSource(f.path, readFileSync(join(directory, f.path)))) === f.afterHash)) return empty;
+  const b3 = restorePreB3WardrobeFiles(directory, { allowPartial: true, prepareOnly: true });
   const prepared = [], states = [];
   for (const file of PAGE2_REVIEW.files) {
     const path = join(directory, file.path);
     if (allowPartial && !existsSync(path)) continue; // Earlier matrix fixtures copy only their own sealed paths.
     assert.ok(existsSync(path), 'PAGE2 inverse missing source: ' + file.path);
     assert.equal(hash(file.beforeSource), file.beforeHash, 'PAGE2 inverse corrupt oracle');
-    const source = readFileSync(path), sha = hash(source);
+    const source = b3.sources.get(file.path) ?? readFileSync(path), sha = hash(source);
     assert.ok([file.beforeHash, file.afterHash].includes(sha), 'PAGE2 inverse rejects unknown source: ' + file.path);
     states.push(sha === file.afterHash ? 'after' : 'before');
     prepared.push([path, file.beforeSource]);
@@ -44,6 +47,7 @@ export function restorePrePage2AdultFiles(directory, { allowPartial = false, pre
     sources: new Map(PAGE2_REVIEW.files.filter(f => prepared.some(([path]) => path === join(directory, f.path)))
       .map(f => [f.path, Buffer.from(f.beforeSource)])),
     apply() {
+      b3.apply();
       for (const [path, source] of prepared) writeFileSync(path, source);
       for (const path of remove) rmSync(path);
     },

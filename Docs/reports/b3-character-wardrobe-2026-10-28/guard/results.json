@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "mutation": "none",
+      "exitCode": 0,
+      "blocking": []
+    },
+    {
+      "mutation": "layer-text",
+      "exitCode": 1,
+      "blocking": [
+        {
+          "code": "CHARACTER_WARDROBE_SOURCE",
+          "itemKey": "character-wardrobe"
+        }
+      ]
+    },
+    {
+      "mutation": "source-missing",
+      "exitCode": 1,
+      "blocking": [
+        {
+          "code": "CHARACTER_WARDROBE_SOURCE",
+          "itemKey": "character-wardrobe"
+        }
+      ]
+    }
+  ]
+}

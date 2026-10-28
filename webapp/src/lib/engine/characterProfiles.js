@@ -1,3 +1,4 @@
+import { getCharacterWardrobeText } from './characterWardrobeSources.js';
 const LEGACY_CHARACTER_PROFILE_OPTIONS = [
   {
     id: 'none',
@@ -13,8 +14,8 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with doll-like facial features, pale luminous skin, large clear gray-brown eyes, soft smoky eye makeup, subtle pink under-eye blush, small straight nose, softly rounded lips, slim petite fashion-model body proportions with a narrow waist and balanced curvy silhouette',
       hair: 'glossy black shoulder-length layered lob haircut with airy see-through bangs and face-framing side strands',
-      outfit: 'taupe-gray cropped hooded zip jacket worn open with the hood usually worn up framing the hair, black lace bralette neckline, low-rise faded blue denim mini skirt worn unbuttoned with the zipper slightly pulled down and visible thin-strap black lace thong waistband underneath, black lace-up ankle boots with glossy rounded toes',
-      accessories: 'small off-white shoulder bag with thin black strap',
+      outfit: getCharacterWardrobeText('character-48g', 'outfit'),
+      accessories: getCharacterWardrobeText('character-48g', 'accessories'),
       photographicDirection: 'photorealistic editorial portrait, contemporary street-fashion photographic realism, coherent facial identity, realistic fabric construction',
     },
     count: 1,
@@ -29,7 +30,7 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with pale gothic beauty, porcelain luminous skin, elegant oval face, clear pale gray-green eyes, softly arched dark brows, slim straight nose, muted red matte lips, slender fashion-model body proportions with a graceful narrow waist',
       hair: 'long center-parted wavy black hair with clean black bangs and solid black front face-framing strands, silver-white dip-dye streaks concentrated only through the rear and lower trailing hair sections near the back hair tips, front bangs and front hair remain black without light streaks, voluminous waves falling past the chest',
-      outfit: 'black high-neck gothic lace dress with sheer mesh long sleeves, black floral lace sleeve appliques across shoulders and arms, fitted black lace bodice with subtle beadwork, floor-length translucent black tulle skirt overlay with trailing hem, black elegant dress shoes',
+      outfit: getCharacterWardrobeText('character-philippa', 'outfit'),
       photographicDirection: 'photorealistic editorial portrait, romantic dark couture photographic realism, coherent facial identity, realistic lace and tulle construction',
     },
     count: 1,
@@ -44,7 +45,7 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with soft doll-like kawaii facial features, luminous fair skin, delicate oval heart-shaped face, large vivid clear blue eyes with glossy catchlights and defined upper lashes, softly arched brown brows, small straight nose with gentle bridge, peach-pink blush across the cheeks and nose, warm peach eye shadow, subtle eyeliner, glossy peach-pink gradient lips slightly parted, slim petite cozy-girl body proportions',
       hair: 'long loose wavy warm chestnut-brown hair with dusty rose-pink streaks framing both sides of the face and flowing through the lengths, airy wispy see-through bangs',
-      outfit: 'white plush bunny-eared hood with floppy long ears, pink inner ears, cute black cartoon eyes, small pink nose, soft white plush fur texture, tiny white fang-like teeth along the hood opening, oversized ivory-white fleece pullover hoodie with dropped shoulders, long loose sleeves, front kangaroo pocket, white drawstrings, relaxed beige oatmeal sweatpants with soft brushed knit texture and straight loose legs, clean white low-top sneakers',
+      outfit: getCharacterWardrobeText('character-sakura', 'outfit'),
       photographicDirection: 'photorealistic editorial portrait, gentle cozy indoor lifestyle photographic realism, coherent facial identity, realistic plush fleece and knit texture',
     },
     count: 1,
@@ -59,8 +60,8 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with mature refined East Asian fashion-model facial features, large almond-shaped gray-olive brown eyes with softly lifted outer corners, clear double eyelids and shallow natural eyelid depth, small elongated oval face with a soft jawline and delicate pointed chin, luminous fair skin, softly arched ash-brown brows, straight slim nose with a soft low-to-moderate bridge and small neat tip, peach-rose blush, subtle cool-beige eye shadow, thin gentle cat-eye liner, natural rose-pink lips with gentle fullness and a polished satin sheen, tall high-fashion hourglass body proportions, long slender limbs, long legs, high waist, fuller bust, wide hips, narrow waist',
       hair: 'smoky ash-gray hair with muted sage-olive undertones and darker shadow roots, chin-to-shoulder length wavy bob with an open center part, loose tousled S-wave texture, airy outward-flipped layers around the cheeks and nape, soft volume, delicate flyaway strands',
-      outfit: 'deep cobalt blue cable-knit turtleneck cutout bodysuit sweater with thick ribbed high collar, fitted long sleeves, vertical cable texture, sculpted bust-waist contour, large side-waist cutout openings exposing both sides of the narrow waist and upper hips, medium-wash skinny blue jeans with natural denim fading, black leather ankle boots with rounded toes and low block heels',
-      accessories: 'black leather belt with small silver buckle',
+      outfit: getCharacterWardrobeText('character-hinata', 'outfit'),
+      accessories: getCharacterWardrobeText('character-hinata', 'accessories'),
       photographicDirection: 'photorealistic editorial portrait, polished urban street-fashion photographic realism, coherent facial identity, realistic knit and denim construction',
     },
     count: 1,
@@ -75,8 +76,8 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with soft doll-like indie-girl facial features, luminous fair skin, petite oval face with softly full cheeks and a gentle rounded jaw, large rounded gray-brown eyes with glassy catchlights and soft lower-lash detail, straight natural brows, small delicate straight nose with a smooth bridge, tiny beauty mark near one outer cheek, peach-pink blush, warm peach-beige eye makeup, soft rose-pink lips with a cushioned slightly parted shape, slim petite casual-fashion body proportions with a narrow waist',
       hair: 'glossy natural black long wavy hair falling past the shoulders, airy see-through bangs with slightly uneven wispy pieces across the forehead, face-framing side strands, loose layered waves through the lengths',
-      outfit: 'fitted cropped white short-sleeve baby tee with a small minimalist black line-art chest graphic, slightly loose low-rise light-wash blue jeans with relaxed straight legs and soft vintage fading, clean white low-top sneakers',
-      accessories: 'black-and-white beaded choker necklace, small silver ring keychain clipped to the front belt loop',
+      outfit: getCharacterWardrobeText('character-rika', 'outfit'),
+      accessories: getCharacterWardrobeText('character-rika', 'accessories'),
       photographicDirection: 'photorealistic editorial portrait, intimate warm indoor film-snapshot photographic realism, coherent facial identity, realistic cotton and denim construction',
     },
     count: 1,
@@ -91,8 +92,8 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with refined intellectual editorial facial features, small porcelain oval face, narrow softly tapered jaw, delicate pointed chin, porcelain fair skin with a subtle luminous sheen, large slender almond warm-brown eyes, soft aegyo-sal lower-eye fullness, fine lower lashes, straight delicate nose with a softly rounded glossy tip, softly arched natural dark brows, peach-beige blush, warm beige eye shadow, glossy rose-beige lips with a defined cupid bow and fuller lower lip, slim refined fashion-model body proportions, narrow waist, long neck',
       hair: 'glossy natural black chin-to-nape short curly bob, airy layered S-curls, outward-flipped ends around the ears and nape, separated curved see-through bangs forming comma-like strands over the forehead, soft volume around the crown and back',
-      outfit: 'crisp white oversized button-down shirt with open collar, relaxed dropped shoulders, sleeves rolled to the forearms, slightly loose tucked-in fabric, charcoal high-waisted tailored straight trousers with pressed front crease and clean waistband, black leather loafers with low stacked heels',
-      accessories: 'signature thin rectangular brown-gold metal frame eyeglasses with transparent lenses, stacked twin gold hoop earrings on both ears, layered delicate gold necklaces with tiny pendant charms',
+      outfit: getCharacterWardrobeText('character-rin', 'outfit'),
+      accessories: getCharacterWardrobeText('character-rin', 'accessories'),
       photographicDirection: 'photorealistic editorial portrait, polished intellectual minimalist styling, natural photographic detail, coherent facial identity, realistic fabric construction',
     },
     count: 1,
@@ -107,7 +108,7 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with glamorous doll-like facial features, porcelain fair skin with a soft luminous glow, delicate oval heart-shaped face, clear warm hazel-brown eyes with glossy catchlights and long curled lashes, softly arched reddish-brown brows, small refined nose, peach-coral blush, warm champagne eye shadow, subtle eyeliner, glossy coral-rose lips with a softly parted shape, slim tall fashion-model body proportions with narrow waist, long legs, refined shoulders and collarbones',
       hair: 'long tousled copper-auburn red hair with darker natural roots, loose messy waves flowing past the chest and down the back, airy wispy see-through bangs falling softly across the forehead, face-framing side pieces, windswept layered texture',
-      outfit: 'black shaggy faux-fur off-shoulder mini coat worn as the main garment, plush high-pile texture, deep V neckline, bare shoulders and collarbones, oversized sleeves, mini-length hem, minimal black inner layer kept subtle under the coat, black ankle-strap stiletto sandals with thin straps and open toes',
+      outfit: getCharacterWardrobeText('character-lily', 'outfit'),
       photographicDirection: 'photorealistic editorial portrait, glamorous sunlit fashion portrait photographic realism, coherent facial identity, realistic faux-fur texture',
     },
     count: 1,
@@ -122,8 +123,8 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with quiet intelligent doll-like facial features, luminous fair skin, soft oval face, clear dark brown eyes, straight natural brows, small refined nose, peach-beige blush, soft beige eye shadow, glossy muted rose lips, slim petite casual-fashion body proportions with a narrow waist and long clean leg line',
       hair: 'glossy natural black long straight hair falling past the chest, wispy see-through bangs across the forehead, tapered face-framing layers, softly inward-curved ends',
-      outfit: 'white ribbed off-shoulder cropped long-sleeve top with exposed shoulders, fitted sleeves, small front buttons, vintage black graphic print across the chest, delicate lace trim along the cropped hem, low-rise medium-wash blue flared jeans with natural fading, decorated leather belt with large oval western-style belt buckle and metal-stud chain detail, brown low-top canvas sneakers with cream rubber soles and white laces',
-      accessories: 'round translucent brown acetate eyeglasses with thin metal temples, black choker necklace with small silver charm details, stacked silver bangles and rings',
+      outfit: getCharacterWardrobeText('character-yuri', 'outfit'),
+      accessories: getCharacterWardrobeText('character-yuri', 'accessories'),
       photographicDirection: 'photorealistic editorial portrait, warm retro youth-fashion photographic realism, coherent facial identity, realistic ribbed cotton and denim construction',
     },
     count: 1,
@@ -138,8 +139,8 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with wistful delicate East Asian muse-like facial features, small long heart-oval face with softly tapered cheeks and a narrow pointed chin, large soft downturned almond warm amber-brown eyes with glossy catchlights, slightly heavy upper lids, visible aegyo-sal lower-eye softness, long fine lower lashes, luminous fair skin with natural freckles across the cheeks and nose, softly flushed cheeks and nose bridge, thin straight natural brows with a gentle downward softness, slim delicate nose with a softly rounded tip, warm beige eye shadow, small plush rose-coral lips with a defined cupid bow and slightly parted shape, slim petite soft casual-fashion body proportions with a narrow waist, delicate shoulders and collarbones',
       hair: 'glossy natural black long wavy hair falling past the chest and down the back, airy wispy see-through bangs across the forehead, loose layered waves, face-framing side strands, natural tousled flyaways',
-      outfit: 'mustard yellow oversized knit cardigan with chunky fuzzy texture, deep V open front, wooden buttons, relaxed dropped shoulders, long loose sleeves with ribbed cuffs, small white fuzzy floral embroidery scattered on the cardigan, cream ribbed knit camisole with a scoop neckline underneath, high-waisted medium-dark blue straight-leg jeans with natural denim fading, brown leather ankle boots with rounded toes and low stacked heels',
-      accessories: 'delicate gold necklace with a small red-orange oval pendant',
+      outfit: getCharacterWardrobeText('character-sui', 'outfit'),
+      accessories: getCharacterWardrobeText('character-sui', 'accessories'),
       photographicDirection: 'photorealistic editorial portrait, soft cozy casual-fashion photographic realism, coherent facial identity, realistic knit and denim construction',
     },
     count: 1,
@@ -154,8 +155,8 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with soft intelligent doll-like facial features, luminous fair skin, small oval face with gentle cheeks, clear warm gray-brown eyes, straight soft brows, small refined nose, pale peach blush, soft beige-pink eye makeup, natural glossy rose-pink lips, slim petite delicate casual body proportions with narrow shoulders, slender arms, long pale legs and a compact youthful adult silhouette',
       hair: 'pale silver-lilac short bob with soft ash roots and realistic dyed-hair texture, wispy airy bangs lightly crossing the forehead, rounded cheek-length side layers, softly feathered ends around the jaw and nape',
-      outfit: 'loose sage-mint green sleeveless tunic tank top with soft washed cotton texture, round crew neckline, oversized A-line drape, wide armholes with a subtle black inner layer visible at the side, matching sage-mint green relaxed short shorts, bare feet as the locked footwear state',
-      accessories: 'round thin black metal eyeglasses',
+      outfit: getCharacterWardrobeText('character-hina', 'outfit'),
+      accessories: getCharacterWardrobeText('character-hina', 'accessories'),
       photographicDirection: 'photorealistic editorial portrait, quiet minimalist loungewear photographic realism, coherent facial identity, realistic washed cotton texture',
     },
     count: 1,
@@ -170,8 +171,8 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with polished soft doll-like facial features, luminous fair ivory skin, a small oval-heart face with gently rounded cheeks, a softly tapered jaw and a neat rounded chin, large rounded almond warm gray-brown eyes with clear double eyelids, glossy catchlights, subtle aegyo-sal fullness and long separated upper lashes, softly straight medium-brown brows with a delicate arch near the tails, a slim straight nose with a smooth moderate bridge and a small softly rounded tip, peach-pink blush, warm taupe-peach eye shadow, fine dark eyeliner, softly full coral-rose lips with a defined cupid bow and a plush lower lip, petite curvy athletic body proportions with a fuller bust, narrow waist, rounded hips and toned legs',
       hair: 'long warm chestnut-brown hair with smooth darker roots, full polished curls falling past the chest, eyebrow-skimming straight airy bangs with softly separated strands, curved face-framing layers and softly curled ends',
-      outfit: 'fitted white ribbed scoop-neck cropped tank top, slate-gray relaxed athletic shorts with a wide elastic waistband, oversized pale powder-blue zip hoodie worn open with the hood usually raised, white crew socks, clean white low-top sneakers',
-      accessories: 'matte white over-ear headphones worn around the neck',
+      outfit: getCharacterWardrobeText('character-yuna', 'outfit'),
+      accessories: getCharacterWardrobeText('character-yuna', 'accessories'),
       photographicDirection: 'photorealistic editorial portrait, clean sporty street-fashion photographic realism, coherent facial identity, realistic ribbed cotton, fleece and athletic fabric construction',
     },
     count: 1,
@@ -187,8 +188,8 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
       identityAndBody: 'a 20-year-old adult demonic woman with refined dark-fantasy beauty, cool porcelain-pale skin with faint natural freckles, a long elegant oval-heart face, high sculpted cheekbones, a narrow angular jaw and pointed chin, luminous crimson-red almond eyes with sharply lifted outer corners, deep-set lids, heavy black lashes and an intense supernatural gaze, thick dark sharply arched brows, a narrow straight nose with a high clean bridge and refined tip, full dark oxblood lips with a crisp cupid bow, smoky charcoal and burgundy eye makeup, symmetrical black branching vein-like markings beneath both eyes, an ornate black sigil centered across the forehead, delicate black markings at the chin and neck, two large ridged obsidian-black swept horns growing permanently from the upper sides of the head, extensive fine black arcane linework tattoos across the shoulders, chest, arms and torso, tall powerful hourglass body proportions with broad elegant shoulders, a full bust, narrow waist, rounded hips and long legs',
       distinctiveFeatures: 'two large ridged obsidian-black swept horns growing permanently from the upper sides of the head, luminous crimson-red almond eyes, symmetrical black branching vein-like facial markings and a centered forehead sigil, extensive fine black arcane linework tattoos across the shoulders, chest, arms and torso',
       hair: 'extremely long dense raven-black hair with a center part, loose irregular waves, natural crown volume and face-framing tendrils flowing below the waist around the permanent horns',
-      outfit: 'elaborate black and aged-bronze gothic armored corset gown with structured lace cups, engraved metal framing, sheer black floral-lace torso panels, fitted waist armor and floor-length layered black skirt panels with a trailing hem, black armored boots',
-      accessories: 'ornate black lace high collar with a small bronze centerpiece, black lace gauntlets and engraved black-and-bronze forearm armor',
+      outfit: getCharacterWardrobeText('character-eleanor', 'outfit'),
+      accessories: getCharacterWardrobeText('character-eleanor', 'accessories'),
       photographicDirection: 'photorealistic cinematic dark-fantasy portrait, coherent demonic facial identity and permanent markings, realistic horn, leather, engraved metal and lace construction',
     },
     count: 1,
@@ -203,8 +204,8 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with mature athletic fashion-model facial features, smooth warm light-olive skin, an elongated oval face with balanced cheekbones, a firm softly angled jaw and a gently pointed chin, large slender almond deep brown eyes with softly lifted outer corners, clear double eyelids, fine lower lashes and long curled upper lashes, full straight dark-brown brows with a subtle clean arch, a slim straight nose with a defined medium-high bridge and softly rounded tip, subtle bronze contour, warm peach-brown eye shadow, precise winged eyeliner, muted rose satin lips with a clear cupid bow and fuller lower lip, tall athletic hourglass body proportions with strong shoulders, a full bust, narrow toned waist, rounded hips and long toned legs',
       hair: 'long rich dark chestnut-brown hair with an open center part, smooth crown volume, long face-framing layers and broad polished S-waves falling below the chest',
-      outfit: 'glossy black patent triangle bikini top, matching low-rise thin-strap black bikini bottom, oversized black varsity bomber jacket worn open with white striped ribbed trim and white script embroidery, black ankle-strap open-toe stiletto sandals',
-      accessories: 'plain black baseball cap, long slim rectangular silver drop earrings, delicate gold chain necklace with a small round pendant',
+      outfit: getCharacterWardrobeText('character-olivia', 'outfit'),
+      accessories: getCharacterWardrobeText('character-olivia', 'accessories'),
       photographicDirection: 'photorealistic editorial portrait, assertive Tokyo street-fashion photographic realism, coherent facial identity, realistic patent, rib-knit and heavyweight varsity fabric construction',
     },
     count: 1,
@@ -219,7 +220,7 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with delicate gothic doll-like facial features, porcelain fair skin with a cool luminous finish, a small heart-oval face with softly rounded upper cheeks, a narrow tapered jaw and a fine pointed chin, large gray-hazel almond eyes with softly lifted outer corners, clear double eyelids, glossy catchlights, defined aegyo-sal fullness and long separated lashes, slim softly arched charcoal brows, a small straight nose with a narrow bridge and softly rounded tip, pale rose blush, muted taupe eye shadow, thin black cat-eye liner, softly full coral-brick lips with a defined cupid bow, slim petite fashion-model body proportions with delicate shoulders, a narrow waist and long slender legs',
       hair: 'extremely long natural black hair falling to the waist with airy split curtain bangs, loose crimped waves and layered texture, an intentionally asymmetrical highlight design: one dominant broad cool pearl-silver and smoky silver-gray face-framing streak begins beside the center part at the hairline on her left side and follows the wave pattern in irregular soft-edged ribbons through the lengths, while the opposite side has only a few much finer lower-contrast smoky-silver strands; the black base remains dominant, never use mirrored matching bright-white stripes',
-      outfit: 'fitted black off-shoulder gothic dress with a clean sweetheart neckline, short lace-trim sleeves, a defined waist and a flowing ankle-length A-line skirt, black pointed-toe stiletto pumps',
+      outfit: getCharacterWardrobeText('character-jiwoo', 'outfit'),
       photographicDirection: 'photorealistic editorial portrait, moody vintage gothic photographic realism, coherent facial identity, precise asymmetrical pearl-silver hair streak placement, avoid mirrored bleach-blonde stripes, realistic matte fabric and lace construction',
     },
     count: 1,
@@ -234,8 +235,8 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with elegant soft idol-like facial features, luminous fair ivory skin, a small refined oval-heart face with gentle cheek fullness, a narrow softly tapered jaw and delicate rounded-pointed chin, large light hazel-gray almond eyes with clear double eyelids, glossy catchlights, subtle lower-eye fullness and fine long lashes, softly straight ash-brown brows with low delicate arches, a slim straight nose with a smooth low-to-moderate bridge and small rounded tip, peach-beige blush, soft champagne-beige eye shadow, fine brown-black eyeliner, plush coral-peach lips with a softly defined cupid bow, slim tall fashion-model body proportions with delicate shoulders, a long neck, narrow waist and long legs',
       hair: 'very long ash-beige blonde hair with deep smoky brown shadow roots, an open off-center part, smooth face-framing layers and loose finely crimped mermaid waves flowing to the waist',
-      outfit: 'black deep-V embellished camisole gown under a sheer black mesh and floral-lace overlay with translucent long sleeves, lace cuffs, a fitted lace waist panel and a floor-length layered black tulle skirt, black platform ankle boots',
-      accessories: 'wide black floral-lace choker',
+      outfit: getCharacterWardrobeText('character-chihiro', 'outfit'),
+      accessories: getCharacterWardrobeText('character-chihiro', 'accessories'),
       photographicDirection: 'photorealistic editorial portrait, refined haunted-romance fashion photographic realism, coherent facial identity, realistic ash-blonde dye transition, mesh, lace and tulle construction',
     },
     count: 1,
@@ -250,8 +251,8 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with poised porcelain gothic doll-like facial features, cool luminous pale skin, a small balanced oval face with smooth cheeks, a softly tapered jaw and neat pointed chin, large clear cool gray almond eyes with subtly lifted outer corners, shallow double eyelids, fine lower lashes and long precise upper lashes, straight soft black brows with gently tapered tails, a slim delicate nose with a clean narrow bridge and small rounded tip, subtle cool peach blush, muted taupe-gray eye shadow, precise black liner, softly full muted coral lips with a crisp cupid bow, slim petite fashion-model body proportions with a narrow waist and long pale legs',
       hair: 'very long glossy blue-black hair with dense loose waves falling below the waist, thick straight eyebrow-skimming blunt bangs with a few fine separated strands and long side pieces',
-      outfit: 'fitted black gothic lace mini dress with an ornate beaded bodice, sheer floral-lace short sleeves, asymmetric translucent lace cape panels and a long trailing high-low overskirt, glossy black pointed-toe pumps',
-      accessories: 'wide black jeweled choker with an ornate silver pendant',
+      outfit: getCharacterWardrobeText('character-koto', 'outfit'),
+      accessories: getCharacterWardrobeText('character-koto', 'accessories'),
       photographicDirection: 'photorealistic editorial portrait, aristocratic gothic fashion photographic realism, coherent facial identity, realistic beadwork, floral lace and translucent cape construction',
     },
     count: 1,
@@ -266,7 +267,7 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with dramatic high-fashion gothic facial features, cool porcelain luminous skin, a long sculpted heart-oval face with high cheekbones, a narrow angular jaw and delicate pointed chin, large elongated dark brown almond eyes with sharply lifted outer corners, defined double eyelids, long dense lashes and an intense magnetic gaze, dark full brows with a clean high arch, a slim straight nose with a refined high bridge and narrow softly pointed tip, sculpted rose contour, deep burgundy-plum smoky eye shadow, extended black winged eyeliner, full dark brick-red satin lips with a sharply defined cupid bow and plush lower lip, tall slender hourglass fashion-model body proportions with sculpted shoulders, a narrow waist, rounded hips and long legs',
       hair: 'very long voluminous ombre hair with a deep irregular side part, charcoal-black roots and crown transitioning through smoky ash brown into muted beige-blonde lengths, coarse tousled crimped waves and face-veiling layers falling below the chest',
-      outfit: 'floor-length black off-shoulder gothic gown with fitted long sleeves, pointed lace cuffs, an ornate black lace-and-beaded chest panel, a close fitted waist and a layered asymmetric trailing skirt, black lace-up platform combat ankle boots',
+      outfit: getCharacterWardrobeText('character-mei', 'outfit'),
       photographicDirection: 'photorealistic editorial portrait, nocturnal alternative-couture photographic realism, coherent facial identity, controlled dark-to-beige ombre transition, realistic lace, beadwork and layered fabric construction',
     },
     count: 1,
@@ -281,8 +282,8 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with a compact oval-heart face, softly full upper cheeks, a narrow tapered jaw and a petite rounded chin, large warm brown almond eyes set slightly wide with level outer corners and clear double eyelids, a narrow straight nose with a smooth medium-low bridge and rounded tip, muted rose-pink lips with a softly defined cupid bow and fuller lower lip, fair neutral skin with a clean satin finish, warm rose blush and soft taupe eye definition, slim petite proportions with delicate shoulders, a narrow waist and long balanced legs',
       hair: 'long natural black hair gathered into a loose high messy bun with a clean center part, separated face-framing strands and fine natural flyaways',
-      outfit: 'black ribbed high-neck cropped tank top, open black zip hoodie, faded charcoal distressed low-rise baggy jeans, worn cream athletic sneakers',
-      accessories: 'layered silver chain necklaces and small silver earrings',
+      outfit: getCharacterWardrobeText('character-rei', 'outfit'),
+      accessories: getCharacterWardrobeText('character-rei', 'accessories'),
       photographicDirection: 'photorealistic editorial portrait, bright candid convenience-store photographic realism, coherent facial identity, realistic knit, jersey and worn denim construction',
     },
     count: 1,
@@ -297,8 +298,8 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with a slim soft oval face, a narrow gentle jaw and a neat rounded chin, large deep brown round-almond eyes with level outer corners and clear double eyelids, a small straight nose with a gentle low bridge and rounded tip, full muted-red lips with a plush lower lip, fair neutral porcelain skin with a smooth even finish, soft brown eye shading and restrained rose blush, slim petite proportions with narrow shoulders and long legs',
       hair: 'very long dark chestnut-brown straight hair with airy eyebrow-skimming bangs, smooth center-weighted lengths and subtle face-framing layers',
-      outfit: 'oversized vivid red pullover hoodie, black sheer tights, glossy red lace-up combat boots',
-      accessories: 'black ribbed knit beanie',
+      outfit: getCharacterWardrobeText('character-amy', 'outfit'),
+      accessories: getCharacterWardrobeText('character-amy', 'accessories'),
       photographicDirection: 'photorealistic editorial portrait, cool urban street-style photographic realism, coherent facial identity, realistic knit, hosiery and polished leather construction',
     },
     count: 1,
@@ -313,7 +314,7 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with a long refined oval face, high cheekbones, a narrow jaw and a delicate pointed chin, cool gray-brown almond eyes with softly downturned outer corners and defined double eyelids, a slim straight nose with a high clean bridge and fine pointed tip, softly full muted berry lips with a compact cupid bow, light neutral porcelain skin with a smooth matte-satin finish, charcoal smoky eye definition and muted rose contour, tall slender proportions with a long neck, narrow waist and balanced long legs',
       hair: 'very long glossy black hair with a clean center part, smooth loose lengths and a twisted half-up crown detail while preserving long face-framing strands',
-      outfit: 'black and crimson silk hanbok jeogori with a white crossover collar and ornate gold embroidery, floor-length charcoal-black skirt with deep crimson and gold brocade hem panels, black-and-gold embroidered flats',
+      outfit: getCharacterWardrobeText('character-jiyoo', 'outfit'),
       photographicDirection: 'photorealistic editorial portrait, heritage fashion editorial photographic realism, coherent facial identity, realistic silk, brocade and embroidery construction',
     },
     count: 1,
@@ -328,7 +329,7 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with a short rounded oval face, full lower cheeks, a smooth gentle jaw and a small rounded chin, wide-set pale hazel-gray round-almond eyes with level outer corners and open double eyelids, a small short nose with a low gentle bridge and softly rounded tip, plush pale peach lips with a shallow cupid bow, fair cool ivory skin with a soft translucent finish, subtle peach-pink eye shading and light rosy cheek color, petite slender proportions with narrow shoulders, a defined waist and straight balanced legs',
       hair: 'short chin-length ash-beige blonde rounded bob with a soft center part, separated wispy fringe and softly inward-curved ends',
-      outfit: 'white strapless fitted tube top, white fitted mini skirt, bare feet as the default footwear state',
+      outfit: getCharacterWardrobeText('character-yui', 'outfit'),
       photographicDirection: 'photorealistic editorial portrait, clean minimal studio photographic realism, coherent facial identity, natural skin texture and soft fabric construction',
     },
     count: 1,
@@ -343,8 +344,8 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with a short rounded oval face, broad soft cheeks, a gentle rounded jaw and a compact chin, warm brown round-almond eyes with level outer corners and open natural double eyelids, a small low-bridge nose with a neat rounded tip, wide coral-peach lips with a fuller lower lip, warm fair beige skin with a clean satin finish, soft apricot eye shading and warm peach cheek color, slim petite proportions with narrow shoulders, a natural waist and balanced legs',
       hair: 'short natural black chin-length layered bob hair with piecey wispy bangs, softly outward-flipped nape ends and airy texture around the cheeks',
-      outfit: 'crisp white short-sleeve button-up shirt with a navy plaid necktie, navy pleated skirt, navy ankle socks, brown leather loafers',
-      accessories: 'small silver hoop earrings',
+      outfit: getCharacterWardrobeText('character-nana', 'outfit'),
+      accessories: getCharacterWardrobeText('character-nana', 'accessories'),
       photographicDirection: 'photorealistic editorial portrait, bright school-corridor photographic realism, coherent facial identity, realistic cotton shirting, pleated fabric and leather construction',
     },
     count: 1,
@@ -359,8 +360,8 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with a refined oval-heart face, softly high cheeks, a narrow tapered jaw and a small pointed chin, cool gray-brown almond eyes with level outer corners and slightly heavy upper lids, a slim straight nose with a defined medium-high bridge and rounded tip, full muted rose lips with a clean cupid bow and plush lower lip, fair neutral skin with a smooth satin finish, soft taupe eye shading and rose cheek color, tall slender proportions with narrow shoulders, a long neck and balanced legs',
       hair: 'long natural black hair gathered into a high voluminous messy bun with a clean center part, loose face-framing strands and lifted flyaway texture',
-      outfit: 'oversized white mesh football jersey with a bold black number graphic, dark washed baggy jeans, black-and-white chunky athletic sneakers',
-      accessories: 'black cord necklace with a silver cross pendant',
+      outfit: getCharacterWardrobeText('character-emily', 'outfit'),
+      accessories: getCharacterWardrobeText('character-emily', 'accessories'),
       photographicDirection: 'photorealistic editorial portrait, gritty flash street-style photographic realism, coherent facial identity, realistic mesh jersey and worn denim construction',
     },
     count: 1,
@@ -375,7 +376,7 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with a long soft heart-oval face, gently high cheeks, a narrow jaw and a rounded-pointed chin, warm medium-brown almond eyes with subtly lifted outer corners and clear double eyelids, a slim straight nose with a smooth medium bridge and delicate rounded tip, soft coral-rose lips with a defined cupid bow and fuller lower lip, fair warm-neutral skin with a clear luminous finish, soft peach eye shading and restrained rosy cheek color, tall slender proportions with a long neck, narrow waist and long legs',
       hair: 'very long chestnut-brown loose waves with an off-center part, airy wispy bangs, smooth face-framing layers and softly textured lengths',
-      outfit: 'black ribbed cropped camisole with thin straps, light-blue denim bib overalls worn loosely, black-and-white low-top canvas sneakers',
+      outfit: getCharacterWardrobeText('character-shiori', 'outfit'),
       photographicDirection: 'photorealistic editorial portrait, neon city street-fashion photographic realism, coherent facial identity, realistic rib knit and washed denim construction',
     },
     count: 1,
@@ -390,7 +391,7 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with a soft compact oval face, gently rounded cheeks, a smooth tapered jaw and a neat rounded chin, large dark brown round-almond eyes with level outer corners and open double eyelids, a small straight nose with a low gentle bridge and neat rounded tip, small soft rose-pink lips with an even lower lip, fair neutral skin with a clean luminous finish, subtle peach eye shading and a light pink cheek flush, petite athletic proportions with balanced shoulders, a narrow waist and toned legs',
       hair: 'short glossy black jaw-length rounded bob with a soft center part, airy separated fringe and polished inward-curved ends',
-      outfit: 'navy racerback athletic crop tank with white piping, matching navy athletic shorts with white trim, white lace-up athletic sneakers',
+      outfit: getCharacterWardrobeText('character-natsuki', 'outfit'),
       photographicDirection: 'photorealistic editorial portrait, clean locker-room sports editorial photographic realism, coherent facial identity, realistic technical jersey and athletic trim construction',
     },
     count: 1,
@@ -405,7 +406,7 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with a long soft oval face, smooth cheeks, a tapered jaw and a fine pointed chin, deep brown almond eyes set slightly close with level outer corners and soft double eyelids, a slim straight nose with a defined medium bridge and rounded tip, full muted rose lips with a pronounced cupid bow and fuller lower lip, fair neutral skin with a clear matte-satin finish, restrained taupe eye definition and soft rose cheek color, slender petite proportions with narrow shoulders, a straight waist and long balanced legs',
       hair: 'short natural black chin-length blunt bob with a light center part, fine see-through bangs and neatly rounded ends',
-      outfit: 'loose slate-blue camisole tank, light-wash distressed straight-leg jeans, white athletic sneakers',
+      outfit: getCharacterWardrobeText('character-minji', 'outfit'),
       photographicDirection: 'photorealistic editorial portrait, soft night-street photographic realism, coherent facial identity, realistic washed jersey and distressed denim construction',
     },
     count: 1,
@@ -420,8 +421,8 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with a soft oval-heart face, gently high cheeks, a narrow tapered jaw and a small pointed chin, pale gray-green almond eyes set slightly wide with softly lifted outer corners and open double eyelids, a slim straight nose with a clean medium-high bridge and rounded tip, full muted coral lips with a compact cupid bow and plush lower lip, fair cool-neutral skin with a smooth porcelain finish, muted mauve eye shading and soft peach cheek color, slim elegant proportions with narrow shoulders, a long neck and balanced legs',
       hair: 'shoulder-length natural black rounded bob hair with vivid emerald-green underlayer ribbons, airy eyebrow-skimming bangs and softly outward-curved ends',
-      outfit: 'black floral-lace bralette, black high-waisted floral-lace briefs, long white faux-fur coat, black pointed-toe pumps',
-      accessories: 'white lace headband and small dark crystal earrings',
+      outfit: getCharacterWardrobeText('character-manami', 'outfit'),
+      accessories: getCharacterWardrobeText('character-manami', 'accessories'),
       photographicDirection: 'photorealistic editorial portrait, library-couture photographic realism, coherent facial identity, realistic floral lace, faux fur and polished leather construction',
     },
     count: 1,
@@ -436,7 +437,7 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with a long oval-heart face, gently high cheekbones, a narrow tapered jaw and a fine pointed chin, wide-set hazel-gray round-almond eyes with softly lifted outer corners and open double eyelids, a small straight nose with a smooth medium-low bridge and neat rounded tip, full peach-rose lips with a shallow cupid bow and a plush lower lip, warm light-beige skin with an even satin finish, soft taupe eye shading and warm peach cheek color, curvy hourglass proportions with gently sloped shoulders, a full bust, a narrow waist, rounded hips and long balanced legs',
       hair: 'long glossy natural black hair styled into high twin ponytails with straight lengths, eyebrow-skimming wispy bangs and long face-framing sidelocks',
-      outfit: 'fitted white ribbed spaghetti-strap cropped camisole, low-rise light-wash denim mini skirt with a raw frayed hem, bare feet as the default footwear state',
+      outfit: getCharacterWardrobeText('character-grace', 'outfit'),
       photographicDirection: 'photorealistic editorial portrait, warm direct-flash indoor photographic realism, coherent facial identity, realistic ribbed cotton and washed denim construction',
     },
     count: 1,
@@ -451,8 +452,8 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with a long angular oval face, high sculpted cheekbones, a firm narrow jaw and a refined squared-pointed chin, elongated deep brown almond eyes with sharply lifted outer corners, defined double eyelids and a steady narrow gaze structure, a long straight nose with a high narrow bridge and a fine pointed tip, medium-full muted coral-beige lips with a restrained cupid bow and even lower-lip volume, warm light-olive skin with a smooth matte-satin finish, precise charcoal winged liner and warm neutral contour, tall lean athletic proportions with straight shoulders, a long torso, a defined waist and long legs',
       hair: 'sleek natural black shoulder-length blunt bob hair with a clean center part, straight glassy lengths and sharp even ends',
-      outfit: 'black leather biker jacket, fitted white graffiti-print cropped tank, black high-rise leather skinny pants, black lace-up combat boots',
-      accessories: 'black studded choker, layered silver chain necklaces, spiked black wrist cuffs and silver rings',
+      outfit: getCharacterWardrobeText('character-kaori', 'outfit'),
+      accessories: getCharacterWardrobeText('character-kaori', 'accessories'),
       photographicDirection: 'photorealistic editorial portrait, gritty recording-studio rock editorial photographic realism, coherent facial identity, realistic leather, metal hardware and cotton construction',
     },
     count: 1,
@@ -467,7 +468,7 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with a small rounded heart-oval face, full upper cheeks, a smooth narrow jaw and a compact rounded chin, large dark brown round eyes set noticeably wide with level outer corners and open double eyelids, a tiny straight nose with a low gentle bridge and button-like rounded tip, broad coral-pink lips with a soft shallow cupid bow and a fuller lower lip, fair warm-ivory skin with a clear luminous satin finish, fine black upper-lash definition and a soft warm-pink cheek flush, compact curvy hourglass proportions with a full bust, narrow waist, rounded hips and full balanced thighs',
       hair: 'glossy natural black shoulder-length straight bob hair with blunt ends, full eyebrow-skimming bangs and symmetrical high twin loop buns',
-      outfit: 'red satin Chinese-inspired halter bikini top with a standing mandarin collar, black piping and gold dragon embroidery, matching red high-cut bikini bottom with black edging, glossy red pointed-toe stiletto pumps',
+      outfit: getCharacterWardrobeText('character-soyeon', 'outfit'),
       photographicDirection: 'photorealistic editorial portrait, vivid lantern-lit fashion photographic realism, coherent facial identity, realistic satin, embroidery and polished leather construction',
     },
     count: 1,
@@ -482,7 +483,7 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with a long narrow oval-heart face, softly high cheekbones, a slim tapered jaw and a delicate pointed chin, wide-set gray-brown almond eyes with subtly lifted outer corners, clear double eyelids and a smooth lower-lid line, a slim straight nose with a defined medium-high bridge and a refined rounded tip, full rose-red lips with a crisp cupid bow and a visibly fuller lower lip, fair neutral porcelain skin with a clean satin finish, soft brown smoky eye definition and restrained rose cheek color, tall slender proportions with narrow shoulders, a long neck, a defined waist and long straight legs',
       hair: 'medium-length warm chestnut-brown wavy hair gathered into a loose low updo with airy wispy bangs and long curled face-framing strands',
-      outfit: 'sleeveless high-neck sheer black floral-lace cropped blouse layered over a black triangle bralette, black high-waisted pleated wide-leg tailored trousers, black lace-up platform ankle boots',
+      outfit: getCharacterWardrobeText('character-bora', 'outfit'),
       photographicDirection: 'photorealistic editorial portrait, warm nightclub editorial photographic realism, coherent facial identity, realistic sheer lace, tailored wool and polished leather construction',
     },
     count: 1,
@@ -497,7 +498,7 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with a short heart-oval face, softly full cheeks, a smooth tapered jaw and a small rounded-pointed chin, wide-set hazel-brown round-almond eyes with softly lifted outer corners, open double eyelids and visible lower-lid fullness, a small straight nose with a low smooth bridge and compact rounded tip, plush coral-rose lips with a softly defined cupid bow and a full lower lip, fair cool-neutral skin with a porcelain satin finish, warm taupe eye shading and a soft pink cheek flush, slim petite proportions with delicate shoulders, a narrow waist, softly rounded hips and long balanced legs',
       hair: 'shoulder-length chestnut-brown layered waves with airy eyebrow-skimming bangs, curved face-framing pieces and softly feathered ends',
-      outfit: 'sleeveless high-neck sheer black floral-lace cropped blouse layered over a black lace triangle bralette, black high-waisted pleated wide-leg tailored trousers, black low-platform lace-up shoes',
+      outfit: getCharacterWardrobeText('character-seulgi', 'outfit'),
       photographicDirection: 'photorealistic editorial portrait, neon nightclub editorial photographic realism, coherent facial identity, realistic sheer lace, tailored wool and polished leather construction',
     },
     count: 1,
@@ -512,8 +513,8 @@ const LEGACY_CHARACTER_PROFILE_OPTIONS = [
     profile: {
       identityAndBody: 'a 20-year-old adult East Asian woman with a compact soft oval face, gently rounded cheeks, a narrow smooth jaw and a neat rounded chin, large dark brown round-almond eyes set slightly wide with level outer corners, open double eyelids and soft lower-lid fullness, a small straight nose with a low gentle bridge and a tidy rounded tip, small rose-red lips with a shallow cupid bow and a fuller lower lip, fair neutral skin with a clean luminous finish, fine brown-black upper-lash definition and restrained pink cheek color, petite balanced proportions with narrow shoulders, a defined waist and softly toned legs',
       hair: 'long natural black hair gathered into a high braided looped bun with curled ribbon-like loops, airy eyebrow-skimming bangs and long curled face-framing tendrils',
-      outfit: 'navy oversized V-neck cardigan over a crisp white collared shirt, navy pleated mini skirt, navy ankle socks, black leather penny loafers',
-      accessories: 'navy striped bow tie and a black nylon school backpack with a small plush teddy-bear charm',
+      outfit: getCharacterWardrobeText('character-miku', 'outfit'),
+      accessories: getCharacterWardrobeText('character-miku', 'accessories'),
       photographicDirection: 'photorealistic editorial portrait, bright commuter-train photographic realism, coherent facial identity, realistic knitwear, cotton shirting, pleated fabric and leather construction',
     },
     count: 1,

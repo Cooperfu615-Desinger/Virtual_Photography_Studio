@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "baseCommit": "bfc2d5baafc8aaede8f774527d0f1aaa187da27f",
+  "inverseExact": true,
+  "restoredFiles": [
+    "webapp/src/lib/characterCardLab.js",
+    "webapp/package.json",
+    "scripts/lib/phase4Replay.mjs"
+  ],
+  "originalHistoryTool": "scripts/phase4_history.mjs"
+}

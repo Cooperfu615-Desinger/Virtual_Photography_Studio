@@ -12,12 +12,13 @@ It does not govern generic PAGE1 identity controls.
 
 ## Sources of truth and paths
 
-`webapp/src/lib/engine/characterProfiles.js` is the single source of truth for formal-card data: identity fields, legacy compatibility string, hair, locked outfit/accessories, and preview metadata. Do not copy whole prompts into documentation or a second data file.
+`webapp/src/lib/engine/characterProfiles.js` owns formal-card identity fields, legacy compatibility string, hair, and preview metadata. Locked outfit/accessories and PAGE2 wardrobe layers resolve from `webapp/src/lib/engine/characterWardrobeSources.js` under [B3 source ownership](b3-character-wardrobe-source-v1.md). Preserve its explicit per-use differences and original assembly order. Do not copy whole prompts into documentation or a second runtime data file.
 
 | Concern | Path |
 | --- | --- |
 | Formal profile data | `webapp/src/lib/engine/characterProfiles.js` |
-| PAGE2 card shaping, layers, six copy outputs | `webapp/src/lib/characterCardLab.js` |
+| Shared wardrobe text and profile assembly recipes | `webapp/src/lib/engine/characterWardrobeSources.js` |
+| PAGE2 card shaping, layer metadata, six copy outputs | `webapp/src/lib/characterCardLab.js` |
 | PAGE1 identity resolution and renderers | `webapp/src/lib/engine.js` |
 | Original reference images | `source-assets/character-cards/<character-folder>/` |
 | Deployment preview | `webapp/public/character-cards/<character-folder>/<reference>.avif` |

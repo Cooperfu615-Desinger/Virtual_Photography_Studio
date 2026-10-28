@@ -478,20 +478,18 @@ let characterProfiles = [];
     const img = p.meta?.referenceImage || '';
     return !manifest.items.some((i) => img === `character-cards/${i.directory}/${i.preview}`);
   }).map((p) => p.id);
-  // characterCardLab.js 的 wardrobeLayers 是否逐字複製 characterProfiles.js 的文字
-  const labAst = parseFile(P('webapp', 'src', 'lib', 'characterCardLab.js'));
-  const profileText = realProfiles.map((p) => [p.en, p.profile?.outfit, p.profile?.accessories].filter(Boolean).join(' || ')).join(' || ');
+  // Resolve real layers and compare only with the same owner's outfit/accessories.
+  const { getCharacterCardOptions } = await importRepo('webapp', 'src', 'lib', 'characterCardLab.js');
+  const labCards = getCharacterCardOptions([{ key: 'characterProfileId', options: realProfiles }]);
   let layerStrings = 0;
   const notVerbatim = [];
-  walk(labAst, (node) => {
-    if (node.type !== 'Property' || propName(node.key) !== 'wardrobeLayers' || node.value.type !== 'ObjectExpression') return;
-    for (const prop of node.value.properties) {
-      const text = stringValue(prop.value);
-      if (text === null) continue;
-      layerStrings += 1;
-      if (!profileText.includes(text)) notVerbatim.push(`characterCardLab.js:${prop.loc.start.line} ${propName(prop.key)}`);
+  for (const card of labCards) {
+    const profile = card.sourceOption.profile;
+    for (const [layer, value] of Object.entries(card.defaultWardrobeLayers)) {
+      layerStrings++;
+      if (![profile.outfit, profile.accessories].some(text => text?.includes(value.prompt))) notVerbatim.push(card.id + ':' + layer);
     }
-  });
+  }
   embeddedChecks.characterCards = {
     labWardrobeLayerStrings: layerStrings,
     labWardrobeLayersVerbatimInProfiles: layerStrings - notVerbatim.length,
@@ -508,7 +506,7 @@ let characterProfiles = [];
     manifestFileProblems,
   };
   const cc = embeddedChecks.characterCards;
-  if (layerStrings) possible('CARD_LAYER_DUPLICATION', `characterCardLab.js 的 ${layerStrings} 段 wardrobeLayers 文字中 ${layerStrings - notVerbatim.length} 段與 characterProfiles.js 逐字重複；其餘 ${notVerbatim.length} 段不一致（改寫或漂移，需人工判斷）`, notVerbatim);
+  if (layerStrings) possible('CARD_LAYER_DUPLICATION', `characterCardLab.js 的 ${layerStrings} 段 wardrobeLayers 文字中 ${layerStrings - notVerbatim.length} 段與 characterProfiles.js 逐字重複；其餘 ${notVerbatim.length} 段保留已審閱用途差異；逐筆來源由 CHARACTER_WARDROBE_SOURCE 嚴格驗證`, notVerbatim);
   if (cc.mjCardNamesDangling.length) confirmed('MJ_CARD_DANGLING', 'MIDJOURNEY_CARD_ITEM_NAMES 有不存在的角色卡 ID', cc.mjCardNamesDangling);
   if (cc.profilesWithoutMjCardNames.length) possible('MJ_CARD_MISSING', `${cc.profilesWithoutMjCardNames.length} 張角色卡沒有 MJ 名稱表`, cc.profilesWithoutMjCardNames);
   if (missingImages.length || manifestFileProblems.length) confirmed('CHARACTER_IMAGE_MISSING', '角色卡參考圖檔缺漏', [...missingImages, ...manifestFileProblems]);
@@ -579,6 +577,7 @@ function exportedShapes(mod) {
 }
 const embeddedModules = [
   ['webapp/src/lib/engine/characterProfiles.js'],
+  ['webapp/src/lib/engine/characterWardrobeSources.js'],
   ['webapp/src/lib/engine/poseComposerOptions.js'],
   ['webapp/src/lib/engine/duoOptions.js'],
   ['webapp/src/lib/engine/fixedCompositionOptions.js'],

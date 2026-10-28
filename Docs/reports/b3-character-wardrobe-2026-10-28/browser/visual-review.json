@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      900
+    ]
+  ],
+  "screenshots": 26,
+  "checks": 54,
+  "review": "Reviewed desktop and mobile overview sheets plus Amy desktop and Kaori mobile detail; images loaded, selected states present, controls readable, no accidental overflow or clipping.",
+  "scope": [
+    "role layers",
+    "six copy outputs",
+    "pure character",
+    "PAGE1 transfer",
+    "saved originals",
+    "six workspaces"
+  ],
+  "externalModelEvaluation": false,
+  "notes": [
+    "Initial screenshot pass improved to wait for lazy images and click named roles; pagination reset fixed in test tool before final successful run."
+  ]
+}

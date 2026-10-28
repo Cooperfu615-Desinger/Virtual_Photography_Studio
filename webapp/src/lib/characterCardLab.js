@@ -1,3 +1,4 @@
+import { getCharacterWardrobeLayers } from './engine/characterWardrobeSources.js';
 export const CHARACTER_CARD_LAYER_KEYS = [
   'top',
   'bottom',
@@ -44,315 +45,148 @@ const CHARACTER_CARD_EXTENSIONS = {
   'character-rika': {
     hairTags: ['long', 'wavy', 'bangs', 'black-hair'],
     disabledHairVariants: ['slicked-back-wet-look'],
-    wardrobeLayers: {
-      top: 'fitted cropped white short-sleeve baby tee with a small minimalist black line-art chest graphic',
-      bottom: 'slightly loose low-rise light-wash blue jeans with relaxed straight legs and soft vintage fading',
-      shoes: 'clean white low-top sneakers',
-      neckAccessory: 'black-and-white beaded choker necklace',
-      waistAccessory: 'small silver ring keychain clipped to the front belt loop',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-rika'),
   },
   'character-48g': {
     hairTags: ['medium', 'lob', 'straight', 'bangs', 'black-hair'],
-    wardrobeLayers: {
-      outerwear: 'taupe-gray cropped hooded zip jacket worn open with the hood usually worn up framing the hair',
-      top: 'black lace bralette neckline',
-      bottom: 'low-rise faded blue denim mini skirt worn unbuttoned with the zipper slightly pulled down and visible thin-strap black lace thong waistband underneath',
-      shoes: 'black lace-up ankle boots with glossy rounded toes',
-      waistAccessory: 'small off-white shoulder bag with thin black strap',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-48g'),
   },
   'character-philippa': {
     hairTags: ['long', 'wavy', 'bangs', 'black-hair', 'dip-dye'],
-    wardrobeLayers: {
-      dress: 'black high-neck gothic lace dress with sheer mesh long sleeves, black floral lace sleeve appliques across shoulders and arms, fitted black lace bodice with subtle beadwork, floor-length translucent black tulle skirt overlay with trailing hem',
-      shoes: 'black elegant dress shoes',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-philippa'),
   },
   'character-lily': {
     hairTags: ['long', 'wavy', 'bangs', 'red-hair', 'dyed'],
-    wardrobeLayers: {
-      outerwear: 'black shaggy faux-fur off-shoulder mini coat worn as the main garment, plush high-pile texture, deep V neckline, bare shoulders and collarbones, oversized sleeves, mini-length hem',
-      top: 'minimal black inner layer kept subtle under the coat',
-      shoes: 'black ankle-strap stiletto sandals with thin straps and open toes',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-lily'),
   },
   'character-hinata': {
     hairTags: ['bob', 'medium', 'wavy', 'dyed', 'center-part'],
-    wardrobeLayers: {
-      top: 'deep cobalt blue cable-knit turtleneck cutout bodysuit sweater with thick ribbed high collar, fitted long sleeves, vertical cable texture, sculpted bust-waist contour, large side-waist cutout openings exposing both sides of the narrow waist and upper hips',
-      bottom: 'medium-wash skinny blue jeans with natural denim fading',
-      shoes: 'black leather ankle boots with rounded toes and low block heels',
-      waistAccessory: 'black leather belt with small silver buckle',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-hinata'),
   },
   'character-rin': {
     hairTags: ['short', 'bob', 'curly', 'bangs', 'black-hair'],
     enabledHairVariants: ['slicked-back-wet-look'],
-    wardrobeLayers: {
-      top: 'crisp white oversized button-down shirt with open collar, relaxed dropped shoulders, sleeves rolled to the forearms, slightly loose tucked-in fabric',
-      bottom: 'charcoal high-waisted tailored straight trousers with pressed front crease and clean waistband',
-      shoes: 'black leather loafers with low stacked heels',
-      eyewear: 'signature thin rectangular brown-gold metal frame eyeglasses with transparent lenses',
-      earrings: 'stacked twin gold hoop earrings on both ears',
-      neckAccessory: 'layered delicate gold necklaces with tiny pendant charms',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-rin'),
   },
   'character-sakura': {
     hairTags: ['long', 'wavy', 'bangs', 'brown-hair', 'pink-streaks'],
-    wardrobeLayers: {
-      headAccessory: 'white plush bunny-eared hood with floppy long ears, pink inner ears, cute black cartoon eyes, small pink nose, soft white plush fur texture, tiny white fang-like teeth along the hood opening',
-      top: 'oversized ivory-white fleece pullover hoodie with dropped shoulders, long loose sleeves, front kangaroo pocket and white drawstrings',
-      bottom: 'relaxed beige oatmeal sweatpants with soft brushed knit texture and straight loose legs',
-      shoes: 'clean white low-top sneakers',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-sakura'),
   },
   'character-sui': {
     hairTags: ['long', 'wavy', 'bangs', 'black-hair'],
-    wardrobeLayers: {
-      outerwear: 'mustard yellow oversized knit cardigan with chunky fuzzy texture, deep V open front, wooden buttons, relaxed dropped shoulders, long loose sleeves with ribbed cuffs, small white fuzzy floral embroidery scattered on the cardigan',
-      top: 'cream ribbed knit camisole with a scoop neckline underneath',
-      bottom: 'high-waisted medium-dark blue straight-leg jeans with natural denim fading',
-      shoes: 'brown leather ankle boots with rounded toes and low stacked heels',
-      neckAccessory: 'delicate gold necklace with a small red-orange oval pendant',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-sui'),
   },
   'character-yuri': {
     hairTags: ['long', 'straight', 'bangs', 'black-hair'],
-    wardrobeLayers: {
-      top: 'white ribbed off-shoulder cropped long-sleeve top with exposed shoulders, fitted sleeves, small front buttons, vintage black graphic print across the chest and delicate lace trim along the cropped hem',
-      bottom: 'low-rise medium-wash blue flared jeans with natural fading',
-      shoes: 'brown low-top canvas sneakers with cream rubber soles and white laces',
-      eyewear: 'round translucent brown acetate eyeglasses with thin metal temples',
-      neckAccessory: 'black choker necklace with small silver charm details',
-      wristAccessory: 'stacked silver bangles and rings',
-      waistAccessory: 'decorated leather belt with large oval western-style belt buckle and metal-stud chain detail',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-yuri'),
   },
   'character-hina': {
     hairTags: ['short', 'bob', 'bangs', 'dyed'],
     enabledHairVariants: ['slicked-back-wet-look'],
-    wardrobeLayers: {
-      top: 'loose sage-mint green sleeveless tunic tank top with soft washed cotton texture, round crew neckline, oversized A-line drape, wide armholes with a subtle black inner layer visible at the side',
-      bottom: 'matching sage-mint green relaxed short shorts',
-      shoes: 'bare feet as the locked footwear state',
-      eyewear: 'round thin black metal eyeglasses',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-hina'),
   },
   'character-yuna': {
     hairTags: ['long', 'wavy', 'bangs', 'brown-hair'],
-    wardrobeLayers: {
-      top: 'fitted white ribbed scoop-neck cropped tank top',
-      bottom: 'slate-gray relaxed athletic shorts with a wide elastic waistband',
-      outerwear: 'oversized pale powder-blue zip hoodie worn open with the hood usually raised',
-      shoes: 'white crew socks and clean white low-top sneakers',
-      neckAccessory: 'matte white over-ear headphones worn around the neck',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-yuna'),
   },
   'character-eleanor': {
     hairTags: ['long', 'wavy', 'black-hair', 'center-part'],
-    wardrobeLayers: {
-      dress: 'elaborate black and aged-bronze gothic armored corset gown with structured lace cups, engraved metal framing, sheer black floral-lace torso panels, fitted waist armor and floor-length layered black skirt panels with a trailing hem',
-      shoes: 'black armored boots',
-      neckAccessory: 'ornate black lace high collar with a small bronze centerpiece',
-      wristAccessory: 'black lace gauntlets and engraved black-and-bronze forearm armor',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-eleanor'),
   },
   'character-olivia': {
     hairTags: ['long', 'wavy', 'brown-hair', 'center-part'],
-    wardrobeLayers: {
-      top: 'glossy black patent triangle bikini top',
-      bottom: 'matching low-rise thin-strap black bikini bottom',
-      outerwear: 'oversized black varsity bomber jacket worn open with white striped ribbed trim and white script embroidery',
-      shoes: 'black ankle-strap open-toe stiletto sandals',
-      headAccessory: 'plain black baseball cap',
-      earrings: 'long slim rectangular silver drop earrings',
-      neckAccessory: 'delicate gold chain necklace with a small round pendant',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-olivia'),
   },
   'character-jiwoo': {
     hairTags: ['long', 'wavy', 'bangs', 'black-hair', 'dyed', 'highlight-streaks'],
-    wardrobeLayers: {
-      dress: 'fitted black off-shoulder gothic dress with a clean sweetheart neckline, short lace-trim sleeves, a defined waist and a flowing ankle-length A-line skirt',
-      shoes: 'black pointed-toe stiletto pumps',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-jiwoo'),
   },
   'character-chihiro': {
     hairTags: ['long', 'wavy', 'dyed', 'center-part'],
-    wardrobeLayers: {
-      dress: 'black deep-V embellished camisole gown under a sheer black mesh and floral-lace overlay with translucent long sleeves, lace cuffs, a fitted lace waist panel and a floor-length layered black tulle skirt',
-      shoes: 'black platform ankle boots',
-      neckAccessory: 'wide black floral-lace choker',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-chihiro'),
   },
   'character-koto': {
     hairTags: ['long', 'wavy', 'bangs', 'black-hair'],
-    wardrobeLayers: {
-      dress: 'fitted black gothic lace mini dress with an ornate beaded bodice, sheer floral-lace short sleeves, asymmetric translucent lace cape panels and a long trailing high-low overskirt',
-      shoes: 'glossy black pointed-toe pumps',
-      neckAccessory: 'wide black jeweled choker with an ornate silver pendant',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-koto'),
   },
   'character-mei': {
     hairTags: ['long', 'wavy', 'dyed', 'center-part', 'ombre'],
-    wardrobeLayers: {
-      dress: 'floor-length black off-shoulder gothic gown with fitted long sleeves, pointed lace cuffs, an ornate black lace-and-beaded chest panel, a close fitted waist and a layered asymmetric trailing skirt',
-      shoes: 'black lace-up platform combat ankle boots',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-mei'),
   },
   'character-rei': {
     hairTags: ['long', 'black-hair', 'center-part', 'updo'],
     enabledHairVariants: ['low-ponytail', 'high-ponytail', 'half-up', 'loose-bun'],
-    wardrobeLayers: {
-      top: 'black ribbed high-neck cropped tank top',
-      outerwear: 'open black zip hoodie with relaxed sleeves',
-      bottom: 'faded charcoal distressed low-rise baggy jeans',
-      shoes: 'worn cream athletic sneakers',
-      earrings: 'small silver earrings',
-      neckAccessory: 'layered silver chain necklaces',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-rei'),
   },
   'character-amy': {
     hairTags: ['long', 'straight', 'bangs', 'brown-hair'],
-    wardrobeLayers: {
-      top: 'oversized vivid red pullover hoodie with a front kangaroo pocket and matching drawstrings',
-      bottom: 'black sheer tights',
-      shoes: 'glossy red lace-up combat boots with black soles',
-      headAccessory: 'black ribbed knit beanie',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-amy'),
   },
   'character-jiyoo': {
     hairTags: ['long', 'straight', 'black-hair', 'center-part'],
-    wardrobeLayers: {
-      top: 'black and crimson silk hanbok jeogori with a white crossover collar and ornate gold embroidery',
-      bottom: 'floor-length charcoal-black skirt with deep crimson and gold brocade hem panels',
-      shoes: 'black-and-gold embroidered flats',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-jiyoo'),
   },
   'character-yui': {
     hairTags: ['short', 'bob', 'bangs', 'blonde', 'center-part'],
     enabledHairVariants: ['slicked-back-wet-look'],
-    wardrobeLayers: {
-      top: 'white strapless fitted tube top',
-      bottom: 'white fitted mini skirt',
-      shoes: 'bare feet as the locked footwear state',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-yui'),
   },
   'character-nana': {
     hairTags: ['short', 'bob', 'bangs', 'black-hair'],
     enabledHairVariants: ['slicked-back-wet-look'],
-    wardrobeLayers: {
-      top: 'crisp white short-sleeve button-up shirt with a navy plaid necktie',
-      bottom: 'navy pleated skirt',
-      shoes: 'navy ankle socks and brown leather loafers',
-      earrings: 'small silver hoop earrings',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-nana'),
   },
   'character-emily': {
     hairTags: ['long', 'black-hair', 'center-part', 'updo'],
     enabledHairVariants: ['low-ponytail', 'high-ponytail', 'half-up', 'loose-bun'],
-    wardrobeLayers: {
-      top: 'oversized white mesh football jersey with a bold black number graphic',
-      bottom: 'dark washed baggy jeans',
-      shoes: 'black-and-white chunky athletic sneakers',
-      neckAccessory: 'black cord necklace with a silver cross pendant',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-emily'),
   },
   'character-shiori': {
     hairTags: ['long', 'wavy', 'bangs', 'brown-hair'],
-    wardrobeLayers: {
-      top: 'black ribbed cropped camisole with thin straps',
-      bottom: 'light-blue denim bib overalls worn loosely',
-      shoes: 'black-and-white low-top canvas sneakers',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-shiori'),
   },
   'character-natsuki': {
     hairTags: ['short', 'bob', 'bangs', 'black-hair'],
     enabledHairVariants: ['slicked-back-wet-look'],
-    wardrobeLayers: {
-      top: 'navy racerback athletic crop tank with white piping',
-      bottom: 'matching navy athletic shorts with white trim',
-      shoes: 'white lace-up athletic sneakers',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-natsuki'),
   },
   'character-minji': {
     hairTags: ['short', 'bob', 'bangs', 'black-hair'],
     enabledHairVariants: ['slicked-back-wet-look'],
-    wardrobeLayers: {
-      top: 'loose slate-blue camisole tank with thin straps',
-      bottom: 'light-wash distressed straight-leg jeans',
-      shoes: 'white athletic sneakers',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-minji'),
   },
   'character-manami': {
     hairTags: ['short', 'bob', 'bangs', 'black-hair', 'dyed', 'highlight-streaks'],
     enabledHairVariants: ['slicked-back-wet-look'],
-    wardrobeLayers: {
-      top: 'black floral-lace bralette',
-      bottom: 'black high-waisted floral-lace briefs',
-      outerwear: 'long white faux-fur coat worn open',
-      shoes: 'black pointed-toe pumps',
-      headAccessory: 'white lace headband',
-      earrings: 'small dark crystal earrings',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-manami'),
   },
   'character-grace': {
     hairTags: ['long', 'straight', 'bangs', 'black-hair', 'updo'],
-    wardrobeLayers: {
-      top: 'fitted white ribbed spaghetti-strap cropped camisole',
-      bottom: 'low-rise light-wash denim mini skirt with a raw frayed hem',
-      shoes: 'bare feet as the locked footwear state',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-grace'),
   },
   'character-kaori': {
     hairTags: ['medium', 'bob', 'straight', 'black-hair', 'center-part'],
     enabledHairVariants: ['slicked-back-wet-look'],
-    wardrobeLayers: {
-      top: 'fitted white graffiti-print cropped tank',
-      bottom: 'black high-rise leather skinny pants',
-      outerwear: 'black leather biker jacket with silver hardware',
-      shoes: 'black lace-up combat boots',
-      neckAccessory: 'black studded choker and layered silver chain necklaces',
-      wristAccessory: 'spiked black wrist cuffs',
-      ring: 'stacked silver rings',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-kaori'),
   },
   'character-soyeon': {
     hairTags: ['medium', 'bob', 'straight', 'bangs', 'black-hair', 'updo'],
-    wardrobeLayers: {
-      top: 'red satin Chinese-inspired halter bikini top with a standing mandarin collar, black piping and gold dragon embroidery',
-      bottom: 'matching red high-cut bikini bottom with black edging',
-      shoes: 'glossy red pointed-toe stiletto pumps',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-soyeon'),
   },
   'character-bora': {
     hairTags: ['medium-long', 'medium', 'wavy', 'bangs', 'brown-hair', 'updo'],
     enabledHairVariants: ['low-ponytail', 'half-up', 'loose-bun'],
-    wardrobeLayers: {
-      top: 'sleeveless high-neck sheer black floral-lace cropped blouse layered over a black triangle bralette',
-      bottom: 'black high-waisted pleated wide-leg tailored trousers',
-      shoes: 'black lace-up platform ankle boots',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-bora'),
   },
   'character-seulgi': {
     hairTags: ['medium', 'wavy', 'bangs', 'brown-hair'],
     enabledHairVariants: ['half-up', 'loose-bun'],
-    wardrobeLayers: {
-      top: 'sleeveless high-neck sheer black floral-lace cropped blouse layered over a black lace triangle bralette',
-      bottom: 'black high-waisted pleated wide-leg tailored trousers',
-      shoes: 'black low-platform lace-up shoes',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-seulgi'),
   },
   'character-miku': {
     hairTags: ['long', 'wavy', 'bangs', 'black-hair', 'updo'],
     enabledHairVariants: ['low-ponytail', 'high-ponytail', 'twin-tails', 'half-up', 'loose-bun'],
-    wardrobeLayers: {
-      top: 'navy oversized V-neck cardigan over a crisp white collared shirt',
-      bottom: 'navy pleated mini skirt',
-      shoes: 'navy ankle socks and black leather penny loafers',
-      neckAccessory: 'striped navy bow tie',
-      waistAccessory: 'black nylon school backpack with a small plush teddy-bear charm',
-    },
+    wardrobeLayers: getCharacterWardrobeLayers('character-miku'),
   },
 };
 
