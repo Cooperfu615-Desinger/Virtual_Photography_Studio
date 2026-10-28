@@ -1,0 +1,23 @@
+[
+  {
+    "check": "frontend-test-final",
+    "exitCode": 0
+  },
+  {
+    "check": "prompt-quality-final",
+    "exitCode": 0
+  },
+  {
+    "check": "lint-final",
+    "exitCode": 0
+  },
+  {
+    "check": "catalog-tools",
+    "exitCode": 1
+  },
+  {
+    "check": "catalog-tools-final",
+    "exitCode": 0,
+    "registryBaseCommit": "9a0c4f2df7790d2728701e384b9dfc635d428a73"
+  }
+]

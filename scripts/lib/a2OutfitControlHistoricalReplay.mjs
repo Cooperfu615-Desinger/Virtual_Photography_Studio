@@ -1,3 +1,4 @@
+import { CHEST_DRESS_REGION_REVIEW, preChestDressRegionSource, restorePreChestDressRegionFiles } from './a2ChestDressRegionReplay.mjs';
 import { restorePreA2LegacyDressProseFiles } from './a2LegacyDressProseReplay.mjs';
 import { restorePreA2LegacyDressFiles } from './a2LegacyDressReplay.mjs';
 import { preA2SpecialTapeDatabase, preA2SpecialTapeManagementSources, restorePreA2SpecialTapeFiles } from './a2SpecialTapeReplay.mjs';
@@ -34,7 +35,13 @@ export function preA2OutfitDatabase(database) {
 export function preA2OutfitProgramSources(sources, state) {
   assert.ok(['before', 'after'].includes(state));
   if (state === 'after') {
-    try { sources = preA2SpecialTapeManagementSources(sources); }
+    try {
+      sources = Object.fromEntries(Object.entries(sources).map(([path, source]) => {
+        const current = CHEST_DRESS_REGION_REVIEW.files.find(file => file.path === path);
+        return [path, current && hash(source) === current.afterHash ? preChestDressRegionSource(path, source) : source];
+      }));
+      sources = preA2SpecialTapeManagementSources(sources);
+    }
     catch (error) { throw new Error('A2 outfit inverse rejects special-tape management: ' + error.message, { cause: error }); }
   }
   const restored = { ...sources };
@@ -101,6 +108,7 @@ export function openPreA2OutfitReplayRoot() {
     for (const path of ['webapp/src', 'scripts', 'knowledge_base']) cpSync(join(A2_OUTFIT_ROOT, path), join(directory, path), { recursive: true });
     for (const file of ['package.json', 'package-lock.json']) cpSync(join(A2_OUTFIT_ROOT, 'webapp', file), join(directory, 'webapp', file));
     symlinkSync(join(A2_OUTFIT_ROOT, 'webapp/node_modules'), join(directory, 'webapp/node_modules'), 'dir');
+    restorePreChestDressRegionFiles(directory);
     restorePreA2LegacyDressProseFiles(directory);
     restorePreA2LegacyDressFiles(directory);
     restorePreA2WardrobeRecoveryFiles(directory);

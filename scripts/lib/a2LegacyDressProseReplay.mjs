@@ -1,3 +1,4 @@
+import {preChestDressRegionSource} from './a2ChestDressRegionReplay.mjs';
 // Exact, atomic test-only inverse. Historical evidence is never re-recorded.
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync,existsSync,realpathSync,rmSync} from 'node:fs';
@@ -8,7 +9,9 @@ export const LEGACY_DRESS_PROSE_ROOT=fileURLToPath(new URL('../../',import.meta.
 export const LEGACY_DRESS_PROSE_REVIEW=JSON.parse(readFileSync(new URL('./a2LegacyDressProsePatches.json',import.meta.url)));
 const hash=value=>createHash('sha256').update(value).digest('hex');
 export function preLegacyDressProseSource(path,source){
- const file=LEGACY_DRESS_PROSE_REVIEW.files.find(f=>f.path===path);if(!file)return source;
+ const file=LEGACY_DRESS_PROSE_REVIEW.files.find(f=>f.path===path);
+ if(!file||hash(source)!==file.beforeHash)source=preChestDressRegionSource(path,source);
+ if(!file)return source;
  const sha=hash(source);assert.ok(sha===file.beforeHash||sha===file.afterHash,'Legacy dress prose inverse rejects unknown source: '+path);
  assert.equal(hash(file.beforeSource),file.beforeHash,'Legacy dress prose inverse invalid fixed source');
  return Buffer.isBuffer(source)?Buffer.from(file.beforeSource):file.beforeSource;

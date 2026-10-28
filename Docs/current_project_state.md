@@ -4,6 +4,15 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-28
 
+## Phase 4 A2：單人胸上連身區域配色（2026-10-28，本機驗收完成，授權交付）
+
+- 固定本機／最新遠端 main 基準 `9a0c4f2df7790d2728701e384b9dfc635d428a73`。單人胸上特寫照從同次 resolved 連身來源保留可見上區色，省略下區色並服從外套遮蔽；主工作台近景另批。不透明全扣外套保持遮蔽，透膚可見內搭保留上區色。
+- 固定 Git：1,008 組連身配色、407 組邊界、48 次抓拍／重抽、36 次存檔往返、4,086 次生成，0 核准外差異；另外五組輸出、選值、RNG、胸上非穿搭章節與 328 份其他正式來源／程式保持。舊公開原文不改，套用重新生成才有新胸上投影。
+- 前端 1,985、Prompt Quality 829、Python 43、目錄工具 32、lint／build／sync／歷史 ID／strict／207 assets 通過；200 同 seed audit 前後逐字一致，0 blocker／18 既有診斷。最終八份 inverse 來源精確等於固定 Git；上一批舊連身純文字還原與完整 A2／A1／A5 原工具隔離回放全數通過。
+- 5175 桌面 1440×1000／手機 390×900：34 項操作、28 張畫面，0 error／外部 POST／意外水平溢位，關鍵胸上／外套畫面已檢視，專用服務已停止。保留六工作區及 ZIP Import 的既有範圍。
+- 3,124 原追蹤檔、1,684 歷史檔與其他 20 工作目錄／140 份既有未提交檔受保護；既存失效 worktree 登記保持。Cooper 已授權依序完成 Phase 4 的實作、驗證與 commit／push，本批先限定交付；實際提交與 CI 另核對。原報告與 manifest 保留提交前證據，後續主工作台近景及 A3–A7 依各批規格推進；P5b 維持暫緩。
+- [規格](specs/chest-dress-region-a2-v1.md)、[決策](decisions/2026-10-28-a2-chest-dress-region.md)、[報告](reports/chest-dress-region-a2-2026-10-28/README.md)。下方保留各批當時狀態。
+
 ## Phase 4 A2：舊連身純文字還原（2026-10-28，驗收通過，授權限定交付）
 
 - 固定基準及最後唯讀核對遠端 main 為 `2caa6fdcd2ab63931339ee3018ca52025d3cef3f`。完整現行／歷史來源統一回到連身欄位，依同人物、同衣物辨識單色及新舊上下區域配色；貼回、舊 Markdown／ZIP 共用。缺少或衝突證據不猜，明確 A／B 不交叉覆寫。新版快照／JSON／抓拍 metadata 優先，舊卡公開原文保持。

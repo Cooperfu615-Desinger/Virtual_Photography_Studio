@@ -1,3 +1,4 @@
+import {preChestDressRegionSource} from '../../../../scripts/lib/a2ChestDressRegionReplay.mjs';
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {readFileSync,writeFileSync,mkdirSync,mkdtempSync,rmSync,existsSync} from 'node:fs';
@@ -7,7 +8,7 @@ import {createHash} from 'node:crypto';
 import {LEGACY_DRESS_PROSE_ROOT as root,LEGACY_DRESS_PROSE_REVIEW as review,restorePreA2LegacyDressProseFiles as restore} from '../../../../scripts/lib/a2LegacyDressProseReplay.mjs';
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const paths=[...review.files.map(f=>f.path),...Object.keys(review.newFiles)];
-function seed(dir){for(const p of paths){mkdirSync(dirname(join(dir,p)),{recursive:true});writeFileSync(join(dir,p),readFileSync(join(root,p)));}}
+function seed(dir){for(const p of paths){mkdirSync(dirname(join(dir,p)),{recursive:true});writeFileSync(join(dir,p),preChestDressRegionSource(p,readFileSync(join(root,p))));}}
 test('A2 legacy dress prose inverse restores exact fixed sources atomically and is idempotent only in isolated copies',()=>{
  assert.throws(()=>restore(root),/isolated/);
  const dir=mkdtempSync(join(tmpdir(),'legacy-dress-inverse-'));

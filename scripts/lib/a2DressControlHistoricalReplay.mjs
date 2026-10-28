@@ -1,3 +1,4 @@
+import { restorePreChestDressRegionFiles } from './a2ChestDressRegionReplay.mjs';
 import { restorePreA2LegacyDressProseFiles } from './a2LegacyDressProseReplay.mjs';
 import { restorePreA2LegacyDressFiles } from './a2LegacyDressReplay.mjs';
 // Test-only exact data inverse. No public renderer or historical seal is rewritten.
@@ -89,6 +90,7 @@ export function openPreA2ReplayRoot() {
     for (const path of ['webapp/src', 'scripts', 'knowledge_base']) cpSync(join(A2_ROOT, path), join(directory, path), { recursive: true });
     for (const file of ['package.json', 'package-lock.json']) cpSync(join(A2_ROOT, 'webapp', file), join(directory, 'webapp', file));
     symlinkSync(join(A2_ROOT, 'webapp/node_modules'), join(directory, 'webapp/node_modules'), 'dir');
+    restorePreChestDressRegionFiles(directory);
     restorePreA2LegacyDressProseFiles(directory);
     restorePreA2LegacyDressFiles(directory);
     restorePreA2Files(directory);

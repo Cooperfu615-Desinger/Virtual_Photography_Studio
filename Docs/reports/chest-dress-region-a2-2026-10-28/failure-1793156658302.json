@@ -1,0 +1,13 @@
+{
+  "message": "The expression evaluated to a falsy value:\n\n  assert.ok(person)\n",
+  "stack": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(person)\n\n    at file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/chest_dress_region_a2_acceptance.mjs:65:130",
+  "counts": {
+    "matrix": 1008,
+    "boundaries": 398,
+    "captures": 0,
+    "stored": 0,
+    "changed": 1127,
+    "generations": 3940
+  },
+  "mismatches": []
+}

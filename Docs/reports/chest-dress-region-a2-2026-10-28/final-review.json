@@ -1,0 +1,12 @@
+{
+  "introducedDocumentationLinksChecked": 19,
+  "missingLinks": [],
+  "gitDiffCheck": 0,
+  "auditByteIdentical": true,
+  "serviceStopped": {
+    "port": 5175,
+    "listenerAbsent": true
+  },
+  "scope": "chest-up-portrait dress upper color only; no commit/push",
+  "historicalReplayPassed": true
+}

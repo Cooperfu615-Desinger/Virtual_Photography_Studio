@@ -1,0 +1,44 @@
+
+> webapp@0.0.0 build
+> vite build
+
+vite v7.3.1 building client environment for production...
+transforming...
+✓ 1931 modules transformed.
+rendering chunks...
+[plugin vite:reporter] 
+(!) /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/firebase.js is dynamically imported by /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/comfyCloudProxyClient.js, /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/comfyVideoClient.js, /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/comfyVideoClient.js, /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/magnificProxyClient.js but also statically imported by /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/App.jsx, /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/components/ComfyQuotaPanel.jsx, /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/components/VideoWorkspace.jsx, /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/favoritesRepository.js, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/magnificProxyClient.js is dynamically imported by /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/comfyVideoClient.js but also statically imported by /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/components/DllImageViewer.jsx, /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/components/DllPicProPanel.jsx, /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/components/DllPicWorkspace.jsx, /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/dllWorkspaceRuntime.js, dynamic import will not move module into another chunk.
+
+computing gzip size...
+dist/index.html                                 0.68 kB │ gzip:   0.34 kB
+dist/assets/SavedCardsWorkspace-CrVZzm65.css    2.00 kB │ gzip:   0.64 kB
+dist/assets/workspaceLabs-CvE0cEu_.css          4.82 kB │ gzip:   1.19 kB
+dist/assets/Page2Workspace-2wKPtrMf.css         5.44 kB │ gzip:   1.31 kB
+dist/assets/DllPicProPanel-Cuf7N66u.css         9.88 kB │ gzip:   2.22 kB
+dist/assets/DllPicWorkspace-CRwGGPKE.css       10.20 kB │ gzip:   2.38 kB
+dist/assets/index-YTLrdYv3.css                 45.26 kB │ gzip:   8.48 kB
+dist/assets/Page1Workspace-BKt_fILT.css        50.63 kB │ gzip:   7.67 kB
+dist/assets/trash-2-C1NaDnI3.js                 0.33 kB │ gzip:   0.22 kB
+dist/assets/index-tJIFZjlD.js                   0.50 kB │ gzip:   0.34 kB
+dist/assets/PromptPreviewCard-DCMAWuXQ.js       1.06 kB │ gzip:   0.53 kB
+dist/assets/favoritesRepository-DpTwId7s.js     2.19 kB │ gzip:   1.07 kB
+dist/assets/Page3Workspace-DdVEMi7D.js          5.15 kB │ gzip:   2.03 kB
+dist/assets/Page2Workspace-HyqknOT5.js          7.28 kB │ gzip:   2.47 kB
+dist/assets/SavedCardsWorkspace-CC1lXTFm.js     8.38 kB │ gzip:   3.09 kB
+dist/assets/index.esm-uW5yyPba.js               8.59 kB │ gzip:   3.43 kB
+dist/assets/DllPicWorkspace-DSX46X1U.js        17.23 kB │ gzip:   6.14 kB
+dist/assets/DllPicProPanel-B-FP6Iw1.js         24.54 kB │ gzip:   8.46 kB
+dist/assets/savedCardArchive-BSg7W7T0.js      101.98 kB │ gzip:  32.29 kB
+dist/assets/Page1Workspace-D8u3SUMt.js        123.21 kB │ gzip:  36.82 kB
+dist/assets/index-DQX6PCH6.js                 743.02 kB │ gzip: 232.23 kB
+dist/assets/prompt-catalog-COnWiabC.js        772.84 kB │ gzip: 167.72 kB
+dist/assets/prompt-engine-DDvqhZ-x.js         855.84 kB │ gzip: 245.40 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 2.66s

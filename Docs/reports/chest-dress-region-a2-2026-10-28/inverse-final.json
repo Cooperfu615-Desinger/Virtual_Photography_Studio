@@ -1,0 +1,46 @@
+{
+  "baseCommit": "9a0c4f2df7790d2728701e384b9dfc635d428a73",
+  "files": [
+    {
+      "path": "scripts/lib/a1AdultIdentityHistoricalReplay.mjs",
+      "sha256": "f14c16bec7afee99ab9c9996410da072ece94d5c01fd1a9962d931a630a1726e",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "scripts/lib/a2DressControlHistoricalReplay.mjs",
+      "sha256": "2ac0a8be15e9dd70e51d03976b63cd9d565cb3ef280a0ea047c66f91f4a7d0d9",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "scripts/lib/a2OutfitControlHistoricalReplay.mjs",
+      "sha256": "e54eff8a8d4ca7724b25a563f2c261518388339c830db31b4529431d3760552d",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "scripts/lib/a2WardrobeColorRecoveryReplay.mjs",
+      "sha256": "5ca668c74070785254d042911e6afa1f25f9aa7002872c5ec5583a8ac8ddbc7d",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "scripts/lib/a2LegacyDressProseReplay.mjs",
+      "sha256": "e5f82856cb62eaa4e55621931da5482eefc3000b9d00975690d10208b98c310b",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "webapp/src/features/saved-cards/legacyDressProseHistory.test.js",
+      "sha256": "b3a225dcaa409dd1d4834bd97062d7e115cff90a5f4f3f2805e7fb1e0c82bdb0",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "webapp/src/lib/engine.js",
+      "sha256": "53c6791b3d50f771ab4bb095ecceb3e47d56ccac23614fd43a6a413a1253da56",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "webapp/package.json",
+      "sha256": "3102f5e772413e3d8bd98024cca9b670d53fc74e46ac4717f8e0859210194e22",
+      "equalsFixedGit": true
+    }
+  ],
+  "passed": true
+}

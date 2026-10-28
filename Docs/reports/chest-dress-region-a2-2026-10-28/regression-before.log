@@ -1,0 +1,88 @@
+TAP version 13
+# Subtest: A2 chest dress retains visible upper regional ownership for all 24 dresses
+not ok 1 - A2 chest dress retains visible upper regional ownership for all 24 dresses
+  ---
+  duration_ms: 34.530875
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/chestDressRegion.test.js:13:1'
+  failureType: 'testCodeFailure'
+  error: 'wardrobe:連身-dresses:連身-短版-無袖迷你洋裝:1'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: 'She wears cherry blossom pink sleeveless dress, one-piece silhouette, clean shoulder line.'
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/chestDressRegion.test.js:15:74)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: A2 chest regional projection is independent of all parent crops and keeps full-body paired areas
+not ok 2 - A2 chest regional projection is independent of all parent crops and keeps full-body paired areas
+  ---
+  duration_ms: 9.054042
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/chestDressRegion.test.js:17:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /upper\/main dress area in cherry blossom pink/i. Input:
+    
+    'She wears cherry blossom pink sleeveless dress, one-piece silhouette, clean shoulder line.'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: 'She wears cherry blossom pink sleeveless dress, one-piece silhouette, clean shoulder line.'
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/chestDressRegion.test.js:18:92)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: A2 opaque fully closed outerwear hides the upper area, while through-fabric closure retains it
+not ok 3 - A2 opaque fully closed outerwear hides the upper area, while through-fabric closure retains it
+  ---
+  duration_ms: 11.904625
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/chestDressRegion.test.js:20:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    透膚薄紗罩衫
+    
+    false !== true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/chestDressRegion.test.js:26:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: A2 mono color and duo stay outside the chest regional contract
+ok 4 - A2 mono color and duo stay outside the chest regional contract
+  ---
+  duration_ms: 15.828791
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 1
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 215.433541

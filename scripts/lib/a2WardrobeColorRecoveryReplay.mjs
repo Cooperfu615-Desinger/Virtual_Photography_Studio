@@ -1,3 +1,4 @@
+import { restorePreChestDressRegionFiles } from './a2ChestDressRegionReplay.mjs';
 import { restorePreA2LegacyDressProseFiles } from './a2LegacyDressProseReplay.mjs';
 import { restorePreA2LegacyDressFiles } from './a2LegacyDressReplay.mjs';
 import { restorePreA2SpecialTapeDatabaseFile, restorePreA2SpecialTapeReplayFiles } from './a2SpecialTapeReplay.mjs';
@@ -47,6 +48,7 @@ export async function withPreA2WardrobeRecoveryReplay(run) {
     cpSync(join(RECOVERY_ROOT,'webapp/package.json'),join(directory,'webapp/package.json'));
     symlinkSync(join(RECOVERY_ROOT,'webapp/node_modules'),join(directory,'webapp/node_modules'),'dir');
     cpSync(join(RECOVERY_ROOT,'scripts/lib'),join(directory,'scripts/lib'),{recursive:true});
+    restorePreChestDressRegionFiles(directory);
     restorePreA2LegacyDressProseFiles(directory);
     restorePreA2LegacyDressFiles(directory);
     restorePreA2SpecialTapeDatabaseFile(directory);

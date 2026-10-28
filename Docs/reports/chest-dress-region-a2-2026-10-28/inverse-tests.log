@@ -1,0 +1,46 @@
+TAP version 13
+# Subtest: A2 legacy dress inverse restores exact fixed sources atomically and is idempotent only in isolated copies
+ok 1 - A2 legacy dress inverse restores exact fixed sources atomically and is idempotent only in isolated copies
+  ---
+  duration_ms: 25.528208
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress inverse rejects unknown, missing, mixed and Git inputs before any writes
+ok 2 - A2 legacy dress inverse rejects unknown, missing, mixed and Git inputs before any writes
+  ---
+  duration_ms: 201.744708
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress prose inverse restores exact fixed sources atomically and is idempotent only in isolated copies
+ok 3 - A2 legacy dress prose inverse restores exact fixed sources atomically and is idempotent only in isolated copies
+  ---
+  duration_ms: 14.753
+  type: 'test'
+  ...
+# Subtest: A2 legacy dress prose inverse rejects unknown, missing, mixed and Git inputs before any writes
+ok 4 - A2 legacy dress prose inverse rejects unknown, missing, mixed and Git inputs before any writes
+  ---
+  duration_ms: 117.078042
+  type: 'test'
+  ...
+# Subtest: A2 chest dress region inverse restores exact fixed sources atomically and is idempotent only in isolated copies
+ok 5 - A2 chest dress region inverse restores exact fixed sources atomically and is idempotent only in isolated copies
+  ---
+  duration_ms: 19.167917
+  type: 'test'
+  ...
+# Subtest: A2 chest dress region inverse rejects unknown, missing, mixed and Git inputs before any writes
+ok 6 - A2 chest dress region inverse rejects unknown, missing, mixed and Git inputs before any writes
+  ---
+  duration_ms: 122.629083
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 322.429125

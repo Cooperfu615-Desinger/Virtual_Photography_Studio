@@ -1,0 +1,38 @@
+[
+  {
+    "check": "frontend-test",
+    "exitCode": 1
+  },
+  {
+    "check": "prompt-quality",
+    "exitCode": 1
+  },
+  {
+    "check": "lint",
+    "exitCode": 0
+  },
+  {
+    "check": "build",
+    "exitCode": 0
+  },
+  {
+    "check": "audit-after",
+    "exitCode": 0
+  },
+  {
+    "check": "sync",
+    "exitCode": 0
+  },
+  {
+    "check": "python-tests",
+    "exitCode": 0
+  },
+  {
+    "check": "catalog-strict",
+    "exitCode": 0
+  },
+  {
+    "check": "assets",
+    "exitCode": 0
+  }
+]

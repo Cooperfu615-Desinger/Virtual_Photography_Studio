@@ -8461,6 +8461,28 @@ function buildCompleteLookDressPrompt(item, color = null, palette = null, option
   return item?.meta?.closedOuterwearProjection ? projectClosedInnerLook(text) : text;
 }
 
+// A2: only the derived chest model owns this region-aware dress projection.
+// Main crops keep their historical classifier; opaque closed coats keep hiding inner color.
+function buildChestDressRegionalPrompt(item, colors, context, completeText) {
+  const pair = colors.topBottomPalette;
+  const eligible = context.framing?.id === 'chest-up-portrait-reference'
+    && context.subject?.count === 1
+    && item?.id?.startsWith('wardrobe:連身-dresses:')
+    && !item.meta?.closedOuterwearProjection
+    && pair?.topColor?.en && pair?.bottomColor?.en
+    && !isNoneLikeItem(pair.topColor) && !isNoneLikeItem(pair.bottomColor)
+    && colors.dressColor?.en === pair.topColor.en;
+  if (!eligible) return filterCompleteLookPromptForFraming(completeText, context);
+
+  // Reproject authored dress details without painting the whole dress with its upper color.
+  // Fixed source colors and complete-look palette details remain in their original source.
+  const source = buildCompleteLookDressPrompt(item, null, colors.completeLookPalette);
+  const visible = filterCompleteLookPromptForFraming(source, context);
+  return visible
+    ? `${visible}, ${describeWearableColorTarget('upper/main dress area', pair.topColor)}`
+    : visible;
+}
+
 function joinNaturalList(parts = []) {
   const filtered = parts.filter(Boolean);
   if (filtered.length === 0) return '';
@@ -10178,7 +10200,7 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
   if (!specialSubjectMode && !wardrobeSlots.specialOutfit && !wardrobeSlots.specialOutfitA && !wardrobeSlots.specialOutfitB && !wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB && !(context.subject.count === 2 && duoWardrobeText.clothingText)) {
     const topText = buildTopWardrobePrompt(wardrobeSlots, wardrobeColors);
     const completeDressText = buildCompleteLookDressPrompt(wardrobeSlots.dress, wardrobeColors.dressColor, wardrobeColors.completeLookPalette, { secondaryColor: wardrobeColors.topBottomPalette?.bottomColor });
-    const dressText = filterCompleteLookPromptForFraming(completeDressText, context);
+    const dressText = buildChestDressRegionalPrompt(wardrobeSlots.dress, wardrobeColors, context, completeDressText);
     const pantsText = buildBottomWardrobePrompt(wardrobeSlots.pants, wardrobeSlots, wardrobeColors);
     const skirtText = buildBottomWardrobePrompt(wardrobeSlots.skirt, wardrobeSlots, wardrobeColors);
     const outerwearFirstDressText = buildOuterwearFirstPrompt(

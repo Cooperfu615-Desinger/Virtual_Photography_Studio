@@ -1,0 +1,234 @@
+{"progress":"single colors","counts":{"mono":960,"pairs":0,"duo":0,"restores":1920,"generations":2880,"structured":24,"zip":0,"archived":0}}
+{"progress":"paired colors","counts":{"mono":960,"pairs":2016,"duo":0,"restores":5952,"generations":7920,"structured":66,"zip":0,"archived":0}}
+{"counts":{"mono":960,"pairs":2016,"duo":84,"restores":6120,"generations":8172,"structured":67,"zip":67,"archived":24},"protectedFiles":327,"passed":true}
+{"completedDresses":1,"matrix":42}
+{"completedDresses":2,"matrix":84}
+{"completedDresses":3,"matrix":126}
+{"completedDresses":4,"matrix":168}
+{"completedDresses":5,"matrix":210}
+{"completedDresses":6,"matrix":252}
+{"completedDresses":7,"matrix":294}
+{"completedDresses":8,"matrix":336}
+{"completedDresses":9,"matrix":378}
+{"completedDresses":10,"matrix":420}
+{"completedDresses":11,"matrix":462}
+{"completedDresses":12,"matrix":504}
+{"completedDresses":13,"matrix":546}
+{"completedDresses":14,"matrix":588}
+{"completedDresses":15,"matrix":630}
+{"completedDresses":16,"matrix":672}
+{"completedDresses":17,"matrix":714}
+{"completedDresses":18,"matrix":756}
+{"completedDresses":19,"matrix":798}
+{"completedDresses":20,"matrix":840}
+{"completedDresses":21,"matrix":882}
+{"completedDresses":22,"matrix":924}
+{"completedDresses":23,"matrix":966}
+{"completedDresses":24,"matrix":1008}
+{"baseCommit":"0babbebb8c5fabfe9a1fa16d8824e1c5651ffffd","matrix":1008,"transitions":18238,"generations":4439,"storedRoundTrips":2016,"prose":1032,"captures":96,"archivedCards":24,"saved":24,"protectedFiles":322,"oracleMismatches":0,"oracle":"Fixed Git restore/transition with only reviewed pair-retain or explicit-release inputs; unchanged fixed Git engine for all six outputs and RNG.","deferred":"Prose normalization, prose palette recognition and chest projection unchanged"}
+{"baseCommit":"58516b20c6631b1a61faa48ee22abfb05ea29384","ordinary":1485,"captures":1431,"newlyAccepted":1364,"unchangedSources":112,"restores":357,"rerolls":357,"transitions":1485,"captureExcluded":45,"saved":30,"protectedFiles":327,"oracleMismatches":0,"oracle":"Fixed Git ordinary engine; isolated ID-gate bypass exposes trusted generated snapshots only. Negative validation is tested separately.","deferred":"Legacy dress structured/prose restore and wardrobe exclusivity unchanged"}
+{"baseCommit":"15580949ac1f00e7a2628209d91a301434504965","transitions":6957,"changedTransitions":4462,"generations":2564,"directGenerations":1030,"restores":90,"frozenCaptures":60,"saved":30,"protectedFiles":533,"oracleMismatches":0,"deferredLimits":"split-dress restore and capture remain unchanged"}
+{"baseCommit":"bd31bd34f0bfa8986193a6048fe1a69a265e3668","cases":4375,"protectedCases":33,"protectedFiles":74,"saved":30,"compatibility":60,"changedOutputs":{"grokPrompt":3508,"nanoBananaPrompt":3508,"chest-up-portrait":2429,"full-body-character":3393,"zImagePrompt":1526},"oracleMismatches":0,"knownLimitations":[{"key":"specialOutfitId","palette":"black-white-cool","applied":"none"},{"key":"specialOutfitId","palette":"black-red-street","applied":"none"},{"key":"specialOutfitId","palette":"deep-denim","applied":"none"},{"key":"specialOutfitId","palette":"cream-neutral","applied":"none"},{"key":"specialOutfitId","palette":"pink-sweet-cool","applied":"none"},{"key":"specialOutfitId","palette":"brown-vintage","applied":"none"},{"key":"specialOutfitId","palette":"silver-metallic","applied":"none"},{"key":"specialOutfitId","palette":"green-utility","applied":"none"},{"key":"specialOutfitId","palette":"yellow-orange-bright","applied":"none"},{"kind":"pre-existing-split-dress-import-unavailable","key":"dressId","palette":"none","identicalAtBase":true},{"kind":"pre-existing-split-dress-import-unavailable","key":"dressId","palette":"black-white-cool","identicalAtBase":true},{"kind":"pre-existing-split-dress-import-unavailable","key":"dressId","palette":"black-red-street","identicalAtBase":true},{"kind":"pre-existing-split-dress-import-unavailable","key":"dressId","palette":"deep-denim","identicalAtBase":true},{"kind":"pre-existing-split-dress-import-unavailable","key":"dressId","palette":"cream-neutral","identicalAtBase":true},{"kind":"pre-existing-split-dress-import-unavailable","key":"dressId","palette":"pink-sweet-cool","identicalAtBase":true},{"kind":"pre-existing-split-dress-import-unavailable","key":"dressId","palette":"brown-vintage","identicalAtBase":true},{"kind":"pre-existing-split-dress-import-unavailable","key":"dressId","palette":"silver-metallic","identicalAtBase":true},{"kind":"pre-existing-split-dress-import-unavailable","key":"dressId","palette":"green-utility","identicalAtBase":true},{"kind":"pre-existing-split-dress-import-unavailable","key":"dressId","palette":"yellow-orange-bright","identicalAtBase":true}]}
+{"baseCommit":"3a18fc2c2529dce38782135638ffd67c38a62187","sourceRecords":1,"cases":1321,"protectedCases":729,"protectedFiles":267,"savedRecords":10,"markdownImports":30,"changedOutputs":{"grokPrompt":442,"zImagePrompt":442,"nanoBananaPrompt":442,"chest-up-portrait":242,"full-body-character":242},"oracleMismatches":0,"knownLimitations":[{"kind":"pre-existing-special-outfit-ui-clears-palette","savedPalette":"black-white-cool","appliedPalette":"none","identicalAtBase":true},{"kind":"pre-existing-special-outfit-ui-clears-palette","savedPalette":"black-red-street","appliedPalette":"none","identicalAtBase":true},{"kind":"pre-existing-special-outfit-ui-clears-palette","savedPalette":"deep-denim","appliedPalette":"none","identicalAtBase":true},{"kind":"pre-existing-special-outfit-ui-clears-palette","savedPalette":"cream-neutral","appliedPalette":"none","identicalAtBase":true},{"kind":"pre-existing-special-outfit-ui-clears-palette","savedPalette":"pink-sweet-cool","appliedPalette":"none","identicalAtBase":true},{"kind":"pre-existing-special-outfit-ui-clears-palette","savedPalette":"brown-vintage","appliedPalette":"none","identicalAtBase":true},{"kind":"pre-existing-special-outfit-ui-clears-palette","savedPalette":"silver-metallic","appliedPalette":"none","identicalAtBase":true},{"kind":"pre-existing-special-outfit-ui-clears-palette","savedPalette":"green-utility","appliedPalette":"none","identicalAtBase":true},{"kind":"pre-existing-special-outfit-ui-clears-palette","savedPalette":"yellow-orange-bright","appliedPalette":"none","identicalAtBase":true}]}
+{"baseCommit":"943ab65fa153fbc5050ee2c9690e429c326296f2","generationCases":550,"snapshotRoundTrips":1100,"legacyMarkdownCases":590,"legacyJsonCases":40,"legacyPasteCases":550,"readableExportBodiesUnchanged":1100,"unapprovedDifferences":0}
+{"baseCommit":"471115c08e4415643b8acbb87b7c2709f98e117c","generationCases":338,"archivedMarkdownCases":40,"archivedJsonCases":40,"captureCases":80,"importCases":378,"unapprovedDifferences":0}
+{"baseCommit":"048a2348869c9348d18f4e0b71d4ceed92c69232","cases":8611,"protectedFiles":264,"sourceRecords":40,"structuredBindings":19,"genericPresets":21,"priorSavedRecords":40,"changedOutputs":{"grokPrompt":2843,"zImagePrompt":1481,"nanoBananaPrompt":2843,"chest-up-portrait":2925,"full-body-character":2997,"midjourneyPrompt":68},"oracleMismatches":0,"markdownRecoveryDifferences":[{"id":"wardrobe:套裝-outfit-presets:套裝-鏈條緞面內衣:1","changes":[{"key":"outfitPresetId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-鏈條緞面內衣:1","original":"wardrobe:套裝-outfit-presets:套裝-鏈條緞面內衣:1"},{"key":"outfitPresetAId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-鏈條緞面內衣:1","original":""},{"key":"outfitPresetBId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-鏈條緞面內衣:1","original":""}]},{"id":"wardrobe:套裝-outfit-presets:套裝-春日巴黎亞麻長褲:3","changes":[{"key":"outfitPresetId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-春日巴黎亞麻長褲:3","original":"wardrobe:套裝-outfit-presets:套裝-春日巴黎亞麻長褲:3"},{"key":"outfitPresetAId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-春日巴黎亞麻長褲:3","original":""},{"key":"outfitPresetBId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-春日巴黎亞麻長褲:3","original":""}]},{"id":"wardrobe:套裝-outfit-presets:套裝-長版襯衫百褶長裙:4","changes":[{"key":"outfitPresetId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-長版襯衫百褶長裙:4","original":"wardrobe:套裝-outfit-presets:套裝-長版襯衫百褶長裙:4"},{"key":"outfitPresetAId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-長版襯衫百褶長裙:4","original":""},{"key":"outfitPresetBId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-長版襯衫百褶長裙:4","original":""}]},{"id":"wardrobe:套裝-outfit-presets:套裝-西裝長褲:5","changes":[{"key":"outfitPresetId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-西裝長褲:5","original":"wardrobe:套裝-outfit-presets:套裝-西裝長褲:5"},{"key":"outfitPresetColorId","before":"none","after":"red","original":"none"},{"key":"outfitPresetAId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-西裝長褲:5","original":""},{"key":"outfitPresetBId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-西裝長褲:5","original":""},{"key":"outfitPresetPrimaryColorId","before":"none","after":"red","original":"none"},{"key":"outfitPresetContrastColorId","before":"none","after":"red","original":"none"},{"key":"topColorId","before":"red","after":"none","original":""},{"key":"bottomColorId","before":"red","after":"none","original":""}]},{"id":"wardrobe:套裝-outfit-presets:套裝-秘書短裙:6","changes":[{"key":"outfitPresetId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-秘書短裙:6","original":"wardrobe:套裝-outfit-presets:套裝-秘書短裙:6"},{"key":"outfitPresetAId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-秘書短裙:6","original":""},{"key":"outfitPresetBId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-秘書短裙:6","original":""}]},{"id":"wardrobe:套裝-outfit-presets:套裝-空服員制服:7","changes":[{"key":"outfitPresetId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-空服員制服:7","original":"wardrobe:套裝-outfit-presets:套裝-空服員制服:7"},{"key":"outfitPresetColorId","before":"none","after":"red","original":"none"},{"key":"outfitPresetAId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-空服員制服:7","original":""},{"key":"outfitPresetBId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-空服員制服:7","original":""},{"key":"outfitPresetPrimaryColorId","before":"none","after":"red","original":"none"},{"key":"outfitPresetContrastColorId","before":"none","after":"red","original":"none"},{"key":"topColorId","before":"red","after":"none","original":""},{"key":"bottomColorId","before":"red","after":"none","original":""}]},{"id":"wardrobe:套裝-outfit-presets:套裝-護士制服:8","changes":[{"key":"outfitPresetId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-護士制服:8","original":"wardrobe:套裝-outfit-presets:套裝-護士制服:8"},{"key":"outfitPresetAId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-護士制服:8","original":""},{"key":"outfitPresetBId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-護士制服:8","original":""}]},{"id":"wardrobe:套裝-outfit-presets:套裝-醫生診療袍:9","changes":[{"key":"outfitPresetId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-醫生診療袍:9","original":"wardrobe:套裝-outfit-presets:套裝-醫生診療袍:9"},{"key":"outfitPresetColorId","before":"none","after":"red","original":"none"},{"key":"outfitPresetAId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-醫生診療袍:9","original":""},{"key":"outfitPresetBId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-醫生診療袍:9","original":""},{"key":"outfitPresetPrimaryColorId","before":"none","after":"red","original":"none"},{"key":"outfitPresetContrastColorId","before":"none","after":"red","original":"none"},{"key":"topColorId","before":"red","after":"none","original":""},{"key":"bottomColorId","before":"red","after":"none","original":""}]},{"id":"wardrobe:套裝-outfit-presets:套裝-豹紋蕾絲抹胸喇叭牛仔:26","changes":[{"key":"outfitPresetId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-豹紋蕾絲抹胸喇叭牛仔:26","original":"wardrobe:套裝-outfit-presets:套裝-豹紋蕾絲抹胸喇叭牛仔:26"},{"key":"outfitPresetColorId","before":"none","after":"red","original":"none"},{"key":"outfitPresetAId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-豹紋蕾絲抹胸喇叭牛仔:26","original":""},{"key":"outfitPresetBId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-豹紋蕾絲抹胸喇叭牛仔:26","original":""},{"key":"outfitPresetPrimaryColorId","before":"none","after":"red","original":"none"},{"key":"outfitPresetContrastColorId","before":"none","after":"red","original":"none"},{"key":"topColorId","before":"red","after":"none","original":""},{"key":"bottomColorId","before":"red","after":"none","original":""}]},{"id":"wardrobe:套裝-outfit-presets:套裝-網紗掛脖背心牛仔迷你裙:27","changes":[{"key":"outfitPresetId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-網紗掛脖背心牛仔迷你裙:27","original":"wardrobe:套裝-outfit-presets:套裝-網紗掛脖背心牛仔迷你裙:27"},{"key":"outfitPresetAId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-網紗掛脖背心牛仔迷你裙:27","original":""},{"key":"outfitPresetBId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-網紗掛脖背心牛仔迷你裙:27","original":""}]},{"id":"wardrobe:套裝-outfit-presets:套裝-天使翅膀三角比基尼:28","changes":[{"key":"outfitPresetId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-天使翅膀三角比基尼:28","original":"wardrobe:套裝-outfit-presets:套裝-天使翅膀三角比基尼:28"},{"key":"outfitPresetColorId","before":"none","after":"red","original":"none"},{"key":"outfitPresetAId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-天使翅膀三角比基尼:28","original":""},{"key":"outfitPresetBId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-天使翅膀三角比基尼:28","original":""},{"key":"outfitPresetPrimaryColorId","before":"none","after":"red","original":"none"},{"key":"outfitPresetContrastColorId","before":"none","after":"red","original":"none"},{"key":"topColorId","before":"red","after":"none","original":""},{"key":"bottomColorId","before":"red","after":"none","original":""}]},{"id":"wardrobe:套裝-outfit-presets:套裝-透視背心漆皮短褲長靴:29","changes":[{"key":"outfitPresetId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-透視背心漆皮短褲長靴:29","original":"wardrobe:套裝-outfit-presets:套裝-透視背心漆皮短褲長靴:29"},{"key":"outfitPresetAId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-透視背心漆皮短褲長靴:29","original":""},{"key":"outfitPresetBId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-透視背心漆皮短褲長靴:29","original":""}]},{"id":"wardrobe:套裝-outfit-presets:套裝-馬甲吊帶喇叭褲:30","changes":[{"key":"outfitPresetId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-馬甲吊帶喇叭褲:30","original":"wardrobe:套裝-outfit-presets:套裝-馬甲吊帶喇叭褲:30"},{"key":"outfitPresetColorId","before":"none","after":"red","original":"none"},{"key":"outfitPresetAId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-馬甲吊帶喇叭褲:30","original":""},{"key":"outfitPresetBId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-馬甲吊帶喇叭褲:30","original":""},{"key":"outfitPresetPrimaryColorId","before":"none","after":"red","original":"none"},{"key":"outfitPresetContrastColorId","before":"none","after":"red","original":"none"},{"key":"topColorId","before":"red","after":"none","original":""},{"key":"bottomColorId","before":"red","after":"none","original":""}]},{"id":"wardrobe:套裝-outfit-presets:套裝-豹紋荷葉吊帶漆皮短褲:31","changes":[{"key":"outfitPresetId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-豹紋荷葉吊帶漆皮短褲:31","original":"wardrobe:套裝-outfit-presets:套裝-豹紋荷葉吊帶漆皮短褲:31"},{"key":"outfitPresetAId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-豹紋荷葉吊帶漆皮短褲:31","original":""},{"key":"outfitPresetBId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-豹紋荷葉吊帶漆皮短褲:31","original":""}]},{"id":"wardrobe:套裝-outfit-presets:套裝-金屬三角比基尼:33","changes":[{"key":"outfitPresetId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-金屬三角比基尼:33","original":"wardrobe:套裝-outfit-presets:套裝-金屬三角比基尼:33"},{"key":"outfitPresetColorId","before":"none","after":"red","original":"none"},{"key":"outfitPresetAId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-金屬三角比基尼:33","original":""},{"key":"outfitPresetBId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-金屬三角比基尼:33","original":""},{"key":"outfitPresetPrimaryColorId","before":"none","after":"red","original":"none"},{"key":"outfitPresetContrastColorId","before":"none","after":"red","original":"none"},{"key":"topColorId","before":"red","after":"none","original":""},{"key":"bottomColorId","before":"red","after":"none","original":""}]},{"id":"wardrobe:套裝-outfit-presets:套裝-單肩短上衣印花圍裙短裙:34","changes":[{"key":"outfitPresetId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-單肩短上衣印花圍裙短裙:34","original":"wardrobe:套裝-outfit-presets:套裝-單肩短上衣印花圍裙短裙:34"},{"key":"outfitPresetAId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-單肩短上衣印花圍裙短裙:34","original":""},{"key":"outfitPresetBId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-單肩短上衣印花圍裙短裙:34","original":""}]},{"id":"wardrobe:套裝-outfit-presets:套裝-垂墜背心腰鏈短裙:35","changes":[{"key":"outfitPresetId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-垂墜背心腰鏈短裙:35","original":"wardrobe:套裝-outfit-presets:套裝-垂墜背心腰鏈短裙:35"},{"key":"outfitPresetAId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-垂墜背心腰鏈短裙:35","original":""},{"key":"outfitPresetBId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-垂墜背心腰鏈短裙:35","original":""}]},{"id":"wardrobe:套裝-outfit-presets:套裝-皮革掛脖背心短褲長靴:36","changes":[{"key":"outfitPresetId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-皮革掛脖背心短褲長靴:36","original":"wardrobe:套裝-outfit-presets:套裝-皮革掛脖背心短褲長靴:36"},{"key":"outfitPresetAId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-皮革掛脖背心短褲長靴:36","original":""},{"key":"outfitPresetBId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-皮革掛脖背心短褲長靴:36","original":""}]},{"id":"wardrobe:套裝-outfit-presets:套裝-斑馬紋馬甲短褲長靴:37","changes":[{"key":"outfitPresetId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-斑馬紋馬甲短褲長靴:37","original":"wardrobe:套裝-outfit-presets:套裝-斑馬紋馬甲短褲長靴:37"},{"key":"outfitPresetAId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-斑馬紋馬甲短褲長靴:37","original":""},{"key":"outfitPresetBId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-斑馬紋馬甲短褲長靴:37","original":""}]},{"id":"wardrobe:套裝-outfit-presets:套裝-短版運動t熱褲:38","changes":[{"key":"outfitPresetId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-短版運動t熱褲:38","original":"wardrobe:套裝-outfit-presets:套裝-短版運動t熱褲:38"},{"key":"outfitPresetAId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-短版運動t熱褲:38","original":""},{"key":"outfitPresetBId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-短版運動t熱褲:38","original":""}]},{"id":"wardrobe:套裝-outfit-presets:套裝-浴巾裹身:48","changes":[{"key":"outfitPresetId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-浴巾裹身:48","original":"wardrobe:套裝-outfit-presets:套裝-浴巾裹身:48"},{"key":"outfitPresetColorId","before":"none","after":"red","original":"none"},{"key":"outfitPresetAId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-浴巾裹身:48","original":""},{"key":"outfitPresetBId","before":"outfit-preset-none","after":"wardrobe:套裝-outfit-presets:套裝-浴巾裹身:48","original":""},{"key":"outfitPresetPrimaryColorId","before":"none","after":"red","original":"none"},{"key":"outfitPresetContrastColorId","before":"none","after":"red","original":"none"},{"key":"topColorId","before":"red","after":"none","original":""},{"key":"bottomColorId","before":"red","after":"none","original":""}]}]}
+{"baseCommit":"4e35912f82280c058d0c86b6de3f44fcb019f9df","integrationCommit":"e9983769e326ead175b381834c6e2df4fd02e28d","cases":3545,"protectedFiles":267,"sourceRecords":24,"priorSavedRecords":24,"changedOutputs":{"grokPrompt":3095,"nanoBananaPrompt":3095,"chest-up-portrait":3221,"full-body-character":3239,"zImagePrompt":23},"oracleMismatches":0}
+{"baseCommit":"ffb2e91e61787159d7dbc724dc0129e87537dfcb","protectedFiles":268,"cases":1273,"cards":33,"adultIdentityBefore":0,"adultIdentityAfter":99,"page2BundlesUnchanged":66,"oldSavedJsonAndMarkdown":66,"ordinaryImportSources":5,"differencesOutsideAllowance":0}
+{
+  "version": 1,
+  "baseCommit": "5110401f3eee4aaa6cc59ee9175625cc96326d9e",
+  "sourceDelta": [
+    {
+      "path": "$.Locations.城市與社群感 (Urban & Social Snapshots).28.meta.semantic.tags.[keys/order]",
+      "before": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "after": [
+        "0",
+        "1",
+        "2"
+      ]
+    },
+    {
+      "path": "$.Locations.城市與社群感 (Urban & Social Snapshots).28.meta.semantic.tags.3",
+      "before": "green_space"
+    }
+  ],
+  "protectedFiles": 290,
+  "poolCases": 836,
+  "cases": 3834,
+  "outputChangedCases": 0,
+  "selectionChangedCases": 0,
+  "rngChangedCases": 0,
+  "oracleMismatches": 0,
+  "unaffectedLocations": 154,
+  "importSources": 5,
+  "savedCards": 12,
+  "transitions": 24
+}
+{
+  "baseCommit": "5110401f3eee4aaa6cc59ee9175625cc96326d9e",
+  "cases": 2,
+  "oracleMismatches": 0,
+  "rerollsPerCase": 3,
+  "jsonMarkdownRoundTrips": true,
+  "results": [
+    {
+      "id": "manual-swimsuit",
+      "sha256": "401cc39f4ab355d2162d13f13a4a25ff5b0f2ee37d4f7a821871648bd6afbe8b"
+    },
+    {
+      "id": "random-garments",
+      "sha256": "33e58c5f071469bdde17f48bbfc1b07586d47efcea4a78c950bb74612aadfefc"
+    }
+  ]
+}
+scene_semantic_a5_crt_acceptance.mjs
+{
+  "version": 1,
+  "baseCommit": "321404ecd041343f4a764260ef59ffc08a74a199",
+  "sourceDelta": [
+    {
+      "path": "$.Locations.攝影棚與背景 (Studio Sets).13.meta.semantic.tags.[keys/order]",
+      "before": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "after": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "path": "$.Locations.攝影棚與背景 (Studio Sets).13.meta.semantic.tags.4",
+      "before": "outdoor",
+      "after": "studio_lighting_scene"
+    },
+    {
+      "path": "$.Locations.攝影棚與背景 (Studio Sets).13.meta.semantic.tags.5",
+      "before": "studio_lighting_scene"
+    }
+  ],
+  "protectedFiles": 290,
+  "poolCases": 836,
+  "cases": 3834,
+  "outputChangedCases": 868,
+  "selectionChangedCases": 871,
+  "rngChangedCases": 492,
+  "oracleMismatches": 0,
+  "unaffectedLocations": 154,
+  "importSources": 5,
+  "savedCards": 12,
+  "transitions": 24
+}
+scene_semantic_a5_crt_imports.mjs
+{
+  "baseCommit": "321404ecd041343f4a764260ef59ffc08a74a199",
+  "cases": 2,
+  "oracleMismatches": 0,
+  "rerollsPerCase": 3,
+  "jsonMarkdownRoundTrips": true,
+  "results": [
+    {
+      "id": "manual-swimsuit",
+      "sha256": "1a7aed54af443dc5d04f9f70af2eb409a2bce4b3dfbfa32541b3c9056a32b41b"
+    },
+    {
+      "id": "random-garments",
+      "sha256": "d517f72d38d3825d7dafe472cb1bf8a803781e66fe2e303b26c5d73c18d52db1"
+    }
+  ]
+}
+scene_semantic_a5_crt_history.mjs
+scene_semantic_a5_commercial_acceptance.mjs
+{
+  "version": 1,
+  "baseCommit": "22d1103e2f88984af7ed33249b08b4e2729ba466",
+  "sourceFiles": [
+    "knowledge_base/catalog/Locations/其他專屬場景-other-dedicated-scenes.json",
+    "knowledge_base/catalog/Locations/地下與廢墟風格-abandoned-underground.json",
+    "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+    "knowledge_base/catalog/Locations/生活感室內-indoor-lifestyle.json"
+  ],
+  "removed": 11,
+  "retained": 4,
+  "protectedFiles": 290,
+  "sourceDelta": [
+    "$.Locations.生活感室內 (Indoor & Lifestyle).6.meta.semantic.tags.[keys/order]",
+    "$.Locations.生活感室內 (Indoor & Lifestyle).6.meta.semantic.tags.2",
+    "$.Locations.生活感室內 (Indoor & Lifestyle).18.meta.semantic.tags.[keys/order]",
+    "$.Locations.生活感室內 (Indoor & Lifestyle).18.meta.semantic.tags.2",
+    "$.Locations.生活感室內 (Indoor & Lifestyle).18.meta.semantic.tags.3",
+    "$.Locations.生活感室內 (Indoor & Lifestyle).21.meta.semantic.tags.[keys/order]",
+    "$.Locations.生活感室內 (Indoor & Lifestyle).21.meta.semantic.tags.1",
+    "$.Locations.生活感室內 (Indoor & Lifestyle).24.meta.semantic.tags.[keys/order]",
+    "$.Locations.生活感室內 (Indoor & Lifestyle).24.meta.semantic.tags.2",
+    "$.Locations.生活感室內 (Indoor & Lifestyle).24.meta.semantic.tags.3",
+    "$.Locations.生活感室內 (Indoor & Lifestyle).38.meta.semantic.tags.[keys/order]",
+    "$.Locations.生活感室內 (Indoor & Lifestyle).38.meta.semantic.tags.2",
+    "$.Locations.地下與廢墟風格 (Abandoned & Underground).13.meta.semantic.tags.[keys/order]",
+    "$.Locations.地下與廢墟風格 (Abandoned & Underground).13.meta.semantic.tags.2",
+    "$.Locations.地下與廢墟風格 (Abandoned & Underground).13.meta.semantic.tags.3",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).4.meta.semantic.tags.[keys/order]",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).4.meta.semantic.tags.2",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).4.meta.semantic.tags.3",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).8.meta.semantic.tags.[keys/order]",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).8.meta.semantic.tags.2",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).8.meta.semantic.tags.3",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).8.meta.semantic.tags.4",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).10.meta.semantic.tags.[keys/order]",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).10.meta.semantic.tags.2",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).10.meta.semantic.tags.3",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).14.meta.semantic.tags.[keys/order]",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).14.meta.semantic.tags.2",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).14.meta.semantic.tags.3",
+    "$.Locations.其他專屬場景 (Other Dedicated Scenes).2.meta.semantic.tags.[keys/order]",
+    "$.Locations.其他專屬場景 (Other Dedicated Scenes).2.meta.semantic.tags.2"
+  ],
+  "poolCases": 12540,
+  "cases": 3804,
+  "changedMetadataCases": 1599,
+  "outputDifferences": 0,
+  "selectionDifferences": 0,
+  "rngDifferences": 0,
+  "oracleMismatches": 0,
+  "savedCards": 45,
+  "transitions": 150,
+  "unaffectedLocations": 144,
+  "importFlowSources": 5,
+  "importFlowsSha256": "57e2f27f6450a03a18718728c813ab0c8a5e55d02f695157e0cde56bb91f4657"
+}
+scene_semantic_a5_commercial_history.mjs
+{
+  "version": 1,
+  "baseCommit": "a9dd3616bc6596cdb199420f3189a420c6f1ed17",
+  "protectedFilesChecked": 246,
+  "sourceDelta": [
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).41.meta.semantic.tags.[keys/order]",
+    "$.Locations.城市與社群感 (Urban & Social Snapshots).41.meta.semantic.tags.3",
+    "$.Locations.自然與戶外 (Nature & Outdoors).1.meta.semantic.tags.[keys/order]",
+    "$.Locations.自然與戶外 (Nature & Outdoors).1.meta.semantic.tags.2",
+    "$.Locations.自然與戶外 (Nature & Outdoors).1.meta.semantic.tags.3",
+    "$.Locations.自然與戶外 (Nature & Outdoors).3.meta.semantic.tags.[keys/order]",
+    "$.Locations.自然與戶外 (Nature & Outdoors).3.meta.semantic.tags.2",
+    "$.Locations.自然與戶外 (Nature & Outdoors).3.meta.semantic.tags.3"
+  ],
+  "pools": 66,
+  "unaffectedLocations": 152,
+  "cases": 1740,
+  "changedCases": 452,
+  "rngChangedCases": 0,
+  "oracleMismatches": 0,
+  "savedCards": 6
+}

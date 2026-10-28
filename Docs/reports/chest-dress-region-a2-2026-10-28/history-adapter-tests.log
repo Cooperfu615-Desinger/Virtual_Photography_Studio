@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: A2 chest dress region inverse restores exact fixed sources atomically and is idempotent only in isolated copies
+ok 1 - A2 chest dress region inverse restores exact fixed sources atomically and is idempotent only in isolated copies
+  ---
+  duration_ms: 18.191875
+  type: 'test'
+  ...
+# Subtest: A2 chest dress region inverse rejects unknown, missing, mixed and Git inputs before any writes
+ok 2 - A2 chest dress region inverse rejects unknown, missing, mixed and Git inputs before any writes
+  ---
+  duration_ms: 98.349
+  type: 'test'
+  ...
+# Subtest: A2 outfits remove only reviewed clauses; preserve IDs, ordered aliases, semantic and color roles
+ok 3 - A2 outfits remove only reviewed clauses; preserve IDs, ordered aliases, semantic and color roles
+  ---
+  duration_ms: 2.898833
+  type: 'test'
+  ...
+# Subtest: A2 all 40 outfits are free of source controls across every crop and five color states in six outputs
+ok 4 - A2 all 40 outfits are free of source controls across every crop and five color states in six outputs
+  ---
+  duration_ms: 7325.585708
+  type: 'test'
+  ...
+# Subtest: A2 every prior outfit text and legacy ID resolves to the same issued option
+ok 5 - A2 every prior outfit text and legacy ID resolves to the same issued option
+  ---
+  duration_ms: 715.485833
+  type: 'test'
+  ...
+# Subtest: A2 structured bindings preserve the old parser target text, order and consumed channels
+ok 6 - A2 structured bindings preserve the old parser target text, order and consumed channels
+  ---
+  duration_ms: 3.754334
+  type: 'test'
+  ...
+# Subtest: A2 preserves existing fixed-color overlap, inactive locked targets and generic sporty trim behavior
+ok 7 - A2 preserves existing fixed-color overlap, inactive locked targets and generic sporty trim behavior
+  ---
+  duration_ms: 0.291041
+  type: 'test'
+  ...
+# Subtest: A2 outfit data inverse rejects text, metadata, alias order, missing IDs, duplicates and mixed states
+ok 8 - A2 outfit data inverse rejects text, metadata, alias order, missing IDs, duplicates and mixed states
+  ---
+  duration_ms: 53.21675
+  type: 'test'
+  ...
+# Subtest: A2 outfit program inverse rejects extra code, schema drift, missing helpers and mixed versions
+ok 9 - A2 outfit program inverse rejects extra code, schema drift, missing helpers and mixed versions
+  ---
+  duration_ms: 77.51525
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8334.538625
