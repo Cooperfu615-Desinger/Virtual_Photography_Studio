@@ -1,0 +1,52 @@
+[
+  {
+    "name": "test",
+    "exitCode": 0,
+    "log": "test.log.gz"
+  },
+  {
+    "name": "quality",
+    "exitCode": 0,
+    "log": "quality.log.gz"
+  },
+  {
+    "name": "lint",
+    "exitCode": 0,
+    "log": "lint.log.gz"
+  },
+  {
+    "name": "build",
+    "exitCode": 0,
+    "log": "build.log.gz"
+  },
+  {
+    "name": "audit",
+    "exitCode": 0,
+    "log": "audit.log.gz"
+  },
+  {
+    "name": "sync",
+    "exitCode": 0,
+    "log": "sync.log.gz"
+  },
+  {
+    "name": "python",
+    "exitCode": 0,
+    "log": "python.log.gz"
+  },
+  {
+    "name": "strict",
+    "exitCode": 0,
+    "log": "strict.log.gz"
+  },
+  {
+    "name": "catalog",
+    "exitCode": 0,
+    "log": "catalog.log.gz"
+  },
+  {
+    "name": "assets",
+    "exitCode": 0,
+    "log": "assets.log.gz"
+  }
+]

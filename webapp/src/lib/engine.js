@@ -1,3 +1,4 @@
+import { projectCharacterPhotographicDirection } from './engine/characterPhotographicDirection.js';
 import legacyMappings from '../data/legacyMappings.json' with { type: 'json' };
 import { activeImportedPerson, isImportedPersonKey, registerFullBodyImportSource } from './observationCaptureImport.js';
 import { captureEligibility, resolveCapture, normalizeCaptureProfile, captureEffectiveLocks, captureContext, capturePoseText, capturePoseItem, captureChestScene, CAPTURE_OWNED_KEYS } from './observationCaptureMode.js';
@@ -11655,7 +11656,12 @@ function buildFallbackCharacterProfileGroups(subject) {
 
 function buildCharacterCardProfileGroups(subject, locks = {}, wardrobe = null) {
   const originalGroups = subject.profile || buildFallbackCharacterProfileGroups(subject);
-  const sourceGroups = locks.captureMode === 'observation' ? { ...originalGroups, photographicDirection: '' } : originalGroups;
+  const sourceGroups = {
+    ...originalGroups,
+    photographicDirection: locks.captureMode === 'observation'
+      ? ''
+      : projectCharacterPhotographicDirection(subject.id, originalGroups.photographicDirection),
+  };
   const wardrobeSlots = Array.isArray(wardrobe) ? extractWardrobeSlots(wardrobe) : null;
   const hideInner = isFullyClosedOpening(wardrobeSlots?.outerwearOpening)
     && wardrobeSlots?.outerwear && !closedInnerLayerIsVisible(wardrobeSlots.outerwear);

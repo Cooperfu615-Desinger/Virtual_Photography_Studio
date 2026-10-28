@@ -1,5 +1,7 @@
 # A 人物設定新增與維護規格
 
+2026-10-28 Phase 4 A7：PAGE1 角色卡攝影方向採經審查的公開投影，移除卡片建議地點、時段與光源，保留攝影表現、身份及材質。33 張中 21 張投影、12 張保留；`characterProfiles.js` 的 en／profile／相容原件不改。綁定 ID＋完整來源，未知或已編輯原句保持；舊卡原文及凍結全身來源不改寫。實際使用該段的 GPT／胸上／Nano 更新，Z／MJ／全身原本省略該段的契約保持。詳見 [A7 規格](phase4-a7-character-direction-v1.md)。
+
 2026-10-25 E 舊映射來源規則：已授權集中 22 張映射表與 2 個舊分類常數，來源為 `knowledge_base/catalog/legacy_mappings.json`，同步生成 `webapp/src/data/legacyMappings.json`。engine 保留 5 處載入時 `.map()`、`new Map()`、slugify、匹配順序及靜默找不到的退路；renderer 文字仍在原位。分類／文字目標須通過 fieldKind 參照驗證，歷史 ID、別名及 first-match 不得隨意變更。永久 pre-E 基準與還原案例不重錄，流程見 [catalog 操作](../../knowledge_base/catalog/README.md)。此段取代下方 D 歷史紀錄的「E 未開始」狀態；P5b 仍未開始。
 
 2026-10-25 D 語意來源規則：正式分類 JSON 每筆必填並審閱 `meta.semantic`，保存 tags 及該分區的 family／visibility／minVisibility／archetype 等語意欄位。更改 zh／en／desc 須註明語意是否需要變動；請以 `scripts/suggest_catalog_semantics.mjs <id>` 在副本上比較推論建議，不自動覆寫決策。既有值、鍵序、tag 順序與 null 保留；專用欄位和 source meta 仍獨立。正式資料不再靠修改 infer*Meta 生效；缺少 semantic 的歷史／自訂 library 才使用退路。新增／修改須同步 schema 與 field_mapping 並驗證，完整步驟見 [catalog 操作流程](../../knowledge_base/catalog/README.md)。本次只搬移語意，不修正既有問題，不啟動 E 或 P5b。

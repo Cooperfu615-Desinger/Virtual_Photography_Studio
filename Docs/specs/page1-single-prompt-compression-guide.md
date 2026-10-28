@@ -1,5 +1,7 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
+2026-10-28 Phase 4 A7：PAGE1 角色卡攝影方向採經審查的公開投影，移除卡片建議地點、時段與光源，保留攝影表現、身份及材質。33 張中 21 張投影、12 張保留；`characterProfiles.js` 的 en／profile／相容原件不改。綁定 ID＋完整來源，未知或已編輯原句保持；舊卡原文及凍結全身來源不改寫。實際使用該段的 GPT／胸上／Nano 更新，Z／MJ／全身原本省略該段的契約保持。詳見 [A7 規格](phase4-a7-character-direction-v1.md)。
+
 2026-10-27 A2 runtime 配色：共用 builder 只更新完整色系、主／次色、連身上下三種句型，保留配色責任與裁切。GPT 不套 deprecated 全文 compactor；Z／AI 舊精簡政策支援新舊句型。舊公開原文與抓拍來源保持，正式資料不變。見 [runtime 規格](wardrobe-runtime-color-a2-v1.md)。
 
 2026-10-27 A2 特殊穿搭單筆：膠帶造型只移除 palette-controlled 前綴與色系選擇操作句，不補固定紅色；所有有效衣物細節保持。原全文 alias、舊存檔／抓拍原文保留；既有 runtime 配色句另批。見 [單筆規格](wardrobe-control-a2-special-tape-v1.md)。

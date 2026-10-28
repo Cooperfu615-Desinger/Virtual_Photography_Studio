@@ -4,6 +4,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-28
 
+## Phase 4 A7：角色攝影方向（2026-10-28，本機驗收完成）
+
+- A6 已交付 `1361dd21`，CI 40639915392 全數成功。33 張角色逐筆審閱，21 張僅於公開分組移除場地／時段／光源，12 張保留；角色原件、身份、選值、摘要、RNG 及舊卡原文保持。
+- 2,080 案／6,240 次生成／16 往返通過，Z／MJ／全身保持；前端 2,001、品質 843 與完整閘門成功，200 audit 前後逐字一致。桌手機 38 操作／20 畫面及六工作區通過。
+- [規格](specs/phase4-a7-character-direction-v1.md)、[決策](decisions/2026-10-28-phase4-a7-character-direction.md)、[報告](reports/phase4-completion-2026-10-28/a7/README.md)。接續整體歷史鏈及 Phase 4 收尾；P5b 暫緩。下方狀態為各批交付前歷史。
+
 ## Phase 4 A6：場景光線相容（2026-10-28，本機驗收完成）
 
 - A5 已交付 `6fc0517e`，CI 40638180863 全數成功。A6 修正棚／地下自然窗光候選、兩背景棚光支援及固定構圖 UI／resolver 一致性，保留明確舊鎖與運輸手動例外。

@@ -1,0 +1,13 @@
+{
+  "baseCommit": "1361dd213b81b005a6267f438d368d25947e581e",
+  "passed": true,
+  "reviewedCards": 33,
+  "projectedCards": 21,
+  "retainedCards": 12,
+  "cases": 2080,
+  "generations": 6240,
+  "captureCount": 66,
+  "roundTrips": 16,
+  "protectedFiles": 238,
+  "changed": 1319
+}

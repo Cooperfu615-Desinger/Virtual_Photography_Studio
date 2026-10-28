@@ -1,0 +1,332 @@
+{
+  "baseCommit": "1361dd213b81b005a6267f438d368d25947e581e",
+  "rows": [
+    {
+      "id": "character-48g",
+      "zh": "48_G",
+      "before": "photorealistic editorial portrait, contemporary street-fashion photographic realism, coherent facial identity, realistic fabric construction",
+      "after": "photorealistic editorial portrait, contemporary street-fashion photographic realism, coherent facial identity, realistic fabric construction",
+      "replacement": null,
+      "decision": "retain photographic style and identity detail"
+    },
+    {
+      "id": "character-philippa",
+      "zh": "29_Philippa",
+      "before": "photorealistic editorial portrait, romantic dark couture photographic realism, coherent facial identity, realistic lace and tulle construction",
+      "after": "photorealistic editorial portrait, romantic dark couture photographic realism, coherent facial identity, realistic lace and tulle construction",
+      "replacement": null,
+      "decision": "retain photographic style and identity detail"
+    },
+    {
+      "id": "character-sakura",
+      "zh": "12_Sakura",
+      "before": "photorealistic editorial portrait, gentle cozy indoor lifestyle photographic realism, coherent facial identity, realistic plush fleece and knit texture",
+      "after": "photorealistic editorial portrait, gentle cozy lifestyle photographic realism, coherent facial identity, realistic plush fleece and knit texture",
+      "replacement": [
+        "indoor ",
+        ""
+      ],
+      "decision": "project scene or light source only"
+    },
+    {
+      "id": "character-hinata",
+      "zh": "06_Hinata",
+      "before": "photorealistic editorial portrait, polished urban street-fashion photographic realism, coherent facial identity, realistic knit and denim construction",
+      "after": "photorealistic editorial portrait, polished street-fashion photographic realism, coherent facial identity, realistic knit and denim construction",
+      "replacement": [
+        "urban ",
+        ""
+      ],
+      "decision": "project scene or light source only"
+    },
+    {
+      "id": "character-rika",
+      "zh": "11_Rika",
+      "before": "photorealistic editorial portrait, intimate warm indoor film-snapshot photographic realism, coherent facial identity, realistic cotton and denim construction",
+      "after": "photorealistic editorial portrait, intimate warm film-snapshot photographic realism, coherent facial identity, realistic cotton and denim construction",
+      "replacement": [
+        "indoor ",
+        ""
+      ],
+      "decision": "project scene or light source only"
+    },
+    {
+      "id": "character-rin",
+      "zh": "38_Rin",
+      "before": "photorealistic editorial portrait, polished intellectual minimalist styling, natural photographic detail, coherent facial identity, realistic fabric construction",
+      "after": "photorealistic editorial portrait, polished intellectual minimalist styling, natural photographic detail, coherent facial identity, realistic fabric construction",
+      "replacement": null,
+      "decision": "retain photographic style and identity detail"
+    },
+    {
+      "id": "character-lily",
+      "zh": "07_Lily",
+      "before": "photorealistic editorial portrait, glamorous sunlit fashion portrait photographic realism, coherent facial identity, realistic faux-fur texture",
+      "after": "photorealistic editorial portrait, glamorous fashion portrait photographic realism, coherent facial identity, realistic faux-fur texture",
+      "replacement": [
+        "sunlit ",
+        ""
+      ],
+      "decision": "project scene or light source only"
+    },
+    {
+      "id": "character-yuri",
+      "zh": "02_Yuri",
+      "before": "photorealistic editorial portrait, warm retro youth-fashion photographic realism, coherent facial identity, realistic ribbed cotton and denim construction",
+      "after": "photorealistic editorial portrait, warm retro youth-fashion photographic realism, coherent facial identity, realistic ribbed cotton and denim construction",
+      "replacement": null,
+      "decision": "retain photographic style and identity detail"
+    },
+    {
+      "id": "character-sui",
+      "zh": "03_Sui",
+      "before": "photorealistic editorial portrait, soft cozy casual-fashion photographic realism, coherent facial identity, realistic knit and denim construction",
+      "after": "photorealistic editorial portrait, soft cozy casual-fashion photographic realism, coherent facial identity, realistic knit and denim construction",
+      "replacement": null,
+      "decision": "retain photographic style and identity detail"
+    },
+    {
+      "id": "character-hina",
+      "zh": "37_Hina",
+      "before": "photorealistic editorial portrait, quiet minimalist loungewear photographic realism, coherent facial identity, realistic washed cotton texture",
+      "after": "photorealistic editorial portrait, quiet minimalist loungewear photographic realism, coherent facial identity, realistic washed cotton texture",
+      "replacement": null,
+      "decision": "retain photographic style and identity detail"
+    },
+    {
+      "id": "character-yuna",
+      "zh": "26_Yuna",
+      "before": "photorealistic editorial portrait, clean sporty street-fashion photographic realism, coherent facial identity, realistic ribbed cotton, fleece and athletic fabric construction",
+      "after": "photorealistic editorial portrait, clean sporty street-fashion photographic realism, coherent facial identity, realistic ribbed cotton, fleece and athletic fabric construction",
+      "replacement": null,
+      "decision": "retain photographic style and identity detail"
+    },
+    {
+      "id": "character-eleanor",
+      "zh": "41_Eleanor",
+      "before": "photorealistic cinematic dark-fantasy portrait, coherent demonic facial identity and permanent markings, realistic horn, leather, engraved metal and lace construction",
+      "after": "photorealistic cinematic dark-fantasy portrait, coherent demonic facial identity and permanent markings, realistic horn, leather, engraved metal and lace construction",
+      "replacement": null,
+      "decision": "retain photographic style and identity detail"
+    },
+    {
+      "id": "character-olivia",
+      "zh": "22_Olivia",
+      "before": "photorealistic editorial portrait, assertive Tokyo street-fashion photographic realism, coherent facial identity, realistic patent, rib-knit and heavyweight varsity fabric construction",
+      "after": "photorealistic editorial portrait, assertive street-fashion photographic realism, coherent facial identity, realistic patent, rib-knit and heavyweight varsity fabric construction",
+      "replacement": [
+        "Tokyo ",
+        ""
+      ],
+      "decision": "project scene or light source only"
+    },
+    {
+      "id": "character-jiwoo",
+      "zh": "08_Jiwoo",
+      "before": "photorealistic editorial portrait, moody vintage gothic photographic realism, coherent facial identity, precise asymmetrical pearl-silver hair streak placement, avoid mirrored bleach-blonde stripes, realistic matte fabric and lace construction",
+      "after": "photorealistic editorial portrait, moody vintage gothic photographic realism, coherent facial identity, precise asymmetrical pearl-silver hair streak placement, avoid mirrored bleach-blonde stripes, realistic matte fabric and lace construction",
+      "replacement": null,
+      "decision": "retain photographic style and identity detail"
+    },
+    {
+      "id": "character-chihiro",
+      "zh": "05_Chihiro",
+      "before": "photorealistic editorial portrait, refined haunted-romance fashion photographic realism, coherent facial identity, realistic ash-blonde dye transition, mesh, lace and tulle construction",
+      "after": "photorealistic editorial portrait, refined haunted-romance fashion photographic realism, coherent facial identity, realistic ash-blonde dye transition, mesh, lace and tulle construction",
+      "replacement": null,
+      "decision": "retain photographic style and identity detail"
+    },
+    {
+      "id": "character-koto",
+      "zh": "04_Koto",
+      "before": "photorealistic editorial portrait, aristocratic gothic fashion photographic realism, coherent facial identity, realistic beadwork, floral lace and translucent cape construction",
+      "after": "photorealistic editorial portrait, aristocratic gothic fashion photographic realism, coherent facial identity, realistic beadwork, floral lace and translucent cape construction",
+      "replacement": null,
+      "decision": "retain photographic style and identity detail"
+    },
+    {
+      "id": "character-mei",
+      "zh": "00_Mei",
+      "before": "photorealistic editorial portrait, nocturnal alternative-couture photographic realism, coherent facial identity, controlled dark-to-beige ombre transition, realistic lace, beadwork and layered fabric construction",
+      "after": "photorealistic editorial portrait, alternative-couture photographic realism, coherent facial identity, controlled dark-to-beige ombre transition, realistic lace, beadwork and layered fabric construction",
+      "replacement": [
+        "nocturnal ",
+        ""
+      ],
+      "decision": "project scene or light source only"
+    },
+    {
+      "id": "character-rei",
+      "zh": "01_Rei",
+      "before": "photorealistic editorial portrait, bright candid convenience-store photographic realism, coherent facial identity, realistic knit, jersey and worn denim construction",
+      "after": "photorealistic editorial portrait, bright candid photographic realism, coherent facial identity, realistic knit, jersey and worn denim construction",
+      "replacement": [
+        "convenience-store ",
+        ""
+      ],
+      "decision": "project scene or light source only"
+    },
+    {
+      "id": "character-amy",
+      "zh": "09_Amy",
+      "before": "photorealistic editorial portrait, cool urban street-style photographic realism, coherent facial identity, realistic knit, hosiery and polished leather construction",
+      "after": "photorealistic editorial portrait, cool street-style photographic realism, coherent facial identity, realistic knit, hosiery and polished leather construction",
+      "replacement": [
+        "urban ",
+        ""
+      ],
+      "decision": "project scene or light source only"
+    },
+    {
+      "id": "character-jiyoo",
+      "zh": "10_Ji-Yoo",
+      "before": "photorealistic editorial portrait, heritage fashion editorial photographic realism, coherent facial identity, realistic silk, brocade and embroidery construction",
+      "after": "photorealistic editorial portrait, heritage fashion editorial photographic realism, coherent facial identity, realistic silk, brocade and embroidery construction",
+      "replacement": null,
+      "decision": "retain photographic style and identity detail"
+    },
+    {
+      "id": "character-yui",
+      "zh": "13_Yui",
+      "before": "photorealistic editorial portrait, clean minimal studio photographic realism, coherent facial identity, natural skin texture and soft fabric construction",
+      "after": "photorealistic editorial portrait, clean minimal photographic realism, coherent facial identity, natural skin texture and soft fabric construction",
+      "replacement": [
+        "studio ",
+        ""
+      ],
+      "decision": "project scene or light source only"
+    },
+    {
+      "id": "character-nana",
+      "zh": "14_Nana",
+      "before": "photorealistic editorial portrait, bright school-corridor photographic realism, coherent facial identity, realistic cotton shirting, pleated fabric and leather construction",
+      "after": "photorealistic editorial portrait, bright photographic realism, coherent facial identity, realistic cotton shirting, pleated fabric and leather construction",
+      "replacement": [
+        "school-corridor ",
+        ""
+      ],
+      "decision": "project scene or light source only"
+    },
+    {
+      "id": "character-emily",
+      "zh": "15_Emily",
+      "before": "photorealistic editorial portrait, gritty flash street-style photographic realism, coherent facial identity, realistic mesh jersey and worn denim construction",
+      "after": "photorealistic editorial portrait, gritty street-style photographic realism, coherent facial identity, realistic mesh jersey and worn denim construction",
+      "replacement": [
+        "flash ",
+        ""
+      ],
+      "decision": "project scene or light source only"
+    },
+    {
+      "id": "character-shiori",
+      "zh": "16_Shiori",
+      "before": "photorealistic editorial portrait, neon city street-fashion photographic realism, coherent facial identity, realistic rib knit and washed denim construction",
+      "after": "photorealistic editorial portrait, street-fashion photographic realism, coherent facial identity, realistic rib knit and washed denim construction",
+      "replacement": [
+        "neon city ",
+        ""
+      ],
+      "decision": "project scene or light source only"
+    },
+    {
+      "id": "character-natsuki",
+      "zh": "18_Natsuki",
+      "before": "photorealistic editorial portrait, clean locker-room sports editorial photographic realism, coherent facial identity, realistic technical jersey and athletic trim construction",
+      "after": "photorealistic editorial portrait, clean sports editorial photographic realism, coherent facial identity, realistic technical jersey and athletic trim construction",
+      "replacement": [
+        "locker-room ",
+        ""
+      ],
+      "decision": "project scene or light source only"
+    },
+    {
+      "id": "character-minji",
+      "zh": "19_Minji",
+      "before": "photorealistic editorial portrait, soft night-street photographic realism, coherent facial identity, realistic washed jersey and distressed denim construction",
+      "after": "photorealistic editorial portrait, soft photographic realism, coherent facial identity, realistic washed jersey and distressed denim construction",
+      "replacement": [
+        "night-street ",
+        ""
+      ],
+      "decision": "project scene or light source only"
+    },
+    {
+      "id": "character-manami",
+      "zh": "20_Manami",
+      "before": "photorealistic editorial portrait, library-couture photographic realism, coherent facial identity, realistic floral lace, faux fur and polished leather construction",
+      "after": "photorealistic editorial portrait, couture photographic realism, coherent facial identity, realistic floral lace, faux fur and polished leather construction",
+      "replacement": [
+        "library-couture",
+        "couture"
+      ],
+      "decision": "project scene or light source only"
+    },
+    {
+      "id": "character-grace",
+      "zh": "25_Grace",
+      "before": "photorealistic editorial portrait, warm direct-flash indoor photographic realism, coherent facial identity, realistic ribbed cotton and washed denim construction",
+      "after": "photorealistic editorial portrait, warm photographic realism, coherent facial identity, realistic ribbed cotton and washed denim construction",
+      "replacement": [
+        "direct-flash indoor ",
+        ""
+      ],
+      "decision": "project scene or light source only"
+    },
+    {
+      "id": "character-kaori",
+      "zh": "30_Kaori",
+      "before": "photorealistic editorial portrait, gritty recording-studio rock editorial photographic realism, coherent facial identity, realistic leather, metal hardware and cotton construction",
+      "after": "photorealistic editorial portrait, gritty rock editorial photographic realism, coherent facial identity, realistic leather, metal hardware and cotton construction",
+      "replacement": [
+        "recording-studio ",
+        ""
+      ],
+      "decision": "project scene or light source only"
+    },
+    {
+      "id": "character-soyeon",
+      "zh": "32_Soyeon",
+      "before": "photorealistic editorial portrait, vivid lantern-lit fashion photographic realism, coherent facial identity, realistic satin, embroidery and polished leather construction",
+      "after": "photorealistic editorial portrait, vivid fashion photographic realism, coherent facial identity, realistic satin, embroidery and polished leather construction",
+      "replacement": [
+        "lantern-lit ",
+        ""
+      ],
+      "decision": "project scene or light source only"
+    },
+    {
+      "id": "character-bora",
+      "zh": "33_Bora",
+      "before": "photorealistic editorial portrait, warm nightclub editorial photographic realism, coherent facial identity, realistic sheer lace, tailored wool and polished leather construction",
+      "after": "photorealistic editorial portrait, warm editorial photographic realism, coherent facial identity, realistic sheer lace, tailored wool and polished leather construction",
+      "replacement": [
+        "nightclub ",
+        ""
+      ],
+      "decision": "project scene or light source only"
+    },
+    {
+      "id": "character-seulgi",
+      "zh": "34_Seulgi",
+      "before": "photorealistic editorial portrait, neon nightclub editorial photographic realism, coherent facial identity, realistic sheer lace, tailored wool and polished leather construction",
+      "after": "photorealistic editorial portrait, editorial photographic realism, coherent facial identity, realistic sheer lace, tailored wool and polished leather construction",
+      "replacement": [
+        "neon nightclub ",
+        ""
+      ],
+      "decision": "project scene or light source only"
+    },
+    {
+      "id": "character-miku",
+      "zh": "36_Miku",
+      "before": "photorealistic editorial portrait, bright commuter-train photographic realism, coherent facial identity, realistic knitwear, cotton shirting, pleated fabric and leather construction",
+      "after": "photorealistic editorial portrait, bright photographic realism, coherent facial identity, realistic knitwear, cotton shirting, pleated fabric and leather construction",
+      "replacement": [
+        "commuter-train ",
+        ""
+      ],
+      "decision": "project scene or light source only"
+    }
+  ]
+}
