@@ -23,7 +23,7 @@
       "legacyIds": [
         "character:髮型-hairstyle:帥氣濕亮油頭:1"
       ],
-      "zh": "帥氣濕亮油頭",
+      "zh": "帥氣後梳短髮",
       "en": "slicked-back short hair, hair combed away from the forehead, sharp compact fashion silhouette",
       "desc": "短髮向後梳開，輪廓俐落緊湊；是否濕亮、分束或受風吹拂交由整理狀態控制。",
       "meta": {
@@ -71,7 +71,7 @@
       "legacyIds": [
         "character:髮型-hairstyle:不對稱濕感短鮑伯:4"
       ],
-      "zh": "不對稱濕感短鮑伯",
+      "zh": "不對稱短鮑伯",
       "en": "asymmetrical short bob, one side falling near the eye, sharp uneven silhouette",
       "desc": "一側髮長靠近眼周，重點是不對稱短鮑伯的輪廓與髮尾位置；濕感與動態交由整理狀態控制。",
       "meta": {
@@ -153,7 +153,7 @@
       "legacyIds": [
         "character:髮型-hairstyle:半濕感中長髮:9"
       ],
-      "zh": "半濕感中長髮",
+      "zh": "自然中長髮",
       "en": "medium-length hair with softly tapered ends, clean natural face-framing shape",
       "desc": "中長髮自然垂落，保留乾淨臉側輪廓；光澤、分束與風吹方向交由整理狀態控制。",
       "meta": {
@@ -217,7 +217,7 @@
       "legacyIds": [
         "character:髮型-hairstyle:直髮-濕感:13"
       ],
-      "zh": "直髮：濕感",
+      "zh": "中長直髮",
       "en": "straight medium-to-long hair with clean vertical lengths, softly tapered ends, compact natural silhouette",
       "desc": "中長直髮自然垂落，重點是垂直線條與髮尾位置；濕感與動態交由整理狀態控制。",
       "meta": {
@@ -281,7 +281,7 @@
       "legacyIds": [
         "character:髮型-hairstyle:自然微彎-濕感:17"
       ],
-      "zh": "自然微彎：濕感",
+      "zh": "自然微彎中長髮",
       "en": "medium-to-long hair with subtle natural bends, softly curved ends, clean natural silhouette",
       "desc": "介於直髮與柔波之間，自然垂落並保留輕微彎度；濕感與動態交由整理狀態控制。",
       "meta": {
@@ -345,7 +345,7 @@
       "legacyIds": [
         "character:髮型-hairstyle:濕潤感長波浪:21"
       ],
-      "zh": "濕潤感長波浪",
+      "zh": "柔波長髮",
       "en": "long soft waves with defined wave shape, clean tapered ends, natural face-framing silhouette",
       "desc": "長髮柔波保留清楚波形與乾淨髮尾；濕感與動態交由整理狀態控制。",
       "meta": {

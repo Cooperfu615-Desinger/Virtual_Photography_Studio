@@ -1,0 +1,24 @@
+[
+  {
+    "width": 1440,
+    "labels": 7,
+    "stylingSwitch": true,
+    "oldCardRestore": true,
+    "errors": [],
+    "programmaticFallback": [
+      "髮型輪廓"
+    ],
+    "nativePopupMouseVerified": false
+  },
+  {
+    "width": 390,
+    "labels": 7,
+    "stylingSwitch": true,
+    "oldCardRestore": true,
+    "errors": [],
+    "programmaticFallback": [
+      "髮型輪廓"
+    ],
+    "nativePopupMouseVerified": false
+  }
+]

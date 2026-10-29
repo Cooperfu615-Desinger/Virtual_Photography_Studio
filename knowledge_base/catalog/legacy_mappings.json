@@ -1009,7 +1009,7 @@
         },
         {
           "category": "髮型 (Hairstyle)",
-          "targetZh": "帥氣濕亮油頭",
+          "targetZh": "帥氣後梳短髮",
           "legacy": [
             [
               "短髮｜帥氣濕亮油頭",
@@ -1051,7 +1051,7 @@
         },
         {
           "category": "髮型 (Hairstyle)",
-          "targetZh": "不對稱濕感短鮑伯",
+          "targetZh": "不對稱短鮑伯",
           "legacy": [
             [
               "短髮｜不對稱濕感短鮑伯",
@@ -1109,7 +1109,7 @@
         },
         {
           "category": "髮型 (Hairstyle)",
-          "targetZh": "半濕感中長髮",
+          "targetZh": "自然中長髮",
           "legacy": [
             [
               "中長髮｜半濕感中長髮",
@@ -1143,12 +1143,12 @@
         },
         {
           "category": "髮型 (Hairstyle)",
-          "targetZh": "直髮：濕感",
+          "targetZh": "中長直髮",
           "legacy": []
         },
         {
           "category": "髮型 (Hairstyle)",
-          "targetZh": "自然微彎：濕感",
+          "targetZh": "自然微彎中長髮",
           "legacy": []
         },
         {
@@ -1173,7 +1173,7 @@
         },
         {
           "category": "髮型 (Hairstyle)",
-          "targetZh": "濕潤感長波浪",
+          "targetZh": "柔波長髮",
           "legacy": [
             [
               "長髮（放髮）｜濕潤感長波浪",

@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: comparator fails closed on punctuation, same-length words, cases, outputs, selections and RNG
+ok 1 - comparator fails closed on punctuation, same-length words, cases, outputs, selections and RNG
+  ---
+  duration_ms: 3.585042
+  type: 'test'
+  ...
+# Subtest: sealed A corpus replays every case, output, restoration, alias and RNG count
+ok 2 - sealed A corpus replays every case, output, restoration, alias and RNG count
+  ---
+  duration_ms: 31591.46825
+  type: 'test'
+  ...
+# Subtest: A catalog snapshots preserve ordered IDs, aliases and complete compiled metadata
+ok 3 - A catalog snapshots preserve ordered IDs, aliases and complete compiled metadata
+  ---
+  duration_ms: 639.132417
+  type: 'test'
+  ...
+# Subtest: test export captures pre-postprocessing inference once and isolates supplied data and default cache
+ok 4 - test export captures pre-postprocessing inference once and isolates supplied data and default cache
+  ---
+  duration_ms: 90.618042
+  type: 'test'
+  ...
+# Subtest: snapshot builder rejects duplicate control and entry identities instead of overwriting
+ok 5 - snapshot builder rejects duplicate control and entry identities instead of overwriting
+  ---
+  duration_ms: 0.165125
+  type: 'test'
+  ...
+# Subtest: E immutable pre-move snapshot: 22 computed tables and 2 legacy constants
+ok 6 - E immutable pre-move snapshot: 22 computed tables and 2 legacy constants
+  ---
+  duration_ms: 473.024125
+  type: 'test'
+  ...
+# Subtest: E every legacy source path restores exactly as pre-E, including first-match and explicit selections
+ok 7 - E every legacy source path restores exactly as pre-E, including first-match and explicit selections
+  ---
+  duration_ms: 896.93275
+  type: 'test'
+  ...
+# Subtest: A2 Phase 4 inverse restores exact fixed sources atomically and is idempotent only in isolated copies
+ok 8 - A2 Phase 4 inverse restores exact fixed sources atomically and is idempotent only in isolated copies
+  ---
+  duration_ms: 66.213959
+  type: 'test'
+  ...
+# Subtest: A2 Phase 4 inverse rejects unknown, missing, mixed and Git inputs before any writes
+ok 9 - A2 Phase 4 inverse rejects unknown, missing, mixed and Git inputs before any writes
+  ---
+  duration_ms: 1730.1305
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 31850.804458

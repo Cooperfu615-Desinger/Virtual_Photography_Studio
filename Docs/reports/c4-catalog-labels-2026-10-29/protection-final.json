@@ -1,0 +1,35 @@
+{
+  "base": "3fd6dd8491d98f817b2090b821ab120c45f32c70",
+  "changedTrackedPaths": [
+    "Docs/current_project_state.md",
+    "knowledge_base/catalog/Character/髮型-hairstyle.json",
+    "knowledge_base/catalog/Locations/自然與戶外-nature-outdoors.json",
+    "knowledge_base/catalog/legacy_mappings.json",
+    "knowledge_base/character_design.md",
+    "knowledge_base/locations_and_sets.md",
+    "scripts/catalog_alignment_baseline.mjs",
+    "scripts/catalog_baseline.mjs",
+    "scripts/lib/b3CharacterWardrobeReplay.mjs",
+    "scripts/lib/c4LabelsReplay.mjs",
+    "scripts/lib/page2AdultIdentityReplay.mjs",
+    "webapp/src/data/database.json",
+    "webapp/src/data/legacyMappings.json",
+    "webapp/src/lib/engine/catalogSnapshot.test.js",
+    "webapp/src/lib/engine/legacyMappings.test.js",
+    "webapp/src/lib/engine/representativePromptFixtures.js",
+    "webapp/src/lib/engine/shibuyaCrowdScene.test.js",
+    "webapp/src/lib/engine/zImageUpperSceneExtensionFixtures.js",
+    "webapp/src/lib/engineCharacterIdentityBase.test.js",
+    "webapp/src/lib/enginePromptPipeline.test.js"
+  ],
+  "historicalReportsAndBaselinesChanged": false,
+  "patchFilesVerifiedAgainstGit": 19,
+  "protectedSha256": {
+    "knowledge_base/catalog/id_registry.json": "b79fa41d64a2954c28a3c716669c4deb929fabd2c85115159f3567822bbc7b25",
+    "webapp/src/lib/engine/legacyMappings.baseline.json": "27418a72920655416cdbe38b50ee89f97388e6e261dc2f512d4ac237fe937a6c",
+    "webapp/src/lib/engine.js": "1fa55a6c9b413fd1346f4307c7a5a0661cf61837c7e760749225dd2b9c5e5753",
+    "webapp/src/features/saved-cards/cardCodec.js": "1f48d58cc3abd46f0d735cb3c635211aeed1a0743ad694b64411b3f0a025b30b"
+  },
+  "stagedPaths": [],
+  "sharedReplayExplicitlyAuthorized": true
+}

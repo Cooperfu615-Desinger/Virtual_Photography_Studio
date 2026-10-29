@@ -1,0 +1,22 @@
+TAP version 13
+# Subtest: aligned A replays imported people, scene/crop matrix, transitions and JSON/Markdown restores
+ok 1 - aligned A replays imported people, scene/crop matrix, transitions and JSON/Markdown restores
+  ---
+  duration_ms: 13698.343417
+  type: 'test'
+  ...
+# Subtest: alignment seal rejects changed parent hashes, tool hashes and sealed artifacts
+ok 2 - alignment seal rejects changed parent hashes, tool hashes and sealed artifacts
+  ---
+  duration_ms: 160.260625
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 14028.782958

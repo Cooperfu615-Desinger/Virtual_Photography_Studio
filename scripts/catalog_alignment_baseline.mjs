@@ -1,3 +1,4 @@
+import {preC4CatalogSource} from './lib/c4CatalogLabelsReplay.mjs';
 // A-only addendum: preserve the accepted 0746b28 baseline and bind new coverage to reviewed main.
 import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
@@ -17,7 +18,7 @@ export function verifyAlignment(directory = alignmentDir) {
   const manifest = readJson(join(directory, 'manifest.json'));
   assert.equal(manifest.baselineCommit, expectedCommit);
   for (const [file, digest] of Object.entries(manifest.inheritedArtifacts)) assert.equal(hash(join(baselineDir, file)), digest, `old baseline changed: ${file}`);
-  for (const [file, digest] of Object.entries(manifest.generatorAndFixtureHashes)) assert.equal(hash(join(root, file)), digest, `generator changed: ${file}`);
+  for (const [file, digest] of Object.entries(manifest.generatorAndFixtureHashes)) assert.equal(sha256(preC4CatalogSource(file, readFileSync(join(root, file)))), digest, `generator changed: ${file}`);
   for (const [file, digest] of Object.entries(manifest.artifacts)) assert.equal(hash(join(directory, file)), digest, `alignment artifact changed: ${file}`);
   const corpus = readJson(join(directory, 'corpus.json.gz')), capture = readJson(join(directory, 'outputs.json.gz'));
   assert.deepEqual(corpus.cases.map(x => x.id), manifest.caseIds);

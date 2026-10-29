@@ -1,3 +1,4 @@
+import {preC4CatalogSource,preparePreC4CatalogFiles} from './c4CatalogLabelsReplay.mjs';
 // Exact test-only inverse; original A–E/A2 evidence is never re-recorded.
 import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync, existsSync, realpathSync } from 'node:fs';
@@ -8,6 +9,7 @@ const root = fileURLToPath(new URL('../../', import.meta.url));
 export const C4_REVIEW = JSON.parse(readFileSync(new URL('./c4LabelsPatches.json', import.meta.url)));
 const hash = value => createHash('sha256').update(value).digest('hex');
 export function preC4LabelsSource(path, source) {
+  source = preC4CatalogSource(path, source);
   const file = C4_REVIEW.files.find(f => f.path === path);
   if (!file || hash(source) !== file.afterHash) return source;
   assert.equal(hash(file.beforeSource), file.beforeHash, 'C4 inverse corrupt oracle');
@@ -16,7 +18,8 @@ export function preC4LabelsSource(path, source) {
 export function preparePreC4LabelsFiles(directory) {
   assert.notEqual(realpathSync(directory), realpathSync(root), 'C4 inverse requires isolated copy');
   assert.ok(!existsSync(join(directory, '.git')), 'C4 inverse rejects Git checkout');
-  const sources = new Map();
+  const catalog = preparePreC4CatalogFiles(directory);
+  const sources = new Map(catalog.sources);
   const present = C4_REVIEW.files.filter(f => existsSync(join(directory, f.path)));
   if (present.some(f => hash(readFileSync(join(directory, f.path))) === f.afterHash)) {
     for (const file of present) {

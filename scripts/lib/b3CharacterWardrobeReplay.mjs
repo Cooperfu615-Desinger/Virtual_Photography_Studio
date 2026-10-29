@@ -29,7 +29,7 @@ export function restorePreB3WardrobeFiles(directory, { allowPartial = false, pre
     if (allowPartial && !existsSync(path)) continue; // Earlier matrix fixtures copy only their own sealed paths.
     assert.ok(existsSync(path), 'B3 inverse missing source: ' + file.path);
     assert.equal(hash(file.beforeSource), file.beforeHash, 'B3 inverse corrupt oracle');
-    const source = readFileSync(path), sha = hash(source);
+    const source = download.sources.get(file.path) ?? readFileSync(path), sha = hash(source);
     assert.ok([file.beforeHash, file.afterHash].includes(sha), 'B3 inverse rejects unknown source: ' + file.path);
     states.push(sha === file.afterHash ? 'after' : 'before');
     prepared.push([path, file.beforeSource]);

@@ -1,3 +1,5 @@
+import {withPreC4CatalogReplay} from '../../../../scripts/lib/c4CatalogLabelsReplay.mjs';
+import {pathToFileURL} from 'node:url';
 import assert from 'node:assert/strict';
 import { preA2Database } from '../../../../scripts/lib/a2DressControlHistoricalReplay.mjs';
 import { readFileSync } from 'node:fs';
@@ -6,13 +8,16 @@ import { getCompiledCatalogForTesting, getLockControls, getKnowledgeBaseSnapshot
 import { preAllA5Database as preA5Database } from '../../../../scripts/lib/a5XimendingHistoricalReplay.mjs';
 import { createCatalogSnapshots, differences } from '../../../../scripts/lib/catalogBaseline.mjs';
 
-test('A catalog snapshots preserve ordered IDs, aliases and complete compiled metadata', () => {
+test('A catalog snapshots preserve ordered IDs, aliases and complete compiled metadata', async () => {
+ await withPreC4CatalogReplay(async directory => {
+ const {getCompiledCatalogForTesting,getLockControls,getKnowledgeBaseSnapshot}=await import(pathToFileURL(directory+'/webapp/src/lib/engine.js'));
   const historicalSource = preA5Database(preA2Database(getKnowledgeBaseSnapshot()));
   const actual = createCatalogSnapshots(getCompiledCatalogForTesting(historicalSource), getLockControls(historicalSource));
   for (const [kind, snapshot] of Object.entries(actual)) {
     const expected = JSON.parse(readFileSync(new URL(`catalogSnapshot.${kind}.json`, import.meta.url), 'utf8'));
     assert.deepEqual(differences(expected, snapshot), [], `${kind}: snapshot changed; do not update during migration`);
   }
+ });
 });
 
 test('test export captures pre-postprocessing inference once and isolates supplied data and default cache', () => {

@@ -1,0 +1,47 @@
+{
+  "base": "3fd6dd8491d98f817b2090b821ab120c45f32c70",
+  "entries": [
+    {
+      "path": "knowledge_base/catalog/Character/髮型-hairstyle.json",
+      "id": "character:髮型-hairstyle:帥氣濕亮油頭:1",
+      "before": "帥氣濕亮油頭",
+      "after": "帥氣後梳短髮"
+    },
+    {
+      "path": "knowledge_base/catalog/Character/髮型-hairstyle.json",
+      "id": "character:髮型-hairstyle:不對稱濕感短鮑伯:4",
+      "before": "不對稱濕感短鮑伯",
+      "after": "不對稱短鮑伯"
+    },
+    {
+      "path": "knowledge_base/catalog/Character/髮型-hairstyle.json",
+      "id": "character:髮型-hairstyle:半濕感中長髮:9",
+      "before": "半濕感中長髮",
+      "after": "自然中長髮"
+    },
+    {
+      "path": "knowledge_base/catalog/Character/髮型-hairstyle.json",
+      "id": "character:髮型-hairstyle:直髮-濕感:13",
+      "before": "直髮：濕感",
+      "after": "中長直髮"
+    },
+    {
+      "path": "knowledge_base/catalog/Character/髮型-hairstyle.json",
+      "id": "character:髮型-hairstyle:自然微彎-濕感:17",
+      "before": "自然微彎：濕感",
+      "after": "自然微彎中長髮"
+    },
+    {
+      "path": "knowledge_base/catalog/Character/髮型-hairstyle.json",
+      "id": "character:髮型-hairstyle:濕潤感長波浪:21",
+      "before": "濕潤感長波浪",
+      "after": "柔波長髮"
+    },
+    {
+      "path": "knowledge_base/catalog/Locations/自然與戶外-nature-outdoors.json",
+      "id": "locations:自然與戶外-nature-outdoors:戶外-霧感森林步道:6",
+      "before": "戶外：霧感森林步道",
+      "after": "戶外：森林步道"
+    }
+  ]
+}

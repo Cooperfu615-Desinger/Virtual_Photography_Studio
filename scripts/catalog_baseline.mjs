@@ -1,3 +1,4 @@
+import {preC4CatalogSource} from './lib/c4CatalogLabelsReplay.mjs';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -60,7 +61,7 @@ export function verifySeal(directory = baselineDir) {
     if (sha256(readFileSync(join(directory, file))) !== hash) throw new Error(`sealed artifact changed: ${file}`);
   }
   for (const [file, hash] of Object.entries(manifest.generatorAndFixtureHashes)) {
-    if (sha256(readFileSync(join(root, file))) !== hash) throw new Error(`generator/fixture changed: ${file}`);
+    if (sha256(preC4CatalogSource(file, readFileSync(join(root, file)))) !== hash) throw new Error(`generator/fixture changed: ${file}`);
   }
   const corpus = readJson(join(directory, 'corpus.json.gz'));
   const capture = readJson(join(directory, 'outputs.json.gz'));

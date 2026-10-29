@@ -45,27 +45,27 @@ test('identity base exposes reduced hairstyle and hair color options', () => {
     optionLabels('hairstyleId'),
     [
       '全無',
-      '帥氣濕亮油頭',
+      '帥氣後梳短髮',
       '乾淨短鮑伯',
       '齊瀏海圓弧鮑伯',
-      '不對稱濕感短鮑伯',
+      '不對稱短鮑伯',
       '復古外翹短髮',
       '自然層次鎖骨髮',
       '韓系柔順中長髮',
       '側分柔波中長髮',
-      '半濕感中長髮',
+      '自然中長髮',
       '直髮：中分',
       '直髮：旁分',
       '直髮：日式瀏海',
-      '直髮：濕感',
+      '中長直髮',
       '自然微彎：中分',
       '自然微彎：深側分',
       '自然微彎：瀏海',
-      '自然微彎：濕感',
+      '自然微彎中長髮',
       '柔波：中分',
       '柔波：深側分',
       '柔波：瀏海',
-      '濕潤感長波浪',
+      '柔波長髮',
       '高位雙馬尾',
       '蓬鬆高馬尾',
       '低馬尾',
@@ -192,7 +192,7 @@ test('hairstyle prompt supports referenced soft-wave and airy-bang long hair opt
 
 test('hairstyle prompt exposes straight wet and subtle bend options without over-curl wording', () => {
   const subtleBend = optionByLabel('hairstyleId', '自然微彎：深側分');
-  const straightWet = optionByLabel('hairstyleId', '直髮：濕感');
+  const straightWet = optionByLabel('hairstyleId', '中長直髮');
 
   assert.match(subtleBend.en, /subtle natural bends/);
   assert.match(subtleBend.en, /asymmetric face-framing shape/);

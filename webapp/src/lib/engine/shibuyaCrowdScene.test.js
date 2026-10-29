@@ -1,3 +1,4 @@
+import c4LabelReview from '../../../../scripts/lib/c4CatalogLabelsReview.json' with {type:'json'};
 import { preA2HistoricalTest } from '../../../../scripts/lib/a2DressControlHistoricalTest.mjs';
 const a2HistoricalTest = preA2HistoricalTest(import.meta.url);
 import { preAllA5Database as preA5Database } from '../../../../scripts/lib/a5XimendingHistoricalReplay.mjs';
@@ -106,7 +107,7 @@ test('Shibuya crowd source preserves the public label, ID, order and legacy Engl
   const location = locationOptions.find(o => o.id === id);
   assert.equal(location?.zh, label);
   assert.equal(locationOptions.findIndex(o => o.id === id), 92);
-  assert.equal(digest(locationOptions.map(o => [o.id, o.zh])), '60c457753e4a34a29882a118cdf15a417f42c0ffc41c05fdbd9e43f6ad69a290');
+  assert.equal(digest(locationOptions.map(o => [o.id, c4LabelReview.entries.find(e => e.id === o.id && e.after === o.zh)?.before ?? o.zh])), '60c457753e4a34a29882a118cdf15a417f42c0ffc41c05fdbd9e43f6ad69a290');
   assert.equal(location.en, source);
   assert.deepEqual(location.en.split(', '), clauses);
   assert.ok(location.meta.legacyPromptAliases.includes(legacySource));

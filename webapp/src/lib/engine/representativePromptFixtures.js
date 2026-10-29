@@ -560,7 +560,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       angleId: { byZh: '平視高度鏡頭' },
       orbitId: { byZh: '左前 45 度' },
       bodyTypeId: { byZh: '性感曲線身形' },
-      hairstyleId: { byZh: '濕潤感長波浪' },
+      hairstyleId: { byZh: '柔波長髮' },
       hairColorId: { byZh: '自然黑' },
       topId: { byZh: '棉質細肩背心' },
       topColorId: { byZh: '白色' },

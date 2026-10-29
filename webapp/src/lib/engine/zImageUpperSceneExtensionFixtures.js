@@ -52,7 +52,7 @@ export const UPPER_SCENE_EXTENSION_CASES = [
     "the concrete ceiling meeting the stained wall"
   ],
   [
-    "戶外：霧感森林步道",
+    "戶外：森林步道",
     "overlapping branches and foliage overhead"
   ],
   [

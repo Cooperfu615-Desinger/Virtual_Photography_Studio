@@ -19,10 +19,10 @@ export function prePage2AdultSource(path, source) {
 export function restorePrePage2AdultFiles(directory, { allowPartial = false, prepareOnly = false } = {}) {
   assert.notEqual(realpathSync(directory), realpathSync(PAGE2_ROOT), 'PAGE2 inverse requires isolated copy');
   assert.ok(!existsSync(join(directory, '.git')), 'PAGE2 inverse rejects Git checkout');
-  const empty = { sources: new Map(), apply() {} };
+  const b3 = restorePreB3WardrobeFiles(directory, { allowPartial: true, prepareOnly: true });
+  const empty = b3;
   if (allowPartial && !PAGE2_REVIEW.files.some(f => existsSync(join(directory, f.path))
     && hash(preB3WardrobeSource(f.path, readFileSync(join(directory, f.path)))) === f.afterHash)) return empty;
-  const b3 = restorePreB3WardrobeFiles(directory, { allowPartial: true, prepareOnly: true });
   const prepared = [], states = [];
   for (const file of PAGE2_REVIEW.files) {
     const path = join(directory, file.path);
@@ -44,8 +44,8 @@ export function restorePrePage2AdultFiles(directory, { allowPartial = false, pre
   }
   if (!after) return empty;
   const plan = {
-    sources: new Map(PAGE2_REVIEW.files.filter(f => prepared.some(([path]) => path === join(directory, f.path)))
-      .map(f => [f.path, Buffer.from(f.beforeSource)])),
+    sources: new Map([...b3.sources, ...PAGE2_REVIEW.files.filter(f => prepared.some(([path]) => path === join(directory, f.path)))
+      .map(f => [f.path, Buffer.from(f.beforeSource)])]),
     apply() {
       b3.apply();
       for (const [path, source] of prepared) writeFileSync(path, source);

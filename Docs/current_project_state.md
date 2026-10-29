@@ -4,6 +4,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-29
 
+## C4 第二批髮型／森林名稱（2026-10-29，本機驗收通過）
+
+- 六筆髮型移除由整理狀態負責的濕感名稱，森林步道移除無英文來源的霧感；七筆英文／ID／desc／semantic／整理狀態政策保持。六個舊映射 targetZh 跟隨新名稱，舊鍵與索引原樣。
+- 558 組生成與 1,098 組歷史還原對照一致；已依追加限定授權完成共用回放銜接。完整前端 2,032／品質 853、A／E／Phase 4 歷史鏈、lint／build／strict／同步／工具／Python／資產通過；同 seed audit 0 blocker 且前後一致。桌手機及六工作區通過，原生髮型下拉直接滑鼠操作限制保留。
+- [規格](specs/c4-catalog-display-labels-v1.md)、[決策](decisions/2026-10-29-c4-catalog-labels.md)、[驗收](reports/c4-catalog-labels-2026-10-29/README.md)。Cooper 已驗收通過並授權限定提交／推送；瀏覽器限制保留，CI／部署於交付時核對。用字統一、其他 C 類、PAGE2 舊匯入、J12、P5b 不併入。
+
 ## C4 第一批中文名稱／說明（2026-10-29，本機驗收通過）
 
 - X100V 改為「手持 FUJIFILM X100V 相機」；active 托下巴保留名稱補說明，隱藏 legacy 版本標為「單手托下巴（舊版）」。現行 B 區 `support-chin` 不改，不重新公開舊控制項。
