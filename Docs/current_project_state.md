@@ -4,6 +4,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-29
 
+## B3 維護責任與精準護欄收尾（2026-10-29）
+
+- 以 main `916cdc10` 清點來源責任；身份與穿搭沿用已共用來源，完整 legacy en、MJ 簡稱、圖層 metadata、圖片 manifest 與排序各守原用途。118 共用／16 例外保持。
+- 補 MJ 名稱逐角色／逐圖層集合與非空護欄，由既有 npm test／CI 自動納入；不改 runtime、Prompt、資料、ID、收藏或歷史基準。Cooper 已驗收通過並授權本批限定提交／推送；CI 與部署於交付時核對。
+- 見 [維護規格](specs/b3-maintenance-ownership-v1.md)、[決策](decisions/2026-10-29-b3-maintenance.md)、[驗收](reports/b3-maintenance-2026-10-29/README.md)。PAGE2 舊匯入、J12、C 類、P5b 排除。
+
 ## Saved Cards 下載修復（2026-10-29，本機驗收通過）
 
 - Chrome 131 筆 Download 被單張 PAGE1 快照 `unknown ID: locationId` 中斷。新增保留原文／設定的備份匯出、合法仰躺 none 驗證及下載 loading／錯誤提示；正常卡片與嚴格匯入契約保持。
