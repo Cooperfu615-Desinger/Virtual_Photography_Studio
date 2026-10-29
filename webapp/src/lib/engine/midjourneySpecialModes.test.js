@@ -63,8 +63,8 @@ test('phase 7 keeps every selected MJ accessory as a compact visual phrase', () 
     headAccessoryId: optionId('headAccessoryId', '紅絨金飾水鑽皇冠'),
     headAccessoryColorId: optionId('headAccessoryColorId', '寶藍色'),
     earringsId: optionId('earringsId', '雕塑感金屬耳圈'),
-    neckAccessoryId: optionId('neckAccessoryId', '街頭風格金項鏈'),
-    waistAccessoryId: optionId('waistAccessoryId', '銀色水鑽蝴蝶腰鏈'),
+    neckAccessoryId: optionId('neckAccessoryId', '街頭風格金項鍊'),
+    waistAccessoryId: optionId('waistAccessoryId', '銀色水鑽蝴蝶腰鍊'),
   });
 
   assert.match(prompt.midjourneyPrompt, /crown/i);

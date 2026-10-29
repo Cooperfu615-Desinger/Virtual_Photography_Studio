@@ -1,0 +1,94 @@
+TAP version 13
+# Subtest: A2 dresses change only reviewed control clauses and append exact old text aliases
+ok 1 - A2 dresses change only reviewed control clauses and append exact old text aliases
+  ---
+  duration_ms: 1.960625
+  type: 'test'
+  ...
+# Subtest: A2 all 24 dresses are free of selection controls across every crop and three colors in six outputs
+ok 2 - A2 all 24 dresses are free of selection controls across every crop and three colors in six outputs
+  ---
+  duration_ms: 2489.92375
+  type: 'test'
+  ...
+# Subtest: A2 every prior dress text and legacy ID resolves to the same issued option
+ok 3 - A2 every prior dress text and legacy ID resolves to the same issued option
+  ---
+  duration_ms: 607.502666
+  type: 'test'
+  ...
+# Subtest: A2 inverse rejects changed entries, missing or duplicate IDs and mixed migration states
+ok 4 - A2 inverse rejects changed entries, missing or duplicate IDs and mixed migration states
+  ---
+  duration_ms: 487.124375
+  type: 'test'
+  ...
+# Subtest: A2 video history accepts only the exact reviewed before or after tree and rejects missing, changed or mixed sources
+ok 5 - A2 video history accepts only the exact reviewed before or after tree and rejects missing, changed or mixed sources
+  ---
+  duration_ms: 1.001125
+  type: 'test'
+  ...
+# Subtest: E immutable pre-move snapshot: 22 computed tables and 2 legacy constants
+ok 6 - E immutable pre-move snapshot: 22 computed tables and 2 legacy constants
+  ---
+  duration_ms: 258.514708
+  type: 'test'
+  ...
+# Subtest: E every legacy source path restores exactly as pre-E, including first-match and explicit selections
+ok 7 - E every legacy source path restores exactly as pre-E, including first-match and explicit selections
+  ---
+  duration_ms: 1106.942416
+  type: 'test'
+  ...
+# Subtest: A2 outfits remove only reviewed clauses; preserve IDs, ordered aliases, semantic and color roles
+ok 8 - A2 outfits remove only reviewed clauses; preserve IDs, ordered aliases, semantic and color roles
+  ---
+  duration_ms: 454.481833
+  type: 'test'
+  ...
+# Subtest: A2 all 40 outfits are free of source controls across every crop and five color states in six outputs
+ok 9 - A2 all 40 outfits are free of source controls across every crop and five color states in six outputs
+  ---
+  duration_ms: 7209.506583
+  type: 'test'
+  ...
+# Subtest: A2 every prior outfit text and legacy ID resolves to the same issued option
+ok 10 - A2 every prior outfit text and legacy ID resolves to the same issued option
+  ---
+  duration_ms: 699.146291
+  type: 'test'
+  ...
+# Subtest: A2 structured bindings preserve the old parser target text, order and consumed channels
+ok 11 - A2 structured bindings preserve the old parser target text, order and consumed channels
+  ---
+  duration_ms: 4.518333
+  type: 'test'
+  ...
+# Subtest: A2 preserves existing fixed-color overlap, inactive locked targets and generic sporty trim behavior
+ok 12 - A2 preserves existing fixed-color overlap, inactive locked targets and generic sporty trim behavior
+  ---
+  duration_ms: 0.329083
+  type: 'test'
+  ...
+# Subtest: A2 outfit data inverse rejects text, metadata, alias order, missing IDs, duplicates and mixed states
+ok 13 - A2 outfit data inverse rejects text, metadata, alias order, missing IDs, duplicates and mixed states
+  ---
+  duration_ms: 433.664958
+  type: 'test'
+  ...
+# Subtest: A2 outfit program inverse rejects extra code, schema drift, missing helpers and mixed versions
+ok 14 - A2 outfit program inverse rejects extra code, schema drift, missing helpers and mixed versions
+  ---
+  duration_ms: 118.741958
+  type: 'test'
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 14
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 9082.569083

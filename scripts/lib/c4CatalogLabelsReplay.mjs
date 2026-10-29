@@ -1,3 +1,4 @@
+import {preC4JewelrySource,preparePreC4JewelryFiles} from './c4JewelryLabelsReplay.mjs';
 // Test-only exact inverse. Never re-record historical seals.
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync,existsSync,realpathSync,mkdtempSync,mkdirSync,cpSync,symlinkSync,rmSync} from 'node:fs';
@@ -9,6 +10,7 @@ export const C4_CATALOG_ROOT=fileURLToPath(new URL('../../',import.meta.url));
 export const C4_CATALOG_PATCHES=JSON.parse(readFileSync(new URL('./c4CatalogLabelsPatches.json',import.meta.url)));
 const hash=x=>createHash('sha256').update(x).digest('hex');
 export function preC4CatalogSource(path,source){
+ source=preC4JewelrySource(path,source);
  const f=C4_CATALOG_PATCHES.files.find(x=>x.path===path);
  if(!f||hash(source)!==f.afterHash)return source;
  assert.equal(hash(f.beforeSource),f.beforeHash,'corrupt C4 catalog oracle');
@@ -17,9 +19,11 @@ export function preC4CatalogSource(path,source){
 export function preparePreC4CatalogFiles(directory){
  assert.notEqual(realpathSync(directory),realpathSync(C4_CATALOG_ROOT),'C4 catalog inverse requires isolated copy');
  assert.ok(!existsSync(join(directory,'.git')),'C4 catalog inverse rejects Git checkout');
- const sources=new Map(),present=C4_CATALOG_PATCHES.files.filter(f=>existsSync(join(directory,f.path)));
- if(present.some(f=>hash(readFileSync(join(directory,f.path)))===f.afterHash)){
-  for(const f of present){const bytes=readFileSync(join(directory,f.path));assert.ok([f.beforeHash,f.afterHash].includes(hash(bytes)),'C4 catalog inverse rejects unknown source: '+f.path);sources.set(f.path,preC4CatalogSource(f.path,bytes));}
+ const jewelry=preparePreC4JewelryFiles(directory);
+ const sourceFor=f=>jewelry.sources.get(f.path)??readFileSync(join(directory,f.path));
+ const sources=new Map(jewelry.sources),present=C4_CATALOG_PATCHES.files.filter(f=>existsSync(join(directory,f.path)));
+ if(present.some(f=>hash(sourceFor(f))===f.afterHash)){
+  for(const f of present){const bytes=sourceFor(f);assert.ok([f.beforeHash,f.afterHash].includes(hash(bytes)),'C4 catalog inverse rejects unknown source: '+f.path);sources.set(f.path,preC4CatalogSource(f.path,bytes));}
  }
  return {sources,apply(){for(const [path,bytes]of sources)writeFileSync(join(directory,path),bytes);}};
 }

@@ -1,3 +1,5 @@
+import {preC4JewelryHistoricalTest} from '../../../../scripts/lib/c4JewelryHistoricalTest.mjs';
+const c4JewelryHistoricalTest=preC4JewelryHistoricalTest(import.meta.url);
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
@@ -62,7 +64,7 @@ test('A2 every prior dress text and legacy ID resolves to the same issued option
 });
 
 import { preA2Database } from '../../../../scripts/lib/a2DressControlHistoricalReplay.mjs';
-test('A2 inverse rejects changed entries, missing or duplicate IDs and mixed migration states', () => {
+c4JewelryHistoricalTest('A2 inverse rejects changed entries, missing or duplicate IDs and mixed migration states', () => {
   const source = getKnowledgeBaseSnapshot();
   const old = preA2Database(source);
   assert.deepEqual(preA2Database(old), old);

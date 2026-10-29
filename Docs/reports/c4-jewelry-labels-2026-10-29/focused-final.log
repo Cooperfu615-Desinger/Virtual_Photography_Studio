@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: C4 seven Chinese names change without English, IDs, metadata, order or old keys changing
+ok 1 - C4 seven Chinese names change without English, IDs, metadata, order or old keys changing
+  ---
+  duration_ms: 4.141375
+  type: 'test'
+  ...
+# Subtest: C4 old hairstyle IDs retain wet migration and explicit A/B styling choices
+ok 2 - C4 old hairstyle IDs retain wet migration and explicit A/B styling choices
+  ---
+  duration_ms: 22.209459
+  type: 'test'
+  ...
+# Subtest: C4 exact inverse preserves fixed Git bytes and rejects live/unknown copies before writing
+ok 3 - C4 exact inverse preserves fixed Git bytes and rejects live/unknown copies before writing
+  ---
+  duration_ms: 26.337708
+  type: 'test'
+  ...
+# Subtest: C4 558 current cases and 1098 old restore paths match approved fixed baseline
+ok 4 - C4 558 current cases and 1098 old restore paths match approved fixed baseline
+  ---
+  duration_ms: 6482.277917
+  type: 'test'
+  ...
+# Subtest: C4 jewelry source delta is exactly four names and two descriptions; IDs/English/semantics stay
+ok 5 - C4 jewelry source delta is exactly four names and two descriptions; IDs/English/semantics stay
+  ---
+  duration_ms: 2.31675
+  type: 'test'
+  ...
+# Subtest: C4 legacy jewelry scalar/array restore and explicit choice priority stay intact
+ok 6 - C4 legacy jewelry scalar/array restore and explicit choice priority stay intact
+  ---
+  duration_ms: 44.80275
+  type: 'test'
+  ...
+# Subtest: C4 image manifest only changes display name; original preview files are retained
+ok 7 - C4 image manifest only changes display name; original preview files are retained
+  ---
+  duration_ms: 0.684708
+  type: 'test'
+  ...
+# Subtest: C4 exact inverse rejects live and unknown copies; fixed Git before bytes are preserved
+ok 8 - C4 exact inverse rejects live and unknown copies; fixed Git before bytes are preserved
+  ---
+  duration_ms: 22.277958
+  type: 'test'
+  ...
+# Subtest: C4 216 six-output cases and 1098 historical restore cases equal pre-change baseline
+ok 9 - C4 216 six-output cases and 1098 historical restore cases equal pre-change baseline
+  ---
+  duration_ms: 3091.036542
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6666.863584

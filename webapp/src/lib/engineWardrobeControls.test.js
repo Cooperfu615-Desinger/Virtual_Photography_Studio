@@ -645,13 +645,13 @@ test('duo waist accessories remain assigned to the selected person in compact ou
     pantsAId: optionId('pantsAId', '直筒牛仔褲'),
     pantsBId: optionId('pantsBId', '絲絨喇叭褲'),
     waistAccessoryAId: optionId('waistAccessoryAId', '細版皮革腰帶'),
-    waistAccessoryBId: optionId('waistAccessoryBId', '銀色水鑽蝴蝶腰鏈'),
+    waistAccessoryBId: optionId('waistAccessoryBId', '銀色水鑽蝴蝶腰鍊'),
   });
 
   assert.match(prompt.midjourneyPrompt, /leather waist belt/i);
   assert.match(prompt.midjourneyPrompt, /silver rhinestone butterfly waist chain/i);
   assert.equal(prompt.selection.waistAccessoryAId, optionId('waistAccessoryAId', '細版皮革腰帶'));
-  assert.equal(prompt.selection.waistAccessoryBId, optionId('waistAccessoryBId', '銀色水鑽蝴蝶腰鏈'));
+  assert.equal(prompt.selection.waistAccessoryBId, optionId('waistAccessoryBId', '銀色水鑽蝴蝶腰鍊'));
 });
 
 test('street gold necklace stays short and spatially anchored at the neck across applicable single outputs', () => {
@@ -667,7 +667,7 @@ test('street gold necklace stays short and spatially anchored at the neck across
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     topId: optionId('topId', '棉質細肩背心'),
     pantsId: optionId('pantsId', '直筒牛仔褲'),
-    neckAccessoryId: optionId('neckAccessoryId', '街頭風格金項鏈'),
+    neckAccessoryId: optionId('neckAccessoryId', '街頭風格金項鍊'),
     locationId: optionId('locationId', '室內：深邃黑幕'),
   }, [], { random: () => 0.42 });
   const extraById = new Map(prompt.extraPrompts.map((entry) => [entry.id, entry.text]));
@@ -690,7 +690,7 @@ test('street gold necklace stays short and spatially anchored at the neck across
   for (const output of omittedByCompactContract) {
     assert.doesNotMatch(output, retired);
   }
-  assert.equal(prompt.selection.neckAccessoryId, optionId('neckAccessoryId', '街頭風格金項鏈'));
+  assert.equal(prompt.selection.neckAccessoryId, optionId('neckAccessoryId', '街頭風格金項鍊'));
 });
 
 test('duo eyewear earrings and neck accessories stay grouped by person in the subject description', () => {
@@ -700,7 +700,7 @@ test('duo eyewear earrings and neck accessories stay grouped by person in the su
     eyewearAId: optionId('eyewearAId', '粗框眼鏡'),
     eyewearAColorId: optionId('eyewearAColorId', '黑色'),
     earringsAId: optionId('earringsAId', '小型金屬耳環'),
-    neckAccessoryAId: optionId('neckAccessoryAId', '街頭風格金項鏈'),
+    neckAccessoryAId: optionId('neckAccessoryAId', '街頭風格金項鍊'),
     eyewearBId: optionId('eyewearBId', '太陽眼鏡'),
     eyewearBColorId: optionId('eyewearBColorId', '黑色'),
     earringsBId: optionId('earringsBId', '十字垂墜耳環'),
@@ -1177,7 +1177,7 @@ test('face close-up framing disables hidden controls without deleting their sele
     topId: optionId('topId', '透膚刺繡襯衫'),
     pantsId: optionId('pantsId', '直筒牛仔褲'),
     shoesId: optionId('shoesId', '高跟鞋'),
-    waistAccessoryId: optionId('waistAccessoryId', '銀色水鑽蝴蝶腰鏈'),
+    waistAccessoryId: optionId('waistAccessoryId', '銀色水鑽蝴蝶腰鍊'),
     poseId: optionId('poseId', '坐姿｜微微前傾'),
     poseBaseId: optionId('poseBaseId', '坐姿'),
     poseHandId: optionId('poseHandId', '單手托下巴'),
@@ -1218,7 +1218,7 @@ test('face-only close-up prompts omit wardrobe text', () => {
     topId: optionId('topId', '透膚刺繡襯衫'),
     pantsId: optionId('pantsId', '直筒牛仔褲'),
     shoesId: optionId('shoesId', '高跟鞋'),
-    waistAccessoryId: optionId('waistAccessoryId', '銀色水鑽蝴蝶腰鏈'),
+    waistAccessoryId: optionId('waistAccessoryId', '銀色水鑽蝴蝶腰鍊'),
   });
 
   assert.equal(prompt.selection.framingId, optionId('framingId', '臉部特寫'));
@@ -1226,7 +1226,7 @@ test('face-only close-up prompts omit wardrobe text', () => {
   assert.equal(prompt.selection.topId, optionId('topId', '透膚刺繡襯衫'));
   assert.equal(prompt.selection.pantsId, optionId('pantsId', '直筒牛仔褲'));
   assert.equal(prompt.selection.shoesId, optionId('shoesId', '高跟鞋'));
-  assert.equal(prompt.selection.waistAccessoryId, optionId('waistAccessoryId', '銀色水鑽蝴蝶腰鏈'));
+  assert.equal(prompt.selection.waistAccessoryId, optionId('waistAccessoryId', '銀色水鑽蝴蝶腰鍊'));
 
   assert.match(prompt.grokPrompt, /Tight face close-up/);
   assert.doesNotMatch(prompt.grokPrompt, /Wardrobe Visibility:/);

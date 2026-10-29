@@ -1,0 +1,586 @@
+TAP version 13
+# Subtest: C4 seven Chinese names change without English, IDs, metadata, order or old keys changing
+ok 1 - C4 seven Chinese names change without English, IDs, metadata, order or old keys changing
+  ---
+  duration_ms: 4.474125
+  type: 'test'
+  ...
+# Subtest: C4 old hairstyle IDs retain wet migration and explicit A/B styling choices
+ok 2 - C4 old hairstyle IDs retain wet migration and explicit A/B styling choices
+  ---
+  duration_ms: 23.973875
+  type: 'test'
+  ...
+# Subtest: C4 exact inverse preserves fixed Git bytes and rejects live/unknown copies before writing
+ok 3 - C4 exact inverse preserves fixed Git bytes and rejects live/unknown copies before writing
+  ---
+  duration_ms: 31.130291
+  type: 'test'
+  ...
+# Subtest: C4 558 current cases and 1098 old restore paths match approved fixed baseline
+not ok 4 - C4 558 current cases and 1098 old restore paths match approved fixed baseline
+  ---
+  duration_ms: 6409.453666
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/c4CatalogLabels.test.js:46:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Command failed: /Users/cooperfu/.npm/_npx/52027bd8fc0022aa/node_modules/node/bin/node /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/c4_catalog_labels_acceptance.mjs
+    node:internal/modules/run_main:123
+        triggerUncaughtException(
+        ^
+    
+    AssertionError [ERR_ASSERTION]: all historical restore outcomes
+    + actual - expected
+    ... Skipped lines
+    
+      [
+        '58752c0867abc4176b1cbcaabb9cde4b6115c862a722c6167a34ee4beeab1ec9',
+        '16879ff35c72f630936f3b7b4eb292fd6f6288c311153c100983faca25d9a1ae',
+        '96080a056c4e3aa2a91e732e66b74c997e8664654c8f740083e9caeb49e13da8',
+        'b7934f2824c3587eff4f6ff6dff46a1907c767b13ad66611220f3bd9d9c65edf',
+    ...
+        'bdba8078ce603d1bc98ed00a70282012ec566fe608d4b490fe48dbbe3e3b0f25',
+    +   'c837852f90844587d49cadbe0a5ddd708a68e860b79965046e555b83ffeec99a',
+    -   '002a7f3176ee23d29faca37c622fbd91f7f8021f2a904c32b05d100f83c7cbe5',
+        'bda7610a8e2157626af7ab691cc4720d131b299fd2add034150bccff88399418',
+        'bda7610a8e2157626af7ab691cc4720d131b299fd2add034150bccff88399418',
+        'bda7610a8e2157626af7ab691cc4720d131b299fd2add034150bccff88399418',
+        '307ef4d9be5c57ac893a859d543f7b9989f0410eb88447cdfc3d8459c74b659f',
+        '8c9dfd0630ddec339f6ee7e9d1c9256e6cdafafbd948b571c4740e433dc54bd0',
+    
+        at file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/c4_catalog_labels_acceptance.mjs:37:13
+        at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+        at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+        at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {
+      generatedMessage: false,
+      code: 'ERR_ASSERTION',
+      actual: [
+        '58752c0867abc4176b1cbcaabb9cde4b6115c862a722c6167a34ee4beeab1ec9',
+        '16879ff35c72f630936f3b7b4eb292fd6f6288c311153c100983faca25d9a1ae',
+        '96080a056c4e3aa2a91e732e66b74c997e8664654c8f740083e9caeb49e13da8',
+        'b7934f2824c3587eff4f6ff6dff46a1907c767b13ad66611220f3bd9d9c65edf',
+        '0f99d10d9fe1905ef64549efc3dc0593bc832e8f6246f067975e6456a99ee42f',
+        '8abc2127b9ab5cb5d8959f1a1751d63c318e6482f2f5daa6cfce5828a4940ece',
+        'ce959403fcd5dd0e3c66b228e4be80006aa2498ddf03760033cd07985b69f2e2',
+        'b84691fbf85b0c1a61fe95766491bfd74e04c6ba2c1631c663fcd5b51d7dc2ab',
+        '9523de43bd72d52a08a35ce5a6f55cf0cb403213cc8d0881fade5d4b365283ba',
+        '4d07e90322cca580c6653e708402145bb40eb77279f57c8d10bedd36816ede97',
+        '033c201dab8d0aaf34d11221ca4602f28f64f9a5622cb922960ba07a4cb6f108',
+        '7d0dd70f2bec2ca650ffeb319a62fa3cfe8152692ccf7a44795ff7c81d798a20',
+        '8303cabc6ff160583203decba311c1a0c6ac39e2973476e842dc1aab1aed79fe',
+        'ee2c85fd99824c304046c3908ae82e9bab4c3515e2f81aa9c0c6799627a8f7a5',
+        '39efd82dfeb181fbc30ca65c2c31922e14e0d58d192dbfea6bde42ac351d6769',
+        'b65ed3b3c906c5d298149c2fe38fd7c480c3151f542ba92eb06d89320d78ba3e',
+        'a2e2918c33e42fe58bbe4da148ac9d44b98ed0d6e9309bb93e628451dc983817',
+        '35c78e8356845aa4a0c14ac44dad3581c4e7beb071a978a27636aa7be30445a9',
+        '034513f65fe09317fe68ee864700a24629fda71c4d77a011dda7d2afc46479de',
+        'a35c6ede381d8356ee6e449c19aaa36bf8cd066c72e5e6945332ca00dfc9c020',
+        'a9a1b11a233db7b613765afc5589981cb19a13a9a602a5a358846683098afb53',
+        'bbcbfd6fac2ad3fcad19fe36fcf04454b849e216e63e0821cf02842a2e4119df',
+        'b5de9df88bdc57933526def25c2c64c637441aacf8d6b769db4eef88be435c11',
+        'fa41a251be92c1e9af01c092911c0161c0e9b7915a6e8b75653f9372af0195ae',
+        '8cd14eed976d3e263c2841cd506b14e85b67ae74f14cc5d23ce8fa0c49884e4c',
+        '55f7b7ce4d09dd70cef567a7c018557abe1f2f419d1aa8b55dd68da89d2b6929',
+        '93979065b53601ce0c7ae257289a30c36b996fd68dd2c5f42702d8b82f8b5b3b',
+        'dd075b6ff1623f421c6ce19508d8765a9f0395126919e284281a15afbd88af24',
+        'aa13bb0fb938125ebeffd70629b75742631751d2eb20c59ac1b8c665bcb1de3c',
+        'f105a06039096f4124801b44b2982f4b2cb2cb240995812b278362cf20dbf411',
+        '0a0ea8012f60aa090aa494079671a2c63331623641deff1e628b10e878f131eb',
+        'cf99122b28f0de4cfe2ca68896a8d2265e814445364cd493919cf355f18994aa',
+        '2f5287f47fb7cebaca101c5cde09e6e7ae4e13ff52af8c249a4468cea64b0074',
+        '7836aea60bafb30194774fc005dbbcb3d58829cabd09489a8bf65fde78b541af',
+        '15cce1f24229c94562a601e494bc8c17d5f7f9d368a4dfa2b031585f2481f700',
+        '2bd685cbe80e1630b77e19344c9cd3ea243533a3d490dee01767cc2190134bce',
+        '2bd685cbe80e1630b77e19344c9cd3ea243533a3d490dee01767cc2190134bce',
+        'e0ec6b71deb83b94d28e1d8ed8ccc4e3f79397a4905175bf502e24b12dc52866',
+        'c5353ee040f5222110a7450be31c62ee2187289ad8279321e8780a478b42a57e',
+        '5d9b3e8a120054313b84d1c4ca069a2ed3c24d3ebe228506cb87775bfb635c1d',
+        '0b5f6d40c31afb2b9ca8fc8a5649f80254db47f829c9f824412ec16041a0b2c3',
+        '0ac950721abb45298464eeb9d7e285c6430aa2008fe838cf9783ec934d6adca0',
+        '55c174c510a6d6960c59a147da9c4cf72c20f2da03e10e2c9098836879db1fb4',
+        'bc7d40cfc6ebc0dd14f4c0b24394b03f0c24309c6ff41c0e7906eea41f78294c',
+        '64808c8cf3b2eb1f6bad84dbf4e950fadf53a43c0d2a6d9a2f388f5c222a50b3',
+        '2d6cf154ecbf2ef29617a0526e8c60baec69af81d4776f6a656462e9a105aa8d',
+        '5861067d789e8b34dba17a3ecefee82a1bba13b38fe66b0359f3a634e698d670',
+        'a73ccd1410c73eccaf624051be5d1d15f837d63aa80c641176871f54e9a631d7',
+        'd627b7f3e9243458905a63e89d62c1444e9839e1407db5cb8c6120b1420ccda6',
+        '2527cd30f6e9625c037f95b877f1d8b07c02129a580f57ff84c5e1ce3e40dd28',
+        '5e82a80294404771b0f97d2cad82510949390ad7e5622c4138fa0731afdb4c13',
+        '78898cbf760d33c39136531933d4e6850236a89d227a24f168871ae6bc35c9aa',
+        '47fbae501cd8fbb01d38a20be39c34fcf292f5277f0c99c643dd1d246090c401',
+        '557420bd634f05d050d27bcd35f8b16ccb45fcbfc611084a7c537f3d6f1da9ac',
+        'ef3edc68111fb9d33133aad0a4a61bb238c5f0d8f1f3a4934d4d0ef2ae5af37c',
+        'd191d73d99e4b8efb52cf3272b07186b22eb0837b25dffa7f8c21f8b30433ee7',
+        '1ae4f889775c3be4908aad5466d26813863f56275d2d5bead3a80a75ceda87f5',
+        '980a9f2c44da973075cac529c20a593e865e072b82b6558453ce9d8eacf55402',
+        '8e52166f12ac2ed014bdd51b724a132b28933fb54f7249fd27542cb043355bef',
+        '8e52166f12ac2ed014bdd51b724a132b28933fb54f7249fd27542cb043355bef',
+        '8e52166f12ac2ed014bdd51b724a132b28933fb54f7249fd27542cb043355bef',
+        '8e52166f12ac2ed014bdd51b724a132b28933fb54f7249fd27542cb043355bef',
+        'ede1c656da8799c00225895cc986d6d81f6e758e3ed7ea657e618b80ac986039',
+        '1c2eacbe4adb8e35ad46a9342b8f59bf0d5fe1bea91d85de256e9f3773318e0b',
+        'cd9731c31ef06e86fc609aa54f3364ed7df1163915a52750d15190defe579bda',
+        '435f641be548d8ddc6473ad8e465b3861556ef477df323f62b830105f4a05b2b',
+        '0c78bcabc112a60f5c063d5ab27f2faaeeadab662f22bb02eec895de474179e1',
+        '0c78bcabc112a60f5c063d5ab27f2faaeeadab662f22bb02eec895de474179e1',
+        '94aead32d43edd2a9d8214f5548867f8749bd5b37c705e0add079d630058b66b',
+        '94aead32d43edd2a9d8214f5548867f8749bd5b37c705e0add079d630058b66b',
+        '5469aeaf334b4f8b2e7dd509e51f6747c8709e26201a1c8a1072735d982db39f',
+        '5469aeaf334b4f8b2e7dd509e51f6747c8709e26201a1c8a1072735d982db39f',
+        '349690b9a16f5959e9e324c65feea03544eceade64d51888e8c4de665bf19b33',
+        '349690b9a16f5959e9e324c65feea03544eceade64d51888e8c4de665bf19b33',
+        '6191360c942e6db6e1bcd6855cce44a5a17ee3750f4febfc110f53cd18fb6818',
+        '6191360c942e6db6e1bcd6855cce44a5a17ee3750f4febfc110f53cd18fb6818',
+        '5d83fb594dbf3986f8f5d6d7c8faeb6f6f249bb2c846a9caf75c03ca5488b844',
+        '5d83fb594dbf3986f8f5d6d7c8faeb6f6f249bb2c846a9caf75c03ca5488b844',
+        'a3d479d466fa9d9cfafa669f5fc2cdaf118966aacda0a4822d32e01f7f6db298',
+        '52d7cc74f9d8e64f636862ebe491e470146e530797c3239e1893288da7f3a168',
+        'aa9259019b964bc3b6ddb5e9e01ef981c562dd5d7aaf6c7755d75e7dda1cf481',
+        '71e4c8e397b0b803968bd94aa469d31068fc6609a6b70fda89dabc35368ccc59',
+        '5d7ecc4dc0209fdbf3888d206e7e03c66c02c8254ae9ae67a51b8109b6ea58c1',
+        '02d3457f5c3a7bfe9f7ee89325fdeebbe106dd9f4e703d14bc16e49676869bc2',
+        '02d3457f5c3a7bfe9f7ee89325fdeebbe106dd9f4e703d14bc16e49676869bc2',
+        'ed25fb7a4bae1f96bdeb45c24c5780eaa97d2c3738a6b6bd5525c99af249c582',
+        'ed25fb7a4bae1f96bdeb45c24c5780eaa97d2c3738a6b6bd5525c99af249c582',
+        'bf0f07710aa8415d5cf01e67b0198e6146fd9d0addbbf7e6d6f39b19185611c9',
+        'bf0f07710aa8415d5cf01e67b0198e6146fd9d0addbbf7e6d6f39b19185611c9',
+        '02d3457f5c3a7bfe9f7ee89325fdeebbe106dd9f4e703d14bc16e49676869bc2',
+        'ed25fb7a4bae1f96bdeb45c24c5780eaa97d2c3738a6b6bd5525c99af249c582',
+        'bf0f07710aa8415d5cf01e67b0198e6146fd9d0addbbf7e6d6f39b19185611c9',
+        '9b4b4ade79ee5eab6fc43763d6e526b6eea56a2df9ec3b4dad983d00c520f7f8',
+        '36f1ad2a5e8f44ef2c92a0b19e1dd1994b03ebe7a0521bd4678b088d902319a4',
+        'f5055a432918a15044ac8461298f57f02f52a9f73b8a99f996f480924142f408',
+        '80675dba46ad72ba0953844c818db694c3527a2b92dfe82ec12a451c88f175f4',
+        'c6e27dc8e9b64c1927d02fb378035d602a953b12589c2f9dbf92bd980457fb21',
+        'd357b2c3b5d34337d82bb6c19746d05b21a78bc77b757332a51c2689159ff3bc',
+        'b24762f26e23b85ccd2bb4833fb05a30e75f528a081459e87f8688d903eab6a3',
+        '5be8f8633ec1fb1987ec187d652e429c695e41ef2b00a7877b0842a67dcd9ee8',
+        ... 998 more items
+      ],
+      expected: [
+        '58752c0867abc4176b1cbcaabb9cde4b6115c862a722c6167a34ee4beeab1ec9',
+        '16879ff35c72f630936f3b7b4eb292fd6f6288c311153c100983faca25d9a1ae',
+        '96080a056c4e3aa2a91e732e66b74c997e8664654c8f740083e9caeb49e13da8',
+        'b7934f2824c3587eff4f6ff6dff46a1907c767b13ad66611220f3bd9d9c65edf',
+        '0f99d10d9fe1905ef64549efc3dc0593bc832e8f6246f067975e6456a99ee42f',
+        '8abc2127b9ab5cb5d8959f1a1751d63c318e6482f2f5daa6cfce5828a4940ece',
+        'ce959403fcd5dd0e3c66b228e4be80006aa2498ddf03760033cd07985b69f2e2',
+        'b84691fbf85b0c1a61fe95766491bfd74e04c6ba2c1631c663fcd5b51d7dc2ab',
+        '9523de43bd72d52a08a35ce5a6f55cf0cb403213cc8d0881fade5d4b365283ba',
+        '4d07e90322cca580c6653e708402145bb40eb77279f57c8d10bedd36816ede97',
+        '033c201dab8d0aaf34d11221ca4602f28f64f9a5622cb922960ba07a4cb6f108',
+        '7d0dd70f2bec2ca650ffeb319a62fa3cfe8152692ccf7a44795ff7c81d798a20',
+        '8303cabc6ff160583203decba311c1a0c6ac39e2973476e842dc1aab1aed79fe',
+        'ee2c85fd99824c304046c3908ae82e9bab4c3515e2f81aa9c0c6799627a8f7a5',
+        '39efd82dfeb181fbc30ca65c2c31922e14e0d58d192dbfea6bde42ac351d6769',
+        'b65ed3b3c906c5d298149c2fe38fd7c480c3151f542ba92eb06d89320d78ba3e',
+        'a2e2918c33e42fe58bbe4da148ac9d44b98ed0d6e9309bb93e628451dc983817',
+        '35c78e8356845aa4a0c14ac44dad3581c4e7beb071a978a27636aa7be30445a9',
+        '034513f65fe09317fe68ee864700a24629fda71c4d77a011dda7d2afc46479de',
+        'a35c6ede381d8356ee6e449c19aaa36bf8cd066c72e5e6945332ca00dfc9c020',
+        'a9a1b11a233db7b613765afc5589981cb19a13a9a602a5a358846683098afb53',
+        'bbcbfd6fac2ad3fcad19fe36fcf04454b849e216e63e0821cf02842a2e4119df',
+        'b5de9df88bdc57933526def25c2c64c637441aacf8d6b769db4eef88be435c11',
+        'fa41a251be92c1e9af01c092911c0161c0e9b7915a6e8b75653f9372af0195ae',
+        '8cd14eed976d3e263c2841cd506b14e85b67ae74f14cc5d23ce8fa0c49884e4c',
+        '55f7b7ce4d09dd70cef567a7c018557abe1f2f419d1aa8b55dd68da89d2b6929',
+        '93979065b53601ce0c7ae257289a30c36b996fd68dd2c5f42702d8b82f8b5b3b',
+        'dd075b6ff1623f421c6ce19508d8765a9f0395126919e284281a15afbd88af24',
+        'aa13bb0fb938125ebeffd70629b75742631751d2eb20c59ac1b8c665bcb1de3c',
+        'f105a06039096f4124801b44b2982f4b2cb2cb240995812b278362cf20dbf411',
+        '0a0ea8012f60aa090aa494079671a2c63331623641deff1e628b10e878f131eb',
+        'cf99122b28f0de4cfe2ca68896a8d2265e814445364cd493919cf355f18994aa',
+        '2f5287f47fb7cebaca101c5cde09e6e7ae4e13ff52af8c249a4468cea64b0074',
+        '7836aea60bafb30194774fc005dbbcb3d58829cabd09489a8bf65fde78b541af',
+        '15cce1f24229c94562a601e494bc8c17d5f7f9d368a4dfa2b031585f2481f700',
+        '2bd685cbe80e1630b77e19344c9cd3ea243533a3d490dee01767cc2190134bce',
+        '2bd685cbe80e1630b77e19344c9cd3ea243533a3d490dee01767cc2190134bce',
+        'e0ec6b71deb83b94d28e1d8ed8ccc4e3f79397a4905175bf502e24b12dc52866',
+        'c5353ee040f5222110a7450be31c62ee2187289ad8279321e8780a478b42a57e',
+        '5d9b3e8a120054313b84d1c4ca069a2ed3c24d3ebe228506cb87775bfb635c1d',
+        '0b5f6d40c31afb2b9ca8fc8a5649f80254db47f829c9f824412ec16041a0b2c3',
+        '0ac950721abb45298464eeb9d7e285c6430aa2008fe838cf9783ec934d6adca0',
+        '55c174c510a6d6960c59a147da9c4cf72c20f2da03e10e2c9098836879db1fb4',
+        'bc7d40cfc6ebc0dd14f4c0b24394b03f0c24309c6ff41c0e7906eea41f78294c',
+        '64808c8cf3b2eb1f6bad84dbf4e950fadf53a43c0d2a6d9a2f388f5c222a50b3',
+        '2d6cf154ecbf2ef29617a0526e8c60baec69af81d4776f6a656462e9a105aa8d',
+        '5861067d789e8b34dba17a3ecefee82a1bba13b38fe66b0359f3a634e698d670',
+        'a73ccd1410c73eccaf624051be5d1d15f837d63aa80c641176871f54e9a631d7',
+        'd627b7f3e9243458905a63e89d62c1444e9839e1407db5cb8c6120b1420ccda6',
+        '2527cd30f6e9625c037f95b877f1d8b07c02129a580f57ff84c5e1ce3e40dd28',
+        '5e82a80294404771b0f97d2cad82510949390ad7e5622c4138fa0731afdb4c13',
+        '78898cbf760d33c39136531933d4e6850236a89d227a24f168871ae6bc35c9aa',
+        '47fbae501cd8fbb01d38a20be39c34fcf292f5277f0c99c643dd1d246090c401',
+        '557420bd634f05d050d27bcd35f8b16ccb45fcbfc611084a7c537f3d6f1da9ac',
+        'ef3edc68111fb9d33133aad0a4a61bb238c5f0d8f1f3a4934d4d0ef2ae5af37c',
+        'd191d73d99e4b8efb52cf3272b07186b22eb0837b25dffa7f8c21f8b30433ee7',
+        '1ae4f889775c3be4908aad5466d26813863f56275d2d5bead3a80a75ceda87f5',
+        '980a9f2c44da973075cac529c20a593e865e072b82b6558453ce9d8eacf55402',
+        '8e52166f12ac2ed014bdd51b724a132b28933fb54f7249fd27542cb043355bef',
+        '8e52166f12ac2ed014bdd51b724a132b28933fb54f7249fd27542cb043355bef',
+        '8e52166f12ac2ed014bdd51b724a132b28933fb54f7249fd27542cb043355bef',
+        '8e52166f12ac2ed014bdd51b724a132b28933fb54f7249fd27542cb043355bef',
+        'ede1c656da8799c00225895cc986d6d81f6e758e3ed7ea657e618b80ac986039',
+        '1c2eacbe4adb8e35ad46a9342b8f59bf0d5fe1bea91d85de256e9f3773318e0b',
+        'cd9731c31ef06e86fc609aa54f3364ed7df1163915a52750d15190defe579bda',
+        '435f641be548d8ddc6473ad8e465b3861556ef477df323f62b830105f4a05b2b',
+        '0c78bcabc112a60f5c063d5ab27f2faaeeadab662f22bb02eec895de474179e1',
+        '0c78bcabc112a60f5c063d5ab27f2faaeeadab662f22bb02eec895de474179e1',
+        '94aead32d43edd2a9d8214f5548867f8749bd5b37c705e0add079d630058b66b',
+        '94aead32d43edd2a9d8214f5548867f8749bd5b37c705e0add079d630058b66b',
+        '5469aeaf334b4f8b2e7dd509e51f6747c8709e26201a1c8a1072735d982db39f',
+        '5469aeaf334b4f8b2e7dd509e51f6747c8709e26201a1c8a1072735d982db39f',
+        '349690b9a16f5959e9e324c65feea03544eceade64d51888e8c4de665bf19b33',
+        '349690b9a16f5959e9e324c65feea03544eceade64d51888e8c4de665bf19b33',
+        '6191360c942e6db6e1bcd6855cce44a5a17ee3750f4febfc110f53cd18fb6818',
+        '6191360c942e6db6e1bcd6855cce44a5a17ee3750f4febfc110f53cd18fb6818',
+        '5d83fb594dbf3986f8f5d6d7c8faeb6f6f249bb2c846a9caf75c03ca5488b844',
+        '5d83fb594dbf3986f8f5d6d7c8faeb6f6f249bb2c846a9caf75c03ca5488b844',
+        'a3d479d466fa9d9cfafa669f5fc2cdaf118966aacda0a4822d32e01f7f6db298',
+        '52d7cc74f9d8e64f636862ebe491e470146e530797c3239e1893288da7f3a168',
+        'aa9259019b964bc3b6ddb5e9e01ef981c562dd5d7aaf6c7755d75e7dda1cf481',
+        '71e4c8e397b0b803968bd94aa469d31068fc6609a6b70fda89dabc35368ccc59',
+        '5d7ecc4dc0209fdbf3888d206e7e03c66c02c8254ae9ae67a51b8109b6ea58c1',
+        '02d3457f5c3a7bfe9f7ee89325fdeebbe106dd9f4e703d14bc16e49676869bc2',
+        '02d3457f5c3a7bfe9f7ee89325fdeebbe106dd9f4e703d14bc16e49676869bc2',
+        'ed25fb7a4bae1f96bdeb45c24c5780eaa97d2c3738a6b6bd5525c99af249c582',
+        'ed25fb7a4bae1f96bdeb45c24c5780eaa97d2c3738a6b6bd5525c99af249c582',
+        'bf0f07710aa8415d5cf01e67b0198e6146fd9d0addbbf7e6d6f39b19185611c9',
+        'bf0f07710aa8415d5cf01e67b0198e6146fd9d0addbbf7e6d6f39b19185611c9',
+        '02d3457f5c3a7bfe9f7ee89325fdeebbe106dd9f4e703d14bc16e49676869bc2',
+        'ed25fb7a4bae1f96bdeb45c24c5780eaa97d2c3738a6b6bd5525c99af249c582',
+        'bf0f07710aa8415d5cf01e67b0198e6146fd9d0addbbf7e6d6f39b19185611c9',
+        '9b4b4ade79ee5eab6fc43763d6e526b6eea56a2df9ec3b4dad983d00c520f7f8',
+        '36f1ad2a5e8f44ef2c92a0b19e1dd1994b03ebe7a0521bd4678b088d902319a4',
+        'f5055a432918a15044ac8461298f57f02f52a9f73b8a99f996f480924142f408',
+        '80675dba46ad72ba0953844c818db694c3527a2b92dfe82ec12a451c88f175f4',
+        'c6e27dc8e9b64c1927d02fb378035d602a953b12589c2f9dbf92bd980457fb21',
+        'd357b2c3b5d34337d82bb6c19746d05b21a78bc77b757332a51c2689159ff3bc',
+        'b24762f26e23b85ccd2bb4833fb05a30e75f528a081459e87f8688d903eab6a3',
+        '5be8f8633ec1fb1987ec187d652e429c695e41ef2b00a7877b0842a67dcd9ee8',
+        ... 998 more items
+      ],
+      operator: 'deepStrictEqual',
+      diff: 'simple'
+    }
+    
+    Node.js v22.23.3
+    
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/c4_catalog_labels_acceptance.mjs:37:13
+    ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+    async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {
+    genericNodeError (node:internal/errors:983:15)
+    wrappedFn (node:internal/errors:537:14)
+    checkExecSyncError (node:child_process:916:11)
+    execFileSync (node:child_process:952:15)
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/c4CatalogLabels.test.js:47:2)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+  ...
+# Subtest: C4 jewelry source delta is exactly four names and two descriptions; IDs/English/semantics stay
+ok 5 - C4 jewelry source delta is exactly four names and two descriptions; IDs/English/semantics stay
+  ---
+  duration_ms: 2.938917
+  type: 'test'
+  ...
+# Subtest: C4 legacy jewelry scalar/array restore and explicit choice priority stay intact
+ok 6 - C4 legacy jewelry scalar/array restore and explicit choice priority stay intact
+  ---
+  duration_ms: 44.858417
+  type: 'test'
+  ...
+# Subtest: C4 image manifest only changes display name; original preview files are retained
+ok 7 - C4 image manifest only changes display name; original preview files are retained
+  ---
+  duration_ms: 0.607125
+  type: 'test'
+  ...
+# Subtest: C4 exact inverse rejects live and unknown copies; fixed Git before bytes are preserved
+ok 8 - C4 exact inverse rejects live and unknown copies; fixed Git before bytes are preserved
+  ---
+  duration_ms: 22.559292
+  type: 'test'
+  ...
+# Subtest: C4 216 six-output cases and 1098 historical restore cases equal pre-change baseline
+not ok 9 - C4 216 six-output cases and 1098 historical restore cases equal pre-change baseline
+  ---
+  duration_ms: 2974.720667
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/c4JewelryLabels.test.js:43:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Command failed: /Users/cooperfu/.npm/_npx/52027bd8fc0022aa/node_modules/node/bin/node /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/c4_jewelry_labels_acceptance.mjs
+    node:internal/modules/run_main:123
+        triggerUncaughtException(
+        ^
+    
+    AssertionError [ERR_ASSERTION]: all historical restore outcomes
+    + actual - expected
+    ... Skipped lines
+    
+      [
+        '58752c0867abc4176b1cbcaabb9cde4b6115c862a722c6167a34ee4beeab1ec9',
+        '16879ff35c72f630936f3b7b4eb292fd6f6288c311153c100983faca25d9a1ae',
+        '96080a056c4e3aa2a91e732e66b74c997e8664654c8f740083e9caeb49e13da8',
+        'b7934f2824c3587eff4f6ff6dff46a1907c767b13ad66611220f3bd9d9c65edf',
+    ...
+        'bdba8078ce603d1bc98ed00a70282012ec566fe608d4b490fe48dbbe3e3b0f25',
+    +   'c837852f90844587d49cadbe0a5ddd708a68e860b79965046e555b83ffeec99a',
+    -   '002a7f3176ee23d29faca37c622fbd91f7f8021f2a904c32b05d100f83c7cbe5',
+        'bda7610a8e2157626af7ab691cc4720d131b299fd2add034150bccff88399418',
+        'bda7610a8e2157626af7ab691cc4720d131b299fd2add034150bccff88399418',
+        'bda7610a8e2157626af7ab691cc4720d131b299fd2add034150bccff88399418',
+        '307ef4d9be5c57ac893a859d543f7b9989f0410eb88447cdfc3d8459c74b659f',
+        '8c9dfd0630ddec339f6ee7e9d1c9256e6cdafafbd948b571c4740e433dc54bd0',
+    
+        at file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/c4_jewelry_labels_acceptance.mjs:38:13
+        at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+        at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+        at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {
+      generatedMessage: false,
+      code: 'ERR_ASSERTION',
+      actual: [
+        '58752c0867abc4176b1cbcaabb9cde4b6115c862a722c6167a34ee4beeab1ec9',
+        '16879ff35c72f630936f3b7b4eb292fd6f6288c311153c100983faca25d9a1ae',
+        '96080a056c4e3aa2a91e732e66b74c997e8664654c8f740083e9caeb49e13da8',
+        'b7934f2824c3587eff4f6ff6dff46a1907c767b13ad66611220f3bd9d9c65edf',
+        '0f99d10d9fe1905ef64549efc3dc0593bc832e8f6246f067975e6456a99ee42f',
+        '8abc2127b9ab5cb5d8959f1a1751d63c318e6482f2f5daa6cfce5828a4940ece',
+        'ce959403fcd5dd0e3c66b228e4be80006aa2498ddf03760033cd07985b69f2e2',
+        'b84691fbf85b0c1a61fe95766491bfd74e04c6ba2c1631c663fcd5b51d7dc2ab',
+        '9523de43bd72d52a08a35ce5a6f55cf0cb403213cc8d0881fade5d4b365283ba',
+        '4d07e90322cca580c6653e708402145bb40eb77279f57c8d10bedd36816ede97',
+        '033c201dab8d0aaf34d11221ca4602f28f64f9a5622cb922960ba07a4cb6f108',
+        '7d0dd70f2bec2ca650ffeb319a62fa3cfe8152692ccf7a44795ff7c81d798a20',
+        '8303cabc6ff160583203decba311c1a0c6ac39e2973476e842dc1aab1aed79fe',
+        'ee2c85fd99824c304046c3908ae82e9bab4c3515e2f81aa9c0c6799627a8f7a5',
+        '39efd82dfeb181fbc30ca65c2c31922e14e0d58d192dbfea6bde42ac351d6769',
+        'b65ed3b3c906c5d298149c2fe38fd7c480c3151f542ba92eb06d89320d78ba3e',
+        'a2e2918c33e42fe58bbe4da148ac9d44b98ed0d6e9309bb93e628451dc983817',
+        '35c78e8356845aa4a0c14ac44dad3581c4e7beb071a978a27636aa7be30445a9',
+        '034513f65fe09317fe68ee864700a24629fda71c4d77a011dda7d2afc46479de',
+        'a35c6ede381d8356ee6e449c19aaa36bf8cd066c72e5e6945332ca00dfc9c020',
+        'a9a1b11a233db7b613765afc5589981cb19a13a9a602a5a358846683098afb53',
+        'bbcbfd6fac2ad3fcad19fe36fcf04454b849e216e63e0821cf02842a2e4119df',
+        'b5de9df88bdc57933526def25c2c64c637441aacf8d6b769db4eef88be435c11',
+        'fa41a251be92c1e9af01c092911c0161c0e9b7915a6e8b75653f9372af0195ae',
+        '8cd14eed976d3e263c2841cd506b14e85b67ae74f14cc5d23ce8fa0c49884e4c',
+        '55f7b7ce4d09dd70cef567a7c018557abe1f2f419d1aa8b55dd68da89d2b6929',
+        '93979065b53601ce0c7ae257289a30c36b996fd68dd2c5f42702d8b82f8b5b3b',
+        'dd075b6ff1623f421c6ce19508d8765a9f0395126919e284281a15afbd88af24',
+        'aa13bb0fb938125ebeffd70629b75742631751d2eb20c59ac1b8c665bcb1de3c',
+        'f105a06039096f4124801b44b2982f4b2cb2cb240995812b278362cf20dbf411',
+        '0a0ea8012f60aa090aa494079671a2c63331623641deff1e628b10e878f131eb',
+        'cf99122b28f0de4cfe2ca68896a8d2265e814445364cd493919cf355f18994aa',
+        '2f5287f47fb7cebaca101c5cde09e6e7ae4e13ff52af8c249a4468cea64b0074',
+        '7836aea60bafb30194774fc005dbbcb3d58829cabd09489a8bf65fde78b541af',
+        '15cce1f24229c94562a601e494bc8c17d5f7f9d368a4dfa2b031585f2481f700',
+        '2bd685cbe80e1630b77e19344c9cd3ea243533a3d490dee01767cc2190134bce',
+        '2bd685cbe80e1630b77e19344c9cd3ea243533a3d490dee01767cc2190134bce',
+        'e0ec6b71deb83b94d28e1d8ed8ccc4e3f79397a4905175bf502e24b12dc52866',
+        'c5353ee040f5222110a7450be31c62ee2187289ad8279321e8780a478b42a57e',
+        '5d9b3e8a120054313b84d1c4ca069a2ed3c24d3ebe228506cb87775bfb635c1d',
+        '0b5f6d40c31afb2b9ca8fc8a5649f80254db47f829c9f824412ec16041a0b2c3',
+        '0ac950721abb45298464eeb9d7e285c6430aa2008fe838cf9783ec934d6adca0',
+        '55c174c510a6d6960c59a147da9c4cf72c20f2da03e10e2c9098836879db1fb4',
+        'bc7d40cfc6ebc0dd14f4c0b24394b03f0c24309c6ff41c0e7906eea41f78294c',
+        '64808c8cf3b2eb1f6bad84dbf4e950fadf53a43c0d2a6d9a2f388f5c222a50b3',
+        '2d6cf154ecbf2ef29617a0526e8c60baec69af81d4776f6a656462e9a105aa8d',
+        '5861067d789e8b34dba17a3ecefee82a1bba13b38fe66b0359f3a634e698d670',
+        'a73ccd1410c73eccaf624051be5d1d15f837d63aa80c641176871f54e9a631d7',
+        'd627b7f3e9243458905a63e89d62c1444e9839e1407db5cb8c6120b1420ccda6',
+        '2527cd30f6e9625c037f95b877f1d8b07c02129a580f57ff84c5e1ce3e40dd28',
+        '5e82a80294404771b0f97d2cad82510949390ad7e5622c4138fa0731afdb4c13',
+        '78898cbf760d33c39136531933d4e6850236a89d227a24f168871ae6bc35c9aa',
+        '47fbae501cd8fbb01d38a20be39c34fcf292f5277f0c99c643dd1d246090c401',
+        '557420bd634f05d050d27bcd35f8b16ccb45fcbfc611084a7c537f3d6f1da9ac',
+        'ef3edc68111fb9d33133aad0a4a61bb238c5f0d8f1f3a4934d4d0ef2ae5af37c',
+        'd191d73d99e4b8efb52cf3272b07186b22eb0837b25dffa7f8c21f8b30433ee7',
+        '1ae4f889775c3be4908aad5466d26813863f56275d2d5bead3a80a75ceda87f5',
+        '980a9f2c44da973075cac529c20a593e865e072b82b6558453ce9d8eacf55402',
+        '8e52166f12ac2ed014bdd51b724a132b28933fb54f7249fd27542cb043355bef',
+        '8e52166f12ac2ed014bdd51b724a132b28933fb54f7249fd27542cb043355bef',
+        '8e52166f12ac2ed014bdd51b724a132b28933fb54f7249fd27542cb043355bef',
+        '8e52166f12ac2ed014bdd51b724a132b28933fb54f7249fd27542cb043355bef',
+        'ede1c656da8799c00225895cc986d6d81f6e758e3ed7ea657e618b80ac986039',
+        '1c2eacbe4adb8e35ad46a9342b8f59bf0d5fe1bea91d85de256e9f3773318e0b',
+        'cd9731c31ef06e86fc609aa54f3364ed7df1163915a52750d15190defe579bda',
+        '435f641be548d8ddc6473ad8e465b3861556ef477df323f62b830105f4a05b2b',
+        '0c78bcabc112a60f5c063d5ab27f2faaeeadab662f22bb02eec895de474179e1',
+        '0c78bcabc112a60f5c063d5ab27f2faaeeadab662f22bb02eec895de474179e1',
+        '94aead32d43edd2a9d8214f5548867f8749bd5b37c705e0add079d630058b66b',
+        '94aead32d43edd2a9d8214f5548867f8749bd5b37c705e0add079d630058b66b',
+        '5469aeaf334b4f8b2e7dd509e51f6747c8709e26201a1c8a1072735d982db39f',
+        '5469aeaf334b4f8b2e7dd509e51f6747c8709e26201a1c8a1072735d982db39f',
+        '349690b9a16f5959e9e324c65feea03544eceade64d51888e8c4de665bf19b33',
+        '349690b9a16f5959e9e324c65feea03544eceade64d51888e8c4de665bf19b33',
+        '6191360c942e6db6e1bcd6855cce44a5a17ee3750f4febfc110f53cd18fb6818',
+        '6191360c942e6db6e1bcd6855cce44a5a17ee3750f4febfc110f53cd18fb6818',
+        '5d83fb594dbf3986f8f5d6d7c8faeb6f6f249bb2c846a9caf75c03ca5488b844',
+        '5d83fb594dbf3986f8f5d6d7c8faeb6f6f249bb2c846a9caf75c03ca5488b844',
+        'a3d479d466fa9d9cfafa669f5fc2cdaf118966aacda0a4822d32e01f7f6db298',
+        '52d7cc74f9d8e64f636862ebe491e470146e530797c3239e1893288da7f3a168',
+        'aa9259019b964bc3b6ddb5e9e01ef981c562dd5d7aaf6c7755d75e7dda1cf481',
+        '71e4c8e397b0b803968bd94aa469d31068fc6609a6b70fda89dabc35368ccc59',
+        '5d7ecc4dc0209fdbf3888d206e7e03c66c02c8254ae9ae67a51b8109b6ea58c1',
+        '02d3457f5c3a7bfe9f7ee89325fdeebbe106dd9f4e703d14bc16e49676869bc2',
+        '02d3457f5c3a7bfe9f7ee89325fdeebbe106dd9f4e703d14bc16e49676869bc2',
+        'ed25fb7a4bae1f96bdeb45c24c5780eaa97d2c3738a6b6bd5525c99af249c582',
+        'ed25fb7a4bae1f96bdeb45c24c5780eaa97d2c3738a6b6bd5525c99af249c582',
+        'bf0f07710aa8415d5cf01e67b0198e6146fd9d0addbbf7e6d6f39b19185611c9',
+        'bf0f07710aa8415d5cf01e67b0198e6146fd9d0addbbf7e6d6f39b19185611c9',
+        '02d3457f5c3a7bfe9f7ee89325fdeebbe106dd9f4e703d14bc16e49676869bc2',
+        'ed25fb7a4bae1f96bdeb45c24c5780eaa97d2c3738a6b6bd5525c99af249c582',
+        'bf0f07710aa8415d5cf01e67b0198e6146fd9d0addbbf7e6d6f39b19185611c9',
+        '9b4b4ade79ee5eab6fc43763d6e526b6eea56a2df9ec3b4dad983d00c520f7f8',
+        '36f1ad2a5e8f44ef2c92a0b19e1dd1994b03ebe7a0521bd4678b088d902319a4',
+        'f5055a432918a15044ac8461298f57f02f52a9f73b8a99f996f480924142f408',
+        '80675dba46ad72ba0953844c818db694c3527a2b92dfe82ec12a451c88f175f4',
+        'c6e27dc8e9b64c1927d02fb378035d602a953b12589c2f9dbf92bd980457fb21',
+        'd357b2c3b5d34337d82bb6c19746d05b21a78bc77b757332a51c2689159ff3bc',
+        'b24762f26e23b85ccd2bb4833fb05a30e75f528a081459e87f8688d903eab6a3',
+        '5be8f8633ec1fb1987ec187d652e429c695e41ef2b00a7877b0842a67dcd9ee8',
+        ... 998 more items
+      ],
+      expected: [
+        '58752c0867abc4176b1cbcaabb9cde4b6115c862a722c6167a34ee4beeab1ec9',
+        '16879ff35c72f630936f3b7b4eb292fd6f6288c311153c100983faca25d9a1ae',
+        '96080a056c4e3aa2a91e732e66b74c997e8664654c8f740083e9caeb49e13da8',
+        'b7934f2824c3587eff4f6ff6dff46a1907c767b13ad66611220f3bd9d9c65edf',
+        '0f99d10d9fe1905ef64549efc3dc0593bc832e8f6246f067975e6456a99ee42f',
+        '8abc2127b9ab5cb5d8959f1a1751d63c318e6482f2f5daa6cfce5828a4940ece',
+        'ce959403fcd5dd0e3c66b228e4be80006aa2498ddf03760033cd07985b69f2e2',
+        'b84691fbf85b0c1a61fe95766491bfd74e04c6ba2c1631c663fcd5b51d7dc2ab',
+        '9523de43bd72d52a08a35ce5a6f55cf0cb403213cc8d0881fade5d4b365283ba',
+        '4d07e90322cca580c6653e708402145bb40eb77279f57c8d10bedd36816ede97',
+        '033c201dab8d0aaf34d11221ca4602f28f64f9a5622cb922960ba07a4cb6f108',
+        '7d0dd70f2bec2ca650ffeb319a62fa3cfe8152692ccf7a44795ff7c81d798a20',
+        '8303cabc6ff160583203decba311c1a0c6ac39e2973476e842dc1aab1aed79fe',
+        'ee2c85fd99824c304046c3908ae82e9bab4c3515e2f81aa9c0c6799627a8f7a5',
+        '39efd82dfeb181fbc30ca65c2c31922e14e0d58d192dbfea6bde42ac351d6769',
+        'b65ed3b3c906c5d298149c2fe38fd7c480c3151f542ba92eb06d89320d78ba3e',
+        'a2e2918c33e42fe58bbe4da148ac9d44b98ed0d6e9309bb93e628451dc983817',
+        '35c78e8356845aa4a0c14ac44dad3581c4e7beb071a978a27636aa7be30445a9',
+        '034513f65fe09317fe68ee864700a24629fda71c4d77a011dda7d2afc46479de',
+        'a35c6ede381d8356ee6e449c19aaa36bf8cd066c72e5e6945332ca00dfc9c020',
+        'a9a1b11a233db7b613765afc5589981cb19a13a9a602a5a358846683098afb53',
+        'bbcbfd6fac2ad3fcad19fe36fcf04454b849e216e63e0821cf02842a2e4119df',
+        'b5de9df88bdc57933526def25c2c64c637441aacf8d6b769db4eef88be435c11',
+        'fa41a251be92c1e9af01c092911c0161c0e9b7915a6e8b75653f9372af0195ae',
+        '8cd14eed976d3e263c2841cd506b14e85b67ae74f14cc5d23ce8fa0c49884e4c',
+        '55f7b7ce4d09dd70cef567a7c018557abe1f2f419d1aa8b55dd68da89d2b6929',
+        '93979065b53601ce0c7ae257289a30c36b996fd68dd2c5f42702d8b82f8b5b3b',
+        'dd075b6ff1623f421c6ce19508d8765a9f0395126919e284281a15afbd88af24',
+        'aa13bb0fb938125ebeffd70629b75742631751d2eb20c59ac1b8c665bcb1de3c',
+        'f105a06039096f4124801b44b2982f4b2cb2cb240995812b278362cf20dbf411',
+        '0a0ea8012f60aa090aa494079671a2c63331623641deff1e628b10e878f131eb',
+        'cf99122b28f0de4cfe2ca68896a8d2265e814445364cd493919cf355f18994aa',
+        '2f5287f47fb7cebaca101c5cde09e6e7ae4e13ff52af8c249a4468cea64b0074',
+        '7836aea60bafb30194774fc005dbbcb3d58829cabd09489a8bf65fde78b541af',
+        '15cce1f24229c94562a601e494bc8c17d5f7f9d368a4dfa2b031585f2481f700',
+        '2bd685cbe80e1630b77e19344c9cd3ea243533a3d490dee01767cc2190134bce',
+        '2bd685cbe80e1630b77e19344c9cd3ea243533a3d490dee01767cc2190134bce',
+        'e0ec6b71deb83b94d28e1d8ed8ccc4e3f79397a4905175bf502e24b12dc52866',
+        'c5353ee040f5222110a7450be31c62ee2187289ad8279321e8780a478b42a57e',
+        '5d9b3e8a120054313b84d1c4ca069a2ed3c24d3ebe228506cb87775bfb635c1d',
+        '0b5f6d40c31afb2b9ca8fc8a5649f80254db47f829c9f824412ec16041a0b2c3',
+        '0ac950721abb45298464eeb9d7e285c6430aa2008fe838cf9783ec934d6adca0',
+        '55c174c510a6d6960c59a147da9c4cf72c20f2da03e10e2c9098836879db1fb4',
+        'bc7d40cfc6ebc0dd14f4c0b24394b03f0c24309c6ff41c0e7906eea41f78294c',
+        '64808c8cf3b2eb1f6bad84dbf4e950fadf53a43c0d2a6d9a2f388f5c222a50b3',
+        '2d6cf154ecbf2ef29617a0526e8c60baec69af81d4776f6a656462e9a105aa8d',
+        '5861067d789e8b34dba17a3ecefee82a1bba13b38fe66b0359f3a634e698d670',
+        'a73ccd1410c73eccaf624051be5d1d15f837d63aa80c641176871f54e9a631d7',
+        'd627b7f3e9243458905a63e89d62c1444e9839e1407db5cb8c6120b1420ccda6',
+        '2527cd30f6e9625c037f95b877f1d8b07c02129a580f57ff84c5e1ce3e40dd28',
+        '5e82a80294404771b0f97d2cad82510949390ad7e5622c4138fa0731afdb4c13',
+        '78898cbf760d33c39136531933d4e6850236a89d227a24f168871ae6bc35c9aa',
+        '47fbae501cd8fbb01d38a20be39c34fcf292f5277f0c99c643dd1d246090c401',
+        '557420bd634f05d050d27bcd35f8b16ccb45fcbfc611084a7c537f3d6f1da9ac',
+        'ef3edc68111fb9d33133aad0a4a61bb238c5f0d8f1f3a4934d4d0ef2ae5af37c',
+        'd191d73d99e4b8efb52cf3272b07186b22eb0837b25dffa7f8c21f8b30433ee7',
+        '1ae4f889775c3be4908aad5466d26813863f56275d2d5bead3a80a75ceda87f5',
+        '980a9f2c44da973075cac529c20a593e865e072b82b6558453ce9d8eacf55402',
+        '8e52166f12ac2ed014bdd51b724a132b28933fb54f7249fd27542cb043355bef',
+        '8e52166f12ac2ed014bdd51b724a132b28933fb54f7249fd27542cb043355bef',
+        '8e52166f12ac2ed014bdd51b724a132b28933fb54f7249fd27542cb043355bef',
+        '8e52166f12ac2ed014bdd51b724a132b28933fb54f7249fd27542cb043355bef',
+        'ede1c656da8799c00225895cc986d6d81f6e758e3ed7ea657e618b80ac986039',
+        '1c2eacbe4adb8e35ad46a9342b8f59bf0d5fe1bea91d85de256e9f3773318e0b',
+        'cd9731c31ef06e86fc609aa54f3364ed7df1163915a52750d15190defe579bda',
+        '435f641be548d8ddc6473ad8e465b3861556ef477df323f62b830105f4a05b2b',
+        '0c78bcabc112a60f5c063d5ab27f2faaeeadab662f22bb02eec895de474179e1',
+        '0c78bcabc112a60f5c063d5ab27f2faaeeadab662f22bb02eec895de474179e1',
+        '94aead32d43edd2a9d8214f5548867f8749bd5b37c705e0add079d630058b66b',
+        '94aead32d43edd2a9d8214f5548867f8749bd5b37c705e0add079d630058b66b',
+        '5469aeaf334b4f8b2e7dd509e51f6747c8709e26201a1c8a1072735d982db39f',
+        '5469aeaf334b4f8b2e7dd509e51f6747c8709e26201a1c8a1072735d982db39f',
+        '349690b9a16f5959e9e324c65feea03544eceade64d51888e8c4de665bf19b33',
+        '349690b9a16f5959e9e324c65feea03544eceade64d51888e8c4de665bf19b33',
+        '6191360c942e6db6e1bcd6855cce44a5a17ee3750f4febfc110f53cd18fb6818',
+        '6191360c942e6db6e1bcd6855cce44a5a17ee3750f4febfc110f53cd18fb6818',
+        '5d83fb594dbf3986f8f5d6d7c8faeb6f6f249bb2c846a9caf75c03ca5488b844',
+        '5d83fb594dbf3986f8f5d6d7c8faeb6f6f249bb2c846a9caf75c03ca5488b844',
+        'a3d479d466fa9d9cfafa669f5fc2cdaf118966aacda0a4822d32e01f7f6db298',
+        '52d7cc74f9d8e64f636862ebe491e470146e530797c3239e1893288da7f3a168',
+        'aa9259019b964bc3b6ddb5e9e01ef981c562dd5d7aaf6c7755d75e7dda1cf481',
+        '71e4c8e397b0b803968bd94aa469d31068fc6609a6b70fda89dabc35368ccc59',
+        '5d7ecc4dc0209fdbf3888d206e7e03c66c02c8254ae9ae67a51b8109b6ea58c1',
+        '02d3457f5c3a7bfe9f7ee89325fdeebbe106dd9f4e703d14bc16e49676869bc2',
+        '02d3457f5c3a7bfe9f7ee89325fdeebbe106dd9f4e703d14bc16e49676869bc2',
+        'ed25fb7a4bae1f96bdeb45c24c5780eaa97d2c3738a6b6bd5525c99af249c582',
+        'ed25fb7a4bae1f96bdeb45c24c5780eaa97d2c3738a6b6bd5525c99af249c582',
+        'bf0f07710aa8415d5cf01e67b0198e6146fd9d0addbbf7e6d6f39b19185611c9',
+        'bf0f07710aa8415d5cf01e67b0198e6146fd9d0addbbf7e6d6f39b19185611c9',
+        '02d3457f5c3a7bfe9f7ee89325fdeebbe106dd9f4e703d14bc16e49676869bc2',
+        'ed25fb7a4bae1f96bdeb45c24c5780eaa97d2c3738a6b6bd5525c99af249c582',
+        'bf0f07710aa8415d5cf01e67b0198e6146fd9d0addbbf7e6d6f39b19185611c9',
+        '9b4b4ade79ee5eab6fc43763d6e526b6eea56a2df9ec3b4dad983d00c520f7f8',
+        '36f1ad2a5e8f44ef2c92a0b19e1dd1994b03ebe7a0521bd4678b088d902319a4',
+        'f5055a432918a15044ac8461298f57f02f52a9f73b8a99f996f480924142f408',
+        '80675dba46ad72ba0953844c818db694c3527a2b92dfe82ec12a451c88f175f4',
+        'c6e27dc8e9b64c1927d02fb378035d602a953b12589c2f9dbf92bd980457fb21',
+        'd357b2c3b5d34337d82bb6c19746d05b21a78bc77b757332a51c2689159ff3bc',
+        'b24762f26e23b85ccd2bb4833fb05a30e75f528a081459e87f8688d903eab6a3',
+        '5be8f8633ec1fb1987ec187d652e429c695e41ef2b00a7877b0842a67dcd9ee8',
+        ... 998 more items
+      ],
+      operator: 'deepStrictEqual',
+      diff: 'simple'
+    }
+    
+    Node.js v22.23.3
+    
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/c4_jewelry_labels_acceptance.mjs:38:13
+    ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+    async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {
+    genericNodeError (node:internal/errors:983:15)
+    wrappedFn (node:internal/errors:537:14)
+    checkExecSyncError (node:child_process:916:11)
+    execFileSync (node:child_process:952:15)
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/c4JewelryLabels.test.js:44:2)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 7
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6632.093458

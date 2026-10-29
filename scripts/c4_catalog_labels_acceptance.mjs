@@ -1,3 +1,4 @@
+import {preC4JewelryMatchLabels} from './lib/c4JewelryLabelsReplay.mjs';
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync} from 'node:fs';
 import {gzipSync,gunzipSync} from 'node:zlib';
@@ -31,7 +32,7 @@ for(const target of review.entries)for(const role of ['single','A','B'])for(cons
  if(!recording){assert.equal(rows[index].hash,baseline.rows[index].hash,seed);assert.equal(calls,baseline.rows[index].calls,seed);assert.deepEqual(data(loaded),data(deserializeFavoritePrompt(baseline.rows[index].saved)));}
  index++;
 }
-for(const row of legacy.cases){const value=row.prompt===undefined?normalizeLocks(row.input,controls):parseLocksFromStandardPrompt(row.prompt,controls);restores.push(hash(value));}
+for(const row of legacy.cases){const value=row.prompt===undefined?normalizeLocks(row.input,controls):parseLocksFromStandardPrompt(row.prompt,controls);restores.push(hash(preC4JewelryMatchLabels(value)));}
 const result={rows,restores};
 if(recording)writeFileSync(file,gzipSync(JSON.stringify(result)),{flag:'wx'});
 else assert.deepEqual(restores,baseline.restores,'all historical restore outcomes');

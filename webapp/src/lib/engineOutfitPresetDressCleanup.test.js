@@ -120,7 +120,7 @@ test('reference outfit presets 27 to 38 preserve complete styling anchors and im
       'reference/wardrobe/outfit-presets/35_單肩短上衣印花圍裙短裙.avif',
     ],
     [
-      '套裝：垂墜背心腰鏈短裙',
+      '套裝：垂墜背心腰鍊短裙',
       /draped sleeveless top/i,
       /asymmetric wrap mini skirt/i,
       /chain belt/i,

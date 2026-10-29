@@ -1,3 +1,5 @@
+import {preC4JewelryHistoricalTest} from '../../../../scripts/lib/c4JewelryHistoricalTest.mjs';
+const c4JewelryHistoricalTest=preC4JewelryHistoricalTest(import.meta.url);
 import {withPreC4CatalogReplay} from '../../../../scripts/lib/c4CatalogLabelsReplay.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -17,7 +19,7 @@ test('E immutable pre-move snapshot: 22 computed tables and 2 legacy constants',
   assert.equal(JSON.stringify(getLegacyMappingsForTesting()), JSON.stringify(baseline.snapshot));
  });
 });
-test('E every legacy source path restores exactly as pre-E, including first-match and explicit selections', async () => {
+c4JewelryHistoricalTest('E every legacy source path restores exactly as pre-E, including first-match and explicit selections', async () => {
   await withPreA2WardrobeRecoveryReplay(async directory => {
   const { parseLocksFromStandardPrompt } = await import(pathToFileURL(directory + '/webapp/src/features/saved-cards/cardCodec.js'));
   const controls = getLockControls();

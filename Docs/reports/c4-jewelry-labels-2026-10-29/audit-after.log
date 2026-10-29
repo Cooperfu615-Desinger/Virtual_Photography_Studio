@@ -1,0 +1,62 @@
+
+> webapp@0.0.0 audit:prompts:strict
+> node ../scripts/validate_prompt_logic.mjs 200 prompt-quality-baseline --strict
+
+Generated 200 prompts
+Seed: prompt-quality-baseline
+
+Audit mode coverage:
+- Standard single-subject: n=13
+- Duo: n=13
+- Fixed composition: n=174
+
+Fixed-composition set coverage:
+- 清水模牆面沙發棚: n=13
+- 暖灰泥黑絲絨工業沙發棚: n=13
+- 高級飯店落地窗都市夜景: n=13
+- 高級飯店落地窗富士山春景: n=13
+- 高級飯店落地窗富士山冬景: n=13
+- 復古磁磚浴室浴缸: n=13
+- 海邊坡道平交道: n=12
+- 海邊階梯小巷: n=12
+- 紐約地鐵無人長椅月台: n=12
+- 倫敦地鐵列車進站月台: n=12
+- 日本山手線月台電子看板與廣告: n=12
+- 電車車廂正面長椅視角: n=12
+- 電車車廂側面走道視角: n=12
+- 電車車廂坐滿與站滿乘客: n=12
+
+Prompts with findings: 17
+
+Output word-length statistics:
+- Gpt: n=200, missing=0, avg=479.9, median=476.0, p95=646, min=240, max=692
+- Z-Image: n=200, missing=0, avg=332.9, median=331.0, p95=402, min=250, max=468
+- AI: n=200, missing=0, avg=190.3, median=160.5, p95=271, min=115, max=336
+- 胸上特寫照: n=187, missing=0, avg=283.3, median=269.0, p95=378, min=178, max=427
+- 全身角色照: n=187, missing=0, avg=251.2, median=246.0, p95=304, min=168, max=362
+
+Quality summary:
+- Existing wardrobe/scene logic issues: 15 across 14 prompts
+- Required output-shape/integrity issues: 0 across 0 prompts
+- Exact duplicate signals: 0
+- Near-duplicate signals: 3
+- Internal control-language leakage signals: 0 across 0 prompts
+- Contradictory-constraint signals: 0 across 0 prompts
+- Required audit coverage issues: 0
+- Strict-mode blocking signals: 0
+- Diagnostic-only signals: 18
+
+Existing logic issue summary:
+- 褲裝又搭明顯襪類: 6
+- 同時出現褲裝與裙裝: 5
+- 泳裝出現在非戶外/度假場景: 4
+
+Existing logic issue examples:
+- Prompt 8: 同時出現褲裝與裙裝
+- Prompt 56: 泳裝出現在非戶外/度假場景
+- Prompt 67: 褲裝又搭明顯襪類
+
+Duplicate signal examples:
+- Prompt 18: Z-Image near (0.86): “Woman 1 has C–D cup bust” / “Woman 2 has C–D cup bust”
+- Prompt 19: Z-Image near (0.86): “Woman 1 has I–K cup bust” / “Woman 2 has I–K cup bust”
+- Prompt 25: Z-Image near (0.86): “Woman 1 has C–D cup bust” / “Woman 2 has C–D cup bust”

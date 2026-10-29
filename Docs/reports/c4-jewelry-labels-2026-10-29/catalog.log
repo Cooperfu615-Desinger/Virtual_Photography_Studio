@@ -1,0 +1,71 @@
+== 目錄資料唯讀檢查  repo=/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio
+database.json: 880194 bytes, 1050 條（全無列 43）, 分區 6, 分類 56
+  Regional: 26 條 / 1 分類
+  Wardrobe: 539 條 / 24 分類
+  CameraLighting: 172 條 / 10 分類
+  Locations: 155 條 / 6 分類
+  Character: 139 條 / 9 分類
+  Negative: 19 條 / 6 分類
+欄位覆蓋率: zh=1050(100%), en=1050(100%), desc=1050(100%), meta=1050(100%), stableId=1050(100%), legacyIds=1050(100%), legacyPromptAliases=112(10.7%), lyingSurface=47(4.5%), topUnderbust=39(3.7%), outerwear=22(2.1%), outerwearFit=9(0.9%), legacyLabels=6(0.6%), subjectLight=6(0.6%), mj=6(0.6%), outerwearFastenerRequirement=4(0.4%), randomEligible=4(0.4%), outerwearStyling=4(0.4%), wearableColorTarget=1(0.1%), bottomWaist=1(0.1%), headAccessoryColorTarget=1(0.1%), eyewearColorTarget=1(0.1%), eyewearPlacementMode=1(0.1%)
+空 en(非全無)=0, 空 desc(非全無)=0, 重複 en 組=0, 跨分類同名 zh=17, slug 丟字標籤=0
+ID: stableId 1050 條, 位置相依 0 條 (0%); controls=219, options=4771, distinct legacyIds=1457
+  legacy 衝突=2, legacy 被現行 ID 遮蔽=0, 未完全由 controls 暴露的分類=Negative/通用人體防護(0/5); Negative/畫質與渲染防護(0/3); Negative/風格與寫實度防護(0/3); Negative/場景與物理防護(0/3); Negative/服裝與材質防護(0/1); Negative/特定主題防護 (依需求加入)(0/4)
+硬寫 ID: 正式碼 current=454 legacyOnly=1 dangling=0; 測試 current=61 legacyOnly=54 dangling=6
+硬寫 zh: targetZh/dressZh 檢查 0 懸空 0; zh 比對 104 懸空 1; 分類 literal 314 未知 2
+MJ 名稱表: 286 條, 懸空 0, 覆蓋服裝選項 286/518 (55.2%)
+  MJ 名稱分類覆蓋: 特殊穿搭-special-outfits 0/90, 套裝-outfit-presets 0/59, 連身-dresses 24/24, 上身-tops 45/45, 上身圖案-top-surface-design 0/25, 褲裝-pants 33/33, 裙裝-skirts 31/31, 下身圖案-bottom-surface-design 0/14, 外套-outerwear 22/22, 外套版型-outerwear-fit 0/9, 外套圖案-outerwear-surface-design 0/7, 外套開合-outerwear-opening 0/5, 外套穿法-outerwear-styling 0/7, 襪類-legwear 11/11, 鞋款-shoes 35/35, headphones 0/1, 頭部配件-head-accessories 18/18, faceCovering 0/1, 眼鏡-eyewear 10/10, 眼鏡配色-eyewear-color 0/12, 眼鏡配戴方式-eyewear-placement 0/2, 耳環-earrings 9/9, 鼻部穿孔-nose-piercings 4/4, 唇部穿孔-lip-piercings 4/4, 頸部-neck-accessories 30/30, 腰部配件-waist-accessories 10/10
+執行期 meta: 785/1033 目錄選項帶 tags，共 2266 個（192 種）；database.json 顯式 semantic 條目 1050／來源額外 tags 條目 0；執行期 meta 欄位 29 種
+環境光描述: 36 條, 完全一致 36, 缺描述的環境光選項 0
+角色卡: 33 張, MJ 卡名 33, manifest 33, Lab wardrobeLayers 134 段（逐字重複 118）
+內嵌目錄模組: 12 檔 / 6196 行 / 963 個匯出條目
+  webapp/src/lib/engine/characterProfiles.js: 1062 行, {"CHARACTER_PROFILE_OPTIONS":34}
+  webapp/src/lib/engine/characterWardrobeSources.js: 891 行, {"CHARACTER_WARDROBE_SOURCES":33}
+  webapp/src/lib/engine/poseComposerOptions.js: 1635 行, {"POSE_COMPOSER_ANCHOR_OPTIONS":80,"POSE_COMPOSER_ARRANGEMENT_OPTIONS":82,"POSE_COMPOSER_BASE_OPTIONS":7,"POSE_COMPOSER_HAND_OPTIONS":74,"POSE_COMPOSER_HEAD_OPTIONS":26,"POSE_COMPOSER_ORIENTATION_OPTIONS":5,"POSE_COMPOSER_PROP_OPTIONS":15}
+  webapp/src/lib/engine/duoOptions.js: 298 行, {"DUO_EXPRESSION_OPTIONS":17,"DUO_INTERACTION_OPTIONS":6,"DUO_POSE_BASE_OPTIONS":9,"DUO_POSE_OPTIONS":12}
+  webapp/src/lib/engine/fixedCompositionOptions.js: 396 行, {"FIXED_COMPOSITION_SET_OPTIONS":15,"FIXED_SET_BACKGROUND_STATE_OPTIONS":11,"FIXED_SET_CAPTURE_MODE_OPTIONS":4,"FIXED_SET_PERFORMANCE_STATE_OPTIONS":11,"FIXED_SET_POSITION_OPTIONS":44}
+  webapp/src/lib/engine/ambientLightDescriptions.js: 415 行, {"AMBIENT_LIGHT_DESCRIPTIONS":36}
+  webapp/src/lib/engine/midjourneyItemNames.js: 290 行, {"MIDJOURNEY_ITEM_NAMES":286}
+  webapp/src/lib/engine/midjourneyCardItemNames.js: 38 行, {"MIDJOURNEY_CARD_ITEM_NAMES":33}
+  webapp/src/lib/engine/midjourneyBodyDescriptions.js: 17 行, {"MIDJOURNEY_BODY_DESCRIPTIONS":6}
+  webapp/src/data/actionPoseCards.js: 65 行, {"ACTION_POSE_CARDS":3,"ACTION_POSE_MODES":2}
+  webapp/src/data/observationCapturePromptOptions.js: 298 行, {"OBSERVATION_CAPTURE_ACTIONS":9,"OBSERVATION_CAPTURE_DISCOVERY_STATES":3,"OBSERVATION_CAPTURE_FOREGROUNDS":6,"OBSERVATION_CAPTURE_LENSES":4,"OBSERVATION_CAPTURE_LIGHTING":6,"OBSERVATION_CAPTURE_OPTION_GROUPS":8,"OBSERVATION_CAPTURE_POSITIONS":6,"OBSERVATION_CAPTURE_SCENES":8,"OBSERVATION_CAPTURE_TEXTURES":5}
+  webapp/src/data/page3WorldScenes.js: 791 行, {"SPECIAL_SCENE_LOCATIONS":7,"WORLD_SCENE_LOCATIONS":50}
+  退役負擔 POSE_COMPOSER_ANCHOR_OPTIONS: 80 條, deprecated 52, uiHidden 52, 帶 legacyIds 0
+  退役負擔 POSE_COMPOSER_ARRANGEMENT_OPTIONS: 82 條, deprecated 40, uiHidden 40, 帶 legacyIds 0
+  退役負擔 POSE_COMPOSER_HAND_OPTIONS: 74 條, deprecated 23, uiHidden 23, 帶 legacyIds 0
+  退役負擔 POSE_COMPOSER_HEAD_OPTIONS: 26 條, deprecated 3, uiHidden 3, 帶 legacyIds 0
+  退役負擔 DUO_EXPRESSION_OPTIONS: 17 條, deprecated 0, uiHidden 8, 帶 legacyIds 0
+  退役負擔 DUO_POSE_OPTIONS: 12 條, deprecated 0, uiHidden 0, 帶 legacyIds 6
+目錄產生物欄位白名單: 18 種皆被 buildEntries 讀取（被忽略: 無）
+engine.js: 16812 行, 頂層資料表 61 個 / 1847 行 (11%), 其中 legacy/migration 表 0 個 / 0 行 / 0 條
+Allowlist: 2 allowed; 0 blocking; 0 stale
+
+確定問題 2:
+  [LEGACY_ID_AMBIGUOUS] Token has multiple owners in this control
+      - fashion-editorial-models
+      - best-friends-selfie
+  [LEGACY_ID_AMBIGUOUS] Token has multiple owners in this control
+      - fashion-editorial-models
+      - best-friends-selfie
+可能問題 4:
+  [DANGLING_ID_TEST] 測試/fixture 中 6 個硬寫目錄 ID 找不到（可能是刻意的舊資料案例）
+      - webapp/src/lib/engineExpressionPoseCleanup.test.js:479 character:特殊動作-special-actions:男友視角拍攝:26
+      - webapp/src/lib/engineMirrorSelfieProp.test.js:121 character:特殊動作-special-actions:鏡子自拍:25
+      - webapp/src/lib/engineMirrorSelfieProp.test.js:144 character:特殊動作-special-actions:鏡子自拍:25
+      - webapp/src/lib/engineOutfitPresetDressCleanup.test.js:798 wardrobe:套裝-outfit-presets:玫瑰粉乳膠迷你洋裝套裝:3
+      - webapp/src/lib/engineOutfitPresetDressCleanup.test.js:805 wardrobe:套裝-outfit-presets:套裝-乳膠迷你洋裝:3
+      - webapp/src/lib/engineOutfitPresetDressCleanup.test.js:824 wardrobe:套裝-outfit-presets:經典漢服套裝:26
+  [DANGLING_ZH_LITERAL] 1 個 zh 比對字串在目錄/controls 找不到（可能比對的是內嵌目錄或已退役條目，需人工確認）
+      - webapp/src/lib/engine.js:2005 霓虹夜色
+  [UNKNOWN_CATEGORY_LITERAL] 2 個硬寫分類名稱不在 database.json（多為舊分類名，用於 legacy/fallback）
+      - webapp/src/lib/engine.js:2629 特殊效果 (Special Effects)
+      - webapp/src/lib/engine.js:2991 特殊效果 (Special Effects)
+  [CARD_LAYER_DUPLICATION] characterCardLab.js 的 134 段 wardrobeLayers 文字中 118 段與 characterProfiles.js 逐字重複；其餘 16 段保留已審閱用途差異；逐筆來源由 CHARACTER_WARDROBE_SOURCE 嚴格驗證
+      - character-sakura:top
+      - character-yuri:top
+      - character-yuna:shoes
+      - character-rei:outerwear
+      - character-amy:top
+      - character-amy:shoes
+      - character-yui:shoes
+      - character-nana:shoes

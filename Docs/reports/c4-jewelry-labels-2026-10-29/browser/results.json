@@ -1,0 +1,30 @@
+[
+  {
+    "width": 1440,
+    "outfitPickerClick": true,
+    "accessorySelections": 3,
+    "oldImagePath": true,
+    "newSaveAndOldRestore": true,
+    "overflow": false,
+    "errors": [],
+    "programmaticFallback": [
+      "銀色水鑽蝴蝶腰鍊",
+      "多條層疊的金項鍊"
+    ],
+    "nativePopupMouseVerified": false
+  },
+  {
+    "width": 390,
+    "outfitPickerClick": true,
+    "accessorySelections": 3,
+    "oldImagePath": true,
+    "newSaveAndOldRestore": true,
+    "overflow": false,
+    "errors": [],
+    "programmaticFallback": [
+      "銀色水鑽蝴蝶腰鍊",
+      "多條層疊的金項鍊"
+    ],
+    "nativePopupMouseVerified": false
+  }
+]

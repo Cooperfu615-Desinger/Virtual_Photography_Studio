@@ -1,0 +1,32 @@
+{
+  "base": "a1cf63ec66b04d74bba514a64937039cdd4e7da5",
+  "exactPatchHashesVerified": 22,
+  "historicalReportsAndRegistryUnchanged": true,
+  "sameSeedAuditIdentical": true,
+  "indexEmpty": true,
+  "trackedChanges": [
+    "Docs/current_project_state.md",
+    "\"knowledge_base/catalog/Wardrobe/\\345\\245\\227\\350\\243\\235-outfit-presets.json\"",
+    "\"knowledge_base/catalog/Wardrobe/\\350\\205\\260\\351\\203\\250\\351\\205\\215\\344\\273\\266-waist-accessories.json\"",
+    "\"knowledge_base/catalog/Wardrobe/\\351\\240\\270\\351\\203\\250-neck-accessories.json\"",
+    "knowledge_base/catalog/legacy_mappings.json",
+    "knowledge_base/wardrobe_and_styling.md",
+    "knowledge_base/wardrobe_reference_manifest.json",
+    "scripts/c4_catalog_labels_acceptance.mjs",
+    "scripts/lib/c4CatalogLabelsReplay.mjs",
+    "webapp/src/data/database.json",
+    "webapp/src/data/legacyMappings.json",
+    "webapp/src/features/saved-cards/cardCodec.test.js",
+    "webapp/src/lib/engine.js",
+    "webapp/src/lib/engine/c4CatalogLabels.test.js",
+    "webapp/src/lib/engine/dressControlLanguage.test.js",
+    "webapp/src/lib/engine/legacyMappings.test.js",
+    "webapp/src/lib/engine/midjourneySpecialModes.test.js",
+    "webapp/src/lib/engine/outfitControlLanguage.test.js",
+    "webapp/src/lib/engine/representativePromptFixtures.js",
+    "webapp/src/lib/engine/sceneIntegratedAssemblyFixtures.js",
+    "webapp/src/lib/engineOutfitPresetDressCleanup.test.js",
+    "webapp/src/lib/engineWardrobeControls.test.js",
+    "webapp/src/lib/wardrobeAtomicOptions.test.js"
+  ]
+}

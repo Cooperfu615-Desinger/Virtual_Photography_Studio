@@ -98,7 +98,7 @@ export const SCENE_INTEGRATED_ASSEMBLY_FIXTURES = freeze([
     outfitPresetContrastColorId: zh('紅色'),
   }),
   fixture('R11-waist-chain', 'R11', {
-    ...STANDING, waistAccessoryId: zh('銀色水鑽蝴蝶腰鏈'), topColorId: zh('白色'), bottomColorId: zh('黑色'),
+    ...STANDING, waistAccessoryId: zh('銀色水鑽蝴蝶腰鍊'), topColorId: zh('白色'), bottomColorId: zh('黑色'),
   }),
   ...[
     ['indoor', 'indoor', '室內：英倫復古窗邊房間'],

@@ -4,6 +4,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-29
 
+## C4 第三批用字與收尾（2026-10-29，本機驗收通過）
+
+- 四名稱／兩說明統一項鍊與腰鍊；必要的兩映射 targetZh、一圖片 manifest name 及兩個舊 jewelry 新名稱辨識同步。英文、ID、舊鍵／舊收藏原文與歷史基準保持。
+- 216 組生成／1,098 組舊還原、前端 2,037／品質 853、Python 43／目錄 32、lint／build／strict／同步／207 資產通過；同 seed audit 前後一致。C4 原列管範圍實作收尾，待使用者驗收與授權交付。
+- [規格](specs/c4-jewelry-display-labels-v1.md)、[C4 收尾決策](decisions/2026-10-29-c4-closure.md)、[驗收](reports/c4-jewelry-labels-2026-10-29/README.md)。未 stage／commit／push；原生選單驗收限制保留。其他 C 類、PAGE2 舊匯入、J12、P5b 排除。
+
 ## C4 第二批髮型／森林名稱（2026-10-29，本機驗收通過）
 
 - 六筆髮型移除由整理狀態負責的濕感名稱，森林步道移除無英文來源的霧感；七筆英文／ID／desc／semantic／整理狀態政策保持。六個舊映射 targetZh 跟隨新名稱，舊鍵與索引原樣。

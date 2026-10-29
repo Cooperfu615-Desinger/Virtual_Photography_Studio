@@ -993,7 +993,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
       topId: { byZh: '棉質細肩背心' },
       pantsId: { byZh: '直筒牛仔褲' },
-      neckAccessoryId: { byZh: '街頭風格金項鏈' },
+      neckAccessoryId: { byZh: '街頭風格金項鍊' },
       locationId: { byZh: '室內：深邃黑幕' },
     },
     expectedOutputs: {
@@ -1028,7 +1028,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
       topId: { byZh: '棉質細肩背心' },
       pantsId: { byZh: '直筒牛仔褲' },
-      waistAccessoryId: { byZh: '銀色水鑽蝴蝶腰鏈' },
+      waistAccessoryId: { byZh: '銀色水鑽蝴蝶腰鍊' },
       locationId: { byZh: '室內：深邃黑幕' },
     },
     expectedOutputs: {
@@ -1062,7 +1062,7 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       subjectCount: '1',
       framingId: { byZh: '牛仔中景 (Cowboy Shot)' },
       outfitPresetId: { byZh: '套裝：豹紋蕾絲抹胸喇叭牛仔' },
-      waistAccessoryId: { byZh: '銀色水鑽蝴蝶腰鏈' },
+      waistAccessoryId: { byZh: '銀色水鑽蝴蝶腰鍊' },
       locationId: { byZh: '戶外：孚日廣場草地邊與紅磚立面' },
     },
     expectedOutputs: {

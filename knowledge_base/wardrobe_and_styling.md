@@ -133,7 +133,7 @@
 | **套裝 (Outfit Presets)** | 拼接掛脖長背心漆皮短褲 | `patchwork halter scarf top with a long pointed draped hem, glossy micro shorts, lace-up ankle boots` | 以拼接印花掛脖長背心、尖角垂墜衣襬、亮面超短褲與綁帶短靴為核心的套裝；主色交由套裝配色控制。 |
 | **套裝 (Outfit Presets)** | 金屬三角比基尼 | `metallic triangle bikini set, slim halter straps, side-tie bikini bottoms, layered body chains, platform sandals` | 以金屬感三角比基尼、細掛脖帶、側綁下身、身體鏈與厚底涼鞋為核心的比基尼套裝；主色交由套裝配色控制。 |
 | **套裝 (Outfit Presets)** | 單肩短上衣印花圍裙短裙 | `one-shoulder cropped top, printed scarf-wrap mini skirt, asymmetric hip drape, lace-up heeled boots` | 以單肩短版上衣、印花圍裹迷你裙、不對稱臀側垂布與綁帶高跟短靴為核心的套裝；主色交由套裝配色控制。 |
-| **套裝 (Outfit Presets)** | 垂墜背心腰鏈短裙 | `draped sleeveless top, asymmetric wrap mini skirt, chain belt layers, studded waist detail, heeled sandals` | 以垂墜無袖上衣、不對稱圍裹短裙、多層腰鏈、鉚釘腰部細節與高跟涼鞋為核心的套裝；主色交由套裝配色控制。 |
+| **套裝 (Outfit Presets)** | 垂墜背心腰鍊短裙 | `draped sleeveless top, asymmetric wrap mini skirt, chain belt layers, studded waist detail, heeled sandals` | 以垂墜無袖上衣、不對稱圍裹短裙、多層腰鍊、鉚釘腰部細節與高跟涼鞋為核心的套裝；主色交由套裝配色控制。 |
 | **套裝 (Outfit Presets)** | 皮革掛脖背心短褲長靴 | `zip-front leather halter vest, low-rise leather shorts, dangling side straps, knee-high leather boots` | 以拉鍊皮革掛脖背心、低腰皮革短褲、側邊垂帶與膝上皮革長靴為核心的套裝；主色交由套裝配色控制。 |
 | **套裝 (Outfit Presets)** | 斑馬紋馬甲短褲長靴 | `zebra-pattern corset tank, zip-front center panel, glossy micro shorts, knee-high leather boots` | 以斑馬紋馬甲背心、中線拉鍊拼片、亮面超短褲與膝上皮革長靴為核心的套裝；主色交由套裝配色控制。 |
 | **套裝 (Outfit Presets)** | 短版運動T熱褲套裝 | `sporty ringer baby-tee and dolphin shorts outfit, fitted cropped ringer T-shirt with contrast collar and sleeve binding, faint tonal chest graphic mark, low-rise dolphin micro shorts with contrast piping, contrast elastic waistband, front drawstring and side lace-up grommet detail, knee-high athletic socks, low-top sneakers` | 以短版撞色圓領運動T、低腰抽繩 dolphin 熱褲、側邊綁孔細節、長筒運動襪與低筒球鞋構成的甜辣運動套裝；主色與撞色滾邊由套裝配色控制。 |
@@ -507,7 +507,7 @@
 | **頸部 (Neck Accessories)** | 全無 | `no neck accessories, open neckline styling` | 不加頸部飾品，讓領口與鎖骨區域維持簡潔。 |
 | **頸部 (Neck Accessories)** | 金屬細頸圈 | `slim metal choker detail, subtle close-fitting neck accent` | 比粗頸鍊更俐落，調整為低干擾的頸部點綴。 |
 | **頸部 (Neck Accessories)** | 雕塑感金屬頸圈 | `sculptural metal collar detail, subtle polished neck accent` | 保留金屬雕塑感，但降低成為主體 statement piece 的機率。 |
-| **頸部 (Neck Accessories)** | 多條層疊的金項鏈 | `layered gold necklace detail, subtle stacked chain accent` | 多層金色項鍊保留成熟與時裝感，但以輕量配件語氣呈現。 |
+| **頸部 (Neck Accessories)** | 多條層疊的金項鍊 | `layered gold necklace detail, subtle stacked chain accent` | 多層金色項鍊保留成熟與時裝感，但以輕量配件語氣呈現。 |
 | **頸部 (Neck Accessories)** | 多條層疊的珍珠項鍊 | `layered pearl necklace detail, soft understated pearl accent` | 多層珍珠串仍有復古感，但降低華麗程度避免搶戲。 |
 | **頸部 (Neck Accessories)** | 單圈珍珠項鍊 | `single-strand pearl necklace detail, subtle classic pearl accent` | 以單圈珍珠與溫潤珠光為主，存在感更低更穩定。 |
 | **頸部 (Neck Accessories)** | 多條層疊的水晶項鍊與頸鏈 | `layered crystal necklace detail, subtle reflective neck accent` | 保留水晶反光，但降低 ornate 與誇張珠寶感。 |
@@ -521,11 +521,11 @@
 | **頸部 (Neck Accessories)** | 細鍊鎖頭吊墜項鍊 | `small lock pendant necklace detail, understated edgy neck accent` | 保留低調街頭感與小型吊墜語氣，避免誇張放大。 |
 | **頸部 (Neck Accessories)** | 十字吊墜層疊頸鏈 | `layered cross pendant necklace detail, subtle gothic-inspired neck accent` | 保留哥德與街頭混搭感，但控制在細節層級。 |
 | **頸部 (Neck Accessories)** | 鑽石網球項鍊 | `diamond tennis necklace detail, subtle luxury neck accent` | 保留乾淨奢華感，但不讓鑽石高光成為主畫面焦點。 |
-| **頸部 (Neck Accessories)** | 街頭風格金項鏈 | `short gold curb-link necklace worn around the base of the neck at collarbone level, understated streetwear jewelry` | 以短版金色 curb-link 項鍊明確貼近頸根與鎖骨位置，保留街頭感並避免被理解成延伸到軀幹的裝飾鏈。 |
+| **頸部 (Neck Accessories)** | 街頭風格金項鍊 | `short gold curb-link necklace worn around the base of the neck at collarbone level, understated streetwear jewelry` | 以短版金色 curb-link 項鍊明確貼近頸根與鎖骨位置，保留街頭感並避免被理解成延伸到軀幹的裝飾鏈。 |
 | **頸部 (Neck Accessories)** | 細領帶 | `slim necktie detail, narrow straight tie hanging from the collar` | 以窄版直落領帶與衣領下方的整齊垂墜為主。 |
 | **頸部 (Neck Accessories)** | 波洛領帶 | `bolo tie detail, slim cord necktie with small metal tips` | 以細繩領帶、滑扣與小型金屬繩頭為主。 |
 | **頸部 (Neck Accessories)** | 串珠頸鏈 | `beaded choker detail, short strand of small beads fitted around the neck` | 以貼合頸部的短串小珠與輕量頸鏈輪廓為主。 |
-| **頸部 (Neck Accessories)** | 銀色粗鏈項鍊 | `thick silver chain necklace, substantial linked metal chain, understated street accessory` | 以較厚實的銀色鏈節為主，補足現有細鏈與金色街頭項鏈之外的街頭金屬感。 |
+| **頸部 (Neck Accessories)** | 銀色粗鏈項鍊 | `thick silver chain necklace, substantial linked metal chain, understated street accessory` | 以較厚實的銀色鏈節為主，補足現有細鏈與金色街頭項鍊之外的街頭金屬感。 |
 | **頸部 (Neck Accessories)** | Y字垂墜項鍊 | `Y-drop lariat necklace, fine chain descending to a single central drop, delicate neck accessory` | 項鍊中央向下延伸成 Y 字，提供清楚但不誇張的垂墜線條。 |
 | **頸部 (Neck Accessories)** | 圓形徽章吊墜項鍊 | `round medallion pendant necklace, simple circular metal pendant on a fine chain, understated vintage accessory` | 以簡潔圓形徽章吊墜為主，補充鎖頭、十字與水滴以外的吊墜形狀。 |
 | **頸部 (Neck Accessories)** | 鑰匙吊墜項鍊 | `small key pendant necklace, fine chain with a simple metal key charm, understated vintage accessory` | 以小型金屬鑰匙吊墜為主，維持復古感但不讓吊墜過度放大。 |
@@ -542,7 +542,7 @@
 | **腰部配件 (Waist Accessories)** | 金色細鏈鑽石腰鍊 | `delicate gold waist chain, fine linked chain with evenly spaced tiny clear diamond-like gemstone accents, subtle sparkling jewelry worn around the waist and upper hips` | 以細緻金色鏈條環繞腰部與上髖部，沿間隔配置小型透明鑽石感寶石，呈現低調閃耀。 |
 | **腰部配件 (Waist Accessories)** | 雙層銀鏈愛心腰鍊 | `double-layer silver waist chain, two parallel fine chains with evenly spaced polished round bead accents, a small centered heart charm at the front, delicate jewelry around the waist and hips` | 兩條平行細銀鏈搭配均勻圓珠與正面中央小愛心吊飾，形成精緻的腰部與髖部珠鍊層次。 |
 | **腰部配件 (Waist Accessories)** | 愛心垂墜銀腰鍊 | `silver heart-charm waist chain, multiple open heart motifs spaced across the front, a short vertical chain hanging from the center heart and ending in a smaller heart pendant, delicate jewelry around the waist and upper hips` | 正面配置多個鏤空愛心，中央愛心向下垂墜短鏈與較小愛心吊飾，形成清楚但輕盈的腰部珠寶細節。 |
-| **腰部配件 (Waist Accessories)** | 銀色水鑽蝴蝶腰鏈 | `silver rhinestone butterfly waist chain, two delicate silver strands draped at slightly different heights, with multiple small rhinestone butterfly charms spaced across the low waist and upper hips, worn above low-rise bottoms` | 以兩條高度略有差異的細銀鏈為主，沿低腰與上髖部配置多個小型水鑽蝴蝶吊飾，呈現輕盈垂掛的層次，搭配低腰下身穿戴。 |
+| **腰部配件 (Waist Accessories)** | 銀色水鑽蝴蝶腰鍊 | `silver rhinestone butterfly waist chain, two delicate silver strands draped at slightly different heights, with multiple small rhinestone butterfly charms spaced across the low waist and upper hips, worn above low-rise bottoms` | 以兩條高度略有差異的細銀鏈為主，沿低腰與上髖部配置多個小型水鑽蝴蝶吊飾，呈現輕盈垂掛的層次，搭配低腰下身穿戴。 |
 | **腰部配件 (Waist Accessories)** | 鉚釘皮革腰帶 | `decorative studded leather waist belt worn loosely around hips with metal studs and compact off-center buckle` | 以鉚釘與緊湊扣具增加街頭感，鬆掛於髖部作為服裝裝飾。 |
 | **腰部配件 (Waist Accessories)** | 肚臍環 | `round-cut diamond navel piercing at the belly button, clear circular gemstone, slim polished metal ring setting` | 以肚臍中央的小型圓形鑽石與細緻拋光金屬戒台為主，清楚呈現肚臍位置的精緻身體飾品。 |
 | **腰部配件 (Waist Accessories)** | 馬甲束腰 | `gothic black leather waist cincher, structured boning, front lace-up panel, silver buckle hardware, worn over clothing` | 黑色皮革哥德馬甲束腰，貼合腰部並穿在服裝外，以結構支撐骨、前方綁帶與銀色扣具呈現哥德風格；維持腰部配件的範圍，不延伸成胸衣、肩帶或完整上身。 |

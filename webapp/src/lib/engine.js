@@ -3422,6 +3422,7 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
       '金屬頸鍊': 'neckAccessoryId',
       '金屬細頸圈': 'neckAccessoryId',
       '多條層疊的金項鏈': 'neckAccessoryId',
+      '多條層疊的金項鍊': 'neckAccessoryId',
       '多條層疊的水晶頸鏈與項鍊': 'neckAccessoryId',
       '多條層疊的水晶項鍊與頸鏈': 'neckAccessoryId',
       '皮質扣環頸鏈': 'neckAccessoryId',
@@ -3432,6 +3433,7 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
       '薄長圍巾': 'neckAccessoryId',
       '厚長圍巾': 'neckAccessoryId',
       '街頭風格金項鏈': 'neckAccessoryId',
+      '街頭風格金項鍊': 'neckAccessoryId',
     };
     const { catalog } = getEngineRuntime();
     legacyJewelry.forEach((legacyId) => {

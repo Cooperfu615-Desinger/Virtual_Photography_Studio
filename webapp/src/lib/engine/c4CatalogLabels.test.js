@@ -1,3 +1,4 @@
+import {preC4JewelrySource} from '../../../../scripts/lib/c4JewelryLabelsReplay.mjs';
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {readFileSync,mkdtempSync,mkdirSync,writeFileSync,rmSync} from 'node:fs';
@@ -12,14 +13,14 @@ const controls=getLockControls();
 test('C4 seven Chinese names change without English, IDs, metadata, order or old keys changing',()=>{
  for(const path of new Set(review.entries.map(e=>e.path))){
   const before=JSON.parse(C4_CATALOG_PATCHES.files.find(f=>f.path===path).beforeSource);
-  const after=JSON.parse(readFileSync(join(C4_CATALOG_ROOT,path)));
+  const after=JSON.parse(preC4JewelrySource(path,readFileSync(join(C4_CATALOG_ROOT,path))));
   for(const row of review.entries.filter(e=>e.path===path)){
    const e=after.entries.find(e=>e.id===row.id);assert.equal(e.zh,row.after);e.zh=row.before;
   }
   assert.deepEqual(after,before);
  }
  const path='knowledge_base/catalog/legacy_mappings.json';
- const before=JSON.parse(C4_CATALOG_PATCHES.files.find(f=>f.path===path).beforeSource),after=JSON.parse(readFileSync(join(C4_CATALOG_ROOT,path)));
+ const before=JSON.parse(C4_CATALOG_PATCHES.files.find(f=>f.path===path).beforeSource),after=JSON.parse(preC4JewelrySource(path,readFileSync(join(C4_CATALOG_ROOT,path))));
  let count=0;for(const table of Object.values(after.tables))for(const row of (Array.isArray(table.source)?table.source:[])){const target=review.entries.find(e=>e.after===row.targetZh);if(target){row.targetZh=target.before;count++;}}
  assert.equal(count,6);assert.deepEqual(after,before);
 });

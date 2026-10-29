@@ -1,3 +1,5 @@
+import {preC4JewelryHistoricalTest} from '../../../../scripts/lib/c4JewelryHistoricalTest.mjs';
+const c4JewelryHistoricalTest=preC4JewelryHistoricalTest(import.meta.url);
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
@@ -18,7 +20,7 @@ const empty = () => {
 const leak = /controlled by (?:the )?(?:outfit (?:primary color|contrast color|color selection)|contrast palette)/i;
 const outputs = p => [p.grokPrompt, p.zImagePrompt, p.midjourneyPrompt, p.nanoBananaPrompt, ...p.extraPrompts.map(x => x.text)];
 
-test('A2 outfits remove only reviewed clauses; preserve IDs, ordered aliases, semantic and color roles', () => {
+c4JewelryHistoricalTest('A2 outfits remove only reviewed clauses; preserve IDs, ordered aliases, semantic and color roles', () => {
   const source = JSON.parse(readFileSync(new URL('../../../../' + review.sourceFile, import.meta.url)));
   assert.equal(review.rows.length, 40);
   assert.equal(source.entries.length, 59);
@@ -108,7 +110,7 @@ test('A2 preserves existing fixed-color overlap, inactive locked targets and gen
   }
 });
 
-test('A2 outfit data inverse rejects text, metadata, alias order, missing IDs, duplicates and mixed states', () => {
+c4JewelryHistoricalTest('A2 outfit data inverse rejects text, metadata, alias order, missing IDs, duplicates and mixed states', () => {
   const source = getKnowledgeBaseSnapshot();
   const old = preA2OutfitDatabase(source);
   assert.deepEqual(preA2OutfitDatabase(old), old);

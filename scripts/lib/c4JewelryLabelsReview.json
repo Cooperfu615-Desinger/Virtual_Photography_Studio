@@ -1,0 +1,33 @@
+{
+  "base": "a1cf63ec66b04d74bba514a64937039cdd4e7da5",
+  "entries": [
+    {
+      "path": "knowledge_base/catalog/Wardrobe/腰部配件-waist-accessories.json",
+      "id": "wardrobe:腰部配件-waist-accessories:銀色水鑽蝴蝶腰鏈:7",
+      "before": "銀色水鑽蝴蝶腰鏈",
+      "after": "銀色水鑽蝴蝶腰鍊",
+      "control": "waistAccessory"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/套裝-outfit-presets.json",
+      "id": "wardrobe:套裝-outfit-presets:套裝-垂墜背心腰鏈短裙:35",
+      "before": "垂墜背心腰鏈短裙",
+      "after": "垂墜背心腰鍊短裙",
+      "control": "outfitPreset"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/頸部-neck-accessories.json",
+      "id": "wardrobe:頸部-neck-accessories:多條層疊的金項鏈:3",
+      "before": "多條層疊的金項鏈",
+      "after": "多條層疊的金項鍊",
+      "control": "neckAccessory"
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/頸部-neck-accessories.json",
+      "id": "wardrobe:頸部-neck-accessories:街頭風格金項鏈:17",
+      "before": "街頭風格金項鏈",
+      "after": "街頭風格金項鍊",
+      "control": "neckAccessory"
+    }
+  ]
+}

@@ -473,7 +473,7 @@ test('standard prompt parser prefers the longest matching option text', () => {
 test('standard prompt parser restores current and legacy street gold necklace wording', () => {
   const controls = getLockControls();
   const neckControl = controls.find((entry) => entry.key === 'neckAccessoryId');
-  const necklace = neckControl.options.find((entry) => entry.zh === '街頭風格金項鏈');
+  const necklace = neckControl.options.find((entry) => entry.zh === '街頭風格金項鍊');
   const currentText = 'short gold curb-link necklace worn around the base of the neck at collarbone level, understated streetwear jewelry';
   const legacyText = 'street-style gold chain detail, subtle urban neck accent';
 

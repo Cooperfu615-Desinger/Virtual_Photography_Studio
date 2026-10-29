@@ -2671,7 +2671,7 @@
         },
         {
           "category": "頸部 (Neck Accessories)",
-          "targetZh": "街頭風格金項鏈",
+          "targetZh": "街頭風格金項鍊",
           "legacy": [
             [
               "街頭風格金項鏈",
@@ -3521,7 +3521,7 @@
         },
         {
           "category": "頸部 (Neck Accessories)",
-          "targetZh": "街頭風格金項鏈",
+          "targetZh": "街頭風格金項鍊",
           "prompts": [
             "street-style gold chain detail, subtle urban neck accent"
           ]
