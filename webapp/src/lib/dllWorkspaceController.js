@@ -9,11 +9,13 @@ export const taskNeedsAttention = task => task.status === 'uncertain' || active.
 export function generationSnapshot(input) {
   const { modelKey, prompt = '', aspectRatio = '9:16', resolution = '1k', count = 1, seed = '',
     sourceId = 'custom', sourceLabel = '自訂', workspace = '完整版', lockAspectRatio = false,
-    kind = 'generate', parentId = null, sourceImage = null, scale = 2 } = input;
+    kind = 'generate', parentId = null, sourceImage = null, scale = 2, quality = 'medium' } = input;
   if (kind === 'generate' && !prompt.trim()) throw new Error('請先選擇或輸入 Prompt');
   if (![1, 2].includes(Number(count))) throw new Error('每筆可生成 1 或 2 張');
   if (seed !== '' && (!Number.isSafeInteger(Number(seed)) || Number(seed) < 0)) throw new Error('Seed 需為非負整數');
+  if (modelKey === 'openaiImage2' && !['low', 'medium', 'high'].includes(quality)) throw new Error('不支援的畫質');
   return structuredClone({ modelKey, prompt, aspectRatio, resolution, count: Number(count), seed,
+    ...(modelKey === 'openaiImage2' ? { quality } : {}),
     ...(kind === 'generate' ? getDllPicLoraSettings(modelKey, input.loraStrength) : {}),
     sourceId, sourceLabel, workspace, lockAspectRatio, kind, parentId, sourceImage, scale });
 }

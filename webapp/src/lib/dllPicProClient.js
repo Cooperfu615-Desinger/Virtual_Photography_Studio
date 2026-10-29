@@ -27,6 +27,7 @@ export const DLL_PIC_STORAGE_KEYS = {
 };
 
 export const DLL_PIC_MODEL_CONFIG = {
+  openaiImage2: { label: 'OpenAI · GPT Image 2', provider: 'openai', generationModel: 'gpt-image-2', usesServerProxy: true, supportsResolution: true, defaultResolution: '1k', resolutionOptions: ['1k', '2k'], aspectRatios: ['1:1', '4:3', '3:4', '16:9', '9:16', '4:5'] },
   google: {
     label: 'Google Gemini',
     provider: 'google',

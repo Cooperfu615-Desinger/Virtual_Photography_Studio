@@ -1,4 +1,5 @@
 import { createDllWorkspaceController } from './dllWorkspaceController.js';
+import { generateOpenAISequence } from './openaiImageSequence.js';
 import { dllWorkspaceStorage, configureDllAcceptanceStorage } from './dllWorkspaceStorage.js';
 import { generateDllPicImages, getDllPicModelConfig, getDllPicApiKeyStorageKeys } from './dllPicProClient.js';
 import { generateComfyViaFirebase, getComfySession, readComfyPending } from './comfyCloudProxyClient.js';
@@ -71,6 +72,12 @@ const runtimeOptions = {
       throw error;
     });
     const model = getDllPicModelConfig(task.snapshot.modelKey);
+    if (model.provider === 'openai') {
+      const session = await submissionSession(task);
+      const [{ getFunctions, httpsCallable }, { firebaseApp }] = await Promise.all([import('firebase/functions'), import('./firebase.js')]);
+      const call = httpsCallable(getFunctions(firebaseApp, 'us-central1'), 'openAIImageGenerate', { timeout: 310000 });
+      return generateOpenAISequence(task, { ...observers, submit: async payload => (await call({ ...payload, expectedUid: session.uid })).data });
+    }
     if (model.provider === 'comfyCloud') {
       await submissionSession(task);
     }

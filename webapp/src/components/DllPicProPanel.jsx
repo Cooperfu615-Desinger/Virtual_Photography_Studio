@@ -153,6 +153,7 @@ export default function DllPicProPanel({
     getDllPicResolutionOption(loadStoredModelKey(), initialSettings.resolution || loadStoredValue(DLL_PIC_STORAGE_KEYS.resolution, '1k')).value
   ));
   const [count, setCount] = useState(initialSettings.count || 1);
+  const [quality, setQuality] = useState(initialSettings.quality || 'medium');
   const comfyPending = DLL_LOCAL_ACCEPTANCE ? null : readComfyPending();
   const images = sharedTask?.images || loadDevPreviewImages();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -192,10 +193,10 @@ export default function DllPicProPanel({
     promptSources.find((source) => source.id === selectedSourceId) || availableSources[0] || promptSources[0] || null
   ), [availableSources, promptSources, selectedSourceId]);
   const selectedPrompt = full && custom ? customPrompt : selectedSource?.value || '';
-  const snapshot = () => ({ modelKey, ...getDllPicLoraSettings(modelKey, loraStrength), prompt: selectedPrompt, aspectRatio, resolution: activeResolution, count,
+  const snapshot = () => ({ modelKey, ...getDllPicLoraSettings(modelKey, loraStrength), prompt: selectedPrompt, aspectRatio, resolution: activeResolution, count, quality,
     seed: full && activeModel.provider === 'comfyCloud' ? seed : '', sourceId: custom ? 'custom' : selectedSource?.id,
     sourceLabel: custom ? '自訂' : selectedSource?.label, workspace: workspaceId, lockAspectRatio: Boolean(selectedSource?.lockAspectRatio) });
-  const draftSignature = JSON.stringify({ sources: promptSources, modelKey, loraStrength, selectedSourceId, aspectRatio, resolution: activeResolution, count, custom, customPrompt, seed, workspaceId });
+  const draftSignature = JSON.stringify({ sources: promptSources, modelKey, loraStrength, selectedSourceId, aspectRatio, resolution: activeResolution, count, quality, custom, customPrompt, seed, workspaceId });
   useEffect(() => { if (full && shared.ready) dllWorkspace.draft(JSON.parse(draftSignature)); }, [full, shared.ready, draftSignature]);
   const isAspectRatioLocked = Boolean(selectedSource?.lockAspectRatio && selectedSource?.aspectRatio);
   const isAspectRatioSupported = isDllPicAspectRatioSupported(modelKey, aspectRatio);
@@ -337,7 +338,7 @@ export default function DllPicProPanel({
           <div className="control-section-title">{title}</div>
         </div>
         <div className="dll-pic-header-actions">
-          {!full && <button type="button" className="secondary" onClick={() => openDllWorkspace({ sources: fullWorkspacePromptSources ?? promptSources, settings: { modelKey, loraStrength, selectedSourceId, aspectRatio, resolution: activeResolution, count }, workspaceId, taskId: sharedTask?.id })}>開啟完整版</button>}
+          {!full && <button type="button" className="secondary" onClick={() => openDllWorkspace({ sources: fullWorkspacePromptSources ?? promptSources, settings: { modelKey, loraStrength, selectedSourceId, aspectRatio, resolution: activeResolution, count, quality }, workspaceId, taskId: sharedTask?.id })}>開啟完整版</button>}
           <button className="secondary dll-pic-api-settings-btn" type="button" onClick={openApiKeyModal}>
             API Keys
           </button>
@@ -350,7 +351,7 @@ export default function DllPicProPanel({
           <button type="button" className="secondary" disabled={!selectedPrompt.trim() || !shared.ready || !isAspectRatioSupported || Boolean(loraError)} onClick={async () => { try { await dllWorkspace.enqueue(snapshot()); setMessage('已加入待生成清單'); } catch (error) { setMessage(error.message); } }}><ListPlus size={18} />加入待生成</button>
           <span className="dll-sticky-hint"><Pin size={13} />操作列固定可見</span>
         </div>
-        <p className="dll-generation-summary">{activeModel.label} · {aspectRatio} · {activeResolution.toUpperCase()} · {count} 張</p>
+        <p className="dll-generation-summary">{activeModel.label} · {aspectRatio} · {activeResolution.toUpperCase()} · {count} 張{activeModel.provider === 'openai' && ` · 畫質：${{ low: '低', medium: '中', high: '高' }[quality]}`}</p>
         <p className="dll-generation-context">{custom ? '自訂 Prompt' : selectedSource?.label || '尚未帶入來源'}{activeModel.provider === 'comfyCloud' && ` · Seed：${seed === '' ? '隨機' : seed}`}{loraSelection.enabled && ` · ${loraLabel} ${loraSelection.adjustable ? loraStrength : loraSelection.strength}`}</p>
         {(modelCompatibilityNote || loraError || !selectedPrompt.trim() || comfyPending || (!DLL_LOCAL_ACCEPTANCE && !activeModel.usesServerProxy && !activeApiKey)) && <p className="dll-generation-notice" role="status">{modelCompatibilityNote || loraError || (!selectedPrompt.trim() ? '請先帶入來源或編輯本次 Prompt。' : comfyPending ? '請先查詢上次 Comfy 任務，再開始生成。' : '請先在 API Keys 設定此模型的金鑰。')}</p>}
         {activeModel.provider === 'comfyCloud' && !DLL_LOCAL_ACCEPTANCE && !loraError && <ComfyQuotaPanel compact modelKey={activeModel.comfyModel} {...loraSettings} resolution={activeResolution} aspectRatio={aspectRatio} refreshToken={images} />}
@@ -436,6 +437,12 @@ export default function DllPicProPanel({
           </label>
         ) : null}
 
+        {activeModel.provider === 'openai' && <label className="field dll-pic-field">
+          <span>畫質</span><select aria-label="畫質" value={quality} disabled={!full && isGenerating} onChange={event => setQuality(event.target.value)}>
+            <option value="low">低</option><option value="medium">中</option><option value="high">高</option>
+          </select>
+        </label>}
+
         <label className="field dll-pic-field">
           {full && <span>張數</span>}
           <select aria-label="張數" value={count} disabled={!full && isGenerating} onChange={(event) => setCount(Number(event.target.value))}>
@@ -472,6 +479,7 @@ export default function DllPicProPanel({
         <div>{loraControls}</div>
       </details>}
 
+      {activeModel.provider === 'openai' && <div className="dll-pic-model-note">使用 OpenAI API 額度。<a href="https://platform.openai.com/settings/organization/billing/credit-grants" target="_blank" rel="noreferrer">查看額度</a></div>}
       {activeModel.provider === 'comfyCloud' ? <div className="dll-pic-model-note">{full ? '依序取得每張圖片後才送下一張。成果保存於此瀏覽器，請下載重要圖片。' : getComfyGenerationNote(activeModel, loraStrength)}</div> : null}
       {comfyPending ? <div className="dll-pic-actions">
         <button type="button" className="secondary" disabled={isGenerating} onClick={handleResumeComfy}>查詢上次任務</button>

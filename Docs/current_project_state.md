@@ -2,7 +2,13 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-29
+Last updated: 2026-10-30
+
+## DLL：GPT Image 2 文字生圖（本機實作，尚未部署）
+
+- 新增 OpenAI GPT Image 2 文字生圖、低／中／高畫質、1K／2K、1／2 張依序生成與 Firebase Secret 後端；詳見 [規格](specs/openai-gpt-image-2-v1.md)。
+- 同一請求重複提交有 Firestore 保護；同步 API 失去回應時可能無法取回圖片，需核對用量，不自動重送。實際模型權限、圖片、扣額與下載尚待部署與授權驗收。
+
 
 ## C4 第三批用字與收尾（2026-10-29，本機驗收通過）
 

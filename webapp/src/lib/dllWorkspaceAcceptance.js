@@ -13,7 +13,7 @@ export function acceptanceOptions(storage, materialize, imagePath) {
     const count = task.snapshot.kind === 'upscale' ? 1 : task.snapshot.count;
     const images = [];
     for (let i = 0; i < count; i++) {
-      images.push({ src: task.snapshot.sourceImage?.src || imagePath, mimeType: 'image/avif', meta: { seed: Number(task.snapshot.seed || 1234) + i } });
+      images.push({ src: task.snapshot.sourceImage?.src || imagePath, mimeType: 'image/avif', meta: task.snapshot.modelKey === 'openaiImage2' ? {} : { seed: Number(task.snapshot.seed || 1234) + i } });
       await cb.onImages([...images]);
     }
     return { images, errors: [], meta: { simulated: true } };

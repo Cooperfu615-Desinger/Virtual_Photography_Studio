@@ -340,6 +340,7 @@ test('BytePlus resolution options follow Pro and Lite model support', () => {
 test('model option helpers hide legacy aliases and keep analyzer to analysis-capable models', () => {
   const allModelKeys = getDllPicSelectableModelEntries().map(([key]) => key);
   assert.deepEqual(allModelKeys, [
+    'openaiImage2',
     'google31FlashLiteImage',
     'xaiGrokImagine',
     'xaiGrokImagineQuality',
