@@ -19,7 +19,7 @@ const FACE_PROPS = ['hand-apply-lipstick', 'hand-hold-fuji-x100v', 'hand-hold-wh
 
 test('道具 offers 全無, 隨機 and twelve props; the mirror selfie phone stays a 拍攝方式', () => {
   assert.deepEqual(PROP_OPTIONS.map(o => o.zh), ['全無', '隨機', '塗口紅｜自由妝感', '手持冰咖啡', '手持威士忌', '手持香檳', '手持礦泉水瓶',
-    '手持單眼 FUJI X-100V 相機', '手持波板糖', '含著圓形棒棒糖｜右手持棒', '手持香菸', '滑手機', '單手拿著眼鏡', '拿著打開的書']);
+    '手持 FUJIFILM X100V 相機', '手持波板糖', '含著圓形棒棒糖｜右手持棒', '手持香菸', '滑手機', '單手拿著眼鏡', '拿著打開的書']);
   assert.equal(PROP_OPTIONS.some(o => o.id === 'selfie-mirror-phone-visible'), false);
 });
 

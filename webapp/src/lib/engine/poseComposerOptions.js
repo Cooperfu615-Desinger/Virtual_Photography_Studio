@@ -698,7 +698,7 @@ const POSE_COMPOSER_LEGACY_HAND_OPTIONS = [
   { id: 'one-hand-hair', zh: '單手撩髮', en: 'one hand brushing hair back from the side of the face, fingers visibly touching the hair near the temple or ear' },
   { id: 'hands-on-thighs', zh: '雙手放在大腿上', en: 'both hands resting on the thighs or nearest upper-leg surface' },
   { id: 'hands-on-cheeks', zh: '雙手扶臉頰', en: 'both hands gently holding the cheeks' },
-  { id: 'one-hand-chin-other-down', zh: '單手托下巴', en: 'one hand supporting the chin with the other hand relaxed along the body or support surface' },
+  { id: 'one-hand-chin-other-down', zh: '單手托下巴（舊版）', desc: '舊版手勢，僅保留既有選值還原：一手托住下巴，另一手沿身體或支撐面自然放鬆。', en: 'one hand supporting the chin with the other hand relaxed along the body or support surface' },
   { id: 'one-hand-adjust-glasses', zh: '單手扶眼鏡', en: 'one hand adjusting the glasses at the frame or bridge, fingertips visibly touching the eyewear' },
   { id: 'one-hand-half-face-cover', zh: '單手遮住半邊臉', en: 'one hand partially covering one side of the face, fingers framing the cheek and eye area' },
   { id: 'both-hands-arrange-hair', zh: '雙手整理頭髮', en: 'both hands lifting and gathering the hair behind the head as if preparing to tie it up with fingers visibly holding the hair together' },
@@ -940,7 +940,7 @@ export const POSE_COMPOSER_HAND_OPTIONS = [
   hidePoseOptionForBases({"id": "squatting-forearms-outward-drape", "zh": "雙臂搭膝外展垂手", "en": "both arms spreading naturally to the sides with softly bent elbows, each distal forearm near the wrist resting lightly across the same-side knee, hands hanging beyond the outer knee edges with loose wrists and fingers, and shoulders relaxed", "meta": {"tags": ["squatting_hand_pose"], "visibleBuckets": ["unconstrained", "fixedComposition", "mediumWaist", "cowboyKnee", "fullBody"], "projectionByBucket": {"mediumWaist": {"mode": "projected", "en": "both arms spreading naturally to the sides with softly bent elbows, loose wrists and fingers, and shoulders relaxed"}}}}, ['standing', 'sitting', 'kneeling', 'lying']),
   hidePoseOptionForBases({"id": "squatting-elbows-center-drape", "zh": "雙肘靠膝中央垂手", "en": "both elbows or proximal forearms resting lightly on the same-side thighs near the knees, forearms slanting inward and downward between the knees, hands hanging loosely near each other at the center in front of the body with fingers pointing down, and shoulders relaxed", "meta": {"tags": ["squatting_hand_pose"], "visibleBuckets": ["unconstrained", "fixedComposition", "mediumWaist", "cowboyKnee", "fullBody"], "projectionByBucket": {"mediumWaist": {"mode": "projected", "en": "both forearms slanting inward and downward, hands relaxed near each other in front of the body, and shoulders relaxed"}}}}, ['standing', 'sitting', 'kneeling', 'lying']),
   deprecatedPoseHand(hidePoseOptionForBases({"id": "squatting-one-hand-mouth-one-down", "zh": "單手碰嘴角一手自然下垂", "en": "one hand lightly touching the corner of the mouth, the other arm hanging naturally beside the leg", "meta": {"tags": ["squatting_hand_pose", "face_action"], "visibleBuckets": ["unconstrained", "fixedComposition", "mediumWaist", "cowboyKnee", "fullBody"], "requiresFaceVisibility": true}}, ['standing', 'sitting', 'kneeling', 'lying'])),
-  { id: 'one-hand-support-chin', zh: '單手托下巴', en: 'one hand supporting the chin lightly, fingertips under the jaw, with the other hand relaxed along the body or support surface', meta: { tags: ['face_action'], visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS, requiresFaceVisibility: true } },
+  { id: 'one-hand-support-chin', zh: '單手托下巴', desc: '一手輕托下巴，指尖位於下顎下方，另一手沿身體或支撐面自然放鬆。', en: 'one hand supporting the chin lightly, fingertips under the jaw, with the other hand relaxed along the body or support surface', meta: { tags: ['face_action'], visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS, requiresFaceVisibility: true } },
   {
     id: 'one-hand-mouth-corner',
     zh: '單手輕咬食指',
@@ -1076,7 +1076,7 @@ export const POSE_COMPOSER_PROP_OPTIONS = [
   { id: 'hand-hold-mineral-water', zh: '手持礦泉水瓶', en: 'a clear plastic bottle of mineral water held naturally in one hand, with fresh condensation droplets on the bottle', desc: '單手自然拿著透明礦泉水瓶，瓶身帶有新鮮水珠。', meta: { tags: ['prop_action'] } },
   {
     id: 'hand-hold-fuji-x100v',
-    zh: '手持單眼 FUJI X-100V 相機',
+    zh: '手持 FUJIFILM X100V 相機',
     en: 'a silver-and-black FUJIFILM X100V camera raised directly in front of her face, her right eye looking through the viewfinder, her right hand gripping the camera with her index finger poised on the shutter button, captured in the act of taking a photograph',
     desc: '把銀黑雙色的 FUJIFILM X100V 相機舉到臉前，右眼透過觀景窗取景，右手握住機身，食指靠近快門，呈現正在拍照的姿勢。',
     meta: { tags: ['prop_action', 'face_action'] },

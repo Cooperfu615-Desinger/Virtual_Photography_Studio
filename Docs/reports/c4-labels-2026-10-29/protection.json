@@ -1,0 +1,11 @@
+{
+  "base": "c5b0d4cdd9189da8bb0524c5a76a0de0a0fdb52c",
+  "allowedTrackedChanges": [
+    "Docs/current_project_state.md",
+    "scripts/lib/savedCardsDownloadReplay.mjs",
+    "webapp/src/lib/engine/poseComposerOptions.js",
+    "webapp/src/lib/engine/propControl.test.js",
+    "webapp/src/lib/enginePosePropAndAnchorRedesign.test.js"
+  ],
+  "oldReportsCatalogAndOtherTrackedFilesUnchanged": true
+}

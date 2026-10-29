@@ -4,6 +4,11 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-29
 
+## C4 第一批中文名稱／說明（2026-10-29，本機驗收通過）
+
+- X100V 改為「手持 FUJIFILM X100V 相機」；active 托下巴保留名稱補說明，隱藏 legacy 版本標為「單手托下巴（舊版）」。現行 B 區 `support-chin` 不改，不重新公開舊控制項。
+- 固定基準 `c5b0d4cd`；英文、ID、選值、meta、舊收藏原文及歷史基準保持。Cooper 已驗收通過並授權本批限定提交／推送；保留瀏覽器驗收限制，CI／部署於交付時核對。見 [規格](specs/c4-pose-display-labels-v1.md)、[決策](decisions/2026-10-29-c4-pose-labels.md)。其他 C 類、PAGE2 舊匯入、J12、P5b 排除。
+
 ## B3 維護責任與精準護欄收尾（2026-10-29）
 
 - 以 main `916cdc10` 清點來源責任；身份與穿搭沿用已共用來源，完整 legacy en、MJ 簡稱、圖層 metadata、圖片 manifest 與排序各守原用途。118 共用／16 例外保持。
