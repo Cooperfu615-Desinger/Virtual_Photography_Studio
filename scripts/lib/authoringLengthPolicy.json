@@ -1,0 +1,229 @@
+{
+  "version": 1,
+  "sections": [
+    "Wardrobe",
+    "Locations",
+    "CameraLighting",
+    "Regional"
+  ],
+  "rules": {
+    "Wardrobe/特殊穿搭 (Special Outfits)": {
+      "min": 35,
+      "max": 85,
+      "spec": "Docs/specs/wardrobe-section-b-authoring-guide.md"
+    },
+    "Wardrobe/套裝 (Outfit Presets)": {
+      "min": 12,
+      "max": 32,
+      "spec": "Docs/specs/wardrobe-section-b-authoring-guide.md"
+    },
+    "Wardrobe/連身 (Dresses)": {
+      "min": 12,
+      "max": 32,
+      "spec": "Docs/specs/wardrobe-section-b-authoring-guide.md"
+    },
+    "Wardrobe/上身 (Tops)": {
+      "min": 6,
+      "max": 20,
+      "spec": "Docs/specs/wardrobe-section-b-authoring-guide.md"
+    },
+    "Wardrobe/褲裝 (Pants)": {
+      "min": 6,
+      "max": 20,
+      "spec": "Docs/specs/wardrobe-section-b-authoring-guide.md"
+    },
+    "Wardrobe/裙裝 (Skirts)": {
+      "min": 6,
+      "max": 20,
+      "spec": "Docs/specs/wardrobe-section-b-authoring-guide.md"
+    },
+    "Wardrobe/外套 (Outerwear)": {
+      "min": 6,
+      "max": 20,
+      "spec": "Docs/specs/wardrobe-section-b-authoring-guide.md"
+    },
+    "Wardrobe/鞋款 (Shoes)": {
+      "min": 6,
+      "max": 20,
+      "spec": "Docs/specs/wardrobe-section-b-authoring-guide.md"
+    },
+    "Wardrobe/襪類 (Legwear)": {
+      "min": 6,
+      "max": 20,
+      "spec": "Docs/specs/wardrobe-section-b-authoring-guide.md"
+    },
+    "Wardrobe/頭部配件 (Head Accessories)": {
+      "min": 4,
+      "max": 16,
+      "spec": "Docs/specs/wardrobe-section-b-authoring-guide.md"
+    },
+    "Wardrobe/眼鏡 (Eyewear)": {
+      "min": 4,
+      "max": 16,
+      "spec": "Docs/specs/wardrobe-section-b-authoring-guide.md"
+    },
+    "Wardrobe/耳環 (Earrings)": {
+      "min": 4,
+      "max": 16,
+      "spec": "Docs/specs/wardrobe-section-b-authoring-guide.md"
+    },
+    "Wardrobe/頸部 (Neck Accessories)": {
+      "min": 4,
+      "max": 16,
+      "spec": "Docs/specs/wardrobe-section-b-authoring-guide.md"
+    },
+    "Wardrobe/鼻部穿孔 (Nose Piercings)": {
+      "min": 4,
+      "max": 16,
+      "spec": "Docs/specs/wardrobe-section-b-authoring-guide.md"
+    },
+    "Wardrobe/唇部穿孔 (Lip Piercings)": {
+      "min": 4,
+      "max": 16,
+      "spec": "Docs/specs/wardrobe-section-b-authoring-guide.md"
+    },
+    "Wardrobe/腰部配件 (Waist Accessories)": {
+      "min": 4,
+      "max": 16,
+      "spec": "Docs/specs/wardrobe-section-b-authoring-guide.md"
+    },
+    "Locations/攝影棚與背景 (Studio Sets)": {
+      "min": 12,
+      "max": 28,
+      "spec": "Docs/specs/scene-section-c-authoring-guide.md"
+    },
+    "Locations/生活感室內 (Indoor & Lifestyle)": {
+      "min": 12,
+      "max": 28,
+      "spec": "Docs/specs/scene-section-c-authoring-guide.md"
+    },
+    "Locations/地下與廢墟風格 (Abandoned & Underground)": {
+      "min": 12,
+      "max": 28,
+      "spec": "Docs/specs/scene-section-c-authoring-guide.md"
+    },
+    "Locations/城市與社群感 (Urban & Social Snapshots)": {
+      "min": 12,
+      "max": 28,
+      "spec": "Docs/specs/scene-section-c-authoring-guide.md"
+    },
+    "Locations/自然與戶外 (Nature & Outdoors)": {
+      "min": 12,
+      "max": 28,
+      "spec": "Docs/specs/scene-section-c-authoring-guide.md"
+    },
+    "Locations/其他專屬場景 (Other Dedicated Scenes)": {
+      "min": 10,
+      "max": 30,
+      "spec": "Docs/specs/scene-section-c-authoring-guide.md"
+    },
+    "CameraLighting/環境光條件 (Ambient Light Conditions)": {
+      "min": 8,
+      "max": 24,
+      "spec": "Docs/specs/scene-section-c-authoring-guide.md"
+    },
+    "CameraLighting/光線表現 (Light Style)": {
+      "min": 8,
+      "max": 24,
+      "spec": "Docs/specs/scene-section-c-authoring-guide.md"
+    },
+    "CameraLighting/景別構圖 (Framing)": {
+      "min": 6,
+      "max": 18,
+      "spec": "Docs/specs/photography-section-d-authoring-guide.md"
+    },
+    "CameraLighting/相機視角 (Angle)": {
+      "min": 6,
+      "max": 18,
+      "spec": "Docs/specs/photography-section-d-authoring-guide.md"
+    },
+    "CameraLighting/拍攝方位 (Orbit Angle)": {
+      "min": 6,
+      "max": 18,
+      "spec": "Docs/specs/photography-section-d-authoring-guide.md"
+    },
+    "CameraLighting/鏡頭焦段 (Focal Length)": {
+      "min": 12,
+      "max": 24,
+      "spec": "Docs/specs/photography-section-d-authoring-guide.md"
+    },
+    "CameraLighting/光圈 / 景深 (Aperture & Depth of Field)": {
+      "min": 10,
+      "max": 22,
+      "spec": "Docs/specs/photography-section-d-authoring-guide.md"
+    },
+    "CameraLighting/快門 / 動態殘影 (Shutter & Motion Blur)": {
+      "min": 10,
+      "max": 24,
+      "spec": "Docs/specs/photography-section-d-authoring-guide.md"
+    },
+    "CameraLighting/光學效果 (Optical Effects)": {
+      "min": 10,
+      "max": 26,
+      "spec": "Docs/specs/photography-section-d-authoring-guide.md"
+    },
+    "Regional/攝影風格": {
+      "min": 14,
+      "max": 26,
+      "spec": "Docs/specs/photography-section-d-authoring-guide.md"
+    }
+  },
+  "exceptions": [
+    {
+      "id": "wardrobe:上身-tops:小罩杯細帶蕾絲胸罩:43",
+      "sourceSha256": "a92d4c6823def6b1ca98008a0c89b9b54ecc96085ad90ea351a33c811b46894e",
+      "reviewedCommit": "cde8a470049dbcf0d7427bba552bb174317de668",
+      "spec": "Docs/specs/x-shaped-pasties-v2-six-prompts.md",
+      "kind": "specific_contract",
+      "reason": "既有單品字數例外與結構文字保持。"
+    },
+    {
+      "id": "wardrobe:上身-tops:創可貼造型胸貼:45",
+      "sourceSha256": "f822d3ce5fb7bddaf8b3f46265b7cf136bc62e6b24e975f419ebb43e638f9d00",
+      "reviewedCommit": "cde8a470049dbcf0d7427bba552bb174317de668",
+      "spec": "Docs/specs/bandage-pasties-v1.md",
+      "kind": "specific_contract",
+      "reason": "保留數量、尺寸、貼附與材質等已核准例外。"
+    },
+    {
+      "id": "wardrobe:外套穿法-outerwear-styling:衣襬遮住部分下身:4",
+      "sourceSha256": "90be0294cf8285ee0c98a24ed3dc2714d3c517b7e0276a3e38f152026674ea74",
+      "reviewedCommit": "cde8a470049dbcf0d7427bba552bb174317de668",
+      "spec": "Docs/specs/outerwear-styling-v2.md",
+      "kind": "specific_contract",
+      "reason": "已核准17詞來源，保留衣襬與下身遮蔽關係。"
+    },
+    {
+      "id": "wardrobe:外套穿法-outerwear-styling:披在雙肩（不穿袖）:5",
+      "sourceSha256": "54c2f80ce088240d64503b825303fb677f3ad16f1037c2f2ec3ef40e7a8b8b6f",
+      "reviewedCommit": "cde8a470049dbcf0d7427bba552bb174317de668",
+      "spec": "Docs/specs/outerwear-styling-v2.md",
+      "kind": "specific_contract",
+      "reason": "已核准15詞來源，穿袖與空袖落點各有責任。"
+    },
+    {
+      "id": "wardrobe:外套穿法-outerwear-styling:披在單肩（不穿袖）:6",
+      "sourceSha256": "295ec7a2b2946981bc1429cb2426edd10998aa79a81fd01bb4c0a4ec3a8232f4",
+      "reviewedCommit": "cde8a470049dbcf0d7427bba552bb174317de668",
+      "spec": "Docs/specs/outerwear-styling-v2.md",
+      "kind": "specific_contract",
+      "reason": "已核准19詞來源，單肩及空袖垂落關係保持。"
+    },
+    {
+      "id": "wardrobe:連身-dresses:連身-短版-亮面乳膠拉鏈洋裝:24",
+      "sourceSha256": "38b6ecbf19f7764127860ad30bffad7ace99893ef50d4d8a2ddb5b36f845927c",
+      "reviewedCommit": "cde8a470049dbcf0d7427bba552bb174317de668",
+      "spec": "Docs/specs/wardrobe-section-b-authoring-guide.md",
+      "kind": "necessary_structure",
+      "reason": "連續前開口、肚臍拉鍊頭與下方閉合各有責任。"
+    },
+    {
+      "id": "wardrobe:頭部配件-head-accessories:有線耳機:3",
+      "sourceSha256": "516de0d720f2f0c45317cb5c060777a74b85b33c66022088085c5fc2404d0d24",
+      "reviewedCommit": "cde8a470049dbcf0d7427bba552bb174317de668",
+      "spec": "Docs/specs/wardrobe-section-b-authoring-guide.md",
+      "kind": "necessary_structure",
+      "reason": "保留連續線路、衣物內收線與末端不懸空；不是普遍放寬配件字數。"
+    }
+  ]
+}

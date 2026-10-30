@@ -4,6 +4,11 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-30
 
+## C2 第一批：編寫長度政策與唯讀診斷（2026-10-30）
+
+- 統一 catalog.en 計詞與分類責任，七筆例外綁定ID／英文指紋／規格；超長只診斷，失效例外阻擋。未分類不自動補規則。公開英文與產品功能不變，五筆腰鍊文字精簡另批。
+- [規格](specs/c2-authoring-length-policy-v1.md)、[決策](decisions/2026-10-30-c2-authoring-lengths.md)、[驗收](reports/c2-authoring-lengths-2026-10-30/README.md)。本機驗收通過（Python51／唯讀sync／來源保護）；Cooper已驗收並授權限定提交／推送，CI與部署於交付時確認；其他C類、PAGE2舊匯入、J12、P5b排除。
+
 ## C3 現行姿勢說明與隱藏標記（2026-10-30，本機驗收通過）
 
 - 現行 54 動作已有說明，新增完整性護欄；六筆全基底隱藏相容選項只補 uiHidden，不改英文、ID、舊鎖值或收藏原文。

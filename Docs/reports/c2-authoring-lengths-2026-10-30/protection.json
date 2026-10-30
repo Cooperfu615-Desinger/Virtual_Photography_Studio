@@ -1,0 +1,12 @@
+{
+  "base": "cde8a470049dbcf0d7427bba552bb174317de668",
+  "protectedTrackedFiles": 2964,
+  "catalogSourceRuntimeAndHistoricalEvidenceByteIdentical": true,
+  "indexEmpty": true,
+  "trackedChanges": [
+    "Docs/current_project_state.md",
+    "Docs/specs/photography-section-d-authoring-guide.md",
+    "Docs/specs/scene-section-c-authoring-guide.md",
+    "Docs/specs/wardrobe-section-b-authoring-guide.md"
+  ]
+}
