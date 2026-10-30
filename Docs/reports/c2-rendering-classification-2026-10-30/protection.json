@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "base": "2fa8fe65226903141597ab74b044a0102a6f8ca7",
+  "changedTracked": [
+    "Docs/current_project_state.md",
+    "Docs/specs/c2-authoring-length-policy-v1.md",
+    "Docs/specs/photography-section-d-authoring-guide.md",
+    "scripts/lib/authoringLengthPolicy.json",
+    "scripts/lib/c2SceneOpticsReplay.mjs",
+    "scripts/tests/test_authoring_lengths.py",
+    "scripts/tests/test_c2_scene_optics.py"
+  ],
+  "trackedProtected": 4401,
+  "historicalReports": 2765,
+  "knowledgeBase": 70,
+  "webappSources": 501,
+  "publicSourcesByteIdentical": true,
+  "stagedFiles": []
+}

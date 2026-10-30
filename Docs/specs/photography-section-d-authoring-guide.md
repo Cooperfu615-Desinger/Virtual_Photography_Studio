@@ -49,9 +49,9 @@ Prompt 應使用短而準的英文片語。中文描述用來幫助維護者理�
 | 光圈 / 景深 `apertureId` | `knowledge_base/catalog/CameraLighting/` 的 `光圈 / 景深 (Aperture & Depth of Field)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
 | 快門 / 動態殘影 `shutterId` | `knowledge_base/catalog/CameraLighting/` 的 `快門 / 動態殘影 (Shutter & Motion Blur)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
 | 光學效果 `opticalEffectId` | `knowledge_base/catalog/CameraLighting/` 的 `光學效果 (Optical Effects)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
-| 相機 profile | `webapp/src/lib/engine.js` 的 `CAMERA_SYSTEM_OPTIONS` | code-defined，併入 `filmId` 選項，不走分類 JSON sync。 |
-| 相機 / 底片 `filmId` | `CAMERA_SYSTEM_OPTIONS` 加上 `底片與相機模擬 (Camera & Film Simulation)` | UI label 是 `相機 / 底片`，選項包含相機 profile 與 rendering look。 |
-| 舊資料相容 | `webapp/src/lib/engine.js` | 主要是 `CAMERA_FILM_LEGACY_OPTION_MAP`、`buildImagingSimulationOptions`、`normalizeLocks`。 |
+| 舊相機 profile | `webapp/src/lib/engine.js` 的 `CAMERA_SYSTEM_OPTIONS` | 八筆歷史相容來源，不公開；不走分類 JSON sync。 |
+| 成像模擬 / 調色 `filmId` | catalog 的 `底片與相機模擬 (Camera & Film Simulation)` | 公開25筆 rendering 加全無；分類舊名稱與ID保持。 |
+| 舊資料相容 | `webapp/src/lib/engine.js` | engine消費 `knowledge_base/catalog/legacy_mappings.json` 同步的 `CAMERA_FILM_LEGACY_OPTION_MAP`／`CAMERA_PROFILE_RENDERING_MIGRATIONS`；組裝與還原仍在engine。 |
 | 測試 | `webapp/src/lib/enginePhotographyImagingCleanup.test.js`、`engineGrokScenePriority.test.js`、`engineLightingCompatibility.test.js` | 依修改範圍更新。 |
 
 JSON 正式來源同步流程（先設定已審查的 `REGISTRY_BASE_COMMIT`）：
@@ -60,7 +60,7 @@ JSON 正式來源同步流程（先設定已審查的 `REGISTRY_BASE_COMMIT`）�
 python3 scripts/sync_to_json.py
 ```
 
-同步後需確認 `webapp/src/data/database.json` 只有預期分類改動。相機 profile 是 code-defined，不需要 sync，但仍需要更新測試。
+同步後需確認 `webapp/src/data/database.json` 只有預期分類改動。相機 profile 是 code-defined歷史來源；本批不新增、不重新公開。相容來源變更仍須測試。
 
 ## 3. Prompt 寫法總則
 
@@ -76,7 +76,7 @@ Inspired by photographer name, image-language phrase, tonal palette, editorial r
 shot size or camera geometry, crop boundary, camera height or viewing direction, perspective effect
 ```
 
-相機 profile 英文 prompt 建議格式：
+歷史相機 profile 英文格式（供追溯，不是現行公開新增入口）：
 
 ```text
 camera system profile, sensor or body trait, common lens perspective, shooting response, capture character
@@ -132,7 +132,7 @@ film stock or rendering type, color response, contrast curve, grain or sharpness
 
 - 攝影師風格：14-26 English words。
 - 構圖景別、相機視角、拍攝方位：6-18 English words。
-- 相機 profile：12-24 English words。
+- 歷史相機 profile：12-24 English words，僅保留原編寫參考，不納入catalog rendering診斷。
 - 鏡頭焦段：12-24 English words。
 - 光圈 / 景深：10-22 English words。
 - 快門 / 動態殘影：10-24 English words。
@@ -198,9 +198,9 @@ low camera angle, looking upward from below eye level, elongated vertical perspe
 
 ## 6. 相機 Profile
 
-相機 profile 是 `filmId` 的第一層選項，UI 顯示於 `相機 / 底片`。它由 `CAMERA_SYSTEM_OPTIONS` 定義，並透過 `buildImagingSimulationOptions` 和底片 / 成像 rendering 合併。
+相機 profile 為歷史相容資料，保留在 `CAMERA_SYSTEM_OPTIONS`；現行公開 `filmId` 為「成像模擬 / 調色」，不列出相機 profile。舊 `filmId` 或 `cameraSystemId` 的八個 profile ID 由 `CAMERA_PROFILE_RENDERING_MIGRATIONS` 遷移到現行成像選項。
 
-目前相機 profile 使用 `相機｜名稱` 命名：
+歷史相機 profile 使用 `相機｜名稱` 命名（不公開、不隨機抽樣）：
 
 - `相機｜Leica M 旁軸`
 - `相機｜Ricoh GR 快拍`
@@ -211,7 +211,7 @@ low camera angle, looking upward from below eye level, elongated vertical perspe
 - `相機｜空拍機小型感光元件`
 - `相機｜手機紀實直出`
 
-新增規則：
+歷史描述契約（僅供維護既有相容來源，不授權新增或公開）：
 
 - 相機 label 使用 `相機｜名稱`。
 - 英文 prompt 以 `camera profile` 為核心。
@@ -306,7 +306,7 @@ blurred foreground occlusion near the lens, out-of-focus shapes crossing one or 
 
 ## 9. 底片 / 成像 Rendering
 
-底片 / 成像 rendering 負責色彩、階調、顆粒、黑位、亮部控制、動態範圍與媒介質地。它和相機 profile 共用 `filmId` 控制，但責任不同。
+底片 / 成像 rendering 負責色彩、階調、顆粒、黑位、亮部控制、動態範圍與媒介質地。現行 `filmId` 只公開此類成像來源；相機 profile 僅保留舊ID遷移，不混入公開選項。
 
 目前 rendering 類型：
 
@@ -330,22 +330,14 @@ blurred foreground occlusion near the lens, out-of-focus shapes crossing one or 
 high-acutance snapshot rendering, snap-focus clarity, contrasty black levels, crisp APS-C-like color response, candid compact-camera texture
 ```
 
-## 10. 相機 / 底片合併邏輯
+## 10. 現行成像選項與舊相機遷移
 
-PAGE1 的 `filmId` 控制現在承擔 `相機 / 底片`：
-
-- 相機 profile 來自 `CAMERA_SYSTEM_OPTIONS`。
-- 底片 / 成像 rendering 來自分類 JSON 的 `底片與相機模擬 (Camera & Film Simulation)`。
-- `buildImagingSimulationOptions` 會把兩者合併成同一個 UI 選項集。
-- `cameraSystemId` 是 hidden legacy control，保留給舊資料遷移。
-
-維護規則：
-
-- 新增相機 profile 時，直接更新 `CAMERA_SYSTEM_OPTIONS`，並補測試。
-- 新增底片 / 成像 rendering 時，更新 `knowledge_base/catalog/CameraLighting/` 並跑 sync。
-- 相機 profile 和 rendering look 可以一起存在，但 prompt 應可組合，不能互相覆蓋。
-- 如果改名、抽象化或合併 rendering look，必須更新 `CAMERA_FILM_LEGACY_OPTION_MAP`。
-- 舊 `cameraSystemId` lock 必須能遷移到新的 `filmId` selection。
+- `buildImagingSimulationOptions` 只回傳分類JSON的全無與25筆rendering；現行label為「成像模擬 / 調色」。
+- `CAMERA_SYSTEM_OPTIONS` 的八個profile不公開；`cameraSystemId` 為hidden legacy control。
+- `normalizeLocks` 將舊filmId或cameraSystemId的profile ID透過 `CAMERA_PROFILE_RENDERING_MIGRATIONS` 轉到現行rendering。既有filmId優先權不變。
+- 相容映射正式來源在 `knowledge_base/catalog/legacy_mappings.json`，生成副本在 `webapp/src/data/legacyMappings.json`，不可直接改生成物。
+- 本批只把catalog rendering列入10–24詞診斷。不要拆分類、換ID、刪舊profile或將它們重新加回選單。
+- 新增或修改rendering沿用catalog流程；若改名或合併，檢查既有alias與兩張映射的實際影響，不自動更動其他列。
 
 ## 11. 舊資料相容
 
@@ -385,13 +377,12 @@ D 區有多種 id 來源，改名時風險不同。
 5. 檢查 close-up mode、wardrobe compatibility、special action compatibility。
 6. 更新 `enginePhotographyImagingCleanup.test.js` 或相關相容性測試。
 
-新增相機 profile：
+舊相機 profile 維護：
 
-1. 在 `CAMERA_SYSTEM_OPTIONS` 新增手動 id。
-2. Label 使用 `相機｜名稱`。
-3. Prompt 描述相機系統、常見視角、操作感與捕捉反應。
-4. 不跑 sync，但需更新測試。
-5. 若替代舊相機或舊成像選項，補 legacy mapping。
+1. 現行無公開新增入口；新增相機產品能力須另行決策。
+2. 保留八個既有手動ID及CAMERA_SYSTEM_OPTIONS原文。
+3. 需維護相容映射時修改正式legacy來源並sync，不直接改生成副本。
+4. 分別驗證舊filmId與cameraSystemId遷移、既有filmId優先權；不重寫舊收藏原文。
 
 新增鏡頭或光學效果：
 
@@ -415,7 +406,7 @@ D 區有多種 id 來源，改名時風險不同。
 | 修改範圍 | 主要測試 |
 | --- | --- |
 | 構圖視角語氣、相機 / 底片分層、鏡頭光學長度、攝影師風格收斂 | `webapp/src/lib/enginePhotographyImagingCleanup.test.js` |
-| 相機 profile 併入 `filmId`、legacy `cameraSystemId` 遷移 | `webapp/src/lib/engineGrokScenePriority.test.js` |
+| rendering公開選項、舊filmId／cameraSystemId遷移 | `webapp/src/lib/enginePhotographyImagingCleanup.test.js`、`engineGrokScenePriority.test.js` |
 | 光學效果摘要與 C 區光線摘要分離 | `webapp/src/lib/engineLightingCompatibility.test.js` |
 | PAGE3 攝影師風格沿用 | `webapp/src/lib/page3WorldScene.test.js` |
 
@@ -442,7 +433,7 @@ git diff --check
 - 選項是否真的屬於 D 區，而不是 A 人物、B 穿搭或 C 場景光線。
 - 攝影師風格是否只描述 image language，沒有偷渡相機、底片、場景或人物身體設定。
 - 構圖與視角是否只描述幾何、裁切、相機高度、方位與透視。
-- 相機 profile 是否以 `相機｜` 命名，且保留穩定手動 id。
+- 舊相機profile是否保留穩定手動ID與遷移，且沒有重新公開。
 - 相機 profile 是否描述相機系統、常見視角、操作感與捕捉反應，而不是底片色彩。
 - 鏡頭焦段是否描述 field of view、透視、壓縮、變形或焦平面，不寫相機品牌。
 - 光學效果是否是鏡頭 / 濾鏡 / optical artifact，不變成天氣或環境光。
@@ -452,3 +443,5 @@ git diff --check
 - 測試是否覆蓋 prompt 邊界、legacy 遷移與生成輸出。
 
 2026-10-30 C2 場景／光學：三筆小幅精簡、29筆理由（28筆原樣保留）及28筆具指紋例外，總數38；一般範圍與相機／底片未分類保持。詳見[本批規格](c2-scene-optics-v1.md)，不回寫歷史驗收。
+
+2026-10-30 C2收尾分類：[成像診斷與結案盤點](c2-rendering-classification-v1.md)補齊25筆rendering的10–24詞診斷；英文、ID、舊映射均不改。上方舊相機英文格式僅供歷史追溯。

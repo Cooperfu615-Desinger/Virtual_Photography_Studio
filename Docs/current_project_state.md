@@ -2,7 +2,15 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-30
+Last updated: 2026-10-31
+
+## C2 成像診斷分類與結案盤點（2026-10-31，使用者驗收通過）
+
+- 基準main `2fa8fe65226903141597ab74b044a0102a6f8ca7`；只新增catalog rendering的10–24詞診斷規則。25筆15–24詞原文保持，within660→685／unclassified106→81；under22、over70與38筆例外不變。
+- 修正攝影指南：現行filmId為25筆成像加全無，八個舊相機profile只保留相容，兩條舊鎖值路徑與既有filmId優先權保持。沒有產品資料、英文、ID、metadata、排序、alias、renderer或UI變更。
+- 前端2066／Python59／聚焦9、原644組比較及90組模式回放、lint、唯讀sync（1050 ID／8生成物）通過。4401份既有檔案逐位元保持，含2765份歷史報告；其他20工作目錄／140未提交檔保持。必要歷史銜接保留舊測試正文與25筆未分類斷言，不重錄舊基準。
+- 結案盤點修正先前估計：173筆剩餘診斷分成38筆已具例外、7筆已批次審閱、78筆一般未分類修飾及50筆待審候選（28 over／22 under）。加上三筆例外穿法共81筆未分類。50筆尚無本輪逐筆語意審閱依據，不能宣稱全目錄C2已結案；使用者指定50筆另批處理，先不進入C5。
+- 見[規格與清單](specs/c2-rendering-classification-v1.md)、[決策](decisions/2026-10-30-c2-rendering-classification.md)、[驗收](reports/c2-rendering-classification-2026-10-30/README.md)。本批無產品差異，未重跑build／瀏覽器／生圖，前批原生下拉及影像品質限制保留。Cooper已驗收並授權本批限定提交／推送，CI與部署於交付時核對；其他C類、PAGE2舊匯入、J12、P5b未併入。
 
 ## C2 場景／光學：三筆微調與29筆保留理由（2026-10-30，使用者驗收通過）
 

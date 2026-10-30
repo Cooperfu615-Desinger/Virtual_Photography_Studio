@@ -166,6 +166,11 @@
       "min": 14,
       "max": 26,
       "spec": "Docs/specs/photography-section-d-authoring-guide.md"
+    },
+    "CameraLighting/底片與相機模擬 (Camera & Film Simulation)": {
+      "min": 10,
+      "max": 24,
+      "spec": "Docs/specs/photography-section-d-authoring-guide.md"
     }
   },
   "exceptions": [

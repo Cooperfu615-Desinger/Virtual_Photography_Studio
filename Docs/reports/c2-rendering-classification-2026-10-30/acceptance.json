@@ -1,0 +1,47 @@
+{
+  "status": "local-validation-passed",
+  "base": "2fa8fe65226903141597ab74b044a0102a6f8ca7",
+  "completedLocalDate": "2026-10-31",
+  "ruleAdded": 1,
+  "changedDiagnosticRows": 25,
+  "publicSourceChanges": 0,
+  "beforeSummary": {
+    "under": 22,
+    "over": 70,
+    "within": 660,
+    "unclassified": 106
+  },
+  "afterSummary": {
+    "under": 22,
+    "over": 70,
+    "within": 685,
+    "unclassified": 81
+  },
+  "reviewedExceptions": 38,
+  "remainingDiagnosticRows": 173,
+  "followupCandidates": {
+    "over": 28,
+    "under": 22,
+    "total": 50
+  },
+  "entireC2ContentClosed": false,
+  "pythonTests": 59,
+  "focusedTests": 9,
+  "frontendTests": 2066,
+  "lint": "passed",
+  "sync": "passed",
+  "historicalIds": 1050,
+  "generatedOutputs": 8,
+  "priorFixedCases": 644,
+  "priorModeCases": 90,
+  "earlierFullHistoryChain": "reused sealed 2fa8fe65 evidence; not rerun this batch",
+  "buildBrowserAndImageGeneration": "not rerun; no product change; prior limitations retained",
+  "protectedFiles": 4401,
+  "protectedHistoricalReports": 2765,
+  "otherWorktrees": 20,
+  "otherDirtyFiles": 140,
+  "beforeDiagnosticSha256": "5aef236b1704b2883edd3374e7dabd387eef51dcf54bfaffd69181adc8bc2f75",
+  "userAcceptance": "pending",
+  "committed": false,
+  "pushed": false
+}

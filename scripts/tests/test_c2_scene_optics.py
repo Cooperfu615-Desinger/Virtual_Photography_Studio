@@ -1,3 +1,4 @@
+from scripts.lib.c2_rendering_history import historical_policy_test
 import copy
 import hashlib
 import json
@@ -7,6 +8,7 @@ import unittest
 from scripts import check_authoring_lengths as c
 
 class C2SceneOpticsTests(unittest.TestCase):
+    @historical_policy_test
     def test_review_set_matches_fixed_prechange_diagnostics_and_28_new_exceptions(self):
         root=c.ROOT
         review=json.loads((root/'scripts/lib/c2SceneOpticsReview.json').read_text())

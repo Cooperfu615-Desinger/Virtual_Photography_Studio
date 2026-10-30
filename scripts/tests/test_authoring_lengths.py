@@ -1,3 +1,4 @@
+from scripts.lib.c2_rendering_history import historical_policy_test
 import copy
 import hashlib
 import json
@@ -87,6 +88,7 @@ class AuthoringLengthTests(unittest.TestCase):
             source=next(x for x in json.loads(raw)['entries'] if x['id']==exception['id'])
             self.assertEqual(c.digest(source['en']),exception['sourceSha256'])
 
+    @historical_policy_test
     def test_waist_specific_range_and_reviewed_retentions(self):
         policy=json.loads((c.ROOT/'scripts/lib/authoringLengthPolicy.json').read_text())
         review=json.loads((c.ROOT/'scripts/lib/c2WaistReview.json').read_text())
