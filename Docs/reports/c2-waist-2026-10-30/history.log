@@ -1,0 +1,455 @@
+c3_pose_acceptance.mjs {"cases":624,"outputsSelectionsRngRestore":"equal","record":false}
+c4_jewelry_labels_acceptance.mjs {"cases":216,"legacyCases":1098,"outputsSelectionsRng":"equal","oldCards":"public-text-and-restore-preserved"}
+c4_catalog_labels_acceptance.mjs {"cases":558,"legacyCases":1098,"outputsSelectionsRng":"equal","oldCards":"public-text-and-restore-preserved"}
+c4_labels_acceptance.mjs {
+  cases: 90,
+  publicOutputsSelectionsAndRng: 'equal',
+  storedPublicText: 'preserved'
+}
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: webapp/src/components/DllPicProPanel.jsx
++ actual - expected
+
++ '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36'
+- '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689'
+
+    at file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/b3-wardrobe-history-TJcRLM/scripts/page2_adult_identity_acceptance.mjs:28:39 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36',
+  expected: '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.23.3
+node:internal/errors:983
+  const err = new Error(message);
+              ^
+
+Error: Command failed: /Users/cooperfu/.npm/_npx/52027bd8fc0022aa/node_modules/node/bin/node /var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/b3-wardrobe-history-TJcRLM/scripts/page2_adult_identity_acceptance.mjs /tmp/c2-waist-history-final/b3/page2-acceptance
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: webapp/src/components/DllPicProPanel.jsx
++ actual - expected
+
++ '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36'
+- '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689'
+
+    at file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/b3-wardrobe-history-TJcRLM/scripts/page2_adult_identity_acceptance.mjs:28:39 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36',
+  expected: '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.23.3
+
+    at genericNodeError (node:internal/errors:983:15)
+    at wrappedFn (node:internal/errors:537:14)
+    at checkExecSyncError (node:child_process:916:11)
+    at execFileSync (node:child_process:952:15)
+    at file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-c2-waist-2FhRp3/scripts/b3_character_wardrobe_history.mjs:18:19
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {
+  status: 1,
+  signal: null,
+  output: [
+    null,
+    '',
+    'node:internal/modules/run_main:123\n' +
+      '    triggerUncaughtException(\n' +
+      '    ^\n' +
+      '\n' +
+      'AssertionError [ERR_ASSERTION]: webapp/src/components/DllPicProPanel.jsx\n' +
+      '+ actual - expected\n' +
+      '\n' +
+      "+ '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36'\n" +
+      "- '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689'\n" +
+      '\n' +
+      '    at file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/b3-wardrobe-history-TJcRLM/scripts/page2_adult_identity_acceptance.mjs:28:39 {\n' +
+      '  generatedMessage: false,\n' +
+      "  code: 'ERR_ASSERTION',\n" +
+      "  actual: '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36',\n" +
+      "  expected: '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689',\n" +
+      "  operator: 'strictEqual',\n" +
+      "  diff: 'simple'\n" +
+      '}\n' +
+      '\n' +
+      'Node.js v22.23.3\n'
+  ],
+  pid: 99058,
+  stdout: '',
+  stderr: 'node:internal/modules/run_main:123\n' +
+    '    triggerUncaughtException(\n' +
+    '    ^\n' +
+    '\n' +
+    'AssertionError [ERR_ASSERTION]: webapp/src/components/DllPicProPanel.jsx\n' +
+    '+ actual - expected\n' +
+    '\n' +
+    "+ '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36'\n" +
+    "- '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689'\n" +
+    '\n' +
+    '    at file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/b3-wardrobe-history-TJcRLM/scripts/page2_adult_identity_acceptance.mjs:28:39 {\n' +
+    '  generatedMessage: false,\n' +
+    "  code: 'ERR_ASSERTION',\n" +
+    "  actual: '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36',\n" +
+    "  expected: '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689',\n" +
+    "  operator: 'strictEqual',\n" +
+    "  diff: 'simple'\n" +
+    '}\n' +
+    '\n' +
+    'Node.js v22.23.3\n'
+}
+
+Node.js v22.23.3
+node:internal/errors:983
+  const err = new Error(message);
+              ^
+
+Error: Command failed: /Users/cooperfu/.npm/_npx/52027bd8fc0022aa/node_modules/node/bin/node /var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-c2-waist-2FhRp3/scripts/b3_character_wardrobe_history.mjs /tmp/c2-waist-history-final/b3
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: webapp/src/components/DllPicProPanel.jsx
++ actual - expected
+
++ '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36'
+- '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689'
+
+    at file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/b3-wardrobe-history-TJcRLM/scripts/page2_adult_identity_acceptance.mjs:28:39 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36',
+  expected: '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.23.3
+node:internal/errors:983
+  const err = new Error(message);
+              ^
+
+Error: Command failed: /Users/cooperfu/.npm/_npx/52027bd8fc0022aa/node_modules/node/bin/node /var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/b3-wardrobe-history-TJcRLM/scripts/page2_adult_identity_acceptance.mjs /tmp/c2-waist-history-final/b3/page2-acceptance
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: webapp/src/components/DllPicProPanel.jsx
++ actual - expected
+
++ '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36'
+- '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689'
+
+    at file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/b3-wardrobe-history-TJcRLM/scripts/page2_adult_identity_acceptance.mjs:28:39 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36',
+  expected: '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.23.3
+
+    at genericNodeError (node:internal/errors:983:15)
+    at wrappedFn (node:internal/errors:537:14)
+    at checkExecSyncError (node:child_process:916:11)
+    at execFileSync (node:child_process:952:15)
+    at file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-c2-waist-2FhRp3/scripts/b3_character_wardrobe_history.mjs:18:19
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {
+  status: 1,
+  signal: null,
+  output: [
+    null,
+    '',
+    'node:internal/modules/run_main:123\n' +
+      '    triggerUncaughtException(\n' +
+      '    ^\n' +
+      '\n' +
+      'AssertionError [ERR_ASSERTION]: webapp/src/components/DllPicProPanel.jsx\n' +
+      '+ actual - expected\n' +
+      '\n' +
+      "+ '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36'\n" +
+      "- '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689'\n" +
+      '\n' +
+      '    at file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/b3-wardrobe-history-TJcRLM/scripts/page2_adult_identity_acceptance.mjs:28:39 {\n' +
+      '  generatedMessage: false,\n' +
+      "  code: 'ERR_ASSERTION',\n" +
+      "  actual: '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36',\n" +
+      "  expected: '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689',\n" +
+      "  operator: 'strictEqual',\n" +
+      "  diff: 'simple'\n" +
+      '}\n' +
+      '\n' +
+      'Node.js v22.23.3\n'
+  ],
+  pid: 99058,
+  stdout: '',
+  stderr: 'node:internal/modules/run_main:123\n' +
+    '    triggerUncaughtException(\n' +
+    '    ^\n' +
+    '\n' +
+    'AssertionError [ERR_ASSERTION]: webapp/src/components/DllPicProPanel.jsx\n' +
+    '+ actual - expected\n' +
+    '\n' +
+    "+ '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36'\n" +
+    "- '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689'\n" +
+    '\n' +
+    '    at file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/b3-wardrobe-history-TJcRLM/scripts/page2_adult_identity_acceptance.mjs:28:39 {\n' +
+    '  generatedMessage: false,\n' +
+    "  code: 'ERR_ASSERTION',\n" +
+    "  actual: '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36',\n" +
+    "  expected: '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689',\n" +
+    "  operator: 'strictEqual',\n" +
+    "  diff: 'simple'\n" +
+    '}\n' +
+    '\n' +
+    'Node.js v22.23.3\n'
+}
+
+Node.js v22.23.3
+
+    at genericNodeError (node:internal/errors:983:15)
+    at wrappedFn (node:internal/errors:537:14)
+    at checkExecSyncError (node:child_process:916:11)
+    at execFileSync (node:child_process:952:15)
+    at file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/c2_waist_history.mjs:14:12
+    at withPreC2WaistReplay (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/c2WaistReplay.mjs:38:52)
+    at file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/c2_waist_history.mjs:9:7
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {
+  status: 1,
+  signal: null,
+  output: [
+    null,
+    '',
+    'node:internal/modules/run_main:123\n' +
+      '    triggerUncaughtException(\n' +
+      '    ^\n' +
+      '\n' +
+      'AssertionError [ERR_ASSERTION]: webapp/src/components/DllPicProPanel.jsx\n' +
+      '+ actual - expected\n' +
+      '\n' +
+      "+ '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36'\n" +
+      "- '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689'\n" +
+      '\n' +
+      '    at file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/b3-wardrobe-history-TJcRLM/scripts/page2_adult_identity_acceptance.mjs:28:39 {\n' +
+      '  generatedMessage: false,\n' +
+      "  code: 'ERR_ASSERTION',\n" +
+      "  actual: '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36',\n" +
+      "  expected: '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689',\n" +
+      "  operator: 'strictEqual',\n" +
+      "  diff: 'simple'\n" +
+      '}\n' +
+      '\n' +
+      'Node.js v22.23.3\n' +
+      'node:internal/errors:983\n' +
+      '  const err = new Error(message);\n' +
+      '              ^\n' +
+      '\n' +
+      'Error: Command failed: /Users/cooperfu/.npm/_npx/52027bd8fc0022aa/node_modules/node/bin/node /var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/b3-wardrobe-history-TJcRLM/scripts/page2_adult_identity_acceptance.mjs /tmp/c2-waist-history-final/b3/page2-acceptance\n' +
+      'node:internal/modules/run_main:123\n' +
+      '    triggerUncaughtException(\n' +
+      '    ^\n' +
+      '\n' +
+      'AssertionError [ERR_ASSERTION]: webapp/src/components/DllPicProPanel.jsx\n' +
+      '+ actual - expected\n' +
+      '\n' +
+      "+ '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36'\n" +
+      "- '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689'\n" +
+      '\n' +
+      '    at file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/b3-wardrobe-history-TJcRLM/scripts/page2_adult_identity_acceptance.mjs:28:39 {\n' +
+      '  generatedMessage: false,\n' +
+      "  code: 'ERR_ASSERTION',\n" +
+      "  actual: '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36',\n" +
+      "  expected: '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689',\n" +
+      "  operator: 'strictEqual',\n" +
+      "  diff: 'simple'\n" +
+      '}\n' +
+      '\n' +
+      'Node.js v22.23.3\n' +
+      '\n' +
+      '    at genericNodeError (node:internal/errors:983:15)\n' +
+      '    at wrappedFn (node:internal/errors:537:14)\n' +
+      '    at checkExecSyncError (node:child_process:916:11)\n' +
+      '    at execFileSync (node:child_process:952:15)\n' +
+      '    at file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-c2-waist-2FhRp3/scripts/b3_character_wardrobe_history.mjs:18:19\n' +
+      '    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)\n' +
+      '    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)\n' +
+      '    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n' +
+      '  status: 1,\n' +
+      '  signal: null,\n' +
+      '  output: [\n' +
+      '    null,\n' +
+      "    '',\n" +
+      "    'node:internal/modules/run_main:123\\n' +\n" +
+      "      '    triggerUncaughtException(\\n' +\n" +
+      "      '    ^\\n' +\n" +
+      "      '\\n' +\n" +
+      "      'AssertionError [ERR_ASSERTION]: webapp/src/components/DllPicProPanel.jsx\\n' +\n" +
+      "      '+ actual - expected\\n' +\n" +
+      "      '\\n' +\n" +
+      `      "+ '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36'\\n" +\n` +
+      `      "- '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689'\\n" +\n` +
+      "      '\\n' +\n" +
+      "      '    at file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/b3-wardrobe-history-TJcRLM/scripts/page2_adult_identity_acceptance.mjs:28:39 {\\n' +\n" +
+      "      '  generatedMessage: false,\\n' +\n" +
+      `      "  code: 'ERR_ASSERTION',\\n" +\n` +
+      `      "  actual: '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36',\\n" +\n` +
+      `      "  expected: '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689',\\n" +\n` +
+      `      "  operator: 'strictEqual',\\n" +\n` +
+      `      "  diff: 'simple'\\n" +\n` +
+      "      '}\\n' +\n" +
+      "      '\\n' +\n" +
+      "      'Node.js v22.23.3\\n'\n" +
+      '  ],\n' +
+      '  pid: 99058,\n' +
+      "  stdout: '',\n" +
+      "  stderr: 'node:internal/modules/run_main:123\\n' +\n" +
+      "    '    triggerUncaughtException(\\n' +\n" +
+      "    '    ^\\n' +\n" +
+      "    '\\n' +\n" +
+      "    'AssertionError [ERR_ASSERTION]: webapp/src/components/DllPicProPanel.jsx\\n' +\n" +
+      "    '+ actual - expected\\n' +\n" +
+      "    '\\n' +\n" +
+      `    "+ '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36'\\n" +\n` +
+      `    "- '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689'\\n" +\n` +
+      "    '\\n' +\n" +
+      "    '    at file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/b3-wardrobe-history-TJcRLM/scripts/page2_adult_identity_acceptance.mjs:28:39 {\\n' +\n" +
+      "    '  generatedMessage: false,\\n' +\n" +
+      `    "  code: 'ERR_ASSERTION',\\n" +\n` +
+      `    "  actual: '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36',\\n" +\n` +
+      `    "  expected: '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689',\\n" +\n` +
+      `    "  operator: 'strictEqual',\\n" +\n` +
+      `    "  diff: 'simple'\\n" +\n` +
+      "    '}\\n' +\n" +
+      "    '\\n' +\n" +
+      "    'Node.js v22.23.3\\n'\n" +
+      '}\n' +
+      '\n' +
+      'Node.js v22.23.3\n'
+  ],
+  pid: 99023,
+  stdout: '',
+  stderr: 'node:internal/modules/run_main:123\n' +
+    '    triggerUncaughtException(\n' +
+    '    ^\n' +
+    '\n' +
+    'AssertionError [ERR_ASSERTION]: webapp/src/components/DllPicProPanel.jsx\n' +
+    '+ actual - expected\n' +
+    '\n' +
+    "+ '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36'\n" +
+    "- '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689'\n" +
+    '\n' +
+    '    at file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/b3-wardrobe-history-TJcRLM/scripts/page2_adult_identity_acceptance.mjs:28:39 {\n' +
+    '  generatedMessage: false,\n' +
+    "  code: 'ERR_ASSERTION',\n" +
+    "  actual: '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36',\n" +
+    "  expected: '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689',\n" +
+    "  operator: 'strictEqual',\n" +
+    "  diff: 'simple'\n" +
+    '}\n' +
+    '\n' +
+    'Node.js v22.23.3\n' +
+    'node:internal/errors:983\n' +
+    '  const err = new Error(message);\n' +
+    '              ^\n' +
+    '\n' +
+    'Error: Command failed: /Users/cooperfu/.npm/_npx/52027bd8fc0022aa/node_modules/node/bin/node /var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/b3-wardrobe-history-TJcRLM/scripts/page2_adult_identity_acceptance.mjs /tmp/c2-waist-history-final/b3/page2-acceptance\n' +
+    'node:internal/modules/run_main:123\n' +
+    '    triggerUncaughtException(\n' +
+    '    ^\n' +
+    '\n' +
+    'AssertionError [ERR_ASSERTION]: webapp/src/components/DllPicProPanel.jsx\n' +
+    '+ actual - expected\n' +
+    '\n' +
+    "+ '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36'\n" +
+    "- '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689'\n" +
+    '\n' +
+    '    at file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/b3-wardrobe-history-TJcRLM/scripts/page2_adult_identity_acceptance.mjs:28:39 {\n' +
+    '  generatedMessage: false,\n' +
+    "  code: 'ERR_ASSERTION',\n" +
+    "  actual: '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36',\n" +
+    "  expected: '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689',\n" +
+    "  operator: 'strictEqual',\n" +
+    "  diff: 'simple'\n" +
+    '}\n' +
+    '\n' +
+    'Node.js v22.23.3\n' +
+    '\n' +
+    '    at genericNodeError (node:internal/errors:983:15)\n' +
+    '    at wrappedFn (node:internal/errors:537:14)\n' +
+    '    at checkExecSyncError (node:child_process:916:11)\n' +
+    '    at execFileSync (node:child_process:952:15)\n' +
+    '    at file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-c2-waist-2FhRp3/scripts/b3_character_wardrobe_history.mjs:18:19\n' +
+    '    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)\n' +
+    '    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)\n' +
+    '    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n' +
+    '  status: 1,\n' +
+    '  signal: null,\n' +
+    '  output: [\n' +
+    '    null,\n' +
+    "    '',\n" +
+    "    'node:internal/modules/run_main:123\\n' +\n" +
+    "      '    triggerUncaughtException(\\n' +\n" +
+    "      '    ^\\n' +\n" +
+    "      '\\n' +\n" +
+    "      'AssertionError [ERR_ASSERTION]: webapp/src/components/DllPicProPanel.jsx\\n' +\n" +
+    "      '+ actual - expected\\n' +\n" +
+    "      '\\n' +\n" +
+    `      "+ '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36'\\n" +\n` +
+    `      "- '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689'\\n" +\n` +
+    "      '\\n' +\n" +
+    "      '    at file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/b3-wardrobe-history-TJcRLM/scripts/page2_adult_identity_acceptance.mjs:28:39 {\\n' +\n" +
+    "      '  generatedMessage: false,\\n' +\n" +
+    `      "  code: 'ERR_ASSERTION',\\n" +\n` +
+    `      "  actual: '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36',\\n" +\n` +
+    `      "  expected: '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689',\\n" +\n` +
+    `      "  operator: 'strictEqual',\\n" +\n` +
+    `      "  diff: 'simple'\\n" +\n` +
+    "      '}\\n' +\n" +
+    "      '\\n' +\n" +
+    "      'Node.js v22.23.3\\n'\n" +
+    '  ],\n' +
+    '  pid: 99058,\n' +
+    "  stdout: '',\n" +
+    "  stderr: 'node:internal/modules/run_main:123\\n' +\n" +
+    "    '    triggerUncaughtException(\\n' +\n" +
+    "    '    ^\\n' +\n" +
+    "    '\\n' +\n" +
+    "    'AssertionError [ERR_ASSERTION]: webapp/src/components/DllPicProPanel.jsx\\n' +\n" +
+    "    '+ actual - expected\\n' +\n" +
+    "    '\\n' +\n" +
+    `    "+ '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36'\\n" +\n` +
+    `    "- '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689'\\n" +\n` +
+    "    '\\n' +\n" +
+    "    '    at file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/b3-wardrobe-history-TJcRLM/scripts/page2_adult_identity_acceptance.mjs:28:39 {\\n' +\n" +
+    "    '  generatedMessage: false,\\n' +\n" +
+    `    "  code: 'ERR_ASSERTION',\\n" +\n` +
+    `    "  actual: '45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36',\\n" +\n` +
+    `    "  expected: '8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689',\\n" +\n` +
+    `    "  operator: 'strictEqual',\\n" +\n` +
+    `    "  diff: 'simple'\\n" +\n` +
+    "    '}\\n' +\n" +
+    "    '\\n' +\n" +
+    "    'Node.js v22.23.3\\n'\n" +
+    '}\n' +
+    '\n' +
+    'Node.js v22.23.3\n'
+}
+
+Node.js v22.23.3

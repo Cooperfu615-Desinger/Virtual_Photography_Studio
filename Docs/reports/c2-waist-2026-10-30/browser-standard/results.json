@@ -1,0 +1,60 @@
+[
+  {
+    "width": 1440,
+    "height": 1000,
+    "selections": 5,
+    "publicSourceVerified": 5,
+    "outputs": 6,
+    "newSaveAndOldRestore": true,
+    "oldPublicTextAndExistingSelectionsUnchanged": true,
+    "addedDefaultKeys": [
+      "hairStylingStateAId",
+      "hairStylingStateBId",
+      "completeLookPaletteId",
+      "completeLookPaletteAId",
+      "completeLookPaletteBId",
+      "topBottomPaletteAId",
+      "topBottomPaletteBId",
+      "headAccessoryColorId",
+      "nosePiercingId",
+      "lipPiercingId",
+      "headAccessoryAColorId",
+      "headAccessoryBColorId"
+    ],
+    "overflow": false,
+    "errors": [],
+    "programmaticFallback": [
+      "雙層銀鏈水晶腰鍊"
+    ],
+    "nativePopupMouseVerified": false
+  },
+  {
+    "width": 390,
+    "height": 900,
+    "selections": 5,
+    "publicSourceVerified": 5,
+    "outputs": 6,
+    "newSaveAndOldRestore": true,
+    "oldPublicTextAndExistingSelectionsUnchanged": true,
+    "addedDefaultKeys": [
+      "hairStylingStateAId",
+      "hairStylingStateBId",
+      "completeLookPaletteId",
+      "completeLookPaletteAId",
+      "completeLookPaletteBId",
+      "topBottomPaletteAId",
+      "topBottomPaletteBId",
+      "headAccessoryColorId",
+      "nosePiercingId",
+      "lipPiercingId",
+      "headAccessoryAColorId",
+      "headAccessoryBColorId"
+    ],
+    "overflow": false,
+    "errors": [],
+    "programmaticFallback": [
+      "雙層銀鏈水晶腰鍊"
+    ],
+    "nativePopupMouseVerified": false
+  }
+]

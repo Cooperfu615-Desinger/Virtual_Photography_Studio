@@ -1,0 +1,276 @@
+TAP version 13
+# ERROR: Specify reviewed full SHA with --registry-base-commit or REGISTRY_BASE_COMMIT
+# node:internal/errors:983
+#   const err = new Error(message);
+#               ^
+# Error: Command failed: python3 -B /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/sync_to_json.py --check --report-json
+# ERROR: Specify reviewed full SHA with --registry-base-commit or REGISTRY_BASE_COMMIT
+#     at genericNodeError (node:internal/errors:983:15)
+#     at wrappedFn (node:internal/errors:537:14)
+#     at checkExecSyncError (node:child_process:916:11)
+#     at execFileSync (node:child_process:952:15)
+#     at extendedChecks (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/catalogIntegrity.mjs:241:35)
+#     at async file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/check_catalog_integrity.mjs:677:28 {
+#   status: 1,
+#   signal: null,
+#   output: [
+#     null,
+#     '',
+#     'ERROR: Specify reviewed full SHA with --registry-base-commit or REGISTRY_BASE_COMMIT\\n'
+#   ],
+#   pid: 99575,
+#   stdout: '',
+#   stderr: 'ERROR: Specify reviewed full SHA with --registry-base-commit or REGISTRY_BASE_COMMIT\\n'
+# }
+# Node.js v22.23.3
+# Subtest: aliases are scoped by actual control, self aliases legal, cross-category owners conflict
+ok 1 - aliases are scoped by actual control, self aliases legal, cross-category owners conflict
+  ---
+  duration_ms: 1.360709
+  type: 'test'
+  ...
+# Subtest: primary ID duplication and alias shadowing are blocking
+ok 2 - primary ID duplication and alias shadowing are blocking
+  ---
+  duration_ms: 0.167667
+  type: 'test'
+  ...
+# Subtest: allowlist rejects stale, incomplete, duplicate and broad exceptions
+ok 3 - allowlist rejects stale, incomplete, duplicate and broad exceptions
+  ---
+  duration_ms: 0.286334
+  type: 'test'
+  ...
+# Subtest: action source references, clauses, validation and family errors are detected
+ok 4 - action source references, clauses, validation and family errors are detected
+  ---
+  duration_ms: 0.321958
+  type: 'test'
+  ...
+# Subtest: field mapping preserves false, empty strings, nested values and reports unknown source fields
+ok 5 - field mapping preserves false, empty strings, nested values and reports unknown source fields
+  ---
+  duration_ms: 13.572625
+  type: 'test'
+  ...
+# Subtest: strict CLI succeeds for exact exceptions and fails for stale exceptions
+not ok 6 - strict CLI succeeds for exact exceptions and fails for stale exceptions
+  ---
+  duration_ms: 3133.198458
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/tests/catalog-integrity.test.mjs:53:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Command failed: /Users/cooperfu/.npm/_npx/52027bd8fc0022aa/node_modules/node/bin/node scripts/check_catalog_integrity.mjs --strict --json
+    ERROR: Specify reviewed full SHA with --registry-base-commit or REGISTRY_BASE_COMMIT
+    node:internal/errors:983
+      const err = new Error(message);
+                  ^
+    
+    Error: Command failed: python3 -B /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/sync_to_json.py --check --report-json
+    ERROR: Specify reviewed full SHA with --registry-base-commit or REGISTRY_BASE_COMMIT
+    
+        at genericNodeError (node:internal/errors:983:15)
+        at wrappedFn (node:internal/errors:537:14)
+        at checkExecSyncError (node:child_process:916:11)
+        at execFileSync (node:child_process:952:15)
+        at extendedChecks (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/catalogIntegrity.mjs:241:35)
+        at async file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/check_catalog_integrity.mjs:677:28 {
+      status: 1,
+      signal: null,
+      output: [
+        null,
+        '',
+        'ERROR: Specify reviewed full SHA with --registry-base-commit or REGISTRY_BASE_COMMIT\n'
+      ],
+      pid: 99575,
+      stdout: '',
+      stderr: 'ERROR: Specify reviewed full SHA with --registry-base-commit or REGISTRY_BASE_COMMIT\n'
+    }
+    
+    Node.js v22.23.3
+    
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    genericNodeError (node:internal/errors:983:15)
+    wrappedFn (node:internal/errors:537:14)
+    checkExecSyncError (node:child_process:916:11)
+    execFileSync (node:child_process:952:15)
+    extendedChecks (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/catalogIntegrity.mjs:241:35)
+    async file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/check_catalog_integrity.mjs:677:28 {
+    genericNodeError (node:internal/errors:983:15)
+    wrappedFn (node:internal/errors:537:14)
+    checkExecSyncError (node:child_process:916:11)
+    execFileSync (node:child_process:952:15)
+    run (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/tests/catalog-integrity.test.mjs:54:23)
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/tests/catalog-integrity.test.mjs:55:29)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+  ...
+# Subtest: rehearsal refuses repo output, symlink escape into repo, existing targets and wrong source without writes
+ok 7 - rehearsal refuses repo output, symlink escape into repo, existing targets and wrong source without writes
+  ---
+  duration_ms: 29.87175
+  type: 'test'
+  ...
+# Subtest: failed staged conversion leaves no target or staging; racing target is preserved
+ok 8 - failed staged conversion leaves no target or staging; racing target is preserved
+  ---
+  duration_ms: 2.251792
+  type: 'test'
+  ...
+# Subtest: nested source paths and category membership require explicit responsibility
+ok 9 - nested source paths and category membership require explicit responsibility
+  ---
+  duration_ms: 0.559583
+  type: 'test'
+  ...
+# Subtest: pose metadata validates nested support, arrangement, orientation and crop references
+ok 10 - pose metadata validates nested support, arrangement, orientation and crop references
+  ---
+  duration_ms: 0.800875
+  type: 'test'
+  ...
+# Subtest: catalog testing exports cannot enter production through imports, aliases or namespaces
+ok 11 - catalog testing exports cannot enter production through imports, aliases or namespaces
+  ---
+  duration_ms: 6.213416
+  type: 'test'
+  ...
+# Subtest: production scan includes JSX and helper files, excludes only test files, and fails closed on parse errors
+ok 12 - production scan includes JSX and helper files, excludes only test files, and fails closed on parse errors
+  ---
+  duration_ms: 682.922083
+  type: 'test'
+  ...
+# Subtest: all declared targets resolve; own-current aliases and ambiguous first matches stay legal
+ok 13 - all declared targets resolve; own-current aliases and ambiguous first matches stay legal
+  ---
+  duration_ms: 126.519833
+  type: 'test'
+  ...
+# Subtest: catalog, embedded, attribute and category failures are blocking
+ok 14 - catalog, embedded, attribute and category failures are blocking
+  ---
+  duration_ms: 1410.402583
+  type: 'test'
+  ...
+# Subtest: duplicate historical tuples, labels, prompt text and Map keys fail in their own namespace
+ok 15 - duplicate historical tuples, labels, prompt text and Map keys fail in their own namespace
+  ---
+  duration_ms: 863.913875
+  type: 'test'
+  ...
+# Subtest: derived legacy ID cannot shadow another current entry
+ok 16 - derived legacy ID cannot shadow another current entry
+  ---
+  duration_ms: 438.55725
+  type: 'test'
+  ...
+# Subtest: source extraction rejects expressions instead of executing arbitrary code
+ok 17 - source extraction rejects expressions instead of executing arbitrary code
+  ---
+  duration_ms: 32.764958
+  type: 'test'
+  ...
+# Subtest: rehearsal refuses wrong SHA, existing/internal output and already relocated engine
+ok 18 - rehearsal refuses wrong SHA, existing/internal output and already relocated engine
+  ---
+  duration_ms: 800.246959
+  type: 'test'
+  ...
+# Subtest: all 22 tables have explicit ownership policy; legacy text is not mistaken for an ID
+ok 19 - all 22 tables have explicit ownership policy; legacy text is not mistaken for an ID
+  ---
+  duration_ms: 283.401458
+  type: 'test'
+  ...
+# Subtest: each option alias family rejects another current ID and preserves its own target ID
+ok 20 - each option alias family rejects another current ID and preserves its own target ID
+  ---
+  duration_ms: 3092.64
+  type: 'test'
+  ...
+# Subtest: standalone raw and computed migration keys cannot shadow current source IDs
+ok 21 - standalone raw and computed migration keys cannot shadow current source IDs
+  ---
+  duration_ms: 1814.025541
+  type: 'test'
+  ...
+# Subtest: hand-to-prop rejects the original counterexample, but unrelated control IDs do not collide
+ok 22 - hand-to-prop rejects the original counterexample, but unrelated control IDs do not collide
+  ---
+  duration_ms: 401.997583
+  type: 'test'
+  ...
+# Subtest: new embedded source ID cannot claim a historical migration key
+ok 23 - new embedded source ID cannot claim a historical migration key
+  ---
+  duration_ms: 127.617875
+  type: 'test'
+  ...
+# Subtest: label-based migrations check source owners and cannot hide another primary ID in aliases
+ok 24 - label-based migrations check source owners and cannot hide another primary ID in aliases
+  ---
+  duration_ms: 590.695666
+  type: 'test'
+  ...
+# Subtest: computed eye-wear keys are checked in single and both duo role namespaces
+ok 25 - computed eye-wear keys are checked in single and both duo role namespaces
+  ---
+  duration_ms: 306.504917
+  type: 'test'
+  ...
+# Subtest: selfie substring matching and source/computed drift fail closed
+ok 26 - selfie substring matching and source/computed drift fail closed
+  ---
+  duration_ms: 262.107125
+  type: 'test'
+  ...
+# Subtest: historical ownership cannot authorize a different migration target
+ok 27 - historical ownership cannot authorize a different migration target
+  ---
+  duration_ms: 407.078334
+  type: 'test'
+  ...
+# Subtest: materialization preserves ordered whole inference and source fields without mutating inputs
+ok 28 - materialization preserves ordered whole inference and source fields without mutating inputs
+  ---
+  duration_ms: 4.579958
+  type: 'test'
+  ...
+# Subtest: acceptance rejects tag order, key order, field loss and changed falsy values
+ok 29 - acceptance rejects tag order, key order, field loss and changed falsy values
+  ---
+  duration_ms: 0.396042
+  type: 'test'
+  ...
+# Subtest: suggestion removes only the target semantic in a copy, preserves explicit source and default cache
+ok 30 - suggestion removes only the target semantic in a copy, preserves explicit source and default cache
+  ---
+  duration_ms: 54.145708
+  type: 'test'
+  ...
+# Subtest: field mapping detects lost semantic fields, leaked container and reordered merged tags
+ok 31 - field mapping detects lost semantic fields, leaked container and reordered merged tags
+  ---
+  duration_ms: 0.958125
+  type: 'test'
+  ...
+# Subtest: one-time rehearsal rejects unsafe output, wrong baseline and already materialized source without publication
+ok 32 - one-time rehearsal rejects unsafe output, wrong baseline and already materialized source without publication
+  ---
+  duration_ms: 1444.375292
+  type: 'test'
+  ...
+1..32
+# tests 32
+# suites 0
+# pass 31
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 11103.943084

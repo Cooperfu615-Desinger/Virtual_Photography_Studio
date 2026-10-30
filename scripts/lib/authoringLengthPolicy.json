@@ -83,7 +83,7 @@
       "spec": "Docs/specs/wardrobe-section-b-authoring-guide.md"
     },
     "Wardrobe/腰部配件 (Waist Accessories)": {
-      "min": 4,
+      "min": 6,
       "max": 16,
       "spec": "Docs/specs/wardrobe-section-b-authoring-guide.md"
     },
@@ -224,6 +224,30 @@
       "spec": "Docs/specs/wardrobe-section-b-authoring-guide.md",
       "kind": "necessary_structure",
       "reason": "保留連續線路、衣物內收線與末端不懸空；不是普遍放寬配件字數。"
+    },
+    {
+      "id": "wardrobe:腰部配件-waist-accessories:雙層銀鏈愛心腰鍊:5",
+      "sourceSha256": "270b6505db2e8b8f8c40bfab9e21852f19f8bf27266cb20b66c2e0ba0183db57",
+      "reviewedCommit": "2b60e6f605792b0e8c82a8573358105ce51e87e2",
+      "spec": "Docs/specs/c2-waist-wording-v1.md",
+      "kind": "necessary_structure",
+      "reason": "保留平行雙鏈、圓珠、中央愛心與精緻落點；僅少一詞不值得改寫。"
+    },
+    {
+      "id": "wardrobe:腰部配件-waist-accessories:愛心垂墜銀腰鍊:6",
+      "sourceSha256": "d3d981917bf345817b71c99f993de982a3e66199d30dccd624da9fadf9ca0931",
+      "reviewedCommit": "2b60e6f605792b0e8c82a8573358105ce51e87e2",
+      "spec": "Docs/specs/c2-waist-wording-v1.md",
+      "kind": "necessary_structure",
+      "reason": "保留中央愛心、短垂鏈、小愛心的連接關係。"
+    },
+    {
+      "id": "wardrobe:腰部配件-waist-accessories:銀色水鑽蝴蝶腰鏈:7",
+      "sourceSha256": "28cc222aa450981803c89ae0de87666cc6b2f39ea365248dab918d62e8a04663",
+      "reviewedCommit": "2b60e6f605792b0e8c82a8573358105ce51e87e2",
+      "spec": "Docs/specs/c2-waist-wording-v1.md",
+      "kind": "necessary_structure",
+      "reason": "保留低腰下身相對穿戴關係，並非重複身體位置。"
     }
   ]
 }

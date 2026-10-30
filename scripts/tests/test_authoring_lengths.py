@@ -69,7 +69,7 @@ class AuthoringLengthTests(unittest.TestCase):
         paths=list((c.ROOT/'knowledge_base/catalog').rglob('*.json'))+[c.ROOT/'webapp/src/data/database.json']
         before={p:hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
         result=c.inspect()
-        self.assertEqual(result['reviewedExceptions'],7)
+        self.assertEqual(result['reviewedExceptions'],10)
         self.assertGreater(len(result['rows']),500)
         self.assertEqual(before,{p:hashlib.sha256(p.read_bytes()).hexdigest() for p in paths})
 
@@ -86,3 +86,27 @@ class AuthoringLengthTests(unittest.TestCase):
             raw=subprocess.check_output(['git','show',exception['reviewedCommit']+':'+paths[exception['id']]],cwd=c.ROOT)
             source=next(x for x in json.loads(raw)['entries'] if x['id']==exception['id'])
             self.assertEqual(c.digest(source['en']),exception['sourceSha256'])
+
+    def test_waist_specific_range_and_reviewed_retentions(self):
+        policy=json.loads((c.ROOT/'scripts/lib/authoringLengthPolicy.json').read_text())
+        review=json.loads((c.ROOT/'scripts/lib/c2WaistReview.json').read_text())
+        old=json.loads(subprocess.check_output(['git','show',review['base']+':scripts/lib/authoringLengthPolicy.json'],cwd=c.ROOT))
+        self.assertEqual(policy['rules']['Wardrobe/腰部配件 (Waist Accessories)']['min'],6)
+        restored=copy.deepcopy(policy);restored['rules']['Wardrobe/腰部配件 (Waist Accessories)']['min']=4
+        restored['exceptions']=restored['exceptions'][:7]
+        self.assertEqual(restored,old)
+        rows={r['id']:r for r in c.inspect()['rows']}
+        self.assertEqual([rows[r['id']]['words'] for r in review['entries']],[27,22,30,36,32])
+        for r in review['entries'][2:]:
+            self.assertEqual(rows[r['id']]['review']['kind'],'necessary_structure')
+            self.assertEqual(rows[r['id']]['status'],'over')
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);self.fixture(root)
+            self.policy['rules']['Wardrobe/test']={'min':6,'max':16,'spec':'spec.md'}
+            self.save(root)
+            self.assertEqual(c.inspect(root)['rows'][0]['status'],'under')
+            self.policy['exceptions']=[];self.save(root)
+            path=root/'knowledge_base/catalog/test.json'
+            for words,status in [(5,'under'),(6,'within'),(16,'within'),(17,'over')]:
+                data=json.loads(path.read_text());data['entries'][0]['en']=' '.join(['word']*words);path.write_text(json.dumps(data))
+                self.assertEqual(c.inspect(root)['rows'][0]['status'],status)

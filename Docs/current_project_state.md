@@ -4,6 +4,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-30
 
+## C2 腰鍊：兩筆微調、三筆保留（2026-10-30，本機驗收通過）
+
+- 雙層銀鏈水晶29→27詞、金色細鏈鑽石25→22詞；另外三筆整筆保留並補必要結構理由與來源指紋。新增兩筆完整舊英文 alias，腰部診斷6–16詞；五筆仍為over，不強制壓字數。
+- 450組固定來源對照，舊英文／Markdown與結構化收藏、A／B、配色與可見腰部案例通過。前端2,055／品質853／Python52／目錄工具32，lint／build／strict／sync／207資產、桌手機五筆流程與六工作區通過；2,406份歷史報告／registry／核心renderer保持。
+- C3／C4／B3／PAGE2／Phase 4／A2／A1／A5完整歷史鏈通過；限定暫存背景反轉處理既有GPT Image 2／Pika全檔保護差異，正式DLL不改。保留原生下拉fallback限制，未聲稱模型影像品質驗收。見 [規格](specs/c2-waist-wording-v1.md)、[決策](decisions/2026-10-30-c2-waist.md)、[報告](reports/c2-waist-2026-10-30/README.md)。Cooper已驗收並授權限定提交／推送；CI與部署於交付時核對。其他C類、PAGE2舊匯入、J12、P5b不併入。
+
 ## C2 第一批：編寫長度政策與唯讀診斷（2026-10-30）
 
 - 統一 catalog.en 計詞與分類責任，七筆例外綁定ID／英文指紋／規格；超長只診斷，失效例外阻擋。未分類不自動補規則。公開英文與產品功能不變，五筆腰鍊文字精簡另批。

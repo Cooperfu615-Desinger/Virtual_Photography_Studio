@@ -1,3 +1,5 @@
+import {preC2WaistHistoricalTest} from '../../../../scripts/lib/c2WaistHistoricalTest.mjs';
+const c2HistoricalTest=preC2WaistHistoricalTest(import.meta.url);
 import process from 'node:process';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -44,6 +46,6 @@ test('C3 inverse restores exact pre-change source and rejects live/unknown copie
  const dir=mkdtempSync(join(tmpdir(),'c3-negative-'));
  try{const p=join(dir,review.path);mkdirSync(dirname(p),{recursive:true});writeFileSync(p,readFileSync(join(root,review.path)));preparePreC3PoseFiles(dir).apply();assert.equal(readFileSync(p,'utf8'),review.beforeSource);writeFileSync(p,'unknown');assert.throws(()=>preparePreC3PoseFiles(dir),/unknown/);}finally{rmSync(dir,{recursive:true,force:true});}
 });
-test('C3 fixed before matrix preserves outputs, choices, RNG and saved public text',()=>{
+c2HistoricalTest('C3 fixed before matrix preserves outputs, choices, RNG and saved public text',()=>{
  execFileSync(process.execPath,[join(root,'scripts/c3_pose_acceptance.mjs')],{stdio:'pipe'});
 });

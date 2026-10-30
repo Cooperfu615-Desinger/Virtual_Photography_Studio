@@ -1,0 +1,161 @@
+TAP version 13
+# Subtest: C2 only two English sources plus ordered aliases change; three complete records remain
+ok 1 - C2 only two English sources plus ordered aliases change; three complete records remain
+  ---
+  duration_ms: 25.815708
+  type: 'test'
+  ...
+# Subtest: C2 old and new full English resolve same stable waist IDs; structured choices keep priority
+ok 2 - C2 old and new full English resolve same stable waist IDs; structured choices keep priority
+  ---
+  duration_ms: 346.203875
+  type: 'test'
+  ...
+# Subtest: C2 fixed 360-case baseline protects six outputs, RNG, selections and saved originals
+ok 3 - C2 fixed 360-case baseline protects six outputs, RNG, selections and saved originals
+  ---
+  duration_ms: 4475.920625
+  type: 'test'
+  ...
+# Subtest: C2 explicit complete-look and top-bottom palettes preserve fixed jewelry colors
+not ok 4 - C2 explicit complete-look and top-bottom palettes preserve fixed jewelry colors
+  ---
+  duration_ms: 392.705458
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/c2WaistWording.test.js:41:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + ''
+    - 'black-white-cool'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'black-white-cool'
+  actual: ''
+  operator: 'strictEqual'
+  stack: |-
+    file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/c2WaistWording.test.js:50:10
+    async withPreC2WaistReplay (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/c2WaistReplay.mjs:38:46)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: C2 exact inverse verifies fixed Git bytes and rejects checkout or corrupt mixed copies atomically
+ok 5 - C2 exact inverse verifies fixed Git bytes and rejects checkout or corrupt mixed copies atomically
+  ---
+  duration_ms: 273.5835
+  type: 'test'
+  ...
+# Subtest: C3 concrete actions and random/any have descriptions; none is supplied by picker
+ok 6 - C3 concrete actions and random/any have descriptions; none is supplied by picker
+  ---
+  duration_ms: 3.0965
+  type: 'test'
+  ...
+# Subtest: C3 product source changes exactly six uiHidden flags and no other bytes
+ok 7 - C3 product source changes exactly six uiHidden flags and no other bytes
+  ---
+  duration_ms: 2.572458
+  type: 'test'
+  ...
+# Subtest: C3 retired controls remain retired and their workspace transition policy is unchanged
+ok 8 - C3 retired controls remain retired and their workspace transition policy is unchanged
+  ---
+  duration_ms: 0.174291
+  type: 'test'
+  ...
+# Subtest: C3 inverse restores exact pre-change source and rejects live/unknown copies
+ok 9 - C3 inverse restores exact pre-change source and rejects live/unknown copies
+  ---
+  duration_ms: 7.547167
+  type: 'test'
+  ...
+# Subtest: C3 fixed before matrix preserves outputs, choices, RNG and saved public text
+ok 10 - C3 fixed before matrix preserves outputs, choices, RNG and saved public text
+  ---
+  duration_ms: 7385.507167
+  type: 'test'
+  ...
+# Subtest: C4 seven Chinese names change without English, IDs, metadata, order or old keys changing
+ok 11 - C4 seven Chinese names change without English, IDs, metadata, order or old keys changing
+  ---
+  duration_ms: 4.741708
+  type: 'test'
+  ...
+# Subtest: C4 old hairstyle IDs retain wet migration and explicit A/B styling choices
+ok 12 - C4 old hairstyle IDs retain wet migration and explicit A/B styling choices
+  ---
+  duration_ms: 23.329
+  type: 'test'
+  ...
+# Subtest: C4 exact inverse preserves fixed Git bytes and rejects live/unknown copies before writing
+ok 13 - C4 exact inverse preserves fixed Git bytes and rejects live/unknown copies before writing
+  ---
+  duration_ms: 40.122542
+  type: 'test'
+  ...
+# Subtest: C4 558 current cases and 1098 old restore paths match approved fixed baseline
+ok 14 - C4 558 current cases and 1098 old restore paths match approved fixed baseline
+  ---
+  duration_ms: 7801.683292
+  type: 'test'
+  ...
+# Subtest: C4 jewelry source delta is exactly four names and two descriptions; IDs/English/semantics stay
+ok 15 - C4 jewelry source delta is exactly four names and two descriptions; IDs/English/semantics stay
+  ---
+  duration_ms: 1046.132583
+  type: 'test'
+  ...
+# Subtest: C4 legacy jewelry scalar/array restore and explicit choice priority stay intact
+ok 16 - C4 legacy jewelry scalar/array restore and explicit choice priority stay intact
+  ---
+  duration_ms: 59.229791
+  type: 'test'
+  ...
+# Subtest: C4 image manifest only changes display name; original preview files are retained
+ok 17 - C4 image manifest only changes display name; original preview files are retained
+  ---
+  duration_ms: 1.651583
+  type: 'test'
+  ...
+# Subtest: C4 exact inverse rejects live and unknown copies; fixed Git before bytes are preserved
+ok 18 - C4 exact inverse rejects live and unknown copies; fixed Git before bytes are preserved
+  ---
+  duration_ms: 37.620125
+  type: 'test'
+  ...
+# Subtest: C4 216 six-output cases and 1098 historical restore cases equal pre-change baseline
+ok 19 - C4 216 six-output cases and 1098 historical restore cases equal pre-change baseline
+  ---
+  duration_ms: 3803.899792
+  type: 'test'
+  ...
+# Subtest: C4 distinguishes active and legacy chin labels without reactivating old selection
+ok 20 - C4 distinguishes active and legacy chin labels without reactivating old selection
+  ---
+  duration_ms: 0.52475
+  type: 'test'
+  ...
+# Subtest: C4 source inverse restores exactly approved pre-change bytes
+ok 21 - C4 source inverse restores exactly approved pre-change bytes
+  ---
+  duration_ms: 2.374084
+  type: 'test'
+  ...
+# Subtest: C4 90 frozen cases preserve English outputs, selections, RNG and saved text
+ok 22 - C4 90 frozen cases preserve English outputs, selections, RNG and saved text
+  ---
+  duration_ms: 2154.471291
+  type: 'test'
+  ...
+1..22
+# tests 22
+# suites 0
+# pass 21
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8073.378083

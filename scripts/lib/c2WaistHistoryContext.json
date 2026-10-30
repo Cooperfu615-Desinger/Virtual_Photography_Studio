@@ -1,0 +1,51 @@
+{
+  "beforeCommit": "8fb4272f33f8f008df429306239f73c93e20fbee",
+  "currentCommit": "2b60e6f605792b0e8c82a8573358105ce51e87e2",
+  "reason": "Already shipped GPT Image 2 seven existing paths and Pika controller test blocked old whole-tree assertions; eight paths are restored only in isolated history. Existing Pika VideoWorkspace inverse remains responsible for its panel.",
+  "files": [
+    {
+      "path": "webapp/src/components/DllPicProPanel.jsx",
+      "beforeHash": "8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689",
+      "afterHash": "45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36"
+    },
+    {
+      "path": "webapp/src/components/DllPicWorkspace.jsx",
+      "beforeHash": "6d4724ae36adb120a20993a7eac4928439582e4c3d4f767ee6add89162bb6f52",
+      "afterHash": "9ce74ce920c9a7322bbb733df834ed49807d08a3731c4416c9dc47827a1510b7"
+    },
+    {
+      "path": "webapp/src/lib/dllPicProClient.js",
+      "beforeHash": "ba0d8586ac1705fe0ea25d1df9e2869d8bc65ca8acd5d79a0a5491f3006cc860",
+      "afterHash": "d299110a86c859f86fbdd9ae97eb6bbbf0e19af594ab606f7667621d0d2e2c03"
+    },
+    {
+      "path": "webapp/src/lib/dllPicProClient.test.js",
+      "beforeHash": "9aea17c06af4a83b87f5cb7adda1f5544d2965caca3cd1d7879f853b1f26840b",
+      "afterHash": "1aba35c8ffe7d55b376a720d6560f0b052d24f557e30d28bbfef54c96941c374"
+    },
+    {
+      "path": "webapp/src/lib/dllWorkspaceAcceptance.js",
+      "beforeHash": "43628972233eb8ff260ce32cbc1ed1fdb62709db25eda33737ef7a551f158df1",
+      "afterHash": "d69f8405090b4c3ef13729ea0bb48a75d647503558185f223dc6c1fd8e8407fa"
+    },
+    {
+      "path": "webapp/src/lib/dllWorkspaceController.js",
+      "beforeHash": "d2728d140406d5d470ac52c92dd500a7eebb0ec1af8021998f6c26ebb5a3d4a0",
+      "afterHash": "7e777ec73871fc9ef3d298be89bf1e7259dffb7a72e35fb48e1ea6f91f248780"
+    },
+    {
+      "path": "webapp/src/lib/dllWorkspaceRuntime.js",
+      "beforeHash": "3b8656983729d04da96528f4ba0695cd8a903354cab9a2bceb82cdc18861b48b",
+      "afterHash": "f7c6dfa69964c61f7759172b1342a5b01116342abd0220a2e1f0a696b05c6d29"
+    },
+    {
+      "path": "webapp/src/lib/videoWorkspaceController.test.js",
+      "beforeHash": "02b098bc1ac39ba14cf748a8f9c791bc2a1d939d204df14d27c8a1aeef41f5c1",
+      "afterHash": "814619e26ea57cf34917a79e619b890a7d0c1405e96ebc2e7090778a7d0a0a34"
+    }
+  ],
+  "causeCommits": [
+    "be18a875fc702843251df91b11e5a7d220e736d2",
+    "84749c3ff81333723d946e162c39005ff9729623"
+  ]
+}

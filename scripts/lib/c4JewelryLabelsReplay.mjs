@@ -1,3 +1,4 @@
+import {preparePreC2WaistFiles} from './c2WaistReplay.mjs';
 import {preparePreC3PoseFiles,preC3Source} from './c3PoseReplay.mjs';
 import c3Review from './c3PoseReview.json' with {type:'json'};
 // Test-only exact inverse. Never re-record historical seals.
@@ -21,16 +22,18 @@ export function preC4JewelrySource(path,source){
 export function preparePreC4JewelryFiles(directory){
  assert.notEqual(realpathSync(directory),realpathSync(C4_JEWELRY_ROOT),'C4 jewelry inverse requires isolated copy');
  assert.ok(!existsSync(join(directory,'.git')),'C4 jewelry inverse rejects Git checkout');
+ const c2=preparePreC2WaistFiles(directory);
  const c3Path=join(directory,c3Review.path);
  const c3=existsSync(c3Path)&&hash(readFileSync(c3Path))===c3Review.afterHash?preparePreC3PoseFiles(directory):{sources:new Map()};
- const sources=new Map(c3.sources),present=C4_JEWELRY_PATCHES.files.filter(f=>existsSync(join(directory,f.path)));
+ const sources=new Map([...c2.sources,...c3.sources]),present=C4_JEWELRY_PATCHES.files.filter(f=>existsSync(join(directory,f.path)));
  const pikaPath=join(directory,PIKA_VIDEO_PATH);
  if(existsSync(pikaPath)){
   const source=readFileSync(pikaPath), before=prePikaVideoSource(PIKA_VIDEO_PATH,source);
   if(!source.equals(before))sources.set(PIKA_VIDEO_PATH,before);
  }
- if(present.some(f=>hash(readFileSync(join(directory,f.path)))===f.afterHash)){
-  for(const f of present){const bytes=readFileSync(join(directory,f.path));assert.ok([f.beforeHash,f.afterHash].includes(hash(bytes)),'C4 jewelry inverse rejects unknown source: '+f.path);sources.set(f.path,preC4JewelrySource(f.path,bytes));}
+ const sourceFor=f=>sources.get(f.path)??readFileSync(join(directory,f.path));
+ if(present.some(f=>hash(sourceFor(f))===f.afterHash)){
+  for(const f of present){const bytes=sourceFor(f);assert.ok([f.beforeHash,f.afterHash].includes(hash(bytes)),'C4 jewelry inverse rejects unknown source: '+f.path);sources.set(f.path,preC4JewelrySource(f.path,bytes));}
  }
  return {sources,apply(){for(const [path,bytes]of sources)writeFileSync(join(directory,path),bytes);}};
 }

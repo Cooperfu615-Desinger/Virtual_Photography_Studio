@@ -55,14 +55,17 @@
         "wardrobe:腰部配件-waist-accessories:雙層銀鏈水晶腰鍊:3"
       ],
       "zh": "雙層銀鏈水晶腰鍊",
-      "en": "two-layer silver waist chain, two delicate fine-link strands at slightly different heights, irregular pale blue translucent stone accents along one strand, layered jewelry around the waist and upper hips",
+      "en": "two-layer silver waist chain around the waist and upper hips, two delicate fine-link strands at slightly different heights, irregular pale blue translucent stone accents along one strand",
       "desc": "兩條不同高度的細銀鏈形成層次，其中一條沿間隔配置不規則淡藍半透明水晶石，明確落在腰部與上髖部。",
       "meta": {
         "semantic": {
           "family": "neutral",
           "tags": []
         }
-      }
+      },
+      "legacyPromptAliases": [
+        "two-layer silver waist chain, two delicate fine-link strands at slightly different heights, irregular pale blue translucent stone accents along one strand, layered jewelry around the waist and upper hips"
+      ]
     },
     {
       "id": "wardrobe:腰部配件-waist-accessories:金色細鏈鑽石腰鍊:4",
@@ -70,14 +73,17 @@
         "wardrobe:腰部配件-waist-accessories:金色細鏈鑽石腰鍊:4"
       ],
       "zh": "金色細鏈鑽石腰鍊",
-      "en": "delicate gold waist chain, fine linked chain with evenly spaced tiny clear diamond-like gemstone accents, subtle sparkling jewelry worn around the waist and upper hips",
+      "en": "delicate gold waist chain, fine links with evenly spaced tiny clear diamond-like gemstone accents, subtly sparkling around the waist and upper hips",
       "desc": "以細緻金色鏈條環繞腰部與上髖部，沿間隔配置小型透明鑽石感寶石，呈現低調閃耀。",
       "meta": {
         "semantic": {
           "family": "neutral",
           "tags": []
         }
-      }
+      },
+      "legacyPromptAliases": [
+        "delicate gold waist chain, fine linked chain with evenly spaced tiny clear diamond-like gemstone accents, subtle sparkling jewelry worn around the waist and upper hips"
+      ]
     },
     {
       "id": "wardrobe:腰部配件-waist-accessories:雙層銀鏈愛心腰鍊:5",

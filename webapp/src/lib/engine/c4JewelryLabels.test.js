@@ -1,3 +1,5 @@
+import {preC2WaistHistoricalTest} from '../../../../scripts/lib/c2WaistHistoricalTest.mjs';
+const c2HistoricalTest=preC2WaistHistoricalTest(import.meta.url);
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import process from 'node:process';
@@ -10,7 +12,7 @@ import {parseLocksFromStandardPrompt} from '../../features/saved-cards/cardCodec
 import review from '../../../../scripts/lib/c4JewelryLabelsReview.json' with {type:'json'};
 import {C4_JEWELRY_ROOT as root,C4_JEWELRY_PATCHES as patches,preC4JewelrySource,preparePreC4JewelryFiles} from '../../../../scripts/lib/c4JewelryLabelsReplay.mjs';
 const controls=getLockControls();
-test('C4 jewelry source delta is exactly four names and two descriptions; IDs/English/semantics stay',()=>{
+c2HistoricalTest('C4 jewelry source delta is exactly four names and two descriptions; IDs/English/semantics stay',()=>{
  let names=0,descs=0;
  for(const path of new Set(review.entries.map(e=>e.path))){
   const before=JSON.parse(patches.files.find(f=>f.path===path).beforeSource),after=JSON.parse(readFileSync(join(root,path)));
@@ -40,6 +42,6 @@ test('C4 exact inverse rejects live and unknown copies; fixed Git before bytes a
  assert.throws(()=>preparePreC4JewelryFiles(root));const dir=mkdtempSync(join(tmpdir(),'c4c-negative-'));
  try{for(const f of patches.files){const bytes=readFileSync(join(root,f.path));assert.equal(preC4JewelrySource(f.path,bytes).toString(),f.beforeSource);mkdirSync(dirname(join(dir,f.path)),{recursive:true});writeFileSync(join(dir,f.path),bytes);}const f=patches.files[0];writeFileSync(join(dir,f.path),'unknown');assert.throws(()=>preparePreC4JewelryFiles(dir),/rejects/);}finally{rmSync(dir,{recursive:true,force:true});}
 });
-test('C4 216 six-output cases and 1098 historical restore cases equal pre-change baseline',()=>{
+c2HistoricalTest('C4 216 six-output cases and 1098 historical restore cases equal pre-change baseline',()=>{
  execFileSync(process.execPath,[join(root,'scripts/c4_jewelry_labels_acceptance.mjs')],{stdio:'pipe'});
 });

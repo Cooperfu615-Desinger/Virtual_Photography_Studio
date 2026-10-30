@@ -1,0 +1,419 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+... Skipped lines
+
+  {
+    an: [],
+    b: '',
+    d: '2026-10-30',
+    e: [
+...
+      characterCardWardrobeMode: 'full-default',
++     completeLookPaletteAId: 'none',
++     completeLookPaletteBId: 'none',
++     completeLookPaletteId: 'none',
+      expressionId: 'character:表情-facial-expression:內斂悲傷:11',
+      faceCoveringAColorId: 'none',
+      faceCoveringAId: 'wardrobe:faceCovering:none',
+      faceCoveringBColorId: 'none',
+      faceCoveringBId: 'wardrobe:faceCovering:none',
+...
+      hairColorId: 'character:髮色-hair-color:全無:0',
++     hairStylingStateAId: 'character:髮絲整理狀態-hair-styling-state:柔順自然:0',
++     hairStylingStateBId: 'character:髮絲整理狀態-hair-styling-state:柔順自然:0',
+      hairStylingStateId: 'character:髮絲整理狀態-hair-styling-state:柔順自然:0',
+      hairstyleId: 'character:髮型-hairstyle:柔波-中分:18',
++     headAccessoryAColorId: 'none',
++     headAccessoryBColorId: 'none',
++     headAccessoryColorId: 'none',
+      headPostureId: 'none',
+      headphonesAColorId: 'none',
+      headphonesAId: 'wardrobe:headphones:none',
+      headphonesBColorId: 'none',
+      headphonesBId: 'wardrobe:headphones:none',
+...
+      lightingId: 'camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26',
++     lipPiercingId: 'wardrobe:唇部穿孔-lip-piercings:全無:0',
+      locationId: 'locations:城市與社群感-urban-social-snapshots:室內-塗鴉牆面旁的地鐵月台角落:3',
+      lyingCameraId: 'none',
+      mjAspectRatio: 'page1',
+      mjRawMode: 'raw',
+      mjResolution: 'sd',
+      mjStylize: 25,
+      mjVersionId: 'v8-2',
++     nosePiercingId: 'wardrobe:鼻部穿孔-nose-piercings:全無:0',
+      opticalEffectId: 'camera:光學效果-optical-effects:前景遮擋散景:5',
+      orbitId: 'camera:拍攝方位-orbit-angle:右側-270-度:7',
+      poseAnchorId: 'none',
+      poseArrangementId: 'none',
+      poseBaseId: 'none',
+...
+      subjectCount: '1',
++     topBottomPaletteAId: 'none',
++     topBottomPaletteBId: 'none',
+      waistAccessoryId: 'wardrobe:腰部配件-waist-accessories:雙層銀鏈水晶腰鍊:3',
+      zImageVisibleTextLanguage: 'traditional-chinese',
+      zImageVisibleTextPlacement: 'background-storefront-sign'
+    },
+    m: 'Photorealistic editorial portrait. Asymmetrical off-center half-face portrait, subject placed flush against the far left frame edge, left vertical frame boundary cropping through the outer half of the face, broad negative space on the right, neck, shoulders, and upper torso visible, eye-level view, right profile view. A 20-year-old adult woman. Softly defined oval Korean face, upturned eyes with arched brows, clear nose bridge and full shaped lips, restrained sad expression, long soft waves with a center part, sleek close-to-head roots. A petite, slender figure with balanced proportions and soft, delicate lines.\n' +
+
+    at file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/c2_waist_browser.mjs:28:97 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: {
+    v: 3,
+    an: [],
+    i: 'c2w-0',
+    o: 'page1',
+    b: '',
+    d: '2026-10-30',
+    s: '風格：寫實攝影 / 細江英公｜戲劇黑白藝術張力 | 人物：一位性感驚豔的日系或韓系女性 / 小隻精緻身形 / 成熟性感臉 / 柔波：中分 / 柔順自然 / 內斂悲傷 | 服裝：雙層銀鏈水晶腰鍊 | 場景：室內：塗鴉牆面旁的地鐵月台角落 | 鏡頭：半臉傾斜特寫 / 平視高度鏡頭 / 右側 / 105mm 中長焦 / 前景遮擋散景 / 日系柔霧亮膚 | 光影：室內低照度暖色夜景 / 室內暖白燈色溫',
+    m: 'Photorealistic editorial portrait. Asymmetrical off-center half-face portrait, subject placed flush against the far left frame edge, left vertical frame boundary cropping through the outer half of the face, broad negative space on the right, neck, shoulders, and upper torso visible, eye-level view, right profile view. A 20-year-old adult woman. Softly defined oval Korean face, upturned eyes with arched brows, clear nose bridge and full shaped lips, restrained sad expression, long soft waves with a center part, sleek close-to-head roots. A petite, slender figure with balanced proportions and soft, delicate lines.\n' +
+      '\n' +
+      'New York subway platform corner, graffiti-covered wall, stained tile panels. Indoor low-light warm night ambience, dim amber room brightness, warm-white indoor subject color, neutral-warm highlights, gentle household warmth.\n' +
+      '\n' +
+      'Inspired by Eikoh Hosoe, dramatic monochrome art portraiture, sculptural tonal tension, theatrical shadow contrast, stark chiaroscuro. 105mm medium telephoto lens, stronger perspective compression, narrow field of view, blurred foreground occlusion near the lens. Soft-tonal Japanese portrait color grade, luminous pale highlights, gentle bloom, lowered micro-contrast, airy contrast, pastel shadow softness. --v 8.2 --ar 4:5 --raw --s 25 --c 0 --w 0 --sd',
+    g: 'Image Type:\n' +
+      'Create a photorealistic editorial portrait.\n' +
+      '\n' +
+      'Composition:\n' +
+      'Asymmetrical off-center half-face portrait, subject placed flush against the far left frame edge, left vertical frame boundary cropping through the outer half of the face, broad negative space on the right, neck, shoulders, and upper torso visible, eye-level view, right profile view.\n' +
+      '\n' +
+      'Subject:\n' +
+      'The subject is one 20-year-old adult woman. Young seductive alluring Korean beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence. Long soft waves with a center part, defined wave shape, clean tapered ends. Sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face. Restrained sad expression, inner brows slightly raised, softened eyelids, mouth corners slightly downturned, subtle lower-lip tension.\n' +
+      '\n' +
+      'Scene:\n' +
+      'The portrait takes place in New York subway platform corner, graffiti-covered wall, stained tile panels.\n' +
+      '\n' +
+      'Lighting:\n' +
+      'Indoor low-light warm night ambience with dim amber brightness and soft shadows, dark exterior where visible. Warm-white indoor subject color, neutral-warm highlights, gentle household warmth, restrained amber saturation.\n' +
+      '\n' +
+      'Camera Look:\n' +
+      'Inspired by Eikoh Hosoe, dramatic monochrome art image language. Dramatic monochrome art portraiture, sculptural tonal tension, theatrical shadow contrast, stark chiaroscuro, avant-garde intensity. Shot on 105mm medium telephoto lens, stronger perspective compression, narrowed field of view, increased subject-background separation, flattened spatial layers, controlled facial proportion rendering. Blurred foreground occlusion near the lens, out-of-focus shapes crossing one or more frame edges, meaningful partial frame coverage, thick near-field bokeh veil, clear opening toward the subject. Soft-tonal Japanese portrait color grade, luminous pale highlights, gentle bloom, lowered micro-contrast, airy contrast, pastel shadow softness.',
+    z: 'Photorealistic editorial portrait.\n' +
+      '\n' +
+      'The setting is New York subway platform corner, graffiti-covered wall, stained tile panels. Asymmetrical off-center half-face portrait, subject placed flush against the far left frame edge, left vertical frame boundary cropping through the outer half of the face, broad negative space on the right, neck, shoulders, and upper torso visible, eye-level view. She is positioned completely sideways, facing the left edge of the image. The camera sees only the right side of her upper body. Her right shoulder fully hides her left shoulder, creating one narrow side silhouette from head to upper torso. This is a strict 90-degree lateral body view.\n' +
+      '\n' +
+      'A 20-year-old seductive stunning adult woman, A–B cup bust, narrow ribcage, slim arms and legs, narrow waist, gently rounded hips, compact balanced proportions, moderate-length limbs, petite slender model silhouette; height 150–155 cm, bust–waist–hip 78–58–84 cm, young seductive alluring Korean beauty face, long soft waves with a center part, defined wave shape, clean tapered ends, sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, neatly framing the face, restrained sad expression, inner brows slightly raised, softened eyelids, mouth corners slightly downturned, subtle lower-lip tension.\n' +
+      '\n' +
+      'Indoor low-light warm night ambience with dim amber brightness and soft shadows, dark exterior where visible, warm-white indoor subject color, neutral-warm highlights.\n' +
+      '\n' +
+      'Eikoh Hosoe-inspired dramatic monochrome art image language.\n' +
+      '\n' +
+      'Shot on 105mm medium telephoto lens, stronger perspective compression, narrowed field of view, blurred foreground occlusion near the lens, out-of-focus shapes crossing one or more frame edges, thick near-field bokeh veil, clear opening toward the subject.\n' +
+      '\n' +
+      'Soft-tonal Japanese portrait color grade, luminous pale highlights, gentle bloom, lowered micro-contrast, airy contrast.',
+    nb: 'Create a photorealistic editorial portrait. Asymmetrical off-center half-face portrait, subject placed flush against the far left frame edge, left vertical frame boundary cropping through the outer half of the face, broad negative space on the right, neck, shoulders, and upper torso visible, eye-level view, right profile view.\n' +
+      '\n' +
+      'The subject is one 20-year-old adult woman. Her facial features include a softly defined oval Korean face with gently high cheekbones and a smooth tapered jaw, upturned eyes with moderate spacing, defined natural eyelids and softly arched brows, a straight nose with a clear medium bridge and a refined rounded tip, full shaped lips with a distinct cupid bow and a visibly fuller lower lip. Her hair is long soft waves with a center part, defined wave shape, clean tapered ends. Her hair styling has sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face. She has a restrained sad expression, inner brows slightly raised, softened eyelids, mouth corners slightly downturned, subtle lower-lip tension. She has A–B cup bust, narrow ribcage, slim arms and legs, narrow waist, gently rounded hips, compact balanced proportions, moderate-length limbs, petite slender model silhouette; height 150–155 cm, bust–waist–hip 78–58–84 cm.\n' +
+      '\n' +
+      'The setting is New York subway platform corner, graffiti-covered wall, stained tile panels.\n' +
+      '\n' +
+      'Indoor low-light warm night ambience with dim amber brightness and soft shadows, dark exterior where visible, warm-white indoor subject color, neutral-warm highlights, gentle household warmth, restrained amber saturation.\n' +
+      '\n' +
+      'Inspired by Eikoh Hosoe, dramatic monochrome art image language. Dramatic monochrome art portraiture, sculptural tonal tension, theatrical shadow contrast, stark chiaroscuro, avant-garde intensity, shot on 105mm medium telephoto lens, stronger perspective compression, narrowed field of view, increased subject-background separation, flattened spatial layers, controlled facial proportion rendering, blurred foreground occlusion near the lens, out-of-focus shapes crossing one or more frame edges, meaningful partial frame coverage, thick near-field bokeh veil, clear opening toward the subject, soft-tonal Japanese portrait color grade, luminous pale highlights, gentle bloom, lowered micro-contrast, airy contrast, pastel shadow softness.',
+    e: [
+      {
+        id: 'chest-up-portrait',
+        label: '胸上特寫照',
+        text: 'Image Type:\n' +
+          'Create a photorealistic editorial portrait.\n' +
+          '\n' +
+          'Composition:\n' +
+          'Vertical portrait composition at a 4:5 aspect ratio, chest-up portrait, eye-level view, right profile view.\n' +
+          '\n' +
+          'Subject:\n' +
+          'The subject is one 20-year-old adult woman. Young seductive alluring Korean beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence. Long soft waves with a center part, defined wave shape, clean tapered ends. Sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face. Restrained sad expression, inner brows slightly raised, softened eyelids, mouth corners slightly downturned, subtle lower-lip tension.\n' +
+          '\n' +
+          'Scene:\n' +
+          'The portrait takes place in New York subway platform corner, graffiti-covered wall, stained tile panels, scratched metal column, platform warning strip, wall-side waiting zone.\n' +
+          '\n' +
+          'Lighting:\n' +
+          'Indoor low-light warm night ambience with dim amber brightness and soft shadows, dark exterior where visible. Warm-white indoor subject color, neutral-warm highlights, gentle household warmth, restrained amber saturation.\n' +
+          '\n' +
+          'Camera Look:\n' +
+          'Inspired by Eikoh Hosoe, dramatic monochrome art image language. Dramatic monochrome art portraiture, sculptural tonal tension, theatrical shadow contrast, stark chiaroscuro, avant-garde intensity. Shot on 105mm medium telephoto lens, stronger perspective compression, narrowed field of view, increased subject-background separation, flattened spatial layers, controlled facial proportion rendering. Blurred foreground occlusion near the lens, out-of-focus shapes crossing one or more frame edges, meaningful partial frame coverage, thick near-field bokeh veil, clear opening toward the subject. Soft-tonal Japanese portrait color grade, luminous pale highlights, gentle bloom, lowered micro-contrast, airy contrast, pastel shadow softness.'
+      },
+      {
+        id: 'full-body-character',
+        label: '全身角色照',
+        text: 'Image Type:\n' +
+          'Create a photorealistic character reference portrait in a single 9:16 vertical image.\n' +
+          '\n' +
+          'Subject:\n' +
+          'The subject is one 20-year-old adult woman. A–B cup bust, narrow ribcage, slim arms and legs, narrow waist, gently rounded hips, compact balanced proportions, moderate-length limbs, petite slender model silhouette; height 150–155 cm, bust–waist–hip 78–58–84 cm. Young seductive alluring Korean beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence. Long soft waves with a center part, defined wave shape, clean tapered ends. Sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face. Restrained sad expression, inner brows slightly raised, softened eyelids, mouth corners slightly downturned, subtle lower-lip tension.\n' +
+          '\n' +
+          'Wardrobe:\n' +
+          'She wears two-layer silver waist chain, two delicate fine-link strands at slightly different heights, irregular pale blue translucent stone accents along one strand, layered jewelry around the waist and upper hips.\n' +
+          '\n' +
+          'Lighting:\n' +
+          'Clean even lighting with clear facial, body, fabric, and footwear readability.\n' +
+          '\n' +
+          'Camera Look:\n' +
+          'Full-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text.'
+      }
+    ],
+    y: null,
+    l: {
+      captureMode: 'standard',
+      subjectCount: '1',
+      characterCardHairVariantId: 'default',
+      characterCardEyewearMode: 'default',
+      characterCardWardrobeMode: 'full-default',
+      aspectRatio: 'none',
+      mjVersionId: 'v8-2',
+      mjAspectRatio: 'page1',
+      mjRawMode: 'raw',
+      mjStylize: 25,
+      mjResolution: 'sd',
+      imageTypePresetId: 'photorealistic-photo',
+      styleId: 'regional:攝影風格:細江英公-戲劇黑白藝術張力:22',
+      locationId: 'locations:城市與社群感-urban-social-snapshots:室內-塗鴉牆面旁的地鐵月台角落:3',
+      zImageVisibleTextLanguage: 'traditional-chinese',
+      zImageVisibleTextPlacement: 'background-storefront-sign',
+      fixedCompositionSetId: 'none',
+      fixedSetPositionId: 'none',
+      fixedSetBackgroundStateId: 'none',
+      fixedSetCaptureModeId: 'photographer-shot',
+      fixedSetPerformanceStateId: 'model-natural',
+      framingId: 'camera:景別構圖-framing:半臉傾斜特寫:1',
+      angleId: 'camera:相機視角-angle:平視高度鏡頭:2',
+      orbitId: 'camera:拍攝方位-orbit-angle:右側-270-度:7',
+      lyingCameraId: 'none',
+      captureStyleId: 'standard',
+      lensId: 'camera:鏡頭焦段-focal-length:105mm-中長焦:7',
+      apertureId: 'camera:光圈-景深-aperture-depth-of-field:全無:0',
+      shutterId: 'camera:快門-動態殘影-shutter-motion-blur:全無:0',
+      opticalEffectId: 'camera:光學效果-optical-effects:前景遮擋散景:5',
+      lightingId: 'camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26',
+      lightDirectionId: 'camera:光線表現-light-style:室內暖白燈色溫:15',
+      filmId: 'camera:底片與相機模擬-camera-film-simulation:日系柔霧亮膚:24',
+      bodyTypeId: 'character:體態-body-type:小隻精緻身形:5',
+      facialFeaturesId: 'character:五官特徵-facial-features:成熟性感臉:5',
+      hairstyleId: 'character:髮型-hairstyle:柔波-中分:18',
+      hairStylingStateId: 'character:髮絲整理狀態-hair-styling-state:柔順自然:0',
+      hairStylingStateAId: 'character:髮絲整理狀態-hair-styling-state:柔順自然:0',
+      hairStylingStateBId: 'character:髮絲整理狀態-hair-styling-state:柔順自然:0',
+      hairColorId: 'character:髮色-hair-color:全無:0',
+      expressionId: 'character:表情-facial-expression:內斂悲傷:11',
+      poseBaseId: 'none',
+      specifiedActionId: 'none',
+      poseOrientationId: 'none',
+      poseArrangementId: 'none',
+      poseHandId: 'none',
+      posePropId: 'none',
+      poseHeadId: 'none',
+      poseAnchorId: 'none',
+      gestureId: 'none',
+      propId: 'none',
+      headPostureId: 'none',
+      gazeId: 'none',
+      completeLookPaletteId: 'none',
+      completeLookPaletteAId: 'none',
+      completeLookPaletteBId: 'none',
+      topBottomPaletteAId: 'none',
+      topBottomPaletteBId: 'none',
+      headphonesId: 'wardrobe:headphones:none',
+      headphonesColorId: 'none',
+      faceCoveringId: 'wardrobe:faceCovering:none',
+      faceCoveringColorId: 'none',
+      headAccessoryColorId: 'none',
+      nosePiercingId: 'wardrobe:鼻部穿孔-nose-piercings:全無:0',
+      lipPiercingId: 'wardrobe:唇部穿孔-lip-piercings:全無:0',
+      waistAccessoryId: 'wardrobe:腰部配件-waist-accessories:雙層銀鏈水晶腰鍊:3',
+      headphonesAId: 'wardrobe:headphones:none',
+      headphonesAColorId: 'none',
+      faceCoveringAId: 'wardrobe:faceCovering:none',
+      faceCoveringAColorId: 'none',
+      headAccessoryAColorId: 'none',
+      headphonesBId: 'wardrobe:headphones:none',
+      headphonesBColorId: 'none',
+      faceCoveringBId: 'wardrobe:faceCovering:none',
+      faceCoveringBColorId: 'none',
+      headAccessoryBColorId: 'none'
+    },
+    p: null,
+    n: null,
+    r: null,
+    q: '',
+    u: '',
+    f: '',
+    t: []
+  },
+  expected: {
+    v: 3,
+    an: [],
+    i: 'c2w-0',
+    o: 'page1',
+    b: '',
+    d: '2026-10-30',
+    s: '風格：寫實攝影 / 細江英公｜戲劇黑白藝術張力 | 人物：一位性感驚豔的日系或韓系女性 / 小隻精緻身形 / 成熟性感臉 / 柔波：中分 / 柔順自然 / 內斂悲傷 | 服裝：雙層銀鏈水晶腰鍊 | 場景：室內：塗鴉牆面旁的地鐵月台角落 | 鏡頭：半臉傾斜特寫 / 平視高度鏡頭 / 右側 / 105mm 中長焦 / 前景遮擋散景 / 日系柔霧亮膚 | 光影：室內低照度暖色夜景 / 室內暖白燈色溫',
+    m: 'Photorealistic editorial portrait. Asymmetrical off-center half-face portrait, subject placed flush against the far left frame edge, left vertical frame boundary cropping through the outer half of the face, broad negative space on the right, neck, shoulders, and upper torso visible, eye-level view, right profile view. A 20-year-old adult woman. Softly defined oval Korean face, upturned eyes with arched brows, clear nose bridge and full shaped lips, restrained sad expression, long soft waves with a center part, sleek close-to-head roots. A petite, slender figure with balanced proportions and soft, delicate lines.\n' +
+      '\n' +
+      'New York subway platform corner, graffiti-covered wall, stained tile panels. Indoor low-light warm night ambience, dim amber room brightness, warm-white indoor subject color, neutral-warm highlights, gentle household warmth.\n' +
+      '\n' +
+      'Inspired by Eikoh Hosoe, dramatic monochrome art portraiture, sculptural tonal tension, theatrical shadow contrast, stark chiaroscuro. 105mm medium telephoto lens, stronger perspective compression, narrow field of view, blurred foreground occlusion near the lens. Soft-tonal Japanese portrait color grade, luminous pale highlights, gentle bloom, lowered micro-contrast, airy contrast, pastel shadow softness. --v 8.2 --ar 4:5 --raw --s 25 --c 0 --w 0 --sd',
+    g: 'Image Type:\n' +
+      'Create a photorealistic editorial portrait.\n' +
+      '\n' +
+      'Composition:\n' +
+      'Asymmetrical off-center half-face portrait, subject placed flush against the far left frame edge, left vertical frame boundary cropping through the outer half of the face, broad negative space on the right, neck, shoulders, and upper torso visible, eye-level view, right profile view.\n' +
+      '\n' +
+      'Subject:\n' +
+      'The subject is one 20-year-old adult woman. Young seductive alluring Korean beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence. Long soft waves with a center part, defined wave shape, clean tapered ends. Sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face. Restrained sad expression, inner brows slightly raised, softened eyelids, mouth corners slightly downturned, subtle lower-lip tension.\n' +
+      '\n' +
+      'Scene:\n' +
+      'The portrait takes place in New York subway platform corner, graffiti-covered wall, stained tile panels.\n' +
+      '\n' +
+      'Lighting:\n' +
+      'Indoor low-light warm night ambience with dim amber brightness and soft shadows, dark exterior where visible. Warm-white indoor subject color, neutral-warm highlights, gentle household warmth, restrained amber saturation.\n' +
+      '\n' +
+      'Camera Look:\n' +
+      'Inspired by Eikoh Hosoe, dramatic monochrome art image language. Dramatic monochrome art portraiture, sculptural tonal tension, theatrical shadow contrast, stark chiaroscuro, avant-garde intensity. Shot on 105mm medium telephoto lens, stronger perspective compression, narrowed field of view, increased subject-background separation, flattened spatial layers, controlled facial proportion rendering. Blurred foreground occlusion near the lens, out-of-focus shapes crossing one or more frame edges, meaningful partial frame coverage, thick near-field bokeh veil, clear opening toward the subject. Soft-tonal Japanese portrait color grade, luminous pale highlights, gentle bloom, lowered micro-contrast, airy contrast, pastel shadow softness.',
+    z: 'Photorealistic editorial portrait.\n' +
+      '\n' +
+      'The setting is New York subway platform corner, graffiti-covered wall, stained tile panels. Asymmetrical off-center half-face portrait, subject placed flush against the far left frame edge, left vertical frame boundary cropping through the outer half of the face, broad negative space on the right, neck, shoulders, and upper torso visible, eye-level view. She is positioned completely sideways, facing the left edge of the image. The camera sees only the right side of her upper body. Her right shoulder fully hides her left shoulder, creating one narrow side silhouette from head to upper torso. This is a strict 90-degree lateral body view.\n' +
+      '\n' +
+      'A 20-year-old seductive stunning adult woman, A–B cup bust, narrow ribcage, slim arms and legs, narrow waist, gently rounded hips, compact balanced proportions, moderate-length limbs, petite slender model silhouette; height 150–155 cm, bust–waist–hip 78–58–84 cm, young seductive alluring Korean beauty face, long soft waves with a center part, defined wave shape, clean tapered ends, sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, neatly framing the face, restrained sad expression, inner brows slightly raised, softened eyelids, mouth corners slightly downturned, subtle lower-lip tension.\n' +
+      '\n' +
+      'Indoor low-light warm night ambience with dim amber brightness and soft shadows, dark exterior where visible, warm-white indoor subject color, neutral-warm highlights.\n' +
+      '\n' +
+      'Eikoh Hosoe-inspired dramatic monochrome art image language.\n' +
+      '\n' +
+      'Shot on 105mm medium telephoto lens, stronger perspective compression, narrowed field of view, blurred foreground occlusion near the lens, out-of-focus shapes crossing one or more frame edges, thick near-field bokeh veil, clear opening toward the subject.\n' +
+      '\n' +
+      'Soft-tonal Japanese portrait color grade, luminous pale highlights, gentle bloom, lowered micro-contrast, airy contrast.',
+    nb: 'Create a photorealistic editorial portrait. Asymmetrical off-center half-face portrait, subject placed flush against the far left frame edge, left vertical frame boundary cropping through the outer half of the face, broad negative space on the right, neck, shoulders, and upper torso visible, eye-level view, right profile view.\n' +
+      '\n' +
+      'The subject is one 20-year-old adult woman. Her facial features include a softly defined oval Korean face with gently high cheekbones and a smooth tapered jaw, upturned eyes with moderate spacing, defined natural eyelids and softly arched brows, a straight nose with a clear medium bridge and a refined rounded tip, full shaped lips with a distinct cupid bow and a visibly fuller lower lip. Her hair is long soft waves with a center part, defined wave shape, clean tapered ends. Her hair styling has sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face. She has a restrained sad expression, inner brows slightly raised, softened eyelids, mouth corners slightly downturned, subtle lower-lip tension. She has A–B cup bust, narrow ribcage, slim arms and legs, narrow waist, gently rounded hips, compact balanced proportions, moderate-length limbs, petite slender model silhouette; height 150–155 cm, bust–waist–hip 78–58–84 cm.\n' +
+      '\n' +
+      'The setting is New York subway platform corner, graffiti-covered wall, stained tile panels.\n' +
+      '\n' +
+      'Indoor low-light warm night ambience with dim amber brightness and soft shadows, dark exterior where visible, warm-white indoor subject color, neutral-warm highlights, gentle household warmth, restrained amber saturation.\n' +
+      '\n' +
+      'Inspired by Eikoh Hosoe, dramatic monochrome art image language. Dramatic monochrome art portraiture, sculptural tonal tension, theatrical shadow contrast, stark chiaroscuro, avant-garde intensity, shot on 105mm medium telephoto lens, stronger perspective compression, narrowed field of view, increased subject-background separation, flattened spatial layers, controlled facial proportion rendering, blurred foreground occlusion near the lens, out-of-focus shapes crossing one or more frame edges, meaningful partial frame coverage, thick near-field bokeh veil, clear opening toward the subject, soft-tonal Japanese portrait color grade, luminous pale highlights, gentle bloom, lowered micro-contrast, airy contrast, pastel shadow softness.',
+    e: [
+      {
+        id: 'chest-up-portrait',
+        label: '胸上特寫照',
+        text: 'Image Type:\n' +
+          'Create a photorealistic editorial portrait.\n' +
+          '\n' +
+          'Composition:\n' +
+          'Vertical portrait composition at a 4:5 aspect ratio, chest-up portrait, eye-level view, right profile view.\n' +
+          '\n' +
+          'Subject:\n' +
+          'The subject is one 20-year-old adult woman. Young seductive alluring Korean beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence. Long soft waves with a center part, defined wave shape, clean tapered ends. Sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face. Restrained sad expression, inner brows slightly raised, softened eyelids, mouth corners slightly downturned, subtle lower-lip tension.\n' +
+          '\n' +
+          'Scene:\n' +
+          'The portrait takes place in New York subway platform corner, graffiti-covered wall, stained tile panels, scratched metal column, platform warning strip, wall-side waiting zone.\n' +
+          '\n' +
+          'Lighting:\n' +
+          'Indoor low-light warm night ambience with dim amber brightness and soft shadows, dark exterior where visible. Warm-white indoor subject color, neutral-warm highlights, gentle household warmth, restrained amber saturation.\n' +
+          '\n' +
+          'Camera Look:\n' +
+          'Inspired by Eikoh Hosoe, dramatic monochrome art image language. Dramatic monochrome art portraiture, sculptural tonal tension, theatrical shadow contrast, stark chiaroscuro, avant-garde intensity. Shot on 105mm medium telephoto lens, stronger perspective compression, narrowed field of view, increased subject-background separation, flattened spatial layers, controlled facial proportion rendering. Blurred foreground occlusion near the lens, out-of-focus shapes crossing one or more frame edges, meaningful partial frame coverage, thick near-field bokeh veil, clear opening toward the subject. Soft-tonal Japanese portrait color grade, luminous pale highlights, gentle bloom, lowered micro-contrast, airy contrast, pastel shadow softness.'
+      },
+      {
+        id: 'full-body-character',
+        label: '全身角色照',
+        text: 'Image Type:\n' +
+          'Create a photorealistic character reference portrait in a single 9:16 vertical image.\n' +
+          '\n' +
+          'Subject:\n' +
+          'The subject is one 20-year-old adult woman. A–B cup bust, narrow ribcage, slim arms and legs, narrow waist, gently rounded hips, compact balanced proportions, moderate-length limbs, petite slender model silhouette; height 150–155 cm, bust–waist–hip 78–58–84 cm. Young seductive alluring Korean beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence. Long soft waves with a center part, defined wave shape, clean tapered ends. Sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face. Restrained sad expression, inner brows slightly raised, softened eyelids, mouth corners slightly downturned, subtle lower-lip tension.\n' +
+          '\n' +
+          'Wardrobe:\n' +
+          'She wears two-layer silver waist chain, two delicate fine-link strands at slightly different heights, irregular pale blue translucent stone accents along one strand, layered jewelry around the waist and upper hips.\n' +
+          '\n' +
+          'Lighting:\n' +
+          'Clean even lighting with clear facial, body, fabric, and footwear readability.\n' +
+          '\n' +
+          'Camera Look:\n' +
+          'Full-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text.'
+      }
+    ],
+    y: null,
+    l: {
+      captureMode: 'standard',
+      subjectCount: '1',
+      characterCardHairVariantId: 'default',
+      characterCardEyewearMode: 'default',
+      characterCardWardrobeMode: 'full-default',
+      aspectRatio: 'none',
+      mjVersionId: 'v8-2',
+      mjAspectRatio: 'page1',
+      mjRawMode: 'raw',
+      mjStylize: 25,
+      mjResolution: 'sd',
+      imageTypePresetId: 'photorealistic-photo',
+      styleId: 'regional:攝影風格:細江英公-戲劇黑白藝術張力:22',
+      locationId: 'locations:城市與社群感-urban-social-snapshots:室內-塗鴉牆面旁的地鐵月台角落:3',
+      zImageVisibleTextLanguage: 'traditional-chinese',
+      zImageVisibleTextPlacement: 'background-storefront-sign',
+      fixedCompositionSetId: 'none',
+      fixedSetPositionId: 'none',
+      fixedSetBackgroundStateId: 'none',
+      fixedSetCaptureModeId: 'photographer-shot',
+      fixedSetPerformanceStateId: 'model-natural',
+      framingId: 'camera:景別構圖-framing:半臉傾斜特寫:1',
+      angleId: 'camera:相機視角-angle:平視高度鏡頭:2',
+      orbitId: 'camera:拍攝方位-orbit-angle:右側-270-度:7',
+      lyingCameraId: 'none',
+      captureStyleId: 'standard',
+      lensId: 'camera:鏡頭焦段-focal-length:105mm-中長焦:7',
+      apertureId: 'camera:光圈-景深-aperture-depth-of-field:全無:0',
+      shutterId: 'camera:快門-動態殘影-shutter-motion-blur:全無:0',
+      opticalEffectId: 'camera:光學效果-optical-effects:前景遮擋散景:5',
+      lightingId: 'camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26',
+      lightDirectionId: 'camera:光線表現-light-style:室內暖白燈色溫:15',
+      filmId: 'camera:底片與相機模擬-camera-film-simulation:日系柔霧亮膚:24',
+      bodyTypeId: 'character:體態-body-type:小隻精緻身形:5',
+      facialFeaturesId: 'character:五官特徵-facial-features:成熟性感臉:5',
+      hairstyleId: 'character:髮型-hairstyle:柔波-中分:18',
+      hairStylingStateId: 'character:髮絲整理狀態-hair-styling-state:柔順自然:0',
+      hairColorId: 'character:髮色-hair-color:全無:0',
+      expressionId: 'character:表情-facial-expression:內斂悲傷:11',
+      poseBaseId: 'none',
+      specifiedActionId: 'none',
+      poseOrientationId: 'none',
+      poseArrangementId: 'none',
+      poseHandId: 'none',
+      posePropId: 'none',
+      poseHeadId: 'none',
+      poseAnchorId: 'none',
+      gestureId: 'none',
+      propId: 'none',
+      headPostureId: 'none',
+      gazeId: 'none',
+      headphonesId: 'wardrobe:headphones:none',
+      headphonesColorId: 'none',
+      faceCoveringId: 'wardrobe:faceCovering:none',
+      faceCoveringColorId: 'none',
+      waistAccessoryId: 'wardrobe:腰部配件-waist-accessories:雙層銀鏈水晶腰鍊:3',
+      headphonesAId: 'wardrobe:headphones:none',
+      headphonesAColorId: 'none',
+      faceCoveringAId: 'wardrobe:faceCovering:none',
+      faceCoveringAColorId: 'none',
+      headphonesBId: 'wardrobe:headphones:none',
+      headphonesBColorId: 'none',
+      faceCoveringBId: 'wardrobe:faceCovering:none',
+      faceCoveringBColorId: 'none'
+    },
+    p: null,
+    n: null,
+    r: null,
+    q: '',
+    u: '',
+    f: '',
+    t: []
+  },
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.23.3

@@ -1,0 +1,212 @@
+TAP version 13
+# file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/check_catalog_integrity.mjs:47
+#   if (['--repo', '--json-out', '--allowlist'].includes(argv[i])) { if (!argv[++i] || argv[i].startsWith('--')) throw new Error('Missing CLI argument value'); }
+#                                                                                                                      ^
+# Error: Missing CLI argument value
+#     at file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/check_catalog_integrity.mjs:47:118
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.3
+# 找不到 repo 根目錄；請用 --repo 指定 Virtual_Photography_Studio 路徑
+# Subtest: aliases are scoped by actual control, self aliases legal, cross-category owners conflict
+ok 1 - aliases are scoped by actual control, self aliases legal, cross-category owners conflict
+  ---
+  duration_ms: 3.843834
+  type: 'test'
+  ...
+# Subtest: primary ID duplication and alias shadowing are blocking
+ok 2 - primary ID duplication and alias shadowing are blocking
+  ---
+  duration_ms: 0.178917
+  type: 'test'
+  ...
+# Subtest: allowlist rejects stale, incomplete, duplicate and broad exceptions
+ok 3 - allowlist rejects stale, incomplete, duplicate and broad exceptions
+  ---
+  duration_ms: 0.293208
+  type: 'test'
+  ...
+# Subtest: action source references, clauses, validation and family errors are detected
+ok 4 - action source references, clauses, validation and family errors are detected
+  ---
+  duration_ms: 0.312334
+  type: 'test'
+  ...
+# Subtest: field mapping preserves false, empty strings, nested values and reports unknown source fields
+ok 5 - field mapping preserves false, empty strings, nested values and reports unknown source fields
+  ---
+  duration_ms: 15.369875
+  type: 'test'
+  ...
+# Subtest: strict CLI succeeds for exact exceptions and fails for stale exceptions
+ok 6 - strict CLI succeeds for exact exceptions and fails for stale exceptions
+  ---
+  duration_ms: 6869.413708
+  type: 'test'
+  ...
+# Subtest: rehearsal refuses repo output, symlink escape into repo, existing targets and wrong source without writes
+ok 7 - rehearsal refuses repo output, symlink escape into repo, existing targets and wrong source without writes
+  ---
+  duration_ms: 43.441917
+  type: 'test'
+  ...
+# Subtest: failed staged conversion leaves no target or staging; racing target is preserved
+ok 8 - failed staged conversion leaves no target or staging; racing target is preserved
+  ---
+  duration_ms: 1.760958
+  type: 'test'
+  ...
+# Subtest: nested source paths and category membership require explicit responsibility
+ok 9 - nested source paths and category membership require explicit responsibility
+  ---
+  duration_ms: 1.015708
+  type: 'test'
+  ...
+# Subtest: pose metadata validates nested support, arrangement, orientation and crop references
+ok 10 - pose metadata validates nested support, arrangement, orientation and crop references
+  ---
+  duration_ms: 0.750583
+  type: 'test'
+  ...
+# Subtest: catalog testing exports cannot enter production through imports, aliases or namespaces
+ok 11 - catalog testing exports cannot enter production through imports, aliases or namespaces
+  ---
+  duration_ms: 7.643167
+  type: 'test'
+  ...
+# Subtest: production scan includes JSX and helper files, excludes only test files, and fails closed on parse errors
+ok 12 - production scan includes JSX and helper files, excludes only test files, and fails closed on parse errors
+  ---
+  duration_ms: 723.427042
+  type: 'test'
+  ...
+# Subtest: all declared targets resolve; own-current aliases and ambiguous first matches stay legal
+ok 13 - all declared targets resolve; own-current aliases and ambiguous first matches stay legal
+  ---
+  duration_ms: 311.558792
+  type: 'test'
+  ...
+# Subtest: catalog, embedded, attribute and category failures are blocking
+ok 14 - catalog, embedded, attribute and category failures are blocking
+  ---
+  duration_ms: 1675.242208
+  type: 'test'
+  ...
+# Subtest: duplicate historical tuples, labels, prompt text and Map keys fail in their own namespace
+ok 15 - duplicate historical tuples, labels, prompt text and Map keys fail in their own namespace
+  ---
+  duration_ms: 1075.801
+  type: 'test'
+  ...
+# Subtest: derived legacy ID cannot shadow another current entry
+ok 16 - derived legacy ID cannot shadow another current entry
+  ---
+  duration_ms: 223.310542
+  type: 'test'
+  ...
+# Subtest: source extraction rejects expressions instead of executing arbitrary code
+ok 17 - source extraction rejects expressions instead of executing arbitrary code
+  ---
+  duration_ms: 10.078291
+  type: 'test'
+  ...
+# Subtest: rehearsal refuses wrong SHA, existing/internal output and already relocated engine
+ok 18 - rehearsal refuses wrong SHA, existing/internal output and already relocated engine
+  ---
+  duration_ms: 789.306083
+  type: 'test'
+  ...
+# Subtest: all 22 tables have explicit ownership policy; legacy text is not mistaken for an ID
+ok 19 - all 22 tables have explicit ownership policy; legacy text is not mistaken for an ID
+  ---
+  duration_ms: 429.299875
+  type: 'test'
+  ...
+# Subtest: each option alias family rejects another current ID and preserves its own target ID
+ok 20 - each option alias family rejects another current ID and preserves its own target ID
+  ---
+  duration_ms: 3938.929208
+  type: 'test'
+  ...
+# Subtest: standalone raw and computed migration keys cannot shadow current source IDs
+ok 21 - standalone raw and computed migration keys cannot shadow current source IDs
+  ---
+  duration_ms: 1481.48525
+  type: 'test'
+  ...
+# Subtest: hand-to-prop rejects the original counterexample, but unrelated control IDs do not collide
+ok 22 - hand-to-prop rejects the original counterexample, but unrelated control IDs do not collide
+  ---
+  duration_ms: 270.675625
+  type: 'test'
+  ...
+# Subtest: new embedded source ID cannot claim a historical migration key
+ok 23 - new embedded source ID cannot claim a historical migration key
+  ---
+  duration_ms: 97.27925
+  type: 'test'
+  ...
+# Subtest: label-based migrations check source owners and cannot hide another primary ID in aliases
+ok 24 - label-based migrations check source owners and cannot hide another primary ID in aliases
+  ---
+  duration_ms: 497.86225
+  type: 'test'
+  ...
+# Subtest: computed eye-wear keys are checked in single and both duo role namespaces
+ok 25 - computed eye-wear keys are checked in single and both duo role namespaces
+  ---
+  duration_ms: 283.727708
+  type: 'test'
+  ...
+# Subtest: selfie substring matching and source/computed drift fail closed
+ok 26 - selfie substring matching and source/computed drift fail closed
+  ---
+  duration_ms: 303.267
+  type: 'test'
+  ...
+# Subtest: historical ownership cannot authorize a different migration target
+ok 27 - historical ownership cannot authorize a different migration target
+  ---
+  duration_ms: 317.438167
+  type: 'test'
+  ...
+# Subtest: materialization preserves ordered whole inference and source fields without mutating inputs
+ok 28 - materialization preserves ordered whole inference and source fields without mutating inputs
+  ---
+  duration_ms: 4.416167
+  type: 'test'
+  ...
+# Subtest: acceptance rejects tag order, key order, field loss and changed falsy values
+ok 29 - acceptance rejects tag order, key order, field loss and changed falsy values
+  ---
+  duration_ms: 0.379458
+  type: 'test'
+  ...
+# Subtest: suggestion removes only the target semantic in a copy, preserves explicit source and default cache
+ok 30 - suggestion removes only the target semantic in a copy, preserves explicit source and default cache
+  ---
+  duration_ms: 127.751292
+  type: 'test'
+  ...
+# Subtest: field mapping detects lost semantic fields, leaked container and reordered merged tags
+ok 31 - field mapping detects lost semantic fields, leaked container and reordered merged tags
+  ---
+  duration_ms: 0.880958
+  type: 'test'
+  ...
+# Subtest: one-time rehearsal rejects unsafe output, wrong baseline and already materialized source without publication
+ok 32 - one-time rehearsal rejects unsafe output, wrong baseline and already materialized source without publication
+  ---
+  duration_ms: 1321.731791
+  type: 'test'
+  ...
+1..32
+# tests 32
+# suites 0
+# pass 32
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 11940.396

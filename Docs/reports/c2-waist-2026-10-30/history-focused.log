@@ -1,0 +1,189 @@
+TAP version 13
+# Subtest: C3 concrete actions and random/any have descriptions; none is supplied by picker
+ok 1 - C3 concrete actions and random/any have descriptions; none is supplied by picker
+  ---
+  duration_ms: 1.586083
+  type: 'test'
+  ...
+# Subtest: C3 product source changes exactly six uiHidden flags and no other bytes
+ok 2 - C3 product source changes exactly six uiHidden flags and no other bytes
+  ---
+  duration_ms: 1.468
+  type: 'test'
+  ...
+# Subtest: C3 retired controls remain retired and their workspace transition policy is unchanged
+ok 3 - C3 retired controls remain retired and their workspace transition policy is unchanged
+  ---
+  duration_ms: 0.148708
+  type: 'test'
+  ...
+# Subtest: C3 inverse restores exact pre-change source and rejects live/unknown copies
+ok 4 - C3 inverse restores exact pre-change source and rejects live/unknown copies
+  ---
+  duration_ms: 5.089625
+  type: 'test'
+  ...
+# Subtest: C3 fixed before matrix preserves outputs, choices, RNG and saved public text
+ok 5 - C3 fixed before matrix preserves outputs, choices, RNG and saved public text
+  ---
+  duration_ms: 7349.9455
+  type: 'test'
+  ...
+# Subtest: C4 seven Chinese names change without English, IDs, metadata, order or old keys changing
+ok 6 - C4 seven Chinese names change without English, IDs, metadata, order or old keys changing
+  ---
+  duration_ms: 3.861542
+  type: 'test'
+  ...
+# Subtest: C4 old hairstyle IDs retain wet migration and explicit A/B styling choices
+ok 7 - C4 old hairstyle IDs retain wet migration and explicit A/B styling choices
+  ---
+  duration_ms: 21.056584
+  type: 'test'
+  ...
+# Subtest: C4 exact inverse preserves fixed Git bytes and rejects live/unknown copies before writing
+ok 8 - C4 exact inverse preserves fixed Git bytes and rejects live/unknown copies before writing
+  ---
+  duration_ms: 38.317208
+  type: 'test'
+  ...
+# Subtest: C4 558 current cases and 1098 old restore paths match approved fixed baseline
+not ok 9 - C4 558 current cases and 1098 old restore paths match approved fixed baseline
+  ---
+  duration_ms: 2832.653542
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/c4CatalogLabels.test.js:46:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Command failed: /Users/cooperfu/.npm/_npx/52027bd8fc0022aa/node_modules/node/bin/node /Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/c4_catalog_labels_acceptance.mjs
+    node:internal/modules/run_main:123
+        triggerUncaughtException(
+        ^
+    
+    AssertionError [ERR_ASSERTION]: saved public text preserved
+    + actual - expected
+    ... Skipped lines
+    
+      'Image Type:\n' +
+        'Create a photorealistic editorial portrait.\n' +
+        '\n' +
+        'Composition:\n' +
+        'Waist-up portrait, shoulder-level view, right profile view.\n' +
+    ...
+        'Wardrobe:\n' +
+    +   'She wears wet-look glossy surface with smooth liquid-like highlights, Venom cosplay bodysuit, a full-body skin-tight black suit covering the torso, arms, hands, legs, and feet, subtle organic symbiote texture, bold white spider emblem across the chest and shoulders, unmasked face. Delicate gold waist chain, fine linked chain with evenly spaced tiny clear diamond-like gemstone accents, subtle sparkling jewelry worn around the waist and upper hips.\n' +
+    -   'She wears wet-look glossy surface with smooth liquid-like highlights, Venom cosplay bodysuit, a full-body skin-tight black suit covering the torso, arms, hands, legs, and feet, subtle organic symbiote texture, bold white spider emblem across the chest and shoulders, unmasked face. Delicate gold waist chain, fine links with evenly spaced tiny clear diamond-like gemstone accents, subtly sparkling around the waist and upper hips.\n' +
+        '\n' +
+        'Scene:\n' +
+        'The portrait takes place in abandoned classroom, scattered wooden desks at uneven angles, chalkboard, torn papers, broken window panes.\n' +
+        '\n' +
+        'Lighting:\n' +
+    
+        at file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/c4_catalog_labels_acceptance.mjs:30:29
+        at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+        at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+        at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {
+      generatedMessage: false,
+      code: 'ERR_ASSERTION',
+      actual: 'Image Type:\n' +
+        'Create a photorealistic editorial portrait.\n' +
+        '\n' +
+        'Composition:\n' +
+        'Waist-up portrait, shoulder-level view, right profile view.\n' +
+        '\n' +
+        'Subject:\n' +
+        'The subject is one 20-year-old adult Japanese woman. Medium-length hair with softly tapered ends, clean natural face-framing shape. Lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette. Light blonde hair, soft golden-beige tone, realistic dyed hair texture, hair color applies only to the scalp hair, eyebrows remain natural and realistic, not dyed to match the hair. Reserved understated expression, relaxed eyelids, gently pressed lips, neutral brows, restrained facial tension.\n' +
+        '\n' +
+        'Wardrobe:\n' +
+        'She wears wet-look glossy surface with smooth liquid-like highlights, Venom cosplay bodysuit, a full-body skin-tight black suit covering the torso, arms, hands, legs, and feet, subtle organic symbiote texture, bold white spider emblem across the chest and shoulders, unmasked face. Delicate gold waist chain, fine linked chain with evenly spaced tiny clear diamond-like gemstone accents, subtle sparkling jewelry worn around the waist and upper hips.\n' +
+        '\n' +
+        'Scene:\n' +
+        'The portrait takes place in abandoned classroom, scattered wooden desks at uneven angles, chalkboard, torn papers, broken window panes.\n' +
+        '\n' +
+        'Lighting:\n' +
+        'Everyday indoor ambience with bright cool-white illumination. Side split key light on the subject, one facial half illuminated and the other in shadow, clear light-dark separation.\n' +
+        '\n' +
+        'Camera Look:\n' +
+        'Inspired by Ellen von Unwerth, playful editorial image language. Playful editorial portraiture, spontaneous energy, candid movement, flash-assisted magazine glamour, lively fashion confidence. Shot on 35mm lens, slightly wide natural perspective, human-scale field of view, low geometric distortion, balanced subject-to-background relationship, realistic spatial depth. Anamorphic lens flare artifacts, horizontal flare streaks, cylindrical lens reflection behavior, oval bokeh response, stretched optical highlights. High-acutance snapshot rendering, snap-focus clarity, contrasty black levels, crisp APS-C-like color response, candid compact-camera texture.',
+      expected: 'Image Type:\n' +
+        'Create a photorealistic editorial portrait.\n' +
+        '\n' +
+        'Composition:\n' +
+        'Waist-up portrait, shoulder-level view, right profile view.\n' +
+        '\n' +
+        'Subject:\n' +
+        'The subject is one 20-year-old adult Japanese woman. Medium-length hair with softly tapered ends, clean natural face-framing shape. Lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette. Light blonde hair, soft golden-beige tone, realistic dyed hair texture, hair color applies only to the scalp hair, eyebrows remain natural and realistic, not dyed to match the hair. Reserved understated expression, relaxed eyelids, gently pressed lips, neutral brows, restrained facial tension.\n' +
+        '\n' +
+        'Wardrobe:\n' +
+        'She wears wet-look glossy surface with smooth liquid-like highlights, Venom cosplay bodysuit, a full-body skin-tight black suit covering the torso, arms, hands, legs, and feet, subtle organic symbiote texture, bold white spider emblem across the chest and shoulders, unmasked face. Delicate gold waist chain, fine links with evenly spaced tiny clear diamond-like gemstone accents, subtly sparkling around the waist and upper hips.\n' +
+        '\n' +
+        'Scene:\n' +
+        'The portrait takes place in abandoned classroom, scattered wooden desks at uneven angles, chalkboard, torn papers, broken window panes.\n' +
+        '\n' +
+        'Lighting:\n' +
+        'Everyday indoor ambience with bright cool-white illumination. Side split key light on the subject, one facial half illuminated and the other in shadow, clear light-dark separation.\n' +
+        '\n' +
+        'Camera Look:\n' +
+        'Inspired by Ellen von Unwerth, playful editorial image language. Playful editorial portraiture, spontaneous energy, candid movement, flash-assisted magazine glamour, lively fashion confidence. Shot on 35mm lens, slightly wide natural perspective, human-scale field of view, low geometric distortion, balanced subject-to-background relationship, realistic spatial depth. Anamorphic lens flare artifacts, horizontal flare streaks, cylindrical lens reflection behavior, oval bokeh response, stretched optical highlights. High-acutance snapshot rendering, snap-focus clarity, contrasty black levels, crisp APS-C-like color response, candid compact-camera texture.',
+      operator: 'deepStrictEqual',
+      diff: 'simple'
+    }
+    
+    Node.js v22.23.3
+    
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/c4_catalog_labels_acceptance.mjs:30:29
+    ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+    async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {
+    genericNodeError (node:internal/errors:983:15)
+    wrappedFn (node:internal/errors:537:14)
+    checkExecSyncError (node:child_process:916:11)
+    execFileSync (node:child_process:952:15)
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/c4CatalogLabels.test.js:47:2)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+  ...
+# Subtest: C4 jewelry source delta is exactly four names and two descriptions; IDs/English/semantics stay
+ok 10 - C4 jewelry source delta is exactly four names and two descriptions; IDs/English/semantics stay
+  ---
+  duration_ms: 729.357667
+  type: 'test'
+  ...
+# Subtest: C4 legacy jewelry scalar/array restore and explicit choice priority stay intact
+ok 11 - C4 legacy jewelry scalar/array restore and explicit choice priority stay intact
+  ---
+  duration_ms: 54.420875
+  type: 'test'
+  ...
+# Subtest: C4 image manifest only changes display name; original preview files are retained
+ok 12 - C4 image manifest only changes display name; original preview files are retained
+  ---
+  duration_ms: 1.294542
+  type: 'test'
+  ...
+# Subtest: C4 exact inverse rejects live and unknown copies; fixed Git before bytes are preserved
+ok 13 - C4 exact inverse rejects live and unknown copies; fixed Git before bytes are preserved
+  ---
+  duration_ms: 33.273417
+  type: 'test'
+  ...
+# Subtest: C4 216 six-output cases and 1098 historical restore cases equal pre-change baseline
+ok 14 - C4 216 six-output cases and 1098 historical restore cases equal pre-change baseline
+  ---
+  duration_ms: 4200.447333
+  type: 'test'
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 13
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 7436.101083

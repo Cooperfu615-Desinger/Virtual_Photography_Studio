@@ -1,0 +1,5 @@
+{
+  cases: 90,
+  publicOutputsSelectionsAndRng: 'equal',
+  storedPublicText: 'preserved'
+}

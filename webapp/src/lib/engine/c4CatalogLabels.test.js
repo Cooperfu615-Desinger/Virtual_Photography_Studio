@@ -1,3 +1,5 @@
+import {preC2WaistHistoricalTest} from '../../../../scripts/lib/c2WaistHistoricalTest.mjs';
+const c2HistoricalTest=preC2WaistHistoricalTest(import.meta.url);
 import {preC4JewelrySource} from '../../../../scripts/lib/c4JewelryLabelsReplay.mjs';
 import assert from 'node:assert/strict';
 import test from 'node:test';
@@ -43,6 +45,6 @@ test('C4 exact inverse preserves fixed Git bytes and rejects live/unknown copies
   assert.throws(()=>preparePreC4CatalogFiles(dir),/unknown/);assert.equal(readFileSync(path,'utf8'),'unknown');
  }finally{rmSync(dir,{recursive:true,force:true});}
 });
-test('C4 558 current cases and 1098 old restore paths match approved fixed baseline',()=>{
+c2HistoricalTest('C4 558 current cases and 1098 old restore paths match approved fixed baseline',()=>{
  execFileSync(process.execPath,[join(C4_CATALOG_ROOT,'scripts/c4_catalog_labels_acceptance.mjs')],{stdio:'pipe'});
 });

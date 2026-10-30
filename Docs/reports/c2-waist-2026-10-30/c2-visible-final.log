@@ -1,0 +1,46 @@
+TAP version 13
+# Subtest: C2 only two English sources plus ordered aliases change; three complete records remain
+ok 1 - C2 only two English sources plus ordered aliases change; three complete records remain
+  ---
+  duration_ms: 25.16475
+  type: 'test'
+  ...
+# Subtest: C2 old and new full English resolve same stable waist IDs; structured choices keep priority
+ok 2 - C2 old and new full English resolve same stable waist IDs; structured choices keep priority
+  ---
+  duration_ms: 307.583292
+  type: 'test'
+  ...
+# Subtest: C2 fixed 360-case baseline protects six outputs, RNG, selections and saved originals
+ok 3 - C2 fixed 360-case baseline protects six outputs, RNG, selections and saved originals
+  ---
+  duration_ms: 4065.953125
+  type: 'test'
+  ...
+# Subtest: C2 explicit palettes and visible duo crops preserve fixed jewelry colors
+ok 4 - C2 explicit palettes and visible duo crops preserve fixed jewelry colors
+  ---
+  duration_ms: 1482.252875
+  type: 'test'
+  ...
+# Subtest: C2 exact inverse verifies fixed Git bytes and rejects checkout or corrupt mixed copies atomically
+ok 5 - C2 exact inverse verifies fixed Git bytes and rejects checkout or corrupt mixed copies atomically
+  ---
+  duration_ms: 272.6505
+  type: 'test'
+  ...
+# Subtest: C2 historical DLL context is exact, isolated and rejects corruption without partial writes
+ok 6 - C2 historical DLL context is exact, isolated and rejects corruption without partial writes
+  ---
+  duration_ms: 361.693291
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6637.724666

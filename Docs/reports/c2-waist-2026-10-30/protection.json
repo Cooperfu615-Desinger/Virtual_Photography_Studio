@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "base": "2b60e6f605792b0e8c82a8573358105ce51e87e2",
+  "branch": "main",
+  "trackedChanges": [
+    "Docs/current_project_state.md",
+    "Docs/specs/c2-authoring-length-policy-v1.md",
+    "knowledge_base/catalog/Wardrobe/腰部配件-waist-accessories.json",
+    "knowledge_base/catalog/field_mapping.json",
+    "knowledge_base/catalog/schema.json",
+    "knowledge_base/wardrobe_and_styling.md",
+    "scripts/lib/authoringLengthPolicy.json",
+    "scripts/lib/c3PoseReplay.mjs",
+    "scripts/lib/c4JewelryLabelsReplay.mjs",
+    "scripts/tests/test_authoring_lengths.py",
+    "webapp/src/data/database.json",
+    "webapp/src/lib/engine/c3PoseGuards.test.js",
+    "webapp/src/lib/engine/c4CatalogLabels.test.js",
+    "webapp/src/lib/engine/c4JewelryLabels.test.js",
+    "webapp/src/lib/engine/c4Labels.test.js",
+    "webapp/src/lib/engineWardrobeControls.test.js"
+  ],
+  "protectedFiles": 2406,
+  "historicalReportsUnchanged": true,
+  "registryAndRendererUnchanged": true,
+  "stagedFiles": [],
+  "newBaselineSha256": "c8798bc4dc508f871b5858635716e1827a2c6721fbe0fbb87aa3769e0e674c0a"
+}

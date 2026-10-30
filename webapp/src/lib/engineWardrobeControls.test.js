@@ -560,8 +560,8 @@ test('waist accessory options remain traceable in full-body outputs', () => {
     waistAccessoryId: optionId('waistAccessoryId', '雙層銀鏈水晶腰鍊'),
   });
 
-  assert.match(prompt.grokPrompt, /two-layer silver waist chain, two delicate fine-link strands at slightly different heights/i);
-  assert.match(prompt.zImagePrompt, /two-layer silver waist chain, two delicate fine-link strands at slightly different heights/i);
+  assert.match(prompt.grokPrompt, /two-layer silver waist chain around the waist and upper hips, two delicate fine-link strands at slightly different heights/i);
+  assert.match(prompt.zImagePrompt, /two-layer silver waist chain around the waist and upper hips, two delicate fine-link strands at slightly different heights/i);
   assert.ok(prompt.structured.Wardrobe.some((item) => item.zh === '雙層銀鏈水晶腰鍊'));
   assert.equal(prompt.selection.waistAccessoryId, optionId('waistAccessoryId', '雙層銀鏈水晶腰鍊'));
 });

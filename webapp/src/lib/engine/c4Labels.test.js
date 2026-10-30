@@ -1,3 +1,5 @@
+import {preC2WaistHistoricalTest} from '../../../../scripts/lib/c2WaistHistoricalTest.mjs';
+const c2HistoricalTest=preC2WaistHistoricalTest(import.meta.url);
 import process from 'node:process';
 import assert from 'node:assert/strict';
 import test from 'node:test';
@@ -15,6 +17,6 @@ test('C4 distinguishes active and legacy chin labels without reactivating old se
 test('C4 source inverse restores exactly approved pre-change bytes',()=>{
  for(const f of patches.files){const bytes=readFileSync(new URL('../../../../'+f.path,import.meta.url));assert.equal(preC4LabelsSource(f.path,bytes).toString(),f.beforeSource);}
 });
-test('C4 90 frozen cases preserve English outputs, selections, RNG and saved text',()=>{
+c2HistoricalTest('C4 90 frozen cases preserve English outputs, selections, RNG and saved text',()=>{
  execFileSync(process.execPath,[new URL('../../../../scripts/c4_labels_acceptance.mjs',import.meta.url).pathname],{stdio:'pipe'});
 });

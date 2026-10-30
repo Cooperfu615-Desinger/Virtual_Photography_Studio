@@ -1,0 +1,14 @@
+{
+  "baseCommit": "9a0c4f2df7790d2728701e384b9dfc635d428a73",
+  "counts": {
+    "matrix": 1008,
+    "boundaries": 407,
+    "captures": 48,
+    "stored": 36,
+    "changed": 1184,
+    "generations": 4086
+  },
+  "protectedFiles": 328,
+  "oracleMismatches": 0,
+  "passed": true
+}
