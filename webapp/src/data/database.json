@@ -14817,7 +14817,7 @@
       },
       {
         "zh": "重散景光斑",
-        "en": "heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights, optical blur balls",
+        "en": "heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights",
         "desc": "讓離焦高光形成大型光斑或光圈形狀，重點是散景形狀、尺寸與離焦高光的光學表現。",
         "meta": {
           "semantic": {
@@ -14826,6 +14826,9 @@
             ]
           }
         },
+        "legacyPromptAliases": [
+          "heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights, optical blur balls"
+        ],
         "stableId": "camera:光學效果-optical-effects:重散景光斑:1",
         "legacyIds": [
           "camera:光學效果-optical-effects:重散景光斑:1"
@@ -14948,7 +14951,7 @@
       },
       {
         "zh": "鏡頭光斑 Lens Flare",
-        "en": "lens flare artifacts, internal lens reflections, veiling flare, ghosting shapes, streaking flare artifacts from a strong off-axis light source",
+        "en": "lens flare artifacts, internal lens reflections, veiling flare, ghosting shapes, streaking flare from a strong off-axis light source",
         "desc": "強光進入鏡頭後造成內部反射、鬼影、光暈或條狀 flare，重點是鏡頭內部反射瑕疵。",
         "meta": {
           "semantic": {
@@ -14958,6 +14961,9 @@
             ]
           }
         },
+        "legacyPromptAliases": [
+          "lens flare artifacts, internal lens reflections, veiling flare, ghosting shapes, streaking flare artifacts from a strong off-axis light source"
+        ],
         "stableId": "camera:光學效果-optical-effects:鏡頭光斑-lens-flare:9",
         "legacyIds": [
           "camera:光學效果-optical-effects:鏡頭光斑-lens-flare:9"
@@ -17008,7 +17014,7 @@
       },
       {
         "zh": "戶外：大阪道頓堀心齋橋河道",
-        "en": "Dotonbori Shinsaibashi riverside edge in Osaka, iconic billboard signage, Shinsaibashi bridge railing in the foreground, canal water visible below, dense commercial facade layers, famous advertisement boards, sidewalk edge near the bridge",
+        "en": "Dotonbori Shinsaibashi riverside edge in Osaka, iconic billboard signage, Shinsaibashi bridge railing in the foreground, canal water visible below, dense commercial facade layers, sidewalk edge near the bridge",
         "desc": "大阪道頓堀與心齋橋周邊，重點是橋欄、河道、大型廣告招牌、商業立面、知名看板與橋邊人行道。",
         "meta": {
           "semantic": {
@@ -17019,6 +17025,9 @@
             ]
           }
         },
+        "legacyPromptAliases": [
+          "Dotonbori Shinsaibashi riverside edge in Osaka, iconic billboard signage, Shinsaibashi bridge railing in the foreground, canal water visible below, dense commercial facade layers, famous advertisement boards, sidewalk edge near the bridge"
+        ],
         "stableId": "locations:城市與社群感-urban-social-snapshots:戶外-大阪道頓堀心齋橋河道:15",
         "legacyIds": [
           "locations:城市與社群感-urban-social-snapshots:戶外-大阪道頓堀心齋橋河道:15"

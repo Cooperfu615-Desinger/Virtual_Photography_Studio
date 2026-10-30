@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "worktrees": 20,
+  "dirtyFiles": 140,
+  "statusAndSha256Unchanged": true,
+  "worktreePaths": [
+    "/Users/cooperfu/Projects/Virtual_Photography_Studio",
+    "/Users/cooperfu/.codex/worktrees/capture-import-integration/Virtual_Photography_Studio",
+    "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/ethnicity-default-japanese",
+    "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-gest",
+    "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-grid",
+    "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-head",
+    "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-props",
+    "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-sit-kneel",
+    "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-squatting",
+    "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-standing",
+    "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-ui",
+    "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p1",
+    "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p2",
+    "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p3",
+    "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p4",
+    "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p5",
+    "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p5b",
+    "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/preview-prompt-test",
+    "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/reference-person-preview",
+    "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/tshirt-crew-neck"
+  ]
+}

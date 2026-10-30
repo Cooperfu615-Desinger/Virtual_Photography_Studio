@@ -279,7 +279,7 @@
         "locations:城市與社群感-urban-social-snapshots:戶外-大阪道頓堀心齋橋河道:15"
       ],
       "zh": "戶外：大阪道頓堀心齋橋河道",
-      "en": "Dotonbori Shinsaibashi riverside edge in Osaka, iconic billboard signage, Shinsaibashi bridge railing in the foreground, canal water visible below, dense commercial facade layers, famous advertisement boards, sidewalk edge near the bridge",
+      "en": "Dotonbori Shinsaibashi riverside edge in Osaka, iconic billboard signage, Shinsaibashi bridge railing in the foreground, canal water visible below, dense commercial facade layers, sidewalk edge near the bridge",
       "desc": "大阪道頓堀與心齋橋周邊，重點是橋欄、河道、大型廣告招牌、商業立面、知名看板與橋邊人行道。",
       "meta": {
         "semantic": {
@@ -289,7 +289,10 @@
             "waterfront"
           ]
         }
-      }
+      },
+      "legacyPromptAliases": [
+        "Dotonbori Shinsaibashi riverside edge in Osaka, iconic billboard signage, Shinsaibashi bridge railing in the foreground, canal water visible below, dense commercial facade layers, famous advertisement boards, sidewalk edge near the bridge"
+      ]
     },
     {
       "id": "locations:城市與社群感-urban-social-snapshots:戶外-九龍城寨雜貨店門口:16",

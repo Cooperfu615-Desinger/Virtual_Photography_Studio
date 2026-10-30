@@ -1,0 +1,52 @@
+{
+  "status": "local-validation-passed-with-recorded-browser-limit",
+  "baseCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+  "localHead": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+  "remoteMainConfirmed": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+  "changedEntries": 3,
+  "reviewedLongEntries": 29,
+  "longEntriesUnchanged": 28,
+  "reviewUnionEntries": 31,
+  "exceptionsTotal": 38,
+  "fixedCases": 644,
+  "fixedCompositionAndProfileCases": 90,
+  "frontendTests": 2064,
+  "promptQualityTests": 853,
+  "focusedTests": 7,
+  "pythonTests": 55,
+  "catalogToolTests": 32,
+  "publicAssets": 207,
+  "historicalIds": 1050,
+  "generatedOutputs": 8,
+  "strictBlockers": 0,
+  "strictAuditByteIdentical": true,
+  "existingDiagnosticPrompts": 17,
+  "completeHistoricalReplayPassed": true,
+  "historicalArtifacts": 58,
+  "protectedFiles": 2647,
+  "otherWorktrees": 20,
+  "otherDirtyFiles": 140,
+  "browserViewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      900
+    ]
+  ],
+  "workspaceChecks": 12,
+  "browserStateFlowPassed": true,
+  "nativePopupMouseVerified": false,
+  "programmaticFallback": [
+    "重散景光斑:1440",
+    "重散景光斑:390"
+  ],
+  "paidGenerationPerformed": false,
+  "previewStopped": true,
+  "stagedFiles": [],
+  "committed": false,
+  "pushed": false,
+  "userAcceptance": "pending"
+}

@@ -357,7 +357,9 @@
         "Character/體態 (Body Type)",
         "Wardrobe/特殊穿搭 (Special Outfits)",
         "CameraLighting/環境光條件 (Ambient Light Conditions)",
-        "Wardrobe/腰部配件 (Waist Accessories)"
+        "Wardrobe/腰部配件 (Waist Accessories)",
+        "CameraLighting/光學效果 (Optical Effects)",
+        "Locations/城市與社群感 (Urban & Social Snapshots)"
       ],
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
@@ -1158,7 +1160,9 @@
         "Character/體態 (Body Type)",
         "Wardrobe/特殊穿搭 (Special Outfits)",
         "CameraLighting/環境光條件 (Ambient Light Conditions)",
-        "Wardrobe/腰部配件 (Waist Accessories)"
+        "Wardrobe/腰部配件 (Waist Accessories)",
+        "CameraLighting/光學效果 (Optical Effects)",
+        "Locations/城市與社群感 (Urban & Social Snapshots)"
       ],
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },
@@ -1179,7 +1183,9 @@
         "Character/體態 (Body Type)",
         "Wardrobe/特殊穿搭 (Special Outfits)",
         "CameraLighting/環境光條件 (Ambient Light Conditions)",
-        "Wardrobe/腰部配件 (Waist Accessories)"
+        "Wardrobe/腰部配件 (Waist Accessories)",
+        "CameraLighting/光學效果 (Optical Effects)",
+        "Locations/城市與社群感 (Urban & Social Snapshots)"
       ],
       "policy": "Preserve JSON value, including false/0/empty string; assert consumed compiled value."
     },

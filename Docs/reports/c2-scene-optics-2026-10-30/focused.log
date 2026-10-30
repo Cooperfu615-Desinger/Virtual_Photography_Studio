@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: C2 scene optics exact three changes and all 29 reviewed records protect metadata and stable IDs
+ok 1 - C2 scene optics exact three changes and all 29 reviewed records protect metadata and stable IDs
+  ---
+  duration_ms: 43.985375
+  type: 'test'
+  ...
+# Subtest: C2 scene optics new and old full English restore IDs and preserve public Markdown and structured selections
+ok 2 - C2 scene optics new and old full English restore IDs and preserve public Markdown and structured selections
+  ---
+  duration_ms: 191.705792
+  type: 'test'
+  ...
+# Subtest: C2 scene optics hidden refraction remains restore-only and ordered random pool remains unchanged
+ok 3 - C2 scene optics hidden refraction remains restore-only and ordered random pool remains unchanged
+  ---
+  duration_ms: 26.899166
+  type: 'test'
+  ...
+# Subtest: C2 scene optics frozen 644-case matrix keeps selections RNG saved originals and only approved text changes
+ok 4 - C2 scene optics frozen 644-case matrix keeps selections RNG saved originals and only approved text changes
+  ---
+  duration_ms: 4118.6125
+  type: 'test'
+  ...
+# Subtest: C2 scene optics exact inverse rejects checkout mixed corruption and symlinks atomically
+ok 5 - C2 scene optics exact inverse rejects checkout mixed corruption and symlinks atomically
+  ---
+  duration_ms: 217.757417
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4748.522125

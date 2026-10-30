@@ -1,0 +1,1089 @@
+{
+  "base": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+  "changes": [
+    {
+      "id": "camera:光學效果-optical-effects:重散景光斑:1",
+      "zh": "重散景光斑",
+      "path": "knowledge_base/catalog/CameraLighting/光學效果-optical-effects.json",
+      "key": "opticalEffectId",
+      "before": "heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights, optical blur balls",
+      "after": "heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights",
+      "replaceFrom": ", optical blur balls",
+      "replaceTo": "",
+      "wordsBefore": 19,
+      "wordsAfter": 16,
+      "original": {
+        "id": "camera:光學效果-optical-effects:重散景光斑:1",
+        "legacyIds": [
+          "camera:光學效果-optical-effects:重散景光斑:1"
+        ],
+        "zh": "重散景光斑",
+        "en": "heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights, optical blur balls",
+        "desc": "讓離焦高光形成大型光斑或光圈形狀，重點是散景形狀、尺寸與離焦高光的光學表現。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "bokeh"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "camera:光學效果-optical-effects:鏡頭光斑-lens-flare:9",
+      "zh": "鏡頭光斑 Lens Flare",
+      "path": "knowledge_base/catalog/CameraLighting/光學效果-optical-effects.json",
+      "key": "opticalEffectId",
+      "before": "lens flare artifacts, internal lens reflections, veiling flare, ghosting shapes, streaking flare artifacts from a strong off-axis light source",
+      "after": "lens flare artifacts, internal lens reflections, veiling flare, ghosting shapes, streaking flare from a strong off-axis light source",
+      "replaceFrom": "streaking flare artifacts from",
+      "replaceTo": "streaking flare from",
+      "wordsBefore": 19,
+      "wordsAfter": 18,
+      "original": {
+        "id": "camera:光學效果-optical-effects:鏡頭光斑-lens-flare:9",
+        "legacyIds": [
+          "camera:光學效果-optical-effects:鏡頭光斑-lens-flare:9"
+        ],
+        "zh": "鏡頭光斑 Lens Flare",
+        "en": "lens flare artifacts, internal lens reflections, veiling flare, ghosting shapes, streaking flare artifacts from a strong off-axis light source",
+        "desc": "強光進入鏡頭後造成內部反射、鬼影、光暈或條狀 flare，重點是鏡頭內部反射瑕疵。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "light_artifact",
+              "flare_artifact"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-大阪道頓堀心齋橋河道:15",
+      "zh": "戶外：大阪道頓堀心齋橋河道",
+      "path": "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+      "key": "locationId",
+      "before": "Dotonbori Shinsaibashi riverside edge in Osaka, iconic billboard signage, Shinsaibashi bridge railing in the foreground, canal water visible below, dense commercial facade layers, famous advertisement boards, sidewalk edge near the bridge",
+      "after": "Dotonbori Shinsaibashi riverside edge in Osaka, iconic billboard signage, Shinsaibashi bridge railing in the foreground, canal water visible below, dense commercial facade layers, sidewalk edge near the bridge",
+      "replaceFrom": ", famous advertisement boards",
+      "replaceTo": "",
+      "wordsBefore": 31,
+      "wordsAfter": 28,
+      "original": {
+        "id": "locations:城市與社群感-urban-social-snapshots:戶外-大阪道頓堀心齋橋河道:15",
+        "legacyIds": [
+          "locations:城市與社群感-urban-social-snapshots:戶外-大阪道頓堀心齋橋河道:15"
+        ],
+        "zh": "戶外：大阪道頓堀心齋橋河道",
+        "en": "Dotonbori Shinsaibashi riverside edge in Osaka, iconic billboard signage, Shinsaibashi bridge railing in the foreground, canal water visible below, dense commercial facade layers, famous advertisement boards, sidewalk edge near the bridge",
+        "desc": "大阪道頓堀與心齋橋周邊，重點是橋欄、河道、大型廣告招牌、商業立面、知名看板與橋邊人行道。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "urban",
+              "outdoor",
+              "waterfront"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "retentions": [
+    {
+      "id": "camera:景別構圖-framing:頭部主導近景:10",
+      "zh": "頭部主導近景",
+      "path": "knowledge_base/catalog/CameraLighting/景別構圖-framing.json",
+      "words": 41,
+      "range": [
+        6,
+        18
+      ],
+      "decision": "retain",
+      "reason": "保留頭頂至下巴占畫面高度50–60%、完整下巴、少量留白、上身手臂及周邊場景；這些是獨立構圖要求，不是同義重述。",
+      "kind": "specific_contract",
+      "original": {
+        "id": "camera:景別構圖-framing:頭部主導近景:10",
+        "legacyIds": [
+          "camera:景別構圖-framing:頭部主導近景:10"
+        ],
+        "zh": "頭部主導近景",
+        "en": "head-dominant close portrait, close camera distance, head from hair crown to chin occupying 50–60% of frame height, full face and chin within the crop, little headroom, shoulders, upper torso and arms visible below, recognizable scene around the head and body",
+        "desc": "頭頂至下巴約佔畫面高度 50–60%，保留完整臉部與下巴、少量頭頂留白；下方仍見肩膀、上身與手臂，周圍場景可辨識。只開放高位俯視、平視與正上方；頭部角度由原選項控制。",
+        "meta": {
+          "semantic": {
+            "visibility": "portrait",
+            "tags": [
+              "face_detail",
+              "upper_body_focus"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "camera:光學效果-optical-effects:前景遮擋散景:5",
+      "zh": "前景遮擋散景",
+      "path": "knowledge_base/catalog/CameraLighting/光學效果-optical-effects.json",
+      "words": 27,
+      "range": [
+        10,
+        26
+      ],
+      "decision": "retain",
+      "reason": "保留近鏡頭離焦、跨一或多個邊緣、實質局部覆蓋、厚近場散景與主體可見開口；不為少一詞破壞可讀性。",
+      "kind": "specific_contract",
+      "original": {
+        "id": "camera:光學效果-optical-effects:前景遮擋散景:5",
+        "legacyIds": [
+          "camera:光學效果-optical-effects:前景遮擋散景:5"
+        ],
+        "zh": "前景遮擋散景",
+        "en": "blurred foreground occlusion near the lens, out-of-focus shapes crossing one or more frame edges, meaningful partial frame coverage, thick near-field bokeh veil, clear opening toward the subject",
+        "desc": "鏡頭前方有失焦遮擋物形成近景模糊層，必須遮住部分畫面邊緣或局部視線，但保留能看清主體的開口與前景深度層次。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "foreground_occlusion",
+              "depth_layering",
+              "bokeh"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純潔白幕:2",
+      "zh": "室內：純潔白幕",
+      "path": "knowledge_base/catalog/Locations/攝影棚與背景-studio-sets.json",
+      "words": 50,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "保留本色的horizonless seamless、連續地面背景、滿版純色、接觸陰影，以及牆角、地縫、天花板與棚內設備排除；多個限制各自阻止不同可見物件。",
+      "kind": "specific_contract",
+      "original": {
+        "id": "locations:攝影棚與背景-studio-sets:室內-純潔白幕:2",
+        "legacyIds": [
+          "locations:攝影棚與背景-studio-sets:室內-純潔白幕:2"
+        ],
+        "zh": "室內：純潔白幕",
+        "en": "horizonless seamless matte pure white color field, continuous white ground-and-background plane blending into a solid white void, full-bleed white surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "以純白無縫單色空間為主，地面與背景融合成滿版白色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "white surface"
+        },
+        "meta": {
+          "semantic": {
+            "tags": [
+              "indoor",
+              "set",
+              "controlled",
+              "studio",
+              "solid_color_studio",
+              "studio_lighting_scene"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-深邃黑幕:3",
+      "zh": "室內：深邃黑幕",
+      "path": "knowledge_base/catalog/Locations/攝影棚與背景-studio-sets.json",
+      "words": 50,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "保留本色的horizonless seamless、連續地面背景、滿版純色、接觸陰影，以及牆角、地縫、天花板與棚內設備排除；多個限制各自阻止不同可見物件。",
+      "kind": "specific_contract",
+      "original": {
+        "id": "locations:攝影棚與背景-studio-sets:室內-深邃黑幕:3",
+        "legacyIds": [
+          "locations:攝影棚與背景-studio-sets:室內-深邃黑幕:3"
+        ],
+        "zh": "室內：深邃黑幕",
+        "en": "horizonless seamless matte deep black color field, continuous black ground-and-background plane blending into a solid black void, full-bleed black surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "以深黑無縫單色空間為主，地面與背景融合成滿版黑色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "black surface"
+        },
+        "meta": {
+          "semantic": {
+            "tags": [
+              "indoor",
+              "set",
+              "controlled",
+              "studio",
+              "solid_color_studio",
+              "studio_lighting_scene"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-莫蘭迪灰背景:4",
+      "zh": "室內：莫蘭迪灰背景",
+      "path": "knowledge_base/catalog/Locations/攝影棚與背景-studio-sets.json",
+      "words": 51,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "保留本色的horizonless seamless、連續地面背景、滿版純色、接觸陰影，以及牆角、地縫、天花板與棚內設備排除；多個限制各自阻止不同可見物件。",
+      "kind": "specific_contract",
+      "original": {
+        "id": "locations:攝影棚與背景-studio-sets:室內-莫蘭迪灰背景:4",
+        "legacyIds": [
+          "locations:攝影棚與背景-studio-sets:室內-莫蘭迪灰背景:4"
+        ],
+        "zh": "室內：莫蘭迪灰背景",
+        "en": "horizonless seamless matte muted grey color field, continuous neutral-grey ground-and-background plane blending into a solid grey void, full-bleed low-saturation grey surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "以低飽和灰色無縫單色空間為主，地面與背景融合成滿版中性灰，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "grey surface"
+        },
+        "meta": {
+          "semantic": {
+            "tags": [
+              "indoor",
+              "set",
+              "controlled",
+              "studio",
+              "solid_color_studio",
+              "studio_lighting_scene"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純藍背景:5",
+      "zh": "室內：純藍背景",
+      "path": "knowledge_base/catalog/Locations/攝影棚與背景-studio-sets.json",
+      "words": 53,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "保留本色的horizonless seamless、連續地面背景、滿版純色、接觸陰影，以及牆角、地縫、天花板與棚內設備排除；多個限制各自阻止不同可見物件。",
+      "kind": "specific_contract",
+      "original": {
+        "id": "locations:攝影棚與背景-studio-sets:室內-純藍背景:5",
+        "legacyIds": [
+          "locations:攝影棚與背景-studio-sets:室內-純藍背景:5"
+        ],
+        "zh": "室內：純藍背景",
+        "en": "horizonless seamless matte saturated pure blue color field, continuous vivid blue ground-and-background plane blending into a solid blue void, full-bleed clean blue surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "以高飽和純藍無縫單色空間為主，地面與背景融合成滿版藍色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "blue surface"
+        },
+        "meta": {
+          "semantic": {
+            "tags": [
+              "indoor",
+              "set",
+              "controlled",
+              "studio",
+              "solid_color_studio",
+              "studio_lighting_scene"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純橘背景:6",
+      "zh": "室內：純橘背景",
+      "path": "knowledge_base/catalog/Locations/攝影棚與背景-studio-sets.json",
+      "words": 53,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "保留本色的horizonless seamless、連續地面背景、滿版純色、接觸陰影，以及牆角、地縫、天花板與棚內設備排除；多個限制各自阻止不同可見物件。",
+      "kind": "specific_contract",
+      "original": {
+        "id": "locations:攝影棚與背景-studio-sets:室內-純橘背景:6",
+        "legacyIds": [
+          "locations:攝影棚與背景-studio-sets:室內-純橘背景:6"
+        ],
+        "zh": "室內：純橘背景",
+        "en": "horizonless seamless matte saturated pure orange color field, continuous vivid orange ground-and-background plane blending into a solid orange void, full-bleed clean orange surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "以高飽和純橘無縫單色空間為主，地面與背景融合成滿版橘色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "orange surface"
+        },
+        "meta": {
+          "semantic": {
+            "tags": [
+              "indoor",
+              "set",
+              "controlled",
+              "studio",
+              "solid_color_studio",
+              "studio_lighting_scene"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純紅背景:7",
+      "zh": "室內：純紅背景",
+      "path": "knowledge_base/catalog/Locations/攝影棚與背景-studio-sets.json",
+      "words": 53,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "保留本色的horizonless seamless、連續地面背景、滿版純色、接觸陰影，以及牆角、地縫、天花板與棚內設備排除；多個限制各自阻止不同可見物件。",
+      "kind": "specific_contract",
+      "original": {
+        "id": "locations:攝影棚與背景-studio-sets:室內-純紅背景:7",
+        "legacyIds": [
+          "locations:攝影棚與背景-studio-sets:室內-純紅背景:7"
+        ],
+        "zh": "室內：純紅背景",
+        "en": "horizonless seamless matte saturated pure red color field, continuous vivid red ground-and-background plane blending into a solid red void, full-bleed clean red surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "以高飽和純紅無縫單色空間為主，地面與背景融合成滿版紅色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "red surface"
+        },
+        "meta": {
+          "semantic": {
+            "tags": [
+              "indoor",
+              "set",
+              "controlled",
+              "studio",
+              "solid_color_studio",
+              "studio_lighting_scene"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純黃背景:8",
+      "zh": "室內：純黃背景",
+      "path": "knowledge_base/catalog/Locations/攝影棚與背景-studio-sets.json",
+      "words": 53,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "保留本色的horizonless seamless、連續地面背景、滿版純色、接觸陰影，以及牆角、地縫、天花板與棚內設備排除；多個限制各自阻止不同可見物件。",
+      "kind": "specific_contract",
+      "original": {
+        "id": "locations:攝影棚與背景-studio-sets:室內-純黃背景:8",
+        "legacyIds": [
+          "locations:攝影棚與背景-studio-sets:室內-純黃背景:8"
+        ],
+        "zh": "室內：純黃背景",
+        "en": "horizonless seamless matte saturated pure yellow color field, continuous vivid yellow ground-and-background plane blending into a solid yellow void, full-bleed clean yellow surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "以高飽和純黃無縫單色空間為主，地面與背景融合成滿版黃色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "yellow surface"
+        },
+        "meta": {
+          "semantic": {
+            "tags": [
+              "indoor",
+              "set",
+              "controlled",
+              "studio",
+              "solid_color_studio",
+              "studio_lighting_scene"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純紫背景:9",
+      "zh": "室內：純紫背景",
+      "path": "knowledge_base/catalog/Locations/攝影棚與背景-studio-sets.json",
+      "words": 53,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "保留本色的horizonless seamless、連續地面背景、滿版純色、接觸陰影，以及牆角、地縫、天花板與棚內設備排除；多個限制各自阻止不同可見物件。",
+      "kind": "specific_contract",
+      "original": {
+        "id": "locations:攝影棚與背景-studio-sets:室內-純紫背景:9",
+        "legacyIds": [
+          "locations:攝影棚與背景-studio-sets:室內-純紫背景:9"
+        ],
+        "zh": "室內：純紫背景",
+        "en": "horizonless seamless matte saturated pure purple color field, continuous vivid purple ground-and-background plane blending into a solid purple void, full-bleed clean purple surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "以高飽和純紫無縫單色空間為主，地面與背景融合成滿版紫色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "purple surface"
+        },
+        "meta": {
+          "semantic": {
+            "tags": [
+              "indoor",
+              "set",
+              "controlled",
+              "studio",
+              "solid_color_studio",
+              "studio_lighting_scene"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純綠背景:10",
+      "zh": "室內：純綠背景",
+      "path": "knowledge_base/catalog/Locations/攝影棚與背景-studio-sets.json",
+      "words": 53,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "保留本色的horizonless seamless、連續地面背景、滿版純色、接觸陰影，以及牆角、地縫、天花板與棚內設備排除；多個限制各自阻止不同可見物件。",
+      "kind": "specific_contract",
+      "original": {
+        "id": "locations:攝影棚與背景-studio-sets:室內-純綠背景:10",
+        "legacyIds": [
+          "locations:攝影棚與背景-studio-sets:室內-純綠背景:10"
+        ],
+        "zh": "室內：純綠背景",
+        "en": "horizonless seamless matte saturated pure green color field, continuous vivid green ground-and-background plane blending into a solid green void, full-bleed clean green surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "以高飽和純綠無縫單色空間為主，地面與背景融合成滿版綠色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "green surface"
+        },
+        "meta": {
+          "semantic": {
+            "tags": [
+              "indoor",
+              "set",
+              "controlled",
+              "studio",
+              "solid_color_studio",
+              "studio_lighting_scene"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-鮮豔撞色背景:11",
+      "zh": "室內：鮮豔撞色背景",
+      "path": "knowledge_base/catalog/Locations/攝影棚與背景-studio-sets.json",
+      "words": 54,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "保留本色的horizonless seamless、連續地面背景、滿版純色、接觸陰影，以及牆角、地縫、天花板與棚內設備排除；多個限制各自阻止不同可見物件。",
+      "kind": "specific_contract",
+      "original": {
+        "id": "locations:攝影棚與背景-studio-sets:室內-鮮豔撞色背景:11",
+        "legacyIds": [
+          "locations:攝影棚與背景-studio-sets:室內-鮮豔撞色背景:11"
+        ],
+        "zh": "室內：鮮豔撞色背景",
+        "en": "horizonless seamless matte single vivid pop-color field, continuous saturated ground-and-background plane blending into a solid graphic color void, full-bleed clean color-block surface, subtle natural contact shadow under the subject, no gradient, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "以單一高飽和色塊無縫空間為主，地面與背景融合成滿版純色，人物腳下保留自然接觸陰影；避免漸層、紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "color-block surface"
+        },
+        "meta": {
+          "semantic": {
+            "tags": [
+              "indoor",
+              "set",
+              "controlled",
+              "studio",
+              "solid_color_studio",
+              "studio_lighting_scene"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-漸層打光背景:12",
+      "zh": "室內：漸層打光背景",
+      "path": "knowledge_base/catalog/Locations/攝影棚與背景-studio-sets.json",
+      "words": 48,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "保留連續漸層、無邊界地面背景、滿版色調變化、接觸陰影與設備排除；不是單色背景，不套用單色語意。",
+      "kind": "specific_contract",
+      "original": {
+        "id": "locations:攝影棚與背景-studio-sets:室內-漸層打光背景:12",
+        "legacyIds": [
+          "locations:攝影棚與背景-studio-sets:室內-漸層打光背景:12"
+        ],
+        "zh": "室內：漸層打光背景",
+        "en": "horizonless seamless smooth gradient color field, continuous gradient ground-and-background plane with no visible boundary, full-bleed tonal transition surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "以無縫漸層色場為主，地面與背景融合成沒有邊界的漸層平面，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "gradient ground-and-background plane"
+        },
+        "meta": {
+          "semantic": {
+            "tags": [
+              "indoor",
+              "set",
+              "controlled",
+              "studio",
+              "studio_lighting_scene"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-crt-電視牆攝影棚:13",
+      "zh": "室內：CRT 電視牆攝影棚",
+      "path": "knowledge_base/catalog/Locations/攝影棚與背景-studio-sets.json",
+      "words": 54,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "保留CRT與電腦螢幕的異高間隙、屏幕內容、錄影帶及線材設備、藍灰地面背景與獨立主體；54詞各有物件或空間責任。",
+      "kind": "necessary_structure",
+      "original": {
+        "id": "locations:攝影棚與背景-studio-sets:室內-crt-電視牆攝影棚:13",
+        "legacyIds": [
+          "locations:攝影棚與背景-studio-sets:室內-crt-電視牆攝影棚:13"
+        ],
+        "zh": "室內：CRT 電視牆攝影棚",
+        "en": "studio set with assorted CRT televisions and vintage computer monitors in an irregular high-low cluster, retro cathode-ray displays with varied gaps and heights, glowing screens with analog static, scan lines, news footage, or the subject's face, scattered VHS tapes, coiled cables, security monitors and VCR decks, seamless desaturated blue-grey floor and backdrop, isolated subject",
+        "desc": "以不同尺寸 CRT 電視與復古螢幕高低錯落堆疊，形成不規則顯示器群；螢幕可顯示雜訊、掃描線、新聞或主角畫面，周圍有錄影帶、線材與舊電子設備，地面與背景維持低飽和藍灰色。",
+        "lyingSurface": {
+          "type": "floor",
+          "en": "desaturated blue-grey floor"
+        },
+        "meta": {
+          "semantic": {
+            "tags": [
+              "indoor",
+              "set",
+              "controlled",
+              "studio",
+              "studio_lighting_scene"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-多色塊撞色背景:14",
+      "zh": "室內：多色塊撞色背景",
+      "path": "knowledge_base/catalog/Locations/攝影棚與背景-studio-sets.json",
+      "words": 72,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "保留2–4色塊、可變色相、不等寬高、清楚邊界、非對稱滿版、連續地面及接觸陰影與設備排除；72詞為必要結構，不宣稱已有通用72詞上限。",
+      "kind": "necessary_structure",
+      "original": {
+        "id": "locations:攝影棚與背景-studio-sets:室內-多色塊撞色背景:14",
+        "legacyIds": [
+          "locations:攝影棚與背景-studio-sets:室內-多色塊撞色背景:14"
+        ],
+        "zh": "室內：多色塊撞色背景",
+        "en": "horizonless seamless indoor studio background formed by two to four large adjacent vivid color fields in freely varied hues, color fields of unequal widths and heights with crisp boundaries in an asymmetrical full-bleed layout, continuous ground-and-background color surface with a subtle natural contact shadow under the subject, no gradient, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "無縫室內攝影棚由 2～4 個相鄰的大面積鮮豔色塊構成，色彩與各色塊長寬由模型自由變化；色塊邊界清晰、大小不等並形成不對稱滿版背景，地面與背景連續，人物腳下保留自然接觸陰影，避免露出牆角、地板接縫、天花板或棚內設備。",
+        "lyingSurface": {
+          "type": "ground",
+          "en": "ground-and-background color surface"
+        },
+        "meta": {
+          "semantic": {
+            "tags": [
+              "indoor",
+              "set",
+              "controlled",
+              "studio",
+              "studio_lighting_scene"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-精品飯店房間:0",
+      "zh": "室內：精品飯店房間",
+      "path": "knowledge_base/catalog/Locations/生活感室內-indoor-lifestyle.json",
+      "words": 30,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "床鋪白床單、床頭櫃、作為實體物件的燈具、軟包床頭、窗簾與地板分別定義房間；保留緊湊角落，不把燈具改成人物光源。",
+      "kind": "necessary_structure",
+      "original": {
+        "id": "locations:生活感室內-indoor-lifestyle:室內-精品飯店房間:0",
+        "legacyIds": [
+          "locations:生活感室內-indoor-lifestyle:室內-精品飯店房間:0"
+        ],
+        "zh": "室內：精品飯店房間",
+        "en": "boutique hotel room, crisp bed with white sheets, bedside table, lamp fixtures as physical objects, upholstered headboard, curtain edge, carpet or wood floor, compact corner of an elegant guest room",
+        "desc": "高級但不過度奢華的飯店房間，重點是床鋪、床頭櫃、燈具、窗簾邊、地面材質與客房角落，而不是攝影情緒。",
+        "lyingSurface": {
+          "type": "bed",
+          "en": "bed with white sheets"
+        },
+        "meta": {
+          "semantic": {
+            "tags": [
+              "indoor",
+              "hospitality"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-日本住宅使用感廚房:9",
+      "zh": "室內：日本住宅使用感廚房",
+      "path": "knowledge_base/catalog/Locations/生活感室內-indoor-lifestyle.json",
+      "words": 29,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "木窗、磁磚、金屬水槽、餐具與瀝水架、炊具和調味罐共同表達使用感；保留冰箱邊界與生活堆放，不縮成空泛廚房。",
+      "kind": "necessary_structure",
+      "original": {
+        "id": "locations:生活感室內-indoor-lifestyle:室內-日本住宅使用感廚房:9",
+        "legacyIds": [
+          "locations:生活感室內-indoor-lifestyle:室內-日本住宅使用感廚房:9"
+        ],
+        "zh": "室內：日本住宅使用感廚房",
+        "en": "lived-in Japanese home kitchen corner, wooden window frame, tiled wall, stainless steel sink counter, stacked dishes, drying rack, hanging utensils, pots, kettle, condiment bottles, refrigerator edge, everyday cooking clutter",
+        "desc": "很有使用痕跡的日本住宅廚房角落，重點是木框窗、磁磚牆、流理台、碗盤、瀝水架、吊掛餐具、鍋具水壺、調味瓶、冰箱邊緣與日常烹飪工具。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "indoor",
+              "residential"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:戶外-社區自動販賣機旁:34",
+      "zh": "戶外：社區自動販賣機旁",
+      "path": "knowledge_base/catalog/Locations/生活感室內-indoor-lifestyle.json",
+      "words": 30,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "保留2–3台機器、靠牆位置、電線桿與架空線、路緣瀝青、公寓及獨棟住宅片段；街區尺度與近處地面責任不同。",
+      "kind": "necessary_structure",
+      "original": {
+        "id": "locations:生活感室內-indoor-lifestyle:戶外-社區自動販賣機旁:34",
+        "legacyIds": [
+          "locations:生活感室內-indoor-lifestyle:戶外-社區自動販賣機旁:34"
+        ],
+        "zh": "戶外：社區自動販賣機旁",
+        "en": "Japanese residential vending-machine corner, two or three machines beside a wall, utility pole fragment, overhead power lines, quiet curbside asphalt, apartment facade edge, detached house detail, compact neighborhood roadside surface",
+        "desc": "日本住宅區道路旁的自動販賣機場景，重點是牆邊兩三台販賣機、電線桿片段、架空電線、安靜路緣、民宅或公寓立面與近距離路面細節。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "residential",
+              "outdoor"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-地下狂歡俱樂部-金庫:15",
+      "zh": "室內：地下狂歡俱樂部 / 金庫",
+      "path": "knowledge_base/catalog/Locations/地下與廢墟風格-abandoned-underground.json",
+      "words": 29,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "雷射設備及煙霧機是可見物件，並非自動指定發光或煙霧；保留桁架、金屬牆、厚門、地面及單側走線。",
+      "kind": "necessary_structure",
+      "original": {
+        "id": "locations:地下與廢墟風格-abandoned-underground:室內-地下狂歡俱樂部-金庫:15",
+        "legacyIds": [
+          "locations:地下與廢墟風格-abandoned-underground:室內-地下狂歡俱樂部-金庫:15"
+        ],
+        "zh": "室內：地下狂歡俱樂部 / 金庫",
+        "en": "underground rave bunker room, laser fixtures mounted on metal truss, smoke machine as a visible device, metallic wall surfaces, heavy vault-like door, concrete floor, cable runs along one side",
+        "desc": "地下 bunker 俱樂部或金庫式空間，重點是雷射燈具、金屬桁架、可見煙霧機、金屬牆面、厚重門片、混凝土地面與側邊線材。",
+        "lyingSurface": {
+          "type": "floor",
+          "en": "concrete floor"
+        },
+        "meta": {
+          "semantic": {
+            "tags": [
+              "ruin",
+              "indoor",
+              "subterranean"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂正面長椅視角:8",
+      "zh": "室內：電車車廂正面長椅視角",
+      "path": "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+      "words": 39,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "保留偏置藍色長椅、身後窗門、不鏽鋼牆、吊環、路線圖海報與窗外片段；這是一般來源，不改成固定構圖或刪交通細節。",
+      "kind": "necessary_structure",
+      "original": {
+        "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂正面長椅視角:8",
+        "legacyIds": [
+          "locations:城市與社群感-urban-social-snapshots:室內-電車車廂正面長椅視角:8"
+        ],
+        "zh": "室內：電車車廂正面長椅視角",
+        "en": "Japanese commuter train car interior, slight offset view toward a blue fabric bench seat, window and sliding door panels behind the subject, stainless steel wall surfaces, overhead hand straps, route maps, small carriage posters, passing scenery glimpsed through windows",
+        "desc": "指定為車廂內長椅視角，但以略偏側角度避免過度置中；背景包含車窗、滑門、金屬牆面、吊環、路線圖、車廂海報與窗外掠過景色。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "urban",
+              "indoor",
+              "transit",
+              "institutional"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂側面走道視角:9",
+      "zh": "室內：電車車廂側面走道視角",
+      "path": "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+      "words": 31,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "保留近主體扶桿、頂部吊環、側長椅、門窗、路線圖與背景乘客；各自建立走道層次。",
+      "kind": "necessary_structure",
+      "original": {
+        "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂側面走道視角:9",
+        "legacyIds": [
+          "locations:城市與社群感-urban-social-snapshots:室內-電車車廂側面走道視角:9"
+        ],
+        "zh": "室內：電車車廂側面走道視角",
+        "en": "Japanese commuter train car side aisle section, vertical grab pole near the subject, overhead hand straps, side bench seats, sliding doors, train windows, route map panels, nearby commuters as background context",
+        "desc": "指定為車廂內側面走道區，人物靠近扶手柱；重點是吊環、側邊長椅、滑門、車窗、路線圖與附近通勤乘客。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "urban",
+              "indoor",
+              "transit"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂坐滿與站滿乘客:10",
+      "zh": "室內：電車車廂坐滿與站滿乘客",
+      "path": "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+      "words": 38,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "保留坐與站兩種乘客、扶桿吊環的使用、人體後方門窗與壓縮密度；密度尾句承擔整體空間關係。",
+      "kind": "necessary_structure",
+      "original": {
+        "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂坐滿與站滿乘客:10",
+        "legacyIds": [
+          "locations:城市與社群感-urban-social-snapshots:室內-電車車廂坐滿與站滿乘客:10"
+        ],
+        "zh": "室內：電車車廂坐滿與站滿乘客",
+        "en": "crowded Japanese commuter train car, seated passengers on bench seats, standing commuters around vertical grab poles, overhead hand straps in use, sliding doors and train windows behind layered bodies, route map panels, small carriage ads, compressed public-transit density",
+        "desc": "擁擠日本通勤車廂，長椅坐滿、走道站滿，重點是吊環、扶手柱、滑門、車窗、路線圖、車廂廣告與層層人物密度。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "urban",
+              "indoor",
+              "transit"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-澀谷站前廣場人潮邊緣:11",
+      "zh": "戶外：澀谷站前廣場人潮邊緣",
+      "path": "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+      "words": 92,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "保留地標、人流前後左右關係、共享空間透視光線、距離尺度、路人服裝差異與邊緣重疊裁切；92詞是核准人潮契約。",
+      "kind": "specific_contract",
+      "original": {
+        "id": "locations:城市與社群感-urban-social-snapshots:戶外-澀谷站前廣場人潮邊緣:11",
+        "legacyIds": [
+          "locations:城市與社群感-urban-social-snapshots:戶外-澀谷站前廣場人潮邊緣:11"
+        ],
+        "zh": "戶外：澀谷站前廣場人潮邊緣",
+        "en": "Shibuya Station front plaza with the QFRONT glass facade carrying \"TSUTAYA\" and \"STARBUCKS\" signage and large advertising screens in the background, the subject as one person within a dense pedestrian flow with people passing in different directions beside and in front of and behind her; everyone sharing the same physical space and perspective with apparent size varying naturally by distance, pedestrians in varied everyday clothing in mixed colors and styles sharing the same ambient light as the subject; nearby passersby naturally overlapping and partly cropped at frame edges, surrounding Japanese shop signs",
+        "desc": "澀谷站前廣場，以 QFRONT 玻璃立面、TSUTAYA／STARBUCKS 招牌、大型廣告螢幕與周邊日文店家招牌為背景；主角是密集人流中的一員，行人從身旁、前方與後方朝不同方向經過。所有人共享實體空間、透視與環境光，畫面大小隨距離自然變化；路人穿著不同色彩與款式的日常服裝，近處自然重疊並可局部裁切。不鎖姿勢、鏡頭或新增地面要求。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "urban",
+              "outdoor",
+              "transit"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-八公銅像旁行人區:12",
+      "zh": "戶外：八公銅像旁行人區",
+      "path": "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+      "words": 35,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "小型銅像、低石座、欄杆、人群、車站立面與真實地標尺度各有責任，防止把銅像放大成主景。",
+      "kind": "necessary_structure",
+      "original": {
+        "id": "locations:城市與社群感-urban-social-snapshots:戶外-八公銅像旁行人區:12",
+        "legacyIds": [
+          "locations:城市與社群感-urban-social-snapshots:戶外-八公銅像旁行人區:12"
+        ],
+        "zh": "戶外：八公銅像旁行人區",
+        "en": "Shibuya Hachiko Square pedestrian waiting area beside the small bronze Hachiko dog statue, modest stone pedestal, low queue railings, station-front plaza paving, clustered meeting crowds, Shibuya Station frontage and nearby commercial facades, realistic landmark scale",
+        "desc": "澀谷站前忠犬八公銅像周邊等候區，重點是小型青銅八公雕像、石座、低矮欄杆、站前鋪面、等候人潮與商業立面。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "urban",
+              "outdoor",
+              "commercial",
+              "transit"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-澀谷站前大型看板下穿越口:13",
+      "zh": "戶外：澀谷站前大型看板下穿越口",
+      "path": "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+      "words": 30,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "保留站側入口、大型看板、路口邊緣斑馬線、等待人群、招牌立面與路緣號誌；不是兩次描述同一看板。",
+      "kind": "necessary_structure",
+      "original": {
+        "id": "locations:城市與社群感-urban-social-snapshots:戶外-澀谷站前大型看板下穿越口:13",
+        "legacyIds": [
+          "locations:城市與社群感-urban-social-snapshots:戶外-澀谷站前大型看板下穿越口:13"
+        ],
+        "zh": "戶外：澀谷站前大型看板下穿越口",
+        "en": "Shibuya station-side crossing entrance beneath oversized commercial billboards, bold crosswalk stripes at the intersection edge, waiting pedestrian clusters, tower facades packed with signage, curb corner, traffic-light pole, station-front crossing detail",
+        "desc": "澀谷站前大型看板下方穿越口邊緣，重點是斑馬線、頭頂大型看板、等待人群、高樓招牌立面、路口轉角與號誌桿。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "urban",
+              "outdoor",
+              "transit"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-目黑川旁的櫻花隧道:14",
+      "zh": "戶外：目黑川旁的櫻花隧道",
+      "path": "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+      "words": 36,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "保留橋視點與前景欄杆、偏單側河道、單側櫻花冠層、建築深度與小花瓣；非對稱配置是刻意要求。",
+      "kind": "necessary_structure",
+      "original": {
+        "id": "locations:城市與社群感-urban-social-snapshots:戶外-目黑川旁的櫻花隧道:14",
+        "legacyIds": [
+          "locations:城市與社群感-urban-social-snapshots:戶外-目黑川旁的櫻花隧道:14"
+        ],
+        "zh": "戶外：目黑川旁的櫻花隧道",
+        "en": "Meguro River bridge viewpoint, bridge railing in the foreground, river channel offset along one side, one riverside cherry blossom canopy, layered Tokyo buildings behind the riverbank, pale pink petals as small physical details, asymmetric riverside composition",
+        "desc": "構圖以橋上視角為核心，前景先看到橋面或欄杆，河道偏向畫面一側，櫻花集中在單側河岸與城市建築之間，形成不對稱沿河場景。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "urban",
+              "outdoor",
+              "waterfront"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-大阪道頓堀心齋橋河道:15",
+      "zh": "戶外：大阪道頓堀心齋橋河道",
+      "path": "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+      "words": 31,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "trim",
+      "reason": "刪除已由iconic billboard signage承接的famous advertisement boards；保留地點、前景橋欄、下方河水、商業立面層次與橋旁人行道。",
+      "kind": "necessary_structure",
+      "original": {
+        "id": "locations:城市與社群感-urban-social-snapshots:戶外-大阪道頓堀心齋橋河道:15",
+        "legacyIds": [
+          "locations:城市與社群感-urban-social-snapshots:戶外-大阪道頓堀心齋橋河道:15"
+        ],
+        "zh": "戶外：大阪道頓堀心齋橋河道",
+        "en": "Dotonbori Shinsaibashi riverside edge in Osaka, iconic billboard signage, Shinsaibashi bridge railing in the foreground, canal water visible below, dense commercial facade layers, famous advertisement boards, sidewalk edge near the bridge",
+        "desc": "大阪道頓堀與心齋橋周邊，重點是橋欄、河道、大型廣告招牌、商業立面、知名看板與橋邊人行道。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "urban",
+              "outdoor",
+              "waterfront"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町招牌下:30",
+      "zh": "戶外：新宿歌舞伎町招牌下",
+      "path": "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+      "words": 29,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "紅色跨街拱門、鋼支撐、夜生活店面與層疊招牌、濕亮地面及門緣分別描述地標結構與局部空間。",
+      "kind": "necessary_structure",
+      "original": {
+        "id": "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町招牌下:30",
+        "legacyIds": [
+          "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町招牌下:30"
+        ],
+        "zh": "戶外：新宿歌舞伎町招牌下",
+        "en": "Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign, steel arch supports, dense nightlife storefronts and layered signboards, glossy pavement patches, narrow curb and doorway edges",
+        "desc": "人物位於新宿歌舞伎町一番街入口的著名紅色發光拱形招牌下；拱門橫跨通道上方，周圍保留拱架鋼柱、繁華街店面與層疊招牌，並可見地面反光片段、窄路緣與門口邊緣。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "urban",
+              "outdoor",
+              "commercial"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-城市遊艇碼頭欄杆旁:52",
+      "zh": "戶外：城市遊艇碼頭欄杆旁",
+      "path": "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+      "words": 32,
+      "range": [
+        12,
+        28
+      ],
+      "decision": "retain",
+      "reason": "細不鏽鋼圓管欄杆、風化木板與碼頭鋪面、帆船桅杆、港水及山城遠景分別承擔材質與層次；兩地面片語也是投影匹配來源。",
+      "kind": "necessary_structure",
+      "original": {
+        "id": "locations:城市與社群感-urban-social-snapshots:戶外-城市遊艇碼頭欄杆旁:52",
+        "legacyIds": [
+          "locations:城市與社群感-urban-social-snapshots:戶外-城市遊艇碼頭欄杆旁:52"
+        ],
+        "zh": "戶外：城市遊艇碼頭欄杆旁",
+        "en": "urban yacht marina promenade, slim stainless-steel pedestrian handrail with round tubular rails, weathered dock planks, timber pier decking, moored sailboats and yacht masts, calm harbor water, distant city skyline and mountain silhouettes",
+        "desc": "參考城市港灣或遊艇碼頭旁的人像場景，前景是細圓管不鏽鋼行人欄杆、木棧橋與碼頭木板材質，中後景是停泊帆船、桅杆、港灣水面、遠方城市與山影。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "urban",
+              "outdoor",
+              "waterfront",
+              "natural"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

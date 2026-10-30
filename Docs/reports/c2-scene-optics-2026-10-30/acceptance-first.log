@@ -1,0 +1,173 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: reviewed text only 0 重散景光斑:none
++ actual - expected
+... Skipped lines
+
+  {
+    extraPrompts: [
+      {
+        id: 'chest-up-portrait',
+        label: '胸上特寫照',
+...
+          'Camera Look:\n' +
++         'Heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights, optical blur balls.'
+-         'Heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights.'
+      },
+      {
+        id: 'full-body-character',
+        label: '全身角色照',
+        text: 'Image Type:\n' +
+...
+      'Camera Look:\n' +
++     'Heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights, optical blur balls.',
+-     'Heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights.',
+    midjourneyPrompt: 'Photorealistic editorial portrait. Tight face close-up, high angle, looking down. A 20-year-old adult Japanese woman. Controlled angry expression.\n' +
+      '\n' +
+      'Heavy bokeh rendering. --v 8.2 --ar 4:5 --raw --s 25 --c 0 --w 0 --sd',
+    nanoBananaPrompt: 'Create a photorealistic editorial portrait. Tight face close-up. At a relatively close portrait distance, roughly 1.5–2 meters from her, the camera is positioned above her and angled downward, revealing the top planes of her forehead and nose bridge.\n' +
+      '\n' +
+      'The subject is one 20-year-old adult Japanese woman. She has a controlled angry expression, brows drawn together and lowered, focused narrowed eyes, firmly pressed lips, subtle jaw tension.\n' +
+      '\n' +
++     'Heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights, optical blur balls.',
+-     'Heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights.',
+    zImagePrompt: 'Photorealistic editorial portrait.\n' +
+      '\n' +
+      'Tight face close-up. At a relatively close portrait distance, roughly 1.5–2 meters from her, the camera is positioned above her and angled downward, revealing the top planes of her forehead and nose bridge.\n' +
+      '\n' +
+      'A 20-year-old seductive stunning adult Japanese woman, controlled angry expression, brows drawn together and lowered, focused narrowed eyes, firmly pressed lips, subtle jaw tension.\n' +
+
+    at run (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/c2_scene_optics_acceptance.mjs:23:126)
+    at file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/c2_scene_optics_acceptance.mjs:29:2
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: {
+    grokPrompt: 'Image Type:\n' +
+      'Create a photorealistic editorial portrait.\n' +
+      '\n' +
+      'Composition:\n' +
+      'Tight face close-up. At a relatively close portrait distance, roughly 1.5–2 meters from her, the camera is positioned above her and angled downward, revealing the top planes of her forehead and nose bridge.\n' +
+      '\n' +
+      'Subject:\n' +
+      'The subject is one 20-year-old adult Japanese woman. Controlled angry expression, brows drawn together and lowered, focused narrowed eyes, firmly pressed lips, subtle jaw tension.\n' +
+      '\n' +
+      'Camera Look:\n' +
+      'Heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights, optical blur balls.',
+    zImagePrompt: 'Photorealistic editorial portrait.\n' +
+      '\n' +
+      'Tight face close-up. At a relatively close portrait distance, roughly 1.5–2 meters from her, the camera is positioned above her and angled downward, revealing the top planes of her forehead and nose bridge.\n' +
+      '\n' +
+      'A 20-year-old seductive stunning adult Japanese woman, controlled angry expression, brows drawn together and lowered, focused narrowed eyes, firmly pressed lips, subtle jaw tension.\n' +
+      '\n' +
+      'Heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles.',
+    midjourneyPrompt: 'Photorealistic editorial portrait. Tight face close-up, high angle, looking down. A 20-year-old adult Japanese woman. Controlled angry expression.\n' +
+      '\n' +
+      'Heavy bokeh rendering. --v 8.2 --ar 4:5 --raw --s 25 --c 0 --w 0 --sd',
+    nanoBananaPrompt: 'Create a photorealistic editorial portrait. Tight face close-up. At a relatively close portrait distance, roughly 1.5–2 meters from her, the camera is positioned above her and angled downward, revealing the top planes of her forehead and nose bridge.\n' +
+      '\n' +
+      'The subject is one 20-year-old adult Japanese woman. She has a controlled angry expression, brows drawn together and lowered, focused narrowed eyes, firmly pressed lips, subtle jaw tension.\n' +
+      '\n' +
+      'Heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights, optical blur balls.',
+    extraPrompts: [
+      {
+        id: 'chest-up-portrait',
+        label: '胸上特寫照',
+        text: 'Image Type:\n' +
+          'Create a photorealistic editorial portrait.\n' +
+          '\n' +
+          'Composition:\n' +
+          'Vertical portrait composition at a 4:5 aspect ratio, chest-up portrait. At a relatively close portrait distance, roughly 1.5–2 meters from her, the camera is positioned above her and angled downward, revealing the top planes of her shoulders and upper chest.\n' +
+          '\n' +
+          'Subject:\n' +
+          'The subject is one 20-year-old adult Japanese woman. Controlled angry expression, brows drawn together and lowered, focused narrowed eyes, firmly pressed lips, subtle jaw tension.\n' +
+          '\n' +
+          'Camera Look:\n' +
+          'Heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights, optical blur balls.'
+      },
+      {
+        id: 'full-body-character',
+        label: '全身角色照',
+        text: 'Image Type:\n' +
+          'Create a photorealistic character reference portrait in a single 9:16 vertical image.\n' +
+          '\n' +
+          'Subject:\n' +
+          'The subject is one 20-year-old adult Japanese woman. Controlled angry expression, brows drawn together and lowered, focused narrowed eyes, firmly pressed lips, subtle jaw tension.\n' +
+          '\n' +
+          'Lighting:\n' +
+          'Clean even lighting with clear facial, body, fabric, and footwear readability.\n' +
+          '\n' +
+          'Camera Look:\n' +
+          'Full-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text.'
+      }
+    ]
+  },
+  expected: {
+    grokPrompt: 'Image Type:\n' +
+      'Create a photorealistic editorial portrait.\n' +
+      '\n' +
+      'Composition:\n' +
+      'Tight face close-up. At a relatively close portrait distance, roughly 1.5–2 meters from her, the camera is positioned above her and angled downward, revealing the top planes of her forehead and nose bridge.\n' +
+      '\n' +
+      'Subject:\n' +
+      'The subject is one 20-year-old adult Japanese woman. Controlled angry expression, brows drawn together and lowered, focused narrowed eyes, firmly pressed lips, subtle jaw tension.\n' +
+      '\n' +
+      'Camera Look:\n' +
+      'Heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights.',
+    zImagePrompt: 'Photorealistic editorial portrait.\n' +
+      '\n' +
+      'Tight face close-up. At a relatively close portrait distance, roughly 1.5–2 meters from her, the camera is positioned above her and angled downward, revealing the top planes of her forehead and nose bridge.\n' +
+      '\n' +
+      'A 20-year-old seductive stunning adult Japanese woman, controlled angry expression, brows drawn together and lowered, focused narrowed eyes, firmly pressed lips, subtle jaw tension.\n' +
+      '\n' +
+      'Heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles.',
+    midjourneyPrompt: 'Photorealistic editorial portrait. Tight face close-up, high angle, looking down. A 20-year-old adult Japanese woman. Controlled angry expression.\n' +
+      '\n' +
+      'Heavy bokeh rendering. --v 8.2 --ar 4:5 --raw --s 25 --c 0 --w 0 --sd',
+    nanoBananaPrompt: 'Create a photorealistic editorial portrait. Tight face close-up. At a relatively close portrait distance, roughly 1.5–2 meters from her, the camera is positioned above her and angled downward, revealing the top planes of her forehead and nose bridge.\n' +
+      '\n' +
+      'The subject is one 20-year-old adult Japanese woman. She has a controlled angry expression, brows drawn together and lowered, focused narrowed eyes, firmly pressed lips, subtle jaw tension.\n' +
+      '\n' +
+      'Heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights.',
+    extraPrompts: [
+      {
+        id: 'chest-up-portrait',
+        label: '胸上特寫照',
+        text: 'Image Type:\n' +
+          'Create a photorealistic editorial portrait.\n' +
+          '\n' +
+          'Composition:\n' +
+          'Vertical portrait composition at a 4:5 aspect ratio, chest-up portrait. At a relatively close portrait distance, roughly 1.5–2 meters from her, the camera is positioned above her and angled downward, revealing the top planes of her shoulders and upper chest.\n' +
+          '\n' +
+          'Subject:\n' +
+          'The subject is one 20-year-old adult Japanese woman. Controlled angry expression, brows drawn together and lowered, focused narrowed eyes, firmly pressed lips, subtle jaw tension.\n' +
+          '\n' +
+          'Camera Look:\n' +
+          'Heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights.'
+      },
+      {
+        id: 'full-body-character',
+        label: '全身角色照',
+        text: 'Image Type:\n' +
+          'Create a photorealistic character reference portrait in a single 9:16 vertical image.\n' +
+          '\n' +
+          'Subject:\n' +
+          'The subject is one 20-year-old adult Japanese woman. Controlled angry expression, brows drawn together and lowered, focused narrowed eyes, firmly pressed lips, subtle jaw tension.\n' +
+          '\n' +
+          'Lighting:\n' +
+          'Clean even lighting with clear facial, body, fabric, and footwear readability.\n' +
+          '\n' +
+          'Camera Look:\n' +
+          'Full-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text.'
+      }
+    ]
+  },
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.23.3

@@ -1,0 +1,217 @@
+TAP version 13
+# Subtest: aliases are scoped by actual control, self aliases legal, cross-category owners conflict
+ok 1 - aliases are scoped by actual control, self aliases legal, cross-category owners conflict
+  ---
+  duration_ms: 1.113333
+  type: 'test'
+  ...
+# Subtest: primary ID duplication and alias shadowing are blocking
+ok 2 - primary ID duplication and alias shadowing are blocking
+  ---
+  duration_ms: 0.141
+  type: 'test'
+  ...
+# Subtest: allowlist rejects stale, incomplete, duplicate and broad exceptions
+ok 3 - allowlist rejects stale, incomplete, duplicate and broad exceptions
+  ---
+  duration_ms: 0.279875
+  type: 'test'
+  ...
+# Subtest: action source references, clauses, validation and family errors are detected
+ok 4 - action source references, clauses, validation and family errors are detected
+  ---
+  duration_ms: 0.261833
+  type: 'test'
+  ...
+# Subtest: field mapping preserves false, empty strings, nested values and reports unknown source fields
+ok 5 - field mapping preserves false, empty strings, nested values and reports unknown source fields
+  ---
+  duration_ms: 7.17525
+  type: 'test'
+  ...
+# Subtest: strict CLI succeeds for exact exceptions and fails for stale exceptions
+not ok 6 - strict CLI succeeds for exact exceptions and fails for stale exceptions
+  ---
+  duration_ms: 1515.949333
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/tests/catalog-integrity.test.mjs:53:1'
+  failureType: 'testCodeFailure'
+  error: 'Command failed: /Users/cooperfu/.npm/_npx/52027bd8fc0022aa/node_modules/node/bin/node scripts/check_catalog_integrity.mjs --strict --json'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    genericNodeError (node:internal/errors:983:15)
+    wrappedFn (node:internal/errors:537:14)
+    checkExecSyncError (node:child_process:916:11)
+    execFileSync (node:child_process:952:15)
+    run (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/tests/catalog-integrity.test.mjs:54:23)
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/tests/catalog-integrity.test.mjs:55:29)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+  ...
+# Subtest: rehearsal refuses repo output, symlink escape into repo, existing targets and wrong source without writes
+ok 7 - rehearsal refuses repo output, symlink escape into repo, existing targets and wrong source without writes
+  ---
+  duration_ms: 20.174208
+  type: 'test'
+  ...
+# Subtest: failed staged conversion leaves no target or staging; racing target is preserved
+ok 8 - failed staged conversion leaves no target or staging; racing target is preserved
+  ---
+  duration_ms: 2.588708
+  type: 'test'
+  ...
+# Subtest: nested source paths and category membership require explicit responsibility
+ok 9 - nested source paths and category membership require explicit responsibility
+  ---
+  duration_ms: 0.606625
+  type: 'test'
+  ...
+# Subtest: pose metadata validates nested support, arrangement, orientation and crop references
+ok 10 - pose metadata validates nested support, arrangement, orientation and crop references
+  ---
+  duration_ms: 0.820584
+  type: 'test'
+  ...
+# Subtest: catalog testing exports cannot enter production through imports, aliases or namespaces
+ok 11 - catalog testing exports cannot enter production through imports, aliases or namespaces
+  ---
+  duration_ms: 6.831334
+  type: 'test'
+  ...
+# Subtest: production scan includes JSX and helper files, excludes only test files, and fails closed on parse errors
+ok 12 - production scan includes JSX and helper files, excludes only test files, and fails closed on parse errors
+  ---
+  duration_ms: 328.938625
+  type: 'test'
+  ...
+# Subtest: all declared targets resolve; own-current aliases and ambiguous first matches stay legal
+ok 13 - all declared targets resolve; own-current aliases and ambiguous first matches stay legal
+  ---
+  duration_ms: 118.221833
+  type: 'test'
+  ...
+# Subtest: catalog, embedded, attribute and category failures are blocking
+ok 14 - catalog, embedded, attribute and category failures are blocking
+  ---
+  duration_ms: 541.128833
+  type: 'test'
+  ...
+# Subtest: duplicate historical tuples, labels, prompt text and Map keys fail in their own namespace
+ok 15 - duplicate historical tuples, labels, prompt text and Map keys fail in their own namespace
+  ---
+  duration_ms: 389.21125
+  type: 'test'
+  ...
+# Subtest: derived legacy ID cannot shadow another current entry
+ok 16 - derived legacy ID cannot shadow another current entry
+  ---
+  duration_ms: 101.574042
+  type: 'test'
+  ...
+# Subtest: source extraction rejects expressions instead of executing arbitrary code
+ok 17 - source extraction rejects expressions instead of executing arbitrary code
+  ---
+  duration_ms: 10.012375
+  type: 'test'
+  ...
+# Subtest: rehearsal refuses wrong SHA, existing/internal output and already relocated engine
+ok 18 - rehearsal refuses wrong SHA, existing/internal output and already relocated engine
+  ---
+  duration_ms: 477.861625
+  type: 'test'
+  ...
+# Subtest: all 22 tables have explicit ownership policy; legacy text is not mistaken for an ID
+ok 19 - all 22 tables have explicit ownership policy; legacy text is not mistaken for an ID
+  ---
+  duration_ms: 172.10075
+  type: 'test'
+  ...
+# Subtest: each option alias family rejects another current ID and preserves its own target ID
+ok 20 - each option alias family rejects another current ID and preserves its own target ID
+  ---
+  duration_ms: 1544.873541
+  type: 'test'
+  ...
+# Subtest: standalone raw and computed migration keys cannot shadow current source IDs
+ok 21 - standalone raw and computed migration keys cannot shadow current source IDs
+  ---
+  duration_ms: 726.281458
+  type: 'test'
+  ...
+# Subtest: hand-to-prop rejects the original counterexample, but unrelated control IDs do not collide
+ok 22 - hand-to-prop rejects the original counterexample, but unrelated control IDs do not collide
+  ---
+  duration_ms: 145.042291
+  type: 'test'
+  ...
+# Subtest: new embedded source ID cannot claim a historical migration key
+ok 23 - new embedded source ID cannot claim a historical migration key
+  ---
+  duration_ms: 57.279958
+  type: 'test'
+  ...
+# Subtest: label-based migrations check source owners and cannot hide another primary ID in aliases
+ok 24 - label-based migrations check source owners and cannot hide another primary ID in aliases
+  ---
+  duration_ms: 272.769417
+  type: 'test'
+  ...
+# Subtest: computed eye-wear keys are checked in single and both duo role namespaces
+ok 25 - computed eye-wear keys are checked in single and both duo role namespaces
+  ---
+  duration_ms: 175.467083
+  type: 'test'
+  ...
+# Subtest: selfie substring matching and source/computed drift fail closed
+ok 26 - selfie substring matching and source/computed drift fail closed
+  ---
+  duration_ms: 162.596917
+  type: 'test'
+  ...
+# Subtest: historical ownership cannot authorize a different migration target
+ok 27 - historical ownership cannot authorize a different migration target
+  ---
+  duration_ms: 173.333125
+  type: 'test'
+  ...
+# Subtest: materialization preserves ordered whole inference and source fields without mutating inputs
+ok 28 - materialization preserves ordered whole inference and source fields without mutating inputs
+  ---
+  duration_ms: 8.522708
+  type: 'test'
+  ...
+# Subtest: acceptance rejects tag order, key order, field loss and changed falsy values
+ok 29 - acceptance rejects tag order, key order, field loss and changed falsy values
+  ---
+  duration_ms: 0.408292
+  type: 'test'
+  ...
+# Subtest: suggestion removes only the target semantic in a copy, preserves explicit source and default cache
+ok 30 - suggestion removes only the target semantic in a copy, preserves explicit source and default cache
+  ---
+  duration_ms: 58.6475
+  type: 'test'
+  ...
+# Subtest: field mapping detects lost semantic fields, leaked container and reordered merged tags
+ok 31 - field mapping detects lost semantic fields, leaked container and reordered merged tags
+  ---
+  duration_ms: 0.794667
+  type: 'test'
+  ...
+# Subtest: one-time rehearsal rejects unsafe output, wrong baseline and already materialized source without publication
+ok 32 - one-time rehearsal rejects unsafe output, wrong baseline and already materialized source without publication
+  ---
+  duration_ms: 861.382584
+  type: 'test'
+  ...
+1..32
+# tests 32
+# suites 0
+# pass 31
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5210.035583

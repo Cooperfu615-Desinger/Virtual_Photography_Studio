@@ -1,0 +1,34 @@
+[
+  {
+    width: 1440,
+    height: 1000,
+    selections: 3,
+    outputs: 6,
+    hiddenOptionsAbsent: true,
+    scenePickerClicked: true,
+    emptySearchEscape: true,
+    newSaveAndOldRestore: 3,
+    oldPublicTextUnchanged: true,
+    addedDefaultKeys: [ [Array], [Array], [Array] ],
+    errors: [],
+    overflow: false,
+    programmaticFallback: [ '重散景光斑' ],
+    nativePopupMouseVerified: false
+  },
+  {
+    width: 390,
+    height: 900,
+    selections: 3,
+    outputs: 6,
+    hiddenOptionsAbsent: true,
+    scenePickerClicked: true,
+    emptySearchEscape: true,
+    newSaveAndOldRestore: 3,
+    oldPublicTextUnchanged: true,
+    addedDefaultKeys: [ [Array], [Array], [Array] ],
+    errors: [],
+    overflow: false,
+    programmaticFallback: [ '重散景光斑' ],
+    nativePopupMouseVerified: false
+  }
+]

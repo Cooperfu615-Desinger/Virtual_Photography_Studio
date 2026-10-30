@@ -69,7 +69,7 @@ class AuthoringLengthTests(unittest.TestCase):
         paths=list((c.ROOT/'knowledge_base/catalog').rglob('*.json'))+[c.ROOT/'webapp/src/data/database.json']
         before={p:hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
         result=c.inspect()
-        self.assertEqual(result['reviewedExceptions'],10)
+        self.assertEqual(result['reviewedExceptions'],38)
         self.assertGreater(len(result['rows']),500)
         self.assertEqual(before,{p:hashlib.sha256(p.read_bytes()).hexdigest() for p in paths})
 

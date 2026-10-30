@@ -1,0 +1,22 @@
+[
+  {
+    "check": "focused-final",
+    "exit": 0
+  },
+  {
+    "check": "python-final",
+    "exit": 0
+  },
+  {
+    "check": "catalog-final",
+    "exit": 0
+  },
+  {
+    "check": "catalog-tools-final",
+    "exit": 0
+  },
+  {
+    "check": "sync-check-final",
+    "exit": 0
+  }
+]

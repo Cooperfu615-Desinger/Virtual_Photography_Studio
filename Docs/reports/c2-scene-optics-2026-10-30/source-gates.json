@@ -1,0 +1,26 @@
+[
+  {
+    "check": "sync-check",
+    "exit": 0
+  },
+  {
+    "check": "python",
+    "exit": 0
+  },
+  {
+    "check": "catalog",
+    "exit": 1
+  },
+  {
+    "check": "catalog-tools",
+    "exit": 1
+  },
+  {
+    "check": "assets",
+    "exit": 0
+  },
+  {
+    "check": "audit-after",
+    "exit": 0
+  }
+]

@@ -3669,6 +3669,12 @@
               "required": [
                 "semantic"
               ]
+            },
+            "legacyPromptAliases": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           },
           "required": [
@@ -3943,6 +3949,12 @@
               "required": [
                 "semantic"
               ]
+            },
+            "legacyPromptAliases": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           },
           "required": [

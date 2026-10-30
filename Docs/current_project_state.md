@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-30
 
+## C2 場景／光學：三筆微調與29筆保留理由（2026-10-30，使用者驗收通過）
+
+- 基準main `dabef0172ddf35c569632956c5bd7fed3e8c2c8b`；重散景19→16詞、Lens Flare19→18詞、道頓堀31→28詞，各追加完整舊英文alias。29筆長來源中道頓堀微調、28筆整筆保留；必要例外由10增至38，分類區間與25筆相機／底片未分類保持。
+- 只為光學與城市場景補既有alias的schema／field_mapping宣告；ID、中文、semantic、隱藏折射、排序、renderer與舊收藏公開原文保持。644組固定基準及90組固定構圖／角色卡補測僅出現核准文字替換。
+- 前端2064／品質853／Python55／目錄工具32、lint／build／strict／同步／207資產與正式bundle初始化通過。同seed200筆報告位元組完全相同、0 blocker。原套裝／腰鍊／C3／C4／B3／PAGE2／Phase4／A2／A1／A5完整歷史鏈通過；2647份原報告／registry／核心renderer、其他20工作目錄／140未提交檔保持。
+- 桌手機三筆選值與舊卡還原、六工作區12項檢查通過；重散景兩尺寸均用程式化change fallback，原生popup滑鼠操作未完成，限制紀錄保留。未生圖、不宣稱影像品質等價。見[規格](specs/c2-scene-optics-v1.md)、[決策](decisions/2026-10-30-c2-scene-optics.md)、[驗收報告](reports/c2-scene-optics-2026-10-30/README.md)。Cooper已驗收並授權本批限定提交／推送；CI與部署於交付時核對。相機／底片未分類、其他C類、PAGE2舊匯入、J12與P5b未併入。
+
 ## C2 套裝尾句：一筆微調、19筆保留（2026-10-30，使用者驗收通過）
 
 - 對照main `043418f9c169e2e5848d23aaae15c1a32e34588f` 審閱20筆；泳裝度假尾句只刪重複swimwear，18→17詞，追加完整舊英文alias。19筆原樣保留；皮革corset與包臀裙skirt因既有近景投影責任保留，不擴修renderer。

@@ -248,6 +248,230 @@
       "spec": "Docs/specs/c2-waist-wording-v1.md",
       "kind": "necessary_structure",
       "reason": "保留低腰下身相對穿戴關係，並非重複身體位置。"
+    },
+    {
+      "id": "camera:景別構圖-framing:頭部主導近景:10",
+      "sourceSha256": "d9002db96e8f22bf09149a9967693bd1fe0eb4629cc7da2e36375cf41521005b",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "specific_contract",
+      "reason": "保留頭頂至下巴占畫面高度50–60%、完整下巴、少量留白、上身手臂及周邊場景；這些是獨立構圖要求，不是同義重述。"
+    },
+    {
+      "id": "camera:光學效果-optical-effects:前景遮擋散景:5",
+      "sourceSha256": "dc7d726b721bdfeb5ce58985f8aeaaaf63f222d1eb797735de24c25dddfa50ae",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "specific_contract",
+      "reason": "保留近鏡頭離焦、跨一或多個邊緣、實質局部覆蓋、厚近場散景與主體可見開口；不為少一詞破壞可讀性。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純潔白幕:2",
+      "sourceSha256": "07d9971fbf0aa6e55dc727c9f5fd2f419a1bd9955299f3e1fe1db6f340a82535",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "specific_contract",
+      "reason": "保留本色的horizonless seamless、連續地面背景、滿版純色、接觸陰影，以及牆角、地縫、天花板與棚內設備排除；多個限制各自阻止不同可見物件。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-深邃黑幕:3",
+      "sourceSha256": "af75dd342d2e20964f02b6bd89366f4395764849885744d63ec7ecf02ce95db7",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "specific_contract",
+      "reason": "保留本色的horizonless seamless、連續地面背景、滿版純色、接觸陰影，以及牆角、地縫、天花板與棚內設備排除；多個限制各自阻止不同可見物件。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-莫蘭迪灰背景:4",
+      "sourceSha256": "393ef039ef5e6971d722109e110de5dbe1ae76c0e14ac7af8addbe1d6b0b6c15",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "specific_contract",
+      "reason": "保留本色的horizonless seamless、連續地面背景、滿版純色、接觸陰影，以及牆角、地縫、天花板與棚內設備排除；多個限制各自阻止不同可見物件。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純藍背景:5",
+      "sourceSha256": "40c06cfd4733b64b06e636f0057184a083bfd87f469a92281f010ff163b1548b",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "specific_contract",
+      "reason": "保留本色的horizonless seamless、連續地面背景、滿版純色、接觸陰影，以及牆角、地縫、天花板與棚內設備排除；多個限制各自阻止不同可見物件。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純橘背景:6",
+      "sourceSha256": "da4c9baf5b720b0bd5e5e4a340ad542767e6cdec047e47b7e05d4b6363e29e57",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "specific_contract",
+      "reason": "保留本色的horizonless seamless、連續地面背景、滿版純色、接觸陰影，以及牆角、地縫、天花板與棚內設備排除；多個限制各自阻止不同可見物件。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純紅背景:7",
+      "sourceSha256": "6b35174371acafd9045c882f77d4d34d925a75463b4ed036a4ae1b1c2842cad0",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "specific_contract",
+      "reason": "保留本色的horizonless seamless、連續地面背景、滿版純色、接觸陰影，以及牆角、地縫、天花板與棚內設備排除；多個限制各自阻止不同可見物件。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純黃背景:8",
+      "sourceSha256": "707cf8c8f36225f7f96b81ddf808edf58099051980693a2648162de3e4c07329",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "specific_contract",
+      "reason": "保留本色的horizonless seamless、連續地面背景、滿版純色、接觸陰影，以及牆角、地縫、天花板與棚內設備排除；多個限制各自阻止不同可見物件。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純紫背景:9",
+      "sourceSha256": "59d52da2fff0fe46634196d675d66e5099933bda1a7eb7d3353c6b7fb2a4e664",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "specific_contract",
+      "reason": "保留本色的horizonless seamless、連續地面背景、滿版純色、接觸陰影，以及牆角、地縫、天花板與棚內設備排除；多個限制各自阻止不同可見物件。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純綠背景:10",
+      "sourceSha256": "c169bf0048802c53c9861353f3949eb244761558e8e4ee48f7ab01719ad66f99",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "specific_contract",
+      "reason": "保留本色的horizonless seamless、連續地面背景、滿版純色、接觸陰影，以及牆角、地縫、天花板與棚內設備排除；多個限制各自阻止不同可見物件。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-鮮豔撞色背景:11",
+      "sourceSha256": "ec07c878c286b11952cdf99d1f68f9cefed85ceccde109f41848a086fb947127",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "specific_contract",
+      "reason": "保留本色的horizonless seamless、連續地面背景、滿版純色、接觸陰影，以及牆角、地縫、天花板與棚內設備排除；多個限制各自阻止不同可見物件。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-漸層打光背景:12",
+      "sourceSha256": "970eaa18ea9e687f6642c659b03f82568d57e6c993c5fcc26e957a1ef5a9ddc1",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "specific_contract",
+      "reason": "保留連續漸層、無邊界地面背景、滿版色調變化、接觸陰影與設備排除；不是單色背景，不套用單色語意。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-crt-電視牆攝影棚:13",
+      "sourceSha256": "c81cbff506e1d250e9329b5fd969542408c3e1332734cd04b5d59f6f2fa303bc",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "necessary_structure",
+      "reason": "保留CRT與電腦螢幕的異高間隙、屏幕內容、錄影帶及線材設備、藍灰地面背景與獨立主體；54詞各有物件或空間責任。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-多色塊撞色背景:14",
+      "sourceSha256": "24c47ad06037f4d5b3524f8357993655f914907280a8a73ac27b1729d7fc9f8c",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "necessary_structure",
+      "reason": "保留2–4色塊、可變色相、不等寬高、清楚邊界、非對稱滿版、連續地面及接觸陰影與設備排除；72詞為必要結構，不宣稱已有通用72詞上限。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-精品飯店房間:0",
+      "sourceSha256": "33a03027062444f8a788744105660c165d071e6b52f10940acdabbbe1489acad",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "necessary_structure",
+      "reason": "床鋪白床單、床頭櫃、作為實體物件的燈具、軟包床頭、窗簾與地板分別定義房間；保留緊湊角落，不把燈具改成人物光源。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-日本住宅使用感廚房:9",
+      "sourceSha256": "ffc378e5a61ed12172c81f2eee7951438a3145ba731d7413eb0dfd523a43aafb",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "necessary_structure",
+      "reason": "木窗、磁磚、金屬水槽、餐具與瀝水架、炊具和調味罐共同表達使用感；保留冰箱邊界與生活堆放，不縮成空泛廚房。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:戶外-社區自動販賣機旁:34",
+      "sourceSha256": "31e65a39d968a8199f4280bac804dd8099c245cc6fdca0310ce81a4a8dd4c33c",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "necessary_structure",
+      "reason": "保留2–3台機器、靠牆位置、電線桿與架空線、路緣瀝青、公寓及獨棟住宅片段；街區尺度與近處地面責任不同。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-地下狂歡俱樂部-金庫:15",
+      "sourceSha256": "387e2d582a79f3d08bc25b4a596d15bb675350770ace706ef938bf5b671c228e",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "necessary_structure",
+      "reason": "雷射設備及煙霧機是可見物件，並非自動指定發光或煙霧；保留桁架、金屬牆、厚門、地面及單側走線。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂正面長椅視角:8",
+      "sourceSha256": "b64f18c97c7afa4d38a6ace81279d65c29562449d56bfb83c7a03ae6af84c357",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "necessary_structure",
+      "reason": "保留偏置藍色長椅、身後窗門、不鏽鋼牆、吊環、路線圖海報與窗外片段；這是一般來源，不改成固定構圖或刪交通細節。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂側面走道視角:9",
+      "sourceSha256": "e27e8a0807da750f3b29aceb30d4fc742c3b1d294def5888743a09a099b3e829",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "necessary_structure",
+      "reason": "保留近主體扶桿、頂部吊環、側長椅、門窗、路線圖與背景乘客；各自建立走道層次。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂坐滿與站滿乘客:10",
+      "sourceSha256": "65bf13db483a48daa86758f50713f71dc73f43887d917267ec18e9f59d66924d",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "necessary_structure",
+      "reason": "保留坐與站兩種乘客、扶桿吊環的使用、人體後方門窗與壓縮密度；密度尾句承擔整體空間關係。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-澀谷站前廣場人潮邊緣:11",
+      "sourceSha256": "5657c07973bc6f98e273763316278abfcd242c6fe45a280f9aa0a0e79b2159d8",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "specific_contract",
+      "reason": "保留地標、人流前後左右關係、共享空間透視光線、距離尺度、路人服裝差異與邊緣重疊裁切；92詞是核准人潮契約。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-八公銅像旁行人區:12",
+      "sourceSha256": "72d07cd1c56af6fb110a2d1dde140e67e2790ddb7777e2c1b53717af0f63de79",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "necessary_structure",
+      "reason": "小型銅像、低石座、欄杆、人群、車站立面與真實地標尺度各有責任，防止把銅像放大成主景。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-澀谷站前大型看板下穿越口:13",
+      "sourceSha256": "b77b08cfb84d7ad874c79bde7ebecab7691923be1178e83d21d1c8187fb6f33f",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "necessary_structure",
+      "reason": "保留站側入口、大型看板、路口邊緣斑馬線、等待人群、招牌立面與路緣號誌；不是兩次描述同一看板。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-目黑川旁的櫻花隧道:14",
+      "sourceSha256": "eff3e744f6b0d6ae1bd0d42c18dcf7d7f9621af8dfd49258b9d80dc31892766a",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "necessary_structure",
+      "reason": "保留橋視點與前景欄杆、偏單側河道、單側櫻花冠層、建築深度與小花瓣；非對稱配置是刻意要求。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町招牌下:30",
+      "sourceSha256": "be6b3de4b689a07d9136acaf18cdea97764a8dcbfb72168ba69ad0b19d7d15e4",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "necessary_structure",
+      "reason": "紅色跨街拱門、鋼支撐、夜生活店面與層疊招牌、濕亮地面及門緣分別描述地標結構與局部空間。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-城市遊艇碼頭欄杆旁:52",
+      "sourceSha256": "a3a6fc2ac2cedce19907edfdd9858b183d2655c55b489fa7456e919008158c4a",
+      "reviewedCommit": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "spec": "Docs/specs/c2-scene-optics-v1.md",
+      "kind": "necessary_structure",
+      "reason": "細不鏽鋼圓管欄杆、風化木板與碼頭鋪面、帆船桅杆、港水及山城遠景分別承擔材質與層次；兩地面片語也是投影匹配來源。"
     }
   ]
 }

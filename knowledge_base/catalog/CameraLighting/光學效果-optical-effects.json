@@ -26,7 +26,7 @@
         "camera:光學效果-optical-effects:重散景光斑:1"
       ],
       "zh": "重散景光斑",
-      "en": "heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights, optical blur balls",
+      "en": "heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights",
       "desc": "讓離焦高光形成大型光斑或光圈形狀，重點是散景形狀、尺寸與離焦高光的光學表現。",
       "meta": {
         "semantic": {
@@ -34,7 +34,10 @@
             "bokeh"
           ]
         }
-      }
+      },
+      "legacyPromptAliases": [
+        "heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights, optical blur balls"
+      ]
     },
     {
       "id": "camera:光學效果-optical-effects:旋渦散景-swirly-bokeh:2",
@@ -157,7 +160,7 @@
         "camera:光學效果-optical-effects:鏡頭光斑-lens-flare:9"
       ],
       "zh": "鏡頭光斑 Lens Flare",
-      "en": "lens flare artifacts, internal lens reflections, veiling flare, ghosting shapes, streaking flare artifacts from a strong off-axis light source",
+      "en": "lens flare artifacts, internal lens reflections, veiling flare, ghosting shapes, streaking flare from a strong off-axis light source",
       "desc": "強光進入鏡頭後造成內部反射、鬼影、光暈或條狀 flare，重點是鏡頭內部反射瑕疵。",
       "meta": {
         "semantic": {
@@ -166,7 +169,10 @@
             "flare_artifact"
           ]
         }
-      }
+      },
+      "legacyPromptAliases": [
+        "lens flare artifacts, internal lens reflections, veiling flare, ghosting shapes, streaking flare artifacts from a strong off-axis light source"
+      ]
     },
     {
       "id": "camera:光學效果-optical-effects:變形鏡頭光斑-anamorphic-flare:10",

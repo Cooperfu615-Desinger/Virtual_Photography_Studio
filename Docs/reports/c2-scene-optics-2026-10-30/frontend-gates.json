@@ -1,0 +1,22 @@
+[
+  {
+    "check": "tests",
+    "exit": 1
+  },
+  {
+    "check": "quality",
+    "exit": 0
+  },
+  {
+    "check": "lint",
+    "exit": 0
+  },
+  {
+    "check": "build",
+    "exit": 0
+  },
+  {
+    "check": "bundle",
+    "exit": 0
+  }
+]
