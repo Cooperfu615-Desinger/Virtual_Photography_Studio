@@ -1,0 +1,40 @@
+{
+  "baseCommit": "515827da138a0c0d3fe652888d9b03a6b5a9c5a6",
+  "result": "passed",
+  "scope": "documentation only; no executable contract changes",
+  "retainedRows": 50,
+  "individualTextReview": 22,
+  "userRetentionWithoutIndividualSemanticReview": 28,
+  "diagnosticSummary": {
+    "under": 22,
+    "over": 70,
+    "within": 685,
+    "unclassified": 81
+  },
+  "reviewedExceptions": 38,
+  "historicalInventoryUnchanged": true,
+  "protectedTrackedFiles": 4426,
+  "historicalReportFiles": 2777,
+  "otherExistingWorktrees": 20,
+  "otherDirtyFiles": 140,
+  "missingRegisteredWorktreeDirectories": 1,
+  "checkedLocalLinks": 21,
+  "changedFiles": [
+    "Docs/current_project_state.md",
+    "Docs/reports/c2-closeout-2026-10-31/README.md",
+    "Docs/reports/c2-closeout-2026-10-31/retention-decisions.json",
+    "Docs/reports/c2-closeout-2026-10-31/verification.json",
+    "Docs/specs/c2-authoring-length-policy-v1.md",
+    "Docs/specs/c2-closeout-v1.md",
+    "Docs/specs/c2-rendering-classification-v1.md"
+  ],
+  "diffCheck": "passed",
+  "notRun": [
+    "product test suites",
+    "build",
+    "browser",
+    "image generation",
+    "CI",
+    "deployment"
+  ]
+}

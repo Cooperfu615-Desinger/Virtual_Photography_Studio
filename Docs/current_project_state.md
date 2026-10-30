@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-31
 
+## C2 文件與清單收尾（2026-10-31，本輪內容處置結案）
+
+- 對照main `515827da138a0c0d3fe652888d9b03a6b5a9c5a6`。使用者確認22筆偏短與28筆偏長全部保留；22筆已有逐筆文字分析，28筆依使用需求保留，未另做逐筆語意審查或生圖驗證。先前三筆襪類補強不實施。
+- 70筆偏長＝35筆既有例外＋7筆已審閱（5套裝、2腰鍊）＋28筆使用者保留；診斷under22／over70／within685／unclassified81與38筆例外保持。字數提示不要求歸零。
+- 前批 `scripts/lib/c2ClosureInventory.json` 保留為歷史快照；現行50筆處置見[結案清單](reports/c2-closeout-2026-10-31/retention-decisions.json)。前批「50筆待審」不再是現行待辦，但不改寫原測試、回放或報告。
+- 見[結案規格](specs/c2-closeout-v1.md)與[文件驗收](reports/c2-closeout-2026-10-31/README.md)。本批只改文件，保留資料、程式、ID、alias、收藏與歷史證據；使用者已授權本批限定commit／push，CI與部署於交付時另行核對；未重跑瀏覽器或生圖，既有操作與影像品質限制保持。C5等其他C類未開始；PAGE2舊匯入、J12、P5b繼續暫緩。
+
 ## C2 成像診斷分類與結案盤點（2026-10-31，使用者驗收通過）
 
 - 基準main `2fa8fe65226903141597ab74b044a0102a6f8ca7`；只新增catalog rendering的10–24詞診斷規則。25筆15–24詞原文保持，within660→685／unclassified106→81；under22、over70與38筆例外不變。
