@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: C3 concrete actions and random/any have descriptions; none is supplied by picker
+ok 1 - C3 concrete actions and random/any have descriptions; none is supplied by picker
+  ---
+  duration_ms: 1.898584
+  type: 'test'
+  ...
+# Subtest: C3 product source changes exactly six uiHidden flags and no other bytes
+ok 2 - C3 product source changes exactly six uiHidden flags and no other bytes
+  ---
+  duration_ms: 0.869583
+  type: 'test'
+  ...
+# Subtest: C3 retired controls remain retired and their workspace transition policy is unchanged
+ok 3 - C3 retired controls remain retired and their workspace transition policy is unchanged
+  ---
+  duration_ms: 0.138625
+  type: 'test'
+  ...
+# Subtest: C3 inverse restores exact pre-change source and rejects live/unknown copies
+ok 4 - C3 inverse restores exact pre-change source and rejects live/unknown copies
+  ---
+  duration_ms: 4.429541
+  type: 'test'
+  ...
+# Subtest: C3 fixed before matrix preserves outputs, choices, RNG and saved public text
+ok 5 - C3 fixed before matrix preserves outputs, choices, RNG and saved public text
+  ---
+  duration_ms: 6208.010541
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6300.417709

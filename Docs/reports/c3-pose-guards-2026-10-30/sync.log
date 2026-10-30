@@ -1,0 +1,1 @@
+Catalog validation passed: {'records': 1050, 'historicalIds': 1050, 'initialFrozen': 0, 'mode': 'historical', 'registryBaseCommit': '3127c66d2f64dacc3d3fe9bcaa1015435c0670fa', 'registrySha256': 'b79fa41d64a2954c28a3c716669c4deb929fabd2c85115159f3567822bbc7b25', 'outputs': 8, 'source': 'catalog JSON', 'check': True}

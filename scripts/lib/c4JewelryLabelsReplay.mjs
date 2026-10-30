@@ -1,3 +1,5 @@
+import {preparePreC3PoseFiles,preC3Source} from './c3PoseReplay.mjs';
+import c3Review from './c3PoseReview.json' with {type:'json'};
 // Test-only exact inverse. Never re-record historical seals.
 import {prePikaVideoSource, PIKA_VIDEO_PATH} from './pikaVideoReplay.mjs';
 import assert from 'node:assert/strict';
@@ -10,6 +12,7 @@ export const C4_JEWELRY_ROOT=fileURLToPath(new URL('../../',import.meta.url));
 export const C4_JEWELRY_PATCHES=JSON.parse(readFileSync(new URL('./c4JewelryLabelsPatches.json',import.meta.url)));
 const hash=x=>createHash('sha256').update(x).digest('hex');
 export function preC4JewelrySource(path,source){
+ source=preC3Source(path,source);
  const f=C4_JEWELRY_PATCHES.files.find(x=>x.path===path);
  if(!f||hash(source)!==f.afterHash)return source;
  assert.equal(hash(f.beforeSource),f.beforeHash,'corrupt C4 jewelry oracle');
@@ -18,7 +21,9 @@ export function preC4JewelrySource(path,source){
 export function preparePreC4JewelryFiles(directory){
  assert.notEqual(realpathSync(directory),realpathSync(C4_JEWELRY_ROOT),'C4 jewelry inverse requires isolated copy');
  assert.ok(!existsSync(join(directory,'.git')),'C4 jewelry inverse rejects Git checkout');
- const sources=new Map(),present=C4_JEWELRY_PATCHES.files.filter(f=>existsSync(join(directory,f.path)));
+ const c3Path=join(directory,c3Review.path);
+ const c3=existsSync(c3Path)&&hash(readFileSync(c3Path))===c3Review.afterHash?preparePreC3PoseFiles(directory):{sources:new Map()};
+ const sources=new Map(c3.sources),present=C4_JEWELRY_PATCHES.files.filter(f=>existsSync(join(directory,f.path)));
  const pikaPath=join(directory,PIKA_VIDEO_PATH);
  if(existsSync(pikaPath)){
   const source=readFileSync(pikaPath), before=prePikaVideoSource(PIKA_VIDEO_PATH,source);

@@ -1,0 +1,188 @@
+TAP version 13
+# Subtest: complete historical group substitutes one entry and preserves all other arguments in order
+ok 1 - complete historical group substitutes one entry and preserves all other arguments in order
+  ---
+  duration_ms: 2.201334
+  type: 'test'
+  ...
+# Subtest: full npm test selection retains the exact test-file union without a duplicate historical entry
+ok 2 - full npm test selection retains the exact test-file union without a duplicate historical entry
+  ---
+  duration_ms: 7.857042
+  type: 'test'
+  ...
+# Subtest: prompt quality selection retains every original selected suite and all three historical matrices
+ok 3 - prompt quality selection retains every original selected suite and all three historical matrices
+  ---
+  duration_ms: 1.8425
+  type: 'test'
+  ...
+# Subtest: focused single and partial matrix selections never expand or drop their scope
+ok 4 - focused single and partial matrix selections never expand or drop their scope
+  ---
+  duration_ms: 0.331417
+  type: 'test'
+  ...
+# Subtest: native flag values are preserved even when they look exactly like a matrix test path
+ok 5 - native flag values are preserved even when they look exactly like a matrix test path
+  ---
+  duration_ms: 0.248458
+  type: 'test'
+  ...
+# Subtest: absolute paths, relative aliases and the native option delimiter identify the same complete group
+ok 6 - absolute paths, relative aliases and the native option delimiter identify the same complete group
+  ---
+  duration_ms: 0.185208
+  type: 'test'
+  ...
+# Subtest: an explicitly selected aggregator is retained once and does not need another generated entry
+ok 7 - an explicitly selected aggregator is retained once and does not need another generated entry
+  ---
+  duration_ms: 0.088292
+  type: 'test'
+  ...
+# Subtest: runner starts the same Node binary with native test isolation and preserves caller flags
+ok 8 - runner starts the same Node binary with native test isolation and preserves caller flags
+  ---
+  duration_ms: 0.202
+  type: 'test'
+  ...
+# Subtest: CLI returns the native test success and failure status without swallowing failed assertions
+ok 9 - CLI returns the native test success and failure status without swallowing failed assertions
+  ---
+  duration_ms: 356.137584
+  type: 'test'
+  ...
+# Subtest: grouped original suites keep real historical fixture reuse enabled for their entire lifecycle
+not ok 10 - grouped original suites keep real historical fixture reuse enabled for their entire lifecycle
+  ---
+  duration_ms: 488.039542
+  type: 'test'
+  location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/qa/webappTestRunner.test.js:133:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    TAP version 13
+    # node:internal/modules/run_main:123
+    #     triggerUncaughtException(
+    #     ^
+    # AssertionError [ERR_ASSERTION]: C4 inverse unknown source: webapp/src/lib/engine/poseComposerOptions.js
+    #     at preparePreC4LabelsFiles (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/c4LabelsReplay.mjs:27:14)
+    #     at preparePreSavedCardsDownloadFiles (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/savedCardsDownloadReplay.mjs:21:14)
+    #     at restorePreB3WardrobeFiles (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/b3CharacterWardrobeReplay.mjs:22:20)
+    #     at restorePrePage2AdultFiles (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/page2AdultIdentityReplay.mjs:22:14)
+    #     at restorePrePhase4Files (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/phase4Replay.mjs:24:16)
+    #     at openPreA1ReplayRoot (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/a1AdultIdentityHistoricalReplay.mjs:34:5)
+    #     at file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/historicalSceneMatrices.test.js:12:16
+    #     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    #     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+    #     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {
+    #   generatedMessage: false,
+    #   code: 'ERR_ASSERTION',
+    #   actual: false,
+    #   expected: true,
+    #   operator: '==',
+    #   diff: 'simple'
+    # }
+    # Node.js v22.23.3
+    # Subtest: src/lib/engine/historicalSceneMatrices.test.js
+    not ok 1 - src/lib/engine/historicalSceneMatrices.test.js
+      ---
+      duration_ms: 405.463709
+      type: 'test'
+      location: '/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/lib/engine/historicalSceneMatrices.test.js:1:1'
+      failureType: 'testCodeFailure'
+      exitCode: 1
+      signal: ~
+      error: 'test failed'
+      code: 'ERR_TEST_FAILURE'
+      ...
+    1..1
+    # tests 1
+    # suites 0
+    # pass 0
+    # fail 1
+    # cancelled 0
+    # skipped 0
+    # todo 0
+    # duration_ms 410.508
+    
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/webapp/src/features/qa/webappTestRunner.test.js:142:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: C3 concrete actions and random/any have descriptions; none is supplied by picker
+ok 11 - C3 concrete actions and random/any have descriptions; none is supplied by picker
+  ---
+  duration_ms: 1.424791
+  type: 'test'
+  ...
+# Subtest: C3 product source changes exactly six uiHidden flags and no other bytes
+ok 12 - C3 product source changes exactly six uiHidden flags and no other bytes
+  ---
+  duration_ms: 1.045958
+  type: 'test'
+  ...
+# Subtest: C3 retired controls remain retired and their workspace transition policy is unchanged
+ok 13 - C3 retired controls remain retired and their workspace transition policy is unchanged
+  ---
+  duration_ms: 0.135125
+  type: 'test'
+  ...
+# Subtest: C3 inverse restores exact pre-change source and rejects live/unknown copies
+ok 14 - C3 inverse restores exact pre-change source and rejects live/unknown copies
+  ---
+  duration_ms: 3.793625
+  type: 'test'
+  ...
+# Subtest: C3 fixed before matrix preserves outputs, choices, RNG and saved public text
+ok 15 - C3 fixed before matrix preserves outputs, choices, RNG and saved public text
+  ---
+  duration_ms: 7171.919042
+  type: 'test'
+  ...
+# Subtest: C4 seven Chinese names change without English, IDs, metadata, order or old keys changing
+ok 16 - C4 seven Chinese names change without English, IDs, metadata, order or old keys changing
+  ---
+  duration_ms: 4.468292
+  type: 'test'
+  ...
+# Subtest: C4 old hairstyle IDs retain wet migration and explicit A/B styling choices
+ok 17 - C4 old hairstyle IDs retain wet migration and explicit A/B styling choices
+  ---
+  duration_ms: 45.451417
+  type: 'test'
+  ...
+# Subtest: C4 exact inverse preserves fixed Git bytes and rejects live/unknown copies before writing
+ok 18 - C4 exact inverse preserves fixed Git bytes and rejects live/unknown copies before writing
+  ---
+  duration_ms: 26.769708
+  type: 'test'
+  ...
+# Subtest: C4 558 current cases and 1098 old restore paths match approved fixed baseline
+ok 19 - C4 558 current cases and 1098 old restore paths match approved fixed baseline
+  ---
+  duration_ms: 7671.866
+  type: 'test'
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 18
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 7915.649708

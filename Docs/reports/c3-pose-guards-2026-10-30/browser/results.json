@@ -1,0 +1,22 @@
+[
+  {
+    "width": 1440,
+    "cards": 54,
+    "menuStates": 3,
+    "selectedCategories": 6,
+    "disabledHands": true,
+    "retiredControlsAbsent": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "cards": 54,
+    "menuStates": 3,
+    "selectedCategories": 6,
+    "disabledHands": true,
+    "retiredControlsAbsent": true,
+    "overflow": false,
+    "errors": []
+  }
+]

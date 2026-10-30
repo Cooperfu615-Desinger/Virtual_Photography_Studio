@@ -1,0 +1,3463 @@
+{
+  "currentActions": [
+    {
+      "id": "specified-sitting-side-fold-back-support",
+      "zh": "折腿低坐・雙掌後撐",
+      "descriptionZh": "臀部直接坐在地面，雙膝彎曲，兩條小腿折向人物左側，雙腳靠近左臀，折疊腿部與腳側貼地。上身略向後傾，雙掌分別放在左右臀部偏後的地面，手指分開，手肘微彎。臀部與折疊雙腿承托下半身，雙掌分攤上身重量。",
+      "validation": {
+        "status": "accepted",
+        "evidence": ""
+      }
+    },
+    {
+      "id": "specified-sitting-raised-right-knee",
+      "zh": "單腿屈起・單掌後撐",
+      "descriptionZh": "臀部坐在地面，右膝高起，右腳掌平放在身前地面。左膝向人物左側放低，左小腿折向身前，左腳靠近右腿內側，左腿外側貼地。上身略向後傾，右手放在右膝上方的大腿，左掌放在左臀偏後的地面。臀部、左腿、右腳與左掌共同形成支撐。",
+      "validation": {
+        "status": "accepted",
+        "evidence": ""
+      }
+    },
+    {
+      "id": "specified-sitting-hug-knees",
+      "zh": "低坐抱膝",
+      "descriptionZh": "臀部坐在地面，雙腿在身前彎曲，雙膝靠近並收向胸前，雙腳掌平放地面。上身從髖部略向前傾、靠近雙腿；雙臂由兩側環抱小腿，前臂位於小腿前方，雙手各握住另一側前臂。臀部與雙腳承重，雙臂收攏雙腿。",
+      "validation": {
+        "status": "accepted",
+        "evidence": ""
+      }
+    },
+    {
+      "id": "specified-kneeling-wide-hands-front",
+      "zh": "分腿跪坐・雙掌前置",
+      "descriptionZh": "雙膝向外分開著地，小腿向後折在臀部兩側，腳背貼地，臀部落在兩腿之間的地面。上身略向前傾，雙臂向前下方伸出，雙掌並列放在兩膝之間偏前方的地面，手肘微彎。臀部與折疊雙腿承托身體，雙掌協助穩定。",
+      "validation": {
+        "status": "accepted",
+        "evidence": ""
+      }
+    },
+    {
+      "id": "specified-kneeling-all-fours-palms",
+      "zh": "四足跪姿・雙掌撐地",
+      "descriptionZh": "雙膝分開著地、位於髖部下方，小腿向後延伸，腳背貼地。雙掌分開放在肩膀下方的地面，手指張開，手臂伸展，手肘保留自然彈性。臀部在膝蓋上方抬起，肩胸保持較高，軀幹大致平行地面，腹部離地。雙膝與雙掌承重，小腿前側與腳背接地。",
+      "validation": {
+        "status": "accepted",
+        "evidence": ""
+      }
+    },
+    {
+      "id": "specified-kneeling-all-fours-forearms",
+      "zh": "四足跪姿・雙前臂撐地",
+      "descriptionZh": "雙膝分開著地、位於髖部下方，小腿向後延伸，腳背貼地。雙肘位於肩膀下方，雙前臂向前平貼地面，雙手分開、掌心向下。臀部保持抬高，肩胸降低，軀幹從髖部向前下方傾斜，胸口低於臀部，腹部離地。雙膝、雙肘與前臂承重。",
+      "validation": {
+        "status": "accepted",
+        "evidence": ""
+      }
+    },
+    {
+      "id": "specified-lying-left-side-forearm",
+      "zh": "側躺・單前臂撐起上身",
+      "descriptionZh": "身體左側躺臥，左髖與左腿外側貼地，雙腿沿身體長軸微彎，右腿疊放在左腿上。左肘位於左肩下方，左前臂向身前平放地面，左掌接地，撐起左側腰胸使其離地，軀幹斜向上抬起。右手放在右大腿外側；髖部與雙腿維持側躺，左髖腿與左前臂共同支撐身體。",
+      "validation": {
+        "status": "accepted",
+        "evidence": ""
+      }
+    },
+    {
+      "id": "specified-lying-supine-raised-crossed-legs",
+      "zh": "仰躺屈腿交疊・雙臂沿身側",
+      "descriptionZh": "背部與骨盆貼住地面，雙腿從髖部抬起，大腿收近腹部，雙膝彎曲。右大腿斜跨左大腿，在大腿至膝蓋上方交疊；小腿隨彎曲自然延伸，雙腳保持離地。雙臂沿身側略向外展，手肘微彎，雙掌接地。背部與骨盆承重，雙臂與手掌協助穩定。",
+      "validation": {
+        "status": "accepted",
+        "evidence": ""
+      }
+    },
+    {
+      "id": "specified-bratty-frustration-mock-kick",
+      "zh": "不爽發洩踢擊",
+      "descriptionZh": "情緒化地向附近物件或畫面下緣踢出一腳，上身自然前傾、身體略失衡。接管不悅噘嘴的神情；頭部方向可調。不指定物件種類、另一隻手或額外支撐。",
+      "validation": {
+        "status": "accepted",
+        "evidence": ""
+      }
+    },
+    {
+      "id": "specified-defiant-middle-finger-lens-jab",
+      "zh": "頂鏡頭挑釁手勢",
+      "descriptionZh": "上身向鏡頭前傾，以冷淡挑釁的目光直視鏡頭，一隻手前伸形成近距離透視與輕微動態模糊。不限定站、坐、跪或其他下半身姿態，也不補另一隻手。",
+      "validation": {
+        "status": "accepted",
+        "evidence": ""
+      }
+    },
+    {
+      "id": "specified-low-seated-aloof-cats-street-mood",
+      "zh": "低坐貓群冷淡氛圍",
+      "descriptionZh": "低坐地面，雙腿放鬆、軀幹微傾，手臂自然靠近腿部；抬眼望向上方鏡頭，神情疏離冷淡。保留身邊安靜停留的小貓，場景地點沿用 D 區設定。",
+      "validation": {
+        "status": "accepted",
+        "evidence": ""
+      }
+    },
+    {
+      "id": "specified-lying-side-pillow-hand",
+      "zh": "側躺・臉靠枕頭・上手輕握枕邊",
+      "descriptionZh": "側躺在床上，頭側靠在枕頭上；上方那隻手彎曲，手指輕輕抓著臉旁的枕頭邊，肩膀微微往前收；雙腿上下疊放，膝蓋微彎。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Docs/reports/pose-library-lying-2026-10-19/results.md"
+      }
+    },
+    {
+      "id": "specified-lying-prone-forearms-crossed-ankles",
+      "zh": "趴躺・前臂撐起・雙腳交叉翹起",
+      "descriptionZh": "趴著，前臂平放在身體前方撐起上身，胸口離開表面、背部微拱；骨盆貼著表面；膝蓋彎曲，小腿往上翹起，兩腳腳踝交叉。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Docs/reports/pose-library-lying-2026-10-19/results.md"
+      }
+    },
+    {
+      "id": "specified-lying-prone-forearms-one-knee-up",
+      "zh": "趴躺・前臂撐起・單腿屈起",
+      "descriptionZh": "趴著，前臂撐起上身，雙手放在前方表面；一腿伸直貼著表面，另一腿膝蓋彎曲、小腿往上抬到接近垂直。",
+      "validation": {
+        "status": "pending",
+        "evidence": "Z-Image drew a supine raised knee; rewrite pending (results.md §4)"
+      }
+    },
+    {
+      "id": "specified-standing-natural",
+      "zh": "自然站姿",
+      "descriptionZh": "自然放鬆的中性站姿。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-20: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-standing-one-leg-weight",
+      "zh": "單腳重心",
+      "descriptionZh": "放鬆站立，重心放在一腳，身體自然不對稱。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-20: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-standing-crossed-legs",
+      "zh": "交叉腿站姿",
+      "descriptionZh": "雙腿自然交叉，一側髖部微微偏移。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-20: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-standing-narrow-side",
+      "zh": "側身窄站姿",
+      "descriptionZh": "側身站立，雙腳靠攏，身形修長。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-20: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-standing-feet-together-soft-knees",
+      "zh": "併腿微屈站姿",
+      "descriptionZh": "雙腳靠攏、膝蓋微彎，髖部偏向一側，軀幹帶出柔和側彎。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-20: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-standing-wide-weight-shift",
+      "zh": "開腿偏重心站姿",
+      "descriptionZh": "雙腳打開、腳尖微微外開，重心放在一腳，另一腳向側邊伸出。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-20: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-standing-bent-leg-lift",
+      "zh": "單腳屈膝抬腿站姿",
+      "descriptionZh": "單腳站立，另一腳屈膝抬起、在支撐腿前方微微交叉，小腿往後收、腳離地。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-20: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-standing-forward-lean",
+      "zh": "上身前傾探身站姿",
+      "descriptionZh": "上身從髖部明顯前傾，臉與肩膀位於腰臀之前。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-20: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-standing-pelvis-back-curve",
+      "zh": "骨盆後推曲線站姿",
+      "descriptionZh": "骨盆往後推、臀部位於軀幹後方，下背到臀部弧線明顯，上身只微微前傾。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-20: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-standing-hands-behind-knee-in",
+      "zh": "雙手背後・單膝內扣",
+      "descriptionZh": "單腳打直承重，雙手在背後交握；另一腳膝蓋微微內扣，腳輕放在支撐腳旁。",
+      "validation": {
+        "status": "pending",
+        "evidence": "reference Docs/站姿/010c1243cfa3389e3b108cf9c75fa8a8.jpg; image round deferred (Cooper 2026-10-20)"
+      }
+    },
+    {
+      "id": "specified-standing-hand-on-head-stride",
+      "zh": "一手扶頭・跨步",
+      "descriptionZh": "擺姿勢的跨步，一手放在頭頂，另一手自然垂下；前腳腳跟著地、腳尖翹起，後腳打直。",
+      "validation": {
+        "status": "pending",
+        "evidence": "reference Docs/站姿/1d7b9d0491d59db07fc80a23bc5be49a.jpg; image round deferred (Cooper 2026-10-20)"
+      }
+    },
+    {
+      "id": "specified-standing-hand-on-head-pocket",
+      "zh": "一手扶頭・一手插口袋",
+      "descriptionZh": "雙腳微開，一手舉到頭側，另一手插在前口袋；膝蓋微微內扣。需要有前口袋的穿搭。",
+      "validation": {
+        "status": "pending",
+        "evidence": "reference Docs/站姿/3e884f394a163fff1b6a3cf4e30bf5cd.jpg; image round deferred (Cooper 2026-10-20)"
+      }
+    },
+    {
+      "id": "specified-standing-lean-pockets-step",
+      "zh": "上身前傾・雙手插口袋・一腳前踏",
+      "descriptionZh": "上身從髖部前傾，雙手插在前口袋；一腳踏在前方，後腳腳跟微抬。需要有前口袋的穿搭。",
+      "validation": {
+        "status": "pending",
+        "evidence": "reference Docs/站姿/5ba40b62320ca0622169b21f5bcaabef.jpg; image round deferred (Cooper 2026-10-20)"
+      }
+    },
+    {
+      "id": "specified-standing-side-kick-fists",
+      "zh": "單腳站・側後抬腿・雙拳胸前",
+      "descriptionZh": "活潑的單腳站姿，雙手握拳放在胸前；另一腳屈膝往側邊踢起、腳明顯離地。",
+      "validation": {
+        "status": "pending",
+        "evidence": "reference Docs/站姿/824cc953f4a58d4bcd9bd9fe84dde35b.jpg; image round deferred (Cooper 2026-10-20)"
+      }
+    },
+    {
+      "id": "specified-standing-front-kick-hand-up",
+      "zh": "單腳站・前踢抬腿・一手舉高",
+      "descriptionZh": "活潑的單腳站姿，一手舉在頭側、食指朝上，另一手往後擺；另一腳往前上方踢到約髖部高度。",
+      "validation": {
+        "status": "pending",
+        "evidence": "reference Docs/站姿/c4ca80214af80abd58b0ad30bb543f0a.jpg; image round deferred (Cooper 2026-10-20)"
+      }
+    },
+    {
+      "id": "specified-standing-hands-behind-head-knees-in",
+      "zh": "雙手抱頭後・併腿內扣",
+      "descriptionZh": "雙腳靠攏，雙手舉到後腦、手肘向兩側張開；膝蓋微微內扣。",
+      "validation": {
+        "status": "pending",
+        "evidence": "reference Docs/站姿/cd7fb25489834cf7b3d8a957aef72f28.jpg; image round deferred (Cooper 2026-10-20)"
+      }
+    },
+    {
+      "id": "specified-standing-arm-overhead-stretch",
+      "zh": "單臂上舉・一手扶臂伸展",
+      "descriptionZh": "雙腳與肩同寬，一手向上伸直，另一手彎曲、扶在上舉手臂的手肘附近。",
+      "validation": {
+        "status": "pending",
+        "evidence": "reference Docs/站姿/f512ed9b7b53c9ebb4c2b0376782633d.jpg; image round deferred (Cooper 2026-10-20)"
+      }
+    },
+    {
+      "id": "specified-standing-wide-toes-out-hand-chest",
+      "zh": "外八開腿・一手放胸前",
+      "descriptionZh": "雙腳張開、腳尖外八，一手放在胸前，另一手垂直貼在身側。",
+      "validation": {
+        "status": "pending",
+        "evidence": "reference Docs/站姿/images.jpeg; image round deferred (Cooper 2026-10-20)"
+      }
+    },
+    {
+      "id": "specified-standing-one-leg-v-sign-hip",
+      "zh": "單腳站・一手比耶・一手叉腰",
+      "descriptionZh": "單腳站立，一手向上伸直比耶，另一手叉腰；另一腳屈膝抬在支撐腿前方、腳往後收。",
+      "validation": {
+        "status": "pending",
+        "evidence": "reference Docs/站姿/v2-60d44e901558586d8b79ee02b7962376_1440w.jpg; image round deferred (Cooper 2026-10-20)"
+      }
+    },
+    {
+      "id": "specified-standing-arms-open-v",
+      "zh": "雙手向上張開",
+      "descriptionZh": "雙腿打直、一膝微彎，雙臂向上舉起並張開成 V 字，掌心打開。",
+      "validation": {
+        "status": "pending",
+        "evidence": "reference Docs/站姿/v2-c5761de237bb95a4fc2f108b89902da3_1440w.jpg; image round deferred (Cooper 2026-10-20)"
+      }
+    },
+    {
+      "id": "specified-squatting-natural",
+      "zh": "自然蹲姿",
+      "descriptionZh": "雙膝舒適彎曲，臀部接近腳跟但離地，腳距自然，腳跟落地或輕抬；上身自然稍前傾、肩膀放鬆。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-21: reviewed squatting-catalog-v2 wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-squatting-compact",
+      "zh": "收攏低蹲姿",
+      "descriptionZh": "雙腿與雙腳靠攏，大腿接近小腿，臀部充分下沉但離地；上身靠近大腿、肩膀放鬆，腳跟落地或輕抬。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-21: reviewed squatting-catalog-v2 wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-squatting-forward-lean",
+      "zh": "身體前傾蹲姿",
+      "descriptionZh": "雙膝舒適分開、臀部低沉離地，上身從髖部輕微前傾，肩背與頸部放鬆，腳跟落地或輕抬。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-21: reviewed squatting-catalog-v2 wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-squatting-wide-knee",
+      "zh": "寬膝低蹲姿",
+      "descriptionZh": "膝蓋向外，腳距適度加寬、腳尖順著膝蓋，臀部低沉在雙腿之間且離地，上身稍前傾，腳跟落地或輕抬。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-21: reviewed squatting-catalog-v2 wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-sitting-natural",
+      "zh": "自然坐姿",
+      "descriptionZh": "自然放鬆的坐姿。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-21: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-sitting-forward-lean",
+      "zh": "微微前傾",
+      "descriptionZh": "坐著，上身微微往前傾。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-21: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-sitting-legs-extended",
+      "zh": "雙腿自然伸展",
+      "descriptionZh": "坐著，雙腿自然往前伸展。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-21: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-sitting-cross-legged",
+      "zh": "盤腿坐姿",
+      "descriptionZh": "盤腿而坐。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-21: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-sitting-knees-raised",
+      "zh": "雙腿屈起",
+      "descriptionZh": "坐著，雙腿彎曲、膝蓋抬起，雙腳自然放著。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-21: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-sitting-slouched",
+      "zh": "隨性癱坐",
+      "descriptionZh": "隨性地癱坐，身體放鬆沉重，肩膀垂下，軀幹自然陷進座位。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-21: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-sitting-leg-cross",
+      "zh": "翹二郎腿",
+      "descriptionZh": "坐著翹二郎腿。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-21: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-sitting-one-knee-up",
+      "zh": "單腿屈起坐姿",
+      "descriptionZh": "坐著，一腳屈膝抬起，另一腳放鬆。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-21: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-sitting-legs-to-side",
+      "zh": "雙腿側放坐姿",
+      "descriptionZh": "坐著，雙腿往同一側斜放，下半身線條柔和不對稱。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-21: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-sitting-open-confident",
+      "zh": "開闊自信坐姿",
+      "descriptionZh": "開闊穩定的坐姿，膝蓋舒適分開，重心落在髖部，上身放鬆挺直。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-21: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-kneeling-seiza",
+      "zh": "跪坐",
+      "descriptionZh": "正座跪坐，臀部坐在腳跟上，雙膝併攏，上身挺直。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-21: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-kneeling-wide",
+      "zh": "分腿跪坐",
+      "descriptionZh": "雙膝著地、自然分開，小腿往兩側後折，臀部坐在雙腿之間的地面，上身挺直。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-21: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-kneeling-forward-lean",
+      "zh": "前傾跪姿",
+      "descriptionZh": "雙膝著地的高跪姿，臀部離開腳跟，上身從髖部往前傾。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-21: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-kneeling-upright-poised",
+      "zh": "直立端正跪姿",
+      "descriptionZh": "雙膝著地的直立高跪姿，大腿接近垂直，臀部離開腳跟、位於膝蓋上方，上身挺拔、肩膀放鬆。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-21: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-kneeling-side-sit",
+      "zh": "側坐跪姿",
+      "descriptionZh": "從跪姿側坐，臀部落在折起雙腿的一側，上身放鬆挺直。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-21: reviewed free-composer wording; image round deferred"
+      }
+    },
+    {
+      "id": "specified-kneeling-one-knee-forward",
+      "zh": "單膝前跨跪姿",
+      "descriptionZh": "單膝著地，另一腳往前跨、前膝彎曲。",
+      "validation": {
+        "status": "accepted",
+        "evidence": "Cooper 2026-10-21: reviewed free-composer wording; image round deferred"
+      }
+    }
+  ],
+  "currentHeadBorrowing": [
+    "head-slight-tilt",
+    "chin-slightly-raised",
+    "chin-slightly-lowered",
+    "head-near-shoulder",
+    "head-slightly-back"
+  ],
+  "legacy": {
+    "POSE_COMPOSER_ANCHOR_OPTIONS": [
+      {
+        "id": "none",
+        "zh": "全無",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "random",
+        "zh": "隨機",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ]
+      },
+      {
+        "id": "shared-natural-support",
+        "zh": "自然受支撐",
+        "hasDescription": true,
+        "uiHidden": true,
+        "bases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting",
+          "lying"
+        ],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting",
+          "lying"
+        ]
+      },
+      {
+        "id": "shared-vertical-surface-support",
+        "zh": "肩背倚靠現有垂直面",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ]
+      },
+      {
+        "id": "standing-edge-hip-support",
+        "zh": "髖側倚靠現有邊緣",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": [
+          "standing"
+        ]
+      },
+      {
+        "id": "sitting-scene-seat",
+        "zh": "坐在現有場景座面",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-scene-raised-edge",
+        "zh": "坐在現有抬高邊緣",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "shared-ground-support",
+        "zh": "由場景地面承托",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "sitting",
+          "kneeling",
+          "lying"
+        ],
+        "hiddenForBases": [
+          "sitting",
+          "kneeling",
+          "lying"
+        ]
+      },
+      {
+        "id": "shared-soft-surface-support",
+        "zh": "由現有柔軟平面承托",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "sitting",
+          "kneeling",
+          "lying"
+        ],
+        "hiddenForBases": [
+          "sitting",
+          "kneeling",
+          "lying"
+        ]
+      },
+      {
+        "id": "lying-bed-surface",
+        "zh": "床上",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-tatami-surface",
+        "zh": "榻榻米上",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-floor-surface",
+        "zh": "地板上",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-dry-bathtub",
+        "zh": "浴缸內（無水）",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-sofa-surface",
+        "zh": "沙發上",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-grass-ground",
+        "zh": "草地上",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-concrete-ground",
+        "zh": "水泥地上",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-sand-ground",
+        "zh": "沙地上",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-clear-sea-surface",
+        "zh": "海面上",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "shared-mirrored-steel-cube",
+        "zh": "鏡面不鏽鋼立方台",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting",
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "shared-clear-acrylic-cube",
+        "zh": "透明壓克力立方台",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting",
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-chair",
+        "zh": "坐在一般椅子上",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-ornate-velvet-armchair",
+        "zh": "坐在單人雕花絨布椅",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-sofa",
+        "zh": "坐在沙發上",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-bench",
+        "zh": "坐在長椅上",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-step",
+        "zh": "坐在台階上",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-bed",
+        "zh": "坐在床上",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-ground",
+        "zh": "坐在地面",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-inside-bathtub",
+        "zh": "坐在浴缸內",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-vanity-countertop",
+        "zh": "坐在洗手台檯面上",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-wall",
+        "zh": "靠牆",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-doorway",
+        "zh": "站在門框邊",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-table-edge",
+        "zh": "站在桌邊",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-railing",
+        "zh": "站在欄杆旁",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-chair-side",
+        "zh": "站在椅子旁",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-window",
+        "zh": "站在窗邊",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-column",
+        "zh": "站在柱子旁",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-vending-machine",
+        "zh": "站在自動販賣機旁",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-lean-railing",
+        "zh": "靠在欄杆",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-lean-table-edge",
+        "zh": "倚靠桌邊",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-lean-doorway-shoulder",
+        "zh": "肩靠門框",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-lean-window-frame",
+        "zh": "倚靠窗框",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-lean-column-side",
+        "zh": "側身靠柱",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-lean-chair-back",
+        "zh": "倚著椅背",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-lean-vending-machine",
+        "zh": "側身靠自動販賣機",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-lean-scene-object",
+        "zh": "倚靠現有場景物件",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-floor",
+        "zh": "坐在地板",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-scene-appropriate-chair",
+        "zh": "坐在椅子上",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-chair-edge",
+        "zh": "坐在椅緣",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-wall-floor",
+        "zh": "背靠牆坐在地面",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-bed-edge",
+        "zh": "坐在床邊",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-table-edge",
+        "zh": "坐在桌面邊緣",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-stairs",
+        "zh": "坐在樓梯台階",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-bar-stool",
+        "zh": "坐在吧台高腳椅",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-sofa-seat",
+        "zh": "坐在沙發座面",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-window-sill",
+        "zh": "坐在窗台",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-high-back-chair",
+        "zh": "坐在高背椅",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "kneeling-floor",
+        "zh": "跪在地面",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "kneeling"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "kneeling-bed",
+        "zh": "跪在床上",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "kneeling"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "kneeling-sofa-seat",
+        "zh": "跪在沙發座面",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "kneeling"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "kneeling-chair-front",
+        "zh": "跪在椅子前",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "kneeling"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "kneeling-high-back-lean",
+        "zh": "倚靠高背椅",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "kneeling"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "kneeling-hands-ground",
+        "zh": "雙手支撐在地面",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "kneeling"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "kneeling-high-back-front",
+        "zh": "跪在高背椅前",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "kneeling"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "kneeling-low-table-front",
+        "zh": "跪在矮桌前",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "kneeling"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "kneeling-bed-edge-lean",
+        "zh": "跪在床邊倚靠",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "kneeling"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting-ground",
+        "zh": "蹲在地面",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "squatting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting-wall",
+        "zh": "蹲在牆邊",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "squatting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting-chair-front",
+        "zh": "蹲在椅子前",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "squatting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting-low-step",
+        "zh": "蹲在低矮台階上",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "squatting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting-railing",
+        "zh": "蹲在欄杆旁",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "squatting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting-vending-machine",
+        "zh": "蹲在自動販賣機旁",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "squatting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting-column",
+        "zh": "蹲在柱子旁",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "squatting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-bed",
+        "zh": "躺在床上",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-sofa",
+        "zh": "躺在沙發上",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-floor",
+        "zh": "躺在地板",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-rug",
+        "zh": "躺在地毯上",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-bed-edge",
+        "zh": "半躺在床邊",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "water-immersed",
+        "zh": "在水中",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "standing",
+          "sitting",
+          "squatting",
+          "kneeling",
+          "lying"
+        ],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "squatting",
+          "kneeling"
+        ]
+      },
+      {
+        "id": "water-edge-support",
+        "zh": "靠在水邊支撐",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "standing",
+          "sitting",
+          "squatting",
+          "kneeling",
+          "lying"
+        ],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "squatting",
+          "kneeling"
+        ]
+      },
+      {
+        "id": "shared-bathtub",
+        "zh": "浴缸",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing",
+          "sitting",
+          "squatting",
+          "lying"
+        ],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "squatting",
+          "lying"
+        ]
+      }
+    ],
+    "POSE_COMPOSER_ARRANGEMENT_OPTIONS": [
+      {
+        "id": "none",
+        "zh": "全無",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "random",
+        "zh": "隨機",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "model-natural-body-arrangement",
+        "zh": "任意",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting",
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-natural",
+        "zh": "自然站姿",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-one-leg-weight",
+        "zh": "單腳重心",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-pelvis-back-curve",
+        "zh": "骨盆後推曲線站姿",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-forward-lean",
+        "zh": "向鏡頭探身站姿",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-deep-forward-lean",
+        "zh": "上身大幅度前傾",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-back-lean",
+        "zh": "身體微後仰",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-turn-back",
+        "zh": "回身轉向",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-contrapposto",
+        "zh": "身體側傾",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-raised-foot",
+        "zh": "單腳微抬",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-crossed-legs",
+        "zh": "交叉腿站姿",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-soft-bent-knees",
+        "zh": "膝蓋微彎站姿",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-back-facing-turn",
+        "zh": "背對回身站姿",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-narrow-side",
+        "zh": "側身窄站姿",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-forward-toe-point",
+        "zh": "一腳向前點地",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-bent-leg-lift",
+        "zh": "單腳屈膝抬腿站姿",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-feet-together-soft-knees",
+        "zh": "併腿微屈站姿",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing-wide-weight-shift",
+        "zh": "開腿偏重心站姿",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "standing"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-natural",
+        "zh": "自然坐姿",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-forward-lean",
+        "zh": "微微前傾",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-hands-behind-support",
+        "zh": "雙手後撐",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-one-leg-relaxed",
+        "zh": "單腿放鬆",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-legs-extended",
+        "zh": "雙腿自然伸展",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-cross-legged",
+        "zh": "盤腿坐姿",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-hug-knees",
+        "zh": "雙腿屈起",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-slouched",
+        "zh": "隨性癱坐",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-leg-cross",
+        "zh": "翹二郎腿",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-one-knee-up",
+        "zh": "單腿屈起坐姿",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-legs-to-side",
+        "zh": "雙腿側放坐姿",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-grounded-forward-lean",
+        "zh": "坐姿身體前傾",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting-open-confident",
+        "zh": "開闊自信坐姿",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [
+          "sitting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "kneeling-seiza",
+        "zh": "跪坐",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "kneeling"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "kneeling-wide",
+        "zh": "分腿跪坐",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "kneeling"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "kneeling-forward-lean",
+        "zh": "前傾跪姿",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "kneeling"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "kneeling-all-fours",
+        "zh": "四足跪姿",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "kneeling"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "kneeling-puppy-crossed-hands-chin",
+        "zh": "瑜伽小狗式交叉手托下巴",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "kneeling"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "kneeling-one-knee",
+        "zh": "單膝跪地",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "kneeling"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "kneeling-side",
+        "zh": "跪姿側身",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "kneeling"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "kneeling-upright-poised",
+        "zh": "直立端正跪姿",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "kneeling"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "kneeling-side-sit",
+        "zh": "側坐跪姿",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "kneeling"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "kneeling-one-knee-forward",
+        "zh": "單膝前跨跪姿",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "kneeling"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "kneeling-elbow-support",
+        "zh": "手肘支撐跪姿",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "kneeling"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "kneeling-back-arched",
+        "zh": "跪姿微後仰",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "kneeling"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting-natural",
+        "zh": "自然蹲姿",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [
+          "squatting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting-one-knee",
+        "zh": "單膝抬起不對稱蹲姿",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "squatting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting-hands-knees",
+        "zh": "手扶膝蓋蹲姿",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "squatting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting-compact",
+        "zh": "緊湊蹲姿",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "squatting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting-side",
+        "zh": "收攏低蹲姿",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [
+          "squatting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting-hug-knees",
+        "zh": "抱膝蹲",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "squatting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting-one-hand-ground",
+        "zh": "單手撐地蹲",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "squatting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting-low-one-leg-forward",
+        "zh": "低蹲單腿前伸",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "squatting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting-side-low",
+        "zh": "側身低蹲",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "squatting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting-raised-heels",
+        "zh": "腳跟抬起蹲姿",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "squatting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting-forward-lean",
+        "zh": "身體前傾蹲姿",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [
+          "squatting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting-compact-hug-knees-variant",
+        "zh": "緊湊抱膝蹲姿變體",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "squatting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting-knees-together-low",
+        "zh": "雙膝合併半蹲",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "squatting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting-gangster-wide-knee",
+        "zh": "寬膝低蹲姿",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [
+          "squatting"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-body-natural-stretch",
+        "zh": "自然伸展",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-body-legs-bent",
+        "zh": "雙腿屈起",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-body-curled",
+        "zh": "身體微蜷",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-body-half-recline",
+        "zh": "上半身半躺",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-body-upper-propped",
+        "zh": "上半身撐起",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-body-supine-side-crossed",
+        "zh": "下半身側轉・雙腿交疊",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-body-supine-side-separated",
+        "zh": "下半身側轉・雙腿分開",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-body-supine-crossed-extended",
+        "zh": "單腿交疊伸展",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-body-supine-bent-crossed",
+        "zh": "雙腿屈起交疊",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-natural",
+        "zh": "自然躺姿",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-on-back",
+        "zh": "仰躺",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-side",
+        "zh": "側躺",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-prone",
+        "zh": "趴臥",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-natural-half-recline",
+        "zh": "自然半躺",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-half-reclined",
+        "zh": "半躺倚靠",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-languid",
+        "zh": "隨性慵懶",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-side-knees-bent",
+        "zh": "側躺屈膝",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-on-back-one-arm-overhead",
+        "zh": "仰躺單手過頭",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-prone-elbow-prop",
+        "zh": "趴臥手肘撐起",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-diagonal-recline",
+        "zh": "斜向半躺",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-legs-bent-up",
+        "zh": "躺姿雙腿屈起",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-wall-raised-legs",
+        "zh": "靠牆仰躺抬腿",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-prone-pillow-lookback",
+        "zh": "抱枕俯臥回眸",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      }
+    ],
+    "POSE_COMPOSER_BASE_OPTIONS": [
+      {
+        "id": "none",
+        "zh": "全無",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "random",
+        "zh": "隨機",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "standing",
+        "zh": "站姿",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "sitting",
+        "zh": "坐姿",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "kneeling",
+        "zh": "跪姿",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting",
+        "zh": "蹲姿",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying",
+        "zh": "躺姿",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      }
+    ],
+    "POSE_COMPOSER_HAND_OPTIONS": [
+      {
+        "id": "none",
+        "zh": "全無",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "random",
+        "zh": "隨機",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "model-natural-hand-placement",
+        "zh": "任意",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-supine-hands-by-sides",
+        "zh": "仰躺雙手自然放在身側",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ]
+      },
+      {
+        "id": "lying-supine-one-hand-behind-head",
+        "zh": "仰躺一手放在頭後",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ]
+      },
+      {
+        "id": "lying-supine-one-hand-abdomen",
+        "zh": "仰躺一手放在腹部",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ]
+      },
+      {
+        "id": "lying-supine-arms-overhead",
+        "zh": "仰躺雙手向頭頂伸展",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ]
+      },
+      {
+        "id": "lying-supine-palms-together-cheek",
+        "zh": "仰躺雙手合掌靠在臉側",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ]
+      },
+      {
+        "id": "lying-side-lower-arm-under-head",
+        "zh": "側躺下側手臂支撐頭部",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ]
+      },
+      {
+        "id": "lying-side-upper-hand-on-hip",
+        "zh": "側躺上側手放在髖部",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ]
+      },
+      {
+        "id": "lying-side-hands-in-front",
+        "zh": "側躺雙手在身前",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ]
+      },
+      {
+        "id": "lying-side-one-hand-near-face",
+        "zh": "側躺一手靠近臉部",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ]
+      },
+      {
+        "id": "lying-prone-arms-along-sides",
+        "zh": "趴臥雙手沿身側伸展",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ]
+      },
+      {
+        "id": "lying-prone-one-hand-beside-face",
+        "zh": "趴臥一手放在臉旁",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ]
+      },
+      {
+        "id": "lying-prone-hands-under-chin",
+        "zh": "趴臥雙手托在下巴下方",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ]
+      },
+      {
+        "id": "lying-prone-elbows-support",
+        "zh": "趴臥雙肘支撐上半身",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ]
+      },
+      {
+        "id": "hands-relaxed-down",
+        "zh": "雙手自然垂放",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "squatting",
+          "lying"
+        ]
+      },
+      {
+        "id": "arms-crossed",
+        "zh": "雙臂交疊",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "squatting",
+          "lying"
+        ]
+      },
+      {
+        "id": "one-hand-waist-one-down",
+        "zh": "一手扶腰一手自然放下",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "squatting",
+          "lying"
+        ]
+      },
+      {
+        "id": "hands-behind-back",
+        "zh": "雙手背在身後",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "squatting",
+          "lying"
+        ]
+      },
+      {
+        "id": "hands-behind-head",
+        "zh": "雙手放在頭後",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "squatting",
+          "lying"
+        ]
+      },
+      {
+        "id": "both-hands-rock-horns",
+        "zh": "雙手比 ROCK 手勢",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "both-hands-heart-near-face",
+        "zh": "雙手比愛心",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "one-hand-finger-heart",
+        "zh": "手指愛心",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "one-hand-open-palm-camera",
+        "zh": "單手向鏡頭張開手掌",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "squatting",
+          "lying"
+        ]
+      },
+      {
+        "id": "selfie-natural-right-arm",
+        "zh": "自然自拍",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "selfie-companion-camera-interaction",
+        "zh": "男友/閨蜜自拍",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "squatting-hands-forward",
+        "zh": "雙肘靠膝自然垂手",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "lying"
+        ]
+      },
+      {
+        "id": "squatting-hands-outer-legs",
+        "zh": "雙手沿腿側自然下垂",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "lying"
+        ]
+      },
+      {
+        "id": "squatting-one-hand-cheek-one-knee",
+        "zh": "單手托腮一手自然垂落",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "lying"
+        ]
+      },
+      {
+        "id": "squatting-both-hands-cheeks",
+        "zh": "雙手托腮",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "lying"
+        ]
+      },
+      {
+        "id": "squatting-one-hand-v-sign",
+        "zh": "單手在臉旁比 V",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "lying"
+        ]
+      },
+      {
+        "id": "squatting-forearms-outward-drape",
+        "zh": "雙臂搭膝外展垂手",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "lying"
+        ]
+      },
+      {
+        "id": "squatting-elbows-center-drape",
+        "zh": "雙肘靠膝中央垂手",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "lying"
+        ]
+      },
+      {
+        "id": "squatting-one-hand-mouth-one-down",
+        "zh": "單手碰嘴角一手自然下垂",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "lying"
+        ]
+      },
+      {
+        "id": "one-hand-support-chin",
+        "zh": "單手托下巴",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "squatting",
+          "lying"
+        ]
+      },
+      {
+        "id": "one-hand-mouth-corner",
+        "zh": "單手輕咬食指",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "squatting",
+          "lying"
+        ]
+      },
+      {
+        "id": "one-hand-sweep-bangs-back",
+        "zh": "單手往後撥瀏海",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "squatting",
+          "lying"
+        ]
+      },
+      {
+        "id": "both-hands-gather-hair",
+        "zh": "雙手抓著整束頭髮與髮尾整理",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "squatting",
+          "lying"
+        ]
+      },
+      {
+        "id": "hand-adjust-off-shoulder-top",
+        "zh": "拉下上身服裝整理",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "squatting",
+          "lying"
+        ]
+      },
+      {
+        "id": "hands-lift-top-underbust",
+        "zh": "雙手上拉上衣露出胸下緣",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "squatting",
+          "lying"
+        ]
+      },
+      {
+        "id": "hands-cover-breasts",
+        "zh": "雙手遮住胸部",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "squatting",
+          "lying"
+        ]
+      },
+      {
+        "id": "hands-pull-open-off-shoulder-outerwear",
+        "zh": "雙手拉開外套（雙肩滑落）",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "hands-lift-waistband",
+        "zh": "雙手把褲子或裙子的褲頭往上拉",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "squatting",
+          "lying"
+        ]
+      },
+      {
+        "id": "hands-hug-knees",
+        "zh": "雙手抱膝",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "squatting",
+          "lying"
+        ]
+      },
+      {
+        "id": "hands-palms-planted-ground",
+        "zh": "雙掌撐地",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "squatting",
+          "lying"
+        ]
+      },
+      {
+        "id": "hands-elbows-planted-ground",
+        "zh": "雙肘撐地",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "squatting",
+          "lying"
+        ]
+      },
+      {
+        "id": "hands-in-pockets",
+        "zh": "雙手插褲子口袋",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "squatting",
+          "lying"
+        ]
+      },
+      {
+        "id": "hands-in-outerwear-pockets",
+        "zh": "雙手插外套口袋",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "squatting",
+          "lying"
+        ]
+      },
+      {
+        "id": "one-hand-hold-glasses",
+        "zh": "單手拿著眼鏡",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "squatting"
+        ]
+      },
+      {
+        "id": "one-hand-pull-down-glasses",
+        "zh": "單手把眼鏡拉下",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "squatting"
+        ]
+      },
+      {
+        "id": "glasses-temple-between-teeth",
+        "zh": "咬著眼鏡腳",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "squatting"
+        ]
+      },
+      {
+        "id": "selfie-mirror-phone-visible",
+        "zh": "鏡子自拍",
+        "hasDescription": true,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "hand-adjust-lower-body-garment",
+        "zh": "整理下身",
+        "hasDescription": true,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "hands-grip-waistband",
+        "zh": "雙手抓住褲腰",
+        "hasDescription": true,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "hands-on-waist",
+        "zh": "雙手撐腰",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "one-hand-chin",
+        "zh": "單手摸下巴",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "one-hand-forehead",
+        "zh": "單手扶額 / 摸頭",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "one-hand-hair",
+        "zh": "單手撩髮",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "hands-on-thighs",
+        "zh": "雙手放在大腿上",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "hands-on-cheeks",
+        "zh": "雙手扶臉頰",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "one-hand-chin-other-down",
+        "zh": "單手托下巴（舊版）",
+        "hasDescription": true,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "one-hand-adjust-glasses",
+        "zh": "單手扶眼鏡",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "one-hand-half-face-cover",
+        "zh": "單手遮住半邊臉",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "both-hands-arrange-hair",
+        "zh": "雙手整理頭髮",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "one-hand-nape-hair-lift",
+        "zh": "單手撩起後頸頭髮",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "one-hand-collarbone",
+        "zh": "單手搭在鎖骨",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "one-hand-ground-one-leg",
+        "zh": "一手撐地一手放腿上",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "one-hand-knee-one-down",
+        "zh": "一手扶膝一手垂放",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "hands-clasped-front",
+        "zh": "雙手在身前交握",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "one-hand-shoulder",
+        "zh": "單手搭肩",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "both-hands-overhead",
+        "zh": "雙手舉過頭頂",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "one-hand-ankle",
+        "zh": "單手扶腳踝",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "hands-gathered-lower-abdomen",
+        "zh": "雙手收在腹前",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      }
+    ],
+    "POSE_COMPOSER_HEAD_OPTIONS": [
+      {
+        "id": "none",
+        "zh": "全無",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "random",
+        "zh": "隨機",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "model-natural-head-angle",
+        "zh": "任意",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-supine-head-neutral",
+        "zh": "仰躺頭部自然朝上",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ]
+      },
+      {
+        "id": "lying-supine-head-turned-side",
+        "zh": "仰躺頭部轉向一側",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ]
+      },
+      {
+        "id": "lying-side-head-on-support",
+        "zh": "側躺頭部貼近支撐面",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ]
+      },
+      {
+        "id": "lying-side-head-toward-camera",
+        "zh": "側躺頭部朝向鏡頭",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ]
+      },
+      {
+        "id": "lying-side-head-away",
+        "zh": "側躺頭部轉向外側",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ]
+      },
+      {
+        "id": "lying-prone-head-turned-side",
+        "zh": "趴臥頭部轉向一側",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ]
+      },
+      {
+        "id": "lying-prone-head-toward-camera",
+        "zh": "趴臥頭部朝向鏡頭",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "kneeling",
+          "squatting"
+        ]
+      },
+      {
+        "id": "head-camera-natural",
+        "zh": "頭部自然朝向鏡頭",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "lying"
+        ]
+      },
+      {
+        "id": "head-slight-tilt",
+        "zh": "頭部微微側傾",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "lying"
+        ]
+      },
+      {
+        "id": "chin-slightly-raised",
+        "zh": "下巴微抬",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "lying"
+        ]
+      },
+      {
+        "id": "chin-slightly-lowered",
+        "zh": "下巴微收",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "lying"
+        ]
+      },
+      {
+        "id": "head-turned-away",
+        "zh": "側臉轉向畫面外",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "head-turned-back-camera",
+        "zh": "回頭朝向鏡頭",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "lying"
+        ]
+      },
+      {
+        "id": "head-looking-down-hands",
+        "zh": "低頭看向手部",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "lying"
+        ]
+      },
+      {
+        "id": "head-near-shoulder",
+        "zh": "頭靠近肩膀",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "lying"
+        ]
+      },
+      {
+        "id": "head-slightly-back",
+        "zh": "頭部微微後仰",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "lying"
+        ]
+      },
+      {
+        "id": "head-down-three-quarter",
+        "zh": "低頭三分之四側臉",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "lying"
+        ]
+      },
+      {
+        "id": "head-over-shoulder",
+        "zh": "越肩回望",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "head-away-profile",
+        "zh": "側臉看向遠方",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "lying"
+        ]
+      },
+      {
+        "id": "chin-tucked-shoulder-line",
+        "zh": "下巴靠近肩線",
+        "hasDescription": false,
+        "uiHidden": true,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "head-close-support-surface",
+        "zh": "頭部貼近支撐面",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "lying"
+        ]
+      },
+      {
+        "id": "head-close-lens-off-axis",
+        "zh": "近鏡頭偏轉頭部",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "lying"
+        ]
+      },
+      {
+        "id": "head-low-rim-support",
+        "zh": "頭靠近邊緣支撐",
+        "hasDescription": false,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": [
+          "standing",
+          "sitting",
+          "lying"
+        ]
+      }
+    ],
+    "POSE_COMPOSER_ORIENTATION_OPTIONS": [
+      {
+        "id": "none",
+        "zh": "全無",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "random",
+        "zh": "隨機",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-supine",
+        "zh": "仰躺",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-side",
+        "zh": "側躺",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      },
+      {
+        "id": "lying-prone",
+        "zh": "趴臥",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [
+          "lying"
+        ],
+        "hiddenForBases": []
+      }
+    ],
+    "POSE_COMPOSER_PROP_OPTIONS": [
+      {
+        "id": "none",
+        "zh": "全無",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "random",
+        "zh": "隨機",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "hand-apply-lipstick",
+        "zh": "塗口紅｜自由妝感",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "hand-hold-iced-coffee",
+        "zh": "手持冰咖啡",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "hand-hold-whiskey",
+        "zh": "手持威士忌",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "hand-hold-champagne",
+        "zh": "手持香檳",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "hand-hold-mineral-water",
+        "zh": "手持礦泉水瓶",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "hand-hold-fuji-x100v",
+        "zh": "手持 FUJIFILM X100V 相機",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "hand-hold-whirly-lollipop",
+        "zh": "手持波板糖",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "hand-hold-round-lollipop-mouth",
+        "zh": "含著圓形棒棒糖｜右手持棒",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "hand-hold-cigarette",
+        "zh": "手持香菸",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "hand-use-phone",
+        "zh": "滑手機",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "hand-hold-glasses",
+        "zh": "單手拿著眼鏡",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "hand-hold-open-book",
+        "zh": "拿著打開的書",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      },
+      {
+        "id": "selfie-mirror-phone-visible",
+        "zh": "手持手機對鏡自拍",
+        "hasDescription": true,
+        "uiHidden": false,
+        "bases": [],
+        "hiddenForBases": []
+      }
+    ]
+  },
+  "note": "Old arrays are compatibility data, not current UI exposure. Gaze/capture retain their existing lookup mappings in gazeGesture.js; no source relocation."
+}

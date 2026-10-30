@@ -1202,6 +1202,7 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
     en: 'body naturally supported in a relaxed pose',
     desc: '只指定人物自然獲得支撐，不指定牆面、地面、家具或其他具體支撐物件。',
     meta: {
+      uiHidden: true,
       randomWeight: 3,
       projectionByBucket: STANDING_SUPPORT_PROJECTION,
       hiddenForBases: ['standing', 'sitting', 'kneeling', 'squatting', 'lying'],
@@ -1221,6 +1222,7 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
     zh: '肩背倚靠現有垂直面',
     en: 'shoulder and upper-back support against an existing vertical surface in the scene',
     meta: {
+      uiHidden: true,
       projectionByBucket: STANDING_SUPPORT_PROJECTION,
       hiddenForBases: ['standing', 'sitting', 'kneeling', 'squatting'],
       randomEligibleForBases: { standing: false, sitting: false, kneeling: false, squatting: false },
@@ -1238,6 +1240,7 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
     zh: '髖側倚靠現有邊緣',
     en: 'standing with one hip resting against an existing waist-height edge in the scene, clear hip-to-edge contact with partial body-weight support',
     meta: {
+      uiHidden: true,
       projectionByBucket: STANDING_LOWER_SUPPORT_PROJECTION,
       hiddenForBases: ['standing'],
       randomEligibleForBases: { standing: false },
@@ -1263,6 +1266,7 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
     zh: '由場景地面承托',
     en: 'body weight supported directly by the existing ground plane in the scene',
     meta: {
+      uiHidden: true,
       hiddenForBases: ['sitting', 'kneeling', 'lying'],
       randomEligibleForBases: { sitting: false, kneeling: false, lying: false },
     },
@@ -1278,6 +1282,7 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
     zh: '由現有柔軟平面承托',
     en: 'body weight supported by an existing soft horizontal surface in the scene',
     meta: {
+      uiHidden: true,
       hiddenForBases: ['sitting', 'kneeling', 'lying'],
       randomEligibleForBases: { sitting: false, kneeling: false, lying: false },
     },
@@ -1618,6 +1623,7 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
     zh: '浴缸',
     en: 'near a water-filled clawfoot vintage bathtub',
     meta: {
+      uiHidden: true,
       tags: ['water_scene_anchor'],
       requiresWaterScene: true,
       projectionByBucket: STANDING_LOWER_SUPPORT_PROJECTION,

@@ -1,0 +1,154 @@
+TAP version 13
+# Subtest: complete historical group substitutes one entry and preserves all other arguments in order
+ok 1 - complete historical group substitutes one entry and preserves all other arguments in order
+  ---
+  duration_ms: 1.797958
+  type: 'test'
+  ...
+# Subtest: full npm test selection retains the exact test-file union without a duplicate historical entry
+ok 2 - full npm test selection retains the exact test-file union without a duplicate historical entry
+  ---
+  duration_ms: 6.044208
+  type: 'test'
+  ...
+# Subtest: prompt quality selection retains every original selected suite and all three historical matrices
+ok 3 - prompt quality selection retains every original selected suite and all three historical matrices
+  ---
+  duration_ms: 3.823166
+  type: 'test'
+  ...
+# Subtest: focused single and partial matrix selections never expand or drop their scope
+ok 4 - focused single and partial matrix selections never expand or drop their scope
+  ---
+  duration_ms: 0.290583
+  type: 'test'
+  ...
+# Subtest: native flag values are preserved even when they look exactly like a matrix test path
+ok 5 - native flag values are preserved even when they look exactly like a matrix test path
+  ---
+  duration_ms: 0.123709
+  type: 'test'
+  ...
+# Subtest: absolute paths, relative aliases and the native option delimiter identify the same complete group
+ok 6 - absolute paths, relative aliases and the native option delimiter identify the same complete group
+  ---
+  duration_ms: 0.153917
+  type: 'test'
+  ...
+# Subtest: an explicitly selected aggregator is retained once and does not need another generated entry
+ok 7 - an explicitly selected aggregator is retained once and does not need another generated entry
+  ---
+  duration_ms: 0.075334
+  type: 'test'
+  ...
+# Subtest: runner starts the same Node binary with native test isolation and preserves caller flags
+ok 8 - runner starts the same Node binary with native test isolation and preserves caller flags
+  ---
+  duration_ms: 0.798
+  type: 'test'
+  ...
+# Subtest: CLI returns the native test success and failure status without swallowing failed assertions
+ok 9 - CLI returns the native test success and failure status without swallowing failed assertions
+  ---
+  duration_ms: 423.154167
+  type: 'test'
+  ...
+# Subtest: grouped original suites keep real historical fixture reuse enabled for their entire lifecycle
+ok 10 - grouped original suites keep real historical fixture reuse enabled for their entire lifecycle
+  ---
+  duration_ms: 1685.889458
+  type: 'test'
+  ...
+# Subtest: C3 concrete actions and random/any have descriptions; none is supplied by picker
+ok 11 - C3 concrete actions and random/any have descriptions; none is supplied by picker
+  ---
+  duration_ms: 1.77275
+  type: 'test'
+  ...
+# Subtest: C3 product source changes exactly six uiHidden flags and no other bytes
+ok 12 - C3 product source changes exactly six uiHidden flags and no other bytes
+  ---
+  duration_ms: 0.925125
+  type: 'test'
+  ...
+# Subtest: C3 retired controls remain retired and their workspace transition policy is unchanged
+ok 13 - C3 retired controls remain retired and their workspace transition policy is unchanged
+  ---
+  duration_ms: 0.153625
+  type: 'test'
+  ...
+# Subtest: C3 inverse restores exact pre-change source and rejects live/unknown copies
+ok 14 - C3 inverse restores exact pre-change source and rejects live/unknown copies
+  ---
+  duration_ms: 4.014833
+  type: 'test'
+  ...
+# Subtest: C3 fixed before matrix preserves outputs, choices, RNG and saved public text
+ok 15 - C3 fixed before matrix preserves outputs, choices, RNG and saved public text
+  ---
+  duration_ms: 7003.102916
+  type: 'test'
+  ...
+# Subtest: C4 seven Chinese names change without English, IDs, metadata, order or old keys changing
+ok 16 - C4 seven Chinese names change without English, IDs, metadata, order or old keys changing
+  ---
+  duration_ms: 3.401
+  type: 'test'
+  ...
+# Subtest: C4 old hairstyle IDs retain wet migration and explicit A/B styling choices
+ok 17 - C4 old hairstyle IDs retain wet migration and explicit A/B styling choices
+  ---
+  duration_ms: 32.94525
+  type: 'test'
+  ...
+# Subtest: C4 exact inverse preserves fixed Git bytes and rejects live/unknown copies before writing
+ok 18 - C4 exact inverse preserves fixed Git bytes and rejects live/unknown copies before writing
+  ---
+  duration_ms: 50.081416
+  type: 'test'
+  ...
+# Subtest: C4 558 current cases and 1098 old restore paths match approved fixed baseline
+ok 19 - C4 558 current cases and 1098 old restore paths match approved fixed baseline
+  ---
+  duration_ms: 7376.218959
+  type: 'test'
+  ...
+# Subtest: C4 jewelry source delta is exactly four names and two descriptions; IDs/English/semantics stay
+ok 20 - C4 jewelry source delta is exactly four names and two descriptions; IDs/English/semantics stay
+  ---
+  duration_ms: 2.291375
+  type: 'test'
+  ...
+# Subtest: C4 legacy jewelry scalar/array restore and explicit choice priority stay intact
+ok 21 - C4 legacy jewelry scalar/array restore and explicit choice priority stay intact
+  ---
+  duration_ms: 88.103833
+  type: 'test'
+  ...
+# Subtest: C4 image manifest only changes display name; original preview files are retained
+ok 22 - C4 image manifest only changes display name; original preview files are retained
+  ---
+  duration_ms: 1.143583
+  type: 'test'
+  ...
+# Subtest: C4 exact inverse rejects live and unknown copies; fixed Git before bytes are preserved
+ok 23 - C4 exact inverse rejects live and unknown copies; fixed Git before bytes are preserved
+  ---
+  duration_ms: 35.847625
+  type: 'test'
+  ...
+# Subtest: C4 216 six-output cases and 1098 historical restore cases equal pre-change baseline
+ok 24 - C4 216 six-output cases and 1098 historical restore cases equal pre-change baseline
+  ---
+  duration_ms: 3888.042125
+  type: 'test'
+  ...
+1..24
+# tests 24
+# suites 0
+# pass 24
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 7681.7135

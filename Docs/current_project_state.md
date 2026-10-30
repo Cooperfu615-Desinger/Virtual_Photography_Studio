@@ -4,6 +4,11 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-30
 
+## C3 現行姿勢說明與隱藏標記（2026-10-30，本機驗收通過）
+
+- 現行 54 動作已有說明，新增完整性護欄；六筆全基底隱藏相容選項只補 uiHidden，不改英文、ID、舊鎖值或收藏原文。
+- 624 組固定前後案例通過；前端2,049／品質853、聚焦24、最後狀態護欄5、lint／build／strict／sync／43 Python／207資產與桌手機六工作區通過。歷史鏈採限定隔離反轉，不重錄封存。見 [規格](specs/c3-pose-description-visibility-v1.md)、[決策](decisions/2026-10-30-c3-pose-guards.md)、[驗收](reports/c3-pose-guards-2026-10-30/README.md)。Cooper 已驗收並授權本批限定提交／推送；CI 與部署於交付時確認。其他 C 類、PAGE2 舊匯入、J12、P5b 排除。
+
 ## DLL：GPT Image 2 文字生圖（本機實作，尚未部署）
 
 - 新增 OpenAI GPT Image 2 文字生圖、低／中／高畫質、1K／2K、1／2 張依序生成與 Firebase Secret 後端；詳見 [規格](specs/openai-gpt-image-2-v1.md)。

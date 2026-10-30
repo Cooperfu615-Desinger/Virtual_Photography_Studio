@@ -20,10 +20,11 @@ export function preparePreC4LabelsFiles(directory) {
   assert.ok(!existsSync(join(directory, '.git')), 'C4 inverse rejects Git checkout');
   const catalog = preparePreC4CatalogFiles(directory);
   const sources = new Map(catalog.sources);
+  const sourceFor = file => catalog.sources.get(file.path) ?? readFileSync(join(directory, file.path));
   const present = C4_REVIEW.files.filter(f => existsSync(join(directory, f.path)));
-  if (present.some(f => hash(readFileSync(join(directory, f.path))) === f.afterHash)) {
+  if (present.some(f => hash(sourceFor(f)) === f.afterHash)) {
     for (const file of present) {
-      const source = readFileSync(join(directory, file.path));
+      const source = sourceFor(file);
       assert.ok([file.beforeHash, file.afterHash].includes(hash(source)), 'C4 inverse unknown source: ' + file.path);
       sources.set(file.path, preC4LabelsSource(file.path, source));
     }
