@@ -1,0 +1,46 @@
+[
+  {
+    "name": "sync-check",
+    "exitCode": 0
+  },
+  {
+    "name": "python",
+    "exitCode": 0
+  },
+  {
+    "name": "catalog",
+    "exitCode": 0
+  },
+  {
+    "name": "catalog-tools",
+    "exitCode": 0
+  },
+  {
+    "name": "assets",
+    "exitCode": 0
+  },
+  {
+    "name": "quality",
+    "exitCode": 0
+  },
+  {
+    "name": "lint",
+    "exitCode": 1
+  },
+  {
+    "name": "build",
+    "exitCode": 0
+  },
+  {
+    "name": "bundle",
+    "exitCode": 0
+  },
+  {
+    "name": "audit-after",
+    "exitCode": 0
+  },
+  {
+    "name": "protection",
+    "exitCode": 0
+  }
+]

@@ -4,6 +4,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-30
 
+## C2 套裝尾句：一筆微調、19筆保留（2026-10-30，使用者驗收通過）
+
+- 對照main `043418f9c169e2e5848d23aaae15c1a32e34588f` 審閱20筆；泳裝度假尾句只刪重複swimwear，18→17詞，追加完整舊英文alias。19筆原樣保留；皮革corset與包臀裙skirt因既有近景投影責任保留，不擴修renderer。
+- 1440組固定基準、舊英文／Markdown／結構化A／B與公開原文、前端2059／品質853／Python52／目錄工具32、lint／build／strict／sync／207資產通過。完整C2腰鍊／C3／C4／B3／PAGE2／Phase4／A2／A1／A5歷史鏈通過，2535原封存／registry／renderer檔保持；其他20工作目錄／140未提交檔保持。
+- 桌手機各20筆圖片面板實際點選、儲存還原與六工作區12項smoke通過；本批無選值fallback，前批原生下拉限制紀錄保留。未生圖，不宣稱影像品質等價。見[規格](specs/c2-outfit-tails-v1.md)、[決策](decisions/2026-10-30-c2-outfit-tails.md)、[驗收報告](reports/c2-outfit-tails-2026-10-30/README.md)。Cooper已驗收並授權本批限定提交／推送；CI與部署於交付時核對。場景／光學、其他C類、PAGE2舊匯入、J12及P5b未併入。
+
 ## C2 腰鍊：兩筆微調、三筆保留（2026-10-30，本機驗收通過）
 
 - 雙層銀鏈水晶29→27詞、金色細鏈鑽石25→22詞；另外三筆整筆保留並補必要結構理由與來源指紋。新增兩筆完整舊英文 alias，腰部診斷6–16詞；五筆仍為over，不強制壓字數。

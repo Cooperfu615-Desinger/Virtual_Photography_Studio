@@ -1,0 +1,898 @@
+{
+  "base": "043418f9c169e2e5848d23aaae15c1a32e34588f",
+  "path": "knowledge_base/catalog/Wardrobe/套裝-outfit-presets.json",
+  "entries": [
+    {
+      "id": "wardrobe:套裝-outfit-presets:套裝-鏈條緞面內衣:1",
+      "before": "satin lingerie set, triangle bra top, high-cut string bottom, slim straps, chain connectors, small charm hardware, refined boudoir styling",
+      "after": "satin lingerie set, triangle bra top, high-cut string bottom, slim straps, chain connectors, small charm hardware, refined boudoir styling",
+      "tailBefore": "refined boudoir styling",
+      "tailAfter": "refined boudoir styling",
+      "decision": "retain",
+      "reason": "保留 refined 與 boudoir 的精緻內衣風格；鏈條與吊飾不能代替此風格。",
+      "original": {
+        "id": "wardrobe:套裝-outfit-presets:套裝-鏈條緞面內衣:1",
+        "legacyIds": [
+          "wardrobe:套裝-outfit-presets:鏈條緞面內衣套裝:1"
+        ],
+        "zh": "鏈條緞面內衣套裝",
+        "en": "satin lingerie set, triangle bra top, high-cut string bottom, slim straps, chain connectors, small charm hardware, refined boudoir styling",
+        "desc": "以緞面三角胸衣、高衩細帶下身、鏈條連接與小吊飾五金為核心的華麗內衣套裝；主色交由套裝配色控制。",
+        "meta": {
+          "semantic": {
+            "family": "lingerie",
+            "tags": [
+              "revealing"
+            ]
+          }
+        },
+        "legacyPromptAliases": [
+          "satin lingerie set, triangle bra top, high-cut string bottom, slim straps, chain connectors, small charm hardware, refined boudoir styling, dominant satin color controlled by the outfit color selection"
+        ]
+      }
+    },
+    {
+      "id": "wardrobe:套裝-outfit-presets:套裝-皮革馬甲束腰:2",
+      "before": "structured opaque leather corset lingerie set, rigid overbust corset with sculpted underwire cups and a low sweetheart neckline, tightly cinched hourglass waist, visible boned panels, front busk and rear lace-up closure, sheer lace or mesh side inserts revealing deliberate skin panels, matching low-rise high-cut leather briefs with small lace insets, grommets, ribbon lacing and ring hardware, curve-hugging corset boudoir silhouette",
+      "after": "structured opaque leather corset lingerie set, rigid overbust corset with sculpted underwire cups and a low sweetheart neckline, tightly cinched hourglass waist, visible boned panels, front busk and rear lace-up closure, sheer lace or mesh side inserts revealing deliberate skin panels, matching low-rise high-cut leather briefs with small lace insets, grommets, ribbon lacing and ring hardware, curve-hugging corset boudoir silhouette",
+      "tailBefore": "curve-hugging corset boudoir silhouette",
+      "tailAfter": "curve-hugging corset boudoir silhouette",
+      "decision": "retain",
+      "reason": "雖有字面重複，移除名詞會改變既有景別投影的分類、順序或落點，不值得為省一詞擴修 renderer。",
+      "original": {
+        "id": "wardrobe:套裝-outfit-presets:套裝-皮革馬甲束腰:2",
+        "legacyIds": [
+          "wardrobe:套裝-outfit-presets:皮革馬甲束腰套裝:2"
+        ],
+        "zh": "皮革馬甲束腰套裝",
+        "en": "structured opaque leather corset lingerie set, rigid overbust corset with sculpted underwire cups and a low sweetheart neckline, tightly cinched hourglass waist, visible boned panels, front busk and rear lace-up closure, sheer lace or mesh side inserts revealing deliberate skin panels, matching low-rise high-cut leather briefs with small lace insets, grommets, ribbon lacing and ring hardware, curve-hugging corset boudoir silhouette",
+        "desc": "以不透膚結構式皮革馬甲內衣套裝為主體，上身為硬挺 overbust 馬甲，帶鋼圈塑形罩杯、低甜心領、明顯骨線、前中 busk 扣與後背綁帶，緊束出沙漏腰線；側邊拼接透膚蕾絲或網紗，形成刻意露膚區域。下身搭配低腰高衩皮革內褲與小面積蕾絲拼片，並有孔眼、緞帶綁繩與金屬環。皮革拼片與下身由套裝主色控制，蕾絲、網紗與綁帶由對比色控制，五金維持金屬色。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast_locked",
+          "contrastBehavior": "strong",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "corset_bodice",
+              "main_leather_panels",
+              "lower_half_base_panels"
+            ],
+            "contrast": [
+              "lace_trims",
+              "mesh_panel_accents",
+              "ribbon_lacing"
+            ],
+            "locked": [
+              "grommets",
+              "buckles",
+              "ring_hardware"
+            ]
+          },
+          "semantic": {
+            "family": "lingerie",
+            "tags": [
+              "revealing",
+              "ornate",
+              "romantic",
+              "futuristic",
+              "heritage"
+            ]
+          }
+        }
+      },
+      "rejectedAlternative": {
+        "after": "structured opaque leather corset lingerie set, rigid overbust corset with sculpted underwire cups and a low sweetheart neckline, tightly cinched hourglass waist, visible boned panels, front busk and rear lace-up closure, sheer lace or mesh side inserts revealing deliberate skin panels, matching low-rise high-cut leather briefs with small lace insets, grommets, ribbon lacing and ring hardware, curve-hugging boudoir silhouette",
+        "tailAfter": "curve-hugging boudoir silhouette",
+        "reason": "雖有字面重複，移除名詞會改變既有景別投影的分類、順序或落點，不值得為省一詞擴修 renderer。",
+        "differingOutputComparisons": 264
+      }
+    },
+    {
+      "id": "wardrobe:套裝-outfit-presets:套裝-長版襯衫百褶長裙:4",
+      "before": "long shirt and pleated maxi skirt outfit, oversized button-up shirt, flowing pleated maxi skirt, elongated draped silhouette, understated editorial styling",
+      "after": "long shirt and pleated maxi skirt outfit, oversized button-up shirt, flowing pleated maxi skirt, elongated draped silhouette, understated editorial styling",
+      "tailBefore": "understated editorial styling",
+      "tailAfter": "understated editorial styling",
+      "decision": "retain",
+      "reason": "保留 understated editorial 的低調編輯造型；elongated draped silhouette 在中段描述衣物輪廓，亦不刪。",
+      "original": {
+        "id": "wardrobe:套裝-outfit-presets:套裝-長版襯衫百褶長裙:4",
+        "legacyIds": [
+          "wardrobe:套裝-outfit-presets:長版襯衫百褶長裙套裝:4"
+        ],
+        "zh": "長版襯衫百褶長裙套裝",
+        "en": "long shirt and pleated maxi skirt outfit, oversized button-up shirt, flowing pleated maxi skirt, elongated draped silhouette, understated editorial styling",
+        "desc": "以寬鬆長版襯衫與百褶長裙構成的修長垂墜套裝；主色交由套裝配色控制。",
+        "meta": {
+          "semantic": {
+            "family": "neutral",
+            "tags": [
+              "streetwear",
+              "uniform"
+            ]
+          }
+        },
+        "legacyPromptAliases": [
+          "long shirt and pleated maxi skirt outfit, oversized button-up shirt, flowing pleated maxi skirt, elongated draped silhouette, understated editorial styling, dominant fabric color controlled by the outfit color selection"
+        ]
+      }
+    },
+    {
+      "id": "wardrobe:套裝-outfit-presets:套裝-西裝長褲:5",
+      "before": "tailored pantsuit outfit, structured blazer, neat blouse or inner top, high-waisted tailored trousers, polished office suiting silhouette",
+      "after": "tailored pantsuit outfit, structured blazer, neat blouse or inner top, high-waisted tailored trousers, polished office suiting silhouette",
+      "tailBefore": "polished office suiting silhouette",
+      "tailAfter": "polished office suiting silhouette",
+      "decision": "retain",
+      "reason": "保留 polished office suiting 的辦公正裝完成度，不能由 tailored 自動推定。",
+      "original": {
+        "id": "wardrobe:套裝-outfit-presets:套裝-西裝長褲:5",
+        "legacyIds": [
+          "wardrobe:套裝-outfit-presets:西裝長褲套裝:5"
+        ],
+        "zh": "西裝長褲套裝",
+        "en": "tailored pantsuit outfit, structured blazer, neat blouse or inner top, high-waisted tailored trousers, polished office suiting silhouette",
+        "desc": "以西裝外套、內搭與高腰西裝長褲為核心的上班套裝；主色交由套裝配色控制。",
+        "meta": {
+          "embeddedOuterwear": true,
+          "semantic": {
+            "family": "neutral",
+            "tags": [
+              "elegant"
+            ]
+          }
+        },
+        "legacyPromptAliases": [
+          "tailored pantsuit outfit, structured blazer, neat blouse or inner top, high-waisted tailored trousers, polished office suiting silhouette, dominant suit color controlled by the outfit color selection"
+        ]
+      }
+    },
+    {
+      "id": "wardrobe:套裝-outfit-presets:套裝-秘書短裙:6",
+      "before": "secretary-style skirt suit outfit, body-hugging blazer, neat blouse, tight mini skirt, refined office-uniform silhouette",
+      "after": "secretary-style skirt suit outfit, body-hugging blazer, neat blouse, tight mini skirt, refined office-uniform silhouette",
+      "tailBefore": "refined office-uniform silhouette",
+      "tailAfter": "refined office-uniform silhouette",
+      "decision": "retain",
+      "reason": "保留 refined office-uniform 的制服風格，貼身剪裁並非同義。",
+      "original": {
+        "id": "wardrobe:套裝-outfit-presets:套裝-秘書短裙:6",
+        "legacyIds": [
+          "wardrobe:套裝-outfit-presets:秘書短裙套裝:6"
+        ],
+        "zh": "秘書短裙套裝",
+        "en": "secretary-style skirt suit outfit, body-hugging blazer, neat blouse, tight mini skirt, refined office-uniform silhouette",
+        "desc": "以貼身西裝外套、襯衫與緊身迷你裙為核心的秘書感制服套裝；主色交由套裝配色控制。",
+        "meta": {
+          "embeddedOuterwear": true,
+          "semantic": {
+            "family": "neutral",
+            "tags": [
+              "elegant"
+            ]
+          }
+        },
+        "legacyPromptAliases": [
+          "secretary-style skirt suit outfit, body-hugging blazer, neat blouse, tight mini skirt, refined office-uniform silhouette, dominant suit color controlled by the outfit color selection"
+        ]
+      }
+    },
+    {
+      "id": "wardrobe:套裝-outfit-presets:套裝-空服員制服:7",
+      "before": "flight attendant uniform outfit, tailored jacket, fitted skirt or trousers, airline neck scarf, small pillbox-style cap, polished service-uniform silhouette",
+      "after": "flight attendant uniform outfit, tailored jacket, fitted skirt or trousers, airline neck scarf, small pillbox-style cap, polished service-uniform silhouette",
+      "tailBefore": "polished service-uniform silhouette",
+      "tailAfter": "polished service-uniform silhouette",
+      "decision": "retain",
+      "reason": "保留 polished service-uniform 的服務制服輪廓與整體感。",
+      "original": {
+        "id": "wardrobe:套裝-outfit-presets:套裝-空服員制服:7",
+        "legacyIds": [
+          "wardrobe:套裝-outfit-presets:空服員制服套裝:7"
+        ],
+        "zh": "空服員制服套裝",
+        "en": "flight attendant uniform outfit, tailored jacket, fitted skirt or trousers, airline neck scarf, small pillbox-style cap, polished service-uniform silhouette",
+        "desc": "以空服員制服外套、裙裝或長褲、領巾與小帽為核心的職業制服套裝；主色交由套裝配色控制。",
+        "meta": {
+          "embeddedOuterwear": true,
+          "semantic": {
+            "family": "neutral",
+            "tags": [
+              "elegant"
+            ]
+          }
+        },
+        "legacyPromptAliases": [
+          "flight attendant uniform outfit, tailored jacket, fitted skirt or trousers, airline neck scarf, small pillbox-style cap, polished service-uniform silhouette, dominant uniform color controlled by the outfit color selection"
+        ]
+      }
+    },
+    {
+      "id": "wardrobe:套裝-outfit-presets:套裝-護士制服:8",
+      "before": "nurse uniform outfit, clean tunic or uniform dress, neat collar, front placket, nurse cap, crisp medical-service silhouette",
+      "after": "nurse uniform outfit, clean tunic or uniform dress, neat collar, front placket, nurse cap, crisp medical-service silhouette",
+      "tailBefore": "crisp medical-service silhouette",
+      "tailAfter": "crisp medical-service silhouette",
+      "decision": "retain",
+      "reason": "保留 crisp medical-service 的俐落醫療制服輪廓。",
+      "original": {
+        "id": "wardrobe:套裝-outfit-presets:套裝-護士制服:8",
+        "legacyIds": [
+          "wardrobe:套裝-outfit-presets:護士制服套裝:8"
+        ],
+        "zh": "護士制服套裝",
+        "en": "nurse uniform outfit, clean tunic or uniform dress, neat collar, front placket, nurse cap, crisp medical-service silhouette",
+        "desc": "以護士制服洋裝或上衣、整潔領口、前襟與護士帽為核心的職業制服套裝；主色交由套裝配色控制。",
+        "meta": {
+          "semantic": {
+            "family": "neutral",
+            "tags": []
+          }
+        },
+        "legacyPromptAliases": [
+          "nurse uniform outfit, clean tunic or uniform dress, neat collar, front placket, nurse cap, crisp medical-service silhouette, dominant uniform color controlled by the outfit color selection"
+        ]
+      }
+    },
+    {
+      "id": "wardrobe:套裝-outfit-presets:套裝-醫生診療袍:9",
+      "before": "doctor consultation coat outfit, structured medical coat, stethoscope hanging around the neck, medical chart held in one hand, simple inner layer, clean professional clinical silhouette",
+      "after": "doctor consultation coat outfit, structured medical coat, stethoscope hanging around the neck, medical chart held in one hand, simple inner layer, clean professional clinical silhouette",
+      "tailBefore": "clean professional clinical silhouette",
+      "tailAfter": "clean professional clinical silhouette",
+      "decision": "retain",
+      "reason": "保留 clean professional clinical 的專業診療造型；不在本批改手持病歷等細節。",
+      "original": {
+        "id": "wardrobe:套裝-outfit-presets:套裝-醫生診療袍:9",
+        "legacyIds": [
+          "wardrobe:套裝-outfit-presets:醫生診療袍套裝:9"
+        ],
+        "zh": "醫生診療袍套裝",
+        "en": "doctor consultation coat outfit, structured medical coat, stethoscope hanging around the neck, medical chart held in one hand, simple inner layer, clean professional clinical silhouette",
+        "desc": "以醫師診療袍、掛在頸部的聽診器、手持病歷表與簡潔內搭為核心的專業職業套裝；主色交由套裝配色控制。",
+        "meta": {
+          "embeddedOuterwear": true,
+          "semantic": {
+            "family": "neutral",
+            "tags": []
+          }
+        },
+        "legacyPromptAliases": [
+          "doctor consultation coat outfit, structured medical coat, stethoscope hanging around the neck, medical chart held in one hand, simple inner layer, clean professional clinical silhouette, dominant coat color controlled by the outfit color selection"
+        ]
+      }
+    },
+    {
+      "id": "wardrobe:套裝-outfit-presets:套裝-bdsm-束縛:10",
+      "before": "BDSM-inspired leather lingerie harness set, structured underwire leather bra with a deep demi-cup neckline, matching low-rise high-cut leather briefs, fully exposed midriff and navel, adjustable bondage straps positioned around the shoulders, underbust, waist, hips and upper thighs, vertical side straps linking the bra to hip and garter bands, metallic O-rings, buckles and short chain connectors, close body-framing restraint silhouette",
+      "after": "BDSM-inspired leather lingerie harness set, structured underwire leather bra with a deep demi-cup neckline, matching low-rise high-cut leather briefs, fully exposed midriff and navel, adjustable bondage straps positioned around the shoulders, underbust, waist, hips and upper thighs, vertical side straps linking the bra to hip and garter bands, metallic O-rings, buckles and short chain connectors, close body-framing restraint silhouette",
+      "tailBefore": "close body-framing restraint silhouette",
+      "tailAfter": "close body-framing restraint silhouette",
+      "decision": "retain",
+      "reason": "保留 close body-framing restraint，描述束帶環繞身體的整體關係。",
+      "original": {
+        "id": "wardrobe:套裝-outfit-presets:套裝-bdsm-束縛:10",
+        "legacyIds": [
+          "wardrobe:套裝-outfit-presets:bdsm-束縛套裝:10"
+        ],
+        "zh": "BDSM 束縛套裝",
+        "en": "BDSM-inspired leather lingerie harness set, structured underwire leather bra with a deep demi-cup neckline, matching low-rise high-cut leather briefs, fully exposed midriff and navel, adjustable bondage straps positioned around the shoulders, underbust, waist, hips and upper thighs, vertical side straps linking the bra to hip and garter bands, metallic O-rings, buckles and short chain connectors, close body-framing restraint silhouette",
+        "desc": "以皮革內衣與完整束縛 harness 結構為主體，上身是深 demi-cup 領口的鋼圈皮革胸罩，下身搭配低腰高衩皮革內褲，腹部與肚臍完整露出；可調式束縛帶分布於肩部、下胸圍、腰部、臀部與大腿上緣，側邊縱向束帶連接胸罩、臀帶與吊帶環，搭配金屬 O 環、扣具及短鏈連接件。皮革內衣主體由套裝主色控制，harness 束帶與拼片由對比色控制，五金維持金屬色。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast_locked",
+          "contrastBehavior": "strong",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "main_outfit_body"
+            ],
+            "contrast": [
+              "bondage_straps",
+              "panel_accents"
+            ],
+            "locked": [
+              "buckles",
+              "chains",
+              "metal_rings"
+            ]
+          },
+          "semantic": {
+            "family": "bdsm",
+            "tags": [
+              "revealing",
+              "futuristic"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "wardrobe:套裝-outfit-presets:套裝-維多利亞古典:11",
+      "before": "Victorian-inspired outfit, high-neck lace blouse, corset structure, layered skirt volume, ruffled historical detailing, romantic period silhouette",
+      "after": "Victorian-inspired outfit, high-neck lace blouse, corset structure, layered skirt volume, ruffled historical detailing, romantic period silhouette",
+      "tailBefore": "romantic period silhouette",
+      "tailAfter": "romantic period silhouette",
+      "decision": "retain",
+      "reason": "保留 romantic period 的浪漫時代風格，荷葉邊或歷史細節不完全等價。",
+      "original": {
+        "id": "wardrobe:套裝-outfit-presets:套裝-維多利亞古典:11",
+        "legacyIds": [
+          "wardrobe:套裝-outfit-presets:維多利亞古典套裝:11"
+        ],
+        "zh": "維多利亞古典套裝",
+        "en": "Victorian-inspired outfit, high-neck lace blouse, corset structure, layered skirt volume, ruffled historical detailing, romantic period silhouette",
+        "desc": "以高領蕾絲、馬甲結構、層次裙量與古典荷葉細節為核心的維多利亞套裝；主色交由套裝配色控制。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "balanced",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "main_dress_body"
+            ],
+            "contrast": [
+              "lace",
+              "collar",
+              "corset_lines",
+              "ruffle_accents"
+            ],
+            "locked": []
+          },
+          "semantic": {
+            "family": "victorian",
+            "tags": [
+              "ornate",
+              "romantic",
+              "heritage"
+            ]
+          },
+          "colorTextBindings": [
+            {
+              "channel": "primary",
+              "target": "dominant fabric color",
+              "omitForPrimaryMaterial": true
+            }
+          ]
+        },
+        "legacyPromptAliases": [
+          "Victorian-inspired outfit, high-neck lace blouse, corset structure, layered skirt volume, ruffled historical detailing, romantic period silhouette, dominant fabric color controlled by the outfit color selection"
+        ]
+      }
+    },
+    {
+      "id": "wardrobe:套裝-outfit-presets:套裝-蘿莉塔:12",
+      "before": "Lolita-inspired outfit, bell-shaped skirt, layered frills, bow details, petticoat volume, ornate doll-like silhouette",
+      "after": "Lolita-inspired outfit, bell-shaped skirt, layered frills, bow details, petticoat volume, ornate doll-like silhouette",
+      "tailBefore": "ornate doll-like silhouette",
+      "tailAfter": "ornate doll-like silhouette",
+      "decision": "retain",
+      "reason": "保留 ornate doll-like 的裝飾性娃娃輪廓，不能用裙型取代。",
+      "original": {
+        "id": "wardrobe:套裝-outfit-presets:套裝-蘿莉塔:12",
+        "legacyIds": [
+          "wardrobe:套裝-outfit-presets:蘿莉塔套裝:12"
+        ],
+        "zh": "蘿莉塔套裝",
+        "en": "Lolita-inspired outfit, bell-shaped skirt, layered frills, bow details, petticoat volume, ornate doll-like silhouette",
+        "desc": "以鐘形裙襬、荷葉邊、蝴蝶結與裙撐份量為核心的蘿莉塔套裝；主色交由套裝配色控制。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "strong",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "dress_main_fabric"
+            ],
+            "contrast": [
+              "frills",
+              "bows",
+              "hem_trim"
+            ],
+            "locked": []
+          },
+          "semantic": {
+            "family": "lolita",
+            "tags": [
+              "romantic"
+            ]
+          },
+          "colorTextBindings": [
+            {
+              "channel": "primary",
+              "target": "dominant fabric color",
+              "omitForPrimaryMaterial": true
+            }
+          ]
+        },
+        "legacyPromptAliases": [
+          "Lolita-inspired outfit, bell-shaped skirt, layered frills, bow details, petticoat volume, ornate doll-like silhouette, dominant fabric color controlled by the outfit color selection"
+        ]
+      }
+    },
+    {
+      "id": "wardrobe:套裝-outfit-presets:套裝-內衣寫真:13",
+      "before": "sensual lace lingerie set, underwire balconette bra, delicate shoulder straps on the bra, sheer openwork lace panels, delicate cutout detailing, matching low-rise thong bottoms with thin side-tie straps, scalloped trim, satin ribbon bows, curve-hugging boudoir silhouette",
+      "after": "sensual lace lingerie set, underwire balconette bra, delicate shoulder straps on the bra, sheer openwork lace panels, delicate cutout detailing, matching low-rise thong bottoms with thin side-tie straps, scalloped trim, satin ribbon bows, curve-hugging boudoir silhouette",
+      "tailBefore": "curve-hugging boudoir silhouette",
+      "tailAfter": "curve-hugging boudoir silhouette",
+      "decision": "retain",
+      "reason": "保留 curve-hugging boudoir 的貼身寫真輪廓，胸罩與丁字褲名稱不足以完整表達。",
+      "original": {
+        "id": "wardrobe:套裝-outfit-presets:套裝-內衣寫真:13",
+        "legacyIds": [
+          "wardrobe:套裝-outfit-presets:內衣寫真套裝:13"
+        ],
+        "zh": "內衣寫真套裝",
+        "en": "sensual lace lingerie set, underwire balconette bra, delicate shoulder straps on the bra, sheer openwork lace panels, delicate cutout detailing, matching low-rise thong bottoms with thin side-tie straps, scalloped trim, satin ribbon bows, curve-hugging boudoir silhouette",
+        "desc": "以性感蕾絲內衣寫真為核心，上身為鋼圈 balconette 胸衣，具胸罩細肩帶、透膚鏤空蕾絲片與局部 cutout；下身為低腰丁字褲，兩側有細綁帶設計，搭配波浪蕾絲邊、緞帶蝴蝶結與貼合曲線的 boudoir 輪廓。內衣主布由主色控制，蕾絲片、緞帶與邊飾由對比色控制。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "balanced",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "lingerie_base_fabric"
+            ],
+            "contrast": [
+              "lace_panels",
+              "ribbons",
+              "scalloped_trim"
+            ],
+            "locked": []
+          },
+          "semantic": {
+            "family": "lingerie",
+            "tags": [
+              "revealing",
+              "ornate",
+              "romantic",
+              "heritage"
+            ]
+          },
+          "colorTextBindings": [
+            {
+              "channel": "primary",
+              "target": "lingerie base",
+              "omitForPrimaryMaterial": false
+            },
+            {
+              "channel": "contrast",
+              "target": "lace panels ribbons and trim",
+              "omitForPrimaryMaterial": false
+            }
+          ]
+        },
+        "legacyPromptAliases": [
+          "sensual lace lingerie set, underwire balconette bra, delicate shoulder straps on the bra, sheer openwork lace panels, delicate cutout detailing, matching low-rise thong bottoms with thin side-tie straps, scalloped trim, satin ribbon bows, curve-hugging boudoir silhouette, lingerie base controlled by outfit primary color, lace panels ribbons and trim controlled by outfit contrast color"
+        ]
+      }
+    },
+    {
+      "id": "wardrobe:套裝-outfit-presets:套裝-泳裝度假:14",
+      "before": "triangle bikini swimwear set, slim halter strings, sliding triangle cups, low-rise side-tie bikini bottoms, clean resort swimwear silhouette",
+      "after": "triangle bikini swimwear set, slim halter strings, sliding triangle cups, low-rise side-tie bikini bottoms, clean resort silhouette",
+      "tailBefore": "clean resort swimwear silhouette",
+      "tailAfter": "clean resort silhouette",
+      "decision": "trim",
+      "reason": "尾句 swimwear 已由 triangle bikini swimwear set 明確建立；只刪名詞，clean resort silhouette 保留。",
+      "original": {
+        "id": "wardrobe:套裝-outfit-presets:套裝-泳裝度假:14",
+        "legacyIds": [
+          "wardrobe:套裝-outfit-presets:泳裝度假套裝:14"
+        ],
+        "zh": "泳裝度假套裝",
+        "en": "triangle bikini swimwear set, slim halter strings, sliding triangle cups, low-rise side-tie bikini bottoms, clean resort swimwear silhouette",
+        "desc": "以三角比基尼上身與低腰側綁下身為核心的泳裝套裝；主色交由套裝配色控制。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "balanced",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "swimwear_body"
+            ],
+            "contrast": [
+              "tie_details",
+              "trim",
+              "cover_up_layer"
+            ],
+            "locked": []
+          },
+          "semantic": {
+            "family": "swimwear",
+            "tags": [
+              "revealing",
+              "outdoor_bias"
+            ]
+          },
+          "colorTextBindings": [
+            {
+              "channel": "primary",
+              "target": "dominant swim fabric color",
+              "omitForPrimaryMaterial": true
+            }
+          ]
+        },
+        "legacyPromptAliases": [
+          "triangle bikini swimwear set, slim halter strings, sliding triangle cups, low-rise side-tie bikini bottoms, clean resort swimwear silhouette, dominant swim fabric color controlled by the outfit color selection"
+        ]
+      }
+    },
+    {
+      "id": "wardrobe:套裝-outfit-presets:套裝-素色緞面旗袍:15",
+      "before": "solid satin cheongsam mini outfit, body-contouring short-sleeve cut, mandarin collar, diagonal frog-button placket, ultra-short mini hem, high side slit, smooth curve-emphasizing silhouette",
+      "after": "solid satin cheongsam mini outfit, body-contouring short-sleeve cut, mandarin collar, diagonal frog-button placket, ultra-short mini hem, high side slit, smooth curve-emphasizing silhouette",
+      "tailBefore": "smooth curve-emphasizing silhouette",
+      "tailAfter": "smooth curve-emphasizing silhouette",
+      "decision": "retain",
+      "reason": "保留 smooth curve-emphasizing 的順滑曲線效果，材質與剪裁之外的整體描述不刪。",
+      "original": {
+        "id": "wardrobe:套裝-outfit-presets:套裝-素色緞面旗袍:15",
+        "legacyIds": [
+          "wardrobe:套裝-outfit-presets:素色緞面旗袍套裝:15"
+        ],
+        "zh": "素色緞面旗袍套裝",
+        "en": "solid satin cheongsam mini outfit, body-contouring short-sleeve cut, mandarin collar, diagonal frog-button placket, ultra-short mini hem, high side slit, smooth curve-emphasizing silhouette",
+        "desc": "以素色緞面短袖旗袍、貼合身體曲線的剪裁、立領斜襟盤扣、超短迷你裙長與高側開衩為核心；主色交由套裝配色控制。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary",
+          "contrastBehavior": "soft",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "cheongsam_body"
+            ],
+            "contrast": [],
+            "locked": []
+          },
+          "semantic": {
+            "family": "neutral",
+            "tags": []
+          },
+          "colorTextBindings": [
+            {
+              "channel": "primary",
+              "target": "dominant satin color",
+              "omitForPrimaryMaterial": true
+            }
+          ]
+        },
+        "legacyPromptAliases": [
+          "solid satin cheongsam mini outfit, body-contouring short-sleeve cut, mandarin collar, diagonal frog-button placket, ultra-short mini hem, high side slit, smooth curve-emphasizing silhouette, dominant satin color controlled by the outfit color selection"
+        ]
+      }
+    },
+    {
+      "id": "wardrobe:套裝-outfit-presets:套裝-兔女郎:19",
+      "before": "bunny girl outfit, rabbit-ear headband, fitted corset bodysuit, sweetheart neckline, collar and cuff details, polished cabaret costume silhouette",
+      "after": "bunny girl outfit, rabbit-ear headband, fitted corset bodysuit, sweetheart neckline, collar and cuff details, polished cabaret costume silhouette",
+      "tailBefore": "polished cabaret costume silhouette",
+      "tailAfter": "polished cabaret costume silhouette",
+      "decision": "retain",
+      "reason": "保留 polished cabaret costume 的歌舞表演服風格。",
+      "original": {
+        "id": "wardrobe:套裝-outfit-presets:套裝-兔女郎:19",
+        "legacyIds": [
+          "wardrobe:套裝-outfit-presets:兔女郎套裝:19"
+        ],
+        "zh": "兔女郎套裝",
+        "en": "bunny girl outfit, rabbit-ear headband, fitted corset bodysuit, sweetheart neckline, collar and cuff details, polished cabaret costume silhouette",
+        "desc": "以兔耳、馬甲式連身、領圈與袖口為核心的兔女郎套裝；主色與對比細節由配色控制。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast_locked",
+          "contrastBehavior": "strong",
+          "lockedOptional": true,
+          "colorTargets": {
+            "primary": [
+              "bodysuit_body"
+            ],
+            "contrast": [
+              "cuffs",
+              "collar"
+            ],
+            "locked": [
+              "optional_classic_white_cuff_collar_scheme"
+            ]
+          },
+          "semantic": {
+            "family": "neutral",
+            "tags": [
+              "ornate"
+            ]
+          },
+          "colorTextBindings": [
+            {
+              "channel": "primary",
+              "target": "main fabric color",
+              "omitForPrimaryMaterial": true
+            },
+            {
+              "channel": "contrast",
+              "target": "contrast details",
+              "omitForPrimaryMaterial": false
+            }
+          ]
+        },
+        "legacyPromptAliases": [
+          "bunny girl outfit, rabbit-ear headband, fitted corset bodysuit, sweetheart neckline, collar and cuff details, polished cabaret costume silhouette, main fabric color controlled by the outfit color selection, contrast details controlled by contrast palette"
+        ]
+      }
+    },
+    {
+      "id": "wardrobe:套裝-outfit-presets:套裝-女僕:20",
+      "before": "maid outfit, fitted dress bodice, apron layer, ruffled neckline and hem, delicate headpiece, refined service-costume silhouette",
+      "after": "maid outfit, fitted dress bodice, apron layer, ruffled neckline and hem, delicate headpiece, refined service-costume silhouette",
+      "tailBefore": "refined service-costume silhouette",
+      "tailAfter": "refined service-costume silhouette",
+      "decision": "retain",
+      "reason": "保留 refined service-costume 的精緻服務服裝風格。",
+      "original": {
+        "id": "wardrobe:套裝-outfit-presets:套裝-女僕:20",
+        "legacyIds": [
+          "wardrobe:套裝-outfit-presets:女僕套裝:20"
+        ],
+        "zh": "女僕套裝",
+        "en": "maid outfit, fitted dress bodice, apron layer, ruffled neckline and hem, delicate headpiece, refined service-costume silhouette",
+        "desc": "以女僕洋裝、圍裙、荷葉邊與頭飾為核心的角色套裝；主色與對比細節由配色控制。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast_locked",
+          "contrastBehavior": "strong",
+          "lockedOptional": true,
+          "colorTargets": {
+            "primary": [
+              "dress_body"
+            ],
+            "contrast": [
+              "apron",
+              "ruffles",
+              "headpiece"
+            ],
+            "locked": [
+              "optional_classic_white_apron_scheme"
+            ]
+          },
+          "semantic": {
+            "family": "neutral",
+            "tags": [
+              "romantic"
+            ]
+          },
+          "colorTextBindings": [
+            {
+              "channel": "primary",
+              "target": "main fabric color",
+              "omitForPrimaryMaterial": true
+            },
+            {
+              "channel": "contrast",
+              "target": "apron and ruffle contrast",
+              "omitForPrimaryMaterial": false
+            }
+          ]
+        },
+        "legacyPromptAliases": [
+          "maid outfit, fitted dress bodice, apron layer, ruffled neckline and hem, delicate headpiece, refined service-costume silhouette, main fabric color controlled by the outfit color selection, apron and ruffle contrast controlled by contrast palette"
+        ]
+      }
+    },
+    {
+      "id": "wardrobe:套裝-outfit-presets:套裝-短袖女高生水手服:22",
+      "before": "short-sleeve Japanese sailor school uniform, sailor blouse, pleated skirt, soft ribbon tie, clean summer seifuku silhouette",
+      "after": "short-sleeve Japanese sailor school uniform, sailor blouse, pleated skirt, soft ribbon tie, clean summer seifuku silhouette",
+      "tailBefore": "clean summer seifuku silhouette",
+      "tailAfter": "clean summer seifuku silhouette",
+      "decision": "retain",
+      "reason": "保留 clean summer seifuku，短袖不等於夏季風格，亦不必只為一個同義詞改寫。",
+      "original": {
+        "id": "wardrobe:套裝-outfit-presets:套裝-短袖女高生水手服:22",
+        "legacyIds": [
+          "wardrobe:套裝-outfit-presets:短袖女高生水手服:22"
+        ],
+        "zh": "短袖女高生水手服",
+        "en": "short-sleeve Japanese sailor school uniform, sailor blouse, pleated skirt, soft ribbon tie, clean summer seifuku silhouette",
+        "desc": "以短袖水手服上衣、百褶裙與領巾為核心的日系女高生制服；主色交由套裝配色控制。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast_locked",
+          "contrastBehavior": "balanced",
+          "lockedOptional": true,
+          "colorTargets": {
+            "primary": [
+              "uniform_body",
+              "skirt"
+            ],
+            "contrast": [
+              "scarf",
+              "sailor_trim_lines"
+            ],
+            "locked": [
+              "optional_fixed_school_trim_colors"
+            ]
+          },
+          "semantic": {
+            "family": "schoolgirl",
+            "tags": [
+              "uniform"
+            ]
+          },
+          "colorTextBindings": [
+            {
+              "channel": "primary",
+              "target": "dominant uniform color",
+              "omitForPrimaryMaterial": true
+            }
+          ]
+        },
+        "legacyPromptAliases": [
+          "short-sleeve Japanese sailor school uniform, sailor blouse, pleated skirt, soft ribbon tie, clean summer seifuku silhouette, dominant uniform color controlled by the outfit color selection"
+        ]
+      }
+    },
+    {
+      "id": "wardrobe:套裝-outfit-presets:套裝-長袖女高生水手服:23",
+      "before": "long-sleeve Japanese sailor school uniform, sailor blouse, pleated skirt, soft ribbon tie, classic seifuku silhouette",
+      "after": "long-sleeve Japanese sailor school uniform, sailor blouse, pleated skirt, soft ribbon tie, classic seifuku silhouette",
+      "tailBefore": "classic seifuku silhouette",
+      "tailAfter": "classic seifuku silhouette",
+      "decision": "retain",
+      "reason": "保留 classic seifuku 的經典制服風格。",
+      "original": {
+        "id": "wardrobe:套裝-outfit-presets:套裝-長袖女高生水手服:23",
+        "legacyIds": [
+          "wardrobe:套裝-outfit-presets:長袖女高生水手服:23"
+        ],
+        "zh": "長袖女高生水手服",
+        "en": "long-sleeve Japanese sailor school uniform, sailor blouse, pleated skirt, soft ribbon tie, classic seifuku silhouette",
+        "desc": "以長袖水手服上衣、百褶裙與領巾為核心的日系女高生制服；主色交由套裝配色控制。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast_locked",
+          "contrastBehavior": "balanced",
+          "lockedOptional": true,
+          "colorTargets": {
+            "primary": [
+              "uniform_body",
+              "skirt"
+            ],
+            "contrast": [
+              "scarf",
+              "sailor_trim_lines"
+            ],
+            "locked": [
+              "optional_fixed_school_trim_colors"
+            ]
+          },
+          "semantic": {
+            "family": "schoolgirl",
+            "tags": [
+              "uniform"
+            ]
+          },
+          "colorTextBindings": [
+            {
+              "channel": "primary",
+              "target": "dominant uniform color",
+              "omitForPrimaryMaterial": true
+            }
+          ]
+        },
+        "legacyPromptAliases": [
+          "long-sleeve Japanese sailor school uniform, sailor blouse, pleated skirt, soft ribbon tie, classic seifuku silhouette, dominant uniform color controlled by the outfit color selection"
+        ]
+      }
+    },
+    {
+      "id": "wardrobe:套裝-outfit-presets:套裝-開扣長袖襯衫包臀裙:50",
+      "before": "tight long-sleeve button-up shirt outfit, opaque stretch cotton shirting fabric, structured collar and long fitted sleeves, upper buttons left open, remaining front buttons fastened under tension, visible button placket pulling at the chest and waist, horizontal fabric wrinkles across the bust and midriff, tight black bodycon mini skirt, smooth hip-hugging skirt silhouette",
+      "after": "tight long-sleeve button-up shirt outfit, opaque stretch cotton shirting fabric, structured collar and long fitted sleeves, upper buttons left open, remaining front buttons fastened under tension, visible button placket pulling at the chest and waist, horizontal fabric wrinkles across the bust and midriff, tight black bodycon mini skirt, smooth hip-hugging skirt silhouette",
+      "tailBefore": "smooth hip-hugging skirt silhouette",
+      "tailAfter": "smooth hip-hugging skirt silhouette",
+      "decision": "retain",
+      "reason": "雖有字面重複，移除名詞會改變既有景別投影的分類、順序或落點，不值得為省一詞擴修 renderer。",
+      "original": {
+        "id": "wardrobe:套裝-outfit-presets:套裝-開扣長袖襯衫包臀裙:50",
+        "legacyIds": [
+          "wardrobe:套裝-outfit-presets:開扣長袖襯衫包臀裙:50"
+        ],
+        "zh": "開扣長袖襯衫包臀裙",
+        "en": "tight long-sleeve button-up shirt outfit, opaque stretch cotton shirting fabric, structured collar and long fitted sleeves, upper buttons left open, remaining front buttons fastened under tension, visible button placket pulling at the chest and waist, horizontal fabric wrinkles across the bust and midriff, tight black bodycon mini skirt, smooth hip-hugging skirt silhouette",
+        "desc": "以極貼身長袖襯衫與包臀緊身迷你裙為核心；襯衫本體要明確是有領子、長袖、前排扣與門襟的襯衫，使用不透膚的彈性棉質襯衫布。上方少量釦子開著，其餘前排釦子扣住並因貼身版型在胸部與腰部產生橫向拉扯皺褶、門襟張力與釦距細節，搭配貼合臀線的迷你裙輪廓；下身固定黑色；套裝主色只改變襯衫布料顏色。",
+        "meta": {
+          "colorMode": "primary",
+          "colorTargets": {
+            "primary": [
+              "shirt_fabric"
+            ]
+          },
+          "shirtBlackBottom": "bodycon-mini-skirt",
+          "legacyPromptAliases": [
+            "tight long-sleeve button-up shirt outfit, opaque stretch cotton shirting fabric, structured collar and long fitted sleeves, upper buttons left open, remaining front buttons fastened under tension, visible button placket pulling at the chest and waist, horizontal fabric wrinkles across the bust and midriff, tight bodycon mini skirt, smooth hip-hugging skirt silhouette, dominant fabric color controlled by the outfit color selection"
+          ],
+          "semantic": {
+            "family": "neutral",
+            "tags": []
+          }
+        }
+      },
+      "rejectedAlternative": {
+        "after": "tight long-sleeve button-up shirt outfit, opaque stretch cotton shirting fabric, structured collar and long fitted sleeves, upper buttons left open, remaining front buttons fastened under tension, visible button placket pulling at the chest and waist, horizontal fabric wrinkles across the bust and midriff, tight black bodycon mini skirt, smooth hip-hugging silhouette",
+        "tailAfter": "smooth hip-hugging silhouette",
+        "reason": "雖有字面重複，移除名詞會改變既有景別投影的分類、順序或落點，不值得為省一詞擴修 renderer。",
+        "differingOutputComparisons": 120
+      }
+    },
+    {
+      "id": "wardrobe:套裝-outfit-presets:套裝-米白緞面蕾絲馬甲短裙:52",
+      "before": "satin corset mini outfit, strapless underwire cup corset with structured cup seams, vertical boning channels, lace bust trim following the upper cup edge, front center lace-up cord threaded through small eyelets, tiny bow accent at the lower lacing point, fitted waistline, flared satin peplum overskirt, lace micro-skirt layer visible underneath the peplum, scalloped lace mini hem, tiny structured handbag, polished boudoir silhouette",
+      "after": "satin corset mini outfit, strapless underwire cup corset with structured cup seams, vertical boning channels, lace bust trim following the upper cup edge, front center lace-up cord threaded through small eyelets, tiny bow accent at the lower lacing point, fitted waistline, flared satin peplum overskirt, lace micro-skirt layer visible underneath the peplum, scalloped lace mini hem, tiny structured handbag, polished boudoir silhouette",
+      "tailBefore": "polished boudoir silhouette",
+      "tailAfter": "polished boudoir silhouette",
+      "decision": "retain",
+      "reason": "保留 polished boudoir 整體風格；蕾絲、馬甲及包款不能取代。",
+      "original": {
+        "id": "wardrobe:套裝-outfit-presets:套裝-米白緞面蕾絲馬甲短裙:52",
+        "legacyIds": [
+          "wardrobe:套裝-outfit-presets:米白緞面蕾絲馬甲短裙:52"
+        ],
+        "zh": "米白緞面蕾絲馬甲短裙",
+        "en": "satin corset mini outfit, strapless underwire cup corset with structured cup seams, vertical boning channels, lace bust trim following the upper cup edge, front center lace-up cord threaded through small eyelets, tiny bow accent at the lower lacing point, fitted waistline, flared satin peplum overskirt, lace micro-skirt layer visible underneath the peplum, scalloped lace mini hem, tiny structured handbag, polished boudoir silhouette",
+        "desc": "以緞面馬甲與超短裙輪廓為主體，上身是無肩帶鋼圈杯馬甲，強調罩杯接縫、縱向骨線、貼合腰身與沿著罩杯上緣包覆的蕾絲；前中線有穿過小孔眼的交叉裝飾繩帶，綁帶下端帶小蝴蝶結。下身是外層緞面荷葉短裙擺，內層露出蕾絲微短裙與波浪蕾絲裙口，搭配小型結構感手提包；緞面主布由套裝主色控制，蕾絲、繩帶、孔眼與小蝴蝶結由套裝對比色控制。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "strong",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "satin_corset",
+              "underwire_cup_panels",
+              "satin_peplum_overskirt",
+              "mini_skirt_base"
+            ],
+            "contrast": [
+              "lace_bust_trim",
+              "lace_micro_skirt_layer",
+              "scalloped_lace_hem",
+              "front_lace_up_cord",
+              "eyelets",
+              "lower_lacing_bow"
+            ],
+            "locked": []
+          },
+          "semantic": {
+            "family": "lingerie",
+            "tags": [
+              "ornate",
+              "romantic",
+              "heritage"
+            ]
+          },
+          "colorTextBindings": [
+            {
+              "channel": "primary",
+              "target": "satin base",
+              "omitForPrimaryMaterial": false
+            },
+            {
+              "channel": "contrast",
+              "target": "lace cord eyelet and bow details",
+              "omitForPrimaryMaterial": false
+            }
+          ]
+        },
+        "legacyPromptAliases": [
+          "satin corset mini outfit, strapless underwire cup corset with structured cup seams, vertical boning channels, lace bust trim following the upper cup edge, front center lace-up cord threaded through small eyelets, tiny bow accent at the lower lacing point, fitted waistline, flared satin peplum overskirt, lace micro-skirt layer visible underneath the peplum, scalloped lace mini hem, tiny structured handbag, polished boudoir silhouette, satin base controlled by outfit primary color, lace cord eyelet and bow details controlled by outfit contrast color"
+        ]
+      }
+    }
+  ]
+}

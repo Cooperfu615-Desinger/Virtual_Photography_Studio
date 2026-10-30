@@ -1,6 +1,7 @@
 import process from 'node:process';
 import assert from 'node:assert/strict';
-import test from 'node:test';
+import {preC2OutfitHistoricalTest} from '../../../../scripts/lib/c2OutfitHistoricalTest.mjs';
+const test=preC2OutfitHistoricalTest(import.meta.url);
 import {readFileSync,mkdtempSync,mkdirSync,writeFileSync,rmSync} from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import {join,dirname} from 'node:path';

@@ -1,0 +1,30 @@
+{
+  "base": "043418f9c169e2e5848d23aaae15c1a32e34588f",
+  "reviewed": 20,
+  "trimmed": 1,
+  "retained": 19,
+  "baselineCases": 1440,
+  "focusedTests": 4,
+  "frontendTests": 2059,
+  "qualityTests": 853,
+  "pythonTests": 52,
+  "catalogTests": 32,
+  "assets": 207,
+  "strictBlockers": 0,
+  "unchangedDiagnosticPrompts": 17,
+  "historyPassed": true,
+  "historicalArtifacts": 56,
+  "browserPassed": true,
+  "committed": false,
+  "pushed": false,
+  "remainingKnownLimitations": [
+    "No image-generation quality claim",
+    "Earlier native-select mouse-popup limitation retained"
+  ],
+  "intermediateCorrections": [
+    "baseline crop assertion",
+    "Markdown fixture sections",
+    "generated Markdown filename",
+    "Node process import for lint"
+  ]
+}

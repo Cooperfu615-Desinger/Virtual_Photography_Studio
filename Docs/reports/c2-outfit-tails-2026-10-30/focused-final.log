@@ -1,0 +1,34 @@
+TAP version 13
+# Subtest: C2 outfit exact twenty-row review: one repeated noun only, nineteen records unchanged
+ok 1 - C2 outfit exact twenty-row review: one repeated noun only, nineteen records unchanged
+  ---
+  duration_ms: 22.003875
+  type: 'test'
+  ...
+# Subtest: C2 outfit all current and historical aliases restore IDs; Markdown keeps public original
+ok 2 - C2 outfit all current and historical aliases restore IDs; Markdown keeps public original
+  ---
+  duration_ms: 1868.104833
+  type: 'test'
+  ...
+# Subtest: C2 outfit frozen 1440 cases preserve projected details, colors, A/B, RNG and saved originals
+ok 3 - C2 outfit frozen 1440 cases preserve projected details, colors, A/B, RNG and saved originals
+  ---
+  duration_ms: 12556.489334
+  type: 'test'
+  ...
+# Subtest: C2 outfit inverse uses fixed Git bytes and rejects checkout or corrupt mixed copy before writes
+ok 4 - C2 outfit inverse uses fixed Git bytes and rejects checkout or corrupt mixed copy before writes
+  ---
+  duration_ms: 114.902625
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 14772.75925

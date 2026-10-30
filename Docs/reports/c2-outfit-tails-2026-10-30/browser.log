@@ -1,0 +1,54 @@
+[
+  {
+    width: 1440,
+    height: 1000,
+    selections: 20,
+    publicSourceVerified: 20,
+    outputs: 6,
+    emptySearchAndEscape: true,
+    newSaveAndOldRestore: true,
+    oldPublicTextAndExistingSelectionsUnchanged: true,
+    addedDefaultKeys: [
+      'completeLookPaletteId',
+      'completeLookPaletteAId',
+      'completeLookPaletteBId',
+      'topBottomPaletteAId',
+      'topBottomPaletteBId',
+      'headAccessoryColorId',
+      'nosePiercingId',
+      'lipPiercingId',
+      'headAccessoryAColorId',
+      'headAccessoryBColorId'
+    ],
+    overflow: false,
+    errors: [],
+    programmaticSelectionFallback: false,
+    nativePopupMouseVerified: 'not applicable: custom image picker clicked directly'
+  },
+  {
+    width: 390,
+    height: 900,
+    selections: 20,
+    publicSourceVerified: 20,
+    outputs: 6,
+    emptySearchAndEscape: true,
+    newSaveAndOldRestore: true,
+    oldPublicTextAndExistingSelectionsUnchanged: true,
+    addedDefaultKeys: [
+      'completeLookPaletteId',
+      'completeLookPaletteAId',
+      'completeLookPaletteBId',
+      'topBottomPaletteAId',
+      'topBottomPaletteBId',
+      'headAccessoryColorId',
+      'nosePiercingId',
+      'lipPiercingId',
+      'headAccessoryAColorId',
+      'headAccessoryBColorId'
+    ],
+    overflow: false,
+    errors: [],
+    programmaticSelectionFallback: false,
+    nativePopupMouseVerified: 'not applicable: custom image picker clicked directly'
+  }
+]

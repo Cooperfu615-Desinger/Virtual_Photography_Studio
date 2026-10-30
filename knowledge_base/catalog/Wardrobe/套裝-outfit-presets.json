@@ -422,7 +422,7 @@
         "wardrobe:套裝-outfit-presets:泳裝度假套裝:14"
       ],
       "zh": "泳裝度假套裝",
-      "en": "triangle bikini swimwear set, slim halter strings, sliding triangle cups, low-rise side-tie bikini bottoms, clean resort swimwear silhouette",
+      "en": "triangle bikini swimwear set, slim halter strings, sliding triangle cups, low-rise side-tie bikini bottoms, clean resort silhouette",
       "desc": "以三角比基尼上身與低腰側綁下身為核心的泳裝套裝；主色交由套裝配色控制。",
       "meta": {
         "series": "signature",
@@ -456,7 +456,8 @@
         ]
       },
       "legacyPromptAliases": [
-        "triangle bikini swimwear set, slim halter strings, sliding triangle cups, low-rise side-tie bikini bottoms, clean resort swimwear silhouette, dominant swim fabric color controlled by the outfit color selection"
+        "triangle bikini swimwear set, slim halter strings, sliding triangle cups, low-rise side-tie bikini bottoms, clean resort swimwear silhouette, dominant swim fabric color controlled by the outfit color selection",
+        "triangle bikini swimwear set, slim halter strings, sliding triangle cups, low-rise side-tie bikini bottoms, clean resort swimwear silhouette"
       ]
     },
     {

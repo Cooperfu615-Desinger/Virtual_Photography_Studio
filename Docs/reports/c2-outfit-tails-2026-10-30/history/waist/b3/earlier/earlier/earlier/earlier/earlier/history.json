@@ -1,0 +1,14 @@
+{
+  "baseCommit": "58516b20c6631b1a61faa48ee22abfb05ea29384",
+  "inverseExact": true,
+  "log": [
+    {
+      "script": "special_outfit_palette_a2_acceptance.mjs",
+      "passed": true
+    },
+    {
+      "script": "special_outfit_palette_a2_history.mjs",
+      "passed": true
+    }
+  ]
+}

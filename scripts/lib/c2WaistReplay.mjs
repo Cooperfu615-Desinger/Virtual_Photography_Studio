@@ -1,3 +1,4 @@
+import {preC2OutfitSource,preparePreC2OutfitFiles} from './c2OutfitReplay.mjs';
 // Test-only, byte-exact inverse. Never mutate a checkout or historical baseline.
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync,realpathSync,existsSync,mkdtempSync,mkdirSync,cpSync,symlinkSync,rmSync} from 'node:fs';
@@ -9,6 +10,7 @@ import patches from './c2WaistPatches.json' with {type:'json'};
 export const C2_WAIST_ROOT=fileURLToPath(new URL('../../',import.meta.url));
 const hash=x=>createHash('sha256').update(x).digest('hex');
 export function preC2WaistSource(path,source){
+ source=preC2OutfitSource(path,source);
  const f=patches.files.find(f=>f.path===path);
  if(!f||hash(source)!==f.afterHash)return source;
  assert.equal(hash(f.beforeSource),f.beforeHash,'C2 corrupt oracle');
@@ -17,10 +19,12 @@ export function preC2WaistSource(path,source){
 export function preparePreC2WaistFiles(dir){
  assert.notEqual(realpathSync(dir),realpathSync(C2_WAIST_ROOT),'C2 requires isolated copy');
  assert.ok(!existsSync(join(dir,'.git')),'C2 rejects Git checkout');
- const present=patches.files.filter(f=>existsSync(join(dir,f.path))),sources=new Map();
+ const outfit=preparePreC2OutfitFiles(dir);
+ const present=patches.files.filter(f=>existsSync(join(dir,f.path))),sources=new Map(outfit.sources);
+ const read=f=>outfit.sources.get(f.path)??readFileSync(join(dir,f.path));
  // Older already-replayed states pass through; mixed current/unknown copies fail atomically.
- if(present.some(f=>hash(readFileSync(join(dir,f.path)))===f.afterHash))for(const f of present){
-  const source=readFileSync(join(dir,f.path));
+ if(present.some(f=>hash(read(f))===f.afterHash))for(const f of present){
+  const source=read(f);
   assert.ok([f.beforeHash,f.afterHash].includes(hash(source)),'C2 rejects unknown source: '+f.path);
   sources.set(f.path,preC2WaistSource(f.path,source));
  }

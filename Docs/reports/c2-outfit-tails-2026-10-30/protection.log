@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "base": "043418f9c169e2e5848d23aaae15c1a32e34588f",
+  "branch": "main",
+  "trackedChanges": [
+    "Docs/specs/c2-authoring-length-policy-v1.md",
+    "Docs/specs/wardrobe-section-b-authoring-guide.md",
+    "knowledge_base/catalog/Wardrobe/套裝-outfit-presets.json",
+    "knowledge_base/wardrobe_and_styling.md",
+    "scripts/lib/c2WaistReplay.mjs",
+    "webapp/src/data/database.json",
+    "webapp/src/lib/engine/c2WaistWording.test.js"
+  ],
+  "protectedFiles": 2535,
+  "historicalReportsUnchanged": true,
+  "registryAndRendererUnchanged": true,
+  "stagedFiles": [],
+  "newBaselineSha256": "3f72904ee6e8c22d19ac9253fa8584b41d358c5161bf16ee202810399ab6de97"
+}
