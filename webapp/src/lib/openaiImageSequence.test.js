@@ -34,3 +34,14 @@ test('OpenAI task snapshots retain quality and reject unsupported values', async
   assert.throws(() => generationSnapshot({ ...input, quality: 'max' }), /畫質/);
   assert.ok(!Object.hasOwn(generationSnapshot({ ...input, modelKey: 'comfyZImageTurbo' }), 'quality'));
 });
+
+test('explicit moderation rejection preserves first image and is terminal; interruption remains uncertain', async () => {
+  for (const [code, terminal] of [['functions/invalid-argument', true], ['functions/unavailable', undefined]]) {
+    let calls = 0;
+    await assert.rejects(generateOpenAISequence(task, { onProgress: async () => {}, onImages: async () => {}, submit: async () => {
+      calls++; if (calls === 2) { const error = new Error('provider'); error.code = code; throw error; }
+      return { images: [{ src: 'first' }] };
+    } }), error => { assert.equal(error.terminal, terminal); assert.equal(error.images[0].src, 'first'); return true; });
+    assert.equal(calls, 2);
+  }
+});

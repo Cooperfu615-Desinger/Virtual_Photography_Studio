@@ -302,7 +302,7 @@ exports.magnificDownloadImage = onCall({
 const openAIImageApiKey = defineSecret('OPENAI_API_KEY');
 exports.openAIImageGenerate = onCall({ region: 'us-central1', secrets: [openAIImageApiKey], timeoutSeconds: 300, memory: '512MiB', maxInstances: 2 }, async request => {
   assertAllowedUser(request, 'OpenAI 圖片生成');
-  const { buildOpenAIImageRequest, submitOpenAIImage } = require('./src/openaiImageGeneration');
+  const { buildOpenAIImageRequest, submitOpenAIImage, reportOpenAIImageFailure } = require('./src/openaiImageGeneration');
   const payload = request.data || {};
   if (payload.expectedUid !== request.auth.uid) throw new HttpsError('permission-denied', '登入帳號已變更');
   if (typeof payload.requestId !== 'string' || !/^[a-zA-Z0-9_-]{1,120}$/.test(payload.requestId)) throw new HttpsError('invalid-argument', '無效的請求識別碼');
@@ -313,8 +313,7 @@ exports.openAIImageGenerate = onCall({ region: 'us-central1', secrets: [openAIIm
     return await submitOpenAIImage({ apiKey: openAIImageApiKey.value(), input: payload, requestId: payload.requestId, store });
   } catch (error) {
     if (error.duplicate) throw new HttpsError('already-exists', error.message);
-    if (error.status === 401 || error.status === 403) throw new HttpsError('permission-denied', 'OpenAI 金鑰或模型權限有問題');
-    if (error.status === 429) throw new HttpsError('resource-exhausted', 'OpenAI 額度不足或已達速率限制，請查看帳務與限制');
-    throw new HttpsError('unavailable', 'OpenAI 生成未能確認，請先檢查用量與狀態；不會自動重送');
+    const failure = reportOpenAIImageFailure(error, (message, details) => logger.warn(message, details));
+    throw new HttpsError(failure.functionCode, failure.message, failure.classification);
   }
 });

@@ -1,0 +1,7 @@
+# GPT Image 2 錯誤提示與隱私診斷
+
+明確的 OpenAI HTTP 400 審核代碼 content_policy_violation、moderation_blocked 或 image_content_policy_violation 顯示審核未通過，標記任務未完成；若兩張的第一張已保存，保留第一張並標記部分完成。所有連線中斷、異常回應、未知錯誤或無法辨識的審核格式仍視為待確認，不自動重送。原有 401／403 權限與 429 額度／速率提示保持；既有歷史任務不回填、不改寫。
+
+Function 記錄固定分類、HTTP 數字及允許清單中的 OpenAI code。未知代碼以 other 記錄；不記錄供應商原始錯誤文字、Prompt、API Key、request body 或圖片。記錄只對新請求有效，不能還原舊任務的原始原因。後端 request ID 保護維持，無論拒絕或結果不明，同一請求都不重新提交。
+
+僅本機實作與模擬驗證；正式使用前需另行提交、推送及部署 openAIImageGenerate。真實 OpenAI 回傳的審核代碼格式與實際使用體驗需日後實際驗收，不能由測試資料保證。
