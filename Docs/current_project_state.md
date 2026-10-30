@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-31
 
+## C5 用途清單與文件修正（2026-10-31，使用者驗收通過）
+
+- 核對main `e5f8fd4b30bbf686a5644cebdede16c6b80227aa`；本批只修改文件。艾爾莎手動仍可用，一般154筆非全無場景隨機篩選無符合項，依使用者要求維持現況。七類bias無預設風格生產者，但完整自訂資料庫仍可使條件生效，保留。
+- Negative 19筆沒有現行webapp控制／renderer消費者，但保留目錄ID、快照及舊工具用途。自訂library沒有正式PAGE1管理UI，工具／測試／歷史回放介面仍有用途；README已對齊這些界線與catalog JSON正式來源。
+- 見[用途清單](specs/c5-usage-retention-v1.md)、[決策](decisions/2026-10-31-c5-usage-retention.md)及[文件驗收](reports/c5-usage-retention-2026-10-31/README.md)。資料、程式、Prompt、歷史基準及其他未提交內容保持；使用者已授權本批限定commit／push，CI與部署於交付時核對。此批不宣稱修復可達性或完成全儲存庫死碼清理。PAGE2舊匯入、J12、P5b繼續暫緩，其他C類未併入。
+- 前批C2 `e5f8fd4b`的[CI與部署](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41092448342)已完成且全部通過；這是C2交付證據，非本批C5驗收。
+
 ## C2 文件與清單收尾（2026-10-31，本輪內容處置結案）
 
 - 對照main `515827da138a0c0d3fe652888d9b03a6b5a9c5a6`。使用者確認22筆偏短與28筆偏長全部保留；22筆已有逐筆文字分析，28筆依使用需求保留，未另做逐筆語意審查或生圖驗證。先前三筆襪類補強不實施。
