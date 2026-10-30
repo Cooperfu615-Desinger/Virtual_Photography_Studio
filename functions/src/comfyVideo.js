@@ -2,6 +2,7 @@ const { randomInt } = require('node:crypto');
 const { validateRequestId } = require('./comfyCloud');
 const { balanceCredits } = require('./comfyQuota');
 const contract = require('./videoModels.json');
+const pikaH3FlexWorkflow = require('./pikaH3FlexWorkflow.json');
 const API = 'https://cloud.comfy.org/api/v2';
 const MAX_INPUT_BYTES = 8 * 1024 * 1024;
 const MAX_VIDEO_BYTES = 250 * 1024 * 1024;
@@ -71,6 +72,13 @@ function buildVideoWorkflow(payload, source, seed = randomInt(0, 2147483647)) {
   const prompt = [motion, camera].filter(Boolean).join('\n');
   if (!motion || prompt.length > 10000) throw new Error('請填寫動作描述，總長度不可超過 10,000 字');
   const model = contract.models[settings.modelKey];
+  if (settings.modelKey === 'pikaH3Flex') {
+    const workflow = structuredClone(pikaH3FlexWorkflow);
+    workflow['1'].inputs.image = { __type: 'core/ASSET', info: { id: validateRequestId(source.assetId) } };
+    workflow['140:131'].inputs.prompt = prompt;
+    workflow['140:129'].inputs.noise_seed = seed;
+    return { workflow, meta: { ...settings, sourceId: payload.sourceId, width: source.width, height: source.height, seed, mediaType: 'video' } };
+  }
   const inputs = { model: model.model, 'model.prompt': prompt, 'model.resolution': settings.resolution,
     'model.duration': settings.modelKey === 'wan3' ? String(settings.duration) : settings.duration,
     first_frame: ['1', 0], seed, watermark: false };
@@ -162,6 +170,8 @@ async function readVideoQuota({ apiKey, payload, fetchImpl = fetch }) {
   if (!response.ok) throw new Error('額度查詢失敗，請稍後重新整理');
   const credits = balanceCredits(await response.json());
   const model = contract.models[settings.modelKey];
+  if (model.unpriced) return { credits, estimatedCredits: null, estimatedVideos: null,
+    checkedAt: Date.now(), rateDate: null, selection: settings };
   // Seedance uses 24 fps token estimates, not the Wan/MiniMax per-second tariff.
   // For adaptive ratio, budget the largest supported pixel area conservatively.
   const frames = model.tokensPerFrame?.[settings.resolution];

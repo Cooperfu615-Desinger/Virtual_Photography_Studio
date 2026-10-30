@@ -1,4 +1,5 @@
 // Test-only exact inverse. Never re-record historical seals.
+import {prePikaVideoSource, PIKA_VIDEO_PATH} from './pikaVideoReplay.mjs';
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync,existsSync,realpathSync,mkdtempSync,mkdirSync,cpSync,symlinkSync,rmSync} from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -18,6 +19,11 @@ export function preparePreC4JewelryFiles(directory){
  assert.notEqual(realpathSync(directory),realpathSync(C4_JEWELRY_ROOT),'C4 jewelry inverse requires isolated copy');
  assert.ok(!existsSync(join(directory,'.git')),'C4 jewelry inverse rejects Git checkout');
  const sources=new Map(),present=C4_JEWELRY_PATCHES.files.filter(f=>existsSync(join(directory,f.path)));
+ const pikaPath=join(directory,PIKA_VIDEO_PATH);
+ if(existsSync(pikaPath)){
+  const source=readFileSync(pikaPath), before=prePikaVideoSource(PIKA_VIDEO_PATH,source);
+  if(!source.equals(before))sources.set(PIKA_VIDEO_PATH,before);
+ }
  if(present.some(f=>hash(readFileSync(join(directory,f.path)))===f.afterHash)){
   for(const f of present){const bytes=readFileSync(join(directory,f.path));assert.ok([f.beforeHash,f.afterHash].includes(hash(bytes)),'C4 jewelry inverse rejects unknown source: '+f.path);sources.set(f.path,preC4JewelrySource(f.path,bytes));}
  }

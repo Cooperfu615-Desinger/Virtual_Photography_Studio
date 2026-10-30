@@ -40,8 +40,8 @@ function VideoQuota({ uid, draft, refreshToken, loadQuota = loadVideoQuota }) {
     <dl><div><dt>剩餘額度</dt><dd>{!uid ? '請先登入' : state.data?.credits == null ? '暫無法取得' : `${formatNumber(state.data.credits)} Credits`}</dd></div>
       <div><dt>本次預估</dt><dd>{state.data?.estimatedCredits == null ? '暫無法估算' : `約 ${formatNumber(state.data.estimatedCredits)} Credits`}</dd></div>
       <div><dt>預估可生成</dt><dd>{state.data?.estimatedVideos == null ? '暫無法估算' : `約 ${formatNumber(state.data.estimatedVideos)} 支`}</dd></div></dl>
-    <p className="video-help">依模型公開費率估算，不含可能的工作流執行費，實際扣額可能不同。</p>
-    {state.data && <p className="video-help">更新於 {new Date(state.data.checkedAt).toLocaleTimeString('zh-TW')} · 費率 {state.data.rateDate}</p>}
+    <p className="video-help">{VIDEO_MODELS[modelKey]?.unpriced ? '此模型尚無可靠費用估算，實際扣額依 Comfy Cloud 為準。' : '依模型公開費率估算，不含可能的工作流執行費，實際扣額可能不同。'}</p>
+    {state.data && <p className="video-help">更新於 {new Date(state.data.checkedAt).toLocaleTimeString('zh-TW')}{state.data.rateDate && (' · 費率 ' + state.data.rateDate)}</p>}
     {state.error && <p className="video-error" role="status">{state.error}</p>}
   </section>;
 }
@@ -166,6 +166,7 @@ export function VideoWorkspaceView({ state, controller, quotaLoader, download = 
             {Object.entries(VIDEO_MODELS).map(([key, option]) => <option key={key} value={key}>{option.label}</option>)}
           </select></label>
           {model.referenceImage && <p className="video-help">以圖片作為參考，影片開頭可能與原圖不同。</p>}
+          {model.unpriced && <p className="video-help">使用單張首圖，尺寸跟隨來源圖片並對齊至 32 像素；較大圖片可能增加耗時與費用。5 秒設定實際輸出約 5.17 秒。</p>}
           <label className="video-field">動作描述<textarea value={state.draft.motion} maxLength={8000} rows={2} required placeholder="人物緩慢抬頭，望向鏡頭並自然微笑。" onChange={event => controller.draft({ motion: event.target.value })} /></label>
           <label className="video-field">運鏡描述（選填）<textarea value={state.draft.camera} maxLength={1500} rows={2} placeholder="鏡頭緩慢推近，保持平穩。" onChange={event => controller.draft({ camera: event.target.value })} /></label>
           <div className="video-camera-presets">{VIDEO_CAMERA_PRESETS.map(text => <button type="button" key={text} aria-pressed={state.draft.camera === text} onClick={() => controller.draft({ camera: text })}>{text}</button>)}</div>
@@ -175,7 +176,7 @@ export function VideoWorkspaceView({ state, controller, quotaLoader, download = 
           </div>
           <p className="video-help">輸出比例：{model.referenceImage ? ratio === 'adaptive' ? '自動適應（額度採保守預估）' : ratio : '跟隨來源圖片'}</p>
           {model.audioToggle ? <label className="video-audio"><input type="checkbox" checked={state.draft.audio} onChange={event => controller.draft({ audio: event.target.checked })} />生成音訊</label>
-            : <p className="video-help">MiniMax H3 會生成音訊，此節點不提供關閉選項。</p>}
+            : <p className="video-help">{model.label} 會生成音訊，此模型不提供關閉選項。</p>}
         </fieldset>
         <div className="video-submit-area">
           <VideoQuota key={[state.uid, state.draft.modelKey, state.draft.resolution, state.draft.duration, state.draft.audio, ratio].join(':')} uid={state.uid}

@@ -23,6 +23,10 @@
       "label": "MiniMax H3", "node": "MinimaxHailuo03FirstLastFrameNode", "model": "MiniMax H3",
       "resolutions": ["768P", "2K"], "minDuration": 4, "maxDuration": 15,
       "audioToggle": false, "creditsPerSecond": {"768P": 27.16, "2K": 39.22}
+    },
+    "pikaH3Flex": {
+      "label": "Pika H3 Flex FL2VA", "resolutions": ["依首圖"], "minDuration": 5, "maxDuration": 5,
+      "audioToggle": false, "unpriced": true
     }
   }
 }

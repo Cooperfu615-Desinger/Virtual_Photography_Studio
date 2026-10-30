@@ -171,3 +171,9 @@ test('switching account while a paid response arrives never starts polling the o
   assert.equal(f.controller.getSnapshot().uid, 'b'); assert.equal(f.controller.getSnapshot().results.length, 0);
   assert.ok(f.pending.get('a'));
 });
+
+test('Pika model switch selects the tested five-second first-frame settings', () => {
+  const pika = changeVideoModel({ ...defaultVideoDraft(), duration: 20, resolution: '1080P', audio: false }, 'pikaH3Flex');
+  assert.equal(pika.duration, 5); assert.equal(pika.resolution, '依首圖'); assert.equal(pika.audio, true);
+  assert.equal(changeVideoModel(pika, 'wan3').resolution, '720P');
+});
