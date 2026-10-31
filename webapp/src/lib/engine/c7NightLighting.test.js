@@ -1,3 +1,4 @@
+import {preC7ColorPairingSource} from '../../../../scripts/lib/c7ColorPairingReplay.mjs';
 import process from 'node:process';
 import assert from 'node:assert/strict';
 import test from 'node:test';
@@ -58,7 +59,7 @@ test('C7 sealed pre-change matrix allows only the independently recorded random-
 test('C7 history inverse reproduces trusted Git, rejects checkout/linked/unknown source, and is idempotent',()=>{
  assert.throws(()=>preparePreC7NightLightingFiles(fileURLToPath(root)),/isolated/);
  const dir=mkdtempSync(join(tmpdir(),'c7-inverse-test-')),path=join(dir,patch.path);
- const current=readFileSync(new URL(patch.path,root));
+ const current=preC7ColorPairingSource(patch.path,readFileSync(new URL(patch.path,root)));
  assert.equal(createHash('sha256').update(current).digest('hex'),patch.afterHash);
  try{
   mkdirSync(dirname(path),{recursive:true});writeFileSync(path,current.toString()+'\n// unknown');

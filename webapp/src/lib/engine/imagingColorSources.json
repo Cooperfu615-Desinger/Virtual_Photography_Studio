@@ -1,0 +1,318 @@
+{
+  "style": [
+    {
+      "id": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0",
+      "zh": "蜷川實花｜濃烈色彩戲劇感",
+      "en": "Inspired by Mika Ninagawa, hyper-saturated vivid-color portraiture, complex non-floral color layers, glossy reds hot pinks cyan accents and jewel-tone surfaces, no floral or botanical motifs",
+      "mode": "color"
+    },
+    {
+      "id": "regional:攝影風格:上田義彥-靜默自然暗調:1",
+      "zh": "上田義彥｜靜默自然暗調",
+      "en": "Inspired by Yoshihiko Ueda, quiet natural portraiture, deep velvety shadows, cool desaturated greens and charcoals, low-key tonal calm, subtle atmospheric depth",
+      "mode": "color"
+    },
+    {
+      "id": "regional:攝影風格:橫浪修-群像留白秩序:2",
+      "zh": "橫浪修｜群像留白秩序",
+      "en": "Inspired by Osamu Yokonami, high-key minimalist portraiture, muted pastels, luminous whites, flat overcast softness, structured spacing, generous negative space",
+      "mode": "color"
+    },
+    {
+      "id": "regional:攝影風格:川內倫子-輕盈日常微光:3",
+      "zh": "川內倫子｜輕盈日常微光",
+      "en": "Inspired by Rinko Kawauchi, airy high-key photography, pale softly overexposed daylight glow, cool pastel tones, delicate everyday realism, fragile quiet details",
+      "mode": "color"
+    },
+    {
+      "id": "regional:攝影風格:石田真澄-柔亮底片空氣感:4",
+      "zh": "石田真澄｜柔亮底片空氣感",
+      "en": "Inspired by Masumi Ishida, luminous youth-photobook portraiture, gentle summer-color brightness, softly lifted exposure, airy pastel balance, washed film texture, transparent tonal softness",
+      "mode": "color"
+    },
+    {
+      "id": "regional:攝影風格:市橋織江-透明自然低飽和:5",
+      "zh": "市橋織江｜透明自然低飽和",
+      "en": "Inspired by Orie Ichihashi, quiet natural portraiture, transparent natural-light quality, soft open shadows, low-saturation neutral palette, delicate film grain",
+      "mode": "open"
+    },
+    {
+      "id": "regional:攝影風格:高橋洋子-乾爽日光褪色:6",
+      "zh": "高橋洋子｜乾爽日光褪色",
+      "en": "Inspired by Yoko Takahashi, breezy sun-bleached portraiture, crisp sunlit contrast, dry faded colors, faded blues and chalky whites, relaxed editorial realism, airy negative space",
+      "mode": "color"
+    },
+    {
+      "id": "regional:攝影風格:保羅-羅韋爾西-柔霧高級時裝:7",
+      "zh": "保羅・羅韋爾西｜柔霧高級時裝",
+      "en": "Inspired by Paolo Roversi, soft haze couture portraiture, dim romantic light, velvety shadows, painterly softness, muted elegant tones, slow-shutter delicacy",
+      "mode": "open"
+    },
+    {
+      "id": "regional:攝影風格:艾倫-馮-昂沃斯-俏皮抓拍雜誌:8",
+      "zh": "艾倫・馮・昂沃斯｜俏皮抓拍雜誌",
+      "en": "Inspired by Ellen von Unwerth, playful editorial portraiture, spontaneous energy, candid movement, flash-assisted magazine glamour, lively fashion confidence",
+      "mode": "open"
+    },
+    {
+      "id": "regional:攝影風格:南-戈爾丁-私人相簿粗粒子:9",
+      "zh": "南・戈爾丁｜私人相簿粗粒子",
+      "en": "Inspired by Nan Goldin, intimate diaristic portraiture, warm ambient light, heavy grain, raw emotional immediacy, imperfect lived-in color, close personal distance",
+      "mode": "color"
+    },
+    {
+      "id": "regional:攝影風格:尤爾根-特勒-直閃反精緻:10",
+      "zh": "尤爾根・特勒｜直閃反精緻",
+      "en": "Inspired by Juergen Teller, raw direct-flash portraiture, anti-polished editorial tension, awkward realism, immediate camera presence, blunt fashion attitude, flat flash shadows",
+      "mode": "open"
+    },
+    {
+      "id": "regional:攝影風格:理察-阿維頓-極簡留白肖像:11",
+      "zh": "理察・阿維頓｜極簡留白肖像",
+      "en": "Inspired by Richard Avedon, stripped-down editorial portraiture, clean negative space, crisp tonal contrast, commanding presence, razor-clear focus, minimal visual distraction",
+      "mode": "open"
+    },
+    {
+      "id": "regional:攝影風格:亞歷克-索斯-寬鬆紀實敘事:12",
+      "zh": "亞歷克・索斯｜寬鬆紀實敘事",
+      "en": "Inspired by Alec Soth, spacious documentary portraiture, soft natural light, understated storytelling, calm emotional distance, open negative space, quiet color restraint",
+      "mode": "open"
+    },
+    {
+      "id": "regional:攝影風格:莎莉-曼-古典濕版記憶感:13",
+      "zh": "莎莉・曼｜古典濕版記憶感",
+      "en": "Inspired by Sally Mann, antique wet-plate portraiture, soft blur, ghostly texture, timeworn atmosphere, nostalgic stillness, handmade tonal irregularity",
+      "mode": "open"
+    },
+    {
+      "id": "regional:攝影風格:沃夫岡-提爾曼斯-生活切片隨拍:14",
+      "zh": "沃夫岡・提爾曼斯｜生活切片隨拍",
+      "en": "Inspired by Wolfgang Tillmans, casual everyday portraiture, snapshot energy, natural-light realism, spontaneous composition, relaxed documentary tone, informal framing",
+      "mode": "open"
+    },
+    {
+      "id": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+      "zh": "森山大道｜噪訊黑白暗調",
+      "en": "Inspired by Daido Moriyama, gritty high-contrast monochrome photography, rough focus, heavy grain, harsh blacks, restless dark tonal tension, raw tonal abrasion",
+      "mode": "mono"
+    },
+    {
+      "id": "regional:攝影風格:荒木經惟-私寫真親密:16",
+      "zh": "荒木經惟｜私寫真親密",
+      "en": "Inspired by Nobuyoshi Araki, raw intimate diaristic portraiture, spontaneous flash-lit realism, private emotional tension, saturated personal color, close camera distance",
+      "mode": "color"
+    },
+    {
+      "id": "regional:攝影風格:篠山紀信-經典寫真名人肖像:17",
+      "zh": "篠山紀信｜經典寫真名人肖像",
+      "en": "Inspired by Kishin Shinoyama, polished Japanese gravure portraiture, clean visual control, glossy high-production finish, direct portrait presence, flattering controlled lighting",
+      "mode": "open"
+    },
+    {
+      "id": "regional:攝影風格:鈴木親-年輕時尚生活感:18",
+      "zh": "鈴木親｜年輕時尚生活感",
+      "en": "Inspired by Chikashi Suzuki, relaxed fashion editorial on film, youthful candid immediacy, soft everyday realism, muted natural tones, delicate film grain, gentle magazine clarity",
+      "mode": "open"
+    },
+    {
+      "id": "regional:攝影風格:青山裕企-青春寫真直接人像:19",
+      "zh": "青山裕企｜青春寫真直接人像",
+      "en": "Inspired by Yuki Aoyama, Japanese photobook portraiture, natural daylight feel, direct straightforward composition, crisp everyday realism, clean candid intimacy, simple subject distance",
+      "mode": "open"
+    },
+    {
+      "id": "regional:攝影風格:奧山由之-青春電影透明敘事:20",
+      "zh": "奧山由之｜青春電影透明敘事",
+      "en": "Inspired by Yuhki Toyama, tender cinematic youth portraiture, gentle diffused summer light, quiet presence, translucent coming-of-age atmosphere, soft narrative color",
+      "mode": "color"
+    },
+    {
+      "id": "regional:攝影風格:萊斯利-基-華麗明星商業感:21",
+      "zh": "萊斯利・基｜華麗明星商業感",
+      "en": "Inspired by Leslie Kee, polished star portrait photography, high-definition commercial clarity, immaculate retouched finish, vibrant fashion color, premium cover-shoot intensity",
+      "mode": "color"
+    },
+    {
+      "id": "regional:攝影風格:細江英公-戲劇黑白藝術張力:22",
+      "zh": "細江英公｜戲劇黑白藝術張力",
+      "en": "Inspired by Eikoh Hosoe, dramatic monochrome art portraiture, sculptural tonal tension, theatrical shadow contrast, stark chiaroscuro, avant-garde intensity",
+      "mode": "mono"
+    },
+    {
+      "id": "regional:攝影風格:蓋-布爾丁-鮮豔敘事時裝:23",
+      "zh": "蓋・布爾丁｜鮮豔敘事時裝",
+      "en": "Inspired by Guy Bourdin, bold narrative fashion portraiture, vivid color blocking, surreal tension, graphic contrast, dangerous glamour, staged editorial precision",
+      "mode": "color"
+    },
+    {
+      "id": "regional:攝影風格:邁爾斯-奧爾德里奇-復古濃彩高製作:24",
+      "zh": "邁爾斯・奧爾德里奇｜復古濃彩高製作",
+      "en": "Inspired by Miles Aldridge, hyper-stylized fashion portraiture, saturated retro palette, elaborate color staging, glossy cinematic light, lacquered color precision, artificial high-production polish",
+      "mode": "color"
+    },
+    {
+      "id": "regional:攝影風格:艾爾莎-布萊達-霓虹低光孤寂:25",
+      "zh": "艾爾莎・布萊達｜霓虹低光孤寂",
+      "en": "Inspired by Elsa Bleda, nocturnal neon portraiture, moody neon silence, cinematic low-light glow, wet-reflection color, deep blue and magenta night tones",
+      "mode": "color"
+    }
+  ],
+  "film": [
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:全無:0",
+      "zh": "全無",
+      "en": "none",
+      "mode": "open"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:拍立得柔淡即時成像:1",
+      "zh": "拍立得柔淡即時成像",
+      "en": "Polaroid instant-film rendering, faded pastel color response, low contrast curve, soft chemical development texture, subtle edge softness, classic white border",
+      "mode": "color"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:柯達-portra-暖膚底片:2",
+      "zh": "柯達 Portra 暖膚底片",
+      "en": "Kodak Portra film rendering, warm accurate skin-tone response, fine film grain, broad highlight latitude, smooth contrast curve, gentle analog color density",
+      "mode": "color"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:富士-superia-青綠陰影底片:3",
+      "zh": "富士 Superia 青綠陰影底片",
+      "en": "Fujifilm Superia film rendering, cool-green shadow tint, punchy reds and greens, medium-high contrast curve, visible consumer-film grain, crisp analog color response",
+      "mode": "color"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:富士-classic-chrome-低彩編輯感:4",
+      "zh": "富士 Classic Chrome 低彩編輯感",
+      "en": "Fujifilm Classic Chrome film simulation, muted color palette, subdued blues and reds, gentle contrast curve, dry editorial color response, restrained midtone density",
+      "mode": "color"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5",
+      "zh": "富士 Provia 清透明亮",
+      "en": "Fujifilm Provia film simulation, clean balanced color, transparent skin tones, bright natural contrast, crisp daylight-neutral rendering, smooth saturation response",
+      "mode": "color"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6",
+      "zh": "高階黑白灰階",
+      "en": "premium monochrome rendering, black-and-white tonal response, rich grayscale separation, crisp micro-detail, deep blacks, luminous highlight control",
+      "mode": "mono"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:leica-風格鹽粒黑白:7",
+      "zh": "Leica 風格鹽粒黑白",
+      "en": "Leica-like monochrome rendering, rich grayscale separation, fine salt-and-pepper grain, deep blacks, crisp micro-detail, luminous skin highlights",
+      "mode": "mono"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:復古微對比銳利感:8",
+      "zh": "復古微對比銳利感",
+      "en": "vintage sharp rendering, rich micro-contrast, subtle warm highlights, clean 35mm color density, precise edge definition",
+      "mode": "color"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:暖膚數位人像:9",
+      "zh": "暖膚數位人像",
+      "en": "warm digital portrait rendering, flattering skin-tone response, soft highlight roll-off, smooth color transitions, gentle contrast curve, polished color",
+      "mode": "color"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:暖白-jpeg-直出:10",
+      "zh": "暖白 JPEG 直出",
+      "en": "warm JPEG color rendering, bright warm white balance, pleasing skin tones, soft contrast, clean consumer color, smooth in-camera processing",
+      "mode": "color"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:冷調清晰寫實:11",
+      "zh": "冷調清晰寫實",
+      "en": "cool-neutral digital rendering, crisp detail, cool white balance, strong clarity, realistic tonal depth, firm contrast curve, precise color separation",
+      "mode": "color"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:高動態通透明亮:12",
+      "zh": "高動態通透明亮",
+      "en": "high-dynamic-range digital rendering, transparent shadows, crisp natural color, daylight-neutral contrast, clear highlight retention, high-resolution detail",
+      "mode": "color"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:高銳利快照黑位:13",
+      "zh": "高銳利快照黑位",
+      "en": "high-acutance snapshot rendering, snap-focus clarity, contrasty black levels, crisp APS-C-like color response, candid compact-camera texture",
+      "mode": "color"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:中片幅數位色深:14",
+      "zh": "中片幅數位色深",
+      "en": "medium-format digital rendering, ultra-high resolution, broad dynamic range, smooth tonal transitions, refined color depth, organic large-sensor depth",
+      "mode": "color"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:手機-hdr-直出:15",
+      "zh": "手機 HDR 直出",
+      "en": "smartphone HDR JPEG rendering, automatic exposure balance, computational highlight recovery, crisp sharpening, noise-reduced shadows, clean modern phone color",
+      "mode": "color"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:vhs-錄影帶低畫質:16",
+      "zh": "VHS 錄影帶低畫質",
+      "en": "VHS camcorder image degradation, analog tape noise, scanlines, color bleeding, chromatic aberration, low-resolution interlaced texture, tracking glitches",
+      "mode": "color"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:y2k-ccd-低清快照:17",
+      "zh": "Y2K CCD 低清快照",
+      "en": "early-2000s compact-digital rendering, on-camera flash glare, low-resolution CCD softness, narrow dynamic range, clipped highlights, crushed noisy shadows, magenta-green color cast, blocky JPEG artifacts",
+      "mode": "color"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:復古-ccd-晃動快照:18",
+      "zh": "復古 CCD 晃動快照",
+      "en": "retro CCD failure-snapshot rendering, heavy motion smear, soft low-pixel detail, blown unstable highlights, muddy chroma noise, purple edge fringing, banded gradients, low-end JPEG compression",
+      "mode": "color"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:日系亮膚高彩濾鏡:19",
+      "zh": "日系亮膚高彩濾鏡",
+      "en": "glossy Japanese portrait color grade, lifted midtones, creamy pale highlights, warm peach skin-tone protection, cyan-green shadows, vivid saturation, clean deep blacks",
+      "mode": "color"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:日系清透淡彩濾鏡:20",
+      "zh": "日系清透淡彩濾鏡",
+      "en": "transparent Japanese portrait color grade, airy low-contrast tonality, milky white highlights, pastel saturation, neutral-clean skin tones, delicate cool shadow tint",
+      "mode": "color"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:日系高曝光奶油膚色:21",
+      "zh": "日系高曝光奶油膚色",
+      "en": "high-key Japanese portrait color grade, elevated exposure, creamy porcelain highlights, softened shadow floor, restrained saturation, protected dark-material density",
+      "mode": "color"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:日系夜景亮膚霓虹:22",
+      "zh": "日系夜景亮膚霓虹",
+      "en": "neon-tinted Japanese portrait color grade, protected bright skin tones, cool cyan shadow bias, warm-magenta highlights, clean black levels, controlled luminous saturation",
+      "mode": "color"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:日系雜誌高彩銳利:23",
+      "zh": "日系雜誌高彩銳利",
+      "en": "Japanese magazine color grade, vivid editorial saturation, polished highlight brightness, crisp micro-contrast, sharp edge definition, clean dense blacks, print-finish contrast",
+      "mode": "color"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:日系柔霧亮膚:24",
+      "zh": "日系柔霧亮膚",
+      "en": "soft-tonal Japanese portrait color grade, luminous pale highlights, gentle bloom, lowered micro-contrast, airy contrast, pastel shadow softness",
+      "mode": "color"
+    },
+    {
+      "id": "camera:底片與相機模擬-camera-film-simulation:跨沖霓虹剪影濾鏡:25",
+      "zh": "跨沖霓虹剪影濾鏡",
+      "en": "neon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels, cold porcelain highlights",
+      "mode": "color"
+    }
+  ]
+}

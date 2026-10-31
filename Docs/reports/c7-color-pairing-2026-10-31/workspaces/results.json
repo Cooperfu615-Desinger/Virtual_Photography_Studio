@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "url": "http://127.0.0.1:5175/Virtual_Photography_Studio/",
+  "checks": [
+    "1440:Prompt 工作台",
+    "1440:角色建模",
+    "1440:場景建模",
+    "1440:DLL_PIC Pro",
+    "1440:DLL_VIDEO Pro",
+    "1440:Saved Cards",
+    "390:Prompt 工作台",
+    "390:角色建模",
+    "390:場景建模",
+    "390:DLL_PIC Pro",
+    "390:DLL_VIDEO Pro",
+    "390:Saved Cards"
+  ],
+  "errors": []
+}

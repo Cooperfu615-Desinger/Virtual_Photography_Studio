@@ -1,0 +1,26 @@
+{
+  "base": "591cc0575ab87582540662236b4230fadfea16bf",
+  "sources": {
+    "Docs/current_project_state.md": "0f30464046662f5367c04cf89a14160979072eda7673dc15f05c4499edee7c0c",
+    "Docs/decisions/2026-10-31-c7-color-pairing.md": "54d61af7c78f6ea9d3aa1e3c85accb6c4367b04913e0e01fd77d7c25aa692611",
+    "Docs/specs/c7-color-pairing-v1.md": "3869275a2eb4bc8a2987eea3537eb8451d58158880c348afe0a48c4c00d1168a",
+    "Docs/specs/photography-section-d-authoring-guide.md": "93bb6dd8ebbd8ff8ef24f733e178c09a4d80a102e271988c9f296b76eeb5899a",
+    "scripts/c7_color_pairing_acceptance.mjs": "8e467a2fb6a2359046c19489ed7b1894e2ac3b6e18dd905dc8b5c6dbac71a768",
+    "scripts/c7_color_pairing_browser.mjs": "d5bf2af6c9fe4ba86bb8e636da50f66b49eda29b3ec64e1ca00c4de4a07dbd64",
+    "scripts/c7_color_pairing_history.mjs": "f017ca4739f0359371939dedde8516d38688e2e6062549c886c56de4b6bf24c2",
+    "scripts/c7_color_pairing_modes.mjs": "9694bb86aa2dc71186b0bfe31f1e359755d07cf5f172a71de46fddbf33c92f42",
+    "scripts/lib/c7ColorFixtures.mjs": "963e99ffe1ff64d03efd2f3e04f4ebaae3ea404690bb07e4f10300f40dd8edf6",
+    "scripts/lib/c7ColorHistoricalTest.mjs": "5199c78da9b00c25046651f20a579431c7b3ac5eaded389bff3a9d25a5d2bd85",
+    "scripts/lib/c7ColorPairingPatches.json": "ba98ab714ab16998c0d4c7105003f9748b9dd10cc8d6734caae44011f1ecc75a",
+    "scripts/lib/c7ColorPairingReplay.mjs": "b6b6d3f4490babeddcd7995d716b1bfc3ea4d49c554d51e71f546b7cc3d95a4b",
+    "scripts/lib/c7NightLightingReplay.mjs": "9da101a33f359900a0c6de53b1ea2660105e2fe3dba9f9aae4c835b31dea75c6",
+    "webapp/src/lib/engine.js": "76916a4e26fe330b0b2888570a0d3f970ac1467a9be1cb553b912f68fc57e42c",
+    "webapp/src/lib/engine/c7ColorPairing.test.js": "fb514224ba9a179f7e579c835c59d74c7a906d1d26d6e016d92362153d37d3da",
+    "webapp/src/lib/engine/c7NightLighting.test.js": "adfa6fe09912f84bd1bf50dd34bdf830fe3d6341bc0efff163cea18500fe1fcf",
+    "webapp/src/lib/engine/imagingColorCompatibility.js": "33095f711ed2d78315c8cff967a4ee48c90ff0047e9270e76a8e721fdb2a41d9",
+    "webapp/src/lib/engine/imagingColorSources.json": "ea0d37aeb303031de2a5685f7a33274e92c908f70106bdb58dff2e207b907524",
+    "webapp/src/lib/engine/sceneSemanticA5Ximending.test.js": "cf2ec470fe542190e433f6e4d0c8bbdda8cc095bc34ffbbaed346a1569f06006"
+  },
+  "sealedBaselineSha256": "0a107f19904641e8fe9b21924173fc00c7475e0909499986d3ab23b46893136d",
+  "reviewStatus": "local-validation-passed-user-acceptance-pending"
+}

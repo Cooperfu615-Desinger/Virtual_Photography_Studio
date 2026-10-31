@@ -1,0 +1,156 @@
+{
+  "baseCommit": "ae57e34341890d2ac77b2deb133a317a7451a2b9",
+  "inverseExact": true,
+  "inverseInputs": [
+    {
+      "path": "knowledge_base/camera_and_lighting.md",
+      "sha256": "31e94ec7b4379bbf927730105ce72e3e20214746c045aa6622173cdacc59d8bc",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "knowledge_base/catalog/CameraLighting/環境光條件-ambient-light-conditions.json",
+      "sha256": "783f4203273590319134bcaa2c36fa3b6bc704202b7d252a18d845fef24ba75b",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "knowledge_base/catalog/Locations/地下與廢墟風格-abandoned-underground.json",
+      "sha256": "6697d071f0c9c2b639950b2a9877e5b3c58ffba987fc9440bc4669ca2486cdb6",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+      "sha256": "64d5867449894f37bafbbe0f02ef2227a203ea0ade1aabd52125d736253ac231",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "knowledge_base/catalog/Locations/攝影棚與背景-studio-sets.json",
+      "sha256": "b5ecb062cd2e50f163f5d35698c52dae1a6c14c1ffbde07838c538e9503fb0d0",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "knowledge_base/catalog/Locations/生活感室內-indoor-lifestyle.json",
+      "sha256": "cb934741b6ce4af8e0ad26594b8231133a810fe2682d9209ba2f7fa876705881",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/套裝-outfit-presets.json",
+      "sha256": "982732558a7427dd71bf743c2e51a96d0fb670c354844d366a5f05229d7b1558",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "knowledge_base/catalog/field_mapping.json",
+      "sha256": "5d940df14a64b0fa16cd9abec8d84d1d108ebf66e2c5fa02ddd7957fac3be47d",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "knowledge_base/catalog/schema.json",
+      "sha256": "1f75928d3322cc94dcd81108cfe1bcf851c8a51dd1db426ed5fb335ae67adfef",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "scripts/lib/a1AdultIdentityHistoricalReplay.mjs",
+      "sha256": "ddae71904a0ceb938550a90bc41cd94194e765c0816e31c945e9158a4148ebd9",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "scripts/lib/a2ChestDressRegionReplay.mjs",
+      "sha256": "5c0b98738c1ba8c37578b13def41adaf084f9d093496e3730d3f32ffae97ed94",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "scripts/lib/a2DressControlHistoricalReplay.mjs",
+      "sha256": "9f43e284981f365e3ad878424800ca9aa05ea596ad7eb97bc5c8fe6934f3a565",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "scripts/lib/a2OutfitControlHistoricalReplay.mjs",
+      "sha256": "72edbb66505988fea9a4efba9b6c7dcda2d4b91fa1b1bb787b19b7892e0db4b8",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "scripts/lib/a2WardrobeColorRecoveryReplay.mjs",
+      "sha256": "068cb87578c7519340f7a57d642b7072af23a340ada7c96cd3d1cf5c699b6c40",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "webapp/package.json",
+      "sha256": "f6834e9e27a494effe8aeee79b4bd907c97fb660d58be455339dcb7594da2ce5",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "webapp/src/components/Page1Workspace.jsx",
+      "sha256": "10ca7a185879a098411f5b412c48694083a96322f89d46ae7f5b116d7af433fd",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "webapp/src/data/database.json",
+      "sha256": "63a9379e027de84915b776951ce5c6017e09583edf2f3695badceef185df25a2",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "webapp/src/features/page1/page1Selectors.js",
+      "sha256": "544893a0d655ed2d9ae8d4297c5a6c5cc2935e31b13e49a384260314c8e400de",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "webapp/src/lib/engine.js",
+      "sha256": "686b8f2cdd4e8ab7c8228a47a27104260c982f780d788af53b21b5d9d62cebd9",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "webapp/src/lib/engine/ambientLightDescriptions.js",
+      "sha256": "4a30b2d767306eb5757a8f93360cb8884ad141aafa37d3811de03c2b28e6d941",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "webapp/src/lib/engine/chestDressRegionHistory.test.js",
+      "sha256": "e593c717b72ef90d500d4af0d3024ac6ba37e6b55715f2a840c17cc118fd292d",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "webapp/src/lib/engine/publicPromptPolish.js",
+      "sha256": "78bcc5c02cce13b48713bac0e9a9b2b34d07f9cb2820f26f85e2c80e9a5f1dfa",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "webapp/src/lib/engine/sceneSemanticA5Ximending.test.js",
+      "sha256": "0aac44579d9621349b5de5b535d6082c70ac9fe640e98b3ecd095c1e81eadb08",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "webapp/src/lib/engine/shibuyaCrowdScene.test.js",
+      "sha256": "ec817bf0f3a0bf6b7bf0e72b54c31063d4a5ea1e91d61cd291d126e31c458839",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "webapp/src/lib/engine/specialTapeControlLanguage.test.js",
+      "sha256": "8ea4662b05041f30c7a6af99b534ae5144d11f2afd8df8f1d0137edf44856a91",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "webapp/src/lib/enginePromptPipeline.test.js",
+      "sha256": "2539b1e278b89063f147f76709859a403a79820337c18562085c6c6680a46498",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "webapp/src/lib/engineSpecialSubjects.test.js",
+      "sha256": "f66592db0d3220a0ac6ea2d5b651341fa12c448e4df1d43e37fa3b54c3d19919",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "webapp/src/lib/page3WorldScene.js",
+      "sha256": "43e8eafc2c7dc9ba4a5a51b2427eaaf26750be84dcf7499065f88b8c057ec190",
+      "equalsFixedGit": true
+    }
+  ],
+  "log": [
+    {
+      "script": "chest_dress_region_a2_acceptance.mjs",
+      "passed": true
+    },
+    {
+      "script": "chest_dress_region_a2_history.mjs",
+      "passed": true
+    }
+  ]
+}

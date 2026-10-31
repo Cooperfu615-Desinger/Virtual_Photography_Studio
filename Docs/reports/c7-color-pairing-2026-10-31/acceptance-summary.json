@@ -1,0 +1,132 @@
+{
+  "base": "591cc0575ab87582540662236b4230fadfea16bf",
+  "status": "local-validation-passed-with-recorded-browser-limitations",
+  "userAcceptance": "pending",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "newCIOrDeployment": "not-run-not-authorized",
+  "matrix": {
+    "base": "591cc0575ab87582540662236b4230fadfea16bf",
+    "record": false,
+    "cases": 2482,
+    "eligible": 2241,
+    "changed": 593,
+    "manualPairs": 702,
+    "randomBudgetPreserved": true,
+    "fullBodyPreserved": true,
+    "savedAndMarkdownPreserved": true
+  },
+  "supplement": {
+    "base": "591cc0575ab87582540662236b4230fadfea16bf",
+    "cases": 112,
+    "randomLying": 5,
+    "allRandomBudgetsPreserved": true,
+    "zipOriginalPreserved": true
+  },
+  "tests": 2077,
+  "promptQuality": 853,
+  "focusedColorAndXimending": 13,
+  "python": 59,
+  "catalogTools": 32,
+  "assets": 207,
+  "strict": {
+    "count": 200,
+    "seed": "prompt-quality-baseline",
+    "blockers": 0,
+    "promptsWithFindings": 17,
+    "diagnosticSignals": 18,
+    "newDiagnostics": 0,
+    "onlyReportDiff": "GPT avg 479.7 -> 479.6; Z avg 332.8 -> 332.7"
+  },
+  "gates": [
+    "lint",
+    "build",
+    "production-bundle",
+    "sync-schema-history-1050-IDs-8-generated",
+    "catalog-strict",
+    "full-historical-chain",
+    "git-diff-check"
+  ],
+  "browser": [
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "randomPairs": 40,
+      "downloadCards": 43,
+      "manualAndOldConflictPreserved": true,
+      "programmaticFallbacks": [
+        {
+          "key": "filmId",
+          "id": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+        },
+        {
+          "key": "styleId",
+          "id": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0"
+        },
+        {
+          "key": "filmId",
+          "id": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5"
+        },
+        {
+          "key": "styleId",
+          "id": ""
+        },
+        {
+          "key": "styleId",
+          "id": "style-none"
+        },
+        {
+          "key": "filmId",
+          "id": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+        }
+      ],
+      "nativePopupMouseVerified": false,
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "viewport": [
+        390,
+        900
+      ],
+      "randomPairs": 40,
+      "downloadCards": 43,
+      "manualAndOldConflictPreserved": true,
+      "programmaticFallbacks": [
+        {
+          "key": "filmId",
+          "id": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+        },
+        {
+          "key": "styleId",
+          "id": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0"
+        },
+        {
+          "key": "filmId",
+          "id": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5"
+        },
+        {
+          "key": "styleId",
+          "id": ""
+        },
+        {
+          "key": "styleId",
+          "id": "style-none"
+        },
+        {
+          "key": "filmId",
+          "id": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+        }
+      ],
+      "nativePopupMouseVerified": false,
+      "errors": [],
+      "overflow": false
+    }
+  ],
+  "workspaces": 12,
+  "imagesGenerated": false,
+  "earlierLimitationsPreserved": true
+}

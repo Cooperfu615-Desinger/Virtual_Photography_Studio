@@ -4,6 +4,15 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-31
 
+## C7 第二批：黑白／彩色隨機配對（2026-10-31，使用者驗收通過）
+
+- 對齊最新main `591cc0575ab87582540662236b4230fadfea16bf`，僅一般PAGE1單人／預設目錄。手動值優先，雙隨機維持風格先選，精確審閱來源避免黑白／彩色相反配對；全無、open、未知ID退路及排除模式保持。
+- 修改前2482組基準含702手動配對，獨立預期593組改選；RNG呼叫數、其他人物／穿搭／場景選值及全身角色照保持。正式目錄、ID／alias／semantic、renderer與舊收藏原文不變。
+- 2482固定組、112補驗、聚焦13、前端2077／品質853／Python59、lint／build／bundle／sync／strict／207資產及完整歷史鏈通過；原277組適用隨機衝突降為0。200筆同seed稽核仍0 blocker，17份Prompt的18個既有診斷保持。
+- 桌手機各40次隨機、手動衝突、全無、舊卡還原／各43卡ZIP及六工作區12項檢查通過。各6次下拉使用change fallback，原生popup滑鼠與未生圖限制保留。原4552份非本批追蹤檔／2892歷史報告、其他20工作目錄／140未提交檔保持。
+- 見[規格](specs/c7-color-pairing-v1.md)、[決策](decisions/2026-10-31-c7-color-pairing.md)與[驗收](reports/c7-color-pairing-2026-10-31/README.md)。Cooper已授權只提交並推送本批內容，CI及部署於交付時核對；之後進行整合驗收與C7盤點。其他模式與C7項目另批，艾爾莎場所／隨機可達性政策保持，PAGE2舊匯入／J12／P5b暫緩；第一批原生popup與未生圖限制保持。
+- C7第一批 `591cc057` 的CI／部署已全數通過：[交付紀錄](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41154129093)。該結果不代表本批CI／部署。
+
 ## C7 第一批：夜間派對隨機環境光（2026-10-31，使用者驗收通過）
 
 - 對齊main `0cf5d7650ffe8be606c9ddb165809c6b826d2669`；只限一般PAGE1單人、預設目錄、夜間家庭派對及未鎖定環境光，排除六款明確日光／餘光。UI16項、手動日光／全無、其他場景及雙人／固定構圖／角色卡／特殊主體／抓拍／匯入／躺姿／自訂library保持；艾爾莎隨機規則不改。

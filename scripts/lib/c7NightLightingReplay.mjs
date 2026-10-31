@@ -1,3 +1,4 @@
+import {preC7ColorPairingSource,preparePreC7ColorPairingFiles} from './c7ColorPairingReplay.mjs';
 // Test-only exact inverse. Product sources and historical seals are never rewritten.
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync,existsSync,realpathSync,lstatSync} from 'node:fs';
@@ -8,6 +9,7 @@ import patch from './c7NightLightingPatch.json' with {type:'json'};
 const root=fileURLToPath(new URL('../../',import.meta.url));
 const hash=s=>createHash('sha256').update(s).digest('hex');
 export function preC7NightLightingSource(path,source){
+ source=preC7ColorPairingSource(path,source);
  if(path!==patch.path)return source;
  const text=source.toString(),sha=hash(source);
  if(sha!==patch.afterHash){
@@ -24,10 +26,11 @@ export function preparePreC7NightLightingFiles(directory){
  const resolved=realpathSync(directory);
  assert.notEqual(resolved,realpathSync(root),'C7 requires isolated copy');
  assert.ok(!existsSync(join(directory,'.git')),'C7 rejects Git checkout');
- const sources=new Map(),path=join(directory,patch.path);
+ const color=preparePreC7ColorPairingFiles(directory,{allowEarlier:true});
+ const sources=new Map(color.sources),path=join(directory,patch.path);
  if(existsSync(path)){
   assert.ok(!lstatSync(path).isSymbolicLink()&&realpathSync(path).startsWith(resolved+'/'),'C7 rejects linked source');
-  const source=readFileSync(path),before=preC7NightLightingSource(patch.path,source);
+  const source=sources.get(patch.path)??readFileSync(path),before=preC7NightLightingSource(patch.path,source);
   if(!source.equals(before))sources.set(patch.path,before);
  }
  return {sources,apply(){for(const [p,s]of sources)writeFileSync(join(directory,p),s);}};

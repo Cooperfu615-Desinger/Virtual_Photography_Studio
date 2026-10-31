@@ -1,3 +1,5 @@
+import {preC7ColorHistoricalTest} from '../../../../scripts/lib/c7ColorHistoricalTest.mjs';
+const c7ColorHistoricalTest = preC7ColorHistoricalTest(import.meta.url);
 import { preA2HistoricalTest } from '../../../../scripts/lib/a2DressControlHistoricalTest.mjs';
 const a2HistoricalTest = preA2HistoricalTest(import.meta.url);
 import assert from 'node:assert/strict';
@@ -69,7 +71,7 @@ test('836 crop/ambient/scene-attribute combinations preserve all ordered candida
   }
   assert.equal(n, 836);
 });
-test('manual and randomized Ximending selections, six outputs and RNG remain equal', () => {
+c7ColorHistoricalTest('manual and randomized Ximending selections, six outputs and RNG remain equal', () => {
   const before = beforeLibrary();
   const manual = naturalFixtureLocks({ ...CRT_MIDJOURNEY_SELECTIONS, locationId: r.id, sceneAttributeId: 'outdoor', framingId: full });
   const inputs = options('framingId').flatMap(frame => ['1', '2'].map(subjectCount => ({ ...manual, framingId: frame.id, subjectCount })));

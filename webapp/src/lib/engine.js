@@ -1,3 +1,4 @@
+import { pickColorCompatibleStyle, pickColorCompatibleFilm } from './engine/imagingColorCompatibility.js';
 import { nightPartyAllowsRandomAmbient } from './engine/nightPartyLighting.js';
 import { projectCharacterPhotographicDirection } from './engine/characterPhotographicDirection.js';
 import legacyMappings from '../data/legacyMappings.json' with { type: 'json' };
@@ -16440,11 +16441,26 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
       sample,
       ['locationId'],
     );
+  // C7 color pairing owns only ordinary default-catalog random choices.
+  // Explicit/legacy locks still use pickWithLock's existing priority.
+  const colorImagingLock = effectiveLocks.filmId
+    || (CAMERA_PROFILE_OPTION_IDS.has(effectiveLocks.cameraSystemId) ? effectiveLocks.cameraSystemId : '');
+  const colorLockKnown = (value, list) => !value || isRandomLockValue(value) || Boolean(findById(list, value));
+  const applyColorPairing = runtime === getEngineRuntime()
+    && subject.count === 1 && !subject.reference && !dedicatedSubject && !capture
+    && !String(runtimeOptions.characterProfilePrompt || '').trim()
+    && !fixedCompositionSetActive && !supineSurfaceOnly && !lyingActionActive && effectiveLocks.poseBaseId !== 'lying'
+    && (!effectiveLocks.importedWorldSceneMode || effectiveLocks.importedWorldSceneMode === 'none')
+    && colorLockKnown(effectiveLocks.styleId, runtime.flatCatalog.regional)
+    && colorLockKnown(colorImagingLock, runtime.flatCatalog.film);
+  const colorFilmAnchor = applyColorPairing ? findById(runtime.flatCatalog.film, colorImagingLock) : null;
   let style = pickLocked(
     runtime.flatCatalog.regional,
     effectiveLocks.styleId,
     (item) => styleFitsLocation(item, location),
-    sample,
+    applyColorPairing
+      ? (candidates, rng) => pickColorCompatibleStyle(candidates, colorFilmAnchor, rng)
+      : sample,
     ['styleId'],
   );
   const lockedSpecialAction = effectiveLocks.specialActionId
@@ -16576,7 +16592,9 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
     runtime.flatCatalog.film,
     imagingLockId,
     () => true,
-    lowFrequencyPicker('low_frequency_film'),
+    applyColorPairing
+      ? (candidates, rng) => pickColorCompatibleFilm(candidates, style, rng)
+      : lowFrequencyPicker('low_frequency_film'),
     ['filmId', 'cameraSystemId'],
   );
   const cameraSystem = getLegacyCameraSystemFromImaging(film);

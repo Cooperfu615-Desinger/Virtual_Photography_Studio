@@ -1,0 +1,404 @@
+[
+  {
+    "width": 1440,
+    "height": 1000,
+    "manualConflictPreserved": true,
+    "randomCases": [
+      {
+        "style": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+        "film": "camera:底片與相機模擬-camera-film-simulation:leica-風格鹽粒黑白:7"
+      },
+      {
+        "style": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+        "film": "camera:底片與相機模擬-camera-film-simulation:leica-風格鹽粒黑白:7"
+      },
+      {
+        "style": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+        "film": "camera:底片與相機模擬-camera-film-simulation:leica-風格鹽粒黑白:7"
+      },
+      {
+        "style": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+        "film": "camera:底片與相機模擬-camera-film-simulation:leica-風格鹽粒黑白:7"
+      },
+      {
+        "style": "regional:攝影風格:沃夫岡-提爾曼斯-生活切片隨拍:14",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:篠山紀信-經典寫真名人肖像:17",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:鈴木親-年輕時尚生活感:18",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:尤爾根-特勒-直閃反精緻:10",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:艾倫-馮-昂沃斯-俏皮抓拍雜誌:8",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:理察-阿維頓-極簡留白肖像:11",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:亞歷克-索斯-寬鬆紀實敘事:12",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:日系清透淡彩濾鏡:20"
+      },
+      {
+        "style": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-classic-chrome-低彩編輯感:4"
+      },
+      {
+        "style": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:日系亮膚高彩濾鏡:19"
+      },
+      {
+        "style": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:y2k-ccd-低清快照:17"
+      },
+      {
+        "style": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:日系雜誌高彩銳利:23"
+      },
+      {
+        "style": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高動態通透明亮:12"
+      },
+      {
+        "style": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-superia-青綠陰影底片:3"
+      },
+      {
+        "style": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:拍立得柔淡即時成像:1"
+      },
+      {
+        "style": "regional:攝影風格:橫浪修-群像留白秩序:2",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5"
+      },
+      {
+        "style": "regional:攝影風格:上田義彥-靜默自然暗調:1",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5"
+      },
+      {
+        "style": "regional:攝影風格:南-戈爾丁-私人相簿粗粒子:9",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5"
+      },
+      {
+        "style": "regional:攝影風格:鈴木親-年輕時尚生活感:18",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5"
+      },
+      {
+        "style": "regional:攝影風格:石田真澄-柔亮底片空氣感:4",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5"
+      },
+      {
+        "style": "regional:攝影風格:莎莉-曼-古典濕版記憶感:13",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5"
+      },
+      {
+        "style": "regional:攝影風格:邁爾斯-奧爾德里奇-復古濃彩高製作:24",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5"
+      },
+      {
+        "style": "regional:攝影風格:萊斯利-基-華麗明星商業感:21",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5"
+      },
+      {
+        "style": "regional:攝影風格:邁爾斯-奧爾德里奇-復古濃彩高製作:24",
+        "film": "camera:底片與相機模擬-camera-film-simulation:vhs-錄影帶低畫質:16"
+      },
+      {
+        "style": "regional:攝影風格:荒木經惟-私寫真親密:16",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高動態通透明亮:12"
+      },
+      {
+        "style": "regional:攝影風格:萊斯利-基-華麗明星商業感:21",
+        "film": "camera:底片與相機模擬-camera-film-simulation:vhs-錄影帶低畫質:16"
+      },
+      {
+        "style": "regional:攝影風格:亞歷克-索斯-寬鬆紀實敘事:12",
+        "film": "camera:底片與相機模擬-camera-film-simulation:y2k-ccd-低清快照:17"
+      },
+      {
+        "style": "regional:攝影風格:鈴木親-年輕時尚生活感:18",
+        "film": "camera:底片與相機模擬-camera-film-simulation:中片幅數位色深:14"
+      },
+      {
+        "style": "regional:攝影風格:蓋-布爾丁-鮮豔敘事時裝:23",
+        "film": "camera:底片與相機模擬-camera-film-simulation:跨沖霓虹剪影濾鏡:25"
+      },
+      {
+        "style": "regional:攝影風格:篠山紀信-經典寫真名人肖像:17",
+        "film": "camera:底片與相機模擬-camera-film-simulation:中片幅數位色深:14"
+      },
+      {
+        "style": "regional:攝影風格:邁爾斯-奧爾德里奇-復古濃彩高製作:24",
+        "film": "camera:底片與相機模擬-camera-film-simulation:復古微對比銳利感:8"
+      }
+    ],
+    "nonePreserved": true,
+    "downloadCards": 43,
+    "oldPublicTextAndSelectionPreserved": true,
+    "oldConflictRestored": true,
+    "outputs": 6,
+    "errors": [],
+    "overflow": false,
+    "programmaticFallback": [
+      {
+        "key": "filmId",
+        "id": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "key": "styleId",
+        "id": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0"
+      },
+      {
+        "key": "filmId",
+        "id": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5"
+      },
+      {
+        "key": "styleId",
+        "id": ""
+      },
+      {
+        "key": "styleId",
+        "id": "style-none"
+      },
+      {
+        "key": "filmId",
+        "id": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      }
+    ],
+    "nativePopupMouseVerified": false
+  },
+  {
+    "width": 390,
+    "height": 900,
+    "manualConflictPreserved": true,
+    "randomCases": [
+      {
+        "style": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+        "film": "camera:底片與相機模擬-camera-film-simulation:leica-風格鹽粒黑白:7"
+      },
+      {
+        "style": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+        "film": "camera:底片與相機模擬-camera-film-simulation:leica-風格鹽粒黑白:7"
+      },
+      {
+        "style": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+        "film": "camera:底片與相機模擬-camera-film-simulation:leica-風格鹽粒黑白:7"
+      },
+      {
+        "style": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+        "film": "camera:底片與相機模擬-camera-film-simulation:leica-風格鹽粒黑白:7"
+      },
+      {
+        "style": "regional:攝影風格:篠山紀信-經典寫真名人肖像:17",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:艾倫-馮-昂沃斯-俏皮抓拍雜誌:8",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:細江英公-戲劇黑白藝術張力:22",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:艾倫-馮-昂沃斯-俏皮抓拍雜誌:8",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:沃夫岡-提爾曼斯-生活切片隨拍:14",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:鈴木親-年輕時尚生活感:18",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:市橋織江-透明自然低飽和:5",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "style": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:手機-hdr-直出:15"
+      },
+      {
+        "style": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:日系高曝光奶油膚色:21"
+      },
+      {
+        "style": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:暖白-jpeg-直出:10"
+      },
+      {
+        "style": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:y2k-ccd-低清快照:17"
+      },
+      {
+        "style": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-classic-chrome-低彩編輯感:4"
+      },
+      {
+        "style": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:手機-hdr-直出:15"
+      },
+      {
+        "style": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:冷調清晰寫實:11"
+      },
+      {
+        "style": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:中片幅數位色深:14"
+      },
+      {
+        "style": "regional:攝影風格:青山裕企-青春寫真直接人像:19",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5"
+      },
+      {
+        "style": "regional:攝影風格:艾爾莎-布萊達-霓虹低光孤寂:25",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5"
+      },
+      {
+        "style": "regional:攝影風格:沃夫岡-提爾曼斯-生活切片隨拍:14",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5"
+      },
+      {
+        "style": "regional:攝影風格:莎莉-曼-古典濕版記憶感:13",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5"
+      },
+      {
+        "style": "regional:攝影風格:川內倫子-輕盈日常微光:3",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5"
+      },
+      {
+        "style": "regional:攝影風格:篠山紀信-經典寫真名人肖像:17",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5"
+      },
+      {
+        "style": "regional:攝影風格:沃夫岡-提爾曼斯-生活切片隨拍:14",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5"
+      },
+      {
+        "style": "regional:攝影風格:亞歷克-索斯-寬鬆紀實敘事:12",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5"
+      },
+      {
+        "style": "regional:攝影風格:石田真澄-柔亮底片空氣感:4",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5"
+      },
+      {
+        "style": "regional:攝影風格:艾倫-馮-昂沃斯-俏皮抓拍雜誌:8",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-classic-chrome-低彩編輯感:4"
+      },
+      {
+        "style": "regional:攝影風格:沃夫岡-提爾曼斯-生活切片隨拍:14",
+        "film": "camera:底片與相機模擬-camera-film-simulation:柯達-portra-暖膚底片:2"
+      },
+      {
+        "style": "regional:攝影風格:邁爾斯-奧爾德里奇-復古濃彩高製作:24",
+        "film": "camera:底片與相機模擬-camera-film-simulation:vhs-錄影帶低畫質:16"
+      },
+      {
+        "style": "regional:攝影風格:市橋織江-透明自然低飽和:5",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-classic-chrome-低彩編輯感:4"
+      },
+      {
+        "style": "regional:攝影風格:莎莉-曼-古典濕版記憶感:13",
+        "film": "camera:底片與相機模擬-camera-film-simulation:復古-ccd-晃動快照:18"
+      },
+      {
+        "style": "regional:攝影風格:理察-阿維頓-極簡留白肖像:11",
+        "film": "camera:底片與相機模擬-camera-film-simulation:vhs-錄影帶低畫質:16"
+      },
+      {
+        "style": "regional:攝影風格:亞歷克-索斯-寬鬆紀實敘事:12",
+        "film": "camera:底片與相機模擬-camera-film-simulation:y2k-ccd-低清快照:17"
+      }
+    ],
+    "nonePreserved": true,
+    "downloadCards": 43,
+    "oldPublicTextAndSelectionPreserved": true,
+    "oldConflictRestored": true,
+    "outputs": 6,
+    "errors": [],
+    "overflow": false,
+    "programmaticFallback": [
+      {
+        "key": "filmId",
+        "id": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "key": "styleId",
+        "id": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0"
+      },
+      {
+        "key": "filmId",
+        "id": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5"
+      },
+      {
+        "key": "styleId",
+        "id": ""
+      },
+      {
+        "key": "styleId",
+        "id": "style-none"
+      },
+      {
+        "key": "filmId",
+        "id": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      }
+    ],
+    "nativePopupMouseVerified": false
+  }
+]

@@ -1,0 +1,6 @@
+{
+  "base": "591cc0575ab87582540662236b4230fadfea16bf",
+  "beforeHash": "f9bc8fa2586add97ca3750e25377a79ecd496edaa89b0d6c05dd0af990dfb219",
+  "oracleHash": "bdd2d7323878e4e79f028f0490cc3d3d2e5ccf6296bc4d1fe108160011a596ec",
+  "method": "Original picker consumes original random tape; independent reviewed-pool index uses final draw; renderer unchanged."
+}

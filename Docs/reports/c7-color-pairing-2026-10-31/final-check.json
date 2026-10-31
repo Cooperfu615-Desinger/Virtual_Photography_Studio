@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "originalTracked": 4558,
+  "changedTracked": [
+    "Docs/current_project_state.md",
+    "Docs/specs/photography-section-d-authoring-guide.md",
+    "scripts/lib/c7NightLightingReplay.mjs",
+    "webapp/src/lib/engine.js",
+    "webapp/src/lib/engine/c7NightLighting.test.js",
+    "webapp/src/lib/engine/sceneSemanticA5Ximending.test.js"
+  ],
+  "preservedTracked": 4552,
+  "historicalReportsPreserved": 2892,
+  "otherWorktrees": 20,
+  "otherDirtyFiles": 140,
+  "missingWorktreesUnchanged": 1,
+  "sourceFiles": 19,
+  "localLinks": 11,
+  "sealedArtifacts": 117,
+  "head": "591cc0575ab87582540662236b4230fadfea16bf",
+  "staged": false,
+  "committed": false,
+  "pushed": false
+}
