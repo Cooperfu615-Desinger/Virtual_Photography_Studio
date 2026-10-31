@@ -1,0 +1,101 @@
+{
+  "base": "de1433351605d140d618e4e9ab81a9566733bc10",
+  "phase": "local pre-delivery acceptance snapshot",
+  "files": [
+    {
+      "path": "Docs/current_project_state.md",
+      "sha256": "f0a90d858f7306e742d80bc325a28b2b517e43605384e31239a62e79725de93b",
+      "bytes": 433120
+    },
+    {
+      "path": "Docs/decisions/2026-10-31-c1-character-identity.md",
+      "sha256": "b931ba9918044b00b748a2bf52e1bea171f55a03c5fd55b953236bd00f288aec",
+      "bytes": 1354
+    },
+    {
+      "path": "Docs/specs/c1-character-identity-v1.md",
+      "sha256": "dee555250356d6718a23bc7cc3d97230302aa3b3e57a0bc001f896c148d61693",
+      "bytes": 6687
+    },
+    {
+      "path": "Docs/specs/character-card-facial-identity.md",
+      "sha256": "171ba2211ab23d5cc3764fc5cde0d0dbc6a631a5c41469c5173752f31dad1e44",
+      "bytes": 23308
+    },
+    {
+      "path": "scripts/c1_identity_acceptance.mjs",
+      "sha256": "91ec6d9053c93b9d6e9e6ff44dfabd7b26a443ae2c2846e5479ba1a44822ec56",
+      "bytes": 5397
+    },
+    {
+      "path": "scripts/c1_identity_browser.mjs",
+      "sha256": "af4260c440f970f874203d0aa4c33c39aea8d1e8ad5f7fdb2ae624c33f2e5406",
+      "bytes": 9139
+    },
+    {
+      "path": "scripts/c1_identity_history.mjs",
+      "sha256": "662cf734b67ffc864e620f8fc606e664014fc3c9387557f387b423609d59bd48",
+      "bytes": 2295
+    },
+    {
+      "path": "scripts/lib/b3CharacterWardrobeReplay.mjs",
+      "sha256": "1beb65d347d1849eaf7822d70ec0707b9363810cc26a9c0bf6679d4e2cae21ec",
+      "bytes": 3397
+    },
+    {
+      "path": "scripts/lib/c1IdentityFixtures.mjs",
+      "sha256": "8723f2201d95947844be719425019c8cc828dd0a1be9b975c348b7a675c1ef02",
+      "bytes": 4016
+    },
+    {
+      "path": "scripts/lib/c1IdentityHistoricalTest.mjs",
+      "sha256": "b2e0636664fcbc42d20e7a871290ef35c0c8a323e29355fe62ee6a8e997045ab",
+      "bytes": 1768
+    },
+    {
+      "path": "scripts/lib/c1IdentityReplay.mjs",
+      "sha256": "9277e99886b94fcbfa6d8acfc104713b80a72c4b98e7c68f0ea39a14f09157b4",
+      "bytes": 3007
+    },
+    {
+      "path": "scripts/lib/c1IdentityReview.json",
+      "sha256": "a909fcc75f5181f22331a911e10f1e2e5bc604c77effca0b83aa6ed183486e85",
+      "bytes": 1726
+    },
+    {
+      "path": "scripts/lib/c1IdentityTestPatches.json",
+      "sha256": "f90c2b1f57e196c56ac347932c4d9e696f86dc46c7beba3eaaa7a166fb765d76",
+      "bytes": 18926
+    },
+    {
+      "path": "scripts/lib/c7CapturePairingReplay.mjs",
+      "sha256": "47b4ee86b2bcabe757280ab91a7e17e4cd11a36c84240a235aafa8098d8ee5d0",
+      "bytes": 2032
+    },
+    {
+      "path": "webapp/src/lib/c1Identity.test.js",
+      "sha256": "9c8c10a6d3be7d80a428910b705744600dd332fa1eb28119ff0d35f9160709b3",
+      "bytes": 6908
+    },
+    {
+      "path": "webapp/src/lib/characterWardrobeSources.test.js",
+      "sha256": "5a7b908f0c6668128587b1ed3e1d04cbccb554368f16cc815de33adc332b8b12",
+      "bytes": 2893
+    },
+    {
+      "path": "webapp/src/lib/engine/c7CapturePairing.test.js",
+      "sha256": "4c28d462499edc3fdbb423f8340bcd5d532dac0dfcd559b07c2fc5b19fdac13d",
+      "bytes": 6382
+    },
+    {
+      "path": "webapp/src/lib/engine/c7NightLighting.test.js",
+      "sha256": "e3af9f35e177650844c3126427ff82a860e708e5057a8a6f1cd4d91c5e7611d3",
+      "bytes": 5194
+    },
+    {
+      "path": "webapp/src/lib/engine/characterProfiles.js",
+      "sha256": "a25c18fe179a7bf6e324a537b143e352695a9f907af1b51d25ef0e9a5d0a4ed8",
+      "bytes": 124863
+    }
+  ]
+}

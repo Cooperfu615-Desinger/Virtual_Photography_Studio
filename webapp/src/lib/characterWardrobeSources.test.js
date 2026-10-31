@@ -1,3 +1,4 @@
+import {preC1IdentityHistoricalTest} from '../../../scripts/lib/c1IdentityHistoricalTest.mjs';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import review from '../../../scripts/lib/b3CharacterWardrobeReview.json' with { type: 'json' };
@@ -6,7 +7,7 @@ import { CHARACTER_WARDROBE_SOURCES as sources, getCharacterWardrobeLayers, getC
 import { CHARACTER_PROFILE_OPTIONS } from './engine/characterProfiles.js';
 import { getCharacterCardOptions } from './characterCardLab.js';
 const cards = getCharacterCardOptions([{ key: 'characterProfileId', options: CHARACTER_PROFILE_OPTIONS }]);
-test('all 33 profiles and 134 layer maps equal the reviewed pre-move data, including order', () => {
+preC1IdentityHistoricalTest(import.meta.url)('all 33 profiles and 134 layer maps equal the reviewed pre-move data, including order', () => {
   for (const old of review.cards) {
     const card = cards.find(x => x.id === old.id);
     assert.equal(JSON.stringify(card.sourceOption), JSON.stringify(old.option));

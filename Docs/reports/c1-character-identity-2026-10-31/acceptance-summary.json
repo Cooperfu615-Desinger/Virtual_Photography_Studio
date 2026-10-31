@@ -1,0 +1,58 @@
+{
+  "base": "de1433351605d140d618e4e9ab81a9566733bc10",
+  "at": "2026-10-31T16:57:04.852350+08:00",
+  "status": "local acceptance passed; awaiting user review; not staged, committed, pushed or deployed",
+  "acceptance": {
+    "base": "de1433351605d140d618e4e9ab81a9566733bc10",
+    "record": false,
+    "page1": 1004,
+    "page2": 219,
+    "page1Changed": 192,
+    "page2Changed": 126,
+    "saved": 10,
+    "markdown": 10,
+    "zipEntries": 10
+  },
+  "frontendTests": 2089,
+  "promptQualityTests": 853,
+  "focusedTests": 14,
+  "pythonTests": 59,
+  "catalogToolTests": 32,
+  "functionsTests": 119,
+  "strict": {
+    "count": 200,
+    "seed": "prompt-quality-baseline",
+    "beforeAfterIdentical": true,
+    "blockers": 0,
+    "existingDiagnosticSignals": 18,
+    "promptsWithFindings": 17
+  },
+  "history": "complete passed; exact isolated inverse; original baselines preserved",
+  "browser": {
+    "viewports": [
+      [
+        1440,
+        1000
+      ],
+      [
+        390,
+        900
+      ]
+    ],
+    "checksPerViewport": 38,
+    "cardsPerZip": 14,
+    "oldCardsPerZip": 10,
+    "workspacesPerViewport": 6,
+    "errors": [],
+    "nativePopupMouseVerified": false,
+    "imageGenerationPerformed": false
+  },
+  "deferred": [
+    "generated identity quality",
+    "C6",
+    "PAGE2 legacy imports",
+    "J12",
+    "P5b"
+  ],
+  "historyElapsedSeconds": 1550.35
+}

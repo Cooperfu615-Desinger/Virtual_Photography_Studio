@@ -1,0 +1,136 @@
+[
+  {
+    "name": "lint",
+    "args": [
+      "npm",
+      "run",
+      "lint"
+    ],
+    "cwd": "webapp",
+    "exitCode": 1,
+    "seconds": 9.91
+  },
+  {
+    "name": "tests",
+    "args": [
+      "npm",
+      "test"
+    ],
+    "cwd": "webapp",
+    "exitCode": 1,
+    "seconds": 77.37
+  },
+  {
+    "name": "quality",
+    "args": [
+      "npm",
+      "run",
+      "test:prompt-quality"
+    ],
+    "cwd": "webapp",
+    "exitCode": 1,
+    "seconds": 26.49
+  },
+  {
+    "name": "build",
+    "args": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "cwd": "webapp",
+    "exitCode": 0,
+    "seconds": 3.74
+  },
+  {
+    "name": "bundle",
+    "args": [
+      "node",
+      "scripts/check_prompt_bundle.mjs"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 0.05
+  },
+  {
+    "name": "audit-after",
+    "args": [
+      "node",
+      "scripts/validate_prompt_logic.mjs",
+      "200",
+      "prompt-quality-baseline",
+      "--strict"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 2.11
+  },
+  {
+    "name": "sync",
+    "args": [
+      "python3",
+      "scripts/sync_to_json.py",
+      "--check",
+      "--report-json"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 0.26
+  },
+  {
+    "name": "python",
+    "args": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "scripts/tests"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 8.5
+  },
+  {
+    "name": "catalog",
+    "args": [
+      "node",
+      "scripts/check_catalog_integrity.mjs",
+      "--strict"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 1.43
+  },
+  {
+    "name": "assets",
+    "args": [
+      "python3",
+      "scripts/check_public_assets.py"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 0.05
+  },
+  {
+    "name": "functions-tests",
+    "args": [
+      "npm",
+      "test"
+    ],
+    "cwd": "functions",
+    "exitCode": 0,
+    "seconds": 0.64
+  },
+  {
+    "name": "functions-lint",
+    "args": [
+      "npm",
+      "run",
+      "lint"
+    ],
+    "cwd": "functions",
+    "exitCode": 0,
+    "seconds": 0.84
+  }
+]

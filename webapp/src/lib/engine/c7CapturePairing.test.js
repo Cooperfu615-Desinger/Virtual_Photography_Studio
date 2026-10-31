@@ -1,3 +1,4 @@
+import {preC1IdentitySource} from '../../../../scripts/lib/c1IdentityReplay.mjs';
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import * as engine from '../engine.js';
@@ -48,7 +49,7 @@ test('C7 capture inverse is pinned, isolated, idempotent and rejects unknown or 
  const root=fileURLToPath(new URL('../../../../',import.meta.url)),dir=mkdtempSync(join(tmpdir(),'c7-capture-inverse-'));
  assert.throws(()=>preparePreC7CapturePairingFiles(root),/isolated/);
  try{
-  for(const item of patch.files){assert.equal(execFileSync('git',['-C',root,'show',patch.base+':'+item.path],{encoding:'utf8',maxBuffer:16*1024*1024}),item.beforeSource);const content=readFileSync(join(root,item.path));assert.equal(createHash('sha256').update(content).digest('hex'),item.afterHash);mkdirSync(dirname(join(dir,item.path)),{recursive:true});writeFileSync(join(dir,item.path),content);}
+  for(const item of patch.files){assert.equal(execFileSync('git',['-C',root,'show',patch.base+':'+item.path],{encoding:'utf8',maxBuffer:16*1024*1024}),item.beforeSource);const content=preC1IdentitySource(item.path,readFileSync(join(root,item.path)));assert.equal(createHash('sha256').update(content).digest('hex'),item.afterHash);mkdirSync(dirname(join(dir,item.path)),{recursive:true});writeFileSync(join(dir,item.path),content);}
   const[a,b]=patch.files,path=join(dir,a.path),original=readFileSync(path),untouched=readFileSync(join(dir,b.path));writeFileSync(path,'unknown');assert.throws(()=>preparePreC7CapturePairingFiles(dir),/unknown or mixed/);assert.deepEqual(readFileSync(join(dir,b.path)),untouched);rmSync(path);symlinkSync(join(root,a.path),path);assert.throws(()=>preparePreC7CapturePairingFiles(dir),/linked/);rmSync(path);writeFileSync(path,original);
   preparePreC7CapturePairingFiles(dir).apply();for(const item of patch.files)assert.equal(readFileSync(join(dir,item.path),'utf8'),item.beforeSource);preparePreC7CapturePairingFiles(dir).apply();mkdirSync(join(dir,'.git'));assert.throws(()=>preparePreC7CapturePairingFiles(dir),/Git checkout/);
  }finally{rmSync(dir,{recursive:true,force:true});}

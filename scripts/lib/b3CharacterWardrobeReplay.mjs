@@ -40,7 +40,7 @@ export function restorePreB3WardrobeFiles(directory, { allowPartial = false, pre
     const full = join(directory, path);
     if (allowPartial && !existsSync(full)) continue;
     assert.equal(existsSync(full), after, 'B3 inverse missing/mixed tests: ' + path);
-    if (after) { assert.equal(hash(readFileSync(full)), sha, 'B3 inverse changed test'); remove.push(full); }
+    if (after) { assert.equal(hash(download.sources.get(path) ?? readFileSync(full)), sha, 'B3 inverse changed test'); remove.push(full); }
   }
   if (!after) return empty;
   const plan = {

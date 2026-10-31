@@ -1,3 +1,4 @@
+import {preC1IdentityHistoricalTest} from '../../../../scripts/lib/c1IdentityHistoricalTest.mjs';
 import {preC7CaptureHistoricalTest} from '../../../../scripts/lib/c7CaptureHistoricalTest.mjs';
 import {preC7ColorPairingSource} from '../../../../scripts/lib/c7ColorPairingReplay.mjs';
 import process from 'node:process';
@@ -30,7 +31,7 @@ test('C7 night-party random ambient excludes exactly six reviewed daylight sourc
  assert.deepEqual([...seen].sort(),expected.sort());assert.equal(seen.size,9);
 });
 
-test('C7 controls, source text, daylight/manual/none transitions and unrelated subject light stay unchanged',()=>{
+preC1IdentityHistoricalTest(import.meta.url)('C7 controls, source text, daylight/manual/none transitions and unrelated subject light stay unchanged',()=>{
  assert.deepEqual(JSON.parse(JSON.stringify(engine.getLockControls())),before.controls);
  const menu=engine.getSceneDependentOptions([],matrix.base);assert.deepEqual(menu,before.menu);assert.equal(menu.lightingOptions.length,16);
  const previous={...matrix.base,locationId:matrix.controls.find(c=>c.key==='locationId').options.find(o=>o.zh==='全無').id};

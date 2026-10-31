@@ -1,0 +1,14 @@
+{
+  "baseCommit": "0babbebb8c5fabfe9a1fa16d8824e1c5651ffffd",
+  "inverseExact": true,
+  "log": [
+    {
+      "script": "paired_capture_a2_acceptance.mjs",
+      "passed": true
+    },
+    {
+      "script": "paired_capture_a2_history.mjs",
+      "passed": true
+    }
+  ]
+}

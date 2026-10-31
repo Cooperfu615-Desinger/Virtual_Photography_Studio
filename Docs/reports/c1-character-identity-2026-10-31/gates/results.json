@@ -1,0 +1,164 @@
+[
+  {
+    "name": "lint",
+    "args": [
+      "npm",
+      "run",
+      "lint"
+    ],
+    "cwd": "webapp",
+    "exitCode": 0,
+    "seconds": null,
+    "log": "lint-final.log.gz"
+  },
+  {
+    "name": "tests",
+    "args": [
+      "npm",
+      "test"
+    ],
+    "cwd": "webapp",
+    "exitCode": 0,
+    "seconds": 226.089,
+    "log": "tests-final.log.gz",
+    "passed": 2089
+  },
+  {
+    "name": "quality",
+    "args": [
+      "npm",
+      "run",
+      "test:prompt-quality"
+    ],
+    "cwd": "webapp",
+    "exitCode": 0,
+    "seconds": 169.125,
+    "log": "gates/rerun/quality.log.gz",
+    "passed": 853
+  },
+  {
+    "name": "build",
+    "args": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "cwd": "webapp",
+    "exitCode": 0,
+    "seconds": 3.74,
+    "log": "gates/initial/build.log.gz"
+  },
+  {
+    "name": "bundle",
+    "args": [
+      "node",
+      "scripts/check_prompt_bundle.mjs"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 0.05,
+    "log": "gates/initial/bundle.log.gz"
+  },
+  {
+    "name": "audit-after",
+    "args": [
+      "node",
+      "scripts/validate_prompt_logic.mjs",
+      "200",
+      "prompt-quality-baseline",
+      "--strict"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 2.11,
+    "log": "gates/initial/audit-after.log.gz"
+  },
+  {
+    "name": "sync",
+    "args": [
+      "python3",
+      "scripts/sync_to_json.py",
+      "--check",
+      "--report-json"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 0.26,
+    "log": "gates/initial/sync.log.gz"
+  },
+  {
+    "name": "python",
+    "args": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "scripts/tests"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 8.5,
+    "log": "gates/initial/python.log.gz"
+  },
+  {
+    "name": "catalog",
+    "args": [
+      "node",
+      "scripts/check_catalog_integrity.mjs",
+      "--strict"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 1.43,
+    "log": "gates/initial/catalog.log.gz"
+  },
+  {
+    "name": "assets",
+    "args": [
+      "python3",
+      "scripts/check_public_assets.py"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 0.05,
+    "log": "gates/initial/assets.log.gz"
+  },
+  {
+    "name": "functions-tests",
+    "args": [
+      "npm",
+      "test"
+    ],
+    "cwd": "functions",
+    "exitCode": 0,
+    "seconds": 0.64,
+    "log": "gates/initial/functions-tests.log.gz"
+  },
+  {
+    "name": "functions-lint",
+    "args": [
+      "npm",
+      "run",
+      "lint"
+    ],
+    "cwd": "functions",
+    "exitCode": 0,
+    "seconds": 0.84,
+    "log": "gates/initial/functions-lint.log.gz"
+  },
+  {
+    "name": "tools",
+    "cwd": ".",
+    "args": [
+      "node",
+      "--test",
+      "scripts/tests/catalog-integrity.test.mjs",
+      "scripts/tests/catalog-semantics.test.mjs",
+      "scripts/tests/catalog-legacy.test.mjs"
+    ],
+    "exitCode": 0,
+    "passed": 32,
+    "log": "tools.log.gz"
+  }
+]

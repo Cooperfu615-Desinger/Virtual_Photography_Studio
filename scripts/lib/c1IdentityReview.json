@@ -1,0 +1,39 @@
+{
+  "baseCommit": "de1433351605d140d618e4e9ab81a9566733bc10",
+  "path": "webapp/src/lib/engine/characterProfiles.js",
+  "beforeHash": "5dd1397c9d22aa54055c9d9c66e1a8a530b70b5373813d38ecab7a5ff8a83e33",
+  "afterHash": "a25c18fe179a7bf6e324a537b143e352695a9f907af1b51d25ef0e9a5d0a4ed8",
+  "rows": [
+    {
+      "id": "character-natsuki",
+      "field": "distinctiveFeatures",
+      "anchor": 0,
+      "before": "compact oval face with gently rounded cheeks",
+      "after": "compact oval face with gently rounded cheeks and a smooth tapered jaw",
+      "sourceField": "facialGeometry",
+      "source": "soft compact oval face, gently rounded cheeks, a smooth tapered jaw and a neat rounded chin",
+      "reason": "Promote the already authored tapered jaw; keep round chin, eyes, nose, lips and complexion unchanged."
+    },
+    {
+      "id": "character-miku",
+      "field": "distinctiveFeatures",
+      "anchor": 1,
+      "before": "large wide-set dark-brown round-almond eyes",
+      "after": "large slightly wide-set dark-brown round-almond eyes with soft lower-lid fullness",
+      "sourceField": "eyeSignature",
+      "source": "large dark brown round-almond eyes set slightly wide with level outer corners, open double eyelids and soft lower-lid fullness",
+      "reason": "Keep the authored slight eye spacing and lower-lid form; do not exaggerate spacing or invent a new feature."
+    }
+  ],
+  "retainedSkinPairs": [
+    [
+      "character-natsuki",
+      "character-miku"
+    ],
+    [
+      "character-rika",
+      "character-yuri"
+    ]
+  ],
+  "retentionReason": "Shared complexion is not an identity defect; existing anatomical contrasts and permanent marks remain. Text similarity is not image-identity evidence."
+}

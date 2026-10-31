@@ -1,0 +1,36 @@
+{
+  "base": "de1433351605d140d618e4e9ab81a9566733bc10",
+  "references": [
+    {
+      "path": "source-assets/character-cards/natsuki/18_Natsuki_00.jpeg",
+      "sha256": "75c447f1d18a831f4b3b07e7e4b6ccbe8807f20ce73b18aff42a40ac0c460875",
+      "review": "Original scene and full-body reference plus multiview sheet inspected in C1 analysis; no image changed."
+    },
+    {
+      "path": "source-assets/character-cards/natsuki/18_Natsuki_01.png",
+      "sha256": "8f502df8bd28849fc7eea5a06019f406160e79179eab56d1a02a2b0d91cea6b4",
+      "review": "Original scene and full-body reference plus multiview sheet inspected in C1 analysis; no image changed."
+    },
+    {
+      "path": "source-assets/character-cards/natsuki/18_Natsuki_02.png",
+      "sha256": "382b25004d796174e6e75043b81d6b0258f60b05a2cd58153883d7c9bd9c1ff1",
+      "review": "Original scene and full-body reference plus multiview sheet inspected in C1 analysis; no image changed."
+    },
+    {
+      "path": "source-assets/character-cards/miku/36_Miku_00.jpeg",
+      "sha256": "1dd1b015b2f46826ecf866f2d9c0edae07a3725e0563ef513fb21f238c7c294e",
+      "review": "Original scene and full-body reference plus multiview sheet inspected in C1 analysis; no image changed."
+    },
+    {
+      "path": "source-assets/character-cards/miku/36_Miku_01.png",
+      "sha256": "7c3df4a70f61fd0922d76c1e40a6a9fe9f84dd163c70ef6bee2e5dba0c983f3f",
+      "review": "Original scene and full-body reference plus multiview sheet inspected in C1 analysis; no image changed."
+    },
+    {
+      "path": "source-assets/character-cards/miku/36_Miku_02.png",
+      "sha256": "7cbaf9bd327afb21f3b8b6471510a6c6064eebb3c1f52e206d43722b120910af",
+      "review": "Original scene and full-body reference plus multiview sheet inspected in C1 analysis; no image changed."
+    }
+  ],
+  "limits": "Perspective, makeup, illumination and source-specific styling cannot establish new permanent identity. No generation performed."
+}

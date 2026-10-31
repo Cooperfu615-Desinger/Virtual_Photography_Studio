@@ -777,7 +777,7 @@ const FACIAL_IDENTITY_PROFILES = {
     skinSignature: 'fair neutral skin with a clean luminous finish',
     makeup: 'subtle peach eye shading with a light pink cheek flush and a soft rose lip finish',
     body: 'petite athletic proportions with balanced shoulders, a narrow waist and toned legs',
-    distinctiveFeatures: 'compact oval face with gently rounded cheeks, large level dark-brown round-almond eyes, small low-bridge nose with a neat rounded tip, small soft rose-pink lips with an even lower lip',
+    distinctiveFeatures: 'compact oval face with gently rounded cheeks and a smooth tapered jaw, large level dark-brown round-almond eyes, small low-bridge nose with a neat rounded tip, small soft rose-pink lips with an even lower lip',
   },
   'character-minji': {
     facialGeometry: 'long soft oval face, smooth cheeks, a tapered jaw and a fine pointed chin',
@@ -857,7 +857,7 @@ const FACIAL_IDENTITY_PROFILES = {
     skinSignature: 'fair neutral skin with a clean luminous finish',
     makeup: 'fine brown-black upper-lash definition with restrained pink cheek color and a rose-red lip finish',
     body: 'petite balanced proportions with narrow shoulders, a defined waist and softly toned legs',
-    distinctiveFeatures: 'compact soft oval face with rounded cheeks, large wide-set dark-brown round-almond eyes, small low-bridge rounded-tip nose, small rose-red lips with a fuller lower lip',
+    distinctiveFeatures: 'compact soft oval face with rounded cheeks, large slightly wide-set dark-brown round-almond eyes with soft lower-lid fullness, small low-bridge rounded-tip nose, small rose-red lips with a fuller lower lip',
   },
 };
 

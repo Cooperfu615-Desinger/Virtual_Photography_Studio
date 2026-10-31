@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-31
 
+## C1 第一批：Natsuki／Miku 身份錨點補強（2026-10-31，本機驗收通過、已授權交付）
+
+- 對齊 main `de1433351605d140d618e4e9ab81a9566733bc10`；Natsuki 第一錨點補既有收窄下顎，Miku 第二錨點補稍寬眼距與下眼瞼形態。只改兩個片段，33卡的完整五官／膚質、四錨點結構、ID、legacy身份、圖片、穿搭來源與renderer保持。
+- 修改前封存PAGE1 1,004組、PAGE2 219組；僅192／126組出現核准替換，選值與RNG次數保持。10筆舊收藏原文、Markdown／ZIP及PAGE1還原通過；現行33卡／134穿搭圖層與PAGE2逐輸出四錨點護欄通過。
+- 聚焦14、前端2,089／品質853／Python59／目錄工具32／Functions119，lint／build／bundle／strict／sync／207資產與完整歷史鏈通過。同seed200筆與修改前逐位元一致、0 blocker。桌手機各38項流程、14卡ZIP與六工作區通過，無新增錯誤／頁面溢出。
+- 見[規格](specs/c1-character-identity-v1.md)、[決策](decisions/2026-10-31-c1-character-identity.md)與[驗收](reports/c1-character-identity-2026-10-31/README.md)。3,168份既有歷史報告及其他20個工作目錄／140份未提交檔保持；只於隔離副本接回歷史測試，未重錄舊基準。Cooper已授權只提交／推送本批；CI與部署於交付時另行核對。原始驗收快照及瀏覽器限制保持。
+- 本批完成身份文字與相容護欄，不宣稱已證明生圖辨識改善；原生popup及未生圖限制保留。2026-10-11盤點「幾乎同一張臉」只作歷史文字判斷，現行判定見本批規格。C6另批，PAGE2舊匯入、J12、P5b繼續暫緩，艾爾莎隨機政策保持。
+
 ## C7 季節與風格配對、整合盤點（2026-10-31，使用者驗收通過）
 
 - C7 第二批已交付 main `b5f035003a48f9dae848b91b27eeccb296a37b3e`；[CI 與部署](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41164989213)四項作業全部成功，正式站桌手機六工作區 12 項 smoke 通過。

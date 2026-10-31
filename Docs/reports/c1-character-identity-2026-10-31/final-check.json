@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "base": "de1433351605d140d618e4e9ab81a9566733bc10",
+  "localLinks": 7,
+  "sourceFiles": 19,
+  "sealedTestPatches": 4,
+  "historicalReportsPreserved": 3168,
+  "unrelatedTrackedPreserved": 4853,
+  "diffCheck": true,
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "deployed": false,
+  "browserLimitationsPreserved": true,
+  "imageGenerationPerformed": false
+}

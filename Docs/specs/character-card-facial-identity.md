@@ -4,6 +4,8 @@ Status: implemented on `main` after the 2026-07-11 facial-identity optimization.
 
 2026-10-28 PAGE2 成年身份補齊：GPT 結構化分組與 Z-Image 新生成輸出重用既有 `identityAndBody` 成年開頭，無來源不猜；其他四輸出、PAGE1、穿搭層及舊收藏原文保持。此批不改 33 張角色資料或下方身份規格。見 [PAGE2 契約](page2-adult-identity-v1.md)。
 
+2026-10-31 C1：Natsuki 的第一錨點補入既有收窄下顎；Miku 的第二錨點對齊稍寬眼距並保留下眼瞼形態。兩卡其他欄位、31張其他卡、兩組共用膚質及歷史身份字串保持。新輸出逐一驗證四錨點；不以文字相似度判定實際生成撞臉。見 [C1 規格](c1-character-identity-v1.md)。
+
 ## Purpose and scope
 
 This specification keeps the 33 formal Character Card identities visually distinct when PAGE1 or PAGE2 changes hair, wardrobe, accessories, makeup, framing, or photographic treatment. It covers only formal built-in Character Cards, their prompt serialization, and their Saved Cards compatibility contract.
@@ -125,7 +127,7 @@ The table is a concise maintenance aid, not a duplicate prompt store. “None”
 | 14_Nana / `character-nana` | Short rounded oval, broad soft cheeks | Warm-brown round-almonds, level corners | Small low bridge, neat rounded tip | Wide coral-peach lips, fuller lower lip | Warm fair beige | None | Hina, Yui | Keep warm coloring and broad cheeks; uniform and short bob are removable | `source-assets/character-cards/nana/` |
 | 15_Emily / `character-emily` | Refined oval-heart, high cheeks, pointed chin | Cool gray-brown almonds, heavy upper lids | Slim medium-high bridge, rounded tip | Full muted-rose clean bow | Fair neutral satin | None | Rei, Sui | Keep higher cheeks and heavier lids; messy bun and cross necklace are removable | `source-assets/character-cards/emily/` |
 | 16_Shiori / `character-shiori` | Long soft heart-oval, high cheeks, rounded-point chin | Warm medium-brown almonds, soft lift | Slim medium bridge, rounded tip | Soft coral-rose defined bow | Fair warm-neutral | None | Amy, Lily | Keep longer heart-oval and warmer lifted eyes; chestnut waves are removable | `source-assets/character-cards/shiori/` |
-| 18_Natsuki / `character-natsuki` | Compact oval, rounded cheeks, tapered jaw | Large level dark-brown round-almonds | Small low bridge, rounded tip | Small soft rose lips, even lower lip | Fair neutral | None | Nana, Hina | Keep compact face and small even mouth; sportswear and bob are removable | `source-assets/character-cards/natsuki/` |
+| 18_Natsuki / `character-natsuki` | Compact oval, rounded cheeks, tapered jaw | Large level dark-brown round-almonds | Small low bridge, rounded tip | Small soft rose lips, even lower lip | Fair neutral | None | Miku, Nana, Hina | Keep tapered jaw and even lower lip distinct from Miku; sportswear and bob are removable | `source-assets/character-cards/natsuki/` |
 | 19_Minji / `character-minji` | Long soft oval, tapered jaw, fine point chin | Slightly close-set deep-brown almonds | Slim medium bridge, rounded tip | Full muted-rose pronounced bow | Fair neutral matte | None | Natsuki, Chihiro | Keep longer taper and closer-set eyes; short bob is removable | `source-assets/character-cards/minji/` |
 | 20_Manami / `character-manami` | Soft oval-heart, high cheeks, narrow jaw | Pale gray-green wide-set lifted almonds | Slim medium-high bridge, rounded tip | Full muted-coral compact bow | Fair cool-neutral porcelain | None | Philippa, Lily | Keep pale gray-green lifted eyes and oval-heart geometry; green hair, headband and coat are removable | `source-assets/character-cards/manami/` |
 | 25_Grace / `character-grace` | Long oval-heart, high cheeks, pointed chin | Wide-set hazel-gray round-almonds, soft lift | Small straight medium-low bridge | Full peach-rose lips, plush lower lip | Warm light beige | None | Soyeon, Yuna | Keep the long face, hazel-gray eyes and small straight nose; twin ponytails and curvy silhouette are not facial anchors | `source-assets/character-cards/grace/` |
@@ -133,7 +135,7 @@ The table is a concise maintenance aid, not a duplicate prompt store. “None”
 | 32_Soyeon / `character-soyeon` | Small rounded heart-oval, full cheeks | Large wide-set dark-brown round eyes | Tiny low-bridge button nose | Broad coral-pink lips, fuller lower lip | Fair warm ivory | None | Grace, Nana | Keep the compact rounded face, round eyes and button nose; loop buns and red outfit are removable | `source-assets/character-cards/soyeon/` |
 | 33_Bora / `character-bora` | Long narrow oval-heart, high cheeks, pointed chin | Wide-set gray-brown almonds, soft lift | Slim medium-high bridge, rounded tip | Full rose-red crisp bow | Fair neutral porcelain | None | Seulgi, Shiori | Keep the longer narrow face and higher bridge; lace outfit and low updo are removable | `source-assets/character-cards/bora/` |
 | 34_Seulgi / `character-seulgi` | Short heart-oval, full cheeks, compact chin | Wide-set hazel-brown round-almonds, lower-lid fullness | Small low bridge, rounded tip | Plush coral-rose soft bow | Fair cool-neutral porcelain | None | Bora, Sakura | Keep the shorter full-cheek face and low bridge; waves and lace outfit are removable | `source-assets/character-cards/seulgi/` |
-| 36_Miku / `character-miku` | Compact soft oval, rounded cheeks | Large wide-set dark-brown round-almonds | Small low bridge, rounded tip | Small rose-red lips, fuller lower lip | Fair neutral luminous | None | Nana, Natsuki | Keep the compact oval, wide eye spacing and small mouth; braided bun and uniform are removable | `source-assets/character-cards/miku/` |
+| 36_Miku / `character-miku` | Compact soft oval, rounded cheeks | Large slightly wide-set dark-brown round-almonds, lower-lid fullness | Small low bridge, rounded tip | Small rose-red lips, fuller lower lip | Fair neutral luminous | None | Nana, Natsuki | Keep slight eye spacing, lower-lid fullness and fuller lower lip; braided bun and uniform are removable | `source-assets/character-cards/miku/` |
 
 ## Authoring and change workflow
 
@@ -164,7 +166,7 @@ At minimum, tests must verify:
 - `identityAndBody === legacyIdentityAndBody` for formal profiles;
 - `face`, `skin`, and `makeup` resolve to distinct structured values;
 - PAGE2 all six outputs, PAGE1 Gpt/full-body output, and PAGE1 compact AI preserve every anchor;
-- high-similarity pair contrasts: Jiwoo/Koto, Yuna/Chihiro, Sakura/Lily, Yuri/Hina, Olivia/Mei, Rei/Amy, Yui/Nana, Emily/Rei, Natsuki/Minji, Bora/Seulgi, Grace/Soyeon, Kaori/Olivia, and Miku/Nana;
+- high-similarity pair contrasts: Jiwoo/Koto, Yuna/Chihiro, Sakura/Lily, Yuri/Hina, Olivia/Mei, Rei/Amy, Yui/Nana, Emily/Rei, Natsuki/Minji, Bora/Seulgi, Grace/Soyeon, Kaori/Olivia, Miku/Nana, and Natsuki/Miku;
 - Eleanor preserves all permanent supernatural identifiers;
 - legacy profile inputs and Saved Card PAGE1/PAGE2 flows still normalize and render correctly.
 
