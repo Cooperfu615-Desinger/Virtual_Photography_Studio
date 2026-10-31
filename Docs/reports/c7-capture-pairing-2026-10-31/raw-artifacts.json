@@ -1,0 +1,1017 @@
+[
+  {
+    "source": "/tmp/c7-final-audit-before.log",
+    "artifact": "audit-before.log.gz",
+    "sourceBytes": 2238,
+    "sourceSha256": "9b333a2c234e2dc69f4cc99caab2ff5c08bedd6e1d19f7a12afa9940e3b03f56",
+    "artifactSha256": "91cf1034ebc13b154964632dd442a0dddbb9554337fac0d0c3cd19a44a96e6ac"
+  },
+  {
+    "source": "/tmp/c7-final-record.log",
+    "artifact": "record.log.gz",
+    "sourceBytes": 53252,
+    "sourceSha256": "4b5fe4aeaaab8bd21bbca2f070c18c741089fdfa273886a801e3b021843eb3de",
+    "artifactSha256": "8d35b7a2dbe4060e372458c4ac9fa92c1fd51587de12e03a78439de2fed26bd8"
+  },
+  {
+    "source": "/tmp/c7-final-record-fixed.log",
+    "artifact": "record-fixed.log.gz",
+    "sourceBytes": 235,
+    "sourceSha256": "4accb696af2a09944ca33936199a2422894ac47fb7f1dc275d6c333262a71c58",
+    "artifactSha256": "facc362bef3a7742d3dfdfb93958212b65d8554cbeb55aea2f18fbbb2aca0d1e"
+  },
+  {
+    "source": "/tmp/c7-final-regression-before.tap",
+    "artifact": "regression-before.tap.gz",
+    "sourceBytes": 2790,
+    "sourceSha256": "7083cd362e9f1e11bcdc80f962e3db357ea6e5ad3118b0a1e8a2f5cfce3ce05a",
+    "artifactSha256": "eb2e6c18f0f95cec3bf1f80b26ec4c16c8fa49451d30ead657e2cb1d0f2ad644"
+  },
+  {
+    "source": "/tmp/c7-final-season.log",
+    "artifact": "season.log.gz",
+    "sourceBytes": 2352071,
+    "sourceSha256": "d5ceb197812e389b0e958d23d605b230944a0fbb8b2d6071cad93564c6148270",
+    "artifactSha256": "b760f74e164a854d3a8f2519f42a5348588a2a00b7517679d7f5384bc6c8df7f"
+  },
+  {
+    "source": "/tmp/c7-final-season-fixed.log",
+    "artifact": "season-fixed.log.gz",
+    "sourceBytes": 55123,
+    "sourceSha256": "6524f40a2c5969958040c90568bbcd970d27e9db5a6e350e243114a7d92c33d3",
+    "artifactSha256": "0dff9d2f545946d4f415ac38ae4cecc7088e35dbf11fd666c8f0b68d631de8f3"
+  },
+  {
+    "source": "/tmp/c7-final-season-final.log",
+    "artifact": "season-final.log.gz",
+    "sourceBytes": 234,
+    "sourceSha256": "23b92ff45b05db37af01d2a7076aa5cf04eebc8db14490df45ff20e944169888",
+    "artifactSha256": "28f91b56873cd94dcabbfc81c832cc6f2628c5b7ba735f7fdb86eb796eeecbe9"
+  },
+  {
+    "source": "/tmp/c7-final-focused.log",
+    "artifact": "focused.log.gz",
+    "sourceBytes": 122991,
+    "sourceSha256": "345f03edd7b9f4f61aacd113cdbfcef1e13bad079073a924634dfb4c8d72d847",
+    "artifactSha256": "6f273dd65c7ca38cbe3d1e30b9fb7c8bb0d11e822e4e4fc3c7a691ae0fd77950"
+  },
+  {
+    "source": "/tmp/c7-final-focused-final.log",
+    "artifact": "focused-final.log.gz",
+    "sourceBytes": 4257,
+    "sourceSha256": "a026c0e857dc666bcd86c1dcbec3cdb93e0d6483298784c736232ff79290d6a3",
+    "artifactSha256": "db2a0677138f7ecc71cc5dfc66903db21747dd7ea4caa6855141ad1a95857a9e"
+  },
+  {
+    "source": "/tmp/c7-final-focused-complete.log",
+    "artifact": "focused-complete.log.gz",
+    "sourceBytes": 4247,
+    "sourceSha256": "834b3f9d6aae573bd5e5592a88ebca08b855b9faa854a72bf380760cf1f717ce",
+    "artifactSha256": "9af8b9c08bed8665586beb352cf04e39b8f25ec18e6599da1b199ef18a267203"
+  },
+  {
+    "source": "/tmp/c7-final-acceptance.log",
+    "artifact": "acceptance.log.gz",
+    "sourceBytes": 236,
+    "sourceSha256": "82e0dd59f2948359b0eca0c5a88a80bf2d737567b60bd8606ce15f56a30238d6",
+    "artifactSha256": "6d7c7515d534881d05dbc17edcaf5e76bedd74cfd05f18d685722866b1bfe7c1"
+  },
+  {
+    "source": "/tmp/c7-final-chain-focus.log",
+    "artifact": "chain-focus.log.gz",
+    "sourceBytes": 382,
+    "sourceSha256": "72d65c07e7db8cec4338de49a1484c1b1a933aae02c5de0e89e6b08a19a08b63",
+    "artifactSha256": "16c866200cf3927664b9b723e9855ccd6b47c9c32cfb5c1e9f4f27e642854dc1"
+  },
+  {
+    "source": "/tmp/c7-final-integration.log",
+    "artifact": "integration.log.gz",
+    "sourceBytes": 281,
+    "sourceSha256": "5f2154dcb619ade5be7ad5e2980227d9c219267672cbd7e19ac879dd506f068a",
+    "artifactSha256": "5d833047c0f2e311b9a89387accf59dee0bc431ff63f3b67eb87dd95d8b9852d"
+  },
+  {
+    "source": "/tmp/c7-final-integration-final.log",
+    "artifact": "integration-final.log.gz",
+    "sourceBytes": 281,
+    "sourceSha256": "5f2154dcb619ade5be7ad5e2980227d9c219267672cbd7e19ac879dd506f068a",
+    "artifactSha256": "5d833047c0f2e311b9a89387accf59dee0bc431ff63f3b67eb87dd95d8b9852d"
+  },
+  {
+    "source": "/tmp/c7-final-history.log",
+    "artifact": "history.log.gz",
+    "sourceBytes": 268,
+    "sourceSha256": "8e4459ab821ef57dacd744dd96c1bffc949dc57d0029d15a8157f808d2676ef0",
+    "artifactSha256": "aaca954ff4d10f65968c595ccc109658539b3c02e1661113236ec3e07ae25db7"
+  },
+  {
+    "source": "/tmp/c7-final-browser.log",
+    "artifact": "browser.log.gz",
+    "sourceBytes": 7124,
+    "sourceSha256": "d85abd7068d57cfe88c83c2649b70ba79216048f6f354269ab0a1536fb653be9",
+    "artifactSha256": "73dd1ad61d8dbca7b45c9e806e2e9ff9f04743df5e83242dd7392fe2f3622a1e"
+  },
+  {
+    "source": "/tmp/c7-final-browser-final.log",
+    "artifact": "browser-final.log.gz",
+    "sourceBytes": 308,
+    "sourceSha256": "c88a9f9deb9e7d021718b06627dc8d11c9dc401b5f01c8a8e5f8181ed1f487a0",
+    "artifactSha256": "744255f382a6c91f9f22cecd4acb77eae1c24f793f3e6be3bfea53ce45cfdd77"
+  },
+  {
+    "source": "/tmp/c7-final-browser-complete.log",
+    "artifact": "browser-complete.log.gz",
+    "sourceBytes": 436,
+    "sourceSha256": "36c8d92e80746ed026b2b1b065d1bb7109bd0d46c0fd75f5bc0d9f439da39d0c",
+    "artifactSha256": "c7c9253104f60e52c2c57ce530ce7a5e3ac479e1c602895b21e86a7afbbc3978"
+  },
+  {
+    "source": "/tmp/c7-final-browser-verified.log",
+    "artifact": "browser-verified.log.gz",
+    "sourceBytes": 31581,
+    "sourceSha256": "98c06f513fd8919fba9719ee016c582643560bfe0129660a9610014af9a16575",
+    "artifactSha256": "3fe58508c5d8b3d33a82ad88792a525a2f69384f338f3b649fc0ba2e3a21c769"
+  },
+  {
+    "source": "/tmp/c7-final-workspaces.log",
+    "artifact": "workspaces.log.gz",
+    "sourceBytes": 29,
+    "sourceSha256": "82a31aee0b385824a3f1249e77d8e146e50ada0618c5573ac00db860da16ca33",
+    "artifactSha256": "c9a25347fe5d7386c280b995f87f1f0af84623e816b3e3bd2b8b919ffdddb38c"
+  },
+  {
+    "source": "/tmp/c7-final-gates/assets.log",
+    "artifact": "gates/assets.log.gz",
+    "sourceBytes": 59,
+    "sourceSha256": "e9b038749b0709a17361041562a20022655a65dc1117abed6dc20ca6c80e3da6",
+    "artifactSha256": "83d4a447c42f38ed14e7e320c30481ad7204089ccb0d3c5ba7e5841b5c9a3b8c"
+  },
+  {
+    "source": "/tmp/c7-final-gates/audit-after.log",
+    "artifact": "gates/audit-after.log.gz",
+    "sourceBytes": 2238,
+    "sourceSha256": "9b333a2c234e2dc69f4cc99caab2ff5c08bedd6e1d19f7a12afa9940e3b03f56",
+    "artifactSha256": "91cf1034ebc13b154964632dd442a0dddbb9554337fac0d0c3cd19a44a96e6ac"
+  },
+  {
+    "source": "/tmp/c7-final-gates/build.log",
+    "artifact": "gates/build.log.gz",
+    "sourceBytes": 3291,
+    "sourceSha256": "f2c158095b5b135f0e3a42a494cc6b06e7f14ede7630e6162fdfddf12aaf5c92",
+    "artifactSha256": "a4327e413b076d04f414beead52caad6b255bb976139de919dcc4f6dbaee4f8c"
+  },
+  {
+    "source": "/tmp/c7-final-gates/bundle.log",
+    "artifact": "gates/bundle.log.gz",
+    "sourceBytes": 97,
+    "sourceSha256": "8473acd59d6585667ea4065dad0e35deb4ab3a979b98a6b6f12f2028c22826b4",
+    "artifactSha256": "f001e432505359b665522d67c7a9f831b85f3f0f57cec5b71739b1a9ac269b02"
+  },
+  {
+    "source": "/tmp/c7-final-gates/catalog.log",
+    "artifact": "gates/catalog.log.gz",
+    "sourceBytes": 7563,
+    "sourceSha256": "3dc34c813716bfd4d4a30828a620ba52f1d770a5d65768a4e785ed0751495447",
+    "artifactSha256": "247ae9fa6e947ea51871da21bd6cf0901430f387ab82d2f117e9fdb8b6865f81"
+  },
+  {
+    "source": "/tmp/c7-final-gates/lint-final.log",
+    "artifact": "gates/lint-final.log.gz",
+    "sourceBytes": 33,
+    "sourceSha256": "4cc3750d21346cf65740526345613cc28b068e42b7624120db0bc04da500cb79",
+    "artifactSha256": "b260dc530ef2af473f11dd95140f8b06d63c39520661e5d4b36d3f363d5b6fa8"
+  },
+  {
+    "source": "/tmp/c7-final-gates/lint.log",
+    "artifact": "gates/lint.log.gz",
+    "sourceBytes": 33,
+    "sourceSha256": "4cc3750d21346cf65740526345613cc28b068e42b7624120db0bc04da500cb79",
+    "artifactSha256": "b260dc530ef2af473f11dd95140f8b06d63c39520661e5d4b36d3f363d5b6fa8"
+  },
+  {
+    "source": "/tmp/c7-final-gates/python.log",
+    "artifact": "gates/python.log.gz",
+    "sourceBytes": 159,
+    "sourceSha256": "d19757369491d037af73b786cc0f689df97bff9e4bb7e6e9d10c05c901ff1159",
+    "artifactSha256": "db407a499aa19618ffd9e321d449949f23076d9c205104d91ee875043ffce926"
+  },
+  {
+    "source": "/tmp/c7-final-gates/quality.log",
+    "artifact": "gates/quality.log.gz",
+    "sourceBytes": 200216,
+    "sourceSha256": "929027f55bec998859ced2e0c9e5f373a6c92af8e05d802ea81d5f326e2ba62a",
+    "artifactSha256": "b4df9644e89724bbbc79ea74878938d119d16d7eead3fdd6a568c1605386af45"
+  },
+  {
+    "source": "/tmp/c7-final-gates/results.json",
+    "artifact": "gates/results.json",
+    "sourceBytes": 2033,
+    "sourceSha256": "1d073075eb26b8145ba021e48b515ef7caf3a5755ea8ded6dc4be83cacdf3639",
+    "artifactSha256": "1d073075eb26b8145ba021e48b515ef7caf3a5755ea8ded6dc4be83cacdf3639"
+  },
+  {
+    "source": "/tmp/c7-final-gates/sync.log",
+    "artifact": "gates/sync.log.gz",
+    "sourceBytes": 290,
+    "sourceSha256": "848d10d8ebab0bbebf675ab09faf0b49fbab47153b113a40d2d82c3897996589",
+    "artifactSha256": "27de15d8c7201ff62710622531b776d8a69e265692a1e9ee0f4aac849c31c286"
+  },
+  {
+    "source": "/tmp/c7-final-gates/tests-final.log",
+    "artifact": "gates/tests-final.log.gz",
+    "sourceBytes": 482774,
+    "sourceSha256": "52f7b789460b9d977bc26b1e8e98c2d15265895f2e1e148571dd7afdc579309f",
+    "artifactSha256": "b9c9bf589ccfb9e2111c72b843c5e1a749452bd89732e56c99389c4bd374f3fc"
+  },
+  {
+    "source": "/tmp/c7-final-gates/tests.log",
+    "artifact": "gates/tests.log.gz",
+    "sourceBytes": 606694,
+    "sourceSha256": "a78932186875ce3ef6d8bffb81d3ef4e11a5299c9c25775d241dc354639cf3a5",
+    "artifactSha256": "5b665ebc9fc78442aad207a2f5e7c9b5ca92c9c9c1daff99419699c8adb17610"
+  },
+  {
+    "source": "/tmp/c7-final-gates/tools.log",
+    "artifact": "gates/tools.log.gz",
+    "sourceBytes": 8535,
+    "sourceSha256": "7d379fe805956215ecc28cd98da63444f769cf63aaa238777a8540678ddb596c",
+    "artifactSha256": "8ef3e4df270d16d563ca9f58aeb21f10280a41adfbecb920c4404f408ef8656c"
+  },
+  {
+    "source": "/tmp/c7-final-browser/1440-cards.zip",
+    "artifact": "browser/1440-cards.zip",
+    "sourceBytes": 1000315,
+    "sourceSha256": "65a10c8bc8dc0b1d259e6dba98715dea4772cf333a47a9902effc119e36694ad",
+    "artifactSha256": "65a10c8bc8dc0b1d259e6dba98715dea4772cf333a47a9902effc119e36694ad"
+  },
+  {
+    "source": "/tmp/c7-final-browser/1440-library.png",
+    "artifact": "browser/1440-library.png",
+    "sourceBytes": 201286,
+    "sourceSha256": "0ed3d2b9bddfeffd544a30a9e5c69b9106c4ffd705a6a35977ff7a03b2bac561",
+    "artifactSha256": "0ed3d2b9bddfeffd544a30a9e5c69b9106c4ffd705a6a35977ff7a03b2bac561"
+  },
+  {
+    "source": "/tmp/c7-final-browser/1440-manual-season.png",
+    "artifact": "browser/1440-manual-season.png",
+    "sourceBytes": 174496,
+    "sourceSha256": "480510e2941652ea3338cdf01bcfbe1acbf806ab7ead9b4aaf08a3816e9f38bf",
+    "artifactSha256": "480510e2941652ea3338cdf01bcfbe1acbf806ab7ead9b4aaf08a3816e9f38bf"
+  },
+  {
+    "source": "/tmp/c7-final-browser/1440-manual-style.png",
+    "artifact": "browser/1440-manual-style.png",
+    "sourceBytes": 176194,
+    "sourceSha256": "54f24fe1cc8aadea16542e28ebe627d7aa6fffe3dd3fa4f4069afaabb0b6f1a7",
+    "artifactSha256": "54f24fe1cc8aadea16542e28ebe627d7aa6fffe3dd3fa4f4069afaabb0b6f1a7"
+  },
+  {
+    "source": "/tmp/c7-final-browser/1440-random.png",
+    "artifact": "browser/1440-random.png",
+    "sourceBytes": 174545,
+    "sourceSha256": "2473bbd05ba8a7110bac704a89776da7b1667d12569791dcace3628ffc3028f5",
+    "artifactSha256": "2473bbd05ba8a7110bac704a89776da7b1667d12569791dcace3628ffc3028f5"
+  },
+  {
+    "source": "/tmp/c7-final-browser/1440-restored.png",
+    "artifact": "browser/1440-restored.png",
+    "sourceBytes": 198185,
+    "sourceSha256": "6caafd92a77c701204655861c8351fdfef7f545619073493737e5dd41d265579",
+    "artifactSha256": "6caafd92a77c701204655861c8351fdfef7f545619073493737e5dd41d265579"
+  },
+  {
+    "source": "/tmp/c7-final-browser/390-cards.zip",
+    "artifact": "browser/390-cards.zip",
+    "sourceBytes": 993665,
+    "sourceSha256": "ec85016fd69ca21991f810a34dd55532cdadc0c27041fe7b81887b4249035e75",
+    "artifactSha256": "ec85016fd69ca21991f810a34dd55532cdadc0c27041fe7b81887b4249035e75"
+  },
+  {
+    "source": "/tmp/c7-final-browser/390-library.png",
+    "artifact": "browser/390-library.png",
+    "sourceBytes": 62279,
+    "sourceSha256": "b1b0a599662bd336e121eeb70476289cd71e5c0e98f752c4c842b60959662c04",
+    "artifactSha256": "b1b0a599662bd336e121eeb70476289cd71e5c0e98f752c4c842b60959662c04"
+  },
+  {
+    "source": "/tmp/c7-final-browser/390-manual-season.png",
+    "artifact": "browser/390-manual-season.png",
+    "sourceBytes": 65707,
+    "sourceSha256": "da0296fb32e4b1461ab6770211c96a60da001c3779071b80831611909626afbe",
+    "artifactSha256": "da0296fb32e4b1461ab6770211c96a60da001c3779071b80831611909626afbe"
+  },
+  {
+    "source": "/tmp/c7-final-browser/390-manual-style.png",
+    "artifact": "browser/390-manual-style.png",
+    "sourceBytes": 68547,
+    "sourceSha256": "37cbc3d364a9ec5811415ddfda0423d70ef3c8c877c0f9e3442fd6c234608d1b",
+    "artifactSha256": "37cbc3d364a9ec5811415ddfda0423d70ef3c8c877c0f9e3442fd6c234608d1b"
+  },
+  {
+    "source": "/tmp/c7-final-browser/390-random.png",
+    "artifact": "browser/390-random.png",
+    "sourceBytes": 72784,
+    "sourceSha256": "70a052bbdb9eb260c93137dcec3cd27dac595443dc045cafef20ef538678b6ae",
+    "artifactSha256": "70a052bbdb9eb260c93137dcec3cd27dac595443dc045cafef20ef538678b6ae"
+  },
+  {
+    "source": "/tmp/c7-final-browser/390-restored.png",
+    "artifact": "browser/390-restored.png",
+    "sourceBytes": 57866,
+    "sourceSha256": "acb3bb2997daed9cba76c5853457c5cdc043338b8de5ea5e39e302ab8498aacc",
+    "artifactSha256": "acb3bb2997daed9cba76c5853457c5cdc043338b8de5ea5e39e302ab8498aacc"
+  },
+  {
+    "source": "/tmp/c7-final-browser/results.json",
+    "artifact": "browser/results.json",
+    "sourceBytes": 37795,
+    "sourceSha256": "06672bc96d39dde4f3c93a728014ffcad9f6ed92d651c30d41b4ddc7f59c236c",
+    "artifactSha256": "06672bc96d39dde4f3c93a728014ffcad9f6ed92d651c30d41b4ddc7f59c236c"
+  },
+  {
+    "source": "/tmp/c7-final-workspaces/1440-0.png",
+    "artifact": "workspaces/1440-0.png",
+    "sourceBytes": 360451,
+    "sourceSha256": "23d43723349a0e41c055e51193dac1c8d0a041d84e9f7fd2c579e47041ea0a33",
+    "artifactSha256": "23d43723349a0e41c055e51193dac1c8d0a041d84e9f7fd2c579e47041ea0a33"
+  },
+  {
+    "source": "/tmp/c7-final-workspaces/1440-1.png",
+    "artifact": "workspaces/1440-1.png",
+    "sourceBytes": 1324759,
+    "sourceSha256": "44b2fb4a3834211fc68734b8d89aca578157fd31d9d7bfd91da0849e96675118",
+    "artifactSha256": "44b2fb4a3834211fc68734b8d89aca578157fd31d9d7bfd91da0849e96675118"
+  },
+  {
+    "source": "/tmp/c7-final-workspaces/1440-2.png",
+    "artifact": "workspaces/1440-2.png",
+    "sourceBytes": 267065,
+    "sourceSha256": "34cf81c624833c15200d19f5e96aac5e3ac2e1b2aefb0fd1b6941c2c44045352",
+    "artifactSha256": "34cf81c624833c15200d19f5e96aac5e3ac2e1b2aefb0fd1b6941c2c44045352"
+  },
+  {
+    "source": "/tmp/c7-final-workspaces/1440-3.png",
+    "artifact": "workspaces/1440-3.png",
+    "sourceBytes": 118632,
+    "sourceSha256": "97c21923e243dc1f6a792afe2407771752322397384a832d81d2375217543467",
+    "artifactSha256": "97c21923e243dc1f6a792afe2407771752322397384a832d81d2375217543467"
+  },
+  {
+    "source": "/tmp/c7-final-workspaces/1440-4.png",
+    "artifact": "workspaces/1440-4.png",
+    "sourceBytes": 140783,
+    "sourceSha256": "1e78364f8d883806bec41641ef721a0fa08212970c3ec9dc1822d1826a1b44e2",
+    "artifactSha256": "1e78364f8d883806bec41641ef721a0fa08212970c3ec9dc1822d1826a1b44e2"
+  },
+  {
+    "source": "/tmp/c7-final-workspaces/1440-5.png",
+    "artifact": "workspaces/1440-5.png",
+    "sourceBytes": 99997,
+    "sourceSha256": "1866b42158007078df980111ede5919cd5a564f6d4e0abcfcc57e9d13c69d478",
+    "artifactSha256": "1866b42158007078df980111ede5919cd5a564f6d4e0abcfcc57e9d13c69d478"
+  },
+  {
+    "source": "/tmp/c7-final-workspaces/390-0.png",
+    "artifact": "workspaces/390-0.png",
+    "sourceBytes": 389647,
+    "sourceSha256": "653730fcc206a398be85d44a96b360a20604a2ef64130af05a946d59056a6997",
+    "artifactSha256": "653730fcc206a398be85d44a96b360a20604a2ef64130af05a946d59056a6997"
+  },
+  {
+    "source": "/tmp/c7-final-workspaces/390-1.png",
+    "artifact": "workspaces/390-1.png",
+    "sourceBytes": 604234,
+    "sourceSha256": "4987e878bcd2bfeb3cfaf66b20414efa56b9883af47c4bcc3667ab62b83e3efd",
+    "artifactSha256": "4987e878bcd2bfeb3cfaf66b20414efa56b9883af47c4bcc3667ab62b83e3efd"
+  },
+  {
+    "source": "/tmp/c7-final-workspaces/390-2.png",
+    "artifact": "workspaces/390-2.png",
+    "sourceBytes": 255907,
+    "sourceSha256": "080fad42923bae52786cd340e1be2376d978f2466b5074d54c40ee98d34861a8",
+    "artifactSha256": "080fad42923bae52786cd340e1be2376d978f2466b5074d54c40ee98d34861a8"
+  },
+  {
+    "source": "/tmp/c7-final-workspaces/390-3.png",
+    "artifact": "workspaces/390-3.png",
+    "sourceBytes": 91641,
+    "sourceSha256": "d6b0367f4f8de0d03e75c14b9c7a12396e1288629f8087635d44901fa727c375",
+    "artifactSha256": "d6b0367f4f8de0d03e75c14b9c7a12396e1288629f8087635d44901fa727c375"
+  },
+  {
+    "source": "/tmp/c7-final-workspaces/390-4.png",
+    "artifact": "workspaces/390-4.png",
+    "sourceBytes": 119226,
+    "sourceSha256": "33ce94f56e93a7ddf76d421131c51a1093fcff74c98166fef33383ea7d711c7f",
+    "artifactSha256": "33ce94f56e93a7ddf76d421131c51a1093fcff74c98166fef33383ea7d711c7f"
+  },
+  {
+    "source": "/tmp/c7-final-workspaces/390-5.png",
+    "artifact": "workspaces/390-5.png",
+    "sourceBytes": 97780,
+    "sourceSha256": "d0a7571b78d6784b81d0f9aa0b739f313a8f70dbfe70479826b3c51e594545fd",
+    "artifactSha256": "d0a7571b78d6784b81d0f9aa0b739f313a8f70dbfe70479826b3c51e594545fd"
+  },
+  {
+    "source": "/tmp/c7-final-workspaces/results.json",
+    "artifact": "workspaces/results.json",
+    "sourceBytes": 416,
+    "sourceSha256": "5368419a031f6cb3693246fcdbe96b9a9b9e6e3b808a9ae6a5bfda81b0232a3e",
+    "artifactSha256": "5368419a031f6cb3693246fcdbe96b9a9b9e6e3b808a9ae6a5bfda81b0232a3e"
+  },
+  {
+    "source": "/tmp/c7-final-history/c7_color_pairing_acceptance.mjs.log",
+    "artifact": "history/c7_color_pairing_acceptance.mjs.log.gz",
+    "sourceBytes": 215,
+    "sourceSha256": "4ef9c15705081e7e3dc54aae13b8cd7b0ced4a1142ff478c066572f4f531bbb4",
+    "artifactSha256": "652d268f3328b9e98a16b2c639472b050f3f34b83cbd66002db39b360eabf9a3"
+  },
+  {
+    "source": "/tmp/c7-final-history/c7_color_pairing_modes.mjs.log",
+    "artifact": "history/c7_color_pairing_modes.mjs.log.gz",
+    "sourceBytes": 141,
+    "sourceSha256": "92ac7309a8ac06f43eea73d2ea07d721186fb349c0ab6e2d05f23c63e5f46f8d",
+    "artifactSha256": "35bbc25bf237abaf0c3496973ade4029af4edd417da19fb224540f165e9d4955"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/c7_night_lighting_acceptance.mjs.log",
+    "artifact": "history/color-history/c7_night_lighting_acceptance.mjs.log.gz",
+    "sourceBytes": 156,
+    "sourceSha256": "1df8047a868116b8e05fc1aad354234c344f76d385e78ad52b99c432dc2020b0",
+    "artifactSha256": "ba7ba414b8f9c14fcc571718124f0500d0669f731e94ba4c58da8a5c3ce5823e"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/c7_night_lighting_modes.mjs.log",
+    "artifact": "history/color-history/c7_night_lighting_modes.mjs.log.gz",
+    "sourceBytes": 169,
+    "sourceSha256": "90b4e0783d57260c410a9c3227cd209c7c44957847def0db9ebf8645b0c8a8c3",
+    "artifactSha256": "fd56a65a56d9ad60cb2d979b7d834a35fe9d5d52545d75b389592259c4c2fb34"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/full-history.log",
+    "artifact": "history/color-history/full-history.log.gz",
+    "sourceBytes": 32581,
+    "sourceSha256": "c35e0f83b9810576f429167ba930901f858fd432e510b3790bc687ba39e934fb",
+    "artifactSha256": "c529ad16980682595250a311d8eb1f96a942bff50b0e18d3f3ad250d188c30f0"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/c2_scene_optics_acceptance.mjs.log",
+    "artifact": "history/color-history/night-history/c2_scene_optics_acceptance.mjs.log.gz",
+    "sourceBytes": 299,
+    "sourceSha256": "81e8085bcf4cc0331fc86bb2008364b77f61996230cd3562994dedcd2fdda3f2",
+    "artifactSha256": "2ca69f5d19a055c260fbac908a34fba8d02c2e638cd5a2d84bc13bd1fdd32ff8"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/c2_scene_optics_history.mjs.log",
+    "artifact": "history/color-history/night-history/c2_scene_optics_history.mjs.log.gz",
+    "sourceBytes": 32075,
+    "sourceSha256": "6b7544e9b4b22ad3035994a087ab95091e5ce79a29442a0cd3dea88dc8f42e83",
+    "artifactSha256": "5c9550e5d5fdb5ed775b583921aa9615b472bac45d3453d17cacec7665be986d"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/c2_scene_optics_modes.mjs.log",
+    "artifact": "history/color-history/night-history/c2_scene_optics_modes.mjs.log.gz",
+    "sourceBytes": 71,
+    "sourceSha256": "787c6f2beb1980575b70afe4c730ba56953c1f158c99c8ad59b4c73c676a03d5",
+    "artifactSha256": "7ed18a437635dbcceadc30c5934192caf64f132b89fbb57f49775befea65e1ce"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/c2_outfit_acceptance.mjs.log",
+    "artifact": "history/color-history/night-history/scene-optics/c2_outfit_acceptance.mjs.log.gz",
+    "sourceBytes": 261,
+    "sourceSha256": "58aba2f11a13f83eaae7e3672ee77ea9037deb6eac32f933473e0fa5137bba55",
+    "artifactSha256": "a0644b49450cc293a45e5fac9488379ced92f59d298d58a832f37bf3188675f2"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/c2_outfit_history.mjs.log",
+    "artifact": "history/color-history/night-history/scene-optics/c2_outfit_history.mjs.log.gz",
+    "sourceBytes": 31714,
+    "sourceSha256": "9f7afb43aee57c3ed621d0129160fd0706f67e6cdbbfc25dd85fd91000c9ce10",
+    "artifactSha256": "128179ebf21888bea3300d7739cc559a241d87020a2c0f980dcb7601e3701e48"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/c2_waist_acceptance.mjs.log",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/c2_waist_acceptance.mjs.log.gz",
+    "sourceBytes": 29,
+    "sourceSha256": "b8dd2d9a897e44c471c3b8ee344dd1f0d24547f70c89366d5a31ac8ce630325b",
+    "artifactSha256": "716f30c5deaf8d7803e106205316865b3fa51423856fd8a861ee75a26d1ffa25"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/c2_waist_history.mjs.log",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/c2_waist_history.mjs.log.gz",
+    "sourceBytes": 31593,
+    "sourceSha256": "c5f6059c6262f775c7f772c1583199929e7960678e0a7f044a3e52fd6a0f5da1",
+    "artifactSha256": "8708a3710b79e8fac5ff3640cf0736f5b26af8dfeef409c58be42286028fa703"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/b3-history.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/b3-history.json",
+    "sourceBytes": 524,
+    "sourceSha256": "5dd1fbae4586ea0b154373176e3de0c87be97b6e0a9204eab3d9441502765001",
+    "artifactSha256": "5dd1fbae4586ea0b154373176e3de0c87be97b6e0a9204eab3d9441502765001"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a2-recovery/acceptance.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a2-recovery/acceptance.json",
+    "sourceBytes": 221,
+    "sourceSha256": "8d77be4b6bc6e5e9c8ed585c25a581bbd19c3dd294fe680dc51c9320a31731eb",
+    "artifactSha256": "8d77be4b6bc6e5e9c8ed585c25a581bbd19c3dd294fe680dc51c9320a31731eb"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a2-recovery/baseline-and-results.json.gz",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a2-recovery/baseline-and-results.json.gz",
+    "sourceBytes": 121619,
+    "sourceSha256": "bd6d2682f02f1aff4d19a86573a62218a91434fa2c13bdea8e9e82fa56158e40",
+    "artifactSha256": "bd6d2682f02f1aff4d19a86573a62218a91434fa2c13bdea8e9e82fa56158e40"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a2-outfits/acceptance.json.gz",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a2-outfits/acceptance.json.gz",
+    "sourceBytes": 729127,
+    "sourceSha256": "2d97a7863c02a1e3942f075e2ec6f7c572c3d28da10997c2bf131d22b85289b5",
+    "artifactSha256": "2d97a7863c02a1e3942f075e2ec6f7c572c3d28da10997c2bf131d22b85289b5"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a2-outfits/baseline-and-saved.json.gz",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a2-outfits/baseline-and-saved.json.gz",
+    "sourceBytes": 243536,
+    "sourceSha256": "948dc9d6627043c993a043f841f9f73df2d7a49300144d78a514c455fab13247",
+    "artifactSha256": "948dc9d6627043c993a043f841f9f73df2d7a49300144d78a514c455fab13247"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a1/acceptance.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a1/acceptance.json.gz",
+    "sourceBytes": 555707,
+    "sourceSha256": "ddd83073240d6e4e94db614f483dfc11e84ee20d6c228b83cbfb9e559762196d",
+    "artifactSha256": "f3d2c4ac9f53d6c68fa3d546129ee7250d8de63a183817ee39e8e7ed3561b0b2"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a1/baseline-and-saved.json.gz",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a1/baseline-and-saved.json.gz",
+    "sourceBytes": 214094,
+    "sourceSha256": "acc1a6171e642757d44e9d14e5d7d6b83c2ffd733c205c202330f8800909260c",
+    "artifactSha256": "acc1a6171e642757d44e9d14e5d7d6b83c2ffd733c205c202330f8800909260c"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a5/previous/crt-imports.json.gz",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a5/previous/crt-imports.json.gz",
+    "sourceBytes": 57395,
+    "sourceSha256": "484c837d5b8808b4f549075e2ee716a1a944e546c58181922187b234ee730d86",
+    "artifactSha256": "484c837d5b8808b4f549075e2ee716a1a944e546c58181922187b234ee730d86"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a5/previous/crt.json.gz",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a5/previous/crt.json.gz",
+    "sourceBytes": 325429,
+    "sourceSha256": "6d5ccc95ad6afa3327dbfa14ff907d5c66cc45d406e5e3f59cace55ff7a8fece",
+    "artifactSha256": "6d5ccc95ad6afa3327dbfa14ff907d5c66cc45d406e5e3f59cace55ff7a8fece"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a5/previous/previous/commercial.json.gz",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a5/previous/previous/commercial.json.gz",
+    "sourceBytes": 393489,
+    "sourceSha256": "43fa404c55692e92dddf68c98c8f6d7ce77d673bce8268a2ac680bb2db1df6e7",
+    "artifactSha256": "43fa404c55692e92dddf68c98c8f6d7ce77d673bce8268a2ac680bb2db1df6e7"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a5/previous/previous/first-a5.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a5/previous/previous/first-a5.json.gz",
+    "sourceBytes": 1583535,
+    "sourceSha256": "7e1441c56e0dcac16675d1bd7d4f61c1fac89120084b228f0d6bd82439ecdd46",
+    "artifactSha256": "2c0c0fabad09733b86e9c8bf85cd56ef42e2f03c95ddd128004e7815a9d95cc1"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a5/ximending-imports.json.gz",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a5/ximending-imports.json.gz",
+    "sourceBytes": 58703,
+    "sourceSha256": "17fe7315ab5f32e0fdfc283be3feb31fdb5b098ab8a5ac074ee0f090f025ee11",
+    "artifactSha256": "17fe7315ab5f32e0fdfc283be3feb31fdb5b098ab8a5ac074ee0f090f025ee11"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a5/ximending.json.gz",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a1-a5/a5/ximending.json.gz",
+    "sourceBytes": 297558,
+    "sourceSha256": "de214b1c59e7ca917ccc102a150a346febf3aba77d772b7cfc20e66a14d8255f",
+    "artifactSha256": "de214b1c59e7ca917ccc102a150a346febf3aba77d772b7cfc20e66a14d8255f"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a2-dresses/acceptance.json.gz",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a2-dresses/acceptance.json.gz",
+    "sourceBytes": 302659,
+    "sourceSha256": "ba1e6376e0280abbf3cd2208042171ab321516845a0ec7b40a08023ec42cfed3",
+    "artifactSha256": "ba1e6376e0280abbf3cd2208042171ab321516845a0ec7b40a08023ec42cfed3"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a2-dresses/baseline-and-saved.json.gz",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/a2-dresses/baseline-and-saved.json.gz",
+    "sourceBytes": 135289,
+    "sourceSha256": "6fc15a48cc98b10a4cbe2cc2c50cedf67c5c56ee649e9691ca89c01dc0219641",
+    "artifactSha256": "6fc15a48cc98b10a4cbe2cc2c50cedf67c5c56ee649e9691ca89c01dc0219641"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/snapshot/acceptance.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/snapshot/acceptance.json",
+    "sourceBytes": 272,
+    "sourceSha256": "c07e3ce393fbaee512c8217d58f97b4c90d2da28af6f9e2f3e33246d5932f48e",
+    "artifactSha256": "c07e3ce393fbaee512c8217d58f97b4c90d2da28af6f9e2f3e33246d5932f48e"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/snapshot/baseline-and-results.json.gz",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/earlier/snapshot/baseline-and-results.json.gz",
+    "sourceBytes": 1129476,
+    "sourceSha256": "497f4b0ce0737db4ba4a62eca262bf0c3f0aacd9fca785b1fb45e024c4c3b220",
+    "artifactSha256": "497f4b0ce0737db4ba4a62eca262bf0c3f0aacd9fca785b1fb45e024c4c3b220"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/special-tape/acceptance.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/special-tape/acceptance.json",
+    "sourceBytes": 2024,
+    "sourceSha256": "3bef058558b7c0e3e412fea3b330fa570d6ce8cb82d09668ef9294fd01120e5e",
+    "artifactSha256": "3bef058558b7c0e3e412fea3b330fa570d6ce8cb82d09668ef9294fd01120e5e"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/special-tape/baseline-and-saved.json.gz",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/earlier/special-tape/baseline-and-saved.json.gz",
+    "sourceBytes": 300368,
+    "sourceSha256": "2dea0c492560be114065d6cb34500ebd96a11f2eaa1e5cf4b1c35cd0a470b8dc",
+    "artifactSha256": "2dea0c492560be114065d6cb34500ebd96a11f2eaa1e5cf4b1c35cd0a470b8dc"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/history.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/history.json",
+    "sourceBytes": 287,
+    "sourceSha256": "c6bd09c3962267ca61993b64f3dbb0b7c54a3f3bb661fffb0d1896709cdf598d",
+    "artifactSha256": "c6bd09c3962267ca61993b64f3dbb0b7c54a3f3bb661fffb0d1896709cdf598d"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/runtime/acceptance.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/runtime/acceptance.json",
+    "sourceBytes": 2955,
+    "sourceSha256": "d378bacf2992871814535ac1481cdb2a1e87f4bf4d22a30df90c3a63e0eb22b8",
+    "artifactSha256": "d378bacf2992871814535ac1481cdb2a1e87f4bf4d22a30df90c3a63e0eb22b8"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/runtime/baseline-and-saved.json.gz",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/runtime/baseline-and-saved.json.gz",
+    "sourceBytes": 1051871,
+    "sourceSha256": "23d9243a647bb11f5421dad4a6a978104bda683051d2c8f1906796eac81e5e21",
+    "artifactSha256": "23d9243a647bb11f5421dad4a6a978104bda683051d2c8f1906796eac81e5e21"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/runtime/oracle-mismatches.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/earlier/runtime/oracle-mismatches.json",
+    "sourceBytes": 3,
+    "sourceSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "artifactSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/history.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/history.json",
+    "sourceBytes": 287,
+    "sourceSha256": "418d3916b7d5b48d89e3347d9b22293c5e892583183c45d18d9fabd5b14cea5a",
+    "artifactSha256": "418d3916b7d5b48d89e3347d9b22293c5e892583183c45d18d9fabd5b14cea5a"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/special-palette/acceptance.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/special-palette/acceptance.json",
+    "sourceBytes": 347,
+    "sourceSha256": "ba96c1d53412f6ff8a440c01cdf4c068ecdef0dc46e25d6059070bf5ebadf038",
+    "artifactSha256": "ba96c1d53412f6ff8a440c01cdf4c068ecdef0dc46e25d6059070bf5ebadf038"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/special-palette/baseline-and-saved.json.gz",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/special-palette/baseline-and-saved.json.gz",
+    "sourceBytes": 449930,
+    "sourceSha256": "f63760ff22086103e2652f40ca8403f1cf74753421049b99abcdf6f1a5db4c16",
+    "artifactSha256": "f63760ff22086103e2652f40ca8403f1cf74753421049b99abcdf6f1a5db4c16"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/special-palette/oracle-mismatches.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/earlier/special-palette/oracle-mismatches.json",
+    "sourceBytes": 3,
+    "sourceSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "artifactSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/history.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/history.json",
+    "sourceBytes": 271,
+    "sourceSha256": "d9d86d1edc82f4d2f33b7e72d8cdaf796ea3d2ded0e029d8e8e7fcebd6ec0cbe",
+    "artifactSha256": "d9d86d1edc82f4d2f33b7e72d8cdaf796ea3d2ded0e029d8e8e7fcebd6ec0cbe"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/paired-capture/acceptance.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/paired-capture/acceptance.json",
+    "sourceBytes": 545,
+    "sourceSha256": "510b4bc57dcdee448c6aa2e2b95b8208aa458a2e7c8a2f03b16f552a794f327e",
+    "artifactSha256": "510b4bc57dcdee448c6aa2e2b95b8208aa458a2e7c8a2f03b16f552a794f327e"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/paired-capture/baseline-and-saved.json.gz",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/paired-capture/baseline-and-saved.json.gz",
+    "sourceBytes": 520877,
+    "sourceSha256": "3cf3ac7f81b25e82970879b95812a158e9c9ca700c7ea5ad536b6aacb9766578",
+    "artifactSha256": "3cf3ac7f81b25e82970879b95812a158e9c9ca700c7ea5ad536b6aacb9766578"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/paired-capture/oracle-mismatches.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/earlier/paired-capture/oracle-mismatches.json",
+    "sourceBytes": 3,
+    "sourceSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "artifactSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/history.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/history.json",
+    "sourceBytes": 2040,
+    "sourceSha256": "5641f1daf4506b1e0bdff1829173dee3df7770416208e0cac00dfe25d373b640",
+    "artifactSha256": "5641f1daf4506b1e0bdff1829173dee3df7770416208e0cac00dfe25d373b640"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/legacy-dress/acceptance.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/legacy-dress/acceptance.json",
+    "sourceBytes": 533,
+    "sourceSha256": "b8ebb1bf0d6b7f4709f33f0fc315e85830436c6d7b7ab7a976f1b453407625de",
+    "artifactSha256": "b8ebb1bf0d6b7f4709f33f0fc315e85830436c6d7b7ab7a976f1b453407625de"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/legacy-dress/baseline-and-saved.json.gz",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/legacy-dress/baseline-and-saved.json.gz",
+    "sourceBytes": 418910,
+    "sourceSha256": "f80005c47fdddcb11040e69bd92539fe2bc5f5415f6bb9a2108229098ed059af",
+    "artifactSha256": "f80005c47fdddcb11040e69bd92539fe2bc5f5415f6bb9a2108229098ed059af"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/legacy-dress/oracle-mismatches.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/earlier/legacy-dress/oracle-mismatches.json",
+    "sourceBytes": 3,
+    "sourceSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "artifactSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/history.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/history.json",
+    "sourceBytes": 1787,
+    "sourceSha256": "9b6123f7c3f3e45f1862181777aedfea25575b295dcea02fcc99b8f13be9f331",
+    "artifactSha256": "9b6123f7c3f3e45f1862181777aedfea25575b295dcea02fcc99b8f13be9f331"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/legacy-dress/acceptance.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/legacy-dress/acceptance.json",
+    "sourceBytes": 304,
+    "sourceSha256": "b170f8d630c12246787e8395141deb67f751c02a6f5d5402f96de769830fbddd",
+    "artifactSha256": "b170f8d630c12246787e8395141deb67f751c02a6f5d5402f96de769830fbddd"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/legacy-dress/baseline-and-saved.json.gz",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/legacy-dress/baseline-and-saved.json.gz",
+    "sourceBytes": 209449,
+    "sourceSha256": "d130fbbbf97d622b9e76ca4a5165ec342d6749c57bcad79496ffc5695201d885",
+    "artifactSha256": "d130fbbbf97d622b9e76ca4a5165ec342d6749c57bcad79496ffc5695201d885"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/legacy-dress/oracle-mismatches.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/legacy-dress/oracle-mismatches.json",
+    "sourceBytes": 3,
+    "sourceSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "artifactSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/legacy-dress/regression-fixed-main.log",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/earlier/legacy-dress/regression-fixed-main.log.gz",
+    "sourceBytes": 13083,
+    "sourceSha256": "65138e2c9204115f340f45d3dc9532ea00c5c4878091160d212989eaab6f8acc",
+    "artifactSha256": "e5341cd8a1d20b290f34c2ebc5cef6d84addc3619ebaec6d367896eb6c5d4975"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/history.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/history.json",
+    "sourceBytes": 5689,
+    "sourceSha256": "a16a9415fec27c7106f5d902004dac9814b069093a57e8084d55bfc31ef998a4",
+    "artifactSha256": "a16a9415fec27c7106f5d902004dac9814b069093a57e8084d55bfc31ef998a4"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/legacy-dress/acceptance.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/legacy-dress/acceptance.json",
+    "sourceBytes": 276,
+    "sourceSha256": "da42885cb42437286cbac53019428d3c9e8d8dea645083d557c636b8eccf658c",
+    "artifactSha256": "da42885cb42437286cbac53019428d3c9e8d8dea645083d557c636b8eccf658c"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/legacy-dress/baseline-and-saved.json.gz",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/legacy-dress/baseline-and-saved.json.gz",
+    "sourceBytes": 1746690,
+    "sourceSha256": "1c3c0c8149e41ee056fa4225fa6f05031640dde47e6d24a21a4fddfb1d7383fd",
+    "artifactSha256": "1c3c0c8149e41ee056fa4225fa6f05031640dde47e6d24a21a4fddfb1d7383fd"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/legacy-dress/oracle-mismatches.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/legacy-dress/oracle-mismatches.json",
+    "sourceBytes": 3,
+    "sourceSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "artifactSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/page2-history.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/page2-history.json",
+    "sourceBytes": 290,
+    "sourceSha256": "32550d99c13672c1b8ee6c6d9bf4f04e58d5f7c5e4b864cee0d121910e0e1ff6",
+    "artifactSha256": "32550d99c13672c1b8ee6c6d9bf4f04e58d5f7c5e4b864cee0d121910e0e1ff6"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/replay.log",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/earlier/replay.log.gz",
+    "sourceBytes": 30420,
+    "sourceSha256": "d24b6f5e7dbd0e615771b96ca48b8191a96d74773f6c565715ab91346b3dc9e6",
+    "artifactSha256": "b563c3df3f4a44c21ed91530384f846185c825d78f80ede4540b99785cb5488f"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/page2-acceptance/acceptance.json",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/page2-acceptance/acceptance.json",
+    "sourceBytes": 608,
+    "sourceSha256": "8c6fb3a0e85b92c85540f1d2283609416bc9979fa61a997665f5319c2d19eb98",
+    "artifactSha256": "8c6fb3a0e85b92c85540f1d2283609416bc9979fa61a997665f5319c2d19eb98"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/page2-acceptance/baseline.json.gz",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/page2-acceptance/baseline.json.gz",
+    "sourceBytes": 278636,
+    "sourceSha256": "d40e401ce5c8e5a56f0fa4ee38006b37a90c8af69f25d7bdfb75062dcd95bd9b",
+    "artifactSha256": "d40e401ce5c8e5a56f0fa4ee38006b37a90c8af69f25d7bdfb75062dcd95bd9b"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3/replay.log",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3/replay.log.gz",
+    "sourceBytes": 30991,
+    "sourceSha256": "6518d0e3218ae8a079c880382be2b72f7f77cfe0029b984a741fa83aca41f9f2",
+    "artifactSha256": "dcf8792dc29588cccab89bdaf396e25f8b3ea589bf1608105be3bf0fc1e15aa6"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/b3.log",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/b3.log.gz",
+    "sourceBytes": 30992,
+    "sourceSha256": "e42e143e9790758a87a9e9c57601651c861ee1340527a55063dbcd4058d4def1",
+    "artifactSha256": "ec4553eaaa8bee107644cc3d631c797758815434e08e9cd9623cf347df2ae9e5"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/c3_pose_acceptance.mjs.log",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/c3_pose_acceptance.mjs.log.gz",
+    "sourceBytes": 67,
+    "sourceSha256": "39a4170b562a00fd8d82c9ccc81b48dcd5af7d629f1d559ec868d04de3cf5651",
+    "artifactSha256": "c4c0462e06495886ba69fe3245f7c291aee99a9876f76e0f6ed872cc3ea59ce5"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/c4_catalog_labels_acceptance.mjs.log",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/c4_catalog_labels_acceptance.mjs.log.gz",
+    "sourceBytes": 111,
+    "sourceSha256": "4219b66fcd8399cc97258d9603ffa83ede3e4843137a137748c78e731e3a5d7d",
+    "artifactSha256": "4dc2b2c673e2167d55171adbfe32b705cbe69aea1a9f93fcbe606e8e906b4044"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/c4_jewelry_labels_acceptance.mjs.log",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/c4_jewelry_labels_acceptance.mjs.log.gz",
+    "sourceBytes": 111,
+    "sourceSha256": "5516397174e93a6b8a1a48bdd0f19f095f067e1c79bf8efe244937d7bfedbf05",
+    "artifactSha256": "fd2132d0f3ec3ba5faefaf24abf9ca9e556f4a99179cedfc58fdae0d4ddd180f"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-history/scene-optics/outfit/waist/c4_labels_acceptance.mjs.log",
+    "artifact": "history/color-history/night-history/scene-optics/outfit/waist/c4_labels_acceptance.mjs.log.gz",
+    "sourceBytes": 91,
+    "sourceSha256": "d2eadac74cd6cbe75997a4f286df15bd9cc67d9aee38a1ee0c9231f8190e4e4e",
+    "artifactSha256": "8f276fd78b50bf2878c7d9402d0b488c0d55514071558fe6a590ecf05e365e66"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-history/night-tests.log",
+    "artifact": "history/color-history/night-tests.log.gz",
+    "sourceBytes": 1341,
+    "sourceSha256": "e8dc361b44908ebf71f29e7d1f364d5e3168978bf86b6814dccd0dd41e48f7d5",
+    "artifactSha256": "7b229bd056bbe0f0015ebd7fae144436c8e7aa8dc7ccffbf4c2527cf0b14b0f4"
+  },
+  {
+    "source": "/tmp/c7-final-history/color-tests.log",
+    "artifact": "history/color-tests.log.gz",
+    "sourceBytes": 1624,
+    "sourceSha256": "9c908c5769d4f2b5564c6a3ca671bb4f0be7ea47a4f38692cd179efdbe9424dd",
+    "artifactSha256": "a329c39a73a101fa30cbd5cc6edf6d5d610e57918c4bc45488368ff43536a03f"
+  },
+  {
+    "source": "/tmp/c7-final-history/full-history.log",
+    "artifact": "history/full-history.log.gz",
+    "sourceBytes": 270,
+    "sourceSha256": "cf6bc66eb91e73520e6805b8945d0bcd254cb2c851e83fbe98ef7e4d78b5450e",
+    "artifactSha256": "cf9bf2e417d80c9d5a75affdf91351384d4ccc8f986a85b7b3476916375a551f"
+  },
+  {
+    "source": "/tmp/c7-final-protection.json",
+    "artifact": "protection.json",
+    "sourceBytes": 3634,
+    "sourceSha256": "5eae1aa523fd040fad514886fa41477ac51a96252df84edacbc9b9a3cb4a5ddb",
+    "artifactSha256": "5eae1aa523fd040fad514886fa41477ac51a96252df84edacbc9b9a3cb4a5ddb"
+  },
+  {
+    "source": "/tmp/c7-final-baseline-effects.json",
+    "artifact": "baseline-effects.json",
+    "sourceBytes": 196,
+    "sourceSha256": "986b7d3ce36e2b0183ad468c83abd17855dcf6174898e781dcc0247fcca3ccae",
+    "artifactSha256": "986b7d3ce36e2b0183ad468c83abd17855dcf6174898e781dcc0247fcca3ccae"
+  },
+  {
+    "source": "/tmp/c7-second-delivery.json",
+    "artifact": "second-batch-delivery.json",
+    "sourceBytes": 846,
+    "sourceSha256": "d07ece41c1516b436064781ecf2e52988f5d386643dbd407917f8e1cb0400d43",
+    "artifactSha256": "d07ece41c1516b436064781ecf2e52988f5d386643dbd407917f8e1cb0400d43"
+  },
+  {
+    "source": "/tmp/c7color-deployed/1440-0.png",
+    "artifact": "second-batch-production/1440-0.png",
+    "sourceBytes": 369417,
+    "sourceSha256": "49dfa8675109eb57b35b1fb64e1a466c3988edefd65a042179a8964e301b38fd",
+    "artifactSha256": "49dfa8675109eb57b35b1fb64e1a466c3988edefd65a042179a8964e301b38fd"
+  },
+  {
+    "source": "/tmp/c7color-deployed/1440-1.png",
+    "artifact": "second-batch-production/1440-1.png",
+    "sourceBytes": 1324612,
+    "sourceSha256": "f5b0c07226704f2ba27caa3db8e2e57ebd23f2ac78ff4ab157271baf2742d462",
+    "artifactSha256": "f5b0c07226704f2ba27caa3db8e2e57ebd23f2ac78ff4ab157271baf2742d462"
+  },
+  {
+    "source": "/tmp/c7color-deployed/1440-2.png",
+    "artifact": "second-batch-production/1440-2.png",
+    "sourceBytes": 267065,
+    "sourceSha256": "34cf81c624833c15200d19f5e96aac5e3ac2e1b2aefb0fd1b6941c2c44045352",
+    "artifactSha256": "34cf81c624833c15200d19f5e96aac5e3ac2e1b2aefb0fd1b6941c2c44045352"
+  },
+  {
+    "source": "/tmp/c7color-deployed/1440-3.png",
+    "artifact": "second-batch-production/1440-3.png",
+    "sourceBytes": 118632,
+    "sourceSha256": "97c21923e243dc1f6a792afe2407771752322397384a832d81d2375217543467",
+    "artifactSha256": "97c21923e243dc1f6a792afe2407771752322397384a832d81d2375217543467"
+  },
+  {
+    "source": "/tmp/c7color-deployed/1440-4.png",
+    "artifact": "second-batch-production/1440-4.png",
+    "sourceBytes": 140778,
+    "sourceSha256": "080ae707e7715b9a26d23bd5ddc0d7e6448ca05a762c99c00661ccee5c1e4508",
+    "artifactSha256": "080ae707e7715b9a26d23bd5ddc0d7e6448ca05a762c99c00661ccee5c1e4508"
+  },
+  {
+    "source": "/tmp/c7color-deployed/1440-5.png",
+    "artifact": "second-batch-production/1440-5.png",
+    "sourceBytes": 99997,
+    "sourceSha256": "1866b42158007078df980111ede5919cd5a564f6d4e0abcfcc57e9d13c69d478",
+    "artifactSha256": "1866b42158007078df980111ede5919cd5a564f6d4e0abcfcc57e9d13c69d478"
+  },
+  {
+    "source": "/tmp/c7color-deployed/390-0.png",
+    "artifact": "second-batch-production/390-0.png",
+    "sourceBytes": 372301,
+    "sourceSha256": "8e106e4999c3fe99dfdbbae924fd0bf538c173184a1a238122d37829c06dd30b",
+    "artifactSha256": "8e106e4999c3fe99dfdbbae924fd0bf538c173184a1a238122d37829c06dd30b"
+  },
+  {
+    "source": "/tmp/c7color-deployed/390-1.png",
+    "artifact": "second-batch-production/390-1.png",
+    "sourceBytes": 604234,
+    "sourceSha256": "4987e878bcd2bfeb3cfaf66b20414efa56b9883af47c4bcc3667ab62b83e3efd",
+    "artifactSha256": "4987e878bcd2bfeb3cfaf66b20414efa56b9883af47c4bcc3667ab62b83e3efd"
+  },
+  {
+    "source": "/tmp/c7color-deployed/390-2.png",
+    "artifact": "second-batch-production/390-2.png",
+    "sourceBytes": 255907,
+    "sourceSha256": "080fad42923bae52786cd340e1be2376d978f2466b5074d54c40ee98d34861a8",
+    "artifactSha256": "080fad42923bae52786cd340e1be2376d978f2466b5074d54c40ee98d34861a8"
+  },
+  {
+    "source": "/tmp/c7color-deployed/390-3.png",
+    "artifact": "second-batch-production/390-3.png",
+    "sourceBytes": 91641,
+    "sourceSha256": "d6b0367f4f8de0d03e75c14b9c7a12396e1288629f8087635d44901fa727c375",
+    "artifactSha256": "d6b0367f4f8de0d03e75c14b9c7a12396e1288629f8087635d44901fa727c375"
+  },
+  {
+    "source": "/tmp/c7color-deployed/390-4.png",
+    "artifact": "second-batch-production/390-4.png",
+    "sourceBytes": 119226,
+    "sourceSha256": "33ce94f56e93a7ddf76d421131c51a1093fcff74c98166fef33383ea7d711c7f",
+    "artifactSha256": "33ce94f56e93a7ddf76d421131c51a1093fcff74c98166fef33383ea7d711c7f"
+  },
+  {
+    "source": "/tmp/c7color-deployed/390-5.png",
+    "artifact": "second-batch-production/390-5.png",
+    "sourceBytes": 97780,
+    "sourceSha256": "d0a7571b78d6784b81d0f9aa0b739f313a8f70dbfe70479826b3c51e594545fd",
+    "artifactSha256": "d0a7571b78d6784b81d0f9aa0b739f313a8f70dbfe70479826b3c51e594545fd"
+  },
+  {
+    "source": "/tmp/c7color-deployed/results.json",
+    "artifact": "second-batch-production/results.json",
+    "sourceBytes": 433,
+    "sourceSha256": "01c165bd63db95cdd4d51f2d56300e57a50041703452a54529b41046a821f01b",
+    "artifactSha256": "01c165bd63db95cdd4d51f2d56300e57a50041703452a54529b41046a821f01b"
+  }
+]

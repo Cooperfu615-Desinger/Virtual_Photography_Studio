@@ -4,6 +4,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-10-31
 
+## C7 季節與風格配對、整合盤點（2026-10-31，使用者驗收通過）
+
+- C7 第二批已交付 main `b5f035003a48f9dae848b91b27eeccb296a37b3e`；[CI 與部署](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41164989213)四項作業全部成功，正式站桌手機六工作區 12 項 smoke 通過。
+- Cooper 已確認本輪包含剩餘「季節衝突＋風格內建光線／快門」實作，再整合驗收。新批以 b5f03500 凍結，限一般 PAGE1 單人／預設目錄，手動優先。舊收藏原文、正式 catalog、ID、renderer、艾爾莎隨機可達性政策及排除模式保持。
+- [規格](specs/c7-capture-pairing-v1.md)；3,936 組修改前基準與季節／整合獨立預期已封存，季節 170、整合 320 組改選符合預期；2,200 手動、276 排除案例保持。三批聚焦17、前端2083／品質853／Python59、lint／build／bundle／strict／sync／207資產與完整歷史鏈通過；1160組整合抽樣、12組快取往返通過。桌手機各36次隨機、40卡ZIP、舊卡還原及六工作區12項檢查通過，未生圖與原生popup限制保留。見[驗收](reports/c7-capture-pairing-2026-10-31/README.md)與[C7盤點](specs/c7-status-inventory-2026-10-31.md)。Cooper已驗收通過並授權只提交／推送本批程式、文件、基準、回歸、歷史回放與驗收證據，CI及部署於交付時核對。原始驗收快照與瀏覽器限制保持；C1／C6未開工，PAGE2 舊匯入、J12、P5b 暫緩。
+
 ## C7 第二批：黑白／彩色隨機配對（2026-10-31，使用者驗收通過）
 
 - 對齊最新main `591cc0575ab87582540662236b4230fadfea16bf`，僅一般PAGE1單人／預設目錄。手動值優先，雙隨機維持風格先選，精確審閱來源避免黑白／彩色相反配對；全無、open、未知ID退路及排除模式保持。

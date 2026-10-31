@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "baseCommit": "887b149a42047bbc3bc1adbb45aa0f68c9e5487e",
+  "inverseExact": true,
+  "restoredFiles": [
+    "webapp/src/lib/characterCardLab.js",
+    "webapp/src/lib/engine/characterProfiles.js",
+    "webapp/package.json",
+    "scripts/lib/catalogIntegrity.mjs",
+    "scripts/check_catalog_integrity.mjs",
+    "scripts/lib/page2AdultIdentityReplay.mjs"
+  ],
+  "originalAcceptanceTool": "scripts/page2_adult_identity_acceptance.mjs",
+  "originalHistoryTool": "scripts/page2_adult_identity_history.mjs"
+}

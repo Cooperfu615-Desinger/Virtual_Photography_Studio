@@ -1,0 +1,61 @@
+{
+  "baseCommit": "2caa6fdcd2ab63931339ee3018ca52025d3cef3f",
+  "inverseExact": true,
+  "inverseInputs": [
+    {
+      "path": "webapp/src/features/saved-cards/cardCodec.js",
+      "sha256": "3b4c7d4fdd75f85bc65492888e2a627a43e96e9607d48607c2d93a6087134a0d",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "webapp/src/features/saved-cards/wardrobeColorRecovery.test.js",
+      "sha256": "f328841ad7cc9bddbdccd223b13e136acbdfcccf3e0869625234c5824432bf96",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "webapp/src/features/page1/legacyDressRestore.test.js",
+      "sha256": "6ff71d24db7d379b7875e65b689e2470782ab1ba0602c30ac6a26d872f83fc01",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "webapp/src/features/page1/legacyDressRestoreHistory.test.js",
+      "sha256": "09b5a25f31791d102e308d26295c4b93eeebd4aec9964d16887bce04e4588190",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "scripts/lib/a2LegacyDressReplay.mjs",
+      "sha256": "effb5e13d8cf7e00b219f6270dca53ceca0669fa8913f4af16162655c470f127",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "scripts/lib/a1AdultIdentityHistoricalReplay.mjs",
+      "sha256": "c69a9257fd48582dc3cbed642c38a3fed69e874b67d8ef722ee2dc0e21b06f2c",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "scripts/lib/a2DressControlHistoricalReplay.mjs",
+      "sha256": "b9a6e77cbe7cc855d49bae924e7c5bea3402a324efe8f5e86df92b6b5a9f263a",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "scripts/lib/a2OutfitControlHistoricalReplay.mjs",
+      "sha256": "cffa122d16a2a27fc307a739508299b5e054ecb53f93e364ed6fd1190963e2ea",
+      "equalsFixedGit": true
+    },
+    {
+      "path": "scripts/lib/a2WardrobeColorRecoveryReplay.mjs",
+      "sha256": "d4dcce62a5ab60733d2514e6a6daa696e2ba25e134f76abbc93171eaf2ae2fdd",
+      "equalsFixedGit": true
+    }
+  ],
+  "log": [
+    {
+      "script": "legacy_dress_restore_a2_acceptance.mjs",
+      "passed": true
+    },
+    {
+      "script": "legacy_dress_restore_a2_history.mjs",
+      "passed": true
+    }
+  ]
+}

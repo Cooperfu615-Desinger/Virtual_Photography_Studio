@@ -82,7 +82,8 @@ test('C7 color inverse reproduces trusted Git, rejects unknown/linked/checkout s
  try{
   for(const item of patch.files){
    assert.equal(execFileSync('git',['-C',root,'show',patch.base+':'+item.path],{encoding:'utf8',maxBuffer:16*1024*1024}),item.beforeSource);
-   const content=readFileSync(join(root,item.path));assert.equal(createHash('sha256').update(content).digest('hex'),item.afterHash);
+   const {preC7CapturePairingSource}=await import('../../../../scripts/lib/c7CapturePairingReplay.mjs');
+   const content=preC7CapturePairingSource(item.path,readFileSync(join(root,item.path)));assert.equal(createHash('sha256').update(content).digest('hex'),item.afterHash);
    mkdirSync(dirname(join(dir,item.path)),{recursive:true});writeFileSync(join(dir,item.path),content);
   }
   const [a,b]=patch.files,path=join(dir,a.path),original=readFileSync(path),untouched=readFileSync(join(dir,b.path));

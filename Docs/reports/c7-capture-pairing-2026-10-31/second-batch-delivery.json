@@ -1,0 +1,34 @@
+{
+  "commit": "b5f035003a48f9dae848b91b27eeccb296a37b3e",
+  "run": 41164989213,
+  "status": "completed",
+  "conclusion": "success",
+  "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41164989213",
+  "jobs": [
+    {
+      "id": 124430512796,
+      "name": "functions-quality",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124430512990,
+      "name": "webapp-quality",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124431571330,
+      "name": "build",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124431753838,
+      "name": "deploy",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "deployedUrl": "https://cooperfu615-desinger.github.io/Virtual_Photography_Studio/"
+}

@@ -1,0 +1,27 @@
+{
+  "base": "b5f035003a48f9dae848b91b27eeccb296a37b3e",
+  "files": {
+    "Docs/current_project_state.md": "fdaf34efa6856a0e8f44998637e528b99a1040313dfb2fef0e47591aae74d169",
+    "Docs/decisions/2026-10-31-c7-capture-pairing.md": "1b5d36f9bed9483475dce8d621b49fa9df36879cae1358281a73e9458569dd70",
+    "Docs/specs/c7-capture-pairing-v1.md": "f26efcb9e3490ab393d8a5a26ed0ac91bb710b3c615434ccf77391bc62c42de2",
+    "Docs/specs/c7-status-inventory-2026-10-31.md": "7f269e6d9056af53048dd3dec25b87b720778518a6beaf3c9d2cac235f5d10d3",
+    "Docs/specs/photography-section-d-authoring-guide.md": "1f72bb72dd6d2132623d95c41b954435244dc3d108211046417812c7a7762d4b",
+    "scripts/c7_capture_pairing_acceptance.mjs": "67029112d478dfdd1d1b739416ea38c7c89b5e5b91caae33158992f2d00d04a9",
+    "scripts/c7_capture_pairing_browser.mjs": "435126e41fbc3f9d0e7c1f917558653b7ae20be81d4c97c50478e46fa2d95548",
+    "scripts/c7_capture_pairing_history.mjs": "38fae5060fe6bbee9bd5608dcea5dd4f9968dda3e1f33bf241c490df293e129f",
+    "scripts/c7_capture_pairing_integration.mjs": "368dc791823761a2435acbd7777f998fb4801af11ccb6811c45f799b0d970490",
+    "scripts/lib/c7CaptureFixtures.mjs": "fd4feda2dc1912176a72d8d558629b595dffe35d4cca1a9f84e1e5d046e17c2b",
+    "scripts/lib/c7CaptureHistoricalTest.mjs": "0afb01e3d0ef84ecadfb0a0aec8254acabd46858c6009c885d663ca4bcbf6f50",
+    "scripts/lib/c7CapturePairingPatches.json": "c49a645edd0687f2379a0c4fe78347a8e17096e7f3d895ec4d16abcdaac9dbdb",
+    "scripts/lib/c7CapturePairingReplay.mjs": "942e5340b2f0ca8086f3f5d535a65ec11c734355bf8811ebed8b8fdd4a9bb7a9",
+    "scripts/lib/c7ColorPairingReplay.mjs": "f19480d1ddb9d8408e390b7c74c6e3cbb56275c860cc27fb2ee4fa4c23daee08",
+    "webapp/src/lib/engine.js": "c96fd59a55a342e640420584beb9afa5533146698eeeeb754f4fbe88b8c95662",
+    "webapp/src/lib/engine/c7CapturePairing.test.js": "9797e1af4b32a79bfdece929b873b0e5ba2de3c8ec3179114de495dec724df64",
+    "webapp/src/lib/engine/c7ColorPairing.test.js": "4ccc3f6f3e4aa87a2937db037e8b7bd5899d11883b977256e387bc9a081caea4",
+    "webapp/src/lib/engine/c7NightLighting.test.js": "d102159c1a30b5ff5b9fa7c345d2074add036ecf5fc9f58c9a04a1c0ca186c35",
+    "webapp/src/lib/engine/captureCompatibility.js": "592b1c17bf06a10a101caf1cc1d7f67d1f89962363809f09d00e50727c4814d0",
+    "webapp/src/lib/engine/captureCompatibilitySources.json": "e27d04c69b6c9b487702b650ac615d1547f770d6928edcb974547b4fc32ab451"
+  },
+  "baselineSha256": "420fa3811c7ef8b3e8dc70bd9f3f83aec92dc28eacc3b8b9c5e7cd2dcd283237",
+  "oracleTransformSha256": "858647b5c340e44ab81585903200d3bacb1335c41f06a37de03bbd6829b2a0bf"
+}

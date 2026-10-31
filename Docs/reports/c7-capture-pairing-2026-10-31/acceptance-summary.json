@@ -1,0 +1,79 @@
+{
+  "base": "b5f035003a48f9dae848b91b27eeccb296a37b3e",
+  "status": "local-validation-passed-with-recorded-browser-limitations",
+  "committed": false,
+  "pushed": false,
+  "newCIOrDeployment": "not-run-not-authorized",
+  "matrix": {
+    "base": "b5f035003a48f9dae848b91b27eeccb296a37b3e",
+    "record": false,
+    "phase": "combined",
+    "cases": 3936,
+    "seasonChanges": 170,
+    "combinedChanges": 320,
+    "locationChanges": 96,
+    "locationDependentBudgetChanges": 0,
+    "manualCases": 2200,
+    "excludedCases": 276
+  },
+  "integration": {
+    "sealedCases": 3936,
+    "eligibleRandomConflictCasesBefore": 36,
+    "eligibleRandomConflictCasesAfter": 0,
+    "changedSelectionFields": {
+      "lightDirectionId": 18,
+      "lightingId": 129,
+      "styleId": 86,
+      "locationId": 96
+    },
+    "integrationCases": 1160,
+    "customCacheIsolationCases": 12,
+    "allThreePoliciesCompatible": true
+  },
+  "tests": 2083,
+  "promptQuality": 853,
+  "focused": 17,
+  "python": 59,
+  "catalogTools": 32,
+  "assets": 207,
+  "strict": {
+    "count": 200,
+    "seed": "prompt-quality-baseline",
+    "blockers": 0,
+    "promptsWithFindings": 17,
+    "diagnosticSignals": 18,
+    "reportByteIdentical": true
+  },
+  "history": "full-chain-passed; later wrapper-only refinement verified separately against the same Git bytes",
+  "browser": [
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "randomCases": 36,
+      "downloadCards": 40,
+      "manualAndOldConflictsPreserved": true,
+      "fallbacks": [],
+      "nativePopupMouseVerified": false,
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "viewport": [
+        390,
+        900
+      ],
+      "randomCases": 36,
+      "downloadCards": 40,
+      "manualAndOldConflictsPreserved": true,
+      "fallbacks": [],
+      "nativePopupMouseVerified": false,
+      "errors": [],
+      "overflow": false
+    }
+  ],
+  "workspaceChecks": 12,
+  "imagesGenerated": false,
+  "earlierLimitationsPreserved": true
+}

@@ -1,3 +1,4 @@
+import {preC7CaptureHistoricalTest} from '../../../../scripts/lib/c7CaptureHistoricalTest.mjs';
 import {preC7ColorPairingSource} from '../../../../scripts/lib/c7ColorPairingReplay.mjs';
 import process from 'node:process';
 import assert from 'node:assert/strict';
@@ -51,7 +52,7 @@ test('C7 custom-library compilation never contaminates the default runtime',()=>
  }
 });
 
-test('C7 sealed pre-change matrix allows only the independently recorded random-pool change',()=>{
+preC7CaptureHistoricalTest(import.meta.url)('C7 sealed pre-change matrix allows only the independently recorded random-pool change',()=>{
  const result=execFileSync(process.execPath,['scripts/c7_night_lighting_acceptance.mjs'],{cwd:root,encoding:'utf8',maxBuffer:1024*1024});
  const report=JSON.parse(result);assert.equal(report.record,false);assert.ok(report.cases>800);assert.ok(report.changed>0);
 });

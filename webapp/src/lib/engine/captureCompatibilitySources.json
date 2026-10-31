@@ -1,0 +1,1893 @@
+{
+  "style": [
+    {
+      "id": "style-none",
+      "zh": "全無",
+      "en": "none",
+      "flags": [],
+      "reason": "未指明本批可判定的相反條件，保留原文與既有相容規則。"
+    },
+    {
+      "id": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0",
+      "zh": "蜷川實花｜濃烈色彩戲劇感",
+      "en": "Inspired by Mika Ninagawa, hyper-saturated vivid-color portraiture, complex non-floral color layers, glossy reds hot pinks cyan accents and jewel-tone surfaces, no floral or botanical motifs",
+      "flags": [],
+      "reason": "未指明本批可判定的相反條件，保留原文與既有相容規則。"
+    },
+    {
+      "id": "regional:攝影風格:上田義彥-靜默自然暗調:1",
+      "zh": "上田義彥｜靜默自然暗調",
+      "en": "Inspired by Yoshihiko Ueda, quiet natural portraiture, deep velvety shadows, cool desaturated greens and charcoals, low-key tonal calm, subtle atmospheric depth",
+      "flags": [
+        "low"
+      ],
+      "reason": "low-key tonal calm與深暗陰影構成明確低調方向；只排除相反的高調主體光。"
+    },
+    {
+      "id": "regional:攝影風格:橫浪修-群像留白秩序:2",
+      "zh": "橫浪修｜群像留白秩序",
+      "en": "Inspired by Osamu Yokonami, high-key minimalist portraiture, muted pastels, luminous whites, flat overcast softness, structured spacing, generous negative space",
+      "flags": [
+        "high"
+      ],
+      "reason": "high-key與luminous whites為高調方向；只排除明確深暗主體光。"
+    },
+    {
+      "id": "regional:攝影風格:川內倫子-輕盈日常微光:3",
+      "zh": "川內倫子｜輕盈日常微光",
+      "en": "Inspired by Rinko Kawauchi, airy high-key photography, pale softly overexposed daylight glow, cool pastel tones, delicate everyday realism, fragile quiet details",
+      "flags": [
+        "day",
+        "high"
+      ],
+      "reason": "high-key及daylight glow明示高調日光；色溫、色彩及其他光源細節保持。"
+    },
+    {
+      "id": "regional:攝影風格:石田真澄-柔亮底片空氣感:4",
+      "zh": "石田真澄｜柔亮底片空氣感",
+      "en": "Inspired by Masumi Ishida, luminous youth-photobook portraiture, gentle summer-color brightness, softly lifted exposure, airy pastel balance, washed film texture, transparent tonal softness",
+      "flags": [],
+      "reason": "summer-color brightness是色彩語言，不據此宣告場景必為夏季。"
+    },
+    {
+      "id": "regional:攝影風格:市橋織江-透明自然低飽和:5",
+      "zh": "市橋織江｜透明自然低飽和",
+      "en": "Inspired by Orie Ichihashi, quiet natural portraiture, transparent natural-light quality, soft open shadows, low-saturation neutral palette, delicate film grain",
+      "flags": [],
+      "reason": "natural-light quality未指定日夜，不將自然光等同白天。"
+    },
+    {
+      "id": "regional:攝影風格:高橋洋子-乾爽日光褪色:6",
+      "zh": "高橋洋子｜乾爽日光褪色",
+      "en": "Inspired by Yoko Takahashi, breezy sun-bleached portraiture, crisp sunlit contrast, dry faded colors, faded blues and chalky whites, relaxed editorial realism, airy negative space",
+      "flags": [
+        "day"
+      ],
+      "reason": "crisp sunlit contrast明示日照；sun-bleached褪色語言保持。"
+    },
+    {
+      "id": "regional:攝影風格:保羅-羅韋爾西-柔霧高級時裝:7",
+      "zh": "保羅・羅韋爾西｜柔霧高級時裝",
+      "en": "Inspired by Paolo Roversi, soft haze couture portraiture, dim romantic light, velvety shadows, painterly softness, muted elegant tones, slow-shutter delicacy",
+      "flags": [
+        "low",
+        "slow"
+      ],
+      "reason": "dim light／velvety shadows及slow-shutter為明確方向；1/1000s frozen movement列互斥，1/250s minimal natural motion blur不擴判硬衝突。"
+    },
+    {
+      "id": "regional:攝影風格:艾倫-馮-昂沃斯-俏皮抓拍雜誌:8",
+      "zh": "艾倫・馮・昂沃斯｜俏皮抓拍雜誌",
+      "en": "Inspired by Ellen von Unwerth, playful editorial portraiture, spontaneous energy, candid movement, flash-assisted magazine glamour, lively fashion confidence",
+      "flags": [],
+      "reason": "flash-assisted可作補光；candid movement不是指定快門，不強制排除自然光。"
+    },
+    {
+      "id": "regional:攝影風格:南-戈爾丁-私人相簿粗粒子:9",
+      "zh": "南・戈爾丁｜私人相簿粗粒子",
+      "en": "Inspired by Nan Goldin, intimate diaristic portraiture, warm ambient light, heavy grain, raw emotional immediacy, imperfect lived-in color, close personal distance",
+      "flags": [],
+      "reason": "warm ambient light沒有指定日夜；暖色不是季節。"
+    },
+    {
+      "id": "regional:攝影風格:尤爾根-特勒-直閃反精緻:10",
+      "zh": "尤爾根・特勒｜直閃反精緻",
+      "en": "Inspired by Juergen Teller, raw direct-flash portraiture, anti-polished editorial tension, awkward realism, immediate camera presence, blunt fashion attitude, flat flash shadows",
+      "flags": [],
+      "reason": "直接閃光可與環境光、其他光源並存，不假設單一光源。"
+    },
+    {
+      "id": "regional:攝影風格:理察-阿維頓-極簡留白肖像:11",
+      "zh": "理察・阿維頓｜極簡留白肖像",
+      "en": "Inspired by Richard Avedon, stripped-down editorial portraiture, clean negative space, crisp tonal contrast, commanding presence, razor-clear focus, minimal visual distraction",
+      "flags": [],
+      "reason": "razor-clear focus是對焦，不自動等同快門凍結。"
+    },
+    {
+      "id": "regional:攝影風格:亞歷克-索斯-寬鬆紀實敘事:12",
+      "zh": "亞歷克・索斯｜寬鬆紀實敘事",
+      "en": "Inspired by Alec Soth, spacious documentary portraiture, soft natural light, understated storytelling, calm emotional distance, open negative space, quiet color restraint",
+      "flags": [],
+      "reason": "soft natural light沒有指定日夜；保留複合光源可能性。"
+    },
+    {
+      "id": "regional:攝影風格:莎莉-曼-古典濕版記憶感:13",
+      "zh": "莎莉・曼｜古典濕版記憶感",
+      "en": "Inspired by Sally Mann, antique wet-plate portraiture, soft blur, ghostly texture, timeworn atmosphere, nostalgic stillness, handmade tonal irregularity",
+      "flags": [],
+      "reason": "soft blur／wet-plate為媒介質感，不當作慢門動態殘影。"
+    },
+    {
+      "id": "regional:攝影風格:沃夫岡-提爾曼斯-生活切片隨拍:14",
+      "zh": "沃夫岡・提爾曼斯｜生活切片隨拍",
+      "en": "Inspired by Wolfgang Tillmans, casual everyday portraiture, snapshot energy, natural-light realism, spontaneous composition, relaxed documentary tone, informal framing",
+      "flags": [],
+      "reason": "natural-light realism沒有指定日夜；snapshot energy不是快門速度。"
+    },
+    {
+      "id": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+      "zh": "森山大道｜噪訊黑白暗調",
+      "en": "Inspired by Daido Moriyama, gritty high-contrast monochrome photography, rough focus, heavy grain, harsh blacks, restless dark tonal tension, raw tonal abrasion",
+      "flags": [],
+      "reason": "rough focus是對焦質感；harsh blacks是階調，不另當成低調主體照明。"
+    },
+    {
+      "id": "regional:攝影風格:荒木經惟-私寫真親密:16",
+      "zh": "荒木經惟｜私寫真親密",
+      "en": "Inspired by Nobuyoshi Araki, raw intimate diaristic portraiture, spontaneous flash-lit realism, private emotional tension, saturated personal color, close camera distance",
+      "flags": [],
+      "reason": "flash-lit可以是補光；保留攝影風格原有內容。"
+    },
+    {
+      "id": "regional:攝影風格:篠山紀信-經典寫真名人肖像:17",
+      "zh": "篠山紀信｜經典寫真名人肖像",
+      "en": "Inspired by Kishin Shinoyama, polished Japanese gravure portraiture, clean visual control, glossy high-production finish, direct portrait presence, flattering controlled lighting",
+      "flags": [],
+      "reason": "controlled lighting沒有指定單一光型，不限制獨立主體光。"
+    },
+    {
+      "id": "regional:攝影風格:鈴木親-年輕時尚生活感:18",
+      "zh": "鈴木親｜年輕時尚生活感",
+      "en": "Inspired by Chikashi Suzuki, relaxed fashion editorial on film, youthful candid immediacy, soft everyday realism, muted natural tones, delicate film grain, gentle magazine clarity",
+      "flags": [],
+      "reason": "未指明本批可判定的相反條件，保留原文與既有相容規則。"
+    },
+    {
+      "id": "regional:攝影風格:青山裕企-青春寫真直接人像:19",
+      "zh": "青山裕企｜青春寫真直接人像",
+      "en": "Inspired by Yuki Aoyama, Japanese photobook portraiture, natural daylight feel, direct straightforward composition, crisp everyday realism, clean candid intimacy, simple subject distance",
+      "flags": [
+        "day"
+      ],
+      "reason": "natural daylight feel含明確日光方向；不刪除原始風格文字。"
+    },
+    {
+      "id": "regional:攝影風格:奧山由之-青春電影透明敘事:20",
+      "zh": "奧山由之｜青春電影透明敘事",
+      "en": "Inspired by Yuhki Toyama, tender cinematic youth portraiture, gentle diffused summer light, quiet presence, translucent coming-of-age atmosphere, soft narrative color",
+      "flags": [],
+      "reason": "summer light為風格氣氛，未指定積雪／地表或確切日夜；暫不轉成季節硬限制。"
+    },
+    {
+      "id": "regional:攝影風格:萊斯利-基-華麗明星商業感:21",
+      "zh": "萊斯利・基｜華麗明星商業感",
+      "en": "Inspired by Leslie Kee, polished star portrait photography, high-definition commercial clarity, immaculate retouched finish, vibrant fashion color, premium cover-shoot intensity",
+      "flags": [],
+      "reason": "未指明本批可判定的相反條件，保留原文與既有相容規則。"
+    },
+    {
+      "id": "regional:攝影風格:細江英公-戲劇黑白藝術張力:22",
+      "zh": "細江英公｜戲劇黑白藝術張力",
+      "en": "Inspired by Eikoh Hosoe, dramatic monochrome art portraiture, sculptural tonal tension, theatrical shadow contrast, stark chiaroscuro, avant-garde intensity",
+      "flags": [],
+      "reason": "chiaroscuro與theatrical contrast是明暗造型，未直接指定環境時段或快門。"
+    },
+    {
+      "id": "regional:攝影風格:蓋-布爾丁-鮮豔敘事時裝:23",
+      "zh": "蓋・布爾丁｜鮮豔敘事時裝",
+      "en": "Inspired by Guy Bourdin, bold narrative fashion portraiture, vivid color blocking, surreal tension, graphic contrast, dangerous glamour, staged editorial precision",
+      "flags": [],
+      "reason": "未指明本批可判定的相反條件，保留原文與既有相容規則。"
+    },
+    {
+      "id": "regional:攝影風格:邁爾斯-奧爾德里奇-復古濃彩高製作:24",
+      "zh": "邁爾斯・奧爾德里奇｜復古濃彩高製作",
+      "en": "Inspired by Miles Aldridge, hyper-stylized fashion portraiture, saturated retro palette, elaborate color staging, glossy cinematic light, lacquered color precision, artificial high-production polish",
+      "flags": [],
+      "reason": "glossy cinematic light未指定日夜／主體明暗程度；保留。"
+    },
+    {
+      "id": "regional:攝影風格:艾爾莎-布萊達-霓虹低光孤寂:25",
+      "zh": "艾爾莎・布萊達｜霓虹低光孤寂",
+      "en": "Inspired by Elsa Bleda, nocturnal neon portraiture, moody neon silence, cinematic low-light glow, wet-reflection color, deep blue and magenta night tones",
+      "flags": [
+        "night"
+      ],
+      "reason": "nocturnal及night tones明示夜間；既有場所／隨機可達性規則保持。"
+    }
+  ],
+  "location": [
+    {
+      "id": "locations:攝影棚與背景-studio-sets:全無:0",
+      "zh": "全無",
+      "en": "none",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-鏡面地板攝影棚:1",
+      "zh": "室內：鏡面地板攝影棚",
+      "en": "five-sided mirror chamber studio, three mirrored walls, mirrored floor and mirrored ceiling, infinite reflective commercial space, isolated subject",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純潔白幕:2",
+      "zh": "室內：純潔白幕",
+      "en": "horizonless seamless matte pure white color field, continuous white ground-and-background plane blending into a solid white void, full-bleed white surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-深邃黑幕:3",
+      "zh": "室內：深邃黑幕",
+      "en": "horizonless seamless matte deep black color field, continuous black ground-and-background plane blending into a solid black void, full-bleed black surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-莫蘭迪灰背景:4",
+      "zh": "室內：莫蘭迪灰背景",
+      "en": "horizonless seamless matte muted grey color field, continuous neutral-grey ground-and-background plane blending into a solid grey void, full-bleed low-saturation grey surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純藍背景:5",
+      "zh": "室內：純藍背景",
+      "en": "horizonless seamless matte saturated pure blue color field, continuous vivid blue ground-and-background plane blending into a solid blue void, full-bleed clean blue surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純橘背景:6",
+      "zh": "室內：純橘背景",
+      "en": "horizonless seamless matte saturated pure orange color field, continuous vivid orange ground-and-background plane blending into a solid orange void, full-bleed clean orange surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純紅背景:7",
+      "zh": "室內：純紅背景",
+      "en": "horizonless seamless matte saturated pure red color field, continuous vivid red ground-and-background plane blending into a solid red void, full-bleed clean red surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純黃背景:8",
+      "zh": "室內：純黃背景",
+      "en": "horizonless seamless matte saturated pure yellow color field, continuous vivid yellow ground-and-background plane blending into a solid yellow void, full-bleed clean yellow surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純紫背景:9",
+      "zh": "室內：純紫背景",
+      "en": "horizonless seamless matte saturated pure purple color field, continuous vivid purple ground-and-background plane blending into a solid purple void, full-bleed clean purple surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純綠背景:10",
+      "zh": "室內：純綠背景",
+      "en": "horizonless seamless matte saturated pure green color field, continuous vivid green ground-and-background plane blending into a solid green void, full-bleed clean green surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-鮮豔撞色背景:11",
+      "zh": "室內：鮮豔撞色背景",
+      "en": "horizonless seamless matte single vivid pop-color field, continuous saturated ground-and-background plane blending into a solid graphic color void, full-bleed clean color-block surface, subtle natural contact shadow under the subject, no gradient, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-漸層打光背景:12",
+      "zh": "室內：漸層打光背景",
+      "en": "horizonless seamless smooth gradient color field, continuous gradient ground-and-background plane with no visible boundary, full-bleed tonal transition surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-crt-電視牆攝影棚:13",
+      "zh": "室內：CRT 電視牆攝影棚",
+      "en": "studio set with assorted CRT televisions and vintage computer monitors in an irregular high-low cluster, retro cathode-ray displays with varied gaps and heights, glowing screens with analog static, scan lines, news footage, or the subject's face, scattered VHS tapes, coiled cables, security monitors and VCR decks, seamless desaturated blue-grey floor and backdrop, isolated subject",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-多色塊撞色背景:14",
+      "zh": "室內：多色塊撞色背景",
+      "en": "horizonless seamless indoor studio background formed by two to four large adjacent vivid color fields in freely varied hues, color fields of unequal widths and heights with crisp boundaries in an asymmetrical full-bleed layout, continuous ground-and-background color surface with a subtle natural contact shadow under the subject, no gradient, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-精品飯店房間:0",
+      "zh": "室內：精品飯店房間",
+      "en": "boutique hotel room, crisp bed with white sheets, bedside table, lamp fixtures as physical objects, upholstered headboard, curtain edge, carpet or wood floor, compact corner of an elegant guest room",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-現代高樓公寓客廳:1",
+      "zh": "室內：現代高樓公寓客廳",
+      "en": "modern high-rise apartment living room, large window wall, sofa edge, low coffee table, clean shelving, rug texture, city buildings visible outside the windows, offset residential interior composition",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-夜間家庭派對:2",
+      "zh": "室內：夜間家庭派對",
+      "en": "nighttime American house-party home interior, living room dining area kitchen island hallway stair landing or bedroom doorway, background guests chatting drinking and playing games, crowded casual party setting",
+      "flags": [
+        "night"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-古書二手書店:3",
+      "zh": "室內：古書二手書店",
+      "en": "antique used-book shop interior, narrow bookshelf aisle reading table counter corner or window book stacks, aged books, dark wood shelves, warm lamp fixtures, crowded literary surfaces",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-y2k-復古房間:4",
+      "zh": "室內：Y2K 復古房間",
+      "en": "Y2K retro bedroom interior, bed edge desk corner CRT TV setup vinyl-record wall poster cluster window area or floor rug, compact nostalgic room clutter",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-英倫復古窗邊房間:5",
+      "zh": "室內：英倫復古窗邊房間",
+      "en": "British vintage window-side room interior, white lace curtain and sash window, dresser mirror side table framed paintings wall clock porcelain trinkets, layered nostalgic room surfaces",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-臥室窗邊:6",
+      "zh": "室內：臥室窗邊",
+      "en": "bedroom window area, curtain panels, linen bedding near the window, pillow edges, small bedside surface, window frame, fabric textures around an offset corner of the room",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-白色書櫃落地窗臥室:7",
+      "zh": "室內：白色書櫃落地窗臥室",
+      "en": "vintage white bookcase bedroom corner, tall white bookshelf filled with books, large window edge, sheer curtain panels, white bedding surface, pillow details, sky and treetop fragments outside",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-浴室鏡前-洗手台:8",
+      "zh": "室內：浴室鏡前 / 洗手台",
+      "en": "a frequently used and lived-in bathroom vanity with a large wall-mounted mirror above the sink",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-日本住宅使用感廚房:9",
+      "zh": "室內：日本住宅使用感廚房",
+      "en": "lived-in Japanese home kitchen corner, wooden window frame, tiled wall, stainless steel sink counter, stacked dishes, drying rack, hanging utensils, pots, kettle, condiment bottles, refrigerator edge, everyday cooking clutter",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-更衣室-試衣間:10",
+      "zh": "室內：更衣室 / 試衣間",
+      "en": "fitting room interior, mirror edge, curtain panels, wall hook, narrow bench or small stool, compact retail changing area with close wall surfaces",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-電梯內:11",
+      "zh": "室內：電梯內",
+      "en": "elevator interior, reflective metal wall panels, button panel, door seam, handrail edge, compact enclosed cabin surfaces",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-復古美式-diner:12",
+      "zh": "室內：復古美式 Diner",
+      "en": "retro American diner booth, red leather bench seating, chrome table edge, jukebox corner, counter stools, checker or tiled floor, curved booth backrest",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-木造圖書館閱讀桌旁:13",
+      "zh": "室內：木造圖書館閱讀桌旁",
+      "en": "historic library reading table, aged wood grain tabletop, desk lamp fixture, stacked books, chair edge, nearby shelf rows, worn floor surface",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-木造圖書館木窗邊:14",
+      "zh": "室內：木造圖書館木窗邊",
+      "en": "historic library window corner, wooden window frame, book stacks on a side surface, shelf edge, worn wall texture, offset reading nook",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-木造圖書館書車旁:15",
+      "zh": "室內：木造圖書館書車旁",
+      "en": "historic library book cart, stacked books, metal cart frame, worn carpet, wood floor, nearby shelf edge",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-木造圖書館借書台前:16",
+      "zh": "室內：木造圖書館借書台前",
+      "en": "historic library check-out desk, card catalog drawers, stamped paper slips, aged wood counter, shelf edge, service-counter surface details",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-倫敦老咖啡館角落:17",
+      "zh": "室內：倫敦老咖啡館角落",
+      "en": "old London cafe corner, dark wood table, fogged window glass, pendant lamp fixture as a visible object, muted wall panels, chair edge",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-英式小旅館房間:18",
+      "zh": "室內：英式小旅館房間",
+      "en": "small British inn room, floral bedding, narrow sash window, cream walls, aged wooden furniture, bedside table, compact guest-room corner",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-傳統酒吧二樓包廂:19",
+      "zh": "室內：傳統酒吧二樓包廂",
+      "en": "traditional British pub upstairs booth, dark wood paneling, red-brown leather bench seating, small table, framed vintage prints, low lamp fixtures as visible objects",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-英式溫室-conservatory:20",
+      "zh": "室內：英式溫室 conservatory",
+      "en": "British conservatory interior, white-painted window frames, glass roof panels, potted greenery, tiled or stone floor, garden-room corner with offset plant clusters",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-黑膠唱片聆聽角:21",
+      "zh": "室內：黑膠唱片聆聽角",
+      "en": "British record listening corner, turntable setup, stacked vinyl sleeves, bookshelf speakers, aged wood cabinet, lamp fixture as a visible object, small side table",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-老式鋼琴房:22",
+      "zh": "室內：老式鋼琴房",
+      "en": "old British piano room, upright piano, sheet music stand, worn wood floor, muted wallpaper, piano bench, side wall details",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-地下-live-house-後台:23",
+      "zh": "室內：地下 live house 後台",
+      "en": "British underground live house backstage, black curtain, road cases, guitar amp, worn posters, cable clutter, taped floor marks, equipment stacked near a wall edge",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-女高生房間:24",
+      "zh": "室內：女高生房間",
+      "en": "Japanese student bedroom corner, compact single bed, study desk, curtains, soft everyday clutter, school bag or small personal items, private lived-in room details",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-日式和室:25",
+      "zh": "室內：日式和室",
+      "en": "traditional Japanese washitsu room, tatami flooring, shoji sliding doors, low table, floor cushion, alcove or wall edge, woven mat texture",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-日本學校教室:26",
+      "zh": "室內：日本學校教室",
+      "en": "Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-辦公室茶水間:27",
+      "zh": "室內：辦公室茶水間",
+      "en": "Japanese office pantry corner, small sink counter, compact coffee machine, electric kettle, storage cabinets, upper wall cabinets, simple countertop, paper cups and small workplace supplies",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-洗衣店洗衣機門前:28",
+      "zh": "室內：洗衣店洗衣機門前",
+      "en": "laundromat washer-door detail, round chrome washer door, sticker-covered machine surface, detergent residue, tiled floor, machine row cropped from one side",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-洗衣店摺衣台旁:29",
+      "zh": "室內：洗衣店摺衣台旁",
+      "en": "laundromat folding table, scattered clothes, plastic basket, detergent bottle, tiled floor detail",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-洗衣店洗劑貨架前:30",
+      "zh": "室內：洗衣店洗劑貨架前",
+      "en": "laundromat detergent shelf, plastic bottles, price labels, narrow retail shelf surface, wall-side product rows, tiled floor edge",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-洗衣店角落塑膠椅旁:31",
+      "zh": "室內：洗衣店角落塑膠椅旁",
+      "en": "laundromat waiting corner, plastic chair, wall stickers, loose clothing, washer reflections, tiled floor, corner wall junction",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:戶外-日本住宅陽台曬衣架旁:32",
+      "zh": "戶外：日本住宅陽台曬衣架旁",
+      "en": "Japanese apartment balcony with laundry rack, freshly washed clothes hanging to dry, metal railing, compact residential veranda, neighboring apartment facades, balcony floor edge and wall corner",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:戶外-日本住宅外樓梯間:33",
+      "zh": "戶外：日本住宅外樓梯間",
+      "en": "narrow exterior metal stairway on a Japanese apartment building, white painted steel structure, open-grate steps, slim railings, stacked landings, tight vertical side facade, compact residential side passage",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:戶外-社區自動販賣機旁:34",
+      "zh": "戶外：社區自動販賣機旁",
+      "en": "Japanese residential vending-machine corner, two or three machines beside a wall, utility pole fragment, overhead power lines, quiet curbside asphalt, apartment facade edge, detached house detail, compact neighborhood roadside surface",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:戶外-辦公大樓人行道-上班途中:35",
+      "zh": "戶外：辦公大樓人行道（上班途中）",
+      "en": "Japanese business-district office sidewalk, glass-and-steel office tower frontage, clean paving, building entrance edge, curbside detail, commuter path fragment offset to one side",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:戶外-日式旅館緣側木廊:36",
+      "zh": "戶外：日式旅館緣側木廊",
+      "en": "traditional Japanese ryokan engawa veranda, raised wooden deck edge, sliding door frames, polished timber posts, stone step, garden greenery below, asymmetric threshold composition",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-宮廷音樂廳-歌劇院:37",
+      "zh": "室內：宮廷音樂廳 / 歌劇院",
+      "en": "opulent opera house interior, chandelier fixtures, velvet seat rows cropped from one side, ornate balcony rail, carved wall panels, marble or carpeted floor, side aisle edge",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-狹小都會旅館房間:38",
+      "zh": "室內：狹小都會旅館房間",
+      "en": "small urban hotel room, compact bedding, practical lamp fixtures, narrow bedside table, close wall surfaces, luggage corner, enclosed room layout",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄水泥工廠破碎輸送帶區:0",
+      "zh": "室內：廢棄水泥工廠破碎輸送帶區",
+      "en": "abandoned cement factory conveyor-belt corner, broken conveyor rollers, gravel piles, cement dust on the floor, rusted metal supports, cracked concrete wall edge, loose machine parts",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄水泥工廠生鏽控制室:1",
+      "zh": "室內：廢棄水泥工廠生鏽控制室",
+      "en": "rusted cement factory control room, industrial switch panels, broken glass on the console, dust-covered dials, peeling metal cabinets, concrete corner, exposed cable bundles",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄水泥工廠攪拌槽旁:2",
+      "zh": "室內：廢棄水泥工廠攪拌槽旁",
+      "en": "cement-mixer tank side area, large cylindrical mixing tank, concrete dust, iron ladder, rust stains, thick pipe joints, heavy concrete support column, uneven service platform",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄水泥工廠機具堆放區:3",
+      "zh": "室內：廢棄水泥工廠機具堆放區",
+      "en": "abandoned machinery storage corner, heavy machine parts, loose chains, bent metal sheets, dusty concrete floor, stacked gears, tool fragments, wall-side industrial clutter",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-地下排洪道積水牆角:4",
+      "zh": "室內：地下排洪道積水牆角",
+      "en": "flood-tunnel pooled-water corner, stained concrete wall, shallow water on the floor, wet pipe openings, dark drainage channel edge, algae marks, reflective concrete surface",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-地下排洪道排水閘門旁:5",
+      "zh": "室內：地下排洪道排水閘門旁",
+      "en": "drainage gate side area, rusted steel floodgate, wet concrete floor, exposed pipes, valve wheel, grated drain channel, stained utility wall, metal hinge detail",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-地下排洪道機房通道口:6",
+      "zh": "室內：地下排洪道機房通道口",
+      "en": "underground machine-room entrance, heavy steel door, pipework along the wall, electrical box, damp concrete threshold, grated floor panel, side corridor edge",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄手術室:7",
+      "zh": "室內：廢棄手術室",
+      "en": "abandoned operating room, broken surgical table, metal tray stand, medicine bottles, peeling tiled walls, ceiling rail, cracked floor tiles, instrument cart at one side",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄病房:8",
+      "zh": "室內：廢棄病房",
+      "en": "abandoned hospital ward corner, old metal bed frame, hanging privacy curtain, medicine cabinet, worn floor tiles, chipped wall paint, bedside table, loose bedding remnants",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄藥品室:9",
+      "zh": "室內：廢棄藥品室",
+      "en": "abandoned medicine storage room, dusty glass bottles, metal cabinet, labeled medicine jars, narrow utility shelves, cracked tile floor, cabinet door hanging open",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄診療室:10",
+      "zh": "室內：廢棄診療室",
+      "en": "abandoned examination room, medical bed, instrument cart, desk lamp as a physical object, scattered paper records, metal stool, chipped wall surface, side cabinet",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄校舍散亂課桌教室:11",
+      "zh": "室內：廢棄校舍散亂課桌教室",
+      "en": "abandoned classroom, scattered wooden desks at uneven angles, chalkboard, torn papers, broken window panes, dusty schoolroom floor, chair legs and wall bulletin scraps",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄校舍破窗音樂教室:12",
+      "zh": "室內：廢棄校舍破窗音樂教室",
+      "en": "abandoned music room, old upright piano, music stand, broken window panes, dust on the wooden floor, scattered sheet music, instrument case near a wall edge",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄校舍保健室:13",
+      "zh": "室內：廢棄校舍保健室",
+      "en": "abandoned school infirmary room, medicine box, privacy curtain, white metal cabinet, old examination bed, small sink, chipped floor tiles, side shelf",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄校舍體育器材室:14",
+      "zh": "室內：廢棄校舍體育器材室",
+      "en": "abandoned school equipment room, vaulting box, stacked gym mats, ball rack, dusty floor, old wooden door, rope bundle, equipment shelf against one wall",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-地下狂歡俱樂部-金庫:15",
+      "zh": "室內：地下狂歡俱樂部 / 金庫",
+      "en": "underground rave bunker room, laser fixtures mounted on metal truss, smoke machine as a visible device, metallic wall surfaces, heavy vault-like door, concrete floor, cable runs along one side",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-遭洗劫的維多利亞大宅:16",
+      "zh": "室內：遭洗劫的維多利亞大宅",
+      "en": "looted Victorian mansion interior, torn wallpaper, broken chandelier pieces, overturned chair, cracked fireplace surround, dusty wooden floor, ornate molding fragments, wall-side debris",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄商場停用手扶梯旁:17",
+      "zh": "室內：廢棄商場停用手扶梯旁",
+      "en": "abandoned mall escalator corner, stopped escalator steps, broken signage, dusty floor tiles, railing edge, shuttered shopfront fragment, loose ceiling panel",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄商場破損櫥窗前:18",
+      "zh": "室內：廢棄商場破損櫥窗前",
+      "en": "abandoned storefront window, damaged mannequins, broken glass on the floor, dusty retail display base, metal shutter edge, cracked tile walkway, torn sale poster",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄商場空置美食街角落:19",
+      "zh": "室內：廢棄商場空置美食街角落",
+      "en": "abandoned food-court corner, plastic tables, mismatched chairs, empty counter, menu board remnants, tile floor reflections, tray-return shelf, shuttered stall edge",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄商場服務台殘骸:20",
+      "zh": "室內：廢棄商場服務台殘骸",
+      "en": "abandoned mall service desk remains, fallen signage, scattered papers, glass fragments, cracked counter surface, broken directory board, floor debris around the desk",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:戶外-雜草叢生的廢棄公園:21",
+      "zh": "戶外：雜草叢生的廢棄公園",
+      "en": "abandoned overgrown park edge, cracked pavement textures, rusted play structures, weeds pushing through concrete, broken bench, tilted fence section, uneven outdoor ground",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:戶外-滿佈塗鴉的火車調車場:22",
+      "zh": "戶外：滿佈塗鴉的火車調車場",
+      "en": "graffiti-covered train yard edge, rusty railcar side, spray-painted metal surfaces, gravel track bed, rail switch hardware, chain-link fence fragment, weeds along the rails",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:戶外-高樓建築骨架裸露混凝土地板:23",
+      "zh": "戶外：高樓建築骨架裸露混凝土地板",
+      "en": "exposed high-rise floor slab, rebar clusters, construction debris, concrete floor edge, temporary railing fragment, distant city buildings beyond the open side, scattered dust",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:戶外-高樓建築骨架施工鷹架旁:24",
+      "zh": "戶外：高樓建築骨架施工鷹架旁",
+      "en": "construction scaffolding side area, steel pipes, dusty tarp, raw building materials, unfinished concrete column, clamp joints, plank walkway, wall edge",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:戶外-高樓建築骨架開放樓層邊緣:25",
+      "zh": "戶外：高樓建築骨架開放樓層邊緣",
+      "en": "open high-rise floor edge, exposed beams, concrete lip, temporary railing gap, scattered rebar, floor dust, distant city buildings visible beyond the side opening",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:戶外-高樓建築骨架建材堆放角落:26",
+      "zh": "戶外：高樓建築骨架建材堆放角落",
+      "en": "construction-material corner, stacked boards, cement bags, tool box, dust, unfinished concrete wall, bundled pipes, loose fasteners on the floor",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-九龍城寨內部狹窄走道:0",
+      "zh": "室內：九龍城寨內部狹窄走道",
+      "en": "Kowloon Walled City interior passage, narrow wall-to-wall corridor, water-stained concrete walls, exposed wiring bundles, stacked signboards, overhead pipes, cramped layered surfaces close to the subject",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-九龍城寨樓梯井與鐵窗:1",
+      "zh": "室內：九龍城寨樓梯井與鐵窗",
+      "en": "Kowloon Walled City stairwell shaft, iron window grilles, stained stair rail, tiled wall stains, narrow vertical interior, landing edge, exposed pipework",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-興記煲仔飯店內桌椅區:2",
+      "zh": "室內：興記煲仔飯店內桌椅區",
+      "en": "Hing Kee claypot rice interior seating corner, compact tables, tiled walls, plastic stools, menu board edge, narrow gap between table and wall, stacked tableware",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-塗鴉牆面旁的地鐵月台角落:3",
+      "zh": "室內：塗鴉牆面旁的地鐵月台角落",
+      "en": "New York subway platform corner, graffiti-covered wall, stained tile panels, scratched metal column, platform warning strip, wall-side waiting zone",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-無人月台長椅區:4",
+      "zh": "室內：無人月台長椅區",
+      "en": "subway bench zone, worn plastic seating, tiled wall panels, platform edge markings, metal column edge, small sign plate, underground transit wall surface",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-列車高速進站的月台邊:5",
+      "zh": "室內：列車高速進站的月台邊",
+      "en": "subway platform edge with passing train body, tiled wall, warning strip, carriage side blur, platform column, floor edge markings",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-髒污磁磚牆與金屬柱之間:6",
+      "zh": "室內：髒污磁磚牆與金屬柱之間",
+      "en": "dirty subway tile wall, scratched metal column, aged grout lines, narrow standing zone, chipped tile edges, underground wall texture",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-地下月台電子看板與海報牆:7",
+      "zh": "室內：地下月台電子看板與海報牆",
+      "en": "underground subway platform signboard corner, amber LED next-train display overhead, stained white tile wall, graffiti tags, movie poster frame, fluorescent ceiling tubes, dark tunnel edge",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂正面長椅視角:8",
+      "zh": "室內：電車車廂正面長椅視角",
+      "en": "Japanese commuter train car interior, slight offset view toward a blue fabric bench seat, window and sliding door panels behind the subject, stainless steel wall surfaces, overhead hand straps, route maps, small carriage posters, passing scenery glimpsed through windows",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂側面走道視角:9",
+      "zh": "室內：電車車廂側面走道視角",
+      "en": "Japanese commuter train car side aisle section, vertical grab pole near the subject, overhead hand straps, side bench seats, sliding doors, train windows, route map panels, nearby commuters as background context",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂坐滿與站滿乘客:10",
+      "zh": "室內：電車車廂坐滿與站滿乘客",
+      "en": "crowded Japanese commuter train car, seated passengers on bench seats, standing commuters around vertical grab poles, overhead hand straps in use, sliding doors and train windows behind layered bodies, route map panels, small carriage ads, compressed public-transit density",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-澀谷站前廣場人潮邊緣:11",
+      "zh": "戶外：澀谷站前廣場人潮邊緣",
+      "en": "Shibuya Station front plaza with the QFRONT glass facade carrying \"TSUTAYA\" and \"STARBUCKS\" signage and large advertising screens in the background, the subject as one person within a dense pedestrian flow with people passing in different directions beside and in front of and behind her; everyone sharing the same physical space and perspective with apparent size varying naturally by distance, pedestrians in varied everyday clothing in mixed colors and styles sharing the same ambient light as the subject; nearby passersby naturally overlapping and partly cropped at frame edges, surrounding Japanese shop signs",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-八公銅像旁行人區:12",
+      "zh": "戶外：八公銅像旁行人區",
+      "en": "Shibuya Hachiko Square pedestrian waiting area beside the small bronze Hachiko dog statue, modest stone pedestal, low queue railings, station-front plaza paving, clustered meeting crowds, Shibuya Station frontage and nearby commercial facades, realistic landmark scale",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-澀谷站前大型看板下穿越口:13",
+      "zh": "戶外：澀谷站前大型看板下穿越口",
+      "en": "Shibuya station-side crossing entrance beneath oversized commercial billboards, bold crosswalk stripes at the intersection edge, waiting pedestrian clusters, tower facades packed with signage, curb corner, traffic-light pole, station-front crossing detail",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-目黑川旁的櫻花隧道:14",
+      "zh": "戶外：目黑川旁的櫻花隧道",
+      "en": "Meguro River bridge viewpoint, bridge railing in the foreground, river channel offset along one side, one riverside cherry blossom canopy, layered Tokyo buildings behind the riverbank, pale pink petals as small physical details, asymmetric riverside composition",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-大阪道頓堀心齋橋河道:15",
+      "zh": "戶外：大阪道頓堀心齋橋河道",
+      "en": "Dotonbori Shinsaibashi riverside edge in Osaka, iconic billboard signage, Shinsaibashi bridge railing in the foreground, canal water visible below, dense commercial facade layers, sidewalk edge near the bridge",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-九龍城寨雜貨店門口:16",
+      "zh": "戶外：九龍城寨雜貨店門口",
+      "en": "Kowloon Walled City grocery storefront, narrow shop entrance, stacked goods, hanging signs, water-stained concrete, exposed cable clutter, doorway threshold, crate piles",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-九龍城寨電器行外牆與管線:17",
+      "zh": "戶外：九龍城寨電器行外牆與管線",
+      "en": "Kowloon Walled City appliance shop wall, exposed conduits, old electrical boxes, peeling tiles, hanging shop signs, compressed alley edge, appliance display fragments",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-興記煲仔飯店門口騎樓區:18",
+      "zh": "戶外：興記煲仔飯店門口騎樓區",
+      "en": "Hing Kee claypot rice storefront arcade, tiled pavement, restaurant signboard, entrance threshold, compact Temple Street frontage, menu board edge, stacked stools",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-廟街小吃店外桌邊角落:19",
+      "zh": "戶外：廟街小吃店外桌邊角落",
+      "en": "Temple Street eatery sidewalk table corner, plastic stools, tiled storefront edge, stacked utensils, curbside dining surface, shop threshold, table leg details",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-孚日廣場拱廊下:20",
+      "zh": "戶外：孚日廣場拱廊下",
+      "en": "Place des Vosges arcade side bay, brick arch segment, stone floor, recessed residential entrance, column base, wall-side walkway, shuttered window detail",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-孚日廣場草地邊與紅磚立面:21",
+      "zh": "戶外：孚日廣場草地邊與紅磚立面",
+      "en": "Place des Vosges lawn edge, clipped grass border, red-brick facade section, shuttered windows, stone curb, walkway edge, residential square frontage",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-瑪黑區高級住宅門前石牆:22",
+      "zh": "戶外：瑪黑區高級住宅門前石牆",
+      "en": "Le Marais upscale residence entrance, stone doorway, wrought-iron detail, polished wall texture, door threshold, brass hardware, narrow sidewalk edge",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-曼哈頓精品櫥窗前人行道:23",
+      "zh": "戶外：曼哈頓精品櫥窗前人行道",
+      "en": "Manhattan fashion storefront sidewalk, large display window, polished glass, curbside edge, layered storefront reflections, window-display base, building entrance seam",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-曼哈頓街角玻璃反射牆面:24",
+      "zh": "戶外：曼哈頓街角玻璃反射牆面",
+      "en": "Manhattan corner glass facade, reflective storefront wall, taxi shapes reflected in glass, steam plume reflection, tower reflections layered behind, sidewalk corner edge",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-曼哈頓店面轉角櫥窗邊:25",
+      "zh": "戶外：曼哈頓店面轉角櫥窗邊",
+      "en": "Manhattan corner display window, angled storefront glass, crosswalk edge, reflected traffic shapes, polished commercial facade, corner mullion, sidewalk curb detail",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-首爾聖水洞街區:26",
+      "zh": "戶外：首爾聖水洞街區",
+      "en": "Seoul Seongsu-dong urban corner, industrial cafe frontage, muted concrete textures, shop entrance edge, metal-framed window, sidewalk curb, small signboard",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-首爾弘大街頭:27",
+      "zh": "戶外：首爾弘大街頭",
+      "en": "Seoul Hongdae youth-culture storefront edge, colorful signboards, layered shopfronts, stickered pole, narrow sidewalk corner, small retail signs, curb detail",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-台北西門町街頭:28",
+      "zh": "戶外：台北西門町街頭",
+      "en": "Taipei Ximending street corner, dense commercial signboards, humid-looking storefront reflections, shopfront layers, arcade edge, scooter parking fragment, curbside paving",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-洛杉磯日落大道街景:29",
+      "zh": "戶外：洛杉磯日落大道街景",
+      "en": "Los Angeles Sunset Boulevard sidewalk edge, palm tree trunk segment, large billboard structure, broad boulevard curb, low commercial facade, street-sign pole, asphalt edge",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町招牌下:30",
+      "zh": "戶外：新宿歌舞伎町招牌下",
+      "en": "Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign, steel arch supports, dense nightlife storefronts and layered signboards, glossy pavement patches, narrow curb and doorway edges",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町販賣機旁:31",
+      "zh": "戶外：新宿歌舞伎町販賣機旁",
+      "en": "Shinjuku vending machine corner, metallic vending-machine surfaces, wall edge, pavement texture, small product display windows, curbside standing space",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町酒吧門口:32",
+      "zh": "戶外：新宿歌舞伎町酒吧門口",
+      "en": "Kabukicho bar entrance, compact signboard, doorway recess, narrow threshold, wall texture, small exterior light fixture as a physical object, side poster panel",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町濕地反光角落:33",
+      "zh": "戶外：新宿歌舞伎町濕地反光角落",
+      "en": "Kabukicho street corner, reflective pavement patches, wall edge, layered signboards, storefront corner, curb detail, glossy ground texture",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-蘇荷區酒吧門口:34",
+      "zh": "戶外：蘇荷區酒吧門口",
+      "en": "Soho pub entrance, doorway frame, wall texture, glossy pavement patches, pub sign bracket, narrow threshold, window trim",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-蘇荷區店面櫥窗邊:35",
+      "zh": "戶外：蘇荷區店面櫥窗邊",
+      "en": "Soho storefront window edge, reflective glass, pavement texture, shop threshold, display-window base, side wall detail",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-蘇荷區招牌下:36",
+      "zh": "戶外：蘇荷區招牌下",
+      "en": "Soho signboard corner, neon sign structure, wall edge, glossy ground patches, layered storefront reflections, sign bracket detail",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-蘇荷區濕地反光街角:37",
+      "zh": "戶外：蘇荷區濕地反光街角",
+      "en": "Soho street corner, pub frontage reflections, turning wall, glossy pavement patches, curb edge, storefront base detail",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-brick-lane-海報牆巷口:38",
+      "zh": "戶外：Brick Lane 海報牆巷口",
+      "en": "Brick Lane poster-covered brick wall, graffiti tags, layered pasted flyers, worn metal shutters, pavement edge, alley entrance corner, stickered pole",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-shoreditch-紅磚塗鴉街:39",
+      "zh": "戶外：Shoreditch 紅磚塗鴉街",
+      "en": "Shoreditch red-brick graffiti wall edge, painted wall panels, sticker-covered surfaces, layered posters, sidewalk curb, metal shutter fragment, side alley detail",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-camden-龐克街角:40",
+      "zh": "戶外：Camden 龐克街角",
+      "en": "Camden punk street corner, red-brick storefront edge, band posters, sticker-covered pole, graffiti wall section, pavement curb, shop sign fragments",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-倫敦排屋街道:41",
+      "zh": "戶外：倫敦排屋街道",
+      "en": "London townhouse frontage edge, Victorian terrace facade section, black iron railings, stone steps, pavement edge, basement window grille, doorway threshold",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-雨後-mews-巷弄:42",
+      "zh": "戶外：雨後 mews 巷弄",
+      "en": "London mews lane corner, brick garage fronts, narrow cobbled passage, glossy cobblestone patches, garage door edge, wall-mounted utility boxes, side entrance detail",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-法租界老洋房門口:43",
+      "zh": "戶外：法租界老洋房門口",
+      "en": "French Concession townhouse entrance, old doorway frame, iron railing, tree trunk segment off to one side, stone step, wall plaque, sidewalk edge",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-法租界咖啡館靠窗座位:44",
+      "zh": "室內：法租界咖啡館靠窗座位",
+      "en": "French Concession cafe window seat, large floor-to-ceiling window, sidewalk and park trees outside, reflective glass, small table edge, chair back, window frame detail",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-法租界咖啡館窗外露台座位:45",
+      "zh": "戶外：法租界咖啡館窗外露台座位",
+      "en": "French Concession cafe window terrace, small round table, metal chairs, street tree trunk off to one side, reflective glass, sidewalk edge, cafe threshold",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-法租界街角轉角牆面:46",
+      "zh": "戶外：法租界街角轉角牆面",
+      "en": "French Concession corner wall, aged brick textures, small shop signage, street tree trunk fragment, sidewalk corner, wall base, narrow storefront edge",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-法租界鐵欄杆前:47",
+      "zh": "戶外：法租界鐵欄杆前",
+      "en": "French Concession iron railing, stone wall, window frame, layered wall textures, sidewalk edge, railing post detail, old residential frontage",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-羅馬老城石牆轉角:48",
+      "zh": "戶外：羅馬老城石牆轉角",
+      "en": "Rome old-town stone corner, warm-toned wall texture, cobblestone ground, wall base, narrow doorway edge, uneven stone blocks",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-羅馬老城咖啡館外桌旁:49",
+      "zh": "戶外：羅馬老城咖啡館外桌旁",
+      "en": "Rome cafe terrace edge, outdoor chairs, textured stone wall, small table edge, cafe threshold, cobblestone pavement, wall-side seating detail",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-羅馬老城老木門前:50",
+      "zh": "戶外：羅馬老城老木門前",
+      "en": "Rome aged wooden door, stone wall texture, iron handle detail, doorway threshold, worn step, wall plaque, side hinge detail",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-羅馬老城窗台邊:51",
+      "zh": "戶外：羅馬老城窗台邊",
+      "en": "Rome old-town window ledge, stone wall, cafe frontage detail, potted plants, sill edge, textured plaster, narrow sidewalk strip",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-城市遊艇碼頭欄杆旁:52",
+      "zh": "戶外：城市遊艇碼頭欄杆旁",
+      "en": "urban yacht marina promenade, slim stainless-steel pedestrian handrail with round tubular rails, weathered dock planks, timber pier decking, moored sailboats and yacht masts, calm harbor water, distant city skyline and mountain silhouettes",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-奧地利-hallstatt-湖畔山村觀景欄杆:53",
+      "zh": "戶外：奧地利 Hallstatt 湖畔山村觀景欄杆",
+      "en": "Hallstatt lakeside village overlook, metal railing foreground, Hallstatter See water edge, clustered alpine timber houses, church spire and steep mountain backdrop, asymmetric travel-portrait composition",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-高樓頂樓城市天際線:54",
+      "zh": "戶外：高樓頂樓城市天際線",
+      "en": "high-rise rooftop edge, rooftop guardrail and concrete parapet, modern city skyline in the distance, layered urban towers, broad rooftop ledge, elevated metropolitan overlook",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-飯店度假村泳池露台:55",
+      "zh": "戶外：飯店度假村泳池露台",
+      "en": "hotel resort poolside terrace, wet stone deck, swimming pool edge, lounge chair corner, balcony facade, palm planters, wall-lamp fixtures, asymmetric poolside composition",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:戶外-高級飯店陽台城市河景:56",
+      "zh": "戶外：高級飯店陽台城市河景",
+      "en": "luxury hotel balcony river-view terrace, glass railing, balcony ledge, high-rise facade edge, broad river below, dense skyline towers, asymmetric metropolitan overlook",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-金色海灘與浪線:0",
+      "zh": "戶外：金色海灘與浪線",
+      "en": "golden sandy beach edge, shallow clear seawater, thin transparent receding wave line across wet sand, clean waterline, open seaside ground plane, smooth beach surface",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-清澈海灣岩岸:1",
+      "zh": "戶外：清澈海灣岩岸",
+      "en": "clear turquoise cove shoreline, pale rocky coast, shallow transparent seawater, irregular coastal stones, cliff wall edge, small inlet waterline, uneven shoreline surface",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-岩洞感海灣淺灘:2",
+      "zh": "戶外：岩洞感海灣淺灘",
+      "en": "rocky seaside cove with cave-like cliff openings, shallow crystalline water, irregular stone shoreline, recessed rock wall, coastal rock textures, uneven shallow-water edge",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-草地與樹木:3",
+      "zh": "戶外：草地與樹木",
+      "en": "small grassy park patch, uneven lawn texture, scattered tree trunks at varied depths, low shrubs, ground-level natural surface, off-center tree edge",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-廣闊草原平原與天空:4",
+      "zh": "戶外：廣闊草原平原與天空",
+      "en": "wide open grassland plain, low meadow grasses and wild plants, flat horizon line, expansive open sky, distant tree line, spacious countryside field",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-向日葵花田:5",
+      "zh": "戶外：向日葵花田",
+      "en": "sunflower field edge, dense sunflower stems, large yellow flower heads, irregular plant clusters broken by leaves, soil path fragment on one side, rural field background",
+      "flags": [
+        "flower"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-霧感森林步道:6",
+      "zh": "戶外：森林步道",
+      "en": "forest path edge, dark tree trunks at varied distances, uneven ground, mossy roots, leaf litter, partial trail curve, dense woodland background",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-森林營地帳篷營火:7",
+      "zh": "戶外：森林營地帳篷營火",
+      "en": "forest campsite clearing, canvas tent edge, campfire pit, hanging lantern stand, tree trunks at varied depths, leaf-litter ground, asymmetric camp setup",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-湖邊木棧道:8",
+      "zh": "戶外：湖邊木棧道",
+      "en": "lakeside wooden deck edge, weathered planks, low railing section, calm water surface beside the deck, reeds or shoreline plants on one side, natural bank detail",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-海邊岩岸:9",
+      "zh": "戶外：海邊岩岸",
+      "en": "rocky shoreline edge, irregular stone slabs, tide-pool pockets, rough coastal rock texture, seawater visible beside the rocks, uneven standing surface",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-沙丘與風痕地景:10",
+      "zh": "戶外：沙丘與風痕地景",
+      "en": "sand dune slope, wind-shaped sand ripples, uneven dune ridge, sparse dry grass tufts, open sandy ground plane, off-center crest line",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:自然與戶外-nature-outdoors:戶外-白色鹽湖乾裂荒漠:11",
+      "zh": "戶外：白色鹽湖乾裂荒漠",
+      "en": "white salt flat playa edge, cracked salt crust ground, pale polygon surface texture, open dry basin, distant low mountain range, wide blue-sky desert horizon",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:其他專屬場景-other-dedicated-scenes:其他-草地:0",
+      "zh": "其他：草地",
+      "en": "close grassy ground plane, dense green lawn texture, short grass blades, simple natural surface filling the frame, near-ground scene base",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:其他專屬場景-other-dedicated-scenes:其他-白色床鋪:1",
+      "zh": "其他：白色床鋪",
+      "en": "lived-in white bed surface, casually rumpled white comforter, two loose white pillows, cotton bedding texture, close bed-surface scene base filling the frame",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:其他專屬場景-other-dedicated-scenes:其他-生活感日式榻榻米房間:2",
+      "zh": "其他：生活感日式榻榻米房間",
+      "en": "lived-in Japanese tatami ground plane, woven mat texture filling the floor, shoji screen edge, low domestic detail, small personal items near a corner, tatami seam geometry",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:其他專屬場景-other-dedicated-scenes:其他-樹下草地:3",
+      "zh": "其他：樹下草地",
+      "en": "green lawn under tree canopy, visible grass blade texture, tree roots breaking through the grass, tree trunk base near one side, low branch and leaf fragments, natural ground scene base",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "locations:其他專屬場景-other-dedicated-scenes:其他-沙灘海岸線:4",
+      "zh": "其他：沙灘海岸線",
+      "en": "pale sandy beach ground plane, clean fine sand surface, shallow clear seawater at the edge, thin transparent wave line across wet sand, calm shoreline scene base",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    }
+  ],
+  "ambient": [
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:全無:0",
+      "zh": "全無",
+      "en": "none",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:晴朗白日:1",
+      "zh": "晴朗白日",
+      "en": "clear daylight environment, bright daytime sky, clean distant visibility, neutral outdoor air",
+      "flags": [
+        "day"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:藍天白雲:2",
+      "zh": "藍天白雲",
+      "en": "clear blue-sky daylight, saturated azure sky, brilliant white cloud shapes, open airy distance, crisp blue-and-white atmosphere",
+      "flags": [
+        "day"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:夏日深藍積雲:3",
+      "zh": "夏日深藍積雲",
+      "en": "deep azure summer sky, saturated clean blue atmosphere, towering luminous white cumulus clouds, crisp cloud-edge detail, vivid blue-and-white daylight",
+      "flags": [
+        "day"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:雨前灰黑天空:4",
+      "zh": "雨前灰黑天空",
+      "en": "charcoal-gray pre-rain sky, layered dark storm clouds, dense gray-black cloud mass, low cloud ceiling, preserved cloud detail before rainfall",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:正午烈日:5",
+      "zh": "正午烈日",
+      "en": "harsh midday environment, overhead summer sun position, glaring bright sky, heat-baked outdoor air, high-clarity dry distance",
+      "flags": [
+        "day"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:陰天漫射:6",
+      "zh": "陰天漫射",
+      "en": "overcast daylight environment, cloud-covered sky, soft diffused air, muted distant contrast, neutral grey-white sky cover",
+      "flags": [
+        "day"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:清晨薄霧:7",
+      "zh": "清晨薄霧",
+      "en": "misty morning environment, pale cool sky, soft distant haze, low-contrast dawn air, visible atmospheric perspective",
+      "flags": [
+        "day"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:晨光日出:8",
+      "zh": "晨光日出",
+      "en": "sunrise environment, early golden morning sky, fresh crisp air, soft warm horizon glow, low-angle dawn brightness",
+      "flags": [
+        "day"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:黃昏夕陽:9",
+      "zh": "黃昏夕陽",
+      "en": "golden sunset environment, warm orange-pink sky gradient, low sun near the horizon, distant amber evening atmosphere",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:藍調傍晚:10",
+      "zh": "藍調傍晚",
+      "en": "blue hour environment, deep blue dusk sky, fading ambient daylight, cool evening transition, faint remaining distance light",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:城市夜間混合光:11",
+      "zh": "城市夜間混合光",
+      "en": "urban night ambience, dark blue-black sky if visible, warm-cool mixed city glow, low nocturnal visibility",
+      "flags": [
+        "night"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+      "zh": "月光夜色",
+      "en": "moonlit night environment, cool silvery darkness, faint moon glow, natural blue-black night sky, low nocturnal visibility",
+      "flags": [
+        "night"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:城市高彩度夜色:13",
+      "zh": "城市高彩度夜色",
+      "en": "saturated-color urban night ambience, dark night sky, vivid colored city glow, high-chroma reflection tint, low nocturnal visibility",
+      "flags": [
+        "night"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:陰雨將至:14",
+      "zh": "陰雨將至",
+      "en": "storm-brewing humid environment, heavy dark cloud cover, charged damp air, pre-rain pressure, dense low cloud ceiling",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:雨天陰濕:15",
+      "zh": "雨天陰濕",
+      "en": "rainy overcast environment, grey-blue rain sky, damp air, wet surfaces, muted visibility, cold daylight atmosphere",
+      "flags": [
+        "day"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:雨後反光:16",
+      "zh": "雨後反光",
+      "en": "post-rain environment, freshly damp surfaces, reflective stone and wall textures, leftover cloud cover, fresh humid air after rainfall",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+      "zh": "雪地冷光",
+      "en": "snow-bright winter environment, cold pale sky, reflective snowy distance, crisp winter air, cool ambient brightness from snow",
+      "flags": [
+        "frozen"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:冬季灰冷:18",
+      "zh": "冬季灰冷",
+      "en": "cold winter overcast environment, pale grey sky, dry freezing air, subdued daylight, low-saturation winter distance",
+      "flags": [
+        "day",
+        "frozen"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+      "zh": "室內窗邊日光",
+      "en": "indoor window-daylight environment, natural window-lit room brightness, daytime exterior sky if visible",
+      "flags": [
+        "day"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+      "zh": "室內清晨冷白日光",
+      "en": "indoor early-morning daylight environment, cool pale window brightness, crisp interior air, faint cool exterior brightness if visible",
+      "flags": [
+        "day"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+      "zh": "室內午後柔亮日光",
+      "en": "indoor late-afternoon daylight environment, bright softened room illumination, warm-neutral daylight spread, mellow exterior brightness if visible",
+      "flags": [
+        "day"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+      "zh": "室內陰影日光",
+      "en": "indoor shaded daylight environment, daylight falling deeper into the room, subdued exterior brightness if visible, dim interior air",
+      "flags": [
+        "day"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+      "zh": "室內陰雨昏暗天光",
+      "en": "indoor rainy-day daylight environment, dim grey window brightness, subdued overcast room light, muted exterior sky if visible",
+      "flags": [
+        "day"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+      "zh": "室內黃昏微暖餘光",
+      "en": "indoor dusk afterglow environment, faint warm residual daylight, dimming room brightness, fading exterior light if visible",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+      "zh": "室內暖色夜景",
+      "en": "indoor warm night ambience, warm amber room brightness, gentle low-contrast interior glow, dark exterior beyond windows if visible",
+      "flags": [
+        "night"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+      "zh": "室內低照度暖色夜景",
+      "en": "indoor low-light warm night ambience, dim amber room brightness, soft shadowed corners, dark exterior if visible",
+      "flags": [
+        "night"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+      "zh": "室內社交暖色夜景",
+      "en": "warm low-light social interior ambience, dim amber room brightness, dark background depth, crowded night interior visibility",
+      "flags": [
+        "night"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+      "zh": "室內極暖低照度",
+      "en": "very warm low-light interior ambience, soft amber room darkness, gentle unstable warm tonal variation, deep shadowed corners",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+      "zh": "室內冷白環境光",
+      "en": "indoor cool artificial ambience, cool-white ambient cast, clean neutral room brightness, dim exterior if visible",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+      "zh": "室內冷白高亮日常",
+      "en": "cool-white everyday interior ambience, clean high room brightness, neutral-cool ambient cast, plain daily visibility",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+      "zh": "室內高彩度色光夜景",
+      "en": "indoor saturated-color night ambience, vivid colored ambient spill, dark exterior if visible, high-chroma low-light atmosphere",
+      "flags": [
+        "night"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+      "zh": "室內外光滲入微暗空間",
+      "en": "dim interior spill-light environment, exterior light leaking into a mostly dark room, shadowed interior corners, strong dark-room contrast",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+      "zh": "室內深夜冷暗微光",
+      "en": "very dark late-night interior ambience, faint cool residual brightness, near-unlit room, low nocturnal visibility",
+      "flags": [
+        "night"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:高調純白攝影棚:34",
+      "zh": "高調純白攝影棚",
+      "en": "high-key white studio environment, ultra-clean bright commercial illumination, near-shadowless studio ambience",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:柔霧美妝攝影棚:35",
+      "zh": "柔霧美妝攝影棚",
+      "en": "soft beauty studio environment, diffused shadowless illumination, creamy clean light quality, polished commercial portrait ambience",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:環境光條件-ambient-light-conditions:舞台演出燈光:36",
+      "zh": "舞台演出燈光",
+      "en": "stage-inspired studio environment, controlled colored light beams, performance-like ambience, artificial light shafts",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    }
+  ],
+  "subject": [
+    {
+      "id": "camera:光線表現-light-style:全無:0",
+      "zh": "全無",
+      "en": "none",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:柔和順光:1",
+      "zh": "柔和順光",
+      "en": "soft frontal subject light, even illumination across face and upper body, gentle shadow modeling, low contrast",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:均勻平光:2",
+      "zh": "均勻平光",
+      "en": "flat even subject light, balanced face and clothing exposure, minimal shadow modeling, neutral contrast",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:側向柔光:3",
+      "zh": "側向柔光",
+      "en": "soft side light across the subject, gentle cheek and shoulder contour, gradual shadow transition, natural dimension",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:側向硬光:4",
+      "zh": "側向硬光",
+      "en": "hard side light across the subject, crisp facial-plane shadows, sculpted body contrast, sharp highlight separation",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:側逆光:5",
+      "zh": "側逆光",
+      "en": "soft diagonal rear-side light, narrow rim along hair and shoulder, partial facial fill, separated subject edge",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:逆光輪廓光:6",
+      "zh": "逆光輪廓光",
+      "en": "strong back rim light, bright outline along hair shoulders and body edges, restrained shadow-side detail",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:頂部照明:7",
+      "zh": "頂部照明",
+      "en": "overhead subject light, downward illumination across face and torso, defined eye-socket and nose shadows, vertical falloff",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:下方反射光:8",
+      "zh": "下方反射光",
+      "en": "upward reflected fill on the subject, subtle lift under the face, softened chin and neck shadows, gentle lower-body bounce",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:漫射霧光:9",
+      "zh": "漫射霧光",
+      "en": "diffused wraparound light, broad soft fill across the subject, softened shadow edges, low-contrast detail",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:硬質晴光:10",
+      "zh": "硬質晴光",
+      "en": "hard direct sunlight on the subject, crisp cast-shadow edges, strong side contrast, bright specular highlights",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:低光高反差:11",
+      "zh": "低光高反差",
+      "en": "low-key subject light, deep face and body shadows, selective highlight accents, strong tonal contrast",
+      "flags": [
+        "low"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:光線表現-light-style:高調亮光:12",
+      "zh": "高調亮光",
+      "en": "high-key subject light, bright even exposure across face and clothing, pale soft shadows, clean highlights",
+      "flags": [
+        "high"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:光線表現-light-style:暖金黃昏色溫:13",
+      "zh": "暖金黃昏色溫",
+      "en": "warm golden-amber subject color, honey-toned highlights on skin and clothing, gentle warm shadow bias, controlled saturation",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:冷白日光色溫:14",
+      "zh": "冷白日光色溫",
+      "en": "cool clean daylight subject color, pale neutral highlights, restrained cool shadows, clear skin and clothing detail",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:室內暖白燈色溫:15",
+      "zh": "室內暖白燈色溫",
+      "en": "warm-white indoor subject color, neutral-warm highlights, gentle household warmth, restrained amber saturation",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:冷藍夜色光:16",
+      "zh": "冷藍夜色光",
+      "en": "cool blue night-toned subject light, restrained cyan fill or rim, cool shadow tint, subdued highlight intensity",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:混合色溫光:17",
+      "zh": "混合色溫光",
+      "en": "mixed warm and cool subject light, layered highlight temperatures across face and clothing, controlled color separation",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:霓虹染色光:18",
+      "zh": "霓虹染色光",
+      "en": "saturated neon color spill across the subject, vivid colored edge highlights on skin hair and clothing, controlled chromatic cast",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:窗格投影光:19",
+      "zh": "窗格投影光",
+      "en": "window-frame pattern light across the subject, geometric daylight bands on face and clothing, defined shadow edges",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:百葉窗條紋投影光:20",
+      "zh": "百葉窗條紋投影光",
+      "en": "window-blind stripe light across the subject, horizontal slatted bands on face and clothing, crisp alternating light and shadow",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:冷調窗邊輪廓光:21",
+      "zh": "冷調窗邊輪廓光",
+      "en": "cool window-side edge light, clean illumination along hair and shoulder, soft shadow-side falloff, subtle contour separation",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:斑駁樹影光:22",
+      "zh": "斑駁樹影光",
+      "en": "dappled leaf-shadow light across the subject, irregular sunlight patches on skin and clothing, broken branch-and-leaf pattern",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:潮濕反射光:23",
+      "zh": "潮濕反射光",
+      "en": "wet-surface reflected fill on the subject, soft upward bounce from nearby surfaces, cool glossy highlights along lower contours",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:局部暖光:24",
+      "zh": "局部暖光",
+      "en": "localized warm subject light, concentrated amber highlight zone across face and hands, gentle warm falloff, soft surrounding shadows",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:深夜邊緣微光:25",
+      "zh": "深夜邊緣微光",
+      "en": "minimal nocturnal rim light, faint cool edge tracing hair shoulders and body outline, mostly shadowed subject mass",
+      "flags": [
+        "low"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:光線表現-light-style:正面強硬光:26",
+      "zh": "正面強硬光",
+      "en": "strong hard key light from in front of the subject, bright frontal highlights and compact crisp shadows, preserved skin and clothing detail",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:機頂直閃:27",
+      "zh": "機頂直閃",
+      "en": "hard direct flash from near the camera axis, bright highlights on the visible subject and crisp compact shadows, natural light falloff",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:蝴蝶光:28",
+      "zh": "蝴蝶光",
+      "en": "raised frontal butterfly key light on the subject, a small centered shadow beneath the nose, defined cheekbone highlights",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:倫勃朗光:29",
+      "zh": "倫勃朗光",
+      "en": "raised oblique Rembrandt key light on the subject, a small light triangle on the shadowed cheek, pronounced facial modeling",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:分割光:30",
+      "zh": "分割光",
+      "en": "side split key light on the subject, one facial half illuminated and the other in shadow, clear light-dark separation",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:光線表現-light-style:下方硬質主光:31",
+      "zh": "下方硬質主光",
+      "en": "hard upward key light on the subject, upward-cast nose and brow shadows, bright lower facial planes",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    }
+  ],
+  "shutter": [
+    {
+      "id": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+      "zh": "全無",
+      "en": "none",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:快門-動態殘影-shutter-motion-blur:1-1000s-凍結瞬間:1",
+      "zh": "1/1000s 凍結瞬間",
+      "en": "1/1000s fast-shutter look, frozen movement, crisp subject edges, no motion blur, clean action stillness",
+      "flags": [
+        "fast"
+      ],
+      "reason": "依完整英文確認本批狹義條件；手動值仍保留。"
+    },
+    {
+      "id": "camera:快門-動態殘影-shutter-motion-blur:1-250s-日常清晰:2",
+      "zh": "1/250s 日常清晰",
+      "en": "1/250s handheld shutter look, mostly sharp subject, minimal natural motion blur, stable everyday photographic clarity",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:快門-動態殘影-shutter-motion-blur:1-60s-背景動態拖影:3",
+      "zh": "1/60s 背景動態拖影",
+      "en": "1/60s slow-shutter background smear, sharp central subject, moving surroundings softly blurred, subtle ambient motion trails",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:快門-動態殘影-shutter-motion-blur:1-30s-主體動態殘影:4",
+      "zh": "1/30s 主體動態殘影",
+      "en": "1/30s slow-shutter portrait blur, subject movement creates visible face and body smear, expressive photographic motion trail",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:快門-動態殘影-shutter-motion-blur:1-15s-全畫面慢門拖影:5",
+      "zh": "1/15s 全畫面慢門拖影",
+      "en": "1/15s slow-shutter drag, subject and surroundings both carry motion smear, dreamy unstable photographic blur, stretched light traces",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    },
+    {
+      "id": "camera:快門-動態殘影-shutter-motion-blur:後簾同步閃光殘影:6",
+      "zh": "後簾同步閃光殘影",
+      "en": "rear-curtain flash look, flash-frozen subject edge with trailing motion blur, sharp strobe imprint over slow-shutter drag",
+      "flags": [],
+      "reason": "沒有本批硬性條件；不以名稱、色溫或寬泛tag推論。"
+    }
+  ]
+}

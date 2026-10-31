@@ -1,0 +1,680 @@
+[
+  {
+    "width": 1440,
+    "height": 1000,
+    "randomCases": [
+      {
+        "index": 0,
+        "location": "locations:自然與戶外-nature-outdoors:戶外-向日葵花田:5",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:夏日深藍積雲:3",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 0,
+        "location": "locations:自然與戶外-nature-outdoors:戶外-向日葵花田:5",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:陰雨將至:14",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 0,
+        "location": "locations:自然與戶外-nature-outdoors:戶外-向日葵花田:5",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:正午烈日:5",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 0,
+        "location": "locations:自然與戶外-nature-outdoors:戶外-向日葵花田:5",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:雨天陰濕:15",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 0,
+        "location": "locations:自然與戶外-nature-outdoors:戶外-向日葵花田:5",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:清晨薄霧:7",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 0,
+        "location": "locations:自然與戶外-nature-outdoors:戶外-向日葵花田:5",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:雨前灰黑天空:4",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 1,
+        "location": "locations:生活感室內-indoor-lifestyle:戶外-辦公大樓人行道-上班途中:35",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 1,
+        "location": "locations:攝影棚與背景-studio-sets:室內-純紫背景:9",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 1,
+        "location": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄商場服務台殘骸:20",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 1,
+        "location": "locations:攝影棚與背景-studio-sets:室內-鏡面地板攝影棚:1",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 1,
+        "location": "locations:城市與社群感-urban-social-snapshots:戶外-法租界老洋房門口:43",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 1,
+        "location": "locations:城市與社群感-urban-social-snapshots:室內-塗鴉牆面旁的地鐵月台角落:3",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 2,
+        "location": "locations:生活感室內-indoor-lifestyle:室內-夜間家庭派對:2",
+        "style": "regional:攝影風格:橫浪修-群像留白秩序:2",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:中片幅數位色深:14"
+      },
+      {
+        "index": 2,
+        "location": "locations:生活感室內-indoor-lifestyle:室內-夜間家庭派對:2",
+        "style": "regional:攝影風格:邁爾斯-奧爾德里奇-復古濃彩高製作:24",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-provia-清透明亮:5"
+      },
+      {
+        "index": 2,
+        "location": "locations:生活感室內-indoor-lifestyle:室內-夜間家庭派對:2",
+        "style": "regional:攝影風格:艾倫-馮-昂沃斯-俏皮抓拍雜誌:8",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:vhs-錄影帶低畫質:16"
+      },
+      {
+        "index": 2,
+        "location": "locations:生活感室內-indoor-lifestyle:室內-夜間家庭派對:2",
+        "style": "regional:攝影風格:篠山紀信-經典寫真名人肖像:17",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高銳利快照黑位:13"
+      },
+      {
+        "index": 2,
+        "location": "locations:生活感室內-indoor-lifestyle:室內-夜間家庭派對:2",
+        "style": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:leica-風格鹽粒黑白:7"
+      },
+      {
+        "index": 2,
+        "location": "locations:生活感室內-indoor-lifestyle:室內-夜間家庭派對:2",
+        "style": "regional:攝影風格:上田義彥-靜默自然暗調:1",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-superia-青綠陰影底片:3"
+      },
+      {
+        "index": 3,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:川內倫子-輕盈日常微光:3",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+        "subject": "camera:光線表現-light-style:暖金黃昏色溫:13",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:vhs-錄影帶低畫質:16"
+      },
+      {
+        "index": 3,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:川內倫子-輕盈日常微光:3",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+        "subject": "camera:光線表現-light-style:蝴蝶光:28",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:日系夜景亮膚霓虹:22"
+      },
+      {
+        "index": 3,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:川內倫子-輕盈日常微光:3",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+        "subject": "camera:光線表現-light-style:窗格投影光:19",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:中片幅數位色深:14"
+      },
+      {
+        "index": 3,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:川內倫子-輕盈日常微光:3",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+        "subject": "camera:光線表現-light-style:漫射霧光:9",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:日系雜誌高彩銳利:23"
+      },
+      {
+        "index": 3,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:川內倫子-輕盈日常微光:3",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+        "subject": "camera:光線表現-light-style:高調亮光:12",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:日系高曝光奶油膚色:21"
+      },
+      {
+        "index": 3,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:川內倫子-輕盈日常微光:3",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+        "subject": "camera:光線表現-light-style:漫射霧光:9",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:中片幅數位色深:14"
+      },
+      {
+        "index": 4,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:保羅-羅韋爾西-柔霧高級時裝:7",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+        "subject": "camera:光線表現-light-style:倫勃朗光:29",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:柯達-portra-暖膚底片:2"
+      },
+      {
+        "index": 4,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:保羅-羅韋爾西-柔霧高級時裝:7",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+        "subject": "camera:光線表現-light-style:冷藍夜色光:16",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高動態通透明亮:12"
+      },
+      {
+        "index": 4,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:保羅-羅韋爾西-柔霧高級時裝:7",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+        "subject": "camera:光線表現-light-style:室內暖白燈色溫:15",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-classic-chrome-低彩編輯感:4"
+      },
+      {
+        "index": 4,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:保羅-羅韋爾西-柔霧高級時裝:7",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+        "subject": "camera:光線表現-light-style:蝴蝶光:28",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高銳利快照黑位:13"
+      },
+      {
+        "index": 4,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:保羅-羅韋爾西-柔霧高級時裝:7",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內暖色夜景:25",
+        "subject": "camera:光線表現-light-style:下方硬質主光:31",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:日系高曝光奶油膚色:21"
+      },
+      {
+        "index": 4,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:保羅-羅韋爾西-柔霧高級時裝:7",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+        "subject": "camera:光線表現-light-style:機頂直閃:27",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:復古微對比銳利感:8"
+      },
+      {
+        "index": 5,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:亞歷克-索斯-寬鬆紀實敘事:12",
+        "ambient": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+        "subject": "camera:光線表現-light-style:高調亮光:12",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:1-1000s-凍結瞬間:1",
+        "film": "camera:底片與相機模擬-camera-film-simulation:手機-hdr-直出:15"
+      },
+      {
+        "index": 5,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:市橋織江-透明自然低飽和:5",
+        "ambient": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+        "subject": "camera:光線表現-light-style:高調亮光:12",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:1-1000s-凍結瞬間:1",
+        "film": "camera:底片與相機模擬-camera-film-simulation:vhs-錄影帶低畫質:16"
+      },
+      {
+        "index": 5,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+        "ambient": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+        "subject": "camera:光線表現-light-style:高調亮光:12",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:1-1000s-凍結瞬間:1",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "index": 5,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:蜷川實花-濃烈色彩戲劇感:0",
+        "ambient": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+        "subject": "camera:光線表現-light-style:高調亮光:12",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:1-1000s-凍結瞬間:1",
+        "film": "camera:底片與相機模擬-camera-film-simulation:柯達-portra-暖膚底片:2"
+      },
+      {
+        "index": 5,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:邁爾斯-奧爾德里奇-復古濃彩高製作:24",
+        "ambient": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+        "subject": "camera:光線表現-light-style:高調亮光:12",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:1-1000s-凍結瞬間:1",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高動態通透明亮:12"
+      },
+      {
+        "index": 5,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:橫浪修-群像留白秩序:2",
+        "ambient": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+        "subject": "camera:光線表現-light-style:高調亮光:12",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:1-1000s-凍結瞬間:1",
+        "film": "camera:底片與相機模擬-camera-film-simulation:日系高曝光奶油膚色:21"
+      }
+    ],
+    "manualConflictPreserved": true,
+    "nonePreserved": true,
+    "oldPublicTextAndSelectionPreserved": true,
+    "downloadCards": 40,
+    "outputs": 6,
+    "errors": [],
+    "overflow": false,
+    "programmaticFallback": [],
+    "nativePopupMouseVerified": false
+  },
+  {
+    "width": 390,
+    "height": 900,
+    "randomCases": [
+      {
+        "index": 0,
+        "location": "locations:自然與戶外-nature-outdoors:戶外-向日葵花田:5",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:雨後反光:16",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 0,
+        "location": "locations:自然與戶外-nature-outdoors:戶外-向日葵花田:5",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:清晨薄霧:7",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 0,
+        "location": "locations:自然與戶外-nature-outdoors:戶外-向日葵花田:5",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:雨天陰濕:15",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 0,
+        "location": "locations:自然與戶外-nature-outdoors:戶外-向日葵花田:5",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:陰天漫射:6",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 0,
+        "location": "locations:自然與戶外-nature-outdoors:戶外-向日葵花田:5",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:晴朗白日:1",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 0,
+        "location": "locations:自然與戶外-nature-outdoors:戶外-向日葵花田:5",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:正午烈日:5",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 1,
+        "location": "locations:生活感室內-indoor-lifestyle:室內-白色書櫃落地窗臥室:7",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 1,
+        "location": "locations:攝影棚與背景-studio-sets:室內-純綠背景:10",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 1,
+        "location": "locations:地下與廢墟風格-abandoned-underground:戶外-高樓建築骨架施工鷹架旁:24",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 1,
+        "location": "locations:自然與戶外-nature-outdoors:戶外-白色鹽湖乾裂荒漠:11",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 1,
+        "location": "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町販賣機旁:31",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 1,
+        "location": "locations:城市與社群感-urban-social-snapshots:戶外-首爾弘大街頭:27",
+        "style": "style-none",
+        "ambient": "camera:環境光條件-ambient-light-conditions:雪地冷光:17",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:全無:0"
+      },
+      {
+        "index": 2,
+        "location": "locations:生活感室內-indoor-lifestyle:室內-夜間家庭派對:2",
+        "style": "regional:攝影風格:細江英公-戲劇黑白藝術張力:22",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "index": 2,
+        "location": "locations:生活感室內-indoor-lifestyle:室內-夜間家庭派對:2",
+        "style": "regional:攝影風格:沃夫岡-提爾曼斯-生活切片隨拍:14",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:手機-hdr-直出:15"
+      },
+      {
+        "index": 2,
+        "location": "locations:生活感室內-indoor-lifestyle:室內-夜間家庭派對:2",
+        "style": "regional:攝影風格:奧山由之-青春電影透明敘事:20",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:冷調清晰寫實:11"
+      },
+      {
+        "index": 2,
+        "location": "locations:生活感室內-indoor-lifestyle:室內-夜間家庭派對:2",
+        "style": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:leica-風格鹽粒黑白:7"
+      },
+      {
+        "index": 2,
+        "location": "locations:生活感室內-indoor-lifestyle:室內-夜間家庭派對:2",
+        "style": "regional:攝影風格:石田真澄-柔亮底片空氣感:4",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:中片幅數位色深:14"
+      },
+      {
+        "index": 2,
+        "location": "locations:生活感室內-indoor-lifestyle:室內-夜間家庭派對:2",
+        "style": "regional:攝影風格:邁爾斯-奧爾德里奇-復古濃彩高製作:24",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+        "subject": "camera:光線表現-light-style:全無:0",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高銳利快照黑位:13"
+      },
+      {
+        "index": 3,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:川內倫子-輕盈日常微光:3",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+        "subject": "camera:光線表現-light-style:下方硬質主光:31",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:暖白-jpeg-直出:10"
+      },
+      {
+        "index": 3,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:川內倫子-輕盈日常微光:3",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+        "subject": "camera:光線表現-light-style:正面強硬光:26",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:vhs-錄影帶低畫質:16"
+      },
+      {
+        "index": 3,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:川內倫子-輕盈日常微光:3",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+        "subject": "camera:光線表現-light-style:高調亮光:12",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:日系夜景亮膚霓虹:22"
+      },
+      {
+        "index": 3,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:川內倫子-輕盈日常微光:3",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+        "subject": "camera:光線表現-light-style:漫射霧光:9",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:拍立得柔淡即時成像:1"
+      },
+      {
+        "index": 3,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:川內倫子-輕盈日常微光:3",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+        "subject": "camera:光線表現-light-style:機頂直閃:27",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:日系柔霧亮膚:24"
+      },
+      {
+        "index": 3,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:川內倫子-輕盈日常微光:3",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內午後柔亮日光:21",
+        "subject": "camera:光線表現-light-style:局部暖光:24",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:日系亮膚高彩濾鏡:19"
+      },
+      {
+        "index": 4,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:保羅-羅韋爾西-柔霧高級時裝:7",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內陰雨昏暗天光:23",
+        "subject": "camera:光線表現-light-style:側逆光:5",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:跨沖霓虹剪影濾鏡:25"
+      },
+      {
+        "index": 4,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:保羅-羅韋爾西-柔霧高級時裝:7",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內黃昏微暖餘光:24",
+        "subject": "camera:光線表現-light-style:室內暖白燈色溫:15",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:暖白-jpeg-直出:10"
+      },
+      {
+        "index": 4,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:保羅-羅韋爾西-柔霧高級時裝:7",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+        "subject": "camera:光線表現-light-style:冷藍夜色光:16",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高銳利快照黑位:13"
+      },
+      {
+        "index": 4,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:保羅-羅韋爾西-柔霧高級時裝:7",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+        "subject": "camera:光線表現-light-style:室內暖白燈色溫:15",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:日系夜景亮膚霓虹:22"
+      },
+      {
+        "index": 4,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:保羅-羅韋爾西-柔霧高級時裝:7",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內陰影日光:22",
+        "subject": "camera:光線表現-light-style:混合色溫光:17",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:暖白-jpeg-直出:10"
+      },
+      {
+        "index": 4,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:保羅-羅韋爾西-柔霧高級時裝:7",
+        "ambient": "camera:環境光條件-ambient-light-conditions:室內清晨冷白日光:20",
+        "subject": "camera:光線表現-light-style:窗格投影光:19",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+        "film": "camera:底片與相機模擬-camera-film-simulation:日系雜誌高彩銳利:23"
+      },
+      {
+        "index": 5,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:萊斯利-基-華麗明星商業感:21",
+        "ambient": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+        "subject": "camera:光線表現-light-style:高調亮光:12",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:1-1000s-凍結瞬間:1",
+        "film": "camera:底片與相機模擬-camera-film-simulation:中片幅數位色深:14"
+      },
+      {
+        "index": 5,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:森山大道-噪訊黑白暗調:15",
+        "ambient": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+        "subject": "camera:光線表現-light-style:高調亮光:12",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:1-1000s-凍結瞬間:1",
+        "film": "camera:底片與相機模擬-camera-film-simulation:高階黑白灰階:6"
+      },
+      {
+        "index": 5,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:南-戈爾丁-私人相簿粗粒子:9",
+        "ambient": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+        "subject": "camera:光線表現-light-style:高調亮光:12",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:1-1000s-凍結瞬間:1",
+        "film": "camera:底片與相機模擬-camera-film-simulation:富士-classic-chrome-低彩編輯感:4"
+      },
+      {
+        "index": 5,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:亞歷克-索斯-寬鬆紀實敘事:12",
+        "ambient": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+        "subject": "camera:光線表現-light-style:高調亮光:12",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:1-1000s-凍結瞬間:1",
+        "film": "camera:底片與相機模擬-camera-film-simulation:暖膚數位人像:9"
+      },
+      {
+        "index": 5,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:石田真澄-柔亮底片空氣感:4",
+        "ambient": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+        "subject": "camera:光線表現-light-style:高調亮光:12",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:1-1000s-凍結瞬間:1",
+        "film": "camera:底片與相機模擬-camera-film-simulation:手機-hdr-直出:15"
+      },
+      {
+        "index": 5,
+        "location": "locations:攝影棚與背景-studio-sets:全無:0",
+        "style": "regional:攝影風格:邁爾斯-奧爾德里奇-復古濃彩高製作:24",
+        "ambient": "camera:環境光條件-ambient-light-conditions:月光夜色:12",
+        "subject": "camera:光線表現-light-style:高調亮光:12",
+        "shutter": "camera:快門-動態殘影-shutter-motion-blur:1-1000s-凍結瞬間:1",
+        "film": "camera:底片與相機模擬-camera-film-simulation:日系柔霧亮膚:24"
+      }
+    ],
+    "manualConflictPreserved": true,
+    "nonePreserved": true,
+    "oldPublicTextAndSelectionPreserved": true,
+    "downloadCards": 40,
+    "outputs": 6,
+    "errors": [],
+    "overflow": false,
+    "programmaticFallback": [],
+    "nativePopupMouseVerified": false
+  }
+]

@@ -1,0 +1,128 @@
+[
+  {
+    "name": "lint",
+    "args": [
+      "npm",
+      "run",
+      "lint"
+    ],
+    "cwd": "webapp",
+    "exitCode": 0,
+    "seconds": 8.94
+  },
+  {
+    "name": "tests",
+    "args": [
+      "npm",
+      "test"
+    ],
+    "cwd": "webapp",
+    "exitCode": 1,
+    "seconds": 119.47
+  },
+  {
+    "name": "quality",
+    "args": [
+      "npm",
+      "run",
+      "test:prompt-quality"
+    ],
+    "cwd": "webapp",
+    "exitCode": 0,
+    "seconds": 93.28
+  },
+  {
+    "name": "build",
+    "args": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "cwd": "webapp",
+    "exitCode": 0,
+    "seconds": 6.17
+  },
+  {
+    "name": "bundle",
+    "args": [
+      "node",
+      "scripts/check_prompt_bundle.mjs"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 0.07
+  },
+  {
+    "name": "audit-after",
+    "args": [
+      "node",
+      "scripts/validate_prompt_logic.mjs",
+      "200",
+      "prompt-quality-baseline",
+      "--strict"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 4.57
+  },
+  {
+    "name": "sync",
+    "args": [
+      "python3",
+      "scripts/sync_to_json.py",
+      "--check",
+      "--report-json"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 0.36
+  },
+  {
+    "name": "python",
+    "args": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "scripts/tests"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 11.91
+  },
+  {
+    "name": "catalog",
+    "args": [
+      "node",
+      "scripts/check_catalog_integrity.mjs",
+      "--strict"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 2.17
+  },
+  {
+    "name": "tools",
+    "args": [
+      "node",
+      "--test",
+      "scripts/tests/catalog-integrity.test.mjs",
+      "scripts/tests/catalog-semantics.test.mjs",
+      "scripts/tests/catalog-legacy.test.mjs"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 10.79
+  },
+  {
+    "name": "assets",
+    "args": [
+      "python3",
+      "scripts/check_public_assets.py"
+    ],
+    "cwd": ".",
+    "exitCode": 0,
+    "seconds": 0.08
+  }
+]

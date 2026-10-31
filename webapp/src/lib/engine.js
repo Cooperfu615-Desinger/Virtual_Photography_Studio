@@ -1,3 +1,4 @@
+import { seasonAllowsAmbient, styleAllowsLocation, styleAllowsAmbient, styleAllowsSubject, styleAllowsShutter } from './engine/captureCompatibility.js';
 import { pickColorCompatibleStyle, pickColorCompatibleFilm } from './engine/imagingColorCompatibility.js';
 import { nightPartyAllowsRandomAmbient } from './engine/nightPartyLighting.js';
 import { projectCharacterPhotographicDirection } from './engine/characterPhotographicDirection.js';
@@ -16432,12 +16433,32 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
 
     return sample(lowFrequency.length > 0 ? lowFrequency : candidates, random);
   };
+  // C7 source-reviewed pairing only constrains ordinary random candidates.
+  const captureKnownLock = (value, list) => !value || isRandomLockValue(value) || Boolean(findById(list, value));
+  const captureImagingLock = effectiveLocks.filmId
+    || (CAMERA_PROFILE_OPTION_IDS.has(effectiveLocks.cameraSystemId) ? effectiveLocks.cameraSystemId : '');
+  const applyCapturePairing = runtime === getEngineRuntime()
+    && subject.count === 1 && !subject.reference && !dedicatedSubject && !capture
+    && !String(runtimeOptions.characterProfilePrompt || '').trim()
+    && !fixedCompositionSetActive && !supineSurfaceOnly && !lyingActionActive && effectiveLocks.poseBaseId !== 'lying'
+    && (!effectiveLocks.importedWorldSceneMode || effectiveLocks.importedWorldSceneMode === 'none')
+    && [['styleId', 'regional'], ['locationId', 'locations'], ['lightingId', 'lighting'],
+      ['lightDirectionId', 'lightDirection'], ['shutterId', 'shutter']]
+      .every(([key, list]) => captureKnownLock(inputLocks[key], runtime.flatCatalog[list])
+        && captureKnownLock(effectiveLocks[key], runtime.flatCatalog[list]))
+    && captureKnownLock(inputLocks.filmId, runtime.flatCatalog.film)
+    && captureKnownLock(captureImagingLock, runtime.flatCatalog.film);
+  const captureAmbientAnchor = applyCapturePairing ? findById(runtime.flatCatalog.lighting, effectiveLocks.lightingId) : null;
+  const captureStyleAnchor = applyCapturePairing ? findById(runtime.flatCatalog.regional, effectiveLocks.styleId) : null;
+  const captureSubjectAnchor = applyCapturePairing ? findById(runtime.flatCatalog.lightDirection, effectiveLocks.lightDirectionId) : null;
+  const captureShutterAnchor = applyCapturePairing ? findById(runtime.flatCatalog.shutter, effectiveLocks.shutterId) : null;
   const location = supineSurfaceOnly
     ? SCENE_NONE_LOCATION_OPTION
     : pickLocked(
       runtime.flatCatalog.locations,
       effectiveLocks.locationId,
-      (item) => locationMatchesSceneAttribute(item, sceneAttribute),
+      (item) => locationMatchesSceneAttribute(item, sceneAttribute)
+        && (!applyCapturePairing || (seasonAllowsAmbient(item, captureAmbientAnchor) && styleAllowsLocation(captureStyleAnchor, item))),
       sample,
       ['locationId'],
     );
@@ -16457,7 +16478,9 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
   let style = pickLocked(
     runtime.flatCatalog.regional,
     effectiveLocks.styleId,
-    (item) => styleFitsLocation(item, location),
+    (item) => styleFitsLocation(item, location)
+      && (!applyCapturePairing || (styleAllowsLocation(item, location) && styleAllowsAmbient(item, captureAmbientAnchor)
+        && styleAllowsSubject(item, captureSubjectAnchor) && styleAllowsShutter(item, captureShutterAnchor))),
     applyColorPairing
       ? (candidates, rng) => pickColorCompatibleStyle(candidates, colorFilmAnchor, rng)
       : sample,
@@ -16547,7 +16570,8 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
   const apertureLockId = effectiveLocks.apertureId || getControlOptionByZh(lockControls, 'apertureId', '全無')?.id || '';
   const shutterLockId = effectiveLocks.shutterId || getControlOptionByZh(lockControls, 'shutterId', '全無')?.id || '';
   const aperture = pickLocked(runtime.flatCatalog.aperture, apertureLockId, () => true, sample, ['apertureId']);
-  const shutter = pickLocked(runtime.flatCatalog.shutter, shutterLockId, () => true, sample, ['shutterId']);
+  const shutter = pickLocked(runtime.flatCatalog.shutter, shutterLockId,
+    (item) => !applyCapturePairing || styleAllowsShutter(style, item), sample, ['shutterId']);
   const transitFixedLighting = fixedCompositionSetActive
     && (isStationFixedSet(selectedFixedCompositionSet) || isCarriageFixedSet(selectedFixedCompositionSet));
   const fixedSetLightingCompatibilityAnchor = fixedCompositionSetActive
@@ -16571,7 +16595,8 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
     runtime.flatCatalog.lighting,
     effectiveLocks.lightingId,
     (item) => (locationForLightingCompatibility ? locationSupportsLighting(locationForLightingCompatibility, item) : true)
-      && (!applyNightPartyRandomAmbient || nightPartyAllowsRandomAmbient(location, item)),
+      && (!applyNightPartyRandomAmbient || nightPartyAllowsRandomAmbient(location, item))
+      && (!applyCapturePairing || (seasonAllowsAmbient(location, item) && styleAllowsAmbient(style, item))),
     sample,
     ['lightingId'],
   );
@@ -16583,7 +16608,8 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
     : pickLightDirection(
       runtime.flatCatalog.lightDirection,
       effectiveLocks.lightDirectionId,
-      (item) => lightDirectionSupportsScene(item, framing, locationForLightingCompatibility, lighting),
+      (item) => lightDirectionSupportsScene(item, framing, locationForLightingCompatibility, lighting)
+        && (!applyCapturePairing || styleAllowsSubject(style, item)),
       sample,
       ['lightDirectionId'],
     );
