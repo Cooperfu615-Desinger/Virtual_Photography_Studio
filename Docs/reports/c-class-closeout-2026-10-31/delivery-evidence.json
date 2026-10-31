@@ -1,0 +1,743 @@
+{
+  "checkedAt": "2026-10-31 10:55:42 UTC",
+  "base": "d648959303af0c048fa492f354f2fbac1b94adb2",
+  "scope": "Content quality C1-C7, original report section 4.C; 16 delivery commits",
+  "runs": [
+    {
+      "sha": "d648959303af0c048fa492f354f2fbac1b94adb2",
+      "runId": 41193930501,
+      "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41193930501",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "runAttempt": 1,
+      "jobs": [
+        {
+          "name": "webapp-quality",
+          "id": 124516171858,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-31T10:50:10Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41193930501/job/124516171858"
+        },
+        {
+          "name": "functions-quality",
+          "id": 124516172016,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-31T10:44:33Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41193930501/job/124516172016"
+        },
+        {
+          "name": "build",
+          "id": 124517403560,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-31T10:51:02Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41193930501/job/124517403560"
+        },
+        {
+          "name": "deploy",
+          "id": 124517573518,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-31T10:51:16Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41193930501/job/124517573518"
+        }
+      ],
+      "batch": "C6 盤點與唯讀工具",
+      "report": "../c6-distribution-2026-10-31/README.md",
+      "ancestorOfBase": true
+    },
+    {
+      "sha": "bfa5311d13d738bfb42051f69dc656880d08b6e9",
+      "runId": 41191250250,
+      "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41191250250",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "runAttempt": 1,
+      "jobs": [
+        {
+          "name": "webapp-quality",
+          "id": 124508320590,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-31T10:09:32Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41191250250/job/124508320590"
+        },
+        {
+          "name": "functions-quality",
+          "id": 124508320764,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-31T10:05:15Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41191250250/job/124508320764"
+        },
+        {
+          "name": "build",
+          "id": 124509324211,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-31T10:10:23Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41191250250/job/124509324211"
+        },
+        {
+          "name": "deploy",
+          "id": 124509504059,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-31T10:10:37Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41191250250/job/124509504059"
+        }
+      ],
+      "batch": "C1 既有身份錨點補強",
+      "report": "../c1-character-identity-2026-10-31/README.md",
+      "ancestorOfBase": true
+    },
+    {
+      "sha": "de1433351605d140d618e4e9ab81a9566733bc10",
+      "runId": 41168650232,
+      "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41168650232",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "runAttempt": 1,
+      "jobs": [
+        {
+          "name": "functions-quality",
+          "id": 124441620746,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-31T04:28:21Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41168650232/job/124441620746"
+        },
+        {
+          "name": "webapp-quality",
+          "id": 124441621035,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-31T04:31:44Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41168650232/job/124441621035"
+        },
+        {
+          "name": "build",
+          "id": 124442466500,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-31T04:32:53Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41168650232/job/124442466500"
+        },
+        {
+          "name": "deploy",
+          "id": 124442708826,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-31T04:33:13Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41168650232/job/124442708826"
+        }
+      ],
+      "batch": "C7 季節／風格配對與整合",
+      "report": "../c7-capture-pairing-2026-10-31/README.md",
+      "ancestorOfBase": true
+    },
+    {
+      "sha": "b5f035003a48f9dae848b91b27eeccb296a37b3e",
+      "runId": 41164989213,
+      "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41164989213",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "runAttempt": 1,
+      "jobs": [
+        {
+          "name": "functions-quality",
+          "id": 124430512796,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-31T03:35:42Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41164989213/job/124430512796"
+        },
+        {
+          "name": "webapp-quality",
+          "id": 124430512990,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-31T03:39:50Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41164989213/job/124430512990"
+        },
+        {
+          "name": "build",
+          "id": 124431571330,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-31T03:40:41Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41164989213/job/124431571330"
+        },
+        {
+          "name": "deploy",
+          "id": 124431753838,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-31T03:40:55Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41164989213/job/124431753838"
+        }
+      ],
+      "batch": "C7 黑白／彩色隨機配對",
+      "report": "../c7-color-pairing-2026-10-31/README.md",
+      "ancestorOfBase": true
+    },
+    {
+      "sha": "591cc0575ab87582540662236b4230fadfea16bf",
+      "runId": 41154129093,
+      "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41154129093",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "runAttempt": 1,
+      "jobs": [
+        {
+          "name": "webapp-quality",
+          "id": 124397064523,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-31T01:15:42Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41154129093/job/124397064523"
+        },
+        {
+          "name": "functions-quality",
+          "id": 124397064847,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-31T01:12:16Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41154129093/job/124397064847"
+        },
+        {
+          "name": "build",
+          "id": 124398113355,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-31T01:16:48Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41154129093/job/124398113355"
+        },
+        {
+          "name": "deploy",
+          "id": 124398396579,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-31T01:17:07Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41154129093/job/124398396579"
+        }
+      ],
+      "batch": "C7 夜間派對環境光",
+      "report": "../c7-night-lighting-2026-10-31/README.md",
+      "ancestorOfBase": true
+    },
+    {
+      "sha": "0cf5d7650ffe8be606c9ddb165809c6b826d2669",
+      "runId": 41143341288,
+      "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41143341288",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "runAttempt": 1,
+      "jobs": [
+        {
+          "name": "webapp-quality",
+          "id": 124362562261,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T23:21:34Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41143341288/job/124362562261"
+        },
+        {
+          "name": "functions-quality",
+          "id": 124362562590,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T23:15:51Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41143341288/job/124362562590"
+        },
+        {
+          "name": "build",
+          "id": 124364655403,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T23:22:33Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41143341288/job/124364655403"
+        },
+        {
+          "name": "deploy",
+          "id": 124364978825,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T23:23:24Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41143341288/job/124364978825"
+        }
+      ],
+      "batch": "C5 用途清單與文件修正",
+      "report": "../c5-usage-retention-2026-10-31/README.md",
+      "ancestorOfBase": true
+    },
+    {
+      "sha": "e5f8fd4b30bbf686a5644cebdede16c6b80227aa",
+      "runId": 41092448342,
+      "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41092448342",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "runAttempt": 1,
+      "jobs": [
+        {
+          "name": "functions-quality",
+          "id": 124189544067,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T16:43:58Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41092448342/job/124189544067"
+        },
+        {
+          "name": "webapp-quality",
+          "id": 124189544734,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T16:48:18Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41092448342/job/124189544734"
+        },
+        {
+          "name": "build",
+          "id": 124192060894,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T16:49:09Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41092448342/job/124192060894"
+        },
+        {
+          "name": "deploy",
+          "id": 124192503660,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T16:49:26Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41092448342/job/124192503660"
+        }
+      ],
+      "batch": "C2 50筆保留與文件收尾",
+      "report": "../c2-closeout-2026-10-31/README.md",
+      "ancestorOfBase": true
+    },
+    {
+      "sha": "515827da138a0c0d3fe652888d9b03a6b5a9c5a6",
+      "runId": 41087494144,
+      "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41087494144",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "runAttempt": 1,
+      "jobs": [
+        {
+          "name": "webapp-quality",
+          "id": 124172379389,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T16:17:19Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41087494144/job/124172379389"
+        },
+        {
+          "name": "functions-quality",
+          "id": 124172380111,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T16:11:25Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41087494144/job/124172380111"
+        },
+        {
+          "name": "build",
+          "id": 124175862259,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T16:18:05Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41087494144/job/124175862259"
+        },
+        {
+          "name": "deploy",
+          "id": 124176277345,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T16:18:20Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41087494144/job/124176277345"
+        }
+      ],
+      "batch": "C2 成像分類與候選盤點",
+      "report": "../c2-rendering-classification-2026-10-30/README.md",
+      "ancestorOfBase": true
+    },
+    {
+      "sha": "2fa8fe65226903141597ab74b044a0102a6f8ca7",
+      "runId": 41073869153,
+      "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41073869153",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "runAttempt": 1,
+      "jobs": [
+        {
+          "name": "webapp-quality",
+          "id": 124124730996,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T14:46:30Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41073869153/job/124124730996"
+        },
+        {
+          "name": "functions-quality",
+          "id": 124124732077,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T14:42:28Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41073869153/job/124124732077"
+        },
+        {
+          "name": "build",
+          "id": 124127338191,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T14:47:23Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41073869153/job/124127338191"
+        },
+        {
+          "name": "deploy",
+          "id": 124127800499,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T14:47:50Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41073869153/job/124127800499"
+        }
+      ],
+      "batch": "C2 場景／光學三筆微調",
+      "report": "../c2-scene-optics-2026-10-30/README.md",
+      "ancestorOfBase": true
+    },
+    {
+      "sha": "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+      "runId": 41064787565,
+      "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41064787565",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "runAttempt": 1,
+      "jobs": [
+        {
+          "name": "webapp-quality",
+          "id": 124093249952,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T13:53:27Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41064787565/job/124093249952"
+        },
+        {
+          "name": "functions-quality",
+          "id": 124093250285,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T13:38:06Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41064787565/job/124093250285"
+        },
+        {
+          "name": "build",
+          "id": 124100942511,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T13:54:25Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41064787565/job/124100942511"
+        },
+        {
+          "name": "deploy",
+          "id": 124101434600,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T13:54:39Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41064787565/job/124101434600"
+        }
+      ],
+      "batch": "C2 套裝尾句一筆微調／19筆保留",
+      "report": "../c2-outfit-tails-2026-10-30/README.md",
+      "ancestorOfBase": true
+    },
+    {
+      "sha": "043418f9c169e2e5848d23aaae15c1a32e34588f",
+      "runId": 41038408050,
+      "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41038408050",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "runAttempt": 1,
+      "jobs": [
+        {
+          "name": "webapp-quality",
+          "id": 124004857257,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T10:13:07Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41038408050/job/124004857257"
+        },
+        {
+          "name": "functions-quality",
+          "id": 124004857677,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T10:08:01Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41038408050/job/124004857677"
+        },
+        {
+          "name": "build",
+          "id": 124007200481,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T10:14:03Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41038408050/job/124007200481"
+        },
+        {
+          "name": "deploy",
+          "id": 124007591703,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T10:14:20Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41038408050/job/124007591703"
+        }
+      ],
+      "batch": "C2 腰鍊兩筆微調／三筆保留",
+      "report": "../c2-waist-2026-10-30/README.md",
+      "ancestorOfBase": true
+    },
+    {
+      "sha": "2b60e6f605792b0e8c82a8573358105ce51e87e2",
+      "runId": 41027037864,
+      "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41027037864",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "runAttempt": 1,
+      "jobs": [
+        {
+          "name": "functions-quality",
+          "id": 123967489067,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T08:32:13Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41027037864/job/123967489067"
+        },
+        {
+          "name": "webapp-quality",
+          "id": 123967489561,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T08:37:20Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41027037864/job/123967489561"
+        },
+        {
+          "name": "build",
+          "id": 123969585731,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T08:38:24Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41027037864/job/123969585731"
+        },
+        {
+          "name": "deploy",
+          "id": 123969973498,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T08:38:36Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41027037864/job/123969973498"
+        }
+      ],
+      "batch": "C2 編寫長度政策與診斷",
+      "report": "../c2-authoring-lengths-2026-10-30/README.md",
+      "ancestorOfBase": true
+    },
+    {
+      "sha": "cde8a470049dbcf0d7427bba552bb174317de668",
+      "runId": 41014732029,
+      "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41014732029",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "runAttempt": 1,
+      "jobs": [
+        {
+          "name": "functions-quality",
+          "id": 123928373651,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T06:33:42Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41014732029/job/123928373651"
+        },
+        {
+          "name": "webapp-quality",
+          "id": 123928373848,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T06:38:46Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41014732029/job/123928373848"
+        },
+        {
+          "name": "build",
+          "id": 123930133898,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T06:39:28Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41014732029/job/123930133898"
+        },
+        {
+          "name": "deploy",
+          "id": 123930350109,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-30T06:39:44Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41014732029/job/123930350109"
+        }
+      ],
+      "batch": "C3 說明護欄與六筆隱藏狀態",
+      "report": "../c3-pose-guards-2026-10-30/README.md",
+      "ancestorOfBase": true
+    },
+    {
+      "sha": "8fb4272f33f8f008df429306239f73c93e20fbee",
+      "runId": 40889791408,
+      "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40889791408",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "runAttempt": 1,
+      "jobs": [
+        {
+          "name": "webapp-quality",
+          "id": 123503165700,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-29T14:22:05Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40889791408/job/123503165700"
+        },
+        {
+          "name": "functions-quality",
+          "id": 123503166683,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-29T14:17:00Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40889791408/job/123503166683"
+        },
+        {
+          "name": "build",
+          "id": 123506566618,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-29T14:23:23Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40889791408/job/123506566618"
+        },
+        {
+          "name": "deploy",
+          "id": 123507324346,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-29T14:23:35Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40889791408/job/123507324346"
+        }
+      ],
+      "batch": "C4 項鍊／腰鍊與收尾",
+      "report": "../c4-jewelry-labels-2026-10-29/README.md",
+      "ancestorOfBase": true
+    },
+    {
+      "sha": "a1cf63ec66b04d74bba514a64937039cdd4e7da5",
+      "runId": 40876133837,
+      "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40876133837",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "runAttempt": 1,
+      "jobs": [
+        {
+          "name": "functions-quality",
+          "id": 123455299721,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-29T12:47:40Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40876133837/job/123455299721"
+        },
+        {
+          "name": "webapp-quality",
+          "id": 123455301209,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-29T12:52:32Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40876133837/job/123455301209"
+        },
+        {
+          "name": "build",
+          "id": 123457961195,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-29T12:53:28Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40876133837/job/123457961195"
+        },
+        {
+          "name": "deploy",
+          "id": 123458414122,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-29T12:53:43Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40876133837/job/123458414122"
+        }
+      ],
+      "batch": "C4 六髮型與森林名稱",
+      "report": "../c4-catalog-labels-2026-10-29/README.md",
+      "ancestorOfBase": true
+    },
+    {
+      "sha": "3fd6dd8491d98f817b2090b821ab120c45f32c70",
+      "runId": 40816992611,
+      "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40816992611",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "runAttempt": 1,
+      "jobs": [
+        {
+          "name": "webapp-quality",
+          "id": 123260284239,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-29T04:24:04Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40816992611/job/123260284239"
+        },
+        {
+          "name": "functions-quality",
+          "id": 123260284488,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-29T04:18:57Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40816992611/job/123260284488"
+        },
+        {
+          "name": "build",
+          "id": 123262032124,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-29T04:24:51Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40816992611/job/123262032124"
+        },
+        {
+          "name": "deploy",
+          "id": 123262263242,
+          "status": "completed",
+          "conclusion": "success",
+          "completedAt": "2026-10-29T04:25:05Z",
+          "url": "https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40816992611/job/123262263242"
+        }
+      ],
+      "batch": "C4 相機與托下巴用途",
+      "report": "../c4-labels-2026-10-29/README.md",
+      "ancestorOfBase": true
+    }
+  ]
+}

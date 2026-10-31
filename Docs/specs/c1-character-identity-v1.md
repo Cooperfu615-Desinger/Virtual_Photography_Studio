@@ -1,5 +1,7 @@
 # C1 Natsuki／Miku 身份對比與最小錨點補強 v1
 
+> 2026-10-31 整體收尾核對：C1 本輪核准範圍已交付，最後一批 `bfa5311d` 的 [CI／部署](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41191250250) 四作業成功。現行處置、保留理由與驗收限制見 [C 類結案總表](c-class-closeout-v1.md)。下文保留該批原規格及當時狀態；「未提交／未開始」等歷史文字由總表接續，不改原契約或驗收證據。
+
 日期：2026-10-31。基準 main：`de1433351605d140d618e4e9ab81a9566733bc10`。
 狀態：本機驗收通過，使用者已授權限定 commit／push；結果見[本批報告](../reports/c1-character-identity-2026-10-31/README.md)。CI與部署於交付時另行核對，生圖及瀏覽器限制保持。
 

@@ -1,5 +1,7 @@
 # C4 第三批：項鍊／腰鍊用字與收尾 v1
 
+> 2026-10-31 整體收尾核對：C4 本輪核准範圍已交付，最後一批 `8fb4272f` 的 [CI／部署](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/40889791408) 四作業成功。現行處置、保留理由與驗收限制見 [C 類結案總表](c-class-closeout-v1.md)。下文保留該批原規格及當時狀態；「未提交／未開始」等歷史文字由總表接續，不改原契約或驗收證據。
+
 2026-10-29，可信基準 main `a1cf63ec66b04d74bba514a64937039cdd4e7da5`。Cooper 授權實作、必要歷史回放銜接及完整驗收，未授權 stage／commit／push。驗收狀態見 [本批報告](../reports/c4-jewelry-labels-2026-10-29/README.md)。
 
 ## 限定變更

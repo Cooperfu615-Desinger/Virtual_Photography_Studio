@@ -1,5 +1,7 @@
 # C6 資料分布盤點與唯讀量測 v1
 
+> 2026-10-31 整體收尾核對：C6 本輪核准範圍已交付，最後一批 `d6489593` 的 [CI／部署](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41193930501) 四作業成功。現行處置、保留理由與驗收限制見 [C 類結案總表](c-class-closeout-v1.md)。下文保留該批原規格及當時狀態；「未提交／未開始」等歷史文字由總表接續，不改原契約或驗收證據。
+
 日期：2026-10-31。審閱基準 main：`bfa5311d13d738bfb42051f69dc656880d08b6e9`。
 範圍：盤點文件、保留理由、唯讀量測工具與測試；不擴充內容、不改抽樣規則。
 狀態：本批實作與本機驗收見[報告](../reports/c6-distribution-2026-10-31/README.md)，使用者已授權限定 commit／push；CI 與部署於交付時另行核對。

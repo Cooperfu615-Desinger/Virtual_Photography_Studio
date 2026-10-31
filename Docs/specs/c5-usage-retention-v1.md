@@ -1,5 +1,7 @@
 # C5 用途清單與文件修正 v1
 
+> 2026-10-31 整體收尾核對：C5 本輪核准範圍已交付，最後一批 `0cf5d765` 的 [CI／部署](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41143341288) 四作業成功。現行處置、保留理由與驗收限制見 [C 類結案總表](c-class-closeout-v1.md)。下文保留該批原規格及當時狀態；「未提交／未開始」等歷史文字由總表接續，不改原契約或驗收證據。
+
 日期：2026-10-31。基準為本地及遠端 main `e5f8fd4b30bbf686a5644cebdede16c6b80227aa`。本批為文件整理，使用者已驗收通過並授權限定commit／push；CI與部署於交付時核對。
 
 ## 授權與完成界線

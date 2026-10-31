@@ -1,5 +1,7 @@
 # C2 文件與清單收尾 v1
 
+> 2026-10-31 整體收尾核對：C2 本輪核准範圍已交付，最後一批 `e5f8fd4b` 的 [CI／部署](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/41092448342) 四作業成功。現行處置、保留理由與驗收限制見 [C 類結案總表](c-class-closeout-v1.md)。下文保留該批原規格及當時狀態；「未提交／未開始」等歷史文字由總表接續，不改原契約或驗收證據。
+
 日期：2026-10-31。核對本地與遠端 main：`515827da138a0c0d3fe652888d9b03a6b5a9c5a6`。
 
 ## 結案範圍與授權

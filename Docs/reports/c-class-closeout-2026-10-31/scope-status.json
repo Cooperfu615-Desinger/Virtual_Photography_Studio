@@ -1,0 +1,160 @@
+{
+  "version": 1,
+  "base": "d648959303af0c048fa492f354f2fbac1b94adb2",
+  "namespace": "2026-10-11 report section 4.C content quality and coverage",
+  "currentApprovedImplementationTodo": 0,
+  "meaning": "No remaining automatic implementation in approved batches; validation limits and deferred items remain",
+  "items": [
+    {
+      "id": "C1",
+      "topic": "角色辨識差異",
+      "status": "implemented-and-delivered; visual-validation-pending",
+      "spec": "../../specs/c1-character-identity-v1.md",
+      "report": "../c1-character-identity-2026-10-31/README.md",
+      "result": "Natsuki與Miku各一個既有身份錨點補強，逐輸出及相容護欄完成",
+      "retained": "33卡完整身份／膚質及舊原文保持；文字相似度不代表生成相同",
+      "limits": "未驗證實際生圖辨識；原生popup限制保留",
+      "commits": [
+        "bfa5311d13d738bfb42051f69dc656880d08b6e9"
+      ]
+    },
+    {
+      "id": "C2",
+      "topic": "內容字數與編寫規範",
+      "status": "review-disposition-completed-and-delivered",
+      "spec": "../../specs/c2-closeout-v1.md",
+      "report": "../c2-closeout-2026-10-31/README.md",
+      "result": "長度政策、核准精簡與成像分類交付；22偏短／28偏長均已有保留決定",
+      "retained": "under22／over70／within685／unclassified81與38例外保持；不以診斷歸零驗收",
+      "limits": "28筆偏長依使用者需求保留，未補做逐筆語意或影像驗證",
+      "commits": [
+        "2b60e6f605792b0e8c82a8573358105ce51e87e2",
+        "043418f9c169e2e5848d23aaae15c1a32e34588f",
+        "dabef0172ddf35c569632956c5bd7fed3e8c2c8b",
+        "2fa8fe65226903141597ab74b044a0102a6f8ca7",
+        "515827da138a0c0d3fe652888d9b03a6b5a9c5a6",
+        "e5f8fd4b30bbf686a5644cebdede16c6b80227aa"
+      ]
+    },
+    {
+      "id": "C3",
+      "topic": "姿勢說明與不可見選項",
+      "status": "approved-scope-implemented-and-delivered",
+      "spec": "../../specs/c3-pose-description-visibility-v1.md",
+      "report": "../c3-pose-guards-2026-10-30/README.md",
+      "result": "54現行動作說明護欄與六筆相容選項uiHidden完成",
+      "retained": "舊鎖值、英文、收藏及退役組合器保持；不全面補寫舊desc",
+      "limits": "pending動作影像驗收、自由支撐與legacy搬移不包含在本輪",
+      "commits": [
+        "cde8a470049dbcf0d7427bba552bb174317de668"
+      ]
+    },
+    {
+      "id": "C4",
+      "topic": "中文名稱與說明",
+      "status": "approved-scope-implemented-and-delivered",
+      "spec": "../../specs/c4-jewelry-display-labels-v1.md",
+      "report": "../c4-jewelry-labels-2026-10-29/README.md",
+      "result": "相機／托下巴、六髮型／森林、項鍊／腰鍊三批完成",
+      "retained": "英文、ID、整理狀態、舊名稱還原、圖片及舊收藏原文保持",
+      "limits": "原生下拉popup直接滑鼠操作未驗證；相容舊字不是待清理",
+      "commits": [
+        "3fd6dd8491d98f817b2090b821ab120c45f32c70",
+        "a1cf63ec66b04d74bba514a64937039cdd4e7da5",
+        "8fb4272f33f8f008df429306239f73c93e20fbee"
+      ]
+    },
+    {
+      "id": "C5",
+      "topic": "不可達或無作用資料",
+      "status": "documentation-disposition-completed-and-delivered",
+      "spec": "../../specs/c5-usage-retention-v1.md",
+      "report": "../c5-usage-retention-2026-10-31/README.md",
+      "result": "四項用途／保留理由及README過期描述修正完成",
+      "retained": "艾爾莎隨機限制、七類bias、Negative19筆、自訂library工具責任保持",
+      "limits": "沒有修復艾爾莎可達性、刪死碼或新增Negative／library UI",
+      "commits": [
+        "0cf5d7650ffe8be606c9ddb165809c6b826d2669"
+      ]
+    },
+    {
+      "id": "C6",
+      "topic": "資料分布與內容多樣性",
+      "status": "inventory-completed-and-delivered; expansion-not-approved",
+      "spec": "../../specs/c6-distribution-inventory-v1.md",
+      "report": "../c6-distribution-2026-10-31/README.md",
+      "result": "來源／UI／抽樣口徑及保留決策、唯讀量測完成；6500次兩輪一致",
+      "retained": "正式內容與抽樣不改，Wardrobe516非全無更正已交付",
+      "limits": "不是瀏覽器／生圖新驗收；未建立正式國別映射；擴充屬候選",
+      "commits": [
+        "d648959303af0c048fa492f354f2fbac1b94adb2"
+      ]
+    },
+    {
+      "id": "C7",
+      "topic": "跨欄位語意衝突",
+      "status": "approved-scope-implemented-and-delivered",
+      "spec": "../../specs/c7-status-inventory-2026-10-31.md",
+      "report": "../c7-capture-pairing-2026-10-31/README.md",
+      "result": "一般PAGE1單人預設目錄的夜間、黑白／彩色、明示季節與風格光線／快門配對及整合完成",
+      "retained": "手動優先、RNG節奏、舊收藏、審閱後保留組合及排除模式保持",
+      "limits": "其他模式、媒介×光學×快門、模型品質未宣稱全面覆蓋",
+      "commits": [
+        "591cc0575ab87582540662236b4230fadfea16bf",
+        "b5f035003a48f9dae848b91b27eeccb296a37b3e",
+        "de1433351605d140d618e4e9ab81a9566733bc10"
+      ]
+    }
+  ],
+  "remaining": [
+    {
+      "id": "V1",
+      "status": "validation-limit",
+      "topic": "C1及其他內容的實際生圖品質",
+      "trigger": "另定模型／參數／固定seed與比較標準，取得服務使用授權"
+    },
+    {
+      "id": "V2",
+      "status": "validation-limit",
+      "topic": "原生下拉popup滑鼠操作",
+      "trigger": "另排真實瀏覽器操作驗收，不由程式化change或自訂面板通過取代"
+    },
+    {
+      "id": "F1",
+      "status": "optional-not-approved",
+      "topic": "C6自然／季節、穿搭／包包、新角色擴充",
+      "trigger": "具體使用需求與來源、ID、相容及驗收規格"
+    },
+    {
+      "id": "F2",
+      "status": "outside-approved-scope",
+      "topic": "C3自由支撐／legacy搬移／pending動作影像驗收與C7其他模式擴展",
+      "trigger": "新的範圍決策；不自動開工"
+    },
+    {
+      "id": "R1",
+      "status": "retain",
+      "topic": "艾爾莎隨機選取維持現況",
+      "trigger": "若要改變，需新授權"
+    },
+    {
+      "id": "D1",
+      "status": "deferred-by-user",
+      "topic": "PAGE2 Markdown／ZIP舊匯入",
+      "trigger": "使用者重新提出需要匯入"
+    },
+    {
+      "id": "D2",
+      "status": "deferred-by-user",
+      "topic": "J12雙人舊映射",
+      "trigger": "使用者重新授權並決定舊值去向"
+    },
+    {
+      "id": "D3",
+      "status": "deferred-by-user",
+      "topic": "P5b",
+      "trigger": "使用者重新授權舊姿勢範圍"
+    }
+  ],
+  "documentBatch": "local review complete; user acceptance and delivery pending"
+}
