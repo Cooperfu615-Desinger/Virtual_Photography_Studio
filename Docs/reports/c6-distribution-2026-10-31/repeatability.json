@@ -1,0 +1,72 @@
+{
+  "base": "bfa5311d13d738bfb42051f69dc656880d08b6e9",
+  "runs": 2,
+  "byteIdentical": true,
+  "bytesPerRun": 510985,
+  "sha256": "7827efe23080d7d06735aeb1e3eaca201a65f420f5099705c55155a37922f344",
+  "generationsPerRun": 6500,
+  "productBeforeAndAfterEachRun": {
+    "files": 581,
+    "sha256": "60a512602659715663eccc8001b7fc1d8150b258941221d55c26081028907063"
+  },
+  "scenarios": [
+    {
+      "name": "full-random-a",
+      "seed": "c6-20261031-a",
+      "count": 1000,
+      "rngCalls": 31906,
+      "outputDigest": "e05ed4c878e1268a873519c4be6de4640d5bc2a0cfa7c198ea1ea29077b51095"
+    },
+    {
+      "name": "full-random-b",
+      "seed": "c6-20261031-b",
+      "count": 1000,
+      "rngCalls": 31890,
+      "outputDigest": "66f8eac88297d8458f9fc4748ba7316736fd52f7d89e70b168ae43cb834ffc40"
+    },
+    {
+      "name": "full-random-c",
+      "seed": "c6-20261031-c",
+      "count": 1000,
+      "rngCalls": 31877,
+      "outputDigest": "75eb035fb7bc3e288d47bbb9a48c8a79a86aead443ba8ab65f5328e8506cc446"
+    },
+    {
+      "name": "default",
+      "seed": "c6-default-20261031",
+      "count": 1000,
+      "rngCalls": 31884,
+      "outputDigest": "c01c2c2dd0ac2b3d40cb6b89c242974224d072fb207a2440311fbb6850f7214a"
+    },
+    {
+      "name": "special-outfit",
+      "seed": "c6-special-20261031",
+      "count": 1000,
+      "rngCalls": 15000,
+      "outputDigest": "4bcb8ccbb167246e73ea93686dd54a1a5e447062b1eb9f1e0b15ea5b9d33f74b"
+    },
+    {
+      "name": "indoor",
+      "seed": "c6-indoor-20261031",
+      "count": 500,
+      "rngCalls": 15826,
+      "outputDigest": "da0b6622ae8ff98fd83499044ee51bec7f39fe25f9fd74cc1321703f6b62357d"
+    },
+    {
+      "name": "outdoor",
+      "seed": "c6-outdoor-20261031",
+      "count": 500,
+      "rngCalls": 16248,
+      "outputDigest": "11c6f4228163200901328d27a6841abf2df21c26c1a970e0bc815b0187107c4d"
+    },
+    {
+      "name": "locked-bed",
+      "seed": "c6-bed-20261031",
+      "count": 500,
+      "rngCalls": 15190,
+      "outputDigest": "b008c72d5e45b8dfacf952f46006389ad4df1be7d05e2bb4460e9b51804fcf61"
+    }
+  ],
+  "runtime": "Node 22; exact version in final-check.json",
+  "fullInputsAndCounts": "measurement.json.gz"
+}

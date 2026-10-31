@@ -1,0 +1,24 @@
+{
+  "status": "initial diagnostic rejected; not an accepted baseline",
+  "initialMeasurementSha256": "1d08d3d8c7769eed84a7b09e61331ee1f20b57fa83afb1464d3f95257093c072",
+  "changes": [
+    {
+      "field": "actionBase",
+      "initial": "selection.poseBaseId: none in specified-action snapshots",
+      "correct": "baseId from resolved specifiedActionId; legacy field kept separately"
+    },
+    {
+      "field": "outfit",
+      "initial": "outfitPresetId only, misses dresses moved to dressId",
+      "correct": "outfitPresetId or dressId; both original fields also retained"
+    },
+    {
+      "field": "Wardrobe content expected count",
+      "initial": 518,
+      "correct": 516,
+      "basis": "539 formal rows minus 23 none rows across 24 categories"
+    }
+  ],
+  "productModified": false,
+  "regression": "scripts/tests/c6-distribution.test.mjs"
+}

@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "reviewedBase": "bfa5311d13d738bfb42051f69dc656880d08b6e9",
+  "reviewedUi": {
+    "webapp/src/components/Page1Workspace.jsx": "05ecfb7cb48db6656e464a78096898022beb8a1f9d4f3c438b1085d35bcf916d",
+    "webapp/src/components/SpecifiedActionPicker.jsx": "f101aba7cf8d6689629077d753fbc682e0aff84d01330a0dd9f39f8727195cf6",
+    "webapp/src/features/page1/page1Selectors.js": "8a8f00d732b8bde8145ef5fc0e8b9ae39029d3c256e418fb2459afa896643072",
+    "webapp/src/components/SelectControlField.jsx": "18d0ed7a196b7ecbc91215e55415b4696955b2e18c1a00703e086897be043e10"
+  },
+  "wardrobeKeys": [
+    "specialOutfitId",
+    "outfitPresetId",
+    "dressId",
+    "topId",
+    "pantsId",
+    "skirtId",
+    "outerwearId"
+  ],
+  "lexicalPatterns": {
+    "wardrobeBags": "handbag|backpack|shoulder bag|crossbody bag|tote bag",
+    "wardrobeCold": "winter|cold.weather|wool|fleece|thermal|puffer|down jacket|turtleneck|knit sweater",
+    "wardrobeKorean": "korean|k.style",
+    "locationSeason": "spring|summer|autumn|winter|snow|cherry blossom|fall foliage",
+    "lightingSeason": "summer|winter|snow|spring|autumn"
+  },
+  "limitations": [
+    "Source-derived UI counts are not browser acceptance; dedicated subjects, locks and crops may disable controls.",
+    "Default, explicit random, indoor/outdoor and locked-bed scenarios are separate denominators; no real-user telemetry.",
+    "Lexical matches are non-exclusive diagnostics, not formal season/geography/style classifications.",
+    "No formal country counts: country ownership needs a reviewed per-ID mapping, not guessed from names.",
+    "Legacy pose composer is not current pose inventory; pending actions and conditional lying pools stay unchanged.",
+    "No image generation or visual identity validation; existing native-popup limitations retained.",
+    "Elsa random policy, PAGE2 legacy imports, J12 and P5b remain unchanged."
+  ]
+}

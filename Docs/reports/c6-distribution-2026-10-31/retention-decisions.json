@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "base": "bfa5311d13d738bfb42051f69dc656880d08b6e9",
+  "scope": "diagnostics and documentation only; no content expansion approved",
+  "source": "../../specs/c6-distribution-inventory-v1.md",
+  "items": [
+    {
+      "key": "poses",
+      "status": "retain",
+      "current": "54現行動作；42 accepted／12 pending；38一般隨機＋4條件式躺姿",
+      "reason": "驗收狀態及鎖定場景限制有明確用途，退役組合器不加入現行分母",
+      "futureBoundary": "先完成個別pending動作所需的來源與視覺驗收，不能僅為數量平均而開放"
+    },
+    {
+      "key": "locations",
+      "status": "retain",
+      "current": "154內容，自然類12；三組各1000次覆蓋154",
+      "reason": "分布偏城市／室內但未顯示自然類不可達，保持目前權重",
+      "futureBoundary": "新增自然場景需先選定使用需求與逐筆來源"
+    },
+    {
+      "key": "seasons",
+      "status": "retain",
+      "current": "36環境光，季節英文詞命中4；一般地點命中1，固定季節構圖2另計",
+      "reason": "沒有獨立季節欄位，通用光線可跨季節，避免重複同義條目",
+      "futureBoundary": "秋葉／冬季自然場景僅為未授權候選"
+    },
+    {
+      "key": "wardrobe",
+      "status": "retain",
+      "current": "539列／516內容／23全無；套裝59與連身24",
+      "reason": "合成控制項不能重複加總；4筆退役外套保護舊選值",
+      "futureBoundary": "新增造型要先有必要的視覺差異，不以統計配額擴充"
+    },
+    {
+      "key": "bags-and-styles",
+      "status": "retain",
+      "current": "包類詞48、保暖詞8、韓系詞0",
+      "reason": "詞彙命中非完整分類；無獨立包包欄位不等於無包",
+      "futureBoundary": "獨立包包屬新產品行為，需另行決定互斥／遮蔽／還原契約"
+    },
+    {
+      "key": "characters",
+      "status": "retain",
+      "current": "33卡；32明文成年東亞女性／1幻想角色；膚質詞可重疊",
+      "reason": "不為平衡分布改寫既有身份；C1差異及收藏原文保持",
+      "futureBoundary": "新身份需新的需求與參考，生成辨識另行驗收"
+    },
+    {
+      "key": "geography",
+      "status": "unclassified-retain",
+      "current": "未建立正式逐ID國別映射",
+      "reason": "不由名稱、人物國籍或英文形容詞臆測精確國別分布",
+      "futureBoundary": "若真的需要分類，先人工逐筆審閱映射再量測"
+    },
+    {
+      "key": "sampling",
+      "status": "retain",
+      "current": "八情境6500次，各保留locks／seed／命中ID／RNG／輸出雜湊",
+      "reason": "測試抽樣不是實際使用率，未命中不是不可達",
+      "futureBoundary": "UI或引擎改動時另建版本證據，不更新舊封存來掩蓋差異"
+    },
+    {
+      "key": "elsa",
+      "status": "unchanged",
+      "current": "艾爾莎隨機選取政策",
+      "reason": "使用者要求維持現況",
+      "futureBoundary": "無本批待辦"
+    },
+    {
+      "key": "deferred",
+      "status": "deferred",
+      "current": "PAGE2舊匯入、J12、P5b",
+      "reason": "使用者明確暫緩",
+      "futureBoundary": "需另行授權，不因C6盤點自動開工"
+    }
+  ]
+}

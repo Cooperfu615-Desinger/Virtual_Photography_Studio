@@ -1,0 +1,109 @@
+{
+  "status": "local verification passed; user acceptance and delivery pending",
+  "base": "bfa5311d13d738bfb42051f69dc656880d08b6e9",
+  "remoteMainRechecked": "bfa5311d13d738bfb42051f69dc656880d08b6e9",
+  "node": "v22.23.3",
+  "focusedTests": {
+    "passed": 7,
+    "failed": 0
+  },
+  "catalogToolTests": {
+    "passed": 32,
+    "failed": 0
+  },
+  "sync": {
+    "passed": true,
+    "historicalIds": 1050,
+    "outputs": 8,
+    "registryBaseCommit": "bfa5311d13d738bfb42051f69dc656880d08b6e9"
+  },
+  "catalogStrict": {
+    "passed": true,
+    "blocking": 0,
+    "stale": 0,
+    "allowed": 2
+  },
+  "measurements": {
+    "scenarios": 8,
+    "runs": 2,
+    "generationsPerRun": 6500,
+    "byteIdentical": true
+  },
+  "productUnchanged": {
+    "files": 581,
+    "sha256": "60a512602659715663eccc8001b7fc1d8150b258941221d55c26081028907063"
+  },
+  "protectionPassed": true,
+  "syntaxCheck": true,
+  "diffCheck": true,
+  "newFilesWhitespaceCheck": true,
+  "documentLinks": [
+    {
+      "from": "Docs/specs/c6-distribution-inventory-v1.md",
+      "target": "Docs/reports/c6-distribution-2026-10-31/README.md"
+    },
+    {
+      "from": "Docs/specs/c6-distribution-inventory-v1.md",
+      "target": "Docs/decisions/2026-10-31-c6-retention.md"
+    },
+    {
+      "from": "Docs/specs/c6-distribution-inventory-v1.md",
+      "target": "Docs/reports/c6-distribution-2026-10-31/retention-decisions.json"
+    },
+    {
+      "from": "Docs/decisions/2026-10-31-c6-retention.md",
+      "target": "Docs/specs/c6-distribution-inventory-v1.md"
+    },
+    {
+      "from": "Docs/decisions/2026-10-31-c6-retention.md",
+      "target": "Docs/reports/c6-distribution-2026-10-31/README.md"
+    },
+    {
+      "from": "Docs/decisions/2026-10-31-c6-retention.md",
+      "target": "Docs/reports/c6-distribution-2026-10-31/retention-decisions.json"
+    },
+    {
+      "from": "Docs/reports/c6-distribution-2026-10-31/README.md",
+      "target": "Docs/reports/c6-distribution-2026-10-31/measurement.json.gz"
+    },
+    {
+      "from": "Docs/reports/c6-distribution-2026-10-31/README.md",
+      "target": "Docs/specs/c6-distribution-inventory-v1.md"
+    },
+    {
+      "from": "Docs/reports/c6-distribution-2026-10-31/README.md",
+      "target": "Docs/decisions/2026-10-31-c6-retention.md"
+    },
+    {
+      "from": "Docs/reports/c6-distribution-2026-10-31/README.md",
+      "target": "Docs/reports/c6-distribution-2026-10-31/retention-decisions.json"
+    }
+  ],
+  "skippedWithReason": {
+    "frontendTestsBuildBrowserHistory": "No product/UI/source change; offline diagnostic and docs only",
+    "modelGeneration": "No model calls authorized or needed; C1 visual identity limitation retained",
+    "nativePopup": "Existing browser limitation retained; no new browser acceptance",
+    "ciDeployment": "No commit or push authorized in this batch"
+  },
+  "newFileHashesExcludingThisManifest": {
+    "Docs/decisions/2026-10-31-c6-retention.md": "00271da0f07307ac8fa6d8f724518cb24afcf733ab23475dc754218f6ae13aa2",
+    "Docs/reports/c6-distribution-2026-10-31/README.md": "2acd7b394ab027daf5e1d5cfe7677d93cf72227258ff673b97215647be990efc",
+    "Docs/reports/c6-distribution-2026-10-31/catalog-strict.log.gz": "247ae9fa6e947ea51871da21bd6cf0901430f387ab82d2f117e9fdb8b6865f81",
+    "Docs/reports/c6-distribution-2026-10-31/catalog-tests-final.log.gz": "fa3909bd1ffcf1ad98eb65c291fe5044e72fbc3c2a96b6a8666dd6b729793d20",
+    "Docs/reports/c6-distribution-2026-10-31/catalog-tests-initial.log.gz": "92d14b121dcc4dbcd679ee44c13eca621aeeb6b590e4ff31a601c59ca0d9f9bf",
+    "Docs/reports/c6-distribution-2026-10-31/collector-correction.json": "47329e72db8fceb5fadf036db31aeefb5651fe836e6fdb96401e21c5b073fbe3",
+    "Docs/reports/c6-distribution-2026-10-31/measurement.json.gz": "0014eedcfafe42c6108cd42a539ed82b7692dd4a8bc13b212c25c9cf904d1212",
+    "Docs/reports/c6-distribution-2026-10-31/protection.json": "ccf1b6a3565d31b24f81faa06d7192dc8fa31efff800864eb90136f58a9893d9",
+    "Docs/reports/c6-distribution-2026-10-31/repeatability.json": "6f05a5801359bb25252a8d1fa5933327a557215d57bb7216c5b342cc70b2209e",
+    "Docs/reports/c6-distribution-2026-10-31/retention-decisions.json": "80746750ab1e1466b523c5549bf4ea7e7956cbc6dc3e7ed0dabea0fd18c305f7",
+    "Docs/reports/c6-distribution-2026-10-31/source-manifest.json.gz": "404268b487772c9efc68bb74e68ce2e4edc1290188d75a4f46a29538e4f68ecc",
+    "Docs/reports/c6-distribution-2026-10-31/sync.log.gz": "6657d5f46f4f9209e997e81907405a629b7342f0a559c2c03aeda154cae97db7",
+    "Docs/reports/c6-distribution-2026-10-31/tests-final.log.gz": "4003d04e900191fce0e28ac3f997fcc58fa0f4fb200b07e5fcd8244bb0b6259a",
+    "Docs/reports/c6-distribution-2026-10-31/tests-initial.log.gz": "37a2744dded6468b7819e350b5a912507e5e27a46a19cbaf60a917437de88f36",
+    "Docs/specs/c6-distribution-inventory-v1.md": "ea913619ece9dfac94d924adb8633a7cba7b8cfb187a43365b3ec9db02730fe5",
+    "scripts/c6_distribution.mjs": "d6cff0fdcd5fc4e73e76984a42c30a9baf4fc36b9f7500ec29a3dd95b99d12c5",
+    "scripts/lib/c6Distribution.mjs": "08fa568fdf293afd08135324d2343a76174471354d9192c407b618abb20f6d8a",
+    "scripts/lib/c6DistributionPolicy.json": "33082fde525dbcb132ed45bef92adc02da368690a6cfba184c6427051c1503b2",
+    "scripts/tests/c6-distribution.test.mjs": "74033ba9f4d005b864847b44c064a6135163e7dcd8dfabdeeb9d8d3013505b0c"
+  }
+}

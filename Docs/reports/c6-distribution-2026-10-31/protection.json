@@ -1,0 +1,161 @@
+{
+  "base": "bfa5311d13d738bfb42051f69dc656880d08b6e9",
+  "trackedBefore": 5023,
+  "allowedExistingChange": [
+    "Docs/current_project_state.md"
+  ],
+  "existingCurrentStatePreservedExceptNewC6Entry": true,
+  "unchangedTracked": 5022,
+  "historicalReportFilesUnchanged": 3319,
+  "allExistingHistoricalBaselinesPreserved": true,
+  "otherExistingWorktrees": 20,
+  "otherDirtyFilesUnchanged": 143,
+  "otherWorktrees": [
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio",
+      "statusSha256": "a09fd47cc7c6b821f4fb9bd662405db38d9671ca0cb4269f3a8db0be49cd5c61",
+      "dirtyFileCount": 94,
+      "dirtyFilesSha256": "4b347910266250248fb207d3d7eeae399dccf670450aaa1f45ad83724b601059",
+      "unchanged": true
+    },
+    {
+      "path": "/private/tmp/vps-duo-ci-review",
+      "missingPreserved": true
+    },
+    {
+      "path": "/Users/cooperfu/.codex/worktrees/capture-import-integration/Virtual_Photography_Studio",
+      "statusSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "dirtyFileCount": 0,
+      "dirtyFilesSha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/ethnicity-default-japanese",
+      "statusSha256": "1c3d1d4215ffd1c94786a3c8fb343af57f450c1f05fe01d69e6673fec5ad6706",
+      "dirtyFileCount": 4,
+      "dirtyFilesSha256": "9ab2e96fe23ee491874f73c45338fd3fa3f928ef0857fb6e8928c92a545a3b40",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-gest",
+      "statusSha256": "1e680e78ae803240ba29430a9bf41247a8614c322f18a6ee96bb6cdeb18ddbac",
+      "dirtyFileCount": 1,
+      "dirtyFilesSha256": "b301799a7fc6437e28d0b3841d09db6e9be945b3c3514bc0c5d12d01fb23a561",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-grid",
+      "statusSha256": "4b50b49cb1012e8af36fe378c66d025f35b9c4f95db98317eb3836da84d04fba",
+      "dirtyFileCount": 3,
+      "dirtyFilesSha256": "4185136d180ce720bb87736ce60ec60043d6b763107add7b6e8cb1875606ffc1",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-head",
+      "statusSha256": "4b50b49cb1012e8af36fe378c66d025f35b9c4f95db98317eb3836da84d04fba",
+      "dirtyFileCount": 3,
+      "dirtyFilesSha256": "e368870ecf697f1645fe248802a4d53320644624f2729ac502d17c93bc9d376f",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-props",
+      "statusSha256": "95c39bc8c726cb42d0a64930e4c565cd164fa6c963646e9f91c44bae4afc5a49",
+      "dirtyFileCount": 3,
+      "dirtyFilesSha256": "a38e49d60d5eb7099c34efb97e376cc3ab8d5ffa3e034bda19b94be608613a4f",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-sit-kneel",
+      "statusSha256": "b7fe9dae15d7b94988aca985413e379cfdb8b0efbdff5bfec9c68b73281e2334",
+      "dirtyFileCount": 2,
+      "dirtyFilesSha256": "c21daff235dd92718b6420084f494a23ba18b662a3426437cfbb0f6b64312fe5",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-squatting",
+      "statusSha256": "b7fe9dae15d7b94988aca985413e379cfdb8b0efbdff5bfec9c68b73281e2334",
+      "dirtyFileCount": 2,
+      "dirtyFilesSha256": "1ded9505073dbe8f6df5cf0329cd68700219df89231011f6547c3d098745ddf6",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-standing",
+      "statusSha256": "1dcede3288df346d7b79281d86bc41cd555cb20d14839eb0fbaf591d2eea7c9d",
+      "dirtyFileCount": 3,
+      "dirtyFilesSha256": "a8a616161f9b64b0a389287baf9e04792916ebf7e3c2399e62495e17deb81bbe",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-ui",
+      "statusSha256": "b7fe9dae15d7b94988aca985413e379cfdb8b0efbdff5bfec9c68b73281e2334",
+      "dirtyFileCount": 2,
+      "dirtyFilesSha256": "a6e1b6c5b24620e98a05d0e2a546e0e7d0f74fa60f19df71fc12a4b774999d14",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p1",
+      "statusSha256": "1e680e78ae803240ba29430a9bf41247a8614c322f18a6ee96bb6cdeb18ddbac",
+      "dirtyFileCount": 1,
+      "dirtyFilesSha256": "d8a69f038d49ab676d98fa410dc02368bcce5a67220a56b2b94ecd36a948f57d",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p2",
+      "statusSha256": "1837f35d831e941ee492a89baa2475445359e61202bc004ad29576a716d7cbf9",
+      "dirtyFileCount": 5,
+      "dirtyFilesSha256": "16587385d36f35eea8bf3c028f2b57265279cee8de0024901750823639807a3a",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p3",
+      "statusSha256": "9e8e2a95f1edcde6bf979b9741a2f078bde5a9ac6bc4e91e6c05b242ed089e42",
+      "dirtyFileCount": 4,
+      "dirtyFilesSha256": "fee5442b149f8dee86752da67323b2ae40bde7b5458511af944fab3197ecc32b",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p4",
+      "statusSha256": "88a0a48c961dd02473a47875e43a30ce5482147f86f51d2b8fda065318511377",
+      "dirtyFileCount": 4,
+      "dirtyFilesSha256": "91db86ae4ee321840b1c673ff2dc94adc4fdc134f457e20a34d3d69ef0037dd4",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p5",
+      "statusSha256": "6e516572ea8a89983265166e47dbefccee1558bac21f5bff2962ceb19f704905",
+      "dirtyFileCount": 7,
+      "dirtyFilesSha256": "7039bd6bf03e0ce59845c61924375b70e0b6b614ac92720d5ddb95eb185c39f8",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p5b",
+      "statusSha256": "224975002c2bc3920202dab1ca09763f52c125002fdda44f2bf822605b434957",
+      "dirtyFileCount": 4,
+      "dirtyFilesSha256": "35816b1c4997abf3ab67c54f643c8eeb0a5ebda57819910599fd5f94c67616e6",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/preview-prompt-test",
+      "statusSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "dirtyFileCount": 0,
+      "dirtyFilesSha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/reference-person-preview",
+      "statusSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "dirtyFileCount": 0,
+      "dirtyFilesSha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/tshirt-crew-neck",
+      "statusSha256": "1e680e78ae803240ba29430a9bf41247a8614c322f18a6ee96bb6cdeb18ddbac",
+      "dirtyFileCount": 1,
+      "dirtyFilesSha256": "e9048a6770343591f94861c7a854f7256a34a11a46292c5f3ef01df90ecdd948",
+      "unchanged": true
+    }
+  ],
+  "stagedFiles": [],
+  "sourceManifestSha256": "404268b487772c9efc68bb74e68ce2e4edc1290188d75a4f46a29538e4f68ecc"
+}
