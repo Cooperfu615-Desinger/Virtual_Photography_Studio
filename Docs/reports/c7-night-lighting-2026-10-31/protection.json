@@ -1,0 +1,18 @@
+{
+  "base": "0cf5d7650ffe8be606c9ddb165809c6b826d2669",
+  "branch": "main",
+  "unchangedTrackedFiles": 4433,
+  "changedExistingFiles": [
+    "Docs/current_project_state.md",
+    "scripts/lib/c2RenderingClassificationReplay.mjs",
+    "webapp/src/lib/engine.js"
+  ],
+  "historicalReportsUnchanged": 2781,
+  "otherWorktreesUnchanged": 20,
+  "otherDirtyFilesUnchanged": 140,
+  "registeredMissingWorktreesPreserved": 1,
+  "newDocumentationLinksChecked": 14,
+  "diffCheckPassed": true,
+  "indexEmpty": true,
+  "headUnchanged": true
+}

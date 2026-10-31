@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "baseCommit": "bfc2d5baafc8aaede8f774527d0f1aaa187da27f",
+  "cards": 33,
+  "page2Cases": 2396,
+  "allowedChangedOutputs": [
+    "gpt",
+    "grok-z-image"
+  ],
+  "otherFourOutputsUnchanged": true,
+  "page1Cases": 452,
+  "rngUnchanged": true,
+  "jsonChecks": 66,
+  "markdownChecks": 66,
+  "zipCompatibilityChecks": 66,
+  "protectedFiles": 496,
+  "differencesOutsideAllowance": 0,
+  "limitations": [
+    "Existing PAGE2 GPT Prompt Markdown and ZIP import is rejected by both fixed and current parser; export bytes and old JSON text remain preserved. No parser change in this batch."
+  ]
+}

@@ -1,3 +1,4 @@
+import { nightPartyAllowsRandomAmbient } from './engine/nightPartyLighting.js';
 import { projectCharacterPhotographicDirection } from './engine/characterPhotographicDirection.js';
 import legacyMappings from '../data/legacyMappings.json' with { type: 'json' };
 import { activeImportedPerson, isImportedPersonKey, registerFullBodyImportSource } from './observationCaptureImport.js';
@@ -16544,10 +16545,17 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
   const pickLighting = (!fixedCompositionSetActive || transitFixedLighting) && effectiveLocks.lightingId && !isRandomLockValue(effectiveLocks.lightingId)
     ? pickLocked
     : pickCompatible;
+  // C7 is random-generation policy, not a shared UI/restore restriction.
+  const applyNightPartyRandomAmbient = runtime === getEngineRuntime()
+    && subject.count === 1 && !dedicatedSubject && !capture
+    && !fixedCompositionSetActive && !supineSurfaceOnly && effectiveLocks.poseBaseId !== 'lying'
+    && (!effectiveLocks.importedWorldSceneMode || effectiveLocks.importedWorldSceneMode === 'none')
+    && (!effectiveLocks.lightingId || isRandomLockValue(effectiveLocks.lightingId));
   const lighting = pickLighting(
     runtime.flatCatalog.lighting,
     effectiveLocks.lightingId,
-    (item) => (locationForLightingCompatibility ? locationSupportsLighting(locationForLightingCompatibility, item) : true),
+    (item) => (locationForLightingCompatibility ? locationSupportsLighting(locationForLightingCompatibility, item) : true)
+      && (!applyNightPartyRandomAmbient || nightPartyAllowsRandomAmbient(location, item)),
     sample,
     ['lightingId'],
   );

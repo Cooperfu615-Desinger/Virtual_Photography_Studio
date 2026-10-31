@@ -1,0 +1,16 @@
+{
+  "base": "0cf5d7650ffe8be606c9ddb165809c6b826d2669",
+  "path": "webapp/src/lib/engine.js",
+  "beforeHash": "499a0cec16085b60a023fa49bb4612cec272c567ce3da8ea357c57536c451038",
+  "afterHash": "f9bc8fa2586add97ca3750e25377a79ecd496edaa89b0d6c05dd0af990dfb219",
+  "patches": [
+    {
+      "before": "",
+      "after": "import { nightPartyAllowsRandomAmbient } from './engine/nightPartyLighting.js';\n"
+    },
+    {
+      "before": "  const lighting = pickLighting(\n    runtime.flatCatalog.lighting,\n    effectiveLocks.lightingId,\n    (item) => (locationForLightingCompatibility ? locationSupportsLighting(locationForLightingCompatibility, item) : true),\n",
+      "after": "  // C7 is random-generation policy, not a shared UI/restore restriction.\n  const applyNightPartyRandomAmbient = runtime === getEngineRuntime()\n    && subject.count === 1 && !dedicatedSubject && !capture\n    && !fixedCompositionSetActive && !supineSurfaceOnly && effectiveLocks.poseBaseId !== 'lying'\n    && (!effectiveLocks.importedWorldSceneMode || effectiveLocks.importedWorldSceneMode === 'none')\n    && (!effectiveLocks.lightingId || isRandomLockValue(effectiveLocks.lightingId));\n  const lighting = pickLighting(\n    runtime.flatCatalog.lighting,\n    effectiveLocks.lightingId,\n    (item) => (locationForLightingCompatibility ? locationSupportsLighting(locationForLightingCompatibility, item) : true)\n      && (!applyNightPartyRandomAmbient || nightPartyAllowsRandomAmbient(location, item)),\n"
+    }
+  ]
+}

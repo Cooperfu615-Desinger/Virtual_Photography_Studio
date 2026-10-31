@@ -1,0 +1,58 @@
+[
+  {
+    "width": 1440,
+    "height": 1000,
+    "manualDaylight": 6,
+    "nonePreserved": true,
+    "randomChoices": [
+      "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+      "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+      "camera:環境光條件-ambient-light-conditions:室內極暖低照度:28",
+      "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+      "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+      "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+      "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+      "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+      "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+      "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33"
+    ],
+    "oldPublicTextAndSelectionsPreserved": true,
+    "oldManualDaylightRestored": true,
+    "outputs": 6,
+    "errors": [],
+    "overflow": false,
+    "programmaticFallback": [
+      "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+      ""
+    ],
+    "nativePopupMouseVerified": false
+  },
+  {
+    "width": 390,
+    "height": 900,
+    "manualDaylight": 6,
+    "nonePreserved": true,
+    "randomChoices": [
+      "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+      "camera:環境光條件-ambient-light-conditions:室內外光滲入微暗空間:32",
+      "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+      "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29",
+      "camera:環境光條件-ambient-light-conditions:室內高彩度色光夜景:31",
+      "camera:環境光條件-ambient-light-conditions:室內冷白高亮日常:30",
+      "camera:環境光條件-ambient-light-conditions:室內社交暖色夜景:27",
+      "camera:環境光條件-ambient-light-conditions:室內低照度暖色夜景:26",
+      "camera:環境光條件-ambient-light-conditions:室內深夜冷暗微光:33",
+      "camera:環境光條件-ambient-light-conditions:室內冷白環境光:29"
+    ],
+    "oldPublicTextAndSelectionsPreserved": true,
+    "oldManualDaylightRestored": true,
+    "outputs": 6,
+    "errors": [],
+    "overflow": false,
+    "programmaticFallback": [
+      "camera:環境光條件-ambient-light-conditions:室內窗邊日光:19",
+      ""
+    ],
+    "nativePopupMouseVerified": false
+  }
+]
