@@ -1,5 +1,7 @@
 # DLL：Krea 三版本與逐張生成 v1
 
+> 2026-10-31 現行狀態：使用者確認 DLL 日常使用大致正常，決定更新紀錄、不因舊文件缺少逐項證據而全面重新驗收。交付核對與少數未確認事項見[使用狀態紀錄](../decisions/2026-10-31-dll-usage-status.md)。以下正文保留當時的實作／驗收狀態；「未部署」「未實測」「待驗收」等歷史文字不作目前自動待辦。此回饋不等於每個模型、尺寸、費用或異常情境均已逐項通過，既有驗收限制保持。
+
 日期：2026-10-08；紀錄核對：2026-10-17。使用者核准規格：所有 DLL 模型預設一張，張數只提供 1／2；第一張完成並取得最終圖片後，才提交第二張。本批本機實作與驗證完成，已 commit／push `162cd4f71aca7536f5398cf482499589c8eb2015`；前端發布及使用者另行授權的三個 Functions 部署已完成。2026-10-09 再完成 [七項 Node 24 遷移](firebase-functions-node24-v1.md)，尚未做付費生圖驗收。
 
 本規格補充 [Comfy 整合](comfy-cloud-integration-v1.md)、[三模型擴充](comfy-cloud-model-expansion-v1.md) 與 [額度估算](comfy-cloud-quota-v1.md)。不更動 Prompt engine、來源 mappings、Saved Cards、舊模型 keys、Secrets、allowlist、runtime 或隱藏 BytePlus／Magnific 介面。
