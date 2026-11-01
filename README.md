@@ -2,6 +2,10 @@
 
 Personal prompt operations tool for generating stable, high-volume prompts for Midjourney and Grok Imagine.
 
+## Session Entry
+
+Before work, verify the actual checkout, branch, HEAD and dirty state. Read [AGENTS](AGENTS.md), [current project state](Docs/current_project_state.md), and [session / content authoring entry](Docs/session_onboarding.md), then the task-specific guide. The entry distinguishes catalog JSON from specified actions, character sources and fixed scenes. An older worktree does not automatically receive main's documents.
+
 ## Current Scope
 
 - Constraint-based prompt generation instead of pure random mixing
@@ -32,17 +36,19 @@ Personal prompt operations tool for generating stable, high-volume prompts for M
 - `Docs/specs/character-card-facial-identity.md`: Formal Character Card facial identity schema, difference matrix, compatibility contract, and maintenance workflow
 - `Docs/specs/page1-random-none-control-contract.md`: PAGE1 batch-random and clear-action capability contract, Pose Composer randomization, and regression rules
 - `output_prompts/`: Previously generated markdown prompt exports
-- `Docs/`: Creative role notes and early workflow documents
+- `Docs/`: Current state, session entry, authoring/specification documents, decisions and dated acceptance evidence; historical material is not automatically the current workflow
 
 ## Local Workflow
 
-1. Edit only the category JSON listed by `knowledge_base/catalog/index.json`; preserve issued IDs and follow the [catalog workflow](knowledge_base/catalog/README.md). Set `REGISTRY_BASE_COMMIT` to a reviewed full historical commit SHA before sync
+1. For catalog changes, edit only the category JSON listed by `knowledge_base/catalog/index.json`; preserve issued IDs and follow the [catalog workflow](knowledge_base/catalog/README.md). Set `REGISTRY_BASE_COMMIT` to a reviewed full historical commit SHA before sync
 2. Run `python3 scripts/sync_to_json.py`
 3. Run `python3 scripts/sync_to_json.py --check`
 4. When reference source images change, run `python3 scripts/build_image_previews.py`
 5. Run `python3 scripts/check_public_assets.py`
 6. Start the app from `webapp/`
 7. Use the current workspace controls, locks, presets, and reroll workflow to generate prompts from the built-in catalog
+
+For specified actions, character identities/shared wardrobe, fixed composition and PAGE3 content, follow the separate source-owner routes in [session onboarding](Docs/session_onboarding.md). Do not move them into catalog JSON merely to follow the catalog workflow.
 
 ## Webapp Commands
 

@@ -1,5 +1,13 @@
 # C 場景與環境新增與維護規格
 
+## 現行入口：一般場景／固定場景／PAGE3（2026-11-01）
+
+先讀 [新 session 導引](../session_onboarding.md)與 [Catalog 操作](../../knowledge_base/catalog/README.md)，確認實際 main／未提交內容，再讀本領域專屬規格。一般地點及光線維護 catalog/Locations、catalog/CameraLighting；固定場景人物位置走 fixedCompositionOptions.js／fixedScenePose.js 與其 station／carriage 模組，PAGE3 場景建模另有 page3WorldScenes.js／page3WorldScene.js。先依 [session 導引](../session_onboarding.md) 選入口，不能只補一列 Locations 就宣稱固定場景或 PAGE3 已完成。
+
+下方日期補記及明示「歷史」的區塊保留當時數量、排程及驗收範圍；A～E、Phase 4 與 C 類本輪已結案，不能把舊「未開始／另批」當成新待辦。現行效力由 current_project_state 與專屬規格承接。指南檔名的分區字母為歷史領域命名，新增時依實際 UI 和來源判定。
+
+## 歷史日期補記與適用邊界
+
 2026-10-30 C2：本文件長度數值為編寫建議，非自動截斷或補字門檻。共用計詞、分類責任、具來源指紋的例外與唯讀診斷依 [C2 長度政策](c2-authoring-length-policy-v1.md)；已核准的專屬來源及必要結構優先。未分類項目須另審，不沿用早期腳本自行設定的門檻。本批不改任何公開英文。
 
 
@@ -7,7 +15,7 @@
 
 2026-10-25 D 語意來源規則：正式分類 JSON 每筆必填並審閱 `meta.semantic`，保存 tags 及該分區的 family／visibility／minVisibility／archetype 等語意欄位。更改 zh／en／desc 須註明語意是否需要變動；請以 `scripts/suggest_catalog_semantics.mjs <id>` 在副本上比較推論建議，不自動覆寫決策。既有值、鍵序、tag 順序與 null 保留；專用欄位和 source meta 仍獨立。正式資料不再靠修改 infer*Meta 生效；缺少 semantic 的歷史／自訂 library 才使用退路。新增／修改須同步 schema 與 field_mapping 並驗證，完整步驟見 [catalog 操作流程](../../knowledge_base/catalog/README.md)。本次只搬移語意，不修正既有問題，不啟動 E 或 P5b。
 
-Last updated: 2026-10-11
+原指南基底日期：2026-10-11（歷史；現行入口更新於 2026-11-01）
 
 2026-10-11 主體光線新增：尾端追加正面強硬光、機頂直閃、蝴蝶光、倫勃朗光、分割光、下方硬質主光；共 31 款有效光線與全無（32 個選項）。新款為可主動設置的獨立人物主光，明確來源標記支援日間補光、夜間及全身景別；舊 25 款規則與各 renderer 結構不變。來源、相容性及驗證見 [六款人物主光 v1](subject-light-additions-v1.md)。以下 25／26 筆的日期紀錄為歷史批次，不回寫舊驗證結果。
 
@@ -29,7 +37,7 @@ Last updated: 2026-10-11
 
 2026-09-14 批次補充：其餘 38 組既有場景也已依相同 ID 綁定、低機位、fail-closed 原則接入；合計 45 組優先來源。完整清單與 456 筆實際低機位整合矩陣見 [既有細節優先 v2](z-image-existing-scene-detail-priority-v2.md)。此補充不改 Locations catalog、UI、儲存格式或 GPT／MJ 路徑。
 
-2026-09-14 光線補充：25 組 `光線表現 (Light Style)` 的英文來源已改為主體受光範圍的短描述，仍由本文件指定的 `camera_and_lighting.md` 單一來源同步到 JSON；完整來源表與 renderer 邊界見 [主體光線 v1](subject-light-styles-v1.md)。
+2026-09-14 光線補充：25 組 `光線表現 (Light Style)` 的英文來源已改為主體受光範圍的短描述，當時由 `camera_and_lighting.md` 同步（歷史來源）；現行正式來源已改為 catalog/CameraLighting 分類 JSON，該 Markdown 僅為生成總覽；完整來源表與 renderer 邊界見 [主體光線 v1](subject-light-styles-v1.md)。
 
 2026-09-13 窄範圍補充：十八個已核准低機位上方場景來源（首批四個＋十四個擴充）由 `webapp/src/lib/engine/zImageUpperScene.js` 按既有 location ID 綁定，不更動 Locations 主資料；只供一般單人主 Z-Image 使用。維護與驗證邊界見 [上方場景 v2 規格](z-image-upper-scene-v2.md)，其餘新增／修改資料仍依本文件。
 
@@ -55,7 +63,7 @@ C 區只負責「人物在哪裡、整個場景處於什麼環境狀態、人物
 
 Prompt 應使用短而準的英文片語。中文描述用來幫助維護者理解空間與光線方向，英文 prompt 用來控制生成結果。
 
-> C 來源規則（2026-10-25）：下列目錄路徑依 `knowledge_base/catalog/index.json` 找到分類檔。維護永久 `id`、有序 `legacyIds` 與 `id_registry.json`；新 ID 用英文 kebab-case 並登記 active，舊 frozen 不重發／刪除。同步前設定受信任的歷史完整 SHA，執行 schema/history 與七份產生物檢查。Markdown 總覽唯讀；順序仍屬顯示／抽樣行為，不能任意重排。A 快照保持封存；核准產品變更另建有審查理由的 revision，不能重錄以消除遷移差異。完整命令及新增列 layout 要求見 [catalog 操作流程](../../knowledge_base/catalog/README.md)。
+> C 來源規則（2026-10-25）：下列目錄路徑依 `knowledge_base/catalog/index.json` 找到分類檔。維護永久 `id`、有序 `legacyIds` 與 `id_registry.json`；新 ID 用英文 kebab-case 並登記 active，舊 frozen 不重發／刪除。同步前設定受信任的歷史完整 SHA，執行 schema/history 與八份產生物檢查（六份 Markdown、database.json 與 legacyMappings.json）。Markdown 總覽唯讀；順序仍屬顯示／抽樣行為，不能任意重排。A 快照保持封存；核准產品變更另建有審查理由的 revision，不能重錄以消除遷移差異。完整命令及新增列 layout 要求見 [catalog 操作流程](../../knowledge_base/catalog/README.md)。
 
 ## 2. 資料來源
 
@@ -68,6 +76,8 @@ Prompt 應使用短而準的英文片語。中文描述用來幫助維護者理�
 | 場景與光線相容性 | `webapp/src/lib/engine.js` | 主要是 `locationMatchesSceneAttribute`、`lightingMatchesSceneAttribute`、`locationSupportsLighting`、`lightDirectionSupportsScene`。 |
 | C 區 UI 顯示與摘要 | `webapp/src/components/Page1Workspace.jsx`、`webapp/src/components/LightingReferenceModal.jsx` | 新增控制鍵或改定位時需同步 UI 文案。 |
 | 測試 | `webapp/src/lib/engineSceneBaseCleanup.test.js`、`engineLightingPromptCleanup.test.js`、`engineLightingCompatibility.test.js` | 依修改範圍更新。 |
+
+一般場景以外的入口：固定場景配置在 `engine/fixedCompositionOptions.js` 及其 station／carriage 模組，人物位置／姿勢在 `fixedScenePose.js`；PAGE3 場景在 `data/page3WorldScenes.js`、`lib/page3WorldScene.js`。應讀對應專屬規格與 [session 來源表](../session_onboarding.md)，不把它們當作同一 Locations 表。
 
 JSON 正式來源同步流程（先設定已審查的 `REGISTRY_BASE_COMMIT`）：
 
@@ -375,7 +385,7 @@ C 區場景要能和 A 區特殊角色、B 區特殊穿搭、D 區攝影與成�
 | 特殊穿搭或特殊角色與場景共存 | `webapp/src/lib/engineGrokScenePriority.test.js` |
 | Page3 世界場景與 C 區資料互動 | `webapp/src/lib/page3WorldScene.test.js` |
 
-完整驗證命令：
+領域回歸命令（另須依 root AGENTS 補齊 catalog／歷史 ID、Prompt Quality、相同 seed strict audit、受影響歷史回放與六工作區桌手機驗收；下列舊清單不是全部閘門）：
 
 ```bash
 cd webapp

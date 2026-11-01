@@ -1,5 +1,13 @@
 # A 人物設定新增與維護規格
 
+## 現行入口：人物／指定動作／角色卡（2026-11-01）
+
+先讀 [新 session 導引](../session_onboarding.md)與 [Catalog 操作](../../knowledge_base/catalog/README.md)，確認實際 main／未提交內容，再讀本領域專屬規格。一般人物目錄維護 catalog/Character；現行完整動作維護 specifiedActions.js，手勢／視線／拍攝方式查 gazeGesture.js，頭部查 headPosture.js。角色身份與專屬穿搭依 [B3 責任表](b3-maintenance-ownership-v1.md) 分工。新姿勢先讀 [神情姿態 v2](expression-pose-v2.md)、[現行 UI](pose-ui-v2.md)及 [C3 護欄](c3-pose-description-visibility-v1.md)，不以舊 Pose Composer 矩陣作公開新增入口。
+
+下方日期補記及明示「歷史」的區塊保留當時數量、排程及驗收範圍；A～E、Phase 4 與 C 類本輪已結案，不能把舊「未開始／另批」當成新待辦。現行效力由 current_project_state 與專屬規格承接；獨立體態省略的全身例外、已移除的 MJ 胸上輸出及後續胸上同狀態契約，以 root AGENTS 與各現行專屬規格為準，不套用舊日期的六輸出敘述。指南檔名的分區字母為歷史領域命名，新增時依實際 UI 和來源判定。
+
+## 歷史日期補記與適用邊界
+
 2026-10-28 Phase 4 A7：PAGE1 角色卡攝影方向採經審查的公開投影，移除卡片建議地點、時段與光源，保留攝影表現、身份及材質。33 張中 21 張投影、12 張保留；`characterProfiles.js` 的 en／profile／相容原件不改。綁定 ID＋完整來源，未知或已編輯原句保持；舊卡原文及凍結全身來源不改寫。實際使用該段的 GPT／胸上／Nano 更新，Z／MJ／全身原本省略該段的契約保持。詳見 [A7 規格](phase4-a7-character-direction-v1.md)。
 
 2026-10-25 E 舊映射來源規則：已授權集中 22 張映射表與 2 個舊分類常數，來源為 `knowledge_base/catalog/legacy_mappings.json`，同步生成 `webapp/src/data/legacyMappings.json`。engine 保留 5 處載入時 `.map()`、`new Map()`、slugify、匹配順序及靜默找不到的退路；renderer 文字仍在原位。分類／文字目標須通過 fieldKind 參照驗證，歷史 ID、別名及 first-match 不得隨意變更。永久 pre-E 基準與還原案例不重錄，流程見 [catalog 操作](../../knowledge_base/catalog/README.md)。此段取代下方 D 歷史紀錄的「E 未開始」狀態；P5b 仍未開始。
@@ -12,11 +20,11 @@
 
 2026-10-03 體態目錄 v2：基本體型合併為柔和沙漏，六種體態統一精簡來源與身高／三圍。獨立 Body Type 在六組輸出逐字保留，不再依景別、衣襬或 AI 短句政策刪改；角色卡及其餘投影維持既有規則。本更新取代下方歷史普通體態規則，見 [體態目錄 v2](body-type-catalog-v2.md)。Public contract `1.35.0`、Z `1.18.0`、AI length `1.3.0`。
 
-Last updated: 2026-10-11
+原指南基底日期：2026-10-11（歷史；現行入口更新於 2026-11-01）
 
 這份文件定義 PAGE1 `A. 人物設定` 的新增、修改、合併與測試規則。後續新增五官、體態、髮型、髮色、神情、姿勢、特殊動作或特殊角色時，請先依照本規格檢查責任邊界與 prompt 寫法。
 
-單人模式的 Gpt / Grok/Z-Image / AI 輸出規則請同時參考 `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/page1-single-prompt-compression-guide.md`。目前 Gpt 版採完整保留型 Prompt，體態、五官、膚質、髮型、髮色、神情、姿勢與特殊動作中的有效英文描述應完整保留；Grok/Z-Image 與 AI 才依各自模型需求壓縮。新增資料時仍需確認數值 anchor、正常狀態說明、同義詞堆疊與內部控制語言是否真的有助於生成穩定或造型鎖定。
+單人模式的 Gpt / Grok/Z-Image / AI 輸出規則請同時參考 [PAGE1 輸出指南](page1-single-prompt-compression-guide.md)。目前 Gpt 版採完整保留型 Prompt，體態、五官、膚質、髮型、髮色、神情、姿勢與特殊動作中的有效英文描述應完整保留；Grok/Z-Image 與 AI 才依各自模型需求壓縮。新增資料時仍需確認數值 anchor、正常狀態說明、同義詞堆疊與內部控制語言是否真的有助於生成穩定或造型鎖定。
 
 上述完整保留原則的現行 GPT 獨立體態例外依 [GPT 獨立體態省略 v1](gpt-standalone-body-omission-v1.md)。它只改 GPT 呈現層，不改 A 區 authoring 來源，也不刪除角色卡內建 body、成年身份、canonical pose 或服裝自身的貼合描述；Z／AI／MJ 胸上仍遵守體態目錄 v2 的完整來源保留。
 
@@ -37,7 +45,7 @@ A 區只負責「人物是誰、長什麼樣、當下表情與身體狀態」。
 
 Prompt 應使用短而準的英文片語，避免堆疊同義詞。中文描述用來幫助選項理解，英文 prompt 用來控制生成結果。
 
-> C 來源規則（2026-10-25）：下列目錄路徑依 `knowledge_base/catalog/index.json` 找到分類檔。維護永久 `id`、有序 `legacyIds` 與 `id_registry.json`；新 ID 用英文 kebab-case 並登記 active，舊 frozen 不重發／刪除。同步前設定受信任的歷史完整 SHA，執行 schema/history 與七份產生物檢查。Markdown 總覽唯讀；順序仍屬顯示／抽樣行為，不能任意重排。A 快照保持封存；核准產品變更另建有審查理由的 revision，不能重錄以消除遷移差異。完整命令及新增列 layout 要求見 [catalog 操作流程](../../knowledge_base/catalog/README.md)。
+> C 來源規則（2026-10-25）：下列目錄路徑依 `knowledge_base/catalog/index.json` 找到分類檔。維護永久 `id`、有序 `legacyIds` 與 `id_registry.json`；新 ID 用英文 kebab-case 並登記 active，舊 frozen 不重發／刪除。同步前設定受信任的歷史完整 SHA，執行 schema/history 與八份產生物檢查（六份 Markdown、database.json 與 legacyMappings.json）。Markdown 總覽唯讀；順序仍屬顯示／抽樣行為，不能任意重排。A 快照保持封存；核准產品變更另建有審查理由的 revision，不能重錄以消除遷移差異。完整命令及新增列 layout 要求見 [catalog 操作流程](../../knowledge_base/catalog/README.md)。
 
 ## 2. 資料來源
 
@@ -45,11 +53,13 @@ Prompt 應使用短而準的英文片語，避免堆疊同義詞。中文描述�
 | --- | --- | --- |
 | 人物數量 `subjectCount` | `webapp/src/lib/engine.js` 的 `SUBJECT_COUNT_OPTIONS` | 只決定 1 位、2 位，不承擔美感或性感描述；舊 `reference` lock 會轉成 1 位。 |
 | 特殊角色 `specialSubjectId` | `webapp/src/lib/engine.js` 的 `SPECIAL_SUBJECT_OPTIONS` | 直接 code-defined，不走分類 JSON sync。 |
-| 角色卡 `characterProfileId` | `webapp/src/lib/engine.js` 的 `CHARACTER_PROFILE_OPTIONS` | 直接 code-defined，獨立於特殊角色；用來接管人物身份與固定穿搭。 |
+| 角色卡 `characterProfileId` | `webapp/src/lib/engine/characterProfiles.js`；穿搭共用來源 `characterWardrobeSources.js` | engine 匯入選項；PAGE2 圖層、MJ 簡稱及圖片依 B3 分工，不在 engine 複製身份或穿搭。 |
 | 體態、五官、膚質、髮型、髮絲整理狀態、髮色 | `knowledge_base/catalog/Character/` | 編輯後需同步到 `webapp/src/data/database.json`。 |
-| 神情、姿勢、特殊動作 | `knowledge_base/catalog/Character/` | `特殊動作` 目前保留為 legacy hidden 資料；一般新增請優先放入 Pose Composer。編輯分類 JSON 後需同步到 `webapp/src/data/database.json`。 |
-| Pose Composer 姿勢基底、肢體變化、手部動作、道具動作、頭部方向、接觸 / 支撐 | `webapp/src/lib/engine/poseComposerOptions.js` 的 `POSE_COMPOSER_*_OPTIONS` | 直接 code-defined，不走分類 JSON sync。 |
-| 相容舊選項 | `webapp/src/lib/engine.js` | 合併、改名、移除時需加 legacy mapping。 |
+| 一般表情及人物目錄、舊姿勢／特殊動作 | `knowledge_base/catalog/Character/` | 一般表情維護分類 JSON；舊 poseId／specialActionId 保留相容，不作新公開動作入口。 |
+| 現行指定動作 | `webapp/src/lib/engine/specifiedActions.js` | 依 expression-pose-v2、pose-ui-v2 與 C3 維護 clauses／descriptionZh／接管、支撐與驗收狀態；UI 與隨機資格另核對。 |
+| 手勢、視線、拍攝方式／頭部 | `webapp/src/lib/engine/gazeGesture.js`／`headPosture.js` | 實際 UI 與 lockTransitions 同步核對；不以舊 poseHeadId 代替 headPostureId。 |
+| 舊 Pose Composer 選項及仍被引用的片段 | `webapp/src/lib/engine/poseComposerOptions.js` | 相容來源與部分現行借用文字；七欄位已退出 PAGE1，不因缺 uiHidden 就視為公開。 |
+| 相容舊選項 | `knowledge_base/catalog/legacy_mappings.json`、engine 解析與 `features/page1/retiredPoseLocks.js` | 映射資料與還原行為分開；保留現行退役鎖政策，不藉新增內容重開 J12／P5b。 |
 
 JSON 正式來源同步流程（先設定已審查的 `REGISTRY_BASE_COMMIT`）：
 
@@ -57,7 +67,7 @@ JSON 正式來源同步流程（先設定已審查的 `REGISTRY_BASE_COMMIT`）�
 python3 scripts/sync_to_json.py
 ```
 
-特殊角色、角色卡與人物數量是直接寫在 `engine.js`，不需要跑 sync，但仍需要更新測試。角色卡新增或修改時，除原本 `en` 描述外，GPT 版應補 `profile` 分組資料，並依 `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/page1-single-prompt-compression-guide.md` 的角色卡 GPT 分組規範檢查 `Identity and body`、`Hair`、`Outfit`、`Accessories` 的邊界。
+特殊角色與人物數量仍由 `engine.js` 提供；角色身份維護 `engine/characterProfiles.js`，專屬穿搭維護 `engine/characterWardrobeSources.js`，PAGE2 圖層在 `characterCardLab.js`。這些 code-defined 來源不由 catalog sync 產生，仍須依 [B3 維護責任](b3-maintenance-ownership-v1.md) 更新相容及輸出測試。角色卡新增或修改時，除原本 `en` 描述外，GPT 版應補 `profile` 分組資料，並依 [PAGE1 輸出指南](page1-single-prompt-compression-guide.md) 的角色卡 GPT 分組規範檢查 `Identity and body`、`Hair`、`Outfit`、`Accessories` 的邊界。
 
 ## 3. Prompt 寫法總則
 
@@ -290,7 +300,7 @@ young beautiful Korean idol face, refined small face, clear bright eyes, polishe
 - 髮型英文只保留可辨識的形狀資訊，例如長度、輪廓、分線、瀏海、波形、綁法與髮尾；不要再把濕感、髮絲分束、風吹方向、蓬鬆或毛躁程度寫進髮型列。
 - 髮型輪廓與整理狀態必須分開輸出。整理狀態固定提供四個選項：`柔順自然`、`濕髮分束`、`微風吹拂`、`強烈風感`；其中 `柔順自然` 是預設的乾淨控制版。
 - `柔順自然` 應明確降低髮根膨脹、過度髮量、毛躁與隨機飛散髮絲；風感選項才負責方向性與被吹起的髮絲。
-- 舊髮型名稱或 lock ID 若含有濕感語意，必須透過 `webapp/src/lib/engine.js` 的 legacy mapping 對應到新的髮型輪廓，並將濕感遷移到 `濕髮分束`，不得讓舊資料失效。
+- 舊髮型名稱或 lock ID 若含有濕感語意，沿用既有髮型輪廓與 `濕髮分束` 還原；映射資料依 catalog/legacy_mappings.json，髮絲狀態及組合遷移仍由 engine 的相容流程處理，不為清理移除歷史支援。
 - AI 公開 Prompt 的欄位歸屬仍由 Subject 擁有髮型與髮色、C 穿搭設定擁有服裝與配件；跨來源去重應保留一份最具體的來源描述，不得因去重刪除髮型輪廓或服裝主體。
 - 特殊穿搭若明確內含指定髮型，才可作為髮型來源例外；相同髮型不得同時在人物句與服裝句重複輸出。
 
@@ -341,14 +351,13 @@ young beautiful Korean idol face, refined small face, clear bright eyes, polishe
 
 ## 6. 神情與姿勢
 
-這一層分成三個責任：
+現行來源依責任分開：
 
-- `表情`: 只描述臉部可見的情緒反應、嘴型、眉毛、眼瞼狀態與情緒強度；不指定視線方向，也不等於頭部或身體動作。
-- `姿勢與肢體語言`: 身體結構、重心、肢體安排、動作狀態。
-- Pose Composer `手部動作`: 不依賴特定道具的手臂、手掌與手指位置，以及身體或服裝接觸。
-- Pose Composer `道具動作`: 手持物、道具接觸與手機等物件互動；由獨立 `posePropId` 控制。
-- Pose Composer `主要躺姿`: 僅在 `poseBaseId = lying` 時使用的主方向，由 `poseOrientationId` 選擇 `仰躺`、`側躺` 或 `趴臥`；不綁定鳥瞰或其他鏡頭角度。
-- Legacy `特殊動作`: 舊資料保留給 saved cards / restore 遷移，不再作為 PAGE1 獨立 UI 欄位擴充。
+- `表情`：一般目錄描述可見情緒、嘴型、眉毛與眼瞼；視線、頭部及動作接管另循現行規則。
+- `指定動作`：由 specifiedActions.js 提供完整姿態與分部位子句，按姿勢家族審閱支撐、接管與可見範圍。
+- `手勢／視線／拍攝方式`：由 gazeGesture.js 與現行 UI／狀態轉換共同決定可搭配項目。
+- `頭部`：由 headPosture.js 維護獨立選值；不以退役的 poseHeadId 作新增入口。
+- 舊 Pose Composer 與 specialActionId：保留既有還原及仍被引用的文字片段，不再作 PAGE1 公開欄位擴充。下方舊矩陣只供歷史追溯。
 
 ### 6.1 表情
 
@@ -380,7 +389,7 @@ young beautiful Korean idol face, refined small face, clear bright eyes, polishe
 - 情緒選項應覆蓋喜、怒、哀、樂及其他自然狀態；每一個情緒都要搭配可見的臉部反應，不要只寫抽象的 `happy`、`sad` 或 `mood`。可加入低強度的 `撒嬌生氣`，但必須與真正憤怒區分。
 - 共用 `en` 是三個 renderer 的 canonical 表情來源。`Gpt` 完整保留有效描述；`Grok/Z-Image` 與 `AI`／Midjourney 只可移除重複連接語與內部控制文字，不得刪掉嘴型、眼周或情緒線索，也不得自行補寫未選取的情緒。
 - 一般單人 AI 不再一律省略已選表情；如果選取的不是 `無額外表情`，至少保留一個可見表情或嘴型片語，並使用同一份 resolved selection。Midjourney 不預設建立 `mj.expression` 覆寫；只有實測證明共用描述不穩定時，才可依既有 `mj.face` fallback 規則新增個別覆寫。
-- 頭部方向仍由 Pose Composer 的 `poseHeadId` 控制。表情資料不得為了配合姿勢而加入頭部、身體或視線方向描述。
+- 現行獨立頭部使用 `headPostureId`，視線另由 gazeGesture 規則處理；舊 `poseHeadId` 僅沿其相容路徑保留。表情資料不得為了配合姿勢而加入頭部、身體或視線方向描述。
 - 原有含視線或動作語意的表情選項已改為純表情名稱；實作改名時保留舊 `expressionId`、option ID 與 saved-card / restore 的 legacy mapping。
 
 範例語氣：
@@ -402,11 +411,13 @@ Expression: relaxed cheeks, gently lifted mouth corners, soft natural smile
 Pose: natural seated pose, torso upright, one hand resting beside the body
 ```
 
-### 6.2 姿勢與肢體語言
+### 6.2 舊姿勢與 Pose Composer 歷史相容說明
+
+> 本節矩陣與標成「公開」的選項，是舊 Pose Composer 介面的批次紀錄，不是目前 PAGE1 的公開清單或新增流程。現行新增入口見 §2／§9、expression-pose-v2、pose-ui-v2 與 C3；保留舊資料不代表重新公開，不能以本節推定手動可見性或隨機資格。
 
 歷史相容清單（非目前 PAGE1 UI 選項）：
 
-以下姿勢名稱保留作為舊 `poseId`、Saved Cards、匯入與 restore 的參照，不代表目前 Pose Composer 的完整公開選項。現行 UI 與隨機池以後文的五種姿勢專屬矩陣為準。
+以下姿勢名稱保留作為舊 `poseId`、Saved Cards、匯入與 restore 的參照，不代表目前 Pose Composer 的完整公開選項。後文五種姿勢矩陣僅供舊解析／投影回放；現行 UI 與隨機池以指定動作及現行選擇器為準。
 
 - `站姿｜自然站姿`
 - `站姿｜單腳重心`
@@ -513,18 +524,18 @@ Pose Composer `接觸 / 支撐` legacy policy：
 - 低泛用、場景綁定或已被新版泛用 anchor 取代的舊選項不得直接刪除；設為 `uiHidden: true`、`randomEligible: false`，使其不出現在新 UI、也不進入隨機候選。
 - 這類 hidden anchor 的既有 ID 仍須能由 saved card / import / normalize 明確還原並產生原本 prompt；只有另有相容 migration 時才可改映射。
 
-### 6.3 特殊動作
+### 6.3 舊特殊動作的相容保留
 
-狀態：`specialActionId` 目前已從 PAGE1 `B 神情姿態` 的獨立 UI 欄位隱藏。資料仍保留在 `knowledge_base/catalog/Character/` 與 `database.json`，用途是 legacy saved cards / restore 遷移與回溯相容；確認新 Pose Composer 路徑長期穩定後，可再評估移除舊資料。
+狀態：`specialActionId` 目前已從 PAGE1 `B 神情姿態` 的獨立 UI 欄位隱藏。資料仍保留在 `knowledge_base/catalog/Character/` 與 `database.json`，用途是 legacy saved cards / restore 遷移與回溯相容；本輪不刪除、不搬移、不重新公開，P5b 持續暫緩。
 
 維護規則：
 
 - 不再新增新的 `特殊動作` 選項。
-- 道具、手機、口紅、飲料、香菸等物件互動新增到 Pose Composer `道具動作`；不依賴道具的手部姿態與服裝整理新增到 `手部動作`。
-- 完整身體姿態新增到 Pose Composer `肢體變化`，必要支撐物則放入 `接觸 / 支撐`。
-- 舊 `特殊動作` 若需要保留 restore 行為，應在 `engine.js` 加 legacy migration，轉成 `poseBaseId`、必要時的 `poseOrientationId`、`poseArrangementId`、`poseHandId`、`posePropId`、`poseHeadId`、`poseAnchorId` 的組合，並清空 `specialActionId`。
+- 新需求先分為完整指定動作、現行可搭配手勢或拍攝方式；依 §2 的來源及現行 UI 契約處理，不新增到退役 Pose Composer 欄位。
+- 完整身體姿態走 specifiedActions 的部位子句與支撐契約；自由支撐等尚無現行能力的需求先另行決策，不能以補資料視為功能已存在。
+- 舊引擎仍有 specialActionId → Pose Composer 的相容解析；PAGE1 工作台另由 retiredPoseLocks 清除退役欄位，並將可辨識的自拍轉成拍攝方式。不要以舊轉換配方新增 migration 或推定畫面會恢復舊姿勢；需要改變舊資料行為時另提範圍與案例，本批不重開 J12／P5b。
 
-目前特殊動作全部保留，共 23 個非空選項：
+以下為舊特殊動作保留清單的歷史紀錄，共 23 個非空選項；不是現行公開新增入口：
 
 - `塗口紅`
 - `塗歪口紅`
@@ -612,7 +623,7 @@ Pose Composer `接觸 / 支撐` legacy policy：
 - 角色卡用於固定原創角色身份、臉、髮型、身形與招牌穿搭。
 - 角色卡會 suppress normal wardrobe output，避免一般穿搭稀釋角色設定。
 - 角色卡不保留一般髮型與髮色控制，髮型髮色寫在角色卡身份描述中。
-- 角色卡仍可使用 B 神情姿態、特殊動作與 Pose Composer。
+- 角色卡的姿態搭配依現行指定動作、接管與排除規則；舊特殊動作／Pose Composer 記錄只在既有相容路徑保留，不重新公開舊控制。
 - 角色卡選項使用圖片 picker 顯示，`meta.referenceImage` 應指定單張代表正面照 public path；完整 reference sheet 仍放在 `referenceImages` metadata。
 - 角色卡不應使用 `unknown anomalous figure` 共享融合句；應使用角色一致性與 reference sheet guidance。
 - 每張角色卡可包含 `referenceImages` metadata，記錄 face-turnaround、full-body、expression-sheet 等來源。
@@ -695,7 +706,7 @@ MJ 專用投影規則：
 2. 檢查現有選項是否已能覆蓋，能合併就不要新增。
 3. 在 `knowledge_base/catalog/Character/` 依 index 指定檔新增或修改 JSON 紀錄。
 4. 跑 `python3 scripts/sync_to_json.py`。
-5. 如果有改名、合併、刪除，更新 `engine.js` legacy mapping。
+5. 改名或英文調整先保留舊 alias；映射資料維護 catalog/legacy_mappings.json，需改 runtime 還原時另驗 engine 消費者。合併／刪除不由本流程自動授權。
 6. 更新對應測試的標準選項清單或 prompt 斷言。
 7. 跑完整驗證。
 
@@ -710,14 +721,18 @@ MJ 專用投影規則：
 
 新增角色卡：
 
-1. 在 `CHARACTER_PROFILE_OPTIONS` 新增固定 id、zh、en、count、`specialSubject: 'character-profile'`。
-2. `en` 需包含固定臉部身份、髮型、身形、招牌穿搭與寫實風格，不要包含固定場景。
-3. 若有設定圖，加入 `referenceImages`，至少標註 `type`、`label`、`sourcePath`、`publicPath`。
-4. 確認角色卡由 `characterProfileId` 控制，不出現在 `specialSubjectId` 選項中。
-5. 確認角色卡不輸出 normal wardrobe。
-6. 確認角色卡輸出使用 character reference guidance，不使用 anomalous special subject guidance。
-7. 更新 `engineSpecialSubjects.test.js`。
-8. 跑完整驗證。
+1. 先依 [角色身份規格](character-card-facial-identity.md) 確認 ID、四個永久錨點及相容 identityAndBody，維護 characterProfiles.js。
+2. 依 [B3 維護責任](b3-maintenance-ownership-v1.md) 維護 characterWardrobeSources.js 的同角色來源與組合配方；PAGE2 metadata 留在 characterCardLab.js。
+3. 核對 midjourneyCardItemNames.js、character_reference_manifest.json 與 engine 的角色顯示順序，不複製第二份完整來源。
+4. 補身份／圖層集合、來源共用、舊收藏原文、PAGE1／PAGE2 輸出與圖片驗收；新內容另建證據，不重錄舊角色基準。
+
+新增現行指定動作：
+
+1. 讀 expression-pose-v2、pose-ui-v2、C3 及對應家族規格，核對實際 specifiedActions 與 UI 消費者；舊 specified-actions-v1／v2 是演進紀錄，非現行完整選單。
+2. 確認穩定 ID、分類、中文說明、分部位英文子句、手勢／表情／頭部接管與支撐需求，不重複抄寫舊 actionPoseCards 已有來源。
+3. 分開審閱手動可見性、驗收狀態與隨機資格；新增不自動 accepted 或加入隨機。既有場景／鏡位排除及抽樣節奏保持。
+4. 依家族驗證裁切、固定場景接管、雙人隔離、選值保存、舊 ID／公開原文與全輸出；圖片有新增時另查資產流程。用新案例及相同 seed 比較，不改歷史基準。
+5. 若需求必須新增 UI 能力或解除既有禁用，先說明範圍，不透過舊 Pose Composer 欄位繞過。
 
 ## 10. 測試與驗證
 
@@ -730,7 +745,7 @@ MJ 專用投影規則：
 | 特殊動作 prompt 與 meta tags | `webapp/src/lib/engineSpecialActionCleanup.test.js` |
 | 特殊角色 | `webapp/src/lib/engineSpecialSubjects.test.js` |
 
-完整驗證命令：
+領域回歸命令（另須依 root AGENTS 補齊 catalog／歷史 ID、Prompt Quality、相同 seed strict audit、受影響歷史回放與六工作區桌手機驗收；下列舊清單不是全部閘門）：
 
 ```bash
 cd webapp

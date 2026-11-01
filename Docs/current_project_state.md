@@ -4,6 +4,15 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-11-01
 
+## 新 session 入口與新增內容指南收尾（2026-11-01，本機文件驗收通過、已授權交付）
+
+- 對齊 main `eef77871e840459efce50b51e198c90108bcfad4`；新 session 先核對實際工作目錄／分支／HEAD／差異，再依 AGENTS → 本文件 → [session 導引](session_onboarding.md) → 領域指南／專屬規格閱讀。舊 worktree 不會自動取得 main 新文件，不擅自切換或覆寫。
+- 一般單品、人物目錄、地點／光學走 catalog JSON；指定動作走 specifiedActions，手勢／頭部、角色身份／共用穿搭、固定場景與 PAGE3 各循實際來源。人物指南不再把新姿勢導向退役 Pose Composer；舊矩陣與 specified-actions v1／v2 加歷史效力標示。
+- 四份編寫指南、README、catalog 操作及六工作區驗收清單同步現行入口；八份生成物、ID／alias、可信任基準與歷史證據保護分開說明。現行專屬 Prompt 契約優先於舊日期範例，不因本次文件整理改變產品行為。
+- [決策](decisions/2026-11-01-session-authoring-entry.md)及[文件驗收](reports/session-authoring-entry-2026-11-01/README.md)。只改文件與證據，未修改資料、程式、UI、收藏、歷史基準或 CI，未 stage／commit／push；瀏覽器與模型驗收限制保持。Saved Cards B、PAGE2 舊匯入、J12、P5b 不開工。
+
+本批使用者已授權限定 commit／push；原始本機驗收報告與決策中的「待驗收／未提交」保留當時快照，由此狀態承接。CI／部署於交付後另行核對；後續文件完整性與移除候選僅分析，不刪除文件。
+
 ## Saved Cards 持久化 A：驗收與交付授權（2026-11-01）
 
 - 使用者已驗收 A 階段，授權只提交並推送本次規格、合成資料、相容契約、基準、工具與證據；CI 與網站部署於交付後核對。B～D 未開始，ZIP Unicode 缺口仍未修復。

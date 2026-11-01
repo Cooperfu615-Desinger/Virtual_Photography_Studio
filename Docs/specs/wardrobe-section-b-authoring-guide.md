@@ -1,5 +1,13 @@
 # B 穿搭設定新增與維護規格
 
+## 現行入口：一般單品與角色穿搭（2026-11-01）
+
+先讀 [新 session 導引](../session_onboarding.md)與 [Catalog 操作](../../knowledge_base/catalog/README.md)，確認實際 main／未提交內容，再讀本領域專屬規格。一般單品維護 catalog/Wardrobe；角色專屬穿搭走 [B3 共用來源](b3-maintenance-ownership-v1.md)，不是同一資料表。英文、固定色與配色目標分工依現行 A2 規格；長度診斷依 [C2 政策](c2-authoring-length-policy-v1.md)，不能為字數自動刪除必要細節。
+
+下方日期補記及明示「歷史」的區塊保留當時數量、排程及驗收範圍；A～E、Phase 4 與 C 類本輪已結案，不能把舊「未開始／另批」當成新待辦。現行效力由 current_project_state 與專屬規格承接。指南檔名的分區字母為歷史領域命名，新增時依實際 UI 和來源判定。
+
+## 歷史日期補記與適用邊界
+
 2026-10-30 C2 套裝尾句：20筆逐項審閱，一筆移除重複 swimwear、19筆保留；保留投影關鍵名詞及造型細節，舊英文末尾追加alias，不改配色責任。見 [本批規格](c2-outfit-tails-v1.md)。
 
 2026-10-30 C2：本文件長度數值為編寫建議，非自動截斷或補字門檻。共用計詞、分類責任、具來源指紋的例外與唯讀診斷依 [C2 長度政策](c2-authoring-length-policy-v1.md)；已核准的專屬來源及必要結構優先。未分類項目須另審，不沿用早期腳本自行設定的門檻。本批不改任何公開英文。
@@ -27,11 +35,11 @@
 
 2026-10-11 核准主 MJ 例外：主 `midjourneyPrompt` 穿搭只留經可見性投影的單品名稱；不輸出獨立配色、圖案、版型、腰線、穿法、開合或受力描述。新增目錄／角色卡 layer 須檢查主 MJ 專用短名稱表。原始英文與其他五組輸出（含 MJ 胸上）維持既有契約，見 [主 Midjourney 自然精簡 v1](midjourney-natural-main-v1.md)。
 
-Last updated: 2026-10-06
+原指南基底日期：2026-10-06（歷史；現行入口更新於 2026-11-01）
 
 這份文件定義 PAGE1 `B. 穿搭設定` 的新增、修改、合併與測試規則。後續新增上身、下身、套裝、連身、鞋襪、外套、配件、顏色或圖案時，請先依照本規格檢查責任邊界、prompt 寫法、組合順序與舊資料相容性。
 
-單人模式的 Gpt / Grok/Z-Image / AI 輸出規則請同時參考 `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/page1-single-prompt-compression-guide.md`。目前 Gpt 版採完整保留型 Prompt，一般上下身、鞋襪與外層、套裝、連身、特殊穿搭與配件中的有效英文描述應完整保留；Grok/Z-Image 與 AI 才依各自模型需求壓縮。MJ 新版規範則要求保留所有已解析的服裝角色與配件，以短片語移除重複語意，不得因長度刪除配件。新增資料時仍需確認正常穿著狀態說明、泛用 styling 尾句、內部控制語言與同義詞堆疊是否真的有助於生成穩定或造型鎖定。
+單人模式的 Gpt / Grok/Z-Image / AI 輸出規則請同時參考 [PAGE1 輸出指南](page1-single-prompt-compression-guide.md)。目前 Gpt 版採完整保留型 Prompt，一般上下身、鞋襪與外層、套裝、連身、特殊穿搭與配件中的有效英文描述應完整保留；Grok/Z-Image 與 AI 才依各自模型需求壓縮。MJ 新版規範則要求保留所有已解析的服裝角色與配件，以短片語移除重複語意，不得因長度刪除配件。新增資料時仍需確認正常穿著狀態說明、泛用 styling 尾句、內部控制語言與同義詞堆疊是否真的有助於生成穩定或造型鎖定。
 
 ## Optional silence follow-up (2026-09-26)
 
@@ -51,7 +59,7 @@ B 區只負責「人物穿什麼、怎麼穿、服裝表面與配件細節」。
 
 Prompt 應使用短而準的英文片語。中文描述用來幫助維護者理解服裝方向，英文 prompt 用來控制生成結果。
 
-> C 來源規則（2026-10-25）：下列目錄路徑依 `knowledge_base/catalog/index.json` 找到分類檔。維護永久 `id`、有序 `legacyIds` 與 `id_registry.json`；新 ID 用英文 kebab-case 並登記 active，舊 frozen 不重發／刪除。同步前設定受信任的歷史完整 SHA，執行 schema/history 與七份產生物檢查。Markdown 總覽唯讀；順序仍屬顯示／抽樣行為，不能任意重排。A 快照保持封存；核准產品變更另建有審查理由的 revision，不能重錄以消除遷移差異。完整命令及新增列 layout 要求見 [catalog 操作流程](../../knowledge_base/catalog/README.md)。
+> C 來源規則（2026-10-25）：下列目錄路徑依 `knowledge_base/catalog/index.json` 找到分類檔。維護永久 `id`、有序 `legacyIds` 與 `id_registry.json`；新 ID 用英文 kebab-case 並登記 active，舊 frozen 不重發／刪除。同步前設定受信任的歷史完整 SHA，執行 schema/history 與八份產生物檢查（六份 Markdown、database.json 與 legacyMappings.json）。Markdown 總覽唯讀；順序仍屬顯示／抽樣行為，不能任意重排。A 快照保持封存；核准產品變更另建有審查理由的 revision，不能重錄以消除遷移差異。完整命令及新增列 layout 要求見 [catalog 操作流程](../../knowledge_base/catalog/README.md)。
 
 ## 2. 資料來源
 
@@ -61,7 +69,7 @@ Prompt 應使用短而準的英文片語。中文描述用來幫助維護者理�
 | 上身/下身/外套/鞋襪/配件組合邏輯 | `webapp/src/lib/engine.js` | 控制 prompt 組裝順序、角色 A/B 分流、特殊穿搭優先權與 legacy mapping。 |
 | 胸下短版上身版型與服裝變體 | `webapp/src/lib/engine.js` 的 `TOP_FIT_OPTIONS`、`knowledge_base/catalog/（對應分類紀錄）` 的 `topUnderbust` | 兩項新版型只手動選用；有效衣長／穿法先共用解析，未選用維持原單品來源。 |
 | B 區 UI 顯示、分隔線與控制項摘要 | `webapp/src/components/Page1Workspace.jsx`、`webapp/src/index.css` | 新增控制鍵時需同步 UI 分組與摘要。 |
-| 相容舊選項 | `webapp/src/lib/engine.js` | 合併、改名、移除時需加 legacy mapping 或 migration。 |
+| 相容舊選項 | `knowledge_base/catalog/legacy_mappings.json` 及 engine 還原消費者 | 保留永久 ID、有序 alias／映射；改名或英文修正另驗舊文字還原，合併／退役需獨立授權。 |
 | 測試 | `webapp/src/lib/*Wardrobe*.test.js`、`engineSpecialOutfitCleanup.test.js`、`engineAccessoryEyewearCleanup.test.js` | 依修改範圍更新。 |
 
 JSON 正式來源同步流程（先設定已審查的 `REGISTRY_BASE_COMMIT`）：
@@ -519,7 +527,7 @@ lace bra top, delicate lace cups, intimate lingerie structure, slim strap detail
 2. 檢查現有選項是否已能覆蓋，能合併就不要新增。
 3. 在 `knowledge_base/catalog/Wardrobe/` 依 index 指定檔新增或修改 JSON 紀錄。
 4. 跑 `python3 scripts/sync_to_json.py`。
-5. 如果有改名、合併、刪除或維度拆分，更新 `engine.js` legacy mapping 或 migration。
+5. 如果有改名、合併、刪除或維度拆分，核對 catalog/legacy_mappings.json 的映射資料與 engine 的還原行為，分開更新及驗證。
 6. 若新增控制鍵，更新 `LOCK_DEFINITIONS`、`getLockControls`、`EFFECTIVE_WARDROBE_LOCK_KEYS`、`buildWardrobeSlots`、selection output、Page1 UI summary。
 7. 更新或新增對應測試。
 8. 跑完整驗證。
@@ -552,7 +560,7 @@ lace bra top, delicate lace cups, intimate lingerie structure, slim strap detail
 | 眼鏡與耳機配件拆分 | `webapp/src/lib/engineAccessoryEyewearCleanup.test.js` |
 | Z-Image 穿搭自然語言 | `webapp/src/lib/engineZImageWardrobeLanguage.test.js` |
 
-完整驗證命令：
+領域回歸命令（另須依 root AGENTS 補齊 catalog／歷史 ID、Prompt Quality、相同 seed strict audit、受影響歷史回放與六工作區桌手機驗收；下列舊清單不是全部閘門）：
 
 ```bash
 cd webapp

@@ -5,15 +5,16 @@ These instructions apply to the whole repository. Optimize for the requested pro
 ## Start With Current State
 
 1. Read `Docs/current_project_state.md` before planning or editing.
-2. Read the spec or authoring guide for the area being changed. Use `Docs/conversation_handoff.md` only when current-state documentation does not provide enough history.
-3. Inspect `git status` and the relevant diff before editing. Existing changes and untracked files may belong to the user or another session.
+2. Read `Docs/session_onboarding.md` for the current source-owner map, then the applicable authoring guide and feature spec. Use `Docs/conversation_handoff.md` only when current-state documentation does not provide enough history.
+3. Verify the actual working directory, branch, HEAD and worktree inventory before editing; a familiar folder name is not proof of latest main. Follow the dated checkout guidance in `Docs/session_onboarding.md` without resetting or switching another session's work. Inspect `git status` and the relevant diff before editing. Existing changes and untracked files may belong to the user or another session.
 4. State the intended outcome, success criteria, affected surfaces, and validation scope. Keep the implementation limited to that outcome.
 
 ## Catalog Source Workflow
 
-- Edit only classification JSON listed in `knowledge_base/catalog/index.json`; six knowledge-base Markdown files and `database.json` are generated. Follow `knowledge_base/catalog/README.md`.
+- For catalog content, edit only classification JSON listed in `knowledge_base/catalog/index.json`; six knowledge-base Markdown files and `database.json` are generated. Follow `knowledge_base/catalog/README.md`.
 - Preserve issued IDs and ordered aliases; append new permanent kebab-case IDs to `id_registry.json` as active. Never delete/reuse issued IDs or mint new frozen IDs. No retirement is authorized by C.
 - Select a reviewed full `REGISTRY_BASE_COMMIT` before changes; sync and strict checks require historical registry validation. Initial C bootstrap is limited to the fixed pre-C commit; it cannot be reused after C is committed. Run sync, read-only `--check`, schema/history tests and strict integrity before frontend gates.
+- This JSON rule applies to the catalog, not every source in the application. Current specified actions, character identities/shared wardrobe, and fixed-scene geometry have separate source owners; see `Docs/session_onboarding.md`. Do not add new public actions to retired Pose Composer controls.
 - Stable IDs do not authorize changing display/random order. Existing A seals and outputs must not be re-recorded to hide migration differences. Pose and Observation Capture are integrated Prompt modes, not separate navigation workspaces.
 
 ## Catalog Semantic Source (D)
@@ -21,7 +22,7 @@ These instructions apply to the whole repository. Optimize for the requested pro
 - Formal category JSON requires reviewed `meta.semantic`; generated Markdown/database must not be edited by hand. Follow `knowledge_base/catalog/README.md`.
 - Preserve ordered semantic values, IDs and aliases. When editing zh/en/desc, record whether semantics change and why; use `scripts/suggest_catalog_semantics.mjs <id>` for read-only advice, never automatic replacement.
 - Explicit semantic replaces inference before source metadata and dedicated fields; only historical/custom libraries without semantic use inference. Keep default runtime caches isolated.
-- D preserves known semantic mistakes. E was separately authorized and only relocates legacy data; P5b remains out of scope.
+- D's original migration preserved then-known semantic mistakes; E only relocated legacy data. These are historical migration boundaries, not a claim that later approved A5/Phase 4/C fixes remain open. Consult current state and the applicable approved spec; preserve the original D/E baselines. P5b remains out of scope.
 
 ## Catalog Legacy Source (E)
 
@@ -79,7 +80,7 @@ Run focused checks first. Expand to the full gates appropriate to the changed su
 | --- | --- | --- |
 | Documentation only | Link/path review and `git diff --check` | No code suite unless the document is generated or changes a documented executable contract |
 | Focused frontend logic | Relevant `node --test <test-file>` files | From `webapp`: `npm test`, `npm run lint`, `npm run build`; inspect the affected browser flow when behavior is user-visible |
-| Prompt data, renderer, or compatibility | Relevant prompt-pipeline/feature tests plus `npm run test:prompt-quality` | Frontend full gates, same-seed `npm run audit:prompts:strict`, and browser smoke across all five active workspaces |
+| Prompt data, renderer, or compatibility | Relevant prompt-pipeline/feature tests plus `npm run test:prompt-quality` | Frontend full gates, same-seed `npm run audit:prompts:strict`, and browser smoke across all six active workspaces |
 | UI, CSS, assets, or interaction | Relevant state/helper tests | Frontend full gates and the render-and-inspect workflow in `Docs/specs/frontend-visual-validation.md` |
 | Catalog JSON or reference manifests | Relevant sync/manifest tests | From root: run `python3 scripts/sync_to_json.py` when catalog JSON or manifests changed, then `python3 scripts/sync_to_json.py --check` and `python3 -m unittest discover -s scripts/tests`; add `python3 scripts/check_public_assets.py` for deployable assets |
 | Firebase Functions or shared provider contract | Relevant Functions/client tests | From `functions`: `npm test`, `npm run lint`; also run affected frontend gates and shared-contract tests |
@@ -91,7 +92,7 @@ For a narrow change, a failing unrelated pre-existing check is not permission to
 A user-visible change is not complete after code review, tests, or build alone. Render the app at `http://127.0.0.1:5175/Virtual_Photography_Studio/`, exercise the affected state, and inspect it at desktop and mobile sizes.
 
 - Check the affected workspace and any downstream import/restore/output consumer.
-- For shared shell, navigation, typography, generation, or workspace CSS, inspect all five active workspaces: Prompt 工作台, 角色建模, 場景建模, DLL_PIC Pro, and Saved Cards.
+- For shared shell, navigation, typography, generation, or workspace CSS, inspect all six active workspaces: Prompt 工作台, 角色建模, 場景建模, DLL_PIC Pro, DLL_VIDEO Pro, and Saved Cards.
 - Confirm no unexpected horizontal page overflow, clipped or overlapping controls, unreadable wrapping, broken images, missing content, or layout shift.
 - Exercise the primary interaction and its selected, disabled, loading, success, empty, or error states when affected.
 - Inspect browser console errors and uncaught page errors. Do not dismiss new errors because the page still renders.
@@ -109,8 +110,8 @@ Use `Docs/specs/frontend-visual-validation.md` as the full procedure and accepta
 
 ## Session Synchronization
 
-New sessions must read this file and `Docs/current_project_state.md`. For an already running or idle session, send this instruction before its next edit:
+New sessions must read this file, `Docs/current_project_state.md`, and `Docs/session_onboarding.md`, then the task-specific source-owner guide and applicable spec. For an already running or idle session, send this instruction before its next edit:
 
-> Reload the root `AGENTS.md`, `Docs/current_project_state.md`, and the applicable spec before continuing. Keep your current scoped task and all uncommitted work; do not reset or abandon it. Reconcile your plan and validation with the new rules, inspect shared-file changes before editing, and report any overlap you cannot safely isolate.
+> Reload the root `AGENTS.md`, `Docs/current_project_state.md`, `Docs/session_onboarding.md`, and the applicable spec before continuing. Keep your current scoped task and all uncommitted work; do not reset or abandon it. Reconcile your plan and validation with the new rules, inspect shared-file changes before editing, and report any overlap you cannot safely isolate.
 
 The session should acknowledge the refreshed scope, continue rather than restart, and use the validation matrix for its remaining work.

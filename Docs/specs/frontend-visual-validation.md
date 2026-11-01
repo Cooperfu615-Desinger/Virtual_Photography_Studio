@@ -2,7 +2,7 @@
 
 Status: required completion workflow for user-visible frontend changes
 
-Last updated: 2026-07-15
+Last updated: 2026-11-01 (workspace inventory and current pose entry aligned; historical reports unchanged)
 
 ## Outcome
 
@@ -12,13 +12,14 @@ This workflow applies to React components, CSS, shared shell/navigation, copy th
 
 ## Active Workspaces
 
-The app has five active workspaces that share the shell and parts of the style system:
+The app has six active workspaces that share the shell and parts of the style system:
 
 1. Prompt 工作台 (`page1`)
 2. 角色建模 / Character Card Lab (`page2`)
 3. 場景建模 / World Street Scene Builder (`page3`)
 4. DLL_PIC Pro (`dll`)
-5. Saved Cards (`page4`)
+5. DLL_VIDEO Pro (`video`)
+6. Saved Cards (`page4`)
 
 Pose / Action Pose and Observation Capture are integrated Prompt modes, not separate navigation workspaces. Exercise them within Prompt when affected. SUNO is not active.
 
@@ -32,10 +33,10 @@ Choose the smallest row that fully covers the risk. When a change spans rows, us
 | Local interaction or conditional UI | Changed workspace; initial state plus each affected selected/disabled/loading/success/empty/error state |
 | Import, restore, save, copy, or generated-output flow | Source workspace, destination/consumer workspace, and the complete affected transition |
 | Shared component or shared generation styling | Every workspace that consumes it at desktop and mobile widths |
-| App shell, navigation, global typography, or global CSS | All five workspaces, settings/navigation state, desktop and mobile widths |
+| App shell, navigation, global typography, or global CSS | All six workspaces, settings/navigation state, desktop and mobile widths |
 | Responsive grid or breakpoint logic | Changed workspace below and above each affected breakpoint, plus a normal desktop and phone viewport |
 | Image or preview asset | Every changed asset rendered in its card/panel, including loading/fallback behavior and the responsive crop |
-| Prompt/compatibility behavior without intended layout change | Relevant prompt source and downstream consumer, then navigation smoke across all five workspaces |
+| Prompt/compatibility behavior without intended layout change | Relevant prompt source and downstream consumer, then navigation smoke across all six workspaces |
 
 ## Preparation
 
@@ -139,10 +140,11 @@ Run the scenarios affected by the change. For shell/global changes, run at least
 - When relevant, exercise hair, eyewear, wardrobe-layer choices, all six copy outputs, PAGE1 import, and the DLL PIC Pro prompt-source selector.
 - Desktop should preserve the intended five-card grid where the layout has room; mobile should collapse without document overflow.
 
-### Prompt 內動作姿勢整合模式
+### Prompt 內指定動作／觀察式抓拍模式
 
-- **Select a card and confirm the configuration and output panels reflect it.**
-- Exercise save/apply-to-PAGE1 behavior when affected.
+- **Select a current specified action and inspect its description, selected state and affected output.**
+- Exercise applicable gesture, expression, head and gaze states; old Pose Composer controls must remain retired. Verify Observation Capture source/import transitions when affected.
+- Exercise Saved Cards save/restore with isolated fixtures when affected.
 - If subject-mode gating changed, verify the disabled duo case and the enabled single-subject case.
 
 ### 場景建模
@@ -150,6 +152,16 @@ Run the scenarios affected by the change. For shell/global changes, run at least
 - **Change a scene field and confirm summary, anchor, and the three scene outputs update.**
 - Exercise PAGE1 import when the world-scene bridge or related layout changed.
 - Confirm dense location and output controls collapse to a usable single-column mobile layout.
+
+### DLL_PIC Pro
+
+- **Open the workspace and inspect navigation, prompt source and existing empty/history states using isolated data.**
+- Exercise affected draft/preview/download states through the approved mock or fixture flow. A shell smoke check does not authorize paid generation or modification of private tasks.
+
+### DLL_VIDEO Pro
+
+- **Open the video workspace and inspect navigation, layout and affected draft/history states using isolated data.**
+- Exercise playback/download or task transitions only when in scope with approved fixtures; report unverified provider/real-account behavior separately. Do not submit paid jobs merely to validate navigation.
 
 ### Saved Cards
 

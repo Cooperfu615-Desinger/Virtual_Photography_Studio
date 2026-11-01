@@ -1,5 +1,13 @@
 # D 攝影與成像新增與維護規格
 
+## 現行入口：攝影與成像（2026-11-01）
+
+先讀 [新 session 導引](../session_onboarding.md)與 [Catalog 操作](../../knowledge_base/catalog/README.md)，確認實際 main／未提交內容，再讀本領域專屬規格。Regional／CameraLighting 的一般目錄由 JSON 維護；舊相機 profile 為相容來源，不重新公開。C2 長度規則與 C7 人工／隨機配對契約分開；相容政策審閱表不是另一份可自由修改的正式內容來源。
+
+下方日期補記及明示「歷史」的區塊保留當時數量、排程及驗收範圍；A～E、Phase 4 與 C 類本輪已結案，不能把舊「未開始／另批」當成新待辦。現行效力由 current_project_state 與專屬規格承接。指南檔名的分區字母為歷史領域命名，新增時依實際 UI 和來源判定。
+
+## 歷史日期補記與適用邊界
+
 2026-10-31 C7第二批：一般PAGE1單人預設目錄的風格／成像隨機配對遵循[黑白／彩色相容規格](c7-color-pairing-v1.md)。手動值與全無保持；精確來源審閱表不取代catalog semantic，不因低飽和、人物或物體顏色推論黑白。修改已審閱英文時須重審相容政策及抽樣節奏，未知原句維持open。其他模式與艾爾莎場所規則未放寬。
 
 2026-10-30 C2：本文件長度數值為編寫建議，非自動截斷或補字門檻。共用計詞、分類責任、具來源指紋的例外與唯讀診斷依 [C2 長度政策](c2-authoring-length-policy-v1.md)；已核准的專屬來源及必要結構優先。未分類項目須另審，不沿用早期腳本自行設定的門檻。本批不改任何公開英文。
@@ -9,7 +17,7 @@
 
 2026-10-25 D 語意來源規則：正式分類 JSON 每筆必填並審閱 `meta.semantic`，保存 tags 及該分區的 family／visibility／minVisibility／archetype 等語意欄位。更改 zh／en／desc 須註明語意是否需要變動；請以 `scripts/suggest_catalog_semantics.mjs <id>` 在副本上比較推論建議，不自動覆寫決策。既有值、鍵序、tag 順序與 null 保留；專用欄位和 source meta 仍獨立。正式資料不再靠修改 infer*Meta 生效；缺少 semantic 的歷史／自訂 library 才使用退路。新增／修改須同步 schema 與 field_mapping 並驗證，完整步驟見 [catalog 操作流程](../../knowledge_base/catalog/README.md)。本次只搬移語意，不修正既有問題，不啟動 E 或 P5b。
 
-Last updated: 2026-07-07
+原指南基底日期：2026-07-07（歷史；現行入口更新於 2026-11-01）
 
 2026-09-28 核准例外：[車站固定構圖 v1](station-fixed-composition-v1.md) 的三組新場景開放焦段，環繞欄位僅描述人物面向；相機取景軸線固定、俯仰仍可變。既有固定構圖與普通場景規則不變。
 
@@ -37,7 +45,7 @@ D 區只負責「照片怎麼被拍、用什麼攝影語言與成像質感呈現
 
 Prompt 應使用短而準的英文片語。中文描述用來幫助維護者理解攝影方向，英文 prompt 用來控制生成結果。
 
-> C 來源規則（2026-10-25）：下列目錄路徑依 `knowledge_base/catalog/index.json` 找到分類檔。維護永久 `id`、有序 `legacyIds` 與 `id_registry.json`；新 ID 用英文 kebab-case 並登記 active，舊 frozen 不重發／刪除。同步前設定受信任的歷史完整 SHA，執行 schema/history 與七份產生物檢查。Markdown 總覽唯讀；順序仍屬顯示／抽樣行為，不能任意重排。A 快照保持封存；核准產品變更另建有審查理由的 revision，不能重錄以消除遷移差異。完整命令及新增列 layout 要求見 [catalog 操作流程](../../knowledge_base/catalog/README.md)。
+> C 來源規則（2026-10-25）：下列目錄路徑依 `knowledge_base/catalog/index.json` 找到分類檔。維護永久 `id`、有序 `legacyIds` 與 `id_registry.json`；新 ID 用英文 kebab-case 並登記 active，舊 frozen 不重發／刪除。同步前設定受信任的歷史完整 SHA，執行 schema/history 與八份產生物檢查（六份 Markdown、database.json 與 legacyMappings.json）。Markdown 總覽唯讀；順序仍屬顯示／抽樣行為，不能任意重排。A 快照保持封存；核准產品變更另建有審查理由的 revision，不能重錄以消除遷移差異。完整命令及新增列 layout 要求見 [catalog 操作流程](../../knowledge_base/catalog/README.md)。
 
 ## 2. 資料來源
 
@@ -412,7 +420,7 @@ D 區有多種 id 來源，改名時風險不同。
 | 光學效果摘要與 C 區光線摘要分離 | `webapp/src/lib/engineLightingCompatibility.test.js` |
 | PAGE3 攝影師風格沿用 | `webapp/src/lib/page3WorldScene.test.js` |
 
-完整驗證命令：
+領域回歸命令（另須依 root AGENTS 補齊 catalog／歷史 ID、Prompt Quality、相同 seed strict audit、受影響歷史回放與六工作區桌手機驗收；下列舊清單不是全部閘門）：
 
 ```bash
 cd webapp

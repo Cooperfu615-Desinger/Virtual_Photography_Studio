@@ -1,5 +1,9 @@
 # 指定動作 v2：整合單人動作卡
 
+## 歷史規格適用範圍（2026-11-01 補記）
+
+本文件保留該批的數量、UI 排列、接管流程與驗收時點；不代表現行公開選單或新增姿勢入口。現行新增先讀 [session 導引](../session_onboarding.md)、[神情姿態 v2](expression-pose-v2.md)、[介面 v2](pose-ui-v2.md)及 [C3 說明／隱藏規則](c3-pose-description-visibility-v1.md)，再核對 specifiedActions.js。舊 Pose Composer、獨立動作／抓拍分頁等歷史描述不授權恢復；原始合約／回放仍保留，P5b 不併入。
+
 日期：2026-10-19。狀態：本機實作與自動／瀏覽器驗證完成，待使用者本機驗收。未 stage、commit、push 或部署。
 
 本規格承接使用者核准的 B 區排列與 11 組接管草案；第 9 組頭部可調、第 10 組不指定下半身、第 11 組保留小貓。它取代 [v1](specified-actions-v1.md) 的基底先選、八組數量與動作卡另行接管規則；原八組的英文、幾何、參考圖片、ID、仰躺場景政策均保留。

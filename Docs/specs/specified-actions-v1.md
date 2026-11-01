@@ -1,5 +1,9 @@
 # 指定動作 v1
 
+## 歷史規格適用範圍（2026-11-01 補記）
+
+本文件保留該批的數量、UI 排列、接管流程與驗收時點；不代表現行公開選單或新增姿勢入口。現行新增先讀 [session 導引](../session_onboarding.md)、[神情姿態 v2](expression-pose-v2.md)、[介面 v2](pose-ui-v2.md)及 [C3 說明／隱藏規則](c3-pose-description-visibility-v1.md)，再核對 specifiedActions.js。舊 Pose Composer、獨立動作／抓拍分頁等歷史描述不授權恢復；原始合約／回放仍保留，P5b 不併入。
+
 Last updated: 2026-10-16
 
 Status: 2026-10-16 使用者已授權合併 main 與 Pages 發布；整合遵循 main 已移除 MJ 胸上的六輸出契約。以下為原分支驗收狀態：本機實作及桌面／手機驗證完成，使用者已驗收並授權 commit／push；交付分支 `codex/specified-actions-v1`，遠端 SHA 以 Git 核對為準，未合併 main 或部署。實際圖像模型的姿勢精準度另行驗收。

@@ -1,0 +1,222 @@
+{
+  "status": "passed",
+  "scope": "documentation-only",
+  "date": "2026-11-01",
+  "baseline": {
+    "branch": "main",
+    "head": "eef77871e840459efce50b51e198c90108bcfad4",
+    "remoteMain": "eef77871e840459efce50b51e198c90108bcfad4",
+    "remoteReadback": "git ls-remote origin refs/heads/main; verified before edits"
+  },
+  "files": [
+    "AGENTS.md",
+    "Docs/current_project_state.md",
+    "Docs/decisions/2026-11-01-session-authoring-entry.md",
+    "Docs/reports/session-authoring-entry-2026-11-01/README.md",
+    "Docs/reports/session-authoring-entry-2026-11-01/validation.json",
+    "Docs/session_onboarding.md",
+    "Docs/specs/character-section-a-authoring-guide.md",
+    "Docs/specs/frontend-visual-validation.md",
+    "Docs/specs/photography-section-d-authoring-guide.md",
+    "Docs/specs/scene-section-c-authoring-guide.md",
+    "Docs/specs/specified-actions-v1.md",
+    "Docs/specs/specified-actions-v2.md",
+    "Docs/specs/wardrobe-section-b-authoring-guide.md",
+    "README.md",
+    "knowledge_base/catalog/README.md"
+  ],
+  "localMarkdownLinks": 479,
+  "distinctLocalTargets": 266,
+  "checks": {
+    "diffCheck": "passed",
+    "newFileWhitespace": "passed",
+    "sourceOwnerReview": "passed",
+    "currentStateHistoricalTail": "byte-identical",
+    "specifiedActionsOriginalBodies": "byte-identical",
+    "retiredEntryAndWorkspaceInventory": "passed",
+    "stagedFiles": 0
+  },
+  "sourceChecks": {
+    "webapp/src/lib/engine/specifiedActions.js": [
+      "descriptionZh",
+      "clauses",
+      "actionPoseCards"
+    ],
+    "webapp/src/lib/engine/characterProfiles.js": [
+      "CHARACTER_PROFILE_OPTIONS",
+      "characterWardrobeSources"
+    ],
+    "webapp/src/lib/engine/gazeGesture.js": [
+      "CAPTURE_STYLE_OPTIONS",
+      "captureStyleFromLegacyLocks"
+    ],
+    "webapp/src/lib/engine/headPosture.js": [
+      "HEAD_POSTURE"
+    ],
+    "webapp/src/lib/engine/fixedCompositionOptions.js": [
+      "stationFixedComposition",
+      "carriageFixedComposition"
+    ],
+    "webapp/src/features/page1/retiredPoseLocks.js": [
+      "RETIRED_POSE_COMPOSER_KEYS",
+      "captureStyleFromLegacyLocks"
+    ],
+    "webapp/src/App.jsx": [
+      "'page1'",
+      "'page2'",
+      "'page3'",
+      "'dll'",
+      "'video'",
+      "'page4'"
+    ]
+  },
+  "protection": {
+    "trackedBefore": 5071,
+    "protectedTracked": 5060,
+    "protectedBeforeSha256": "e85fbd3a03a5d53526ef738d421fc480a08d8b0715abdc1d95fab22c701b6dc6",
+    "protectedAfterSha256": "e85fbd3a03a5d53526ef738d421fc480a08d8b0715abdc1d95fab22c701b6dc6",
+    "historicalReports": 3349,
+    "historicalReportsBeforeSha256": "6bd6596575311d5e8855ee2e28ad251f8e3f2575f56f75e8d6311175fba3e1fa",
+    "historicalReportsAfterSha256": "6bd6596575311d5e8855ee2e28ad251f8e3f2575f56f75e8d6311175fba3e1fa",
+    "otherWorktrees": [
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio",
+        "files": 91,
+        "before_sha256": "6ab3fcaded4a1b91a3a5ada70f2f835b303e779b0cc9d7e16a1e4ee752336cce",
+        "after_sha256": "6ab3fcaded4a1b91a3a5ada70f2f835b303e779b0cc9d7e16a1e4ee752336cce"
+      },
+      {
+        "path": "/Users/cooperfu/.codex/worktrees/capture-import-integration/Virtual_Photography_Studio",
+        "files": 0,
+        "before_sha256": "5fc69fd38aa7ceefde25178a39c0fb9fca285b2a3dfa3b88ff1fd4fc91e67368",
+        "after_sha256": "5fc69fd38aa7ceefde25178a39c0fb9fca285b2a3dfa3b88ff1fd4fc91e67368"
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/ethnicity-default-japanese",
+        "files": 4,
+        "before_sha256": "ef1964bcb56913809f2955a322a88164c62cc57c0ef698edabfe5043587a4a68",
+        "after_sha256": "ef1964bcb56913809f2955a322a88164c62cc57c0ef698edabfe5043587a4a68"
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-gest",
+        "files": 1,
+        "before_sha256": "350de2b7ce070a20b7dcce92d40c6f6b44cd30bae23bbd932da4889630f7863d",
+        "after_sha256": "350de2b7ce070a20b7dcce92d40c6f6b44cd30bae23bbd932da4889630f7863d"
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-grid",
+        "files": 3,
+        "before_sha256": "157cd157c5b4dce43287e1efe7e390a26d6bea01ebf70a91bb0e81f4e7f007ba",
+        "after_sha256": "157cd157c5b4dce43287e1efe7e390a26d6bea01ebf70a91bb0e81f4e7f007ba"
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-head",
+        "files": 3,
+        "before_sha256": "c2a605be1053fbd6dc735a59c991db172b0da9ea4ab4805e580cd01fd9739ad7",
+        "after_sha256": "c2a605be1053fbd6dc735a59c991db172b0da9ea4ab4805e580cd01fd9739ad7"
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-props",
+        "files": 3,
+        "before_sha256": "1ee3ab7beb31cdf580e9a9221777afbcacfa028ece060066b38a4a6a5e4d6390",
+        "after_sha256": "1ee3ab7beb31cdf580e9a9221777afbcacfa028ece060066b38a4a6a5e4d6390"
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-sit-kneel",
+        "files": 2,
+        "before_sha256": "899a1b523ba626a22071efe6311f70efd7fb2290311763600835bf6394ec120d",
+        "after_sha256": "899a1b523ba626a22071efe6311f70efd7fb2290311763600835bf6394ec120d"
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-squatting",
+        "files": 2,
+        "before_sha256": "ca166469718ba8416e5f447c8cdf82c670638d6b2d6e09628f3eff8033fd08af",
+        "after_sha256": "ca166469718ba8416e5f447c8cdf82c670638d6b2d6e09628f3eff8033fd08af"
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-standing",
+        "files": 3,
+        "before_sha256": "f5813e72fe69c139e523bc842f7b85c9eab6c1664044d76eb59f874bee237fa0",
+        "after_sha256": "f5813e72fe69c139e523bc842f7b85c9eab6c1664044d76eb59f874bee237fa0"
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-ui",
+        "files": 2,
+        "before_sha256": "fe26797d985abc0c77655fb84a5cebf8f8d3ca1f519fa205b2f4ee0da64bd7ba",
+        "after_sha256": "fe26797d985abc0c77655fb84a5cebf8f8d3ca1f519fa205b2f4ee0da64bd7ba"
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p1",
+        "files": 1,
+        "before_sha256": "c17eb34c641380e89864cb14e1b02c65a9f87eafd297c77346b52839879c043e",
+        "after_sha256": "c17eb34c641380e89864cb14e1b02c65a9f87eafd297c77346b52839879c043e"
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p2",
+        "files": 5,
+        "before_sha256": "f9e7c25f8cb3885934216ad338c3fcee926e015fac5bbc6793449d44b3a85b3a",
+        "after_sha256": "f9e7c25f8cb3885934216ad338c3fcee926e015fac5bbc6793449d44b3a85b3a"
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p3",
+        "files": 4,
+        "before_sha256": "8cebb3be91aeec75a98231231b37ac6a6f68a1acb9367be56b7e5beb6241eba8",
+        "after_sha256": "8cebb3be91aeec75a98231231b37ac6a6f68a1acb9367be56b7e5beb6241eba8"
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p4",
+        "files": 4,
+        "before_sha256": "8ff84295664f317daa990b1924b4402a0cce8b25503bec0232598097510555f1",
+        "after_sha256": "8ff84295664f317daa990b1924b4402a0cce8b25503bec0232598097510555f1"
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p5",
+        "files": 7,
+        "before_sha256": "34989d746bf8b819bfb71142bf2ce700b28d6fb3322e96c946f99e9a7d0aac3a",
+        "after_sha256": "34989d746bf8b819bfb71142bf2ce700b28d6fb3322e96c946f99e9a7d0aac3a"
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/pose-v2-p5b",
+        "files": 4,
+        "before_sha256": "74ede882a28051defe0544fa0c936f22fa3950b8880f6857b17c0895cfaf3682",
+        "after_sha256": "74ede882a28051defe0544fa0c936f22fa3950b8880f6857b17c0895cfaf3682"
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/preview-prompt-test",
+        "files": 0,
+        "before_sha256": "161df3ec2d92df6dde93afd9b16b2d27ce3b4d30709793c06378dbe85b22bbd2",
+        "after_sha256": "161df3ec2d92df6dde93afd9b16b2d27ce3b4d30709793c06378dbe85b22bbd2"
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/reference-person-preview",
+        "files": 0,
+        "before_sha256": "fb98f57f3e1ade1499a2d08369fa07fee939720ac55cc1193a8d836e329b912d",
+        "after_sha256": "fb98f57f3e1ade1499a2d08369fa07fee939720ac55cc1193a8d836e329b912d"
+      },
+      {
+        "path": "/Users/cooperfu/Projects/Virtual_Photography_Studio/.worktrees/tshirt-crew-neck",
+        "files": 1,
+        "before_sha256": "8400079a6d42f9e0d3204b849fc14fa1c29d493440f8d70577643fdb3fd414e2",
+        "after_sha256": "8400079a6d42f9e0d3204b849fc14fa1c29d493440f8d70577643fdb3fd414e2"
+      }
+    ],
+    "otherDirtyFiles": 140
+  },
+  "notRun": [
+    "product tests",
+    "sync",
+    "build",
+    "browser",
+    "paid generation",
+    "historical replay",
+    "CI",
+    "deployment"
+  ],
+  "deferred": [
+    "Saved Cards B",
+    "PAGE2 legacy import",
+    "J12",
+    "P5b"
+  ],
+  "delivery": "not staged, committed or pushed"
+}

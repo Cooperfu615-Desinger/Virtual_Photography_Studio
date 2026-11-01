@@ -2,6 +2,10 @@
 
 2026-10-25：由 main `64870460e8a153a07baf953df0d6cf784ce2aca4` 切換。正式目錄為 `index.json` 指定順序的 56 份分類 JSON，共 1,050 筆。`schema.json`、`field_mapping.json`、`id_registry.json`、`legacy_mappings.json` 是管理文件，不是分類。manifest 繼續負責參考圖；不把圖片衍生鍵寫回來源。
 
+## 現行維護入口（2026-11-01）
+
+先依 [session 導引](../../Docs/session_onboarding.md) 確認工作目錄與來源責任。本文件管一般 catalog 與舊映射；指定動作、角色身份／共用穿搭、固定場景及 PAGE3 各有獨立來源。開頭 2026-10-25 筆數與下方 D／E、A5、A2 批次 SHA 為歷史切換／驗收紀錄，不是新任務固定套用值。
+
 ## 編輯與驗證
 
 1. 由 `index.json` 找到分類檔，修改 `entries`；既有 `id`、`legacyIds` 及陣列順序保留。顯示與抽樣順序仍是行為，不因 ID 穩定就任意重排。
@@ -9,10 +13,10 @@
 3. 新增、移動列時同步維護 index 的 Markdown layout ID 位置；每類順序須等於 entries，每 ID 恰好一次。layout 的 cells 只保存結構欄，英文／名稱／描述由紀錄產生；標題、前言、表頭與分隔行保留原文。
 4. schema 驗證所有來源及巢狀欄位；`id/zh/en/desc` 非空，表格文字不得含 `|` 或換行。Regional 的 `inspiration` 與 `desc` 分別填寫，生成時以 ` | ` 組回。允許的 false、0、空字串依 schema 原樣保留。
 5. 更新欄位責任清單的實際 source/generated/runtime 分工及分類範圍。`outerwear`、`topUnderbust`、`subjectLight` 仍保留來源頂層，engine 依現有順序投影至 meta。`lyingSurface`、`mj` 及 manifest 圖片映射保留；D 已啟用 `meta.semantic`，保存整個推論底層物件；不是最終合併 meta。新增條目必填並人工審閱；修改 zh／en／desc 時須明列語意是否改變及原因。各分區 tag enum、null／空陣列與有序值依 schema 驗證。Negative 保存 conflictTags／useTags，不添加 tags。
-6. 修改前選定已審查的完整 Git SHA，不能從候選 JSON 取得基準。A–E 已交付；以下日常驗證以已交付 E `2bd28c5a` 為本次收尾的可信任基準。後續選用當次已審查、早於候選的可信任提交；不能回到 pre-C bootstrap。
+6. 修改前選定已審查的完整 Git SHA，不能從候選 JSON 取得基準。A–E 已交付；日常驗證選用當次已審查、早於候選的可信任完整提交，記入本批規格／報告；下方佔位值必須替換後才能執行，不能沿用舊 E／A5 範例或回到 pre-C bootstrap。
 
 ```bash
-export REGISTRY_BASE_COMMIT=2bd28c5a26ddcc748ed2af7c347a3874a192a4a0
+export REGISTRY_BASE_COMMIT='REPLACE_WITH_REVIEWED_FULL_COMMIT_SHA'
 python3 scripts/sync_to_json.py
 python3 scripts/sync_to_json.py --check --report-json
 python3 -m unittest discover -s scripts/tests
@@ -29,11 +33,15 @@ node --test scripts/tests/catalog-integrity.test.mjs scripts/tests/catalog-seman
 
 ## 完整驗收與基準保護
 
-依 root AGENTS 跑前端 test、prompt-quality、lint、build、相同 seed/count audit、A 三套完整重播與 seal、五工作區桌手機還原／匯入。C／D／E 不重錄 A。未來核准產品變更應另建有來源與理由的新 revision，不能為通過遷移而改既有快照。J12 兩個精確歷史例外保留；其他 blocker 或過期例外都失敗。
+依 root AGENTS 跑前端 test、prompt-quality、lint、build、相同 seed/count audit、A 三套完整重播與 seal、六工作區桌手機還原／匯入。C／D／E 不重錄 A。未來核准產品變更應另建有來源與理由的新 revision，不能為通過遷移而改既有快照。J12 兩個精確歷史例外保留；其他 blocker 或過期例外都失敗。
 
-正式五工作區為 Prompt 工作台、角色建模、場景建模、DLL_PIC Pro、Saved Cards；動作姿勢與觀察式抓拍為 Prompt 整合模式。外部生成不屬 C 驗收。
+正式六工作區為 Prompt 工作台、角色建模、場景建模、DLL_PIC Pro、DLL_VIDEO Pro、Saved Cards；動作姿勢與觀察式抓拍為 Prompt 整合模式。外部生成不屬 C 驗收。
 
 [規格](../../Docs/specs/catalog-data-architecture-v1.md) · [C 報告](../../Docs/reports/catalog-architecture-c-2026-10-25/README.md) · [切換前操作文件](../../Docs/archive/2026-10-25-catalog-c/ARCHIVE_INDEX.md)
+
+## 歷史批次閱讀方式
+
+以下 D／E／A5／A2 章節保留各批次的來源 SHA、數量、命令及當時狀態。只在重演該批次時使用其一次性工具與固定基準；現行新增走上方「編輯與驗證」。資料內容整理的目前結案狀態見 [current_project_state](../../Docs/current_project_state.md)，不由歷史「未開始／待交付」推定重新開工。
 
 ## D 明確語意與唯讀建議
 
