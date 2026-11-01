@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "stage": "A-current-archive-characterization",
+  "status": "known-current-defect-not-v1-pass",
+  "recipe": "131-large",
+  "inputHash": "f0a3a713c7e7cd58bbaad1246b6830937f6fab930e5254dbaa3f46bce91c6bec",
+  "manifestCount": 131,
+  "markdownCount": 131,
+  "backupCount": 131,
+  "backupPayloadHash": "d920515022dbdec43b4f91cd1388981b62af6b2d374897bf8e8c59eeb854a55d",
+  "backupMatchesInput": false,
+  "differences": [
+    {
+      "file": "saved-cards-backup.json",
+      "expectedHash": "7c2c89131046c7d679fc5a48eda66faa776120c63a7231dc6de705a6992e51be",
+      "actualHash": "ebfd25ba660c88dca6fc42f4d16eb28beb3d91e7399b96a6a0438d3d8aeb6bcd",
+      "firstOffset": 1802239,
+      "expectedCodeUnit": 55358,
+      "actualCodeUnit": 65533,
+      "expectedLength": 2141355,
+      "actualLength": 2141355
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+✔ A baseline is deterministic and exactly matches the sealed current behavior (5024.713583ms)
+✔ snapshot distinguishes absent, empty, invalid and denied without any writes (0.758208ms)
+✔ snapshot rejects real or unbranded storage, even if it has a getItem method (1.018292ms)
+✔ raw snapshot and raw payload keep exact UTF-8, whitespace and unknown fields (0.523959ms)
+✖ payload comparison detects loss, reorder, truncation and id/text changes (1.927625ms)
+✔ comparison ignores object key order only and rejects non-JSON values (16.28725ms)
+✔ cloud comparison excludes only the top-level transport timestamp (0.280292ms)
+✔ raw inventory accounts for every duplicate and malformed record without choosing a winner (0.384291ms)
+✔ supported versions preserve public text while opaque source preservation stays separate (4.929625ms)
+✔ source-specific payloads, character identity and removed outputs remain in raw fixtures (0.571917ms)
+✔ capacity recipes reproduce old truncation; none assert that v1 persistence already exists (0.22175ms)
+✔ quota fallback and non-quota failure are recorded as old behavior, not accepted new behavior (0.070042ms)
+✔ old malformed read and destructive migration are demonstrated only in disposable memory (0.094041ms)
+✔ ID-only ordering and missing references are recorded rather than guessed (0.054334ms)
+✔ same-count different content demonstrates why count is not sync evidence (0.065042ms)
+✖ 131-card archive preserves originals and filtered export scope without invoking a download (240.990875ms)
+✔ all 15 future scenarios have concrete inputs and outcomes but are not marked executed (0.287958ms)
+✔ source drift is rejected and no baseline rewrite occurs (8.79275ms)
+✔ CLI is read-only and refuses update/output/input/browser flags (3222.173125ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 17
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8747.336875
+
+✖ failing tests:
+
+test at scripts/tests/saved-cards-persistence-a.test.mjs:55:1
+✖ payload comparison detects loss, reorder, truncation and id/text changes (1.927625ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/tests/saved-cards-persistence-a.test.mjs:65:12)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: /changed/,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at scripts/tests/saved-cards-persistence-a.test.mjs:155:1
+✖ 131-card archive preserves originals and filtered export scope without invoking a download (240.990875ms)
+  AssertionError [ERR_ASSERTION]: payload/order/unknown field changed
+  + actual - expected
+  
+  + 'd920515022dbdec43b4f91cd1388981b62af6b2d374897bf8e8c59eeb854a55d'
+  - 'f0a3a713c7e7cd58bbaad1246b6830937f6fab930e5254dbaa3f46bce91c6bec'
+  
+      at assertPayloadsEqual (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/lib/savedCardsPersistenceFixtures.mjs:25:10)
+      at TestContext.<anonymous> (file:///Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio/scripts/tests/saved-cards-persistence-a.test.mjs:163:3)
+      at async Test.run (node:internal/test_runner/test:1208:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'd920515022dbdec43b4f91cd1388981b62af6b2d374897bf8e8c59eeb854a55d',
+    expected: 'f0a3a713c7e7cd58bbaad1246b6830937f6fab930e5254dbaa3f46bce91c6bec',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

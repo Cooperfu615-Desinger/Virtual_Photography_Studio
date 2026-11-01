@@ -1,0 +1,13 @@
+{
+  "date": "2026-11-01",
+  "authorization": "User accepted A and authorized scoped commit/push plus CI and deployment verification. B remains excluded.",
+  "originalEvidence": "All original report files and historical baselines remain unchanged. evidence-manifest.json captures pre-delivery review bytes.",
+  "statePath": "Docs/current_project_state.md",
+  "stateBeforeSha256": "cb5d39015b0792b4dac92c9d2c423b0f3cd07560cf6503ed6d1dcd3baf2aa672",
+  "stateAfterSha256": "23fb801235fb94bc3fcfc06b109ebbe3637f84534eaabaab9a011d50227b6ab7",
+  "insertAfter": "Last updated: 2026-11-01\n\n",
+  "insertedText": "## Saved Cards 持久化 A：驗收與交付授權（2026-11-01）\n\n- 使用者已驗收 A 階段，授權只提交並推送本次規格、合成資料、相容契約、基準、工具與證據；CI 與網站部署於交付後核對。B～D 未開始，ZIP Unicode 缺口仍未修復。\n- 以下 A 本機報告及原始雜湊保留驗收前快照，不重錄歷史證據；本次狀態承接與可還原比對見[交付授權紀錄](reports/saved-cards-persistence-a-2026-11-01/delivery-authorization.json)。既有收藏與其他未提交內容保持。\n\n",
+  "reconstruction": "Remove insertedText once to reproduce the state bytes sealed by evidence-manifest.json.",
+  "ciAndDeployment": "pending verification after push",
+  "zipUnicodeGap": "preserved, not fixed"
+}

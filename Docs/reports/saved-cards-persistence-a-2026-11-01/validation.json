@@ -1,0 +1,28 @@
+{
+  "stage": "A",
+  "productImplementationChanged": false,
+  "baseCommit": "60c46d39ef0524c9b641c771e6319fb5d4b2e091",
+  "protectedTrackedFilesExcludingState": 5050,
+  "protectedHistoricalReportFiles": 3338,
+  "otherWorktreesProtected": 20,
+  "otherDirtyFilesProtected": 140,
+  "priorStateHistoryUnchanged": true,
+  "stagedFiles": 0,
+  "diffCheck": "pass",
+  "newToolSyntax": "pass",
+  "newFilesAllowlist": "pass",
+  "baselineSealsUnchanged": true,
+  "node": "22.23.3",
+  "focusedTests": {
+    "pass": 19,
+    "fail": 0
+  },
+  "existingCompatibilityTests": {
+    "pass": 76,
+    "fail": 0
+  },
+  "browserAcceptance": "not-run: no product/UI change; future SC-P cases remain pending",
+  "firestoreEmulator": "not-run: no sync implementation in A",
+  "relativeLinksChecked": 45,
+  "relativeLinks": "pass"
+}

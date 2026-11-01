@@ -2,7 +2,19 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-31
+Last updated: 2026-11-01
+
+## Saved Cards 持久化 A：驗收與交付授權（2026-11-01）
+
+- 使用者已驗收 A 階段，授權只提交並推送本次規格、合成資料、相容契約、基準、工具與證據；CI 與網站部署於交付後核對。B～D 未開始，ZIP Unicode 缺口仍未修復。
+- 以下 A 本機報告及原始雜湊保留驗收前快照，不重錄歷史證據；本次狀態承接與可還原比對見[交付授權紀錄](reports/saved-cards-persistence-a-2026-11-01/delivery-authorization.json)。既有收藏與其他未提交內容保持。
+
+## Saved Cards 持久化 v1：A 階段（2026-11-01，本機驗收通過、待使用者驗收）
+
+- 對齊遠端／本機 main `60c46d39ef0524c9b641c771e6319fb5d4b2e091`，依使用者授權完成 A 的隔離資料、相容契約及基準；[主規格](specs/saved-cards-persistence-v1.md)、[A 附件](specs/saved-cards-persistence-a-v1.md)、[決策](decisions/2026-11-01-saved-cards-persistence-v1.md)、[驗收](reports/saved-cards-persistence-a-2026-11-01/README.md)。
+- 12 筆格式 fixtures、14 組儲存來源、4 個容量配方、15 組後續驗收情境；十九項工具測試與七十六項既有相容測試通過，來源／原文／歷史基準受保護。工具僅使用合成資料與記憶體替身。
+- 現行容量裁切、讀取失敗當空清單等已封存；另重現大型 ZIP 原始備份的 emoji 分段缺口，尚未修復，正式切換前須另行授權處理。A 的現況重現通過不等於新持久化或全部 ZIP 原文驗收通過。
+- B 本機遷移、C 同步整合、D 完整驗收發布均未開始；SC-P01～15 產品驗收仍 prepared-not-executed。未修改產品／資料／CI，未讀寫既有收藏、不付費生成、不 stage／commit／push。保留其他未提交內容及歷史基準，PAGE2 舊匯入、J12、P5b 繼續暫緩。
 
 ## 資料庫本輪完成與 DLL 使用狀態（2026-10-31）
 

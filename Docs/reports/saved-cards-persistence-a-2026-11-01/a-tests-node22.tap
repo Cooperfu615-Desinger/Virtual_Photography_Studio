@@ -1,0 +1,124 @@
+TAP version 13
+# Subtest: A baseline is deterministic and exactly matches the sealed current behavior
+ok 1 - A baseline is deterministic and exactly matches the sealed current behavior
+  ---
+  duration_ms: 5154.897333
+  type: 'test'
+  ...
+# Subtest: snapshot distinguishes absent, empty, invalid and denied without any writes
+ok 2 - snapshot distinguishes absent, empty, invalid and denied without any writes
+  ---
+  duration_ms: 0.500708
+  type: 'test'
+  ...
+# Subtest: snapshot rejects real or unbranded storage, even if it has a getItem method
+ok 3 - snapshot rejects real or unbranded storage, even if it has a getItem method
+  ---
+  duration_ms: 1.70475
+  type: 'test'
+  ...
+# Subtest: raw snapshot and raw payload keep exact UTF-8, whitespace and unknown fields
+ok 4 - raw snapshot and raw payload keep exact UTF-8, whitespace and unknown fields
+  ---
+  duration_ms: 0.468083
+  type: 'test'
+  ...
+# Subtest: payload comparison detects loss, reorder, truncation and id/text changes
+ok 5 - payload comparison detects loss, reorder, truncation and id/text changes
+  ---
+  duration_ms: 3.3435
+  type: 'test'
+  ...
+# Subtest: comparison ignores object key order only and rejects non-JSON values
+ok 6 - comparison ignores object key order only and rejects non-JSON values
+  ---
+  duration_ms: 0.266167
+  type: 'test'
+  ...
+# Subtest: cloud comparison excludes only the top-level transport timestamp
+ok 7 - cloud comparison excludes only the top-level transport timestamp
+  ---
+  duration_ms: 0.150208
+  type: 'test'
+  ...
+# Subtest: raw inventory accounts for every duplicate and malformed record without choosing a winner
+ok 8 - raw inventory accounts for every duplicate and malformed record without choosing a winner
+  ---
+  duration_ms: 0.243959
+  type: 'test'
+  ...
+# Subtest: supported versions preserve public text while opaque source preservation stays separate
+ok 9 - supported versions preserve public text while opaque source preservation stays separate
+  ---
+  duration_ms: 4.306584
+  type: 'test'
+  ...
+# Subtest: source-specific payloads, character identity and removed outputs remain in raw fixtures
+ok 10 - source-specific payloads, character identity and removed outputs remain in raw fixtures
+  ---
+  duration_ms: 0.716083
+  type: 'test'
+  ...
+# Subtest: capacity recipes reproduce old truncation; none assert that v1 persistence already exists
+ok 11 - capacity recipes reproduce old truncation; none assert that v1 persistence already exists
+  ---
+  duration_ms: 0.186959
+  type: 'test'
+  ...
+# Subtest: quota fallback and non-quota failure are recorded as old behavior, not accepted new behavior
+ok 12 - quota fallback and non-quota failure are recorded as old behavior, not accepted new behavior
+  ---
+  duration_ms: 0.04275
+  type: 'test'
+  ...
+# Subtest: old malformed read and destructive migration are demonstrated only in disposable memory
+ok 13 - old malformed read and destructive migration are demonstrated only in disposable memory
+  ---
+  duration_ms: 0.0605
+  type: 'test'
+  ...
+# Subtest: ID-only ordering and missing references are recorded rather than guessed
+ok 14 - ID-only ordering and missing references are recorded rather than guessed
+  ---
+  duration_ms: 0.040334
+  type: 'test'
+  ...
+# Subtest: same-count different content demonstrates why count is not sync evidence
+ok 15 - same-count different content demonstrates why count is not sync evidence
+  ---
+  duration_ms: 0.051375
+  type: 'test'
+  ...
+# Subtest: 131-card archive records its known Unicode defect; filtered scope and input stay intact
+ok 16 - 131-card archive records its known Unicode defect; filtered scope and input stay intact
+  ---
+  duration_ms: 355.738541
+  type: 'test'
+  ...
+# Subtest: all 15 future scenarios have concrete inputs and outcomes but are not marked executed
+ok 17 - all 15 future scenarios have concrete inputs and outcomes but are not marked executed
+  ---
+  duration_ms: 0.178
+  type: 'test'
+  ...
+# Subtest: source drift is rejected and no baseline rewrite occurs
+ok 18 - source drift is rejected and no baseline rewrite occurs
+  ---
+  duration_ms: 8.249458
+  type: 'test'
+  ...
+# Subtest: CLI is read-only and refuses update/output/input/browser flags
+ok 19 - CLI is read-only and refuses update/output/input/browser flags
+  ---
+  duration_ms: 3522.546292
+  type: 'test'
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 19
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 9185.710625

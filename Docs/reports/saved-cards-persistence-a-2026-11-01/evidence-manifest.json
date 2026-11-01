@@ -1,0 +1,27 @@
+{
+  "stage": "A",
+  "baseCommit": "60c46d39ef0524c9b641c771e6319fb5d4b2e091",
+  "hashAlgorithm": "SHA-256 raw bytes",
+  "excludes": "this manifest only; no self hash",
+  "files": {
+    "Docs/current_project_state.md": "cb5d39015b0792b4dac92c9d2c423b0f3cd07560cf6503ed6d1dcd3baf2aa672",
+    "Docs/decisions/2026-11-01-saved-cards-persistence-v1.md": "e80f8cbf48da07ab1e015dd29a98023c06087f8e03c8cc8f959267eccbc23c0c",
+    "Docs/reports/saved-cards-persistence-a-2026-11-01/README.md": "885d3cf3a1ed771acec8c51c11a3c1da98388cf099d3c19ebae49fe4b615d082",
+    "Docs/reports/saved-cards-persistence-a-2026-11-01/a-tests-node22.tap": "c464841fecf097d80b4d6559fdd7226cad79675ad159d6cd92861c3614b9c015",
+    "Docs/reports/saved-cards-persistence-a-2026-11-01/archive-baseline.json": "26bf5e542396534d22313e919954250e0fdd0c60279e0964870f530240f03f91",
+    "Docs/reports/saved-cards-persistence-a-2026-11-01/baseline.json": "64fdd33d181e907c21452eb4805b4ead3fb2da76543dccc316a68ceb2b2fe183",
+    "Docs/reports/saved-cards-persistence-a-2026-11-01/check.json": "9382cbdc1ae96225e6719b034517bc17748dbb46c6d7a1ebb0bbaf517564056f",
+    "Docs/reports/saved-cards-persistence-a-2026-11-01/existing-tests.tap": "db0d21f7bf8819cca98a51e3fdfa1e3df89636c8c623ddc858764be3fa280ba5",
+    "Docs/reports/saved-cards-persistence-a-2026-11-01/initial-tests-node25.log": "3a7d3c27a5a3d30ddc299717a946dc7c85211a4098473337353942a20970a848",
+    "Docs/reports/saved-cards-persistence-a-2026-11-01/unicode-diagnostic.json": "32b23c62bd86cc1aa7ff5b1596f60d7175a32ea7dd13435c72409dfd6b44e544",
+    "Docs/reports/saved-cards-persistence-a-2026-11-01/validation.json": "78f30a4b828046d9ef6e2d594337d95636e43e6d1b23469bb2eade3d3ed456a5",
+    "Docs/specs/saved-cards-persistence-a-v1.md": "0f0b40eddeec62d1792c7a960583e3682bf7b9ca5649858b470c1a42520837d0",
+    "Docs/specs/saved-cards-persistence-v1.md": "fe62465c25245ff8d7dfa7325b00b6b0fcbc8085789ff0bc703458da0c11b54d",
+    "scripts/check_saved_cards_persistence_a.mjs": "ac95caaa29a08820c7ab82849ac4f0371736e9c8090db2134164524f68a6209d",
+    "scripts/fixtures/saved-cards-persistence-v1.json": "1a5584241c7bcf85743ab35a0df3fb7573424e2d2e0822dd98606be05897ef4d",
+    "scripts/lib/savedCardsPersistenceArchiveBaseline.mjs": "2a64753d3c0fb350fd4cc4b120a992ab82bbfc6486853ecb1065e03e1f5316a5",
+    "scripts/lib/savedCardsPersistenceBaseline.mjs": "3cfcfe4dc019ac80b3aeeabae2cd58cc872f2bd832fb584cb150e8eb225eed83",
+    "scripts/lib/savedCardsPersistenceFixtures.mjs": "d8bc1de04cdcbc630936a9dcf144d1f577134d3dd83c648e94ac06b19433170f",
+    "scripts/tests/saved-cards-persistence-a.test.mjs": "be932a954f78dce7e6142340515f8619d147b4c24c26bde4a1f80247c901def0"
+  }
+}

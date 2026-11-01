@@ -1,0 +1,13 @@
+{
+  "stage": "A",
+  "baselineMatched": true,
+  "fixtureRecords": 12,
+  "storageCases": 14,
+  "capacityRecipes": 4,
+  "futureCasesPrepared": 15,
+  "futureCasesExecuted": 0,
+  "productPersistenceImplemented": false,
+  "networkRequests": 0,
+  "archiveCharacterizationMatched": true,
+  "knownArchiveDefect": "known-current-defect-not-v1-pass"
+}

@@ -1,0 +1,20 @@
+{
+  "syntheticOnly": true,
+  "decoder": "Python stdlib zipfile + strict UTF-8",
+  "originalEqualsBackup": false,
+  "differences": [
+    {
+      "cardIndexZeroBased": 110,
+      "fields": [
+        "grokPrompt"
+      ]
+    }
+  ],
+  "archiveSha256": "4fd7ee74e0ae89d56f5544822a0930077606745a4fb17bfdfe9b36444f7e9d16",
+  "jszipVersion": "3.10.1",
+  "implementationHashes": {
+    "webapp/node_modules/jszip/lib/stream/DataWorker.js": "8203f14e856d33aa9afc272a576f169b29980e8da0ee0f633e6e5f23cfa48a3e",
+    "webapp/node_modules/jszip/lib/utf8.js": "5bdfe3666fe57640bc791b4d6d2fc00853f4d954596260138bf488054fa9df5a"
+  },
+  "rawZipRetained": "temporary synthetic diagnostic only; reproduce through fixed recipe, ZIP container timestamps are not baseline"
+}

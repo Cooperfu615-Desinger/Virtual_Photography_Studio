@@ -1,0 +1,466 @@
+TAP version 13
+# Subtest: Nano Banana optional text round-trips through raw and compact saved records without a storage version change
+ok 1 - Nano Banana optional text round-trips through raw and compact saved records without a storage version change
+  ---
+  duration_ms: 53.959166
+  type: 'test'
+  ...
+# Subtest: legacy saved records stay without a Nano Banana field and preserve old prompt bytes
+ok 2 - legacy saved records stay without a Nano Banana field and preserve old prompt bytes
+  ---
+  duration_ms: 1.080625
+  type: 'test'
+  ...
+# Subtest: Markdown export and import preserve optional Nano Banana text separately from recoverable legacy selections
+ok 3 - Markdown export and import preserve optional Nano Banana text separately from recoverable legacy selections
+  ---
+  duration_ms: 35.021125
+  type: 'test'
+  ...
+# Subtest: Markdown import accepts historical and current Z-Image section headings
+ok 4 - Markdown import accepts historical and current Z-Image section headings
+  ---
+  duration_ms: 119.256625
+  type: 'test'
+  ...
+# Subtest: Markdown import preserves both legacy unlabeled and current labeled GPT composition text
+ok 5 - Markdown import preserves both legacy unlabeled and current labeled GPT composition text
+  ---
+  duration_ms: 45.668625
+  type: 'test'
+  ...
+# Subtest: favorite codec preserves card identity, prompts, selection, and lineage
+ok 6 - favorite codec preserves card identity, prompts, selection, and lineage
+  ---
+  duration_ms: 1.697709
+  type: 'test'
+  ...
+# Subtest: favorite codec preserves single and duo head accessory color controls
+ok 7 - favorite codec preserves single and duo head accessory color controls
+  ---
+  duration_ms: 2.061458
+  type: 'test'
+  ...
+# Subtest: saved card structured scheme keeps duo complete-look, layer, and accessory selections
+ok 8 - saved card structured scheme keeps duo complete-look, layer, and accessory selections
+  ---
+  duration_ms: 0.299208
+  type: 'test'
+  ...
+# Subtest: favorite codec and Markdown import preserve Z-Image exact visible text settings
+ok 9 - favorite codec and Markdown import preserve Z-Image exact visible text settings
+  ---
+  duration_ms: 13.689792
+  type: 'test'
+  ...
+# Subtest: favorite codec round-trips a normalized dress selection without stale separates
+ok 10 - favorite codec round-trips a normalized dress selection without stale separates
+  ---
+  duration_ms: 5.913125
+  type: 'test'
+  ...
+# Subtest: favorite restore normalizes legacy wardrobe conflicts with complete-look priority
+ok 11 - favorite restore normalizes legacy wardrobe conflicts with complete-look priority
+  ---
+  duration_ms: 0.649041
+  type: 'test'
+  ...
+# Subtest: standard prompt parser restores prop actions only into posePropId
+ok 12 - standard prompt parser restores prop actions only into posePropId
+  ---
+  duration_ms: 21.029625
+  type: 'test'
+  ...
+# Subtest: standard prompt parser restores both pocket hand actions and the retired generic wording
+ok 13 - standard prompt parser restores both pocket hand actions and the retired generic wording
+  ---
+  duration_ms: 55.049208
+  type: 'test'
+  ...
+# Subtest: standard prompt parser restores revised hand actions from current and legacy wording
+ok 14 - standard prompt parser restores revised hand actions from current and legacy wording
+  ---
+  duration_ms: 131.206417
+  type: 'test'
+  ...
+# Subtest: open-palm current and historical descriptions restore the same ID without rewriting stored prompt text
+ok 15 - open-palm current and historical descriptions restore the same ID without rewriting stored prompt text
+  ---
+  duration_ms: 120.688208
+  type: 'test'
+  ...
+# Subtest: standard prompt parser restores the two garment-lift actions to separate IDs
+ok 16 - standard prompt parser restores the two garment-lift actions to separate IDs
+  ---
+  duration_ms: 49.305208
+  type: 'test'
+  ...
+# Subtest: standard prompt parser restores only the strict Z-Image exact visible text wrapper
+ok 17 - standard prompt parser restores only the strict Z-Image exact visible text wrapper
+  ---
+  duration_ms: 37.723333
+  type: 'test'
+  ...
+# Subtest: standard prompt parser migrates both legacy lipstick descriptions into the merged prop action
+ok 18 - standard prompt parser migrates both legacy lipstick descriptions into the merged prop action
+  ---
+  duration_ms: 28.187083
+  type: 'test'
+  ...
+# Subtest: standard prompt parser prefers the longest matching option text
+ok 19 - standard prompt parser prefers the longest matching option text
+  ---
+  duration_ms: 14.268
+  type: 'test'
+  ...
+# Subtest: standard prompt parser restores current and legacy street gold necklace wording
+ok 20 - standard prompt parser restores current and legacy street gold necklace wording
+  ---
+  duration_ms: 26.245833
+  type: 'test'
+  ...
+# Subtest: standard prompt parser restores current and legacy Kabukicho Ichibangai scene wording
+ok 21 - standard prompt parser restores current and legacy Kabukicho Ichibangai scene wording
+  ---
+  duration_ms: 29.789375
+  type: 'test'
+  ...
+# Subtest: standard prompt parser restores natural multi-phrase garment color syntax
+ok 22 - standard prompt parser restores natural multi-phrase garment color syntax
+  ---
+  duration_ms: 39.2445
+  type: 'test'
+  ...
+# Subtest: saved card manifest exports structured source tags without AI inference
+ok 23 - saved card manifest exports structured source tags without AI inference
+  ---
+  duration_ms: 1.377292
+  type: 'test'
+  ...
+# Subtest: manifest summary fields normalize PAGE2 and PAGE3 aliases into the fixed schema
+ok 24 - manifest summary fields normalize PAGE2 and PAGE3 aliases into the fixed schema
+  ---
+  duration_ms: 0.210292
+  type: 'test'
+  ...
+# Subtest: source tags dedupe by stable id even when categories differ
+ok 25 - source tags dedupe by stable id even when categories differ
+  ---
+  duration_ms: 0.113083
+  type: 'test'
+  ...
+# Subtest: v4 Saved Cards records remain readable while local-detail fields are discarded
+ok 26 - v4 Saved Cards records remain readable while local-detail fields are discarded
+  ---
+  duration_ms: 2.4035
+  type: 'test'
+  ...
+# Subtest: favorite repository migrates legacy feed cards and records completion
+ok 27 - favorite repository migrates legacy feed cards and records completion
+  ---
+  duration_ms: 46.4705
+  type: 'test'
+  ...
+# Subtest: favorite repository truncates at prompt boundaries
+ok 28 - favorite repository truncates at prompt boundaries
+  ---
+  duration_ms: 0.092875
+  type: 'test'
+  ...
+# Subtest: favorite repository persists the newest records within the configured budget
+ok 29 - favorite repository persists the newest records within the configured budget
+  ---
+  duration_ms: 0.15125
+  type: 'test'
+  ...
+# Subtest: PAGE1 Markdown restores complete selections before prose and preserves every output byte
+ok 30 - PAGE1 Markdown restores complete selections before prose and preserves every output byte
+  ---
+  duration_ms: 29.455375
+  type: 'test'
+  ...
+# Subtest: actual single-card and ZIP exporters share identical metadata and preserve their readable bodies
+ok 31 - actual single-card and ZIP exporters share identical metadata and preserve their readable bodies
+  ---
+  duration_ms: 67.231417
+  type: 'test'
+  ...
+# Subtest: CRLF, whitespace, Unicode, comment tokens and historical extra outputs preserve exact text
+ok 32 - CRLF, whitespace, Unicode, comment tokens and historical extra outputs preserve exact text
+  ---
+  duration_ms: 26.620375
+  type: 'test'
+  ...
+# Subtest: new snapshots preserve PAGE1 MJ ratio ownership instead of inferring the rendered ratio
+ok 33 - new snapshots preserve PAGE1 MJ ratio ownership instead of inferring the rendered ratio
+  ---
+  duration_ms: 6.78125
+  type: 'test'
+  ...
+# Subtest: non-PAGE1 and cards without selections retain legacy format
+ok 34 - non-PAGE1 and cards without selections retain legacy format
+  ---
+  duration_ms: 3.053083
+  type: 'test'
+  ...
+# Subtest: new metadata rejects version without prose fallback
+ok 35 - new metadata rejects version without prose fallback
+  ---
+  duration_ms: 3.758334
+  type: 'test'
+  ...
+# Subtest: new metadata rejects source without prose fallback
+ok 36 - new metadata rejects source without prose fallback
+  ---
+  duration_ms: 3.477542
+  type: 'test'
+  ...
+# Subtest: new metadata rejects missing key without prose fallback
+ok 37 - new metadata rejects missing key without prose fallback
+  ---
+  duration_ms: 6.306709
+  type: 'test'
+  ...
+# Subtest: new metadata rejects extra key without prose fallback
+ok 38 - new metadata rejects extra key without prose fallback
+  ---
+  duration_ms: 8.668209
+  type: 'test'
+  ...
+# Subtest: new metadata rejects unknown ID without prose fallback
+ok 39 - new metadata rejects unknown ID without prose fallback
+  ---
+  duration_ms: 9.040958
+  type: 'test'
+  ...
+# Subtest: new metadata rejects wrong type without prose fallback
+ok 40 - new metadata rejects wrong type without prose fallback
+  ---
+  duration_ms: 8.181334
+  type: 'test'
+  ...
+# Subtest: new metadata rejects bad numeric range without prose fallback
+ok 41 - new metadata rejects bad numeric range without prose fallback
+  ---
+  duration_ms: 6.821334
+  type: 'test'
+  ...
+# Subtest: new metadata rejects bad hidden enum without prose fallback
+ok 42 - new metadata rejects bad hidden enum without prose fallback
+  ---
+  duration_ms: 7.979125
+  type: 'test'
+  ...
+# Subtest: new metadata rejects bad nested capture without prose fallback
+ok 43 - new metadata rejects bad nested capture without prose fallback
+  ---
+  duration_ms: 7.379416
+  type: 'test'
+  ...
+# Subtest: new metadata rejects bad output without prose fallback
+ok 44 - new metadata rejects bad output without prose fallback
+  ---
+  duration_ms: 4.27875
+  type: 'test'
+  ...
+# Subtest: new metadata rejects duplicate extra ID without prose fallback
+ok 45 - new metadata rejects duplicate extra ID without prose fallback
+  ---
+  duration_ms: 3.34475
+  type: 'test'
+  ...
+# Subtest: new metadata rejects bad label without prose fallback
+ok 46 - new metadata rejects bad label without prose fallback
+  ---
+  duration_ms: 4.30875
+  type: 'test'
+  ...
+# Subtest: new metadata rejects unknown payload field without prose fallback
+ok 47 - new metadata rejects unknown payload field without prose fallback
+  ---
+  duration_ms: 3.994791
+  type: 'test'
+  ...
+# Subtest: new metadata rejects truncated
+ok 48 - new metadata rejects truncated
+  ---
+  duration_ms: 5.748625
+  type: 'test'
+  ...
+# Subtest: new metadata rejects duplicate marker
+ok 49 - new metadata rejects duplicate marker
+  ---
+  duration_ms: 9.707333
+  type: 'test'
+  ...
+# Subtest: new metadata rejects duplicate JSON key
+ok 50 - new metadata rejects duplicate JSON key
+  ---
+  duration_ms: 6.018666
+  type: 'test'
+  ...
+# Subtest: new metadata rejects unsafe key
+ok 51 - new metadata rejects unsafe key
+  ---
+  duration_ms: 5.484959
+  type: 'test'
+  ...
+# Subtest: new metadata rejects changed visible text
+ok 52 - new metadata rejects changed visible text
+  ---
+  duration_ms: 10.304875
+  type: 'test'
+  ...
+# Subtest: new metadata rejects missing extra block
+ok 53 - new metadata rejects missing extra block
+  ---
+  duration_ms: 6.713875
+  type: 'test'
+  ...
+# Subtest: new metadata rejects legacy conflict
+ok 54 - new metadata rejects legacy conflict
+  ---
+  duration_ms: 5.23625
+  type: 'test'
+  ...
+# Subtest: known issued legacy option IDs migrate while other IDs are rejected
+ok 55 - known issued legacy option IDs migrate while other IDs are rejected
+  ---
+  duration_ms: 6.982667
+  type: 'test'
+  ...
+# Subtest: header-like public text cannot replace the real card summary
+ok 56 - header-like public text cannot replace the real card summary
+  ---
+  duration_ms: 5.069125
+  type: 'test'
+  ...
+# Subtest: nested capture IDs and dormant scene restore are validated even in capture mode
+ok 57 - nested capture IDs and dormant scene restore are validated even in capture mode
+  ---
+  duration_ms: 9.5485
+  type: 'test'
+  ...
+# Subtest: metadata limits reject excessive size or nesting
+ok 58 - metadata limits reject excessive size or nesting
+  ---
+  duration_ms: 44.989458
+  type: 'test'
+  ...
+# Subtest: supine scene-none sentinel remains a valid round-trip without allowing arbitrary location IDs
+ok 59 - supine scene-none sentinel remains a valid round-trip without allowing arbitrary location IDs
+  ---
+  duration_ms: 8.623416
+  type: 'test'
+  ...
+# Subtest: saved card archive contains manifest and unchanged markdown exports
+ok 60 - saved card archive contains manifest and unchanged markdown exports
+  ---
+  duration_ms: 160.665792
+  type: 'test'
+  ...
+# Subtest: archive file names stay unique for sanitized id collisions and invalid items are skipped
+ok 61 - archive file names stay unique for sanitized id collisions and invalid items are skipped
+  ---
+  duration_ms: 62.082792
+  type: 'test'
+  ...
+# Subtest: manifest sourceId restores safe-filename exports while old markdown-only archives remain importable
+ok 62 - manifest sourceId restores safe-filename exports while old markdown-only archives remain importable
+  ---
+  duration_ms: 52.522375
+  type: 'test'
+  ...
+# Subtest: legacy markdown archive without a snapshot restores Midjourney tail settings and aspect ratio
+ok 63 - legacy markdown archive without a snapshot restores Midjourney tail settings and aspect ratio
+  ---
+  duration_ms: 68.86
+  type: 'test'
+  ...
+# Subtest: 131 cards including an unknown historical location download without losing records or original data
+ok 64 - 131 cards including an unknown historical location download without losing records or original data
+  ---
+  duration_ms: 2469.15375
+  type: 'test'
+  ...
+# Subtest: single and archive Markdown preserve identical raw backup and readable original text
+ok 65 - single and archive Markdown preserve identical raw backup and readable original text
+  ---
+  duration_ms: 63.793958
+  type: 'test'
+  ...
+# Subtest: historical extra-output identity conflicts can be backed up without pretending to be valid snapshots
+ok 66 - historical extra-output identity conflicts can be backed up without pretending to be valid snapshots
+  ---
+  duration_ms: 3.403333
+  type: 'test'
+  ...
+# Subtest: unexpected serialization faults are not silently swallowed
+ok 67 - unexpected serialization faults are not silently swallowed
+  ---
+  duration_ms: 0.271166
+  type: 'test'
+  ...
+# Subtest: ordinary historical unknown IDs are preserved before normalization can replace them
+ok 68 - ordinary historical unknown IDs are preserved before normalization can replace them
+  ---
+  duration_ms: 0.224875
+  type: 'test'
+  ...
+# Subtest: download inverse restores exact pre-fix bytes in an isolated tree and is idempotent
+ok 69 - download inverse restores exact pre-fix bytes in an isolated tree and is idempotent
+  ---
+  duration_ms: 19.001292
+  type: 'test'
+  ...
+# Subtest: download inverse rejects unknown edits before writing and refuses the live checkout
+ok 70 - download inverse rejects unknown edits before writing and refuses the live checkout
+  ---
+  duration_ms: 7.039875
+  type: 'test'
+  ...
+# Subtest: an account without Favorites access stays signed into Firebase but cannot sync cloud cards
+ok 71 - an account without Favorites access stays signed into Firebase but cannot sync cloud cards
+  ---
+  duration_ms: 1.851666
+  type: 'test'
+  ...
+# Subtest: the existing Favorites account retains its cloud sync state
+ok 72 - the existing Favorites account retains its cloud sync state
+  ---
+  duration_ms: 0.621458
+  type: 'test'
+  ...
+# Subtest: explicit Firebase sign-out clears both the session display and cloud sync state
+ok 73 - explicit Firebase sign-out clears both the session display and cloud sync state
+  ---
+  duration_ms: 0.076708
+  type: 'test'
+  ...
+# Subtest: legacy Feed cards append to Favorites without replacing richer favorite records
+ok 74 - legacy Feed cards append to Favorites without replacing richer favorite records
+  ---
+  duration_ms: 1.947
+  type: 'test'
+  ...
+# Subtest: legacy Feed migration ignores malformed records and duplicate ids
+ok 75 - legacy Feed migration ignores malformed records and duplicate ids
+  ---
+  duration_ms: 0.198291
+  type: 'test'
+  ...
+# Subtest: legacy storage keys are removed only after the complete Favorites payload is saved
+ok 76 - legacy storage keys are removed only after the complete Favorites payload is saved
+  ---
+  duration_ms: 0.230833
+  type: 'test'
+  ...
+1..76
+# tests 76
+# suites 0
+# pass 76
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3036.8885
