@@ -1,0 +1,72 @@
+{
+  "date": "2026-11-01",
+  "baseCommit": "70129ef836d46a7cadd1be3d511c5476c2ecd909",
+  "syntheticOnly": true,
+  "tests": {
+    "full": {
+      "node": "22.22.3",
+      "passed": 2093,
+      "failed": 0
+    },
+    "promptQuality": {
+      "node": "25.8.2",
+      "passed": 853,
+      "failed": 0
+    },
+    "aHistory": {
+      "passed": 19,
+      "failed": 0
+    },
+    "unicodeFocused": {
+      "passed": 3,
+      "failed": 0
+    },
+    "downloadReplay": {
+      "passed": 3,
+      "failed": 0
+    },
+    "lint": "passed node 22",
+    "build": "passed isolated /tmp output",
+    "strictAudit": {
+      "seed": "prompt-quality-baseline",
+      "count": 200,
+      "beforeAfterEqual": true,
+      "blocking": 0
+    }
+  },
+  "browser": {
+    "tool": "isolated headless Chrome",
+    "viewports": [
+      "1440x1000",
+      "390x900"
+    ],
+    "sixWorkspaces": true,
+    "syntheticCount": 131,
+    "actualUiDownload": "manifest and markdown checked",
+    "backupOnly": "direct browser module verified exact synthetic source",
+    "desktopConsole": [
+      "/favicon.ico 404"
+    ],
+    "mobileConsole": []
+  },
+  "independentZip": {
+    "reader": "Python zipfile",
+    "backupBytes": 2711991,
+    "exactUtf8": true
+  },
+  "limitations": [
+    "Node25 default full test 2089/2091 due TAP expectation",
+    "global NODE_OPTIONS TAP conflicts with historical child reporter; stopped",
+    "default build dist permissions denied; isolated output passed",
+    "SC-P13 and SC-P14 overall not claimed",
+    "private browser and saved data not accessed"
+  ],
+  "logSha256": {
+    "frontend": "3d2e3298df511bea4766a27d96161c9ccc7376ba680835f0362d55f0b9eaee7b",
+    "promptQuality": "2fd2bb4c57058560fd951f0f01312eacefb94728a61a65f048d5be81294ad121",
+    "strictBefore": "9b333a2c234e2dc69f4cc99caab2ff5c08bedd6e1d19f7a12afa9940e3b03f56",
+    "strictAfter": "610e9805be8b6bf94c4e7123b3f85f069b80ceaca63c8bd9c0ca8cc9168851ef",
+    "build": "3a7d3e879b3dea549b90c1c8b7efef14d959d01ad55b4387a005d686c7f9bbf6",
+    "lint": "4cc3750d21346cf65740526345613cc28b068e42b7624120db0bc04da500cb79"
+  }
+}

@@ -33,3 +33,15 @@ test('download inverse rejects unknown edits before writing and refuses the live
     assert.deepEqual(readFileSync(protectedPath), before);
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
+
+test('download inverse rejects unreviewed Unicode archive edits without changing other files', () => {
+  const dir = fixture();
+  try {
+    const target = join(dir, 'webapp/src/features/saved-cards/savedCardArchive.js');
+    const other = join(dir, DOWNLOAD_REVIEW.files.find((file) => file.path !== 'webapp/src/features/saved-cards/savedCardArchive.js').path);
+    const before = readFileSync(other);
+    writeFileSync(target, readFileSync(target, 'utf8') + '\n// unknown archive edit');
+    assert.throws(() => preparePreSavedCardsDownloadFiles(dir), /unknown source/);
+    assert.deepEqual(readFileSync(other), before);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});

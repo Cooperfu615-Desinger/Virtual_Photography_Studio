@@ -1,5 +1,7 @@
 # Saved Cards 持久化 v1：A 階段相容契約與基準
 
+> 後續 ZIP Unicode 修復：本機候選見 [獨立規格](saved-cards-zip-unicode-v1.md)，舊 A 缺口與基準仍按原狀保存；本批狀態見 [驗收報告](../reports/saved-cards-zip-unicode-2026-11-01/README.md)。B 尚未開始。
+
 > 2026-11-01 交付補記：A 已獲使用者驗收並以 main eef77871 交付，CI 與部署通過；下方待驗收／未提交文字保留當時紀錄。B～D 未開始，ZIP Unicode 缺口仍保留。
 
 2026-11-01。程式／遠端 main 基準：`60c46d39ef0524c9b641c771e6319fb5d4b2e091`。使用者已授權 A；B～D 未開始。本文件是 [v1 規格](saved-cards-persistence-v1.md) 的 A 階段附件。

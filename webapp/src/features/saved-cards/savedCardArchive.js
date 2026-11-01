@@ -85,28 +85,30 @@ export async function createSavedCardsArchive(items, now = Date.now(), type = 'b
   if (exportItems.length === 0) return null;
 
   const zip = new JSZip();
+  // Encode complete strings before JSZip chunks them, so surrogate pairs stay intact.
+  const encodeText = (value) => new TextEncoder().encode(value);
   const manifestItems = [];
   const files = buildArchiveFileNames(exportItems);
   const backupOnlyFiles = [];
   exportItems.forEach((prompt, index) => {
     const file = files[index];
     const markdown = buildMarkdownExport(prompt);
-    zip.file(file, markdown);
+    zip.file(file, encodeText(markdown));
     if (markdown.startsWith(SAVED_CARD_BACKUP_MARKER)) backupOnlyFiles.push(file);
     manifestItems.push(buildSavedCardManifestItem(prompt, file));
   });
   if (backupOnlyFiles.length) {
-    zip.file('saved-cards-backup.json', JSON.stringify({
+    zip.file('saved-cards-backup.json', encodeText(JSON.stringify({
       version: 1, restoreStatus: 'backup-only', sourceProject: SOURCE_PROJECT, items: exportItems,
-    }, null, 2));
+    }, null, 2)));
   }
-  zip.file('manifest.json', JSON.stringify({
+  zip.file('manifest.json', encodeText(JSON.stringify({
     schemaVersion: 1,
     sourceProject: SOURCE_PROJECT,
     exportedAt: new Date(now).toISOString(),
     items: manifestItems,
     ...(backupOnlyFiles.length ? { backupFile: 'saved-cards-backup.json', backupOnlyFiles } : {}),
-  }, null, 2));
+  }, null, 2)));
   return zip.generateAsync({ type });
 }
 

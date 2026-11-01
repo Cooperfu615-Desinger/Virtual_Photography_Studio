@@ -4,6 +4,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-11-01
 
+## Saved Cards ZIP Unicode 原文保護（2026-11-01，使用者驗收通過、已授權交付）
+
+- ZIP 文字內容先完整編碼 UTF-8，避免分段拆開 emoji；備份 JSON、Markdown 與 manifest 均涵蓋。舊收藏、資料格式與 backup-only 語意保持。
+- [規格](specs/saved-cards-zip-unicode-v1.md)、[驗收](reports/saved-cards-zip-unicode-2026-11-01/README.md)。A 封存的舊缺口與歷史回放不重錄；本批不等於 SC-P13／P14 整體完成。
+- 使用者已驗收通過並授權限定提交／推送；CI 與部署於交付後確認。Saved Cards B～D、私人收藏及其他暫緩項目不併入。
+
 ## 現行規範一致性與舊入口整理（2026-11-01，使用者驗收通過、已授權交付）
 
 - handoff 標為歷史交接；Prompt 總指南修正全身角色照保留體態，目錄規格更新六工作區，Saved Cards A 主規格與附件補交付狀態，前端 README 指向現行來源。
