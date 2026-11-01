@@ -1,12 +1,14 @@
 # Virtual Photography Studio Handoff
 
+> 歷史交接文件：下文保留當時架構、範例及決策，不是現行契約。先讀 [current_project_state](current_project_state.md)、[session 導引](session_onboarding.md) 與 root AGENTS；現行 Prompt、姿勢及六工作區依現行專屬規格與程式，不依本文件舊命令執行。
+
 ## Read This First
 
-For new sessions, read `/Users/cooperfu/Projects/Virtual_Photography_Studio/Docs/current_project_state.md` first. It is the short current-state truth table.
+For new sessions, read `Docs/current_project_state.md` first. It is the short current-state truth table.
 
 This file is the longer handoff: it preserves current architecture, durable rules, and historical decisions that still matter. It intentionally does not keep exhaustive commit lists, old validation logs, old dirty-tree notes, or completed next-step lists. Use `git log --oneline` for commit history.
 
-If any older note conflicts with `/Users/cooperfu/Projects/Virtual_Photography_Studio/Docs/current_project_state.md` or the `Current Canonical State` below, the newer current-state rules win.
+If any older note conflicts with `Docs/current_project_state.md` or the `Current Canonical State` below, the newer current-state rules win.
 
 Important legacy terminology warning:
 
@@ -99,14 +101,14 @@ QA notes from 2026-06-25:
 - A stale `enginePromptPipeline.test.js` expectation was aligned with the current face-only close-up policy: `AI` should omit hidden wardrobe and should not inject the old default spaghetti-strap dress fallback.
 - In-app Browser rendered QA could not operate native `<select>` values through `selectOption`, keyboard, or coordinate fallback. Pose Composer select dependencies and prompt output remain covered by unit tests; rendered QA covered page load, buttons, prompt output updates, console health, and responsive layout.
 
-## Current Canonical State
+## Historical Canonical State (superseded; see current_project_state)
 
 ### Documentation Split
 
-- `/Users/cooperfu/Projects/Virtual_Photography_Studio/Docs/current_project_state.md`
+- `Docs/current_project_state.md`
   - Short current-state briefing.
   - Best first read for a new session.
-- `/Users/cooperfu/Projects/Virtual_Photography_Studio/Docs/conversation_handoff.md`
+- `Docs/conversation_handoff.md`
   - Full handoff and historical rationale.
   - Useful when a session needs context behind older decisions.
 

@@ -4,6 +4,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-11-01
 
+## 現行規範一致性與舊入口整理（2026-11-01，使用者驗收通過、已授權交付）
+
+- handoff 標為歷史交接；Prompt 總指南修正全身角色照保留體態，目錄規格更新六工作區，Saved Cards A 主規格與附件補交付狀態，前端 README 指向現行來源。
+- 舊進度摘要、三份角色文件與早期分析原文逐位元保留在 [歸檔](archive/2026-11-01-legacy-entry/README.md)，原位置改為導引，保持舊路徑可到達。歷史報告與基準不重寫。
+- 本次限文件，未修改產品／資料／收藏；Saved Cards B、PAGE2 舊匯入、J12、P5b 未進入。使用者已驗收並授權限定提交／推送；CI 與部署於交付後核對。
+
 ## 新 session 入口與新增內容指南收尾（2026-11-01，本機文件驗收通過、已授權交付）
 
 - 對齊 main `eef77871e840459efce50b51e198c90108bcfad4`；新 session 先核對實際工作目錄／分支／HEAD／差異，再依 AGENTS → 本文件 → [session 導引](session_onboarding.md) → 領域指南／專屬規格閱讀。舊 worktree 不會自動取得 main 新文件，不擅自切換或覆寫。

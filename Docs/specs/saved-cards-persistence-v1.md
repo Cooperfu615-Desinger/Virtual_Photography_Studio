@@ -2,7 +2,7 @@
 
 日期：2026-11-01。版本：1.0（A 階段基準已建立）。程式基準：main 60c46d39ef0524c9b641c771e6319fb5d4b2e091。
 
-狀態：使用者已依本規格授權 A 階段；A 的隔離資料、契約與基準已完成本機驗收，待使用者驗收。B～D 尚未開始，未切換保存來源、操作既有收藏或交付。見 [A 階段附件](saved-cards-persistence-a-v1.md)及[驗收證據](../reports/saved-cards-persistence-a-2026-11-01/README.md)。資料庫與 DLL 前輪結案保持，見[結案與使用狀態](../decisions/2026-10-31-dll-usage-status.md)。
+狀態：A 的隔離資料、契約與基準已獲使用者驗收，並以 main eef77871 提交推送；CI 與部署已通過。B～D 尚未開始，未切換保存來源或操作既有收藏。原始報告保留驗收當時的狀態。見 [A 階段附件](saved-cards-persistence-a-v1.md)及[驗收證據](../reports/saved-cards-persistence-a-2026-11-01/README.md)。資料庫與 DLL 前輪結案保持，見[結案與使用狀態](../decisions/2026-10-31-dll-usage-status.md)。
 
 ## 1. 目的與範圍
 

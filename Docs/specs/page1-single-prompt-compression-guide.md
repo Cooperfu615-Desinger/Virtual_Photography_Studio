@@ -29,7 +29,7 @@
 
 2026-10-11 主 MJ 自然精簡（體態規則由上段後續更新）：僅主 `midjourneyPrompt` 全模式改為最多四段自然英文，省略體態，穿搭只留可見單品名稱，保留身份／姿勢／場景／光線與選定成像。此規則取代下方歷史主 AI 體態完整保留、服裝細節及 style／film 省略規則；其他五組輸出（含 MJ 胸上）、資料與 storage 不變。Public contract `1.53.0`，見 [主 Midjourney 自然精簡 v1](midjourney-natural-main-v1.md)。
 
-2026-10-11 GPT 獨立 Body Type 省略：主 GPT、GPT 胸上與全身角色照省略獨立 Body Type，雙人主 GPT 分別省略 A/B 來源；成年身份、canonical pose、穿搭及其他有效描述保留。Z／AI／MJ 胸上仍逐字保留同一來源，Character Card body／permanent identity／legacy `identityAndBody` 不變。選值、結構化 Saved Cards、UI、資料庫及 storage schema 不改；舊來源仍可解析，省略後純 GPT 文字無法反推原體態。此核准例外取代下方 GPT 完整保留中的獨立體態要求；Public contract `1.52.0`，本機自動檢查與桌面／手機驗證通過，見 [GPT 獨立體態省略 v1](gpt-standalone-body-omission-v1.md)。
+2026-10-11 GPT 獨立 Body Type 省略（歷史：2026-10-14 已核准全身角色照恢復體態，現行以專屬規格為準）：主 GPT、GPT 胸上與全身角色照省略獨立 Body Type，雙人主 GPT 分別省略 A/B 來源；成年身份、canonical pose、穿搭及其他有效描述保留。Z／AI／MJ 胸上仍逐字保留同一來源，Character Card body／permanent identity／legacy `identityAndBody` 不變。選值、結構化 Saved Cards、UI、資料庫及 storage schema 不改；舊來源仍可解析，省略後純 GPT 文字無法反推原體態。此核准例外取代下方 GPT 完整保留中的獨立體態要求；Public contract `1.52.0`，本機自動檢查與桌面／手機驗證通過，見 [GPT 獨立體態省略 v1](gpt-standalone-body-omission-v1.md)。
 
 2026-10-11 領帶襯衫固定黑領帶：一般與胸下短版來源均指定黑色短領帶；上身配色的顏色、圖樣及材質描述只作用於襯衫布料。三主輸出及適用衍生保留同一可見來源，不回補被裁切、閉合外套或完整造型省略的內搭。名稱／ID／順序、隨機池與 storage 不變，舊英文回填 alias 保留。Public contract `1.51.0`，見 [領帶襯衫固定黑領帶 v1](black-tie-shirt-v1.md)。
 
@@ -133,7 +133,7 @@ PAGE1 的「全無」代表該欄位不提供英文描述，並保留已選的�
 - 格式：結構化自然段落。
 - 新定位：`GPT Full-Fidelity Prompt` / `GPT 完整保留型 Prompt`。
 - 目標：完整保留 PAGE1 工作台中被選到、並經共用構圖可見性投影判定為有效的英文描述，優先保留生成穩定性、造型鎖定與細節完整度。原始選擇必須完整保存，不可用景別裁切覆寫或清空。
-- 已核准的獨立 Body Type 例外：主 GPT、GPT 胸上、全身角色照與雙人主 GPT 各人物省略獨立體態來源。成年身份、姿勢、服裝來源與角色卡內建 body／identity 仍保留，原選值不清除，詳見 [限定規格](gpt-standalone-body-omission-v1.md)。
+- 已核准的獨立 Body Type 例外：主 GPT、GPT 胸上與雙人主 GPT 各人物省略獨立體態來源；全身角色照保留完整獨立體態來源。成年身份、姿勢、服裝來源與角色卡內建 body／identity 仍保留，原選值不清除，詳見 [限定規格](gpt-standalone-body-omission-v1.md)。
 - 固定主區塊順序：`Image Type`、`Composition`、`Subject`、`Wardrobe`、`Pose and Composition`、`Scene`、`Lighting`、`Camera Look`。一般 PAGE1 比例可用時，`Composition` 先以 resolved aspect ratio 與 portrait／landscape orientation 的自然語言提示開頭，再接原有共用構圖句；比例提示不改寫 framing、angle、orbit 或 Pose Composer 來源文字。固定構圖場景仍沿用自己的專用構圖語意，不重複比例提示。新生成的 GPT Prompt 不再附加歷史上的 `multi-cut sequence n=2` 尾端。
 - 不輸出 `Constraints`。
 - 結尾為最後一個有內容的 GPT section；歷史 Saved Cards 中的 `multi-cut sequence n=2` 文字仍可讀取，但不會由新生成結果重新附加。
@@ -657,7 +657,7 @@ PAGE1 單人輸出固定為 `Gpt`、`Grok/Z-Image`、`AI Prompt`、`胸上特寫
 
 如果答案是肯定的，`Gpt` 版應保留，不應為了縮短 prompt 而刪除。
 
-獨立 Body Type 依 [GPT 獨立體態省略 v1](gpt-standalone-body-omission-v1.md) 在主 GPT、GPT 胸上、全身角色照與雙人主 GPT 省略，是本節完整保留原則的核准例外；不擴大到角色卡 body、legacy identity、canonical pose 或服裝內建描述。其他模型保留同一完整來源，選值與結構化資料不變。
+獨立 Body Type 依 [GPT 獨立體態省略 v1](gpt-standalone-body-omission-v1.md) 在主 GPT、GPT 胸上與雙人主 GPT 省略，全身角色照保留完整來源；這是本節完整保留原則的核准例外；不擴大到角色卡 body、legacy identity、canonical pose 或服裝內建描述。Z-Image 與其他輸出依各自現行專屬契約處理該來源，選值與結構化資料不變。
 
 `Gpt` 版應保留：
 

@@ -14,7 +14,7 @@
 - C 已啟用分類 JSON＋index＋id_registry＋manifest，經 schema／歷史 ID 驗證後產生 `database.json` 與六份唯讀 Markdown。舊 metadata 已完整併入分類紀錄；A 快照與輸出基準不變。B 的 Markdown／隔離演練敘述保留為切換前歷史。
 - 新增 `lyingSurface` 來源欄位，目前 47 條場景具有此資料；新版指定動作、站／蹲／坐／跪／躺姿、頭部／視線與觀察式抓拍均須納入基準。
 - Z-Image 已有 2026-10-23 的[同場段落版本 C](z-image-scene-first-tidy-v1.md)：人物開頭、方位去重、環境光句合併及側面幾何改寫都屬既有行為，不得用舊版快照還原。
-- 現行五個主工作區是 Prompt 工作台、角色建模、場景建模、DLL_PIC Pro、Saved Cards。動作與觀察式抓拍在主工作台內驗證，舊資料仍保留相容性。
+- 現行六個主工作區是 Prompt 工作台、角色建模、場景建模、DLL_PIC Pro、DLL_VIDEO Pro、Saved Cards。動作與觀察式抓拍在主工作台內驗證，舊資料仍保留相容性。
 - 四主輸出為 Gpt／Z-Image／Midjourney／Nano Banana，另有 GPT 胸上與全身角色照；依當前輸出契約保留各模式的有效／不適用狀態。歷史 MJ 胸上只做舊卡還原與序列化驗證，不恢復生成入口。
 
 ---
