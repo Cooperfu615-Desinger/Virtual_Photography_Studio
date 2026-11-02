@@ -13,7 +13,7 @@ export function prepareC2HistoricalContext(dir){
  assert.ok(!existsSync(join(dir,'.git')),'C2 historical context rejects checkout');
  const sources=new Map();
  for(const f of context.files){
-  const current=readFileSync(join(dir,f.path));assert.ok([f.beforeHash,f.afterHash].includes(hash(current)),'C2 historical context rejects unknown source: '+f.path);
+  const current=readFileSync(join(dir,f.path));assert.ok([f.beforeHash,f.afterHash,...(f.acceptedHashes ?? [])].includes(hash(current)),'C2 historical context rejects unknown source: '+f.path);
   const before=execFileSync('git',['-C',root,'show',context.beforeCommit+':'+f.path],{maxBuffer:16*1024*1024});assert.equal(hash(before),f.beforeHash,'Historical context oracle mismatch');sources.set(f.path,before);
  }
  return {sources,apply(){for(const [p,s]of sources)writeFileSync(join(dir,p),s);}};

@@ -6,7 +6,10 @@
     {
       "path": "webapp/src/components/DllPicProPanel.jsx",
       "beforeHash": "8f75668386cd43b4dde8ca69cb932211f1522129d2bdf706d693152182e12689",
-      "afterHash": "45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36"
+      "afterHash": "45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36",
+      "acceptedHashes": [
+        "73d89635b47801692f1ffda5baf223fe483db03b485212d71ff77557e2b787d9"
+      ]
     },
     {
       "path": "webapp/src/components/DllPicWorkspace.jsx",
@@ -16,7 +19,10 @@
     {
       "path": "webapp/src/lib/dllPicProClient.js",
       "beforeHash": "ba0d8586ac1705fe0ea25d1df9e2869d8bc65ca8acd5d79a0a5491f3006cc860",
-      "afterHash": "d299110a86c859f86fbdd9ae97eb6bbbf0e19af594ab606f7667621d0d2e2c03"
+      "afterHash": "d299110a86c859f86fbdd9ae97eb6bbbf0e19af594ab606f7667621d0d2e2c03",
+      "acceptedHashes": [
+        "94b73f8aa5c1d895acb1ccdf374ddec2e396bda88fde48bff692767f7d78a166"
+      ]
     },
     {
       "path": "webapp/src/lib/dllPicProClient.test.js",

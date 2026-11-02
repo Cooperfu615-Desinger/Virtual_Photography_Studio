@@ -67,6 +67,16 @@ qwenLora.template['600'] = { class_type: 'LoraLoaderModelOnly', inputs: {
 qwenLora.template['459:480'].inputs.model = ['600', 0];
 models.qwenImage21Lora = { ...qwenLora, loraNode: '600' };
 
+const qwenOmniLora = local('qwenImage21', '459:452', 'prompt', '459:456', '459:458');
+qwenOmniLora.template = structuredClone(qwenOmniLora.template);
+qwenOmniLora.template['600'] = { class_type: 'LoraLoaderModelOnly', inputs: {
+  model: ['459:451', 0],
+  lora_name: 'chatrlabs__Qwen-Image-21-Uncensored-Omni-LoRA-v01__chatrlabs-omni-lora-v0.1-bf16.safetensors',
+  strength_model: 1,
+} };
+qwenOmniLora.template['459:480'].inputs.model = ['600', 0];
+models.qwenImage21OmniLora = { ...qwenOmniLora, loraNode: '600' };
+
 function getComfyModel(modelKey) {
   const model = Object.hasOwn(models, modelKey) && models[modelKey];
   if (!model) throw new Error('不支援的 Comfy Cloud 模型');
