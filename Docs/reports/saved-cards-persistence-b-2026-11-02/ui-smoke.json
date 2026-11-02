@@ -1,0 +1,68 @@
+[
+  {
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "states": [
+      {
+        "name": "Prompt 工作台",
+        "overflow": false
+      },
+      {
+        "name": "角色建模",
+        "overflow": false
+      },
+      {
+        "name": "場景建模",
+        "overflow": false
+      },
+      {
+        "name": "DLL_PIC Pro",
+        "overflow": false
+      },
+      {
+        "name": "DLL_VIDEO Pro",
+        "overflow": false
+      },
+      {
+        "name": "Saved Cards",
+        "overflow": false
+      }
+    ],
+    "errors": []
+  },
+  {
+    "viewport": {
+      "width": 390,
+      "height": 900
+    },
+    "states": [
+      {
+        "name": "Prompt 工作台",
+        "overflow": false
+      },
+      {
+        "name": "角色建模",
+        "overflow": false
+      },
+      {
+        "name": "場景建模",
+        "overflow": false
+      },
+      {
+        "name": "DLL_PIC Pro",
+        "overflow": false
+      },
+      {
+        "name": "DLL_VIDEO Pro",
+        "overflow": false
+      },
+      {
+        "name": "Saved Cards",
+        "overflow": false
+      }
+    ],
+    "errors": []
+  }
+]

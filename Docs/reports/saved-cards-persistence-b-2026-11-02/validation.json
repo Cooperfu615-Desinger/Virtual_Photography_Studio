@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-02",
+  "baseCommit": "bd69cdbbe6709ea32b04046c65c229f1ac60bb63",
+  "status": "isolated-candidate-awaiting-user",
+  "syntheticOnly": true,
+  "productionStorageActivated": false,
+  "externalRequests": 0,
+  "fullTests": {
+    "node": "22.22.3",
+    "passed": 2098,
+    "failed": 0
+  },
+  "unitTests": {
+    "passed": 5,
+    "failed": 0
+  },
+  "browserChecks": 118,
+  "promptQuality": {
+    "passed": 853,
+    "failed": 0
+  },
+  "historyA": {
+    "passed": 19,
+    "failed": 0,
+    "sealedBaselineMatched": true
+  },
+  "audit": {
+    "count": 200,
+    "seed": "prompt-quality-baseline",
+    "blocking": 0,
+    "sameAsPrior": true
+  },
+  "sourceSha256": {
+    "webapp/src/features/saved-cards/persistenceBRepository.js": "e6a2aa4e8cb64ae787f106ed453dc668ac2af21141bb4318ea936f7f87214f4c",
+    "webapp/src/features/saved-cards/persistenceBMigration.js": "1107ff30525cc8818d840bc056a11244c850aa8703dc3d27dc6153f790b82d95",
+    "webapp/src/features/saved-cards/persistenceBCoordinator.js": "87918d137600092f85e9062cad75e4a5625990f27a8ea67e12a33fa3b877553f",
+    "webapp/src/features/saved-cards/persistenceB.test.js": "4c90366ca2bdea87013af28e002bb47f9e385b213f992de78a5140c3040d9dde",
+    "scripts/saved_cards_b_browser.mjs": "fb159ae5f9ae6469dfd1e61aa4c80983af26c3f716c389f72c9d98b3cd7322da",
+    "scripts/fixtures/saved-cards-persistence-v1.json": "1a5584241c7bcf85743ab35a0df3fb7573424e2d2e0822dd98606be05897ef4d"
+  },
+  "logSha256": {
+    "full": "23ae02154ab813ee57f613b71177a1aff4cb99b31d703fa259efbc8e3d9f5fb1",
+    "unit": "ed2aadcca78416bb9018b31af21120c460302fc3133d4f644fd0a8f1e160dbff",
+    "lint": "4cc3750d21346cf65740526345613cc28b068e42b7624120db0bc04da500cb79",
+    "build": "da86ab16e24f5add108a0f1f822729843e65f6c22305b1df9c9e1c557dd8058e",
+    "quality": "4a2ad867d871b4f29315d619536a7b28e58be83080186d3c2a42a958f13f3364",
+    "audit": "610e9805be8b6bf94c4e7123b3f85f069b80ceaca63c8bd9c0ca8cc9168851ef",
+    "history": "82a5297fcda0bf0e1ce8ad5ea9fd6c35c0e53b9c9b7ddf223f8487ba4000de8e"
+  },
+  "browserEvidenceSha256": "931042245756fbe92323747c891ed7eab1cd4270e9dd88f5751efab6129fa073",
+  "uiSmokeSha256": "7585902883de87b3af344d7f533cefa665410c7b6ed19551752ef78ef73804ec",
+  "limitations": [
+    "quota error injected; physical quota exhaustion not reproduced",
+    "no production source switch",
+    "no private browser data or real cloud",
+    "cross-API old-writer race requires D coordination",
+    "unknown versions and missing data remain unresolved",
+    "SC-P13 and SC-P14 not fully accepted"
+  ],
+  "staged": false,
+  "committed": false
+}

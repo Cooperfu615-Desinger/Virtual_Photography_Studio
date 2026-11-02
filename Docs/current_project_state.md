@@ -2,7 +2,13 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-11-01
+Last updated: 2026-11-02
+
+## Saved Cards 持久化 B：隔離實作與演練（2026-11-02）
+
+- 依使用者授權完成測試專用 repository、原始快照與暫存遷移、衝突選擇、多分頁協調、恢復包及隔離回退演練；[B 規格](specs/saved-cards-persistence-b-v1.md)、[驗收](reports/saved-cards-persistence-b-2026-11-02/README.md)。
+- 僅測試 prefix 的資料庫與專用 origin；不接正式工作台或私人收藏。模擬 quota／中斷與實際 IndexedDB abort、blocked、跨分頁事件分別記錄；真實裝置配額未耗盡。
+- 使用者已驗收隔離成果並授權交付；C／D、正式來源切換、真實帳號或私人資料操作均未進入。其他未提交內容及歷史基準保持。
 
 ## Saved Cards ZIP Unicode 原文保護（2026-11-01，使用者驗收通過、已授權交付）
 
