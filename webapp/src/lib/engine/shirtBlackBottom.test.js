@@ -5,6 +5,7 @@ import { generatePrompts, createSeededRandom, getLockControls } from '../engine.
 import { naturalFixtureLocks } from './midjourneyNaturalFixtures.js';
 import baseline from './shirtBlackBottomProtected.json' with { type: 'json' };
 import legacy from './shirtBlackBottomLegacy.json' with { type: 'json' };
+import { restoreOtherBeforeWardrobeRetention } from './framingWardrobeOtherInverse.js';
 import { buildRestoreLocks, parseLocksFromStandardPrompt, serializeFavoritePrompt, deserializeFavoritePrompt } from '../../features/saved-cards/cardCodec.js';
 
 import { FULLY_CLOSED_OPENING_ID } from './outerwearClosure.js';
@@ -21,7 +22,10 @@ const fields = p => ({ grokPrompt: p.grokPrompt, zImagePrompt: p.zImagePrompt, m
 const texts = p => [p.grokPrompt, p.zImagePrompt, p.midjourneyPrompt, p.nanoBananaPrompt, ...p.extraPrompts.map(e => e.text)];
 
 test('all other presets preserve every output, selection and structured source byte for byte', () => {
-  for (const row of baseline) assert.equal(createHash('sha256').update(JSON.stringify(fields(generate(row.selections)))).digest('hex'), row.hash,
+  const fixtures = baseline.map((_, index) => ({ id: String(index) }));
+  const current = baseline.map((row, index) => ({ id: String(index), fields: fields(generate(row.selections)) }));
+  const historical = restoreOtherBeforeWardrobeRetention('shirt', fixtures, current);
+  for (const [index, row] of baseline.entries()) assert.equal(createHash('sha256').update(JSON.stringify(historical[index].fields)).digest('hex'), row.hash,
     JSON.stringify(row.selections));
 });
 
@@ -62,11 +66,11 @@ test('duo primary colors stay with their own shirt and both bottoms remain black
   }
 });
 
-test('crop and closed outerwear projection do not restore invisible garments or their color', () => {
+test('legacy crop and closed outerwear retain their boundaries while chest output retains wardrobe', () => {
   for (const name of names) {
     const chest = generate({ outfitPresetId: { byZh: name }, outfitPresetPrimaryColorId: { byZh: '紅色' }, framingId: { byZh: '胸上特寫' } });
-    for (const text of [chest.grokPrompt, chest.zImagePrompt, chest.midjourneyPrompt, chest.nanoBananaPrompt,
-      chest.extraPrompts.find(e => e.id === 'chest-up-portrait').text]) assert.doesNotMatch(text, /hot pants|mini skirt/i);
+    for (const text of [chest.grokPrompt, chest.zImagePrompt, chest.midjourneyPrompt, chest.nanoBananaPrompt]) assert.doesNotMatch(text, /hot pants|mini skirt/i);
+    assert.match(chest.extraPrompts.find(e => e.id === 'chest-up-portrait').text, /hot pants|mini skirt/i);
     assert.match(chest.midjourneyPrompt, /red (?:short|long)-sleeve button-up shirt/);
     assert.match(chest.extraPrompts.find(e => e.id === 'full-body-character').text, /black (?:hot pants|bodycon mini skirt)/);
     const closed = generate({ outfitPresetId: { byZh: name }, outfitPresetPrimaryColorId: { byZh: '紅色' },

@@ -550,7 +550,7 @@ test('portrait special outfit output keeps visible upper garments and removes hi
   assert.doesNotMatch(text, /brown monogram shoulder bag/i);
 });
 
-test('medium special outfit output keeps bottoms but removes socks shoes and bags', () => {
+test('medium special outfit output keeps selected bottoms, socks, shoes and bags', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionByLabel('framingId', '中景鏡頭 (Medium Shot)').id,
@@ -560,9 +560,9 @@ test('medium special outfit output keeps bottoms but removes socks shoes and bag
 
   assert.match(text, /cropped white short-sleeve button shirt/i);
   assert.match(text, /ultra low-rise yellow plaid pleated mini skirt/i);
-  assert.doesNotMatch(text, /white lace thigh-high stockings/i);
-  assert.doesNotMatch(text, /white pointed heels/i);
-  assert.doesNotMatch(text, /brown monogram shoulder bag/i);
+  assert.match(text, /white lace thigh-high stockings/i);
+  assert.match(text, /white pointed heels/i);
+  assert.match(text, /brown monogram shoulder bag/i);
 });
 
 test('face-only special outfit keeps the selected complete-look lock while filtering invisible fragments', () => {

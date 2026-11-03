@@ -18,6 +18,7 @@ import {
 } from './nanoBananaFixtures.js';
 import { stripFullBodyCharacterBodySource } from './fullBodyCharacterBodyTestSupport.js';
 import { restorePreEthnicityText, restorePreEthnicityValue } from './ethnicityRevisionTestSupport.js';
+import { restoreNanoBeforeWardrobeRetention } from './framingWardrobeNanoInverse.js';
 
 const fixtures = nanoBananaFixtures();
 const generated = fixtures.map(fixture => ({ fixture, prompt: generateNanoBananaFixture(fixture) }));
@@ -35,13 +36,17 @@ const count = (value, source) => value.split(source).length - 1;
 test('Nano Banana preserves all six legacy texts, extra prompts, selections, structured data and summaries', () => {
   assert.equal(fixtures.length, 382);
   assert.equal(baseline.length, fixtures.length);
+  const historical = restoreNanoBeforeWardrobeRetention('nano', fixtures, generated.map(({ fixture, prompt }) => ({
+    id: fixture.id, fields: protectedNanoBananaOutputs(stripFullBodyCharacterBodySource(prompt)),
+    nano: prompt.nanoBananaPrompt, normalizedNano: normalizedNanoBananaFacialText(prompt, fixture, NANO_BANANA_FACIAL_FEATURES),
+  })));
   for (let index = 0; index < generated.length; index += 1) {
-    const { fixture, prompt } = generated[index];
+    const { fixture } = generated[index];
     assert.equal(fixture.id, baseline[index].id);
     assert.equal(fixture.seed, baseline[index].seed);
     // Baselines predate the approved full-body Body Type exception; compare
     // through its exact inverse (only the inserted full-body body sentence).
-    const protectedFields = protectedNanoBananaOutputs(stripFullBodyCharacterBodySource(prompt));
+    const protectedFields = historical[index].fields;
     assert.deepEqual(Object.keys(protectedFields), Object.keys(baseline[index].fields));
     // ...and through the exact inverse of the 2026-10-14 ethnicity revision.
     for (const [field, value] of Object.entries(protectedFields)) {
@@ -121,7 +126,7 @@ test('Character Card headwear and expression remain separate natural sentences',
   assert.ok(value.toLowerCase().includes(expression.en.toLowerCase()), 'selected expression source retained');
 });
 
-test('Character Card accessories follow the selected crop while visible facewear is retained', () => {
+test('Character Card accessories and facewear are retained at close crops', () => {
   for (const [cardId, hidden] of [
     ['character-48g', 'small off-white shoulder bag with thin black strap'],
     ['character-rika', 'small silver ring keychain clipped to the front belt loop'],
@@ -135,7 +140,7 @@ test('Character Card accessories follow the selected crop while visible facewear
     const close = generate('半臉傾斜特寫').nanoBananaPrompt.toLowerCase();
     const full = generate('全身鏡頭 (Full Body Shot)').nanoBananaPrompt.toLowerCase();
     assert.ok(full.includes(hidden), `${cardId}: full-body accessory retained`);
-    assert.ok(!close.includes(hidden), `${cardId}: hidden accessory omitted`);
+    assert.ok(close.includes(hidden), `${cardId}: selected accessory retained`);
   }
   const facewear = generateNanoBananaFixture({ seed: 'nano-visible-card-facewear',
     locks: nanoBananaFixtureLocks({ characterProfileId: 'character-rin',
@@ -248,21 +253,25 @@ const facialBaseline = JSON.parse(readFileSync(new URL('./nanoBananaFacialFeatur
 test('Nano facial expansion preserves all other texts and data and changes only effective generic face phrases', () => {
   assert.equal(facialFixtures.length, 1078);
   assert.equal(facialBaseline.length, facialFixtures.length);
+  const historical = restoreNanoBeforeWardrobeRetention('facial', facialFixtures, facialGenerated.map(({ fixture, prompt }) => ({
+    id: fixture.id, fields: protectedNanoBananaOutputs(stripFullBodyCharacterBodySource(prompt)),
+    nano: prompt.nanoBananaPrompt, normalizedNano: normalizedNanoBananaFacialText(prompt, fixture, NANO_BANANA_FACIAL_FEATURES),
+  })));
   for (let index = 0; index < facialGenerated.length; index += 1) {
-    const { fixture, prompt } = facialGenerated[index];
+    const { fixture } = facialGenerated[index];
     const before = facialBaseline[index];
     assert.equal(fixture.id, before.id);
     assert.equal(fixture.seed, before.seed);
     // Same exact full-body Body Type inverse as the legacy six-text baseline.
-    const fields = protectedNanoBananaOutputs(stripFullBodyCharacterBodySource(prompt));
+    const fields = historical[index].fields;
     assert.deepEqual(Object.keys(fields), Object.keys(before.fields));
     for (const [field, value] of Object.entries(fields)) {
       assert.equal(hash(restorePreEthnicityValue(value, field)), before.fields[field], `${fixture.id}: protected ${field} changed`);
     }
-    assert.equal(hash(restorePreEthnicityText(normalizedNanoBananaFacialText(prompt, fixture, NANO_BANANA_FACIAL_FEATURES), 'nanoBananaPrompt')),
+    assert.equal(hash(restorePreEthnicityText(historical[index].normalizedNano, 'nanoBananaPrompt')),
       before.nanoBananaPrompt, `${fixture.id}: Nano changed outside its effective generic face phrase`);
     if (before.unchangedNanoBananaPrompt) {
-      assert.equal(hash(restorePreEthnicityText(prompt.nanoBananaPrompt, 'nanoBananaPrompt')), before.unchangedNanoBananaPrompt,
+      assert.equal(hash(restorePreEthnicityText(historical[index].nano, 'nanoBananaPrompt')), before.unchangedNanoBananaPrompt,
         `${fixture.id}: excluded or silent Nano output changed`);
     }
   }

@@ -2110,12 +2110,42 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   },
 ]);
 
+// The approved wardrobe-retention revision supersedes only these historical
+// chest crop exclusions. Other fixture requirements remain intact.
+const CHEST_RETAINED_WARDROBE = Object.freeze({
+  'adidas-trackwear': ['track pants'],
+  'outerwear-styling-v2-hem': ['its hem draping naturally over the waistband and upper portion of the lower garment, partially concealing it'],
+  'outerwear-styling-v2-rolled': ['sleeves rolled up to mid-forearm, with visible folded cuffs'],
+  'minimal-coverage-pasties': ['narrow-front lace G-string bottoms', 'low-rise narrow triangular lace front panel', 'visible shallow indentations beneath the ties'],
+  'minimal-coverage-bikini': ['narrow-front string thong bikini bottoms', 'ultra-minimal smooth swim fabric forming a tiny low-rise triangular front panel', 'visible shallow indentations beneath the ties'],
+  'top-hem-overlap': ['partially concealing it'],
+  'conditional-lace-garter-belt': ['cotton briefs', 'lace garter belt worn over the bottoms'],
+  'sailor-separates-short': ['above-knee'],
+  'sailor-separates-long-tight': ['near-floor'],
+  'waist-accessory-designs': ['silver rhinestone butterfly waist chain'],
+});
+
+function revisedChestExpectations(fixture) {
+  const old = fixture.expectedOutputs?.chestUpPortraitPrompt;
+  if (!old) return old;
+  const retained = CHEST_RETAINED_WARDROBE[fixture.id] || [];
+  if (fixture.id === 'independent-wired-earphones') return {
+    includes: ['continuous cable', 'waist or the hip', 'end is concealed'],
+    excludes: ['lower frame edge'],
+  };
+  if (!retained.length) return old;
+  return { ...old, includes: [...(old.includes || []), ...retained],
+    excludes: (old.excludes || []).filter(value => !retained.includes(value)) };
+}
+
 // Main MJ v2 supersedes the historical body/wardrobe-detail expectations above.
 // Keep all other renderer expectations and the deterministic inputs intact.
 // Detailed main MJ coverage lives in midjourneyNaturalPrompt.test.js.
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze(LEGACY_REPRESENTATIVE_PROMPT_FIXTURES.map(fixture => ({
   ...fixture,
-  expectedOutputs: { ...fixture.expectedOutputs, midjourneyPrompt: {
+  expectedOutputs: { ...fixture.expectedOutputs,
+    ...(fixture.expectedOutputs?.chestUpPortraitPrompt ? { chestUpPortraitPrompt: revisedChestExpectations(fixture) } : {}),
+    midjourneyPrompt: {
     excludes: ['cup bust', 'bust–waist–hip', 'shallow indentations'],
   } },
 })));

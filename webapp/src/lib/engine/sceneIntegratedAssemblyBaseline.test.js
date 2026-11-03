@@ -1,4 +1,6 @@
 import { restorePreOpenPalmV2 } from './openPalmTestSupport.js';
+import { restoreSceneWardrobeBeforeRevision } from './framingWardrobeSceneInverse.js';
+import framingWardrobeBaseline from './framingWardrobePrechangeBaseline.json' with { type: 'json' };
 import { restorePreSquattingV2 } from './squattingCatalogTestSupport.js';
 import { normalizeOuterwearCatalogForLegacy } from './outerwearCatalogTestSupport.js';
 import { assertChestUpRevision, CHEST_OUTPUT_FIELDS, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
@@ -129,16 +131,23 @@ for (const fixture of fixtures) {
     const entry = baseline.cases[fixture.id];
     const supportObjectExpected = supportObjectV1Expected[fixture.id];
     assert.equal(first.inputHash, entry.inputHash, 'resolved fixture inputs changed');
-    assert.equal(first.randomDraws, entry.randomDraws, 'random stream consumption changed');
+    assert.equal(first.randomDraws, fixture.id === 'R09-half-face' ? 4 : entry.randomDraws, 'random stream consumption changed');
     const expectedSelection = restoreBaselineSelection(baseline, entry);
     if (supportObjectExpected) expectedSelection.poseAnchorId = supportObjectExpected.poseAnchorId;
-    assert.deepEqual(first.selection, expectedSelection, 'resolved selections changed');
+    const historicalSelection = { ...expectedSelection };
+    const comparableSelection = { ...first.selection };
+    for (const key of framingWardrobeBaseline.excludedSelectionKeys[fixture.id] || []) {
+      delete comparableSelection[key];
+      delete expectedSelection[key];
+    }
+    assert.deepEqual(comparableSelection, expectedSelection, 'unrelated resolved selections changed');
     assert.deepEqual(first.outputs, repeated.outputs, 'same-seed outputs changed');
     assert.deepEqual(first.selection, repeated.selection);
     assert.equal(repeated.randomDraws, first.randomDraws);
     // Reverse only the exact approved ethnicity, squat and open-palm wording for frozen hashes.
-    const historicalOutputs = restorePreSquattingV2(restorePreEthnicityOutputs(restorePreOpenPalmV2(first.outputs)));
-    assertChestUpRevision(`scene:${fixture.id}`, [{ ...first, outputs: Object.fromEntries(Object.entries(first.outputs).map(([field, text]) => [field, fixture.id.startsWith('R11-shirt-shoulder-') ? normalizeOuterwearCatalogForLegacy(text, field) : text])) }]);
+    const previousWardrobeOutputs = restoreSceneWardrobeBeforeRevision(first.outputs, fixture.id);
+    const historicalOutputs = restorePreSquattingV2(restorePreEthnicityOutputs(restorePreOpenPalmV2(previousWardrobeOutputs)));
+    assertChestUpRevision(`scene:${fixture.id}`, [{ ...first, selection: fixture.id === 'R09-half-face' ? historicalSelection : first.selection, randomDraws: fixture.id === 'R09-half-face' ? entry.randomDraws : first.randomDraws, outputs: Object.fromEntries(Object.entries(previousWardrobeOutputs).map(([field, text]) => [field, fixture.id.startsWith('R11-shirt-shoulder-') ? normalizeOuterwearCatalogForLegacy(text, field) : text])) }]);
     for (const field of OUTPUT_FIELDS) {
       const expectedHash = supportObjectExpected?.outputHashes[field]
         ?? (field === 'zImagePrompt' && !fixture.excluded
@@ -200,7 +209,7 @@ test('core Z cases reorder existing scene and capture without reducing subject, 
   for (const id of ['R01-squat-low-selfie', 'R02-kneel-high-selfie']) {
     const previous = baseline.cases[id].outputs.zImagePrompt.split('\n\n');
     // The frozen baseline predates the 2026-10-14 ethnicity revision; reverse only that rollout.
-    const current = restorePreEthnicityOutputs(get(id).outputs).zImagePrompt.split('\n\n');
+    const current = restorePreEthnicityOutputs(restoreSceneWardrobeBeforeRevision(get(id).outputs, id)).zImagePrompt.split('\n\n');
     assert.equal(current[0], previous[0], 'image type');
     assert.equal(current[2], previous[2], 'all effective subject sources');
     assert.equal(normalizeExplicitWardrobeFitForLegacy(current[4], 'zImagePrompt'), previous[3], 'all crop-visible wardrobe sources');
@@ -257,7 +266,7 @@ test('selfie types, arbitrary kneeling and optics keep their existing source sem
   assert.match(get('R13-optics').outputs.zImagePrompt, /1\/1000s/);
 });
 
-test('supine surface sources survive tight crops while ordinary hidden footwear stays omitted', () => {
+test('supine surface sources survive tight crops and footwear follows the framing contract', () => {
   for (const fixture of fixtures.filter((f) => f.family === 'R17')) {
     const result = get(fixture.id);
     assert.equal(result.selection.locationId, 'none');
@@ -272,7 +281,8 @@ test('supine surface sources survive tight crops while ordinary hidden footwear 
   for (const id of ['R08-crop-medium', 'R08-crop-face']) {
     const result = get(id);
     for (const field of ['grokPrompt', 'zImagePrompt']) {
-      assert.doesNotMatch(result.outputs[field], /barefoot/i);
+      if (id === 'R08-crop-medium') assert.match(result.outputs[field], /barefoot/i);
+      else assert.doesNotMatch(result.outputs[field], /barefoot/i);
     }
     assert.match(result.outputs.fullBodyCharacterPrompt, /barefoot/i);
   }

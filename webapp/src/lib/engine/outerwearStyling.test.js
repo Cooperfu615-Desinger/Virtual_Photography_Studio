@@ -92,11 +92,12 @@ test('invalid hem and sleeve combinations stay latent and are restored with comp
   assert.ok(generate(locksFor({ outerwearStylingId: names[3] })).grokPrompt.includes(cuff.en));
 });
 
-test('waist and sleeve crop exclusions do not rewrite visible sources or full-body derivative', () => {
+test('legacy chest framing stays compatible while derived outputs retain waist and sleeve sources', () => {
   for (const name of [names[0], names[3]]) {
     const result = generate(locksFor({ framingId: '胸上特寫', outerwearStylingId: name }));
     const source = option('outerwearStylingId', name).en;
-    for (const text of [result.grokPrompt, result.zImagePrompt, ...result.extraPrompts.filter(e => e.id.includes('chest')).map(e => e.text)]) assert.ok(!text.includes(source));
+    for (const text of [result.grokPrompt, result.zImagePrompt]) assert.ok(!text.includes(source));
+    for (const text of result.extraPrompts.filter(e => e.id.includes('chest')).map(e => e.text)) assert.ok(text.includes(source));
     assert.ok(result.extraPrompts.find(e => e.id === 'full-body-character').text.includes(source));
   }
 });

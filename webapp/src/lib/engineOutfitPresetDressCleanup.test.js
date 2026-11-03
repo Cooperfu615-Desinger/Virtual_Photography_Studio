@@ -861,7 +861,7 @@ test('portrait outfit preset output keeps visible upper garments and removes hid
   assert.doesNotMatch(text, /knee-high leather boots/i);
 });
 
-test('cowboy outfit preset output keeps bottoms but removes shoes', () => {
+test('cowboy outfit preset output keeps selected bottoms and shoes', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionByLabel('framingId', '牛仔中景 (Cowboy Shot)').id,
@@ -873,7 +873,7 @@ test('cowboy outfit preset output keeps bottoms but removes shoes', () => {
 
   assert.match(text, /cropped sheer fitted tank top/i);
   assert.match(text, /low-rise glossy micro shorts/i);
-  assert.doesNotMatch(text, /knee-high leather boots/i);
+  assert.match(text, /knee-high leather boots/i);
 });
 
 test('complete look palette applies to special outfits, outfit presets, and dresses only', () => {

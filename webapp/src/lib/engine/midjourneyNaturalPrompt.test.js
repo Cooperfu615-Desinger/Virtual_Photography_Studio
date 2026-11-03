@@ -1,4 +1,5 @@
 import { PRE_BLACK_BOTTOM_CATALOG, usesBlackBottomPreset } from './shirtBlackBottomTestSupport.js';
+import { restoreOtherBeforeWardrobeRetention } from './framingWardrobeOtherInverse.js';
 import { restorePreOpenPalmV2 } from './openPalmTestSupport.js';
 import { restorePreSquattingV2 } from './squattingCatalogTestSupport.js';
 import assert from 'node:assert/strict';
@@ -39,17 +40,17 @@ const removeBody = text => bodyCases.reduce((result, [, sentence]) =>
   [sentence, roleBody(sentence, 'first'), roleBody(sentence, 'second'), sharedBody(sentence)]
     .reduce((value, clause) => value.replace(` ${clause}`, ''), result), text);
 
-test('main MJ CRT has the approved short body, item names, freckles, style and film without measurements or hidden boots', () => {
+test('main MJ CRT retains selected boots with the approved body, style and film', () => {
   const prompt = generate(CRT_MIDJOURNEY_SELECTIONS);
   const body = stripMidjourneyParameterTail(prompt.midjourneyPrompt);
   const paragraphs = body.split('\n\n');
   assert.equal(paragraphs.length, 4);
   assert.match(paragraphs[0], /20-year-old adult woman.*freckles.*waves.*bangs/is);
   assert.ok(paragraphs[0].includes(bodyCases[5][1]));
-  assert.equal(paragraphs[1], 'She wears a bikini top, narrow-front string bikini bottoms and lace-top thigh-high stockings.');
+  assert.equal(paragraphs[1], 'She wears a bikini top, narrow-front string bikini bottoms, lace-top thigh-high stockings and dr martens 1460 round toe lace-up boots.');
   assert.match(paragraphs[2], /CRT.*static.*scan lines.*High-key white.*soft frontal/is);
   assert.match(paragraphs[3], /Mika Ninagawa.*Neon cross-processed.*cyan/is);
-  assert.doesNotMatch(body, /cup bust|hourglass|height \d|bust[–-]waist|indentation|body-skimming|low-rise|Dr\.? Martens|--ar/);
+  assert.doesNotMatch(body, /cup bust|hourglass|height \d|bust[–-]waist|indentation|body-skimming|low-rise|--ar/);
   const full = generate({ ...CRT_MIDJOURNEY_SELECTIONS, framingId: { byZh: '全身鏡頭 (Full Body Shot)' } });
   assert.match(full.midjourneyPrompt, /dr martens 1460 round toe lace-up boots/i);
   // CRT is a cowboy crop with F following PAGE1, so the approved framing ratio is 2:3.
@@ -59,24 +60,29 @@ test('main MJ CRT has the approved short body, item names, freckles, style and f
 test('all mode baselines protect five other outputs, raw selections, structured data and summaries byte for byte', () => {
   const fixtures = midjourneyNaturalFixtures();
   assert.equal(fixtures.length, baseline.length);
+  const prompts = fixtures.map(fixture => {
+    const current = generatePrompts(1, fixture.locks, [], { random: createSeededRandom(fixture.seed) })[0];
+    return usesBlackBottomPreset(current)
+      ? generatePrompts(1, fixture.locks, PRE_BLACK_BOTTOM_CATALOG, { random: createSeededRandom(fixture.seed) })[0]
+      : current;
+  });
+  const historical = restoreOtherBeforeWardrobeRetention('natural', fixtures, prompts.map((prompt, index) => ({
+    id: fixtures[index].id, main: prompt.midjourneyPrompt, selection: prompt.selection,
+    fields: protectedNaturalOutputs(stripFullBodyCharacterBodySource(prompt)),
+  })));
   for (let index = 0; index < fixtures.length; index += 1) {
     const fixture = fixtures[index];
     assert.equal(fixture.id, baseline[index].id);
-    const current = generatePrompts(1, fixture.locks, [], { random: createSeededRandom(fixture.seed) })[0];
-    // Only the two approved source revisions use their exact historical input.
-    // All other live presets still compare against the immutable old hashes.
-    const prompt = usesBlackBottomPreset(current)
-      ? generatePrompts(1, fixture.locks, PRE_BLACK_BOTTOM_CATALOG, { random: createSeededRandom(fixture.seed) })[0]
-      : current;
+    const prompt = prompts[index];
     assert.equal(fixture.id, bodyBaseline[index].id);
     // Frozen baselines predate the approved signage, ethnicity, squat and
     // open-palm wording revisions; compare through their exact inverses.
-    const historicalMain = restorePreSquattingV2(restorePreEthnicityText(restorePreOpenPalmV2(prompt.midjourneyPrompt), 'midjourneyPrompt'));
-    assert.equal(createHash('sha256').update(removeBody(restoreUnquotedShibuyaSignage(stripFramingDerivedMidjourneyRatio(historicalMain, prompt.selection)))).digest('hex'), bodyBaseline[index].main,
+    const historicalMain = restorePreSquattingV2(restorePreEthnicityText(restorePreOpenPalmV2(historical[index].main), 'midjourneyPrompt'));
+    assert.equal(createHash('sha256').update(removeBody(restoreUnquotedShibuyaSignage(stripFramingDerivedMidjourneyRatio(historicalMain, historical[index].selection)))).digest('hex'), bodyBaseline[index].main,
       `${fixture.id}: main MJ changed beyond approved body sentences`);
     // Baselines predate the approved full-body Body Type exception; compare
     // through its exact inverse (only the inserted full-body body sentence).
-    for (const [field, value] of Object.entries(protectedNaturalOutputs(stripFullBodyCharacterBodySource(prompt)))) {
+    for (const [field, value] of Object.entries(historical[index].fields)) {
       assert.equal(hash(restoreUnquotedShibuyaSignage(restorePreSquattingV2(restorePreEthnicityValue(restorePreOpenPalmV2(value), field)))), baseline[index].fields[field], `${fixture.id}: ${field} changed`);
     }
     assert.ok(parseMidjourneyParameterTail(prompt.midjourneyPrompt).matched, fixture.id);

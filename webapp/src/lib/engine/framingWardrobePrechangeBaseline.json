@@ -1,0 +1,652 @@
+{
+  "source": "HEAD d469a329 before framing wardrobe retention",
+  "count": 45,
+  "cases": [
+    {
+      "id": "R01-squat-low-selfie",
+      "inputHash": "b365ac5d608b474d0b173a3b9265036be7f45c4d4113ca14d9528629389a09fb",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "4afce38b5e6a6d59b4243af0971b91a6a7934f5f3b980641f30fbb2256983f11",
+        "Pose and Composition": "1de699f5c74dfbf2f556e32223c096f749414f0b20d6a363032fd1acf6fccb72",
+        "Scene": "68a5bd57a5127101bd8a55d538a1ec5b07cfeeff6e43a4a7af40c98335239c11",
+        "Lighting": "af923d88b7d8a0f5b368623d5e743f137b57d7b34e61bdf16da1d2ad38b5103f",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "1e99240bf5a691f57adba0487d72c391aba032e22f6ef7161ecb442587c0ae14"
+    },
+    {
+      "id": "R02-kneel-high-selfie",
+      "inputHash": "3839b8f340d3d8a21efc95c2d6d07ba16ec6cbbcec2973f60d7eaca8f605f983",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "bd1d4e861233efd714cab4cf7e7e98f1384871e33ba56ba1c954f18280d681c9",
+        "Pose and Composition": "5a9e9a05c9d362f691802da4b826a5ab9d6dfda025c62d2242f0497acfa1977a",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "82c91e575c43f2f62b8674b7a71a2b1188f3123c10cd1e48051bd767b1b4a971",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "d8010729f59a3691ef18f76f6647efbeadf5388d0862531d1f83d496a734b78a"
+    },
+    {
+      "id": "R03-squat-no-anchor",
+      "inputHash": "668b50f5edb0b820d0e52ffc71814ae82820c3f35f9cf3e68c5e55d9d399ad60",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "4afce38b5e6a6d59b4243af0971b91a6a7934f5f3b980641f30fbb2256983f11",
+        "Pose and Composition": "bfbd998bf473095df6cfe0098cb0bc2e85cd151b379115cf7947105286cc9d1f",
+        "Scene": "68a5bd57a5127101bd8a55d538a1ec5b07cfeeff6e43a4a7af40c98335239c11",
+        "Lighting": "af923d88b7d8a0f5b368623d5e743f137b57d7b34e61bdf16da1d2ad38b5103f",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "f514e51ae47f2d09783fd854bfe53d608971d6faafee3c095c3ab2743fa633b2"
+    },
+    {
+      "id": "R04-standing",
+      "inputHash": "5ed773f395c62ee3f895bb7d653b86b895e6cc176bb57de9056c6475c3e41fcb",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "45f4799da89a248d426c6d1b82b115918f6196c8775d6960477c1ec4ce1db0a7",
+        "Pose and Composition": "6d3717eaf78948649bcbc49c99f37bc690cdaeb4f37317ed270ca52b0d8a71b2",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "3208e61fc791d64d4866083605e977f53fcd1413a8c0d68ba1f3605967507ed3",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "3fcdb4808b07266ec02d59cc229c28ba488a86eca3afba8f500226dc81eaeab1"
+    },
+    {
+      "id": "R04-sitting",
+      "inputHash": "0291efefe0b35d1097e66dca30ca6be1fbb15d4bd8fd8aa8eed2eac24a9c85a5",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "45f4799da89a248d426c6d1b82b115918f6196c8775d6960477c1ec4ce1db0a7",
+        "Pose and Composition": "bd2148b5c367f9362ad108d39782cbde5e4247e7b94ffa6ef9323a45938f94d3",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "3208e61fc791d64d4866083605e977f53fcd1413a8c0d68ba1f3605967507ed3",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "11177196b6a31fc5d74c922c567e308a7f2844cc4089dfa726c5c69972668bdd"
+    },
+    {
+      "id": "R05-elbows-on-knees",
+      "inputHash": "e228b6b66c2e8850a932428cf1f521660daae1f4b41deb4445feac99cd2e6b20",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "4afce38b5e6a6d59b4243af0971b91a6a7934f5f3b980641f30fbb2256983f11",
+        "Pose and Composition": "c331a04a4287374e248c7616404900acaca080baa5b07d2cc5121a29974c5641",
+        "Scene": "68a5bd57a5127101bd8a55d538a1ec5b07cfeeff6e43a4a7af40c98335239c11",
+        "Lighting": "af923d88b7d8a0f5b368623d5e743f137b57d7b34e61bdf16da1d2ad38b5103f",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "aaf8148d85a6f44680e6cd2e4a686d53e5783f0dc9887642776b022f4effdbab"
+    },
+    {
+      "id": "R06-mirror-selfie",
+      "inputHash": "4275577959365ba96d71a01112a13bad33214489e237853eb972c12596239116",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "bd1d4e861233efd714cab4cf7e7e98f1384871e33ba56ba1c954f18280d681c9",
+        "Pose and Composition": "d02a7f59cf859a35bc8394f400de0055455924c8a9bb5054c85a0e0f20575255",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "82c91e575c43f2f62b8674b7a71a2b1188f3123c10cd1e48051bd767b1b4a971",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "65e99de954a498c5399f4ee60b82849290dc3fe04187fc92fe5e701e5cc73a0d"
+    },
+    {
+      "id": "R07-companion-selfie",
+      "inputHash": "73200b1e0cf5b853a19ab09c1b4b7a5332700ded34120d535dc02b9795b39c41",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "bd1d4e861233efd714cab4cf7e7e98f1384871e33ba56ba1c954f18280d681c9",
+        "Pose and Composition": "8230dbfff400538935052aeceba9ff1c411ee01740e2eb3f16451d4a8de8b775",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "82c91e575c43f2f62b8674b7a71a2b1188f3123c10cd1e48051bd767b1b4a971",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "934a18773454926af3fdde441e1d93ef7255fc21af52453aad6616256397f529"
+    },
+    {
+      "id": "R08-crop-full",
+      "inputHash": "04ea957e283f62e77e1b072d4995aa281bc96393be99616c30cfb3e1f53e5bf5",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "a512aa1abf02916c5408b39b0ce63689101a235eef405cafdd983e64fcbe0307",
+        "Pose and Composition": "5a9e9a05c9d362f691802da4b826a5ab9d6dfda025c62d2242f0497acfa1977a",
+        "Scene": "8226741422e020f4d4cf6faf96c9d37edc23e61a81c5e22b03b7841896f263d2",
+        "Lighting": "82c91e575c43f2f62b8674b7a71a2b1188f3123c10cd1e48051bd767b1b4a971",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "5686818e7d82cd63f142277264cf541b812d36ff3cf1b6c96c34a53f9b4a07cc"
+    },
+    {
+      "id": "R08-crop-cowboy",
+      "inputHash": "2c571e4a7362c6e1c2228d920bb21eb93a1482ebf1228746e4ff2a3ce832084a",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "bd1d4e861233efd714cab4cf7e7e98f1384871e33ba56ba1c954f18280d681c9",
+        "Pose and Composition": "5a9e9a05c9d362f691802da4b826a5ab9d6dfda025c62d2242f0497acfa1977a",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "82c91e575c43f2f62b8674b7a71a2b1188f3123c10cd1e48051bd767b1b4a971",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "2177c8442a59a522620ada296cc3fecda4bacb0a14ae88f9d75842d708a608b9"
+    },
+    {
+      "id": "R08-crop-medium",
+      "inputHash": "3575df6f44f3ffc387d87ef821cbeccfa400687c277e9b28a7b06d77bb9ffab8",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "9913cc0a5acb44350894925ef45bd9048f5b38ab0ddc916783ea35c4782bd1db",
+        "Pose and Composition": "5a9e9a05c9d362f691802da4b826a5ab9d6dfda025c62d2242f0497acfa1977a",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "82c91e575c43f2f62b8674b7a71a2b1188f3123c10cd1e48051bd767b1b4a971",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "b6c9c824112bdc26f5764ad46dadf6e6c5bc2788fba5b4d89d1c4aa4512a2f46"
+    },
+    {
+      "id": "R08-crop-chest",
+      "inputHash": "f1dbb8dd95702478fcd76670e3ee4059cfa4ab0aee22f609c714c2f7bba4dd59",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "83d437230087ede85172b45ead5c224487a9565b7310addc0aa8d987b17e84cd",
+        "Pose and Composition": "dbdea1fa1dfdf4bf5a7cda5f531a913dc0b14e09180a59048700496224df8bc3",
+        "Scene": "253d110380b8ba1aa45fb83b319b9265a949d2a7742f63db1785c9603932d928",
+        "Lighting": "82c91e575c43f2f62b8674b7a71a2b1188f3123c10cd1e48051bd767b1b4a971",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "3cfd95983ef867cf3df786576ab4bdda3f0f6a35bd32b99815a4161b0b3faa0b"
+    },
+    {
+      "id": "R08-crop-head",
+      "inputHash": "b31e916a36508b3d2123d986266da65f7f879f2bd546afc41dcb626620398cf0",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "4221959deefd1d63c858380da5811968f41fa62adaa527c7a6ef8b57078ec2db",
+        "Pose and Composition": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Scene": "253d110380b8ba1aa45fb83b319b9265a949d2a7742f63db1785c9603932d928",
+        "Lighting": "82c91e575c43f2f62b8674b7a71a2b1188f3123c10cd1e48051bd767b1b4a971",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "5a622b457764c7c4ee4e6dd5fb7e98f0194f13ca41181045101fce397fcbb350"
+    },
+    {
+      "id": "R08-crop-face",
+      "inputHash": "7d4aa1d4a6cddf79848434a436837d1c8f9fb002fb534c6c9dc8b549980a37e1",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "06c41edd3eac6904b51c30965e832c2d07148650e716b28cbac2fbfb235dc64c",
+        "Pose and Composition": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Scene": "253d110380b8ba1aa45fb83b319b9265a949d2a7742f63db1785c9603932d928",
+        "Lighting": "3208e61fc791d64d4866083605e977f53fcd1413a8c0d68ba1f3605967507ed3",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "b5cdec27b028307d5578163e4c9329ac283ab66708b46ae882a4ba89653e945b"
+    },
+    {
+      "id": "R09-orbit-front",
+      "inputHash": "4d7955ff7f2b2aaffeb53f143e9922249339158a235edf32d82116b3380ea1bd",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "c8e67463fa5a5df5a03faa6c80a01c83c321595da77fa265ed3a666ddc862629",
+        "Pose and Composition": "6d3717eaf78948649bcbc49c99f37bc690cdaeb4f37317ed270ca52b0d8a71b2",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "3208e61fc791d64d4866083605e977f53fcd1413a8c0d68ba1f3605967507ed3",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "6f79f72f4a0d45ffa524b8b50c85608cb90c235a390170e07ed482f98b50f8d0"
+    },
+    {
+      "id": "R09-orbit-left",
+      "inputHash": "c2e7d5d747ca576c2c8d49c502f838fdbe7655a300cec36a280a0f262e3c0a43",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "c811776a043b2b496832baebc1b0d0768e02db23b4d9e41323f12204a8a81fff",
+        "Pose and Composition": "6d3717eaf78948649bcbc49c99f37bc690cdaeb4f37317ed270ca52b0d8a71b2",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "3208e61fc791d64d4866083605e977f53fcd1413a8c0d68ba1f3605967507ed3",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "37e16be91950e42bf7f1221782eba53e3fec3d5d2599394040c809cd78923cc9"
+    },
+    {
+      "id": "R09-orbit-right",
+      "inputHash": "4352832b446e62e8b9732ddc22cd39a24d73206fda1b50c626d2c2ad77486455",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "ef525e7fe9bf5d08005f3ea395a3c57ea0be1d43d4d0bdc1e21823b3c8ec83d5",
+        "Pose and Composition": "6d3717eaf78948649bcbc49c99f37bc690cdaeb4f37317ed270ca52b0d8a71b2",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "3208e61fc791d64d4866083605e977f53fcd1413a8c0d68ba1f3605967507ed3",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "c2d92a24ed3bc7b3fa99aa691bdd8f21d06970b68e252ecacb67f5e00bd7345a"
+    },
+    {
+      "id": "R09-orbit-rear",
+      "inputHash": "530a5a615d776e4864189e52240a9778e532bde411e2ee60336b55380cca834a",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "be7bf152386b160ceb6096f2a1239ec60a8922cdbabc04e720971185b24cea4e",
+        "Pose and Composition": "6d3717eaf78948649bcbc49c99f37bc690cdaeb4f37317ed270ca52b0d8a71b2",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "3208e61fc791d64d4866083605e977f53fcd1413a8c0d68ba1f3605967507ed3",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "661b3cf062633d0c049b7e1566acb839edc2213a3844874b259ccfea8d95d34d"
+    },
+    {
+      "id": "R09-half-face",
+      "inputHash": "10933f9d0241042824eb304da173ef2068c89066396285519b1f505cb163130e",
+      "randomDraws": 2,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "577617f1f19e6781fe72f32e1272239735a5072f8bde17a01760ed15076781ee",
+        "Pose and Composition": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Scene": "253d110380b8ba1aa45fb83b319b9265a949d2a7742f63db1785c9603932d928",
+        "Lighting": "3208e61fc791d64d4866083605e977f53fcd1413a8c0d68ba1f3605967507ed3",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "2b72fcc7c55e223384c22453ff19a63c55ae3dd94236c8f81283ae651bc43536"
+    },
+    {
+      "id": "R10-palm-occlusion",
+      "inputHash": "2002507d2cb7da5948ffb42d637cba115b2e897ef3b8236d1fd03d2e71b8e10d",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "5c5c3e8388ccb6a8c20ba6ad2068f5e7a111021a770a4ded989f41fc10b0019f",
+        "Pose and Composition": "afc9a6715ca326fe3f7d780a16d7f2cc4597fd20fdfdba5d63e20ca0e73628d1",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "3208e61fc791d64d4866083605e977f53fcd1413a8c0d68ba1f3605967507ed3",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "a742023ef5366f6e88b8fcee54e6c36e1cae65b9212a389777cf7339e64a98d0"
+    },
+    {
+      "id": "R11-shirt-shoulder-1",
+      "inputHash": "a4d1df439ce454c78aeb410387e24ac43e0ac947407518906d5fcc7be9f9b062",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "45f4799da89a248d426c6d1b82b115918f6196c8775d6960477c1ec4ce1db0a7",
+        "Pose and Composition": "6d3717eaf78948649bcbc49c99f37bc690cdaeb4f37317ed270ca52b0d8a71b2",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "3208e61fc791d64d4866083605e977f53fcd1413a8c0d68ba1f3605967507ed3",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "d5ecbbfd8990f1cead643f1554caac604a1bd1994a34cbce4d104e689c2fbbaa"
+    },
+    {
+      "id": "R11-shirt-shoulder-2",
+      "inputHash": "2a87681571669c8ed4d50d0b49d774ce9cd541e083b6b22e5d431f08db999064",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "45f4799da89a248d426c6d1b82b115918f6196c8775d6960477c1ec4ce1db0a7",
+        "Pose and Composition": "6d3717eaf78948649bcbc49c99f37bc690cdaeb4f37317ed270ca52b0d8a71b2",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "3208e61fc791d64d4866083605e977f53fcd1413a8c0d68ba1f3605967507ed3",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "d90a928a038760781634a5a41f32f36b7a2c8ac77956d77042c2d9b69d1e90d1"
+    },
+    {
+      "id": "R11-dress",
+      "inputHash": "02cb11150e75df3d488bf84f81b07b105fd51c2186d7d3950002da30edcca912",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "45f4799da89a248d426c6d1b82b115918f6196c8775d6960477c1ec4ce1db0a7",
+        "Pose and Composition": "6d3717eaf78948649bcbc49c99f37bc690cdaeb4f37317ed270ca52b0d8a71b2",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "3208e61fc791d64d4866083605e977f53fcd1413a8c0d68ba1f3605967507ed3",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "5ef1ff48ebc79b6e0eb0a6004a42fab7875dc91f479252682598526bd9c491b9"
+    },
+    {
+      "id": "R11-complete-look",
+      "inputHash": "62a51638c15ea27ee4fc569ade61ba3c1d67eef60ce2736fc8ba6704a76cbfdd",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "45f4799da89a248d426c6d1b82b115918f6196c8775d6960477c1ec4ce1db0a7",
+        "Pose and Composition": "6d3717eaf78948649bcbc49c99f37bc690cdaeb4f37317ed270ca52b0d8a71b2",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "3208e61fc791d64d4866083605e977f53fcd1413a8c0d68ba1f3605967507ed3",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "db90716fb218f34f6739ce6a163f0bbdf1322b1f109381a68b99bce605298bd1"
+    },
+    {
+      "id": "R11-waist-chain",
+      "inputHash": "213f43a3a8e70d76339fbb2d2744d9d822cbd262583c929eceb4826b10d34831",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "45f4799da89a248d426c6d1b82b115918f6196c8775d6960477c1ec4ce1db0a7",
+        "Pose and Composition": "6d3717eaf78948649bcbc49c99f37bc690cdaeb4f37317ed270ca52b0d8a71b2",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "3208e61fc791d64d4866083605e977f53fcd1413a8c0d68ba1f3605967507ed3",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "7230941d1ec1bac73b94fd2be2ce37e4feba82774d534d4950250920d98b8440"
+    },
+    {
+      "id": "R12-scene-indoor",
+      "inputHash": "b4cecdaaf588132350d6ac87747d40bc37642ed520e5834b7ca638b919eb9af2",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "45f4799da89a248d426c6d1b82b115918f6196c8775d6960477c1ec4ce1db0a7",
+        "Pose and Composition": "6d3717eaf78948649bcbc49c99f37bc690cdaeb4f37317ed270ca52b0d8a71b2",
+        "Scene": "7ec979964c2df8a2fb468c443bb59d0d3218edb00057a2f26d7244d1cb520a3b",
+        "Lighting": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "1c90b8d8f4eb05763975e2f932b69ba752530b31c5438687945f061f7b6453a3"
+    },
+    {
+      "id": "R12-scene-studio",
+      "inputHash": "0edbb9e2f294d46046e609870326066118d52e593f1c597b1f2885f65dcbbd0b",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "45f4799da89a248d426c6d1b82b115918f6196c8775d6960477c1ec4ce1db0a7",
+        "Pose and Composition": "6d3717eaf78948649bcbc49c99f37bc690cdaeb4f37317ed270ca52b0d8a71b2",
+        "Scene": "e144ea50a5184e952532bd2b08f4615ff2638a1a2b7741b7a550015042748cd9",
+        "Lighting": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "f98a0860b17d760651d986e225f314fd3c08633ecd758031209a88dfb6b446e6"
+    },
+    {
+      "id": "R12-scene-none",
+      "inputHash": "6819da5bde9cb7cf5a833d20615938580345a8ba5ce353d33a0a0c71236ae057",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "45f4799da89a248d426c6d1b82b115918f6196c8775d6960477c1ec4ce1db0a7",
+        "Pose and Composition": "6d3717eaf78948649bcbc49c99f37bc690cdaeb4f37317ed270ca52b0d8a71b2",
+        "Scene": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Lighting": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "7d05cb2d994fd6c68d1f6db40b486b08b716ce14fc20f358fb68e318f2b8513f"
+    },
+    {
+      "id": "R12-watercolor",
+      "inputHash": "600eb49b3713176d7ad1b9bff2f7b86c25003141c6e2fb06af3e3f028477467a",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "6a39083d22d95270267e4f70783693b433cd0b6a87d10c897605176e7e0912b7",
+        "Composition": "45f4799da89a248d426c6d1b82b115918f6196c8775d6960477c1ec4ce1db0a7",
+        "Pose and Composition": "6d3717eaf78948649bcbc49c99f37bc690cdaeb4f37317ed270ca52b0d8a71b2",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "3208e61fc791d64d4866083605e977f53fcd1413a8c0d68ba1f3605967507ed3",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "df50b7418b04a2c9271b112b6e40f57c362b9da63217dbfef951249a4adf377d"
+    },
+    {
+      "id": "R13-optics",
+      "inputHash": "dd351d26f05f851c0a8236bf43fcd539e57c4e4a39007fefa485fc5d33088d95",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "45f4799da89a248d426c6d1b82b115918f6196c8775d6960477c1ec4ce1db0a7",
+        "Pose and Composition": "6d3717eaf78948649bcbc49c99f37bc690cdaeb4f37317ed270ca52b0d8a71b2",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "3208e61fc791d64d4866083605e977f53fcd1413a8c0d68ba1f3605967507ed3",
+        "Camera Look": "a6d16f1d4d56da97994aaf8c863bcc2a0d2451d75106cb48c419b588959dc6e9"
+      },
+      "selectionHash": "8eea8071727dfe8359cff54b753e9a34f4c002e02669c7fce609d13764270c4a"
+    },
+    {
+      "id": "R14-mj-imaging",
+      "inputHash": "a9802ff0f8530e75fae05c8b999dd23f10bf9548b7d37c26f0ddac85b1eeb615",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "45f4799da89a248d426c6d1b82b115918f6196c8775d6960477c1ec4ce1db0a7",
+        "Pose and Composition": "7724eacb230d4711b43ca144af6dc10168e6bdfb25b12550c5b2f2959b43c88d",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "3208e61fc791d64d4866083605e977f53fcd1413a8c0d68ba1f3605967507ed3",
+        "Camera Look": "09e7197e064133724c6df4ad1ed2418cf3dd311316a499a11cabb60db77d6a52"
+      },
+      "selectionHash": "c44ac5394983fede8891800dc61fe14105e66ac6d7fdd97bfe1292d382fad4bd"
+    },
+    {
+      "id": "R15-derived-isolation",
+      "inputHash": "828d7bc6c44b257bac605b85a868eb2537e3c79efd4e1945da02961a30386977",
+      "randomDraws": 1,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "06c41edd3eac6904b51c30965e832c2d07148650e716b28cbac2fbfb235dc64c",
+        "Pose and Composition": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Scene": "253d110380b8ba1aa45fb83b319b9265a949d2a7742f63db1785c9603932d928",
+        "Lighting": "3208e61fc791d64d4866083605e977f53fcd1413a8c0d68ba1f3605967507ed3",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "a97959a9698e579836f649b73e32fb15e083e418030559d670cdba2c95f71051"
+    },
+    {
+      "id": "R16-duo",
+      "inputHash": "3e85f2193bb6051f16a14888fc39bb75e37f5b09c418d5147ac1bfdcb72baea2",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "068d3a93f61f66a6890f8b4d909eaf6c25089e279244b6e90d0bb79d5a98afe7",
+        "Pose and Composition": "3ea62393e1d7ca30c0c8e6de9199ffceb4ec0f94203b57af9aae0de346624d91",
+        "Scene": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Lighting": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Camera Look": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "selectionHash": "e489177ab33eb2843f5ccbc1fbd617507d846898fcf08514276142dde93cd4ce"
+    },
+    {
+      "id": "R16-fixed",
+      "inputHash": "e8b74bfd29f50b6398072a52973f222384f0ed7edd36f2dcb0625e03a8bd3cc4",
+      "randomDraws": 4,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Pose and Composition": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Scene": "ef610a0d26e15b5871fe4ca8d12e6aaf837418168f72db54897befbd1ba01338",
+        "Lighting": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Camera Look": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "selectionHash": "e843983dce118a585228f9cda1649ed53d51b7c18f5c016282b87fd0ff96ba24"
+    },
+    {
+      "id": "R16-special",
+      "inputHash": "c0dbd304895cf580d07d1400d8b39cd6b0d1c98cc136a7084436d1e0cc0981c5",
+      "randomDraws": 1,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "45f4799da89a248d426c6d1b82b115918f6196c8775d6960477c1ec4ce1db0a7",
+        "Pose and Composition": "6d3717eaf78948649bcbc49c99f37bc690cdaeb4f37317ed270ca52b0d8a71b2",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "c6b7a1b0e085ad43b55e4fa629ccaadb5832b10b4293bedd537cc6952d555275",
+        "Camera Look": "4477ef7144841099dc77866a6f75085e1921bcb6f53dc216a407da80ccfd1f70"
+      },
+      "selectionHash": "c8977e077a2d0e904045a8a99f487fd7d5fc0a0075e230ba4032a36d5d0301d4"
+    },
+    {
+      "id": "R16-character-card",
+      "inputHash": "709163cb7cf47e4a81b56fbd4df334448df3ada707801cb48f10f9b4b121a82f",
+      "randomDraws": 1,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "068d3a93f61f66a6890f8b4d909eaf6c25089e279244b6e90d0bb79d5a98afe7",
+        "Pose and Composition": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Scene": "7ec979964c2df8a2fb468c443bb59d0d3218edb00057a2f26d7244d1cb520a3b",
+        "Lighting": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Camera Look": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "selectionHash": "b148380cd69f7dc05280eb8a5ee4cb79c84ddc6bdd3408921b9dad58a4decd8e"
+    },
+    {
+      "id": "R17-lying-bed-surface-0",
+      "inputHash": "d892e761cf378e24cc4fc3dff12a04b8bc49d0bbb8eefe6c7cd0d2dfd58ad5c4",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "2d3895397971c7697cc396931242f510c9763865f6299e2986329ce48b5c3efb",
+        "Pose and Composition": "6fcaef485bcfc2ab21091514bb0d5da456455f32536fd665d7f7dbc14484dace",
+        "Scene": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Lighting": "3dd0fa4943665d7103f5e9031697d8484acf0b3d48437ea631cfd7a06a0a78a6",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "37369a038dfc77bc78ffcbee397c39b4d6d0a381332e2f68389f8a22d311183d"
+    },
+    {
+      "id": "R17-lying-bed-surface-1",
+      "inputHash": "dfbd2ee3390e98f1694691218e2c888f04f81e5c330d33058ab3e9f717fe6c2b",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "7ee6264ef5d0de9441b612086e1d159520dbae9c0c1423243b31128625cbdc57",
+        "Pose and Composition": "a2ad5cc1cf6ec565d524e4c6e70b75e07a93f8fd005dea287547415cac22ed25",
+        "Scene": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Lighting": "3dd0fa4943665d7103f5e9031697d8484acf0b3d48437ea631cfd7a06a0a78a6",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "30320992c80364688fe54b73dba5c74872cc319f8dda95a2165fa0a93257c638"
+    },
+    {
+      "id": "R17-water-immersed-0",
+      "inputHash": "a8dde7de67b47ba019ac90346b46b8f30d835d0f432dbae79ae88645a4bc7b97",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "2d3895397971c7697cc396931242f510c9763865f6299e2986329ce48b5c3efb",
+        "Pose and Composition": "52ef2fbd52cb30eb59e2c397ea5679720fd82afab46405ad5ea7b4aea90cf0dd",
+        "Scene": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Lighting": "3dd0fa4943665d7103f5e9031697d8484acf0b3d48437ea631cfd7a06a0a78a6",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "1466e1fddfbd58e38e7c7cfc076a442d0ddb24a465542895ba2ae2b1ef6f711b"
+    },
+    {
+      "id": "R17-water-immersed-1",
+      "inputHash": "cbdc507494f3df9bab804595207b03a1c69d46393828ec2b81cf7d060f37d65c",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "13de288cfc442693032d6194e626ed6c6feee598cb24732342f9a6d54b18e02a",
+        "Pose and Composition": "e42c2b582e6a327348192882acfce88e6a722964a4cf3dc3a3ebbab700a96383",
+        "Scene": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Lighting": "3dd0fa4943665d7103f5e9031697d8484acf0b3d48437ea631cfd7a06a0a78a6",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "7b094dfc940ba456efc9ab5e725037c0c809d92162759c088a355b6e45e31e56"
+    },
+    {
+      "id": "R17-lying-clear-sea-surface-0",
+      "inputHash": "7c798b38244eb773a7a51e3291e841ff978ac50b6f0839de7584336511303100",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "2d3895397971c7697cc396931242f510c9763865f6299e2986329ce48b5c3efb",
+        "Pose and Composition": "d227c15c6c6d25e0fdf304fd73c91b19244c4c887f21df0f6a4503c7f483eb14",
+        "Scene": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Lighting": "3dd0fa4943665d7103f5e9031697d8484acf0b3d48437ea631cfd7a06a0a78a6",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "40cf347db4f2d21f45dac83c94488ff2e97c1ca0650780015c2020c369bb6d0c"
+    },
+    {
+      "id": "R17-lying-clear-sea-surface-1",
+      "inputHash": "53ed73ab2b5fc482f8ecc7d3ce97ff159773b054e8026cc3a605b604d09d05e1",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "06c41edd3eac6904b51c30965e832c2d07148650e716b28cbac2fbfb235dc64c",
+        "Pose and Composition": "7f59e829e21c87edd5efb33daa3d2456ac7637b0123195436fa86b3caf5eda85",
+        "Scene": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Lighting": "3dd0fa4943665d7103f5e9031697d8484acf0b3d48437ea631cfd7a06a0a78a6",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "cafcc2854e46818f4be29fac3160738cde7930c67568c7a04548ebf780346d05"
+    },
+    {
+      "id": "R18-exact-text-on",
+      "inputHash": "1b672be677527646c5f387dd4d70d788b383135c963661310274099106cb1fa1",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "45f4799da89a248d426c6d1b82b115918f6196c8775d6960477c1ec4ce1db0a7",
+        "Pose and Composition": "6d3717eaf78948649bcbc49c99f37bc690cdaeb4f37317ed270ca52b0d8a71b2",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "3208e61fc791d64d4866083605e977f53fcd1413a8c0d68ba1f3605967507ed3",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "f9a285bf638be553ca583a53c29674f405d2f1a15c277f020ae83c0a9e0379c9"
+    },
+    {
+      "id": "R18-exact-text-off",
+      "inputHash": "ebd9f0b9992952bb033eb05a9db104ce24131f4b0b6c02dfee83f23ec4ac7abf",
+      "randomDraws": 3,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "45f4799da89a248d426c6d1b82b115918f6196c8775d6960477c1ec4ce1db0a7",
+        "Pose and Composition": "6d3717eaf78948649bcbc49c99f37bc690cdaeb4f37317ed270ca52b0d8a71b2",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "3208e61fc791d64d4866083605e977f53fcd1413a8c0d68ba1f3605967507ed3",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "cfd6b958086b394e3cb3ad4152bb2b475ebee832ea61dd00262817fb461bcbe5"
+    },
+    {
+      "id": "R19-random-pose",
+      "inputHash": "490b2bfb0c97f7073ff4a7773be312c3eb58dd94ade34909c31f2a379d121d12",
+      "randomDraws": 8,
+      "gptSections": {
+        "Image Type": "5a93ea3ce95fc7e266cb566f6a9044285a88cfffc4350d76df648bb4fa4a04b2",
+        "Composition": "45f4799da89a248d426c6d1b82b115918f6196c8775d6960477c1ec4ce1db0a7",
+        "Pose and Composition": "0a7a1dc83a099e015c8bb7de523cf7ac295c6210a6656520f5896f5881b473c1",
+        "Scene": "05d9d6ac35418db0c254f735ef35091c3f8e3bbdd4bfe6b89775ae9b9795e12b",
+        "Lighting": "3208e61fc791d64d4866083605e977f53fcd1413a8c0d68ba1f3605967507ed3",
+        "Camera Look": "9bac18eb8db4e51e99c330789480f095fab5953b7c2dd6a636320aa1db239009"
+      },
+      "selectionHash": "1edc1ed523b1184e27c12100ecff737721860530039eae306d4d8b66b1dbc29d"
+    }
+  ],
+  "excludedSelectionKeys": {
+    "R09-half-face": [
+      "bottomPatternId",
+      "bottomRiseId",
+      "earringsId",
+      "eyewearColorId",
+      "eyewearId",
+      "eyewearPlacementId",
+      "headAccessoryId",
+      "legwearId",
+      "neckAccessoryId",
+      "outerwearId",
+      "topFitId",
+      "topPatternId"
+    ]
+  }
+}

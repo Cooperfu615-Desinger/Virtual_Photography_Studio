@@ -5077,7 +5077,7 @@ function buildCharacterCardSubjectPrompt(subject, locks = {}, context = null, wa
     ? [identityLead, structuredIdentity].filter(Boolean).join(' with ')
     : groups.identityAndBody;
   if (!shouldImportCharacterCardWardrobeLayers(locks)) {
-    if (isCompleteWardrobeProjection(getCompositionVisibilityProjection(context))) {
+    if (isCompleteCompositionProjection(getCompositionVisibilityProjection(context))) {
       return [subject.en, identityAnchors, hairVariantText].filter(Boolean).join(', ');
     }
     return [
@@ -7639,7 +7639,7 @@ function buildWardrobe(context, locks, catalog) {
         : Boolean(dressPiece && !isNoneLikeItem(dressPiece)));
   hasBottomPiece = useDuoRoleWardrobe ? hasRoleBottomPiece : hasBottomPiece;
 
-  if (visibility === 'close') {
+  if (visibility === 'close' && !['半臉傾斜特寫', '全臉傾斜特寫'].includes(context.framing?.zh)) {
     // Resolve explicit new short fits before the close-up early return so the
     // uncropped full-body derivative still receives the same garment source.
     if (!useDuoRoleWardrobe && hasTopPiece && !hasDressPiece && !hasOutfitPresetPiece
@@ -9199,10 +9199,20 @@ function getCompositionVisibilityProjection(context) {
   });
 }
 
-function isCompleteWardrobeProjection(projection) {
+// Wardrobe is a resolved outfit context; its retention must not widen the
+// independently projected pose, body, camera or scene.
+function retainResolvedWardrobe(projection) {
+  return { ...projection, wardrobe: { ...COMPOSITION_VISIBILITY_CONTRACT.fullBody.wardrobe, retainResolved: true } };
+}
+
+function isCompleteCompositionProjection(projection) {
   return projection?.bucket === COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED
     || projection?.bucket === COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION
     || projection?.bucket === COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY;
+}
+
+function isCompleteWardrobeProjection(projection) {
+  return projection?.wardrobe?.retainResolved === true || isCompleteCompositionProjection(projection);
 }
 
 function shouldHideWardrobeSectionForProjection(projection) {
@@ -9307,7 +9317,7 @@ function projectDressIdentityFragment(fragment, projection) {
 }
 
 function projectBottomIdentityFragment(fragment, projection) {
-  if (!fragment || projection?.bucket !== COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST) return fragment;
+  if (!fragment || projection?.wardrobe?.retainResolved || projection?.bucket !== COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST) return fragment;
   const normalized = stripMarkdown(fragment).replace(/\s+/g, ' ').trim();
   if (!normalized || /\b(?:lower crop edge|lower edge of the crop)\b/i.test(normalized)) return normalized;
   return `${normalized} at the lower crop edge`;
@@ -10331,7 +10341,9 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
   const importedWorldSceneArchitectureText = projectedScene.worldSceneText;
   const compositionVisibilityProjection = getCompositionVisibilityProjection(context);
   const hideWardrobeForFaceDetail = shouldHideWardrobeSectionForProjection(compositionVisibilityProjection);
-  const usesPartialWardrobeProjection = !isCompleteWardrobeProjection(compositionVisibilityProjection);
+  // Framing still controls presentation and layering; retaining garment sources
+  // must not activate full-body-only coordination text in a cropped image.
+  const usesPartialWardrobeProjection = !isCompleteCompositionProjection(compositionVisibilityProjection);
   const projectWardrobeRole = (role, value) => {
     if (!value || !shouldProjectWardrobeRole(compositionVisibilityProjection, role, value)) return '';
     return role === 'bottom'
@@ -13130,7 +13142,8 @@ function buildFixedFramingDerivedPromptModel({
   film,
 }) {
   const baseDerivedContext = createFixedFramingDerivedContext(sourceContext, preset);
-  wardrobe = projectUnderbustTopFit(projectClosedOuterwearWardrobe(projectOuterwearStyling(projectTopHemOverlap(projectAudioForFraming(wardrobe, baseDerivedContext), baseDerivedContext), getCompositionVisibilityProjection(baseDerivedContext))), getCompositionVisibilityProjection(baseDerivedContext));
+  if (preset.id === 'chest-up-portrait') baseDerivedContext.compositionVisibility = retainResolvedWardrobe(baseDerivedContext.compositionVisibility);
+  wardrobe = projectUnderbustTopFit(projectClosedOuterwearWardrobe(projectOuterwearStyling(projectTopHemOverlap(baseDerivedContext.compositionVisibility.wardrobe.retainResolved ? wardrobe : projectAudioForFraming(wardrobe, baseDerivedContext), baseDerivedContext), getCompositionVisibilityProjection(baseDerivedContext))), getCompositionVisibilityProjection(baseDerivedContext));
 
   if (!preset.projectResolvedSources) {
     const projectedCharacter = projectBodyTypeCharacter(character, baseDerivedContext, wardrobe);
@@ -15911,7 +15924,7 @@ function renderAiPrompt(promptModel, {
     wardrobeColorSource,
     { compact: true },
   );
-  const sceneReductions = isCompleteWardrobeProjection(getCompositionVisibilityProjection(sceneContext))
+  const sceneReductions = isCompleteCompositionProjection(getCompositionVisibilityProjection(sceneContext))
     && policyKey !== 'characterCard'
     ? []
     : [compactSceneText];
@@ -16195,7 +16208,8 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     projectedScene: buildProjectedScene(rendererContext),
   };
   const projectedCharacter = projectBodyTypeCharacter(character, mainContext);
-  const rendererWardrobe = projectUnderbustTopFit(projectClosedOuterwearWardrobe(projectOuterwearStyling(projectTopHemOverlap(projectAudioForFraming(fixedCompositionPromptProjection?.wardrobe.items || wardrobe, mainContext), mainContext), getCompositionVisibilityProjection(mainContext))), getCompositionVisibilityProjection(mainContext));
+  const wardrobeSource = fixedCompositionPromptProjection?.wardrobe.items || wardrobe;
+  const rendererWardrobe = projectUnderbustTopFit(projectClosedOuterwearWardrobe(projectOuterwearStyling(projectTopHemOverlap(compositionVisibility.wardrobe.retainResolved ? wardrobeSource : projectAudioForFraming(wardrobeSource, mainContext), mainContext), getCompositionVisibilityProjection(mainContext))), getCompositionVisibilityProjection(mainContext));
   const rendererWardrobeColors = fixedCompositionPromptProjection?.wardrobe.colors || wardrobeColors;
   const promptModel = {
     ...buildStructuredPromptSections(mainContext, projectedCharacter, rendererWardrobe, rendererWardrobeColors, lightDirection, film),
@@ -16824,9 +16838,12 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
   const fixedSetPerformanceState = fixedCompositionSet
     ? getFixedSetPerformanceStateOption(effectiveLocks.fixedSetPerformanceStateId)
     : getFixedSetPerformanceStateOption(supineSurfaceOnly ? 'none' : 'model-natural');
-  const compositionVisibility = createCompositionVisibilityProjection(framing, {
+  let compositionVisibility = createCompositionVisibilityProjection(framing, {
     fixedCompositionActive: Boolean(fixedCompositionSet) && !fixedSetAllowsFramingVariation(fixedCompositionSet),
   });
+  if (['半臉傾斜特寫', '全臉傾斜特寫', '頭部主導近景', '中景鏡頭 (Medium Shot)', '牛仔中景 (Cowboy Shot)', '全身鏡頭 (Full Body Shot)'].includes(framing?.zh)) {
+    compositionVisibility = retainResolvedWardrobe(compositionVisibility);
+  }
   const context = {
     headDominantSuppressedAngleId: suppressHeadDominantAngle ? effectiveLocks.angleId : '',
     subject,

@@ -4,7 +4,9 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { Z_IMAGE_ON_LOCATION_FIXTURES as fixtures } from './zImageOnLocationFixtures.js';
-import { digest, runSceneFixture, materializeSceneFixture, PRE_HOURGLASS_BODY_CATALOG, assertZImagePoseProjection } from './sceneIntegratedAssemblyTestSupport.js';
+import { digest, runSceneFixture, materializeSceneFixture, PRE_HOURGLASS_BODY_CATALOG, assertZImagePoseProjection, restoreBaselineSelection } from './sceneIntegratedAssemblyTestSupport.js';
+import { restoreSceneWardrobeBeforeRevision } from './framingWardrobeSceneInverse.js';
+import framingWardrobeBaseline from './framingWardrobePrechangeBaseline.json' with { type: 'json' };
 import { normalizeZImageOnLocationForLegacy } from './zImageOnLocationTestSupport.js';
 import { buildZImageOnLocationCapture } from './zImageOnLocationCapture.js';
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
@@ -13,9 +15,19 @@ import { polishPublicPromptText } from './publicPromptPolish.js';
 import { restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
 
 const baseline = JSON.parse(readFileSync(new URL('./zImageOnLocationBaseline.json', import.meta.url), 'utf8'));
+const sceneBaseline = JSON.parse(readFileSync(new URL('./sceneIntegratedAssemblyBaseline.json', import.meta.url), 'utf8'));
 const runFrozenFixture = (fixture) => runSceneFixture(fixture, PRE_HOURGLASS_BODY_CATALOG);
 const results = new Map(fixtures.map((f) => [f.id, runFrozenFixture(f)]));
 const get = (id) => results.get(id);
+
+// Reconstruct the independently captured pre-retention outputs only for the
+// frozen historical assertions; current outputs are still checked separately.
+function historicalWardrobeOutputs(outputs, id) {
+  if (id.startsWith('historical-')) return restoreSceneWardrobeBeforeRevision(outputs, id.slice('historical-'.length));
+  const added = ' Ultra-low-rise waistband sitting very low on the hips, low-rise dolphin micro shorts, contrast piping, contrast elastic waistband, front drawstring, side lace-up grommet detail, compact athletic hot-pants silhouette.';
+  assert.equal(outputs.chestUpPortraitPrompt.split(added).length - 1, 1, `${id}: exact retained chest wardrobe`);
+  return { ...outputs, chestUpPortraitPrompt: outputs.chestUpPortraitPrompt.replace(added, '') };
+}
 
 test('capture helper joins only supplied sources without changing or inventing them', () => {
   assert.equal(buildZImageOnLocationCapture(), '');
@@ -39,16 +51,24 @@ for (const fixture of fixtures) test(`main-Z-only source relocation: ${fixture.i
   const rawLocks = materializeSceneFixture(fixture);
   // This frozen fixture predates the category-only mirror migration. Reverse
   // only its old hand/empty-prop input for the hash; all output gates stay exact.
-  const historicalSelection = rawLocks.poseHandId === 'selfie-mirror-phone-visible' && rawLocks.posePropId === 'none'
+  let historicalSelection = rawLocks.poseHandId === 'selfie-mirror-phone-visible' && rawLocks.posePropId === 'none'
     && current.selection.poseHandId === 'none' && current.selection.posePropId === 'selfie-mirror-phone-visible'
     ? { ...current.selection, poseHandId: 'selfie-mirror-phone-visible', posePropId: 'none' }
     : current.selection;
-  assert.equal(digest(historicalSelection), before.selectionHash, 'selections unchanged except exact mirror category migration');
+  if (fixture.id === 'historical-R09-half-face') {
+    const old = restoreBaselineSelection(sceneBaseline, sceneBaseline.cases['R09-half-face']);
+    const currentOther = { ...historicalSelection };
+    const oldOther = { ...old };
+    for (const key of framingWardrobeBaseline.excludedSelectionKeys['R09-half-face']) { delete currentOther[key]; delete oldOther[key]; }
+    assert.deepEqual(currentOther, oldOther, 'all unrelated selections remain unchanged');
+    historicalSelection = old;
+  }
+  assert.equal(digest(historicalSelection), before.selectionHash, 'selections unchanged except exact mirror and wardrobe resolution changes');
   assert.equal(current.inputHash, before.inputHash);
-  assert.equal(current.randomDraws, before.randomDraws);
+  assert.equal(current.randomDraws, fixture.id === 'historical-R09-half-face' ? 4 : before.randomDraws);
   assert.deepEqual(runFrozenFixture(fixture).outputs, current.outputs, 'same seed');
   // Reverse only the exact approved ethnicity, squat and open-palm wording for frozen baselines.
-  for (const [field, text] of Object.entries(current.outputs)) {
+  for (const [field, text] of Object.entries(historicalWardrobeOutputs(current.outputs, fixture.id))) {
     const value = restorePreSquattingV2(restorePreEthnicityText(restorePreOpenPalmV2(text), field));
     if (field === 'zImagePrompt') {
       assert.equal(normalizeZImageOnLocationForLegacy(value), before.zImagePrompt,
@@ -86,7 +106,7 @@ test('fixed carriage keeps preset takeover, window/camera layout and one ambient
 
 test('none and excluded paths do not acquire a fictitious capture or ambient source', () => {
   for (const id of ['no-scene', 'no-pose', ...fixtures.filter((f) => f.excluded).map((f) => f.id)]) {
-    assert.equal(restorePreEthnicityText(get(id).outputs.zImagePrompt, 'zImagePrompt'), baseline.cases[id].zImagePrompt, id);
+    assert.equal(restorePreEthnicityText(historicalWardrobeOutputs(get(id).outputs, id).zImagePrompt, 'zImagePrompt'), baseline.cases[id].zImagePrompt, id);
   }
   for (const id of ['no-lights', 'subject-light-only']) assert.doesNotMatch(get(id).outputs.zImagePrompt, /within the scene's ambient light/);
   assert.doesNotMatch(get('no-lights').outputs.zImagePrompt.split('\n\n')[1], /golden-amber|daylight|scene's ambient/);

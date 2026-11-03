@@ -30,12 +30,10 @@ const PHASE_THREE_WARDROBE_EXPECTATIONS = Object.freeze({
     excludes: ['straight-leg jeans', 'ribbed ankle socks', 'pointed-toe stiletto heels'],
   },
   'medium-dress-visible-identity': {
-    includes: ['off-white off-shoulder gothic dress'],
-    excludes: ['short hem'],
+    includes: ['off-white off-shoulder gothic mini dress', 'short hem'],
   },
   'cowboy-conditional-thigh-highs': {
-    includes: ['cotton camisole', 'pleated mini skirt', 'lace-top thigh-high stockings'],
-    excludes: ['stiletto pumps'],
+    includes: ['cotton camisole', 'pleated mini skirt', 'lace-top thigh-high stockings', 'stiletto pumps'],
   },
   'chest-up-outfit-preset': {
     includes: ['cropped sheer fitted tank top', 'strapless lace bra layer'],
@@ -46,8 +44,8 @@ const PHASE_THREE_WARDROBE_EXPECTATIONS = Object.freeze({
     excludes: ['ankle-length', 'black soft shoulder tote', 'black lace-up leather shoes'],
   },
   'medium-duo-role-visibility': {
-    includes: ['cotton camisole', 'straight-leg jeans', 'denim jacket', 'shirt', 'tailored trousers', 'blazer'],
-    excludes: ['ribbed ankle socks', 'low-top sneakers', 'knee-high socks', 'loafers'],
+    includes: ['cotton camisole', 'straight-leg jeans', 'denim jacket', 'shirt', 'tailored trousers', 'blazer',
+      'ribbed ankle socks', 'low-top sneakers', 'knee-high socks', 'loafers'],
   },
 });
 

@@ -1,4 +1,5 @@
 import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
+import { restoreMatrixBeforeWardrobeRetention } from './framingWardrobeMatrixInverse.js';
 import assert from 'node:assert/strict';
 import { normalizeGptVisibilityForLegacy } from './gptSceneVisibilityTestSupport.js';
 import { normalizeCloseWormForLegacy } from './closeWormEyeTestSupport.js';
@@ -49,7 +50,8 @@ test('930 frozen cases permit only the 14 authored additions in eligible main Z 
   const baseline = JSON.parse(readFileSync(new URL('./zImageUpperSceneExtensionBaseline.json', import.meta.url), 'utf8'));
   const results = UPPER_SCENE_EXTENSION_REGRESSION.map(runSceneFixture);
   assert.equal(results.length, baseline.count);
-  const normalized = results.map((r, i) => {
+  const historicalResults = restoreMatrixBeforeWardrobeRetention('upperExtension', UPPER_SCENE_EXTENSION_REGRESSION, results);
+  const normalized = historicalResults.map((r, i) => {
     const row = UPPER_SCENE_EXTENSION_REGRESSION[i];
     const addition = UPPER_SCENE_EXTENSION_CASES.find(([label]) => label === row.locks.locationId?.byZh)?.[1];
     const eligible = i < UPPER_SCENE_EXTENSION_MATRIX.length && LOW_CAMERA_LABELS.includes(angles.find(a => a.id === r.selection.angleId)?.zh);
@@ -69,10 +71,10 @@ test('930 frozen cases permit only the 14 authored additions in eligible main Z 
     for (const field of OUTPUT_FIELDS) outputs[field] = normalizeSubjectLightForLegacy(normalizeExplicitWardrobeFitForLegacy(outputs[field], field));
     return outputs;
   });
-  assertChestUpRevision('upperExtension', results);
+  assertChestUpRevision('upperExtension', historicalResults);
   for (const field of PROTECTED_OUTPUT_FIELDS) assert.equal(digest(normalized.map(o => o[field])), baseline.hashes[field], field);
-  assert.equal(digest(results.map(r => r.selection)), baseline.selectionHash);
-  assert.equal(digest(results.map(r => r.randomDraws)), baseline.randomHash);
+  assert.equal(digest(historicalResults.map(r => r.selection)), baseline.selectionHash);
+  assert.equal(digest(historicalResults.map(r => r.randomDraws)), baseline.randomHash);
 });
 
 test('all 14 additions preserve saved selections and exported text; legacy Markdown scene inference is unchanged', () => {

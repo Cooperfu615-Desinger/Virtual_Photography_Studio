@@ -13,6 +13,7 @@ import { polishPublicPromptText } from './publicPromptPolish.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
 import { restorePreEthnicityOutputs, restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
+import wardrobeInverse from './framingWardrobeUpperSceneInverse.json' with { type: 'json' };
 
 const baseline = JSON.parse(readFileSync(new URL('./zImageUpperSceneBaseline.json', import.meta.url), 'utf8'));
 const controls = getLockControls();
@@ -20,6 +21,26 @@ const locations = controls.find((c) => c.key === 'locationId').options;
 const angles = controls.find((c) => c.key === 'angleId').options;
 const rows = [...UPPER_SCENE_MATRIX, ...UPPER_SCENE_EXCLUDED, ...UPPER_SCENE_CONTROLS];
 const results = rows.map(runSceneFixture);
+
+function beforeWardrobeRetention(result, fixtureId) {
+  const change = wardrobeInverse.cases[fixtureId];
+  if (!change) return result;
+  const outputs = { ...result.outputs };
+  const selection = { ...result.selection };
+  for (const [field, patternIndex] of Object.entries(change.outputs || {})) {
+    const { before, after } = wardrobeInverse.patterns[patternIndex];
+    assert.equal(outputs[field].split(after).length - 1, 1, `${fixtureId}/${field}: exact wardrobe change`);
+    outputs[field] = outputs[field].replace(after, before);
+  }
+  if (change.selectionGroup !== undefined) {
+    for (const [key, { before, after }] of Object.entries(wardrobeInverse.selectionGroups[change.selectionGroup])) {
+      assert.equal(selection[key], after, `${fixtureId}/${key}: resolved wardrobe choice`);
+      selection[key] = before;
+    }
+  }
+  if (change.draws) assert.equal(result.randomDraws, change.draws.after, `${fixtureId}: wardrobe draws`);
+  return { ...result, outputs, selection, randomDraws: change.draws?.before ?? result.randomDraws };
+}
 
 test('original four approved sources retain their catalog IDs, identities and wording', () => {
   for (const [label, text] of UPPER_SCENE_CASES) {
@@ -53,9 +74,13 @@ test('four user-accepted waist-up B prompts match the test pack verbatim', () =>
   const doc = readFileSync(new URL('../../../../Docs/specs/z-image-upper-scene-v2-test-prompts.md', import.meta.url), 'utf8');
   const prompts = [...doc.matchAll(/```text\n([\s\S]*?)\n```/g)].map((m) => m[1]);
   for (const [index, [label]] of UPPER_SCENE_CASES.entries()) {
+    const current = runSceneFixture(upperSceneFixture(label, '腰部高度鏡頭')).outputs.zImagePrompt;
+    const retained = 'cool fashion attitude, bare feet, natural barefoot state';
+    assert.equal(current.split(retained).length - 1, 1, `${label}: retained footwear source`);
+    const beforeWardrobeRetention = current.replace(retained, 'cool fashion attitude at the lower crop edge');
     // The test pack predates the 2026-10-14 ethnicity revision; reverse only that rollout.
     assert.equal(normalizeExplicitWardrobeFitForLegacy(
-      restorePreEthnicityText(runSceneFixture(upperSceneFixture(label, '腰部高度鏡頭')).outputs.zImagePrompt, 'zImagePrompt'),
+      restorePreEthnicityText(beforeWardrobeRetention, 'zImagePrompt'),
       'zImagePrompt',
     ), polishPublicPromptText(prompts[index * 2 + 1]));
   }
@@ -63,7 +88,8 @@ test('four user-accepted waist-up B prompts match the test pack verbatim', () =>
 
 test('230-case pre-change baseline: only approved low-camera main Z scene clauses change', () => {
   assert.equal(results.length, baseline.count);
-  const normalized = results.map((result, index) => {
+  const historicalResults = results.map((result, index) => beforeWardrobeRetention(result, rows[index].id));
+  const normalized = historicalResults.map((result, index) => {
     const angle = angles.find((a) => a.id === result.selection.angleId);
     const eligible = index < UPPER_SCENE_MATRIX.length && LOW_CAMERA_LABELS.includes(angle?.zh);
     // The baseline predates the 2026-10-14 ethnicity revision; reverse only that rollout.
@@ -80,8 +106,8 @@ test('230-case pre-change baseline: only approved low-camera main Z scene clause
     for (const field of OUTPUT_FIELDS) outputs[field] = normalizeSubjectLightForLegacy(normalizeExplicitWardrobeFitForLegacy(outputs[field], field));
     return outputs;
   });
-  assertChestUpRevision('upperScene', results);
+  assertChestUpRevision('upperScene', historicalResults);
   for (const field of PROTECTED_OUTPUT_FIELDS) assert.equal(digest(normalized.map((o) => o[field])), baseline.hashes[field], field);
-  assert.equal(digest(results.map((r) => r.selection)), baseline.selectionHash);
-  assert.equal(digest(results.map((r) => r.randomDraws)), baseline.randomHash);
+  assert.equal(digest(historicalResults.map((r) => r.selection)), baseline.selectionHash);
+  assert.equal(digest(historicalResults.map((r) => r.randomDraws)), baseline.randomHash);
 });

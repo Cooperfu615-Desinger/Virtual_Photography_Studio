@@ -201,7 +201,7 @@ test('full-body character prompt keeps complete separate wardrobe regardless of 
   assert.doesNotMatch(fullBodyPrompt, /multi-cut sequence n=2/);
 });
 
-test('full-body character prompt restores bags and footwear removed from cropped special-outfit prompts', () => {
+test('cropped and full-body prompts retain special-outfit bags and footwear', () => {
   const [prompt] = generatePrompts(1, {
     ...createAllNoneLocks(),
     subjectCount: '1',
@@ -210,7 +210,8 @@ test('full-body character prompt restores bags and footwear removed from cropped
   });
   const fullBodyPrompt = extraPromptById(prompt, 'full-body-character');
 
-  assert.doesNotMatch(gptSection(prompt, 'Wardrobe'), /black soft shoulder tote|black lace-up leather shoes/i);
+  assert.match(gptSection(prompt, 'Wardrobe'), /black soft shoulder tote/i);
+  assert.match(gptSection(prompt, 'Wardrobe'), /black lace-up leather shoes/i);
   assert.match(fullBodyPrompt, /black soft shoulder tote/i);
   assert.match(fullBodyPrompt, /black lace-up leather shoes/i);
 });

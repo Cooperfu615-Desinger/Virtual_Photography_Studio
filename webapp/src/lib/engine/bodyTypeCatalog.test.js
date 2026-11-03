@@ -129,7 +129,34 @@ test('60 pre-change body/framing cases keep every non-body output byte and selec
     });
     // The frozen hash predates the 2026-10-14 ethnicity revision; reverse only that rollout (no main MJ here).
     const historical = six(normalizeLegacyBodyPrompt(p)).map(text => restorePreEthnicityText(text, 'six'));
+    // The 60 cases were compared against an independent pre-retention engine.
+    // Undo only their exact jeans additions / former medium-crop edge wording.
+    const fullJeans = ' Straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction.';
+    assert.equal(historical[2].split(fullJeans).length - 1, 1, 'chest retains selected jeans');
+    historical[2] = historical[2].replace(fullJeans, '');
+    if (['半臉傾斜特寫', '全臉傾斜特寫'].includes(entry.framing)) {
+      assert.equal(historical[0].split(fullJeans).length - 1, 1);
+      historical[0] = historical[0].replace(fullJeans, '');
+      const compactJeans = ', straight-leg jeans, clean denim texture';
+      assert.equal(historical[1].split(compactJeans).length - 1, 1);
+      historical[1] = historical[1].replace(compactJeans, '');
+    }
+    if (entry.framing === '中景鏡頭 (Medium Shot)') {
+      const jeans = 'classic five-pocket construction.';
+      const compactJeans = 'straight-leg jeans, clean denim texture.';
+      assert.equal(historical[0].split(jeans).length - 1, 1);
+      assert.equal(historical[1].split(compactJeans).length - 1, 1);
+      historical[0] = historical[0].replace(jeans, 'classic five-pocket construction at the lower crop edge.');
+      historical[1] = historical[1].replace(compactJeans, 'straight-leg jeans, clean denim texture, at the lower crop edge.');
+    }
     assert.equal(hash(historical), entry.outputs, `${entry.body}/${entry.framing}: non-body bytes`);
-    assert.equal(hash(p.selection), entry.selection, `${entry.body}/${entry.framing}: selection`);
+    const historicalSelection = { ...p.selection };
+    if (['半臉傾斜特寫', '全臉傾斜特寫'].includes(entry.framing)) {
+      for (const key of ['bottomPatternId', 'earringsId', 'eyewearColorId', 'eyewearId', 'headAccessoryId', 'legwearId', 'neckAccessoryId', 'outerwearId', 'shoesId', 'topPatternId']) {
+        assert.equal(historicalSelection[key], option(key, '全無'), `${key}: explicitly resolved none`);
+        historicalSelection[key] = '';
+      }
+    }
+    assert.equal(hash(historicalSelection), entry.selection, `${entry.body}/${entry.framing}: unrelated selection`);
   }
 });

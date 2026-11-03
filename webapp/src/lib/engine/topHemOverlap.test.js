@@ -33,7 +33,7 @@ test('overlap keeps micro shorts identity and survives visible outputs and saved
     assert.match(text, /dolphin micro shorts/i);
     assert.doesNotMatch(text, /top length meets|long untucked length/);
   }
-  for (const e of p.extraPrompts.filter(e => e.id.includes('chest'))) assert.doesNotMatch(e.text, /partially concealing/);
+  for (const e of p.extraPrompts.filter(e => e.id.includes('chest'))) assert.match(e.text, /partially concealing/);
   assert.equal(deserializeFavoritePrompt(serializeFavoritePrompt(p)).selection.topStylingId, 'hem-overlap');
 });
 
