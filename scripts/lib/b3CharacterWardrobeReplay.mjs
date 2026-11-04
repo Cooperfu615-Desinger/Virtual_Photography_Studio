@@ -22,7 +22,7 @@ export function restorePreB3WardrobeFiles(directory, { allowPartial = false, pre
   const download = preparePreSavedCardsDownloadFiles(directory);
   const empty = download;
   if (allowPartial && !B3_REVIEW.files.some(f => existsSync(join(directory, f.path))
-    && hash(readFileSync(join(directory, f.path))) === f.afterHash)) return empty;
+    && hash(preSavedCardsDownloadSource(f.path, readFileSync(join(directory, f.path)))) === f.afterHash)) return empty;
   const prepared = [], states = [];
   for (const file of B3_REVIEW.files) {
     const path = join(directory, file.path);

@@ -360,7 +360,9 @@ test('the two glasses hands also fit squats and every lying orientation; the oth
 
 test('waist-level hands drop out of chest-up; face and hair hands stay', () => {
   const natural = 'specified-standing-natural';
-  const chestOf = id => chest(generate({ specifiedActionId: natural, gestureId: id }));
+  // Wardrobe now retains waist accessories; this contract concerns hand actions.
+  const chestOf = id => chest(generate({ specifiedActionId: natural, gestureId: id }))
+    .split('Pose and Composition:\n')[1]?.split('\n\n')[0] || '';
   assert.doesNotMatch(chestOf('gesture-legacy-lift-waistband'), /waist/);
   assert.doesNotMatch(chestOf('gesture-legacy-outerwear-pockets'), /pockets/);
   assert.match(chestOf('gesture-legacy-support-chin'), /supporting the chin/);

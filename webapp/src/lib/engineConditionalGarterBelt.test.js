@@ -45,7 +45,7 @@ test('all approved independent lower garments add the derived garter-belt layer 
       assert.match(output, /a separate lace garter belt worn over the bottoms at the hips/i, `${bottom}: ${field}`);
       assert.match(output, /slim straps connecting to the stocking tops/i, `${bottom}: ${field}`);
     }
-    assert.doesNotMatch(getPromptText(prompt, 'chestUpPortraitPrompt'), /lace garter belt worn over the bottoms/i);
+    assert.match(getPromptText(prompt, 'chestUpPortraitPrompt'), /lace garter belt worn over the bottoms/i);
     assert.equal(prompt.selection.pantsId, pantsId);
     assert.equal(prompt.selection.legwearId, legwearId);
     assert.match(prompt.summaryFields.wardrobe, new RegExp(garterBeltSummary));

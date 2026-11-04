@@ -1,4 +1,5 @@
 import naturalAccepted from './midjourneyNaturalAccepted.json' with { type: 'json' };
+import { restoreOtherBeforeWardrobeRetention } from './framingWardrobeOtherInverse.js';
 import { generateLegacyBodyPrompts } from './bodyTypeLegacyTestSupport.js';
 import { normalizeOuterwearCatalogForLegacy } from './outerwearCatalogTestSupport.js';
 import assert from 'node:assert/strict';
@@ -185,10 +186,17 @@ test('Character Card outputs preserve permanent identity and wardrobe anchors wi
 });
 
 test('Midjourney native structure freezes every accepted AI description', () => {
-  for (const [fixtureId, expectedHash] of Object.entries(MIDJOURNEY_NATIVE_DESCRIPTION_HASHES)) {
+  const entries = Object.entries(MIDJOURNEY_NATIVE_DESCRIPTION_HASHES);
+  const fixtures = entries.map(([id]) => ({ id }));
+  const historical = restoreOtherBeforeWardrobeRetention('budget', fixtures, entries.map(([id]) => {
+    const fixture = AI_PROMPT_LENGTH_FIXTURES.find((entry) => entry.id === id);
+    return { id, output: generateFixture(fixture).midjourneyPrompt };
+  }));
+  for (const [index, [fixtureId, expectedHash]] of entries.entries()) {
     const fixture = AI_PROMPT_LENGTH_FIXTURES.find((entry) => entry.id === fixtureId);
+    assert.ok(fixture, fixtureId);
     // Frozen hashes predate the 2026-10-14 ethnicity revision; reverse only that rollout.
-    const output = restorePreEthnicityText(generateFixture(fixture).midjourneyPrompt, 'midjourneyPrompt');
+    const output = restorePreEthnicityText(historical[index].output, 'midjourneyPrompt');
     assert.equal(
       createHash('sha256').update(stripMidjourneyParameterTail(normalizeOuterwearCatalogForLegacy(normalizeTieShirtForFrozenFixture(output, fixtureId), 'midjourneyPrompt'))).digest('hex'),
       expectedHash,

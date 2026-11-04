@@ -90,12 +90,12 @@ test('duo accessories keep independently selected A/B colors', () => {
   assert.equal(prompt.selection.headphonesBColorId, 'white');
   assert.equal(prompt.selection.faceCoveringBColorId, 'neon-green');
 });
-test('wired audio survives six outputs with crop-aware continuous concealed cable', () => {
+test('wired audio survives six outputs with its continuous concealed cable', () => {
   const locks = { ...createEmptyLocks(), subjectCount: '1', headphonesId: option('headphonesId', '有線耳機').id, framingId: option('framingId', '全身鏡頭 (Full Body Shot)').id };
   const [p] = generatePrompts(1, locks, [], { random: createSeededRandom('accessory-separation') });
   for (const text of [p.grokPrompt, p.zImagePrompt, ...p.extraPrompts.map((x) => x.text)]) assert.match(text, /continuous cable/);
   assert.match(p.grokPrompt, /end is concealed/);
-  for (const extra of p.extraPrompts.filter((x) => x.id?.includes('chest'))) { assert.match(extra.text, /lower frame edge/); assert.doesNotMatch(extra.text, /waist or the hip/); }
+  for (const extra of p.extraPrompts.filter((x) => x.id?.includes('chest'))) { assert.match(extra.text, /waist or the hip/); assert.match(extra.text, /end is concealed/); }
   assert.equal(p.selection.headphonesId, locks.headphonesId);
 });
 

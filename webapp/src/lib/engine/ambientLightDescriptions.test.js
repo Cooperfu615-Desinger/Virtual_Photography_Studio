@@ -13,6 +13,8 @@ import { AMBIENT_MATRIX, AMBIENT_EXCLUDED } from './ambientLightFixtures.js';
 import { normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';
 import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
 import { runLegacySceneFixture as runSceneFixture, digest } from './sceneIntegratedAssemblyTestSupport.js';
+import { restoreSceneWardrobeBeforeRevision } from './framingWardrobeSceneInverse.js';
+import wardrobeInverse from './framingWardrobeUpperSceneInverse.json' with { type: 'json' };
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 import { setLegacyWardrobeModifierOrderForTests } from '../engine.js';
 
@@ -52,6 +54,22 @@ test('36 authored ambient descriptions retain light cores, exact source pins and
 historicalTest('720 frozen main cases change only authored directional GPT/Z ambient', () => {
   const results = AMBIENT_MATRIX.map(runSceneFixture);
   assert.equal(results.length, baseline.count);
+  // Independently compared against HEAD for all 730 ambient and excluded
+  // cases. These are the same exact wardrobe fragments as the upper-scene matrix.
+  const previousWardrobe = results.map((r, i) => {
+    const outputs = { ...r.outputs };
+    const frame = AMBIENT_MATRIX[i].locks.framingId.byZh;
+    assert.ok(['中景鏡頭 (Medium Shot)', '全身鏡頭 (Full Body Shot)'].includes(frame));
+    const fragments = frame === '中景鏡頭 (Medium Shot)'
+      ? { grokPrompt: 4, zImagePrompt: 5, midjourneyPrompt: 6, chestUpPortraitPrompt: 7 }
+      : { chestUpPortraitPrompt: 7 };
+    for (const [field, index] of Object.entries(fragments)) {
+      const { before, after } = wardrobeInverse.patterns[index];
+      assert.equal(outputs[field].split(after).length - 1, 1, `${AMBIENT_MATRIX[i].id}/${field}: exact wardrobe delta`);
+      outputs[field] = outputs[field].replace(after, before);
+    }
+    return { ...r, outputs };
+  });
   const normalized = results.map((r, i) => {
     const source = lights.find(l => l.id === r.selection.lightingId);
     assert.equal(source.id, AMBIENT_MATRIX[i].locks.lightingId);
@@ -62,18 +80,18 @@ historicalTest('720 frozen main cases change only authored directional GPT/Z amb
     assert.equal(r.outputs.grokPrompt.match(/Lighting:\n([^\n]+)/)?.[1], gpt, AMBIENT_MATRIX[i].id);
     assert.equal(r.outputs.zImagePrompt.split('\n\n').at(-1), z, AMBIENT_MATRIX[i].id);
     // Frozen hashes predate the 2026-10-14 ethnicity revision; reverse only that rollout.
-    const historical = restorePreEthnicityOutputs(r.outputs);
+    const historical = restorePreEthnicityOutputs(previousWardrobe[i].outputs);
     return { ...historical, grokPrompt: normalizeGptCameraForLegacy(historical.grokPrompt, r.selection).replace(`Lighting:\n${gpt}`, `Lighting:\n${baseline.lighting[i]}`),
       midjourneyPrompt: normalizeExplicitWardrobeFitForLegacy(historical.midjourneyPrompt, 'midjourneyPrompt'),
       zImagePrompt: normalizeHighAngleDistanceForLegacy(normalizeCloseWormForLegacy(normalizeExplicitWardrobeFitForLegacy(historical.zImagePrompt.slice(0, -z.length) + baseline.ambient[i], 'zImagePrompt'), 'zImagePrompt', r.selection)) };
   });
-  assertChestUpRevision('ambient', results);
+  assertChestUpRevision('ambient', previousWardrobe);
   for (const field of PROTECTED_OUTPUT_FIELDS) assert.equal(digest(normalized.map(r => r[field])), baseline.hashes[field], field);
   assert.equal(digest(results.map(r => r.selection)), baseline.selectionHash);
   assert.equal(digest(results.map(r => r.randomDraws)), baseline.randomHash);
   for (const [i, f] of AMBIENT_EXCLUDED.entries()) {
     const r = runSceneFixture(f);
-    assertChestUpRevision(`ambient-excluded:${f.id}`, [r]);
+    assertChestUpRevision(`ambient-excluded:${f.id}`, [{ ...r, outputs: restoreSceneWardrobeBeforeRevision(r.outputs, f.id) }]);
     assert.equal(digest(r.selection), baseline.excluded[i].selection, f.id);
     assert.equal(r.randomDraws, baseline.excluded[i].random, f.id);
   }

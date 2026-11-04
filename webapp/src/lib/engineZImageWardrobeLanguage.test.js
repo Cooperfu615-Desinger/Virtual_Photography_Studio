@@ -119,7 +119,7 @@ test('Z-Image chest-up normal separates keep upper garments and delete hidden lo
   assert.doesNotMatch(prompt.zImagePrompt, /pointed-toe stiletto heels/i);
 });
 
-test('Z-Image cowboy framing keeps bottoms but deletes footwear details', () => {
+test('Z-Image cowboy framing keeps selected bottoms and footwear', () => {
   const [prompt] = generatePrompts(1, {
     ...createAllNoneLocks(),
     subjectCount: '1',
@@ -132,6 +132,6 @@ test('Z-Image cowboy framing keeps bottoms but deletes footwear details', () => 
 
   assert.match(prompt.zImagePrompt, /cotton camisole/i);
   assert.match(prompt.zImagePrompt, /straight-leg jeans/i);
-  assert.doesNotMatch(prompt.zImagePrompt, /ribbed ankle socks/i);
-  assert.doesNotMatch(prompt.zImagePrompt, /pointed-toe stiletto heels/i);
+  assert.match(prompt.zImagePrompt, /ribbed ankle socks/i);
+  assert.match(prompt.zImagePrompt, /pointed-toe stiletto heels/i);
 });

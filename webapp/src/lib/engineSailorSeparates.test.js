@@ -43,7 +43,7 @@ test('sailor separates retain their own sleeve and hem lengths across main and d
       assert.match(result[key], /pleat/i, key);
     }
     assert.match(result.chestUpPortraitPrompt, new RegExp(sleeve));
-    assert.doesNotMatch(result.chestUpPortraitPrompt, new RegExp(hem));
+    assert.match(result.chestUpPortraitPrompt, new RegExp(hem));
   }
 });
 
