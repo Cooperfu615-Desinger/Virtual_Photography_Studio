@@ -20,7 +20,7 @@ test('reference variant removes appearance and wardrobe from all six outputs wit
   const dll = buildPage1DllPromptSources(prompt);
   assert.equal(hasReferencePersonPreview(prompt), true);
   const variant = getReferencePersonPreview(prompt);
-  assert.equal(texts(variant).length, 6);
+  assert.equal(texts(variant).length, 7);
   for (const value of texts(variant)) {
     assert.match(value, /attached reference image/);
     assert.match(value, /adult person/);

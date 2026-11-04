@@ -1,3 +1,4 @@
+import { withGrokImagineForSave } from '../../lib/grokImagineResult.js';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import {
@@ -104,8 +105,9 @@ export function useFavoritesWorkspace({ showToast }) {
   }, [scheduleCloudMutationFlush]);
 
   const addFavoritePrompt = useCallback((prompt) => {
-    setFavoritePrompts((current) => [prompt, ...current]);
-    queueUpserts([prompt]);
+    const saved = withGrokImagineForSave(prompt);
+    setFavoritePrompts((current) => [saved, ...current]);
+    queueUpserts([saved]);
   }, [queueUpserts]);
 
   const addFavoritePrompts = useCallback((prompts) => {

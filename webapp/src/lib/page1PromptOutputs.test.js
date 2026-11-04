@@ -1,3 +1,4 @@
+import { getGrokImagineResult } from './grokImagineResult.js';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
@@ -17,11 +18,13 @@ function generatePrompt(subjectCount) {
     subjectCount,
   }, [], {
     random: createSeededRandom(`page1-fixed-framing-consumers-${subjectCount}`),
+    experimentalGrok7: false,
   })[0];
 }
 
 function legacyPrompt(subjectCount) {
   const { nanoBananaPrompt: _nanoBananaPrompt, ...prompt } = generatePrompt(subjectCount);
+  prompt.extraPrompts = prompt.extraPrompts.filter(entry => entry.id !== 'grok-imagine');
   return prompt;
 }
 
@@ -112,4 +115,16 @@ test('Nano Banana output is optional for legacy, blank and duo records', () => {
   assert.deepEqual(buildPage1GenerationPromptCards(duo).map(({ id }) => id), ['gpt', 'grok', 'ai', 'nano-banana-2.1']);
   assert.deepEqual(buildPage1DllPromptSources(duo).map(({ id }) => id), ['gpt', 'grok', 'ai', 'nano-banana-2.1']);
   assert.deepEqual(duo.extraPrompts, []);
+});
+
+test('Grok Imagine appears after the six existing outputs and remains a separate DLL source', () => {
+  const prompt = generatePrompts(1, {...createEmptyLocks(),subjectCount:'1'}, [], {random:createSeededRandom('grok7-ui')})[0];
+  const text = getGrokImagineResult(prompt);
+  assert.ok(text);
+  const cards = buildPage1GenerationPromptCards(prompt);
+  const sources = buildPage1DllPromptSources(prompt);
+  assert.deepEqual(cards.map(c=>c.title), ['Gpt','Z-Image','MIDJOURNEY','Nano Banana 2.1','胸上特寫照','全身角色照','Grok Imagine']);
+  assert.equal(cards.at(-1).value, text);
+  assert.equal(sources.at(-1).value, text);
+  assert.equal(sources.at(-1).lockAspectRatio, undefined);
 });

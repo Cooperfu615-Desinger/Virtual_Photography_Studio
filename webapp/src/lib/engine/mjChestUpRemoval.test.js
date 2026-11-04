@@ -70,7 +70,7 @@ test('PAGE1 cards and DLL sources hide a legacy saved MJ chest-up entry without 
   const [current] = generatePrompts(1, { ...createEmptyLocks(), subjectCount: '1' }, [], { random: createSeededRandom('mj-chest-removal-legacy') });
   const legacyEntry = { id: REMOVED_ID, label: 'MJ 胸上特寫照', text: 'Legacy saved MJ chest-up text --v 8.2 --ar 4:5 --raw --s 25 --c 0 --w 0 --sd' };
   const legacy = { ...current, extraPrompts: [current.extraPrompts[0], legacyEntry, ...current.extraPrompts.slice(1)] };
-  const expectedIds = ['gpt', 'grok', 'ai', 'nano-banana-2.1', 'chest-up-portrait', 'full-body-character'];
+  const expectedIds = ['gpt', 'grok', 'ai', 'nano-banana-2.1', 'chest-up-portrait', 'full-body-character', 'grok-imagine'];
   assert.deepEqual(buildPage1GenerationPromptCards(legacy).map(entry => entry.id), expectedIds);
   assert.deepEqual(buildPage1DllPromptSources(legacy).map(entry => entry.id), expectedIds);
   assert.deepEqual(buildPage1GenerationPromptCards(legacy), buildPage1GenerationPromptCards(current));

@@ -1,4 +1,5 @@
 // Test-only inverse for the two approved identity anchors. Never a runtime migration.
+import {preGrokImagineSource} from './grokImagineHistoricalReplay.mjs';
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync,realpathSync,existsSync,lstatSync} from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -9,6 +10,7 @@ import testPatches from './c1IdentityTestPatches.json' with {type:'json'};
 export const C1_ROOT=fileURLToPath(new URL('../../',import.meta.url));
 export const hash=value=>createHash('sha256').update(value).digest('hex');
 export function preC1IdentitySource(path,source) {
+  source=preGrokImagineSource(path,source);
   const patch=testPatches.files.find(p=>p.path===path);
   if(patch){
     if(hash(source)===patch.afterHash){assert.equal(hash(patch.beforeSource),patch.beforeHash,'C1 corrupt test oracle');return Buffer.isBuffer(source)?Buffer.from(patch.beforeSource):patch.beforeSource;}

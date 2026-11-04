@@ -1,0 +1,6 @@
+{
+  "source": "webapp/src/lib/engine.js",
+  "baselineCommit": "8cfeac421f15e1849ab86e2a1c270bbbec6392ee",
+  "beforeHash": "c96fd59a55a342e640420584beb9afa5533146698eeeeb754f4fbe88b8c95662",
+  "afterHash": "29ab240062755f05b9f409ec79d3a1fa41298b413879ff7a7031a0ac14f44b3a"
+}
