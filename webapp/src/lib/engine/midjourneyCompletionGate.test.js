@@ -178,6 +178,7 @@ test('phase 6 keeps PAGE1 cards and DLL sources byte-identical to engine outputs
     const expectedIds = mode === 'single'
       ? [...primaryIds, ...Object.keys(extraPromptFields)]
       : primaryIds;
+    expectedIds.push('grok-imagine');
 
     assert.deepEqual(cards.map((entry) => entry.id), expectedIds, `${parameterFixture.id}: card order`);
     assert.deepEqual(sources.map((entry) => entry.id), expectedIds, `${parameterFixture.id}: DLL order`);

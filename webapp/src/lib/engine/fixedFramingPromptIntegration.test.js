@@ -43,10 +43,11 @@ function assertConsumerOutputs(prompt, label) {
   ];
   const legacyPrompt = { ...prompt };
   delete legacyPrompt.nanoBananaPrompt;
-  const cards = buildPage1GenerationPromptCards(prompt);
-  const sources = buildPage1DllPromptSources(prompt);
-  const legacyCards = buildPage1GenerationPromptCards(legacyPrompt);
-  const legacySources = buildPage1DllPromptSources(legacyPrompt);
+  const withoutSeventh = entries => entries.filter(({ id }) => id !== 'grok-imagine');
+  const cards = withoutSeventh(buildPage1GenerationPromptCards(prompt));
+  const sources = withoutSeventh(buildPage1DllPromptSources(prompt));
+  const legacyCards = withoutSeventh(buildPage1GenerationPromptCards(legacyPrompt));
+  const legacySources = withoutSeventh(buildPage1DllPromptSources(legacyPrompt));
 
   assert.deepEqual(cards.map(({ id }) => id), expectedIds, `${label}: PAGE1 cards`);
   assert.deepEqual(sources.map(({ id }) => id), expectedIds, `${label}: DLL sources`);

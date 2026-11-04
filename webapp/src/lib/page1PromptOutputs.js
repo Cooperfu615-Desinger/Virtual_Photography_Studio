@@ -1,3 +1,4 @@
+import { getGrokImagineResult } from './grokImagineResult.js';
 import { appendPromptInstruction } from './promptAppendices.js';
 
 const PRIMARY_PROMPT_OUTPUTS = Object.freeze([
@@ -55,6 +56,18 @@ const FIXED_FRAMING_PROMPT_OUTPUTS = Object.freeze([
   }),
 ]);
 
+const GROK_IMAGINE_OUTPUT = Object.freeze({
+  id: 'grok-imagine',
+  title: 'Grok Imagine',
+  placeholder: '目前尚無可顯示的 Grok Imagine prompt。',
+  copyLabel: 'Grok Imagine copied',
+});
+
+function readGrokImagineOutput(previewPrompt) {
+  const value = getGrokImagineResult(previewPrompt);
+  return value.trim() ? { ...GROK_IMAGINE_OUTPUT, value } : null;
+}
+
 function readFixedFramingOutputs(previewPrompt) {
   const extraPrompts = new Map(
     (Array.isArray(previewPrompt?.extraPrompts) ? previewPrompt.extraPrompts : [])
@@ -82,7 +95,8 @@ export function buildPage1GenerationPromptCards(previewPrompt) {
     copyLabel: output.copyLabel,
   }));
 
-  return [...primaryCards, ...fixedFramingCards];
+  const grokImagine = readGrokImagineOutput(previewPrompt);
+  return [...primaryCards, ...fixedFramingCards, ...(grokImagine ? [grokImagine] : [])];
 }
 
 export function buildPage1DllPromptSources(previewPrompt) {
@@ -99,7 +113,8 @@ export function buildPage1DllPromptSources(previewPrompt) {
     lockAspectRatio: true,
   }));
 
-  return [...primarySources, ...fixedFramingSources];
+  const grokImagine = readGrokImagineOutput(previewPrompt);
+  return [...primarySources, ...fixedFramingSources, ...(grokImagine ? [{ id: grokImagine.id, label: grokImagine.title, value: grokImagine.value }] : [])];
 }
 
 

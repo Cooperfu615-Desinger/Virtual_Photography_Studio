@@ -1,3 +1,4 @@
+import { registerGrokImagineResult } from './grokImagineResult.js';
 import { seasonAllowsAmbient, styleAllowsLocation, styleAllowsAmbient, styleAllowsSubject, styleAllowsShutter } from './engine/captureCompatibility.js';
 import { pickColorCompatibleStyle, pickColorCompatibleFilm } from './engine/imagingColorCompatibility.js';
 import { nightPartyAllowsRandomAmbient } from './engine/nightPartyLighting.js';
@@ -4478,7 +4479,7 @@ function specialActionSupportsOrbit(orbit, action) {
 
 function getActiveActionPoseCard(context) {
   if (!context?.locks?.actionPoseCardId) return null;
-  if (context.subject?.count !== 1 || isDedicatedSpecialSubject(context.subject)) return null;
+  if (![1, 2].includes(context.subject?.count) || isDedicatedSpecialSubject(context.subject)) return null;
 
   const card = getActionPoseCardById(context.locks.actionPoseCardId);
   return card?.mode === 'single' ? card : null;
@@ -7361,6 +7362,13 @@ function buildWardrobe(context, locks, catalog) {
         const selectedPattern = findById(patternItems, patternId);
         if (selectedPattern) addPiece(selectedPattern);
       }
+    }
+    // Preserve the already-resolved pre-framing pieces for the seventh output.
+    // This snapshot performs no draws and does not affect the legacy return.
+    if (context.onGrokImaginePreCropWardrobe) {
+      context.onGrokImaginePreCropWardrobe(resolveBottomRiseCompatibility(resolveTopHemOverlap(
+        resolveUnderbustTopFit(projectSailorSeparateFit(resolveNewOuterwearStyling(structuredClone(pieces), context), locks)),
+      )));
     }
     return resolveTopHemOverlap(resolveUnderbustTopFit(projectSailorSeparateFit(resolveNewOuterwearStyling(pieces, context).filter(keepExplicitCloseupWardrobeItem), locks)));
   }
@@ -15908,6 +15916,141 @@ function renderMainNaturalMidjourney(promptModel, sceneMirrorReflectionText) {
   });
 }
 
+// Build the independent Grok Imagine output from this generation’s resolved sources.
+function buildGrokImaginePrototype(context, character, wardrobe, wardrobeColors) {
+  if (![1, 2].includes(context.subject?.count)) return null;
+  const cardMode = isCharacterProfileSubject(context.subject);
+  let prototypeWardrobe = projectClosedOuterwearWardrobe(wardrobe).map(item => {
+    if (!item?.meta?.suppressSpecialOutfitHairstyle) return item;
+    const source = item.en || '';
+    const accessories = [
+      ...source.matchAll(/\b(?:hair|braid)\s+(?:tucked\s+)?under\s+((?:a|an|the)\s+[^,.]*(?:headscarf|beanie|cap|hat)\b[^,.]*)/gi),
+      ...source.matchAll(/\b(?:and|with)\s+([^,.]*\bhair clips?\b[^,.]*)/gi),
+    ].map(match => match[1]);
+    const withoutHair = stripSpecialOutfitHairstyleDescription(source);
+    const missing = accessories.filter(accessory => !withoutHair.toLowerCase().includes(accessory.toLowerCase()));
+    return { ...item, en: [withoutHair, ...missing].filter(Boolean).join(', '),
+      meta: { ...item.meta, suppressSpecialOutfitHairstyle: false } };
+  });
+  let prototypeColors = wardrobeColors;
+  // The face-detail source builder discards this explicit lock before the shared
+  // structured result is created. Recover only that concrete catalog selection;
+  // never re-roll an unresolved item or color, nor override another owner.
+  const originalSlots = extractWardrobeSlots(prototypeWardrobe);
+  const isEarlyCloseup = context.framing?.meta?.visibility === 'close';
+  if (isEarlyCloseup && originalSlots.headAccessory && !prototypeColors.headAccessoryColor) {
+    prototypeColors = { ...prototypeColors, headAccessoryColor: getGarmentColorOption(context.locks?.headAccessoryColorId) };
+  }
+  if (isEarlyCloseup && !context.referencePersonPreview && context.subject.count === 1 && !cardMode && !isDedicatedSpecialSubject(context.subject)
+      && !originalSlots.specialOutfit && !originalSlots.headAccessory && context.locks?.headAccessoryId
+      && !isRandomLockValue(context.locks.headAccessoryId)) {
+    const item = getControlOptionById(getLockControls(), 'headAccessoryId', context.locks.headAccessoryId);
+    if (item && !isNoneLikeItem(item)) {
+      prototypeWardrobe = [...prototypeWardrobe, item];
+      prototypeColors = { ...wardrobeColors, headAccessoryColor: getGarmentColorOption(context.locks.headAccessoryColorId) };
+    }
+  }
+  if (isEarlyCloseup && !context.referencePersonPreview && context.subject.count === 1 && !cardMode && !isDedicatedSpecialSubject(context.subject)
+      && !originalSlots.specialOutfit && !originalSlots.outfitPreset && !originalSlots.dress) {
+    const restored = [];
+    const addModifier = (key, token, lookup, existing) => {
+      if (existing || !context.locks?.[key] || isRandomLockValue(context.locks[key])) return;
+      const selected = lookup(context.locks[key]);
+      if (selected && !isNoneLikeItem(selected)) restored.push(createSyntheticWardrobeModifier(token, selected));
+    };
+    if (originalSlots.top) {
+      addModifier('topFitId', '上身版型-top-fit', getTopFitOption, originalSlots.topFit);
+      addModifier('topStylingId', '上身穿法-top-styling', getTopStylingOption, originalSlots.topStyling);
+    }
+    if (originalSlots.pants || originalSlots.skirt) {
+      addModifier('bottomFitId', '下身版型-bottom-fit', getBottomFitOption, originalSlots.bottomFit);
+      addModifier('bottomRiseId', '下身腰線-bottom-rise', getBottomRiseOption, originalSlots.bottomRise);
+      if (!originalSlots.bottomPattern && context.locks?.bottomPatternId && !isRandomLockValue(context.locks.bottomPatternId)) {
+        const pattern = getControlOptionById(getLockControls(), 'bottomPatternId', context.locks.bottomPatternId);
+        if (pattern && !isNoneLikeItem(pattern)) restored.push(pattern);
+      }
+    }
+    if (restored.length) prototypeWardrobe = resolveBottomRiseCompatibility([...prototypeWardrobe, ...restored]);
+  }
+  if (isEarlyCloseup && context.subject.count === 2 && !context.referencePersonPreview) {
+    const slots = extractWardrobeSlots(prototypeWardrobe);
+    const restored = [];
+    for (const suffix of ['A', 'B']) {
+      if (slots.specialOutfit || slots[`specialOutfit${suffix}`]) continue;
+      const roleAddons = [
+        [`outerwear${suffix}`, `outerwear${suffix}Id`, 'outerwear'],
+        ...['Fit', 'Pattern', 'Opening', 'Styling'].map(part => [`outerwear${suffix}${part}`, `outerwear${suffix}${part}Id`, `outerwear${part}`]),
+        ...['legwear', 'shoes', 'headAccessory', 'eyewear', 'earrings', 'neckAccessory', 'waistAccessory'].map(slot => [`${slot}${suffix}`, `${slot}${suffix}Id`, slot]),
+        [`eyewear${suffix}Color`, `eyewear${suffix}ColorId`, 'eyewearColor'],
+        [`eyewear${suffix}Placement`, `eyewear${suffix}PlacementId`, 'eyewearPlacement'],
+      ];
+      for (const [slot, key, layerSlot] of roleAddons) {
+        const id = context.locks?.[key];
+        if (slots[slot] || !id || isRandomLockValue(id)) continue;
+        const item = getControlOptionById(getLockControls(), key, id);
+        if (item && !isNoneLikeItem(item)) restored.push({ ...item, id: `${item.id}:${suffix.toLowerCase()}`,
+          meta: { ...item.meta, wardrobeRole: suffix.toLowerCase(), layerSlot } });
+      }
+      for (const [name, lock] of [['top', 'top'], ['bottom', 'bottom'], ['dress', 'dress'], ['shoes', 'shoes'], ['legwear', 'legwear'], ['outerwear', 'outerwear'], ['headAccessory', 'headAccessory']]) {
+        const key = `${name}${suffix}Color`;
+        if (!prototypeColors[key]) prototypeColors = { ...prototypeColors, [key]: getGarmentColorOption(context.locks?.[`${lock}${suffix}ColorId`]) };
+      }
+    }
+    if (restored.length) prototypeWardrobe = projectClosedOuterwearWardrobe(resolveBottomRiseCompatibility([...prototypeWardrobe, ...restored]));
+  }
+  const fullProjection = { ...COMPOSITION_VISIBILITY_CONTRACT.unconstrained, bucket: COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED };
+  const fullContext = { ...context, compositionVisibility: fullProjection };
+  fullContext.projectedScene = buildProjectedScene(fullContext);
+  const sections = buildStructuredPromptSections(fullContext, character, prototypeWardrobe, prototypeColors, context.lightDirection, context.film);
+  const source = buildGptPromptSectionSources(sections.valuesByLabel, fullContext, { includeBodyType: true });
+  const slots = extractCharacterSlots(character);
+  const value = item => item && !isNoneLikeItem(item) ? item.en : '';
+  const wardrobeText = getStructuredValues(sections.valuesByLabel,
+    ['Outerwear', 'Special Outfit', 'Outfit Preset', 'Dress', 'Top', 'Pants', 'Skirt', 'Legwear', 'Shoes', 'Waist Accessory']).map(cleanGptDuoFullWardrobePart).join(', ');
+  const pose = slots.poseComposer && !isNoneLikeItem(slots.poseComposer) ? buildProjectedCanonicalPoseText(fullContext, slots.poseComposer)
+    : [slots.actionPose, slots.specialAction, slots.pose, slots.duoPose, slots.duoPoseBase].filter(item => item && !isNoneLikeItem(item)).map(item => item.en).join(' ');
+  const fixed = isFixedCompositionSetActive(context.fixedCompositionSet);
+  const fixedSceneSource = value(context.fixedCompositionSet)?.replace(/Sky color, cloud shape, sun strength, water brightness, and weather mood are controlled by the selected ambient light and subject-light options, not by this fixed set\.\s*/i, '');
+  const scene = fixed ? [fixedSceneSource,
+    (context.fixedSetPosition?.carriagePose || context.fixedSetPosition?.stationPose) ? '' : value(context.fixedSetPosition),
+    value(context.fixedSetBackgroundState), value(context.fixedSetCaptureMode), value(context.fixedSetPerformanceState),
+  ].filter(Boolean).map(ensureTerminalPeriod).join(' ') : [getImportedWorldSceneArchitectureText(fullContext), value(fullContext.location), fullContext.projectedScene.sceneAccentText].filter(Boolean).join(', ');
+  const orbitText = isStationFixedSet(context.fixedCompositionSet) ? stationSubjectFacingText(context.orbit)
+    : isCarriageFixedSet(context.fixedCompositionSet) ? carriageCameraText(context.orbit) : value(context.orbit);
+  const aspect = context.aspectRatio?.id !== 'none' ? context.aspectRatio?.en : '';
+  const duo = context.subject?.count === 2;
+  const duoSlots = extractWardrobeSlots(prototypeWardrobe);
+  const duoWardrobe = duo ? buildGptDuoFullWardrobeRoleTexts(duoSlots, prototypeColors, fullContext) : null;
+  const duoRoles = duo ? ['a', 'b'].map((role, index) => {
+    const number = index + 1;
+    const body = slots[`bodyType${role.toUpperCase()}`];
+    const roleText = buildGptDuoRoleSubjectText(role, slots, duoSlots, duoWardrobe, prototypeColors)
+      .replace(new RegExp(`^Woman ${number}:\\s*Has `), `Woman ${number} has `)
+      .replace(new RegExp(`^Woman ${number}:\\s*Wears `), `Woman ${number} wears `)
+      .replace(/\s+Wears /g, ` Woman ${number} wears `);
+    return [body && !isNoneLikeItem(body) ? `Woman ${number} has ${body.en}.` : '', roleText].filter(Boolean).join(' ');
+  }).join(' ') : '';
+  const groups = cardMode ? buildCharacterCardProfileGroups(context.subject, context.locks, prototypeWardrobe) : null;
+  const cardLead = groups?.identityAndBody?.match(/^a\s+20-year-old\s+adult\s+[^,]*?\bwoman\b/i)?.[0] || '';
+  const cardIdentity = cardMode ? [cardLead, groups.facialGeometry, groups.eyeSignature, groups.noseSignature, groups.mouthSignature, groups.skinSignature, groups.makeup, groups.body, groups.distinctiveFeatures, groups.hair, buildCharacterCardHairVariantText(context.subject, context.locks)].filter(Boolean).join(', ') : '';
+  if (cardMode && !cardLead) return null;
+  const values = [
+    duo ? `${context.subject.en}. ${duoRoles}` : cardMode ? cardIdentity : source.subjectText ? `${source.subjectLead} ${source.subjectText}` : '',
+    pose,
+    duo ? value(slots.duoExpression) : '',
+    cardMode ? [groups.outfit, groups.accessories, shouldImportCharacterCardWardrobeLayers(context.locks) ? wardrobeText : ''].filter(Boolean).join(', ') : !duo && wardrobeText ? `She wears ${wardrobeText}` : '',
+    scene,
+    [aspect, value(context.framing), value(context.angle), orbitText].filter(Boolean).join(', '),
+    [value(context.lighting), value(context.lightDirection)].filter(Boolean).join(', '),
+    [value(context.style), value(context.lens), value(context.aperture), value(context.shutter), value(context.opticalEffect), value(context.film)].filter(Boolean).join(', '),
+    value(context.imageTypePreset),
+    cardMode ? groups.photographicDirection : '',
+  ];
+  const text = polishPublicPromptText(values.map(x => ensureTerminalPeriod(cleanGptSinglePromptText(x))).filter(Boolean).join(' '));
+  if (/\b(?:controlled by|selection control|fallback|wardrobe integrity|fixed-set rule)\b/i.test(text)) return null;
+  return text;
+}
+
 function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect) {
   const compositionVisibility = getCompositionVisibilityProjection(context);
   const poseComposer = extractCharacterSlots(character).poseComposer;
@@ -16739,6 +16882,8 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
   }
   const cardLayers = getCharacterCardImportedLayers(subject, effectiveLocks);
   const cardWardrobeMode = getCharacterCardWardrobeMode(effectiveLocks);
+  let preCropWardrobe = null;
+  if (runtimeOptions.experimentalGrok7 !== false) context.onGrokImaginePreCropWardrobe = items => { preCropWardrobe = items; };
   const rawPage1Wardrobe = importedCapturePerson ? [] : isDedicatedSpecialSubject(subject) || (isCharacterProfileSubject(subject) && cardWardrobeMode === 'full-default')
     ? []
     : buildWardrobe({ ...context }, effectiveLocks, runtime);
@@ -16792,8 +16937,17 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
       'Lens & Imaging': [context.lens, context.aperture, context.shutter, context.opticalEffect, context.film].filter(Boolean),
     },
   };
+  if (runtimeOptions.experimentalGrok7 !== false) {
+    const preCropPage1 = preCropWardrobe ? appendLockedPage1FillersForCharacterCardLayers(
+      filterPage1WardrobeForCharacterCardLayers(preCropWardrobe, cardLayers), cardLayers, effectiveLocks, lockControls,
+    ) : null;
+    const grokWardrobe = preCropPage1 ? resolveBottomRiseCompatibility([...cardLayers, ...preCropPage1]) : wardrobe;
+    const grokImagine = buildGrokImaginePrototype(context, promptCharacter, grokWardrobe, wardrobeColors);
+    registerGrokImagineResult(prompt, grokImagine);
+  }
   if (subject.count === 1 && !isSpecialSubject(subject) && !context.characterProfilePrompt) {
     let referenceOutputs;
+    let referencePrototype;
     registerReferencePersonPreview(prompt, (preview) => {
       if (!referenceOutputs) {
         const slots = extractCharacterSlots(character);
@@ -16806,9 +16960,13 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
           wardrobe: [],
         };
         referenceOutputs = buildPrompts(referenceContext, performance, [], {}, lightDirection, film, opticalEffect);
+        if (runtimeOptions.experimentalGrok7 !== false) {
+          const natural = buildGrokImaginePrototype(referenceContext, performance, [], {});
+          referencePrototype = natural ? `Use the attached reference image as the source for the adult person's identity, face, body proportions, skin, hair, makeup, clothing, colors, materials, footwear and accessories. A clothing or accessory gesture applies only when the item exists in the reference image. ${natural}` : null;
+        }
       }
       const referenceText = text => text ? `${REFERENCE_PERSON_INSTRUCTION}\n\n${text}` : '';
-      return {
+      const referencePreview = {
         ...preview,
         grokPrompt: referenceText(referenceOutputs.grokPrompt),
         zImagePrompt: referenceText(referenceOutputs.zImagePrompt),
@@ -16823,6 +16981,8 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
             : referenceOutputs.fullBodyCharacterPrompt,
         ) })),
       };
+      if (runtimeOptions.experimentalGrok7 !== false) registerGrokImagineResult(referencePreview, referencePrototype, { override: true });
+      return referencePreview;
     });
   }
   if (!capture && subject.count === 1 && !isSpecialSubject(subject) && !context.characterProfilePrompt) {

@@ -1,3 +1,4 @@
+import { preGrokImagineSource } from '../../../../scripts/lib/grokImagineHistoricalReplay.mjs';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
@@ -23,7 +24,7 @@ const texts = p => [p.grokPrompt, p.zImagePrompt, p.midjourneyPrompt, p.nanoBana
 
 test('integration replay restores exact reviewed main source without replacing frozen baselines', () => {
   for (const item of review.files) {
-    const current = readFileSync(new URL(item.path, root));
+    const current = preGrokImagineSource(item.path, readFileSync(new URL(item.path, root)));
     assert.equal(sha(current), item.afterHash, item.path + ': current integration source must be reviewed');
     const before = preFramingWardrobeSource(item.path, current);
     assert.equal(sha(before), item.beforeHash, item.path);

@@ -1,4 +1,5 @@
 // Test-only exact inverse for integration with the reviewed main baseline.
+import { preGrokImagineSource } from './grokImagineHistoricalReplay.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync, realpathSync, existsSync, lstatSync } from 'node:fs';
@@ -8,6 +9,7 @@ import review from './framingWardrobeIntegrationPatches.json' with { type: 'json
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const hash = value => createHash('sha256').update(value).digest('hex');
 export function preFramingWardrobeSource(path, source) {
+  source = preGrokImagineSource(path, source);
   const patch = review.files.find(item => item.path === path);
   if (!patch) return source;
   const sha = hash(source);
