@@ -1,0 +1,5 @@
+0 標準視窗 Prompt Control Deck - Google Chrome (無痕模式), URL: cooperfu615-desinger.github.io/Virtual_Photography_Studio/, Secondary Actions: Raise
+	1 container Prompt Control Deck - Google Chrome (無痕模式), URL: cooperfu615-desinger.github.io/Virtual_Photography_Studio/
+								52 文字 Favorites 僅存本機
+								53 按鈕 Sign In Firebase
+								224 按鈕 (disabled) 生成圖像

@@ -1,0 +1,261 @@
+Window: "Prompt Control Deck", App: Google Chrome.
+0 標準視窗 Prompt Control Deck - Google Chrome (無痕模式), URL: cooperfu615-desinger.github.io/Virtual_Photography_Studio/, Secondary Actions: Raise
+	1 container Prompt Control Deck - Google Chrome (無痕模式), URL: cooperfu615-desinger.github.io/Virtual_Photography_Studio/
+		2 container
+			3 工具列
+				4 按鈕 返回
+				5 按鈕 (disabled) 往前
+				6 按鈕 重新載入
+				7 按鈕 主畫面
+				8 container
+					9 彈出式按鈕 查看網站資訊
+					10 文字欄位 (settable) 網址與搜尋列, Value: cooperfu615-desinger.github.io/Virtual_Photography_Studio/, Placeholder: 問問 Google 或輸入網址
+					11 按鈕 編輯此分頁的書籤
+				12 按鈕 無痕視窗
+				13 彈出式按鈕 Chrome
+			14 工具列 書籤
+				15 書籤按鈕 Bookmarks
+				16 書籤按鈕 Google 地圖
+				17 書籤按鈕 Prompt Control Deck
+				18 書籤按鈕 Grok
+				19 書籤按鈕 ChatGPT
+				20 書籤按鈕 首頁 • Threads
+				21 書籤按鈕 Nailai7981 (@VIBEQUIRKLABS) / X
+				22 書籤按鈕 Google Flow：輕鬆製作影片、圖像和自訂工具的 AI 創意工作室
+				23 書籤按鈕 Google Keep
+				24 書籤按鈕 信息中心 | Google Skills
+				25 書籤按鈕 my-ai-char-studio - Firebase 控制台
+				26 書籤按鈕 資訊主頁 – Mystic-Tarot-App – Google Cloud 控制台
+				27 彈出式按鈕 選單包含隱藏的書籤
+				28 書籤資料夾按鈕 所有書籤
+				29 分割線 分隔線
+			30 container
+				31 捲動區
+					32 HTML 內容 Prompt Control Deck, URL: cooperfu615-desinger.github.io/Virtual_Photography_Studio/
+						33 container
+							34 文字 VIRTUAL PHOTOGRAPHY STUDIO
+							35 標題 Prompt Control Deck, Value: 1
+								36 文字 Prompt Control Deck
+							37 文字 一個為個人創作流程設計的虛擬攝影 Prompt 生成工具，支援快速組合、批次生成與風格探索。
+							38 標籤頁群組 Page mode switch
+								39 按鈕 Prompt 工作台
+								40 按鈕 角色建模
+								41 按鈕 場景建模
+								42 按鈕 DLL_PIC Pro
+								43 按鈕 DLL_VIDEO Pro
+								44 按鈕 Saved Cards
+							45 按鈕 Open settings
+							46 文字 拍攝模式
+							47 切換鈕 一般拍攝, Value: 1
+							48 切換鈕 (disabled) 觀察式抓拍, Help: 請在 E 區選擇全身、膝上或腰上景別。, Value: 0
+							49 文字 請在 E 區選擇全身、膝上或腰上景別。
+							50 container
+								51 文字 Prompt Workspace
+								52 按鈕 A 人物設定 已選 1 尚未形成明確選項
+								53 按鈕 B 神情姿態 未設定 尚未形成明確選項
+								54 按鈕 C 穿搭設定 已選 3 棉質細肩背心 / 直筒牛仔褲 / 羅紋短襪
+								55 按鈕 D 場景環境 未設定 尚未形成明確選項
+								56 按鈕 E 攝影成像 已選 3 寫實攝影 / 全臉傾斜特寫
+								57 按鈕 F MJ 參數設定 獨立設定 V8.2 / AR 跟隨 PAGE1 / Raw / S25 / C0 / W0 / SD
+								58 按鈕 清除可選欄位, Help: 清除可選欄位；人物數量、成品類型等必要欄位會保留預設值。
+								59 按鈕 全部隨機, Help: 只隨機化可隨機欄位；必要欄位與接管型欄位會保留預設狀態。
+								60 按鈕 全部全無, Help: 一般選項全部設為全無；人物數量、MJ 參數與畫面文字保留，成品類型回到寫實攝影。
+								61 按鈕 回填 Prompt
+							62 container
+								63 文字 C 穿搭設定
+								64 按鈕 完整造型
+								65 按鈕 上下身單件
+								66 按鈕 鞋襪與外層
+								67 按鈕 配件細節
+								68 文字 STYLE & WARDROBE
+								69 文字 先調整外套款式與穿法，再搭配襪類、鞋款與各自配色。
+								70 按鈕 本頁設為隨機, Help: 只隨機化可隨機欄位；必要欄位與接管型欄位會保留預設狀態。
+								71 按鈕 清空可清除項目, Help: 清空可清除欄位；必要欄位會保留預設值。
+								72 container 外套
+									73 標題 外套, Value: 4
+										74 文字 外套
+									75 container
+										76 文字 外套
+										77 按鈕 (disabled) Copy 外套 prompt
+										78 彈出式按鈕 外套, Value: 全無
+											79 (selected) 全無
+									80 container
+										81 文字 外套版型
+										82 按鈕 (disabled) Copy 外套版型 prompt
+										83 彈出式按鈕 外套版型, Value: 全無
+											84 (selected) 全無
+										85 文字 長版約及臀，短版約胸下；全無保留款式原有比例。
+									86 container
+										87 文字 外套開合
+										88 按鈕 (disabled) Copy 外套開合 prompt
+										89 彈出式按鈕 外套開合, Value: 全無
+											90 (selected) 全無
+									91 container
+										92 文字 外套穿法
+										93 按鈕 (disabled) Copy 外套穿法 prompt
+										94 彈出式按鈕 外套穿法, Value: 全無
+											95 (selected) 全無
+									96 container
+										97 文字 外套配色
+										98 按鈕 (disabled) Copy 外套配色 prompt
+										99 按鈕 外套配色：全無
+										100 按鈕 回到隨機
+									101 container
+										102 文字 外套圖案
+										103 按鈕 (disabled) Copy 外套圖案 prompt
+										104 彈出式按鈕 外套圖案, Value: 全無
+											105 (selected) 全無
+								106 container 襪類
+									107 標題 襪類 · 羅紋短襪, Value: 4
+										108 text 襪類  ·  羅紋短襪
+									109 container
+										110 文字 襪類
+										111 按鈕 Copy 襪類 prompt
+										112 彈出式按鈕 襪類, Value: 羅紋短襪
+											113 (selected) 羅紋短襪
+									114 container
+										115 文字 襪類配色
+										116 按鈕 (disabled) Copy 襪類配色 prompt
+										117 按鈕 襪類配色：全無
+										118 按鈕 回到隨機
+								119 container 鞋款
+									120 標題 鞋款, Value: 4
+										121 文字 鞋款
+									122 container
+										123 文字 鞋款
+										124 按鈕 (disabled) Copy 鞋款 prompt
+										125 彈出式按鈕 鞋款, Value: 全無
+											126 (selected) 全無
+									127 container
+										128 文字 鞋款配色
+										129 按鈕 (disabled) Copy 鞋款配色 prompt
+										130 按鈕 鞋款配色：全無
+										131 按鈕 回到隨機
+								132 文字 GENERATION OUTPUTS
+								133 文字 集中整理目前工作台可用的主 Prompt 與固定景別輸出。
+								134 按鈕 隨機生成
+								135 按鈕 套用目前預覽
+								136 按鈕 加入最愛
+								137 container
+									138 標題 生成摘要, Value: 3
+										139 文字 生成摘要
+									140 文字 尚未形成明確選項 / 尚未形成明確選項 / 棉質細肩背心 / 直筒牛仔褲 / 羅紋短襪 / 尚未形成明確選項 / 寫實攝影 / 全臉傾斜特寫
+								141 container 附加指令
+									142 文字 附加指令
+									143 文字 尚未附加
+									144 切換鈕 參考圖人物與穿搭, Value: 0
+									145 切換鈕 四張自由變化, Help: 保持人物、服裝與風格一致，自由變化姿勢、構圖與拍攝角度。, Value: 0
+									146 切換鈕 四張多機位, Help: 第一張沿用原始角度，其餘三張變換機位，維持人物姿勢與場景。, Value: 0
+									147 切換鈕 素人失敗自拍, Help: 保持人物、服裝與場景一致，自由呈現不完美的素人自拍與隨手寫真，四張 9:16。, Value: 0
+									148 切換鈕 日常生活照, Help: 保持人物、服裝與場景一致，自由變化生活活動、自然表情、姿勢與拍攝角度，四張 9:16。, Value: 0
+									149 切換鈕 自訂附加, Value: 0
+									150 按鈕 (disabled) 清除附加
+								151 container
+									152 標題 GPT, Value: 3
+										153 文字 GPT
+									154 按鈕 Copy Gpt
+									155 文字項目區域 Placeholder: 目前尚無可顯示的 Gpt prompt。, Value: Image Type:
+Create a photorealistic editorial portrait.
+
+Composition:
+Asymmetrical off-center full-face portrait, subject placed close to the right frame edge with a narrow margin, the entire face and facial outline fully inside the frame, broad negative space on the left, subject must not be centered, neck, shoulders, and upper torso visible, slight tilted frame.
+
+Subject:
+The subject is one 20-year-old adult Japanese woman.
+
+Wardrobe:
+She wears cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line. Straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction. Ribbed ankle socks, soft cotton texture.
+								156 container
+									157 標題 Z-IMAGE, Value: 3
+										158 文字 Z-IMAGE
+									159 按鈕 Copy Z-Image
+									160 文字項目區域 Placeholder: 目前尚無可顯示的 Z-Image prompt。, Value: Photorealistic editorial portrait.
+
+Asymmetrical off-center full-face portrait, subject placed close to the right frame edge with a narrow margin, the entire face and facial outline fully inside the frame, broad negative space on the left, subject must not be centered, neck, shoulders, and upper torso visible, slight tilted frame.
+
+A 20-year-old seductive stunning adult Japanese woman.
+
+She wears cotton camisole top, slim shoulder straps, soft ribbed knit, straight-leg jeans, clean denim texture, ribbed ankle socks.
+								161 container
+									162 標題 MIDJOURNEY, Value: 3
+										163 文字 MIDJOURNEY
+									164 按鈕 Copy MIDJOURNEY
+									165 文字項目區域 Placeholder: 目前尚無可顯示的 AI Prompt。, Value: Photorealistic editorial portrait. Asymmetrical off-center full-face portrait, subject placed close to the right frame edge with a narrow margin, the entire face and facial outline fully inside the frame, broad negative space on the left, subject must not be centered, neck, shoulders, and upper torso visible, slight tilted frame. A 20-year-old adult Japanese woman.
+
+She wears a cotton camisole top, straight-leg jeans and ribbed ankle socks. --v 8.2 --ar 4:5 --raw --s 25 --c 0 --w 0 --sd
+								166 container
+									167 標題 NANO BANANA 2.1, Value: 3
+										168 文字 NANO BANANA 2.1
+									169 按鈕 Copy Nano Banana 2.1
+									170 文字項目區域 Placeholder: 目前尚無可顯示的 Nano Banana 2.1 prompt。, Value: Create a photorealistic editorial portrait. Asymmetrical off-center full-face portrait, subject placed close to the right frame edge with a narrow margin, the entire face and facial outline fully inside the frame, broad negative space on the left, subject must not be centered, neck, shoulders, and upper torso visible, slight tilted frame.
+
+The subject is one 20-year-old adult Japanese woman.
+
+She wears cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line. Straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction. Ribbed ankle socks, soft cotton texture.
+								171 container
+									172 標題 胸上特寫照, Value: 3
+										173 文字 胸上特寫照
+									174 按鈕 Copy 胸上特寫照
+									175 文字項目區域 Placeholder: 目前尚無可顯示的胸上特寫照 Prompt。, Value: Image Type:
+Create a photorealistic editorial portrait.
+
+Composition:
+Vertical portrait composition at a 4:5 aspect ratio, chest-up portrait.
+
+Subject:
+The subject is one 20-year-old adult Japanese woman.
+
+Wardrobe:
+She wears cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line. Straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction. Ribbed ankle socks, soft cotton texture.
+								176 container
+									177 標題 全身角色照, Value: 3
+										178 文字 全身角色照
+									179 按鈕 Copy 全身角色照
+									180 文字項目區域 Placeholder: 目前尚無可顯示的全身角色照 Prompt。, Value: Image Type:
+Create a photorealistic character reference portrait in a single 9:16 vertical image.
+
+Subject:
+The subject is one 20-year-old adult Japanese woman.
+
+Wardrobe:
+She wears cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line. Straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction. Ribbed ankle socks, soft cotton texture.
+
+Lighting:
+Clean even lighting with clear facial, body, fabric, and footwear readability.
+
+Camera Look:
+Full-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text.
+							181 container DLL_PIC Pro
+								182 文字 DLL_PIC PRO
+								183 按鈕 開啟完整版
+								184 按鈕 API Keys
+								185 彈出式按鈕 Prompt 來源, Value: Gpt
+									186 (selected) Gpt
+								187 彈出式按鈕 模型, Value: Google Gemini Nano Banana 2 Lite
+									188 (selected) Google Gemini Nano Banana 2 Lite
+								189 彈出式按鈕 比例, Value: 9:16
+									190 (selected) 9:16
+								191 彈出式按鈕 張數, Value: 1 張
+									192 (selected) 1 張
+								193 文字 gemini-3.1-flash-lite-image / 1K
+								194 按鈕 (disabled) 生成圖像
+								195 文字 尚未生成預覽圖
+			196 container
+				197 標籤頁群組
+					198 標籤頁 (selected, settable, boolean) Prompt Control Deck - 記憶體用量 - 119 MB, Value: on
+						199 按鈕 關閉
+			200 按鈕 新分頁
+	201 選單按鈕 視窗共享
+202 menu bar
+	203 Chrome
+	204 檔案
+	205 編輯
+	206 顯示方式
+	207 瀏覽記錄
+	208 書籤
+	209 設定檔
+	210 分頁
+	211 視窗
+	212 輔助說明
+
+The focused UI element is 66 按鈕 鞋襪與外層
