@@ -1,4 +1,5 @@
 import naturalProtected from './engine/midjourneyNaturalMirrorProtected.json' with { type: 'json' };
+import { restoreOtherBeforeWardrobeRetention } from './engine/framingWardrobeOtherInverse.js';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { createHash } from 'node:crypto';
@@ -58,7 +59,8 @@ const PRE_MOVE_OUTPUT_HASHES = [
 ];
 
 test('five protected output hashes match the pre-natural-MJ capture for mirror and untouched capture modes', () => {
-  for (const [id, { framing, orientation, anchor, ...overrides }] of PRE_MOVE_OUTPUT_HASHES) {
+  const fixtures = PRE_MOVE_OUTPUT_HASHES.map(([id]) => ({ id }));
+  const current = PRE_MOVE_OUTPUT_HASHES.map(([id, { framing, orientation, anchor, ...overrides }]) => {
     const prompt = generate({
       imageTypePresetId: 'photorealistic-photo', poseOrientationId: 'none', poseHeadId: 'chin-slightly-raised',
       topId: option('topId', '落肩 T 恤').id, pantsId: option('pantsId', '皮革長褲').id,
@@ -70,8 +72,11 @@ test('five protected output hashes match the pre-natural-MJ capture for mirror a
         poseAnchorId: anchor, framingId: option('framingId', '全身鏡頭 (Full Body Shot)').id } : {}),
       ...overrides,
     }, `mirror-prop-v1:${id}`);
-    const outputs = Object.fromEntries([['grokPrompt', prompt.grokPrompt], ['zImagePrompt', prompt.zImagePrompt],
-      ...prompt.extraPrompts.map(row => [row.id, row.text])]);
+    return { id, outputs: Object.fromEntries([['grokPrompt', prompt.grokPrompt], ['zImagePrompt', prompt.zImagePrompt],
+      ...prompt.extraPrompts.map(row => [row.id, row.text])]) };
+  });
+  const historical = restoreOtherBeforeWardrobeRetention('mirror', fixtures, current);
+  for (const { id, outputs } of historical) {
     // Frozen hashes predate the 2026-10-14 ethnicity revision; reverse only that rollout.
     assert.equal(createHash('sha256').update(JSON.stringify(restorePreEthnicityOutputs(outputs))).digest('hex'), naturalProtected[id], id);
   }

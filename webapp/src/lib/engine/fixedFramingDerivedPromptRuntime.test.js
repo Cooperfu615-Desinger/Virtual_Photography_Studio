@@ -75,13 +75,13 @@ test('phase-3 single runtime emits the active fixed-framing outputs from the sam
   }
 });
 
-test('phase-3 chest output uses the projected canonical upper-body pose and compact source scene', () => {
+test('chest output keeps complete wardrobe and the projected pose and scene', () => {
   const chest = extraText(generateFixture('chest-up-normal-separates-pose-scene-imaging').prompt, 'chest-up-portrait');
 
   assertIncludes(chest, 'Chest-up portrait');
   assertExcludes(chest, 'F–G cup bust');
   assertIncludes(chest, 'cotton camisole top');
-  assertExcludes(chest, 'straight-leg jeans');
+  assertIncludes(chest, 'straight-leg jeans');
   assertIncludes(chest, 'head slightly tilted');
   assertIncludes(chest, 'one hand touching the chin');
   assertIncludes(chest, 'one shoulder and the upper back resting against an existing vertical surface');

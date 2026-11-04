@@ -1007,7 +1007,8 @@ test('adhesive tape look is a composable outfit preset while the original specia
   for (const text of [chestUpPrompt]) {
     assert.match(text, /independent (?:wide )?chest and ribcage wrap bands/i);
     assert.match(text, /bare-shoulder|bare shoulders/i);
-    assert.doesNotMatch(text, /hip and pelvis|thigh wrap|halter|bralette|high-cut|tape bottoms/i);
+    assert.match(text, /hip and pelvis.*thigh wrap/i);
+    assert.doesNotMatch(text, /halter|bralette|high-cut|tape bottoms/i);
   }
   assert.match(fullBodyPrompt, /independent hip and pelvis wrap bands/i);
   assert.match(fullBodyPrompt, /separate thigh wrap bands/i);

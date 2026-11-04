@@ -2,7 +2,25 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-11-02
+Last updated: 2026-11-04
+
+## 六組構圖景別整合版：交付授權（2026-11-04）
+
+- 使用者已驗收本機整合成果，授權限定 commit／push 至 `codex/framing-wardrobe-integration`，接著進行合併前審查；不合併 main、不部署。下方「未提交」文字保留為驗收當時紀錄，遠端交付結果另於 session 回報。
+
+## 六組構圖景別：最新 main 隔離整合（2026-11-04，本機驗收通過）
+
+- 以 main `8cfeac42` 建立 `codex/framing-wardrobe-integration`，納入原交付分支 `7812e17d` 的功能與證據，解決七處衝突，保留 main 現行功能與所有原始凍結基準。舊分支與共享工作區保持原狀。
+- 修正閉合外套下洋裝上半部配色漏出、手勢測試的整份文字誤判，以及精確歷史回放的整合邊界；輸出契約 1.64.0。
+- 完整測試 2,112/2,112、Prompt Quality 864/864、lint、build、36 案／216 輸出固定比對通過；200 案同 seed strict audit 前後 0 blocking，診斷 18→17。5175 桌面／手機六工作區與六景別六輸出、全無、收藏套用、複製及 DLL 比例驗收完成。重載僅觀察到近景左右留白重抽，穿搭不變。
+- 詳見 [整合驗收與限制](reports/framing-wardrobe-integration-2026-11-04/README.md)。本批未 stage／commit／push，未合併 main、未部署、未付費生成；下方 1,719／763 等數字屬原交付分支的歷史驗收，不代表本整合版。
+
+## 六組構圖景別穿搭保留（2026-11-04，收斂版驗收）
+
+- 六個公開景別不再因裁切刪除有效服裝與配件；明確全無不補替代內容。四主輸出、胸上與全身衍生保持各自結構與比例，套裝／角色卡層／閉合外套優先權不變。
+- 程式提交 `f3a67496`，獨立分支 `codex/framing-wardrobe-retention`；完整測試 1,719/1,719、Prompt Quality 763/763、lint／build 與同 seed strict audit 通過（0 阻擋、22 既有診斷）。兩輪 5175 桌面／手機瀏覽器驗收涵蓋六景別六輸出、全無、角色卡、複製、收藏及 DLL 來源。
+- 使用者確認本次以 Prompt 保留、結構與相容契約作驗收門檻，外部模型出圖僅為補充觀察。詳見 [收斂版驗收](reports/framing-wardrobe-acceptance-2026-11-04/closure.md) 及 [規格](specs/framing-wardrobe-retention-v1.md)。下文舊 Close-Up Mode 裁切服裝規則為歷史，六公開景別以本規格為準。
+- 使用者已授權將驗收文件與補充瀏覽器證據提交／推送至同一獨立分支；不合併或部署。共享專案的其他 session 修改保留。
 
 ## Saved Cards 持久化 B：隔離實作與演練（2026-11-02）
 

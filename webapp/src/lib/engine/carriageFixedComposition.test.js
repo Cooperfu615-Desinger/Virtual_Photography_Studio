@@ -137,10 +137,10 @@ test('rush-hour retains all eight camera positions without changing selected pos
     assert.match(result.zImagePrompt, /Natural partial occlusion/);
   }
 });
-test('selected crops project wardrobe while preserving the full-body character reference', () => {
+test('selected crops retain wardrobe and the full-body character reference', () => {
   for (const [set] of cases) {
     const result = make(set, { framingId: option('framingId', '全臉傾斜特寫').id });
-    assert.doesNotMatch(result.zImagePrompt, /straight-leg jeans/);
+    assert.match(result.zImagePrompt, /straight-leg jeans/i);
     assert.match(result.extraPrompts.find(p => p.id === 'full-body-character').text, /Straight-leg jeans/);
   }
 });

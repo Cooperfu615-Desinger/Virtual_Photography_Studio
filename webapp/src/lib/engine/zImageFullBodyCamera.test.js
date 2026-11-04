@@ -1,6 +1,7 @@
 import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
 const historicalTest = preA1HistoricalTest(import.meta.url);
 import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
+import { restoreMatrixBeforeWardrobeRetention } from './framingWardrobeMatrixInverse.js';
 import assert from 'node:assert/strict';
 import { normalizeGptVisibilityForLegacy } from './gptSceneVisibilityTestSupport.js';
 import { normalizeCloseWormForLegacy } from './closeWormEyeTestSupport.js';
@@ -98,9 +99,10 @@ historicalTest('431-case frozen baseline: only approved main Z camera text chang
   const baseline = JSON.parse(readFileSync(new URL('./zImageFullBodyCameraBaseline.json', import.meta.url), 'utf8'));
   const results = FULL_CAMERA_REGRESSION.map(runSceneFixture);
   assert.equal(results.length, baseline.count);
-  assertChestUpRevision('fullCamera', results);
+  const historicalResults = restoreMatrixBeforeWardrobeRetention('fullCamera', FULL_CAMERA_REGRESSION, results);
+  assertChestUpRevision('fullCamera', historicalResults);
   for (const field of PROTECTED_OUTPUT_FIELDS) {
-    assert.equal(digest(results.map((r) => {
+    assert.equal(digest(historicalResults.map((r) => {
       // The baseline predates the 2026-10-14 ethnicity revision; reverse only that rollout.
       let value = restorePreEthnicityText(r.outputs[field], field);
       if (field === 'zImagePrompt') value = normalizeFullCameraForLegacy(value);
@@ -108,8 +110,8 @@ historicalTest('431-case frozen baseline: only approved main Z camera text chang
       return normalizeSubjectLightForLegacy(normalizeExplicitWardrobeFitForLegacy(value, field));
     })), baseline.hashes[field], field);
   }
-  assert.equal(digest(results.map((r) => r.selection)), baseline.selectionHash);
-  assert.equal(digest(results.map((r) => r.randomDraws)), baseline.randomHash);
+  assert.equal(digest(historicalResults.map((r) => r.selection)), baseline.selectionHash);
+  assert.equal(digest(historicalResults.map((r) => r.randomDraws)), baseline.randomHash);
   for (const [i, row] of FULL_CAMERA_REGRESSION.entries()) {
     const result = results[i];
     if (row.excluded) {

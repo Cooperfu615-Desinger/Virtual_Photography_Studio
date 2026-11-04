@@ -2,6 +2,7 @@
 import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
 const historicalTest = preA1HistoricalTest(import.meta.url);
 import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
+import { restoreMatrixBeforeWardrobeRetention } from './framingWardrobeMatrixInverse.js';
 import assert from 'node:assert/strict';
 import { normalizeGptVisibilityForLegacy } from './gptSceneVisibilityTestSupport.js';
 import { normalizeCloseWormForLegacy } from './closeWormEyeTestSupport.js';
@@ -104,7 +105,8 @@ historicalTest('1430 frozen cases permit only reviewed low-camera scene substitu
   const baseline = JSON.parse(readFileSync(new URL('./zImageSceneDetailPriorityBaseline.json', import.meta.url), 'utf8'));
   const results = SCENE_DETAIL_PRIORITY_REGRESSION.map(runSceneFixture);
   assert.equal(results.length, baseline.count);
-  const normalized = results.map((r, i) => {
+  const historicalResults = restoreMatrixBeforeWardrobeRetention('sceneDetail', SCENE_DETAIL_PRIORITY_REGRESSION, results);
+  const normalized = historicalResults.map((r, i) => {
     const row = SCENE_DETAIL_PRIORITY_REGRESSION[i];
     const entry = SCENE_DETAIL_PRIORITY_CASES.find(([label]) => label === row.locks.locationId?.byZh)
       || SCENE_DETAIL_PRIORITY_REMAINING_CASES.find(([label]) => label === row.locks.locationId?.byZh);
@@ -126,10 +128,10 @@ historicalTest('1430 frozen cases permit only reviewed low-camera scene substitu
     for (const field of OUTPUT_FIELDS) output[field] = normalizeSubjectLightForLegacy(normalizeExplicitWardrobeFitForLegacy(output[field], field));
     return output;
   });
-  assertChestUpRevision('sceneDetail', results);
+  assertChestUpRevision('sceneDetail', historicalResults);
   for (const field of PROTECTED_OUTPUT_FIELDS) assert.equal(digest(normalized.map(o => o[field])), baseline.hashes[field], field);
-  assert.equal(digest(results.map(r => r.selection)), baseline.selectionHash);
-  assert.equal(digest(results.map(r => r.randomDraws)), baseline.randomHash);
+  assert.equal(digest(historicalResults.map(r => r.selection)), baseline.selectionHash);
+  assert.equal(digest(historicalResults.map(r => r.randomDraws)), baseline.randomHash);
 });
 
 test('Saved Cards retain six texts; Markdown exports six and restores the established three primary texts', () => {

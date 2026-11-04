@@ -1,0 +1,627 @@
+{
+  "source": "independent HEAD d469a329 versus wardrobe-retention revision; scoped scene fixture deltas",
+  "cases": {
+    "R01-squat-low-selfie": {
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, cargo shorts, compact utility cut, side cargo pockets, structured casual silhouette. Thigh-high sheer garter stockings, lace top band, visible garter straps, delicate nylon hosiery. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R02-kneel-high-selfie": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R03-squat-no-anchor": {
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, cargo shorts, compact utility cut, side cargo pockets, structured casual silhouette. Thigh-high sheer garter stockings, lace top band, visible garter straps, delicate nylon hosiery. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R04-standing": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R04-sitting": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R05-elbows-on-knees": {
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, cargo shorts, compact utility cut, side cargo pockets, structured casual silhouette. Thigh-high sheer garter stockings, lace top band, visible garter straps, delicate nylon hosiery. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R06-mirror-selfie": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R07-companion-selfie": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R08-crop-full": {
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R08-crop-cowboy": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R08-crop-medium": {
+      "grokPrompt": {
+        "removed": " at the lower crop edg",
+        "added": ". Bare feet, natural barefoot stat"
+      },
+      "zImagePrompt": {
+        "removed": " at the lower crop edg",
+        "added": ", bare feet, natural barefoot stat"
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R08-crop-chest": {
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R08-crop-head": {
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R08-crop-face": {
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R09-orbit-front": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R09-orbit-left": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R09-orbit-right": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R09-orbit-rear": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R09-half-face": {
+      "grokPrompt": {
+        "removed": "crew-neck t-shirt, washed cotton jersey, relaxed upper-body proportion",
+        "added": "tight body-skimming upper-body fit, crew-neck t-shirt, washed cotton jersey, relaxed upper-body proportion. Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle"
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": ", ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude, bare feet, natural barefoot state, decorative wide leather waist belt worn loosely around hips with a structured off-center buckle"
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": ", leather trousers and a wide leather waist belt. She is barefoot"
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "crew-neck t-shirt, washed cotton jersey, relaxed upper-body proportion",
+        "added": "tight body-skimming upper-body fit, crew-neck t-shirt, washed cotton jersey, relaxed upper-body proportion. Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle"
+      },
+      "fullBodyCharacterPrompt": {
+        "removed": "crew-neck t-shirt, washed cotton jersey, relaxed upper-body proportion. Leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle",
+        "added": "tight body-skimming upper-body fit, crew-neck t-shirt, washed cotton jersey, relaxed upper-body proportion. Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle. Top length meets or slightly overlaps the low-rise waistband"
+      }
+    },
+    "R10-palm-occlusion": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R11-shirt-shoulder-1": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R11-shirt-shoulder-2": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R11-dress": {
+      "grokPrompt": {
+        "removed": "main fabric color controlled by dress color selection, one-piece fitted silhouette, off-shoulder neckline, ruffle trim, short hem, contrast trim controlled by contrast palet",
+        "added": "one-piece fitted silhouette, off-shoulder neckline, ruffle trim, short hem, main fabric color controlled by dress color selection, contrast trim controlled by contrast palette. Bare feet, natural barefoot sta"
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "dress, main fabric color controlled by dress color selection, one-piece fitted silhouette, off-shoulder neckline, ruffle trim, contrast trim controlled by contrast palett",
+        "added": "mini dress, one-piece fitted silhouette, off-shoulder neckline, ruffle trim, short hem, main fabric color controlled by dress color selection, contrast trim controlled by contrast palette. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckl"
+      }
+    },
+    "R11-complete-look": {
+      "grokPrompt": {
+        "removed": "parse slim decorative strap tabs with tiny buckles and small metallic O-rings placed at the collar, and metal o rings kept in fixed metallic tones, short center-front zipper, waist and hips as surface-mounted jewelry-like accents over the uninterrupted latex, full body latex catsuit in black, center front zipper trim and decorative strap tabs in red, zipper pull, buckles",
+        "added": "hort center-front zipper, sparse slim decorative strap tabs with tiny buckles and small metallic O-rings placed at the collar, waist and hips as surface-mounted jewelry-like accents over the uninterrupted latex, full body latex catsuit in black, center front zipper trim and decorative strap tabs in red, zipper pull, buckles, and metal o rings kept in fixed metallic tones. Bare feet, natural barefoot state"
+      },
+      "zImagePrompt": {
+        "removed": "parse slim decorative strap tabs with tiny buckles and small metallic O-rings placed at the collar, and metal o rings kept in fixed metallic tones, short center-front zipper, waist and hips as surface-mounted jewelry-like accents over the uninterrupted latex, full body latex catsuit in black, center front zipper trim and decorative strap tabs in red, zipper pull, buckles",
+        "added": "hort center-front zipper, sparse slim decorative strap tabs with tiny buckles and small metallic O-rings placed at the collar, waist and hips as surface-mounted jewelry-like accents over the uninterrupted latex, full body latex catsuit in black, center front zipper trim and decorative strap tabs in red, zipper pull, buckles, and metal o rings kept in fixed metallic tones, bare feet, natural barefoot state"
+      },
+      "midjourneyPrompt": {
+        "removed": "rings, a latex catsuit and a wide leather waist bel",
+        "added": "a latex catsuit, rings and a wide leather waist belt. She is barefoo"
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "short center-front zipper, full body latex catsuit in black, center front zipper trim and decorative strap tabs in red, zipper pull, buckles",
+        "added": "opaque mirror-polished latex full-body catsuit with a highly reflective wet-look surface producing sharp mirror reflections and bright specular highlights across every body contour while maintaining a vacuum-tight second-skin fit that provides continuous unbroken coverage from the fitted collar and long sleeves through the torso and hips to the full-length legs, short center-front zipper, sparse slim decorative strap tabs with tiny buckles and small metallic O-rings placed at the collar, waist and hips as surface-mounted jewelry-like accents over the uninterrupted latex, full body latex catsuit in black, center front zipper trim and decorative strap tabs in red, zipper pull, buckles, and metal o rings kept in fixed metallic tones. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle"
+      }
+    },
+    "R11-waist-chain": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, black leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Silver rhinestone butterfly waist chain, two delicate silver strands draped at slightly different heights, with multiple small rhinestone butterfly charms spaced across the low waist and upper hips, worn above low-rise bottoms."
+      }
+    },
+    "R12-scene-indoor": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R12-scene-studio": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R12-scene-none": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R12-watercolor": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R13-optics": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R14-mj-imaging": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R15-derived-isolation": {
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Leather trousers, sleek fitted structure, cool fashion attitude. Classic loafers, polished leather slip-on shape. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R16-fixed": {
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction."
+      }
+    },
+    "R16-character-card": {
+      "chestUpPortraitPrompt": {
+        "removed": ".\n\nPhotographic direction:\nPhotorealistic editorial portrait, intimate warm indoor film-snapshot photographic realism, coherent facial identity, realistic cotton and denim construction.\n\nWardrobe:\nShe wears fitted cropped white short-sleeve baby tee with a small minimalist black line-art chest graphic",
+        "added": ", small silver ring keychain clipped to the front belt loop.\n\nPhotographic direction:\nPhotorealistic editorial portrait, intimate warm indoor film-snapshot photographic realism, coherent facial identity, realistic cotton and denim construction.\n\nWardrobe:\nShe wears fitted cropped white short-sleeve baby tee with a small minimalist black line-art chest graphic, slightly loose low-rise light-wash blue jeans with relaxed straight legs and soft vintage fading, clean white low-top sneakers"
+      }
+    },
+    "R17-lying-bed-surface-0": {
+      "grokPrompt": {
+        "removed": " at the lower crop edg",
+        "added": ". Bare feet, natural barefoot stat"
+      },
+      "zImagePrompt": {
+        "removed": " at the lower crop edg",
+        "added": ", bare feet, natural barefoot stat"
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R17-lying-bed-surface-1": {
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R17-water-immersed-0": {
+      "grokPrompt": {
+        "removed": " at the lower crop edg",
+        "added": ". Bare feet, natural barefoot stat"
+      },
+      "zImagePrompt": {
+        "removed": " at the lower crop edg",
+        "added": ", bare feet, natural barefoot stat"
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R17-water-immersed-1": {
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R17-lying-clear-sea-surface-0": {
+      "grokPrompt": {
+        "removed": " at the lower crop edg",
+        "added": ". Bare feet, natural barefoot stat"
+      },
+      "zImagePrompt": {
+        "removed": " at the lower crop edg",
+        "added": ", bare feet, natural barefoot stat"
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R17-lying-clear-sea-surface-1": {
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R18-exact-text-on": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R18-exact-text-off": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    },
+    "R19-random-pose": {
+      "grokPrompt": {
+        "removed": "",
+        "added": "Bare feet, natural barefoot state. "
+      },
+      "zImagePrompt": {
+        "removed": "",
+        "added": "bare feet, natural barefoot state, "
+      },
+      "midjourneyPrompt": {
+        "removed": "",
+        "added": " She is barefoot."
+      },
+      "chestUpPortraitPrompt": {
+        "removed": "",
+        "added": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+      }
+    }
+  }
+}

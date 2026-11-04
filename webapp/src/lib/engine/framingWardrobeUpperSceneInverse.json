@@ -1,0 +1,2005 @@
+{
+  "source": "HEAD d469a329 paired same-input upper-scene fixtures; exact wardrobe-only deltas",
+  "patterns": [
+    {
+      "before": "white crew-neck t-shirt, washed cotton jersey, relaxed upper-body proportion",
+      "after": "tight body-skimming upper-body fit, white crew-neck t-shirt, washed cotton jersey, relaxed upper-body proportion. Ultra-low-rise waistband sitting very low on the hips, black leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle"
+    },
+    {
+      "before": "",
+      "after": ", ultra-low-rise waistband sitting very low on the hips, black leather trousers, sleek fitted structure, cool fashion attitude, bare feet, natural barefoot state, decorative wide leather waist belt worn loosely around hips with a structured off-center buckle"
+    },
+    {
+      "before": "",
+      "after": ", leather trousers and a wide leather waist belt. She is barefoot"
+    },
+    {
+      "before": "white crew-neck t-shirt, washed cotton jersey, relaxed upper-body proportion. Black leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle",
+      "after": "tight body-skimming upper-body fit, white crew-neck t-shirt, washed cotton jersey, relaxed upper-body proportion. Ultra-low-rise waistband sitting very low on the hips, black leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle. Top length meets or slightly overlaps the low-rise waistband"
+    },
+    {
+      "before": " at the lower crop edg",
+      "after": ". Bare feet, natural barefoot stat"
+    },
+    {
+      "before": " at the lower crop edg",
+      "after": ", bare feet, natural barefoot stat"
+    },
+    {
+      "before": "",
+      "after": " She is barefoot."
+    },
+    {
+      "before": "",
+      "after": " Ultra-low-rise waistband sitting very low on the hips, black leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+    },
+    {
+      "before": "",
+      "after": "Bare feet, natural barefoot state. "
+    },
+    {
+      "before": "",
+      "after": "bare feet, natural barefoot state, "
+    },
+    {
+      "before": "",
+      "after": " Straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction."
+    },
+    {
+      "before": ".\n\nPhotographic direction:\nPhotorealistic editorial portrait, intimate warm indoor film-snapshot photographic realism, coherent facial identity, realistic cotton and denim construction.\n\nWardrobe:\nShe wears fitted cropped white short-sleeve baby tee with a small minimalist black line-art chest graphic",
+      "after": ", small silver ring keychain clipped to the front belt loop.\n\nPhotographic direction:\nPhotorealistic editorial portrait, intimate warm indoor film-snapshot photographic realism, coherent facial identity, realistic cotton and denim construction.\n\nWardrobe:\nShe wears fitted cropped white short-sleeve baby tee with a small minimalist black line-art chest graphic, slightly loose low-rise light-wash blue jeans with relaxed straight legs and soft vintage fading, clean white low-top sneakers"
+    },
+    {
+      "before": "",
+      "after": " Ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+    },
+    {
+      "before": "",
+      "after": " Leather trousers, sleek fitted structure, cool fashion attitude. Bare feet, natural barefoot state. Decorative wide leather waist belt worn loosely around hips with a structured off-center buckle."
+    },
+    {
+      "before": "",
+      "after": "She is barefoot. "
+    }
+  ],
+  "cases": {
+    "upper-scene/戶外：日式旅館緣側木廊/腰部高度鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/腰部高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/腰部高度鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/腰部高度鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/膝蓋高度鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/膝蓋高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/膝蓋高度鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/膝蓋高度鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/地面高度鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/地面高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/地面高度鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/地面高度鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/蟲眼視角鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/蟲眼視角鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/蟲眼視角鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/蟲眼視角鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/肩部高度鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 3,
+        "after": 5
+      },
+      "selectionGroup": 1
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/肩部高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/肩部高度鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/肩部高度鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/平視高度鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 3,
+        "after": 5
+      },
+      "selectionGroup": 1
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/平視高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/平視高度鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/平視高度鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/高位俯視鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/高位俯視鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/高位俯視鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/高位俯視鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/鳥瞰視角/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/鳥瞰視角/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/鳥瞰視角/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/鳥瞰視角/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/正上方俯視鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/正上方俯視鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/正上方俯視鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/正上方俯視鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/全無/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 3,
+        "after": 5
+      },
+      "selectionGroup": 1
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/全無/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/全無/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：日式旅館緣側木廊/全無/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/腰部高度鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/室內：日式和室/腰部高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/腰部高度鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/腰部高度鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/膝蓋高度鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/室內：日式和室/膝蓋高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/膝蓋高度鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/膝蓋高度鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/地面高度鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/室內：日式和室/地面高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/地面高度鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/地面高度鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/蟲眼視角鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/室內：日式和室/蟲眼視角鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/蟲眼視角鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/蟲眼視角鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/肩部高度鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 3,
+        "after": 5
+      },
+      "selectionGroup": 1
+    },
+    "upper-scene/室內：日式和室/肩部高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/肩部高度鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/肩部高度鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/平視高度鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 3,
+        "after": 5
+      },
+      "selectionGroup": 1
+    },
+    "upper-scene/室內：日式和室/平視高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/平視高度鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/平視高度鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/高位俯視鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/室內：日式和室/高位俯視鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/高位俯視鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/高位俯視鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/鳥瞰視角/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/室內：日式和室/鳥瞰視角/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/鳥瞰視角/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/鳥瞰視角/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/正上方俯視鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/室內：日式和室/正上方俯視鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/正上方俯視鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/正上方俯視鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/全無/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 3,
+        "after": 5
+      },
+      "selectionGroup": 1
+    },
+    "upper-scene/室內：日式和室/全無/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/全無/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：日式和室/全無/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/腰部高度鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/腰部高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/腰部高度鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/腰部高度鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/膝蓋高度鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/膝蓋高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/膝蓋高度鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/膝蓋高度鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/地面高度鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/地面高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/地面高度鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/地面高度鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/蟲眼視角鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/蟲眼視角鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/蟲眼視角鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/蟲眼視角鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/肩部高度鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 3,
+        "after": 5
+      },
+      "selectionGroup": 1
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/肩部高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/肩部高度鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/肩部高度鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/平視高度鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 3,
+        "after": 5
+      },
+      "selectionGroup": 1
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/平視高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/平視高度鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/平視高度鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/高位俯視鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/高位俯視鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/高位俯視鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/高位俯視鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/鳥瞰視角/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/鳥瞰視角/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/鳥瞰視角/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/鳥瞰視角/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/正上方俯視鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/正上方俯視鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/正上方俯視鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/正上方俯視鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/全無/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 3,
+        "after": 5
+      },
+      "selectionGroup": 1
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/全無/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/全無/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/室內：廢棄水泥工廠破碎輸送帶區/全無/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/腰部高度鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/戶外：草地與樹木/腰部高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/腰部高度鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/腰部高度鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/膝蓋高度鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/戶外：草地與樹木/膝蓋高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/膝蓋高度鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/膝蓋高度鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/地面高度鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/戶外：草地與樹木/地面高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/地面高度鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/地面高度鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/蟲眼視角鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/戶外：草地與樹木/蟲眼視角鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/蟲眼視角鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/蟲眼視角鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/肩部高度鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 3,
+        "after": 5
+      },
+      "selectionGroup": 1
+    },
+    "upper-scene/戶外：草地與樹木/肩部高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/肩部高度鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/肩部高度鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/平視高度鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 3,
+        "after": 5
+      },
+      "selectionGroup": 1
+    },
+    "upper-scene/戶外：草地與樹木/平視高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/平視高度鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/平視高度鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/高位俯視鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/戶外：草地與樹木/高位俯視鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/高位俯視鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/高位俯視鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/鳥瞰視角/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/戶外：草地與樹木/鳥瞰視角/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/鳥瞰視角/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/鳥瞰視角/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/正上方俯視鏡頭/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 5,
+        "after": 7
+      },
+      "selectionGroup": 0
+    },
+    "upper-scene/戶外：草地與樹木/正上方俯視鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/正上方俯視鏡頭/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/正上方俯視鏡頭/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/全無/半臉傾斜特寫": {
+      "outputs": {
+        "grokPrompt": 0,
+        "zImagePrompt": 1,
+        "midjourneyPrompt": 2,
+        "chestUpPortraitPrompt": 0,
+        "fullBodyCharacterPrompt": 3
+      },
+      "draws": {
+        "before": 3,
+        "after": 5
+      },
+      "selectionGroup": 1
+    },
+    "upper-scene/戶外：草地與樹木/全無/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/全無/牛仔中景 (Cowboy Shot)": {
+      "outputs": {
+        "grokPrompt": 8,
+        "zImagePrompt": 9,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：草地與樹木/全無/全身鏡頭 (Full Body Shot)": {
+      "outputs": {
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "R16-fixed/戶外：日式旅館緣側木廊": {
+      "outputs": {
+        "chestUpPortraitPrompt": 10
+      }
+    },
+    "R16-fixed/室內：日式和室": {
+      "outputs": {
+        "chestUpPortraitPrompt": 10
+      }
+    },
+    "R16-fixed/室內：廢棄水泥工廠破碎輸送帶區": {
+      "outputs": {
+        "chestUpPortraitPrompt": 10
+      }
+    },
+    "R16-fixed/戶外：草地與樹木": {
+      "outputs": {
+        "chestUpPortraitPrompt": 10
+      }
+    },
+    "R16-character-card/戶外：日式旅館緣側木廊": {
+      "outputs": {
+        "chestUpPortraitPrompt": 11
+      }
+    },
+    "R16-character-card/室內：日式和室": {
+      "outputs": {
+        "chestUpPortraitPrompt": 11
+      }
+    },
+    "R16-character-card/室內：廢棄水泥工廠破碎輸送帶區": {
+      "outputs": {
+        "chestUpPortraitPrompt": 11
+      }
+    },
+    "R16-character-card/戶外：草地與樹木": {
+      "outputs": {
+        "chestUpPortraitPrompt": 11
+      }
+    },
+    "R17-lying-bed-surface-0/戶外：日式旅館緣側木廊": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 12
+      }
+    },
+    "R17-lying-bed-surface-0/室內：日式和室": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 12
+      }
+    },
+    "R17-lying-bed-surface-0/室內：廢棄水泥工廠破碎輸送帶區": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 12
+      }
+    },
+    "R17-lying-bed-surface-0/戶外：草地與樹木": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 12
+      }
+    },
+    "R17-lying-bed-surface-1/戶外：日式旅館緣側木廊": {
+      "outputs": {
+        "chestUpPortraitPrompt": 13
+      }
+    },
+    "R17-lying-bed-surface-1/室內：日式和室": {
+      "outputs": {
+        "chestUpPortraitPrompt": 13
+      }
+    },
+    "R17-lying-bed-surface-1/室內：廢棄水泥工廠破碎輸送帶區": {
+      "outputs": {
+        "chestUpPortraitPrompt": 13
+      }
+    },
+    "R17-lying-bed-surface-1/戶外：草地與樹木": {
+      "outputs": {
+        "chestUpPortraitPrompt": 13
+      }
+    },
+    "R17-water-immersed-0/戶外：日式旅館緣側木廊": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 12
+      }
+    },
+    "R17-water-immersed-0/室內：日式和室": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 12
+      }
+    },
+    "R17-water-immersed-0/室內：廢棄水泥工廠破碎輸送帶區": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 12
+      }
+    },
+    "R17-water-immersed-0/戶外：草地與樹木": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 12
+      }
+    },
+    "R17-water-immersed-1/戶外：日式旅館緣側木廊": {
+      "outputs": {
+        "chestUpPortraitPrompt": 13
+      }
+    },
+    "R17-water-immersed-1/室內：日式和室": {
+      "outputs": {
+        "chestUpPortraitPrompt": 13
+      }
+    },
+    "R17-water-immersed-1/室內：廢棄水泥工廠破碎輸送帶區": {
+      "outputs": {
+        "chestUpPortraitPrompt": 13
+      }
+    },
+    "R17-water-immersed-1/戶外：草地與樹木": {
+      "outputs": {
+        "chestUpPortraitPrompt": 13
+      }
+    },
+    "R17-lying-clear-sea-surface-0/戶外：日式旅館緣側木廊": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 12
+      }
+    },
+    "R17-lying-clear-sea-surface-0/室內：日式和室": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 12
+      }
+    },
+    "R17-lying-clear-sea-surface-0/室內：廢棄水泥工廠破碎輸送帶區": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 12
+      }
+    },
+    "R17-lying-clear-sea-surface-0/戶外：草地與樹木": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 12
+      }
+    },
+    "R17-lying-clear-sea-surface-1/戶外：日式旅館緣側木廊": {
+      "outputs": {
+        "chestUpPortraitPrompt": 13
+      }
+    },
+    "R17-lying-clear-sea-surface-1/室內：日式和室": {
+      "outputs": {
+        "chestUpPortraitPrompt": 13
+      }
+    },
+    "R17-lying-clear-sea-surface-1/室內：廢棄水泥工廠破碎輸送帶區": {
+      "outputs": {
+        "chestUpPortraitPrompt": 13
+      }
+    },
+    "R17-lying-clear-sea-surface-1/戶外：草地與樹木": {
+      "outputs": {
+        "chestUpPortraitPrompt": 13
+      }
+    },
+    "upper-scene/戶外：城市遊艇碼頭欄杆旁/腰部高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：城市遊艇碼頭欄杆旁/膝蓋高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：城市遊艇碼頭欄杆旁/地面高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：城市遊艇碼頭欄杆旁/蟲眼視角鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：城市遊艇碼頭欄杆旁/肩部高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：城市遊艇碼頭欄杆旁/平視高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：城市遊艇碼頭欄杆旁/高位俯視鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：城市遊艇碼頭欄杆旁/鳥瞰視角/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：城市遊艇碼頭欄杆旁/正上方俯視鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：城市遊艇碼頭欄杆旁/全無/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：新宿歌舞伎町招牌下/腰部高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：新宿歌舞伎町招牌下/膝蓋高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：新宿歌舞伎町招牌下/地面高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：新宿歌舞伎町招牌下/蟲眼視角鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：新宿歌舞伎町招牌下/肩部高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：新宿歌舞伎町招牌下/平視高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：新宿歌舞伎町招牌下/高位俯視鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：新宿歌舞伎町招牌下/鳥瞰視角/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：新宿歌舞伎町招牌下/正上方俯視鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/戶外：新宿歌舞伎町招牌下/全無/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 6,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/全無/腰部高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 14,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/全無/膝蓋高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 14,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/全無/地面高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 14,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/全無/蟲眼視角鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 14,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/全無/肩部高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 14,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/全無/平視高度鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 14,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/全無/高位俯視鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 14,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/全無/鳥瞰視角/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 14,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/全無/正上方俯視鏡頭/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 14,
+        "chestUpPortraitPrompt": 7
+      }
+    },
+    "upper-scene/全無/全無/中景鏡頭 (Medium Shot)": {
+      "outputs": {
+        "grokPrompt": 4,
+        "zImagePrompt": 5,
+        "midjourneyPrompt": 14,
+        "chestUpPortraitPrompt": 7
+      }
+    }
+  },
+  "selectionGroups": [
+    {
+      "topPatternId": {
+        "before": "",
+        "after": "wardrobe:上身圖案-top-surface-design:全無:0"
+      },
+      "neckAccessoryId": {
+        "before": "",
+        "after": "wardrobe:頸部-neck-accessories:全無:0"
+      },
+      "topFitId": {
+        "before": "",
+        "after": "tight"
+      },
+      "bottomPatternId": {
+        "before": "",
+        "after": "wardrobe:下身圖案-bottom-surface-design:全無:0"
+      },
+      "outerwearId": {
+        "before": "",
+        "after": "wardrobe:外套-outerwear:全無:0"
+      },
+      "headAccessoryId": {
+        "before": "",
+        "after": "wardrobe:頭部配件-head-accessories:全無:0"
+      },
+      "eyewearPlacementId": {
+        "before": "",
+        "after": "wardrobe:眼鏡配戴方式-eyewear-placement:正常戴在臉上:0"
+      },
+      "bottomRiseId": {
+        "before": "",
+        "after": "ultra-low-rise"
+      },
+      "eyewearId": {
+        "before": "",
+        "after": "wardrobe:眼鏡-eyewear:全無:0"
+      },
+      "earringsId": {
+        "before": "",
+        "after": "wardrobe:耳環-earrings:全無:0"
+      },
+      "eyewearColorId": {
+        "before": "",
+        "after": "wardrobe:眼鏡配色-eyewear-color:全無:0"
+      },
+      "legwearId": {
+        "before": "",
+        "after": "wardrobe:襪類-legwear:全無:0"
+      }
+    },
+    {
+      "topPatternId": {
+        "before": "",
+        "after": "wardrobe:上身圖案-top-surface-design:全無:0"
+      },
+      "neckAccessoryId": {
+        "before": "",
+        "after": "wardrobe:頸部-neck-accessories:全無:0"
+      },
+      "topFitId": {
+        "before": "",
+        "after": "tight"
+      },
+      "bottomPatternId": {
+        "before": "",
+        "after": "wardrobe:下身圖案-bottom-surface-design:全無:0"
+      },
+      "outerwearId": {
+        "before": "",
+        "after": "wardrobe:外套-outerwear:全無:0"
+      },
+      "headAccessoryId": {
+        "before": "",
+        "after": "wardrobe:頭部配件-head-accessories:全無:0"
+      },
+      "eyewearPlacementId": {
+        "before": "",
+        "after": "wardrobe:眼鏡配戴方式-eyewear-placement:戴在頭頂:1"
+      },
+      "bottomRiseId": {
+        "before": "",
+        "after": "ultra-low-rise"
+      },
+      "eyewearId": {
+        "before": "",
+        "after": "wardrobe:眼鏡-eyewear:全無:0"
+      },
+      "earringsId": {
+        "before": "",
+        "after": "wardrobe:耳環-earrings:全無:0"
+      },
+      "eyewearColorId": {
+        "before": "",
+        "after": "wardrobe:眼鏡配色-eyewear-color:全無:0"
+      },
+      "legwearId": {
+        "before": "",
+        "after": "wardrobe:襪類-legwear:全無:0"
+      }
+    }
+  ]
+}
