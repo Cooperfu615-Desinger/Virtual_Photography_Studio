@@ -1,6 +1,7 @@
 import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
 const historicalTest = preA1HistoricalTest(import.meta.url);
 import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
+import { restoreMatrixBeforeWardrobeRetention } from './framingWardrobeMatrixInverse.js';
 import assert from 'node:assert/strict';
 import { restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
 import { test } from 'node:test';
@@ -48,7 +49,8 @@ test('approved near-contact medium and cowboy copy appears exactly once in main 
 
 historicalTest('frozen matrix permits only the exact GPT/Z camera text and no selection or RNG changes', () => {
   const baseline = JSON.parse(readFileSync(new URL('./closeWormEyeBaseline.json', import.meta.url), 'utf8'));
-  const rows = [...GPT_CAMERA_SPATIAL_FIXTURES, ...CLOSE_WORM_CASES, ...CLOSE_WORM_EXCLUDED].map(runSceneFixture);
+  const fixtures = [...GPT_CAMERA_SPATIAL_FIXTURES, ...CLOSE_WORM_CASES, ...CLOSE_WORM_EXCLUDED];
+  const rows = restoreMatrixBeforeWardrobeRetention('worm', fixtures, fixtures.map(runSceneFixture));
   assert.equal(rows.length, baseline.count);
   assertChestUpRevision('worm', rows);
   for (const field of PROTECTED_OUTPUT_FIELDS) assert.equal(digest(rows.map(r => {

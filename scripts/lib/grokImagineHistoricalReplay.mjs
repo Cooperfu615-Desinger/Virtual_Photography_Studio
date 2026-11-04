@@ -14,6 +14,6 @@ export function preGrokImagineSource(path, source) {
     assert.equal(hash(before), seal.beforeHash, 'Grok Imagine historical source seal mismatch');
     return Buffer.isBuffer(source) ? before : before.toString('utf8');
   }
-  assert.ok(!source.toString().includes('registerGrokImagineResult'), 'Grok Imagine inverse rejects unknown or mixed source');
+  assert.ok(!source.toString().includes('registerGrokImagineResult'), 'Grok Imagine inverse rejects unknown current engine or mixed source');
   return source;
 }

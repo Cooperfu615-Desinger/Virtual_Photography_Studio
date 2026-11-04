@@ -80,14 +80,23 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.63.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.64.0';
+
+export const FRAMING_WARDROBE_RETENTION_CONTRACT = deepFreeze({
+  version: '1.0.0',
+  scope: 'six public framings, four main outputs and the chest-up derivative',
+  wardrobe: 'retain all effective resolved garments and accessories regardless of crop',
+  resolution: 'explicit none remains silent; random selections resolve once and are shared',
+  exclusions: 'existing outfit priority, garment compatibility, pose, scene and camera projection remain independent',
+  reference: 'full-body character retains its natural standing pose and 9:16 composition',
+});
 
 export const SHIRT_BLACK_BOTTOM_CONTRACT = deepFreeze({
   version: '1.0.0',
   presets: ['開扣短袖襯衫熱褲', '開扣長袖襯衫包臀裙'],
   primaryColorTarget: 'shirt fabric only',
   bottom: 'fixed black hot pants or black bodycon mini skirt',
-  mainMj: 'retain selected shirt color and fixed black bottom names only when visible',
+  mainMj: 'retain selected shirt color and fixed black bottom names when effective',
   completeLookPalette: 'shirt only; preserve fixed black bottom',
   compatibility: 'stable IDs, reference images and legacy English aliases; all other presets unchanged',
 });
@@ -144,7 +153,7 @@ export const UNDERBUST_TOP_FIT_CONTRACT = deepFreeze({
   source: 'reviewed topUnderbust garment source plus shared underbust-tight or underbust-fitted source',
   resolution: 'same-person garment length and body cut override before rendering; preserved fabric, neckline, sleeves and ornaments',
   compatibility: 'waist-bound top styles suppressed with raw selection preserved; bras, swimwear and pasties keep their structure',
-  projection: 'retain authored fit when chest is visible; omit off-screen fit in face/shoulder crops, restore full-body source',
+  projection: 'retain the effective authored fit independently of framing',
   preservation: 'old IDs, canonical garment English, random pool, complete-look precedence, storage schema and other layers unchanged',
 });
 
@@ -153,7 +162,7 @@ export const OUTERWEAR_STYLING_CONTRACT = deepFreeze({
   source: 'same resolved authored English after the coat identity, pattern and opening',
   fidelity: 'retain the whole visible source verbatim once across applicable main and derived outputs',
   resolution: 'same-person garment length, authored rollable sleeves, closure and sleeve-bound hand compatibility; translucent hem variant resolves once',
-  projection: 'hem and rolled cuffs omitted in chest/face crops and restored from resolved sources for full-body reference',
+  projection: 'retain effective hem and rolled cuffs independently of framing',
   compatibility: 'existing IDs, random pool, pose source, Body Type, saved selections and storage schema preserved',
 });
 
@@ -413,7 +422,7 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
     field: 'chestUpPortraitPrompt',
     uiLabel: '胸上特寫照',
     target: 'Single-subject 4:5 chest-up portrait',
-    captureState: 'same resolved source; chest-visible body/wardrobe/pose; posture and manual seat retained; main GPT camera, ambient and scene policy with matching mode exclusions',
+    captureState: 'same resolved source; complete effective wardrobe and chest-projected body/pose; posture and manual seat retained; main GPT camera, ambient and scene policy with matching mode exclusions',
     source: { kind: 'extraPrompt', id: 'chest-up-portrait' },
     applicability: {
       supportedModes: ['single'],

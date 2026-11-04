@@ -39,7 +39,7 @@ test('new trackwear appends stable identities and keeps its authored detail acro
     assert.ok(text.includes('black adidas'));
   }
   for (const text of [r.grokPrompt, r.zImagePrompt, r.extraPrompts.find(e => e.id === 'full-body-character').text]) assert.ok(text.includes(option('pantsId', pants).en));
-  for (const e of r.extraPrompts.filter(e => e.id.startsWith('chest-up'))) assert.ok(!e.text.includes('track pants'));
+  for (const e of r.extraPrompts.filter(e => e.id.startsWith('chest-up'))) assert.ok(e.text.includes('track pants'));
 });
 
 test('new jacket uses existing fit, zip closure, sleeve styling and hidden inner-layer contracts', () => {

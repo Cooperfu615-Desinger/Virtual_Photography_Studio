@@ -1,5 +1,5 @@
+import {preFramingWardrobeSource,preparePreFramingWardrobeFiles} from './framingWardrobeIntegrationReplay.mjs';
 // Test-only inverse for the two approved identity anchors. Never a runtime migration.
-import {preGrokImagineSource} from './grokImagineHistoricalReplay.mjs';
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync,realpathSync,existsSync,lstatSync} from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -10,7 +10,7 @@ import testPatches from './c1IdentityTestPatches.json' with {type:'json'};
 export const C1_ROOT=fileURLToPath(new URL('../../',import.meta.url));
 export const hash=value=>createHash('sha256').update(value).digest('hex');
 export function preC1IdentitySource(path,source) {
-  source=preGrokImagineSource(path,source);
+  source=preFramingWardrobeSource(path,source);
   const patch=testPatches.files.find(p=>p.path===path);
   if(patch){
     if(hash(source)===patch.afterHash){assert.equal(hash(patch.beforeSource),patch.beforeHash,'C1 corrupt test oracle');return Buffer.isBuffer(source)?Buffer.from(patch.beforeSource):patch.beforeSource;}
@@ -34,11 +34,11 @@ export function preparePreC1IdentityFiles(directory,{allowEarlier=false}={}) {
   assert.notEqual(resolved,realpathSync(C1_ROOT),'C1 inverse requires isolated copy');
   assert.ok(!existsSync(join(directory,'.git')),'C1 inverse rejects Git checkout');
   assert.ok(allowEarlier||existsSync(join(directory,review.path)),'C1 inverse missing source');
-  const sources=new Map(),states=[];
+  const sources=new Map(preparePreFramingWardrobeFiles(directory).sources),states=[];
   for(const item of [review,...testPatches.files]){
     const path=join(directory,item.path);if(!existsSync(path))continue;
     assert.ok(!lstatSync(path).isSymbolicLink()&&realpathSync(path).startsWith(resolved+'/'),'C1 inverse rejects linked source');
-    const source=readFileSync(path),sha=hash(source);
+    const source=sources.get(item.path)??readFileSync(path),sha=hash(source);
     if(!allowEarlier)assert.ok([item.beforeHash,item.afterHash].includes(sha),'C1 inverse rejects unknown or mixed source');
     states.push(sha===item.afterHash?'after':'before');
     const before=preC1IdentitySource(item.path,source);

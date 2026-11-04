@@ -35,14 +35,15 @@ test('cotton briefs replace the existing option without changing single/duo IDs 
   assert.ok(!controls.find(c => c.key === 'pantsId').options.some(o => o.zh === '蕾絲內褲'));
 });
 
-test('all six outputs respect cotton material and the existing crop projection', () => {
+test('all six outputs retain cotton material across framing projections', () => {
   const prompt = generate();
   for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.extraPrompts.find(p => p.id === 'full-body-character').text]) {
     assert.match(text, /black low-rise cotton briefs/);
     assert.doesNotMatch(text, /lace panties|delicate lace texture/);
   }
   for (const id of ['chest-up-portrait']) {
-    assert.doesNotMatch(prompt.extraPrompts.find(p => p.id === id).text, /cotton briefs|lace panties/);
+    assert.match(prompt.extraPrompts.find(p => p.id === id).text, /cotton briefs/);
+    assert.doesNotMatch(prompt.extraPrompts.find(p => p.id === id).text, /lace panties/);
   }
   assert.match(prompt.summary, /棉質低腰三角褲/);
   assert.equal(prompt.selection.pantsId, oldId);

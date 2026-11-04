@@ -1,0 +1,1047 @@
+{
+  "baseCommit": "8cfeac421f15e1849ab86e2a1c270bbbec6392ee",
+  "purpose": "Exact source inverse only in isolated historical replay; preserve existing frozen baselines. Live retention tests run on current engine.",
+  "files": [
+    {
+      "path": "webapp/package.json",
+      "beforeHash": "eb8373424e817f40bc77a61eda936254ee8562bf9efe7782a3f2c1150b2f5f0c",
+      "afterHash": "8420434e30eaf3f2c6d7808d5441b48a84064b5752f2197377dc15782fe333ac",
+      "edits": [
+        {
+          "before": "    \"test:prompt-quality\": \"node ../scripts/run_webapp_tests.mjs src/lib/characterWardrobeSources.test.js src/lib/page2AdultIdentity.test.js src/lib/engine/mainDressRegion.test.js src/lib/engine/chestDressRegion.test.js src/features/saved-cards/page1MarkdownSnapshot.test.js src/features/saved-cards/wardrobeColorRecovery.test.js src/lib/engine/outfitControlLanguage.test.js src/lib/engine/dressControlLanguage.test.js src/lib/engine/characterAdultIdentity.test.js src/lib/observationCaptureImport.test.js src/lib/engine/shirtBlackBottom.test.js src/lib/engine/specifiedActionUnified.test.js src/lib/observationCaptureMode.test.js src/lib/engine/squattingHands.test.js src/lib/engine/squattingCatalog.test.js src/lib/engine/specifiedActions.test.js src/lib/engine/specifiedActionIntegration.test.js src/lib/engine/nanoBananaPrompt.test.js src/lib/engine/midjourneyNaturalPrompt.test.js src/lib/engineBlackTieShirt.test.js src/lib/engineMirrorSelfieProp.test.js src/lib/engineSubjectLightAdditions.test.js src/lib/engineSubjectKeyLightCompatibility.test.js src/lib/engine/headDominantFraming.test.js src/lib/engine/shibuyaCrowdScene.test.js src/lib/engine/adidasTrackwear.test.js src/lib/engine/bandagePasties.test.js src/lib/engine/underbustTopFit.test.js src/lib/engine/outerwearStyling.test.js src/lib/engine/minimalCoverageWardrobe.test.js src/lib/engine/bodyTypeCatalog.test.js src/lib/engine/gptBodyTypeOmission.test.js src/lib/engine/kneelingCatalog.test.js src/lib/engine/hourglassBikiniBody.test.js src/lib/engine/zImageOnLocationCapture.test.js src/lib/engine/outerwearClosure.test.js src/lib/engine/stationFixedComposition.test.js src/lib/engineFixedCompositionSet.test.js src/lib/engine/topHemOverlap.test.js src/lib/engine/standingCatalog.test.js src/lib/engineOptionalSilence.test.js src/lib/engine/midjourneyTopPattern.test.js src/lib/engine/chestUpSameState.test.js src/lib/engine/closeWormEye.test.js src/lib/engine/gptCameraSpatial.test.js src/lib/engine/gptSceneVisibility.test.js src/lib/engine/ambientLightDescriptions.test.js src/lib/engine/zImageSceneDetailPriority.test.js src/lib/engine/zImageUpperSceneExtension.test.js src/lib/engine/zImageFullBodyCamera.test.js src/lib/engine/zImageUpperScene.test.js src/lib/engine/zImageSceneDirection.test.js src/lib/engine/sceneIntegratedAssemblyBaseline.test.js src/lib/engine/promptOutputContracts.test.js src/lib/engine/zImageTurboPromptContract.test.js src/lib/engine/zImageTurboCameraGeometry.test.js src/lib/engineZImageTurboPrompt.test.js src/lib/engine/aiPromptLengthContract.test.js src/lib/engine/aiPromptBudget.test.js src/lib/engine/aiPromptLengthIntegration.test.js src/lib/engine/midjourneyDescriptionContract.test.js src/lib/engine/midjourneyDescriptionOpening.test.js src/lib/engine/midjourneySubjectWardrobe.test.js src/lib/engine/midjourneySceneImaging.test.js src/lib/engine/midjourneySpecialModes.test.js src/lib/engine/midjourneyParameterContract.test.js src/lib/engine/midjourneyParameterTail.test.js src/lib/engine/midjourneyNativeStructure.test.js src/lib/engine/midjourneyFacialFeatureVariant.test.js src/lib/engine/expressionGazeSharedPrompt.test.js src/lib/engine/midjourneyCompletionGate.test.js src/lib/enginePromptDeduplication.test.js src/lib/engine/compositionBodyVisibilityContract.test.js src/lib/engine/compositionBodyVisibilityIntegration.test.js src/lib/engine/compositionBodyPromptIntegration.test.js src/lib/engine/compositionVisibilityIntegration.test.js src/lib/engine/fixedCompositionPromptIntegration.test.js src/lib/engine/fixedFramingDerivedPromptContract.test.js src/lib/engine/fixedFramingDerivedPromptInfrastructure.test.js src/lib/engine/fixedFramingDerivedPromptRuntime.test.js src/lib/engine/fixedFramingMainPrompt.test.js src/lib/engine/fixedFramingPromptIntegration.test.js src/lib/page1PromptOutputs.test.js src/lib/engine/phase4PublicLanguage.test.js src/lib/engine/phase4FixedPalette.test.js src/lib/engine/phase4ScenePosition.test.js src/lib/engine/phase4LightingCompatibility.test.js src/lib/engine/phase4CharacterDirection.test.js\",\n",
+          "after": "    \"test:prompt-quality\": \"node ../scripts/run_webapp_tests.mjs src/lib/engine/framingWardrobeIntegration.test.js src/lib/engine/framingWardrobeRetention.test.js src/lib/engine/framingWardrobeHistoricalBoundary.test.js src/lib/characterWardrobeSources.test.js src/lib/page2AdultIdentity.test.js src/lib/engine/mainDressRegion.test.js src/lib/engine/chestDressRegion.test.js src/features/saved-cards/page1MarkdownSnapshot.test.js src/features/saved-cards/wardrobeColorRecovery.test.js src/lib/engine/outfitControlLanguage.test.js src/lib/engine/dressControlLanguage.test.js src/lib/engine/characterAdultIdentity.test.js src/lib/observationCaptureImport.test.js src/lib/engine/shirtBlackBottom.test.js src/lib/engine/specifiedActionUnified.test.js src/lib/observationCaptureMode.test.js src/lib/engine/squattingHands.test.js src/lib/engine/squattingCatalog.test.js src/lib/engine/specifiedActions.test.js src/lib/engine/specifiedActionIntegration.test.js src/lib/engine/nanoBananaPrompt.test.js src/lib/engine/midjourneyNaturalPrompt.test.js src/lib/engineBlackTieShirt.test.js src/lib/engineMirrorSelfieProp.test.js src/lib/engineSubjectLightAdditions.test.js src/lib/engineSubjectKeyLightCompatibility.test.js src/lib/engine/headDominantFraming.test.js src/lib/engine/shibuyaCrowdScene.test.js src/lib/engine/adidasTrackwear.test.js src/lib/engine/bandagePasties.test.js src/lib/engine/underbustTopFit.test.js src/lib/engine/outerwearStyling.test.js src/lib/engine/minimalCoverageWardrobe.test.js src/lib/engine/bodyTypeCatalog.test.js src/lib/engine/gptBodyTypeOmission.test.js src/lib/engine/kneelingCatalog.test.js src/lib/engine/hourglassBikiniBody.test.js src/lib/engine/zImageOnLocationCapture.test.js src/lib/engine/outerwearClosure.test.js src/lib/engine/stationFixedComposition.test.js src/lib/engineFixedCompositionSet.test.js src/lib/engine/topHemOverlap.test.js src/lib/engine/standingCatalog.test.js src/lib/engineOptionalSilence.test.js src/lib/engine/midjourneyTopPattern.test.js src/lib/engine/chestUpSameState.test.js src/lib/engine/closeWormEye.test.js src/lib/engine/gptCameraSpatial.test.js src/lib/engine/gptSceneVisibility.test.js src/lib/engine/ambientLightDescriptions.test.js src/lib/engine/zImageSceneDetailPriority.test.js src/lib/engine/zImageUpperSceneExtension.test.js src/lib/engine/zImageFullBodyCamera.test.js src/lib/engine/zImageUpperScene.test.js src/lib/engine/zImageSceneDirection.test.js src/lib/engine/sceneIntegratedAssemblyBaseline.test.js src/lib/engine/promptOutputContracts.test.js src/lib/engine/zImageTurboPromptContract.test.js src/lib/engine/zImageTurboCameraGeometry.test.js src/lib/engineZImageTurboPrompt.test.js src/lib/engine/aiPromptLengthContract.test.js src/lib/engine/aiPromptBudget.test.js src/lib/engine/aiPromptLengthIntegration.test.js src/lib/engine/midjourneyDescriptionContract.test.js src/lib/engine/midjourneyDescriptionOpening.test.js src/lib/engine/midjourneySubjectWardrobe.test.js src/lib/engine/midjourneySceneImaging.test.js src/lib/engine/midjourneySpecialModes.test.js src/lib/engine/midjourneyParameterContract.test.js src/lib/engine/midjourneyParameterTail.test.js src/lib/engine/midjourneyNativeStructure.test.js src/lib/engine/midjourneyFacialFeatureVariant.test.js src/lib/engine/expressionGazeSharedPrompt.test.js src/lib/engine/midjourneyCompletionGate.test.js src/lib/enginePromptDeduplication.test.js src/lib/engine/compositionBodyVisibilityContract.test.js src/lib/engine/compositionBodyVisibilityIntegration.test.js src/lib/engine/compositionBodyPromptIntegration.test.js src/lib/engine/compositionVisibilityIntegration.test.js src/lib/engine/fixedCompositionPromptIntegration.test.js src/lib/engine/fixedFramingDerivedPromptContract.test.js src/lib/engine/fixedFramingDerivedPromptInfrastructure.test.js src/lib/engine/fixedFramingDerivedPromptRuntime.test.js src/lib/engine/fixedFramingMainPrompt.test.js src/lib/engine/fixedFramingPromptIntegration.test.js src/lib/page1PromptOutputs.test.js src/lib/engine/phase4PublicLanguage.test.js src/lib/engine/phase4FixedPalette.test.js src/lib/engine/phase4ScenePosition.test.js src/lib/engine/phase4LightingCompatibility.test.js src/lib/engine/phase4CharacterDirection.test.js\",\n",
+          "afterLine": 10
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine.js",
+      "beforeHash": "c96fd59a55a342e640420584beb9afa5533146698eeeeb754f4fbe88b8c95662",
+      "afterHash": "c4cd1510eb3234ba644499e7982e5e568624ec21be547f93d79306f8d23b3847",
+      "edits": [
+        {
+          "before": "    if (isCompleteWardrobeProjection(getCompositionVisibilityProjection(context))) {\n",
+          "after": "    if (isCompleteCompositionProjection(getCompositionVisibilityProjection(context))) {\n",
+          "afterLine": 4656
+        },
+        {
+          "before": "  if (visibility === 'close') {\n",
+          "after": "  if (visibility === 'close' && !['\u534a\u81c9\u50be\u659c\u7279\u5beb', '\u5168\u81c9\u50be\u659c\u7279\u5beb'].includes(context.framing?.zh)) {\n",
+          "afterLine": 7265
+        },
+        {
+          "before": "",
+          "after": "    // A paired dress palette is split into fragments before role classification.\n    // Its upper-color fragment can still contain \"dress\" in the prefix; remove\n    // it before that word is mistaken for a surviving lower dress identity.\n    if (/upper\\/main dress area/i.test(fragment)) return [];\n",
+          "afterLine": 8845
+        },
+        {
+          "before": "function isCompleteWardrobeProjection(projection) {\n",
+          "after": "// Wardrobe is a resolved outfit context; its retention must not widen the\n// independently projected pose, body, camera or scene.\nfunction retainResolvedWardrobe(projection) {\n  return { ...projection, wardrobe: { ...COMPOSITION_VISIBILITY_CONTRACT.fullBody.wardrobe, retainResolved: true } };\n}\n\nfunction isCompleteCompositionProjection(projection) {\n",
+          "afterLine": 8871
+        },
+        {
+          "before": "",
+          "after": "}\n\nfunction isCompleteWardrobeProjection(projection) {\n  return projection?.wardrobe?.retainResolved === true || isCompleteCompositionProjection(projection);\n",
+          "afterLine": 8881
+        },
+        {
+          "before": "  if (!fragment || projection?.bucket !== COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST) return fragment;\n",
+          "after": "  if (!fragment || projection?.wardrobe?.retainResolved || projection?.bucket !== COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST) return fragment;\n",
+          "afterLine": 8989
+        },
+        {
+          "before": "  const usesPartialWardrobeProjection = !isCompleteWardrobeProjection(compositionVisibilityProjection);\n",
+          "after": "  // Framing still controls presentation and layering; retaining garment sources\n  // must not activate full-body-only coordination text in a cropped image.\n  const usesPartialWardrobeProjection = !isCompleteCompositionProjection(compositionVisibilityProjection);\n",
+          "afterLine": 10055
+        },
+        {
+          "before": "  wardrobe = projectUnderbustTopFit(projectClosedOuterwearWardrobe(projectOuterwearStyling(projectTopHemOverlap(projectAudioForFraming(wardrobe, baseDerivedContext), baseDerivedContext), getCompositionVisibilityProjection(baseDerivedContext))), getCompositionVisibilityProjection(baseDerivedContext));\n",
+          "after": "  if (preset.id === 'chest-up-portrait') baseDerivedContext.compositionVisibility = retainResolvedWardrobe(baseDerivedContext.compositionVisibility);\n  wardrobe = projectUnderbustTopFit(projectClosedOuterwearWardrobe(projectOuterwearStyling(projectTopHemOverlap(baseDerivedContext.compositionVisibility.wardrobe.retainResolved ? wardrobe : projectAudioForFraming(wardrobe, baseDerivedContext), baseDerivedContext), getCompositionVisibilityProjection(baseDerivedContext))), getCompositionVisibilityProjection(baseDerivedContext));\n",
+          "afterLine": 12893
+        },
+        {
+          "before": "  const sceneReductions = isCompleteWardrobeProjection(getCompositionVisibilityProjection(sceneContext))\n",
+          "after": "  const sceneReductions = isCompleteCompositionProjection(getCompositionVisibilityProjection(sceneContext))\n",
+          "afterLine": 15673
+        },
+        {
+          "before": "  const rendererWardrobe = projectUnderbustTopFit(projectClosedOuterwearWardrobe(projectOuterwearStyling(projectTopHemOverlap(projectAudioForFraming(fixedCompositionPromptProjection?.wardrobe.items || wardrobe, mainContext), mainContext), getCompositionVisibilityProjection(mainContext))), getCompositionVisibilityProjection(mainContext));\n",
+          "after": "  const wardrobeSource = fixedCompositionPromptProjection?.wardrobe.items || wardrobe;\n  const rendererWardrobe = projectUnderbustTopFit(projectClosedOuterwearWardrobe(projectOuterwearStyling(projectTopHemOverlap(compositionVisibility.wardrobe.retainResolved ? wardrobeSource : projectAudioForFraming(wardrobeSource, mainContext), mainContext), getCompositionVisibilityProjection(mainContext))), getCompositionVisibilityProjection(mainContext));\n",
+          "afterLine": 15957
+        },
+        {
+          "before": "  const compositionVisibility = createCompositionVisibilityProjection(framing, {\n",
+          "after": "  let compositionVisibility = createCompositionVisibilityProjection(framing, {\n",
+          "afterLine": 16672
+        },
+        {
+          "before": "",
+          "after": "  if (['\u534a\u81c9\u50be\u659c\u7279\u5beb', '\u5168\u81c9\u50be\u659c\u7279\u5beb', '\u982d\u90e8\u4e3b\u5c0e\u8fd1\u666f', '\u4e2d\u666f\u93e1\u982d (Medium Shot)', '\u725b\u4ed4\u4e2d\u666f (Cowboy Shot)', '\u5168\u8eab\u93e1\u982d (Full Body Shot)'].includes(framing?.zh)) {\n    compositionVisibility = retainResolvedWardrobe(compositionVisibility);\n  }\n",
+          "afterLine": 16675
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/adidasTrackwear.test.js",
+      "beforeHash": "1d07a9d7e9045f80cee2a86156c1ef77b3d47c51ab0e6cac70aa2785ffb98b14",
+      "afterHash": "13cf99336dbbe59f8949b5362105a589afe6bff71a2665fe45d551ae018bc125",
+      "edits": [
+        {
+          "before": "  for (const e of r.extraPrompts.filter(e => e.id.startsWith('chest-up'))) assert.ok(!e.text.includes('track pants'));\n",
+          "after": "  for (const e of r.extraPrompts.filter(e => e.id.startsWith('chest-up'))) assert.ok(e.text.includes('track pants'));\n",
+          "afterLine": 41
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/aiPromptBudget.test.js",
+      "beforeHash": "40e981ea751dac63894ef028b563c0d5daedd6e72c1608239b0b5df93d5b431a",
+      "afterHash": "13f05ab0144983f5d6794a68349c5646ed68769d66e2e33e9b319dfe3718db47",
+      "edits": [
+        {
+          "before": "",
+          "after": "import { restoreOtherBeforeWardrobeRetention } from './framingWardrobeOtherInverse.js';\n",
+          "afterLine": 1
+        },
+        {
+          "before": "  for (const [fixtureId, expectedHash] of Object.entries(MIDJOURNEY_NATIVE_DESCRIPTION_HASHES)) {\n",
+          "after": "  const entries = Object.entries(MIDJOURNEY_NATIVE_DESCRIPTION_HASHES);\n  const fixtures = entries.map(([id]) => ({ id }));\n  const historical = restoreOtherBeforeWardrobeRetention('budget', fixtures, entries.map(([id]) => {\n    const fixture = AI_PROMPT_LENGTH_FIXTURES.find((entry) => entry.id === id);\n    return { id, output: generateFixture(fixture).midjourneyPrompt };\n  }));\n  for (const [index, [fixtureId, expectedHash]] of entries.entries()) {\n",
+          "afterLine": 188
+        },
+        {
+          "before": "",
+          "after": "    assert.ok(fixture, fixtureId);\n",
+          "afterLine": 196
+        },
+        {
+          "before": "    const output = restorePreEthnicityText(generateFixture(fixture).midjourneyPrompt, 'midjourneyPrompt');\n",
+          "after": "    const output = restorePreEthnicityText(historical[index].output, 'midjourneyPrompt');\n",
+          "afterLine": 198
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/ambientLightDescriptions.test.js",
+      "beforeHash": "c74b2c38270aa7ec72b050c85cddf60115879d06706e188706fea52a78f5bb60",
+      "afterHash": "93ab26bd6400ff8c49aefbdd0b4e957816f2d35ecaaf44204d433b28e7caccae",
+      "edits": [
+        {
+          "before": "",
+          "after": "import { restoreSceneWardrobeBeforeRevision } from './framingWardrobeSceneInverse.js';\nimport wardrobeInverse from './framingWardrobeUpperSceneInverse.json' with { type: 'json' };\n",
+          "afterLine": 15
+        },
+        {
+          "before": "",
+          "after": "  // Independently compared against HEAD for all 730 ambient and excluded\n  // cases. These are the same exact wardrobe fragments as the upper-scene matrix.\n  const previousWardrobe = results.map((r, i) => {\n    const outputs = { ...r.outputs };\n    const frame = AMBIENT_MATRIX[i].locks.framingId.byZh;\n    assert.ok(['\u4e2d\u666f\u93e1\u982d (Medium Shot)', '\u5168\u8eab\u93e1\u982d (Full Body Shot)'].includes(frame));\n    const fragments = frame === '\u4e2d\u666f\u93e1\u982d (Medium Shot)'\n      ? { grokPrompt: 4, zImagePrompt: 5, midjourneyPrompt: 6, chestUpPortraitPrompt: 7 }\n      : { chestUpPortraitPrompt: 7 };\n    for (const [field, index] of Object.entries(fragments)) {\n      const { before, after } = wardrobeInverse.patterns[index];\n      assert.equal(outputs[field].split(after).length - 1, 1, `${AMBIENT_MATRIX[i].id}/${field}: exact wardrobe delta`);\n      outputs[field] = outputs[field].replace(after, before);\n    }\n    return { ...r, outputs };\n  });\n",
+          "afterLine": 56
+        },
+        {
+          "before": "    const historical = restorePreEthnicityOutputs(r.outputs);\n",
+          "after": "    const historical = restorePreEthnicityOutputs(previousWardrobe[i].outputs);\n",
+          "afterLine": 82
+        },
+        {
+          "before": "  assertChestUpRevision('ambient', results);\n",
+          "after": "  assertChestUpRevision('ambient', previousWardrobe);\n",
+          "afterLine": 87
+        },
+        {
+          "before": "    assertChestUpRevision(`ambient-excluded:${f.id}`, [r]);\n",
+          "after": "    assertChestUpRevision(`ambient-excluded:${f.id}`, [{ ...r, outputs: restoreSceneWardrobeBeforeRevision(r.outputs, f.id) }]);\n",
+          "afterLine": 93
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/bodyTypeCatalog.test.js",
+      "beforeHash": "abd959bf2e630f6432d0ee9468459366592ffc243b436468b8bfc7b2d8d48e3b",
+      "afterHash": "c8242a3d92349530f320e9b130d8c19430b258fcbea946571af52c6657fcd3f1",
+      "edits": [
+        {
+          "before": "",
+          "after": "    // The 60 cases were compared against an independent pre-retention engine.\n    // Undo only their exact jeans additions / former medium-crop edge wording.\n    const fullJeans = ' Straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction.';\n    assert.equal(historical[2].split(fullJeans).length - 1, 1, 'chest retains selected jeans');\n    historical[2] = historical[2].replace(fullJeans, '');\n    if (['\u534a\u81c9\u50be\u659c\u7279\u5beb', '\u5168\u81c9\u50be\u659c\u7279\u5beb'].includes(entry.framing)) {\n      assert.equal(historical[0].split(fullJeans).length - 1, 1);\n      historical[0] = historical[0].replace(fullJeans, '');\n      const compactJeans = ', straight-leg jeans, clean denim texture';\n      assert.equal(historical[1].split(compactJeans).length - 1, 1);\n      historical[1] = historical[1].replace(compactJeans, '');\n    }\n    if (entry.framing === '\u4e2d\u666f\u93e1\u982d (Medium Shot)') {\n      const jeans = 'classic five-pocket construction.';\n      const compactJeans = 'straight-leg jeans, clean denim texture.';\n      assert.equal(historical[0].split(jeans).length - 1, 1);\n      assert.equal(historical[1].split(compactJeans).length - 1, 1);\n      historical[0] = historical[0].replace(jeans, 'classic five-pocket construction at the lower crop edge.');\n      historical[1] = historical[1].replace(compactJeans, 'straight-leg jeans, clean denim texture, at the lower crop edge.');\n    }\n",
+          "afterLine": 135
+        },
+        {
+          "before": "    assert.equal(hash(p.selection), entry.selection, `${entry.body}/${entry.framing}: selection`);\n",
+          "after": "    const historicalSelection = { ...p.selection };\n    if (['\u534a\u81c9\u50be\u659c\u7279\u5beb', '\u5168\u81c9\u50be\u659c\u7279\u5beb'].includes(entry.framing)) {\n      for (const key of ['bottomPatternId', 'earringsId', 'eyewearColorId', 'eyewearId', 'headAccessoryId', 'legwearId', 'neckAccessoryId', 'outerwearId', 'shoesId', 'topPatternId']) {\n        assert.equal(historicalSelection[key], option(key, '\u5168\u7121'), `${key}: explicitly resolved none`);\n        historicalSelection[key] = '';\n      }\n    }\n    assert.equal(hash(historicalSelection), entry.selection, `${entry.body}/${entry.framing}: unrelated selection`);\n",
+          "afterLine": 156
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/carriageFixedComposition.test.js",
+      "beforeHash": "e358ed10961fb5aabb437c7fa736e3e8045c5aa8665d2c13b42a3af2c572207f",
+      "afterHash": "c9e0d7966a540690a172a914a5056c721a344e6c91d4529b89a667f56e1eb304",
+      "edits": [
+        {
+          "before": "test('selected crops project wardrobe while preserving the full-body character reference', () => {\n",
+          "after": "test('selected crops retain wardrobe and the full-body character reference', () => {\n",
+          "afterLine": 139
+        },
+        {
+          "before": "    assert.doesNotMatch(result.zImagePrompt, /straight-leg jeans/);\n",
+          "after": "    assert.match(result.zImagePrompt, /straight-leg jeans/i);\n",
+          "afterLine": 142
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/closeWormEye.test.js",
+      "beforeHash": "c7b7d53b901a61fdd11b5ae9367e06de7beda1ba0503baf5c7bdafc0f39b30e8",
+      "afterHash": "b5e74f373213df42a0fd0928381d9d85677b5b4371db4bcce0c298093de4667d",
+      "edits": [
+        {
+          "before": "",
+          "after": "import { restoreMatrixBeforeWardrobeRetention } from './framingWardrobeMatrixInverse.js';\n",
+          "afterLine": 3
+        },
+        {
+          "before": "  const rows = [...GPT_CAMERA_SPATIAL_FIXTURES, ...CLOSE_WORM_CASES, ...CLOSE_WORM_EXCLUDED].map(runSceneFixture);\n",
+          "after": "  const fixtures = [...GPT_CAMERA_SPATIAL_FIXTURES, ...CLOSE_WORM_CASES, ...CLOSE_WORM_EXCLUDED];\n  const rows = restoreMatrixBeforeWardrobeRetention('worm', fixtures, fixtures.map(runSceneFixture));\n",
+          "afterLine": 51
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/compositionVisibilityWardrobe.test.js",
+      "beforeHash": "770e614c3592174b94472ddb6cacb11447bb1eecc69d7932dd5c13006b71b7ff",
+      "afterHash": "34f66b7e35c86404bacfc292d99532df4cdd7fb076952a44ec751e6749339c5e",
+      "edits": [
+        {
+          "before": "    includes: ['off-white off-shoulder gothic dress'],\n    excludes: ['short hem'],\n",
+          "after": "    includes: ['off-white off-shoulder gothic mini dress', 'short hem'],\n",
+          "afterLine": 32
+        },
+        {
+          "before": "    includes: ['cotton camisole', 'pleated mini skirt', 'lace-top thigh-high stockings'],\n    excludes: ['stiletto pumps'],\n",
+          "after": "    includes: ['cotton camisole', 'pleated mini skirt', 'lace-top thigh-high stockings', 'stiletto pumps'],\n",
+          "afterLine": 35
+        },
+        {
+          "before": "    includes: ['cotton camisole', 'straight-leg jeans', 'denim jacket', 'shirt', 'tailored trousers', 'blazer'],\n    excludes: ['ribbed ankle socks', 'low-top sneakers', 'knee-high socks', 'loafers'],\n",
+          "after": "    includes: ['cotton camisole', 'straight-leg jeans', 'denim jacket', 'shirt', 'tailored trousers', 'blazer',\n      'ribbed ankle socks', 'low-top sneakers', 'knee-high socks', 'loafers'],\n",
+          "afterLine": 46
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/fixedFramingDerivedPromptRuntime.test.js",
+      "beforeHash": "12c283724bed470ebcf662611c853336ff0305aa3472c33c1efea3633ebd4c05",
+      "afterHash": "f5423c6f4c067c087effc6b957ff91f7932fa45ac8224c6b58d91e107431f46e",
+      "edits": [
+        {
+          "before": "test('phase-3 chest output uses the projected canonical upper-body pose and compact source scene', () => {\n",
+          "after": "test('chest output keeps complete wardrobe and the projected pose and scene', () => {\n",
+          "afterLine": 77
+        },
+        {
+          "before": "  assertExcludes(chest, 'straight-leg jeans');\n",
+          "after": "  assertIncludes(chest, 'straight-leg jeans');\n",
+          "afterLine": 83
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/fixedFramingPromptIntegrationFixtures.js",
+      "beforeHash": "775e08ebc31f0a8582fb59bc16de0ac42d041f479a19c7f5476e06676522e367",
+      "afterHash": "e83efaf6ef1e785797b0509edd6fc573853a69f02aebcda907eb41e26ab77496",
+      "edits": [
+        {
+          "before": "      'collared shirt with a short',\n",
+          "after": "      'collared shirt with a short', 'straight-leg jeans', 'stiletto pumps',\n",
+          "afterLine": 21
+        },
+        {
+          "before": "    primaryExcludes: ['straight-leg jeans', 'stiletto pumps'],\n",
+          "after": "    primaryExcludes: [],\n",
+          "afterLine": 23
+        },
+        {
+          "before": "    chestIncludes: ['collared shirt with a short'],\n    chestExcludes: ['straight-leg jeans', 'stiletto pumps'],\n",
+          "after": "    chestIncludes: ['collared shirt with a short', 'straight-leg jeans', 'stiletto pumps'],\n    chestExcludes: [],\n",
+          "afterLine": 26
+        },
+        {
+          "before": "    primaryIncludes: ['collared shirt with a short'],\n    primaryExcludes: ['straight-leg jeans', 'stiletto pumps', 'natural relaxed standing pose'],\n",
+          "after": "    primaryIncludes: ['collared shirt with a short', 'straight-leg jeans', 'stiletto pumps'],\n    primaryExcludes: ['natural relaxed standing pose'],\n",
+          "afterLine": 42
+        },
+        {
+          "before": "    chestIncludes: ['collared shirt with a short'],\n    chestExcludes: ['straight-leg jeans', 'stiletto pumps'],\n",
+          "after": "    chestIncludes: ['collared shirt with a short', 'straight-leg jeans', 'stiletto pumps'],\n    chestExcludes: [],\n",
+          "afterLine": 46
+        },
+        {
+          "before": "    primaryIncludes: ['burgundy plaid handkerchief camisole', 'low-rise blue denim mini skirt'],\n    primaryExcludes: ['black knee-high leather boots'],\n",
+          "after": "    primaryIncludes: ['burgundy plaid handkerchief camisole', 'low-rise blue denim mini skirt', 'black knee-high leather boots'],\n    primaryExcludes: [],\n",
+          "afterLine": 58
+        },
+        {
+          "before": "    chestIncludes: ['burgundy plaid handkerchief camisole'],\n    chestExcludes: ['low-rise blue denim mini skirt', 'black knee-high leather boots'],\n",
+          "after": "    chestIncludes: ['burgundy plaid handkerchief camisole', 'low-rise blue denim mini skirt', 'black knee-high leather boots'],\n    chestExcludes: [],\n",
+          "afterLine": 62
+        },
+        {
+          "before": "    chestIncludes: ['silk camisole'],\n    chestExcludes: ['high-waisted wide-leg trousers'],\n",
+          "after": "    chestIncludes: ['silk camisole', 'high-waisted wide-leg trousers'],\n    chestExcludes: [],\n",
+          "afterLine": 79
+        },
+        {
+          "before": "    chestIncludes: ['off-shoulder gothic dress'],\n    chestExcludes: ['short hem'],\n",
+          "after": "    chestIncludes: ['off-shoulder gothic mini dress', 'short hem'],\n    chestExcludes: [],\n",
+          "afterLine": 95
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/gazeGesture.test.js",
+      "beforeHash": "9bef1125ce456fb39b00ac3e4f468b2b89d694cd886e4c3eec6418e050f5ae37",
+      "afterHash": "71474b4dd10416d4eccdcf20d9ec535232a462c6277778c077b1d172a52ab139",
+      "edits": [
+        {
+          "before": "  const chestOf = id => chest(generate({ specifiedActionId: natural, gestureId: id }));\n",
+          "after": "  // Wardrobe now retains waist accessories; this contract concerns hand actions.\n  const chestOf = id => chest(generate({ specifiedActionId: natural, gestureId: id }))\n    .split('Pose and Composition:\\n')[1]?.split('\\n\\n')[0] || '';\n",
+          "afterLine": 362
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/gptCameraSpatial.test.js",
+      "beforeHash": "0dba47e4f1fd64d4378f8ece3833d0ea47ace7ec10efb7afcfcd2aa3f0959eec",
+      "afterHash": "4da86a72c551de1e95d08206f5b9e45cc174cd86af29a46f2a986c06245aa8d3",
+      "edits": [
+        {
+          "before": "",
+          "after": "import { restoreMatrixBeforeWardrobeRetention } from './framingWardrobeMatrixInverse.js';\n",
+          "afterLine": 3
+        },
+        {
+          "before": "  assertChestUpRevision('camera', results);\n",
+          "after": "  const historicalResults = restoreMatrixBeforeWardrobeRetention('camera', GPT_CAMERA_SPATIAL_FIXTURES, results);\n  assertChestUpRevision('camera', historicalResults);\n",
+          "afterLine": 82
+        },
+        {
+          "before": "  for (const field of PROTECTED_OUTPUT_FIELDS) assert.equal(digest(results.map(r=>normalizeSubjectLightForLegacy(field==='grokPrompt'\n",
+          "after": "  for (const field of PROTECTED_OUTPUT_FIELDS) assert.equal(digest(historicalResults.map(r=>normalizeSubjectLightForLegacy(field==='grokPrompt'\n",
+          "afterLine": 85
+        },
+        {
+          "before": "  assert.equal(digest(results.map(r=>r.selection)),cameraBaseline.selectionHash);\n  assert.equal(digest(results.map(r=>r.randomDraws)),cameraBaseline.randomHash);\n",
+          "after": "  assert.equal(digest(historicalResults.map(r=>r.selection)),cameraBaseline.selectionHash);\n  assert.equal(digest(historicalResults.map(r=>r.randomDraws)),cameraBaseline.randomHash);\n",
+          "afterLine": 87
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/gptSceneVisibility.test.js",
+      "beforeHash": "615c3fd1681afe9eafe59d498fb6820ca2a8708331ae7aef6e3c781d5dc76719",
+      "afterHash": "888ad0cd3a6731d0f27838feca72875db53dcc1e68d38c566a38d935fad2eafd",
+      "edits": [
+        {
+          "before": "",
+          "after": "import { restoreMatrixBeforeWardrobeRetention } from './framingWardrobeMatrixInverse.js';\n",
+          "afterLine": 3
+        },
+        {
+          "before": "  assertChestUpRevision('visibility', results);\n",
+          "after": "  const historicalResults = restoreMatrixBeforeWardrobeRetention('visibility', GPT_VISIBILITY_ALL, results);\n  assertChestUpRevision('visibility', historicalResults);\n",
+          "afterLine": 73
+        },
+        {
+          "before": "  for (const field of PROTECTED_OUTPUT_FIELDS) assert.equal(digest(results.map(r => field === 'grokPrompt'\n",
+          "after": "  for (const field of PROTECTED_OUTPUT_FIELDS) assert.equal(digest(historicalResults.map(r => field === 'grokPrompt'\n",
+          "afterLine": 76
+        },
+        {
+          "before": "  assert.equal(digest(results.map(r => r.selection)), baseline.selectionHash);\n  assert.equal(digest(results.map(r => r.randomDraws)), baseline.randomHash);\n",
+          "after": "  assert.equal(digest(historicalResults.map(r => r.selection)), baseline.selectionHash);\n  assert.equal(digest(historicalResults.map(r => r.randomDraws)), baseline.randomHash);\n",
+          "afterLine": 79
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/headDominantFraming.test.js",
+      "beforeHash": "a5e36f3b710ef0bfe97c5fcdeeb6a3ae736734f4272013527e94c27f9c2e8bd1",
+      "afterHash": "96b07c0a738b55d05385bf7ba4c4034cf35ee085b1fd326551888ea4a1c1dfec",
+      "edits": [
+        {
+          "before": "test('three main outputs retain the head scale, body context and authored scene while omitting lower garments', () => {\n",
+          "after": "test('three main outputs retain the head scale, authored scene and selected lower garments', () => {\n",
+          "afterLine": 79
+        },
+        {
+          "before": "    assert.doesNotMatch(text, /straight-leg jeans|head-to-toe figure/i);\n",
+          "after": "    assert.match(text, /straight-leg jeans/i);\n    assert.doesNotMatch(text, /head-to-toe figure/i);\n",
+          "afterLine": 90
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/midjourneyNaturalPrompt.test.js",
+      "beforeHash": "48c7200d170ec96bec688a02f9ce0572c887698ddc84997f9c9b72789d08dc1c",
+      "afterHash": "e65b8cbd50ed065ed542d13e21db36d9ce3ad36eb615d01a20d1e0075809e9d9",
+      "edits": [
+        {
+          "before": "",
+          "after": "import { restoreOtherBeforeWardrobeRetention } from './framingWardrobeOtherInverse.js';\n",
+          "afterLine": 5
+        },
+        {
+          "before": "test('main MJ CRT has the approved short body, item names, freckles, style and film without measurements or hidden boots', () => {\n",
+          "after": "test('main MJ CRT retains selected boots with the approved body, style and film', () => {\n",
+          "afterLine": 50
+        },
+        {
+          "before": "  assert.equal(paragraphs[1], 'She wears a bikini top, narrow-front string bikini bottoms and lace-top thigh-high stockings.');\n",
+          "after": "  assert.equal(paragraphs[1], 'She wears a bikini top, narrow-front string bikini bottoms, lace-top thigh-high stockings and dr martens 1460 round toe lace-up boots.');\n",
+          "afterLine": 57
+        },
+        {
+          "before": "  assert.doesNotMatch(body, /cup bust|hourglass|height \\d|bust[\u2013-]waist|indentation|body-skimming|low-rise|Dr\\.? Martens|--ar/);\n",
+          "after": "  assert.doesNotMatch(body, /cup bust|hourglass|height \\d|bust[\u2013-]waist|indentation|body-skimming|low-rise|--ar/);\n",
+          "afterLine": 60
+        },
+        {
+          "before": "",
+          "after": "  const prompts = fixtures.map(fixture => {\n    const current = generatePrompts(1, fixture.locks, historicalCatalog, { random: createSeededRandom(fixture.seed) })[0];\n    return usesBlackBottomPreset(current)\n      ? generatePrompts(1, fixture.locks, historicalBlackBottomCatalog, { random: createSeededRandom(fixture.seed) })[0]\n      : current;\n  });\n  const historical = restoreOtherBeforeWardrobeRetention('natural', fixtures, prompts.map((prompt, index) => ({\n    id: fixtures[index].id, main: prompt.midjourneyPrompt, selection: prompt.selection,\n    fields: protectedNaturalOutputs(stripFullBodyCharacterBodySource(prompt)),\n  })));\n",
+          "afterLine": 73
+        },
+        {
+          "before": "    const current = generatePrompts(1, fixture.locks, historicalCatalog, { random: createSeededRandom(fixture.seed) })[0];\n    // Only the two approved source revisions use their exact historical input.\n    // All other live presets still compare against the immutable old hashes.\n    const prompt = usesBlackBottomPreset(current)\n      ? generatePrompts(1, fixture.locks, historicalBlackBottomCatalog, { random: createSeededRandom(fixture.seed) })[0]\n      : current;\n",
+          "after": "    const prompt = prompts[index];\n",
+          "afterLine": 86
+        },
+        {
+          "before": "    const historicalMain = restorePreSquattingV2(restorePreEthnicityText(restorePreOpenPalmV2(prompt.midjourneyPrompt), 'midjourneyPrompt'));\n    assert.equal(createHash('sha256').update(removeBody(restoreUnquotedShibuyaSignage(stripFramingDerivedMidjourneyRatio(historicalMain, prompt.selection)))).digest('hex'), bodyBaseline[index].main,\n",
+          "after": "    const historicalMain = restorePreSquattingV2(restorePreEthnicityText(restorePreOpenPalmV2(historical[index].main), 'midjourneyPrompt'));\n    assert.equal(createHash('sha256').update(removeBody(restoreUnquotedShibuyaSignage(stripFramingDerivedMidjourneyRatio(historicalMain, historical[index].selection)))).digest('hex'), bodyBaseline[index].main,\n",
+          "afterLine": 90
+        },
+        {
+          "before": "    for (const [field, value] of Object.entries(protectedNaturalOutputs(stripFullBodyCharacterBodySource(prompt)))) {\n",
+          "after": "    for (const [field, value] of Object.entries(historical[index].fields)) {\n",
+          "afterLine": 95
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/minimalCoverageWardrobe.test.js",
+      "beforeHash": "ea483e9d67aabc9e12c7de3bc6f9ea5a4b7ebc29907c53485e7c4eac5d11d431",
+      "afterHash": "f7341e28a17aefcd55cab99d61891e3908a9aad22b65bd0ee84b7fd562351113",
+      "edits": [
+        {
+          "before": "  const preOmission = restoreGptIndependentBodySource(p, []);\n",
+          "after": "  const reversed = structuredClone(p);\n  if (fixture.overrides.subjectCount === '1') {\n    // The pre-change snapshot was reproduced independently: the new chest\n    // output adds exactly the selected bottom sentence. Reverse only that\n    // source and the retired medium-crop suffix before checking the old hash.\n    const bottom = controls.find(c => c.key === 'pantsId').options.find(o => o.id === p.selection.pantsId);\n    assert.ok(bottom?.en);\n    const sourceSentence = ` ${polishPublicPromptText(`${bottom.en}.`)}`;\n    const chest = reversed.extraPrompts.find(entry => entry.id === 'chest-up-portrait');\n    assert.equal(chest.text.split(sourceSentence).length - 1, 1, `${fixture.title}: complete chest bottom`);\n    chest.text = chest.text.replace(sourceSentence, '');\n    if (fixture.title.includes('\u4e2d\u666f\u93e1\u982d (Medium Shot)')) {\n      const lastFragment = bottom.en.split(', ').at(-1);\n      for (const key of ['grokPrompt', 'zImagePrompt']) {\n        const present = `${lastFragment}.`;\n        assert.equal(reversed[key].split(present).length - 1, 1, `${fixture.title}: ${key} bottom source`);\n        reversed[key] = reversed[key].replace(present, `${lastFragment} at the lower crop edge.`);\n      }\n    }\n  }\n  const preOmission = restoreGptIndependentBodySource(reversed, []);\n",
+          "afterLine": 64
+        },
+        {
+          "before": "        assert.doesNotMatch(text, pantsType);\n        assert.ok(!text.includes(indentation));\n",
+          "after": "        assert.match(text, pantsType);\n        assert.ok(text.includes(indentation));\n",
+          "afterLine": 103
+        },
+        {
+          "before": "test('bikini bottom fabric source stays complete in visible outputs and absent from chest crops', () => {\n",
+          "after": "test('bikini bottom fabric source stays complete in applicable outputs including chest', () => {\n",
+          "afterLine": 255
+        },
+        {
+          "before": "      assert.doesNotMatch(text, /narrow-front string thong bikini bottoms|tiny low-rise triangular front panel/i);\n      assert.ok(!text.includes(indentation));\n",
+          "after": "      assert.match(text, /narrow-front string thong bikini bottoms/i);\n      assert.match(text, /tiny low-rise triangular front panel/i);\n      assert.ok(text.includes(indentation));\n",
+          "afterLine": 272
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/nanoBananaPrompt.test.js",
+      "beforeHash": "228eae503a08461dd3dac0590e28a46ca9ae32382594b900dc6ba242c8d3ca4c",
+      "afterHash": "392700d14e39aeb1f08d133e89517864c7d2edbb3c5d55f1dfd238e627ec54f8",
+      "edits": [
+        {
+          "before": "",
+          "after": "import { restoreNanoBeforeWardrobeRetention } from './framingWardrobeNanoInverse.js';\n",
+          "afterLine": 26
+        },
+        {
+          "before": "",
+          "after": "  const historical = restoreNanoBeforeWardrobeRetention('nano', fixtures, generated.map(({ fixture, prompt }) => ({\n    id: fixture.id, fields: protectedNanoBananaOutputs(stripFullBodyCharacterBodySource(prompt)),\n    nano: prompt.nanoBananaPrompt, normalizedNano: normalizedNanoBananaFacialText(prompt, fixture, NANO_BANANA_FACIAL_FEATURES),\n  })));\n",
+          "afterLine": 44
+        },
+        {
+          "before": "    const { fixture, prompt } = generated[index];\n",
+          "after": "    const { fixture } = generated[index];\n",
+          "afterLine": 49
+        },
+        {
+          "before": "    const protectedFields = protectedNanoBananaOutputs(stripFullBodyCharacterBodySource(prompt));\n",
+          "after": "    const protectedFields = historical[index].fields;\n",
+          "afterLine": 54
+        },
+        {
+          "before": "test('Character Card accessories follow the selected crop while visible facewear is retained', () => {\n",
+          "after": "test('Character Card accessories and facewear are retained at close crops', () => {\n",
+          "afterLine": 134
+        },
+        {
+          "before": "    assert.ok(!close.includes(hidden), `${cardId}: hidden accessory omitted`);\n",
+          "after": "    assert.ok(close.includes(hidden), `${cardId}: selected accessory retained`);\n",
+          "afterLine": 148
+        },
+        {
+          "before": "",
+          "after": "  const historical = restoreNanoBeforeWardrobeRetention('facial', facialFixtures, facialGenerated.map(({ fixture, prompt }) => ({\n    id: fixture.id, fields: protectedNanoBananaOutputs(stripFullBodyCharacterBodySource(prompt)),\n    nano: prompt.nanoBananaPrompt, normalizedNano: normalizedNanoBananaFacialText(prompt, fixture, NANO_BANANA_FACIAL_FEATURES),\n  })));\n",
+          "afterLine": 261
+        },
+        {
+          "before": "    const { fixture, prompt } = facialGenerated[index];\n",
+          "after": "    const { fixture } = facialGenerated[index];\n",
+          "afterLine": 266
+        },
+        {
+          "before": "    const fields = protectedNanoBananaOutputs(stripFullBodyCharacterBodySource(prompt));\n",
+          "after": "    const fields = historical[index].fields;\n",
+          "afterLine": 271
+        },
+        {
+          "before": "    assert.equal(hash(restorePreEthnicityText(normalizedNanoBananaFacialText(prompt, fixture, NANO_BANANA_FACIAL_FEATURES), 'nanoBananaPrompt')),\n",
+          "after": "    assert.equal(hash(restorePreEthnicityText(historical[index].normalizedNano, 'nanoBananaPrompt')),\n",
+          "afterLine": 276
+        },
+        {
+          "before": "      assert.equal(hash(restorePreEthnicityText(prompt.nanoBananaPrompt, 'nanoBananaPrompt')), before.unchangedNanoBananaPrompt,\n",
+          "after": "      assert.equal(hash(restorePreEthnicityText(historical[index].nano, 'nanoBananaPrompt')), before.unchangedNanoBananaPrompt,\n",
+          "afterLine": 279
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/outerwearStyling.test.js",
+      "beforeHash": "9614767cfbfeccde56b3a6fb7c6d71755c2604bd7d1aca79c6f9d606f2b55cde",
+      "afterHash": "9b0b1212344960be2fa592ba59dfc0d77e4272b368617981164f8ce55b1944da",
+      "edits": [
+        {
+          "before": "test('waist and sleeve crop exclusions do not rewrite visible sources or full-body derivative', () => {\n",
+          "after": "test('legacy chest framing stays compatible while derived outputs retain waist and sleeve sources', () => {\n",
+          "afterLine": 94
+        },
+        {
+          "before": "    for (const text of [result.grokPrompt, result.zImagePrompt, ...result.extraPrompts.filter(e => e.id.includes('chest')).map(e => e.text)]) assert.ok(!text.includes(source));\n",
+          "after": "    for (const text of [result.grokPrompt, result.zImagePrompt]) assert.ok(!text.includes(source));\n    for (const text of result.extraPrompts.filter(e => e.id.includes('chest')).map(e => e.text)) assert.ok(text.includes(source));\n",
+          "afterLine": 98
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/promptOutputContracts.js",
+      "beforeHash": "6bddb43a48ce228b392d08a334bf3553f01ebb5d844e97f2ff2b02594fffd2ea",
+      "afterHash": "6c78da56d7c3df6856e577dfba14c619073a946ac64be4de65ecc93766178aa5",
+      "edits": [
+        {
+          "before": "export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.63.0';\n",
+          "after": "export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.64.0';\n\nexport const FRAMING_WARDROBE_RETENTION_CONTRACT = deepFreeze({\n  version: '1.0.0',\n  scope: 'six public framings, four main outputs and the chest-up derivative',\n  wardrobe: 'retain all effective resolved garments and accessories regardless of crop',\n  resolution: 'explicit none remains silent; random selections resolve once and are shared',\n  exclusions: 'existing outfit priority, garment compatibility, pose, scene and camera projection remain independent',\n  reference: 'full-body character retains its natural standing pose and 9:16 composition',\n});\n",
+          "afterLine": 82
+        },
+        {
+          "before": "  mainMj: 'retain selected shirt color and fixed black bottom names only when visible',\n",
+          "after": "  mainMj: 'retain selected shirt color and fixed black bottom names when effective',\n",
+          "afterLine": 98
+        },
+        {
+          "before": "  projection: 'retain authored fit when chest is visible; omit off-screen fit in face/shoulder crops, restore full-body source',\n",
+          "after": "  projection: 'retain the effective authored fit independently of framing',\n",
+          "afterLine": 155
+        },
+        {
+          "before": "  projection: 'hem and rolled cuffs omitted in chest/face crops and restored from resolved sources for full-body reference',\n",
+          "after": "  projection: 'retain effective hem and rolled cuffs independently of framing',\n",
+          "afterLine": 164
+        },
+        {
+          "before": "    captureState: 'same resolved source; chest-visible body/wardrobe/pose; posture and manual seat retained; main GPT camera, ambient and scene policy with matching mode exclusions',\n",
+          "after": "    captureState: 'same resolved source; complete effective wardrobe and chest-projected body/pose; posture and manual seat retained; main GPT camera, ambient and scene policy with matching mode exclusions',\n",
+          "afterLine": 424
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/promptOutputContracts.test.js",
+      "beforeHash": "358a0a2a5bbf6659ad03497648c319ab4b8fa0bd71fe081091e7e5e917636bb1",
+      "afterHash": "1ebad6cecf3abd0c5335a2faab45351e2315009fcf653351d651598ef9d83eea",
+      "edits": [
+        {
+          "before": "  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.63.0');\n",
+          "after": "  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.64.0');\n",
+          "afterLine": 110
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/representativePromptFixtures.js",
+      "beforeHash": "f827296465398d8ddcd561849ba3128ac997dbf194678c010d02286880395f79",
+      "afterHash": "183579a96250df062ee88497b0087e4837f5cdff818a870a3a13c00381ff1955",
+      "edits": [
+        {
+          "before": "",
+          "after": "// The approved wardrobe-retention revision supersedes only these historical\n// chest crop exclusions. Other fixture requirements remain intact.\nconst CHEST_RETAINED_WARDROBE = Object.freeze({\n  'adidas-trackwear': ['track pants'],\n  'outerwear-styling-v2-hem': ['its hem draping naturally over the waistband and upper portion of the lower garment, partially concealing it'],\n  'outerwear-styling-v2-rolled': ['sleeves rolled up to mid-forearm, with visible folded cuffs'],\n  'minimal-coverage-pasties': ['narrow-front lace G-string bottoms', 'low-rise narrow triangular lace front panel', 'visible shallow indentations beneath the ties'],\n  'minimal-coverage-bikini': ['narrow-front string thong bikini bottoms', 'ultra-minimal smooth swim fabric forming a tiny low-rise triangular front panel', 'visible shallow indentations beneath the ties'],\n  'top-hem-overlap': ['partially concealing it'],\n  'conditional-lace-garter-belt': ['cotton briefs', 'lace garter belt worn over the bottoms'],\n  'sailor-separates-short': ['above-knee'],\n  'sailor-separates-long-tight': ['near-floor'],\n  'waist-accessory-designs': ['silver rhinestone butterfly waist chain'],\n});\n\nfunction revisedChestExpectations(fixture) {\n  const old = fixture.expectedOutputs?.chestUpPortraitPrompt;\n  if (!old) return old;\n  const retained = CHEST_RETAINED_WARDROBE[fixture.id] || [];\n  if (fixture.id === 'independent-wired-earphones') return {\n    includes: ['continuous cable', 'waist or the hip', 'end is concealed'],\n    excludes: ['lower frame edge'],\n  };\n  if (!retained.length) return old;\n  return { ...old, includes: [...(old.includes || []), ...retained],\n    excludes: (old.excludes || []).filter(value => !retained.includes(value)) };\n}\n\n",
+          "afterLine": 2112
+        },
+        {
+          "before": "  expectedOutputs: { ...fixture.expectedOutputs, midjourneyPrompt: {\n",
+          "after": "  expectedOutputs: { ...fixture.expectedOutputs,\n    ...(fixture.expectedOutputs?.chestUpPortraitPrompt ? { chestUpPortraitPrompt: revisedChestExpectations(fixture) } : {}),\n    midjourneyPrompt: {\n",
+          "afterLine": 2145
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/sceneIntegratedAssemblyBaseline.test.js",
+      "beforeHash": "ab4a61f2ed0e4a573d286753e43ea0d7c2f3bf58361cfe8f0dd6bca293108f7b",
+      "afterHash": "f92c13fa35c0aaddbb79bd00db3ad35484ad2dfe644907fc6b915e81a7d7ac3b",
+      "edits": [
+        {
+          "before": "",
+          "after": "import { restoreSceneWardrobeBeforeRevision } from './framingWardrobeSceneInverse.js';\nimport framingWardrobeBaseline from './framingWardrobePrechangeBaseline.json' with { type: 'json' };\n",
+          "afterLine": 4
+        },
+        {
+          "before": "    assert.equal(first.randomDraws, entry.randomDraws, 'random stream consumption changed');\n",
+          "after": "    assert.equal(first.randomDraws, fixture.id === 'R09-half-face' ? 4 : entry.randomDraws, 'random stream consumption changed');\n",
+          "afterLine": 140
+        },
+        {
+          "before": "    assert.deepEqual(first.selection, expectedSelection, 'resolved selections changed');\n",
+          "after": "    const historicalSelection = { ...expectedSelection };\n    const comparableSelection = { ...first.selection };\n    for (const key of framingWardrobeBaseline.excludedSelectionKeys[fixture.id] || []) {\n      delete comparableSelection[key];\n      delete expectedSelection[key];\n    }\n    assert.deepEqual(comparableSelection, expectedSelection, 'unrelated resolved selections changed');\n",
+          "afterLine": 143
+        },
+        {
+          "before": "    const historicalOutputs = restorePreSquattingV2(restorePreEthnicityOutputs(restorePreOpenPalmV2(first.outputs)));\n    assertChestUpRevision(`scene:${fixture.id}`, [{ ...first, outputs: Object.fromEntries(Object.entries(first.outputs).map(([field, text]) => [field, fixture.id.startsWith('R11-shirt-shoulder-') ? normalizeOuterwearCatalogForLegacy(text, field) : text])) }]);\n",
+          "after": "    const previousWardrobeOutputs = restoreSceneWardrobeBeforeRevision(first.outputs, fixture.id);\n    const historicalOutputs = restorePreSquattingV2(restorePreEthnicityOutputs(restorePreOpenPalmV2(previousWardrobeOutputs)));\n    assertChestUpRevision(`scene:${fixture.id}`, [{ ...first, selection: fixture.id === 'R09-half-face' ? historicalSelection : first.selection, randomDraws: fixture.id === 'R09-half-face' ? entry.randomDraws : first.randomDraws, outputs: Object.fromEntries(Object.entries(previousWardrobeOutputs).map(([field, text]) => [field, fixture.id.startsWith('R11-shirt-shoulder-') ? normalizeOuterwearCatalogForLegacy(text, field) : text])) }]);\n",
+          "afterLine": 154
+        },
+        {
+          "before": "    const current = restorePreEthnicityOutputs(get(id).outputs).zImagePrompt.split('\\n\\n');\n",
+          "after": "    const current = restorePreEthnicityOutputs(restoreSceneWardrobeBeforeRevision(get(id).outputs, id)).zImagePrompt.split('\\n\\n');\n",
+          "afterLine": 218
+        },
+        {
+          "before": "test('supine surface sources survive tight crops while ordinary hidden footwear stays omitted', () => {\n",
+          "after": "test('supine surface sources survive tight crops and footwear follows the framing contract', () => {\n",
+          "afterLine": 275
+        },
+        {
+          "before": "      assert.doesNotMatch(result.outputs[field], /barefoot/i);\n",
+          "after": "      if (id === 'R08-crop-medium') assert.match(result.outputs[field], /barefoot/i);\n      else assert.doesNotMatch(result.outputs[field], /barefoot/i);\n",
+          "afterLine": 290
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/shirtBlackBottom.test.js",
+      "beforeHash": "ad9b674f22dc67baed52f0d1898aa993f93d416cec3be3725f88752fb4f79c98",
+      "afterHash": "4cf60b15cf6cf92feb27d5675fa61e2aaaac9d3fb05bc90ed97e8b6f679d7a32",
+      "edits": [
+        {
+          "before": "",
+          "after": "import { restoreOtherBeforeWardrobeRetention } from './framingWardrobeOtherInverse.js';\n",
+          "afterLine": 9
+        },
+        {
+          "before": "  for (const row of baseline) assert.equal(createHash('sha256').update(JSON.stringify(fields(generate(row.selections)))).digest('hex'), row.hash,\n",
+          "after": "  const fixtures = baseline.map((_, index) => ({ id: String(index) }));\n  const current = baseline.map((row, index) => ({ id: String(index), fields: fields(generate(row.selections)) }));\n  const historical = restoreOtherBeforeWardrobeRetention('shirt', fixtures, current);\n  for (const [index, row] of baseline.entries()) assert.equal(createHash('sha256').update(JSON.stringify(historical[index].fields)).digest('hex'), row.hash,\n",
+          "afterLine": 30
+        },
+        {
+          "before": "test('crop and closed outerwear projection do not restore invisible garments or their color', () => {\n",
+          "after": "test('legacy crop and closed outerwear retain their boundaries while chest output retains wardrobe', () => {\n",
+          "afterLine": 74
+        },
+        {
+          "before": "    for (const text of [chest.grokPrompt, chest.zImagePrompt, chest.midjourneyPrompt, chest.nanoBananaPrompt,\n      chest.extraPrompts.find(e => e.id === 'chest-up-portrait').text]) assert.doesNotMatch(text, /hot pants|mini skirt/i);\n",
+          "after": "    for (const text of [chest.grokPrompt, chest.zImagePrompt, chest.midjourneyPrompt, chest.nanoBananaPrompt]) assert.doesNotMatch(text, /hot pants|mini skirt/i);\n    assert.match(chest.extraPrompts.find(e => e.id === 'chest-up-portrait').text, /hot pants|mini skirt/i);\n",
+          "afterLine": 77
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/topHemOverlap.test.js",
+      "beforeHash": "d8f09b26e30002c1c0037cf07fec09beba94b2b805804f8412e92d5c78034b65",
+      "afterHash": "bb4662d239ed79b2e201c6a6dcbdc2fe635a95d34c75c480c5fdc9dcf6188e48",
+      "edits": [
+        {
+          "before": "  for (const e of p.extraPrompts.filter(e => e.id.includes('chest'))) assert.doesNotMatch(e.text, /partially concealing/);\n",
+          "after": "  for (const e of p.extraPrompts.filter(e => e.id.includes('chest'))) assert.match(e.text, /partially concealing/);\n",
+          "afterLine": 35
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/zImageFullBodyCamera.test.js",
+      "beforeHash": "a8a3d9e8f31ad609b1b318e2dc73992145c9ac77eac684b1a59144a4c8592153",
+      "afterHash": "f9ffa6322b10bec8bba086ba5d5f617854f24b0a2f498b3d79dc2776ffa6800d",
+      "edits": [
+        {
+          "before": "",
+          "after": "import { restoreMatrixBeforeWardrobeRetention } from './framingWardrobeMatrixInverse.js';\n",
+          "afterLine": 3
+        },
+        {
+          "before": "  assertChestUpRevision('fullCamera', results);\n",
+          "after": "  const historicalResults = restoreMatrixBeforeWardrobeRetention('fullCamera', FULL_CAMERA_REGRESSION, results);\n  assertChestUpRevision('fullCamera', historicalResults);\n",
+          "afterLine": 101
+        },
+        {
+          "before": "    assert.equal(digest(results.map((r) => {\n",
+          "after": "    assert.equal(digest(historicalResults.map((r) => {\n",
+          "afterLine": 104
+        },
+        {
+          "before": "  assert.equal(digest(results.map((r) => r.selection)), baseline.selectionHash);\n  assert.equal(digest(results.map((r) => r.randomDraws)), baseline.randomHash);\n",
+          "after": "  assert.equal(digest(historicalResults.map((r) => r.selection)), baseline.selectionHash);\n  assert.equal(digest(historicalResults.map((r) => r.randomDraws)), baseline.randomHash);\n",
+          "afterLine": 112
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/zImageOnLocationCapture.test.js",
+      "beforeHash": "757b08a861b7be9e766fc03f07ff3fdc7a8345224cfcb78bd585abd092da5b5d",
+      "afterHash": "7b352f0cb45a665b1885bba99e6ab82adfbb5f8d45c292e1eceae2ee92ccfb27",
+      "edits": [
+        {
+          "before": "import { digest, runSceneFixture, materializeSceneFixture, PRE_HOURGLASS_BODY_CATALOG, assertZImagePoseProjection } from './sceneIntegratedAssemblyTestSupport.js';\n",
+          "after": "import { digest, runSceneFixture, materializeSceneFixture, PRE_HOURGLASS_BODY_CATALOG, assertZImagePoseProjection, restoreBaselineSelection } from './sceneIntegratedAssemblyTestSupport.js';\nimport { restoreSceneWardrobeBeforeRevision } from './framingWardrobeSceneInverse.js';\nimport framingWardrobeBaseline from './framingWardrobePrechangeBaseline.json' with { type: 'json' };\n",
+          "afterLine": 8
+        },
+        {
+          "before": "",
+          "after": "const sceneBaseline = JSON.parse(readFileSync(new URL('./sceneIntegratedAssemblyBaseline.json', import.meta.url), 'utf8'));\n",
+          "afterLine": 23
+        },
+        {
+          "before": "",
+          "after": "\n// Reconstruct the independently captured pre-retention outputs only for the\n// frozen historical assertions; current outputs are still checked separately.\nfunction historicalWardrobeOutputs(outputs, id, fields = null) {\n  if (id.startsWith('historical-')) return restoreSceneWardrobeBeforeRevision(outputs, id.slice('historical-'.length), fields);\n  const added = ' Ultra-low-rise waistband sitting very low on the hips, low-rise dolphin micro shorts, contrast piping, contrast elastic waistband, front drawstring, side lace-up grommet detail, compact athletic hot-pants silhouette.';\n  assert.equal(outputs.chestUpPortraitPrompt.split(added).length - 1, 1, `${id}: exact retained chest wardrobe`);\n  return { ...outputs, chestUpPortraitPrompt: outputs.chestUpPortraitPrompt.replace(added, '') };\n}\n",
+          "afterLine": 27
+        },
+        {
+          "before": "  const historicalSelection = rawLocks.poseHandId === 'selfie-mirror-phone-visible' && rawLocks.posePropId === 'none'\n",
+          "after": "  let historicalSelection = rawLocks.poseHandId === 'selfie-mirror-phone-visible' && rawLocks.posePropId === 'none'\n",
+          "afterLine": 59
+        },
+        {
+          "before": "  assert.equal(digest(historicalSelection), before.selectionHash, 'selections unchanged except exact mirror category migration');\n",
+          "after": "  if (fixture.id === 'historical-R09-half-face') {\n    const old = restoreBaselineSelection(sceneBaseline, sceneBaseline.cases['R09-half-face']);\n    const currentOther = { ...historicalSelection };\n    const oldOther = { ...old };\n    for (const key of framingWardrobeBaseline.excludedSelectionKeys['R09-half-face']) { delete currentOther[key]; delete oldOther[key]; }\n    assert.deepEqual(currentOther, oldOther, 'all unrelated selections remain unchanged');\n    historicalSelection = old;\n  }\n  assert.equal(digest(historicalSelection), before.selectionHash, 'selections unchanged except exact mirror and wardrobe resolution changes');\n",
+          "afterLine": 63
+        },
+        {
+          "before": "  assert.equal(current.randomDraws, before.randomDraws);\n",
+          "after": "  assert.equal(current.randomDraws, fixture.id === 'historical-R09-half-face' ? 4 : before.randomDraws);\n",
+          "afterLine": 73
+        },
+        {
+          "before": "  for (const [field, text] of Object.entries(current.outputs)) {\n",
+          "after": "  for (const [field, text] of Object.entries(historicalWardrobeOutputs(current.outputs, fixture.id))) {\n",
+          "afterLine": 76
+        },
+        {
+          "before": "    assert.equal(restorePreEthnicityText(get(id).outputs.zImagePrompt, 'zImagePrompt'), baseline.cases[id].zImagePrompt, id);\n",
+          "after": "    assert.equal(restorePreEthnicityText(historicalWardrobeOutputs(get(id).outputs, id, ['zImagePrompt']).zImagePrompt, 'zImagePrompt'), baseline.cases[id].zImagePrompt, id);\n",
+          "afterLine": 114
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/zImageSceneDetailPriority.test.js",
+      "beforeHash": "214321824b048d4fcdd6568fa0ca423efb33bd0748b558f3b0ad688a72566142",
+      "afterHash": "879357a635e99de4fc463989e0c3a5423adf24e747779baa1c7a431e96428ced",
+      "edits": [
+        {
+          "before": "",
+          "after": "import { restoreMatrixBeforeWardrobeRetention } from './framingWardrobeMatrixInverse.js';\n",
+          "afterLine": 4
+        },
+        {
+          "before": "  const normalized = results.map((r, i) => {\n",
+          "after": "  const historicalResults = restoreMatrixBeforeWardrobeRetention('sceneDetail', SCENE_DETAIL_PRIORITY_REGRESSION, results);\n  const normalized = historicalResults.map((r, i) => {\n",
+          "afterLine": 107
+        },
+        {
+          "before": "  assertChestUpRevision('sceneDetail', results);\n",
+          "after": "  assertChestUpRevision('sceneDetail', historicalResults);\n",
+          "afterLine": 130
+        },
+        {
+          "before": "  assert.equal(digest(results.map(r => r.selection)), baseline.selectionHash);\n  assert.equal(digest(results.map(r => r.randomDraws)), baseline.randomHash);\n",
+          "after": "  assert.equal(digest(historicalResults.map(r => r.selection)), baseline.selectionHash);\n  assert.equal(digest(historicalResults.map(r => r.randomDraws)), baseline.randomHash);\n",
+          "afterLine": 132
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/zImageUpperScene.test.js",
+      "beforeHash": "000872d151c97f382662d7dc4bd49974b987eee14b187bead5ddd56b9797b5c1",
+      "afterHash": "7bbeea2aba79e004bcd5b15e046e01c198dbcaf407fb9ed38bfb6d3523aa7c06",
+      "edits": [
+        {
+          "before": "",
+          "after": "import wardrobeInverse from './framingWardrobeUpperSceneInverse.json' with { type: 'json' };\n",
+          "afterLine": 21
+        },
+        {
+          "before": "",
+          "after": "\nfunction beforeWardrobeRetention(result, fixtureId) {\n  const change = wardrobeInverse.cases[fixtureId];\n  if (!change) return result;\n  const outputs = { ...result.outputs };\n  const selection = { ...result.selection };\n  for (const [field, patternIndex] of Object.entries(change.outputs || {})) {\n    const { before, after } = wardrobeInverse.patterns[patternIndex];\n    assert.equal(outputs[field].split(after).length - 1, 1, `${fixtureId}/${field}: exact wardrobe change`);\n    outputs[field] = outputs[field].replace(after, before);\n  }\n  if (change.selectionGroup !== undefined) {\n    for (const [key, { before, after }] of Object.entries(wardrobeInverse.selectionGroups[change.selectionGroup])) {\n      assert.equal(selection[key], after, `${fixtureId}/${key}: resolved wardrobe choice`);\n      selection[key] = before;\n    }\n  }\n  if (change.draws) assert.equal(result.randomDraws, change.draws.after, `${fixtureId}: wardrobe draws`);\n  return { ...result, outputs, selection, randomDraws: change.draws?.before ?? result.randomDraws };\n}\n",
+          "afterLine": 29
+        },
+        {
+          "before": "",
+          "after": "    const current = runSceneFixture(upperSceneFixture(label, '\u8170\u90e8\u9ad8\u5ea6\u93e1\u982d')).outputs.zImagePrompt;\n    const retained = 'cool fashion attitude, bare feet, natural barefoot state';\n    assert.equal(current.split(retained).length - 1, 1, `${label}: retained footwear source`);\n    const beforeWardrobeRetention = current.replace(retained, 'cool fashion attitude at the lower crop edge');\n",
+          "afterLine": 82
+        },
+        {
+          "before": "      restorePreEthnicityText(runSceneFixture(upperSceneFixture(label, '\u8170\u90e8\u9ad8\u5ea6\u93e1\u982d')).outputs.zImagePrompt, 'zImagePrompt'),\n",
+          "after": "      restorePreEthnicityText(beforeWardrobeRetention, 'zImagePrompt'),\n",
+          "afterLine": 88
+        },
+        {
+          "before": "  const normalized = results.map((result, index) => {\n",
+          "after": "  const historicalResults = results.map((result, index) => beforeWardrobeRetention(result, rows[index].id));\n  const normalized = historicalResults.map((result, index) => {\n",
+          "afterLine": 96
+        },
+        {
+          "before": "  assertChestUpRevision('upperScene', results);\n",
+          "after": "  assertChestUpRevision('upperScene', historicalResults);\n",
+          "afterLine": 114
+        },
+        {
+          "before": "  assert.equal(digest(results.map((r) => r.selection)), baseline.selectionHash);\n  assert.equal(digest(results.map((r) => r.randomDraws)), baseline.randomHash);\n",
+          "after": "  assert.equal(digest(historicalResults.map((r) => r.selection)), baseline.selectionHash);\n  assert.equal(digest(historicalResults.map((r) => r.randomDraws)), baseline.randomHash);\n",
+          "afterLine": 116
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/zImageUpperSceneExtension.test.js",
+      "beforeHash": "2530e0d029f0b3e1534e3563146867dc22eea1d2a03ddb715b89fe15abdf903c",
+      "afterHash": "b5807ff3872f5abb05cbb3e2cad35bb26faadebcdab4dfe45f09deae773fb336",
+      "edits": [
+        {
+          "before": "",
+          "after": "import { restoreMatrixBeforeWardrobeRetention } from './framingWardrobeMatrixInverse.js';\n",
+          "afterLine": 4
+        },
+        {
+          "before": "  const normalized = results.map((r, i) => {\n",
+          "after": "  const historicalResults = restoreMatrixBeforeWardrobeRetention('upperExtension', UPPER_SCENE_EXTENSION_REGRESSION, results);\n  const normalized = historicalResults.map((r, i) => {\n",
+          "afterLine": 59
+        },
+        {
+          "before": "  assertChestUpRevision('upperExtension', results);\n",
+          "after": "  assertChestUpRevision('upperExtension', historicalResults);\n",
+          "afterLine": 80
+        },
+        {
+          "before": "  assert.equal(digest(results.map(r => r.selection)), baseline.selectionHash);\n  assert.equal(digest(results.map(r => r.randomDraws)), baseline.randomHash);\n",
+          "after": "  assert.equal(digest(historicalResults.map(r => r.selection)), baseline.selectionHash);\n  assert.equal(digest(historicalResults.map(r => r.randomDraws)), baseline.randomHash);\n",
+          "afterLine": 82
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engineAccessorySeparation.test.js",
+      "beforeHash": "30ebc06de8d1744456740178fc33e9cfe9cc82a4c199622bc9da47d6de0cafd9",
+      "afterHash": "17a460f23e17afd518f8fea5e9fb1cd0d40d05958a331954d23fa276dc1cdbf1",
+      "edits": [
+        {
+          "before": "test('wired audio survives six outputs with crop-aware continuous concealed cable', () => {\n",
+          "after": "test('wired audio survives six outputs with its continuous concealed cable', () => {\n",
+          "afterLine": 92
+        },
+        {
+          "before": "  for (const extra of p.extraPrompts.filter((x) => x.id?.includes('chest'))) { assert.match(extra.text, /lower frame edge/); assert.doesNotMatch(extra.text, /waist or the hip/); }\n",
+          "after": "  for (const extra of p.extraPrompts.filter((x) => x.id?.includes('chest'))) { assert.match(extra.text, /waist or the hip/); assert.match(extra.text, /end is concealed/); }\n",
+          "afterLine": 97
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engineBlackTieShirt.test.js",
+      "beforeHash": "e613faf2520f07bce7ef22cec65bfd8d20f66d55092f7664bd0aef2bf6b076b2",
+      "afterHash": "74646add7de58a17517d926d3066a9a6b48642969b21cef28488ef86c44a3f77",
+      "edits": [
+        {
+          "before": "  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.63.0');\n",
+          "after": "  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.64.0');\n",
+          "afterLine": 64
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engineConditionalGarterBelt.test.js",
+      "beforeHash": "a459c4273f829f18b67ea3d1c2b4051630e6640b75eb0b16087e4ee8d5133203",
+      "afterHash": "144c97361248bc7e5ee17dafca20097baffa971f1f58d6dde2eca890684b89c3",
+      "edits": [
+        {
+          "before": "    assert.doesNotMatch(getPromptText(prompt, 'chestUpPortraitPrompt'), /lace garter belt worn over the bottoms/i);\n",
+          "after": "    assert.match(getPromptText(prompt, 'chestUpPortraitPrompt'), /lace garter belt worn over the bottoms/i);\n",
+          "afterLine": 47
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engineCottonBriefs.test.js",
+      "beforeHash": "1fc4ec99cc6af3283569cf10ebe25827c165bcd0be5ae5ca66128ca71914ab89",
+      "afterHash": "885566ac758afc408e9f0d7554001a07459efc2c795e1d0ef64cd6c75bc9c423",
+      "edits": [
+        {
+          "before": "test('all six outputs respect cotton material and the existing crop projection', () => {\n",
+          "after": "test('all six outputs retain cotton material across framing projections', () => {\n",
+          "afterLine": 37
+        },
+        {
+          "before": "    assert.doesNotMatch(prompt.extraPrompts.find(p => p.id === id).text, /cotton briefs|lace panties/);\n",
+          "after": "    assert.match(prompt.extraPrompts.find(p => p.id === id).text, /cotton briefs/);\n    assert.doesNotMatch(prompt.extraPrompts.find(p => p.id === id).text, /lace panties/);\n",
+          "afterLine": 44
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engineMirrorSelfieProp.test.js",
+      "beforeHash": "781865ef232bec56952a2d17da57db744b7535b39ffc336c994e18b9fa674e7c",
+      "afterHash": "ad8938c027c96c25d2973446515fe2e2b815e84cdfe20619736b69e57813797f",
+      "edits": [
+        {
+          "before": "",
+          "after": "import { restoreOtherBeforeWardrobeRetention } from './engine/framingWardrobeOtherInverse.js';\n",
+          "afterLine": 1
+        },
+        {
+          "before": "  for (const [id, { framing, orientation, anchor, ...overrides }] of PRE_MOVE_OUTPUT_HASHES) {\n",
+          "after": "  const fixtures = PRE_MOVE_OUTPUT_HASHES.map(([id]) => ({ id }));\n  const current = PRE_MOVE_OUTPUT_HASHES.map(([id, { framing, orientation, anchor, ...overrides }]) => {\n",
+          "afterLine": 61
+        },
+        {
+          "before": "    const outputs = Object.fromEntries([['grokPrompt', prompt.grokPrompt], ['zImagePrompt', prompt.zImagePrompt],\n      ...prompt.extraPrompts.map(row => [row.id, row.text])]);\n",
+          "after": "    return { id, outputs: Object.fromEntries([['grokPrompt', prompt.grokPrompt], ['zImagePrompt', prompt.zImagePrompt],\n      ...prompt.extraPrompts.map(row => [row.id, row.text])]) };\n  });\n  const historical = restoreOtherBeforeWardrobeRetention('mirror', fixtures, current);\n  for (const { id, outputs } of historical) {\n",
+          "afterLine": 74
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engineOutfitPresetDressCleanup.test.js",
+      "beforeHash": "f5ba6fa9518850da00301e2855aee02ab5b0c8f56ee6560edacd92212df83419",
+      "afterHash": "5c7baa8a23ca175ecb8d293d94b469ae4df132bc21636e4d6d518be45875ee06",
+      "edits": [
+        {
+          "before": "test('cowboy outfit preset output keeps bottoms but removes shoes', () => {\n",
+          "after": "test('cowboy outfit preset output keeps selected bottoms and shoes', () => {\n",
+          "afterLine": 860
+        },
+        {
+          "before": "  assert.doesNotMatch(text, /knee-high leather boots/i);\n",
+          "after": "  assert.match(text, /knee-high leather boots/i);\n",
+          "afterLine": 872
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/enginePromptCompatibility.test.js",
+      "beforeHash": "1c1a876aa055d610666882054a9ff428b8d56f6ceb8c22577e6f2684d69fff4f",
+      "afterHash": "d556288837d3d55967ec1c910e54dc45bf77cfc98f03e8b02e6929cbcc35cb50",
+      "edits": [
+        {
+          "before": "test('AI keeps the selected outerwear and lighting while the medium crop anchors lower garments at its edge', () => {\n",
+          "after": "test('AI keeps selected outerwear and lighting while the medium crop retains lower garments', () => {\n",
+          "afterLine": 291
+        },
+        {
+          "before": "  assert.match(prompt.grokPrompt, /glossy micro shorts at the lower crop edge/i);\n",
+          "after": "  assert.match(prompt.grokPrompt, /glossy micro shorts/i);\n",
+          "afterLine": 310
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/enginePromptPipeline.test.js",
+      "beforeHash": "cd0a04d4f9b961b9777275fcabc3115fb782b6bad2ef1f98cf4e2fa65a863936",
+      "afterHash": "d87fda819cf85d9b836ba7107385f87686c706f8c3483b90b5f95f667ad087d8",
+      "edits": [
+        {
+          "before": "test('full-body character prompt restores bags and footwear removed from cropped special-outfit prompts', () => {\n",
+          "after": "test('cropped and full-body prompts retain special-outfit bags and footwear', () => {\n",
+          "afterLine": 203
+        },
+        {
+          "before": "  assert.doesNotMatch(gptSection(prompt, 'Wardrobe'), /black soft shoulder tote|black lace-up leather shoes/i);\n",
+          "after": "  assert.match(gptSection(prompt, 'Wardrobe'), /black soft shoulder tote/i);\n  assert.match(gptSection(prompt, 'Wardrobe'), /black lace-up leather shoes/i);\n",
+          "afterLine": 212
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engineSailorSeparates.test.js",
+      "beforeHash": "b95d5c1dd9e43b1f9da806c5623993336179366a7f28304de1f110ae71fb6599",
+      "afterHash": "381dcafcbf332c8feb506dd246e967acfe6f94d2360cf955f4c43d2d59215fe9",
+      "edits": [
+        {
+          "before": "    assert.doesNotMatch(result.chestUpPortraitPrompt, new RegExp(hem));\n",
+          "after": "    assert.match(result.chestUpPortraitPrompt, new RegExp(hem));\n",
+          "afterLine": 45
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engineSpecialOutfitCleanup.test.js",
+      "beforeHash": "c7c3c9250d6db36351b2c3a0afdf8f4eae1e801dcccaac896a7c88db61a2840f",
+      "afterHash": "9e506c5b320b912394654524acfbaab0491ec88187b896eece0358599c3fa87e",
+      "edits": [
+        {
+          "before": "test('medium special outfit output keeps bottoms but removes socks shoes and bags', () => {\n",
+          "after": "test('medium special outfit output keeps selected bottoms, socks, shoes and bags', () => {\n",
+          "afterLine": 551
+        },
+        {
+          "before": "  assert.doesNotMatch(text, /white lace thigh-high stockings/i);\n  assert.doesNotMatch(text, /white pointed heels/i);\n  assert.doesNotMatch(text, /brown monogram shoulder bag/i);\n",
+          "after": "  assert.match(text, /white lace thigh-high stockings/i);\n  assert.match(text, /white pointed heels/i);\n  assert.match(text, /brown monogram shoulder bag/i);\n",
+          "afterLine": 561
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engineWardrobeControls.test.js",
+      "beforeHash": "3d0e2b2131a404417c2bce11301c818ffb1ba937ec48cbc5f97900c6f6dd3eeb",
+      "afterHash": "97d61cb4694480aae7fd626cc07b3d83e89efc8c26b3ea59209f5a1baf4fd3b8",
+      "edits": [
+        {
+          "before": "    assert.doesNotMatch(text, /hip and pelvis|thigh wrap|halter|bralette|high-cut|tape bottoms/i);\n",
+          "after": "    assert.match(text, /hip and pelvis.*thigh wrap/i);\n    assert.doesNotMatch(text, /halter|bralette|high-cut|tape bottoms/i);\n",
+          "afterLine": 1009
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engineZImageWardrobeLanguage.test.js",
+      "beforeHash": "5bb32f3f5e42f8f596b58f482d089d0fc7f2afad2e266c311b64263c4442cc41",
+      "afterHash": "00918b239a0997eaea93520463b1f30fa4b6ce0db49ea524f430f6b97a32db06",
+      "edits": [
+        {
+          "before": "test('Z-Image cowboy framing keeps bottoms but deletes footwear details', () => {\n",
+          "after": "test('Z-Image cowboy framing keeps selected bottoms and footwear', () => {\n",
+          "afterLine": 121
+        },
+        {
+          "before": "  assert.doesNotMatch(prompt.zImagePrompt, /ribbed ankle socks/i);\n  assert.doesNotMatch(prompt.zImagePrompt, /pointed-toe stiletto heels/i);\n",
+          "after": "  assert.match(prompt.zImagePrompt, /ribbed ankle socks/i);\n  assert.match(prompt.zImagePrompt, /pointed-toe stiletto heels/i);\n",
+          "afterLine": 134
+        }
+      ]
+    },
+    {
+      "path": "scripts/lib/b3CharacterWardrobeReplay.mjs",
+      "beforeHash": "1beb65d347d1849eaf7822d70ec0707b9363810cc26a9c0bf6679d4e2cae21ec",
+      "afterHash": "2485b1957846d1e859448cd0d1e04d40584f874232bee9eef80edf4a72d963ad",
+      "edits": [
+        {
+          "before": "    && hash(readFileSync(join(directory, f.path))) === f.afterHash)) return empty;\n",
+          "after": "    && hash(preSavedCardsDownloadSource(f.path, readFileSync(join(directory, f.path)))) === f.afterHash)) return empty;\n",
+          "afterLine": 24
+        }
+      ]
+    }
+  ]
+}

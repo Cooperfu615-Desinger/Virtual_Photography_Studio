@@ -289,7 +289,7 @@ test('random optical effects avoid global diffusion with high-acutance black lev
   assert.match(explicitPrompt.grokPrompt, /lens-only mist-filter haze/i);
 });
 
-test('AI keeps the selected outerwear and lighting while the medium crop anchors lower garments at its edge', () => {
+test('AI keeps selected outerwear and lighting while the medium crop retains lower garments', () => {
   const [prompt] = generatePrompts(1, {
     ...createAllNoneLocks(),
     subjectCount: '1',
@@ -308,7 +308,7 @@ test('AI keeps the selected outerwear and lighting while the medium crop anchors
   });
 
   assert.match(prompt.grokPrompt, /patchwork halter scarf top with a long pointed draped hem/i);
-  assert.match(prompt.grokPrompt, /glossy micro shorts at the lower crop edge/i);
+  assert.match(prompt.grokPrompt, /glossy micro shorts/i);
   assert.doesNotMatch(prompt.grokPrompt, /controlled by the outfit color selection/i);
   assert.match(prompt.midjourneyPrompt, /denim jacket/i);
   assert.match(prompt.midjourneyPrompt, /moonlit night environment/i);

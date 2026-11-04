@@ -77,7 +77,7 @@ test('head-dominant framing appends a stable selectable identity and shares ches
   }
 });
 
-test('three main outputs retain the head scale, body context and authored scene while omitting lower garments', () => {
+test('three main outputs retain the head scale, authored scene and selected lower garments', () => {
   const prompt = generate(fixture());
   const source = option('framingId', HEAD_DOMINANT_FRAMING_ZH).en.toLowerCase();
   for (const text of mainTexts(prompt)) {
@@ -88,7 +88,8 @@ test('three main outputs retain the head scale, body context and authored scene 
     assert.match(text, /recognizable scene/i);
     assert.match(text, /fitting room/i);
     assert.match(text, /crew-neck t-shirt/i);
-    assert.doesNotMatch(text, /straight-leg jeans|head-to-toe figure/i);
+    assert.match(text, /straight-leg jeans/i);
+    assert.doesNotMatch(text, /head-to-toe figure/i);
   }
   assert.equal(prompt.selection.pantsId, option('pantsId', '直筒牛仔褲').id);
   assert.match(extra(prompt, 'full-body-character'), /straight-leg jeans/i);

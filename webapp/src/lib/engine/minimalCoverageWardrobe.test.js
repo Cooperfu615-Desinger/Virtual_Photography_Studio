@@ -62,7 +62,27 @@ test('new pieces append to existing single and duo catalogs without changing pri
 
 for (const fixture of baseline.fixtures) test(`legacy bytes unchanged: ${fixture.title}`, () => {
   const p = generate(fixture.overrides, fixture.seed);
-  const preOmission = restoreGptIndependentBodySource(p, []);
+  const reversed = structuredClone(p);
+  if (fixture.overrides.subjectCount === '1') {
+    // The pre-change snapshot was reproduced independently: the new chest
+    // output adds exactly the selected bottom sentence. Reverse only that
+    // source and the retired medium-crop suffix before checking the old hash.
+    const bottom = controls.find(c => c.key === 'pantsId').options.find(o => o.id === p.selection.pantsId);
+    assert.ok(bottom?.en);
+    const sourceSentence = ` ${polishPublicPromptText(`${bottom.en}.`)}`;
+    const chest = reversed.extraPrompts.find(entry => entry.id === 'chest-up-portrait');
+    assert.equal(chest.text.split(sourceSentence).length - 1, 1, `${fixture.title}: complete chest bottom`);
+    chest.text = chest.text.replace(sourceSentence, '');
+    if (fixture.title.includes('中景鏡頭 (Medium Shot)')) {
+      const lastFragment = bottom.en.split(', ').at(-1);
+      for (const key of ['grokPrompt', 'zImagePrompt']) {
+        const present = `${lastFragment}.`;
+        assert.equal(reversed[key].split(present).length - 1, 1, `${fixture.title}: ${key} bottom source`);
+        reversed[key] = reversed[key].replace(present, `${lastFragment} at the lower crop edge.`);
+      }
+    }
+  }
+  const preOmission = restoreGptIndependentBodySource(reversed, []);
   // The frozen hash predates the 2026-10-14 ethnicity revision; reverse only that rollout.
   const historical = restorePreEthnicityValue(snapshot(preOmission));
   assert.equal(createHash('sha256').update(JSON.stringify(historical)).digest('hex'), protectedBaseline[fixture.title]);
@@ -81,8 +101,8 @@ for (const [top, pants, topType, pantsType, topDetail] of pairs) {
       for (const text of chest(p)) {
         assert.match(text, topType);
         assert.ok(text.includes(topDetail));
-        assert.doesNotMatch(text, pantsType);
-        assert.ok(!text.includes(indentation));
+        assert.match(text, pantsType);
+        assert.ok(text.includes(indentation));
       }
       for (const text of [p.zImagePrompt]) {
         assert.ok(includesSource(text, body.en), body.en);
@@ -233,7 +253,7 @@ test('old bikini wording imports to the same ID and regenerates the reviewed sou
   }
 });
 
-test('bikini bottom fabric source stays complete in visible outputs and absent from chest crops', () => {
+test('bikini bottom fabric source stays complete in applicable outputs including chest', () => {
   const bottom = option('pantsId', pairs[1][1]);
   assert.equal(bottom.id, 'wardrobe:褲裝-pants:窄前片細繩比基尼下身:32');
   assert.equal(bottom.en, bikiniBottomSource);
@@ -250,8 +270,9 @@ test('bikini bottom fabric source stays complete in visible outputs and absent f
       assert.ok(!includesSource(text, legacyBikiniBottomSource));
     }
     for (const text of chest(p)) {
-      assert.doesNotMatch(text, /narrow-front string thong bikini bottoms|tiny low-rise triangular front panel/i);
-      assert.ok(!text.includes(indentation));
+      assert.match(text, /narrow-front string thong bikini bottoms/i);
+      assert.match(text, /tiny low-rise triangular front panel/i);
+      assert.ok(text.includes(indentation));
     }
   }
 });

@@ -10,15 +10,15 @@
         "camera": "中景鏡頭 (Medium Shot) / 50mm 標準鏡頭 (Standard)",
         "lighting": "-"
       },
-      "midjourneyPrompt": "Photorealistic editorial portrait. Waist-up portrait. A 20-year-old adult Japanese woman. Side-parted medium soft waves, soft black-tea brown hair. A soft, balanced hourglass figure with a gently defined waist and naturally rounded curves. She has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a relaxed upright posture.\n\nShe wears a cotton camisole top and straight-leg jeans.\n\nSmall British inn room, narrow sash window, floral bedding, cream walls.\n\n50mm standard lens, neutral perspective. --v 8.2 --ar 3:4 --raw --s 25 --c 0 --w 0 --sd",
-      "grokPrompt": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nWaist-up portrait.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Side-parted medium soft waves, collarbone-length shape, defined face-framing layers. Soft black-tea brown hair, muted brown-black salon tone.\n\nWardrobe:\nShe wears cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line. Straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction at the lower crop edge.\n\nPose and Composition:\nShe has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a relaxed upright posture.\n\nScene:\nThe portrait takes place in small British inn room, floral bedding, narrow sash window, cream walls, aged wooden furniture.\n\nCamera Look:\nShot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression.",
-      "zImagePrompt": "Photorealistic editorial portrait of one young adult woman.\n\nThe setting is small British inn room, floral bedding, narrow sash window.\nShe has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a relaxed upright posture.\nWaist-up portrait.\n\nA 20-year-old seductive stunning adult Japanese woman, C–D cup bust, soft proportionate arms, gently defined waist, slightly low waistline, rounded wider hips, moderately full thighs, tapered calves, slightly long torso, balanced legs, soft hourglass silhouette; height 165–170 cm, bust–waist–hip 90–62–94 cm, side-parted medium soft waves, collarbone-length shape, defined face-framing layers, soft black-tea brown hair, muted brown-black salon tone.\n\nShe wears cotton camisole top, slim shoulder straps, soft ribbed knit, straight-leg jeans, clean denim texture, at the lower crop edge.\n\nShot on 50mm standard lens.",
-      "nanoBananaPrompt": "Create a photorealistic editorial portrait. Waist-up portrait.\n\nThe subject is one 20-year-old adult Japanese woman. Her hair is side-parted medium soft waves, collarbone-length shape, defined face-framing layers. Her hair color is soft black-tea brown hair, muted brown-black salon tone. She has C–D cup bust, soft proportionate arms, gently defined waist, slightly low waistline, rounded wider hips, moderately full thighs, tapered calves, slightly long torso, balanced legs, soft hourglass silhouette; height 165–170 cm, bust–waist–hip 90–62–94 cm.\n\nShe wears cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line. Straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction at the lower crop edge.\n\nShe has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a relaxed upright posture. The setting is small British inn room, floral bedding, narrow sash window, cream walls, aged wooden furniture.\n\nShot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression.",
+      "midjourneyPrompt": "Photorealistic editorial portrait. Waist-up portrait. A 20-year-old adult Japanese woman. Side-parted medium soft waves, soft black-tea brown hair. A soft, balanced hourglass figure with a gently defined waist and naturally rounded curves. She has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a relaxed upright posture.\n\nShe wears a cotton camisole top, straight-leg jeans, ribbed ankle socks and pointed-toe stiletto heels.\n\nSmall British inn room, narrow sash window, floral bedding, cream walls.\n\n50mm standard lens, neutral perspective. --v 8.2 --ar 3:4 --raw --s 25 --c 0 --w 0 --sd",
+      "grokPrompt": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nWaist-up portrait.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Side-parted medium soft waves, collarbone-length shape, defined face-framing layers. Soft black-tea brown hair, muted brown-black salon tone.\n\nWardrobe:\nShe wears cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line. Straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction. Ribbed ankle socks, soft cotton texture. Pointed-toe stiletto heels, slender high heel, sharp feminine shoe shape.\n\nPose and Composition:\nShe has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a relaxed upright posture.\n\nScene:\nThe portrait takes place in small British inn room, floral bedding, narrow sash window, cream walls, aged wooden furniture.\n\nCamera Look:\nShot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression.",
+      "zImagePrompt": "Photorealistic editorial portrait of one young adult woman.\n\nThe setting is small British inn room, floral bedding, narrow sash window.\nShe has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a relaxed upright posture.\nWaist-up portrait.\n\nA 20-year-old seductive stunning adult Japanese woman, C–D cup bust, soft proportionate arms, gently defined waist, slightly low waistline, rounded wider hips, moderately full thighs, tapered calves, slightly long torso, balanced legs, soft hourglass silhouette; height 165–170 cm, bust–waist–hip 90–62–94 cm, side-parted medium soft waves, collarbone-length shape, defined face-framing layers, soft black-tea brown hair, muted brown-black salon tone.\n\nShe wears cotton camisole top, slim shoulder straps, soft ribbed knit, straight-leg jeans, clean denim texture, ribbed ankle socks, pointed-toe stiletto heels, slender high heel, sharp feminine shoe shape.\n\nShot on 50mm standard lens.",
+      "nanoBananaPrompt": "Create a photorealistic editorial portrait. Waist-up portrait.\n\nThe subject is one 20-year-old adult Japanese woman. Her hair is side-parted medium soft waves, collarbone-length shape, defined face-framing layers. Her hair color is soft black-tea brown hair, muted brown-black salon tone. She has C–D cup bust, soft proportionate arms, gently defined waist, slightly low waistline, rounded wider hips, moderately full thighs, tapered calves, slightly long torso, balanced legs, soft hourglass silhouette; height 165–170 cm, bust–waist–hip 90–62–94 cm.\n\nShe wears cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line. Straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction. Ribbed ankle socks, soft cotton texture. Pointed-toe stiletto heels, slender high heel, sharp feminine shoe shape.\n\nShe has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a relaxed upright posture. The setting is small British inn room, floral bedding, narrow sash window, cream walls, aged wooden furniture.\n\nShot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression.",
       "extraPrompts": [
         {
           "id": "chest-up-portrait",
           "label": "胸上特寫照",
-          "text": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Side-parted medium soft waves, collarbone-length shape, defined face-framing layers. Soft black-tea brown hair, muted brown-black salon tone.\n\nWardrobe:\nShe wears cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line.\n\nPose and Composition:\nShe has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a standing pose with a relaxed upright posture.\n\nScene:\nThe portrait takes place in small British inn room, floral bedding, narrow sash window, cream walls, aged wooden furniture, bedside table, compact guest-room corner.\n\nCamera Look:\nShot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression."
+          "text": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Side-parted medium soft waves, collarbone-length shape, defined face-framing layers. Soft black-tea brown hair, muted brown-black salon tone.\n\nWardrobe:\nShe wears cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line. Straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction. Ribbed ankle socks, soft cotton texture. Pointed-toe stiletto heels, slender high heel, sharp feminine shoe shape.\n\nPose and Composition:\nShe has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a standing pose with a relaxed upright posture.\n\nScene:\nThe portrait takes place in small British inn room, floral bedding, narrow sash window, cream walls, aged wooden furniture, bedside table, compact guest-room corner.\n\nCamera Look:\nShot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression."
         },
         {
           "id": "full-body-character",
@@ -818,15 +818,15 @@
         "camera": "全臉傾斜特寫 / 50mm 標準鏡頭 (Standard)",
         "lighting": "-"
       },
-      "midjourneyPrompt": "Photorealistic editorial portrait. Asymmetrical off-center full-face portrait, subject placed close to the left frame edge with a narrow margin, the entire face and facial outline fully inside the frame, broad negative space on the right, subject must not be centered, neck, shoulders, and upper torso visible, slight tilted frame. A 20-year-old adult Japanese woman. Side-parted medium soft waves, soft black-tea brown hair. A soft, balanced hourglass figure with a gently defined waist and naturally rounded curves.\n\nShe wears a cotton camisole top.\n\nSmall British inn room, narrow sash window, floral bedding.\n\n50mm standard lens, neutral perspective. --v 8.2 --ar 4:5 --raw --s 25 --c 0 --w 0 --sd",
-      "grokPrompt": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nAsymmetrical off-center full-face portrait, subject placed close to the left frame edge with a narrow margin, the entire face and facial outline fully inside the frame, broad negative space on the right, subject must not be centered, neck, shoulders, and upper torso visible, slight tilted frame.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Side-parted medium soft waves, collarbone-length shape, defined face-framing layers. Soft black-tea brown hair, muted brown-black salon tone.\n\nWardrobe:\nShe wears cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line.\n\nScene:\nThe portrait takes place in small British inn room, floral bedding, narrow sash window.\n\nCamera Look:\nShot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression.",
-      "zImagePrompt": "Photorealistic editorial portrait.\n\nThe setting is small British inn room, floral bedding, narrow sash window. Asymmetrical off-center full-face portrait, subject placed close to the left frame edge with a narrow margin, the entire face and facial outline fully inside the frame, broad negative space on the right, subject must not be centered, neck, shoulders, and upper torso visible, slight tilted frame.\n\nA 20-year-old seductive stunning adult Japanese woman, C–D cup bust, soft proportionate arms, gently defined waist, slightly low waistline, rounded wider hips, moderately full thighs, tapered calves, slightly long torso, balanced legs, soft hourglass silhouette; height 165–170 cm, bust–waist–hip 90–62–94 cm, side-parted medium soft waves, collarbone-length shape, defined face-framing layers, soft black-tea brown hair, muted brown-black salon tone.\n\nShe wears cotton camisole top, slim shoulder straps, soft ribbed knit.\n\nShot on 50mm standard lens.",
-      "nanoBananaPrompt": "Create a photorealistic editorial portrait. Asymmetrical off-center full-face portrait, subject placed close to the left frame edge with a narrow margin, the entire face and facial outline fully inside the frame, broad negative space on the right, subject must not be centered, neck, shoulders, and upper torso visible, slight tilted frame.\n\nThe subject is one 20-year-old adult Japanese woman. Her hair is side-parted medium soft waves, collarbone-length shape, defined face-framing layers. Her hair color is soft black-tea brown hair, muted brown-black salon tone. She has C–D cup bust, soft proportionate arms, gently defined waist, slightly low waistline, rounded wider hips, moderately full thighs, tapered calves, slightly long torso, balanced legs, soft hourglass silhouette; height 165–170 cm, bust–waist–hip 90–62–94 cm.\n\nShe wears cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line.\n\nThe setting is small British inn room, floral bedding, narrow sash window.\n\nShot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression.",
+      "midjourneyPrompt": "Photorealistic editorial portrait. Asymmetrical off-center full-face portrait, subject placed close to the left frame edge with a narrow margin, the entire face and facial outline fully inside the frame, broad negative space on the right, subject must not be centered, neck, shoulders, and upper torso visible, slight tilted frame. A 20-year-old adult Japanese woman. Side-parted medium soft waves, soft black-tea brown hair. A soft, balanced hourglass figure with a gently defined waist and naturally rounded curves.\n\nShe wears a cotton camisole top, straight-leg jeans, ribbed ankle socks and pointed-toe stiletto heels.\n\nSmall British inn room, narrow sash window, floral bedding.\n\n50mm standard lens, neutral perspective. --v 8.2 --ar 4:5 --raw --s 25 --c 0 --w 0 --sd",
+      "grokPrompt": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nAsymmetrical off-center full-face portrait, subject placed close to the left frame edge with a narrow margin, the entire face and facial outline fully inside the frame, broad negative space on the right, subject must not be centered, neck, shoulders, and upper torso visible, slight tilted frame.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Side-parted medium soft waves, collarbone-length shape, defined face-framing layers. Soft black-tea brown hair, muted brown-black salon tone.\n\nWardrobe:\nShe wears cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line. Straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction. Ribbed ankle socks, soft cotton texture. Pointed-toe stiletto heels, slender high heel, sharp feminine shoe shape.\n\nScene:\nThe portrait takes place in small British inn room, floral bedding, narrow sash window.\n\nCamera Look:\nShot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression.",
+      "zImagePrompt": "Photorealistic editorial portrait.\n\nThe setting is small British inn room, floral bedding, narrow sash window. Asymmetrical off-center full-face portrait, subject placed close to the left frame edge with a narrow margin, the entire face and facial outline fully inside the frame, broad negative space on the right, subject must not be centered, neck, shoulders, and upper torso visible, slight tilted frame.\n\nA 20-year-old seductive stunning adult Japanese woman, C–D cup bust, soft proportionate arms, gently defined waist, slightly low waistline, rounded wider hips, moderately full thighs, tapered calves, slightly long torso, balanced legs, soft hourglass silhouette; height 165–170 cm, bust–waist–hip 90–62–94 cm, side-parted medium soft waves, collarbone-length shape, defined face-framing layers, soft black-tea brown hair, muted brown-black salon tone.\n\nShe wears cotton camisole top, slim shoulder straps, soft ribbed knit, straight-leg jeans, clean denim texture, ribbed ankle socks, pointed-toe stiletto heels, slender high heel, sharp feminine shoe shape.\n\nShot on 50mm standard lens.",
+      "nanoBananaPrompt": "Create a photorealistic editorial portrait. Asymmetrical off-center full-face portrait, subject placed close to the left frame edge with a narrow margin, the entire face and facial outline fully inside the frame, broad negative space on the right, subject must not be centered, neck, shoulders, and upper torso visible, slight tilted frame.\n\nThe subject is one 20-year-old adult Japanese woman. Her hair is side-parted medium soft waves, collarbone-length shape, defined face-framing layers. Her hair color is soft black-tea brown hair, muted brown-black salon tone. She has C–D cup bust, soft proportionate arms, gently defined waist, slightly low waistline, rounded wider hips, moderately full thighs, tapered calves, slightly long torso, balanced legs, soft hourglass silhouette; height 165–170 cm, bust–waist–hip 90–62–94 cm.\n\nShe wears cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line. Straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction. Ribbed ankle socks, soft cotton texture. Pointed-toe stiletto heels, slender high heel, sharp feminine shoe shape.\n\nThe setting is small British inn room, floral bedding, narrow sash window.\n\nShot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression.",
       "extraPrompts": [
         {
           "id": "chest-up-portrait",
           "label": "胸上特寫照",
-          "text": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Side-parted medium soft waves, collarbone-length shape, defined face-framing layers. Soft black-tea brown hair, muted brown-black salon tone.\n\nWardrobe:\nShe wears cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line.\n\nPose and Composition:\nShe has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a standing pose with a relaxed upright posture.\n\nScene:\nThe portrait takes place in small British inn room, floral bedding, narrow sash window, cream walls, aged wooden furniture, bedside table, compact guest-room corner.\n\nCamera Look:\nShot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression."
+          "text": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Side-parted medium soft waves, collarbone-length shape, defined face-framing layers. Soft black-tea brown hair, muted brown-black salon tone.\n\nWardrobe:\nShe wears cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line. Straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction. Ribbed ankle socks, soft cotton texture. Pointed-toe stiletto heels, slender high heel, sharp feminine shoe shape.\n\nPose and Composition:\nShe has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a standing pose with a relaxed upright posture.\n\nScene:\nThe portrait takes place in small British inn room, floral bedding, narrow sash window, cream walls, aged wooden furniture, bedside table, compact guest-room corner.\n\nCamera Look:\nShot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression."
         },
         {
           "id": "full-body-character",
@@ -949,7 +949,7 @@
         "topColorId": "none",
         "topAColorId": "",
         "topBColorId": "",
-        "topPatternId": "",
+        "topPatternId": "wardrobe:上身圖案-top-surface-design:全無:0",
         "topAPatternId": "",
         "topBPatternId": "",
         "dressId": "",
@@ -973,10 +973,10 @@
         "bottomColorId": "none",
         "bottomAColorId": "",
         "bottomBColorId": "",
-        "bottomPatternId": "",
+        "bottomPatternId": "wardrobe:下身圖案-bottom-surface-design:全無:0",
         "bottomAPatternId": "",
         "bottomBPatternId": "",
-        "outerwearId": "",
+        "outerwearId": "wardrobe:外套-outerwear:全無:0",
         "outerwearFitId": "",
         "outerwearColorId": "",
         "outerwearPatternId": "",
@@ -1010,15 +1010,15 @@
         "headphonesColorId": "none",
         "faceCoveringId": "wardrobe:faceCovering:none",
         "faceCoveringColorId": "none",
-        "headAccessoryId": "",
+        "headAccessoryId": "wardrobe:頭部配件-head-accessories:全無:0",
         "headAccessoryColorId": "",
-        "eyewearId": "",
-        "eyewearColorId": "",
+        "eyewearId": "wardrobe:眼鏡-eyewear:全無:0",
+        "eyewearColorId": "wardrobe:眼鏡配色-eyewear-color:全無:0",
         "eyewearPlacementId": "wardrobe:眼鏡配戴方式-eyewear-placement:全無:2",
-        "earringsId": "",
+        "earringsId": "wardrobe:耳環-earrings:全無:0",
         "nosePiercingId": "",
         "lipPiercingId": "",
-        "neckAccessoryId": "",
+        "neckAccessoryId": "wardrobe:頸部-neck-accessories:全無:0",
         "waistAccessoryId": "wardrobe:腰部配件-waist-accessories:全無:0",
         "headphonesAId": "wardrobe:headphones:none",
         "headphonesAColorId": "none",
@@ -1221,6 +1221,22 @@
         ],
         "Wardrobe": [
           {
+            "id": "wardrobe:腰部配件-waist-accessories:全無:0",
+            "zh": "全無",
+            "en": "no waist accessories, clean waist styling",
+            "desc": "不加腰部配件，讓服裝腰線維持簡潔。",
+            "legacyIds": [
+              "wardrobe:腰部配件-waist-accessories:全無:0",
+              "wardrobe:腰部配件-waist-accessories:布質腰封:6"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "no_accessory"
+              ]
+            }
+          },
+          {
             "id": "wardrobe:上身-tops:棉質細肩背心:7",
             "zh": "棉質細肩背心",
             "en": "cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line",
@@ -1257,6 +1273,51 @@
             }
           },
           {
+            "id": "wardrobe:上身圖案-top-surface-design:全無:0",
+            "zh": "全無",
+            "en": "no added top pattern, clean solid-color surface styling",
+            "desc": "不額外加入上身表面圖案，保留單色與乾淨版型表現。",
+            "legacyIds": [
+              "wardrobe:上身圖案-top-surface-design:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "no_accessory"
+              ]
+            }
+          },
+          {
+            "id": "wardrobe:下身圖案-bottom-surface-design:全無:0",
+            "zh": "全無",
+            "en": "no added bottom pattern, clean solid-color lower-body styling",
+            "desc": "不額外加入下身圖案，保留褲裝或裙裝本身的材質與輪廓。",
+            "legacyIds": [
+              "wardrobe:下身圖案-bottom-surface-design:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "no_accessory"
+              ]
+            }
+          },
+          {
+            "id": "wardrobe:外套-outerwear:全無:0",
+            "zh": "全無",
+            "en": "no outerwear, uncluttered silhouette",
+            "desc": "不加外套，保留上身與下身單品的主要輪廓。",
+            "legacyIds": [
+              "wardrobe:外套-outerwear:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "no_accessory"
+              ]
+            }
+          },
+          {
             "id": "wardrobe:襪類-legwear:羅紋短襪:8",
             "zh": "羅紋短襪",
             "en": "ribbed ankle socks, soft cotton texture",
@@ -1283,6 +1344,107 @@
             "meta": {
               "family": "neutral",
               "tags": []
+            }
+          },
+          {
+            "id": "wardrobe:頭部配件-head-accessories:全無:0",
+            "zh": "全無",
+            "en": "no head accessories, clean head styling",
+            "desc": "不加頭部配件，讓髮型與頭部輪廓維持乾淨俐落。",
+            "legacyIds": [
+              "wardrobe:頭部配件-head-accessories:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "no_accessory"
+              ]
+            }
+          },
+          {
+            "id": "wardrobe:眼鏡-eyewear:全無:0",
+            "zh": "全無",
+            "en": "no eyewear, clean face styling",
+            "desc": "不加眼鏡，讓臉部與五官維持乾淨俐落。",
+            "legacyIds": [
+              "wardrobe:眼鏡-eyewear:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "accessory_small",
+                "no_accessory"
+              ]
+            }
+          },
+          {
+            "id": "wardrobe:眼鏡配色-eyewear-color:全無:0",
+            "zh": "全無",
+            "en": "no specified eyewear frame color",
+            "desc": "不指定眼鏡顏色或材質，保留眼鏡本體輪廓。",
+            "legacyIds": [
+              "wardrobe:眼鏡配色-eyewear-color:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "accessory_small",
+                "no_accessory"
+              ]
+            }
+          },
+          {
+            "id": "wardrobe:眼鏡配戴方式-eyewear-placement:全無:2",
+            "zh": "全無",
+            "en": "none",
+            "desc": "不指定眼鏡位置，保留已選眼鏡款式與配色。",
+            "legacyIds": [
+              "wardrobe:眼鏡配戴方式-eyewear-placement:全無:2"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "optional_silence",
+                "ornate",
+                "accessory_small",
+                "no_accessory",
+                "romantic"
+              ]
+            }
+          },
+          {
+            "id": "wardrobe:耳環-earrings:全無:0",
+            "zh": "全無",
+            "en": "no earrings, clean ear styling",
+            "desc": "不加耳環，讓耳側與臉部輪廓保持乾淨。",
+            "legacyIds": [
+              "wardrobe:耳環-earrings:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "accessory_small",
+                "no_accessory"
+              ]
+            }
+          },
+          {
+            "id": "wardrobe:頸部-neck-accessories:全無:0",
+            "zh": "全無",
+            "en": "no neck accessories, open neckline styling",
+            "desc": "不加頸部飾品，讓領口與鎖骨區域維持簡潔。",
+            "legacyIds": [
+              "wardrobe:頸部-neck-accessories:全無:0",
+              "wardrobe:頸部-neck-accessories:刺繡絲巾:17",
+              "wardrobe:頸部-neck-accessories:薄長圍巾:18",
+              "wardrobe:頸部-neck-accessories:厚長圍巾:19"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "accessory_small",
+                "no_accessory"
+              ]
             }
           }
         ],
@@ -1474,7 +1636,7 @@
         {
           "id": "chest-up-portrait",
           "label": "胸上特寫照",
-          "text": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Side-parted medium soft waves, collarbone-length shape, defined face-framing layers. Soft black-tea brown hair, muted brown-black salon tone.\n\nWardrobe:\nShe wears cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line.\n\nPose and Composition:\nShe has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a standing pose with a relaxed upright posture.\n\nScene:\nThe portrait takes place in small British inn room, floral bedding, narrow sash window, cream walls, aged wooden furniture, bedside table, compact guest-room corner.\n\nCamera Look:\nShot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression."
+          "text": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Side-parted medium soft waves, collarbone-length shape, defined face-framing layers. Soft black-tea brown hair, muted brown-black salon tone.\n\nWardrobe:\nShe wears cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line. Straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction. Ribbed ankle socks, soft cotton texture. Pointed-toe stiletto heels, slender high heel, sharp feminine shoe shape.\n\nPose and Composition:\nShe has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a standing pose with a relaxed upright posture.\n\nScene:\nThe portrait takes place in small British inn room, floral bedding, narrow sash window, cream walls, aged wooden furniture, bedside table, compact guest-room corner.\n\nCamera Look:\nShot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression."
         },
         {
           "id": "full-body-character",
@@ -2274,15 +2436,15 @@
         "camera": "中景鏡頭 (Medium Shot) / 50mm 標準鏡頭 (Standard)",
         "lighting": "-"
       },
-      "midjourneyPrompt": "Photorealistic editorial portrait. Waist-up portrait. A 20-year-old adult Japanese woman. Side-parted medium soft waves, soft black-tea brown hair. A soft, balanced hourglass figure with a gently defined waist and naturally rounded curves. She has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a relaxed upright posture.\n\nShe wears a long-sleeve top and straight-leg jeans.\n\nSmall British inn room, narrow sash window, floral bedding, cream walls.\n\n50mm standard lens, neutral perspective. --v 8.2 --ar 3:4 --raw --s 25 --c 0 --w 0 --sd",
-      "grokPrompt": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nWaist-up portrait.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Side-parted medium soft waves, collarbone-length shape, defined face-framing layers. Soft black-tea brown hair, muted brown-black salon tone.\n\nWardrobe:\nShe wears long-sleeve top, fitted or relaxed sleeve length, clean shoulder line, simple upper-body structure. Straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction at the lower crop edge.\n\nPose and Composition:\nShe has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a relaxed upright posture.\n\nScene:\nThe portrait takes place in small British inn room, floral bedding, narrow sash window, cream walls, aged wooden furniture.\n\nCamera Look:\nShot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression.",
-      "zImagePrompt": "Photorealistic editorial portrait of one young adult woman.\n\nThe setting is small British inn room, floral bedding, narrow sash window.\nShe has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a relaxed upright posture.\nWaist-up portrait.\n\nA 20-year-old seductive stunning adult Japanese woman, C–D cup bust, soft proportionate arms, gently defined waist, slightly low waistline, rounded wider hips, moderately full thighs, tapered calves, slightly long torso, balanced legs, soft hourglass silhouette; height 165–170 cm, bust–waist–hip 90–62–94 cm, side-parted medium soft waves, collarbone-length shape, defined face-framing layers, soft black-tea brown hair, muted brown-black salon tone.\n\nShe wears long-sleeve top, fitted or relaxed sleeve length, clean shoulder line, simple upper-body structure, straight-leg jeans, clean denim texture, at the lower crop edge.\n\nShot on 50mm standard lens.",
-      "nanoBananaPrompt": "Create a photorealistic editorial portrait. Waist-up portrait.\n\nThe subject is one 20-year-old adult Japanese woman. Her hair is side-parted medium soft waves, collarbone-length shape, defined face-framing layers. Her hair color is soft black-tea brown hair, muted brown-black salon tone. She has C–D cup bust, soft proportionate arms, gently defined waist, slightly low waistline, rounded wider hips, moderately full thighs, tapered calves, slightly long torso, balanced legs, soft hourglass silhouette; height 165–170 cm, bust–waist–hip 90–62–94 cm.\n\nShe wears long-sleeve top, fitted or relaxed sleeve length, clean shoulder line, simple upper-body structure. Straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction at the lower crop edge.\n\nShe has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a relaxed upright posture. The setting is small British inn room, floral bedding, narrow sash window, cream walls, aged wooden furniture.\n\nShot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression.",
+      "midjourneyPrompt": "Photorealistic editorial portrait. Waist-up portrait. A 20-year-old adult Japanese woman. Side-parted medium soft waves, soft black-tea brown hair. A soft, balanced hourglass figure with a gently defined waist and naturally rounded curves. She has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a relaxed upright posture.\n\nShe wears a long-sleeve top, straight-leg jeans, ribbed ankle socks and pointed-toe stiletto heels.\n\nSmall British inn room, narrow sash window, floral bedding, cream walls.\n\n50mm standard lens, neutral perspective. --v 8.2 --ar 3:4 --raw --s 25 --c 0 --w 0 --sd",
+      "grokPrompt": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nWaist-up portrait.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Side-parted medium soft waves, collarbone-length shape, defined face-framing layers. Soft black-tea brown hair, muted brown-black salon tone.\n\nWardrobe:\nShe wears long-sleeve top, fitted or relaxed sleeve length, clean shoulder line, simple upper-body structure. Straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction. Ribbed ankle socks, soft cotton texture. Pointed-toe stiletto heels, slender high heel, sharp feminine shoe shape.\n\nPose and Composition:\nShe has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a relaxed upright posture.\n\nScene:\nThe portrait takes place in small British inn room, floral bedding, narrow sash window, cream walls, aged wooden furniture.\n\nCamera Look:\nShot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression.",
+      "zImagePrompt": "Photorealistic editorial portrait of one young adult woman.\n\nThe setting is small British inn room, floral bedding, narrow sash window.\nShe has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a relaxed upright posture.\nWaist-up portrait.\n\nA 20-year-old seductive stunning adult Japanese woman, C–D cup bust, soft proportionate arms, gently defined waist, slightly low waistline, rounded wider hips, moderately full thighs, tapered calves, slightly long torso, balanced legs, soft hourglass silhouette; height 165–170 cm, bust–waist–hip 90–62–94 cm, side-parted medium soft waves, collarbone-length shape, defined face-framing layers, soft black-tea brown hair, muted brown-black salon tone.\n\nShe wears long-sleeve top, fitted or relaxed sleeve length, clean shoulder line, simple upper-body structure, straight-leg jeans, clean denim texture, ribbed ankle socks, pointed-toe stiletto heels, slender high heel, sharp feminine shoe shape.\n\nShot on 50mm standard lens.",
+      "nanoBananaPrompt": "Create a photorealistic editorial portrait. Waist-up portrait.\n\nThe subject is one 20-year-old adult Japanese woman. Her hair is side-parted medium soft waves, collarbone-length shape, defined face-framing layers. Her hair color is soft black-tea brown hair, muted brown-black salon tone. She has C–D cup bust, soft proportionate arms, gently defined waist, slightly low waistline, rounded wider hips, moderately full thighs, tapered calves, slightly long torso, balanced legs, soft hourglass silhouette; height 165–170 cm, bust–waist–hip 90–62–94 cm.\n\nShe wears long-sleeve top, fitted or relaxed sleeve length, clean shoulder line, simple upper-body structure. Straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction. Ribbed ankle socks, soft cotton texture. Pointed-toe stiletto heels, slender high heel, sharp feminine shoe shape.\n\nShe has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a relaxed upright posture. The setting is small British inn room, floral bedding, narrow sash window, cream walls, aged wooden furniture.\n\nShot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression.",
       "extraPrompts": [
         {
           "id": "chest-up-portrait",
           "label": "胸上特寫照",
-          "text": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Side-parted medium soft waves, collarbone-length shape, defined face-framing layers. Soft black-tea brown hair, muted brown-black salon tone.\n\nWardrobe:\nShe wears long-sleeve top, fitted or relaxed sleeve length, clean shoulder line, simple upper-body structure.\n\nPose and Composition:\nShe has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a standing pose with a relaxed upright posture.\n\nScene:\nThe portrait takes place in small British inn room, floral bedding, narrow sash window, cream walls, aged wooden furniture, bedside table, compact guest-room corner.\n\nCamera Look:\nShot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression."
+          "text": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Side-parted medium soft waves, collarbone-length shape, defined face-framing layers. Soft black-tea brown hair, muted brown-black salon tone.\n\nWardrobe:\nShe wears long-sleeve top, fitted or relaxed sleeve length, clean shoulder line, simple upper-body structure. Straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction. Ribbed ankle socks, soft cotton texture. Pointed-toe stiletto heels, slender high heel, sharp feminine shoe shape.\n\nPose and Composition:\nShe has her head naturally facing the camera, one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally, and presents a standing pose with a relaxed upright posture.\n\nScene:\nThe portrait takes place in small British inn room, floral bedding, narrow sash window, cream walls, aged wooden furniture, bedside table, compact guest-room corner.\n\nCamera Look:\nShot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression."
         },
         {
           "id": "full-body-character",
@@ -3810,19 +3972,19 @@
   },
   "duo": {
     "stable": {
-      "summary": "風格：寫實攝影 | 人物：兩位性感驚豔的日系或韓系女性 | 服裝：- | 場景：- | 鏡頭：全臉傾斜特寫 | 光影：-",
+      "summary": "風格：寫實攝影 | 人物：兩位性感驚豔的日系或韓系女性 | 服裝：人物 1：棉質細肩背心 / 直筒牛仔褲 / 人物 2：短袖上衣 / 牛仔短褲 | 場景：- | 鏡頭：全臉傾斜特寫 | 光影：-",
       "summaryFields": {
         "style": "寫實攝影",
         "character": "兩位性感驚豔的日系或韓系女性",
-        "wardrobe": "-",
+        "wardrobe": "人物 1：棉質細肩背心 / 直筒牛仔褲 / 人物 2：短袖上衣 / 牛仔短褲",
         "location": "-",
         "camera": "全臉傾斜特寫",
         "lighting": "-"
       },
-      "midjourneyPrompt": "Photorealistic editorial portrait. Asymmetrical off-center full-face portrait, subject placed close to the left frame edge with a narrow margin, the entire face and facial outline fully inside the frame, broad negative space on the right, subject must not be centered, neck, shoulders, and upper torso visible, slight tilted frame. Two 20-year-old adult Japanese women. --v 8.2 --ar 4:5 --raw --s 25 --c 0 --w 0 --sd",
-      "grokPrompt": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nAsymmetrical off-center full-face portrait, subject placed close to the left frame edge with a narrow margin, the entire face and facial outline fully inside the frame, broad negative space on the right, subject must not be centered, neck, shoulders, and upper torso visible, slight tilted frame.\n\nSubject:\nTwo 20-year-old adult Japanese women.\n\nPose and Composition:\nUse a close two-person portrait crop as a loose photographic guide, allowing natural crop, overlap, body blocking, and partial occlusion when it makes the moment feel candid and real.",
-      "zImagePrompt": "Photorealistic editorial portrait.\n\nAsymmetrical off-center full-face portrait, subject placed close to the left frame edge with a narrow margin, the entire face and facial outline fully inside the frame, broad negative space on the right, subject must not be centered, neck, shoulders, and upper torso visible, slight tilted frame.\n\nTwo stunning seductive 20-year-old adult Japanese women.",
-      "nanoBananaPrompt": "Create a photorealistic editorial portrait. Asymmetrical off-center full-face portrait, subject placed close to the left frame edge with a narrow margin, the entire face and facial outline fully inside the frame, broad negative space on the right, subject must not be centered, neck, shoulders, and upper torso visible, slight tilted frame.\n\nTwo 20-year-old adult Japanese women.\n\nUse a close two-person portrait crop as a loose photographic guide, allowing natural crop, overlap, body blocking, and partial occlusion when it makes the moment feel candid and real.",
+      "midjourneyPrompt": "Photorealistic editorial portrait. Asymmetrical off-center full-face portrait, subject placed close to the left frame edge with a narrow margin, the entire face and facial outline fully inside the frame, broad negative space on the right, subject must not be centered, neck, shoulders, and upper torso visible, slight tilted frame. Two 20-year-old adult Japanese women.\n\nThe first woman wears a cotton camisole top and straight-leg jeans. The second woman wears a short-sleeve top and denim shorts. --v 8.2 --ar 4:5 --raw --s 25 --c 0 --w 0 --sd",
+      "grokPrompt": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nAsymmetrical off-center full-face portrait, subject placed close to the left frame edge with a narrow margin, the entire face and facial outline fully inside the frame, broad negative space on the right, subject must not be centered, neck, shoulders, and upper torso visible, slight tilted frame.\n\nSubject:\nTwo 20-year-old adult Japanese women.\n\nWoman 1:\nWears cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line, straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction.\n\nWoman 2:\nWears short-sleeve top, smooth stretch fabric, clean torso line, compact sleeve proportion, denim shorts, short hemline, compact fitted seat, clean cut-off-inspired silhouette.\n\nPose and Composition:\nUse a close two-person portrait crop as a loose photographic guide, allowing natural crop, overlap, body blocking, and partial occlusion when it makes the moment feel candid and real.",
+      "zImagePrompt": "Photorealistic editorial portrait.\n\nAsymmetrical off-center full-face portrait, subject placed close to the left frame edge with a narrow margin, the entire face and facial outline fully inside the frame, broad negative space on the right, subject must not be centered, neck, shoulders, and upper torso visible, slight tilted frame.\n\nTwo stunning seductive 20-year-old adult Japanese women.\n\nShe wears cotton camisole top, slim shoulder straps, soft ribbed knit, straight-leg jeans, clean denim texture. She wears short-sleeve top, smooth stretch fabric, clean torso line, compact sleeve proportion, denim shorts, short hemline, clean cut-off-inspired silhouette.",
+      "nanoBananaPrompt": "Create a photorealistic editorial portrait. Asymmetrical off-center full-face portrait, subject placed close to the left frame edge with a narrow margin, the entire face and facial outline fully inside the frame, broad negative space on the right, subject must not be centered, neck, shoulders, and upper torso visible, slight tilted frame.\n\nTwo 20-year-old adult Japanese women.\n\nThe first woman wears cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line, straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction.\n\nThe second woman wears short-sleeve top, smooth stretch fabric, clean torso line, compact sleeve proportion, denim shorts, short hemline, compact fitted seat, clean cut-off-inspired silhouette.\n\nUse a close two-person portrait crop as a loose photographic guide, allowing natural crop, overlap, body blocking, and partial occlusion when it makes the moment feel candid and real.",
       "extraPrompts": [],
       "selection": {
         "subjectCount": "2",
@@ -3925,8 +4087,8 @@
         "outfitPresetBContrastColorId": "",
         "outfitPresetBLockedPaletteId": "",
         "topId": "",
-        "topAId": "",
-        "topBId": "",
+        "topAId": "wardrobe:上身-tops:棉質細肩背心:7",
+        "topBId": "wardrobe:上身-tops:短袖上衣:4",
         "topFitId": "",
         "topFitAId": "",
         "topFitBId": "",
@@ -3937,8 +4099,8 @@
         "topBottomPaletteAId": "",
         "topBottomPaletteBId": "",
         "topColorId": "",
-        "topAColorId": "",
-        "topBColorId": "",
+        "topAColorId": "none",
+        "topBColorId": "none",
         "topPatternId": "",
         "topAPatternId": "",
         "topBPatternId": "",
@@ -3949,8 +4111,8 @@
         "dressAColorId": "",
         "dressBColorId": "",
         "pantsId": "",
-        "pantsAId": "",
-        "pantsBId": "",
+        "pantsAId": "wardrobe:褲裝-pants:直筒牛仔褲:1",
+        "pantsBId": "wardrobe:褲裝-pants:牛仔短褲:3",
         "skirtId": "",
         "skirtAId": "",
         "skirtBId": "",
@@ -3961,8 +4123,8 @@
         "bottomRiseAId": "",
         "bottomRiseBId": "",
         "bottomColorId": "",
-        "bottomAColorId": "",
-        "bottomBColorId": "",
+        "bottomAColorId": "none",
+        "bottomBColorId": "none",
         "bottomPatternId": "",
         "bottomAPatternId": "",
         "bottomBPatternId": "",
@@ -3976,25 +4138,25 @@
         "legwearColorId": "",
         "shoesId": "",
         "shoesColorId": "",
-        "outerwearAId": "",
-        "outerwearAFitId": "",
+        "outerwearAId": "wardrobe:外套-outerwear:全無:0",
+        "outerwearAFitId": "wardrobe:外套版型-outerwear-fit:全無:0",
         "outerwearAColorId": "",
-        "outerwearAPatternId": "",
+        "outerwearAPatternId": "wardrobe:外套圖案-outerwear-surface-design:全無:0",
         "outerwearAOpeningId": "wardrobe:外套開合-outerwear-opening:全無:4",
-        "outerwearAStylingId": "",
-        "legwearAId": "",
+        "outerwearAStylingId": "wardrobe:外套穿法-outerwear-styling:全無:0",
+        "legwearAId": "wardrobe:襪類-legwear:全無:0",
         "legwearAColorId": "",
-        "shoesAId": "",
+        "shoesAId": "wardrobe:鞋款-shoes:全無:0",
         "shoesAColorId": "",
-        "outerwearBId": "",
-        "outerwearBFitId": "",
+        "outerwearBId": "wardrobe:外套-outerwear:全無:0",
+        "outerwearBFitId": "wardrobe:外套版型-outerwear-fit:全無:0",
         "outerwearBColorId": "",
-        "outerwearBPatternId": "",
+        "outerwearBPatternId": "wardrobe:外套圖案-outerwear-surface-design:全無:0",
         "outerwearBOpeningId": "wardrobe:外套開合-outerwear-opening:全無:4",
-        "outerwearBStylingId": "",
-        "legwearBId": "",
+        "outerwearBStylingId": "wardrobe:外套穿法-outerwear-styling:全無:0",
+        "legwearBId": "wardrobe:襪類-legwear:全無:0",
         "legwearBColorId": "",
-        "shoesBId": "",
+        "shoesBId": "wardrobe:鞋款-shoes:全無:0",
         "shoesBColorId": "",
         "headphonesId": "wardrobe:headphones:none",
         "headphonesColorId": "none",
@@ -4014,25 +4176,25 @@
         "headphonesAColorId": "none",
         "faceCoveringAId": "wardrobe:faceCovering:none",
         "faceCoveringAColorId": "none",
-        "headAccessoryAId": "",
+        "headAccessoryAId": "wardrobe:頭部配件-head-accessories:全無:0",
         "headAccessoryAColorId": "",
-        "eyewearAId": "",
-        "eyewearAColorId": "",
+        "eyewearAId": "wardrobe:眼鏡-eyewear:全無:0",
+        "eyewearAColorId": "wardrobe:眼鏡配色-eyewear-color:全無:0",
         "eyewearAPlacementId": "wardrobe:眼鏡配戴方式-eyewear-placement:全無:2",
-        "earringsAId": "",
-        "neckAccessoryAId": "",
+        "earringsAId": "wardrobe:耳環-earrings:全無:0",
+        "neckAccessoryAId": "wardrobe:頸部-neck-accessories:全無:0",
         "waistAccessoryAId": "wardrobe:腰部配件-waist-accessories:全無:0",
         "headphonesBId": "wardrobe:headphones:none",
         "headphonesBColorId": "none",
         "faceCoveringBId": "wardrobe:faceCovering:none",
         "faceCoveringBColorId": "none",
-        "headAccessoryBId": "",
+        "headAccessoryBId": "wardrobe:頭部配件-head-accessories:全無:0",
         "headAccessoryBColorId": "",
-        "eyewearBId": "",
-        "eyewearBColorId": "",
+        "eyewearBId": "wardrobe:眼鏡-eyewear:全無:0",
+        "eyewearBColorId": "wardrobe:眼鏡配色-eyewear-color:全無:0",
         "eyewearBPlacementId": "wardrobe:眼鏡配戴方式-eyewear-placement:全無:2",
-        "earringsBId": "",
-        "neckAccessoryBId": "",
+        "earringsBId": "wardrobe:耳環-earrings:全無:0",
+        "neckAccessoryBId": "wardrobe:頸部-neck-accessories:全無:0",
         "waistAccessoryBId": "wardrobe:腰部配件-waist-accessories:全無:0"
       },
       "structured": {
@@ -4285,7 +4447,608 @@
             }
           }
         ],
-        "Wardrobe": [],
+        "Wardrobe": [
+          {
+            "id": "wardrobe:腰部配件-waist-accessories:全無:0",
+            "zh": "全無",
+            "en": "no waist accessories, clean waist styling",
+            "desc": "不加腰部配件，讓服裝腰線維持簡潔。",
+            "legacyIds": [
+              "wardrobe:腰部配件-waist-accessories:全無:0",
+              "wardrobe:腰部配件-waist-accessories:布質腰封:6"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "no_accessory"
+              ]
+            }
+          },
+          {
+            "id": "wardrobe:腰部配件-waist-accessories:全無:0:a",
+            "zh": "全無",
+            "en": "no waist accessories, clean waist styling",
+            "desc": "不加腰部配件，讓服裝腰線維持簡潔。",
+            "legacyIds": [
+              "wardrobe:腰部配件-waist-accessories:全無:0",
+              "wardrobe:腰部配件-waist-accessories:布質腰封:6"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "no_accessory"
+              ],
+              "wardrobeRole": "a",
+              "layerSlot": "waistAccessory"
+            }
+          },
+          {
+            "id": "wardrobe:腰部配件-waist-accessories:全無:0:b",
+            "zh": "全無",
+            "en": "no waist accessories, clean waist styling",
+            "desc": "不加腰部配件，讓服裝腰線維持簡潔。",
+            "legacyIds": [
+              "wardrobe:腰部配件-waist-accessories:全無:0",
+              "wardrobe:腰部配件-waist-accessories:布質腰封:6"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "no_accessory"
+              ],
+              "wardrobeRole": "b",
+              "layerSlot": "waistAccessory"
+            }
+          },
+          {
+            "id": "wardrobe:上身-tops:棉質細肩背心:7:a",
+            "zh": "棉質細肩背心",
+            "en": "cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line",
+            "desc": "以棉質羅紋、細肩帶與乾淨內搭式輪廓為主，線條貼近身形但不過度複雜。",
+            "legacyIds": [
+              "wardrobe:上身-tops:短版棉質露臍小可愛:2",
+              "wardrobe:上身-tops:棉質細肩背心:7",
+              "wardrobe:上身-tops:棉質細肩背心:2",
+              "wardrobe:上身-tops:細肩帶上衣:6"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [],
+              "topUnderbust": {
+                "baseEn": "cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line"
+              },
+              "wardrobeRole": "a",
+              "layerSlot": "top"
+            }
+          },
+          {
+            "id": "wardrobe:褲裝-pants:直筒牛仔褲:1:a",
+            "zh": "直筒牛仔褲",
+            "en": "straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction",
+            "desc": "以直筒褲管、標準丹寧結構與清楚褲線比例為主，重點在穩定耐看的基礎版型。",
+            "legacyIds": [
+              "wardrobe:褲裝-pants:高腰直筒牛仔褲:1",
+              "wardrobe:褲裝-pants:直筒牛仔褲:1"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "pants",
+                "casual"
+              ],
+              "wardrobeRole": "a",
+              "layerSlot": "pants"
+            }
+          },
+          {
+            "id": "wardrobe:上身-tops:短袖上衣:4:b",
+            "zh": "短袖上衣",
+            "en": "short-sleeve top, smooth stretch fabric, clean torso line, compact sleeve proportion",
+            "desc": "以俐落袖長、順身布面與簡潔上半身線條為主，適合作為中性基礎版型。",
+            "legacyIds": [
+              "wardrobe:上身-tops:短袖貼身上衣:4",
+              "wardrobe:上身-tops:短袖上衣:4"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [],
+              "topUnderbust": {
+                "baseEn": "short-sleeve top, smooth stretch fabric, clean torso line, compact sleeve proportion"
+              },
+              "wardrobeRole": "b",
+              "layerSlot": "top"
+            }
+          },
+          {
+            "id": "wardrobe:褲裝-pants:牛仔短褲:3:b",
+            "zh": "牛仔短褲",
+            "en": "denim shorts, short hemline, compact fitted seat, clean cut-off-inspired silhouette",
+            "desc": "以短褲長度、丹寧布面與俐落褲口比例為主，重點是簡潔直接的短版結構。",
+            "legacyIds": [
+              "wardrobe:褲裝-pants:牛仔熱褲:3",
+              "wardrobe:褲裝-pants:牛仔短褲:3"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "pants",
+                "casual"
+              ],
+              "wardrobeRole": "b",
+              "layerSlot": "pants"
+            }
+          },
+          {
+            "id": "wardrobe:襪類-legwear:全無:0:a",
+            "zh": "全無",
+            "en": "no legwear, bare legs, clean leg styling",
+            "desc": "不加絲襪、膝上襪或其他襪類，讓腿部線條保持乾淨直接。",
+            "legacyIds": [
+              "wardrobe:襪類-legwear:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "legwear",
+                "no_accessory",
+                "uniform"
+              ],
+              "wardrobeRole": "a",
+              "layerSlot": "legwear"
+            }
+          },
+          {
+            "id": "wardrobe:外套-outerwear:全無:0:a",
+            "zh": "全無",
+            "en": "no outerwear, uncluttered silhouette",
+            "desc": "不加外套，保留上身與下身單品的主要輪廓。",
+            "legacyIds": [
+              "wardrobe:外套-outerwear:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "no_accessory"
+              ],
+              "wardrobeRole": "a",
+              "layerSlot": "outerwear"
+            }
+          },
+          {
+            "id": "wardrobe:外套版型-outerwear-fit:全無:0:a",
+            "zh": "全無",
+            "en": "no additional outerwear fit adjustment",
+            "desc": "不額外指定外套長度或鬆緊版型，保留外套本體原始輪廓。",
+            "legacyIds": [
+              "wardrobe:外套版型-outerwear-fit:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "no_accessory"
+              ],
+              "wardrobeRole": "a",
+              "layerSlot": "outerwearFit"
+            }
+          },
+          {
+            "id": "wardrobe:外套圖案-outerwear-surface-design:全無:0:a",
+            "zh": "全無",
+            "en": "no added outerwear pattern, clean solid-color outer layer styling",
+            "desc": "不額外加入外套圖案，保留外套本身的輪廓、材質與層次。",
+            "legacyIds": [
+              "wardrobe:外套圖案-outerwear-surface-design:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "no_accessory"
+              ],
+              "wardrobeRole": "a",
+              "layerSlot": "outerwearPattern"
+            }
+          },
+          {
+            "id": "wardrobe:外套開合-outerwear-opening:全無:4:a",
+            "zh": "全無",
+            "en": "none",
+            "desc": "不指定前襟開合，保留已選外套與其他穿法。",
+            "legacyIds": [
+              "wardrobe:外套開合-outerwear-opening:全無:4"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "optional_silence",
+                "no_accessory"
+              ],
+              "wardrobeRole": "a",
+              "layerSlot": "outerwearOpening"
+            }
+          },
+          {
+            "id": "wardrobe:外套穿法-outerwear-styling:全無:0:a",
+            "zh": "全無",
+            "en": "no additional outerwear styling adjustment",
+            "desc": "不額外指定外套穿法，保留外套本身的自然穿著狀態。",
+            "legacyIds": [
+              "wardrobe:外套穿法-outerwear-styling:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "no_accessory"
+              ],
+              "wardrobeRole": "a",
+              "layerSlot": "outerwearStyling"
+            }
+          },
+          {
+            "id": "wardrobe:鞋款-shoes:全無:0:a",
+            "zh": "全無",
+            "en": "no explicit shoe styling, footwear unspecified",
+            "desc": "不特別指定鞋款，讓畫面避免額外鞋部細節。",
+            "legacyIds": [
+              "wardrobe:鞋款-shoes:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "no_accessory"
+              ],
+              "wardrobeRole": "a",
+              "layerSlot": "shoes"
+            }
+          },
+          {
+            "id": "wardrobe:襪類-legwear:全無:0:b",
+            "zh": "全無",
+            "en": "no legwear, bare legs, clean leg styling",
+            "desc": "不加絲襪、膝上襪或其他襪類，讓腿部線條保持乾淨直接。",
+            "legacyIds": [
+              "wardrobe:襪類-legwear:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "legwear",
+                "no_accessory",
+                "uniform"
+              ],
+              "wardrobeRole": "b",
+              "layerSlot": "legwear"
+            }
+          },
+          {
+            "id": "wardrobe:外套-outerwear:全無:0:b",
+            "zh": "全無",
+            "en": "no outerwear, uncluttered silhouette",
+            "desc": "不加外套，保留上身與下身單品的主要輪廓。",
+            "legacyIds": [
+              "wardrobe:外套-outerwear:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "no_accessory"
+              ],
+              "wardrobeRole": "b",
+              "layerSlot": "outerwear"
+            }
+          },
+          {
+            "id": "wardrobe:外套版型-outerwear-fit:全無:0:b",
+            "zh": "全無",
+            "en": "no additional outerwear fit adjustment",
+            "desc": "不額外指定外套長度或鬆緊版型，保留外套本體原始輪廓。",
+            "legacyIds": [
+              "wardrobe:外套版型-outerwear-fit:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "no_accessory"
+              ],
+              "wardrobeRole": "b",
+              "layerSlot": "outerwearFit"
+            }
+          },
+          {
+            "id": "wardrobe:外套圖案-outerwear-surface-design:全無:0:b",
+            "zh": "全無",
+            "en": "no added outerwear pattern, clean solid-color outer layer styling",
+            "desc": "不額外加入外套圖案，保留外套本身的輪廓、材質與層次。",
+            "legacyIds": [
+              "wardrobe:外套圖案-outerwear-surface-design:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "no_accessory"
+              ],
+              "wardrobeRole": "b",
+              "layerSlot": "outerwearPattern"
+            }
+          },
+          {
+            "id": "wardrobe:外套開合-outerwear-opening:全無:4:b",
+            "zh": "全無",
+            "en": "none",
+            "desc": "不指定前襟開合，保留已選外套與其他穿法。",
+            "legacyIds": [
+              "wardrobe:外套開合-outerwear-opening:全無:4"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "optional_silence",
+                "no_accessory"
+              ],
+              "wardrobeRole": "b",
+              "layerSlot": "outerwearOpening"
+            }
+          },
+          {
+            "id": "wardrobe:外套穿法-outerwear-styling:全無:0:b",
+            "zh": "全無",
+            "en": "no additional outerwear styling adjustment",
+            "desc": "不額外指定外套穿法，保留外套本身的自然穿著狀態。",
+            "legacyIds": [
+              "wardrobe:外套穿法-outerwear-styling:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "no_accessory"
+              ],
+              "wardrobeRole": "b",
+              "layerSlot": "outerwearStyling"
+            }
+          },
+          {
+            "id": "wardrobe:鞋款-shoes:全無:0:b",
+            "zh": "全無",
+            "en": "no explicit shoe styling, footwear unspecified",
+            "desc": "不特別指定鞋款，讓畫面避免額外鞋部細節。",
+            "legacyIds": [
+              "wardrobe:鞋款-shoes:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "no_accessory"
+              ],
+              "wardrobeRole": "b",
+              "layerSlot": "shoes"
+            }
+          },
+          {
+            "id": "wardrobe:頭部配件-head-accessories:全無:0:a",
+            "zh": "全無",
+            "en": "no head accessories, clean head styling",
+            "desc": "不加頭部配件，讓髮型與頭部輪廓維持乾淨俐落。",
+            "legacyIds": [
+              "wardrobe:頭部配件-head-accessories:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "no_accessory"
+              ],
+              "wardrobeRole": "a",
+              "layerSlot": "headAccessory"
+            }
+          },
+          {
+            "id": "wardrobe:眼鏡-eyewear:全無:0:a",
+            "zh": "全無",
+            "en": "no eyewear, clean face styling",
+            "desc": "不加眼鏡，讓臉部與五官維持乾淨俐落。",
+            "legacyIds": [
+              "wardrobe:眼鏡-eyewear:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "accessory_small",
+                "no_accessory"
+              ],
+              "wardrobeRole": "a",
+              "layerSlot": "eyewear"
+            }
+          },
+          {
+            "id": "wardrobe:眼鏡配色-eyewear-color:全無:0:a",
+            "zh": "全無",
+            "en": "no specified eyewear frame color",
+            "desc": "不指定眼鏡顏色或材質，保留眼鏡本體輪廓。",
+            "legacyIds": [
+              "wardrobe:眼鏡配色-eyewear-color:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "accessory_small",
+                "no_accessory"
+              ],
+              "wardrobeRole": "a",
+              "layerSlot": "eyewearColor"
+            }
+          },
+          {
+            "id": "wardrobe:眼鏡配戴方式-eyewear-placement:全無:2:a",
+            "zh": "全無",
+            "en": "none",
+            "desc": "不指定眼鏡位置，保留已選眼鏡款式與配色。",
+            "legacyIds": [
+              "wardrobe:眼鏡配戴方式-eyewear-placement:全無:2"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "optional_silence",
+                "ornate",
+                "accessory_small",
+                "no_accessory",
+                "romantic"
+              ],
+              "wardrobeRole": "a",
+              "layerSlot": "eyewearPlacement"
+            }
+          },
+          {
+            "id": "wardrobe:耳環-earrings:全無:0:a",
+            "zh": "全無",
+            "en": "no earrings, clean ear styling",
+            "desc": "不加耳環，讓耳側與臉部輪廓保持乾淨。",
+            "legacyIds": [
+              "wardrobe:耳環-earrings:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "accessory_small",
+                "no_accessory"
+              ],
+              "wardrobeRole": "a",
+              "layerSlot": "earrings"
+            }
+          },
+          {
+            "id": "wardrobe:頸部-neck-accessories:全無:0:a",
+            "zh": "全無",
+            "en": "no neck accessories, open neckline styling",
+            "desc": "不加頸部飾品，讓領口與鎖骨區域維持簡潔。",
+            "legacyIds": [
+              "wardrobe:頸部-neck-accessories:全無:0",
+              "wardrobe:頸部-neck-accessories:刺繡絲巾:17",
+              "wardrobe:頸部-neck-accessories:薄長圍巾:18",
+              "wardrobe:頸部-neck-accessories:厚長圍巾:19"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "accessory_small",
+                "no_accessory"
+              ],
+              "wardrobeRole": "a",
+              "layerSlot": "neckAccessory"
+            }
+          },
+          {
+            "id": "wardrobe:頭部配件-head-accessories:全無:0:b",
+            "zh": "全無",
+            "en": "no head accessories, clean head styling",
+            "desc": "不加頭部配件，讓髮型與頭部輪廓維持乾淨俐落。",
+            "legacyIds": [
+              "wardrobe:頭部配件-head-accessories:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "no_accessory"
+              ],
+              "wardrobeRole": "b",
+              "layerSlot": "headAccessory"
+            }
+          },
+          {
+            "id": "wardrobe:眼鏡-eyewear:全無:0:b",
+            "zh": "全無",
+            "en": "no eyewear, clean face styling",
+            "desc": "不加眼鏡，讓臉部與五官維持乾淨俐落。",
+            "legacyIds": [
+              "wardrobe:眼鏡-eyewear:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "accessory_small",
+                "no_accessory"
+              ],
+              "wardrobeRole": "b",
+              "layerSlot": "eyewear"
+            }
+          },
+          {
+            "id": "wardrobe:眼鏡配色-eyewear-color:全無:0:b",
+            "zh": "全無",
+            "en": "no specified eyewear frame color",
+            "desc": "不指定眼鏡顏色或材質，保留眼鏡本體輪廓。",
+            "legacyIds": [
+              "wardrobe:眼鏡配色-eyewear-color:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "accessory_small",
+                "no_accessory"
+              ],
+              "wardrobeRole": "b",
+              "layerSlot": "eyewearColor"
+            }
+          },
+          {
+            "id": "wardrobe:眼鏡配戴方式-eyewear-placement:全無:2:b",
+            "zh": "全無",
+            "en": "none",
+            "desc": "不指定眼鏡位置，保留已選眼鏡款式與配色。",
+            "legacyIds": [
+              "wardrobe:眼鏡配戴方式-eyewear-placement:全無:2"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "optional_silence",
+                "ornate",
+                "accessory_small",
+                "no_accessory",
+                "romantic"
+              ],
+              "wardrobeRole": "b",
+              "layerSlot": "eyewearPlacement"
+            }
+          },
+          {
+            "id": "wardrobe:耳環-earrings:全無:0:b",
+            "zh": "全無",
+            "en": "no earrings, clean ear styling",
+            "desc": "不加耳環，讓耳側與臉部輪廓保持乾淨。",
+            "legacyIds": [
+              "wardrobe:耳環-earrings:全無:0"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "accessory_small",
+                "no_accessory"
+              ],
+              "wardrobeRole": "b",
+              "layerSlot": "earrings"
+            }
+          },
+          {
+            "id": "wardrobe:頸部-neck-accessories:全無:0:b",
+            "zh": "全無",
+            "en": "no neck accessories, open neckline styling",
+            "desc": "不加頸部飾品，讓領口與鎖骨區域維持簡潔。",
+            "legacyIds": [
+              "wardrobe:頸部-neck-accessories:全無:0",
+              "wardrobe:頸部-neck-accessories:刺繡絲巾:17",
+              "wardrobe:頸部-neck-accessories:薄長圍巾:18",
+              "wardrobe:頸部-neck-accessories:厚長圍巾:19"
+            ],
+            "meta": {
+              "family": "neutral",
+              "tags": [
+                "accessory_small",
+                "no_accessory"
+              ],
+              "wardrobeRole": "b",
+              "layerSlot": "neckAccessory"
+            }
+          }
+        ],
         "Location": [
           {
             "id": "locations:攝影棚與背景-studio-sets:全無:0",
@@ -4460,15 +5223,15 @@
         "camera": "中景鏡頭 (Medium Shot)",
         "lighting": "-"
       },
-      "midjourneyPrompt": "Photorealistic editorial portrait. Waist-up portrait. A 20-year-old adult East Asian woman, elongated oval face with a pointed chin, gray-olive almond eyes with softly lifted corners, slim low-to-medium bridge nose, even rose-pink lips, luminous fair skin with a clean even satin texture, peach-rose cheek color, cool beige lids and a thin gentle cat-eye line, smoky ash-gray hair with muted sage-olive undertones and darker shadow roots, chin-to-shoulder length wavy bob with an open center part.\n\nShe wears a cable-knit turtleneck bodysuit sweater, jeans and a leather belt. --v 8.2 --ar 3:4 --raw --s 25 --c 0 --w 0 --sd",
-      "grokPrompt": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nWaist-up portrait.\n\nSubject:\nCharacter Profile Card:\n06_Hinata.\n\nA 20-year-old adult East Asian woman.\n\nFacial geometry:\nSmall elongated oval face, subtly high cheekbones, a soft jawline and a delicate pointed chin.\n\nEye signature:\nLarge gray-olive brown almond eyes, moderate spacing, softly lifted outer corners and shallow double eyelids.\n\nNose signature:\nStraight slim nose with a low-to-medium bridge and a small neat tip.\n\nMouth signature:\nNatural rose-pink lips with a gentle even fullness and a softly defined cupid bow.\n\nSkin signature:\nLuminous fair skin with a clean even satin texture.\n\nMakeup:\nPeach-rose cheek color, cool beige lids and a thin gentle cat-eye line.\n\nBody:\nFuller bust, narrow waist.\n\nPermanent identity anchors:\nElongated oval face with a pointed chin, gray-olive almond eyes with softly lifted corners, slim low-to-medium bridge nose, even rose-pink lips.\n\nHair:\nSmoky ash-gray hair with muted sage-olive undertones and darker shadow roots, chin-to-shoulder length wavy bob with an open center part, loose tousled S-wave texture, airy outward-flipped layers around the cheeks and nape, soft volume, delicate flyaway strands.\n\nOutfit:\nDeep cobalt blue cable-knit turtleneck cutout bodysuit sweater with thick ribbed high collar, medium-wash skinny blue jeans with natural denim fading at the lower crop edge, fitted long sleeves, vertical cable texture, sculpted bust-waist contour, large side-waist cutout openings exposing both sides of the narrow waist and upper hips.\n\nAccessories:\nBlack leather belt with small silver buckle.\n\nPhotographic direction:\nPhotorealistic editorial portrait, polished street-fashion photographic realism, coherent facial identity, realistic knit and denim construction.",
-      "zImagePrompt": "Photorealistic editorial portrait.\n\nWaist-up portrait.\n\nA 20-year-old adult East Asian woman, elongated oval face with a pointed chin, gray-olive almond eyes with softly lifted corners, slim low-to-medium bridge nose, even rose-pink lips, luminous fair skin with a clean even satin texture, fuller bust, narrow waist, smoky ash-gray hair with muted sage-olive undertones and darker shadow roots, chin-to-shoulder length wavy bob with an open center part, loose tousled S-wave texture, airy outward-flipped layers around the cheeks and nape, soft volume, delicate flyaway strands.\n\nShe wears deep cobalt blue cable-knit turtleneck cutout bodysuit sweater with thick ribbed high collar, medium-wash skinny blue jeans with natural denim fading at the lower crop edge, fitted long sleeves, vertical cable texture, sculpted bust-waist contour, large side-waist cutout openings exposing both sides of the narrow waist and upper hips, black leather belt with small silver buckle.",
-      "nanoBananaPrompt": "Create a photorealistic editorial portrait. Waist-up portrait.\n\nThe subject is a 20-year-old adult East Asian woman. She has a small elongated oval face, subtly high cheekbones, a soft jawline and a delicate pointed chin. Her eyes are large gray-olive brown almond eyes, moderate spacing, softly lifted outer corners and shallow double eyelids. She has a straight slim nose with a low-to-medium bridge and a small neat tip. Her lips are natural rose-pink lips with a gentle even fullness and a softly defined cupid bow. Her complexion shows luminous fair skin with a clean even satin texture. Her makeup uses peach-rose cheek color, cool beige lids and a thin gentle cat-eye line. Her figure has fuller bust, narrow waist. Her defining features are elongated oval face with a pointed chin, gray-olive almond eyes with softly lifted corners, slim low-to-medium bridge nose, even rose-pink lips. Her hair is smoky ash-gray hair with muted sage-olive undertones and darker shadow roots, chin-to-shoulder length wavy bob with an open center part, loose tousled S-wave texture, airy outward-flipped layers around the cheeks and nape, soft volume, delicate flyaway strands. Black leather belt with small silver buckle. Photorealistic editorial portrait, polished street-fashion photographic realism, coherent facial identity, realistic knit and denim construction.\n\nShe wears deep cobalt blue cable-knit turtleneck cutout bodysuit sweater with thick ribbed high collar, medium-wash skinny blue jeans with natural denim fading at the lower crop edge, fitted long sleeves, vertical cable texture, sculpted bust-waist contour, large side-waist cutout openings exposing both sides of the narrow waist and upper hips.",
+      "midjourneyPrompt": "Photorealistic editorial portrait. Waist-up portrait. A 20-year-old adult East Asian woman, elongated oval face with a pointed chin, gray-olive almond eyes with softly lifted corners, slim low-to-medium bridge nose, even rose-pink lips, luminous fair skin with a clean even satin texture, peach-rose cheek color, cool beige lids and a thin gentle cat-eye line, smoky ash-gray hair with muted sage-olive undertones and darker shadow roots, chin-to-shoulder length wavy bob with an open center part.\n\nShe wears a cable-knit turtleneck bodysuit sweater, jeans, leather ankle boots and a leather belt. --v 8.2 --ar 3:4 --raw --s 25 --c 0 --w 0 --sd",
+      "grokPrompt": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nWaist-up portrait.\n\nSubject:\nCharacter Profile Card:\n06_Hinata.\n\nA 20-year-old adult East Asian woman.\n\nFacial geometry:\nSmall elongated oval face, subtly high cheekbones, a soft jawline and a delicate pointed chin.\n\nEye signature:\nLarge gray-olive brown almond eyes, moderate spacing, softly lifted outer corners and shallow double eyelids.\n\nNose signature:\nStraight slim nose with a low-to-medium bridge and a small neat tip.\n\nMouth signature:\nNatural rose-pink lips with a gentle even fullness and a softly defined cupid bow.\n\nSkin signature:\nLuminous fair skin with a clean even satin texture.\n\nMakeup:\nPeach-rose cheek color, cool beige lids and a thin gentle cat-eye line.\n\nBody:\nFuller bust, narrow waist.\n\nPermanent identity anchors:\nElongated oval face with a pointed chin, gray-olive almond eyes with softly lifted corners, slim low-to-medium bridge nose, even rose-pink lips.\n\nHair:\nSmoky ash-gray hair with muted sage-olive undertones and darker shadow roots, chin-to-shoulder length wavy bob with an open center part, loose tousled S-wave texture, airy outward-flipped layers around the cheeks and nape, soft volume, delicate flyaway strands.\n\nOutfit:\nDeep cobalt blue cable-knit turtleneck cutout bodysuit sweater with thick ribbed high collar, fitted long sleeves, vertical cable texture, sculpted bust-waist contour, large side-waist cutout openings exposing both sides of the narrow waist and upper hips, medium-wash skinny blue jeans with natural denim fading, black leather ankle boots with rounded toes and low block heels.\n\nAccessories:\nBlack leather belt with small silver buckle.\n\nPhotographic direction:\nPhotorealistic editorial portrait, polished street-fashion photographic realism, coherent facial identity, realistic knit and denim construction.",
+      "zImagePrompt": "Photorealistic editorial portrait.\n\nWaist-up portrait.\n\nA 20-year-old adult East Asian woman, elongated oval face with a pointed chin, gray-olive almond eyes with softly lifted corners, slim low-to-medium bridge nose, even rose-pink lips, luminous fair skin with a clean even satin texture, fuller bust, narrow waist, smoky ash-gray hair with muted sage-olive undertones and darker shadow roots, chin-to-shoulder length wavy bob with an open center part, loose tousled S-wave texture, airy outward-flipped layers around the cheeks and nape, soft volume, delicate flyaway strands.\n\nShe wears deep cobalt blue cable-knit turtleneck cutout bodysuit sweater with thick ribbed high collar, fitted long sleeves, vertical cable texture, sculpted bust-waist contour, large side-waist cutout openings exposing both sides of the narrow waist and upper hips, medium-wash skinny blue jeans with natural denim fading, black leather ankle boots with rounded toes and low block heels, black leather belt with small silver buckle.",
+      "nanoBananaPrompt": "Create a photorealistic editorial portrait. Waist-up portrait.\n\nThe subject is a 20-year-old adult East Asian woman. She has a small elongated oval face, subtly high cheekbones, a soft jawline and a delicate pointed chin. Her eyes are large gray-olive brown almond eyes, moderate spacing, softly lifted outer corners and shallow double eyelids. She has a straight slim nose with a low-to-medium bridge and a small neat tip. Her lips are natural rose-pink lips with a gentle even fullness and a softly defined cupid bow. Her complexion shows luminous fair skin with a clean even satin texture. Her makeup uses peach-rose cheek color, cool beige lids and a thin gentle cat-eye line. Her figure has fuller bust, narrow waist. Her defining features are elongated oval face with a pointed chin, gray-olive almond eyes with softly lifted corners, slim low-to-medium bridge nose, even rose-pink lips. Her hair is smoky ash-gray hair with muted sage-olive undertones and darker shadow roots, chin-to-shoulder length wavy bob with an open center part, loose tousled S-wave texture, airy outward-flipped layers around the cheeks and nape, soft volume, delicate flyaway strands. Black leather belt with small silver buckle. Photorealistic editorial portrait, polished street-fashion photographic realism, coherent facial identity, realistic knit and denim construction.\n\nShe wears deep cobalt blue cable-knit turtleneck cutout bodysuit sweater with thick ribbed high collar, fitted long sleeves, vertical cable texture, sculpted bust-waist contour, large side-waist cutout openings exposing both sides of the narrow waist and upper hips, medium-wash skinny blue jeans with natural denim fading, black leather ankle boots with rounded toes and low block heels.",
       "extraPrompts": [
         {
           "id": "chest-up-portrait",
           "label": "胸上特寫照",
-          "text": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait.\n\nSubject:\nCharacter Profile Card:\n06_Hinata.\n\nA 20-year-old adult East Asian woman.\n\nFacial geometry:\nSmall elongated oval face, subtly high cheekbones, a soft jawline and a delicate pointed chin.\n\nEye signature:\nLarge gray-olive brown almond eyes, moderate spacing, softly lifted outer corners and shallow double eyelids.\n\nNose signature:\nStraight slim nose with a low-to-medium bridge and a small neat tip.\n\nMouth signature:\nNatural rose-pink lips with a gentle even fullness and a softly defined cupid bow.\n\nSkin signature:\nLuminous fair skin with a clean even satin texture.\n\nMakeup:\nPeach-rose cheek color, cool beige lids and a thin gentle cat-eye line.\n\nBody:\nFuller bust.\n\nPermanent identity anchors:\nElongated oval face with a pointed chin, gray-olive almond eyes with softly lifted corners, slim low-to-medium bridge nose, even rose-pink lips.\n\nHair:\nSmoky ash-gray hair with muted sage-olive undertones and darker shadow roots, chin-to-shoulder length wavy bob with an open center part, loose tousled S-wave texture, airy outward-flipped layers around the cheeks and nape, soft volume, delicate flyaway strands.\n\nAccessories:\nBlack leather belt with small silver buckle.\n\nPhotographic direction:\nPhotorealistic editorial portrait, polished street-fashion photographic realism, coherent facial identity, realistic knit and denim construction.\n\nWardrobe:\nShe wears deep cobalt blue cable-knit turtleneck cutout bodysuit sweater with thick ribbed high collar, fitted long sleeves, vertical cable texture, sculpted bust-waist contour."
+          "text": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait.\n\nSubject:\nCharacter Profile Card:\n06_Hinata.\n\nA 20-year-old adult East Asian woman.\n\nFacial geometry:\nSmall elongated oval face, subtly high cheekbones, a soft jawline and a delicate pointed chin.\n\nEye signature:\nLarge gray-olive brown almond eyes, moderate spacing, softly lifted outer corners and shallow double eyelids.\n\nNose signature:\nStraight slim nose with a low-to-medium bridge and a small neat tip.\n\nMouth signature:\nNatural rose-pink lips with a gentle even fullness and a softly defined cupid bow.\n\nSkin signature:\nLuminous fair skin with a clean even satin texture.\n\nMakeup:\nPeach-rose cheek color, cool beige lids and a thin gentle cat-eye line.\n\nBody:\nFuller bust.\n\nPermanent identity anchors:\nElongated oval face with a pointed chin, gray-olive almond eyes with softly lifted corners, slim low-to-medium bridge nose, even rose-pink lips.\n\nHair:\nSmoky ash-gray hair with muted sage-olive undertones and darker shadow roots, chin-to-shoulder length wavy bob with an open center part, loose tousled S-wave texture, airy outward-flipped layers around the cheeks and nape, soft volume, delicate flyaway strands.\n\nAccessories:\nBlack leather belt with small silver buckle.\n\nPhotographic direction:\nPhotorealistic editorial portrait, polished street-fashion photographic realism, coherent facial identity, realistic knit and denim construction.\n\nWardrobe:\nShe wears deep cobalt blue cable-knit turtleneck cutout bodysuit sweater with thick ribbed high collar, fitted long sleeves, vertical cable texture, sculpted bust-waist contour, large side-waist cutout openings exposing both sides of the narrow waist and upper hips, medium-wash skinny blue jeans with natural denim fading, black leather ankle boots with rounded toes and low block heels."
         },
         {
           "id": "full-body-character",
