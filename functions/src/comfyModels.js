@@ -56,6 +56,17 @@ asianMix.template['60'] = { class_type: 'LoraLoaderModelOnly', inputs: {
 asianMix.template['57:11'].inputs.model = ['60', 0];
 models.zImageTurboAsianMix = { ...asianMix, loraNode: '60' };
 
+// Radiance v2.0 was imported and tested with the same BF16 base in Cloud.
+const radiance = local('zImageTurbo', '57:27', 'text', '57:13', '57:3');
+radiance.template = structuredClone(radiance.template);
+radiance.template['60'] = { class_type: 'LoraLoaderModelOnly', inputs: {
+  model: ['57:28', 0],
+  lora_name: 'AIImageStudio__RadianceChromeVoluptuous_z_image_turbo_v20__RadianceChromeVoluptuous_z-image_turbo_v2.0.safetensors',
+  strength_model: 1,
+} };
+radiance.template['57:11'].inputs.model = ['60', 0];
+models.zImageTurboRadiance = { ...radiance, loraNode: '60' };
+
 // Preserve Qwen's sampler, encoder, cache and output; inject only the adapter.
 const qwenLora = local('qwenImage21', '459:452', 'prompt', '459:456', '459:458');
 qwenLora.template = structuredClone(qwenLora.template);

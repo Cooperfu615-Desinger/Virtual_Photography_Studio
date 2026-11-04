@@ -6,6 +6,7 @@ import ComfyQuotaPanel from './ComfyQuotaPanel.jsx';
 import { openVideoWorkspace } from '../lib/comfyVideoClient.js';
 import {
   DLL_PIC_ASPECT_RATIOS,
+  DLL_ASIAN_MIX_MODEL_KEYS,
   DLL_QWEN_MODEL_KEYS,
   DLL_PIC_STORAGE_KEYS,
   getDllPicApiKeyForModel,
@@ -309,13 +310,18 @@ export default function DllPicProPanel({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [apiKeys, isApiKeyModalOpen]);
 
+  const loraVariants = Object.values(DLL_QWEN_MODEL_KEYS).includes(modelKey)
+    ? [[DLL_QWEN_MODEL_KEYS.lora, 'v1.3b LoRA'], [DLL_QWEN_MODEL_KEYS.omni, 'Omni LoRA']]
+    : Object.values(DLL_ASIAN_MIX_MODEL_KEYS).includes(modelKey)
+      ? [[DLL_ASIAN_MIX_MODEL_KEYS.lora, 'Asian Mix LoKr'], [DLL_ASIAN_MIX_MODEL_KEYS.radiance, 'Radiance LoRA']]
+      : null;
   const loraControls = <>
-        {Object.values(DLL_QWEN_MODEL_KEYS).includes(modelKey) ?
-          [[DLL_QWEN_MODEL_KEYS.lora, 'v1.3b LoRA'], [DLL_QWEN_MODEL_KEYS.omni, 'Omni LoRA']].map(([variant, label]) =>
+        {loraVariants ?
+          loraVariants.map(([variant, label]) =>
             <label className="dll-pic-lora-control" key={variant}>
               <input type="checkbox" aria-label={`套用 ${label}`} checked={modelKey === variant} disabled={!full && isGenerating}
                 onChange={event => {
-                  const nextModelKey = event.target.checked ? variant : DLL_QWEN_MODEL_KEYS.base;
+                  const nextModelKey = event.target.checked ? variant : loraSelection.modelKey;
                   setModelKey(nextModelKey);
                   setLoraStrength(loadStoredLoraStrength(nextModelKey));
                   saveStoredGenerationSettings(nextModelKey, activeResolution);
@@ -487,7 +493,7 @@ export default function DllPicProPanel({
       </div>}
 
       {full && loraSelection.supported && <details className="dll-advanced-settings">
-        <summary>進階設定 · {modelKey === DLL_QWEN_MODEL_KEYS.base ? 'LoRA' : loraLabel}{loraSelection.enabled ? ` 已套用（${loraSelection.adjustable ? loraStrength : loraSelection.strength}）` : ' 未套用'}</summary>
+        <summary>進階設定 · {loraVariants && !loraSelection.enabled ? 'LoRA' : loraLabel}{loraSelection.enabled ? ` 已套用（${loraSelection.adjustable ? loraStrength : loraSelection.strength}）` : ' 未套用'}</summary>
         <div>{loraControls}</div>
       </details>}
 

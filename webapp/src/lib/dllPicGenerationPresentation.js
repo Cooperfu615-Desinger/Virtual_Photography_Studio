@@ -34,6 +34,9 @@ export function getComfyGenerationNote(model, loraStrength = model.comfyModel ==
   if (model.comfyModel === 'zImageTurboAsianMix') {
     return `${start}已套用 Asian Mix LoKr（強度 ${loraStrength}），直接使用目前 Prompt。${end}`;
   }
+  if (model.comfyModel === 'zImageTurboRadiance') {
+    return `${start}已套用 Radiance LoRA（強度 ${loraStrength}），直接使用目前 Prompt。${end}`;
+  }
   if (['mossImageSftInt8', 'mossImageSftInt8Lora'].includes(model.comfyModel)) {
     const lora = model.comfyModel === 'mossImageSftInt8Lora' ? '已套用 MOSS LoRA（強度 0.7）' : '未套用 LoRA';
     return `${start}1K，依比例決定尺寸。${lora}，直接使用目前 Prompt。${end}`;

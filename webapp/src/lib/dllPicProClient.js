@@ -10,7 +10,7 @@ export const DLL_MOSS_MODEL_KEYS = Object.freeze({
   lora: 'comfyMossImageSftInt8Lora',
 });
 export const DLL_ASIAN_MIX_MODEL_KEYS = Object.freeze({
-  base: 'comfyZImageTurbo', lora: 'comfyZImageTurboAsianMix',
+  base: 'comfyZImageTurbo', lora: 'comfyZImageTurboAsianMix', radiance: 'comfyZImageTurboRadiance',
 });
 export const DLL_QWEN_MODEL_KEYS = Object.freeze({
   base: 'comfyQwenImage21', lora: 'comfyQwenImage21Lora', omni: 'comfyQwenImage21OmniLora',
@@ -23,6 +23,7 @@ export const DLL_PIC_STORAGE_KEYS = {
   model: 'dll_pic_pro_model',
   resolution: 'dll_pic_pro_resolution',
   asianMixStrength: 'dll_pic_pro_asian_mix_strength',
+  radianceStrength: 'dll_pic_pro_z_radiance_strength',
   qwenLoraStrength: 'dll_pic_pro_qwen_v13b_strength',
   qwenOmniLoraStrength: 'dll_pic_pro_qwen_omni_strength',
 };
@@ -194,7 +195,7 @@ export const DLL_PIC_MODEL_CONFIG = {
       maxCount: model.maxCount, aspectRatios: model.aspectRatios,
       partnerPricing: Boolean(model.partnerPricing),
       ...(model.loraStrength ? { loraStrength: model.loraStrength } : {}),
-      ...(['mossImageSftInt8Lora', 'zImageTurboAsianMix', 'qwenImage21Lora', 'qwenImage21OmniLora'].includes(key) ? { hidden: true } : {}) },
+      ...(['mossImageSftInt8Lora', 'zImageTurboAsianMix', 'zImageTurboRadiance', 'qwenImage21Lora', 'qwenImage21OmniLora'].includes(key) ? { hidden: true } : {}) },
   ])),
 };
 
@@ -298,15 +299,18 @@ export function normalizeDllPicModelKey(modelKey, fallback = 'google31FlashLiteI
   if (modelKey === 'grok') return 'xaiGrokImagineQuality';
   const modelConfig = DLL_PIC_MODEL_CONFIG[modelKey];
   if (modelConfig?.redirectModelKey) return modelConfig.redirectModelKey;
-  return modelConfig && (!modelConfig.hidden || [DLL_MOSS_MODEL_KEYS.lora, DLL_ASIAN_MIX_MODEL_KEYS.lora, DLL_QWEN_MODEL_KEYS.lora, DLL_QWEN_MODEL_KEYS.omni].includes(modelKey)) ? modelKey : fallback;
+  return modelConfig && (!modelConfig.hidden || [DLL_MOSS_MODEL_KEYS.lora, DLL_ASIAN_MIX_MODEL_KEYS.lora, DLL_ASIAN_MIX_MODEL_KEYS.radiance, DLL_QWEN_MODEL_KEYS.lora, DLL_QWEN_MODEL_KEYS.omni].includes(modelKey)) ? modelKey : fallback;
 }
 
 export function getDllPicLoraSelection(modelKey) {
   if (Object.values(DLL_ASIAN_MIX_MODEL_KEYS).includes(modelKey)) {
-    return { modelKey: DLL_ASIAN_MIX_MODEL_KEYS.base, supported: true, enabled: modelKey === DLL_ASIAN_MIX_MODEL_KEYS.lora,
-      adjustable: true, strength: COMFY_CONTRACT.models.zImageTurboAsianMix.loraStrength.default,
-      label: 'Asian Mix LoKr', strengthLabel: 'LoKr 強度', loraModelKey: DLL_ASIAN_MIX_MODEL_KEYS.lora,
-      storageKey: DLL_PIC_STORAGE_KEYS.asianMixStrength, hint: '需要時可在提示詞加入 asian woman。' };
+    const radiance = modelKey === DLL_ASIAN_MIX_MODEL_KEYS.radiance;
+    return { modelKey: DLL_ASIAN_MIX_MODEL_KEYS.base, supported: true, enabled: modelKey !== DLL_ASIAN_MIX_MODEL_KEYS.base,
+      adjustable: true, strength: (radiance ? COMFY_CONTRACT.models.zImageTurboRadiance : COMFY_CONTRACT.models.zImageTurboAsianMix).loraStrength.default,
+      label: radiance ? 'Radiance LoRA' : 'Asian Mix LoKr', strengthLabel: radiance ? 'LoRA 強度' : 'LoKr 強度',
+      loraModelKey: radiance ? DLL_ASIAN_MIX_MODEL_KEYS.radiance : DLL_ASIAN_MIX_MODEL_KEYS.lora,
+      storageKey: radiance ? DLL_PIC_STORAGE_KEYS.radianceStrength : DLL_PIC_STORAGE_KEYS.asianMixStrength,
+      hint: radiance ? '直接使用目前 Prompt。' : '需要時可在提示詞加入 asian woman。' };
   }
   if (Object.values(DLL_QWEN_MODEL_KEYS).includes(modelKey)) {
     const omni = modelKey === DLL_QWEN_MODEL_KEYS.omni;
