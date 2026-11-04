@@ -20,17 +20,19 @@ function generateComfySeed(seedLimit, previousSeed, randomIntImpl = randomInt) {
 }
 
 function buildComfyWorkflow(payload, seed) {
-  if (payload.aspectRatio && !['1:1', '4:3', '3:4', '16:9', '9:16', '4:5'].includes(payload.aspectRatio)) throw new Error('不支援的 Comfy Cloud 比例');
   if (payload.resolution && !['1k', '2k'].includes(payload.resolution)) throw new Error('不支援的 Comfy Cloud 解析度');
   const input = normalizeGenerationRequest('comfyCloud', payload);
   const model = getComfyModel(input.modelKey);
   const { model: limits } = getProviderModelContract('comfyCloud', input.modelKey);
   if (payload.aspectRatio && !limits.aspectRatios.includes(payload.aspectRatio)) throw new Error('不支援的 Comfy Cloud 比例');
   if (payload.resolution && !limits.resolutions.includes(payload.resolution)) throw new Error('不支援的 Comfy Cloud 解析度');
+  const thinkingMode = input.modelKey === 'krea3' ? (payload.thinkingMode ?? 'fast') : undefined;
+  if (input.modelKey === 'krea3' && !limits.thinkingModes.includes(thinkingMode)) throw new Error('不支援的 Krea 3 思考模式');
+  if (input.modelKey !== 'krea3' && payload.thinkingMode !== undefined) throw new Error('此模型不支援 Krea 3 思考模式');
   seed ??= payload.seed ?? generateComfySeed(model.seedLimit, payload.previousSeed);
   if (!Number.isSafeInteger(seed) || seed < 0 || seed >= model.seedLimit) throw new Error('Seed 超出此模型的範圍');
   if (Number(payload.count ?? 1) !== 1) throw new Error('Comfy Cloud 每個任務固定一張，請以獨立任務序列生成多張');
-  const [a, b] = input.aspectRatio.split(':').map(Number);
+  const [a, b] = input.aspectRatio === 'auto' ? [1, 1] : input.aspectRatio.split(':').map(Number);
   const multiple = model.pixelMultiple || 8;
   const unit = Math.max(1, Math.round(Math.sqrt((input.resolution === '2k' ? 4 : 1) * 1048576 / (a * b)) / multiple));
   const [width, height] = model.nativeAspectRatio ? [null, null]
@@ -43,6 +45,7 @@ function buildComfyWorkflow(payload, seed) {
     const inputs = workflow[model.textNode].inputs;
     inputs['model.aspect_ratio'] = input.aspectRatio;
     inputs['model.resolution'] = input.resolution.toUpperCase();
+    if (input.modelKey === 'krea3') inputs['model.thinking_mode'] = thinkingMode;
   } else if (model.latentNode) {
     workflow[model.latentNode].inputs.width = width;
     workflow[model.latentNode].inputs.height = height;
@@ -56,7 +59,8 @@ function buildComfyWorkflow(payload, seed) {
     if (input.aspectRatio === '4:5') Object.assign(inputs, { 'model.width': width, 'model.height': height });
   }
   return { workflow, meta: { modelKey: input.modelKey, aspectRatio: input.aspectRatio, resolution: input.resolution, width, height, seed,
-    ...(model.loraNode ? { loraStrength: input.loraStrength } : {}) } };
+    ...(model.loraNode ? { loraStrength: input.loraStrength } : {}),
+    ...(thinkingMode ? { thinkingMode } : {}) } };
 }
 
 function getJobUrl(job) {

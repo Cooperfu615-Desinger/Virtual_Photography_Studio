@@ -8,7 +8,7 @@ const source = 'A red mug on a table.\nExact lettering: DLL.\n--ar 4:5';
 const payload = modelKey => ({ modelKey, prompt: source, count: 1, resolution: '1k', aspectRatio: '1:1' });
 
 test('partner submissions forward only the server credential and duplicates never resubmit', async () => {
-  for (const modelKey of ['ideogram45', 'seedream5Pro', 'zImageTurboInt8', 'krea2Medium', 'krea2MediumTurbo', 'krea2Large']) {
+  for (const modelKey of ['ideogram45', 'seedream5Pro', 'zImageTurboInt8', 'krea3', 'krea2Medium', 'krea2MediumTurbo', 'krea2Large']) {
     let record; const calls = [];
     const store = {
       claim: async (_, value) => { if (record) return { claimed: false }; record = value; return { claimed: true }; },

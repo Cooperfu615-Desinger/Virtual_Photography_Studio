@@ -6,6 +6,7 @@ import { normalizeProviderGenerationRequest } from './providerContract.js';
 test('selectable Comfy models are distinct without reviving hidden providers or duplicating LoRA variants', () => {
   const entries = getDllPicSelectableModelEntries();
   const expected = ['comfyZImageTurbo', 'comfyQwenImage21', 'comfyZImageTurboInt8', 'comfyIdeogram45', 'comfySeedream5Pro',
+    'comfyKrea3',
     'comfyKrea2Medium', 'comfyKrea2MediumTurbo', 'comfyKrea2Large', 'comfyFlux3KleinBaseInt8', 'comfyMossImageSftInt8'];
   assert.deepEqual(entries.filter(([, m]) => m.provider === 'comfyCloud').map(([key]) => key), expected);
   assert.equal(new Set(entries.map(([, m]) => m.label)).size, entries.length);

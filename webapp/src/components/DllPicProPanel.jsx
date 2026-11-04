@@ -6,6 +6,7 @@ import ComfyQuotaPanel from './ComfyQuotaPanel.jsx';
 import { openVideoWorkspace } from '../lib/comfyVideoClient.js';
 import {
   DLL_PIC_ASPECT_RATIOS,
+  KREA3_EXTRA_ASPECT_RATIOS,
   DLL_ASIAN_MIX_MODEL_KEYS,
   DLL_QWEN_MODEL_KEYS,
   DLL_PIC_STORAGE_KEYS,
@@ -152,10 +153,11 @@ export default function DllPicProPanel({
   const [selectedSourceId, setSelectedSourceId] = useState(initialSettings.selectedSourceId || initialSourceId);
   const [aspectRatio, setAspectRatio] = useState(initialSettings.aspectRatio || '9:16');
   const [resolution, setResolution] = useState(() => (
-    getDllPicResolutionOption(loadStoredModelKey(), initialSettings.resolution || loadStoredValue(DLL_PIC_STORAGE_KEYS.resolution, '1k')).value
+    getDllPicResolutionOption(modelKey, initialSettings.resolution || loadStoredValue(DLL_PIC_STORAGE_KEYS.resolution, '1k')).value
   ));
   const [count, setCount] = useState(initialSettings.count || 1);
   const [quality, setQuality] = useState(initialSettings.quality || 'medium');
+  const [thinkingMode, setThinkingMode] = useState(initialSettings.thinkingMode || 'fast');
   const comfyPending = DLL_LOCAL_ACCEPTANCE ? null : readComfyPending();
   const images = sharedTask?.images || loadDevPreviewImages();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -195,10 +197,10 @@ export default function DllPicProPanel({
     promptSources.find((source) => source.id === selectedSourceId) || availableSources[0] || promptSources[0] || null
   ), [availableSources, promptSources, selectedSourceId]);
   const selectedPrompt = full && custom ? customPrompt : selectedSource?.value || '';
-  const snapshot = () => ({ modelKey, ...getDllPicLoraSettings(modelKey, loraStrength), prompt: selectedPrompt, aspectRatio, resolution: activeResolution, count, quality,
+  const snapshot = () => ({ modelKey, ...getDllPicLoraSettings(modelKey, loraStrength), prompt: selectedPrompt, aspectRatio, resolution: activeResolution, count, quality, thinkingMode,
     seed: full && activeModel.provider === 'comfyCloud' ? seed : '', sourceId: custom ? 'custom' : selectedSource?.id,
     sourceLabel: custom ? '自訂' : selectedSource?.label, workspace: workspaceId, lockAspectRatio: Boolean(selectedSource?.lockAspectRatio) });
-  const draftSignature = JSON.stringify({ sources: promptSources, modelKey, loraStrength, selectedSourceId, aspectRatio, resolution: activeResolution, count, quality, custom, customPrompt, seed, workspaceId });
+  const draftSignature = JSON.stringify({ sources: promptSources, modelKey, loraStrength, selectedSourceId, aspectRatio, resolution: activeResolution, count, quality, thinkingMode, custom, customPrompt, seed, workspaceId });
   useEffect(() => { if (full && shared.ready) dllWorkspace.draft(JSON.parse(draftSignature)); }, [full, shared.ready, draftSignature]);
   const isAspectRatioLocked = Boolean(selectedSource?.lockAspectRatio && selectedSource?.aspectRatio);
   const isAspectRatioSupported = isDllPicAspectRatioSupported(modelKey, aspectRatio);
@@ -215,7 +217,9 @@ export default function DllPicProPanel({
   );
   const modelCompatibilityNote = isAspectRatioSupported
     ? ''
-    : `目前模型不支援固定 ${aspectRatio}，請改用 Google Gemini Nano Banana 2 Lite`;
+    : KREA3_EXTRA_ASPECT_RATIOS.some(option => option.value === aspectRatio)
+      ? `目前模型不支援 ${aspectRatio}，請選擇支援的比例。`
+      : `目前模型不支援固定 ${aspectRatio}，請改用 Google Gemini Nano Banana 2 Lite`;
 
   useEffect(() => {
     if (selectedSource?.aspectRatio) setAspectRatio(selectedSource.aspectRatio);
@@ -356,7 +360,7 @@ export default function DllPicProPanel({
           <div className="control-section-title">{title}</div>
         </div>
         <div className="dll-pic-header-actions">
-          {!full && <button type="button" className="secondary" onClick={() => openDllWorkspace({ sources: fullWorkspacePromptSources ?? promptSources, settings: { modelKey, loraStrength, selectedSourceId, aspectRatio, resolution: activeResolution, count, quality }, workspaceId, taskId: sharedTask?.id })}>開啟完整版</button>}
+          {!full && <button type="button" className="secondary" onClick={() => openDllWorkspace({ sources: fullWorkspacePromptSources ?? promptSources, settings: { modelKey, loraStrength, selectedSourceId, aspectRatio, resolution: activeResolution, count, quality, thinkingMode }, workspaceId, taskId: sharedTask?.id })}>開啟完整版</button>}
           <button className="secondary dll-pic-api-settings-btn" type="button" onClick={openApiKeyModal}>
             API Keys
           </button>
@@ -426,7 +430,7 @@ export default function DllPicProPanel({
             onChange={(event) => setAspectRatio(event.target.value)}
             disabled={isAspectRatioLocked || (!full && isGenerating)}
           >
-            {DLL_PIC_ASPECT_RATIOS.map((option) => (
+            {[...DLL_PIC_ASPECT_RATIOS, ...(activeModel.comfyModel === 'krea3' || KREA3_EXTRA_ASPECT_RATIOS.some(option => option.value === aspectRatio) ? KREA3_EXTRA_ASPECT_RATIOS : [])].map((option) => (
               <option key={option.value} value={option.value} disabled={!isDllPicAspectRatioSupported(modelKey, option.value)}>
                 {option.label}
               </option>
@@ -454,6 +458,12 @@ export default function DllPicProPanel({
             </select>
           </label>
         ) : null}
+
+        {activeModel.comfyModel === 'krea3' && <label className="field dll-pic-field">
+          <span>思考模式</span><select aria-label="思考模式" value={thinkingMode} disabled={!full && isGenerating} onChange={event => setThinkingMode(event.target.value)}>
+            <option value="fast">Fast</option><option value="high">High</option>
+          </select>
+        </label>}
 
         {activeModel.provider === 'openai' && <label className="field dll-pic-field">
           <span>畫質</span><select aria-label="畫質" value={quality} disabled={!full && isGenerating} onChange={event => setQuality(event.target.value)}>
@@ -498,7 +508,7 @@ export default function DllPicProPanel({
       </details>}
 
       {activeModel.provider === 'openai' && <div className="dll-pic-model-note">使用 OpenAI API 額度。<a href="https://platform.openai.com/settings/organization/billing/credit-grants" target="_blank" rel="noreferrer">查看額度</a></div>}
-      {activeModel.provider === 'comfyCloud' ? <div className="dll-pic-model-note">{full ? '依序取得每張圖片後才送下一張。成果保存於此瀏覽器，請下載重要圖片。' : getComfyGenerationNote(activeModel, loraStrength)}</div> : null}
+      {activeModel.provider === 'comfyCloud' ? <div className="dll-pic-model-note">{full ? `依序取得每張圖片後才送下一張。成果保存於此瀏覽器，請下載重要圖片。${activeModel.comfyModel === 'krea3' ? ' Krea 3 可能改寫 Prompt，同一 Seed 不保證重現相同圖像。' : ''}` : getComfyGenerationNote(activeModel, loraStrength)}</div> : null}
       {comfyPending ? <div className="dll-pic-actions">
         <button type="button" className="secondary" disabled={isGenerating} onClick={handleResumeComfy}>查詢上次任務</button>
         <button type="button" className="secondary" disabled={isGenerating} onClick={async () => {
@@ -591,7 +601,7 @@ export default function DllPicProPanel({
         </div>
       ) : null}
 
-      {!full && <div className="dll-pic-preview-zone" style={{ '--dll-pic-preview-ratio': aspectRatio.replace(':', ' / ') }}>
+      {!full && <div className="dll-pic-preview-zone" style={{ '--dll-pic-preview-ratio': aspectRatio === 'auto' ? '1 / 1' : aspectRatio.replace(':', ' / ') }}>
         {images.length === 0 ? (
           <div className="dll-pic-empty-preview">
             <span>{isGenerating ? '正在等待模型回圖' : '尚未生成預覽圖'}</span>

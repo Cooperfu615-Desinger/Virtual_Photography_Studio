@@ -9,13 +9,17 @@
       "afterHash": "45a458cb862fe4a5f0bd767d5a89bd4da45d08c1b1228b5d33f5095e462a7e36",
       "acceptedHashes": [
         "73d89635b47801692f1ffda5baf223fe483db03b485212d71ff77557e2b787d9",
-        "ff4c06550b53fc9191c95297abad2168e4e2d21bf328b22a19228f083bf750ac"
+        "ff4c06550b53fc9191c95297abad2168e4e2d21bf328b22a19228f083bf750ac",
+        "da7f8213aea1d3f65ab2ef506ba815bc16668b41e03a0f2bdc79f0fa51b3b102"
       ]
     },
     {
       "path": "webapp/src/components/DllPicWorkspace.jsx",
       "beforeHash": "6d4724ae36adb120a20993a7eac4928439582e4c3d4f767ee6add89162bb6f52",
-      "afterHash": "9ce74ce920c9a7322bbb733df834ed49807d08a3731c4416c9dc47827a1510b7"
+      "afterHash": "9ce74ce920c9a7322bbb733df834ed49807d08a3731c4416c9dc47827a1510b7",
+      "acceptedHashes": [
+        "abfd4f9de80937f759819af34b61db6628864e29a86f502cf5046c0b5e1222c1"
+      ]
     },
     {
       "path": "webapp/src/lib/dllPicProClient.js",
@@ -23,13 +27,17 @@
       "afterHash": "d299110a86c859f86fbdd9ae97eb6bbbf0e19af594ab606f7667621d0d2e2c03",
       "acceptedHashes": [
         "94b73f8aa5c1d895acb1ccdf374ddec2e396bda88fde48bff692767f7d78a166",
-        "c501a6e5805bc7c7d4fbbdefad5fba0725b213ef102605874f4c8d7e5f7ac56b"
+        "c501a6e5805bc7c7d4fbbdefad5fba0725b213ef102605874f4c8d7e5f7ac56b",
+        "a4bfcfe5aa7b16ddcb1f2125d7ad33f1770cc57858701de7e39491518c8d6b38"
       ]
     },
     {
       "path": "webapp/src/lib/dllPicProClient.test.js",
       "beforeHash": "9aea17c06af4a83b87f5cb7adda1f5544d2965caca3cd1d7879f853b1f26840b",
-      "afterHash": "1aba35c8ffe7d55b376a720d6560f0b052d24f557e30d28bbfef54c96941c374"
+      "afterHash": "1aba35c8ffe7d55b376a720d6560f0b052d24f557e30d28bbfef54c96941c374",
+      "acceptedHashes": [
+        "ebbad06088c817e06bf12c6ebcedaddde20950bbdbd3f88a83754d9487050b56"
+      ]
     },
     {
       "path": "webapp/src/lib/dllWorkspaceAcceptance.js",
@@ -39,7 +47,10 @@
     {
       "path": "webapp/src/lib/dllWorkspaceController.js",
       "beforeHash": "d2728d140406d5d470ac52c92dd500a7eebb0ec1af8021998f6c26ebb5a3d4a0",
-      "afterHash": "7e777ec73871fc9ef3d298be89bf1e7259dffb7a72e35fb48e1ea6f91f248780"
+      "afterHash": "7e777ec73871fc9ef3d298be89bf1e7259dffb7a72e35fb48e1ea6f91f248780",
+      "acceptedHashes": [
+        "61424d3a35eda3be67b45b4ec8d7487f36a2398b08732cde364260a8170297ad"
+      ]
     },
     {
       "path": "webapp/src/lib/dllWorkspaceRuntime.js",

@@ -217,6 +217,11 @@ export const DLL_PIC_ASPECT_RATIOS = [
   { value: '4:5', label: '4:5' },
 ];
 
+export const KREA3_EXTRA_ASPECT_RATIOS = [
+  { value: 'auto', label: '自動' }, { value: '2:3', label: '2:3' },
+  { value: '5:4', label: '5:4' }, { value: '3:2', label: '3:2' }, { value: '21:9', label: '21:9' },
+];
+
 function buildGoogleApiUrl(modelName, apiKey, apiVersion = 'v1beta') {
   return `https://generativelanguage.googleapis.com/${apiVersion}/models/${modelName}:generateContent?key=${apiKey}`;
 }
@@ -573,7 +578,7 @@ export async function generateDllPicImages({
   magnificGenerate = null,
   bytePlusGenerate = null,
   comfyGenerate = null,
-  seed, requestId, loraStrength,
+  seed, requestId, loraStrength, thinkingMode,
   onProgress,
   onImages,
 }) {
@@ -590,6 +595,7 @@ export async function generateDllPicImages({
     const result = await comfyGenerate({
       modelKey: modelConfig.comfyModel, prompt, aspectRatio, count: normalizedCount, resolution,
       ...getDllPicLoraSettings(modelKey, loraStrength),
+      ...(modelConfig.comfyModel === 'krea3' ? { thinkingMode: thinkingMode ?? 'fast' } : {}),
       ...(seed !== undefined ? { seed } : {}), ...(requestId ? { requestId } : {}),
     }, { onProgress, onImages });
     if (result.images.length === 0) throw new Error(result.errors[0] || 'API 回應中未包含圖像資料。');

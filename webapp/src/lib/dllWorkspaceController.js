@@ -13,9 +13,12 @@ export function generationSnapshot(input) {
   if (kind === 'generate' && !prompt.trim()) throw new Error('請先選擇或輸入 Prompt');
   if (![1, 2].includes(Number(count))) throw new Error('每筆可生成 1 或 2 張');
   if (seed !== '' && (!Number.isSafeInteger(Number(seed)) || Number(seed) < 0)) throw new Error('Seed 需為非負整數');
+  if (modelKey === 'comfyKrea3' && seed !== '' && Number(seed) + Number(count) - 1 > 2147483647) throw new Error('Seed 超出 Krea 3 支援範圍');
+  if (modelKey === 'comfyKrea3' && !['fast', 'high'].includes(input.thinkingMode ?? 'fast')) throw new Error('不支援的 Krea 3 思考模式');
   if (modelKey === 'openaiImage2' && !['low', 'medium', 'high'].includes(quality)) throw new Error('不支援的畫質');
   return structuredClone({ modelKey, prompt, aspectRatio, resolution, count: Number(count), seed,
     ...(modelKey === 'openaiImage2' ? { quality } : {}),
+    ...(modelKey === 'comfyKrea3' ? { thinkingMode: input.thinkingMode ?? 'fast' } : {}),
     ...(kind === 'generate' ? getDllPicLoraSettings(modelKey, input.loraStrength) : {}),
     sourceId, sourceLabel, workspace, lockAspectRatio, kind, parentId, sourceImage, scale });
 }
