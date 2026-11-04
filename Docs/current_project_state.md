@@ -2,7 +2,14 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-24
+Last updated: 2026-11-04
+
+## 六組構圖景別穿搭保留（2026-11-04，收斂版驗收）
+
+- 六個公開景別不再因裁切刪除有效服裝與配件；明確全無不補替代內容。四主輸出、胸上與全身衍生保持各自結構與比例，套裝／角色卡層／閉合外套優先權不變。
+- 程式提交 `f3a67496`，獨立分支 `codex/framing-wardrobe-retention`；完整測試 1,719/1,719、Prompt Quality 763/763、lint／build 與同 seed strict audit 通過（0 阻擋、22 既有診斷）。兩輪 5175 桌面／手機瀏覽器驗收涵蓋六景別六輸出、全無、角色卡、複製、收藏及 DLL 來源。
+- 使用者確認本次以 Prompt 保留、結構與相容契約作驗收門檻，外部模型出圖僅為補充觀察。詳見 [收斂版驗收](reports/framing-wardrobe-acceptance-2026-11-04/closure.md) 及 [規格](specs/framing-wardrobe-retention-v1.md)。下文舊 Close-Up Mode 裁切服裝規則為歷史，六公開景別以本規格為準。
+- 使用者已授權將驗收文件與補充瀏覽器證據提交／推送至同一獨立分支；不合併或部署。共享專案的其他 session 修改保留。
 
 ## 觀察式抓拍匯入全身角色照（2026-10-24，本機驗收通過）
 
