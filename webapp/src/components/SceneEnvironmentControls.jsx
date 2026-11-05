@@ -1,3 +1,4 @@
+import IndoorSeatField from './IndoorSeatField.jsx';
 import { useId } from 'react';
 import { ChevronDown, ChevronRight, LockKeyhole, Sun } from 'lucide-react';
 import '../features/page1/sceneEnvironment.css';
@@ -16,6 +17,8 @@ export default function SceneEnvironmentControls({
   isDuoMode,
   supineSurfaceOnly,
   lyingSurfaceNote = null,
+  indoorSeat,
+  onSeatChange,
   fixedActive,
   onReleaseFixed,
   fixedDetails = [],
@@ -83,6 +86,7 @@ export default function SceneEnvironmentControls({
           <div className="scene-editor-fields scene-editor-fields--base">
             {renderFields(['sceneAttributeId', 'locationId'])}
           </div>
+          <IndoorSeatField model={indoorSeat} onChange={onSeatChange} />
           {lyingSurfaceNote ? (
             <p className={`scene-editor-switch-note scene-lying-note scene-lying-note--${lyingSurfaceNote.tone}`}>{lyingSurfaceNote.text}</p>
           ) : null}

@@ -1,3 +1,4 @@
+import { applyIndoorSeat, indoorSeatingModel, isIndoorSeatId } from './engine/indoorSeating.js';
 import { registerGrokImagineResult } from './grokImagineResult.js';
 import { seasonAllowsAmbient, styleAllowsLocation, styleAllowsAmbient, styleAllowsSubject, styleAllowsShutter } from './engine/captureCompatibility.js';
 import { pickColorCompatibleStyle, pickColorCompatibleFilm } from './engine/imagingColorCompatibility.js';
@@ -3370,6 +3371,8 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
     if (!LOCK_KEYS.has(key)) return;
     normalized[key] = value;
   });
+  // Keep this opt-in lock sparse for old cards and immutable selection snapshots.
+  if (isIndoorSeatId(rawLocks.indoorSeatId)) normalized.indoorSeatId = rawLocks.indoorSeatId;
   normalized.captureMode = rawLocks.captureMode === 'observation' ? 'observation' : 'standard';
   normalized.observationCapture = rawLocks.observationCapture ? normalizeCaptureProfile(rawLocks.observationCapture) : null;
   normalized.specifiedActionSceneRestore = normalizeSpecifiedActionSceneRestore(normalized.specifiedActionSceneRestore);
@@ -5254,7 +5257,7 @@ function buildPoseComposerItem(context) {
     return {
       id: `character:姿勢組合器-pose-composer:${specifiedAction.id}:${head?.id || 'none'}`,
       zh: [specifiedAction.zh, head?.zh].filter(Boolean).join(' + '),
-      en: [withLyingSurface(actionText.en, lyingSurfaceFor(specifiedAction, context.location)), headText].filter(Boolean).join(' '),
+      en: [withLyingSurface(applyIndoorSeat(actionText.en, context.indoorSeat), lyingSurfaceFor(specifiedAction, context.location)), headText].filter(Boolean).join(' '),
       desc: specifiedAction.descriptionZh,
       meta: {
         tags: ['pose_composer'], minVisibility: 'full',
@@ -16454,6 +16457,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
   resolvedSelection.headPostureId = context.poseResolution?.posture?.id || context.rawLocks.headPostureId || 'none';
   resolvedSelection.captureStyleId = context.rawLocks.captureStyleId || 'standard';
   const snapshot = createSelectionSnapshot(LOCK_DEFINITIONS, resolvedSelection);
+  if (context.indoorSeat?.selectedId) snapshot.indoorSeatId = context.indoorSeat.selectedId;
   if (!snapshot.lyingCameraId || snapshot.lyingCameraId === 'none') delete snapshot.lyingCameraId;
   for (const [key, unused] of [['gazeId', 'none'], ['gestureId', 'none'], ['propId', 'none'], ['headPostureId', 'none'], ['captureStyleId', 'standard']]) {
     if (!snapshot[key] || snapshot[key] === unused) delete snapshot[key];
@@ -16833,6 +16837,7 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
     fixedFramingCompositionOpening,
     angle,
     orbit,
+    indoorSeat: indoorSeatingModel(requestedLocks, location, lockControls),
     lyingCamera,
     lyingActionActive,
     // Shared by reference so context copies report the composer's gaze and gesture.

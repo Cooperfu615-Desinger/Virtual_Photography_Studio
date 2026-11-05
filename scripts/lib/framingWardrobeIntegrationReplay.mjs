@@ -1,3 +1,4 @@
+import { indoorSeatHistoricalPaths, preIndoorSeatSource } from './indoorSeatHistoricalReplay.mjs';
 // Test-only exact inverse for integration with the reviewed main baseline.
 import { preGrokImagineSource } from './grokImagineHistoricalReplay.mjs';
 import { preMaiOutfitSource } from './maiOutfitHistoricalReplay.mjs';
@@ -35,6 +36,13 @@ export function preparePreFramingWardrobeFiles(directory) {
   assert.notEqual(resolved, realpathSync(root), 'Framing inverse requires isolated copy');
   assert.ok(!existsSync(join(directory, '.git')), 'Framing inverse rejects Git checkout');
   const sources = new Map();
+  for (const relative of indoorSeatHistoricalPaths) {
+    const file = join(directory, relative);
+    if (!existsSync(file)) continue;
+    assert.ok(!lstatSync(file).isSymbolicLink() && realpathSync(file).startsWith(resolved + '/'), 'Indoor seat inverse rejects linked source');
+    const raw = readFileSync(file), original = preIndoorSeatSource(relative, raw);
+    if (raw !== original) sources.set(relative, original);
+  }
   const databasePath = 'webapp/src/data/database.json';
   const database = join(directory, databasePath);
   if (existsSync(database)) {

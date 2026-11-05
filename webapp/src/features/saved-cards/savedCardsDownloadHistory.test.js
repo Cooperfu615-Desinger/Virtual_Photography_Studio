@@ -4,7 +4,7 @@ import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from 'nod
 import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { DOWNLOAD_REVIEW, preparePreSavedCardsDownloadFiles } from '../../../../scripts/lib/savedCardsDownloadReplay.mjs';
+import { DOWNLOAD_REVIEW, preparePreSavedCardsDownloadFiles } from '../../../../scripts/lib/indoorSeatDownloadHistory.mjs';
 const root = fileURLToPath(new URL('../../../../', import.meta.url));
 function fixture() {
   const dir = mkdtempSync(join(tmpdir(), 'saved-download-replay-'));

@@ -42,8 +42,13 @@ function safeJson(text) {
 }
 function validateSelection(selection, controls) {
   const defaults = normalizeLocks(createEmptyLocks(), controls);
-  keys(selection, Object.keys(defaults));
+  // Seat is an optional extension. Every original v1 key remains required.
+  keys(selection, [...Object.keys(defaults), 'indoorSeatId'], Object.keys(defaults));
   for (const [key, value] of Object.entries(selection)) {
+    if (key === 'indoorSeatId') {
+      if (typeof value !== 'string') fail(key);
+      continue;
+    }
     const expected = defaults[key];
     if (['observationCapture', 'specifiedActionSceneRestore'].includes(key)) {
       if (value !== null && value !== '' && !record(value)) fail(key);
@@ -76,7 +81,7 @@ function validateSelection(selection, controls) {
   // Hidden enums and numeric ranges also normalize; reject silent repair except
   // documented option-ID migrations, which remain owned by normalizeLocks.
   for (const [key, value] of Object.entries(selection)) {
-    if (same(value, normalized[key])) continue;
+    if (key === 'indoorSeatId' || same(value, normalized[key])) continue;
     const options = controls.find(control => control.key === key)?.options || [];
     if (!options.length) fail(`invalid value: ${key}`);
   }

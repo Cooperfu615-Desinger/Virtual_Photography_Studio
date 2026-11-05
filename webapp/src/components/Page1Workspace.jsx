@@ -1,3 +1,4 @@
+import { indoorSeatingModel } from '../lib/engine/indoorSeating.js';
 import ObservationCapturePanel from './ObservationCapturePanel';
 import { getLegacyDressPalette } from '../features/page1/page1WardrobeExclusivity.js';
 import { CAPTURE_OWNED_KEYS, captureEligibility, resolveCapture } from '../lib/observationCaptureMode.js';
@@ -14,7 +15,7 @@ import { prepareUnderbustTopControl } from '../lib/engine/underbustTopFit.js';
 import { fixedSetAllowsLensVariation, isStationFixedSet, stationSubjectFacingText } from '../lib/engine/stationFixedComposition.js';
 import { isCarriageFixedSet, fixedSetAllowsFramingVariation, carriageOrbitAllowed, resolveCarriageOrbit, carriageCameraText } from '../lib/engine/carriageFixedComposition.js';
 import { getFixedScenePosition, fixedScenePoseLocks, FIXED_SCENE_MANAGED_POSE_KEYS } from '../lib/engine/fixedScenePose.js';
-import { Fragment, useMemo, useRef, useState } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { DUO_ROLES, getDuoEditorGroups, getDuoRoleActionKeys, getDuoRoleSummary, getDuoFieldRole } from '../features/page1/duoEditor.js';
 import { getWardrobeEditorGroups, getWardrobePanelKeys, getCompleteLookOwner, getLayerControlHelp } from '../features/page1/wardrobeEditor.js';
 import { Check, Copy } from 'lucide-react';
@@ -743,6 +744,16 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const LYING_SURFACE_LABELS = { bed: '床面', floor: '地板', tatami: '榻榻米', rug: '地毯', grass: '草地', sand: '沙地', ground: '地面', other: '表面' };
   const selectedLocationOption = lockControls.find((control) => control.key === 'locationId')?.options
     ?.find((option) => option.id === locks.locationId && option.zh !== '全無' && option.zh !== '隨機') || null;
+  const indoorSeat = indoorSeatingModel(locks, selectedLocationOption, lockControls);
+  const previousSeatLocks = useRef(locks);
+  useEffect(() => {
+    const previous = previousSeatLocks.current;
+    previousSeatLocks.current = locks;
+    if (previous.indoorSeatId && !locks.indoorSeatId
+        && (previous.locationId !== locks.locationId || previous.specifiedActionId !== locks.specifiedActionId)) {
+      showToast('坐具已回到未指定：目前的場景或姿勢不適用。');
+    }
+  }, [locks, showToast]);
   const lyingSurfaceNote = !selectedLocationOption ? null : selectedLocationOption.lyingSurface
     ? { tone: 'ok', text: `可躺：${LYING_SURFACE_LABELS[selectedLocationOption.lyingSurface.type] || '表面'}（${selectedLocationOption.lyingSurface.en}）` }
     : { tone: 'warn', text: '沒有躺姿表面：隨機不抽躺姿；手動選的躺姿動作不寫表面。' };
@@ -1277,6 +1288,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     const source = getSceneEditorSource(locks, lockControls, supineSurfaceOnly);
     const panelId = ['space', 'fixed', 'imported'].includes(activeSubpanels.scene) ? activeSubpanels.scene : 'space';
     return <SceneEnvironmentControls
+      indoorSeat={indoorSeat}
+      onSeatChange={id => updateLocks({ indoorSeatId: id })}
       lyingSurfaceNote={lyingSurfaceNote}
       panelId={panelId}
       onPanelChange={id => setActiveSubpanels(prev => ({ ...prev, scene: id }))}

@@ -1,3 +1,4 @@
+import { preIndoorSeatSource } from './indoorSeatHistoricalReplay.mjs';
 // Test-only bridge to the sealed pre-Grok-Imagine engine. Never used at runtime.
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
@@ -7,6 +8,7 @@ import seal from './grokImagineHistoricalSeal.json' with { type: 'json' };
 const hash = value => createHash('sha256').update(value).digest('hex');
 
 export function preGrokImagineSource(path, source) {
+  source = preIndoorSeatSource(path, source);
   if (path !== seal.source) return source;
   // The outfit's display-name exception is later than the sealed Grok change.
   // Accept only its exact reviewed bytes, then replay the original seal.

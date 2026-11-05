@@ -1,0 +1,192 @@
+{
+  "base": "1af45f332d11a12ba849e42338d39275d915c97a",
+  "files": [
+    {
+      "path": "webapp/src/lib/engine.js",
+      "afterHash": "e7daa1a76858c1f367d008d43269d40e6adbb8feb8d8ff2657eaa511994d9566",
+      "beforeHash": "0727139c62bb897a5916aa1d33ffd2b7b2f887c56224a07d4638f91f89751753",
+      "edits": [
+        {
+          "line": 0,
+          "after": [
+            "import { applyIndoorSeat, indoorSeatingModel, isIndoorSeatId } from './engine/indoorSeating.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 3373,
+          "after": [
+            "  // Keep this opt-in lock sparse for old cards and immutable selection snapshots.\n",
+            "  if (isIndoorSeatId(rawLocks.indoorSeatId)) normalized.indoorSeatId = rawLocks.indoorSeatId;\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 5259,
+          "after": [
+            "      en: [withLyingSurface(applyIndoorSeat(actionText.en, context.indoorSeat), lyingSurfaceFor(specifiedAction, context.location)), headText].filter(Boolean).join(' '),\n"
+          ],
+          "before": [
+            "      en: [withLyingSurface(actionText.en, lyingSurfaceFor(specifiedAction, context.location)), headText].filter(Boolean).join(' '),\n"
+          ]
+        },
+        {
+          "line": 16459,
+          "after": [
+            "  if (context.indoorSeat?.selectedId) snapshot.indoorSeatId = context.indoorSeat.selectedId;\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 16839,
+          "after": [
+            "    indoorSeat: indoorSeatingModel(requestedLocks, location, lockControls),\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/components/Page1Workspace.jsx",
+      "afterHash": "a80455da2a6fc5196b537d743421d890de2189095fc32f66fb4d1527f8fdd8d9",
+      "beforeHash": "05ecfb7cb48db6656e464a78096898022beb8a1f9d4f3c438b1085d35bcf916d",
+      "edits": [
+        {
+          "line": 0,
+          "after": [
+            "import { indoorSeatingModel } from '../lib/engine/indoorSeating.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 17,
+          "after": [
+            "import { Fragment, useEffect, useMemo, useRef, useState } from 'react';\n"
+          ],
+          "before": [
+            "import { Fragment, useMemo, useRef, useState } from 'react';\n"
+          ]
+        },
+        {
+          "line": 746,
+          "after": [
+            "  const indoorSeat = indoorSeatingModel(locks, selectedLocationOption, lockControls);\n",
+            "  const previousSeatLocks = useRef(locks);\n",
+            "  useEffect(() => {\n",
+            "    const previous = previousSeatLocks.current;\n",
+            "    previousSeatLocks.current = locks;\n",
+            "    if (previous.indoorSeatId && !locks.indoorSeatId\n",
+            "        && (previous.locationId !== locks.locationId || previous.specifiedActionId !== locks.specifiedActionId)) {\n",
+            "      showToast('坐具已回到未指定：目前的場景或姿勢不適用。');\n",
+            "    }\n",
+            "  }, [locks, showToast]);\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 1290,
+          "after": [
+            "      indoorSeat={indoorSeat}\n",
+            "      onSeatChange={id => updateLocks({ indoorSeatId: id })}\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/page1/lockTransitions.js",
+      "afterHash": "b5edc386b98268e53eace74ef603513e3240dbd8641600c6fc817b2608e3ccd7",
+      "beforeHash": "34e3a9029873f943290d1ce6c704c679020be3ab85c2b7a310b156002521ef2b",
+      "edits": [
+        {
+          "line": 0,
+          "after": [
+            "import { indoorSeatingModel } from '../../lib/engine/indoorSeating.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 146,
+          "after": [
+            "    if (next.indoorSeatId && next.captureMode !== 'observation') {\n",
+            "    const location = sceneOptions.locationOptions.find(item => item.id === next.locationId);\n",
+            "    if (!indoorSeatingModel(next, location, lockControls)?.selectedId) delete next.indoorSeatId;\n",
+            "  }\n",
+            "  return next;\n"
+          ],
+          "before": [
+            "    return next;\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/saved-cards/page1MarkdownSnapshot.js",
+      "afterHash": "e6b4fbd9d0d1fffc8e9474f9813dbb7cf04db9a9d7888ed72d9ca52136f82b8f",
+      "beforeHash": "3d617094c26b82e660e6674756181f620320003c340f16ae0d0757a6f23a2361",
+      "edits": [
+        {
+          "line": 44,
+          "after": [
+            "  // Seat is an optional extension. Every original v1 key remains required.\n",
+            "  keys(selection, [...Object.keys(defaults), 'indoorSeatId'], Object.keys(defaults));\n"
+          ],
+          "before": [
+            "  keys(selection, Object.keys(defaults));\n"
+          ]
+        },
+        {
+          "line": 47,
+          "after": [
+            "    if (key === 'indoorSeatId') {\n",
+            "      if (typeof value !== 'string') fail(key);\n",
+            "      continue;\n",
+            "    }\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 83,
+          "after": [
+            "    if (key === 'indoorSeatId' || same(value, normalized[key])) continue;\n"
+          ],
+          "before": [
+            "    if (same(value, normalized[key])) continue;\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "scripts/lib/b3CharacterWardrobeReplay.mjs",
+      "afterHash": "5ea3e488a2ca27c3798c82bd5d13c01558568fa29bd9284377d619fa9800fdd1",
+      "beforeHash": "2485b1957846d1e859448cd0d1e04d40584f874232bee9eef80edf4a72d963ad",
+      "edits": [
+        {
+          "line": 0,
+          "after": [
+            "import { preSavedCardsDownloadSource, preparePreSavedCardsDownloadFiles } from './indoorSeatDownloadHistory.mjs';\n"
+          ],
+          "before": [
+            "import { preSavedCardsDownloadSource, preparePreSavedCardsDownloadFiles } from './savedCardsDownloadReplay.mjs';\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "scripts/lib/a2MarkdownSnapshotReplay.mjs",
+      "afterHash": "e693fbfe217d151073b8424c9d0352228c8e33d4903790e68126980cd8ebc9ed",
+      "beforeHash": "b1de4fff34decae2df76c18439b4e6daced8dc3ab078d22a7f005bc5ab73d211",
+      "edits": [
+        {
+          "line": 0,
+          "after": [
+            "import { preSavedCardsDownloadSource } from './indoorSeatDownloadHistory.mjs';\n"
+          ],
+          "before": [
+            "import { preSavedCardsDownloadSource } from './savedCardsDownloadReplay.mjs';\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
