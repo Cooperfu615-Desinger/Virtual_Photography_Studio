@@ -1,0 +1,705 @@
+{
+  "base": "1af45f332d11a12ba849e42338d39275d915c97a",
+  "rows": {
+    "classroom/camera:景別構圖-framing:半臉傾斜特寫:1": {
+      "draws": 2,
+      "selection": "aff1aa60454bc8b2da9d534b84d3b3646a74129663769f5ab55047ab8c54b208",
+      "structured": "87bcd7bc301bc6eed69408f22b5282cee1bd407f19d4e19a6a2fc8652cdcbc00",
+      "outputs": {
+        "gpt": "a95f8077c1c96b047e8c6a0d9c66d1cf680c13f93ac8f9c6be6170717528716d",
+        "grok": "57f02063abf459023353b39adc9b454ff422baffb9fb989c862b7098b9a586a1",
+        "ai": "5da880c28589deaeaa6a0ef73dce8d2daeeccf7f8af7af1003da5c68e298d04b",
+        "nano-banana-2.1": "ffa374a7d3dcc571c5290e37573a937cd4b754bad96832c36ebf566bd2c101cd",
+        "chest-up-portrait": "55f3e72525bca61862985591f4c9029941ae29e02237f97a81204067814c89e0",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "707238601a8e85302354dfc9f7252642e95ccfd1ec217ffdb624304a93926895"
+      }
+    },
+    "classroom/camera:景別構圖-framing:局部五官特寫:2": {
+      "draws": 1,
+      "selection": "277767b64291721e8a3fe7bbf0ad456192195e8863a54b9fef65e268c2512580",
+      "structured": "ffa9555b89b2e0340cfaae17ef81892b70232c5cf3722acf988b3a29a8827f09",
+      "outputs": {
+        "gpt": "78edfee6c9ea3c5f2e58e8d44c4f68f7bbd50a9381aef728d99bfcb93416e840",
+        "grok": "f02c60772a8bb7164970a61e161a47795420b2bd05092b241c1daaddd2a151ee",
+        "ai": "ebad2c55a4393c5ab18d31e936e096acdec2863e07a1f5a45ca4b86103079ae0",
+        "nano-banana-2.1": "8a2718a809d95597dd834096bc86e7a3f6fad00c6236f821f08828240bcaf60c",
+        "chest-up-portrait": "55f3e72525bca61862985591f4c9029941ae29e02237f97a81204067814c89e0",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "9d99d2caf6e9c636867538759a50e32b8ab25592d3f1f80f4919c28ede83cd09"
+      }
+    },
+    "classroom/camera:景別構圖-framing:臉部特寫:3": {
+      "draws": 1,
+      "selection": "3e419500424913b871d8b3c866f8049e70aa5d5a3d12ecbac8ede3f01e6c0468",
+      "structured": "f177f66e18ea67f7ab267e878df4379cb64cb2ac6e4ceadd93f5144a2f92ed18",
+      "outputs": {
+        "gpt": "24f54f88e2eab236bbfd693bee009e8830127ad5c5eeee057a2fdc9a224944b0",
+        "grok": "860305bed899ace239c93569ab0212ee9c322fe37b83db29bf6fc3c49cd32d0b",
+        "ai": "f7010c2e7027894ce1f83c799bd5e5d6f664b668627c60144a6f644f94e2c84b",
+        "nano-banana-2.1": "80b44c036077482071eead9962af6e302bb574c29d03034c7e8c9abc9618e624",
+        "chest-up-portrait": "55f3e72525bca61862985591f4c9029941ae29e02237f97a81204067814c89e0",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "5b3e95b9c3fb934e61c650402810fc35746b1abdfd25417db742808e894ebd4e"
+      }
+    },
+    "classroom/camera:景別構圖-framing:特寫鏡頭-close-up:4": {
+      "draws": 1,
+      "selection": "0dfdd9ecac762bedd11dfb92912b0b3b603f89903fed5b0bcd5b872c15ac42db",
+      "structured": "4c12127f66dd649a194f88bb7951bb40c2eeb6417a8fe6a9d90a540d3c4aa39a",
+      "outputs": {
+        "gpt": "98494fc45d2abb1bdea6dceeb39f8c3bec272f0f5997d693a74cf5640ee31eb7",
+        "grok": "c68184c5583e86bf0ebc5b5d8472d56c23a1336dd0939c149db7bf60c3bdc7bb",
+        "ai": "5b78999831d6582facafd6d9de090a2e6896958caa47d230265b2df6c40dac34",
+        "nano-banana-2.1": "60662ce082af7e9b5694e47320aaf1e7f858babc9e7a01a3c4abf7a718490060",
+        "chest-up-portrait": "55f3e72525bca61862985591f4c9029941ae29e02237f97a81204067814c89e0",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "d9719f3408555d918697a8b3145f5e94076f132d0b563b5a0fa29c521e9eb34a"
+      }
+    },
+    "classroom/camera:景別構圖-framing:胸上特寫:5": {
+      "draws": 1,
+      "selection": "4e5b0c80fc6a5aa7d0081341b5295dddefbc540ab12314a006a1ddb4d7f641b2",
+      "structured": "670b52bf11ca9c179c261978880102513bd2e91343db09714b7eb44527917e83",
+      "outputs": {
+        "gpt": "3151b3fd6d191261cd95703015e14c86c4d734fa0ab71011e59b6c0b552ca460",
+        "grok": "fc8e984d0de865dfd456e9e23404300858527f1ec5a0b4eb584a1ae2eb23713e",
+        "ai": "051eec25bf6f346bb05ae94437a884da093462521c4386fd35f476330feffc78",
+        "nano-banana-2.1": "972d3ca036057488bd04d71fc1fa554dde430a6ea1e2d10c520a6b9d0fd6ba7a",
+        "chest-up-portrait": "55f3e72525bca61862985591f4c9029941ae29e02237f97a81204067814c89e0",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "dbea2bce476ab829c3ca8bb0f5022ab7721542db14f6d73b879546c7f682f145"
+      }
+    },
+    "classroom/camera:景別構圖-framing:中景鏡頭-medium-shot:6": {
+      "draws": 1,
+      "selection": "f2c3fd6188b66eca025ccaea29ee23c873d776c61bdca30e34212e1e89b19373",
+      "structured": "06966e12bdcca30f3896281d92d6921762941ff1f818578591c4199c541aaf13",
+      "outputs": {
+        "gpt": "8bd8a069394a3252901945a1b77457a360cd276d70fd74024975cc9ece2dfd69",
+        "grok": "df4707ac2ca675e56a15b7597cb65ef477e4b74251403282b9c5b786da3df558",
+        "ai": "130548cec08113ba9bf2de46644c9598da334887b91f2a63ad3bcf03976e86fd",
+        "nano-banana-2.1": "eb81b7cd7055e8dfcc441cdb2f5832e9f47cd1fb5da8b851f5b49988c927f780",
+        "chest-up-portrait": "55f3e72525bca61862985591f4c9029941ae29e02237f97a81204067814c89e0",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "368f4f83296769751df6217e7351dbd036647cc91aecc5e83e6b076bd5d90673"
+      }
+    },
+    "classroom/camera:景別構圖-framing:牛仔中景-cowboy-shot:7": {
+      "draws": 1,
+      "selection": "ffba8721ee0e04024a8d80318625550187fbc06da9ce378e18529d205f750555",
+      "structured": "cfea159cc33f7dec1ee7f99e2e28d3439c925075f59a96834232a47c62727370",
+      "outputs": {
+        "gpt": "cfe22b45c43b07550299bb9b1d6057ffa78fa8516634d48c5f3061dc9e656b2e",
+        "grok": "342412d30d8791f2825210dd5c1b37ccc111a48d67c17b2aceb61d58dabc7599",
+        "ai": "d11115b39e2a7800ef6cebcced387468962f636e8f90604e2dddc7144899045e",
+        "nano-banana-2.1": "87dc8cd6cba9dd7d80eca3a7abae03a3ecd82d03b2f6ca08e669711478c74488",
+        "chest-up-portrait": "55f3e72525bca61862985591f4c9029941ae29e02237f97a81204067814c89e0",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "732d5413b0b741a2ae9ebf76e8987f71d0b39f0cb35d74e7d68ea15f0e7e46ea"
+      }
+    },
+    "classroom/camera:景別構圖-framing:全身鏡頭-full-body-shot:8": {
+      "draws": 1,
+      "selection": "dd1866d0a8f4a7860605dde5c68543853fe341cbab82d8ee519c298d807a8f20",
+      "structured": "ada2c26d57ff27387dbec90ee9d7d65d32c1a4f83fe2987b5815b8e84978de2e",
+      "outputs": {
+        "gpt": "dd06c91f63dd292d63e814ec71aaafb52d6d538c17c88951a5812681f2d72aeb",
+        "grok": "7398f8a6bdb1e7ab7ea993e2653b65fcad85a73c203add7c53b0dcf0f3d742e2",
+        "ai": "bb822a2ca35aba567700263f1df93e4ca8eb8f0de7fe7a5363ac1a467f475eeb",
+        "nano-banana-2.1": "7f5a354e0704f022c4344d9af82950610d6f119115d5af32627aa5a960b4aa18",
+        "chest-up-portrait": "55f3e72525bca61862985591f4c9029941ae29e02237f97a81204067814c89e0",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "1deeefe3b2e240aa366ee7ff3c2a594f67f263407ed6c82c615051cbe2f488c0"
+      }
+    },
+    "classroom/camera:景別構圖-framing:全臉傾斜特寫:9": {
+      "draws": 2,
+      "selection": "2fa4fa6ad85888ab04f1ef7853e41b4526a61bfb16b551ea277e67ff5edb734d",
+      "structured": "56a4426be472577cc7214c6edc45389b038e7ec0d7ad23239925989a05199fa4",
+      "outputs": {
+        "gpt": "75a6b569a2adb1013564511c518655051b2199256a71944b7ea5d92ecef297fe",
+        "grok": "f0f585fc29ee027bb54b33ef1bed601dc95a780d842b929fbb73a29f9c1660ec",
+        "ai": "80773bcdf1c6cab7298fb10a239004dd613318a8173c598d7ea609af382c35d6",
+        "nano-banana-2.1": "df294b24cfa5c61712365392cb3cd7f64e130b87af19b325d0d32305ca80ad09",
+        "chest-up-portrait": "55f3e72525bca61862985591f4c9029941ae29e02237f97a81204067814c89e0",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "4323c4519561435d9d39305a8bfdab9f52831ffc718174700902b9019acd4480"
+      }
+    },
+    "classroom/camera:景別構圖-framing:頭部主導近景:10": {
+      "draws": 1,
+      "selection": "3df6bc53cdf5a12a33f9a59f8064f72d5d002eb2c5e272e6555c9ab06a4314c3",
+      "structured": "2be85fb26969c3ab87b9058f0b26e41809a3a7a10ef6056568c4cabdbbe9602e",
+      "outputs": {
+        "gpt": "0e5fa3942dd9ccb62ae6e6ed7c7cede3e9f241693883442f695120c0918e9488",
+        "grok": "52b74d2bf45e744d893721b1413e92f833c1fe9cd0b3badad45b5b6d0bcef006",
+        "ai": "a39ab21dd7cee817eeb02db9b823c5c36b8eaac6b031798268a369e9fae75f03",
+        "nano-banana-2.1": "503fb79a0306f813beacddc284809b3c396ef27ca113bed31aa7c40c426c0ab1",
+        "chest-up-portrait": "55f3e72525bca61862985591f4c9029941ae29e02237f97a81204067814c89e0",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "96aed8361fa9af1100af3deb298d2039d26119ef2551dad26663f6ab2461b0d9"
+      }
+    },
+    "bedroom/camera:景別構圖-framing:半臉傾斜特寫:1": {
+      "draws": 2,
+      "selection": "dce7cb4cd6a23c36af9636911351819d8f64e1e8a56ce648dbcdfc766ed5bcd2",
+      "structured": "fd5aa711cd81083bfa0fcf3aa0d256492595ceddc2468f49989d738ba9243830",
+      "outputs": {
+        "gpt": "e44956bccf79fff96611d3a7b670c8474b58240302295dcd12692141b4e4a1a3",
+        "grok": "dd57acb739f9698288839f1795ef485a334ea8406c0a75d0ab8ea3008f422f34",
+        "ai": "e3718dedc45053ad585b7285ebc69fd52ab3b708923bf577aa0114a5a151b9fd",
+        "nano-banana-2.1": "7cae0ad5a06774299a0bb827e5c78ae150e849bc7da3b0be06790de03b48f614",
+        "chest-up-portrait": "92d97a21b5309528be7ac8f832357d7d7c5e256c675cbd94dd89cb5578c4883e",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "ceea784382b892c4e7cc0815891354d1805af1ebc890eaf5c4dcac43ea1de47f"
+      }
+    },
+    "bedroom/camera:景別構圖-framing:局部五官特寫:2": {
+      "draws": 1,
+      "selection": "6e7c61248c9276f533a698c977cf0e6104beed77a2a8ab3cb4d0f85aa5672f3a",
+      "structured": "6673158fb98f9dc75e3c36f5b0b157f477f8f92f7193f7ada9b7af021b007500",
+      "outputs": {
+        "gpt": "2b568cc8bf73ad6c673534b70fada6d071390fff8b3a29af2dd1b0d923cdd044",
+        "grok": "de225728e12026b31d8be5cd83cf1b7441f0dc436d20489f0f20e0d1db5d450c",
+        "ai": "6f9bb510d7fea1d517b798871ec4aa723fc897aa270f02f6b970b6af6431d272",
+        "nano-banana-2.1": "a2927da4c54ffa083d80df14b44fb42dba051f5ffa303b1144ba2ba51ecea658",
+        "chest-up-portrait": "92d97a21b5309528be7ac8f832357d7d7c5e256c675cbd94dd89cb5578c4883e",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "1e998265d1f41e3f1e7aef200c037cd7da876f6384e56a4a7fa830edfc2702c6"
+      }
+    },
+    "bedroom/camera:景別構圖-framing:臉部特寫:3": {
+      "draws": 1,
+      "selection": "3fcc4bb6c6164cea998690fbe660aa8a56d5b0e480e20221bf0a4f3e7aae7992",
+      "structured": "aeabf74976e517c64bf549998c02a2705ee5534c5012c243d58e36639b0910ee",
+      "outputs": {
+        "gpt": "bba214da1864c0358034288c09958e54eea64477850f9a6a3e075cc74c4e0d45",
+        "grok": "7867ce164b7739839d2db70b52bdfc84d602f1429ee31a9a9fb611b51b63b2cf",
+        "ai": "b70239a04a9425f233f5ac92f982a4f4518aaf9b404f1acbe84da1c6389ee79a",
+        "nano-banana-2.1": "5a69b98cceccc9c5b836bf675e2cbc13e3b63fd0db8373fbd3f5f56f8c01534c",
+        "chest-up-portrait": "92d97a21b5309528be7ac8f832357d7d7c5e256c675cbd94dd89cb5578c4883e",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "bb72c6c7aaed3c74523993cff21d3c72c76c6af08e0b208d0387c20cac76e01e"
+      }
+    },
+    "bedroom/camera:景別構圖-framing:特寫鏡頭-close-up:4": {
+      "draws": 1,
+      "selection": "a92cdf21458461fda881bfe0123281cf94cc5e37e79d21ead9326271e0c90f5a",
+      "structured": "55f705109995c8e6892e6b5a6f4fb0fea2b7edc1596b34649a1e1532fd42fa69",
+      "outputs": {
+        "gpt": "6029bc2e8453b4e0e19d2c77237be119c47567aca03c65fe0a2b460448bad441",
+        "grok": "4ac9b0832bea38ce91e0dc5b99f5d3cc307794f44d8f5fbe9956aee891e98da4",
+        "ai": "2eb0eb54fa3b19cd4d0ee4fbd416f6671ef1de9fcbf848f611608f7c498cc55b",
+        "nano-banana-2.1": "8ab82e1a2c58e782ad409ab3b8186e0ca27d8e8854ef12ae8423ccd5deef7933",
+        "chest-up-portrait": "92d97a21b5309528be7ac8f832357d7d7c5e256c675cbd94dd89cb5578c4883e",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "38ba236eb8fe9f49750ab0a6baa669f3f897b122c550030adf19a26423555f7d"
+      }
+    },
+    "bedroom/camera:景別構圖-framing:胸上特寫:5": {
+      "draws": 1,
+      "selection": "845f9e178ad26dd208797b0d2cc6b1c5ec3ce680dd35ee06789d09a1c3a06c97",
+      "structured": "928a3e3cca599fb2beed87d9fef3615abc4e19d0e1a2bdac53784c479f347f52",
+      "outputs": {
+        "gpt": "08eee87f8819e7af7e0ed5cd4954302f434b8e8c2aca158abd6faa2fc15c8c28",
+        "grok": "276fbd47368e806d112f1e0a305a22317d95c1e4e37dadae4c0a66c95b43fce3",
+        "ai": "cf15a5eb0d3942556a3c8507386d36bf4f1e72ad72e2356febc2fd2d46ff07c8",
+        "nano-banana-2.1": "ff65fde7f189e38cee8996074f2b0d67df4b85e9af63ee32c8ce9fd2e1aeec8e",
+        "chest-up-portrait": "92d97a21b5309528be7ac8f832357d7d7c5e256c675cbd94dd89cb5578c4883e",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "2a5f891981af32539837d58c4de1909fd2d6b456da061307e5a238ec3dfcbde7"
+      }
+    },
+    "bedroom/camera:景別構圖-framing:中景鏡頭-medium-shot:6": {
+      "draws": 1,
+      "selection": "e2151f6f032fd82509627581c6821bb314008069a63e5281b714134d47558d60",
+      "structured": "03f5926f396b14d8761d5fb6b642acff7a2c26cc1d2b11c5f15b215824929b6e",
+      "outputs": {
+        "gpt": "7c27d966e00155ba563a4f2cf6fc8d9d56a9316e3d110899e00490083fe8d93b",
+        "grok": "27249cd701d1bea73115095e969320a5d2c8c3ae4e617380bd2db15527dce28b",
+        "ai": "9c531aee88f3ddf200517afaa915aa51fe8796327d481560990bd18c27ffa6aa",
+        "nano-banana-2.1": "c4721df594c68dd9e723212d22d278d7d932274350b3c251c4a8abbf683e5e36",
+        "chest-up-portrait": "92d97a21b5309528be7ac8f832357d7d7c5e256c675cbd94dd89cb5578c4883e",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "21ca17edb8d0cc47a94b6bfbe70973f5bf28e355090130c59a9432bf053fa138"
+      }
+    },
+    "bedroom/camera:景別構圖-framing:牛仔中景-cowboy-shot:7": {
+      "draws": 1,
+      "selection": "4655fd81313de73cd0cfe75c6f6d0b61cf315fee659a1cc6f5b1813b140d665c",
+      "structured": "e3666f2fd96c620b81378884f97ccbbd605be2fb33a1b091a2d409314fc05dfa",
+      "outputs": {
+        "gpt": "041d1cd943815c44aa4e3184f13afb2c70e197d63746d44296954b6d185a0199",
+        "grok": "48ee086b9edb055768aba557c8cadca6ee7902cfd49a112facc5eff3fa76388a",
+        "ai": "298f162c5f4729e6809a64a8ea6ecb0d32debf7d73d2e66b5ebeee094876bf4b",
+        "nano-banana-2.1": "ef9c3e24cd0ea431d09bbe6b26e7262677674be192c9bde7ee50e7489f0bcafb",
+        "chest-up-portrait": "92d97a21b5309528be7ac8f832357d7d7c5e256c675cbd94dd89cb5578c4883e",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "0da9c953a48606bec5ff803aa49a2f8a62d7c5de53c0b7a32663b4ec00520289"
+      }
+    },
+    "bedroom/camera:景別構圖-framing:全身鏡頭-full-body-shot:8": {
+      "draws": 1,
+      "selection": "461d25614645bd2597d0704ef9ba34c8ed2465cbe580b3af3bb5f74388ae4096",
+      "structured": "719a3ad722a8e6c096c9e716313a878947875b950c2746a1970487183c494e99",
+      "outputs": {
+        "gpt": "78a622c0eff6bfa544e22820feb1cabfcc3a1e47303a7143ca22177a253cdee1",
+        "grok": "161868d7e889664147f03330480308ae7e7564fcac821235c842c0703a560b76",
+        "ai": "5d602e02dd200ee50a560ba4ed25b9928cc0c8c30a978089762efdd4592f310d",
+        "nano-banana-2.1": "7229f37ad355f474083efbe4d87140cc3c5ca2f8d4390b28f33396265fc4f975",
+        "chest-up-portrait": "92d97a21b5309528be7ac8f832357d7d7c5e256c675cbd94dd89cb5578c4883e",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "e596a693d10665be386c585a669f9ad706ef3f206c8df037ba3a3b7d10e726bc"
+      }
+    },
+    "bedroom/camera:景別構圖-framing:全臉傾斜特寫:9": {
+      "draws": 2,
+      "selection": "dd56324be6e52cd4be3b25284850391dd09962b0e43ee9707f09f4379c025e8e",
+      "structured": "7c920dbbc117353a87c242c204d9b75ba1fee4d731b7e13d83d85773ed2b84a6",
+      "outputs": {
+        "gpt": "a44850309fa59b9579713a7073b08f517aa375c09b2bb6d31e56348a7f477d47",
+        "grok": "a534a01fcc356bea5ef5701f50240e8210636b7a8b63c08970bac472808d8ee7",
+        "ai": "bd4f1d4c70ce800798eca8d671815352259c0e830a6e10960a5cd94dab6f4353",
+        "nano-banana-2.1": "617d5caf9c4b5a8bb0e7cf87399eb2050ad9a37bbab24aa4661a1a35195daef9",
+        "chest-up-portrait": "92d97a21b5309528be7ac8f832357d7d7c5e256c675cbd94dd89cb5578c4883e",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "6d753eeb8246a11e1e260db6381d80a9b4b2d6b85e364f47940913f7a09af0d4"
+      }
+    },
+    "bedroom/camera:景別構圖-framing:頭部主導近景:10": {
+      "draws": 1,
+      "selection": "f5f7fdef0a91fdd1831af8a96e2b1ef1f11fcab93a84c6a05f2ee925df61addb",
+      "structured": "179f6f6419c0af39a6d874f8bec5eb8ab6df3c045e612d5d9dd2bc22802b9220",
+      "outputs": {
+        "gpt": "fb467c17a6ba1801159cdff6523dc73c8b4c5f8cf2ec5956b8ac3c6909553670",
+        "grok": "8e3be29cd5955e763668dafd0a8aa77ea90172ecaf24e3ec10b08f32cc1171af",
+        "ai": "68c5a7516737a7ea4263bea25806e9a0e1fcb3f4a85273b5be645ecef557a61d",
+        "nano-banana-2.1": "1d4043a3bac767fcd994d1789f8057bd7b70693a35ddf530855e886092dadccd",
+        "chest-up-portrait": "92d97a21b5309528be7ac8f832357d7d7c5e256c675cbd94dd89cb5578c4883e",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "cbafbee020728ca17b572900a8b15ed60816994e02fad1d290b5dec19566661e"
+      }
+    },
+    "washitsu/camera:景別構圖-framing:半臉傾斜特寫:1": {
+      "draws": 2,
+      "selection": "0a28bd6f92d5048afa4b8154456069036504bc35ce2a3094ce0df9833fa5b50b",
+      "structured": "1c47b8014ee02e324ec37e3aaa5159fa5e31b590e902011166185ef4c710c775",
+      "outputs": {
+        "gpt": "6eb6ceb20ebbe3153b7f098eb075debcf47231c4faf8b8a878223cf5d7057ddd",
+        "grok": "31d6e8459e197d46f70660d73e6b9e29a25957eff12070751d441f0de2d2b354",
+        "ai": "1554d3afa3019a154ed412912c14faf5119131c19e2115b99499d2dd2527b7a2",
+        "nano-banana-2.1": "b15d5e1aad04ff4bfd11cebfb9610b4510d3bbebe6524502a2db58462cb8ee89",
+        "chest-up-portrait": "bbefe8a2d06a6d50336fef77eb8565b013b258196b2a878e62d223ec5653947c",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "9f1143b0be43fece29202ddd37eb652c2205ca6d3f06fa7e57c4e4e56f83b171"
+      }
+    },
+    "washitsu/camera:景別構圖-framing:局部五官特寫:2": {
+      "draws": 1,
+      "selection": "715bc42a7d9d714de707e6d31733c473570e135929c396b6a568a520edd93d9c",
+      "structured": "c5d1d2fa508e895f3274938c4b14b58312ee8900976c02fddaaa817ca387f1dc",
+      "outputs": {
+        "gpt": "d4ad43b1b3babdbfe0bb30b78a65f5c3e3b13bc3db1e40cbebf89cbab449c3ae",
+        "grok": "80725c3f59beafb7617dd2ddd8377f4c9122cb9f5a5eab86d951fe59fe31aa80",
+        "ai": "77ea61984c521f8610d8137847d20bc95629aaad1459d1935ffa03d8bfaf09e3",
+        "nano-banana-2.1": "7ab51fe87895ae6257ca12f8c77751145a4e3269dc60806a7e5380ceaeccb354",
+        "chest-up-portrait": "bbefe8a2d06a6d50336fef77eb8565b013b258196b2a878e62d223ec5653947c",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "0564378f024960cf4969fd6254238a1ffd2928c846e17a839af9583ade91e34c"
+      }
+    },
+    "washitsu/camera:景別構圖-framing:臉部特寫:3": {
+      "draws": 1,
+      "selection": "2241f6c4d486eb3f8e7f96922049f1198923905ee9514dbe7485ddb35dc1895e",
+      "structured": "641480072cf153364245fdd4f154abfe30b2373a1738972033eb01e1d6d52a02",
+      "outputs": {
+        "gpt": "d59f9cd448efa61eb228df530048717c40590714407ce2ba0871aa3f2b55a68b",
+        "grok": "8af6397a67ab4bc05a6be52a027cd5af6c66547dbef9f4dbf0626d12007cf4ef",
+        "ai": "dc0abe06627e0419fea3ada8dd3cc4b1c3fc61d5a2d9e2c921f8ab7f2d0cbbc4",
+        "nano-banana-2.1": "63150653f55917a5edc03cb67fe15864de926d9892267e94a732e129b5cda036",
+        "chest-up-portrait": "bbefe8a2d06a6d50336fef77eb8565b013b258196b2a878e62d223ec5653947c",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "e1659148cd05857aedefd3c3940ccff68b368f0dfcb4ca6de1ea68d9f282408c"
+      }
+    },
+    "washitsu/camera:景別構圖-framing:特寫鏡頭-close-up:4": {
+      "draws": 1,
+      "selection": "8c7337cd43f36b2f17078624743c01456c5ccc3112e9008fbce0178c24acadbe",
+      "structured": "3139b1f6f322583113cb543e3adf426bec12559748a2bcfe42a47f674ae0aebf",
+      "outputs": {
+        "gpt": "dd5ba1489702d638241c0366d9d349fa48b308703ac5893325c47600f5a70859",
+        "grok": "df1493b238de80b812e4ad45556fec5ae9638470dc7317a63e54b37e3e7f4e66",
+        "ai": "ca35020a78dd3c0033e3e42707ff2bde2e33bb37a2d41d92df41c5ccf76ca6e1",
+        "nano-banana-2.1": "b1c4d399b0ccdb05ad40d9341355533e1bb5d8cb28ce84027638d9e6a413f839",
+        "chest-up-portrait": "bbefe8a2d06a6d50336fef77eb8565b013b258196b2a878e62d223ec5653947c",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "1860deeba7be0d7d842ecb9001cb54705cda1348886761889c97cb11c038cf4d"
+      }
+    },
+    "washitsu/camera:景別構圖-framing:胸上特寫:5": {
+      "draws": 1,
+      "selection": "944c5d4da31e5bf2ddeaa2adbf34be60456ce79bbdf26705038c0739f1462b8f",
+      "structured": "f9791b5ecee673c056383f5c502ee6785801ad53522ff6dce95616e2743a45f1",
+      "outputs": {
+        "gpt": "1ae7f7c3d5871f43173eb6f9e7c9fc312308f4f1c2d5b40384f741bf0fc522f3",
+        "grok": "0f321df3333b948dc9c0502dd82663553dbc40e3fb77823a4515caf2b3761af2",
+        "ai": "6b91e0143ab3700afd7cfa9aec9f6d64678b694614e406fc4712d8d5626d2203",
+        "nano-banana-2.1": "b516e862177d1cf3e1c74fb31d08408b5108818131d4c5321890bb9d4789cba4",
+        "chest-up-portrait": "bbefe8a2d06a6d50336fef77eb8565b013b258196b2a878e62d223ec5653947c",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "c5053deee56b1977a0697002979ff52a8dc3828e391ec6d84da99f89a1ea7e8f"
+      }
+    },
+    "washitsu/camera:景別構圖-framing:中景鏡頭-medium-shot:6": {
+      "draws": 1,
+      "selection": "1cf289618a08e0bb911c9dcb6a367d852ab85a630a8a57dc4263f8db7a6816fa",
+      "structured": "1ea1a337330f0def07e87845ec6632ecf72eceb46745b6acec58601da595fd04",
+      "outputs": {
+        "gpt": "dd06b830ab4021cadd8badbc5bc10fc72c4440676d1623ca2c8fa25b103eac31",
+        "grok": "982ced42a67a3d820390de569f5992639d807fc95a84f5fbbe08ecc5cd6065c8",
+        "ai": "20bbba148294833652dafdf0fed74d7682de3e6b1555a7716d0488e745096fb4",
+        "nano-banana-2.1": "6c9f2448ebdcdfdce4fa629dfe9e8521b0944127efdf43f8d7dde7fb022ac1f6",
+        "chest-up-portrait": "bbefe8a2d06a6d50336fef77eb8565b013b258196b2a878e62d223ec5653947c",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "c927f6c4c166c16be10faa58fe2bd5e4ab95347e355f0e74f7725ffa9b3072ed"
+      }
+    },
+    "washitsu/camera:景別構圖-framing:牛仔中景-cowboy-shot:7": {
+      "draws": 1,
+      "selection": "e4dc5993ceaf738adf82d6db7c6e3f49e5c5c537e5ef18f30599b98e1d00df7e",
+      "structured": "13f2af7cac168560716b318e9ffb40e7fe7aaf3ca0cad738b1c49a5000d0c76f",
+      "outputs": {
+        "gpt": "036384146926fb2e2566e02a2c4ca77839c3bd09ebcb72eba5c859727fac114a",
+        "grok": "3a370696c3a049f95ab0c5dfea18bcef0afea51a510863e5093d974c54836625",
+        "ai": "7dfc2378ae1d8b45682d1177651e508a900eb8082060bf0b0a62295fa0b25154",
+        "nano-banana-2.1": "3f1a871ed8def24be5624e8dbf30d617d448f558e09a37bbec5685d2dba03b72",
+        "chest-up-portrait": "bbefe8a2d06a6d50336fef77eb8565b013b258196b2a878e62d223ec5653947c",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "8e59fcbb5504a718d20c264d8d659e20f347dd699b0a1bc410138b187864084b"
+      }
+    },
+    "washitsu/camera:景別構圖-framing:全身鏡頭-full-body-shot:8": {
+      "draws": 1,
+      "selection": "905a8191f3ab5800afc334980ea98ba2394153de2bd294882277d49569dc9879",
+      "structured": "514543bff44e7a25810c5bacc5acd7ba7be84ebda1fdf5998ea5e0610c440ed6",
+      "outputs": {
+        "gpt": "9500628b34e09a4b971c844f148d18887053c5b7b2ad963f056accab822fbe9f",
+        "grok": "013a836e6b955cf6d5b0425ad3000bee6d3bf2ddce8252db8cea541c549ce87b",
+        "ai": "20d46f6158c8e806ba1cb0c1a8a567c91e0916762cf17214122ad4101c0c704c",
+        "nano-banana-2.1": "73aa18336b797e4c83bbe24e87d07449811758eeec153fc2b387c2eeb1bb36af",
+        "chest-up-portrait": "bbefe8a2d06a6d50336fef77eb8565b013b258196b2a878e62d223ec5653947c",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "29807ca518d41f31333cec02c092ef506c9a3e5bac1d8cae73e8a197e53f5e0d"
+      }
+    },
+    "washitsu/camera:景別構圖-framing:全臉傾斜特寫:9": {
+      "draws": 2,
+      "selection": "d5f65b46cff224de160bc8cc57d6266ee5db06f9d36f43255920b2dcdf6ff69d",
+      "structured": "39a34e1f922167ef400a34f5b396cb99f7b635907f38fdfbfb193f1881d1a41e",
+      "outputs": {
+        "gpt": "442137f09a3efbb116fd8489e5b452592b923af06df312e9b42d36d774ea8aff",
+        "grok": "3175ff298bf7ae8b97e50397f38e9eaf08373d2cfe18f824954dd552ce9c1b6c",
+        "ai": "27b26a47e5fa4db4939b355d48a60af8fe104627733ef73e4061fd764e278f50",
+        "nano-banana-2.1": "328f2ffbd690cb7cef2702dd16c854d4fbbd440962faddaf9d9c86a419cb168d",
+        "chest-up-portrait": "bbefe8a2d06a6d50336fef77eb8565b013b258196b2a878e62d223ec5653947c",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "42df5b2c38b09461043369302885a9c3433b572e6d1f3559f9b3d07bff342116"
+      }
+    },
+    "washitsu/camera:景別構圖-framing:頭部主導近景:10": {
+      "draws": 1,
+      "selection": "3c8cd99471a0ffc40723dc3551aedbcb12a8dafb1266c911211bfae1461b4b1a",
+      "structured": "d712de6ed2d51caff0e7e52e4d62e4eff8a279393ec3c42ef367bfd90a8c52cb",
+      "outputs": {
+        "gpt": "75a00a59cc1ec957d7251505a76356bc8860caaa064f906e4b1b43b127d8cb9d",
+        "grok": "af26b87cbece0a0024f61465ad961669514bfba54f052c926978c28c2bdb82d0",
+        "ai": "49f9286a65cb7b56846d881fafdb1348611fe9e32ac27a34175e1e3c958fab16",
+        "nano-banana-2.1": "4362e006d552da4206020c143251d73d64a1fafd2ffd5880336edb2183d22b5e",
+        "chest-up-portrait": "bbefe8a2d06a6d50336fef77eb8565b013b258196b2a878e62d223ec5653947c",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "204ac1ff50dea68745946fa4ae4c79a36be5327f8867ccb3fc160745d61b94b0"
+      }
+    },
+    "ground-no-floor/camera:景別構圖-framing:半臉傾斜特寫:1": {
+      "draws": 2,
+      "selection": "2b36a9b019397be721e339aeb31885960a973e7903a3659046c24ed9c5f6c1db",
+      "structured": "4ab063e1ed536d690a767d43d01ca3750f2952a5109bcdd6cb61a5b51392f6d4",
+      "outputs": {
+        "gpt": "627e0664d945b07127681425e64bc2f1b330a0a65a0a691f5277a3a307e2506b",
+        "grok": "571a171f978198d2cfac1f640943ef0312780786e2252e059e190dc2d05eb31e",
+        "ai": "7c5a3d0ca8c092b6e6edea293e74f0feb554b8296005af256e0623a91b6e14b6",
+        "nano-banana-2.1": "a0427996dc621dfef1f5b185bf66c56d8d6af88972c21ac3aeef1b30b9fe6a1f",
+        "chest-up-portrait": "a7d8ababe8ddca86c30fb558ae5f6ac35be143bacc2d10b9bb23ded059aac826",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "8bc13d6b7681d4f9e52b6cd0b965fcf7b0fa0389558ebfd3cb4e11ffc19440c7"
+      }
+    },
+    "ground-no-floor/camera:景別構圖-framing:局部五官特寫:2": {
+      "draws": 1,
+      "selection": "fd32bfbb136cd4c63a7b0980f341138a9ec1470bb0ac006a8e586ba01b699124",
+      "structured": "5aaa825741d7bcb4408cf3eb73e55e69b59cec31ac98d6ef09612def2743181c",
+      "outputs": {
+        "gpt": "f66928c3acbab8be9e26b98032f69e990a5c65f67bf84a95943fb1f2c8399db4",
+        "grok": "77243825d46a9722f40c8877bc01c77106f5638ab1e8cbb4a808c12af0507613",
+        "ai": "9eac736b74465c3d41794b45912817d537ad3510deec3dcad1d8496ce2cd0950",
+        "nano-banana-2.1": "9df8e01915027926607600583e7b53da7d56e5ccf925543eb0626b350571dec7",
+        "chest-up-portrait": "a7d8ababe8ddca86c30fb558ae5f6ac35be143bacc2d10b9bb23ded059aac826",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "8409686e8891c4f12e8b5fa0a359707e690f03f78fc087647362b56595584c8a"
+      }
+    },
+    "ground-no-floor/camera:景別構圖-framing:臉部特寫:3": {
+      "draws": 1,
+      "selection": "0281d950a257222d85210dcbd14697dc175ab7a5220a38685b06f7d38f92a31d",
+      "structured": "d7e98efd48837554f2f62ec98f8b80272261b9be57ec22a5a2a3a2d756a4d774",
+      "outputs": {
+        "gpt": "b8628ba81799015d6ffb0ff2acbfbd690363d6fd125cb51c2c64d9e57a6ccedb",
+        "grok": "e5ed72e3760ddfa0ad3dc0a3f3946c9f33f27d9d77cdaa213ebc04e4bc2b2423",
+        "ai": "3e2785141115e4400295f58ca98929e2d72da4931e1922b70816b990a003ae02",
+        "nano-banana-2.1": "2e191ade0f3463d8cf24da9e661672fc465a28b15f5bb7a095f637e48d8539b2",
+        "chest-up-portrait": "a7d8ababe8ddca86c30fb558ae5f6ac35be143bacc2d10b9bb23ded059aac826",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "9d49860fb3ad01415ce92de911ce3538e637a4a7113bb59cb1c259494d5fd826"
+      }
+    },
+    "ground-no-floor/camera:景別構圖-framing:特寫鏡頭-close-up:4": {
+      "draws": 1,
+      "selection": "2748f335d4216ec5945d3ac4d84bc492a885308574c6b5a52d8a03f77874e93d",
+      "structured": "73cc5bbb7d5facfe2bd1e41f0271261827e2fd391133198bb5b73b88ac11a857",
+      "outputs": {
+        "gpt": "1ef06345587f620025ee9620fc0140f02de7a4537d5bf13180a373dcab93c481",
+        "grok": "0990171d41cc1f818030432ece64378ed36bbebb96751c0b8766abb8fc2aabc8",
+        "ai": "a59292453fba4aa81e14f2c631f3b2171047233603f019301a12c0029cf63c03",
+        "nano-banana-2.1": "61d44d00fe9a1b0c8013131db4edad55706ac37b81e35acfcba231f84bfb3c37",
+        "chest-up-portrait": "a7d8ababe8ddca86c30fb558ae5f6ac35be143bacc2d10b9bb23ded059aac826",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "189c8e358354cfe79c2c4f670c188ab4e8358333f5235891a601929720b1aa36"
+      }
+    },
+    "ground-no-floor/camera:景別構圖-framing:胸上特寫:5": {
+      "draws": 1,
+      "selection": "4b1e46eb84f7a11d19cdf87176c2ba80652d8185cd4333b7aabd3aadf6233057",
+      "structured": "807c0b275fb0f5b238de6fe7f1771af756b9c52f6b59afadc4cf5ac38eb18cef",
+      "outputs": {
+        "gpt": "b692270baff9c4a3f3c2675661ac19476ae47d0a5c447f6246cac618c767c5d9",
+        "grok": "8e6c7b43d0f0ef2fffc01d2acd50e115a938c9b42ac3cd79ab5eefbea39121d1",
+        "ai": "1bd0f6da311716b41fc6f163fda0599f8bb3967ea7ff3d0bc8d6706745753576",
+        "nano-banana-2.1": "cd7160a9198948d410d0a7e7360087a9737e73b87c804eb6b06f3009b483bc5c",
+        "chest-up-portrait": "a7d8ababe8ddca86c30fb558ae5f6ac35be143bacc2d10b9bb23ded059aac826",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "8a4156a487fcbd7b3af282ae0789d1e6f0fdfc385fa67f0a482f846cc67920ea"
+      }
+    },
+    "ground-no-floor/camera:景別構圖-framing:中景鏡頭-medium-shot:6": {
+      "draws": 1,
+      "selection": "44ff4e9da9ead0556c205f7afe68c9748acec98c7c3a3c3bdf3bfeeb67c02615",
+      "structured": "5188e46fc7753ec66e3966e2aa2951d70e4cece5b936fe040ddebaeecb7b9228",
+      "outputs": {
+        "gpt": "fd1f7b508cd08b6ec91f7c1039854a5beda3a155874d78a3c63472bb7f156c8f",
+        "grok": "0fe19716bb6def4f79b3a99be3678fe05ded716a3fa5665643f4cf5c2cd31bf1",
+        "ai": "310a27d76ea87ac5c2d61be676782654a0d217cc917032da7973787fb04603d8",
+        "nano-banana-2.1": "2da53b46be8dbac21f2b8388f8317a16d8b25d262218d127273920239725d4fe",
+        "chest-up-portrait": "a7d8ababe8ddca86c30fb558ae5f6ac35be143bacc2d10b9bb23ded059aac826",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "b35d9fdb3b98914b8055974edeacbd177ad8ffa3ecfc6a894ceac2b0387453b8"
+      }
+    },
+    "ground-no-floor/camera:景別構圖-framing:牛仔中景-cowboy-shot:7": {
+      "draws": 1,
+      "selection": "283858a446c49283e24767375e37981e870e6fbd8276c867455ccc966c782f46",
+      "structured": "dbc1f2b248ef18157964674565249bb327e1e5357c4349f59367f28e87eeac0d",
+      "outputs": {
+        "gpt": "a22c7cb19828d8a4b189ff57ea19219abc5ad2325534411572bc8b41ef07c65f",
+        "grok": "e401313376e545e1ca7e334a377eb25fbd242adcea5aa01a9b524dd966aecf7a",
+        "ai": "fe56fdf0ce627df97da7b8c0330f4e665ba63363a700390ac55e4ab04594c2a2",
+        "nano-banana-2.1": "cb603b027974414da92f76ef58da144ff81b7f8da1aafeae4bfd3d1462e6e87d",
+        "chest-up-portrait": "a7d8ababe8ddca86c30fb558ae5f6ac35be143bacc2d10b9bb23ded059aac826",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "22b61c0fc726b77deadaf32af5285e301a5c02ada34c56e07eeeffadffe2e415"
+      }
+    },
+    "ground-no-floor/camera:景別構圖-framing:全身鏡頭-full-body-shot:8": {
+      "draws": 1,
+      "selection": "1f2de41a5c0668acdf14ef99cc7c8aeebab2c30702e566f60fee559823698db6",
+      "structured": "ff8d1b53ad69000120b477d0af914e3e5603f62f304ae8775a74e1f3b8c04ef6",
+      "outputs": {
+        "gpt": "cb7e0c45bbc72eaec2835011c6dd13d8c28c3ab28e6f7299dafa1711495d962a",
+        "grok": "99eaab001a413e85cd9170876c65fc58f1f75cf5d55607d7936e165d0a2870bc",
+        "ai": "0df296612e16c0819c5040cde1fc48a367b55872a1015135e6f9fe005f682629",
+        "nano-banana-2.1": "2928b131317a949740f35a42e371aae48f64387b21e044a6a0960fd49ddc3629",
+        "chest-up-portrait": "a7d8ababe8ddca86c30fb558ae5f6ac35be143bacc2d10b9bb23ded059aac826",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "41fc3e03d37688a61de967dfe5fcd317148534d6f8ae76ebcdc7fdbab702d998"
+      }
+    },
+    "ground-no-floor/camera:景別構圖-framing:全臉傾斜特寫:9": {
+      "draws": 2,
+      "selection": "0640c9f841115189c138eafbc37a599aff601c67a02c8d925d9c50c7374532f0",
+      "structured": "9d9a1a0b80a81640936e8d5b6691705fc9c3174b7de08546562ee45dc62db539",
+      "outputs": {
+        "gpt": "70e80040cbdf63bcfd1d245ea7869f062e493c29a25bf88912ef3d1cf4f0245e",
+        "grok": "168a658cb81097022c6d64081014993ddfd30f51c29657454b1dc6798dbbc759",
+        "ai": "4947932296721f6ba61a283c8d3a4da8d0aabc2a23132204989c16bababfb249",
+        "nano-banana-2.1": "e4b3c89b4046665d7504a2afc6d2d7c5111d89c4e459bbe4709676806a04d785",
+        "chest-up-portrait": "a7d8ababe8ddca86c30fb558ae5f6ac35be143bacc2d10b9bb23ded059aac826",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "7e0d836921a9ae2f9cceed35f58c31ca8ab2a89093db1a3b285d438c225459a7"
+      }
+    },
+    "ground-no-floor/camera:景別構圖-framing:頭部主導近景:10": {
+      "draws": 1,
+      "selection": "e33355636c366dc978987f35404b1e5d69ad9e5480402fb9e730337eb39ff77e",
+      "structured": "bfbfec63b2e3ea55a5db1f67059b8402ca797bbaafda499f34bbf200d4361489",
+      "outputs": {
+        "gpt": "88d4ba60d3ee4ebce8122e9e4dba498f51d40914a0cf7bc8c3a5b8e67d8ad1c1",
+        "grok": "7f1636e7e5ec2f6a5470a13647f3d567ec5792b52f052ea59755725f5d1278de",
+        "ai": "6aaa9daab627c7c54a9732f46503869f3c10d162a61acaf459d87706996d8ebb",
+        "nano-banana-2.1": "5f868b68c4feec50ed00a305c12bb8de529456479f7dce998c1d0b86b25ee62a",
+        "chest-up-portrait": "a7d8ababe8ddca86c30fb558ae5f6ac35be143bacc2d10b9bb23ded059aac826",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "133166057030d95cdfa42164025998c9e6f66796816263311e13388fbcc95289"
+      }
+    },
+    "outdoor/camera:景別構圖-framing:半臉傾斜特寫:1": {
+      "draws": 2,
+      "selection": "a5416eb627262e62ed023c71b266da9a30c316d83d31debed5f1054346839858",
+      "structured": "90593d0185ab4df2b66b7463b72187a1db6b184c60e70a1f94cb5ad5007615e3",
+      "outputs": {
+        "gpt": "7fc85d2699af32800cbe048039be6a945b8a9d80c978224926a59f4aac4d1003",
+        "grok": "bef9780f60c16684b6b64a1f1554a43a3dc3508f3edb9e3a70f0af74e8bc7faa",
+        "ai": "aa50a2fa7f0dcc17b36a3e630fb09c12a72ef46e4c163e6c3bd809b055cf6bea",
+        "nano-banana-2.1": "9f3e107182353b3e995612365bfaa5b0080fcfb1c14417b66339e14b565ff146",
+        "chest-up-portrait": "10cef557470442b757bb9ae0f5067b2bf1952ea5b372d0ce2c25b564ea397924",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "aa50752f6f7b2d21dec8063910c75ae795e5d2881ea45120f07dd84bfd08944c"
+      }
+    },
+    "outdoor/camera:景別構圖-framing:局部五官特寫:2": {
+      "draws": 1,
+      "selection": "2b4873318c4098493406e90ed0c4c07e6440bc268a24051d51612fc64a40cd3a",
+      "structured": "6b7657224de791c1440aaad1482bf4e910280c382b3a33e6865cffaf4717fd22",
+      "outputs": {
+        "gpt": "0d8620acb3d95f6a1ca54b57c2b57b706bc54d35d5b07576bfd7cee248675f0a",
+        "grok": "09f2053644110a938be7212e1f37b8df0d27b42f513d44e3f08f2d3b9d24a903",
+        "ai": "5ed980df73fc83bde041a7fd9a34d66235b9c480fb653fafe7e0e1ebc428f32e",
+        "nano-banana-2.1": "1bba2f159f0e65656abf080fb38d8b4070bb0ecc896ce831b313afc92f2685e6",
+        "chest-up-portrait": "10cef557470442b757bb9ae0f5067b2bf1952ea5b372d0ce2c25b564ea397924",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "8a194525f7e151b380c8430320f17e79b71e6d931b0d452c19c7d0c25382e7cd"
+      }
+    },
+    "outdoor/camera:景別構圖-framing:臉部特寫:3": {
+      "draws": 1,
+      "selection": "80a7dcebd075ce0b01eff0dabeda9420d34795fd815220139b6596ec4a4a0960",
+      "structured": "2e9668ccc22dea596963e11c76d4b1c5bbcf626e9a7e806804f2e07af49d72e9",
+      "outputs": {
+        "gpt": "8cab81111e8bfe25c8b97b9d4859f8779d76a45f0a7d52c9888035ce30e10065",
+        "grok": "f17c3c61564f894c68fcb76f7d1d3591453e7d53cc8f6dc9ffaa2721743f9999",
+        "ai": "d2b78f043e50ca2650a5593604eab5a9db1464a16109d8a953001cc62e7800d9",
+        "nano-banana-2.1": "924c44337964ec9f34fe0dbf48eafefa0f703c88b8e0d077c113ceaaaaa2fa0a",
+        "chest-up-portrait": "10cef557470442b757bb9ae0f5067b2bf1952ea5b372d0ce2c25b564ea397924",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "504906467d113ba434cc9d69b888b73833ab7cdb429e54b17578fb9e298cfb88"
+      }
+    },
+    "outdoor/camera:景別構圖-framing:特寫鏡頭-close-up:4": {
+      "draws": 1,
+      "selection": "21f3365e207f02091273f97b1acc874669ab553d96222dcafd146c03b4fef3de",
+      "structured": "6c86c16b23d8f83e3dbe04efacc9ec1a82c29ddfe059c1a63fd270b16f686487",
+      "outputs": {
+        "gpt": "a957db033cb0d0679cf136211fa51b77123324cb23628cc0e6fd6ca4c7be4447",
+        "grok": "ef3e180739357e1db0a16778fa7029776fe82a4c96149de7c2d33feb68eefb7f",
+        "ai": "4359fd55cf4e342dfd2c024550f8f6aab73a9eca1ea35b0e4d191045fa4ea7a9",
+        "nano-banana-2.1": "f2ad75e8df4019e25240786d64289a0a0bd027f2491d04df8595af67065df63a",
+        "chest-up-portrait": "10cef557470442b757bb9ae0f5067b2bf1952ea5b372d0ce2c25b564ea397924",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "a6505f3fce00bd018121cfb7ba2f4a49bf43a80e18b555aca2567e383b0c9a7c"
+      }
+    },
+    "outdoor/camera:景別構圖-framing:胸上特寫:5": {
+      "draws": 1,
+      "selection": "903d990a9f29c478699d43b090d96f649d46b3c53973f5617ff4180fa1896de0",
+      "structured": "23d07e3bc7f5fa28ec3bb35f3ad2ecd580b282442f9c04fddda14e0d6435df14",
+      "outputs": {
+        "gpt": "08916804c1fdb7a80f5bbb79c02f958f0aa82ae016c3acacb90a5113e5e08841",
+        "grok": "7e171da5830e2c06003d3fd46d0e3ac7da37ff00e5d5347a3d8fbdac972e9e50",
+        "ai": "77e372d1900d7349d2ef27f93047f561532b2760bc785e2a8a759e3b341b5d77",
+        "nano-banana-2.1": "894bb323d7416894406c1c639cd61575bd21e60f34f62b483e6a0b93d4dd0dca",
+        "chest-up-portrait": "10cef557470442b757bb9ae0f5067b2bf1952ea5b372d0ce2c25b564ea397924",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "c3635ad5c68a0564312b1da7f01fed9763e1a8077b6c347feac7c0f49f8f2706"
+      }
+    },
+    "outdoor/camera:景別構圖-framing:中景鏡頭-medium-shot:6": {
+      "draws": 1,
+      "selection": "6784d906f162ef6845bb364f5bec6fe15ce4f8094627cb1e130549f421a0bf72",
+      "structured": "9aceb6a392e157db98f2905831b98ccc4f0a012adcecd8014f548b5a95febb3b",
+      "outputs": {
+        "gpt": "896061c383de4a4ba905acb7e5d556a5c9810dee06954c18cf91651c7af0c9fd",
+        "grok": "4e3d4e92fa500c245b41ba92f93b81b679c2e265b8faa985cbc1ea57e13e4ef8",
+        "ai": "2a62d1b29c2cf148f90fc1b28dd9d85be6aacbc26e7f53046a9b57c7bddc246e",
+        "nano-banana-2.1": "787ba7b6619019cc7242cb6fb2fe336709f6a731e05c6c5eb9d9e6e06cd746d9",
+        "chest-up-portrait": "10cef557470442b757bb9ae0f5067b2bf1952ea5b372d0ce2c25b564ea397924",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "80869eab6988f6c29f3f9267b37e6c4ec1171193f3f3f4475098ce76f67aa150"
+      }
+    },
+    "outdoor/camera:景別構圖-framing:牛仔中景-cowboy-shot:7": {
+      "draws": 1,
+      "selection": "cbc0602e2c50e980aa5a6aabdba4b7233bcbb8192149fc0171beb5f814286709",
+      "structured": "9ae47bd25053cf01beb6011d259aa9437d57c6782555dab49cca9928d023ee67",
+      "outputs": {
+        "gpt": "d021d0fbb5a212f4364ee117d4c5a972e5ca331346f3b50073d5cc9abaa167d6",
+        "grok": "3b060cd57c4da85910f3c6f33a8c426525a9ef3b5255abab2fc553f8bf9b92c6",
+        "ai": "a62cf1ad24746e303b3051448ab34fb35b4cede181fc9e20f1db3b81a2f7dd64",
+        "nano-banana-2.1": "873496f5296fd76f5b1084ca7a90d9aec7bab644910e827ca43c0e661ea91316",
+        "chest-up-portrait": "10cef557470442b757bb9ae0f5067b2bf1952ea5b372d0ce2c25b564ea397924",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "38e8324e886016304049607f46cdd801274ecdb870c3dd7a06af591b7efcca06"
+      }
+    },
+    "outdoor/camera:景別構圖-framing:全身鏡頭-full-body-shot:8": {
+      "draws": 1,
+      "selection": "f706603636e9c21fa752d7fd0d86170081f1f14583857825d494ab9fe0c08874",
+      "structured": "9b97a5fc999b2d3f354414f91ea289a842174420bcf0522485234681d78edb40",
+      "outputs": {
+        "gpt": "bfccc39a3b074a2be9521a4002e536e1900830543d740c908d3b037fd6aabc55",
+        "grok": "4dc9faeb68844b95f2e348e0f78465caab93acccc1b27f473bdab491ce71b59c",
+        "ai": "6aecf3e7126305e5b7a94a1e31d3dba773437c2ef4c01515d62bf58c559835d0",
+        "nano-banana-2.1": "dd5c55d1b344c186284402f1effbc942bf0945864505d70eb04183323bfca4fc",
+        "chest-up-portrait": "10cef557470442b757bb9ae0f5067b2bf1952ea5b372d0ce2c25b564ea397924",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "fbc9d8e65e7110729c22525d1cae3aedc32b86488c245d4564a4ba21c6e881eb"
+      }
+    },
+    "outdoor/camera:景別構圖-framing:全臉傾斜特寫:9": {
+      "draws": 2,
+      "selection": "74e581b0be91b7df13646b19ce0200eeb12621d02645c4f106282bceaf258542",
+      "structured": "0c3ae4a487acd89577b8359c25062263d5a0a64d7d00b1c11f05be7f848c4823",
+      "outputs": {
+        "gpt": "e119b28c434bdd6efff18751249598974fc30c2c7955db9720143f24712019c7",
+        "grok": "f21070f5470c7eb2fc90d3f17e42fd6a316a540581c3e56f3d8d897eddfc53dc",
+        "ai": "eeb3a8104f7f32d6faad85bcb7c8f928f3ae0a6b5158983db8894502cb4fd333",
+        "nano-banana-2.1": "3da0adce3b05cd3a9718960e497795fdd486cd3112a1f29240d68675ebe9e930",
+        "chest-up-portrait": "10cef557470442b757bb9ae0f5067b2bf1952ea5b372d0ce2c25b564ea397924",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "08e7e326e36b9fa06f0edfe36d3f2a57711c412fb8a4120818130d2c7f413f1b"
+      }
+    },
+    "outdoor/camera:景別構圖-framing:頭部主導近景:10": {
+      "draws": 1,
+      "selection": "bbd7d87c6c65269ecbbad0a46642d7e7cceba2030edcc78186b9cd5999fc3152",
+      "structured": "3a93f9e716226db704eed564644413b2316c1b223a721967076cae8275d3d6ef",
+      "outputs": {
+        "gpt": "adf72aae2b0f3ec7e388ca1d62bc73cf71aa31e310051ab99b24275e76343c5c",
+        "grok": "ba569412345295f14d90b0aa48a683f0046b1a8b0d883496e2ec75903ad963e3",
+        "ai": "7f76f669f72adab8e1f4467e001a7249a9eb21a74a390e604bc84e693a0601e1",
+        "nano-banana-2.1": "9f826c2b2f62a44d5e6aa17566d6385690f813a735ddb382a2c161100f3fa26c",
+        "chest-up-portrait": "10cef557470442b757bb9ae0f5067b2bf1952ea5b372d0ce2c25b564ea397924",
+        "full-body-character": "1b32c90f0caca3d09c939b1dd6c5c093c0ccd963ca23b68f871813b0e42da867",
+        "grok-imagine": "700f6cdcbf8e1cfc541da726b2aa194eadd1bdf4d84a09a4fc28d65d348c81c9"
+      }
+    }
+  }
+}
