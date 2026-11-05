@@ -2,7 +2,13 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-11-04
+Last updated: 2026-11-05
+
+## 一般單人室內坐姿支撐（2026-11-05）
+
+- D 區一般場景的「坐在哪裡」依所選室內地點與 B 區指定坐姿提供單選。首版 83 個地點、10 個可換坐具動作與 4 個固定地面動作；區分床邊／床上，在兩個和室以榻榻米表示地板。場景原文與舊 poseAnchorId 各自沿用原契約。
+- Grok Imagine 保留完整坐姿；其他輸出依原姿勢投影與全身角色照契約呈現。有效選值可由收藏、Markdown 與 ZIP 帶回；舊卡缺少坐具時視為未指定。
+- [規格](specs/indoor-seating-v1.md)與[驗收紀錄](reports/indoor-seating-2026-11-05/README.md)包含相容表、固定案例及桌面／手機畫面。尚未進行外部模型生圖驗收。
 
 ## 六組構圖景別整合版：交付授權（2026-11-04）
 

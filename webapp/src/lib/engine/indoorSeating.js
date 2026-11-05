@@ -32,22 +32,24 @@ export const isIndoorSeatId = id => typeof id === 'string' && Object.hasOwn(seat
 
 /** Only explicit location/action locks own a seating decision. Random results are never input here. */
 export function indoorSeatingModel(locks, location, cameraControls = []) {
-  if (!location || locks.locationId !== location.id || !Object.hasOwn(sceneSeats, location.id)
+  if (!location || locks.locationId !== location.id
       || locks.subjectCount !== '1' || locks.captureMode === 'observation'
       || active(locks.fixedCompositionSetId) || active(locks.importedWorldSceneMode)
       || active(locks.characterProfileId) || active(locks.specialSubjectId) || active(locks.actionPoseCardId)) return null;
+  const scene = Object.hasOwn(sceneSeats, location.id) ? sceneSeats[location.id] : null;
+  // An unreviewed indoor location can show the control without inventing furniture.
+  if (!scene && !(location.zh?.startsWith('室內') || (!location.zh?.startsWith('戶外') && location.meta?.tags?.includes('indoor')))) return null;
   const action = getSpecifiedAction(locks, { cameraControls });
   const tatami = location.lyingSurface?.type === 'tatami';
-  const scene = sceneSeats[location.id];
   if (grounded.has(action?.id)) {
     // A close bed surface has no floor in this scene. Keep the original pose and explain the conflict.
-    const bedOnly = scene.every(id => id === 'bed-edge' || id === 'bed-top');
+    const bedOnly = scene?.every(id => id === 'bed-edge' || id === 'bed-top');
     return { mode: 'ground', action, bedOnly, groundLabel: tatami ? '榻榻米' : '地面',
-      phrase: bedOnly ? '' : tatami ? 'on the tatami floor' : 'on the floor' };
+      phrase: !scene || bedOnly ? '' : tatami ? 'on the tatami floor' : 'on the floor' };
   }
   const compatible = actionSeats[action?.id];
   if (!compatible) return { mode: 'pending' };
-  const options = scene.filter(id => compatible.includes(id)).map(id => {
+  const options = (scene || []).filter(id => compatible.includes(id)).map(id => {
     const [label, phrase] = seats[id];
     return id === 'floor' && tatami ? {id, label:'榻榻米', phrase:'on the tatami floor'} : {id, label, phrase};
   });

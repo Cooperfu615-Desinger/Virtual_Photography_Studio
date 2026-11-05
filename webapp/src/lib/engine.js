@@ -3371,8 +3371,6 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
     if (!LOCK_KEYS.has(key)) return;
     normalized[key] = value;
   });
-  // Keep this opt-in lock sparse for old cards and immutable selection snapshots.
-  if (isIndoorSeatId(rawLocks.indoorSeatId)) normalized.indoorSeatId = rawLocks.indoorSeatId;
   normalized.captureMode = rawLocks.captureMode === 'observation' ? 'observation' : 'standard';
   normalized.observationCapture = rawLocks.observationCapture ? normalizeCaptureProfile(rawLocks.observationCapture) : null;
   normalized.specifiedActionSceneRestore = normalizeSpecifiedActionSceneRestore(normalized.specifiedActionSceneRestore);
@@ -3523,6 +3521,13 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
     for (const key of [...CAPTURE_OWNED_KEYS, 'specifiedActionSceneRestore']) {
       if (key in rawLocks) normalizedWithLegacyColors[key] = rawLocks[key];
     }
+  }
+  if (isIndoorSeatId(rawLocks.indoorSeatId)) {
+    const location = getControlOptionById(controls, 'locationId', normalizedWithLegacyColors.locationId);
+    const choice = { ...normalizedWithLegacyColors, indoorSeatId: rawLocks.indoorSeatId };
+    // Capture temporarily owns the pose; preserve the manual lock while it is dormant.
+    if (choice.captureMode === 'observation' || indoorSeatingModel(choice, location, controls)?.selectedId)
+      normalizedWithLegacyColors.indoorSeatId = rawLocks.indoorSeatId;
   }
   return normalizeAccessoryConflicts(normalizedWithLegacyColors, controls);
 }

@@ -1,0 +1,40 @@
+[
+  {
+    "width": 1440,
+    "views": [
+      "角色建模",
+      "場景建模",
+      "DLL_PIC Pro",
+      "DLL_VIDEO Pro",
+      "Saved Cards",
+      "Prompt 工作台"
+    ],
+    "choices": [
+      "未指定",
+      "椅子",
+      "桌子",
+      "講台",
+      "地板"
+    ],
+    "errors": []
+  },
+  {
+    "width": 390,
+    "views": [
+      "角色建模",
+      "場景建模",
+      "DLL_PIC Pro",
+      "DLL_VIDEO Pro",
+      "Saved Cards",
+      "Prompt 工作台"
+    ],
+    "choices": [
+      "未指定",
+      "椅子",
+      "桌子",
+      "講台",
+      "地板"
+    ],
+    "errors": []
+  }
+]
