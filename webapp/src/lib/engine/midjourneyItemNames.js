@@ -1,5 +1,6 @@
 // Authored short English names for main MJ only. IDs and long catalog sources stay unchanged.
 export const MIDJOURNEY_ITEM_NAMES = Object.freeze({
+  "wardrobe:套裝-outfit-presets:mai-shiranui-kunoichi": "ninja dress",
   "wardrobe:上身-tops:襯衫:1": "shirt",
   "wardrobe:上身-tops:長版襯衫:2": "longline men's dress shirt",
   "wardrobe:上身-tops:領帶襯衫:3": "collared shirt and necktie",

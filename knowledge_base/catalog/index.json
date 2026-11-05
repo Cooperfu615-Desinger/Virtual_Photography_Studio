@@ -5335,6 +5335,34 @@
           }
         },
         {
+          "id": "wardrobe:套裝-outfit-presets:mai-shiranui-kunoichi",
+          "cells": [
+            "**套裝 (Outfit Presets)**",
+            "",
+            "",
+            ""
+          ],
+          "columns": {
+            "1": "zh",
+            "2": "en",
+            "3": "desc"
+          },
+          "affixes": {
+            "1": [
+              "",
+              ""
+            ],
+            "2": [
+              "`",
+              "`"
+            ],
+            "3": [
+              "",
+              ""
+            ]
+          }
+        },
+        {
           "id": "wardrobe:上身-tops:全無:0",
           "cells": [
             "**上身 (Tops)**",

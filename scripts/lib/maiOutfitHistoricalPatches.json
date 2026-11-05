@@ -1,0 +1,99 @@
+{
+  "base": "358034c5fb0a63c260e504a7960867747e1453eb",
+  "files": [
+    {
+      "path": "knowledge_base/catalog/field_mapping.json",
+      "beforeHash": "569a0a69fd0c568317e8796ca48bf53b716b88d5f2a38766c9e3bb870cd113e8",
+      "afterHash": "704d51464e79b750059271ecbfdf142788920a92a21e37ba7d75b9da65e5e314",
+      "edits": [
+        {
+          "afterLine": 1944,
+          "after": "    },\n    \"meta.referenceImageOptional\": {\n      \"source\": \"catalog record.meta.referenceImageOptional\",\n      \"generated\": \"meta.referenceImageOptional\",\n      \"runtime\": \"meta.referenceImageOptional\",\n      \"categories\": [\n        \"Wardrobe/套裝 (Outfit Presets)\"\n      ],\n      \"policy\": \"Only an explicitly marked outfit may omit a wardrobe reference manifest entry; existing entries and files remain strictly validated.\"\n",
+          "before": ""
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/catalog/schema.json",
+      "beforeHash": "7f2f769c5305ccd2ce94588626807b5b6c52f655d8dce2fd77a81d793329a7a1",
+      "afterHash": "eb175850d52237659fac03bb9783b0d28e406e9e0d553846bc6a9edcfb0c30f1",
+      "edits": [
+        {
+          "afterLine": 345,
+          "after": "                },\n                \"referenceImageOptional\": {\n                  \"type\": \"boolean\"\n",
+          "before": ""
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/catalog/Wardrobe/套裝-outfit-presets.json",
+      "beforeHash": "0870ea554998afce787774082f11618291b351f0de4de6915f875a9cabe2e0c5",
+      "afterHash": "c7c7580f2f842dbe2a1e2600f3ccac739462a2e66e012dcc118cd82273afa169",
+      "edits": [
+        {
+          "afterLine": 1794,
+          "after": "    },\n    {\n      \"id\": \"wardrobe:套裝-outfit-presets:mai-shiranui-kunoichi\",\n      \"legacyIds\": [\n        \"wardrobe:套裝-outfit-presets:套裝-不知火舞風女忍者套裝:59\",\n        \"wardrobe:套裝-outfit-presets:不知火舞風女忍者套裝:59\"\n      ],\n      \"zh\": \"不知火舞風女忍者套裝\",\n      \"en\": \"Mai Shiranui-inspired kunoichi cosplay outfit, sleeveless halter-style ninja dress with a deep plunging V-neckline and wide white trim, fitted waist, long flowing front and back fabric panels with high side slits, delicate white cherry blossom patterns, multicolored braided obi belt with gold accents and hanging tassels, white fluffy rope ornaments around the shoulders, matching fingerless wrist guards with black cuffs, matching traditional ninja footwear with white crisscross straps and black ankle bands, large white ribbon tied behind the waist, silk and satin textures, natural fabric folds and detailed embroidery\",\n      \"desc\": \"以不知火舞風女忍者 cosplay 服裝為主體，包含無袖掛脖深 V 領、白色寬滾邊、合身腰線、前後長垂布與高側開衩；衣料帶白色櫻花圖案，搭配多色編繩腰帶、金色裝飾與流蘇、肩部白色絨感繩飾、無指護腕、交叉綁帶忍者鞋，以及腰後大型白色蝴蝶結。\",\n      \"meta\": {\n        \"referenceImageOptional\": true,\n        \"colorMode\": \"primary\",\n        \"colorTargets\": {\n          \"primary\": [\n            \"main_dress_fabric\"\n          ]\n        },\n        \"semantic\": {\n          \"family\": \"neutral\",\n          \"tags\": []\n        }\n      }\n",
+          "before": ""
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/wardrobe_and_styling.md",
+      "beforeHash": "6998de6a059d617e9de9497de74d3766779ed40bcf95f2808c14a38a4def452a",
+      "afterHash": "0bf28a1adda33e3e7b120337e1e784b85a0b4bb8f8f0987e95dd192adf7023e2",
+      "edits": [
+        {
+          "afterLine": 159,
+          "after": "| **套裝 (Outfit Presets)** | 不知火舞風女忍者套裝 | `Mai Shiranui-inspired kunoichi cosplay outfit, sleeveless halter-style ninja dress with a deep plunging V-neckline and wide white trim, fitted waist, long flowing front and back fabric panels with high side slits, delicate white cherry blossom patterns, multicolored braided obi belt with gold accents and hanging tassels, white fluffy rope ornaments around the shoulders, matching fingerless wrist guards with black cuffs, matching traditional ninja footwear with white crisscross straps and black ankle bands, large white ribbon tied behind the waist, silk and satin textures, natural fabric folds and detailed embroidery` | 以不知火舞風女忍者 cosplay 服裝為主體，包含無袖掛脖深 V 領、白色寬滾邊、合身腰線、前後長垂布與高側開衩；衣料帶白色櫻花圖案，搭配多色編繩腰帶、金色裝飾與流蘇、肩部白色絨感繩飾、無指護腕、交叉綁帶忍者鞋，以及腰後大型白色蝴蝶結。 |\n",
+          "before": ""
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/data/database.json",
+      "beforeHash": "e8ddb1473f3691ebe8bbac8e50f9dba9952d545636ad5e35f9cf6bbe16d37d03",
+      "afterHash": "2c32d392db55478cd443bb2603e2e892a02ed15042d619016c644ccb01c9d0e8",
+      "edits": [
+        {
+          "afterLine": 4539,
+          "after": "        ]\n      },\n      {\n        \"zh\": \"不知火舞風女忍者套裝\",\n        \"en\": \"Mai Shiranui-inspired kunoichi cosplay outfit, sleeveless halter-style ninja dress with a deep plunging V-neckline and wide white trim, fitted waist, long flowing front and back fabric panels with high side slits, delicate white cherry blossom patterns, multicolored braided obi belt with gold accents and hanging tassels, white fluffy rope ornaments around the shoulders, matching fingerless wrist guards with black cuffs, matching traditional ninja footwear with white crisscross straps and black ankle bands, large white ribbon tied behind the waist, silk and satin textures, natural fabric folds and detailed embroidery\",\n        \"desc\": \"以不知火舞風女忍者 cosplay 服裝為主體，包含無袖掛脖深 V 領、白色寬滾邊、合身腰線、前後長垂布與高側開衩；衣料帶白色櫻花圖案，搭配多色編繩腰帶、金色裝飾與流蘇、肩部白色絨感繩飾、無指護腕、交叉綁帶忍者鞋，以及腰後大型白色蝴蝶結。\",\n        \"meta\": {\n          \"referenceImageOptional\": true,\n          \"colorMode\": \"primary\",\n          \"colorTargets\": {\n            \"primary\": [\n              \"main_dress_fabric\"\n            ]\n          },\n          \"semantic\": {\n            \"family\": \"neutral\",\n            \"tags\": []\n          }\n        },\n        \"stableId\": \"wardrobe:套裝-outfit-presets:mai-shiranui-kunoichi\",\n        \"legacyIds\": [\n          \"wardrobe:套裝-outfit-presets:套裝-不知火舞風女忍者套裝:59\",\n          \"wardrobe:套裝-outfit-presets:不知火舞風女忍者套裝:59\"\n",
+          "before": ""
+        }
+      ]
+    },
+    {
+      "path": "scripts/lib/c2SceneOpticsReplay.mjs",
+      "beforeHash": "d5f721ecd64c09749674e10152f74eb74f84deb45c42dbe743a0c8db7ac950f4",
+      "afterHash": "dfae3165138a09b87106becd556fdf44b5740f5cb63960794dfd41addabc099f",
+      "edits": [
+        {
+          "afterLine": 1,
+          "after": "import {maiOutfitHistoricalPaths,preMaiOutfitSource} from './maiOutfitHistoricalReplay.mjs';\n",
+          "before": ""
+        },
+        {
+          "afterLine": 13,
+          "after": " source=preRenderingClassificationSource(path,preMaiOutfitSource(path,source));\n",
+          "before": " source=preRenderingClassificationSource(path,source);\n"
+        },
+        {
+          "afterLine": 24,
+          "after": " for(const path of maiOutfitHistoricalPaths){\n  const p=join(dir,path);if(!existsSync(p)||sources.has(path))continue;\n  assert.ok(!lstatSync(p).isSymbolicLink()&&realpathSync(p).startsWith(realpathSync(dir)+'/'),'C2 scene optics rejects linked source');\n  const current=readFileSync(p),before=preMaiOutfitSource(path,current);\n  if(!current.equals(before))sources.set(path,before);\n }\n const read=f=>preMaiOutfitSource(f.path,classification.sources.get(f.path)??readFileSync(join(dir,f.path)));\n",
+          "before": " const read=f=>classification.sources.get(f.path)??readFileSync(join(dir,f.path));\n"
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/catalogSnapshot.test.js",
+      "beforeHash": "b44d13680e9a5ca8cf0ba54e499d1ba731d7a35736f26d81fb0dbb998a510e80",
+      "afterHash": "545084d9239e6a6546ce660fcb1dcce549733ddc9356c5f94b995dce54085275",
+      "edits": [
+        {
+          "afterLine": 47,
+          "after": "  assert.equal(source.Wardrobe['套裝 (Outfit Presets)'].filter(item => item.stableId === 'wardrobe:套裝-outfit-presets:mai-shiranui-kunoichi').length, 1);\n  assert.equal(originalCount, 1051);\n",
+          "before": "  assert.equal(originalCount, 1050);\n"
+        }
+      ]
+    }
+  ]
+}

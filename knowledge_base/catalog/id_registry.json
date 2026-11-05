@@ -7350,6 +7350,14 @@
       "initialCategory": "特定主題防護 (依需求加入)",
       "createdFrom": "0746b280cc9f5c00daec7dadc73329779ac658e9",
       "status": "frozen"
+    },
+    {
+      "id": "wardrobe:套裝-outfit-presets:mai-shiranui-kunoichi",
+      "initialGroup": "wardrobe",
+      "initialCategory": "套裝 (Outfit Presets)",
+      "createdFrom": "358034c5fb0a63c260e504a7960867747e1453eb",
+      "status": "active",
+      "decisionRef": "Docs/specs/mai-kunoichi-outfit-v1.md"
     }
   ]
 }

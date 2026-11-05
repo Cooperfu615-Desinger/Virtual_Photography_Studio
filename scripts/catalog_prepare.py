@@ -66,10 +66,11 @@ def generated_database(records, manifest):
                 if section == 'Wardrobe' and category in manifest['categories'] and record['zh'] != '全無':
                     group = manifest['categories'][category]
                     matches = [x for x in group['items'] if x['name'] == record['zh']]
-                    if len(matches) != 1:
+                    if len(matches) != 1 and not (not matches and record.get('meta', {}).get('referenceImageOptional') is True):
                         raise ValueError(f'{record["id"]}: manifest must resolve exactly once')
-                    image = matches[0]
-                    raw.setdefault('meta', {}).update({'referenceImageId': image['id'], 'referenceImage': f'reference/wardrobe/{group["directory"]}/{image["preview"]}', 'referenceImageFormat': Path(image['preview']).suffix[1:].lower()})
+                    if matches:
+                        image = matches[0]
+                        raw.setdefault('meta', {}).update({'referenceImageId': image['id'], 'referenceImage': f'reference/wardrobe/{group["directory"]}/{image["preview"]}', 'referenceImageFormat': Path(image['preview']).suffix[1:].lower()})
                 for key, value in record.items():
                     if key not in {'id', 'legacyIds', 'zh', 'en', 'desc', 'inspiration', 'meta'}:
                         raw[key] = copy.deepcopy(value)

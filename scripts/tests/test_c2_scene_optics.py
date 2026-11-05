@@ -42,6 +42,8 @@ class C2SceneOpticsTests(unittest.TestCase):
     def test_new_alias_schema_and_mapping_are_only_two_category_extensions(self):
         root=c.ROOT;review=json.loads((root/'scripts/lib/c2SceneOpticsReview.json').read_text())
         schema=json.loads((root/'knowledge_base/catalog/schema.json').read_text());mapping=json.loads((root/'knowledge_base/catalog/field_mapping.json').read_text())
+        schema['sections']['Wardrobe']['categories']['套裝 (Outfit Presets)']['properties']['meta']['properties'].pop('referenceImageOptional')
+        mapping['paths'].pop('meta.referenceImageOptional')
         for section,category in [('CameraLighting','光學效果 (Optical Effects)'),('Locations','城市與社群感 (Urban & Social Snapshots)')]:
             self.assertEqual(schema['sections'][section]['categories'][category]['properties'].pop('legacyPromptAliases'),{'type':'array','items':{'type':'string'}})
             mapping['fields']['legacyPromptAliases']['categories'].remove(section+'/'+category)

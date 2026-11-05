@@ -16,7 +16,24 @@ def historical_policy_context():
     root = diagnostic.ROOT
     patches = json.loads((root/'scripts/lib/c2RenderingClassificationPatches.json').read_text())
     for item in patches['files']:
-        current = hashlib.sha256((root/item['path']).read_bytes()).hexdigest()
+        data = (root/item['path']).read_bytes()
+        if item['path'] == 'scripts/tests/test_c2_scene_optics.py' and hashlib.sha256(data).hexdigest() == '8ca995ad86683aa4a3302004e3a78f211393c954620a855b90d32ba375a3f35c':
+            data = data.replace("        schema['sections']['Wardrobe']['categories']['套裝 (Outfit Presets)']['properties']['meta']['properties'].pop('referenceImageOptional')\n".encode(), b'').replace("        mapping['paths'].pop('meta.referenceImageOptional')\n".encode(), b'')
+        if item['path'] == 'scripts/lib/c2SceneOpticsReplay.mjs':
+            outfit_patches = json.loads((root/'scripts/lib/maiOutfitHistoricalPatches.json').read_text())
+            patch = next(p for p in outfit_patches['files'] if p['path'] == item['path'])
+            if hashlib.sha256(data).hexdigest() == patch['afterHash']:
+                lines = data.decode().splitlines(keepends=True)
+                for edit in reversed(patch['edits']):
+                    count = len(edit['after'].splitlines(keepends=True))
+                    start = edit['afterLine']
+                    if ''.join(lines[start:start+count]) != edit['after']:
+                        raise ValueError('Outfit historical fragment differs')
+                    lines[start:start+count] = [edit['before']]
+                data = ''.join(lines).encode()
+                if hashlib.sha256(data).hexdigest() != patch['beforeHash']:
+                    raise ValueError('Outfit history differs from main source')
+        current = hashlib.sha256(data).hexdigest()
         if current not in (item['beforeHash'], item['afterHash']):
             raise ValueError('Unknown or mixed classification history: '+item['path'])
         original = subprocess.check_output(['git', '-C', str(root), 'show', patches['base']+':'+item['path']])

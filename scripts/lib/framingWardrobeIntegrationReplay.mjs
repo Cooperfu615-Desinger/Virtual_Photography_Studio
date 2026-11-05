@@ -1,5 +1,6 @@
 // Test-only exact inverse for integration with the reviewed main baseline.
 import { preGrokImagineSource } from './grokImagineHistoricalReplay.mjs';
+import { preMaiOutfitSource } from './maiOutfitHistoricalReplay.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync, realpathSync, existsSync, lstatSync } from 'node:fs';
@@ -34,6 +35,13 @@ export function preparePreFramingWardrobeFiles(directory) {
   assert.notEqual(resolved, realpathSync(root), 'Framing inverse requires isolated copy');
   assert.ok(!existsSync(join(directory, '.git')), 'Framing inverse rejects Git checkout');
   const sources = new Map();
+  const databasePath = 'webapp/src/data/database.json';
+  const database = join(directory, databasePath);
+  if (existsSync(database)) {
+    assert.ok(!lstatSync(database).isSymbolicLink() && realpathSync(database).startsWith(resolved + '/'), 'Framing inverse rejects linked source');
+    const current = readFileSync(database), before = preMaiOutfitSource(databasePath, current);
+    if (!current.equals(before)) sources.set(databasePath, before);
+  }
   for (const item of review.files) {
     const path = join(directory, item.path);
     if (!existsSync(path)) continue;

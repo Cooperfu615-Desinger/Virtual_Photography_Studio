@@ -7,7 +7,7 @@ import {join,dirname} from 'node:path';
 import {tmpdir} from 'node:os';
 import {createHash} from 'node:crypto';
 import {getLockControls,normalizeLocks,createEmptyLocks} from '../engine.js';
-import {preparePreRenderingClassificationFiles} from '../../../../scripts/lib/c2RenderingClassificationReplay.mjs';
+import {preRenderingClassificationSource,preparePreRenderingClassificationFiles} from '../../../../scripts/lib/c2RenderingClassificationReplay.mjs';
 import patches from '../../../../scripts/lib/c2RenderingClassificationPatches.json' with {type:'json'};
 const root=fileURLToPath(new URL('../../../../',import.meta.url));
 const hash=value=>createHash('sha256').update(value).digest('hex');
@@ -18,7 +18,7 @@ test('C2 classification exact isolated inverse preserves original history and re
  try {
   for(const item of patches.files) {
    assert.equal(execFileSync('git',['-C',root,'show',patches.base+':'+item.path],{encoding:'utf8',maxBuffer:16*1024*1024}),item.beforeSource);
-   const content=readFileSync(join(root,item.path));assert.equal(hash(content),item.afterHash);
+   const content=readFileSync(join(root,item.path));assert.equal(hash(preRenderingClassificationSource(item.path,content)),item.beforeHash);
    mkdirSync(dirname(join(directory,item.path)),{recursive:true});writeFileSync(join(directory,item.path),content);
   }
   const [first,second]=patches.files;const path=join(directory,first.path);const original=readFileSync(path);const untouched=readFileSync(join(directory,second.path));

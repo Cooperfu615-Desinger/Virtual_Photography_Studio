@@ -48,9 +48,12 @@ class FormalSourceTests(unittest.TestCase):
         return {str(p.relative_to(self.root)): hashlib.sha256(p.read_bytes()).hexdigest() for p in self.root.rglob('*') if p.is_file()}
 
     def test_real_source_metadata_management_files_and_order(self):
-        self.assertEqual(sum(len(rs) for cs in self.records.values() for rs in cs.values()), 1050)
+        entries = [row for cs in self.records.values() for rows in cs.values() for row in rows]
+        added = [row for row in entries if row['id'] == 'wardrobe:套裝-outfit-presets:mai-shiranui-kunoichi']
+        self.assertEqual(len(added), 1)
+        self.assertEqual(len(entries) - len(added), 1050)
         outputs, proof = sync.build_outputs(self.base)
-        self.assertEqual(len(outputs), 8); self.assertEqual(proof['historicalIds'], 1050)
+        self.assertEqual(len(outputs), 8); self.assertEqual(proof['historicalIds'], len(entries))
         self.assertEqual(list(self.records), list(sync.FILES_TO_SYNC.values()))
         self.assertTrue(any(row.get('outerwearFastenerRequirement') == '' for cs in self.records.values() for rs in cs.values() for row in rs))
 

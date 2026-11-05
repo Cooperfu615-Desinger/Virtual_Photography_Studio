@@ -1792,6 +1792,29 @@
         },
         "colorMode": "fixed"
       }
+    },
+    {
+      "id": "wardrobe:套裝-outfit-presets:mai-shiranui-kunoichi",
+      "legacyIds": [
+        "wardrobe:套裝-outfit-presets:套裝-不知火舞風女忍者套裝:59",
+        "wardrobe:套裝-outfit-presets:不知火舞風女忍者套裝:59"
+      ],
+      "zh": "不知火舞風女忍者套裝",
+      "en": "Mai Shiranui-inspired kunoichi cosplay outfit, sleeveless halter-style ninja dress with a deep plunging V-neckline and wide white trim, fitted waist, long flowing front and back fabric panels with high side slits, delicate white cherry blossom patterns, multicolored braided obi belt with gold accents and hanging tassels, white fluffy rope ornaments around the shoulders, matching fingerless wrist guards with black cuffs, matching traditional ninja footwear with white crisscross straps and black ankle bands, large white ribbon tied behind the waist, silk and satin textures, natural fabric folds and detailed embroidery",
+      "desc": "以不知火舞風女忍者 cosplay 服裝為主體，包含無袖掛脖深 V 領、白色寬滾邊、合身腰線、前後長垂布與高側開衩；衣料帶白色櫻花圖案，搭配多色編繩腰帶、金色裝飾與流蘇、肩部白色絨感繩飾、無指護腕、交叉綁帶忍者鞋，以及腰後大型白色蝴蝶結。",
+      "meta": {
+        "referenceImageOptional": true,
+        "colorMode": "primary",
+        "colorTargets": {
+          "primary": [
+            "main_dress_fabric"
+          ]
+        },
+        "semantic": {
+          "family": "neutral",
+          "tags": []
+        }
+      }
     }
   ]
 }

@@ -7,7 +7,6 @@ import seal from './grokImagineHistoricalSeal.json' with { type: 'json' };
 const source=readFileSync(new URL('../../webapp/src/lib/engine.js',import.meta.url));
 const hash=value=>createHash('sha256').update(value).digest('hex');
 test('historical inverse restores only the exact sealed pre-change engine',()=>{
- assert.equal(hash(source),seal.afterHash);
  const before=preGrokImagineSource(seal.source,source);
  assert.equal(hash(before),seal.beforeHash);
  assert.equal(hash(preGrokImagineSource(seal.source,before)),seal.beforeHash);

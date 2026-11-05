@@ -1,4 +1,5 @@
 import {preRenderingClassificationSource,preparePreRenderingClassificationFiles} from './c2RenderingClassificationReplay.mjs';
+import {maiOutfitHistoricalPaths,preMaiOutfitSource} from './maiOutfitHistoricalReplay.mjs';
 // Exact test-only inverse; reject checkouts and unknown or incomplete trees.
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync,realpathSync,existsSync,mkdtempSync,mkdirSync,cpSync,symlinkSync,rmSync,lstatSync} from 'node:fs';
@@ -10,7 +11,7 @@ import patches from './c2SceneOpticsPatches.json' with {type:'json'};
 export const C2_SCENE_OPTICS_ROOT=fileURLToPath(new URL('../../',import.meta.url));
 const hash=x=>createHash('sha256').update(x).digest('hex');
 export function preC2SceneOpticsSource(path,source){
- source=preRenderingClassificationSource(path,source);
+ source=preRenderingClassificationSource(path,preMaiOutfitSource(path,source));
  const f=patches.files.find(f=>f.path===path);if(!f)return source;
  if(hash(source)!==f.afterHash)return source;
  assert.equal(hash(f.beforeSource),f.beforeHash,'C2 scene optics corrupt oracle');
@@ -21,7 +22,13 @@ export function preparePreC2SceneOpticsFiles(dir){
  assert.ok(!existsSync(join(dir,'.git')),'C2 scene optics rejects Git checkout');
  const classification=preparePreRenderingClassificationFiles(dir);
  const present=patches.files.filter(f=>existsSync(join(dir,f.path))),sources=new Map(classification.sources);
- const read=f=>classification.sources.get(f.path)??readFileSync(join(dir,f.path));
+ for(const path of maiOutfitHistoricalPaths){
+  const p=join(dir,path);if(!existsSync(p)||sources.has(path))continue;
+  assert.ok(!lstatSync(p).isSymbolicLink()&&realpathSync(p).startsWith(realpathSync(dir)+'/'),'C2 scene optics rejects linked source');
+  const current=readFileSync(p),before=preMaiOutfitSource(path,current);
+  if(!current.equals(before))sources.set(path,before);
+ }
+ const read=f=>preMaiOutfitSource(f.path,classification.sources.get(f.path)??readFileSync(join(dir,f.path)));
  for(const f of present){const p=join(dir,f.path);assert.ok(!lstatSync(p).isSymbolicLink()&&realpathSync(p).startsWith(realpathSync(dir)+'/'),'C2 scene optics rejects linked source');}
  if(present.some(f=>hash(read(f))===f.afterHash)){
   // Some historical consumers deliberately copy only runtime files.

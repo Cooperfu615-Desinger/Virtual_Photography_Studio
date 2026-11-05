@@ -196,9 +196,10 @@ def merge_wardrobe_reference_images(grouped_data, manifest):
         items_by_name = {item['zh']: item for item in items}
         manifest_names = {entry['name'] for entry in entries}
         item_names = set(items_by_name)
-        if item_names != manifest_names:
-            missing = sorted(item_names - manifest_names)
-            unexpected = sorted(manifest_names - item_names)
+        optional_names = {item['zh'] for item in items if item.get('meta', {}).get('referenceImageOptional') is True}
+        missing = sorted(item_names - manifest_names - optional_names)
+        unexpected = sorted(manifest_names - item_names)
+        if missing or unexpected:
             raise SyncValidationError(
                 f'Wardrobe reference manifest mismatch for {category}; '
                 f'missing={missing}, unexpected={unexpected}'

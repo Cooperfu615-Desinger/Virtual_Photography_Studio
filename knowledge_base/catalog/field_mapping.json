@@ -1942,6 +1942,15 @@
         "Wardrobe/套裝 (Outfit Presets)"
       ],
       "policy": "A2 第二批審查的舊解析配色責任；保留順序、原目標文字與材質色省略規則，不輸出選擇控制語。"
+    },
+    "meta.referenceImageOptional": {
+      "source": "catalog record.meta.referenceImageOptional",
+      "generated": "meta.referenceImageOptional",
+      "runtime": "meta.referenceImageOptional",
+      "categories": [
+        "Wardrobe/套裝 (Outfit Presets)"
+      ],
+      "policy": "Only an explicitly marked outfit may omit a wardrobe reference manifest entry; existing entries and files remain strictly validated."
     }
   },
   "overwriteOrder": [

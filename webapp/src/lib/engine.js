@@ -2642,6 +2642,7 @@ function formatWardrobeOptionDisplayName(category, rawZh) {
   if (!rawZh || rawZh === '全無') return rawZh || '';
 
   if (category === '套裝 (Outfit Presets)') {
+    if (rawZh === '不知火舞風女忍者套裝') return `套裝：${rawZh}`;
     const name = stripLeadingColorWords(rawZh)
       .replace(/套裝$/g, '')
       .replace(/造型$/g, '')

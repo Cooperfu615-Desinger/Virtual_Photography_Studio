@@ -8,6 +8,14 @@ const hash = value => createHash('sha256').update(value).digest('hex');
 
 export function preGrokImagineSource(path, source) {
   if (path !== seal.source) return source;
+  // The outfit's display-name exception is later than the sealed Grok change.
+  // Accept only its exact reviewed bytes, then replay the original seal.
+  if (hash(source) === '0727139c62bb897a5916aa1d33ffd2b7b2f887c56224a07d4638f91f89751753') {
+    const line = "    if (rawZh === '不知火舞風女忍者套裝') return `套裝：${rawZh}`;\n";
+    const original = source.toString().replace(line, '');
+    assert.equal(hash(original), seal.afterHash, 'Outfit inverse must restore sealed Grok engine');
+    source = Buffer.isBuffer(source) ? Buffer.from(original) : original;
+  }
   const digest = hash(source);
   if (digest === seal.afterHash) {
     const before = gunzipSync(readFileSync(new URL('./grokImaginePrechangeEngine.gz', import.meta.url)));
