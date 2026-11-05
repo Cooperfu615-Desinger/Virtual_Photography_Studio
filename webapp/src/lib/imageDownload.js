@@ -7,6 +7,7 @@ const MIME_TYPE_EXTENSIONS = {
   'image/jpg': 'jpg',
   'image/png': 'png',
   'image/webp': 'webp',
+  'image/svg+xml': 'svg',
 };
 
 function normalizeExtension(extension = '') {

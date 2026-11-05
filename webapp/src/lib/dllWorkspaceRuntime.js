@@ -1,3 +1,4 @@
+import { assertSafeSvg } from './svgSafety.js';
 import { createDllWorkspaceController } from './dllWorkspaceController.js';
 import { generateOpenAISequence } from './openaiImageSequence.js';
 import { dllWorkspaceStorage, configureDllAcceptanceStorage } from './dllWorkspaceStorage.js';
@@ -17,11 +18,13 @@ export async function preserveDllImage(image) {
     blob = await (await fetch(response.src)).blob();
   }
   if (!blob.type.startsWith('image/') || blob.size > 40 * 1024 * 1024) throw new Error('圖片無法保存在本機，請先下載原圖');
+  if (blob.type === 'image/svg+xml') assertSafeSvg(await blob.text());
   const src = await new Promise((resolve, reject) => {
     const reader = new FileReader(); reader.onload = () => resolve(reader.result); reader.onerror = reject; reader.readAsDataURL(blob);
   });
-  const bitmap = await createImageBitmap(blob);
-  const dimensions = { width: bitmap.width, height: bitmap.height }; bitmap.close();
+  let dimensions;
+  try { const bitmap = await createImageBitmap(blob); dimensions = { width: bitmap.width, height: bitmap.height }; bitmap.close(); }
+  catch { dimensions = await new Promise((resolve, reject) => { const img = new Image(); img.onload = () => resolve({ width: img.naturalWidth, height: img.naturalHeight }); img.onerror = () => reject(new Error('圖片格式無法預覽，請確認生成結果')); img.src = src; }); }
   return { ...image, ...dimensions, src, expiresAt: null };
 }
 const isComfy = task => task.snapshot.kind === 'upscale' || task.snapshot.legacy || getDllPicModelConfig(task.snapshot.modelKey).provider === 'comfyCloud';

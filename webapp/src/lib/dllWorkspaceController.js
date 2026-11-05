@@ -1,3 +1,4 @@
+import { isOpenAI26, openAI26Settings } from './openaiImage26.js';
 import { getDllPicLoraSettings } from './dllPicProClient.js';
 
 export const DLL_TASK_LABELS = {
@@ -18,6 +19,7 @@ export function generationSnapshot(input) {
   if (modelKey === 'openaiImage2' && !['low', 'medium', 'high'].includes(quality)) throw new Error('不支援的畫質');
   return structuredClone({ modelKey, prompt, aspectRatio, resolution, count: Number(count), seed,
     ...(modelKey === 'openaiImage2' ? { quality } : {}),
+    ...(kind === 'generate' && isOpenAI26(modelKey) ? openAI26Settings(input) : {}),
     ...(modelKey === 'comfyKrea3' ? { thinkingMode: input.thinkingMode ?? 'fast' } : {}),
     ...(kind === 'generate' ? getDllPicLoraSettings(modelKey, input.loraStrength) : {}),
     sourceId, sourceLabel, workspace, lockAspectRatio, kind, parentId, sourceImage, scale });

@@ -29,7 +29,9 @@ export const DLL_PIC_STORAGE_KEYS = {
 };
 
 export const DLL_PIC_MODEL_CONFIG = {
-  openaiImage2: { label: 'OpenAI · GPT Image 2', provider: 'openai', generationModel: 'gpt-image-2', usesServerProxy: true, supportsResolution: true, defaultResolution: '1k', resolutionOptions: ['1k', '2k'], aspectRatios: ['1:1', '4:3', '3:4', '16:9', '9:16', '4:5'] },
+  openaiImage2: { label: 'OpenAI · GPT Image 2', provider: 'openai', generationModel: 'gpt-image-2', usesServerProxy: true, supportsResolution: true, defaultResolution: '1k', resolutionOptions: ['1k', '2k'], hidden: true, aspectRatios: ['1:1', '4:3', '3:4', '16:9', '9:16', '4:5'] },
+  openaiImage26Flare: { label: 'OpenAI · GPT Image 2.6 Flare', provider: 'openai', generationModel: 'gpt-image-2.6-flare', usesServerProxy: true, supportsResolution: true, defaultResolution: '1k', resolutionOptions: ['1k', '2k', 'auto', 'custom'], aspectRatios: ['1:1', '4:3', '3:4', '16:9', '9:16', '4:5'] },
+  openaiImage26Sunburst: { label: 'OpenAI · GPT Image 2.6 Sunburst', provider: 'openai', generationModel: 'gpt-image-2.6-sunburst', usesServerProxy: true, supportsResolution: true, defaultResolution: '1k', resolutionOptions: ['1k', '2k', 'auto', 'custom'], aspectRatios: ['1:1', '4:3', '3:4', '16:9', '9:16', '4:5'] },
   google: {
     label: 'Google Gemini',
     provider: 'google',
@@ -204,6 +206,8 @@ export const DLL_PIC_RESOLUTIONS = [
   { value: '2k', label: '2K' },
   { value: '3k', label: '3K' },
   { value: '4k', label: '4K' },
+  { value: 'auto', label: '自動' },
+  { value: 'custom', label: '自訂尺寸' },
 ];
 
 const DEFAULT_DLL_PIC_RESOLUTION_VALUES = ['1k', '2k'];
@@ -301,6 +305,7 @@ export function getDllPicModelConfig(modelKey) {
 }
 
 export function normalizeDllPicModelKey(modelKey, fallback = 'google31FlashLiteImage') {
+  if (modelKey === 'openaiImage2') return 'openaiImage26Flare';
   if (modelKey === 'grok') return 'xaiGrokImagineQuality';
   const modelConfig = DLL_PIC_MODEL_CONFIG[modelKey];
   if (modelConfig?.redirectModelKey) return modelConfig.redirectModelKey;

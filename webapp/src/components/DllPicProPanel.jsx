@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import { ImagePlus, ListPlus, Pin } from 'lucide-react';
 import { dllWorkspace, openDllWorkspace, DLL_LOCAL_ACCEPTANCE } from '../lib/dllWorkspaceRuntime.js';
 import '../styles/generation.css';
+import OpenAI26Controls from './OpenAI26Controls.jsx';
+import { isOpenAI26, openAI26Settings, OPENAI_26_DEFAULTS } from '../lib/openaiImage26.js';
 import ComfyQuotaPanel from './ComfyQuotaPanel.jsx';
 import { openVideoWorkspace } from '../lib/comfyVideoClient.js';
 import {
@@ -141,7 +143,7 @@ export default function DllPicProPanel({
   const initialSourceId = defaultSourceId || availableSources[0]?.id || promptSources[0]?.id || '';
   const shared = useSyncExternalStore(dllWorkspace.subscribe, dllWorkspace.getSnapshot);
   const sharedTask = [...shared.tasks].reverse().find(task => full ? task.id === shared.selected : task.snapshot.workspace === workspaceId);
-  const [modelKey, setModelKey] = useState(() => initialSettings.modelKey || loadStoredModelKey());
+  const [modelKey, setModelKey] = useState(() => normalizeDllPicModelKey(initialSettings.modelKey || loadStoredModelKey()));
   const [custom, setCustom] = useState(Boolean(initialSettings.custom));
   const [customPrompt, setCustomPrompt] = useState(initialSettings.customPrompt || '');
   const [seed, setSeed] = useState(initialSettings.seed ?? '');
@@ -157,6 +159,7 @@ export default function DllPicProPanel({
   ));
   const [count, setCount] = useState(initialSettings.count || 1);
   const [quality, setQuality] = useState(initialSettings.quality || 'medium');
+  const [openaiSettings, setOpenaiSettings] = useState(() => ({ ...OPENAI_26_DEFAULTS, ...Object.fromEntries(Object.keys(OPENAI_26_DEFAULTS).filter(key => initialSettings[key] !== undefined).map(key => [key, initialSettings[key]])) }));
   const [thinkingMode, setThinkingMode] = useState(initialSettings.thinkingMode || 'fast');
   const comfyPending = DLL_LOCAL_ACCEPTANCE ? null : readComfyPending();
   const images = sharedTask?.images || loadDevPreviewImages();
@@ -168,6 +171,9 @@ export default function DllPicProPanel({
   const [message, setMessage] = useState(() => (loadDevPreviewImages().length ? '已套用本地預覽圖' : ''));
 
   const activeModel = getDllPicModelConfig(modelKey);
+  const is26 = isOpenAI26(modelKey);
+  let openaiError = '';
+  try { if (is26) openAI26Settings({ ...openaiSettings, quality, resolution }); } catch (error) { openaiError = error.message; }
   const loraSelection = getDllPicLoraSelection(modelKey);
   const loraLabel = loraSelection.label || 'MOSS LoRA';
   let loraSettings = {};
@@ -197,13 +203,14 @@ export default function DllPicProPanel({
     promptSources.find((source) => source.id === selectedSourceId) || availableSources[0] || promptSources[0] || null
   ), [availableSources, promptSources, selectedSourceId]);
   const selectedPrompt = full && custom ? customPrompt : selectedSource?.value || '';
-  const snapshot = () => ({ modelKey, ...getDllPicLoraSettings(modelKey, loraStrength), prompt: selectedPrompt, aspectRatio, resolution: activeResolution, count, quality, thinkingMode,
+  const snapshot = () => ({ modelKey, ...getDllPicLoraSettings(modelKey, loraStrength), prompt: selectedPrompt, aspectRatio, resolution: activeResolution, count, quality, thinkingMode, ...(is26 ? openAI26Settings({ ...openaiSettings, quality, resolution: activeResolution }) : {}),
     seed: full && activeModel.provider === 'comfyCloud' ? seed : '', sourceId: custom ? 'custom' : selectedSource?.id,
     sourceLabel: custom ? '自訂' : selectedSource?.label, workspace: workspaceId, lockAspectRatio: Boolean(selectedSource?.lockAspectRatio) });
-  const draftSignature = JSON.stringify({ sources: promptSources, modelKey, loraStrength, selectedSourceId, aspectRatio, resolution: activeResolution, count, quality, thinkingMode, custom, customPrompt, seed, workspaceId });
+  const draftSignature = JSON.stringify({ sources: promptSources, modelKey, loraStrength, selectedSourceId, aspectRatio, resolution: activeResolution, count, thinkingMode, ...(is26 ? openaiSettings : {}), quality, custom, customPrompt, seed, workspaceId });
   useEffect(() => { if (full && shared.ready) dllWorkspace.draft(JSON.parse(draftSignature)); }, [full, shared.ready, draftSignature]);
   const isAspectRatioLocked = Boolean(selectedSource?.lockAspectRatio && selectedSource?.aspectRatio);
   const isAspectRatioSupported = isDllPicAspectRatioSupported(modelKey, aspectRatio);
+  const invalidLockedSize = is26 && isAspectRatioLocked && (['auto', 'custom'].includes(activeResolution) || openaiSettings.outputFormat === 'gif');
   const activeApiKey = getDllPicApiKeyForModel(modelKey, apiKeys);
   const canGenerate = Boolean(
     (DLL_LOCAL_ACCEPTANCE || activeModel.usesServerProxy || activeApiKey)
@@ -211,6 +218,8 @@ export default function DllPicProPanel({
     && activeModel.generationModel
     && isAspectRatioSupported
     && !loraError
+    && !openaiError
+    && !invalidLockedSize
     && shared.ready
     && !isGenerating
     && !(activeModel.provider === 'comfyCloud' && comfyPending)
@@ -360,7 +369,7 @@ export default function DllPicProPanel({
           <div className="control-section-title">{title}</div>
         </div>
         <div className="dll-pic-header-actions">
-          {!full && <button type="button" className="secondary" onClick={() => openDllWorkspace({ sources: fullWorkspacePromptSources ?? promptSources, settings: { modelKey, loraStrength, selectedSourceId, aspectRatio, resolution: activeResolution, count, quality, thinkingMode }, workspaceId, taskId: sharedTask?.id })}>開啟完整版</button>}
+          {!full && <button type="button" className="secondary" onClick={() => openDllWorkspace({ sources: fullWorkspacePromptSources ?? promptSources, settings: { modelKey, loraStrength, selectedSourceId, aspectRatio, resolution: activeResolution, count, thinkingMode, ...openaiSettings, quality }, workspaceId, taskId: sharedTask?.id })}>開啟完整版</button>}
           <button className="secondary dll-pic-api-settings-btn" type="button" onClick={openApiKeyModal}>
             API Keys
           </button>
@@ -370,12 +379,12 @@ export default function DllPicProPanel({
       {full && <div className="dll-generation-bar" aria-label="生成操作">
         <div className="dll-generation-buttons">
           <button className="primary-copy-btn dll-pic-generate-btn" type="button" onClick={handleGenerate} disabled={!canGenerate}><ImagePlus size={18} />{isGenerating ? '生成中...' : '生成圖像'}</button>
-          <button type="button" className="secondary" disabled={!selectedPrompt.trim() || !shared.ready || !isAspectRatioSupported || Boolean(loraError)} onClick={async () => { try { await dllWorkspace.enqueue(snapshot()); setMessage('已加入待生成清單'); } catch (error) { setMessage(error.message); } }}><ListPlus size={18} />加入待生成</button>
+          <button type="button" className="secondary" disabled={!selectedPrompt.trim() || !shared.ready || !isAspectRatioSupported || Boolean(loraError) || Boolean(openaiError) || invalidLockedSize} onClick={async () => { try { await dllWorkspace.enqueue(snapshot()); setMessage('已加入待生成清單'); } catch (error) { setMessage(error.message); } }}><ListPlus size={18} />加入待生成</button>
           <span className="dll-sticky-hint"><Pin size={13} />操作列固定可見</span>
         </div>
-        <p className="dll-generation-summary">{activeModel.label} · {aspectRatio} · {activeResolution.toUpperCase()} · {count} 張{activeModel.provider === 'openai' && ` · 畫質：${{ low: '低', medium: '中', high: '高' }[quality]}`}</p>
+        <p className="dll-generation-summary">{activeModel.label} · {is26 && openaiSettings.outputFormat === 'gif' ? '自動尺寸（GIF）' : is26 && activeResolution === 'auto' ? '自動尺寸' : is26 && activeResolution === 'custom' ? `${openaiSettings.customWidth} × ${openaiSettings.customHeight}` : `${aspectRatio} · ${activeResolution.toUpperCase()}`} · {count} 張{activeModel.provider === 'openai' && ` · 畫質：${{ auto: '自動', low: '低', medium: '中', high: '高', xhigh: '超高', max: '最高' }[quality]}`}</p>
         <p className="dll-generation-context">{custom ? '自訂 Prompt' : selectedSource?.label || '尚未帶入來源'}{activeModel.provider === 'comfyCloud' && ` · Seed：${seed === '' ? '隨機' : seed}`}{loraSelection.enabled && ` · ${loraLabel} ${loraSelection.adjustable ? loraStrength : loraSelection.strength}`}</p>
-        {(modelCompatibilityNote || loraError || !selectedPrompt.trim() || comfyPending || (!DLL_LOCAL_ACCEPTANCE && !activeModel.usesServerProxy && !activeApiKey)) && <p className="dll-generation-notice" role="status">{modelCompatibilityNote || loraError || (!selectedPrompt.trim() ? '請先帶入來源或編輯本次 Prompt。' : comfyPending ? '請先查詢上次 Comfy 任務，再開始生成。' : '請先在 API Keys 設定此模型的金鑰。')}</p>}
+        {(modelCompatibilityNote || loraError || openaiError || invalidLockedSize || !selectedPrompt.trim() || comfyPending || (!DLL_LOCAL_ACCEPTANCE && !activeModel.usesServerProxy && !activeApiKey)) && <p className="dll-generation-notice" role="status">{modelCompatibilityNote || loraError || openaiError || (invalidLockedSize ? '來源已固定比例，請選擇 1K 或 2K 靜態圖片。' : '') || (!selectedPrompt.trim() ? '請先帶入來源或編輯本次 Prompt。' : comfyPending ? '請先查詢上次 Comfy 任務，再開始生成。' : '請先在 API Keys 設定此模型的金鑰。')}</p>}
         {activeModel.provider === 'comfyCloud' && !DLL_LOCAL_ACCEPTANCE && !loraError && <ComfyQuotaPanel compact modelKey={activeModel.comfyModel} {...loraSettings} resolution={activeResolution} aspectRatio={aspectRatio} refreshToken={images} />}
       </div>}
       <div className="dll-pic-settings-grid">
@@ -403,6 +412,7 @@ export default function DllPicProPanel({
             disabled={!full && isGenerating}
             onChange={(event) => {
               const nextModelKey = event.target.value;
+              if (!isOpenAI26(nextModelKey) && !['low', 'medium', 'high'].includes(quality)) setQuality('medium');
               const nextResolution = getDllPicResolutionOption(nextModelKey, resolution).value;
               setModelKey(nextModelKey);
               setLoraStrength(loadStoredLoraStrength(nextModelKey));
@@ -428,7 +438,7 @@ export default function DllPicProPanel({
             aria-label="比例"
             value={aspectRatio}
             onChange={(event) => setAspectRatio(event.target.value)}
-            disabled={isAspectRatioLocked || (!full && isGenerating)}
+            disabled={isAspectRatioLocked || (is26 && (openaiSettings.outputFormat === 'gif' || ['auto', 'custom'].includes(activeResolution))) || (!full && isGenerating)}
           >
             {[...DLL_PIC_ASPECT_RATIOS, ...(activeModel.comfyModel === 'krea3' || KREA3_EXTRA_ASPECT_RATIOS.some(option => option.value === aspectRatio) ? KREA3_EXTRA_ASPECT_RATIOS : [])].map((option) => (
               <option key={option.value} value={option.value} disabled={!isDllPicAspectRatioSupported(modelKey, option.value)}>
@@ -443,7 +453,7 @@ export default function DllPicProPanel({
             <span>解析度</span>
             <select
               value={activeResolution}
-              disabled={!full && isGenerating}
+              disabled={(!full && isGenerating) || (is26 && openaiSettings.outputFormat === 'gif')}
               onChange={(event) => {
                 const nextResolution = event.target.value;
                 setResolution(nextResolution);
@@ -451,7 +461,7 @@ export default function DllPicProPanel({
               }}
             >
               {activeResolutionOptions.map((option) => (
-                <option key={option.value} value={option.value}>
+                <option key={option.value} value={option.value} disabled={is26 && isAspectRatioLocked && ['auto', 'custom'].includes(option.value)}>
                   {option.label}
                 </option>
               ))}
@@ -467,7 +477,7 @@ export default function DllPicProPanel({
 
         {activeModel.provider === 'openai' && <label className="field dll-pic-field">
           <span>畫質</span><select aria-label="畫質" value={quality} disabled={!full && isGenerating} onChange={event => setQuality(event.target.value)}>
-            <option value="low">低</option><option value="medium">中</option><option value="high">高</option>
+            {is26 && <option value="auto">自動</option>}<option value="low">低</option><option value="medium">中</option><option value="high">高</option>{is26 && <><option value="xhigh">超高</option><option value="max">最高</option></>}
           </select>
         </label>}
 
@@ -482,6 +492,9 @@ export default function DllPicProPanel({
           </select>
         </label>
       </div>
+
+      {is26 && <OpenAI26Controls resolution={activeResolution} settings={{ ...openaiSettings, quality }} setSettings={setOpenaiSettings} disabled={!full && isGenerating} />}
+      {is26 && (openaiError || invalidLockedSize) && <p role="status" className="dll-pic-message">{openaiError || '來源已固定比例，請選擇 1K 或 2K 靜態圖片。'}</p>}
 
       {full && <section className="dll-prompt-section" aria-label="Prompt 設定">
         <div className="dll-source-heading"><span>Prompt 來源</span>{onBringSources && <button className="dll-text-button" type="button" onClick={onBringSources}>帶入{sourceWorkspace || 'Prompt 工作台'}來源</button>}</div>

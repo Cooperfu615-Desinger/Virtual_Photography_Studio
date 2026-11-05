@@ -10,7 +10,8 @@
       "acceptedHashes": [
         "73d89635b47801692f1ffda5baf223fe483db03b485212d71ff77557e2b787d9",
         "ff4c06550b53fc9191c95297abad2168e4e2d21bf328b22a19228f083bf750ac",
-        "da7f8213aea1d3f65ab2ef506ba815bc16668b41e03a0f2bdc79f0fa51b3b102"
+        "da7f8213aea1d3f65ab2ef506ba815bc16668b41e03a0f2bdc79f0fa51b3b102",
+        "8b273aa6143091811ec9f2a1173cbaeeb5bbf9001900345a13c243f961afac0b"
       ]
     },
     {
@@ -18,7 +19,8 @@
       "beforeHash": "6d4724ae36adb120a20993a7eac4928439582e4c3d4f767ee6add89162bb6f52",
       "afterHash": "9ce74ce920c9a7322bbb733df834ed49807d08a3731c4416c9dc47827a1510b7",
       "acceptedHashes": [
-        "abfd4f9de80937f759819af34b61db6628864e29a86f502cf5046c0b5e1222c1"
+        "abfd4f9de80937f759819af34b61db6628864e29a86f502cf5046c0b5e1222c1",
+        "1930bde2f88978c83bb24c5af20128c6755ee9e40fc545201b116e97f875f7a3"
       ]
     },
     {
@@ -28,7 +30,8 @@
       "acceptedHashes": [
         "94b73f8aa5c1d895acb1ccdf374ddec2e396bda88fde48bff692767f7d78a166",
         "c501a6e5805bc7c7d4fbbdefad5fba0725b213ef102605874f4c8d7e5f7ac56b",
-        "a4bfcfe5aa7b16ddcb1f2125d7ad33f1770cc57858701de7e39491518c8d6b38"
+        "a4bfcfe5aa7b16ddcb1f2125d7ad33f1770cc57858701de7e39491518c8d6b38",
+        "867d81ab48822c0af93d046b09474a0ef74d035f5dd5376c2f73d62d50a0a959"
       ]
     },
     {
@@ -36,26 +39,34 @@
       "beforeHash": "9aea17c06af4a83b87f5cb7adda1f5544d2965caca3cd1d7879f853b1f26840b",
       "afterHash": "1aba35c8ffe7d55b376a720d6560f0b052d24f557e30d28bbfef54c96941c374",
       "acceptedHashes": [
-        "ebbad06088c817e06bf12c6ebcedaddde20950bbdbd3f88a83754d9487050b56"
+        "ebbad06088c817e06bf12c6ebcedaddde20950bbdbd3f88a83754d9487050b56",
+        "95ae4dafd259f07e06358de8458af13e996ff0fd18d8396e09ae3f3828d11f65"
       ]
     },
     {
       "path": "webapp/src/lib/dllWorkspaceAcceptance.js",
       "beforeHash": "43628972233eb8ff260ce32cbc1ed1fdb62709db25eda33737ef7a551f158df1",
-      "afterHash": "d69f8405090b4c3ef13729ea0bb48a75d647503558185f223dc6c1fd8e8407fa"
+      "afterHash": "d69f8405090b4c3ef13729ea0bb48a75d647503558185f223dc6c1fd8e8407fa",
+      "acceptedHashes": [
+        "d0f2c8412f4c75fd281d8ee17605ae8185e3e61be2c29903cf48f3f06cb10f3a"
+      ]
     },
     {
       "path": "webapp/src/lib/dllWorkspaceController.js",
       "beforeHash": "d2728d140406d5d470ac52c92dd500a7eebb0ec1af8021998f6c26ebb5a3d4a0",
       "afterHash": "7e777ec73871fc9ef3d298be89bf1e7259dffb7a72e35fb48e1ea6f91f248780",
       "acceptedHashes": [
-        "61424d3a35eda3be67b45b4ec8d7487f36a2398b08732cde364260a8170297ad"
+        "61424d3a35eda3be67b45b4ec8d7487f36a2398b08732cde364260a8170297ad",
+        "622637a8714c1b729c0424b376b80ab363c440f8c3302390be622067c92105c5"
       ]
     },
     {
       "path": "webapp/src/lib/dllWorkspaceRuntime.js",
       "beforeHash": "3b8656983729d04da96528f4ba0695cd8a903354cab9a2bceb82cdc18861b48b",
-      "afterHash": "f7c6dfa69964c61f7759172b1342a5b01116342abd0220a2e1f0a696b05c6d29"
+      "afterHash": "f7c6dfa69964c61f7759172b1342a5b01116342abd0220a2e1f0a696b05c6d29",
+      "acceptedHashes": [
+        "76e998d9a6cc8e3de9fc5830da172ef5722f5f33fd275ac221e6e4b79ce8fbf6"
+      ]
     },
     {
       "path": "webapp/src/lib/videoWorkspaceController.test.js",
