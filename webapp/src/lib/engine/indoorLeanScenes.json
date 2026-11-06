@@ -1,0 +1,767 @@
+{
+  "locations:生活感室內-indoor-lifestyle:室內-精品飯店房間:0": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-現代高樓公寓客廳:1": {
+    "back": [
+      "wall",
+      "column"
+    ],
+    "shoulder": [
+      "wall",
+      "column",
+      "doorframe"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-夜間家庭派對:2": {
+    "back": [
+      "wall",
+      "railing"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-古書二手書店:3": {
+    "back": [
+      "bookcase",
+      "wall"
+    ],
+    "shoulder": [
+      "bookcase",
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-y2k-復古房間:4": {
+    "back": [
+      "wall",
+      "cabinet"
+    ],
+    "shoulder": [
+      "wall",
+      "cabinet",
+      "doorframe"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-英倫復古窗邊房間:5": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-臥室窗邊:6": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-白色書櫃落地窗臥室:7": {
+    "back": [
+      "bookcase",
+      "wall"
+    ],
+    "shoulder": [
+      "bookcase",
+      "wall"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-浴室鏡前-洗手台:8": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-日本住宅使用感廚房:9": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-更衣室-試衣間:10": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-電梯內:11": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-復古美式-diner:12": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "column"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-木造圖書館閱讀桌旁:13": {
+    "back": [
+      "bookcase",
+      "wall"
+    ],
+    "shoulder": [
+      "bookcase",
+      "wall"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-木造圖書館木窗邊:14": {
+    "back": [
+      "wall",
+      "bookcase"
+    ],
+    "shoulder": [
+      "wall",
+      "bookcase"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-木造圖書館書車旁:15": {
+    "back": [
+      "bookcase",
+      "wall"
+    ],
+    "shoulder": [
+      "bookcase",
+      "wall"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-木造圖書館借書台前:16": {
+    "back": [
+      "wall",
+      "bookcase"
+    ],
+    "shoulder": [
+      "wall",
+      "bookcase"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-倫敦老咖啡館角落:17": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-英式小旅館房間:18": {
+    "back": [
+      "wall",
+      "cabinet"
+    ],
+    "shoulder": [
+      "wall",
+      "cabinet",
+      "doorframe"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-傳統酒吧二樓包廂:19": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-英式溫室-conservatory:20": {
+    "back": [
+      "column"
+    ],
+    "shoulder": [
+      "column",
+      "doorframe"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-黑膠唱片聆聽角:21": {
+    "back": [
+      "wall",
+      "cabinet"
+    ],
+    "shoulder": [
+      "wall",
+      "cabinet"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-老式鋼琴房:22": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-地下-live-house-後台:23": {
+    "back": [
+      "wall",
+      "column"
+    ],
+    "shoulder": [
+      "wall",
+      "column",
+      "doorframe"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-女高生房間:24": {
+    "back": [
+      "wall",
+      "cabinet"
+    ],
+    "shoulder": [
+      "wall",
+      "cabinet",
+      "doorframe"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-日式和室:25": {
+    "back": [
+      "wall",
+      "column"
+    ],
+    "shoulder": [
+      "wall",
+      "column"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-日本學校教室:26": {
+    "back": [
+      "wall",
+      "cabinet"
+    ],
+    "shoulder": [
+      "wall",
+      "cabinet",
+      "doorframe"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-辦公室茶水間:27": {
+    "back": [
+      "wall",
+      "cabinet"
+    ],
+    "shoulder": [
+      "wall",
+      "cabinet",
+      "doorframe"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-洗衣店洗衣機門前:28": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-洗衣店摺衣台旁:29": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-洗衣店洗劑貨架前:30": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-洗衣店角落塑膠椅旁:31": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-宮廷音樂廳-歌劇院:37": {
+    "back": [
+      "column",
+      "wall",
+      "railing"
+    ],
+    "shoulder": [
+      "column",
+      "wall"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:室內-狹小都會旅館房間:38": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:室內-九龍城寨內部狹窄走道:0": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:室內-九龍城寨樓梯井與鐵窗:1": {
+    "back": [
+      "wall",
+      "railing"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:室內-興記煲仔飯店內桌椅區:2": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:室內-塗鴉牆面旁的地鐵月台角落:3": {
+    "back": [
+      "wall",
+      "column"
+    ],
+    "shoulder": [
+      "wall",
+      "column"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:室內-無人月台長椅區:4": {
+    "back": [
+      "wall",
+      "column"
+    ],
+    "shoulder": [
+      "wall",
+      "column"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:室內-列車高速進站的月台邊:5": {
+    "back": [
+      "column",
+      "wall"
+    ],
+    "shoulder": [
+      "column",
+      "wall"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:室內-髒污磁磚牆與金屬柱之間:6": {
+    "back": [
+      "column",
+      "wall"
+    ],
+    "shoulder": [
+      "column",
+      "wall"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:室內-地下月台電子看板與海報牆:7": {
+    "back": [
+      "wall",
+      "column"
+    ],
+    "shoulder": [
+      "wall",
+      "column"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:室內-電車車廂正面長椅視角:8": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "pole"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:室內-電車車廂側面走道視角:9": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "pole",
+      "wall"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:室內-電車車廂坐滿與站滿乘客:10": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "pole",
+      "wall"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:室內-法租界咖啡館靠窗座位:44": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "column"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:室內-廢棄水泥工廠破碎輸送帶區:0": {
+    "back": [
+      "wall",
+      "column"
+    ],
+    "shoulder": [
+      "wall",
+      "column"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:室內-廢棄水泥工廠生鏽控制室:1": {
+    "back": [
+      "wall",
+      "cabinet"
+    ],
+    "shoulder": [
+      "wall",
+      "cabinet",
+      "doorframe"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:室內-廢棄水泥工廠攪拌槽旁:2": {
+    "back": [
+      "column",
+      "wall"
+    ],
+    "shoulder": [
+      "column",
+      "wall"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:室內-廢棄水泥工廠機具堆放區:3": {
+    "back": [
+      "column",
+      "wall"
+    ],
+    "shoulder": [
+      "column",
+      "wall"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:室內-地下排洪道積水牆角:4": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:室內-地下排洪道排水閘門旁:5": {
+    "back": [
+      "wall",
+      "column"
+    ],
+    "shoulder": [
+      "wall",
+      "column"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:室內-地下排洪道機房通道口:6": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "doorframe",
+      "wall"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:室內-廢棄手術室:7": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:室內-廢棄病房:8": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:室內-廢棄藥品室:9": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:室內-廢棄診療室:10": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:室內-廢棄校舍散亂課桌教室:11": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:室內-廢棄校舍破窗音樂教室:12": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:室內-廢棄校舍保健室:13": {
+    "back": [
+      "wall",
+      "cabinet"
+    ],
+    "shoulder": [
+      "wall",
+      "cabinet",
+      "doorframe"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:室內-廢棄校舍體育器材室:14": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:室內-地下狂歡俱樂部-金庫:15": {
+    "back": [
+      "wall",
+      "column"
+    ],
+    "shoulder": [
+      "wall",
+      "column",
+      "doorframe"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:室內-遭洗劫的維多利亞大宅:16": {
+    "back": [
+      "wall",
+      "column"
+    ],
+    "shoulder": [
+      "wall",
+      "column",
+      "doorframe"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:室內-廢棄商場停用手扶梯旁:17": {
+    "back": [
+      "wall",
+      "railing"
+    ],
+    "shoulder": [
+      "wall",
+      "column"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:室內-廢棄商場破損櫥窗前:18": {
+    "back": [
+      "column",
+      "wall"
+    ],
+    "shoulder": [
+      "column",
+      "wall"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:室內-廢棄商場空置美食街角落:19": {
+    "back": [
+      "column",
+      "wall"
+    ],
+    "shoulder": [
+      "column",
+      "wall"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:室內-廢棄商場服務台殘骸:20": {
+    "back": [
+      "wall",
+      "column"
+    ],
+    "shoulder": [
+      "wall",
+      "column"
+    ]
+  },
+  "locations:攝影棚與背景-studio-sets:室內-鏡面地板攝影棚:1": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:攝影棚與背景-studio-sets:室內-純潔白幕:2": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:攝影棚與背景-studio-sets:室內-深邃黑幕:3": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:攝影棚與背景-studio-sets:室內-莫蘭迪灰背景:4": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:攝影棚與背景-studio-sets:室內-純藍背景:5": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:攝影棚與背景-studio-sets:室內-純橘背景:6": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:攝影棚與背景-studio-sets:室內-純紅背景:7": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:攝影棚與背景-studio-sets:室內-純黃背景:8": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:攝影棚與背景-studio-sets:室內-純紫背景:9": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:攝影棚與背景-studio-sets:室內-純綠背景:10": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:攝影棚與背景-studio-sets:室內-鮮豔撞色背景:11": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:攝影棚與背景-studio-sets:室內-漸層打光背景:12": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:攝影棚與背景-studio-sets:室內-crt-電視牆攝影棚:13": {
+    "back": [
+      "tv-wall"
+    ],
+    "shoulder": [
+      "tv-wall"
+    ]
+  },
+  "locations:攝影棚與背景-studio-sets:室內-多色塊撞色背景:14": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:其他專屬場景-other-dedicated-scenes:其他-白色床鋪:1": {
+    "back": [],
+    "shoulder": []
+  },
+  "locations:其他專屬場景-other-dedicated-scenes:其他-生活感日式榻榻米房間:2": {
+    "back": [],
+    "shoulder": []
+  }
+}
