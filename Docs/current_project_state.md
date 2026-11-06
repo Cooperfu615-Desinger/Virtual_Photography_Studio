@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-11-06
 
+## 戶外背部／側肩倚靠（2026-11-06）
+
+- D 區沿用「靠在哪裡」，將既有兩個指定動作擴充至核准的 71 個戶外選單場景。新增基本名詞樹幹、岩壁、販賣機、車廂，沿用牆面、柱子、門框、欄杆、直桿；依背部／側肩各自適用清單呈現，七個場景都只有未指定。場景原文及室內倚靠、室內外坐姿保持。
+- 沿用可選欄位 `indoorLeanId` 與收藏／Markdown／ZIP 契約，有效值跨場景／動作／室內外保留，失效回未指定。Grok Imagine 保留完整接觸，其餘輸出仍依原投影；欄杆只支撐下背，全身角色照維持自然站姿。兩動作仍為 pending、手動可選，不加入隨機池。
+- 完整測試 2,202／2,202、Prompt Quality 909／909、lint／build／bundle 與同 seed strict audit 通過。1,686 原六輸出、14,310 室內倚靠／戶外坐姿保護樣本及 104 代表＋500 隨機七輸出均不變；室內坐姿原 18,480 樣本封存保持。桌手機六工作區、六公開景別及四物件 ZIP 還原通過。
+- [規格](specs/outdoor-leaning-v1.md)、[71 場景清單](specs/outdoor-leaning-scenes-v1.md)、[驗收](reports/outdoor-leaning-2026-11-06/README.md)。保留其他 session 的 Saved Cards 未提交內容；外部 Grok Speed／Quality 生圖驗收仍未進行，文字／相容／介面驗收不等於模型效果驗收。
+
 ## 戶外坐姿支撐（2026-11-06）
 
 - D 區沿用「坐在哪裡」，新增 71 個戶外選單場景（含草地、樹下草地、沙灘海岸線三個專屬場景），依現有 14 個坐姿提供有效選項。增加地面、草地、沙地、石頭、矮牆、躺椅、平台邊／平台上；原正式目錄、83 室內場景與倚靠規則保持。

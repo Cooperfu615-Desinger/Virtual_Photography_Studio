@@ -1,10 +1,13 @@
 import scenes from './indoorLeanScenes.json' with { type: 'json' };
+import outdoorScenes from './outdoorLeanScenes.json' with { type: 'json' };
 import { getSpecifiedAction } from './specifiedActions.js';
 
 const objects = {
   wall: ['牆面', 'a wall'], 'tv-wall': ['電視牆', 'the TV wall'], column: ['柱子', 'a column'],
   cabinet: ['櫃子', 'a cabinet'], bookcase: ['書櫃', 'a bookcase'],
   doorframe: ['門框', 'a doorframe'], railing: ['欄杆', 'a railing'], pole: ['直桿', 'a pole'],
+  'tree-trunk': ['樹幹', 'a tree trunk'], 'rock-face': ['岩壁', 'a rock face'],
+  'vending-machine': ['販賣機', 'a vending machine'], 'train-car': ['車廂', 'a train car'],
 };
 const actions = { 'specified-standing-back-lean': 'back', 'specified-standing-shoulder-lean': 'shoulder' };
 const active = value => Boolean(value && value !== 'none');
@@ -19,7 +22,8 @@ export function indoorLeaningModel(locks, location, cameraControls = []) {
   const action = getSpecifiedAction(locks, { cameraControls });
   const kind = actions[action?.id];
   if (!kind) return null;
-  const scene = Object.hasOwn(scenes, location.id) ? scenes[location.id] : null;
+  const scene = Object.hasOwn(scenes, location.id) ? scenes[location.id]
+    : Object.hasOwn(outdoorScenes, location.id) ? outdoorScenes[location.id] : null;
   if (!scene && !(location.zh?.startsWith('室內') || (!location.zh?.startsWith('戶外') && location.meta?.tags?.includes('indoor')))) return null;
   const options = (scene?.[kind] || []).map(id => ({ id, label: objects[id][0] }));
   const selectedId = options.find(option => option.id === locks.indoorLeanId)?.id || '';

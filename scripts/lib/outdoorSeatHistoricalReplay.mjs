@@ -6,11 +6,13 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import review from './outdoorSeatHistory.json' with {type:'json'};
+import { outdoorLeanHistoricalPaths, preOutdoorLeanSource } from './outdoorLeanHistoricalReplay.mjs';
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 const root=fileURLToPath(new URL('../../',import.meta.url));
-export const outdoorSeatHistoricalPaths=review.files.map(file=>file.path);
+export const outdoorSeatHistoricalPaths=[...new Set([...outdoorLeanHistoricalPaths,...review.files.map(file=>file.path)])];
 
 export function preOutdoorSeatSource(path,source) {
+  source=preOutdoorLeanSource(path,source);
   const file=review.files.find(item=>item.path===path);
   if(!file || hash(source)!==file.afterHash) {
     if(path==='webapp/src/lib/engine/indoorSeating.js') assert.ok(!source.toString().includes("import outdoorScenes"),'Outdoor seat inverse rejects unknown seating model');

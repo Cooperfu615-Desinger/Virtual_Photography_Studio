@@ -7,10 +7,11 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import review from './outdoorSeatHistory.json' with {type:'json'};
 import { preOutdoorSeatSource, preparePreOutdoorSeatFiles, withPreOutdoorSeatRuntime } from './outdoorSeatHistoricalReplay.mjs';
+import { preOutdoorLeanSource } from './outdoorLeanHistoricalReplay.mjs';
 const root=new URL('../../',import.meta.url),hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 test('only exact approved bytes restore the pre-outdoor sources and match original Git blobs',()=>{
   for(const file of review.files) {
-    const after=readFileSync(new URL(file.path,root));assert.equal(hash(after),file.afterHash,file.path);
+    const after=preOutdoorLeanSource(file.path,readFileSync(new URL(file.path,root)));assert.equal(hash(after),file.afterHash,file.path);
     const before=preOutdoorSeatSource(file.path,after);
     assert.deepEqual(before,execFileSync('git',['show',review.base+':'+file.path],{cwd:fileURLToPath(root),maxBuffer:16*1024*1024}));
     assert.equal(preOutdoorSeatSource(file.path,before),before);
