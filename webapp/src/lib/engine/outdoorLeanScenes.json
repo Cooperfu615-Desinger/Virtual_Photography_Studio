@@ -1,0 +1,603 @@
+{
+  "locations:生活感室內-indoor-lifestyle:戶外-日本住宅陽台曬衣架旁:32": {
+    "back": [
+      "wall",
+      "railing"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:戶外-日本住宅外樓梯間:33": {
+    "back": [
+      "wall",
+      "railing"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:戶外-社區自動販賣機旁:34": {
+    "back": [
+      "vending-machine",
+      "wall"
+    ],
+    "shoulder": [
+      "vending-machine",
+      "wall",
+      "pole"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:戶外-辦公大樓人行道-上班途中:35": {
+    "back": [
+      "wall",
+      "column"
+    ],
+    "shoulder": [
+      "wall",
+      "column"
+    ]
+  },
+  "locations:生活感室內-indoor-lifestyle:戶外-日式旅館緣側木廊:36": {
+    "back": [
+      "column",
+      "wall"
+    ],
+    "shoulder": [
+      "column",
+      "doorframe",
+      "wall"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:戶外-雜草叢生的廢棄公園:21": {
+    "back": [
+      "tree-trunk"
+    ],
+    "shoulder": [
+      "tree-trunk"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:戶外-滿佈塗鴉的火車調車場:22": {
+    "back": [
+      "train-car"
+    ],
+    "shoulder": [
+      "train-car"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:戶外-高樓建築骨架裸露混凝土地板:23": {
+    "back": [
+      "column",
+      "railing"
+    ],
+    "shoulder": [
+      "column"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:戶外-高樓建築骨架施工鷹架旁:24": {
+    "back": [
+      "column",
+      "wall"
+    ],
+    "shoulder": [
+      "column",
+      "wall",
+      "pole"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:戶外-高樓建築骨架開放樓層邊緣:25": {
+    "back": [
+      "column",
+      "railing"
+    ],
+    "shoulder": [
+      "column"
+    ]
+  },
+  "locations:地下與廢墟風格-abandoned-underground:戶外-高樓建築骨架建材堆放角落:26": {
+    "back": [
+      "wall",
+      "column"
+    ],
+    "shoulder": [
+      "wall",
+      "column"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-澀谷站前廣場人潮邊緣:11": {
+    "back": [
+      "wall",
+      "column"
+    ],
+    "shoulder": [
+      "wall",
+      "column"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-八公銅像旁行人區:12": {
+    "back": [
+      "railing",
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-澀谷站前大型看板下穿越口:13": {
+    "back": [],
+    "shoulder": [
+      "pole"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-目黑川旁的櫻花隧道:14": {
+    "back": [
+      "railing",
+      "tree-trunk"
+    ],
+    "shoulder": [
+      "tree-trunk"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-大阪道頓堀心齋橋河道:15": {
+    "back": [
+      "railing",
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-九龍城寨雜貨店門口:16": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-九龍城寨電器行外牆與管線:17": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-興記煲仔飯店門口騎樓區:18": {
+    "back": [
+      "column",
+      "wall"
+    ],
+    "shoulder": [
+      "column",
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-廟街小吃店外桌邊角落:19": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-孚日廣場拱廊下:20": {
+    "back": [
+      "column",
+      "wall"
+    ],
+    "shoulder": [
+      "column",
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-孚日廣場草地邊與紅磚立面:21": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-瑪黑區高級住宅門前石牆:22": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-曼哈頓精品櫥窗前人行道:23": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-曼哈頓街角玻璃反射牆面:24": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-曼哈頓店面轉角櫥窗邊:25": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-首爾聖水洞街區:26": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-首爾弘大街頭:27": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe",
+      "pole"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-台北西門町街頭:28": {
+    "back": [
+      "column",
+      "wall"
+    ],
+    "shoulder": [
+      "column",
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-洛杉磯日落大道街景:29": {
+    "back": [
+      "wall",
+      "tree-trunk"
+    ],
+    "shoulder": [
+      "wall",
+      "tree-trunk",
+      "pole"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町招牌下:30": {
+    "back": [
+      "wall",
+      "column"
+    ],
+    "shoulder": [
+      "wall",
+      "column",
+      "doorframe"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町販賣機旁:31": {
+    "back": [
+      "vending-machine",
+      "wall"
+    ],
+    "shoulder": [
+      "vending-machine",
+      "wall"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町酒吧門口:32": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "doorframe",
+      "wall"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-新宿歌舞伎町濕地反光角落:33": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-蘇荷區酒吧門口:34": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "doorframe",
+      "wall"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-蘇荷區店面櫥窗邊:35": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-蘇荷區招牌下:36": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-蘇荷區濕地反光街角:37": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-brick-lane-海報牆巷口:38": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "pole"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-shoreditch-紅磚塗鴉街:39": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-camden-龐克街角:40": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "pole"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-倫敦排屋街道:41": {
+    "back": [
+      "wall",
+      "railing"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-雨後-mews-巷弄:42": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-法租界老洋房門口:43": {
+    "back": [
+      "wall",
+      "railing",
+      "tree-trunk"
+    ],
+    "shoulder": [
+      "doorframe",
+      "wall",
+      "tree-trunk"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-法租界咖啡館窗外露台座位:45": {
+    "back": [
+      "tree-trunk",
+      "wall"
+    ],
+    "shoulder": [
+      "tree-trunk",
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-法租界街角轉角牆面:46": {
+    "back": [
+      "wall",
+      "tree-trunk"
+    ],
+    "shoulder": [
+      "wall",
+      "tree-trunk"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-法租界鐵欄杆前:47": {
+    "back": [
+      "railing",
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-羅馬老城石牆轉角:48": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-羅馬老城咖啡館外桌旁:49": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall",
+      "doorframe"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-羅馬老城老木門前:50": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "doorframe",
+      "wall"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-羅馬老城窗台邊:51": {
+    "back": [
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-城市遊艇碼頭欄杆旁:52": {
+    "back": [
+      "railing"
+    ],
+    "shoulder": []
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-奧地利-hallstatt-湖畔山村觀景欄杆:53": {
+    "back": [
+      "railing"
+    ],
+    "shoulder": []
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-高樓頂樓城市天際線:54": {
+    "back": [
+      "railing"
+    ],
+    "shoulder": []
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-飯店度假村泳池露台:55": {
+    "back": [
+      "wall",
+      "column"
+    ],
+    "shoulder": [
+      "wall",
+      "column"
+    ]
+  },
+  "locations:城市與社群感-urban-social-snapshots:戶外-高級飯店陽台城市河景:56": {
+    "back": [
+      "railing",
+      "wall"
+    ],
+    "shoulder": [
+      "wall"
+    ]
+  },
+  "locations:自然與戶外-nature-outdoors:戶外-金色海灘與浪線:0": {
+    "back": [],
+    "shoulder": []
+  },
+  "locations:自然與戶外-nature-outdoors:戶外-清澈海灣岩岸:1": {
+    "back": [
+      "rock-face"
+    ],
+    "shoulder": [
+      "rock-face"
+    ]
+  },
+  "locations:自然與戶外-nature-outdoors:戶外-岩洞感海灣淺灘:2": {
+    "back": [
+      "rock-face"
+    ],
+    "shoulder": [
+      "rock-face"
+    ]
+  },
+  "locations:自然與戶外-nature-outdoors:戶外-草地與樹木:3": {
+    "back": [
+      "tree-trunk"
+    ],
+    "shoulder": [
+      "tree-trunk"
+    ]
+  },
+  "locations:自然與戶外-nature-outdoors:戶外-廣闊草原平原與天空:4": {
+    "back": [],
+    "shoulder": []
+  },
+  "locations:自然與戶外-nature-outdoors:戶外-向日葵花田:5": {
+    "back": [],
+    "shoulder": []
+  },
+  "locations:自然與戶外-nature-outdoors:戶外-霧感森林步道:6": {
+    "back": [
+      "tree-trunk"
+    ],
+    "shoulder": [
+      "tree-trunk"
+    ]
+  },
+  "locations:自然與戶外-nature-outdoors:戶外-森林營地帳篷營火:7": {
+    "back": [
+      "tree-trunk"
+    ],
+    "shoulder": [
+      "tree-trunk"
+    ]
+  },
+  "locations:自然與戶外-nature-outdoors:戶外-湖邊木棧道:8": {
+    "back": [
+      "railing"
+    ],
+    "shoulder": []
+  },
+  "locations:自然與戶外-nature-outdoors:戶外-海邊岩岸:9": {
+    "back": [
+      "rock-face"
+    ],
+    "shoulder": [
+      "rock-face"
+    ]
+  },
+  "locations:自然與戶外-nature-outdoors:戶外-沙丘與風痕地景:10": {
+    "back": [],
+    "shoulder": []
+  },
+  "locations:自然與戶外-nature-outdoors:戶外-白色鹽湖乾裂荒漠:11": {
+    "back": [],
+    "shoulder": []
+  },
+  "locations:其他專屬場景-other-dedicated-scenes:其他-草地:0": {
+    "back": [],
+    "shoulder": []
+  },
+  "locations:其他專屬場景-other-dedicated-scenes:其他-樹下草地:3": {
+    "back": [
+      "tree-trunk"
+    ],
+    "shoulder": [
+      "tree-trunk"
+    ]
+  },
+  "locations:其他專屬場景-other-dedicated-scenes:其他-沙灘海岸線:4": {
+    "back": [],
+    "shoulder": []
+  }
+}
