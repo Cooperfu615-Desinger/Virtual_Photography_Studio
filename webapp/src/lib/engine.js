@@ -1,4 +1,5 @@
 import { applyIndoorSeat, indoorSeatingModel, isIndoorSeatId } from './engine/indoorSeating.js';
+import { applyIndoorLean, indoorLeaningModel, isIndoorLeanId } from './engine/indoorLeaning.js';
 import { registerGrokImagineResult } from './grokImagineResult.js';
 import { seasonAllowsAmbient, styleAllowsLocation, styleAllowsAmbient, styleAllowsSubject, styleAllowsShutter } from './engine/captureCompatibility.js';
 import { pickColorCompatibleStyle, pickColorCompatibleFilm } from './engine/imagingColorCompatibility.js';
@@ -3529,6 +3530,12 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
     if (choice.captureMode === 'observation' || indoorSeatingModel(choice, location, controls)?.selectedId)
       normalizedWithLegacyColors.indoorSeatId = rawLocks.indoorSeatId;
   }
+  if (isIndoorLeanId(rawLocks.indoorLeanId)) {
+    const location = getControlOptionById(controls, 'locationId', normalizedWithLegacyColors.locationId);
+    const choice = { ...normalizedWithLegacyColors, indoorLeanId: rawLocks.indoorLeanId };
+    if (choice.captureMode === 'observation' || indoorLeaningModel(choice, location, controls)?.selectedId)
+      normalizedWithLegacyColors.indoorLeanId = rawLocks.indoorLeanId;
+  }
   return normalizeAccessoryConflicts(normalizedWithLegacyColors, controls);
 }
 
@@ -5262,7 +5269,7 @@ function buildPoseComposerItem(context) {
     return {
       id: `character:姿勢組合器-pose-composer:${specifiedAction.id}:${head?.id || 'none'}`,
       zh: [specifiedAction.zh, head?.zh].filter(Boolean).join(' + '),
-      en: [withLyingSurface(applyIndoorSeat(actionText.en, context.indoorSeat), lyingSurfaceFor(specifiedAction, context.location)), headText].filter(Boolean).join(' '),
+      en: [withLyingSurface(applyIndoorLean(applyIndoorSeat(actionText.en, context.indoorSeat), context.indoorLean), lyingSurfaceFor(specifiedAction, context.location)), headText].filter(Boolean).join(' '),
       desc: specifiedAction.descriptionZh,
       meta: {
         tags: ['pose_composer'], minVisibility: 'full',
@@ -5771,7 +5778,7 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
     const gesture = GESTURE_OPTIONS.find(option => option.scope && option.id === poseComposer.meta?.gestureId) || null;
     const prop = PROP_OPTIONS.find(option => option.en && option.id === poseComposer.meta?.propId) || null;
     const chestUp = projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP;
-    return [withLyingSurface(actionTextWithGesture(specifiedAction, gesture, { chestUp }, prop).upperBodyEn, lyingSurfaceFor(specifiedAction, context.location)),
+    return [withLyingSurface(applyIndoorLean(actionTextWithGesture(specifiedAction, gesture, { chestUp }, prop).upperBodyEn, context.indoorLean, { upperBody: true }), lyingSurfaceFor(specifiedAction, context.location)),
       isActivePoseComposerOption(head) ? `She has ${normalizePoseComposerHeadPhrase(head)}.` : '',
     ].filter(Boolean).join(' ');
   }
@@ -16463,6 +16470,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
   resolvedSelection.captureStyleId = context.rawLocks.captureStyleId || 'standard';
   const snapshot = createSelectionSnapshot(LOCK_DEFINITIONS, resolvedSelection);
   if (context.indoorSeat?.selectedId) snapshot.indoorSeatId = context.indoorSeat.selectedId;
+  if (context.indoorLean?.selectedId) snapshot.indoorLeanId = context.indoorLean.selectedId;
   if (!snapshot.lyingCameraId || snapshot.lyingCameraId === 'none') delete snapshot.lyingCameraId;
   for (const [key, unused] of [['gazeId', 'none'], ['gestureId', 'none'], ['propId', 'none'], ['headPostureId', 'none'], ['captureStyleId', 'standard']]) {
     if (!snapshot[key] || snapshot[key] === unused) delete snapshot[key];
@@ -16843,6 +16851,7 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
     angle,
     orbit,
     indoorSeat: indoorSeatingModel(requestedLocks, location, lockControls),
+    indoorLean: indoorLeaningModel(requestedLocks, location, lockControls),
     lyingCamera,
     lyingActionActive,
     // Shared by reference so context copies report the composer's gaze and gesture.

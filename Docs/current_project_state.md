@@ -2,7 +2,13 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-11-05
+Last updated: 2026-11-06
+
+## 一般單人室內站姿倚靠（2026-11-06）
+
+- B 區站姿新增「背部倚靠」「側肩倚靠」，D 區一般場景下提供「靠在哪裡」單選。83 個室內場景採已核准的基本名詞清單；13 個攝影棚只有牆面，CRT 攝影棚只有電視牆，白色床鋪與生活感日式榻榻米房間只有未指定。場景原文與坐姿流程保持。
+- 未指定時只寫軀幹方向，不抽選物件；有效選值可由收藏、Markdown、ZIP 還原。第七組保留完整接觸，其他輸出依原姿勢投影，全身角色照不帶物件。兩筆動作手動可選，標示未驗收，不加入隨機池。
+- [規格](specs/indoor-leaning-v1.md)、[83 場景清單](specs/indoor-leaning-scenes-v1.md)與[驗收](reports/indoor-leaning-2026-11-06/README.md)。文字、選項、保存與介面驗收不等於外部模型出圖驗收；未進行付費生圖。其他 session 的 Saved Cards 未提交工作保持。
 
 ## 一般單人室內坐姿支撐（2026-11-05）
 

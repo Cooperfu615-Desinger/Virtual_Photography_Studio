@@ -3,8 +3,9 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import review from './indoorSeatHistory.json' with { type:'json' };
 import restore from './indoorSeatRestoreHistory.json' with { type:'json' };
+import { indoorLeanHistoricalPaths, preIndoorLeanSource } from './indoorLeanHistoricalReplay.mjs';
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
-export const indoorSeatHistoricalPaths = [...new Set([...review.files, ...restore.files].map(file => file.path))];
+export const indoorSeatHistoricalPaths = [...new Set([...indoorLeanHistoricalPaths, ...[...review.files, ...restore.files].map(file => file.path)])];
 function undo(file, source) {
   if (!file || hash(source) !== file.afterHash) return source;
   const lines = source.toString().match(/[^\n]*\n|[^\n]+$/g) || [];
@@ -18,6 +19,7 @@ function undo(file, source) {
 }
 
 export function preIndoorSeatSource(path, source) {
+  source = preIndoorLeanSource(path, source);
   const beforeRestore = undo(restore.files.find(file => file.path === path), source);
   return undo(review.files.find(entry => entry.path === path), beforeRestore);
 }

@@ -1,0 +1,38 @@
+[
+  {
+    "width": 1440,
+    "views": [
+      "角色建模",
+      "場景建模",
+      "DLL_PIC Pro",
+      "DLL_VIDEO Pro",
+      "Saved Cards",
+      "Prompt 工作台"
+    ],
+    "errors": [],
+    "copy": true,
+    "zip": true,
+    "storedAndRestored": true,
+    "choicesAndSwitches": true,
+    "keyboard": true,
+    "brokenImages": []
+  },
+  {
+    "width": 390,
+    "views": [
+      "角色建模",
+      "場景建模",
+      "DLL_PIC Pro",
+      "DLL_VIDEO Pro",
+      "Saved Cards",
+      "Prompt 工作台"
+    ],
+    "errors": [],
+    "copy": true,
+    "zip": false,
+    "storedAndRestored": true,
+    "choicesAndSwitches": true,
+    "keyboard": true,
+    "brokenImages": []
+  }
+]

@@ -1,0 +1,321 @@
+{
+  "base": "1e7935bd5a12c35958475b85168966e836ffbe88",
+  "files": [
+    {
+      "path": "webapp/package.json",
+      "beforeHash": "34ba9cf8629253a16a08c77ea8724aecd70c72cc0c841316c389ca9a82edc463",
+      "afterHash": "81be88bcb037dd1ec20e16a01a77797f63278647f2195b664dd5990b09b46007",
+      "edits": [
+        {
+          "line": 10,
+          "after": [
+            "    \"test:prompt-quality\": \"node ../scripts/run_webapp_tests.mjs src/lib/engine/indoorLeanBaseline.test.js src/lib/engine/indoorLeaning.test.js src/lib/engine/indoorLeanPrompt.test.js src/features/saved-cards/indoorLeanRestore.test.js src/lib/engine/indoorSeatBaseline.test.js src/lib/engine/indoorSeating.test.js src/lib/engine/indoorSeatPrompt.test.js src/features/saved-cards/indoorSeatRestore.test.js src/lib/engine/framingWardrobeIntegration.test.js src/lib/engine/framingWardrobeRetention.test.js src/lib/engine/framingWardrobeHistoricalBoundary.test.js src/lib/characterWardrobeSources.test.js src/lib/page2AdultIdentity.test.js src/lib/engine/mainDressRegion.test.js src/lib/engine/chestDressRegion.test.js src/features/saved-cards/page1MarkdownSnapshot.test.js src/features/saved-cards/wardrobeColorRecovery.test.js src/lib/engine/outfitControlLanguage.test.js src/lib/engine/dressControlLanguage.test.js src/lib/engine/characterAdultIdentity.test.js src/lib/observationCaptureImport.test.js src/lib/engine/shirtBlackBottom.test.js src/lib/engine/specifiedActionUnified.test.js src/lib/observationCaptureMode.test.js src/lib/engine/squattingHands.test.js src/lib/engine/squattingCatalog.test.js src/lib/engine/specifiedActions.test.js src/lib/engine/specifiedActionIntegration.test.js src/lib/engine/nanoBananaPrompt.test.js src/lib/engine/midjourneyNaturalPrompt.test.js src/lib/engineBlackTieShirt.test.js src/lib/engineMirrorSelfieProp.test.js src/lib/engineSubjectLightAdditions.test.js src/lib/engineSubjectKeyLightCompatibility.test.js src/lib/engine/headDominantFraming.test.js src/lib/engine/shibuyaCrowdScene.test.js src/lib/engine/adidasTrackwear.test.js src/lib/engine/bandagePasties.test.js src/lib/engine/underbustTopFit.test.js src/lib/engine/outerwearStyling.test.js src/lib/engine/minimalCoverageWardrobe.test.js src/lib/engine/bodyTypeCatalog.test.js src/lib/engine/gptBodyTypeOmission.test.js src/lib/engine/kneelingCatalog.test.js src/lib/engine/hourglassBikiniBody.test.js src/lib/engine/zImageOnLocationCapture.test.js src/lib/engine/outerwearClosure.test.js src/lib/engine/stationFixedComposition.test.js src/lib/engineFixedCompositionSet.test.js src/lib/engine/topHemOverlap.test.js src/lib/engine/standingCatalog.test.js src/lib/engineOptionalSilence.test.js src/lib/engine/midjourneyTopPattern.test.js src/lib/engine/chestUpSameState.test.js src/lib/engine/closeWormEye.test.js src/lib/engine/gptCameraSpatial.test.js src/lib/engine/gptSceneVisibility.test.js src/lib/engine/ambientLightDescriptions.test.js src/lib/engine/zImageSceneDetailPriority.test.js src/lib/engine/zImageUpperSceneExtension.test.js src/lib/engine/zImageFullBodyCamera.test.js src/lib/engine/zImageUpperScene.test.js src/lib/engine/zImageSceneDirection.test.js src/lib/engine/sceneIntegratedAssemblyBaseline.test.js src/lib/engine/promptOutputContracts.test.js src/lib/engine/zImageTurboPromptContract.test.js src/lib/engine/zImageTurboCameraGeometry.test.js src/lib/engineZImageTurboPrompt.test.js src/lib/engine/aiPromptLengthContract.test.js src/lib/engine/aiPromptBudget.test.js src/lib/engine/aiPromptLengthIntegration.test.js src/lib/engine/midjourneyDescriptionContract.test.js src/lib/engine/midjourneyDescriptionOpening.test.js src/lib/engine/midjourneySubjectWardrobe.test.js src/lib/engine/midjourneySceneImaging.test.js src/lib/engine/midjourneySpecialModes.test.js src/lib/engine/midjourneyParameterContract.test.js src/lib/engine/midjourneyParameterTail.test.js src/lib/engine/midjourneyNativeStructure.test.js src/lib/engine/midjourneyFacialFeatureVariant.test.js src/lib/engine/expressionGazeSharedPrompt.test.js src/lib/engine/midjourneyCompletionGate.test.js src/lib/enginePromptDeduplication.test.js src/lib/engine/compositionBodyVisibilityContract.test.js src/lib/engine/compositionBodyVisibilityIntegration.test.js src/lib/engine/compositionBodyPromptIntegration.test.js src/lib/engine/compositionVisibilityIntegration.test.js src/lib/engine/fixedCompositionPromptIntegration.test.js src/lib/engine/fixedFramingDerivedPromptContract.test.js src/lib/engine/fixedFramingDerivedPromptInfrastructure.test.js src/lib/engine/fixedFramingDerivedPromptRuntime.test.js src/lib/engine/fixedFramingMainPrompt.test.js src/lib/engine/fixedFramingPromptIntegration.test.js src/lib/page1PromptOutputs.test.js src/lib/engine/phase4PublicLanguage.test.js src/lib/engine/phase4FixedPalette.test.js src/lib/engine/phase4ScenePosition.test.js src/lib/engine/phase4LightingCompatibility.test.js src/lib/engine/phase4CharacterDirection.test.js\",\n"
+          ],
+          "before": [
+            "    \"test:prompt-quality\": \"node ../scripts/run_webapp_tests.mjs src/lib/engine/indoorSeatBaseline.test.js src/lib/engine/indoorSeating.test.js src/lib/engine/indoorSeatPrompt.test.js src/features/saved-cards/indoorSeatRestore.test.js src/lib/engine/framingWardrobeIntegration.test.js src/lib/engine/framingWardrobeRetention.test.js src/lib/engine/framingWardrobeHistoricalBoundary.test.js src/lib/characterWardrobeSources.test.js src/lib/page2AdultIdentity.test.js src/lib/engine/mainDressRegion.test.js src/lib/engine/chestDressRegion.test.js src/features/saved-cards/page1MarkdownSnapshot.test.js src/features/saved-cards/wardrobeColorRecovery.test.js src/lib/engine/outfitControlLanguage.test.js src/lib/engine/dressControlLanguage.test.js src/lib/engine/characterAdultIdentity.test.js src/lib/observationCaptureImport.test.js src/lib/engine/shirtBlackBottom.test.js src/lib/engine/specifiedActionUnified.test.js src/lib/observationCaptureMode.test.js src/lib/engine/squattingHands.test.js src/lib/engine/squattingCatalog.test.js src/lib/engine/specifiedActions.test.js src/lib/engine/specifiedActionIntegration.test.js src/lib/engine/nanoBananaPrompt.test.js src/lib/engine/midjourneyNaturalPrompt.test.js src/lib/engineBlackTieShirt.test.js src/lib/engineMirrorSelfieProp.test.js src/lib/engineSubjectLightAdditions.test.js src/lib/engineSubjectKeyLightCompatibility.test.js src/lib/engine/headDominantFraming.test.js src/lib/engine/shibuyaCrowdScene.test.js src/lib/engine/adidasTrackwear.test.js src/lib/engine/bandagePasties.test.js src/lib/engine/underbustTopFit.test.js src/lib/engine/outerwearStyling.test.js src/lib/engine/minimalCoverageWardrobe.test.js src/lib/engine/bodyTypeCatalog.test.js src/lib/engine/gptBodyTypeOmission.test.js src/lib/engine/kneelingCatalog.test.js src/lib/engine/hourglassBikiniBody.test.js src/lib/engine/zImageOnLocationCapture.test.js src/lib/engine/outerwearClosure.test.js src/lib/engine/stationFixedComposition.test.js src/lib/engineFixedCompositionSet.test.js src/lib/engine/topHemOverlap.test.js src/lib/engine/standingCatalog.test.js src/lib/engineOptionalSilence.test.js src/lib/engine/midjourneyTopPattern.test.js src/lib/engine/chestUpSameState.test.js src/lib/engine/closeWormEye.test.js src/lib/engine/gptCameraSpatial.test.js src/lib/engine/gptSceneVisibility.test.js src/lib/engine/ambientLightDescriptions.test.js src/lib/engine/zImageSceneDetailPriority.test.js src/lib/engine/zImageUpperSceneExtension.test.js src/lib/engine/zImageFullBodyCamera.test.js src/lib/engine/zImageUpperScene.test.js src/lib/engine/zImageSceneDirection.test.js src/lib/engine/sceneIntegratedAssemblyBaseline.test.js src/lib/engine/promptOutputContracts.test.js src/lib/engine/zImageTurboPromptContract.test.js src/lib/engine/zImageTurboCameraGeometry.test.js src/lib/engineZImageTurboPrompt.test.js src/lib/engine/aiPromptLengthContract.test.js src/lib/engine/aiPromptBudget.test.js src/lib/engine/aiPromptLengthIntegration.test.js src/lib/engine/midjourneyDescriptionContract.test.js src/lib/engine/midjourneyDescriptionOpening.test.js src/lib/engine/midjourneySubjectWardrobe.test.js src/lib/engine/midjourneySceneImaging.test.js src/lib/engine/midjourneySpecialModes.test.js src/lib/engine/midjourneyParameterContract.test.js src/lib/engine/midjourneyParameterTail.test.js src/lib/engine/midjourneyNativeStructure.test.js src/lib/engine/midjourneyFacialFeatureVariant.test.js src/lib/engine/expressionGazeSharedPrompt.test.js src/lib/engine/midjourneyCompletionGate.test.js src/lib/enginePromptDeduplication.test.js src/lib/engine/compositionBodyVisibilityContract.test.js src/lib/engine/compositionBodyVisibilityIntegration.test.js src/lib/engine/compositionBodyPromptIntegration.test.js src/lib/engine/compositionVisibilityIntegration.test.js src/lib/engine/fixedCompositionPromptIntegration.test.js src/lib/engine/fixedFramingDerivedPromptContract.test.js src/lib/engine/fixedFramingDerivedPromptInfrastructure.test.js src/lib/engine/fixedFramingDerivedPromptRuntime.test.js src/lib/engine/fixedFramingMainPrompt.test.js src/lib/engine/fixedFramingPromptIntegration.test.js src/lib/page1PromptOutputs.test.js src/lib/engine/phase4PublicLanguage.test.js src/lib/engine/phase4FixedPalette.test.js src/lib/engine/phase4ScenePosition.test.js src/lib/engine/phase4LightingCompatibility.test.js src/lib/engine/phase4CharacterDirection.test.js\",\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/components/Page1Workspace.jsx",
+      "beforeHash": "a80455da2a6fc5196b537d743421d890de2189095fc32f66fb4d1527f8fdd8d9",
+      "afterHash": "1613c1674ef0523b050ba7e0f3a0e7b6141bcc87833c3f137ffd1bbe71f29944",
+      "edits": [
+        {
+          "line": 1,
+          "after": [
+            "import { indoorLeaningModel } from '../lib/engine/indoorLeaning.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 748,
+          "after": [
+            "  const indoorLean = indoorLeaningModel(locks, selectedLocationOption, lockControls);\n",
+            "  const previousLeanLocks = useRef(locks);\n",
+            "  useEffect(() => {\n",
+            "    const previous = previousLeanLocks.current;\n",
+            "    previousLeanLocks.current = locks;\n",
+            "    if (previous.indoorLeanId && !locks.indoorLeanId\n",
+            "        && (previous.locationId !== locks.locationId || previous.specifiedActionId !== locks.specifiedActionId)) {\n",
+            "      showToast('倚靠物件已回到未指定：目前的場景或姿勢不適用。');\n",
+            "    }\n",
+            "  }, [locks, showToast]);\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 1303,
+          "after": [
+            "      indoorLean={indoorLean}\n",
+            "      onLeanChange={id => updateLocks({ indoorLeanId: id })}\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/components/SceneEnvironmentControls.jsx",
+      "beforeHash": "e5d4d0999a34294a033a8378e56ce9f49d5e2f7d7c66742cd93ace531aef7011",
+      "afterHash": "e82c92d9090ebd0cd55a61b8e343787cd13823928d380c9379616d4312a3dc6f",
+      "edits": [
+        {
+          "line": 1,
+          "after": [
+            "import IndoorLeanField from './IndoorLeanField.jsx';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 22,
+          "after": [
+            "  indoorLean,\n",
+            "  onLeanChange,\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 91,
+          "after": [
+            "          <IndoorSeatField model={indoorLean ? null : indoorSeat} onChange={onSeatChange} />\n",
+            "          <IndoorLeanField model={indoorLean} onChange={onLeanChange} />\n"
+          ],
+          "before": [
+            "          <IndoorSeatField model={indoorSeat} onChange={onSeatChange} />\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/page1/lockTransitions.js",
+      "beforeHash": "b5edc386b98268e53eace74ef603513e3240dbd8641600c6fc817b2608e3ccd7",
+      "afterHash": "1f23ea8931d7977706475091ac11e2e9b0ef8186572d3a7aef3030189226999a",
+      "edits": [
+        {
+          "line": 1,
+          "after": [
+            "import { indoorLeaningModel } from '../../lib/engine/indoorLeaning.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 147,
+          "after": [
+            "    if (next.indoorLeanId && next.captureMode !== 'observation') {\n",
+            "      const location = sceneOptions.locationOptions.find(item => item.id === next.locationId);\n",
+            "      if (!indoorLeaningModel(next, location, lockControls)?.selectedId) delete next.indoorLeanId;\n",
+            "    }\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/saved-cards/page1MarkdownSnapshot.js",
+      "beforeHash": "e6b4fbd9d0d1fffc8e9474f9813dbb7cf04db9a9d7888ed72d9ca52136f82b8f",
+      "afterHash": "27319819ce16c89ca4ea81b60b961b6463ba488c169a852437092dcafa99dff8",
+      "edits": [
+        {
+          "line": 44,
+          "after": [
+            "  // Manual support fields are optional. Every original v1 key remains required.\n",
+            "  keys(selection, [...Object.keys(defaults), 'indoorSeatId', 'indoorLeanId'], Object.keys(defaults));\n"
+          ],
+          "before": [
+            "  // Seat is an optional extension. Every original v1 key remains required.\n",
+            "  keys(selection, [...Object.keys(defaults), 'indoorSeatId'], Object.keys(defaults));\n"
+          ]
+        },
+        {
+          "line": 47,
+          "after": [
+            "    if (key === 'indoorSeatId' || key === 'indoorLeanId') {\n"
+          ],
+          "before": [
+            "    if (key === 'indoorSeatId') {\n"
+          ]
+        },
+        {
+          "line": 83,
+          "after": [
+            "    if (key === 'indoorSeatId' || key === 'indoorLeanId' || same(value, normalized[key])) continue;\n"
+          ],
+          "before": [
+            "    if (key === 'indoorSeatId' || same(value, normalized[key])) continue;\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine.js",
+      "beforeHash": "7ed5a444c1c19d601312157a44dac1896463429b88712d5b6eb96ba6d8f31064",
+      "afterHash": "a1eecc781ca00414b9772ab6c4b391ad286f64918a94b79a3e005b146ee8cd8f",
+      "edits": [
+        {
+          "line": 1,
+          "after": [
+            "import { applyIndoorLean, indoorLeaningModel, isIndoorLeanId } from './engine/indoorLeaning.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 3532,
+          "after": [
+            "  if (isIndoorLeanId(rawLocks.indoorLeanId)) {\n",
+            "    const location = getControlOptionById(controls, 'locationId', normalizedWithLegacyColors.locationId);\n",
+            "    const choice = { ...normalizedWithLegacyColors, indoorLeanId: rawLocks.indoorLeanId };\n",
+            "    if (choice.captureMode === 'observation' || indoorLeaningModel(choice, location, controls)?.selectedId)\n",
+            "      normalizedWithLegacyColors.indoorLeanId = rawLocks.indoorLeanId;\n",
+            "  }\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 5271,
+          "after": [
+            "      en: [withLyingSurface(applyIndoorLean(applyIndoorSeat(actionText.en, context.indoorSeat), context.indoorLean), lyingSurfaceFor(specifiedAction, context.location)), headText].filter(Boolean).join(' '),\n"
+          ],
+          "before": [
+            "      en: [withLyingSurface(applyIndoorSeat(actionText.en, context.indoorSeat), lyingSurfaceFor(specifiedAction, context.location)), headText].filter(Boolean).join(' '),\n"
+          ]
+        },
+        {
+          "line": 5780,
+          "after": [
+            "    return [withLyingSurface(applyIndoorLean(actionTextWithGesture(specifiedAction, gesture, { chestUp }, prop).upperBodyEn, context.indoorLean, { upperBody: true }), lyingSurfaceFor(specifiedAction, context.location)),\n"
+          ],
+          "before": [
+            "    return [withLyingSurface(actionTextWithGesture(specifiedAction, gesture, { chestUp }, prop).upperBodyEn, lyingSurfaceFor(specifiedAction, context.location)),\n"
+          ]
+        },
+        {
+          "line": 16472,
+          "after": [
+            "  if (context.indoorLean?.selectedId) snapshot.indoorLeanId = context.indoorLean.selectedId;\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 16853,
+          "after": [
+            "    indoorLean: indoorLeaningModel(requestedLocks, location, lockControls),\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/c3PoseGuards.test.js",
+      "beforeHash": "38903008a20e9842751126fdbc66629e373f734b7938a712c0b6041ff4d7db72",
+      "afterHash": "4f2aa1341c8f2a129705faa1edb75a522cabc4fc7d3d92cebcd2bd3110ff4158",
+      "edits": [
+        {
+          "line": 23,
+          "after": [
+            " assert.equal(SPECIFIED_ACTION_CONCRETE_OPTIONS.length,56);\n"
+          ],
+          "before": [
+            " assert.equal(SPECIFIED_ACTION_CONCRETE_OPTIONS.length,54);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/gazeGesture.test.js",
+      "beforeHash": "71474b4dd10416d4eccdcf20d9ec535232a462c6277778c077b1d172a52ab139",
+      "afterHash": "99dc277c7e65236ef8c38ba27c021df38b47d2662ddbb74430c78fdac286520f",
+      "edits": [
+        {
+          "line": 157,
+          "after": [
+            "  assert.equal(standing.length, 22);\n"
+          ],
+          "before": [
+            "  assert.equal(standing.length, 20);\n"
+          ]
+        },
+        {
+          "line": 161,
+          "after": [
+            "  const pending = standing.filter(a => a.validation.status === 'pending');\n",
+            "  assert.equal(pending.length, 13);\n",
+            "  for (const a of pending) assert.equal(a.hands.mode, /-(?:back|shoulder)-lean$/.test(a.id) ? 'free' : 'fixed', a.id);\n"
+          ],
+          "before": [
+            "  for (const a of standing.filter(a => a.validation.status === 'pending')) assert.equal(a.hands.mode, 'fixed', a.id);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/specifiedActionUnified.test.js",
+      "beforeHash": "3e3274c8b755ff270c20c5e0f68d92b76ff3a91a31caf02a40f570b0bc533141",
+      "afterHash": "67669258497bbf010f84e01f1d24f47abb8b8e43b041dc5aba2ad0275d92d668",
+      "edits": [
+        {
+          "line": 18,
+          "after": [
+            "test('all fifty-six actions can be selected without a matching free base', () => {\n",
+            "  assert.equal(SPECIFIED_ACTION_CONCRETE_OPTIONS.length, 56);\n"
+          ],
+          "before": [
+            "test('all fifty-four actions can be selected without a matching free base', () => {\n",
+            "  assert.equal(SPECIFIED_ACTION_CONCRETE_OPTIONS.length, 54);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/specifiedActions.js",
+      "beforeHash": "c773fe27b1ee0a4a33e7f73f888dbfb243f1a967988101806be342c0cb3ff945",
+      "afterHash": "59bd321094ea4f67ff684bc8467991f32c4763b0c5ff0fddddd01af71509bd5b",
+      "edits": [
+        {
+          "line": 294,
+          "after": [
+            "  // Manual scene-aware standing actions; external image acceptance is separate.\n",
+            "  ...[\n",
+            "    ['back-lean', '背部倚靠', '上身稍向後傾。D 區可指定背部接觸的物件；未指定時只保留傾斜方向，不補手腳動作。',\n",
+            "      'She stands with her upper body angled slightly back'],\n",
+            "    ['shoulder-lean', '側肩倚靠', '上身稍向一側傾斜，一肩較低。D 區可指定肩部接觸的物件；未指定時只保留傾斜方向，不指定左右肩或手腳動作。',\n",
+            "      'She stands with her upper body tilted slightly to one side, one shoulder lower than the other'],\n",
+            "  ].map(([key, zh, descriptionZh, en]) => createAction({\n",
+            "    id: `specified-standing-${key}`, zh, baseId: 'standing', descriptionZh,\n",
+            "    clauses: [clause('core', '', en)], upperBodyEn: en + '.', handsMode: 'free', supportSurface: '',\n",
+            "    validation: { status: 'pending', evidence: 'Cooper approved indoor-leaning-v1 2026-11-06; image acceptance pending' },\n",
+            "  })),\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/specifiedActions.test.js",
+      "beforeHash": "3d59ee67344ee0ad3d10047ecb582e2b32b6f899c6ac79dcba6786eeb5f9c96c",
+      "afterHash": "5997c4ccffb1c4027dcb0ad92e4f659c402cb84d8fb65b21a024d25647a70888",
+      "edits": [
+        {
+          "line": 23,
+          "after": [
+            "  assert.equal(SPECIFIED_ACTION_OPTIONS.length, 59);\n"
+          ],
+          "before": [
+            "  assert.equal(SPECIFIED_ACTION_OPTIONS.length, 57);\n"
+          ]
+        },
+        {
+          "line": 27,
+          "after": [
+            "  assert.equal(SPECIFIED_ACTION_CONCRETE_OPTIONS.length, 56);\n",
+            "  assert.equal(new Set(SPECIFIED_ACTION_OPTIONS.map((option) => option.id)).size, 59);\n"
+          ],
+          "before": [
+            "  assert.equal(SPECIFIED_ACTION_CONCRETE_OPTIONS.length, 54);\n",
+            "  assert.equal(new Set(SPECIFIED_ACTION_OPTIONS.map((option) => option.id)).size, 57);\n"
+          ]
+        }
+      ]
+    }
+  ]
+}

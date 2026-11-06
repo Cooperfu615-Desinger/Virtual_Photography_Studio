@@ -1,4 +1,5 @@
 import { indoorSeatingModel } from '../lib/engine/indoorSeating.js';
+import { indoorLeaningModel } from '../lib/engine/indoorLeaning.js';
 import ObservationCapturePanel from './ObservationCapturePanel';
 import { getLegacyDressPalette } from '../features/page1/page1WardrobeExclusivity.js';
 import { CAPTURE_OWNED_KEYS, captureEligibility, resolveCapture } from '../lib/observationCaptureMode.js';
@@ -745,6 +746,16 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const selectedLocationOption = lockControls.find((control) => control.key === 'locationId')?.options
     ?.find((option) => option.id === locks.locationId && option.zh !== '全無' && option.zh !== '隨機') || null;
   const indoorSeat = indoorSeatingModel(locks, selectedLocationOption, lockControls);
+  const indoorLean = indoorLeaningModel(locks, selectedLocationOption, lockControls);
+  const previousLeanLocks = useRef(locks);
+  useEffect(() => {
+    const previous = previousLeanLocks.current;
+    previousLeanLocks.current = locks;
+    if (previous.indoorLeanId && !locks.indoorLeanId
+        && (previous.locationId !== locks.locationId || previous.specifiedActionId !== locks.specifiedActionId)) {
+      showToast('倚靠物件已回到未指定：目前的場景或姿勢不適用。');
+    }
+  }, [locks, showToast]);
   const previousSeatLocks = useRef(locks);
   useEffect(() => {
     const previous = previousSeatLocks.current;
@@ -1290,6 +1301,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     return <SceneEnvironmentControls
       indoorSeat={indoorSeat}
       onSeatChange={id => updateLocks({ indoorSeatId: id })}
+      indoorLean={indoorLean}
+      onLeanChange={id => updateLocks({ indoorLeanId: id })}
       lyingSurfaceNote={lyingSurfaceNote}
       panelId={panelId}
       onPanelChange={id => setActiveSubpanels(prev => ({ ...prev, scene: id }))}

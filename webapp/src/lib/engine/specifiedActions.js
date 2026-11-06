@@ -292,6 +292,17 @@ export const SPECIFIED_ACTION_CONCRETE_OPTIONS = Object.freeze([
     upperBodyEn: joinSpecifiedActionClauses(clauses, ['core', 'upper']), requiresWardrobeRole,
     validation: { status: 'pending', evidence: `reference Docs/站姿/${reference}; image round deferred (Cooper 2026-10-20)` },
   })),
+  // Manual scene-aware standing actions; external image acceptance is separate.
+  ...[
+    ['back-lean', '背部倚靠', '上身稍向後傾。D 區可指定背部接觸的物件；未指定時只保留傾斜方向，不補手腳動作。',
+      'She stands with her upper body angled slightly back'],
+    ['shoulder-lean', '側肩倚靠', '上身稍向一側傾斜，一肩較低。D 區可指定肩部接觸的物件；未指定時只保留傾斜方向，不指定左右肩或手腳動作。',
+      'She stands with her upper body tilted slightly to one side, one shoulder lower than the other'],
+  ].map(([key, zh, descriptionZh, en]) => createAction({
+    id: `specified-standing-${key}`, zh, baseId: 'standing', descriptionZh,
+    clauses: [clause('core', '', en)], upperBodyEn: en + '.', handsMode: 'free', supportSurface: '',
+    validation: { status: 'pending', evidence: 'Cooper approved indoor-leaning-v1 2026-11-06; image acceptance pending' },
+  })),
   // Squatting library v1 (Docs/specs/pose-library-squatting-v1.md §2, Cooper 2026-10-21): the
   // four reviewed squatting-catalog-v2 squats, wording kept and completed as sentences. Chest
   // and medium crops keep the reviewed upper-body fragments; the wide-knee squat omits them.

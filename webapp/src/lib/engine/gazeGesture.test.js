@@ -155,11 +155,13 @@ test('Cooper option B: an explicit non-回眸 gaze keeps a random orbit off back
 // Standing library v1 (Docs/specs/pose-library-standing-v1.md, Cooper 2026-10-20).
 test('standing batch 1 is accepted with free hands; batch 2 is pending and out of 隨機', () => {
   const standing = SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(a => a.id.startsWith('specified-standing-'));
-  assert.equal(standing.length, 20);
+  assert.equal(standing.length, 22);
   const accepted = standing.filter(a => a.validation.status === 'accepted');
   assert.equal(accepted.length, 9);
   for (const a of accepted) assert.equal(a.hands.mode, 'free', a.id);
-  for (const a of standing.filter(a => a.validation.status === 'pending')) assert.equal(a.hands.mode, 'fixed', a.id);
+  const pending = standing.filter(a => a.validation.status === 'pending');
+  assert.equal(pending.length, 13);
+  for (const a of pending) assert.equal(a.hands.mode, /-(?:back|shoulder)-lean$/.test(a.id) ? 'free' : 'fixed', a.id);
   for (const a of standing) assert.equal(a.family, 'standing', a.id);
   const pockets = standing.filter(a => a.meta.requiresWardrobeRole === 'pants').map(a => a.zh);
   assert.deepEqual(pockets, ['一手扶頭・一手插口袋', '上身前傾・雙手插口袋・一腳前踏']);

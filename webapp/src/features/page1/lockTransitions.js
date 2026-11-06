@@ -1,4 +1,5 @@
 import { indoorSeatingModel } from '../../lib/engine/indoorSeating.js';
+import { indoorLeaningModel } from '../../lib/engine/indoorLeaning.js';
 import { CAPTURE_OWNED_KEYS } from '../../lib/observationCaptureMode.js';
 import {
   getSceneDependentOptions,
@@ -144,6 +145,10 @@ export function transitionPage1Locks({
 
   if (candidateLocks.captureMode === 'observation' || previousLocks.captureMode === 'observation' && candidateLocks.subjectCount === '1') {
     for (const key of [...CAPTURE_OWNED_KEYS, 'specifiedActionSceneRestore']) next[key] = candidateLocks[key];
+    if (next.indoorLeanId && next.captureMode !== 'observation') {
+      const location = sceneOptions.locationOptions.find(item => item.id === next.locationId);
+      if (!indoorLeaningModel(next, location, lockControls)?.selectedId) delete next.indoorLeanId;
+    }
     if (next.indoorSeatId && next.captureMode !== 'observation') {
     const location = sceneOptions.locationOptions.find(item => item.id === next.locationId);
     if (!indoorSeatingModel(next, location, lockControls)?.selectedId) delete next.indoorSeatId;
