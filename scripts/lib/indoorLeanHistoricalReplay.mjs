@@ -3,9 +3,11 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import review from './indoorLeanHistory.json' with {type:'json'};
+import { outdoorSeatHistoricalPaths, preOutdoorSeatSource } from './outdoorSeatHistoricalReplay.mjs';
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
-export const indoorLeanHistoricalPaths=review.files.map(file=>file.path);
+export const indoorLeanHistoricalPaths=[...new Set([...outdoorSeatHistoricalPaths,...review.files.map(file=>file.path)])];
 export function preIndoorLeanSource(path,source) {
+  source=preOutdoorSeatSource(path,source);
   const file=review.files.find(item=>item.path===path);
   if(!file || hash(source)!==file.afterHash) return source;
   const lines=source.toString().match(/[^\n]*\n|[^\n]+$/g)||[];

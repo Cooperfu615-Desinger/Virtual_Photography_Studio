@@ -1,0 +1,54 @@
+[
+  {
+    "width": 1440,
+    "views": [
+      "角色建模",
+      "場景建模",
+      "DLL_PIC Pro",
+      "DLL_VIDEO Pro",
+      "Saved Cards",
+      "Prompt 工作台"
+    ],
+    "errors": [],
+    "frames": [
+      "半臉傾斜特寫",
+      "全臉傾斜特寫",
+      "中景鏡頭 (Medium Shot)",
+      "牛仔中景 (Cowboy Shot)",
+      "全身鏡頭 (Full Body Shot)",
+      "頭部主導近景"
+    ],
+    "copy": true,
+    "zip": true,
+    "keyboard": true,
+    "sceneAndPoseTransitions": true,
+    "storedAndRestored": true,
+    "brokenImages": []
+  },
+  {
+    "width": 390,
+    "views": [
+      "角色建模",
+      "場景建模",
+      "DLL_PIC Pro",
+      "DLL_VIDEO Pro",
+      "Saved Cards",
+      "Prompt 工作台"
+    ],
+    "errors": [],
+    "frames": [
+      "半臉傾斜特寫",
+      "全臉傾斜特寫",
+      "中景鏡頭 (Medium Shot)",
+      "牛仔中景 (Cowboy Shot)",
+      "全身鏡頭 (Full Body Shot)",
+      "頭部主導近景"
+    ],
+    "copy": true,
+    "zip": false,
+    "keyboard": true,
+    "sceneAndPoseTransitions": true,
+    "storedAndRestored": true,
+    "brokenImages": []
+  }
+]

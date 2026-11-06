@@ -1,0 +1,146 @@
+{
+  "base": "dde6772cbddccf4e99999d0774b0e0624137abb5",
+  "files": [
+    {
+      "path": "webapp/src/lib/engine/indoorSeating.js",
+      "beforeHash": "988d66463fc2100efe2e661c38a1376f5b63c4982e2bbb24c3f7fcfd86156077",
+      "afterHash": "1881a3831c961912cf0880b95bb783faf5c5cf9c14b2ecd0bdce839f3f14640e",
+      "edits": [
+        {
+          "line": 1,
+          "after": [
+            "import outdoorScenes from './outdoorSeatScenes.json' with { type: 'json' };\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 10,
+          "after": [
+            "  ground: ['地面', 'on the ground'], grass: ['草地', 'on the grass'], sand: ['沙地', 'on the sand'],\n",
+            "  rock: ['石頭', 'on a rock'], 'low-wall': ['矮牆', 'on a low wall'], 'lounge-chair': ['躺椅', 'on a lounge chair'],\n",
+            "  'deck-edge': ['平台邊', 'on the edge of the deck'], 'deck-top': ['平台上', 'on the deck'],\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 15,
+          "after": [
+            "const broadSurface = ['bed-top', 'sofa', 'platform', 'cushion', 'mat', 'floor', 'ground', 'grass', 'sand', 'deck-top'];\n",
+            "const raisedSeat = ['chair', 'stool', 'bench', 'sofa', 'bed-edge', 'table', 'counter', 'platform', 'step', 'box', 'rock', 'low-wall', 'lounge-chair', 'deck-edge'];\n"
+          ],
+          "before": [
+            "const broadSurface = ['bed-top', 'sofa', 'platform', 'cushion', 'mat', 'floor'];\n",
+            "const raisedSeat = ['chair', 'stool', 'bench', 'sofa', 'bed-edge', 'table', 'counter', 'platform', 'step', 'box'];\n"
+          ]
+        },
+        {
+          "line": 21,
+          "after": [
+            "  'specified-sitting-legs-extended': ['chair', 'bench', 'sofa', 'bed-edge', ...broadSurface.filter(id => id !== 'sofa'), 'step', 'lounge-chair', 'deck-edge'],\n"
+          ],
+          "before": [
+            "  'specified-sitting-legs-extended': ['chair', 'bench', 'sofa', 'bed-edge', ...broadSurface.filter(id => id !== 'sofa'), 'step'],\n"
+          ]
+        },
+        {
+          "line": 24,
+          "after": [
+            "  'specified-sitting-slouched': ['chair', 'sofa', 'bench', 'lounge-chair'],\n"
+          ],
+          "before": [
+            "  'specified-sitting-slouched': ['chair', 'sofa', 'bench'],\n"
+          ]
+        },
+        {
+          "line": 42,
+          "after": [
+            "  const outdoor = Object.hasOwn(outdoorScenes, location.id) ? outdoorScenes[location.id] : null;\n",
+            "  const scene = Object.hasOwn(sceneSeats, location.id) ? sceneSeats[location.id] : outdoor?.seats || null;\n"
+          ],
+          "before": [
+            "  const scene = Object.hasOwn(sceneSeats, location.id) ? sceneSeats[location.id] : null;\n"
+          ]
+        },
+        {
+          "line": 49,
+          "after": [
+            "    if (outdoor) return { mode: 'ground', action, bedOnly: false,\n",
+            "      groundLabel: outdoor.ground === 'deck-top' ? '平台' : seats[outdoor.ground][0],\n",
+            "      phrase: seats[outdoor.ground][1] };\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/package.json",
+      "beforeHash": "81be88bcb037dd1ec20e16a01a77797f63278647f2195b664dd5990b09b46007",
+      "afterHash": "c88825dfe021cc3cbe1a5f6e587d06318a84ac35079e16feb4d1b1b7559e769b",
+      "edits": [
+        {
+          "line": 10,
+          "after": [
+            "    \"test:prompt-quality\": \"node ../scripts/run_webapp_tests.mjs src/lib/engine/outdoorSeatBaseline.test.js src/lib/engine/outdoorSeating.test.js src/lib/engine/outdoorSeatPrompt.test.js src/features/saved-cards/outdoorSeatRestore.test.js src/lib/engine/indoorLeanBaseline.test.js src/lib/engine/indoorLeaning.test.js src/lib/engine/indoorLeanPrompt.test.js src/features/saved-cards/indoorLeanRestore.test.js src/lib/engine/indoorSeatBaseline.test.js src/lib/engine/indoorSeating.test.js src/lib/engine/indoorSeatPrompt.test.js src/features/saved-cards/indoorSeatRestore.test.js src/lib/engine/framingWardrobeIntegration.test.js src/lib/engine/framingWardrobeRetention.test.js src/lib/engine/framingWardrobeHistoricalBoundary.test.js src/lib/characterWardrobeSources.test.js src/lib/page2AdultIdentity.test.js src/lib/engine/mainDressRegion.test.js src/lib/engine/chestDressRegion.test.js src/features/saved-cards/page1MarkdownSnapshot.test.js src/features/saved-cards/wardrobeColorRecovery.test.js src/lib/engine/outfitControlLanguage.test.js src/lib/engine/dressControlLanguage.test.js src/lib/engine/characterAdultIdentity.test.js src/lib/observationCaptureImport.test.js src/lib/engine/shirtBlackBottom.test.js src/lib/engine/specifiedActionUnified.test.js src/lib/observationCaptureMode.test.js src/lib/engine/squattingHands.test.js src/lib/engine/squattingCatalog.test.js src/lib/engine/specifiedActions.test.js src/lib/engine/specifiedActionIntegration.test.js src/lib/engine/nanoBananaPrompt.test.js src/lib/engine/midjourneyNaturalPrompt.test.js src/lib/engineBlackTieShirt.test.js src/lib/engineMirrorSelfieProp.test.js src/lib/engineSubjectLightAdditions.test.js src/lib/engineSubjectKeyLightCompatibility.test.js src/lib/engine/headDominantFraming.test.js src/lib/engine/shibuyaCrowdScene.test.js src/lib/engine/adidasTrackwear.test.js src/lib/engine/bandagePasties.test.js src/lib/engine/underbustTopFit.test.js src/lib/engine/outerwearStyling.test.js src/lib/engine/minimalCoverageWardrobe.test.js src/lib/engine/bodyTypeCatalog.test.js src/lib/engine/gptBodyTypeOmission.test.js src/lib/engine/kneelingCatalog.test.js src/lib/engine/hourglassBikiniBody.test.js src/lib/engine/zImageOnLocationCapture.test.js src/lib/engine/outerwearClosure.test.js src/lib/engine/stationFixedComposition.test.js src/lib/engineFixedCompositionSet.test.js src/lib/engine/topHemOverlap.test.js src/lib/engine/standingCatalog.test.js src/lib/engineOptionalSilence.test.js src/lib/engine/midjourneyTopPattern.test.js src/lib/engine/chestUpSameState.test.js src/lib/engine/closeWormEye.test.js src/lib/engine/gptCameraSpatial.test.js src/lib/engine/gptSceneVisibility.test.js src/lib/engine/ambientLightDescriptions.test.js src/lib/engine/zImageSceneDetailPriority.test.js src/lib/engine/zImageUpperSceneExtension.test.js src/lib/engine/zImageFullBodyCamera.test.js src/lib/engine/zImageUpperScene.test.js src/lib/engine/zImageSceneDirection.test.js src/lib/engine/sceneIntegratedAssemblyBaseline.test.js src/lib/engine/promptOutputContracts.test.js src/lib/engine/zImageTurboPromptContract.test.js src/lib/engine/zImageTurboCameraGeometry.test.js src/lib/engineZImageTurboPrompt.test.js src/lib/engine/aiPromptLengthContract.test.js src/lib/engine/aiPromptBudget.test.js src/lib/engine/aiPromptLengthIntegration.test.js src/lib/engine/midjourneyDescriptionContract.test.js src/lib/engine/midjourneyDescriptionOpening.test.js src/lib/engine/midjourneySubjectWardrobe.test.js src/lib/engine/midjourneySceneImaging.test.js src/lib/engine/midjourneySpecialModes.test.js src/lib/engine/midjourneyParameterContract.test.js src/lib/engine/midjourneyParameterTail.test.js src/lib/engine/midjourneyNativeStructure.test.js src/lib/engine/midjourneyFacialFeatureVariant.test.js src/lib/engine/expressionGazeSharedPrompt.test.js src/lib/engine/midjourneyCompletionGate.test.js src/lib/enginePromptDeduplication.test.js src/lib/engine/compositionBodyVisibilityContract.test.js src/lib/engine/compositionBodyVisibilityIntegration.test.js src/lib/engine/compositionBodyPromptIntegration.test.js src/lib/engine/compositionVisibilityIntegration.test.js src/lib/engine/fixedCompositionPromptIntegration.test.js src/lib/engine/fixedFramingDerivedPromptContract.test.js src/lib/engine/fixedFramingDerivedPromptInfrastructure.test.js src/lib/engine/fixedFramingDerivedPromptRuntime.test.js src/lib/engine/fixedFramingMainPrompt.test.js src/lib/engine/fixedFramingPromptIntegration.test.js src/lib/page1PromptOutputs.test.js src/lib/engine/phase4PublicLanguage.test.js src/lib/engine/phase4FixedPalette.test.js src/lib/engine/phase4ScenePosition.test.js src/lib/engine/phase4LightingCompatibility.test.js src/lib/engine/phase4CharacterDirection.test.js\",\n"
+          ],
+          "before": [
+            "    \"test:prompt-quality\": \"node ../scripts/run_webapp_tests.mjs src/lib/engine/indoorLeanBaseline.test.js src/lib/engine/indoorLeaning.test.js src/lib/engine/indoorLeanPrompt.test.js src/features/saved-cards/indoorLeanRestore.test.js src/lib/engine/indoorSeatBaseline.test.js src/lib/engine/indoorSeating.test.js src/lib/engine/indoorSeatPrompt.test.js src/features/saved-cards/indoorSeatRestore.test.js src/lib/engine/framingWardrobeIntegration.test.js src/lib/engine/framingWardrobeRetention.test.js src/lib/engine/framingWardrobeHistoricalBoundary.test.js src/lib/characterWardrobeSources.test.js src/lib/page2AdultIdentity.test.js src/lib/engine/mainDressRegion.test.js src/lib/engine/chestDressRegion.test.js src/features/saved-cards/page1MarkdownSnapshot.test.js src/features/saved-cards/wardrobeColorRecovery.test.js src/lib/engine/outfitControlLanguage.test.js src/lib/engine/dressControlLanguage.test.js src/lib/engine/characterAdultIdentity.test.js src/lib/observationCaptureImport.test.js src/lib/engine/shirtBlackBottom.test.js src/lib/engine/specifiedActionUnified.test.js src/lib/observationCaptureMode.test.js src/lib/engine/squattingHands.test.js src/lib/engine/squattingCatalog.test.js src/lib/engine/specifiedActions.test.js src/lib/engine/specifiedActionIntegration.test.js src/lib/engine/nanoBananaPrompt.test.js src/lib/engine/midjourneyNaturalPrompt.test.js src/lib/engineBlackTieShirt.test.js src/lib/engineMirrorSelfieProp.test.js src/lib/engineSubjectLightAdditions.test.js src/lib/engineSubjectKeyLightCompatibility.test.js src/lib/engine/headDominantFraming.test.js src/lib/engine/shibuyaCrowdScene.test.js src/lib/engine/adidasTrackwear.test.js src/lib/engine/bandagePasties.test.js src/lib/engine/underbustTopFit.test.js src/lib/engine/outerwearStyling.test.js src/lib/engine/minimalCoverageWardrobe.test.js src/lib/engine/bodyTypeCatalog.test.js src/lib/engine/gptBodyTypeOmission.test.js src/lib/engine/kneelingCatalog.test.js src/lib/engine/hourglassBikiniBody.test.js src/lib/engine/zImageOnLocationCapture.test.js src/lib/engine/outerwearClosure.test.js src/lib/engine/stationFixedComposition.test.js src/lib/engineFixedCompositionSet.test.js src/lib/engine/topHemOverlap.test.js src/lib/engine/standingCatalog.test.js src/lib/engineOptionalSilence.test.js src/lib/engine/midjourneyTopPattern.test.js src/lib/engine/chestUpSameState.test.js src/lib/engine/closeWormEye.test.js src/lib/engine/gptCameraSpatial.test.js src/lib/engine/gptSceneVisibility.test.js src/lib/engine/ambientLightDescriptions.test.js src/lib/engine/zImageSceneDetailPriority.test.js src/lib/engine/zImageUpperSceneExtension.test.js src/lib/engine/zImageFullBodyCamera.test.js src/lib/engine/zImageUpperScene.test.js src/lib/engine/zImageSceneDirection.test.js src/lib/engine/sceneIntegratedAssemblyBaseline.test.js src/lib/engine/promptOutputContracts.test.js src/lib/engine/zImageTurboPromptContract.test.js src/lib/engine/zImageTurboCameraGeometry.test.js src/lib/engineZImageTurboPrompt.test.js src/lib/engine/aiPromptLengthContract.test.js src/lib/engine/aiPromptBudget.test.js src/lib/engine/aiPromptLengthIntegration.test.js src/lib/engine/midjourneyDescriptionContract.test.js src/lib/engine/midjourneyDescriptionOpening.test.js src/lib/engine/midjourneySubjectWardrobe.test.js src/lib/engine/midjourneySceneImaging.test.js src/lib/engine/midjourneySpecialModes.test.js src/lib/engine/midjourneyParameterContract.test.js src/lib/engine/midjourneyParameterTail.test.js src/lib/engine/midjourneyNativeStructure.test.js src/lib/engine/midjourneyFacialFeatureVariant.test.js src/lib/engine/expressionGazeSharedPrompt.test.js src/lib/engine/midjourneyCompletionGate.test.js src/lib/enginePromptDeduplication.test.js src/lib/engine/compositionBodyVisibilityContract.test.js src/lib/engine/compositionBodyVisibilityIntegration.test.js src/lib/engine/compositionBodyPromptIntegration.test.js src/lib/engine/compositionVisibilityIntegration.test.js src/lib/engine/fixedCompositionPromptIntegration.test.js src/lib/engine/fixedFramingDerivedPromptContract.test.js src/lib/engine/fixedFramingDerivedPromptInfrastructure.test.js src/lib/engine/fixedFramingDerivedPromptRuntime.test.js src/lib/engine/fixedFramingMainPrompt.test.js src/lib/engine/fixedFramingPromptIntegration.test.js src/lib/page1PromptOutputs.test.js src/lib/engine/phase4PublicLanguage.test.js src/lib/engine/phase4FixedPalette.test.js src/lib/engine/phase4ScenePosition.test.js src/lib/engine/phase4LightingCompatibility.test.js src/lib/engine/phase4CharacterDirection.test.js\",\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/indoorSeatBaseline.test.js",
+      "beforeHash": "92e464be442195ccc56cb456cfbec62e4c23e27ad51251c1c964a1ac9fa5a83b",
+      "afterHash": "b36df6788e3fcdcd69f8b6fc34c2a93210b591fb573d9753cd2d95508f882f98",
+      "edits": [
+        {
+          "line": 4,
+          "after": [
+            "import { execFileSync } from 'node:child_process';\n",
+            "import process from 'node:process';\n",
+            "import { withPreOutdoorSeatRuntime } from '../../../../scripts/lib/outdoorSeatHistoricalReplay.mjs';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 8,
+          "after": [
+            "test('indoor cases remain current; original outdoor ground wording replays against the immutable seat baseline', () => {\n",
+            "  const current=seatBaselineRows();\n",
+            "  for(const [key,row] of Object.entries(current)) if(!key.startsWith('outdoor/')) assert.deepEqual(row,baseline.rows[key],key);\n",
+            "  const historical=withPreOutdoorSeatRuntime(cwd=>JSON.parse(execFileSync(process.execPath,['--input-type=module','-e',\n",
+            "    'import {seatBaselineRows} from \"./src/lib/engine/indoorSeatFixtures.js\"; process.stdout.write(JSON.stringify(seatBaselineRows()));'],{cwd,encoding:'utf8'})));\n",
+            "  assert.deepEqual(historical,baseline.rows);\n"
+          ],
+          "before": [
+            "test('unselected and excluded sitting cases preserve all seven outputs, selections and draw counts', () => {\n",
+            "  assert.deepEqual(seatBaselineRows(), baseline.rows);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "scripts/lib/indoorLeanHistoricalReplay.test.mjs",
+      "beforeHash": "9b104533489c85c61aa0a8fa495ed9bcdcdc6d7971c0d702fe10b87a56fd470b",
+      "afterHash": "ec5347808259536d26a2f74115d3e03313030a137e1bb83f835104d4b1b4dc13",
+      "edits": [
+        {
+          "line": 7,
+          "after": [
+            "import { preOutdoorSeatSource } from './outdoorSeatHistoricalReplay.mjs';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 12,
+          "after": [
+            "    const after=preOutdoorSeatSource(file.path,readFileSync(new URL(file.path,root)));\n"
+          ],
+          "before": [
+            "    const after=readFileSync(new URL(file.path,root));\n"
+          ]
+        }
+      ]
+    }
+  ]
+}

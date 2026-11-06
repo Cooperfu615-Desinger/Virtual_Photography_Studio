@@ -1,4 +1,5 @@
 import sceneSeats from './indoorSeatScenes.json' with { type: 'json' };
+import outdoorScenes from './outdoorSeatScenes.json' with { type: 'json' };
 import { getSpecifiedAction } from './specifiedActions.js';
 
 const seats = {
@@ -7,18 +8,21 @@ const seats = {
   table: ['桌子', 'on a table'], counter: ['檯面', 'on a counter'], platform: ['講台', 'on a platform'],
   step: ['台階', 'on a step'], box: ['箱子', 'on a box'], cushion: ['坐墊', 'on a cushion'],
   mat: ['墊子', 'on a mat'], floor: ['地板', 'on the floor'],
+  ground: ['地面', 'on the ground'], grass: ['草地', 'on the grass'], sand: ['沙地', 'on the sand'],
+  rock: ['石頭', 'on a rock'], 'low-wall': ['矮牆', 'on a low wall'], 'lounge-chair': ['躺椅', 'on a lounge chair'],
+  'deck-edge': ['平台邊', 'on the edge of the deck'], 'deck-top': ['平台上', 'on the deck'],
 };
 
-const broadSurface = ['bed-top', 'sofa', 'platform', 'cushion', 'mat', 'floor'];
-const raisedSeat = ['chair', 'stool', 'bench', 'sofa', 'bed-edge', 'table', 'counter', 'platform', 'step', 'box'];
+const broadSurface = ['bed-top', 'sofa', 'platform', 'cushion', 'mat', 'floor', 'ground', 'grass', 'sand', 'deck-top'];
+const raisedSeat = ['chair', 'stool', 'bench', 'sofa', 'bed-edge', 'table', 'counter', 'platform', 'step', 'box', 'rock', 'low-wall', 'lounge-chair', 'deck-edge'];
 const naturalSeats = Object.keys(seats);
 const actionSeats = {
   'specified-sitting-natural': naturalSeats,
   'specified-sitting-forward-lean': naturalSeats,
-  'specified-sitting-legs-extended': ['chair', 'bench', 'sofa', 'bed-edge', ...broadSurface.filter(id => id !== 'sofa'), 'step'],
+  'specified-sitting-legs-extended': ['chair', 'bench', 'sofa', 'bed-edge', ...broadSurface.filter(id => id !== 'sofa'), 'step', 'lounge-chair', 'deck-edge'],
   'specified-sitting-cross-legged': broadSurface,
   'specified-sitting-knees-raised': broadSurface,
-  'specified-sitting-slouched': ['chair', 'sofa', 'bench'],
+  'specified-sitting-slouched': ['chair', 'sofa', 'bench', 'lounge-chair'],
   'specified-sitting-leg-cross': raisedSeat,
   'specified-sitting-one-knee-up': ['bench', ...broadSurface],
   'specified-sitting-legs-to-side': ['bench', ...broadSurface],
@@ -36,12 +40,16 @@ export function indoorSeatingModel(locks, location, cameraControls = []) {
       || locks.subjectCount !== '1' || locks.captureMode === 'observation'
       || active(locks.fixedCompositionSetId) || active(locks.importedWorldSceneMode)
       || active(locks.characterProfileId) || active(locks.specialSubjectId) || active(locks.actionPoseCardId)) return null;
-  const scene = Object.hasOwn(sceneSeats, location.id) ? sceneSeats[location.id] : null;
+  const outdoor = Object.hasOwn(outdoorScenes, location.id) ? outdoorScenes[location.id] : null;
+  const scene = Object.hasOwn(sceneSeats, location.id) ? sceneSeats[location.id] : outdoor?.seats || null;
   // An unreviewed indoor location can show the control without inventing furniture.
   if (!scene && !(location.zh?.startsWith('室內') || (!location.zh?.startsWith('戶外') && location.meta?.tags?.includes('indoor')))) return null;
   const action = getSpecifiedAction(locks, { cameraControls });
   const tatami = location.lyingSurface?.type === 'tatami';
   if (grounded.has(action?.id)) {
+    if (outdoor) return { mode: 'ground', action, bedOnly: false,
+      groundLabel: outdoor.ground === 'deck-top' ? '平台' : seats[outdoor.ground][0],
+      phrase: seats[outdoor.ground][1] };
     // A close bed surface has no floor in this scene. Keep the original pose and explain the conflict.
     const bedOnly = scene?.every(id => id === 'bed-edge' || id === 'bed-top');
     return { mode: 'ground', action, bedOnly, groundLabel: tatami ? '榻榻米' : '地面',

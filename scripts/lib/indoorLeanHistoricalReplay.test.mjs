@@ -5,11 +5,12 @@ import { createHash } from 'node:crypto';
 import review from './indoorLeanHistory.json' with {type:'json'};
 import { preIndoorLeanSource } from './indoorLeanHistoricalReplay.mjs';
 import { preGrokImagineSource } from './grokImagineHistoricalReplay.mjs';
+import { preOutdoorSeatSource } from './outdoorSeatHistoricalReplay.mjs';
 const root=new URL('../../',import.meta.url);
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 test('reviewed leaning sources restore the approved pre-lean bytes and inverse is idempotent',()=>{
   for(const file of review.files) {
-    const after=readFileSync(new URL(file.path,root));
+    const after=preOutdoorSeatSource(file.path,readFileSync(new URL(file.path,root)));
     assert.equal(hash(after),file.afterHash,file.path);
     const before=preIndoorLeanSource(file.path,after);
     assert.equal(hash(before),file.beforeHash,file.path);
