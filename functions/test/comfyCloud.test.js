@@ -39,11 +39,13 @@ test('both exported workflows retain sampling and model settings, bypass rewriti
 
 test('paid submission has one claim and duplicate requests only query the same job', async () => {
   const store = makeStore(); const calls = [];
-  const fetchImpl = async (url, options) => { calls.push({ url, options }); return response({ id: 'job1', status: 'queued', urls: { self: '/api/v2/jobs/job1' } }); };
+  const fetchImpl = async (url, options) => { calls.push({ url, options }); return response({ id: 'job1', status: 'queued', urls: { self: 'http://cloud.comfy.org/api/v2/jobs/job1' } }); };
   const first = await submitComfyJob({ apiKey: 'test-secret', payload, store, fetchImpl });
   await submitComfyJob({ apiKey: 'test-secret', payload, store, fetchImpl });
   assert.equal(first.jobId, 'job1');
   assert.deepEqual(calls.map((call) => call.options.method), ['POST', 'GET']);
+  assert.equal(calls[1].url, 'https://cloud.comfy.org/api/v2/jobs/job1');
+  assert.equal((await store.get(requestId)).self, calls[1].url);
   assert.equal(calls[0].options.headers['Idempotency-Key'], requestId);
   assert.equal(calls[0].options.headers.Authorization, 'Bearer test-secret');
   assert.deepEqual(Object.keys(JSON.parse(calls[0].options.body)), ['workflow']);
@@ -67,11 +69,29 @@ test('output parsing keeps final asset identity and diagnostics without exposing
   assert.equal(parseComfyJob({ id: 'job1', status: 'failed', error: { message: 'Node failed' } }, { modelKey: 'qwenImage21' }).errors[0], 'Node failed');
 });
 
-test('untrusted self links and definitive HTTP errors do not leak credentials or retry', async () => {
-  const store = makeStore();
-  await assert.rejects(submitComfyJob({ apiKey: 'key', payload, store, fetchImpl: async () => response({ id: 'job1', status: 'queued', urls: { self: 'https://evil.example/jobs/1' } }) }), /任務網址/);
-  assert.equal((await store.get(requestId)).phase, 'uncertain');
-  assert.equal((await store.get(requestId)).jobId, 'job1');
+test('recovery ignores a legacy self link and sends the credential only to the fixed HTTPS job endpoint', async () => {
+  for (const self of ['http://cloud.comfy.org/api/v2/jobs/job1', 'https://evil.example/jobs/1']) {
+    const store = makeStore();
+    await store.claim(requestId, { jobId: 'job1', self, meta: { modelKey: 'zImageTurbo' } });
+    const result = await readComfyJob({ apiKey: 'key', requestId, store, fetchImpl: async (url, options) => {
+      assert.equal(url, 'https://cloud.comfy.org/api/v2/jobs/job1');
+      assert.equal(options.method, 'GET');
+      assert.equal(options.redirect, 'error');
+      return response({ id: 'job1', status: 'running' });
+    } });
+    assert.equal(result.status, 'running');
+  }
+});
+
+test('malformed stored IDs cannot redirect authenticated requests', async () => {
+  for (const jobId of ['..', 'a/b', '%2e%2e', 'id?query', 'id#fragment', ['job1']]) {
+    const store = makeStore();
+    await store.claim(requestId, { jobId });
+    await assert.rejects(readComfyJob({ apiKey: 'key', requestId, store, fetchImpl: assert.fail }), /任務識別碼/);
+  }
+});
+
+test('definitive HTTP errors finish tracking without retrying', async () => {
   const rejectedStore = makeStore();
   await assert.rejects(submitComfyJob({ apiKey: 'key', payload, store: rejectedStore, fetchImpl: async () => response({}, 422) }), /422/);
   assert.equal((await readComfyJob({ apiKey: 'key', requestId, store: rejectedStore })).status, 'rejected');

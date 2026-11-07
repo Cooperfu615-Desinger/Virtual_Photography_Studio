@@ -28,7 +28,7 @@ Prompt 僅沿用既有外圍 trim；不移除 MJ 參數、不插入指令、不�
 
 Firebase 登入及 email allowlist 同時適用提交與查詢。2026-10-05 使用者授權加入 `nailai7981.ai@gmail.com`，預設保留 `cooperfu.615@gmail.com`；明確設定的 `ALLOWED_FIREBASE_EMAILS` 仍優先。相同限制適用下載 fallback。前端收藏權限不再自動登出共用 Firebase session；未獲收藏同步權限的帳號保持登入、Favorites 僅存本機，Firestore 收藏規則不變。API key 僅由 `COMFY_CLOUD_API_KEY` Secret 提供，不進入瀏覽器。Firestore Admin 確認 default app 已初始化（token 驗證的 named app 不代替 default），使用 `comfyCloudJobs/{uid}/requests/{requestId}` 原子認領；記錄狀態、provider job ID、self link 與生成 metadata，不記錄 Prompt。現有 Firestore rules 未開放此集合給客戶端，查詢只能走 callable，並綁定登入 uid。
 
-提交使用 `POST https://cloud.comfy.org/api/v2/jobs`、Bearer token、`Idempotency-Key`，body 僅含 `{ workflow }`。同 request ID 不會再次 POST；查詢遵循服務回傳的 self link，限制 HTTPS cloud.comfy.org 的 jobs 路徑並拒絕 redirects，避免 token 轉送。
+提交使用 `POST https://cloud.comfy.org/api/v2/jobs`、Bearer token、`Idempotency-Key`，body 僅含 `{ workflow }`。同 request ID 不會再次 POST；新任務及歷史任務都以已驗證的 provider job ID 組成固定的 HTTPS 查詢網址，忽略供應商回傳或舊紀錄保存的 self link；拒絕 redirects，避免 token 轉送。
 
 瀏覽器提交前保存 `{requestId, uid, modelKey, createdAt}` 至新的 `dll_pic_pro_comfy_pending_v1`。成功取得圖片、拒絕、失敗、取消或到期後清除；已完成卻缺少最終圖片、網路錯誤、等待逾時（約 30 分鐘）保留，可按「查詢上次任務」。重新整理或切工作區後亦可續查。另一帳號不能直接接管追蹤。
 

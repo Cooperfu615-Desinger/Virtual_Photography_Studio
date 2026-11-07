@@ -63,10 +63,10 @@ function buildComfyWorkflow(payload, seed) {
     ...(thinkingMode ? { thinkingMode } : {}) } };
 }
 
-function getJobUrl(job) {
-  const url = new URL(job.urls?.self || `${BASE}/${encodeURIComponent(job.id)}`, BASE);
-  if (url.origin !== 'https://cloud.comfy.org' || !url.pathname.startsWith('/api/v2/jobs/') || url.username || url.password) throw new Error('無效的 Comfy Cloud 任務網址');
-  return url.href;
+function getJobUrl({ id }) {
+  // Use a single opaque path segment for both new jobs and saved records.
+  if (typeof id !== 'string' || !id.length || /[^A-Za-z0-9_-]/.test(id)) throw new Error('無效的 Comfy Cloud 任務識別碼');
+  return `${BASE}/${id}`;
 }
 
 async function callComfy(apiKey, url = BASE, options = {}, fetchImpl = fetch) {
@@ -147,8 +147,7 @@ async function submitComfyJob({ apiKey, payload, store, fetchImpl = fetch }) {
     }, fetchImpl);
     // Persist the ID before parsing output so malformed output cannot lose a job.
     if (!job?.id || typeof job.id !== 'string') throw new Error('Comfy Cloud 未回傳任務 ID');
-    await store.update(requestId, { phase: 'submitted', jobId: job.id });
-    await store.update(requestId, { self: getJobUrl(job) });
+    await store.update(requestId, { phase: 'submitted', jobId: job.id, self: getJobUrl(job) });
     return resolveComfyImages(job, meta, apiKey, fetchImpl);
   } catch (error) {
     await store.update(requestId, { phase: error.definitive ? 'rejected' : 'uncertain' });
@@ -164,7 +163,7 @@ async function readComfyJob({ apiKey, requestId, store, fetchImpl = fetch }) {
   };
   let job;
   try {
-    job = await callComfy(apiKey, getJobUrl({ id: record.jobId, urls: { self: record.self } }), { method: 'GET' }, fetchImpl);
+    job = await callComfy(apiKey, getJobUrl({ id: record.jobId }), { method: 'GET' }, fetchImpl);
   } catch (error) {
     if (error.status === 410) return { status: 'expired', images: [], errors: ['Comfy Cloud 任務已到期，請至雲端確認保存的圖像'], meta: record.meta };
     throw error;
