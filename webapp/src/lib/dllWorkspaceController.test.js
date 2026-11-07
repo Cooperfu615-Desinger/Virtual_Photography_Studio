@@ -121,3 +121,13 @@ test('restored history is chronological rather than database UUID order', async 
   await c.setUser('u');
   assert.deepEqual(c.getSnapshot().tasks.map(t => t.id), ['z', 'a']);
 });
+
+test('history summaries exclude originals and editing inputs without modifying stored records', async () => {
+  const { summarizeTask } = await import('./dllWorkspaceStorage.js');
+  const task = { id: 'history', owner: 'person', snapshot: { prompt: 'keep', referenceImage: 'ref', markup: 'overlay', mask: 'mask', sourceImage: { src: 'parent' } }, images: [{ src: 'original', width: 512 }] };
+  const summary = summarizeTask(task);
+  assert.deepEqual(summary.snapshot, { prompt: 'keep' });
+  assert.deepEqual(summary.images, [{ width: 512 }]);
+  assert.equal(task.images[0].src, 'original');
+  assert.equal(task.snapshot.sourceImage.src, 'parent');
+});

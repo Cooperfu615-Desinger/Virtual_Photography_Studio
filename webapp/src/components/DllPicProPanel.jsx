@@ -162,7 +162,18 @@ export default function DllPicProPanel({
   const [openaiSettings, setOpenaiSettings] = useState(() => ({ ...OPENAI_26_DEFAULTS, ...Object.fromEntries(Object.keys(OPENAI_26_DEFAULTS).filter(key => initialSettings[key] !== undefined).map(key => [key, initialSettings[key]])) }));
   const [thinkingMode, setThinkingMode] = useState(initialSettings.thinkingMode || 'fast');
   const comfyPending = DLL_LOCAL_ACCEPTANCE ? null : readComfyPending();
-  const images = sharedTask?.images || loadDevPreviewImages();
+  const [quickResult, setQuickResult] = useState(null);
+  useEffect(() => {
+    if (full || !sharedTask?.summaryOnly || !sharedTask.images.length) return;
+    let active = true;
+    dllWorkspace.readTask(sharedTask).then(task => {
+      if (active) setQuickResult({ summary: sharedTask, images: task.images });
+    }).catch(() => {});
+    return () => { active = false; };
+  }, [full, sharedTask]);
+  const images = !full && sharedTask?.summaryOnly
+    ? (quickResult?.summary === sharedTask ? quickResult.images : [])
+    : sharedTask?.images || loadDevPreviewImages();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [previewImageIndex, setPreviewImageIndex] = useState(null);
   const [previewImageSize, setPreviewImageSize] = useState(null);

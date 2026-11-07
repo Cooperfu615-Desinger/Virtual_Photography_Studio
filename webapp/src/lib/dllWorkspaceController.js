@@ -32,7 +32,18 @@ export function createDllWorkspaceController({ storage, execute, resume, cancel,
   const emit = patch => { state = { ...state, ...patch }; listeners.forEach(fn => fn()); };
   const check = stamp => { if (stamp !== epoch) throw new Error('登入帳號已變更，已停止操作'); };
   const update = task => emit({ tasks: [...state.tasks.filter(t => t.id !== task.id), task].sort((a,b) => a.createdAt - b.createdAt) });
-  async function save(task, stamp) { check(stamp); update(task); await storage.saveTask(structuredClone(task)); check(stamp); }
+  async function readTask(task, stamp = epoch) {
+    if (!task?.summaryOnly) return task;
+    const original = await storage.readTask(task.owner, task.id);
+    check(stamp);
+    return original;
+  }
+  async function save(task, stamp) {
+    check(stamp);
+    await storage.saveTask(task);
+    check(stamp);
+    update(storage.summarizeTask?.(task) ?? task);
+  }
   async function one(task, recovery, stamp) {
     const onProgress = async job => {
       check(stamp);
@@ -92,7 +103,7 @@ export function createDllWorkspaceController({ storage, execute, resume, cancel,
         while (task) {
           if (!recovery && task.status !== 'waiting') throw new Error('這筆任務已提交，請使用查詢或沿用設定');
           emit({ selected: task.id });
-          await one(task, recovery, stamp); check(stamp);
+          await one(await readTask(task, stamp), recovery, stamp); check(stamp);
           if (!all || state.paused) break;
           task = state.tasks.find(t => t.status === 'waiting');
         }
@@ -107,10 +118,11 @@ export function createDllWorkspaceController({ storage, execute, resume, cancel,
       if (!lock) throw new Error('另一個分頁正在生成，請稍後重新載入任務');
       const latest = await storage.load(state.owner); check(stamp);
       emit({ tasks: latest.tasks.sort((a, b) => a.createdAt - b.createdAt) });
-      await mutate(state.tasks.find(t => t.id === id), stamp);
+      await mutate(await readTask(state.tasks.find(t => t.id === id), stamp), stamp);
     });
   }
   return {
+    readTask,
     subscribe: fn => { listeners.add(fn); return () => listeners.delete(fn); }, getSnapshot: () => state,
     async setUser(uid) {
       const owner = uid || 'anonymous';
@@ -153,9 +165,10 @@ export function createDllWorkspaceController({ storage, execute, resume, cancel,
           await idleMutation(id, cancelWaiting);
           return;
         }
-        const result = await cancel(task); check(stamp);
+        const original = await readTask(task, stamp);
+        const result = await cancel(original); check(stamp);
         // Polling owns terminal state/results; cancellation acknowledgement must not overwrite them.
-        if (!state.busy) await save({ ...task, status: result.status === 'canceled' ? 'canceled' : 'uncertain', message: '已提出取消；請查詢確認最後狀態' }, stamp);
+        if (!state.busy) await save({ ...original, status: result.status === 'canceled' ? 'canceled' : 'uncertain', message: '已提出取消；請查詢確認最後狀態' }, stamp);
       } catch (error) { if (stamp === epoch) emit({ error: error.message }); }
     },
     async acknowledge(id) {

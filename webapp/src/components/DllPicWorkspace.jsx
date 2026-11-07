@@ -1,6 +1,7 @@
 import { useCallback, useState, useSyncExternalStore } from 'react';
 import { Download, Expand, Film, Images, ArrowUpRight, Trash2, RotateCcw, Play, Pause } from 'lucide-react';
 import DllPicProPanel from './DllPicProPanel.jsx';
+import DllHistoryPreview from './DllHistoryPreview.jsx';
 import DllDialog from './DllDialog.jsx';
 import DllImageViewer from './DllImageViewer.jsx';
 import { dllWorkspace, DLL_LOCAL_ACCEPTANCE } from '../lib/dllWorkspaceRuntime.js';
@@ -16,7 +17,7 @@ export default function DllPicWorkspace({ sources, incoming }) {
   const state = useSyncExternalStore(dllWorkspace.subscribe, dllWorkspace.getSnapshot);
   const [revision, setRevision] = useState(0);
   const [tab, setTab] = useState('current');
-  const [historyLimit, setHistoryLimit] = useState(10);
+  const [page, setPage] = useState(0);
   const [taskLimit, setTaskLimit] = useState(20);
   const [mobile, setMobile] = useState('settings');
   const [checked, setChecked] = useState([]);
@@ -29,8 +30,21 @@ export default function DllPicWorkspace({ sources, incoming }) {
   const pending = DLL_LOCAL_ACCEPTANCE ? null : readComfyPending();
   const tasks = [...state.tasks].reverse();
   const current = tasks.find(t => t.id === state.selected) || tasks[0];
-  const visible = tab === 'history' ? tasks.slice(0, historyLimit) : current ? [current] : [];
+  const lastPage = Math.max(0, Math.ceil(tasks.length / 10) - 1);
+  const currentPage = Math.min(page, lastPage);
+  const visible = tab === 'history' ? tasks.slice(currentPage * 10, currentPage * 10 + 10) : current ? [current] : [];
   const allImages = tasks.flatMap(task => (task.images || []).map((image, index) => ({ ...image, key: `${task.id}:${index}`, task, index, label: task.snapshot.kind === 'upscale' ? `放大版本 · ${task.snapshot.scale} 倍` : `${task.snapshot.sourceLabel || '生成圖片'} · 第 ${index + 1} 張` })));
+  async function original(image) {
+    if (image.src) return image;
+    const task = await dllWorkspace.readTask(image.task);
+    return { ...image, ...task.images[image.index] };
+  }
+  const view = images => run(async () => setViewer(await Promise.all(images.map(original))));
+  const reuse = (task, seed) => run(async () => {
+    const { snapshot } = await dllWorkspace.readTask(task);
+    const source = { id: snapshot.sourceId, label: snapshot.sourceLabel, value: snapshot.prompt, aspectRatio: snapshot.lockAspectRatio ? snapshot.aspectRatio : undefined, lockAspectRatio: snapshot.lockAspectRatio };
+    applyDraft({ ...snapshot, sources: seed === undefined ? [source] : draft.sources, selectedSourceId: snapshot.sourceId, custom: true, customPrompt: snapshot.prompt, workspaceId: snapshot.workspace, ...(seed === undefined ? {} : { seed, count: 1 }) });
+  });
   const selectedImages = allImages.filter(image => checked.includes(image.key));
   const draft = state.draft || { sources, workspaceId: 'Prompt 工作台' };
   const applyDraft = next => { dllWorkspace.draft(next); setRevision(value => value + 1); setMobile('settings'); };
@@ -50,23 +64,23 @@ export default function DllPicWorkspace({ sources, incoming }) {
       <div className="dll-workspace-main">
         <section className="dll-results" aria-label="圖片成果">
           <div className="dll-results-toolbar"><div className="dll-row"><button className={tab === 'current' ? 'tab-primary-active' : 'secondary'} onClick={() => setTab('current')}>本次成果</button><button className={tab === 'history' ? 'tab-primary-active' : 'secondary'} onClick={() => setTab('history')}>歷史成果</button></div>
-            <button className="secondary" disabled={selectedImages.length !== 2} onClick={() => setViewer(selectedImages)}>比較已選（{selectedImages.length}/2）</button></div>
+            <button className="secondary" disabled={selectedImages.length !== 2} onClick={() => view(selectedImages)}>比較已選（{selectedImages.length}/2）</button></div>
           {!visible.some(t => t.images?.length) && <div className="dll-empty"><Images size={40} /><h2>{current && tab === 'current' ? DLL_TASK_LABELS[current.status] || '等待結果' : '從一張圖片開始'}</h2><p>選擇左側 Prompt 與模型，生成後在這裡查看、比較與提升解析度。</p></div>}
           {visible.map(task => <section key={task.id} className="dll-result-group">
             <div className="dll-result-heading"><div><strong>{task.snapshot.kind === 'upscale' ? '提升解析度' : task.snapshot.sourceLabel || '生成圖片'}</strong><small>{new Date(task.createdAt).toLocaleString('zh-TW')} · {DLL_TASK_LABELS[task.status]}</small></div>
-              <div className="dll-row"><button className="dll-text-button" disabled={!task.snapshot.prompt} onClick={() => applyDraft({ ...task.snapshot, sources: [{ id: task.snapshot.sourceId, label: task.snapshot.sourceLabel, value: task.snapshot.prompt, aspectRatio: task.snapshot.lockAspectRatio ? task.snapshot.aspectRatio : undefined, lockAspectRatio: task.snapshot.lockAspectRatio }], selectedSourceId: task.snapshot.sourceId, custom: true, customPrompt: task.snapshot.prompt, workspaceId: task.snapshot.workspace })}><RotateCcw size={14} />沿用設定</button>
+              <div className="dll-row"><button className="dll-text-button" disabled={!task.snapshot.prompt} onClick={() => reuse(task)}><RotateCcw size={14} />沿用設定</button>
               <button className="dll-text-button" disabled={state.busy || taskNeedsAttention(task)} onClick={() => { if (window.confirm('刪除此筆本機紀錄與圖片？已下載的檔案不受影響。')) run(() => dllWorkspace.remove(task.id)); }}><Trash2 size={14} />刪除</button></div></div>
             <div className="dll-image-grid">{allImages.filter(image => image.task.id === task.id).map(image => <article className={`dll-result-card ${checked.includes(image.key) ? 'selected' : ''}`} key={image.key}>
               <label className="dll-image-selection"><input type="checkbox" checked={checked.includes(image.key)} onChange={event => setChecked(list => event.target.checked ? [...list.slice(-1), image.key] : list.filter(id => id !== image.key))} />{image.label}</label>
-              <button className="dll-image-open" onClick={() => setViewer([image])}><img src={image.src} alt={image.label} loading="lazy" /></button>
+              <button className="dll-image-open" onClick={() => view([image])}><DllHistoryPreview image={image} /></button>
               <p className="dll-image-meta">{image.width && `${image.width} × ${image.height} · `}{task.snapshot.kind === 'upscale' ? 'SeedVR2' : getDllPicModelConfig(task.snapshot.modelKey).label} {image.meta?.seed != null && `· Seed ${image.meta.seed}`}</p>
-              <div className="dll-card-actions"><button className="secondary" onClick={() => setViewer([image])}><Expand size={14} />檢視大圖</button><button className="secondary" onClick={() => run(() => downloadImageFile({ src: image.src, index: image.index, remoteDownload: downloadMagnificImageViaFirebase }))}><Download size={14} />下載</button><button className="secondary" disabled={['image/gif', 'image/svg+xml'].includes(image.mimeType)} onClick={() => { setUpscale(image); setScale(2); }}><ArrowUpRight size={14} />提升解析度</button><button className="secondary" disabled={DLL_LOCAL_ACCEPTANCE || ['image/gif', 'image/svg+xml'].includes(image.mimeType)} title={DLL_LOCAL_ACCEPTANCE ? '影片入口請至一般模式驗收' : undefined} onClick={() => openVideoWorkspace(image, image.index)}><Film size={14} />製作影片</button></div>
-              {Number.isSafeInteger(image.meta?.seed) && task.snapshot.kind !== 'upscale' && <button className="dll-text-button" onClick={() => applyDraft({ ...task.snapshot, seed: image.meta.seed, count: 1, sources: draft.sources, custom: true, customPrompt: task.snapshot.prompt, workspaceId: task.snapshot.workspace })}>沿用此張 Seed</button>}
-              {task.snapshot.parentId && <button className="dll-text-button" onClick={() => { const parent = allImages.find(i => i.key === task.snapshot.parentId); if (parent) setViewer([parent, image]); else setError('原圖已從此瀏覽器刪除'); }}>比較原圖與放大版本</button>}
+              <div className="dll-card-actions"><button className="secondary" onClick={() => view([image])}><Expand size={14} />檢視大圖</button><button className="secondary" onClick={() => run(async () => downloadImageFile({ src: (await original(image)).src, index: image.index, remoteDownload: downloadMagnificImageViaFirebase }))}><Download size={14} />下載</button><button className="secondary" disabled={['image/gif', 'image/svg+xml'].includes(image.mimeType)} onClick={() => run(async () => { setUpscale(await original(image)); setScale(2); })}><ArrowUpRight size={14} />提升解析度</button><button className="secondary" disabled={DLL_LOCAL_ACCEPTANCE || ['image/gif', 'image/svg+xml'].includes(image.mimeType)} title={DLL_LOCAL_ACCEPTANCE ? '影片入口請至一般模式驗收' : undefined} onClick={() => run(async () => openVideoWorkspace(await original(image), image.index))}><Film size={14} />製作影片</button></div>
+              {Number.isSafeInteger(image.meta?.seed) && task.snapshot.kind !== 'upscale' && <button className="dll-text-button" onClick={() => reuse(task, image.meta.seed)}>沿用此張 Seed</button>}
+              {task.snapshot.parentId && <button className="dll-text-button" onClick={() => { const parent = allImages.find(i => i.key === task.snapshot.parentId); if (parent) view([parent, image]); else setError('原圖已從此瀏覽器刪除'); }}>比較原圖與放大版本</button>}
             </article>)}</div>
             <details className="dll-task-details"><summary>查看實際生成設定</summary><p>{task.snapshot.kind === 'upscale' ? `SeedVR2 · ${task.snapshot.scale} 倍 · 保留原圖` : `${task.snapshot.outputFormat === 'gif' ? '自動尺寸（GIF）' : task.snapshot.resolution === 'auto' ? '自動尺寸' : task.snapshot.resolution === 'custom' ? `${task.snapshot.customWidth} × ${task.snapshot.customHeight}` : `${task.snapshot.aspectRatio} · ${task.snapshot.resolution}`} · ${task.snapshot.count} 張 · ${task.snapshot.workspace}`}</p>{task.snapshot.thinkingMode && <p>思考模式 · {task.snapshot.thinkingMode}</p>}{task.snapshot.complexity && <><p>{task.snapshot.imageMode === 'edit' ? '圖片編輯' : '文字生圖'} · 複雜度 {task.snapshot.complexity} · 格式 {task.snapshot.outputFormat?.toUpperCase()} · 背景 {task.snapshot.background} · 內容審核 {task.snapshot.moderation}</p>{['jpeg', 'webp'].includes(task.snapshot.outputFormat) && <p>壓縮品質 · {task.snapshot.outputCompression}</p>}{task.snapshot.outputFormat === 'gif' && <p>影格數 · {task.snapshot.frameCount} · 每格 {task.snapshot.frameDurationMs} ms</p>}</>}{task.snapshot.quality && <p>畫質 · {{ auto: '自動', low: '低', medium: '中', high: '高', xhigh: '超高', max: '最高' }[task.snapshot.quality]}</p>}{task.snapshot.loraStrength !== undefined && <p>{getDllPicLoraSelection(task.snapshot.modelKey).label || 'LoRA'} · 強度 {task.snapshot.loraStrength}</p>}<pre>{task.snapshot.prompt || '此筆為圖片放大或舊任務，沒有保存 Prompt'}</pre>{task.message && <p>{task.message}</p>}</details>
           </section>)}
-          {tab === 'history' && tasks.length > historyLimit && <button className="secondary" onClick={() => setHistoryLimit(value => value + 10)}>載入更多歷史</button>}
+          {tab === 'history' && lastPage > 0 && <nav className="dll-row" aria-label="歷史成果分頁"><button className="secondary" disabled={!currentPage} onClick={() => setPage(currentPage - 1)}>上一頁</button><span>{currentPage + 1} / {lastPage + 1}</span><button className="secondary" disabled={currentPage === lastPage} onClick={() => setPage(currentPage + 1)}>下一頁</button></nav>}
         </section>
         <section className="dll-tasks" aria-label="任務清單"><div className="dll-results-toolbar"><strong>任務清單 <small>待執行 {tasks.filter(t => t.status === 'waiting').length} 筆</small></strong>
           <div className="dll-row"><button className="secondary" disabled={!tasks.some(t => t.status === 'waiting') || state.busy} onClick={() => run(dllWorkspace.start)}><Play size={14} />開始清單</button><button className="secondary" disabled={!state.busy || state.paused} onClick={dllWorkspace.pause}><Pause size={14} />暫停清單</button></div></div>
