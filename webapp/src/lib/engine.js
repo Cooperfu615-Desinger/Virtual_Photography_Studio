@@ -1,5 +1,6 @@
 import { applyIndoorSeat, indoorSeatingModel, isIndoorSeatId } from './engine/indoorSeating.js';
 import { applyIndoorLean, indoorLeaningModel, isIndoorLeanId } from './engine/indoorLeaning.js';
+import { THIGH_RISE, attachUnderlayers, describeRevealGesture, normalizeUnderlayers, prepareUnderlayerHosts, underlayerField } from './engine/manualUnderlayers.js';
 import { applyIndoorKneel, indoorKneelingModel, isIndoorKneelId } from './engine/indoorKneeling.js';
 import { registerGrokImagineResult } from './grokImagineResult.js';
 import { seasonAllowsAmbient, styleAllowsLocation, styleAllowsAmbient, styleAllowsSubject, styleAllowsShutter } from './engine/captureCompatibility.js';
@@ -1232,7 +1233,7 @@ const LOCK_DEFINITIONS = [
   { key: 'bottomFitId', label: '下身版型', options: BOTTOM_FIT_OPTIONS, section: 'wardrobe' },
   { key: 'bottomFitAId', label: '人物 1 下身版型', options: BOTTOM_FIT_OPTIONS, section: 'wardrobe' },
   { key: 'bottomFitBId', label: '人物 2 下身版型', options: BOTTOM_FIT_OPTIONS, section: 'wardrobe' },
-  { key: 'bottomRiseId', label: '下身腰線', options: BOTTOM_RISE_OPTIONS, section: 'wardrobe' },
+  { key: 'bottomRiseId', label: '下身腰線', options: [...BOTTOM_RISE_OPTIONS, THIGH_RISE], section: 'wardrobe' },
   { key: 'bottomRiseAId', label: '人物 1 下身腰線', options: BOTTOM_RISE_OPTIONS, section: 'wardrobe' },
   { key: 'bottomRiseBId', label: '人物 2 下身腰線', options: BOTTOM_RISE_OPTIONS, section: 'wardrobe' },
   { key: 'bottomColorId', label: '下身配色', options: SHARED_COLOR_OPTIONS, section: 'wardrobe' },
@@ -3543,6 +3544,7 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
     if (choice.captureMode === 'observation' || indoorKneelingModel(choice, location, controls)?.selectedId)
       normalizedWithLegacyColors.indoorKneelId = rawLocks.indoorKneelId;
   }
+  Object.assign(normalizedWithLegacyColors, normalizeUnderlayers(rawLocks, controls));
   return normalizeAccessoryConflicts(normalizedWithLegacyColors, controls);
 }
 
@@ -3678,6 +3680,10 @@ function getBottomFitOption(id) {
 
 function getBottomRiseOption(id) {
   return BOTTOM_RISE_OPTIONS.find((option) => option.id === id) || null;
+}
+
+function getSingleBottomRiseOption(id) {
+  return id === THIGH_RISE.id ? THIGH_RISE : getBottomRiseOption(id);
 }
 
 function createSyntheticWardrobeModifier(token, option) {
@@ -3866,12 +3872,20 @@ function buildOuterwearColoredPrompt(outerwearItem, color = null, { fit = null, 
   return [fitText, styledBase, patternText, openingText, stylingText].filter(Boolean).join(', ');
 }
 
+function withUnderlayer(text, host) {
+  const layer = host?.meta?.underlayer;
+  if (!text || !layer) return text;
+  const source = composeItemWearableColorPrompt(layer.item, layer.item.en, layer.color);
+  if (layer.loweredOuter) return text + '. Underneath she wears ' + source + ', fully visible and still worn on her hips';
+  return text + ', layered over ' + source + (layer.relation ? ', ' + layer.relation : '');
+}
+
 function buildTopWardrobePrompt(wardrobeSlots, wardrobeColors) {
-  return buildTopColoredPrompt(wardrobeSlots.top, wardrobeColors.topColor, {
+  return withUnderlayer(buildTopColoredPrompt(wardrobeSlots.top, wardrobeColors.topColor, {
     pattern: wardrobeSlots.topPattern,
     fit: wardrobeSlots.topFit,
     styling: wardrobeSlots.topStyling,
-  });
+  }), wardrobeSlots.top);
 }
 
 function buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors) {
@@ -3926,11 +3940,11 @@ function buildBottomColoredPrompt(bottomItem, color = null, { pattern = null, fi
 }
 
 function buildBottomWardrobePrompt(bottomItem, wardrobeSlots, wardrobeColors) {
-  return buildBottomColoredPrompt(bottomItem, wardrobeColors.bottomColor, {
+  return withUnderlayer(buildBottomColoredPrompt(bottomItem, wardrobeColors.bottomColor, {
     pattern: wardrobeSlots.bottomPattern,
     fit: wardrobeSlots.bottomFit,
     rise: wardrobeSlots.bottomRise,
-  });
+  }), bottomItem);
 }
 
 function buildRoleBottomWardrobePrompt(bottomItem, wardrobeSlots, wardrobeColors, role) {
@@ -5268,7 +5282,7 @@ function buildPoseComposerItem(context) {
     const orientation = getPoseComposerOption(POSE_COMPOSER_ORIENTATION_OPTIONS, specifiedAction.orientationId);
     const head = resolveHead(null, orientation);
     const headText = isActivePoseComposerOption(head) ? `She has ${normalizePoseComposerHeadPhrase(head)}.` : '';
-    const gesture = resolveGesture(context.locks?.gestureId, specifiedAction, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random);
+    const gesture = describeRevealGesture(resolveGesture(context.locks?.gestureId, specifiedAction, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random), context.revealedUnderlayer);
     if (context.poseResolution) context.poseResolution.gesture = gesture;
     const prop = resolveProp(context.locks?.propId, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random);
     if (context.poseResolution) context.poseResolution.prop = prop;
@@ -5286,6 +5300,7 @@ function buildPoseComposerItem(context) {
         poseArrangementId: 'none', poseHandId: 'none', posePropId: 'none',
         ...headIds(head), poseAnchorId: 'none',
         gestureId: gesture?.id || 'none',
+        ...(gesture && context.revealedUnderlayer ? { revealedUnderlayer: context.revealedUnderlayer } : {}),
         ...(prop ? { propId: prop.id } : {}),
       },
     };
@@ -5782,7 +5797,7 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
     if (projection.pose?.mode === 'omit') return specifiedAction.faceEn || (specifiedAction.meta?.supineGroundOnly ? 'She is lying on her back on the ground.' : '');
     if (projection.pose?.mode === 'fullCanonical' || projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE) return poseComposer.en;
     const head = headOptionFromMeta(poseComposer.meta);
-    const gesture = GESTURE_OPTIONS.find(option => option.scope && option.id === poseComposer.meta?.gestureId) || null;
+    const gesture = describeRevealGesture(GESTURE_OPTIONS.find(option => option.scope && option.id === poseComposer.meta?.gestureId), poseComposer.meta?.revealedUnderlayer);
     const prop = PROP_OPTIONS.find(option => option.en && option.id === poseComposer.meta?.propId) || null;
     const chestUp = projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP;
     return [withLyingSurface(applyIndoorLean(actionTextWithGesture(specifiedAction, gesture, { chestUp }, prop).upperBodyEn, context.indoorLean, { upperBody: true }), lyingSurfaceFor(specifiedAction, context.location)),
@@ -7419,7 +7434,7 @@ function buildWardrobe(context, locks, catalog) {
 
   if (!useDuoRoleWardrobe && !hasOutfitPresetPieceResolved && !hasDressPiece && hasResolvedBottomPiece) {
     addPiece(resolveWardrobeModifier(locks?.bottomFitId, BOTTOM_FIT_OPTIONS, getBottomFitOption, '下身版型-bottom-fit'));
-    addPiece(resolveWardrobeModifier(locks?.bottomRiseId, BOTTOM_RISE_OPTIONS, getBottomRiseOption, '下身腰線-bottom-rise'));
+    addPiece(resolveWardrobeModifier(locks?.bottomRiseId, BOTTOM_RISE_OPTIONS, getSingleBottomRiseOption, '下身腰線-bottom-rise'));
   }
 
   if (!useDuoRoleWardrobe && !hasOutfitPresetPieceResolved && ((hasResolvedTopPiece && !hasDressPiece) || locks?.topPatternId)) {
@@ -15784,6 +15799,7 @@ function buildNaturalMjWardrobe(promptModel, role = '') {
     if (item && !isNoneLikeItem(item) && !(isCharacterProfileSubject(context.subject) && isCharacterCardLayerSlot(item))
       && shouldProjectWardrobeRole(projection, wardrobeRole, item.en)) {
       names.push(midjourneyItemName(item));
+      if (item.meta?.underlayer) names.push(midjourneyItemName(item.meta.underlayer.item));
       if (wardrobeRole === 'legwear' && /lace garter belt/i.test(item.en)) names.push('lace garter belt');
     }
   };
@@ -15987,7 +16003,7 @@ function buildGrokImaginePrototype(context, character, wardrobe, wardrobeColors)
     }
     if (originalSlots.pants || originalSlots.skirt) {
       addModifier('bottomFitId', '下身版型-bottom-fit', getBottomFitOption, originalSlots.bottomFit);
-      addModifier('bottomRiseId', '下身腰線-bottom-rise', getBottomRiseOption, originalSlots.bottomRise);
+      addModifier('bottomRiseId', '下身腰線-bottom-rise', getSingleBottomRiseOption, originalSlots.bottomRise);
       if (!originalSlots.bottomPattern && context.locks?.bottomPatternId && !isRandomLockValue(context.locks.bottomPatternId)) {
         const pattern = getControlOptionById(getLockControls(), 'bottomPatternId', context.locks.bottomPatternId);
         if (pattern && !isNoneLikeItem(pattern)) restored.push(pattern);
@@ -16367,7 +16383,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     bottomFitId: wardrobeSlots.bottomFit?.id?.split(':').pop() || '',
     bottomFitAId: wardrobeSlots.bottomFitA?.id?.replace(/:a$/, '')?.split(':').pop() || '',
     bottomFitBId: wardrobeSlots.bottomFitB?.id?.replace(/:b$/, '')?.split(':').pop() || '',
-    bottomRiseId: wardrobeSlots.bottomRise?.id?.split(':').pop() || '',
+    bottomRiseId: context.locks.bottomRiseId === THIGH_RISE.id ? THIGH_RISE.id : wardrobeSlots.bottomRise?.id?.split(':').pop() || '',
     bottomRiseAId: wardrobeSlots.bottomRiseA?.id?.replace(/:a$/, '')?.split(':').pop() || '',
     bottomRiseBId: wardrobeSlots.bottomRiseB?.id?.replace(/:b$/, '')?.split(':').pop() || '',
     bottomColorId: wardrobeColors.bottomColor?.id || '',
@@ -16476,6 +16492,13 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
   resolvedSelection.headPostureId = context.poseResolution?.posture?.id || context.rawLocks.headPostureId || 'none';
   resolvedSelection.captureStyleId = context.rawLocks.captureStyleId || 'standard';
   const snapshot = createSelectionSnapshot(LOCK_DEFINITIONS, resolvedSelection);
+  for (const host of wardrobe) {
+    const layer = host.meta?.underlayer;
+    if (!layer) continue;
+    const top = host.id === context.locks.topId;
+    snapshot[top ? 'topUnderlayerId' : 'bottomUnderlayerId'] = layer.item.id;
+    if (layer.color) snapshot[top ? 'topUnderlayerColorId' : 'bottomUnderlayerColorId'] = layer.color.id;
+  }
   if (context.indoorSeat?.selectedId) snapshot.indoorSeatId = context.indoorSeat.selectedId;
   if (context.indoorLean?.selectedId) snapshot.indoorLeanId = context.indoorLean.selectedId;
   if (context.indoorKneel?.selectedId) snapshot.indoorKneelId = context.indoorKneel.selectedId;
@@ -16552,6 +16575,7 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
     )
   );
   const effectiveLocks = sanitizeLocksForCloseupMode(getSpecifiedActionEffectiveLocks(fixedScenePoseLocks(generationLocks), { cameraControls: lockControls }), lockControls);
+  prepareUnderlayerHosts(effectiveLocks, lockControls, random);
   if (isFullyClosedOpening(effectiveLocks.outerwearOpeningId) && effectiveLocks.poseHandId === PULL_OPEN_HAND_ID) {
     effectiveLocks.poseHandId = 'none';
   }
@@ -16858,6 +16882,7 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
     fixedFramingCompositionOpening,
     angle,
     orbit,
+    revealedUnderlayer: effectiveLocks.topUnderlayerId && underlayerField(effectiveLocks, lockControls, 'gestureId')?.item,
     indoorSeat: indoorSeatingModel(requestedLocks, location, lockControls),
     indoorLean: indoorLeaningModel(requestedLocks, location, lockControls),
     indoorKneel: indoorKneelingModel(requestedLocks, location, lockControls),
@@ -16918,7 +16943,8 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
     : buildWardrobe({ ...context }, effectiveLocks, runtime);
   const filteredPage1Wardrobe = filterPage1WardrobeForCharacterCardLayers(rawPage1Wardrobe, cardLayers);
   const page1Wardrobe = appendLockedPage1FillersForCharacterCardLayers(filteredPage1Wardrobe, cardLayers, effectiveLocks, lockControls);
-  const wardrobe = importedCapturePerson ? structuredClone(importedCapturePerson.wardrobe) : resolveBottomRiseCompatibility([...cardLayers, ...page1Wardrobe]);
+  const applyUnderlayers = pieces => attachUnderlayers(pieces, effectiveLocks, lockControls, context.poseResolution.gesture?.id);
+  const wardrobe = importedCapturePerson ? structuredClone(importedCapturePerson.wardrobe) : applyUnderlayers(resolveBottomRiseCompatibility([...cardLayers, ...page1Wardrobe]));
   context.wardrobe = wardrobe;
   const wardrobeColors = importedCapturePerson ? structuredClone(importedCapturePerson.wardrobeColors) : buildWardrobeColors(extractWardrobeSlots(wardrobe), effectiveLocks, random);
 
@@ -16970,7 +16996,7 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
     const preCropPage1 = preCropWardrobe ? appendLockedPage1FillersForCharacterCardLayers(
       filterPage1WardrobeForCharacterCardLayers(preCropWardrobe, cardLayers), cardLayers, effectiveLocks, lockControls,
     ) : null;
-    const grokWardrobe = preCropPage1 ? resolveBottomRiseCompatibility([...cardLayers, ...preCropPage1]) : wardrobe;
+    const grokWardrobe = preCropPage1 ? applyUnderlayers(resolveBottomRiseCompatibility([...cardLayers, ...preCropPage1])) : wardrobe;
     const grokImagine = buildGrokImaginePrototype(context, promptCharacter, grokWardrobe, wardrobeColors);
     registerGrokImagineResult(prompt, grokImagine);
   }

@@ -1,4 +1,5 @@
 // PAGE1 persistence metadata only; never regenerate or infer a public output.
+import { underlayerKeys } from '../../lib/engine/manualUnderlayers.js';
 import { createEmptyLocks, getLockControls, normalizeLocks } from '../../lib/engine.js';
 import { CAPTURE_GROUPS } from '../../lib/observationCaptureMode.js';
 import { normalizeSpecifiedActionSceneRestore, isSupinePoseSelection, SUPINE_SCENE_NONE_LOCKS } from '../../lib/engine/poseScenePolicy.js';
@@ -43,9 +44,13 @@ function safeJson(text) {
 function validateSelection(selection, controls) {
   const defaults = normalizeLocks(createEmptyLocks(), controls);
   // Manual support fields are optional. Every original v1 key remains required.
-  keys(selection, [...Object.keys(defaults), 'indoorSeatId', 'indoorLeanId', 'indoorKneelId'], Object.keys(defaults));
+  keys(selection, [...Object.keys(defaults), 'indoorSeatId', 'indoorLeanId', 'indoorKneelId', ...underlayerKeys], Object.keys(defaults));
   for (const [key, value] of Object.entries(selection)) {
     if (key === 'indoorSeatId' || key === 'indoorLeanId' || key === 'indoorKneelId') {
+      if (typeof value !== 'string') fail(key);
+      continue;
+    }
+    if (underlayerKeys.includes(key)) {
       if (typeof value !== 'string') fail(key);
       continue;
     }

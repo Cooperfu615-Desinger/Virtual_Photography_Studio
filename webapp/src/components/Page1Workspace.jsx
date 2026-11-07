@@ -1,5 +1,6 @@
 import { indoorSeatingModel } from '../lib/engine/indoorSeating.js';
 import { indoorLeaningModel } from '../lib/engine/indoorLeaning.js';
+import { THIGH_RISE, isRevealGesture, underlayerField } from '../lib/engine/manualUnderlayers.js';
 import { indoorKneelingModel } from '../lib/engine/indoorKneeling.js';
 import ObservationCapturePanel from './ObservationCapturePanel';
 import { getLegacyDressPalette } from '../features/page1/page1WardrobeExclusivity.js';
@@ -135,7 +136,22 @@ const WARDROBE_PICKER_KEYS = new Set([
   'shoesBColorId',
 ]);
 
+const UNDERLAYER_PALETTE_TRIGGERS = {
+  topUnderlayerColorId: 'gestureId',
+  bottomUnderlayerColorId: 'bottomRiseId',
+};
+
+function underlayerColorControl(inner) {
+  if (!inner?.item) return null;
+  return {
+    key: inner.colorKey,
+    label: inner.colorKey === 'topUnderlayerColorId' ? '上身內搭配色' : '下身內搭配色',
+    options: [{ id: 'none', zh: '無', en: '' }, ...inner.colors],
+  };
+}
+
 const WARDROBE_SINGLE_COLOR_PICKER_KEYS = new Set([
+  ...Object.keys(UNDERLAYER_PALETTE_TRIGGERS),
   'headAccessoryColorId', 'headAccessoryAColorId', 'headAccessoryBColorId',
   'headphonesColorId', 'headphonesAColorId', 'headphonesBColorId',
   'faceCoveringColorId', 'faceCoveringAColorId', 'faceCoveringBColorId',
@@ -408,7 +424,7 @@ function WardrobePickerField({ control, value, disabled, onOpen, onChange, onCop
         ) : null}
         <span className="wardrobe-picker-open">選擇</span>
       </button>
-      {value ? (
+      {value && onChange ? (
         <button className="wardrobe-picker-clear" type="button" disabled={disabled} onClick={() => onChange('')}>
           回到隨機
         </button>
@@ -447,6 +463,7 @@ function WardrobePickerModal({ control, contextLabel, value, query, onQueryChang
     'wardrobe-picker-modal',
     singleColorMode ? 'wardrobe-picker-modal--colors' : '',
     pairedColorMode ? 'wardrobe-picker-modal--paired-colors' : '',
+    UNDERLAYER_PALETTE_TRIGGERS[control.key] ? 'wardrobe-picker-modal--underlayer' : '',
   ].filter(Boolean).join(' ');
 
   return (
@@ -863,8 +880,10 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     () => buildWardrobeLayerInsights(locks, wardrobeLockControls, isSpecialOutfitActive, isAnyOutfitPresetActive),
     [locks, wardrobeLockControls, isSpecialOutfitActive, isAnyOutfitPresetActive],
   );
-  const activeWardrobePickerControl = [...characterLockControls, ...wardrobeLockControls]
-    .find((control) => control.key === activeWardrobePickerKey);
+  const underlayerTrigger = UNDERLAYER_PALETTE_TRIGGERS[activeWardrobePickerKey];
+  const activeWardrobePickerControl = underlayerTrigger
+    ? underlayerColorControl(underlayerField(locks, lockControls, underlayerTrigger))
+    : [...characterLockControls, ...wardrobeLockControls].find(control => control.key === activeWardrobePickerKey);
   // expression-pose-v2 P4: a selfie 拍攝方式 applies (and locks the orbit) only while no action owns the hands.
   // P5a: the retired hand/prop layers no longer feed this; 拍攝方式 is the only source.
   const captureStyleSelfieApplies = isSelfieCaptureStyle(locks.captureStyleId) && locks.subjectCount === '1' && !activeSpecifiedAction && !captureActive;
@@ -988,6 +1007,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         bottom: explicitNone('pantsId') && explicitNone('skirtId') ? '下身' : '' };
       if (applicable.size) {
         return { ...control, options: control.options.filter(o => ['none', 'random'].includes(o.id) || applicable.has(o.id))
+          .map(o => isRevealGesture(o.id) && !underlayerField({...locks,gestureId:o.id},lockControls,'gestureId') ? {...o,disabled:true} : o)
           .map(o => { const missing = missingItem[o.meta?.requiresWardrobeRole]; return missing ? { ...o, zh: `${o.zh}（需要${missing}）`, disabled: true } : o; }) };
       }
       if (activeSpecifiedAction?.id === 'random') return { ...control, options: control.options.filter(o => ['none', 'random'].includes(o.id)) };
@@ -1199,6 +1219,10 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
 
   const prepareControlField = (rawControl, inDuoGroup = false) => {
     if (captureActive && (CAPTURE_OWNED_KEYS.includes(rawControl.key) || ['gazeId', 'gestureId', 'propId'].includes(rawControl.key))) return { control: { ...rawControl, options: [{ id: 'capture-owned', zh: '由觀察式抓拍決定', en: '' }], suppressDefaultRandomOption: true }, value: 'capture-owned', disabled: true, dividerLabel: '' };
+    if (rawControl.key === 'bottomRiseId' && !underlayerField({ ...locks, bottomRiseId: THIGH_RISE.id }, lockControls, 'bottomRiseId')) {
+      rawControl = { ...rawControl, options: rawControl.options.filter(option => option.id !== THIGH_RISE.id),
+        ...(locks.bottomRiseId === THIGH_RISE.id ? { closureDisplayValue: 'none' } : {}) };
+    }
     if (captureActive && rawControl.key === 'framingId') rawControl = { ...rawControl, options: rawControl.options.map(option => ({ ...option, disabled: option.zh !== '全無' && !/全身鏡頭|中景鏡頭|牛仔/.test(option.zh) })), helpText: '抓拍主輸出支援全身、膝上、腰上；胸上特寫由衍生輸出提供。' };
     const preparedBaseControl = prepareHeadDominantAngleControl(prepareBottomRiseControl(prepareUnderbustTopControl(prepareOuterwearClosureControl(prepareAccessoryControl(buildFixedSetControl(buildPoseComposerControl(rawControl)), locks), locks, lockControls), locks, lockControls), locks, lockControls), locks, lockControls);
     const baseControl = activeSection === 'wardrobe' && resolvedActiveSubpanel?.id === 'layers'
@@ -1276,6 +1300,34 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
           />
         );
 
+        const inner = !disabled && underlayerField(locks, lockControls, control.key);
+        if (inner) {
+          const isUpper = control.key === 'gestureId';
+          const label = isUpper ? '上身內搭' : '下身內搭';
+          const palette = underlayerColorControl(inner);
+          const pair = (
+            <div className="manual-underlayer-pair">
+              <SelectControlField
+                control={{ key: inner.itemKey, label, suppressDefaultRandomOption: true,
+                  options: [{ id: 'none', zh: '無', en: '' }, ...inner.items] }}
+                value={inner.item?.id || 'none'}
+                onChange={id => updateLocks({ [inner.itemKey]: id })}
+                onCopy={text => handleCopyText(label, text)}
+              />
+              {palette && (
+                <WardrobePickerField
+                  control={palette}
+                  value={inner.color?.id || 'none'}
+                  onOpen={() => openWardrobePicker(palette)}
+                  onCopy={text => handleCopyText(palette.label, text)}
+                />
+              )}
+            </div>
+          );
+          return isUpper
+            ? <div key={control.key} className="manual-underlayer-fields">{field}{pair}</div>
+            : <Fragment key={control.key}>{field}{pair}</Fragment>;
+        }
         if (dividerLabel) {
           return (
             <Fragment key={control.key}>
@@ -1950,7 +2002,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         <WardrobePickerModal
           control={activeWardrobePickerControl}
           contextLabel={pickerContext}
-          value={locks[activeWardrobePickerControl.key]}
+          value={locks[activeWardrobePickerControl.key] || (underlayerTrigger ? 'none' : '')}
           query={wardrobePickerQuery}
           onQueryChange={setWardrobePickerQuery}
           onClose={closeWardrobePicker}

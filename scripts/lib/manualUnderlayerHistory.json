@@ -1,0 +1,496 @@
+{
+  "base": "cdb9252401d7b789b61654c2203fdec50f2f8cbb",
+  "files": [
+    {
+      "path": "webapp/package.json",
+      "beforeHash": "ba87cb797073efbeb8f3234b0dc3ad9039455c7309161719a0727a89e45234cd",
+      "afterHash": "2b2426bb4da3728093a319d20400d4c4f441a710566e7ccb61a555fbb5f6ed55",
+      "edits": [
+        {
+          "line": 10,
+          "after": [
+            "    \"test:prompt-quality\": \"node ../scripts/run_webapp_tests.mjs src/lib/engine/manualUnderlayers.test.js src/lib/engine/indoorKneelBaseline.test.js src/lib/engine/indoorKneeling.test.js src/lib/engine/indoorKneelPrompt.test.js src/features/saved-cards/indoorKneelRestore.test.js src/lib/engine/outdoorLeanBaseline.test.js src/lib/engine/outdoorLeaning.test.js src/lib/engine/outdoorLeanPrompt.test.js src/features/saved-cards/outdoorLeanRestore.test.js src/lib/engine/outdoorSeatBaseline.test.js src/lib/engine/outdoorSeating.test.js src/lib/engine/outdoorSeatPrompt.test.js src/features/saved-cards/outdoorSeatRestore.test.js src/lib/engine/indoorLeanBaseline.test.js src/lib/engine/indoorLeaning.test.js src/lib/engine/indoorLeanPrompt.test.js src/features/saved-cards/indoorLeanRestore.test.js src/lib/engine/indoorSeatBaseline.test.js src/lib/engine/indoorSeating.test.js src/lib/engine/indoorSeatPrompt.test.js src/features/saved-cards/indoorSeatRestore.test.js src/lib/engine/framingWardrobeIntegration.test.js src/lib/engine/framingWardrobeRetention.test.js src/lib/engine/framingWardrobeHistoricalBoundary.test.js src/lib/characterWardrobeSources.test.js src/lib/page2AdultIdentity.test.js src/lib/engine/mainDressRegion.test.js src/lib/engine/chestDressRegion.test.js src/features/saved-cards/page1MarkdownSnapshot.test.js src/features/saved-cards/wardrobeColorRecovery.test.js src/lib/engine/outfitControlLanguage.test.js src/lib/engine/dressControlLanguage.test.js src/lib/engine/characterAdultIdentity.test.js src/lib/observationCaptureImport.test.js src/lib/engine/shirtBlackBottom.test.js src/lib/engine/specifiedActionUnified.test.js src/lib/observationCaptureMode.test.js src/lib/engine/squattingHands.test.js src/lib/engine/squattingCatalog.test.js src/lib/engine/specifiedActions.test.js src/lib/engine/specifiedActionIntegration.test.js src/lib/engine/nanoBananaPrompt.test.js src/lib/engine/midjourneyNaturalPrompt.test.js src/lib/engineBlackTieShirt.test.js src/lib/engineMirrorSelfieProp.test.js src/lib/engineSubjectLightAdditions.test.js src/lib/engineSubjectKeyLightCompatibility.test.js src/lib/engine/headDominantFraming.test.js src/lib/engine/shibuyaCrowdScene.test.js src/lib/engine/adidasTrackwear.test.js src/lib/engine/bandagePasties.test.js src/lib/engine/underbustTopFit.test.js src/lib/engine/outerwearStyling.test.js src/lib/engine/minimalCoverageWardrobe.test.js src/lib/engine/bodyTypeCatalog.test.js src/lib/engine/gptBodyTypeOmission.test.js src/lib/engine/kneelingCatalog.test.js src/lib/engine/hourglassBikiniBody.test.js src/lib/engine/zImageOnLocationCapture.test.js src/lib/engine/outerwearClosure.test.js src/lib/engine/stationFixedComposition.test.js src/lib/engineFixedCompositionSet.test.js src/lib/engine/topHemOverlap.test.js src/lib/engine/standingCatalog.test.js src/lib/engineOptionalSilence.test.js src/lib/engine/midjourneyTopPattern.test.js src/lib/engine/chestUpSameState.test.js src/lib/engine/closeWormEye.test.js src/lib/engine/gptCameraSpatial.test.js src/lib/engine/gptSceneVisibility.test.js src/lib/engine/ambientLightDescriptions.test.js src/lib/engine/zImageSceneDetailPriority.test.js src/lib/engine/zImageUpperSceneExtension.test.js src/lib/engine/zImageFullBodyCamera.test.js src/lib/engine/zImageUpperScene.test.js src/lib/engine/zImageSceneDirection.test.js src/lib/engine/sceneIntegratedAssemblyBaseline.test.js src/lib/engine/promptOutputContracts.test.js src/lib/engine/zImageTurboPromptContract.test.js src/lib/engine/zImageTurboCameraGeometry.test.js src/lib/engineZImageTurboPrompt.test.js src/lib/engine/aiPromptLengthContract.test.js src/lib/engine/aiPromptBudget.test.js src/lib/engine/aiPromptLengthIntegration.test.js src/lib/engine/midjourneyDescriptionContract.test.js src/lib/engine/midjourneyDescriptionOpening.test.js src/lib/engine/midjourneySubjectWardrobe.test.js src/lib/engine/midjourneySceneImaging.test.js src/lib/engine/midjourneySpecialModes.test.js src/lib/engine/midjourneyParameterContract.test.js src/lib/engine/midjourneyParameterTail.test.js src/lib/engine/midjourneyNativeStructure.test.js src/lib/engine/midjourneyFacialFeatureVariant.test.js src/lib/engine/expressionGazeSharedPrompt.test.js src/lib/engine/midjourneyCompletionGate.test.js src/lib/enginePromptDeduplication.test.js src/lib/engine/compositionBodyVisibilityContract.test.js src/lib/engine/compositionBodyVisibilityIntegration.test.js src/lib/engine/compositionBodyPromptIntegration.test.js src/lib/engine/compositionVisibilityIntegration.test.js src/lib/engine/fixedCompositionPromptIntegration.test.js src/lib/engine/fixedFramingDerivedPromptContract.test.js src/lib/engine/fixedFramingDerivedPromptInfrastructure.test.js src/lib/engine/fixedFramingDerivedPromptRuntime.test.js src/lib/engine/fixedFramingMainPrompt.test.js src/lib/engine/fixedFramingPromptIntegration.test.js src/lib/page1PromptOutputs.test.js src/lib/engine/phase4PublicLanguage.test.js src/lib/engine/phase4FixedPalette.test.js src/lib/engine/phase4ScenePosition.test.js src/lib/engine/phase4LightingCompatibility.test.js src/lib/engine/phase4CharacterDirection.test.js\",\n"
+          ],
+          "before": [
+            "    \"test:prompt-quality\": \"node ../scripts/run_webapp_tests.mjs src/lib/engine/indoorKneelBaseline.test.js src/lib/engine/indoorKneeling.test.js src/lib/engine/indoorKneelPrompt.test.js src/features/saved-cards/indoorKneelRestore.test.js src/lib/engine/outdoorLeanBaseline.test.js src/lib/engine/outdoorLeaning.test.js src/lib/engine/outdoorLeanPrompt.test.js src/features/saved-cards/outdoorLeanRestore.test.js src/lib/engine/outdoorSeatBaseline.test.js src/lib/engine/outdoorSeating.test.js src/lib/engine/outdoorSeatPrompt.test.js src/features/saved-cards/outdoorSeatRestore.test.js src/lib/engine/indoorLeanBaseline.test.js src/lib/engine/indoorLeaning.test.js src/lib/engine/indoorLeanPrompt.test.js src/features/saved-cards/indoorLeanRestore.test.js src/lib/engine/indoorSeatBaseline.test.js src/lib/engine/indoorSeating.test.js src/lib/engine/indoorSeatPrompt.test.js src/features/saved-cards/indoorSeatRestore.test.js src/lib/engine/framingWardrobeIntegration.test.js src/lib/engine/framingWardrobeRetention.test.js src/lib/engine/framingWardrobeHistoricalBoundary.test.js src/lib/characterWardrobeSources.test.js src/lib/page2AdultIdentity.test.js src/lib/engine/mainDressRegion.test.js src/lib/engine/chestDressRegion.test.js src/features/saved-cards/page1MarkdownSnapshot.test.js src/features/saved-cards/wardrobeColorRecovery.test.js src/lib/engine/outfitControlLanguage.test.js src/lib/engine/dressControlLanguage.test.js src/lib/engine/characterAdultIdentity.test.js src/lib/observationCaptureImport.test.js src/lib/engine/shirtBlackBottom.test.js src/lib/engine/specifiedActionUnified.test.js src/lib/observationCaptureMode.test.js src/lib/engine/squattingHands.test.js src/lib/engine/squattingCatalog.test.js src/lib/engine/specifiedActions.test.js src/lib/engine/specifiedActionIntegration.test.js src/lib/engine/nanoBananaPrompt.test.js src/lib/engine/midjourneyNaturalPrompt.test.js src/lib/engineBlackTieShirt.test.js src/lib/engineMirrorSelfieProp.test.js src/lib/engineSubjectLightAdditions.test.js src/lib/engineSubjectKeyLightCompatibility.test.js src/lib/engine/headDominantFraming.test.js src/lib/engine/shibuyaCrowdScene.test.js src/lib/engine/adidasTrackwear.test.js src/lib/engine/bandagePasties.test.js src/lib/engine/underbustTopFit.test.js src/lib/engine/outerwearStyling.test.js src/lib/engine/minimalCoverageWardrobe.test.js src/lib/engine/bodyTypeCatalog.test.js src/lib/engine/gptBodyTypeOmission.test.js src/lib/engine/kneelingCatalog.test.js src/lib/engine/hourglassBikiniBody.test.js src/lib/engine/zImageOnLocationCapture.test.js src/lib/engine/outerwearClosure.test.js src/lib/engine/stationFixedComposition.test.js src/lib/engineFixedCompositionSet.test.js src/lib/engine/topHemOverlap.test.js src/lib/engine/standingCatalog.test.js src/lib/engineOptionalSilence.test.js src/lib/engine/midjourneyTopPattern.test.js src/lib/engine/chestUpSameState.test.js src/lib/engine/closeWormEye.test.js src/lib/engine/gptCameraSpatial.test.js src/lib/engine/gptSceneVisibility.test.js src/lib/engine/ambientLightDescriptions.test.js src/lib/engine/zImageSceneDetailPriority.test.js src/lib/engine/zImageUpperSceneExtension.test.js src/lib/engine/zImageFullBodyCamera.test.js src/lib/engine/zImageUpperScene.test.js src/lib/engine/zImageSceneDirection.test.js src/lib/engine/sceneIntegratedAssemblyBaseline.test.js src/lib/engine/promptOutputContracts.test.js src/lib/engine/zImageTurboPromptContract.test.js src/lib/engine/zImageTurboCameraGeometry.test.js src/lib/engineZImageTurboPrompt.test.js src/lib/engine/aiPromptLengthContract.test.js src/lib/engine/aiPromptBudget.test.js src/lib/engine/aiPromptLengthIntegration.test.js src/lib/engine/midjourneyDescriptionContract.test.js src/lib/engine/midjourneyDescriptionOpening.test.js src/lib/engine/midjourneySubjectWardrobe.test.js src/lib/engine/midjourneySceneImaging.test.js src/lib/engine/midjourneySpecialModes.test.js src/lib/engine/midjourneyParameterContract.test.js src/lib/engine/midjourneyParameterTail.test.js src/lib/engine/midjourneyNativeStructure.test.js src/lib/engine/midjourneyFacialFeatureVariant.test.js src/lib/engine/expressionGazeSharedPrompt.test.js src/lib/engine/midjourneyCompletionGate.test.js src/lib/enginePromptDeduplication.test.js src/lib/engine/compositionBodyVisibilityContract.test.js src/lib/engine/compositionBodyVisibilityIntegration.test.js src/lib/engine/compositionBodyPromptIntegration.test.js src/lib/engine/compositionVisibilityIntegration.test.js src/lib/engine/fixedCompositionPromptIntegration.test.js src/lib/engine/fixedFramingDerivedPromptContract.test.js src/lib/engine/fixedFramingDerivedPromptInfrastructure.test.js src/lib/engine/fixedFramingDerivedPromptRuntime.test.js src/lib/engine/fixedFramingMainPrompt.test.js src/lib/engine/fixedFramingPromptIntegration.test.js src/lib/page1PromptOutputs.test.js src/lib/engine/phase4PublicLanguage.test.js src/lib/engine/phase4FixedPalette.test.js src/lib/engine/phase4ScenePosition.test.js src/lib/engine/phase4LightingCompatibility.test.js src/lib/engine/phase4CharacterDirection.test.js\",\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/components/Page1Workspace.jsx",
+      "beforeHash": "10da3198a12ede51701f00084ffb5b572f6abba5bb6ffdd9b20a6484ef4c999b",
+      "afterHash": "8e86fdab2e8249038ab604fc5563b75ddbb630f1316158685804357335876c01",
+      "edits": [
+        {
+          "line": 2,
+          "after": [
+            "import { THIGH_RISE, isRevealGesture, underlayerField } from '../lib/engine/manualUnderlayers.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 138,
+          "after": [
+            "const UNDERLAYER_PALETTE_TRIGGERS = {\n",
+            "  topUnderlayerColorId: 'gestureId',\n",
+            "  bottomUnderlayerColorId: 'bottomRiseId',\n",
+            "};\n",
+            "\n",
+            "function underlayerColorControl(inner) {\n",
+            "  if (!inner?.item) return null;\n",
+            "  return {\n",
+            "    key: inner.colorKey,\n",
+            "    label: inner.colorKey === 'topUnderlayerColorId' ? '上身內搭配色' : '下身內搭配色',\n",
+            "    options: [{ id: 'none', zh: '無', en: '' }, ...inner.colors],\n",
+            "  };\n",
+            "}\n",
+            "\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 153,
+          "after": [
+            "  ...Object.keys(UNDERLAYER_PALETTE_TRIGGERS),\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 426,
+          "after": [
+            "      {value && onChange ? (\n"
+          ],
+          "before": [
+            "      {value ? (\n"
+          ]
+        },
+        {
+          "line": 465,
+          "after": [
+            "    UNDERLAYER_PALETTE_TRIGGERS[control.key] ? 'wardrobe-picker-modal--underlayer' : '',\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 882,
+          "after": [
+            "  const underlayerTrigger = UNDERLAYER_PALETTE_TRIGGERS[activeWardrobePickerKey];\n",
+            "  const activeWardrobePickerControl = underlayerTrigger\n",
+            "    ? underlayerColorControl(underlayerField(locks, lockControls, underlayerTrigger))\n",
+            "    : [...characterLockControls, ...wardrobeLockControls].find(control => control.key === activeWardrobePickerKey);\n"
+          ],
+          "before": [
+            "  const activeWardrobePickerControl = [...characterLockControls, ...wardrobeLockControls]\n",
+            "    .find((control) => control.key === activeWardrobePickerKey);\n"
+          ]
+        },
+        {
+          "line": 1009,
+          "after": [
+            "          .map(o => isRevealGesture(o.id) && !underlayerField({...locks,gestureId:o.id},lockControls,'gestureId') ? {...o,disabled:true} : o)\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 1221,
+          "after": [
+            "    if (rawControl.key === 'bottomRiseId' && !underlayerField({ ...locks, bottomRiseId: THIGH_RISE.id }, lockControls, 'bottomRiseId')) {\n",
+            "      rawControl = { ...rawControl, options: rawControl.options.filter(option => option.id !== THIGH_RISE.id),\n",
+            "        ...(locks.bottomRiseId === THIGH_RISE.id ? { closureDisplayValue: 'none' } : {}) };\n",
+            "    }\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 1302,
+          "after": [
+            "        const inner = !disabled && underlayerField(locks, lockControls, control.key);\n",
+            "        if (inner) {\n",
+            "          const isUpper = control.key === 'gestureId';\n",
+            "          const label = isUpper ? '上身內搭' : '下身內搭';\n",
+            "          const palette = underlayerColorControl(inner);\n",
+            "          const pair = (\n",
+            "            <div className=\"manual-underlayer-pair\">\n",
+            "              <SelectControlField\n",
+            "                control={{ key: inner.itemKey, label, suppressDefaultRandomOption: true,\n",
+            "                  options: [{ id: 'none', zh: '無', en: '' }, ...inner.items] }}\n",
+            "                value={inner.item?.id || 'none'}\n",
+            "                onChange={id => updateLocks({ [inner.itemKey]: id })}\n",
+            "                onCopy={text => handleCopyText(label, text)}\n",
+            "              />\n",
+            "              {palette && (\n",
+            "                <WardrobePickerField\n",
+            "                  control={palette}\n",
+            "                  value={inner.color?.id || 'none'}\n",
+            "                  onOpen={() => openWardrobePicker(palette)}\n",
+            "                  onCopy={text => handleCopyText(palette.label, text)}\n",
+            "                />\n",
+            "              )}\n",
+            "            </div>\n",
+            "          );\n",
+            "          return isUpper\n",
+            "            ? <div key={control.key} className=\"manual-underlayer-fields\">{field}{pair}</div>\n",
+            "            : <Fragment key={control.key}>{field}{pair}</Fragment>;\n",
+            "        }\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 2004,
+          "after": [
+            "          value={locks[activeWardrobePickerControl.key] || (underlayerTrigger ? 'none' : '')}\n"
+          ],
+          "before": [
+            "          value={locks[activeWardrobePickerControl.key]}\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/page1/page1.css",
+      "beforeHash": "a87c203d4f1d6acbc635a7b5e68a423d92aa74fd67fbc65db606007e93fc363d",
+      "afterHash": "6deb1d811303485db72b12e177572f7b7fec3e856a7e9cf29a4dd4fe46891708",
+      "edits": [
+        {
+          "line": 914,
+          "after": [
+            "\n",
+            ".manual-underlayer-fields,\n",
+            ".manual-underlayer-pair {\n",
+            "  display: grid;\n",
+            "  grid-column: 1 / -1;\n",
+            "  grid-template-columns: repeat(2, minmax(0, 1fr));\n",
+            "  align-items: start;\n",
+            "  gap: 10px;\n",
+            "}\n",
+            ".manual-underlayer-fields { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); }\n",
+            ".manual-underlayer-fields > .manual-underlayer-pair { grid-column: auto; }\n",
+            ".manual-underlayer-fields > .field,\n",
+            ".manual-underlayer-pair > .field { min-width: 0; }\n",
+            "@media (max-width: 820px) {\n",
+            "  .manual-underlayer-fields { grid-template-columns: minmax(0, 1fr); }\n",
+            "}\n",
+            "\n",
+            ".wardrobe-picker-modal--underlayer .wardrobe-picker-color-grid {\n",
+            "  grid-auto-rows: max-content;\n",
+            "  align-content: start;\n",
+            "}\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/saved-cards/page1MarkdownSnapshot.js",
+      "beforeHash": "9b31469daf2132948d43af6a3e7daca4f06e720c74bc09c06ba80196bae577f6",
+      "afterHash": "7a394af0f3698fb0ed6aec2bfbc19ed4b159d76bf1cd01c7d60a5d1108c40099",
+      "edits": [
+        {
+          "line": 1,
+          "after": [
+            "import { underlayerKeys } from '../../lib/engine/manualUnderlayers.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 46,
+          "after": [
+            "  keys(selection, [...Object.keys(defaults), 'indoorSeatId', 'indoorLeanId', 'indoorKneelId', ...underlayerKeys], Object.keys(defaults));\n"
+          ],
+          "before": [
+            "  keys(selection, [...Object.keys(defaults), 'indoorSeatId', 'indoorLeanId', 'indoorKneelId'], Object.keys(defaults));\n"
+          ]
+        },
+        {
+          "line": 49,
+          "after": [
+            "      if (typeof value !== 'string') fail(key);\n",
+            "      continue;\n",
+            "    }\n",
+            "    if (underlayerKeys.includes(key)) {\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine.js",
+      "beforeHash": "ba2000cb54ca9ddeee23d94d718930804d6cb80e4beaecffc0ca515c7ab48a2d",
+      "afterHash": "e8ac889650ac8ef5a415cdc7f986238cc7113cbca213b5b2acfc1b975a0d8d77",
+      "edits": [
+        {
+          "line": 2,
+          "after": [
+            "import { THIGH_RISE, attachUnderlayers, describeRevealGesture, normalizeUnderlayers, prepareUnderlayerHosts, underlayerField } from './engine/manualUnderlayers.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 1235,
+          "after": [
+            "  { key: 'bottomRiseId', label: '下身腰線', options: [...BOTTOM_RISE_OPTIONS, THIGH_RISE], section: 'wardrobe' },\n"
+          ],
+          "before": [
+            "  { key: 'bottomRiseId', label: '下身腰線', options: BOTTOM_RISE_OPTIONS, section: 'wardrobe' },\n"
+          ]
+        },
+        {
+          "line": 3546,
+          "after": [
+            "  Object.assign(normalizedWithLegacyColors, normalizeUnderlayers(rawLocks, controls));\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 3682,
+          "after": [
+            "}\n",
+            "\n",
+            "function getSingleBottomRiseOption(id) {\n",
+            "  return id === THIGH_RISE.id ? THIGH_RISE : getBottomRiseOption(id);\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 3874,
+          "after": [
+            "function withUnderlayer(text, host) {\n",
+            "  const layer = host?.meta?.underlayer;\n",
+            "  if (!text || !layer) return text;\n",
+            "  const source = composeItemWearableColorPrompt(layer.item, layer.item.en, layer.color);\n",
+            "  if (layer.loweredOuter) return text + '. Underneath she wears ' + source + ', fully visible and still worn on her hips';\n",
+            "  return text + ', layered over ' + source + (layer.relation ? ', ' + layer.relation : '');\n",
+            "}\n",
+            "\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 3883,
+          "after": [
+            "  return withUnderlayer(buildTopColoredPrompt(wardrobeSlots.top, wardrobeColors.topColor, {\n"
+          ],
+          "before": [
+            "  return buildTopColoredPrompt(wardrobeSlots.top, wardrobeColors.topColor, {\n"
+          ]
+        },
+        {
+          "line": 3887,
+          "after": [
+            "  }), wardrobeSlots.top);\n"
+          ],
+          "before": [
+            "  });\n"
+          ]
+        },
+        {
+          "line": 3942,
+          "after": [
+            "  return withUnderlayer(buildBottomColoredPrompt(bottomItem, wardrobeColors.bottomColor, {\n"
+          ],
+          "before": [
+            "  return buildBottomColoredPrompt(bottomItem, wardrobeColors.bottomColor, {\n"
+          ]
+        },
+        {
+          "line": 3946,
+          "after": [
+            "  }), bottomItem);\n"
+          ],
+          "before": [
+            "  });\n"
+          ]
+        },
+        {
+          "line": 5284,
+          "after": [
+            "    const gesture = describeRevealGesture(resolveGesture(context.locks?.gestureId, specifiedAction, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random), context.revealedUnderlayer);\n"
+          ],
+          "before": [
+            "    const gesture = resolveGesture(context.locks?.gestureId, specifiedAction, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random);\n"
+          ]
+        },
+        {
+          "line": 5302,
+          "after": [
+            "        ...(gesture && context.revealedUnderlayer ? { revealedUnderlayer: context.revealedUnderlayer } : {}),\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 5799,
+          "after": [
+            "    const gesture = describeRevealGesture(GESTURE_OPTIONS.find(option => option.scope && option.id === poseComposer.meta?.gestureId), poseComposer.meta?.revealedUnderlayer);\n"
+          ],
+          "before": [
+            "    const gesture = GESTURE_OPTIONS.find(option => option.scope && option.id === poseComposer.meta?.gestureId) || null;\n"
+          ]
+        },
+        {
+          "line": 7436,
+          "after": [
+            "    addPiece(resolveWardrobeModifier(locks?.bottomRiseId, BOTTOM_RISE_OPTIONS, getSingleBottomRiseOption, '下身腰線-bottom-rise'));\n"
+          ],
+          "before": [
+            "    addPiece(resolveWardrobeModifier(locks?.bottomRiseId, BOTTOM_RISE_OPTIONS, getBottomRiseOption, '下身腰線-bottom-rise'));\n"
+          ]
+        },
+        {
+          "line": 15801,
+          "after": [
+            "      if (item.meta?.underlayer) names.push(midjourneyItemName(item.meta.underlayer.item));\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 16005,
+          "after": [
+            "      addModifier('bottomRiseId', '下身腰線-bottom-rise', getSingleBottomRiseOption, originalSlots.bottomRise);\n"
+          ],
+          "before": [
+            "      addModifier('bottomRiseId', '下身腰線-bottom-rise', getBottomRiseOption, originalSlots.bottomRise);\n"
+          ]
+        },
+        {
+          "line": 16385,
+          "after": [
+            "    bottomRiseId: context.locks.bottomRiseId === THIGH_RISE.id ? THIGH_RISE.id : wardrobeSlots.bottomRise?.id?.split(':').pop() || '',\n"
+          ],
+          "before": [
+            "    bottomRiseId: wardrobeSlots.bottomRise?.id?.split(':').pop() || '',\n"
+          ]
+        },
+        {
+          "line": 16494,
+          "after": [
+            "  for (const host of wardrobe) {\n",
+            "    const layer = host.meta?.underlayer;\n",
+            "    if (!layer) continue;\n",
+            "    const top = host.id === context.locks.topId;\n",
+            "    snapshot[top ? 'topUnderlayerId' : 'bottomUnderlayerId'] = layer.item.id;\n",
+            "    if (layer.color) snapshot[top ? 'topUnderlayerColorId' : 'bottomUnderlayerColorId'] = layer.color.id;\n",
+            "  }\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 16577,
+          "after": [
+            "  prepareUnderlayerHosts(effectiveLocks, lockControls, random);\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 16884,
+          "after": [
+            "    revealedUnderlayer: effectiveLocks.topUnderlayerId && underlayerField(effectiveLocks, lockControls, 'gestureId')?.item,\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 16945,
+          "after": [
+            "  const applyUnderlayers = pieces => attachUnderlayers(pieces, effectiveLocks, lockControls, context.poseResolution.gesture?.id);\n",
+            "  const wardrobe = importedCapturePerson ? structuredClone(importedCapturePerson.wardrobe) : applyUnderlayers(resolveBottomRiseCompatibility([...cardLayers, ...page1Wardrobe]));\n"
+          ],
+          "before": [
+            "  const wardrobe = importedCapturePerson ? structuredClone(importedCapturePerson.wardrobe) : resolveBottomRiseCompatibility([...cardLayers, ...page1Wardrobe]);\n"
+          ]
+        },
+        {
+          "line": 16998,
+          "after": [
+            "    const grokWardrobe = preCropPage1 ? applyUnderlayers(resolveBottomRiseCompatibility([...cardLayers, ...preCropPage1])) : wardrobe;\n"
+          ],
+          "before": [
+            "    const grokWardrobe = preCropPage1 ? resolveBottomRiseCompatibility([...cardLayers, ...preCropPage1]) : wardrobe;\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/gazeGesture.js",
+      "beforeHash": "c1a3cc98ef50717021641635673854a1818473ed56cca1f109b83509103d7a3d",
+      "afterHash": "465f34e32c937f52990cb7a0c17dd1a1019a522875ac9035b66e6f16bdbad888",
+      "edits": [
+        {
+          "line": 66,
+          "after": [
+            "export function mouthHeldHemText(underlayerName) {\n",
+            "  const visibility = underlayerName\n",
+            "    ? `The ${underlayerName} underneath ${underlayerName.endsWith('pasties') ? 'are' : 'is'} fully visible.`\n",
+            "    : '';\n",
+            "  return [\n",
+            "    'She holds the center of the front hem of her top between her teeth.',\n",
+            "    'The lifted front panel fans out from her mouth in one continuous triangular fold, with the fabric gathered high across her collarbones.',\n",
+            "    visibility,\n",
+            "    'Both hands rest behind her back.',\n",
+            "  ].filter(Boolean).join(' ');\n",
+            "}\n",
+            "\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 135,
+          "after": [
+            "  gesture('gesture-lift-hem-both', '雙手上拉衣襬', 'both hands gripping opposite sides of the front hem of her top and lifting it to the base of her neck, the fabric bunched along her collarbones above her chest', 'general',\n",
+            "    { requiresWardrobeRole: 'topHem', randomEligible: false }),\n",
+            "  gesture('gesture-hold-hem-teeth', '嘴咬衣襬，雙手背後', mouthHeldHemText(), 'general',\n",
+            "    { requiresWardrobeRole: 'topHem', randomEligible: false }),\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 239,
+          "after": [
+            "  if (option?.id === 'gesture-hold-hem-teeth') {\n",
+            "    // This gesture is authored as complete sentences after the existing pose.\n",
+            "    const pose = actionTextWithGesture(action, null, { chestUp }, prop);\n",
+            "    return {\n",
+            "      en: [pose.en, option.en].filter(Boolean).join(' '),\n",
+            "      upperBodyEn: [pose.upperBodyEn, option.en].filter(Boolean).join(' '),\n",
+            "    };\n",
+            "  }\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/gazeGesture.test.js",
+      "beforeHash": "99dc277c7e65236ef8c38ba27c021df38b47d2662ddbb74430c78fdac286520f",
+      "afterHash": "50c488e44dd2c014780aa5f06463b92b12e9f6cb7e3bb22ef2049a22e805d21b",
+      "edits": [
+        {
+          "line": 74,
+          "after": [
+            "  assert.equal(GESTURE_OPTIONS.filter(o => o.scope).length, 44, '42 existing gestures plus two manual underlayer gestures');\n"
+          ],
+          "before": [
+            "  assert.equal(GESTURE_OPTIONS.filter(o => o.scope).length, 42, '8 general + 18 restored legacy hands + 9 lying + 7 squatting');\n"
+          ]
+        },
+        {
+          "line": 171,
+          "after": [
+            "  assert.equal(applicableGestureOptions(natural).length, 27, '25 existing + 2 manual underlayer gestures');\n"
+          ],
+          "before": [
+            "  assert.equal(applicableGestureOptions(natural).length, 25, '8 general + 15 restored hands + 2 glasses');\n"
+          ]
+        },
+        {
+          "line": 246,
+          "after": [
+            "    assert.equal(applicableGestureOptions(a).length, 27, a.id);\n"
+          ],
+          "before": [
+            "    assert.equal(applicableGestureOptions(a).length, 25, a.id);\n"
+          ]
+        }
+      ]
+    }
+  ]
+}

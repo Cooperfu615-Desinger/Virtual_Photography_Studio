@@ -72,7 +72,7 @@ test('gestures: only free-hand library actions, scoped by orientation; inserted 
   assert.equal(actionAcceptsGesture(action(HUG_KNEES)), false);
   assert.equal(actionAcceptsGesture(SPECIFIED_ACTION_ANY), false, '任意 leaves the hands to the model');
   assert.deepEqual(applicableGestureOptions(action(PRONE)).map(o => o.zh), ['單手把眼鏡拉下', '咬著眼鏡腳', '下巴靠在交疊的雙手上', '雙手托腮', '一手撥頭髮', '雙手輕放在前方']);
-  assert.equal(GESTURE_OPTIONS.filter(o => o.scope).length, 42, '8 general + 18 restored legacy hands + 9 lying + 7 squatting');
+  assert.equal(GESTURE_OPTIONS.filter(o => o.scope).length, 44, '42 existing gestures plus two manual underlayer gestures');
   const chin = GESTURE_OPTIONS.find(o => o.id === 'gesture-prone-chin-hands');
   const text = actionTextWithGesture(action(PRONE), chin);
   assert.match(text.en, /propped on her forearms resting flat in front of her, her chin resting on her stacked hands\. Her hips rest/);
@@ -169,7 +169,7 @@ test('standing batch 1 is accepted with free hands; batch 2 is pending and out o
 
 test('a free-hand standing action offers the general gestures; the 4 new ones never come from 隨機', () => {
   const natural = action('specified-standing-natural');
-  assert.equal(applicableGestureOptions(natural).length, 25, '8 general + 15 restored hands + 2 glasses');
+  assert.equal(applicableGestureOptions(natural).length, 27, '25 existing + 2 manual underlayer gestures');
   const newIds = ['gesture-hand-on-head', 'gesture-hands-behind-head', 'gesture-hands-behind-back', 'gesture-arms-overhead'];
   for (let index = 0; index < 40; index += 1) {
     const drawn = resolveGesture('random', natural, { wardrobeSignals: { pants: 'present' } }, () => index / 40);
@@ -244,7 +244,7 @@ test('16 sitting and kneeling actions: accepted, hands free with the general ges
     assert.ok(a, 'exists');
     assert.equal(a.validation.status, 'accepted', a.id);
     assert.equal(a.hands.mode, 'free', a.id);
-    assert.equal(applicableGestureOptions(a).length, 25, a.id);
+    assert.equal(applicableGestureOptions(a).length, 27, a.id);
     assert.doesNotMatch(a.en, /arrangement/, a.id);
   }
   assert.equal(action('specified-kneeling-all-fours'), undefined, 'all-fours stays with the two support-hand actions');
