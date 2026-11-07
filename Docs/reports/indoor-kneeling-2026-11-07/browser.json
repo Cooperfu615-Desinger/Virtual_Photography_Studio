@@ -1,0 +1,78 @@
+[
+  {
+    "width": 1440,
+    "frames": [
+      "半臉傾斜特寫",
+      "全臉傾斜特寫",
+      "中景鏡頭 (Medium Shot)",
+      "牛仔中景 (Cowboy Shot)",
+      "全身鏡頭 (Full Body Shot)",
+      "頭部主導近景"
+    ],
+    "poses": [
+      "跪坐",
+      "分腿跪坐",
+      "前傾跪姿",
+      "直立端正跪姿",
+      "側坐跪姿",
+      "單膝前跨跪姿"
+    ],
+    "views": [
+      "角色建模",
+      "場景建模",
+      "DLL_PIC Pro",
+      "DLL_VIDEO Pro",
+      "Saved Cards",
+      "Prompt 工作台"
+    ],
+    "errors": [],
+    "keyboard": true,
+    "copy": true,
+    "zip": true,
+    "freshMobileZipRestores": 11,
+    "localReloads": [
+      "bed-top",
+      "floor"
+    ],
+    "sceneAndPoseTransitions": true,
+    "oldSeatsAndLeans": true
+  },
+  {
+    "width": 390,
+    "frames": [
+      "半臉傾斜特寫",
+      "全臉傾斜特寫",
+      "中景鏡頭 (Medium Shot)",
+      "牛仔中景 (Cowboy Shot)",
+      "全身鏡頭 (Full Body Shot)",
+      "頭部主導近景"
+    ],
+    "poses": [
+      "跪坐",
+      "分腿跪坐",
+      "前傾跪姿",
+      "直立端正跪姿",
+      "側坐跪姿",
+      "單膝前跨跪姿"
+    ],
+    "views": [
+      "角色建模",
+      "場景建模",
+      "DLL_PIC Pro",
+      "DLL_VIDEO Pro",
+      "Saved Cards",
+      "Prompt 工作台"
+    ],
+    "errors": [],
+    "keyboard": true,
+    "copy": true,
+    "zip": false,
+    "freshMobileZipRestores": 0,
+    "localReloads": [
+      "bed-top",
+      "floor"
+    ],
+    "sceneAndPoseTransitions": true,
+    "oldSeatsAndLeans": true
+  }
+]

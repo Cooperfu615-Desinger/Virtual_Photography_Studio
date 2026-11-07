@@ -2,9 +2,11 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import review from './outdoorLeanHistory.json' with {type:'json'};
+import {indoorKneelHistoricalPaths,preIndoorKneelSource} from './indoorKneelHistoricalReplay.mjs';
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
-export const outdoorLeanHistoricalPaths=review.files.map(file=>file.path);
+export const outdoorLeanHistoricalPaths=[...new Set([...indoorKneelHistoricalPaths,...review.files.map(file=>file.path)])];
 export function preOutdoorLeanSource(path,source){
+  source=preIndoorKneelSource(path,source);
   const file=review.files.find(item=>item.path===path);
   if(!file||hash(source)!==file.afterHash){
     if(path==='webapp/src/lib/engine/indoorLeaning.js')assert.ok(!source.toString().includes('import outdoorScenes'),'Outdoor lean inverse rejects unknown leaning model');

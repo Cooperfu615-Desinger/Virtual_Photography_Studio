@@ -1,5 +1,6 @@
 import IndoorSeatField from './IndoorSeatField.jsx';
 import IndoorLeanField from './IndoorLeanField.jsx';
+import IndoorKneelField from './IndoorKneelField.jsx';
 import { useId } from 'react';
 import { ChevronDown, ChevronRight, LockKeyhole, Sun } from 'lucide-react';
 import '../features/page1/sceneEnvironment.css';
@@ -20,6 +21,8 @@ export default function SceneEnvironmentControls({
   lyingSurfaceNote = null,
   indoorSeat,
   onSeatChange,
+  indoorKneel,
+  onKneelChange,
   indoorLean,
   onLeanChange,
   fixedActive,
@@ -89,8 +92,9 @@ export default function SceneEnvironmentControls({
           <div className="scene-editor-fields scene-editor-fields--base">
             {renderFields(['sceneAttributeId', 'locationId'])}
           </div>
-          <IndoorSeatField model={indoorLean ? null : indoorSeat} onChange={onSeatChange} />
+          <IndoorSeatField model={indoorLean || indoorKneel ? null : indoorSeat} onChange={onSeatChange} />
           <IndoorLeanField model={indoorLean} onChange={onLeanChange} />
+          <IndoorKneelField model={indoorKneel} onChange={onKneelChange} />
           {lyingSurfaceNote ? (
             <p className={`scene-editor-switch-note scene-lying-note scene-lying-note--${lyingSurfaceNote.tone}`}>{lyingSurfaceNote.text}</p>
           ) : null}

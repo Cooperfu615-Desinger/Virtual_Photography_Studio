@@ -6,6 +6,7 @@ import review from './indoorLeanHistory.json' with {type:'json'};
 import { preIndoorLeanSource } from './indoorLeanHistoricalReplay.mjs';
 import { preGrokImagineSource } from './grokImagineHistoricalReplay.mjs';
 import { preOutdoorSeatSource } from './outdoorSeatHistoricalReplay.mjs';
+import {preIndoorKneelSource} from './indoorKneelHistoricalReplay.mjs';
 const root=new URL('../../',import.meta.url);
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 test('reviewed leaning sources restore the approved pre-lean bytes and inverse is idempotent',()=>{
@@ -19,7 +20,7 @@ test('reviewed leaning sources restore the approved pre-lean bytes and inverse i
   }
 });
 test('mixed or corrupted current engine cannot bypass the existing historical boundary',()=>{
-  const path='webapp/src/lib/engine.js',raw=readFileSync(new URL(path,root));
+  const path='webapp/src/lib/engine.js',raw=preIndoorKneelSource(path,readFileSync(new URL(path,root)));
   const modified=Buffer.concat([raw,Buffer.from('\n// unreviewed change\n')]);
   assert.equal(preIndoorLeanSource(path,modified),modified);
   assert.throws(()=>preGrokImagineSource(path,modified),/rejects unknown current engine/);

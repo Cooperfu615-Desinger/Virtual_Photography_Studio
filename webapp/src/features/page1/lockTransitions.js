@@ -1,5 +1,6 @@
 import { indoorSeatingModel } from '../../lib/engine/indoorSeating.js';
 import { indoorLeaningModel } from '../../lib/engine/indoorLeaning.js';
+import { indoorKneelingModel } from '../../lib/engine/indoorKneeling.js';
 import { CAPTURE_OWNED_KEYS } from '../../lib/observationCaptureMode.js';
 import {
   getSceneDependentOptions,
@@ -145,6 +146,10 @@ export function transitionPage1Locks({
 
   if (candidateLocks.captureMode === 'observation' || previousLocks.captureMode === 'observation' && candidateLocks.subjectCount === '1') {
     for (const key of [...CAPTURE_OWNED_KEYS, 'specifiedActionSceneRestore']) next[key] = candidateLocks[key];
+    if (next.indoorKneelId && next.captureMode !== 'observation') {
+      const location = sceneOptions.locationOptions.find(item => item.id === next.locationId);
+      if (!indoorKneelingModel(next, location, lockControls)?.selectedId) delete next.indoorKneelId;
+    }
     if (next.indoorLeanId && next.captureMode !== 'observation') {
       const location = sceneOptions.locationOptions.find(item => item.id === next.locationId);
       if (!indoorLeaningModel(next, location, lockControls)?.selectedId) delete next.indoorLeanId;
@@ -154,6 +159,10 @@ export function transitionPage1Locks({
     if (!indoorSeatingModel(next, location, lockControls)?.selectedId) delete next.indoorSeatId;
   }
   return next;
+  }
+  if (next.indoorKneelId && next.captureMode !== 'observation') {
+    const location = sceneOptions.locationOptions.find(item => item.id === next.locationId);
+    if (!indoorKneelingModel(next, location, lockControls)?.selectedId) delete next.indoorKneelId;
   }
   return applySupineSceneOverride(next);
 }

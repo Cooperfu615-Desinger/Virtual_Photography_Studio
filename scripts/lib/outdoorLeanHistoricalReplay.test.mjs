@@ -6,11 +6,12 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import review from './outdoorLeanHistory.json' with {type:'json'};
 import { preOutdoorLeanSource } from './outdoorLeanHistoricalReplay.mjs';
+import {preIndoorKneelSource} from './indoorKneelHistoricalReplay.mjs';
 import { preOutdoorSeatSource } from './outdoorSeatHistoricalReplay.mjs';
 const root=new URL('../../',import.meta.url),hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 test('reviewed outdoor lean sources restore exact original Git bytes and remain idempotent',()=>{
   for(const file of review.files){
-    const after=readFileSync(new URL(file.path,root));assert.equal(hash(after),file.afterHash,file.path);
+    const after=preIndoorKneelSource(file.path,readFileSync(new URL(file.path,root)));assert.equal(hash(after),file.afterHash,file.path);
     const before=preOutdoorLeanSource(file.path,after);
     assert.deepEqual(before,execFileSync('git',['show',review.base+':'+file.path],{cwd:fileURLToPath(root),maxBuffer:16*1024*1024}));
     assert.equal(preOutdoorLeanSource(file.path,before),before);

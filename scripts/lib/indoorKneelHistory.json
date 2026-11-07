@@ -1,0 +1,283 @@
+{
+  "base": "c56d893b38e7f2cd7897d4dc945c2d027ef8a06a",
+  "files": [
+    {
+      "path": "webapp/src/lib/engine.js",
+      "beforeHash": "a1eecc781ca00414b9772ab6c4b391ad286f64918a94b79a3e005b146ee8cd8f",
+      "afterHash": "ba2000cb54ca9ddeee23d94d718930804d6cb80e4beaecffc0ca515c7ab48a2d",
+      "edits": [
+        {
+          "line": 2,
+          "after": [
+            "import { applyIndoorKneel, indoorKneelingModel, isIndoorKneelId } from './engine/indoorKneeling.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 3539,
+          "after": [
+            "  if (isIndoorKneelId(rawLocks.indoorKneelId)) {\n",
+            "    const location = getControlOptionById(controls, 'locationId', normalizedWithLegacyColors.locationId);\n",
+            "    const choice = { ...normalizedWithLegacyColors, indoorKneelId: rawLocks.indoorKneelId };\n",
+            "    if (choice.captureMode === 'observation' || indoorKneelingModel(choice, location, controls)?.selectedId)\n",
+            "      normalizedWithLegacyColors.indoorKneelId = rawLocks.indoorKneelId;\n",
+            "  }\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 5278,
+          "after": [
+            "      en: [withLyingSurface(applyIndoorKneel(applyIndoorLean(applyIndoorSeat(actionText.en, context.indoorSeat), context.indoorLean), context.indoorKneel), lyingSurfaceFor(specifiedAction, context.location)), headText].filter(Boolean).join(' '),\n"
+          ],
+          "before": [
+            "      en: [withLyingSurface(applyIndoorLean(applyIndoorSeat(actionText.en, context.indoorSeat), context.indoorLean), lyingSurfaceFor(specifiedAction, context.location)), headText].filter(Boolean).join(' '),\n"
+          ]
+        },
+        {
+          "line": 16480,
+          "after": [
+            "  if (context.indoorKneel?.selectedId) snapshot.indoorKneelId = context.indoorKneel.selectedId;\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 16862,
+          "after": [
+            "    indoorKneel: indoorKneelingModel(requestedLocks, location, lockControls),\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/components/Page1Workspace.jsx",
+      "beforeHash": "1613c1674ef0523b050ba7e0f3a0e7b6141bcc87833c3f137ffd1bbe71f29944",
+      "afterHash": "10da3198a12ede51701f00084ffb5b572f6abba5bb6ffdd9b20a6484ef4c999b",
+      "edits": [
+        {
+          "line": 2,
+          "after": [
+            "import { indoorKneelingModel } from '../lib/engine/indoorKneeling.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 750,
+          "after": [
+            "  const indoorKneel = indoorKneelingModel(locks, selectedLocationOption, lockControls);\n",
+            "  const previousKneelLocks = useRef(locks);\n",
+            "  useEffect(() => {\n",
+            "    const previous = previousKneelLocks.current;\n",
+            "    previousKneelLocks.current = locks;\n",
+            "    if (previous.indoorKneelId && !locks.indoorKneelId\n",
+            "        && (previous.locationId !== locks.locationId || previous.specifiedActionId !== locks.specifiedActionId)) {\n",
+            "      showToast('跪姿表面已回到未指定：目前的場景或姿勢不適用。');\n",
+            "    }\n",
+            "  }, [locks, showToast]);\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 1314,
+          "after": [
+            "      indoorKneel={indoorKneel}\n",
+            "      onKneelChange={id => updateLocks({ indoorKneelId: id })}\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/components/SceneEnvironmentControls.jsx",
+      "beforeHash": "e82c92d9090ebd0cd55a61b8e343787cd13823928d380c9379616d4312a3dc6f",
+      "afterHash": "f3056916ea671cf6375a5c7cb543a466350eb248626c523a0bd59c733b0871c7",
+      "edits": [
+        {
+          "line": 2,
+          "after": [
+            "import IndoorKneelField from './IndoorKneelField.jsx';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 23,
+          "after": [
+            "  indoorKneel,\n",
+            "  onKneelChange,\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 94,
+          "after": [
+            "          <IndoorSeatField model={indoorLean || indoorKneel ? null : indoorSeat} onChange={onSeatChange} />\n"
+          ],
+          "before": [
+            "          <IndoorSeatField model={indoorLean ? null : indoorSeat} onChange={onSeatChange} />\n"
+          ]
+        },
+        {
+          "line": 96,
+          "after": [
+            "          <IndoorKneelField model={indoorKneel} onChange={onKneelChange} />\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/page1/lockTransitions.js",
+      "beforeHash": "1f23ea8931d7977706475091ac11e2e9b0ef8186572d3a7aef3030189226999a",
+      "afterHash": "5738533dd637074fd1a131fbaff147d9992faac7f9d02b7a8a6639ac64096e38",
+      "edits": [
+        {
+          "line": 2,
+          "after": [
+            "import { indoorKneelingModel } from '../../lib/engine/indoorKneeling.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 148,
+          "after": [
+            "    if (next.indoorKneelId && next.captureMode !== 'observation') {\n",
+            "      const location = sceneOptions.locationOptions.find(item => item.id === next.locationId);\n",
+            "      if (!indoorKneelingModel(next, location, lockControls)?.selectedId) delete next.indoorKneelId;\n",
+            "    }\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 162,
+          "after": [
+            "  if (next.indoorKneelId && next.captureMode !== 'observation') {\n",
+            "    const location = sceneOptions.locationOptions.find(item => item.id === next.locationId);\n",
+            "    if (!indoorKneelingModel(next, location, lockControls)?.selectedId) delete next.indoorKneelId;\n",
+            "  }\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/saved-cards/page1MarkdownSnapshot.js",
+      "beforeHash": "27319819ce16c89ca4ea81b60b961b6463ba488c169a852437092dcafa99dff8",
+      "afterHash": "9b31469daf2132948d43af6a3e7daca4f06e720c74bc09c06ba80196bae577f6",
+      "edits": [
+        {
+          "line": 45,
+          "after": [
+            "  keys(selection, [...Object.keys(defaults), 'indoorSeatId', 'indoorLeanId', 'indoorKneelId'], Object.keys(defaults));\n"
+          ],
+          "before": [
+            "  keys(selection, [...Object.keys(defaults), 'indoorSeatId', 'indoorLeanId'], Object.keys(defaults));\n"
+          ]
+        },
+        {
+          "line": 47,
+          "after": [
+            "    if (key === 'indoorSeatId' || key === 'indoorLeanId' || key === 'indoorKneelId') {\n"
+          ],
+          "before": [
+            "    if (key === 'indoorSeatId' || key === 'indoorLeanId') {\n"
+          ]
+        },
+        {
+          "line": 83,
+          "after": [
+            "    if (key === 'indoorSeatId' || key === 'indoorLeanId' || key === 'indoorKneelId' || same(value, normalized[key])) continue;\n"
+          ],
+          "before": [
+            "    if (key === 'indoorSeatId' || key === 'indoorLeanId' || same(value, normalized[key])) continue;\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/package.json",
+      "beforeHash": "d846c9df05a4c3ddc4b63e17f24d7cb8ed6ee742cb04804f842171eae3c3efab",
+      "afterHash": "ba87cb797073efbeb8f3234b0dc3ad9039455c7309161719a0727a89e45234cd",
+      "edits": [
+        {
+          "line": 10,
+          "after": [
+            "    \"test:prompt-quality\": \"node ../scripts/run_webapp_tests.mjs src/lib/engine/indoorKneelBaseline.test.js src/lib/engine/indoorKneeling.test.js src/lib/engine/indoorKneelPrompt.test.js src/features/saved-cards/indoorKneelRestore.test.js src/lib/engine/outdoorLeanBaseline.test.js src/lib/engine/outdoorLeaning.test.js src/lib/engine/outdoorLeanPrompt.test.js src/features/saved-cards/outdoorLeanRestore.test.js src/lib/engine/outdoorSeatBaseline.test.js src/lib/engine/outdoorSeating.test.js src/lib/engine/outdoorSeatPrompt.test.js src/features/saved-cards/outdoorSeatRestore.test.js src/lib/engine/indoorLeanBaseline.test.js src/lib/engine/indoorLeaning.test.js src/lib/engine/indoorLeanPrompt.test.js src/features/saved-cards/indoorLeanRestore.test.js src/lib/engine/indoorSeatBaseline.test.js src/lib/engine/indoorSeating.test.js src/lib/engine/indoorSeatPrompt.test.js src/features/saved-cards/indoorSeatRestore.test.js src/lib/engine/framingWardrobeIntegration.test.js src/lib/engine/framingWardrobeRetention.test.js src/lib/engine/framingWardrobeHistoricalBoundary.test.js src/lib/characterWardrobeSources.test.js src/lib/page2AdultIdentity.test.js src/lib/engine/mainDressRegion.test.js src/lib/engine/chestDressRegion.test.js src/features/saved-cards/page1MarkdownSnapshot.test.js src/features/saved-cards/wardrobeColorRecovery.test.js src/lib/engine/outfitControlLanguage.test.js src/lib/engine/dressControlLanguage.test.js src/lib/engine/characterAdultIdentity.test.js src/lib/observationCaptureImport.test.js src/lib/engine/shirtBlackBottom.test.js src/lib/engine/specifiedActionUnified.test.js src/lib/observationCaptureMode.test.js src/lib/engine/squattingHands.test.js src/lib/engine/squattingCatalog.test.js src/lib/engine/specifiedActions.test.js src/lib/engine/specifiedActionIntegration.test.js src/lib/engine/nanoBananaPrompt.test.js src/lib/engine/midjourneyNaturalPrompt.test.js src/lib/engineBlackTieShirt.test.js src/lib/engineMirrorSelfieProp.test.js src/lib/engineSubjectLightAdditions.test.js src/lib/engineSubjectKeyLightCompatibility.test.js src/lib/engine/headDominantFraming.test.js src/lib/engine/shibuyaCrowdScene.test.js src/lib/engine/adidasTrackwear.test.js src/lib/engine/bandagePasties.test.js src/lib/engine/underbustTopFit.test.js src/lib/engine/outerwearStyling.test.js src/lib/engine/minimalCoverageWardrobe.test.js src/lib/engine/bodyTypeCatalog.test.js src/lib/engine/gptBodyTypeOmission.test.js src/lib/engine/kneelingCatalog.test.js src/lib/engine/hourglassBikiniBody.test.js src/lib/engine/zImageOnLocationCapture.test.js src/lib/engine/outerwearClosure.test.js src/lib/engine/stationFixedComposition.test.js src/lib/engineFixedCompositionSet.test.js src/lib/engine/topHemOverlap.test.js src/lib/engine/standingCatalog.test.js src/lib/engineOptionalSilence.test.js src/lib/engine/midjourneyTopPattern.test.js src/lib/engine/chestUpSameState.test.js src/lib/engine/closeWormEye.test.js src/lib/engine/gptCameraSpatial.test.js src/lib/engine/gptSceneVisibility.test.js src/lib/engine/ambientLightDescriptions.test.js src/lib/engine/zImageSceneDetailPriority.test.js src/lib/engine/zImageUpperSceneExtension.test.js src/lib/engine/zImageFullBodyCamera.test.js src/lib/engine/zImageUpperScene.test.js src/lib/engine/zImageSceneDirection.test.js src/lib/engine/sceneIntegratedAssemblyBaseline.test.js src/lib/engine/promptOutputContracts.test.js src/lib/engine/zImageTurboPromptContract.test.js src/lib/engine/zImageTurboCameraGeometry.test.js src/lib/engineZImageTurboPrompt.test.js src/lib/engine/aiPromptLengthContract.test.js src/lib/engine/aiPromptBudget.test.js src/lib/engine/aiPromptLengthIntegration.test.js src/lib/engine/midjourneyDescriptionContract.test.js src/lib/engine/midjourneyDescriptionOpening.test.js src/lib/engine/midjourneySubjectWardrobe.test.js src/lib/engine/midjourneySceneImaging.test.js src/lib/engine/midjourneySpecialModes.test.js src/lib/engine/midjourneyParameterContract.test.js src/lib/engine/midjourneyParameterTail.test.js src/lib/engine/midjourneyNativeStructure.test.js src/lib/engine/midjourneyFacialFeatureVariant.test.js src/lib/engine/expressionGazeSharedPrompt.test.js src/lib/engine/midjourneyCompletionGate.test.js src/lib/enginePromptDeduplication.test.js src/lib/engine/compositionBodyVisibilityContract.test.js src/lib/engine/compositionBodyVisibilityIntegration.test.js src/lib/engine/compositionBodyPromptIntegration.test.js src/lib/engine/compositionVisibilityIntegration.test.js src/lib/engine/fixedCompositionPromptIntegration.test.js src/lib/engine/fixedFramingDerivedPromptContract.test.js src/lib/engine/fixedFramingDerivedPromptInfrastructure.test.js src/lib/engine/fixedFramingDerivedPromptRuntime.test.js src/lib/engine/fixedFramingMainPrompt.test.js src/lib/engine/fixedFramingPromptIntegration.test.js src/lib/page1PromptOutputs.test.js src/lib/engine/phase4PublicLanguage.test.js src/lib/engine/phase4FixedPalette.test.js src/lib/engine/phase4ScenePosition.test.js src/lib/engine/phase4LightingCompatibility.test.js src/lib/engine/phase4CharacterDirection.test.js\",\n"
+          ],
+          "before": [
+            "    \"test:prompt-quality\": \"node ../scripts/run_webapp_tests.mjs src/lib/engine/outdoorLeanBaseline.test.js src/lib/engine/outdoorLeaning.test.js src/lib/engine/outdoorLeanPrompt.test.js src/features/saved-cards/outdoorLeanRestore.test.js src/lib/engine/outdoorSeatBaseline.test.js src/lib/engine/outdoorSeating.test.js src/lib/engine/outdoorSeatPrompt.test.js src/features/saved-cards/outdoorSeatRestore.test.js src/lib/engine/indoorLeanBaseline.test.js src/lib/engine/indoorLeaning.test.js src/lib/engine/indoorLeanPrompt.test.js src/features/saved-cards/indoorLeanRestore.test.js src/lib/engine/indoorSeatBaseline.test.js src/lib/engine/indoorSeating.test.js src/lib/engine/indoorSeatPrompt.test.js src/features/saved-cards/indoorSeatRestore.test.js src/lib/engine/framingWardrobeIntegration.test.js src/lib/engine/framingWardrobeRetention.test.js src/lib/engine/framingWardrobeHistoricalBoundary.test.js src/lib/characterWardrobeSources.test.js src/lib/page2AdultIdentity.test.js src/lib/engine/mainDressRegion.test.js src/lib/engine/chestDressRegion.test.js src/features/saved-cards/page1MarkdownSnapshot.test.js src/features/saved-cards/wardrobeColorRecovery.test.js src/lib/engine/outfitControlLanguage.test.js src/lib/engine/dressControlLanguage.test.js src/lib/engine/characterAdultIdentity.test.js src/lib/observationCaptureImport.test.js src/lib/engine/shirtBlackBottom.test.js src/lib/engine/specifiedActionUnified.test.js src/lib/observationCaptureMode.test.js src/lib/engine/squattingHands.test.js src/lib/engine/squattingCatalog.test.js src/lib/engine/specifiedActions.test.js src/lib/engine/specifiedActionIntegration.test.js src/lib/engine/nanoBananaPrompt.test.js src/lib/engine/midjourneyNaturalPrompt.test.js src/lib/engineBlackTieShirt.test.js src/lib/engineMirrorSelfieProp.test.js src/lib/engineSubjectLightAdditions.test.js src/lib/engineSubjectKeyLightCompatibility.test.js src/lib/engine/headDominantFraming.test.js src/lib/engine/shibuyaCrowdScene.test.js src/lib/engine/adidasTrackwear.test.js src/lib/engine/bandagePasties.test.js src/lib/engine/underbustTopFit.test.js src/lib/engine/outerwearStyling.test.js src/lib/engine/minimalCoverageWardrobe.test.js src/lib/engine/bodyTypeCatalog.test.js src/lib/engine/gptBodyTypeOmission.test.js src/lib/engine/kneelingCatalog.test.js src/lib/engine/hourglassBikiniBody.test.js src/lib/engine/zImageOnLocationCapture.test.js src/lib/engine/outerwearClosure.test.js src/lib/engine/stationFixedComposition.test.js src/lib/engineFixedCompositionSet.test.js src/lib/engine/topHemOverlap.test.js src/lib/engine/standingCatalog.test.js src/lib/engineOptionalSilence.test.js src/lib/engine/midjourneyTopPattern.test.js src/lib/engine/chestUpSameState.test.js src/lib/engine/closeWormEye.test.js src/lib/engine/gptCameraSpatial.test.js src/lib/engine/gptSceneVisibility.test.js src/lib/engine/ambientLightDescriptions.test.js src/lib/engine/zImageSceneDetailPriority.test.js src/lib/engine/zImageUpperSceneExtension.test.js src/lib/engine/zImageFullBodyCamera.test.js src/lib/engine/zImageUpperScene.test.js src/lib/engine/zImageSceneDirection.test.js src/lib/engine/sceneIntegratedAssemblyBaseline.test.js src/lib/engine/promptOutputContracts.test.js src/lib/engine/zImageTurboPromptContract.test.js src/lib/engine/zImageTurboCameraGeometry.test.js src/lib/engineZImageTurboPrompt.test.js src/lib/engine/aiPromptLengthContract.test.js src/lib/engine/aiPromptBudget.test.js src/lib/engine/aiPromptLengthIntegration.test.js src/lib/engine/midjourneyDescriptionContract.test.js src/lib/engine/midjourneyDescriptionOpening.test.js src/lib/engine/midjourneySubjectWardrobe.test.js src/lib/engine/midjourneySceneImaging.test.js src/lib/engine/midjourneySpecialModes.test.js src/lib/engine/midjourneyParameterContract.test.js src/lib/engine/midjourneyParameterTail.test.js src/lib/engine/midjourneyNativeStructure.test.js src/lib/engine/midjourneyFacialFeatureVariant.test.js src/lib/engine/expressionGazeSharedPrompt.test.js src/lib/engine/midjourneyCompletionGate.test.js src/lib/enginePromptDeduplication.test.js src/lib/engine/compositionBodyVisibilityContract.test.js src/lib/engine/compositionBodyVisibilityIntegration.test.js src/lib/engine/compositionBodyPromptIntegration.test.js src/lib/engine/compositionVisibilityIntegration.test.js src/lib/engine/fixedCompositionPromptIntegration.test.js src/lib/engine/fixedFramingDerivedPromptContract.test.js src/lib/engine/fixedFramingDerivedPromptInfrastructure.test.js src/lib/engine/fixedFramingDerivedPromptRuntime.test.js src/lib/engine/fixedFramingMainPrompt.test.js src/lib/engine/fixedFramingPromptIntegration.test.js src/lib/page1PromptOutputs.test.js src/lib/engine/phase4PublicLanguage.test.js src/lib/engine/phase4FixedPalette.test.js src/lib/engine/phase4ScenePosition.test.js src/lib/engine/phase4LightingCompatibility.test.js src/lib/engine/phase4CharacterDirection.test.js\",\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "scripts/lib/outdoorLeanHistoricalReplay.test.mjs",
+      "beforeHash": "cc3c430d3c0e46530df7c0341b540268d631a7045e29f8bb65fb23ef773aa859",
+      "afterHash": "1848f0c1460eeb5d36571e1db7b91ac7e26e0807d344dd99e2f06e76cfd3c753",
+      "edits": [
+        {
+          "line": 8,
+          "after": [
+            "import {preIndoorKneelSource} from './indoorKneelHistoricalReplay.mjs';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 13,
+          "after": [
+            "    const after=preIndoorKneelSource(file.path,readFileSync(new URL(file.path,root)));assert.equal(hash(after),file.afterHash,file.path);\n"
+          ],
+          "before": [
+            "    const after=readFileSync(new URL(file.path,root));assert.equal(hash(after),file.afterHash,file.path);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "scripts/lib/indoorLeanHistoricalReplay.test.mjs",
+      "beforeHash": "ec5347808259536d26a2f74115d3e03313030a137e1bb83f835104d4b1b4dc13",
+      "afterHash": "ebc55573f7d8b8ce0afc1667b8143ddded7116498d561b20a647542e78fa07f2",
+      "edits": [
+        {
+          "line": 8,
+          "after": [
+            "import {preIndoorKneelSource} from './indoorKneelHistoricalReplay.mjs';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 22,
+          "after": [
+            "  const path='webapp/src/lib/engine.js',raw=preIndoorKneelSource(path,readFileSync(new URL(path,root)));\n"
+          ],
+          "before": [
+            "  const path='webapp/src/lib/engine.js',raw=readFileSync(new URL(path,root));\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "scripts/lib/indoorSeatHistoricalReplay.test.mjs",
+      "beforeHash": "418958452bbdeae8b995774756a9059504939002dd5d3bb25e93b9a94c0527da",
+      "afterHash": "dde6f65dd6d2f8dcf917fee9a4e6bc3941e1adc59d544582cdbc7001a57eaaed",
+      "edits": [
+        {
+          "line": 8,
+          "after": [
+            "import {preIndoorKneelSource} from './indoorKneelHistoricalReplay.mjs';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 15,
+          "after": [
+            "    const corrupt=Buffer.concat([preIndoorKneelSource(file.path,current),Buffer.from('// unknown')]);\n"
+          ],
+          "before": [
+            "    const corrupt=Buffer.concat([current,Buffer.from('// unknown')]);\n"
+          ]
+        }
+      ]
+    }
+  ]
+}

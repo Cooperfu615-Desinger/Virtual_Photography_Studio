@@ -2,7 +2,15 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-11-06
+Last updated: 2026-11-07
+
+## 室內六個一般跪姿的場景表面（2026-11-07）
+
+- D 區沿既有單選樣式新增「跪在哪裡」，適用 83 室內場景及跪坐、分腿跪坐、前傾跪姿、直立端正跪姿、側坐跪姿、單膝前跨跪姿。104 個候選／11 個基本名詞，包含手動試用的沙發、閱讀桌、長椅、車廂椅子與走道；鏡面／CRT 棚用地板，12 無縫背景用地面，兩和室用榻榻米。場景原文、catalog 及原動作／手部／隨機資格保持。
+- 可選 `indoorKneelId` 保存有效值，沿收藏／Markdown v1／ZIP 契約還原；失效回未指定並提示，不改 storage key、格式版本或原空鎖預設。分腿跪坐的膝／臀同步對應表面；第七組保留完整接觸，其餘輸出沿原投影，全身角色照維持自然站姿。
+- 前端 2,213／2,213、品質 919／919、lint／build／bundle、同 seed strict audit 通過；本機大型套件因並行資源競爭曾觸發既有子程序逾時，降低並行度 2 後依序完整重跑，沒有改基準／逾時門檻或略過案例。6,240 有效選項 × 景別比較、17,220 保護樣本、1,686 原六輸出及 104 代表＋500 隨機七輸出通過。76 合成卡、桌手機六工作區、11 表面 ZIP 匯入／套用／重載完成。
+- 交付前整合遠端 `eedbade2`，保留其他 session 的 DLL 歷史／分頁縮圖與圖片 HTTPS 修正，並在整合後版本重跑完整驗證。
+- [規格](specs/indoor-kneeling-v1.md)、[83 場景清單](specs/indoor-kneeling-scenes-v1.md)、[驗收](reports/indoor-kneeling-2026-11-07/README.md)。三固定手部跪姿、戶外及其他接管模式維持原責任；家具實際出圖效果未做 Grok Speed／Quality 驗收。其他 session 的 Saved Cards 未提交內容保持。
 
 ## 戶外背部／側肩倚靠（2026-11-06）
 

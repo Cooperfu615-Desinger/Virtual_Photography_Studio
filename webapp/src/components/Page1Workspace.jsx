@@ -1,5 +1,6 @@
 import { indoorSeatingModel } from '../lib/engine/indoorSeating.js';
 import { indoorLeaningModel } from '../lib/engine/indoorLeaning.js';
+import { indoorKneelingModel } from '../lib/engine/indoorKneeling.js';
 import ObservationCapturePanel from './ObservationCapturePanel';
 import { getLegacyDressPalette } from '../features/page1/page1WardrobeExclusivity.js';
 import { CAPTURE_OWNED_KEYS, captureEligibility, resolveCapture } from '../lib/observationCaptureMode.js';
@@ -747,6 +748,16 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     ?.find((option) => option.id === locks.locationId && option.zh !== '全無' && option.zh !== '隨機') || null;
   const indoorSeat = indoorSeatingModel(locks, selectedLocationOption, lockControls);
   const indoorLean = indoorLeaningModel(locks, selectedLocationOption, lockControls);
+  const indoorKneel = indoorKneelingModel(locks, selectedLocationOption, lockControls);
+  const previousKneelLocks = useRef(locks);
+  useEffect(() => {
+    const previous = previousKneelLocks.current;
+    previousKneelLocks.current = locks;
+    if (previous.indoorKneelId && !locks.indoorKneelId
+        && (previous.locationId !== locks.locationId || previous.specifiedActionId !== locks.specifiedActionId)) {
+      showToast('跪姿表面已回到未指定：目前的場景或姿勢不適用。');
+    }
+  }, [locks, showToast]);
   const previousLeanLocks = useRef(locks);
   useEffect(() => {
     const previous = previousLeanLocks.current;
@@ -1301,6 +1312,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     return <SceneEnvironmentControls
       indoorSeat={indoorSeat}
       onSeatChange={id => updateLocks({ indoorSeatId: id })}
+      indoorKneel={indoorKneel}
+      onKneelChange={id => updateLocks({ indoorKneelId: id })}
       indoorLean={indoorLean}
       onLeanChange={id => updateLocks({ indoorLeanId: id })}
       lyingSurfaceNote={lyingSurfaceNote}
