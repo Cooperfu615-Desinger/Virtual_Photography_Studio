@@ -18,6 +18,7 @@ export function generationSnapshot(input) {
   if (modelKey === 'comfyKrea3' && !['fast', 'high'].includes(input.thinkingMode ?? 'fast')) throw new Error('不支援的 Krea 3 思考模式');
   if (modelKey === 'openaiImage2' && !['low', 'medium', 'high'].includes(quality)) throw new Error('不支援的畫質');
   return structuredClone({ modelKey, prompt, aspectRatio, resolution, count: Number(count), seed,
+    ...(kind === 'generate' && modelKey === 'comfySeedream5Pro' && input.faceReference ? { faceReference: input.faceReference } : {}),
     ...(modelKey === 'openaiImage2' ? { quality } : {}),
     ...(kind === 'generate' && isOpenAI26(modelKey) ? openAI26Settings(input) : {}),
     ...(modelKey === 'comfyKrea3' ? { thinkingMode: input.thinkingMode ?? 'fast' } : {}),

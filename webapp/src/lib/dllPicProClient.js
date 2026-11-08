@@ -583,7 +583,7 @@ export async function generateDllPicImages({
   magnificGenerate = null,
   bytePlusGenerate = null,
   comfyGenerate = null,
-  seed, requestId, loraStrength, thinkingMode,
+  seed, requestId, loraStrength, thinkingMode, faceSourceId,
   onProgress,
   onImages,
 }) {
@@ -599,6 +599,7 @@ export async function generateDllPicImages({
     if (!modelConfig.resolutionOptions.includes(resolution)) throw new Error(`${modelConfig.label} 不支援 ${resolution} 解析度`);
     const result = await comfyGenerate({
       modelKey: modelConfig.comfyModel, prompt, aspectRatio, count: normalizedCount, resolution,
+      ...(modelConfig.comfyModel === 'seedream5Pro' && faceSourceId ? { faceSourceId } : {}),
       ...getDllPicLoraSettings(modelKey, loraStrength),
       ...(modelConfig.comfyModel === 'krea3' ? { thinkingMode: thinkingMode ?? 'fast' } : {}),
       ...(seed !== undefined ? { seed } : {}), ...(requestId ? { requestId } : {}),

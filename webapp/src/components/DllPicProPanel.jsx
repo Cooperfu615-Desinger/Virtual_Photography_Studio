@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
-import { ImagePlus, ListPlus, Pin } from 'lucide-react';
+import { ImagePlus, ListPlus } from 'lucide-react';
 import { dllWorkspace, openDllWorkspace, DLL_LOCAL_ACCEPTANCE } from '../lib/dllWorkspaceRuntime.js';
 import '../styles/generation.css';
 import OpenAI26Controls from './OpenAI26Controls.jsx';
 import { isOpenAI26, openAI26Settings, OPENAI_26_DEFAULTS } from '../lib/openaiImage26.js';
 import ComfyQuotaPanel from './ComfyQuotaPanel.jsx';
-import { openVideoWorkspace } from '../lib/comfyVideoClient.js';
+import { openVideoWorkspace, prepareVideoPng } from '../lib/comfyVideoClient.js';
 import {
   DLL_PIC_ASPECT_RATIOS,
   KREA3_EXTRA_ASPECT_RATIOS,
@@ -135,6 +135,7 @@ export default function DllPicProPanel({
   compact = false,
   workspaceId = 'Prompt 工作台',
   full = false,
+  onPickFace,
   initialSettings = {},
   onBringSources,
   sourceWorkspace,
@@ -144,6 +145,9 @@ export default function DllPicProPanel({
   const shared = useSyncExternalStore(dllWorkspace.subscribe, dllWorkspace.getSnapshot);
   const sharedTask = [...shared.tasks].reverse().find(task => full ? task.id === shared.selected : task.snapshot.workspace === workspaceId);
   const [modelKey, setModelKey] = useState(() => normalizeDllPicModelKey(initialSettings.modelKey || loadStoredModelKey()));
+  const [faceReference, setFaceReference] = useState(initialSettings.faceReference || '');
+  const [faceError, setFaceError] = useState('');
+  const hasFaceSupport = full && modelKey === 'comfySeedream5Pro';
   const [custom, setCustom] = useState(Boolean(initialSettings.custom));
   const [customPrompt, setCustomPrompt] = useState(initialSettings.customPrompt || '');
   const [seed, setSeed] = useState(initialSettings.seed ?? '');
@@ -214,11 +218,11 @@ export default function DllPicProPanel({
     promptSources.find((source) => source.id === selectedSourceId) || availableSources[0] || promptSources[0] || null
   ), [availableSources, promptSources, selectedSourceId]);
   const selectedPrompt = full && custom ? customPrompt : selectedSource?.value || '';
-  const snapshot = () => ({ modelKey, ...getDllPicLoraSettings(modelKey, loraStrength), prompt: selectedPrompt, aspectRatio, resolution: activeResolution, count, quality, thinkingMode, ...(is26 ? openAI26Settings({ ...openaiSettings, quality, resolution: activeResolution }) : {}),
+  const snapshot = () => ({ modelKey, ...(hasFaceSupport && faceReference ? { faceReference } : {}), ...getDllPicLoraSettings(modelKey, loraStrength), prompt: selectedPrompt, aspectRatio, resolution: activeResolution, count, quality, thinkingMode, ...(is26 ? openAI26Settings({ ...openaiSettings, quality, resolution: activeResolution }) : {}),
     seed: full && activeModel.provider === 'comfyCloud' ? seed : '', sourceId: custom ? 'custom' : selectedSource?.id,
     sourceLabel: custom ? '自訂' : selectedSource?.label, workspace: workspaceId, lockAspectRatio: Boolean(selectedSource?.lockAspectRatio) });
   const draftSignature = JSON.stringify({ sources: promptSources, modelKey, loraStrength, selectedSourceId, aspectRatio, resolution: activeResolution, count, thinkingMode, ...(is26 ? openaiSettings : {}), quality, custom, customPrompt, seed, workspaceId });
-  useEffect(() => { if (full && shared.ready) dllWorkspace.draft(JSON.parse(draftSignature)); }, [full, shared.ready, draftSignature]);
+  useEffect(() => { if (full && shared.ready) dllWorkspace.draft({ ...JSON.parse(draftSignature), faceReference }); }, [full, shared.ready, draftSignature, faceReference]);
   const isAspectRatioLocked = Boolean(selectedSource?.lockAspectRatio && selectedSource?.aspectRatio);
   const isAspectRatioSupported = isDllPicAspectRatioSupported(modelKey, aspectRatio);
   const invalidLockedSize = is26 && isAspectRatioLocked && (['auto', 'custom'].includes(activeResolution) || openaiSettings.outputFormat === 'gif');
@@ -374,6 +378,19 @@ export default function DllPicProPanel({
   </>;
 
   return (
+    <>
+      {full && <div className="dll-generation-bar" aria-label="生成操作">
+        <div className="dll-generation-buttons">
+          <button className="primary-copy-btn dll-pic-generate-btn" type="button" onClick={handleGenerate} disabled={!canGenerate}><ImagePlus size={18} />{isGenerating ? '生成中...' : '生成圖像'}</button>
+          <button type="button" className="secondary" disabled={!selectedPrompt.trim() || !shared.ready || !isAspectRatioSupported || Boolean(loraError) || Boolean(openaiError) || invalidLockedSize} onClick={async () => { try { await dllWorkspace.enqueue(snapshot()); setMessage('已加入待生成清單'); } catch (error) { setMessage(error.message); } }}><ListPlus size={18} />加入待生成</button>
+
+        </div>
+        <p className="dll-generation-summary">{activeModel.label} · {is26 && openaiSettings.outputFormat === 'gif' ? '自動尺寸（GIF）' : is26 && activeResolution === 'auto' ? '自動尺寸' : is26 && activeResolution === 'custom' ? `${openaiSettings.customWidth} × ${openaiSettings.customHeight}` : `${aspectRatio} · ${activeResolution.toUpperCase()}`} · {count} 張{activeModel.provider === 'openai' && ` · 畫質：${{ auto: '自動', low: '低', medium: '中', high: '高', xhigh: '超高', max: '最高' }[quality]}`}</p>
+        {faceReference && <p className="dll-face-summary"><img src={faceReference} alt="" />{hasFaceSupport ? '已套用臉部參考' : '此模型不會使用臉部參考'}</p>}
+        <p className="dll-generation-context">{custom ? '自訂 Prompt' : selectedSource?.label || '尚未帶入來源'}{activeModel.provider === 'comfyCloud' && ` · Seed：${seed === '' ? '隨機' : seed}`}{loraSelection.enabled && ` · ${loraLabel} ${loraSelection.adjustable ? loraStrength : loraSelection.strength}`}</p>
+        {(modelCompatibilityNote || loraError || openaiError || invalidLockedSize || !selectedPrompt.trim() || comfyPending || (!DLL_LOCAL_ACCEPTANCE && !activeModel.usesServerProxy && !activeApiKey)) && <p className="dll-generation-notice" role="status">{modelCompatibilityNote || loraError || openaiError || (invalidLockedSize ? '來源已固定比例，請選擇 1K 或 2K 靜態圖片。' : '') || (!selectedPrompt.trim() ? '請先帶入來源或編輯本次 Prompt。' : comfyPending ? '請先查詢上次 Comfy 任務，再開始生成。' : '請先在 API Keys 設定此模型的金鑰。')}</p>}
+        {activeModel.provider === 'comfyCloud' && !DLL_LOCAL_ACCEPTANCE && !loraError && <ComfyQuotaPanel compact modelKey={activeModel.comfyModel} {...loraSettings} resolution={activeResolution} aspectRatio={aspectRatio} refreshToken={images} />}
+      </div>}
     <section className={`dll-pic-panel ${full ? 'dll-full-settings' : ''} ${compact ? 'dll-pic-panel-compact' : ''}`} aria-label={title} aria-description={description}>
       <div className="dll-pic-header">
         <div>
@@ -387,17 +404,6 @@ export default function DllPicProPanel({
         </div>
       </div>
 
-      {full && <div className="dll-generation-bar" aria-label="生成操作">
-        <div className="dll-generation-buttons">
-          <button className="primary-copy-btn dll-pic-generate-btn" type="button" onClick={handleGenerate} disabled={!canGenerate}><ImagePlus size={18} />{isGenerating ? '生成中...' : '生成圖像'}</button>
-          <button type="button" className="secondary" disabled={!selectedPrompt.trim() || !shared.ready || !isAspectRatioSupported || Boolean(loraError) || Boolean(openaiError) || invalidLockedSize} onClick={async () => { try { await dllWorkspace.enqueue(snapshot()); setMessage('已加入待生成清單'); } catch (error) { setMessage(error.message); } }}><ListPlus size={18} />加入待生成</button>
-          <span className="dll-sticky-hint"><Pin size={13} />操作列固定可見</span>
-        </div>
-        <p className="dll-generation-summary">{activeModel.label} · {is26 && openaiSettings.outputFormat === 'gif' ? '自動尺寸（GIF）' : is26 && activeResolution === 'auto' ? '自動尺寸' : is26 && activeResolution === 'custom' ? `${openaiSettings.customWidth} × ${openaiSettings.customHeight}` : `${aspectRatio} · ${activeResolution.toUpperCase()}`} · {count} 張{activeModel.provider === 'openai' && ` · 畫質：${{ auto: '自動', low: '低', medium: '中', high: '高', xhigh: '超高', max: '最高' }[quality]}`}</p>
-        <p className="dll-generation-context">{custom ? '自訂 Prompt' : selectedSource?.label || '尚未帶入來源'}{activeModel.provider === 'comfyCloud' && ` · Seed：${seed === '' ? '隨機' : seed}`}{loraSelection.enabled && ` · ${loraLabel} ${loraSelection.adjustable ? loraStrength : loraSelection.strength}`}</p>
-        {(modelCompatibilityNote || loraError || openaiError || invalidLockedSize || !selectedPrompt.trim() || comfyPending || (!DLL_LOCAL_ACCEPTANCE && !activeModel.usesServerProxy && !activeApiKey)) && <p className="dll-generation-notice" role="status">{modelCompatibilityNote || loraError || openaiError || (invalidLockedSize ? '來源已固定比例，請選擇 1K 或 2K 靜態圖片。' : '') || (!selectedPrompt.trim() ? '請先帶入來源或編輯本次 Prompt。' : comfyPending ? '請先查詢上次 Comfy 任務，再開始生成。' : '請先在 API Keys 設定此模型的金鑰。')}</p>}
-        {activeModel.provider === 'comfyCloud' && !DLL_LOCAL_ACCEPTANCE && !loraError && <ComfyQuotaPanel compact modelKey={activeModel.comfyModel} {...loraSettings} resolution={activeResolution} aspectRatio={aspectRatio} refreshToken={images} />}
-      </div>}
       <div className="dll-pic-settings-grid">
         {!full && <label className="field dll-pic-field">
           <select
@@ -441,6 +447,44 @@ export default function DllPicProPanel({
           </select>
         </label>
 
+        {hasFaceSupport && <div className="dll-face-field">
+          <strong>臉部參考圖（選用）</strong>
+          <div className="dll-row">
+            {faceReference && <img src={faceReference} alt="已選臉部參考圖" />}
+            <label className="secondary dll-file-button">{faceReference ? '更換' : '上傳圖片'}
+              <input type="file" aria-label="上傳臉部參考圖" accept="image/jpeg,image/png,image/webp" onChange={async event => {
+                const file = event.target.files?.[0];
+                event.target.value = '';
+                if (!file) return;
+                setFaceError('');
+                if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+                  setFaceError('請選擇 JPEG、PNG 或 WebP 圖片');
+                  return;
+                }
+                const url = URL.createObjectURL(file);
+                try { setFaceReference((await prepareVideoPng(url)).src); }
+                catch (error) { setFaceError(error.message); }
+                finally { URL.revokeObjectURL(url); }
+              }} />
+            </label>
+            <button type="button" className="secondary" onClick={onPickFace}>從成果選取</button>
+            {faceReference && <button className="dll-text-button" type="button" onClick={() => setFaceReference('')}>移除</button>}
+          </div>
+          {faceError && <p role="alert">{faceError}</p>}
+        </div>}
+      {full && <section className="dll-prompt-section" aria-label="Prompt 設定">
+        <div className="dll-source-heading"><span>Prompt 來源</span>{onBringSources && <button className="dll-text-button" type="button" onClick={onBringSources}>帶入{sourceWorkspace || 'Prompt 工作台'}來源</button>}</div>
+        <div className="dll-source-choices">{promptSources.map(source => <button type="button" key={source.id} className={selectedSource?.id === source.id && !custom ? 'tab-primary-active' : 'secondary'} disabled={!source.value?.trim()} onClick={() => { setSelectedSourceId(source.id); setCustom(false); }}>{source.label}</button>)}</div>
+        <div className={`dll-prompt-editor ${promptExpanded ? 'expanded' : ''}`}>
+          <label htmlFor="dll-full-prompt">{custom ? '自訂本次 Prompt' : '目前使用的 Prompt'}</label>
+          <textarea id="dll-full-prompt" rows={promptExpanded ? 10 : 3} value={selectedPrompt} readOnly={!custom} onChange={event => setCustomPrompt(event.target.value)} placeholder="帶入工作區來源，或編輯本次 Prompt" />
+          <div className="dll-prompt-actions">
+            <button type="button" className="dll-text-button" aria-expanded={promptExpanded} aria-controls="dll-full-prompt" onClick={() => setPromptExpanded(value => !value)}>{promptExpanded ? '收合全文' : '展開全文'}</button>
+            {!custom && <button type="button" className="dll-text-button" onClick={() => { setCustomPrompt(selectedPrompt); setCustom(true); setPromptExpanded(true); }}>編輯本次 Prompt</button>}
+            {custom && <button type="button" className="dll-text-button" onClick={() => setCustom(false)}>還原來源文字</button>}
+          </div>
+        </div>
+      </section>}
         {!full && loraControls}
 
         <label className="field dll-pic-field">
@@ -507,19 +551,6 @@ export default function DllPicProPanel({
       {is26 && <OpenAI26Controls resolution={activeResolution} settings={{ ...openaiSettings, quality }} setSettings={setOpenaiSettings} disabled={!full && isGenerating} />}
       {is26 && (openaiError || invalidLockedSize) && <p role="status" className="dll-pic-message">{openaiError || '來源已固定比例，請選擇 1K 或 2K 靜態圖片。'}</p>}
 
-      {full && <section className="dll-prompt-section" aria-label="Prompt 設定">
-        <div className="dll-source-heading"><span>Prompt 來源</span>{onBringSources && <button className="dll-text-button" type="button" onClick={onBringSources}>帶入{sourceWorkspace || 'Prompt 工作台'}來源</button>}</div>
-        <div className="dll-source-choices">{promptSources.map(source => <button type="button" key={source.id} className={selectedSource?.id === source.id && !custom ? 'tab-primary-active' : 'secondary'} disabled={!source.value?.trim()} onClick={() => { setSelectedSourceId(source.id); setCustom(false); }}>{source.label}</button>)}</div>
-        <div className={`dll-prompt-editor ${promptExpanded ? 'expanded' : ''}`}>
-          <label htmlFor="dll-full-prompt">{custom ? '自訂本次 Prompt' : '目前使用的 Prompt'}</label>
-          <textarea id="dll-full-prompt" rows={promptExpanded ? 10 : 3} value={selectedPrompt} readOnly={!custom} onChange={event => setCustomPrompt(event.target.value)} placeholder="帶入工作區來源，或編輯本次 Prompt" />
-          <div className="dll-prompt-actions">
-            <button type="button" className="dll-text-button" aria-expanded={promptExpanded} aria-controls="dll-full-prompt" onClick={() => setPromptExpanded(value => !value)}>{promptExpanded ? '收合全文' : '展開全文'}</button>
-            {!custom && <button type="button" className="dll-text-button" onClick={() => { setCustomPrompt(selectedPrompt); setCustom(true); setPromptExpanded(true); }}>編輯本次 Prompt</button>}
-            {custom && <button type="button" className="dll-text-button" onClick={() => setCustom(false)}>還原來源文字</button>}
-          </div>
-        </div>
-      </section>}
       {full && activeModel.provider === 'comfyCloud' && <div className="dll-seed-settings">
         <label className="field"><span>Seed</span><input aria-label="Seed" type="number" min="0" step="1" value={seed} onChange={event => setSeed(event.target.value)} placeholder="隨機（留空）" /></label>
         <button type="button" className="secondary" disabled={seed === ''} onClick={() => setSeed('')}>改用隨機</button>
@@ -715,5 +746,6 @@ export default function DllPicProPanel({
         </div>
       ) : null}
     </section>
+    </>
   );
 }

@@ -240,3 +240,22 @@ test('workspace seed uses the dedicated endpoint, stable first request id, and s
   assert.equal(calls[0].input.requestId, requestId);
   assert.notEqual(calls[1].input.requestId, requestId);
 });
+
+test('Seedream face reference reaches both workspace submissions with random seeds and stays out of recovery storage', async () => {
+  const faceSourceId = 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee';
+  const local = storage();
+  const ids = [];
+  const session = { uid: 'owner', call: async (name, input) => {
+    assert.equal(name, 'comfyCloudWorkspaceSubmit');
+    assert.equal(input.faceSourceId, faceSourceId);
+    assert.equal(input.seed, undefined);
+    assert.ok(!JSON.stringify(readComfyPending(local)).includes(faceSourceId));
+    ids.push(input.requestId);
+    return imageJob(ids.length);
+  } };
+  await generateDllPicImages({
+    modelKey: 'comfySeedream5Pro', prompt: payload.prompt, count: 2, faceSourceId,
+    comfyGenerate: (input, options) => generateComfyViaFirebase(input, { ...options, session, storage: local }),
+  });
+  assert.equal(new Set(ids).size, 2);
+});

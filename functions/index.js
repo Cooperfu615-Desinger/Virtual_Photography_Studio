@@ -97,7 +97,8 @@ exports.comfyCloudWorkspaceSubmit = onCall({ region: 'us-central1', secrets: [co
   try {
     assertExpectedComfyUid(request.data, request.auth.uid);
     if (!comfyCloudApiKey.value()) throw new Error('Comfy Cloud API Key 尚未設定');
-    return await submitComfyJob({ apiKey: comfyCloudApiKey.value(), payload: request.data || {}, store: comfyStore(request.auth.uid) });
+    return await submitComfyJob({ apiKey: comfyCloudApiKey.value(), payload: request.data || {}, store: comfyStore(request.auth.uid),
+      sourceStore: comfyStore(request.auth.uid, 'comfyCloudUpscaleJobs') });
   } catch (error) { throw new HttpsError('failed-precondition', error.message || '生成操作失敗'); }
 });
 exports.comfyCloudImageWorkspace = onCall({ region: 'us-central1', secrets: [comfyCloudApiKey], timeoutSeconds: 120, memory: '512MiB', maxInstances: 2 }, async request => {

@@ -81,15 +81,28 @@ const runtimeOptions = {
       const call = httpsCallable(getFunctions(firebaseApp, 'us-central1'), 'openAIImageGenerate', { timeout: 310000 });
       return generateOpenAISequence(task, { ...observers, submit: async payload => (await call({ ...payload, expectedUid: session.uid })).data });
     }
+    let session;
+    let faceSourceId;
     if (model.provider === 'comfyCloud') {
-      await submissionSession(task);
+      session = await submissionSession(task);
+      if (task.snapshot.faceReference) {
+        try {
+          const source = await session.call('comfyCloudImageWorkspace', {
+            action: 'prepare', sourceId: crypto.randomUUID(), src: task.snapshot.faceReference,
+          });
+          faceSourceId = source.sourceId;
+        } catch (error) {
+          error.terminal = true;
+          throw error;
+        }
+      }
     }
     const apiKey = getDllPicApiKeyStorageKeys(task.snapshot.modelKey).map(key => localStorage.getItem(key)).find(Boolean) || '';
     if (!model.usesServerProxy && !apiKey) {
       const error = new Error('請先設定此模型的 API Key'); error.terminal = true; throw error;
     }
     return generateDllPicImages({ ...task.snapshot, seed: task.snapshot.seed === '' ? undefined : Number(task.snapshot.seed),
-      requestId: task.id, apiKey, comfyGenerate: generateComfyViaFirebase, ...observers }).catch(error => {
+      requestId: task.id, apiKey, faceSourceId, comfyGenerate: (payload, options) => generateComfyViaFirebase(payload, { ...options, session }), ...observers }).catch(error => {
         if (error.code === 'functions/not-found') { error.terminal = true; error.message = '指定 Seed 服務尚未部署；本次未送出生成。可先使用隨機 Seed，或在本機模擬模式驗收。'; }
         throw error;
       });

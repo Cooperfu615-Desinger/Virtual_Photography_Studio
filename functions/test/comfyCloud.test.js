@@ -160,3 +160,27 @@ test('live Cloud image output may omit MIME; final node and Asset metadata still
   asset.content_type = ''; asset.file_path = 'output/unknown.bin';
   await assert.rejects(readComfyJob({ apiKey: 'key', requestId, store, fetchImpl }), /下載網址/);
 });
+
+test('Seedream binds an owned face source once and replay does not reupload or resubmit', async () => {
+  const store = makeStore();
+  const sourceStore = makeStore();
+  const faceSourceId = 'bbbbbbbb-cccc-dddd-eeee-ffffffffffff';
+  const input = { ...payload, modelKey: 'seedream5Pro', faceSourceId };
+  const calls = [];
+  const fetchImpl = async (_url, options) => {
+    calls.push(options);
+    return response({ id: 'face-job', status: 'queued' });
+  };
+  const submit = () => submitComfyJob({ apiKey: 'key', store, sourceStore, fetchImpl, payload: input });
+  await assert.rejects(submit(), /找不到此帳號/);
+  assert.equal(calls.length, 0);
+  await sourceStore.claim(faceSourceId, { kind: 'source', assetId: requestId });
+  await submit();
+  const graph = JSON.parse(calls[0].body).workflow;
+  assert.deepEqual(graph['3'].inputs['model.images.image_1'], ['4', 0]);
+  assert.equal(graph['3'].inputs['model.thinking'], true);
+  assert.equal(graph['4'].inputs.image.info.id, requestId);
+  assert.ok(graph['3'].inputs.prompt.endsWith(payload.prompt));
+  await submit();
+  assert.deepEqual(calls.map(call => call.method), ['POST', 'GET']);
+});

@@ -139,7 +139,8 @@ async function runSequence(payload, {
         if (item.state === 'planned') {
           item.state = 'attempted';
           saveTracking(storage, pending);
-          job = await call(payload.seed !== undefined ? 'comfyCloudWorkspaceSubmit' : 'comfyCloudSubmit', { ...input, count: 1, requestId: item.requestId,
+          job = await call(payload.seed !== undefined || payload.faceSourceId ? 'comfyCloudWorkspaceSubmit' : 'comfyCloudSubmit', { ...input, count: 1, requestId: item.requestId,
+            ...(payload.faceSourceId ? { faceSourceId: payload.faceSourceId } : {}),
             ...(payload.seed !== undefined ? { seed: Number(payload.seed) + index } : {}),
             ...(index > 0 && Number.isSafeInteger(jobs.at(-1)?.seed) ? { previousSeed: jobs.at(-1).seed } : {}) });
         } else {

@@ -9,6 +9,11 @@
 .dll-full-settings, .dll-results, .dll-tasks { padding: 20px; background: var(--bg-panel); border: 1px solid var(--border); border-radius: 20px; min-width: 0; }
 .dll-full-settings .dll-pic-settings-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .dll-full-settings .dll-pic-lora-control, .dll-full-settings .dll-pic-lora-strength, .dll-full-settings .dll-pic-field:has(select[aria-label="模型"]) { grid-column: 1 / -1; }
+.dll-full-settings .field { gap: 4px; }
+.dll-full-settings .field:has(> select) { gap: 0; }
+.dll-full-settings .openai26-settings > .dll-advanced-settings { margin-block: 10px; }
+.dll-full-settings .openai26-settings > .dll-prompt-section { display: grid; gap: 12px; }
+.dll-full-settings .openai26-settings > .dll-prompt-section p { margin-block: 0; }
 .dll-full-settings select, .dll-full-settings input, .dll-upscale-dialog select { width: 100%; min-width: 0; min-height: 42px; background: var(--surface-control); color: var(--text-primary); border: 1px solid var(--border); border-radius: 9px; padding: 8px; }
 .dll-full-settings .dll-pic-header { margin-bottom: 0; }
 .dll-prompt-editor label { font-size: 13px; display: block; margin-bottom: 8px; }
@@ -137,4 +142,62 @@
   .dll-page .page-header-toolbar { gap: 8px; }
   .dll-full-settings .dll-pic-header, .dll-full-settings .dll-pic-header-actions { flex-direction: row; align-items: center; flex-wrap: nowrap; }
   .dll-full-settings .dll-pic-header-actions { width: auto; }
+}
+
+/* 360px settings + two 600px panels + two gutters and page padding. */
+.container.dll-page { max-width: 1636px; }
+.dll-workspace-grid { grid-template-columns: minmax(290px, 360px) repeat(2, minmax(0, 1fr)); gap: 14px; }
+.dll-workspace-form { display: flex; flex-direction: column; gap: 14px; }
+.dll-workspace-form > .dll-generation-bar { border: 1px solid var(--border); border-radius: 16px; padding: 14px; }
+.dll-generation-buttons button { flex-basis: 110px; }
+.dll-full-settings { height: auto; }
+.dll-face-summary { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+.dll-face-summary img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; }
+.dll-full-settings .dll-prompt-section, .dll-face-field { grid-column: 1 / -1; }
+.dll-face-field { display: grid; gap: 8px; font-size: 13px; }
+.dll-face-field img { width: 70px; height: 80px; object-fit: contain; }
+.dll-file-button { position: relative; display: inline-flex; align-items: center; cursor: pointer; }
+.dll-file-button input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.dll-file-button:focus-within { outline: 2px solid var(--accent); }
+.dll-results .dll-image-grid { grid-template-columns: 1fr; }
+.dll-results .dll-image-open img { height: clamp(340px, 56vh, 700px); }
+.dll-results .dll-card-actions { display: flex; flex-wrap: wrap; }
+.dll-card-actions button { flex: 1 1 auto; }
+.dll-tasks .dll-task-row { grid-template-columns: minmax(0,1fr) auto; }
+.dll-tasks .dll-task-row .dll-row { grid-column: 1 / -1; }
+.dll-tasks h3 { font-size: 15px; }
+.dll-tasks .dll-history-item {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: inherit;
+  padding: 12px 11px;
+  margin: 0 0 5px;
+  text-align: left;
+}
+.dll-tasks h3 + .dll-history-item { margin-top: -5px; }
+.dll-tasks .dll-history-item[aria-pressed=true] { background: var(--card-bg); }
+.dll-history-item img { width: 52px; height: 64px; object-fit: cover; border-radius: 6px; }
+.dll-history-item small { display: block; color: var(--text-secondary); margin-top: 4px; }
+.dll-face-choices { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; margin-bottom: 12px; }
+.dll-face-choices img { display: block; width: 100%; height: 96px; object-fit: contain; }
+@media (min-width: 821px) and (max-width: 1150px) {
+  .dll-workspace-grid { grid-template-columns: minmax(290px, 36%) minmax(0,1fr); }
+  .dll-workspace-grid > .dll-tasks { grid-column: 2; }
+  .dll-workspace-form { grid-row: span 2; }
+}
+@media (max-width: 820px) {
+  .mobile-settings > .dll-tasks { display: none; }
+  .dll-workspace-grid > .dll-tasks { margin-top: 12px; }
+}
+.dll-results button.dll-image-open { background: var(--surface-control); }
+.dll-face-field .dll-file-button { background: var(--surface-control); border: 1px solid var(--border); border-radius: 8px; padding: 8px; }
+.dll-sidebar-toggle, .dll-tasks button.dll-sidebar-close { display: none; }
+@media (min-width: 821px) and (max-width: 1150px) {
+  .dll-sidebar-toggle { display: block; margin: 0 0 8px auto; }
+  .dll-workspace-grid > .dll-tasks { display: none; }
+  .dll-workspace-grid.sidebar-open > .dll-tasks { display: block; position: fixed; top: 12px; right: 12px; bottom: 12px; width: 300px; max-width: 90vw; overflow: auto; z-index: 30; box-shadow: 0 8px 28px #0002; }
+  .dll-tasks button.dll-sidebar-close { display: block; margin: 0 0 14px auto; }
 }

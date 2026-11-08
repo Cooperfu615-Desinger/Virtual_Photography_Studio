@@ -3,7 +3,7 @@ export function configureDllAcceptanceStorage() { DB = 'dll_pic_acceptance_v1'; 
 
 export function summarizeTask(task) {
   const snapshot = { ...task.snapshot };
-  for (const field of ['sourceImage', 'referenceImage', 'mask', 'markup']) delete snapshot[field];
+  for (const field of ['faceReference', 'sourceImage', 'referenceImage', 'mask', 'markup']) delete snapshot[field];
   return { ...task, summaryOnly: true, snapshot, images: (task.images || []).map(image => {
     const metadata = { ...image };
     delete metadata.src;

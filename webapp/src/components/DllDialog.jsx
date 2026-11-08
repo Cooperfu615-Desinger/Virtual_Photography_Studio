@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
-export default function DllDialog({ onClose, children }) {
+export default function DllDialog({ onClose, children, label = '提升解析度' }) {
   const ref = useRef(null);
   useEffect(() => {
     const previous = document.activeElement;
@@ -22,5 +22,5 @@ export default function DllDialog({ onClose, children }) {
     window.addEventListener('keydown', key);
     return () => { window.removeEventListener('keydown', key); siblings.forEach((el, i) => { el.inert = inert[i]; }); document.body.style.overflow = overflow; previous?.focus(); };
   }, [onClose]);
-  return createPortal(<div className="dll-upscale-backdrop" onClick={onClose}><section ref={ref} tabIndex={-1} className="dll-upscale-dialog" role="dialog" aria-modal="true" aria-label="提升解析度" onClick={event => event.stopPropagation()}>{children}</section></div>, document.body);
+  return createPortal(<div className="dll-upscale-backdrop" onClick={onClose}><section ref={ref} tabIndex={-1} className="dll-upscale-dialog" role="dialog" aria-modal="true" aria-label={label} onClick={event => event.stopPropagation()}>{children}</section></div>, document.body);
 }

@@ -132,9 +132,21 @@ async function resolveComfyImages(job, meta, apiKey, fetchImpl) {
 
 // The store claims a request transactionally before making a paid call. A lost
 // response remains uncertain; neither a timeout nor a repeated callable reposts it.
-async function submitComfyJob({ apiKey, payload, store, fetchImpl = fetch }) {
+async function submitComfyJob({ apiKey, payload, store, sourceStore, fetchImpl = fetch }) {
   const requestId = validateRequestId(payload.requestId);
   const { workflow, meta } = buildComfyWorkflow(payload);
+  if (payload.faceSourceId !== undefined) {
+    if (meta.modelKey !== 'seedream5Pro' || !sourceStore) throw new Error('此模型不支援臉部參考');
+    if (await store.get(requestId)) return readComfyJob({ apiKey, requestId, store, fetchImpl });
+    const source = await sourceStore.get(validateRequestId(payload.faceSourceId));
+    if (source?.kind !== 'source' || !source.assetId) throw new Error('找不到此帳號的臉部參考圖');
+    workflow['4'] = { class_type: 'LoadImage', inputs: { image: { __type: 'core/ASSET', info: { id: validateRequestId(source.assetId) } } } };
+    const inputs = workflow['3'].inputs;
+    inputs['model.images.image_1'] = ['4', 0];
+    inputs['model.thinking'] = true;
+    inputs.prompt = 'Use the face in the reference image for the subject’s identity. ' + inputs.prompt;
+    meta.hasFaceReference = true;
+  }
   const claim = await store.claim(requestId, { phase: 'submitting', meta, createdAt: Date.now() });
   if (!claim.claimed) return readComfyJob({ apiKey, requestId, store, fetchImpl });
   try {
