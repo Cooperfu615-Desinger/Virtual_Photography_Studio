@@ -49,7 +49,7 @@ test('orbit controls display short direction labels while preserving stored nume
   const orbitControl = getLockControls().find((entry) => entry.key === 'orbitId');
   assert.deepEqual(
     orbitControl.options.filter((option) => option.zh !== '全無').map((option) => getCameraControlDisplayLabel('orbitId', option)),
-    ['正面', '左前', '左側', '左後', '背面', '右後', '右側', '右前'],
+    ['正面', '左前', '左側', '左後', '背面', '右後', '右側', '右前', '男友／閨蜜視角'],
   );
   assert.equal(orbitControl.options.find((option) => option.zh === '左前 45 度')?.id.includes('45'), true);
 });

@@ -279,6 +279,7 @@ test('orbit control uses degree-based body orientation with legacy lock migratio
     '右後 225 度',
     '右側 270 度',
     '右前 315 度',
+    '男友／閨蜜視角',
   ]);
 
   assert.ok(!orbitLabels.includes('左前斜側'));

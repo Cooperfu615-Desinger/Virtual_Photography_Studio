@@ -1,0 +1,1093 @@
+{
+  "base": "e43d7d5df6512571a318cf8b18cbb567f6278232",
+  "files": [
+    {
+      "path": "knowledge_base/camera_and_lighting.md",
+      "beforeHash": "9deb1792e71f9120fbc1a90d9bbd2acb93aea8b6725d1a1c733767db2f51c153",
+      "afterHash": "4eb17ae1fb5b05542a52b1415b6be0b9478c1c3129672e36e7c1eb8b606a8ac5",
+      "edits": [
+        {
+          "line": 40,
+          "before": [],
+          "after": [
+            "| **拍攝方位 (Orbit Angle)** | 男友／閨蜜視角 | `handheld companion snapshot from a boyfriend-or-best-friend point of view` | 由熟悉的人手持相機拍攝的自然親近感；不指定人物正側面、雙手或身體前傾。 |\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/catalog/CameraLighting/拍攝方位-orbit-angle.json",
+      "beforeHash": "64d9774fd3e7382a665681a8ca0c8ed095064eb13f0fdd1e2f0d10205b3892a1",
+      "afterHash": "e25720e0ba5d658d499a377fb38f9155b0ce7e0a84b472cf0600982972d9f868",
+      "edits": [
+        {
+          "line": 159,
+          "before": [],
+          "after": [
+            "    },\n",
+            "    {\n",
+            "      \"id\": \"camera:拍攝方位-orbit-angle:companion-view\",\n",
+            "      \"legacyIds\": [],\n",
+            "      \"zh\": \"男友／閨蜜視角\",\n",
+            "      \"en\": \"handheld companion snapshot from a boyfriend-or-best-friend point of view\",\n",
+            "      \"desc\": \"由熟悉的人手持相機拍攝的自然親近感；不指定人物正側面、雙手或身體前傾。\",\n",
+            "      \"meta\": {\n",
+            "        \"semantic\": {\n",
+            "          \"tags\": []\n",
+            "        }\n",
+            "      }\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/catalog/id_registry.json",
+      "beforeHash": "4467d01c844a359944961257953ad332c72eb12166847e8c9563ac6256c583a7",
+      "afterHash": "69308444b50bde230bc7f805c1d6acc6e600c341dacd74857da8db6334330748",
+      "edits": [
+        {
+          "line": 7360,
+          "before": [],
+          "after": [
+            "    },\n",
+            "    {\n",
+            "      \"id\": \"camera:拍攝方位-orbit-angle:companion-view\",\n",
+            "      \"initialGroup\": \"camera\",\n",
+            "      \"initialCategory\": \"拍攝方位 (Orbit Angle)\",\n",
+            "      \"createdFrom\": \"e43d7d5df6512571a318cf8b18cbb567f6278232\",\n",
+            "      \"status\": \"active\",\n",
+            "      \"decisionRef\": \"Docs/specs/phone-selfie-props-v1.md\"\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/catalog/index.json",
+      "beforeHash": "2f1ad1937cb0ee604322bfacb110b5778e62f548626c639def5b54ad75d2f7c8",
+      "afterHash": "a5df714d79da7d92ef2ca8e958a5b82e9563887668750b62e890d1942056114e",
+      "edits": [
+        {
+          "line": 17137,
+          "before": [],
+          "after": [
+            "          \"id\": \"camera:拍攝方位-orbit-angle:companion-view\",\n",
+            "          \"cells\": [\n",
+            "            \"**拍攝方位 (Orbit Angle)**\",\n",
+            "            \"\",\n",
+            "            \"\",\n",
+            "            \"\"\n",
+            "          ],\n",
+            "          \"columns\": {\n",
+            "            \"1\": \"zh\",\n",
+            "            \"2\": \"en\",\n",
+            "            \"3\": \"desc\"\n",
+            "          },\n",
+            "          \"affixes\": {\n",
+            "            \"1\": [\n",
+            "              \"\",\n",
+            "              \"\"\n",
+            "            ],\n",
+            "            \"2\": [\n",
+            "              \"`\",\n",
+            "              \"`\"\n",
+            "            ],\n",
+            "            \"3\": [\n",
+            "              \"\",\n",
+            "              \"\"\n",
+            "            ]\n",
+            "          }\n",
+            "        },\n",
+            "        {\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "scripts/lib/framingWardrobeIntegrationReplay.mjs",
+      "beforeHash": "32c66736394434a29174756c072547a8d9bd00f243881fbd1a7e7cb239284e90",
+      "afterHash": "74618245eaec71ff026e592bb28b0adaa16948d9996041d7b5ba73aea01f83b2",
+      "edits": [
+        {
+          "line": 42,
+          "before": [
+            "    const raw = readFileSync(file), original = preIndoorSeatSource(relative, raw);\n"
+          ],
+          "after": [
+            "    const raw = readFileSync(file), original = preMaiOutfitSource(relative, preIndoorSeatSource(relative, raw));\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "scripts/lib/maiOutfitHistoricalReplay.mjs",
+      "beforeHash": "3bcc3a9052df3df1c611a1256a06ec1532492be5b600ad94eb16b3626b99ce6a",
+      "afterHash": "623da1f962f39cfb49a2ab6aee525e2029cd4207e3368a63e342f7b8df0fe809",
+      "edits": [
+        {
+          "line": 4,
+          "before": [],
+          "after": [
+            "import { preSelfiePropsSource } from './selfiePropsHistoricalReplay.mjs';\n"
+          ]
+        },
+        {
+          "line": 8,
+          "before": [],
+          "after": [
+            " source = preSelfiePropsSource(path, source);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "scripts/lib/maiOutfitHistoricalReplay.test.mjs",
+      "beforeHash": "e821f34a95c5ef84ce8970c1679b8183a42460aca41d47c08c8aac86fe94fe04",
+      "afterHash": "66724c707a92f723bdd1041f80441614ce4b5a913960f4979cd81f0af56e4e07",
+      "edits": [
+        {
+          "line": 6,
+          "before": [],
+          "after": [
+            "import { preSelfiePropsSource } from './selfiePropsHistoricalReplay.mjs';\n"
+          ]
+        },
+        {
+          "line": 10,
+          "before": [
+            "  const current = readFileSync(new URL('../../' + entry.path, import.meta.url));\n"
+          ],
+          "after": [
+            "  const current = preSelfiePropsSource(entry.path, readFileSync(new URL('../../' + entry.path, import.meta.url)));\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "scripts/tests/test_c2_rendering_classification.py",
+      "beforeHash": "8bca41efd43fa5828888d8ddb40f1ac3c82bd305943a8547a05604be252b41f4",
+      "afterHash": "d7463c591402649e00b3973dfd50068a2c4beb24312da4dde6f52fc4dc1a3d2a",
+      "edits": [
+        {
+          "line": 11,
+          "before": [],
+          "after": [
+            "COMPANION_ORBIT = 'camera:拍攝方位-orbit-angle:companion-view'\n"
+          ]
+        },
+        {
+          "line": 17,
+          "before": [
+            "    added = [row for row in result['rows'] if row['id'] == NEW_OUTFIT]\n",
+            "    if added:\n",
+            "        assert len(added) == 1\n",
+            "        result['rows'] = [row for row in result['rows'] if row['id'] != NEW_OUTFIT]\n",
+            "        result['summary'][added[0]['status']] -= 1\n"
+          ],
+          "after": [
+            "    for added_id in [NEW_OUTFIT, COMPANION_ORBIT]:\n",
+            "        added = [row for row in result['rows'] if row['id'] == added_id]\n",
+            "        if added:\n",
+            "            assert len(added) == 1\n",
+            "            result['rows'] = [row for row in result['rows'] if row['id'] != added_id]\n",
+            "            result['summary'][added[0]['status']] -= 1\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "scripts/tests/test_catalog_cutover.py",
+      "beforeHash": "1c7dbdefc1c7bebb2f6afe35c82bb40bbdc58420a290b7b0c31e087578453a91",
+      "afterHash": "5801934338d683487be854e6b6a49afe20f81bde901c0d4715b787b03b8fd0ab",
+      "edits": [
+        {
+          "line": 52,
+          "before": [],
+          "after": [
+            "        companion = [row for row in entries if row['id'] == 'camera:拍攝方位-orbit-angle:companion-view']\n"
+          ]
+        },
+        {
+          "line": 54,
+          "before": [
+            "        self.assertEqual(len(entries) - len(added), 1050)\n"
+          ],
+          "after": [
+            "        self.assertEqual(len(companion), 1)\n",
+            "        self.assertEqual(len(entries) - len(added) - len(companion), 1050)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/components/Page1Workspace.jsx",
+      "beforeHash": "8e86fdab2e8249038ab604fc5563b75ddbb630f1316158685804357335876c01",
+      "afterHash": "61ec969321f5c49d9185f8b7f13805239506877af79b1e0c65beaf3fe4e81a3b",
+      "edits": [
+        {
+          "line": 12,
+          "before": [
+            "import { applicableGestureOptions, availableGazeOptions, isSelfieCaptureStyle } from '../lib/engine/gazeGesture.js';\n"
+          ],
+          "after": [
+            "import { applicableGestureOptions, availableGazeOptions } from '../lib/engine/gazeGesture.js';\n",
+            "import { phoneCaptureStatus } from '../lib/engine/phoneCapture.js';\n"
+          ]
+        },
+        {
+          "line": 36,
+          "before": [
+            "import { buildPhotographyEditorModel, PHOTOGRAPHY_EDITOR_GROUPS } from '../features/page1/photographyEditor.js';\n"
+          ],
+          "after": [
+            "import { buildPhotographyEditorModel, PHOTOGRAPHY_EDITOR_GROUPS, prepareCompanionOrbitControl } from '../features/page1/photographyEditor.js';\n"
+          ]
+        },
+        {
+          "line": 887,
+          "before": [
+            "  // expression-pose-v2 P4: a selfie 拍攝方式 applies (and locks the orbit) only while no action owns the hands.\n",
+            "  // P5a: the retired hand/prop layers no longer feed this; 拍攝方式 is the only source.\n",
+            "  const captureStyleSelfieApplies = isSelfieCaptureStyle(locks.captureStyleId) && locks.subjectCount === '1' && !activeSpecifiedAction && !captureActive;\n",
+            "  const selectedPoseActionLocksOrbit = !fixedScenePosition && captureStyleSelfieApplies;\n"
+          ],
+          "after": [
+            "  const phoneCapture = phoneCaptureStatus(locks, activeSpecifiedAction);\n",
+            "  const selectedPoseActionLocksOrbit = !fixedScenePosition && !captureActive && phoneCapture.active;\n"
+          ]
+        },
+        {
+          "line": 957,
+          "before": [],
+          "after": [
+            "    if (control.key === 'orbitId') return prepareCompanionOrbitControl(control, locks, { fixedCompositionSetActive });\n"
+          ]
+        },
+        {
+          "line": 987,
+          "before": [
+            "      // 道具 (Cooper 2026-10-22): beside every action, unfiltered. The glasses need glasses in the wardrobe;\n",
+            "      // the mirror selfie owns the phone, so the control steps aside.\n",
+            "      if (locks.captureStyleId === 'mirror') {\n",
+            "        return { ...control, disabled: true, suppressDefaultRandomOption: true, closureDisplayValue: 'prop-locked',\n",
+            "          options: [{ id: 'prop-locked', zh: '由鏡子自拍決定', en: '' }] };\n",
+            "      }\n"
+          ],
+          "after": [
+            "      // A selected phone remains editable when its pose is incompatible.\n",
+            "      const phoneHelp = phoneCapture.selected\n",
+            "        ? fixedScenePosition ? '固定場景人物位置接管中，手機自拍暫不套用。'\n",
+            "          : phoneCapture.reason || '手機自拍管理拍攝方位，景別與俯仰角度可另外調整。'\n",
+            "        : ['selfie', 'mirror', 'companion'].includes(locks.captureStyleId)\n",
+            "          ? '這份舊設定保留了其他拍攝選擇；重新選擇道具或環繞角度可取代舊設定。' : '';\n"
+          ]
+        },
+        {
+          "line": 994,
+          "before": [
+            "      return { ...control, options: control.options.map(o => noEyewear && o.meta?.requiresWardrobeRole === 'eyewear'\n"
+          ],
+          "after": [
+            "      return { ...control, helpText: phoneHelp, options: control.options.map(o => noEyewear && o.meta?.requiresWardrobeRole === 'eyewear'\n"
+          ]
+        },
+        {
+          "line": 998,
+          "before": [],
+          "after": [
+            "      if (selectedPoseActionLocksOrbit) return { ...control, disabled: true,\n",
+            "        helpText: '手機自拍使用手部，手勢暫不套用；取消手機道具後恢復。' };\n"
+          ]
+        },
+        {
+          "line": 1019,
+          "before": [
+            "    }\n",
+            "    if (control.key === 'captureStyleId' && isSelfieCaptureStyle(locks.captureStyleId)) {\n",
+            "      return { ...control, helpText: locks.subjectCount !== '1' ? '雙人模式不使用拍攝方式。'\n",
+            "        : activeSpecifiedAction ? `姿勢「${activeSpecifiedAction.zh}」使用自己的手部，拍攝方式暫不套用；姿勢選全無後生效。`\n",
+            "        : '自拍時手拿手機，環繞角度由自拍決定。' };\n"
+          ],
+          "after": []
+        },
+        {
+          "line": 1069,
+          "before": [],
+          "after": [
+            "      if (['propId', 'orbitId'].includes(control.key)) next.captureStyleId = 'standard';\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/data/database.json",
+      "beforeHash": "2c32d392db55478cd443bb2603e2e892a02ed15042d619016c644ccb01c9d0e8",
+      "afterHash": "3ab60b84ae8d9676eb5665bdaefe9491133976dec82e879dabded65448a34162",
+      "edits": [
+        {
+          "line": 12394,
+          "before": [],
+          "after": [
+            "      },\n",
+            "      {\n",
+            "        \"zh\": \"男友／閨蜜視角\",\n",
+            "        \"en\": \"handheld companion snapshot from a boyfriend-or-best-friend point of view\",\n",
+            "        \"desc\": \"由熟悉的人手持相機拍攝的自然親近感；不指定人物正側面、雙手或身體前傾。\",\n",
+            "        \"meta\": {\n",
+            "          \"semantic\": {\n",
+            "            \"tags\": []\n",
+            "          }\n",
+            "        },\n",
+            "        \"stableId\": \"camera:拍攝方位-orbit-angle:companion-view\",\n",
+            "        \"legacyIds\": []\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/page1/page1Schema.js",
+      "beforeHash": "e3b1938c4340677f72697ed5eef4642e3edda091f387ec3a6342cf06fad50621",
+      "afterHash": "304fd9a8e089ce46a21247676ed163a485b98ab97ec77f18b29f8ae820e661c0",
+      "edits": [
+        {
+          "line": 305,
+          "before": [
+            "      // captureStyleId (P4) carries the selfie styles that used to be hand options.\n",
+            "      keys: ['framingId', 'angleId', 'orbitId', 'lyingCameraId', 'captureStyleId'],\n"
+          ],
+          "after": [
+            "      keys: ['framingId', 'angleId', 'orbitId', 'lyingCameraId'],\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/page1/page1Schema.test.js",
+      "beforeHash": "04e6a30c605d13bc19435208b6cdd76c264fffd9c276b46a28a73511abe1ffdb",
+      "afterHash": "879a3bfefc19c51629c665e1e5ed30ba443bced94fcf62e169244462e654247a",
+      "edits": [
+        {
+          "line": 71,
+          "before": [],
+          "after": [
+            "\n",
+            "test('photography navigation omits the retired capture-style control', () => {\n",
+            "  assert.equal(getSectionKeys('photography').includes('captureStyleId'), false);\n",
+            "});\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/page1/photographyEditor.js",
+      "beforeHash": "f9af86b610424cfc834b86ab5fea4224408669162b4d952977c96125a6eb26a0",
+      "afterHash": "1a6349f6cd383413bff6112e2a42bcaa3402bbf336a07056b0b1fb506323295c",
+      "edits": [
+        {
+          "line": 4,
+          "before": [],
+          "after": [
+            "import { COMPANION_ORBIT_ID } from '../../lib/engine/phoneCapture.js';\n",
+            "\n",
+            "export function prepareCompanionOrbitControl(control, locks = {}, { fixedCompositionSetActive = false } = {}) {\n",
+            "  if (control.key !== 'orbitId' || (locks.subjectCount === '1' && locks.captureMode !== 'observation' && !fixedCompositionSetActive)) return control;\n",
+            "  const reason = '男友／閨蜜視角限一般單人拍攝，固定場景不套用。';\n",
+            "  return { ...control,\n",
+            "    options: control.options.map(option => option.id === COMPANION_ORBIT_ID\n",
+            "      ? { ...option, disabled: true, zh: `${option.zh}（一般單人適用）` } : option),\n",
+            "    ...(locks.orbitId === COMPANION_ORBIT_ID ? { helpText: reason } : {}),\n",
+            "  };\n",
+            "}\n"
+          ]
+        },
+        {
+          "line": 20,
+          "before": [
+            "  // expression-pose-v2 P4: captureStyleId holds the selfie styles.\n",
+            "  { id: 'composition', label: '構圖與視角', keys: ['framingId', 'angleId', 'orbitId', 'lyingCameraId', 'captureStyleId'] },\n"
+          ],
+          "after": [
+            "  { id: 'composition', label: '構圖與視角', keys: ['framingId', 'angleId', 'orbitId', 'lyingCameraId'] },\n"
+          ]
+        },
+        {
+          "line": 27,
+          "before": [
+            "  // 拍攝方式 always names its mode; 一般拍攝 is the default, not a 全無.\n",
+            "  if (control.key === 'captureStyleId') return control.options?.find(item => item.id === value)?.zh || '一般拍攝';\n"
+          ],
+          "after": []
+        },
+        {
+          "line": 87,
+          "before": [
+            "      // 拍攝方式 joins the summary only when it is not the default 一般拍攝.\n",
+            "      summary: preparedFields.filter(field => field.control.key !== 'captureStyleId' || (field.value && field.value !== 'standard'))\n",
+            "        .map(field => field.management?.value || selectedLabel(field)).join(' / '),\n"
+          ],
+          "after": [
+            "      summary: preparedFields.map(field => field.management?.value || selectedLabel(field)).join(' / '),\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/page1/photographyEditor.test.js",
+      "beforeHash": "6366783bd8555cd42d2a530e8701ed34a6bb7ecb627a647d786d67a684d938ab",
+      "afterHash": "67ceac120fb34273380daef8a3f9ad5cda378ae2c156d90f709d8c46ecb8d18e",
+      "edits": [
+        {
+          "line": 29,
+          "before": [
+            "test('photography cards retain all ten existing keys exactly once and keep placement order', () => {\n"
+          ],
+          "after": [
+            "test('photography cards expose eleven keys without the retired capture-style control', () => {\n"
+          ]
+        },
+        {
+          "line": 31,
+          "before": [
+            "  // P3 added lyingCameraId; P4 (2026-10-20) added captureStyleId (拍攝方式).\n",
+            "  assert.equal(editorKeys.length, 12);\n",
+            "  assert.equal(new Set(editorKeys).size, 12);\n"
+          ],
+          "after": [
+            "  assert.equal(editorKeys.length, 11);\n",
+            "  assert.equal(new Set(editorKeys).size, 11);\n",
+            "  assert.equal(editorKeys.includes('captureStyleId'), false);\n"
+          ]
+        },
+        {
+          "line": 104,
+          "before": [
+            "    assert.deepEqual(group(model, 'composition').actionKeys, ['captureStyleId']);\n"
+          ],
+          "after": [
+            "    assert.deepEqual(group(model, 'composition').actionKeys, []);\n"
+          ]
+        },
+        {
+          "line": 117,
+          "before": [
+            "    assert.deepEqual(group(model, 'composition').actionKeys, ['angleId', 'orbitId', 'captureStyleId']);\n"
+          ],
+          "after": [
+            "    assert.deepEqual(group(model, 'composition').actionKeys, ['angleId', 'orbitId']);\n"
+          ]
+        },
+        {
+          "line": 145,
+          "before": [
+            "      assert.deepEqual(group(model, 'composition').actionKeys, ['framingId', 'angleId', 'captureStyleId']);\n"
+          ],
+          "after": [
+            "      assert.deepEqual(group(model, 'composition').actionKeys, ['framingId', 'angleId']);\n"
+          ]
+        },
+        {
+          "line": 149,
+          "before": [
+            "      assert.deepEqual(group(model, 'composition').actionKeys, ['framingId', 'angleId', 'orbitId', 'captureStyleId']);\n"
+          ],
+          "after": [
+            "      assert.deepEqual(group(model, 'composition').actionKeys, ['framingId', 'angleId', 'orbitId']);\n"
+          ]
+        },
+        {
+          "line": 170,
+          "before": [
+            "  assert.deepEqual(group(model, 'composition').actionKeys, ['framingId', 'angleId', 'captureStyleId']);\n"
+          ],
+          "after": [
+            "  assert.deepEqual(group(model, 'composition').actionKeys, ['framingId', 'angleId']);\n"
+          ]
+        },
+        {
+          "line": 186,
+          "before": [
+            "  assert.deepEqual(group(model, 'composition').actionKeys, ['angleId', 'captureStyleId']);\n"
+          ],
+          "after": [
+            "  assert.deepEqual(group(model, 'composition').actionKeys, ['angleId']);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/page1/retiredPoseLocks.js",
+      "beforeHash": "78ffb4017dcf5294e33fb5232a5ec74af640bae5b294bf409c731e0cf93f5e5e",
+      "afterHash": "c3a152d7ebf67d328a44bdb9703fd59f2b9899fdb5905c8a7478a3162597ca94",
+      "edits": [
+        {
+          "line": 1,
+          "before": [],
+          "after": [
+            "import { migratePhoneCaptureLocks } from '../../lib/engine/phoneCapture.js';\n"
+          ]
+        },
+        {
+          "line": 5,
+          "before": [
+            "// choices, Cooper 2026-10-18) so nothing invisible reaches the prompt; a selfie\n",
+            "// hand or prop becomes the matching 拍攝方式. The engine still reads these keys\n",
+            "// for older inputs until the P5 cleanup.\n"
+          ],
+          "after": [
+            "// choices, Cooper 2026-10-18). Resolve old selfie selections to the current phone\n",
+            "// prop or companion orbit before dropping their retired slots. The migration\n",
+            "// helper preserves conflicting legacy choices for explicit user replacement.\n"
+          ]
+        },
+        {
+          "line": 16,
+          "before": [
+            "  const retired = RETIRED_POSE_COMPOSER_KEYS.filter(key => locks[key] && locks[key] !== 'none');\n",
+            "  if (!retired.length && (locks.captureStyleId || 'standard') === captureStyleId) return locks;\n",
+            "  return { ...locks, captureStyleId, ...Object.fromEntries(retired.map(key => [key, 'none'])) };\n"
+          ],
+          "after": [
+            "  // Resolve all three historical selfie slots before clearing retired layers.\n",
+            "  const source = (locks.captureStyleId || 'standard') === captureStyleId ? locks : { ...locks, captureStyleId };\n",
+            "  const migrated = migratePhoneCaptureLocks(source);\n",
+            "  const retired = RETIRED_POSE_COMPOSER_KEYS.filter(key => migrated[key] && migrated[key] !== 'none');\n",
+            "  if (!retired.length) return migrated;\n",
+            "  return { ...migrated, ...Object.fromEntries(retired.map(key => [key, 'none'])) };\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine.js",
+      "beforeHash": "e8ac889650ac8ef5a415cdc7f986238cc7113cbca213b5b2acfc1b975a0d8d77",
+      "afterHash": "7f808e7bd5662d41b1238c9f6e2875209bec168ff4465417a98577f788ae9490",
+      "edits": [
+        {
+          "line": 0,
+          "before": [],
+          "after": [
+            "import { isPhoneProp, phoneCaptureStatus, migratePhoneCaptureLocks, COMPANION_ORBIT_ID } from './engine/phoneCapture.js';\n"
+          ]
+        },
+        {
+          "line": 3275,
+          "before": [
+            "  const prop = getPoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, propId);\n"
+          ],
+          "after": [
+            "  const prop = PROP_OPTIONS.find(o=>isPhoneProp(o.id)&&o.id===propId) || getPoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, propId);\n"
+          ]
+        },
+        {
+          "line": 5285,
+          "before": [
+            "    const gesture = describeRevealGesture(resolveGesture(context.locks?.gestureId, specifiedAction, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random), context.revealedUnderlayer);\n"
+          ],
+          "after": [
+            "    const phoneStatus = phoneCaptureStatus(context.locks, specifiedAction);\n",
+            "    const gesture = describeRevealGesture(resolveGesture(phoneStatus.active ? 'none' : context.locks?.gestureId, specifiedAction, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random), context.revealedUnderlayer);\n"
+          ]
+        },
+        {
+          "line": 5288,
+          "before": [
+            "    const prop = resolveProp(context.locks?.propId, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random);\n"
+          ],
+          "after": [
+            "    const prop = resolveProp(phoneStatus.selected && !phoneStatus.active ? 'none' : context.locks?.propId, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random);\n"
+          ]
+        },
+        {
+          "line": 5305,
+          "before": [
+            "        ...(prop ? { propId: prop.id } : {}),\n"
+          ],
+          "after": [
+            "        ...(prop ? { propId: prop.id, ...(isPhoneProp(prop.id) ? {posePropId:prop.id} : {}) } : {}),\n"
+          ]
+        },
+        {
+          "line": 5325,
+          "before": [
+            "      ? resolveProp(context.locks?.propId, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random) : null;\n"
+          ],
+          "after": [
+            "      ? resolveProp(phoneCaptureStatus(context.locks).selected && !phoneCaptureStatus(context.locks).active ? 'none' : context.locks?.propId, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random) : null;\n"
+          ]
+        },
+        {
+          "line": 5799,
+          "before": [
+            "    if (projection.pose?.mode === 'fullCanonical' || projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE) return poseComposer.en;\n"
+          ],
+          "after": [
+            "    if (projection.pose?.mode === 'fullCanonical' || projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE) {\n",
+            "      if (!omitProp || !isPhoneProp(poseComposer.meta?.propId)) return poseComposer.en;\n",
+            "      const gesture = GESTURE_OPTIONS.find(o=>o.id===poseComposer.meta?.gestureId) || null;\n",
+            "      const head = headOptionFromMeta(poseComposer.meta);\n",
+            "      return [withLyingSurface(applyIndoorKneel(applyIndoorLean(applyIndoorSeat(actionTextWithGesture(specifiedAction,gesture).en,context.indoorSeat),context.indoorLean),context.indoorKneel),lyingSurfaceFor(specifiedAction,context.location)),isActivePoseComposerOption(head)?`She has ${normalizePoseComposerHeadPhrase(head)}.`:''].filter(Boolean).join(' ');\n",
+            "    }\n"
+          ]
+        },
+        {
+          "line": 5807,
+          "before": [
+            "    const prop = PROP_OPTIONS.find(option => option.en && option.id === poseComposer.meta?.propId) || null;\n"
+          ],
+          "after": [
+            "    const prop = omitProp ? null : PROP_OPTIONS.find(option => option.en && option.id === poseComposer.meta?.propId) || null;\n"
+          ]
+        },
+        {
+          "line": 13084,
+          "before": [
+            "  const activeProp = getPoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, poseComposer?.meta?.posePropId);\n"
+          ],
+          "after": [
+            "  const activeProp = PROP_OPTIONS.find(o=>isPhoneProp(o.id)&&o.id===poseComposer?.meta?.posePropId) || getPoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, poseComposer?.meta?.posePropId);\n"
+          ]
+        },
+        {
+          "line": 16500,
+          "before": [],
+          "after": [
+            "  if (context.legacyPhoneConflict?.propId) resolvedSelection.propId = context.legacyPhoneConflict.propId;\n",
+            "  if (isPhoneProp(context.rawLocks.propId) || context.rawLocks.orbitId === COMPANION_ORBIT_ID) resolvedSelection.orbitId = context.rawLocks.orbitId;\n"
+          ]
+        },
+        {
+          "line": 16549,
+          "before": [
+            "  const requestedLocks = applyCaptureStyleLocks(inputLocks);\n"
+          ],
+          "after": [
+            "  const requestedLocks = applyCaptureStyleLocks(migratePhoneCaptureLocks(inputLocks));\n"
+          ]
+        },
+        {
+          "line": 16777,
+          "before": [],
+          "after": [
+            "  if (effectiveLocks.orbitId === COMPANION_ORBIT_ID && (subject.count !== 1 || capture || fixedCompositionSetActive)) effectiveLocks.orbitId = runtime.flatCatalog.orbit.find(isNoneLikeItem)?.id || 'none';\n"
+          ]
+        },
+        {
+          "line": 16781,
+          "before": [
+            "    (item) => framingSupportsOrbit(framing, item) && lockedExpressions.every((expression) => orbitSupportsExpression(item, expression)) && specialActionSupportsOrbit(item, lockedActionConstraint) && specifiedActionSupportsCamera(specifiedCameraAction, 'orbitId', item)\n"
+          ],
+          "after": [
+            "    (item) => (item.id !== COMPANION_ORBIT_ID || (effectiveLocks.orbitId === COMPANION_ORBIT_ID && subject.count === 1 && !capture && !fixedCompositionSetActive)) && framingSupportsOrbit(framing, item) && lockedExpressions.every((expression) => orbitSupportsExpression(item, expression)) && specialActionSupportsOrbit(item, lockedActionConstraint) && specifiedActionSupportsCamera(specifiedCameraAction, 'orbitId', item)\n"
+          ]
+        },
+        {
+          "line": 16918,
+          "before": [],
+          "after": [
+            "    legacyPhoneConflict: requestedLocks.captureStyleId && requestedLocks.captureStyleId !== 'standard' ? inputLocks : null,\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/catalogSemanticSource.test.js",
+      "beforeHash": "249daa2337c8c2e08982e7355d280e526c248d3a49caa23592975ac89ae3c9e2",
+      "afterHash": "3ad590dfd6a51f13c79313af1219c6445cb4f766ed7322e96f71f9eaeeea488a",
+      "edits": [
+        {
+          "line": 31,
+          "before": [
+            "  assert.equal(added.length,1);assert.equal(rows.length-added.length,1050);\n"
+          ],
+          "after": [
+            "  const companion=rows.filter(row=>row.stableId==='camera:拍攝方位-orbit-angle:companion-view');\n",
+            "  assert.equal(added.length,1);assert.equal(companion.length,1);assert.equal(rows.length-added.length-companion.length,1050);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/catalogSnapshot.test.js",
+      "beforeHash": "545084d9239e6a6546ce660fcb1dcce549733ddc9356c5f94b995dce54085275",
+      "afterHash": "1cac60f08ddd2a61d075f0a05f399c28476fa2db65affafc9bab2a552410c42a",
+      "edits": [
+        {
+          "line": 48,
+          "before": [
+            "  assert.equal(originalCount, 1051);\n"
+          ],
+          "after": [
+            "  assert.equal(source.CameraLighting['拍攝方位 (Orbit Angle)'].filter(item => item.stableId === 'camera:拍攝方位-orbit-angle:companion-view').length, 1);\n",
+            "  assert.equal(originalCount, 1052);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/gazeGesture.js",
+      "beforeHash": "465f34e32c937f52990cb7a0c17dd1a1019a522875ac9035b66e6f16bdbad888",
+      "afterHash": "cc2281cdf088226515d8b196200fc3277220359e9d3055a85e916c1641178fb4",
+      "edits": [
+        {
+          "line": 6,
+          "before": [
+            "import { POSE_COMPOSER_PROP_OPTIONS } from './poseComposerOptions.js';\n"
+          ],
+          "after": [
+            "import { PHONE_SELFIE_ID, PHONE_MIRROR_ID, isPhoneProp } from './phoneCapture.js';\n",
+            "import { POSE_COMPOSER_HAND_OPTIONS, POSE_COMPOSER_PROP_OPTIONS } from './poseComposerOptions.js';\n"
+          ]
+        },
+        {
+          "line": 219,
+          "before": [],
+          "after": [
+            "  ...[POSE_COMPOSER_HAND_OPTIONS.find(o=>o.id===PHONE_SELFIE_ID), POSE_COMPOSER_PROP_OPTIONS.find(o=>o.id===PHONE_MIRROR_ID)].map(o=>propEntry({...o,zh:o.id===PHONE_SELFIE_ID?'手機自拍':'手機鏡子自拍',meta:{...o.meta,randomEligible:false}})),\n"
+          ]
+        },
+        {
+          "line": 227,
+          "before": [],
+          "after": [
+            "      .filter(option => !isPhoneProp(option.id))\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/gazeGesture.test.js",
+      "beforeHash": "50c488e44dd2c014780aa5f06463b92b12e9f6cb7e3bb22ef2049a22e805d21b",
+      "afterHash": "bfefddfae0cced2ce11e9e5272465eb8636be11e4d15806f109f2e0081d9ab2e",
+      "edits": [
+        {
+          "line": 93,
+          "before": [
+            "test('拍攝方式 selfie styles produce exactly the prompts of the earlier selfie hand or prop locks', () => {\n",
+            "  for (const [captureStyleId, legacy] of [\n",
+            "    ['selfie', { poseHandId: 'selfie-natural-right-arm' }],\n",
+            "    ['companion', { poseHandId: 'selfie-companion-camera-interaction' }],\n",
+            "    ['mirror', { posePropId: 'selfie-mirror-phone-visible' }],\n",
+            "  ]) {\n",
+            "    const styled = generate({ captureStyleId });\n",
+            "    const old = generate(legacy);\n",
+            "    assert.deepEqual(main(styled), main(old), captureStyleId);\n",
+            "    assert.equal(chest(styled), chest(old), captureStyleId);\n",
+            "    assert.equal(styled.selection.captureStyleId, captureStyleId);\n"
+          ],
+          "after": [
+            "test('legacy capture choices restore to phone props or companion orbit', () => {\n",
+            "  for (const [captureStyleId, propId] of [['selfie','selfie-natural-right-arm'],['mirror','selfie-mirror-phone-visible']]) {\n",
+            "    const restored=generate({captureStyleId});\n",
+            "    assert.equal(restored.selection.propId,propId);\n",
+            "    assert.match(restored.grokPrompt,captureStyleId==='selfie'?/front-camera self-shot/:/visible phone toward a mirror/);\n"
+          ]
+        },
+        {
+          "line": 99,
+          "before": [
+            "  const withAction = generate({ captureStyleId: 'selfie', specifiedActionId: HUG_KNEES });\n",
+            "  assert.doesNotMatch(withAction.grokPrompt, /self-shot/, 'an action keeps its own hands (existing precedence)');\n"
+          ],
+          "after": [
+            "  const companion=generate({captureStyleId:'companion'});\n",
+            "  assert.equal(companion.selection.orbitId,'camera:拍攝方位-orbit-angle:companion-view');\n",
+            "  assert.match(companion.grokPrompt,/handheld companion snapshot/);\n",
+            "  const withAction=generate({captureStyleId:'selfie',specifiedActionId:HUG_KNEES});\n",
+            "  assert.doesNotMatch(withAction.grokPrompt,/self-shot/);\n"
+          ]
+        },
+        {
+          "line": 115,
+          "before": [
+            "  assert.equal(old.captureStyleId, 'selfie');\n"
+          ],
+          "after": [
+            "  assert.equal(old.propId, 'selfie-natural-right-arm');\n"
+          ]
+        },
+        {
+          "line": 117,
+          "before": [
+            "  assert.equal(retirePage1PoseComposerLocks({ ...clean, posePropId: 'selfie-mirror-phone-visible' }).captureStyleId, 'mirror');\n",
+            "  assert.equal(retirePage1PoseComposerLocks({ ...clean, captureStyleId: 'companion', posePropId: 'selfie-mirror-phone-visible' }).captureStyleId, 'companion', 'an explicit style wins');\n"
+          ],
+          "after": [
+            "  assert.equal(retirePage1PoseComposerLocks({ ...clean, posePropId: 'selfie-mirror-phone-visible' }).propId, 'selfie-mirror-phone-visible');\n",
+            "  assert.equal(retirePage1PoseComposerLocks({ ...clean, captureStyleId: 'companion', posePropId: 'selfie-mirror-phone-visible' }).orbitId, 'camera:拍攝方位-orbit-angle:companion-view', 'an explicit style wins');\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/outdoorSeatPrompt.test.js",
+      "beforeHash": "2328d74542fef5b43f7fc775bbaa9ac1a769e283d45e4dee1c70280c6c2d828f",
+      "afterHash": "eb1aaf6dc6c5c3d3270fc8dfe9b1b759b9fe43f1309efe0ebdc760e116c6efc4",
+      "edits": [
+        {
+          "line": 69,
+          "before": [
+            "test('selfie, companion and mirror preserve the same outdoor choice, head and gesture sources',()=>{\n"
+          ],
+          "after": [
+            "test('legacy capture choices retain the outdoor seat and head while active phones pause the selected gesture',()=>{\n"
+          ]
+        },
+        {
+          "line": 75,
+          "before": [
+            "    assert.match(byId(after)['grok-imagine'],/She sits on the grass in a relaxed, natural posture, one hand resting on her collarbone/);\n",
+            "    assert.match(byId(after)['grok-imagine'],/chin slightly raised/);\n"
+          ],
+          "after": [
+            "    const text=byId(after)['grok-imagine'];\n",
+            "    assert.match(text,/She sits on the grass in a relaxed, natural posture/);\n",
+            "    if(captureStyleId==='selfie'||captureStyleId==='mirror'){\n",
+            "      assert.match(text,captureStyleId==='selfie'?/front-camera self-shot/:/visible phone toward a mirror/);\n",
+            "      assert.doesNotMatch(text,/one hand resting on her collarbone/);\n",
+            "      assert.equal(after.prompt.selection.gestureId,'gesture-collarbone');\n",
+            "    }else assert.match(text,/one hand resting on her collarbone/);\n",
+            "    assert.match(text,/chin slightly raised/);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/promptOutputContracts.js",
+      "beforeHash": "6c78da56d7c3df6856e577dfba14c619073a946ac64be4de65ecc93766178aa5",
+      "afterHash": "92bd8b4ef0b6ac5f605f5cb82d7c724f7939473ffae2348522cc91506f1a6a49",
+      "edits": [
+        {
+          "line": 82,
+          "before": [
+            "export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.64.0';\n"
+          ],
+          "after": [
+            "export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.65.0';\n",
+            "\n",
+            "export const PHONE_CAPTURE_CONTRACT = deepFreeze({\n",
+            "  source: 'issued phone selfie IDs are manual props; companion viewpoint is a manual orbit choice',\n",
+            "  pose: 'reviewed free-hand standing, sitting and kneeling keep their body and surface source',\n",
+            "  conflict: 'fixed hands and companion orbit pause phone props; active phones pause gestures without deleting choices',\n",
+            "  projection: 'shared resolved source with existing crop and Z capture relocation; standing full-body reference unchanged',\n",
+            "  compatibility: 'legacy capture and hand/prop inputs remain readable; conflicting old selections and saved text preserved',\n",
+            "});\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/promptOutputContracts.test.js",
+      "beforeHash": "1ebad6cecf3abd0c5335a2faab45351e2315009fcf653351d651598ef9d83eea",
+      "afterHash": "edc9e4fb40583153b1e83de94991fe9e5f04dea6bfde3e7b79c26d2df28cd003",
+      "edits": [
+        {
+          "line": 110,
+          "before": [
+            "  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.64.0');\n"
+          ],
+          "after": [
+            "  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.65.0');\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/propControl.test.js",
+      "beforeHash": "f253d24a2460d5614fb3065ff2eb9531125aae5247f5003736e00ff62c46bb3a",
+      "afterHash": "3aa93f6c8ed42a34c6ad4f68f5c6b69696230356db9600adb549382207bdd066",
+      "edits": [
+        {
+          "line": 21,
+          "before": [
+            "    '手持 FUJIFILM X100V 相機', '手持波板糖', '含著圓形棒棒糖｜右手持棒', '手持香菸', '滑手機', '單手拿著眼鏡', '拿著打開的書']);\n",
+            "  assert.equal(PROP_OPTIONS.some(o => o.id === 'selfie-mirror-phone-visible'), false);\n"
+          ],
+          "after": [
+            "    '手持 FUJIFILM X100V 相機', '手持波板糖', '含著圓形棒棒糖｜右手持棒', '手持香菸', '滑手機', '單手拿著眼鏡', '拿著打開的書', '手機自拍', '手機鏡子自拍']);\n",
+            "  assert.equal(PROP_OPTIONS.some(o => o.id === 'selfie-mirror-phone-visible'), true);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engineBlackTieShirt.test.js",
+      "beforeHash": "74646add7de58a17517d926d3066a9a6b48642969b21cef28488ef86c44a3f77",
+      "afterHash": "025de3d506d6eb005a14faf195280f59e531bbe32a0324ca39373c4ef01149ca",
+      "edits": [
+        {
+          "line": 64,
+          "before": [
+            "  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.64.0');\n"
+          ],
+          "after": [
+            "  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.65.0');\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engineCompositionPrompt.test.js",
+      "beforeHash": "648cfce48c2f9bbd4d963f87e5a277188c8cead10666804406066b81103dea69",
+      "afterHash": "bc7ec39fd9a0e765274b54ecfe109c43d013494592dbe4abcfd2d43cfdcbfe40",
+      "edits": [
+        {
+          "line": 51,
+          "before": [
+            "    ['正面', '左前', '左側', '左後', '背面', '右後', '右側', '右前'],\n"
+          ],
+          "after": [
+            "    ['正面', '左前', '左側', '左後', '背面', '右後', '右側', '右前', '男友／閨蜜視角'],\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engineMirrorSelfieProp.test.js",
+      "beforeHash": "ad8938c027c96c25d2973446515fe2e2b815e84cdfe20619736b69e57813797f",
+      "afterHash": "1edf2999e654f756dfda6c0aafb6ac496448c493125f97a37f3e6255c4df6275",
+      "edits": [
+        {
+          "line": 225,
+          "before": [
+            "// P4 (2026-10-20): the mirror selfie is the 拍攝方式「鏡子自拍」; batch random keeps\n",
+            "// that mode while the retired prop layer resets.\n",
+            "test('pose panel and global batch randomness preserve an explicitly chosen mirror selfie style', () => {\n"
+          ],
+          "after": [
+            "// Historical capture choices survive batch random and restore into the current phone slot.\n",
+            "test('pose panel and global batch randomness preserve legacy mirror selection in the current phone slot', () => {\n"
+          ]
+        },
+        {
+          "line": 232,
+          "before": [
+            "    assert.equal(prompt.selection.posePropId, MIRROR_ID);\n"
+          ],
+          "after": [
+            "    assert.equal(prompt.selection.propId, MIRROR_ID);\n",
+            "    assert.equal(prompt.selection.posePropId, 'none');\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/enginePhotographyImagingCleanup.test.js",
+      "beforeHash": "7e5e2102df8b59b375ba22439741b5432cf1fc6b47c297d2d2beed62eda00e01",
+      "afterHash": "975d629eb437e9663b302190ac186ddf9335bfc29bdb4fc1483264b194142c03",
+      "edits": [
+        {
+          "line": 281,
+          "before": [],
+          "after": [
+            "    '男友／閨蜜視角',\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/page1WorkspacePanels.js",
+      "beforeHash": "c60eb253d58a7fae2923e15ca095ccb8a0d7f08587f7ae11a88875c9f13e1d9e",
+      "afterHash": "5ed3bc8a12ba6c4dfdebbdcbd060299e56a9857f11043e9b607191e5bf4d9d12",
+      "edits": [
+        {
+          "line": 5,
+          "before": [
+            "    description: '先選姿勢，再搭配手勢、表情、頭部與視線；自拍請到 E 攝影成像的「拍攝方式」。',\n"
+          ],
+          "after": [
+            "    description: '先選姿勢，再搭配手勢、道具、表情、頭部與視線；手機自拍與手機鏡子自拍請在道具中選擇。',\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/page1WorkspaceSummary.js",
+      "beforeHash": "2243e4c737e3d7c6462b266550600b8985202105924f677de44d4f0cc53d2537",
+      "afterHash": "64eae8d705ed9a85296ca770c500d5ea9c38deb2b319a19f9a5bcd48b4bc88ce",
+      "edits": [
+        {
+          "line": 5,
+          "before": [],
+          "after": [
+            "import { isPhoneProp } from './engine/phoneCapture.js';\n"
+          ]
+        },
+        {
+          "line": 246,
+          "before": [],
+          "after": [
+            "  const phonePropLabel = locks.subjectCount === '1' && isPhoneProp(locks.propId)\n",
+            "    ? getControlOptionLabel(controls, 'propId', locks.propId) : '';\n"
+          ]
+        },
+        {
+          "line": 251,
+          "before": [],
+          "after": [
+            "      phonePropLabel,\n"
+          ]
+        },
+        {
+          "line": 263,
+          "before": [],
+          "after": [
+            "      phonePropLabel,\n"
+          ]
+        },
+        {
+          "line": 369,
+          "before": [
+            "    // P5a: a selfie 拍攝方式 is named when it applies (single subject, no action owning the hands).\n",
+            "    locks.subjectCount === '1' && !specifiedAction && locks.captureStyleId && locks.captureStyleId !== 'standard'\n",
+            "      ? getControlOptionLabel(controls, 'captureStyleId', locks.captureStyleId) : '',\n"
+          ],
+          "after": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/page1WorkspaceSummary.test.js",
+      "beforeHash": "5aabc6614cf3615a3656f271686d28125199b3954842a7c2275a503a28d9f617",
+      "afterHash": "720ea3e7cb8db94e339f28916dd7e95f2d290659dcbb7a72e29d78328b8454e0",
+      "edits": [
+        {
+          "line": 142,
+          "before": [
+            "// P5a (2026-10-20): retired composer layers leave the summary; 拍攝方式 joins the E summary.\n",
+            "test('workspace summaries skip retired composer layers and name a selfie 拍攝方式', () => {\n"
+          ],
+          "after": [
+            "test('workspace summaries name phone selfies in the pose section and skip retired composer layers', () => {\n"
+          ]
+        },
+        {
+          "line": 147,
+          "before": [
+            "    captureStyleId: 'selfie',\n"
+          ],
+          "after": [
+            "    propId: 'selfie-natural-right-arm',\n"
+          ]
+        },
+        {
+          "line": 151,
+          "before": [
+            "  assert.match(summary.photography.summary, /自拍/);\n"
+          ],
+          "after": [
+            "  assert.match(summary.pose.summary, /手機自拍/);\n",
+            "  assert.doesNotMatch(summary.photography.summary, /自拍/);\n"
+          ]
+        },
+        {
+          "line": 160,
+          "before": [
+            "    captureStyleId: 'selfie',\n"
+          ],
+          "after": [
+            "    propId: 'selfie-natural-right-arm',\n"
+          ]
+        }
+      ]
+    }
+  ]
+}

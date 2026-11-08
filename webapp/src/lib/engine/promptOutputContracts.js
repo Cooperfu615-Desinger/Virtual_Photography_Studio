@@ -80,7 +80,15 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.64.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.65.0';
+
+export const PHONE_CAPTURE_CONTRACT = deepFreeze({
+  source: 'issued phone selfie IDs are manual props; companion viewpoint is a manual orbit choice',
+  pose: 'reviewed free-hand standing, sitting and kneeling keep their body and surface source',
+  conflict: 'fixed hands and companion orbit pause phone props; active phones pause gestures without deleting choices',
+  projection: 'shared resolved source with existing crop and Z capture relocation; standing full-body reference unchanged',
+  compatibility: 'legacy capture and hand/prop inputs remain readable; conflicting old selections and saved text preserved',
+});
 
 export const FRAMING_WARDROBE_RETENTION_CONTRACT = deepFreeze({
   version: '1.0.0',

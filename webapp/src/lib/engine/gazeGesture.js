@@ -4,7 +4,8 @@
 // 拍攝方式 maps onto the existing selfie hand and prop options so their camera,
 // orbit and Z-Image capture behavior stays unchanged.
 import { joinSpecifiedActionClauses } from './specifiedActions.js';
-import { POSE_COMPOSER_PROP_OPTIONS } from './poseComposerOptions.js';
+import { PHONE_SELFIE_ID, PHONE_MIRROR_ID, isPhoneProp } from './phoneCapture.js';
+import { POSE_COMPOSER_HAND_OPTIONS, POSE_COMPOSER_PROP_OPTIONS } from './poseComposerOptions.js';
 
 const freeze = value => Object.freeze(value);
 const choice = (id, zh) => freeze({ id, zh, en: '', meta: freeze({ tags: freeze([id]) }) });
@@ -216,6 +217,7 @@ export const PROP_OPTIONS = freeze([
   choice('none', '全無'),
   choice('random', '隨機'),
   ...POSE_COMPOSER_PROP_OPTIONS.filter(option => option.meta?.tags?.includes('prop_action') && !option.meta.tags.includes('selfie_hand_pose')).map(propEntry),
+  ...[POSE_COMPOSER_HAND_OPTIONS.find(o=>o.id===PHONE_SELFIE_ID), POSE_COMPOSER_PROP_OPTIONS.find(o=>o.id===PHONE_MIRROR_ID)].map(o=>propEntry({...o,zh:o.id===PHONE_SELFIE_ID?'手機自拍':'手機鏡子自拍',meta:{...o.meta,randomEligible:false}})),
 ]);
 const CONCRETE_PROPS = PROP_OPTIONS.filter(option => option.en);
 
@@ -223,6 +225,7 @@ export function resolveProp(propId, { wardrobeSignals = {}, orbit = null } = {},
   if (!propId || propId === 'none') return null;
   if (propId === 'random') {
     const pool = CONCRETE_PROPS
+      .filter(option => !isPhoneProp(option.id))
       .filter(option => !(option.meta.requiresFaceVisibility && isBackView(orbit)))
       .filter(option => !option.meta.requiresWardrobeRole || wardrobeSignals[option.meta.requiresWardrobeRole] === 'present');
     return pool.length ? pool[Math.min(pool.length - 1, Math.floor(random() * pool.length))] : null;

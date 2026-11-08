@@ -10,7 +10,8 @@ import { prepareBottomRiseControl } from '../lib/engine/bottomRiseCompatibility.
 import { prepareHeadDominantAngleControl } from '../lib/engine/headDominantFraming.js';
 import { isLyingAction, lyingSurfaceFor } from '../lib/engine/lyingSurface.js';
 import { postureConflictsWithGaze } from '../lib/engine/headPosture.js';
-import { applicableGestureOptions, availableGazeOptions, isSelfieCaptureStyle } from '../lib/engine/gazeGesture.js';
+import { applicableGestureOptions, availableGazeOptions } from '../lib/engine/gazeGesture.js';
+import { phoneCaptureStatus } from '../lib/engine/phoneCapture.js';
 import { getSpecifiedAction, getSpecifiedActionEffectiveLocks, specifiedActionOwnsControl, getSpecifiedActionCameraConflict } from '../lib/engine/specifiedActions.js';
 import { prepareAccessoryControl } from '../lib/engine/accessoryPolicy.js';
 import { prepareOuterwearClosureControl } from '../lib/engine/outerwearClosure.js';
@@ -33,7 +34,7 @@ import SceneEnvironmentControls from './SceneEnvironmentControls';
 import PhotographyControls from './PhotographyControls';
 import SceneLocationField from './SceneLocationField';
 import SpecifiedActionPicker from './SpecifiedActionPicker';
-import { buildPhotographyEditorModel, PHOTOGRAPHY_EDITOR_GROUPS } from '../features/page1/photographyEditor.js';
+import { buildPhotographyEditorModel, PHOTOGRAPHY_EDITOR_GROUPS, prepareCompanionOrbitControl } from '../features/page1/photographyEditor.js';
 import {
   SCENE_EDITOR_FIELD_LABELS,
   getSceneEditorActionKeys,
@@ -884,10 +885,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const activeWardrobePickerControl = underlayerTrigger
     ? underlayerColorControl(underlayerField(locks, lockControls, underlayerTrigger))
     : [...characterLockControls, ...wardrobeLockControls].find(control => control.key === activeWardrobePickerKey);
-  // expression-pose-v2 P4: a selfie 拍攝方式 applies (and locks the orbit) only while no action owns the hands.
-  // P5a: the retired hand/prop layers no longer feed this; 拍攝方式 is the only source.
-  const captureStyleSelfieApplies = isSelfieCaptureStyle(locks.captureStyleId) && locks.subjectCount === '1' && !activeSpecifiedAction && !captureActive;
-  const selectedPoseActionLocksOrbit = !fixedScenePosition && captureStyleSelfieApplies;
+  const phoneCapture = phoneCaptureStatus(locks, activeSpecifiedAction);
+  const selectedPoseActionLocksOrbit = !fixedScenePosition && !captureActive && phoneCapture.active;
   const specifiedActionCameraConflict = getSpecifiedActionCameraConflict(selectedSpecifiedAction, locks, lockControls);
   const specifiedActionDisabledReason = fixedScenePosition
     ? '固定場景人物位置接管中；離開後恢復指定動作。' : isSpecialSubjectMode ? '專用特殊角色使用其專屬姿態。' : '';
@@ -956,6 +955,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   };
 
   const buildPoseComposerControl = (control) => {
+    if (control.key === 'orbitId') return prepareCompanionOrbitControl(control, locks, { fixedCompositionSetActive });
     if (fixedScenePosition && FIXED_SCENE_MANAGED_POSE_KEYS.includes(control.key)) {
       return { ...control, label: `${control.label}（場景位置接管）`, suppressDefaultRandomOption: true,
         options: control.options.filter(option => option.id === effectiveFixedSceneLocks[control.key]) };
@@ -985,17 +985,19 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         ? { ...o, zh: `${o.zh}（低頭時不適用）`, disabled: true } : o) };
     }
     if (control.key === 'propId') {
-      // 道具 (Cooper 2026-10-22): beside every action, unfiltered. The glasses need glasses in the wardrobe;
-      // the mirror selfie owns the phone, so the control steps aside.
-      if (locks.captureStyleId === 'mirror') {
-        return { ...control, disabled: true, suppressDefaultRandomOption: true, closureDisplayValue: 'prop-locked',
-          options: [{ id: 'prop-locked', zh: '由鏡子自拍決定', en: '' }] };
-      }
+      // A selected phone remains editable when its pose is incompatible.
+      const phoneHelp = phoneCapture.selected
+        ? fixedScenePosition ? '固定場景人物位置接管中，手機自拍暫不套用。'
+          : phoneCapture.reason || '手機自拍管理拍攝方位，景別與俯仰角度可另外調整。'
+        : ['selfie', 'mirror', 'companion'].includes(locks.captureStyleId)
+          ? '這份舊設定保留了其他拍攝選擇；重新選擇道具或環繞角度可取代舊設定。' : '';
       const noEyewear = Boolean(locks.eyewearId) && locks.eyewearId !== 'random' && isNoneSelected('eyewearId', locks.eyewearId, wardrobeLockControls);
-      return { ...control, options: control.options.map(o => noEyewear && o.meta?.requiresWardrobeRole === 'eyewear'
+      return { ...control, helpText: phoneHelp, options: control.options.map(o => noEyewear && o.meta?.requiresWardrobeRole === 'eyewear'
         ? { ...o, zh: `${o.zh}（需要眼鏡）`, disabled: true } : o) };
     }
     if (control.key === 'gestureId') {
+      if (selectedPoseActionLocksOrbit) return { ...control, disabled: true,
+        helpText: '手機自拍使用手部，手勢暫不套用；取消手機道具後恢復。' };
       // Pose UI v2 (Cooper 2026-10-21): always shown; locked unless a hand-free action is chosen
       // (隨機 offers only 全無／隨機). The lock reason is the displayed value, not a note.
       const applicable = new Set(applicableGestureOptions(activeSpecifiedAction).map(o => o.id));
@@ -1015,11 +1017,6 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         : activeSpecifiedAction.id === 'any' ? '由「任意」決定' : '由動作決定';
       return { ...control, disabled: true, suppressDefaultRandomOption: true, closureDisplayValue: 'gesture-locked',
         options: [{ id: 'gesture-locked', zh: reason, en: '' }] };
-    }
-    if (control.key === 'captureStyleId' && isSelfieCaptureStyle(locks.captureStyleId)) {
-      return { ...control, helpText: locks.subjectCount !== '1' ? '雙人模式不使用拍攝方式。'
-        : activeSpecifiedAction ? `姿勢「${activeSpecifiedAction.zh}」使用自己的手部，拍攝方式暫不套用；姿勢選全無後生效。`
-        : '自拍時手拿手機，環繞角度由自拍決定。' };
     }
     return control;
   };
@@ -1070,6 +1067,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     if (captureActive && CAPTURE_OWNED_KEYS.includes(control.key)) return;
     updateLocks((prev) => {
       const next = { ...prev, [control.key]: value };
+      if (['propId', 'orbitId'].includes(control.key)) next.captureStyleId = 'standard';
       // Choosing even the same dress/color is an explicit replacement of the legacy pair.
       if (['dressId', 'dressColorId'].includes(control.key) && getLegacyDressPalette(prev, lockControls)) {
         next.topBottomPaletteId = 'none';

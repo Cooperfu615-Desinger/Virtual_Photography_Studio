@@ -67,13 +67,19 @@ test('invalid, random and owned selections neither emit nor save a manual outdoo
   }
 });
 
-test('selfie, companion and mirror preserve the same outdoor choice, head and gesture sources',()=>{
+test('legacy capture choices retain the outdoor seat and head while active phones pause the selected gesture',()=>{
   for(const captureStyleId of ['standard','selfie','companion','mirror']) for(const frame of seatFramings) {
     const settings={captureStyleId,gestureId:'gesture-collarbone',headPostureId:'chin-slightly-raised',gazeId:'gaze-camera'};
     const before=seatFixture('其他：草地','自然坐姿',frame,settings),after=seatFixture('其他：草地','自然坐姿',frame,{...settings,indoorSeatId:'grass'});
     assert.equal(after.draws,before.draws);
     assert.deepEqual(after.prompt.selection,{...before.prompt.selection,indoorSeatId:'grass'});
-    assert.match(byId(after)['grok-imagine'],/She sits on the grass in a relaxed, natural posture, one hand resting on her collarbone/);
-    assert.match(byId(after)['grok-imagine'],/chin slightly raised/);
+    const text=byId(after)['grok-imagine'];
+    assert.match(text,/She sits on the grass in a relaxed, natural posture/);
+    if(captureStyleId==='selfie'||captureStyleId==='mirror'){
+      assert.match(text,captureStyleId==='selfie'?/front-camera self-shot/:/visible phone toward a mirror/);
+      assert.doesNotMatch(text,/one hand resting on her collarbone/);
+      assert.equal(after.prompt.selection.gestureId,'gesture-collarbone');
+    }else assert.match(text,/one hand resting on her collarbone/);
+    assert.match(text,/chin slightly raised/);
   }
 });

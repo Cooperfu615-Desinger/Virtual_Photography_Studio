@@ -69,3 +69,7 @@ test('duo wardrobe schema exposes both role waist-accessory controls in the acce
   assert.ok(accessoryPanel.keys.includes('waistAccessoryAId'));
   assert.ok(accessoryPanel.keys.includes('waistAccessoryBId'));
 });
+
+test('photography navigation omits the retired capture-style control', () => {
+  assert.equal(getSectionKeys('photography').includes('captureStyleId'), false);
+});

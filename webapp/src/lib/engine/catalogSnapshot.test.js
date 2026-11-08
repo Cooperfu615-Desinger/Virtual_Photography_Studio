@@ -46,7 +46,8 @@ test('test export captures pre-postprocessing inference once and isolates suppli
     assert.equal(Object.hasOwn(entry, 'inferredMeta'), false);
   }
   assert.equal(source.Wardrobe['套裝 (Outfit Presets)'].filter(item => item.stableId === 'wardrobe:套裝-outfit-presets:mai-shiranui-kunoichi').length, 1);
-  assert.equal(originalCount, 1051);
+  assert.equal(source.CameraLighting['拍攝方位 (Orbit Angle)'].filter(item => item.stableId === 'camera:拍攝方位-orbit-angle:companion-view').length, 1);
+  assert.equal(originalCount, 1052);
   assert.equal(finalCount, originalCount + 2, 'accessory split adds two synthetic none entries');
   assert.notDeepEqual(first.entries.wardrobe, first.catalog.wardrobe, 'accessory split and aliases must occur after the entry capture');
   const item = Object.values(first.entries.wardrobe).flat()[0];

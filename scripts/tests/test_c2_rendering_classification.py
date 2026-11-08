@@ -9,16 +9,18 @@ from scripts.lib.c2_rendering_history import historical_policy_context
 BASE = '2fa8fe65226903141597ab74b044a0102a6f8ca7'
 CATEGORY = 'CameraLighting/底片與相機模擬 (Camera & Film Simulation)'
 NEW_OUTFIT = 'wardrobe:套裝-outfit-presets:mai-shiranui-kunoichi'
+COMPANION_ORBIT = 'camera:拍攝方位-orbit-angle:companion-view'
 
 
 def before_new_outfit(result):
     # The C2 report seals an older catalog; keep its original rows and counts.
     result = copy.deepcopy(result)
-    added = [row for row in result['rows'] if row['id'] == NEW_OUTFIT]
-    if added:
-        assert len(added) == 1
-        result['rows'] = [row for row in result['rows'] if row['id'] != NEW_OUTFIT]
-        result['summary'][added[0]['status']] -= 1
+    for added_id in [NEW_OUTFIT, COMPANION_ORBIT]:
+        added = [row for row in result['rows'] if row['id'] == added_id]
+        if added:
+            assert len(added) == 1
+            result['rows'] = [row for row in result['rows'] if row['id'] != added_id]
+            result['summary'][added[0]['status']] -= 1
     return result
 
 

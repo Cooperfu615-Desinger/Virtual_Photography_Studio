@@ -1,0 +1,37 @@
+{
+  "baselineCommit": "e43d7d5df6512571a318cf8b18cbb567f6278232",
+  "baselineRoot": "/Users/cooperfu/.codex/worktrees/moss-optional-lora/Virtual_Photography_Studio",
+  "targetRoot": "/private/tmp/vps-selfie-props-20261108",
+  "pins": [
+    {
+      "path": "webapp/src/lib/engine.js",
+      "baselineSha256": "e8ac889650ac8ef5a415cdc7f986238cc7113cbca213b5b2acfc1b975a0d8d77",
+      "targetSha256": "7f808e7bd5662d41b1238c9f6e2875209bec168ff4465417a98577f788ae9490"
+    },
+    {
+      "path": "webapp/src/lib/engine/gazeGesture.js",
+      "baselineSha256": "465f34e32c937f52990cb7a0c17dd1a1019a522875ac9035b66e6f16bdbad888",
+      "targetSha256": "cc2281cdf088226515d8b196200fc3277220359e9d3055a85e916c1641178fb4"
+    },
+    {
+      "path": "webapp/src/data/database.json",
+      "baselineSha256": "2c32d392db55478cd443bb2603e2e892a02ed15042d619016c644ccb01c9d0e8",
+      "targetSha256": "3ab60b84ae8d9676eb5665bdaefe9491133976dec82e879dabded65448a34162"
+    }
+  ],
+  "caseCount": 49,
+  "caseGroups": {
+    "seededDefaults": 40,
+    "standingSittingKneelingTimesExistingProps": 9
+  },
+  "publicOutputsPerCase": 7,
+  "publicOutputComparisons": 343,
+  "protectedData": [
+    "selection",
+    "structured",
+    "summary"
+  ],
+  "runtimeIdsAndDatesCompared": false,
+  "differences": [],
+  "passed": true
+}

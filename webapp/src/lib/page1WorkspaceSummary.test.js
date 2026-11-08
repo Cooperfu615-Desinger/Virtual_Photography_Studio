@@ -140,17 +140,17 @@ test('workspace expression labels and summaries retain effective single and duo 
   }
 });
 
-// P5a (2026-10-20): retired composer layers leave the summary; 拍攝方式 joins the E summary.
-test('workspace summaries skip retired composer layers and name a selfie 拍攝方式', () => {
+test('workspace summaries name phone selfies in the pose section and skip retired composer layers', () => {
   const summary = buildWorkspaceSummary({
     ...createEmptyLocks(),
     subjectCount: '1',
     posePropId: optionId('posePropId', '手持冰咖啡'),
-    captureStyleId: 'selfie',
+    propId: 'selfie-natural-right-arm',
   }, controls);
 
   assert.doesNotMatch(summary.pose.summary, /手持冰咖啡/);
-  assert.match(summary.photography.summary, /自拍/);
+  assert.match(summary.pose.summary, /手機自拍/);
+  assert.doesNotMatch(summary.photography.summary, /自拍/);
 });
 
 test('generation summary follows the resolved preview selection instead of conflicting raw locks', () => {
@@ -158,7 +158,7 @@ test('generation summary follows the resolved preview selection instead of confl
     ...createEmptyLocks(),
     subjectCount: '1',
     orbitId: optionId('orbitId', '背面 180 度'),
-    captureStyleId: 'selfie',
+    propId: 'selfie-natural-right-arm',
     gazeId: 'random',
   };
   const previewPrompt = {

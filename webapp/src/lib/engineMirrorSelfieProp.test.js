@@ -223,15 +223,15 @@ test('mirror remains excluded from randomized hand and prop pools', () => {
   }
 });
 
-// P4 (2026-10-20): the mirror selfie is the 拍攝方式「鏡子自拍」; batch random keeps
-// that mode while the retired prop layer resets.
-test('pose panel and global batch randomness preserve an explicitly chosen mirror selfie style', () => {
+// Historical capture choices survive batch random and restore into the current phone slot.
+test('pose panel and global batch randomness preserve legacy mirror selection in the current phone slot', () => {
   const panel = PAGE1_POSE_SUBPANELS.find(row => row.id === 'single');
   for (const keys of [panel.keys, controls.map(row => row.key)]) {
     const randomized = randomizeLockKeys(silentLocks({ posePropId: 'none', captureStyleId: 'mirror' }), keys, createEmptyLocks(), controls);
     assert.equal(randomized.captureStyleId, 'mirror');
     const prompt = generate(randomized);
-    assert.equal(prompt.selection.posePropId, MIRROR_ID);
+    assert.equal(prompt.selection.propId, MIRROR_ID);
+    assert.equal(prompt.selection.posePropId, 'none');
     assert.equal(prompt.selection.poseHandId, 'none');
     for (const key of RETIRED_POSE_COMPOSER_KEYS) assert.notEqual(prompt.selection[key], 'random');
   }

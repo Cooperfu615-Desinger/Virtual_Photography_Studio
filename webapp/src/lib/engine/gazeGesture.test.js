@@ -91,20 +91,17 @@ test('a gesture reaches every main output and the chest crop, and is recorded', 
   assert.doesNotMatch(generate({ specifiedActionId: HUG_KNEES, gestureId: 'gesture-prone-cheeks-cupped' }).grokPrompt, /cheeks cupped/);
 });
 
-test('拍攝方式 selfie styles produce exactly the prompts of the earlier selfie hand or prop locks', () => {
-  for (const [captureStyleId, legacy] of [
-    ['selfie', { poseHandId: 'selfie-natural-right-arm' }],
-    ['companion', { poseHandId: 'selfie-companion-camera-interaction' }],
-    ['mirror', { posePropId: 'selfie-mirror-phone-visible' }],
-  ]) {
-    const styled = generate({ captureStyleId });
-    const old = generate(legacy);
-    assert.deepEqual(main(styled), main(old), captureStyleId);
-    assert.equal(chest(styled), chest(old), captureStyleId);
-    assert.equal(styled.selection.captureStyleId, captureStyleId);
+test('legacy capture choices restore to phone props or companion orbit', () => {
+  for (const [captureStyleId, propId] of [['selfie','selfie-natural-right-arm'],['mirror','selfie-mirror-phone-visible']]) {
+    const restored=generate({captureStyleId});
+    assert.equal(restored.selection.propId,propId);
+    assert.match(restored.grokPrompt,captureStyleId==='selfie'?/front-camera self-shot/:/visible phone toward a mirror/);
   }
-  const withAction = generate({ captureStyleId: 'selfie', specifiedActionId: HUG_KNEES });
-  assert.doesNotMatch(withAction.grokPrompt, /self-shot/, 'an action keeps its own hands (existing precedence)');
+  const companion=generate({captureStyleId:'companion'});
+  assert.equal(companion.selection.orbitId,'camera:拍攝方位-orbit-angle:companion-view');
+  assert.match(companion.grokPrompt,/handheld companion snapshot/);
+  const withAction=generate({captureStyleId:'selfie',specifiedActionId:HUG_KNEES});
+  assert.doesNotMatch(withAction.grokPrompt,/self-shot/);
 });
 
 test('unused gaze, gesture and 拍攝方式 keep the old selection shape', () => {
@@ -116,10 +113,10 @@ test('workspace retirement: composer layers drop, a selfie hand or prop becomes 
   const clean = { ...createEmptyLocks(), subjectCount: '1' };
   assert.equal(retirePage1PoseComposerLocks(clean), clean, 'nothing to retire keeps identity');
   const old = retirePage1PoseComposerLocks({ ...clean, poseHeadId: 'head-slight-tilt', poseBaseId: 'standing', poseHandId: 'selfie-natural-right-arm' });
-  assert.equal(old.captureStyleId, 'selfie');
+  assert.equal(old.propId, 'selfie-natural-right-arm');
   for (const key of ['poseHeadId', 'poseBaseId', 'poseHandId']) assert.equal(old[key], 'none', key);
-  assert.equal(retirePage1PoseComposerLocks({ ...clean, posePropId: 'selfie-mirror-phone-visible' }).captureStyleId, 'mirror');
-  assert.equal(retirePage1PoseComposerLocks({ ...clean, captureStyleId: 'companion', posePropId: 'selfie-mirror-phone-visible' }).captureStyleId, 'companion', 'an explicit style wins');
+  assert.equal(retirePage1PoseComposerLocks({ ...clean, posePropId: 'selfie-mirror-phone-visible' }).propId, 'selfie-mirror-phone-visible');
+  assert.equal(retirePage1PoseComposerLocks({ ...clean, captureStyleId: 'companion', posePropId: 'selfie-mirror-phone-visible' }).orbitId, 'camera:拍攝方位-orbit-angle:companion-view', 'an explicit style wins');
 });
 
 test('the B summary names the action, gesture and gaze', () => {

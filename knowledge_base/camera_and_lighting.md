@@ -38,6 +38,7 @@
 | **拍攝方位 (Orbit Angle)** | 右後 225 度 | `225-degree rear-right view, torso stays rear-facing if head turns` | 鏡頭位於人物右後方 225 度，以背部、肩線與少量側面輪廓為主；即使頭部回看，身體仍維持背側方位。 |
 | **拍攝方位 (Orbit Angle)** | 右側 270 度 | `270-degree right profile view, lateral torso orientation` | 鏡頭位於人物右側 270 度，以右側臉與右側身體輪廓為主。 |
 | **拍攝方位 (Orbit Angle)** | 右前 315 度 | `315-degree front-right view, front three-quarter torso angle` | 鏡頭位於人物右前方 315 度，呈現正面與側面兼具的前斜側身體方位。 |
+| **拍攝方位 (Orbit Angle)** | 男友／閨蜜視角 | `handheld companion snapshot from a boyfriend-or-best-friend point of view` | 由熟悉的人手持相機拍攝的自然親近感；不指定人物正側面、雙手或身體前傾。 |
 | **鏡頭焦段 (Focal Length)** | 全無 | `none` | 不指定鏡頭焦段，讓模型自行決定視角、透視與空間壓縮感。 |
 | **鏡頭焦段 (Focal Length)** | 20mm 超廣角 | `shot on 20mm ultra-wide-angle lens, very wide field of view, strong perspective expansion, close foreground enlargement, visible edge stretching, deep subject-to-background spatial inclusion` | 極廣視角與明顯透視延展，近距離物體會被放大，畫面邊緣更容易拉伸，能讓人物與背景保持強烈空間關係。 |
 | **鏡頭焦段 (Focal Length)** | 24mm 廣角 | `shot on 24mm wide-angle lens, broad field of view, clear spatial context, moderate perspective stretch, close camera-to-subject distance, readable foreground-to-background depth` | 廣角視野保留大量周圍空間，透視延展比 20mm 溫和，但仍會強化前景到背景的距離感。 |

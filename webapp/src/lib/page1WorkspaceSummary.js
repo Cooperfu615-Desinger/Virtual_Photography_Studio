@@ -3,6 +3,7 @@ import { CAPTURE_GROUPS, resolveCapture } from './observationCaptureMode.js';
 import { DUO_ROLES, getDuoRoleSummary } from '../features/page1/duoEditor.js';
 import { getSpecifiedAction } from './engine/specifiedActions.js';
 import { applicableGestureOptions } from './engine/gazeGesture.js';
+import { isPhoneProp } from './engine/phoneCapture.js';
 import { bottomRiseConflict, bottomRiseControlContext } from './engine/bottomRiseCompatibility.js';
 import { isHeadDominantFraming, headDominantAngleAllowed } from './engine/headDominantFraming.js';
 import { CHARACTER_CARD_LAYER_KEYS, CHARACTER_CARD_LAYER_LABELS } from './characterCardLab.js';
@@ -243,9 +244,12 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
         getControlOptionLabel(controls, 'hairColorBId', locks.hairColorBId),
   ]);
   const specifiedAction = getSpecifiedAction(locks, { cameraControls: controls });
+  const phonePropLabel = locks.subjectCount === '1' && isPhoneProp(locks.propId)
+    ? getControlOptionLabel(controls, 'propId', locks.propId) : '';
   const poseSummary = specifiedAction ? buildSummaryText([
       specifiedAction.ownsExpression ? specifiedAction.expressionLabel : getControlOptionLabel(controls, 'expressionId', locks.expressionId),
       `指定動作：${specifiedAction.zh}`,
+      phonePropLabel,
       // expression-pose-v2 P4: gesture and gaze replace the free composer layers.
       applicableGestureOptions(specifiedAction).some(option => option.id === locks.gestureId)
         ? getControlOptionLabel(controls, 'gestureId', locks.gestureId) : '',
@@ -257,6 +261,7 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
       getControlOptionLabel(controls, 'duoExpressionId', locks.duoExpressionId),
       getControlOptionLabel(controls, 'duoPoseId', locks.duoPoseId),
       getControlOptionLabel(controls, 'duoPoseBaseId', locks.duoPoseBaseId),
+      phonePropLabel,
       // P5a: the retired free-composer layers are always 全無 in workspace state.
       locks.subjectCount === '1' ? getControlOptionLabel(controls, 'headPostureId', locks.headPostureId) : '',
       locks.subjectCount === '1' ? getControlOptionLabel(controls, 'gazeId', locks.gazeId) : '',
@@ -362,9 +367,6 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
       && !headDominantAngleAllowed(controls.find(c => c.key === 'angleId')?.options.find(o => o.id === locks.angleId))
       ? '' : getControlOptionLabel(controls, 'angleId', locks.angleId),
     getControlOptionLabel(controls, 'orbitId', locks.orbitId),
-    // P5a: a selfie 拍攝方式 is named when it applies (single subject, no action owning the hands).
-    locks.subjectCount === '1' && !specifiedAction && locks.captureStyleId && locks.captureStyleId !== 'standard'
-      ? getControlOptionLabel(controls, 'captureStyleId', locks.captureStyleId) : '',
     getControlOptionLabel(controls, 'styleId', locks.styleId),
     getControlOptionLabel(controls, 'lensId', locks.lensId),
     getControlOptionLabel(controls, 'apertureId', locks.apertureId),

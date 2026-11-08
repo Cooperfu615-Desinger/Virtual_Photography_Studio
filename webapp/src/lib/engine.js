@@ -1,3 +1,4 @@
+import { isPhoneProp, phoneCaptureStatus, migratePhoneCaptureLocks, COMPANION_ORBIT_ID } from './engine/phoneCapture.js';
 import { applyIndoorSeat, indoorSeatingModel, isIndoorSeatId } from './engine/indoorSeating.js';
 import { applyIndoorLean, indoorLeaningModel, isIndoorLeanId } from './engine/indoorLeaning.js';
 import { THIGH_RISE, attachUnderlayers, describeRevealGesture, normalizeUnderlayers, prepareUnderlayerHosts, underlayerField } from './engine/manualUnderlayers.js';
@@ -3272,7 +3273,7 @@ function isSelfiePoseHandOption(option) {
 }
 
 function getPoseComposerActiveAction(handId, propId) {
-  const prop = getPoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, propId);
+  const prop = PROP_OPTIONS.find(o=>isPhoneProp(o.id)&&o.id===propId) || getPoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, propId);
   return isActivePoseComposerOption(prop)
     ? prop : getPoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, handId);
 }
@@ -5282,9 +5283,10 @@ function buildPoseComposerItem(context) {
     const orientation = getPoseComposerOption(POSE_COMPOSER_ORIENTATION_OPTIONS, specifiedAction.orientationId);
     const head = resolveHead(null, orientation);
     const headText = isActivePoseComposerOption(head) ? `She has ${normalizePoseComposerHeadPhrase(head)}.` : '';
-    const gesture = describeRevealGesture(resolveGesture(context.locks?.gestureId, specifiedAction, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random), context.revealedUnderlayer);
+    const phoneStatus = phoneCaptureStatus(context.locks, specifiedAction);
+    const gesture = describeRevealGesture(resolveGesture(phoneStatus.active ? 'none' : context.locks?.gestureId, specifiedAction, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random), context.revealedUnderlayer);
     if (context.poseResolution) context.poseResolution.gesture = gesture;
-    const prop = resolveProp(context.locks?.propId, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random);
+    const prop = resolveProp(phoneStatus.selected && !phoneStatus.active ? 'none' : context.locks?.propId, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random);
     if (context.poseResolution) context.poseResolution.prop = prop;
     const actionText = actionTextWithGesture(specifiedAction, gesture, {}, prop);
     return {
@@ -5301,7 +5303,7 @@ function buildPoseComposerItem(context) {
         ...headIds(head), poseAnchorId: 'none',
         gestureId: gesture?.id || 'none',
         ...(gesture && context.revealedUnderlayer ? { revealedUnderlayer: context.revealedUnderlayer } : {}),
-        ...(prop ? { propId: prop.id } : {}),
+        ...(prop ? { propId: prop.id, ...(isPhoneProp(prop.id) ? {posePropId:prop.id} : {}) } : {}),
       },
     };
   }
@@ -5321,7 +5323,7 @@ function buildPoseComposerItem(context) {
     const head = resolveHead();
     // The 道具 control (2026-10-22) runs here when no action is chosen; the retired prop lock still wins.
     const newProp = !context.locks?.posePropId || context.locks.posePropId === 'none'
-      ? resolveProp(context.locks?.propId, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random) : null;
+      ? resolveProp(phoneCaptureStatus(context.locks).selected && !phoneCaptureStatus(context.locks).active ? 'none' : context.locks?.propId, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random) : null;
     if (context.poseResolution) context.poseResolution.prop = newProp;
     const propAction = newProp || resolvePoseComposerOption(
       POSE_COMPOSER_PROP_OPTIONS,
@@ -5795,10 +5797,15 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
   const specifiedAction = SPECIFIED_ACTION_OPTIONS.find(option => option.id === poseComposer.meta?.specifiedActionId);
   if (specifiedAction) {
     if (projection.pose?.mode === 'omit') return specifiedAction.faceEn || (specifiedAction.meta?.supineGroundOnly ? 'She is lying on her back on the ground.' : '');
-    if (projection.pose?.mode === 'fullCanonical' || projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE) return poseComposer.en;
+    if (projection.pose?.mode === 'fullCanonical' || projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE) {
+      if (!omitProp || !isPhoneProp(poseComposer.meta?.propId)) return poseComposer.en;
+      const gesture = GESTURE_OPTIONS.find(o=>o.id===poseComposer.meta?.gestureId) || null;
+      const head = headOptionFromMeta(poseComposer.meta);
+      return [withLyingSurface(applyIndoorKneel(applyIndoorLean(applyIndoorSeat(actionTextWithGesture(specifiedAction,gesture).en,context.indoorSeat),context.indoorLean),context.indoorKneel),lyingSurfaceFor(specifiedAction,context.location)),isActivePoseComposerOption(head)?`She has ${normalizePoseComposerHeadPhrase(head)}.`:''].filter(Boolean).join(' ');
+    }
     const head = headOptionFromMeta(poseComposer.meta);
     const gesture = describeRevealGesture(GESTURE_OPTIONS.find(option => option.scope && option.id === poseComposer.meta?.gestureId), poseComposer.meta?.revealedUnderlayer);
-    const prop = PROP_OPTIONS.find(option => option.en && option.id === poseComposer.meta?.propId) || null;
+    const prop = omitProp ? null : PROP_OPTIONS.find(option => option.en && option.id === poseComposer.meta?.propId) || null;
     const chestUp = projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP;
     return [withLyingSurface(applyIndoorLean(actionTextWithGesture(specifiedAction, gesture, { chestUp }, prop).upperBodyEn, context.indoorLean, { upperBody: true }), lyingSurfaceFor(specifiedAction, context.location)),
       isActivePoseComposerOption(head) ? `She has ${normalizePoseComposerHeadPhrase(head)}.` : '',
@@ -13075,7 +13082,7 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
   const sceneIntegrated = context.subject.count === 1
     && !specialSubjectMode && !characterProfileMode && !useCharacterIdentityAnchor
     && !fixedCompositionSetActive && !supineSurfaceLed;
-  const activeProp = getPoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, poseComposer?.meta?.posePropId);
+  const activeProp = PROP_OPTIONS.find(o=>isPhoneProp(o.id)&&o.id===poseComposer?.meta?.posePropId) || getPoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, poseComposer?.meta?.posePropId);
   const selfieAction = getPoseComposerActiveAction(poseComposer?.meta?.poseHandId, poseComposer?.meta?.posePropId);
   const captureIsProp = isActivePoseComposerOption(activeProp);
   const captureAction = sceneIntegrated && isSelfiePoseHandOption(selfieAction)
@@ -16491,6 +16498,8 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
   resolvedSelection.propId = prop ? prop.id : context.rawLocks.propId || 'none';
   resolvedSelection.headPostureId = context.poseResolution?.posture?.id || context.rawLocks.headPostureId || 'none';
   resolvedSelection.captureStyleId = context.rawLocks.captureStyleId || 'standard';
+  if (context.legacyPhoneConflict?.propId) resolvedSelection.propId = context.legacyPhoneConflict.propId;
+  if (isPhoneProp(context.rawLocks.propId) || context.rawLocks.orbitId === COMPANION_ORBIT_ID) resolvedSelection.orbitId = context.rawLocks.orbitId;
   const snapshot = createSelectionSnapshot(LOCK_DEFINITIONS, resolvedSelection);
   for (const host of wardrobe) {
     const layer = host.meta?.underlayer;
@@ -16538,7 +16547,7 @@ export function buildLocksFromPrompt(prompt, keepKeys = []) {
 function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
   const lockControls = runtime.controls;
   // expression-pose-v2 P4: a selfie 拍攝方式 becomes its selfie hand or prop lock.
-  const requestedLocks = applyCaptureStyleLocks(inputLocks);
+  const requestedLocks = applyCaptureStyleLocks(migratePhoneCaptureLocks(inputLocks));
   const capture = requestedLocks.captureMode === 'observation' ? resolveCapture(requestedLocks.observationCapture) : null;
   if (capture && (capture.error || captureEligibility(requestedLocks, lockControls))) return null;
   let captureRandomState = 1977;
@@ -16766,10 +16775,11 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
   // unlocked orbit away from back views; a locked orbit is never replaced.
   const gazeKeepsFrontOrbit = subject.count === 1 && !capture && !specifiedCameraAction?.ownsHead
     && gazeAvoidsBackView(effectiveLocks.gazeId) && (!effectiveLocks.orbitId || isRandomLockValue(effectiveLocks.orbitId));
+  if (effectiveLocks.orbitId === COMPANION_ORBIT_ID && (subject.count !== 1 || capture || fixedCompositionSetActive)) effectiveLocks.orbitId = runtime.flatCatalog.orbit.find(isNoneLikeItem)?.id || 'none';
   let orbit = pickCameraWithExpressionLock(
     runtime.flatCatalog.orbit,
     effectiveLocks.orbitId,
-    (item) => framingSupportsOrbit(framing, item) && lockedExpressions.every((expression) => orbitSupportsExpression(item, expression)) && specialActionSupportsOrbit(item, lockedActionConstraint) && specifiedActionSupportsCamera(specifiedCameraAction, 'orbitId', item)
+    (item) => (item.id !== COMPANION_ORBIT_ID || (effectiveLocks.orbitId === COMPANION_ORBIT_ID && subject.count === 1 && !capture && !fixedCompositionSetActive)) && framingSupportsOrbit(framing, item) && lockedExpressions.every((expression) => orbitSupportsExpression(item, expression)) && specialActionSupportsOrbit(item, lockedActionConstraint) && specifiedActionSupportsCamera(specifiedCameraAction, 'orbitId', item)
       && !(gazeKeepsFrontOrbit && isBackViewOrbit(item)),
     sample,
     ['orbitId'],
@@ -16906,6 +16916,7 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
     lightDirection,
     locks: effectiveLocks,
     rawLocks: locks,
+    legacyPhoneConflict: requestedLocks.captureStyleId && requestedLocks.captureStyleId !== 'standard' ? inputLocks : null,
     random,
     previewRerollExclusions,
     characterProfilePrompt: String(runtimeOptions.characterProfilePrompt || '').trim(),

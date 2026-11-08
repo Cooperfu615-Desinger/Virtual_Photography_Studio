@@ -2,7 +2,14 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-11-07
+Last updated: 2026-11-08
+
+## 手機自拍道具與男友／閨蜜視角（本機，2026-11-08）
+
+- B 道具提供「手機自拍」「手機鏡子自拍」，可配合 27 個一般站／坐／跪姿；自拍使用手部時暫停額外手勢，承重或固定手部姿勢保留選值並提示暫停。兩種手機僅手動選擇，不改原道具隨機池。
+- E 環繞角度新增「男友／閨蜜視角」，景別與俯仰角度仍可獨立選擇；不強制人物靠向相機或改手部。移除可見「拍攝方式」。本人手機與他人拍攝同選時暫停手機；雙人、固定場景、觀察式抓拍沿原接管邊界。保留舊 ID、captureStyle 相容讀取、衝突選值、收藏原文與歷史基準。
+- 完整前端 2,238／2,238、Prompt Quality 925／925、lint／build、Python 60／60、catalog 工具 32／32 通過。324 組手機姿勢景別案例、49 組既有行為七輸出比較及 200 筆同 seed strict audit 通過；audit 與修改前完全一致，0 blocking、24 既有 diagnostic。桌手機六工作區、手機／companion 暫停提示、收藏新增及套用驗證完成。
+- 規格與驗證見[手機自拍道具 v1](specs/phone-selfie-props-v1.md)及[驗證紀錄](reports/phone-selfie-props-2026-11-08/README.md)。以 main `e43d7d5d` 的隔離副本完成驗證，再限定檔案交回目前 main 工作樹；保留其他 session 的 Saved Cards 未提交內容。尚未 commit／push／部署或外部付費出圖；文字與介面通過不代表圖像模型品質已驗收。
 
 ## 一般單人穿搭的手動內搭（本機工作區，2026-11-07）
 

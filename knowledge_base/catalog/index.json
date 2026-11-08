@@ -17135,6 +17135,34 @@
           }
         },
         {
+          "id": "camera:拍攝方位-orbit-angle:companion-view",
+          "cells": [
+            "**拍攝方位 (Orbit Angle)**",
+            "",
+            "",
+            ""
+          ],
+          "columns": {
+            "1": "zh",
+            "2": "en",
+            "3": "desc"
+          },
+          "affixes": {
+            "1": [
+              "",
+              ""
+            ],
+            "2": [
+              "`",
+              "`"
+            ],
+            "3": [
+              "",
+              ""
+            ]
+          }
+        },
+        {
           "id": "camera:鏡頭焦段-focal-length:全無:0",
           "cells": [
             "**鏡頭焦段 (Focal Length)**",

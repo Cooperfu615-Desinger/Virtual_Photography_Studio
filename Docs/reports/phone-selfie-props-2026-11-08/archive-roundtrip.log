@@ -1,0 +1,46 @@
+PASS Markdown: phone/specified-standing-natural/selfie-natural-right-arm; outputs=7
+PASS ZIP: phone/specified-standing-natural/selfie-natural-right-arm; outputs=7
+PASS Markdown: phone/specified-standing-natural/selfie-mirror-phone-visible; outputs=7
+PASS ZIP: phone/specified-standing-natural/selfie-mirror-phone-visible; outputs=7
+PASS Markdown: phone/specified-sitting-natural/selfie-natural-right-arm; outputs=7
+PASS ZIP: phone/specified-sitting-natural/selfie-natural-right-arm; outputs=7
+PASS Markdown: phone/specified-sitting-natural/selfie-mirror-phone-visible; outputs=7
+PASS ZIP: phone/specified-sitting-natural/selfie-mirror-phone-visible; outputs=7
+PASS Markdown: phone/specified-kneeling-seiza/selfie-natural-right-arm; outputs=7
+PASS ZIP: phone/specified-kneeling-seiza/selfie-natural-right-arm; outputs=7
+PASS Markdown: phone/specified-kneeling-seiza/selfie-mirror-phone-visible; outputs=7
+PASS ZIP: phone/specified-kneeling-seiza/selfie-mirror-phone-visible; outputs=7
+PASS Markdown: companion/specified-standing-natural; outputs=7
+PASS ZIP: companion/specified-standing-natural; outputs=7
+PASS Markdown: companion/specified-sitting-natural; outputs=7
+PASS ZIP: companion/specified-sitting-natural; outputs=7
+PASS Markdown: companion/specified-kneeling-seiza; outputs=7
+PASS ZIP: companion/specified-kneeling-seiza; outputs=7
+PASS Markdown: paused-phone/selfie-natural-right-arm; outputs=7
+PASS ZIP: paused-phone/selfie-natural-right-arm; outputs=7
+PASS Markdown: paused-phone/selfie-mirror-phone-visible; outputs=7
+PASS ZIP: paused-phone/selfie-mirror-phone-visible; outputs=7
+PASS Markdown: paused-companion/duo; outputs=5
+PASS ZIP: paused-companion/duo; outputs=5
+PASS Markdown: paused-companion/fixed; outputs=7
+PASS ZIP: paused-companion/fixed; outputs=7
+PASS Markdown: legacy-conflict/selfie; outputs=7
+PASS ZIP: legacy-conflict/selfie; outputs=7
+PASS Markdown: legacy-conflict/mirror; outputs=7
+PASS ZIP: legacy-conflict/mirror; outputs=7
+{
+  "syntheticCards": 15,
+  "formats": 2,
+  "passedChecks": 30,
+  "failedChecks": 0,
+  "publicOutputComparisons": 206,
+  "failures": [],
+  "limits": [
+    "synthetic in-memory cards only",
+    "comparison uses existing canonical selection normalization; absent defaults may be restored",
+    "duo retains existing five-output display contract; other cards retain seven",
+    "no filesystem archive written",
+    "no browser or paid generation",
+    "regeneration visual quality not evaluated"
+  ]
+}

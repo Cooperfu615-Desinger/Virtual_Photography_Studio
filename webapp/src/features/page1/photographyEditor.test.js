@@ -27,11 +27,11 @@ const field = (model, key) => model.groups.flatMap(item => item.fields).find(ite
 const managedKeys = model => model.groups.flatMap(item => item.fields)
   .filter(item => item.management).map(item => item.control.key);
 
-test('photography cards retain all ten existing keys exactly once and keep placement order', () => {
+test('photography cards expose eleven keys without the retired capture-style control', () => {
   const previousKeys = SECTION_SUBPANELS.photography.flatMap(panel => panel.keys);
-  // P3 added lyingCameraId; P4 (2026-10-20) added captureStyleId (拍攝方式).
-  assert.equal(editorKeys.length, 12);
-  assert.equal(new Set(editorKeys).size, 12);
+  assert.equal(editorKeys.length, 11);
+  assert.equal(new Set(editorKeys).size, 11);
+  assert.equal(editorKeys.includes('captureStyleId'), false);
   assert.deepEqual([...editorKeys].sort(), [...previousKeys].sort());
   const model = buildPhotographyEditorModel(fields());
   assert.deepEqual(model.groups.map(item => [item.id, item.label]), [
@@ -102,7 +102,7 @@ test('both coastal fixed scenes describe five managed fields without inventing a
     assert.equal(field(model, 'lensId').management.value, '由固定場景決定');
     assert.equal(field(model, 'opticalEffectId').management.value, '全無');
     assert.equal(group(model, 'composition').summary, '固定場景構圖 / 固定取景視角 / 固定取景方向');
-    assert.deepEqual(group(model, 'composition').actionKeys, ['captureStyleId']);
+    assert.deepEqual(group(model, 'composition').actionKeys, []);
     assert.deepEqual(group(model, 'optics').actionKeys, ['apertureId', 'shutterId']);
     assert.doesNotMatch(JSON.stringify(model.groups.map(item => item.summary)), /\d+mm/);
   }
@@ -115,7 +115,7 @@ test('station retains adjustable focal length, pitch and subject facing with onl
       ? { ...item, control: { ...item.control, label: '人物面向（場景取景方向固定）' } } : item);
     const model = buildPhotographyEditorModel(prepared, { fixedSet: fixedSet(id) });
     assert.deepEqual(managedKeys(model), ['framingId', 'opticalEffectId']);
-    assert.deepEqual(group(model, 'composition').actionKeys, ['angleId', 'orbitId', 'captureStyleId']);
+    assert.deepEqual(group(model, 'composition').actionKeys, ['angleId', 'orbitId']);
     assert.deepEqual(group(model, 'optics').actionKeys, ['lensId', 'apertureId', 'shutterId']);
     assert.equal(field(model, 'orbitId').control.label, '人物面向（場景取景方向固定）');
     assert.equal(field(model, 'orbitId').value, values.orbitId);
@@ -143,11 +143,11 @@ test('three carriages preserve their already prepared orbit choices and distinct
       assert.deepEqual(managedKeys(model), ['orbitId', 'opticalEffectId']);
       assert.equal(orbit.management.value, '正面');
       assert.match(orbit.management.reason, /長椅正對面/);
-      assert.deepEqual(group(model, 'composition').actionKeys, ['framingId', 'angleId', 'captureStyleId']);
+      assert.deepEqual(group(model, 'composition').actionKeys, ['framingId', 'angleId']);
     } else {
       assert.deepEqual(managedKeys(model), ['opticalEffectId']);
       assert.equal(orbit.management, null);
-      assert.deepEqual(group(model, 'composition').actionKeys, ['framingId', 'angleId', 'orbitId', 'captureStyleId']);
+      assert.deepEqual(group(model, 'composition').actionKeys, ['framingId', 'angleId', 'orbitId']);
       assert.doesNotMatch(model.fixedNotice.text, /相機拍攝方位|環繞角度/);
     }
   }
@@ -168,7 +168,7 @@ test('selfie explains only the disabled orbit and does not disable other prepare
     label: '自拍動作管理', value: '由自拍動作決定',
     reason: '目前自拍動作管理拍攝方位，環繞角度暫不可調整。',
   });
-  assert.deepEqual(group(model, 'composition').actionKeys, ['framingId', 'angleId', 'captureStyleId']);
+  assert.deepEqual(group(model, 'composition').actionKeys, ['framingId', 'angleId']);
   const stillEnabled = buildPhotographyEditorModel(fields(), { handLocksOrbit: true });
   assert.deepEqual(managedKeys(stillEnabled), []);
   assert.equal(field(stillEnabled, 'orbitId').disabled, false);
@@ -184,7 +184,7 @@ test('selfie manages orbit in a fixed scene that permits it while scene-managed 
   assert.match(field(model, 'orbitId').management.reason, /自拍動作/);
   assert.equal(field(model, 'framingId').management.label, '場景管理');
   assert.equal(field(model, 'lensId').management.label, '場景管理');
-  assert.deepEqual(group(model, 'composition').actionKeys, ['angleId', 'captureStyleId']);
+  assert.deepEqual(group(model, 'composition').actionKeys, ['angleId']);
   for (const id of ['seaside-slope-railway-crossing', 'japan-carriage-bench-front']) {
     const managed = buildPhotographyEditorModel(fields({}, ['orbitId']),
       { fixedSet: fixedSet(id), handLocksOrbit: true });

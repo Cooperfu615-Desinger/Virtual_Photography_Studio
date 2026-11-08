@@ -2,10 +2,12 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import review from './manualUnderlayerHistory.json' with { type:'json' };
+import { preSelfiePropsSource, selfiePropsHistoricalPaths } from './selfiePropsHistoricalReplay.mjs';
 
 const hash = input => createHash('sha256').update(input).digest('hex');
-export const underlayerHistoricalPaths = review.files.map(file => file.path);
+export const underlayerHistoricalPaths = [...new Set([...selfiePropsHistoricalPaths, ...review.files.map(file => file.path)])];
 export function preUnderlayerSource(path, source) {
+  source = preSelfiePropsSource(path, source);
   const file = review.files.find(entry => entry.path === path);
   if (!file || hash(source) !== file.afterHash) return source;
   const lines = source.toString().match(/[^\n]*\n|[^\n]+$/g) || [];

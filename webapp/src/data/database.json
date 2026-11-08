@@ -12392,6 +12392,18 @@
         "legacyIds": [
           "camera:拍攝方位-orbit-angle:右前-315-度:8"
         ]
+      },
+      {
+        "zh": "男友／閨蜜視角",
+        "en": "handheld companion snapshot from a boyfriend-or-best-friend point of view",
+        "desc": "由熟悉的人手持相機拍攝的自然親近感；不指定人物正側面、雙手或身體前傾。",
+        "meta": {
+          "semantic": {
+            "tags": []
+          }
+        },
+        "stableId": "camera:拍攝方位-orbit-angle:companion-view",
+        "legacyIds": []
       }
     ],
     "鏡頭焦段 (Focal Length)": [

@@ -7358,6 +7358,14 @@
       "createdFrom": "358034c5fb0a63c260e504a7960867747e1453eb",
       "status": "active",
       "decisionRef": "Docs/specs/mai-kunoichi-outfit-v1.md"
+    },
+    {
+      "id": "camera:拍攝方位-orbit-angle:companion-view",
+      "initialGroup": "camera",
+      "initialCategory": "拍攝方位 (Orbit Angle)",
+      "createdFrom": "e43d7d5df6512571a318cf8b18cbb567f6278232",
+      "status": "active",
+      "decisionRef": "Docs/specs/phone-selfie-props-v1.md"
     }
   ]
 }

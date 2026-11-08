@@ -40,7 +40,7 @@ export function preparePreFramingWardrobeFiles(directory) {
     const file = join(directory, relative);
     if (!existsSync(file)) continue;
     assert.ok(!lstatSync(file).isSymbolicLink() && realpathSync(file).startsWith(resolved + '/'), 'Indoor seat inverse rejects linked source');
-    const raw = readFileSync(file), original = preIndoorSeatSource(relative, raw);
+    const raw = readFileSync(file), original = preMaiOutfitSource(relative, preIndoorSeatSource(relative, raw));
     if (raw !== original) sources.set(relative, original);
   }
   const databasePath = 'webapp/src/data/database.json';
