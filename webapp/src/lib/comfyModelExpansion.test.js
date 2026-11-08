@@ -7,7 +7,7 @@ test('selectable Comfy models are distinct without reviving hidden providers or 
   const entries = getDllPicSelectableModelEntries();
   const expected = ['comfyZImageTurbo', 'comfyQwenImage21', 'comfyZImageTurboInt8', 'comfyIdeogram45', 'comfySeedream5Pro',
     'comfyKrea3',
-    'comfyKrea2Medium', 'comfyKrea2MediumTurbo', 'comfyKrea2Large', 'comfyFlux3KleinBaseInt8', 'comfyMossImageSftInt8'];
+    'comfyKrea2Medium', 'comfyKrea2MediumTurbo', 'comfyKrea2Large', 'comfyKrea2TurboNative', 'comfyFlux3KleinBaseInt8', 'comfyMossImageSftInt8'];
   assert.deepEqual(entries.filter(([, m]) => m.provider === 'comfyCloud').map(([key]) => key), expected);
   assert.equal(new Set(entries.map(([, m]) => m.label)).size, entries.length);
   assert.equal(entries.some(([, m]) => ['byteplus', 'magnific'].includes(m.provider)), false);
@@ -16,7 +16,7 @@ test('selectable Comfy models are distinct without reviving hidden providers or 
     assert.equal(isDllPicAspectRatioSupported(key, '4:5'), true);
     assert.deepEqual(getDllPicModelConfig(key).resolutionOptions, key.startsWith('comfyKrea2') || key === 'comfyMossImageSftInt8' ? ['1k'] : ['1k', '2k']);
     assert.equal(getDllPicModelConfig(key).maxCount, 2);
-    if (key.startsWith('comfyKrea2')) {
+    if (getDllPicModelConfig(key).partnerPricing && key.startsWith('comfyKrea2')) {
       assert.equal(isDllPicAspectRatioSupported(key, '3:4'), false);
       assert.equal(getDllPicModelConfig(key).partnerPricing, true);
     }
@@ -25,7 +25,7 @@ test('selectable Comfy models are distinct without reviving hidden providers or 
 
 test('new models use the Comfy proxy and preserve selected prompt, ratio and two-image total limit', async () => {
   for (const [modelKey, backend] of [['comfyZImageTurboInt8', 'zImageTurboInt8'], ['comfyIdeogram45', 'ideogram45'], ['comfySeedream5Pro', 'seedream5Pro'],
-    ['comfyKrea2Medium', 'krea2Medium'], ['comfyKrea2MediumTurbo', 'krea2MediumTurbo'], ['comfyKrea2Large', 'krea2Large'], ['comfyFlux3KleinBaseInt8', 'flux3KleinBaseInt8']]) {
+    ['comfyKrea2Medium', 'krea2Medium'], ['comfyKrea2MediumTurbo', 'krea2MediumTurbo'], ['comfyKrea2Large', 'krea2Large'], ['comfyKrea2TurboNative', 'krea2TurboNative'], ['comfyFlux3KleinBaseInt8', 'flux3KleinBaseInt8']]) {
     let sent;
     const prompt = 'A red mug.\n--ar 4:5';
     const resolution = modelKey.startsWith('comfyKrea2') ? '1k' : '2k';

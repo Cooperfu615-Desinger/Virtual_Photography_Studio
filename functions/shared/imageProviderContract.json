@@ -222,6 +222,14 @@
           "label": "Krea 2 Large",
           "partnerPricing": true
         },
+        "krea2TurboNative": {
+          "resolutions": ["1k"],
+          "defaultResolution": "1k",
+          "maxCount": 2,
+          "oneImagePerJob": true,
+          "aspectRatios": ["1:1", "4:3", "3:4", "16:9", "9:16", "4:5"],
+          "label": "Krea 2 Turbo（原生）"
+        },
         "flux3KleinBaseInt8": {
           "resolutions": [
             "1k",

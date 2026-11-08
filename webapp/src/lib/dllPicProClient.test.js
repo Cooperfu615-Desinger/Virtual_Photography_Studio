@@ -354,6 +354,7 @@ test('model option helpers hide legacy aliases and keep analyzer to analysis-cap
     'comfyKrea2Medium',
     'comfyKrea2MediumTurbo',
     'comfyKrea2Large',
+    'comfyKrea2TurboNative',
     'comfyFlux3KleinBaseInt8',
     'comfyMossImageSftInt8',
   ]);

@@ -43,6 +43,7 @@ const models = {
   krea2Medium: krea('krea2Medium'),
   krea2MediumTurbo: krea('krea2MediumTurbo'),
   krea2Large: krea('krea2Large'),
+  krea2TurboNative: { ...local('krea2TurboNative', '30:6', 'text', '30:5', '30:3'), outputNode: '29' },
   flux3KleinBaseInt8: { ...local('flux3KleinBaseInt8', '18:4', 'text', '18:6', '18:7'), pixelMultiple: 16 },
   mossImageSftInt8: { ...local('mossImageSftInt8', '18:4', 'text', '18:6', '18:7'), pixelMultiple: 16 },
   mossImageSftInt8Lora: { ...local('mossImageSftInt8Lora', '18:4', 'text', '18:6', '18:7'), pixelMultiple: 16 },
