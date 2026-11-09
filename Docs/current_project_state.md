@@ -2,7 +2,16 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-10-24
+Last updated: 2026-11-09
+
+## 場景選單空間分類與七欄卡片（2026-11-09，使用者已驗收）
+
+- Prompt 工作台 D「場景」選擇器按實際空間用途分為 18 類，另保留一般選項；室內房間 9 項置前，飯店、復古房間、女高生房間、臥室與和室集中。全部 156 個選項保留，瀏覽順序由 UI 專用清單維護。詳見 [場景介面規格](specs/page1-scene-editor-cards-v1.md)。
+- 桌面每列七張，640px 以下三張、480px 以下兩張；卡片最小高度 89px、文字 11px，分類標題 12px／`#A3A3A3`／下間距 4px。長名稱完整換行；搜尋、已選標記、方向鍵與焦點回復保留。
+- 此批只改選擇器呈現與瀏覽排序，不改場景名稱／ID、來源分類、引擎隨機池順序、Prompt、locks、收藏或匯入契約。其他 Session 的 Prompt／穿搭／研究修改維持原狀。
+- 開發工作區 Node 22 完整測試 1727/1727、專項 17/17、lint／build／diff-check 通過；桌面 1440×1000、手機 390×900 與 320／480／481／640／641px 斷點檢查通過。5175 由其他工作目錄使用，本批以本專案 5176 驗證，截圖與紀錄在 `/private/tmp/vps-scene-seven-20261109/`。
+- 以本分支已提交基準加本批程式建立獨立交付副本，排除其他 Session 的未提交修改後，Node 22 完整測試 1717/1717、lint／build 通過；與開發工作區的測試總數差異來自未納入本批的其他 Session 測試。
+- **使用者確認最終版本沒問題，授權僅 commit／push 本批至 `origin/claude/h3-audio-lipsync-research`。** 不合併 main 或部署，不操作真實使用者資料。
 
 ## 觀察式抓拍匯入全身角色照（2026-10-24，本機驗收通過）
 

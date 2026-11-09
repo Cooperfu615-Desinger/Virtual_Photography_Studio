@@ -1,7 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Check, ChevronDown, Copy, Search, X } from 'lucide-react';
-import { filterSceneLocations, getSceneLocationOptions } from '../features/page1/sceneLocationOptions.js';
+import { filterSceneLocations, getSceneLocationOptions, groupSceneLocations } from '../features/page1/sceneLocationOptions.js';
 import './sceneLocationField.css';
 
 function getLocationLabel(option) {
@@ -13,6 +13,7 @@ function SceneLocationDialog({ control, value, onClose, onSelect }) {
   const inputRef = useRef(null);
   const titleId = useId();
   const options = filterSceneLocations(getSceneLocationOptions(control), query);
+  const groups = groupSceneLocations(options);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -46,12 +47,24 @@ function SceneLocationDialog({ control, value, onClose, onSelect }) {
 
     const optionButtons = [...event.currentTarget.querySelectorAll('[data-scene-location-option]:not(:disabled)')];
     const activeIndex = optionButtons.indexOf(document.activeElement);
-    if (event.key === 'ArrowDown' && (document.activeElement === inputRef.current || activeIndex >= 0)) {
+    if (event.key === 'ArrowDown' && document.activeElement === inputRef.current) {
       event.preventDefault();
-      optionButtons[(activeIndex + 1) % optionButtons.length]?.focus();
-    } else if (event.key === 'ArrowUp' && activeIndex >= 0) {
+      optionButtons[0]?.focus();
+    } else if (['ArrowLeft', 'ArrowRight'].includes(event.key) && activeIndex >= 0) {
       event.preventDefault();
-      optionButtons[(activeIndex - 1 + optionButtons.length) % optionButtons.length]?.focus();
+      const step = event.key === 'ArrowRight' ? 1 : -1;
+      optionButtons[(activeIndex + step + optionButtons.length) % optionButtons.length]?.focus();
+    } else if (['ArrowUp', 'ArrowDown'].includes(event.key) && activeIndex >= 0) {
+      event.preventDefault();
+      const current = optionButtons[activeIndex].getBoundingClientRect();
+      const direction = event.key === 'ArrowDown' ? 1 : -1;
+      const candidates = optionButtons.map((element) => ({ element, rect: element.getBoundingClientRect() }))
+        // Shared button hover/focus motion must not split one visual row.
+        .filter(({ rect }) => direction * (rect.top - current.top) > 4)
+        .sort((a, b) => Math.abs(a.rect.top - b.rect.top) > 4
+          ? direction * (a.rect.top - b.rect.top)
+          : Math.abs(a.rect.left - current.left) - Math.abs(b.rect.left - current.left));
+      candidates[0]?.element.focus();
     }
   };
 
@@ -74,18 +87,27 @@ function SceneLocationDialog({ control, value, onClose, onSelect }) {
             onChange={(event) => setQuery(event.target.value)} />
         </div>
         <div className="scene-location-results" role="group" aria-label="場景選項">
-          {options.map((option) => {
-            const selected = option.id === (value || '');
-            return (
-              <button key={option.id} type="button" data-scene-location-option="true"
-                className={`scene-location-option${selected ? ' scene-location-option-selected' : ''}`}
-                aria-pressed={selected} disabled={option.disabled}
-                onClick={() => onSelect(option.id)}>
-                <span>{getLocationLabel(option)}</span>
-                {selected ? <Check size={17} aria-hidden="true" /> : null}
-              </button>
-            );
-          })}
+          {groups.map((group, index) => (
+            <section key={group.id} className="scene-location-group" aria-labelledby={`${titleId}-group-${index}`}>
+              <h4 id={`${titleId}-group-${index}`} className="scene-location-group-heading">
+                {group.label}<span>{group.options.length}</span>
+              </h4>
+              <div className="scene-location-grid">
+                {group.options.map((option) => {
+                  const selected = option.id === (value || '');
+                  return (
+                    <button key={option.id} type="button" data-scene-location-option="true"
+                      className={`scene-location-option${selected ? ' scene-location-option-selected' : ''}`}
+                      aria-pressed={selected} disabled={option.disabled}
+                      onClick={() => onSelect(option.id)}>
+                      <span>{getLocationLabel(option)}</span>
+                      {selected ? <Check size={17} aria-hidden="true" /> : null}
+                    </button>
+                  );
+                })}
+              </div>
+            </section>
+          ))}
           {options.length === 0 ? <p className="scene-location-empty" role="status">找不到符合的場景</p> : null}
         </div>
       </div>
