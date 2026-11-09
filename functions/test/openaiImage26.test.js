@@ -36,3 +36,20 @@ test('automatic and custom sizes are bounded before submission', () => {
   assert.throws(()=>buildOpenAIImageRequest({...base,resolution:'custom',customWidth:1000,customHeight:1536}),/尺寸/);
   assert.equal(buildOpenAIImageRequest({...base,resolution:'custom',customWidth:0,customHeight:0,outputFormat:'gif'}).size,'auto');
 });
+
+test('a batch requests four images once and returns each distinct original in provider order', async () => {
+  for (const modelKey of ['openaiImage26Flare', 'openaiImage26Sunburst']) {
+    const encoded = ['first', 'second', 'third', 'fourth'].map(value => Buffer.from(value).toString('base64'));
+    const bodies = [];
+    const result = await generateOpenAIImage({ input: { ...base, modelKey, count: 4 }, apiKey: 'fixture',
+      fetchImpl: async (_url, options) => {
+        bodies.push(JSON.parse(options.body));
+        return { ok: true, json: async () => ({ data: encoded.map(b64_json => ({ b64_json })) }) };
+      } });
+    assert.deepEqual(bodies.map(({ n, prompt }) => [n, prompt]), [[4, base.prompt]]);
+    assert.deepEqual(result.images.map(image => image.src), encoded.map(value => 'data:image/png;base64,' + value));
+  }
+  for (const extra of [{ count: 3 }, { count: 4, outputFormat: 'svg' }, { count: 4, modelKey: 'openaiImage2' }]) {
+    assert.throws(() => buildOpenAIImageRequest({ ...base, ...extra }), /張數/);
+  }
+});

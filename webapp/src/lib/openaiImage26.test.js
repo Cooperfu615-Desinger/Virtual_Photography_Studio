@@ -26,3 +26,23 @@ test('custom sizes are preserved and invalid dimensions are rejected',()=>{
   assert.throws(()=>generationSnapshot({...base,resolution:'custom',customWidth:1000}),/尺寸/);
   assert.doesNotThrow(()=>generationSnapshot({...base,resolution:'custom',customWidth:0,outputFormat:'gif'}));
 });
+
+test('Flare and Sunburst keep four ordered results from a single batch, including a short reply', async () => {
+  for (const modelKey of ['openaiImage26Flare', 'openaiImage26Sunburst']) {
+    for (const returned of [4, 2]) {
+      const snapshot = generationSnapshot({ ...base, modelKey, count: 4 });
+      const images = Array.from({ length: returned }, (_, i) => ({ src: 'image-' + i }));
+      const calls = [], saves = [];
+      const result = await generateOpenAISequence({ id: 'batch', snapshot }, {
+        submit: async payload => { calls.push(payload); return { images }; },
+        onProgress: async () => {}, onImages: async batch => saves.push(batch),
+      });
+      assert.deepEqual(calls.map(p => [p.modelKey, p.count, p.prompt]), [[modelKey, 4, base.prompt]]);
+      assert.deepEqual(saves, [images]);
+      assert.equal(result.errors.length, returned === 4 ? 0 : 1);
+    }
+  }
+  for (const overrides of [{ count: 3 }, { count: 4, outputFormat: 'svg' }, { count: 4, modelKey: 'openaiImage2' }]) {
+    assert.throws(() => generationSnapshot({ ...base, ...overrides }), /張/);
+  }
+});

@@ -3,7 +3,7 @@ import { ImagePlus, ListPlus } from 'lucide-react';
 import { dllWorkspace, openDllWorkspace, DLL_LOCAL_ACCEPTANCE } from '../lib/dllWorkspaceRuntime.js';
 import '../styles/generation.css';
 import OpenAI26Controls from './OpenAI26Controls.jsx';
-import { isOpenAI26, openAI26Settings, OPENAI_26_DEFAULTS } from '../lib/openaiImage26.js';
+import { imageCountOptions, isOpenAI26, openAI26Settings, OPENAI_26_DEFAULTS } from '../lib/openaiImage26.js';
 import ComfyQuotaPanel from './ComfyQuotaPanel.jsx';
 import { openVideoWorkspace, prepareVideoPng } from '../lib/comfyVideoClient.js';
 import {
@@ -161,7 +161,7 @@ export default function DllPicProPanel({
   const [resolution, setResolution] = useState(() => (
     getDllPicResolutionOption(modelKey, initialSettings.resolution || loadStoredValue(DLL_PIC_STORAGE_KEYS.resolution, '1k')).value
   ));
-  const [count, setCount] = useState(initialSettings.count || 1);
+  const [requestedCount, setCount] = useState(initialSettings.count || 1);
   const [quality, setQuality] = useState(initialSettings.quality || 'medium');
   const [openaiSettings, setOpenaiSettings] = useState(() => ({ ...OPENAI_26_DEFAULTS, ...Object.fromEntries(Object.keys(OPENAI_26_DEFAULTS).filter(key => initialSettings[key] !== undefined).map(key => [key, initialSettings[key]])) }));
   const [thinkingMode, setThinkingMode] = useState(initialSettings.thinkingMode || 'fast');
@@ -186,6 +186,8 @@ export default function DllPicProPanel({
   const [message, setMessage] = useState(() => (loadDevPreviewImages().length ? '已套用本地預覽圖' : ''));
 
   const activeModel = getDllPicModelConfig(modelKey);
+  const countOptions = imageCountOptions(modelKey, openaiSettings.outputFormat);
+  const count = countOptions.includes(requestedCount) ? requestedCount : 1;
   const is26 = isOpenAI26(modelKey);
   let openaiError = '';
   try { if (is26) openAI26Settings({ ...openaiSettings, quality, resolution }); } catch (error) { openaiError = error.message; }
@@ -539,7 +541,7 @@ export default function DllPicProPanel({
         <label className="field dll-pic-field">
           {full && <span>張數</span>}
           <select aria-label="張數" value={count} disabled={!full && isGenerating} onChange={(event) => setCount(Number(event.target.value))}>
-            {[1, 2].map((amount) => (
+            {countOptions.map((amount) => (
               <option key={amount} value={amount}>
                 {amount} 張
               </option>

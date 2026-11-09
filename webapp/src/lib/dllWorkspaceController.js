@@ -1,4 +1,4 @@
-import { isOpenAI26, openAI26Settings } from './openaiImage26.js';
+import { imageCountOptions, isOpenAI26, openAI26Settings } from './openaiImage26.js';
 import { getDllPicLoraSettings } from './dllPicProClient.js';
 
 export const DLL_TASK_LABELS = {
@@ -12,7 +12,8 @@ export function generationSnapshot(input) {
     sourceId = 'custom', sourceLabel = '自訂', workspace = '完整版', lockAspectRatio = false,
     kind = 'generate', parentId = null, sourceImage = null, scale = 2, quality = 'medium' } = input;
   if (kind === 'generate' && !prompt.trim()) throw new Error('請先選擇或輸入 Prompt');
-  if (![1, 2].includes(Number(count))) throw new Error('每筆可生成 1 或 2 張');
+  const counts = imageCountOptions(kind === 'generate' ? modelKey : null, input.outputFormat);
+  if (!counts.includes(Number(count))) throw new Error(`每筆可生成 ${counts.join('、')} 張`);
   if (seed !== '' && (!Number.isSafeInteger(Number(seed)) || Number(seed) < 0)) throw new Error('Seed 需為非負整數');
   if (modelKey === 'comfyKrea3' && seed !== '' && Number(seed) + Number(count) - 1 > 2147483647) throw new Error('Seed 超出 Krea 3 支援範圍');
   if (modelKey === 'comfyKrea3' && !['fast', 'high'].includes(input.thinkingMode ?? 'fast')) throw new Error('不支援的 Krea 3 思考模式');

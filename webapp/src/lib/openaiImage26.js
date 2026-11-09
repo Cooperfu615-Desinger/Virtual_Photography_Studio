@@ -1,5 +1,7 @@
 export const OPENAI_26_KEYS = Object.freeze(['openaiImage26Flare', 'openaiImage26Sunburst']);
 export const isOpenAI26 = key => OPENAI_26_KEYS.includes(key);
+export const imageCountOptions = (modelKey, format) =>
+  isOpenAI26(modelKey) && format !== 'svg' ? [1, 2, 4] : [1, 2];
 export const OPENAI_26_DEFAULTS = Object.freeze({ imageMode: 'generate', quality: 'medium', complexity: 'high', outputFormat: 'png', background: 'auto', moderation: 'auto', outputCompression: 100, frameCount: 9, frameDurationMs: 200, customWidth: 1024, customHeight: 1536, referenceImage: '', referenceWidth: 0, referenceHeight: 0, mask: '', markup: '' });
 
 export function openAI26Settings(input = {}) {

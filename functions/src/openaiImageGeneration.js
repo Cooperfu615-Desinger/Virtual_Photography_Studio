@@ -66,8 +66,10 @@ function buildOpenAIImageRequest(input = {}) {
   if (prompt.length < 3 || prompt.length > 30000) throw new Error('Prompt 長度需為 3 至 30000 字元');
   const modelKey = input.modelKey ?? 'openaiImage2';
   const model = MODELS[modelKey];
-  if (!model) throw new Error('不支援的 OpenAI 模型');
+  if (!Object.hasOwn(MODELS, modelKey)) throw new Error('不支援的 OpenAI 模型');
   const legacy = modelKey === 'openaiImage2';
+  const count = input.count ?? 1;
+  if (count !== 1 && !(count === 4 && !legacy && input.outputFormat !== 'svg')) throw new Error('此模型或格式不支援指定張數');
   let size = SIZES[input.resolution]?.[input.aspectRatio];
   if (!legacy && (input.resolution === 'auto' || input.outputFormat === 'gif')) size = 'auto';
   if (!legacy && input.resolution === 'custom' && input.outputFormat !== 'gif') {
@@ -84,7 +86,7 @@ function buildOpenAIImageRequest(input = {}) {
   if (!['generate', 'edit'].includes(mode) || !Object.hasOwn(FORMATS, format) || !['low', 'medium', 'high'].includes(complexity) || !['auto', 'opaque', 'transparent'].includes(background) || !['auto', 'low'].includes(moderation)) throw new Error('不支援的 OpenAI 圖片設定');
   if (mode === 'edit' && ['gif', 'svg'].includes(format)) throw new Error('圖片編輯僅支援 PNG、JPEG 或 WebP');
   if (background === 'transparent' && !['png', 'webp', 'svg'].includes(format)) throw new Error('透明背景僅支援 PNG、WebP 或 SVG');
-  const body = { model, prompt, n: 1, size, quality, complexity, background, moderation, output_format: format };
+  const body = { model, prompt, n: count, size, quality, complexity, background, moderation, output_format: format };
   if (['jpeg', 'webp'].includes(format)) {
     const compression = input.outputCompression ?? 100;
     if (!Number.isInteger(compression) || compression < 0 || compression > 100) throw new Error('壓縮品質需介於 0 至 100');
@@ -121,10 +123,18 @@ async function generateOpenAIImage({ apiKey, input, fetchImpl = fetch }) {
   try { data = await response.json(); }
   catch { throw new OpenAIImageError('invalid_response', response.status); }
   if (!response.ok) throw new OpenAIImageError('provider', response.status, data?.error?.code);
-  const encoded = data?.data?.[0]?.b64_json;
-  if (typeof encoded !== 'string' || !encoded || encoded.length > 40 * 1024 * 1024 || !/^[A-Za-z0-9+/]+={0,2}$/.test(encoded)) throw new OpenAIImageError('invalid_response', response.status);
+  const items = data?.data;
+  if (!Array.isArray(items) || !items.length || items.length > body.n) throw new OpenAIImageError('invalid_response', response.status);
   const mimeType = FORMATS[body.output_format];
-  return { images: [{ src: `data:${mimeType};base64,${encoded}`, mimeType }], errors: [], meta: { model: body.model, size: body.size, quality: body.quality, ...(body.complexity ? { complexity: body.complexity, background: body.background, moderation: body.moderation, outputFormat: body.output_format } : {}) } };
+  const images = [];
+  for (const item of items) {
+    const encoded = item?.b64_json;
+    if (typeof encoded === 'string' && encoded.length <= 40 * 1024 * 1024 && /^[A-Za-z0-9+/]+={0,2}$/.test(encoded)) {
+      images.push({ src: `data:${mimeType};base64,${encoded}`, mimeType });
+    }
+  }
+  if (!images.length) throw new OpenAIImageError('invalid_response', response.status);
+  return { images, errors: [], meta: { model: body.model, size: body.size, quality: body.quality, ...(body.complexity ? { complexity: body.complexity, background: body.background, moderation: body.moderation, outputFormat: body.output_format } : {}) } };
 }
 
 async function submitOpenAIImage({ apiKey, input, requestId, store, generate = generateOpenAIImage }) {
