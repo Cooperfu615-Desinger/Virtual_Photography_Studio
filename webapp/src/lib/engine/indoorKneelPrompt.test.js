@@ -4,6 +4,7 @@ import {getLockControls,getSceneDependentOptions} from '../engine.js';
 import {seatFixture,seatFramings} from './indoorSeatFixtures.js';
 import {kneelActions} from './indoorKneelFixtures.js';
 import scenes from './indoorKneelScenes.json' with {type:'json'};
+import outdoorScenes from './outdoorKneelScenes.json' with {type:'json'};
 const controls=getLockControls(),places=getSceneDependentOptions([],{subjectCount:'1',sceneAttributeId:'indoor'}).locationOptions.filter(o=>o.zh!=='全無');
 const phrases={'bed-top':'on the bed',floor:'on the floor',tatami:'on the tatami floor',carpet:'on the carpet',mat:'on a mat',ground:'on the ground',sofa:'on a sofa','reading-table':'on a reading table',bench:'on a bench',aisle:'on the aisle floor','train-seat':'on a train seat'};
 export const expectedKneel=(action,p)=>({
@@ -16,18 +17,27 @@ export const expectedKneel=(action,p)=>({
 })[action];
 const cards=r=>Object.fromEntries(r.cards.map(c=>[c.id,c.value]));
 
-test('83 × six × ten framings: all 104 surface choices preserve effective selections, RNG and exact projected contact',()=>{
+const outdoorPhrases = {
+ ...phrases, 'deck-top':'on a platform', step:'on a step', walkway:'on the walkway',
+ board:'on a wooden board', box:'on a box', stool:'on a stool', grass:'on the grass',
+ chair:'on a chair', 'lounge-chair':'on a lounge chair', sand:'on the sand', rock:'on a rock',
+};
+const outdoors = getSceneDependentOptions([], {subjectCount:'1', sceneAttributeId:'outdoor'}).locationOptions.filter(o=>o.zh!=='全無');
+for (const [region, locations, surfaces, contact, count, unique] of [
+ ['indoor', places, scenes, phrases, 6240, 66],
+ ['outdoor', outdoors, outdoorScenes, outdoorPhrases, 6720, 84],
+]) test(region + ' manual kneels × six actions × ten framings preserve selections, RNG and exact projected contact',()=>{
  let compared=0;const seen=new Set();
- for(const place of places)for(const action of kneelActions)for(const frame of seatFramings){
+ for(const place of locations)for(const action of kneelActions)for(const frame of seatFramings){
   const before=seatFixture(place.zh,action.zh,frame),old=cards(before);
-  for(const id of scenes[place.id]){const after=seatFixture(place.zh,action.zh,frame,{indoorKneelId:id}),next=cards(after),label=place.zh+'/'+action.id+'/'+id+'/'+frame,expected=expectedKneel(action.id,phrases[id]);
+  for(const id of surfaces[place.id]){const after=seatFixture(place.zh,action.zh,frame,{indoorKneelId:id}),next=cards(after),label=place.zh+'/'+action.id+'/'+id+'/'+frame,expected=expectedKneel(action.id,contact[id]);
    assert.equal(after.draws,before.draws,label);assert.deepEqual(after.prompt.selection,{...before.prompt.selection,indoorKneelId:id},label);
    assert.ok(next['grok-imagine'].includes(expected),label+'/G7 complete');assert.equal(next['full-body-character'],old['full-body-character'],label+'/reference');
    for(const key of ['gpt','grok','ai','nano-banana-2.1','chest-up-portrait'])assert.equal(next[key],old[key].replaceAll(action.en,expected),label+'/'+key);
    seen.add(action.id+'/'+id);compared++;
   }
  }
- assert.equal(compared,6240);assert.equal(seen.size,66);
+ assert.equal(compared,count);assert.equal(seen.size,unique);
 });
 
 test('six poses × four capture styles × ten framings keep selected bench, gestures, props, head and gaze',()=>{
@@ -41,7 +51,7 @@ test('six poses × four capture styles × ten framings keep selected bench, gest
  }
 });
 
-test('random, outdoor, fixed hands and excluded owners ignore an ineffective manual surface',()=>{
+test('random choices, incompatible surfaces, fixed hands and excluded owners ignore an ineffective manual surface',()=>{
  const full=seatFramings.find(id=>id.includes('full-body-shot')),character=controls.find(c=>c.key==='characterProfileId').options.find(o=>o.specialSubject==='character-profile');
  for(const patch of [{specifiedActionId:'random'},{specifiedActionId:'none'},{locationId:''},{subjectCount:'2'},{fixedCompositionSetId:'japan-carriage-bench-front'},
   {locationId:controls.find(c=>c.key==='locationId').options.find(o=>o.zh==='戶外：森林步道').id},{specifiedActionId:'specified-kneeling-all-fours-palms'},

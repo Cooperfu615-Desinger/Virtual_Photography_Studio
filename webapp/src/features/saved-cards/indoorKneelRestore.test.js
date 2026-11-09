@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import {createSeededRandom,generatePrompts,getLockControls,normalizeLocks} from '../../lib/engine.js';
 import {seatFixture,seatFramings} from '../../lib/engine/indoorSeatFixtures.js';
+import outdoorScenes from '../../lib/engine/outdoorKneelScenes.json' with {type:'json'};
 import {kneelActions} from '../../lib/engine/indoorKneelFixtures.js';
 import {getGrokImagineResult,withGrokImagineForSave} from '../../lib/grokImagineResult.js';
 import {buildPage1DisplayOutputs} from '../../lib/page1PromptOutputs.js';
@@ -44,4 +45,31 @@ test('reference preview uses the same selected surface; capture keeps a dormant 
  const run=s=>generatePrompts(1,s,[],{random:createSeededRandom('indoor-kneel-capture')})[0];const chosen=run(capture),empty=run({...capture,indoorKneelId:''});assert.ok(chosen&&empty);assert.deepEqual(display(chosen),display(empty));assert.equal(chosen.selection.indoorKneelId,undefined);
  const classroom=controls.find(c=>c.key==='locationId').options.find(o=>o.zh==='室內：日本學校教室');
  const restored=transitionPage1Locks({previousLocks:capture,candidateLocks:{...capture,captureMode:'standard',characterProfileId:'none',locationId:classroom.id},lockControls:controls});assert.equal(restored.indoorKneelId,undefined);
+});
+
+test('outdoor kneeling surfaces restore across favorites, Markdown and ZIP for all six poses', async () => {
+  const places = controls.find(control => control.key === 'locationId').options;
+  const examples = new Map();
+  for (const [locationId, ids] of Object.entries(outdoorScenes)) {
+    const place = places.find(option => option.id === locationId);
+    for (const id of ['', ...ids]) if (!examples.has(id)) examples.set(id, place.zh);
+  }
+  assert.equal(examples.size, 15);
+  const cards = [...examples].flatMap(([id, name]) => kneelActions.map(action =>
+    make((id || 'unspecified') + '/' + action.id, name, action.zh, {indoorKneelId:id})));
+  const archive = await parseSavedCardsArchive(await createSavedCardsArchive(cards, 0, 'uint8array'), controls);
+  for (const card of cards) {
+    const expected = card.id.split('/')[0];
+    const selected = expected === 'unspecified' ? undefined : expected;
+    assert.equal(card.selection.indoorKneelId, selected);
+    for (const restored of [deserializeFavoritePrompt(serializeFavoritePrompt(card)),
+      parseExportedMarkdownPrompt(buildMarkdownExport(card), controls, card.id), archive.find(entry => entry.id === card.id)]) {
+      assert.deepEqual(display(restored), display(card), card.id);
+      const locks = normalizeLocks(buildRestoreLocks(restored.selection, controls));
+      assert.equal(locks.indoorKneelId, selected, card.id);
+      const [next] = generatePrompts(1, locks, [], {random:createSeededRandom('outdoor-kneel-restore')});
+      assert.equal(next.selection.indoorKneelId, selected, card.id);
+      assert.equal(next.selection.locationId, card.selection.locationId, card.id);
+    }
+  }
 });

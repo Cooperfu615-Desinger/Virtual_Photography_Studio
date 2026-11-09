@@ -1,10 +1,16 @@
-import scenes from './indoorKneelScenes.json' with {type:'json'};
+import indoorScenes from './indoorKneelScenes.json' with {type:'json'};
+import outdoorScenes from './outdoorKneelScenes.json' with {type:'json'};
 import {getSpecifiedAction} from './specifiedActions.js';
 
+const scenes = {...indoorScenes, ...outdoorScenes};
 const surfaces = {
   'bed-top':['床上','on the bed'], floor:['地板','on the floor'], tatami:['榻榻米','on the tatami floor'],
   carpet:['地毯','on the carpet'], mat:['墊子','on a mat'], ground:['地面','on the ground'],
   sofa:['沙發','on a sofa'], 'reading-table':['閱讀桌','on a reading table'], bench:['長椅','on a bench'],
+  'deck-top':['平台','on a platform'], step:['台階','on a step'], walkway:['走道','on the walkway'],
+  board:['木板','on a wooden board'], box:['箱子','on a box'], stool:['凳子','on a stool'],
+  grass:['草地','on the grass'], chair:['椅子','on a chair'], 'lounge-chair':['躺椅','on a lounge chair'],
+  sand:['沙地','on the sand'], rock:['石頭','on a rock'],
   aisle:['走道','on the aisle floor'], 'train-seat':['椅子','on a train seat'],
 };
 const actions = new Set(['seiza','wide','forward-lean','upright-poised','side-sit','one-knee-forward'].map(key=>'specified-kneeling-'+key));

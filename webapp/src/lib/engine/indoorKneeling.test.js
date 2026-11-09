@@ -40,3 +40,30 @@ test('all compatible scene and pose transitions retain choices; other owners, re
  assert.equal(change(paused,{captureMode:'standard',locationId:classroom.id}).indoorKneelId,undefined);
  assert.equal(model({id:'future',zh:'室內：未審閱場景'},action),null);
 });
+
+test('all 71 outdoor scenes offer exactly the approved ordered surfaces for each general kneel', () => {
+  const rows = readFileSync(new URL('../../../../Docs/specs/outdoor-kneeling-scenes-v1.md', import.meta.url), 'utf8')
+    .split('\n').filter(line => /^\| \d+ \|/.test(line)).map(line => line.split('|').map(cell => cell.trim()));
+  const outdoor = getSceneDependentOptions([], {subjectCount:'1', sceneAttributeId:'outdoor'}).locationOptions.filter(o => o.zh !== '全無');
+  assert.equal(rows.length, 71);
+  assert.deepEqual(new Set(rows.map(row => row[2])), new Set(outdoor.map(place => place.zh)));
+  let choices = 0;
+  for (const [, , name, labels] of rows) {
+    const place = outdoor.find(option => option.zh === name);
+    const approved = labels.split('、');
+    choices += approved.length;
+    for (const action of kneelActions) {
+      const empty = model(place, action);
+      assert.deepEqual(empty.options.map(option => option.label), approved, name);
+      assert.equal(empty.selectedId, '');
+      assert.equal(empty.phrase, '');
+      for (const {id} of empty.options) {
+        const locks = state(place, action, id);
+        assert.equal(normalizeLocks(locks).indoorKneelId, id);
+        const indoor = places.find(option => option.zh === '室內：無人月台長椅區');
+        assert.equal(change(locks, {locationId:indoor.id}).indoorKneelId, model(indoor, action, id).selectedId || undefined);
+      }
+    }
+  }
+  assert.equal(choices, 112);
+});
