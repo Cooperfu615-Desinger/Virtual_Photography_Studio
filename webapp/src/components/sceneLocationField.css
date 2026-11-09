@@ -94,29 +94,54 @@
 .scene-location-results {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 8px;
+  gap: 24px;
   min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 2px 4px 2px 2px;
 }
 
-.scene-location-option {
+.scene-location-group {
+  min-width: 0;
+}
+
+.scene-location-group-heading {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  gap: 8px;
+  margin: 0 0 4px;
+  color: #a3a3a3;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.scene-location-group-heading span {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.scene-location-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.scene-location-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   min-width: 0;
-  min-height: 44px;
-  padding: 10px 12px;
+  min-height: 89px;
+  padding: 16px 8px 6px;
   border: 1px solid var(--border-muted);
   border-radius: 11px;
   background: var(--surface-control);
   color: var(--text-primary);
-  font-size: 14px;
+  font-size: 11px;
   line-height: 1.5;
-  text-align: left;
+  text-align: center;
 }
 
 .scene-location-option span {
@@ -125,7 +150,11 @@
 }
 
 .scene-location-option svg {
-  flex: none;
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  width: 13px;
+  height: 13px;
   color: var(--accent);
 }
 
@@ -155,10 +184,20 @@
   line-height: 1.5;
 }
 
+@media (max-width: 640px) {
+  .scene-location-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 480px) {
   .modal-panel.scene-location-dialog {
     padding: 16px;
     gap: 12px;
     border-radius: 16px;
+  }
+
+  .scene-location-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
