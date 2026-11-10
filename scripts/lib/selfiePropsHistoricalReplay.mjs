@@ -3,11 +3,13 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import review from './selfiePropsHistory.json' with { type: 'json' };
+import { preSkirtUnderlayerSource, skirtUnderlayerHistoricalPaths } from './skirtUnderlayerHistoricalReplay.mjs';
 
 const hash = value => createHash('sha256').update(value).digest('hex');
-export const selfiePropsHistoricalPaths = review.files.map(file => file.path);
+export const selfiePropsHistoricalPaths = [...new Set([...skirtUnderlayerHistoricalPaths, ...review.files.map(file => file.path)])];
 
 export function preSelfiePropsSource(path, source) {
+  source = preSkirtUnderlayerSource(path, source);
   const file = review.files.find(entry => entry.path === path);
   // Unknown bytes must reach the older strict boundaries unchanged.
   if (!file || hash(source) !== file.afterHash) return source;

@@ -1,0 +1,293 @@
+{
+  "base": "5c35c4e1a868ab815e1272142526e59794ab7e7e",
+  "files": [
+    {
+      "path": "webapp/src/lib/engine.js",
+      "beforeHash": "7f808e7bd5662d41b1238c9f6e2875209bec168ff4465417a98577f788ae9490",
+      "afterHash": "1c6f1e29abff0ed9da85c8e5b72a3b962300b09da271a7032fa27c2fb2dd3468",
+      "edits": [
+        {
+          "line": 3,
+          "after": [
+            "import { isSkirtLiftGesture } from './engine/skirtUnderlayers.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 5287,
+          "after": [
+            "    const gesture = describeRevealGesture(resolveGesture(phoneStatus.active ? 'none' : context.locks?.gestureId, specifiedAction, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random), context.revealedUnderlayer, context.liftedSkirt);\n"
+          ],
+          "before": [
+            "    const gesture = describeRevealGesture(resolveGesture(phoneStatus.active ? 'none' : context.locks?.gestureId, specifiedAction, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random), context.revealedUnderlayer);\n"
+          ]
+        },
+        {
+          "line": 5306,
+          "after": [
+            "        ...(gesture && context.liftedSkirt ? { liftedSkirt: context.liftedSkirt } : {}),\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 5803,
+          "after": [
+            "      const gesture = isSkirtLiftGesture(poseComposer.meta?.gestureId)\n",
+            "        ? describeRevealGesture(GESTURE_OPTIONS.find(o=>o.id===poseComposer.meta.gestureId), poseComposer.meta.revealedUnderlayer, poseComposer.meta.liftedSkirt)\n",
+            "        : GESTURE_OPTIONS.find(o=>o.id===poseComposer.meta?.gestureId) || null;\n"
+          ],
+          "before": [
+            "      const gesture = GESTURE_OPTIONS.find(o=>o.id===poseComposer.meta?.gestureId) || null;\n"
+          ]
+        },
+        {
+          "line": 5810,
+          "after": [
+            "    const gesture = describeRevealGesture(GESTURE_OPTIONS.find(option => option.scope && option.id === poseComposer.meta?.gestureId), poseComposer.meta?.revealedUnderlayer, poseComposer.meta?.liftedSkirt);\n"
+          ],
+          "before": [
+            "    const gesture = describeRevealGesture(GESTURE_OPTIONS.find(option => option.scope && option.id === poseComposer.meta?.gestureId), poseComposer.meta?.revealedUnderlayer);\n"
+          ]
+        },
+        {
+          "line": 16898,
+          "after": [
+            "    revealedUnderlayer: (effectiveLocks.topUnderlayerId || isSkirtLiftGesture(effectiveLocks.gestureId)) && underlayerField(effectiveLocks, lockControls, 'gestureId')?.item,\n",
+            "    liftedSkirt: isSkirtLiftGesture(effectiveLocks.gestureId) ? underlayerField(effectiveLocks, lockControls, 'gestureId')?.host : undefined,\n"
+          ],
+          "before": [
+            "    revealedUnderlayer: effectiveLocks.topUnderlayerId && underlayerField(effectiveLocks, lockControls, 'gestureId')?.item,\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/gazeGesture.js",
+      "beforeHash": "cc2281cdf088226515d8b196200fc3277220359e9d3055a85e916c1641178fb4",
+      "afterHash": "dabc05843c5b64bd53ab12855e83a8938a2d4603eddb494d80910b851c9aba34",
+      "edits": [
+        {
+          "line": 140,
+          "after": [
+            "  gesture('gesture-lift-skirt-both', '雙手提起裙擺', 'both hands lifting the front of her skirt above her hips', 'general',\n",
+            "    { randomEligible: false }),\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/manualUnderlayers.js",
+      "beforeHash": "dff78ed78cd6a420fe3bc9047649272f290a90d19df2487b3de24bf8d0c14abd",
+      "afterHash": "4df2d0953333f576cece3d9c520ec265f82ff1ade2219b7356f9979346575ea8",
+      "edits": [
+        {
+          "line": 6,
+          "after": [
+            "import { isSkirtLiftGesture, skirtLiftText, skirtUnderlayerProfile } from './skirtUnderlayers.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 26,
+          "after": [
+            "export const isRevealGesture = id => id === 'gesture-lift-hem-both' || id === 'gesture-hold-hem-teeth' || isSkirtLiftGesture(id);\n"
+          ],
+          "before": [
+            "export const isRevealGesture = id => id === 'gesture-lift-hem-both' || id === 'gesture-hold-hem-teeth';\n"
+          ]
+        },
+        {
+          "line": 57,
+          "after": [
+            "  const skirtLift = trigger === 'gestureId' && isSkirtLiftGesture(locks.gestureId);\n",
+            "  const top = trigger === 'gestureId' && !skirtLift;\n",
+            "  if (!top && !skirtLift && trigger !== 'bottomRiseId') return null;\n",
+            "  if (trigger === 'gestureId' ? !isRevealGesture(locks.gestureId) : !isWaistTrigger(locks.bottomRiseId)) return null;\n"
+          ],
+          "before": [
+            "  const top = trigger === 'gestureId';\n",
+            "  if (!top && trigger !== 'bottomRiseId') return null;\n",
+            "  if (top ? !isRevealGesture(locks.gestureId) : !isWaistTrigger(locks.bottomRiseId)) return null;\n"
+          ]
+        },
+        {
+          "line": 64,
+          "after": [],
+          "before": [
+            "  if (!top) owners.push('skirtId');\n"
+          ]
+        },
+        {
+          "line": 65,
+          "after": [
+            "  const skirt = !top && selected(controls, 'skirtId', locks.skirtId);\n",
+            "  const skirtActive = !top && hasGarmentOwner(locks, controls, 'skirtId');\n",
+            "  if (skirtActive && (!skirtUnderlayerProfile(skirt) || (skirtLift ? !skirtLiftText(skirt) : locks.bottomRiseId !== 'ultra-low-rise'))) return null;\n",
+            "  if (skirtLift && !skirtActive) return null;\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 72,
+          "after": [
+            "  if (trigger === 'gestureId' && !applicableGestureOptions(getSpecifiedAction(locks,{cameraControls:controls})).some(option => option.id === locks.gestureId)) return null;\n"
+          ],
+          "before": [
+            "  if (top && !applicableGestureOptions(getSpecifiedAction(locks,{cameraControls:controls})).some(option => option.id === locks.gestureId)) return null;\n"
+          ]
+        },
+        {
+          "line": 74,
+          "after": [
+            "  const hostKey = skirtActive ? 'skirtId' : slot.hostKey;\n",
+            "  const hosts = skirtActive ? [skirt] : options(controls,slot.hostKey).filter(item => hostFits(item, slot, locks.bottomRiseId));\n",
+            "  const host = selected(controls, hostKey,locks[hostKey]);\n"
+          ],
+          "before": [
+            "  const hosts = options(controls,slot.hostKey).filter(item => hostFits(item, slot, locks.bottomRiseId));\n",
+            "  const host = selected(controls, slot.hostKey,locks[slot.hostKey]);\n"
+          ]
+        },
+        {
+          "line": 82,
+          "after": [
+            "  return { ...slot, hostKey, host, hosts, items, colors, item, color };\n"
+          ],
+          "before": [
+            "  return { ...slot, host, hosts, items, colors, item, color };\n"
+          ]
+        },
+        {
+          "line": 115,
+          "after": [
+            "    if (byHost.has(field.host.id)) continue;\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 120,
+          "after": [
+            "    const relation = trigger === 'gestureId'\n",
+            "      ? isSkirtLiftGesture(gestureId) ? 'the inner garment fully visible beneath the raised skirt' : ''\n",
+            "      : lowerLayerVisibility(field.item, locks.bottomRiseId);\n"
+          ],
+          "before": [
+            "    const relation = trigger === 'gestureId' ? '' : lowerLayerVisibility(field.item, locks.bottomRiseId);\n"
+          ]
+        },
+        {
+          "line": 130,
+          "after": [
+            "export function describeRevealGesture(gesture, item, skirt) {\n",
+            "  if (!gesture || !isRevealGesture(gesture.id)) return gesture || null;\n",
+            "  if (isSkirtLiftGesture(gesture.id)) return { ...gesture, en: skirtLiftText(skirt) + (item ? ', fully revealing the front of the ' + midjourneyItemName(item) + ' underneath' : '') };\n",
+            "  if (!item) return gesture;\n"
+          ],
+          "before": [
+            "export function describeRevealGesture(gesture, item) {\n",
+            "  if (!gesture || !isRevealGesture(gesture.id) || !item) return gesture || null;\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/components/Page1Workspace.jsx",
+      "beforeHash": "61ec969321f5c49d9185f8b7f13805239506877af79b1e0c65beaf3fe4e81a3b",
+      "afterHash": "c2c81999f00fae4a6efd83830349d3bb5ebc627623ef20689626876d35e2e61a",
+      "edits": [
+        {
+          "line": 2,
+          "after": [
+            "import { isSkirtLiftGesture } from '../lib/engine/skirtUnderlayers.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 886,
+          "after": [
+            "    ? underlayerColorControl(underlayerField(locks, lockControls, underlayerTrigger)\n",
+            "      || (underlayerTrigger === 'bottomRiseId' && isSkirtLiftGesture(locks.gestureId) ? underlayerField(locks, lockControls, 'gestureId') : null))\n"
+          ],
+          "before": [
+            "    ? underlayerColorControl(underlayerField(locks, lockControls, underlayerTrigger))\n"
+          ]
+        },
+        {
+          "line": 1302,
+          "after": [
+            "        const skirtGestureField = !selectedPoseActionLocksOrbit && isSkirtLiftGesture(locks.gestureId) && underlayerField(locks, lockControls, 'gestureId');\n",
+            "        const inner = !disabled && !(control.key === 'bottomRiseId' && skirtGestureField) && underlayerField(locks, lockControls, control.key);\n"
+          ],
+          "before": [
+            "        const inner = !disabled && underlayerField(locks, lockControls, control.key);\n"
+          ]
+        },
+        {
+          "line": 1305,
+          "after": [
+            "          const isUpper = inner.itemKey === 'topUnderlayerId';\n"
+          ],
+          "before": [
+            "          const isUpper = control.key === 'gestureId';\n"
+          ]
+        },
+        {
+          "line": 1327,
+          "after": [
+            "          return control.key === 'gestureId'\n"
+          ],
+          "before": [
+            "          return isUpper\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/gazeGesture.test.js",
+      "beforeHash": "bfefddfae0cced2ce11e9e5272465eb8636be11e4d15806f109f2e0081d9ab2e",
+      "afterHash": "d7c13cb7c7b7f5e61429c64f21dd885672eb760303a8db8721254b30464bc26d",
+      "edits": [
+        {
+          "line": 74,
+          "after": [
+            "  assert.equal(GESTURE_OPTIONS.filter(o => o.scope).length, 45, '42 existing gestures plus three manual underlayer gestures');\n"
+          ],
+          "before": [
+            "  assert.equal(GESTURE_OPTIONS.filter(o => o.scope).length, 44, '42 existing gestures plus two manual underlayer gestures');\n"
+          ]
+        },
+        {
+          "line": 166,
+          "after": [
+            "test('a free-hand standing action offers the general gestures; manual gestures never come from 隨機', () => {\n"
+          ],
+          "before": [
+            "test('a free-hand standing action offers the general gestures; the 4 new ones never come from 隨機', () => {\n"
+          ]
+        },
+        {
+          "line": 168,
+          "after": [
+            "  assert.equal(applicableGestureOptions(natural).length, 28, '25 existing + 3 manual underlayer gestures');\n",
+            "  const newIds = ['gesture-hand-on-head', 'gesture-hands-behind-head', 'gesture-hands-behind-back', 'gesture-arms-overhead',\n",
+            "    'gesture-lift-hem-both', 'gesture-hold-hem-teeth', 'gesture-lift-skirt-both'];\n"
+          ],
+          "before": [
+            "  assert.equal(applicableGestureOptions(natural).length, 27, '25 existing + 2 manual underlayer gestures');\n",
+            "  const newIds = ['gesture-hand-on-head', 'gesture-hands-behind-head', 'gesture-hands-behind-back', 'gesture-arms-overhead'];\n"
+          ]
+        },
+        {
+          "line": 244,
+          "after": [
+            "    assert.equal(applicableGestureOptions(a).length, 28, a.id);\n"
+          ],
+          "before": [
+            "    assert.equal(applicableGestureOptions(a).length, 27, a.id);\n"
+          ]
+        }
+      ]
+    }
+  ]
+}

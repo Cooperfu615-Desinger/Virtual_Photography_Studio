@@ -1,5 +1,6 @@
 import { indoorSeatingModel } from '../lib/engine/indoorSeating.js';
 import { indoorLeaningModel } from '../lib/engine/indoorLeaning.js';
+import { isSkirtLiftGesture } from '../lib/engine/skirtUnderlayers.js';
 import { THIGH_RISE, isRevealGesture, underlayerField } from '../lib/engine/manualUnderlayers.js';
 import { indoorKneelingModel } from '../lib/engine/indoorKneeling.js';
 import ObservationCapturePanel from './ObservationCapturePanel';
@@ -883,7 +884,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   );
   const underlayerTrigger = UNDERLAYER_PALETTE_TRIGGERS[activeWardrobePickerKey];
   const activeWardrobePickerControl = underlayerTrigger
-    ? underlayerColorControl(underlayerField(locks, lockControls, underlayerTrigger))
+    ? underlayerColorControl(underlayerField(locks, lockControls, underlayerTrigger)
+      || (underlayerTrigger === 'bottomRiseId' && isSkirtLiftGesture(locks.gestureId) ? underlayerField(locks, lockControls, 'gestureId') : null))
     : [...characterLockControls, ...wardrobeLockControls].find(control => control.key === activeWardrobePickerKey);
   const phoneCapture = phoneCaptureStatus(locks, activeSpecifiedAction);
   const selectedPoseActionLocksOrbit = !fixedScenePosition && !captureActive && phoneCapture.active;
@@ -1298,9 +1300,10 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
           />
         );
 
-        const inner = !disabled && underlayerField(locks, lockControls, control.key);
+        const skirtGestureField = !selectedPoseActionLocksOrbit && isSkirtLiftGesture(locks.gestureId) && underlayerField(locks, lockControls, 'gestureId');
+        const inner = !disabled && !(control.key === 'bottomRiseId' && skirtGestureField) && underlayerField(locks, lockControls, control.key);
         if (inner) {
-          const isUpper = control.key === 'gestureId';
+          const isUpper = inner.itemKey === 'topUnderlayerId';
           const label = isUpper ? '上身內搭' : '下身內搭';
           const palette = underlayerColorControl(inner);
           const pair = (
@@ -1322,7 +1325,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
               )}
             </div>
           );
-          return isUpper
+          return control.key === 'gestureId'
             ? <div key={control.key} className="manual-underlayer-fields">{field}{pair}</div>
             : <Fragment key={control.key}>{field}{pair}</Fragment>;
         }

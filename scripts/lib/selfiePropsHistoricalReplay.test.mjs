@@ -6,15 +6,19 @@ import { createHash } from 'node:crypto';
 import test from 'node:test';
 import review from './selfiePropsHistory.json' with { type: 'json' };
 import { preSelfiePropsSource, selfiePropsHistoricalPaths } from './selfiePropsHistoricalReplay.mjs';
+import { preSkirtUnderlayerSource, skirtUnderlayerHistoricalPaths } from './skirtUnderlayerHistoricalReplay.mjs';
 
 const root = new URL('../../', import.meta.url);
 const hash = value => createHash('sha256').update(value).digest('hex');
 
 test('reviewed phone changes restore exact main bytes, preserving input type and idempotence', () => {
   assert.ok(review.files.length > 0, 'seal must contain the reviewed change');
-  assert.equal(new Set(selfiePropsHistoricalPaths).size, review.files.length);
+  assert.equal(new Set(selfiePropsHistoricalPaths).size, selfiePropsHistoricalPaths.length);
+  for (const path of [...skirtUnderlayerHistoricalPaths, ...review.files.map(file => file.path)]) {
+    assert.ok(selfiePropsHistoricalPaths.includes(path), path);
+  }
   for (const file of review.files) {
-    const current = readFileSync(new URL(file.path, root));
+    const current = preSkirtUnderlayerSource(file.path, readFileSync(new URL(file.path, root)));
     const original = execFileSync('git', ['show', review.base + ':' + file.path], {
       cwd: fileURLToPath(root), maxBuffer: 16 * 1024 * 1024,
     });

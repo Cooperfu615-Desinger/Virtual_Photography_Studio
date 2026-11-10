@@ -138,6 +138,8 @@ export const GESTURE_OPTIONS = freeze([
     { requiresWardrobeRole: 'topHem', randomEligible: false }),
   gesture('gesture-hold-hem-teeth', '嘴咬衣襬，雙手背後', mouthHeldHemText(), 'general',
     { requiresWardrobeRole: 'topHem', randomEligible: false }),
+  gesture('gesture-lift-skirt-both', '雙手提起裙擺', 'both hands lifting the front of her skirt above her hips', 'general',
+    { randomEligible: false }),
   gesture('gesture-prone-chin-hands', '下巴靠在交疊的雙手上', 'her chin resting on her stacked hands', 'lying-prone'),
   gesture('gesture-prone-cheeks-cupped', '雙手托腮', 'her cheeks cupped in both hands', 'lying-prone'),
   gesture('gesture-prone-tuck-hair', '一手撥頭髮', 'one hand lightly tucking her hair behind her ear', 'lying-prone'),

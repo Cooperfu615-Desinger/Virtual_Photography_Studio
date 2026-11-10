@@ -1,6 +1,7 @@
 import { isPhoneProp, phoneCaptureStatus, migratePhoneCaptureLocks, COMPANION_ORBIT_ID } from './engine/phoneCapture.js';
 import { applyIndoorSeat, indoorSeatingModel, isIndoorSeatId } from './engine/indoorSeating.js';
 import { applyIndoorLean, indoorLeaningModel, isIndoorLeanId } from './engine/indoorLeaning.js';
+import { isSkirtLiftGesture } from './engine/skirtUnderlayers.js';
 import { THIGH_RISE, attachUnderlayers, describeRevealGesture, normalizeUnderlayers, prepareUnderlayerHosts, underlayerField } from './engine/manualUnderlayers.js';
 import { applyIndoorKneel, indoorKneelingModel, isIndoorKneelId } from './engine/indoorKneeling.js';
 import { registerGrokImagineResult } from './grokImagineResult.js';
@@ -5284,7 +5285,7 @@ function buildPoseComposerItem(context) {
     const head = resolveHead(null, orientation);
     const headText = isActivePoseComposerOption(head) ? `She has ${normalizePoseComposerHeadPhrase(head)}.` : '';
     const phoneStatus = phoneCaptureStatus(context.locks, specifiedAction);
-    const gesture = describeRevealGesture(resolveGesture(phoneStatus.active ? 'none' : context.locks?.gestureId, specifiedAction, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random), context.revealedUnderlayer);
+    const gesture = describeRevealGesture(resolveGesture(phoneStatus.active ? 'none' : context.locks?.gestureId, specifiedAction, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random), context.revealedUnderlayer, context.liftedSkirt);
     if (context.poseResolution) context.poseResolution.gesture = gesture;
     const prop = resolveProp(phoneStatus.selected && !phoneStatus.active ? 'none' : context.locks?.propId, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random);
     if (context.poseResolution) context.poseResolution.prop = prop;
@@ -5303,6 +5304,7 @@ function buildPoseComposerItem(context) {
         ...headIds(head), poseAnchorId: 'none',
         gestureId: gesture?.id || 'none',
         ...(gesture && context.revealedUnderlayer ? { revealedUnderlayer: context.revealedUnderlayer } : {}),
+        ...(gesture && context.liftedSkirt ? { liftedSkirt: context.liftedSkirt } : {}),
         ...(prop ? { propId: prop.id, ...(isPhoneProp(prop.id) ? {posePropId:prop.id} : {}) } : {}),
       },
     };
@@ -5799,12 +5801,14 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
     if (projection.pose?.mode === 'omit') return specifiedAction.faceEn || (specifiedAction.meta?.supineGroundOnly ? 'She is lying on her back on the ground.' : '');
     if (projection.pose?.mode === 'fullCanonical' || projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE) {
       if (!omitProp || !isPhoneProp(poseComposer.meta?.propId)) return poseComposer.en;
-      const gesture = GESTURE_OPTIONS.find(o=>o.id===poseComposer.meta?.gestureId) || null;
+      const gesture = isSkirtLiftGesture(poseComposer.meta?.gestureId)
+        ? describeRevealGesture(GESTURE_OPTIONS.find(o=>o.id===poseComposer.meta.gestureId), poseComposer.meta.revealedUnderlayer, poseComposer.meta.liftedSkirt)
+        : GESTURE_OPTIONS.find(o=>o.id===poseComposer.meta?.gestureId) || null;
       const head = headOptionFromMeta(poseComposer.meta);
       return [withLyingSurface(applyIndoorKneel(applyIndoorLean(applyIndoorSeat(actionTextWithGesture(specifiedAction,gesture).en,context.indoorSeat),context.indoorLean),context.indoorKneel),lyingSurfaceFor(specifiedAction,context.location)),isActivePoseComposerOption(head)?`She has ${normalizePoseComposerHeadPhrase(head)}.`:''].filter(Boolean).join(' ');
     }
     const head = headOptionFromMeta(poseComposer.meta);
-    const gesture = describeRevealGesture(GESTURE_OPTIONS.find(option => option.scope && option.id === poseComposer.meta?.gestureId), poseComposer.meta?.revealedUnderlayer);
+    const gesture = describeRevealGesture(GESTURE_OPTIONS.find(option => option.scope && option.id === poseComposer.meta?.gestureId), poseComposer.meta?.revealedUnderlayer, poseComposer.meta?.liftedSkirt);
     const prop = omitProp ? null : PROP_OPTIONS.find(option => option.en && option.id === poseComposer.meta?.propId) || null;
     const chestUp = projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP;
     return [withLyingSurface(applyIndoorLean(actionTextWithGesture(specifiedAction, gesture, { chestUp }, prop).upperBodyEn, context.indoorLean, { upperBody: true }), lyingSurfaceFor(specifiedAction, context.location)),
@@ -16892,7 +16896,8 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
     fixedFramingCompositionOpening,
     angle,
     orbit,
-    revealedUnderlayer: effectiveLocks.topUnderlayerId && underlayerField(effectiveLocks, lockControls, 'gestureId')?.item,
+    revealedUnderlayer: (effectiveLocks.topUnderlayerId || isSkirtLiftGesture(effectiveLocks.gestureId)) && underlayerField(effectiveLocks, lockControls, 'gestureId')?.item,
+    liftedSkirt: isSkirtLiftGesture(effectiveLocks.gestureId) ? underlayerField(effectiveLocks, lockControls, 'gestureId')?.host : undefined,
     indoorSeat: indoorSeatingModel(requestedLocks, location, lockControls),
     indoorLean: indoorLeaningModel(requestedLocks, location, lockControls),
     indoorKneel: indoorKneelingModel(requestedLocks, location, lockControls),

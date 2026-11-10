@@ -4,6 +4,7 @@ import { bottomRiseConflict } from './bottomRiseCompatibility.js';
 import { isFullyClosedOpening, closedInnerLayerIsVisible } from './outerwearClosure.js';
 import { getSpecifiedAction } from './specifiedActions.js';
 import { applicableGestureOptions, mouthHeldHemText } from './gazeGesture.js';
+import { isSkirtLiftGesture, skirtLiftText, skirtUnderlayerProfile } from './skirtUnderlayers.js';
 
 export const THIGH_RISE = Object.freeze({
   id: 'lowered-to-thighs', zh: '外褲褪至大腿',
@@ -23,7 +24,7 @@ const lower = {
 };
 const slots = [upper, lower];
 export const underlayerKeys = slots.flatMap(slot => [slot.itemKey, slot.colorKey]);
-export const isRevealGesture = id => id === 'gesture-lift-hem-both' || id === 'gesture-hold-hem-teeth';
+export const isRevealGesture = id => id === 'gesture-lift-hem-both' || id === 'gesture-hold-hem-teeth' || isSkirtLiftGesture(id);
 const options = (controls, key) => controls.find(c => c.key === key)?.options || [];
 const selected = (controls, key, id) => options(controls, key).find(o => o.id === id);
 function hasGarmentOwner(locks, controls, key) {
@@ -54,27 +55,32 @@ function hostFits(item, slot, rise) {
 
 // Both the editor and generation use the same explicit triggers and garment owners.
 export function underlayerField(locks, controls, trigger) {
-  const top = trigger === 'gestureId';
-  if (!top && trigger !== 'bottomRiseId') return null;
-  if (top ? !isRevealGesture(locks.gestureId) : !isWaistTrigger(locks.bottomRiseId)) return null;
+  const skirtLift = trigger === 'gestureId' && isSkirtLiftGesture(locks.gestureId);
+  const top = trigger === 'gestureId' && !skirtLift;
+  if (!top && !skirtLift && trigger !== 'bottomRiseId') return null;
+  if (trigger === 'gestureId' ? !isRevealGesture(locks.gestureId) : !isWaistTrigger(locks.bottomRiseId)) return null;
   if (locks.subjectCount !== '1' || locks.captureMode === 'observation'
     || [locks.characterProfileId,locks.specialSubjectId,locks.fixedCompositionSetId].some(id => id && id !== 'none')) return null;
   const owners = ['dressId', 'outfitPresetId', 'specialOutfitId'];
-  if (!top) owners.push('skirtId');
   if (owners.some(key => hasGarmentOwner(locks, controls, key))) return null;
+  const skirt = !top && selected(controls, 'skirtId', locks.skirtId);
+  const skirtActive = !top && hasGarmentOwner(locks, controls, 'skirtId');
+  if (skirtActive && (!skirtUnderlayerProfile(skirt) || (skirtLift ? !skirtLiftText(skirt) : locks.bottomRiseId !== 'ultra-low-rise'))) return null;
+  if (skirtLift && !skirtActive) return null;
   const outerwear = selected(controls, 'outerwearId', locks.outerwearId);
   if (top && isFullyClosedOpening(locks.outerwearOpeningId) && outerwear?.zh !== '全無'
       && !closedInnerLayerIsVisible(outerwear)) return null;
-  if (top && !applicableGestureOptions(getSpecifiedAction(locks,{cameraControls:controls})).some(option => option.id === locks.gestureId)) return null;
+  if (trigger === 'gestureId' && !applicableGestureOptions(getSpecifiedAction(locks,{cameraControls:controls})).some(option => option.id === locks.gestureId)) return null;
   const slot = top ? upper : lower;
-  const hosts = options(controls,slot.hostKey).filter(item => hostFits(item, slot, locks.bottomRiseId));
-  const host = selected(controls, slot.hostKey,locks[slot.hostKey]);
+  const hostKey = skirtActive ? 'skirtId' : slot.hostKey;
+  const hosts = skirtActive ? [skirt] : options(controls,slot.hostKey).filter(item => hostFits(item, slot, locks.bottomRiseId));
+  const host = selected(controls, hostKey,locks[hostKey]);
   if (host && !hosts.includes(host)) return null;
   const items = slot.ids.map(id => selected(controls, slot.hostKey,id)).filter(Boolean);
   const item = items.find(option => option.id === locks[slot.itemKey]);
   const colors = options(controls,slot.paletteKey).filter(option => option.en && option.id !== 'none');
   const color = colors.find(option => option.id === locks[slot.colorKey]);
-  return { ...slot, host, hosts, items, colors, item, color };
+  return { ...slot, hostKey, host, hosts, items, colors, item, color };
 }
 
 export function prepareUnderlayerHosts(locks, controls, random) {
@@ -107,11 +113,14 @@ export function attachUnderlayers(wardrobe, locks, controls, gestureId) {
     if (trigger === 'gestureId' && (!isRevealGesture(gestureId) || gestureId !== locks.gestureId)) continue;
     const field = underlayerField(locks, controls, trigger);
     if (!field?.item || !field.host) continue;
+    if (byHost.has(field.host.id)) continue;
     if (trigger === 'bottomRiseId' && locks.bottomRiseId === THIGH_RISE.id) {
       byHost.set(field.host.id, { item: field.item, color: field.color, loweredOuter: true });
       continue;
     }
-    const relation = trigger === 'gestureId' ? '' : lowerLayerVisibility(field.item, locks.bottomRiseId);
+    const relation = trigger === 'gestureId'
+      ? isSkirtLiftGesture(gestureId) ? 'the inner garment fully visible beneath the raised skirt' : ''
+      : lowerLayerVisibility(field.item, locks.bottomRiseId);
     byHost.set(field.host.id, { item: field.item, color: field.color, relation });
   }
   if (!byHost.size) return wardrobe;
@@ -119,8 +128,10 @@ export function attachUnderlayers(wardrobe, locks, controls, gestureId) {
     ? {...item,meta:{...item.meta,underlayer:byHost.get(item.id)}} : item);
 }
 
-export function describeRevealGesture(gesture, item) {
-  if (!gesture || !isRevealGesture(gesture.id) || !item) return gesture || null;
+export function describeRevealGesture(gesture, item, skirt) {
+  if (!gesture || !isRevealGesture(gesture.id)) return gesture || null;
+  if (isSkirtLiftGesture(gesture.id)) return { ...gesture, en: skirtLiftText(skirt) + (item ? ', fully revealing the front of the ' + midjourneyItemName(item) + ' underneath' : '') };
+  if (!item) return gesture;
   const name = midjourneyItemName(item);
   if (gesture.id === 'gesture-hold-hem-teeth') return { ...gesture, en: mouthHeldHemText(name) };
   return { ...gesture, en: gesture.en + ', fully revealing the front of the ' + name + ' underneath' };
