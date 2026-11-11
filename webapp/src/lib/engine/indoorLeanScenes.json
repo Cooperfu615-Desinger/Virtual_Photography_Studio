@@ -763,5 +763,6 @@
   "locations:其他專屬場景-other-dedicated-scenes:其他-生活感日式榻榻米房間:2": {
     "back": [],
     "shoulder": []
-  }
+  },
+  "locations:生活感室內-indoor-lifestyle:indoor-lawson-store": {"back": ["cabinet", "wall"], "shoulder": ["cabinet", "wall"]}
 }

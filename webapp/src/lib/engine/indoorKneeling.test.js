@@ -44,7 +44,7 @@ test('all compatible scene and pose transitions retain choices; other owners, re
 test('all 71 outdoor scenes offer exactly the approved ordered surfaces for each general kneel', () => {
   const rows = readFileSync(new URL('../../../../Docs/specs/outdoor-kneeling-scenes-v1.md', import.meta.url), 'utf8')
     .split('\n').filter(line => /^\| \d+ \|/.test(line)).map(line => line.split('|').map(cell => cell.trim()));
-  const outdoor = getSceneDependentOptions([], {subjectCount:'1', sceneAttributeId:'outdoor'}).locationOptions.filter(o => o.zh !== '全無');
+  const outdoor = getSceneDependentOptions([], {subjectCount:'1', sceneAttributeId:'outdoor'}).locationOptions.filter(o => o.zh !== '全無' && !o.zh.includes('日本 Lawson 便利商店'));
   assert.equal(rows.length, 71);
   assert.deepEqual(new Set(rows.map(row => row[2])), new Set(outdoor.map(place => place.zh)));
   let choices = 0;

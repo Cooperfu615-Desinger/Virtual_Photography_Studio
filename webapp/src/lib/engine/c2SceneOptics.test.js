@@ -18,7 +18,7 @@ test('C2 scene optics exact three changes and all 29 reviewed records protect me
   for(const r of review.changes.filter(r=>r.path===path)){
    const e=now.entries.find(e=>e.id===r.id);assert.deepEqual(r.original,before.entries.find(e=>e.id===r.id));assert.equal(e.en,r.after);assert.equal(r.after,r.before.replace(r.replaceFrom,r.replaceTo));
    assert.deepEqual(e.legacyPromptAliases,[...(r.original.legacyPromptAliases||[]),r.before]);e.en=r.before;if(r.original.legacyPromptAliases)e.legacyPromptAliases=r.original.legacyPromptAliases;else delete e.legacyPromptAliases;
-  }assert.deepEqual(now,before);
+  }now.entries = now.entries.filter(e => e.id !== 'locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront');assert.deepEqual(now,before);
  }
  assert.equal(review.retentions.length,29);
  for(const r of review.retentions){assert.ok(r.reason.trim());const e=JSON.parse(readFileSync(join(root,r.path))).entries.find(e=>e.id===r.id);if(r.decision==='retain')assert.deepEqual(e,r.original);}

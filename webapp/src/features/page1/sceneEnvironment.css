@@ -87,6 +87,18 @@
   background: var(--surface-translucent);
 }
 
+.scene-editor-lawson-position {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+  min-width: 0;
+  font-size: 13px;
+}
+
+.scene-editor-lawson-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.scene-editor-lawson-actions button { min-height: 40px; }
+.scene-editor-lawson-position p { margin: 0; color: var(--text-secondary); line-height: 1.5; }
+
 .scene-editor-card-header {
   display: flex;
   align-items: center;

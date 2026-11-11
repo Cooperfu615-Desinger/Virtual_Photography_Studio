@@ -1,13 +1,15 @@
 // Test-only inverse of the reviewed skirt-underlayer extension.
 // Earlier replay stages keep their original seals and receive the same source bytes.
+import { lawsonSceneHistoricalPaths, preLawsonSceneSource } from './lawsonSceneHistoricalReplay.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import review from './skirtUnderlayerHistory.json' with { type: 'json' };
 
 const hash = value => createHash('sha256').update(value).digest('hex');
-export const skirtUnderlayerHistoricalPaths = review.files.map(file => file.path);
+export const skirtUnderlayerHistoricalPaths = [...new Set([...lawsonSceneHistoricalPaths, ...review.files.map(file => file.path)])];
 
 export function preSkirtUnderlayerSource(path, source) {
+  source = preLawsonSceneSource(path, source);
   const file = review.files.find(entry => entry.path === path);
   if (!file || hash(source) !== file.afterHash) return source;
   const lines = source.toString().match(/[^\n]*\n|[^\n]+$/g) || [];

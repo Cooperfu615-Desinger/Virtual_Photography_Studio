@@ -5,7 +5,7 @@ import {seatFixture,seatFramings} from './indoorSeatFixtures.js';
 import {kneelActions} from './indoorKneelFixtures.js';
 import scenes from './indoorKneelScenes.json' with {type:'json'};
 import outdoorScenes from './outdoorKneelScenes.json' with {type:'json'};
-const controls=getLockControls(),places=getSceneDependentOptions([],{subjectCount:'1',sceneAttributeId:'indoor'}).locationOptions.filter(o=>o.zh!=='全無');
+const controls=getLockControls(),places=getSceneDependentOptions([],{subjectCount:'1',sceneAttributeId:'indoor'}).locationOptions.filter(o=>o.zh!=='全無' && !o.zh.includes('日本 Lawson 便利商店'));
 const phrases={'bed-top':'on the bed',floor:'on the floor',tatami:'on the tatami floor',carpet:'on the carpet',mat:'on a mat',ground:'on the ground',sofa:'on a sofa','reading-table':'on a reading table',bench:'on a bench',aisle:'on the aisle floor','train-seat':'on a train seat'};
 export const expectedKneel=(action,p)=>({
  'specified-kneeling-seiza':`She kneels ${p} in a seiza posture with her hips resting on her heels, her knees together, her torso upright.`,
@@ -22,7 +22,7 @@ const outdoorPhrases = {
  board:'on a wooden board', box:'on a box', stool:'on a stool', grass:'on the grass',
  chair:'on a chair', 'lounge-chair':'on a lounge chair', sand:'on the sand', rock:'on a rock',
 };
-const outdoors = getSceneDependentOptions([], {subjectCount:'1', sceneAttributeId:'outdoor'}).locationOptions.filter(o=>o.zh!=='全無');
+const outdoors = getSceneDependentOptions([], {subjectCount:'1', sceneAttributeId:'outdoor'}).locationOptions.filter(o=>o.zh!=='全無' && !o.zh.includes('日本 Lawson 便利商店'));
 for (const [region, locations, surfaces, contact, count, unique] of [
  ['indoor', places, scenes, phrases, 6240, 66],
  ['outdoor', outdoors, outdoorScenes, outdoorPhrases, 6720, 84],

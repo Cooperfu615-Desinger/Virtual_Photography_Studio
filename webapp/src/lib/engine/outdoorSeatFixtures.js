@@ -7,7 +7,7 @@ import { seatFixture, seatFramings } from './indoorSeatFixtures.js';
 /** Existing indoor behavior: both unspecified and the first effective manual seat,
  * every scene/action/framing, including all seven outputs and random draw counts. */
 export function indoorSeatingRegressionRows() {
-  const locations=getSceneDependentOptions([], {subjectCount:'1',sceneAttributeId:'indoor'}).locationOptions.filter(o=>o.zh!=='全無');
+  const locations=getSceneDependentOptions([], {subjectCount:'1',sceneAttributeId:'indoor'}).locationOptions.filter(o=>o.zh!=='全無' && !o.zh.includes('日本 Lawson 便利商店'));
   const actions=SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(o=>o.family==='sitting');
   const controls=getLockControls(), rows={};
   for(const location of locations) for(const action of actions) {

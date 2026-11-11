@@ -28,7 +28,7 @@ export function preparePreSavedCardsDownloadFiles(directory) {
       if (!existsSync(from)) continue;
       assert.ok(!lstatSync(from).isSymbolicLink() && realpathSync(from).startsWith(dir + '/'), 'Linked download fixture');
       mkdirSync(dirname(to),{recursive:true});
-      writeFileSync(to,file.path === helper ? earlier : readFileSync(from));
+      writeFileSync(to,file.path === helper ? earlier : preIndoorSeatSource(file.path, readFileSync(from)));
     }
     sources.set(helper, earlier);
     for (const [file, bytes] of prepareOriginal(scratch).sources) sources.set(file,bytes);

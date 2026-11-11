@@ -15,7 +15,7 @@ test('all 1,686 existing six-output fixtures, selections and summaries remain by
   const temp=mkdtempSync(join(tmpdir(),'outdoor-baseline-'));
   try {
     const output=join(temp,'outputs.json');
-    execFileSync(process.execPath,['../scripts/dump_prompt_outputs.mjs',output],{
+    execFileSync(process.execPath,['../scripts/dump_pre_lawson_outputs.mjs',output],{
       cwd:fileURLToPath(new URL('../../../',import.meta.url)),stdio:'pipe',timeout:120000,
     });
     const current=JSON.parse(readFileSync(output,'utf8'));

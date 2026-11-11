@@ -1385,6 +1385,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         ...control, displayLabel: SCENE_EDITOR_FIELD_LABELS[control.key] || control.label,
       })))}
       renderActions={renderSceneActions}
+      lawsonPositionVisible={source.id === 'space' && !isDuoMode && !fixedCompositionSetActive && ['室內：日本 Lawson 便利商店內', '戶外：日本 Lawson 便利商店門口'].includes(source.name)}
+      lawsonPositionMode={locks.lawsonPositionMode}
+      onLawsonPositionModeChange={mode => updateLocks(prev => ({ ...prev, lawsonPositionMode: mode }))}
       onShowLightingReference={() => setIsLightingReferenceOpen(true)}
       onShowPhotography={() => {
         setActiveSection('photography');

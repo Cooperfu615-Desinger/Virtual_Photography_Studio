@@ -41,6 +41,9 @@ export default function SceneEnvironmentControls({
   onClearImported,
   visibleTextEnabled,
   renderVisibleText,
+  lawsonPositionVisible,
+  lawsonPositionMode,
+  onLawsonPositionModeChange,
 }) {
   const headingId = useId();
   const activePanel = SOURCE_PANELS.some((panel) => panel.id === panelId) ? panelId : 'space';
@@ -92,6 +95,16 @@ export default function SceneEnvironmentControls({
           <div className="scene-editor-fields scene-editor-fields--base">
             {renderFields(['sceneAttributeId', 'locationId'])}
           </div>
+          {lawsonPositionVisible ? (
+            <div className="scene-editor-lawson-position" role="group" aria-label="人物位置安排">
+              <strong>人物位置安排</strong>
+              <div className="scene-editor-lawson-actions">
+                <button type="button" className={`secondary${lawsonPositionMode !== 'free' ? ' scene-editor-source-button-active' : ''}`} aria-pressed={lawsonPositionMode !== 'free'} onClick={() => onLawsonPositionModeChange('auto')}>自動安排</button>
+                <button type="button" className={`secondary${lawsonPositionMode === 'free' ? ' scene-editor-source-button-active' : ''}`} aria-pressed={lawsonPositionMode === 'free'} onClick={() => onLawsonPositionModeChange('free')}>自由模式</button>
+              </div>
+              <p>自動安排依姿勢選擇合適位置；手動姿勢、支撐物和道具保留。</p>
+            </div>
+          ) : null}
           <IndoorSeatField model={indoorLean || indoorKneel ? null : indoorSeat} onChange={onSeatChange} />
           <IndoorLeanField model={indoorLean} onChange={onLeanChange} />
           <IndoorKneelField model={indoorKneel} onChange={onKneelChange} />

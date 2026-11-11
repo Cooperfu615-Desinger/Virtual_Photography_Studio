@@ -22635,6 +22635,34 @@
           }
         },
         {
+          "id": "locations:生活感室內-indoor-lifestyle:indoor-lawson-store",
+          "cells": [
+            "**生活感室內 (Indoor & Lifestyle)**",
+            "",
+            "",
+            ""
+          ],
+          "columns": {
+            "1": "zh",
+            "2": "en",
+            "3": "desc"
+          },
+          "affixes": {
+            "1": [
+              "",
+              ""
+            ],
+            "2": [
+              "`",
+              "`"
+            ],
+            "3": [
+              "",
+              ""
+            ]
+          }
+        },
+        {
           "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄水泥工廠破碎輸送帶區:0",
           "cells": [
             "**地下與廢墟風格 (Abandoned & Underground)**",
@@ -24960,6 +24988,34 @@
         },
         {
           "id": "locations:城市與社群感-urban-social-snapshots:戶外-高級飯店陽台城市河景:56",
+          "cells": [
+            "**城市與社群感 (Urban & Social Snapshots)**",
+            "",
+            "",
+            ""
+          ],
+          "columns": {
+            "1": "zh",
+            "2": "en",
+            "3": "desc"
+          },
+          "affixes": {
+            "1": [
+              "",
+              ""
+            ],
+            "2": [
+              "`",
+              "`"
+            ],
+            "3": [
+              "",
+              ""
+            ]
+          }
+        },
+        {
+          "id": "locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront",
           "cells": [
             "**城市與社群感 (Urban & Social Snapshots)**",
             "",

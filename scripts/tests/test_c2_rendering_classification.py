@@ -15,7 +15,7 @@ COMPANION_ORBIT = 'camera:拍攝方位-orbit-angle:companion-view'
 def before_new_outfit(result):
     # The C2 report seals an older catalog; keep its original rows and counts.
     result = copy.deepcopy(result)
-    for added_id in [NEW_OUTFIT, COMPANION_ORBIT]:
+    for added_id in [NEW_OUTFIT, COMPANION_ORBIT, 'locations:生活感室內-indoor-lifestyle:indoor-lawson-store', 'locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront']:
         added = [row for row in result['rows'] if row['id'] == added_id]
         if added:
             assert len(added) == 1

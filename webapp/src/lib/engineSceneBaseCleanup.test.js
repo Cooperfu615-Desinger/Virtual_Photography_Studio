@@ -54,7 +54,7 @@ function gptSceneSection(prompt) {
 test('scene base keeps indoor outdoor and other location options intact', () => {
   const labels = locationOptions().map((option) => option.zh);
 
-  assert.equal(labels.length, 155);
+  assert.equal(labels.length, 157);
   assert.ok(labels.includes('室內：純潔白幕'));
   assert.ok(labels.includes('室內：夜間家庭派對'));
   assert.ok(labels.includes('室內：古書二手書店'));

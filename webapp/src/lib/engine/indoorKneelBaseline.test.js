@@ -12,7 +12,7 @@ import protectedBaseline from './indoorKneelProtectedBaseline.json' with {type:'
 import {indoorKneelProtectedRows} from './indoorKneelFixtures.js';
 test('all 1686 pre-kneel fixtures keep existing six outputs, selections and summaries',()=>{
  const temp=mkdtempSync(join(tmpdir(),'indoor-kneel-baseline-'));
- try{const path=join(temp,'outputs.json');execFileSync(process.execPath,['../scripts/dump_prompt_outputs.mjs',path],{cwd:fileURLToPath(new URL('../../../',import.meta.url)),stdio:'pipe',timeout:120000});
+ try{const path=join(temp,'outputs.json');execFileSync(process.execPath,['../scripts/dump_pre_lawson_outputs.mjs',path],{cwd:fileURLToPath(new URL('../../../',import.meta.url)),stdio:'pipe',timeout:120000});
   const current=JSON.parse(readFileSync(path,'utf8'));assert.equal(Object.keys(current).length,1686);assert.deepEqual(Object.keys(current),Object.keys(baseline.rows));
   for(const [id,hash] of Object.entries(baseline.rows))assert.equal(createHash('sha256').update(JSON.stringify(current[id])).digest('hex'),hash,id);
  }finally{rmSync(temp,{recursive:true,force:true})}

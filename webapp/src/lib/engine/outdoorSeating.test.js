@@ -9,7 +9,7 @@ import { randomizeLockKeys, setLockKeysToNone } from '../page1SectionRandom.js';
 import scenes from './outdoorSeatScenes.json' with {type:'json'};
 
 const controls=getLockControls();
-const locations=getSceneDependentOptions([], {subjectCount:'1',sceneAttributeId:'outdoor'}).locationOptions.filter(o=>o.zh!=='全無');
+const locations=getSceneDependentOptions([], {subjectCount:'1',sceneAttributeId:'outdoor'}).locationOptions.filter(o=>o.zh!=='全無' && !o.zh.includes('日本 Lawson 便利商店'));
 const actions=SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(o=>o.family==='sitting');
 const doc=name=>readFileSync(new URL('../../../../Docs/specs/'+name,import.meta.url),'utf8');
 const rows=text=>text.split('\n').filter(line=>line.startsWith('| ')).map(line=>line.split('|').slice(1,-1).map(s=>s.trim()));
@@ -19,7 +19,7 @@ const transition=(previous,candidate)=>transitionPage1Locks({previousLocks:previ
 
 test('71 × 14 ordered menus and fixed surfaces match the independent approved review tables',()=>{
   assert.equal(locations.length,71);assert.equal(actions.length,14);
-  assert.deepEqual(new Set(Object.keys(scenes)),new Set(locations.map(o=>o.id)));
+  assert.deepEqual(new Set(Object.keys(scenes).filter(id=>id!=='locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront')),new Set(locations.map(o=>o.id)));
   const scenery=new Map(rows(doc('outdoor-seating-scenes-v1.md')).filter(([n])=>/^\d+$/.test(n)).map(([,zh,options,ground])=>[zh,{options:options.split('、'),ground}]));
   const rules=rows(doc('outdoor-seating-v1.md')).filter(([names])=>names.split('、').some(name=>actions.some(a=>a.zh===name)));
   assert.equal(scenery.size,71);

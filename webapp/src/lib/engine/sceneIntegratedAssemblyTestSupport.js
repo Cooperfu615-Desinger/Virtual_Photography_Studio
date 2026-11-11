@@ -17,6 +17,10 @@ export const OUTPUT_FIELDS = Object.freeze(Object.keys(PROMPT_OUTPUT_CONTRACTS).
 // Freeze the pre-extension body pool for immutable legacy random/selection hashes.
 // Current behavior and the new option remain covered by live-catalog tests.
 export const PRE_HOURGLASS_BODY_CATALOG = getKnowledgeBaseSnapshot();
+// Historical random-pool baselines predate both Lawson scenes.
+for (const [category, items] of Object.entries(PRE_HOURGLASS_BODY_CATALOG.Locations)) {
+  PRE_HOURGLASS_BODY_CATALOG.Locations[category] = items.filter(item => !item.zh.includes('日本 Lawson 便利商店'));
+}
 PRE_HOURGLASS_BODY_CATALOG.Character['體態 (Body Type)'] = LEGACY_BODY_CATALOG_ITEMS
   .filter((item) => item.zh !== '豐胸纖腰沙漏身形');
 prepareImmutableRuntimeLibrary(PRE_HOURGLASS_BODY_CATALOG);

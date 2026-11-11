@@ -81,5 +81,6 @@
   "locations:攝影棚與背景-studio-sets:室內-crt-電視牆攝影棚:13": ["floor", "chair", "stool"],
   "locations:攝影棚與背景-studio-sets:室內-多色塊撞色背景:14": ["floor", "chair", "stool"],
   "locations:其他專屬場景-other-dedicated-scenes:其他-白色床鋪:1": ["bed-edge", "bed-top"],
-  "locations:其他專屬場景-other-dedicated-scenes:其他-生活感日式榻榻米房間:2": ["cushion", "floor"]
+  "locations:其他專屬場景-other-dedicated-scenes:其他-生活感日式榻榻米房間:2": ["cushion", "floor"],
+  "locations:生活感室內-indoor-lifestyle:indoor-lawson-store": ["stool", "floor"]
 }

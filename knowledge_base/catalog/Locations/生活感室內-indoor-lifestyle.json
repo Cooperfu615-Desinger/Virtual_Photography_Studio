@@ -710,6 +710,22 @@
           ]
         }
       }
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:indoor-lawson-store",
+      "legacyIds": [
+        "locations:生活感室內-indoor-lifestyle:室內-日本-lawson-便利商店內:39"
+      ],
+      "zh": "室內：日本 Lawson 便利商店內",
+      "en": "Japanese Lawson convenience store interior, blue-and-white Lawson branding, Japanese snack and onigiri shelves, refrigerated drink cases, checkout counter, tiled floor",
+      "desc": "日本 Lawson 便利商店內，以藍白識別、日式零食與飯糰貨架、飲料冷藏櫃、收銀台和地板為場景元素。",
+      "meta": {
+        "semantic": {
+          "tags": [
+            "indoor"
+          ]
+        }
+      }
     }
   ]
 }

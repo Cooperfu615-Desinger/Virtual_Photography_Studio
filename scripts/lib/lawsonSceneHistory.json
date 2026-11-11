@@ -1,0 +1,993 @@
+{
+  "baseCommit": "7a22389704f93d7953bbd31582de523f4baceee8",
+  "files": [
+    {
+      "path": "knowledge_base/catalog/Locations/城市與社群感-urban-social-snapshots.json",
+      "beforeHash": "73d5bf7639fcaa1f32be157a7e7b712f4c0ac71e583d549efe37d1afe46b9ce2",
+      "afterHash": "c8bd277ca4e39b0e138169e31215d84c439324c6d106f631054e56276b1e4b12",
+      "edits": [
+        {
+          "line": 1040,
+          "before": [],
+          "after": [
+            "    },\n",
+            "    {\n",
+            "      \"id\": \"locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront\",\n",
+            "      \"legacyIds\": [\n",
+            "        \"locations:城市與社群感-urban-social-snapshots:戶外-日本-lawson-便利商店門口:57\"\n",
+            "      ],\n",
+            "      \"zh\": \"戶外：日本 Lawson 便利商店門口\",\n",
+            "      \"en\": \"Japanese Lawson convenience store storefront, blue-and-white Lawson sign, glass automatic entrance doors, shop windows with merchandise inside, sidewalk and building facade\",\n",
+            "      \"desc\": \"日本 Lawson 便利商店門口，以藍白招牌、玻璃自動門、可見商品的櫥窗、店面立面與人行道為場景元素。\",\n",
+            "      \"meta\": {\n",
+            "        \"semantic\": {\n",
+            "          \"tags\": [\n",
+            "            \"urban\",\n",
+            "            \"outdoor\",\n",
+            "            \"commercial\"\n",
+            "          ]\n",
+            "        }\n",
+            "      }\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/catalog/Locations/生活感室內-indoor-lifestyle.json",
+      "beforeHash": "f4b84f455b2a1f9b8e2db752b31b66f5411d563a5d4d1c8f468feea3b8a122ef",
+      "afterHash": "47e9a9b23ff1e0aee338bd000f0d79dfd36a3b179fcaa31a1ca422d13f7e6631",
+      "edits": [
+        {
+          "line": 712,
+          "before": [],
+          "after": [
+            "    },\n",
+            "    {\n",
+            "      \"id\": \"locations:生活感室內-indoor-lifestyle:indoor-lawson-store\",\n",
+            "      \"legacyIds\": [\n",
+            "        \"locations:生活感室內-indoor-lifestyle:室內-日本-lawson-便利商店內:39\"\n",
+            "      ],\n",
+            "      \"zh\": \"室內：日本 Lawson 便利商店內\",\n",
+            "      \"en\": \"Japanese Lawson convenience store interior, blue-and-white Lawson branding, Japanese snack and onigiri shelves, refrigerated drink cases, checkout counter, tiled floor\",\n",
+            "      \"desc\": \"日本 Lawson 便利商店內，以藍白識別、日式零食與飯糰貨架、飲料冷藏櫃、收銀台和地板為場景元素。\",\n",
+            "      \"meta\": {\n",
+            "        \"semantic\": {\n",
+            "          \"tags\": [\n",
+            "            \"indoor\"\n",
+            "          ]\n",
+            "        }\n",
+            "      }\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/catalog/id_registry.json",
+      "beforeHash": "69308444b50bde230bc7f805c1d6acc6e600c341dacd74857da8db6334330748",
+      "afterHash": "4eac7ff8443f72f18cfc8f5f52cb55ab00ea75dd8176bbd5097340268f824309",
+      "edits": [
+        {
+          "line": 7368,
+          "before": [],
+          "after": [
+            "    },\n",
+            "    {\n",
+            "      \"id\": \"locations:生活感室內-indoor-lifestyle:indoor-lawson-store\",\n",
+            "      \"initialGroup\": \"locations\",\n",
+            "      \"initialCategory\": \"生活感室內 (Indoor & Lifestyle)\",\n",
+            "      \"createdFrom\": \"7a22389704f93d7953bbd31582de523f4baceee8\",\n",
+            "      \"status\": \"active\",\n",
+            "      \"decisionRef\": \"Docs/specs/lawson-scene-position-v1.md\"\n",
+            "    },\n",
+            "    {\n",
+            "      \"id\": \"locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront\",\n",
+            "      \"initialGroup\": \"locations\",\n",
+            "      \"initialCategory\": \"城市與社群感 (Urban & Social Snapshots)\",\n",
+            "      \"createdFrom\": \"7a22389704f93d7953bbd31582de523f4baceee8\",\n",
+            "      \"status\": \"active\",\n",
+            "      \"decisionRef\": \"Docs/specs/lawson-scene-position-v1.md\"\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/catalog/index.json",
+      "beforeHash": "a5df714d79da7d92ef2ca8e958a5b82e9563887668750b62e890d1942056114e",
+      "afterHash": "09ab9ed0ce301db7ac250063789565deaf2270ea7df94bf4b9342af983cd2a49",
+      "edits": [
+        {
+          "line": 22637,
+          "before": [],
+          "after": [
+            "          \"id\": \"locations:生活感室內-indoor-lifestyle:indoor-lawson-store\",\n",
+            "          \"cells\": [\n",
+            "            \"**生活感室內 (Indoor & Lifestyle)**\",\n",
+            "            \"\",\n",
+            "            \"\",\n",
+            "            \"\"\n",
+            "          ],\n",
+            "          \"columns\": {\n",
+            "            \"1\": \"zh\",\n",
+            "            \"2\": \"en\",\n",
+            "            \"3\": \"desc\"\n",
+            "          },\n",
+            "          \"affixes\": {\n",
+            "            \"1\": [\n",
+            "              \"\",\n",
+            "              \"\"\n",
+            "            ],\n",
+            "            \"2\": [\n",
+            "              \"`\",\n",
+            "              \"`\"\n",
+            "            ],\n",
+            "            \"3\": [\n",
+            "              \"\",\n",
+            "              \"\"\n",
+            "            ]\n",
+            "          }\n",
+            "        },\n",
+            "        {\n"
+          ]
+        },
+        {
+          "line": 24990,
+          "before": [],
+          "after": [
+            "          \"cells\": [\n",
+            "            \"**城市與社群感 (Urban & Social Snapshots)**\",\n",
+            "            \"\",\n",
+            "            \"\",\n",
+            "            \"\"\n",
+            "          ],\n",
+            "          \"columns\": {\n",
+            "            \"1\": \"zh\",\n",
+            "            \"2\": \"en\",\n",
+            "            \"3\": \"desc\"\n",
+            "          },\n",
+            "          \"affixes\": {\n",
+            "            \"1\": [\n",
+            "              \"\",\n",
+            "              \"\"\n",
+            "            ],\n",
+            "            \"2\": [\n",
+            "              \"`\",\n",
+            "              \"`\"\n",
+            "            ],\n",
+            "            \"3\": [\n",
+            "              \"\",\n",
+            "              \"\"\n",
+            "            ]\n",
+            "          }\n",
+            "        },\n",
+            "        {\n",
+            "          \"id\": \"locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront\",\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/locations_and_sets.md",
+      "beforeHash": "87caa77650555ecb1cdee1c4ef3a3f5d30a1a36a08c7d66bbeec09c6b3a4cb6a",
+      "afterHash": "77a9993ca3dbfed49e4dd16bb5b67d7a57202c58a0080330bd75b92e486530c2",
+      "edits": [
+        {
+          "line": 63,
+          "before": [],
+          "after": [
+            "| **生活感室內 (Indoor & Lifestyle)** | 室內：日本 Lawson 便利商店內 | `Japanese Lawson convenience store interior, blue-and-white Lawson branding, Japanese snack and onigiri shelves, refrigerated drink cases, checkout counter, tiled floor` | 日本 Lawson 便利商店內，以藍白識別、日式零食與飯糰貨架、飲料冷藏櫃、收銀台和地板為場景元素。 |\n"
+          ]
+        },
+        {
+          "line": 148,
+          "before": [],
+          "after": [
+            "| **城市與社群感 (Urban & Social Snapshots)** | 戶外：日本 Lawson 便利商店門口 | `Japanese Lawson convenience store storefront, blue-and-white Lawson sign, glass automatic entrance doors, shop windows with merchandise inside, sidewalk and building facade` | 日本 Lawson 便利商店門口，以藍白招牌、玻璃自動門、可見商品的櫥窗、店面立面與人行道為場景元素。 |\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "scripts/tests/test_c2_rendering_classification.py",
+      "beforeHash": "d7463c591402649e00b3973dfd50068a2c4beb24312da4dde6f52fc4dc1a3d2a",
+      "afterHash": "0b4d485b3884ea39c525694c6c13b0fa616a405a3a6b82c5155084b895ce6fba",
+      "edits": [
+        {
+          "line": 17,
+          "before": [
+            "    for added_id in [NEW_OUTFIT, COMPANION_ORBIT]:\n"
+          ],
+          "after": [
+            "    for added_id in [NEW_OUTFIT, COMPANION_ORBIT, 'locations:生活感室內-indoor-lifestyle:indoor-lawson-store', 'locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront']:\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "scripts/tests/test_catalog_cutover.py",
+      "beforeHash": "5801934338d683487be854e6b6a49afe20f81bde901c0d4715b787b03b8fd0ab",
+      "afterHash": "aa2a56040ddebfcc1b2ae5867ae7aec10dcf918e852721fae6db639c84be1ffa",
+      "edits": [
+        {
+          "line": 55,
+          "before": [
+            "        self.assertEqual(len(entries) - len(added) - len(companion), 1050)\n"
+          ],
+          "after": [
+            "        lawson = [row for row in entries if row['id'] in {'locations:生活感室內-indoor-lifestyle:indoor-lawson-store', 'locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront'}]\n",
+            "        self.assertEqual(len(lawson), 2)\n",
+            "        self.assertEqual(len(entries) - len(added) - len(companion) - len(lawson), 1050)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/components/Page1Workspace.jsx",
+      "beforeHash": "c2c81999f00fae4a6efd83830349d3bb5ebc627623ef20689626876d35e2e61a",
+      "afterHash": "b9fad15e637a56655fb4716757cd58902703214080e0f9c17816a3e0e969f8ce",
+      "edits": [
+        {
+          "line": 1387,
+          "before": [],
+          "after": [
+            "      lawsonPositionVisible={source.id === 'space' && !isDuoMode && !fixedCompositionSetActive && ['室內：日本 Lawson 便利商店內', '戶外：日本 Lawson 便利商店門口'].includes(source.name)}\n",
+            "      lawsonPositionMode={locks.lawsonPositionMode}\n",
+            "      onLawsonPositionModeChange={mode => updateLocks(prev => ({ ...prev, lawsonPositionMode: mode }))}\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/components/SceneEnvironmentControls.jsx",
+      "beforeHash": "f3056916ea671cf6375a5c7cb543a466350eb248626c523a0bd59c733b0871c7",
+      "afterHash": "c3d321b7f5f356e4823d88214322407b0f106190cec6bf9ebd04208d0a86d37e",
+      "edits": [
+        {
+          "line": 43,
+          "before": [],
+          "after": [
+            "  lawsonPositionVisible,\n",
+            "  lawsonPositionMode,\n",
+            "  onLawsonPositionModeChange,\n"
+          ]
+        },
+        {
+          "line": 97,
+          "before": [],
+          "after": [
+            "          {lawsonPositionVisible ? (\n",
+            "            <div className=\"scene-editor-lawson-position\" role=\"group\" aria-label=\"人物位置安排\">\n",
+            "              <strong>人物位置安排</strong>\n",
+            "              <div className=\"scene-editor-lawson-actions\">\n",
+            "                <button type=\"button\" className={`secondary${lawsonPositionMode !== 'free' ? ' scene-editor-source-button-active' : ''}`} aria-pressed={lawsonPositionMode !== 'free'} onClick={() => onLawsonPositionModeChange('auto')}>自動安排</button>\n",
+            "                <button type=\"button\" className={`secondary${lawsonPositionMode === 'free' ? ' scene-editor-source-button-active' : ''}`} aria-pressed={lawsonPositionMode === 'free'} onClick={() => onLawsonPositionModeChange('free')}>自由模式</button>\n",
+            "              </div>\n",
+            "              <p>自動安排依姿勢選擇合適位置；手動姿勢、支撐物和道具保留。</p>\n",
+            "            </div>\n",
+            "          ) : null}\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/data/database.json",
+      "beforeHash": "3ab60b84ae8d9676eb5665bdaefe9491133976dec82e879dabded65448a34162",
+      "afterHash": "fdf85e84935c99fc1b6a3fdcf04eb9972673ec441f8fcdd07b12776bcf037488",
+      "edits": [
+        {
+          "line": 16256,
+          "before": [],
+          "after": [
+            "      },\n",
+            "      {\n",
+            "        \"zh\": \"室內：日本 Lawson 便利商店內\",\n",
+            "        \"en\": \"Japanese Lawson convenience store interior, blue-and-white Lawson branding, Japanese snack and onigiri shelves, refrigerated drink cases, checkout counter, tiled floor\",\n",
+            "        \"desc\": \"日本 Lawson 便利商店內，以藍白識別、日式零食與飯糰貨架、飲料冷藏櫃、收銀台和地板為場景元素。\",\n",
+            "        \"meta\": {\n",
+            "          \"semantic\": {\n",
+            "            \"tags\": [\n",
+            "              \"indoor\"\n",
+            "            ]\n",
+            "          }\n",
+            "        },\n",
+            "        \"stableId\": \"locations:生活感室內-indoor-lifestyle:indoor-lawson-store\",\n",
+            "        \"legacyIds\": [\n",
+            "          \"locations:生活感室內-indoor-lifestyle:室內-日本-lawson-便利商店內:39\"\n",
+            "        ]\n"
+          ]
+        },
+        {
+          "line": 17829,
+          "before": [],
+          "after": [
+            "        ]\n",
+            "      },\n",
+            "      {\n",
+            "        \"zh\": \"戶外：日本 Lawson 便利商店門口\",\n",
+            "        \"en\": \"Japanese Lawson convenience store storefront, blue-and-white Lawson sign, glass automatic entrance doors, shop windows with merchandise inside, sidewalk and building facade\",\n",
+            "        \"desc\": \"日本 Lawson 便利商店門口，以藍白招牌、玻璃自動門、可見商品的櫥窗、店面立面與人行道為場景元素。\",\n",
+            "        \"meta\": {\n",
+            "          \"semantic\": {\n",
+            "            \"tags\": [\n",
+            "              \"urban\",\n",
+            "              \"outdoor\",\n",
+            "              \"commercial\"\n",
+            "            ]\n",
+            "          }\n",
+            "        },\n",
+            "        \"stableId\": \"locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront\",\n",
+            "        \"legacyIds\": [\n",
+            "          \"locations:城市與社群感-urban-social-snapshots:戶外-日本-lawson-便利商店門口:57\"\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/page1/sceneEnvironment.css",
+      "beforeHash": "2c3629a6cb716286ebde52458232b67845463f22510c954b7b8eae9d6e35cba1",
+      "afterHash": "d5c02d99514edba6ba06834450b8cb7b031d743920c3b090ca8444cb31fdf046",
+      "edits": [
+        {
+          "line": 88,
+          "before": [],
+          "after": [
+            "\n",
+            ".scene-editor-lawson-position {\n",
+            "  display: grid;\n",
+            "  gap: 8px;\n",
+            "  margin-top: 16px;\n",
+            "  min-width: 0;\n",
+            "  font-size: 13px;\n",
+            "}\n",
+            "\n",
+            ".scene-editor-lawson-actions { display: flex; flex-wrap: wrap; gap: 8px; }\n",
+            ".scene-editor-lawson-actions button { min-height: 40px; }\n",
+            ".scene-editor-lawson-position p { margin: 0; color: var(--text-secondary); line-height: 1.5; }\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/page1/sceneLocationBrowseGroups.js",
+      "beforeHash": "69956cee0e17b34cc7789191aef241539c7d8b229a5b8a6d04e0ccff50f439ab",
+      "afterHash": "53a9cc7528932101b7bbeda99fbbf80fecbb276941f7bdc079196965b990b4e8",
+      "edits": [
+        {
+          "line": 130,
+          "before": [],
+          "after": [
+            "      \"室內：日本 Lawson 便利商店內\",\n",
+            "      \"戶外：日本 Lawson 便利商店門口\",\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/saved-cards/cardCodec.js",
+      "beforeHash": "1f48d58cc3abd46f0d735cb3c635211aeed1a0743ad694b64411b3f0a025b30b",
+      "afterHash": "57a1fd71f0b1a5682924aecfe027796c293a73a565d5674297b2e9bd61bebd17",
+      "edits": [
+        {
+          "line": 655,
+          "before": [],
+          "after": [
+            "  // Older Lawson test exports predate the structured PAGE1 snapshot.\n",
+            "  const lawsonMatch = text.match(/<!-- VPStudio Lawson Position: (\\{[^\\n]*\\}) -->/);\n",
+            "  if (lawsonMatch) {\n",
+            "    try {\n",
+            "      const position = JSON.parse(lawsonMatch[1]);\n",
+            "      const location = controls.find(control => control.key === 'locationId')?.options\n",
+            "        ?.find(option => (option.id === position.locationId || option.legacyIds?.includes(position.locationId))\n",
+            "          && /^(室內|戶外)：日本 Lawson 便利商店/.test(option.zh));\n",
+            "      if (location && ['auto', 'free'].includes(position.mode)) {\n",
+            "        parsed.locks.locationId = location.id;\n",
+            "        parsed.locks.lawsonPositionMode = position.mode;\n",
+            "      }\n",
+            "    } catch { /* Invalid optional metadata does not prevent prose import. */ }\n",
+            "  }\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/saved-cards/page1MarkdownSnapshot.js",
+      "beforeHash": "7a394af0f3698fb0ed6aec2bfbc19ed4b159d76bf1cd01c7d60a5d1108c40099",
+      "afterHash": "de650fd21c239dcaa7808756be9fc5bbbdccf8d1892a07ac0fef7ef73d845473",
+      "edits": [
+        {
+          "line": 46,
+          "before": [
+            "  keys(selection, [...Object.keys(defaults), 'indoorSeatId', 'indoorLeanId', 'indoorKneelId', ...underlayerKeys], Object.keys(defaults));\n"
+          ],
+          "after": [
+            "  keys(selection, [...Object.keys(defaults), 'indoorSeatId', 'indoorLeanId', 'indoorKneelId', 'lawsonPositionMode', ...underlayerKeys], Object.keys(defaults));\n"
+          ]
+        },
+        {
+          "line": 50,
+          "before": [],
+          "after": [
+            "      continue;\n",
+            "    }\n",
+            "    if (key === 'lawsonPositionMode') {\n",
+            "      if (!['auto', 'free'].includes(value)) fail(key);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine.js",
+      "beforeHash": "1c6f1e29abff0ed9da85c8e5b72a3b962300b09da271a7032fa27c2fb2dd3468",
+      "afterHash": "774bc35f029aa9d5c1c0e061f23a804a6d6f2e4f5789a073b05113751ccdf8fd",
+      "edits": [
+        {
+          "line": 150,
+          "before": [],
+          "after": [
+            "import { isLawsonLocation, lawsonPositionClause, resolveLawsonScenePosition } from './engine/lawsonScenePosition.js';\n"
+          ]
+        },
+        {
+          "line": 3379,
+          "before": [],
+          "after": [
+            "  if (['auto', 'free'].includes(rawLocks.lawsonPositionMode)) normalized.lawsonPositionMode = rawLocks.lawsonPositionMode;\n"
+          ]
+        },
+        {
+          "line": 5925,
+          "before": [
+            "  const locationSource = context?.location && !isNoneLikeItem(context.location) ? context.location.en : '';\n"
+          ],
+          "after": [
+            "  let locationSource = context?.location && !isNoneLikeItem(context.location) ? context.location.en : '';\n",
+            "  const positionClause = lawsonPositionClause(context?.lawsonPosition);\n",
+            "  if (positionClause && locationSource) {\n",
+            "    const comma = locationSource.indexOf(',');\n",
+            "    locationSource = comma < 0 ? `${locationSource} with ${positionClause}`\n",
+            "      : `${locationSource.slice(0, comma)} with ${positionClause}${locationSource.slice(comma)}`;\n",
+            "  }\n"
+          ]
+        },
+        {
+          "line": 16074,
+          "before": [
+            "  ].filter(Boolean).map(ensureTerminalPeriod).join(' ') : [getImportedWorldSceneArchitectureText(fullContext), value(fullContext.location), fullContext.projectedScene.sceneAccentText].filter(Boolean).join(', ');\n"
+          ],
+          "after": [
+            "  ].filter(Boolean).map(ensureTerminalPeriod).join(' ') : [getImportedWorldSceneArchitectureText(fullContext), fullContext.lawsonPosition ? fullContext.projectedScene.locationText : value(fullContext.location), fullContext.projectedScene.sceneAccentText].filter(Boolean).join(', ');\n"
+          ]
+        },
+        {
+          "line": 16515,
+          "before": [],
+          "after": [
+            "  if (isLawsonLocation(context.location?.zh)) snapshot.lawsonPositionMode = context.locks?.lawsonPositionMode === 'free' ? 'free' : 'auto';\n"
+          ]
+        },
+        {
+          "line": 16939,
+          "before": [],
+          "after": [
+            "  const resolvedPose = extractCharacterSlots(character).poseComposer;\n",
+            "  context.lawsonPosition = resolveLawsonScenePosition({\n",
+            "    locationName: location?.zh,\n",
+            "    mode: effectiveLocks.lawsonPositionMode,\n",
+            "    eligible: subject.count === 1 && !isSpecialSubject(subject) && !subject.reference\n",
+            "      && !context.characterProfilePrompt && !context.observationCapture && !supineSurfaceOnly\n",
+            "      && !isFixedCompositionSetActive(fixedCompositionSet) && !getImportedWorldSceneArchitectureText(context)\n",
+            "      && !context.indoorSeat?.selectedId && !context.indoorLean?.selectedId && !context.indoorKneel?.selectedId\n",
+            "      && !extractCharacterSlots(character).actionPose && !extractCharacterSlots(character).specialAction,\n",
+            "    pose: resolvedPose?.meta,\n",
+            "  });\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/c2SceneOptics.test.js",
+      "beforeHash": "1cc7fcf9b52a86adfeaff254a6bbbff60bf37ca68145a60e014eae556f9f1e36",
+      "afterHash": "15161947800eccaf88ec820c8ddea9dba7d38e9dd69363febf0022ce0c87c8e2",
+      "edits": [
+        {
+          "line": 20,
+          "before": [
+            "  }assert.deepEqual(now,before);\n"
+          ],
+          "after": [
+            "  }now.entries = now.entries.filter(e => e.id !== 'locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront');assert.deepEqual(now,before);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/c7CapturePairing.test.js",
+      "beforeHash": "4c28d462499edc3fdbb423f8340bcd5d532dac0dfcd559b07c2fc5b19fdac13d",
+      "afterHash": "726df490e8734a012812df4480b8b6121f22a05219224bb0d8f7f17fbe51297a",
+      "edits": [
+        {
+          "line": 26,
+          "before": [
+            "  assert.equal(m.review[kind].length,opts(key).length);\n",
+            "  for(const item of opts(key)){const row=m.review[kind].find(x=>x.id===item.id);assert.ok(row);assert.equal(row.en,item.en);assert.ok(row.reason);assert.deepEqual(h.reviewedCaptureFlags(kind,item),row.flags);assert.deepEqual(h.reviewedCaptureFlags(kind,{...item,en:item.en+' edited'}),[]);assert.deepEqual(h.reviewedCaptureFlags(kind,{...item,id:'unknown'}),[]);}\n"
+          ],
+          "after": [
+            "  const reviewed = opts(key).filter(item => !item.zh.includes('日本 Lawson 便利商店'));\n",
+            "  assert.equal(m.review[kind].length,reviewed.length);\n",
+            "  for(const item of reviewed){const row=m.review[kind].find(x=>x.id===item.id);assert.ok(row);assert.equal(row.en,item.en);assert.ok(row.reason);assert.deepEqual(h.reviewedCaptureFlags(kind,item),row.flags);assert.deepEqual(h.reviewedCaptureFlags(kind,{...item,en:item.en+' edited'}),[]);assert.deepEqual(h.reviewedCaptureFlags(kind,{...item,id:'unknown'}),[]);}\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/catalogSemanticSource.test.js",
+      "beforeHash": "3ad590dfd6a51f13c79313af1219c6445cb4f766ed7322e96f71f9eaeeea488a",
+      "afterHash": "1f244e9d250fe3065be398ab462f29ee1f67494206d2c72625116688c547de99",
+      "edits": [
+        {
+          "line": 32,
+          "before": [
+            "  assert.equal(added.length,1);assert.equal(companion.length,1);assert.equal(rows.length-added.length-companion.length,1050);\n"
+          ],
+          "after": [
+            "  assert.equal(added.length,1);assert.equal(companion.length,1);assert.equal(rows.filter(row => row.stableId?.endsWith('lawson-store') || row.stableId?.endsWith('lawson-storefront')).length,2);assert.equal(rows.length-added.length-companion.length-2,1050);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/catalogSnapshot.test.js",
+      "beforeHash": "1cac60f08ddd2a61d075f0a05f399c28476fa2db65affafc9bab2a552410c42a",
+      "afterHash": "92ed7a636e91e239d85f3bcfbf459acacf90f1fd09f0b754940223d484174bde",
+      "edits": [
+        {
+          "line": 49,
+          "before": [
+            "  assert.equal(originalCount, 1052);\n"
+          ],
+          "after": [
+            "  assert.equal(originalCount, 1054);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/gptSceneVisibilityFixtures.js",
+      "beforeHash": "938ac1748518019ed0b814e429403031b7a5a35f60c2a817654e14791879e2df",
+      "afterHash": "3f9396268a075211dc02a18b3a6147fd7b69522ae3309fd20ceaf097ddbcb1eb",
+      "edits": [
+        {
+          "line": 7,
+          "before": [
+            "  .filter(o => /^(室內|戶外)：/.test(o.zh) && o.zh !== '室內：多色塊撞色背景').flatMap(o => FULL_CAMERA_ANGLES.flatMap(angle =>\n"
+          ],
+          "after": [
+            "  .filter(o => /^(室內|戶外)：/.test(o.zh) && o.zh !== '室內：多色塊撞色背景' && !o.zh.includes('日本 Lawson 便利商店')).flatMap(o => FULL_CAMERA_ANGLES.flatMap(angle =>\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/indoorKneelBaseline.test.js",
+      "beforeHash": "362258f741c7d3612212ab82a35646cf698904aa61c7cda5b71be9ae16704fc0",
+      "afterHash": "53cd46263ccd3d0b27ebac6ace0aebce015cba3fbe2e3742544e0e390012d75c",
+      "edits": [
+        {
+          "line": 14,
+          "before": [
+            " try{const path=join(temp,'outputs.json');execFileSync(process.execPath,['../scripts/dump_prompt_outputs.mjs',path],{cwd:fileURLToPath(new URL('../../../',import.meta.url)),stdio:'pipe',timeout:120000});\n"
+          ],
+          "after": [
+            " try{const path=join(temp,'outputs.json');execFileSync(process.execPath,['../scripts/dump_pre_lawson_outputs.mjs',path],{cwd:fileURLToPath(new URL('../../../',import.meta.url)),stdio:'pipe',timeout:120000});\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/indoorKneelFixtures.js",
+      "beforeHash": "7196d27a4208afa0dd1a3bb37dbff3c2107dc85ad2f77ee0683b223e0b1f1765",
+      "afterHash": "ee68d1aee76912066b432fbb372626248301b74ccfd2f36695f78e9b99bad664",
+      "edits": [
+        {
+          "line": 9,
+          "before": [
+            "  const places = attribute => getSceneDependentOptions([], { subjectCount:'1', sceneAttributeId:attribute }).locationOptions.filter(o => o.zh !== '全無');\n"
+          ],
+          "after": [
+            "  const places = attribute => getSceneDependentOptions([], { subjectCount:'1', sceneAttributeId:attribute }).locationOptions.filter(o => o.zh !== '全無' && !o.zh.includes('日本 Lawson 便利商店'));\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/indoorKneelPrompt.test.js",
+      "beforeHash": "b760a16b9b7b311a2abc30659948a3866c39878efa955f5fe9108600ba16ab00",
+      "afterHash": "74b3ac6eed3d9cb53a79a1ab6f855c32f082bbea46e89b6021bda0c8542e2391",
+      "edits": [
+        {
+          "line": 7,
+          "before": [
+            "const controls=getLockControls(),places=getSceneDependentOptions([],{subjectCount:'1',sceneAttributeId:'indoor'}).locationOptions.filter(o=>o.zh!=='全無');\n"
+          ],
+          "after": [
+            "const controls=getLockControls(),places=getSceneDependentOptions([],{subjectCount:'1',sceneAttributeId:'indoor'}).locationOptions.filter(o=>o.zh!=='全無' && !o.zh.includes('日本 Lawson 便利商店'));\n"
+          ]
+        },
+        {
+          "line": 24,
+          "before": [
+            "const outdoors = getSceneDependentOptions([], {subjectCount:'1', sceneAttributeId:'outdoor'}).locationOptions.filter(o=>o.zh!=='全無');\n"
+          ],
+          "after": [
+            "const outdoors = getSceneDependentOptions([], {subjectCount:'1', sceneAttributeId:'outdoor'}).locationOptions.filter(o=>o.zh!=='全無' && !o.zh.includes('日本 Lawson 便利商店'));\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/indoorKneelScenes.json",
+      "beforeHash": "88da105a2fcb84d6eea73e71c9ffd5301afb6ab176bb23a582c9cfdbad3db1d0",
+      "afterHash": "e6de423b2985489eedf0cc32f8f65c6dfaf49ef094ca04dcb94ad6a7452a0c4a",
+      "edits": [
+        {
+          "line": 270,
+          "before": [
+            "  ]\n"
+          ],
+          "after": [
+            "  ],\n",
+            "  \"locations:生活感室內-indoor-lifestyle:indoor-lawson-store\": [\"floor\"]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/indoorKneeling.test.js",
+      "beforeHash": "c0a9939f6e1742e9eb2a4c7d5a1fe7b027ef5d13d93e5799fcb6cabae50c619a",
+      "afterHash": "a8444a01c7d675bf87eed5e2198c636efac330ea66495dbad346209d4eaa5521",
+      "edits": [
+        {
+          "line": 46,
+          "before": [
+            "  const outdoor = getSceneDependentOptions([], {subjectCount:'1', sceneAttributeId:'outdoor'}).locationOptions.filter(o => o.zh !== '全無');\n"
+          ],
+          "after": [
+            "  const outdoor = getSceneDependentOptions([], {subjectCount:'1', sceneAttributeId:'outdoor'}).locationOptions.filter(o => o.zh !== '全無' && !o.zh.includes('日本 Lawson 便利商店'));\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/indoorLeanBaseline.test.js",
+      "beforeHash": "1b00e66e4c2bbb7cd984c4db8d98412428694c54c5cca3c8e1a90e09488f0690",
+      "afterHash": "fe0ddd692e9bb03472f43624272c962a9185df1130bd692b4a95d57c97a47f4c",
+      "edits": [
+        {
+          "line": 15,
+          "before": [
+            "    execFileSync(process.execPath,['../scripts/dump_prompt_outputs.mjs',output],{\n"
+          ],
+          "after": [
+            "    execFileSync(process.execPath,['../scripts/dump_pre_lawson_outputs.mjs',output],{\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/indoorLeanScenes.json",
+      "beforeHash": "7706dad8049847a616a04b3267fc9a9c38de130e1d208367eb9a8b5387b8bbe0",
+      "afterHash": "2169cdb2b5b7f8f41fddd43fd65af7d57073e598ddf6e49f5c854a5c65c276ad",
+      "edits": [
+        {
+          "line": 765,
+          "before": [
+            "  }\n"
+          ],
+          "after": [
+            "  },\n",
+            "  \"locations:生活感室內-indoor-lifestyle:indoor-lawson-store\": {\"back\": [\"cabinet\", \"wall\"], \"shoulder\": [\"cabinet\", \"wall\"]}\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/indoorLeaning.test.js",
+      "beforeHash": "b7ac0d7ea3599d1e8fc15485135225008ac42c9ae227c31ac4d3d21d43cdfd70",
+      "afterHash": "ea2451dd093535677036baa151c5a0ea86ee8a75090b881e4bb14dcad563331c",
+      "edits": [
+        {
+          "line": 10,
+          "before": [
+            "const all = getSceneDependentOptions([], {subjectCount:'1', sceneAttributeId:'indoor'}).locationOptions.filter(o=>o.zh!=='全無');\n"
+          ],
+          "after": [
+            "const all = getSceneDependentOptions([], {subjectCount:'1', sceneAttributeId:'indoor'}).locationOptions.filter(o=>o.zh!=='全無' && !o.zh.includes('日本 Lawson 便利商店'));\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/indoorSeatScenes.json",
+      "beforeHash": "4d54dda2cd6c2f182471759e00cb768fc022bae8e677a772f9134a05b1e479a2",
+      "afterHash": "838ea928a50c5e36300881fae3d3fc2f3ba7189900685699b5b08a4172559e62",
+      "edits": [
+        {
+          "line": 83,
+          "before": [
+            "  \"locations:其他專屬場景-other-dedicated-scenes:其他-生活感日式榻榻米房間:2\": [\"cushion\", \"floor\"]\n"
+          ],
+          "after": [
+            "  \"locations:其他專屬場景-other-dedicated-scenes:其他-生活感日式榻榻米房間:2\": [\"cushion\", \"floor\"],\n",
+            "  \"locations:生活感室內-indoor-lifestyle:indoor-lawson-store\": [\"stool\", \"floor\"]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/indoorSeating.test.js",
+      "beforeHash": "9615f59be88aebb1c369c028674a082f036f64cd2b7a025e76cbe7e2b03639a6",
+      "afterHash": "c8d8344d3ecfe498bbf5b86e35dd10c464ec6ee9c975893a228ef90043976fad",
+      "edits": [
+        {
+          "line": 8,
+          "before": [
+            "const locations = getSceneDependentOptions([], {subjectCount:'1', sceneAttributeId:'indoor'}).locationOptions.filter(x => x.zh !== '全無');\n"
+          ],
+          "after": [
+            "const locations = getSceneDependentOptions([], {subjectCount:'1', sceneAttributeId:'indoor'}).locationOptions.filter(x => x.zh !== '全無' && !x.zh.includes('日本 Lawson 便利商店'));\n"
+          ]
+        },
+        {
+          "line": 15,
+          "before": [
+            "  assert.deepEqual(new Set(Object.keys(sceneSeats)),new Set(locations.map(x => x.id)));\n"
+          ],
+          "after": [
+            "  assert.deepEqual(new Set(Object.keys(sceneSeats).filter(id=>id!=='locations:生活感室內-indoor-lifestyle:indoor-lawson-store')),new Set(locations.map(x => x.id)));\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/outdoorKneelScenes.json",
+      "beforeHash": "1b4bfe66b929ac2835681d2936e0be20ea434b3c54f45cc53d373bd6655a3919",
+      "afterHash": "e41d7b4bd3265001f601c6063ab98ff47ba60d97bc129c4619d452d4dafdd1a0",
+      "edits": [
+        {
+          "line": 254,
+          "before": [
+            "  ]\n"
+          ],
+          "after": [
+            "  ],\n",
+            "  \"locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront\": [\"ground\"]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/outdoorLeanBaseline.test.js",
+      "beforeHash": "a86db8623a44cfd1bf94f21157518ba8ac4be286db0b50fa2e4711dfc9c25c8f",
+      "afterHash": "fe118d3678738c0eb9a1660b5d523fb87313173ec92585627e3c2e61fa26c118",
+      "edits": [
+        {
+          "line": 17,
+          "before": [
+            "    execFileSync(process.execPath,['../scripts/dump_prompt_outputs.mjs',output],{cwd:fileURLToPath(new URL('../../../',import.meta.url)),stdio:'pipe',timeout:120000});\n"
+          ],
+          "after": [
+            "    execFileSync(process.execPath,['../scripts/dump_pre_lawson_outputs.mjs',output],{cwd:fileURLToPath(new URL('../../../',import.meta.url)),stdio:'pipe',timeout:120000});\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/outdoorLeanFixtures.js",
+      "beforeHash": "8fae3daee5ddd8db1d85e777a06020bdecbc1fd1ba39f6302169dd98fdd72454",
+      "afterHash": "cf2fd50f4445f724a7d661499a4abacec1c0009c8038984df54d8f1350be1bf3",
+      "edits": [
+        {
+          "line": 9,
+          "before": [
+            "  const locations=attribute=>getSceneDependentOptions([],{subjectCount:'1',sceneAttributeId:attribute}).locationOptions.filter(o=>o.zh!=='全無');\n"
+          ],
+          "after": [
+            "  const locations=attribute=>getSceneDependentOptions([],{subjectCount:'1',sceneAttributeId:attribute}).locationOptions.filter(o=>o.zh!=='全無' && !o.zh.includes('日本 Lawson 便利商店'));\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/outdoorLeanPrompt.test.js",
+      "beforeHash": "362a9c179875311894b8fcdffb49d8f06db958669abfef03bb965429319cdb07",
+      "afterHash": "a75a0711d900bfe2e968fcdd08fd2192b3462d199e757ddd0ed6773d0378bd04",
+      "edits": [
+        {
+          "line": 6,
+          "before": [
+            "const locations=getSceneDependentOptions([],{subjectCount:'1',sceneAttributeId:'outdoor'}).locationOptions.filter(o=>o.zh!=='全無');\n"
+          ],
+          "after": [
+            "const locations=getSceneDependentOptions([],{subjectCount:'1',sceneAttributeId:'outdoor'}).locationOptions.filter(o=>o.zh!=='全無' && !o.zh.includes('日本 Lawson 便利商店'));\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/outdoorLeanScenes.json",
+      "beforeHash": "a11769cb1b69f3df824f3e2232f15b15f0ded3c6ba64c0a440f784f85d796bea",
+      "afterHash": "cf90067abb134b56e3fa9e04cc86abfc523ffee062c0fed7007a6d81e4fb72bf",
+      "edits": [
+        {
+          "line": 601,
+          "before": [
+            "  }\n"
+          ],
+          "after": [
+            "  },\n",
+            "  \"locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront\": {\"back\": [\"wall\"], \"shoulder\": [\"wall\"]}\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/outdoorLeaning.test.js",
+      "beforeHash": "cc1770cff8a972ade1626a234d032eb27dd9722b7a64932780d67fd7606d7d94",
+      "afterHash": "dcab7448f73df06f6a0d5f885fa710c070cf5703195b66b5487e014b47eeb8d4",
+      "edits": [
+        {
+          "line": 10,
+          "before": [
+            "const places=getSceneDependentOptions([],{subjectCount:'1',sceneAttributeId:'outdoor'}).locationOptions.filter(o=>o.zh!=='全無');\n"
+          ],
+          "after": [
+            "const places=getSceneDependentOptions([],{subjectCount:'1',sceneAttributeId:'outdoor'}).locationOptions.filter(o=>o.zh!=='全無' && !o.zh.includes('日本 Lawson 便利商店'));\n"
+          ]
+        },
+        {
+          "line": 20,
+          "before": [
+            "  assert.deepEqual(new Set(Object.keys(scenes)),new Set(places.map(o=>o.id)));\n"
+          ],
+          "after": [
+            "  assert.deepEqual(new Set(Object.keys(scenes).filter(id=>id!=='locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront')),new Set(places.map(o=>o.id)));\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/outdoorSeatBaseline.test.js",
+      "beforeHash": "02468d7667987dea3eae0a6539483f2144d7ff6ab21d14ef9b68c8a56400a916",
+      "afterHash": "15f0d8ad32ef4cd1e3e65dde4510c5b4b35a679d8476fda8ebbc9cebbbb08978",
+      "edits": [
+        {
+          "line": 17,
+          "before": [
+            "    execFileSync(process.execPath,['../scripts/dump_prompt_outputs.mjs',output],{\n"
+          ],
+          "after": [
+            "    execFileSync(process.execPath,['../scripts/dump_pre_lawson_outputs.mjs',output],{\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/outdoorSeatFixtures.js",
+      "beforeHash": "548431d1be776a81cf2017c873cd9b194725386634921acc1f73072b5b1fc4cc",
+      "afterHash": "eae3d63094d015f9206eb7168c00b979b94ee7c7b7765684dfe8be1256c72956",
+      "edits": [
+        {
+          "line": 9,
+          "before": [
+            "  const locations=getSceneDependentOptions([], {subjectCount:'1',sceneAttributeId:'indoor'}).locationOptions.filter(o=>o.zh!=='全無');\n"
+          ],
+          "after": [
+            "  const locations=getSceneDependentOptions([], {subjectCount:'1',sceneAttributeId:'indoor'}).locationOptions.filter(o=>o.zh!=='全無' && !o.zh.includes('日本 Lawson 便利商店'));\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/outdoorSeatScenes.json",
+      "beforeHash": "87356419282b1eaa41bba5f10544cd6de9bc1c2a228ccaa6b731b751b268051d",
+      "afterHash": "35fbcf9ebd52a9a1a8e22cd873298bc100e7bb1e878b7d96759c963d52aa8b8e",
+      "edits": [
+        {
+          "line": 519,
+          "before": [
+            "  }\n"
+          ],
+          "after": [
+            "  },\n",
+            "  \"locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront\": {\"ground\": \"ground\", \"seats\": [\"ground\"]}\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/outdoorSeating.test.js",
+      "beforeHash": "3d590efdfa2b16185b859ace08eae9a3bb94c4e11e196c141baea2317d12a17b",
+      "afterHash": "dfe33e27641c99842ce22a7af9a3d0f4f3f347d3ffda9430c604b675a89c1991",
+      "edits": [
+        {
+          "line": 11,
+          "before": [
+            "const locations=getSceneDependentOptions([], {subjectCount:'1',sceneAttributeId:'outdoor'}).locationOptions.filter(o=>o.zh!=='全無');\n"
+          ],
+          "after": [
+            "const locations=getSceneDependentOptions([], {subjectCount:'1',sceneAttributeId:'outdoor'}).locationOptions.filter(o=>o.zh!=='全無' && !o.zh.includes('日本 Lawson 便利商店'));\n"
+          ]
+        },
+        {
+          "line": 21,
+          "before": [
+            "  assert.deepEqual(new Set(Object.keys(scenes)),new Set(locations.map(o=>o.id)));\n"
+          ],
+          "after": [
+            "  assert.deepEqual(new Set(Object.keys(scenes).filter(id=>id!=='locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront')),new Set(locations.map(o=>o.id)));\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/sceneIntegratedAssemblyTestSupport.js",
+      "beforeHash": "aea9756869535286ddcfbdd3a9d39f3c76ba36342947a70c091137a745a76379",
+      "afterHash": "56f0967d8df35f83ea8a4dfa2792b46fb3f6b1ee3c8cb513cc488ffc1051ecc3",
+      "edits": [
+        {
+          "line": 19,
+          "before": [],
+          "after": [
+            "// Historical random-pool baselines predate both Lawson scenes.\n",
+            "for (const [category, items] of Object.entries(PRE_HOURGLASS_BODY_CATALOG.Locations)) {\n",
+            "  PRE_HOURGLASS_BODY_CATALOG.Locations[category] = items.filter(item => !item.zh.includes('日本 Lawson 便利商店'));\n",
+            "}\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/shibuyaCrowdScene.test.js",
+      "beforeHash": "268bd65bfaf10157d25f6eae4a5698b37d4f49794ed0e0e4f2ab00e855a73be7",
+      "afterHash": "55e241817dc61073ca9f68779732563940dbc8f8e8df1d6a347be527d27a5e7d",
+      "edits": [
+        {
+          "line": 108,
+          "before": [
+            "  assert.equal(locationOptions.findIndex(o => o.id === id), 92);\n",
+            "  assert.equal(digest(locationOptions.map(o => [o.id, c4LabelReview.entries.find(e => e.id === o.id && e.after === o.zh)?.before ?? o.zh])), '60c457753e4a34a29882a118cdf15a417f42c0ffc41c05fdbd9e43f6ad69a290');\n"
+          ],
+          "after": [
+            "  const preLawson = locationOptions.filter(o => !o.zh.includes('日本 Lawson 便利商店'));\n",
+            "  assert.equal(preLawson.findIndex(o => o.id === id), 92);\n",
+            "  assert.equal(digest(preLawson.map(o => [o.id, c4LabelReview.entries.find(e => e.id === o.id && e.after === o.zh)?.before ?? o.zh])), '60c457753e4a34a29882a118cdf15a417f42c0ffc41c05fdbd9e43f6ad69a290');\n"
+          ]
+        },
+        {
+          "line": 166,
+          "before": [
+            "  assert.equal(digest(withoutLyingSurface(historicalOptions.filter(o => o.id !== id))), '9e65a646d08541af7ad4b797c39de4cde31893b81ff120821d96d899498f2de6');\n"
+          ],
+          "after": [
+            "  assert.equal(digest(withoutLyingSurface(historicalOptions.filter(o => o.id !== id && !o.zh.includes('日本 Lawson 便利商店')))), '9e65a646d08541af7ad4b797c39de4cde31893b81ff120821d96d899498f2de6');\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engineSceneBaseCleanup.test.js",
+      "beforeHash": "7f0a4d8901fe1702346b5e254159e734bffb7da81c5f7c414400acf8144767c0",
+      "afterHash": "014160d47de32aa5f0e1d7ad1e85eb699101f585004379137bc69186aab6aefc",
+      "edits": [
+        {
+          "line": 56,
+          "before": [
+            "  assert.equal(labels.length, 155);\n"
+          ],
+          "after": [
+            "  assert.equal(labels.length, 157);\n"
+          ]
+        }
+      ]
+    }
+  ]
+}

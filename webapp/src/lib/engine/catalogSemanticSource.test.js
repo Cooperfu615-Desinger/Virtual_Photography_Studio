@@ -30,7 +30,7 @@ test('formal semantic covers all records, including Negative without tags, and l
   const rows=Object.values(source).flatMap(cs=>Object.values(cs).flat());
   const added=rows.filter(row=>row.stableId==='wardrobe:套裝-outfit-presets:mai-shiranui-kunoichi');
   const companion=rows.filter(row=>row.stableId==='camera:拍攝方位-orbit-angle:companion-view');
-  assert.equal(added.length,1);assert.equal(companion.length,1);assert.equal(rows.length-added.length-companion.length,1050);
+  assert.equal(added.length,1);assert.equal(companion.length,1);assert.equal(rows.filter(row => row.stableId?.endsWith('lawson-store') || row.stableId?.endsWith('lawson-storefront')).length,2);assert.equal(rows.length-added.length-companion.length-2,1050);
   assert(rows.every(r=>r.meta && Object.hasOwn(r.meta,'semantic')));
   for(const row of Object.values(source.Negative).flat()){assert(!Object.hasOwn(row.meta.semantic,'tags'));assert(Array.isArray(row.meta.semantic.conflictTags));assert(Array.isArray(row.meta.semantic.useTags));}
   source.Locations[Object.keys(source.Locations)[0]][0].meta.semantic.tags.push('fixture-only');

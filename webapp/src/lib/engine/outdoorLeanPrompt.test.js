@@ -4,7 +4,7 @@ import { getLockControls, getSceneDependentOptions } from '../engine.js';
 import { seatFixture, seatFramings } from './indoorSeatFixtures.js';
 import scenes from './outdoorLeanScenes.json' with {type:'json'};
 const controls=getLockControls();
-const locations=getSceneDependentOptions([],{subjectCount:'1',sceneAttributeId:'outdoor'}).locationOptions.filter(o=>o.zh!=='全無');
+const locations=getSceneDependentOptions([],{subjectCount:'1',sceneAttributeId:'outdoor'}).locationOptions.filter(o=>o.zh!=='全無' && !o.zh.includes('日本 Lawson 便利商店'));
 const actions=[['背部倚靠','back','She stands with her upper body angled slightly back.'],
   ['側肩倚靠','shoulder','She stands with her upper body tilted slightly to one side, one shoulder lower than the other.']];
 const nouns={wall:'a wall',column:'a column',doorframe:'a doorframe',railing:'a railing',pole:'a pole',

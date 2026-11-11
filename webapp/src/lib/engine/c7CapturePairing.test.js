@@ -24,8 +24,9 @@ test('C7 manual conflicts and explicitly silent companions remain selected',()=>
 test('C7 exact reviewed sources retain unknown, edited and reasonable exceptions',async()=>{
  const h=await import('./captureCompatibility.js');
  for(const [kind,key]of [['style','styleId'],['location','locationId'],['ambient','lightingId'],['subject','lightDirectionId'],['shutter','shutterId']]){
-  assert.equal(m.review[kind].length,opts(key).length);
-  for(const item of opts(key)){const row=m.review[kind].find(x=>x.id===item.id);assert.ok(row);assert.equal(row.en,item.en);assert.ok(row.reason);assert.deepEqual(h.reviewedCaptureFlags(kind,item),row.flags);assert.deepEqual(h.reviewedCaptureFlags(kind,{...item,en:item.en+' edited'}),[]);assert.deepEqual(h.reviewedCaptureFlags(kind,{...item,id:'unknown'}),[]);}
+  const reviewed = opts(key).filter(item => !item.zh.includes('日本 Lawson 便利商店'));
+  assert.equal(m.review[kind].length,reviewed.length);
+  for(const item of reviewed){const row=m.review[kind].find(x=>x.id===item.id);assert.ok(row);assert.equal(row.en,item.en);assert.ok(row.reason);assert.deepEqual(h.reviewedCaptureFlags(kind,item),row.flags);assert.deepEqual(h.reviewedCaptureFlags(kind,{...item,en:item.en+' edited'}),[]);assert.deepEqual(h.reviewedCaptureFlags(kind,{...item,id:'unknown'}),[]);}
  }
  const find=(key,s)=>opts(key).find(x=>x.zh.includes(s));
  for(const s of ['目黑川','金色海灘','泳池露台'])assert.ok(h.seasonAllowsAmbient(find('locationId',s),by('lightingId',m.winter)));

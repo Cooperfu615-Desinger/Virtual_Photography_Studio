@@ -148,6 +148,7 @@ import {
 import { createPromptSectionModel } from './engine/promptModel.js';
 import { createEngineRuntimeResolver, deepFreezeRuntime } from './engine/runtimeCache.js';
 import { createSelectionSnapshot } from './engine/selectionSchema.js';
+import { isLawsonLocation, lawsonPositionClause, resolveLawsonScenePosition } from './engine/lawsonScenePosition.js';
 import { createZImageTurboPromptSectionModel } from './engine/zImageTurboPromptContract.js';
 import { buildZImageOnLocationCapture } from './engine/zImageOnLocationCapture.js';
 import {
@@ -3376,6 +3377,7 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
     if (!LOCK_KEYS.has(key)) return;
     normalized[key] = value;
   });
+  if (['auto', 'free'].includes(rawLocks.lawsonPositionMode)) normalized.lawsonPositionMode = rawLocks.lawsonPositionMode;
   normalized.captureMode = rawLocks.captureMode === 'observation' ? 'observation' : 'standard';
   normalized.observationCapture = rawLocks.observationCapture ? normalizeCaptureProfile(rawLocks.observationCapture) : null;
   normalized.specifiedActionSceneRestore = normalizeSpecifiedActionSceneRestore(normalized.specifiedActionSceneRestore);
@@ -5921,7 +5923,13 @@ function projectSceneSourceText(value, mode) {
 function buildProjectedScene(context) {
   const projection = getCompositionVisibilityProjection(context);
   const mode = projection.scene?.mode || 'fullSource';
-  const locationSource = context?.location && !isNoneLikeItem(context.location) ? context.location.en : '';
+  let locationSource = context?.location && !isNoneLikeItem(context.location) ? context.location.en : '';
+  const positionClause = lawsonPositionClause(context?.lawsonPosition);
+  if (positionClause && locationSource) {
+    const comma = locationSource.indexOf(',');
+    locationSource = comma < 0 ? `${locationSource} with ${positionClause}`
+      : `${locationSource.slice(0, comma)} with ${positionClause}${locationSource.slice(comma)}`;
+  }
   const worldSceneSource = getImportedWorldSceneArchitectureText(context);
   const sceneAccentSource = buildContextualSceneAccent(context);
 
@@ -16064,7 +16072,7 @@ function buildGrokImaginePrototype(context, character, wardrobe, wardrobeColors)
   const scene = fixed ? [fixedSceneSource,
     (context.fixedSetPosition?.carriagePose || context.fixedSetPosition?.stationPose) ? '' : value(context.fixedSetPosition),
     value(context.fixedSetBackgroundState), value(context.fixedSetCaptureMode), value(context.fixedSetPerformanceState),
-  ].filter(Boolean).map(ensureTerminalPeriod).join(' ') : [getImportedWorldSceneArchitectureText(fullContext), value(fullContext.location), fullContext.projectedScene.sceneAccentText].filter(Boolean).join(', ');
+  ].filter(Boolean).map(ensureTerminalPeriod).join(' ') : [getImportedWorldSceneArchitectureText(fullContext), fullContext.lawsonPosition ? fullContext.projectedScene.locationText : value(fullContext.location), fullContext.projectedScene.sceneAccentText].filter(Boolean).join(', ');
   const orbitText = isStationFixedSet(context.fixedCompositionSet) ? stationSubjectFacingText(context.orbit)
     : isCarriageFixedSet(context.fixedCompositionSet) ? carriageCameraText(context.orbit) : value(context.orbit);
   const aspect = context.aspectRatio?.id !== 'none' ? context.aspectRatio?.en : '';
@@ -16505,6 +16513,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
   if (context.legacyPhoneConflict?.propId) resolvedSelection.propId = context.legacyPhoneConflict.propId;
   if (isPhoneProp(context.rawLocks.propId) || context.rawLocks.orbitId === COMPANION_ORBIT_ID) resolvedSelection.orbitId = context.rawLocks.orbitId;
   const snapshot = createSelectionSnapshot(LOCK_DEFINITIONS, resolvedSelection);
+  if (isLawsonLocation(context.location?.zh)) snapshot.lawsonPositionMode = context.locks?.lawsonPositionMode === 'free' ? 'free' : 'auto';
   for (const host of wardrobe) {
     const layer = host.meta?.underlayer;
     if (!layer) continue;
@@ -16928,6 +16937,17 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
   };
   if (capture) Object.assign(context, captureContext(capture.selections), { importedCapturePerson });
   const character = buildCharacter(context, runtime.catalog);
+  const resolvedPose = extractCharacterSlots(character).poseComposer;
+  context.lawsonPosition = resolveLawsonScenePosition({
+    locationName: location?.zh,
+    mode: effectiveLocks.lawsonPositionMode,
+    eligible: subject.count === 1 && !isSpecialSubject(subject) && !subject.reference
+      && !context.characterProfilePrompt && !context.observationCapture && !supineSurfaceOnly
+      && !isFixedCompositionSetActive(fixedCompositionSet) && !getImportedWorldSceneArchitectureText(context)
+      && !context.indoorSeat?.selectedId && !context.indoorLean?.selectedId && !context.indoorKneel?.selectedId
+      && !extractCharacterSlots(character).actionPose && !extractCharacterSlots(character).specialAction,
+    pose: resolvedPose?.meta,
+  });
   const defaultEthnicitySlots = extractCharacterSlots(character);
   context.defaultEthnicity = resolveDefaultEthnicity({
     ordinary: !isSpecialSubject(subject) && !subject.reference && !context.characterProfilePrompt,

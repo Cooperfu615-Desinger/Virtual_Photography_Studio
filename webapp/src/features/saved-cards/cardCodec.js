@@ -653,6 +653,20 @@ export function parseExportedMarkdownPrompt(markdownText, controls, fallbackId) 
     if (captureSelection.captureMode !== 'observation') throw new Error('invalid observation capture metadata');
     Object.assign(parsed.locks, captureSelection);
   }
+  // Older Lawson test exports predate the structured PAGE1 snapshot.
+  const lawsonMatch = text.match(/<!-- VPStudio Lawson Position: (\{[^\n]*\}) -->/);
+  if (lawsonMatch) {
+    try {
+      const position = JSON.parse(lawsonMatch[1]);
+      const location = controls.find(control => control.key === 'locationId')?.options
+        ?.find(option => (option.id === position.locationId || option.legacyIds?.includes(position.locationId))
+          && /^(室內|戶外)：日本 Lawson 便利商店/.test(option.zh));
+      if (location && ['auto', 'free'].includes(position.mode)) {
+        parsed.locks.locationId = location.id;
+        parsed.locks.lawsonPositionMode = position.mode;
+      }
+    } catch { /* Invalid optional metadata does not prevent prose import. */ }
+  }
   const selection = buildRestoreLocks(parsed.locks, controls, { restoringSelection: Boolean(captureMatch) || parsed.hasRecoveredLegacyDressPalette });
   const prompt = {
     id: fallbackId || `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,

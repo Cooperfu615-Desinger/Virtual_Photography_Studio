@@ -16254,6 +16254,22 @@
         "legacyIds": [
           "locations:生活感室內-indoor-lifestyle:室內-狹小都會旅館房間:38"
         ]
+      },
+      {
+        "zh": "室內：日本 Lawson 便利商店內",
+        "en": "Japanese Lawson convenience store interior, blue-and-white Lawson branding, Japanese snack and onigiri shelves, refrigerated drink cases, checkout counter, tiled floor",
+        "desc": "日本 Lawson 便利商店內，以藍白識別、日式零食與飯糰貨架、飲料冷藏櫃、收銀台和地板為場景元素。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "indoor"
+            ]
+          }
+        },
+        "stableId": "locations:生活感室內-indoor-lifestyle:indoor-lawson-store",
+        "legacyIds": [
+          "locations:生活感室內-indoor-lifestyle:室內-日本-lawson-便利商店內:39"
+        ]
       }
     ],
     "地下與廢墟風格 (Abandoned & Underground)": [
@@ -17811,6 +17827,24 @@
         "stableId": "locations:城市與社群感-urban-social-snapshots:戶外-高級飯店陽台城市河景:56",
         "legacyIds": [
           "locations:城市與社群感-urban-social-snapshots:戶外-高級飯店陽台城市河景:56"
+        ]
+      },
+      {
+        "zh": "戶外：日本 Lawson 便利商店門口",
+        "en": "Japanese Lawson convenience store storefront, blue-and-white Lawson sign, glass automatic entrance doors, shop windows with merchandise inside, sidewalk and building facade",
+        "desc": "日本 Lawson 便利商店門口，以藍白招牌、玻璃自動門、可見商品的櫥窗、店面立面與人行道為場景元素。",
+        "meta": {
+          "semantic": {
+            "tags": [
+              "urban",
+              "outdoor",
+              "commercial"
+            ]
+          }
+        },
+        "stableId": "locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront",
+        "legacyIds": [
+          "locations:城市與社群感-urban-social-snapshots:戶外-日本-lawson-便利商店門口:57"
         ]
       }
     ],

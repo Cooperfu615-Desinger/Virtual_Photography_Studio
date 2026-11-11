@@ -15,7 +15,7 @@ test('all 1686 pre-outdoor-lean fixtures keep the six existing outputs, selectio
   const temp=mkdtempSync(join(tmpdir(),'outdoor-lean-baseline-'));
   try{
     const output=join(temp,'outputs.json');
-    execFileSync(process.execPath,['../scripts/dump_prompt_outputs.mjs',output],{cwd:fileURLToPath(new URL('../../../',import.meta.url)),stdio:'pipe',timeout:120000});
+    execFileSync(process.execPath,['../scripts/dump_pre_lawson_outputs.mjs',output],{cwd:fileURLToPath(new URL('../../../',import.meta.url)),stdio:'pipe',timeout:120000});
     const current=JSON.parse(readFileSync(output,'utf8'));
     assert.equal(Object.keys(current).length,1686);assert.deepEqual(Object.keys(current),Object.keys(baseline.rows));
     for(const [key,hash] of Object.entries(baseline.rows))assert.equal(createHash('sha256').update(JSON.stringify(current[key])).digest('hex'),hash,key);

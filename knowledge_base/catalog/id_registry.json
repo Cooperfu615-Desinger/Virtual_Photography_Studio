@@ -7366,6 +7366,22 @@
       "createdFrom": "e43d7d5df6512571a318cf8b18cbb567f6278232",
       "status": "active",
       "decisionRef": "Docs/specs/phone-selfie-props-v1.md"
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:indoor-lawson-store",
+      "initialGroup": "locations",
+      "initialCategory": "生活感室內 (Indoor & Lifestyle)",
+      "createdFrom": "7a22389704f93d7953bbd31582de523f4baceee8",
+      "status": "active",
+      "decisionRef": "Docs/specs/lawson-scene-position-v1.md"
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront",
+      "initialGroup": "locations",
+      "initialCategory": "城市與社群感 (Urban & Social Snapshots)",
+      "createdFrom": "7a22389704f93d7953bbd31582de523f4baceee8",
+      "status": "active",
+      "decisionRef": "Docs/specs/lawson-scene-position-v1.md"
     }
   ]
 }

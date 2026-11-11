@@ -8,7 +8,7 @@ import { transitionPage1Locks } from '../../features/page1/lockTransitions.js';
 import { randomizeLockKeys, setLockKeysToNone } from '../page1SectionRandom.js';
 import scenes from './outdoorLeanScenes.json' with {type:'json'};
 const controls=getLockControls();
-const places=getSceneDependentOptions([],{subjectCount:'1',sceneAttributeId:'outdoor'}).locationOptions.filter(o=>o.zh!=='全無');
+const places=getSceneDependentOptions([],{subjectCount:'1',sceneAttributeId:'outdoor'}).locationOptions.filter(o=>o.zh!=='全無' && !o.zh.includes('日本 Lawson 便利商店'));
 const actions=['specified-standing-back-lean','specified-standing-shoulder-lean'];
 const state=(place,action,id='')=>({subjectCount:'1',locationId:place.id,specifiedActionId:action,indoorLeanId:id});
 const model=(place,action,id='')=>indoorLeaningModel(state(place,action,id),place,controls);
@@ -18,7 +18,7 @@ test('71 × 2 ordered choices and all empty sets match the approved document ind
   const rows=readFileSync(new URL('../../../../Docs/specs/outdoor-leaning-scenes-v1.md',import.meta.url),'utf8')
     .split('\n').filter(s=>/^\| \d+ \|/.test(s)).map(s=>s.split('|').slice(1,-1).map(t=>t.trim()));
   assert.equal(rows.length,71);assert.equal(places.length,71);
-  assert.deepEqual(new Set(Object.keys(scenes)),new Set(places.map(o=>o.id)));
+  assert.deepEqual(new Set(Object.keys(scenes).filter(id=>id!=='locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront')),new Set(places.map(o=>o.id)));
   const counts=[0,0,0];
   for(const [,zh,...reviewed] of rows){
     const place=places.find(o=>o.zh===zh);assert.ok(place,zh);

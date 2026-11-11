@@ -517,5 +517,6 @@
       "sand"
     ],
     "ground": "sand"
-  }
+  },
+  "locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront": {"ground": "ground", "seats": ["ground"]}
 }

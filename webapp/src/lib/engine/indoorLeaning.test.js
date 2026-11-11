@@ -8,7 +8,7 @@ import { transitionPage1Locks } from '../../features/page1/lockTransitions.js';
 import { randomizeLockKeys, setLockKeysToNone } from '../page1SectionRandom.js';
 
 const controls = getLockControls();
-const all = getSceneDependentOptions([], {subjectCount:'1', sceneAttributeId:'indoor'}).locationOptions.filter(o=>o.zh!=='全無');
+const all = getSceneDependentOptions([], {subjectCount:'1', sceneAttributeId:'indoor'}).locationOptions.filter(o=>o.zh!=='全無' && !o.zh.includes('日本 Lawson 便利商店'));
 const actions = ['specified-standing-back-lean', 'specified-standing-shoulder-lean'];
 const state = (room, action = actions[0], id = '') => ({subjectCount:'1',locationId:room.id,specifiedActionId:action,indoorLeanId:id});
 const model = (room, action, id) => indoorLeaningModel(state(room, action, id),room,controls);

@@ -106,8 +106,9 @@ function assertCrowd(text, message = '') {
 test('Shibuya crowd source preserves the public label, ID, order and legacy English identity', () => {
   const location = locationOptions.find(o => o.id === id);
   assert.equal(location?.zh, label);
-  assert.equal(locationOptions.findIndex(o => o.id === id), 92);
-  assert.equal(digest(locationOptions.map(o => [o.id, c4LabelReview.entries.find(e => e.id === o.id && e.after === o.zh)?.before ?? o.zh])), '60c457753e4a34a29882a118cdf15a417f42c0ffc41c05fdbd9e43f6ad69a290');
+  const preLawson = locationOptions.filter(o => !o.zh.includes('日本 Lawson 便利商店'));
+  assert.equal(preLawson.findIndex(o => o.id === id), 92);
+  assert.equal(digest(preLawson.map(o => [o.id, c4LabelReview.entries.find(e => e.id === o.id && e.after === o.zh)?.before ?? o.zh])), '60c457753e4a34a29882a118cdf15a417f42c0ffc41c05fdbd9e43f6ad69a290');
   assert.equal(location.en, source);
   assert.deepEqual(location.en.split(', '), clauses);
   assert.ok(location.meta.legacyPromptAliases.includes(legacySource));
@@ -163,7 +164,7 @@ a2HistoricalTest('all other location descriptions, metadata and positions remain
   // A5 changes only three reviewed tags; the original digest stays sealed.
   const historicalOptions = getLockControls(preA5Database()).find(c => c.key === 'locationId').options;
   // Scenes gained an additive reviewed lyingSurface field (2026-10-19); compare without it.
-  assert.equal(digest(withoutLyingSurface(historicalOptions.filter(o => o.id !== id))), '9e65a646d08541af7ad4b797c39de4cde31893b81ff120821d96d899498f2de6');
+  assert.equal(digest(withoutLyingSurface(historicalOptions.filter(o => o.id !== id && !o.zh.includes('日本 Lawson 便利商店')))), '9e65a646d08541af7ad4b797c39de4cde31893b81ff120821d96d899498f2de6');
 });
 
 test('scene-source-only revision preserves selections, random draws and the scene-free full-body character', () => {

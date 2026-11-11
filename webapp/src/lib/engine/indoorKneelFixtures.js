@@ -7,7 +7,7 @@ import { seatFixture, seatFramings } from './indoorSeatFixtures.js';
 export const kneelActions = SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(action => action.family === 'kneeling' && action.hands.mode === 'free');
 export function indoorKneelProtectedRows() {
   const controls = getLockControls(), rows = {};
-  const places = attribute => getSceneDependentOptions([], { subjectCount:'1', sceneAttributeId:attribute }).locationOptions.filter(o => o.zh !== '全無');
+  const places = attribute => getSceneDependentOptions([], { subjectCount:'1', sceneAttributeId:attribute }).locationOptions.filter(o => o.zh !== '全無' && !o.zh.includes('日本 Lawson 便利商店'));
   const allKneeling = SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(action => action.family === 'kneeling');
   const leans = SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(action => ['specified-standing-back-lean', 'specified-standing-shoulder-lean'].includes(action.id));
   for (const [prefix, locations, actions] of [

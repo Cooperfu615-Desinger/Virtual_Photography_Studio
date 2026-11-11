@@ -6,14 +6,14 @@ import { SPECIFIED_ACTION_CONCRETE_OPTIONS } from './specifiedActions.js';
 import { indoorSeatingModel, applyIndoorSeat } from './indoorSeating.js';
 import sceneSeats from './indoorSeatScenes.json' with {type:'json'};
 
-const locations = getSceneDependentOptions([], {subjectCount:'1', sceneAttributeId:'indoor'}).locationOptions.filter(x => x.zh !== '全無');
+const locations = getSceneDependentOptions([], {subjectCount:'1', sceneAttributeId:'indoor'}).locationOptions.filter(x => x.zh !== '全無' && !x.zh.includes('日本 Lawson 便利商店'));
 const actions = SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(x => x.family === 'sitting');
 const model = (location, action, id = '', overrides = {}) => indoorSeatingModel({
   subjectCount:'1', locationId:location.id, specifiedActionId:action.id, indoorSeatId:id, ...overrides,
 },location);
 
 test('83 scene IDs and all fourteen sitting actions resolve without silently choosing a seat', () => {
-  assert.deepEqual(new Set(Object.keys(sceneSeats)),new Set(locations.map(x => x.id)));
+  assert.deepEqual(new Set(Object.keys(sceneSeats).filter(id=>id!=='locations:生活感室內-indoor-lifestyle:indoor-lawson-store')),new Set(locations.map(x => x.id)));
   assert.equal(locations.length,83); assert.equal(actions.length,14);
   for (const location of locations) for (const action of actions) {
     const result = model(location,action,'unrecognized');

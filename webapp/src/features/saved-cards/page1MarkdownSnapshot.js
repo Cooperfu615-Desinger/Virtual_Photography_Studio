@@ -44,10 +44,14 @@ function safeJson(text) {
 function validateSelection(selection, controls) {
   const defaults = normalizeLocks(createEmptyLocks(), controls);
   // Manual support fields are optional. Every original v1 key remains required.
-  keys(selection, [...Object.keys(defaults), 'indoorSeatId', 'indoorLeanId', 'indoorKneelId', ...underlayerKeys], Object.keys(defaults));
+  keys(selection, [...Object.keys(defaults), 'indoorSeatId', 'indoorLeanId', 'indoorKneelId', 'lawsonPositionMode', ...underlayerKeys], Object.keys(defaults));
   for (const [key, value] of Object.entries(selection)) {
     if (key === 'indoorSeatId' || key === 'indoorLeanId' || key === 'indoorKneelId') {
       if (typeof value !== 'string') fail(key);
+      continue;
+    }
+    if (key === 'lawsonPositionMode') {
+      if (!['auto', 'free'].includes(value)) fail(key);
       continue;
     }
     if (underlayerKeys.includes(key)) {

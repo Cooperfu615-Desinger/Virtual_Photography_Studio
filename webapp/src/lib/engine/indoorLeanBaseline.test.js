@@ -13,7 +13,7 @@ test('all 1,642 sealed pre-lean cases retain six original outputs, selections an
   const temp=mkdtempSync(join(tmpdir(),'lean-baseline-'));
   try {
     const output=join(temp,'outputs.json');
-    execFileSync(process.execPath,['../scripts/dump_prompt_outputs.mjs',output],{
+    execFileSync(process.execPath,['../scripts/dump_pre_lawson_outputs.mjs',output],{
       cwd:fileURLToPath(new URL('../../../',import.meta.url)),stdio:'pipe',timeout:120000,
     });
     const current=JSON.parse(readFileSync(output,'utf8'));

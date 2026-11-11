@@ -7,7 +7,7 @@ import { seatFixture, seatFramings } from './indoorSeatFixtures.js';
 
 export function outdoorLeanProtectedRows() {
   const controls=getLockControls(),rows={};
-  const locations=attribute=>getSceneDependentOptions([],{subjectCount:'1',sceneAttributeId:attribute}).locationOptions.filter(o=>o.zh!=='全無');
+  const locations=attribute=>getSceneDependentOptions([],{subjectCount:'1',sceneAttributeId:attribute}).locationOptions.filter(o=>o.zh!=='全無' && !o.zh.includes('日本 Lawson 便利商店'));
   const lean=SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(o=>['specified-standing-back-lean','specified-standing-shoulder-lean'].includes(o.id));
   const sit=SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(o=>o.family==='sitting');
   for(const [prefix,places,actions,model,key] of [
