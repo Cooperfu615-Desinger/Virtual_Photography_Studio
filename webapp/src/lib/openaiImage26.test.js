@@ -46,3 +46,32 @@ test('Flare and Sunburst keep four ordered results from a single batch, includin
     assert.throws(() => generationSnapshot({ ...base, ...overrides }), /張/);
   }
 });
+
+test('GIF sizes survive snapshots and every count reaches the provider with matching frames', async () => {
+  for (const modelKey of ['openaiImage26Flare', 'openaiImage26Sunburst']) {
+    for (const gifSize of ['auto', '512x512', '768x432', '432x768']) {
+      for (const count of [1, 2, 4]) {
+        for (const frameCount of [2, 9, 16]) {
+          const snapshot = generationSnapshot({ ...base, modelKey, outputFormat: 'gif', gifSize, count, frameCount });
+          assert.equal(snapshot.gifSize, gifSize);
+          const calls = [];
+          const result = await generateOpenAISequence({ id: 'gif', snapshot }, {
+            submit: async payload => {
+              calls.push(payload);
+              assert.equal(payload.gifSize, gifSize);
+              assert.equal(payload.frameCount, frameCount);
+              return { images: Array.from({ length: payload.count ?? 1 }, () => ({ src: 'data:image/gif;base64,R0lG' })) };
+            },
+            onProgress: async () => {}, onImages: async () => {},
+          });
+          assert.equal(calls.length, count === 2 ? 2 : 1);
+          assert.equal(result.images.length, count);
+        }
+      }
+    }
+  }
+  assert.equal(generationSnapshot({ ...base, outputFormat: 'gif' }).gifSize, 'auto');
+  for (const patch of [{ gifSize: '1024x1024' }, { frameCount: 1 }, { frameCount: 17 }, { frameCount: 2.5 }, { count: 3 }]) {
+    assert.throws(() => generationSnapshot({ ...base, outputFormat: 'gif', ...patch }));
+  }
+});

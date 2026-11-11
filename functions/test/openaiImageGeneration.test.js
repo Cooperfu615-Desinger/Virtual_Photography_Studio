@@ -37,3 +37,23 @@ test('claimed request is submitted once even when the provider response is lost'
   await assert.rejects(submitOpenAIImage(args), error => error.duplicate === true);
   assert.equal(calls, 1); assert.deepEqual(phases, ['uncertain']);
 });
+
+test('GIF sizes and frame boundaries are validated for both 2.6 models and supported request counts', () => {
+  for (const modelKey of ['openaiImage26Flare', 'openaiImage26Sunburst']) {
+    for (const gifSize of ['auto', '512x512', '768x432', '432x768']) {
+      for (const count of [1, 4]) {
+        for (const frameCount of [2, 9, 16]) {
+          const body = buildOpenAIImageRequest({ modelKey, prompt: 'A blinking owl', outputFormat: 'gif', gifSize, count, frameCount });
+          assert.equal(body.size, gifSize);
+          assert.equal(body.frame_count, frameCount);
+          assert.equal(body.n, count);
+        }
+      }
+    }
+    const input = { modelKey, prompt: 'A blinking owl', outputFormat: 'gif' };
+    assert.equal(buildOpenAIImageRequest(input).size, 'auto');
+    for (const patch of [{ gifSize: '1024x1024' }, { gifSize: '' }, { frameCount: 1 }, { frameCount: 17 }, { frameCount: 2.5 }, { count: 2 }, { count: 3 }]) {
+      assert.throws(() => buildOpenAIImageRequest({ ...input, ...patch }));
+    }
+  }
+});

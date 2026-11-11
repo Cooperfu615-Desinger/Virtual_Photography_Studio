@@ -93,7 +93,9 @@ function buildOpenAIImageRequest(input = {}) {
     body.output_compression = compression;
   }
   if (format === 'gif') {
-    body.size = 'auto';
+    const gifSize = input.gifSize ?? 'auto';
+    if (!['auto', '512x512', '768x432', '432x768'].includes(gifSize)) throw new Error('不支援的 GIF 尺寸');
+    body.size = gifSize;
     const frames = input.frameCount ?? 9, duration = input.frameDurationMs ?? 200;
     if (!Number.isInteger(frames) || frames < 2 || frames > 16 || !Number.isInteger(duration) || duration < 20 || duration > 2000) throw new Error('GIF 影格數或間隔不支援');
     Object.assign(body, { frame_count: frames, frame_duration_ms: duration });

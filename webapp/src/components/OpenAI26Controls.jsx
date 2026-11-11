@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { readOpenAIImage } from '../lib/openaiImage26.js';
+import { GIF_SIZE_OPTIONS, readOpenAIImage } from '../lib/openaiImage26.js';
 
 export default function OpenAI26Controls({ settings, setSettings, disabled, resolution }) {
   const [fileError, setFileError] = useState('');
@@ -26,11 +26,17 @@ export default function OpenAI26Controls({ settings, setSettings, disabled, reso
       <label className="field dll-pic-field"><span>內容審核</span><select aria-label="內容審核" disabled={disabled} value={settings.moderation} onChange={e => update({ moderation: e.target.value })}><option value="auto">自動</option><option value="low">低</option></select></label>
     </div>
     {resolution === 'custom' && settings.outputFormat !== 'gif' && <div className="dll-pic-settings-grid"><label className="field"><span>寬度 px</span><input aria-label="自訂寬度" type="number" min="16" max="3840" step="16" value={settings.customWidth} onChange={e => update({ customWidth: e.target.value === '' ? '' : Number(e.target.value) })} /></label><label className="field"><span>高度 px</span><input aria-label="自訂高度" type="number" min="16" max="3840" step="16" value={settings.customHeight} onChange={e => update({ customHeight: e.target.value === '' ? '' : Number(e.target.value) })} /></label><small>16 的倍數，長短邊比例不超過 3:1。</small></div>}
+    {settings.outputFormat === 'gif' && <label className="field dll-pic-field">
+      <span>GIF 尺寸</span>
+      <select aria-label="GIF 尺寸" disabled={disabled} value={settings.gifSize ?? 'auto'} onChange={e => update({ gifSize: e.target.value })}>
+        {GIF_SIZE_OPTIONS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
+      </select>
+    </label>}
     <details className="dll-advanced-settings"><summary>進階設定</summary>
       {['jpeg', 'webp'].includes(settings.outputFormat) && <label className="field"><span>壓縮品質（0–100）</span><input aria-label="壓縮品質" type="number" min="0" max="100" value={settings.outputCompression} onChange={e => update({ outputCompression: e.target.value === '' ? '' : Number(e.target.value) })} /></label>}
       {settings.outputFormat === 'gif' && <div className="dll-pic-settings-grid"><label className="field"><span>影格數（2–16）</span><input aria-label="GIF 影格數" type="number" min="2" max="16" value={settings.frameCount} onChange={e => update({ frameCount: e.target.value === '' ? '' : Number(e.target.value) })} /></label><label className="field"><span>每格毫秒（20–2000）</span><input aria-label="GIF 每格毫秒" type="number" min="20" max="2000" step="10" value={settings.frameDurationMs} onChange={e => update({ frameDurationMs: e.target.value === '' ? '' : Number(e.target.value) })} /></label></div>}
       {settings.outputFormat === 'svg' && <p className="dll-help">SVG 使用服務的預設繪製模型，單次請求一張。</p>}
-      {settings.outputFormat === 'gif' && <p className="dll-help">GIF 需要帳號預覽權限；輸出尺寸由服務自動決定。</p>}
+      {settings.outputFormat === 'gif' && <p className="dll-help">GIF 支援 2–16 影格；選 2 張依序生成，選 4 張一次送出。尺寸、影格數與張數受 API 總像素限制，超限時請降低影格數或張數，或改用自動尺寸。</p>}
       {!['jpeg', 'webp', 'gif', 'svg'].includes(settings.outputFormat) && <p className="dll-help">JPEG／WebP 壓縮、GIF 影格與 SVG 設定會依格式顯示。</p>}
     </details>
     {settings.imageMode === 'edit' && <section className="dll-prompt-section" aria-label="圖片編輯來源">

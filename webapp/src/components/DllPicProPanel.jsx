@@ -3,7 +3,7 @@ import { ImagePlus, ListPlus } from 'lucide-react';
 import { dllWorkspace, openDllWorkspace, DLL_LOCAL_ACCEPTANCE } from '../lib/dllWorkspaceRuntime.js';
 import '../styles/generation.css';
 import OpenAI26Controls from './OpenAI26Controls.jsx';
-import { imageCountOptions, isOpenAI26, openAI26Settings, OPENAI_26_DEFAULTS } from '../lib/openaiImage26.js';
+import { gifSizeLabel, imageCountOptions, isOpenAI26, openAI26Settings, OPENAI_26_DEFAULTS } from '../lib/openaiImage26.js';
 import ComfyQuotaPanel from './ComfyQuotaPanel.jsx';
 import { openVideoWorkspace, prepareVideoPng } from '../lib/comfyVideoClient.js';
 import {
@@ -387,7 +387,7 @@ export default function DllPicProPanel({
           <button type="button" className="secondary" disabled={!selectedPrompt.trim() || !shared.ready || !isAspectRatioSupported || Boolean(loraError) || Boolean(openaiError) || invalidLockedSize} onClick={async () => { try { await dllWorkspace.enqueue(snapshot()); setMessage('已加入待生成清單'); } catch (error) { setMessage(error.message); } }}><ListPlus size={18} />加入待生成</button>
 
         </div>
-        <p className="dll-generation-summary">{activeModel.label} · {is26 && openaiSettings.outputFormat === 'gif' ? '自動尺寸（GIF）' : is26 && activeResolution === 'auto' ? '自動尺寸' : is26 && activeResolution === 'custom' ? `${openaiSettings.customWidth} × ${openaiSettings.customHeight}` : `${aspectRatio} · ${activeResolution.toUpperCase()}`} · {count} 張{activeModel.provider === 'openai' && ` · 畫質：${{ auto: '自動', low: '低', medium: '中', high: '高', xhigh: '超高', max: '最高' }[quality]}`}</p>
+        <p className="dll-generation-summary">{activeModel.label} · {is26 && openaiSettings.outputFormat === 'gif' ? `${gifSizeLabel(openaiSettings.gifSize)}（GIF）` : is26 && activeResolution === 'auto' ? '自動尺寸' : is26 && activeResolution === 'custom' ? `${openaiSettings.customWidth} × ${openaiSettings.customHeight}` : `${aspectRatio} · ${activeResolution.toUpperCase()}`} · {count} 張{activeModel.provider === 'openai' && ` · 畫質：${{ auto: '自動', low: '低', medium: '中', high: '高', xhigh: '超高', max: '最高' }[quality]}`}</p>
         {faceReference && <p className="dll-face-summary"><img src={faceReference} alt="" />{hasFaceSupport ? '已套用臉部參考' : '此模型不會使用臉部參考'}</p>}
         <p className="dll-generation-context">{custom ? '自訂 Prompt' : selectedSource?.label || '尚未帶入來源'}{activeModel.provider === 'comfyCloud' && ` · Seed：${seed === '' ? '隨機' : seed}`}{loraSelection.enabled && ` · ${loraLabel} ${loraSelection.adjustable ? loraStrength : loraSelection.strength}`}</p>
         {(modelCompatibilityNote || loraError || openaiError || invalidLockedSize || !selectedPrompt.trim() || comfyPending || (!DLL_LOCAL_ACCEPTANCE && !activeModel.usesServerProxy && !activeApiKey)) && <p className="dll-generation-notice" role="status">{modelCompatibilityNote || loraError || openaiError || (invalidLockedSize ? '來源已固定比例，請選擇 1K 或 2K 靜態圖片。' : '') || (!selectedPrompt.trim() ? '請先帶入來源或編輯本次 Prompt。' : comfyPending ? '請先查詢上次 Comfy 任務，再開始生成。' : '請先在 API Keys 設定此模型的金鑰。')}</p>}

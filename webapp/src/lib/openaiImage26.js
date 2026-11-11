@@ -2,7 +2,14 @@ export const OPENAI_26_KEYS = Object.freeze(['openaiImage26Flare', 'openaiImage2
 export const isOpenAI26 = key => OPENAI_26_KEYS.includes(key);
 export const imageCountOptions = (modelKey, format) =>
   isOpenAI26(modelKey) && format !== 'svg' ? [1, 2, 4] : [1, 2];
-export const OPENAI_26_DEFAULTS = Object.freeze({ imageMode: 'generate', quality: 'medium', complexity: 'high', outputFormat: 'png', background: 'auto', moderation: 'auto', outputCompression: 100, frameCount: 9, frameDurationMs: 200, customWidth: 1024, customHeight: 1536, referenceImage: '', referenceWidth: 0, referenceHeight: 0, mask: '', markup: '' });
+export const GIF_SIZE_OPTIONS = Object.freeze([
+  { value: 'auto', label: '自動尺寸' },
+  { value: '512x512', label: '方形 1:1 · 512 × 512' },
+  { value: '768x432', label: '橫式 16:9 · 768 × 432' },
+  { value: '432x768', label: '直式 9:16 · 432 × 768' },
+]);
+export const gifSizeLabel = size => GIF_SIZE_OPTIONS.find(option => option.value === (size ?? 'auto'))?.label || '自動尺寸';
+export const OPENAI_26_DEFAULTS = Object.freeze({ imageMode: 'generate', quality: 'medium', complexity: 'high', outputFormat: 'png', background: 'auto', moderation: 'auto', outputCompression: 100, gifSize: 'auto', frameCount: 9, frameDurationMs: 200, customWidth: 1024, customHeight: 1536, referenceImage: '', referenceWidth: 0, referenceHeight: 0, mask: '', markup: '' });
 
 export function openAI26Settings(input = {}) {
   const next = { ...OPENAI_26_DEFAULTS, ...Object.fromEntries(Object.keys(OPENAI_26_DEFAULTS).filter(key => input[key] !== undefined).map(key => [key, input[key]])) };
@@ -14,6 +21,7 @@ export function openAI26Settings(input = {}) {
   if (next.background === 'transparent' && !['png', 'webp', 'svg'].includes(next.outputFormat)) throw new Error('透明背景僅支援 PNG、WebP 或 SVG');
   if (['jpeg', 'webp'].includes(next.outputFormat) && (!Number.isInteger(next.outputCompression) || next.outputCompression < 0 || next.outputCompression > 100)) throw new Error('壓縮品質需介於 0 至 100');
   if (next.outputFormat === 'gif' && (!Number.isInteger(next.frameCount) || next.frameCount < 2 || next.frameCount > 16 || !Number.isInteger(next.frameDurationMs) || next.frameDurationMs < 20 || next.frameDurationMs > 2000)) throw new Error('GIF 影格數或間隔不支援');
+  if (next.outputFormat === 'gif' && !GIF_SIZE_OPTIONS.some(option => option.value === next.gifSize)) throw new Error('不支援的 GIF 尺寸');
   if (input.resolution === 'custom' && next.outputFormat !== 'gif') {
     const w = next.customWidth, h = next.customHeight;
     if (!Number.isInteger(w) || !Number.isInteger(h) || w <= 0 || h <= 0 || w > 3840 || h > 3840 || w % 16 || h % 16 || Math.max(w,h) / Math.min(w,h) > 3 || w*h < 655360 || w*h > 8294400) throw new Error('自訂尺寸不符合限制');
