@@ -214,11 +214,13 @@ test('squat crops: full body keeps everything, medium keeps reviewed fragments, 
   assert.doesNotMatch(medium.grokPrompt, /squat|knees|heels/);
 });
 
-test('the wide-knee squat omits its own upper-body text in medium and chest-up crops (O6 b)', () => {
+test('the wide-knee squat keeps its posture and torso incline in medium and chest-up crops', () => {
   const medium = generate({ specifiedActionId: SQUAT('wide-knee').id, framingId: MEDIUM });
-  assert.doesNotMatch(medium.grokPrompt, /\nPose and Composition:\n/);
+  assert.match(medium.grokPrompt, /She is squatting\. Her torso inclines gently forward\./);
+  assert.match(chest(medium), /She is squatting\. Her torso inclines gently forward\./);
   const withGesture = generate({ specifiedActionId: SQUAT('wide-knee').id, framingId: MEDIUM, gestureId: 'gesture-squat-both-hands-cheeks' });
-  assert.match(withGesture.grokPrompt, /She has both palms gently cradling the cheeks with fingers relaxed along the cheeks and jaw\./);
+  assert.match(withGesture.grokPrompt, /She is squatting\. Her torso inclines gently forward, both palms gently cradling the cheeks with fingers relaxed along the cheeks and jaw\./);
+  assert.doesNotMatch(chest(withGesture), /both palms gently cradling/);
   assert.match(generate({ specifiedActionId: SQUAT('wide-knee').id }).grokPrompt, /She holds a relaxed wide-knee low squat/);
 });
 
@@ -248,11 +250,12 @@ test('16 sitting and kneeling actions: accepted, hands free with the general ges
   assert.equal(action('specified-kneeling-all-fours'), undefined, 'all-fours stays with the two support-hand actions');
 });
 
-test('sitting and kneeling crops keep reviewed fragments or omit the action where the composer omitted it', () => {
+test('sitting crops retain seated identity; unchanged kneeling crops keep their reviewed omission', () => {
   const medium = id => generate({ specifiedActionId: id, framingId: MEDIUM });
   assert.match(medium('specified-sitting-slouched').grokPrompt, /Her upper body slouches loosely and heavily with dropped shoulders and a relaxed torso\./);
   assert.match(medium('specified-kneeling-forward-lean').grokPrompt, /Her torso leans forward from the hips\./);
-  for (const id of ['specified-sitting-cross-legged', 'specified-kneeling-seiza']) {
+  assert.match(medium('specified-sitting-cross-legged').grokPrompt, /\nPose and Composition:\nShe is seated\./);
+  for (const id of ['specified-kneeling-seiza']) {
     assert.doesNotMatch(medium(id).grokPrompt, /\nPose and Composition:\n/, id);
     assert.match(generate({ specifiedActionId: id }).grokPrompt, /\nPose and Composition:\nShe (sits|kneels)/, id);
   }

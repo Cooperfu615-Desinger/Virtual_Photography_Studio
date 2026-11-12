@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url';
 import baseline from './outdoorSeatBaseline.json' with {type:'json'};
 import indoor from './outdoorSeatIndoorBaseline.json' with {type:'json'};
 import { indoorSeatingRegressionRows } from './outdoorSeatFixtures.js';
+import { assertUpperBodyStateBaselineRevision } from './upperBodyStateBaselineRevisionTestSupport.js';
 
 test('all 1,686 existing six-output fixtures, selections and summaries remain byte-identical',()=>{
   const temp=mkdtempSync(join(tmpdir(),'outdoor-baseline-'));
@@ -27,5 +28,5 @@ test('all 1,686 existing six-output fixtures, selections and summaries remain by
 test('83 indoor scenes × 14 poses × ten framings retain unspecified/effective seats and all seven outputs',()=>{
   assert.equal(Object.keys(indoor.rows).length,1162);
   assert.equal(Object.values(indoor.rows).reduce((sum,row)=>sum+row.samples,0),18480);
-  assert.deepEqual(indoorSeatingRegressionRows(),indoor.rows);
+  assertUpperBodyStateBaselineRevision('indoorSeating', indoorSeatingRegressionRows(), indoor.rows);
 });

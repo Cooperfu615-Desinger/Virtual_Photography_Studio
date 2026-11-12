@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url';
 import baseline from './outdoorLeanBaseline.json' with {type:'json'};
 import protectedBaseline from './outdoorLeanProtectedBaseline.json' with {type:'json'};
 import { outdoorLeanProtectedRows } from './outdoorLeanFixtures.js';
+import { assertUpperBodyStateBaselineRevision } from './upperBodyStateBaselineRevisionTestSupport.js';
 
 test('all 1686 pre-outdoor-lean fixtures keep the six existing outputs, selections and summaries',()=>{
   const temp=mkdtempSync(join(tmpdir(),'outdoor-lean-baseline-'));
@@ -25,5 +26,5 @@ test('all 1686 pre-outdoor-lean fixtures keep the six existing outputs, selectio
 test('every indoor leaning choice and all outdoor sitting scenes/poses retain seven outputs and RNG at ten framings',()=>{
   assert.equal(Object.keys(protectedBaseline.rows).length,1160);
   assert.equal(Object.values(protectedBaseline.rows).reduce((sum,row)=>sum+row.samples,0),14310);
-  assert.deepEqual(outdoorLeanProtectedRows(),protectedBaseline.rows);
+  assertUpperBodyStateBaselineRevision('outdoorLean', outdoorLeanProtectedRows(), protectedBaseline.rows);
 });

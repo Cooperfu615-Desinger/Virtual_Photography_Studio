@@ -1,0 +1,274 @@
+{
+  "date": "2026-11-12",
+  "base": "682c919562c280d9192de94f569023b4e29a0e55",
+  "runtime": "Node 22.23.3",
+  "contract": "1.66.0",
+  "batch": 1,
+  "batch2Implemented": false,
+  "focusedCases": 281,
+  "comparedOutputs": 1953,
+  "prechangeEvidenceSha256": "8c1a11f203592e0050fa90fb54e25517e775ada082f89014ee7598e0cefdc784",
+  "fullTests": {
+    "pass": 2280,
+    "fail": 0
+  },
+  "promptQuality": {
+    "pass": 935,
+    "fail": 0
+  },
+  "focusedTests": {
+    "pass": 7,
+    "fail": 0
+  },
+  "historicalInverseTests": {
+    "pass": 2,
+    "fail": 0
+  },
+  "lint": "pass",
+  "build": "pass; existing large-chunk warning",
+  "audit": {
+    "count": 200,
+    "seed": "prompt-quality-baseline",
+    "blocking": 0,
+    "diagnostic": 24,
+    "formattedBeforeAfterIdentical": true
+  },
+  "browser": {
+    "status": "passed-with-known-findings",
+    "url": "http://127.0.0.1:5175/Virtual_Photography_Studio/",
+    "previousBlocker": "listen EPERM 127.0.0.1:5175; browser ERR_CONNECTION_REFUSED",
+    "resolvedBy": "User started the opt-in isolated local preview server.",
+    "inspectedViewports": [
+      {
+        "width": 1440,
+        "height": 1000
+      },
+      {
+        "width": 390,
+        "height": 900
+      }
+    ],
+    "workspaces": [
+      {
+        "name": "Prompt 工作台",
+        "desktop": "pass",
+        "mobile": "pass"
+      },
+      {
+        "name": "角色建模",
+        "desktop": "pass",
+        "mobile": "pass"
+      },
+      {
+        "name": "場景建模",
+        "desktop": "pass",
+        "mobile": "pass"
+      },
+      {
+        "name": "DLL_PIC Pro",
+        "desktop": "pass",
+        "mobile": "pass"
+      },
+      {
+        "name": "DLL_VIDEO Pro",
+        "desktop": "pass",
+        "mobile": "pass"
+      },
+      {
+        "name": "Saved Cards",
+        "desktop": "pass",
+        "mobile": "pass"
+      }
+    ],
+    "states": [
+      "Paris PAGE3 architecture applied through UI",
+      "Six sitting actions selected in medium and chest crops",
+      "Wide-knee squat in medium and chest crops",
+      "Full/cowboy canonical pose and head-dominant exclusion",
+      "Synthetic Saved Card detail and restore, head/gaze/gesture visibility",
+      "Same-tab reload",
+      "Seven DLL PIC source buttons",
+      "Empty image/video histories and disabled generation",
+      "Copy button success feedback"
+    ],
+    "documentHorizontalOverflow": false,
+    "brokenImages": 0,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "uncaughtPageErrors": 0,
+    "knownFindings": [
+      {
+        "description": "390px action picker thumbnail overlaps text by 6px; 72px slot, 56px column plus 10px gap.",
+        "preExisting": true,
+        "componentMatchesBase": true,
+        "cssMatchesBase": true,
+        "screenshot": "browser/mobile-pose-picker.png"
+      }
+    ],
+    "limitations": [
+      "Native dropdown changes could not be driven by the browser tool; selected gesture/head/gaze states were exercised via synthetic Saved Card restore.",
+      "Copy success feedback was visible, but exact clipboard content could not be confirmed by the browser clipboard API.",
+      "External image-model quality was not tested; no paid generation."
+    ],
+    "previewIsolation": {
+      "pass": 1,
+      "fail": 0,
+      "localStorage": "memory only",
+      "sessionStorage": "memory only",
+      "indexedDB": "per-synthetic-tab namespace; no private database listing",
+      "firebase": "disabled"
+    },
+    "observations": "browser/observations.json",
+    "observationsSha256": "61d4a1c3839d0d1312e8a95345d81a3000a58bd46b3b80c1456c426df10e1de3",
+    "screenshots": [
+      {
+        "path": "browser/desktop-character-lab.png",
+        "width": 1425,
+        "height": 990,
+        "sha256": "4fafcb7d714a2c5512fe72a0ddb4c3d77638338b8211c12cc24314cd317600e6",
+        "format": "JPEG"
+      },
+      {
+        "path": "browser/desktop-dll-pic.png",
+        "width": 1440,
+        "height": 1000,
+        "sha256": "8cf1b45e3e132a18bba581dd33bcf87cd64c34770fe021fbeb54880711dd09eb",
+        "format": "JPEG"
+      },
+      {
+        "path": "browser/desktop-dll-video.png",
+        "width": 1425,
+        "height": 990,
+        "sha256": "5eaf2641e0cf37f824ff00e4249ec8b5c1f075698a5c7f553527e5e7019d8f85",
+        "format": "JPEG"
+      },
+      {
+        "path": "browser/desktop-paris-seated.png",
+        "width": 1425,
+        "height": 990,
+        "sha256": "0db1cacede60b9a51c021afccad55f73784fc2cc46a8ed7f4b134bec257b8b17",
+        "format": "JPEG"
+      },
+      {
+        "path": "browser/desktop-prompt-workspace.png",
+        "width": 1425,
+        "height": 990,
+        "sha256": "e2be67de46ad35a13cc057993fe01711a43f85600feb3678a5d18cee0b507e77",
+        "format": "JPEG"
+      },
+      {
+        "path": "browser/desktop-saved-cards.png",
+        "width": 1425,
+        "height": 990,
+        "sha256": "515cbcb2bbf16f511f8ec9bf2e5a5b0d7a5de5a328a4a1101e4c63073a2215b1",
+        "format": "JPEG"
+      },
+      {
+        "path": "browser/desktop-scene-builder.png",
+        "width": 1425,
+        "height": 990,
+        "sha256": "d30ae3540c25cf12c591acc3ca826a8eeb47e7a8e7320d97b07cf1e030350563",
+        "format": "JPEG"
+      },
+      {
+        "path": "browser/mobile-character-lab.png",
+        "width": 375,
+        "height": 865,
+        "sha256": "de62ddebbbfc0fbbfadc70779b1f5671f3d45e75e711c8220aea2ff6adb01a96",
+        "format": "JPEG"
+      },
+      {
+        "path": "browser/mobile-dll-pic.png",
+        "width": 375,
+        "height": 865,
+        "sha256": "0bd941fdd9a75f8614cfc19df7a0446196742c0f00dc2740f2cd21bee86bd712",
+        "format": "JPEG"
+      },
+      {
+        "path": "browser/mobile-dll-video.png",
+        "width": 375,
+        "height": 865,
+        "sha256": "8ab22b8a3581485fec944310f121e8243a65954f77254ca7d81ce5a1da66c830",
+        "format": "JPEG"
+      },
+      {
+        "path": "browser/mobile-paris-seated.png",
+        "width": 375,
+        "height": 865,
+        "sha256": "2e26c8ae81237f30f0c8c215cae7afe610882e6f449a4e0c35b9859de8264463",
+        "format": "JPEG"
+      },
+      {
+        "path": "browser/mobile-pose-picker.png",
+        "width": 390,
+        "height": 900,
+        "sha256": "a7d05816356dc455adaa9de1719b59cae99cad9d474c863b31036dd87cc73c93",
+        "format": "JPEG"
+      },
+      {
+        "path": "browser/mobile-prompt-workspace.png",
+        "width": 375,
+        "height": 865,
+        "sha256": "402322d7a9aa233d3c5350c4dda553f9fec8a80848369a010f151ffdc95e4595",
+        "format": "JPEG"
+      },
+      {
+        "path": "browser/mobile-saved-cards-detail.png",
+        "width": 375,
+        "height": 865,
+        "sha256": "569c41e5523bfc16ccfd72bb16e3a8ccfc4669bd33f6f6ce5b0daa1516511675",
+        "format": "JPEG"
+      },
+      {
+        "path": "browser/mobile-saved-cards.png",
+        "width": 375,
+        "height": 865,
+        "sha256": "95a067290191d7bc12c57e714de87b7df25321f6da3bb78067ca0f10fa3dcf0a",
+        "format": "JPEG"
+      },
+      {
+        "path": "browser/mobile-scene-builder.png",
+        "width": 375,
+        "height": 865,
+        "sha256": "5a6f52027322e7afd097c4e4acca0cf887e496fe46497685902e5654df204a72",
+        "format": "JPEG"
+      },
+      {
+        "path": "browser/mobile-wide-squat.png",
+        "width": 375,
+        "height": 865,
+        "sha256": "c4a063e4d9ab1ac14fbe3518f2cd7173c2827004d84cf90579d9e49c1108fb11",
+        "format": "JPEG"
+      }
+    ],
+    "viewportReset": true,
+    "paidGeneration": false,
+    "realUserDataTouched": false
+  },
+  "preservation": {
+    "originalUntrackedFiles": 100,
+    "originalDocumentChangesUnchanged": true,
+    "oldBaselinesUnchanged": true,
+    "catalogUnchanged": true,
+    "stagedFiles": 0,
+    "commits": 0,
+    "pushes": 0,
+    "deployed": false,
+    "runtimeReplayHashesVerified": 11,
+    "prechangeEvidenceUnchanged": true
+  },
+  "logHashes": {
+    "full-tests": "7394c7322514046bdc758c2480aa72b056c6df229811d4c2ec50cd60dfbf9d29",
+    "prompt-quality": "a3c5a6fbc39b9c5fb28533b8fd1fe3bbe43c33c58825c326f6b00dd08080b306",
+    "lint": "4cc3750d21346cf65740526345613cc28b068e42b7624120db0bc04da500cb79",
+    "build": "d4e64d03740c627e40d28a119074681bc080b162777bee0920ab7abeff470e0e",
+    "audit-before": "91eb9151ef25a1ecd5d88e16e067d3b0b6560aeed3a171a42864676c41e54846",
+    "audit-after": "e383c4e17afce91242f12e25d9fb16de0951bd1215094fb567cbf6959f6f91b7",
+    "focused": "dd98ae9edd99c904c5a9ec1d4ebe83c1e6725453d19b3e9072465f19ca9c6c38",
+    "historical-inverse": "399dfdc82b974a0e6bde19b7c44f7d1562c35e56cb6faf3e997505bcfe67c4de",
+    "before-node25-tests": "a7e9e5668cbed4864e284ac33814569c95f681d92c2bafc0dfe364bbe1a0ea62",
+    "preview-server": "831cc6bf1bc3b285a2a45465ee8096745bee9ae876dffdef1d464bdb233ed31b",
+    "historical-inverse-final": "7c5d5005a77acdea4c2663600bb0bb5aec31e0fea262dd3b9b8d521ce76d5228",
+    "preview-isolation": "e5efb3a64b0511f1c73ac12081aa2784c799aae8bc208fa66768d6bc67c6dcc7"
+  }
+}

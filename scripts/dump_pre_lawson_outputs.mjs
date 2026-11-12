@@ -6,6 +6,7 @@ import { dirname, join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { preLawsonSceneSource } from './lib/lawsonSceneHistoricalReplay.mjs';
+import { poseUpperBodyStateHistoricalPaths, prePoseUpperBodyStateSource } from './lib/poseUpperBodyStateHistoricalReplay.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const directory = mkdtempSync(join(tmpdir(), 'vps-pre-lawson-dump-'));
@@ -15,6 +16,12 @@ try {
   cpSync(join(root, 'webapp/src'), join(webapp, 'src'), { recursive: true });
   cpSync(join(root, 'webapp/package.json'), join(webapp, 'package.json'));
   symlinkSync(join(root, 'webapp/node_modules'), join(webapp, 'node_modules'), 'dir');
+  // Replay the immutable old prompt corpus before the separately reviewed pose revision.
+  for (const relative of poseUpperBodyStateHistoricalPaths.filter(path => path.startsWith('webapp/'))) {
+    const target = join(directory, relative);
+    const source = readFileSync(target);
+    writeFileSync(target, prePoseUpperBodyStateSource(relative, source));
+  }
   const database = 'webapp/src/data/database.json';
   const current = readFileSync(join(root, database));
   const previous = preLawsonSceneSource(database, current);

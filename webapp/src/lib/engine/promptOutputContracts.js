@@ -80,7 +80,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.65.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.66.0';
 
 export const PHONE_CAPTURE_CONTRACT = deepFreeze({
   source: 'issued phone selfie IDs are manual props; companion viewpoint is a manual orbit choice',
@@ -122,6 +122,7 @@ export const SPECIFIED_ACTION_CONTRACT = deepFreeze({
   version: '2.0.0',
   source: 'eleven manual actions, resolved once with per-action expression and head ownership',
   projection: 'shared full and upper-body authored source; face crops omit geometry; supine retains ground identity',
+  upperBodyStateBatch1: 'six previously omitted sitting actions retain seated identity; wide-knee squat retains squatting identity and existing torso incline in medium/chest crops only',
   ownership: 'fixed scene position, unified specified action including legacy card aliases, free composer',
   persistence: 'additive action ID and supine scene restore snapshot; dormant free selections retained',
   outputs: 'four main outputs and GPT chest derivative; full-body character reference remains standing',
