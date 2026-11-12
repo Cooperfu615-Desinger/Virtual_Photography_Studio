@@ -10,6 +10,7 @@ import {fileURLToPath} from 'node:url';
 import baseline from './indoorKneelBaseline.json' with {type:'json'};
 import protectedBaseline from './indoorKneelProtectedBaseline.json' with {type:'json'};
 import {indoorKneelProtectedRows} from './indoorKneelFixtures.js';
+import { assertUpperBodyStateBaselineRevision } from './upperBodyStateBaselineRevisionTestSupport.js';
 test('all 1686 pre-kneel fixtures keep existing six outputs, selections and summaries',()=>{
  const temp=mkdtempSync(join(tmpdir(),'indoor-kneel-baseline-'));
  try{const path=join(temp,'outputs.json');execFileSync(process.execPath,['../scripts/dump_pre_lawson_outputs.mjs',path],{cwd:fileURLToPath(new URL('../../../',import.meta.url)),stdio:'pipe',timeout:120000});
@@ -18,5 +19,5 @@ test('all 1686 pre-kneel fixtures keep existing six outputs, selections and summ
  }finally{rmSync(temp,{recursive:true,force:true})}
 });
 test('17220 protected samples keep unspecified indoor kneels, all fixed and outdoor kneels and every outdoor leaning choice',()=>{
- assert.equal(Object.keys(protectedBaseline.rows).length,1528);assert.equal(Object.values(protectedBaseline.rows).reduce((n,r)=>n+r.samples,0),17220);assert.deepEqual(indoorKneelProtectedRows(),protectedBaseline.rows);
+ assert.equal(Object.keys(protectedBaseline.rows).length,1528);assert.equal(Object.values(protectedBaseline.rows).reduce((n,r)=>n+r.samples,0),17220);assertUpperBodyStateBaselineRevision('indoorKneel',indoorKneelProtectedRows(),protectedBaseline.rows);
 });

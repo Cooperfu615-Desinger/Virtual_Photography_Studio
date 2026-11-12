@@ -1,0 +1,768 @@
+{
+  "viewports": [
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "name": "mobile",
+      "width": 390,
+      "height": 900
+    }
+  ],
+  "cases": [
+    {
+      "viewport": "desktop",
+      "name": "跪坐",
+      "frame": "medium",
+      "support": [
+        "地板"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "name": "跪坐",
+      "frame": "chest",
+      "support": [
+        "地板"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "name": "分腿跪坐",
+      "frame": "medium",
+      "support": [
+        "沙發"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "name": "分腿跪坐",
+      "frame": "chest",
+      "support": [
+        "沙發"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "name": "前傾跪姿",
+      "frame": "medium",
+      "support": [
+        "閱讀桌"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "name": "前傾跪姿",
+      "frame": "chest",
+      "support": [
+        "閱讀桌"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "name": "直立端正跪姿",
+      "frame": "medium",
+      "support": [
+        "木板"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "name": "直立端正跪姿",
+      "frame": "chest",
+      "support": [
+        "木板"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "name": "側坐跪姿",
+      "frame": "medium",
+      "support": [
+        "榻榻米"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "name": "側坐跪姿",
+      "frame": "chest",
+      "support": [
+        "榻榻米"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "name": "單膝前跨跪姿",
+      "frame": "medium",
+      "support": [
+        "沙地"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "name": "單膝前跨跪姿",
+      "frame": "chest",
+      "support": [
+        "沙地"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "mobile",
+      "name": "跪坐",
+      "frame": "medium",
+      "support": [
+        "地板"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "name": "跪坐",
+      "frame": "chest",
+      "support": [
+        "地板"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "name": "分腿跪坐",
+      "frame": "medium",
+      "support": [
+        "沙發"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "name": "分腿跪坐",
+      "frame": "chest",
+      "support": [
+        "沙發"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "name": "前傾跪姿",
+      "frame": "medium",
+      "support": [
+        "閱讀桌"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "name": "前傾跪姿",
+      "frame": "chest",
+      "support": [
+        "閱讀桌"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "name": "直立端正跪姿",
+      "frame": "medium",
+      "support": [
+        "木板"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "name": "直立端正跪姿",
+      "frame": "chest",
+      "support": [
+        "木板"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "name": "側坐跪姿",
+      "frame": "medium",
+      "support": [
+        "榻榻米"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "name": "側坐跪姿",
+      "frame": "chest",
+      "support": [
+        "榻榻米"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "name": "單膝前跨跪姿",
+      "frame": "medium",
+      "support": [
+        "沙地"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "name": "單膝前跨跪姿",
+      "frame": "chest",
+      "support": [
+        "沙地"
+      ],
+      "outputs": 7,
+      "reloadEqual": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "scroll": 375,
+        "width": 390
+      }
+    }
+  ],
+  "workspaces": [
+    {
+      "viewport": "desktop",
+      "name": "Prompt 工作台",
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "scroll": 1425,
+        "width": 1440
+      },
+      "loaded": true
+    },
+    {
+      "viewport": "desktop",
+      "name": "角色建模",
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "scroll": 1425,
+        "width": 1440
+      },
+      "loaded": true
+    },
+    {
+      "viewport": "desktop",
+      "name": "場景建模",
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "scroll": 1425,
+        "width": 1440
+      },
+      "loaded": true
+    },
+    {
+      "viewport": "desktop",
+      "name": "DLL_PIC Pro",
+      "layout": {
+        "brokenImages": 0,
+        "client": 1440,
+        "height": 1000,
+        "scroll": 1440,
+        "width": 1440
+      },
+      "loaded": true
+    },
+    {
+      "viewport": "desktop",
+      "name": "DLL_VIDEO Pro",
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "scroll": 1425,
+        "width": 1440
+      },
+      "loaded": true
+    },
+    {
+      "viewport": "desktop",
+      "name": "Saved Cards",
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "scroll": 1425,
+        "width": 1440
+      },
+      "loaded": true
+    },
+    {
+      "viewport": "mobile",
+      "name": "Prompt 工作台",
+      "loaded": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "name": "角色建模",
+      "loaded": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "name": "場景建模",
+      "loaded": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "name": "DLL_PIC Pro",
+      "loaded": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "name": "DLL_VIDEO Pro",
+      "loaded": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "name": "Saved Cards",
+      "loaded": true,
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "scroll": 375,
+        "width": 390
+      }
+    }
+  ],
+  "notes": [
+    "DLL uses the existing explicit apply-preview and import-source flow."
+  ],
+  "dll": [
+    {
+      "viewport": "desktop",
+      "source": "Gpt",
+      "equal": true,
+      "ratio": "9:16"
+    },
+    {
+      "viewport": "desktop",
+      "source": "Z-Image",
+      "equal": true,
+      "ratio": "9:16"
+    },
+    {
+      "viewport": "desktop",
+      "source": "MIDJOURNEY",
+      "equal": true,
+      "ratio": "9:16"
+    },
+    {
+      "viewport": "desktop",
+      "source": "Nano Banana 2.1",
+      "equal": true,
+      "ratio": "9:16"
+    },
+    {
+      "viewport": "desktop",
+      "source": "胸上特寫照",
+      "equal": true,
+      "ratio": "4:5"
+    },
+    {
+      "viewport": "desktop",
+      "source": "全身角色照",
+      "equal": true,
+      "ratio": "9:16"
+    },
+    {
+      "viewport": "desktop",
+      "source": "Grok Imagine",
+      "equal": true,
+      "ratio": "9:16"
+    },
+    {
+      "viewport": "mobile",
+      "source": "Gpt",
+      "equal": true
+    },
+    {
+      "viewport": "mobile",
+      "source": "Z-Image",
+      "equal": true
+    },
+    {
+      "viewport": "mobile",
+      "source": "MIDJOURNEY",
+      "equal": true
+    },
+    {
+      "viewport": "mobile",
+      "source": "Nano Banana 2.1",
+      "equal": true
+    },
+    {
+      "viewport": "mobile",
+      "source": "胸上特寫照",
+      "equal": true
+    },
+    {
+      "viewport": "mobile",
+      "source": "全身角色照",
+      "equal": true
+    },
+    {
+      "viewport": "mobile",
+      "source": "Grok Imagine",
+      "equal": true
+    }
+  ],
+  "supportTransitions": {
+    "unspecified": true,
+    "sandToClassroomCleared": true,
+    "floorReselected": true
+  },
+  "ambientSide": {
+    "viewport": "mobile",
+    "ambient": "室內窗邊日光",
+    "light": "側向柔光",
+    "orbit": "左側",
+    "posture": true,
+    "canonicalFloor": true
+  },
+  "newFavorite": {
+    "count": 19,
+    "sevenStoredOutputs": true,
+    "restoredSevenEqual": true,
+    "reloadEqual": true,
+    "sevenDetailTabsEqual": true
+  },
+  "parisImport": {
+    "viewport": "mobile",
+    "sevenOutputs": true,
+    "postureRetained": true,
+    "manualSupportExcluded": true
+  },
+  "protected": [
+    {
+      "viewport": "mobile",
+      "name": "雙腿自然伸展",
+      "frame": "medium",
+      "sevenOutputs": true,
+      "postureRetained": true
+    },
+    {
+      "viewport": "mobile",
+      "name": "雙腿自然伸展",
+      "frame": "chest",
+      "sevenOutputs": true,
+      "postureRetained": true
+    },
+    {
+      "viewport": "mobile",
+      "name": "自然蹲姿",
+      "frame": "medium",
+      "sevenOutputs": true,
+      "postureRetained": true
+    },
+    {
+      "viewport": "mobile",
+      "name": "自然蹲姿",
+      "frame": "chest",
+      "sevenOutputs": true,
+      "postureRetained": true
+    },
+    {
+      "viewport": "mobile",
+      "name": "側躺・單前臂撐起上身",
+      "frame": "medium",
+      "sevenOutputs": true,
+      "postureRetained": true
+    },
+    {
+      "viewport": "mobile",
+      "name": "側躺・單前臂撐起上身",
+      "frame": "chest",
+      "sevenOutputs": true,
+      "postureRetained": true
+    },
+    {
+      "viewport": "desktop",
+      "name": "雙腿自然伸展",
+      "frame": "medium",
+      "sevenOutputs": true,
+      "postureRetained": true
+    },
+    {
+      "viewport": "desktop",
+      "name": "雙腿自然伸展",
+      "frame": "chest",
+      "sevenOutputs": true,
+      "postureRetained": true
+    },
+    {
+      "viewport": "desktop",
+      "name": "自然蹲姿",
+      "frame": "medium",
+      "sevenOutputs": true,
+      "postureRetained": true
+    },
+    {
+      "viewport": "desktop",
+      "name": "自然蹲姿",
+      "frame": "chest",
+      "sevenOutputs": true,
+      "postureRetained": true
+    },
+    {
+      "viewport": "desktop",
+      "name": "側躺・單前臂撐起上身",
+      "frame": "medium",
+      "sevenOutputs": true,
+      "postureRetained": true
+    },
+    {
+      "viewport": "desktop",
+      "name": "側躺・單前臂撐起上身",
+      "frame": "chest",
+      "sevenOutputs": true,
+      "postureRetained": true
+    }
+  ],
+  "console": [],
+  "browser": "IAB via CUA",
+  "syntheticOnly": true,
+  "paidGenerationSubmitted": false
+}

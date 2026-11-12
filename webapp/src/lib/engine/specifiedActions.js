@@ -340,7 +340,8 @@ export const SPECIFIED_ACTION_CONCRETE_OPTIONS = Object.freeze([
   // 2026-10-21): the reviewed free-composer sitting and kneeling wording, completed as
   // sentences; accepted with free hands. Crops keep the reviewed upper-body fragment, or omit
   // the action where the composer omitted it. Batch 1 (2026-11-12) gives only the six
-  // previously omitted sitting actions a seated identity; kneeling remains unchanged.
+  // previously omitted sitting actions a seated identity. Batch 3 restores the six
+  // reviewed kneeling identities while preserving their original head-crop text.
   ...[
     ['sitting', 'natural', '自然坐姿', '自然放鬆的坐姿。', [clause('core', '', 'She sits in a relaxed, natural posture')],
       'Her upper body rests in a relaxed seated posture.'],
@@ -371,24 +372,28 @@ export const SPECIFIED_ACTION_CONCRETE_OPTIONS = Object.freeze([
       'Her upper body is open and relaxed, her torso upright and her shoulders at ease.', [], 'She is seated.'],
     ['kneeling', 'seiza', '跪坐', '正座跪坐，臀部坐在腳跟上，雙膝併攏，上身挺直。', [
       clause('core', '', 'She kneels in a seiza posture with her hips resting on her heels'),
-      clause('lower', ', ', 'her knees together'), clause('upper', ', ', 'her torso upright')]],
+      clause('lower', ', ', 'her knees together'), clause('upper', ', ', 'her torso upright')],
+      'She is kneeling with her torso upright.', ['頭部主導近景']],
     ['kneeling', 'wide', '分腿跪坐', '雙膝著地、自然分開，小腿往兩側後折，臀部坐在雙腿之間的地面，上身挺直。', [
       clause('core', '', 'She kneels with both knees grounded and naturally apart, her hips resting on the ground between her legs'),
-      clause('lower', ', ', 'her lower legs folded back on either side'), clause('upper', ', ', 'her torso upright')]],
+      clause('lower', ', ', 'her lower legs folded back on either side'), clause('upper', ', ', 'her torso upright')],
+      'She is kneeling with her torso upright.', ['頭部主導近景']],
     ['kneeling', 'forward-lean', '前傾跪姿', '雙膝著地的高跪姿，臀部離開腳跟，上身從髖部往前傾。', [
       clause('core', '', 'She kneels high with both knees grounded and her hips lifted clear of her heels'),
       clause('upper', ', ', 'her upper body inclined forward from the hips')],
-      'Her torso leans forward from the hips.'],
+      'Her torso leans forward from the hips.', [], 'She is kneeling.'],
     ['kneeling', 'upright-poised', '直立端正跪姿', '雙膝著地的直立高跪姿，大腿接近垂直，臀部離開腳跟、位於膝蓋上方，上身挺拔、肩膀放鬆。', [
       clause('core', '', 'She kneels upright with both knees grounded, her thighs nearly vertical and her hips lifted clear of her heels above her knees'),
       clause('upper', ', ', 'her torso tall with relaxed shoulders')],
-      'Her upper body is tall and relaxed.'],
+      'Her upper body is tall and relaxed.', [], 'She is kneeling.'],
     ['kneeling', 'side-sit', '側坐跪姿', '從跪姿側坐，臀部落在折起雙腿的一側，上身放鬆挺直。', [
       clause('core', '', 'She kneels in a side-sitting posture with her hips lowered beside her folded legs'),
-      clause('upper', ', ', 'her torso relaxed and upright')]],
+      clause('upper', ', ', 'her torso relaxed and upright')],
+      'She is kneeling with her torso relaxed and upright.', ['頭部主導近景']],
     ['kneeling', 'one-knee-forward', '單膝前跨跪姿', '單膝著地，另一腳往前跨、前膝彎曲。', [
       clause('core', '', 'She half-kneels with one knee grounded'),
-      clause('lower', ', ', 'the other leg stepped forward with the front knee bent')]],
+      clause('lower', ', ', 'the other leg stepped forward with the front knee bent')],
+      'She is half-kneeling.', ['頭部主導近景']],
   ].map(([baseId, key, zh, descriptionZh, clauses, upperBodyEn = '', upperBodyOmittedFramings = [], upperBodyIdentity = '']) => createAction({
     id: `specified-${baseId}-${key}`, zh, baseId, descriptionZh, clauses, handsMode: 'free',
     upperBodyEn, upperBodyOmitted: !upperBodyEn, upperBodyOmittedFramings, upperBodyIdentity,

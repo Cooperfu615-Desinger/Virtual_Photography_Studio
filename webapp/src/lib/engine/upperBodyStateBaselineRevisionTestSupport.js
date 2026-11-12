@@ -3,15 +3,17 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
 
-const reviews = [1, 2].map(batch => JSON.parse(gunzipSync(readFileSync(new URL(
+const reviews = [1, 2, 3].map(batch => JSON.parse(gunzipSync(readFileSync(new URL(
   `../../../../Docs/reports/pose-upper-body-state-batch${batch}-2026-11-12/baseline-revision.json.gz`, import.meta.url,
 )))));
 
 export function assertUpperBodyStateBaselineRevision(kind, current, baseline) {
+  assert.ok(['indoorSeat', 'indoorSeating', 'outdoorLean', 'indoorKneel'].includes(kind), kind);
   const changes = {};
-  for (const review of reviews) {
-    assert.ok(review.changes[kind], kind);
-    for (const [key, approved] of Object.entries(review.changes[kind])) {
+  for (const [index, review] of reviews.entries()) {
+    // The first two approved batches predate the indoor-kneel matrix revision.
+    assert.ok(review.changes[kind] || kind === 'indoorKneel' && index < 2, kind);
+    for (const [key, approved] of Object.entries(review.changes[kind] || {})) {
       assert.ok(!Object.hasOwn(changes, key), `${kind}: overlapping reviewed case ${key}`);
       assert.ok(review.actionIds.includes(approved.actionId), key);
       changes[key] = approved;

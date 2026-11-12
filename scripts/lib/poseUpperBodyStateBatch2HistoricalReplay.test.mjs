@@ -5,6 +5,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import review from './poseUpperBodyStateBatch2History.json' with { type: 'json' };
 import { prePoseUpperBodyStateBatch2Source } from './poseUpperBodyStateBatch2HistoricalReplay.mjs';
+import { prePoseUpperBodyStateBatch3Source } from './poseUpperBodyStateBatch3HistoricalReplay.mjs';
 
 const hash = source => createHash('sha256').update(source).digest('hex');
 
@@ -25,7 +26,7 @@ test('batch 2 inverse restores reviewed first-batch Git bytes and leaves unknown
   for (const file of review.files) {
     const current = readFileSync(new URL('../../' + file.path, import.meta.url));
     const before = execFileSync('git', ['show', `${review.base}:${file.path}`]);
-    assert.equal(hash(current), file.afterHash, file.path);
+    assert.equal(hash(prePoseUpperBodyStateBatch3Source(file.path, current)), file.afterHash, file.path);
     assert.equal(hash(before), file.beforeHash, file.path);
     assert.deepEqual(prePoseUpperBodyStateBatch2Source(file.path, current), before, file.path);
     assert.equal(prePoseUpperBodyStateBatch2Source(file.path, current.toString()), before.toString(), file.path);

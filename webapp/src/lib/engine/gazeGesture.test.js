@@ -252,13 +252,13 @@ test('16 sitting and kneeling actions: accepted, hands free with the general ges
   assert.equal(action('specified-kneeling-all-fours'), undefined, 'all-fours stays with the two support-hand actions');
 });
 
-test('sitting crops retain seated identity; unchanged kneeling crops keep their reviewed omission', () => {
+test('sitting and general kneeling crops retain their reviewed posture identity', () => {
   const medium = id => generate({ specifiedActionId: id, framingId: MEDIUM });
   assert.match(medium('specified-sitting-slouched').grokPrompt, /Her upper body slouches loosely and heavily with dropped shoulders and a relaxed torso\./);
   assert.match(medium('specified-kneeling-forward-lean').grokPrompt, /Her torso leans forward from the hips\./);
   assert.match(medium('specified-sitting-cross-legged').grokPrompt, /\nPose and Composition:\nShe is seated\./);
   for (const id of ['specified-kneeling-seiza']) {
-    assert.doesNotMatch(medium(id).grokPrompt, /\nPose and Composition:\n/, id);
+    assert.match(medium(id).grokPrompt, /\nPose and Composition:\nShe is kneeling with her torso upright\./, id);
     assert.match(generate({ specifiedActionId: id }).grokPrompt, /\nPose and Composition:\nShe (sits|kneels)/, id);
   }
   const gesture = generate({ specifiedActionId: 'specified-sitting-cross-legged', gestureId: 'gesture-collarbone' });

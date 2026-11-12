@@ -6,11 +6,13 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import review from './poseUpperBodyStateBatch2History.json' with { type: 'json' };
+import { poseUpperBodyStateBatch3HistoricalPaths, prePoseUpperBodyStateBatch3Source } from './poseUpperBodyStateBatch3HistoricalReplay.mjs';
 
 const hash = source => createHash('sha256').update(source).digest('hex');
-export const poseUpperBodyStateBatch2HistoricalPaths = review.files.map(file => file.path);
+export const poseUpperBodyStateBatch2HistoricalPaths = [...new Set([...poseUpperBodyStateBatch3HistoricalPaths, ...review.files.map(file => file.path)])];
 
 export function prePoseUpperBodyStateBatch2Source(path, source) {
+  source = prePoseUpperBodyStateBatch3Source(path, source);
   const file = review.files.find(item => item.path === path);
   if (!file || hash(source) !== file.afterHash) return source;
   const lines = source.toString().match(/[^\n]*\n|[^\n]+$/g) || [];
