@@ -3,18 +3,26 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
 
-const review = JSON.parse(gunzipSync(readFileSync(new URL('../../../../Docs/reports/pose-upper-body-state-batch1-2026-11-12/baseline-revision.json.gz', import.meta.url))));
+const reviews = [1, 2].map(batch => JSON.parse(gunzipSync(readFileSync(new URL(
+  `../../../../Docs/reports/pose-upper-body-state-batch${batch}-2026-11-12/baseline-revision.json.gz`, import.meta.url,
+)))));
 
 export function assertUpperBodyStateBaselineRevision(kind, current, baseline) {
-  const changes = review.changes[kind];
-  assert.ok(changes, kind);
+  const changes = {};
+  for (const review of reviews) {
+    assert.ok(review.changes[kind], kind);
+    for (const [key, approved] of Object.entries(review.changes[kind])) {
+      assert.ok(!Object.hasOwn(changes, key), `${kind}: overlapping reviewed case ${key}`);
+      assert.ok(review.actionIds.includes(approved.actionId), key);
+      changes[key] = approved;
+    }
+  }
   const keys = Object.keys(baseline).filter(key => kind !== 'indoorSeat' || !key.startsWith('outdoor/'));
   assert.deepEqual(Object.keys(current), keys, `${kind}: original ordered case coverage`);
   for (const [key, row] of Object.entries(current)) {
     const approved = changes[key];
     assert.ok(Object.hasOwn(baseline, key), key);
     if (approved) {
-      assert.ok(review.actionIds.includes(approved.actionId), key);
       assert.deepEqual(baseline[key], approved.before, `${key}: original immutable baseline`);
       assert.deepEqual(row, approved.after, `${key}: approved upper-body-state revision`);
     } else assert.deepEqual(row, baseline[key], key);

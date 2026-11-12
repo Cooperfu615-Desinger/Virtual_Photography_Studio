@@ -1,0 +1,155 @@
+{
+  "date": "2026-11-12",
+  "base": "28200431b85cc49c18900489938f8ae0e8c4e0be",
+  "scopeEvidenceCommit": "6a6b1b6d",
+  "contract": "1.67.0",
+  "batch": 2,
+  "focusedCases": 269,
+  "comparedOutputs": 1871,
+  "savedCards": 66,
+  "fullTests": {
+    "pass": 2286,
+    "fail": 0
+  },
+  "promptQuality": {
+    "pass": 941,
+    "fail": 0
+  },
+  "focusedTests": {
+    "pass": 6,
+    "fail": 0
+  },
+  "historicalInverse": {
+    "pass": 2,
+    "fail": 0
+  },
+  "firstBatchReplay": {
+    "pass": 10,
+    "fail": 0
+  },
+  "gestureTests": {
+    "pass": 34,
+    "fail": 0
+  },
+  "lint": "pass",
+  "build": "pass; existing large-chunk warning",
+  "audit": {
+    "count": 200,
+    "seed": "prompt-quality-baseline",
+    "blocking": 0,
+    "diagnostic": 24,
+    "beforeAfterReportIdentical": true
+  },
+  "browser": {
+    "url": "http://127.0.0.1:5176/Virtual_Photography_Studio/",
+    "viewports": [
+      {
+        "width": 1440,
+        "height": 1000
+      },
+      {
+        "width": 390,
+        "height": 900
+      }
+    ],
+    "restoredAndReloadedStates": 24,
+    "workspacesPerViewport": 6,
+    "dllSourcesPerViewport": 7,
+    "consoleErrors": 0,
+    "pageErrors": 0,
+    "externalWrites": 0,
+    "documentHorizontalOverflow": false,
+    "brokenImages": 0,
+    "storage": "synthetic memory and per-tab IndexedDB namespace; Firebase disabled",
+    "observations": "browser/observations.json",
+    "observationsSha256": "67b95156f1e93af306ee29bd53c9951e5fc994b2e9945998c5db130eb6428d09",
+    "screenshots": [
+      {
+        "path": "browser/desktop-dll.png",
+        "format": "PNG",
+        "width": 1440,
+        "height": 1000,
+        "sha256": "3cd80a514d046f8f6bca4292ddceedeb0035ed2960a9591107e822b10388734c"
+      },
+      {
+        "path": "browser/desktop-seated.png",
+        "format": "PNG",
+        "width": 1440,
+        "height": 1000,
+        "sha256": "7fbea86b3f4194a46ea590e0f0d6a4c47fdd3a7c7a4247ba3723cff86bea9b45"
+      },
+      {
+        "path": "browser/desktop-squatting.png",
+        "format": "PNG",
+        "width": 1440,
+        "height": 1000,
+        "sha256": "d3262b077de9f72f59bd7dbc95c736b4a4c28c3b122b72cadec420dc41a27a81"
+      },
+      {
+        "path": "browser/mobile-dll.png",
+        "format": "PNG",
+        "width": 390,
+        "height": 900,
+        "sha256": "3c2d8d4ac5824e279cfbeffe9bab9cc9b2854c8b46bd02fae37c99e6bd389e67"
+      },
+      {
+        "path": "browser/mobile-seated.png",
+        "format": "PNG",
+        "width": 390,
+        "height": 900,
+        "sha256": "67d5a53d9cba376999e318eb3f319c1d19ab9ed15f68dd84761183b4a653ef16"
+      },
+      {
+        "path": "browser/mobile-squatting.png",
+        "format": "PNG",
+        "width": 390,
+        "height": 900,
+        "sha256": "34f1def8c3ae9ef22bb9c7233ca034c23cdd529d512d92321ec6d2c75484f9fe"
+      }
+    ]
+  },
+  "prechangeEvidenceSha256": "f4cbe187bb83ec74a205275946658b9e83aa6b845d5d466c1389d74227a7b81b",
+  "preservation": {
+    "nonTargetUserFiles": 102,
+    "userAndFrozenJsonHashesVerified": 143,
+    "oldBaselineAndSealJsonUnchanged": true,
+    "firstBatchEvidenceUnchanged": true,
+    "existing5175ServerPreserved": true
+  },
+  "sourceHashes": {
+    "webapp/src/lib/engine.js": "5aabe084ad3d1fb1a4730160ed31cec1691c9d0537d18000a3e7ac0c674f3a8d",
+    "webapp/src/lib/engine/specifiedActions.js": "00c25f6b6955b91662aff17ebe5fa9af2ef311634ec673ba94c6e2ce1e2cc936",
+    "webapp/src/lib/engine/promptOutputContracts.js": "3f43624b9d09c283bdda76c7d951cc5d4145ed760597d2f228cb59d381a48c84",
+    "webapp/src/lib/engine/promptOutputContracts.test.js": "2c7ddaf9671a910087a821900c9589a8136bb4bc385c1fc868403e43ef4ba294",
+    "webapp/src/lib/engineBlackTieShirt.test.js": "0712c2c22db0f7add8226401159c6886df6f4c8cd45f27f8db9696c03f331e5f",
+    "webapp/package.json": "37e0bda0361b257bb5d7dd78b866caadf3d61375d76555908dcc8e6879d5212b",
+    "webapp/src/lib/engine/specifiedActionUpperBodyState.test.js": "dccb2665a42fdbd1da93708fa4ab4aa1af52505320a41499779bfb7041440afa",
+    "webapp/src/lib/engine/upperBodyStateBaselineRevisionTestSupport.js": "5fb03ea1be57625dd69b46a3febf40dbb47bfc0b52a386d8d2a8c0bed62eea83",
+    "scripts/lib/poseUpperBodyStateHistoricalReplay.mjs": "75be7915fbaa27155795c8673efa4216ff291e428e04a487c7facdedada4bba8",
+    "webapp/src/lib/engine/gazeGesture.test.js": "dcf3b7dcfd525f523c648eb79b678f3840116ac7489668157e1c91c161fd057a"
+  },
+  "logHashes": {
+    "focused": "0782c4aaee9b871be1ce23df5437c374ebfc05623fe398f8fa3b5cf56e19f58f",
+    "expected-red": "9ecb417fa55f99c6213cf68cf9fda26b7e248310500912fe5b2f8769b27dd02d",
+    "full-tests": "96de5b9b58a614e0a0b3327f541bc18b99fccf830987e63bb0139dca3f2e6088",
+    "prompt-quality": "3b16b8c01490416d2b6e1a3c547a46ffb7afa79d7bf0ccb2ca302f974558df8a",
+    "lint": "4cc3750d21346cf65740526345613cc28b068e42b7624120db0bc04da500cb79",
+    "build": "a5a12d98d6eb7726b856fdfc5b380e4ae277064c0eed85b1ab7a27a550e10d12",
+    "audit-before": "91eb9151ef25a1ecd5d88e16e067d3b0b6560aeed3a171a42864676c41e54846",
+    "audit-after": "e383c4e17afce91242f12e25d9fb16de0951bd1215094fb567cbf6959f6f91b7",
+    "historical-inverse": "ceeb0d6c49d512143e23ecbd213cd239193a40764a1efeff58fd6e5d00e63870",
+    "first-batch-replay": "6b72681a552d9e915cd8c885a1fa715b72ba99bd63083e7d1a636ed0fc502a99",
+    "gesture": "10b1aedbaf6174d6842e3f14711165dee7b1df681db10d8fa191ed95a0b31f7d",
+    "browser": "25c5a406984d311d1e642d75c757f4465eeafbce2420358e273848a8188d97eb",
+    "preview-isolation": "4b5d58c74d09db4a09f6deaa12bd8fb54509105872b6267a17fd724480f36c3b"
+  },
+  "limitations": [
+    "External image-model quality remains for user evaluation.",
+    "Existing first-batch mobile pose-thumbnail overlap is outside this source-text change.",
+    "Actual clipboard content was not retested; all seven displayed and DLL source values were compared."
+  ],
+  "previewIsolation": {
+    "pass": 1,
+    "fail": 0
+  }
+}

@@ -24,9 +24,10 @@ export function joinSpecifiedActionClauses(clauses, regions = SPECIFIED_ACTION_R
 function createAction({ id, zh, baseId, orientationId = 'none', clauses, upperBodyEn,
   descriptionZh, referenceNumber, supineGroundOnly = false, legacyCardId = '', ownsExpression = false, ownsHead = false, expressionLabel = '', headLabel = '', faceEn = '', supportSurface = 'ground',
   family = baseId && baseId !== 'none' ? baseId : 'free', handsMode = 'fixed', validation = { status: 'accepted', evidence: '' }, requiresWardrobeRole = '',
-  upperBodyOmitted = false, upperBodyOmittedFramings = [] }) {
+  upperBodyOmitted = false, upperBodyOmittedFramings = [], upperBodyIdentity = '' }) {
   const en = joinSpecifiedActionClauses(clauses);
-  return deepFreeze({ id, zh, baseId, orientationId, en, upperBodyEn, descriptionZh, referenceNumber, legacyCardId, ownsExpression, ownsHead, expressionLabel, headLabel, faceEn,
+  const projectedUpperBodyEn = upperBodyIdentity ? `${upperBodyIdentity} ${upperBodyEn}` : upperBodyEn;
+  return deepFreeze({ id, zh, baseId, orientationId, en, upperBodyEn: projectedUpperBodyEn, descriptionZh, referenceNumber, legacyCardId, ownsExpression, ownsHead, expressionLabel, headLabel, faceEn,
     family, clauses, hands: { mode: handsMode }, scene: { support: supportSurface || 'none' }, validation,
     meta: {
       tags: ['specified_action'],
@@ -34,6 +35,7 @@ function createAction({ id, zh, baseId, orientationId = 'none', clauses, upperBo
       ...(requiresWardrobeRole ? { requiresWardrobeRole } : {}),
       ...(upperBodyOmitted ? { upperBodyOmitted } : {}),
       ...(upperBodyOmittedFramings.length ? { upperBodyOmittedFramings } : {}),
+      ...(upperBodyIdentity ? { upperBodyEnByFraming: { '頭部主導近景': upperBodyEn } } : {}),
       randomEligible: false,
       supineGroundOnly,
       projectionByBucket: {
@@ -41,8 +43,8 @@ function createAction({ id, zh, baseId, orientationId = 'none', clauses, upperBo
         fixedComposition: { mode: 'visible' },
         fullBody: { mode: 'visible' },
         cowboyKnee: { mode: 'visible' },
-        chestUp: upperBodyOmitted ? { mode: 'omit' } : { mode: 'projected', en: upperBodyEn },
-        mediumWaist: upperBodyOmitted ? { mode: 'omit' } : { mode: 'projected', en: upperBodyEn },
+        chestUp: upperBodyOmitted ? { mode: 'omit' } : { mode: 'projected', en: projectedUpperBodyEn },
+        mediumWaist: upperBodyOmitted ? { mode: 'omit' } : { mode: 'projected', en: projectedUpperBodyEn },
         headShoulders: { mode: 'omit' },
         faceDetail: { mode: 'omit' },
       },
@@ -313,24 +315,24 @@ export const SPECIFIED_ACTION_CONCRETE_OPTIONS = Object.freeze([
       clause('core', '', 'She holds a relaxed low squat with comfortably bent knees, her hips lowered near her heels and clear of the ground'),
       clause('lower', ', ', 'her feet comfortably spaced and her heels resting down or lightly lifted for balance'),
       clause('upper', '. ', 'Her torso inclines gently forward with relaxed shoulders')],
-      'Her upper body leans gently forward with relaxed shoulders.'],
+      'Her upper body leans gently forward with relaxed shoulders.', false, [], 'She is squatting.'],
     ['compact', '收攏低蹲姿', '雙腿與雙腳靠攏，大腿接近小腿，臀部充分下沉但離地；上身靠近大腿、肩膀放鬆，腳跟落地或輕抬。', [
       clause('core', '', 'She holds a compact low squat with her knees and feet close together, her thighs folded close to her calves and her hips sunk near her heels, clear of the ground'),
       clause('lower', ', ', 'her heels resting down or lightly lifted for balance'),
       clause('upper', '. ', 'Her torso inclines gently toward her thighs with relaxed shoulders')],
-      'Her upper body is softly gathered with a gentle forward lean and relaxed shoulders.'],
+      'Her upper body is softly gathered with a gentle forward lean and relaxed shoulders.', false, [], 'She is squatting.'],
     ['forward-lean', '身體前傾蹲姿', '雙膝舒適分開、臀部低沉離地，上身從髖部輕微前傾，肩背與頸部放鬆，腳跟落地或輕抬。', [
       clause('core', '', 'She holds a relaxed forward-leaning low squat with her knees comfortably apart, her hips lowered near her heels and clear of the ground'),
       clause('lower', ', ', 'her heels resting down or lightly lifted for balance'),
       clause('upper', '. ', 'Her torso inclines gently from the hips toward her thighs, her shoulders and neck relaxed')],
-      'Her upper body leans gently forward from the hips with relaxed shoulders and neck.'],
+      'Her upper body leans gently forward from the hips with relaxed shoulders and neck.', false, [], 'She is squatting.'],
     ['wide-knee', '寬膝低蹲姿', '膝蓋向外，腳距適度加寬、腳尖順著膝蓋，臀部低沉在雙腿之間且離地，上身稍前傾，腳跟落地或輕抬。', [
       clause('core', '', 'She holds a relaxed wide-knee low squat with her knees opened outward and her hips sunk low between her legs, clear of the ground'),
       clause('lower', ', ', 'her feet moderately apart with the toes turned outward in line with the knees and her heels resting down or lightly lifted for balance'),
       clause('upper', '. ', 'Her torso inclines gently forward')],
       'She is squatting. Her torso inclines gently forward.', false, ['頭部主導近景']],
-  ].map(([key, zh, descriptionZh, clauses, upperBodyEn, upperBodyOmitted = false, upperBodyOmittedFramings = []]) => createAction({
-    id: `specified-squatting-${key}`, zh, baseId: 'squatting', descriptionZh, clauses, upperBodyEn, upperBodyOmitted, upperBodyOmittedFramings, handsMode: 'free',
+  ].map(([key, zh, descriptionZh, clauses, upperBodyEn, upperBodyOmitted = false, upperBodyOmittedFramings = [], upperBodyIdentity = '']) => createAction({
+    id: `specified-squatting-${key}`, zh, baseId: 'squatting', descriptionZh, clauses, upperBodyEn, upperBodyOmitted, upperBodyOmittedFramings, upperBodyIdentity, handsMode: 'free',
     validation: { status: 'accepted', evidence: 'Cooper 2026-10-21: reviewed squatting-catalog-v2 wording; image round deferred' },
   })),
 
@@ -343,7 +345,7 @@ export const SPECIFIED_ACTION_CONCRETE_OPTIONS = Object.freeze([
     ['sitting', 'natural', '自然坐姿', '自然放鬆的坐姿。', [clause('core', '', 'She sits in a relaxed, natural posture')],
       'Her upper body rests in a relaxed seated posture.'],
     ['sitting', 'forward-lean', '微微前傾', '坐著，上身微微往前傾。', [clause('core', '', 'She sits leaning slightly forward')],
-      'Her upper body leans slightly forward.'],
+      'Her upper body leans slightly forward.', [], 'She is seated.'],
     ['sitting', 'legs-extended', '雙腿自然伸展', '坐著，雙腿自然往前伸展。', [clause('core', '', 'She sits'), clause('lower', ' with ', 'both legs naturally extended')],
       'She is seated.', ['頭部主導近景']],
     ['sitting', 'cross-legged', '盤腿坐姿', '盤腿而坐。', [clause('core', '', 'She sits cross-legged')],
@@ -354,7 +356,7 @@ export const SPECIFIED_ACTION_CONCRETE_OPTIONS = Object.freeze([
     ['sitting', 'slouched', '隨性癱坐', '隨性地癱坐，身體放鬆沉重，肩膀垂下，軀幹自然陷進座位。', [
       clause('core', '', 'She sits casually slumped with a loose, heavy body'),
       clause('upper', ', ', 'her shoulders dropped and her torso settling naturally into the seat')],
-      'Her upper body slouches loosely and heavily with dropped shoulders and a relaxed torso.'],
+      'Her upper body slouches loosely and heavily with dropped shoulders and a relaxed torso.', [], 'She is seated.'],
     ['sitting', 'leg-cross', '翹二郎腿', '坐著翹二郎腿。', [clause('core', '', 'She sits'), clause('lower', ' with ', 'one leg crossed over the other')],
       'She is seated.', ['頭部主導近景']],
     ['sitting', 'one-knee-up', '單腿屈起坐姿', '坐著，一腳屈膝抬起，另一腳放鬆。', [clause('core', '', 'She sits'),
@@ -366,7 +368,7 @@ export const SPECIFIED_ACTION_CONCRETE_OPTIONS = Object.freeze([
     ['sitting', 'open-confident', '開闊自信坐姿', '開闊穩定的坐姿，膝蓋舒適分開，重心落在髖部，上身放鬆挺直。', [
       clause('core', '', 'She sits in an open, grounded posture with her weight settled through her hips'),
       clause('lower', ', ', 'her knees comfortably apart'), clause('upper', '. ', 'Her torso is relaxed and upright')],
-      'Her upper body is open and relaxed, her torso upright and her shoulders at ease.'],
+      'Her upper body is open and relaxed, her torso upright and her shoulders at ease.', [], 'She is seated.'],
     ['kneeling', 'seiza', '跪坐', '正座跪坐，臀部坐在腳跟上，雙膝併攏，上身挺直。', [
       clause('core', '', 'She kneels in a seiza posture with her hips resting on her heels'),
       clause('lower', ', ', 'her knees together'), clause('upper', ', ', 'her torso upright')]],
@@ -387,9 +389,9 @@ export const SPECIFIED_ACTION_CONCRETE_OPTIONS = Object.freeze([
     ['kneeling', 'one-knee-forward', '單膝前跨跪姿', '單膝著地，另一腳往前跨、前膝彎曲。', [
       clause('core', '', 'She half-kneels with one knee grounded'),
       clause('lower', ', ', 'the other leg stepped forward with the front knee bent')]],
-  ].map(([baseId, key, zh, descriptionZh, clauses, upperBodyEn = '', upperBodyOmittedFramings = []]) => createAction({
+  ].map(([baseId, key, zh, descriptionZh, clauses, upperBodyEn = '', upperBodyOmittedFramings = [], upperBodyIdentity = '']) => createAction({
     id: `specified-${baseId}-${key}`, zh, baseId, descriptionZh, clauses, handsMode: 'free',
-    upperBodyEn, upperBodyOmitted: !upperBodyEn, upperBodyOmittedFramings,
+    upperBodyEn, upperBodyOmitted: !upperBodyEn, upperBodyOmittedFramings, upperBodyIdentity,
     validation: { status: 'accepted', evidence: 'Cooper 2026-10-21: reviewed free-composer wording; image round deferred' },
   })),
 

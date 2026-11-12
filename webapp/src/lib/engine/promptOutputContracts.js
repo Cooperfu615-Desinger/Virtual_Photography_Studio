@@ -80,7 +80,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.66.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.67.0';
 
 export const PHONE_CAPTURE_CONTRACT = deepFreeze({
   source: 'issued phone selfie IDs are manual props; companion viewpoint is a manual orbit choice',

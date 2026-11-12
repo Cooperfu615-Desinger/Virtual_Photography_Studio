@@ -1,0 +1,280 @@
+[
+  {
+    "width": 1440,
+    "height": 1000,
+    "cases": [
+      {
+        "label": "微微前傾",
+        "crop": "medium",
+        "posture": "seated",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      },
+      {
+        "label": "微微前傾",
+        "crop": "chest",
+        "posture": "seated",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      },
+      {
+        "label": "隨性癱坐",
+        "crop": "medium",
+        "posture": "seated",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      },
+      {
+        "label": "隨性癱坐",
+        "crop": "chest",
+        "posture": "seated",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      },
+      {
+        "label": "開闊自信坐姿",
+        "crop": "medium",
+        "posture": "seated",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      },
+      {
+        "label": "開闊自信坐姿",
+        "crop": "chest",
+        "posture": "seated",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      },
+      {
+        "label": "自然蹲姿",
+        "crop": "medium",
+        "posture": "squatting",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      },
+      {
+        "label": "自然蹲姿",
+        "crop": "chest",
+        "posture": "squatting",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      },
+      {
+        "label": "收攏低蹲姿",
+        "crop": "medium",
+        "posture": "squatting",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      },
+      {
+        "label": "收攏低蹲姿",
+        "crop": "chest",
+        "posture": "squatting",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      },
+      {
+        "label": "身體前傾蹲姿",
+        "crop": "medium",
+        "posture": "squatting",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      },
+      {
+        "label": "身體前傾蹲姿",
+        "crop": "chest",
+        "posture": "squatting",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      }
+    ],
+    "views": [
+      "角色建模",
+      "場景建模",
+      "DLL_PIC Pro",
+      "DLL_VIDEO Pro",
+      "Saved Cards",
+      "Prompt 工作台"
+    ],
+    "errors": [],
+    "externalWrites": [],
+    "sceneImport": true,
+    "savedDetails": true,
+    "dllSources": 7,
+    "firstBatchProtected": true,
+    "lyingProtected": true,
+    "storage": "synthetic isolated preview",
+    "url": "http://127.0.0.1:5176/Virtual_Photography_Studio/",
+    "screenshots": [
+      {
+        "path": "desktop-dll.png",
+        "format": "PNG",
+        "width": 1440,
+        "height": 1000
+      },
+      {
+        "path": "desktop-seated.png",
+        "format": "PNG",
+        "width": 1440,
+        "height": 1000
+      },
+      {
+        "path": "desktop-squatting.png",
+        "format": "PNG",
+        "width": 1440,
+        "height": 1000
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "height": 900,
+    "cases": [
+      {
+        "label": "微微前傾",
+        "crop": "medium",
+        "posture": "seated",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      },
+      {
+        "label": "微微前傾",
+        "crop": "chest",
+        "posture": "seated",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      },
+      {
+        "label": "隨性癱坐",
+        "crop": "medium",
+        "posture": "seated",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      },
+      {
+        "label": "隨性癱坐",
+        "crop": "chest",
+        "posture": "seated",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      },
+      {
+        "label": "開闊自信坐姿",
+        "crop": "medium",
+        "posture": "seated",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      },
+      {
+        "label": "開闊自信坐姿",
+        "crop": "chest",
+        "posture": "seated",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      },
+      {
+        "label": "自然蹲姿",
+        "crop": "medium",
+        "posture": "squatting",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      },
+      {
+        "label": "自然蹲姿",
+        "crop": "chest",
+        "posture": "squatting",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      },
+      {
+        "label": "收攏低蹲姿",
+        "crop": "medium",
+        "posture": "squatting",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      },
+      {
+        "label": "收攏低蹲姿",
+        "crop": "chest",
+        "posture": "squatting",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      },
+      {
+        "label": "身體前傾蹲姿",
+        "crop": "medium",
+        "posture": "squatting",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      },
+      {
+        "label": "身體前傾蹲姿",
+        "crop": "chest",
+        "posture": "squatting",
+        "oldUpperRetained": true,
+        "reload": true,
+        "sevenOutputs": true
+      }
+    ],
+    "views": [
+      "角色建模",
+      "場景建模",
+      "DLL_PIC Pro",
+      "DLL_VIDEO Pro",
+      "Saved Cards",
+      "Prompt 工作台"
+    ],
+    "errors": [],
+    "externalWrites": [],
+    "sceneImport": true,
+    "savedDetails": true,
+    "dllSources": 7,
+    "firstBatchProtected": true,
+    "lyingProtected": true,
+    "storage": "synthetic isolated preview",
+    "url": "http://127.0.0.1:5176/Virtual_Photography_Studio/",
+    "screenshots": [
+      {
+        "path": "mobile-dll.png",
+        "format": "PNG",
+        "width": 390,
+        "height": 900
+      },
+      {
+        "path": "mobile-seated.png",
+        "format": "PNG",
+        "width": 390,
+        "height": 900
+      },
+      {
+        "path": "mobile-squatting.png",
+        "format": "PNG",
+        "width": 390,
+        "height": 900
+      }
+    ]
+  }
+]

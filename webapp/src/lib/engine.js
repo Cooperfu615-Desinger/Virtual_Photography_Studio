@@ -5815,9 +5815,10 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
     const chestUp = projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP;
     // Source-marked exclusions preserve close framings that share the chest-up
     // bucket without suppressing the new medium/chest posture identity.
+    const upperBodyOverride = specifiedAction.meta?.upperBodyEnByFraming?.[context.framing?.zh];
     const projectedAction = specifiedAction.meta?.upperBodyOmittedFramings?.includes(context.framing?.zh)
       ? { ...specifiedAction, meta: { ...specifiedAction.meta, upperBodyOmitted: true } }
-      : specifiedAction;
+      : upperBodyOverride !== undefined ? { ...specifiedAction, upperBodyEn: upperBodyOverride } : specifiedAction;
     return [withLyingSurface(applyIndoorLean(actionTextWithGesture(projectedAction, gesture, { chestUp }, prop).upperBodyEn, context.indoorLean, { upperBody: true }), lyingSurfaceFor(specifiedAction, context.location)),
       isActivePoseComposerOption(head) ? `She has ${normalizePoseComposerHeadPhrase(head)}.` : '',
     ].filter(Boolean).join(' ');

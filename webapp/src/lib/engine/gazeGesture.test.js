@@ -211,7 +211,9 @@ test('squat crops: full body keeps everything, medium keeps reviewed fragments, 
   assert.doesNotMatch(chest(full), /forearms|elbows/);
   const medium = generate({ ...locks, framingId: MEDIUM });
   assert.match(medium.grokPrompt, /Her upper body leans gently forward with relaxed shoulders, both forearms angled naturally downward with relaxed hands\./);
-  assert.doesNotMatch(medium.grokPrompt, /squat|knees|heels/);
+  assert.match(medium.grokPrompt, /She is squatting\. Her upper body leans gently forward/);
+  assert.match(chest(full), /She is squatting\. Her upper body leans gently forward/);
+  assert.doesNotMatch(medium.grokPrompt, /She holds a relaxed low squat|knees|heels/);
 });
 
 test('the wide-knee squat keeps its posture and torso incline in medium and chest-up crops', () => {

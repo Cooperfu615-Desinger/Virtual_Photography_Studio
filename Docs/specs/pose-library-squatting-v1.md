@@ -1,5 +1,7 @@
 # 動作庫：蹲姿 v1
 
+2026-11-12 第二批已核准補齊三個既有坐姿與三個蹲姿的基本身分，實際規則及驗收以[第二批規格](pose-upper-body-state-batch2-v1.md)為準。以下保留原批次的規格與驗收基準。
+
 2026-11-12 限定更新：[中景與胸上基本姿態 v1](pose-upper-body-state-v1.md) 第一批使寬膝低蹲姿在中景與胸上保留蹲姿及原有軀幹前傾；手勢仍依原可見性投影。下列 O6(b) 決策與驗收保留歷史紀錄，其餘三個蹲姿未在本批修改。
 
 - 狀態：**已實作**（2026-10-21，§6）。來源沿用現行蹲姿目錄 v2（[squatting-catalog-v2.md](squatting-catalog-v2.md)）與蹲姿手部 v2（[squatting-hands-v2.md](squatting-hands-v2.md)），兩者 2026-10-17 已由 Cooper 確認。

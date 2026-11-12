@@ -1,6 +1,6 @@
 # 指定動作中景與胸上基本姿態第二批
 
-2026-11-12 使用者核准接續實作。基準為 main `28200431b85cc49c18900489938f8ae0e8c4e0be`。本批在六個既有上身片段之前補上基本坐／蹲身分，原片段逐字保留。來源為 `webapp/src/lib/engine/specifiedActions.js`，七組輸出使用同一次 resolved 選擇。
+2026-11-12 使用者核准接續實作。基準為 main `28200431b85cc49c18900489938f8ae0e8c4e0be`。本批在六個既有上身片段之前補上基本坐／蹲身分，原片段逐字保留。來源為 `webapp/src/lib/engine/specifiedActions.js`，七組輸出使用同一次 resolved 選擇。 Public output contract 為 `1.67.0`。
 
 | 動作 ID | 動作 | 補齊後的中景／胸上片段 |
 |---|---|---|
