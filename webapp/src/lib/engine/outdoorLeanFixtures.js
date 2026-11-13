@@ -9,7 +9,9 @@ export function outdoorLeanProtectedRows() {
   const controls=getLockControls(),rows={};
   const locations=attribute=>getSceneDependentOptions([],{subjectCount:'1',sceneAttributeId:attribute}).locationOptions.filter(o=>o.zh!=='全無' && !o.zh.includes('日本 Lawson 便利商店'));
   const lean=SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(o=>['specified-standing-back-lean','specified-standing-shoulder-lean'].includes(o.id));
-  const sit=SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(o=>o.family==='sitting');
+  // Only the separately added adjustable cat pose is outside this original seal.
+  const sit=SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(o=>o.family==='sitting'
+    && o.id!=='specified-sitting-low-aloof-cats-adjustable-angle');
   for(const [prefix,places,actions,model,key] of [
     ['indoor-lean',locations('indoor'),lean,indoorLeaningModel,'indoorLeanId'],
     ['outdoor-seat',locations('outdoor'),sit,indoorSeatingModel,'indoorSeatId'],

@@ -1,0 +1,350 @@
+{
+  "base": "f4cf8a81ee6ff5d27dda56c4b7ab38665530c82c",
+  "files": [
+    {
+      "path": "scripts/lib/poseUpperBodyStateBatch3HistoricalReplay.test.mjs",
+      "beforeHash": "772d9494dcc857721ce33eff931f60a3f3e5f7f7b9852bb551294654a1f4a857",
+      "afterHash": "ec2989e79697f6f1f275d8c0ea29eb1134e2d3717a2ef7d6a54ad0ee7e20f50c",
+      "edits": [
+        {
+          "line": 8,
+          "before": [],
+          "after": [
+            "import { preAloofCatsSource } from './aloofCatsHistoricalReplay.mjs';\n"
+          ]
+        },
+        {
+          "line": 28,
+          "before": [
+            "    const current = readFileSync(new URL('../../' + file.path, import.meta.url));\n"
+          ],
+          "after": [
+            "    const current = preAloofCatsSource(file.path, readFileSync(new URL('../../' + file.path, import.meta.url)));\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/c3PoseGuards.test.js",
+      "beforeHash": "4f2aa1341c8f2a129705faa1edb75a522cabc4fc7d3d92cebcd2bd3110ff4158",
+      "afterHash": "a5a9f4d6e48a2a0e325eeee23787809fd44719115be0c196929ed64c6f33d604",
+      "edits": [
+        {
+          "line": 23,
+          "before": [
+            " assert.equal(SPECIFIED_ACTION_CONCRETE_OPTIONS.length,56);\n"
+          ],
+          "after": [
+            " assert.equal(SPECIFIED_ACTION_CONCRETE_OPTIONS.length,57);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/indoorSeating.js",
+      "beforeHash": "1881a3831c961912cf0880b95bb783faf5c5cf9c14b2ecd0bdce839f3f14640e",
+      "afterHash": "1fbcf6c993d8c551cfb7f1108e20b95e24f003e6f03860a050e8d5d5a7594581",
+      "edits": [
+        {
+          "line": 31,
+          "before": [
+            "  'specified-sitting-hug-knees', 'specified-low-seated-aloof-cats-street-mood']);\n"
+          ],
+          "after": [
+            "  'specified-sitting-hug-knees', 'specified-low-seated-aloof-cats-street-mood',\n",
+            "  'specified-sitting-low-aloof-cats-adjustable-angle']);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/indoorSeating.test.js",
+      "beforeHash": "c8d8344d3ecfe498bbf5b86e35dd10c464ec6ee9c975893a228ef90043976fad",
+      "afterHash": "e2a6bab3e8acd6ba76b3a2cae0d8975378161966f43a533cdbd476cc7bbc0da3",
+      "edits": [
+        {
+          "line": 14,
+          "before": [
+            "test('83 scene IDs and all fourteen sitting actions resolve without silently choosing a seat', () => {\n"
+          ],
+          "after": [
+            "test('83 scene IDs and all fifteen sitting actions resolve without silently choosing a seat', () => {\n"
+          ]
+        },
+        {
+          "line": 16,
+          "before": [
+            "  assert.equal(locations.length,83); assert.equal(actions.length,14);\n"
+          ],
+          "after": [
+            "  assert.equal(locations.length,83); assert.equal(actions.length,15);\n"
+          ]
+        },
+        {
+          "line": 46,
+          "before": [
+            "test('the actual 83 × 14 menus agree with both approved review tables', () => {\n"
+          ],
+          "after": [
+            "test('the 83 × 15 menus retain the reviewed rules, including the new cat variant using the original ground rule', () => {\n"
+          ]
+        },
+        {
+          "line": 55,
+          "before": [
+            "      const [,rule]=rules.find(([names])=>names.split('、').includes(action.zh));\n"
+          ],
+          "after": [
+            "      const reviewedName=action.id==='specified-sitting-low-aloof-cats-adjustable-angle'?'低坐貓群冷淡氛圍':action.zh;\n",
+            "      const [,rule]=rules.find(([names])=>names.split('、').includes(reviewedName));\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/outdoorLeanFixtures.js",
+      "beforeHash": "cf2fd50f4445f724a7d661499a4abacec1c0009c8038984df54d8f1350be1bf3",
+      "afterHash": "dc450d08afb168722241d09b2b42206fa97c6878334a2e16bfc7606d6e3710fd",
+      "edits": [
+        {
+          "line": 11,
+          "before": [
+            "  const sit=SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(o=>o.family==='sitting');\n"
+          ],
+          "after": [
+            "  // Only the separately added adjustable cat pose is outside this original seal.\n",
+            "  const sit=SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(o=>o.family==='sitting'\n",
+            "    && o.id!=='specified-sitting-low-aloof-cats-adjustable-angle');\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/outdoorSeatFixtures.js",
+      "beforeHash": "eae3d63094d015f9206eb7168c00b979b94ee7c7b7765684dfe8be1256c72956",
+      "afterHash": "9e77cf68805ac427c2f5c7ce6a029620ee899dce37e0f096744a5edf555d9517",
+      "edits": [
+        {
+          "line": 10,
+          "before": [
+            "  const actions=SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(o=>o.family==='sitting');\n"
+          ],
+          "after": [
+            "  // The separately reviewed adjustable cat pose postdates this immutable matrix.\n",
+            "  // Its own feature suite covers current scenes; keep every original row here.\n",
+            "  const actions=SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(o=>o.family==='sitting'\n",
+            "    && o.id!=='specified-sitting-low-aloof-cats-adjustable-angle');\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/outdoorSeatPrompt.test.js",
+      "beforeHash": "eb1aaf6dc6c5c3d3270fc8dfe9b1b759b9fe43f1309efe0ebdc760e116c6efc4",
+      "afterHash": "54a9fb77ce7462c1155fe9c993d35a8def156b4af494c47b242ad22f65bf63e4",
+      "edits": [
+        {
+          "line": 44,
+          "before": [
+            "test('four grounded actions × four surfaces × ten framings retain every contact and body clause',()=>{\n",
+            "  const grounded=actions.filter(a=>!forAction[a.zh]);assert.equal(grounded.length,4);\n"
+          ],
+          "after": [
+            "test('five grounded actions × four surfaces × ten framings retain every contact and body clause',()=>{\n",
+            "  const grounded=actions.filter(a=>!forAction[a.zh]);assert.equal(grounded.length,5);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/outdoorSeating.test.js",
+      "beforeHash": "dfe33e27641c99842ce22a7af9a3d0f4f3f347d3ffda9430c604b675a89c1991",
+      "afterHash": "9c1865e4d8d7f7a7cec741711991c4d91884cda6fdf7cad77a0c5d42cf053213",
+      "edits": [
+        {
+          "line": 19,
+          "before": [
+            "test('71 × 14 ordered menus and fixed surfaces match the independent approved review tables',()=>{\n",
+            "  assert.equal(locations.length,71);assert.equal(actions.length,14);\n"
+          ],
+          "after": [
+            "test('71 × 15 menus retain the reviewed ground rules for both cat variants',()=>{\n",
+            "  assert.equal(locations.length,71);assert.equal(actions.length,15);\n"
+          ]
+        },
+        {
+          "line": 28,
+          "before": [
+            "    const [,rule]=rules.find(([names])=>names.split('、').includes(action.zh));\n"
+          ],
+          "after": [
+            "    const reviewedName=action.id==='specified-sitting-low-aloof-cats-adjustable-angle'?'低坐貓群冷淡氛圍':action.zh;\n",
+            "    const [,rule]=rules.find(([names])=>names.split('、').includes(reviewedName));\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/specifiedActionUnified.test.js",
+      "beforeHash": "67669258497bbf010f84e01f1d24f47abb8b8e43b041dc5aba2ad0275d92d668",
+      "afterHash": "e640184377017f6d74008c1ce1a0f83fee1e446f87934a0bd970c54de9ff069b",
+      "edits": [
+        {
+          "line": 18,
+          "before": [
+            "test('all fifty-six actions can be selected without a matching free base', () => {\n",
+            "  assert.equal(SPECIFIED_ACTION_CONCRETE_OPTIONS.length, 56);\n"
+          ],
+          "after": [
+            "test('all fifty-seven actions can be selected without a matching free base', () => {\n",
+            "  assert.equal(SPECIFIED_ACTION_CONCRETE_OPTIONS.length, 57);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/specifiedActionUpperBodyStateBatch3.test.js",
+      "beforeHash": "aa8880f92baf07e5680d1057aa7b7cafc885782f904ce1a800f5419f3efac4a8",
+      "afterHash": "49820f002c83d8c05dcd68d92b87f090000151b160eb8f61baebc69e61e4b978",
+      "edits": [
+        {
+          "line": 27,
+          "before": [],
+          "after": [
+            "\n",
+            "test('batch 3 historical providers exclude only the separately reviewed adjustable cat addition',()=>{\n",
+            "  const added='specified-sitting-low-aloof-cats-adjustable-angle';\n",
+            "  assert.ok(SPECIFIED_ACTION_CONCRETE_OPTIONS.some(action=>action.id===added));\n",
+            "  const originalIds=SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(action=>action.id!==added).map(action=>action.id);\n",
+            "  assert.deepEqual(upperBodyStateBatch3SourceRows().map(row=>row.id),originalIds);\n",
+            "  const scenarioIds=new Set(upperBodyStateBatch3Cases().map(fixture=>fixture.locks.specifiedActionId));\n",
+            "  assert.deepEqual(scenarioIds,new Set([...originalIds,'none']));\n",
+            "});\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/specifiedActionUpperBodyStateBatch3Fixtures.js",
+      "beforeHash": "878d6d4459630a588d76d5064fd08c950d5133529ad182d60bd99f24187a5b02",
+      "afterHash": "9ff5c5530f0ef091f106eab5e649f9ca8266865eac4210a47c179bbb2c47fd52",
+      "edits": [
+        {
+          "line": 18,
+          "before": [],
+          "after": [
+            "// The new adjustable cat pose has its own coverage, after the immutable batch3\n",
+            "// evidence. Exclude exactly that addition, retaining every other current action.\n",
+            "const batch3Actions = SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(action=>action.id!=='specified-sitting-low-aloof-cats-adjustable-angle');\n"
+          ]
+        },
+        {
+          "line": 47,
+          "before": [
+            "  for (const action of SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(action=>!targets.has(action.id))) {\n"
+          ],
+          "after": [
+            "  for (const action of batch3Actions.filter(action=>!targets.has(action.id))) {\n"
+          ]
+        },
+        {
+          "line": 67,
+          "before": [
+            "  return SPECIFIED_ACTION_CONCRETE_OPTIONS.map(action=>({id:action.id,source:JSON.parse(JSON.stringify(action))}));\n"
+          ],
+          "after": [
+            "  return batch3Actions.map(action=>({id:action.id,source:JSON.parse(JSON.stringify(action))}));\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/specifiedActions.js",
+      "beforeHash": "4fec7b7348444156e897fc5d450aadbaabbdee05c5e75ed806215d460a494fe2",
+      "afterHash": "d7c386e1bfa70d4d2e74d3be0e1ab8b4051926442882d5555e3384ad586d98f0",
+      "edits": [
+        {
+          "line": 26,
+          "before": [
+            "  upperBodyOmitted = false, upperBodyOmittedFramings = [], upperBodyIdentity = '' }) {\n"
+          ],
+          "after": [
+            "  upperBodyOmitted = false, upperBodyOmittedFramings = [], upperBodyIdentity = '', cameraOrbit = '' }) {\n"
+          ]
+        },
+        {
+          "line": 35,
+          "before": [],
+          "after": [
+            "      ...(cameraOrbit ? { cameraOrbit } : {}),\n"
+          ]
+        },
+        {
+          "line": 186,
+          "before": [],
+          "after": [
+            "  }),\n",
+            "  createAction({\n",
+            "    id: 'specified-sitting-low-aloof-cats-adjustable-angle',\n",
+            "    zh: '低坐貓群冷淡氛圍・角度可調', baseId: 'sitting',\n",
+            "    descriptionZh: '低坐地面，雙腿放鬆、軀幹微傾，手臂自然靠近腿部，身邊小貓安靜停留，神情疏離冷淡；視線、頭部與俯仰角度可另外設置，場景地點沿用 D 區設定。',\n",
+            "    clauses: [clause('core', '', 'She sits low on the ground in a relaxed but guarded street-candid posture, surrounded by several small cats resting or lingering close around her. Her legs are loosely arranged, her torso slightly tilted, and her arms rest naturally near her lap or around one leg. She has an aloof, distant, slightly moody expression, as if quietly observing without inviting attention. The cats should feel naturally present and calm, adding a quiet intimate street mood rather than becoming the main subject')],\n",
+            "    upperBodyEn: 'She is seated low with her torso slightly tilted and her arms resting naturally downward. She has an aloof, distant, slightly moody expression, as if quietly observing without inviting attention.',\n",
+            "    faceEn: 'She has an aloof, distant, slightly moody expression.',\n",
+            "    ownsExpression: true, ownsHead: false, expressionLabel: '疏離、冷淡、微微低落',\n",
+            "    cameraOrbit: 'front-facing',\n",
+            "    validation: { status: 'pending', evidence: 'Docs/specs/aloof-cats-adjustable-angle-v1.md; external image review pending' },\n"
+          ]
+        },
+        {
+          "line": 522,
+          "before": [
+            "  if (!action?.ownsHead || !option || option.zh === '全無' || option.id === 'none') return true;\n"
+          ],
+          "after": [
+            "  if (!option || option.zh === '全無' || option.id === 'none') return true;\n"
+          ]
+        },
+        {
+          "line": 524,
+          "before": [
+            "  if (key === 'orbitId') return !tags.some(tag => ['back_view', 'profile_view', 'no_eye_contact'].includes(tag));\n"
+          ],
+          "after": [
+            "  if (key === 'orbitId' && (action?.ownsHead || action?.meta?.cameraOrbit === 'front-facing')) {\n",
+            "    return !tags.some(tag => ['back_view', 'profile_view', 'no_eye_contact'].includes(tag));\n",
+            "  }\n",
+            "  if (!action?.ownsHead) return true;\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/specifiedActions.test.js",
+      "beforeHash": "5997c4ccffb1c4027dcb0ad92e4f659c402cb84d8fb65b21a024d25647a70888",
+      "afterHash": "a69bce7a7653cdcc22fb372de894fcbbde7a63bb31dea2c4875b27fb03fa9f7d",
+      "edits": [
+        {
+          "line": 23,
+          "before": [
+            "  assert.equal(SPECIFIED_ACTION_OPTIONS.length, 59);\n"
+          ],
+          "after": [
+            "  assert.equal(SPECIFIED_ACTION_OPTIONS.length, 60);\n"
+          ]
+        },
+        {
+          "line": 27,
+          "before": [
+            "  assert.equal(SPECIFIED_ACTION_CONCRETE_OPTIONS.length, 56);\n",
+            "  assert.equal(new Set(SPECIFIED_ACTION_OPTIONS.map((option) => option.id)).size, 59);\n"
+          ],
+          "after": [
+            "  assert.equal(SPECIFIED_ACTION_CONCRETE_OPTIONS.length, 57);\n",
+            "  assert.equal(new Set(SPECIFIED_ACTION_OPTIONS.map((option) => option.id)).size, 60);\n"
+          ]
+        }
+      ]
+    }
+  ]
+}

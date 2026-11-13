@@ -12,9 +12,9 @@ const model = (location, action, id = '', overrides = {}) => indoorSeatingModel(
   subjectCount:'1', locationId:location.id, specifiedActionId:action.id, indoorSeatId:id, ...overrides,
 },location);
 
-test('83 scene IDs and all fourteen sitting actions resolve without silently choosing a seat', () => {
+test('83 scene IDs and all fifteen sitting actions resolve without silently choosing a seat', () => {
   assert.deepEqual(new Set(Object.keys(sceneSeats).filter(id=>id!=='locations:生活感室內-indoor-lifestyle:indoor-lawson-store')),new Set(locations.map(x => x.id)));
-  assert.equal(locations.length,83); assert.equal(actions.length,14);
+  assert.equal(locations.length,83); assert.equal(actions.length,15);
   for (const location of locations) for (const action of actions) {
     const result = model(location,action,'unrecognized');
     if (result.mode === 'ground') {
@@ -44,7 +44,7 @@ test('classroom, tatami, bed edge and bed top use distinct physical relationship
   assert.equal(pick('其他：白色床鋪','低坐抱膝').phrase,'');
 });
 
-test('the actual 83 × 14 menus agree with both approved review tables', () => {
+test('the 83 × 15 menus retain the reviewed rules, including the new cat variant using the original ground rule', () => {
   const doc = name => readFileSync(new URL('../../../../Docs/specs/'+name,import.meta.url),'utf8');
   const rows = markdown => markdown.split('\n').filter(line=>line.startsWith('| ')).map(line=>line.split('|').slice(1,-1).map(s=>s.trim()));
   const scenery = new Map(rows(doc('indoor-seating-scenes-v1.md')).filter(([name])=>name.startsWith('室內：') || name.startsWith('其他：')));
@@ -53,7 +53,8 @@ test('the actual 83 × 14 menus agree with both approved review tables', () => {
   for(const location of locations) {
     const offered = scenery.get(location.zh).split('、').flatMap(s=>s==='床'?['床邊','床上']:[s]);
     for(const action of actions) {
-      const [,rule]=rules.find(([names])=>names.split('、').includes(action.zh));
+      const reviewedName=action.id==='specified-sitting-low-aloof-cats-adjustable-angle'?'低坐貓群冷淡氛圍':action.zh;
+      const [,rule]=rules.find(([names])=>names.split('、').includes(reviewedName));
       const state=model(location,action);
       if(rule.startsWith('固定地面')) {assert.equal(state.mode,'ground');continue;}
       const allowed=rule.startsWith('允許')?offered:rule.replace('。','').split('、');

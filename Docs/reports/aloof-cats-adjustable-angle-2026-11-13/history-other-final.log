@@ -1,0 +1,120 @@
+Command: ['/Users/cooperfu/.local/bin/node', '--test', 'scripts/lib/maiOutfitHistoricalReplay.test.mjs', 'scripts/lib/indoorLeanHistoricalReplay.test.mjs', 'scripts/lib/indoorSeatHistoricalReplay.test.mjs', 'scripts/lib/lawsonSceneHistoricalReplay.test.mjs', 'scripts/lib/skirtUnderlayerHistoricalReplay.test.mjs', 'scripts/lib/grokImagineHistoricalReplay.test.mjs', 'scripts/lib/outdoorSeatHistoricalReplay.test.mjs', 'scripts/lib/outdoorLeanHistoricalReplay.test.mjs', 'scripts/lib/indoorKneelHistoricalReplay.test.mjs']
+
+TAP version 13
+# Subtest: historical inverse restores only the exact sealed pre-change engine
+ok 1 - historical inverse restores only the exact sealed pre-change engine
+  ---
+  duration_ms: 217.196917
+  type: 'test'
+  ...
+# Subtest: reviewed kneeling extension restores original Git bytes, string/buffer and idempotence
+ok 2 - reviewed kneeling extension restores original Git bytes, string/buffer and idempotence
+  ---
+  duration_ms: 616.9225
+  type: 'test'
+  ...
+# Subtest: unreviewed sources reject through both kneeling and previous historical boundaries
+ok 3 - unreviewed sources reject through both kneeling and previous historical boundaries
+  ---
+  duration_ms: 22.30775
+  type: 'test'
+  ...
+# Subtest: reviewed leaning sources restore the approved pre-lean bytes and inverse is idempotent
+ok 4 - reviewed leaning sources restore the approved pre-lean bytes and inverse is idempotent
+  ---
+  duration_ms: 385.029708
+  type: 'test'
+  ...
+# Subtest: mixed or corrupted current engine cannot bypass the existing historical boundary
+ok 5 - mixed or corrupted current engine cannot bypass the existing historical boundary
+  ---
+  duration_ms: 180.269791
+  type: 'test'
+  ...
+# Subtest: only reviewed seat changes replay to original Git bytes, including the first released engine
+ok 6 - only reviewed seat changes replay to original Git bytes, including the first released engine
+  ---
+  duration_ms: 755.044833
+  type: 'test'
+  ...
+# Subtest: the released pre-restore seat engine also reproduces the pre-feature baseline
+ok 7 - the released pre-restore seat engine also reproduces the pre-feature baseline
+  ---
+  duration_ms: 354.394125
+  type: 'test'
+  ...
+# Subtest: Lawson historical inverse restores only the exact reviewed main bytes
+ok 8 - Lawson historical inverse restores only the exact reviewed main bytes
+  ---
+  duration_ms: 2867.932958
+  type: 'test'
+  ...
+# Subtest: outfit inverse restores exact main sources without accepting modified bytes
+ok 9 - outfit inverse restores exact main sources without accepting modified bytes
+  ---
+  duration_ms: 424.927958
+  type: 'test'
+  ...
+# Subtest: reviewed outdoor lean sources restore exact original Git bytes and remain idempotent
+ok 10 - reviewed outdoor lean sources restore exact original Git bytes and remain idempotent
+  ---
+  duration_ms: 187.046041
+  type: 'test'
+  ...
+# Subtest: unknown current leaning model cannot bypass either historical boundary
+ok 11 - unknown current leaning model cannot bypass either historical boundary
+  ---
+  duration_ms: 1.519167
+  type: 'test'
+  ...
+# Subtest: only exact approved bytes restore the pre-outdoor sources and match original Git blobs
+ok 12 - only exact approved bytes restore the pre-outdoor sources and match original Git blobs
+  ---
+  duration_ms: 194.761
+  type: 'test'
+  ...
+# Subtest: live checkout and mixed model bytes cannot bypass the historical boundary
+ok 13 - live checkout and mixed model bytes cannot bypass the historical boundary
+  ---
+  duration_ms: 1130.395041
+  type: 'test'
+  ...
+# Subtest: skirt replay restores exact pre-extension Git bytes and preserves types and idempotence
+not ok 14 - skirt replay restores exact pre-extension Git bytes and preserves types and idempotence
+  ---
+  duration_ms: 0.915833
+  type: 'test'
+  location: '/Users/cooperfu/Projects/Virtual_Photography_Studio/scripts/lib/skirtUnderlayerHistoricalReplay.test.mjs:14:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+
+    67 !== 5
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 5
+  actual: 67
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/cooperfu/Projects/Virtual_Photography_Studio/scripts/lib/skirtUnderlayerHistoricalReplay.test.mjs:17:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: unknown and modified sources cannot use the reviewed skirt inverse
+ok 15 - unknown and modified sources cannot use the reviewed skirt inverse
+  ---
+  duration_ms: 10.477
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 14
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3008.71125

@@ -1,0 +1,42 @@
+HEAD: f4cf8a81ee6ff5d27dda56c4b7ab38665530c82c
+Node: v22.22.3
+Source: git archive HEAD scripts/lib extracted into isolated temporary directory
+Command: ["/Users/cooperfu/.local/bin/node", "--test", "--test-name-pattern=^skirt replay restores exact", "scripts/lib/skirtUnderlayerHistoricalReplay.test.mjs"]
+Exit: 1
+Verified source bytes: [{"path": "scripts/lib/skirtUnderlayerHistoricalReplay.test.mjs", "sha256": "74895269b0a97cf392aa90c70f5368e1f71d243f28b9eedde2aa595f9bdacba0", "matchesGitHead": true}, {"path": "scripts/lib/skirtUnderlayerHistoricalReplay.mjs", "sha256": "2a7d8a9f367450039d16bc8efbbc22d258d11320d7674d03d94e20b027f1228d", "matchesGitHead": true}]
+{"historicalPathCount":59}
+
+TAP version 13
+# Subtest: skirt replay restores exact pre-extension Git bytes and preserves types and idempotence
+not ok 1 - skirt replay restores exact pre-extension Git bytes and preserves types and idempotence
+  ---
+  duration_ms: 0.896916
+  type: 'test'
+  location: '/private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-aloof-head-skirt-9f729y6z/scripts/lib/skirtUnderlayerHistoricalReplay.test.mjs:14:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+
+    59 !== 5
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 5
+  actual: 59
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/var/folders/zw/w7pdy73s51gc5ttz314k6b4r0000gn/T/vps-aloof-head-skirt-9f729y6z/scripts/lib/skirtUnderlayerHistoricalReplay.test.mjs:17:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 120.756292

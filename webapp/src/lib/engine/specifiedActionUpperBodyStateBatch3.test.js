@@ -26,6 +26,15 @@ const assertPosture = (text,target,label)=>{
   assert.equal(text.split(stem).length-1,1,label+'/one reviewed posture fragment');
 };
 
+test('batch 3 historical providers exclude only the separately reviewed adjustable cat addition',()=>{
+  const added='specified-sitting-low-aloof-cats-adjustable-angle';
+  assert.ok(SPECIFIED_ACTION_CONCRETE_OPTIONS.some(action=>action.id===added));
+  const originalIds=SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(action=>action.id!==added).map(action=>action.id);
+  assert.deepEqual(upperBodyStateBatch3SourceRows().map(row=>row.id),originalIds);
+  const scenarioIds=new Set(upperBodyStateBatch3Cases().map(fixture=>fixture.locks.specifiedActionId));
+  assert.deepEqual(scenarioIds,new Set([...originalIds,'none']));
+});
+
 test('batch 3 changes only six reviewed kneeling projections, retaining original head crops and every other source field',()=>{
   assert.equal(before.base,'03f2664465351d06abe890445f55b0e1f6791f3d');
   assert.deepEqual(UPPER_BODY_STATE_BATCH3,before.targets);

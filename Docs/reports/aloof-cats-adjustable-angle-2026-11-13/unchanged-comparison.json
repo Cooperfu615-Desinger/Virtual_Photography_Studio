@@ -1,0 +1,12 @@
+{
+  "base": "f4cf8a81ee6ff5d27dda56c4b7ab38665530c82c",
+  "cases": 1076,
+  "publicOutputComparisons": 7532,
+  "fields": [
+    "seven public outputs",
+    "selection",
+    "summary",
+    "RNG call count"
+  ],
+  "differences": []
+}

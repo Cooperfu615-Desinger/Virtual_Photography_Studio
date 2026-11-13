@@ -6,6 +6,7 @@ import { readFileSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
 import review from './poseUpperBodyStateBatch3History.json' with { type: 'json' };
 import { prePoseUpperBodyStateBatch3Source } from './poseUpperBodyStateBatch3HistoricalReplay.mjs';
+import { preAloofCatsSource } from './aloofCatsHistoricalReplay.mjs';
 
 const hash = source => createHash('sha256').update(source).digest('hex');
 
@@ -25,7 +26,7 @@ test('batch 3 inverse restores exact reviewed second-batch Git bytes and leaves 
     'webapp/src/lib/engineBlackTieShirt.test.js',
   ]));
   for (const file of review.files) {
-    const current = readFileSync(new URL('../../' + file.path, import.meta.url));
+    const current = preAloofCatsSource(file.path, readFileSync(new URL('../../' + file.path, import.meta.url)));
     const before = execFileSync('git', ['show', `${review.base}:${file.path}`]);
     assert.equal(hash(current), file.afterHash, file.path);
     assert.equal(hash(before), file.beforeHash, file.path);

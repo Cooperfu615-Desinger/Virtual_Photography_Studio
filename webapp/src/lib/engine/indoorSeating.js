@@ -29,7 +29,8 @@ const actionSeats = {
   'specified-sitting-open-confident': raisedSeat,
 };
 const grounded = new Set(['specified-sitting-side-fold-back-support', 'specified-sitting-raised-right-knee',
-  'specified-sitting-hug-knees', 'specified-low-seated-aloof-cats-street-mood']);
+  'specified-sitting-hug-knees', 'specified-low-seated-aloof-cats-street-mood',
+  'specified-sitting-low-aloof-cats-adjustable-angle']);
 
 const active = value => Boolean(value && value !== 'none');
 export const isIndoorSeatId = id => typeof id === 'string' && Object.hasOwn(seats, id);

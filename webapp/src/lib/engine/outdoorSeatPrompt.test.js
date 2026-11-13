@@ -42,8 +42,8 @@ test('all eight new choices × compatible actions × ten framings share exactly 
   }
 });
 
-test('four grounded actions × four surfaces × ten framings retain every contact and body clause',()=>{
-  const grounded=actions.filter(a=>!forAction[a.zh]);assert.equal(grounded.length,4);
+test('five grounded actions × four surfaces × ten framings retain every contact and body clause',()=>{
+  const grounded=actions.filter(a=>!forAction[a.zh]);assert.equal(grounded.length,5);
   for(const [room,phrase] of [['戶外：白色鹽湖乾裂荒漠','on the ground'],['其他：草地','on the grass'],
     ['其他：沙灘海岸線','on the sand'],['戶外：湖邊木棧道','on the deck']]) for(const action of grounded) for(const frame of seatFramings) {
     const result=seatFixture(room,action.zh,frame),text=byId(result)['grok-imagine'];

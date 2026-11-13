@@ -6,11 +6,13 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import review from './poseUpperBodyStateBatch3History.json' with { type: 'json' };
+import { aloofCatsHistoricalPaths, preAloofCatsSource } from './aloofCatsHistoricalReplay.mjs';
 
 const hash = source => createHash('sha256').update(source).digest('hex');
-export const poseUpperBodyStateBatch3HistoricalPaths = review.files.map(file => file.path);
+export const poseUpperBodyStateBatch3HistoricalPaths = [...new Set([...aloofCatsHistoricalPaths, ...review.files.map(file => file.path)])];
 
 export function prePoseUpperBodyStateBatch3Source(path, source) {
+  source = preAloofCatsSource(path, source);
   const file = review.files.find(item => item.path === path);
   if (!file || hash(source) !== file.afterHash) return source;
   const lines = source.toString().match(/[^\n]*\n|[^\n]+$/g) || [];

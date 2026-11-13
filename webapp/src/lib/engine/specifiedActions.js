@@ -24,7 +24,7 @@ export function joinSpecifiedActionClauses(clauses, regions = SPECIFIED_ACTION_R
 function createAction({ id, zh, baseId, orientationId = 'none', clauses, upperBodyEn,
   descriptionZh, referenceNumber, supineGroundOnly = false, legacyCardId = '', ownsExpression = false, ownsHead = false, expressionLabel = '', headLabel = '', faceEn = '', supportSurface = 'ground',
   family = baseId && baseId !== 'none' ? baseId : 'free', handsMode = 'fixed', validation = { status: 'accepted', evidence: '' }, requiresWardrobeRole = '',
-  upperBodyOmitted = false, upperBodyOmittedFramings = [], upperBodyIdentity = '' }) {
+  upperBodyOmitted = false, upperBodyOmittedFramings = [], upperBodyIdentity = '', cameraOrbit = '' }) {
   const en = joinSpecifiedActionClauses(clauses);
   const projectedUpperBodyEn = upperBodyIdentity ? `${upperBodyIdentity} ${upperBodyEn}` : upperBodyEn;
   return deepFreeze({ id, zh, baseId, orientationId, en, upperBodyEn: projectedUpperBodyEn, descriptionZh, referenceNumber, legacyCardId, ownsExpression, ownsHead, expressionLabel, headLabel, faceEn,
@@ -33,6 +33,7 @@ function createAction({ id, zh, baseId, orientationId = 'none', clauses, upperBo
       tags: ['specified_action'],
       supportSurface,
       ...(requiresWardrobeRole ? { requiresWardrobeRole } : {}),
+      ...(cameraOrbit ? { cameraOrbit } : {}),
       ...(upperBodyOmitted ? { upperBodyOmitted } : {}),
       ...(upperBodyOmittedFramings.length ? { upperBodyOmittedFramings } : {}),
       ...(upperBodyIdentity ? { upperBodyEnByFraming: { '頭部主導近景': upperBodyEn } } : {}),
@@ -183,6 +184,17 @@ export const SPECIFIED_ACTION_CONCRETE_OPTIONS = Object.freeze([
       faceEn: definition.ownsHead
         ? (definition.baseId === 'sitting' ? 'She looks upward toward the camera with an aloof, distant, slightly moody expression.' : 'She looks toward the camera with a cold, irritated, defiant stare.')
         : 'She has a pouty, annoyed, defiant expression, unhappy eyes and tightened brows.' });
+  }),
+  createAction({
+    id: 'specified-sitting-low-aloof-cats-adjustable-angle',
+    zh: '低坐貓群冷淡氛圍・角度可調', baseId: 'sitting',
+    descriptionZh: '低坐地面，雙腿放鬆、軀幹微傾，手臂自然靠近腿部，身邊小貓安靜停留，神情疏離冷淡；視線、頭部與俯仰角度可另外設置，場景地點沿用 D 區設定。',
+    clauses: [clause('core', '', 'She sits low on the ground in a relaxed but guarded street-candid posture, surrounded by several small cats resting or lingering close around her. Her legs are loosely arranged, her torso slightly tilted, and her arms rest naturally near her lap or around one leg. She has an aloof, distant, slightly moody expression, as if quietly observing without inviting attention. The cats should feel naturally present and calm, adding a quiet intimate street mood rather than becoming the main subject')],
+    upperBodyEn: 'She is seated low with her torso slightly tilted and her arms resting naturally downward. She has an aloof, distant, slightly moody expression, as if quietly observing without inviting attention.',
+    faceEn: 'She has an aloof, distant, slightly moody expression.',
+    ownsExpression: true, ownsHead: false, expressionLabel: '疏離、冷淡、微微低落',
+    cameraOrbit: 'front-facing',
+    validation: { status: 'pending', evidence: 'Docs/specs/aloof-cats-adjustable-angle-v1.md; external image review pending' },
   }),
   // Lying library v1 (Docs/specs/pose-library-lying-v1.md §4). Accepted by
   // Cooper's visual review 2026-10-19; 4.3 stays pending until rewritten.
@@ -508,9 +520,12 @@ export function specifiedActionOwnsControl(action, key) {
 /** Camera choices stay intact. Explicit conflicts pause the action; random
  * candidates use the same predicate before resolving the shared capture. */
 export function specifiedActionSupportsCamera(action, key, option) {
-  if (!action?.ownsHead || !option || option.zh === '全無' || option.id === 'none') return true;
+  if (!option || option.zh === '全無' || option.id === 'none') return true;
   const tags = option.meta?.tags || [];
-  if (key === 'orbitId') return !tags.some(tag => ['back_view', 'profile_view', 'no_eye_contact'].includes(tag));
+  if (key === 'orbitId' && (action?.ownsHead || action?.meta?.cameraOrbit === 'front-facing')) {
+    return !tags.some(tag => ['back_view', 'profile_view', 'no_eye_contact'].includes(tag));
+  }
+  if (!action?.ownsHead) return true;
   if (key === 'angleId' && action.baseId === 'sitting') {
     return tags.includes('high_angle') || tags.includes('aerial') || tags.includes('dynamic');
   }

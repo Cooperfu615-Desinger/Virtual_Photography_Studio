@@ -1,0 +1,44 @@
+{
+  "frontend": {
+    "passed": 2303,
+    "failed": 0,
+    "node": "22.22.3"
+  },
+  "promptQuality": {
+    "passed": 958,
+    "failed": 0,
+    "node": "22.22.3"
+  },
+  "baselineComparison": {
+    "base": "f4cf8a81ee6ff5d27dda56c4b7ab38665530c82c",
+    "cases": 1076,
+    "publicOutputComparisons": 7532,
+    "fields": [
+      "seven public outputs",
+      "selection",
+      "summary",
+      "RNG call count"
+    ],
+    "differences": []
+  },
+  "surfaceCases": 156,
+  "historyReviewedFiles": 13,
+  "audit": {
+    "count": 200,
+    "seed": "prompt-quality-baseline",
+    "blocking": 0,
+    "existingDiagnostics": 24,
+    "byteIdentical": true
+  },
+  "runtimeHashes": {
+    "webapp/src/lib/engine/specifiedActions.js": "d7c386e1bfa70d4d2e74d3be0e1ab8b4051926442882d5555e3384ad586d98f0",
+    "webapp/src/lib/engine/indoorSeating.js": "1fbcf6c993d8c551cfb7f1108e20b95e24f003e6f03860a050e8d5d5a7594581"
+  },
+  "preexistingFailure": {
+    "file": "scripts/lib/skirtUnderlayerHistoricalReplay.test.mjs",
+    "baselineExpectedPaths": 5,
+    "baselineActualPaths": 59,
+    "currentActualPaths": 67,
+    "changedByThisTask": false
+  }
+}

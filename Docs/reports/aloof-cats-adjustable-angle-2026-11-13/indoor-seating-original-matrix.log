@@ -1,0 +1,18 @@
+Command: ['/Users/cooperfu/.local/bin/node', '--test', '--test-name-pattern=83 indoor scenes', 'webapp/src/lib/engine/outdoorSeatBaseline.test.js']
+
+TAP version 13
+# Subtest: 83 indoor scenes × 14 poses × ten framings retain unspecified/effective seats and all seven outputs
+ok 1 - 83 indoor scenes × 14 poses × ten framings retain unspecified/effective seats and all seven outputs
+  ---
+  duration_ms: 69941.175417
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 70147.65925

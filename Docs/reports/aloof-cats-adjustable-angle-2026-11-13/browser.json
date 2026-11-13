@@ -1,0 +1,126 @@
+{
+  "browser": "IAB",
+  "testOrigin": "http://127.0.0.1:39947/Virtual_Photography_Studio/",
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "width": 390,
+      "height": 900
+    }
+  ],
+  "smoke": [
+    {
+      "workspace": "Prompt 工作台",
+      "brokenImages": 0,
+      "heading": "Prompt Control Deck",
+      "height": 1000,
+      "scrollWidth": 1425,
+      "width": 1440
+    },
+    {
+      "workspace": "角色建模",
+      "brokenImages": 0,
+      "heading": "Character Card Lab",
+      "height": 1000,
+      "scrollWidth": 1425,
+      "width": 1440
+    },
+    {
+      "workspace": "場景建模",
+      "brokenImages": 0,
+      "heading": "World Street Scene Builder",
+      "height": 1000,
+      "scrollWidth": 1425,
+      "width": 1440
+    },
+    {
+      "workspace": "DLL_PIC Pro",
+      "brokenImages": 0,
+      "heading": "DLL_PIC Pro",
+      "height": 1000,
+      "scrollWidth": 1440,
+      "width": 1440
+    },
+    {
+      "workspace": "DLL_VIDEO Pro",
+      "brokenImages": 0,
+      "heading": "DLL_VIDEO Pro",
+      "height": 1000,
+      "scrollWidth": 1425,
+      "width": 1440
+    },
+    {
+      "workspace": "Saved Cards",
+      "brokenImages": 0,
+      "heading": "Saved Cards",
+      "height": 1000,
+      "scrollWidth": 1425,
+      "width": 1440
+    },
+    {
+      "workspace": "Prompt 工作台",
+      "brokenImages": 0,
+      "heading": "Prompt Control Deck",
+      "height": 900,
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "workspace": "角色建模",
+      "brokenImages": 0,
+      "heading": "Character Card Lab",
+      "height": 900,
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "workspace": "場景建模",
+      "brokenImages": 0,
+      "heading": "World Street Scene Builder",
+      "height": 900,
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "workspace": "DLL_PIC Pro",
+      "brokenImages": 0,
+      "heading": "DLL_PIC Pro",
+      "height": 900,
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "workspace": "DLL_VIDEO Pro",
+      "brokenImages": 0,
+      "heading": "DLL_VIDEO Pro",
+      "height": 900,
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "workspace": "Saved Cards",
+      "brokenImages": 0,
+      "heading": "Saved Cards",
+      "height": 900,
+      "scrollWidth": 375,
+      "width": 390
+    }
+  ],
+  "checks": {
+    "newAndOriginalOptions": true,
+    "selectedGazeAndHead": true,
+    "eyeAndLowAndHighCamera": true,
+    "originalCameraPauseAndRecovery": true,
+    "sidePauseAndRecovery": true,
+    "syntheticFavoriteRestoreAndReload": true
+  },
+  "console": [],
+  "primaryPreview": {
+    "heading": "Prompt Control Deck",
+    "scrollWidth": 375,
+    "width": 390
+  }
+}

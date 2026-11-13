@@ -1,0 +1,54 @@
+Command: ['/Users/cooperfu/.local/bin/node', '--test', 'scripts/lib/aloofCatsHistoricalReplay.test.mjs', 'scripts/lib/poseUpperBodyStateBatch3HistoricalReplay.test.mjs', 'scripts/lib/poseUpperBodyStateBatch2HistoricalReplay.test.mjs', 'scripts/lib/poseUpperBodyStateHistoricalReplay.test.mjs', 'scripts/lib/selfiePropsHistoricalReplay.test.mjs']
+
+TAP version 13
+# Subtest: adjustable cat-pose inverse restores exact baseline bytes without accepting unreviewed edits
+ok 1 - adjustable cat-pose inverse restores exact baseline bytes without accepting unreviewed edits
+  ---
+  duration_ms: 521.73925
+  type: 'test'
+  ...
+# Subtest: batch 2 inverse restores reviewed first-batch Git bytes and leaves unknown sources untouched
+ok 2 - batch 2 inverse restores reviewed first-batch Git bytes and leaves unknown sources untouched
+  ---
+  duration_ms: 415.881375
+  type: 'test'
+  ...
+# Subtest: composed baseline revisions keep original coverage and reject unreviewed or missing cases
+ok 3 - composed baseline revisions keep original coverage and reject unreviewed or missing cases
+  ---
+  duration_ms: 19.552542
+  type: 'test'
+  ...
+# Subtest: batch 3 inverse restores exact reviewed second-batch Git bytes and leaves unknown sources untouched
+ok 4 - batch 3 inverse restores exact reviewed second-batch Git bytes and leaves unknown sources untouched
+  ---
+  duration_ms: 424.108125
+  type: 'test'
+  ...
+# Subtest: batch 3 kneel revision preserves every original matrix row and rejects missing or unrelated changes
+ok 5 - batch 3 kneel revision preserves every original matrix row and rejects missing or unrelated changes
+  ---
+  duration_ms: 49.830458
+  type: 'test'
+  ...
+# Subtest: batch 1 inverse restores exact reviewed Git bytes and leaves unknown sources untouched
+ok 6 - batch 1 inverse restores exact reviewed Git bytes and leaves unknown sources untouched
+  ---
+  duration_ms: 447.0015
+  type: 'test'
+  ...
+# Subtest: reviewed phone changes restore exact main bytes, preserving input type and idempotence
+ok 7 - reviewed phone changes restore exact main bytes, preserving input type and idempotence
+  ---
+  duration_ms: 1110.971333
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1217.288875

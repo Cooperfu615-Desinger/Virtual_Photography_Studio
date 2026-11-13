@@ -1,0 +1,26 @@
+{
+  "base": "f4cf8a81ee6ff5d27dda56c4b7ab38665530c82c",
+  "sealedFiles": [
+    "scripts/lib/poseUpperBodyStateBatch3HistoricalReplay.test.mjs",
+    "webapp/src/lib/engine/c3PoseGuards.test.js",
+    "webapp/src/lib/engine/indoorSeating.js",
+    "webapp/src/lib/engine/indoorSeating.test.js",
+    "webapp/src/lib/engine/outdoorLeanFixtures.js",
+    "webapp/src/lib/engine/outdoorSeatFixtures.js",
+    "webapp/src/lib/engine/outdoorSeatPrompt.test.js",
+    "webapp/src/lib/engine/outdoorSeating.test.js",
+    "webapp/src/lib/engine/specifiedActionUnified.test.js",
+    "webapp/src/lib/engine/specifiedActionUpperBodyStateBatch3.test.js",
+    "webapp/src/lib/engine/specifiedActionUpperBodyStateBatch3Fixtures.js",
+    "webapp/src/lib/engine/specifiedActions.js",
+    "webapp/src/lib/engine/specifiedActions.test.js"
+  ],
+  "logs": {
+    "indoor-seating-original-matrix.log": "/private/tmp/aloof-cats-history-20261113/indoor-seating-original-matrix.log",
+    "outdoor-seating-original-matrix.log": "/private/tmp/aloof-cats-history-20261113/outdoor-seating-original-matrix.log",
+    "batch3-original-sources-scenarios.log": "/private/tmp/aloof-cats-history-20261113/batch3-original-sources-scenarios.log",
+    "history-focused-final.log": "/private/tmp/aloof-cats-history-20261113/history-focused-final.log",
+    "history-other-final.log": "/private/tmp/aloof-cats-history-20261113/history-other-final.log",
+    "head-skirt-preexisting.log": "/private/tmp/aloof-cats-history-20261113/head-skirt-preexisting.log"
+  }
+}

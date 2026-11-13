@@ -17,8 +17,8 @@ const state=(location,action,id='')=>({subjectCount:'1',locationId:location.id,s
 const model=(location,action,id='')=>indoorSeatingModel(state(location,action,id),location,controls);
 const transition=(previous,candidate)=>transitionPage1Locks({previousLocks:previous,candidateLocks:{...previous,...candidate},lockControls:controls});
 
-test('71 × 14 ordered menus and fixed surfaces match the independent approved review tables',()=>{
-  assert.equal(locations.length,71);assert.equal(actions.length,14);
+test('71 × 15 menus retain the reviewed ground rules for both cat variants',()=>{
+  assert.equal(locations.length,71);assert.equal(actions.length,15);
   assert.deepEqual(new Set(Object.keys(scenes).filter(id=>id!=='locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront')),new Set(locations.map(o=>o.id)));
   const scenery=new Map(rows(doc('outdoor-seating-scenes-v1.md')).filter(([n])=>/^\d+$/.test(n)).map(([,zh,options,ground])=>[zh,{options:options.split('、'),ground}]));
   const rules=rows(doc('outdoor-seating-v1.md')).filter(([names])=>names.split('、').some(name=>actions.some(a=>a.zh===name)));
@@ -26,7 +26,8 @@ test('71 × 14 ordered menus and fixed surfaces match the independent approved r
   const phrases={地面:'on the ground',草地:'on the grass',沙地:'on the sand',平台:'on the deck'};
   for(const location of locations) for(const action of actions) {
     const reviewed=scenery.get(location.zh);assert.ok(reviewed,location.zh);
-    const [,rule]=rules.find(([names])=>names.split('、').includes(action.zh));
+    const reviewedName=action.id==='specified-sitting-low-aloof-cats-adjustable-angle'?'低坐貓群冷淡氛圍':action.zh;
+    const [,rule]=rules.find(([names])=>names.split('、').includes(reviewedName));
     const actual=model(location,action,'unknown'),label=location.zh+'/'+action.zh;
     if(rule.startsWith('固定地面')) {
       assert.equal(actual.mode,'ground',label);assert.equal(actual.groundLabel,reviewed.ground,label);

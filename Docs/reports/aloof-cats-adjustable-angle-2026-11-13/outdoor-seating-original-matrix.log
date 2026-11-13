@@ -1,0 +1,18 @@
+Command: ['/Users/cooperfu/.local/bin/node', '--test', '--test-name-pattern=every indoor leaning choice', 'webapp/src/lib/engine/outdoorLeanBaseline.test.js']
+
+TAP version 13
+# Subtest: every indoor leaning choice and all outdoor sitting scenes/poses retain seven outputs and RNG at ten framings
+ok 1 - every indoor leaning choice and all outdoor sitting scenes/poses retain seven outputs and RNG at ten framings
+  ---
+  duration_ms: 55251.74725
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 55459.04675

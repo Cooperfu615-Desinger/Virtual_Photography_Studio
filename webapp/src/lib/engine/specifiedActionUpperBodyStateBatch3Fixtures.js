@@ -16,6 +16,9 @@ export const UPPER_BODY_STATE_BATCH3 = Object.freeze([
 ].map(([key, upper, previousUpper]) => Object.freeze({id:'specified-kneeling-' + key, upper, previousUpper})));
 export const UPPER_BODY_STATE_BATCH3_SCENES = Object.freeze({...indoorScenes, ...outdoorScenes});
 const targets = new Set(UPPER_BODY_STATE_BATCH3.map(action => action.id));
+// The new adjustable cat pose has its own coverage, after the immutable batch3
+// evidence. Exclude exactly that addition, retaining every other current action.
+const batch3Actions = SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(action=>action.id!=='specified-sitting-low-aloof-cats-adjustable-angle');
 const controls = getLockControls();
 export { UPPER_BODY_STATE_PARIS, upperBodyStateLocks, upperBodyStateOption, runUpperBodyStateCase, upperBodyStateRow, upperBodyStateHash };
 
@@ -42,7 +45,7 @@ export function upperBodyStateBatch3Cases() {
       ['observation',{captureMode:'observation',observationCapture:resolveCapture({seed:27}).profile,characterProfileId:controls.find(control=>control.key==='characterProfileId').options.find(option=>option.specialSubject==='character-profile').id}],
     ]) add(action.id + '/' + mode,{specifiedActionId:action.id,framingId:upperBodyStateOption('framingId','中景鏡頭 (Medium Shot)'),...patch});
   }
-  for (const action of SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(action=>!targets.has(action.id))) {
+  for (const action of batch3Actions.filter(action=>!targets.has(action.id))) {
     for (const frame of ['全身鏡頭 (Full Body Shot)','中景鏡頭 (Medium Shot)','胸上特寫','頭部主導近景']) {
       add('protected/' + action.id + '/' + frame,{specifiedActionId:action.id,framingId:upperBodyStateOption('framingId',frame)});
     }
@@ -62,7 +65,7 @@ export function* upperBodyStateBatch3SupportCases() {
 }
 
 export function upperBodyStateBatch3SourceRows() {
-  return SPECIFIED_ACTION_CONCRETE_OPTIONS.map(action=>({id:action.id,source:JSON.parse(JSON.stringify(action))}));
+  return batch3Actions.map(action=>({id:action.id,source:JSON.parse(JSON.stringify(action))}));
 }
 
 /** Undo only this batch's approved source addition; preserve every other public word. */

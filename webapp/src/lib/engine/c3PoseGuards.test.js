@@ -21,7 +21,7 @@ function validateDescriptions(options){
  for(const o of options)assert.ok(typeof o.descriptionZh==='string'&&o.descriptionZh.trim(),`missing description: ${o.id}`);
 }
 test('C3 concrete actions and random/any have descriptions; none is supplied by picker',()=>{
- assert.equal(SPECIFIED_ACTION_CONCRETE_OPTIONS.length,56);
+ assert.equal(SPECIFIED_ACTION_CONCRETE_OPTIONS.length,57);
  validateDescriptions(SPECIFIED_ACTION_CONCRETE_OPTIONS);
  validateDescriptions(SPECIFIED_ACTION_OPTIONS.filter(o=>o.id!=='none'));
  const picker=readFileSync(join(root,'webapp/src/components/SpecifiedActionPicker.jsx'),'utf8');
