@@ -34,3 +34,7 @@
 ## 交付前補充驗證
 
 2026-11-14 明確使用 `/Users/cooperfu/.local/bin/node` v22.22.3 執行與 npm test 相同的完整選檔，共 2305 項，2304 通過；唯一失敗為 C2 隔離歷史上下文拒絕新版 `dllPicProClient.test.js` 指紋。已檢閱其差異僅新增本模型的選單預期值，於 `scripts/lib/c2WaistHistoryContext.json` append 該檔精確 SHA-256；原 before/after hash、歷史 commit 與斷言皆不變。針對失敗的歷史案例重測 1/1 通過；沒有再次重跑其餘 2304 項。先前兩項測試工具輸出格式問題在 Node 22 完整執行中均通過。Functions 再驗 141/141 與 lint 通過。
+
+## 正式版後續驗收（2026-11-14）
+
+版本 `8f5d261099c37d0478ab9e85bc15fe177b3d989a` 已完成正式版 9:16／1K 兩張付費測試：逐張提交、792 × 1408 圖片預覽、重新載入後歷史保存正常，使用者確認兩張均能下載。詳細證據、額度顯示限制與驗收分工見[正式版兩張驗收紀錄](../reports/z-image-bf16-v2-2026-11-14/production-acceptance.md)。上述本機／獨立 API 階段記載保留為歷史。
