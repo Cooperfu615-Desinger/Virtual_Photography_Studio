@@ -29,6 +29,7 @@ const seedreamSizes = {
 };
 const models = {
   zImageTurbo: local('zImageTurbo', '57:27', 'text', '57:13', '57:3'),
+  minimaxH3Image: { ...local('minimaxH3Image', '30', 'prompt', '30', '35'), seedKey: 'noise_seed', outputNode: '34', sizes: { '2k': { '1:1': [2048, 2048] } } },
   zImageTurboNsfwV2Bf16: local('zImageTurboNsfwV2Bf16', '57:27', 'text', '57:13', '57:3'),
   qwenImage21: local('qwenImage21', '459:452', 'prompt', '459:456', '459:458'),
   zImageTurboInt8: local('zImageTurboInt8', '57:27', 'text', '57:13', '57:3'),

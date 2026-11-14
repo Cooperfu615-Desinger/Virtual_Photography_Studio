@@ -346,6 +346,7 @@ test('model option helpers hide legacy aliases and keep analyzer to analysis-cap
     'xaiGrokImagine',
     'xaiGrokImagineQuality',
     'comfyZImageTurbo',
+    'comfyMinimaxH3Image',
     'comfyZImageTurboNsfwV2Bf16',
     'comfyQwenImage21',
     'comfyZImageTurboInt8',

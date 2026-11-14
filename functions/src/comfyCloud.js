@@ -23,6 +23,7 @@ function buildComfyWorkflow(payload, seed) {
   if (payload.resolution && !['1k', '2k'].includes(payload.resolution)) throw new Error('不支援的 Comfy Cloud 解析度');
   const input = normalizeGenerationRequest('comfyCloud', payload);
   const model = getComfyModel(input.modelKey);
+  if (input.modelKey === 'minimaxH3Image' && !payload.aspectRatio) input.aspectRatio = '1:1';
   const { model: limits } = getProviderModelContract('comfyCloud', input.modelKey);
   if (payload.aspectRatio && !limits.aspectRatios.includes(payload.aspectRatio)) throw new Error('不支援的 Comfy Cloud 比例');
   if (payload.resolution && !limits.resolutions.includes(payload.resolution)) throw new Error('不支援的 Comfy Cloud 解析度');

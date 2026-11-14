@@ -1,0 +1,140 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "minimax_h3_image_pruned_int8_convrot.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+      "type": "minimax",
+      "device": "default"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_image_vae_fp16.safetensors"
+    }
+  },
+  "30": {
+    "class_type": "MiniMaxH3ImageConditioning",
+    "inputs": {
+      "clip": [
+        "2",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ],
+      "prompt": "Photorealistic editorial portrait of a 30-year-old East Asian woman, fully clothed in a cream knit sweater and dark trousers, standing by a large cafe window. Waist-up composition, eye-level camera, looking at the camera with a relaxed natural expression. Natural skin texture, clear facial features, softly lit eyes, realistic hands resting on a wooden table. Soft daylight, warm neutral interior, subtle background blur. No text or watermark.",
+      "width": 2048,
+      "height": 2048
+    }
+  },
+  "31": {
+    "class_type": "ConditioningZeroOut",
+    "inputs": {
+      "conditioning": [
+        "30",
+        0
+      ]
+    }
+  },
+  "35": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 20261114
+    }
+  },
+  "36": {
+    "class_type": "CFGGuider",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "positive": [
+        "30",
+        0
+      ],
+      "negative": [
+        "31",
+        0
+      ],
+      "cfg": 1
+    }
+  },
+  "37": {
+    "class_type": "BasicScheduler",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "scheduler": "simple",
+      "steps": 6,
+      "denoise": 1
+    }
+  },
+  "38": {
+    "class_type": "SamplerLCM",
+    "inputs": {
+      "s_noise": 1.1,
+      "s_noise_end": 0.9,
+      "noise_clip_std": 0
+    }
+  },
+  "39": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "35",
+        0
+      ],
+      "guider": [
+        "36",
+        0
+      ],
+      "sampler": [
+        "38",
+        0
+      ],
+      "sigmas": [
+        "37",
+        0
+      ],
+      "latent_image": [
+        "30",
+        1
+      ]
+    }
+  },
+  "33": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "39",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "34": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "33",
+        0
+      ],
+      "filename_prefix": "dll_h3_image_4mp_acceptance"
+    }
+  }
+}

@@ -50,6 +50,15 @@
           ],
           "label": "Z-Image-Turbo"
         },
+        "minimaxH3Image": {
+          "resolutions": ["2k"],
+          "defaultResolution": "2k",
+          "resolutionLabels": { "2k": "4 MP（2048 × 2048）" },
+          "maxCount": 2,
+          "oneImagePerJob": true,
+          "aspectRatios": ["1:1"],
+          "label": "MiniMax H3 Image"
+        },
         "zImageTurboNsfwV2Bf16": {
           "resolutions": ["1k", "2k"],
           "defaultResolution": "1k",

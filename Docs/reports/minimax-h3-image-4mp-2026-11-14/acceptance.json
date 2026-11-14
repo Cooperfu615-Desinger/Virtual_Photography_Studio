@@ -1,0 +1,64 @@
+{
+  "startedAt": "2026-11-14T10:12:44.681Z",
+  "idempotencyKey": "58e6cdb7-79f2-4c90-93c1-4c3c91313299",
+  "before": {
+    "at": "2026-11-14T10:12:46.009Z",
+    "balance": {
+      "amount_cents": 324.420776734,
+      "amount_micros": 324.420776734,
+      "cloud_credit_balance_cents": 324.420776734,
+      "cloud_credit_balance_micros": 324.420776734,
+      "currency": "USD",
+      "prepaid_balance_cents": 0,
+      "prepaid_balance_micros": 0
+    }
+  },
+  "settings": {
+    "width": 2048,
+    "height": 2048,
+    "seed": 20261114,
+    "steps": 6,
+    "cfg": 1,
+    "sampler": "LCM",
+    "scheduler": "simple",
+    "batch": 1,
+    "promptExpansion": false,
+    "referenceImages": 0
+  },
+  "phase": "submitted",
+  "jobId": "29fbe056-98ae-4d75-ab56-29a30ab50e6b",
+  "status": "succeeded",
+  "metrics": {
+    "execution_ms": 10867,
+    "queue_ms": 1985
+  },
+  "outputs": [
+    {
+      "id": "433b53ed-d4a3-4a71-9580-972a40ad6d16",
+      "type": "image",
+      "node_id": "34",
+      "content_type": "image/png"
+    }
+  ],
+  "completedAt": "2026-11-14T10:13:04.287Z",
+  "download": {
+    "bytes": 5409883,
+    "contentType": "image/png",
+    "pngSignature": "89504e470d0a1a0a",
+    "width": 2048,
+    "height": 2048,
+    "sha256": "0200951b1d1348528e2f551fc8dc08e9618a795edabfc1197e78d2ecc25149a5"
+  },
+  "after": {
+    "at": "2026-11-14T10:13:08.832Z",
+    "balance": {
+      "amount_cents": 323.1166015295,
+      "amount_micros": 323.1166015295,
+      "cloud_credit_balance_cents": 323.1166015295,
+      "cloud_credit_balance_micros": 323.1166015295,
+      "currency": "USD",
+      "prepaid_balance_cents": 0,
+      "prepaid_balance_micros": 0
+    }
+  }
+}

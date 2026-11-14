@@ -193,7 +193,7 @@ export const DLL_PIC_MODEL_CONFIG = {
     { label: `Comfy Cloud · ${model.label}`,
       provider: 'comfyCloud', comfyModel: key, generationModel: key,
       analysisModel: '', usesServerProxy: true, supportsResolution: true,
-      defaultResolution: model.defaultResolution, resolutionOptions: model.resolutions,
+      defaultResolution: model.defaultResolution, resolutionOptions: model.resolutions, resolutionLabels: model.resolutionLabels,
       maxCount: model.maxCount, aspectRatios: model.aspectRatios,
       partnerPricing: Boolean(model.partnerPricing),
       ...(model.loraStrength ? { loraStrength: model.loraStrength } : {}),
@@ -392,7 +392,8 @@ export function getDllPicApiKeyForModel(modelKey, providerApiKeys = {}) {
 export function getDllPicResolutionOptions(modelKey) {
   const modelConfig = getDllPicModelConfig(modelKey);
   const allowedValues = modelConfig.resolutionOptions || DEFAULT_DLL_PIC_RESOLUTION_VALUES;
-  return DLL_PIC_RESOLUTIONS.filter((option) => allowedValues.includes(option.value));
+  return DLL_PIC_RESOLUTIONS.filter((option) => allowedValues.includes(option.value))
+    .map((option) => ({ ...option, label: modelConfig.resolutionLabels?.[option.value] || option.label }));
 }
 
 export function getDllPicResolutionOption(modelKeyOrResolution, resolution) {

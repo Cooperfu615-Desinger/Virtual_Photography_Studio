@@ -1,0 +1,16 @@
+[
+  {
+    "id": "01283c72-b59b-441f-826f-8238dfd3e409",
+    "name": "minimax_h3_image_vae_fp16.safetensors",
+    "loader_path": "minimax_h3_image_vae_fp16.safetensors",
+    "size": 1168505312,
+    "is_immutable": true
+  },
+  {
+    "id": "ad0c5c9e-a064-4c47-862f-d2c7cf66bbb2",
+    "name": "minimax_h3_image_pruned_int8_convrot.safetensors",
+    "loader_path": "minimax_h3_image_pruned_int8_convrot.safetensors",
+    "size": 20979314802,
+    "is_immutable": true
+  }
+]

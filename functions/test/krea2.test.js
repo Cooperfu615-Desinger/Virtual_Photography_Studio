@@ -10,7 +10,11 @@ const variants = [
 ];
 const ratios = ['1:1', '4:3', '16:9', '9:16', '4:5'];
 const source = 'A red ceramic mug.\nExact lettering: DLL.\n--ar 4:5';
-const payload = modelKey => ({ modelKey, prompt: source, count: 1, resolution: '1k', aspectRatio: '4:5' });
+const payload = modelKey => {
+  const model = IMAGE_PROVIDER_CONTRACT.providers.comfyCloud.models[modelKey];
+  return { modelKey, prompt: source, count: 1, resolution: model.defaultResolution,
+    aspectRatio: model.aspectRatios.includes('4:5') ? '4:5' : model.aspectRatios[0] };
+};
 const requestId = 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee';
 
 test('Krea variants preserve the supplied node controls and use native ratio without inventing pixel sizes', () => {

@@ -25,6 +25,9 @@ export function formatDllPicGenerationMessage(result) {
 export function getComfyGenerationNote(model, loraStrength = model.comfyModel === 'qwenImage21Lora' ? 0.7 : 1) {
   const start = '依序生成 1–2 張；';
   const end = '完成後請下載保存，圖像網址會到期。';
+  if (model.comfyModel === 'minimaxH3Image') {
+    return `${start}固定方形 4 MP（2048 × 2048），直接使用目前 Prompt；關閉擴寫，不使用參考圖。${end}`;
+  }
   if (model.comfyModel === 'qwenImage21OmniLora') {
     return `${start}已套用 Omni LoRA（強度 ${loraStrength}），直接使用目前 Prompt。${end}`;
   }
