@@ -1,0 +1,77 @@
+{
+  "startedAt": "2026-11-14T07:04:09.132Z",
+  "idempotencyKey": "d0a379ff-ca38-4ae0-8777-134506458432",
+  "before": {
+    "at": "2026-11-14T07:04:14.166Z",
+    "balance": {
+      "amount_cents": 331.2422363395,
+      "amount_micros": 331.2422363395,
+      "cloud_credit_balance_cents": 331.2422363395,
+      "cloud_credit_balance_micros": 331.2422363395,
+      "currency": "USD",
+      "prepaid_balance_cents": 0,
+      "prepaid_balance_micros": 0
+    }
+  },
+  "settings": {
+    "width": 832,
+    "height": 1216,
+    "seed": 20261114,
+    "steps": 8,
+    "cfg": 1,
+    "sampler": "res_multistep",
+    "scheduler": "simple",
+    "batch": 1
+  },
+  "phase": "completed",
+  "jobId": "0b54751c-c839-485c-b30a-d6f55d36d7c0",
+  "status": "succeeded",
+  "metrics": {
+    "execution_ms": 2957,
+    "queue_ms": 2858
+  },
+  "outputs": [
+    {
+      "id": "6e2cc8b3-e8d2-443c-9d82-c4703168c585",
+      "type": "image",
+      "node_id": "9",
+      "content_type": "image/png"
+    }
+  ],
+  "completedAt": "2026-11-14T07:04:21.118Z",
+  "download": {
+    "bytes": 1196016,
+    "contentType": "image/png",
+    "pngSignature": "89504e470d0a1a0a"
+  },
+  "after": {
+    "at": "2026-11-14T07:04:25.302Z",
+    "balance": {
+      "amount_cents": 331.2422363395,
+      "amount_micros": 331.2422363395,
+      "cloud_credit_balance_cents": 331.2422363395,
+      "cloud_credit_balance_micros": 331.2422363395,
+      "currency": "USD",
+      "prepaid_balance_cents": 0,
+      "prepaid_balance_micros": 0
+    }
+  },
+  "balanceRecheck": {
+    "at": "2026-11-14T07:05:24.252Z",
+    "balance": {
+      "amount_cents": 330.9405199875,
+      "amount_micros": 330.9405199875,
+      "cloud_credit_balance_cents": 330.9405199875,
+      "cloud_credit_balance_micros": 330.9405199875,
+      "currency": "USD",
+      "prepaid_balance_cents": 0,
+      "prepaid_balance_micros": 0
+    }
+  },
+  "costObservation": {
+    "usdBalanceDelta": 0.003017163519999713,
+    "creditsBalanceDelta": 0.6366215027199394,
+    "creditConversion": 211,
+    "attribution": "Balance delta over test window; not a per-job invoice. Only one job submitted by this test."
+  }
+}

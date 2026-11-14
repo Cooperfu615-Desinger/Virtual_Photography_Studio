@@ -29,6 +29,7 @@ const seedreamSizes = {
 };
 const models = {
   zImageTurbo: local('zImageTurbo', '57:27', 'text', '57:13', '57:3'),
+  zImageTurboNsfwV2Bf16: local('zImageTurboNsfwV2Bf16', '57:27', 'text', '57:13', '57:3'),
   qwenImage21: local('qwenImage21', '459:452', 'prompt', '459:456', '459:458'),
   zImageTurboInt8: local('zImageTurboInt8', '57:27', 'text', '57:13', '57:3'),
   ideogram45: { template: require('./comfyWorkflows/ideogram45.json'),

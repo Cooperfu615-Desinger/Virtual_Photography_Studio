@@ -50,6 +50,14 @@
           ],
           "label": "Z-Image-Turbo"
         },
+        "zImageTurboNsfwV2Bf16": {
+          "resolutions": ["1k", "2k"],
+          "defaultResolution": "1k",
+          "maxCount": 2,
+          "oneImagePerJob": true,
+          "aspectRatios": ["1:1", "4:3", "3:4", "16:9", "9:16", "4:5"],
+          "label": "Z-Image Turbo NSFW v2 BF16"
+        },
         "zImageTurboAsianMix": {
           "resolutions": ["1k", "2k"],
           "defaultResolution": "1k",

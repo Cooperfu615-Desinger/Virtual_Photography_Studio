@@ -5,7 +5,7 @@ import { normalizeProviderGenerationRequest } from './providerContract.js';
 
 test('selectable Comfy models are distinct without reviving hidden providers or duplicating LoRA variants', () => {
   const entries = getDllPicSelectableModelEntries();
-  const expected = ['comfyZImageTurbo', 'comfyQwenImage21', 'comfyZImageTurboInt8', 'comfyIdeogram45', 'comfySeedream5Pro',
+  const expected = ['comfyZImageTurbo', 'comfyZImageTurboNsfwV2Bf16', 'comfyQwenImage21', 'comfyZImageTurboInt8', 'comfyIdeogram45', 'comfySeedream5Pro',
     'comfyKrea3',
     'comfyKrea2Medium', 'comfyKrea2MediumTurbo', 'comfyKrea2Large', 'comfyKrea2TurboNative', 'comfyFlux3KleinBaseInt8', 'comfyMossImageSftInt8'];
   assert.deepEqual(entries.filter(([, m]) => m.provider === 'comfyCloud').map(([key]) => key), expected);
@@ -24,7 +24,7 @@ test('selectable Comfy models are distinct without reviving hidden providers or 
 });
 
 test('new models use the Comfy proxy and preserve selected prompt, ratio and two-image total limit', async () => {
-  for (const [modelKey, backend] of [['comfyZImageTurboInt8', 'zImageTurboInt8'], ['comfyIdeogram45', 'ideogram45'], ['comfySeedream5Pro', 'seedream5Pro'],
+  for (const [modelKey, backend] of [['comfyZImageTurboNsfwV2Bf16', 'zImageTurboNsfwV2Bf16'], ['comfyZImageTurboInt8', 'zImageTurboInt8'], ['comfyIdeogram45', 'ideogram45'], ['comfySeedream5Pro', 'seedream5Pro'],
     ['comfyKrea2Medium', 'krea2Medium'], ['comfyKrea2MediumTurbo', 'krea2MediumTurbo'], ['comfyKrea2Large', 'krea2Large'], ['comfyKrea2TurboNative', 'krea2TurboNative'], ['comfyFlux3KleinBaseInt8', 'flux3KleinBaseInt8']]) {
     let sent;
     const prompt = 'A red mug.\n--ar 4:5';
