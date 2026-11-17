@@ -27967,6 +27967,90 @@
           }
         },
         {
+          "id": "character:表情-facial-expression:eyes-closed-enjoyment",
+          "cells": [
+            "**表情 (Facial Expression)**",
+            "",
+            "",
+            ""
+          ],
+          "columns": {
+            "1": "zh",
+            "2": "en",
+            "3": "desc"
+          },
+          "affixes": {
+            "1": [
+              "",
+              ""
+            ],
+            "2": [
+              "`",
+              "`"
+            ],
+            "3": [
+              "",
+              ""
+            ]
+          }
+        },
+        {
+          "id": "character:表情-facial-expression:wink-toothy-smile",
+          "cells": [
+            "**表情 (Facial Expression)**",
+            "",
+            "",
+            ""
+          ],
+          "columns": {
+            "1": "zh",
+            "2": "en",
+            "3": "desc"
+          },
+          "affixes": {
+            "1": [
+              "",
+              ""
+            ],
+            "2": [
+              "`",
+              "`"
+            ],
+            "3": [
+              "",
+              ""
+            ]
+          }
+        },
+        {
+          "id": "character:表情-facial-expression:squinting-toothy-smile",
+          "cells": [
+            "**表情 (Facial Expression)**",
+            "",
+            "",
+            ""
+          ],
+          "columns": {
+            "1": "zh",
+            "2": "en",
+            "3": "desc"
+          },
+          "affixes": {
+            "1": [
+              "",
+              ""
+            ],
+            "2": [
+              "`",
+              "`"
+            ],
+            "3": [
+              "",
+              ""
+            ]
+          }
+        },
+        {
           "id": "character:姿勢與肢體語言-pose-body-language:全無:0",
           "cells": [
             "**姿勢與肢體語言 (Pose & Body Language)**",

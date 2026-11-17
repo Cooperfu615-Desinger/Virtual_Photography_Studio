@@ -1,0 +1,305 @@
+{
+  "date": "2026-11-17",
+  "status": "PASS",
+  "headBeforeCommit": "595085d5be21aa5a712ca4ec2bb29a24e7477c37",
+  "sourceAndRegistryBase": "fd3f3bb14e15ec556021791bdda71b8fe8d8731f",
+  "scope": "Seven approved manual-only gesture/expression/gaze additions; inherited implementation unchanged during takeover",
+  "sealedSourceFiles": [
+    {
+      "path": "webapp/src/lib/engine.js",
+      "sha256": "2cc74b3fae144c8f714473c6afaa055c7502058a1fd7150d35e164e8dc8a38b4"
+    },
+    {
+      "path": "webapp/src/lib/engine/gazeGesture.js",
+      "sha256": "6d9a488ff6ac0bfd5521088014ed34033d7169b6368fdd112f6ae096dfd9abc5"
+    },
+    {
+      "path": "webapp/src/lib/engine/headPosture.js",
+      "sha256": "9a60ca0e4dc3b408f643b9022c92d310766c1ba5f175dd5a34ca1dc2f967a93a"
+    },
+    {
+      "path": "webapp/src/components/Page1Workspace.jsx",
+      "sha256": "daa506825cd17ced74611978c3308c01a8149bc49747bfe9e0f99cfadb458081"
+    },
+    {
+      "path": "webapp/src/features/page1/lockTransitions.js",
+      "sha256": "b2aecccf52529e6f6cdd6a8d2a8a5d8c8bf0f0fddc676f7600c75400a6fd2c6b"
+    },
+    {
+      "path": "webapp/src/lib/engine/gazeGesture.test.js",
+      "sha256": "f779bfca437f1c8febe52198e378202fca9de61f177086d226ee3da0e253c9f3"
+    },
+    {
+      "path": "webapp/package.json",
+      "sha256": "22e5c00a9fbb72382d69c2228b9d9832bebd8f1a8d2dfa98c89f0c43bd0b710a"
+    },
+    {
+      "path": "knowledge_base/catalog/Character/表情-facial-expression.json",
+      "sha256": "15b576e8beecab69741d65dcf27888c4382f4306513b39fd9bdc7bc8793c9ef8"
+    },
+    {
+      "path": "knowledge_base/catalog/index.json",
+      "sha256": "d03ff5edbe7fff68b63ea03fadb6df17240f7366050fd87080a1a3428d907d97"
+    },
+    {
+      "path": "knowledge_base/catalog/id_registry.json",
+      "sha256": "1dd5b334fa3fb39dace4750fd9d5eb459a3a3340be1ac255e64f170cb806e0d3"
+    },
+    {
+      "path": "knowledge_base/character_design.md",
+      "sha256": "189a736fd650b377475f060a89ebbdb5fd689b6e5019f2aa4d041f794b4b5c7c"
+    },
+    {
+      "path": "webapp/src/data/database.json",
+      "sha256": "500e8482054a1c1e8590e5775879b3c8d887852ce76f6c2cf3fc16e11a15b62e"
+    },
+    {
+      "path": "scripts/lib/videoReferenceReplay.mjs",
+      "sha256": "9de27f1c040bf6ea903d1a80553864c0a91b03e9ae6a998134399ee8b70f8bb8"
+    },
+    {
+      "path": "scripts/lib/catalogIntegrity.mjs",
+      "sha256": "9dc7f231aef5b7ffa31cc4813accc635a3c563bc19c3ffcc846eec080606157f"
+    },
+    {
+      "path": "scripts/tests/catalog-integrity.test.mjs",
+      "sha256": "6cfb4393a02a0caa3973a812cd783dd61f35de1d47a733b88d633c16551df3c2"
+    },
+    {
+      "path": "scripts/tests/test_catalog_cutover.py",
+      "sha256": "322d979a5cbcf2d8dbaeef4857ba8a820c54c3fa3420a613cb417f403238a4db"
+    },
+    {
+      "path": "webapp/src/features/qa/testEfficiencyRunner.test.js",
+      "sha256": "2eaebf5ccaa58381a7094a5d4388b6c25d5f632865a85ba36ca94d2dd3c519d1"
+    },
+    {
+      "path": "webapp/src/lib/engine/denimOveralls.test.js",
+      "sha256": "3168dfb8e5890bddfa624f77e17a64ac05ad75f255869f00aece08ff25849f6a"
+    },
+    {
+      "path": "webapp/src/lib/engine/catalogSemanticSource.test.js",
+      "sha256": "f42f72b9671b09ae1daf4d0b1a29560f47ddd3e007887a0071d5a5ec7ffbdc71"
+    },
+    {
+      "path": "webapp/src/lib/engine/catalogSnapshot.test.js",
+      "sha256": "5a6e7a78f2f6f9a1e73e9851354370f5dafc01de970eb5a27de9a7c7decf4675"
+    },
+    {
+      "path": "webapp/src/lib/engineExpressionPoseCleanup.test.js",
+      "sha256": "b99cb5bdc11de6b4130a9acab0fc7d2aa498c7af8844372a39104d3bb29207e3"
+    }
+  ],
+  "protectedOriginalFiles": 406,
+  "protectedOriginalFilesUnchanged": true,
+  "allowedDocumentationAppends": [
+    "Docs/reports/gesture-expression-gaze-2026-11-17/README.md",
+    "Docs/specs/gesture-expression-gaze-additions-v1.md"
+  ],
+  "browser": {
+    "url": "http://127.0.0.1:5175/Virtual_Photography_Studio/",
+    "viewports": [
+      {
+        "name": "desktop",
+        "width": 1440,
+        "height": 1000
+      },
+      {
+        "name": "mobile",
+        "width": 390,
+        "height": 900
+      }
+    ],
+    "cases": 28,
+    "workspaces": 12,
+    "dllImports": 14,
+    "interactionGroups": 6,
+    "consoleWarnOrError": 0,
+    "pageErrors": 0,
+    "syntheticOnly": true,
+    "paidGenerationSubmitted": false,
+    "screenshots": [
+      {
+        "path": "browser/desktop-character.jpg",
+        "pixelDimensions": [
+          1425,
+          990
+        ],
+        "sha256": "83dffd32e0f6c3ad19b5a7d5d465eb2798387528a39c343538bb870ac4c9a94c"
+      },
+      {
+        "path": "browser/desktop-closed-gaze-paused.jpg",
+        "pixelDimensions": [
+          1425,
+          990
+        ],
+        "sha256": "d44a8d79720a3ef3ff2b5387332aa3e378fe320f1bbb45db00e6a9989825bcc5"
+      },
+      {
+        "path": "browser/desktop-dll.jpg",
+        "pixelDimensions": [
+          1440,
+          1000
+        ],
+        "sha256": "7efdbf925af59b53a7049489538639ce31576a1332ca149ff6ad9619c67deba6"
+      },
+      {
+        "path": "browser/desktop-new-gaze.jpg",
+        "pixelDimensions": [
+          1425,
+          990
+        ],
+        "sha256": "891b0f826008cb942e7f92c8712c1b1aa569cab933e2bf0b918f9f14e1c4324c"
+      },
+      {
+        "path": "browser/desktop-prompt.jpg",
+        "pixelDimensions": [
+          1425,
+          990
+        ],
+        "sha256": "f2fd9e0080bbeb50167b8fceeff0b77f85e981763c278deee3ddaae4ac07ddf2"
+      },
+      {
+        "path": "browser/desktop-saved.jpg",
+        "pixelDimensions": [
+          1425,
+          990
+        ],
+        "sha256": "ca0cad3e4c7365506fa2398ba74396ce5b3b901f83098594d76dcef631d2e8c8"
+      },
+      {
+        "path": "browser/desktop-scene.jpg",
+        "pixelDimensions": [
+          1425,
+          990
+        ],
+        "sha256": "7a768cf302bceb385e35a0c7a92d4810d6c6c1f078506766e217082bd5115513"
+      },
+      {
+        "path": "browser/desktop-seven-outputs.jpg",
+        "pixelDimensions": [
+          1425,
+          990
+        ],
+        "sha256": "b4a662c96b309c5e4bbd930aa5511efaa0fbef3adc858b65752e02b91f355e3c"
+      },
+      {
+        "path": "browser/desktop-video.jpg",
+        "pixelDimensions": [
+          1425,
+          990
+        ],
+        "sha256": "e7cbe5274dd78ce8b8abd3f12ccd0a3e3f5bdbe0dab25f0707045d6c54291112"
+      },
+      {
+        "path": "browser/mobile-character.jpg",
+        "pixelDimensions": [
+          375,
+          865
+        ],
+        "sha256": "182a38f299afdba219dbe9038689e76112049acc727293454be83aeeb5083687"
+      },
+      {
+        "path": "browser/mobile-closed-gaze-paused.jpg",
+        "pixelDimensions": [
+          375,
+          865
+        ],
+        "sha256": "42c6b3b49bde4b1cc868359d4770508081c89d94ab8f9cb161350d28273d338b"
+      },
+      {
+        "path": "browser/mobile-dll.jpg",
+        "pixelDimensions": [
+          375,
+          865
+        ],
+        "sha256": "e671e408a173ddb5c46ed94eb005a24eff3ba6c7867bf10720c7899c9ea9f75a"
+      },
+      {
+        "path": "browser/mobile-new-gaze.jpg",
+        "pixelDimensions": [
+          375,
+          865
+        ],
+        "sha256": "589f97d754732459d71ed2555186722353ff8a3dd56f56496972c34927d2bb2e"
+      },
+      {
+        "path": "browser/mobile-prompt.jpg",
+        "pixelDimensions": [
+          375,
+          865
+        ],
+        "sha256": "83ac054cba34665f7e6fe22e6f42ab6a676be05b7144d98f6d917e656896f3e6"
+      },
+      {
+        "path": "browser/mobile-saved.jpg",
+        "pixelDimensions": [
+          375,
+          865
+        ],
+        "sha256": "0dc6c193a85f04beb525df4dc4dbb779658eaee7dd2fa3a7c72fa29681ed376d"
+      },
+      {
+        "path": "browser/mobile-scene.jpg",
+        "pixelDimensions": [
+          375,
+          865
+        ],
+        "sha256": "5ad2fe5d72f43f1b716e4bcfd102630a52ea98e32265fea4288bb042ce4be22d"
+      },
+      {
+        "path": "browser/mobile-video.jpg",
+        "pixelDimensions": [
+          375,
+          865
+        ],
+        "sha256": "c8a35ca7514d1919b59b45a2750236616ffde9de867724d3b897f7fb9c1e91e1"
+      }
+    ],
+    "observationsSha256": "b0f54f72505f61e0e9b729b3b24587082fde41662597e04eb2a453dbf2d31d53"
+  },
+  "supplementalRoundtrip": {
+    "tests": 3,
+    "syntheticRecords": 82,
+    "formats": [
+      "JSON",
+      "Markdown",
+      "ZIP"
+    ],
+    "roundtrips": 246,
+    "outputsPerRecord": 7,
+    "logSha256": "c0b1b5f0042314331aac2f95438cb3547091aefa9fe6a1b153ed6311dbbf07f1"
+  },
+  "previewIsolationTest": {
+    "tests": 1,
+    "logSha256": "2596c80d6583f69e0861ac1d22949bd9424c9e2b5d6003ce99eca1c0a0f785bf"
+  },
+  "sourceOfFullTestEvidence": "inherited-evidence.json",
+  "sourceOfFreshRechecks": "rechecks.json",
+  "previewPort5175Closed": true,
+  "temporaryBrowserTabClosed": true,
+  "viewportOverrideReset": true,
+  "gitDeliveryPlan": {
+    "branch": "main",
+    "scopeAllowlist": true,
+    "force": false,
+    "commitMarker": "[skip ci]",
+    "deploymentRequested": false
+  },
+  "limitations": [
+    "No paid external model image quality evaluation",
+    "Existing build chunk warning and 24 audit diagnostics retained"
+  ],
+  "reviewedLocalLinks": 18,
+  "stagedWhitespaceCheck": {
+    "productDataAndDocumentation": "PASS",
+    "unfilteredCheck": "raw evidence whitespace findings retained",
+    "preservedEvidencePaths": [
+      "Docs/reports/gesture-expression-gaze-2026-11-17/build.log",
+      "Docs/reports/gesture-expression-gaze-2026-11-17/lint.log",
+      "Docs/reports/gesture-expression-gaze-2026-11-17/actual-prompts.md",
+      "Docs/reports/gesture-expression-gaze-2026-11-17/takeover-2026-11-17/validation-logs/saved-seven-roundtrip-first.log",
+      "Docs/reports/gesture-expression-gaze-2026-11-17/takeover-2026-11-17/validation-logs/saved-seven-roundtrip-second.log"
+    ]
+  }
+}

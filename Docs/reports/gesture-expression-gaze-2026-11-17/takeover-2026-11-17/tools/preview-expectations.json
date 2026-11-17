@@ -1,0 +1,506 @@
+[
+  {
+    "code": "A1",
+    "label": "單手比中指",
+    "frame": "full",
+    "summary": "Gesture QA A1 單手比中指 full",
+    "outputs": [
+      {
+        "id": "gpt",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 9:16 aspect ratio, full-body portrait, eye-level view. Her entire figure is framed with natural-looking proportions.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nPose and Composition:\nShe stands in a relaxed neutral posture, one hand raised beside her shoulder, back of the hand facing outward, middle finger extended upward, remaining fingers curled beneath the thumb, other arm relaxed.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "grok",
+        "value": "Photorealistic editorial portrait of one young adult woman.\n\nThe setting is Japanese school classroom, blackboard, classroom windows.\nShe stands in a relaxed neutral posture, one hand raised beside her shoulder, back of the hand facing outward, middle finger extended upward, remaining fingers curled beneath the thumb, other arm relaxed.\nFull-body portrait, eye-level view. Her entire figure is framed with natural-looking proportions.\n\nA 20-year-old seductive stunning adult Japanese woman."
+      },
+      {
+        "id": "ai",
+        "value": "Photorealistic editorial portrait. Full-body portrait, eye-level view. A 20-year-old adult Japanese woman. She stands in a relaxed neutral posture, one hand raised beside her shoulder, back of the hand facing outward, middle finger extended upward, remaining fingers curled beneath the thumb, other arm relaxed.\n\nJapanese school classroom, teacher desk edge, blackboard, classroom windows. --v 8.2 --ar 9:16 --raw --s 25 --c 0 --w 0 --sd"
+      },
+      {
+        "id": "nano-banana-2.1",
+        "value": "Create a photorealistic editorial portrait. Vertical portrait composition at a 9:16 aspect ratio, full-body portrait, eye-level view. Her entire figure is framed with natural-looking proportions.\n\nThe subject is one 20-year-old adult Japanese woman.\n\nShe stands in a relaxed neutral posture, one hand raised beside her shoulder, back of the hand facing outward, middle finger extended upward, remaining fingers curled beneath the thumb, other arm relaxed. The setting is Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "chest-up-portrait",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait, eye-level view.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nPose and Composition:\nShe stands in a relaxed neutral posture, one hand raised beside her shoulder, back of the hand facing outward, middle finger extended upward, remaining fingers curled beneath the thumb, other arm relaxed.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "full-body-character",
+        "value": "Image Type:\nCreate a photorealistic character reference portrait in a single 9:16 vertical image.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nLighting:\nClean even lighting with clear facial, body, fabric, and footwear readability.\n\nCamera Look:\nFull-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text."
+      },
+      {
+        "id": "grok-imagine",
+        "value": "The subject is one 20-year-old adult Japanese woman. She stands in a relaxed neutral posture, one hand raised beside her shoulder, back of the hand facing outward, middle finger extended upward, remaining fingers curled beneath the thumb, other arm relaxed. Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces. 9:16, full body shot, head-to-toe figure, environmental scale, eye-height camera, level perspective, neutral portrait view. Create a photorealistic editorial portrait."
+      }
+    ]
+  },
+  {
+    "code": "A1",
+    "label": "單手比中指",
+    "frame": "medium",
+    "summary": "Gesture QA A1 單手比中指 medium",
+    "outputs": [
+      {
+        "id": "gpt",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 9:16 aspect ratio, waist-up portrait, eye-level view.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nPose and Composition:\nShe stands in a relaxed neutral posture, one hand raised beside her shoulder, back of the hand facing outward, middle finger extended upward, remaining fingers curled beneath the thumb, other arm relaxed.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge."
+      },
+      {
+        "id": "grok",
+        "value": "Photorealistic editorial portrait of one young adult woman.\n\nThe setting is Japanese school classroom, blackboard, classroom windows.\nShe stands in a relaxed neutral posture, one hand raised beside her shoulder, back of the hand facing outward, middle finger extended upward, remaining fingers curled beneath the thumb, other arm relaxed.\nWaist-up portrait, eye-level view.\n\nA 20-year-old seductive stunning adult Japanese woman."
+      },
+      {
+        "id": "ai",
+        "value": "Photorealistic editorial portrait. Waist-up portrait, eye-level view. A 20-year-old adult Japanese woman. She stands in a relaxed neutral posture, one hand raised beside her shoulder, back of the hand facing outward, middle finger extended upward, remaining fingers curled beneath the thumb, other arm relaxed.\n\nJapanese school classroom, teacher desk edge, blackboard, classroom windows. --v 8.2 --ar 9:16 --raw --s 25 --c 0 --w 0 --sd"
+      },
+      {
+        "id": "nano-banana-2.1",
+        "value": "Create a photorealistic editorial portrait. Vertical portrait composition at a 9:16 aspect ratio, waist-up portrait, eye-level view.\n\nThe subject is one 20-year-old adult Japanese woman.\n\nShe stands in a relaxed neutral posture, one hand raised beside her shoulder, back of the hand facing outward, middle finger extended upward, remaining fingers curled beneath the thumb, other arm relaxed. The setting is Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge."
+      },
+      {
+        "id": "chest-up-portrait",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait, eye-level view.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nPose and Composition:\nShe stands in a relaxed neutral posture, one hand raised beside her shoulder, back of the hand facing outward, middle finger extended upward, remaining fingers curled beneath the thumb, other arm relaxed.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "full-body-character",
+        "value": "Image Type:\nCreate a photorealistic character reference portrait in a single 9:16 vertical image.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nLighting:\nClean even lighting with clear facial, body, fabric, and footwear readability.\n\nCamera Look:\nFull-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text."
+      },
+      {
+        "id": "grok-imagine",
+        "value": "The subject is one 20-year-old adult Japanese woman. She stands in a relaxed neutral posture, one hand raised beside her shoulder, back of the hand facing outward, middle finger extended upward, remaining fingers curled beneath the thumb, other arm relaxed. Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces. 9:16, medium shot, waist up framing, moderate background presence, eye-height camera, level perspective, neutral portrait view. Create a photorealistic editorial portrait."
+      }
+    ]
+  },
+  {
+    "code": "A2",
+    "label": "雙手比中指",
+    "frame": "full",
+    "summary": "Gesture QA A2 雙手比中指 full",
+    "outputs": [
+      {
+        "id": "gpt",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 9:16 aspect ratio, full-body portrait, eye-level view. Her entire figure is framed with natural-looking proportions.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nPose and Composition:\nShe stands in a relaxed neutral posture, both hands raised beside her shoulders, backs of both hands facing outward, each middle finger extended upward, remaining fingers curled beneath the thumbs.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "grok",
+        "value": "Photorealistic editorial portrait of one young adult woman.\n\nThe setting is Japanese school classroom, blackboard, classroom windows.\nShe stands in a relaxed neutral posture, both hands raised beside her shoulders, backs of both hands facing outward, each middle finger extended upward, remaining fingers curled beneath the thumbs.\nFull-body portrait, eye-level view. Her entire figure is framed with natural-looking proportions.\n\nA 20-year-old seductive stunning adult Japanese woman."
+      },
+      {
+        "id": "ai",
+        "value": "Photorealistic editorial portrait. Full-body portrait, eye-level view. A 20-year-old adult Japanese woman. She stands in a relaxed neutral posture, both hands raised beside her shoulders, backs of both hands facing outward, each middle finger extended upward, remaining fingers curled beneath the thumbs.\n\nJapanese school classroom, teacher desk edge, blackboard, classroom windows. --v 8.2 --ar 9:16 --raw --s 25 --c 0 --w 0 --sd"
+      },
+      {
+        "id": "nano-banana-2.1",
+        "value": "Create a photorealistic editorial portrait. Vertical portrait composition at a 9:16 aspect ratio, full-body portrait, eye-level view. Her entire figure is framed with natural-looking proportions.\n\nThe subject is one 20-year-old adult Japanese woman.\n\nShe stands in a relaxed neutral posture, both hands raised beside her shoulders, backs of both hands facing outward, each middle finger extended upward, remaining fingers curled beneath the thumbs. The setting is Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "chest-up-portrait",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait, eye-level view.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nPose and Composition:\nShe stands in a relaxed neutral posture, both hands raised beside her shoulders, backs of both hands facing outward, each middle finger extended upward, remaining fingers curled beneath the thumbs.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "full-body-character",
+        "value": "Image Type:\nCreate a photorealistic character reference portrait in a single 9:16 vertical image.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nLighting:\nClean even lighting with clear facial, body, fabric, and footwear readability.\n\nCamera Look:\nFull-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text."
+      },
+      {
+        "id": "grok-imagine",
+        "value": "The subject is one 20-year-old adult Japanese woman. She stands in a relaxed neutral posture, both hands raised beside her shoulders, backs of both hands facing outward, each middle finger extended upward, remaining fingers curled beneath the thumbs. Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces. 9:16, full body shot, head-to-toe figure, environmental scale, eye-height camera, level perspective, neutral portrait view. Create a photorealistic editorial portrait."
+      }
+    ]
+  },
+  {
+    "code": "A2",
+    "label": "雙手比中指",
+    "frame": "medium",
+    "summary": "Gesture QA A2 雙手比中指 medium",
+    "outputs": [
+      {
+        "id": "gpt",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 9:16 aspect ratio, waist-up portrait, eye-level view.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nPose and Composition:\nShe stands in a relaxed neutral posture, both hands raised beside her shoulders, backs of both hands facing outward, each middle finger extended upward, remaining fingers curled beneath the thumbs.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge."
+      },
+      {
+        "id": "grok",
+        "value": "Photorealistic editorial portrait of one young adult woman.\n\nThe setting is Japanese school classroom, blackboard, classroom windows.\nShe stands in a relaxed neutral posture, both hands raised beside her shoulders, backs of both hands facing outward, each middle finger extended upward, remaining fingers curled beneath the thumbs.\nWaist-up portrait, eye-level view.\n\nA 20-year-old seductive stunning adult Japanese woman."
+      },
+      {
+        "id": "ai",
+        "value": "Photorealistic editorial portrait. Waist-up portrait, eye-level view. A 20-year-old adult Japanese woman. She stands in a relaxed neutral posture, both hands raised beside her shoulders, backs of both hands facing outward, each middle finger extended upward, remaining fingers curled beneath the thumbs.\n\nJapanese school classroom, teacher desk edge, blackboard, classroom windows. --v 8.2 --ar 9:16 --raw --s 25 --c 0 --w 0 --sd"
+      },
+      {
+        "id": "nano-banana-2.1",
+        "value": "Create a photorealistic editorial portrait. Vertical portrait composition at a 9:16 aspect ratio, waist-up portrait, eye-level view.\n\nThe subject is one 20-year-old adult Japanese woman.\n\nShe stands in a relaxed neutral posture, both hands raised beside her shoulders, backs of both hands facing outward, each middle finger extended upward, remaining fingers curled beneath the thumbs. The setting is Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge."
+      },
+      {
+        "id": "chest-up-portrait",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait, eye-level view.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nPose and Composition:\nShe stands in a relaxed neutral posture, both hands raised beside her shoulders, backs of both hands facing outward, each middle finger extended upward, remaining fingers curled beneath the thumbs.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "full-body-character",
+        "value": "Image Type:\nCreate a photorealistic character reference portrait in a single 9:16 vertical image.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nLighting:\nClean even lighting with clear facial, body, fabric, and footwear readability.\n\nCamera Look:\nFull-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text."
+      },
+      {
+        "id": "grok-imagine",
+        "value": "The subject is one 20-year-old adult Japanese woman. She stands in a relaxed neutral posture, both hands raised beside her shoulders, backs of both hands facing outward, each middle finger extended upward, remaining fingers curled beneath the thumbs. Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces. 9:16, medium shot, waist up framing, moderate background presence, eye-height camera, level perspective, neutral portrait view. Create a photorealistic editorial portrait."
+      }
+    ]
+  },
+  {
+    "code": "B1",
+    "label": "閉眼享受",
+    "frame": "full",
+    "summary": "Gesture QA B1 閉眼享受 full",
+    "outputs": [
+      {
+        "id": "gpt",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 9:16 aspect ratio, full-body portrait, eye-level view. Her entire figure is framed with natural-looking proportions.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Both eyes gently closed, relaxed brows, softly parted lips, a subtle contented expression.\n\nPose and Composition:\nShe stands in a relaxed neutral posture. She has her head slightly tilted.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "grok",
+        "value": "Photorealistic editorial portrait of one young adult woman.\n\nThe setting is Japanese school classroom, blackboard, classroom windows.\nShe stands in a relaxed neutral posture. She has her head slightly tilted.\nFull-body portrait, eye-level view. Her entire figure is framed with natural-looking proportions.\n\nA 20-year-old seductive stunning adult Japanese woman, both eyes gently closed, relaxed brows, softly parted lips, a subtle contented expression."
+      },
+      {
+        "id": "ai",
+        "value": "Photorealistic editorial portrait. Full-body portrait, eye-level view. A 20-year-old adult Japanese woman. Both eyes gently closed, relaxed brows, softly parted lips, a subtle contented expression. She stands in a relaxed neutral posture. She has her head slightly tilted.\n\nJapanese school classroom, teacher desk edge, blackboard, classroom windows. --v 8.2 --ar 9:16 --raw --s 25 --c 0 --w 0 --sd"
+      },
+      {
+        "id": "nano-banana-2.1",
+        "value": "Create a photorealistic editorial portrait. Vertical portrait composition at a 9:16 aspect ratio, full-body portrait, eye-level view. Her entire figure is framed with natural-looking proportions.\n\nThe subject is one 20-year-old adult Japanese woman. Her expression is both eyes gently closed, relaxed brows, softly parted lips, a subtle contented expression.\n\nShe stands in a relaxed neutral posture. She has her head slightly tilted. The setting is Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "chest-up-portrait",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait, eye-level view.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Both eyes gently closed, relaxed brows, softly parted lips, a subtle contented expression.\n\nPose and Composition:\nShe stands in a relaxed neutral posture. She has her head slightly tilted.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "full-body-character",
+        "value": "Image Type:\nCreate a photorealistic character reference portrait in a single 9:16 vertical image.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Both eyes gently closed, relaxed brows, softly parted lips, a subtle contented expression.\n\nLighting:\nClean even lighting with clear facial, body, fabric, and footwear readability.\n\nCamera Look:\nFull-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text."
+      },
+      {
+        "id": "grok-imagine",
+        "value": "The subject is one 20-year-old adult Japanese woman. Both eyes gently closed, relaxed brows, softly parted lips, a subtle contented expression. She stands in a relaxed neutral posture. She has her head slightly tilted. Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces. 9:16, full body shot, head-to-toe figure, environmental scale, eye-height camera, level perspective, neutral portrait view. Create a photorealistic editorial portrait."
+      }
+    ]
+  },
+  {
+    "code": "B1",
+    "label": "閉眼享受",
+    "frame": "medium",
+    "summary": "Gesture QA B1 閉眼享受 medium",
+    "outputs": [
+      {
+        "id": "gpt",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 9:16 aspect ratio, waist-up portrait, eye-level view.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Both eyes gently closed, relaxed brows, softly parted lips, a subtle contented expression.\n\nPose and Composition:\nShe stands in a relaxed neutral posture. She has her head slightly tilted.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge."
+      },
+      {
+        "id": "grok",
+        "value": "Photorealistic editorial portrait of one young adult woman.\n\nThe setting is Japanese school classroom, blackboard, classroom windows.\nShe stands in a relaxed neutral posture. She has her head slightly tilted.\nWaist-up portrait, eye-level view.\n\nA 20-year-old seductive stunning adult Japanese woman, both eyes gently closed, relaxed brows, softly parted lips, a subtle contented expression."
+      },
+      {
+        "id": "ai",
+        "value": "Photorealistic editorial portrait. Waist-up portrait, eye-level view. A 20-year-old adult Japanese woman. Both eyes gently closed, relaxed brows, softly parted lips, a subtle contented expression. She stands in a relaxed neutral posture. She has her head slightly tilted.\n\nJapanese school classroom, teacher desk edge, blackboard, classroom windows. --v 8.2 --ar 9:16 --raw --s 25 --c 0 --w 0 --sd"
+      },
+      {
+        "id": "nano-banana-2.1",
+        "value": "Create a photorealistic editorial portrait. Vertical portrait composition at a 9:16 aspect ratio, waist-up portrait, eye-level view.\n\nThe subject is one 20-year-old adult Japanese woman. Her expression is both eyes gently closed, relaxed brows, softly parted lips, a subtle contented expression.\n\nShe stands in a relaxed neutral posture. She has her head slightly tilted. The setting is Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge."
+      },
+      {
+        "id": "chest-up-portrait",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait, eye-level view.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Both eyes gently closed, relaxed brows, softly parted lips, a subtle contented expression.\n\nPose and Composition:\nShe stands in a relaxed neutral posture. She has her head slightly tilted.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "full-body-character",
+        "value": "Image Type:\nCreate a photorealistic character reference portrait in a single 9:16 vertical image.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Both eyes gently closed, relaxed brows, softly parted lips, a subtle contented expression.\n\nLighting:\nClean even lighting with clear facial, body, fabric, and footwear readability.\n\nCamera Look:\nFull-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text."
+      },
+      {
+        "id": "grok-imagine",
+        "value": "The subject is one 20-year-old adult Japanese woman. Both eyes gently closed, relaxed brows, softly parted lips, a subtle contented expression. She stands in a relaxed neutral posture. She has her head slightly tilted. Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces. 9:16, medium shot, waist up framing, moderate background presence, eye-height camera, level perspective, neutral portrait view. Create a photorealistic editorial portrait."
+      }
+    ]
+  },
+  {
+    "code": "B2",
+    "label": "wink微笑",
+    "frame": "full",
+    "summary": "Gesture QA B2 wink微笑 full",
+    "outputs": [
+      {
+        "id": "gpt",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 9:16 aspect ratio, full-body portrait, eye-level view. Her entire figure is framed with natural-looking proportions.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. One eye closed in a wink, the other open, natural smile showing upper teeth.\n\nPose and Composition:\nShe stands in a relaxed neutral posture. She has her head naturally facing the camera.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "grok",
+        "value": "Photorealistic editorial portrait of one young adult woman.\n\nThe setting is Japanese school classroom, blackboard, classroom windows.\nShe stands in a relaxed neutral posture. She has her head naturally facing the camera.\nFull-body portrait, eye-level view. Her entire figure is framed with natural-looking proportions.\n\nA 20-year-old seductive stunning adult Japanese woman, one eye closed in a wink, the other open, natural smile showing upper teeth."
+      },
+      {
+        "id": "ai",
+        "value": "Photorealistic editorial portrait. Full-body portrait, eye-level view. A 20-year-old adult Japanese woman. One eye closed in a wink, the other open, natural smile showing upper teeth. She stands in a relaxed neutral posture. She has her head naturally facing the camera.\n\nJapanese school classroom, teacher desk edge, blackboard, classroom windows. --v 8.2 --ar 9:16 --raw --s 25 --c 0 --w 0 --sd"
+      },
+      {
+        "id": "nano-banana-2.1",
+        "value": "Create a photorealistic editorial portrait. Vertical portrait composition at a 9:16 aspect ratio, full-body portrait, eye-level view. Her entire figure is framed with natural-looking proportions.\n\nThe subject is one 20-year-old adult Japanese woman. Her expression is one eye closed in a wink, the other open, natural smile showing upper teeth.\n\nShe stands in a relaxed neutral posture. She has her head naturally facing the camera. The setting is Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "chest-up-portrait",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait, eye-level view.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. One eye closed in a wink, the other open, natural smile showing upper teeth.\n\nPose and Composition:\nShe stands in a relaxed neutral posture. She has her head naturally facing the camera.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "full-body-character",
+        "value": "Image Type:\nCreate a photorealistic character reference portrait in a single 9:16 vertical image.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. One eye closed in a wink, the other open, natural smile showing upper teeth.\n\nLighting:\nClean even lighting with clear facial, body, fabric, and footwear readability.\n\nCamera Look:\nFull-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text."
+      },
+      {
+        "id": "grok-imagine",
+        "value": "The subject is one 20-year-old adult Japanese woman. One eye closed in a wink, the other open, natural smile showing upper teeth. She stands in a relaxed neutral posture. She has her head naturally facing the camera. Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces. 9:16, full body shot, head-to-toe figure, environmental scale, eye-height camera, level perspective, neutral portrait view. Create a photorealistic editorial portrait."
+      }
+    ]
+  },
+  {
+    "code": "B2",
+    "label": "wink微笑",
+    "frame": "medium",
+    "summary": "Gesture QA B2 wink微笑 medium",
+    "outputs": [
+      {
+        "id": "gpt",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 9:16 aspect ratio, waist-up portrait, eye-level view.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. One eye closed in a wink, the other open, natural smile showing upper teeth.\n\nPose and Composition:\nShe stands in a relaxed neutral posture. She has her head naturally facing the camera.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge."
+      },
+      {
+        "id": "grok",
+        "value": "Photorealistic editorial portrait of one young adult woman.\n\nThe setting is Japanese school classroom, blackboard, classroom windows.\nShe stands in a relaxed neutral posture. She has her head naturally facing the camera.\nWaist-up portrait, eye-level view.\n\nA 20-year-old seductive stunning adult Japanese woman, one eye closed in a wink, the other open, natural smile showing upper teeth."
+      },
+      {
+        "id": "ai",
+        "value": "Photorealistic editorial portrait. Waist-up portrait, eye-level view. A 20-year-old adult Japanese woman. One eye closed in a wink, the other open, natural smile showing upper teeth. She stands in a relaxed neutral posture. She has her head naturally facing the camera.\n\nJapanese school classroom, teacher desk edge, blackboard, classroom windows. --v 8.2 --ar 9:16 --raw --s 25 --c 0 --w 0 --sd"
+      },
+      {
+        "id": "nano-banana-2.1",
+        "value": "Create a photorealistic editorial portrait. Vertical portrait composition at a 9:16 aspect ratio, waist-up portrait, eye-level view.\n\nThe subject is one 20-year-old adult Japanese woman. Her expression is one eye closed in a wink, the other open, natural smile showing upper teeth.\n\nShe stands in a relaxed neutral posture. She has her head naturally facing the camera. The setting is Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge."
+      },
+      {
+        "id": "chest-up-portrait",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait, eye-level view.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. One eye closed in a wink, the other open, natural smile showing upper teeth.\n\nPose and Composition:\nShe stands in a relaxed neutral posture. She has her head naturally facing the camera.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "full-body-character",
+        "value": "Image Type:\nCreate a photorealistic character reference portrait in a single 9:16 vertical image.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. One eye closed in a wink, the other open, natural smile showing upper teeth.\n\nLighting:\nClean even lighting with clear facial, body, fabric, and footwear readability.\n\nCamera Look:\nFull-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text."
+      },
+      {
+        "id": "grok-imagine",
+        "value": "The subject is one 20-year-old adult Japanese woman. One eye closed in a wink, the other open, natural smile showing upper teeth. She stands in a relaxed neutral posture. She has her head naturally facing the camera. Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces. 9:16, medium shot, waist up framing, moderate background presence, eye-height camera, level perspective, neutral portrait view. Create a photorealistic editorial portrait."
+      }
+    ]
+  },
+  {
+    "code": "B3",
+    "label": "瞇眼微笑",
+    "frame": "full",
+    "summary": "Gesture QA B3 瞇眼微笑 full",
+    "outputs": [
+      {
+        "id": "gpt",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 9:16 aspect ratio, full-body portrait, eye-level view. Her entire figure is framed with natural-looking proportions.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Both eyes smile-squinted into narrow open slits, lifted cheeks, natural smile showing upper teeth.\n\nPose and Composition:\nShe stands in a relaxed neutral posture. She has her head naturally facing the camera.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "grok",
+        "value": "Photorealistic editorial portrait of one young adult woman.\n\nThe setting is Japanese school classroom, blackboard, classroom windows.\nShe stands in a relaxed neutral posture. She has her head naturally facing the camera.\nFull-body portrait, eye-level view. Her entire figure is framed with natural-looking proportions.\n\nA 20-year-old seductive stunning adult Japanese woman, both eyes smile-squinted into narrow open slits, lifted cheeks, natural smile showing upper teeth."
+      },
+      {
+        "id": "ai",
+        "value": "Photorealistic editorial portrait. Full-body portrait, eye-level view. A 20-year-old adult Japanese woman. Both eyes smile-squinted into narrow open slits, lifted cheeks, natural smile showing upper teeth. She stands in a relaxed neutral posture. She has her head naturally facing the camera.\n\nJapanese school classroom, teacher desk edge, blackboard, classroom windows. --v 8.2 --ar 9:16 --raw --s 25 --c 0 --w 0 --sd"
+      },
+      {
+        "id": "nano-banana-2.1",
+        "value": "Create a photorealistic editorial portrait. Vertical portrait composition at a 9:16 aspect ratio, full-body portrait, eye-level view. Her entire figure is framed with natural-looking proportions.\n\nThe subject is one 20-year-old adult Japanese woman. Her expression is both eyes smile-squinted into narrow open slits, lifted cheeks, natural smile showing upper teeth.\n\nShe stands in a relaxed neutral posture. She has her head naturally facing the camera. The setting is Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "chest-up-portrait",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait, eye-level view.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Both eyes smile-squinted into narrow open slits, lifted cheeks, natural smile showing upper teeth.\n\nPose and Composition:\nShe stands in a relaxed neutral posture. She has her head naturally facing the camera.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "full-body-character",
+        "value": "Image Type:\nCreate a photorealistic character reference portrait in a single 9:16 vertical image.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Both eyes smile-squinted into narrow open slits, lifted cheeks, natural smile showing upper teeth.\n\nLighting:\nClean even lighting with clear facial, body, fabric, and footwear readability.\n\nCamera Look:\nFull-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text."
+      },
+      {
+        "id": "grok-imagine",
+        "value": "The subject is one 20-year-old adult Japanese woman. Both eyes smile-squinted into narrow open slits, lifted cheeks, natural smile showing upper teeth. She stands in a relaxed neutral posture. She has her head naturally facing the camera. Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces. 9:16, full body shot, head-to-toe figure, environmental scale, eye-height camera, level perspective, neutral portrait view. Create a photorealistic editorial portrait."
+      }
+    ]
+  },
+  {
+    "code": "B3",
+    "label": "瞇眼微笑",
+    "frame": "medium",
+    "summary": "Gesture QA B3 瞇眼微笑 medium",
+    "outputs": [
+      {
+        "id": "gpt",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 9:16 aspect ratio, waist-up portrait, eye-level view.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Both eyes smile-squinted into narrow open slits, lifted cheeks, natural smile showing upper teeth.\n\nPose and Composition:\nShe stands in a relaxed neutral posture. She has her head naturally facing the camera.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge."
+      },
+      {
+        "id": "grok",
+        "value": "Photorealistic editorial portrait of one young adult woman.\n\nThe setting is Japanese school classroom, blackboard, classroom windows.\nShe stands in a relaxed neutral posture. She has her head naturally facing the camera.\nWaist-up portrait, eye-level view.\n\nA 20-year-old seductive stunning adult Japanese woman, both eyes smile-squinted into narrow open slits, lifted cheeks, natural smile showing upper teeth."
+      },
+      {
+        "id": "ai",
+        "value": "Photorealistic editorial portrait. Waist-up portrait, eye-level view. A 20-year-old adult Japanese woman. Both eyes smile-squinted into narrow open slits, lifted cheeks, natural smile showing upper teeth. She stands in a relaxed neutral posture. She has her head naturally facing the camera.\n\nJapanese school classroom, teacher desk edge, blackboard, classroom windows. --v 8.2 --ar 9:16 --raw --s 25 --c 0 --w 0 --sd"
+      },
+      {
+        "id": "nano-banana-2.1",
+        "value": "Create a photorealistic editorial portrait. Vertical portrait composition at a 9:16 aspect ratio, waist-up portrait, eye-level view.\n\nThe subject is one 20-year-old adult Japanese woman. Her expression is both eyes smile-squinted into narrow open slits, lifted cheeks, natural smile showing upper teeth.\n\nShe stands in a relaxed neutral posture. She has her head naturally facing the camera. The setting is Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge."
+      },
+      {
+        "id": "chest-up-portrait",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait, eye-level view.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Both eyes smile-squinted into narrow open slits, lifted cheeks, natural smile showing upper teeth.\n\nPose and Composition:\nShe stands in a relaxed neutral posture. She has her head naturally facing the camera.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "full-body-character",
+        "value": "Image Type:\nCreate a photorealistic character reference portrait in a single 9:16 vertical image.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman. Both eyes smile-squinted into narrow open slits, lifted cheeks, natural smile showing upper teeth.\n\nLighting:\nClean even lighting with clear facial, body, fabric, and footwear readability.\n\nCamera Look:\nFull-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text."
+      },
+      {
+        "id": "grok-imagine",
+        "value": "The subject is one 20-year-old adult Japanese woman. Both eyes smile-squinted into narrow open slits, lifted cheeks, natural smile showing upper teeth. She stands in a relaxed neutral posture. She has her head naturally facing the camera. Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces. 9:16, medium shot, waist up framing, moderate background presence, eye-height camera, level perspective, neutral portrait view. Create a photorealistic editorial portrait."
+      }
+    ]
+  },
+  {
+    "code": "C1",
+    "label": "斜眼看鏡頭",
+    "frame": "full",
+    "summary": "Gesture QA C1 斜眼看鏡頭 full",
+    "outputs": [
+      {
+        "id": "gpt",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 9:16 aspect ratio, full-body portrait, eye-level view. Her entire figure is framed with natural-looking proportions.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nPose and Composition:\nShe stands in a relaxed neutral posture. She has her head turned slightly to one side, with her eyes glancing sideways toward the camera.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "grok",
+        "value": "Photorealistic editorial portrait of one young adult woman.\n\nThe setting is Japanese school classroom, blackboard, classroom windows.\nShe stands in a relaxed neutral posture. She has her head turned slightly to one side, with her eyes glancing sideways toward the camera.\nFull-body portrait, eye-level view. Her entire figure is framed with natural-looking proportions.\n\nA 20-year-old seductive stunning adult Japanese woman."
+      },
+      {
+        "id": "ai",
+        "value": "Photorealistic editorial portrait. Full-body portrait, eye-level view. A 20-year-old adult Japanese woman. She stands in a relaxed neutral posture. She has her head turned slightly to one side, with her eyes glancing sideways toward the camera.\n\nJapanese school classroom, teacher desk edge, blackboard, classroom windows. --v 8.2 --ar 9:16 --raw --s 25 --c 0 --w 0 --sd"
+      },
+      {
+        "id": "nano-banana-2.1",
+        "value": "Create a photorealistic editorial portrait. Vertical portrait composition at a 9:16 aspect ratio, full-body portrait, eye-level view. Her entire figure is framed with natural-looking proportions.\n\nThe subject is one 20-year-old adult Japanese woman.\n\nShe stands in a relaxed neutral posture. She has her head turned slightly to one side, with her eyes glancing sideways toward the camera. The setting is Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "chest-up-portrait",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait, eye-level view.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nPose and Composition:\nShe stands in a relaxed neutral posture. She has her head turned slightly to one side, with her eyes glancing sideways toward the camera.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "full-body-character",
+        "value": "Image Type:\nCreate a photorealistic character reference portrait in a single 9:16 vertical image.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nLighting:\nClean even lighting with clear facial, body, fabric, and footwear readability.\n\nCamera Look:\nFull-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text."
+      },
+      {
+        "id": "grok-imagine",
+        "value": "The subject is one 20-year-old adult Japanese woman. She stands in a relaxed neutral posture. She has her head turned slightly to one side, with her eyes glancing sideways toward the camera. Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces. 9:16, full body shot, head-to-toe figure, environmental scale, eye-height camera, level perspective, neutral portrait view. Create a photorealistic editorial portrait."
+      }
+    ]
+  },
+  {
+    "code": "C1",
+    "label": "斜眼看鏡頭",
+    "frame": "medium",
+    "summary": "Gesture QA C1 斜眼看鏡頭 medium",
+    "outputs": [
+      {
+        "id": "gpt",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 9:16 aspect ratio, waist-up portrait, eye-level view.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nPose and Composition:\nShe stands in a relaxed neutral posture. She has her head turned slightly to one side, with her eyes glancing sideways toward the camera.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge."
+      },
+      {
+        "id": "grok",
+        "value": "Photorealistic editorial portrait of one young adult woman.\n\nThe setting is Japanese school classroom, blackboard, classroom windows.\nShe stands in a relaxed neutral posture. She has her head turned slightly to one side, with her eyes glancing sideways toward the camera.\nWaist-up portrait, eye-level view.\n\nA 20-year-old seductive stunning adult Japanese woman."
+      },
+      {
+        "id": "ai",
+        "value": "Photorealistic editorial portrait. Waist-up portrait, eye-level view. A 20-year-old adult Japanese woman. She stands in a relaxed neutral posture. She has her head turned slightly to one side, with her eyes glancing sideways toward the camera.\n\nJapanese school classroom, teacher desk edge, blackboard, classroom windows. --v 8.2 --ar 9:16 --raw --s 25 --c 0 --w 0 --sd"
+      },
+      {
+        "id": "nano-banana-2.1",
+        "value": "Create a photorealistic editorial portrait. Vertical portrait composition at a 9:16 aspect ratio, waist-up portrait, eye-level view.\n\nThe subject is one 20-year-old adult Japanese woman.\n\nShe stands in a relaxed neutral posture. She has her head turned slightly to one side, with her eyes glancing sideways toward the camera. The setting is Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge."
+      },
+      {
+        "id": "chest-up-portrait",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait, eye-level view.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nPose and Composition:\nShe stands in a relaxed neutral posture. She has her head turned slightly to one side, with her eyes glancing sideways toward the camera.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "full-body-character",
+        "value": "Image Type:\nCreate a photorealistic character reference portrait in a single 9:16 vertical image.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nLighting:\nClean even lighting with clear facial, body, fabric, and footwear readability.\n\nCamera Look:\nFull-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text."
+      },
+      {
+        "id": "grok-imagine",
+        "value": "The subject is one 20-year-old adult Japanese woman. She stands in a relaxed neutral posture. She has her head turned slightly to one side, with her eyes glancing sideways toward the camera. Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces. 9:16, medium shot, waist up framing, moderate background presence, eye-height camera, level perspective, neutral portrait view. Create a photorealistic editorial portrait."
+      }
+    ]
+  },
+  {
+    "code": "C2",
+    "label": "低頭抬眼看鏡頭",
+    "frame": "full",
+    "summary": "Gesture QA C2 低頭抬眼看鏡頭 full",
+    "outputs": [
+      {
+        "id": "gpt",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 9:16 aspect ratio, full-body portrait, eye-level view. Her entire figure is framed with natural-looking proportions.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nPose and Composition:\nShe stands in a relaxed neutral posture. She has her head lowered with her chin tucked, her eyes lifted to look toward the camera.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "grok",
+        "value": "Photorealistic editorial portrait of one young adult woman.\n\nThe setting is Japanese school classroom, blackboard, classroom windows.\nShe stands in a relaxed neutral posture. She has her head lowered with her chin tucked, her eyes lifted to look toward the camera.\nFull-body portrait, eye-level view. Her entire figure is framed with natural-looking proportions.\n\nA 20-year-old seductive stunning adult Japanese woman."
+      },
+      {
+        "id": "ai",
+        "value": "Photorealistic editorial portrait. Full-body portrait, eye-level view. A 20-year-old adult Japanese woman. She stands in a relaxed neutral posture. She has her head lowered with her chin tucked, her eyes lifted to look toward the camera.\n\nJapanese school classroom, teacher desk edge, blackboard, classroom windows. --v 8.2 --ar 9:16 --raw --s 25 --c 0 --w 0 --sd"
+      },
+      {
+        "id": "nano-banana-2.1",
+        "value": "Create a photorealistic editorial portrait. Vertical portrait composition at a 9:16 aspect ratio, full-body portrait, eye-level view. Her entire figure is framed with natural-looking proportions.\n\nThe subject is one 20-year-old adult Japanese woman.\n\nShe stands in a relaxed neutral posture. She has her head lowered with her chin tucked, her eyes lifted to look toward the camera. The setting is Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "chest-up-portrait",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait, eye-level view.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nPose and Composition:\nShe stands in a relaxed neutral posture. She has her head lowered with her chin tucked, her eyes lifted to look toward the camera.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "full-body-character",
+        "value": "Image Type:\nCreate a photorealistic character reference portrait in a single 9:16 vertical image.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nLighting:\nClean even lighting with clear facial, body, fabric, and footwear readability.\n\nCamera Look:\nFull-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text."
+      },
+      {
+        "id": "grok-imagine",
+        "value": "The subject is one 20-year-old adult Japanese woman. She stands in a relaxed neutral posture. She has her head lowered with her chin tucked, her eyes lifted to look toward the camera. Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces. 9:16, full body shot, head-to-toe figure, environmental scale, eye-height camera, level perspective, neutral portrait view. Create a photorealistic editorial portrait."
+      }
+    ]
+  },
+  {
+    "code": "C2",
+    "label": "低頭抬眼看鏡頭",
+    "frame": "medium",
+    "summary": "Gesture QA C2 低頭抬眼看鏡頭 medium",
+    "outputs": [
+      {
+        "id": "gpt",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 9:16 aspect ratio, waist-up portrait, eye-level view.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nPose and Composition:\nShe stands in a relaxed neutral posture. She has her head lowered with her chin tucked, her eyes lifted to look toward the camera.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge."
+      },
+      {
+        "id": "grok",
+        "value": "Photorealistic editorial portrait of one young adult woman.\n\nThe setting is Japanese school classroom, blackboard, classroom windows.\nShe stands in a relaxed neutral posture. She has her head lowered with her chin tucked, her eyes lifted to look toward the camera.\nWaist-up portrait, eye-level view.\n\nA 20-year-old seductive stunning adult Japanese woman."
+      },
+      {
+        "id": "ai",
+        "value": "Photorealistic editorial portrait. Waist-up portrait, eye-level view. A 20-year-old adult Japanese woman. She stands in a relaxed neutral posture. She has her head lowered with her chin tucked, her eyes lifted to look toward the camera.\n\nJapanese school classroom, teacher desk edge, blackboard, classroom windows. --v 8.2 --ar 9:16 --raw --s 25 --c 0 --w 0 --sd"
+      },
+      {
+        "id": "nano-banana-2.1",
+        "value": "Create a photorealistic editorial portrait. Vertical portrait composition at a 9:16 aspect ratio, waist-up portrait, eye-level view.\n\nThe subject is one 20-year-old adult Japanese woman.\n\nShe stands in a relaxed neutral posture. She has her head lowered with her chin tucked, her eyes lifted to look toward the camera. The setting is Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge."
+      },
+      {
+        "id": "chest-up-portrait",
+        "value": "Image Type:\nCreate a photorealistic editorial portrait.\n\nComposition:\nVertical portrait composition at a 4:5 aspect ratio, chest-up portrait, eye-level view.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nPose and Composition:\nShe stands in a relaxed neutral posture. She has her head lowered with her chin tucked, her eyes lifted to look toward the camera.\n\nScene:\nThe portrait takes place in Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces."
+      },
+      {
+        "id": "full-body-character",
+        "value": "Image Type:\nCreate a photorealistic character reference portrait in a single 9:16 vertical image.\n\nSubject:\nThe subject is one 20-year-old adult Japanese woman.\n\nLighting:\nClean even lighting with clear facial, body, fabric, and footwear readability.\n\nCamera Look:\nFull-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text."
+      },
+      {
+        "id": "grok-imagine",
+        "value": "The subject is one 20-year-old adult Japanese woman. She stands in a relaxed neutral posture. She has her head lowered with her chin tucked, her eyes lifted to look toward the camera. Japanese school classroom, blackboard, classroom windows, several wooden desks and chairs at varied angles, teacher desk edge, wall bulletin board, lived-in schoolroom surfaces. 9:16, medium shot, waist up framing, moderate background presence, eye-height camera, level perspective, neutral portrait view. Create a photorealistic editorial portrait."
+      }
+    ]
+  }
+]

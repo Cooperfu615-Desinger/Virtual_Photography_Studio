@@ -55,7 +55,16 @@ class FormalSourceTests(unittest.TestCase):
         self.assertEqual(len(companion), 1)
         lawson = [row for row in entries if row['id'] in {'locations:生活感室內-indoor-lifestyle:indoor-lawson-store', 'locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront'}]
         self.assertEqual(len(lawson), 2)
-        self.assertEqual(len(entries) - len(added) - len(companion) - len(lawson), 1050)
+        eye_expression_ids = {
+            'character:表情-facial-expression:eyes-closed-enjoyment',
+            'character:表情-facial-expression:wink-toothy-smile',
+            'character:表情-facial-expression:squinting-toothy-smile',
+        }
+        eye_expressions = [row for row in entries if row['id'] in eye_expression_ids]
+        self.assertEqual({row['id'] for row in eye_expressions}, eye_expression_ids)
+        for row in eye_expressions:
+            self.assertEqual(row['meta']['semantic']['tags'], ['manual_only'])
+        self.assertEqual(len(entries) - len(added) - len(companion) - len(lawson) - len(eye_expressions), 1050)
         outputs, proof = sync.build_outputs(self.base)
         self.assertEqual(len(outputs), 8); self.assertEqual(proof['historicalIds'], len(entries))
         self.assertEqual(list(self.records), list(sync.FILES_TO_SYNC.values()))

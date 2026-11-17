@@ -8,6 +8,7 @@ import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { prepareWebappTestArguments, SEATING_MATRIX_FILES as members, SEATING_MATRIX_AGGREGATOR as aggregator } from '../../../../scripts/run_webapp_tests.mjs';
 import { preTestEfficiencySource } from '../../../../scripts/lib/testEfficiencyHistoricalReplay.mjs';
+import { preGestureExpressionGazeSource } from '../../../../scripts/lib/gestureExpressionGazeHistoricalReplay.mjs';
 import review from '../../../../scripts/lib/testEfficiencyHistory.json' with { type: 'json' };
 import { seatFixture, seatFramings } from '../../lib/engine/indoorSeatFixtures.js';
 import { enableSeatFixtureReuse, seatRequestKey } from '../../lib/engine/seatFixtureReuseTestSupport.js';
@@ -33,7 +34,7 @@ test('seat grouping preserves both complete gate file sets and every focused sub
 test('test-only inverse restores exact original bytes and leaves all unknown changes untouched',()=>{
  assert.equal(review.base,'2b43c52f8315232b316cc5fc99383ed10e6a64b5');
  for(const file of review.files){
-  const current=readFileSync(resolve(root,file.path));
+  const current=preGestureExpressionGazeSource(file.path,readFileSync(resolve(root,file.path)));
   const original=execFileSync('git',['show',review.base+':'+file.path],{cwd:root,maxBuffer:16*1024*1024});
   assert.equal(createHash('sha256').update(current).digest('hex'),file.afterHash,file.path);
   assert.deepEqual(preTestEfficiencySource(file.path,current),original,file.path);

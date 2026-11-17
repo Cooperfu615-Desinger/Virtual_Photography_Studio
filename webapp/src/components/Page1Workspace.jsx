@@ -11,7 +11,7 @@ import { prepareBottomRiseControl } from '../lib/engine/bottomRiseCompatibility.
 import { prepareHeadDominantAngleControl } from '../lib/engine/headDominantFraming.js';
 import { isLyingAction, lyingSurfaceFor } from '../lib/engine/lyingSurface.js';
 import { postureConflictsWithGaze } from '../lib/engine/headPosture.js';
-import { applicableGestureOptions, availableGazeOptions } from '../lib/engine/gazeGesture.js';
+import { applicableGestureOptions, availableGazeOptions, gazePausedByExpression } from '../lib/engine/gazeGesture.js';
 import { phoneCaptureStatus } from '../lib/engine/phoneCapture.js';
 import { getSpecifiedAction, getSpecifiedActionEffectiveLocks, specifiedActionOwnsControl, getSpecifiedActionCameraConflict } from '../lib/engine/specifiedActions.js';
 import { prepareAccessoryControl } from '../lib/engine/accessoryPolicy.js';
@@ -975,6 +975,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       };
     }
     if (control.key === 'gazeId') {
+      if (gazePausedByExpression(locks, activeSpecifiedAction)) return { ...control, disabled: true,
+        helpText: '閉眼享受時視線暫不套用，切換表情後恢復。' };
       const orbitOption = lockControls.find(c => c.key === 'orbitId')?.options?.find(o => o.id === locks.orbitId);
       const backView = !isLyingAction(activeSpecifiedAction) && Boolean(orbitOption?.meta?.tags?.includes('back_view'));
       const available = new Set(availableGazeOptions({ orientationId: activeSpecifiedAction?.orientationId, orbit: backView ? orbitOption : null }).map(o => o.id));
@@ -983,7 +985,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     }
     if (control.key === 'headPostureId') {
       // A lowered gaze already tips the head down: the two lifting postures are unavailable.
-      return { ...control, options: control.options.map(o => postureConflictsWithGaze(o.id, locks.gazeId)
+      const effectiveGaze = gazePausedByExpression(locks, activeSpecifiedAction) ? 'none' : locks.gazeId;
+      return { ...control, options: control.options.map(o => postureConflictsWithGaze(o.id, effectiveGaze)
         ? { ...o, zh: `${o.zh}（低頭時不適用）`, disabled: true } : o) };
     }
     if (control.key === 'propId') {

@@ -22,7 +22,8 @@ export const HEAD_POSTURE_OPTIONS = freeze([choice('none', '全無'), choice('ra
 
 // A lowered gaze (低頭) already tips the head down; these two lift it and contradict it.
 const LOWERED_GAZE_CONFLICTS = new Set(['chin-slightly-raised', 'head-slightly-back']);
-export const postureConflictsWithGaze = (postureId, gazeId) => gazeId === 'gaze-down' && LOWERED_GAZE_CONFLICTS.has(postureId);
+export const postureConflictsWithGaze = (postureId, gazeId) => ['gaze-down', 'gaze-chin-down-eyes-up'].includes(gazeId)
+  && LOWERED_GAZE_CONFLICTS.has(postureId);
 
 /** null when unused; 隨機 makes one random() call and skips postures the resolved gaze contradicts. */
 export function resolveHeadPosture(id, gaze = null, random = Math.random) {

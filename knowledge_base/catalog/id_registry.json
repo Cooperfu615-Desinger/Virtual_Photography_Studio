@@ -7382,6 +7382,30 @@
       "createdFrom": "7a22389704f93d7953bbd31582de523f4baceee8",
       "status": "active",
       "decisionRef": "Docs/specs/lawson-scene-position-v1.md"
+    },
+    {
+      "id": "character:表情-facial-expression:eyes-closed-enjoyment",
+      "initialGroup": "character",
+      "initialCategory": "表情 (Facial Expression)",
+      "createdFrom": "fd3f3bb14e15ec556021791bdda71b8fe8d8731f",
+      "status": "active",
+      "decisionRef": "Docs/specs/gesture-expression-gaze-additions-v1.md"
+    },
+    {
+      "id": "character:表情-facial-expression:wink-toothy-smile",
+      "initialGroup": "character",
+      "initialCategory": "表情 (Facial Expression)",
+      "createdFrom": "fd3f3bb14e15ec556021791bdda71b8fe8d8731f",
+      "status": "active",
+      "decisionRef": "Docs/specs/gesture-expression-gaze-additions-v1.md"
+    },
+    {
+      "id": "character:表情-facial-expression:squinting-toothy-smile",
+      "initialGroup": "character",
+      "initialCategory": "表情 (Facial Expression)",
+      "createdFrom": "fd3f3bb14e15ec556021791bdda71b8fe8d8731f",
+      "status": "active",
+      "decisionRef": "Docs/specs/gesture-expression-gaze-additions-v1.md"
     }
   ]
 }

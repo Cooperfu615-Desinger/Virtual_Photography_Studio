@@ -41,6 +41,9 @@ test('expression and pose controls expose the cleaned option sets', () => {
       '輕微驚訝',
       '緊張不安',
       '龐克挑釁吐舌',
+      '閉眼享受',
+      'wink微笑',
+      '瞇眼微笑',
     ]
   );
 

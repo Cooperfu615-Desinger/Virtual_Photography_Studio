@@ -19729,6 +19729,54 @@
         "legacyIds": [
           "character:表情-facial-expression:龐克挑釁吐舌:15"
         ]
+      },
+      {
+        "zh": "閉眼享受",
+        "en": "both eyes gently closed, relaxed brows, softly parted lips, a subtle contented expression",
+        "desc": "雙眼輕閉、眉間放鬆、嘴唇微張，呈現舒服滿足的享受神態；不指定視線或頭部方向。",
+        "meta": {
+          "semantic": {
+            "minVisibility": "full",
+            "tags": [
+              "manual_only"
+            ],
+            "archetype": null
+          }
+        },
+        "stableId": "character:表情-facial-expression:eyes-closed-enjoyment",
+        "legacyIds": []
+      },
+      {
+        "zh": "wink微笑",
+        "en": "one eye closed in a wink, the other open, natural smile showing upper teeth",
+        "desc": "單眼眨眼、另一眼睜開，嘴角上揚並自然露出上排牙齒；不綁定左右眼或視線方向。",
+        "meta": {
+          "semantic": {
+            "minVisibility": "full",
+            "tags": [
+              "manual_only"
+            ],
+            "archetype": null
+          }
+        },
+        "stableId": "character:表情-facial-expression:wink-toothy-smile",
+        "legacyIds": []
+      },
+      {
+        "zh": "瞇眼微笑",
+        "en": "both eyes smile-squinted into narrow open slits, lifted cheeks, natural smile showing upper teeth",
+        "desc": "雙眼因微笑而明顯瞇起，仍保留眼縫，臉頰上提並自然露出上排牙齒；不指定視線或頭部方向。",
+        "meta": {
+          "semantic": {
+            "minVisibility": "full",
+            "tags": [
+              "manual_only"
+            ],
+            "archetype": null
+          }
+        },
+        "stableId": "character:表情-facial-expression:squinting-toothy-smile",
+        "legacyIds": []
       }
     ],
     "姿勢與肢體語言 (Pose & Body Language)": [

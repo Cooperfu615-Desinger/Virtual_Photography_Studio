@@ -1,0 +1,1519 @@
+{
+  "viewports": [
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "name": "mobile",
+      "width": 390,
+      "height": 900
+    }
+  ],
+  "cases": [
+    {
+      "viewport": "desktop",
+      "code": "A1",
+      "label": "單手比中指",
+      "frame": "full",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "單手比中指",
+          "value": "gesture-middle-finger-single"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "全無",
+          "value": "character:表情-facial-expression:無額外表情:0"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "全無",
+          "value": "none"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "pageErrors": "[]",
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "code": "A1",
+      "label": "單手比中指",
+      "frame": "medium",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "單手比中指",
+          "value": "gesture-middle-finger-single"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "全無",
+          "value": "character:表情-facial-expression:無額外表情:0"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "全無",
+          "value": "none"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "pageErrors": "[]",
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "code": "A2",
+      "label": "雙手比中指",
+      "frame": "full",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "雙手比中指",
+          "value": "gesture-middle-finger-both"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "全無",
+          "value": "character:表情-facial-expression:無額外表情:0"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "全無",
+          "value": "none"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "pageErrors": "[]",
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "code": "A2",
+      "label": "雙手比中指",
+      "frame": "medium",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "雙手比中指",
+          "value": "gesture-middle-finger-both"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "全無",
+          "value": "character:表情-facial-expression:無額外表情:0"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "全無",
+          "value": "none"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "pageErrors": "[]",
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "code": "B1",
+      "label": "閉眼享受",
+      "frame": "full",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "閉眼享受",
+          "value": "character:表情-facial-expression:eyes-closed-enjoyment"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "頭部微微側傾",
+          "value": "head-slight-tilt"
+        },
+        {
+          "disabled": true,
+          "label": "視線",
+          "selected": "斜眼看鏡頭",
+          "value": "gaze-sideways-camera"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "pageErrors": "[]",
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "code": "B1",
+      "label": "閉眼享受",
+      "frame": "medium",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "閉眼享受",
+          "value": "character:表情-facial-expression:eyes-closed-enjoyment"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "頭部微微側傾",
+          "value": "head-slight-tilt"
+        },
+        {
+          "disabled": true,
+          "label": "視線",
+          "selected": "斜眼看鏡頭",
+          "value": "gaze-sideways-camera"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "pageErrors": "[]",
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "code": "B2",
+      "label": "wink微笑",
+      "frame": "full",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "wink微笑",
+          "value": "character:表情-facial-expression:wink-toothy-smile"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "看鏡頭",
+          "value": "gaze-camera"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "pageErrors": "[]",
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "code": "B2",
+      "label": "wink微笑",
+      "frame": "medium",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "wink微笑",
+          "value": "character:表情-facial-expression:wink-toothy-smile"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "看鏡頭",
+          "value": "gaze-camera"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "pageErrors": "[]",
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "code": "B3",
+      "label": "瞇眼微笑",
+      "frame": "full",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "瞇眼微笑",
+          "value": "character:表情-facial-expression:squinting-toothy-smile"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "看鏡頭",
+          "value": "gaze-camera"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "pageErrors": "[]",
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "code": "B3",
+      "label": "瞇眼微笑",
+      "frame": "medium",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "瞇眼微笑",
+          "value": "character:表情-facial-expression:squinting-toothy-smile"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "看鏡頭",
+          "value": "gaze-camera"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "pageErrors": "[]",
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "code": "C1",
+      "label": "斜眼看鏡頭",
+      "frame": "full",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "全無",
+          "value": "character:表情-facial-expression:無額外表情:0"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "斜眼看鏡頭",
+          "value": "gaze-sideways-camera"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "pageErrors": "[]",
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "code": "C1",
+      "label": "斜眼看鏡頭",
+      "frame": "medium",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "全無",
+          "value": "character:表情-facial-expression:無額外表情:0"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "斜眼看鏡頭",
+          "value": "gaze-sideways-camera"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "pageErrors": "[]",
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "code": "C2",
+      "label": "低頭抬眼看鏡頭",
+      "frame": "full",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "全無",
+          "value": "character:表情-facial-expression:無額外表情:0"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "低頭抬眼看鏡頭",
+          "value": "gaze-chin-down-eyes-up"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "pageErrors": "[]",
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "desktop",
+      "code": "C2",
+      "label": "低頭抬眼看鏡頭",
+      "frame": "medium",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "全無",
+          "value": "character:表情-facial-expression:無額外表情:0"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "低頭抬眼看鏡頭",
+          "value": "gaze-chin-down-eyes-up"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "pageErrors": "[]",
+        "scroll": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "viewport": "mobile",
+      "code": "A1",
+      "label": "單手比中指",
+      "frame": "full",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "單手比中指",
+          "value": "gesture-middle-finger-single"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "全無",
+          "value": "character:表情-facial-expression:無額外表情:0"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "全無",
+          "value": "none"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "pageErrors": "[]",
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "code": "A1",
+      "label": "單手比中指",
+      "frame": "medium",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "單手比中指",
+          "value": "gesture-middle-finger-single"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "全無",
+          "value": "character:表情-facial-expression:無額外表情:0"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "全無",
+          "value": "none"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "pageErrors": "[]",
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "code": "A2",
+      "label": "雙手比中指",
+      "frame": "full",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "雙手比中指",
+          "value": "gesture-middle-finger-both"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "全無",
+          "value": "character:表情-facial-expression:無額外表情:0"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "全無",
+          "value": "none"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "pageErrors": "[]",
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "code": "A2",
+      "label": "雙手比中指",
+      "frame": "medium",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "雙手比中指",
+          "value": "gesture-middle-finger-both"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "全無",
+          "value": "character:表情-facial-expression:無額外表情:0"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "全無",
+          "value": "none"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "pageErrors": "[]",
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "code": "B1",
+      "label": "閉眼享受",
+      "frame": "full",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "閉眼享受",
+          "value": "character:表情-facial-expression:eyes-closed-enjoyment"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "頭部微微側傾",
+          "value": "head-slight-tilt"
+        },
+        {
+          "disabled": true,
+          "label": "視線",
+          "selected": "斜眼看鏡頭",
+          "value": "gaze-sideways-camera"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "pageErrors": "[]",
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "code": "B1",
+      "label": "閉眼享受",
+      "frame": "medium",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "閉眼享受",
+          "value": "character:表情-facial-expression:eyes-closed-enjoyment"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "頭部微微側傾",
+          "value": "head-slight-tilt"
+        },
+        {
+          "disabled": true,
+          "label": "視線",
+          "selected": "斜眼看鏡頭",
+          "value": "gaze-sideways-camera"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "pageErrors": "[]",
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "code": "B2",
+      "label": "wink微笑",
+      "frame": "full",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "wink微笑",
+          "value": "character:表情-facial-expression:wink-toothy-smile"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "看鏡頭",
+          "value": "gaze-camera"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "pageErrors": "[]",
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "code": "B2",
+      "label": "wink微笑",
+      "frame": "medium",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "wink微笑",
+          "value": "character:表情-facial-expression:wink-toothy-smile"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "看鏡頭",
+          "value": "gaze-camera"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "pageErrors": "[]",
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "code": "B3",
+      "label": "瞇眼微笑",
+      "frame": "full",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "瞇眼微笑",
+          "value": "character:表情-facial-expression:squinting-toothy-smile"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "看鏡頭",
+          "value": "gaze-camera"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "pageErrors": "[]",
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "code": "B3",
+      "label": "瞇眼微笑",
+      "frame": "medium",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "瞇眼微笑",
+          "value": "character:表情-facial-expression:squinting-toothy-smile"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "看鏡頭",
+          "value": "gaze-camera"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "pageErrors": "[]",
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "code": "C1",
+      "label": "斜眼看鏡頭",
+      "frame": "full",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "全無",
+          "value": "character:表情-facial-expression:無額外表情:0"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "斜眼看鏡頭",
+          "value": "gaze-sideways-camera"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "pageErrors": "[]",
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "code": "C1",
+      "label": "斜眼看鏡頭",
+      "frame": "medium",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "全無",
+          "value": "character:表情-facial-expression:無額外表情:0"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "斜眼看鏡頭",
+          "value": "gaze-sideways-camera"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "pageErrors": "[]",
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "code": "C2",
+      "label": "低頭抬眼看鏡頭",
+      "frame": "full",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "全無",
+          "value": "character:表情-facial-expression:無額外表情:0"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "低頭抬眼看鏡頭",
+          "value": "gaze-chin-down-eyes-up"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "pageErrors": "[]",
+        "scroll": 375,
+        "width": 390
+      }
+    },
+    {
+      "viewport": "mobile",
+      "code": "C2",
+      "label": "低頭抬眼看鏡頭",
+      "frame": "medium",
+      "sevenOutputsEqual": true,
+      "reloadEqual": true,
+      "controls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "全無",
+          "value": "character:表情-facial-expression:無額外表情:0"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "全無",
+          "value": "none"
+        },
+        {
+          "disabled": false,
+          "label": "視線",
+          "selected": "低頭抬眼看鏡頭",
+          "value": "gaze-chin-down-eyes-up"
+        }
+      ],
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "pageErrors": "[]",
+        "scroll": 375,
+        "width": 390
+      }
+    }
+  ],
+  "workspaces": [
+    {
+      "viewport": "desktop",
+      "name": "Prompt 工作台",
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "pageErrors": "[]",
+        "scroll": 1425,
+        "width": 1440
+      },
+      "loaded": true
+    },
+    {
+      "viewport": "desktop",
+      "name": "角色建模",
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "pageErrors": "[]",
+        "scroll": 1425,
+        "width": 1440
+      },
+      "loaded": true
+    },
+    {
+      "viewport": "desktop",
+      "name": "場景建模",
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "pageErrors": "[]",
+        "scroll": 1425,
+        "width": 1440
+      },
+      "loaded": true
+    },
+    {
+      "viewport": "desktop",
+      "name": "DLL_PIC Pro",
+      "layout": {
+        "brokenImages": 0,
+        "client": 1440,
+        "height": 1000,
+        "pageErrors": "[]",
+        "scroll": 1440,
+        "width": 1440
+      },
+      "loaded": true
+    },
+    {
+      "viewport": "desktop",
+      "name": "DLL_VIDEO Pro",
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "pageErrors": "[]",
+        "scroll": 1425,
+        "width": 1440
+      },
+      "loaded": true
+    },
+    {
+      "viewport": "desktop",
+      "name": "Saved Cards",
+      "layout": {
+        "brokenImages": 0,
+        "client": 1425,
+        "height": 1000,
+        "pageErrors": "[]",
+        "scroll": 1425,
+        "width": 1440
+      },
+      "loaded": true
+    },
+    {
+      "viewport": "mobile",
+      "name": "Prompt 工作台",
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "pageErrors": "[]",
+        "scroll": 375,
+        "width": 390
+      },
+      "loaded": true
+    },
+    {
+      "viewport": "mobile",
+      "name": "角色建模",
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "pageErrors": "[]",
+        "scroll": 375,
+        "width": 390
+      },
+      "loaded": true
+    },
+    {
+      "viewport": "mobile",
+      "name": "場景建模",
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "pageErrors": "[]",
+        "scroll": 375,
+        "width": 390
+      },
+      "loaded": true
+    },
+    {
+      "viewport": "mobile",
+      "name": "DLL_PIC Pro",
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "pageErrors": "[]",
+        "scroll": 375,
+        "width": 390
+      },
+      "loaded": true
+    },
+    {
+      "viewport": "mobile",
+      "name": "DLL_VIDEO Pro",
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "pageErrors": "[]",
+        "scroll": 375,
+        "width": 390
+      },
+      "loaded": true
+    },
+    {
+      "viewport": "mobile",
+      "name": "Saved Cards",
+      "layout": {
+        "brokenImages": 0,
+        "client": 375,
+        "height": 900,
+        "pageErrors": "[]",
+        "scroll": 375,
+        "width": 390
+      },
+      "loaded": true
+    }
+  ],
+  "interactions": [
+    {
+      "viewport": "desktop",
+      "name": "closed-gaze-pause-resume",
+      "paused": true,
+      "latentGaze": "斜眼看鏡頭",
+      "resumed": true,
+      "mouthPreservedAllSeven": true
+    },
+    {
+      "viewport": "desktop",
+      "name": "lowered-gaze-head-conflict",
+      "clearedRaisedChin": true,
+      "closedEyesAllowDormantRaisedChin": true
+    },
+    {
+      "viewport": "desktop",
+      "name": "new-seven-output-favorite",
+      "storedTabsEqual": 7,
+      "restoreEqual": true,
+      "reloadEqual": true,
+      "latentControls": [
+        {
+          "disabled": false,
+          "label": "手勢",
+          "selected": "單手比中指",
+          "value": "gesture-middle-finger-single"
+        },
+        {
+          "disabled": false,
+          "label": "表情",
+          "selected": "閉眼享受",
+          "value": "character:表情-facial-expression:eyes-closed-enjoyment"
+        },
+        {
+          "disabled": false,
+          "label": "頭部",
+          "selected": "下巴微抬",
+          "value": "chin-slightly-raised"
+        },
+        {
+          "disabled": true,
+          "label": "視線",
+          "selected": "低頭抬眼看鏡頭",
+          "value": "gaze-chin-down-eyes-up"
+        }
+      ],
+      "resumeClearsConflict": true
+    },
+    {
+      "viewport": "desktop",
+      "name": "phone-gesture-pause-resume",
+      "paused": true,
+      "resumed": true
+    },
+    {
+      "viewport": "mobile",
+      "name": "closed-favorite-pause-resume",
+      "sevenRestoredEqual": true,
+      "paused": true,
+      "resumed": true,
+      "headConflictCleared": true
+    },
+    {
+      "viewport": "mobile",
+      "name": "phone-gesture-pause-resume",
+      "paused": true,
+      "resumed": true
+    }
+  ],
+  "dll": [
+    {
+      "viewport": "desktop",
+      "source": "Gpt",
+      "equal": true,
+      "ratio": "9:16"
+    },
+    {
+      "viewport": "desktop",
+      "source": "Z-Image",
+      "equal": true,
+      "ratio": "9:16"
+    },
+    {
+      "viewport": "desktop",
+      "source": "MIDJOURNEY",
+      "equal": true,
+      "ratio": "9:16"
+    },
+    {
+      "viewport": "desktop",
+      "source": "Nano Banana 2.1",
+      "equal": true,
+      "ratio": "9:16"
+    },
+    {
+      "viewport": "desktop",
+      "source": "胸上特寫照",
+      "equal": true,
+      "ratio": "4:5"
+    },
+    {
+      "viewport": "desktop",
+      "source": "全身角色照",
+      "equal": true,
+      "ratio": "9:16"
+    },
+    {
+      "viewport": "desktop",
+      "source": "Grok Imagine",
+      "equal": true,
+      "ratio": "9:16"
+    },
+    {
+      "viewport": "mobile",
+      "source": "Gpt",
+      "equal": true,
+      "ratio": "9:16"
+    },
+    {
+      "viewport": "mobile",
+      "source": "Z-Image",
+      "equal": true,
+      "ratio": "9:16"
+    },
+    {
+      "viewport": "mobile",
+      "source": "MIDJOURNEY",
+      "equal": true,
+      "ratio": "9:16"
+    },
+    {
+      "viewport": "mobile",
+      "source": "Nano Banana 2.1",
+      "equal": true,
+      "ratio": "9:16"
+    },
+    {
+      "viewport": "mobile",
+      "source": "胸上特寫照",
+      "equal": true,
+      "ratio": "4:5"
+    },
+    {
+      "viewport": "mobile",
+      "source": "全身角色照",
+      "equal": true,
+      "ratio": "9:16"
+    },
+    {
+      "viewport": "mobile",
+      "source": "Grok Imagine",
+      "equal": true,
+      "ratio": "9:16"
+    }
+  ],
+  "console": [],
+  "lastLayout": {
+    "brokenImages": 0,
+    "client": 1425,
+    "height": 1000,
+    "pageErrors": "[]",
+    "scroll": 1425,
+    "width": 1440
+  },
+  "syntheticOnly": true,
+  "paidGenerationSubmitted": false,
+  "productSourceModifiedByTakeover": false,
+  "url": "http://127.0.0.1:5175/Virtual_Photography_Studio/"
+}

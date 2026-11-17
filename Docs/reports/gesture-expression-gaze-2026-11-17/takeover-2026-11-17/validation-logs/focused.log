@@ -1,0 +1,424 @@
+TAP version 13
+# Subtest: specified scene snapshot normalization preserves valid fields and removes unrelated payloads
+ok 1 - specified scene snapshot normalization preserves valid fields and removes unrelated payloads
+  ---
+  duration_ms: 1.336667
+  type: 'test'
+  ...
+# Subtest: specified scene snapshot normalization defaults omitted or incorrectly typed fields
+ok 2 - specified scene snapshot normalization defaults omitted or incorrectly typed fields
+  ---
+  duration_ms: 0.23575
+  type: 'test'
+  ...
+# Subtest: specified scene snapshot normalization rejects invalid containers and payloads without valid fields
+ok 3 - specified scene snapshot normalization rejects invalid containers and payloads without valid fields
+  ---
+  duration_ms: 0.087
+  type: 'test'
+  ...
+# Subtest: a malformed scene snapshot cannot inject non-scene data or restore invalid field types
+ok 4 - a malformed scene snapshot cannot inject non-scene data or restore invalid field types
+  ---
+  duration_ms: 9.575792
+  type: 'test'
+  ...
+# Subtest: specified action preserves latent controls, independent expression/head and cancellation values
+ok 5 - specified action preserves latent controls, independent expression/head and cancellation values
+  ---
+  duration_ms: 60.086083
+  type: 'test'
+  ...
+# Subtest: specified action bypasses the free four-point kneeling bind without discarding latent props or hands
+ok 6 - specified action bypasses the free four-point kneeling bind without discarding latent props or hands
+  ---
+  duration_ms: 2.937375
+  type: 'test'
+  ...
+# Subtest: duo mode clears the specified action
+ok 7 - duo mode clears the specified action
+  ---
+  duration_ms: 3.508959
+  type: 'test'
+  ...
+# Subtest: specified side-lying overrides latent supine orientation while leaving ordinary scene intact
+ok 8 - specified side-lying overrides latent supine orientation while leaving ordinary scene intact
+  ---
+  duration_ms: 1.670833
+  type: 'test'
+  ...
+# Subtest: specified supine overrides the scene, preserves lighting and persists its restoration snapshot
+ok 9 - specified supine overrides the scene, preserves lighting and persists its restoration snapshot
+  ---
+  duration_ms: 5.269625
+  type: 'test'
+  ...
+# Subtest: entering specified supine preserves an explicit scene snapshot bridged from legacy supine state
+ok 10 - entering specified supine preserves an explicit scene snapshot bridged from legacy supine state
+  ---
+  duration_ms: 2.572083
+  type: 'test'
+  ...
+# Subtest: changing specified supine to specified side restores the scene even if latent orientation is supine
+ok 11 - changing specified supine to specified side restores the scene even if latent orientation is supine
+  ---
+  duration_ms: 4.947792
+  type: 'test'
+  ...
+# Subtest: an action card pauses specified supine, restores the scene and resumes without losing latent controls
+ok 12 - an action card pauses specified supine, restores the scene and resumes without losing latent controls
+  ---
+  duration_ms: 18.915209
+  type: 'test'
+  ...
+# Subtest: fixed scene position pauses specified supine without discarding newly selected fixed scene
+ok 13 - fixed scene position pauses specified supine without discarding newly selected fixed scene
+  ---
+  duration_ms: 3.036292
+  type: 'test'
+  ...
+# Subtest: resuming specified supine after clearing its fixed-scene owner does not restore that owner on cancel
+ok 14 - resuming specified supine after clearing its fixed-scene owner does not restore that owner on cancel
+  ---
+  duration_ms: 6.173166
+  type: 'test'
+  ...
+# Subtest: restoring an active specified-supine Saved Card uses its own persisted scene snapshot
+ok 15 - restoring an active specified-supine Saved Card uses its own persisted scene snapshot
+  ---
+  duration_ms: 4.060625
+  type: 'test'
+  ...
+# Subtest: pose batch random sets the action, gesture and gaze menus to random; other sections leave action alone
+ok 16 - pose batch random sets the action, gesture and gaze menus to random; other sections leave action alone
+  ---
+  duration_ms: 0.47725
+  type: 'test'
+  ...
+# Subtest: global clear resets the supine snapshot and does not restore the scene it explicitly cleared
+ok 17 - global clear resets the supine snapshot and does not restore the scene it explicitly cleared
+  ---
+  duration_ms: 3.495125
+  type: 'test'
+  ...
+# Subtest: a gesture that the new pose cannot use is cleared; usable and 隨機 gestures stay
+ok 18 - a gesture that the new pose cannot use is cleared; usable and 隨機 gestures stay
+  ---
+  duration_ms: 33.695
+  type: 'test'
+  ...
+# Subtest: choosing 低頭 clears a chin-lifting head posture; other postures stay
+ok 19 - choosing 低頭 clears a chin-lifting head posture; other postures stay
+  ---
+  duration_ms: 18.312042
+  type: 'test'
+  ...
+# Subtest: shared soft smile remains complete across the three main renderers
+ok 20 - shared soft smile remains complete across the three main renderers
+  ---
+  duration_ms: 152.54
+  type: 'test'
+  ...
+# Subtest: expression options do not inject gaze or head/body action language
+ok 21 - expression options do not inject gaze or head/body action language
+  ---
+  duration_ms: 103.190208
+  type: 'test'
+  ...
+# Subtest: playful mock annoyance is a shared low-intensity expression
+ok 22 - playful mock annoyance is a shared low-intensity expression
+  ---
+  duration_ms: 16.694917
+  type: 'test'
+  ...
+# Subtest: renamed expression labels preserve current and earlier saved expression locks
+ok 23 - renamed expression labels preserve current and earlier saved expression locks
+  ---
+  duration_ms: 1.443792
+  type: 'test'
+  ...
+# Subtest: gaze menu: 全無／隨機 and four gazes reusing reviewed head wording; back view keeps only 回眸
+ok 24 - gaze menu: 全無／隨機 and four gazes reusing reviewed head wording; back view keeps only 回眸
+  ---
+  duration_ms: 1.812
+  type: 'test'
+  ...
+# Subtest: a gaze writes "She has her head …" with and without an action, in main and chest outputs
+ok 25 - a gaze writes "She has her head …" with and without an action, in main and chest outputs
+  ---
+  duration_ms: 283.080834
+  type: 'test'
+  ...
+# Subtest: 隨機 gaze resolves to one gaze, the snapshot names it and a Saved Card restores it
+ok 26 - 隨機 gaze resolves to one gaze, the snapshot names it and a Saved Card restores it
+  ---
+  duration_ms: 450.353375
+  type: 'test'
+  ...
+# Subtest: an action that owns the head ignores gaze and keeps the raw choice
+ok 27 - an action that owns the head ignores gaze and keeps the raw choice
+  ---
+  duration_ms: 41.406791
+  type: 'test'
+  ...
+# Subtest: gestures: only free-hand library actions, scoped by orientation; inserted after the upper clauses
+ok 28 - gestures: only free-hand library actions, scoped by orientation; inserted after the upper clauses
+  ---
+  duration_ms: 1.09675
+  type: 'test'
+  ...
+# Subtest: a gesture reaches every main output and the chest crop, and is recorded
+ok 29 - a gesture reaches every main output and the chest crop, and is recorded
+  ---
+  duration_ms: 50.159458
+  type: 'test'
+  ...
+# Subtest: legacy capture choices restore to phone props or companion orbit
+ok 30 - legacy capture choices restore to phone props or companion orbit
+  ---
+  duration_ms: 52.850583
+  type: 'test'
+  ...
+# Subtest: unused gaze, gesture and 拍攝方式 keep the old selection shape
+ok 31 - unused gaze, gesture and 拍攝方式 keep the old selection shape
+  ---
+  duration_ms: 8.480458
+  type: 'test'
+  ...
+# Subtest: workspace retirement: composer layers drop, a selfie hand or prop becomes 拍攝方式
+ok 32 - workspace retirement: composer layers drop, a selfie hand or prop becomes 拍攝方式
+  ---
+  duration_ms: 0.586166
+  type: 'test'
+  ...
+# Subtest: the B summary names the action, gesture and gaze
+ok 33 - the B summary names the action, gesture and gaze
+  ---
+  duration_ms: 1.898334
+  type: 'test'
+  ...
+# Subtest: a fixed scene position writes the gaze as "She has her head …" too
+ok 34 - a fixed scene position writes the gaze as "She has her head …" too
+  ---
+  duration_ms: 15.5275
+  type: 'test'
+  ...
+# Subtest: the B summary lists only a gesture that fits the action and gaze only for a single subject
+ok 35 - the B summary lists only a gesture that fits the action and gaze only for a single subject
+  ---
+  duration_ms: 1.267958
+  type: 'test'
+  ...
+# Subtest: Cooper option B: an explicit non-回眸 gaze keeps a random orbit off back views; a locked back orbit stays
+ok 36 - Cooper option B: an explicit non-回眸 gaze keeps a random orbit off back views; a locked back orbit stays
+  ---
+  duration_ms: 2938.4785
+  type: 'test'
+  ...
+# Subtest: standing batch 1 is accepted with free hands; batch 2 is pending and out of 隨機
+ok 37 - standing batch 1 is accepted with free hands; batch 2 is pending and out of 隨機
+  ---
+  duration_ms: 0.285625
+  type: 'test'
+  ...
+# Subtest: a free-hand standing action offers the general gestures; manual gestures never come from 隨機
+ok 38 - a free-hand standing action offers the general gestures; manual gestures never come from 隨機
+  ---
+  duration_ms: 46.265666
+  type: 'test'
+  ...
+# Subtest: a standing action renders in every main output and crops its lower clause above the knees
+ok 39 - a standing action renders in every main output and crops its lower clause above the knees
+  ---
+  duration_ms: 36.788292
+  type: 'test'
+  ...
+# Subtest: the four squats are accepted, hands free, and offer only the seven squat gestures
+ok 40 - the four squats are accepted, hands free, and offer only the seven squat gestures
+  ---
+  duration_ms: 0.423875
+  type: 'test'
+  ...
+# Subtest: squat crops: full body keeps everything, medium keeps reviewed fragments, chest-up drops the gesture
+ok 41 - squat crops: full body keeps everything, medium keeps reviewed fragments, chest-up drops the gesture
+  ---
+  duration_ms: 130.917291
+  type: 'test'
+  ...
+# Subtest: the wide-knee squat keeps its posture and torso incline in medium and chest-up crops
+ok 42 - the wide-knee squat keeps its posture and torso incline in medium and chest-up crops
+  ---
+  duration_ms: 50.948125
+  type: 'test'
+  ...
+# Subtest: 隨機 squat gestures skip face-touching hands under a back view
+ok 43 - 隨機 squat gestures skip face-touching hands under a back view
+  ---
+  duration_ms: 0.728792
+  type: 'test'
+  ...
+# Subtest: 16 sitting and kneeling actions: accepted, hands free with the general gestures, no all-fours copy
+ok 44 - 16 sitting and kneeling actions: accepted, hands free with the general gestures, no all-fours copy
+  ---
+  duration_ms: 0.172708
+  type: 'test'
+  ...
+# Subtest: sitting and general kneeling crops retain their reviewed posture identity
+ok 45 - sitting and general kneeling crops retain their reviewed posture identity
+  ---
+  duration_ms: 90.4125
+  type: 'test'
+  ...
+# Subtest: 頭部 offers 全無, 隨機 and five posture options, and is independent of the legacy head lock
+ok 46 - 頭部 offers 全無, 隨機 and five posture options, and is independent of the legacy head lock
+  ---
+  duration_ms: 0.172958
+  type: 'test'
+  ...
+# Subtest: a head posture alone writes its own head sentence in every main output and the chest crop
+ok 47 - a head posture alone writes its own head sentence in every main output and the chest crop
+  ---
+  duration_ms: 17.136166
+  type: 'test'
+  ...
+# Subtest: posture and gaze join into one head sentence; 低頭 drops the two chin-lifting postures
+ok 48 - posture and gaze join into one head sentence; 低頭 drops the two chin-lifting postures
+  ---
+  duration_ms: 38.16925
+  type: 'test'
+  ...
+# Subtest: 隨機 頭部 draws one of the five (never a conflicting one), and the Saved Card keeps the resolved posture
+ok 49 - 隨機 頭部 draws one of the five (never a conflicting one), and the Saved Card keeps the resolved posture
+  ---
+  duration_ms: 855.621125
+  type: 'test'
+  ...
+# Subtest: an action that owns the head ignores 頭部; unused 頭部 keeps the old selection shape
+ok 50 - an action that owns the head ignores 頭部; unused 頭部 keeps the old selection shape
+  ---
+  duration_ms: 14.49775
+  type: 'test'
+  ...
+# Subtest: the 18 restored hands exist; the camera-facing four carry no camera or lens wording
+ok 51 - the 18 restored hands exist; the camera-facing four carry no camera or lens wording
+  ---
+  duration_ms: 0.233125
+  type: 'test'
+  ...
+# Subtest: 隨機 pool: only the seven reviewed hands come from 隨機, each gated by wardrobe and face visibility
+ok 52 - 隨機 pool: only the seven reviewed hands come from 隨機, each gated by wardrobe and face visibility
+  ---
+  duration_ms: 5.657917
+  type: 'test'
+  ...
+# Subtest: a chosen wardrobe hand is skipped silently only when the resolved wardrobe lacks the item
+ok 53 - a chosen wardrobe hand is skipped silently only when the resolved wardrobe lacks the item
+  ---
+  duration_ms: 7.217084
+  type: 'test'
+  ...
+# Subtest: the two glasses hands also fit squats and every lying orientation; the other 15 do not
+ok 54 - the two glasses hands also fit squats and every lying orientation; the other 15 do not
+  ---
+  duration_ms: 0.32175
+  type: 'test'
+  ...
+# Subtest: waist-level hands drop out of chest-up; face and hair hands stay
+ok 55 - waist-level hands drop out of chest-up; face and hair hands stay
+  ---
+  duration_ms: 32.370292
+  type: 'test'
+  ...
+# Subtest: restored hands avoid explicit anatomy, support surfaces, camera words, bangs, and stay short
+ok 56 - restored hands avoid explicit anatomy, support surfaces, camera words, bangs, and stay short
+  ---
+  duration_ms: 0.398292
+  type: 'test'
+  ...
+# Subtest: two bare-chest covers exist, out of 隨機; the hem lift needs a top and skips dresses
+ok 57 - two bare-chest covers exist, out of 隨機; the hem lift needs a top and skips dresses
+  ---
+  duration_ms: 9.240083
+  type: 'test'
+  ...
+# Subtest: the reviewed expressions preserve complete distinct eye and mouth sources and remain manual-only
+ok 58 - the reviewed expressions preserve complete distinct eye and mouth sources and remain manual-only
+  ---
+  duration_ms: 0.840167
+  type: 'test'
+  ...
+# Subtest: middle-finger hands specify the finger anatomy, remain independent, and use the existing free-hand scope
+ok 59 - middle-finger hands specify the finger anatomy, remain independent, and use the existing free-hand scope
+  ---
+  duration_ms: 0.770334
+  type: 'test'
+  ...
+# Subtest: the new choices never enter the existing gaze, gesture, or expression random pools
+ok 60 - the new choices never enter the existing gaze, gesture, or expression random pools
+  ---
+  duration_ms: 1962.329791
+  type: 'test'
+  ...
+# Subtest: both middle-finger hands reach the shared capture outputs, while the reference stays naturally standing
+ok 61 - both middle-finger hands reach the shared capture outputs, while the reference stays naturally standing
+  ---
+  duration_ms: 22.064417
+  type: 'test'
+  ...
+# Subtest: all reviewed expressions keep eye-state and mouth differences across the six public crops and seven outputs
+ok 62 - all reviewed expressions keep eye-state and mouth differences across the six public crops and seven outputs
+  ---
+  duration_ms: 399.168667
+  type: 'test'
+  ...
+# Subtest: new gazes have their own reviewed head/eye source, without adding legacy head choices or camera instructions
+ok 63 - new gazes have their own reviewed head/eye source, without adding legacy head choices or camera instructions
+  ---
+  duration_ms: 74.279167
+  type: 'test'
+  ...
+# Subtest: gazes work without a body action and retain the original near-crop omission boundary
+ok 64 - gazes work without a body action and retain the original near-crop omission boundary
+  ---
+  duration_ms: 180.935667
+  type: 'test'
+  ...
+# Subtest: new gaze availability preserves the reviewed lying and back-view boundaries
+ok 65 - new gaze availability preserves the reviewed lying and back-view boundaries
+  ---
+  duration_ms: 24.707333
+  type: 'test'
+  ...
+# Subtest: closed-eye enjoyment pauses gaze without losing its choice and restores it with an open-eye expression
+ok 66 - closed-eye enjoyment pauses gaze without losing its choice and restores it with an open-eye expression
+  ---
+  duration_ms: 430.21525
+  type: 'test'
+  ...
+# Subtest: chin-down lifted eyes share the existing lifting-posture conflict in transitions and the engine
+ok 67 - chin-down lifted eyes share the existing lifting-posture conflict in transitions and the engine
+  ---
+  duration_ms: 46.339167
+  type: 'test'
+  ...
+# Subtest: action-owned head/expression and phone-owned hands retain the original takeover boundaries
+ok 68 - action-owned head/expression and phone-owned hands retain the original takeover boundaries
+  ---
+  duration_ms: 34.447833
+  type: 'test'
+  ...
+# Subtest: new and paused selections preserve full prompt bytes through Saved Cards, Markdown, and ZIP
+ok 69 - new and paused selections preserve full prompt bytes through Saved Cards, Markdown, and ZIP
+  ---
+  duration_ms: 744.989959
+  type: 'test'
+  ...
+1..69
+# tests 69
+# suites 0
+# pass 69
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5699.551583

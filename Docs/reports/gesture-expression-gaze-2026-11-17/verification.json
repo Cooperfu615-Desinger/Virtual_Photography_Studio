@@ -1,0 +1,101 @@
+{
+  "sourceBase": "fd3f3bb14e15ec556021791bdda71b8fe8d8731f",
+  "verifiedHead": "595085d5be21aa5a712ca4ec2bb29a24e7477c37",
+  "node": "v22.23.3",
+  "full": {
+    "tests": 2371,
+    "pass": 2371,
+    "fail": 0,
+    "skipped": 0
+  },
+  "quality": {
+    "tests": 972,
+    "pass": 972,
+    "fail": 0,
+    "skipped": 0
+  },
+  "focused": {
+    "tests": 69,
+    "pass": 69,
+    "fail": 0,
+    "skipped": 0
+  },
+  "historicalFocused": {
+    "tests": 43,
+    "pass": 43,
+    "fail": 0,
+    "skipped": 0
+  },
+  "catalogTools": {
+    "tests": 33,
+    "pass": 33,
+    "fail": 0,
+    "skipped": 0
+  },
+  "python": {
+    "tests": 60,
+    "passed": 60
+  },
+  "frontendGates": [
+    {
+      "gate": "quality",
+      "exitCode": 0
+    },
+    {
+      "gate": "lint",
+      "exitCode": 0
+    },
+    {
+      "gate": "build",
+      "exitCode": 0
+    }
+  ],
+  "unchanged": {
+    "compared": 1240,
+    "equal": true,
+    "outputsSelectionsAndRng": true
+  },
+  "audit": {
+    "count": 200,
+    "seed": "prompt-quality-baseline",
+    "byteIdentical": true,
+    "blocking": 0,
+    "existingDiagnostics": 24,
+    "sha256": "91eb9151ef25a1ecd5d88e16e067d3b0b6560aeed3a171a42864676c41e54846"
+  },
+  "baseline": {
+    "file": "before.json.gz",
+    "bytes": 6890624,
+    "sha256": "4ee42b6ef78c62d2c5a7782f2a318ab36b876a1a3ee01b2236ec162ddd212829"
+  },
+  "historicalInverseFiles": 21,
+  "existingDirtyDocumentationUnchanged": {
+    "Docs/current_project_state.md": true,
+    "Docs/session_onboarding.md": true
+  },
+  "visualQA": {
+    "status": "BLOCKED",
+    "url": "http://127.0.0.1:5175/Virtual_Photography_Studio/",
+    "requestedViewports": [
+      [
+        1440,
+        1000
+      ],
+      [
+        390,
+        900
+      ]
+    ],
+    "statesExercised": [],
+    "screenshots": [],
+    "blockers": [
+      "listen EPERM on 127.0.0.1:5175",
+      "Browser URL policy rejected file:// offline review"
+    ],
+    "userDataAccessed": false
+  },
+  "stagedByThisTask": false,
+  "committedByThisTask": false,
+  "pushedByThisTask": false,
+  "deployedByThisTask": false
+}

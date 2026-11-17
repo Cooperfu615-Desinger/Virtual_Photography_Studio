@@ -22,7 +22,7 @@ import { midjourneyBodyDescription } from './engine/midjourneyBodyDescriptions.j
 import { SPECIFIED_ACTION_OPTIONS, getSpecifiedAction, getSpecifiedActionEffectiveLocks, resolveRandomSpecifiedAction, specifiedActionSupportsCamera } from './engine/specifiedActions.js';
 import { LYING_CAMERA_OPTIONS, isLyingAction, lyingSurfaceFor, resolveLyingCamera, withLyingSurface } from './engine/lyingSurface.js';
 import { HEAD_POSTURE_OPTIONS, headPostureById, mergeHeadPosture, resolveHeadPosture } from './engine/headPosture.js';
-import { CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, actionTextWithGesture, applyCaptureStyleLocks, gazeAvoidsBackView, isBackViewOrbit, resolveGaze, resolveGesture, resolveProp } from './engine/gazeGesture.js';
+import { CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, actionTextWithGesture, applyCaptureStyleLocks, authoredGazeHead, expressionHasReviewedEyesAndMouth, gazeAvoidsBackView, gazePausedByExpression, isBackViewOrbit, resolveGaze, resolveGesture, resolveProp } from './engine/gazeGesture.js';
 import { applyDefaultEthnicity, applyDefaultEthnicityToCharacter, resolveDefaultEthnicity } from './engine/defaultEthnicity.js';
 import { renderNanoBananaNarrative } from './engine/nanoBananaPrompt.js';
 import { polishPublicPromptText } from './engine/publicPromptPolish.js';
@@ -5237,22 +5237,26 @@ function buildPoseComposerItem(context) {
   // expression-pose-v2 P4: an active gaze supplies the head option; unused gaze
   // leaves older head locks in charge. An action that owns the head keeps it.
   const specifiedAction = getSpecifiedAction(context.locks);
-  const gaze = context.rawLocks?.captureMode === 'observation' || specifiedAction?.ownsHead
+  const gazePaused = gazePausedByExpression(context.locks, specifiedAction);
+  const gaze = context.rawLocks?.captureMode === 'observation' || specifiedAction?.ownsHead || gazePaused
     ? null : resolveGaze(context.locks?.gazeId, { orientationId: specifiedAction?.orientationId, orbit: context.orbit }, random);
   if (context.poseResolution) context.poseResolution.gaze = gaze;
-  const headLockId = gaze ? gaze.headId || 'none' : context.locks?.poseHeadId;
+  const headLockId = gazePaused ? 'none' : gaze ? gaze.headId || 'none' : context.locks?.poseHeadId;
   // Pose UI v2 part 2: 頭部 posture joins the gaze (or legacy head) in one head sentence.
   const posture = context.rawLocks?.captureMode === 'observation' || specifiedAction?.ownsHead
     ? null : resolveHeadPosture(context.locks?.headPostureId, gaze, random);
   if (context.poseResolution) context.poseResolution.posture = posture;
   // headPostureId appears only when a posture is in use, so older structured data keeps its shape.
-  const headIds = head => ({ poseHeadId: head?.meta?.headPostureOnly ? 'none' : head?.id || 'none',
-    ...(head?.meta?.headPostureId ? { headPostureId: head.meta.headPostureId } : {}) });
+  const headIds = head => ({ poseHeadId: head?.meta?.headPostureOnly || head?.meta?.authoredGaze ? 'none' : head?.id || 'none',
+    ...(head?.meta?.headPostureId ? { headPostureId: head.meta.headPostureId } : {}),
+    ...(head?.meta?.authoredGaze ? { gazeId: head.id } : {}) });
 
   const requestedHead = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, headLockId);
 
   const resolveHead = (arrangementForHead = null, orientationForHead = null) => mergeHeadPosture(resolveHeadBase(arrangementForHead, orientationForHead), posture);
   const resolveHeadBase = (arrangementForHead = null, orientationForHead = null) => {
+    const authored = gaze?.headId ? authoredGazeHead(gaze.id) : null;
+    if (authored) return authored;
     // Compatibility constrains only the random pool. A concrete user lock is
     // intentional and must remain visible rather than being silently replaced.
     const predicate = isRandomOption(requestedHead)
@@ -5793,7 +5797,8 @@ function buildChestUpPoseComposerSentence({ orientation, arrangement, handPose, 
 
 /** The head option a composed pose recorded: its gaze or legacy head, joined with any 頭部 posture. */
 function headOptionFromMeta(meta) {
-  return mergeHeadPosture(getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, meta?.poseHeadId), headPostureById(meta?.headPostureId));
+  return mergeHeadPosture(authoredGazeHead(meta?.gazeId)
+    || getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, meta?.poseHeadId), headPostureById(meta?.headPostureId));
 }
 
 function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = false, omitHand = false, omitProp = false } = {}) {
@@ -15946,7 +15951,8 @@ function buildNaturalMjSubject(promptModel) {
   }
   const facialItem = extractCharacterSlots(character).facialFeatures;
   const face = [compactPromptClauses(facialItem?.mj?.face || value('Facial Features'), 3),
-    compactPromptClauses(value('Expression'), 1)].filter(Boolean).join(', ');
+    expressionHasReviewedEyesAndMouth(slots.expression?.id)
+      ? value('Expression') : compactPromptClauses(value('Expression'), 1)].filter(Boolean).join(', ');
   const hair = [compactPromptClauses(value('Hairstyle'), 1), compactPromptClauses(value('Hair Styling State'), 1), compactPromptClauses(value('Hair Color'), 1)].filter(Boolean).join(', ');
   const specialSource = value('Special Outfit') || buildSpecialOutfitPrompt(extractWardrobeSlots(wardrobe).specialOutfit);
   const specialPerson = extractAiSpecialPersonFragments(specialSource, context)
@@ -16798,6 +16804,7 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
   // expression-pose-v2 P4 (Cooper option B): an explicit non-回眸 gaze steers an
   // unlocked orbit away from back views; a locked orbit is never replaced.
   const gazeKeepsFrontOrbit = subject.count === 1 && !capture && !specifiedCameraAction?.ownsHead
+    && !gazePausedByExpression(effectiveLocks, specifiedCameraAction)
     && gazeAvoidsBackView(effectiveLocks.gazeId) && (!effectiveLocks.orbitId || isRandomLockValue(effectiveLocks.orbitId));
   if (effectiveLocks.orbitId === COMPANION_ORBIT_ID && (subject.count !== 1 || capture || fixedCompositionSetActive)) effectiveLocks.orbitId = runtime.flatCatalog.orbit.find(isNoneLikeItem)?.id || 'none';
   let orbit = pickCameraWithExpressionLock(

@@ -361,6 +361,8 @@ young beautiful Korean idol face, refined small face, clear bright eyes, polishe
 
 ### 6.1 表情
 
+2026-11-17 核准新增：`閉眼享受`（雙眼輕閉、嘴唇微張）、`wink微笑`（單眼眨眼、露齒微笑）、`瞇眼微笑`（雙眼保留眼縫、露齒微笑）先供手動選取。一般手勢另增單手／雙手比中指，視線另增斜眼看鏡頭／低頭抬眼看鏡頭；其接管、閉眼暫停視線及相容邊界見[七項新增規格](gesture-expression-gaze-additions-v1.md)。下方原清單為先前批次，現行內容以分類 JSON 為準；已存在的「龐克挑釁吐舌」保持手動限定。
+
 目前標準選項：
 
 - `無額外表情`

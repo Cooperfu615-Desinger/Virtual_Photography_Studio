@@ -1,0 +1,102 @@
+{
+  "date": "2026-11-17",
+  "head": "595085d5be21aa5a712ca4ec2bb29a24e7477c37",
+  "sourceBase": "fd3f3bb14e15ec556021791bdda71b8fe8d8731f",
+  "node": "v22.23.3",
+  "registryEnvironment": "REGISTRY_BASE_COMMIT=fd3f3bb14e15ec556021791bdda71b8fe8d8731f",
+  "inheritedGates": {
+    "full": {
+      "pass": 2371,
+      "fail": 0,
+      "skipped": 0
+    },
+    "quality": {
+      "pass": 972,
+      "fail": 0,
+      "skipped": 0
+    },
+    "source21CurrentAndBeforeHashesMatch": true,
+    "rerun": false
+  },
+  "freshChecks": {
+    "focused": {
+      "tests": 69,
+      "pass": 69,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "command": "node --test --test-concurrency=4 webapp/src/features/page1/specifiedActionTransitions.test.js webapp/src/lib/engine/expressionGazeSharedPrompt.test.js webapp/src/lib/engine/gazeGesture.test.js webapp/src/lib/engine/gestureExpressionGaze.test.js",
+      "exitCode": 0,
+      "logSha256": "9df6e71845c6b037a6a0e1dcfbaa0854e64bc378de34bfd6e3a340f858aca812"
+    },
+    "catalog-tools": {
+      "tests": 33,
+      "pass": 33,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "command": "node --test --test-concurrency=3 scripts/tests/catalog-integrity.test.mjs scripts/tests/catalog-semantics.test.mjs scripts/tests/catalog-legacy.test.mjs",
+      "exitCode": 0,
+      "logSha256": "5ef877d4042b350cc39b6a4e225c688254a03c55044874994494e3769943e846"
+    },
+    "inverse-current": {
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "command": "node --test webapp/src/features/qa/gestureExpressionGazeHistory.test.js",
+      "exitCode": 0,
+      "logSha256": "b1f4d5206f89573903c344b52d8d1f0f77c8ff2ace943b26a306803e9a5b99b5"
+    },
+    "catalog-check": {
+      "records": 1057,
+      "historicalIds": 1054,
+      "initialFrozen": 0,
+      "mode": "historical",
+      "registryBaseCommit": "fd3f3bb14e15ec556021791bdda71b8fe8d8731f",
+      "registrySha256": "4eac7ff8443f72f18cfc8f5f52cb55ab00ea75dd8176bbd5097340268f824309",
+      "outputs": 8,
+      "source": "catalog JSON",
+      "check": true,
+      "command": "python3 scripts/sync_to_json.py --check --report-json",
+      "exitCode": 0,
+      "logSha256": "7d7f34ecd2fd9da5ca90a71eb7e7f1d9edd5f958788c8dc66e75e727330b0f42"
+    },
+    "unchanged": {
+      "compared": 1240,
+      "equal": true,
+      "outputsSelectionsAndRng": true,
+      "command": "node scripts/gesture_expression_gaze_acceptance.mjs compare Docs/reports/gesture-expression-gaze-2026-11-17/before.json.gz",
+      "exitCode": 0,
+      "logSha256": "f43730252200722a35d54383a418aa51e3f3a1ba2ba20c5fefa276d404ec631a"
+    },
+    "python-tests": {
+      "tests": 60,
+      "pass": 60,
+      "fail": 0,
+      "command": "python3 -m unittest discover -s scripts/tests",
+      "exitCode": 0,
+      "logSha256": "17b53f039d084b45c164a30e7eb2917a204522f7b302d827afcad402dacf6ac0"
+    },
+    "catalog-strict": {
+      "allowed": 2,
+      "blocking": 0,
+      "stale": 0,
+      "command": "node scripts/check_catalog_integrity.mjs --strict",
+      "exitCode": 0,
+      "logSha256": "075b9d5cdd5183ba48d3594b89899f10556ac05918271970dcde2cb08ee5748d"
+    },
+    "audit-after": {
+      "count": 200,
+      "seed": "prompt-quality-baseline",
+      "byteIdenticalToInherited": true,
+      "sha256": "91eb9151ef25a1ecd5d88e16e067d3b0b6560aeed3a171a42864676c41e54846",
+      "command": "node scripts/validate_prompt_logic.mjs 200 prompt-quality-baseline --strict",
+      "exitCode": 0,
+      "logSha256": "91eb9151ef25a1ecd5d88e16e067d3b0b6560aeed3a171a42864676c41e54846"
+    }
+  },
+  "productFilesModified": false,
+  "catalogOutputsRewritten": false
+}

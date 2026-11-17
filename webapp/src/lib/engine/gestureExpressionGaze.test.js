@@ -1,0 +1,173 @@
+import assert from 'node:assert/strict';
+import { test } from 'node:test';
+import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls } from '../engine.js';
+import { GAZE_OPTIONS, GESTURE_OPTIONS, applicableGestureOptions, availableGazeOptions,
+  authoredGazeHead, gazePausedByExpression, resolveGaze, resolveGesture } from './gazeGesture.js';
+import { getSpecifiedAction } from './specifiedActions.js';
+import { postureConflictsWithGaze } from './headPosture.js';
+import { EXPRESSION_GAZE_FIXTURES, NEW_GAZE_IDS, NEW_GESTURE_IDS, REVIEW_FRAMINGS } from './gestureExpressionGazeFixtures.js';
+import { getGrokImagineResult } from '../grokImagineResult.js';
+import { buildRestoreLocks, buildMarkdownExport, parseExportedMarkdownPrompt,
+  serializeFavoritePrompt, deserializeFavoritePrompt } from '../../features/saved-cards/cardCodec.js';
+import { createSavedCardsArchive, parseSavedCardsArchive } from '../../features/saved-cards/savedCardArchive.js';
+import { transitionPage1Locks } from '../../features/page1/lockTransitions.js';
+
+const controls = getLockControls();
+const byZh = (key, zh) => {
+  const value = controls.find(c => c.key === key)?.options.find(o => o.zh === zh);
+  assert.ok(value, `${key}: ${zh}`); return value;
+};
+const base = () => ({ ...createEmptyLocks(), subjectCount: '1', specifiedActionId: 'specified-standing-natural',
+  framingId: byZh('framingId', '全身鏡頭 (Full Body Shot)').id,
+  angleId: byZh('angleId', '平視高度鏡頭').id, orbitId: byZh('orbitId', '正面 0 度').id });
+const generate = overrides => generatePrompts(1, { ...base(), ...overrides }, [],
+  { random: createSeededRandom('gesture-expression-gaze-v1') })[0];
+const primary = p => [p.grokPrompt, p.zImagePrompt, p.midjourneyPrompt, p.nanoBananaPrompt];
+const derived = (p, id) => p.extraPrompts.find(e => e.id === id)?.text || '';
+const captureOutputs = p => [...primary(p), derived(p, 'chest-up-portrait'), getGrokImagineResult(p)];
+
+test('the reviewed expressions preserve complete distinct eye and mouth sources and remain manual-only', () => {
+  for (const fixture of Object.values(EXPRESSION_GAZE_FIXTURES)) {
+    const option = byZh('expressionId', fixture.zh);
+    assert.equal(option.id, fixture.id); assert.equal(option.en, fixture.en);
+    assert.ok(option.meta.tags.includes('manual_only'));
+    assert.doesNotMatch(option.en, /camera|looking|gaze|head turned|head lowered|shoulder/i);
+  }
+});
+
+test('middle-finger hands specify the finger anatomy, remain independent, and use the existing free-hand scope', () => {
+  for (const id of NEW_GESTURE_IDS) {
+    const option = GESTURE_OPTIONS.find(o => o.id === id);
+    assert.ok(option); assert.equal(option.meta.randomEligible, false);
+    assert.match(option.en, /middle finger/); assert.match(option.en, /thumb/);
+    assert.doesNotMatch(option.en, /camera|lens|angry|defiant|blur|leaning|standing|sitting|kneeling/i);
+    for (const specifiedActionId of ['specified-standing-natural', 'specified-sitting-natural', 'specified-kneeling-seiza']) {
+      assert.ok(applicableGestureOptions(getSpecifiedAction({ subjectCount: '1', specifiedActionId })).some(o => o.id === id));
+    }
+    for (const specifiedActionId of ['specified-squatting-natural', 'specified-sitting-hug-knees', 'specified-lying-prone-forearms-crossed-ankles']) {
+      assert.ok(!applicableGestureOptions(getSpecifiedAction({ subjectCount: '1', specifiedActionId })).some(o => o.id === id));
+    }
+  }
+});
+
+test('the new choices never enter the existing gaze, gesture, or expression random pools', () => {
+  const action = getSpecifiedAction({ subjectCount: '1', specifiedActionId: 'specified-standing-natural' });
+  for (let i = 0; i < 100; i++) {
+    const r = () => i / 100;
+    assert.ok(!NEW_GAZE_IDS.includes(resolveGaze('random', {}, r).id));
+    assert.ok(!NEW_GESTURE_IDS.includes(resolveGesture('random', action, {}, r)?.id));
+    const p = generatePrompts(1, { subjectCount: '1' }, [], { random: createSeededRandom(`new-manual-only:${i}`) })[0];
+    assert.ok(!Object.values(EXPRESSION_GAZE_FIXTURES).some(e => e.id === p.selection.expressionId));
+  }
+});
+
+test('both middle-finger hands reach the shared capture outputs, while the reference stays naturally standing', () => {
+  for (const gestureId of NEW_GESTURE_IDS) {
+    const p = generate({ gestureId });
+    for (const text of captureOutputs(p)) assert.match(text, /middle finger/);
+    assert.equal(p.selection.gestureId, gestureId);
+    assert.doesNotMatch(derived(p, 'full-body-character'), /middle finger/);
+  }
+});
+
+test('all reviewed expressions keep eye-state and mouth differences across the six public crops and seven outputs', () => {
+  for (const fixture of Object.values(EXPRESSION_GAZE_FIXTURES)) for (const framing of REVIEW_FRAMINGS) {
+    const p = generate({ expressionId: fixture.id, framingId: byZh('framingId', framing).id });
+    for (const text of [p.grokPrompt, p.zImagePrompt, p.nanoBananaPrompt,
+      derived(p, 'chest-up-portrait'), derived(p, 'full-body-character'), getGrokImagineResult(p)]) {
+      assert.ok(text.toLowerCase().includes(fixture.en.toLowerCase()), `${fixture.zh}/${framing}`);
+    }
+    assert.match(p.midjourneyPrompt, fixture === EXPRESSION_GAZE_FIXTURES.closed
+      ? /both eyes gently closed.*softly parted lips/i : /showing upper teeth/);
+  }
+});
+
+test('new gazes have their own reviewed head/eye source, without adding legacy head choices or camera instructions', () => {
+  const oldHeads = controls.find(c => c.key === 'poseHeadId').options;
+  for (const gazeId of NEW_GAZE_IDS) {
+    assert.ok(GAZE_OPTIONS.some(o => o.id === gazeId));
+    const head = authoredGazeHead(gazeId);
+    assert.ok(head?.en); assert.ok(!oldHeads.some(o => o.id === head.id));
+    const p = generate({ gazeId });
+    for (const text of captureOutputs(p)) assert.ok(text.includes(head.en), `${gazeId}`);
+    assert.equal(p.selection.gazeId, gazeId);
+    assert.equal(p.selection.angleId, base().angleId); assert.equal(p.selection.orbitId, base().orbitId);
+    assert.doesNotMatch(derived(p, 'full-body-character'), /glancing sideways|eyes lifted/);
+  }
+});
+
+test('gazes work without a body action and retain the original near-crop omission boundary', () => {
+  for (const gazeId of NEW_GAZE_IDS) {
+    const p = generate({ gazeId, specifiedActionId: 'none' });
+    for (const text of captureOutputs(p)) assert.ok(text.includes(authoredGazeHead(gazeId).en));
+    const tight = generate({ gazeId, framingId: byZh('framingId', '全臉傾斜特寫').id });
+    for (const text of primary(tight)) assert.doesNotMatch(text, /glancing sideways|eyes lifted/);
+    assert.equal(tight.selection.gazeId, gazeId);
+  }
+});
+
+test('new gaze availability preserves the reviewed lying and back-view boundaries', () => {
+  assert.ok(NEW_GAZE_IDS.every(id => availableGazeOptions().some(o => o.id === id)));
+  const back = byZh('orbitId', '背面 180 度');
+  for (const context of [{ orbit: back }, { orientationId: 'lying-prone' }, { orientationId: 'lying-side' }, { orientationId: 'lying-supine' }]) {
+    assert.ok(availableGazeOptions(context).every(o => !NEW_GAZE_IDS.includes(o.id)));
+  }
+  for (const gazeId of NEW_GAZE_IDS) {
+    const p = generate({ gazeId, orbitId: back.id });
+    assert.doesNotMatch(p.grokPrompt, /glancing sideways|eyes lifted/);
+    assert.equal(p.selection.gazeId, gazeId);
+  }
+});
+
+test('closed-eye enjoyment pauses gaze without losing its choice and restores it with an open-eye expression', () => {
+  for (const gazeId of [...NEW_GAZE_IDS, 'gaze-camera', 'gaze-distance', 'gaze-down', 'gaze-back', 'random']) {
+    const locks = { ...base(), expressionId: EXPRESSION_GAZE_FIXTURES.closed.id, gazeId, headPostureId: 'chin-slightly-raised' };
+    assert.ok(gazePausedByExpression(locks, getSpecifiedAction(locks)));
+    const p = generate(locks);
+    assert.equal(p.selection.gazeId, gazeId);
+    assert.match(p.grokPrompt, /both eyes gently closed/i);
+    assert.doesNotMatch(p.grokPrompt, /glancing sideways|eyes lifted|head naturally facing the camera|head lowered into a three-quarter/);
+    assert.match(p.grokPrompt, /chin slightly raised/);
+    const resumed = generate({ ...locks, expressionId: EXPRESSION_GAZE_FIXTURES.wink.id });
+    if (NEW_GAZE_IDS.includes(gazeId)) assert.ok(resumed.grokPrompt.includes(authoredGazeHead(gazeId).en));
+  }
+});
+
+test('chin-down lifted eyes share the existing lifting-posture conflict in transitions and the engine', () => {
+  for (const headPostureId of ['chin-slightly-raised', 'head-slightly-back']) {
+    assert.ok(postureConflictsWithGaze(headPostureId, NEW_GAZE_IDS[1]));
+    const locks = { ...base(), gazeId: NEW_GAZE_IDS[1], headPostureId };
+    const next = transitionPage1Locks({ previousLocks: base(), candidateLocks: locks, lockControls: controls });
+    assert.equal(next.headPostureId, 'none');
+    assert.doesNotMatch(generate(locks).grokPrompt, /chin slightly raised|head tilted slightly backward/);
+    const paused = transitionPage1Locks({ previousLocks: base(), candidateLocks: { ...locks, expressionId: EXPRESSION_GAZE_FIXTURES.closed.id }, lockControls: controls });
+    assert.equal(paused.headPostureId, headPostureId);
+  }
+});
+
+test('action-owned head/expression and phone-owned hands retain the original takeover boundaries', () => {
+  const actionId = 'specified-defiant-middle-finger-lens-jab';
+  const owned = generate({ specifiedActionId: actionId, expressionId: EXPRESSION_GAZE_FIXTURES.closed.id,
+    gazeId: NEW_GAZE_IDS[0], gestureId: NEW_GESTURE_IDS[1] });
+  assert.doesNotMatch(owned.grokPrompt, /both eyes gently closed|glancing sideways|both hands raised beside her shoulders/);
+  assert.equal(gazePausedByExpression({ expressionId: EXPRESSION_GAZE_FIXTURES.closed.id }, getSpecifiedAction({ subjectCount: '1', specifiedActionId: actionId })), false);
+  const phone = generate({ propId: 'selfie-natural-right-arm', gestureId: NEW_GESTURE_IDS[0] });
+  assert.doesNotMatch(phone.grokPrompt, /middle finger/);
+  assert.equal(phone.selection.gestureId, NEW_GESTURE_IDS[0]);
+});
+
+test('new and paused selections preserve full prompt bytes through Saved Cards, Markdown, and ZIP', async () => {
+  for (const expression of Object.values(EXPRESSION_GAZE_FIXTURES)) for (const gazeId of NEW_GAZE_IDS) {
+    const p = generate({ expressionId: expression.id, gazeId, gestureId: NEW_GESTURE_IDS[0] });
+    const records = [deserializeFavoritePrompt(serializeFavoritePrompt(p)),
+      parseExportedMarkdownPrompt(buildMarkdownExport(p), controls, 'gesture-review'),
+      ...(await parseSavedCardsArchive(await createSavedCardsArchive([p], 0, 'uint8array'), controls))];
+    for (const record of records) {
+      for (const key of ['expressionId', 'gazeId', 'gestureId']) assert.equal(record.selection[key], p.selection[key]);
+      assert.equal(record.grokPrompt, p.grokPrompt);
+      const restored = buildRestoreLocks(record.selection, controls);
+      assert.equal(restored.gazeId, gazeId);
+      assert.equal(generate(restored).grokPrompt, p.grokPrompt);
+    }
+  }
+});

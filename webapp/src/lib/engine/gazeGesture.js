@@ -17,6 +17,12 @@ export const GAZE_OPTIONS = freeze([
   freeze({ id: 'gaze-distance', zh: '看向遠方', en: '' }),
   freeze({ id: 'gaze-down', zh: '低頭', en: '' }),
   freeze({ id: 'gaze-back', zh: '回眸', en: '' }),
+  freeze({ id: 'gaze-sideways-camera', zh: '斜眼看鏡頭',
+    en: 'head turned slightly to one side, with her eyes glancing sideways toward the camera',
+    meta: freeze({ randomEligible: false, authoredGaze: true, tags: freeze(['requires_face_visibility']) }) }),
+  freeze({ id: 'gaze-chin-down-eyes-up', zh: '低頭抬眼看鏡頭',
+    en: 'head lowered with her chin tucked, her eyes lifted to look toward the camera',
+    meta: freeze({ randomEligible: false, authoredGaze: true, tags: freeze(['requires_face_visibility']) }) }),
 ]);
 
 // Head option per gaze: lying orientations use their lying head variants; a
@@ -26,7 +32,22 @@ const GAZE_HEADS = freeze({
   'gaze-distance': { default: 'head-away-profile', 'lying-side': 'lying-side-head-away', 'lying-prone': 'lying-prone-head-turned-side', 'lying-supine': 'lying-supine-head-turned-side' },
   'gaze-down': { default: 'head-down-three-quarter' },
   'gaze-back': { default: 'head-turned-back-camera' },
+  'gaze-sideways-camera': { default: 'gaze-sideways-camera' },
+  'gaze-chin-down-eyes-up': { default: 'gaze-chin-down-eyes-up' },
 });
+
+// New authored head/eye relationships never enter the retired poseHeadId pool.
+export const authoredGazeHead = id => GAZE_OPTIONS.find(option => option.id === id && option.meta?.authoredGaze) || null;
+export const gazePausedByExpression = (locks, action) => !action?.ownsExpression
+  && locks?.expressionId === 'character:表情-facial-expression:eyes-closed-enjoyment';
+
+// These newly reviewed expressions need both eye state and mouth state in compact MJ.
+// The English remains owned by the catalog, not by a renderer-specific override.
+export const expressionHasReviewedEyesAndMouth = id => [
+  'character:表情-facial-expression:eyes-closed-enjoyment',
+  'character:表情-facial-expression:wink-toothy-smile',
+  'character:表情-facial-expression:squinting-toothy-smile',
+].includes(id);
 
 const CONCRETE_GAZES = GAZE_OPTIONS.filter(option => GAZE_HEADS[option.id]);
 const isLyingOrientation = id => typeof id === 'string' && id.startsWith('lying-');
@@ -54,7 +75,7 @@ export function availableGazeOptions(context = {}) {
 export function resolveGaze(gazeId, context = {}, random = Math.random) {
   if (!gazeId || gazeId === 'none') return null;
   if (gazeId === 'random') {
-    const pool = availableGazeOptions(context);
+    const pool = availableGazeOptions(context).filter(option => option.meta?.randomEligible !== false);
     if (!pool.length) return { id: 'none', headId: '' };
     const option = pool[Math.min(pool.length - 1, Math.floor(random() * pool.length))];
     return { id: option.id, headId: gazeHeadId(option.id, context) };
@@ -149,6 +170,12 @@ export const GESTURE_OPTIONS = freeze([
   gesture('gesture-supine-forearm-forehead', '一手放在額頭', 'one forearm resting across her forehead', 'lying-supine'),
   gesture('gesture-side-head-on-arm', '頭枕在彎曲的手臂上', 'her head resting on her bent lower arm', 'lying-side'),
   gesture('gesture-side-hand-hip', '上手放在腰側', 'her upper hand resting on her hip', 'lying-side'),
+  gesture('gesture-middle-finger-single', '單手比中指',
+    'one hand raised beside her shoulder, back of the hand facing outward, middle finger extended upward, remaining fingers curled beneath the thumb, other arm relaxed',
+    'general', { randomEligible: false }),
+  gesture('gesture-middle-finger-both', '雙手比中指',
+    'both hands raised beside her shoulders, backs of both hands facing outward, each middle finger extended upward, remaining fingers curled beneath the thumbs',
+    'general', { randomEligible: false }),
   // Squatting library v1 (Docs/specs/pose-library-squatting-v1.md §3–§4, Cooper 2026-10-21):
   // the seven reviewed squat hands, shoulder wording left to the body (O2) and plainer
   // wording (O3, O4). Medium crops use the reviewed upper-body fragment; chest-up omits them.

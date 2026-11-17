@@ -1,0 +1,43 @@
+
+> webapp@0.0.0 build
+> vite build
+
+vite v7.3.1 building client environment for production...
+transforming...
+✓ 1966 modules transformed.
+rendering chunks...
+[plugin vite:reporter] 
+(!) /Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/magnificProxyClient.js is dynamically imported by /Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/comfyVideoClient.js but also statically imported by /Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/components/DllImageViewer.jsx, /Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/components/DllPicProPanel.jsx, /Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/components/DllPicWorkspace.jsx, /Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/dllWorkspaceRuntime.js, dynamic import will not move module into another chunk.
+
+computing gzip size...
+dist/index.html                                   0.89 kB │ gzip:   0.38 kB
+dist/assets/SavedCardsWorkspace-CrVZzm65.css      2.00 kB │ gzip:   0.64 kB
+dist/assets/workspaceLabs-CvE0cEu_.css            4.82 kB │ gzip:   1.19 kB
+dist/assets/Page2Workspace-2wKPtrMf.css           5.44 kB │ gzip:   1.31 kB
+dist/assets/DllPicProPanel-Cuf7N66u.css           9.88 kB │ gzip:   2.22 kB
+dist/assets/DllPicWorkspace-DDGpWsGH.css         13.46 kB │ gzip:   3.01 kB
+dist/assets/index-U-0qTIXC.css                   45.51 kB │ gzip:   8.51 kB
+dist/assets/Page1Workspace-BCSAsxAU.css          53.06 kB │ gzip:   8.06 kB
+dist/assets/trash-2-E3tzBKO7.js                   0.33 kB │ gzip:   0.22 kB
+dist/assets/index-C7_-GaVR.js                     0.64 kB │ gzip:   0.40 kB
+dist/assets/PromptPreviewCard-BNBFBh0w.js         1.06 kB │ gzip:   0.53 kB
+dist/assets/favoritesRepository-C1d_B7Vc.js       2.13 kB │ gzip:   1.03 kB
+dist/assets/Page3Workspace-BQRbZUpe.js            5.21 kB │ gzip:   2.06 kB
+dist/assets/Page2Workspace-ChBLFYlu.js            7.34 kB │ gzip:   2.50 kB
+dist/assets/index.esm-ETgbA1xh.js                 8.51 kB │ gzip:   3.39 kB
+dist/assets/SavedCardsWorkspace-C3bPwz-K.js       8.69 kB │ gzip:   3.29 kB
+dist/assets/DllPicWorkspace-DL6A64B_.js          22.38 kB │ gzip:   8.02 kB
+dist/assets/index.esm-BD01GpHe.js                27.84 kB │ gzip:   9.29 kB
+dist/assets/DllPicProPanel-CyiavjmS.js           37.12 kB │ gzip:  11.68 kB
+dist/assets/savedCardArchive-CEyjn4XO.js        102.33 kB │ gzip:  32.44 kB
+dist/assets/Page1Workspace-XGNYvmTa.js          138.05 kB │ gzip:  42.32 kB
+dist/assets/firebase-BJA7wNL6.js                300.73 kB │ gzip:  93.51 kB
+dist/assets/index-Cj_N6KSa.js                   435.66 kB │ gzip: 137.69 kB
+dist/assets/prompt-catalog-DnxLn3eg.js          787.79 kB │ gzip: 171.64 kB
+dist/assets/prompt-engine-D02vtYfl.js         1,062.72 kB │ gzip: 295.05 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 3.16s

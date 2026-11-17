@@ -6,6 +6,14 @@ import { isDeepStrictEqual } from 'node:util';
 import { execFileSync } from 'node:child_process';
 import { validateLegacyReferences } from './catalogLegacy.mjs';
 
+export function gazeHeadReferenceIsValid(option, headId, legacyHeads, authored) {
+  if (!headId || legacyHeads.has(headId)) return true;
+  return Boolean(authored && authored === option && authored.id === headId
+    && typeof authored.en === 'string' && authored.en.trim()
+    && authored.meta?.authoredGaze === true && authored.meta?.randomEligible === false
+    && authored.meta?.tags?.includes('requires_face_visibility'));
+}
+
 export function controlIssues(controls) {
   const issues = [];
   for (const control of controls) {
@@ -197,7 +205,9 @@ export async function extendedChecks(repo, controls, parseFile) {
   const gaze = await load('webapp/src/lib/engine/gazeGesture.js');
   for (const g of gaze.GAZE_OPTIONS) for (const orientationId of orientations) {
     const id = gaze.gazeHeadId(g.id, { orientationId });
-    if (id && !heads.has(id)) add('GAZE_HEAD_REF', `${g.id}:${orientationId}`, 'Missing head option', [id]);
+    if (!gazeHeadReferenceIsValid(g, id, heads, gaze.authoredGazeHead?.(g.id))) {
+      add('GAZE_HEAD_REF', `${g.id}:${orientationId}`, 'Missing legacy head or reviewed authored gaze source', [id]);
+    }
   }
   for (const c of gaze.CAPTURE_STYLE_OPTIONS) {
     if (c.hand && !hands.has(c.hand)) add('CAPTURE_HAND_REF', c.id, 'Missing capture hand', [c.hand]);

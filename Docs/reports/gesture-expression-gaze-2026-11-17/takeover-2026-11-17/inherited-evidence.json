@@ -1,0 +1,65 @@
+{
+  "base": "fd3f3bb14e15ec556021791bdda71b8fe8d8731f",
+  "head": "595085d5be21aa5a712ca4ec2bb29a24e7477c37",
+  "sealedSourceFiles": 21,
+  "allCurrentAndBaseHashesMatch": true,
+  "logs": {
+    "full-test": {
+      "sha256": "69398b8c32799f8695c9b85523371e95b5872e9471fcada84584e1b416595345",
+      "mtimeUtc": "2026-11-17T14:19:29.293903+00:00",
+      "bytes": 564439
+    },
+    "prompt-quality": {
+      "sha256": "f9cddeaba8a3271304e4437426ba8347ca1af20eefd01f42608a32481fb39fc6",
+      "mtimeUtc": "2026-11-17T14:19:29.295208+00:00",
+      "bytes": 243039
+    },
+    "focused": {
+      "sha256": "8981efaaeb72fb2968ab500ac0ab2ef5067f55d04aca1a4a087c6ff95ad5fbaf",
+      "mtimeUtc": "2026-11-17T14:19:29.296138+00:00",
+      "bytes": 17088
+    },
+    "history-focused": {
+      "sha256": "e789dbf6091899e5d6e70378d07d557355231e6c02ab695345d2013c783a4b0b",
+      "mtimeUtc": "2026-11-17T14:19:29.297988+00:00",
+      "bytes": 10085
+    },
+    "inverse-final": {
+      "sha256": "fced57d213b28625902c30080797c8124409a33e8b993f79d38e4aa02e122a1f",
+      "mtimeUtc": "2026-11-17T14:19:29.299282+00:00",
+      "bytes": 377
+    },
+    "lint": {
+      "sha256": "4cc3750d21346cf65740526345613cc28b068e42b7624120db0bc04da500cb79",
+      "mtimeUtc": "2026-11-17T14:19:29.300647+00:00",
+      "bytes": 33
+    },
+    "build": {
+      "sha256": "22079b607b75c0cc63e5507607995429dd3efa6c9904692ec56d755d66d602a4",
+      "mtimeUtc": "2026-11-17T14:19:29.302455+00:00",
+      "bytes": 3179
+    },
+    "catalog-check": {
+      "sha256": "7d7f34ecd2fd9da5ca90a71eb7e7f1d9edd5f958788c8dc66e75e727330b0f42",
+      "mtimeUtc": "2026-11-17T14:19:29.303820+00:00",
+      "bytes": 290
+    },
+    "catalog-strict": {
+      "sha256": "075b9d5cdd5183ba48d3594b89899f10556ac05918271970dcde2cb08ee5748d",
+      "mtimeUtc": "2026-11-17T14:19:29.305243+00:00",
+      "bytes": 7538
+    },
+    "audit-before": {
+      "sha256": "91eb9151ef25a1ecd5d88e16e067d3b0b6560aeed3a171a42864676c41e54846",
+      "mtimeUtc": "2026-11-17T14:19:29.308310+00:00",
+      "bytes": 2237
+    },
+    "audit-after": {
+      "sha256": "91eb9151ef25a1ecd5d88e16e067d3b0b6560aeed3a171a42864676c41e54846",
+      "mtimeUtc": "2026-11-17T14:19:29.309523+00:00",
+      "bytes": 2237
+    }
+  },
+  "baselineHashMatches": true,
+  "auditBeforeAfterEqual": true
+}

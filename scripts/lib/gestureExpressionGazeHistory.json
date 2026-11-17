@@ -1,0 +1,797 @@
+{
+  "baseCommit": "fd3f3bb14e15ec556021791bdda71b8fe8d8731f",
+  "decisionRef": "Docs/specs/gesture-expression-gaze-additions-v1.md",
+  "files": [
+    {
+      "path": "webapp/src/lib/engine.js",
+      "beforeHash": "f68d8f2121025473e4913325b0b6d2295ac114f9fceba17bc1ca7180f42bb05a",
+      "afterHash": "2cc74b3fae144c8f714473c6afaa055c7502058a1fd7150d35e164e8dc8a38b4",
+      "edits": [
+        {
+          "line": 24,
+          "after": [
+            "import { CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, actionTextWithGesture, applyCaptureStyleLocks, authoredGazeHead, expressionHasReviewedEyesAndMouth, gazeAvoidsBackView, gazePausedByExpression, isBackViewOrbit, resolveGaze, resolveGesture, resolveProp } from './engine/gazeGesture.js';\n"
+          ],
+          "before": [
+            "import { CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, actionTextWithGesture, applyCaptureStyleLocks, gazeAvoidsBackView, isBackViewOrbit, resolveGaze, resolveGesture, resolveProp } from './engine/gazeGesture.js';\n"
+          ]
+        },
+        {
+          "line": 5239,
+          "after": [
+            "  const gazePaused = gazePausedByExpression(context.locks, specifiedAction);\n",
+            "  const gaze = context.rawLocks?.captureMode === 'observation' || specifiedAction?.ownsHead || gazePaused\n"
+          ],
+          "before": [
+            "  const gaze = context.rawLocks?.captureMode === 'observation' || specifiedAction?.ownsHead\n"
+          ]
+        },
+        {
+          "line": 5243,
+          "after": [
+            "  const headLockId = gazePaused ? 'none' : gaze ? gaze.headId || 'none' : context.locks?.poseHeadId;\n"
+          ],
+          "before": [
+            "  const headLockId = gaze ? gaze.headId || 'none' : context.locks?.poseHeadId;\n"
+          ]
+        },
+        {
+          "line": 5249,
+          "after": [
+            "  const headIds = head => ({ poseHeadId: head?.meta?.headPostureOnly || head?.meta?.authoredGaze ? 'none' : head?.id || 'none',\n",
+            "    ...(head?.meta?.headPostureId ? { headPostureId: head.meta.headPostureId } : {}),\n",
+            "    ...(head?.meta?.authoredGaze ? { gazeId: head.id } : {}) });\n"
+          ],
+          "before": [
+            "  const headIds = head => ({ poseHeadId: head?.meta?.headPostureOnly ? 'none' : head?.id || 'none',\n",
+            "    ...(head?.meta?.headPostureId ? { headPostureId: head.meta.headPostureId } : {}) });\n"
+          ]
+        },
+        {
+          "line": 5257,
+          "after": [
+            "    const authored = gaze?.headId ? authoredGazeHead(gaze.id) : null;\n",
+            "    if (authored) return authored;\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 5799,
+          "after": [
+            "  return mergeHeadPosture(authoredGazeHead(meta?.gazeId)\n",
+            "    || getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, meta?.poseHeadId), headPostureById(meta?.headPostureId));\n"
+          ],
+          "before": [
+            "  return mergeHeadPosture(getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, meta?.poseHeadId), headPostureById(meta?.headPostureId));\n"
+          ]
+        },
+        {
+          "line": 15953,
+          "after": [
+            "    expressionHasReviewedEyesAndMouth(slots.expression?.id)\n",
+            "      ? value('Expression') : compactPromptClauses(value('Expression'), 1)].filter(Boolean).join(', ');\n"
+          ],
+          "before": [
+            "    compactPromptClauses(value('Expression'), 1)].filter(Boolean).join(', ');\n"
+          ]
+        },
+        {
+          "line": 16806,
+          "after": [
+            "    && !gazePausedByExpression(effectiveLocks, specifiedCameraAction)\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/gazeGesture.js",
+      "beforeHash": "dabc05843c5b64bd53ab12855e83a8938a2d4603eddb494d80910b851c9aba34",
+      "afterHash": "6d9a488ff6ac0bfd5521088014ed34033d7169b6368fdd112f6ae096dfd9abc5",
+      "edits": [
+        {
+          "line": 19,
+          "after": [
+            "  freeze({ id: 'gaze-sideways-camera', zh: '斜眼看鏡頭',\n",
+            "    en: 'head turned slightly to one side, with her eyes glancing sideways toward the camera',\n",
+            "    meta: freeze({ randomEligible: false, authoredGaze: true, tags: freeze(['requires_face_visibility']) }) }),\n",
+            "  freeze({ id: 'gaze-chin-down-eyes-up', zh: '低頭抬眼看鏡頭',\n",
+            "    en: 'head lowered with her chin tucked, her eyes lifted to look toward the camera',\n",
+            "    meta: freeze({ randomEligible: false, authoredGaze: true, tags: freeze(['requires_face_visibility']) }) }),\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 34,
+          "after": [
+            "  'gaze-sideways-camera': { default: 'gaze-sideways-camera' },\n",
+            "  'gaze-chin-down-eyes-up': { default: 'gaze-chin-down-eyes-up' },\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 37,
+          "after": [
+            "\n",
+            "// New authored head/eye relationships never enter the retired poseHeadId pool.\n",
+            "export const authoredGazeHead = id => GAZE_OPTIONS.find(option => option.id === id && option.meta?.authoredGaze) || null;\n",
+            "export const gazePausedByExpression = (locks, action) => !action?.ownsExpression\n",
+            "  && locks?.expressionId === 'character:表情-facial-expression:eyes-closed-enjoyment';\n",
+            "\n",
+            "// These newly reviewed expressions need both eye state and mouth state in compact MJ.\n",
+            "// The English remains owned by the catalog, not by a renderer-specific override.\n",
+            "export const expressionHasReviewedEyesAndMouth = id => [\n",
+            "  'character:表情-facial-expression:eyes-closed-enjoyment',\n",
+            "  'character:表情-facial-expression:wink-toothy-smile',\n",
+            "  'character:表情-facial-expression:squinting-toothy-smile',\n",
+            "].includes(id);\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 77,
+          "after": [
+            "    const pool = availableGazeOptions(context).filter(option => option.meta?.randomEligible !== false);\n"
+          ],
+          "before": [
+            "    const pool = availableGazeOptions(context);\n"
+          ]
+        },
+        {
+          "line": 172,
+          "after": [
+            "  gesture('gesture-middle-finger-single', '單手比中指',\n",
+            "    'one hand raised beside her shoulder, back of the hand facing outward, middle finger extended upward, remaining fingers curled beneath the thumb, other arm relaxed',\n",
+            "    'general', { randomEligible: false }),\n",
+            "  gesture('gesture-middle-finger-both', '雙手比中指',\n",
+            "    'both hands raised beside her shoulders, backs of both hands facing outward, each middle finger extended upward, remaining fingers curled beneath the thumbs',\n",
+            "    'general', { randomEligible: false }),\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/headPosture.js",
+      "beforeHash": "e3c1f86b5c120bb89a4da968d9d0c99133f98af24b7d68c71c64e6e1a638abf8",
+      "afterHash": "9a60ca0e4dc3b408f643b9022c92d310766c1ba5f175dd5a34ca1dc2f967a93a",
+      "edits": [
+        {
+          "line": 24,
+          "after": [
+            "export const postureConflictsWithGaze = (postureId, gazeId) => ['gaze-down', 'gaze-chin-down-eyes-up'].includes(gazeId)\n",
+            "  && LOWERED_GAZE_CONFLICTS.has(postureId);\n"
+          ],
+          "before": [
+            "export const postureConflictsWithGaze = (postureId, gazeId) => gazeId === 'gaze-down' && LOWERED_GAZE_CONFLICTS.has(postureId);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/components/Page1Workspace.jsx",
+      "beforeHash": "b9fad15e637a56655fb4716757cd58902703214080e0f9c17816a3e0e969f8ce",
+      "afterHash": "daa506825cd17ced74611978c3308c01a8149bc49747bfe9e0f99cfadb458081",
+      "edits": [
+        {
+          "line": 13,
+          "after": [
+            "import { applicableGestureOptions, availableGazeOptions, gazePausedByExpression } from '../lib/engine/gazeGesture.js';\n"
+          ],
+          "before": [
+            "import { applicableGestureOptions, availableGazeOptions } from '../lib/engine/gazeGesture.js';\n"
+          ]
+        },
+        {
+          "line": 977,
+          "after": [
+            "      if (gazePausedByExpression(locks, activeSpecifiedAction)) return { ...control, disabled: true,\n",
+            "        helpText: '閉眼享受時視線暫不套用，切換表情後恢復。' };\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 987,
+          "after": [
+            "      const effectiveGaze = gazePausedByExpression(locks, activeSpecifiedAction) ? 'none' : locks.gazeId;\n",
+            "      return { ...control, options: control.options.map(o => postureConflictsWithGaze(o.id, effectiveGaze)\n"
+          ],
+          "before": [
+            "      return { ...control, options: control.options.map(o => postureConflictsWithGaze(o.id, locks.gazeId)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/page1/lockTransitions.js",
+      "beforeHash": "5738533dd637074fd1a131fbaff147d9992faac7f9d02b7a8a6639ac64096e38",
+      "afterHash": "b2aecccf52529e6f6cdd6a8d2a8a5d8c8bf0f0fddc676f7600c75400a6fd2c6b",
+      "edits": [
+        {
+          "line": 9,
+          "after": [
+            "import { applicableGestureOptions, gazePausedByExpression } from '../../lib/engine/gazeGesture.js';\n"
+          ],
+          "before": [
+            "import { applicableGestureOptions } from '../../lib/engine/gazeGesture.js';\n"
+          ]
+        },
+        {
+          "line": 138,
+          "after": [
+            "  if (!gazePausedByExpression(next, getSpecifiedAction(next))\n",
+            "    && postureConflictsWithGaze(next.headPostureId, next.gazeId)) next.headPostureId = 'none';\n"
+          ],
+          "before": [
+            "  if (postureConflictsWithGaze(next.headPostureId, next.gazeId)) next.headPostureId = 'none';\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/gazeGesture.test.js",
+      "beforeHash": "2ed1105835dcd18e4d149ae20c062fd9dc96cdd486eec1ac8f76fad93f422e79",
+      "afterHash": "f779bfca437f1c8febe52198e378202fca9de61f177086d226ee3da0e253c9f3",
+      "edits": [
+        {
+          "line": 30,
+          "after": [
+            "  assert.deepEqual(GAZE_OPTIONS.map(o => o.zh), ['全無', '隨機', '看鏡頭', '看向遠方', '低頭', '回眸', '斜眼看鏡頭', '低頭抬眼看鏡頭']);\n"
+          ],
+          "before": [
+            "  assert.deepEqual(GAZE_OPTIONS.map(o => o.zh), ['全無', '隨機', '看鏡頭', '看向遠方', '低頭', '回眸']);\n"
+          ]
+        },
+        {
+          "line": 74,
+          "after": [
+            "  assert.equal(GESTURE_OPTIONS.filter(o => o.scope).length, 47, '45 existing gestures plus two manual middle-finger gestures');\n"
+          ],
+          "before": [
+            "  assert.equal(GESTURE_OPTIONS.filter(o => o.scope).length, 45, '42 existing gestures plus three manual underlayer gestures');\n"
+          ]
+        },
+        {
+          "line": 168,
+          "after": [
+            "  assert.equal(applicableGestureOptions(natural).length, 30, '28 existing + 2 manual middle-finger gestures');\n"
+          ],
+          "before": [
+            "  assert.equal(applicableGestureOptions(natural).length, 28, '25 existing + 3 manual underlayer gestures');\n"
+          ]
+        },
+        {
+          "line": 248,
+          "after": [
+            "    assert.equal(applicableGestureOptions(a).length, 30, a.id);\n"
+          ],
+          "before": [
+            "    assert.equal(applicableGestureOptions(a).length, 28, a.id);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/package.json",
+      "beforeHash": "84a60f9a8cdd863ad32f2e917a3129bdda0386a443b2dec04d0da4e8e0b84961",
+      "afterHash": "22e5c00a9fbb72382d69c2228b9d9832bebd8f1a8d2dfa98c89f0c43bd0b710a",
+      "edits": [
+        {
+          "line": 10,
+          "after": [
+            "    \"test:prompt-quality\": \"node ../scripts/run_webapp_tests.mjs src/lib/engine/gestureExpressionGaze.test.js src/lib/engine/denimOveralls.test.js src/lib/engine/specifiedActionUpperBodyStateBatch3.test.js src/lib/engine/specifiedActionUpperBodyStateBatch2.test.js src/lib/engine/specifiedActionUpperBodyState.test.js src/lib/engine/manualUnderlayers.test.js src/lib/engine/indoorKneelBaseline.test.js src/lib/engine/indoorKneeling.test.js src/lib/engine/indoorKneelPrompt.test.js src/features/saved-cards/indoorKneelRestore.test.js src/lib/engine/outdoorLeanBaseline.test.js src/lib/engine/outdoorLeaning.test.js src/lib/engine/outdoorLeanPrompt.test.js src/features/saved-cards/outdoorLeanRestore.test.js src/lib/engine/outdoorSeatBaseline.test.js src/lib/engine/indoorSeatRulePilot.test.js src/lib/engine/outdoorSeating.test.js src/lib/engine/outdoorSeatPrompt.test.js src/features/saved-cards/outdoorSeatRestore.test.js src/lib/engine/indoorLeanBaseline.test.js src/lib/engine/indoorLeaning.test.js src/lib/engine/indoorLeanPrompt.test.js src/features/saved-cards/indoorLeanRestore.test.js src/lib/engine/indoorSeatBaseline.test.js src/lib/engine/indoorSeating.test.js src/lib/engine/indoorSeatPrompt.test.js src/features/saved-cards/indoorSeatRestore.test.js src/lib/engine/framingWardrobeIntegration.test.js src/lib/engine/framingWardrobeRetention.test.js src/lib/engine/framingWardrobeHistoricalBoundary.test.js src/lib/characterWardrobeSources.test.js src/lib/page2AdultIdentity.test.js src/lib/engine/mainDressRegion.test.js src/lib/engine/chestDressRegion.test.js src/features/saved-cards/page1MarkdownSnapshot.test.js src/features/saved-cards/wardrobeColorRecovery.test.js src/lib/engine/outfitControlLanguage.test.js src/lib/engine/dressControlLanguage.test.js src/lib/engine/characterAdultIdentity.test.js src/lib/observationCaptureImport.test.js src/lib/engine/shirtBlackBottom.test.js src/lib/engine/specifiedActionUnified.test.js src/lib/observationCaptureMode.test.js src/lib/engine/squattingHands.test.js src/lib/engine/squattingCatalog.test.js src/lib/engine/specifiedActions.test.js src/lib/engine/specifiedActionIntegration.test.js src/lib/engine/nanoBananaPrompt.test.js src/lib/engine/midjourneyNaturalPrompt.test.js src/lib/engineBlackTieShirt.test.js src/lib/engineMirrorSelfieProp.test.js src/lib/engineSubjectLightAdditions.test.js src/lib/engineSubjectKeyLightCompatibility.test.js src/lib/engine/headDominantFraming.test.js src/lib/engine/shibuyaCrowdScene.test.js src/lib/engine/adidasTrackwear.test.js src/lib/engine/bandagePasties.test.js src/lib/engine/underbustTopFit.test.js src/lib/engine/outerwearStyling.test.js src/lib/engine/minimalCoverageWardrobe.test.js src/lib/engine/bodyTypeCatalog.test.js src/lib/engine/gptBodyTypeOmission.test.js src/lib/engine/kneelingCatalog.test.js src/lib/engine/hourglassBikiniBody.test.js src/lib/engine/zImageOnLocationCapture.test.js src/lib/engine/outerwearClosure.test.js src/lib/engine/stationFixedComposition.test.js src/lib/engineFixedCompositionSet.test.js src/lib/engine/topHemOverlap.test.js src/lib/engine/standingCatalog.test.js src/lib/engineOptionalSilence.test.js src/lib/engine/midjourneyTopPattern.test.js src/lib/engine/chestUpSameState.test.js src/lib/engine/closeWormEye.test.js src/lib/engine/gptCameraSpatial.test.js src/lib/engine/gptSceneVisibility.test.js src/lib/engine/ambientLightDescriptions.test.js src/lib/engine/zImageSceneDetailPriority.test.js src/lib/engine/zImageUpperSceneExtension.test.js src/lib/engine/zImageFullBodyCamera.test.js src/lib/engine/zImageUpperScene.test.js src/lib/engine/zImageSceneDirection.test.js src/lib/engine/sceneIntegratedAssemblyBaseline.test.js src/lib/engine/promptOutputContracts.test.js src/lib/engine/zImageTurboPromptContract.test.js src/lib/engine/zImageTurboCameraGeometry.test.js src/lib/engineZImageTurboPrompt.test.js src/lib/engine/aiPromptLengthContract.test.js src/lib/engine/aiPromptBudget.test.js src/lib/engine/aiPromptLengthIntegration.test.js src/lib/engine/midjourneyDescriptionContract.test.js src/lib/engine/midjourneyDescriptionOpening.test.js src/lib/engine/midjourneySubjectWardrobe.test.js src/lib/engine/midjourneySceneImaging.test.js src/lib/engine/midjourneySpecialModes.test.js src/lib/engine/midjourneyParameterContract.test.js src/lib/engine/midjourneyParameterTail.test.js src/lib/engine/midjourneyNativeStructure.test.js src/lib/engine/midjourneyFacialFeatureVariant.test.js src/lib/engine/expressionGazeSharedPrompt.test.js src/lib/engine/midjourneyCompletionGate.test.js src/lib/enginePromptDeduplication.test.js src/lib/engine/compositionBodyVisibilityContract.test.js src/lib/engine/compositionBodyVisibilityIntegration.test.js src/lib/engine/compositionBodyPromptIntegration.test.js src/lib/engine/compositionVisibilityIntegration.test.js src/lib/engine/fixedCompositionPromptIntegration.test.js src/lib/engine/fixedFramingDerivedPromptContract.test.js src/lib/engine/fixedFramingDerivedPromptInfrastructure.test.js src/lib/engine/fixedFramingDerivedPromptRuntime.test.js src/lib/engine/fixedFramingMainPrompt.test.js src/lib/engine/fixedFramingPromptIntegration.test.js src/lib/page1PromptOutputs.test.js src/lib/engine/phase4PublicLanguage.test.js src/lib/engine/phase4FixedPalette.test.js src/lib/engine/phase4ScenePosition.test.js src/lib/engine/phase4LightingCompatibility.test.js src/lib/engine/phase4CharacterDirection.test.js\",\n"
+          ],
+          "before": [
+            "    \"test:prompt-quality\": \"node ../scripts/run_webapp_tests.mjs src/lib/engine/denimOveralls.test.js src/lib/engine/specifiedActionUpperBodyStateBatch3.test.js src/lib/engine/specifiedActionUpperBodyStateBatch2.test.js src/lib/engine/specifiedActionUpperBodyState.test.js src/lib/engine/manualUnderlayers.test.js src/lib/engine/indoorKneelBaseline.test.js src/lib/engine/indoorKneeling.test.js src/lib/engine/indoorKneelPrompt.test.js src/features/saved-cards/indoorKneelRestore.test.js src/lib/engine/outdoorLeanBaseline.test.js src/lib/engine/outdoorLeaning.test.js src/lib/engine/outdoorLeanPrompt.test.js src/features/saved-cards/outdoorLeanRestore.test.js src/lib/engine/outdoorSeatBaseline.test.js src/lib/engine/indoorSeatRulePilot.test.js src/lib/engine/outdoorSeating.test.js src/lib/engine/outdoorSeatPrompt.test.js src/features/saved-cards/outdoorSeatRestore.test.js src/lib/engine/indoorLeanBaseline.test.js src/lib/engine/indoorLeaning.test.js src/lib/engine/indoorLeanPrompt.test.js src/features/saved-cards/indoorLeanRestore.test.js src/lib/engine/indoorSeatBaseline.test.js src/lib/engine/indoorSeating.test.js src/lib/engine/indoorSeatPrompt.test.js src/features/saved-cards/indoorSeatRestore.test.js src/lib/engine/framingWardrobeIntegration.test.js src/lib/engine/framingWardrobeRetention.test.js src/lib/engine/framingWardrobeHistoricalBoundary.test.js src/lib/characterWardrobeSources.test.js src/lib/page2AdultIdentity.test.js src/lib/engine/mainDressRegion.test.js src/lib/engine/chestDressRegion.test.js src/features/saved-cards/page1MarkdownSnapshot.test.js src/features/saved-cards/wardrobeColorRecovery.test.js src/lib/engine/outfitControlLanguage.test.js src/lib/engine/dressControlLanguage.test.js src/lib/engine/characterAdultIdentity.test.js src/lib/observationCaptureImport.test.js src/lib/engine/shirtBlackBottom.test.js src/lib/engine/specifiedActionUnified.test.js src/lib/observationCaptureMode.test.js src/lib/engine/squattingHands.test.js src/lib/engine/squattingCatalog.test.js src/lib/engine/specifiedActions.test.js src/lib/engine/specifiedActionIntegration.test.js src/lib/engine/nanoBananaPrompt.test.js src/lib/engine/midjourneyNaturalPrompt.test.js src/lib/engineBlackTieShirt.test.js src/lib/engineMirrorSelfieProp.test.js src/lib/engineSubjectLightAdditions.test.js src/lib/engineSubjectKeyLightCompatibility.test.js src/lib/engine/headDominantFraming.test.js src/lib/engine/shibuyaCrowdScene.test.js src/lib/engine/adidasTrackwear.test.js src/lib/engine/bandagePasties.test.js src/lib/engine/underbustTopFit.test.js src/lib/engine/outerwearStyling.test.js src/lib/engine/minimalCoverageWardrobe.test.js src/lib/engine/bodyTypeCatalog.test.js src/lib/engine/gptBodyTypeOmission.test.js src/lib/engine/kneelingCatalog.test.js src/lib/engine/hourglassBikiniBody.test.js src/lib/engine/zImageOnLocationCapture.test.js src/lib/engine/outerwearClosure.test.js src/lib/engine/stationFixedComposition.test.js src/lib/engineFixedCompositionSet.test.js src/lib/engine/topHemOverlap.test.js src/lib/engine/standingCatalog.test.js src/lib/engineOptionalSilence.test.js src/lib/engine/midjourneyTopPattern.test.js src/lib/engine/chestUpSameState.test.js src/lib/engine/closeWormEye.test.js src/lib/engine/gptCameraSpatial.test.js src/lib/engine/gptSceneVisibility.test.js src/lib/engine/ambientLightDescriptions.test.js src/lib/engine/zImageSceneDetailPriority.test.js src/lib/engine/zImageUpperSceneExtension.test.js src/lib/engine/zImageFullBodyCamera.test.js src/lib/engine/zImageUpperScene.test.js src/lib/engine/zImageSceneDirection.test.js src/lib/engine/sceneIntegratedAssemblyBaseline.test.js src/lib/engine/promptOutputContracts.test.js src/lib/engine/zImageTurboPromptContract.test.js src/lib/engine/zImageTurboCameraGeometry.test.js src/lib/engineZImageTurboPrompt.test.js src/lib/engine/aiPromptLengthContract.test.js src/lib/engine/aiPromptBudget.test.js src/lib/engine/aiPromptLengthIntegration.test.js src/lib/engine/midjourneyDescriptionContract.test.js src/lib/engine/midjourneyDescriptionOpening.test.js src/lib/engine/midjourneySubjectWardrobe.test.js src/lib/engine/midjourneySceneImaging.test.js src/lib/engine/midjourneySpecialModes.test.js src/lib/engine/midjourneyParameterContract.test.js src/lib/engine/midjourneyParameterTail.test.js src/lib/engine/midjourneyNativeStructure.test.js src/lib/engine/midjourneyFacialFeatureVariant.test.js src/lib/engine/expressionGazeSharedPrompt.test.js src/lib/engine/midjourneyCompletionGate.test.js src/lib/enginePromptDeduplication.test.js src/lib/engine/compositionBodyVisibilityContract.test.js src/lib/engine/compositionBodyVisibilityIntegration.test.js src/lib/engine/compositionBodyPromptIntegration.test.js src/lib/engine/compositionVisibilityIntegration.test.js src/lib/engine/fixedCompositionPromptIntegration.test.js src/lib/engine/fixedFramingDerivedPromptContract.test.js src/lib/engine/fixedFramingDerivedPromptInfrastructure.test.js src/lib/engine/fixedFramingDerivedPromptRuntime.test.js src/lib/engine/fixedFramingMainPrompt.test.js src/lib/engine/fixedFramingPromptIntegration.test.js src/lib/page1PromptOutputs.test.js src/lib/engine/phase4PublicLanguage.test.js src/lib/engine/phase4FixedPalette.test.js src/lib/engine/phase4ScenePosition.test.js src/lib/engine/phase4LightingCompatibility.test.js src/lib/engine/phase4CharacterDirection.test.js\",\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/catalog/Character/表情-facial-expression.json",
+      "beforeHash": "4ff5f53a58a9b7b6f13d64a7ff3de7b7867736cb20b9aef1f0fe29651c7d3371",
+      "afterHash": "15b576e8beecab69741d65dcf27888c4382f4306513b39fd9bdc7bc8793c9ef8",
+      "edits": [
+        {
+          "line": 261,
+          "after": [
+            "    },\n",
+            "    {\n",
+            "      \"id\": \"character:表情-facial-expression:eyes-closed-enjoyment\",\n",
+            "      \"legacyIds\": [],\n",
+            "      \"zh\": \"閉眼享受\",\n",
+            "      \"en\": \"both eyes gently closed, relaxed brows, softly parted lips, a subtle contented expression\",\n",
+            "      \"desc\": \"雙眼輕閉、眉間放鬆、嘴唇微張，呈現舒服滿足的享受神態；不指定視線或頭部方向。\",\n",
+            "      \"meta\": {\n",
+            "        \"semantic\": {\n",
+            "          \"minVisibility\": \"full\",\n",
+            "          \"tags\": [\n",
+            "            \"manual_only\"\n",
+            "          ],\n",
+            "          \"archetype\": null\n",
+            "        }\n",
+            "      }\n",
+            "    },\n",
+            "    {\n",
+            "      \"id\": \"character:表情-facial-expression:wink-toothy-smile\",\n",
+            "      \"legacyIds\": [],\n",
+            "      \"zh\": \"wink微笑\",\n",
+            "      \"en\": \"one eye closed in a wink, the other open, natural smile showing upper teeth\",\n",
+            "      \"desc\": \"單眼眨眼、另一眼睜開，嘴角上揚並自然露出上排牙齒；不綁定左右眼或視線方向。\",\n",
+            "      \"meta\": {\n",
+            "        \"semantic\": {\n",
+            "          \"minVisibility\": \"full\",\n",
+            "          \"tags\": [\n",
+            "            \"manual_only\"\n",
+            "          ],\n",
+            "          \"archetype\": null\n",
+            "        }\n",
+            "      }\n",
+            "    },\n",
+            "    {\n",
+            "      \"id\": \"character:表情-facial-expression:squinting-toothy-smile\",\n",
+            "      \"legacyIds\": [],\n",
+            "      \"zh\": \"瞇眼微笑\",\n",
+            "      \"en\": \"both eyes smile-squinted into narrow open slits, lifted cheeks, natural smile showing upper teeth\",\n",
+            "      \"desc\": \"雙眼因微笑而明顯瞇起，仍保留眼縫，臉頰上提並自然露出上排牙齒；不指定視線或頭部方向。\",\n",
+            "      \"meta\": {\n",
+            "        \"semantic\": {\n",
+            "          \"minVisibility\": \"full\",\n",
+            "          \"tags\": [\n",
+            "            \"manual_only\"\n",
+            "          ],\n",
+            "          \"archetype\": null\n",
+            "        }\n",
+            "      }\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/catalog/index.json",
+      "beforeHash": "09ab9ed0ce301db7ac250063789565deaf2270ea7df94bf4b9342af983cd2a49",
+      "afterHash": "d03ff5edbe7fff68b63ea03fadb6df17240f7366050fd87080a1a3428d907d97",
+      "edits": [
+        {
+          "line": 27969,
+          "after": [
+            "          \"id\": \"character:表情-facial-expression:eyes-closed-enjoyment\",\n",
+            "          \"cells\": [\n",
+            "            \"**表情 (Facial Expression)**\",\n",
+            "            \"\",\n",
+            "            \"\",\n",
+            "            \"\"\n",
+            "          ],\n",
+            "          \"columns\": {\n",
+            "            \"1\": \"zh\",\n",
+            "            \"2\": \"en\",\n",
+            "            \"3\": \"desc\"\n",
+            "          },\n",
+            "          \"affixes\": {\n",
+            "            \"1\": [\n",
+            "              \"\",\n",
+            "              \"\"\n",
+            "            ],\n",
+            "            \"2\": [\n",
+            "              \"`\",\n",
+            "              \"`\"\n",
+            "            ],\n",
+            "            \"3\": [\n",
+            "              \"\",\n",
+            "              \"\"\n",
+            "            ]\n",
+            "          }\n",
+            "        },\n",
+            "        {\n",
+            "          \"id\": \"character:表情-facial-expression:wink-toothy-smile\",\n",
+            "          \"cells\": [\n",
+            "            \"**表情 (Facial Expression)**\",\n",
+            "            \"\",\n",
+            "            \"\",\n",
+            "            \"\"\n",
+            "          ],\n",
+            "          \"columns\": {\n",
+            "            \"1\": \"zh\",\n",
+            "            \"2\": \"en\",\n",
+            "            \"3\": \"desc\"\n",
+            "          },\n",
+            "          \"affixes\": {\n",
+            "            \"1\": [\n",
+            "              \"\",\n",
+            "              \"\"\n",
+            "            ],\n",
+            "            \"2\": [\n",
+            "              \"`\",\n",
+            "              \"`\"\n",
+            "            ],\n",
+            "            \"3\": [\n",
+            "              \"\",\n",
+            "              \"\"\n",
+            "            ]\n",
+            "          }\n",
+            "        },\n",
+            "        {\n",
+            "          \"id\": \"character:表情-facial-expression:squinting-toothy-smile\",\n",
+            "          \"cells\": [\n",
+            "            \"**表情 (Facial Expression)**\",\n",
+            "            \"\",\n",
+            "            \"\",\n",
+            "            \"\"\n",
+            "          ],\n",
+            "          \"columns\": {\n",
+            "            \"1\": \"zh\",\n",
+            "            \"2\": \"en\",\n",
+            "            \"3\": \"desc\"\n",
+            "          },\n",
+            "          \"affixes\": {\n",
+            "            \"1\": [\n",
+            "              \"\",\n",
+            "              \"\"\n",
+            "            ],\n",
+            "            \"2\": [\n",
+            "              \"`\",\n",
+            "              \"`\"\n",
+            "            ],\n",
+            "            \"3\": [\n",
+            "              \"\",\n",
+            "              \"\"\n",
+            "            ]\n",
+            "          }\n",
+            "        },\n",
+            "        {\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/catalog/id_registry.json",
+      "beforeHash": "4eac7ff8443f72f18cfc8f5f52cb55ab00ea75dd8176bbd5097340268f824309",
+      "afterHash": "1dd5b334fa3fb39dace4750fd9d5eb459a3a3340be1ac255e64f170cb806e0d3",
+      "edits": [
+        {
+          "line": 7384,
+          "after": [
+            "    },\n",
+            "    {\n",
+            "      \"id\": \"character:表情-facial-expression:eyes-closed-enjoyment\",\n",
+            "      \"initialGroup\": \"character\",\n",
+            "      \"initialCategory\": \"表情 (Facial Expression)\",\n",
+            "      \"createdFrom\": \"fd3f3bb14e15ec556021791bdda71b8fe8d8731f\",\n",
+            "      \"status\": \"active\",\n",
+            "      \"decisionRef\": \"Docs/specs/gesture-expression-gaze-additions-v1.md\"\n",
+            "    },\n",
+            "    {\n",
+            "      \"id\": \"character:表情-facial-expression:wink-toothy-smile\",\n",
+            "      \"initialGroup\": \"character\",\n",
+            "      \"initialCategory\": \"表情 (Facial Expression)\",\n",
+            "      \"createdFrom\": \"fd3f3bb14e15ec556021791bdda71b8fe8d8731f\",\n",
+            "      \"status\": \"active\",\n",
+            "      \"decisionRef\": \"Docs/specs/gesture-expression-gaze-additions-v1.md\"\n",
+            "    },\n",
+            "    {\n",
+            "      \"id\": \"character:表情-facial-expression:squinting-toothy-smile\",\n",
+            "      \"initialGroup\": \"character\",\n",
+            "      \"initialCategory\": \"表情 (Facial Expression)\",\n",
+            "      \"createdFrom\": \"fd3f3bb14e15ec556021791bdda71b8fe8d8731f\",\n",
+            "      \"status\": \"active\",\n",
+            "      \"decisionRef\": \"Docs/specs/gesture-expression-gaze-additions-v1.md\"\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/character_design.md",
+      "beforeHash": "76e4973da3a3552e15d6418122181f1a133039e1820b169e7652348b7a5e9728",
+      "afterHash": "189a736fd650b377475f060a89ebbdb5fd689b6e5019f2aa4d041f794b4b5c7c",
+      "edits": [
+        {
+          "line": 96,
+          "after": [
+            "| **表情 (Facial Expression)** | 閉眼享受 | `both eyes gently closed, relaxed brows, softly parted lips, a subtle contented expression` | 雙眼輕閉、眉間放鬆、嘴唇微張，呈現舒服滿足的享受神態；不指定視線或頭部方向。 |\n",
+            "| **表情 (Facial Expression)** | wink微笑 | `one eye closed in a wink, the other open, natural smile showing upper teeth` | 單眼眨眼、另一眼睜開，嘴角上揚並自然露出上排牙齒；不綁定左右眼或視線方向。 |\n",
+            "| **表情 (Facial Expression)** | 瞇眼微笑 | `both eyes smile-squinted into narrow open slits, lifted cheeks, natural smile showing upper teeth` | 雙眼因微笑而明顯瞇起，仍保留眼縫，臉頰上提並自然露出上排牙齒；不指定視線或頭部方向。 |\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/data/database.json",
+      "beforeHash": "0d7b2b1976dafc28c62102be8c4b1dc1bc3e19a72a7f98837735dd44191c27bc",
+      "afterHash": "500e8482054a1c1e8590e5775879b3c8d887852ce76f6c2cf3fc16e11a15b62e",
+      "edits": [
+        {
+          "line": 19731,
+          "after": [
+            "      },\n",
+            "      {\n",
+            "        \"zh\": \"閉眼享受\",\n",
+            "        \"en\": \"both eyes gently closed, relaxed brows, softly parted lips, a subtle contented expression\",\n",
+            "        \"desc\": \"雙眼輕閉、眉間放鬆、嘴唇微張，呈現舒服滿足的享受神態；不指定視線或頭部方向。\",\n",
+            "        \"meta\": {\n",
+            "          \"semantic\": {\n",
+            "            \"minVisibility\": \"full\",\n",
+            "            \"tags\": [\n",
+            "              \"manual_only\"\n",
+            "            ],\n",
+            "            \"archetype\": null\n",
+            "          }\n",
+            "        },\n",
+            "        \"stableId\": \"character:表情-facial-expression:eyes-closed-enjoyment\",\n",
+            "        \"legacyIds\": []\n",
+            "      },\n",
+            "      {\n",
+            "        \"zh\": \"wink微笑\",\n",
+            "        \"en\": \"one eye closed in a wink, the other open, natural smile showing upper teeth\",\n",
+            "        \"desc\": \"單眼眨眼、另一眼睜開，嘴角上揚並自然露出上排牙齒；不綁定左右眼或視線方向。\",\n",
+            "        \"meta\": {\n",
+            "          \"semantic\": {\n",
+            "            \"minVisibility\": \"full\",\n",
+            "            \"tags\": [\n",
+            "              \"manual_only\"\n",
+            "            ],\n",
+            "            \"archetype\": null\n",
+            "          }\n",
+            "        },\n",
+            "        \"stableId\": \"character:表情-facial-expression:wink-toothy-smile\",\n",
+            "        \"legacyIds\": []\n",
+            "      },\n",
+            "      {\n",
+            "        \"zh\": \"瞇眼微笑\",\n",
+            "        \"en\": \"both eyes smile-squinted into narrow open slits, lifted cheeks, natural smile showing upper teeth\",\n",
+            "        \"desc\": \"雙眼因微笑而明顯瞇起，仍保留眼縫，臉頰上提並自然露出上排牙齒；不指定視線或頭部方向。\",\n",
+            "        \"meta\": {\n",
+            "          \"semantic\": {\n",
+            "            \"minVisibility\": \"full\",\n",
+            "            \"tags\": [\n",
+            "              \"manual_only\"\n",
+            "            ],\n",
+            "            \"archetype\": null\n",
+            "          }\n",
+            "        },\n",
+            "        \"stableId\": \"character:表情-facial-expression:squinting-toothy-smile\",\n",
+            "        \"legacyIds\": []\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "scripts/lib/videoReferenceReplay.mjs",
+      "beforeHash": "7173088d44cb81dbbd05db964bd20d9c19d3b73d4b30950e29db6c6f9d6eadfa",
+      "afterHash": "9de27f1c040bf6ea903d1a80553864c0a91b03e9ae6a998134399ee8b70f8bb8",
+      "edits": [
+        {
+          "line": 1,
+          "after": [
+            "import { gestureExpressionGazeHistoricalPaths, preGestureExpressionGazeSource } from './gestureExpressionGazeHistoricalReplay.mjs';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 10,
+          "after": [
+            "export const videoReferenceHistoricalPaths = [...new Set([...gestureExpressionGazeHistoricalPaths, ...testEfficiencyHistoricalPaths, ...denimStrapHistoricalPaths, ...denimOverallsHistoricalPaths, ...manifest.files.map(file => file.path)])];\n"
+          ],
+          "before": [
+            "export const videoReferenceHistoricalPaths = [...new Set([...testEfficiencyHistoricalPaths, ...denimStrapHistoricalPaths, ...denimOverallsHistoricalPaths, ...manifest.files.map(file => file.path)])];\n"
+          ]
+        },
+        {
+          "line": 12,
+          "after": [
+            "  source = preGestureExpressionGazeSource(path, source);\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "scripts/lib/catalogIntegrity.mjs",
+      "beforeHash": "3bd28df867d500b1b22a4dc973ec784169e5ccf00315ffe68c1670b86cc02383",
+      "afterHash": "9dc7f231aef5b7ffa31cc4813accc635a3c563bc19c3ffcc846eec080606157f",
+      "edits": [
+        {
+          "line": 7,
+          "after": [
+            "\n",
+            "export function gazeHeadReferenceIsValid(option, headId, legacyHeads, authored) {\n",
+            "  if (!headId || legacyHeads.has(headId)) return true;\n",
+            "  return Boolean(authored && authored === option && authored.id === headId\n",
+            "    && typeof authored.en === 'string' && authored.en.trim()\n",
+            "    && authored.meta?.authoredGaze === true && authored.meta?.randomEligible === false\n",
+            "    && authored.meta?.tags?.includes('requires_face_visibility'));\n",
+            "}\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 207,
+          "after": [
+            "    if (!gazeHeadReferenceIsValid(g, id, heads, gaze.authoredGazeHead?.(g.id))) {\n",
+            "      add('GAZE_HEAD_REF', `${g.id}:${orientationId}`, 'Missing legacy head or reviewed authored gaze source', [id]);\n",
+            "    }\n"
+          ],
+          "before": [
+            "    if (id && !heads.has(id)) add('GAZE_HEAD_REF', `${g.id}:${orientationId}`, 'Missing head option', [id]);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "scripts/tests/catalog-integrity.test.mjs",
+      "beforeHash": "2e0c931ba4b06256b24a72a2e543c0e33cd9796f0b311bb35076ba6898f5189f",
+      "afterHash": "6cfb4393a02a0caa3973a812cd783dd61f35de1d47a733b88d633c16551df3c2",
+      "edits": [
+        {
+          "line": 7,
+          "after": [
+            "import { controlIssues, applyAllowlist, validateActions, checkFieldMapping, checkDeclaredPaths, validatePoseMetadata, gazeHeadReferenceIsValid } from '../lib/catalogIntegrity.mjs';\n"
+          ],
+          "before": [
+            "import { controlIssues, applyAllowlist, validateActions, checkFieldMapping, checkDeclaredPaths, validatePoseMetadata } from '../lib/catalogIntegrity.mjs';\n"
+          ]
+        },
+        {
+          "line": 12,
+          "after": [
+            "\n",
+            "test('gaze references require an existing legacy head or the same complete reviewed authored source', () => {\n",
+            "  const heads = new Set(['old-head']);\n",
+            "  const option = { id: 'new-gaze', en: 'head turned slightly, eyes glancing toward the camera',\n",
+            "    meta: { authoredGaze: true, randomEligible: false, tags: ['requires_face_visibility'] } };\n",
+            "  assert.ok(gazeHeadReferenceIsValid(option, 'old-head', heads, null));\n",
+            "  assert.ok(gazeHeadReferenceIsValid(option, option.id, heads, option));\n",
+            "  assert.equal(gazeHeadReferenceIsValid(option, 'missing-head', heads, option), false);\n",
+            "  assert.equal(gazeHeadReferenceIsValid(option, option.id, heads, { ...option }), false);\n",
+            "  for (const broken of [{ ...option, en: '' }, { ...option, meta: {} },\n",
+            "    { ...option, meta: { ...option.meta, randomEligible: true } },\n",
+            "    { ...option, meta: { ...option.meta, tags: [] } }]) {\n",
+            "    assert.equal(gazeHeadReferenceIsValid(broken, broken.id, heads, broken), false);\n",
+            "  }\n",
+            "});\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "scripts/tests/test_catalog_cutover.py",
+      "beforeHash": "aa2a56040ddebfcc1b2ae5867ae7aec10dcf918e852721fae6db639c84be1ffa",
+      "afterHash": "322d979a5cbcf2d8dbaeef4857ba8a820c54c3fa3420a613cb417f403238a4db",
+      "edits": [
+        {
+          "line": 57,
+          "after": [
+            "        eye_expression_ids = {\n",
+            "            'character:表情-facial-expression:eyes-closed-enjoyment',\n",
+            "            'character:表情-facial-expression:wink-toothy-smile',\n",
+            "            'character:表情-facial-expression:squinting-toothy-smile',\n",
+            "        }\n",
+            "        eye_expressions = [row for row in entries if row['id'] in eye_expression_ids]\n",
+            "        self.assertEqual({row['id'] for row in eye_expressions}, eye_expression_ids)\n",
+            "        for row in eye_expressions:\n",
+            "            self.assertEqual(row['meta']['semantic']['tags'], ['manual_only'])\n",
+            "        self.assertEqual(len(entries) - len(added) - len(companion) - len(lawson) - len(eye_expressions), 1050)\n"
+          ],
+          "before": [
+            "        self.assertEqual(len(entries) - len(added) - len(companion) - len(lawson), 1050)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/qa/testEfficiencyRunner.test.js",
+      "beforeHash": "36f4f715f8c69135c5b6b1ede6c708a78ddc3ca3bd397fbe78cbb49da1a6fe07",
+      "afterHash": "2eaebf5ccaa58381a7094a5d4388b6c25d5f632865a85ba36ca94d2dd3c519d1",
+      "edits": [
+        {
+          "line": 10,
+          "after": [
+            "import { preGestureExpressionGazeSource } from '../../../../scripts/lib/gestureExpressionGazeHistoricalReplay.mjs';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 36,
+          "after": [
+            "  const current=preGestureExpressionGazeSource(file.path,readFileSync(resolve(root,file.path)));\n"
+          ],
+          "before": [
+            "  const current=readFileSync(resolve(root,file.path));\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/denimOveralls.test.js",
+      "beforeHash": "12d3b21289241968bcc4eb7cea4bf8353d3db7cf6ea716e55860c80bd1e7c008",
+      "afterHash": "3168dfb8e5890bddfa624f77e17a64ac05ad75f255869f00aece08ff25849f6a",
+      "edits": [
+        {
+          "line": 1,
+          "after": [
+            "import { preGestureExpressionGazeSource } from '../../../../scripts/lib/gestureExpressionGazeHistoricalReplay.mjs';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 32,
+          "after": [
+            "    const current = preDenimStrapSource(file.path, preTestEfficiencySource(file.path, preGestureExpressionGazeSource(file.path, readFileSync(new URL('../../../../' + file.path, import.meta.url)))));\n"
+          ],
+          "before": [
+            "    const current = preDenimStrapSource(file.path, preTestEfficiencySource(file.path, readFileSync(new URL('../../../../' + file.path, import.meta.url))));\n"
+          ]
+        },
+        {
+          "line": 98,
+          "after": [
+            "    const current = preTestEfficiencySource(file.path, preGestureExpressionGazeSource(file.path, readFileSync(new URL('../../../../' + file.path, import.meta.url))));\n"
+          ],
+          "before": [
+            "    const current = preTestEfficiencySource(file.path, readFileSync(new URL('../../../../' + file.path, import.meta.url)));\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/catalogSemanticSource.test.js",
+      "beforeHash": "1f244e9d250fe3065be398ab462f29ee1f67494206d2c72625116688c547de99",
+      "afterHash": "f42f72b9671b09ae1daf4d0b1a29560f47ddd3e007887a0071d5a5ec7ffbdc71",
+      "edits": [
+        {
+          "line": 32,
+          "after": [
+            "  const reviewedEyes = ['eyes-closed-enjoyment', 'wink-toothy-smile', 'squinting-toothy-smile']\n",
+            "    .map(slug => rows.find(row => row.stableId === `character:表情-facial-expression:${slug}`));\n",
+            "  assert.ok(reviewedEyes.every(Boolean));\n",
+            "  for (const row of reviewedEyes) assert.deepEqual(row.meta.semantic.tags, ['manual_only']);\n",
+            "  assert.equal(added.length,1);assert.equal(companion.length,1);assert.equal(rows.filter(row => row.stableId?.endsWith('lawson-store') || row.stableId?.endsWith('lawson-storefront')).length,2);assert.equal(rows.length-added.length-companion.length-2-reviewedEyes.length,1050);\n"
+          ],
+          "before": [
+            "  assert.equal(added.length,1);assert.equal(companion.length,1);assert.equal(rows.filter(row => row.stableId?.endsWith('lawson-store') || row.stableId?.endsWith('lawson-storefront')).length,2);assert.equal(rows.length-added.length-companion.length-2,1050);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/catalogSnapshot.test.js",
+      "beforeHash": "92ed7a636e91e239d85f3bcfbf459acacf90f1fd09f0b754940223d484174bde",
+      "afterHash": "5a6e7a78f2f6f9a1e73e9851354370f5dafc01de970eb5a27de9a7c7decf4675",
+      "edits": [
+        {
+          "line": 49,
+          "after": [
+            "  assert.equal(source.Character['表情 (Facial Expression)'].filter(item =>\n",
+            "    ['eyes-closed-enjoyment', 'wink-toothy-smile', 'squinting-toothy-smile']\n",
+            "      .some(slug => item.stableId === `character:表情-facial-expression:${slug}`)).length, 3);\n",
+            "  assert.equal(originalCount, 1057);\n"
+          ],
+          "before": [
+            "  assert.equal(originalCount, 1054);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engineExpressionPoseCleanup.test.js",
+      "beforeHash": "ae32d02aa10809bef149a63eadbbcf5d407cfec13e489b36192c23201d1d2eab",
+      "afterHash": "b99cb5bdc11de6b4130a9acab0fc7d2aa498c7af8844372a39104d3bb29207e3",
+      "edits": [
+        {
+          "line": 43,
+          "after": [
+            "      '閉眼享受',\n",
+            "      'wink微笑',\n",
+            "      '瞇眼微笑',\n"
+          ],
+          "before": []
+        }
+      ]
+    }
+  ]
+}

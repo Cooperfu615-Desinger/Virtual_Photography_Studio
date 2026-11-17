@@ -1,0 +1,268 @@
+TAP version 13
+# Subtest: the separate exact inverse reconstructs every pre-addition source without rewriting old seals
+ok 1 - the separate exact inverse reconstructs every pre-addition source without rewriting old seals
+  ---
+  duration_ms: 68.457541
+  type: 'test'
+  ...
+# Subtest: seat grouping preserves both complete gate file sets and every focused subset
+ok 2 - seat grouping preserves both complete gate file sets and every focused subset
+  ---
+  duration_ms: 18.611833
+  type: 'test'
+  ...
+# Subtest: test-only inverse restores exact original bytes and leaves all unknown changes untouched
+ok 3 - test-only inverse restores exact original bytes and leaves all unknown changes untouched
+  ---
+  duration_ms: 530.304083
+  type: 'test'
+  ...
+# Subtest: real cached seat fixtures match fresh stable outputs, RNG and locks without sharing mutable state
+ok 4 - real cached seat fixtures match fresh stable outputs, RNG and locks without sharing mutable state
+  ---
+  duration_ms: 54.427958
+  type: 'test'
+  ...
+# Subtest: all 33 profiles and 134 layer maps equal the reviewed pre-move data, including order
+ok 5 - all 33 profiles and 134 layer maps equal the reviewed pre-move data, including order
+  ---
+  duration_ms: 1556.774834
+  type: 'test'
+  ...
+# Subtest: source registry cannot be mutated and each layer consumer gets a fresh map
+ok 6 - source registry cannot be mutated and each layer consumer gets a fresh map
+  ---
+  duration_ms: 0.318084
+  type: 'test'
+  ...
+# Subtest: guard rejects missing owners, foreign references, changed variants and duplicated shared strings
+ok 7 - guard rejects missing owners, foreign references, changed variants and duplicated shared strings
+  ---
+  duration_ms: 12.897083
+  type: 'test'
+  ...
+# Subtest: semantic is authoritative even when text suggests different tags; no semantic container escapes
+ok 8 - semantic is authoritative even when text suggests different tags; no semantic container escapes
+  ---
+  duration_ms: 2.365041
+  type: 'test'
+  ...
+# Subtest: an explicitly empty semantic object does not invoke inference, while absent semantic retains legacy inference
+ok 9 - an explicitly empty semantic object does not invoke inference, while absent semantic retains legacy inference
+  ---
+  duration_ms: 0.484375
+  type: 'test'
+  ...
+# Subtest: explicit source fields and ordered tag union keep the previous overwrite contract
+ok 10 - explicit source fields and ordered tag union keep the previous overwrite contract
+  ---
+  duration_ms: 0.439042
+  type: 'test'
+  ...
+# Subtest: formal semantic covers all records, including Negative without tags, and leaves the cache isolated
+ok 11 - formal semantic covers all records, including Negative without tags, and leaves the cache isolated
+  ---
+  duration_ms: 44.151458
+  type: 'test'
+  ...
+# Subtest: invalid explicit semantic is rejected instead of silently inferring
+ok 12 - invalid explicit semantic is rejected instead of silently inferring
+  ---
+  duration_ms: 0.763333
+  type: 'test'
+  ...
+# Subtest: A catalog snapshots preserve ordered IDs, aliases and complete compiled metadata
+ok 13 - A catalog snapshots preserve ordered IDs, aliases and complete compiled metadata
+  ---
+  duration_ms: 2084.183584
+  type: 'test'
+  ...
+# Subtest: test export captures pre-postprocessing inference once and isolates supplied data and default cache
+ok 14 - test export captures pre-postprocessing inference once and isolates supplied data and default cache
+  ---
+  duration_ms: 97.523041
+  type: 'test'
+  ...
+# Subtest: snapshot builder rejects duplicate control and entry identities instead of overwriting
+ok 15 - snapshot builder rejects duplicate control and entry identities instead of overwriting
+  ---
+  duration_ms: 0.191875
+  type: 'test'
+  ...
+# Subtest: exact inverse preserves historical seals and rejects unknown sources
+ok 16 - exact inverse preserves historical seals and rejects unknown sources
+  ---
+  duration_ms: 603.368209
+  type: 'test'
+  ...
+# Subtest: 丹寧吊帶長褲: all seven outputs retain the approved source, with and without dark blue
+ok 17 - 丹寧吊帶長褲: all seven outputs retain the approved source, with and without dark blue
+  ---
+  duration_ms: 159.707459
+  type: 'test'
+  ...
+# Subtest: 丹寧吊帶長褲: conflicting rise is suppressed but saved choice restores on another garment
+ok 18 - 丹寧吊帶長褲: conflicting rise is suppressed but saved choice restores on another garment
+  ---
+  duration_ms: 57.163959
+  type: 'test'
+  ...
+# Subtest: 丹寧吊帶短褲: all seven outputs retain the approved source, with and without dark blue
+ok 19 - 丹寧吊帶短褲: all seven outputs retain the approved source, with and without dark blue
+  ---
+  duration_ms: 122.046333
+  type: 'test'
+  ...
+# Subtest: 丹寧吊帶短褲: conflicting rise is suppressed but saved choice restores on another garment
+ok 20 - 丹寧吊帶短褲: conflicting rise is suppressed but saved choice restores on another garment
+  ---
+  duration_ms: 35.565209
+  type: 'test'
+  ...
+# Subtest: duo colors and rise suppression follow the correct wearer
+ok 21 - duo colors and rise suppression follow the correct wearer
+  ---
+  duration_ms: 14.6645
+  type: 'test'
+  ...
+# Subtest: loose-strap inverse preserves the first overalls revision and rejects unknown bytes
+ok 22 - loose-strap inverse preserves the first overalls revision and rejects unknown bytes
+  ---
+  duration_ms: 492.21675
+  type: 'test'
+  ...
+# Subtest: MJ retains ordinary top and footwear grammar beside the atomic overalls phrase
+ok 23 - MJ retains ordinary top and footwear grammar beside the atomic overalls phrase
+  ---
+  duration_ms: 6.329709
+  type: 'test'
+  ...
+# Subtest: every bottom color remains attached to each overalls item in single and duo MJ
+ok 24 - every bottom color remains attached to each overalls item in single and duo MJ
+  ---
+  duration_ms: 362.018
+  type: 'test'
+  ...
+# Subtest: expression and pose controls expose the cleaned option sets
+ok 25 - expression and pose controls expose the cleaned option sets
+  ---
+  duration_ms: 20.051833
+  type: 'test'
+  ...
+# Subtest: subject count control only exposes single and duo modes
+ok 26 - subject count control only exposes single and duo modes
+  ---
+  duration_ms: 0.0875
+  type: 'test'
+  ...
+# Subtest: legacy reference subject locks normalize to single subject mode without reference guidance
+ok 27 - legacy reference subject locks normalize to single subject mode without reference guidance
+  ---
+  duration_ms: 52.140083
+  type: 'test'
+  ...
+# Subtest: selfie shooting actions use hand or prop controls instead of special actions
+ok 28 - selfie shooting actions use hand or prop controls instead of special actions
+  ---
+  duration_ms: 0.148709
+  type: 'test'
+  ...
+# Subtest: duo action scenario and posture base controls expose natural two-layer options
+ok 29 - duo action scenario and posture base controls expose natural two-layer options
+  ---
+  duration_ms: 0.262458
+  type: 'test'
+  ...
+# Subtest: every duo action scenario renders without model-selection control language
+ok 30 - every duo action scenario renders without model-selection control language
+  ---
+  duration_ms: 127.894917
+  type: 'test'
+  ...
+# Subtest: duo expression exposes shared relationship mood options
+ok 31 - duo expression exposes shared relationship mood options
+  ---
+  duration_ms: 0.3255
+  type: 'test'
+  ...
+# Subtest: duo expression English names the intended gaze target for every visible relationship cue
+ok 32 - duo expression English names the intended gaze target for every visible relationship cue
+  ---
+  duration_ms: 0.342084
+  type: 'test'
+  ...
+# Subtest: unlocked duo expression sampling excludes hidden legacy cues
+ok 33 - unlocked duo expression sampling excludes hidden legacy cues
+  ---
+  duration_ms: 9.24725
+  type: 'test'
+  ...
+# Subtest: duo expression outputs one shared relationship cue and ignores legacy per-person expressions
+ok 34 - duo expression outputs one shared relationship cue and ignores legacy per-person expressions
+  ---
+  duration_ms: 10.750458
+  type: 'test'
+  ...
+# Subtest: duo sensual interaction outputs as one layout cue without legacy interaction lines
+ok 35 - duo sensual interaction outputs as one layout cue without legacy interaction lines
+  ---
+  duration_ms: 12.688833
+  type: 'test'
+  ...
+# Subtest: duo intimate close uses the previous lighter sensual contact level
+ok 36 - duo intimate close uses the previous lighter sensual contact level
+  ---
+  duration_ms: 9.224291
+  type: 'test'
+  ...
+# Subtest: Gpt duo pose and composition uses action scenario with posture base and natural crop freedom
+ok 37 - Gpt duo pose and composition uses action scenario with posture base and natural crop freedom
+  ---
+  duration_ms: 10.011709
+  type: 'test'
+  ...
+# Subtest: legacy duo interaction locks migrate into the merged duo layout control
+ok 38 - legacy duo interaction locks migrate into the merged duo layout control
+  ---
+  duration_ms: 0.703459
+  type: 'test'
+  ...
+# Subtest: selfie hand poses compose with pose composer body controls
+ok 39 - selfie hand poses compose with pose composer body controls
+  ---
+  duration_ms: 26.911917
+  type: 'test'
+  ...
+# Subtest: chest-up framing preserves only visible pose composer directives
+ok 40 - chest-up framing preserves only visible pose composer directives
+  ---
+  duration_ms: 13.646584
+  type: 'test'
+  ...
+# Subtest: locked expression remains independent from the previous orbit
+ok 41 - locked expression remains independent from the previous orbit
+  ---
+  duration_ms: 9.302792
+  type: 'test'
+  ...
+# Subtest: deprecated non-social special actions migrate away from the body pose slot
+ok 42 - deprecated non-social special actions migrate away from the body pose slot
+  ---
+  duration_ms: 9.780959
+  type: 'test'
+  ...
+# Subtest: legacy expression and selfie pose locks migrate into cleaned options
+ok 43 - legacy expression and selfie pose locks migrate into cleaned options
+  ---
+  duration_ms: 2.537667
+  type: 'test'
+  ...
+1..43
+# tests 43
+# suites 0
+# pass 43
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4093.031834

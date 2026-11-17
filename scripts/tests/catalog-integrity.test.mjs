@@ -5,11 +5,26 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { controlIssues, applyAllowlist, validateActions, checkFieldMapping, checkDeclaredPaths, validatePoseMetadata } from '../lib/catalogIntegrity.mjs';
+import { controlIssues, applyAllowlist, validateActions, checkFieldMapping, checkDeclaredPaths, validatePoseMetadata, gazeHeadReferenceIsValid } from '../lib/catalogIntegrity.mjs';
 import { assertOutputPath, rehearse, publishRehearsal } from '../migrations/migrate_catalog_to_json.mjs';
 const root = resolve(fileURLToPath(new URL('../..', import.meta.url)));
 const temp = () => mkdtempSync(join(tmpdir(), 'catalog-b-test-'));
 const exception = { code: 'LEGACY_ID_AMBIGUOUS', itemKey: 'one:old', reason: 'fixture known history', decisionRef: 'fixture decision' };
+
+test('gaze references require an existing legacy head or the same complete reviewed authored source', () => {
+  const heads = new Set(['old-head']);
+  const option = { id: 'new-gaze', en: 'head turned slightly, eyes glancing toward the camera',
+    meta: { authoredGaze: true, randomEligible: false, tags: ['requires_face_visibility'] } };
+  assert.ok(gazeHeadReferenceIsValid(option, 'old-head', heads, null));
+  assert.ok(gazeHeadReferenceIsValid(option, option.id, heads, option));
+  assert.equal(gazeHeadReferenceIsValid(option, 'missing-head', heads, option), false);
+  assert.equal(gazeHeadReferenceIsValid(option, option.id, heads, { ...option }), false);
+  for (const broken of [{ ...option, en: '' }, { ...option, meta: {} },
+    { ...option, meta: { ...option.meta, randomEligible: true } },
+    { ...option, meta: { ...option.meta, tags: [] } }]) {
+    assert.equal(gazeHeadReferenceIsValid(broken, broken.id, heads, broken), false);
+  }
+});
 
 test('aliases are scoped by actual control, self aliases legal, cross-category owners conflict', () => {
   const options = [{ id: 'first', legacyIds: ['first', 'old'] }, { id: 'second', legacyIds: ['old'] }];
