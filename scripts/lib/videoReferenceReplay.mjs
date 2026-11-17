@@ -2,10 +2,12 @@
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
+import { denimOverallsHistoricalPaths, preDenimOverallsSource } from './denimOverallsHistoricalReplay.mjs';
 const manifest = JSON.parse(readFileSync(new URL('./videoReferenceReplay.json', import.meta.url)));
 const hash = value => createHash('sha256').update(value).digest('hex');
-export const videoReferenceHistoricalPaths = manifest.files.map(file => file.path);
+export const videoReferenceHistoricalPaths = [...new Set([...denimOverallsHistoricalPaths, ...manifest.files.map(file => file.path)])];
 export function preVideoReferenceSource(path, source) {
+  source = preDenimOverallsSource(path, source);
   const review = manifest.files.find(file => file.path === path);
   if (!review || hash(source) !== review.afterHash) return source;
   assert.equal(hash(review.beforeSource), review.beforeHash, 'Reference video inverse corrupt');

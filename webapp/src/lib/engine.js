@@ -15,6 +15,8 @@ import { captureEligibility, resolveCapture, normalizeCaptureProfile, captureEff
 import { registerReferencePersonPreview, REFERENCE_PERSON_INSTRUCTION } from './referencePersonPreview.js';
 import { MIDJOURNEY_CARD_ITEM_NAMES } from './engine/midjourneyCardItemNames.js';
 import { bottomRiseConflict, resolveBottomRiseCompatibility } from './engine/bottomRiseCompatibility.js';
+import { isLowSlungDenimOveralls, LOW_SLUNG_OVERALLS_WEARING } from './engine/denimOveralls.js';
+import { splitNaturalWardrobeItems } from './engine/midjourneyNaturalPrompt.js';
 import { extractMidjourneyItemNames, midjourneyItemName, naturalIdentity, naturalSentence, naturalWardrobeSentence, renderNaturalMidjourney, uniqueNames } from './engine/midjourneyNaturalPrompt.js';
 import { midjourneyBodyDescription } from './engine/midjourneyBodyDescriptions.js';
 import { SPECIFIED_ACTION_OPTIONS, getSpecifiedAction, getSpecifiedActionEffectiveLocks, resolveRandomSpecifiedAction, specifiedActionSupportsCamera } from './engine/specifiedActions.js';
@@ -15823,7 +15825,10 @@ function buildNaturalMjWardrobe(promptModel, role = '') {
   const addItem = (item, wardrobeRole) => {
     if (item && !isNoneLikeItem(item) && !(isCharacterProfileSubject(context.subject) && isCharacterCardLayerSlot(item))
       && shouldProjectWardrobeRole(projection, wardrobeRole, item.en)) {
-      names.push(midjourneyItemName(item));
+      const colorSuffix = item.meta?.wardrobeRole === 'a' ? 'A' : item.meta?.wardrobeRole === 'b' ? 'B' : '';
+      names.push(isLowSlungDenimOveralls(item)
+        ? `${composeWearableColorPrompt(item.en.replace(` ${LOW_SLUNG_OVERALLS_WEARING}`, ''), wardrobeColors[`bottom${colorSuffix}Color`]).replace(/,\s*/g, ' ')} ${LOW_SLUNG_OVERALLS_WEARING}`
+        : midjourneyItemName(item));
       if (item.meta?.underlayer) names.push(midjourneyItemName(item.meta.underlayer.item));
       if (wardrobeRole === 'legwear' && /lace garter belt/i.test(item.en)) names.push('lace garter belt');
     }
@@ -15957,7 +15962,7 @@ function renderMainNaturalMidjourney(promptModel, sceneMirrorReflectionText) {
   const duo = context.subject.count === 2 && !isSpecialSubject(context.subject);
   let clothing;
   if (duo) {
-    const roles = ['a', 'b'].map(role => buildNaturalMjWardrobe(promptModel, role).split(', ').filter(Boolean));
+    const roles = ['a', 'b'].map(role => splitNaturalWardrobeItems(buildNaturalMjWardrobe(promptModel, role)));
     const shared = roles[0].filter(name => roles[1].includes(name));
     clothing = [...roles.map((names, index) => naturalWardrobeSentence(
       names.filter(name => !shared.includes(name)).join(', '), `The ${index === 0 ? 'first' : 'second'} woman`)),

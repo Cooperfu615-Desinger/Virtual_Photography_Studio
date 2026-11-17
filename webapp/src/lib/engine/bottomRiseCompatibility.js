@@ -1,6 +1,11 @@
+import { isLowSlungDenimOveralls } from './denimOveralls.js';
+
 const isUnfastenedFly = item => /(?:^|:)unbuttoned-slightly-unzipped(?::[ab])?$/.test(item?.id || '');
 
 export function bottomRiseConflict(pants, rise) {
+  if (isLowSlungDenimOveralls(pants) && /(?:^|:)(?:high-rise|mid-rise)(?::[ab])?$/.test(rise?.id || '')) {
+    return '此款固定低掛腰間，不適用高腰或正常腰線。';
+  }
   return isUnfastenedFly(rise) && pants?.meta?.bottomWaist?.supportsUnfastenedFly === false
     ? '此款採鬆緊抽繩腰頭，不適用解扣與拉鏈微開。' : '';
 }
@@ -14,7 +19,7 @@ export function bottomRiseControlContext(controls, locks, suffix = '') {
 // and restoration when switching back to a compatible garment.
 export function resolveBottomRiseCompatibility(pieces) {
   return pieces.map(item => {
-    if (!isUnfastenedFly(item)) return item;
+    if (!item.id?.startsWith('wardrobe:下身腰線-bottom-rise:')) return item;
     const role = item.meta?.wardrobeRole || '';
     const pants = pieces.find(p => p.id?.startsWith('wardrobe:褲裝-pants:') && (p.meta?.wardrobeRole || '') === role);
     return bottomRiseConflict(pants, item) ? { ...item, en: '', meta: { ...item.meta, suppressedBottomRise: true } } : item;

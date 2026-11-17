@@ -15,6 +15,24 @@ COMPANION_ORBIT = 'camera:拍攝方位-orbit-angle:companion-view'
 def before_new_outfit(result):
     # The C2 report seals an older catalog; keep its original rows and counts.
     result = copy.deepcopy(result)
+    # Approved 2026-11-17 wording revision. Preserve the frozen C2 report;
+    # reverse only these exact reviewed sources in this historical comparison.
+    for row in result['rows']:
+        sources = {
+            'wardrobe:褲裝-pants:丹寧吊帶長褲:25': (
+                'denim overalls worn low on the hips, one strap unfastened',
+                'denim overalls, full-length wide-legged silhouette, casual utility straps, relaxed vintage styling'),
+            'wardrobe:褲裝-pants:丹寧吊帶短褲:26': (
+                'denim short overalls worn low on the hips, one strap unfastened',
+                'denim short overalls, casual bib-front silhouette, youthful utility styling, relaxed summer mood'),
+        }.get(row['id'])
+        if sources:
+            current, historical = sources
+            assert row['sourceSha256'] in (c.digest(current), c.digest(historical))
+            if row['sourceSha256'] == c.digest(current):
+                assert row['words'] == c.word_count(current)
+                assert row['status'] == 'within'
+                row.update(words=c.word_count(historical), sourceSha256=c.digest(historical))
     for added_id in [NEW_OUTFIT, COMPANION_ORBIT, 'locations:生活感室內-indoor-lifestyle:indoor-lawson-store', 'locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront']:
         added = [row for row in result['rows'] if row['id'] == added_id]
         if added:

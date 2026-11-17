@@ -476,8 +476,8 @@
         "wardrobe:褲裝-pants:丹寧吊帶長褲:25"
       ],
       "zh": "丹寧吊帶長褲",
-      "en": "denim overalls, full-length wide-legged silhouette, casual utility straps, relaxed vintage styling",
-      "desc": "以丹寧吊帶與長褲輪廓為主的休閒單品，帶有復古、工裝與青春感。",
+      "en": "denim overalls worn low on the hips, one strap unfastened",
+      "desc": "丹寧吊帶長褲低掛於髖部，單邊吊帶解開；下身配色套用於整件吊帶褲。",
       "meta": {
         "semantic": {
           "family": "retro",
@@ -487,7 +487,10 @@
             "edgy"
           ]
         }
-      }
+      },
+      "legacyPromptAliases": [
+        "denim overalls, full-length wide-legged silhouette, casual utility straps, relaxed vintage styling"
+      ]
     },
     {
       "id": "wardrobe:褲裝-pants:丹寧吊帶短褲:26",
@@ -495,8 +498,8 @@
         "wardrobe:褲裝-pants:丹寧吊帶短褲:26"
       ],
       "zh": "丹寧吊帶短褲",
-      "en": "denim short overalls, casual bib-front silhouette, youthful utility styling, relaxed summer mood",
-      "desc": "以丹寧吊帶短褲為核心的夏日單品，整體更輕鬆、可愛，也更生活化。",
+      "en": "denim short overalls worn low on the hips, one strap unfastened",
+      "desc": "丹寧吊帶短褲低掛於髖部，單邊吊帶解開；下身配色套用於整件吊帶褲。",
       "meta": {
         "semantic": {
           "family": "neutral",
@@ -505,7 +508,10 @@
             "pants"
           ]
         }
-      }
+      },
+      "legacyPromptAliases": [
+        "denim short overalls, casual bib-front silhouette, youthful utility styling, relaxed summer mood"
+      ]
     },
     {
       "id": "wardrobe:褲裝-pants:喇叭褲:27",

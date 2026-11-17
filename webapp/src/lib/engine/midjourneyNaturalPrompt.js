@@ -1,4 +1,5 @@
 import { MIDJOURNEY_ITEM_NAMES } from './midjourneyItemNames.js';
+import { LOW_SLUNG_OVERALLS_END } from './denimOveralls.js';
 
 const clean = value => String(value || '').replace(/\s+/g, ' ').replace(/^[,\s]+|[,\s.]+$/g, '').trim();
 export const naturalSentence = value => {
@@ -65,12 +66,22 @@ export function midjourneyItemName(item) {
   return MIDJOURNEY_ITEM_NAMES[id] || extractMidjourneyItemNames(item.en).join(', ');
 }
 
+export function splitNaturalWardrobeItems(value) {
+  // The reviewed wearing clause belongs to its garment, not a separate item.
+  return String(value || '').split(', ').filter(Boolean).reduce((items, item) => {
+    if (item === 'one strap unfastened' && LOW_SLUNG_OVERALLS_END.test(`${items.at(-1)}, ${item}`)) {
+      items[items.length - 1] += `, ${item}`;
+    } else items.push(item);
+    return items;
+  }, []);
+}
+
 export function naturalWardrobeSentence(value, subject = 'She') {
-  const items = String(value || '').split(', ').filter(Boolean);
+  const items = splitNaturalWardrobeItems(value);
   const barefoot = items.includes('bare feet');
   const names = items.filter(name => name !== 'bare feet').map(name =>
     /\b(?:pants|trousers|jeans|shorts|bottoms|briefs|leggings|tights|pantyhose|stockings|socks|shoes|boots|heels|pumps|sandals|sneakers|loafers|flats|glasses|eyeglasses|sunglasses|headphones|earphones|earbuds|earrings|bracelets|bangles|rings|necklaces|gauntlets|hoops|warmers|overalls|pasties|cuffs|chainmail|armor|tape)\b$/i.test(name)
-      ? name : `${/^[aeiou]/i.test(name) ? 'an' : 'a'} ${name}`);
+      || LOW_SLUNG_OVERALLS_END.test(name) ? name : `${/^[aeiou]/i.test(name) ? 'an' : 'a'} ${name}`);
   const list = names.length < 2 ? names[0] : `${names.slice(0, -1).join(', ')} and ${names.at(-1)}`;
   const plural = subject === 'Both';
   return [list ? naturalSentence(`${subject} ${plural ? 'wear' : 'wears'} ${list}`) : '',
