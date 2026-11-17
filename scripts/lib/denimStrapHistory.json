@@ -1,0 +1,335 @@
+{
+  "base": "7baeb65735ec846c898044306b363fd597e93717",
+  "spec": "Docs/specs/denim-overalls-low-hips-v1.md",
+  "files": [
+    {
+      "path": "knowledge_base/catalog/Wardrobe/褲裝-pants.json",
+      "beforeHash": "f06127e7c3d2650cb17fb8066217020549c905e5deb8870640cfe86c99e42210",
+      "afterHash": "e19d2834ebef5d7f4fd0d96ac5fa012e4e3895a075afd537bd324579d6183484",
+      "edits": [
+        {
+          "line": 478,
+          "after": [
+            "      \"en\": \"denim overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally\",\n",
+            "      \"desc\": \"丹寧吊帶長褲低掛於髖部，一條肩帶保持扣好，另一條解開並自然垂下；下身配色套用於整件吊帶褲。\",\n"
+          ],
+          "before": [
+            "      \"en\": \"denim overalls worn low on the hips, one strap unfastened\",\n",
+            "      \"desc\": \"丹寧吊帶長褲低掛於髖部，單邊吊帶解開；下身配色套用於整件吊帶褲。\",\n"
+          ]
+        },
+        {
+          "line": 491,
+          "after": [
+            "        \"denim overalls, full-length wide-legged silhouette, casual utility straps, relaxed vintage styling\",\n",
+            "        \"denim overalls worn low on the hips, one strap unfastened\"\n"
+          ],
+          "before": [
+            "        \"denim overalls, full-length wide-legged silhouette, casual utility straps, relaxed vintage styling\"\n"
+          ]
+        },
+        {
+          "line": 501,
+          "after": [
+            "      \"en\": \"denim short overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally\",\n",
+            "      \"desc\": \"丹寧吊帶短褲低掛於髖部，一條肩帶保持扣好，另一條解開並自然垂下；下身配色套用於整件吊帶褲。\",\n"
+          ],
+          "before": [
+            "      \"en\": \"denim short overalls worn low on the hips, one strap unfastened\",\n",
+            "      \"desc\": \"丹寧吊帶短褲低掛於髖部，單邊吊帶解開；下身配色套用於整件吊帶褲。\",\n"
+          ]
+        },
+        {
+          "line": 513,
+          "after": [
+            "        \"denim short overalls, casual bib-front silhouette, youthful utility styling, relaxed summer mood\",\n",
+            "        \"denim short overalls worn low on the hips, one strap unfastened\"\n"
+          ],
+          "before": [
+            "        \"denim short overalls, casual bib-front silhouette, youthful utility styling, relaxed summer mood\"\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/wardrobe_and_styling.md",
+      "beforeHash": "2a1abcf94998bd78521011304b8a7fd5650f8f5a830f07bbd5da06b9e6467828",
+      "afterHash": "548e9e919b90fd3916938b9cafd6fc8c23fc5afad2f0ba1032d53c195d1c0baf",
+      "edits": [
+        {
+          "line": 282,
+          "after": [
+            "| **褲裝 (Pants)** | 丹寧吊帶長褲 | `denim overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally` | 丹寧吊帶長褲低掛於髖部，一條肩帶保持扣好，另一條解開並自然垂下；下身配色套用於整件吊帶褲。 |\n",
+            "| **褲裝 (Pants)** | 丹寧吊帶短褲 | `denim short overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally` | 丹寧吊帶短褲低掛於髖部，一條肩帶保持扣好，另一條解開並自然垂下；下身配色套用於整件吊帶褲。 |\n"
+          ],
+          "before": [
+            "| **褲裝 (Pants)** | 丹寧吊帶長褲 | `denim overalls worn low on the hips, one strap unfastened` | 丹寧吊帶長褲低掛於髖部，單邊吊帶解開；下身配色套用於整件吊帶褲。 |\n",
+            "| **褲裝 (Pants)** | 丹寧吊帶短褲 | `denim short overalls worn low on the hips, one strap unfastened` | 丹寧吊帶短褲低掛於髖部，單邊吊帶解開；下身配色套用於整件吊帶褲。 |\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/data/database.json",
+      "beforeHash": "55501f165bd8d824e6b367bec51f1bff018d749537c34134860b873ea5b1e7b3",
+      "afterHash": "0d7b2b1976dafc28c62102be8c4b1dc1bc3e19a72a7f98837735dd44191c27bc",
+      "edits": [
+        {
+          "line": 6959,
+          "after": [
+            "        \"en\": \"denim overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally\",\n",
+            "        \"desc\": \"丹寧吊帶長褲低掛於髖部，一條肩帶保持扣好，另一條解開並自然垂下；下身配色套用於整件吊帶褲。\",\n"
+          ],
+          "before": [
+            "        \"en\": \"denim overalls worn low on the hips, one strap unfastened\",\n",
+            "        \"desc\": \"丹寧吊帶長褲低掛於髖部，單邊吊帶解開；下身配色套用於整件吊帶褲。\",\n"
+          ]
+        },
+        {
+          "line": 6972,
+          "after": [
+            "          \"denim overalls, full-length wide-legged silhouette, casual utility straps, relaxed vintage styling\",\n",
+            "          \"denim overalls worn low on the hips, one strap unfastened\"\n"
+          ],
+          "before": [
+            "          \"denim overalls, full-length wide-legged silhouette, casual utility straps, relaxed vintage styling\"\n"
+          ]
+        },
+        {
+          "line": 6982,
+          "after": [
+            "        \"en\": \"denim short overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally\",\n",
+            "        \"desc\": \"丹寧吊帶短褲低掛於髖部，一條肩帶保持扣好，另一條解開並自然垂下；下身配色套用於整件吊帶褲。\",\n"
+          ],
+          "before": [
+            "        \"en\": \"denim short overalls worn low on the hips, one strap unfastened\",\n",
+            "        \"desc\": \"丹寧吊帶短褲低掛於髖部，單邊吊帶解開；下身配色套用於整件吊帶褲。\",\n"
+          ]
+        },
+        {
+          "line": 6994,
+          "after": [
+            "          \"denim short overalls, casual bib-front silhouette, youthful utility styling, relaxed summer mood\",\n",
+            "          \"denim short overalls worn low on the hips, one strap unfastened\"\n"
+          ],
+          "before": [
+            "          \"denim short overalls, casual bib-front silhouette, youthful utility styling, relaxed summer mood\"\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/denimOveralls.js",
+      "beforeHash": "5947b9ce1ec582debf4e72acb1b56653579fad3618318e0a4d9d27758a25a345",
+      "afterHash": "8f3abfffd3fd0212b217393f32cac66eb9cac245578ea278e662d7b88f3429d1",
+      "edits": [
+        {
+          "line": 3,
+          "after": [
+            "  'wardrobe:褲裝-pants:丹寧吊帶長褲:25': 'denim overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally',\n",
+            "  'wardrobe:褲裝-pants:丹寧吊帶短褲:26': 'denim short overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally',\n"
+          ],
+          "before": [
+            "  'wardrobe:褲裝-pants:丹寧吊帶長褲:25': 'denim overalls worn low on the hips, one strap unfastened',\n",
+            "  'wardrobe:褲裝-pants:丹寧吊帶短褲:26': 'denim short overalls worn low on the hips, one strap unfastened',\n"
+          ]
+        },
+        {
+          "line": 12,
+          "after": [
+            "export const LOW_SLUNG_OVERALLS_WEARING = 'worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally';\n",
+            "export const LOW_SLUNG_OVERALLS_END = /\\bdenim (?:short )?overalls(?: (?:finished in|patterned with) [^,]+)? worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally$/;\n"
+          ],
+          "before": [
+            "export const LOW_SLUNG_OVERALLS_WEARING = 'worn low on the hips, one strap unfastened';\n",
+            "export const LOW_SLUNG_OVERALLS_END = /\\bdenim (?:short )?overalls(?: (?:finished in|patterned with) [^,]+)? worn low on the hips, one strap unfastened$/;\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/midjourneyNaturalPrompt.js",
+      "beforeHash": "1dfe6f885fdb4b75892fe16f9161edc537898552a2a07140bac19c01a3ac4748",
+      "afterHash": "4a7fa4c6ef78bbe6a53bb31e5a8ba9be449e0ce03700c1185609686f6066c7e6",
+      "edits": [
+        {
+          "line": 71,
+          "after": [
+            "    if (item === 'one shoulder strap fastened and the other unfastened and hanging down naturally' && LOW_SLUNG_OVERALLS_END.test(`${items.at(-1)}, ${item}`)) {\n"
+          ],
+          "before": [
+            "    if (item === 'one strap unfastened' && LOW_SLUNG_OVERALLS_END.test(`${items.at(-1)}, ${item}`)) {\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/denimOveralls.test.js",
+      "beforeHash": "09f1de0ffa206a575d9e33fcde842b1fb09f3cbd31ab3215f37cc70cdb6def4c",
+      "afterHash": "8b7c859886e522812f89e1339f8b93ff356243a81ac9ac6bc34ac7174bc98deb",
+      "edits": [
+        {
+          "line": 8,
+          "after": [
+            "import strapHistory from '../../../../scripts/lib/denimStrapHistory.json' with { type: 'json' };\n",
+            "import { preDenimStrapSource } from '../../../../scripts/lib/denimStrapHistoricalReplay.mjs';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 30,
+          "after": [
+            "    const current = preDenimStrapSource(file.path, readFileSync(new URL('../../../../' + file.path, import.meta.url)));\n"
+          ],
+          "before": [
+            "    const current = readFileSync(new URL('../../../../' + file.path, import.meta.url));\n"
+          ]
+        },
+        {
+          "line": 47,
+          "after": [
+            "      const source = `${color === '深藍色' ? 'dark blue ' : ''}${noun} worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally`;\n"
+          ],
+          "before": [
+            "      const source = `${color === '深藍色' ? 'dark blue ' : ''}${noun} worn low on the hips, one strap unfastened`;\n"
+          ]
+        },
+        {
+          "line": 55,
+          "after": [
+            "      const previousPrompt = r.grokPrompt.replace(source, `${noun} worn low on the hips, one strap unfastened`);\n",
+            "      assert.equal(parseLocksFromStandardPrompt(previousPrompt, controls).locks.pantsId, r.selection.pantsId);\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 88,
+          "after": [
+            "  assert.match(r.midjourneyPrompt, /The first woman wears dark blue denim overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally/);\n",
+            "  assert.match(r.midjourneyPrompt, /The second woman wears red denim short overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally/);\n"
+          ],
+          "before": [
+            "  assert.match(r.midjourneyPrompt, /The first woman wears dark blue denim overalls worn low on the hips, one strap unfastened/);\n",
+            "  assert.match(r.midjourneyPrompt, /The second woman wears red denim short overalls worn low on the hips, one strap unfastened/);\n"
+          ]
+        },
+        {
+          "line": 91,
+          "after": [
+            "});\n",
+            "\n",
+            "test('loose-strap inverse preserves the first overalls revision and rejects unknown bytes', () => {\n",
+            "  assert.equal(strapHistory.base, '7baeb65735ec846c898044306b363fd597e93717');\n",
+            "  for (const file of strapHistory.files) {\n",
+            "    const current = readFileSync(new URL('../../../../' + file.path, import.meta.url));\n",
+            "    const original = execFileSync('git', ['show', `${strapHistory.base}:${file.path}`], { maxBuffer: 16 * 1024 * 1024 });\n",
+            "    assert.equal(createHash('sha256').update(current).digest('hex'), file.afterHash, file.path);\n",
+            "    assert.deepEqual(preDenimStrapSource(file.path, current), original);\n",
+            "    assert.equal(preDenimStrapSource(file.path, current.toString()), original.toString());\n",
+            "    assert.equal(preDenimStrapSource(file.path, original), original);\n",
+            "    const unknown = Buffer.concat([current, Buffer.from('\\n// unreviewed\\n')]);\n",
+            "    assert.equal(preDenimStrapSource(file.path, unknown), unknown);\n",
+            "  }\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 110,
+          "after": [
+            "  assert.match(r.midjourneyPrompt, /She wears a short-sleeve top, denim overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally and/);\n"
+          ],
+          "before": [
+            "  assert.match(r.midjourneyPrompt, /She wears a short-sleeve top, denim overalls worn low on the hips, one strap unfastened and/);\n"
+          ]
+        },
+        {
+          "line": 117,
+          "after": [
+            "    assert.match(r.midjourneyPrompt, /She wears .*denim (?:short )?overalls.* worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally\\./);\n"
+          ],
+          "before": [
+            "    assert.match(r.midjourneyPrompt, /She wears .*denim (?:short )?overalls.* worn low on the hips, one strap unfastened\\./);\n"
+          ]
+        },
+        {
+          "line": 122,
+          "after": [
+            "  assert.match(duo.midjourneyPrompt, /The first woman wears denim overalls finished in mirror-chrome silver with a highly polished scene-reflective surface and crisp environment reflections worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally\\./);\n",
+            "  assert.match(duo.midjourneyPrompt, /The second woman wears denim short overalls patterned with bold multicolored horizontal stripes wide stripe bands and clearly separated random colors worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally\\./);\n"
+          ],
+          "before": [
+            "  assert.match(duo.midjourneyPrompt, /The first woman wears denim overalls finished in mirror-chrome silver with a highly polished scene-reflective surface and crisp environment reflections worn low on the hips, one strap unfastened\\./);\n",
+            "  assert.match(duo.midjourneyPrompt, /The second woman wears denim short overalls patterned with bold multicolored horizontal stripes wide stripe bands and clearly separated random colors worn low on the hips, one strap unfastened\\./);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "scripts/tests/test_c2_rendering_classification.py",
+      "beforeHash": "a69f3e5942077a1313b37b25b9d0c3d1fc69f182687cff7738667a588af79995",
+      "afterHash": "37212db3128322f4d71c7ddb148cf2c7c0582a60e07acb86322ebb08e80fd76f",
+      "edits": [
+        {
+          "line": 22,
+          "after": [
+            "                'denim overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally',\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 26,
+          "after": [
+            "                'denim short overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally',\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 31,
+          "after": [
+            "            current, previous, historical = sources\n",
+            "            assert row['sourceSha256'] in tuple(c.digest(source) for source in sources)\n",
+            "            if row['sourceSha256'] != c.digest(historical):\n",
+            "                effective = current if row['sourceSha256'] == c.digest(current) else previous\n",
+            "                assert row['words'] == c.word_count(effective)\n"
+          ],
+          "before": [
+            "            current, historical = sources\n",
+            "            assert row['sourceSha256'] in (c.digest(current), c.digest(historical))\n",
+            "            if row['sourceSha256'] == c.digest(current):\n",
+            "                assert row['words'] == c.word_count(current)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "scripts/lib/videoReferenceReplay.mjs",
+      "beforeHash": "1226513e5cf53728b0cb40037851ab2dcc3012bd6eec5f0a70a97545ed35e9b6",
+      "afterHash": "102a5cd409eec172fbdb79ea3ce4c1ce69e44c7d9852585869a805bfc77adc76",
+      "edits": [
+        {
+          "line": 5,
+          "after": [
+            "import { denimStrapHistoricalPaths, preDenimStrapSource } from './denimStrapHistoricalReplay.mjs';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 8,
+          "after": [
+            "export const videoReferenceHistoricalPaths = [...new Set([...denimStrapHistoricalPaths, ...denimOverallsHistoricalPaths, ...manifest.files.map(file => file.path)])];\n"
+          ],
+          "before": [
+            "export const videoReferenceHistoricalPaths = [...new Set([...denimOverallsHistoricalPaths, ...manifest.files.map(file => file.path)])];\n"
+          ]
+        },
+        {
+          "line": 10,
+          "after": [
+            "  source = preDenimStrapSource(path, source);\n"
+          ],
+          "before": []
+        }
+      ]
+    }
+  ]
+}

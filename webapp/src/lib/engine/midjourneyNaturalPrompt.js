@@ -69,7 +69,7 @@ export function midjourneyItemName(item) {
 export function splitNaturalWardrobeItems(value) {
   // The reviewed wearing clause belongs to its garment, not a separate item.
   return String(value || '').split(', ').filter(Boolean).reduce((items, item) => {
-    if (item === 'one strap unfastened' && LOW_SLUNG_OVERALLS_END.test(`${items.at(-1)}, ${item}`)) {
+    if (item === 'one shoulder strap fastened and the other unfastened and hanging down naturally' && LOW_SLUNG_OVERALLS_END.test(`${items.at(-1)}, ${item}`)) {
       items[items.length - 1] += `, ${item}`;
     } else items.push(item);
     return items;

@@ -20,17 +20,20 @@ def before_new_outfit(result):
     for row in result['rows']:
         sources = {
             'wardrobe:褲裝-pants:丹寧吊帶長褲:25': (
+                'denim overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally',
                 'denim overalls worn low on the hips, one strap unfastened',
                 'denim overalls, full-length wide-legged silhouette, casual utility straps, relaxed vintage styling'),
             'wardrobe:褲裝-pants:丹寧吊帶短褲:26': (
+                'denim short overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally',
                 'denim short overalls worn low on the hips, one strap unfastened',
                 'denim short overalls, casual bib-front silhouette, youthful utility styling, relaxed summer mood'),
         }.get(row['id'])
         if sources:
-            current, historical = sources
-            assert row['sourceSha256'] in (c.digest(current), c.digest(historical))
-            if row['sourceSha256'] == c.digest(current):
-                assert row['words'] == c.word_count(current)
+            current, previous, historical = sources
+            assert row['sourceSha256'] in tuple(c.digest(source) for source in sources)
+            if row['sourceSha256'] != c.digest(historical):
+                effective = current if row['sourceSha256'] == c.digest(current) else previous
+                assert row['words'] == c.word_count(effective)
                 assert row['status'] == 'within'
                 row.update(words=c.word_count(historical), sourceSha256=c.digest(historical))
     for added_id in [NEW_OUTFIT, COMPANION_ORBIT, 'locations:生活感室內-indoor-lifestyle:indoor-lawson-store', 'locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront']:

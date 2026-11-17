@@ -27,3 +27,13 @@ Catalog sync/check、Python schema/history、strict integrity、E 工具與完�
 ## 本批交付授權
 
 使用者已驗收本批並授權只提交及推送兩款吊帶褲來源、主 MJ 配色／穿法、腰線相容處理及必要測試文件；其他未提交內容保持原樣。上方未提交／未部署記錄為本機驗證當下狀態，實際 Git 交付與部署結果以本次提交及其 Actions 執行紀錄為準。
+
+## 2026-11-17 肩帶垂落補充（本機，優先於上方第一版文字）
+
+使用者實際出圖後，要求補足解開肩帶的去向。兩款保留低掛穿法，肩帶句更新為 `one shoulder strap fastened and the other unfastened and hanging down naturally`：一條保持扣好，另一條解開並自然垂下。主 MJ 全文保留；配色、腰線相容及其他單品不變。
+
+本批基準與 `REGISTRY_BASE_COMMIT` 為 `7baeb65735ec846c898044306b363fd597e93717`。只更新兩筆來源、中文說明、追加第一版英文 alias 與對應 MJ 完整單品片語辨識；既有 alias 順序、ID、語意 family／tags 保持。唯讀語意建議已審閱：本批明確化衣物穿法，不改分類或抽樣語意。
+
+第一版來源／報告及歷史 seals 保留。另以 `denimStrapHistory.json` 記錄精確差異，在測試副本先還原到第一版再進入原歷史鏈。包含舊英文的收藏保持原文，新／舊全文均可辨識單品。本次未授權 commit／push／部署。
+
+補充交付授權：使用者已驗收肩帶垂落補充並授權 commit／push。本批只提交兩款肩帶描述及必要相容、測試與文件；其他未提交內容不納入。上段未授權狀態為實作驗證當時紀錄，交付與部署結果以本次提交及 Actions 紀錄為準。

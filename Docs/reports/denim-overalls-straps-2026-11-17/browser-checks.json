@@ -1,0 +1,80 @@
+[
+  {
+    "name": "desktop-overalls-conflict",
+    "width": 1440,
+    "scroll": 1440,
+    "broken": 0
+  },
+  {
+    "name": "desktop-Prompt 工作台",
+    "width": 1440,
+    "scroll": 1440,
+    "broken": 0
+  },
+  {
+    "name": "desktop-角色建模",
+    "width": 1440,
+    "scroll": 1440,
+    "broken": 0
+  },
+  {
+    "name": "desktop-場景建模",
+    "width": 1440,
+    "scroll": 1440,
+    "broken": 0
+  },
+  {
+    "name": "desktop-DLL_PIC Pro",
+    "width": 1440,
+    "scroll": 1440,
+    "broken": 0
+  },
+  {
+    "name": "desktop-DLL_VIDEO Pro",
+    "width": 1440,
+    "scroll": 1440,
+    "broken": 0
+  },
+  {
+    "name": "desktop-Saved Cards",
+    "width": 1440,
+    "scroll": 1440,
+    "broken": 0
+  },
+  {
+    "name": "mobile-Prompt 工作台",
+    "width": 390,
+    "scroll": 390,
+    "broken": 0
+  },
+  {
+    "name": "mobile-角色建模",
+    "width": 390,
+    "scroll": 390,
+    "broken": 0
+  },
+  {
+    "name": "mobile-場景建模",
+    "width": 390,
+    "scroll": 390,
+    "broken": 0
+  },
+  {
+    "name": "mobile-DLL_PIC Pro",
+    "width": 390,
+    "scroll": 390,
+    "broken": 0
+  },
+  {
+    "name": "mobile-DLL_VIDEO Pro",
+    "width": 390,
+    "scroll": 390,
+    "broken": 0
+  },
+  {
+    "name": "mobile-Saved Cards",
+    "width": 390,
+    "scroll": 390,
+    "broken": 0
+  }
+]
