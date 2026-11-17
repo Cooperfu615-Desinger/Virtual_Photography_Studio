@@ -1,0 +1,1353 @@
+{
+  "base": "fd3f3bb14e15ec556021791bdda71b8fe8d8731f",
+  "source": "Reviewed indoor seating tables; fixed tatami names from prose; later Lawson and adjustable-cat additions are explicit.",
+  "documents": {
+    "indoor-seating-v1.md": "49b2a03eef0de965502193e95f59eb06693c7c7ec69e2a931e4d4eb800f956d4",
+    "indoor-seating-scenes-v1.md": "9fb0e192a54ebae3aef2113b109aab58f2eb75df3201078c7f3b5ffddc09e283"
+  },
+  "outputIds": [
+    "gpt",
+    "grok",
+    "ai",
+    "nano-banana-2.1",
+    "chest-up-portrait",
+    "full-body-character",
+    "grok-imagine"
+  ],
+  "seats": {
+    "chair": [
+      "椅子",
+      "on a chair"
+    ],
+    "stool": [
+      "凳子",
+      "on a stool"
+    ],
+    "bench": [
+      "長椅",
+      "on a bench"
+    ],
+    "sofa": [
+      "沙發",
+      "on a sofa"
+    ],
+    "bed-edge": [
+      "床邊",
+      "on the edge of the bed"
+    ],
+    "bed-top": [
+      "床上",
+      "on the bed"
+    ],
+    "table": [
+      "桌子",
+      "on a table"
+    ],
+    "counter": [
+      "檯面",
+      "on a counter"
+    ],
+    "platform": [
+      "講台",
+      "on a platform"
+    ],
+    "step": [
+      "台階",
+      "on a step"
+    ],
+    "box": [
+      "箱子",
+      "on a box"
+    ],
+    "cushion": [
+      "坐墊",
+      "on a cushion"
+    ],
+    "mat": [
+      "墊子",
+      "on a mat"
+    ],
+    "floor": [
+      "地板",
+      "on the floor"
+    ]
+  },
+  "scenes": [
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-鏡面地板攝影棚:1",
+      "zh": "室內：鏡面地板攝影棚",
+      "seats": [
+        "floor",
+        "chair",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純潔白幕:2",
+      "zh": "室內：純潔白幕",
+      "seats": [
+        "floor",
+        "chair",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-深邃黑幕:3",
+      "zh": "室內：深邃黑幕",
+      "seats": [
+        "floor",
+        "chair",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-莫蘭迪灰背景:4",
+      "zh": "室內：莫蘭迪灰背景",
+      "seats": [
+        "floor",
+        "chair",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純藍背景:5",
+      "zh": "室內：純藍背景",
+      "seats": [
+        "floor",
+        "chair",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純橘背景:6",
+      "zh": "室內：純橘背景",
+      "seats": [
+        "floor",
+        "chair",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純紅背景:7",
+      "zh": "室內：純紅背景",
+      "seats": [
+        "floor",
+        "chair",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純黃背景:8",
+      "zh": "室內：純黃背景",
+      "seats": [
+        "floor",
+        "chair",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純紫背景:9",
+      "zh": "室內：純紫背景",
+      "seats": [
+        "floor",
+        "chair",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-純綠背景:10",
+      "zh": "室內：純綠背景",
+      "seats": [
+        "floor",
+        "chair",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-鮮豔撞色背景:11",
+      "zh": "室內：鮮豔撞色背景",
+      "seats": [
+        "floor",
+        "chair",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-漸層打光背景:12",
+      "zh": "室內：漸層打光背景",
+      "seats": [
+        "floor",
+        "chair",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-crt-電視牆攝影棚:13",
+      "zh": "室內：CRT 電視牆攝影棚",
+      "seats": [
+        "floor",
+        "chair",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:攝影棚與背景-studio-sets:室內-多色塊撞色背景:14",
+      "zh": "室內：多色塊撞色背景",
+      "seats": [
+        "floor",
+        "chair",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-精品飯店房間:0",
+      "zh": "室內：精品飯店房間",
+      "seats": [
+        "bed-edge",
+        "bed-top",
+        "chair"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-現代高樓公寓客廳:1",
+      "zh": "室內：現代高樓公寓客廳",
+      "seats": [
+        "sofa",
+        "chair",
+        "floor"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-夜間家庭派對:2",
+      "zh": "室內：夜間家庭派對",
+      "seats": [
+        "sofa",
+        "chair",
+        "step"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-古書二手書店:3",
+      "zh": "室內：古書二手書店",
+      "seats": [
+        "chair",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-y2k-復古房間:4",
+      "zh": "室內：Y2K 復古房間",
+      "seats": [
+        "bed-edge",
+        "bed-top",
+        "chair",
+        "table"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-英倫復古窗邊房間:5",
+      "zh": "室內：英倫復古窗邊房間",
+      "seats": [
+        "chair",
+        "bench"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-臥室窗邊:6",
+      "zh": "室內：臥室窗邊",
+      "seats": [
+        "bed-edge",
+        "bed-top",
+        "chair"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-白色書櫃落地窗臥室:7",
+      "zh": "室內：白色書櫃落地窗臥室",
+      "seats": [
+        "bed-edge",
+        "bed-top",
+        "chair"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-浴室鏡前-洗手台:8",
+      "zh": "室內：浴室鏡前 / 洗手台",
+      "seats": [
+        "counter",
+        "stool",
+        "floor"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-日本住宅使用感廚房:9",
+      "zh": "室內：日本住宅使用感廚房",
+      "seats": [
+        "chair",
+        "stool",
+        "counter"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-更衣室-試衣間:10",
+      "zh": "室內：更衣室 / 試衣間",
+      "seats": [
+        "bench",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-電梯內:11",
+      "zh": "室內：電梯內",
+      "seats": [
+        "floor",
+        "chair"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-復古美式-diner:12",
+      "zh": "室內：復古美式 Diner",
+      "seats": [
+        "bench",
+        "stool",
+        "chair"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-木造圖書館閱讀桌旁:13",
+      "zh": "室內：木造圖書館閱讀桌旁",
+      "seats": [
+        "chair",
+        "table"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-木造圖書館木窗邊:14",
+      "zh": "室內：木造圖書館木窗邊",
+      "seats": [
+        "chair",
+        "bench"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-木造圖書館書車旁:15",
+      "zh": "室內：木造圖書館書車旁",
+      "seats": [
+        "chair",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-木造圖書館借書台前:16",
+      "zh": "室內：木造圖書館借書台前",
+      "seats": [
+        "chair",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-倫敦老咖啡館角落:17",
+      "zh": "室內：倫敦老咖啡館角落",
+      "seats": [
+        "chair",
+        "sofa"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-英式小旅館房間:18",
+      "zh": "室內：英式小旅館房間",
+      "seats": [
+        "bed-edge",
+        "bed-top",
+        "chair"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-傳統酒吧二樓包廂:19",
+      "zh": "室內：傳統酒吧二樓包廂",
+      "seats": [
+        "bench",
+        "sofa",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-英式溫室-conservatory:20",
+      "zh": "室內：英式溫室 conservatory",
+      "seats": [
+        "chair",
+        "bench"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-黑膠唱片聆聽角:21",
+      "zh": "室內：黑膠唱片聆聽角",
+      "seats": [
+        "sofa",
+        "chair",
+        "floor"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-老式鋼琴房:22",
+      "zh": "室內：老式鋼琴房",
+      "seats": [
+        "bench",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-地下-live-house-後台:23",
+      "zh": "室內：地下 live house 後台",
+      "seats": [
+        "box",
+        "stool",
+        "chair"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-女高生房間:24",
+      "zh": "室內：女高生房間",
+      "seats": [
+        "bed-edge",
+        "bed-top",
+        "chair",
+        "table"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-日式和室:25",
+      "zh": "室內：日式和室",
+      "seats": [
+        "cushion",
+        "floor"
+      ],
+      "tatami": true,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-日本學校教室:26",
+      "zh": "室內：日本學校教室",
+      "seats": [
+        "chair",
+        "table",
+        "platform",
+        "floor"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-辦公室茶水間:27",
+      "zh": "室內：辦公室茶水間",
+      "seats": [
+        "chair",
+        "stool",
+        "counter"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-洗衣店洗衣機門前:28",
+      "zh": "室內：洗衣店洗衣機門前",
+      "seats": [
+        "bench",
+        "chair"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-洗衣店摺衣台旁:29",
+      "zh": "室內：洗衣店摺衣台旁",
+      "seats": [
+        "table",
+        "chair",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-洗衣店洗劑貨架前:30",
+      "zh": "室內：洗衣店洗劑貨架前",
+      "seats": [
+        "stool",
+        "chair"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-洗衣店角落塑膠椅旁:31",
+      "zh": "室內：洗衣店角落塑膠椅旁",
+      "seats": [
+        "chair",
+        "bench"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-宮廷音樂廳-歌劇院:37",
+      "zh": "室內：宮廷音樂廳 / 歌劇院",
+      "seats": [
+        "chair",
+        "bench"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:室內-狹小都會旅館房間:38",
+      "zh": "室內：狹小都會旅館房間",
+      "seats": [
+        "bed-edge",
+        "bed-top",
+        "chair"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:生活感室內-indoor-lifestyle:indoor-lawson-store",
+      "zh": "室內：日本 Lawson 便利商店內",
+      "seats": [
+        "stool",
+        "floor"
+      ],
+      "tatami": false,
+      "historical": false
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄水泥工廠破碎輸送帶區:0",
+      "zh": "室內：廢棄水泥工廠破碎輸送帶區",
+      "seats": [
+        "box",
+        "floor"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄水泥工廠生鏽控制室:1",
+      "zh": "室內：廢棄水泥工廠生鏽控制室",
+      "seats": [
+        "chair",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄水泥工廠攪拌槽旁:2",
+      "zh": "室內：廢棄水泥工廠攪拌槽旁",
+      "seats": [
+        "step",
+        "box"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄水泥工廠機具堆放區:3",
+      "zh": "室內：廢棄水泥工廠機具堆放區",
+      "seats": [
+        "box",
+        "stool",
+        "floor"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-地下排洪道積水牆角:4",
+      "zh": "室內：地下排洪道積水牆角",
+      "seats": [
+        "step",
+        "box"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-地下排洪道排水閘門旁:5",
+      "zh": "室內：地下排洪道排水閘門旁",
+      "seats": [
+        "step",
+        "box"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-地下排洪道機房通道口:6",
+      "zh": "室內：地下排洪道機房通道口",
+      "seats": [
+        "step",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄手術室:7",
+      "zh": "室內：廢棄手術室",
+      "seats": [
+        "stool",
+        "chair"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄病房:8",
+      "zh": "室內：廢棄病房",
+      "seats": [
+        "bed-edge",
+        "bed-top",
+        "chair"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄藥品室:9",
+      "zh": "室內：廢棄藥品室",
+      "seats": [
+        "stool",
+        "box"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄診療室:10",
+      "zh": "室內：廢棄診療室",
+      "seats": [
+        "bed-edge",
+        "bed-top",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄校舍散亂課桌教室:11",
+      "zh": "室內：廢棄校舍散亂課桌教室",
+      "seats": [
+        "chair",
+        "table",
+        "platform",
+        "floor"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄校舍破窗音樂教室:12",
+      "zh": "室內：廢棄校舍破窗音樂教室",
+      "seats": [
+        "bench",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄校舍保健室:13",
+      "zh": "室內：廢棄校舍保健室",
+      "seats": [
+        "bed-edge",
+        "bed-top",
+        "chair"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄校舍體育器材室:14",
+      "zh": "室內：廢棄校舍體育器材室",
+      "seats": [
+        "box",
+        "mat",
+        "floor"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-地下狂歡俱樂部-金庫:15",
+      "zh": "室內：地下狂歡俱樂部 / 金庫",
+      "seats": [
+        "box",
+        "stool",
+        "floor"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-遭洗劫的維多利亞大宅:16",
+      "zh": "室內：遭洗劫的維多利亞大宅",
+      "seats": [
+        "sofa",
+        "step",
+        "floor"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄商場停用手扶梯旁:17",
+      "zh": "室內：廢棄商場停用手扶梯旁",
+      "seats": [
+        "step"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄商場破損櫥窗前:18",
+      "zh": "室內：廢棄商場破損櫥窗前",
+      "seats": [
+        "box",
+        "stool"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄商場空置美食街角落:19",
+      "zh": "室內：廢棄商場空置美食街角落",
+      "seats": [
+        "chair",
+        "table"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄商場服務台殘骸:20",
+      "zh": "室內：廢棄商場服務台殘骸",
+      "seats": [
+        "stool",
+        "box"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-九龍城寨內部狹窄走道:0",
+      "zh": "室內：九龍城寨內部狹窄走道",
+      "seats": [
+        "stool",
+        "floor"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-九龍城寨樓梯井與鐵窗:1",
+      "zh": "室內：九龍城寨樓梯井與鐵窗",
+      "seats": [
+        "step",
+        "floor"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-興記煲仔飯店內桌椅區:2",
+      "zh": "室內：興記煲仔飯店內桌椅區",
+      "seats": [
+        "stool",
+        "chair"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-塗鴉牆面旁的地鐵月台角落:3",
+      "zh": "室內：塗鴉牆面旁的地鐵月台角落",
+      "seats": [
+        "bench",
+        "floor"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-無人月台長椅區:4",
+      "zh": "室內：無人月台長椅區",
+      "seats": [
+        "bench"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-列車高速進站的月台邊:5",
+      "zh": "室內：列車高速進站的月台邊",
+      "seats": [
+        "bench"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-髒污磁磚牆與金屬柱之間:6",
+      "zh": "室內：髒污磁磚牆與金屬柱之間",
+      "seats": [
+        "floor",
+        "bench"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-地下月台電子看板與海報牆:7",
+      "zh": "室內：地下月台電子看板與海報牆",
+      "seats": [
+        "bench"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂正面長椅視角:8",
+      "zh": "室內：電車車廂正面長椅視角",
+      "seats": [
+        "bench"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂側面走道視角:9",
+      "zh": "室內：電車車廂側面走道視角",
+      "seats": [
+        "bench"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-電車車廂坐滿與站滿乘客:10",
+      "zh": "室內：電車車廂坐滿與站滿乘客",
+      "seats": [
+        "bench"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:城市與社群感-urban-social-snapshots:室內-法租界咖啡館靠窗座位:44",
+      "zh": "室內：法租界咖啡館靠窗座位",
+      "seats": [
+        "chair",
+        "bench"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:其他專屬場景-other-dedicated-scenes:其他-白色床鋪:1",
+      "zh": "其他：白色床鋪",
+      "seats": [
+        "bed-edge",
+        "bed-top"
+      ],
+      "tatami": false,
+      "historical": true
+    },
+    {
+      "id": "locations:其他專屬場景-other-dedicated-scenes:其他-生活感日式榻榻米房間:2",
+      "zh": "其他：生活感日式榻榻米房間",
+      "seats": [
+        "cushion",
+        "floor"
+      ],
+      "tatami": true,
+      "historical": true
+    }
+  ],
+  "actions": [
+    {
+      "id": "specified-sitting-side-fold-back-support",
+      "zh": "折腿低坐・雙掌後撐",
+      "canonical": "She sits with her hips directly on the ground, both knees bent and both lower legs folded toward her left side, her feet near her left hip and the folded legs and sides of her feet resting on the ground. Her torso leans slightly backward, both palms planted just behind either side of her hips with fingers spread and elbows softly bent; her hips and folded legs support her lower body while both palms share the upper-body weight.",
+      "kind": "ground",
+      "allowed": [],
+      "historical": true
+    },
+    {
+      "id": "specified-sitting-raised-right-knee",
+      "zh": "單腿屈起・單掌後撐",
+      "canonical": "She sits with her hips on the ground, her right knee raised and her right foot flat on the ground in front of her. Her left knee opens low toward her left side, the left lower leg folds across the space in front of her with its foot near the inside of her right leg, and the outside of her left leg rests on the ground. Her torso leans slightly backward, her right hand resting on her right thigh just above the knee and her left palm planted behind her left hip; her hips, left leg, right foot and left palm support her body.",
+      "kind": "ground",
+      "allowed": [],
+      "historical": true
+    },
+    {
+      "id": "specified-sitting-hug-knees",
+      "zh": "低坐抱膝",
+      "canonical": "She sits with her hips on the ground, both legs bent in front of her, both knees close together and drawn toward her chest, and both feet flat on the ground. Her torso leans slightly forward from the hips toward her legs, both arms wrapping around her shins from either side with the forearms across the front of her shins and each hand holding the opposite forearm; her hips and feet bear her weight while her arms gather her legs inward.",
+      "kind": "ground",
+      "allowed": [],
+      "historical": true
+    },
+    {
+      "id": "specified-low-seated-aloof-cats-street-mood",
+      "zh": "低坐貓群冷淡氛圍",
+      "canonical": "She sits low on the ground in a relaxed but guarded street-candid posture, surrounded by several small cats resting or lingering close around her. Her legs are loosely arranged, her torso slightly tilted, and her arms rest naturally near her lap or around one leg. She looks upward toward the camera with an aloof, distant, slightly moody expression, as if quietly observing without inviting attention. The cats should feel naturally present and calm, adding a quiet intimate street mood rather than becoming the main subject.",
+      "kind": "ground",
+      "allowed": [],
+      "historical": true
+    },
+    {
+      "id": "specified-sitting-low-aloof-cats-adjustable-angle",
+      "zh": "低坐貓群冷淡氛圍・角度可調",
+      "canonical": "She sits low on the ground in a relaxed but guarded street-candid posture, surrounded by several small cats resting or lingering close around her. Her legs are loosely arranged, her torso slightly tilted, and her arms rest naturally near her lap or around one leg. She has an aloof, distant, slightly moody expression, as if quietly observing without inviting attention. The cats should feel naturally present and calm, adding a quiet intimate street mood rather than becoming the main subject.",
+      "kind": "ground",
+      "allowed": [],
+      "historical": false
+    },
+    {
+      "id": "specified-sitting-natural",
+      "zh": "自然坐姿",
+      "canonical": "She sits in a relaxed, natural posture.",
+      "kind": "seated",
+      "allowed": [
+        "chair",
+        "stool",
+        "bench",
+        "sofa",
+        "bed-edge",
+        "bed-top",
+        "table",
+        "counter",
+        "platform",
+        "step",
+        "box",
+        "cushion",
+        "mat",
+        "floor"
+      ],
+      "historical": true
+    },
+    {
+      "id": "specified-sitting-forward-lean",
+      "zh": "微微前傾",
+      "canonical": "She sits leaning slightly forward.",
+      "kind": "forward",
+      "allowed": [
+        "chair",
+        "stool",
+        "bench",
+        "sofa",
+        "bed-edge",
+        "bed-top",
+        "table",
+        "counter",
+        "platform",
+        "step",
+        "box",
+        "cushion",
+        "mat",
+        "floor"
+      ],
+      "historical": true
+    },
+    {
+      "id": "specified-sitting-legs-extended",
+      "zh": "雙腿自然伸展",
+      "canonical": "She sits with both legs naturally extended.",
+      "kind": "seated",
+      "allowed": [
+        "chair",
+        "bench",
+        "sofa",
+        "bed-edge",
+        "bed-top",
+        "platform",
+        "step",
+        "cushion",
+        "mat",
+        "floor"
+      ],
+      "historical": true
+    },
+    {
+      "id": "specified-sitting-cross-legged",
+      "zh": "盤腿坐姿",
+      "canonical": "She sits cross-legged.",
+      "kind": "seated",
+      "allowed": [
+        "bed-top",
+        "sofa",
+        "platform",
+        "cushion",
+        "mat",
+        "floor"
+      ],
+      "historical": true
+    },
+    {
+      "id": "specified-sitting-knees-raised",
+      "zh": "雙腿屈起",
+      "canonical": "She sits with both legs bent and her knees raised, her feet resting naturally.",
+      "kind": "seated",
+      "allowed": [
+        "bed-top",
+        "sofa",
+        "platform",
+        "cushion",
+        "mat",
+        "floor"
+      ],
+      "historical": true
+    },
+    {
+      "id": "specified-sitting-slouched",
+      "zh": "隨性癱坐",
+      "canonical": "She sits casually slumped with a loose, heavy body, her shoulders dropped and her torso settling naturally into the seat.",
+      "kind": "seated",
+      "allowed": [
+        "chair",
+        "sofa",
+        "bench"
+      ],
+      "historical": true
+    },
+    {
+      "id": "specified-sitting-leg-cross",
+      "zh": "翹二郎腿",
+      "canonical": "She sits with one leg crossed over the other.",
+      "kind": "seated",
+      "allowed": [
+        "chair",
+        "stool",
+        "bench",
+        "sofa",
+        "bed-edge",
+        "table",
+        "counter",
+        "platform",
+        "step",
+        "box"
+      ],
+      "historical": true
+    },
+    {
+      "id": "specified-sitting-one-knee-up",
+      "zh": "單腿屈起坐姿",
+      "canonical": "She sits with one knee drawn up and the other leg relaxed.",
+      "kind": "seated",
+      "allowed": [
+        "bench",
+        "sofa",
+        "bed-top",
+        "platform",
+        "cushion",
+        "mat",
+        "floor"
+      ],
+      "historical": true
+    },
+    {
+      "id": "specified-sitting-legs-to-side",
+      "zh": "雙腿側放坐姿",
+      "canonical": "She sits with both legs angled to one side in a soft asymmetrical line.",
+      "kind": "seated",
+      "allowed": [
+        "bench",
+        "sofa",
+        "bed-top",
+        "platform",
+        "cushion",
+        "mat",
+        "floor"
+      ],
+      "historical": true
+    },
+    {
+      "id": "specified-sitting-open-confident",
+      "zh": "開闊自信坐姿",
+      "canonical": "She sits in an open, grounded posture with her weight settled through her hips, her knees comfortably apart. Her torso is relaxed and upright.",
+      "kind": "seated",
+      "allowed": [
+        "chair",
+        "stool",
+        "bench",
+        "sofa",
+        "bed-edge",
+        "table",
+        "counter",
+        "platform",
+        "step",
+        "box"
+      ],
+      "historical": true
+    }
+  ],
+  "frames": [
+    {
+      "id": "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "zh": "半臉傾斜特寫",
+      "seed": "indoor-seating-v1-camera:景別構圖-framing:半臉傾斜特寫:1"
+    },
+    {
+      "id": "camera:景別構圖-framing:局部五官特寫:2",
+      "zh": "局部五官特寫",
+      "seed": "indoor-seating-v1-camera:景別構圖-framing:局部五官特寫:2"
+    },
+    {
+      "id": "camera:景別構圖-framing:臉部特寫:3",
+      "zh": "臉部特寫",
+      "seed": "indoor-seating-v1-camera:景別構圖-framing:臉部特寫:3"
+    },
+    {
+      "id": "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "zh": "特寫鏡頭 (Close-Up)",
+      "seed": "indoor-seating-v1-camera:景別構圖-framing:特寫鏡頭-close-up:4"
+    },
+    {
+      "id": "camera:景別構圖-framing:胸上特寫:5",
+      "zh": "胸上特寫",
+      "seed": "indoor-seating-v1-camera:景別構圖-framing:胸上特寫:5"
+    },
+    {
+      "id": "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "zh": "中景鏡頭 (Medium Shot)",
+      "seed": "indoor-seating-v1-camera:景別構圖-framing:中景鏡頭-medium-shot:6"
+    },
+    {
+      "id": "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "zh": "牛仔中景 (Cowboy Shot)",
+      "seed": "indoor-seating-v1-camera:景別構圖-framing:牛仔中景-cowboy-shot:7"
+    },
+    {
+      "id": "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "zh": "全身鏡頭 (Full Body Shot)",
+      "seed": "indoor-seating-v1-camera:景別構圖-framing:全身鏡頭-full-body-shot:8"
+    },
+    {
+      "id": "camera:景別構圖-framing:全臉傾斜特寫:9",
+      "zh": "全臉傾斜特寫",
+      "seed": "indoor-seating-v1-camera:景別構圖-framing:全臉傾斜特寫:9"
+    },
+    {
+      "id": "camera:景別構圖-framing:頭部主導近景:10",
+      "zh": "頭部主導近景",
+      "seed": "indoor-seating-v1-camera:景別構圖-framing:頭部主導近景:10"
+    }
+  ],
+  "witnesses": [
+    {
+      "id": "classroom-chair",
+      "sceneId": "locations:生活感室內-indoor-lifestyle:室內-日本學校教室:26",
+      "actionId": "specified-sitting-natural",
+      "seat": "chair"
+    },
+    {
+      "id": "bookstore-stool",
+      "sceneId": "locations:生活感室內-indoor-lifestyle:室內-古書二手書店:3",
+      "actionId": "specified-sitting-natural",
+      "seat": "stool"
+    },
+    {
+      "id": "window-bench",
+      "sceneId": "locations:生活感室內-indoor-lifestyle:室內-英倫復古窗邊房間:5",
+      "actionId": "specified-sitting-natural",
+      "seat": "bench"
+    },
+    {
+      "id": "living-sofa",
+      "sceneId": "locations:生活感室內-indoor-lifestyle:室內-現代高樓公寓客廳:1",
+      "actionId": "specified-sitting-natural",
+      "seat": "sofa"
+    },
+    {
+      "id": "bed-edge",
+      "sceneId": "locations:其他專屬場景-other-dedicated-scenes:其他-白色床鋪:1",
+      "actionId": "specified-sitting-natural",
+      "seat": "bed-edge"
+    },
+    {
+      "id": "bed-top",
+      "sceneId": "locations:其他專屬場景-other-dedicated-scenes:其他-白色床鋪:1",
+      "actionId": "specified-sitting-cross-legged",
+      "seat": "bed-top"
+    },
+    {
+      "id": "classroom-table",
+      "sceneId": "locations:生活感室內-indoor-lifestyle:室內-日本學校教室:26",
+      "actionId": "specified-sitting-forward-lean",
+      "seat": "table"
+    },
+    {
+      "id": "kitchen-counter",
+      "sceneId": "locations:生活感室內-indoor-lifestyle:室內-日本住宅使用感廚房:9",
+      "actionId": "specified-sitting-natural",
+      "seat": "counter"
+    },
+    {
+      "id": "classroom-platform",
+      "sceneId": "locations:生活感室內-indoor-lifestyle:室內-日本學校教室:26",
+      "actionId": "specified-sitting-legs-extended",
+      "seat": "platform"
+    },
+    {
+      "id": "party-step",
+      "sceneId": "locations:生活感室內-indoor-lifestyle:室內-夜間家庭派對:2",
+      "actionId": "specified-sitting-leg-cross",
+      "seat": "step"
+    },
+    {
+      "id": "backstage-box",
+      "sceneId": "locations:生活感室內-indoor-lifestyle:室內-地下-live-house-後台:23",
+      "actionId": "specified-sitting-open-confident",
+      "seat": "box"
+    },
+    {
+      "id": "washitsu-cushion",
+      "sceneId": "locations:生活感室內-indoor-lifestyle:室內-日式和室:25",
+      "actionId": "specified-sitting-knees-raised",
+      "seat": "cushion"
+    },
+    {
+      "id": "classroom-floor",
+      "sceneId": "locations:生活感室內-indoor-lifestyle:室內-日本學校教室:26",
+      "actionId": "specified-sitting-one-knee-up",
+      "seat": "floor"
+    },
+    {
+      "id": "gym-mat",
+      "sceneId": "locations:地下與廢墟風格-abandoned-underground:室內-廢棄校舍體育器材室:14",
+      "actionId": "specified-sitting-cross-legged",
+      "seat": "mat"
+    },
+    {
+      "id": "washitsu-floor",
+      "sceneId": "locations:生活感室內-indoor-lifestyle:室內-日式和室:25",
+      "actionId": "specified-sitting-legs-to-side",
+      "seat": "floor"
+    },
+    {
+      "id": "slouched-sofa",
+      "sceneId": "locations:生活感室內-indoor-lifestyle:室內-現代高樓公寓客廳:1",
+      "actionId": "specified-sitting-slouched",
+      "seat": "sofa"
+    },
+    {
+      "id": "ground-tatami",
+      "sceneId": "locations:生活感室內-indoor-lifestyle:室內-日式和室:25",
+      "actionId": "specified-sitting-side-fold-back-support",
+      "seat": ""
+    },
+    {
+      "id": "ground-bed",
+      "sceneId": "locations:其他專屬場景-other-dedicated-scenes:其他-白色床鋪:1",
+      "actionId": "specified-sitting-side-fold-back-support",
+      "seat": ""
+    },
+    {
+      "id": "ground-floor",
+      "sceneId": "locations:生活感室內-indoor-lifestyle:室內-日本學校教室:26",
+      "actionId": "specified-sitting-hug-knees",
+      "seat": ""
+    },
+    {
+      "id": "lawson",
+      "sceneId": "locations:生活感室內-indoor-lifestyle:indoor-lawson-store",
+      "actionId": "specified-sitting-natural",
+      "seat": "stool"
+    },
+    {
+      "id": "adjustable-cat",
+      "sceneId": "locations:生活感室內-indoor-lifestyle:室內-日本學校教室:26",
+      "actionId": "specified-sitting-low-aloof-cats-adjustable-angle",
+      "seat": ""
+    }
+  ]
+}

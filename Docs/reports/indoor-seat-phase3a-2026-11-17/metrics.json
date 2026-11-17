@@ -1,0 +1,268 @@
+{
+  "date": "2026-11-17",
+  "phase": "3A",
+  "base": "fd3f3bb14e15ec556021791bdda71b8fe8d8731f",
+  "node": "v22.22.3",
+  "timing": "Node test runner duration_ms, sequential gates, concurrency 4 for full and quality; not outer wall time or CI time",
+  "historical": {
+    "rows": 1162,
+    "cases": 18480,
+    "unselected": 11620,
+    "selected": 6860,
+    "retired": 0
+  },
+  "independentRules": {
+    "scenes": 84,
+    "actions": 15,
+    "cells": 1260,
+    "seatTypes": 14,
+    "invalidStates": [
+      "empty",
+      "undefined",
+      "unknown"
+    ],
+    "ownerExclusions": 8,
+    "restoreFamilies": 4
+  },
+  "witnesses": {
+    "families": 21,
+    "cases": 380,
+    "scenes": 11,
+    "actions": 13,
+    "framings": 10,
+    "outputCount": 7,
+    "exactHistoricalOverlap": 270,
+    "additionalSeatCases": 80,
+    "laterScope": 30,
+    "legacyAnchors": 19
+  },
+  "validation": {
+    "oracle-first": {
+      "tests": 6,
+      "pass": 6,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "durationSeconds": 3.271722,
+      "logSha256": "393a6e6183bdc7a848d37a23442ab2e2de69eb3cb09705eced14d268a45192aa"
+    },
+    "mutation-first": {
+      "tests": 15,
+      "pass": 15,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "durationSeconds": 10.833471291,
+      "logSha256": "9835b3a08db2e071e163d29ecba2cfb31c042d7d2676370f7168582e9d2e548c"
+    },
+    "focused": {
+      "tests": 32,
+      "pass": 32,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "durationSeconds": 11.822700875,
+      "logSha256": "d89ebdf4a5778caff0fccc26ad8e15d2fb2073e270fd6a1664798f5af284c09a"
+    },
+    "focused-final": {
+      "tests": 21,
+      "pass": 21,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "durationSeconds": 10.000192333000001,
+      "logSha256": "96320748513acf8dbb54d733e63708957b026e14fb7894846b04864b2a90b1f1"
+    },
+    "full": {
+      "tests": 2358,
+      "pass": 2358,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "durationSeconds": 289.118387792,
+      "logSha256": "8ed66e15748b7e4138e86c5e07d9d8ebdfd4d86e06863b1718cc6bf214db558e"
+    },
+    "quality": {
+      "tests": 960,
+      "pass": 960,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "durationSeconds": 197.627507041,
+      "logSha256": "ae577b2131909ca06ecc5352f94779813fa7ec1d5cd59d8ed33ae8f9adcb53f4"
+    },
+    "lint": {
+      "passed": true,
+      "logSha256": "4cc3750d21346cf65740526345613cc28b068e42b7624120db0bc04da500cb79"
+    },
+    "build": {
+      "passed": true,
+      "logSha256": "4e871ac998d1ea8321eb21923d799bec2bcf1d73f95ce681f28c89b52d91f529"
+    },
+    "finalWorkspaceChecks": {
+      "links": true,
+      "json": true,
+      "whitespace": true,
+      "diffCheck": true,
+      "originalDirtyFilesUnchanged": 109,
+      "stagedFiles": 0
+    }
+  },
+  "mutationResults": [
+    {
+      "fault": "bed-edge-is-bed-top",
+      "independent": "[rules]",
+      "oldRowDetected": true,
+      "oldRestoreDetected": false
+    },
+    {
+      "fault": "unselected-auto-selects",
+      "independent": "[rules]",
+      "oldRowDetected": true,
+      "oldRestoreDetected": false
+    },
+    {
+      "fault": "candidate-order-reversed",
+      "independent": "[rules]",
+      "oldRowDetected": true,
+      "oldRestoreDetected": false
+    },
+    {
+      "fault": "tatami-becomes-floor",
+      "independent": "[rules]",
+      "oldRowDetected": true,
+      "oldRestoreDetected": false
+    },
+    {
+      "fault": "bed-ground-invents-floor",
+      "independent": "[rules]",
+      "oldRowDetected": true,
+      "oldRestoreDetected": false
+    },
+    {
+      "fault": "duo-owner-guard-removed",
+      "independent": "[owner]",
+      "oldRowDetected": false,
+      "oldRestoreDetected": false
+    },
+    {
+      "fault": "common-gpt-opening-omission",
+      "independent": "[output:gpt]",
+      "oldRowDetected": true,
+      "oldRestoreDetected": false
+    },
+    {
+      "fault": "extra-random-draw",
+      "independent": "[rng]",
+      "oldRowDetected": true,
+      "oldRestoreDetected": false
+    },
+    {
+      "fault": "structured-scene-lost",
+      "independent": "[structured]",
+      "oldRowDetected": true,
+      "oldRestoreDetected": false
+    },
+    {
+      "fault": "summary-lost",
+      "independent": "[summary]",
+      "oldRowDetected": true,
+      "oldRestoreDetected": false
+    },
+    {
+      "fault": "grok-imagine-duplicated",
+      "independent": "[output:grok-imagine]",
+      "oldRowDetected": true,
+      "oldRestoreDetected": false
+    },
+    {
+      "fault": "chair-leaks-into-chest-crop",
+      "independent": "[output:gpt]",
+      "oldRowDetected": true,
+      "oldRestoreDetected": false
+    },
+    {
+      "fault": "restore-drops-seat",
+      "independent": "[restore]",
+      "oldRowDetected": false,
+      "oldRestoreDetected": true
+    },
+    {
+      "fault": "incompatible-seats-allowed",
+      "independent": "[rules]",
+      "oldRowDetected": true,
+      "oldRestoreDetected": false
+    }
+  ],
+  "preservation": {
+    "originalTests": 2337,
+    "currentTests": 2358,
+    "missingOriginalTests": [],
+    "addedTests": [
+      "seat phase 3A mutation controls: unmodified copied sources pass every probe and original restore suite",
+      "seat phase 3A mutation: bed-edge-is-bed-top",
+      "seat phase 3A mutation: unselected-auto-selects",
+      "seat phase 3A mutation: candidate-order-reversed",
+      "seat phase 3A mutation: tatami-becomes-floor",
+      "seat phase 3A mutation: bed-ground-invents-floor",
+      "seat phase 3A mutation: duo-owner-guard-removed",
+      "seat phase 3A mutation: common-gpt-opening-omission",
+      "seat phase 3A mutation: extra-random-draw",
+      "seat phase 3A mutation: structured-scene-lost",
+      "seat phase 3A mutation: summary-lost",
+      "seat phase 3A mutation: grok-imagine-duplicated",
+      "seat phase 3A mutation: chair-leaks-into-chest-crop",
+      "seat phase 3A mutation: restore-drops-seat",
+      "seat phase 3A mutation: incompatible-seats-allowed",
+      "seat phase 3A: every original case has an ordered validation mapping and remains mandatory",
+      "seat phase 3A: current scenes, actions, frames and all seat choices use independent frozen expectations",
+      "seat phase 3A: excluded owners retain separate independent guards",
+      "seat phase 3A: 380 fixed witnesses pin absolute RNG, seven full outputs and all stable data",
+      "seat phase 3A: witness provenance matches immutable history and all nineteen targeted old rows",
+      "seat phase 3A: bed edge, bed top, tatami and cushion restore and regenerate without losing selection or text"
+    ],
+    "preservedDirtyFiles": 109,
+    "trackedChanges": [
+      "Docs/current_project_state.md",
+      "Docs/session_onboarding.md"
+    ],
+    "scopedNewFiles": [
+      "Docs/reports/indoor-seat-phase3a-2026-11-17/README.md",
+      "Docs/reports/indoor-seat-phase3a-2026-11-17/metrics.json",
+      "Docs/specs/indoor-seating-verification-phase3a.md",
+      "webapp/src/lib/engine/indoorSeatMutation.test.js",
+      "webapp/src/lib/engine/indoorSeatMutationProbe.js",
+      "webapp/src/lib/engine/indoorSeatVerification.test.js",
+      "webapp/src/lib/engine/indoorSeatVerificationExpectations.json",
+      "webapp/src/lib/engine/indoorSeatVerificationLedger.json",
+      "webapp/src/lib/engine/indoorSeatVerificationSupport.js",
+      "webapp/src/lib/engine/indoorSeatVerificationWitnesses.json"
+    ],
+    "concurrentUntrackedOutsideScope": {
+      "generated_images/exec-897aaa34-56fc-45ec-8715-f4c08826e950.png": "26cfeca6c7d71d8034ca871b45176ba8f43d204c023377e65ac56ae9bbeec5a4",
+      "generated_images/exec-cdc39105-9334-4f24-92dc-73b3970b3aef.png": "897f0ac22c9164412ee4a395750cc5f09bd6d9534b3f95cfcdb975154aeead84"
+    }
+  },
+  "unchanged": [
+    "production source",
+    "original test files and assertions",
+    "historical baselines and inverses",
+    "package scripts",
+    "test runner",
+    "CI workflows and thresholds",
+    "Prompt Quality file list"
+  ],
+  "limits": [
+    "Additive evidence only; zero historical retirement authorized",
+    "14 mutation categories are not a proof against all possible faults",
+    "No new pinned output witnesses for two original ground actions; original matrix retained",
+    "No RSS comparison, browser, CI run or deployment in this phase"
+  ],
+  "finalTestOnlyCleanup": "After full gates, replaced unused metadata destructuring with copy/delete; reran all 21 added tests, lint and build. No production or old test changes.",
+  "delivery": {
+    "staged": false,
+    "committed": false,
+    "pushed": false,
+    "deployed": false
+  }
+}

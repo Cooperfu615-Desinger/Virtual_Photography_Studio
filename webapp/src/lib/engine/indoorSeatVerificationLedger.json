@@ -1,0 +1,18 @@
+{
+  "phase": "3A",
+  "base": "fd3f3bb14e15ec556021791bdda71b8fe8d8731f",
+  "historical": {"scenes":83,"actions":14,"framings":10,"rows":1162,"cases":18480,"unselected":11620,"selected":6860},
+  "policy": "All existing cases and assertions remain mandatory. Witnesses are additive and do not authorize replacement.",
+  "rules": [
+    {"id":"ordered-case-coverage","risk":"Missing, duplicated or reordered original cases","legacy":"outdoorSeatBaseline.test.js: original row keys and 18480 samples","new":"indoorSeatVerification.test.js: ordered historical ledger","status":"legacy-required"},
+    {"id":"seven-output-text","risk":"Common omissions, duplication or wrong crop in any output","legacy":"outdoorSeatFixtures.js: stable prompt plus all seven cards in row hash","new":"indoorSeatVerification.test.js: 380 pinned complete-output witnesses","status":"partial-witness-legacy-required"},
+    {"id":"stable-data","risk":"Changed selection, structured data, summary, fields or card metadata","legacy":"outdoorSeatFixtures.js: all stable prompt fields and cards in row hash","new":"indoorSeatVerification.test.js: field-specific pinned hashes","status":"partial-witness-legacy-required"},
+    {"id":"absolute-rng","risk":"Before and after both consume extra random draws","legacy":"outdoorSeatFixtures.js: draws included in row hash","new":"indoorSeatVerification.test.js: absolute pinned draw counts","status":"partial-witness-legacy-required"},
+    {"id":"contact-and-visibility","risk":"Wrong contact, bed/floor confusion or crop policy","legacy":"indoorSeatPrompt.test.js and outdoorSeatBaseline.test.js","new":"independent frozen actions, scene semantics and seven-output witnesses","status":"legacy-required"},
+    {"id":"scene-action-menu","risk":"Wrong IDs, labels, order, compatibility or automatic selection","legacy":"indoorSeating.test.js: scene/action menus","new":"84 x 15 independent rules, every legal and incompatible indoor seat plus unknown and omitted values","status":"additive"},
+    {"id":"owner-exclusions","risk":"Seat leaks into duo, observation, imported or dedicated owners","legacy":"indoorSeatPrompt.test.js: random and outside-mode selections","new":"eight independent ownership exclusions plus isolated source mutation","status":"retain-specialized-tests"},
+    {"id":"saved-restore","risk":"Effective seat or stored text lost during restore","legacy":"features/saved-cards/indoorSeatRestore.test.js: favorites, Markdown, ZIP, apply and dormant locks","new":"four representative actual regenerate checks and restore source mutation","status":"retain-specialized-tests"},
+    {"id":"later-additions","risk":"Lawson or adjustable cat incorrectly folded into the historical seal","legacy":"later dedicated feature suites, not the immutable 83 x 14 matrix","new":"explicit current-scope independent rules and witnesses, excluded from historical ledger","status":"separate-approved-scope"},
+    {"id":"history-provenance","risk":"Re-recording current buggy output as the expected result","legacy":"immutable baseline plus three approved before/after revisions","new":"pinned accepted commit, source hashes and 19 matching legacy witness rows","status":"immutable-evidence"}
+  ]
+}
