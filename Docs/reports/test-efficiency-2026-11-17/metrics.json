@@ -1,0 +1,147 @@
+{
+  "base": "2b43c52f8315232b316cc5fc99383ed10e6a64b5",
+  "node": "v22.22.3",
+  "concurrency": 4,
+  "platform": "macOS",
+  "measurement": "/usr/bin/time -l; separate sequential full-suite runs; no concurrent quality/build run",
+  "before": {
+    "tests": 2320,
+    "passed": 2320,
+    "failed": 0,
+    "realSeconds": 355.23,
+    "userSeconds": 1288.18,
+    "systemSeconds": 123.21,
+    "maximumResidentSetBytes": 1711620096,
+    "maxRssMiB": 1632.328125
+  },
+  "firstAfter": {
+    "tests": 2336,
+    "passed": 2336,
+    "failed": 0,
+    "realSeconds": 302.92,
+    "userSeconds": 1162.73,
+    "systemSeconds": 115.89,
+    "maximumResidentSetBytes": 1950613504,
+    "maxRssMiB": 1860.25
+  },
+  "finalAfter": {
+    "tests": 2337,
+    "passed": 2337,
+    "failed": 0,
+    "realSeconds": 295.49,
+    "userSeconds": 1152.55,
+    "systemSeconds": 114.93,
+    "maximumResidentSetBytes": 1866170368,
+    "maxRssMiB": 1779.71875
+  },
+  "testPreservation": {
+    "originalNames": 2320,
+    "finalNames": 2337,
+    "missingNames": [],
+    "addedNames": [
+      "seat grouping preserves both complete gate file sets and every focused subset",
+      "test-only inverse restores exact original bytes and leaves all unknown changes untouched",
+      "real cached seat fixtures match fresh stable outputs, RNG and locks without sharing mutable state",
+      "per-run snapshot shares only matching source identity, clones each result and rejects corruption",
+      "snapshot ownership, historical copies, separate invocations and failed builds never share results",
+      "concurrent native workers publish one complete snapshot",
+      "progress reports actual counts and elapsed time rather than a timer heartbeat",
+      "outer runner forwards completed progress without altering native TAP output",
+      "planned fixture cache keeps clones, releases its last consumer, and never caches failures or unplanned requests",
+      "ordinary and restore fixture calls remain uncached outside an explicit suite session",
+      "abandoned snapshot ownership times out instead of hanging or fabricating a result",
+      "compressed reuse reports real completed work at bounded checkpoints",
+      "CLI streams progress while a synchronous test is still running and cleans its run directory",
+      "reuse keys distinguish omitted, undefined, null and non-finite override values",
+      "seat pilot: all 84 current scenes and 15 actions match independent reviewed rules, including every offered value",
+      "seat pilot: physical relations across every framing preserve seven outputs, selections and RNG",
+      "seat pilot: selected bed position survives saved-card restoration and actual regeneration"
+    ]
+  },
+  "assertions": [
+    {
+      "file": "webapp/src/lib/engine/denimOveralls.test.js",
+      "originalAssertions": 39,
+      "currentAssertions": 39,
+      "identical": true
+    },
+    {
+      "file": "webapp/src/lib/engine/indoorLeanBaseline.test.js",
+      "originalAssertions": 5,
+      "currentAssertions": 5,
+      "identical": true
+    },
+    {
+      "file": "webapp/src/lib/engine/outdoorSeatBaseline.test.js",
+      "originalAssertions": 5,
+      "currentAssertions": 5,
+      "identical": true
+    },
+    {
+      "file": "webapp/src/lib/engine/outdoorLeanBaseline.test.js",
+      "originalAssertions": 5,
+      "currentAssertions": 5,
+      "identical": true
+    },
+    {
+      "file": "webapp/src/lib/engine/indoorKneelBaseline.test.js",
+      "originalAssertions": 5,
+      "currentAssertions": 5,
+      "identical": true
+    },
+    {
+      "file": "webapp/src/lib/engine/specifiedActionUpperBodyStateBatch3.test.js",
+      "originalAssertions": 51,
+      "currentAssertions": 51,
+      "identical": true
+    }
+  ],
+  "gateSelection": {
+    "oldQualityFiles": 116,
+    "newQualityFiles": 117,
+    "removedQualityFiles": [],
+    "addedQualityFiles": [
+      "src/lib/engine/indoorSeatRulePilot.test.js"
+    ],
+    "fullCommandUnchanged": true,
+    "ciWorkflowDiff": ""
+  },
+  "realReductionPercent": 16.817273315879856,
+  "maxRssIncreasePercent": 9.029472857977016,
+  "reuse": {
+    "fixtureCalls": 42950,
+    "generations": 30870,
+    "hits": 12080,
+    "peakCompressedBytes": 96073547,
+    "retainedEntriesAtEnd": 0,
+    "snapshotCases": 1686,
+    "snapshotGenerationsPerRun": 1,
+    "snapshotConsumers": 4
+  },
+  "preservedOriginalDirtyFiles": 109,
+  "validation": {
+    "focusedNewTests": {
+      "pass": 17,
+      "fail": 0
+    },
+    "focusedOriginalMatrices": {
+      "pass": 14,
+      "fail": 0
+    },
+    "finalInverseCheck": {
+      "pass": 3,
+      "fail": 0
+    },
+    "lint": "passed",
+    "build": "passed with existing >500 kB chunk warning",
+    "promptQuality": {
+      "tests": 960,
+      "pass": 960,
+      "fail": 0,
+      "realSeconds": 204.57,
+      "userSeconds": 782.13,
+      "systemSeconds": 57.35,
+      "maximumResidentSetBytes": 1322418176
+    }
+  }
+}

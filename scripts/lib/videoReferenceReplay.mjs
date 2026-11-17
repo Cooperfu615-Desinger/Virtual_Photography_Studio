@@ -1,3 +1,4 @@
+import { testEfficiencyHistoricalPaths, preTestEfficiencySource } from './testEfficiencyHistoricalReplay.mjs';
 // Only inverse the exact approved UI change for historical prompt replay.
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -6,8 +7,9 @@ import { denimOverallsHistoricalPaths, preDenimOverallsSource } from './denimOve
 import { denimStrapHistoricalPaths, preDenimStrapSource } from './denimStrapHistoricalReplay.mjs';
 const manifest = JSON.parse(readFileSync(new URL('./videoReferenceReplay.json', import.meta.url)));
 const hash = value => createHash('sha256').update(value).digest('hex');
-export const videoReferenceHistoricalPaths = [...new Set([...denimStrapHistoricalPaths, ...denimOverallsHistoricalPaths, ...manifest.files.map(file => file.path)])];
+export const videoReferenceHistoricalPaths = [...new Set([...testEfficiencyHistoricalPaths, ...denimStrapHistoricalPaths, ...denimOverallsHistoricalPaths, ...manifest.files.map(file => file.path)])];
 export function preVideoReferenceSource(path, source) {
+  source = preTestEfficiencySource(path, source);
   source = preDenimStrapSource(path, source);
   source = preDenimOverallsSource(path, source);
   const review = manifest.files.find(file => file.path === path);

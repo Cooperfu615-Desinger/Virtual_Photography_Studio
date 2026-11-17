@@ -1,0 +1,509 @@
+{
+  "base": "2b43c52f8315232b316cc5fc99383ed10e6a64b5",
+  "spec": "Docs/specs/test-execution-efficiency-v2.md",
+  "files": [
+    {
+      "path": "scripts/run_webapp_tests.mjs",
+      "beforeHash": "fa29963047f5ef3c3aa81fd2771893b653f0edc8949122be09bd92619173fcae",
+      "afterHash": "374775c2d62432b93a761bc3af3083b195f722afb8525a5abc4f1a3d553c1c5b",
+      "edits": [
+        {
+          "line": 1,
+          "after": [
+            "// isolation and group only explicitly selected, overlapping fixture suites.\n",
+            "import { createTestRunContext, watchTestProgress } from './lib/testRunContext.mjs';\n"
+          ],
+          "before": [
+            "// isolation and group only the three overlapping immutable scene matrices.\n"
+          ]
+        },
+        {
+          "line": 65,
+          "after": [
+            "export const SEATING_MATRIX_FILES = Object.freeze([\n",
+            "  'src/lib/engine/indoorKneelBaseline.test.js',\n",
+            "  'src/lib/engine/indoorKneelPrompt.test.js',\n",
+            "  'src/lib/engine/outdoorLeanPrompt.test.js',\n",
+            "]);\n",
+            "export const SEATING_MATRIX_AGGREGATOR = '../scripts/test-groups/seatingMatrices.mjs';\n",
+            "export function prepareWebappTestArguments(args, cwd = process.cwd()) {\n",
+            "  const positions = testFilePositions(args);\n",
+            "  const members = new Set(SEATING_MATRIX_FILES.map(file => resolve(webappDirectory, file)));\n",
+            "  const selected = positions.filter(index => members.has(resolve(cwd, args[index])));\n",
+            "  if (new Set(selected.map(index => resolve(cwd, args[index]))).size !== members.size) return [...args];\n",
+            "  const aggregator = resolve(webappDirectory, SEATING_MATRIX_AGGREGATOR);\n",
+            "  const alreadySelected = positions.some(index => resolve(cwd, args[index]) === aggregator);\n",
+            "  const indexes = new Set(selected);\n",
+            "  return args.flatMap((argument, index) => !indexes.has(index) ? [argument]\n",
+            "    : index === selected[0] && !alreadySelected ? [relative(cwd, aggregator)] : []);\n",
+            "}\n",
+            "\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 91,
+          "after": [
+            "  const context = createTestRunContext(resolve(webappDirectory, '..'));\n",
+            "  const stopProgress = watchTestProgress(context.directory);\n",
+            "  const cleanup = () => { stopProgress(); context.cleanup(); };\n",
+            "  const child = spawnWebappTests(prepareWebappTestArguments(process.argv.slice(2)), {\n",
+            "    spawnProcess: (command, args, options) => spawn(command, args, { ...options, env: context.env }),\n",
+            "  });\n"
+          ],
+          "before": [
+            "  const child = spawnWebappTests(process.argv.slice(2));\n"
+          ]
+        },
+        {
+          "line": 102,
+          "after": [
+            "    cleanup();\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 107,
+          "after": [
+            "    cleanup();\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/package.json",
+      "beforeHash": "b24848a42f57e94c9853aa9065611a9f3a214da4e8e742e3eb63a722f43ac379",
+      "afterHash": "84a60f9a8cdd863ad32f2e917a3129bdda0386a443b2dec04d0da4e8e0b84961",
+      "edits": [
+        {
+          "line": 10,
+          "after": [
+            "    \"test:prompt-quality\": \"node ../scripts/run_webapp_tests.mjs src/lib/engine/denimOveralls.test.js src/lib/engine/specifiedActionUpperBodyStateBatch3.test.js src/lib/engine/specifiedActionUpperBodyStateBatch2.test.js src/lib/engine/specifiedActionUpperBodyState.test.js src/lib/engine/manualUnderlayers.test.js src/lib/engine/indoorKneelBaseline.test.js src/lib/engine/indoorKneeling.test.js src/lib/engine/indoorKneelPrompt.test.js src/features/saved-cards/indoorKneelRestore.test.js src/lib/engine/outdoorLeanBaseline.test.js src/lib/engine/outdoorLeaning.test.js src/lib/engine/outdoorLeanPrompt.test.js src/features/saved-cards/outdoorLeanRestore.test.js src/lib/engine/outdoorSeatBaseline.test.js src/lib/engine/indoorSeatRulePilot.test.js src/lib/engine/outdoorSeating.test.js src/lib/engine/outdoorSeatPrompt.test.js src/features/saved-cards/outdoorSeatRestore.test.js src/lib/engine/indoorLeanBaseline.test.js src/lib/engine/indoorLeaning.test.js src/lib/engine/indoorLeanPrompt.test.js src/features/saved-cards/indoorLeanRestore.test.js src/lib/engine/indoorSeatBaseline.test.js src/lib/engine/indoorSeating.test.js src/lib/engine/indoorSeatPrompt.test.js src/features/saved-cards/indoorSeatRestore.test.js src/lib/engine/framingWardrobeIntegration.test.js src/lib/engine/framingWardrobeRetention.test.js src/lib/engine/framingWardrobeHistoricalBoundary.test.js src/lib/characterWardrobeSources.test.js src/lib/page2AdultIdentity.test.js src/lib/engine/mainDressRegion.test.js src/lib/engine/chestDressRegion.test.js src/features/saved-cards/page1MarkdownSnapshot.test.js src/features/saved-cards/wardrobeColorRecovery.test.js src/lib/engine/outfitControlLanguage.test.js src/lib/engine/dressControlLanguage.test.js src/lib/engine/characterAdultIdentity.test.js src/lib/observationCaptureImport.test.js src/lib/engine/shirtBlackBottom.test.js src/lib/engine/specifiedActionUnified.test.js src/lib/observationCaptureMode.test.js src/lib/engine/squattingHands.test.js src/lib/engine/squattingCatalog.test.js src/lib/engine/specifiedActions.test.js src/lib/engine/specifiedActionIntegration.test.js src/lib/engine/nanoBananaPrompt.test.js src/lib/engine/midjourneyNaturalPrompt.test.js src/lib/engineBlackTieShirt.test.js src/lib/engineMirrorSelfieProp.test.js src/lib/engineSubjectLightAdditions.test.js src/lib/engineSubjectKeyLightCompatibility.test.js src/lib/engine/headDominantFraming.test.js src/lib/engine/shibuyaCrowdScene.test.js src/lib/engine/adidasTrackwear.test.js src/lib/engine/bandagePasties.test.js src/lib/engine/underbustTopFit.test.js src/lib/engine/outerwearStyling.test.js src/lib/engine/minimalCoverageWardrobe.test.js src/lib/engine/bodyTypeCatalog.test.js src/lib/engine/gptBodyTypeOmission.test.js src/lib/engine/kneelingCatalog.test.js src/lib/engine/hourglassBikiniBody.test.js src/lib/engine/zImageOnLocationCapture.test.js src/lib/engine/outerwearClosure.test.js src/lib/engine/stationFixedComposition.test.js src/lib/engineFixedCompositionSet.test.js src/lib/engine/topHemOverlap.test.js src/lib/engine/standingCatalog.test.js src/lib/engineOptionalSilence.test.js src/lib/engine/midjourneyTopPattern.test.js src/lib/engine/chestUpSameState.test.js src/lib/engine/closeWormEye.test.js src/lib/engine/gptCameraSpatial.test.js src/lib/engine/gptSceneVisibility.test.js src/lib/engine/ambientLightDescriptions.test.js src/lib/engine/zImageSceneDetailPriority.test.js src/lib/engine/zImageUpperSceneExtension.test.js src/lib/engine/zImageFullBodyCamera.test.js src/lib/engine/zImageUpperScene.test.js src/lib/engine/zImageSceneDirection.test.js src/lib/engine/sceneIntegratedAssemblyBaseline.test.js src/lib/engine/promptOutputContracts.test.js src/lib/engine/zImageTurboPromptContract.test.js src/lib/engine/zImageTurboCameraGeometry.test.js src/lib/engineZImageTurboPrompt.test.js src/lib/engine/aiPromptLengthContract.test.js src/lib/engine/aiPromptBudget.test.js src/lib/engine/aiPromptLengthIntegration.test.js src/lib/engine/midjourneyDescriptionContract.test.js src/lib/engine/midjourneyDescriptionOpening.test.js src/lib/engine/midjourneySubjectWardrobe.test.js src/lib/engine/midjourneySceneImaging.test.js src/lib/engine/midjourneySpecialModes.test.js src/lib/engine/midjourneyParameterContract.test.js src/lib/engine/midjourneyParameterTail.test.js src/lib/engine/midjourneyNativeStructure.test.js src/lib/engine/midjourneyFacialFeatureVariant.test.js src/lib/engine/expressionGazeSharedPrompt.test.js src/lib/engine/midjourneyCompletionGate.test.js src/lib/enginePromptDeduplication.test.js src/lib/engine/compositionBodyVisibilityContract.test.js src/lib/engine/compositionBodyVisibilityIntegration.test.js src/lib/engine/compositionBodyPromptIntegration.test.js src/lib/engine/compositionVisibilityIntegration.test.js src/lib/engine/fixedCompositionPromptIntegration.test.js src/lib/engine/fixedFramingDerivedPromptContract.test.js src/lib/engine/fixedFramingDerivedPromptInfrastructure.test.js src/lib/engine/fixedFramingDerivedPromptRuntime.test.js src/lib/engine/fixedFramingMainPrompt.test.js src/lib/engine/fixedFramingPromptIntegration.test.js src/lib/page1PromptOutputs.test.js src/lib/engine/phase4PublicLanguage.test.js src/lib/engine/phase4FixedPalette.test.js src/lib/engine/phase4ScenePosition.test.js src/lib/engine/phase4LightingCompatibility.test.js src/lib/engine/phase4CharacterDirection.test.js\",\n"
+          ],
+          "before": [
+            "    \"test:prompt-quality\": \"node ../scripts/run_webapp_tests.mjs src/lib/engine/denimOveralls.test.js src/lib/engine/specifiedActionUpperBodyStateBatch3.test.js src/lib/engine/specifiedActionUpperBodyStateBatch2.test.js src/lib/engine/specifiedActionUpperBodyState.test.js src/lib/engine/manualUnderlayers.test.js src/lib/engine/indoorKneelBaseline.test.js src/lib/engine/indoorKneeling.test.js src/lib/engine/indoorKneelPrompt.test.js src/features/saved-cards/indoorKneelRestore.test.js src/lib/engine/outdoorLeanBaseline.test.js src/lib/engine/outdoorLeaning.test.js src/lib/engine/outdoorLeanPrompt.test.js src/features/saved-cards/outdoorLeanRestore.test.js src/lib/engine/outdoorSeatBaseline.test.js src/lib/engine/outdoorSeating.test.js src/lib/engine/outdoorSeatPrompt.test.js src/features/saved-cards/outdoorSeatRestore.test.js src/lib/engine/indoorLeanBaseline.test.js src/lib/engine/indoorLeaning.test.js src/lib/engine/indoorLeanPrompt.test.js src/features/saved-cards/indoorLeanRestore.test.js src/lib/engine/indoorSeatBaseline.test.js src/lib/engine/indoorSeating.test.js src/lib/engine/indoorSeatPrompt.test.js src/features/saved-cards/indoorSeatRestore.test.js src/lib/engine/framingWardrobeIntegration.test.js src/lib/engine/framingWardrobeRetention.test.js src/lib/engine/framingWardrobeHistoricalBoundary.test.js src/lib/characterWardrobeSources.test.js src/lib/page2AdultIdentity.test.js src/lib/engine/mainDressRegion.test.js src/lib/engine/chestDressRegion.test.js src/features/saved-cards/page1MarkdownSnapshot.test.js src/features/saved-cards/wardrobeColorRecovery.test.js src/lib/engine/outfitControlLanguage.test.js src/lib/engine/dressControlLanguage.test.js src/lib/engine/characterAdultIdentity.test.js src/lib/observationCaptureImport.test.js src/lib/engine/shirtBlackBottom.test.js src/lib/engine/specifiedActionUnified.test.js src/lib/observationCaptureMode.test.js src/lib/engine/squattingHands.test.js src/lib/engine/squattingCatalog.test.js src/lib/engine/specifiedActions.test.js src/lib/engine/specifiedActionIntegration.test.js src/lib/engine/nanoBananaPrompt.test.js src/lib/engine/midjourneyNaturalPrompt.test.js src/lib/engineBlackTieShirt.test.js src/lib/engineMirrorSelfieProp.test.js src/lib/engineSubjectLightAdditions.test.js src/lib/engineSubjectKeyLightCompatibility.test.js src/lib/engine/headDominantFraming.test.js src/lib/engine/shibuyaCrowdScene.test.js src/lib/engine/adidasTrackwear.test.js src/lib/engine/bandagePasties.test.js src/lib/engine/underbustTopFit.test.js src/lib/engine/outerwearStyling.test.js src/lib/engine/minimalCoverageWardrobe.test.js src/lib/engine/bodyTypeCatalog.test.js src/lib/engine/gptBodyTypeOmission.test.js src/lib/engine/kneelingCatalog.test.js src/lib/engine/hourglassBikiniBody.test.js src/lib/engine/zImageOnLocationCapture.test.js src/lib/engine/outerwearClosure.test.js src/lib/engine/stationFixedComposition.test.js src/lib/engineFixedCompositionSet.test.js src/lib/engine/topHemOverlap.test.js src/lib/engine/standingCatalog.test.js src/lib/engineOptionalSilence.test.js src/lib/engine/midjourneyTopPattern.test.js src/lib/engine/chestUpSameState.test.js src/lib/engine/closeWormEye.test.js src/lib/engine/gptCameraSpatial.test.js src/lib/engine/gptSceneVisibility.test.js src/lib/engine/ambientLightDescriptions.test.js src/lib/engine/zImageSceneDetailPriority.test.js src/lib/engine/zImageUpperSceneExtension.test.js src/lib/engine/zImageFullBodyCamera.test.js src/lib/engine/zImageUpperScene.test.js src/lib/engine/zImageSceneDirection.test.js src/lib/engine/sceneIntegratedAssemblyBaseline.test.js src/lib/engine/promptOutputContracts.test.js src/lib/engine/zImageTurboPromptContract.test.js src/lib/engine/zImageTurboCameraGeometry.test.js src/lib/engineZImageTurboPrompt.test.js src/lib/engine/aiPromptLengthContract.test.js src/lib/engine/aiPromptBudget.test.js src/lib/engine/aiPromptLengthIntegration.test.js src/lib/engine/midjourneyDescriptionContract.test.js src/lib/engine/midjourneyDescriptionOpening.test.js src/lib/engine/midjourneySubjectWardrobe.test.js src/lib/engine/midjourneySceneImaging.test.js src/lib/engine/midjourneySpecialModes.test.js src/lib/engine/midjourneyParameterContract.test.js src/lib/engine/midjourneyParameterTail.test.js src/lib/engine/midjourneyNativeStructure.test.js src/lib/engine/midjourneyFacialFeatureVariant.test.js src/lib/engine/expressionGazeSharedPrompt.test.js src/lib/engine/midjourneyCompletionGate.test.js src/lib/enginePromptDeduplication.test.js src/lib/engine/compositionBodyVisibilityContract.test.js src/lib/engine/compositionBodyVisibilityIntegration.test.js src/lib/engine/compositionBodyPromptIntegration.test.js src/lib/engine/compositionVisibilityIntegration.test.js src/lib/engine/fixedCompositionPromptIntegration.test.js src/lib/engine/fixedFramingDerivedPromptContract.test.js src/lib/engine/fixedFramingDerivedPromptInfrastructure.test.js src/lib/engine/fixedFramingDerivedPromptRuntime.test.js src/lib/engine/fixedFramingMainPrompt.test.js src/lib/engine/fixedFramingPromptIntegration.test.js src/lib/page1PromptOutputs.test.js src/lib/engine/phase4PublicLanguage.test.js src/lib/engine/phase4FixedPalette.test.js src/lib/engine/phase4ScenePosition.test.js src/lib/engine/phase4LightingCompatibility.test.js src/lib/engine/phase4CharacterDirection.test.js\",\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "scripts/lib/videoReferenceReplay.mjs",
+      "beforeHash": "102a5cd409eec172fbdb79ea3ce4c1ce69e44c7d9852585869a805bfc77adc76",
+      "afterHash": "7173088d44cb81dbbd05db964bd20d9c19d3b73d4b30950e29db6c6f9d6eadfa",
+      "edits": [
+        {
+          "line": 0,
+          "after": [
+            "import { testEfficiencyHistoricalPaths, preTestEfficiencySource } from './testEfficiencyHistoricalReplay.mjs';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 9,
+          "after": [
+            "export const videoReferenceHistoricalPaths = [...new Set([...testEfficiencyHistoricalPaths, ...denimStrapHistoricalPaths, ...denimOverallsHistoricalPaths, ...manifest.files.map(file => file.path)])];\n"
+          ],
+          "before": [
+            "export const videoReferenceHistoricalPaths = [...new Set([...denimStrapHistoricalPaths, ...denimOverallsHistoricalPaths, ...manifest.files.map(file => file.path)])];\n"
+          ]
+        },
+        {
+          "line": 11,
+          "after": [
+            "  source = preTestEfficiencySource(path, source);\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/denimOveralls.test.js",
+      "beforeHash": "8b7c859886e522812f89e1339f8b93ff356243a81ac9ac6bc34ac7174bc98deb",
+      "afterHash": "12d3b21289241968bcc4eb7cea4bf8353d3db7cf6ea716e55860c80bd1e7c008",
+      "edits": [
+        {
+          "line": 0,
+          "after": [
+            "import { preTestEfficiencySource } from '../../../../scripts/lib/testEfficiencyHistoricalReplay.mjs';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 31,
+          "after": [
+            "    const current = preDenimStrapSource(file.path, preTestEfficiencySource(file.path, readFileSync(new URL('../../../../' + file.path, import.meta.url))));\n"
+          ],
+          "before": [
+            "    const current = preDenimStrapSource(file.path, readFileSync(new URL('../../../../' + file.path, import.meta.url)));\n"
+          ]
+        },
+        {
+          "line": 97,
+          "after": [
+            "    const current = preTestEfficiencySource(file.path, readFileSync(new URL('../../../../' + file.path, import.meta.url)));\n"
+          ],
+          "before": [
+            "    const current = readFileSync(new URL('../../../../' + file.path, import.meta.url));\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/indoorLeanBaseline.test.js",
+      "beforeHash": "fe0ddd692e9bb03472f43624272c962a9185df1130bd692b4a95d57c97a47f4c",
+      "afterHash": "769ec46c7966c5be17165b3cb80897765fd9b00e32085b638bbcdb07469bec55",
+      "edits": [
+        {
+          "line": 0,
+          "after": [
+            "import { preLawsonTestSnapshot } from '../../../../scripts/lib/preLawsonTestSnapshot.mjs';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 4,
+          "after": [],
+          "before": [
+            "import { execFileSync } from 'node:child_process';\n",
+            "import process from 'node:process';\n",
+            "import { mkdtempSync, readFileSync, rmSync } from 'node:fs';\n",
+            "import { tmpdir } from 'node:os';\n",
+            "import { join } from 'node:path';\n",
+            "import { fileURLToPath } from 'node:url';\n"
+          ]
+        },
+        {
+          "line": 7,
+          "after": [
+            "  const current=preLawsonTestSnapshot();\n"
+          ],
+          "before": [
+            "  const temp=mkdtempSync(join(tmpdir(),'lean-baseline-'));\n",
+            "  try {\n",
+            "    const output=join(temp,'outputs.json');\n",
+            "    execFileSync(process.execPath,['../scripts/dump_pre_lawson_outputs.mjs',output],{\n",
+            "      cwd:fileURLToPath(new URL('../../../',import.meta.url)),stdio:'pipe',timeout:120000,\n",
+            "    });\n",
+            "    const current=JSON.parse(readFileSync(output,'utf8'));\n"
+          ]
+        },
+        {
+          "line": 16,
+          "after": [],
+          "before": [
+            "  } finally { rmSync(temp,{recursive:true,force:true}); }\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/outdoorSeatBaseline.test.js",
+      "beforeHash": "44395a6beb63e113387061a4ed0ee4b1d0b79b4b0ff34a423d7d8874ebf950d5",
+      "afterHash": "ce768793184055794b9944a4bebbe70a76268bcca55325239e9881e119d5de69",
+      "edits": [
+        {
+          "line": 0,
+          "after": [
+            "import { preLawsonTestSnapshot } from '../../../../scripts/lib/preLawsonTestSnapshot.mjs';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 4,
+          "after": [],
+          "before": [
+            "import { execFileSync } from 'node:child_process';\n",
+            "import process from 'node:process';\n",
+            "import { mkdtempSync, readFileSync, rmSync } from 'node:fs';\n",
+            "import { tmpdir } from 'node:os';\n",
+            "import { join } from 'node:path';\n",
+            "import { fileURLToPath } from 'node:url';\n"
+          ]
+        },
+        {
+          "line": 10,
+          "after": [
+            "  const current=preLawsonTestSnapshot();\n"
+          ],
+          "before": [
+            "  const temp=mkdtempSync(join(tmpdir(),'outdoor-baseline-'));\n",
+            "  try {\n",
+            "    const output=join(temp,'outputs.json');\n",
+            "    execFileSync(process.execPath,['../scripts/dump_pre_lawson_outputs.mjs',output],{\n",
+            "      cwd:fileURLToPath(new URL('../../../',import.meta.url)),stdio:'pipe',timeout:120000,\n",
+            "    });\n",
+            "    const current=JSON.parse(readFileSync(output,'utf8'));\n"
+          ]
+        },
+        {
+          "line": 13,
+          "after": [],
+          "before": [
+            "  } finally {rmSync(temp,{recursive:true,force:true});}\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/outdoorLeanBaseline.test.js",
+      "beforeHash": "ffa846767db524355aa3beb3917a8b7f2bdaa62e071394d0eaec12c36151e4bd",
+      "afterHash": "eb79510227357c2c5b21e1d4dd075c77fc222012e4e8d95615ae5eb5cbe76599",
+      "edits": [
+        {
+          "line": 0,
+          "after": [
+            "import { preLawsonTestSnapshot } from '../../../../scripts/lib/preLawsonTestSnapshot.mjs';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 4,
+          "after": [],
+          "before": [
+            "import { execFileSync } from 'node:child_process';\n",
+            "import process from 'node:process';\n",
+            "import { mkdtempSync, readFileSync, rmSync } from 'node:fs';\n",
+            "import { tmpdir } from 'node:os';\n",
+            "import { join } from 'node:path';\n",
+            "import { fileURLToPath } from 'node:url';\n"
+          ]
+        },
+        {
+          "line": 10,
+          "after": [
+            "  const current=preLawsonTestSnapshot();\n"
+          ],
+          "before": [
+            "  const temp=mkdtempSync(join(tmpdir(),'outdoor-lean-baseline-'));\n",
+            "  try{\n",
+            "    const output=join(temp,'outputs.json');\n",
+            "    execFileSync(process.execPath,['../scripts/dump_pre_lawson_outputs.mjs',output],{cwd:fileURLToPath(new URL('../../../',import.meta.url)),stdio:'pipe',timeout:120000});\n",
+            "    const current=JSON.parse(readFileSync(output,'utf8'));\n"
+          ]
+        },
+        {
+          "line": 13,
+          "after": [],
+          "before": [
+            "  }finally{rmSync(temp,{recursive:true,force:true});}\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/indoorKneelBaseline.test.js",
+      "beforeHash": "1d37f6b686054afde37e20308daf630caba7509c313692617795ddc96e5795af",
+      "afterHash": "ba46b4d5c6a7c17bdb98f7211340d6d250585b46b587ef9f22472c44bbb58b7c",
+      "edits": [
+        {
+          "line": 0,
+          "after": [
+            "import { preLawsonTestSnapshot } from '../../../../scripts/lib/preLawsonTestSnapshot.mjs';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 4,
+          "after": [],
+          "before": [
+            "import {execFileSync} from 'node:child_process';\n",
+            "import process from 'node:process';\n",
+            "import {mkdtempSync,readFileSync,rmSync} from 'node:fs';\n",
+            "import {tmpdir} from 'node:os';\n",
+            "import {join} from 'node:path';\n",
+            "import {fileURLToPath} from 'node:url';\n"
+          ]
+        },
+        {
+          "line": 9,
+          "after": [
+            "  const current=preLawsonTestSnapshot();assert.equal(Object.keys(current).length,1686);assert.deepEqual(Object.keys(current),Object.keys(baseline.rows));\n"
+          ],
+          "before": [
+            " const temp=mkdtempSync(join(tmpdir(),'indoor-kneel-baseline-'));\n",
+            " try{const path=join(temp,'outputs.json');execFileSync(process.execPath,['../scripts/dump_pre_lawson_outputs.mjs',path],{cwd:fileURLToPath(new URL('../../../',import.meta.url)),stdio:'pipe',timeout:120000});\n",
+            "  const current=JSON.parse(readFileSync(path,'utf8'));assert.equal(Object.keys(current).length,1686);assert.deepEqual(Object.keys(current),Object.keys(baseline.rows));\n"
+          ]
+        },
+        {
+          "line": 11,
+          "after": [],
+          "before": [
+            " }finally{rmSync(temp,{recursive:true,force:true})}\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/indoorSeatFixtures.js",
+      "beforeHash": "1ef5a76e9290b7c7ddd7e38059590af13d6c3797e208b140d84c6fcc66d80519",
+      "afterHash": "15f7f7de9e582a97f02860381921ca770160300083c6d45ed327fb882b7f470c",
+      "edits": [
+        {
+          "line": 0,
+          "after": [
+            "import { withSeatFixtureReuse } from './seatFixtureReuseTestSupport.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 20,
+          "after": [
+            "  return withSeatFixtureReuse(location, action, framing, overrides, () => {\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 32,
+          "after": [
+            "  });\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/outdoorSeatFixtures.js",
+      "beforeHash": "9e77cf68805ac427c2f5c7ce6a029620ee899dce37e0f096744a5edf555d9517",
+      "afterHash": "0b8b9a65b18cb277865b1d9d56ecf63f846429bcb11cf8bac54f6c3af638a50c",
+      "edits": [
+        {
+          "line": 0,
+          "after": [
+            "import { testMatrixProgress } from './testMatrixProgress.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 10,
+          "after": [
+            "  const progress = testMatrixProgress('indoorSeatingRegressionRows', 18480); let completed = 0;\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 25,
+          "after": [
+            "      progress.tick(++completed);\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 30,
+          "after": [
+            "  progress.finish();\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/outdoorLeanFixtures.js",
+      "beforeHash": "dc450d08afb168722241d09b2b42206fa97c6878334a2e16bfc7606d6e3710fd",
+      "afterHash": "824520f8d317b482a539b19cd187ff89bb5a6c3a6c0dbe560edd308d69b7cbda",
+      "edits": [
+        {
+          "line": 0,
+          "after": [
+            "import { testMatrixProgress } from './testMatrixProgress.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 9,
+          "after": [
+            "  const progress = testMatrixProgress('outdoorLeanProtectedRows', 14310); let completed = 0;\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 29,
+          "after": [
+            "      progress.tick(++completed);\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 34,
+          "after": [
+            "  progress.finish();\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/indoorKneelFixtures.js",
+      "beforeHash": "ee68d1aee76912066b432fbb372626248301b74ccfd2f36695f78e9b99bad664",
+      "afterHash": "c650db25ab18bccd1b148afae3e73f6dca7e71e16d1cbe44a38aeb8bf2fbfd00",
+      "edits": [
+        {
+          "line": 0,
+          "after": [
+            "import { testMatrixProgress } from './testMatrixProgress.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 9,
+          "after": [
+            "  const progress = testMatrixProgress('indoorKneelProtectedRows', 17220); let completed = 0;\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 27,
+          "after": [
+            "      progress.tick(++completed);\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 32,
+          "after": [
+            "  progress.finish();\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/specifiedActionUpperBodyStateBatch3.test.js",
+      "beforeHash": "49820f002c83d8c05dcd68d92b87f090000151b160eb8f61baebc69e61e4b978",
+      "afterHash": "244e8835cca71ae8803e470476403aee1281b0b08e3600fbf4b977ac20d4eddb",
+      "edits": [
+        {
+          "line": 0,
+          "after": [
+            "import { testMatrixProgress } from './testMatrixProgress.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 97,
+          "after": [
+            "  const progress = testMatrixProgress('upper-body batch 3 support matrix', 24684);\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 116,
+          "after": [
+            "    scenes.add(fixture.locks.locationId);if(fixture.locks.indoorKneelId)surfaces.add(fixture.locks.indoorKneelId);compared++;progress.tick(compared);\n"
+          ],
+          "before": [
+            "    scenes.add(fixture.locks.locationId);if(fixture.locks.indoorKneelId)surfaces.add(fixture.locks.indoorKneelId);compared++;\n"
+          ]
+        },
+        {
+          "line": 119,
+          "after": [
+            "  progress.tick(compared); progress.finish();\n"
+          ],
+          "before": []
+        }
+      ]
+    }
+  ]
+}

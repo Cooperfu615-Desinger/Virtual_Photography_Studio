@@ -1,3 +1,4 @@
+import { preTestEfficiencySource } from '../../../../scripts/lib/testEfficiencyHistoricalReplay.mjs';
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFileSync } from 'node:fs';
@@ -28,7 +29,7 @@ const cards = r => buildPage1GenerationPromptCards(r);
 test('exact inverse preserves historical seals and rejects unknown sources', () => {
   assert.equal(history.base, '5e896979331421fe567807067ce490bb16f6b3de');
   for (const file of history.files) {
-    const current = preDenimStrapSource(file.path, readFileSync(new URL('../../../../' + file.path, import.meta.url)));
+    const current = preDenimStrapSource(file.path, preTestEfficiencySource(file.path, readFileSync(new URL('../../../../' + file.path, import.meta.url))));
     const original = execFileSync('git', ['show', `${history.base}:${file.path}`], { maxBuffer: 16 * 1024 * 1024 });
     const hash = value => createHash('sha256').update(value).digest('hex');
     assert.equal(hash(current), file.afterHash, file.path);
@@ -94,7 +95,7 @@ test('duo colors and rise suppression follow the correct wearer', () => {
 test('loose-strap inverse preserves the first overalls revision and rejects unknown bytes', () => {
   assert.equal(strapHistory.base, '7baeb65735ec846c898044306b363fd597e93717');
   for (const file of strapHistory.files) {
-    const current = readFileSync(new URL('../../../../' + file.path, import.meta.url));
+    const current = preTestEfficiencySource(file.path, readFileSync(new URL('../../../../' + file.path, import.meta.url)));
     const original = execFileSync('git', ['show', `${strapHistory.base}:${file.path}`], { maxBuffer: 16 * 1024 * 1024 });
     assert.equal(createHash('sha256').update(current).digest('hex'), file.afterHash, file.path);
     assert.deepEqual(preDenimStrapSource(file.path, current), original);

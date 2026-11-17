@@ -1,5 +1,6 @@
 // Node-only test orchestration. Keep ordinary test files in their native process
-// isolation and group only the three overlapping immutable scene matrices.
+// isolation and group only explicitly selected, overlapping fixture suites.
+import { createTestRunContext, watchTestProgress } from './lib/testRunContext.mjs';
 import { spawn } from 'node:child_process';
 import { resolve, relative } from 'node:path';
 import process from 'node:process';
@@ -62,6 +63,24 @@ export function groupWebappTestArguments(args, cwd = process.cwd()) {
   });
 }
 
+export const SEATING_MATRIX_FILES = Object.freeze([
+  'src/lib/engine/indoorKneelBaseline.test.js',
+  'src/lib/engine/indoorKneelPrompt.test.js',
+  'src/lib/engine/outdoorLeanPrompt.test.js',
+]);
+export const SEATING_MATRIX_AGGREGATOR = '../scripts/test-groups/seatingMatrices.mjs';
+export function prepareWebappTestArguments(args, cwd = process.cwd()) {
+  const positions = testFilePositions(args);
+  const members = new Set(SEATING_MATRIX_FILES.map(file => resolve(webappDirectory, file)));
+  const selected = positions.filter(index => members.has(resolve(cwd, args[index])));
+  if (new Set(selected.map(index => resolve(cwd, args[index]))).size !== members.size) return [...args];
+  const aggregator = resolve(webappDirectory, SEATING_MATRIX_AGGREGATOR);
+  const alreadySelected = positions.some(index => resolve(cwd, args[index]) === aggregator);
+  const indexes = new Set(selected);
+  return args.flatMap((argument, index) => !indexes.has(index) ? [argument]
+    : index === selected[0] && !alreadySelected ? [relative(cwd, aggregator)] : []);
+}
+
 export function spawnWebappTests(args, { cwd = process.cwd(), spawnProcess = spawn } = {}) {
   return spawnProcess(process.execPath, ['--test', ...groupWebappTestArguments(args, cwd)], {
     cwd,
@@ -70,16 +89,23 @@ export function spawnWebappTests(args, { cwd = process.cwd(), spawnProcess = spa
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  const child = spawnWebappTests(process.argv.slice(2));
+  const context = createTestRunContext(resolve(webappDirectory, '..'));
+  const stopProgress = watchTestProgress(context.directory);
+  const cleanup = () => { stopProgress(); context.cleanup(); };
+  const child = spawnWebappTests(prepareWebappTestArguments(process.argv.slice(2)), {
+    spawnProcess: (command, args, options) => spawn(command, args, { ...options, env: context.env }),
+  });
   const forwardInterrupt = () => child.kill('SIGINT');
   const forwardTermination = () => child.kill('SIGTERM');
   process.once('SIGINT', forwardInterrupt);
   process.once('SIGTERM', forwardTermination);
   child.once('error', error => {
+    cleanup();
     process.stderr.write(`Unable to start webapp tests: ${error.message}\n`);
     process.exitCode = 1;
   });
   child.once('exit', (code, signal) => {
+    cleanup();
     process.removeListener('SIGINT', forwardInterrupt);
     process.removeListener('SIGTERM', forwardTermination);
     // Preserve native test failures so CI still blocks lint/build/deployment.

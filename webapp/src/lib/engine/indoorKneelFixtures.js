@@ -1,3 +1,4 @@
+import { testMatrixProgress } from './testMatrixProgress.js';
 import { createHash } from 'node:crypto';
 import { getLockControls, getSceneDependentOptions } from '../engine.js';
 import { SPECIFIED_ACTION_CONCRETE_OPTIONS } from './specifiedActions.js';
@@ -6,6 +7,7 @@ import { seatFixture, seatFramings } from './indoorSeatFixtures.js';
 
 export const kneelActions = SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(action => action.family === 'kneeling' && action.hands.mode === 'free');
 export function indoorKneelProtectedRows() {
+  const progress = testMatrixProgress('indoorKneelProtectedRows', 17220); let completed = 0;
   const controls = getLockControls(), rows = {};
   const places = attribute => getSceneDependentOptions([], { subjectCount:'1', sceneAttributeId:attribute }).locationOptions.filter(o => o.zh !== '全無' && !o.zh.includes('日本 Lawson 便利商店'));
   const allKneeling = SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(action => action.family === 'kneeling');
@@ -23,9 +25,11 @@ export function indoorKneelProtectedRows() {
       const {prompt, cards, draws} = seatFixture(place.zh, action.zh, framing, value ? {indoorLeanId:value} : {});
       const {id, date, ...stable} = prompt;
       if (!id || !date || cards.length !== 7) throw new Error('Invalid protected fixture');
+      progress.tick(++completed);
       hash.update(JSON.stringify({stable, cards, draws}));
     }
     rows[prefix + '/' + place.id + '/' + action.id] = {samples:seatFramings.length * values.length, sha256:hash.digest('hex')};
   }
+  progress.finish();
   return rows;
 }

@@ -1,3 +1,4 @@
+import { testMatrixProgress } from './testMatrixProgress.js';
 import { createHash } from 'node:crypto';
 import { getLockControls, getSceneDependentOptions } from '../engine.js';
 import { SPECIFIED_ACTION_CONCRETE_OPTIONS } from './specifiedActions.js';
@@ -7,6 +8,7 @@ import { seatFixture, seatFramings } from './indoorSeatFixtures.js';
 /** Existing indoor behavior: both unspecified and the first effective manual seat,
  * every scene/action/framing, including all seven outputs and random draw counts. */
 export function indoorSeatingRegressionRows() {
+  const progress = testMatrixProgress('indoorSeatingRegressionRows', 18480); let completed = 0;
   const locations=getSceneDependentOptions([], {subjectCount:'1',sceneAttributeId:'indoor'}).locationOptions.filter(o=>o.zh!=='全無' && !o.zh.includes('日本 Lawson 便利商店'));
   // The separately reviewed adjustable cat pose postdates this immutable matrix.
   // Its own feature suite covers current scenes; keep every original row here.
@@ -21,9 +23,11 @@ export function indoorSeatingRegressionRows() {
       const {prompt,cards,draws}=seatFixture(location.zh,action.zh,framing,id?{indoorSeatId:id}:{});
       const {id:ignoredId,date:ignoredDate,...stable}=prompt;
       if(!ignoredId || !ignoredDate || cards.length!==7) throw new Error('Invalid regression fixture');
+      progress.tick(++completed);
       hash.update(JSON.stringify({stable,cards,draws}));
     }
     rows[location.id+'/'+action.id]={samples:seatFramings.length*values.length,sha256:hash.digest('hex')};
   }
+  progress.finish();
   return rows;
 }

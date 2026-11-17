@@ -1,3 +1,4 @@
+import { withSeatFixtureReuse } from './seatFixtureReuseTestSupport.js';
 import { createHash } from 'node:crypto';
 import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls } from '../engine.js';
 import { buildPage1GenerationPromptCards } from '../page1PromptOutputs.js';
@@ -17,6 +18,7 @@ export const seatCases = [
   ['outdoor', '戶外：金色海灘與浪線', '單腿屈起・單掌後撐'],
 ];
 export function seatFixture(location, action, framing, overrides = {}) {
+  return withSeatFixtureReuse(location, action, framing, overrides, () => {
   const locks = createEmptyLocks();
   for (const control of controls) {
     const none = control.options.find(item => item.zh === '全無' || item.zh === '無額外表情');
@@ -28,6 +30,7 @@ export function seatFixture(location, action, framing, overrides = {}) {
   let draws = 0;
   const [prompt] = generatePrompts(1, locks, [], {random: () => { draws++; return seeded(); }});
   return { prompt, draws, cards: buildPage1GenerationPromptCards(prompt), locks };
+  });
 }
 export const seatFramings = controls.find(c => c.key === 'framingId').options
   .filter(item => item.en && item.en !== 'none' && item.id !== 'random').map(item => item.id);

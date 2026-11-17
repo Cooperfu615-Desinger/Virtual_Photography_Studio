@@ -1,3 +1,4 @@
+import { testMatrixProgress } from './testMatrixProgress.js';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
@@ -94,6 +95,7 @@ test('same-seed seven-output scenarios preserve all words outside approved postu
 });
 
 test('all 156 current scenes, six kneels, every surface and framing preserve effective support and protected public outputs',()=>{
+  const progress = testMatrixProgress('upper-body batch 3 support matrix', 24684);
   assert.equal(Object.keys(UPPER_BODY_STATE_BATCH3_SCENES).length,156);
   let compared=0;
   const scenes=new Set(),surfaces=new Set();
@@ -112,9 +114,10 @@ test('all 156 current scenes, six kneels, every surface and framing preserve eff
       if(mayChange(fixture,result,card))assertPosture(card.value,target,fixture.key+'/'+card.id);
       else assert.equal(row.outputs[card.id],original.outputs[card.id],fixture.key+'/'+card.id);
     }
-    scenes.add(fixture.locks.locationId);if(fixture.locks.indoorKneelId)surfaces.add(fixture.locks.indoorKneelId);compared++;
+    scenes.add(fixture.locks.locationId);if(fixture.locks.indoorKneelId)surfaces.add(fixture.locks.indoorKneelId);compared++;progress.tick(compared);
   }
   assert.equal(compared,Object.keys(before.supportRows).length);
+  progress.tick(compared); progress.finish();
   assert.equal(compared,24684);
   assert.equal(scenes.size,156);
   assert.equal(surfaces.size,22);
