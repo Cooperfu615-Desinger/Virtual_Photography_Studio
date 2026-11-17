@@ -177,3 +177,42 @@ test('Pika model switch selects the tested five-second first-frame settings', ()
   assert.equal(pika.duration, 5); assert.equal(pika.resolution, '依首圖'); assert.equal(pika.audio, true);
   assert.equal(changeVideoModel(pika, 'wan3').resolution, '720P');
 });
+
+const referenceFile = () => ({ blob: new Blob(['fixture'], { type: 'video/mp4' }), name: 'camera.mp4', duration: 5, width: 1280, height: 720, size: 7 });
+test('reference file uploads before paid submission, history holds metadata only, removing restores no-reference path', async () => {
+  const f = fixture({ encodeReference: async () => 'Zml4dHVyZQ==' });
+  // The mock upload response mirrors the new upload operation without paid calls.
+  const calls = [];
+  const controller = createVideoController({ storage: f.storage, session: async () => ({ uid: 'a', call: async p => {
+    calls.push(p); return p.action === 'prepareReference' ? { sourceId: 'ref-upload' } : f.call(p);
+  } }), prepare: async () => ({ src: 'png', width: 1280, height: 720 }), encodeReference: async () => 'Zml4dHVyZQ==',
+  locks: { request: (_n, _o, fn) => fn({}) }, uuid: (() => { let i = 0; return () => `r-${++i}`; })() });
+  await ready(controller); controller.draft({ modelKey: 'seedance25' }); controller.reference(referenceFile());
+  await controller.generate();
+  assert.deepEqual(calls.map(c => c.action), ['prepare', 'prepareReference', 'submit']);
+  assert.equal(calls.at(-1).referenceVideoId, 'ref-upload');
+  assert.equal(controller.getSnapshot().results[0].draft.referenceVideo.blob, undefined);
+  const first = controller.getSnapshot().results[0];
+  controller.reference(null); await controller.generate();
+  assert.equal(calls.at(-1).referenceVideoId, undefined);
+  controller.reuse(first.requestId); const before = calls.length;
+  await controller.generate(); assert.equal(calls.length, before);
+  assert.match(controller.getSnapshot().error, /重新上傳/);
+});
+test('reference selection persists as a single Blob, clears for unsupported models and isolates accounts', async () => {
+  const f = fixture(); await ready(f.controller); f.controller.draft({ modelKey: 'minimaxH3' }); f.controller.reference(referenceFile());
+  await new Promise(resolve => setTimeout(resolve, 0));
+  assert.equal(f.data.get('a').referenceVideo.blob.size, 7);
+  const other = createVideoController({ storage: f.storage }); await other.setUser('a');
+  assert.equal(other.getSnapshot().referenceVideo.name, 'camera.mp4');
+  other.draft({ modelKey: 'wan3' }); assert.equal(other.getSnapshot().draft.referenceVideo, undefined);
+  assert.equal(other.getSnapshot().referenceVideo, null);
+  await f.controller.setUser('b'); assert.equal(f.controller.getSnapshot().referenceVideo, null);
+});
+test('unconfirmed reference upload never creates pending marker or submits a paid job', async () => {
+  const f = fixture({ encodeReference: async () => 'fixture' }); await ready(f.controller);
+  f.controller.draft({ modelKey: 'minimaxH3' }); f.controller.reference(referenceFile()); await f.controller.generate();
+  assert.equal(f.calls.some(c => c.action === 'submit'), false);
+  assert.equal(Boolean(f.controller.getSnapshot().pending), false);
+  assert.match(f.controller.getSnapshot().error, /上傳未確認/);
+});

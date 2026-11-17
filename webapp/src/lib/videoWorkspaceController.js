@@ -1,16 +1,18 @@
+import { validateVideoReference } from '../../../functions/shared/videoReference.mjs';
+import { supportsVideoReference, referenceBase64 } from './videoReference.js';
 import { changeVideoModel, defaultVideoDraft, getVideoSession, prepareVideoPng, videoIsTerminal, videoMessage, videoSourceRatio, VIDEO_MODELS } from './comfyVideoClient.js';
 import { videoStorage } from './videoWorkspaceStorage.js';
 
-const initial = () => ({ uid: null, ready: false, open: false, source: null, sources: {}, draft: defaultVideoDraft(), results: [],
+const initial = () => ({ uid: null, ready: false, open: false, source: null, sources: {}, referenceVideo: null, draft: defaultVideoDraft(), results: [],
   pending: null, busy: false, status: '', error: '', notice: '', tab: 'source', selected: null });
 
 export function createVideoController({ storage = videoStorage, session = getVideoSession, prepare = prepareVideoPng,
   locks = globalThis.navigator?.locks, sleep = ms => new Promise(resolve => setTimeout(resolve, ms)), maxPolls = 360,
-  uuid = () => crypto.randomUUID() } = {}) {
+  encodeReference = referenceBase64, uuid = () => crypto.randomUUID() } = {}) {
   let state = initial(); let epoch = 0; let saving = Promise.resolve();
   const listeners = new Set();
   const emit = patch => { state = { ...state, ...patch }; listeners.forEach(fn => fn()); };
-  const saved = () => ({ source: state.source, sources: state.sources, draft: state.draft, results: state.results, selected: state.selected });
+  const saved = () => ({ source: state.source, sources: state.sources, referenceVideo: state.referenceVideo, draft: state.draft, results: state.results, selected: state.selected });
   const persist = () => {
     if (!state.uid) return Promise.resolve();
     const uid = state.uid; const snapshot = saved();
@@ -68,6 +70,11 @@ export function createVideoController({ storage = videoStorage, session = getVid
         if (!state.source) throw new Error('請先選擇生成圖片');
         if (!state.draft.motion.trim()) throw new Error('請填寫動作描述');
         const draft = { ...state.draft }; const source = { ...state.source };
+        const reference = draft.referenceVideo;
+        const referenceFile = state.referenceVideo;
+        if (reference && (!supportsVideoReference(draft.modelKey) || referenceFile?.id !== reference.id || !referenceFile.blob))
+          throw new Error('此設定需要參考影片，請重新上傳或移除參考影片後再生成');
+        if (reference) validateVideoReference(reference, draft.modelKey);
         emit({ status: 'preparing' });
         const png = await prepare(source.src); check(stamp);
         if (VIDEO_MODELS[draft.modelKey]?.referenceImage && (png.width < 300 || png.height < 300)) throw new Error('Seedance 來源圖片需至少 300×300');
@@ -79,6 +86,13 @@ export function createVideoController({ storage = videoStorage, session = getVid
         // A new upload identity permits recovery from an unconfirmed upload;
         // this never retries a paid video submission.
         const upload = await current.call({ action: 'prepare', sourceId: uuid(), src: png.src }); check(stamp);
+        let referenceVideoId;
+        if (reference) {
+          const base64 = await encodeReference(referenceFile.blob); check(stamp);
+          const uploaded = await current.call({ action: 'prepareReference', modelKey: draft.modelKey, sourceId: uuid(), base64 }); check(stamp);
+          referenceVideoId = uploaded.sourceId;
+          if (!referenceVideoId) throw new Error('參考影片上傳未確認，未送出生成任務');
+        }
         const marker = { requestId: uuid(), uid: current.uid, sourceId, createdAt: Date.now() };
         preparedMarker = marker;
         updateRecord(marker, { draft, status: 'submitting', meta: { ...draft, width: png.width, height: png.height } });
@@ -86,7 +100,7 @@ export function createVideoController({ storage = videoStorage, session = getVid
         await persist(); check(stamp);
         storage.setPending(current.uid, marker);
         emit({ pending: marker, status: 'submitting', selected: marker.requestId, tab: 'video' });
-        const job = await current.call({ action: 'submit', ...draft, sourceId: upload.sourceId, requestId: marker.requestId });
+        const job = await current.call({ action: 'submit', ...draft, ...(referenceVideoId ? { referenceVideoId } : {}), sourceId: upload.sourceId, requestId: marker.requestId });
         check(stamp);
         await track(current, marker, stamp, job);
       });
@@ -108,7 +122,7 @@ export function createVideoController({ storage = videoStorage, session = getVid
     subscribe: fn => { listeners.add(fn); return () => listeners.delete(fn); }, getSnapshot: () => state,
     async setUser(uid) {
       const stamp = ++epoch;
-      const anonymous = !state.uid ? { source: state.source, sources: state.sources, draft: state.draft, open: state.open } : {};
+      const anonymous = !state.uid ? { source: state.source, sources: state.sources, referenceVideo: state.referenceVideo, draft: state.draft, open: state.open } : {};
       emit({ ...initial(), ...anonymous, uid });
       if (!uid) { emit({ ready: true }); return; }
       try {
@@ -134,7 +148,19 @@ export function createVideoController({ storage = videoStorage, session = getVid
     draft(patch) {
       if (state.busy || state.pending) return;
       const next = patch.modelKey ? changeVideoModel(state.draft, patch.modelKey) : { ...state.draft, ...patch };
-      emit({ draft: next, notice: patch.modelKey && next.resolution !== state.draft.resolution ? `已改為此模型支援的 ${next.resolution}` : '' }); saveDraft();
+      const clearReference = patch.modelKey && !supportsVideoReference(patch.modelKey);
+      if (clearReference) delete next.referenceVideo;
+      emit({ ...(clearReference ? { referenceVideo: null } : {}), draft: next, notice: patch.modelKey && next.resolution !== state.draft.resolution ? `已改為此模型支援的 ${next.resolution}` : '' }); saveDraft();
+    },
+    reference(file) {
+      if (state.busy || state.pending || !supportsVideoReference(state.draft.modelKey)) return;
+      const draft = { ...state.draft };
+      const referenceVideo = file ? { ...file, id: uuid() } : null;
+      if (referenceVideo) {
+        const { id, name, duration, width, height, size } = referenceVideo;
+        draft.referenceVideo = { id, name, duration, width, height, size };
+      } else delete draft.referenceVideo;
+      emit({ referenceVideo, draft, error: '', notice: '' }); saveDraft();
     },
     tab: tab => emit({ tab }),
     select: requestId => { emit({ selected: requestId, tab: 'video' }); saveDraft(); },

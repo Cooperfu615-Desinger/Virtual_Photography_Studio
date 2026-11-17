@@ -1,3 +1,4 @@
+import { prepareReferenceFile, supportsVideoReference } from '../lib/videoReference.js';
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { RefreshCw, PlayCircle, Download, Film, LoaderCircle, Upload, Copy, Image as ImageIcon, ArrowRight } from 'lucide-react';
@@ -14,7 +15,7 @@ const loadVideoQuota = async (uid, selection) => {
 };
 
 function VideoQuota({ uid, draft, refreshToken, loadQuota = loadVideoQuota }) {
-  const { modelKey, resolution, duration, audio, ratio } = draft;
+  const { modelKey, resolution, duration, audio, ratio, referenceVideo } = draft;
   const [revision, setRevision] = useState(0);
   const [state, setState] = useState({ data: null, loading: Boolean(uid), error: '' });
   useEffect(() => {
@@ -24,14 +25,14 @@ function VideoQuota({ uid, draft, refreshToken, loadQuota = loadVideoQuota }) {
       if (!active) return;
       setState(previous => ({ ...previous, loading: true, error: '' }));
       try {
-        const data = await loadQuota(uid, { modelKey, resolution, duration, audio, ratio });
+        const data = await loadQuota(uid, { modelKey, resolution, duration, audio, ratio, referenceVideo });
         if (active) setState({ data, loading: false, error: '' });
       } catch (error) {
         if (active) setState(previous => ({ ...previous, loading: false, error: videoMessage(error) }));
       }
     });
     return () => { active = false; };
-  }, [uid, modelKey, resolution, duration, audio, ratio, revision, refreshToken, loadQuota]);
+  }, [uid, modelKey, resolution, duration, audio, ratio, referenceVideo, revision, refreshToken, loadQuota]);
   return <section className="video-quota" aria-label="影片額度" aria-busy={state.loading}>
     <div className="video-quota-heading"><strong>Comfy Cloud 額度</strong>
       <button className="video-text-button" type="button" disabled={!uid || state.loading} onClick={() => setRevision(value => value + 1)}>
@@ -40,15 +41,27 @@ function VideoQuota({ uid, draft, refreshToken, loadQuota = loadVideoQuota }) {
     <dl><div><dt>剩餘額度</dt><dd>{!uid ? '請先登入' : state.data?.credits == null ? '暫無法取得' : `${formatNumber(state.data.credits)} Credits`}</dd></div>
       <div><dt>本次預估</dt><dd>{state.data?.estimatedCredits == null ? '暫無法估算' : `約 ${formatNumber(state.data.estimatedCredits)} Credits`}</dd></div>
       <div><dt>預估可生成</dt><dd>{state.data?.estimatedVideos == null ? '暫無法估算' : `約 ${formatNumber(state.data.estimatedVideos)} 支`}</dd></div></dl>
-    <p className="video-help">{VIDEO_MODELS[modelKey]?.unpriced ? '此模型尚無可靠費用估算，實際扣額依 Comfy Cloud 為準。' : '依模型公開費率估算，不含可能的工作流執行費，實際扣額可能不同。'}</p>
+    <p className="video-help">{referenceVideo ? `包含參考影片 ${formatNumber(referenceVideo.duration)} 秒，實際扣額以 Comfy Cloud 為準。` : VIDEO_MODELS[modelKey]?.unpriced ? '此模型尚無可靠費用估算，實際扣額依 Comfy Cloud 為準。' : '依模型公開費率估算，不含可能的工作流執行費，實際扣額可能不同。'}</p>
     {state.data && <p className="video-help">更新於 {new Date(state.data.checkedAt).toLocaleTimeString('zh-TW')}{state.data.rateDate && (' · 費率 ' + state.data.rateDate)}</p>}
     {state.error && <p className="video-error" role="status">{state.error}</p>}
   </section>;
 }
 
 
+function ReferencePreview({ file }) {
+  const video = useRef(null);
+  useEffect(() => {
+    if (!file?.blob || !video.current) return;
+    const element = video.current;
+    const url = URL.createObjectURL(file.blob); element.src = url;
+    return () => { element.pause(); element.removeAttribute('src'); element.load(); URL.revokeObjectURL(url); };
+  }, [file]);
+  return <video ref={video} className="video-reference-preview" aria-label="參考影片預覽" controls playsInline preload="metadata" />;
+}
+
 export function VideoWorkspaceView({ state, controller, quotaLoader, download = downloadVideo, onChooseImage }) {
   const fileInput = useRef(null);
+  const referenceInput = useRef(null);
   const [filter, setFilter] = useState('all');
   const [mobilePanel, setMobilePanel] = useState('settings');
   const [downloading, setDownloading] = useState(false);
@@ -78,6 +91,17 @@ export function VideoWorkspaceView({ state, controller, quotaLoader, download = 
       controller.open({ ...png, name: file.name, origin: '本機上傳' });
     } catch (error) { if (controller.getSnapshot().uid === uid) setLocalError(videoMessage(error)); }
     finally { URL.revokeObjectURL(url); setUploading(false); }
+  };
+  const uploadReference = async event => {
+    const file = event.target.files?.[0]; event.target.value = '';
+    if (!file || locked) return;
+    const uid = state.uid; const modelKey = state.draft.modelKey;
+    setUploading(true); setLocalError('');
+    try {
+      const reference = await prepareReferenceFile(file, modelKey);
+      if (controller.getSnapshot().uid === uid && controller.getSnapshot().draft.modelKey === modelKey) controller.reference(reference);
+    } catch (error) { if (controller.getSnapshot().uid === uid) setLocalError(videoMessage(error)); }
+    finally { setUploading(false); }
   };
   const handleDownload = async () => {
     setDownloading(true); setLocalError('');
@@ -165,21 +189,37 @@ export function VideoWorkspaceView({ state, controller, quotaLoader, download = 
           <label className="video-field">選擇模型<select value={state.draft.modelKey} onChange={event => controller.draft({ modelKey: event.target.value })}>
             {Object.entries(VIDEO_MODELS).map(([key, option]) => <option key={key} value={key}>{option.label}</option>)}
           </select></label>
-          {model.referenceImage && <p className="video-help">以圖片作為參考，影片開頭可能與原圖不同。</p>}
+          {(model.referenceImage || state.draft.referenceVideo) && <p className="video-help">以圖片作為參考，影片開頭可能與原圖不同。</p>}
           {model.unpriced && <p className="video-help">使用單張首圖，尺寸跟隨來源圖片並對齊至 32 像素；較大圖片可能增加耗時與費用。5 秒設定實際輸出約 5.17 秒。</p>}
           <label className="video-field">動作描述<textarea value={state.draft.motion} maxLength={8000} rows={2} required placeholder="人物緩慢抬頭，望向鏡頭並自然微笑。" onChange={event => controller.draft({ motion: event.target.value })} /></label>
           <label className="video-field">運鏡描述（選填）<textarea value={state.draft.camera} maxLength={1500} rows={2} placeholder="鏡頭緩慢推近，保持平穩。" onChange={event => controller.draft({ camera: event.target.value })} /></label>
           <div className="video-camera-presets">{VIDEO_CAMERA_PRESETS.map(text => <button type="button" key={text} aria-pressed={state.draft.camera === text} onClick={() => controller.draft({ camera: text })}>{text}</button>)}</div>
+          {supportsVideoReference(state.draft.modelKey) && <div className="video-reference" aria-label="動作與運鏡參考影片">
+            <strong>參考影片（選填）</strong>
+            <p className="video-help">單支 MP4／H.264，2～15 秒、20 MB 以內。請在文字中說明要參考的動作或運鏡；不保證逐幀複製。</p>
+            <input ref={referenceInput} className="video-sr-only" tabIndex={-1} type="file" accept="video/mp4,.mp4" onChange={uploadReference} aria-label="上傳參考影片檔案" />
+            {state.draft.referenceVideo && <>
+              <p className="video-help">{state.draft.referenceVideo.name} · {formatNumber(state.draft.referenceVideo.duration)} 秒</p>
+              {state.referenceVideo?.id === state.draft.referenceVideo.id
+                ? <ReferencePreview file={state.referenceVideo} />
+                : <p className="video-error">此歷史設定的影片不在目前草稿中，請重新上傳或移除參考。</p>}
+              <p className="video-help">圖片與影片將一起作為參考，圖片不再保證是第一幀。參考影片也會計入費用。</p>
+            </>}
+            <div className="video-source-buttons">
+              <button type="button" onClick={() => referenceInput.current?.click()}><Upload size={14} />{state.draft.referenceVideo ? '更換參考影片' : '上傳參考影片'}</button>
+              {state.draft.referenceVideo && <button type="button" onClick={() => controller.reference(null)}>移除參考影片</button>}
+            </div>
+          </div>}
           <div className="video-settings-row">
             <label className="video-field">秒數<select value={state.draft.duration} onChange={event => controller.draft({ duration: Number(event.target.value) })}>{Array.from({ length: model.maxDuration - model.minDuration + 1 }, (_, index) => model.minDuration + index).map(value => <option key={value} value={value}>{value} 秒</option>)}</select></label>
             <label className="video-field">解析度<select value={state.draft.resolution} onChange={event => controller.draft({ resolution: event.target.value })}>{model.resolutions.map(value => <option key={value} value={value}>{value.replace('P', 'p')}</option>)}</select></label>
           </div>
-          <p className="video-help">輸出比例：{model.referenceImage ? ratio === 'adaptive' ? '自動適應（額度採保守預估）' : ratio : '跟隨來源圖片'}</p>
+          <p className="video-help">輸出比例：{model.referenceImage ? ratio === 'adaptive' ? '自動適應（額度採保守預估）' : ratio : state.draft.referenceVideo ? '由參考素材自動決定' : '跟隨來源圖片'}</p>
           {model.audioToggle ? <label className="video-audio"><input type="checkbox" checked={state.draft.audio} onChange={event => controller.draft({ audio: event.target.checked })} />生成音訊</label>
             : <p className="video-help">{model.label} 會生成音訊，此模型不提供關閉選項。</p>}
         </fieldset>
         <div className="video-submit-area">
-          <VideoQuota key={[state.uid, state.draft.modelKey, state.draft.resolution, state.draft.duration, state.draft.audio, ratio].join(':')} uid={state.uid}
+          <VideoQuota key={[state.uid, state.draft.modelKey, state.draft.resolution, state.draft.duration, state.draft.audio, ratio, state.draft.referenceVideo?.id].join(':')} uid={state.uid}
             draft={quotaDraft} refreshToken={state.results.filter(item => item.status === 'succeeded').length} loadQuota={quotaLoader} />
           {state.notice && <p className="video-help" role="status">{state.notice}</p>}
           {state.error && <p className="video-error" role="alert">{state.error}</p>}
@@ -188,7 +228,7 @@ export function VideoWorkspaceView({ state, controller, quotaLoader, download = 
           </button> : <button className="video-primary" type="submit" disabled={!state.uid || !state.ready || !state.source || !state.draft.motion.trim() || locked}>
             {state.busy ? <LoaderCircle size={18} className="video-spin" /> : <Film size={18} />}{state.busy ? VIDEO_STATUS[state.status] || '正在處理' : '生成影片'}
           </button>}
-          <p className="video-submit-note">{!state.uid ? '請至右上角「設定」登入 Firebase' : uploading ? '正在讀取圖片…' : '按下生成才會提交付費任務'}</p>
+          <p className="video-submit-note">{!state.uid ? '請至右上角「設定」登入 Firebase' : uploading ? '正在讀取素材…' : '按下生成才會提交付費任務'}</p>
         </div>
       </form>
     </div>

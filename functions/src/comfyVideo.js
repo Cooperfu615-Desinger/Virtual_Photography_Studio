@@ -3,6 +3,7 @@ const { validateRequestId } = require('./comfyCloud');
 const { balanceCredits } = require('./comfyQuota');
 const contract = require('./videoModels.json');
 const pikaH3FlexWorkflow = require('./pikaH3FlexWorkflow.json');
+const { inspectReferenceMp4, validateVideoReference, supportsVideoReference, REFERENCE_MAX_BYTES } = require('../shared/videoReference.mjs');
 const API = 'https://cloud.comfy.org/api/v2';
 const MAX_INPUT_BYTES = 8 * 1024 * 1024;
 const MAX_VIDEO_BYTES = 250 * 1024 * 1024;
@@ -65,13 +66,33 @@ async function prepareVideoSource({ apiKey, payload, store, fetchImpl }) {
   return { sourceId, width, height };
 }
 
-function buildVideoWorkflow(payload, source, seed = randomInt(0, 2147483647)) {
+async function prepareReferenceVideo({ apiKey, payload, store, fetchImpl }) {
+  if (!supportsVideoReference(payload.modelKey)) throw new Error('此模型不支援參考影片');
+  const sourceId = validateRequestId(payload.sourceId);
+  const previous = await store.get(sourceId);
+  if (previous?.kind === 'referenceVideo' && previous.assetId) return { sourceId, ...previous.metadata };
+  if (previous) throw new Error('影片上傳尚未確認，請重新準備影片');
+  if (typeof payload.base64 !== 'string' || payload.base64.length > Math.ceil(REFERENCE_MAX_BYTES / 3) * 4
+    || !/^[A-Za-z0-9+/]+={0,2}$/.test(payload.base64)) throw new Error('參考影片需為 20 MB 以內的 MP4');
+  const bytes = Buffer.from(payload.base64, 'base64');
+  const metadata = validateVideoReference(inspectReferenceMp4(bytes), payload.modelKey);
+  if (!(await store.claim(sourceId, { kind: 'referenceVideo', createdAt: Date.now() })).claimed) throw new Error('影片正在上傳');
+  const form = new FormData();
+  form.set('content_type', 'video/mp4'); form.set('file_path', `dll-video/reference/${sourceId}.mp4`);
+  form.set('file', new Blob([bytes], { type: 'video/mp4' }), `${sourceId}.mp4`);
+  const asset = await api(apiKey, '/assets', { method: 'POST', body: form, headers: { 'Idempotency-Key': sourceId } }, fetchImpl);
+  await store.update(sourceId, { assetId: validateRequestId(asset.id), metadata });
+  return { sourceId, ...metadata };
+}
+
+function buildVideoWorkflow(payload, source, seed = randomInt(0, 2147483647), reference = null) {
   const settings = videoSettings(payload);
   const motion = typeof payload.motion === 'string' ? payload.motion.trim() : '';
   const camera = typeof payload.camera === 'string' ? payload.camera.trim() : '';
   const prompt = [motion, camera].filter(Boolean).join('\n');
   if (!motion || prompt.length > 10000) throw new Error('請填寫動作描述，總長度不可超過 10,000 字');
   const model = contract.models[settings.modelKey];
+  if (reference && !supportsVideoReference(settings.modelKey)) throw new Error('此模型不支援參考影片');
   if (settings.modelKey === 'pikaH3Flex') {
     const workflow = structuredClone(pikaH3FlexWorkflow);
     workflow['1'].inputs.image = { __type: 'core/ASSET', info: { id: validateRequestId(source.assetId) } };
@@ -79,6 +100,7 @@ function buildVideoWorkflow(payload, source, seed = randomInt(0, 2147483647)) {
     workflow['140:129'].inputs.noise_seed = seed;
     return { workflow, meta: { ...settings, sourceId: payload.sourceId, width: source.width, height: source.height, seed, mediaType: 'video' } };
   }
+  if (reference) validateVideoReference(reference.metadata, settings.modelKey);
   const inputs = { model: model.model, 'model.prompt': prompt, 'model.resolution': settings.resolution,
     'model.duration': settings.modelKey === 'wan3' ? String(settings.duration) : settings.duration,
     first_frame: ['1', 0], seed, watermark: false };
@@ -91,11 +113,17 @@ function buildVideoWorkflow(payload, source, seed = randomInt(0, 2147483647)) {
       'model.generate_audio': settings.audio, 'model.task_type': 'reference', 'model.output_format': 'mp4',
       'model.auto_downscale': true, 'model.auto_upscale': false });
   }
+  if (reference) {
+    delete inputs.first_frame;
+    Object.assign(inputs, { 'model.reference_images.image_1': ['1', 0], 'model.reference_videos.video_1': ['4', 0] });
+    if (settings.modelKey === 'minimaxH3') inputs['model.ratio'] = 'adaptive';
+  }
   return { workflow: {
+    ...(reference ? { '4': { class_type: 'LoadVideo', inputs: { file: { __type: 'core/ASSET', info: { id: validateRequestId(reference.assetId) } } } } } : {}),
     '1': { class_type: 'LoadImage', inputs: { image: { __type: 'core/ASSET', info: { id: validateRequestId(source.assetId) } } } },
-    '2': { class_type: model.node, inputs },
+    '2': { class_type: reference && settings.modelKey === 'minimaxH3' ? 'MinimaxHailuo03ReferenceNode' : model.node, inputs },
     '3': { class_type: 'SaveVideo', inputs: { video: ['2', 0], filename_prefix: 'DLL_Video', format: 'mp4', 'format.codec': 'h264', 'format.codec.encoding': 'auto' } },
-  }, meta: { ...settings, sourceId: payload.sourceId, width: source.width, height: source.height, seed, mediaType: 'video' } };
+  }, meta: { ...settings, ...(reference ? { referenceVideo: reference.metadata, referenceVideoId: payload.referenceVideoId } : {}), sourceId: payload.sourceId, width: source.width, height: source.height, seed, mediaType: 'video' } };
 }
 
 async function resolveVideoAsset({ apiKey, assetId, fetchImpl }) {
@@ -145,7 +173,14 @@ async function submitVideoJob({ apiKey, payload, store, fetchImpl }) {
   if (await store.get(requestId)) return readVideoJob({ apiKey, payload, store, fetchImpl });
   const source = await store.get(validateRequestId(payload.sourceId));
   if (source?.kind !== 'source' || !source.assetId) throw new Error('請先準備此帳號的來源圖片');
-  const { workflow, meta } = buildVideoWorkflow(payload, source);
+  if (payload.referenceVideo && !payload.referenceVideoId) throw new Error('請先準備參考影片');
+  let reference = null;
+  if (payload.referenceVideoId) {
+    if (!supportsVideoReference(payload.modelKey)) throw new Error('此模型不支援參考影片');
+    reference = await store.get(validateRequestId(payload.referenceVideoId));
+    if (reference?.kind !== 'referenceVideo' || !reference.assetId) throw new Error('請先準備此帳號的參考影片');
+  }
+  const { workflow, meta } = buildVideoWorkflow(payload, source, undefined, reference);
   if (!(await store.claim(requestId, { kind: 'video', phase: 'submitting', meta, createdAt: Date.now() })).claimed) {
     return readVideoJob({ apiKey, payload, store, fetchImpl });
   }
@@ -164,6 +199,11 @@ async function submitVideoJob({ apiKey, payload, store, fetchImpl }) {
 
 async function readVideoQuota({ apiKey, payload, fetchImpl = fetch }) {
   const settings = videoSettings(payload);
+  const reference = payload.referenceVideo;
+  if (reference) {
+    if (!supportsVideoReference(settings.modelKey)) throw new Error('此模型不支援參考影片');
+    validateVideoReference(reference, settings.modelKey);
+  }
   const response = await fetchImpl('https://cloud.comfy.org/api/billing/usage/timeseries?months=1&group_by=product&granularity=month', {
     headers: { 'X-API-Key': apiKey }, redirect: 'error', signal: AbortSignal.timeout(10000),
   });
@@ -176,15 +216,19 @@ async function readVideoQuota({ apiKey, payload, fetchImpl = fetch }) {
   // For adaptive ratio, budget the largest supported pixel area conservatively.
   const frames = model.tokensPerFrame?.[settings.resolution];
   const tokensPerFrame = frames && (frames[settings.ratio] || Math.max(...Object.values(frames)));
-  const estimatedCredits = Number((frames
+  const estimatedCredits = Number((reference
+    ? (frames ? Math.floor(tokensPerFrame * (24 * (settings.duration + reference.duration) + 1)) / 1000
+      * (settings.resolution === '1080p' ? 2.112 : 1.931)
+      : model.creditsPerSecond[settings.resolution] * (settings.duration + reference.duration))
+    : frames
     ? tokensPerFrame * 24 * settings.duration / 1000 * model.creditsPerThousandTokens[settings.resolution]
     : model.creditsPerSecond[settings.resolution] * settings.duration).toFixed(2));
   return { credits, estimatedCredits, estimatedVideos: credits === null ? null : Math.floor(Math.max(0, credits) / estimatedCredits),
-    checkedAt: Date.now(), rateDate: model.rateDate || contract.rateDate, selection: settings };
+    checkedAt: Date.now(), rateDate: reference ? '2026-11-17' : model.rateDate || contract.rateDate, selection: settings };
 }
 
 async function videoOperation(options) {
-  const operations = { prepare: prepareVideoSource, submit: submitVideoJob, status: readVideoJob, quota: readVideoQuota };
+  const operations = { prepareReference: prepareReferenceVideo, prepare: prepareVideoSource, submit: submitVideoJob, status: readVideoJob, quota: readVideoQuota };
   const operation = operations[options.payload.action];
   if (!Object.hasOwn(operations, options.payload.action)) throw new Error('不支援的影片操作');
   return operation(options);
