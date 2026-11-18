@@ -37,8 +37,26 @@ const GAZE_HEADS = freeze({
 });
 
 // New authored head/eye relationships never enter the retired poseHeadId pool.
-export const authoredGazeHead = id => GAZE_OPTIONS.find(option => option.id === id && option.meta?.authoredGaze) || null;
-export const gazePausedByExpression = (locks, action) => !action?.ownsExpression
+const CLOSED_EYE_GAZE = Object.freeze({
+  'gaze-camera': { zh: '臉朝鏡頭' },
+  'gaze-distance': { zh: '臉轉向側面' },
+  'gaze-down': { zh: '低頭' },
+  'gaze-back': { zh: '回頭' },
+  'gaze-sideways-camera': { zh: '頭微轉向一側', en: 'head turned slightly to one side' },
+  'gaze-chin-down-eyes-up': { zh: '低頭、下巴微收', en: 'head lowered with her chin tucked' },
+});
+
+export const closedEyeGazeLabel = option => CLOSED_EYE_GAZE[option.id]?.zh || option.zh;
+
+export function authoredGazeHead(id, headOnly = false) {
+  const option = GAZE_OPTIONS.find(item => item.id === id && item.meta?.authoredGaze);
+  if (!option) return null;
+  return headOnly
+    ? { ...option, en: CLOSED_EYE_GAZE[id].en, meta: { ...option.meta, gazeHeadOnly: true } }
+    : option;
+}
+
+export const gazeUsesHeadOnly = (locks, action) => !action?.ownsExpression
   && locks?.expressionId === 'character:表情-facial-expression:eyes-closed-enjoyment';
 
 // These newly reviewed expressions need both eye state and mouth state in compact MJ.
@@ -64,6 +82,14 @@ export function gazeHeadId(gazeId, { orientationId = '', orbit = null } = {}) {
   if (!heads) return '';
   if (isBackView(orbit) && gazeId !== 'gaze-back') return '';
   return isLyingOrientation(orientationId) ? heads[orientationId] || '' : heads.default;
+}
+
+// Keep the selected ID in the editor, but only apply conflicts for available head motion.
+export function gazeForHeadPosture(locks, action, orbit) {
+  if (!gazeUsesHeadOnly(locks, action)) return locks.gazeId;
+  if (action?.ownsHead) return 'none';
+  return gazeHeadId(locks.gazeId, { orientationId: action?.orientationId, orbit })
+    ? locks.gazeId : 'none';
 }
 
 export function availableGazeOptions(context = {}) {

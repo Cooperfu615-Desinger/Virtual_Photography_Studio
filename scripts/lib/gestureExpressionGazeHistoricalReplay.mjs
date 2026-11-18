@@ -4,10 +4,22 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import review from './gestureExpressionGazeHistory.json' with { type: 'json' };
 
+import closedEyeReview from './closedEyeGazeHistory.json' with { type: 'json' };
+
 const hash = source => createHash('sha256').update(source).digest('hex');
-export const gestureExpressionGazeHistoricalPaths = review.files.map(file => file.path);
+export const gestureExpressionGazeHistoricalPaths = [...new Set(
+  [...closedEyeReview.files, ...review.files].map(file => file.path)
+)];
 export function preGestureExpressionGazeSource(path, source) {
-  const file = review.files.find(item => item.path === path);
+  return reverseReviewedSource(review, path, preClosedEyeGazeSource(path, source));
+}
+
+export function preClosedEyeGazeSource(path, source) {
+  return reverseReviewedSource(closedEyeReview, path, source);
+}
+
+function reverseReviewedSource(manifest, path, source) {
+  const file = manifest.files.find(item => item.path === path);
   if (!file || hash(source) !== file.afterHash) return source;
   const lines = source.toString().match(/[^\n]*\n|[^\n]+$/g) || [];
   for (const { line, after, before } of [...file.edits].reverse()) {

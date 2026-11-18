@@ -11,7 +11,7 @@ import { prepareBottomRiseControl } from '../lib/engine/bottomRiseCompatibility.
 import { prepareHeadDominantAngleControl } from '../lib/engine/headDominantFraming.js';
 import { isLyingAction, lyingSurfaceFor } from '../lib/engine/lyingSurface.js';
 import { postureConflictsWithGaze } from '../lib/engine/headPosture.js';
-import { applicableGestureOptions, availableGazeOptions, gazePausedByExpression } from '../lib/engine/gazeGesture.js';
+import { applicableGestureOptions, availableGazeOptions, authoredGazeHead, closedEyeGazeLabel, gazeForHeadPosture, gazeUsesHeadOnly } from '../lib/engine/gazeGesture.js';
 import { phoneCaptureStatus } from '../lib/engine/phoneCapture.js';
 import { getSpecifiedAction, getSpecifiedActionEffectiveLocks, specifiedActionOwnsControl, getSpecifiedActionCameraConflict } from '../lib/engine/specifiedActions.js';
 import { prepareAccessoryControl } from '../lib/engine/accessoryPolicy.js';
@@ -975,17 +975,19 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       };
     }
     if (control.key === 'gazeId') {
-      if (gazePausedByExpression(locks, activeSpecifiedAction)) return { ...control, disabled: true,
-        helpText: '閉眼享受時視線暫不套用，切換表情後恢復。' };
+      const headOnly = gazeUsesHeadOnly(locks, activeSpecifiedAction);
       const orbitOption = lockControls.find(c => c.key === 'orbitId')?.options?.find(o => o.id === locks.orbitId);
       const backView = !isLyingAction(activeSpecifiedAction) && Boolean(orbitOption?.meta?.tags?.includes('back_view'));
       const available = new Set(availableGazeOptions({ orientationId: activeSpecifiedAction?.orientationId, orbit: backView ? orbitOption : null }).map(o => o.id));
-      return { ...control,
-        options: control.options.filter(o => ['none', 'random'].includes(o.id) || available.has(o.id) || o.id === locks.gazeId) };
+      const options = control.options.filter(o => ['none', 'random'].includes(o.id) || available.has(o.id) || o.id === locks.gazeId);
+      return headOnly ? { ...control, helpText: '閉眼時只套用頭部方向。',
+        options: options.map(option => ({ ...option, zh: closedEyeGazeLabel(option),
+          en: available.has(option.id) ? authoredGazeHead(option.id, true)?.en || option.en : '' })) } : { ...control, options };
     }
     if (control.key === 'headPostureId') {
       // A lowered gaze already tips the head down: the two lifting postures are unavailable.
-      const effectiveGaze = gazePausedByExpression(locks, activeSpecifiedAction) ? 'none' : locks.gazeId;
+      const orbit = lockControls.find(c => c.key === 'orbitId')?.options?.find(o => o.id === locks.orbitId);
+      const effectiveGaze = gazeForHeadPosture(locks, activeSpecifiedAction, orbit);
       return { ...control, options: control.options.map(o => postureConflictsWithGaze(o.id, effectiveGaze)
         ? { ...o, zh: `${o.zh}（低頭時不適用）`, disabled: true } : o) };
     }

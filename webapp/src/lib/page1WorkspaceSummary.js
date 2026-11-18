@@ -2,7 +2,7 @@ import { activeImportedPerson, importedPersonLocks } from './observationCaptureI
 import { CAPTURE_GROUPS, resolveCapture } from './observationCaptureMode.js';
 import { DUO_ROLES, getDuoRoleSummary } from '../features/page1/duoEditor.js';
 import { getSpecifiedAction } from './engine/specifiedActions.js';
-import { applicableGestureOptions } from './engine/gazeGesture.js';
+import { applicableGestureOptions, closedEyeGazeLabel, gazeUsesHeadOnly } from './engine/gazeGesture.js';
 import { isPhoneProp } from './engine/phoneCapture.js';
 import { bottomRiseConflict, bottomRiseControlContext } from './engine/bottomRiseCompatibility.js';
 import { isHeadDominantFraming, headDominantAngleAllowed } from './engine/headDominantFraming.js';
@@ -246,6 +246,9 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
   const specifiedAction = getSpecifiedAction(locks, { cameraControls: controls });
   const phonePropLabel = locks.subjectCount === '1' && isPhoneProp(locks.propId)
     ? getControlOptionLabel(controls, 'propId', locks.propId) : '';
+  const gazeLabel = gazeUsesHeadOnly(locks, specifiedAction) && locks.gazeId && locks.gazeId !== 'none' && locks.gazeId !== 'random'
+    ? closedEyeGazeLabel({ id: locks.gazeId, zh: getControlOptionLabel(controls, 'gazeId', locks.gazeId) })
+    : getControlOptionLabel(controls, 'gazeId', locks.gazeId);
   const poseSummary = specifiedAction ? buildSummaryText([
       specifiedAction.ownsExpression ? specifiedAction.expressionLabel : getControlOptionLabel(controls, 'expressionId', locks.expressionId),
       `指定動作：${specifiedAction.zh}`,
@@ -254,7 +257,7 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
       applicableGestureOptions(specifiedAction).some(option => option.id === locks.gestureId)
         ? getControlOptionLabel(controls, 'gestureId', locks.gestureId) : '',
       specifiedAction.ownsHead ? specifiedAction.headLabel
-        : [getControlOptionLabel(controls, 'headPostureId', locks.headPostureId), getControlOptionLabel(controls, 'gazeId', locks.gazeId)].filter(Boolean).join(' / '),
+        : [getControlOptionLabel(controls, 'headPostureId', locks.headPostureId), gazeLabel].filter(Boolean).join(' / '),
     ])
     : buildSummaryText([
       getControlOptionLabel(controls, 'expressionId', locks.expressionId),
@@ -264,7 +267,7 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
       phonePropLabel,
       // P5a: the retired free-composer layers are always 全無 in workspace state.
       locks.subjectCount === '1' ? getControlOptionLabel(controls, 'headPostureId', locks.headPostureId) : '',
-      locks.subjectCount === '1' ? getControlOptionLabel(controls, 'gazeId', locks.gazeId) : '',
+      locks.subjectCount === '1' ? gazeLabel : '',
     ]);
   const legacyDressPalette = getLegacyDressPalette(locks, controls);
   const wardrobeSummary = isSpecialSubjectMode ? '' : buildSummaryText([

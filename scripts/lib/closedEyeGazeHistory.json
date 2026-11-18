@@ -1,0 +1,264 @@
+{
+  "baseCommit": "fda1faf60e8b3f1a321ba9802b4691f6f8dcf98c",
+  "files": [
+    {
+      "path": "webapp/src/lib/engine.js",
+      "beforeHash": "2cc74b3fae144c8f714473c6afaa055c7502058a1fd7150d35e164e8dc8a38b4",
+      "afterHash": "7226cc8b17fbf6954767e691580b4be3da0abb21d2e35fbaa91ba242db5530b9",
+      "edits": [
+        {
+          "line": 24,
+          "after": [
+            "import { CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, actionTextWithGesture, applyCaptureStyleLocks, authoredGazeHead, expressionHasReviewedEyesAndMouth, gazeAvoidsBackView, gazeUsesHeadOnly, isBackViewOrbit, resolveGaze, resolveGesture, resolveProp } from './engine/gazeGesture.js';\n"
+          ],
+          "before": [
+            "import { CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, actionTextWithGesture, applyCaptureStyleLocks, authoredGazeHead, expressionHasReviewedEyesAndMouth, gazeAvoidsBackView, gazePausedByExpression, isBackViewOrbit, resolveGaze, resolveGesture, resolveProp } from './engine/gazeGesture.js';\n"
+          ]
+        },
+        {
+          "line": 5239,
+          "after": [
+            "  const gazeHeadOnly = gazeUsesHeadOnly(context.locks, specifiedAction);\n",
+            "  const gaze = context.rawLocks?.captureMode === 'observation' || specifiedAction?.ownsHead\n"
+          ],
+          "before": [
+            "  const gazePaused = gazePausedByExpression(context.locks, specifiedAction);\n",
+            "  const gaze = context.rawLocks?.captureMode === 'observation' || specifiedAction?.ownsHead || gazePaused\n"
+          ]
+        },
+        {
+          "line": 5243,
+          "after": [
+            "  const headLockId = gaze ? gaze.headId || 'none' : gazeHeadOnly ? 'none' : context.locks?.poseHeadId;\n"
+          ],
+          "before": [
+            "  const headLockId = gazePaused ? 'none' : gaze ? gaze.headId || 'none' : context.locks?.poseHeadId;\n"
+          ]
+        },
+        {
+          "line": 5246,
+          "after": [
+            "    ? null : resolveHeadPosture(context.locks?.headPostureId, gazeHeadOnly && !gaze?.headId ? null : gaze, random);\n"
+          ],
+          "before": [
+            "    ? null : resolveHeadPosture(context.locks?.headPostureId, gaze, random);\n"
+          ]
+        },
+        {
+          "line": 5251,
+          "after": [
+            "    ...(head?.meta?.authoredGaze ? { gazeId: head.id } : {}),\n",
+            "    ...(head?.meta?.gazeHeadOnly ? { gazeHeadOnly: true } : {}) });\n"
+          ],
+          "before": [
+            "    ...(head?.meta?.authoredGaze ? { gazeId: head.id } : {}) });\n"
+          ]
+        },
+        {
+          "line": 5258,
+          "after": [
+            "    const authored = gaze?.headId ? authoredGazeHead(gaze.id, gazeHeadOnly) : null;\n"
+          ],
+          "before": [
+            "    const authored = gaze?.headId ? authoredGazeHead(gaze.id) : null;\n"
+          ]
+        },
+        {
+          "line": 5800,
+          "after": [
+            "  return mergeHeadPosture(authoredGazeHead(meta?.gazeId, meta?.gazeHeadOnly)\n"
+          ],
+          "before": [
+            "  return mergeHeadPosture(authoredGazeHead(meta?.gazeId)\n"
+          ]
+        },
+        {
+          "line": 16806,
+          "after": [
+            "  // Head-only choices leave camera selection independent of the closed eyes.\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 16808,
+          "after": [
+            "    && !gazeUsesHeadOnly(effectiveLocks, specifiedCameraAction)\n"
+          ],
+          "before": [
+            "    && !gazePausedByExpression(effectiveLocks, specifiedCameraAction)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/gazeGesture.js",
+      "beforeHash": "6d9a488ff6ac0bfd5521088014ed34033d7169b6368fdd112f6ae096dfd9abc5",
+      "afterHash": "0e67f1b14ce2445c2dba699bc55c3cb6e1cfdff3c013cf0f98f7a1a9995f3c57",
+      "edits": [
+        {
+          "line": 39,
+          "after": [
+            "const CLOSED_EYE_GAZE = Object.freeze({\n",
+            "  'gaze-camera': { zh: '臉朝鏡頭' },\n",
+            "  'gaze-distance': { zh: '臉轉向側面' },\n",
+            "  'gaze-down': { zh: '低頭' },\n",
+            "  'gaze-back': { zh: '回頭' },\n",
+            "  'gaze-sideways-camera': { zh: '頭微轉向一側', en: 'head turned slightly to one side' },\n",
+            "  'gaze-chin-down-eyes-up': { zh: '低頭、下巴微收', en: 'head lowered with her chin tucked' },\n",
+            "});\n",
+            "\n",
+            "export const closedEyeGazeLabel = option => CLOSED_EYE_GAZE[option.id]?.zh || option.zh;\n",
+            "\n",
+            "export function authoredGazeHead(id, headOnly = false) {\n",
+            "  const option = GAZE_OPTIONS.find(item => item.id === id && item.meta?.authoredGaze);\n",
+            "  if (!option) return null;\n",
+            "  return headOnly\n",
+            "    ? { ...option, en: CLOSED_EYE_GAZE[id].en, meta: { ...option.meta, gazeHeadOnly: true } }\n",
+            "    : option;\n",
+            "}\n",
+            "\n",
+            "export const gazeUsesHeadOnly = (locks, action) => !action?.ownsExpression\n"
+          ],
+          "before": [
+            "export const authoredGazeHead = id => GAZE_OPTIONS.find(option => option.id === id && option.meta?.authoredGaze) || null;\n",
+            "export const gazePausedByExpression = (locks, action) => !action?.ownsExpression\n"
+          ]
+        },
+        {
+          "line": 84,
+          "after": [
+            "}\n",
+            "\n",
+            "// Keep the selected ID in the editor, but only apply conflicts for available head motion.\n",
+            "export function gazeForHeadPosture(locks, action, orbit) {\n",
+            "  if (!gazeUsesHeadOnly(locks, action)) return locks.gazeId;\n",
+            "  if (action?.ownsHead) return 'none';\n",
+            "  return gazeHeadId(locks.gazeId, { orientationId: action?.orientationId, orbit })\n",
+            "    ? locks.gazeId : 'none';\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/components/Page1Workspace.jsx",
+      "beforeHash": "daa506825cd17ced74611978c3308c01a8149bc49747bfe9e0f99cfadb458081",
+      "afterHash": "18d08ef21a88b2d909a2de18b8a5c37bf400198df262378b1dec22164971d6eb",
+      "edits": [
+        {
+          "line": 13,
+          "after": [
+            "import { applicableGestureOptions, availableGazeOptions, authoredGazeHead, closedEyeGazeLabel, gazeForHeadPosture, gazeUsesHeadOnly } from '../lib/engine/gazeGesture.js';\n"
+          ],
+          "before": [
+            "import { applicableGestureOptions, availableGazeOptions, gazePausedByExpression } from '../lib/engine/gazeGesture.js';\n"
+          ]
+        },
+        {
+          "line": 977,
+          "after": [
+            "      const headOnly = gazeUsesHeadOnly(locks, activeSpecifiedAction);\n"
+          ],
+          "before": [
+            "      if (gazePausedByExpression(locks, activeSpecifiedAction)) return { ...control, disabled: true,\n",
+            "        helpText: '閉眼享受時視線暫不套用，切換表情後恢復。' };\n"
+          ]
+        },
+        {
+          "line": 981,
+          "after": [
+            "      const options = control.options.filter(o => ['none', 'random'].includes(o.id) || available.has(o.id) || o.id === locks.gazeId);\n",
+            "      return headOnly ? { ...control, helpText: '閉眼時只套用頭部方向。',\n",
+            "        options: options.map(option => ({ ...option, zh: closedEyeGazeLabel(option),\n",
+            "          en: available.has(option.id) ? authoredGazeHead(option.id, true)?.en || option.en : '' })) } : { ...control, options };\n"
+          ],
+          "before": [
+            "      return { ...control,\n",
+            "        options: control.options.filter(o => ['none', 'random'].includes(o.id) || available.has(o.id) || o.id === locks.gazeId) };\n"
+          ]
+        },
+        {
+          "line": 988,
+          "after": [
+            "      const orbit = lockControls.find(c => c.key === 'orbitId')?.options?.find(o => o.id === locks.orbitId);\n",
+            "      const effectiveGaze = gazeForHeadPosture(locks, activeSpecifiedAction, orbit);\n"
+          ],
+          "before": [
+            "      const effectiveGaze = gazePausedByExpression(locks, activeSpecifiedAction) ? 'none' : locks.gazeId;\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/page1/lockTransitions.js",
+      "beforeHash": "b2aecccf52529e6f6cdd6a8d2a8a5d8c8bf0f0fddc676f7600c75400a6fd2c6b",
+      "afterHash": "13564914f4b1d7d2abe5c5c198461985b8e4c936eea276d7c8f29770019c1b01",
+      "edits": [
+        {
+          "line": 9,
+          "after": [
+            "import { applicableGestureOptions, gazeForHeadPosture } from '../../lib/engine/gazeGesture.js';\n"
+          ],
+          "before": [
+            "import { applicableGestureOptions, gazePausedByExpression } from '../../lib/engine/gazeGesture.js';\n"
+          ]
+        },
+        {
+          "line": 138,
+          "after": [
+            "  const gazeOrbit = lockControls.find(control => control.key === 'orbitId')?.options?.find(option => option.id === next.orbitId);\n",
+            "  const postureGaze = gazeForHeadPosture(next, getSpecifiedAction(next), gazeOrbit);\n",
+            "  if (postureConflictsWithGaze(next.headPostureId, postureGaze)) next.headPostureId = 'none';\n"
+          ],
+          "before": [
+            "  if (!gazePausedByExpression(next, getSpecifiedAction(next))\n",
+            "    && postureConflictsWithGaze(next.headPostureId, next.gazeId)) next.headPostureId = 'none';\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/page1WorkspaceSummary.js",
+      "beforeHash": "64eae8d705ed9a85296ca770c500d5ea9c38deb2b319a19f9a5bcd48b4bc88ce",
+      "afterHash": "dc9253a7f163e11dc8ae50327b324e1b693f3ee6655a159913e0a6144d9d0cbc",
+      "edits": [
+        {
+          "line": 4,
+          "after": [
+            "import { applicableGestureOptions, closedEyeGazeLabel, gazeUsesHeadOnly } from './engine/gazeGesture.js';\n"
+          ],
+          "before": [
+            "import { applicableGestureOptions } from './engine/gazeGesture.js';\n"
+          ]
+        },
+        {
+          "line": 248,
+          "after": [
+            "  const gazeLabel = gazeUsesHeadOnly(locks, specifiedAction) && locks.gazeId && locks.gazeId !== 'none' && locks.gazeId !== 'random'\n",
+            "    ? closedEyeGazeLabel({ id: locks.gazeId, zh: getControlOptionLabel(controls, 'gazeId', locks.gazeId) })\n",
+            "    : getControlOptionLabel(controls, 'gazeId', locks.gazeId);\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 259,
+          "after": [
+            "        : [getControlOptionLabel(controls, 'headPostureId', locks.headPostureId), gazeLabel].filter(Boolean).join(' / '),\n"
+          ],
+          "before": [
+            "        : [getControlOptionLabel(controls, 'headPostureId', locks.headPostureId), getControlOptionLabel(controls, 'gazeId', locks.gazeId)].filter(Boolean).join(' / '),\n"
+          ]
+        },
+        {
+          "line": 269,
+          "after": [
+            "      locks.subjectCount === '1' ? gazeLabel : '',\n"
+          ],
+          "before": [
+            "      locks.subjectCount === '1' ? getControlOptionLabel(controls, 'gazeId', locks.gazeId) : '',\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
