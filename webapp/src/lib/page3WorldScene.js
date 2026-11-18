@@ -405,7 +405,8 @@ function buildWorldScenePrompt(profile = {}, { variant = 'scene' } = {}) {
     'Include her within the scene, at a natural scale, with the same perspective and ambient light',
   ] : [];
   const setting = locationName ? `${lead}: ${locationName}` : lead;
-  const focus = sceneFocus?.en || (mode?.id === 'street-only' ? 'Frame a local detail' : '');
+  const defaultFocus = mode?.id === 'street-only' && !isNoneOption(sceneFocus) ? 'Frame a local detail' : '';
+  const focus = sceneFocus?.en || defaultFocus;
   const depth = shootingMethod?.id === 'through-window'
     ? 'Layer the foreground glass reflections against the space beyond'
     : 'Layer the visible foreground, middle ground, and background';

@@ -101,6 +101,34 @@
   min-width: 0;
 }
 
+.page3-parameter-field {
+  min-width: 0;
+}
+
+.page3-parameter-field .field-heading-row {
+  flex-wrap: wrap;
+  gap: 4px 8px;
+}
+
+.page3-field-actions {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.page3-field-actions button {
+  min-height: 34px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 0.76rem;
+  white-space: nowrap;
+}
+
+.page3-field-actions button[aria-pressed='true'] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .action-pose-mode-control {
   max-width: 520px;
 }

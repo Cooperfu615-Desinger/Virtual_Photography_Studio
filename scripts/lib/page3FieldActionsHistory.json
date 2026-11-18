@@ -1,0 +1,22 @@
+{
+  "baseCommit": "1f6e7a7555f4aaec838eca851ef982e53a9b838f",
+  "files": [
+    {
+      "path": "webapp/src/lib/page3WorldScene.js",
+      "beforeHash": "1d78545d141076993185609756aa38a8cab015b2236c398875e44bc1ccbeb07a",
+      "afterHash": "19bd8ab1f6f97b23a8de31bbff6532199c559d1035ded74e780e7d97b80d02d1",
+      "edits": [
+        {
+          "line": 407,
+          "after": [
+            "  const defaultFocus = mode?.id === 'street-only' && !isNoneOption(sceneFocus) ? 'Frame a local detail' : '';\n",
+            "  const focus = sceneFocus?.en || defaultFocus;\n"
+          ],
+          "before": [
+            "  const focus = sceneFocus?.en || (mode?.id === 'street-only' ? 'Frame a local detail' : '');\n"
+          ]
+        }
+      ]
+    }
+  ]
+}

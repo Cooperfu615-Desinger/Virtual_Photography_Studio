@@ -1,8 +1,39 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import DllPicProPanel from './DllPicProPanel';
 import '../styles/workspaceLabs.css';
 import PromptPreviewCard from './PromptPreviewCard';
 import { getPage3Person, PAGE3_PERSON_OPTIONS } from '../lib/page3Person.js';
+import { getPage3FieldActionOptions, updatePage3Field } from '../features/page3/page3FieldActions.js';
+
+function Page3SceneField({ label, value = '', options, onChange, className = '' }) {
+  const id = useId();
+  const { noneId, randomChoices } = getPage3FieldActionOptions(options, value);
+  const drawOption = () => {
+    const choice = randomChoices[Math.floor(Math.random() * randomChoices.length)];
+    if (choice) onChange(choice.id);
+  };
+
+  return (
+    <div className={`field page3-parameter-field ${className}`}>
+      <div className="field-heading-row">
+        <label htmlFor={id}><span>{label}</span></label>
+        <div className="page3-field-actions">
+          <button type="button" className="secondary" aria-label={`${label}：全無`}
+            aria-pressed={value === noneId} disabled={!noneId} onClick={() => onChange(noneId)}>全無</button>
+          <button type="button" className="secondary" aria-label={`${label}：隨機`}
+            disabled={!randomChoices.length} onClick={drawOption}>隨機</button>
+        </div>
+      </div>
+      <select id={id} className={!value ? 'select-muted' : ''} value={value}
+        onChange={(event) => onChange(event.target.value)}>
+        {options.map((option) => (
+          <option key={option.id} value={option.id} disabled={option.disabled}>{option.zh}</option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
 
 export default function Page3Workspace({
   fieldConfig,
@@ -38,12 +69,7 @@ export default function Page3Workspace({
   const handleFieldChange = (key, value) => {
     if (key === 'worldLocation' && value) setLocationMode('world');
     if (key === 'specialLocation' && value) setLocationMode('special');
-    setProfile((prev) => {
-      const next = { ...prev, [key]: value };
-      if (key === 'worldLocation' && value) next.specialLocation = '';
-      if (key === 'specialLocation' && value) next.worldLocation = '';
-      return next;
-    });
+    setProfile((prev) => updatePage3Field(prev, key, value));
   };
 
   const promptCards = [
@@ -124,37 +150,23 @@ export default function Page3Workspace({
                 特殊地點
               </button>
             </div>
-            <label className="field location-mode-field">
-              <span>{activeLocationField.label}</span>
-              <select
-                className={!profile[activeLocationField.key] ? 'select-muted' : ''}
-                value={profile[activeLocationField.key] || ''}
-                onChange={(event) => handleFieldChange(activeLocationField.key, event.target.value)}
-              >
-                {fieldOptions[activeLocationField.key].map((option) => (
-                  <option key={option.id} value={option.id}>
-                    {option.zh}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <Page3SceneField
+              className="location-mode-field"
+              label={activeLocationField.label}
+              value={profile[activeLocationField.key]}
+              options={fieldOptions[activeLocationField.key]}
+              onChange={(value) => handleFieldChange(activeLocationField.key, value)}
+            />
           </div>
           <div className="lock-grid detail-lock-grid">
             {builderFields.map((field) => (
-              <label key={field.key} className="field">
-                <span>{field.label}</span>
-                <select
-                  className={!profile[field.key] ? 'select-muted' : ''}
-                  value={profile[field.key] || ''}
-                  onChange={(event) => handleFieldChange(field.key, event.target.value)}
-                >
-                  {fieldOptions[field.key].map((option) => (
-                    <option key={option.id} value={option.id}>
-                      {option.zh}
-                    </option>
-                  ))}
-                </select>
-              </label>
+              <Page3SceneField
+                key={field.key}
+                label={field.label}
+                value={profile[field.key]}
+                options={fieldOptions[field.key]}
+                onChange={(value) => handleFieldChange(field.key, value)}
+              />
             ))}
           </div>
         </div>
