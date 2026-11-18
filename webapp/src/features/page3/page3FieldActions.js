@@ -9,6 +9,22 @@ export function getPage3FieldActionOptions(options, currentId) {
   return { noneId, randomChoices: alternatives.length ? alternatives : choices };
 }
 
+export function getPage3ParameterFields(fieldConfig) {
+  return fieldConfig.filter(({ key }) => key !== 'worldLocation' && key !== 'specialLocation');
+}
+
+export function buildPage3BatchPatch(fieldConfig, fieldOptions, profile, action, random = Math.random) {
+  const patch = {};
+  for (const { key } of getPage3ParameterFields(fieldConfig)) {
+    const { noneId, randomChoices } = getPage3FieldActionOptions(fieldOptions[key], profile[key]);
+    const value = action === 'none'
+      ? noneId
+      : randomChoices[Math.floor(random() * randomChoices.length)]?.id;
+    if (value !== undefined) patch[key] = value;
+  }
+  return patch;
+}
+
 export function updatePage3Field(profile, key, value) {
   const next = { ...profile, [key]: value };
   if (key === 'worldLocation' && value) next.specialLocation = '';

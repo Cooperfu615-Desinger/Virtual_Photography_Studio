@@ -3,27 +3,14 @@ import DllPicProPanel from './DllPicProPanel';
 import '../styles/workspaceLabs.css';
 import PromptPreviewCard from './PromptPreviewCard';
 import { getPage3Person, PAGE3_PERSON_OPTIONS } from '../lib/page3Person.js';
-import { getPage3FieldActionOptions, updatePage3Field } from '../features/page3/page3FieldActions.js';
+import { buildPage3BatchPatch, getPage3ParameterFields, updatePage3Field } from '../features/page3/page3FieldActions.js';
 
 function Page3SceneField({ label, value = '', options, onChange, className = '' }) {
   const id = useId();
-  const { noneId, randomChoices } = getPage3FieldActionOptions(options, value);
-  const drawOption = () => {
-    const choice = randomChoices[Math.floor(Math.random() * randomChoices.length)];
-    if (choice) onChange(choice.id);
-  };
 
   return (
     <div className={`field page3-parameter-field ${className}`}>
-      <div className="field-heading-row">
-        <label htmlFor={id}><span>{label}</span></label>
-        <div className="page3-field-actions">
-          <button type="button" className="secondary" aria-label={`${label}：全無`}
-            aria-pressed={value === noneId} disabled={!noneId} onClick={() => onChange(noneId)}>全無</button>
-          <button type="button" className="secondary" aria-label={`${label}：隨機`}
-            disabled={!randomChoices.length} onClick={drawOption}>隨機</button>
-        </div>
-      </div>
+      <label htmlFor={id}><span>{label}</span></label>
       <select id={id} className={!value ? 'select-muted' : ''} value={value}
         onChange={(event) => onChange(event.target.value)}>
         {options.map((option) => (
@@ -52,7 +39,9 @@ export default function Page3Workspace({
   const [locationMode, setLocationMode] = useState(profile.specialLocation ? 'special' : 'world');
   const person = getPage3Person(profile);
   const hasImportedPerson = Boolean(person && person.source !== 'default');
-  const builderFields = fieldConfig.filter((field) => field.key !== 'worldLocation' && field.key !== 'specialLocation');
+  const builderFields = getPage3ParameterFields(fieldConfig);
+  const nonePatch = buildPage3BatchPatch(fieldConfig, fieldOptions, profile, 'none');
+  const allParametersNone = builderFields.every(({ key }) => profile[key] === nonePatch[key]);
   const activeLocationField = locationMode === 'special'
     ? { key: 'specialLocation', label: '特殊地點' }
     : { key: 'worldLocation', label: '世界地點' };
@@ -70,6 +59,11 @@ export default function Page3Workspace({
     if (key === 'worldLocation' && value) setLocationMode('world');
     if (key === 'specialLocation' && value) setLocationMode('special');
     setProfile((prev) => updatePage3Field(prev, key, value));
+  };
+
+  const handleBatchAction = (action) => {
+    const patch = action === 'none' ? nonePatch : buildPage3BatchPatch(fieldConfig, fieldOptions, profile, 'random');
+    setProfile((prev) => ({ ...prev, ...patch }));
   };
 
   const promptCards = [
@@ -157,6 +151,14 @@ export default function Page3Workspace({
               options={fieldOptions[activeLocationField.key]}
               onChange={(value) => handleFieldChange(activeLocationField.key, value)}
             />
+          </div>
+          <div className="page3-parameter-toolbar">
+            <div className="control-section-title">場景參數</div>
+            <div className="page3-field-actions" role="group" aria-label="場景參數批次操作">
+              <button type="button" className="secondary" aria-pressed={allParametersNone}
+                onClick={() => handleBatchAction('none')}>全無</button>
+              <button type="button" className="secondary" onClick={() => handleBatchAction('random')}>隨機</button>
+            </div>
           </div>
           <div className="lock-grid detail-lock-grid">
             {builderFields.map((field) => (

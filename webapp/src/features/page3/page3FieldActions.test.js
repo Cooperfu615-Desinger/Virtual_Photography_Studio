@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { getPage3FieldActionOptions, updatePage3Field } from './page3FieldActions.js';
+import { buildPage3BatchPatch, getPage3FieldActionOptions, updatePage3Field } from './page3FieldActions.js';
 import {
+  PAGE3_WORLD_SCENE_FIELD_CONFIG,
   PAGE3_WORLD_SCENE_FIELD_OPTIONS,
   buildPage3WorldScenePrompt,
   buildPage3WorldSceneCinematicPrompt,
@@ -23,6 +24,36 @@ test('every scene field exposes its own none value and draws a different real op
   const options = [{ id: '' }, { id: 'none' }, { id: 'only' }, { id: 'locked', disabled: true }];
   assert.deepEqual(getPage3FieldActionOptions(options, 'only').randomChoices.map(o => o.id), ['only']);
   assert.deepEqual(getPage3FieldActionOptions(options.slice(0, 2), '').randomChoices, []);
+});
+
+test('each batch changes exactly eight parameters, keeping locations and people out of either patch', () => {
+  const profile = {
+    worldLocation: 'world-place',
+    specialLocation: '',
+    person: { source: 'default' },
+    ...Object.fromEntries(PAGE3_WORLD_SCENE_FIELD_CONFIG
+      .filter(field => !['worldLocation', 'specialLocation'].includes(field.key))
+      .map(({ key }) => [key, PAGE3_WORLD_SCENE_FIELD_OPTIONS[key][2].id])),
+  };
+
+  const applyBatch = (action, from = profile) => buildPage3BatchPatch(
+    PAGE3_WORLD_SCENE_FIELD_CONFIG, PAGE3_WORLD_SCENE_FIELD_OPTIONS, from, action, () => 0,
+  );
+  const none = applyBatch('none');
+  const random = applyBatch('random');
+  assert.equal(Object.keys(none).length, 8);
+  assert.deepEqual(Object.keys(random), Object.keys(none));
+  for (const key of ['worldLocation', 'specialLocation', 'person']) {
+    assert.ok(!Object.hasOwn(none, key));
+    assert.ok(!Object.hasOwn(random, key));
+  }
+  for (const key of Object.keys(none)) {
+    const options = PAGE3_WORLD_SCENE_FIELD_OPTIONS[key];
+    assert.equal(none[key], key === 'photographerStyle' ? 'style-none' : 'none');
+    assert.notEqual(random[key], profile[key]);
+    assert.equal(random[key], options[3].id);
+    assert.equal(applyBatch('random', { ...profile, ...none })[key], options[2].id);
+  }
 });
 
 test('changing a field preserves the other parameters and imported-person snapshot', () => {
