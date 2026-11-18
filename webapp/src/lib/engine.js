@@ -11,6 +11,7 @@ import { nightPartyAllowsRandomAmbient } from './engine/nightPartyLighting.js';
 import { projectCharacterPhotographicDirection } from './engine/characterPhotographicDirection.js';
 import legacyMappings from '../data/legacyMappings.json' with { type: 'json' };
 import { activeImportedPerson, isImportedPersonKey, registerFullBodyImportSource } from './observationCaptureImport.js';
+import { registerScenePersonAppearance } from './page3Person.js';
 import { captureEligibility, resolveCapture, normalizeCaptureProfile, captureEffectiveLocks, captureContext, capturePoseText, capturePoseItem, captureChestScene, CAPTURE_OWNED_KEYS } from './observationCaptureMode.js';
 import { registerReferencePersonPreview, REFERENCE_PERSON_INSTRUCTION } from './referencePersonPreview.js';
 import { MIDJOURNEY_CARD_ITEM_NAMES } from './engine/midjourneyCardItemNames.js';
@@ -12838,7 +12839,7 @@ const FULL_BODY_CHARACTER_IMAGE_TYPE = 'Create a photorealistic character refere
 const FULL_BODY_CHARACTER_LIGHTING = 'Clean even lighting with clear facial, body, fabric, and footwear readability';
 const FULL_BODY_CHARACTER_CAMERA_LOOK = 'Full-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text';
 
-function renderFullBodyCharacterPrompt(promptModel) {
+function renderFullBodyCharacterPrompt(promptModel, { appearanceOnly = false } = {}) {
   const {
     valuesByLabel,
     context,
@@ -12865,7 +12866,9 @@ function renderFullBodyCharacterPrompt(promptModel) {
     wardrobeText,
     subjectLead,
     wardrobeLead,
-  } = buildGptPromptSectionSources(valuesByLabel, context, { includeBodyType: true });
+  } = buildGptPromptSectionSources(appearanceOnly
+    ? new Map([...valuesByLabel].filter(([label]) => !['Expression', 'Reference Guidance'].includes(label)))
+    : valuesByLabel, context, { includeBodyType: true });
   const characterProfileSubjectBlock = isCharacterProfileSubject(context.subject)
     ? buildGptFullBodyCharacterProfileSubjectBlock(context.subject, context.locks, wardrobe)
     : '';
@@ -12900,18 +12903,25 @@ function renderFullBodyCharacterPrompt(promptModel) {
     ? FULL_BODY_CHARACTER_CAMERA_LOOK.replace(/, no visible text$/, '')
     : FULL_BODY_CHARACTER_CAMERA_LOOK;
 
+  const subjectSection = resolvedSubjectText
+    ? characterProfileSubjectBlock || specialOutfitGroups.hairAndBodyText
+      ? blockSection('Subject', resolvedSubjectText)
+      : section('Subject', `${subjectLead} ${resolvedSubjectText}`)
+    : '';
+  const wardrobeSection = resolvedWardrobeText
+    ? specialOutfitWardrobeBlock
+      ? blockSection('Wardrobe', resolvedWardrobeText)
+      : section('Wardrobe', `${wardrobeLead} ${resolvedWardrobeText}`)
+    : '';
+
+  if (appearanceOnly) {
+    return [subjectSection.replace(/^Subject:\n/, ''), wardrobeSection.replace(/^Wardrobe:\n/, '')]
+      .filter(Boolean).join('\n\n');
+  }
   return [
     section('Image Type', FULL_BODY_CHARACTER_IMAGE_TYPE),
-    resolvedSubjectText
-      ? characterProfileSubjectBlock || specialOutfitGroups.hairAndBodyText
-        ? blockSection('Subject', resolvedSubjectText)
-        : section('Subject', `${subjectLead} ${resolvedSubjectText}`)
-      : '',
-    resolvedWardrobeText
-      ? specialOutfitWardrobeBlock
-        ? blockSection('Wardrobe', resolvedWardrobeText)
-        : section('Wardrobe', `${wardrobeLead} ${resolvedWardrobeText}`)
-      : '',
+    subjectSection,
+    wardrobeSection,
     section('Lighting', FULL_BODY_CHARACTER_LIGHTING),
     section('Camera Look', fullBodyCameraLook),
   ].filter(Boolean).join('\n\n');
@@ -16251,6 +16261,11 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
   );
   const fullBodyCharacterPrompt = !context.referencePersonPreview && context.importedCapturePerson
     ? context.importedCapturePerson.fullBodyPrompt : renderFullBodyCharacterPrompt(fullBodyCharacterPromptModel);
+  if (fullBodyCharacterPrompt && context.onFullBodyAppearance) {
+    context.onFullBodyAppearance(() => polishPublicPromptText(
+      renderFullBodyCharacterPrompt(fullBodyCharacterPromptModel, { appearanceOnly: true }),
+    ));
+  }
   const nanoBananaPrompt = renderNanoBananaPrompt(gptPromptModel, {
     cameraSpatial: ambientEligible, sceneMirrorReflectionText,
   });
@@ -17004,6 +17019,10 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
   context.wardrobe = wardrobe;
   const wardrobeColors = importedCapturePerson ? structuredClone(importedCapturePerson.wardrobeColors) : buildWardrobeColors(extractWardrobeSlots(wardrobe), effectiveLocks, random);
 
+  let renderScenePersonAppearance;
+  if (!capture && subject.count === 1 && !isDedicatedSpecialSubject(subject)) {
+    context.onFullBodyAppearance = render => { renderScenePersonAppearance = render; };
+  }
   const {
     midjourneyPrompt,
     grokPrompt,
@@ -17096,6 +17115,7 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
       return referencePreview;
     });
   }
+  if (renderScenePersonAppearance) registerScenePersonAppearance(prompt, renderScenePersonAppearance);
   if (!capture && subject.count === 1 && !isSpecialSubject(subject) && !context.characterProfilePrompt) {
     const slots = extractCharacterSlots(character);
     registerFullBodyImportSource(prompt, {

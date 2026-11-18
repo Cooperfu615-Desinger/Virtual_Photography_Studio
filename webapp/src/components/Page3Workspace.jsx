@@ -2,6 +2,7 @@ import { useState } from 'react';
 import DllPicProPanel from './DllPicProPanel';
 import '../styles/workspaceLabs.css';
 import PromptPreviewCard from './PromptPreviewCard';
+import { getPage3Person, PAGE3_PERSON_OPTIONS } from '../lib/page3Person.js';
 
 export default function Page3Workspace({
   fieldConfig,
@@ -15,8 +16,11 @@ export default function Page3Workspace({
   worldPrompt,
   onCopyText,
   onSaveCard,
+  onPersonChange,
 }) {
   const [locationMode, setLocationMode] = useState(profile.specialLocation ? 'special' : 'world');
+  const person = getPage3Person(profile);
+  const hasImportedPerson = Boolean(person && person.source !== 'default');
   const builderFields = fieldConfig.filter((field) => field.key !== 'worldLocation' && field.key !== 'specialLocation');
   const activeLocationField = locationMode === 'special'
     ? { key: 'specialLocation', label: '特殊地點' }
@@ -153,6 +157,26 @@ export default function Page3Workspace({
               </label>
             ))}
           </div>
+        </div>
+
+        <div className="control-section">
+          <div className="control-section-header">
+            <div className="control-section-title">人物</div>
+          </div>
+          <label className="field">
+            <span>人物來源</span>
+            <select value={person?.source || 'none'} onChange={(event) => onPersonChange(event.target.value)}>
+              {PAGE3_PERSON_OPTIONS.map((option) => (
+                <option key={option.id} value={option.id}>{option.label}</option>
+              ))}
+            </select>
+          </label>
+          {hasImportedPerson && (
+            <div className="control-actions">
+              <button type="button" className="secondary" onClick={() => onPersonChange(person.source)}>重新匯入</button>
+              <p className="workspace-panel-copy" role="status">已匯入：{person.label}</p>
+            </div>
+          )}
         </div>
 
         <div className="control-actions">

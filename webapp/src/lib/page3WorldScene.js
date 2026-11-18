@@ -1,3 +1,4 @@
+import { getPage3Person } from './page3Person.js';
 import { projectPublicSourceLanguage } from './engine/publicSourceLanguage.js';
 import { SPECIAL_SCENE_LOCATIONS, WORLD_SCENE_LOCATIONS } from '../data/page3WorldScenes.js';
 import { buildPhotographyStylePrompt, getPhotographyStyleOptions } from './engine.js';
@@ -364,7 +365,8 @@ function buildWorldScenePrompt(profile = {}, { variant = 'scene' } = {}) {
   const { mode, photographerStyle, location, cameraSystem, shootingMethod, focalViewpoint, sceneFocus, imagingStyle, ambientLight } = getProfileParts(profile);
   const hasMode = Boolean(mode?.id && !isNoneOption(mode));
   const style = buildPhotographyStylePrompt(photographerStyle);
-  if (!hasMode && !location && !style) return '';
+  const person = getPage3Person(profile);
+  if (!hasMode && !location && !style && !person) return '';
 
   const ruin = Boolean(location?.id?.startsWith('special-ruins-'));
   const xiangshanHighView = location?.id === 'taipei-xiangshan-city-night-overlook' && mode?.id === 'aerial-high-view';
@@ -380,7 +382,11 @@ function buildWorldScenePrompt(profile = {}, { variant = 'scene' } = {}) {
   const capture = cleanJoin([cameraSystem?.en, focalViewpoint?.en, shootingMethod?.en]);
   const rendering = cleanJoin([imagingStyle?.en, ambientLight?.en]);
   const notes = (mode?.modeNotes || []).flatMap(note => {
-    if (ruin && /^(?:incidental pedestrians|no deliberate (?:portrait|human) subject)/i.test(note)) return [];
+    if (ruin && note.startsWith('incidental pedestrians')) return [];
+    if ((ruin || person) && /^no deliberate (?:portrait|human) subject/i.test(note)) return [];
+    if (person && note === 'city, architecture, street, or landmark is the subject') {
+      return ['keep the city, architecture, street, or landmark visible around the person'];
+    }
     if (xiangshanHighView && note.startsWith('bridges,')) {
       return ['keep roads, rooftops, and skyline relationships readable, with bridges and waterways where visible from the overlook'];
     }
@@ -388,24 +394,30 @@ function buildWorldScenePrompt(profile = {}, { variant = 'scene' } = {}) {
   });
   const guards = (location?.realismGuards || []).map(guard => {
     if (!ruin || !guard.startsWith('no visible people,')) return guard;
-    return guard.includes('no traffic crowds') ? 'no visible people or traffic crowds' : 'no visible people';
+    const noTrafficCrowds = guard.includes('no traffic crowds');
+    if (person) return noTrafficCrowds ? 'no other people or traffic crowds' : 'no other people';
+    return noTrafficCrowds ? 'no visible people or traffic crowds' : 'no visible people';
   });
 
   const place = cleanJoin(placeDetails);
+  const subject = person ? [
+    person.text,
+    'Include her within the scene, at a natural scale, with the same perspective and ambient light',
+  ] : [];
   const setting = locationName ? `${lead}: ${locationName}` : lead;
   const focus = sceneFocus?.en || (mode?.id === 'street-only' ? 'Frame a local detail' : '');
   const depth = shootingMethod?.id === 'through-window'
     ? 'Layer the foreground glass reflections against the space beyond'
     : 'Layer the visible foreground, middle ground, and background';
   if (variant === 'cinematic') {
-    return sentenceJoin([setting, place, depth,
+    return sentenceJoin([setting, place, subject, depth,
       focus, capture, rendering, style, notes, guards]);
   }
   if (variant === 'world') {
-    return sentenceJoin([setting, place, 'Keep the spatial relationships and local character readable',
+    return sentenceJoin([setting, place, subject, 'Keep the spatial relationships and local character readable',
       focus, notes, guards, capture, rendering, style]);
   }
-  return sentenceJoin([setting, capture, rendering, style, place, focus, notes, guards]);
+  return sentenceJoin([setting, capture, rendering, style, place, subject, focus, notes, guards]);
 }
 
 export function buildPage3WorldScenePrompt(profile = {}) {

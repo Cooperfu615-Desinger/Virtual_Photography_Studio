@@ -1,0 +1,289 @@
+{
+  "baseCommit": "1562d85c43ba3db8cbcc675494669c315875a6f8",
+  "files": [
+    {
+      "path": "webapp/src/lib/engine.js",
+      "beforeHash": "7226cc8b17fbf6954767e691580b4be3da0abb21d2e35fbaa91ba242db5530b9",
+      "afterHash": "e5c7628f68eb59ffecd8fbc823b9b91a56074ed117ba637504b409061414b769",
+      "edits": [
+        {
+          "line": 13,
+          "after": [
+            "import { registerScenePersonAppearance } from './page3Person.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 12841,
+          "after": [
+            "function renderFullBodyCharacterPrompt(promptModel, { appearanceOnly = false } = {}) {\n"
+          ],
+          "before": [
+            "function renderFullBodyCharacterPrompt(promptModel) {\n"
+          ]
+        },
+        {
+          "line": 12868,
+          "after": [
+            "  } = buildGptPromptSectionSources(appearanceOnly\n",
+            "    ? new Map([...valuesByLabel].filter(([label]) => !['Expression', 'Reference Guidance'].includes(label)))\n",
+            "    : valuesByLabel, context, { includeBodyType: true });\n"
+          ],
+          "before": [
+            "  } = buildGptPromptSectionSources(valuesByLabel, context, { includeBodyType: true });\n"
+          ]
+        },
+        {
+          "line": 12905,
+          "after": [
+            "  const subjectSection = resolvedSubjectText\n",
+            "    ? characterProfileSubjectBlock || specialOutfitGroups.hairAndBodyText\n",
+            "      ? blockSection('Subject', resolvedSubjectText)\n",
+            "      : section('Subject', `${subjectLead} ${resolvedSubjectText}`)\n",
+            "    : '';\n",
+            "  const wardrobeSection = resolvedWardrobeText\n",
+            "    ? specialOutfitWardrobeBlock\n",
+            "      ? blockSection('Wardrobe', resolvedWardrobeText)\n",
+            "      : section('Wardrobe', `${wardrobeLead} ${resolvedWardrobeText}`)\n",
+            "    : '';\n",
+            "\n",
+            "  if (appearanceOnly) {\n",
+            "    return [subjectSection.replace(/^Subject:\\n/, ''), wardrobeSection.replace(/^Wardrobe:\\n/, '')]\n",
+            "      .filter(Boolean).join('\\n\\n');\n",
+            "  }\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 12922,
+          "after": [
+            "    subjectSection,\n",
+            "    wardrobeSection,\n"
+          ],
+          "before": [
+            "    resolvedSubjectText\n",
+            "      ? characterProfileSubjectBlock || specialOutfitGroups.hairAndBodyText\n",
+            "        ? blockSection('Subject', resolvedSubjectText)\n",
+            "        : section('Subject', `${subjectLead} ${resolvedSubjectText}`)\n",
+            "      : '',\n",
+            "    resolvedWardrobeText\n",
+            "      ? specialOutfitWardrobeBlock\n",
+            "        ? blockSection('Wardrobe', resolvedWardrobeText)\n",
+            "        : section('Wardrobe', `${wardrobeLead} ${resolvedWardrobeText}`)\n",
+            "      : '',\n"
+          ]
+        },
+        {
+          "line": 16263,
+          "after": [
+            "  if (fullBodyCharacterPrompt && context.onFullBodyAppearance) {\n",
+            "    context.onFullBodyAppearance(() => polishPublicPromptText(\n",
+            "      renderFullBodyCharacterPrompt(fullBodyCharacterPromptModel, { appearanceOnly: true }),\n",
+            "    ));\n",
+            "  }\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 17021,
+          "after": [
+            "  let renderScenePersonAppearance;\n",
+            "  if (!capture && subject.count === 1 && !isDedicatedSpecialSubject(subject)) {\n",
+            "    context.onFullBodyAppearance = render => { renderScenePersonAppearance = render; };\n",
+            "  }\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 17117,
+          "after": [
+            "  if (renderScenePersonAppearance) registerScenePersonAppearance(prompt, renderScenePersonAppearance);\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/characterCardLab.js",
+      "beforeHash": "c4fbc27196689bc31b3cfdf94e6c8624104311b8db56488d6cb754b9894212e1",
+      "afterHash": "271dd1a3d7a2a1771ea7142b87dcd78fadb12e119651c730dff4d74bf66a17f3",
+      "edits": [
+        {
+          "line": 401,
+          "after": [
+            "export function buildCharacterCardScenePerson(bundle) {\n",
+            "  const { card, variant } = bundle || {};\n",
+            "  if (!card || !variant) return null;\n",
+            "\n",
+            "  const hair = selectedHairVariant(card, variant);\n",
+            "  const layers = selectedLayers(card, variant);\n",
+            "  const identityDetails = [\n",
+            "    card.facialGeometry, card.eyeSignature, card.noseSignature, card.mouthSignature,\n",
+            "    card.skinSignature, card.makeup, card.body, card.distinctiveFeatures,\n",
+            "  ].filter(Boolean);\n",
+            "  const identity = identityDetails.length\n",
+            "    ? [characterAdultIdentity(card), ...identityDetails]\n",
+            "    : [card.identityAndBody];\n",
+            "  const text = [\n",
+            "    ...identity,\n",
+            "    card.baseHair,\n",
+            "    hair.id === 'default' ? '' : hair.prompt,\n",
+            "    layers.length ? `She wears ${layers.map(layer => layer.prompt).join(', ')}` : '',\n",
+            "  ].map(cleanSentence).filter(Boolean).join(' ');\n",
+            "\n",
+            "  return text ? { source: 'character-lab', label: card.label, text } : null;\n",
+            "}\n",
+            "\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/page3WorldScene.js",
+      "beforeHash": "9664e280d998db40efc10aa2aa324f74867c9249ea614372c7a1f09661a777d8",
+      "afterHash": "1d78545d141076993185609756aa38a8cab015b2236c398875e44bc1ccbeb07a",
+      "edits": [
+        {
+          "line": 0,
+          "after": [
+            "import { getPage3Person } from './page3Person.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 367,
+          "after": [
+            "  const person = getPage3Person(profile);\n",
+            "  if (!hasMode && !location && !style && !person) return '';\n"
+          ],
+          "before": [
+            "  if (!hasMode && !location && !style) return '';\n"
+          ]
+        },
+        {
+          "line": 384,
+          "after": [
+            "    if (ruin && note.startsWith('incidental pedestrians')) return [];\n",
+            "    if ((ruin || person) && /^no deliberate (?:portrait|human) subject/i.test(note)) return [];\n",
+            "    if (person && note === 'city, architecture, street, or landmark is the subject') {\n",
+            "      return ['keep the city, architecture, street, or landmark visible around the person'];\n",
+            "    }\n"
+          ],
+          "before": [
+            "    if (ruin && /^(?:incidental pedestrians|no deliberate (?:portrait|human) subject)/i.test(note)) return [];\n"
+          ]
+        },
+        {
+          "line": 396,
+          "after": [
+            "    const noTrafficCrowds = guard.includes('no traffic crowds');\n",
+            "    if (person) return noTrafficCrowds ? 'no other people or traffic crowds' : 'no other people';\n",
+            "    return noTrafficCrowds ? 'no visible people or traffic crowds' : 'no visible people';\n"
+          ],
+          "before": [
+            "    return guard.includes('no traffic crowds') ? 'no visible people or traffic crowds' : 'no visible people';\n"
+          ]
+        },
+        {
+          "line": 402,
+          "after": [
+            "  const subject = person ? [\n",
+            "    person.text,\n",
+            "    'Include her within the scene, at a natural scale, with the same perspective and ambient light',\n",
+            "  ] : [];\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 412,
+          "after": [
+            "    return sentenceJoin([setting, place, subject, depth,\n"
+          ],
+          "before": [
+            "    return sentenceJoin([setting, place, depth,\n"
+          ]
+        },
+        {
+          "line": 416,
+          "after": [
+            "    return sentenceJoin([setting, place, subject, 'Keep the spatial relationships and local character readable',\n"
+          ],
+          "before": [
+            "    return sentenceJoin([setting, place, 'Keep the spatial relationships and local character readable',\n"
+          ]
+        },
+        {
+          "line": 419,
+          "after": [
+            "  return sentenceJoin([setting, capture, rendering, style, place, subject, focus, notes, guards]);\n"
+          ],
+          "before": [
+            "  return sentenceJoin([setting, capture, rendering, style, place, focus, notes, guards]);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/App.jsx",
+      "beforeHash": "84c02b0702119238121e52513375e975e233c869a7b3b2942988b05489c6788a",
+      "afterHash": "20c247c6bdc91a5a50be0993635af62a9c4781162b60aa2974a848138159a526",
+      "edits": [
+        {
+          "line": 25,
+          "after": [
+            "  buildCharacterCardScenePerson,\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 43,
+          "after": [
+            "import { readScenePersonAppearance } from './lib/page3Person.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 389,
+          "after": [
+            "  const handlePage3PersonChange = useCallback((source) => {\n",
+            "    let person;\n",
+            "    if (source === 'default') {\n",
+            "      person = { source };\n",
+            "    } else if (source === 'prompt-workbench') {\n",
+            "      const text = readScenePersonAppearance(previewPrompt).trim();\n",
+            "      if (!text) {\n",
+            "        showToast('請先在 Prompt 工作台準備可匯入的單人全身角色照');\n",
+            "        return;\n",
+            "      }\n",
+            "      person = { source, label: '全身角色照', text };\n",
+            "    } else if (source === 'character-lab') {\n",
+            "      person = buildCharacterCardScenePerson(page2PromptBundle);\n",
+            "      if (!person) {\n",
+            "        showToast('請先在角色建模選擇角色');\n",
+            "        return;\n",
+            "      }\n",
+            "    }\n",
+            "    setPage3Profile((profile) => {\n",
+            "      const next = { ...profile };\n",
+            "      if (person) next.person = person;\n",
+            "      else delete next.person;\n",
+            "      return next;\n",
+            "    });\n",
+            "    if (person?.text) showToast(`已匯入人物：${person.label}`);\n",
+            "  }, [page2PromptBundle, previewPrompt, showToast]);\n",
+            "\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 608,
+          "after": [
+            "          onPersonChange={handlePage3PersonChange}\n"
+          ],
+          "before": []
+        }
+      ]
+    }
+  ]
+}

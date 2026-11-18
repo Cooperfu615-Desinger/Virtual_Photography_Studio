@@ -4,16 +4,21 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import review from './gestureExpressionGazeHistory.json' with { type: 'json' };
 
+import page3Person from './page3PersonHistory.json' with { type: 'json' };
 import page3Compression from './page3PromptCompressionHistory.json' with { type: 'json' };
 import closedEyeReview from './closedEyeGazeHistory.json' with { type: 'json' };
 
 const hash = source => createHash('sha256').update(source).digest('hex');
 export const gestureExpressionGazeHistoricalPaths = [...new Set(
-  [...page3Compression.files, ...closedEyeReview.files, ...review.files].map(file => file.path)
+  [...page3Person.files, ...page3Compression.files, ...closedEyeReview.files, ...review.files].map(file => file.path)
 )];
 export function preGestureExpressionGazeSource(path, source) {
-  const prePage3PromptSource = reverseReviewedSource(page3Compression, path, source);
+  const prePage3PromptSource = reverseReviewedSource(page3Compression, path, prePage3PersonSource(path, source));
   return reverseReviewedSource(review, path, preClosedEyeGazeSource(path, prePage3PromptSource));
+}
+
+export function prePage3PersonSource(path, source) {
+  return reverseReviewedSource(page3Person, path, source);
 }
 
 export function preClosedEyeGazeSource(path, source) {

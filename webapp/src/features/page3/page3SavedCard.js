@@ -1,3 +1,5 @@
+import { getPage3Person } from '../../lib/page3Person.js';
+
 export function buildPage3SavedCard(profile, summary, anchor, prompt, cinematicPrompt, worldPrompt) {
   const safeSummary = summary || '尚未選擇場景條件';
 
@@ -8,7 +10,7 @@ export function buildPage3SavedCard(profile, summary, anchor, prompt, cinematicP
     date: new Date().toISOString(),
     summary: `場景建模｜${safeSummary}`,
     summaryFields: {
-      characterDna: '-',
+      characterDna: getPage3Person(profile)?.label || '-',
       expressionPose: '-',
       wardrobe: '-',
       sceneLook: safeSummary,

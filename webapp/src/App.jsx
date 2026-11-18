@@ -23,6 +23,7 @@ import {
 import {
   buildCharacterCardPromptBundle,
   buildCharacterCardSavedCard,
+  buildCharacterCardScenePerson,
   buildPage1LocksFromCharacterCardVariant,
   createEmptyCharacterCardVariant,
   getCharacterCardOptions,
@@ -40,6 +41,7 @@ import {
 } from './features/saved-cards/cardCodec.js';
 import { useFavoritesWorkspace } from './features/saved-cards/useFavoritesWorkspace.js';
 import { usePromptWorkspace } from './features/page1/usePromptWorkspace.js';
+import { readScenePersonAppearance } from './lib/page3Person.js';
 import { buildPage3SavedCard } from './features/page3/page3SavedCard.js';
 import { loadJsonStorage, loadStringStorage, saveJsonStorage } from './features/storage/browserStorage.js';
 import './index.css';
@@ -385,6 +387,33 @@ export default function App() {
   }, [addFavoritePrompt, characterCards, normalizedPage2Profile, page2PromptBundle, showToast]);
 
 
+  const handlePage3PersonChange = useCallback((source) => {
+    let person;
+    if (source === 'default') {
+      person = { source };
+    } else if (source === 'prompt-workbench') {
+      const text = readScenePersonAppearance(previewPrompt).trim();
+      if (!text) {
+        showToast('請先在 Prompt 工作台準備可匯入的單人全身角色照');
+        return;
+      }
+      person = { source, label: '全身角色照', text };
+    } else if (source === 'character-lab') {
+      person = buildCharacterCardScenePerson(page2PromptBundle);
+      if (!person) {
+        showToast('請先在角色建模選擇角色');
+        return;
+      }
+    }
+    setPage3Profile((profile) => {
+      const next = { ...profile };
+      if (person) next.person = person;
+      else delete next.person;
+      return next;
+    });
+    if (person?.text) showToast(`已匯入人物：${person.label}`);
+  }, [page2PromptBundle, previewPrompt, showToast]);
+
   const handleSavePage3Card = useCallback(() => {
     if (!page3Prompt) {
       showToast('請先完成場景設定再加入 Saved Cards');
@@ -577,6 +606,7 @@ export default function App() {
           worldPrompt={page3WorldPrompt}
           onCopyText={handleCopyText}
           onSaveCard={handleSavePage3Card}
+          onPersonChange={handlePage3PersonChange}
           createEmptyProfile={createEmptyPage3Profile}
         />
       ) : (

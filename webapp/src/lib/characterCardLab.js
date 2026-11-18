@@ -399,6 +399,29 @@ function buildCharacterIdentityText(card, hairVariant) {
   ].join('\n\n');
 }
 
+export function buildCharacterCardScenePerson(bundle) {
+  const { card, variant } = bundle || {};
+  if (!card || !variant) return null;
+
+  const hair = selectedHairVariant(card, variant);
+  const layers = selectedLayers(card, variant);
+  const identityDetails = [
+    card.facialGeometry, card.eyeSignature, card.noseSignature, card.mouthSignature,
+    card.skinSignature, card.makeup, card.body, card.distinctiveFeatures,
+  ].filter(Boolean);
+  const identity = identityDetails.length
+    ? [characterAdultIdentity(card), ...identityDetails]
+    : [card.identityAndBody];
+  const text = [
+    ...identity,
+    card.baseHair,
+    hair.id === 'default' ? '' : hair.prompt,
+    layers.length ? `She wears ${layers.map(layer => layer.prompt).join(', ')}` : '',
+  ].map(cleanSentence).filter(Boolean).join(' ');
+
+  return text ? { source: 'character-lab', label: card.label, text } : null;
+}
+
 export function buildCharacterCardPromptBundle(cards = [], rawVariant = {}) {
   const variant = normalizeCharacterCardVariant(rawVariant, cards);
   const card = resolveCharacterCard(cards, variant.characterProfileId);
