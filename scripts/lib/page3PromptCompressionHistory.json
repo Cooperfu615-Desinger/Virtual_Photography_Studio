@@ -1,0 +1,243 @@
+{
+  "baseCommit": "ae62fdc2b6d74a888ebe10f634e54543e8e16237",
+  "files": [
+    {
+      "path": "webapp/src/lib/page3WorldScene.js",
+      "beforeHash": "aeeee8d55bb73694310705189f06ee872e8549bd1d8e5e631e0cbad16aa7b2da",
+      "afterHash": "9664e280d998db40efc10aa2aa324f74867c9249ea614372c7a1f09661a777d8",
+      "edits": [
+        {
+          "line": 15,
+          "after": [
+            "    leads: {\n",
+            "      scene: 'Unscripted documentary street photograph from pedestrian distance',\n",
+            "      cinematic: 'Unscripted cinematic street photograph from pedestrian distance',\n",
+            "      world: 'Unscripted street-level documentary view',\n",
+            "    },\n"
+          ],
+          "before": [
+            "    photoType: 'This is a documentary street photography work',\n",
+            "    photographer: 'It is made by a photographer who is good at catching unscripted city moments from ordinary pedestrian distance',\n",
+            "    cinematicPhotoType: 'This is a cinematic documentary street photograph',\n",
+            "    worldPhotoType: 'This is a street-level urban environment photograph',\n"
+          ]
+        },
+        {
+          "line": 28,
+          "after": [
+            "    leads: {\n",
+            "      scene: 'Realistic city and landmark photograph',\n",
+            "      cinematic: 'Cinematic cityscape photograph',\n",
+            "      world: 'Cityscape photograph showing the lived-in urban layout',\n",
+            "    },\n"
+          ],
+          "before": [
+            "    photoType: 'This is a realistic city photography work',\n",
+            "    photographer: 'It is made by a travel and architecture photographer observing the city as a lived place rather than a generic skyline',\n",
+            "    cinematicPhotoType: 'This is a cinematic city photography still',\n",
+            "    worldPhotoType: 'This is a grounded city-world environment photograph',\n"
+          ]
+        },
+        {
+          "line": 41,
+          "after": [
+            "    leads: {\n",
+            "      scene: 'High-view cityscape photograph',\n",
+            "      cinematic: 'Elevated cinematic cityscape photograph',\n",
+            "      world: 'High-view photograph of the city layout',\n",
+            "    },\n"
+          ],
+          "before": [
+            "    photoType: 'This is an aerial or high-view cityscape photograph',\n",
+            "    photographer: 'It is made from a drone or grounded overlook by a photographer focused on spatial layout and city geography',\n",
+            "    cinematicPhotoType: 'This is an elevated cinematic cityscape photograph',\n",
+            "    worldPhotoType: 'This is a high-view spatial geography photograph',\n"
+          ]
+        },
+        {
+          "line": 267,
+          "after": [],
+          "before": [
+            "function formatLocationTitle(location) {\n",
+            "  if (!location) return '';\n",
+            "  if (location.generic) return location.locationName;\n",
+            "  return `${location.locationName} in ${location.city}, ${location.country}`;\n",
+            "}\n",
+            "\n"
+          ]
+        },
+        {
+          "line": 273,
+          "after": [
+            "function formatPromptLocation(location) {\n"
+          ],
+          "before": [
+            "function formatLocationPhrase(location) {\n"
+          ]
+        },
+        {
+          "line": 275,
+          "after": [
+            "  const { locationName, district, city, country, generic } = location;\n",
+            "  const districts = district.split(' / ').filter(name => !locationName.toLowerCase().includes(name.toLowerCase()));\n",
+            "  return cleanJoin([...new Set([locationName, districts.join(' / '), ...(generic ? [] : [city, country])])]);\n"
+          ],
+          "before": [
+            "  if (location.generic) {\n",
+            "    return `The scene is set in a non-specific photographic location: ${location.locationName}, using ${location.district} as the environment type`;\n",
+            "  }\n",
+            "  return `The scene is set around ${formatLocationTitle(location)}, within the ${location.district} district context`;\n"
+          ]
+        },
+        {
+          "line": 288,
+          "after": [],
+          "before": [
+            "}\n",
+            "\n",
+            "function getCameraPhrase(cameraSystem) {\n",
+            "  const camera = cameraSystem?.en || '';\n",
+            "  if (camera) return `The photographer uses a ${camera}`;\n",
+            "  return '';\n",
+            "}\n",
+            "\n",
+            "function getPhotographerStylePhrase(photographerStyle) {\n",
+            "  const stylePrompt = buildPhotographyStylePrompt(photographerStyle);\n",
+            "  if (!stylePrompt) return '';\n",
+            "  return `The photographer's visual language follows ${stylePrompt}, shaping the light behavior, framing rhythm, color contrast, texture, subject distance, and image atmosphere`;\n"
+          ]
+        },
+        {
+          "line": 350,
+          "after": [
+            "function compactRuinPhrase(text) {\n",
+            "  return text\n",
+            "    .replace(/,? (?:with |and )?no visible people$/i, '')\n",
+            "    .replace(/, with$/, '');\n",
+            "}\n",
+            "\n",
+            "const RUIN_STREET_LEADS = {\n",
+            "  scene: 'Unscripted documentary photograph from pedestrian distance',\n",
+            "  cinematic: 'Unscripted cinematic documentary photograph from pedestrian distance',\n",
+            "  world: 'Unscripted documentary view at pedestrian height',\n",
+            "};\n",
+            "\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 365,
+          "after": [
+            "  const style = buildPhotographyStylePrompt(photographerStyle);\n",
+            "  if (!hasMode && !location && !style) return '';\n"
+          ],
+          "before": [
+            "  const photographerStylePhrase = getPhotographerStylePhrase(photographerStyle);\n",
+            "  if (!hasMode && !location && !photographerStylePhrase) return '';\n"
+          ]
+        },
+        {
+          "line": 368,
+          "after": [
+            "  const ruin = Boolean(location?.id?.startsWith('special-ruins-'));\n",
+            "  const xiangshanHighView = location?.id === 'taipei-xiangshan-city-night-overlook' && mode?.id === 'aerial-high-view';\n",
+            "  const locationName = formatPromptLocation(location);\n",
+            "  const lead = ruin && mode?.id === 'street-only'\n",
+            "    ? RUIN_STREET_LEADS[variant]\n",
+            "    : mode?.leads?.[variant] || 'Realistic location photograph';\n",
+            "\n"
+          ],
+          "before": [
+            "  const isSpecialRuinLocation = Boolean(location?.id?.startsWith('special-ruins-'));\n",
+            "  const leadKey = variant === 'cinematic' ? 'cinematicPhotoType' : variant === 'world' ? 'worldPhotoType' : 'photoType';\n",
+            "  const lead = hasMode ? (mode?.[leadKey] || mode?.photoType) : 'This is a realistic location photograph';\n"
+          ]
+        },
+        {
+          "line": 376,
+          "after": [
+            "  const placeDetails = [...new Set([position, ...(location?.landmarkCues || [])]\n",
+            "    .map(text => ruin ? compactRuinPhrase(text) : text)\n",
+            "    .filter(Boolean))];\n",
+            "  const capture = cleanJoin([cameraSystem?.en, focalViewpoint?.en, shootingMethod?.en]);\n",
+            "  const rendering = cleanJoin([imagingStyle?.en, ambientLight?.en]);\n",
+            "  const notes = (mode?.modeNotes || []).flatMap(note => {\n",
+            "    if (ruin && /^(?:incidental pedestrians|no deliberate (?:portrait|human) subject)/i.test(note)) return [];\n",
+            "    if (xiangshanHighView && note.startsWith('bridges,')) {\n",
+            "      return ['keep roads, rooftops, and skyline relationships readable, with bridges and waterways where visible from the overlook'];\n",
+            "    }\n",
+            "    return [note];\n",
+            "  });\n",
+            "  const guards = (location?.realismGuards || []).map(guard => {\n",
+            "    if (!ruin || !guard.startsWith('no visible people,')) return guard;\n",
+            "    return guard.includes('no traffic crowds') ? 'no visible people or traffic crowds' : 'no visible people';\n",
+            "  });\n"
+          ],
+          "before": [
+            "  const cameraPhrase = getCameraPhrase(cameraSystem);\n",
+            "  const shootingPhrase = shootingMethod?.en ? `The shooting method is ${shootingMethod.en}` : '';\n",
+            "  const focalPhrase = focalViewpoint?.en ? `The viewpoint is ${focalViewpoint.en}` : '';\n",
+            "  const locationPhrase = formatLocationPhrase(location);\n",
+            "  const landmarkPhrase = location?.landmarkCues?.length\n",
+            "    ? `Keep the local cues believable: ${location.landmarkCues.join(', ')}`\n",
+            "    : '';\n",
+            "  const positionPhrase = position ? `Use this as a possible spatial direction: ${position}` : '';\n",
+            "  const focusPhrase = sceneFocus?.en\n",
+            "    || (mode?.id === 'street-only'\n",
+            "      ? 'Within the chosen place, the composition may choose a small believable street detail instead of showing the whole landmark.'\n",
+            "      : '');\n",
+            "  const stylePhrase = cleanJoin([imagingStyle?.en, ambientLight?.en]);\n",
+            "  const worldVariantNotes = variant === 'world'\n",
+            "    ? 'Keep internally coherent urban geography, real-place environmental logic, and street-scale cultural texture'\n",
+            "    : '';\n",
+            "  const cinematicVariantNotes = variant === 'cinematic'\n",
+            "    ? 'Use cinematic spatial depth, strong atmospheric composition, and layered foreground-middle-background structure'\n",
+            "    : '';\n",
+            "  const modeNotes = isSpecialRuinLocation\n",
+            "    ? mode?.modeNotes?.filter((note) => !/pedestrians|traffic/i.test(note))\n",
+            "    : (hasMode ? mode?.modeNotes : null);\n"
+          ]
+        },
+        {
+          "line": 393,
+          "after": [
+            "  const place = cleanJoin(placeDetails);\n",
+            "  const setting = locationName ? `${lead}: ${locationName}` : lead;\n",
+            "  const focus = sceneFocus?.en || (mode?.id === 'street-only' ? 'Frame a local detail' : '');\n",
+            "  const depth = shootingMethod?.id === 'through-window'\n",
+            "    ? 'Layer the foreground glass reflections against the space beyond'\n",
+            "    : 'Layer the visible foreground, middle ground, and background';\n",
+            "  if (variant === 'cinematic') {\n",
+            "    return sentenceJoin([setting, place, depth,\n",
+            "      focus, capture, rendering, style, notes, guards]);\n",
+            "  }\n",
+            "  if (variant === 'world') {\n",
+            "    return sentenceJoin([setting, place, 'Keep the spatial relationships and local character readable',\n",
+            "      focus, notes, guards, capture, rendering, style]);\n",
+            "  }\n",
+            "  return sentenceJoin([setting, capture, rendering, style, place, focus, notes, guards]);\n"
+          ],
+          "before": [
+            "  return sentenceJoin([\n",
+            "    lead,\n",
+            "    hasMode ? mode?.photographer : '',\n",
+            "    photographerStylePhrase,\n",
+            "    cameraPhrase,\n",
+            "    shootingPhrase,\n",
+            "    focalPhrase,\n",
+            "    stylePhrase ? `The image rendering has ${stylePhrase}` : '',\n",
+            "    locationPhrase,\n",
+            "    focusPhrase,\n",
+            "    landmarkPhrase,\n",
+            "    positionPhrase,\n",
+            "    modeNotes?.join(', '),\n",
+            "    cinematicVariantNotes,\n",
+            "    worldVariantNotes,\n",
+            "    location?.realismGuards?.join(', '),\n",
+            "  ]);\n"
+          ]
+        }
+      ]
+    }
+  ]
+}

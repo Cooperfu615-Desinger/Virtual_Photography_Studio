@@ -13,10 +13,11 @@ const SCENE_MODE_OPTIONS = [
     zh: '街拍：單純場景',
     en: 'documentary street photograph',
     anchor: 'street-only documentary scene',
-    photoType: 'This is a documentary street photography work',
-    photographer: 'It is made by a photographer who is good at catching unscripted city moments from ordinary pedestrian distance',
-    cinematicPhotoType: 'This is a cinematic documentary street photograph',
-    worldPhotoType: 'This is a street-level urban environment photograph',
+    leads: {
+      scene: 'Unscripted documentary street photograph from pedestrian distance',
+      cinematic: 'Unscripted cinematic street photograph from pedestrian distance',
+      world: 'Unscripted street-level documentary view',
+    },
     positionKey: 'streetPositions',
     modeNotes: ['incidental pedestrians and traffic may appear only as traces of street life', 'no deliberate portrait subject', 'avoid a postcard-like establishing shot or complete landmark panorama'],
   },
@@ -25,10 +26,11 @@ const SCENE_MODE_OPTIONS = [
     zh: '空景城市攝影',
     en: 'realistic city and landmark photography',
     anchor: 'clean cityscape scene',
-    photoType: 'This is a realistic city photography work',
-    photographer: 'It is made by a travel and architecture photographer observing the city as a lived place rather than a generic skyline',
-    cinematicPhotoType: 'This is a cinematic city photography still',
-    worldPhotoType: 'This is a grounded city-world environment photograph',
+    leads: {
+      scene: 'Realistic city and landmark photograph',
+      cinematic: 'Cinematic cityscape photograph',
+      world: 'Cityscape photograph showing the lived-in urban layout',
+    },
     positionKey: 'cityscapePositions',
     modeNotes: ['city, architecture, street, or landmark is the subject', 'no deliberate human subject', 'keep the place specific instead of turning it into a generic city view'],
   },
@@ -37,10 +39,11 @@ const SCENE_MODE_OPTIONS = [
     zh: '空拍 / 高視角地景',
     en: 'drone-like elevated cityscape',
     anchor: 'elevated high-view city scene',
-    photoType: 'This is an aerial or high-view cityscape photograph',
-    photographer: 'It is made from a drone or grounded overlook by a photographer focused on spatial layout and city geography',
-    cinematicPhotoType: 'This is an elevated cinematic cityscape photograph',
-    worldPhotoType: 'This is a high-view spatial geography photograph',
+    leads: {
+      scene: 'High-view cityscape photograph',
+      cinematic: 'Elevated cinematic cityscape photograph',
+      world: 'High-view photograph of the city layout',
+    },
     positionKey: 'aerialPositions',
     modeNotes: ['spatial layout and geography are dominant', 'bridges, roads, waterways, rooftops, and skyline relationships visible', 'use a grounded overlook when that is more realistic than a true drone view'],
   },
@@ -262,24 +265,17 @@ function pickPosition(location, mode) {
   return location[mode.positionKey]?.[0] || '';
 }
 
-function formatLocationTitle(location) {
-  if (!location) return '';
-  if (location.generic) return location.locationName;
-  return `${location.locationName} in ${location.city}, ${location.country}`;
-}
-
 function formatAnchorLocation(location) {
   if (!location) return '';
   if (location.generic) return `${location.district}, ${location.locationName}`;
   return `${location.city}, ${location.district}, ${location.locationName}`;
 }
 
-function formatLocationPhrase(location) {
+function formatPromptLocation(location) {
   if (!location) return '';
-  if (location.generic) {
-    return `The scene is set in a non-specific photographic location: ${location.locationName}, using ${location.district} as the environment type`;
-  }
-  return `The scene is set around ${formatLocationTitle(location)}, within the ${location.district} district context`;
+  const { locationName, district, city, country, generic } = location;
+  const districts = district.split(' / ').filter(name => !locationName.toLowerCase().includes(name.toLowerCase()));
+  return cleanJoin([...new Set([locationName, districts.join(' / '), ...(generic ? [] : [city, country])])]);
 }
 
 function sentenceJoin(parts) {
@@ -290,18 +286,6 @@ function sentenceJoin(parts) {
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .map((part) => (/[.!?]$/.test(part) ? part : `${part}.`))
     .join(' ');
-}
-
-function getCameraPhrase(cameraSystem) {
-  const camera = cameraSystem?.en || '';
-  if (camera) return `The photographer uses a ${camera}`;
-  return '';
-}
-
-function getPhotographerStylePhrase(photographerStyle) {
-  const stylePrompt = buildPhotographyStylePrompt(photographerStyle);
-  if (!stylePrompt) return '';
-  return `The photographer's visual language follows ${stylePrompt}, shaping the light behavior, framing rhythm, color contrast, texture, subject distance, and image atmosphere`;
 }
 
 export function buildPage3WorldSceneSummary(profile = {}) {
@@ -364,56 +348,64 @@ export function buildPage1WorldSceneArchitecture(profile = {}) {
   };
 }
 
+function compactRuinPhrase(text) {
+  return text
+    .replace(/,? (?:with |and )?no visible people$/i, '')
+    .replace(/, with$/, '');
+}
+
+const RUIN_STREET_LEADS = {
+  scene: 'Unscripted documentary photograph from pedestrian distance',
+  cinematic: 'Unscripted cinematic documentary photograph from pedestrian distance',
+  world: 'Unscripted documentary view at pedestrian height',
+};
+
 function buildWorldScenePrompt(profile = {}, { variant = 'scene' } = {}) {
   const { mode, photographerStyle, location, cameraSystem, shootingMethod, focalViewpoint, sceneFocus, imagingStyle, ambientLight } = getProfileParts(profile);
   const hasMode = Boolean(mode?.id && !isNoneOption(mode));
-  const photographerStylePhrase = getPhotographerStylePhrase(photographerStyle);
-  if (!hasMode && !location && !photographerStylePhrase) return '';
+  const style = buildPhotographyStylePrompt(photographerStyle);
+  if (!hasMode && !location && !style) return '';
 
-  const isSpecialRuinLocation = Boolean(location?.id?.startsWith('special-ruins-'));
-  const leadKey = variant === 'cinematic' ? 'cinematicPhotoType' : variant === 'world' ? 'worldPhotoType' : 'photoType';
-  const lead = hasMode ? (mode?.[leadKey] || mode?.photoType) : 'This is a realistic location photograph';
+  const ruin = Boolean(location?.id?.startsWith('special-ruins-'));
+  const xiangshanHighView = location?.id === 'taipei-xiangshan-city-night-overlook' && mode?.id === 'aerial-high-view';
+  const locationName = formatPromptLocation(location);
+  const lead = ruin && mode?.id === 'street-only'
+    ? RUIN_STREET_LEADS[variant]
+    : mode?.leads?.[variant] || 'Realistic location photograph';
+
   const position = pickPosition(location, mode);
-  const cameraPhrase = getCameraPhrase(cameraSystem);
-  const shootingPhrase = shootingMethod?.en ? `The shooting method is ${shootingMethod.en}` : '';
-  const focalPhrase = focalViewpoint?.en ? `The viewpoint is ${focalViewpoint.en}` : '';
-  const locationPhrase = formatLocationPhrase(location);
-  const landmarkPhrase = location?.landmarkCues?.length
-    ? `Keep the local cues believable: ${location.landmarkCues.join(', ')}`
-    : '';
-  const positionPhrase = position ? `Use this as a possible spatial direction: ${position}` : '';
-  const focusPhrase = sceneFocus?.en
-    || (mode?.id === 'street-only'
-      ? 'Within the chosen place, the composition may choose a small believable street detail instead of showing the whole landmark.'
-      : '');
-  const stylePhrase = cleanJoin([imagingStyle?.en, ambientLight?.en]);
-  const worldVariantNotes = variant === 'world'
-    ? 'Keep internally coherent urban geography, real-place environmental logic, and street-scale cultural texture'
-    : '';
-  const cinematicVariantNotes = variant === 'cinematic'
-    ? 'Use cinematic spatial depth, strong atmospheric composition, and layered foreground-middle-background structure'
-    : '';
-  const modeNotes = isSpecialRuinLocation
-    ? mode?.modeNotes?.filter((note) => !/pedestrians|traffic/i.test(note))
-    : (hasMode ? mode?.modeNotes : null);
+  const placeDetails = [...new Set([position, ...(location?.landmarkCues || [])]
+    .map(text => ruin ? compactRuinPhrase(text) : text)
+    .filter(Boolean))];
+  const capture = cleanJoin([cameraSystem?.en, focalViewpoint?.en, shootingMethod?.en]);
+  const rendering = cleanJoin([imagingStyle?.en, ambientLight?.en]);
+  const notes = (mode?.modeNotes || []).flatMap(note => {
+    if (ruin && /^(?:incidental pedestrians|no deliberate (?:portrait|human) subject)/i.test(note)) return [];
+    if (xiangshanHighView && note.startsWith('bridges,')) {
+      return ['keep roads, rooftops, and skyline relationships readable, with bridges and waterways where visible from the overlook'];
+    }
+    return [note];
+  });
+  const guards = (location?.realismGuards || []).map(guard => {
+    if (!ruin || !guard.startsWith('no visible people,')) return guard;
+    return guard.includes('no traffic crowds') ? 'no visible people or traffic crowds' : 'no visible people';
+  });
 
-  return sentenceJoin([
-    lead,
-    hasMode ? mode?.photographer : '',
-    photographerStylePhrase,
-    cameraPhrase,
-    shootingPhrase,
-    focalPhrase,
-    stylePhrase ? `The image rendering has ${stylePhrase}` : '',
-    locationPhrase,
-    focusPhrase,
-    landmarkPhrase,
-    positionPhrase,
-    modeNotes?.join(', '),
-    cinematicVariantNotes,
-    worldVariantNotes,
-    location?.realismGuards?.join(', '),
-  ]);
+  const place = cleanJoin(placeDetails);
+  const setting = locationName ? `${lead}: ${locationName}` : lead;
+  const focus = sceneFocus?.en || (mode?.id === 'street-only' ? 'Frame a local detail' : '');
+  const depth = shootingMethod?.id === 'through-window'
+    ? 'Layer the foreground glass reflections against the space beyond'
+    : 'Layer the visible foreground, middle ground, and background';
+  if (variant === 'cinematic') {
+    return sentenceJoin([setting, place, depth,
+      focus, capture, rendering, style, notes, guards]);
+  }
+  if (variant === 'world') {
+    return sentenceJoin([setting, place, 'Keep the spatial relationships and local character readable',
+      focus, notes, guards, capture, rendering, style]);
+  }
+  return sentenceJoin([setting, capture, rendering, style, place, focus, notes, guards]);
 }
 
 export function buildPage3WorldScenePrompt(profile = {}) {

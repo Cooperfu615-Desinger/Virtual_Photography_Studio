@@ -7,9 +7,73 @@ import {
   WORLD_SCENE_LOCATIONS,
   buildPage3WorldSceneAnchor,
   buildPage3WorldScenePrompt,
+  buildPage3WorldSceneCinematicPrompt,
+  buildPage3WorldSceneWorldPrompt,
   buildPage3WorldSceneSummary,
   buildPage1WorldSceneArchitecture,
 } from './page3WorldScene.js';
+
+const sceneBuilders = [
+  buildPage3WorldScenePrompt,
+  buildPage3WorldSceneCinematicPrompt,
+  buildPage3WorldSceneWorldPrompt,
+];
+
+test('all three PAGE3 outputs retain the reviewed Taipei street capture and empty-scene rules', () => {
+  const profile = {
+    sceneMode: 'street-only',
+    worldLocation: 'taipei-xinyi-taipei101-street-corner',
+    cameraSystem: 'leica-m',
+    focalViewpoint: '35mm-classic',
+    shootingMethod: 'through-window',
+    imagingStyle: 'color-negative-film',
+    ambientLight: 'overcast-daylight',
+  };
+  const prompts = sceneBuilders.map(build => build(profile));
+  assert.equal(new Set(prompts).size, 3);
+  for (const prompt of prompts) {
+    for (const cue of [
+      /Xinyi/i, /Taipei 101/i, /commercial facades/i, /wide crosswalks/i,
+      /Leica M/i, /35mm/i, /glass with reflections, glare, and layered interior-exterior depth/i,
+      /color negative film grain/i, /overcast daylight/i, /editorial photography mood/i,
+      /incidental pedestrians and traffic/i, /no deliberate portrait subject/i,
+      /not oversized/i, /avoid Hong Kong-like harbor skyline/i,
+    ]) assert.match(prompt, cue);
+    assert.doesNotMatch(prompt, /the photographer uses|the shooting method is|within the Xinyi district context/i);
+    assert.ok(prompt.split(/\s+/).length < 150);
+  }
+});
+
+test('all three Xiangshan high-view prompts make bridges and waterways conditional', () => {
+  for (const build of sceneBuilders) {
+    const prompt = build({
+      sceneMode: 'aerial-high-view',
+      worldLocation: 'taipei-xiangshan-city-night-overlook',
+      focalViewpoint: 'elevated-wide',
+      cameraSystem: 'sony-full-frame',
+      ambientLight: 'blue-hour-city-glow',
+    });
+    assert.match(prompt, /bridges and waterways where visible from the overlook/i);
+    assert.match(prompt, /centered in Xinyi skyline/i);
+    assert.match(prompt, /avoid drone-only impossible angle/i);
+    assert.match(prompt, /Sony full-frame mirrorless camera/i);
+    assert.match(prompt, /blue hour city glow/i);
+  }
+});
+
+test('all ruin modes keep strict visible occupancy restrictions and location-specific guards', () => {
+  for (const location of SPECIAL_SCENE_LOCATIONS.filter(item => item.id.startsWith('special-ruins-'))) {
+    for (const sceneMode of ['street-only', 'cityscape', 'aerial-high-view', 'none', '']) {
+      for (const build of sceneBuilders) {
+        const prompt = build({ sceneMode, specialLocation: location.id });
+        assert.match(prompt, /\bno visible people\b/i);
+        assert.doesNotMatch(prompt, /incidental pedestrians|no deliberate (?:portrait|human) subject|only the photographer exists/i);
+        for (const guard of location.realismGuards.slice(1)) assert.ok(prompt.toLowerCase().includes(guard));
+        if (location.id === 'special-ruins-city') assert.match(prompt, /no visible people or traffic crowds/i);
+      }
+    }
+  }
+});
 
 test('world scene location pack contains ten cities with five anchors each', () => {
   assert.equal(WORLD_SCENE_LOCATIONS.length, 50);
@@ -85,9 +149,9 @@ test('Dotonbori street prompt keeps real location anchors and street-photography
 
   const prompt = buildPage3WorldScenePrompt(profile);
 
-  assert.match(prompt, /^This is a documentary street photography work/i);
-  assert.match(prompt, /photographer who is good at catching unscripted city moments/i);
-  assert.match(prompt, /The photographer uses a Ricoh GR/i);
+  assert.match(prompt, /^unscripted documentary street photograph/i);
+  assert.match(prompt, /from pedestrian distance/i);
+  assert.match(prompt, /Ricoh GR compact street camera/i);
   assert.match(prompt, /slightly overexposed look/i);
   assert.match(prompt, /28mm documentary street view at pedestrian height/i);
   assert.match(prompt, /Dotonbori canal/i);
@@ -118,7 +182,8 @@ test('photographer style adds PAGE1-style photographic language to PAGE3 prompts
 
   assert.match(prompt, /Daido Moriyama/i);
   assert.match(prompt, /gritty high-contrast monochrome image language/i);
-  assert.match(prompt, /light behavior, framing rhythm, color contrast, texture, subject distance, and image atmosphere/i);
+  assert.match(prompt, /rough focus, heavy grain, harsh blacks/i);
+  assert.doesNotMatch(prompt, /shaping the light behavior/i);
   assert.match(summary, /森山大道｜噪訊黑白暗調/);
 });
 
@@ -153,8 +218,8 @@ test('aerial mode uses elevated spatial language and realism guards', () => {
   const anchor = buildPage3WorldSceneAnchor(profile);
   const summary = buildPage3WorldSceneSummary(profile);
 
-  assert.match(prompt, /^This is an aerial or high-view cityscape photograph/i);
-  assert.match(prompt, /photographer focused on spatial layout and city geography/i);
+  assert.match(prompt, /^high-view cityscape photograph/i);
+  assert.match(prompt, /spatial layout and geography are dominant/i);
   assert.match(prompt, /shot from a drone in a slow survey pass/i);
   assert.match(prompt, /Victoria Harbour/i);
   assert.match(prompt, /Star Ferry/i);
@@ -182,13 +247,12 @@ test('special location prompt avoids forced world-city context', () => {
   const anchor = buildPage3WorldSceneAnchor(profile);
   const summary = buildPage3WorldSceneSummary(profile);
 
-  assert.match(prompt, /non-specific photographic location/i);
   assert.match(prompt, /abandoned hospital ruins/i);
   assert.match(prompt, /empty hospital ward/i);
   assert.match(prompt, /tiled corridors/i);
   assert.match(prompt, /avoid gore or explicit injury/i);
   assert.match(prompt, /no visible people/i);
-  assert.match(prompt, /only the photographer exists behind the camera/i);
+  assert.doesNotMatch(prompt, /only the photographer exists behind the camera/i);
   assert.doesNotMatch(prompt, /incidental pedestrians/i);
   assert.doesNotMatch(prompt, /Special Location/);
   assert.doesNotMatch(prompt, /Shinjuku/);
