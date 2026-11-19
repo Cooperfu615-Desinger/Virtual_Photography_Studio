@@ -3,7 +3,8 @@ import { midjourneyItemName } from './midjourneyNaturalPrompt.js';
 import { bottomRiseConflict } from './bottomRiseCompatibility.js';
 import { isFullyClosedOpening, closedInnerLayerIsVisible } from './outerwearClosure.js';
 import { getSpecifiedAction } from './specifiedActions.js';
-import { applicableGestureOptions, isRaisedTopHemGesture, raisedTopHemText } from './gazeGesture.js';
+import { applicableGestureOptions, isRaisedTopHemGesture, raisedTopHemText, UNDERBUST_TEE_GESTURE_ID } from './gazeGesture.js';
+import { phoneCaptureStatus } from './phoneCapture.js';
 import { isSkirtLiftGesture, skirtLiftText, skirtUnderlayerProfile } from './skirtUnderlayers.js';
 
 export const THIGH_RISE = Object.freeze({
@@ -43,6 +44,30 @@ function hasGarmentOwner(locks, controls, key) {
   const item = selected(controls, key, locks[key]);
   return Boolean(item?.en && item.zh !== '全無');
 }
+function allowsManualGarmentGesture(locks, controls) {
+  return locks.subjectCount === '1' && locks.captureMode !== 'observation'
+    && ![locks.characterProfileId, locks.specialSubjectId, locks.fixedCompositionSetId].some(id => id && id !== 'none')
+    && !['dressId', 'outfitPresetId', 'specialOutfitId'].some(key => hasGarmentOwner(locks, controls, key));
+}
+
+function closedOuterwearHidesTop(locks, controls) {
+  const outerwear = selected(controls, 'outerwearId', locks.outerwearId);
+  return isFullyClosedOpening(locks.outerwearOpeningId) && outerwear?.zh !== '全無'
+    && !closedInnerLayerIsVisible(outerwear);
+}
+
+export const UNDERBUST_TEE_PAUSED_KEYS = Object.freeze(['topId', 'topFitId', 'topStylingId', 'topColorId', 'topPatternId']);
+
+export function canUseUnderbustTee(locks, controls, action = getSpecifiedAction(locks, { cameraControls: controls })) {
+  return allowsManualGarmentGesture(locks, controls)
+    && !closedOuterwearHidesTop(locks, controls)
+    && applicableGestureOptions(action).some(option => option.id === UNDERBUST_TEE_GESTURE_ID)
+    && !phoneCaptureStatus(locks, action).active;
+}
+
+export function underbustTeeActive(locks, controls, action) {
+  return locks.gestureId === UNDERBUST_TEE_GESTURE_ID && canUseUnderbustTee(locks, controls, action);
+}
 const isWaistTrigger = id => ['ultra-low-rise','unbuttoned-slightly-unzipped', THIGH_RISE.id].includes(id);
 export function normalizeUnderlayers(locks, controls) {
   const result = {};
@@ -69,17 +94,12 @@ export function underlayerField(locks, controls, trigger) {
   const top = trigger === 'gestureId' && !skirtLift;
   if (!top && !skirtLift && trigger !== 'bottomRiseId') return null;
   if (trigger === 'gestureId' ? !isRevealGesture(locks.gestureId) : !isWaistTrigger(locks.bottomRiseId)) return null;
-  if (locks.subjectCount !== '1' || locks.captureMode === 'observation'
-    || [locks.characterProfileId,locks.specialSubjectId,locks.fixedCompositionSetId].some(id => id && id !== 'none')) return null;
-  const owners = ['dressId', 'outfitPresetId', 'specialOutfitId'];
-  if (owners.some(key => hasGarmentOwner(locks, controls, key))) return null;
+  if (!allowsManualGarmentGesture(locks, controls)) return null;
   const skirt = !top && selected(controls, 'skirtId', locks.skirtId);
   const skirtActive = !top && hasGarmentOwner(locks, controls, 'skirtId');
   if (skirtActive && (!skirtUnderlayerProfile(skirt) || (skirtLift ? !skirtLiftText(skirt) : locks.bottomRiseId !== 'ultra-low-rise'))) return null;
   if (skirtLift && !skirtActive) return null;
-  const outerwear = selected(controls, 'outerwearId', locks.outerwearId);
-  if (top && isFullyClosedOpening(locks.outerwearOpeningId) && outerwear?.zh !== '全無'
-      && !closedInnerLayerIsVisible(outerwear)) return null;
+  if (top && closedOuterwearHidesTop(locks, controls)) return null;
   if (trigger === 'gestureId' && !applicableGestureOptions(getSpecifiedAction(locks,{cameraControls:controls})).some(option => option.id === locks.gestureId)) return null;
   const slot = top ? upper : lower;
   const hostKey = skirtActive ? 'skirtId' : slot.hostKey;

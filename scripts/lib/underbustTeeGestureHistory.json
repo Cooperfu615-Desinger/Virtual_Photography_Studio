@@ -1,0 +1,525 @@
+{
+  "baseCommit": "3823a7a02f0cf198fb425a267cb76ef6466bd01f",
+  "files": [
+    {
+      "path": "webapp/src/components/Page1Workspace.jsx",
+      "beforeHash": "8777e2b81542ef25d043dbf163127db781509a5ab08225d964a0902d5792ef93",
+      "afterHash": "0cd4076c8bdc0c744593936fa644b392c137f24608e212130a5d68736e1fd03f",
+      "edits": [
+        {
+          "line": 3,
+          "after": [
+            "import { THIGH_RISE, UNDERBUST_TEE_PAUSED_KEYS, canUseUnderbustTee, isRevealGesture, underbustTeeActive, underlayerField } from '../lib/engine/manualUnderlayers.js';\n"
+          ],
+          "before": [
+            "import { THIGH_RISE, isRevealGesture, underlayerField } from '../lib/engine/manualUnderlayers.js';\n"
+          ]
+        },
+        {
+          "line": 13,
+          "after": [
+            "import { UNDERBUST_TEE_GESTURE_ID, applicableGestureOptions, availableGazeOptions, authoredGazeHead, closedEyeGazeLabel, gazeForHeadPosture, gazeUsesHeadOnly, withFixedUnderbustTee } from '../lib/engine/gazeGesture.js';\n"
+          ],
+          "before": [
+            "import { applicableGestureOptions, availableGazeOptions, authoredGazeHead, closedEyeGazeLabel, gazeForHeadPosture, gazeUsesHeadOnly } from '../lib/engine/gazeGesture.js';\n"
+          ]
+        },
+        {
+          "line": 901,
+          "after": [
+            "  const fixedUnderbustTee = underbustTeeActive(locks, lockControls, activeSpecifiedAction);\n",
+            "  const pausesTopControl = key => fixedUnderbustTee && UNDERBUST_TEE_PAUSED_KEYS.includes(key);\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 1031,
+          "after": [
+            "          .map(o => {\n",
+            "            if (o.id === UNDERBUST_TEE_GESTURE_ID) return canUseUnderbustTee(locks, lockControls, activeSpecifiedAction)\n",
+            "              ? withFixedUnderbustTee(o) : { ...o, disabled: true };\n",
+            "            const missing = missingItem[o.meta?.requiresWardrobeRole];\n",
+            "            return missing ? { ...o, zh: `${o.zh}（需要${missing}）`, disabled: true } : o;\n",
+            "          }) };\n"
+          ],
+          "before": [
+            "          .map(o => { const missing = missingItem[o.meta?.requiresWardrobeRole]; return missing ? { ...o, zh: `${o.zh}（需要${missing}）`, disabled: true } : o; }) };\n"
+          ]
+        },
+        {
+          "line": 1058,
+          "after": [
+            "    pausesTopControl(control.key) ||\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 1092,
+          "after": [
+            "    if (pausesTopControl(control.key)) return;\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 1166,
+          "after": [
+            "    updateLocks((prev) => {\n",
+            "      if (activeSection !== 'wardrobe') {\n",
+            "        return randomizeLockKeys(prev, activeSubpanelKeys.filter(key => !fixedScenePosition || !FIXED_SCENE_MANAGED_POSE_KEYS.includes(key)), createEmptyLocks(), lockControls);\n",
+            "      }\n",
+            "      const panel = resolvedActiveSubpanel?.id;\n",
+            "      const keys = locks.subjectCount === '1' && ['overall', 'garments', 'layers', 'accessories'].includes(panel)\n",
+            "        ? getWardrobePanelKeys(panel, '') : activeSubpanelKeys;\n",
+            "      const next = randomizePage1WardrobePanelLocks(prev, panel, keys.filter(key => !pausesTopControl(key)), createEmptyLocks(), lockControls);\n",
+            "      if (fixedUnderbustTee) for (const key of UNDERBUST_TEE_PAUSED_KEYS) next[key] = prev[key];\n",
+            "      return next;\n",
+            "    });\n"
+          ],
+          "before": [
+            "    updateLocks((prev) => (\n",
+            "      activeSection === 'wardrobe'\n",
+            "        ? randomizePage1WardrobePanelLocks(\n",
+            "          prev,\n",
+            "          resolvedActiveSubpanel?.id,\n",
+            "          locks.subjectCount === '1' && ['overall', 'garments', 'layers', 'accessories'].includes(resolvedActiveSubpanel?.id)\n",
+            "            ? getWardrobePanelKeys(resolvedActiveSubpanel.id, '') : activeSubpanelKeys,\n",
+            "          createEmptyLocks(),\n",
+            "          lockControls,\n",
+            "        )\n",
+            "        : randomizeLockKeys(prev, activeSubpanelKeys.filter(key => !fixedScenePosition || !FIXED_SCENE_MANAGED_POSE_KEYS.includes(key)), createEmptyLocks(), lockControls)\n",
+            "    ));\n"
+          ]
+        },
+        {
+          "line": 1182,
+          "after": [
+            "    updateLocks((prev) => setLockKeysToNone(prev, keys.filter(key =>\n",
+            "      !pausesTopControl(key) && (!fixedScenePosition || !FIXED_SCENE_MANAGED_POSE_KEYS.includes(key))), lockControls));\n"
+          ],
+          "before": [
+            "    updateLocks((prev) => setLockKeysToNone(prev, keys.filter(key => !fixedScenePosition || !FIXED_SCENE_MANAGED_POSE_KEYS.includes(key)), lockControls));\n"
+          ]
+        },
+        {
+          "line": 1510,
+          "after": [
+            "    const teeOwnsTop = !role && group.id === 'top' && fixedUnderbustTee;\n",
+            "    const paired = !teeOwnsTop && ['top', 'bottom'].includes(group.id) && getControlOptionLabel(lockControls, paletteKey, locks[paletteKey]);\n"
+          ],
+          "before": [
+            "    const paired = ['top', 'bottom'].includes(group.id) && getControlOptionLabel(lockControls, paletteKey, locks[paletteKey]);\n"
+          ]
+        },
+        {
+          "line": 1524,
+          "after": [
+            "      {fields.length > 0 && allDisabled ? <p className=\"wardrobe-card-note\">{teeOwnsTop\n",
+            "        ? '此手勢使用固定短袖 T，取消手勢後恢復上身設定。'\n",
+            "        : '目前設定下暫不適用，原設定保留。'}</p> : null}\n"
+          ],
+          "before": [
+            "      {fields.length > 0 && allDisabled ? <p className=\"wardrobe-card-note\">目前設定下暫不適用，原設定保留。</p> : null}\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine.js",
+      "beforeHash": "bce466a0ccff0e45ad04accb7d4cc9f7b3ef81160e2806e5e0e4956ac589391a",
+      "afterHash": "12e2be738b42deea749e7c4bb6b2ac6f3abcfd6fcbbe836549a88e9197ec3218",
+      "edits": [
+        {
+          "line": 4,
+          "after": [
+            "import { THIGH_RISE, UNDERBUST_TEE_PAUSED_KEYS, attachUnderlayers, describeRevealGesture, normalizeUnderlayers, prepareUnderlayerHosts, underbustTeeActive, underlayerField, upperUnderlayerFront } from './engine/manualUnderlayers.js';\n"
+          ],
+          "before": [
+            "import { THIGH_RISE, attachUnderlayers, describeRevealGesture, normalizeUnderlayers, prepareUnderlayerHosts, underlayerField, upperUnderlayerFront } from './engine/manualUnderlayers.js';\n"
+          ]
+        },
+        {
+          "line": 25,
+          "after": [
+            "import { CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, UNDERBUST_TEE_GESTURE_ID, UNDERBUST_TEE_LABEL, UNDERBUST_TEE_NAME, actionTextWithGesture, applyCaptureStyleLocks, authoredGazeHead, expressionHasReviewedEyesAndMouth, gazeAvoidsBackView, gazeUsesHeadOnly, isBackViewOrbit, isRaisedTopHemGesture, resolveGaze, resolveGesture, resolveProp, withFixedUnderbustTee } from './engine/gazeGesture.js';\n"
+          ],
+          "before": [
+            "import { CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, actionTextWithGesture, applyCaptureStyleLocks, authoredGazeHead, expressionHasReviewedEyesAndMouth, gazeAvoidsBackView, gazeUsesHeadOnly, isBackViewOrbit, isRaisedTopHemGesture, resolveGaze, resolveGesture, resolveProp } from './engine/gazeGesture.js';\n"
+          ]
+        },
+        {
+          "line": 5297,
+          "after": [
+            "    const requestedGesture = context.locks?.gestureId;\n",
+            "    const fixedTee = requestedGesture === UNDERBUST_TEE_GESTURE_ID && context.underbustTee;\n",
+            "    const paused = phoneStatus.active || (requestedGesture === UNDERBUST_TEE_GESTURE_ID && !fixedTee);\n",
+            "    const wardrobeSignals = fixedTee ? { ...context.wardrobeSignals, topHem: 'present' } : context.wardrobeSignals;\n",
+            "    const resolvedGesture = resolveGesture(paused ? 'none' : requestedGesture, specifiedAction, { wardrobeSignals, orbit: context.orbit }, random);\n",
+            "    const gesture = fixedTee && resolvedGesture ? withFixedUnderbustTee(resolvedGesture)\n",
+            "      : describeRevealGesture(resolvedGesture, context.revealedUnderlayer, context.liftedSkirt, context.raisedHem);\n"
+          ],
+          "before": [
+            "    const gesture = describeRevealGesture(resolveGesture(phoneStatus.active ? 'none' : context.locks?.gestureId, specifiedAction, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random), context.revealedUnderlayer, context.liftedSkirt, context.raisedHem);\n"
+          ]
+        },
+        {
+          "line": 5819,
+          "after": [
+            "      if (context.referencePersonPreview && (\n",
+            "        context.raisedHem && isRaisedTopHemGesture(poseComposer.meta?.gestureId)\n",
+            "        || context.underbustTee && poseComposer.meta?.gestureId === UNDERBUST_TEE_GESTURE_ID\n",
+            "      )) {\n"
+          ],
+          "before": [
+            "      if (context.referencePersonPreview && context.raisedHem && isRaisedTopHemGesture(poseComposer.meta?.gestureId)) {\n"
+          ]
+        },
+        {
+          "line": 5838,
+          "after": [
+            "    const gestureOption = GESTURE_OPTIONS.find(option => option.scope && option.id === poseComposer.meta?.gestureId);\n",
+            "    const gesture = context.underbustTee && !context.referencePersonPreview && gestureOption?.id === UNDERBUST_TEE_GESTURE_ID\n",
+            "      ? withFixedUnderbustTee(gestureOption)\n",
+            "      : describeRevealGesture(gestureOption, poseComposer.meta?.revealedUnderlayer, poseComposer.meta?.liftedSkirt, context.referencePersonPreview ? null : context.raisedHem);\n"
+          ],
+          "before": [
+            "    const gesture = describeRevealGesture(GESTURE_OPTIONS.find(option => option.scope && option.id === poseComposer.meta?.gestureId), poseComposer.meta?.revealedUnderlayer, poseComposer.meta?.liftedSkirt, context.referencePersonPreview ? null : context.raisedHem);\n"
+          ]
+        },
+        {
+          "line": 7327,
+          "after": [
+            "    // With a fixed shirt already chosen by the gesture, only auto-pick separates.\n",
+            "    const randomPreset = context.underbustTee || outfitPresetState.isExplicitNone\n"
+          ],
+          "before": [
+            "    const randomPreset = outfitPresetState.isExplicitNone\n"
+          ]
+        },
+        {
+          "line": 7334,
+          "after": [
+            "      const randomDress = context.underbustTee || dressState.isExplicitNone\n",
+            "        ? null : pickRandomWardrobeItem(dressItems, { previousSelectionKeys: ['dressId'] });\n"
+          ],
+          "before": [
+            "      const randomDress = dressState.isExplicitNone ? null : pickRandomWardrobeItem(dressItems, { previousSelectionKeys: ['dressId'] });\n"
+          ]
+        },
+        {
+          "line": 7514,
+          "after": [
+            "  const openingKeepsTeeVisible = (outerwear, opening) => !context.underbustTee\n",
+            "    || !isFullyClosedOpening(opening) || closedInnerLayerIsVisible(outerwear);\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 7543,
+          "after": [
+            "          && openingKeepsTeeVisible(selectedOuterwear, opening)\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 7578,
+          "after": [
+            "      maybePick('外套開合 (Outerwear Opening)', 1,\n",
+            "        (opening) => outerwearSupportsOpening(selectedOuterwear, opening) && openingKeepsTeeVisible(selectedOuterwear, opening),\n",
+            "        { allowNoneWhenUnlocked: true });\n"
+          ],
+          "before": [
+            "      maybePick('外套開合 (Outerwear Opening)', 1, (opening) => outerwearSupportsOpening(selectedOuterwear, opening), { allowNoneWhenUnlocked: true });\n"
+          ]
+        },
+        {
+          "line": 7918,
+          "after": [
+            "    const topLabel = hasFixedUnderbustTee(context) ? UNDERBUST_TEE_LABEL : raisedHem\n"
+          ],
+          "before": [
+            "    const topLabel = raisedHem\n"
+          ]
+        },
+        {
+          "line": 8318,
+          "after": [
+            "const FIXED_UNDERBUST_TEE = Object.freeze({\n",
+            "  id: 'wardrobe:上身-tops:underbust-gesture-tee',\n",
+            "  zh: UNDERBUST_TEE_LABEL,\n",
+            "  en: UNDERBUST_TEE_NAME,\n",
+            "});\n",
+            "\n",
+            "function hasFixedUnderbustTee(context) {\n",
+            "  return context.underbustTee && !context.referencePersonPreview\n",
+            "    && context.poseResolution?.gesture?.id === UNDERBUST_TEE_GESTURE_ID;\n",
+            "}\n",
+            "\n",
+            "function projectGestureTopWardrobe(wardrobe, context) {\n",
+            "  const projection = getCompositionVisibilityProjection(context);\n",
+            "  const fixedTee = hasFixedUnderbustTee(context);\n",
+            "  if (!fixedTee && (!context.raisedHem || !isRaisedTopHemGesture(context.poseResolution?.gesture?.id)\n",
+            "    || projection.pose?.mode === 'omit')) return wardrobe;\n"
+          ],
+          "before": [
+            "function projectRaisedTopHemWardrobe(wardrobe, context) {\n",
+            "  if (!context.raisedHem || !isRaisedTopHemGesture(context.poseResolution?.gesture?.id)\n",
+            "    || getCompositionVisibilityProjection(context).pose?.mode === 'omit') return wardrobe;\n"
+          ]
+        },
+        {
+          "line": 8335,
+          "after": [
+            "  const remaining = wardrobe.filter(item => item !== top && item !== topFit && item !== topStyling && item !== topPattern);\n",
+            "  // A chest or tighter crop may show the shirt while keeping the hands out of\n",
+            "  // the pose description. Keep the same garment even when the action is cropped.\n",
+            "  if (fixedTee && (projection.pose?.mode === 'omit' || projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP)) {\n",
+            "    return [...remaining, FIXED_UNDERBUST_TEE];\n",
+            "  }\n",
+            "  return remaining;\n"
+          ],
+          "before": [
+            "  return wardrobe.filter(item => item !== top && item !== topFit && item !== topStyling && item !== topPattern);\n"
+          ]
+        },
+        {
+          "line": 9634,
+          "after": [
+            "  if (!bottom || !top || top === FIXED_UNDERBUST_TEE || !isLowRiseBottom || isCroppedTopItem(top) || top.zh === '比基尼上身' || isMinimalCoverageTop(top)) return '';\n"
+          ],
+          "before": [
+            "  if (!bottom || !top || !isLowRiseBottom || isCroppedTopItem(top) || top.zh === '比基尼上身' || isMinimalCoverageTop(top)) return '';\n"
+          ]
+        },
+        {
+          "line": 13043,
+          "after": [
+            "    wardrobe = projectGestureTopWardrobe(wardrobe, baseDerivedContext);\n",
+            "    if (hasFixedUnderbustTee(baseDerivedContext)) wardrobeColors = { ...wardrobeColors, topColor: null };\n"
+          ],
+          "before": [
+            "    wardrobe = projectRaisedTopHemWardrobe(wardrobe, baseDerivedContext);\n"
+          ]
+        },
+        {
+          "line": 15909,
+          "after": [
+            "        : item === FIXED_UNDERBUST_TEE ? item.en : midjourneyItemName(item));\n"
+          ],
+          "before": [
+            "        : midjourneyItemName(item));\n"
+          ]
+        },
+        {
+          "line": 16152,
+          "after": [
+            "  prototypeWardrobe = projectGestureTopWardrobe(prototypeWardrobe, fullContext);\n"
+          ],
+          "before": [
+            "  prototypeWardrobe = projectRaisedTopHemWardrobe(prototypeWardrobe, fullContext);\n"
+          ]
+        },
+        {
+          "line": 16250,
+          "after": [
+            "  const wardrobeSource = fixedCompositionPromptProjection?.wardrobe.items || projectGestureTopWardrobe(wardrobe, mainContext);\n"
+          ],
+          "before": [
+            "  const wardrobeSource = fixedCompositionPromptProjection?.wardrobe.items || projectRaisedTopHemWardrobe(wardrobe, mainContext);\n"
+          ]
+        },
+        {
+          "line": 16252,
+          "after": [
+            "  const rendererWardrobeColors = fixedCompositionPromptProjection?.wardrobe.colors\n",
+            "    || (hasFixedUnderbustTee(mainContext) ? { ...wardrobeColors, topColor: null } : wardrobeColors);\n"
+          ],
+          "before": [
+            "  const rendererWardrobeColors = fixedCompositionPromptProjection?.wardrobe.colors || wardrobeColors;\n"
+          ]
+        },
+        {
+          "line": 16625,
+          "after": [
+            "  }\n",
+            "  if (hasFixedUnderbustTee(context)) {\n",
+            "    for (const key of UNDERBUST_TEE_PAUSED_KEYS) {\n",
+            "      if (context.locks[key] && !isRandomLockValue(context.locks[key])) snapshot[key] = context.locks[key];\n",
+            "    }\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 17030,
+          "after": [
+            "    underbustTee: !subject.reference && !runtimeOptions.characterProfilePrompt && underbustTeeActive(effectiveLocks, lockControls),\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/gazeGesture.js",
+      "beforeHash": "f2ceb9818be12f8bcda2dd0027a04257d28e70e3f7efdf73124cd4b023312305",
+      "afterHash": "676f62d53c1e71dee5dae81e3b9c9ae5b48b2fb47e58c0f1a519167507f63b7b",
+      "edits": [
+        {
+          "line": 115,
+          "after": [
+            "export const UNDERBUST_TEE_GESTURE_ID = 'gesture-legacy-lift-top-underbust';\n",
+            "export const UNDERBUST_TEE_LABEL = '短袖 T 恤';\n",
+            "export const UNDERBUST_TEE_NAME = 'short-sleeved T-shirt';\n",
+            "\n",
+            "export function withFixedUnderbustTee(gesture) {\n",
+            "  return {\n",
+            "    ...gesture,\n",
+            "    en: `She lifts the front hem of her ${UNDERBUST_TEE_NAME} with both hands, revealing the lower edge of her bust.`,\n",
+            "    meta: { ...gesture.meta, standaloneSentence: true },\n",
+            "  };\n",
+            "}\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 311,
+          "after": [
+            "  if (isRaisedTopHemGesture(option?.id) || option?.meta?.standaloneSentence) {\n"
+          ],
+          "before": [
+            "  if (isRaisedTopHemGesture(option?.id)) {\n"
+          ]
+        },
+        {
+          "line": 316,
+          "after": [
+            "      upperBodyEn: [pose.upperBodyEn, chestUp && option.meta?.omitInChestUp ? '' : option.en].filter(Boolean).join(' '),\n"
+          ],
+          "before": [
+            "      upperBodyEn: [pose.upperBodyEn, option.en].filter(Boolean).join(' '),\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/manualUnderlayers.js",
+      "beforeHash": "888d63ac7a3b31b92e28f275bcf54bea8eceea7c7dcfa0b1f057f8c2ca52cb2b",
+      "afterHash": "35e517cc11864c4fee113b9f7eec501862daeea54bf94673c214e2f977c50f4a",
+      "edits": [
+        {
+          "line": 5,
+          "after": [
+            "import { applicableGestureOptions, isRaisedTopHemGesture, raisedTopHemText, UNDERBUST_TEE_GESTURE_ID } from './gazeGesture.js';\n",
+            "import { phoneCaptureStatus } from './phoneCapture.js';\n"
+          ],
+          "before": [
+            "import { applicableGestureOptions, isRaisedTopHemGesture, raisedTopHemText } from './gazeGesture.js';\n"
+          ]
+        },
+        {
+          "line": 46,
+          "after": [
+            "function allowsManualGarmentGesture(locks, controls) {\n",
+            "  return locks.subjectCount === '1' && locks.captureMode !== 'observation'\n",
+            "    && ![locks.characterProfileId, locks.specialSubjectId, locks.fixedCompositionSetId].some(id => id && id !== 'none')\n",
+            "    && !['dressId', 'outfitPresetId', 'specialOutfitId'].some(key => hasGarmentOwner(locks, controls, key));\n",
+            "}\n",
+            "\n",
+            "function closedOuterwearHidesTop(locks, controls) {\n",
+            "  const outerwear = selected(controls, 'outerwearId', locks.outerwearId);\n",
+            "  return isFullyClosedOpening(locks.outerwearOpeningId) && outerwear?.zh !== '全無'\n",
+            "    && !closedInnerLayerIsVisible(outerwear);\n",
+            "}\n",
+            "\n",
+            "export const UNDERBUST_TEE_PAUSED_KEYS = Object.freeze(['topId', 'topFitId', 'topStylingId', 'topColorId', 'topPatternId']);\n",
+            "\n",
+            "export function canUseUnderbustTee(locks, controls, action = getSpecifiedAction(locks, { cameraControls: controls })) {\n",
+            "  return allowsManualGarmentGesture(locks, controls)\n",
+            "    && !closedOuterwearHidesTop(locks, controls)\n",
+            "    && applicableGestureOptions(action).some(option => option.id === UNDERBUST_TEE_GESTURE_ID)\n",
+            "    && !phoneCaptureStatus(locks, action).active;\n",
+            "}\n",
+            "\n",
+            "export function underbustTeeActive(locks, controls, action) {\n",
+            "  return locks.gestureId === UNDERBUST_TEE_GESTURE_ID && canUseUnderbustTee(locks, controls, action);\n",
+            "}\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 96,
+          "after": [
+            "  if (!allowsManualGarmentGesture(locks, controls)) return null;\n"
+          ],
+          "before": [
+            "  if (locks.subjectCount !== '1' || locks.captureMode === 'observation'\n",
+            "    || [locks.characterProfileId,locks.specialSubjectId,locks.fixedCompositionSetId].some(id => id && id !== 'none')) return null;\n",
+            "  const owners = ['dressId', 'outfitPresetId', 'specialOutfitId'];\n",
+            "  if (owners.some(key => hasGarmentOwner(locks, controls, key))) return null;\n"
+          ]
+        },
+        {
+          "line": 101,
+          "after": [
+            "  if (top && closedOuterwearHidesTop(locks, controls)) return null;\n"
+          ],
+          "before": [
+            "  const outerwear = selected(controls, 'outerwearId', locks.outerwearId);\n",
+            "  if (top && isFullyClosedOpening(locks.outerwearOpeningId) && outerwear?.zh !== '全無'\n",
+            "      && !closedInnerLayerIsVisible(outerwear)) return null;\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/page1WorkspaceSummary.js",
+      "beforeHash": "07bb033c1fbdee6a7760ba25bcd77285736ee606bbaeecfe53d8d31a38ce2699",
+      "afterHash": "d6d35267205db2e711f824d797dde10ff95c4f3672dc441048d50c410fdd2366",
+      "edits": [
+        {
+          "line": 4,
+          "after": [
+            "import { UNDERBUST_TEE_LABEL, applicableGestureOptions, closedEyeGazeLabel, gazeUsesHeadOnly, isRaisedTopHemGesture } from './engine/gazeGesture.js';\n"
+          ],
+          "before": [
+            "import { applicableGestureOptions, closedEyeGazeLabel, gazeUsesHeadOnly, isRaisedTopHemGesture } from './engine/gazeGesture.js';\n"
+          ]
+        },
+        {
+          "line": 6,
+          "after": [
+            "import { underbustTeeActive, underlayerField } from './engine/manualUnderlayers.js';\n"
+          ],
+          "before": [
+            "import { underlayerField } from './engine/manualUnderlayers.js';\n"
+          ]
+        },
+        {
+          "line": 273,
+          "after": [
+            "  const fixedUnderbustTee = underbustTeeActive(locks, controls, specifiedAction);\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 291,
+          "after": [
+            "    fixedUnderbustTee ? UNDERBUST_TEE_LABEL : raisedHem\n"
+          ],
+          "before": [
+            "    raisedHem\n"
+          ]
+        },
+        {
+          "line": 297,
+          "after": [
+            "    fixedUnderbustTee || raisedHem ? '' : wardrobeLabel('topFitId'),\n",
+            "    fixedUnderbustTee || raisedHem ? '' : wardrobeLabel('topStylingId'),\n"
+          ],
+          "before": [
+            "    raisedHem ? '' : wardrobeLabel('topFitId'),\n",
+            "    raisedHem ? '' : wardrobeLabel('topStylingId'),\n"
+          ]
+        }
+      ]
+    }
+  ]
+}

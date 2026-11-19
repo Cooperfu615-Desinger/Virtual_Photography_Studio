@@ -113,6 +113,17 @@ export function resolveGaze(gazeId, context = {}, random = Math.random) {
 const gesture = (id, zh, en, scope, extra = {}) => freeze({ id, zh, en, scope, meta: freeze({ tags: freeze(['gesture']), ...extra }) });
 
 export const isRaisedTopHemGesture = id => id === 'gesture-lift-hem-both' || id === 'gesture-hold-hem-teeth';
+export const UNDERBUST_TEE_GESTURE_ID = 'gesture-legacy-lift-top-underbust';
+export const UNDERBUST_TEE_LABEL = '短袖 T 恤';
+export const UNDERBUST_TEE_NAME = 'short-sleeved T-shirt';
+
+export function withFixedUnderbustTee(gesture) {
+  return {
+    ...gesture,
+    en: `She lifts the front hem of her ${UNDERBUST_TEE_NAME} with both hands, revealing the lower edge of her bust.`,
+    meta: { ...gesture.meta, standaloneSentence: true },
+  };
+}
 
 export function raisedTopHemText(id, top = 'top', inner = '') {
   const heldByMouth = id === 'gesture-hold-hem-teeth';
@@ -298,12 +309,12 @@ export function resolveProp(propId, { wardrobeSignals = {}, orbit = null } = {},
  * carry its own medium-crop fragment and drop out of chest-up; an action may omit
  * its own upper-body text (squatting v1 O6), leaving only the gesture. */
 export function actionTextWithGesture(action, option, { chestUp = false } = {}, prop = null) {
-  if (isRaisedTopHemGesture(option?.id)) {
+  if (isRaisedTopHemGesture(option?.id) || option?.meta?.standaloneSentence) {
     // This gesture is authored as complete sentences after the existing pose.
     const pose = actionTextWithGesture(action, null, { chestUp }, prop);
     return {
       en: [pose.en, option.en].filter(Boolean).join(' '),
-      upperBodyEn: [pose.upperBodyEn, option.en].filter(Boolean).join(' '),
+      upperBodyEn: [pose.upperBodyEn, chestUp && option.meta?.omitInChestUp ? '' : option.en].filter(Boolean).join(' '),
     };
   }
   const ownUpper = action.meta?.upperBodyOmitted ? '' : action.upperBodyEn;
