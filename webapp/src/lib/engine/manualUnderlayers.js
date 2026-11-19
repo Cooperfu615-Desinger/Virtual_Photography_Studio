@@ -3,7 +3,7 @@ import { midjourneyItemName } from './midjourneyNaturalPrompt.js';
 import { bottomRiseConflict } from './bottomRiseCompatibility.js';
 import { isFullyClosedOpening, closedInnerLayerIsVisible } from './outerwearClosure.js';
 import { getSpecifiedAction } from './specifiedActions.js';
-import { applicableGestureOptions, isRaisedTopHemGesture, raisedTopHemText, UNDERBUST_TEE_GESTURE_ID } from './gazeGesture.js';
+import { applicableGestureOptions, isRaisedTopHemGesture, raisedTopHemText, UNDERBUST_TEE_GESTURE_ID, WAISTBAND_LIFT_GESTURE_ID } from './gazeGesture.js';
 import { phoneCaptureStatus } from './phoneCapture.js';
 import { isSkirtLiftGesture, skirtLiftText, skirtUnderlayerProfile } from './skirtUnderlayers.js';
 
@@ -34,7 +34,16 @@ const lower = {
   ids: ['比基尼下身:23','蕾絲丁字褲:8','蕾絲內褲:7','窄前片細繩蕾絲丁字褲:31','窄前片細繩比基尼下身:32']
     .map(id => 'wardrobe:褲裝-pants:' + id),
 };
-const slots = [upper, lower];
+const waistbandBottoms = new Map([
+  ['wardrobe:褲裝-pants:比基尼下身:23', { zh: '比基尼', name: 'bikini bottoms', sides: 'side ties' }],
+  ['wardrobe:褲裝-pants:蕾絲丁字褲:8', { zh: '蕾絲丁字褲', name: 'lace thong bottoms', sides: 'side straps' }],
+  ['wardrobe:褲裝-pants:蕾絲內褲:7', { zh: '內褲', name: 'cotton briefs', sides: 'sides of the waistband' }],
+]);
+const waistband = {
+  itemKey: 'waistbandBottomId', colorKey: 'waistbandBottomColorId',
+  hostKey: 'pantsId', paletteKey: 'bottomColorId', ids: [...waistbandBottoms.keys()],
+};
+const slots = [upper, lower, waistband];
 export const underlayerKeys = slots.flatMap(slot => [slot.itemKey, slot.colorKey]);
 export const isRevealGesture = id => isRaisedTopHemGesture(id) || isSkirtLiftGesture(id);
 const options = (controls, key) => controls.find(c => c.key === key)?.options || [];
@@ -68,13 +77,37 @@ export function canUseUnderbustTee(locks, controls, action = getSpecifiedAction(
 export function underbustTeeActive(locks, controls, action) {
   return locks.gestureId === UNDERBUST_TEE_GESTURE_ID && canUseUnderbustTee(locks, controls, action);
 }
+
+export const WAISTBAND_LIFT_PAUSED_KEYS = Object.freeze([
+  'pantsId', 'skirtId', 'bottomFitId', 'bottomRiseId', 'bottomColorId', 'bottomPatternId',
+]);
+
+export function waistbandLiftField(locks, controls, action) {
+  if (locks.gestureId !== WAISTBAND_LIFT_GESTURE_ID || !allowsManualGarmentGesture(locks, controls)) return null;
+  const activeAction = action === undefined ? getSpecifiedAction(locks, { cameraControls: controls }) : action;
+  if (!applicableGestureOptions(activeAction).some(option => option.id === WAISTBAND_LIFT_GESTURE_ID)
+    || phoneCaptureStatus(locks, activeAction).active) return null;
+  const items = waistband.ids.map(id => {
+    const item = selected(controls, waistband.hostKey, id);
+    const profile = waistbandBottoms.get(id);
+    return item ? { ...item, zh: profile.zh, en: profile.name } : null;
+  }).filter(Boolean);
+  const item = items.find(option => option.id === locks[waistband.itemKey]) || items[0];
+  if (!item) return null;
+  const colors = options(controls, waistband.paletteKey).filter(option => option.en && option.id !== 'none');
+  const color = colors.find(option => option.id === locks[waistband.colorKey]);
+  const catalogItem = selected(controls, waistband.hostKey, item.id);
+  return { ...waistband, items, item, catalogItem, colors, color, sides: waistbandBottoms.get(item.id).sides };
+}
+
 const isWaistTrigger = id => ['ultra-low-rise','unbuttoned-slightly-unzipped', THIGH_RISE.id].includes(id);
 export function normalizeUnderlayers(locks, controls) {
   const result = {};
   for (const slot of slots) {
     const id = locks[slot.itemKey];
-    if (!slot.ids.includes(id) || !selected(controls, slot.hostKey,id)) continue;
-    result[slot.itemKey] = id;
+    const hasItem = slot.ids.includes(id) && selected(controls, slot.hostKey,id);
+    if (!hasItem && slot !== waistband) continue;
+    if (hasItem) result[slot.itemKey] = id;
     const color = selected(controls, slot.paletteKey,locks[slot.colorKey]);
     if (color?.en && color.id !== 'none') result[slot.colorKey] = color.id;
   }

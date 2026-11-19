@@ -4,7 +4,7 @@ import { DUO_ROLES, getDuoRoleSummary } from '../features/page1/duoEditor.js';
 import { getSpecifiedAction } from './engine/specifiedActions.js';
 import { UNDERBUST_TEE_LABEL, applicableGestureOptions, closedEyeGazeLabel, gazeUsesHeadOnly, isRaisedTopHemGesture } from './engine/gazeGesture.js';
 import { isPhoneProp, phoneCaptureStatus } from './engine/phoneCapture.js';
-import { underbustTeeActive, underlayerField } from './engine/manualUnderlayers.js';
+import { underbustTeeActive, underlayerField, waistbandLiftField } from './engine/manualUnderlayers.js';
 import { bottomRiseConflict, bottomRiseControlContext } from './engine/bottomRiseCompatibility.js';
 import { isHeadDominantFraming, headDominantAngleAllowed } from './engine/headDominantFraming.js';
 import { CHARACTER_CARD_LAYER_KEYS, CHARACTER_CARD_LAYER_LABELS } from './characterCardLab.js';
@@ -186,6 +186,7 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
   const isCharacterProfileMode = Boolean(characterProfileOption?.specialSubject);
   const activeOutfitPresets = getActiveOutfitPresets(locks, controls);
   const wardrobeLabel = (key) => getEffectiveWardrobeOptionLabel(controls, locks, key, activeOutfitPresets);
+  const waistbandLift = waistbandLiftField(locks, controls);
   const singleAccessoryLabels = buildWardrobeAccessoryLabels(
     SINGLE_ACCESSORY_SUMMARY_KEYS,
     controls,
@@ -197,7 +198,7 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
     const sharedSpecialOutfitActive = Boolean(wardrobeLabel('specialOutfitId'));
     if (!sharedSpecialOutfitActive) {
       if (hasConditionalGarterBeltLabels(
-        wardrobeLabel('pantsId'),
+        waistbandLift?.catalogItem.zh || wardrobeLabel('pantsId'),
         wardrobeLabel('legwearId'),
       )) {
         automaticGarterBeltLabels.push(CONDITIONAL_GARTER_BELT_SUMMARY_LABEL);
@@ -315,14 +316,14 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
     wardrobeLabel('outerwearBPatternId'),
     wardrobeLabel('outerwearBOpeningId'),
     wardrobeLabel('outerwearBStylingId'),
-    wardrobeLabel('pantsId'),
+    waistbandLift ? [waistbandLift.color?.zh, waistbandLift.item.zh].filter(Boolean).join('｜') : wardrobeLabel('pantsId'),
     wardrobeLabel('pantsAId'),
     wardrobeLabel('pantsBId'),
-    wardrobeLabel('skirtId'),
+    waistbandLift ? '' : wardrobeLabel('skirtId'),
     wardrobeLabel('skirtAId'),
     wardrobeLabel('skirtBId'),
-    wardrobeLabel('bottomFitId'),
-    wardrobeLabel('bottomRiseId'),
+    waistbandLift ? '' : wardrobeLabel('bottomFitId'),
+    waistbandLift ? '' : wardrobeLabel('bottomRiseId'),
     wardrobeLabel('legwearId'),
     ...automaticGarterBeltLabels,
     wardrobeLabel('shoesId'),

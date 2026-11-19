@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { normalizeLocks, getLockControls } from '../engine.js';
 import { seatFixture, seatFramings } from './indoorSeatFixtures.js';
-import { buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
+import { buildMarkdownExport, buildRestoreLocks, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 import { withGrokImagineForSave } from '../grokImagineResult.js';
 import { upperUnderlayerFront } from './manualUnderlayers.js';
 
@@ -13,6 +13,77 @@ const base = { topId: option('topId','落肩 T 恤'), pantsId: option('pantsId',
 const chosen = { topUnderlayerId: option('topId','蕾絲胸罩'), topUnderlayerColorId: 'white',
   bottomUnderlayerId: option('pantsId','比基尼下身'), bottomUnderlayerColorId: 'black' };
 const run = (locks, frame = seatFramings.at(-1)) => seatFixture('室內：日本學校教室','自然坐姿',frame,{...base,...locks});
+
+const waistbandGestureId = 'gesture-legacy-lift-waistband';
+const waistbandFixture = {
+  gestureId: waistbandGestureId, topId: option('topId', '一字領上衣'), topColorId: 'white',
+  pantsId: option('pantsId', '工裝長褲'), bottomFitId: 'loose', bottomRiseId: 'ultra-low-rise',
+  bottomColorId: 'black', bottomUnderlayerId: option('pantsId', '蕾絲丁字褲'), bottomUnderlayerColorId: 'white',
+  waistbandBottomColorId: 'red',
+};
+const fullBody = option('framingId', '全身鏡頭 (Full Body Shot)');
+const waistbandRun = (overrides = {}, frame = fullBody) =>
+  seatFixture('室內：日本學校教室', '單腳重心', frame, { ...waistbandFixture, ...overrides });
+
+test('waistband lift uses exactly the chosen bottom, color and two-handed lift in visible outputs', () => {
+  for (const [label, fragment] of [
+    ['比基尼下身', 'side ties'],
+    ['蕾絲丁字褲', 'side straps'],
+    ['棉質低腰三角褲', 'waistband'],
+  ]) {
+    const waistbandBottomId = option('pantsId', label);
+    const { cards, prompt } = waistbandRun({ waistbandBottomId });
+    for (const { id, value } of cards) {
+      if (id === 'full-body-character') {
+        assert.match(value, /cargo pants/i, id);
+        assert.doesNotMatch(value, /as high as they will go/i, id);
+      } else if (id === 'chest-up-portrait') {
+        assert.doesNotMatch(value, /as high as they will go|cargo pants|red (?:bikini|lace thong|cotton briefs)/i, id);
+      } else {
+        assert.match(value, new RegExp(fragment + ' as high as they will go, one hand on each side of her red', 'i'), id);
+        assert.doesNotMatch(value, /small upward tug|cargo pants|outer waistband/i, id);
+      }
+      assert.match(value, /off-shoulder top/i, id);
+    }
+    assert.equal(prompt.selection.waistbandBottomId, waistbandBottomId);
+    assert.equal(prompt.selection.waistbandBottomColorId, 'red');
+  }
+});
+
+test('waistband settings and the paused C-section bottom survive Markdown and cancel independently', () => {
+  const { prompt } = waistbandRun({ waistbandBottomId: option('pantsId', '蕾絲丁字褲') });
+  const saved = withGrokImagineForSave({ ...prompt, source: 'page1' });
+  const restored = normalizeLocks(buildRestoreLocks(parseExportedMarkdownPrompt(buildMarkdownExport(saved), controls).selection, controls), controls);
+  for (const key of ['gestureId', 'waistbandBottomId', 'waistbandBottomColorId', 'pantsId', 'bottomFitId', 'bottomRiseId',
+    'bottomColorId', 'bottomUnderlayerId', 'bottomUnderlayerColorId']) assert.equal(restored[key], prompt.selection[key], key);
+  assert.match(waistbandRun(restored).prompt.grokPrompt, /red lace thong bottoms/i);
+  assert.deepEqual(waistbandRun({ ...restored, gestureId: 'none' }).cards, waistbandRun({ gestureId: 'none' }).cards);
+});
+
+test('waistband lift works with no C-section bottom and pauses while a phone uses the hands', () => {
+  assert.match(waistbandRun({ pantsId: option('pantsId', '全無') }).prompt.grokPrompt, /side ties as high as they will go.*red bikini bottoms/i);
+  const propId = 'selfie-natural-right-arm';
+  assert.deepEqual(waistbandRun({ propId }).cards, waistbandRun({ propId, gestureId: 'none' }).cards);
+});
+
+test('tight framing omits the waistband lift and the chosen bottom except in Grok Imagine', () => {
+  const { cards } = waistbandRun({}, option('framingId', '頭部主導近景'));
+  for (const { id, value } of cards) {
+    if (id === 'grok-imagine') assert.match(value, /side ties as high as they will go.*red bikini bottoms/i);
+    else assert.doesNotMatch(value, /side ties as high as they will go|red bikini bottoms/i, id);
+  }
+});
+
+test('the selected stockings follow the gesture bottom, independently of the paused C-section bottom', () => {
+  const legwearId = option('legwearId', '膝上蕾絲吊帶襪');
+  const withCargo = waistbandRun({ legwearId });
+  const withBriefs = waistbandRun({ legwearId, pantsId: option('pantsId', '棉質低腰三角褲') });
+  for (const { id, value } of withCargo.cards) {
+    if (id === 'full-body-character') continue;
+    assert.equal(value, withBriefs.cards.find(card => card.id === id).value, id);
+  }
+  assert.match(withCargo.prompt.grokPrompt, /separate lace garter belt/i);
+});
 
 test('both manual gestures, underwear colors and waist setting survive generation and Markdown', () => {
   for (const gestureId of ['gesture-lift-hem-both','gesture-hold-hem-teeth']) {

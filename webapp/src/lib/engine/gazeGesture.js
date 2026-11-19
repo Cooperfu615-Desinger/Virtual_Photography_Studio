@@ -116,6 +116,15 @@ export const isRaisedTopHemGesture = id => id === 'gesture-lift-hem-both' || id 
 export const UNDERBUST_TEE_GESTURE_ID = 'gesture-legacy-lift-top-underbust';
 export const UNDERBUST_TEE_LABEL = '短袖 T 恤';
 export const UNDERBUST_TEE_NAME = 'short-sleeved T-shirt';
+export const WAISTBAND_LIFT_GESTURE_ID = 'gesture-legacy-lift-waistband';
+
+export function withWaistbandLift(gesture, sides, bottom) {
+  return {
+    ...gesture,
+    en: `She pulls the ${sides} as high as they will go, one hand on each side of her ${bottom}.`,
+    meta: { ...gesture.meta, standaloneSentence: true },
+  };
+}
 
 export function withFixedUnderbustTee(gesture) {
   return {
@@ -160,7 +169,7 @@ export const GESTURE_OPTIONS = freeze([
     ['lift-top-underbust', '雙手上拉上衣露出胸下緣', 'both hands lifting the front hem of her top to the lower ribcage, revealing the lower edge of the bust',
       { requiresWardrobeRole: 'topHem', randomEligible: false, omitInChestUp: true }],
     ['lift-waistband', '雙手把褲頭往上拉', 'both hands lightly gripping her waistband at both sides and giving it a small upward tug, elbows relaxed outward',
-      { requiresWardrobeRole: 'bottom', omitInChestUp: true }],
+      { requiresWardrobeRole: 'bottom', randomEligible: false, omitInChestUp: true }],
     ['pull-open-outerwear', '雙手拉開外套（雙肩滑落）', 'both hands pulling the front edges of her open jacket wide apart, the jacket slipping off both shoulders and resting around her upper arms',
       { requiresWardrobeRole: 'outerwear', randomEligible: false }],
     ['cover-breasts', '雙手遮住胸部', 'both palms covering her bare chest, one palm over each breast, fingers naturally relaxed',

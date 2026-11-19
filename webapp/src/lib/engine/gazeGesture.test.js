@@ -327,14 +327,14 @@ test('the 18 restored hands exist; the camera-facing four carry no camera or len
   assert.match(LEGACY.find(o => o.zh === '手指愛心').en, /finger heart, thumb and index finger crossed near their tips, the other hand resting naturally/);
 });
 
-test('隨機 pool: only the seven reviewed hands come from 隨機, each gated by wardrobe and face visibility', () => {
+test('隨機 pool: the six reviewed hands remain; the wardrobe-binding lift is manual', () => {
   const natural = action('specified-standing-natural');
   const seen = new Set();
   for (let index = 0; index < 400; index += 1) {
     const drawn = resolveGesture('random', natural, { wardrobeSignals: ALL_PRESENT }, () => index / 400);
     if (drawn?.id.startsWith('gesture-legacy-')) seen.add(drawn.zh);
   }
-  assert.deepEqual([...seen].sort(), ['單手托下巴', '單手把頭髮往後撥', '單手輕咬食指', '拉下上身服裝整理', '雙手把褲頭往上拉', '雙手抓著整束頭髮與髮尾整理', '雙手插外套口袋'].sort());
+  assert.deepEqual([...seen].sort(), ['單手托下巴', '單手把頭髮往後撥', '單手輕咬食指', '拉下上身服裝整理', '雙手抓著整束頭髮與髮尾整理', '雙手插外套口袋'].sort());
   for (let index = 0; index < 100; index += 1) {
     const none = resolveGesture('random', natural, { wardrobeSignals: { upperGarment: 'unknown', bottom: 'absent', outerwear: 'absent' } }, () => index / 100);
     assert.ok(!['拉下上身服裝整理', '雙手把褲頭往上拉', '雙手插外套口袋'].includes(none?.zh), none?.zh);
