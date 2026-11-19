@@ -2,7 +2,7 @@ import { isPhoneProp, phoneCaptureStatus, migratePhoneCaptureLocks, COMPANION_OR
 import { applyIndoorSeat, indoorSeatingModel, isIndoorSeatId } from './engine/indoorSeating.js';
 import { applyIndoorLean, indoorLeaningModel, isIndoorLeanId } from './engine/indoorLeaning.js';
 import { isSkirtLiftGesture } from './engine/skirtUnderlayers.js';
-import { THIGH_RISE, UNDERBUST_TEE_PAUSED_KEYS, WAISTBAND_LIFT_PAUSED_KEYS, attachUnderlayers, describeRevealGesture, normalizeUnderlayers, prepareUnderlayerHosts, underbustTeeActive, underlayerField, upperUnderlayerFront, waistbandLiftField } from './engine/manualUnderlayers.js';
+import { THIGH_RISE, UNDERBUST_TEE_PAUSED_KEYS, WAISTBAND_LIFT_PAUSED_KEYS, adjustTopField, attachUnderlayers, describeRevealGesture, normalizeUnderlayers, prepareUnderlayerHosts, underbustTeeActive, underlayerField, upperUnderlayerFront, waistbandLiftField } from './engine/manualUnderlayers.js';
 import { applyIndoorKneel, indoorKneelingModel, isIndoorKneelId } from './engine/indoorKneeling.js';
 import { registerGrokImagineResult } from './grokImagineResult.js';
 import { seasonAllowsAmbient, styleAllowsLocation, styleAllowsAmbient, styleAllowsSubject, styleAllowsShutter } from './engine/captureCompatibility.js';
@@ -23,7 +23,7 @@ import { midjourneyBodyDescription } from './engine/midjourneyBodyDescriptions.j
 import { SPECIFIED_ACTION_OPTIONS, getSpecifiedAction, getSpecifiedActionEffectiveLocks, resolveRandomSpecifiedAction, specifiedActionSupportsCamera } from './engine/specifiedActions.js';
 import { LYING_CAMERA_OPTIONS, isLyingAction, lyingSurfaceFor, resolveLyingCamera, withLyingSurface } from './engine/lyingSurface.js';
 import { HEAD_POSTURE_OPTIONS, headPostureById, mergeHeadPosture, resolveHeadPosture } from './engine/headPosture.js';
-import { CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, UNDERBUST_TEE_GESTURE_ID, UNDERBUST_TEE_LABEL, UNDERBUST_TEE_NAME, WAISTBAND_LIFT_GESTURE_ID, actionTextWithGesture, applyCaptureStyleLocks, authoredGazeHead, expressionHasReviewedEyesAndMouth, gazeAvoidsBackView, gazeUsesHeadOnly, isBackViewOrbit, isRaisedTopHemGesture, resolveGaze, resolveGesture, resolveProp, withFixedUnderbustTee, withWaistbandLift } from './engine/gazeGesture.js';
+import { ADJUST_TOP_GESTURE_ID, CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, UNDERBUST_TEE_GESTURE_ID, UNDERBUST_TEE_LABEL, UNDERBUST_TEE_NAME, WAISTBAND_LIFT_GESTURE_ID, actionTextWithGesture, applyCaptureStyleLocks, authoredGazeHead, expressionHasReviewedEyesAndMouth, gazeAvoidsBackView, gazeUsesHeadOnly, isBackViewOrbit, isRaisedTopHemGesture, resolveGaze, resolveGesture, resolveProp, withAdjustedTop, withFixedUnderbustTee, withWaistbandLift } from './engine/gazeGesture.js';
 import { applyDefaultEthnicity, applyDefaultEthnicityToCharacter, resolveDefaultEthnicity } from './engine/defaultEthnicity.js';
 import { renderNanoBananaNarrative } from './engine/nanoBananaPrompt.js';
 import { polishPublicPromptText } from './engine/publicPromptPolish.js';
@@ -5299,14 +5299,15 @@ function buildPoseComposerItem(context) {
     const requestedGesture = context.locks?.gestureId;
     const fixedTee = requestedGesture === UNDERBUST_TEE_GESTURE_ID && context.underbustTee;
     const waistbandLift = requestedGesture === WAISTBAND_LIFT_GESTURE_ID && context.waistbandLift;
+    const adjustedTop = requestedGesture === ADJUST_TOP_GESTURE_ID && context.adjustTop;
     const paused = phoneStatus.active || (requestedGesture === UNDERBUST_TEE_GESTURE_ID && !fixedTee)
-      || (requestedGesture === WAISTBAND_LIFT_GESTURE_ID && !waistbandLift);
-    const wardrobeSignals = fixedTee ? { ...context.wardrobeSignals, topHem: 'present' }
-      : waistbandLift ? { ...context.wardrobeSignals, bottom: 'present' } : context.wardrobeSignals;
+      || (requestedGesture === WAISTBAND_LIFT_GESTURE_ID && !waistbandLift)
+      || (requestedGesture === ADJUST_TOP_GESTURE_ID && !adjustedTop);
+    const ownedRole = fixedTee ? 'topHem' : waistbandLift ? 'bottom' : adjustedTop ? 'upperGarment' : '';
+    const wardrobeSignals = ownedRole ? { ...context.wardrobeSignals, [ownedRole]: 'present' } : context.wardrobeSignals;
     const resolvedGesture = resolveGesture(paused ? 'none' : requestedGesture, specifiedAction, { wardrobeSignals, orbit: context.orbit }, random);
-    const gesture = fixedTee && resolvedGesture ? withFixedUnderbustTee(resolvedGesture)
-      : waistbandLift && resolvedGesture ? waistbandLiftOption(resolvedGesture, waistbandLift)
-        : describeRevealGesture(resolvedGesture, context.revealedUnderlayer, context.liftedSkirt, context.raisedHem);
+    const gesture = applyBoundGarmentGesture(
+      describeRevealGesture(resolvedGesture, context.revealedUnderlayer, context.liftedSkirt, context.raisedHem), context);
     if (context.poseResolution) context.poseResolution.gesture = gesture;
     const prop = resolveProp(phoneStatus.selected && !phoneStatus.active ? 'none' : context.locks?.propId, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random);
     if (context.poseResolution) context.poseResolution.prop = prop;
@@ -5826,6 +5827,7 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
         context.raisedHem && isRaisedTopHemGesture(poseComposer.meta?.gestureId)
         || context.underbustTee && poseComposer.meta?.gestureId === UNDERBUST_TEE_GESTURE_ID
         || context.waistbandLift && poseComposer.meta?.gestureId === WAISTBAND_LIFT_GESTURE_ID
+        || context.adjustTop && poseComposer.meta?.gestureId === ADJUST_TOP_GESTURE_ID
       )) {
         const gesture = GESTURE_OPTIONS.find(option => option.id === poseComposer.meta.gestureId);
         const prop = omitProp ? null : PROP_OPTIONS.find(option => option.en && option.id === poseComposer.meta?.propId) || null;
@@ -5843,11 +5845,9 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
     }
     const head = headOptionFromMeta(poseComposer.meta);
     const gestureOption = GESTURE_OPTIONS.find(option => option.scope && option.id === poseComposer.meta?.gestureId);
-    const gesture = context.underbustTee && !context.referencePersonPreview && gestureOption?.id === UNDERBUST_TEE_GESTURE_ID
-      ? withFixedUnderbustTee(gestureOption)
-      : hasWaistbandLift(context) && gestureOption?.id === WAISTBAND_LIFT_GESTURE_ID
-        ? waistbandLiftOption(gestureOption, context.waistbandLift)
-        : describeRevealGesture(gestureOption, poseComposer.meta?.revealedUnderlayer, poseComposer.meta?.liftedSkirt, context.referencePersonPreview ? null : context.raisedHem);
+    const gesture = applyBoundGarmentGesture(
+      describeRevealGesture(gestureOption, poseComposer.meta?.revealedUnderlayer, poseComposer.meta?.liftedSkirt,
+        context.referencePersonPreview ? null : context.raisedHem), context);
     const prop = omitProp ? null : PROP_OPTIONS.find(option => option.en && option.id === poseComposer.meta?.propId) || null;
     const chestUp = projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP;
     // Source-marked exclusions preserve close framings that share the chest-up
@@ -7334,7 +7334,7 @@ function buildWardrobe(context, locks, catalog) {
     hasBottomPiece = true;
   } else {
     // A garment owned by a gesture can be combined only with separates.
-    const gestureOwnsGarment = context.underbustTee || context.waistbandLift;
+    const gestureOwnsGarment = context.underbustTee || context.waistbandLift || context.adjustTop;
     const randomPreset = gestureOwnsGarment || outfitPresetState.isExplicitNone
       ? null
       : pickRandomWardrobeItem(catalog.flatCatalog.outfitPresets, { allowNone: true, previousSelectionKeys: ['outfitPresetId'] });
@@ -7521,7 +7521,7 @@ function buildWardrobe(context, locks, catalog) {
     (piece) => piece.meta?.embeddedOuterwear
   );
   const allowsAutomaticOuterwear = !hasEmbeddedOuterwearPreset || hasSingleOuterwearLock;
-  const openingKeepsTeeVisible = (outerwear, opening) => !context.underbustTee
+  const openingKeepsGestureTopVisible = (outerwear, opening) => !(context.underbustTee || context.adjustTop)
     || !isFullyClosedOpening(opening) || closedInnerLayerIsVisible(outerwear);
 
   if (
@@ -7550,7 +7550,7 @@ function buildWardrobe(context, locks, catalog) {
       maybePick('外套圖案 (Outerwear Surface Design)', locks?.outerwearPatternId ? 1 : 0.3, () => true, { allowNoneWhenUnlocked: true });
       maybePick('外套開合 (Outerwear Opening)', useOpenFrontForHand || locks?.outerwearOpeningId ? 1 : 0.55,
         (opening) => outerwearSupportsOpening(selectedOuterwear, opening) && (!useOpenFrontForHand || opening.zh === '敞開穿')
-          && openingKeepsTeeVisible(selectedOuterwear, opening)
+          && openingKeepsGestureTopVisible(selectedOuterwear, opening)
           && !outerwearStylingConflict(findById(getByKey(catalog.catalog.wardrobe, '外套穿法 (Outerwear Styling)'), locks?.outerwearStylingId), { outerwear: undefined, opening }),
         { allowNoneWhenUnlocked: !useOpenFrontForHand });
       maybePick('外套穿法 (Outerwear Styling)', useLoweredShouldersForHand || locks?.outerwearStylingId ? 1 : 0.55,
@@ -7586,7 +7586,7 @@ function buildWardrobe(context, locks, catalog) {
       maybePick('外套版型 (Outerwear Fit)', 1, () => true, { allowNoneWhenUnlocked: true });
       maybePick('外套圖案 (Outerwear Surface Design)', 1, () => true, { allowNoneWhenUnlocked: true });
       maybePick('外套開合 (Outerwear Opening)', 1,
-        (opening) => outerwearSupportsOpening(selectedOuterwear, opening) && openingKeepsTeeVisible(selectedOuterwear, opening),
+        (opening) => outerwearSupportsOpening(selectedOuterwear, opening) && openingKeepsGestureTopVisible(selectedOuterwear, opening),
         { allowNoneWhenUnlocked: true });
       maybePick('外套穿法 (Outerwear Styling)', 1, () => true, { allowNoneWhenUnlocked: true });
     }
@@ -7925,7 +7925,9 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
     }
 
     const raisedHem = isRaisedTopHemGesture(context.poseResolution?.gesture?.id) ? context.raisedHem : null;
-    const topLabel = hasFixedUnderbustTee(context) ? UNDERBUST_TEE_LABEL : raisedHem
+    const topLabel = hasFixedUnderbustTee(context) ? UNDERBUST_TEE_LABEL : hasAdjustedTop(context)
+      ? joinSummaryParts(context.adjustTop.item.zh, context.adjustTop.color?.zh)
+      : raisedHem
       ? joinSummaryParts(
           raisedHem.hemColor ? `衣襬配色：${raisedHem.hemColor.zh}` : '',
           raisedHem.item ? `上身內搭：${[raisedHem.color?.zh, raisedHem.item.zh].filter(Boolean).join('｜')}` : '',
@@ -8343,8 +8345,29 @@ function hasWaistbandLift(context) {
     && context.poseResolution?.gesture?.id === WAISTBAND_LIFT_GESTURE_ID;
 }
 
-function waistbandLiftOption(gesture, lift) {
-  return withWaistbandLift(gesture, lift.sides, composeWearableColorPrompt(lift.item.en, lift.color));
+function hasAdjustedTop(context) {
+  return context.adjustTop && !context.referencePersonPreview
+    && context.poseResolution?.gesture?.id === ADJUST_TOP_GESTURE_ID;
+}
+
+function applyBoundGarmentGesture(gesture, context) {
+  if (!gesture || context.referencePersonPreview) return gesture;
+  if (gesture.id === UNDERBUST_TEE_GESTURE_ID && context.underbustTee) return withFixedUnderbustTee(gesture);
+  if (gesture.id === WAISTBAND_LIFT_GESTURE_ID && context.waistbandLift) {
+    const { item, color, profile } = context.waistbandLift;
+    return withWaistbandLift(gesture, profile.sides, composeWearableColorPrompt(item.en, color));
+  }
+  if (gesture.id === ADJUST_TOP_GESTURE_ID && context.adjustTop) {
+    const { item, color, profile } = context.adjustTop;
+    return withAdjustedTop(gesture, profile.action, composeWearableColorPrompt(item.en, color));
+  }
+  return gesture;
+}
+
+function projectGestureTopColor(colors, context) {
+  if (hasAdjustedTop(context)) return { ...colors, topColor: context.adjustTop.color || null };
+  if (hasFixedUnderbustTee(context)) return { ...colors, topColor: null };
+  return colors;
 }
 
 function projectGestureWardrobe(wardrobe, context) {
@@ -8356,7 +8379,8 @@ function projectGestureWardrobe(wardrobe, context) {
   }
   const projection = getCompositionVisibilityProjection(context);
   const fixedTee = hasFixedUnderbustTee(context);
-  if (!fixedTee && (!context.raisedHem || !isRaisedTopHemGesture(context.poseResolution?.gesture?.id)
+  const adjustedTop = hasAdjustedTop(context);
+  if (!fixedTee && !adjustedTop && (!context.raisedHem || !isRaisedTopHemGesture(context.poseResolution?.gesture?.id)
     || projection.pose?.mode === 'omit')) return wardrobe;
   const { top, topFit, topStyling, topPattern } = extractWardrobeSlots(wardrobe);
   const remaining = wardrobe.filter(item => item !== top && item !== topFit && item !== topStyling && item !== topPattern);
@@ -8365,6 +8389,7 @@ function projectGestureWardrobe(wardrobe, context) {
   if (fixedTee && (projection.pose?.mode === 'omit' || projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP)) {
     return [...remaining, FIXED_UNDERBUST_TEE];
   }
+  if (adjustedTop && projection.pose?.mode === 'omit') return [...remaining, context.adjustTop.item];
   return remaining;
 }
 
@@ -13068,7 +13093,7 @@ function buildFixedFramingDerivedPromptModel({
   if (preset.id === 'chest-up-portrait') {
     baseDerivedContext.compositionVisibility = retainResolvedWardrobe(baseDerivedContext.compositionVisibility);
     wardrobe = projectGestureWardrobe(wardrobe, baseDerivedContext);
-    if (hasFixedUnderbustTee(baseDerivedContext)) wardrobeColors = { ...wardrobeColors, topColor: null };
+    wardrobeColors = projectGestureTopColor(wardrobeColors, baseDerivedContext);
   }
   wardrobe = projectUnderbustTopFit(projectClosedOuterwearWardrobe(projectOuterwearStyling(projectTopHemOverlap(baseDerivedContext.compositionVisibility.wardrobe.retainResolved ? wardrobe : projectAudioForFraming(wardrobe, baseDerivedContext), baseDerivedContext), getCompositionVisibilityProjection(baseDerivedContext))), getCompositionVisibilityProjection(baseDerivedContext));
 
@@ -15930,6 +15955,10 @@ function buildNaturalMjWardrobe(promptModel, role = '') {
   const addItem = (item, wardrobeRole) => {
     if (item && !isNoneLikeItem(item) && !(isCharacterProfileSubject(context.subject) && isCharacterCardLayerSlot(item))
       && shouldProjectWardrobeRole(projection, wardrobeRole, item.en)) {
+      if (hasAdjustedTop(context) && wardrobeRole === 'top') {
+        names.push(composeWearableColorPrompt(item.en, wardrobeColors.topColor).replace(/,\s*/g, ' '));
+        return;
+      }
       const colorSuffix = item.meta?.wardrobeRole === 'a' ? 'A' : item.meta?.wardrobeRole === 'b' ? 'B' : '';
       names.push(isLowSlungDenimOveralls(item)
         ? `${composeWearableColorPrompt(item.en.replace(` ${LOW_SLUNG_OVERALLS_WEARING}`, ''), wardrobeColors[`bottom${colorSuffix}Color`]).replace(/,\s*/g, ' ')} ${LOW_SLUNG_OVERALLS_WEARING}`
@@ -16277,7 +16306,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
   const wardrobeSource = fixedCompositionPromptProjection?.wardrobe.items || projectGestureWardrobe(wardrobe, mainContext);
   const rendererWardrobe = projectUnderbustTopFit(projectClosedOuterwearWardrobe(projectOuterwearStyling(projectTopHemOverlap(compositionVisibility.wardrobe.retainResolved ? wardrobeSource : projectAudioForFraming(wardrobeSource, mainContext), mainContext), getCompositionVisibilityProjection(mainContext))), getCompositionVisibilityProjection(mainContext));
   const rendererWardrobeColors = fixedCompositionPromptProjection?.wardrobe.colors
-    || (hasFixedUnderbustTee(mainContext) ? { ...wardrobeColors, topColor: null } : wardrobeColors);
+    || projectGestureTopColor(wardrobeColors, mainContext);
   const promptModel = {
     ...buildStructuredPromptSections(mainContext, projectedCharacter, rendererWardrobe, rendererWardrobeColors, lightDirection, film),
     context: mainContext,
@@ -16660,6 +16689,14 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     snapshot[itemKey] = item.id;
     if (color) snapshot[colorKey] = color.id;
     for (const key of [...WAISTBAND_LIFT_PAUSED_KEYS, 'bottomUnderlayerId', 'bottomUnderlayerColorId']) {
+      if (context.locks[key]) snapshot[key] = context.locks[key];
+    }
+  }
+  if (hasAdjustedTop(context)) {
+    const { item, color, itemKey, colorKey } = context.adjustTop;
+    snapshot[itemKey] = item.id;
+    if (color) snapshot[colorKey] = color.id;
+    for (const key of [...UNDERBUST_TEE_PAUSED_KEYS, 'topUnderlayerId', 'topUnderlayerColorId']) {
       if (context.locks[key]) snapshot[key] = context.locks[key];
     }
   }
@@ -17064,6 +17101,7 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
     raisedHem,
     underbustTee: !subject.reference && !runtimeOptions.characterProfilePrompt && underbustTeeActive(effectiveLocks, lockControls),
     waistbandLift: !subject.reference && !runtimeOptions.characterProfilePrompt && waistbandLiftField(effectiveLocks, lockControls),
+    adjustTop: !subject.reference && !runtimeOptions.characterProfilePrompt && adjustTopField(effectiveLocks, lockControls),
     indoorSeat: indoorSeatingModel(requestedLocks, location, lockControls),
     indoorLean: indoorLeaningModel(requestedLocks, location, lockControls),
     indoorKneel: indoorKneelingModel(requestedLocks, location, lockControls),

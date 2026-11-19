@@ -117,6 +117,15 @@ export const UNDERBUST_TEE_GESTURE_ID = 'gesture-legacy-lift-top-underbust';
 export const UNDERBUST_TEE_LABEL = '短袖 T 恤';
 export const UNDERBUST_TEE_NAME = 'short-sleeved T-shirt';
 export const WAISTBAND_LIFT_GESTURE_ID = 'gesture-legacy-lift-waistband';
+export const ADJUST_TOP_GESTURE_ID = 'gesture-legacy-adjust-top';
+
+export function withAdjustedTop(gesture, action, top) {
+  return {
+    ...gesture,
+    en: `${action} ${top}.`,
+    meta: { ...gesture.meta, standaloneSentence: true },
+  };
+}
 
 export function withWaistbandLift(gesture, sides, bottom) {
   return {
@@ -165,7 +174,7 @@ export const GESTURE_OPTIONS = freeze([
   // whose item the resolved wardrobe lacks ('absent'). Waist-level hands drop out of chest-up.
   ...[
     ['adjust-top', '拉下上身服裝整理', 'one hand gently tugging the front of her clothing downward to adjust how it sits',
-      { requiresWardrobeRole: 'upperGarment' }],
+      { requiresWardrobeRole: 'upperGarment', randomEligible: false }],
     ['lift-top-underbust', '雙手上拉上衣露出胸下緣', 'both hands lifting the front hem of her top to the lower ribcage, revealing the lower edge of the bust',
       { requiresWardrobeRole: 'topHem', randomEligible: false, omitInChestUp: true }],
     ['lift-waistband', '雙手把褲頭往上拉', 'both hands lightly gripping her waistband at both sides and giving it a small upward tug, elbows relaxed outward',

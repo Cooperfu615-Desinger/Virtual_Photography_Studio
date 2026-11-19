@@ -4,7 +4,7 @@ import { DUO_ROLES, getDuoRoleSummary } from '../features/page1/duoEditor.js';
 import { getSpecifiedAction } from './engine/specifiedActions.js';
 import { UNDERBUST_TEE_LABEL, applicableGestureOptions, closedEyeGazeLabel, gazeUsesHeadOnly, isRaisedTopHemGesture } from './engine/gazeGesture.js';
 import { isPhoneProp, phoneCaptureStatus } from './engine/phoneCapture.js';
-import { underbustTeeActive, underlayerField, waistbandLiftField } from './engine/manualUnderlayers.js';
+import { adjustTopField, underbustTeeActive, underlayerField, waistbandLiftField } from './engine/manualUnderlayers.js';
 import { bottomRiseConflict, bottomRiseControlContext } from './engine/bottomRiseCompatibility.js';
 import { isHeadDominantFraming, headDominantAngleAllowed } from './engine/headDominantFraming.js';
 import { CHARACTER_CARD_LAYER_KEYS, CHARACTER_CARD_LAYER_LABELS } from './characterCardLab.js';
@@ -273,6 +273,7 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
     ]);
   const legacyDressPalette = getLegacyDressPalette(locks, controls);
   const fixedUnderbustTee = underbustTeeActive(locks, controls, specifiedAction);
+  const adjustedTop = adjustTopField(locks, controls, specifiedAction);
   const raisedHem = isRaisedTopHemGesture(locks.gestureId) && !phoneCaptureStatus(locks, specifiedAction).active
     ? underlayerField(locks, controls, 'gestureId') : null;
   const wardrobeSummary = isSpecialSubjectMode ? '' : buildSummaryText([
@@ -290,14 +291,15 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
     legacyDressPalette ? `連身配色：${legacyDressPalette.zh}` : '',
     wardrobeLabel('dressAId'),
     wardrobeLabel('dressBId'),
-    fixedUnderbustTee ? UNDERBUST_TEE_LABEL : raisedHem
+    fixedUnderbustTee ? UNDERBUST_TEE_LABEL : adjustedTop
+      ? [adjustedTop.color?.zh, adjustedTop.item.zh].filter(Boolean).join('｜') : raisedHem
       ? raisedHem.hemColor ? `衣襬配色：${raisedHem.hemColor.zh}` : ''
       : wardrobeLabel('topId'),
     raisedHem?.item ? `上身內搭：${[raisedHem.color?.zh, raisedHem.item.zh].filter(Boolean).join('｜')}` : '',
     wardrobeLabel('topAId'),
     wardrobeLabel('topBId'),
-    fixedUnderbustTee || raisedHem ? '' : wardrobeLabel('topFitId'),
-    fixedUnderbustTee || raisedHem ? '' : wardrobeLabel('topStylingId'),
+    fixedUnderbustTee || adjustedTop || raisedHem ? '' : wardrobeLabel('topFitId'),
+    fixedUnderbustTee || adjustedTop || raisedHem ? '' : wardrobeLabel('topStylingId'),
     wardrobeLabel('outerwearId'),
     wardrobeLabel('outerwearFitId'),
     wardrobeLabel('outerwearColorId'),

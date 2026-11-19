@@ -1,7 +1,7 @@
 import { indoorSeatingModel } from '../lib/engine/indoorSeating.js';
 import { indoorLeaningModel } from '../lib/engine/indoorLeaning.js';
 import { isSkirtLiftGesture } from '../lib/engine/skirtUnderlayers.js';
-import { THIGH_RISE, UNDERBUST_TEE_PAUSED_KEYS, WAISTBAND_LIFT_PAUSED_KEYS, canUseUnderbustTee, isRevealGesture, underbustTeeActive, underlayerField, waistbandLiftField } from '../lib/engine/manualUnderlayers.js';
+import { THIGH_RISE, UNDERBUST_TEE_PAUSED_KEYS, WAISTBAND_LIFT_PAUSED_KEYS, adjustTopField, canUseUnderbustTee, isRevealGesture, underbustTeeActive, underlayerField, waistbandLiftField } from '../lib/engine/manualUnderlayers.js';
 import { indoorKneelingModel } from '../lib/engine/indoorKneeling.js';
 import ObservationCapturePanel from './ObservationCapturePanel';
 import { getLegacyDressPalette } from '../features/page1/page1WardrobeExclusivity.js';
@@ -11,7 +11,7 @@ import { prepareBottomRiseControl } from '../lib/engine/bottomRiseCompatibility.
 import { prepareHeadDominantAngleControl } from '../lib/engine/headDominantFraming.js';
 import { isLyingAction, lyingSurfaceFor } from '../lib/engine/lyingSurface.js';
 import { postureConflictsWithGaze } from '../lib/engine/headPosture.js';
-import { UNDERBUST_TEE_GESTURE_ID, WAISTBAND_LIFT_GESTURE_ID, applicableGestureOptions, availableGazeOptions, authoredGazeHead, closedEyeGazeLabel, gazeForHeadPosture, gazeUsesHeadOnly, withFixedUnderbustTee, withWaistbandLift } from '../lib/engine/gazeGesture.js';
+import { ADJUST_TOP_GESTURE_ID, UNDERBUST_TEE_GESTURE_ID, WAISTBAND_LIFT_GESTURE_ID, applicableGestureOptions, availableGazeOptions, authoredGazeHead, closedEyeGazeLabel, gazeForHeadPosture, gazeUsesHeadOnly, withAdjustedTop, withFixedUnderbustTee, withWaistbandLift } from '../lib/engine/gazeGesture.js';
 import { phoneCaptureStatus } from '../lib/engine/phoneCapture.js';
 import { getSpecifiedAction, getSpecifiedActionEffectiveLocks, specifiedActionOwnsControl, getSpecifiedActionCameraConflict } from '../lib/engine/specifiedActions.js';
 import { prepareAccessoryControl } from '../lib/engine/accessoryPolicy.js';
@@ -142,14 +142,21 @@ const UNDERLAYER_PALETTE_TRIGGERS = {
   topUnderlayerColorId: 'gestureId',
   bottomUnderlayerColorId: 'bottomRiseId',
   waistbandBottomColorId: 'gestureId',
+  adjustTopColorId: 'gestureId',
+};
+
+const UNDERLAYER_PALETTE_LABELS = {
+  topUnderlayerColorId: '上身內搭配色',
+  bottomUnderlayerColorId: '下身內搭配色',
+  waistbandBottomColorId: '褲子配色',
+  adjustTopColorId: '上身配色',
 };
 
 function underlayerColorControl(inner) {
   if (!inner?.item) return null;
   return {
     key: inner.colorKey,
-    label: inner.colorKey === 'waistbandBottomColorId' ? '褲子配色'
-      : inner.colorKey === 'topUnderlayerColorId' ? '上身內搭配色' : '下身內搭配色',
+    label: UNDERLAYER_PALETTE_LABELS[inner.colorKey],
     options: [{ id: 'none', zh: '無', en: '' }, ...inner.colors],
   };
 }
@@ -894,9 +901,11 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   );
   const underlayerTrigger = UNDERLAYER_PALETTE_TRIGGERS[activeWardrobePickerKey];
   const waistbandLift = waistbandLiftField(locks, lockControls, activeSpecifiedAction);
+  const adjustedTop = adjustTopField(locks, lockControls, activeSpecifiedAction);
   const raisedHemPickerField = activeWardrobePickerKey === 'raisedHemColor'
     ? underlayerField(locks, lockControls, 'gestureId') : null;
   const activeWardrobePickerControl = activeWardrobePickerKey === 'waistbandBottomColorId' ? underlayerColorControl(waistbandLift)
+    : activeWardrobePickerKey === 'adjustTopColorId' ? underlayerColorControl(adjustedTop)
     : raisedHemPickerField ? raisedHemColorControl(raisedHemPickerField) : underlayerTrigger
     ? underlayerColorControl(underlayerField(locks, lockControls, underlayerTrigger)
       || (underlayerTrigger === 'bottomRiseId' && isSkirtLiftGesture(locks.gestureId) ? underlayerField(locks, lockControls, 'gestureId') : null))
@@ -904,7 +913,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const phoneCapture = phoneCaptureStatus(locks, activeSpecifiedAction);
   const selectedPoseActionLocksOrbit = !fixedScenePosition && !captureActive && phoneCapture.active;
   const fixedUnderbustTee = underbustTeeActive(locks, lockControls, activeSpecifiedAction);
-  const pausedWardrobeKeys = fixedUnderbustTee ? UNDERBUST_TEE_PAUSED_KEYS : waistbandLift ? WAISTBAND_LIFT_PAUSED_KEYS : [];
+  const pausedWardrobeKeys = (fixedUnderbustTee || adjustedTop) ? UNDERBUST_TEE_PAUSED_KEYS
+    : waistbandLift ? WAISTBAND_LIFT_PAUSED_KEYS : [];
   const pausesWardrobeControl = key => pausedWardrobeKeys.includes(key);
   const specifiedActionCameraConflict = getSpecifiedActionCameraConflict(selectedSpecifiedAction, locks, lockControls);
   const specifiedActionDisabledReason = fixedScenePosition
@@ -1039,7 +1049,11 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
               ? withFixedUnderbustTee(o) : { ...o, disabled: true };
             if (o.id === WAISTBAND_LIFT_GESTURE_ID) {
               const field = waistbandLift || waistbandLiftField({ ...locks, gestureId: o.id }, lockControls, activeSpecifiedAction);
-              return field ? withWaistbandLift(o, field.sides, field.item.en) : { ...o, disabled: true };
+              return field ? withWaistbandLift(o, field.profile.sides, field.item.en) : { ...o, disabled: true };
+            }
+            if (o.id === ADJUST_TOP_GESTURE_ID) {
+              const field = adjustedTop || adjustTopField({ ...locks, gestureId: o.id }, lockControls, activeSpecifiedAction);
+              return field ? withAdjustedTop(o, field.profile.action, field.item.en) : { ...o, disabled: true };
             }
             const missing = missingItem[o.meta?.requiresWardrobeRole];
             return missing ? { ...o, zh: `${o.zh}（需要${missing}）`, disabled: true } : o;
@@ -1334,19 +1348,19 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         );
 
         const skirtGestureField = !selectedPoseActionLocksOrbit && isSkirtLiftGesture(locks.gestureId) && underlayerField(locks, lockControls, 'gestureId');
-        const gestureBottom = control.key === 'gestureId' ? waistbandLift : null;
+        const gestureGarment = control.key === 'gestureId' ? adjustedTop || waistbandLift : null;
         const inner = !disabled && !(control.key === 'bottomRiseId' && skirtGestureField)
-          && (gestureBottom || underlayerField(locks, lockControls, control.key));
+          && (gestureGarment || underlayerField(locks, lockControls, control.key));
         if (inner) {
           const isUpper = inner.itemKey === 'topUnderlayerId';
-          const label = gestureBottom ? '褲子' : isUpper ? '上身內搭' : '下身內搭';
+          const label = gestureGarment ? adjustedTop ? '上身' : '褲子' : isUpper ? '上身內搭' : '下身內搭';
           const palette = underlayerColorControl(inner);
           const hemPalette = isUpper ? raisedHemColorControl(inner) : null;
           const pair = (
             <div className="manual-underlayer-pair">
               <SelectControlField
                 control={{ key: inner.itemKey, label, suppressDefaultRandomOption: true,
-                  options: gestureBottom ? inner.items : [{ id: 'none', zh: '無', en: '' }, ...inner.items] }}
+                  options: gestureGarment ? inner.items : [{ id: 'none', zh: '無', en: '' }, ...inner.items] }}
                 value={inner.item?.id || 'none'}
                 onChange={id => updateLocks({ [inner.itemKey]: id })}
                 onCopy={text => handleCopyText(label, text)}
@@ -1519,9 +1533,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       ?.options.find(option => option.id === locks[`outfitPreset${role}Id`])?.meta?.colorMode === 'fixed';
     const legacyDressPalette = !role && group.id === 'dress' ? getLegacyDressPalette(locks, lockControls) : null;
     const paletteKey = `topBottomPalette${role}Id`;
-    const teeOwnsTop = !role && group.id === 'top' && fixedUnderbustTee;
+    const gestureOwnsTop = !role && group.id === 'top' && (fixedUnderbustTee || adjustedTop);
     const gestureOwnsBottom = !role && group.id === 'bottom' && waistbandLift;
-    const paired = !teeOwnsTop && !gestureOwnsBottom && ['top', 'bottom'].includes(group.id) && getControlOptionLabel(lockControls, paletteKey, locks[paletteKey]);
+    const paired = !gestureOwnsTop && !gestureOwnsBottom && ['top', 'bottom'].includes(group.id) && getControlOptionLabel(lockControls, paletteKey, locks[paletteKey]);
     return <section key={group.id} className={`wardrobe-editor-card wardrobe-editor-card--${group.id}${active ? ' wardrobe-editor-card-active' : ''}`} aria-label={`${prefix}${group.label}`}>
       <h4>{group.label}{selected ? <span> · {selected}</span> : null}</h4>
       {fields.length ? renderControlGrid(fields, true) : <p className="wardrobe-card-note">目前由完整造型管理，請先解除完整造型再調整。</p>}
@@ -1534,8 +1548,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         </div>
       </div> : null}
       {paired ? <p className="wardrobe-card-note">配色由「特殊上下身配色」控制。</p> : null}
-      {fields.length > 0 && allDisabled ? <p className="wardrobe-card-note">{teeOwnsTop
-        ? '此手勢使用固定短袖 T，取消手勢後恢復上身設定。'
+      {fields.length > 0 && allDisabled ? <p className="wardrobe-card-note">{gestureOwnsTop
+        ? fixedUnderbustTee ? '此手勢使用固定短袖 T，取消手勢後恢復上身設定。' : '此手勢使用 B 區的上身與配色，取消手勢後恢復上身設定。'
         : gestureOwnsBottom ? '此手勢使用 B 區的褲子與配色，取消手勢後恢復下身設定。'
           : '目前設定下暫不適用，原設定保留。'}</p> : null}
       {group.id === 'special' && !fields.some(control => control.key === `completeLookPalette${role}Id`) ? <p className="wardrobe-card-note">選擇特殊穿搭後，可在此調整對應色系。</p> : null}

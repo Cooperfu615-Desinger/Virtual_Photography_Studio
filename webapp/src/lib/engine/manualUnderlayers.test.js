@@ -4,6 +4,8 @@ import { normalizeLocks, getLockControls } from '../engine.js';
 import { seatFixture, seatFramings } from './indoorSeatFixtures.js';
 import { buildMarkdownExport, buildRestoreLocks, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 import { withGrokImagineForSave } from '../grokImagineResult.js';
+import { getReferencePersonPreview } from '../referencePersonPreview.js';
+import { buildPage1GenerationPromptCards } from '../page1PromptOutputs.js';
 import { upperUnderlayerFront } from './manualUnderlayers.js';
 
 const controls = getLockControls();
@@ -24,6 +26,73 @@ const waistbandFixture = {
 const fullBody = option('framingId', '全身鏡頭 (Full Body Shot)');
 const waistbandRun = (overrides = {}, frame = fullBody) =>
   seatFixture('室內：日本學校教室', '單腳重心', frame, { ...waistbandFixture, ...overrides });
+
+const adjustGestureId = 'gesture-legacy-adjust-top';
+const adjustFixture = {
+  gestureId: adjustGestureId, topId: option('topId', '一字領上衣'), topColorId: 'white',
+  topFitId: 'tight', topStylingId: 'hem-overlap', pantsId: option('pantsId', '工裝長褲'),
+  bottomColorId: 'black', bottomRiseId: 'ultra-low-rise',
+  topUnderlayerId: option('topId', '蕾絲胸罩'), topUnderlayerColorId: 'black',
+  adjustTopColorId: 'red',
+};
+const adjustRun = (overrides = {}, frame = fullBody) =>
+  seatFixture('室內：日本學校教室', '單腳重心', frame, { ...adjustFixture, ...overrides });
+
+test('adjust top binds each garment and its color to one dress-adjustment sentence', () => {
+  for (const [label, name, action] of [
+    ['比基尼上身', 'red triangle bikini top', 'She uses one hand to reposition a triangle cup of her'],
+    ['運動型內衣', 'red sports bra', 'She uses one hand to adjust the fit over the cup area of her'],
+    ['蕾絲胸罩', 'red lace bra', 'She slips one shoulder strap down with one hand while adjusting her'],
+  ]) {
+    const adjustTopId = option('topId', label);
+    const { prompt, cards } = adjustRun({ adjustTopId });
+    for (const { id, value } of cards) {
+      if (id === 'full-body-character') {
+        assert.match(value, /off-shoulder top/i, id);
+        assert.doesNotMatch(value, new RegExp(name, 'i'), id);
+      } else {
+        assert.ok(value.includes(`${action} ${name}.`), id);
+        assert.doesNotMatch(value, /off-shoulder top|top length meets|top hem overlaps|gently tugging/i, id);
+        assert.equal(value.toLowerCase().split(name).length, 2, id);
+      }
+      if (id !== 'chest-up-portrait') assert.match(value, /cargo pants/i, id);
+    }
+    assert.equal(prompt.selection.adjustTopId, adjustTopId);
+    assert.equal(prompt.selection.adjustTopColorId, 'red');
+  }
+});
+
+test('adjust top keeps its colored garment in the tight portrait but leaves the hands out', () => {
+  const { cards } = adjustRun({}, option('framingId', '半臉傾斜特寫'));
+  for (const { id, value } of cards) {
+    if (id === 'full-body-character') continue;
+    assert.match(value, /red triangle bikini top/i, id);
+    assert.equal(value.includes('reposition a triangle cup'), ['grok-imagine', 'chest-up-portrait'].includes(id), id);
+    assert.doesNotMatch(value, /off-shoulder top/i, id);
+  }
+});
+
+test('adjust top stores the paused C-section settings and restores them when canceled after Markdown import', () => {
+  const { prompt } = adjustRun({ adjustTopId: option('topId', '蕾絲胸罩') });
+  const saved = withGrokImagineForSave({ ...prompt, source: 'page1' });
+  const restored = normalizeLocks(buildRestoreLocks(parseExportedMarkdownPrompt(buildMarkdownExport(saved), controls).selection, controls), controls);
+  for (const key of ['gestureId', 'adjustTopId', 'adjustTopColorId', 'topId', 'topFitId', 'topStylingId', 'topColorId',
+    'topUnderlayerId', 'topUnderlayerColorId', 'pantsId']) assert.equal(restored[key], prompt.selection[key], key);
+  assert.match(adjustRun(restored).prompt.grokPrompt, /red lace bra/i);
+  assert.deepEqual(adjustRun({ ...restored, gestureId: 'none' }).cards, adjustRun({ gestureId: 'none' }).cards);
+});
+
+test('adjust top is independent of C-section tops but yields to selfies and opaque closed outerwear', () => {
+  const empty = adjustRun({ topId: option('topId', '全無') });
+  assert.match(empty.prompt.grokPrompt, /reposition a triangle cup of her red triangle bikini top/i);
+  const reference = buildPage1GenerationPromptCards(getReferencePersonPreview(adjustRun().prompt));
+  assert.ok(reference.length);
+  for (const { id, value } of reference) assert.doesNotMatch(value, /red triangle bikini top|reposition a triangle cup/i, id);
+  const closed = { outerwearId: option('outerwearId', '飛行夾克'), outerwearOpeningId: option('outerwearOpeningId', '全扣上／全拉上') };
+  for (const overrides of [{ propId: 'selfie-natural-right-arm' }, closed]) {
+    assert.deepEqual(adjustRun(overrides).cards, adjustRun({ ...overrides, gestureId: 'none' }).cards);
+  }
+});
 
 test('waistband lift uses exactly the chosen bottom, color and two-handed lift in visible outputs', () => {
   for (const [label, fragment] of [

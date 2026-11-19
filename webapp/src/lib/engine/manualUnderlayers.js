@@ -3,7 +3,7 @@ import { midjourneyItemName } from './midjourneyNaturalPrompt.js';
 import { bottomRiseConflict } from './bottomRiseCompatibility.js';
 import { isFullyClosedOpening, closedInnerLayerIsVisible } from './outerwearClosure.js';
 import { getSpecifiedAction } from './specifiedActions.js';
-import { applicableGestureOptions, isRaisedTopHemGesture, raisedTopHemText, UNDERBUST_TEE_GESTURE_ID, WAISTBAND_LIFT_GESTURE_ID } from './gazeGesture.js';
+import { ADJUST_TOP_GESTURE_ID, applicableGestureOptions, isRaisedTopHemGesture, raisedTopHemText, UNDERBUST_TEE_GESTURE_ID, WAISTBAND_LIFT_GESTURE_ID } from './gazeGesture.js';
 import { phoneCaptureStatus } from './phoneCapture.js';
 import { isSkirtLiftGesture, skirtLiftText, skirtUnderlayerProfile } from './skirtUnderlayers.js';
 
@@ -43,7 +43,16 @@ const waistband = {
   itemKey: 'waistbandBottomId', colorKey: 'waistbandBottomColorId',
   hostKey: 'pantsId', paletteKey: 'bottomColorId', ids: [...waistbandBottoms.keys()],
 };
-const slots = [upper, lower, waistband];
+const adjustableTops = new Map([
+  ['wardrobe:上身-tops:比基尼上身:30', { zh: '比基尼', name: 'triangle bikini top', action: 'She uses one hand to reposition a triangle cup of her' }],
+  ['wardrobe:上身-tops:運動型內衣:32', { zh: '內衣', name: 'sports bra', action: 'She uses one hand to adjust the fit over the cup area of her' }],
+  ['wardrobe:上身-tops:蕾絲胸罩:31', { zh: '胸罩', name: 'lace bra', action: 'She slips one shoulder strap down with one hand while adjusting her' }],
+]);
+const adjustTop = {
+  itemKey: 'adjustTopId', colorKey: 'adjustTopColorId',
+  hostKey: 'topId', paletteKey: 'topColorId', ids: [...adjustableTops.keys()],
+};
+const slots = [upper, lower, waistband, adjustTop];
 export const underlayerKeys = slots.flatMap(slot => [slot.itemKey, slot.colorKey]);
 export const isRevealGesture = id => isRaisedTopHemGesture(id) || isSkirtLiftGesture(id);
 const options = (controls, key) => controls.find(c => c.key === key)?.options || [];
@@ -83,21 +92,30 @@ export const WAISTBAND_LIFT_PAUSED_KEYS = Object.freeze([
 ]);
 
 export function waistbandLiftField(locks, controls, action) {
-  if (locks.gestureId !== WAISTBAND_LIFT_GESTURE_ID || !allowsManualGarmentGesture(locks, controls)) return null;
+  return boundGarmentField(locks, controls, action, WAISTBAND_LIFT_GESTURE_ID, waistband, waistbandBottoms);
+}
+
+export function adjustTopField(locks, controls, action) {
+  if (locks.gestureId !== ADJUST_TOP_GESTURE_ID || closedOuterwearHidesTop(locks, controls)) return null;
+  return boundGarmentField(locks, controls, action, ADJUST_TOP_GESTURE_ID, adjustTop, adjustableTops);
+}
+
+function boundGarmentField(locks, controls, action, gestureId, slot, profiles) {
+  if (locks.gestureId !== gestureId || !allowsManualGarmentGesture(locks, controls)) return null;
   const activeAction = action === undefined ? getSpecifiedAction(locks, { cameraControls: controls }) : action;
-  if (!applicableGestureOptions(activeAction).some(option => option.id === WAISTBAND_LIFT_GESTURE_ID)
+  if (!applicableGestureOptions(activeAction).some(option => option.id === gestureId)
     || phoneCaptureStatus(locks, activeAction).active) return null;
-  const items = waistband.ids.map(id => {
-    const item = selected(controls, waistband.hostKey, id);
-    const profile = waistbandBottoms.get(id);
+  const items = slot.ids.map(id => {
+    const item = selected(controls, slot.hostKey, id);
+    const profile = profiles.get(id);
     return item ? { ...item, zh: profile.zh, en: profile.name } : null;
   }).filter(Boolean);
-  const item = items.find(option => option.id === locks[waistband.itemKey]) || items[0];
+  const item = items.find(option => option.id === locks[slot.itemKey]) || items[0];
   if (!item) return null;
-  const colors = options(controls, waistband.paletteKey).filter(option => option.en && option.id !== 'none');
-  const color = colors.find(option => option.id === locks[waistband.colorKey]);
-  const catalogItem = selected(controls, waistband.hostKey, item.id);
-  return { ...waistband, items, item, catalogItem, colors, color, sides: waistbandBottoms.get(item.id).sides };
+  const colors = options(controls, slot.paletteKey).filter(option => option.en && option.id !== 'none');
+  const color = colors.find(option => option.id === locks[slot.colorKey]);
+  const catalogItem = selected(controls, slot.hostKey, item.id);
+  return { ...slot, items, item, catalogItem, colors, color, profile: profiles.get(item.id) };
 }
 
 const isWaistTrigger = id => ['ultra-low-rise','unbuttoned-slightly-unzipped', THIGH_RISE.id].includes(id);
@@ -106,8 +124,9 @@ export function normalizeUnderlayers(locks, controls) {
   for (const slot of slots) {
     const id = locks[slot.itemKey];
     const hasItem = slot.ids.includes(id) && selected(controls, slot.hostKey,id);
-    if (!hasItem && slot !== waistband) continue;
+    if (!hasItem && (slot === upper || slot === lower)) continue;
     if (hasItem) result[slot.itemKey] = id;
+    if (!locks[slot.colorKey]) continue;
     const color = selected(controls, slot.paletteKey,locks[slot.colorKey]);
     if (color?.en && color.id !== 'none') result[slot.colorKey] = color.id;
   }
