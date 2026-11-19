@@ -162,10 +162,11 @@ test('both manual gestures, underwear colors and waist setting survive generatio
       const grok = cards.find(c=>c.id==='grok-imagine') ?? cards.at(-1);
       assert.match(grok.value,/white lace bra cups/);
       assert.match(grok.value,/black low-rise side-tie bikini bottoms/);
-      if (gestureId === 'gesture-lift-hem-both') assert.match(grok.value, /collarbone height/);
-      assert.match(grok.value, /collarbones/);
+      if (gestureId === 'gesture-lift-hem-both') {
+        assert.match(grok.value, /collarbone height.*collarbones/s);
+      }
       assert.match(grok.value, gestureId.endsWith('teeth')
-        ? /between her front teeth.*white lace bra cups.*Both hands rest behind her back\./s
+        ? /She is biting her short-sleeved T-shirt, revealing her full breasts\..*white lace bra cups.*Both hands are behind her back\./s
         : /one hand on each side/);
       const card=withGrokImagineForSave({...prompt,source:'page1'});
       const parsed=parseExportedMarkdownPrompt(buildMarkdownExport(card),controls,'layers');
@@ -224,7 +225,7 @@ test('ZIP import restores two independent manual layers and colors',async()=>{
 
 test('gesture-only, ordinary and incompatible waist selections keep their respective actions and owners',()=>{
   const under=run({gestureId:'gesture-hold-hem-teeth'});
-  assert.match(under.cards.at(-1).value, /along her collarbones\. Both hands rest behind her back\./);
+  assert.match(under.cards.at(-1).value, /She is biting her short-sleeved T-shirt, revealing her full breasts\. Both hands are behind her back\./);
   assert.doesNotMatch(under.cards.at(-1).value, /Below the raised hem/);
   for(const conflicts of [{bottomRiseId:'low-rise'},{bottomRiseId:'mid-rise'},{bottomRiseId:'random'},
     {bottomRiseId:'unbuttoned-slightly-unzipped',pantsId:option('pantsId','運動棉褲')}]){

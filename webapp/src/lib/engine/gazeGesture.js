@@ -143,16 +143,24 @@ export function withFixedUnderbustTee(gesture) {
   };
 }
 
-export function raisedTopHemText(id, top = 'top', inner = '') {
-  const heldByMouth = id === 'gesture-hold-hem-teeth';
-  const grip = heldByMouth
-    ? `She holds the center of the bottom hem between her front teeth, lifting her ${top}.`
-    : `She grips the left and right sides of the same bottom hem, one hand on each side, and lifts her ${top} to collarbone height.`;
+export function raisedTopHemGarmentName(id) {
+  return id === 'gesture-hold-hem-teeth' ? UNDERBUST_TEE_NAME : 'top';
+}
+
+export function raisedTopHemText(id, top = raisedTopHemGarmentName(id), inner = '') {
+  const visibleInner = inner ? `Below the raised hem, the inner layer shows ${inner}.` : '';
+  if (id === 'gesture-hold-hem-teeth') {
+    return [
+      `She is biting her ${top}, revealing her full breasts.`,
+      visibleInner,
+      'Both hands are behind her back.',
+    ].filter(Boolean).join(' ');
+  }
   return [
-    grip,
+    `She grips the left and right sides of the same bottom hem, one hand on each side, and lifts her ${top} to collarbone height.`,
     'The entire front panel lifts clear of her waist and gathers in broad, connected folds along her collarbones.',
-    inner ? `Below the raised hem, the inner layer shows ${inner}.` : '',
-    heldByMouth ? 'Both hands rest behind her back.' : 'Her elbows bend naturally outward.',
+    visibleInner,
+    'Her elbows bend naturally outward.',
   ].filter(Boolean).join(' ');
 }
 

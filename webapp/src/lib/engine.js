@@ -23,7 +23,7 @@ import { midjourneyBodyDescription } from './engine/midjourneyBodyDescriptions.j
 import { SPECIFIED_ACTION_OPTIONS, getSpecifiedAction, getSpecifiedActionEffectiveLocks, resolveRandomSpecifiedAction, specifiedActionSupportsCamera } from './engine/specifiedActions.js';
 import { LYING_CAMERA_OPTIONS, isLyingAction, lyingSurfaceFor, resolveLyingCamera, withLyingSurface } from './engine/lyingSurface.js';
 import { HEAD_POSTURE_OPTIONS, headPostureById, mergeHeadPosture, resolveHeadPosture } from './engine/headPosture.js';
-import { ADJUST_TOP_GESTURE_ID, CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, UNDERBUST_TEE_GESTURE_ID, UNDERBUST_TEE_LABEL, UNDERBUST_TEE_NAME, WAISTBAND_LIFT_GESTURE_ID, actionTextWithGesture, applyCaptureStyleLocks, authoredGazeHead, expressionHasReviewedEyesAndMouth, gazeAvoidsBackView, gazeUsesHeadOnly, isBackViewOrbit, isRaisedTopHemGesture, resolveGaze, resolveGesture, resolveProp, withAdjustedTop, withFixedUnderbustTee, withWaistbandLift } from './engine/gazeGesture.js';
+import { ADJUST_TOP_GESTURE_ID, CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, UNDERBUST_TEE_GESTURE_ID, UNDERBUST_TEE_LABEL, UNDERBUST_TEE_NAME, WAISTBAND_LIFT_GESTURE_ID, actionTextWithGesture, applyCaptureStyleLocks, authoredGazeHead, expressionHasReviewedEyesAndMouth, gazeAvoidsBackView, gazeUsesHeadOnly, isBackViewOrbit, isRaisedTopHemGesture, raisedTopHemGarmentName, resolveGaze, resolveGesture, resolveProp, withAdjustedTop, withFixedUnderbustTee, withWaistbandLift } from './engine/gazeGesture.js';
 import { applyDefaultEthnicity, applyDefaultEthnicityToCharacter, resolveDefaultEthnicity } from './engine/defaultEthnicity.js';
 import { renderNanoBananaNarrative } from './engine/nanoBananaPrompt.js';
 import { polishPublicPromptText } from './engine/publicPromptPolish.js';
@@ -17115,7 +17115,7 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
         item: innerLayer.item,
         color: innerLayer.color,
         hemColor: innerLayer.hemColor,
-        top: composeWearableColorPrompt('top', innerLayer.hemColor),
+        top: composeWearableColorPrompt(raisedTopHemGarmentName(effectiveLocks.gestureId), innerLayer.hemColor),
         inner: composeWearableColorPrompt(upperUnderlayerFront(innerLayer.item), innerLayer.color),
       }
     : null;

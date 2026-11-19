@@ -22,9 +22,13 @@ test('both raised hems describe the colored outer fabric and visible cup fronts 
   for (const gestureId of gestures) {
     const { prompt, cards } = run({ gestureId });
     for (const card of activeCards(cards)) {
-      assert.match(card.value, /black top/i, card.id);
       assert.match(card.value, /white triangular bikini cups/i, card.id);
-      assert.match(card.value, gestureId.endsWith('teeth') ? /front teeth.*behind her back/is : /one hand on each side/i, card.id);
+      if (gestureId === 'gesture-hold-hem-teeth') {
+        assert.match(card.value, /She is biting her black short-sleeved T-shirt, revealing her full breasts\..*white triangular bikini cups.*Both hands are behind her back\./s, card.id);
+        assert.doesNotMatch(card.value, /collarbones|front teeth|pulls the whole top up/i, card.id);
+      } else {
+        assert.match(card.value, /one hand on each side.*black top.*along her collarbones/is, card.id);
+      }
       assert.doesNotMatch(card.value, /off-shoulder top|halter strings|triangular fold/i, card.id);
     }
     assert.match(cards.find(card => card.id === 'full-body-character').value, /off-shoulder top/i);
@@ -38,7 +42,7 @@ test('both raised hems describe the colored outer fabric and visible cup fronts 
 test('a raised hem and both colors work with no selected top and round-trip through Markdown', () => {
   const noTop = option('topId', '全無');
   const { prompt, cards } = run({ topId: noTop, gestureId: gestures[0] });
-  for (const card of activeCards(cards)) assert.match(card.value, /black top.*white triangular bikini cups/is, card.id);
+  for (const card of activeCards(cards)) assert.match(card.value, /black short-sleeved T-shirt.*white triangular bikini cups/is, card.id);
   const saved = withGrokImagineForSave({ ...prompt, source: 'page1' });
   const imported = parseExportedMarkdownPrompt(buildMarkdownExport(saved), controls);
   const restored = normalizeLocks(buildRestoreLocks(imported.selection, controls), controls);

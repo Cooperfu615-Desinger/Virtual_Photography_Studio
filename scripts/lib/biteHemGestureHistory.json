@@ -1,0 +1,118 @@
+{
+  "files": [
+    {
+      "path": "webapp/src/lib/engine/gazeGesture.js",
+      "beforeHash": "046b0a2ceb7c99b79723026f5aebe57d49eac426a5a68aa2ca9c02a38a46891c",
+      "afterHash": "a9fddacbbe9149fd6c52f480d1bdc92f1cbd90f3c1669864cbc78ee283b388eb",
+      "edits": [
+        {
+          "line": 145,
+          "after": [
+            "export function raisedTopHemGarmentName(id) {\n",
+            "  return id === 'gesture-hold-hem-teeth' ? UNDERBUST_TEE_NAME : 'top';\n",
+            "}\n",
+            "\n",
+            "export function raisedTopHemText(id, top = raisedTopHemGarmentName(id), inner = '') {\n",
+            "  const visibleInner = inner ? `Below the raised hem, the inner layer shows ${inner}.` : '';\n",
+            "  if (id === 'gesture-hold-hem-teeth') {\n",
+            "    return [\n",
+            "      `She is biting her ${top}, revealing her full breasts.`,\n",
+            "      visibleInner,\n",
+            "      'Both hands are behind her back.',\n",
+            "    ].filter(Boolean).join(' ');\n",
+            "  }\n"
+          ],
+          "before": [
+            "export function raisedTopHemText(id, top = 'top', inner = '') {\n",
+            "  const heldByMouth = id === 'gesture-hold-hem-teeth';\n",
+            "  const grip = heldByMouth\n",
+            "    ? `She holds the center of the bottom hem between her front teeth, lifting her ${top}.`\n",
+            "    : `She grips the left and right sides of the same bottom hem, one hand on each side, and lifts her ${top} to collarbone height.`;\n"
+          ]
+        },
+        {
+          "line": 159,
+          "after": [
+            "    `She grips the left and right sides of the same bottom hem, one hand on each side, and lifts her ${top} to collarbone height.`,\n"
+          ],
+          "before": [
+            "    grip,\n"
+          ]
+        },
+        {
+          "line": 161,
+          "after": [
+            "    visibleInner,\n",
+            "    'Her elbows bend naturally outward.',\n"
+          ],
+          "before": [
+            "    inner ? `Below the raised hem, the inner layer shows ${inner}.` : '',\n",
+            "    heldByMouth ? 'Both hands rest behind her back.' : 'Her elbows bend naturally outward.',\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine.js",
+      "beforeHash": "30bcc59a5dbb5b308b5521eafbafa09ad3a6b8e969824fa96199893b75e13b81",
+      "afterHash": "51fb4b97bc5951e814965aa8583da3da96ea72f19d2078aab1cf22591883865e",
+      "edits": [
+        {
+          "line": 25,
+          "after": [
+            "import { ADJUST_TOP_GESTURE_ID, CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, UNDERBUST_TEE_GESTURE_ID, UNDERBUST_TEE_LABEL, UNDERBUST_TEE_NAME, WAISTBAND_LIFT_GESTURE_ID, actionTextWithGesture, applyCaptureStyleLocks, authoredGazeHead, expressionHasReviewedEyesAndMouth, gazeAvoidsBackView, gazeUsesHeadOnly, isBackViewOrbit, isRaisedTopHemGesture, raisedTopHemGarmentName, resolveGaze, resolveGesture, resolveProp, withAdjustedTop, withFixedUnderbustTee, withWaistbandLift } from './engine/gazeGesture.js';\n"
+          ],
+          "before": [
+            "import { ADJUST_TOP_GESTURE_ID, CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, UNDERBUST_TEE_GESTURE_ID, UNDERBUST_TEE_LABEL, UNDERBUST_TEE_NAME, WAISTBAND_LIFT_GESTURE_ID, actionTextWithGesture, applyCaptureStyleLocks, authoredGazeHead, expressionHasReviewedEyesAndMouth, gazeAvoidsBackView, gazeUsesHeadOnly, isBackViewOrbit, isRaisedTopHemGesture, resolveGaze, resolveGesture, resolveProp, withAdjustedTop, withFixedUnderbustTee, withWaistbandLift } from './engine/gazeGesture.js';\n"
+          ]
+        },
+        {
+          "line": 17117,
+          "after": [
+            "        top: composeWearableColorPrompt(raisedTopHemGarmentName(effectiveLocks.gestureId), innerLayer.hemColor),\n"
+          ],
+          "before": [
+            "        top: composeWearableColorPrompt('top', innerLayer.hemColor),\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/manualUnderlayers.test.js",
+      "beforeHash": "07ab7452ba43a14f3afbf65cb586c2cd24c026c9f9212c4d0f2e66db58172cca",
+      "afterHash": "4714e39f9837d992ff8b22666a2f64473b2e1b467be1d34bf8911198715df33a",
+      "edits": [
+        {
+          "line": 164,
+          "after": [
+            "      if (gestureId === 'gesture-lift-hem-both') {\n",
+            "        assert.match(grok.value, /collarbone height.*collarbones/s);\n",
+            "      }\n"
+          ],
+          "before": [
+            "      if (gestureId === 'gesture-lift-hem-both') assert.match(grok.value, /collarbone height/);\n",
+            "      assert.match(grok.value, /collarbones/);\n"
+          ]
+        },
+        {
+          "line": 168,
+          "after": [
+            "        ? /She is biting her short-sleeved T-shirt, revealing her full breasts\\..*white lace bra cups.*Both hands are behind her back\\./s\n"
+          ],
+          "before": [
+            "        ? /between her front teeth.*white lace bra cups.*Both hands rest behind her back\\./s\n"
+          ]
+        },
+        {
+          "line": 227,
+          "after": [
+            "  assert.match(under.cards.at(-1).value, /She is biting her short-sleeved T-shirt, revealing her full breasts\\. Both hands are behind her back\\./);\n"
+          ],
+          "before": [
+            "  assert.match(under.cards.at(-1).value, /along her collarbones\\. Both hands rest behind her back\\./);\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
