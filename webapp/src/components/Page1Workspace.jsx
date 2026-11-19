@@ -152,6 +152,14 @@ function underlayerColorControl(inner) {
   };
 }
 
+function raisedHemColorControl(inner) {
+  return {
+    key: 'topColorId',
+    label: '衣襬配色',
+    options: [{ id: 'none', zh: '全無', en: '' }, ...inner.colors],
+  };
+}
+
 const WARDROBE_SINGLE_COLOR_PICKER_KEYS = new Set([
   ...Object.keys(UNDERLAYER_PALETTE_TRIGGERS),
   'headAccessoryColorId', 'headAccessoryAColorId', 'headAccessoryBColorId',
@@ -883,7 +891,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     [locks, wardrobeLockControls, isSpecialOutfitActive, isAnyOutfitPresetActive],
   );
   const underlayerTrigger = UNDERLAYER_PALETTE_TRIGGERS[activeWardrobePickerKey];
-  const activeWardrobePickerControl = underlayerTrigger
+  const raisedHemPickerField = activeWardrobePickerKey === 'raisedHemColor'
+    ? underlayerField(locks, lockControls, 'gestureId') : null;
+  const activeWardrobePickerControl = raisedHemPickerField ? raisedHemColorControl(raisedHemPickerField) : underlayerTrigger
     ? underlayerColorControl(underlayerField(locks, lockControls, underlayerTrigger)
       || (underlayerTrigger === 'bottomRiseId' && isSkirtLiftGesture(locks.gestureId) ? underlayerField(locks, lockControls, 'gestureId') : null))
     : [...characterLockControls, ...wardrobeLockControls].find(control => control.key === activeWardrobePickerKey);
@@ -1211,9 +1221,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     setActiveWardrobePickerKey('');
     requestAnimationFrame(() => wardrobePickerTriggerRef.current?.isConnected && wardrobePickerTriggerRef.current.focus());
   };
-  const openWardrobePicker = (control) => {
+  const openWardrobePicker = (control, pickerKey = control.key) => {
     wardrobePickerTriggerRef.current = document.activeElement;
-    setActiveWardrobePickerKey(control.key);
+    setActiveWardrobePickerKey(pickerKey);
     setWardrobePickerQuery('');
   };
 
@@ -1311,6 +1321,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
           const isUpper = inner.itemKey === 'topUnderlayerId';
           const label = isUpper ? '上身內搭' : '下身內搭';
           const palette = underlayerColorControl(inner);
+          const hemPalette = isUpper ? raisedHemColorControl(inner) : null;
           const pair = (
             <div className="manual-underlayer-pair">
               <SelectControlField
@@ -1330,6 +1341,22 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
               )}
             </div>
           );
+          if (hemPalette) {
+            return (
+              <div key={control.key} className="manual-underlayer-fields">
+                <div className="manual-underlayer-pair">
+                  {field}
+                  <WardrobePickerField
+                    control={hemPalette}
+                    value={inner.hemColor?.id || 'none'}
+                    onOpen={() => openWardrobePicker(hemPalette, 'raisedHemColor')}
+                    onCopy={text => handleCopyText(hemPalette.label, text)}
+                  />
+                </div>
+                {pair}
+              </div>
+            );
+          }
           return control.key === 'gestureId'
             ? <div key={control.key} className="manual-underlayer-fields">{field}{pair}</div>
             : <Fragment key={control.key}>{field}{pair}</Fragment>;
@@ -2011,7 +2038,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         <WardrobePickerModal
           control={activeWardrobePickerControl}
           contextLabel={pickerContext}
-          value={locks[activeWardrobePickerControl.key] || (underlayerTrigger ? 'none' : '')}
+          value={locks[activeWardrobePickerControl.key] || (underlayerTrigger || raisedHemPickerField ? 'none' : '')}
           query={wardrobePickerQuery}
           onQueryChange={setWardrobePickerQuery}
           onClose={closeWardrobePicker}

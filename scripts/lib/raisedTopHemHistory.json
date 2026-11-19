@@ -1,0 +1,552 @@
+{
+  "baseCommit": "444acc1a7f183d3d85551648fd090b63784a8c7d",
+  "files": [
+    {
+      "path": "webapp/src/components/Page1Workspace.jsx",
+      "beforeHash": "18d08ef21a88b2d909a2de18b8a5c37bf400198df262378b1dec22164971d6eb",
+      "afterHash": "8777e2b81542ef25d043dbf163127db781509a5ab08225d964a0902d5792ef93",
+      "edits": [
+        {
+          "line": 151,
+          "after": [
+            "  };\n",
+            "}\n",
+            "\n",
+            "function raisedHemColorControl(inner) {\n",
+            "  return {\n",
+            "    key: 'topColorId',\n",
+            "    label: '衣襬配色',\n",
+            "    options: [{ id: 'none', zh: '全無', en: '' }, ...inner.colors],\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 893,
+          "after": [
+            "  const raisedHemPickerField = activeWardrobePickerKey === 'raisedHemColor'\n",
+            "    ? underlayerField(locks, lockControls, 'gestureId') : null;\n",
+            "  const activeWardrobePickerControl = raisedHemPickerField ? raisedHemColorControl(raisedHemPickerField) : underlayerTrigger\n"
+          ],
+          "before": [
+            "  const activeWardrobePickerControl = underlayerTrigger\n"
+          ]
+        },
+        {
+          "line": 1223,
+          "after": [
+            "  const openWardrobePicker = (control, pickerKey = control.key) => {\n"
+          ],
+          "before": [
+            "  const openWardrobePicker = (control) => {\n"
+          ]
+        },
+        {
+          "line": 1225,
+          "after": [
+            "    setActiveWardrobePickerKey(pickerKey);\n"
+          ],
+          "before": [
+            "    setActiveWardrobePickerKey(control.key);\n"
+          ]
+        },
+        {
+          "line": 1323,
+          "after": [
+            "          const hemPalette = isUpper ? raisedHemColorControl(inner) : null;\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 1343,
+          "after": [
+            "          if (hemPalette) {\n",
+            "            return (\n",
+            "              <div key={control.key} className=\"manual-underlayer-fields\">\n",
+            "                <div className=\"manual-underlayer-pair\">\n",
+            "                  {field}\n",
+            "                  <WardrobePickerField\n",
+            "                    control={hemPalette}\n",
+            "                    value={inner.hemColor?.id || 'none'}\n",
+            "                    onOpen={() => openWardrobePicker(hemPalette, 'raisedHemColor')}\n",
+            "                    onCopy={text => handleCopyText(hemPalette.label, text)}\n",
+            "                  />\n",
+            "                </div>\n",
+            "                {pair}\n",
+            "              </div>\n",
+            "            );\n",
+            "          }\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 2040,
+          "after": [
+            "          value={locks[activeWardrobePickerControl.key] || (underlayerTrigger || raisedHemPickerField ? 'none' : '')}\n"
+          ],
+          "before": [
+            "          value={locks[activeWardrobePickerControl.key] || (underlayerTrigger ? 'none' : '')}\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/page1/lockTransitions.js",
+      "beforeHash": "13564914f4b1d7d2abe5c5c198461985b8e4c936eea276d7c8f29770019c1b01",
+      "afterHash": "8e8f2d14a9d4a88128e0815379afe879dcb624c417702bca8209e68e9530f594",
+      "edits": [
+        {
+          "line": 10,
+          "after": [
+            "import { underlayerField } from '../../lib/engine/manualUnderlayers.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 88,
+          "after": [
+            "      if (topColorKey !== 'topColorId' || underlayerField(next, lockControls, 'gestureId')?.itemKey !== 'topUnderlayerId') {\n",
+            "        next[topColorKey] = 'none';\n",
+            "      }\n"
+          ],
+          "before": [
+            "      next[topColorKey] = 'none';\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/page1/page1.css",
+      "beforeHash": "6deb1d811303485db72b12e177572f7b7fec3e856a7e9cf29a4dd4fe46891708",
+      "afterHash": "4d3bd9a0bb39134e27f15052b91f4098bc937603aa684908c9e3b8079f014430",
+      "edits": [
+        {
+          "line": 924,
+          "after": [
+            ".manual-underlayer-fields:has(> .manual-underlayer-pair:first-child) {\n",
+            "  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);\n",
+            "}\n",
+            ".manual-underlayer-fields > .manual-underlayer-pair:first-child {\n",
+            "  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);\n",
+            "}\n",
+            ".manual-underlayer-fields:has(> .manual-underlayer-pair:first-child) .wardrobe-picker-trigger {\n",
+            "  grid-template-columns: minmax(0, 1fr) auto;\n",
+            "  gap: 5px;\n",
+            "  padding-inline: 8px;\n",
+            "}\n",
+            ".manual-underlayer-fields:has(> .manual-underlayer-pair:first-child) .wardrobe-picker-trigger-main {\n",
+            "  white-space: normal;\n",
+            "  overflow-wrap: anywhere;\n",
+            "}\n",
+            ".manual-underlayer-fields:has(> .manual-underlayer-pair:first-child) .wardrobe-picker-open {\n",
+            "  display: none;\n",
+            "}\n",
+            ".manual-underlayer-fields:has(> .manual-underlayer-pair:first-child) .wardrobe-picker-swatch {\n",
+            "  width: 14px;\n",
+            "  height: 14px;\n",
+            "}\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 950,
+          "after": [
+            "  .manual-underlayer-fields,\n",
+            "  .manual-underlayer-fields:has(> .manual-underlayer-pair:first-child) {\n",
+            "    grid-template-columns: minmax(0, 1fr);\n",
+            "  }\n"
+          ],
+          "before": [
+            "  .manual-underlayer-fields { grid-template-columns: minmax(0, 1fr); }\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/page1WorkspaceSummary.js",
+      "beforeHash": "dc9253a7f163e11dc8ae50327b324e1b693f3ee6655a159913e0a6144d9d0cbc",
+      "afterHash": "07bb033c1fbdee6a7760ba25bcd77285736ee606bbaeecfe53d8d31a38ce2699",
+      "edits": [
+        {
+          "line": 4,
+          "after": [
+            "import { applicableGestureOptions, closedEyeGazeLabel, gazeUsesHeadOnly, isRaisedTopHemGesture } from './engine/gazeGesture.js';\n",
+            "import { isPhoneProp, phoneCaptureStatus } from './engine/phoneCapture.js';\n",
+            "import { underlayerField } from './engine/manualUnderlayers.js';\n"
+          ],
+          "before": [
+            "import { applicableGestureOptions, closedEyeGazeLabel, gazeUsesHeadOnly } from './engine/gazeGesture.js';\n",
+            "import { isPhoneProp } from './engine/phoneCapture.js';\n"
+          ]
+        },
+        {
+          "line": 273,
+          "after": [
+            "  const raisedHem = isRaisedTopHemGesture(locks.gestureId) && !phoneCaptureStatus(locks, specifiedAction).active\n",
+            "    ? underlayerField(locks, controls, 'gestureId') : null;\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 290,
+          "after": [
+            "    raisedHem\n",
+            "      ? raisedHem.hemColor ? `衣襬配色：${raisedHem.hemColor.zh}` : ''\n",
+            "      : wardrobeLabel('topId'),\n",
+            "    raisedHem?.item ? `上身內搭：${[raisedHem.color?.zh, raisedHem.item.zh].filter(Boolean).join('｜')}` : '',\n"
+          ],
+          "before": [
+            "    wardrobeLabel('topId'),\n"
+          ]
+        },
+        {
+          "line": 296,
+          "after": [
+            "    raisedHem ? '' : wardrobeLabel('topFitId'),\n",
+            "    raisedHem ? '' : wardrobeLabel('topStylingId'),\n"
+          ],
+          "before": [
+            "    wardrobeLabel('topFitId'),\n",
+            "    wardrobeLabel('topStylingId'),\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine.js",
+      "beforeHash": "e5c7628f68eb59ffecd8fbc823b9b91a56074ed117ba637504b409061414b769",
+      "afterHash": "bce466a0ccff0e45ad04accb7d4cc9f7b3ef81160e2806e5e0e4956ac589391a",
+      "edits": [
+        {
+          "line": 4,
+          "after": [
+            "import { THIGH_RISE, attachUnderlayers, describeRevealGesture, normalizeUnderlayers, prepareUnderlayerHosts, underlayerField, upperUnderlayerFront } from './engine/manualUnderlayers.js';\n"
+          ],
+          "before": [
+            "import { THIGH_RISE, attachUnderlayers, describeRevealGesture, normalizeUnderlayers, prepareUnderlayerHosts, underlayerField } from './engine/manualUnderlayers.js';\n"
+          ]
+        },
+        {
+          "line": 25,
+          "after": [
+            "import { CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, actionTextWithGesture, applyCaptureStyleLocks, authoredGazeHead, expressionHasReviewedEyesAndMouth, gazeAvoidsBackView, gazeUsesHeadOnly, isBackViewOrbit, isRaisedTopHemGesture, resolveGaze, resolveGesture, resolveProp } from './engine/gazeGesture.js';\n"
+          ],
+          "before": [
+            "import { CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, actionTextWithGesture, applyCaptureStyleLocks, authoredGazeHead, expressionHasReviewedEyesAndMouth, gazeAvoidsBackView, gazeUsesHeadOnly, isBackViewOrbit, resolveGaze, resolveGesture, resolveProp } from './engine/gazeGesture.js';\n"
+          ]
+        },
+        {
+          "line": 5297,
+          "after": [
+            "    const gesture = describeRevealGesture(resolveGesture(phoneStatus.active ? 'none' : context.locks?.gestureId, specifiedAction, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random), context.revealedUnderlayer, context.liftedSkirt, context.raisedHem);\n"
+          ],
+          "before": [
+            "    const gesture = describeRevealGesture(resolveGesture(phoneStatus.active ? 'none' : context.locks?.gestureId, specifiedAction, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random), context.revealedUnderlayer, context.liftedSkirt);\n"
+          ]
+        },
+        {
+          "line": 5813,
+          "after": [
+            "      if (context.referencePersonPreview && context.raisedHem && isRaisedTopHemGesture(poseComposer.meta?.gestureId)) {\n",
+            "        const gesture = GESTURE_OPTIONS.find(option => option.id === poseComposer.meta.gestureId);\n",
+            "        const prop = omitProp ? null : PROP_OPTIONS.find(option => option.en && option.id === poseComposer.meta?.propId) || null;\n",
+            "        const pose = actionTextWithGesture(specifiedAction, gesture, {}, prop).en;\n",
+            "        const placed = withLyingSurface(applyIndoorKneel(applyIndoorLean(applyIndoorSeat(pose, context.indoorSeat), context.indoorLean), context.indoorKneel), lyingSurfaceFor(specifiedAction, context.location));\n",
+            "        const head = headOptionFromMeta(poseComposer.meta);\n",
+            "        return [placed, isActivePoseComposerOption(head) ? `She has ${normalizePoseComposerHeadPhrase(head)}.` : ''].filter(Boolean).join(' ');\n",
+            "      }\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 5829,
+          "after": [
+            "    const gesture = describeRevealGesture(GESTURE_OPTIONS.find(option => option.scope && option.id === poseComposer.meta?.gestureId), poseComposer.meta?.revealedUnderlayer, poseComposer.meta?.liftedSkirt, context.referencePersonPreview ? null : context.raisedHem);\n"
+          ],
+          "before": [
+            "    const gesture = describeRevealGesture(GESTURE_OPTIONS.find(option => option.scope && option.id === poseComposer.meta?.gestureId), poseComposer.meta?.revealedUnderlayer, poseComposer.meta?.liftedSkirt);\n"
+          ]
+        },
+        {
+          "line": 7898,
+          "after": [
+            "    const raisedHem = isRaisedTopHemGesture(context.poseResolution?.gesture?.id) ? context.raisedHem : null;\n",
+            "    const topLabel = raisedHem\n",
+            "      ? joinSummaryParts(\n",
+            "          raisedHem.hemColor ? `衣襬配色：${raisedHem.hemColor.zh}` : '',\n",
+            "          raisedHem.item ? `上身內搭：${[raisedHem.color?.zh, raisedHem.item.zh].filter(Boolean).join('｜')}` : '',\n",
+            "        )\n",
+            "      : wardrobeSlots.top?.zh && !isNoneLikeItem(wardrobeSlots.top)\n"
+          ],
+          "before": [
+            "    const topLabel = wardrobeSlots.top?.zh && !isNoneLikeItem(wardrobeSlots.top)\n"
+          ]
+        },
+        {
+          "line": 8297,
+          "after": [
+            "}\n",
+            "\n",
+            "function projectRaisedTopHemWardrobe(wardrobe, context) {\n",
+            "  if (!context.raisedHem || !isRaisedTopHemGesture(context.poseResolution?.gesture?.id)\n",
+            "    || getCompositionVisibilityProjection(context).pose?.mode === 'omit') return wardrobe;\n",
+            "  const { top, topFit, topStyling, topPattern } = extractWardrobeSlots(wardrobe);\n",
+            "  return wardrobe.filter(item => item !== top && item !== topFit && item !== topStyling && item !== topPattern);\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 13003,
+          "after": [
+            "  if (preset.id === 'chest-up-portrait') {\n",
+            "    baseDerivedContext.compositionVisibility = retainResolvedWardrobe(baseDerivedContext.compositionVisibility);\n",
+            "    wardrobe = projectRaisedTopHemWardrobe(wardrobe, baseDerivedContext);\n",
+            "  }\n"
+          ],
+          "before": [
+            "  if (preset.id === 'chest-up-portrait') baseDerivedContext.compositionVisibility = retainResolvedWardrobe(baseDerivedContext.compositionVisibility);\n"
+          ]
+        },
+        {
+          "line": 16113,
+          "after": [
+            "  prototypeWardrobe = projectRaisedTopHemWardrobe(prototypeWardrobe, fullContext);\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 16211,
+          "after": [
+            "  const wardrobeSource = fixedCompositionPromptProjection?.wardrobe.items || projectRaisedTopHemWardrobe(wardrobe, mainContext);\n"
+          ],
+          "before": [
+            "  const wardrobeSource = fixedCompositionPromptProjection?.wardrobe.items || wardrobe;\n"
+          ]
+        },
+        {
+          "line": 16580,
+          "after": [
+            "  }\n",
+            "  if (context.raisedHem && isRaisedTopHemGesture(gesture?.id)) {\n",
+            "    if (context.raisedHem.item) snapshot.topUnderlayerId = context.raisedHem.item.id;\n",
+            "    if (context.raisedHem.color) snapshot.topUnderlayerColorId = context.raisedHem.color.id;\n",
+            "    snapshot.topColorId = context.raisedHem.hemColor?.id || 'none';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 16959,
+          "after": [
+            "  const innerLayer = underlayerField(effectiveLocks, lockControls, 'gestureId');\n",
+            "  const raisedHem = innerLayer && isRaisedTopHemGesture(effectiveLocks.gestureId)\n",
+            "    ? {\n",
+            "        item: innerLayer.item,\n",
+            "        color: innerLayer.color,\n",
+            "        hemColor: innerLayer.hemColor,\n",
+            "        top: composeWearableColorPrompt('top', innerLayer.hemColor),\n",
+            "        inner: composeWearableColorPrompt(upperUnderlayerFront(innerLayer.item), innerLayer.color),\n",
+            "      }\n",
+            "    : null;\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 16982,
+          "after": [
+            "    revealedUnderlayer: innerLayer?.item,\n",
+            "    liftedSkirt: isSkirtLiftGesture(effectiveLocks.gestureId) ? innerLayer?.host : undefined,\n",
+            "    raisedHem,\n"
+          ],
+          "before": [
+            "    revealedUnderlayer: (effectiveLocks.topUnderlayerId || isSkirtLiftGesture(effectiveLocks.gestureId)) && underlayerField(effectiveLocks, lockControls, 'gestureId')?.item,\n",
+            "    liftedSkirt: isSkirtLiftGesture(effectiveLocks.gestureId) ? underlayerField(effectiveLocks, lockControls, 'gestureId')?.host : undefined,\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/gazeGesture.js",
+      "beforeHash": "0e67f1b14ce2445c2dba699bc55c3cb6e1cfdff3c013cf0f98f7a1a9995f3c57",
+      "afterHash": "f2ceb9818be12f8bcda2dd0027a04257d28e70e3f7efdf73124cd4b023312305",
+      "edits": [
+        {
+          "line": 114,
+          "after": [
+            "export const isRaisedTopHemGesture = id => id === 'gesture-lift-hem-both' || id === 'gesture-hold-hem-teeth';\n",
+            "\n",
+            "export function raisedTopHemText(id, top = 'top', inner = '') {\n",
+            "  const heldByMouth = id === 'gesture-hold-hem-teeth';\n",
+            "  const grip = heldByMouth\n",
+            "    ? `She holds the center of the bottom hem between her front teeth, lifting her ${top}.`\n",
+            "    : `She grips the left and right sides of the same bottom hem, one hand on each side, and lifts her ${top} to collarbone height.`;\n"
+          ],
+          "before": [
+            "export function mouthHeldHemText(underlayerName) {\n",
+            "  const visibility = underlayerName\n",
+            "    ? `The ${underlayerName} underneath ${underlayerName.endsWith('pasties') ? 'are' : 'is'} fully visible.`\n",
+            "    : '';\n"
+          ]
+        },
+        {
+          "line": 122,
+          "after": [
+            "    grip,\n",
+            "    'The entire front panel lifts clear of her waist and gathers in broad, connected folds along her collarbones.',\n",
+            "    inner ? `Below the raised hem, the inner layer shows ${inner}.` : '',\n",
+            "    heldByMouth ? 'Both hands rest behind her back.' : 'Her elbows bend naturally outward.',\n"
+          ],
+          "before": [
+            "    'She holds the center of the front hem of her top between her teeth.',\n",
+            "    'The lifted front panel fans out from her mouth in one continuous triangular fold, with the fabric gathered high across her collarbones.',\n",
+            "    visibility,\n",
+            "    'Both hands rest behind her back.',\n"
+          ]
+        },
+        {
+          "line": 186,
+          "after": [
+            "  gesture('gesture-lift-hem-both', '雙手上拉衣襬', raisedTopHemText('gesture-lift-hem-both'), 'general',\n",
+            "    { randomEligible: false }),\n",
+            "  gesture('gesture-hold-hem-teeth', '嘴咬衣襬，雙手背後', raisedTopHemText('gesture-hold-hem-teeth'), 'general',\n",
+            "    { randomEligible: false }),\n"
+          ],
+          "before": [
+            "  gesture('gesture-lift-hem-both', '雙手上拉衣襬', 'both hands gripping opposite sides of the front hem of her top and lifting it to the base of her neck, the fabric bunched along her collarbones above her chest', 'general',\n",
+            "    { requiresWardrobeRole: 'topHem', randomEligible: false }),\n",
+            "  gesture('gesture-hold-hem-teeth', '嘴咬衣襬，雙手背後', mouthHeldHemText(), 'general',\n",
+            "    { requiresWardrobeRole: 'topHem', randomEligible: false }),\n"
+          ]
+        },
+        {
+          "line": 300,
+          "after": [
+            "  if (isRaisedTopHemGesture(option?.id)) {\n"
+          ],
+          "before": [
+            "  if (option?.id === 'gesture-hold-hem-teeth') {\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/manualUnderlayers.js",
+      "beforeHash": "4df2d0953333f576cece3d9c520ec265f82ff1ade2219b7356f9979346575ea8",
+      "afterHash": "888d63ac7a3b31b92e28f275bcf54bea8eceea7c7dcfa0b1f057f8c2ca52cb2b",
+      "edits": [
+        {
+          "line": 5,
+          "after": [
+            "import { applicableGestureOptions, isRaisedTopHemGesture, raisedTopHemText } from './gazeGesture.js';\n"
+          ],
+          "before": [
+            "import { applicableGestureOptions, mouthHeldHemText } from './gazeGesture.js';\n"
+          ]
+        },
+        {
+          "line": 14,
+          "after": [
+            "// Describe the visible fronts in the raised-hem state. The catalog continues\n",
+            "// to describe the complete items for ordinary wardrobe and character reference.\n",
+            "const upperFronts = new Map(Object.entries({\n",
+            "  '比基尼上身:30': 'triangular bikini cups in smooth swim fabric',\n",
+            "  '運動型內衣:32': 'sports bra front in smooth stretch jersey with an elastic underband',\n",
+            "  '蕾絲胸罩:31': 'lace bra cups with floral lace and scalloped edges',\n",
+            "  '小三角細繩比基尼上身:44': 'small triangular bikini cups in smooth swim fabric',\n",
+            "  '小罩杯細帶蕾絲胸罩:43': 'paired X-shaped pasties made of crossed opaque fabric strips',\n",
+            "  '創可貼造型胸貼:45': 'paired small bandage-shaped fabric pasties',\n",
+            "  '棉質細肩背心:7': 'ribbed cotton camisole fabric across her chest',\n",
+            "}).map(([id, text]) => ['wardrobe:上身-tops:' + id, text]));\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 27,
+          "after": [
+            "  ids: [...upperFronts.keys()],\n"
+          ],
+          "before": [
+            "  ids: ['比基尼上身:30','運動型內衣:32','蕾絲胸罩:31','小三角細繩比基尼上身:44','小罩杯細帶蕾絲胸罩:43','創可貼造型胸貼:45']\n",
+            "    .map(id => 'wardrobe:上身-tops:' + id),\n"
+          ]
+        },
+        {
+          "line": 29,
+          "after": [
+            "export const upperUnderlayerFront = item => upperFronts.get(item?.id) || '';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 37,
+          "after": [
+            "export const isRevealGesture = id => isRaisedTopHemGesture(id) || isSkirtLiftGesture(id);\n"
+          ],
+          "before": [
+            "export const isRevealGesture = id => id === 'gesture-lift-hem-both' || id === 'gesture-hold-hem-teeth' || isSkirtLiftGesture(id);\n"
+          ]
+        },
+        {
+          "line": 60,
+          "after": [],
+          "before": [
+            "  if (slot === upper) return item.zh !== '高領連身上衣';\n"
+          ]
+        },
+        {
+          "line": 85,
+          "after": [],
+          "before": [
+            "  const hosts = skirtActive ? [skirt] : options(controls,slot.hostKey).filter(item => hostFits(item, slot, locks.bottomRiseId));\n"
+          ]
+        },
+        {
+          "line": 86,
+          "after": [
+            "  const hosts = top ? [] : skirtActive ? [skirt] : options(controls,slot.hostKey).filter(item => hostFits(item, slot, locks.bottomRiseId));\n",
+            "  if (!top && host && !hosts.includes(host)) return null;\n"
+          ],
+          "before": [
+            "  if (host && !hosts.includes(host)) return null;\n"
+          ]
+        },
+        {
+          "line": 92,
+          "after": [
+            "  const hemColor = top ? colors.find(option => option.id === locks.topColorId) : undefined;\n",
+            "  return { ...slot, hostKey, host, hosts, items, colors, item, color, hemColor };\n"
+          ],
+          "before": [
+            "  return { ...slot, hostKey, host, hosts, items, colors, item, color };\n"
+          ]
+        },
+        {
+          "line": 126,
+          "after": [
+            "    if (field.host.id === field.item.id) continue;\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 142,
+          "after": [
+            "export function describeRevealGesture(gesture, item, skirt, raisedHem) {\n"
+          ],
+          "before": [
+            "export function describeRevealGesture(gesture, item, skirt) {\n"
+          ]
+        },
+        {
+          "line": 145,
+          "after": [
+            "  return raisedHem ? { ...gesture, en: raisedTopHemText(gesture.id, raisedHem.top, raisedHem.inner) } : gesture;\n"
+          ],
+          "before": [
+            "  if (!item) return gesture;\n",
+            "  const name = midjourneyItemName(item);\n",
+            "  if (gesture.id === 'gesture-hold-hem-teeth') return { ...gesture, en: mouthHeldHemText(name) };\n",
+            "  return { ...gesture, en: gesture.en + ', fully revealing the front of the ' + name + ' underneath' };\n"
+          ]
+        }
+      ]
+    }
+  ]
+}

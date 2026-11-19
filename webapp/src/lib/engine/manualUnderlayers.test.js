@@ -4,6 +4,7 @@ import { normalizeLocks, getLockControls } from '../engine.js';
 import { seatFixture, seatFramings } from './indoorSeatFixtures.js';
 import { buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 import { withGrokImagineForSave } from '../grokImagineResult.js';
+import { upperUnderlayerFront } from './manualUnderlayers.js';
 
 const controls = getLockControls();
 const option = (key, zh) => controls.find(c => c.key === key).options.find(o => o.zh === zh).id;
@@ -19,13 +20,13 @@ test('both manual gestures, underwear colors and waist setting survive generatio
       const {prompt,cards} = run({...chosen,gestureId},frame);
       for (const [key,id] of Object.entries(chosen)) assert.equal(prompt.selection[key],id,key);
       const grok = cards.find(c=>c.id==='grok-imagine') ?? cards.at(-1);
-      assert.match(grok.value,/white lace bra top/);
+      assert.match(grok.value,/white lace bra cups/);
       assert.match(grok.value,/black low-rise side-tie bikini bottoms/);
-      if (gestureId === 'gesture-lift-hem-both') assert.match(grok.value, /base of her neck/);
+      if (gestureId === 'gesture-lift-hem-both') assert.match(grok.value, /collarbone height/);
       assert.match(grok.value, /collarbones/);
       assert.match(grok.value, gestureId.endsWith('teeth')
-        ? /She holds the center of the front hem of her top between her teeth\. The lifted front panel fans out from her mouth in one continuous triangular fold, with the fabric gathered high across her collarbones\. The lace bra top underneath is fully visible\. Both hands rest behind her back\./
-        : /both hands gripping opposite sides/);
+        ? /between her front teeth.*white lace bra cups.*Both hands rest behind her back\./s
+        : /one hand on each side/);
       const card=withGrokImagineForSave({...prompt,source:'page1'});
       const parsed=parseExportedMarkdownPrompt(buildMarkdownExport(card),controls,'layers');
       for (const [key,id] of Object.entries(chosen)) assert.equal(parsed.selection[key],id);
@@ -42,8 +43,8 @@ test('inactive manual choices survive editing without changing any of the seven 
   assert.equal(run({...closed,...chosen}).prompt.selection.topUnderlayerId,undefined);
 });
 
-test('all eleven catalog IDs and both waist settings keep effective selections and the seven output contracts', async () => {
-  const upperNames=['比基尼上身','運動型內衣','蕾絲胸罩','小三角細繩比基尼上身','X形胸貼','創可貼造型胸貼'];
+test('all supported inner garments and both waist settings keep effective selections and the seven output contracts', async () => {
+  const upperNames=['比基尼上身','運動型內衣','蕾絲胸罩','小三角細繩比基尼上身','X形胸貼','創可貼造型胸貼','棉質細肩背心'];
   const lowerNames=['比基尼下身','蕾絲丁字褲','棉質低腰三角褲','窄前片細繩蕾絲丁字褲','窄前片細繩比基尼下身'];
   const full=seatFramings.find(f=>f.includes('full-body-shot'));
   const {midjourneyItemName}=await import('./midjourneyNaturalPrompt.js');
@@ -54,23 +55,16 @@ test('all eleven catalog IDs and both waist settings keep effective selections a
       assert.equal(cards.length,7);
       const innerTop=prompt.structured.Wardrobe.find(i=>i.id===base.topId).meta.underlayer.item;
       const innerBottom=prompt.structured.Wardrobe.find(i=>i.id===base.pantsId).meta.underlayer.item;
-      if (gestureId === 'gesture-hold-hem-teeth') {
-        const noun = midjourneyItemName(innerTop);
-        const verb = ['X形胸貼', '創可貼造型胸貼'].includes(name) ? 'are' : 'is';
-        assert.ok(cards.find(c => c.id === 'grok-imagine').value.includes(
-          `The ${noun} underneath ${verb} fully visible. Both hands rest behind her back.`));
-      }
       assert.equal(innerTop.id,topUnderlayerId);
       assert.equal(innerBottom.id,bottomUnderlayerId);
       for(const card of cards) {
+        const expectedTop = card.id === 'full-body-character' ? innerTop.en : upperUnderlayerFront(innerTop).split(',')[0];
+        assert.ok(card.value.toLowerCase().includes(expectedTop.toLowerCase()), card.id + ' ' + name);
         if (card.id==='ai') {
-          assert.ok(card.value.includes(midjourneyItemName(innerTop)),card.id);
           assert.ok(card.value.includes(midjourneyItemName(innerBottom)),card.id);
         } else if (['gpt','grok-imagine','full-body-character','chest-up-portrait'].includes(card.id)) {
-          assert.ok(card.value.toLowerCase().includes(innerTop.en.toLowerCase()),card.id+' '+name);
           assert.ok(card.value.toLowerCase().includes(innerBottom.en.toLowerCase()),card.id);
         } else {
-          assert.ok(card.value.toLowerCase().includes(innerTop.en.split(',')[0].toLowerCase()),card.id);
           assert.ok(card.value.toLowerCase().includes(innerBottom.en.split(',')[0].toLowerCase()),card.id);
         }
       }
@@ -90,8 +84,8 @@ test('ZIP import restores two independent manual layers and colors',async()=>{
 
 test('gesture-only, ordinary and incompatible waist selections keep their respective actions and owners',()=>{
   const under=run({gestureId:'gesture-hold-hem-teeth'});
-  assert.match(under.cards.at(-1).value, /high across her collarbones\. Both hands rest behind her back\./);
-  assert.doesNotMatch(under.cards.at(-1).value, /underneath (is|are) fully visible/);
+  assert.match(under.cards.at(-1).value, /along her collarbones\. Both hands rest behind her back\./);
+  assert.doesNotMatch(under.cards.at(-1).value, /Below the raised hem/);
   for(const conflicts of [{bottomRiseId:'low-rise'},{bottomRiseId:'mid-rise'},{bottomRiseId:'random'},
     {bottomRiseId:'unbuttoned-slightly-unzipped',pantsId:option('pantsId','運動棉褲')}]){
     assert.deepEqual(run({...conflicts,bottomUnderlayerId:chosen.bottomUnderlayerId}).cards,run(conflicts).cards);

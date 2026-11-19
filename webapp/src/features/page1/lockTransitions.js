@@ -8,6 +8,7 @@ import {
 } from '../../lib/engine.js';
 import { DUO_ROLE_WARDROBE_KEYS } from './page1Schema.js';
 import { applicableGestureOptions, gazeForHeadPosture } from '../../lib/engine/gazeGesture.js';
+import { underlayerField } from '../../lib/engine/manualUnderlayers.js';
 import { postureConflictsWithGaze } from '../../lib/engine/headPosture.js';
 import { SPECIFIED_ACTION_RANDOM_ID, getSpecifiedAction } from '../../lib/engine/specifiedActions.js';
 import { isNoneSelected } from './page1Selectors.js';
@@ -85,7 +86,9 @@ export function transitionPage1Locks({
     ['topBottomPaletteBId', 'topBColorId', 'bottomBColorId'],
   ].forEach(([paletteKey, topColorKey, bottomColorKey]) => {
     if (next[paletteKey] && !isNoneSelected(paletteKey, next[paletteKey], lockControls)) {
-      next[topColorKey] = 'none';
+      if (topColorKey !== 'topColorId' || underlayerField(next, lockControls, 'gestureId')?.itemKey !== 'topUnderlayerId') {
+        next[topColorKey] = 'none';
+      }
       next[bottomColorKey] = 'none';
     }
   });

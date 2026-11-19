@@ -2,7 +2,7 @@ import { isPhoneProp, phoneCaptureStatus, migratePhoneCaptureLocks, COMPANION_OR
 import { applyIndoorSeat, indoorSeatingModel, isIndoorSeatId } from './engine/indoorSeating.js';
 import { applyIndoorLean, indoorLeaningModel, isIndoorLeanId } from './engine/indoorLeaning.js';
 import { isSkirtLiftGesture } from './engine/skirtUnderlayers.js';
-import { THIGH_RISE, attachUnderlayers, describeRevealGesture, normalizeUnderlayers, prepareUnderlayerHosts, underlayerField } from './engine/manualUnderlayers.js';
+import { THIGH_RISE, attachUnderlayers, describeRevealGesture, normalizeUnderlayers, prepareUnderlayerHosts, underlayerField, upperUnderlayerFront } from './engine/manualUnderlayers.js';
 import { applyIndoorKneel, indoorKneelingModel, isIndoorKneelId } from './engine/indoorKneeling.js';
 import { registerGrokImagineResult } from './grokImagineResult.js';
 import { seasonAllowsAmbient, styleAllowsLocation, styleAllowsAmbient, styleAllowsSubject, styleAllowsShutter } from './engine/captureCompatibility.js';
@@ -23,7 +23,7 @@ import { midjourneyBodyDescription } from './engine/midjourneyBodyDescriptions.j
 import { SPECIFIED_ACTION_OPTIONS, getSpecifiedAction, getSpecifiedActionEffectiveLocks, resolveRandomSpecifiedAction, specifiedActionSupportsCamera } from './engine/specifiedActions.js';
 import { LYING_CAMERA_OPTIONS, isLyingAction, lyingSurfaceFor, resolveLyingCamera, withLyingSurface } from './engine/lyingSurface.js';
 import { HEAD_POSTURE_OPTIONS, headPostureById, mergeHeadPosture, resolveHeadPosture } from './engine/headPosture.js';
-import { CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, actionTextWithGesture, applyCaptureStyleLocks, authoredGazeHead, expressionHasReviewedEyesAndMouth, gazeAvoidsBackView, gazeUsesHeadOnly, isBackViewOrbit, resolveGaze, resolveGesture, resolveProp } from './engine/gazeGesture.js';
+import { CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, actionTextWithGesture, applyCaptureStyleLocks, authoredGazeHead, expressionHasReviewedEyesAndMouth, gazeAvoidsBackView, gazeUsesHeadOnly, isBackViewOrbit, isRaisedTopHemGesture, resolveGaze, resolveGesture, resolveProp } from './engine/gazeGesture.js';
 import { applyDefaultEthnicity, applyDefaultEthnicityToCharacter, resolveDefaultEthnicity } from './engine/defaultEthnicity.js';
 import { renderNanoBananaNarrative } from './engine/nanoBananaPrompt.js';
 import { polishPublicPromptText } from './engine/publicPromptPolish.js';
@@ -5295,7 +5295,7 @@ function buildPoseComposerItem(context) {
     const head = resolveHead(null, orientation);
     const headText = isActivePoseComposerOption(head) ? `She has ${normalizePoseComposerHeadPhrase(head)}.` : '';
     const phoneStatus = phoneCaptureStatus(context.locks, specifiedAction);
-    const gesture = describeRevealGesture(resolveGesture(phoneStatus.active ? 'none' : context.locks?.gestureId, specifiedAction, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random), context.revealedUnderlayer, context.liftedSkirt);
+    const gesture = describeRevealGesture(resolveGesture(phoneStatus.active ? 'none' : context.locks?.gestureId, specifiedAction, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random), context.revealedUnderlayer, context.liftedSkirt, context.raisedHem);
     if (context.poseResolution) context.poseResolution.gesture = gesture;
     const prop = resolveProp(phoneStatus.selected && !phoneStatus.active ? 'none' : context.locks?.propId, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random);
     if (context.poseResolution) context.poseResolution.prop = prop;
@@ -5811,6 +5811,14 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
   if (specifiedAction) {
     if (projection.pose?.mode === 'omit') return specifiedAction.faceEn || (specifiedAction.meta?.supineGroundOnly ? 'She is lying on her back on the ground.' : '');
     if (projection.pose?.mode === 'fullCanonical' || projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE) {
+      if (context.referencePersonPreview && context.raisedHem && isRaisedTopHemGesture(poseComposer.meta?.gestureId)) {
+        const gesture = GESTURE_OPTIONS.find(option => option.id === poseComposer.meta.gestureId);
+        const prop = omitProp ? null : PROP_OPTIONS.find(option => option.en && option.id === poseComposer.meta?.propId) || null;
+        const pose = actionTextWithGesture(specifiedAction, gesture, {}, prop).en;
+        const placed = withLyingSurface(applyIndoorKneel(applyIndoorLean(applyIndoorSeat(pose, context.indoorSeat), context.indoorLean), context.indoorKneel), lyingSurfaceFor(specifiedAction, context.location));
+        const head = headOptionFromMeta(poseComposer.meta);
+        return [placed, isActivePoseComposerOption(head) ? `She has ${normalizePoseComposerHeadPhrase(head)}.` : ''].filter(Boolean).join(' ');
+      }
       if (!omitProp || !isPhoneProp(poseComposer.meta?.propId)) return poseComposer.en;
       const gesture = isSkirtLiftGesture(poseComposer.meta?.gestureId)
         ? describeRevealGesture(GESTURE_OPTIONS.find(o=>o.id===poseComposer.meta.gestureId), poseComposer.meta.revealedUnderlayer, poseComposer.meta.liftedSkirt)
@@ -5819,7 +5827,7 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
       return [withLyingSurface(applyIndoorKneel(applyIndoorLean(applyIndoorSeat(actionTextWithGesture(specifiedAction,gesture).en,context.indoorSeat),context.indoorLean),context.indoorKneel),lyingSurfaceFor(specifiedAction,context.location)),isActivePoseComposerOption(head)?`She has ${normalizePoseComposerHeadPhrase(head)}.`:''].filter(Boolean).join(' ');
     }
     const head = headOptionFromMeta(poseComposer.meta);
-    const gesture = describeRevealGesture(GESTURE_OPTIONS.find(option => option.scope && option.id === poseComposer.meta?.gestureId), poseComposer.meta?.revealedUnderlayer, poseComposer.meta?.liftedSkirt);
+    const gesture = describeRevealGesture(GESTURE_OPTIONS.find(option => option.scope && option.id === poseComposer.meta?.gestureId), poseComposer.meta?.revealedUnderlayer, poseComposer.meta?.liftedSkirt, context.referencePersonPreview ? null : context.raisedHem);
     const prop = omitProp ? null : PROP_OPTIONS.find(option => option.en && option.id === poseComposer.meta?.propId) || null;
     const chestUp = projection.bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP;
     // Source-marked exclusions preserve close framings that share the chest-up
@@ -7888,7 +7896,13 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
       ) || '-';
     }
 
-    const topLabel = wardrobeSlots.top?.zh && !isNoneLikeItem(wardrobeSlots.top)
+    const raisedHem = isRaisedTopHemGesture(context.poseResolution?.gesture?.id) ? context.raisedHem : null;
+    const topLabel = raisedHem
+      ? joinSummaryParts(
+          raisedHem.hemColor ? `衣襬配色：${raisedHem.hemColor.zh}` : '',
+          raisedHem.item ? `上身內搭：${[raisedHem.color?.zh, raisedHem.item.zh].filter(Boolean).join('｜')}` : '',
+        )
+      : wardrobeSlots.top?.zh && !isNoneLikeItem(wardrobeSlots.top)
       ? joinSummaryParts(
           wardrobeSlots.top.zh,
           wardrobeSlots.topPattern?.zh && !isNoneLikeItem(wardrobeSlots.topPattern) ? wardrobeSlots.topPattern.zh : ''
@@ -8281,6 +8295,13 @@ function extractWardrobeSlots(wardrobe) {
     neckAccessoryB: findRoleSlot('wardrobe:頸部-neck-accessories:', 'b', 'neckAccessory'),
     waistAccessoryB: findRoleSlot('wardrobe:腰部配件-waist-accessories:', 'b', 'waistAccessory'),
   };
+}
+
+function projectRaisedTopHemWardrobe(wardrobe, context) {
+  if (!context.raisedHem || !isRaisedTopHemGesture(context.poseResolution?.gesture?.id)
+    || getCompositionVisibilityProjection(context).pose?.mode === 'omit') return wardrobe;
+  const { top, topFit, topStyling, topPattern } = extractWardrobeSlots(wardrobe);
+  return wardrobe.filter(item => item !== top && item !== topFit && item !== topStyling && item !== topPattern);
 }
 
 function isCharacterCardLayerSlot(item, key = '') {
@@ -12980,7 +13001,10 @@ function buildFixedFramingDerivedPromptModel({
   film,
 }) {
   const baseDerivedContext = createFixedFramingDerivedContext(sourceContext, preset);
-  if (preset.id === 'chest-up-portrait') baseDerivedContext.compositionVisibility = retainResolvedWardrobe(baseDerivedContext.compositionVisibility);
+  if (preset.id === 'chest-up-portrait') {
+    baseDerivedContext.compositionVisibility = retainResolvedWardrobe(baseDerivedContext.compositionVisibility);
+    wardrobe = projectRaisedTopHemWardrobe(wardrobe, baseDerivedContext);
+  }
   wardrobe = projectUnderbustTopFit(projectClosedOuterwearWardrobe(projectOuterwearStyling(projectTopHemOverlap(baseDerivedContext.compositionVisibility.wardrobe.retainResolved ? wardrobe : projectAudioForFraming(wardrobe, baseDerivedContext), baseDerivedContext), getCompositionVisibilityProjection(baseDerivedContext))), getCompositionVisibilityProjection(baseDerivedContext));
 
   if (!preset.projectResolvedSources) {
@@ -16087,6 +16111,7 @@ function buildGrokImaginePrototype(context, character, wardrobe, wardrobeColors)
   const fullProjection = { ...COMPOSITION_VISIBILITY_CONTRACT.unconstrained, bucket: COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED };
   const fullContext = { ...context, compositionVisibility: fullProjection };
   fullContext.projectedScene = buildProjectedScene(fullContext);
+  prototypeWardrobe = projectRaisedTopHemWardrobe(prototypeWardrobe, fullContext);
   const sections = buildStructuredPromptSections(fullContext, character, prototypeWardrobe, prototypeColors, context.lightDirection, context.film);
   const source = buildGptPromptSectionSources(sections.valuesByLabel, fullContext, { includeBodyType: true });
   const slots = extractCharacterSlots(character);
@@ -16184,7 +16209,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     projectedScene: buildProjectedScene(rendererContext),
   };
   const projectedCharacter = projectBodyTypeCharacter(character, mainContext);
-  const wardrobeSource = fixedCompositionPromptProjection?.wardrobe.items || wardrobe;
+  const wardrobeSource = fixedCompositionPromptProjection?.wardrobe.items || projectRaisedTopHemWardrobe(wardrobe, mainContext);
   const rendererWardrobe = projectUnderbustTopFit(projectClosedOuterwearWardrobe(projectOuterwearStyling(projectTopHemOverlap(compositionVisibility.wardrobe.retainResolved ? wardrobeSource : projectAudioForFraming(wardrobeSource, mainContext), mainContext), getCompositionVisibilityProjection(mainContext))), getCompositionVisibilityProjection(mainContext));
   const rendererWardrobeColors = fixedCompositionPromptProjection?.wardrobe.colors || wardrobeColors;
   const promptModel = {
@@ -16553,6 +16578,11 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     const top = host.id === context.locks.topId;
     snapshot[top ? 'topUnderlayerId' : 'bottomUnderlayerId'] = layer.item.id;
     if (layer.color) snapshot[top ? 'topUnderlayerColorId' : 'bottomUnderlayerColorId'] = layer.color.id;
+  }
+  if (context.raisedHem && isRaisedTopHemGesture(gesture?.id)) {
+    if (context.raisedHem.item) snapshot.topUnderlayerId = context.raisedHem.item.id;
+    if (context.raisedHem.color) snapshot.topUnderlayerColorId = context.raisedHem.color.id;
+    snapshot.topColorId = context.raisedHem.hemColor?.id || 'none';
   }
   if (context.indoorSeat?.selectedId) snapshot.indoorSeatId = context.indoorSeat.selectedId;
   if (context.indoorLean?.selectedId) snapshot.indoorLeanId = context.indoorLean.selectedId;
@@ -16927,6 +16957,16 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
   if (['半臉傾斜特寫', '全臉傾斜特寫', '頭部主導近景', '中景鏡頭 (Medium Shot)', '牛仔中景 (Cowboy Shot)', '全身鏡頭 (Full Body Shot)'].includes(framing?.zh)) {
     compositionVisibility = retainResolvedWardrobe(compositionVisibility);
   }
+  const innerLayer = underlayerField(effectiveLocks, lockControls, 'gestureId');
+  const raisedHem = innerLayer && isRaisedTopHemGesture(effectiveLocks.gestureId)
+    ? {
+        item: innerLayer.item,
+        color: innerLayer.color,
+        hemColor: innerLayer.hemColor,
+        top: composeWearableColorPrompt('top', innerLayer.hemColor),
+        inner: composeWearableColorPrompt(upperUnderlayerFront(innerLayer.item), innerLayer.color),
+      }
+    : null;
   const context = {
     headDominantSuppressedAngleId: suppressHeadDominantAngle ? effectiveLocks.angleId : '',
     subject,
@@ -16940,8 +16980,9 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
     fixedFramingCompositionOpening,
     angle,
     orbit,
-    revealedUnderlayer: (effectiveLocks.topUnderlayerId || isSkirtLiftGesture(effectiveLocks.gestureId)) && underlayerField(effectiveLocks, lockControls, 'gestureId')?.item,
-    liftedSkirt: isSkirtLiftGesture(effectiveLocks.gestureId) ? underlayerField(effectiveLocks, lockControls, 'gestureId')?.host : undefined,
+    revealedUnderlayer: innerLayer?.item,
+    liftedSkirt: isSkirtLiftGesture(effectiveLocks.gestureId) ? innerLayer?.host : undefined,
+    raisedHem,
     indoorSeat: indoorSeatingModel(requestedLocks, location, lockControls),
     indoorLean: indoorLeaningModel(requestedLocks, location, lockControls),
     indoorKneel: indoorKneelingModel(requestedLocks, location, lockControls),

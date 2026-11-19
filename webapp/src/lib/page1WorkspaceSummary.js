@@ -2,8 +2,9 @@ import { activeImportedPerson, importedPersonLocks } from './observationCaptureI
 import { CAPTURE_GROUPS, resolveCapture } from './observationCaptureMode.js';
 import { DUO_ROLES, getDuoRoleSummary } from '../features/page1/duoEditor.js';
 import { getSpecifiedAction } from './engine/specifiedActions.js';
-import { applicableGestureOptions, closedEyeGazeLabel, gazeUsesHeadOnly } from './engine/gazeGesture.js';
-import { isPhoneProp } from './engine/phoneCapture.js';
+import { applicableGestureOptions, closedEyeGazeLabel, gazeUsesHeadOnly, isRaisedTopHemGesture } from './engine/gazeGesture.js';
+import { isPhoneProp, phoneCaptureStatus } from './engine/phoneCapture.js';
+import { underlayerField } from './engine/manualUnderlayers.js';
 import { bottomRiseConflict, bottomRiseControlContext } from './engine/bottomRiseCompatibility.js';
 import { isHeadDominantFraming, headDominantAngleAllowed } from './engine/headDominantFraming.js';
 import { CHARACTER_CARD_LAYER_KEYS, CHARACTER_CARD_LAYER_LABELS } from './characterCardLab.js';
@@ -270,6 +271,8 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
       locks.subjectCount === '1' ? gazeLabel : '',
     ]);
   const legacyDressPalette = getLegacyDressPalette(locks, controls);
+  const raisedHem = isRaisedTopHemGesture(locks.gestureId) && !phoneCaptureStatus(locks, specifiedAction).active
+    ? underlayerField(locks, controls, 'gestureId') : null;
   const wardrobeSummary = isSpecialSubjectMode ? '' : buildSummaryText([
     ...importedCharacterCardWardrobe,
     wardrobeLabel('specialOutfitId'),
@@ -285,11 +288,14 @@ export function buildWorkspaceSummary(locks, controls, { groupDuo = true } = {})
     legacyDressPalette ? `連身配色：${legacyDressPalette.zh}` : '',
     wardrobeLabel('dressAId'),
     wardrobeLabel('dressBId'),
-    wardrobeLabel('topId'),
+    raisedHem
+      ? raisedHem.hemColor ? `衣襬配色：${raisedHem.hemColor.zh}` : ''
+      : wardrobeLabel('topId'),
+    raisedHem?.item ? `上身內搭：${[raisedHem.color?.zh, raisedHem.item.zh].filter(Boolean).join('｜')}` : '',
     wardrobeLabel('topAId'),
     wardrobeLabel('topBId'),
-    wardrobeLabel('topFitId'),
-    wardrobeLabel('topStylingId'),
+    raisedHem ? '' : wardrobeLabel('topFitId'),
+    raisedHem ? '' : wardrobeLabel('topStylingId'),
     wardrobeLabel('outerwearId'),
     wardrobeLabel('outerwearFitId'),
     wardrobeLabel('outerwearColorId'),

@@ -112,15 +112,18 @@ export function resolveGaze(gazeId, context = {}, random = Math.random) {
 
 const gesture = (id, zh, en, scope, extra = {}) => freeze({ id, zh, en, scope, meta: freeze({ tags: freeze(['gesture']), ...extra }) });
 
-export function mouthHeldHemText(underlayerName) {
-  const visibility = underlayerName
-    ? `The ${underlayerName} underneath ${underlayerName.endsWith('pasties') ? 'are' : 'is'} fully visible.`
-    : '';
+export const isRaisedTopHemGesture = id => id === 'gesture-lift-hem-both' || id === 'gesture-hold-hem-teeth';
+
+export function raisedTopHemText(id, top = 'top', inner = '') {
+  const heldByMouth = id === 'gesture-hold-hem-teeth';
+  const grip = heldByMouth
+    ? `She holds the center of the bottom hem between her front teeth, lifting her ${top}.`
+    : `She grips the left and right sides of the same bottom hem, one hand on each side, and lifts her ${top} to collarbone height.`;
   return [
-    'She holds the center of the front hem of her top between her teeth.',
-    'The lifted front panel fans out from her mouth in one continuous triangular fold, with the fabric gathered high across her collarbones.',
-    visibility,
-    'Both hands rest behind her back.',
+    grip,
+    'The entire front panel lifts clear of her waist and gathers in broad, connected folds along her collarbones.',
+    inner ? `Below the raised hem, the inner layer shows ${inner}.` : '',
+    heldByMouth ? 'Both hands rest behind her back.' : 'Her elbows bend naturally outward.',
   ].filter(Boolean).join(' ');
 }
 
@@ -181,10 +184,10 @@ export const GESTURE_OPTIONS = freeze([
     { requiresWardrobeRole: 'eyewear', randomEligible: false, requiresFaceVisibility: true, alsoScopes: freeze(['squatting', 'lying-supine', 'lying-side', 'lying-prone']) })),
   gesture('gesture-legacy-supine-palms-cheek', '仰躺雙手合掌靠在臉側', 'both palms together beside one cheek with relaxed elbows', 'lying-supine',
     { requiresFaceVisibility: true }),
-  gesture('gesture-lift-hem-both', '雙手上拉衣襬', 'both hands gripping opposite sides of the front hem of her top and lifting it to the base of her neck, the fabric bunched along her collarbones above her chest', 'general',
-    { requiresWardrobeRole: 'topHem', randomEligible: false }),
-  gesture('gesture-hold-hem-teeth', '嘴咬衣襬，雙手背後', mouthHeldHemText(), 'general',
-    { requiresWardrobeRole: 'topHem', randomEligible: false }),
+  gesture('gesture-lift-hem-both', '雙手上拉衣襬', raisedTopHemText('gesture-lift-hem-both'), 'general',
+    { randomEligible: false }),
+  gesture('gesture-hold-hem-teeth', '嘴咬衣襬，雙手背後', raisedTopHemText('gesture-hold-hem-teeth'), 'general',
+    { randomEligible: false }),
   gesture('gesture-lift-skirt-both', '雙手提起裙擺', 'both hands lifting the front of her skirt above her hips', 'general',
     { randomEligible: false }),
   gesture('gesture-prone-chin-hands', '下巴靠在交疊的雙手上', 'her chin resting on her stacked hands', 'lying-prone'),
@@ -295,7 +298,7 @@ export function resolveProp(propId, { wardrobeSignals = {}, orbit = null } = {},
  * carry its own medium-crop fragment and drop out of chest-up; an action may omit
  * its own upper-body text (squatting v1 O6), leaving only the gesture. */
 export function actionTextWithGesture(action, option, { chestUp = false } = {}, prop = null) {
-  if (option?.id === 'gesture-hold-hem-teeth') {
+  if (isRaisedTopHemGesture(option?.id)) {
     // This gesture is authored as complete sentences after the existing pose.
     const pose = actionTextWithGesture(action, null, { chestUp }, prop);
     return {

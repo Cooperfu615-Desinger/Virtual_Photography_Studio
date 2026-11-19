@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import review from './gestureExpressionGazeHistory.json' with { type: 'json' };
 
+import raisedTopHem from './raisedTopHemHistory.json' with { type: 'json' };
 import page3FieldActions from './page3FieldActionsHistory.json' with { type: 'json' };
 import page3Person from './page3PersonHistory.json' with { type: 'json' };
 import page3Compression from './page3PromptCompressionHistory.json' with { type: 'json' };
@@ -11,7 +12,7 @@ import closedEyeReview from './closedEyeGazeHistory.json' with { type: 'json' };
 
 const hash = source => createHash('sha256').update(source).digest('hex');
 export const gestureExpressionGazeHistoricalPaths = [...new Set(
-  [...page3FieldActions.files, ...page3Person.files, ...page3Compression.files, ...closedEyeReview.files, ...review.files].map(file => file.path)
+  [...raisedTopHem.files, ...page3FieldActions.files, ...page3Person.files, ...page3Compression.files, ...closedEyeReview.files, ...review.files].map(file => file.path)
 )];
 export function preGestureExpressionGazeSource(path, source) {
   const prePage3PromptSource = reverseReviewedSource(page3Compression, path, prePage3PersonSource(path, source));
@@ -19,7 +20,11 @@ export function preGestureExpressionGazeSource(path, source) {
 }
 
 export function prePage3FieldActionsSource(path, source) {
-  return reverseReviewedSource(page3FieldActions, path, source);
+  return reverseReviewedSource(page3FieldActions, path, preRaisedTopHemSource(path, source));
+}
+
+export function preRaisedTopHemSource(path, source) {
+  return reverseReviewedSource(raisedTopHem, path, source);
 }
 
 export function prePage3PersonSource(path, source) {
