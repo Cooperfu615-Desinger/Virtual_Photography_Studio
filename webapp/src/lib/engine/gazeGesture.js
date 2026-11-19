@@ -130,7 +130,7 @@ export function withAdjustedTop(gesture, action, top) {
 export function withWaistbandLift(gesture, sides, bottom) {
   return {
     ...gesture,
-    en: `She pulls the ${sides} as high as they will go, one hand on each side of her ${bottom}.`,
+    en: `She grips the ${sides} of her ${bottom}, one hand on each side, and pulls straight up until both hands and the front edge are above her belly button, stretching the front panel taut with visible tension lines running toward both hands.`,
     meta: { ...gesture.meta, standaloneSentence: true },
   };
 }

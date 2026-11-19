@@ -1,0 +1,90 @@
+{
+  "files": [
+    {
+      "path": "webapp/src/lib/engine/gazeGesture.js",
+      "beforeHash": "a9fddacbbe9149fd6c52f480d1bdc92f1cbd90f3c1669864cbc78ee283b388eb",
+      "afterHash": "d061c7eea0851c52966d64ce98f52cb0ddfce161be3d5b4d6fe109c39167d554",
+      "edits": [
+        {
+          "line": 132,
+          "after": [
+            "    en: `She grips the ${sides} of her ${bottom}, one hand on each side, and pulls straight up until both hands and the front edge are above her belly button, stretching the front panel taut with visible tension lines running toward both hands.`,\n"
+          ],
+          "before": [
+            "    en: `She pulls the ${sides} as high as they will go, one hand on each side of her ${bottom}.`,\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/manualUnderlayers.test.js",
+      "beforeHash": "4714e39f9837d992ff8b22666a2f64473b2e1b467be1d34bf8911198715df33a",
+      "afterHash": "2b010741df1f380a736164e9195f58bbf86e4e1b4765498380bf8c2b5d2ad196",
+      "edits": [
+        {
+          "line": 96,
+          "after": [
+            "test('waistband lift places both hands above the belly button and visibly pulls the chosen fabric taut', () => {\n"
+          ],
+          "before": [
+            "test('waistband lift uses exactly the chosen bottom, color and two-handed lift in visible outputs', () => {\n"
+          ]
+        },
+        {
+          "line": 100,
+          "after": [
+            "    ['\u68c9\u8cea\u4f4e\u8170\u4e09\u89d2\u8932', 'sides of the waistband'],\n"
+          ],
+          "before": [
+            "    ['\u68c9\u8cea\u4f4e\u8170\u4e09\u89d2\u8932', 'waistband'],\n"
+          ]
+        },
+        {
+          "line": 107,
+          "after": [
+            "        assert.doesNotMatch(value, /above her belly button/i, id);\n"
+          ],
+          "before": [
+            "        assert.doesNotMatch(value, /as high as they will go/i, id);\n"
+          ]
+        },
+        {
+          "line": 109,
+          "after": [
+            "        assert.doesNotMatch(value, /above her belly button|cargo pants|red (?:bikini|lace thong|cotton briefs)/i, id);\n"
+          ],
+          "before": [
+            "        assert.doesNotMatch(value, /as high as they will go|cargo pants|red (?:bikini|lace thong|cotton briefs)/i, id);\n"
+          ]
+        },
+        {
+          "line": 111,
+          "after": [
+            "        assert.match(value, new RegExp(`grips the ${fragment} of her red[^.]+one hand on each side, and pulls straight up until both hands and the front edge are above her belly button, stretching the front panel taut with visible tension lines running toward both hands`, 'i'), id);\n"
+          ],
+          "before": [
+            "        assert.match(value, new RegExp(fragment + ' as high as they will go, one hand on each side of her red', 'i'), id);\n"
+          ]
+        },
+        {
+          "line": 132,
+          "after": [
+            "  assert.match(waistbandRun({ pantsId: option('pantsId', '\u5168\u7121') }).prompt.grokPrompt, /side ties of her red bikini bottoms.*above her belly button/i);\n"
+          ],
+          "before": [
+            "  assert.match(waistbandRun({ pantsId: option('pantsId', '\u5168\u7121') }).prompt.grokPrompt, /side ties as high as they will go.*red bikini bottoms/i);\n"
+          ]
+        },
+        {
+          "line": 140,
+          "after": [
+            "    if (id === 'grok-imagine') assert.match(value, /side ties of her red bikini bottoms.*above her belly button/i);\n"
+          ],
+          "before": [
+            "    if (id === 'grok-imagine') assert.match(value, /side ties as high as they will go.*red bikini bottoms/i);\n"
+          ]
+        }
+      ]
+    }
+  ]
+}

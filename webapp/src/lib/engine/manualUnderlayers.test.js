@@ -94,22 +94,22 @@ test('adjust top is independent of C-section tops but yields to selfies and opaq
   }
 });
 
-test('waistband lift uses exactly the chosen bottom, color and two-handed lift in visible outputs', () => {
+test('waistband lift places both hands above the belly button and visibly pulls the chosen fabric taut', () => {
   for (const [label, fragment] of [
     ['比基尼下身', 'side ties'],
     ['蕾絲丁字褲', 'side straps'],
-    ['棉質低腰三角褲', 'waistband'],
+    ['棉質低腰三角褲', 'sides of the waistband'],
   ]) {
     const waistbandBottomId = option('pantsId', label);
     const { cards, prompt } = waistbandRun({ waistbandBottomId });
     for (const { id, value } of cards) {
       if (id === 'full-body-character') {
         assert.match(value, /cargo pants/i, id);
-        assert.doesNotMatch(value, /as high as they will go/i, id);
+        assert.doesNotMatch(value, /above her belly button/i, id);
       } else if (id === 'chest-up-portrait') {
-        assert.doesNotMatch(value, /as high as they will go|cargo pants|red (?:bikini|lace thong|cotton briefs)/i, id);
+        assert.doesNotMatch(value, /above her belly button|cargo pants|red (?:bikini|lace thong|cotton briefs)/i, id);
       } else {
-        assert.match(value, new RegExp(fragment + ' as high as they will go, one hand on each side of her red', 'i'), id);
+        assert.match(value, new RegExp(`grips the ${fragment} of her red[^.]+one hand on each side, and pulls straight up until both hands and the front edge are above her belly button, stretching the front panel taut with visible tension lines running toward both hands`, 'i'), id);
         assert.doesNotMatch(value, /small upward tug|cargo pants|outer waistband/i, id);
       }
       assert.match(value, /off-shoulder top/i, id);
@@ -130,7 +130,7 @@ test('waistband settings and the paused C-section bottom survive Markdown and ca
 });
 
 test('waistband lift works with no C-section bottom and pauses while a phone uses the hands', () => {
-  assert.match(waistbandRun({ pantsId: option('pantsId', '全無') }).prompt.grokPrompt, /side ties as high as they will go.*red bikini bottoms/i);
+  assert.match(waistbandRun({ pantsId: option('pantsId', '全無') }).prompt.grokPrompt, /side ties of her red bikini bottoms.*above her belly button/i);
   const propId = 'selfie-natural-right-arm';
   assert.deepEqual(waistbandRun({ propId }).cards, waistbandRun({ propId, gestureId: 'none' }).cards);
 });
@@ -138,7 +138,7 @@ test('waistband lift works with no C-section bottom and pauses while a phone use
 test('tight framing omits the waistband lift and the chosen bottom except in Grok Imagine', () => {
   const { cards } = waistbandRun({}, option('framingId', '頭部主導近景'));
   for (const { id, value } of cards) {
-    if (id === 'grok-imagine') assert.match(value, /side ties as high as they will go.*red bikini bottoms/i);
+    if (id === 'grok-imagine') assert.match(value, /side ties of her red bikini bottoms.*above her belly button/i);
     else assert.doesNotMatch(value, /side ties as high as they will go|red bikini bottoms/i, id);
   }
 });
