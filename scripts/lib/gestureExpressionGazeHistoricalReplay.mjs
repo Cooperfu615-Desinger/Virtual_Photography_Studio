@@ -8,6 +8,7 @@ import raisedTopHem from './raisedTopHemHistory.json' with { type: 'json' };
 import underbustTeeGesture from './underbustTeeGestureHistory.json' with { type: 'json' };
 import waistbandLiftGesture from './waistbandLiftGestureHistory.json' with { type: 'json' };
 import adjustTopGesture from './adjustTopGestureHistory.json' with { type: 'json' };
+import bodyTightFit from './bodyTightFitHistory.json' with { type: 'json' };
 import page3FieldActions from './page3FieldActionsHistory.json' with { type: 'json' };
 import page3Person from './page3PersonHistory.json' with { type: 'json' };
 import page3Compression from './page3PromptCompressionHistory.json' with { type: 'json' };
@@ -15,7 +16,7 @@ import closedEyeReview from './closedEyeGazeHistory.json' with { type: 'json' };
 
 const hash = source => createHash('sha256').update(source).digest('hex');
 export const gestureExpressionGazeHistoricalPaths = [...new Set(
-  [...adjustTopGesture.files, ...waistbandLiftGesture.files, ...underbustTeeGesture.files, ...raisedTopHem.files, ...page3FieldActions.files, ...page3Person.files, ...page3Compression.files, ...closedEyeReview.files, ...review.files].map(file => file.path)
+  [...bodyTightFit.files, ...adjustTopGesture.files, ...waistbandLiftGesture.files, ...underbustTeeGesture.files, ...raisedTopHem.files, ...page3FieldActions.files, ...page3Person.files, ...page3Compression.files, ...closedEyeReview.files, ...review.files].map(file => file.path)
 )];
 export function preGestureExpressionGazeSource(path, source) {
   const prePage3PromptSource = reverseReviewedSource(page3Compression, path, prePage3PersonSource(path, source));
@@ -27,7 +28,8 @@ export function prePage3FieldActionsSource(path, source) {
 }
 
 export function preRaisedTopHemSource(path, source) {
-  const beforeAdjustTop = reverseReviewedSource(adjustTopGesture, path, source);
+  const beforeBodyTightFit = reverseReviewedSource(bodyTightFit, path, source);
+  const beforeAdjustTop = reverseReviewedSource(adjustTopGesture, path, beforeBodyTightFit);
   const beforeWaistbandLift = reverseReviewedSource(waistbandLiftGesture, path, beforeAdjustTop);
   return reverseReviewedSource(raisedTopHem, path, reverseReviewedSource(underbustTeeGesture, path, beforeWaistbandLift));
 }

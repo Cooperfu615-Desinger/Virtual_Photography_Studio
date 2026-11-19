@@ -6563,6 +6563,37 @@ function projectTopHemOverlap(pieces, context) {
   return zones.includes('waist') ? pieces : pieces.map(item => isHemOverlapStyling(item) ? { ...item, en: '' } : item);
 }
 
+const TOP_TIGHT_TENSION = 'subtle fabric tension across the torso';
+const BOTTOM_TIGHT_TENSION = 'subtle fabric tension along the visible lower-body contours';
+
+function projectTightFitTension(pieces, context, { recoverCloseup = false } = {}) {
+  // Retaining wardrobe for continuity must not make its off-frame tension visible.
+  const { bucket } = getCompositionVisibilityProjection(context);
+  const zones = COMPOSITION_VISIBILITY_CONTRACT[bucket].wardrobe.detailZones;
+  const projected = pieces.map(item => {
+    if (!/^wardrobe:(?:上身版型-top-fit|下身版型-bottom-fit):tight(?::[ab])?$/.test(item.id)) return item;
+    const upper = item.id.startsWith('wardrobe:上身');
+    const role = item.meta?.wardrobeRole?.toUpperCase() || '';
+    const lock = upper ? `topFit${role}Id` : `bottomFit${role}Id`;
+    if (context.locks?.[lock] !== 'tight' || !zones.includes(upper ? 'upperBody' : 'waist')) return item;
+    const tension = upper ? TOP_TIGHT_TENSION : BOTTOM_TIGHT_TENSION;
+    return { ...item, en: `${item.en}, ${tension}` };
+  });
+  if (!recoverCloseup || context.subject.count !== 1) return projected;
+  // The face-detail source can drop ordinary fit modifiers before derivatives
+  // reframe it. Recover only this explicitly selected, newly visible detail.
+  const slots = extractWardrobeSlots(pieces);
+  if (context.locks?.topFitId === 'tight' && zones.includes('upperBody') && !slots.topFit
+    && slots.top && slots.top !== FIXED_UNDERBUST_TEE && !isNoneLikeItem(slots.top)) {
+    projected.push(createSyntheticWardrobeModifier('上身版型-top-fit', { ...getTopFitOption('tight'), en: TOP_TIGHT_TENSION }));
+  }
+  if (context.locks?.bottomFitId === 'tight' && zones.includes('waist') && !slots.bottomFit
+    && [slots.pants, slots.skirt].some(item => item && !isNoneLikeItem(item))) {
+    projected.push(createSyntheticWardrobeModifier('下身版型-bottom-fit', { ...getBottomFitOption('tight'), en: BOTTOM_TIGHT_TENSION }));
+  }
+  return projected;
+}
+
 function projectSailorSeparateFit(pieces, locks = {}) {
   const roleOf = (item) => item.meta?.wardrobeRole || '';
   const hasSailorTop = (role) => pieces.some((piece) => (
@@ -13096,6 +13127,9 @@ function buildFixedFramingDerivedPromptModel({
     wardrobeColors = projectGestureTopColor(wardrobeColors, baseDerivedContext);
   }
   wardrobe = projectUnderbustTopFit(projectClosedOuterwearWardrobe(projectOuterwearStyling(projectTopHemOverlap(baseDerivedContext.compositionVisibility.wardrobe.retainResolved ? wardrobe : projectAudioForFraming(wardrobe, baseDerivedContext), baseDerivedContext), getCompositionVisibilityProjection(baseDerivedContext))), getCompositionVisibilityProjection(baseDerivedContext));
+  wardrobe = projectTightFitTension(wardrobe, baseDerivedContext, {
+    recoverCloseup: sourceContext.framing?.meta?.visibility === 'close',
+  });
 
   if (!preset.projectResolvedSources) {
     const projectedCharacter = projectBodyTypeCharacter(character, baseDerivedContext, wardrobe);
@@ -16206,6 +16240,7 @@ function buildGrokImaginePrototype(context, character, wardrobe, wardrobeColors)
   const fullContext = { ...context, compositionVisibility: fullProjection };
   fullContext.projectedScene = buildProjectedScene(fullContext);
   prototypeWardrobe = projectGestureWardrobe(prototypeWardrobe, fullContext);
+  prototypeWardrobe = projectTightFitTension(prototypeWardrobe, context);
   const sections = buildStructuredPromptSections(fullContext, character, prototypeWardrobe, prototypeColors, context.lightDirection, context.film);
   const source = buildGptPromptSectionSources(sections.valuesByLabel, fullContext, { includeBodyType: true });
   const slots = extractCharacterSlots(character);
@@ -16304,7 +16339,8 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
   };
   const projectedCharacter = projectBodyTypeCharacter(character, mainContext);
   const wardrobeSource = fixedCompositionPromptProjection?.wardrobe.items || projectGestureWardrobe(wardrobe, mainContext);
-  const rendererWardrobe = projectUnderbustTopFit(projectClosedOuterwearWardrobe(projectOuterwearStyling(projectTopHemOverlap(compositionVisibility.wardrobe.retainResolved ? wardrobeSource : projectAudioForFraming(wardrobeSource, mainContext), mainContext), getCompositionVisibilityProjection(mainContext))), getCompositionVisibilityProjection(mainContext));
+  const visibleWardrobe = projectUnderbustTopFit(projectClosedOuterwearWardrobe(projectOuterwearStyling(projectTopHemOverlap(compositionVisibility.wardrobe.retainResolved ? wardrobeSource : projectAudioForFraming(wardrobeSource, mainContext), mainContext), getCompositionVisibilityProjection(mainContext))), getCompositionVisibilityProjection(mainContext));
+  const rendererWardrobe = projectTightFitTension(visibleWardrobe, mainContext);
   const rendererWardrobeColors = fixedCompositionPromptProjection?.wardrobe.colors
     || projectGestureTopColor(wardrobeColors, mainContext);
   const promptModel = {

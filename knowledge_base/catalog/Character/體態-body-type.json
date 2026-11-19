@@ -130,10 +130,11 @@
         "character:體態-body-type:豐胸纖腰沙漏身形:6"
       ],
       "zh": "豐胸纖腰沙漏身形",
-      "en": "I–K cup bust, slim arms, narrow waist, wide hips, fuller upper thighs, slim calves, balanced proportions, pronounced hourglass silhouette, curves stretching fitted fabric with soft flesh bulges at snug garment edges; height 163–168 cm, bust–waist–hip 103–60–98 cm",
-      "desc": "I–K Cup，手臂、腰部與小腿纖細，寬臀與較豐滿的大腿上段，比例平衡、沙漏曲線明顯；合身衣料被曲線撐緊，緊貼邊緣帶柔和溢肉感。身高 163–168 cm，三圍 103–60–98 cm。",
+      "en": "I–K cup bust, slim arms, narrow waist, wide hips, fuller upper thighs, slim calves, balanced proportions, pronounced hourglass silhouette; height 163–168 cm, bust–waist–hip 103–60–98 cm",
+      "desc": "I–K Cup，手臂、腰部與小腿纖細，寬臀與較豐滿的大腿上段，比例平衡、沙漏曲線明顯。身高 163–168 cm，三圍 103–60–98 cm。",
       "legacyPromptAliases": [
-        "I-cup bust, slender arms, narrow waist, wider hips, fuller upper thighs, slim calves, defined hourglass silhouette"
+        "I-cup bust, slender arms, narrow waist, wider hips, fuller upper thighs, slim calves, defined hourglass silhouette",
+        "I–K cup bust, slim arms, narrow waist, wide hips, fuller upper thighs, slim calves, balanced proportions, pronounced hourglass silhouette, curves stretching fitted fabric with soft flesh bulges at snug garment edges; height 163–168 cm, bust–waist–hip 103–60–98 cm"
       ],
       "meta": {
         "semantic": {

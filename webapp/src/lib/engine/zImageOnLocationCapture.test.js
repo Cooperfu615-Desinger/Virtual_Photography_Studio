@@ -8,6 +8,7 @@ import { test } from 'node:test';
 import { Z_IMAGE_ON_LOCATION_FIXTURES as fixtures } from './zImageOnLocationFixtures.js';
 import { digest, runSceneFixture, materializeSceneFixture, PRE_HOURGLASS_BODY_CATALOG, assertZImagePoseProjection, restoreBaselineSelection } from './sceneIntegratedAssemblyTestSupport.js';
 import { restoreSceneWardrobeBeforeRevision } from './framingWardrobeSceneInverse.js';
+import { restorePreBodyTightFitOutputs, restorePreBodyTightFitText } from './bodyTightFitTestSupport.js';
 import framingWardrobeBaseline from './framingWardrobePrechangeBaseline.json' with { type: 'json' };
 import { normalizeZImageOnLocationForLegacy } from './zImageOnLocationTestSupport.js';
 import { buildZImageOnLocationCapture } from './zImageOnLocationCapture.js';
@@ -32,7 +33,7 @@ function historicalWardrobeOutputs(outputs, id, fields = null) {
   if (id.startsWith('historical-')) return restoreSceneWardrobeBeforeRevision(outputs, id.slice('historical-'.length), fields);
   const added = ' Ultra-low-rise waistband sitting very low on the hips, low-rise dolphin micro shorts, contrast piping, contrast elastic waistband, front drawstring, side lace-up grommet detail, compact athletic hot-pants silhouette.';
   assert.equal(outputs.chestUpPortraitPrompt.split(added).length - 1, 1, `${id}: exact retained chest wardrobe`);
-  return { ...outputs, chestUpPortraitPrompt: outputs.chestUpPortraitPrompt.replace(added, '') };
+  return restorePreBodyTightFitOutputs({ ...outputs, chestUpPortraitPrompt: outputs.chestUpPortraitPrompt.replace(added, '') });
 }
 
 test('capture helper joins only supplied sources without changing or inventing them', () => {
@@ -48,7 +49,7 @@ test('published test prompts are the actual main renderer outputs', () => {
   const published = [...document.matchAll(/```text\n([\s\S]*?)\n```/g)].map((match) => match[1]);
   // The published pack predates the 2026-10-14 ethnicity revision; reverse only that rollout.
   assert.deepEqual(published.map(polishPublicPromptText), ['bedroom-eye', 'park-eye', 'carriage-0']
-    .map((id) => restorePreEthnicityText(get(id).outputs.zImagePrompt, 'zImagePrompt')));
+    .map((id) => restorePreEthnicityText(restorePreBodyTightFitText(get(id).outputs.zImagePrompt), 'zImagePrompt')));
 });
 
 for (const fixture of fixtures) (['historical-R16-character-card', 'historical-R11-dress'].includes(fixture.id) ? historicalTest : test)(`main-Z-only source relocation: ${fixture.id}`, () => {

@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import protectedBaseline from './midjourneyNaturalMinimalProtected.json' with { type: 'json' };
 import baseline from './minimalCoverageWardrobeBaseline.json' with { type: 'json' };
 import { restoreGptIndependentBodySource } from './bodyTypeLegacyTestSupport.js';
+import { restorePreBodyTightFitText } from './bodyTightFitTestSupport.js';
 import { restorePreEthnicityValue } from './ethnicityRevisionTestSupport.js';
 import { assertFullBodyCharacterBody } from './fullBodyCharacterBodyTestSupport.js';
 import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls, normalizeLocks } from '../engine.js';
@@ -84,7 +85,12 @@ for (const fixture of baseline.fixtures) test(`legacy bytes unchanged: ${fixture
   }
   const preOmission = restoreGptIndependentBodySource(reversed, []);
   // The frozen hash predates the 2026-10-14 ethnicity revision; reverse only that rollout.
-  const historical = restorePreEthnicityValue(snapshot(preOmission));
+  const historical = restorePreEthnicityValue(snapshot({
+    ...preOmission,
+    grokPrompt: restorePreBodyTightFitText(preOmission.grokPrompt),
+    zImagePrompt: restorePreBodyTightFitText(preOmission.zImagePrompt),
+    extraPrompts: preOmission.extraPrompts.map(entry => ({ ...entry, text: restorePreBodyTightFitText(entry.text) })),
+  }));
   assert.equal(createHash('sha256').update(JSON.stringify(historical)).digest('hex'), protectedBaseline[fixture.title]);
 });
 

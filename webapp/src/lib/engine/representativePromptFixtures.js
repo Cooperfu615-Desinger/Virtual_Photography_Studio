@@ -29,7 +29,8 @@ const LEGACY_REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       // Approved 2026-10-14 exception: the full-body character backup keeps the
       // selected body directly after the Subject Count sentence.
       fullBodyCharacterPrompt: {
-        includes: ['20-year-old', 'standing', 'I–K cup bust', 'height 163–168 cm', 'bust–waist–hip 103–60–98 cm', 'curves stretching fitted fabric'],
+        includes: ['20-year-old', 'standing', 'I–K cup bust', 'height 163–168 cm', 'bust–waist–hip 103–60–98 cm'],
+        excludes: ['curves stretching fitted fabric'],
         ordered: ['adult Japanese woman. I–K cup bust', 'bust–waist–hip 103–60–98 cm'],
       },
       ...Object.fromEntries(['zImagePrompt', 'midjourneyPrompt']

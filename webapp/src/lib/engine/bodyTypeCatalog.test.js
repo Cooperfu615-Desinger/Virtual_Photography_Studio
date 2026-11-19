@@ -10,6 +10,7 @@ import { normalizeLegacyBodyPrompt } from './bodyTypeLegacyTestSupport.js';
 import { assertFullBodyCharacterBody, assertFullBodyCharacterHasNoBody } from './fullBodyCharacterBodyTestSupport.js';
 import { polishPublicPromptText } from './publicPromptPolish.js';
 import { setLegacyWardrobeModifierOrderForTests } from '../engine.js';
+import { buildPage1GenerationPromptCards } from '../page1PromptOutputs.js';
 
 // Frozen baseline written before the assembly changes of 2026-10-23.
 setLegacyWardrobeModifierOrderForTests(true);
@@ -36,6 +37,74 @@ const six = p => [...main(p), ...['chest-up-portrait', 'full-body-character'].ma
 // reference keeps it under the approved 2026-10-14 exception.
 const gpt = p => [p.grokPrompt, p.extraPrompts.find(e => e.id === 'chest-up-portrait').text];
 const retained = p => [p.zImagePrompt];
+
+const upperTension = 'subtle fabric tension across the torso';
+const lowerTension = 'subtle fabric tension along the visible lower-body contours';
+const oldFabricClause = 'curves stretching fitted fabric with soft flesh bulges at snug garment edges';
+
+test('the previous I–K English remains importable while generated body descriptions omit its clothing effect', () => {
+  const body = BODY_TYPE_CATALOG_V2.find(item => item.zh === '豐胸纖腰沙漏身形');
+  const option = bodyControl('bodyTypeId').options.find(item => item.id === body.id);
+  const previous = option.meta.legacyPromptAliases.find(value => value.includes(oldFabricClause));
+  assert.ok(previous, 'exact previous full English alias');
+  assert.equal(parseLocksFromStandardPrompt(`Subject:\nBody Type: ${previous}`, controls).locks.bodyTypeId, body.id);
+  assert.doesNotMatch(option.desc, /衣料|溢肉/);
+  for (const { value } of buildPage1GenerationPromptCards(generate(locksFor(body)))) {
+    assert.ok(!value.includes(oldFabricClause));
+  }
+});
+
+test('regular tight tops and bottoms contribute separate tension only in visible regions', () => {
+  const base = {
+    ...locksFor(BODY_TYPE_CATALOG_V2[0]), topId: option('topId', '落肩 T 恤'), pantsId: option('pantsId', '工裝長褲'),
+  };
+  for (const frame of ['臉部特寫', '胸上特寫', '全身鏡頭 (Full Body Shot)']) {
+    for (const [topFitId, bottomFitId] of [
+      ['tight', 'standard'], ['standard', 'tight'], ['tight', 'tight'],
+      ['underbust-tight', 'fitted'], ['oversized', 'wide'],
+    ]) {
+      const cards = buildPage1GenerationPromptCards(generate({
+        ...base, framingId: option('framingId', frame), topFitId, bottomFitId,
+      }));
+      for (const { id, value } of cards) {
+        const keepsFit = id !== 'ai';
+        const showsTop = frame !== '臉部特寫' || ['chest-up-portrait', 'full-body-character'].includes(id);
+        const showsBottom = id !== 'chest-up-portrait' && (frame.startsWith('全身') || id === 'full-body-character');
+        assert.equal(value.toLowerCase().split(upperTension).length - 1, keepsFit && showsTop && topFitId === 'tight' ? 1 : 0, `${frame}/${id}/upper`);
+        assert.equal(value.toLowerCase().split(lowerTension).length - 1, keepsFit && showsBottom && bottomFitId === 'tight' ? 1 : 0, `${frame}/${id}/lower`);
+      }
+    }
+  }
+});
+
+test('an opaque closed jacket hides the tight top detail', () => {
+  const prompt = generate({
+    ...locksFor(BODY_TYPE_CATALOG_V2[0]), topId: option('topId', '落肩 T 恤'), topFitId: 'tight',
+    outerwearId: option('outerwearId', '飛行夾克'),
+    outerwearOpeningId: option('outerwearOpeningId', '全扣上／全拉上'),
+  });
+  for (const { id, value } of buildPage1GenerationPromptCards(prompt)) {
+    assert.ok(!value.includes(upperTension), id);
+  }
+});
+
+test('dual-subject tight-fit details stay with their own garment and person', () => {
+  const prompt = generate({
+    ...locksFor(BODY_TYPE_CATALOG_V2[0]), subjectCount: '2',
+    topAId: option('topAId', '落肩 T 恤'), topFitAId: 'tight', pantsAId: option('pantsAId', '直筒牛仔褲'),
+    topBId: option('topBId', '一字領上衣'), pantsBId: option('pantsBId', '工裝長褲'), bottomFitBId: 'tight',
+  });
+  const [first, second] = prompt.grokPrompt.split('Woman 2:');
+  assert.ok(first.includes(upperTension));
+  assert.ok(!first.includes(lowerTension));
+  assert.ok(second.includes(lowerTension));
+  assert.ok(!second.includes(upperTension));
+  for (const { id, value } of buildPage1GenerationPromptCards(prompt)) {
+    const count = id === 'ai' ? 0 : 1;
+    assert.equal(value.split(upperTension).length - 1, count, id);
+    assert.equal(value.split(lowerTension).length - 1, count, id);
+  }
+});
 
 test('six reviewed body sources and none retain stable IDs in single and duo controls', () => {
   for (const key of ['bodyTypeId', 'bodyTypeAId', 'bodyTypeBId']) {

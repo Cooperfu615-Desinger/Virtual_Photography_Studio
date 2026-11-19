@@ -14,6 +14,7 @@ import { UPPER_SCENE_CASES, UPPER_SCENE_MATRIX, UPPER_SCENE_EXCLUDED, UPPER_SCEN
 import { polishPublicPromptText } from './publicPromptPolish.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
+import { restorePreBodyTightFitText } from './bodyTightFitTestSupport.js';
 import { restorePreEthnicityOutputs, restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
 import { setLegacyWardrobeModifierOrderForTests } from '../engine.js';
 
@@ -86,7 +87,7 @@ test('four user-accepted waist-up B prompts match the test pack verbatim', () =>
     const beforeWardrobeRetention = current.replace(retained, 'cool fashion attitude at the lower crop edge');
     // The test pack predates the 2026-10-14 ethnicity revision; reverse only that rollout.
     assert.equal(normalizeExplicitWardrobeFitForLegacy(
-      restorePreEthnicityText(beforeWardrobeRetention, 'zImagePrompt'),
+      restorePreEthnicityText(restorePreBodyTightFitText(beforeWardrobeRetention), 'zImagePrompt'),
       'zImagePrompt',
     ), polishPublicPromptText(prompts[index * 2 + 1]));
   }
