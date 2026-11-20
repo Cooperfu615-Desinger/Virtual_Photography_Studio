@@ -2,6 +2,33 @@
 
 日期：2026-11-14。狀態：本機實作與驗收完成；使用者已授權 commit／push 到 main 並部署四個相關 Functions，交付結果以 Git／Firebase 回讀為準。
 
+## 2026-11-21 比例與 4／8／16 MP（本機，後續核准）
+
+本節覆蓋下方歷史版本的固定方形限制；其他官方核心設定不變。
+
+- 八種比例：1:1、4:3、3:4、3:2、2:3、16:9、9:16、21:9。預設 1:1／4 MP／1 張，可選 2 張逐張生成。
+- 解析度介面顯示 4 MP、8 MP、16 MP；內部值為 `2k`、`8mp`、`16mp`。保留舊 `2k` 的 4 MP 意義，歷史紀錄與草稿仍可還原。
+- `functions/shared/minimaxH3ImageSizes.json` 是前後端共用的 24 組尺寸表。依官方 ResolutionSelector：MP × 1024²，按比例計算寬高，各自四捨五入到 32 的倍數。例如方形為 2048²、2912²、4096²；16 MP／9:16 為 3072×5472。
+- 選單旁顯示實際輸出像素；後端驗證比例／解析度並傳給 conditioning。費用估算沿完整工作流尺寸匹配，不能拿 4 MP 樣本推算 16 MP。
+- Prompt 原文、擴寫關閉、無參考圖保持不變。來源鎖定不支援的比例（如 4:5）仍禁止提交，不靜默改比例。
+- C2 歷史回放新增本次精確逆向層，先還原本次三個前端來源，再套用既有 Seedream 5.5 逆向層；不改舊基準或歷史 manifest。
+- 驗收紀錄：[尺寸選項本機驗收](../reports/minimax-h3-sizes-2026-11-21/README.md)。尚未發布，沒有付費生圖；8／16 MP 的真實耗時、扣額與效果待另行授權測試。
+
+尺寸公式來源：[ComfyUI ResolutionSelector](https://github.com/Comfy-Org/ComfyUI/blob/master/comfy_extras/nodes_resolution.py)。
+
+## 2026-11-21 官方文生圖預設對齊（本機）
+
+使用者要求直接替換現有版本，不新增模型選項。對齊當日官方 `image_minimax_h3_image_t2i.json` 的編碼器與核心採樣路徑：
+
+- 主模型與 VAE 不變；文字編碼器改 `qwen3vl_32b_minimax_h3_int8_convrot.safetensors`。
+- 用 `KSampler`／Euler／simple／6 steps／CFG 1／denoise 1 取代舊 LCM 自訂採樣鏈。DLL Prompt 直接接 conditioning；使用者另行確認關閉擴寫，該分支不提交。官方教學寫預設關閉，但本次實際下載 JSON 的 subgraph switch 為 true；此處依使用者選擇保留 DLL Prompt 原文，不宣稱與範本所有開關完全一致。
+- 保留 2048×2048、無參考圖、1／2 張逐張生成及既有 modelKey；本次沒有新增官方範本的尺寸選擇、擴寫開關或圖片編輯介面，不稱為完整範本介面移植。
+- API 圖精簡為 8 節點，seed 映射改 node 39 的 `seed`。保留輸出 node 34，舊任務仍可取回；舊工作流測試 fixture 原樣保留。
+- 額度估算沿原本完整工作流比對：舊 LCM／NVFP4 樣本不符合新圖，不能沿用為新版估價。新版累積足夠相符成功樣本後才有估計張數。
+- 下方 2026-11-14 設定及驗收保留為歷史。新設定尚未部署或付費實測，不以舊模型出圖結果代表新版效果。
+
+官方來源：[文生圖範本](https://github.com/Comfy-Org/workflow_templates/blob/main/templates/image_minimax_h3_image_t2i.json)、[官方教學](https://docs.comfy.org/tutorials/image/minimax/minimax-h3-image)。
+
 ## 使用者核准範圍
 
 - 新增獨立選項 `Comfy Cloud · MiniMax H3 Image`；前端 `comfyMinimaxH3Image`、後端 `minimaxH3Image`。

@@ -27,7 +27,7 @@ export function getComfyGenerationNote(model, loraStrength = model.comfyModel ==
   const end = '完成後請下載保存，圖像網址會到期。';
   if (model.comfyModel === 'seedream55') return `${start}支援透明背景及最多 10 張參考圖；參考圖按張另計費，直接使用目前 Prompt。${end}`;
   if (model.comfyModel === 'minimaxH3Image') {
-    return `${start}固定方形 4 MP（2048 × 2048），直接使用目前 Prompt；關閉擴寫，不使用參考圖。${end}`;
+    return `${start}支援八種比例與 4／8／16 MP，直接使用目前 Prompt；關閉擴寫，不使用參考圖。${end}`;
   }
   if (model.comfyModel === 'qwenImage21OmniLora') {
     return `${start}已套用 Omni LoRA（強度 ${loraStrength}），直接使用目前 Prompt。${end}`;

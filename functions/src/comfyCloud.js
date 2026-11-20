@@ -21,7 +21,7 @@ function generateComfySeed(seedLimit, previousSeed, randomIntImpl = randomInt) {
 }
 
 function buildComfyWorkflow(payload, seed) {
-  if (payload.modelKey !== 'seedream55' && payload.resolution && !['1k', '2k'].includes(payload.resolution)) throw new Error('不支援的 Comfy Cloud 解析度');
+  if (!['seedream55', 'minimaxH3Image'].includes(payload.modelKey) && payload.resolution && !['1k', '2k'].includes(payload.resolution)) throw new Error('不支援的 Comfy Cloud 解析度');
   const input = normalizeGenerationRequest('comfyCloud', payload);
   const model = getComfyModel(input.modelKey);
   if (input.modelKey === 'minimaxH3Image' && !payload.aspectRatio) input.aspectRatio = '1:1';

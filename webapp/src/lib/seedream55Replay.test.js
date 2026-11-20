@@ -1,3 +1,4 @@
+import { preH3ImageSizesSource } from '../../../scripts/lib/h3ImageSizesReplay.mjs';
 import { Buffer } from 'node:buffer';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -9,7 +10,7 @@ test('Seedream 5.5 inverse returns exact pre-change Git bytes and leaves unknown
  for(const file of review.files){
   const current=readFileSync(new URL('../../../'+file.path,import.meta.url));
   const original=execFileSync('git',['show',`${review.baseCommit}:${file.path}`]);
-  assert.deepEqual(preSeedream55Source(file.path,current),original);
+  assert.deepEqual(preSeedream55Source(file.path,preH3ImageSizesSource(file.path,current)),original);
   const unknown=Buffer.concat([current,Buffer.from('corrupt')]);
   assert.deepEqual(preSeedream55Source(file.path,unknown),unknown);
  }

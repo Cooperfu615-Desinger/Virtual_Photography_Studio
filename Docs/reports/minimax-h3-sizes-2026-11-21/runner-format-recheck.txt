@@ -1,0 +1,174 @@
+TAP version 13
+# Subtest: complete historical group substitutes one entry and preserves all other arguments in order
+ok 1 - complete historical group substitutes one entry and preserves all other arguments in order
+  ---
+  duration_ms: 1.659416
+  type: 'test'
+  ...
+# Subtest: full npm test selection retains the exact test-file union without a duplicate historical entry
+ok 2 - full npm test selection retains the exact test-file union without a duplicate historical entry
+  ---
+  duration_ms: 14.26875
+  type: 'test'
+  ...
+# Subtest: prompt quality selection retains every original selected suite and all three historical matrices
+ok 3 - prompt quality selection retains every original selected suite and all three historical matrices
+  ---
+  duration_ms: 1.477083
+  type: 'test'
+  ...
+# Subtest: focused single and partial matrix selections never expand or drop their scope
+ok 4 - focused single and partial matrix selections never expand or drop their scope
+  ---
+  duration_ms: 0.143542
+  type: 'test'
+  ...
+# Subtest: native flag values are preserved even when they look exactly like a matrix test path
+ok 5 - native flag values are preserved even when they look exactly like a matrix test path
+  ---
+  duration_ms: 0.120375
+  type: 'test'
+  ...
+# Subtest: absolute paths, relative aliases and the native option delimiter identify the same complete group
+ok 6 - absolute paths, relative aliases and the native option delimiter identify the same complete group
+  ---
+  duration_ms: 0.082167
+  type: 'test'
+  ...
+# Subtest: an explicitly selected aggregator is retained once and does not need another generated entry
+ok 7 - an explicitly selected aggregator is retained once and does not need another generated entry
+  ---
+  duration_ms: 0.079542
+  type: 'test'
+  ...
+# Subtest: runner starts the same Node binary with native test isolation and preserves caller flags
+ok 8 - runner starts the same Node binary with native test isolation and preserves caller flags
+  ---
+  duration_ms: 0.3505
+  type: 'test'
+  ...
+# Subtest: CLI returns the native test success and failure status without swallowing failed assertions
+ok 9 - CLI returns the native test success and failure status without swallowing failed assertions
+  ---
+  duration_ms: 715.830708
+  type: 'test'
+  ...
+# Subtest: grouped original suites keep real historical fixture reuse enabled for their entire lifecycle
+ok 10 - grouped original suites keep real historical fixture reuse enabled for their entire lifecycle
+  ---
+  duration_ms: 4493.453125
+  type: 'test'
+  ...
+# Subtest: seat phase 3A mutation controls: unmodified copied sources pass every probe and original restore suite
+ok 11 - seat phase 3A mutation controls: unmodified copied sources pass every probe and original restore suite
+  ---
+  duration_ms: 3470.292417
+  type: 'test'
+  ...
+# Subtest: seat phase 3A mutation: bed-edge-is-bed-top
+ok 12 - seat phase 3A mutation: bed-edge-is-bed-top
+  ---
+  duration_ms: 508.861
+  type: 'test'
+  ...
+# {"fault":"bed-edge-is-bed-top","independent":"[rules]","oldRowDetected":true,"oldRestoreDetected":false}
+# Subtest: seat phase 3A mutation: unselected-auto-selects
+ok 13 - seat phase 3A mutation: unselected-auto-selects
+  ---
+  duration_ms: 425.0915
+  type: 'test'
+  ...
+# {"fault":"unselected-auto-selects","independent":"[rules]","oldRowDetected":true,"oldRestoreDetected":false}
+# Subtest: seat phase 3A mutation: candidate-order-reversed
+ok 14 - seat phase 3A mutation: candidate-order-reversed
+  ---
+  duration_ms: 505.325833
+  type: 'test'
+  ...
+# {"fault":"candidate-order-reversed","independent":"[rules]","oldRowDetected":true,"oldRestoreDetected":false}
+# Subtest: seat phase 3A mutation: tatami-becomes-floor
+ok 15 - seat phase 3A mutation: tatami-becomes-floor
+  ---
+  duration_ms: 544.805083
+  type: 'test'
+  ...
+# {"fault":"tatami-becomes-floor","independent":"[rules]","oldRowDetected":true,"oldRestoreDetected":false}
+# Subtest: seat phase 3A mutation: bed-ground-invents-floor
+ok 16 - seat phase 3A mutation: bed-ground-invents-floor
+  ---
+  duration_ms: 446.769334
+  type: 'test'
+  ...
+# {"fault":"bed-ground-invents-floor","independent":"[rules]","oldRowDetected":true,"oldRestoreDetected":false}
+# Subtest: seat phase 3A mutation: duo-owner-guard-removed
+ok 17 - seat phase 3A mutation: duo-owner-guard-removed
+  ---
+  duration_ms: 515.379542
+  type: 'test'
+  ...
+# {"fault":"duo-owner-guard-removed","independent":"[owner]","oldRowDetected":false,"oldRestoreDetected":false}
+# Subtest: seat phase 3A mutation: common-gpt-opening-omission
+ok 18 - seat phase 3A mutation: common-gpt-opening-omission
+  ---
+  duration_ms: 515.639667
+  type: 'test'
+  ...
+# {"fault":"common-gpt-opening-omission","independent":"[output:gpt]","oldRowDetected":true,"oldRestoreDetected":false}
+# Subtest: seat phase 3A mutation: extra-random-draw
+ok 19 - seat phase 3A mutation: extra-random-draw
+  ---
+  duration_ms: 500.804917
+  type: 'test'
+  ...
+# {"fault":"extra-random-draw","independent":"[rng]","oldRowDetected":true,"oldRestoreDetected":false}
+# Subtest: seat phase 3A mutation: structured-scene-lost
+ok 20 - seat phase 3A mutation: structured-scene-lost
+  ---
+  duration_ms: 412.437292
+  type: 'test'
+  ...
+# {"fault":"structured-scene-lost","independent":"[structured]","oldRowDetected":true,"oldRestoreDetected":false}
+# Subtest: seat phase 3A mutation: summary-lost
+ok 21 - seat phase 3A mutation: summary-lost
+  ---
+  duration_ms: 485.721083
+  type: 'test'
+  ...
+# {"fault":"summary-lost","independent":"[summary]","oldRowDetected":true,"oldRestoreDetected":false}
+# Subtest: seat phase 3A mutation: grok-imagine-duplicated
+ok 22 - seat phase 3A mutation: grok-imagine-duplicated
+  ---
+  duration_ms: 461.421291
+  type: 'test'
+  ...
+# {"fault":"grok-imagine-duplicated","independent":"[output:grok-imagine]","oldRowDetected":true,"oldRestoreDetected":false}
+# Subtest: seat phase 3A mutation: chair-leaks-into-chest-crop
+ok 23 - seat phase 3A mutation: chair-leaks-into-chest-crop
+  ---
+  duration_ms: 482.154125
+  type: 'test'
+  ...
+# {"fault":"chair-leaks-into-chest-crop","independent":"[output:gpt]","oldRowDetected":true,"oldRestoreDetected":false}
+# Subtest: seat phase 3A mutation: restore-drops-seat
+ok 24 - seat phase 3A mutation: restore-drops-seat
+  ---
+  duration_ms: 1108.637292
+  type: 'test'
+  ...
+# {"fault":"restore-drops-seat","independent":"[restore]","oldRowDetected":false,"oldRestoreDetected":true}
+# Subtest: seat phase 3A mutation: incompatible-seats-allowed
+ok 25 - seat phase 3A mutation: incompatible-seats-allowed
+  ---
+  duration_ms: 441.053667
+  type: 'test'
+  ...
+# {"fault":"incompatible-seats-allowed","independent":"[rules]","oldRowDetected":true,"oldRestoreDetected":false}
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 11402.1975

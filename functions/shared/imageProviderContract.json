@@ -51,12 +51,12 @@
           "label": "Z-Image-Turbo"
         },
         "minimaxH3Image": {
-          "resolutions": ["2k"],
+          "resolutions": ["2k", "8mp", "16mp"],
           "defaultResolution": "2k",
-          "resolutionLabels": { "2k": "4 MP（2048 × 2048）" },
+          "resolutionLabels": { "2k": "4 MP", "8mp": "8 MP", "16mp": "16 MP" },
           "maxCount": 2,
           "oneImagePerJob": true,
-          "aspectRatios": ["1:1"],
+          "aspectRatios": ["1:1", "4:3", "3:4", "3:2", "2:3", "16:9", "9:16", "21:9"],
           "label": "MiniMax H3 Image"
         },
         "zImageTurboNsfwV2Bf16": {

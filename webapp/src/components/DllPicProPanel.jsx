@@ -1,3 +1,4 @@
+import h3Sizes from '../../../functions/shared/minimaxH3ImageSizes.json';
 import Seedream55Controls from './Seedream55Controls.jsx';
 import { seedream55Settings } from '../lib/seedream55.js';
 import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
@@ -159,8 +160,8 @@ export default function DllPicProPanel({
   const [apiKeyDrafts, setApiKeyDrafts] = useState(loadStoredProviderApiKeys);
   const [isApiKeyModalOpen, setIsApiKeyModalOpen] = useState(false);
   const [selectedSourceId, setSelectedSourceId] = useState(initialSettings.selectedSourceId || initialSourceId);
-  const [requestedAspectRatio, setAspectRatio] = useState(initialSettings.aspectRatio || '9:16');
-  const aspectRatio = modelKey === 'comfyMinimaxH3Image' ? '1:1' : requestedAspectRatio;
+  const [requestedAspectRatio, setAspectRatio] = useState(initialSettings.aspectRatio || (modelKey === 'comfyMinimaxH3Image' ? '1:1' : '9:16'));
+  const aspectRatio = requestedAspectRatio;
   const [resolution, setResolution] = useState(() => (
     getDllPicResolutionOption(modelKey, initialSettings.resolution || loadStoredValue(DLL_PIC_STORAGE_KEYS.resolution, '1k')).value
   ));
@@ -361,6 +362,7 @@ export default function DllPicProPanel({
                 onChange={event => {
                   const nextModelKey = event.target.checked ? variant : loraSelection.modelKey;
                   setModelKey(nextModelKey);
+              if (nextModelKey === 'comfyMinimaxH3Image' && !isAspectRatioLocked) setAspectRatio('1:1');
                   setLoraStrength(loadStoredLoraStrength(nextModelKey));
                   saveStoredGenerationSettings(nextModelKey, activeResolution);
                 }} />
@@ -370,6 +372,7 @@ export default function DllPicProPanel({
             onChange={event => {
               const nextModelKey = getDllPicLoraModelKey(modelKey, event.target.checked);
               setModelKey(nextModelKey);
+              if (nextModelKey === 'comfyMinimaxH3Image' && !isAspectRatioLocked) setAspectRatio('1:1');
               saveStoredGenerationSettings(nextModelKey, activeResolution);
             }} />
           <span>套用 {loraLabel}{!loraSelection.adjustable && <small>強度 {loraSelection.strength}</small>}</span>
@@ -440,8 +443,9 @@ export default function DllPicProPanel({
             onChange={(event) => {
               const nextModelKey = event.target.value;
               if (!isOpenAI26(nextModelKey) && !['low', 'medium', 'high'].includes(quality)) setQuality('medium');
-              const nextResolution = nextModelKey === 'comfySeedream55' ? '2k' : getDllPicResolutionOption(nextModelKey, resolution).value;
+              const nextResolution = ['comfySeedream55', 'comfyMinimaxH3Image'].includes(nextModelKey) ? '2k' : getDllPicResolutionOption(nextModelKey, resolution).value;
               setModelKey(nextModelKey);
+              if (nextModelKey === 'comfyMinimaxH3Image' && !isAspectRatioLocked) setAspectRatio('1:1');
               setLoraStrength(loadStoredLoraStrength(nextModelKey));
               setCount(1);
               setSeed('');
@@ -496,6 +500,7 @@ export default function DllPicProPanel({
         </div>
       </section>}
         {!full && loraControls}
+        {activeModel.comfyModel === 'minimaxH3Image' && h3Sizes[activeResolution]?.[aspectRatio] && <p className="dll-pic-model-note">輸出尺寸：{h3Sizes[activeResolution][aspectRatio].join(' × ')} px</p>}
 
         <label className="field dll-pic-field">
           {full && <span>比例</span>}
@@ -505,7 +510,7 @@ export default function DllPicProPanel({
             onChange={(event) => setAspectRatio(event.target.value)}
             disabled={isAspectRatioLocked || (is55 && activeResolution === 'custom') || (is26 && (openaiSettings.outputFormat === 'gif' || ['auto', 'custom'].includes(activeResolution))) || (!full && isGenerating)}
           >
-            {[...DLL_PIC_ASPECT_RATIOS, ...(is55 || activeModel.comfyModel === 'krea3' || KREA3_EXTRA_ASPECT_RATIOS.some(option => option.value === aspectRatio) ? KREA3_EXTRA_ASPECT_RATIOS : [])].map((option) => (
+            {(activeModel.comfyModel === 'minimaxH3Image' ? [...new Set([...activeModel.aspectRatios, aspectRatio])].map(value => ({value, label:value})) : [...DLL_PIC_ASPECT_RATIOS, ...(is55 || activeModel.comfyModel === 'krea3' || KREA3_EXTRA_ASPECT_RATIOS.some(option => option.value === aspectRatio) ? KREA3_EXTRA_ASPECT_RATIOS : [])]).map((option) => (
               <option key={option.value} value={option.value} disabled={!isDllPicAspectRatioSupported(modelKey, option.value)}>
                 {option.label}
               </option>

@@ -13,7 +13,7 @@ const uuid = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/;
 
 function quotaSelection(payload = {}) {
   getComfyModel(payload.modelKey);
-  if ((payload.modelKey !== 'seedream55' && !['1k', '2k'].includes(payload.resolution)) || !payload.aspectRatio) {
+  if ((!['seedream55', 'minimaxH3Image'].includes(payload.modelKey) && !['1k', '2k'].includes(payload.resolution)) || !payload.aspectRatio) {
     throw new Error('不支援的 Comfy Cloud 額度查詢設定');
   }
   return buildComfyWorkflow({ modelKey: payload.modelKey, resolution: payload.resolution,

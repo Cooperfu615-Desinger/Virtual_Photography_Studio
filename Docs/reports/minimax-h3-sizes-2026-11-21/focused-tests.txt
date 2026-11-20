@@ -1,0 +1,58 @@
+TAP version 13
+# Subtest: selectable Comfy models are distinct without reviving hidden providers or duplicating LoRA variants
+ok 1 - selectable Comfy models are distinct without reviving hidden providers or duplicating LoRA variants
+  ---
+  duration_ms: 1.128083
+  type: 'test'
+  ...
+# Subtest: new models use the Comfy proxy and preserve selected prompt, ratio and two-image total limit
+ok 2 - new models use the Comfy proxy and preserve selected prompt, ratio and two-image total limit
+  ---
+  duration_ms: 0.505834
+  type: 'test'
+  ...
+# Subtest: Ideogram length limit is validated locally without truncating source
+ok 3 - Ideogram length limit is validated locally without truncating source
+  ---
+  duration_ms: 0.284667
+  type: 'test'
+  ...
+# Subtest: H3 Image dimensions inverse returns exact pre-change Git bytes and leaves unknown changes for rejection
+ok 4 - H3 Image dimensions inverse returns exact pre-change Git bytes and leaves unknown changes for rejection
+  ---
+  duration_ms: 146.1375
+  type: 'test'
+  ...
+# Subtest: H3 Image defaults to one image and round trips as its own model without LoRA
+ok 5 - H3 Image defaults to one image and round trips as its own model without LoRA
+  ---
+  duration_ms: 1.420958
+  type: 'test'
+  ...
+# Subtest: H3 Image two-image sequence keeps the model, prompt and independent seeds
+ok 6 - H3 Image two-image sequence keeps the model, prompt and independent seeds
+  ---
+  duration_ms: 2.706334
+  type: 'test'
+  ...
+# Subtest: H3 old 2k square settings and new 16 MP portrait settings restore unchanged
+ok 7 - H3 old 2k square settings and new 16 MP portrait settings restore unchanged
+  ---
+  duration_ms: 0.176209
+  type: 'test'
+  ...
+# Subtest: Seedream 5.5 inverse returns exact pre-change Git bytes and leaves unknown changes for rejection
+ok 8 - Seedream 5.5 inverse returns exact pre-change Git bytes and leaves unknown changes for rejection
+  ---
+  duration_ms: 247.472875
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 321.6595

@@ -393,6 +393,7 @@ export function getDllPicApiKeyForModel(modelKey, providerApiKeys = {}) {
 export function getDllPicResolutionOptions(modelKey) {
   const modelConfig = getDllPicModelConfig(modelKey);
   const allowedValues = modelConfig.resolutionOptions || DEFAULT_DLL_PIC_RESOLUTION_VALUES;
+  if (modelConfig.comfyModel === 'minimaxH3Image') return allowedValues.map(value => ({ value, label: modelConfig.resolutionLabels[value] }));
   return DLL_PIC_RESOLUTIONS.filter((option) => allowedValues.includes(option.value))
     .map((option) => ({ ...option, label: modelConfig.resolutionLabels?.[option.value] || option.label }));
 }
