@@ -1,0 +1,91 @@
+{
+  "files": [
+    {
+      "path": "webapp/src/lib/engine/manualUnderlayers.js",
+      "beforeHash": "b20f8639a352a810a2fd64a517ce09298af2c45390558d25cd68ca8ec3a0089a",
+      "afterHash": "438236bb5e3132ea632ef6c79b678b77942635bea0b1e1f012b163bb15435476",
+      "edits": [
+        {
+          "line": 37,
+          "after": [
+            "  ['wardrobe:\u8932\u88dd-pants:\u6bd4\u57fa\u5c3c\u4e0b\u8eab:23', { zh: '\u6bd4\u57fa\u5c3c', name: 'string-tie bikini bottoms', sides: 'thin side strings' }],\n",
+            "  ['wardrobe:\u8932\u88dd-pants:\u857e\u7d72\u4e01\u5b57\u8932:8', { zh: '\u857e\u7d72\u4e01\u5b57\u8932', name: 'lace string thong bottoms', sides: 'thin side strings' }],\n"
+          ],
+          "before": [
+            "  ['wardrobe:\u8932\u88dd-pants:\u6bd4\u57fa\u5c3c\u4e0b\u8eab:23', { zh: '\u6bd4\u57fa\u5c3c', name: 'bikini bottoms', sides: 'side ties' }],\n",
+            "  ['wardrobe:\u8932\u88dd-pants:\u857e\u7d72\u4e01\u5b57\u8932:8', { zh: '\u857e\u7d72\u4e01\u5b57\u8932', name: 'lace thong bottoms', sides: 'side straps' }],\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/manualUnderlayers.test.js",
+      "beforeHash": "2b010741df1f380a736164e9195f58bbf86e4e1b4765498380bf8c2b5d2ad196",
+      "afterHash": "7577807b7fe235404f932a06dfa082b922e8e5919e8181b2883abcd11684a162",
+      "edits": [
+        {
+          "line": 97,
+          "after": [
+            "  for (const [label, fragment, garment] of [\n",
+            "    ['\u6bd4\u57fa\u5c3c\u4e0b\u8eab', 'thin side strings', 'string-tie bikini bottoms'],\n",
+            "    ['\u857e\u7d72\u4e01\u5b57\u8932', 'thin side strings', 'lace string thong bottoms'],\n",
+            "    ['\u68c9\u8cea\u4f4e\u8170\u4e09\u89d2\u8932', 'sides of the waistband', 'cotton briefs'],\n"
+          ],
+          "before": [
+            "  for (const [label, fragment] of [\n",
+            "    ['\u6bd4\u57fa\u5c3c\u4e0b\u8eab', 'side ties'],\n",
+            "    ['\u857e\u7d72\u4e01\u5b57\u8932', 'side straps'],\n",
+            "    ['\u68c9\u8cea\u4f4e\u8170\u4e09\u89d2\u8932', 'sides of the waistband'],\n"
+          ]
+        },
+        {
+          "line": 109,
+          "after": [
+            "        assert.doesNotMatch(value, /above her belly button|cargo pants|red (?:string-tie bikini|lace string thong|cotton briefs)/i, id);\n"
+          ],
+          "before": [
+            "        assert.doesNotMatch(value, /above her belly button|cargo pants|red (?:bikini|lace thong|cotton briefs)/i, id);\n"
+          ]
+        },
+        {
+          "line": 111,
+          "after": [
+            "        assert.match(value, new RegExp(`grips the ${fragment} of her red ${garment}, one hand on each side, and pulls straight up until both hands and the front edge are above her belly button, stretching the front panel taut with visible tension lines running toward both hands`, 'i'), id);\n"
+          ],
+          "before": [
+            "        assert.match(value, new RegExp(`grips the ${fragment} of her red[^.]+one hand on each side, and pulls straight up until both hands and the front edge are above her belly button, stretching the front panel taut with visible tension lines running toward both hands`, 'i'), id);\n"
+          ]
+        },
+        {
+          "line": 127,
+          "after": [
+            "  assert.match(waistbandRun(restored).prompt.grokPrompt, /red lace string thong bottoms/i);\n"
+          ],
+          "before": [
+            "  assert.match(waistbandRun(restored).prompt.grokPrompt, /red lace thong bottoms/i);\n"
+          ]
+        },
+        {
+          "line": 132,
+          "after": [
+            "  assert.match(waistbandRun({ pantsId: option('pantsId', '\u5168\u7121') }).prompt.grokPrompt, /thin side strings of her red string-tie bikini bottoms.*above her belly button/i);\n"
+          ],
+          "before": [
+            "  assert.match(waistbandRun({ pantsId: option('pantsId', '\u5168\u7121') }).prompt.grokPrompt, /side ties of her red bikini bottoms.*above her belly button/i);\n"
+          ]
+        },
+        {
+          "line": 140,
+          "after": [
+            "    if (id === 'grok-imagine') assert.match(value, /thin side strings of her red string-tie bikini bottoms.*above her belly button/i);\n",
+            "    else assert.doesNotMatch(value, /above her belly button|red string-tie bikini bottoms/i, id);\n"
+          ],
+          "before": [
+            "    if (id === 'grok-imagine') assert.match(value, /side ties of her red bikini bottoms.*above her belly button/i);\n",
+            "    else assert.doesNotMatch(value, /side ties as high as they will go|red bikini bottoms/i, id);\n"
+          ]
+        }
+      ]
+    }
+  ]
+}

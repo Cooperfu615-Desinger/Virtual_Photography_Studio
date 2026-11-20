@@ -35,8 +35,8 @@ const lower = {
     .map(id => 'wardrobe:褲裝-pants:' + id),
 };
 const waistbandBottoms = new Map([
-  ['wardrobe:褲裝-pants:比基尼下身:23', { zh: '比基尼', name: 'bikini bottoms', sides: 'side ties' }],
-  ['wardrobe:褲裝-pants:蕾絲丁字褲:8', { zh: '蕾絲丁字褲', name: 'lace thong bottoms', sides: 'side straps' }],
+  ['wardrobe:褲裝-pants:比基尼下身:23', { zh: '比基尼', name: 'string-tie bikini bottoms', sides: 'thin side strings' }],
+  ['wardrobe:褲裝-pants:蕾絲丁字褲:8', { zh: '蕾絲丁字褲', name: 'lace string thong bottoms', sides: 'thin side strings' }],
   ['wardrobe:褲裝-pants:蕾絲內褲:7', { zh: '內褲', name: 'cotton briefs', sides: 'sides of the waistband' }],
 ]);
 const waistband = {

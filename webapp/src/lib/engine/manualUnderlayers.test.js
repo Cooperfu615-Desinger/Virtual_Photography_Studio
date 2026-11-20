@@ -95,10 +95,10 @@ test('adjust top is independent of C-section tops but yields to selfies and opaq
 });
 
 test('waistband lift places both hands above the belly button and visibly pulls the chosen fabric taut', () => {
-  for (const [label, fragment] of [
-    ['比基尼下身', 'side ties'],
-    ['蕾絲丁字褲', 'side straps'],
-    ['棉質低腰三角褲', 'sides of the waistband'],
+  for (const [label, fragment, garment] of [
+    ['比基尼下身', 'thin side strings', 'string-tie bikini bottoms'],
+    ['蕾絲丁字褲', 'thin side strings', 'lace string thong bottoms'],
+    ['棉質低腰三角褲', 'sides of the waistband', 'cotton briefs'],
   ]) {
     const waistbandBottomId = option('pantsId', label);
     const { cards, prompt } = waistbandRun({ waistbandBottomId });
@@ -107,9 +107,9 @@ test('waistband lift places both hands above the belly button and visibly pulls 
         assert.match(value, /cargo pants/i, id);
         assert.doesNotMatch(value, /above her belly button/i, id);
       } else if (id === 'chest-up-portrait') {
-        assert.doesNotMatch(value, /above her belly button|cargo pants|red (?:bikini|lace thong|cotton briefs)/i, id);
+        assert.doesNotMatch(value, /above her belly button|cargo pants|red (?:string-tie bikini|lace string thong|cotton briefs)/i, id);
       } else {
-        assert.match(value, new RegExp(`grips the ${fragment} of her red[^.]+one hand on each side, and pulls straight up until both hands and the front edge are above her belly button, stretching the front panel taut with visible tension lines running toward both hands`, 'i'), id);
+        assert.match(value, new RegExp(`grips the ${fragment} of her red ${garment}, one hand on each side, and pulls straight up until both hands and the front edge are above her belly button, stretching the front panel taut with visible tension lines running toward both hands`, 'i'), id);
         assert.doesNotMatch(value, /small upward tug|cargo pants|outer waistband/i, id);
       }
       assert.match(value, /off-shoulder top/i, id);
@@ -125,12 +125,12 @@ test('waistband settings and the paused C-section bottom survive Markdown and ca
   const restored = normalizeLocks(buildRestoreLocks(parseExportedMarkdownPrompt(buildMarkdownExport(saved), controls).selection, controls), controls);
   for (const key of ['gestureId', 'waistbandBottomId', 'waistbandBottomColorId', 'pantsId', 'bottomFitId', 'bottomRiseId',
     'bottomColorId', 'bottomUnderlayerId', 'bottomUnderlayerColorId']) assert.equal(restored[key], prompt.selection[key], key);
-  assert.match(waistbandRun(restored).prompt.grokPrompt, /red lace thong bottoms/i);
+  assert.match(waistbandRun(restored).prompt.grokPrompt, /red lace string thong bottoms/i);
   assert.deepEqual(waistbandRun({ ...restored, gestureId: 'none' }).cards, waistbandRun({ gestureId: 'none' }).cards);
 });
 
 test('waistband lift works with no C-section bottom and pauses while a phone uses the hands', () => {
-  assert.match(waistbandRun({ pantsId: option('pantsId', '全無') }).prompt.grokPrompt, /side ties of her red bikini bottoms.*above her belly button/i);
+  assert.match(waistbandRun({ pantsId: option('pantsId', '全無') }).prompt.grokPrompt, /thin side strings of her red string-tie bikini bottoms.*above her belly button/i);
   const propId = 'selfie-natural-right-arm';
   assert.deepEqual(waistbandRun({ propId }).cards, waistbandRun({ propId, gestureId: 'none' }).cards);
 });
@@ -138,8 +138,8 @@ test('waistband lift works with no C-section bottom and pauses while a phone use
 test('tight framing omits the waistband lift and the chosen bottom except in Grok Imagine', () => {
   const { cards } = waistbandRun({}, option('framingId', '頭部主導近景'));
   for (const { id, value } of cards) {
-    if (id === 'grok-imagine') assert.match(value, /side ties of her red bikini bottoms.*above her belly button/i);
-    else assert.doesNotMatch(value, /side ties as high as they will go|red bikini bottoms/i, id);
+    if (id === 'grok-imagine') assert.match(value, /thin side strings of her red string-tie bikini bottoms.*above her belly button/i);
+    else assert.doesNotMatch(value, /above her belly button|red string-tie bikini bottoms/i, id);
   }
 });
 

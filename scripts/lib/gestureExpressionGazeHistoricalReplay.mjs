@@ -5,6 +5,7 @@ import { createHash } from 'node:crypto';
 import review from './gestureExpressionGazeHistory.json' with { type: 'json' };
 import biteHemGesture from './biteHemGestureHistory.json' with { type: 'json' };
 import waistbandHeight from './waistbandHeightHistory.json' with { type: 'json' };
+import waistbandStrings from './waistbandStringsHistory.json' with { type: 'json' };
 
 import raisedTopHem from './raisedTopHemHistory.json' with { type: 'json' };
 import underbustTeeGesture from './underbustTeeGestureHistory.json' with { type: 'json' };
@@ -18,7 +19,7 @@ import closedEyeReview from './closedEyeGazeHistory.json' with { type: 'json' };
 
 const hash = source => createHash('sha256').update(source).digest('hex');
 export const gestureExpressionGazeHistoricalPaths = [...new Set(
-  [...waistbandHeight.files, ...biteHemGesture.files, ...bodyTightFit.files, ...adjustTopGesture.files, ...waistbandLiftGesture.files, ...underbustTeeGesture.files, ...raisedTopHem.files, ...page3FieldActions.files, ...page3Person.files, ...page3Compression.files, ...closedEyeReview.files, ...review.files].map(file => file.path)
+  [...waistbandStrings.files, ...waistbandHeight.files, ...biteHemGesture.files, ...bodyTightFit.files, ...adjustTopGesture.files, ...waistbandLiftGesture.files, ...underbustTeeGesture.files, ...raisedTopHem.files, ...page3FieldActions.files, ...page3Person.files, ...page3Compression.files, ...closedEyeReview.files, ...review.files].map(file => file.path)
 )];
 export function preGestureExpressionGazeSource(path, source) {
   const prePage3PromptSource = reverseReviewedSource(page3Compression, path, prePage3PersonSource(path, source));
@@ -30,7 +31,8 @@ export function prePage3FieldActionsSource(path, source) {
 }
 
 export function preRaisedTopHemSource(path, source) {
-  const beforeWaistbandHeight = reverseReviewedSource(waistbandHeight, path, source);
+  const beforeWaistbandStrings = reverseReviewedSource(waistbandStrings, path, source);
+  const beforeWaistbandHeight = reverseReviewedSource(waistbandHeight, path, beforeWaistbandStrings);
   const beforeBiteHem = reverseReviewedSource(biteHemGesture, path, beforeWaistbandHeight);
   const beforeBodyTightFit = reverseReviewedSource(bodyTightFit, path, beforeBiteHem);
   const beforeAdjustTop = reverseReviewedSource(adjustTopGesture, path, beforeBodyTightFit);
