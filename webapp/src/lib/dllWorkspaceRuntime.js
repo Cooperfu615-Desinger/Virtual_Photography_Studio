@@ -83,8 +83,18 @@ const runtimeOptions = {
     }
     let session;
     let faceSourceId;
+    let referenceSourceIds;
     if (model.provider === 'comfyCloud') {
       session = await submissionSession(task);
+      if (model.comfyModel === 'seedream55') {
+        referenceSourceIds = [];
+        try {
+          for (const src of task.snapshot.referenceImages || []) {
+            const source = await session.call('comfyCloudImageWorkspace', { action: 'prepare', sourceId: crypto.randomUUID(), src });
+            referenceSourceIds.push(source.sourceId);
+          }
+        } catch (error) { error.terminal = true; throw error; }
+      }
       if (task.snapshot.faceReference) {
         try {
           const source = await session.call('comfyCloudImageWorkspace', {
@@ -102,7 +112,7 @@ const runtimeOptions = {
       const error = new Error('請先設定此模型的 API Key'); error.terminal = true; throw error;
     }
     return generateDllPicImages({ ...task.snapshot, seed: task.snapshot.seed === '' ? undefined : Number(task.snapshot.seed),
-      requestId: task.id, apiKey, faceSourceId, comfyGenerate: (payload, options) => generateComfyViaFirebase(payload, { ...options, session }), ...observers }).catch(error => {
+      requestId: task.id, apiKey, faceSourceId, referenceSourceIds, comfyGenerate: (payload, options) => generateComfyViaFirebase(payload, { ...options, session }), ...observers }).catch(error => {
         if (error.code === 'functions/not-found') { error.terminal = true; error.message = '指定 Seed 服務尚未部署；本次未送出生成。可先使用隨機 Seed，或在本機模擬模式驗收。'; }
         throw error;
       });

@@ -259,3 +259,24 @@ test('Seedream face reference reaches both workspace submissions with random see
   });
   assert.equal(new Set(ids).size, 2);
 });
+
+ test('Seedream 5.5 preserves all settings and reference order across two sequential jobs', async () => {
+  const refs = ['aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee', 'bbbbbbbb-bbbb-cccc-dddd-eeeeeeeeeeee'];
+  const local = storage(), calls = [];
+  const session = { uid: 'owner', call: async (name, input) => {
+    assert.equal(name, 'comfyCloudWorkspaceSubmit');
+    assert.deepEqual(input.referenceSourceIds, refs);
+    assert.equal(input.background, 'transparent');
+    assert.equal(input.watermark, true);
+    assert.equal(input.customWidth, 1824);
+    assert.equal(input.customHeight, 2280);
+    assert.ok(!JSON.stringify(readComfyPending(local)).includes(refs[0]));
+    calls.push(input); return imageJob(calls.length);
+  }};
+  const images = await generateDllPicImages({modelKey:'comfySeedream55', prompt:payload.prompt, count:2,
+    resolution:'custom', aspectRatio:'4:5', seed:23, customWidth:1824, customHeight:2280,
+    background:'transparent',watermark:true,referenceSourceIds:refs,
+    comfyGenerate:(input,options)=>generateComfyViaFirebase(input,{...options,session,storage:local})});
+  assert.deepEqual(calls.map(c=>c.seed),[23,24]);
+  assert.equal(images.images.length,2);
+});

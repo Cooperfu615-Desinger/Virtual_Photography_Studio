@@ -1,0 +1,8 @@
+.seedream55-settings { display: grid; gap: 14px; margin: 16px 0; min-width: 0; }
+.seedream55-settings .dll-row { flex-wrap: wrap; gap: 8px; }
+.seedream55-settings .dll-file-button input { max-width: 100%; }
+.seedream55-references { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.seedream55-references figure { margin: 0; border: 1px solid var(--border-color, #d8d8df); border-radius: 10px; padding: 8px; min-width: 0; }
+.seedream55-references img { width: 100%; height: 96px; object-fit: contain; }
+.seedream55-references figcaption { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12px; }
+.seedream55-settings .dll-pic-settings-grid > small { grid-column: 1 / -1; color: var(--text-muted, #777); }

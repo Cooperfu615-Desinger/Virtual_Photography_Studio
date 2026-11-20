@@ -28,7 +28,7 @@ export function ComfyQuotaView({ data, loading, error, signedIn, onRefresh, comp
   </section>;
 }
 
-export function ComfyQuotaSession({ modelKey, loraStrength, resolution, aspectRatio, refreshToken, compact = false, loadQuota = readComfyQuotaViaFirebase }) {
+export function ComfyQuotaSession({ modelKey, loraStrength, resolution, aspectRatio, refreshToken, customWidth, customHeight, referenceCount, compact = false, loadQuota = readComfyQuotaViaFirebase }) {
   const [revision, setRevision] = useState(0);
   const [state, setState] = useState({ data: null, loading: true, error: '' });
   useEffect(() => {
@@ -37,7 +37,7 @@ export function ComfyQuotaSession({ modelKey, loraStrength, resolution, aspectRa
       if (!active) return;
       setState(previous => ({ ...previous, loading: true, error: '' }));
       try {
-        const data = await loadQuota({ modelKey, resolution, aspectRatio, ...(loraStrength === undefined ? {} : { loraStrength }) });
+        const data = await loadQuota({ modelKey, resolution, aspectRatio, customWidth, customHeight, referenceCount, ...(loraStrength === undefined ? {} : { loraStrength }) });
         if (active) setState({ data, loading: false, error: '' });
       } catch (error) {
         const message = error?.code === 'functions/not-found'
@@ -47,7 +47,7 @@ export function ComfyQuotaSession({ modelKey, loraStrength, resolution, aspectRa
       }
     });
     return () => { active = false; };
-  }, [modelKey, loraStrength, resolution, aspectRatio, revision, refreshToken, loadQuota]);
+  }, [modelKey, loraStrength, resolution, aspectRatio, customWidth, customHeight, referenceCount, revision, refreshToken, loadQuota]);
   return <ComfyQuotaView {...state} compact={compact} signedIn onRefresh={() => setRevision(value => value + 1)} />;
 }
 

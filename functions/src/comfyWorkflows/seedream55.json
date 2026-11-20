@@ -1,0 +1,25 @@
+{
+  "1": {
+    "class_type": "ByteDanceSeedreamNodeV3",
+    "inputs": {
+      "prompt": "",
+      "model": "seedream 5.5",
+      "model.size_preset": "(2K) 2048x2048 (1:1)",
+      "model.width": 2048,
+      "model.height": 2048,
+      "model.background": "opaque",
+      "model.seed": 20261120,
+      "model.watermark": false
+    }
+  },
+  "2": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "1",
+        0
+      ],
+      "filename_prefix": "DLL_Seedream55_acceptance"
+    }
+  }
+}

@@ -4,6 +4,7 @@ const { buildComfyWorkflow } = require('./comfyCloud');
 const { getComfyModel } = require('./comfyModels');
 
 // Official Cloud rates verified 2026-10-05. This is an estimate, not billed cost.
+const { seedream55Price } = require('../shared/seedream55.mjs');
 const CREDITS_PER_USD = 211;
 const CREDITS_PER_SECOND = 0.266;
 const MIN_SAMPLES = 3;
@@ -12,11 +13,11 @@ const uuid = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/;
 
 function quotaSelection(payload = {}) {
   getComfyModel(payload.modelKey);
-  if (!['1k', '2k'].includes(payload.resolution) || !payload.aspectRatio) {
+  if ((payload.modelKey !== 'seedream55' && !['1k', '2k'].includes(payload.resolution)) || !payload.aspectRatio) {
     throw new Error('不支援的 Comfy Cloud 額度查詢設定');
   }
   return buildComfyWorkflow({ modelKey: payload.modelKey, resolution: payload.resolution,
-    aspectRatio: payload.aspectRatio, loraStrength: payload.loraStrength, count: 1, prompt: 'quota reference' }, 0);
+    aspectRatio: payload.aspectRatio, ...(payload.modelKey === 'seedream55' ? { customWidth: payload.customWidth, customHeight: payload.customHeight } : {}), loraStrength: payload.loraStrength, count: 1, prompt: 'quota reference' }, 0);
 }
 
 function normalizeWorkflow(workflow, modelKey) {
@@ -55,6 +56,10 @@ async function readComfyQuota({ apiKey, payload, records, fetchImpl = fetch, now
     return response.json();
   }
   const credits = balanceCredits(await get('/api/billing/usage/timeseries?months=1&group_by=product&granularity=month'));
+  if (payload.modelKey === 'seedream55') {
+    const creditsPerImage = seedream55Price(payload, payload.referenceCount ?? 0) * CREDITS_PER_USD;
+    return { credits, creditsPerImage, estimatedImages: credits === null ? null : Math.floor(Math.max(0, credits) / creditsPerImage), sampleCount: 0, checkedAt: now(), estimateSource: 'partnerPrice', rateDate: '2026-11-20' };
+  }
   // Partner calls have per-image fees; execution time is not their billed cost.
   if (getComfyModel(meta.modelKey).partnerPricing) return {
     selection: { modelKey: meta.modelKey, resolution: meta.resolution, aspectRatio: meta.aspectRatio },

@@ -159,6 +159,30 @@
           "maxPromptLength": 10000,
           "partnerPricing": true
         },
+        "seedream55": {
+          "resolutions": [
+            "1k",
+            "1.5k",
+            "2k",
+            "custom"
+          ],
+          "defaultResolution": "2k",
+          "maxCount": 2,
+          "oneImagePerJob": true,
+          "aspectRatios": [
+            "1:1",
+            "3:4",
+            "4:3",
+            "16:9",
+            "9:16",
+            "2:3",
+            "3:2",
+            "21:9",
+            "4:5"
+          ],
+          "label": "Seedream 5.5",
+          "partnerPricing": true
+        },
         "seedream5Pro": {
           "resolutions": [
             "1k",

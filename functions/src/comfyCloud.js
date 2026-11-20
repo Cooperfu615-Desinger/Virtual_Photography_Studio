@@ -1,6 +1,7 @@
 const { randomInt } = require('node:crypto');
 const { getProviderModelContract, normalizeGenerationRequest } = require('./providerContract');
 const { getComfyModel } = require('./comfyModels');
+const { seedream55Settings } = require('../shared/seedream55.mjs');
 const BASE = 'https://cloud.comfy.org/api/v2/jobs';
 
 function validateRequestId(id) {
@@ -20,7 +21,7 @@ function generateComfySeed(seedLimit, previousSeed, randomIntImpl = randomInt) {
 }
 
 function buildComfyWorkflow(payload, seed) {
-  if (payload.resolution && !['1k', '2k'].includes(payload.resolution)) throw new Error('不支援的 Comfy Cloud 解析度');
+  if (payload.modelKey !== 'seedream55' && payload.resolution && !['1k', '2k'].includes(payload.resolution)) throw new Error('不支援的 Comfy Cloud 解析度');
   const input = normalizeGenerationRequest('comfyCloud', payload);
   const model = getComfyModel(input.modelKey);
   if (input.modelKey === 'minimaxH3Image' && !payload.aspectRatio) input.aspectRatio = '1:1';
@@ -36,13 +37,16 @@ function buildComfyWorkflow(payload, seed) {
   const [a, b] = input.aspectRatio === 'auto' ? [1, 1] : input.aspectRatio.split(':').map(Number);
   const multiple = model.pixelMultiple || 8;
   const unit = Math.max(1, Math.round(Math.sqrt((input.resolution === '2k' ? 4 : 1) * 1048576 / (a * b)) / multiple));
-  const [width, height] = model.nativeAspectRatio ? [null, null]
+  const settings55 = input.modelKey === 'seedream55' ? seedream55Settings(input) : null;
+  const [width, height] = settings55 ? [settings55.customWidth, settings55.customHeight] : model.nativeAspectRatio ? [null, null]
     : model.sizes?.[input.resolution]?.[input.aspectRatio] || [a * unit * multiple, b * unit * multiple];
   const workflow = structuredClone(model.template);
   workflow[model.textNode].inputs[model.textKey] = input.prompt;
   workflow[model.seedNode].inputs[model.seedKey] = seed;
   if (model.loraNode) workflow[model.loraNode].inputs.strength_model = input.loraStrength;
-  if (model.nativeAspectRatio) {
+  if (settings55) {
+    Object.assign(workflow['1'].inputs, { 'model.size_preset': 'Custom', 'model.width': width, 'model.height': height, 'model.background': settings55.background, 'model.watermark': settings55.watermark });
+  } else if (model.nativeAspectRatio) {
     const inputs = workflow[model.textNode].inputs;
     inputs['model.aspect_ratio'] = input.aspectRatio;
     inputs['model.resolution'] = input.resolution.toUpperCase();
@@ -61,7 +65,7 @@ function buildComfyWorkflow(payload, seed) {
   }
   return { workflow, meta: { modelKey: input.modelKey, aspectRatio: input.aspectRatio, resolution: input.resolution, width, height, seed,
     ...(model.loraNode ? { loraStrength: input.loraStrength } : {}),
-    ...(thinkingMode ? { thinkingMode } : {}) } };
+    ...(thinkingMode ? { thinkingMode } : {}), ...(settings55 || {}) } };
 }
 
 function getJobUrl({ id }) {
@@ -147,6 +151,18 @@ async function submitComfyJob({ apiKey, payload, store, sourceStore, fetchImpl =
     inputs['model.thinking'] = true;
     inputs.prompt = 'Use the face in the reference image for the subject’s identity. ' + inputs.prompt;
     meta.hasFaceReference = true;
+  }
+  if (payload.referenceSourceIds !== undefined) {
+    if (meta.modelKey !== 'seedream55' || !sourceStore || !Array.isArray(payload.referenceSourceIds) || payload.referenceSourceIds.length > 10) throw new Error('參考圖片設定不符');
+    if (await store.get(requestId)) return readComfyJob({ apiKey, requestId, store, fetchImpl });
+    for (const [index, id] of payload.referenceSourceIds.entries()) {
+      const source = await sourceStore.get(validateRequestId(id));
+      if (source?.kind !== 'source' || !source.assetId) throw new Error('找不到此帳號的參考圖片');
+      const node = String(index + 10);
+      workflow[node] = { class_type: 'LoadImage', inputs: { image: { __type: 'core/ASSET', info: { id: validateRequestId(source.assetId) } } } };
+      workflow['1'].inputs[`model.images.image_${index + 1}`] = [node, 0];
+    }
+    meta.referenceCount = payload.referenceSourceIds.length;
   }
   const claim = await store.claim(requestId, { phase: 'submitting', meta, createdAt: Date.now() });
   if (!claim.claimed) return readComfyJob({ apiKey, requestId, store, fetchImpl });

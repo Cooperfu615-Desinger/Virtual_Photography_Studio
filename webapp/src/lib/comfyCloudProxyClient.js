@@ -99,6 +99,7 @@ export async function readComfyQuotaViaFirebase(selection, { session = null } = 
   const current = session || await getComfySession();
   return current.call('comfyCloudQuota', {
     modelKey: selection.modelKey, resolution: selection.resolution, aspectRatio: selection.aspectRatio,
+    ...(selection.modelKey === 'seedream55' ? { customWidth: selection.customWidth, customHeight: selection.customHeight, referenceCount: selection.referenceCount ?? 0 } : {}),
     ...(selection.loraStrength !== undefined ? { loraStrength: selection.loraStrength } : {}),
   });
 }
@@ -139,7 +140,7 @@ async function runSequence(payload, {
         if (item.state === 'planned') {
           item.state = 'attempted';
           saveTracking(storage, pending);
-          job = await call(payload.seed !== undefined || payload.faceSourceId ? 'comfyCloudWorkspaceSubmit' : 'comfyCloudSubmit', { ...input, count: 1, requestId: item.requestId,
+          job = await call(payload.seed !== undefined || payload.faceSourceId || payload.modelKey === 'seedream55' ? 'comfyCloudWorkspaceSubmit' : 'comfyCloudSubmit', { ...input, count: 1, requestId: item.requestId,
             ...(payload.faceSourceId ? { faceSourceId: payload.faceSourceId } : {}),
             ...(payload.seed !== undefined ? { seed: Number(payload.seed) + index } : {}),
             ...(index > 0 && Number.isSafeInteger(jobs.at(-1)?.seed) ? { previousSeed: jobs.at(-1).seed } : {}) });

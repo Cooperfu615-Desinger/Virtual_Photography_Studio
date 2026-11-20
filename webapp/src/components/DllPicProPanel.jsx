@@ -1,3 +1,5 @@
+import Seedream55Controls from './Seedream55Controls.jsx';
+import { seedream55Settings } from '../lib/seedream55.js';
 import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import { ImagePlus, ListPlus } from 'lucide-react';
 import { dllWorkspace, openDllWorkspace, DLL_LOCAL_ACCEPTANCE } from '../lib/dllWorkspaceRuntime.js';
@@ -165,6 +167,9 @@ export default function DllPicProPanel({
   const [requestedCount, setCount] = useState(initialSettings.count || 1);
   const [quality, setQuality] = useState(initialSettings.quality || 'medium');
   const [openaiSettings, setOpenaiSettings] = useState(() => ({ ...OPENAI_26_DEFAULTS, ...Object.fromEntries(Object.keys(OPENAI_26_DEFAULTS).filter(key => initialSettings[key] !== undefined).map(key => [key, initialSettings[key]])) }));
+  const [seedreamSettings, setSeedreamSettings] = useState(() => ({ background: initialSettings.background || 'auto', watermark: initialSettings.watermark ?? false, customWidth: initialSettings.customWidth ?? 2048, customHeight: initialSettings.customHeight ?? 2048, referenceImages: initialSettings.referenceImages || [] }));
+  const [referenceBusy, setReferenceBusy] = useState(false);
+  const is55 = modelKey === 'comfySeedream55';
   const [thinkingMode, setThinkingMode] = useState(initialSettings.thinkingMode || 'fast');
   const comfyPending = DLL_LOCAL_ACCEPTANCE ? null : readComfyPending();
   const [quickResult, setQuickResult] = useState(null);
@@ -221,14 +226,16 @@ export default function DllPicProPanel({
     promptSources.find((source) => source.id === selectedSourceId) || availableSources[0] || promptSources[0] || null
   ), [availableSources, promptSources, selectedSourceId]);
   const selectedPrompt = full && custom ? customPrompt : selectedSource?.value || '';
-  const snapshot = () => ({ modelKey, ...(hasFaceSupport && faceReference ? { faceReference } : {}), ...getDllPicLoraSettings(modelKey, loraStrength), prompt: selectedPrompt, aspectRatio, resolution: activeResolution, count, quality, thinkingMode, ...(is26 ? openAI26Settings({ ...openaiSettings, quality, resolution: activeResolution }) : {}),
-    seed: full && activeModel.provider === 'comfyCloud' ? seed : '', sourceId: custom ? 'custom' : selectedSource?.id,
+  let seedreamError = '';
+  try { if (is55) seedream55Settings({ ...seedreamSettings, resolution: activeResolution, aspectRatio }); } catch (error) { seedreamError = error.message; }
+  const snapshot = () => ({ ...(is55 ? { ...seedreamSettings, ...seedream55Settings({ ...seedreamSettings, resolution: activeResolution, aspectRatio }) } : {}), modelKey, ...(hasFaceSupport && faceReference ? { faceReference } : {}), ...getDllPicLoraSettings(modelKey, loraStrength), prompt: selectedPrompt, aspectRatio, resolution: activeResolution, count, quality, thinkingMode, ...(is26 ? openAI26Settings({ ...openaiSettings, quality, resolution: activeResolution }) : {}),
+    seed: (full || is55) && activeModel.provider === 'comfyCloud' ? seed : '', sourceId: custom ? 'custom' : selectedSource?.id,
     sourceLabel: custom ? '自訂' : selectedSource?.label, workspace: workspaceId, lockAspectRatio: Boolean(selectedSource?.lockAspectRatio) });
-  const draftSignature = JSON.stringify({ sources: promptSources, modelKey, loraStrength, selectedSourceId, aspectRatio, resolution: activeResolution, count, thinkingMode, ...(is26 ? openaiSettings : {}), quality, custom, customPrompt, seed, workspaceId });
-  useEffect(() => { if (full && shared.ready) dllWorkspace.draft({ ...JSON.parse(draftSignature), faceReference }); }, [full, shared.ready, draftSignature, faceReference]);
+  const draftSignature = JSON.stringify({ sources: promptSources, modelKey, loraStrength, selectedSourceId, aspectRatio, resolution: activeResolution, count, thinkingMode, ...(is55 ? { ...seedreamSettings, referenceImages: undefined } : {}), ...(is26 ? openaiSettings : {}), quality, custom, customPrompt, seed, workspaceId });
+  useEffect(() => { if (full && shared.ready) dllWorkspace.draft({ ...JSON.parse(draftSignature), faceReference, ...(is55 ? { referenceImages: seedreamSettings.referenceImages } : {}) }); }, [full, shared.ready, draftSignature, faceReference, is55, seedreamSettings.referenceImages]);
   const isAspectRatioLocked = Boolean(selectedSource?.lockAspectRatio && selectedSource?.aspectRatio);
   const isAspectRatioSupported = isDllPicAspectRatioSupported(modelKey, aspectRatio);
-  const invalidLockedSize = is26 && isAspectRatioLocked && (['auto', 'custom'].includes(activeResolution) || openaiSettings.outputFormat === 'gif');
+  const invalidLockedSize = (is55 && isAspectRatioLocked && activeResolution === 'custom') || is26 && isAspectRatioLocked && (['auto', 'custom'].includes(activeResolution) || openaiSettings.outputFormat === 'gif');
   const activeApiKey = getDllPicApiKeyForModel(modelKey, apiKeys);
   const canGenerate = Boolean(
     (DLL_LOCAL_ACCEPTANCE || activeModel.usesServerProxy || activeApiKey)
@@ -236,7 +243,7 @@ export default function DllPicProPanel({
     && activeModel.generationModel
     && isAspectRatioSupported
     && !loraError
-    && !openaiError
+    && !openaiError && !seedreamError && !referenceBusy
     && !invalidLockedSize
     && shared.ready
     && !isGenerating
@@ -385,14 +392,14 @@ export default function DllPicProPanel({
       {full && <div className="dll-generation-bar" aria-label="生成操作">
         <div className="dll-generation-buttons">
           <button className="primary-copy-btn dll-pic-generate-btn" type="button" onClick={handleGenerate} disabled={!canGenerate}><ImagePlus size={18} />{isGenerating ? '生成中...' : '生成圖像'}</button>
-          <button type="button" className="secondary" disabled={!selectedPrompt.trim() || !shared.ready || !isAspectRatioSupported || Boolean(loraError) || Boolean(openaiError) || invalidLockedSize} onClick={async () => { try { await dllWorkspace.enqueue(snapshot()); setMessage('已加入待生成清單'); } catch (error) { setMessage(error.message); } }}><ListPlus size={18} />加入待生成</button>
+          <button type="button" className="secondary" disabled={!selectedPrompt.trim() || !shared.ready || !isAspectRatioSupported || Boolean(loraError) || Boolean(openaiError) || Boolean(seedreamError) || referenceBusy || invalidLockedSize} onClick={async () => { try { await dllWorkspace.enqueue(snapshot()); setMessage('已加入待生成清單'); } catch (error) { setMessage(error.message); } }}><ListPlus size={18} />加入待生成</button>
 
         </div>
-        <p className="dll-generation-summary">{activeModel.label} · {is26 && openaiSettings.outputFormat === 'gif' ? `${gifSizeLabel(openaiSettings.gifSize)}（GIF）` : is26 && activeResolution === 'auto' ? '自動尺寸' : is26 && activeResolution === 'custom' ? `${openaiSettings.customWidth} × ${openaiSettings.customHeight}` : `${aspectRatio} · ${activeModel.resolutionLabels?.[activeResolution] || activeResolution.toUpperCase()}`} · {count} 張{activeModel.provider === 'openai' && ` · 畫質：${{ auto: '自動', low: '低', medium: '中', high: '高', xhigh: '超高', max: '最高' }[quality]}`}</p>
+        <p className="dll-generation-summary">{activeModel.label} · {is55 && activeResolution === 'custom' ? `${seedreamSettings.customWidth} × ${seedreamSettings.customHeight}` : is26 && openaiSettings.outputFormat === 'gif' ? `${gifSizeLabel(openaiSettings.gifSize)}（GIF）` : is26 && activeResolution === 'auto' ? '自動尺寸' : is26 && activeResolution === 'custom' ? `${openaiSettings.customWidth} × ${openaiSettings.customHeight}` : `${aspectRatio} · ${activeModel.resolutionLabels?.[activeResolution] || activeResolution.toUpperCase()}`} · {count} 張{activeModel.provider === 'openai' && ` · 畫質：${{ auto: '自動', low: '低', medium: '中', high: '高', xhigh: '超高', max: '最高' }[quality]}`}</p>
         {faceReference && <p className="dll-face-summary"><img src={faceReference} alt="" />{hasFaceSupport ? '已套用臉部參考' : '此模型不會使用臉部參考'}</p>}
         <p className="dll-generation-context">{custom ? '自訂 Prompt' : selectedSource?.label || '尚未帶入來源'}{activeModel.provider === 'comfyCloud' && ` · Seed：${seed === '' ? '隨機' : seed}`}{loraSelection.enabled && ` · ${loraLabel} ${loraSelection.adjustable ? loraStrength : loraSelection.strength}`}</p>
         {(modelCompatibilityNote || loraError || openaiError || invalidLockedSize || !selectedPrompt.trim() || comfyPending || (!DLL_LOCAL_ACCEPTANCE && !activeModel.usesServerProxy && !activeApiKey)) && <p className="dll-generation-notice" role="status">{modelCompatibilityNote || loraError || openaiError || (invalidLockedSize ? '來源已固定比例，請選擇 1K 或 2K 靜態圖片。' : '') || (!selectedPrompt.trim() ? '請先帶入來源或編輯本次 Prompt。' : comfyPending ? '請先查詢上次 Comfy 任務，再開始生成。' : '請先在 API Keys 設定此模型的金鑰。')}</p>}
-        {activeModel.provider === 'comfyCloud' && !DLL_LOCAL_ACCEPTANCE && !loraError && <ComfyQuotaPanel compact modelKey={activeModel.comfyModel} {...loraSettings} resolution={activeResolution} aspectRatio={aspectRatio} refreshToken={images} />}
+        {activeModel.provider === 'comfyCloud' && !DLL_LOCAL_ACCEPTANCE && !loraError && <ComfyQuotaPanel compact modelKey={activeModel.comfyModel} {...loraSettings} {...(is55 ? { customWidth: seedreamSettings.customWidth, customHeight: seedreamSettings.customHeight, referenceCount: seedreamSettings.referenceImages.length } : {})} resolution={activeResolution} aspectRatio={aspectRatio} refreshToken={images} />}
       </div>}
     <section className={`dll-pic-panel ${full ? 'dll-full-settings' : ''} ${compact ? 'dll-pic-panel-compact' : ''}`} aria-label={title} aria-description={description}>
       <div className="dll-pic-header">
@@ -400,7 +407,7 @@ export default function DllPicProPanel({
           <div className="control-section-title">{title}</div>
         </div>
         <div className="dll-pic-header-actions">
-          {!full && <button type="button" className="secondary" onClick={() => openDllWorkspace({ sources: fullWorkspacePromptSources ?? promptSources, settings: { modelKey, loraStrength, selectedSourceId, aspectRatio, resolution: activeResolution, count, thinkingMode, ...openaiSettings, quality }, workspaceId, taskId: sharedTask?.id })}>開啟完整版</button>}
+          {!full && <button type="button" className="secondary" onClick={() => openDllWorkspace({ sources: fullWorkspacePromptSources ?? promptSources, settings: { modelKey, loraStrength, selectedSourceId, aspectRatio, resolution: activeResolution, count, thinkingMode, ...openaiSettings, ...(is55 ? seedreamSettings : {}), seed, quality }, workspaceId, taskId: sharedTask?.id })}>開啟完整版</button>}
           <button className="secondary dll-pic-api-settings-btn" type="button" onClick={openApiKeyModal}>
             API Keys
           </button>
@@ -433,7 +440,7 @@ export default function DllPicProPanel({
             onChange={(event) => {
               const nextModelKey = event.target.value;
               if (!isOpenAI26(nextModelKey) && !['low', 'medium', 'high'].includes(quality)) setQuality('medium');
-              const nextResolution = getDllPicResolutionOption(nextModelKey, resolution).value;
+              const nextResolution = nextModelKey === 'comfySeedream55' ? '2k' : getDllPicResolutionOption(nextModelKey, resolution).value;
               setModelKey(nextModelKey);
               setLoraStrength(loadStoredLoraStrength(nextModelKey));
               setCount(1);
@@ -496,9 +503,9 @@ export default function DllPicProPanel({
             aria-label="比例"
             value={aspectRatio}
             onChange={(event) => setAspectRatio(event.target.value)}
-            disabled={isAspectRatioLocked || (is26 && (openaiSettings.outputFormat === 'gif' || ['auto', 'custom'].includes(activeResolution))) || (!full && isGenerating)}
+            disabled={isAspectRatioLocked || (is55 && activeResolution === 'custom') || (is26 && (openaiSettings.outputFormat === 'gif' || ['auto', 'custom'].includes(activeResolution))) || (!full && isGenerating)}
           >
-            {[...DLL_PIC_ASPECT_RATIOS, ...(activeModel.comfyModel === 'krea3' || KREA3_EXTRA_ASPECT_RATIOS.some(option => option.value === aspectRatio) ? KREA3_EXTRA_ASPECT_RATIOS : [])].map((option) => (
+            {[...DLL_PIC_ASPECT_RATIOS, ...(is55 || activeModel.comfyModel === 'krea3' || KREA3_EXTRA_ASPECT_RATIOS.some(option => option.value === aspectRatio) ? KREA3_EXTRA_ASPECT_RATIOS : [])].map((option) => (
               <option key={option.value} value={option.value} disabled={!isDllPicAspectRatioSupported(modelKey, option.value)}>
                 {option.label}
               </option>
@@ -519,7 +526,7 @@ export default function DllPicProPanel({
               }}
             >
               {activeResolutionOptions.map((option) => (
-                <option key={option.value} value={option.value} disabled={is26 && isAspectRatioLocked && ['auto', 'custom'].includes(option.value)}>
+                <option key={option.value} value={option.value} disabled={(is26 || is55) && isAspectRatioLocked && ['auto', 'custom'].includes(option.value)}>
                   {option.label}
                 </option>
               ))}
@@ -551,10 +558,12 @@ export default function DllPicProPanel({
         </label>
       </div>
 
+      {is55 && <Seedream55Controls settings={seedreamSettings} onChange={setSeedreamSettings} resolution={activeResolution} aspectRatio={aspectRatio} count={count} disabled={referenceBusy || (!full && isGenerating)} onBusy={setReferenceBusy} />}
+      {is55 && seedreamError && <p role="status" className="dll-pic-message">{seedreamError}</p>}
       {is26 && <OpenAI26Controls resolution={activeResolution} settings={{ ...openaiSettings, quality }} setSettings={setOpenaiSettings} disabled={!full && isGenerating} />}
       {is26 && (openaiError || invalidLockedSize) && <p role="status" className="dll-pic-message">{openaiError || '來源已固定比例，請選擇 1K 或 2K 靜態圖片。'}</p>}
 
-      {full && activeModel.provider === 'comfyCloud' && <div className="dll-seed-settings">
+      {(full || is55) && activeModel.provider === 'comfyCloud' && <div className="dll-seed-settings">
         <label className="field"><span>Seed</span><input aria-label="Seed" type="number" min="0" step="1" value={seed} onChange={event => setSeed(event.target.value)} placeholder="隨機（留空）" /></label>
         <button type="button" className="secondary" disabled={seed === ''} onClick={() => setSeed('')}>改用隨機</button>
         <small>留空為隨機；2 張時第二張使用 Seed + 1。</small>
@@ -586,7 +595,7 @@ export default function DllPicProPanel({
         <span className="dll-pic-model-note">
           {modelCompatibilityNote || (!full && (activeModelNote || '此 provider 尚未接入生圖'))}
         </span>
-        {activeModel.provider === 'comfyCloud' && !DLL_LOCAL_ACCEPTANCE && !loraError && <ComfyQuotaPanel modelKey={activeModel.comfyModel} {...loraSettings} resolution={activeResolution} aspectRatio={aspectRatio} refreshToken={images} />}
+        {activeModel.provider === 'comfyCloud' && !DLL_LOCAL_ACCEPTANCE && !loraError && <ComfyQuotaPanel modelKey={activeModel.comfyModel} {...loraSettings} {...(is55 ? { customWidth: seedreamSettings.customWidth, customHeight: seedreamSettings.customHeight, referenceCount: seedreamSettings.referenceImages.length } : {})} resolution={activeResolution} aspectRatio={aspectRatio} refreshToken={images} />}
         <button className="primary-copy-btn dll-pic-generate-btn" type="button" onClick={handleGenerate} disabled={!canGenerate}>
           {isGenerating ? '生成中...' : '生成圖像'}
         </button>

@@ -203,6 +203,7 @@ export const DLL_PIC_MODEL_CONFIG = {
 
 export const DLL_PIC_RESOLUTIONS = [
   { value: '1k', label: '1K' },
+  { value: '1.5k', label: '1.5K' },
   { value: '2k', label: '2K' },
   { value: '3k', label: '3K' },
   { value: '4k', label: '4K' },
@@ -584,7 +585,7 @@ export async function generateDllPicImages({
   magnificGenerate = null,
   bytePlusGenerate = null,
   comfyGenerate = null,
-  seed, requestId, loraStrength, thinkingMode, faceSourceId,
+  seed, requestId, loraStrength, thinkingMode, faceSourceId, background, watermark, customWidth, customHeight, referenceSourceIds,
   onProgress,
   onImages,
 }) {
@@ -600,6 +601,7 @@ export async function generateDllPicImages({
     if (!modelConfig.resolutionOptions.includes(resolution)) throw new Error(`${modelConfig.label} 不支援 ${resolution} 解析度`);
     const result = await comfyGenerate({
       modelKey: modelConfig.comfyModel, prompt, aspectRatio, count: normalizedCount, resolution,
+      ...(modelConfig.comfyModel === 'seedream55' ? { background, watermark, customWidth, customHeight, referenceSourceIds } : {}),
       ...(modelConfig.comfyModel === 'seedream5Pro' && faceSourceId ? { faceSourceId } : {}),
       ...getDllPicLoraSettings(modelKey, loraStrength),
       ...(modelConfig.comfyModel === 'krea3' ? { thinkingMode: thinkingMode ?? 'fast' } : {}),

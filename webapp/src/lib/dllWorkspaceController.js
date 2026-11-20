@@ -1,3 +1,4 @@
+import { seedream55Settings } from './seedream55.js';
 import { imageCountOptions, isOpenAI26, openAI26Settings } from './openaiImage26.js';
 import { getDllPicLoraSettings } from './dllPicProClient.js';
 
@@ -15,10 +16,11 @@ export function generationSnapshot(input) {
   const counts = imageCountOptions(kind === 'generate' ? modelKey : null, input.outputFormat);
   if (!counts.includes(Number(count))) throw new Error(`每筆可生成 ${counts.join('、')} 張`);
   if (seed !== '' && (!Number.isSafeInteger(Number(seed)) || Number(seed) < 0)) throw new Error('Seed 需為非負整數');
-  if (modelKey === 'comfyKrea3' && seed !== '' && Number(seed) + Number(count) - 1 > 2147483647) throw new Error('Seed 超出 Krea 3 支援範圍');
+  if (modelKey === 'comfySeedream55' && (!Array.isArray(input.referenceImages ?? []) || (input.referenceImages ?? []).length > 10)) throw new Error('最多 10 張參考圖片');
+  if (['comfyKrea3', 'comfySeedream55'].includes(modelKey) && seed !== '' && Number(seed) + Number(count) - 1 > 2147483647) throw new Error('Seed 超出目前模型支援範圍');
   if (modelKey === 'comfyKrea3' && !['fast', 'high'].includes(input.thinkingMode ?? 'fast')) throw new Error('不支援的 Krea 3 思考模式');
   if (modelKey === 'openaiImage2' && !['low', 'medium', 'high'].includes(quality)) throw new Error('不支援的畫質');
-  return structuredClone({ modelKey, prompt, aspectRatio, resolution, count: Number(count), seed,
+  return structuredClone({ ...(modelKey === 'comfySeedream55' ? { ...seedream55Settings(input), referenceImages: input.referenceImages || [] } : {}), modelKey, prompt, aspectRatio, resolution, count: Number(count), seed,
     ...(kind === 'generate' && modelKey === 'comfySeedream5Pro' && input.faceReference ? { faceReference: input.faceReference } : {}),
     ...(modelKey === 'openaiImage2' ? { quality } : {}),
     ...(kind === 'generate' && isOpenAI26(modelKey) ? openAI26Settings(input) : {}),
