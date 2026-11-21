@@ -1,0 +1,176 @@
+{
+  "baseCommit": "abaf1569936bb82911fd060abc9074e0fe5a5579",
+  "purpose": "Restore pre-expansion capture and historical fixture source only inside replay; never re-record old seals.",
+  "files": [
+    {
+      "path": "webapp/src/lib/observationCaptureMode.js",
+      "beforeHash": "17d2c8058b23058472b1973b59dec93e5b8e2aa56169aff184d31045bc335b3c",
+      "afterHash": "c17c7873bed35ccfa6ae109fd980d339d4fa7d2788e5c0191b25c7bc7987e6a4",
+      "edits": [
+        {
+          "line": 1,
+          "before": [],
+          "after": [
+            "import { CAPTURE_EXPANSION_SCENES, CAPTURE_EXPANSION_ACTIONS, CAPTURE_EXPANSION_LIGHTING, CAPTURE_EXPANSION_FOREGROUNDS } from '../data/observationCaptureExpansion.js';\n"
+          ]
+        },
+        {
+          "line": 6,
+          "before": [
+            "  { key: 'scene', label: '場景', options: OBSERVATION_CAPTURE_OPTION_GROUPS.scenes },\n",
+            "  { key: 'action', label: '生活動作', options: OBSERVATION_CAPTURE_OPTION_GROUPS.actions },\n"
+          ],
+          "after": [
+            "  { key: 'scene', label: '場景', options: [...OBSERVATION_CAPTURE_OPTION_GROUPS.scenes, ...CAPTURE_EXPANSION_SCENES] },\n",
+            "  { key: 'action', label: '生活動作', options: [...OBSERVATION_CAPTURE_OPTION_GROUPS.actions, ...CAPTURE_EXPANSION_ACTIONS] },\n"
+          ]
+        },
+        {
+          "line": 10,
+          "before": [
+            "  { key: 'foreground', label: '前景遮擋', options: [...OBSERVATION_CAPTURE_OPTION_GROUPS.foregrounds, optional] },\n"
+          ],
+          "after": [
+            "  { key: 'foreground', label: '前景遮擋', options: [...OBSERVATION_CAPTURE_OPTION_GROUPS.foregrounds, ...CAPTURE_EXPANSION_FOREGROUNDS, optional] },\n"
+          ]
+        },
+        {
+          "line": 12,
+          "before": [
+            "  { key: 'lighting', label: '環境光線', options: OBSERVATION_CAPTURE_OPTION_GROUPS.lighting },\n"
+          ],
+          "after": [
+            "  { key: 'lighting', label: '環境光線', options: [...OBSERVATION_CAPTURE_OPTION_GROUPS.lighting, ...CAPTURE_EXPANSION_LIGHTING] },\n"
+          ]
+        },
+        {
+          "line": 47,
+          "before": [],
+          "after": [
+            "const expansionScenes = new Map(CAPTURE_EXPANSION_SCENES.map(scene => [scene.id, scene]));\n",
+            "const expansionActions = new Map(CAPTURE_EXPANSION_ACTIONS.map(action => [action.id, action]));\n",
+            "const expansionForegrounds = new Set(CAPTURE_EXPANSION_FOREGROUNDS.map(option => option.id));\n"
+          ]
+        },
+        {
+          "line": 54,
+          "before": [
+            "  const shelves = scene && ['bookstore-aisle', 'convenience-store'].includes(scene.id);\n",
+            "  const glass = scene && ['cafe-corner', 'shopping-mall', 'convenience-store', 'street-corner', 'commercial-street'].includes(scene.id);\n",
+            "  if (scene && action?.id === 'browsing-shelf' && !shelves) return '瀏覽貨架需要書店或便利商店場景。';\n",
+            "  if (scene && action?.id === 'leaning-on-rail' && scene.id !== 'park-path') return '靠欄杆僅搭配公園步道的欄杆區。';\n",
+            "  if (scene && position?.id === 'through-shelf-gap' && !shelves) return '貨架間隙需要書店或便利商店場景。';\n",
+            "  if (scene && position?.id === 'through-storefront-glass' && !glass) return '此場景沒有可用的店面玻璃。';\n",
+            "  if (scene && position?.id === 'below-railing' && !['park-path', 'cafe-corner'].includes(scene.id)) return '低位觀察需要公園座椅或咖啡廳桌面。';\n",
+            "  if (scene && foreground?.id === 'shelf-edge' && !shelves) return '貨架前景需要書店或便利商店。';\n",
+            "  if (scene && foreground?.id === 'glass-reflection' && !glass) return '玻璃反射需要場景中的玻璃。';\n",
+            "  if (scene && foreground?.id === 'railing-edge' && !['park-path', 'cafe-corner'].includes(scene.id)) return '此場景沒有適用的座椅／欄杆前景。';\n",
+            "  if (scene && foreground?.kinds && !foreground.kinds.includes(scene.kind)) return '前景與室內／室外場景不相容。';\n",
+            "  const lightScenes = {\n",
+            "    'cloudy-daylight': ['street-corner', 'park-path'], 'cool-mall-light': ['shopping-mall', 'train-station', 'bookstore-aisle'],\n",
+            "    'warm-cafe-light': ['cafe-corner'], 'fluorescent-store-light': ['convenience-store'],\n",
+            "    'dusk-practical-light': ['commercial-street', 'street-corner'], 'park-filtered-light': ['park-path'],\n",
+            "  };\n",
+            "  if (scene && lighting && !lightScenes[lighting.id]?.includes(scene.id)) return '光線與場景或時段不相容。';\n"
+          ],
+          "after": [
+            "  const expandedScene = scene && expansionScenes.get(scene.id);\n",
+            "  if (expandedScene) {\n",
+            "    for (const [option, allowed, label] of [\n",
+            "      [action, expandedScene.actions, '生活動作'], [position, expandedScene.positions, '觀察位置'],\n",
+            "      [foreground, expandedScene.foregrounds, '前景遮擋'], [lighting, expandedScene.lighting, '環境光線'],\n",
+            "    ]) {\n",
+            "      if (option && !allowed.includes(option.id)) return `${expandedScene.zh}不適合「${option.zh}」${label}。`;\n",
+            "    }\n",
+            "  } else {\n",
+            "    if (scene && action && expansionActions.has(action.id)) return '此生活動作需搭配對應的新生活場景。';\n",
+            "    if (scene && foreground && expansionForegrounds.has(foreground.id)) return '此近景物件需搭配對應的新生活場景。';\n",
+            "    const shelves = scene && ['bookstore-aisle', 'convenience-store'].includes(scene.id);\n",
+            "    const glass = scene && ['cafe-corner', 'shopping-mall', 'convenience-store', 'street-corner', 'commercial-street'].includes(scene.id);\n",
+            "    if (scene && action?.id === 'browsing-shelf' && !shelves) return '瀏覽貨架需要書店或便利商店場景。';\n",
+            "    if (scene && action?.id === 'leaning-on-rail' && scene.id !== 'park-path') return '靠欄杆僅搭配公園步道的欄杆區。';\n",
+            "    if (scene && position?.id === 'through-shelf-gap' && !shelves) return '貨架間隙需要書店或便利商店場景。';\n",
+            "    if (scene && position?.id === 'through-storefront-glass' && !glass) return '此場景沒有可用的店面玻璃。';\n",
+            "    if (scene && position?.id === 'below-railing' && !['park-path', 'cafe-corner'].includes(scene.id)) return '低位觀察需要公園座椅或咖啡廳桌面。';\n",
+            "    if (scene && foreground?.id === 'shelf-edge' && !shelves) return '貨架前景需要書店或便利商店。';\n",
+            "    if (scene && foreground?.id === 'glass-reflection' && !glass) return '玻璃反射需要場景中的玻璃。';\n",
+            "    if (scene && foreground?.id === 'railing-edge' && !['park-path', 'cafe-corner'].includes(scene.id)) return '此場景沒有適用的座椅／欄杆前景。';\n",
+            "    if (scene && foreground?.kinds && !foreground.kinds.includes(scene.kind)) return '前景與室內／室外場景不相容。';\n",
+            "    const lightScenes = {\n",
+            "      'cloudy-daylight': ['street-corner', 'park-path'], 'cool-mall-light': ['shopping-mall', 'train-station', 'bookstore-aisle'],\n",
+            "      'warm-cafe-light': ['cafe-corner'], 'fluorescent-store-light': ['convenience-store'],\n",
+            "      'dusk-practical-light': ['commercial-street', 'street-corner'], 'park-filtered-light': ['park-path'],\n",
+            "    };\n",
+            "    if (scene && lighting && !lightScenes[lighting.id]?.includes(scene.id)) return '光線與場景或時段不相容。';\n",
+            "  }\n",
+            "  if (action && discovery && expansionActions.get(action.id)?.focused && discovery.id !== 'unaware') return '此生活動作需要專注於眼前活動，請搭配沒有察覺鏡頭。';\n"
+          ]
+        },
+        {
+          "line": 147,
+          "before": [
+            "  const sceneText = s.scene.en + (s.action.id === 'leaning-on-rail' ? ', with a railing beside the park path' : '');\n"
+          ],
+          "after": [
+            "  const sceneText = s.scene.en + (s.action.id === 'leaning-on-rail' && s.scene.id === 'park-path' ? ', with a railing beside the park path' : '');\n"
+          ]
+        },
+        {
+          "line": 173,
+          "before": [
+            "  const actionText = chest ? chestActions[s.action.id] : waist && s.action.id === 'waiting-in-place' ? 'She is waiting in place with an unplanned posture.' : s.action.en;\n"
+          ],
+          "after": [
+            "  const actionText = chest ? (s.action.chestEn || chestActions[s.action.id]) : waist && s.action.id === 'waiting-in-place' ? 'She is waiting in place with an unplanned posture.' : waist && s.action.waistEn ? s.action.waistEn : s.action.en;\n"
+          ]
+        },
+        {
+          "line": 182,
+          "before": [
+            "  return s.scene.en\n"
+          ],
+          "after": [
+            "  return (s.scene.chestEn || s.scene.en)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/specifiedActionUpperBodyStateBatch3Fixtures.js",
+      "beforeHash": "9ff5c5530f0ef091f106eab5e649f9ca8266865eac4210a47c179bbb2c47fd52",
+      "afterHash": "96b1dbcc68ce1fece1efbd0c96672bc02147868ea27f445984e2476272e407fd",
+      "edits": [
+        {
+          "line": 21,
+          "before": [],
+          "after": [
+            "// Keep the already-resolved pre-expansion seed 27 capture input used by the\n",
+            "// sealed posture evidence. New capture randomness is covered in its own suite.\n",
+            "const historicalCapture = resolveCapture({\n",
+            "  \"seed\": 27,\n",
+            "  \"selected\": {\n",
+            "    \"scene\": \"cafe-corner\",\n",
+            "    \"action\": \"adjusting-hair\",\n",
+            "    \"discovery\": \"brief-side-glance\",\n",
+            "    \"position\": \"through-storefront-glass\",\n",
+            "    \"foreground\": \"none\",\n",
+            "    \"lens\": \"phone-wide\",\n",
+            "    \"lighting\": \"warm-cafe-light\",\n",
+            "    \"texture\": \"minor-motion-blur\"\n",
+            "  }\n",
+            "}).profile;\n"
+          ]
+        },
+        {
+          "line": 59,
+          "before": [
+            "      ['observation',{captureMode:'observation',observationCapture:resolveCapture({seed:27}).profile,characterProfileId:controls.find(control=>control.key==='characterProfileId').options.find(option=>option.specialSubject==='character-profile').id}],\n"
+          ],
+          "after": [
+            "      ['observation',{captureMode:'observation',observationCapture:historicalCapture,characterProfileId:controls.find(control=>control.key==='characterProfileId').options.find(option=>option.specialSubject==='character-profile').id}],\n"
+          ]
+        }
+      ]
+    }
+  ]
+}

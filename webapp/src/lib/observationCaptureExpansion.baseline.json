@@ -1,0 +1,568 @@
+{
+  "sourceCommit": "abaf1569936bb82911fd060abc9074e0fe5a5579",
+  "seed": "capture-expansion-baseline",
+  "baseLocks": {
+    "subjectCount": "1",
+    "specialSubjectId": "none",
+    "characterCardHairVariantId": "default",
+    "characterCardEyewearMode": "default",
+    "characterCardWardrobeMode": "full-default",
+    "characterCardWardrobeLayerIds": [],
+    "characterCardPromptOverride": "",
+    "aspectRatio": "none",
+    "mjVersionId": "v8-2",
+    "mjAspectRatio": "page1",
+    "mjRawMode": "raw",
+    "mjStylize": 25,
+    "mjChaos": 0,
+    "mjWeirdness": 0,
+    "mjResolution": "sd",
+    "imageTypePresetId": "photorealistic-photo",
+    "styleId": "style-none",
+    "cameraSystemId": "none",
+    "sceneAttributeId": "none",
+    "locationId": "locations:攝影棚與背景-studio-sets:全無:0",
+    "importedWorldSceneMode": "none",
+    "importedWorldSceneLabel": "",
+    "importedWorldSceneArchitectureText": "",
+    "zImageVisibleTextEnabled": false,
+    "zImageVisibleTextContent": "",
+    "zImageVisibleTextLanguage": "traditional-chinese",
+    "zImageVisibleTextPlacement": "background-storefront-sign",
+    "fixedCompositionSetId": "none",
+    "fixedSetPositionId": "none",
+    "fixedSetBackgroundStateId": "none",
+    "fixedSetCaptureModeId": "none",
+    "fixedSetPerformanceStateId": "none",
+    "framingId": "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+    "angleId": "camera:相機視角-angle:全無:0",
+    "orbitId": "camera:拍攝方位-orbit-angle:全無:0",
+    "lyingCameraId": "none",
+    "captureStyleId": "standard",
+    "lensId": "camera:鏡頭焦段-focal-length:全無:0",
+    "apertureId": "camera:光圈-景深-aperture-depth-of-field:全無:0",
+    "shutterId": "camera:快門-動態殘影-shutter-motion-blur:全無:0",
+    "opticalEffectId": "camera:光學效果-optical-effects:全無:0",
+    "lightingId": "camera:環境光條件-ambient-light-conditions:全無:0",
+    "lightDirectionId": "camera:光線表現-light-style:全無:0",
+    "filmId": "camera:底片與相機模擬-camera-film-simulation:全無:0",
+    "bodyTypeId": "character:體態-body-type:全無:6",
+    "bodyTypeAId": "character:體態-body-type:全無:6",
+    "bodyTypeBId": "character:體態-body-type:全無:6",
+    "facialFeaturesId": "character:五官特徵-facial-features:全無:0",
+    "facialFeaturesAId": "character:五官特徵-facial-features:全無:0",
+    "facialFeaturesBId": "character:五官特徵-facial-features:全無:0",
+    "skinDetailsId": "character:膚質特徵-skin-details:全無:0",
+    "skinDetailsAId": "character:膚質特徵-skin-details:全無:0",
+    "skinDetailsBId": "character:膚質特徵-skin-details:全無:0",
+    "hairstyleId": "character:髮型-hairstyle:全無:0",
+    "hairstyleAId": "character:髮型-hairstyle:全無:0",
+    "hairstyleBId": "character:髮型-hairstyle:全無:0",
+    "hairStylingStateId": "character:髮絲整理狀態-hair-styling-state:全無:4",
+    "hairStylingStateAId": "character:髮絲整理狀態-hair-styling-state:全無:4",
+    "hairStylingStateBId": "character:髮絲整理狀態-hair-styling-state:全無:4",
+    "hairColorId": "character:髮色-hair-color:全無:0",
+    "hairColorAId": "character:髮色-hair-color:全無:0",
+    "hairColorBId": "character:髮色-hair-color:全無:0",
+    "duoInteractionId": "none",
+    "duoPoseId": "none",
+    "duoPoseBaseId": "none",
+    "duoExpressionId": "none",
+    "expressionId": "",
+    "expressionAId": "",
+    "expressionBId": "",
+    "poseId": "character:姿勢與肢體語言-pose-body-language:全無:0",
+    "specialActionId": "character:特殊動作-special-actions:全無:0",
+    "actionPoseCardId": "",
+    "poseBaseId": "none",
+    "specifiedActionId": "none",
+    "specifiedActionSceneRestore": "",
+    "poseOrientationId": "none",
+    "poseArrangementId": "none",
+    "poseHandId": "none",
+    "posePropId": "none",
+    "poseHeadId": "none",
+    "poseAnchorId": "none",
+    "gestureId": "none",
+    "propId": "none",
+    "headPostureId": "none",
+    "gazeId": "none",
+    "specialOutfitId": "wardrobe:特殊穿搭-special-outfits:全無:0",
+    "specialOutfitAId": "wardrobe:特殊穿搭-special-outfits:全無:0",
+    "specialOutfitBId": "wardrobe:特殊穿搭-special-outfits:全無:0",
+    "completeLookPaletteId": "none",
+    "completeLookPaletteAId": "none",
+    "completeLookPaletteBId": "none",
+    "outfitPresetId": "outfit-preset-none",
+    "outfitPresetColorId": "none",
+    "outfitPresetAId": "outfit-preset-none",
+    "outfitPresetAColorId": "none",
+    "outfitPresetBId": "outfit-preset-none",
+    "outfitPresetBColorId": "none",
+    "outfitPresetPrimaryColorId": "none",
+    "outfitPresetContrastColorId": "none",
+    "outfitPresetLockedPaletteId": "none",
+    "outfitPresetAPrimaryColorId": "none",
+    "outfitPresetAContrastColorId": "none",
+    "outfitPresetALockedPaletteId": "none",
+    "outfitPresetBPrimaryColorId": "none",
+    "outfitPresetBContrastColorId": "none",
+    "outfitPresetBLockedPaletteId": "none",
+    "topId": "wardrobe:上身-tops:全無:0",
+    "topAId": "wardrobe:上身-tops:全無:0",
+    "topBId": "wardrobe:上身-tops:全無:0",
+    "topFitId": "none",
+    "topFitAId": "none",
+    "topFitBId": "none",
+    "topStylingId": "none",
+    "topStylingAId": "none",
+    "topStylingBId": "none",
+    "topBottomPaletteId": "none",
+    "topBottomPaletteAId": "none",
+    "topBottomPaletteBId": "none",
+    "topColorId": "none",
+    "topAColorId": "none",
+    "topBColorId": "none",
+    "topPatternId": "wardrobe:上身圖案-top-surface-design:全無:0",
+    "topAPatternId": "wardrobe:上身圖案-top-surface-design:全無:0",
+    "topBPatternId": "wardrobe:上身圖案-top-surface-design:全無:0",
+    "dressId": "wardrobe:連身-dresses:全無:0",
+    "dressAId": "wardrobe:連身-dresses:全無:0",
+    "dressBId": "wardrobe:連身-dresses:全無:0",
+    "dressColorId": "none",
+    "dressAColorId": "none",
+    "dressBColorId": "none",
+    "pantsId": "wardrobe:褲裝-pants:全無:0",
+    "pantsAId": "wardrobe:褲裝-pants:全無:0",
+    "pantsBId": "wardrobe:褲裝-pants:全無:0",
+    "skirtId": "wardrobe:裙裝-skirts:全無:0",
+    "skirtAId": "wardrobe:裙裝-skirts:全無:0",
+    "skirtBId": "wardrobe:裙裝-skirts:全無:0",
+    "bottomFitId": "none",
+    "bottomFitAId": "none",
+    "bottomFitBId": "none",
+    "bottomRiseId": "none",
+    "bottomRiseAId": "none",
+    "bottomRiseBId": "none",
+    "bottomColorId": "none",
+    "bottomAColorId": "none",
+    "bottomBColorId": "none",
+    "bottomPatternId": "wardrobe:下身圖案-bottom-surface-design:全無:0",
+    "bottomAPatternId": "wardrobe:下身圖案-bottom-surface-design:全無:0",
+    "bottomBPatternId": "wardrobe:下身圖案-bottom-surface-design:全無:0",
+    "outerwearId": "wardrobe:外套-outerwear:全無:0",
+    "outerwearFitId": "wardrobe:外套版型-outerwear-fit:全無:0",
+    "outerwearColorId": "none",
+    "outerwearPatternId": "wardrobe:外套圖案-outerwear-surface-design:全無:0",
+    "outerwearOpeningId": "wardrobe:外套開合-outerwear-opening:全無:4",
+    "outerwearStylingId": "wardrobe:外套穿法-outerwear-styling:全無:0",
+    "legwearId": "wardrobe:襪類-legwear:全無:0",
+    "legwearColorId": "none",
+    "shoesId": "wardrobe:鞋款-shoes:全無:0",
+    "shoesColorId": "none",
+    "outerwearAId": "wardrobe:外套-outerwear:全無:0",
+    "outerwearAFitId": "wardrobe:外套版型-outerwear-fit:全無:0",
+    "outerwearAColorId": "none",
+    "outerwearAPatternId": "wardrobe:外套圖案-outerwear-surface-design:全無:0",
+    "outerwearAOpeningId": "wardrobe:外套開合-outerwear-opening:全無:4",
+    "outerwearAStylingId": "wardrobe:外套穿法-outerwear-styling:全無:0",
+    "legwearAId": "wardrobe:襪類-legwear:全無:0",
+    "legwearAColorId": "none",
+    "shoesAId": "wardrobe:鞋款-shoes:全無:0",
+    "shoesAColorId": "none",
+    "outerwearBId": "wardrobe:外套-outerwear:全無:0",
+    "outerwearBFitId": "wardrobe:外套版型-outerwear-fit:全無:0",
+    "outerwearBColorId": "none",
+    "outerwearBPatternId": "wardrobe:外套圖案-outerwear-surface-design:全無:0",
+    "outerwearBOpeningId": "wardrobe:外套開合-outerwear-opening:全無:4",
+    "outerwearBStylingId": "wardrobe:外套穿法-outerwear-styling:全無:0",
+    "legwearBId": "wardrobe:襪類-legwear:全無:0",
+    "legwearBColorId": "none",
+    "shoesBId": "wardrobe:鞋款-shoes:全無:0",
+    "shoesBColorId": "none",
+    "headphonesId": "wardrobe:headphones:none",
+    "headphonesColorId": "none",
+    "faceCoveringId": "wardrobe:faceCovering:none",
+    "faceCoveringColorId": "none",
+    "headAccessoryId": "wardrobe:頭部配件-head-accessories:全無:0",
+    "headAccessoryColorId": "none",
+    "eyewearId": "wardrobe:眼鏡-eyewear:全無:0",
+    "eyewearColorId": "wardrobe:眼鏡配色-eyewear-color:全無:0",
+    "eyewearPlacementId": "wardrobe:眼鏡配戴方式-eyewear-placement:全無:2",
+    "earringsId": "wardrobe:耳環-earrings:全無:0",
+    "nosePiercingId": "wardrobe:鼻部穿孔-nose-piercings:全無:0",
+    "lipPiercingId": "wardrobe:唇部穿孔-lip-piercings:全無:0",
+    "neckAccessoryId": "wardrobe:頸部-neck-accessories:全無:0",
+    "waistAccessoryId": "wardrobe:腰部配件-waist-accessories:全無:0",
+    "headphonesAId": "wardrobe:headphones:none",
+    "headphonesAColorId": "none",
+    "faceCoveringAId": "wardrobe:faceCovering:none",
+    "faceCoveringAColorId": "none",
+    "headAccessoryAId": "wardrobe:頭部配件-head-accessories:全無:0",
+    "headAccessoryAColorId": "none",
+    "eyewearAId": "wardrobe:眼鏡-eyewear:全無:0",
+    "eyewearAColorId": "wardrobe:眼鏡配色-eyewear-color:全無:0",
+    "eyewearAPlacementId": "wardrobe:眼鏡配戴方式-eyewear-placement:全無:2",
+    "earringsAId": "wardrobe:耳環-earrings:全無:0",
+    "neckAccessoryAId": "wardrobe:頸部-neck-accessories:全無:0",
+    "waistAccessoryAId": "wardrobe:腰部配件-waist-accessories:全無:0",
+    "headphonesBId": "wardrobe:headphones:none",
+    "headphonesBColorId": "none",
+    "faceCoveringBId": "wardrobe:faceCovering:none",
+    "faceCoveringBColorId": "none",
+    "headAccessoryBId": "wardrobe:頭部配件-head-accessories:全無:0",
+    "headAccessoryBColorId": "none",
+    "eyewearBId": "wardrobe:眼鏡-eyewear:全無:0",
+    "eyewearBColorId": "wardrobe:眼鏡配色-eyewear-color:全無:0",
+    "eyewearBPlacementId": "wardrobe:眼鏡配戴方式-eyewear-placement:全無:2",
+    "earringsBId": "wardrobe:耳環-earrings:全無:0",
+    "neckAccessoryBId": "wardrobe:頸部-neck-accessories:全無:0",
+    "waistAccessoryBId": "wardrobe:腰部配件-waist-accessories:全無:0"
+  },
+  "cases": [
+    {
+      "id": "cafe-corner",
+      "locks": {
+        "captureMode": "observation",
+        "observationCapture": {
+          "version": 1,
+          "seed": 31,
+          "selected": {
+            "scene": "cafe-corner",
+            "action": "adjusting-hair",
+            "discovery": "brief-side-glance",
+            "position": "casual-phone-angle",
+            "foreground": "soft-doorframe",
+            "lens": "phone-wide",
+            "lighting": "warm-cafe-light",
+            "texture": "phone-processing"
+          },
+          "fixed": {
+            "scene": true,
+            "action": false,
+            "discovery": false,
+            "position": false,
+            "foreground": false,
+            "lens": false,
+            "lighting": false,
+            "texture": false
+          }
+        },
+        "characterProfileId": "character-rika"
+      },
+      "hashes": {
+        "grokPrompt": "1462a2dd23d7aca3bd61d939c954b9ecb55c51360ce221a6c2e63fbb7495ca38",
+        "zImagePrompt": "83e26c88520834a12b2a6c626383082e9fdefe5fc2bb2e8646f3280a9493beca",
+        "midjourneyPrompt": "08ef778e9e516eb0ba8b3fee57f6133a17a2df2eddbe87aaac6977889d7fc616",
+        "nanoBananaPrompt": "cd474b68cdfda6f54947e92ae737e884212a51472ae17bcbbba4f4c19d76993e",
+        "chest-up-portrait": "06759983e07d218e0646bdf6717926de7c27a3626d77e0aead5c787e8b8971b7",
+        "full-body-character": "2052d052ca317f237c453220d9120db16685c0e05cc6acfe9ea15e2e13f48131"
+      }
+    },
+    {
+      "id": "shopping-mall",
+      "locks": {
+        "captureMode": "observation",
+        "observationCapture": {
+          "version": 1,
+          "seed": 31,
+          "selected": {
+            "scene": "shopping-mall",
+            "action": "adjusting-hair",
+            "discovery": "brief-side-glance",
+            "position": "casual-phone-angle",
+            "foreground": "soft-doorframe",
+            "lens": "phone-wide",
+            "lighting": "cool-mall-light",
+            "texture": "phone-processing"
+          },
+          "fixed": {
+            "scene": true,
+            "action": false,
+            "discovery": false,
+            "position": false,
+            "foreground": false,
+            "lens": false,
+            "lighting": false,
+            "texture": false
+          }
+        },
+        "characterProfileId": "character-rika"
+      },
+      "hashes": {
+        "grokPrompt": "ae2d1e2553cbd5e2e00232f97f5ef971bc6845720b3ca7bf614a1c6f3a19affd",
+        "zImagePrompt": "de56096e977aeb324b11c29e5b299f789a70e3e30f86f4c3c726404baf4d5de5",
+        "midjourneyPrompt": "4f27075b0d24f8e9f78ada330204df6b0036627c643970a4f5013fd9ce2683a9",
+        "nanoBananaPrompt": "6e839b3ef4e4f2808c0ae2b3cc15d1210e22e8efdfd6746dac5744703bd00af1",
+        "chest-up-portrait": "60348002786d0e766812a31a6056022a77d797e31957d6f8cbf97b2965799541",
+        "full-body-character": "2052d052ca317f237c453220d9120db16685c0e05cc6acfe9ea15e2e13f48131"
+      }
+    },
+    {
+      "id": "convenience-store",
+      "locks": {
+        "captureMode": "observation",
+        "observationCapture": {
+          "version": 1,
+          "seed": 31,
+          "selected": {
+            "scene": "convenience-store",
+            "action": "adjusting-hair",
+            "discovery": "brief-side-glance",
+            "position": "casual-phone-angle",
+            "foreground": "soft-doorframe",
+            "lens": "phone-wide",
+            "lighting": "fluorescent-store-light",
+            "texture": "phone-processing"
+          },
+          "fixed": {
+            "scene": true,
+            "action": false,
+            "discovery": false,
+            "position": false,
+            "foreground": false,
+            "lens": false,
+            "lighting": false,
+            "texture": false
+          }
+        },
+        "characterProfileId": "character-rika"
+      },
+      "hashes": {
+        "grokPrompt": "b08e354c4fb729394605cb668a6cc3917b0af39b7b304b92e082ea86536ceadd",
+        "zImagePrompt": "cdbea6a53b0f621496b9a19d0b555e27adf14bbdd45f85c15e3a307a027a2678",
+        "midjourneyPrompt": "305351d952a7f7385c3e0c7ac5d1bf8c796d9549f881b8c99b42682c08041914",
+        "nanoBananaPrompt": "013356da7e05aa15266a90170aa362362d2c637b64f39640d6c73654945b8d41",
+        "chest-up-portrait": "cbdcdf6ca7551c1771853d75e7fad283bd753775d4bbe15fb1d123e609dc59bc",
+        "full-body-character": "2052d052ca317f237c453220d9120db16685c0e05cc6acfe9ea15e2e13f48131"
+      }
+    },
+    {
+      "id": "bookstore-aisle",
+      "locks": {
+        "captureMode": "observation",
+        "observationCapture": {
+          "version": 1,
+          "seed": 31,
+          "selected": {
+            "scene": "bookstore-aisle",
+            "action": "adjusting-hair",
+            "discovery": "brief-side-glance",
+            "position": "casual-phone-angle",
+            "foreground": "soft-doorframe",
+            "lens": "phone-wide",
+            "lighting": "cool-mall-light",
+            "texture": "phone-processing"
+          },
+          "fixed": {
+            "scene": true,
+            "action": false,
+            "discovery": false,
+            "position": false,
+            "foreground": false,
+            "lens": false,
+            "lighting": false,
+            "texture": false
+          }
+        },
+        "characterProfileId": "character-rika"
+      },
+      "hashes": {
+        "grokPrompt": "271716dd2faf507e9043e950ec4148fd31e8f3f9820bffd7ed30b647c0418c8f",
+        "zImagePrompt": "db2e81d5e4ef454142fff2f1b706b663d47445bbb7c4ca7e169f98767d3fc3ea",
+        "midjourneyPrompt": "38d1407293159bc89c6b06af07bf1e10344aa73c98dcaa3949e318d44ae10909",
+        "nanoBananaPrompt": "0bd424e27a5575a99242971b222cf3163572a50cd8b9742f41fe9904442660b4",
+        "chest-up-portrait": "311d3fd9df1205f8f5b246342322815ca756b7587a50a5669cc4854693a5c407",
+        "full-body-character": "2052d052ca317f237c453220d9120db16685c0e05cc6acfe9ea15e2e13f48131"
+      }
+    },
+    {
+      "id": "train-station",
+      "locks": {
+        "captureMode": "observation",
+        "observationCapture": {
+          "version": 1,
+          "seed": 31,
+          "selected": {
+            "scene": "train-station",
+            "action": "adjusting-hair",
+            "discovery": "brief-side-glance",
+            "position": "casual-phone-angle",
+            "foreground": "soft-doorframe",
+            "lens": "phone-wide",
+            "lighting": "cool-mall-light",
+            "texture": "phone-processing"
+          },
+          "fixed": {
+            "scene": true,
+            "action": false,
+            "discovery": false,
+            "position": false,
+            "foreground": false,
+            "lens": false,
+            "lighting": false,
+            "texture": false
+          }
+        },
+        "characterProfileId": "character-rika"
+      },
+      "hashes": {
+        "grokPrompt": "0b118d15825eb975f19750e631783ff3c33e1bc0937d9fe12e46ebf59dcb25c1",
+        "zImagePrompt": "41d4712877c90e1a5da6ba3c73e2af51993c0e77b9d6c07861c2ec51f5ffb173",
+        "midjourneyPrompt": "c3a64f0d792dcc068ec133242ede8461edc5504075481ead64cb2a9310dabb58",
+        "nanoBananaPrompt": "d96ffb2cd997b0c87c9dbd15ef937dd829a408fe74bc2dfe6ffb9f852ef31565",
+        "chest-up-portrait": "deb609bfc7567b7936444eee7383870bc0a8978b71a64bbc5cdf3bbc3bc39c06",
+        "full-body-character": "2052d052ca317f237c453220d9120db16685c0e05cc6acfe9ea15e2e13f48131"
+      }
+    },
+    {
+      "id": "street-corner",
+      "locks": {
+        "captureMode": "observation",
+        "observationCapture": {
+          "version": 1,
+          "seed": 31,
+          "selected": {
+            "scene": "street-corner",
+            "action": "adjusting-hair",
+            "discovery": "brief-side-glance",
+            "position": "casual-phone-angle",
+            "foreground": "passing-silhouette",
+            "lens": "phone-wide",
+            "lighting": "dusk-practical-light",
+            "texture": "phone-processing"
+          },
+          "fixed": {
+            "scene": true,
+            "action": false,
+            "discovery": false,
+            "position": false,
+            "foreground": false,
+            "lens": false,
+            "lighting": false,
+            "texture": false
+          }
+        },
+        "characterProfileId": "character-rika"
+      },
+      "hashes": {
+        "grokPrompt": "7f3524d2aabebb9eb578b5940c2981d040c52a2c5aec0c7f080caeb2ed3b4411",
+        "zImagePrompt": "3b76bff4833c1ab876196d60e7f118d5e862eaf5c185fa4706841092bc07a713",
+        "midjourneyPrompt": "7a22afa951aa788d3a1b9d7cf64b25c620c05b23d89f03b3b4c70d62320e8412",
+        "nanoBananaPrompt": "f2f46deff2e7d51772f333ab8404a74b8c1c25e8bc436d92df326be7df26d575",
+        "chest-up-portrait": "f538831c0d1c0edbb76dcdb33f9e3119b3691f2bf26176daad3a7eb787100aaa",
+        "full-body-character": "2052d052ca317f237c453220d9120db16685c0e05cc6acfe9ea15e2e13f48131"
+      }
+    },
+    {
+      "id": "park-path",
+      "locks": {
+        "captureMode": "observation",
+        "observationCapture": {
+          "version": 1,
+          "seed": 31,
+          "selected": {
+            "scene": "park-path",
+            "action": "adjusting-hair",
+            "discovery": "brief-side-glance",
+            "position": "casual-phone-angle",
+            "foreground": "passing-silhouette",
+            "lens": "phone-wide",
+            "lighting": "cloudy-daylight",
+            "texture": "phone-processing"
+          },
+          "fixed": {
+            "scene": true,
+            "action": false,
+            "discovery": false,
+            "position": false,
+            "foreground": false,
+            "lens": false,
+            "lighting": false,
+            "texture": false
+          }
+        },
+        "characterProfileId": "character-rika"
+      },
+      "hashes": {
+        "grokPrompt": "1039d9474e49918995565d8d4916fb4b208d12944dfc842115d32579243d8aaa",
+        "zImagePrompt": "8360528e070323a44ae866b15aa857f705586bd69b05a069c39f97556cac5f9c",
+        "midjourneyPrompt": "2edad57d0e7cfb6727c3ba3010da6df482fcefe8c0566eeb9f515170468b9ecd",
+        "nanoBananaPrompt": "f079f320e65523ee1bd8e8fd44bf3442136909f4ca41414b4bcdc86e12e7253d",
+        "chest-up-portrait": "d49bd4d4cd97c452314769a4b31f771457bbf3762adec1477649cdec2993c294",
+        "full-body-character": "2052d052ca317f237c453220d9120db16685c0e05cc6acfe9ea15e2e13f48131"
+      }
+    },
+    {
+      "id": "commercial-street",
+      "locks": {
+        "captureMode": "observation",
+        "observationCapture": {
+          "version": 1,
+          "seed": 31,
+          "selected": {
+            "scene": "commercial-street",
+            "action": "adjusting-hair",
+            "discovery": "brief-side-glance",
+            "position": "casual-phone-angle",
+            "foreground": "passing-silhouette",
+            "lens": "phone-wide",
+            "lighting": "dusk-practical-light",
+            "texture": "phone-processing"
+          },
+          "fixed": {
+            "scene": true,
+            "action": false,
+            "discovery": false,
+            "position": false,
+            "foreground": false,
+            "lens": false,
+            "lighting": false,
+            "texture": false
+          }
+        },
+        "characterProfileId": "character-rika"
+      },
+      "hashes": {
+        "grokPrompt": "78ce96bae12f52206c68176407fc95222ad66f29c8f9b710f7a21beea5700f80",
+        "zImagePrompt": "7b1b69ea6d5a3046eb1511dfc0f3ac0b428b62b21ac2cd305c7b0a71e3ad556d",
+        "midjourneyPrompt": "48f62ce43f4ca064f3efc0be7a81b5b6b73f14dd16a2a69748e5436285ad7ad7",
+        "nanoBananaPrompt": "c4d0d6726e1dbd50e301f3960e02290937a3570b162bb4e8334b189ec50163e2",
+        "chest-up-portrait": "df4b9e07e93533faf10cb59ac13ff693a17515aad1cfed90b2da7b9cb43f8302",
+        "full-body-character": "2052d052ca317f237c453220d9120db16685c0e05cc6acfe9ea15e2e13f48131"
+      }
+    },
+    {
+      "id": "standard-card",
+      "locks": {
+        "captureMode": "standard",
+        "observationCapture": "",
+        "characterProfileId": "character-rika"
+      },
+      "hashes": {
+        "grokPrompt": "f8de7eaef15b116752dd7774a2d6578eb164aa6ad075e0007d6f2069fb8dae0d",
+        "zImagePrompt": "c1aa7f13991c2a7c6c9b0ea0418e06ca0c75e57efbbd0970ae3ce21fd1de7409",
+        "midjourneyPrompt": "5c08a0f3b2b83de8e623d5c5d62530f77c8118252638ce7f71d9beb7488574ff",
+        "nanoBananaPrompt": "e39b3094d2a88d0d1da856f5d0a32accf386fbf35fc4fcc5c77bc9a64c9c7242",
+        "chest-up-portrait": "881feb177c0e39c9ce9caa5f99c4f38448688d68d2701a930eff091043de124c",
+        "full-body-character": "2052d052ca317f237c453220d9120db16685c0e05cc6acfe9ea15e2e13f48131"
+      }
+    },
+    {
+      "id": "standard-person",
+      "locks": {
+        "captureMode": "standard",
+        "observationCapture": "",
+        "characterProfileId": "none"
+      },
+      "hashes": {
+        "grokPrompt": "608deb3aeb95a04f734ddda28d290cb5e32cb781002f90d48861b51753bb950d",
+        "zImagePrompt": "3b3eb61f9751889881e4e83abd022851eacb86c3df6e5c3871cefa9671720662",
+        "midjourneyPrompt": "006d1e19a57372b4fe4e27067aef38eae29f84654bba64b72a571447a51f63bc",
+        "nanoBananaPrompt": "7f3b592f2ad2fcac8538fed507a52ec1a039feb84ee6907fd111369fe7ab0b9f",
+        "chest-up-portrait": "aba2354209f1e259928d328973a084f4673d6b09b7d90f5a2f48ca1b212ebe2a",
+        "full-body-character": "b5f7f272066360c14b1cc601cd05b34db0a616fb0dfa41aa4a2e0696e9aaec5e"
+      }
+    }
+  ]
+}

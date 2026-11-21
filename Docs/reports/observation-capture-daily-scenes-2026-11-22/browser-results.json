@@ -1,0 +1,168 @@
+[
+  {
+    "width": 1440,
+    "height": 1000,
+    "scenes": [
+      {
+        "scene": "laundromat-washer",
+        "action": "loading-laundry",
+        "enabledActions": 6
+      },
+      {
+        "scene": "laundromat-folding",
+        "action": "folding-laundry",
+        "enabledActions": 6
+      },
+      {
+        "scene": "office-pantry",
+        "action": "operating-coffee-machine",
+        "enabledActions": 7
+      },
+      {
+        "scene": "library-reading-table",
+        "action": "seated-reading",
+        "enabledActions": 7
+      },
+      {
+        "scene": "neighborhood-vending",
+        "action": "viewing-vending-products",
+        "enabledActions": 7
+      },
+      {
+        "scene": "retro-diner",
+        "action": "seated-reading-menu",
+        "enabledActions": 7
+      },
+      {
+        "scene": "platform-signboard",
+        "action": "checking-arrival-board",
+        "enabledActions": 6
+      },
+      {
+        "scene": "train-side-aisle",
+        "action": "adjusting-bag-strap",
+        "enabledActions": 7
+      },
+      {
+        "scene": "train-bench",
+        "action": "seated-checking-phone",
+        "enabledActions": 5
+      },
+      {
+        "scene": "hachiko-waiting-area",
+        "action": "adjusting-bag-strap",
+        "enabledActions": 8
+      },
+      {
+        "scene": "lakeside-deck",
+        "action": "looking-down-over-railing",
+        "enabledActions": 7
+      },
+      {
+        "scene": "ryokan-engawa",
+        "action": "seated-checking-phone",
+        "enabledActions": 8
+      }
+    ],
+    "smoke": [
+      "角色建模",
+      "場景建模",
+      "DLL_PIC Pro",
+      "DLL_VIDEO Pro",
+      "Saved Cards",
+      "Prompt 工作台"
+    ],
+    "importSummaryStable": true,
+    "rerollAndFixed": true,
+    "disabledAndKeyboard": true,
+    "reloadAndSavedCardRestore": true,
+    "zipCards": 1,
+    "invalidStoredCombination": true,
+    "overflow": false,
+    "errors": [],
+    "externalPosts": []
+  },
+  {
+    "width": 390,
+    "height": 900,
+    "scenes": [
+      {
+        "scene": "laundromat-washer",
+        "action": "loading-laundry",
+        "enabledActions": 6
+      },
+      {
+        "scene": "laundromat-folding",
+        "action": "folding-laundry",
+        "enabledActions": 6
+      },
+      {
+        "scene": "office-pantry",
+        "action": "operating-coffee-machine",
+        "enabledActions": 7
+      },
+      {
+        "scene": "library-reading-table",
+        "action": "seated-reading",
+        "enabledActions": 7
+      },
+      {
+        "scene": "neighborhood-vending",
+        "action": "viewing-vending-products",
+        "enabledActions": 7
+      },
+      {
+        "scene": "retro-diner",
+        "action": "seated-reading-menu",
+        "enabledActions": 7
+      },
+      {
+        "scene": "platform-signboard",
+        "action": "checking-arrival-board",
+        "enabledActions": 6
+      },
+      {
+        "scene": "train-side-aisle",
+        "action": "adjusting-bag-strap",
+        "enabledActions": 7
+      },
+      {
+        "scene": "train-bench",
+        "action": "seated-checking-phone",
+        "enabledActions": 5
+      },
+      {
+        "scene": "hachiko-waiting-area",
+        "action": "adjusting-bag-strap",
+        "enabledActions": 8
+      },
+      {
+        "scene": "lakeside-deck",
+        "action": "looking-down-over-railing",
+        "enabledActions": 7
+      },
+      {
+        "scene": "ryokan-engawa",
+        "action": "seated-checking-phone",
+        "enabledActions": 8
+      }
+    ],
+    "smoke": [
+      "角色建模",
+      "場景建模",
+      "DLL_PIC Pro",
+      "DLL_VIDEO Pro",
+      "Saved Cards",
+      "Prompt 工作台"
+    ],
+    "importSummaryStable": true,
+    "rerollAndFixed": true,
+    "disabledAndKeyboard": true,
+    "reloadAndSavedCardRestore": true,
+    "zipCards": 1,
+    "invalidStoredCombination": true,
+    "overflow": false,
+    "errors": [],
+    "externalPosts": []
+  }
+]

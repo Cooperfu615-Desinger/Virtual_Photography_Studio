@@ -2,6 +2,7 @@
 // Unknown source bytes pass through, so earlier strict replay continues to reject drift.
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
+import observationCaptureExpansion from './observationCaptureExpansionHistory.json' with { type: 'json' };
 import review from './gestureExpressionGazeHistory.json' with { type: 'json' };
 import biteHemGesture from './biteHemGestureHistory.json' with { type: 'json' };
 import waistbandHeight from './waistbandHeightHistory.json' with { type: 'json' };
@@ -22,7 +23,7 @@ import closedEyeReview from './closedEyeGazeHistory.json' with { type: 'json' };
 
 const hash = source => createHash('sha256').update(source).digest('hex');
 export const gestureExpressionGazeHistoricalPaths = [...new Set(
-  [...page3PersonPerformance.files, ...page3LocationExpansion.files, ...page3LocationPilot.files, ...waistbandStrings.files, ...waistbandHeight.files, ...biteHemGesture.files, ...bodyTightFit.files, ...adjustTopGesture.files, ...waistbandLiftGesture.files, ...underbustTeeGesture.files, ...raisedTopHem.files, ...page3FieldActions.files, ...page3Person.files, ...page3Compression.files, ...closedEyeReview.files, ...review.files].map(file => file.path)
+  [...observationCaptureExpansion.files, ...page3PersonPerformance.files, ...page3LocationExpansion.files, ...page3LocationPilot.files, ...waistbandStrings.files, ...waistbandHeight.files, ...biteHemGesture.files, ...bodyTightFit.files, ...adjustTopGesture.files, ...waistbandLiftGesture.files, ...underbustTeeGesture.files, ...raisedTopHem.files, ...page3FieldActions.files, ...page3Person.files, ...page3Compression.files, ...closedEyeReview.files, ...review.files].map(file => file.path)
 )];
 export function preGestureExpressionGazeSource(path, source) {
   const prePage3PromptSource = reverseReviewedSource(page3Compression, path, prePage3PersonSource(path, source));
@@ -33,8 +34,12 @@ export function prePage3LocationExpansionSource(path, source) {
   return reverseReviewedSource(page3LocationExpansion, path, prePage3PersonPerformanceSource(path, source));
 }
 
+export function preObservationCaptureExpansionSource(path, source) {
+  return reverseReviewedSource(observationCaptureExpansion, path, source);
+}
+
 export function prePage3PersonPerformanceSource(path, source) {
-  return reverseReviewedSource(page3PersonPerformance, path, source);
+  return reverseReviewedSource(page3PersonPerformance, path, preObservationCaptureExpansionSource(path, source));
 }
 
 export function prePage3LocationPilotSource(path, source) {

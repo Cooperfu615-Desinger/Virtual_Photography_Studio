@@ -1,15 +1,16 @@
 import { OBSERVATION_CAPTURE_OPTION_GROUPS } from '../data/observationCapturePromptOptions.js';
+import { CAPTURE_EXPANSION_SCENES, CAPTURE_EXPANSION_ACTIONS, CAPTURE_EXPANSION_LIGHTING, CAPTURE_EXPANSION_FOREGROUNDS } from '../data/observationCaptureExpansion.js';
 import { activeImportedPerson, importedPersonLocks, normalizeImportedPerson } from './observationCaptureImport.js';
 
 const optional = { id: 'none', zh: '不額外添加', en: '' };
 export const CAPTURE_GROUPS = [
-  { key: 'scene', label: '場景', options: OBSERVATION_CAPTURE_OPTION_GROUPS.scenes },
-  { key: 'action', label: '生活動作', options: OBSERVATION_CAPTURE_OPTION_GROUPS.actions },
+  { key: 'scene', label: '場景', options: [...OBSERVATION_CAPTURE_OPTION_GROUPS.scenes, ...CAPTURE_EXPANSION_SCENES] },
+  { key: 'action', label: '生活動作', options: [...OBSERVATION_CAPTURE_OPTION_GROUPS.actions, ...CAPTURE_EXPANSION_ACTIONS] },
   { key: 'discovery', label: '察覺鏡頭', options: OBSERVATION_CAPTURE_OPTION_GROUPS.discoveryStates },
   { key: 'position', label: '觀察位置', options: OBSERVATION_CAPTURE_OPTION_GROUPS.positions },
-  { key: 'foreground', label: '前景遮擋', options: [...OBSERVATION_CAPTURE_OPTION_GROUPS.foregrounds, optional] },
+  { key: 'foreground', label: '前景遮擋', options: [...OBSERVATION_CAPTURE_OPTION_GROUPS.foregrounds, ...CAPTURE_EXPANSION_FOREGROUNDS, optional] },
   { key: 'lens', label: '鏡頭', options: OBSERVATION_CAPTURE_OPTION_GROUPS.lenses },
-  { key: 'lighting', label: '環境光線', options: OBSERVATION_CAPTURE_OPTION_GROUPS.lighting },
+  { key: 'lighting', label: '環境光線', options: [...OBSERVATION_CAPTURE_OPTION_GROUPS.lighting, ...CAPTURE_EXPANSION_LIGHTING] },
   { key: 'texture', label: '成像質感', options: [...OBSERVATION_CAPTURE_OPTION_GROUPS.textures, optional] },
 ];
 export const CAPTURE_OWNED_KEYS = [
@@ -44,27 +45,43 @@ export function captureEligibility(locks, controls) {
   }
   return '';
 }
+const expansionScenes = new Map(CAPTURE_EXPANSION_SCENES.map(scene => [scene.id, scene]));
+const expansionActions = new Map(CAPTURE_EXPANSION_ACTIONS.map(action => [action.id, action]));
+const expansionForegrounds = new Set(CAPTURE_EXPANSION_FOREGROUNDS.map(option => option.id));
 // Pairwise constraints are evaluated for partial candidates too. A backtracking
 // search respects ALL fixed fields, including ones later in the display order.
 export function captureConflict(s) {
   const { scene, action, discovery, position, foreground, lens, lighting, texture } = s;
-  const shelves = scene && ['bookstore-aisle', 'convenience-store'].includes(scene.id);
-  const glass = scene && ['cafe-corner', 'shopping-mall', 'convenience-store', 'street-corner', 'commercial-street'].includes(scene.id);
-  if (scene && action?.id === 'browsing-shelf' && !shelves) return '瀏覽貨架需要書店或便利商店場景。';
-  if (scene && action?.id === 'leaning-on-rail' && scene.id !== 'park-path') return '靠欄杆僅搭配公園步道的欄杆區。';
-  if (scene && position?.id === 'through-shelf-gap' && !shelves) return '貨架間隙需要書店或便利商店場景。';
-  if (scene && position?.id === 'through-storefront-glass' && !glass) return '此場景沒有可用的店面玻璃。';
-  if (scene && position?.id === 'below-railing' && !['park-path', 'cafe-corner'].includes(scene.id)) return '低位觀察需要公園座椅或咖啡廳桌面。';
-  if (scene && foreground?.id === 'shelf-edge' && !shelves) return '貨架前景需要書店或便利商店。';
-  if (scene && foreground?.id === 'glass-reflection' && !glass) return '玻璃反射需要場景中的玻璃。';
-  if (scene && foreground?.id === 'railing-edge' && !['park-path', 'cafe-corner'].includes(scene.id)) return '此場景沒有適用的座椅／欄杆前景。';
-  if (scene && foreground?.kinds && !foreground.kinds.includes(scene.kind)) return '前景與室內／室外場景不相容。';
-  const lightScenes = {
-    'cloudy-daylight': ['street-corner', 'park-path'], 'cool-mall-light': ['shopping-mall', 'train-station', 'bookstore-aisle'],
-    'warm-cafe-light': ['cafe-corner'], 'fluorescent-store-light': ['convenience-store'],
-    'dusk-practical-light': ['commercial-street', 'street-corner'], 'park-filtered-light': ['park-path'],
-  };
-  if (scene && lighting && !lightScenes[lighting.id]?.includes(scene.id)) return '光線與場景或時段不相容。';
+  const expandedScene = scene && expansionScenes.get(scene.id);
+  if (expandedScene) {
+    for (const [option, allowed, label] of [
+      [action, expandedScene.actions, '生活動作'], [position, expandedScene.positions, '觀察位置'],
+      [foreground, expandedScene.foregrounds, '前景遮擋'], [lighting, expandedScene.lighting, '環境光線'],
+    ]) {
+      if (option && !allowed.includes(option.id)) return `${expandedScene.zh}不適合「${option.zh}」${label}。`;
+    }
+  } else {
+    if (scene && action && expansionActions.has(action.id)) return '此生活動作需搭配對應的新生活場景。';
+    if (scene && foreground && expansionForegrounds.has(foreground.id)) return '此近景物件需搭配對應的新生活場景。';
+    const shelves = scene && ['bookstore-aisle', 'convenience-store'].includes(scene.id);
+    const glass = scene && ['cafe-corner', 'shopping-mall', 'convenience-store', 'street-corner', 'commercial-street'].includes(scene.id);
+    if (scene && action?.id === 'browsing-shelf' && !shelves) return '瀏覽貨架需要書店或便利商店場景。';
+    if (scene && action?.id === 'leaning-on-rail' && scene.id !== 'park-path') return '靠欄杆僅搭配公園步道的欄杆區。';
+    if (scene && position?.id === 'through-shelf-gap' && !shelves) return '貨架間隙需要書店或便利商店場景。';
+    if (scene && position?.id === 'through-storefront-glass' && !glass) return '此場景沒有可用的店面玻璃。';
+    if (scene && position?.id === 'below-railing' && !['park-path', 'cafe-corner'].includes(scene.id)) return '低位觀察需要公園座椅或咖啡廳桌面。';
+    if (scene && foreground?.id === 'shelf-edge' && !shelves) return '貨架前景需要書店或便利商店。';
+    if (scene && foreground?.id === 'glass-reflection' && !glass) return '玻璃反射需要場景中的玻璃。';
+    if (scene && foreground?.id === 'railing-edge' && !['park-path', 'cafe-corner'].includes(scene.id)) return '此場景沒有適用的座椅／欄杆前景。';
+    if (scene && foreground?.kinds && !foreground.kinds.includes(scene.kind)) return '前景與室內／室外場景不相容。';
+    const lightScenes = {
+      'cloudy-daylight': ['street-corner', 'park-path'], 'cool-mall-light': ['shopping-mall', 'train-station', 'bookstore-aisle'],
+      'warm-cafe-light': ['cafe-corner'], 'fluorescent-store-light': ['convenience-store'],
+      'dusk-practical-light': ['commercial-street', 'street-corner'], 'park-filtered-light': ['park-path'],
+    };
+    if (scene && lighting && !lightScenes[lighting.id]?.includes(scene.id)) return '光線與場景或時段不相容。';
+  }
+  if (action && discovery && expansionActions.get(action.id)?.focused && discovery.id !== 'unaware') return '此生活動作需要專注於眼前活動，請搭配沒有察覺鏡頭。';
   if (position?.id === 'distant-telephoto' && lens && !['short-telephoto-85mm', 'long-telephoto-135mm'].includes(lens.id)) return '遠距長焦需要 85mm 或 135mm。';
   if (position?.id === 'casual-phone-angle' && lens && lens.id !== 'phone-wide') return '手機隨手角度需要手機廣角鏡頭。';
   if (position?.id === 'through-storefront-glass' && foreground && !['glass-reflection', 'none'].includes(foreground.id)) return '隔玻璃觀察搭配玻璃反射或不額外添加前景。';
@@ -128,7 +145,7 @@ export function captureEffectiveLocks(locks) {
 const item = (option, en = option.en) => ({ ...option, en, meta: { tags: [], minVisibility: 'full' } });
 export function captureContext(selections) {
   const s = selections;
-  const sceneText = s.scene.en + (s.action.id === 'leaning-on-rail' ? ', with a railing beside the park path' : '');
+  const sceneText = s.scene.en + (s.action.id === 'leaning-on-rail' && s.scene.id === 'park-path' ? ', with a railing beside the park path' : '');
   // Camera location supplies its own glass once; a matching foreground only
   // adds the visible reflection fragment, never a second camera statement.
   const position = s.position.en;
@@ -154,7 +171,7 @@ const chestActions = {
   'turning-back': 'She turns her head back while moving, as if responding to something outside the frame.',
 };
 export function capturePoseText(s, chest = false, waist = false) {
-  const actionText = chest ? chestActions[s.action.id] : waist && s.action.id === 'waiting-in-place' ? 'She is waiting in place with an unplanned posture.' : s.action.en;
+  const actionText = chest ? (s.action.chestEn || chestActions[s.action.id]) : waist && s.action.id === 'waiting-in-place' ? 'She is waiting in place with an unplanned posture.' : waist && s.action.waistEn ? s.action.waistEn : s.action.en;
   return [actionText, s.discovery.en].join('. ').replace(/\.\./g, '.');
 }
 export function capturePoseItem(s) {
@@ -163,7 +180,7 @@ export function capturePoseItem(s) {
 }
 
 export function captureChestScene(s) {
-  return s.scene.en
+  return (s.scene.chestEn || s.scene.en)
     .replace('with storefronts, polished floor reflections, and everyday foot traffic', 'with storefronts and everyday foot traffic')
     .replace('with storefronts, curb edges, passing bicycles, and layered urban background detail', 'with storefronts and layered urban background detail')
     .replace('with trees, benches, a paved walkway, and ordinary visitors in the middle distance', 'with trees and ordinary visitors in the middle distance')

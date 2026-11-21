@@ -19,6 +19,21 @@ const targets = new Set(UPPER_BODY_STATE_BATCH3.map(action => action.id));
 // The new adjustable cat pose has its own coverage, after the immutable batch3
 // evidence. Exclude exactly that addition, retaining every other current action.
 const batch3Actions = SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(action=>action.id!=='specified-sitting-low-aloof-cats-adjustable-angle');
+// Keep the already-resolved pre-expansion seed 27 capture input used by the
+// sealed posture evidence. New capture randomness is covered in its own suite.
+const historicalCapture = resolveCapture({
+  "seed": 27,
+  "selected": {
+    "scene": "cafe-corner",
+    "action": "adjusting-hair",
+    "discovery": "brief-side-glance",
+    "position": "through-storefront-glass",
+    "foreground": "none",
+    "lens": "phone-wide",
+    "lighting": "warm-cafe-light",
+    "texture": "minor-motion-blur"
+  }
+}).profile;
 const controls = getLockControls();
 export { UPPER_BODY_STATE_PARIS, upperBodyStateLocks, upperBodyStateOption, runUpperBodyStateCase, upperBodyStateRow, upperBodyStateHash };
 
@@ -42,7 +57,7 @@ export function upperBodyStateBatch3Cases() {
     for (const [mode,patch] of [
       ['duo',{subjectCount:'2'}],
       ['fixed-position',{fixedCompositionSetId:'japan-carriage-rush-hour',fixedSetPositionId:'carriage-crowd-seated'}],
-      ['observation',{captureMode:'observation',observationCapture:resolveCapture({seed:27}).profile,characterProfileId:controls.find(control=>control.key==='characterProfileId').options.find(option=>option.specialSubject==='character-profile').id}],
+      ['observation',{captureMode:'observation',observationCapture:historicalCapture,characterProfileId:controls.find(control=>control.key==='characterProfileId').options.find(option=>option.specialSubject==='character-profile').id}],
     ]) add(action.id + '/' + mode,{specifiedActionId:action.id,framingId:upperBodyStateOption('framingId','中景鏡頭 (Medium Shot)'),...patch});
   }
   for (const action of batch3Actions.filter(action=>!targets.has(action.id))) {
