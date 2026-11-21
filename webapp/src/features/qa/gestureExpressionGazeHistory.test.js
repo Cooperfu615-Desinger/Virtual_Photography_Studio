@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { Buffer } from 'node:buffer';
-import { preClosedEyeGazeSource, preGestureExpressionGazeSource, prePage3FieldActionsSource, prePage3LocationExpansionSource, prePage3LocationPilotSource, prePage3PersonSource } from '../../../../scripts/lib/gestureExpressionGazeHistoricalReplay.mjs';
+import { preClosedEyeGazeSource, preGestureExpressionGazeSource, prePage3FieldActionsSource, prePage3LocationExpansionSource, prePage3LocationPilotSource, prePage3PersonPerformanceSource, prePage3PersonSource } from '../../../../scripts/lib/gestureExpressionGazeHistoricalReplay.mjs';
 import review from '../../../../scripts/lib/gestureExpressionGazeHistory.json' with { type: 'json' };
 
 import closedEyeReview from '../../../../scripts/lib/closedEyeGazeHistory.json' with { type: 'json' };
@@ -13,9 +13,20 @@ import page3PersonReview from '../../../../scripts/lib/page3PersonHistory.json' 
 import page3FieldActionsReview from '../../../../scripts/lib/page3FieldActionsHistory.json' with { type: 'json' };
 import page3LocationPilot from '../../../../scripts/lib/page3LocationPilotHistory.json' with { type: 'json' };
 import page3LocationExpansion from '../../../../scripts/lib/page3LocationExpansionHistory.json' with { type: 'json' };
+import page3PersonPerformance from '../../../../scripts/lib/page3PersonPerformanceHistory.json' with { type: 'json' };
 
 const readSource = path => readFileSync(new URL(`../../../../${path}`, import.meta.url));
 const hash = value => createHash('sha256').update(value).digest('hex');
+test('scene-person performance can restore each previous runtime source byte for byte', () => {
+  for (const file of page3PersonPerformance.files) {
+    const source = readSource(file.path);
+    assert.equal(hash(source), file.afterHash, file.path);
+    assert.equal(hash(prePage3PersonPerformanceSource(file.path, source)), file.beforeHash, file.path);
+    const unknown = Buffer.concat([source, Buffer.from('\n// unreviewed change\n')]);
+    assert.equal(prePage3PersonPerformanceSource(file.path, unknown), unknown);
+  }
+});
+
 test('the twelve-location expansion restores the accepted four-location pilot exactly', () => {
   assert.ok(page3LocationExpansion.files.some(file => file.path === 'webapp/src/data/page3WorldScenes.js'));
   for (const file of page3LocationExpansion.files) {

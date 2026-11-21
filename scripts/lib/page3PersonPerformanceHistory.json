@@ -1,0 +1,601 @@
+{
+  "baseCommit": "83b8a177c080db4f76c76ebff0eec81841d7b5c4",
+  "files": [
+    {
+      "path": "webapp/src/App.jsx",
+      "beforeHash": "20c247c6bdc91a5a50be0993635af62a9c4781162b60aa2974a848138159a526",
+      "afterHash": "3152fd669d3d5ac1e418f217b12f61b58c72d58a6bd0c1b8c35741da84d82c04",
+      "edits": [
+        {
+          "line": 29,
+          "after": [
+            "  getCharacterCardSceneExpressions,\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 44,
+          "after": [
+            "import { readScenePersonSnapshot } from './lib/page3Person.js';\n"
+          ],
+          "before": [
+            "import { readScenePersonAppearance } from './lib/page3Person.js';\n"
+          ]
+        },
+        {
+          "line": 152,
+          "after": [
+            "  const characterSceneExpressions = useMemo(() => getCharacterCardSceneExpressions(lockControls), [lockControls]);\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 396,
+          "after": [
+            "      person = readScenePersonSnapshot(previewPrompt);\n",
+            "      if (!person) {\n",
+            "        showToast('請先在 Prompt 工作台準備可匯入的單人預覽');\n"
+          ],
+          "before": [
+            "      const text = readScenePersonAppearance(previewPrompt).trim();\n",
+            "      if (!text) {\n",
+            "        showToast('請先在 Prompt 工作台準備可匯入的單人全身角色照');\n"
+          ]
+        },
+        {
+          "line": 401,
+          "after": [],
+          "before": [
+            "      person = { source, label: '全身角色照', text };\n"
+          ]
+        },
+        {
+          "line": 402,
+          "after": [
+            "      person = buildCharacterCardScenePerson(page2PromptBundle, characterSceneExpressions);\n"
+          ],
+          "before": [
+            "      person = buildCharacterCardScenePerson(page2PromptBundle);\n"
+          ]
+        },
+        {
+          "line": 415,
+          "after": [
+            "  }, [characterSceneExpressions, page2PromptBundle, previewPrompt, showToast]);\n"
+          ],
+          "before": [
+            "  }, [page2PromptBundle, previewPrompt, showToast]);\n"
+          ]
+        },
+        {
+          "line": 589,
+          "after": [
+            "          sceneExpressions={characterSceneExpressions}\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/components/Page2Workspace.jsx",
+      "beforeHash": "7022a2c0c11d3478d78316488358428ea3038508ffc1b2270783c52a4f38bc63",
+      "afterHash": "7b7545feef746e00324f566b5cfa7bad186dec6a7cc25d86aea97386ec745125",
+      "edits": [
+        {
+          "line": 6,
+          "after": [
+            "  CHARACTER_CARD_SCENE_POSES,\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 44,
+          "after": [
+            "  sceneExpressions,\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 252,
+          "after": [
+            "            <div className=\"character-card-control-group\">\n",
+            "              <div className=\"control-section-title\">場景用神情姿態</div>\n",
+            "              <label className=\"field\">\n",
+            "                <span>場景用姿勢</span>\n",
+            "                <select value={profile.scenePoseId || ''} onChange={(event) => updateProfile({ scenePoseId: event.target.value })}>\n",
+            "                  <option value=\"\">未指定</option>\n",
+            "                  {CHARACTER_CARD_SCENE_POSES.map(action => <option key={action.id} value={action.id}>{action.zh}</option>)}\n",
+            "                </select>\n",
+            "              </label>\n",
+            "              <label className=\"field\">\n",
+            "                <span>場景用表情</span>\n",
+            "                <select value={sceneExpressions.some(option => option.id === profile.sceneExpressionId) ? profile.sceneExpressionId : ''}\n",
+            "                  onChange={(event) => updateProfile({ sceneExpressionId: event.target.value })}>\n",
+            "                  <option value=\"\">未指定</option>\n",
+            "                  {sceneExpressions.map(option => <option key={option.id} value={option.id}>{option.zh}</option>)}\n",
+            "                </select>\n",
+            "              </label>\n",
+            "            </div>\n",
+            "\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/components/Page3Workspace.jsx",
+      "beforeHash": "38e9b0e6871aa6e7692b2b4c2d94730c2addbff6b1472a03a71f6bf0cf05e39d",
+      "afterHash": "078167d549fa4a987482bf02d2db161437497bbc9151b91946cfc39dcba3ad21",
+      "edits": [
+        {
+          "line": 4,
+          "after": [
+            "import { PAGE3_PERSON_OPTIONS } from '../lib/page3Person.js';\n",
+            "import { resolvePage3ScenePerson } from '../lib/page3WorldScene.js';\n"
+          ],
+          "before": [
+            "import { getPage3Person, PAGE3_PERSON_OPTIONS } from '../lib/page3Person.js';\n"
+          ]
+        },
+        {
+          "line": 40,
+          "after": [
+            "  const { person, summary: performanceSummary, notices } = resolvePage3ScenePerson(profile);\n"
+          ],
+          "before": [
+            "  const person = getPage3Person(profile);\n"
+          ]
+        },
+        {
+          "line": 191,
+          "after": [
+            "              <div role=\"status\">\n",
+            "                <p className=\"workspace-panel-copy\">\n",
+            "                  已匯入：{person.label}{performanceSummary.length > 0 && `・${performanceSummary.join('・')}`}\n",
+            "                </p>\n",
+            "                {notices.map(notice => <p key={notice} className=\"workspace-panel-copy\">{notice}</p>)}\n",
+            "              </div>\n"
+          ],
+          "before": [
+            "              <p className=\"workspace-panel-copy\" role=\"status\">已匯入：{person.label}</p>\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/page3/page3SavedCard.js",
+      "beforeHash": "b9aa8d61b25de64dd219daa4f0cc9dfb57400fc67edf856c7089a26a65b9e68a",
+      "afterHash": "1eb72d1af870ce78e6a5a4a040a79ecc689138359fca8c77232553961b94f8d3",
+      "edits": [
+        {
+          "line": 0,
+          "after": [
+            "import { resolvePage3ScenePerson } from '../../lib/page3WorldScene.js';\n"
+          ],
+          "before": [
+            "import { getPage3Person } from '../../lib/page3Person.js';\n"
+          ]
+        },
+        {
+          "line": 4,
+          "after": [
+            "  const { person, summary: performanceSummary } = resolvePage3ScenePerson(profile);\n",
+            "  const performanceLabel = performanceSummary.join('・');\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 12,
+          "after": [
+            "    summary: ['場景建模', safeSummary, performanceLabel].filter(Boolean).join('｜'),\n"
+          ],
+          "before": [
+            "    summary: `場景建模｜${safeSummary}`,\n"
+          ]
+        },
+        {
+          "line": 14,
+          "after": [
+            "      characterDna: person?.label || '-',\n",
+            "      expressionPose: performanceLabel || '-',\n"
+          ],
+          "before": [
+            "      characterDna: getPage3Person(profile)?.label || '-',\n",
+            "      expressionPose: '-',\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/characterCardLab.js",
+      "beforeHash": "271dd1a3d7a2a1771ea7142b87dcd78fadb12e119651c730dff4d74bf66a17f3",
+      "afterHash": "9ca67c12fb8ec9493c6bca415eea7da0c66c37374dba601e1c3fe2932f101130",
+      "edits": [
+        {
+          "line": 1,
+          "after": [
+            "import { SPECIFIED_ACTION_CONCRETE_OPTIONS } from './engine/specifiedActions.js';\n",
+            "import { getScenePersonActionSupport } from './page3Person.js';\n",
+            "\n",
+            "// The character card has no camera, prop or gesture controls. Keep those\n",
+            "// dependencies in the workbench and offer self-contained authored poses here.\n",
+            "export const CHARACTER_CARD_SCENE_POSES = SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(action =>\n",
+            "  action.validation.status === 'accepted' && !action.ownsExpression && !action.ownsHead\n",
+            "  && !action.meta.requiresWardrobeRole && !action.meta.cameraOrbit && !action.meta.uiHidden\n",
+            ");\n",
+            "\n",
+            "export function getCharacterCardSceneExpressions(controls) {\n",
+            "  return (controls.find(control => control.key === 'expressionId')?.options || [])\n",
+            "    .filter(option => option.en && option.en !== 'none' && !option.meta?.uiHidden && option.id !== 'random');\n",
+            "}\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 346,
+          "after": [
+            "  const scenePoseId = CHARACTER_CARD_SCENE_POSES.find(action => action.id === variant.scenePoseId)?.id;\n",
+            "  const sceneExpressionId = typeof variant.sceneExpressionId === 'string' ? variant.sceneExpressionId : '';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 356,
+          "after": [
+            "    ...(scenePoseId && { scenePoseId }),\n",
+            "    ...(sceneExpressionId && { sceneExpressionId }),\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 419,
+          "after": [
+            "export function buildCharacterCardScenePerson(bundle, expressions = []) {\n"
+          ],
+          "before": [
+            "export function buildCharacterCardScenePerson(bundle) {\n"
+          ]
+        },
+        {
+          "line": 439,
+          "after": [
+            "  if (!text) return null;\n",
+            "  const pose = CHARACTER_CARD_SCENE_POSES.find(action => action.id === variant.scenePoseId);\n",
+            "  const expression = expressions.find(option => option.id === variant.sceneExpressionId);\n",
+            "  const support = pose && getScenePersonActionSupport(pose);\n",
+            "  const performance = {\n",
+            "    ...(pose && { pose: {\n",
+            "      label: pose.zh, text: cleanSentence(pose.en), lying: pose.family === 'lying' && !pose.meta.supineGroundOnly,\n",
+            "      ...(support && { support }),\n",
+            "    } }),\n",
+            "    ...(expression && { expression: { label: expression.zh, text: cleanSentence(expression.en) } }),\n",
+            "  };\n",
+            "  return { source: 'character-lab', label: card.label, text, ...(Object.keys(performance).length && { performance }) };\n"
+          ],
+          "before": [
+            "  return text ? { source: 'character-lab', label: card.label, text } : null;\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine.js",
+      "beforeHash": "51fb4b97bc5951e814965aa8583da3da96ea72f19d2078aab1cf22591883865e",
+      "afterHash": "1df911c1a5d898ff1668dc4182eec43b9c241e15b36c3732c336e1f54719eb65",
+      "edits": [
+        {
+          "line": 13,
+          "after": [
+            "import { getScenePersonActionSupport, registerScenePersonAppearance } from './page3Person.js';\n"
+          ],
+          "before": [
+            "import { registerScenePersonAppearance } from './page3Person.js';\n"
+          ]
+        },
+        {
+          "line": 16293,
+          "after": [
+            "function buildScenePersonPerformance(context, character) {\n",
+            "  const { poseComposer, pose, actionPose, specialAction, expression } = extractCharacterSlots(character);\n",
+            "  const action = getSpecifiedAction(context.locks);\n",
+            "  const fixedPosition = context.fixedSetPosition;\n",
+            "  const sourceBound = isFixedCompositionSetActive(context.fixedCompositionSet)\n",
+            "    && fixedPosition?.en && !fixedPosition.id.endsWith('-free-interaction');\n",
+            "  const meta = poseComposer?.meta;\n",
+            "  const head = headOptionFromMeta(meta);\n",
+            "  const hasHead = isActivePoseComposerOption(head);\n",
+            "  const faceText = expression ? resolvePromptVariant(expression, 'expression', 1) : '';\n",
+            "  const result = {\n",
+            "    ...(faceText && !isNoneLikeItem(expression) && !action?.ownsExpression\n",
+            "      && { expression: { label: expression.zh, text: polishPublicPromptText(ensureTerminalPeriod(faceText)) } }),\n",
+            "    ...(hasHead && !action?.ownsHead && {\n",
+            "      head: {\n",
+            "        label: [head.zh, !head.meta?.headPostureOnly && headPostureById(meta?.headPostureId)?.zh].filter(Boolean).join('・'),\n",
+            "        text: `She has ${normalizePoseComposerHeadPhrase(head)}.`,\n",
+            "        withPose: action?.family === 'lying',\n",
+            "      },\n",
+            "    }),\n",
+            "  };\n",
+            "  const hasAnchor = meta?.poseAnchorId && meta.poseAnchorId !== 'none';\n",
+            "  const { gesture, prop } = context.poseResolution;\n",
+            "  const activeOption = (options, id) => options.find(option => option.id === id && isActivePoseComposerOption(option));\n",
+            "  const legacyHand = activeOption(POSE_COMPOSER_HAND_OPTIONS, meta?.poseHandId);\n",
+            "  const legacyProp = activeOption(POSE_COMPOSER_PROP_OPTIONS, meta?.posePropId);\n",
+            "  const selfie = [prop, legacyProp, legacyHand].find(option => option && (isPhoneProp(option.id) || isSelfiePoseHandOption(option)));\n",
+            "  if (selfie) result.capture = selfie.zh;\n",
+            "  if (sourceBound || actionPose || specialAction || hasAnchor) {\n",
+            "    result.pose = {\n",
+            "      label: (sourceBound ? fixedPosition : actionPose || specialAction || poseComposer).zh,\n",
+            "      support: 'source-scene',\n",
+            "    };\n",
+            "  } else if (action && poseComposer) {\n",
+            "    const text = applyIndoorKneel(applyIndoorLean(applyIndoorSeat(\n",
+            "      actionTextWithGesture(action, gesture, {}, prop === selfie ? null : prop).en, context.indoorSeat,\n",
+            "    ), context.indoorLean), context.indoorKneel);\n",
+            "    const support = context.indoorSeat?.selectedId || context.indoorLean?.selectedId\n",
+            "      || context.indoorKneel?.selectedId || getScenePersonActionSupport(action);\n",
+            "    result.pose = {\n",
+            "      label: [action.zh, gesture?.zh, action.ownsExpression && action.expressionLabel, action.ownsHead && action.headLabel].filter(Boolean).join('・'),\n",
+            "      text: polishPublicPromptText(text),\n",
+            "      ...(support && { support }),\n",
+            "      lying: action.family === 'lying' && !action.meta?.supineGroundOnly,\n",
+            "      closeCamera: action.ownsExpression || action.ownsHead || Boolean(action.meta?.cameraOrbit),\n",
+            "    };\n",
+            "  } else if (poseComposer || pose) {\n",
+            "    const components = meta && {\n",
+            "      base: activeOption(POSE_COMPOSER_BASE_OPTIONS, meta.poseBaseId),\n",
+            "      orientation: activeOption(POSE_COMPOSER_ORIENTATION_OPTIONS, meta.poseOrientationId),\n",
+            "      arrangement: activeOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, meta.poseArrangementId),\n",
+            "      handPose: legacyHand === selfie ? null : legacyHand,\n",
+            "      propAction: selfie ? null : prop || legacyProp,\n",
+            "    };\n",
+            "    const text = components ? buildPoseComposerSentence(components) : resolvePromptVariant(pose, 'pose', 1);\n",
+            "    if (text && !isNoneLikePromptText(text)) {\n",
+            "      const label = components ? Object.values(components).map(option => option?.zh).filter(Boolean).join('・') : pose.zh;\n",
+            "      result.pose = { text: polishPublicPromptText(ensureTerminalPeriod(text)), label };\n",
+            "    }\n",
+            "  }\n",
+            "  return result;\n",
+            "}\n",
+            "\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 16483,
+          "after": [
+            "    const appearance = model => polishPublicPromptText(renderFullBodyCharacterPrompt(model, { appearanceOnly: true }));\n",
+            "    context.onFullBodyAppearance(() => appearance(fullBodyCharacterPromptModel), () => {\n",
+            "      const performance = buildScenePersonPerformance(context, character);\n",
+            "      if (performance.pose?.text && context.poseResolution.gesture) {\n",
+            "        const gestureWardrobe = projectGestureWardrobe(wardrobe, fullBodyCharacterPromptModel.context);\n",
+            "        if (gestureWardrobe !== wardrobe) {\n",
+            "          performance.pose.appearance = appearance(buildFixedFramingDerivedPromptModel({\n",
+            "            sourcePromptModel: promptModel, sourceContext: context,\n",
+            "            preset: FIXED_FRAMING_DERIVED_PROMPT_PRESETS.fullBodyCharacter, character,\n",
+            "            wardrobe: gestureWardrobe, wardrobeColors: projectGestureTopColor(wardrobeColors, context), lightDirection, film,\n",
+            "          }));\n",
+            "        }\n",
+            "      }\n",
+            "      return Object.keys(performance).length ? performance : null;\n",
+            "    });\n"
+          ],
+          "before": [
+            "    context.onFullBodyAppearance(() => polishPublicPromptText(\n",
+            "      renderFullBodyCharacterPrompt(fullBodyCharacterPromptModel, { appearanceOnly: true }),\n",
+            "    ));\n"
+          ]
+        },
+        {
+          "line": 17293,
+          "after": [
+            "  let renderScenePersonPerformance;\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 17295,
+          "after": [
+            "    context.onFullBodyAppearance = (appearance, performance) => {\n",
+            "      renderScenePersonAppearance = appearance;\n",
+            "      renderScenePersonPerformance = performance;\n",
+            "    };\n"
+          ],
+          "before": [
+            "    context.onFullBodyAppearance = render => { renderScenePersonAppearance = render; };\n"
+          ]
+        },
+        {
+          "line": 17392,
+          "after": [
+            "  if (renderScenePersonAppearance) registerScenePersonAppearance(prompt, renderScenePersonAppearance, renderScenePersonPerformance);\n"
+          ],
+          "before": [
+            "  if (renderScenePersonAppearance) registerScenePersonAppearance(prompt, renderScenePersonAppearance);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/page3Person.js",
+      "beforeHash": "d8072adca2eb5615a38cc2ff45911772cdb292ff76f157e9a001ae3b125e9157",
+      "afterHash": "085e76199784697c72b9e1ff61e00d7ec8c0ac6431f82f60163b792c9990314e",
+      "edits": [
+        {
+          "line": 11,
+          "after": [
+            "export function registerScenePersonAppearance(prompt, renderAppearance, renderPerformance) {\n",
+            "  fullBodyAppearances.set(prompt.structured, { renderAppearance, renderPerformance });\n"
+          ],
+          "before": [
+            "export function registerScenePersonAppearance(prompt, renderAppearance) {\n",
+            "  fullBodyAppearances.set(prompt.structured, renderAppearance);\n"
+          ]
+        },
+        {
+          "line": 16,
+          "after": [
+            "  return fullBodyAppearances.get(prompt?.structured)?.renderAppearance() || '';\n",
+            "}\n",
+            "\n",
+            "export function readScenePersonSnapshot(prompt) {\n",
+            "  const source = fullBodyAppearances.get(prompt?.structured);\n",
+            "  const text = source?.renderAppearance().trim();\n",
+            "  if (!text) return null;\n",
+            "  const performance = source.renderPerformance?.();\n",
+            "  return {\n",
+            "    source: 'prompt-workbench',\n",
+            "    label: 'Prompt 工作台預覽',\n",
+            "    text,\n",
+            "    ...(performance && { performance }),\n",
+            "  };\n"
+          ],
+          "before": [
+            "  return fullBodyAppearances.get(prompt?.structured)?.() || '';\n"
+          ]
+        },
+        {
+          "line": 42,
+          "after": [
+            "      ...(person.performance && { performance: person.performance }),\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 47,
+          "after": [
+            "import { withLyingSurface } from './engine/lyingSurface.js';\n",
+            "\n",
+            "\n",
+            "// Use only supports established by the destination scene, not the source room.\n",
+            "const LOCATION_SUPPORTS = {\n",
+            "  'special-japanese-washitsu': ['tatami', 'cushion', 'floor', 'doorframe'],\n",
+            "  'special-boutique-hotel-room': ['bed', 'bed-edge', 'bed-top'],\n",
+            "  'special-japanese-classroom': ['chair', 'seat', 'floor'],\n",
+            "  'special-secondhand-bookshop': ['bookcase', 'reading-table', 'floor'],\n",
+            "  'special-japanese-lawson-interior': ['counter', 'floor'],\n",
+            "  'special-self-service-laundry': ['chair', 'seat', 'floor'],\n",
+            "  'special-forest-trail': ['ground', 'tree-trunk'],\n",
+            "  'special-lakeside-boardwalk': ['deck-top', 'deck-edge', 'railing'],\n",
+            "  'special-clear-bay-rocky-shore': ['rock', 'rock-face'],\n",
+            "  'special-wind-rippled-dunes': ['sand'],\n",
+            "  'special-dry-salt-lake': ['ground'],\n",
+            "};\n",
+            "\n",
+            "const SUPPORT_LABELS = {\n",
+            "  bed: '床與枕頭', 'bed-edge': '床沿', 'bed-top': '床面', chair: '椅子', seat: '座位',\n",
+            "  sofa: '沙發', cushion: '坐墊', tatami: '榻榻米', floor: '地板',\n",
+            "  wall: '牆面', railing: '欄杆', 'tree-trunk': '樹幹', doorframe: '門框',\n",
+            "  bookcase: '書櫃', 'source-scene': '原場景的配置',\n",
+            "};\n",
+            "\n",
+            "export function getScenePersonActionSupport(action) {\n",
+            "  if (action.scene?.support === 'bed') return 'bed';\n",
+            "  if (['specified-sitting-slouched', 'specified-sitting-leg-cross'].includes(action.id)) return 'seat';\n",
+            "  return '';\n",
+            "}\n",
+            "\n",
+            "export function projectPage3ScenePerson(person, { locationId, distantView } = {}) {\n",
+            "  const { pose, expression, head, capture } = person?.performance || {};\n",
+            "  const notices = [];\n",
+            "  const summary = [];\n",
+            "  const text = [];\n",
+            "  const supports = LOCATION_SUPPORTS[locationId] || [];\n",
+            "  const missingSupport = pose?.support && !supports.includes(pose.support);\n",
+            "  const hidePose = missingSupport || (distantView && pose?.closeCamera);\n",
+            "  let appearance = person?.text || '';\n",
+            "  if (pose?.text && !hidePose) {\n",
+            "    const surface = pose.support === 'bed' ? 'bed' : supports.includes('tatami') ? 'tatami floor' : 'ground';\n",
+            "    const placement = pose.lying ? withLyingSurface(pose.text, surface) : pose.text;\n",
+            "    text.push(surface === 'tatami floor' && !pose.support ? placement.replace(/\\bthe ground\\b/gi, 'the tatami floor') : placement);\n",
+            "    summary.push(pose.label);\n",
+            "    appearance = pose.appearance || appearance;\n",
+            "  } else if (missingSupport) {\n",
+            "    notices.push(`已略過「${pose.label}」。目前取景缺少此動作所需的${SUPPORT_LABELS[pose.support] || '支撐物'}。`);\n",
+            "  }\n",
+            "  if (capture) notices.push(`已略過「${capture}」。拍攝方式以場景建模的設定為準。`);\n",
+            "  if (distantView && (expression?.text || head?.text || (pose?.closeCamera && !missingSupport))) {\n",
+            "    notices.push('遠距空拍已略過難以辨識的表情、視線或近距互動動作。');\n",
+            "  }\n",
+            "  if (!distantView) {\n",
+            "    for (const detail of [expression, head]) {\n",
+            "      if (!detail?.text || (detail.withPose && hidePose)) continue;\n",
+            "      text.push(detail.text);\n",
+            "      summary.push(detail.label);\n",
+            "    }\n",
+            "  }\n",
+            "  return { person, appearance, text, summary: summary.filter(Boolean), notices };\n",
+            "}\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/page3WorldScene.js",
+      "beforeHash": "7cf683b61d64de85df5c39a0fe2be49e2a760a16226cbfdd288a527ba9fc3aec",
+      "afterHash": "bc346f12e82adba29ab9e4a92f314f057054ab743a96480d4504b690084ffeb0",
+      "edits": [
+        {
+          "line": 0,
+          "after": [
+            "import { getPage3Person, projectPage3ScenePerson } from './page3Person.js';\n"
+          ],
+          "before": [
+            "import { getPage3Person } from './page3Person.js';\n"
+          ]
+        },
+        {
+          "line": 357,
+          "after": [
+            "function resolveScenePerson(profile, { location, mode, cameraSystem, shootingMethod, focalViewpoint }) {\n",
+            "  const aerialCamera = cameraSystem?.id === 'drone-camera' || shootingMethod?.id === 'drone-survey'\n",
+            "    || focalViewpoint?.id === 'drone-overhead';\n",
+            "  // Locations with their own framing use authored bridge, platform or room positions.\n",
+            "  return projectPage3ScenePerson(getPage3Person(profile), {\n",
+            "    locationId: location?.id,\n",
+            "    distantView: mode?.id === 'aerial-high-view' && aerialCamera && !location?.framing\n",
+            "      && !location?.id?.startsWith('special-') && location?.id !== 'taipei-xiangshan-city-night-overlook',\n",
+            "  });\n",
+            "}\n",
+            "\n",
+            "export function resolvePage3ScenePerson(profile = {}) {\n",
+            "  return resolveScenePerson(profile, getProfileParts(profile));\n",
+            "}\n",
+            "\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 471,
+          "after": [
+            "  const parts = getProfileParts(profile);\n",
+            "  const { mode, photographerStyle, location, cameraSystem, shootingMethod, focalViewpoint, sceneFocus, imagingStyle, ambientLight } = parts;\n"
+          ],
+          "before": [
+            "  const { mode, photographerStyle, location, cameraSystem, shootingMethod, focalViewpoint, sceneFocus, imagingStyle, ambientLight } = getProfileParts(profile);\n"
+          ]
+        },
+        {
+          "line": 475,
+          "after": [
+            "  const { person, appearance, text: performance } = resolveScenePerson(profile, parts);\n"
+          ],
+          "before": [
+            "  const person = getPage3Person(profile);\n"
+          ]
+        },
+        {
+          "line": 518,
+          "after": [
+            "    appearance,\n",
+            "    ...performance,\n"
+          ],
+          "before": [
+            "    person.text,\n"
+          ]
+        }
+      ]
+    }
+  ]
+}

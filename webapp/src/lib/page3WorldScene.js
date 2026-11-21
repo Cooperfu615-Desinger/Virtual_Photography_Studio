@@ -1,4 +1,4 @@
-import { getPage3Person } from './page3Person.js';
+import { getPage3Person, projectPage3ScenePerson } from './page3Person.js';
 import { projectPublicSourceLanguage } from './engine/publicSourceLanguage.js';
 import { SPECIAL_SCENE_LOCATIONS, WORLD_SCENE_LOCATIONS } from '../data/page3WorldScenes.js';
 import { buildPhotographyStylePrompt, getPhotographyStyleOptions } from './engine.js';
@@ -355,6 +355,21 @@ function pickPosition(location, mode, sceneFocus) {
   return location[mode.positionKey]?.[0] || '';
 }
 
+function resolveScenePerson(profile, { location, mode, cameraSystem, shootingMethod, focalViewpoint }) {
+  const aerialCamera = cameraSystem?.id === 'drone-camera' || shootingMethod?.id === 'drone-survey'
+    || focalViewpoint?.id === 'drone-overhead';
+  // Locations with their own framing use authored bridge, platform or room positions.
+  return projectPage3ScenePerson(getPage3Person(profile), {
+    locationId: location?.id,
+    distantView: mode?.id === 'aerial-high-view' && aerialCamera && !location?.framing
+      && !location?.id?.startsWith('special-') && location?.id !== 'taipei-xiangshan-city-night-overlook',
+  });
+}
+
+export function resolvePage3ScenePerson(profile = {}) {
+  return resolveScenePerson(profile, getProfileParts(profile));
+}
+
 function formatAnchorLocation(location) {
   if (!location) return '';
   if (location.framing) return formatPromptLocation(location);
@@ -454,10 +469,11 @@ const RUIN_STREET_LEADS = {
 };
 
 function buildWorldScenePrompt(profile = {}, { variant = 'scene' } = {}) {
-  const { mode, photographerStyle, location, cameraSystem, shootingMethod, focalViewpoint, sceneFocus, imagingStyle, ambientLight } = getProfileParts(profile);
+  const parts = getProfileParts(profile);
+  const { mode, photographerStyle, location, cameraSystem, shootingMethod, focalViewpoint, sceneFocus, imagingStyle, ambientLight } = parts;
   const hasMode = Boolean(mode?.id && !isNoneOption(mode));
   const style = buildPhotographyStylePrompt(photographerStyle);
-  const person = getPage3Person(profile);
+  const { person, appearance, text: performance } = resolveScenePerson(profile, parts);
   if (!hasMode && !location && !style && !person) return '';
 
   const ruin = Boolean(location?.id?.startsWith('special-ruins-'));
@@ -500,7 +516,8 @@ function buildWorldScenePrompt(profile = {}, { variant = 'scene' } = {}) {
 
   const place = cleanJoin(placeDetails);
   const subject = person ? [
-    person.text,
+    appearance,
+    ...performance,
     'Include her within the scene, at a natural scale, with the same perspective and ambient light',
   ] : [];
   const setting = locationName ? `${lead}: ${locationName}` : lead;

@@ -2,7 +2,8 @@ import { useId, useState } from 'react';
 import DllPicProPanel from './DllPicProPanel';
 import '../styles/workspaceLabs.css';
 import PromptPreviewCard from './PromptPreviewCard';
-import { getPage3Person, PAGE3_PERSON_OPTIONS } from '../lib/page3Person.js';
+import { PAGE3_PERSON_OPTIONS } from '../lib/page3Person.js';
+import { resolvePage3ScenePerson } from '../lib/page3WorldScene.js';
 import { buildPage3BatchPatch, getPage3ParameterFields, updatePage3Field } from '../features/page3/page3FieldActions.js';
 
 function Page3SceneField({ label, value = '', options, onChange, className = '' }) {
@@ -37,7 +38,7 @@ export default function Page3Workspace({
   onPersonChange,
 }) {
   const [locationMode, setLocationMode] = useState(profile.specialLocation ? 'special' : 'world');
-  const person = getPage3Person(profile);
+  const { person, summary: performanceSummary, notices } = resolvePage3ScenePerson(profile);
   const hasImportedPerson = Boolean(person && person.source !== 'default');
   const builderFields = getPage3ParameterFields(fieldConfig);
   const nonePatch = buildPage3BatchPatch(fieldConfig, fieldOptions, profile, 'none');
@@ -188,7 +189,12 @@ export default function Page3Workspace({
           {hasImportedPerson && (
             <div className="control-actions">
               <button type="button" className="secondary" onClick={() => onPersonChange(person.source)}>重新匯入</button>
-              <p className="workspace-panel-copy" role="status">已匯入：{person.label}</p>
+              <div role="status">
+                <p className="workspace-panel-copy">
+                  已匯入：{person.label}{performanceSummary.length > 0 && `・${performanceSummary.join('・')}`}
+                </p>
+                {notices.map(notice => <p key={notice} className="workspace-panel-copy">{notice}</p>)}
+              </div>
             </div>
           )}
         </div>

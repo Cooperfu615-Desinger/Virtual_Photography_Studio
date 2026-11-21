@@ -1,17 +1,19 @@
-import { getPage3Person } from '../../lib/page3Person.js';
+import { resolvePage3ScenePerson } from '../../lib/page3WorldScene.js';
 
 export function buildPage3SavedCard(profile, summary, anchor, prompt, cinematicPrompt, worldPrompt) {
   const safeSummary = summary || '尚未選擇場景條件';
+  const { person, summary: performanceSummary } = resolvePage3ScenePerson(profile);
+  const performanceLabel = performanceSummary.join('・');
 
   return {
     id: `page3-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
     source: 'page3',
     sourceLabel: '場景建模',
     date: new Date().toISOString(),
-    summary: `場景建模｜${safeSummary}`,
+    summary: ['場景建模', safeSummary, performanceLabel].filter(Boolean).join('｜'),
     summaryFields: {
-      characterDna: getPage3Person(profile)?.label || '-',
-      expressionPose: '-',
+      characterDna: person?.label || '-',
+      expressionPose: performanceLabel || '-',
       wardrobe: '-',
       sceneLook: safeSummary,
     },

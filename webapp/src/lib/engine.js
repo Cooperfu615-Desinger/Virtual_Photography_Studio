@@ -11,7 +11,7 @@ import { nightPartyAllowsRandomAmbient } from './engine/nightPartyLighting.js';
 import { projectCharacterPhotographicDirection } from './engine/characterPhotographicDirection.js';
 import legacyMappings from '../data/legacyMappings.json' with { type: 'json' };
 import { activeImportedPerson, isImportedPersonKey, registerFullBodyImportSource } from './observationCaptureImport.js';
-import { registerScenePersonAppearance } from './page3Person.js';
+import { getScenePersonActionSupport, registerScenePersonAppearance } from './page3Person.js';
 import { captureEligibility, resolveCapture, normalizeCaptureProfile, captureEffectiveLocks, captureContext, capturePoseText, capturePoseItem, captureChestScene, CAPTURE_OWNED_KEYS } from './observationCaptureMode.js';
 import { registerReferencePersonPreview, REFERENCE_PERSON_INSTRUCTION } from './referencePersonPreview.js';
 import { MIDJOURNEY_CARD_ITEM_NAMES } from './engine/midjourneyCardItemNames.js';
@@ -16291,6 +16291,69 @@ function buildGrokImaginePrototype(context, character, wardrobe, wardrobeColors)
   return text;
 }
 
+function buildScenePersonPerformance(context, character) {
+  const { poseComposer, pose, actionPose, specialAction, expression } = extractCharacterSlots(character);
+  const action = getSpecifiedAction(context.locks);
+  const fixedPosition = context.fixedSetPosition;
+  const sourceBound = isFixedCompositionSetActive(context.fixedCompositionSet)
+    && fixedPosition?.en && !fixedPosition.id.endsWith('-free-interaction');
+  const meta = poseComposer?.meta;
+  const head = headOptionFromMeta(meta);
+  const hasHead = isActivePoseComposerOption(head);
+  const faceText = expression ? resolvePromptVariant(expression, 'expression', 1) : '';
+  const result = {
+    ...(faceText && !isNoneLikeItem(expression) && !action?.ownsExpression
+      && { expression: { label: expression.zh, text: polishPublicPromptText(ensureTerminalPeriod(faceText)) } }),
+    ...(hasHead && !action?.ownsHead && {
+      head: {
+        label: [head.zh, !head.meta?.headPostureOnly && headPostureById(meta?.headPostureId)?.zh].filter(Boolean).join('・'),
+        text: `She has ${normalizePoseComposerHeadPhrase(head)}.`,
+        withPose: action?.family === 'lying',
+      },
+    }),
+  };
+  const hasAnchor = meta?.poseAnchorId && meta.poseAnchorId !== 'none';
+  const { gesture, prop } = context.poseResolution;
+  const activeOption = (options, id) => options.find(option => option.id === id && isActivePoseComposerOption(option));
+  const legacyHand = activeOption(POSE_COMPOSER_HAND_OPTIONS, meta?.poseHandId);
+  const legacyProp = activeOption(POSE_COMPOSER_PROP_OPTIONS, meta?.posePropId);
+  const selfie = [prop, legacyProp, legacyHand].find(option => option && (isPhoneProp(option.id) || isSelfiePoseHandOption(option)));
+  if (selfie) result.capture = selfie.zh;
+  if (sourceBound || actionPose || specialAction || hasAnchor) {
+    result.pose = {
+      label: (sourceBound ? fixedPosition : actionPose || specialAction || poseComposer).zh,
+      support: 'source-scene',
+    };
+  } else if (action && poseComposer) {
+    const text = applyIndoorKneel(applyIndoorLean(applyIndoorSeat(
+      actionTextWithGesture(action, gesture, {}, prop === selfie ? null : prop).en, context.indoorSeat,
+    ), context.indoorLean), context.indoorKneel);
+    const support = context.indoorSeat?.selectedId || context.indoorLean?.selectedId
+      || context.indoorKneel?.selectedId || getScenePersonActionSupport(action);
+    result.pose = {
+      label: [action.zh, gesture?.zh, action.ownsExpression && action.expressionLabel, action.ownsHead && action.headLabel].filter(Boolean).join('・'),
+      text: polishPublicPromptText(text),
+      ...(support && { support }),
+      lying: action.family === 'lying' && !action.meta?.supineGroundOnly,
+      closeCamera: action.ownsExpression || action.ownsHead || Boolean(action.meta?.cameraOrbit),
+    };
+  } else if (poseComposer || pose) {
+    const components = meta && {
+      base: activeOption(POSE_COMPOSER_BASE_OPTIONS, meta.poseBaseId),
+      orientation: activeOption(POSE_COMPOSER_ORIENTATION_OPTIONS, meta.poseOrientationId),
+      arrangement: activeOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, meta.poseArrangementId),
+      handPose: legacyHand === selfie ? null : legacyHand,
+      propAction: selfie ? null : prop || legacyProp,
+    };
+    const text = components ? buildPoseComposerSentence(components) : resolvePromptVariant(pose, 'pose', 1);
+    if (text && !isNoneLikePromptText(text)) {
+      const label = components ? Object.values(components).map(option => option?.zh).filter(Boolean).join('・') : pose.zh;
+      result.pose = { text: polishPublicPromptText(ensureTerminalPeriod(text)), label };
+    }
+  }
+  return result;
+}
+
 function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect) {
   const compositionVisibility = getCompositionVisibilityProjection(context);
   const poseComposer = extractCharacterSlots(character).poseComposer;
@@ -16418,9 +16481,21 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
   const fullBodyCharacterPrompt = !context.referencePersonPreview && context.importedCapturePerson
     ? context.importedCapturePerson.fullBodyPrompt : renderFullBodyCharacterPrompt(fullBodyCharacterPromptModel);
   if (fullBodyCharacterPrompt && context.onFullBodyAppearance) {
-    context.onFullBodyAppearance(() => polishPublicPromptText(
-      renderFullBodyCharacterPrompt(fullBodyCharacterPromptModel, { appearanceOnly: true }),
-    ));
+    const appearance = model => polishPublicPromptText(renderFullBodyCharacterPrompt(model, { appearanceOnly: true }));
+    context.onFullBodyAppearance(() => appearance(fullBodyCharacterPromptModel), () => {
+      const performance = buildScenePersonPerformance(context, character);
+      if (performance.pose?.text && context.poseResolution.gesture) {
+        const gestureWardrobe = projectGestureWardrobe(wardrobe, fullBodyCharacterPromptModel.context);
+        if (gestureWardrobe !== wardrobe) {
+          performance.pose.appearance = appearance(buildFixedFramingDerivedPromptModel({
+            sourcePromptModel: promptModel, sourceContext: context,
+            preset: FIXED_FRAMING_DERIVED_PROMPT_PRESETS.fullBodyCharacter, character,
+            wardrobe: gestureWardrobe, wardrobeColors: projectGestureTopColor(wardrobeColors, context), lightDirection, film,
+          }));
+        }
+      }
+      return Object.keys(performance).length ? performance : null;
+    });
   }
   const nanoBananaPrompt = renderNanoBananaPrompt(gptPromptModel, {
     cameraSpatial: ambientEligible, sceneMirrorReflectionText,
@@ -17216,8 +17291,12 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
   const wardrobeColors = importedCapturePerson ? structuredClone(importedCapturePerson.wardrobeColors) : buildWardrobeColors(extractWardrobeSlots(wardrobe), effectiveLocks, random);
 
   let renderScenePersonAppearance;
+  let renderScenePersonPerformance;
   if (!capture && subject.count === 1 && !isDedicatedSpecialSubject(subject)) {
-    context.onFullBodyAppearance = render => { renderScenePersonAppearance = render; };
+    context.onFullBodyAppearance = (appearance, performance) => {
+      renderScenePersonAppearance = appearance;
+      renderScenePersonPerformance = performance;
+    };
   }
   const {
     midjourneyPrompt,
@@ -17311,7 +17390,7 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
       return referencePreview;
     });
   }
-  if (renderScenePersonAppearance) registerScenePersonAppearance(prompt, renderScenePersonAppearance);
+  if (renderScenePersonAppearance) registerScenePersonAppearance(prompt, renderScenePersonAppearance, renderScenePersonPerformance);
   if (!capture && subject.count === 1 && !isSpecialSubject(subject) && !context.characterProfilePrompt) {
     const slots = extractCharacterSlots(character);
     registerFullBodyImportSource(prompt, {

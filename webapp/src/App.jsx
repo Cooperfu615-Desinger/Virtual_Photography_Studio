@@ -27,6 +27,7 @@ import {
   buildPage1LocksFromCharacterCardVariant,
   createEmptyCharacterCardVariant,
   getCharacterCardOptions,
+  getCharacterCardSceneExpressions,
   normalizeCharacterCardVariant,
 } from './lib/characterCardLab';
 import {
@@ -41,7 +42,7 @@ import {
 } from './features/saved-cards/cardCodec.js';
 import { useFavoritesWorkspace } from './features/saved-cards/useFavoritesWorkspace.js';
 import { usePromptWorkspace } from './features/page1/usePromptWorkspace.js';
-import { readScenePersonAppearance } from './lib/page3Person.js';
+import { readScenePersonSnapshot } from './lib/page3Person.js';
 import { buildPage3SavedCard } from './features/page3/page3SavedCard.js';
 import { loadJsonStorage, loadStringStorage, saveJsonStorage } from './features/storage/browserStorage.js';
 import './index.css';
@@ -149,6 +150,7 @@ export default function App() {
     return ['page5', 'actionPose', 'observationCapture'].includes(stored) ? 'page1' : stored;
   });
   const characterCards = useMemo(() => getCharacterCardOptions(lockControls), [lockControls]);
+  const characterSceneExpressions = useMemo(() => getCharacterCardSceneExpressions(lockControls), [lockControls]);
   const [page2Profile, setPage2Profile] = useState(() => (
     normalizeCharacterCardVariant(loadJsonStorage(PAGE2_PROFILE_KEY, createEmptyCharacterCardVariant(characterCards)), characterCards)
   ));
@@ -392,14 +394,13 @@ export default function App() {
     if (source === 'default') {
       person = { source };
     } else if (source === 'prompt-workbench') {
-      const text = readScenePersonAppearance(previewPrompt).trim();
-      if (!text) {
-        showToast('請先在 Prompt 工作台準備可匯入的單人全身角色照');
+      person = readScenePersonSnapshot(previewPrompt);
+      if (!person) {
+        showToast('請先在 Prompt 工作台準備可匯入的單人預覽');
         return;
       }
-      person = { source, label: '全身角色照', text };
     } else if (source === 'character-lab') {
-      person = buildCharacterCardScenePerson(page2PromptBundle);
+      person = buildCharacterCardScenePerson(page2PromptBundle, characterSceneExpressions);
       if (!person) {
         showToast('請先在角色建模選擇角色');
         return;
@@ -412,7 +413,7 @@ export default function App() {
       return next;
     });
     if (person?.text) showToast(`已匯入人物：${person.label}`);
-  }, [page2PromptBundle, previewPrompt, showToast]);
+  }, [characterSceneExpressions, page2PromptBundle, previewPrompt, showToast]);
 
   const handleSavePage3Card = useCallback(() => {
     if (!page3Prompt) {
@@ -586,6 +587,7 @@ export default function App() {
         ) : pageMode === 'page2' ? (
         <Page2Workspace
           characterCards={characterCards}
+          sceneExpressions={characterSceneExpressions}
           profile={normalizedPage2Profile}
           setProfile={setPage2Profile}
           promptBundle={page2PromptBundle}

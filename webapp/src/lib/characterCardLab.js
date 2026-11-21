@@ -1,4 +1,18 @@
 import { getCharacterWardrobeLayers } from './engine/characterWardrobeSources.js';
+import { SPECIFIED_ACTION_CONCRETE_OPTIONS } from './engine/specifiedActions.js';
+import { getScenePersonActionSupport } from './page3Person.js';
+
+// The character card has no camera, prop or gesture controls. Keep those
+// dependencies in the workbench and offer self-contained authored poses here.
+export const CHARACTER_CARD_SCENE_POSES = SPECIFIED_ACTION_CONCRETE_OPTIONS.filter(action =>
+  action.validation.status === 'accepted' && !action.ownsExpression && !action.ownsHead
+  && !action.meta.requiresWardrobeRole && !action.meta.cameraOrbit && !action.meta.uiHidden
+);
+
+export function getCharacterCardSceneExpressions(controls) {
+  return (controls.find(control => control.key === 'expressionId')?.options || [])
+    .filter(option => option.en && option.en !== 'none' && !option.meta?.uiHidden && option.id !== 'random');
+}
 export const CHARACTER_CARD_LAYER_KEYS = [
   'top',
   'bottom',
@@ -330,6 +344,8 @@ export function normalizeCharacterCardVariant(rawVariant = {}, cards = []) {
   const outputMode = variant.outputMode === 'pure-character' && includedWardrobeLayers.length === 0
     ? 'pure-character'
     : 'included-wardrobe';
+  const scenePoseId = CHARACTER_CARD_SCENE_POSES.find(action => action.id === variant.scenePoseId)?.id;
+  const sceneExpressionId = typeof variant.sceneExpressionId === 'string' ? variant.sceneExpressionId : '';
 
   return {
     characterProfileId,
@@ -338,6 +354,8 @@ export function normalizeCharacterCardVariant(rawVariant = {}, cards = []) {
     includedWardrobeLayers,
     promptOverrideText: String(variant.promptOverrideText || ''),
     outputMode,
+    ...(scenePoseId && { scenePoseId }),
+    ...(sceneExpressionId && { sceneExpressionId }),
   };
 }
 
@@ -399,7 +417,7 @@ function buildCharacterIdentityText(card, hairVariant) {
   ].join('\n\n');
 }
 
-export function buildCharacterCardScenePerson(bundle) {
+export function buildCharacterCardScenePerson(bundle, expressions = []) {
   const { card, variant } = bundle || {};
   if (!card || !variant) return null;
 
@@ -419,7 +437,18 @@ export function buildCharacterCardScenePerson(bundle) {
     layers.length ? `She wears ${layers.map(layer => layer.prompt).join(', ')}` : '',
   ].map(cleanSentence).filter(Boolean).join(' ');
 
-  return text ? { source: 'character-lab', label: card.label, text } : null;
+  if (!text) return null;
+  const pose = CHARACTER_CARD_SCENE_POSES.find(action => action.id === variant.scenePoseId);
+  const expression = expressions.find(option => option.id === variant.sceneExpressionId);
+  const support = pose && getScenePersonActionSupport(pose);
+  const performance = {
+    ...(pose && { pose: {
+      label: pose.zh, text: cleanSentence(pose.en), lying: pose.family === 'lying' && !pose.meta.supineGroundOnly,
+      ...(support && { support }),
+    } }),
+    ...(expression && { expression: { label: expression.zh, text: cleanSentence(expression.en) } }),
+  };
+  return { source: 'character-lab', label: card.label, text, ...(Object.keys(performance).length && { performance }) };
 }
 
 export function buildCharacterCardPromptBundle(cards = [], rawVariant = {}) {

@@ -4,6 +4,7 @@ import '../features/page2/characterCard.css';
 import DllPicProPanel from './DllPicProPanel';
 import {
   CHARACTER_CARD_LAYER_KEYS,
+  CHARACTER_CARD_SCENE_POSES,
   EYEWEAR_MODE_OPTIONS,
   getCompatibleHairVariants,
   getEffectiveCharacterCardWardrobeLayers,
@@ -41,6 +42,7 @@ function getLayerEntries(card, eyewearMode = 'default') {
 
 export default function Page2Workspace({
   characterCards,
+  sceneExpressions,
   profile,
   setProfile,
   promptBundle,
@@ -246,6 +248,25 @@ export default function Page2Workspace({
                   );
                 })}
               </div>
+            </div>
+
+            <div className="character-card-control-group">
+              <div className="control-section-title">場景用神情姿態</div>
+              <label className="field">
+                <span>場景用姿勢</span>
+                <select value={profile.scenePoseId || ''} onChange={(event) => updateProfile({ scenePoseId: event.target.value })}>
+                  <option value="">未指定</option>
+                  {CHARACTER_CARD_SCENE_POSES.map(action => <option key={action.id} value={action.id}>{action.zh}</option>)}
+                </select>
+              </label>
+              <label className="field">
+                <span>場景用表情</span>
+                <select value={sceneExpressions.some(option => option.id === profile.sceneExpressionId) ? profile.sceneExpressionId : ''}
+                  onChange={(event) => updateProfile({ sceneExpressionId: event.target.value })}>
+                  <option value="">未指定</option>
+                  {sceneExpressions.map(option => <option key={option.id} value={option.id}>{option.zh}</option>)}
+                </select>
+              </label>
             </div>
 
             <details className="character-card-advanced">

@@ -12,6 +12,7 @@ import underbustTeeGesture from './underbustTeeGestureHistory.json' with { type:
 import waistbandLiftGesture from './waistbandLiftGestureHistory.json' with { type: 'json' };
 import adjustTopGesture from './adjustTopGestureHistory.json' with { type: 'json' };
 import bodyTightFit from './bodyTightFitHistory.json' with { type: 'json' };
+import page3PersonPerformance from './page3PersonPerformanceHistory.json' with { type: 'json' };
 import page3LocationExpansion from './page3LocationExpansionHistory.json' with { type: 'json' };
 import page3LocationPilot from './page3LocationPilotHistory.json' with { type: 'json' };
 import page3FieldActions from './page3FieldActionsHistory.json' with { type: 'json' };
@@ -21,7 +22,7 @@ import closedEyeReview from './closedEyeGazeHistory.json' with { type: 'json' };
 
 const hash = source => createHash('sha256').update(source).digest('hex');
 export const gestureExpressionGazeHistoricalPaths = [...new Set(
-  [...page3LocationExpansion.files, ...page3LocationPilot.files, ...waistbandStrings.files, ...waistbandHeight.files, ...biteHemGesture.files, ...bodyTightFit.files, ...adjustTopGesture.files, ...waistbandLiftGesture.files, ...underbustTeeGesture.files, ...raisedTopHem.files, ...page3FieldActions.files, ...page3Person.files, ...page3Compression.files, ...closedEyeReview.files, ...review.files].map(file => file.path)
+  [...page3PersonPerformance.files, ...page3LocationExpansion.files, ...page3LocationPilot.files, ...waistbandStrings.files, ...waistbandHeight.files, ...biteHemGesture.files, ...bodyTightFit.files, ...adjustTopGesture.files, ...waistbandLiftGesture.files, ...underbustTeeGesture.files, ...raisedTopHem.files, ...page3FieldActions.files, ...page3Person.files, ...page3Compression.files, ...closedEyeReview.files, ...review.files].map(file => file.path)
 )];
 export function preGestureExpressionGazeSource(path, source) {
   const prePage3PromptSource = reverseReviewedSource(page3Compression, path, prePage3PersonSource(path, source));
@@ -29,7 +30,11 @@ export function preGestureExpressionGazeSource(path, source) {
 }
 
 export function prePage3LocationExpansionSource(path, source) {
-  return reverseReviewedSource(page3LocationExpansion, path, source);
+  return reverseReviewedSource(page3LocationExpansion, path, prePage3PersonPerformanceSource(path, source));
+}
+
+export function prePage3PersonPerformanceSource(path, source) {
+  return reverseReviewedSource(page3PersonPerformance, path, source);
 }
 
 export function prePage3LocationPilotSource(path, source) {
@@ -41,7 +46,7 @@ export function prePage3FieldActionsSource(path, source) {
 }
 
 export function preRaisedTopHemSource(path, source) {
-  const beforeWaistbandStrings = reverseReviewedSource(waistbandStrings, path, source);
+  const beforeWaistbandStrings = reverseReviewedSource(waistbandStrings, path, prePage3PersonPerformanceSource(path, source));
   const beforeWaistbandHeight = reverseReviewedSource(waistbandHeight, path, beforeWaistbandStrings);
   const beforeBiteHem = reverseReviewedSource(biteHemGesture, path, beforeWaistbandHeight);
   const beforeBodyTightFit = reverseReviewedSource(bodyTightFit, path, beforeBiteHem);
