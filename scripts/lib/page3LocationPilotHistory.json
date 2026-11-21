@@ -1,0 +1,351 @@
+{
+  "baseCommit": "c89ea1533071782bad2738626c32be524076dd08",
+  "files": [
+    {
+      "path": "webapp/src/data/page3WorldScenes.js",
+      "beforeHash": "3db344fb1393f17321b8cc03914f3c10a3da7ffe3ba591f1cb260dae2f20bd81",
+      "afterHash": "1ee0f492b3f02f93340925a20936b609a7ffc5c5d6fad4dd0a28fa541215264f",
+      "edits": [
+        {
+          "line": 13,
+          "after": [
+            "  framing,\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 27,
+          "after": [
+            "  ...(framing && { framing }),\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 690,
+          "after": [
+            "  makeLocation({\n",
+            "    id: 'hallstatt-lakeside-village-overlook',\n",
+            "    city: 'Hallstatt',\n",
+            "    country: 'Austria',\n",
+            "    district: 'Hallstätter See',\n",
+            "    locationName: 'lakeside village overlook on Hallstätter See',\n",
+            "    labelZh: '奧地利｜Hallstatt 湖畔山村',\n",
+            "    landmarkCues: ['clustered alpine timber houses', 'church spire above the rooftops', 'steep mountain backdrop'],\n",
+            "    streetPositions: ['beside the metal lookout railing with the lake beyond'],\n",
+            "    cityscapePositions: ['across the curving lakeshore toward the village waterfront'],\n",
+            "    aerialPositions: ['looking down from the hillside overlook along the shoreline and village roofs'],\n",
+            "    realismGuards: ['keep the village on the narrow strip between the lake and the mountain'],\n",
+            "    framing: {\n",
+            "      incidentalWalkers: true,\n",
+            "      focus: {\n",
+            "        'free-framing': 'Frame one detail along the village shore',\n",
+            "        'signs-storefronts': 'Frame a timber house frontage along the shore',\n",
+            "        'windows-reflections': 'Frame the waterfront reflected in the lake',\n",
+            "        'alley-corner-depth': 'Follow the receding fronts of the lakeside houses',\n",
+            "        'ground-rain-texture': 'Frame the texture and reflections at the waterline',\n",
+            "        'sky-building-slice': 'Crop a sliver of sky between the spire and the mountain ridge',\n",
+            "        'landmark-fragment': 'Isolate the church spire among the timber roofs',\n",
+            "      },\n",
+            "    },\n",
+            "  }),\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 816,
+          "after": [
+            "  makeLocation({\n",
+            "    id: 'special-forest-trail',\n",
+            "    city: 'Special Location',\n",
+            "    country: '',\n",
+            "    district: 'Forest trail',\n",
+            "    locationName: 'forest trail',\n",
+            "    labelZh: '特殊地點｜森林步道',\n",
+            "    landmarkCues: ['mossy roots and leaf litter on uneven ground', 'dark tree trunks at staggered distances'],\n",
+            "    streetPositions: ['at the edge of the path where it bends between the trees'],\n",
+            "    cityscapePositions: ['looking along the curve of the trail into dense woodland'],\n",
+            "    aerialPositions: ['looking down from a rise onto the winding trail beneath the canopy'],\n",
+            "    realismGuards: ['let the bend disappear behind the trees'],\n",
+            "    generic: true,\n",
+            "    framing: {\n",
+            "      capture: { 'through-window': 'shot through foreground glass with leaf reflections over the trail beyond' },\n",
+            "      focus: {\n",
+            "        'free-framing': 'Frame a detail at the trail edge',\n",
+            "        'signs-storefronts': 'Frame the trail opening between two trunks',\n",
+            "        'windows-reflections': 'Pick out the sheen on leaves against the dark trunks',\n",
+            "        'alley-corner-depth': 'Follow the path as it narrows around the bend',\n",
+            "        'ground-rain-texture': 'Frame the leaf litter caught between raised roots',\n",
+            "        'sky-building-slice': 'Isolate a patch of sky through the canopy',\n",
+            "        'landmark-fragment': 'Crop the moss-covered roots of a single tree',\n",
+            "      },\n",
+            "    },\n",
+            "  }),\n",
+            "  makeLocation({\n",
+            "    id: 'special-japanese-washitsu',\n",
+            "    city: 'Special Location',\n",
+            "    country: '',\n",
+            "    district: 'Japanese washitsu',\n",
+            "    locationName: 'traditional Japanese washitsu',\n",
+            "    labelZh: '特殊地點｜日式和室',\n",
+            "    landmarkCues: ['woven tatami mats', 'shoji sliding doors', 'a floor cushion beside a low table'],\n",
+            "    streetPositions: ['from the doorway at standing height, looking across the mat seams'],\n",
+            "    cityscapePositions: ['from one corner of the room toward the table and wall alcove'],\n",
+            "    aerialPositions: ['from a raised camera just inside the doorway, angled down across the tatami floor'],\n",
+            "    realismGuards: ['keep the view inside the room'],\n",
+            "    generic: true,\n",
+            "    framing: {\n",
+            "      indoors: true,\n",
+            "      capture: { 'through-window': 'shot through a partly open shoji screen, with translucent paper and its lattice in the foreground' },\n",
+            "      focus: {\n",
+            "        'free-framing': 'Frame a detail where the mats meet the shoji',\n",
+            "        'signs-storefronts': 'Frame the wooden threshold and sliding-door track',\n",
+            "        'windows-reflections': 'Frame light passing through the translucent shoji paper',\n",
+            "        'alley-corner-depth': 'Follow the mat seams into the recessed alcove',\n",
+            "        'ground-rain-texture': 'Pick out the woven rush texture and fabric borders of the mats',\n",
+            "        'sky-building-slice': 'Crop the upper shoji lattice against the wall',\n",
+            "        'landmark-fragment': 'Isolate a section of the shoji lattice above the tatami',\n",
+            "      },\n",
+            "    },\n",
+            "  }),\n",
+            "  makeLocation({\n",
+            "    id: 'special-ruins-cement-factory',\n",
+            "    city: 'Special Location',\n",
+            "    country: '',\n",
+            "    district: 'Abandoned cement factory',\n",
+            "    locationName: 'abandoned cement factory',\n",
+            "    labelZh: '特殊地點｜廢棄水泥工廠',\n",
+            "    landmarkCues: ['cement dust on cracked concrete', 'rusted metal supports'],\n",
+            "    streetPositions: ['beside the broken conveyor rollers and a gravel pile'],\n",
+            "    cityscapePositions: ['across the production floor toward the cylindrical mixer and its pipe joints'],\n",
+            "    aerialPositions: ['looking down from the indoor service platform beside the mixer onto the machinery below'],\n",
+            "    realismGuards: ['keep the industrial machinery idle', 'retain the dust and corrosion on the equipment'],\n",
+            "    generic: true,\n",
+            "    framing: {\n",
+            "      indoors: true,\n",
+            "      capture: { 'through-window': 'shot through a dusty interior pane with reflected steelwork over the space beyond' },\n",
+            "      focusPositions: {\n",
+            "        'signs-storefronts': 'inside the disused control room',\n",
+            "        'windows-reflections': 'inside the disused control room',\n",
+            "        'landmark-fragment': 'inside the machinery storage bay',\n",
+            "        'alley-corner-depth': 'beside the mixer on the service platform',\n",
+            "      },\n",
+            "      focus: {\n",
+            "        'free-framing': 'Frame a piece of machinery left on the production floor',\n",
+            "        'signs-storefronts': 'Frame the rusted switch panels and dust-covered dials',\n",
+            "        'windows-reflections': 'Pick out the broken glass on the control console',\n",
+            "        'alley-corner-depth': 'Follow the gap between the mixer and its concrete supports',\n",
+            "        'ground-rain-texture': 'Pick out the cement dust around discarded machine parts',\n",
+            "        'sky-building-slice': 'Crop the upper steelwork above the conveyor',\n",
+            "        'landmark-fragment': 'Frame the stacked gears and loose chains',\n",
+            "      },\n",
+            "    },\n",
+            "  }),\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/page3WorldScene.js",
+      "beforeHash": "19bd8ab1f6f97b23a8de31bbff6532199c559d1035ded74e780e7d97b80d02d1",
+      "afterHash": "7cf683b61d64de85df5c39a0fe2be49e2a760a16226cbfdd288a527ba9fc3aec",
+      "edits": [
+        {
+          "line": 231,
+          "after": [
+            "// These locations use the same controls as cities, with the optics and framing\n",
+            "// expressed in terms of what the camera can actually see at the selected site.\n",
+            "const LOCAL_MODES = {\n",
+            "  'street-only': {\n",
+            "    anchor: 'documentary detail on location',\n",
+            "    leads: {\n",
+            "      scene: 'Documentary photograph on location',\n",
+            "      cinematic: 'Cinematic documentary photograph',\n",
+            "      world: 'Documentary study of the setting',\n",
+            "    },\n",
+            "  },\n",
+            "  cityscape: {\n",
+            "    anchor: 'wide view of the setting',\n",
+            "    leads: {\n",
+            "      scene: 'Wide location photograph',\n",
+            "      cinematic: 'Wide cinematic establishing photograph',\n",
+            "      world: 'Environmental study of the site',\n",
+            "    },\n",
+            "  },\n",
+            "  'aerial-high-view': {\n",
+            "    anchor: 'elevated view of the setting',\n",
+            "    leads: {\n",
+            "      scene: 'High-angle location photograph',\n",
+            "      cinematic: 'Elevated cinematic photograph',\n",
+            "      world: 'High-angle study of the spatial layout',\n",
+            "    },\n",
+            "  },\n",
+            "};\n",
+            "\n",
+            "const LOCAL_CAPTURE_TEXT = {\n",
+            "  '24mm-wide': '24mm wide-angle view',\n",
+            "  '28mm-documentary': '28mm documentary perspective',\n",
+            "  '35mm-classic': '35mm candid documentary perspective',\n",
+            "  '85mm-compressed': '85mm telephoto view isolating a detail',\n",
+            "  '135mm-telephoto': '135mm telephoto compression of distant layers',\n",
+            "  'elevated-wide': 'wide-angle view from above',\n",
+            "  'drone-overhead': 'steep downward view of the layout',\n",
+            "  'drone-survey': 'a slow survey of the site from above',\n",
+            "  'direct-flash': 'direct flash with hard highlights and a candid snapshot feel',\n",
+            "  'documentary-street': 'realistic documentary photography',\n",
+            "  'japanese-photobook': 'Japanese photobook realism',\n",
+            "  'cinematic-city-still': 'cinematic location still',\n",
+            "  'commercial-cityscape': 'high-resolution commercial location photography',\n",
+            "  'snapshot-flash': 'direct-flash snapshot photography',\n",
+            "  'blue-hour-city-glow': 'blue-hour ambient glow',\n",
+            "  'rainy-reflections': 'reflected light on rain-wet surfaces',\n",
+            "};\n",
+            "\n",
+            "const INDOOR_CAPTURE_TEXT = {\n",
+            "  'drone-camera': 'handheld drone gimbal camera inside the room',\n",
+            "  'drone-survey': 'a slow downward survey from a raised indoor position',\n",
+            "  'rainy-reflections': 'soft reflected light from the rain outside',\n",
+            "};\n",
+            "\n",
+            "function projectLocationFraming(parts) {\n",
+            "  const { location, mode, focalViewpoint, shootingMethod } = parts;\n",
+            "  const framing = location?.framing;\n",
+            "  if (!framing) return parts;\n",
+            "\n",
+            "  const raised = ['elevated-wide', 'drone-overhead'].includes(focalViewpoint.id) || shootingMethod.id === 'drone-survey';\n",
+            "  const projectOption = option => ({\n",
+            "    ...option,\n",
+            "    en: framing.focus[option.id] ?? framing.capture?.[option.id]\n",
+            "      ?? (framing.indoors ? INDOOR_CAPTURE_TEXT[option.id] : undefined)\n",
+            "      ?? LOCAL_CAPTURE_TEXT[option.id] ?? option.en,\n",
+            "  });\n",
+            "  return {\n",
+            "    ...parts,\n",
+            "    mode: {\n",
+            "      ...mode,\n",
+            "      ...LOCAL_MODES[mode.id],\n",
+            "      modeNotes: [],\n",
+            "      positionKey: raised ? 'aerialPositions' : mode.positionKey || 'streetPositions',\n",
+            "    },\n",
+            "    cameraSystem: projectOption(parts.cameraSystem),\n",
+            "    shootingMethod: projectOption(shootingMethod),\n",
+            "    focalViewpoint: projectOption(focalViewpoint),\n",
+            "    sceneFocus: projectOption(parts.sceneFocus),\n",
+            "    imagingStyle: projectOption(parts.imagingStyle),\n",
+            "    ambientLight: projectOption(parts.ambientLight),\n",
+            "  };\n",
+            "}\n",
+            "\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 325,
+          "after": [
+            "  return projectLocationFraming({\n"
+          ],
+          "before": [
+            "  return {\n"
+          ]
+        },
+        {
+          "line": 335,
+          "after": [
+            "  });\n"
+          ],
+          "before": [
+            "  };\n"
+          ]
+        },
+        {
+          "line": 346,
+          "after": [
+            "function pickPosition(location, mode, sceneFocus) {\n"
+          ],
+          "before": [
+            "function pickPosition(location, mode) {\n"
+          ]
+        },
+        {
+          "line": 348,
+          "after": [
+            "  const standpoint = location.framing?.focusPositions?.[sceneFocus?.id];\n",
+            "  if (standpoint) {\n",
+            "    if (mode.positionKey === 'aerialPositions') return `from a raised camera angled down ${standpoint}`;\n",
+            "    if (mode.positionKey === 'cityscapePositions') return `wide view from ${standpoint}`;\n",
+            "    return `at eye level ${standpoint}`;\n",
+            "  }\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 359,
+          "after": [
+            "  if (location.framing) return formatPromptLocation(location);\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 412,
+          "after": [
+            "  const position = pickPosition(location, mode, sceneFocus)\n"
+          ],
+          "before": [
+            "  const position = pickPosition(location, mode)\n"
+          ]
+        },
+        {
+          "line": 426,
+          "after": [
+            "    location.framing\n",
+            "      ? 'the portrait subject remains the main subject with the surrounding setting in view'\n",
+            "      : 'the portrait subject remains the main subject while the selected district, architecture, street texture, signage, landmark fragments, and local spatial cues remain readable',\n"
+          ],
+          "before": [
+            "    'the portrait subject remains the main subject while the selected district, architecture, street texture, signage, landmark fragments, and local spatial cues remain readable',\n"
+          ]
+        },
+        {
+          "line": 465,
+          "after": [
+            "  const lead = ruin && !location.framing && mode?.id === 'street-only'\n"
+          ],
+          "before": [
+            "  const lead = ruin && mode?.id === 'street-only'\n"
+          ]
+        },
+        {
+          "line": 469,
+          "after": [
+            "  const position = pickPosition(location, mode, sceneFocus);\n"
+          ],
+          "before": [
+            "  const position = pickPosition(location, mode);\n"
+          ]
+        },
+        {
+          "line": 492,
+          "after": [
+            "  if (location?.framing) {\n",
+            "    if (location.framing.incidentalWalkers && mode.id === 'street-only') {\n",
+            "      guards.push(person ? 'other walkers may appear in passing' : 'incidental walkers only, no deliberate portrait subject');\n",
+            "    } else {\n",
+            "      guards.push(person ? 'no other people' : 'no visible people');\n",
+            "    }\n",
+            "  }\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 508,
+          "after": [
+            "  const depth = shootingMethod?.id === 'through-window' && !location?.framing\n"
+          ],
+          "before": [
+            "  const depth = shootingMethod?.id === 'through-window'\n"
+          ]
+        }
+      ]
+    }
+  ]
+}

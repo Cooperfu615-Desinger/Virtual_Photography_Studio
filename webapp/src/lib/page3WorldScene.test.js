@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
+import { buildPage3SavedCard } from '../features/page3/page3SavedCard.js';
+import { deserializeFavoritePrompt, serializeFavoritePrompt } from '../features/saved-cards/cardCodec.js';
 import {
   PAGE3_WORLD_SCENE_FIELD_OPTIONS,
   SPECIAL_SCENE_LOCATIONS,
@@ -18,6 +20,272 @@ const sceneBuilders = [
   buildPage3WorldSceneCinematicPrompt,
   buildPage3WorldSceneWorldPrompt,
 ];
+
+const pilotLocations = [
+  {
+    field: 'worldLocation', id: 'hallstatt-lakeside-village-overlook', label: /Hallstatt.*湖畔山村/,
+    landmark: /Hallstatt/i, ground: [/railing/i, /lake|Hallst[aä]tter See/i, /spire|steeple/i], high: [/lake|Hallst[aä]tter See/i, /mountain/i],
+  },
+  {
+    field: 'specialLocation', id: 'special-forest-trail', label: /森林步道/,
+    landmark: /forest|woodland/i, ground: [/moss/i, /roots?/i, /leaves|leaf litter/i], high: [/trail|path/i, /trees?|canopy|woodland/i],
+  },
+  {
+    field: 'specialLocation', id: 'special-japanese-washitsu', label: /日式和室/,
+    landmark: /washitsu/i, ground: [/tatami/i, /shoji/i, /low table/i], high: [/tatami/i, /shoji/i],
+  },
+  {
+    field: 'specialLocation', id: 'special-ruins-cement-factory', label: /水泥工廠/,
+    landmark: /cement (?:factory|plant|works)/i, ground: [/conveyor/i, /dust/i], high: [/mixer|mixing|industrial|machinery|conveyor/i],
+  },
+];
+
+const worldAdditions = [
+  {
+    id: 'tokyo-meguro-river-cherry-tunnel', label: /目黑川.*櫻花/,
+    landmark: /Meguro River/i, ground: [/railing/i, /cherry/i, /river/i], high: [/canopy|branches|blossoms/i, /bank|channel/i],
+  },
+  {
+    id: 'hong-kong-hing-kee-claypot-rice-arcade', label: /興記.*煲仔飯/,
+    landmark: /Hing Kee/i, ground: [/sign/i, /threshold|entrance/i, /tile/i], high: [/arcade|awning|frontage/i],
+  },
+  {
+    id: 'london-brick-lane-poster-corner', label: /Brick Lane.*海報/,
+    landmark: /Brick Lane/i, ground: [/poster|flyer/i, /brick/i, /alley|lane/i], high: [/corner|mouth|entrance|junction/i],
+  },
+];
+
+const specialAdditions = [
+  {
+    id: 'special-lakeside-boardwalk', label: /湖邊木棧道/,
+    landmark: /lake/i, ground: [/planks?/i, /rail/i, /water|lake/i], high: [/boardwalk|deck|planks?/i, /shore|bank|water/i],
+  },
+  {
+    id: 'special-clear-bay-rocky-shore', label: /清澈海灣岩岸/,
+    landmark: /cove|bay/i, ground: [/rocks?|stones?/i, /clear|transparent|turquoise/i], high: [/shore|inlet|cove/i, /rock|cliff/i],
+  },
+  {
+    id: 'special-wind-rippled-dunes', label: /沙丘.*風痕/,
+    landmark: /dune/i, ground: [/sand/i, /ripple/i], high: [/crest|ridge/i],
+  },
+  {
+    id: 'special-dry-salt-lake', label: /白色鹽湖.*乾裂/,
+    landmark: /salt/i, ground: [/crack|fissure/i, /polygon/i], high: [/basin|playa|flat/i],
+  },
+  {
+    id: 'special-boutique-hotel-room', label: /精品飯店房間/,
+    landmark: /hotel (?:guest )?room/i, ground: [/bed/i, /sheet|linen/i, /headboard/i], high: [/bed/i, /floor|curtain|table/i],
+  },
+  {
+    id: 'special-japanese-classroom', label: /日本學校教室/,
+    landmark: /classroom/i, ground: [/blackboard|chalkboard/i, /wooden desks?/i], high: [/desks?/i],
+  },
+  {
+    id: 'special-secondhand-bookshop', label: /古書.*二手書店/,
+    landmark: /book ?shop|book ?store/i, ground: [/book/i, /shel(?:ves|f|ving)/i], high: [/aisle|table|stack/i],
+  },
+  {
+    id: 'special-japanese-lawson-interior', label: /Lawson.*便利商店/,
+    landmark: /Lawson/i, ground: [/blue[- ]and[- ]white/i, /onigiri/i, /refrigerat|chill/i], high: [/shel(?:ves|f|ving)|aisle/i],
+  },
+  {
+    id: 'special-self-service-laundry', label: /洗衣店/,
+    landmark: /laundr(?:y|omat|ette)/i, ground: [/washer|washing machine/i, /round|chrome/i], high: [/washer|machine/i],
+  },
+];
+
+const newLocations = [
+  ...pilotLocations,
+  ...worldAdditions.map(place => ({ ...place, field: 'worldLocation' })),
+  ...specialAdditions.map(place => ({ ...place, field: 'specialLocation' })),
+];
+
+for (const { field, id, label, landmark, ground, high } of newLocations) {
+  test(`${id} keeps its own framing, occupancy and saved selection in all three prompts`, () => {
+    const option = PAGE3_WORLD_SCENE_FIELD_OPTIONS[field].find(item => item.id === id);
+    assert.ok(option, `missing ${id} from ${field}`);
+    assert.match(option.zh, label);
+    const profile = { [field]: id, cameraSystem: 'sony-full-frame', ambientLight: 'overcast-daylight' };
+    const imported = { source: 'prompt-workbench', text: 'An adult woman in a green coat.' };
+    const places = field === 'worldLocation' ? WORLD_SCENE_LOCATIONS : SPECIAL_SCENE_LOCATIONS;
+    const location = places.find(place => place.id === id);
+    const positions = {
+      'street-only': location.streetPositions[0],
+      cityscape: location.cityscapePositions[0],
+      'aerial-high-view': location.aerialPositions[0],
+    };
+    assert.equal(new Set(Object.values(positions)).size, 3, id);
+    for (const sceneMode of [...Object.keys(positions), 'none', '']) {
+      const selected = { ...profile, sceneMode };
+      const prompts = sceneBuilders.map(build => build(selected));
+      assert.equal(new Set(prompts).size, 3);
+      for (const [index, prompt] of prompts.entries()) {
+        assert.match(prompt, landmark);
+        assert.match(prompt, /Sony full-frame/i);
+        assert.match(prompt, /overcast daylight/i);
+        assert.doesNotMatch(prompt, /bridges, roads, waterways|lived-in urban layout|incidental pedestrians and traffic/i);
+        if (positions[sceneMode]) assert.ok(prompt.toLowerCase().includes(positions[sceneMode].toLowerCase()), sceneMode);
+        const cues = sceneMode === 'street-only' ? ground : sceneMode === 'aerial-high-view' ? high : [];
+        for (const cue of cues) assert.match(prompt, cue);
+        const build = sceneBuilders[index];
+        assert.equal(build({ ...selected, person: { source: 'none' } }), prompt);
+        if (field === 'worldLocation' && sceneMode === 'street-only') {
+          assert.match(prompt, /passersby|pedestrians|walkers|visitors/i);
+          assert.doesNotMatch(prompt, /no visible people/i);
+        } else {
+          assert.match(prompt, /no (?:visible people|people)|unoccupied/i);
+        }
+        const withPerson = build({ ...selected, person: imported });
+        assert.ok(withPerson.includes(imported.text));
+        assert.doesNotMatch(withPerson, /no (?:visible people|deliberate (?:human|portrait) subject)|unoccupied/i);
+        if (field === 'specialLocation') assert.match(withPerson, /no other people/i);
+      }
+    }
+
+    const selected = { ...profile, sceneMode: 'street-only' };
+    const summary = buildPage3WorldSceneSummary(selected);
+    const anchor = buildPage3WorldSceneAnchor(selected);
+    const prompts = sceneBuilders.map(build => build(selected));
+    assert.match(summary, label);
+    assert.match(anchor, landmark);
+    const architecture = buildPage1WorldSceneArchitecture(selected);
+    assert.match(architecture.label, label);
+    assert.match(architecture.text, landmark);
+    assert.doesNotMatch(architecture.text, /no visible people|no deliberate portrait subject/i);
+    for (const build of sceneBuilders) {
+      const locationOnly = build({ [field]: id });
+      assert.match(locationOnly, landmark);
+      assert.match(locationOnly, /no visible people/i);
+    }
+    const saved = buildPage3SavedCard(selected, summary, anchor, ...prompts);
+    const restored = deserializeFavoritePrompt(serializeFavoritePrompt(saved));
+    assert.deepEqual(restored.profile, selected);
+    assert.deepEqual([restored.midjourneyPrompt, restored.grokPrompt, restored.zImagePrompt], prompts);
+  });
+}
+
+test('indoor high views stay in the selected building when drone and street options are selected', () => {
+  const interiors = newLocations.filter(({ id }) => [
+    'special-japanese-washitsu', 'special-ruins-cement-factory', 'special-boutique-hotel-room',
+    'special-japanese-classroom', 'special-secondhand-bookshop', 'special-japanese-lawson-interior', 'special-self-service-laundry',
+  ].includes(id));
+  for (const { id: specialLocation, landmark } of interiors) {
+    const profile = {
+      specialLocation, sceneMode: 'aerial-high-view', cameraSystem: 'drone-camera',
+      shootingMethod: 'drone-survey', focalViewpoint: 'drone-overhead', sceneFocus: 'signs-storefronts',
+    };
+    for (const build of sceneBuilders) {
+      const prompt = build(profile);
+      assert.match(prompt, /high|elevated|downward|looking down|overhead|from above/i);
+      assert.doesNotMatch(prompt, /from a drone|drone camera|storefront|skyline|cityscape|rooftops|shop lights|awnings/i);
+    }
+    const architecture = buildPage1WorldSceneArchitecture(profile);
+    assert.match(architecture.text, /portrait subject/i);
+    assert.match(architecture.text, landmark);
+    assert.doesNotMatch(architecture.text, /no visible people|only the photographer|from a drone|drone camera|storefront|skyline|rooftops/i);
+  }
+});
+
+test('all seven scene focus options frame a distinct local detail at each added location', () => {
+  const focuses = PAGE3_WORLD_SCENE_FIELD_OPTIONS.sceneFocus.filter(option => option.id && option.id !== 'none');
+  for (const { field, id } of newLocations) {
+    for (const build of sceneBuilders) {
+      const prompts = focuses.map(({ id: sceneFocus }) => build({ [field]: id, sceneMode: 'street-only', sceneFocus }));
+      assert.equal(new Set(prompts).size, 7, id);
+      for (const [index, prompt] of prompts.entries()) {
+        assert.ok(!prompt.toLowerCase().includes(focuses[index].en.toLowerCase()), id);
+        if (pilotLocations.some(place => place.id === id)) {
+          assert.doesNotMatch(prompt, /stacked signs|storefronts|curb edges|shop lights|street fragments|vertical urban layers/i);
+        }
+      }
+    }
+  }
+});
+
+test('reflective conditions keep the salt basin and dune surfaces dry', () => {
+  for (const specialLocation of ['special-wind-rippled-dunes', 'special-dry-salt-lake']) {
+    for (const ambientLight of ['rainy-reflections', 'humid-night-reflections']) {
+      for (const sceneFocus of ['windows-reflections', 'ground-rain-texture']) {
+        for (const build of sceneBuilders) {
+          const prompt = build({ specialLocation, sceneMode: 'aerial-high-view', ambientLight, sceneFocus });
+          assert.match(prompt, /dry|arid|parched/i);
+          assert.doesNotMatch(prompt, /rain-wet|wet (?:sand|crust|surface|ground)|reflecting pool|mirrored (?:lake|water)|puddles?|shallow water/i);
+        }
+      }
+    }
+  }
+});
+
+test('high-view camera choices stay at the river, covered storefront or alley mouth', () => {
+  const views = [
+    ['tokyo-meguro-river-cherry-tunnel', /bridge|bank/i, /cherry|blossom/i],
+    ['hong-kong-hing-kee-claypot-rice-arcade', /arcade|covered/i, /threshold|entrance|frontage/i],
+    ['london-brick-lane-poster-corner', /alley|corner/i, /poster|flyer/i],
+  ];
+  for (const [worldLocation, viewpoint, anchor] of views) {
+    const profile = { worldLocation, sceneMode: 'aerial-high-view', cameraSystem: 'drone-camera',
+      shootingMethod: 'drone-survey', focalViewpoint: 'drone-overhead' };
+    for (const build of sceneBuilders) {
+      const prompt = build(profile);
+      assert.match(prompt, viewpoint);
+      assert.match(prompt, anchor);
+      assert.doesNotMatch(prompt, /over the city|rooftops below|skyline relationships|from a drone in a slow survey/i);
+    }
+  }
+});
+
+test('a raised camera only includes a skyline or patch of sky when visible from the selected angle', () => {
+  for (const { field, id } of newLocations.slice(pilotLocations.length)) {
+    for (const sceneMode of ['street-only', 'aerial-high-view']) {
+      const profile = { [field]: id, sceneMode, focalViewpoint: 'drone-overhead', sceneFocus: 'sky-building-slice' };
+      for (const build of sceneBuilders) {
+        const prompt = build(profile);
+        const skySentences = prompt.split('.').filter(sentence => /\b(?:sky|skyline|horizon)\b/i.test(sentence));
+        for (const sentence of skySentences) assert.match(sentence, /where visible|if visible|when visible|any sky visible/i, id);
+        assert.doesNotMatch(prompt, /against the ceiling/i, id);
+      }
+    }
+  }
+});
+
+test('one laundromat offers the washer, folding table, detergent shelf and waiting chair as views', () => {
+  const views = PAGE3_WORLD_SCENE_FIELD_OPTIONS.sceneFocus.map(({ id: sceneFocus }) => buildPage3WorldScenePrompt({
+    specialLocation: 'special-self-service-laundry', sceneMode: 'street-only', sceneFocus,
+  })).join('\n');
+  for (const detail of [/washer|washing machine/i, /folding table/i, /detergent/i, /chair/i]) assert.match(views, detail);
+});
+
+test('Meguro keeps the flowering bank in view when cool or hazy lighting is selected', () => {
+  for (const [ambientLight, light] of [['soft-winter-daylight', /cool|soft/i], ['hazy-summer-heat', /haze|hazy/i]]) {
+    for (const build of sceneBuilders) {
+      const prompt = build({ worldLocation: 'tokyo-meguro-river-cherry-tunnel', sceneMode: 'cityscape', ambientLight });
+      assert.match(prompt, /one (?:side|bank)|near bank/i);
+      assert.match(prompt, /blossom|in bloom|flowering/i);
+      assert.match(prompt, light);
+      assert.doesNotMatch(prompt, /bare (?:trees|branches)|snow-covered|summer foliage/i);
+    }
+  }
+});
+
+test('indoor window shots preserve a visible foreground layer and the space within the building', () => {
+  for (const [specialLocation, foreground] of [
+    ['special-japanese-washitsu', /shoji.*(?:foreground|lattice|screen)/i],
+    ['special-ruins-cement-factory', /(?:glass|pane|window)/i],
+    ['special-boutique-hotel-room', /glass|pane|window/i],
+    ['special-japanese-classroom', /glass|pane|window/i],
+    ['special-secondhand-bookshop', /glass|pane|window/i],
+    ['special-japanese-lawson-interior', /glass|pane|window/i],
+    ['special-self-service-laundry', /glass|pane|window/i],
+  ]) {
+    for (const build of sceneBuilders) {
+      for (const sceneMode of ['cityscape', 'aerial-high-view']) {
+        const prompt = build({ specialLocation, sceneMode, shootingMethod: 'through-window' });
+        assert.match(prompt, foreground);
+        assert.doesNotMatch(prompt, /interior-exterior depth|street fragments|from outside|from the street/i);
+      }
+    }
+  }
+});
 
 test('all three PAGE3 outputs retain the reviewed Taipei street capture and empty-scene rules', () => {
   const profile = {
@@ -75,8 +343,10 @@ test('all ruin modes keep strict visible occupancy restrictions and location-spe
   }
 });
 
-test('world scene location pack contains ten cities with five anchors each', () => {
-  assert.equal(WORLD_SCENE_LOCATIONS.length, 50);
+test('world locations keep the original cities and Hallstatt, and append the three new street scenes', () => {
+  assert.equal(WORLD_SCENE_LOCATIONS.length, 54);
+  assert.equal(WORLD_SCENE_LOCATIONS[50].id, 'hallstatt-lakeside-village-overlook');
+  assert.deepEqual(WORLD_SCENE_LOCATIONS.slice(51).map(place => place.id), worldAdditions.map(place => place.id));
 
   const counts = WORLD_SCENE_LOCATIONS.reduce((acc, location) => {
     acc[location.city] = (acc[location.city] || 0) + 1;
@@ -85,22 +355,23 @@ test('world scene location pack contains ten cities with five anchors each', () 
 
   assert.deepEqual(counts, {
     Taipei: 5,
-    Tokyo: 5,
+    Tokyo: 6,
     Osaka: 5,
     Seoul: 5,
-    'Hong Kong': 5,
+    'Hong Kong': 6,
     Paris: 5,
-    London: 5,
+    London: 6,
     'New York': 5,
     Rome: 5,
     'Los Angeles': 5,
+    Hallstatt: 1,
   });
 });
 
-test('special scene location pack exposes seven non-city photographic locations', () => {
-  assert.equal(SPECIAL_SCENE_LOCATIONS.length, 7);
+test('special scene locations preserve their original order and append the new nature and interior settings', () => {
+  assert.equal(SPECIAL_SCENE_LOCATIONS.length, 19);
   assert.deepEqual(
-    SPECIAL_SCENE_LOCATIONS.map((location) => location.labelZh),
+    SPECIAL_SCENE_LOCATIONS.slice(0, 7).map((location) => location.labelZh),
     [
       '特殊地點｜廢墟：學校',
       '特殊地點｜廢墟：醫院',
@@ -111,11 +382,15 @@ test('special scene location pack exposes seven non-city photographic locations'
       '特殊地點｜日本住宅區巷弄',
     ],
   );
+  assert.deepEqual(SPECIAL_SCENE_LOCATIONS.slice(7).map(item => item.id), [
+    'special-forest-trail', 'special-japanese-washitsu', 'special-ruins-cement-factory',
+    ...specialAdditions.map(place => place.id),
+  ]);
   assert.equal(SPECIAL_SCENE_LOCATIONS.every((location) => location.generic), true);
 });
 
-test('special ruin locations emphasize empty photographer-only ruins and heavy decay', () => {
-  const ruinLocations = SPECIAL_SCENE_LOCATIONS.filter((location) => location.id.startsWith('special-ruins-'));
+test('original overgrown ruins emphasize empty photographer-only scenes and heavy decay', () => {
+  const ruinLocations = SPECIAL_SCENE_LOCATIONS.slice(0, 7).filter((location) => location.id.startsWith('special-ruins-'));
 
   assert.equal(ruinLocations.length, 5);
   for (const location of ruinLocations) {
@@ -263,8 +538,8 @@ test('special location prompt avoids forced world-city context', () => {
 
 test('field options expose scene modes and the first city pack locations', () => {
   assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.sceneMode.length, 5);
-  assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.worldLocation.length, 52);
-  assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.specialLocation.length, 9);
+  assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.worldLocation.length, 56);
+  assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.specialLocation.length, 21);
   assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.photographerStyle.length, 28);
   assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.shootingMethod.length, 9);
   assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.sceneFocus.length, 9);

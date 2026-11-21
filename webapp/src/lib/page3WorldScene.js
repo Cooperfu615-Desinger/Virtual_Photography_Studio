@@ -229,6 +229,89 @@ function getSelectedLocation(profile = {}) {
   return findSpecialLocation(profile.specialLocation) || findWorldLocation(profile.worldLocation);
 }
 
+// These locations use the same controls as cities, with the optics and framing
+// expressed in terms of what the camera can actually see at the selected site.
+const LOCAL_MODES = {
+  'street-only': {
+    anchor: 'documentary detail on location',
+    leads: {
+      scene: 'Documentary photograph on location',
+      cinematic: 'Cinematic documentary photograph',
+      world: 'Documentary study of the setting',
+    },
+  },
+  cityscape: {
+    anchor: 'wide view of the setting',
+    leads: {
+      scene: 'Wide location photograph',
+      cinematic: 'Wide cinematic establishing photograph',
+      world: 'Environmental study of the site',
+    },
+  },
+  'aerial-high-view': {
+    anchor: 'elevated view of the setting',
+    leads: {
+      scene: 'High-angle location photograph',
+      cinematic: 'Elevated cinematic photograph',
+      world: 'High-angle study of the spatial layout',
+    },
+  },
+};
+
+const LOCAL_CAPTURE_TEXT = {
+  '24mm-wide': '24mm wide-angle view',
+  '28mm-documentary': '28mm documentary perspective',
+  '35mm-classic': '35mm candid documentary perspective',
+  '85mm-compressed': '85mm telephoto view isolating a detail',
+  '135mm-telephoto': '135mm telephoto compression of distant layers',
+  'elevated-wide': 'wide-angle view from above',
+  'drone-overhead': 'steep downward view of the layout',
+  'drone-survey': 'a slow survey of the site from above',
+  'direct-flash': 'direct flash with hard highlights and a candid snapshot feel',
+  'documentary-street': 'realistic documentary photography',
+  'japanese-photobook': 'Japanese photobook realism',
+  'cinematic-city-still': 'cinematic location still',
+  'commercial-cityscape': 'high-resolution commercial location photography',
+  'snapshot-flash': 'direct-flash snapshot photography',
+  'blue-hour-city-glow': 'blue-hour ambient glow',
+  'rainy-reflections': 'reflected light on rain-wet surfaces',
+};
+
+const INDOOR_CAPTURE_TEXT = {
+  'drone-camera': 'handheld drone gimbal camera inside the room',
+  'drone-survey': 'a slow downward survey from a raised indoor position',
+  'rainy-reflections': 'soft reflected light from the rain outside',
+};
+
+function projectLocationFraming(parts) {
+  const { location, mode, focalViewpoint, shootingMethod } = parts;
+  const framing = location?.framing;
+  if (!framing) return parts;
+
+  const raised = ['elevated-wide', 'drone-overhead'].includes(focalViewpoint.id) || shootingMethod.id === 'drone-survey';
+  const projectOption = option => ({
+    ...option,
+    en: framing.focus[option.id] ?? framing.capture?.[option.id]
+      ?? (framing.indoors ? INDOOR_CAPTURE_TEXT[option.id] : undefined)
+      ?? LOCAL_CAPTURE_TEXT[option.id] ?? option.en,
+  });
+  return {
+    ...parts,
+    mode: {
+      ...mode,
+      ...LOCAL_MODES[mode.id],
+      modeNotes: [],
+      positionKey: raised ? 'aerialPositions' : mode.positionKey || 'streetPositions',
+    },
+    cameraSystem: projectOption(parts.cameraSystem),
+    shootingMethod: projectOption(shootingMethod),
+    focalViewpoint: projectOption(focalViewpoint),
+    sceneFocus: projectOption(parts.sceneFocus),
+    imagingStyle: projectOption(parts.imagingStyle),
+    ambientLight: projectOption(parts.ambientLight),
+  };
+}
+
 function getProfileParts(profile = {}) {
   const mode = findOption(SCENE_MODE_OPTIONS, profile.sceneMode);
   const photographerStyle = findOption(PHOTOGRAPHER_STYLE_OPTIONS, profile.photographerStyle);
@@ -240,7 +323,7 @@ function getProfileParts(profile = {}) {
   const imagingStyle = findOption(IMAGING_STYLE_OPTIONS, profile.imagingStyle);
   const ambientLight = findOption(AMBIENT_LIGHT_OPTIONS, profile.ambientLight);
 
-  return {
+  return projectLocationFraming({
     mode,
     photographerStyle,
     location,
@@ -250,7 +333,7 @@ function getProfileParts(profile = {}) {
     sceneFocus,
     imagingStyle,
     ambientLight,
-  };
+  });
 }
 
 function cleanJoin(parts) {
@@ -261,13 +344,20 @@ function cleanJoin(parts) {
     .join(', ');
 }
 
-function pickPosition(location, mode) {
+function pickPosition(location, mode, sceneFocus) {
   if (!location || !mode?.positionKey) return '';
+  const standpoint = location.framing?.focusPositions?.[sceneFocus?.id];
+  if (standpoint) {
+    if (mode.positionKey === 'aerialPositions') return `from a raised camera angled down ${standpoint}`;
+    if (mode.positionKey === 'cityscapePositions') return `wide view from ${standpoint}`;
+    return `at eye level ${standpoint}`;
+  }
   return location[mode.positionKey]?.[0] || '';
 }
 
 function formatAnchorLocation(location) {
   if (!location) return '';
+  if (location.framing) return formatPromptLocation(location);
   if (location.generic) return `${location.district}, ${location.locationName}`;
   return `${location.city}, ${location.district}, ${location.locationName}`;
 }
@@ -320,7 +410,7 @@ export function buildPage1WorldSceneArchitecture(profile = {}) {
   const { mode, location, cameraSystem, shootingMethod, focalViewpoint, sceneFocus, imagingStyle, ambientLight } = getProfileParts(profile);
   if (!location) return { label: '', text: '' };
 
-  const position = pickPosition(location, mode)
+  const position = pickPosition(location, mode, sceneFocus)
     || location.streetPositions?.[0]
     || location.cityscapePositions?.[0]
     || '';
@@ -334,7 +424,9 @@ export function buildPage1WorldSceneArchitecture(profile = {}) {
 
   const text = [
     `world-scene architecture for the portrait: ${formatAnchorLocation(location)} stays visible around and behind the subject`,
-    'the portrait subject remains the main subject while the selected district, architecture, street texture, signage, landmark fragments, and local spatial cues remain readable',
+    location.framing
+      ? 'the portrait subject remains the main subject with the surrounding setting in view'
+      : 'the portrait subject remains the main subject while the selected district, architecture, street texture, signage, landmark fragments, and local spatial cues remain readable',
     position ? `portrait-friendly spatial anchor: ${position}` : '',
     location.landmarkCues?.length ? `local cues: ${location.landmarkCues.slice(0, 4).join(', ')}` : '',
     sceneFocus?.en ? `scene focus: ${sceneFocus.en}` : '',
@@ -371,11 +463,11 @@ function buildWorldScenePrompt(profile = {}, { variant = 'scene' } = {}) {
   const ruin = Boolean(location?.id?.startsWith('special-ruins-'));
   const xiangshanHighView = location?.id === 'taipei-xiangshan-city-night-overlook' && mode?.id === 'aerial-high-view';
   const locationName = formatPromptLocation(location);
-  const lead = ruin && mode?.id === 'street-only'
+  const lead = ruin && !location.framing && mode?.id === 'street-only'
     ? RUIN_STREET_LEADS[variant]
     : mode?.leads?.[variant] || 'Realistic location photograph';
 
-  const position = pickPosition(location, mode);
+  const position = pickPosition(location, mode, sceneFocus);
   const placeDetails = [...new Set([position, ...(location?.landmarkCues || [])]
     .map(text => ruin ? compactRuinPhrase(text) : text)
     .filter(Boolean))];
@@ -398,6 +490,13 @@ function buildWorldScenePrompt(profile = {}, { variant = 'scene' } = {}) {
     if (person) return noTrafficCrowds ? 'no other people or traffic crowds' : 'no other people';
     return noTrafficCrowds ? 'no visible people or traffic crowds' : 'no visible people';
   });
+  if (location?.framing) {
+    if (location.framing.incidentalWalkers && mode.id === 'street-only') {
+      guards.push(person ? 'other walkers may appear in passing' : 'incidental walkers only, no deliberate portrait subject');
+    } else {
+      guards.push(person ? 'no other people' : 'no visible people');
+    }
+  }
 
   const place = cleanJoin(placeDetails);
   const subject = person ? [
@@ -407,7 +506,7 @@ function buildWorldScenePrompt(profile = {}, { variant = 'scene' } = {}) {
   const setting = locationName ? `${lead}: ${locationName}` : lead;
   const defaultFocus = mode?.id === 'street-only' && !isNoneOption(sceneFocus) ? 'Frame a local detail' : '';
   const focus = sceneFocus?.en || defaultFocus;
-  const depth = shootingMethod?.id === 'through-window'
+  const depth = shootingMethod?.id === 'through-window' && !location?.framing
     ? 'Layer the foreground glass reflections against the space beyond'
     : 'Layer the visible foreground, middle ground, and background';
   if (variant === 'cinematic') {

@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { Buffer } from 'node:buffer';
-import { preClosedEyeGazeSource, preGestureExpressionGazeSource, prePage3FieldActionsSource, prePage3PersonSource } from '../../../../scripts/lib/gestureExpressionGazeHistoricalReplay.mjs';
+import { preClosedEyeGazeSource, preGestureExpressionGazeSource, prePage3FieldActionsSource, prePage3LocationExpansionSource, prePage3LocationPilotSource, prePage3PersonSource } from '../../../../scripts/lib/gestureExpressionGazeHistoricalReplay.mjs';
 import review from '../../../../scripts/lib/gestureExpressionGazeHistory.json' with { type: 'json' };
 
 import closedEyeReview from '../../../../scripts/lib/closedEyeGazeHistory.json' with { type: 'json' };
@@ -11,12 +11,37 @@ import closedEyeReview from '../../../../scripts/lib/closedEyeGazeHistory.json' 
 import page3PersonReview from '../../../../scripts/lib/page3PersonHistory.json' with { type: 'json' };
 
 import page3FieldActionsReview from '../../../../scripts/lib/page3FieldActionsHistory.json' with { type: 'json' };
+import page3LocationPilot from '../../../../scripts/lib/page3LocationPilotHistory.json' with { type: 'json' };
+import page3LocationExpansion from '../../../../scripts/lib/page3LocationExpansionHistory.json' with { type: 'json' };
 
 const readSource = path => readFileSync(new URL(`../../../../${path}`, import.meta.url));
 const hash = value => createHash('sha256').update(value).digest('hex');
+test('the twelve-location expansion restores the accepted four-location pilot exactly', () => {
+  assert.ok(page3LocationExpansion.files.some(file => file.path === 'webapp/src/data/page3WorldScenes.js'));
+  for (const file of page3LocationExpansion.files) {
+    const source = readSource(file.path);
+    assert.equal(hash(source), file.afterHash, file.path);
+    const pilot = page3LocationPilot.files.find(item => item.path === file.path);
+    assert.equal(file.beforeHash, pilot.afterHash, file.path);
+    assert.equal(hash(prePage3LocationExpansionSource(file.path, source)), pilot.afterHash, file.path);
+    const unknown = Buffer.concat([source, Buffer.from('\n// unreviewed change\n')]);
+    assert.equal(prePage3LocationExpansionSource(file.path, unknown), unknown);
+  }
+});
+
+test('the four-location pilot restores the prior PAGE3 locations and renderer exactly', () => {
+  for (const file of page3LocationPilot.files) {
+    const source = prePage3LocationExpansionSource(file.path, readSource(file.path));
+    assert.equal(hash(source), file.afterHash, file.path);
+    assert.equal(hash(prePage3LocationPilotSource(file.path, source)), file.beforeHash, file.path);
+    const unknown = Buffer.concat([source, Buffer.from('\n// unreviewed change\n')]);
+    assert.equal(prePage3LocationPilotSource(file.path, unknown), unknown);
+  }
+});
+
 test('the separate exact inverse reconstructs every pre-addition source without rewriting old seals', () => {
   for (const file of page3FieldActionsReview.files) {
-    const source = readSource(file.path);
+    const source = prePage3LocationPilotSource(file.path, readSource(file.path));
     assert.equal(hash(source), file.afterHash, file.path);
     assert.equal(hash(prePage3FieldActionsSource(file.path, source)), file.beforeHash, file.path);
     const unknown = Buffer.concat([source, Buffer.from('\n// unreviewed change\n')]);
