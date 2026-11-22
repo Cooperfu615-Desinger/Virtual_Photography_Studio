@@ -12,6 +12,9 @@ export const DLL_MOSS_MODEL_KEYS = Object.freeze({
 export const DLL_ASIAN_MIX_MODEL_KEYS = Object.freeze({
   base: 'comfyZImageTurbo', lora: 'comfyZImageTurboAsianMix', radiance: 'comfyZImageTurboRadiance',
 });
+export const DLL_KREA_V5_MODEL_KEYS = Object.freeze({
+  base: 'comfyKrea2TurboNative', lora: 'comfyKrea2TurboNativeV5Lora',
+});
 export const DLL_QWEN_MODEL_KEYS = Object.freeze({
   base: 'comfyQwenImage21', lora: 'comfyQwenImage21Lora', omni: 'comfyQwenImage21OmniLora',
 });
@@ -23,6 +26,7 @@ export const DLL_PIC_STORAGE_KEYS = {
   model: 'dll_pic_pro_model',
   resolution: 'dll_pic_pro_resolution',
   asianMixStrength: 'dll_pic_pro_asian_mix_strength',
+  kreaV5Strength: 'dll_pic_pro_krea_v5_strength',
   radianceStrength: 'dll_pic_pro_z_radiance_strength',
   qwenLoraStrength: 'dll_pic_pro_qwen_v13b_strength',
   qwenOmniLoraStrength: 'dll_pic_pro_qwen_omni_strength',
@@ -197,7 +201,7 @@ export const DLL_PIC_MODEL_CONFIG = {
       maxCount: model.maxCount, aspectRatios: model.aspectRatios,
       partnerPricing: Boolean(model.partnerPricing),
       ...(model.loraStrength ? { loraStrength: model.loraStrength } : {}),
-      ...(['mossImageSftInt8Lora', 'zImageTurboAsianMix', 'zImageTurboRadiance', 'qwenImage21Lora', 'qwenImage21OmniLora'].includes(key) ? { hidden: true } : {}) },
+      ...(['krea2TurboNativeV5Lora', 'mossImageSftInt8Lora', 'zImageTurboAsianMix', 'zImageTurboRadiance', 'qwenImage21Lora', 'qwenImage21OmniLora'].includes(key) ? { hidden: true } : {}) },
   ])),
 };
 
@@ -310,10 +314,17 @@ export function normalizeDllPicModelKey(modelKey, fallback = 'google31FlashLiteI
   if (modelKey === 'grok') return 'xaiGrokImagineQuality';
   const modelConfig = DLL_PIC_MODEL_CONFIG[modelKey];
   if (modelConfig?.redirectModelKey) return modelConfig.redirectModelKey;
-  return modelConfig && (!modelConfig.hidden || [DLL_MOSS_MODEL_KEYS.lora, DLL_ASIAN_MIX_MODEL_KEYS.lora, DLL_ASIAN_MIX_MODEL_KEYS.radiance, DLL_QWEN_MODEL_KEYS.lora, DLL_QWEN_MODEL_KEYS.omni].includes(modelKey)) ? modelKey : fallback;
+  return modelConfig && (!modelConfig.hidden || [DLL_KREA_V5_MODEL_KEYS.lora, DLL_MOSS_MODEL_KEYS.lora, DLL_ASIAN_MIX_MODEL_KEYS.lora, DLL_ASIAN_MIX_MODEL_KEYS.radiance, DLL_QWEN_MODEL_KEYS.lora, DLL_QWEN_MODEL_KEYS.omni].includes(modelKey)) ? modelKey : fallback;
 }
 
 export function getDllPicLoraSelection(modelKey) {
+  if (Object.values(DLL_KREA_V5_MODEL_KEYS).includes(modelKey)) {
+    return { modelKey: DLL_KREA_V5_MODEL_KEYS.base, supported: true, enabled: modelKey === DLL_KREA_V5_MODEL_KEYS.lora,
+      adjustable: true, strength: COMFY_CONTRACT.models.krea2TurboNativeV5Lora.loraStrength.default,
+      label: 'Krea 2 NSFW V5 LoRA', strengthLabel: 'LoRA 強度',
+      loraModelKey: DLL_KREA_V5_MODEL_KEYS.lora, storageKey: DLL_PIC_STORAGE_KEYS.kreaV5Strength,
+      hint: '直接使用目前 Prompt，不自動加入觸發詞。' };
+  }
   if (Object.values(DLL_ASIAN_MIX_MODEL_KEYS).includes(modelKey)) {
     const radiance = modelKey === DLL_ASIAN_MIX_MODEL_KEYS.radiance;
     return { modelKey: DLL_ASIAN_MIX_MODEL_KEYS.base, supported: true, enabled: modelKey !== DLL_ASIAN_MIX_MODEL_KEYS.base,

@@ -48,6 +48,7 @@ export function getComfyGenerationNote(model, loraStrength = model.comfyModel ==
   if (model.comfyModel === 'krea3') {
     return `${start}1K / 2K，合作夥伴節點另計耗額；同一 Seed 可能不會重現相同圖像。${end}`;
   }
+  if (model.comfyModel === 'krea2TurboNativeV5Lora') return `${start}已套用 Krea 2 NSFW V5 LoRA（強度 ${loraStrength}），直接使用目前 Prompt。${end}`;
   if (model.comfyModel === 'krea2TurboNative') {
     return `${start}1K，直接使用目前 Prompt。${end}`;
   }

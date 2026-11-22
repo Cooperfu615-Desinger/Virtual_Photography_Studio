@@ -1,3 +1,4 @@
+import { preKreaV5Source } from '../../../scripts/lib/kreaV5Replay.mjs';
 import { Buffer } from 'node:buffer';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -9,7 +10,7 @@ test('H3 Image dimensions inverse returns exact pre-change Git bytes and leaves 
  for(const file of review.files){
   const current=readFileSync(new URL('../../../'+file.path,import.meta.url));
   const original=execFileSync('git',['show',`${review.baseCommit}:${file.path}`]);
-  assert.deepEqual(preH3ImageSizesSource(file.path,current),original);
+  assert.deepEqual(preH3ImageSizesSource(file.path,preKreaV5Source(file.path,current)),original);
   const unknown=Buffer.concat([current,Buffer.from('corrupt')]);
   assert.deepEqual(preH3ImageSizesSource(file.path,unknown),unknown);
  }

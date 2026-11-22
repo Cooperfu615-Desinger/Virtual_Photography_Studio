@@ -95,6 +95,16 @@ qwenOmniLora.template['600'] = { class_type: 'LoraLoaderModelOnly', inputs: {
 qwenOmniLora.template['459:480'].inputs.model = ['600', 0];
 models.qwenImage21OmniLora = { ...qwenOmniLora, loraNode: '600' };
 
+// Verified native Turbo adapter; keep the base graph untouched when disabled.
+const kreaV5 = { ...models.krea2TurboNative, template: structuredClone(models.krea2TurboNative.template) };
+kreaV5.template['40'] = { class_type: 'LoraLoaderModelOnly', inputs: {
+  model: ['30:10', 0],
+  lora_name: 'f23gg__Krea-2-NSFW-V5__Verite_realism.safetensors',
+  strength_model: 1,
+} };
+kreaV5.template['30:3'].inputs.model = ['40', 0];
+models.krea2TurboNativeV5Lora = { ...kreaV5, loraNode: '40' };
+
 function getComfyModel(modelKey) {
   const model = Object.hasOwn(models, modelKey) && models[modelKey];
   if (!model) throw new Error('不支援的 Comfy Cloud 模型');

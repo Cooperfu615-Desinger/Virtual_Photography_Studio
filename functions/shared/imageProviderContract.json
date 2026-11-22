@@ -271,6 +271,15 @@
           "aspectRatios": ["1:1", "4:3", "3:4", "16:9", "9:16", "4:5"],
           "label": "Krea 2 Turbo（原生）"
         },
+        "krea2TurboNativeV5Lora": {
+          "resolutions": ["1k"],
+          "defaultResolution": "1k",
+          "maxCount": 2,
+          "oneImagePerJob": true,
+          "aspectRatios": ["1:1", "4:3", "3:4", "16:9", "9:16", "4:5"],
+          "label": "Krea 2 Turbo（原生）+ Krea 2 NSFW V5 LoRA",
+          "loraStrength": { "min": 0, "max": 1, "step": 0.05, "default": 1 }
+        },
         "flux3KleinBaseInt8": {
           "resolutions": [
             "1k",
