@@ -3,7 +3,7 @@ import { fixedSetAllowsLensVariation } from '../../lib/engine/stationFixedCompos
 import { fixedSetAllowsFramingVariation } from '../../lib/engine/carriageFixedComposition.js';
 import { getFixedSceneCameraStatus } from './sceneEditor.js';
 import { COMPANION_ORBIT_ID } from '../../lib/engine/phoneCapture.js';
-import { SUBJECT_FRAMING_CONTROLS, isSubjectFramingAvailable } from '../../lib/engine/subjectFraming.js';
+import { isSubjectFramingAvailable, subjectFramingControlsFor } from '../../lib/engine/subjectFraming.js';
 
 export function prepareCompanionOrbitControl(control, locks = {}, { fixedCompositionSetActive = false } = {}) {
   if (control.key !== 'orbitId' || (locks.subjectCount === '1' && locks.captureMode !== 'observation' && !fixedCompositionSetActive)) return control;
@@ -88,12 +88,12 @@ export function buildPhotographyEditorModel(fields = [], context = {}) {
       const { locks, managed } = context.subjectFraming;
       const enabled = isSubjectFramingAvailable({ subjectCount: locks.subjectCount, framingId: locks.framingId, managed });
       const framingIndex = preparedFields.findIndex(field => field.control.key === 'framingId');
-      preparedFields.splice(framingIndex + 1, 0, ...SUBJECT_FRAMING_CONTROLS.map(control => ({
+      preparedFields.splice(framingIndex + 1, 0, ...subjectFramingControlsFor(locks.framingId).map(control => ({
         control: {
           ...control,
-          helpText: enabled ? '僅套用到 Grok Imagine。' : '限一般單人選定全身鏡頭時使用。',
+          helpText: enabled ? '僅套用到 Grok Imagine。' : '限一般單人選定中景、牛仔中景或全身鏡頭時使用。',
         },
-        value: locks[control.key] || '',
+        value: control.options.some(option => option.id === locks[control.key]) ? locks[control.key] : '',
         disabled: !enabled,
         subjectFraming: true,
       })));

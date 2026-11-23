@@ -1,0 +1,139 @@
+{
+  "files": [
+    {
+      "path": "webapp/src/lib/engine/subjectFraming.js",
+      "beforeHash": "db796f3baf2c0d1ec481aab263c397ec37d02a06f58b1e80f698481b8d15c7e4",
+      "afterHash": "0d814315a8912f7b4656a73a80ac61215b42071b5cfb0c5219ab8cd3df9b13c3",
+      "edits": [
+        {
+          "line": 1,
+          "after": [
+            "\n",
+            "const CROPPED_FRAMING = {\n",
+            "  'camera:景別構圖-framing:中景鏡頭-medium-shot:6': 'at the waist',\n",
+            "  'camera:景別構圖-framing:牛仔中景-cowboy-shot:7': 'just above her knees',\n",
+            "};\n",
+            "\n",
+            "const CROPPED_SIZES = {\n",
+            "  small: 'Her visible figure, from the top of her head to the crop, occupies about one-third of the image height.',\n",
+            "  tiny: 'Her visible figure, from the top of her head to the crop, occupies about one-fifth of the image height.',\n",
+            "};\n",
+            "\n",
+            "const CROPPED_POSITIONS = {\n",
+            "  center: 'Center her horizontally in the frame.',\n",
+            "  left: 'Place her in the left third of the frame, leaving open space on the right.',\n",
+            "  right: 'Place her in the right third of the frame, leaving open space on the left.',\n",
+            "  low: 'Place her low in the frame, centered horizontally, with open space above her.',\n",
+            "  bottom: 'Place her at the very bottom of the frame, centered horizontally, with ample open space above her.',\n",
+            "  'left-low': 'Place her in the lower left, with open space above and to the right.',\n",
+            "  'right-low': 'Place her in the lower right, with open space above and to the left.',\n",
+            "};\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 45,
+          "after": [
+            "      { id: 'left-low', zh: '左下', en: '' },\n",
+            "      { id: 'right-low', zh: '右下', en: '' },\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 52,
+          "after": [
+            "  return Number(subjectCount) === 1 && !managed && (\n",
+            "    framingId === FULL_BODY_FRAMING_ID || Object.hasOwn(CROPPED_FRAMING, framingId)\n",
+            "  );\n",
+            "}\n",
+            "\n",
+            "export function subjectFramingControlsFor(framingId) {\n",
+            "  const [size, placement] = SUBJECT_FRAMING_CONTROLS;\n",
+            "  if (!Object.hasOwn(CROPPED_FRAMING, framingId)) {\n",
+            "    return [size, { ...placement, options: placement.options.filter(option => !option.id.endsWith('-low')) }];\n",
+            "  }\n",
+            "  const crop = `The bottom edge crops her ${CROPPED_FRAMING[framingId]}.`;\n",
+            "  return [\n",
+            "    {\n",
+            "      ...size,\n",
+            "      options: size.options.filter(option => !option.id || Object.hasOwn(CROPPED_SIZES, option.id))\n",
+            "        .map(option => ({ ...option, en: CROPPED_SIZES[option.id] || '' })),\n",
+            "    },\n",
+            "    {\n",
+            "      ...placement,\n",
+            "      options: placement.options.map(option => ({\n",
+            "        ...option,\n",
+            "        en: option.id ? `${CROPPED_POSITIONS[option.id]} ${crop}` : '',\n",
+            "      })),\n",
+            "    },\n",
+            "  ];\n"
+          ],
+          "before": [
+            "  return Number(subjectCount) === 1 && framingId === FULL_BODY_FRAMING_ID && !managed;\n"
+          ]
+        },
+        {
+          "line": 88,
+          "after": [
+            "  const selected = subjectFramingControlsFor(locks.framingId)\n",
+            "    .map(({ key, options }) => options.find(option => option.id === locks[key])?.en);\n",
+            "  if (Object.hasOwn(CROPPED_FRAMING, locks.framingId)) {\n",
+            "    const [size, position] = selected;\n",
+            "    if (!size && !position) return '';\n",
+            "    return [position || `The bottom edge crops her ${CROPPED_FRAMING[locks.framingId]}.`, size].filter(Boolean).join(' ');\n",
+            "  }\n",
+            "  return selected.filter(Boolean).join(' ');\n"
+          ],
+          "before": [
+            "  return SUBJECT_FRAMING_CONTROLS\n",
+            "    .map(({ key, options }) => options.find(option => option.id === locks[key])?.en)\n",
+            "    .filter(Boolean).join(' ');\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/page1/photographyEditor.js",
+      "beforeHash": "9e170e3b581e6e1cca0b3027ac81a04c75cd977593ef50ddc03618357e8c571f",
+      "afterHash": "1af1725916df7ca90392a938375f4cf26e05289ad121455ed1f9be522f8ac51d",
+      "edits": [
+        {
+          "line": 5,
+          "after": [
+            "import { isSubjectFramingAvailable, subjectFramingControlsFor } from '../../lib/engine/subjectFraming.js';\n"
+          ],
+          "before": [
+            "import { SUBJECT_FRAMING_CONTROLS, isSubjectFramingAvailable } from '../../lib/engine/subjectFraming.js';\n"
+          ]
+        },
+        {
+          "line": 90,
+          "after": [
+            "      preparedFields.splice(framingIndex + 1, 0, ...subjectFramingControlsFor(locks.framingId).map(control => ({\n"
+          ],
+          "before": [
+            "      preparedFields.splice(framingIndex + 1, 0, ...SUBJECT_FRAMING_CONTROLS.map(control => ({\n"
+          ]
+        },
+        {
+          "line": 93,
+          "after": [
+            "          helpText: enabled ? '僅套用到 Grok Imagine。' : '限一般單人選定中景、牛仔中景或全身鏡頭時使用。',\n"
+          ],
+          "before": [
+            "          helpText: enabled ? '僅套用到 Grok Imagine。' : '限一般單人選定全身鏡頭時使用。',\n"
+          ]
+        },
+        {
+          "line": 95,
+          "after": [
+            "        value: control.options.some(option => option.id === locks[control.key]) ? locks[control.key] : '',\n"
+          ],
+          "before": [
+            "        value: locks[control.key] || '',\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
