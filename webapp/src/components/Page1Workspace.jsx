@@ -11,7 +11,7 @@ import { prepareBottomRiseControl } from '../lib/engine/bottomRiseCompatibility.
 import { prepareHeadDominantAngleControl } from '../lib/engine/headDominantFraming.js';
 import { isLyingAction, lyingSurfaceFor } from '../lib/engine/lyingSurface.js';
 import { postureConflictsWithGaze } from '../lib/engine/headPosture.js';
-import { ADJUST_TOP_GESTURE_ID, UNDERBUST_TEE_GESTURE_ID, WAISTBAND_LIFT_GESTURE_ID, applicableGestureOptions, availableGazeOptions, authoredGazeHead, closedEyeGazeLabel, gazeForHeadPosture, gazeUsesHeadOnly, withAdjustedTop, withFixedUnderbustTee, withWaistbandLift } from '../lib/engine/gazeGesture.js';
+import { ADJUST_TOP_GESTURE_ID, UNDERBUST_TEE_GESTURE_ID, WAISTBAND_LIFT_GESTURE_ID, applicableGestureOptions, availableGazeOptions, authoredGazeHead, closedEyeGazeLabel, gazeForHeadPosture, gazeUsesHeadOnly, gestureWardrobeIssue, withAdjustedTop, withFixedUnderbustTee, withWaistbandLift } from '../lib/engine/gazeGesture.js';
 import { phoneCaptureStatus } from '../lib/engine/phoneCapture.js';
 import { getSpecifiedAction, getSpecifiedActionEffectiveLocks, specifiedActionOwnsControl, getSpecifiedActionCameraConflict } from '../lib/engine/specifiedActions.js';
 import { prepareAccessoryControl } from '../lib/engine/accessoryPolicy.js';
@@ -1043,7 +1043,16 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       const missingItem = { topHem: dressActive || explicitNone('topId') ? '非洋裝的上衣' : '', pants: explicitNone('pantsId') ? '褲裝' : '', outerwear: explicitNone('outerwearId') ? '外套' : '', eyewear: explicitNone('eyewearId') ? '眼鏡' : '',
         bottom: explicitNone('pantsId') && explicitNone('skirtId') ? '下身' : '' };
       if (applicable.size) {
-        return { ...control, options: control.options.filter(o => ['none', 'random'].includes(o.id) || applicable.has(o.id))
+        const wardrobeItem = key => findControlOption(lockControls.find(item => item.key === key), locks[key]);
+        const gestureWardrobe = {
+          pants: wardrobeItem('pantsId') || undefined,
+          headphones: wardrobeItem('headphonesId'),
+          faceCovering: wardrobeItem('faceCoveringId'),
+        };
+        const wardrobeIssue = option => gestureWardrobeIssue(option, gestureWardrobe);
+        const selectedIssue = wardrobeIssue(findControlOption(control, locks.gestureId));
+        return { ...control, ...(selectedIssue && { helpText: `手勢暫不套用：${selectedIssue}。` }),
+          options: control.options.filter(o => ['none', 'random'].includes(o.id) || applicable.has(o.id))
           .map(o => isRevealGesture(o.id) && !underlayerField({...locks,gestureId:o.id},lockControls,'gestureId') ? {...o,disabled:true} : o)
           .map(o => {
             if (o.id === UNDERBUST_TEE_GESTURE_ID) return canUseUnderbustTee(locks, lockControls, activeSpecifiedAction)
@@ -1056,6 +1065,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
               const field = adjustedTop || adjustTopField({ ...locks, gestureId: o.id }, lockControls, activeSpecifiedAction);
               return field ? withAdjustedTop(o, field.profile.action, field.item.en) : { ...o, disabled: true };
             }
+            const issue = wardrobeIssue(o);
+            if (issue) return { ...o, zh: `${o.zh}（${issue}）`, disabled: true };
             const missing = missingItem[o.meta?.requiresWardrobeRole];
             return missing ? { ...o, zh: `${o.zh}（需要${missing}）`, disabled: true } : o;
           }) };

@@ -4,6 +4,7 @@
 // 拍攝方式 maps onto the existing selfie hand and prop options so their camera,
 // orbit and Z-Image capture behavior stays unchanged.
 import { joinSpecifiedActionClauses } from './specifiedActions.js';
+import { isHeadWornAudio } from './accessoryPolicy.js';
 import { PHONE_SELFIE_ID, PHONE_MIRROR_ID, isPhoneProp } from './phoneCapture.js';
 import { POSE_COMPOSER_HAND_OPTIONS, POSE_COMPOSER_PROP_OPTIONS } from './poseComposerOptions.js';
 
@@ -262,7 +263,32 @@ export const GESTURE_OPTIONS = freeze([
       'both forearms slanting inward and downward, hands relaxed near each other in front of the body'],
   ].map(([key, zh, en, upperBodyEn, requiresFaceVisibility = false]) => gesture(`gesture-squat-${key}`, zh, en, 'squatting',
     { upperBodyEn, omitInChestUp: true, ...(requiresFaceVisibility ? { requiresFaceVisibility } : {}) })),
+  gesture('gesture-grip-waistband-sides', '雙手抓住褲頭兩側',
+    'both hands gripping the sides of her trouser waistband',
+    'general', { randomEligible: false, wardrobeCheck: 'outerPants', omitInChestUp: true }),
+  gesture('gesture-cover-mouth-oops', '單手摀住嘴',
+    'one hand lightly covering her mouth in a playful “oops” gesture, fingers together and eyes visible',
+    'general', { randomEligible: false, wardrobeCheck: 'uncoveredMouth', requiresFaceVisibility: true }),
+  gesture('gesture-cup-headphone-earcups', '雙手摀住耳罩',
+    'cupping the left and right earcups of her headphones with both palms',
+    'general', { randomEligible: false, wardrobeCheck: 'headWornEarcups' }),
 ]);
+
+// The editor passes an unknown pants choice as undefined. Generation passes
+// the actual wardrobe slots, using null when a slot is absent.
+export function gestureWardrobeIssue(option, { pants, headphones, faceCovering } = {}) {
+  switch (option?.meta?.wardrobeCheck) {
+    case 'outerPants':
+      return pants !== undefined && (!pants || /全無|比基尼|三角褲|丁字褲|吊帶/.test(pants.zh))
+        ? '需要外穿長短褲' : '';
+    case 'uncoveredMouth':
+      return faceCovering && faceCovering.zh !== '全無' ? '需要露出嘴部' : '';
+    case 'headWornEarcups':
+      return isHeadWornAudio(headphones) ? '' : '需要戴在頭上的耳罩式耳機';
+    default:
+      return '';
+  }
+}
 
 const CONCRETE_GESTURES = GESTURE_OPTIONS.filter(option => option.scope);
 

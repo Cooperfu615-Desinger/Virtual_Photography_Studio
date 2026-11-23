@@ -72,7 +72,7 @@ test('gestures: only free-hand library actions, scoped by orientation; inserted 
   assert.equal(actionAcceptsGesture(action(HUG_KNEES)), false);
   assert.equal(actionAcceptsGesture(SPECIFIED_ACTION_ANY), false, '任意 leaves the hands to the model');
   assert.deepEqual(applicableGestureOptions(action(PRONE)).map(o => o.zh), ['單手把眼鏡拉下', '咬著眼鏡腳', '下巴靠在交疊的雙手上', '雙手托腮', '一手撥頭髮', '雙手輕放在前方']);
-  assert.equal(GESTURE_OPTIONS.filter(o => o.scope).length, 47, '45 existing gestures plus two manual middle-finger gestures');
+  assert.equal(GESTURE_OPTIONS.filter(o => o.scope).length, 50);
   const chin = GESTURE_OPTIONS.find(o => o.id === 'gesture-prone-chin-hands');
   const text = actionTextWithGesture(action(PRONE), chin);
   assert.match(text.en, /propped on her forearms resting flat in front of her, her chin resting on her stacked hands\. Her hips rest/);
@@ -166,7 +166,7 @@ test('standing batch 1 is accepted with free hands; batch 2 is pending and out o
 
 test('a free-hand standing action offers the general gestures; manual gestures never come from 隨機', () => {
   const natural = action('specified-standing-natural');
-  assert.equal(applicableGestureOptions(natural).length, 30, '28 existing + 2 manual middle-finger gestures');
+  assert.equal(applicableGestureOptions(natural).length, 33);
   const newIds = ['gesture-hand-on-head', 'gesture-hands-behind-head', 'gesture-hands-behind-back', 'gesture-arms-overhead',
     'gesture-lift-hem-both', 'gesture-hold-hem-teeth', 'gesture-lift-skirt-both'];
   for (let index = 0; index < 40; index += 1) {
@@ -246,7 +246,7 @@ test('16 sitting and kneeling actions: accepted, hands free with the general ges
     assert.ok(a, 'exists');
     assert.equal(a.validation.status, 'accepted', a.id);
     assert.equal(a.hands.mode, 'free', a.id);
-    assert.equal(applicableGestureOptions(a).length, 30, a.id);
+    assert.equal(applicableGestureOptions(a).length, 33, a.id);
     assert.doesNotMatch(a.en, /arrangement/, a.id);
   }
   assert.equal(action('specified-kneeling-all-fours'), undefined, 'all-fours stays with the two support-hand actions');

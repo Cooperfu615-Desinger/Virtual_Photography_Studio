@@ -26,6 +26,79 @@ const primary = p => [p.grokPrompt, p.zImagePrompt, p.midjourneyPrompt, p.nanoBa
 const derived = (p, id) => p.extraPrompts.find(e => e.id === id)?.text || '';
 const captureOutputs = p => [...primary(p), derived(p, 'chest-up-portrait'), getGrokImagineResult(p)];
 
+const waistbandGrip = 'gesture-grip-waistband-sides';
+const mouthOops = 'gesture-cover-mouth-oops';
+const headphoneCup = 'gesture-cup-headphone-earcups';
+const pantsId = byZh('pantsId', '直筒牛仔褲').id;
+const headphonesId = byZh('headphonesId', '耳罩式耳機（戴在頭上）').id;
+const handCases = [
+  { gestureId: waistbandGrip, lock: { pantsId }, text: /both hands gripping the sides of her trouser waistband/i },
+  { gestureId: mouthOops, lock: {}, text: /one hand lightly covering her mouth in a playful .?oops/i },
+  { gestureId: headphoneCup, lock: { headphonesId }, text: /cupping the left and right earcups of her headphones with both palms/i },
+];
+
+test('the three added hand poses use the existing manual-only free-hand menu', () => {
+  for (const { gestureId } of handCases) {
+    const option = GESTURE_OPTIONS.find(item => item.id === gestureId);
+    assert.equal(option?.meta.randomEligible, false, gestureId);
+    for (const specifiedActionId of ['specified-standing-natural', 'specified-sitting-natural', 'specified-kneeling-seiza']) {
+      assert.ok(applicableGestureOptions(getSpecifiedAction({ subjectCount: '1', specifiedActionId })).includes(option));
+    }
+    for (const specifiedActionId of ['specified-sitting-hug-knees', 'specified-squatting-natural', 'specified-lying-prone-forearms-crossed-ankles']) {
+      assert.ok(!applicableGestureOptions(getSpecifiedAction({ subjectCount: '1', specifiedActionId })).includes(option));
+    }
+  }
+});
+
+test('hand poses share the resolved pose across capture outputs and respect the crop', () => {
+  for (const { gestureId, lock, text } of handCases) {
+    for (const framing of REVIEW_FRAMINGS) {
+      const p = generate({ gestureId, ...lock, framingId: byZh('framingId', framing).id });
+      const tight = framing.includes('臉');
+      const waistHidden = gestureId === waistbandGrip && /胸上|頭部主導/.test(framing);
+      for (const output of primary(p)) (tight || waistHidden ? assert.doesNotMatch : assert.match)(output, text, framing);
+      assert.match(getGrokImagineResult(p), text, framing);
+      (gestureId === waistbandGrip ? assert.doesNotMatch : assert.match)(derived(p, 'chest-up-portrait'), text);
+      assert.doesNotMatch(derived(p, 'full-body-character'), text);
+      assert.equal(p.selection.gestureId, gestureId);
+      if (gestureId === waistbandGrip) assert.doesNotMatch(p.grokPrompt, /waistband.*(?:pull|mid-thigh)/i);
+    }
+  }
+});
+
+test('dependent gestures use effective pants, head-worn earcups and an uncovered mouth', () => {
+  for (const [gestureId, itemLock, label] of [
+    [waistbandGrip, 'pantsId', '全無'],
+    [waistbandGrip, 'pantsId', '比基尼下身'],
+    [headphoneCup, 'headphonesId', '全無'],
+    [headphoneCup, 'headphonesId', '有線耳機'],
+    [headphoneCup, 'headphonesId', '耳罩式耳機（掛在脖子上）'],
+    [mouthOops, 'faceCoveringId', '黑色口罩'],
+  ]) {
+    const p = generate({ gestureId, [itemLock]: byZh(itemLock, label).id });
+    for (const output of captureOutputs(p)) assert.doesNotMatch(output, handCases.find(item => item.gestureId === gestureId).text, label);
+  }
+});
+
+test('the added hand poses pause with either phone prop and restore from Saved Cards, Markdown and ZIP', async () => {
+  for (const { gestureId, lock, text } of handCases) {
+    for (const propId of ['selfie-natural-right-arm', 'selfie-mirror-phone-visible']) {
+      const paused = generate({ gestureId, ...lock, propId });
+      for (const output of captureOutputs(paused)) assert.doesNotMatch(output, text);
+      assert.equal(paused.selection.gestureId, gestureId);
+    }
+    const p = generate({ gestureId, ...lock });
+    const records = [deserializeFavoritePrompt(serializeFavoritePrompt(p)),
+      parseExportedMarkdownPrompt(buildMarkdownExport(p), controls, 'three-hand-poses'),
+      ...(await parseSavedCardsArchive(await createSavedCardsArchive([p], 0, 'uint8array'), controls))];
+    for (const record of records) {
+      assert.equal(record.selection.gestureId, gestureId);
+      assert.equal(record.grokPrompt, p.grokPrompt);
+      assert.match(generate(buildRestoreLocks(record.selection, controls)).grokPrompt, text);
+    }
+  }
+});
+
 test('the reviewed expressions preserve complete distinct eye and mouth sources and remain manual-only', () => {
   for (const fixture of Object.values(EXPRESSION_GAZE_FIXTURES)) {
     const option = byZh('expressionId', fixture.zh);

@@ -23,7 +23,7 @@ import { midjourneyBodyDescription } from './engine/midjourneyBodyDescriptions.j
 import { SPECIFIED_ACTION_OPTIONS, getSpecifiedAction, getSpecifiedActionEffectiveLocks, resolveRandomSpecifiedAction, specifiedActionSupportsCamera } from './engine/specifiedActions.js';
 import { LYING_CAMERA_OPTIONS, isLyingAction, lyingSurfaceFor, resolveLyingCamera, withLyingSurface } from './engine/lyingSurface.js';
 import { HEAD_POSTURE_OPTIONS, headPostureById, mergeHeadPosture, resolveHeadPosture } from './engine/headPosture.js';
-import { ADJUST_TOP_GESTURE_ID, CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, UNDERBUST_TEE_GESTURE_ID, UNDERBUST_TEE_LABEL, UNDERBUST_TEE_NAME, WAISTBAND_LIFT_GESTURE_ID, actionTextWithGesture, applyCaptureStyleLocks, authoredGazeHead, expressionHasReviewedEyesAndMouth, gazeAvoidsBackView, gazeUsesHeadOnly, isBackViewOrbit, isRaisedTopHemGesture, raisedTopHemGarmentName, resolveGaze, resolveGesture, resolveProp, withAdjustedTop, withFixedUnderbustTee, withWaistbandLift } from './engine/gazeGesture.js';
+import { ADJUST_TOP_GESTURE_ID, CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, UNDERBUST_TEE_GESTURE_ID, UNDERBUST_TEE_LABEL, UNDERBUST_TEE_NAME, WAISTBAND_LIFT_GESTURE_ID, actionTextWithGesture, applyCaptureStyleLocks, authoredGazeHead, expressionHasReviewedEyesAndMouth, gazeAvoidsBackView, gazeUsesHeadOnly, gestureWardrobeIssue, isBackViewOrbit, isRaisedTopHemGesture, raisedTopHemGarmentName, resolveGaze, resolveGesture, resolveProp, withAdjustedTop, withFixedUnderbustTee, withWaistbandLift } from './engine/gazeGesture.js';
 import { applyDefaultEthnicity, applyDefaultEthnicityToCharacter, resolveDefaultEthnicity } from './engine/defaultEthnicity.js';
 import { renderNanoBananaNarrative } from './engine/nanoBananaPrompt.js';
 import { polishPublicPromptText } from './engine/publicPromptPolish.js';
@@ -5308,16 +5308,21 @@ function buildPoseComposerItem(context) {
     const ownedRole = fixedTee ? 'topHem' : waistbandLift ? 'bottom' : adjustedTop ? 'upperGarment' : '';
     const wardrobeSignals = ownedRole ? { ...context.wardrobeSignals, [ownedRole]: 'present' } : context.wardrobeSignals;
     const resolvedGesture = resolveGesture(paused ? 'none' : requestedGesture, specifiedAction, { wardrobeSignals, orbit: context.orbit }, random);
-    const gesture = applyBoundGarmentGesture(
+    const wardrobeGesture = resolvedGesture?.meta?.wardrobeCheck ? resolvedGesture : null;
+    const gesture = wardrobeGesture ? null : applyBoundGarmentGesture(
       describeRevealGesture(resolvedGesture, context.revealedUnderlayer, context.liftedSkirt, context.raisedHem), context);
     if (context.poseResolution) context.poseResolution.gesture = gesture;
     const prop = resolveProp(phoneStatus.selected && !phoneStatus.active ? 'none' : context.locks?.propId, { wardrobeSignals: context.wardrobeSignals, orbit: context.orbit }, random);
     if (context.poseResolution) context.poseResolution.prop = prop;
-    const actionText = actionTextWithGesture(specifiedAction, gesture, {}, prop);
-    return {
+    const poseText = (handGesture) => {
+      const { en } = actionTextWithGesture(specifiedAction, handGesture, {}, prop);
+      const placed = withLyingSurface(applyIndoorKneel(applyIndoorLean(applyIndoorSeat(en, context.indoorSeat), context.indoorLean), context.indoorKneel), lyingSurfaceFor(specifiedAction, context.location));
+      return [placed, headText].filter(Boolean).join(' ');
+    };
+    const pose = {
       id: `character:姿勢組合器-pose-composer:${specifiedAction.id}:${head?.id || 'none'}`,
       zh: [specifiedAction.zh, head?.zh].filter(Boolean).join(' + '),
-      en: [withLyingSurface(applyIndoorKneel(applyIndoorLean(applyIndoorSeat(actionText.en, context.indoorSeat), context.indoorLean), context.indoorKneel), lyingSurfaceFor(specifiedAction, context.location)), headText].filter(Boolean).join(' '),
+      en: poseText(gesture),
       desc: specifiedAction.descriptionZh,
       meta: {
         tags: ['pose_composer'], minVisibility: 'full',
@@ -5332,6 +5337,15 @@ function buildPoseComposerItem(context) {
         ...(prop ? { propId: prop.id, ...(isPhoneProp(prop.id) ? {posePropId:prop.id} : {}) } : {}),
       },
     };
+    if (wardrobeGesture && context.poseResolution) {
+      context.poseResolution.applyWardrobeGesture = ({ pants, headphones, faceCovering }) => {
+        if (gestureWardrobeIssue(wardrobeGesture, { pants: pants || null, headphones, faceCovering })) return;
+        context.poseResolution.gesture = wardrobeGesture;
+        pose.en = poseText(wardrobeGesture);
+        pose.meta.gestureId = wardrobeGesture.id;
+      };
+    }
+    return pose;
   }
 
   if (!base) {
@@ -17299,6 +17313,9 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
   const applyUnderlayers = pieces => attachUnderlayers(pieces, effectiveLocks, lockControls, context.poseResolution.gesture?.id);
   const wardrobe = importedCapturePerson ? structuredClone(importedCapturePerson.wardrobe) : applyUnderlayers(resolveBottomRiseCompatibility([...cardLayers, ...page1Wardrobe]));
   context.wardrobe = wardrobe;
+  if (context.poseResolution.applyWardrobeGesture) {
+    context.poseResolution.applyWardrobeGesture(extractWardrobeSlots(wardrobe));
+  }
   const wardrobeColors = importedCapturePerson ? structuredClone(importedCapturePerson.wardrobeColors) : buildWardrobeColors(extractWardrobeSlots(wardrobe), effectiveLocks, random);
 
   let renderScenePersonAppearance;

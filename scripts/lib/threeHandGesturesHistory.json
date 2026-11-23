@@ -1,0 +1,291 @@
+{
+  "files": [
+    {
+      "path": "webapp/src/lib/engine.js",
+      "beforeHash": "1869d80319a4cf8122fa136d72435441460301cf8ae552b5b3b584695c33488a",
+      "afterHash": "78bac3d9177b399e5e085432946818ec72399ea5eb89ccc6e5d268abbdf6d110",
+      "edits": [
+        {
+          "line": 25,
+          "after": [
+            "import { ADJUST_TOP_GESTURE_ID, CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, UNDERBUST_TEE_GESTURE_ID, UNDERBUST_TEE_LABEL, UNDERBUST_TEE_NAME, WAISTBAND_LIFT_GESTURE_ID, actionTextWithGesture, applyCaptureStyleLocks, authoredGazeHead, expressionHasReviewedEyesAndMouth, gazeAvoidsBackView, gazeUsesHeadOnly, gestureWardrobeIssue, isBackViewOrbit, isRaisedTopHemGesture, raisedTopHemGarmentName, resolveGaze, resolveGesture, resolveProp, withAdjustedTop, withFixedUnderbustTee, withWaistbandLift } from './engine/gazeGesture.js';\n"
+          ],
+          "before": [
+            "import { ADJUST_TOP_GESTURE_ID, CAPTURE_STYLE_OPTIONS, GAZE_OPTIONS, GESTURE_OPTIONS, PROP_OPTIONS, UNDERBUST_TEE_GESTURE_ID, UNDERBUST_TEE_LABEL, UNDERBUST_TEE_NAME, WAISTBAND_LIFT_GESTURE_ID, actionTextWithGesture, applyCaptureStyleLocks, authoredGazeHead, expressionHasReviewedEyesAndMouth, gazeAvoidsBackView, gazeUsesHeadOnly, isBackViewOrbit, isRaisedTopHemGesture, raisedTopHemGarmentName, resolveGaze, resolveGesture, resolveProp, withAdjustedTop, withFixedUnderbustTee, withWaistbandLift } from './engine/gazeGesture.js';\n"
+          ]
+        },
+        {
+          "line": 5310,
+          "after": [
+            "    const wardrobeGesture = resolvedGesture?.meta?.wardrobeCheck ? resolvedGesture : null;\n",
+            "    const gesture = wardrobeGesture ? null : applyBoundGarmentGesture(\n"
+          ],
+          "before": [
+            "    const gesture = applyBoundGarmentGesture(\n"
+          ]
+        },
+        {
+          "line": 5316,
+          "after": [
+            "    const poseText = (handGesture) => {\n",
+            "      const { en } = actionTextWithGesture(specifiedAction, handGesture, {}, prop);\n",
+            "      const placed = withLyingSurface(applyIndoorKneel(applyIndoorLean(applyIndoorSeat(en, context.indoorSeat), context.indoorLean), context.indoorKneel), lyingSurfaceFor(specifiedAction, context.location));\n",
+            "      return [placed, headText].filter(Boolean).join(' ');\n",
+            "    };\n",
+            "    const pose = {\n"
+          ],
+          "before": [
+            "    const actionText = actionTextWithGesture(specifiedAction, gesture, {}, prop);\n",
+            "    return {\n"
+          ]
+        },
+        {
+          "line": 5324,
+          "after": [
+            "      en: poseText(gesture),\n"
+          ],
+          "before": [
+            "      en: [withLyingSurface(applyIndoorKneel(applyIndoorLean(applyIndoorSeat(actionText.en, context.indoorSeat), context.indoorLean), context.indoorKneel), lyingSurfaceFor(specifiedAction, context.location)), headText].filter(Boolean).join(' '),\n"
+          ]
+        },
+        {
+          "line": 5339,
+          "after": [
+            "    if (wardrobeGesture && context.poseResolution) {\n",
+            "      context.poseResolution.applyWardrobeGesture = ({ pants, headphones, faceCovering }) => {\n",
+            "        if (gestureWardrobeIssue(wardrobeGesture, { pants: pants || null, headphones, faceCovering })) return;\n",
+            "        context.poseResolution.gesture = wardrobeGesture;\n",
+            "        pose.en = poseText(wardrobeGesture);\n",
+            "        pose.meta.gestureId = wardrobeGesture.id;\n",
+            "      };\n",
+            "    }\n",
+            "    return pose;\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 17315,
+          "after": [
+            "  if (context.poseResolution.applyWardrobeGesture) {\n",
+            "    context.poseResolution.applyWardrobeGesture(extractWardrobeSlots(wardrobe));\n",
+            "  }\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/gazeGesture.js",
+      "beforeHash": "d061c7eea0851c52966d64ce98f52cb0ddfce161be3d5b4d6fe109c39167d554",
+      "afterHash": "34802d1a75074db02a1e94f3d04f65fd42593ad225c3c20b3c1e64991f51209f",
+      "edits": [
+        {
+          "line": 6,
+          "after": [
+            "import { isHeadWornAudio } from './accessoryPolicy.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 265,
+          "after": [
+            "  gesture('gesture-grip-waistband-sides', '雙手抓住褲頭兩側',\n",
+            "    'both hands gripping the sides of her trouser waistband',\n",
+            "    'general', { randomEligible: false, wardrobeCheck: 'outerPants', omitInChestUp: true }),\n",
+            "  gesture('gesture-cover-mouth-oops', '單手摀住嘴',\n",
+            "    'one hand lightly covering her mouth in a playful “oops” gesture, fingers together and eyes visible',\n",
+            "    'general', { randomEligible: false, wardrobeCheck: 'uncoveredMouth', requiresFaceVisibility: true }),\n",
+            "  gesture('gesture-cup-headphone-earcups', '雙手摀住耳罩',\n",
+            "    'cupping the left and right earcups of her headphones with both palms',\n",
+            "    'general', { randomEligible: false, wardrobeCheck: 'headWornEarcups' }),\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 275,
+          "after": [
+            "\n",
+            "// The editor passes an unknown pants choice as undefined. Generation passes\n",
+            "// the actual wardrobe slots, using null when a slot is absent.\n",
+            "export function gestureWardrobeIssue(option, { pants, headphones, faceCovering } = {}) {\n",
+            "  switch (option?.meta?.wardrobeCheck) {\n",
+            "    case 'outerPants':\n",
+            "      return pants !== undefined && (!pants || /全無|比基尼|三角褲|丁字褲|吊帶/.test(pants.zh))\n",
+            "        ? '需要外穿長短褲' : '';\n",
+            "    case 'uncoveredMouth':\n",
+            "      return faceCovering && faceCovering.zh !== '全無' ? '需要露出嘴部' : '';\n",
+            "    case 'headWornEarcups':\n",
+            "      return isHeadWornAudio(headphones) ? '' : '需要戴在頭上的耳罩式耳機';\n",
+            "    default:\n",
+            "      return '';\n",
+            "  }\n",
+            "}\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/components/Page1Workspace.jsx",
+      "beforeHash": "96a4f54166f2accb752c7f52844b46b1266e942b1e503f35ab0422a8ceba6655",
+      "afterHash": "9dcef5c51d00350849e3445796c10b684bb3d21457d08b3f86104a6756ef9fbe",
+      "edits": [
+        {
+          "line": 13,
+          "after": [
+            "import { ADJUST_TOP_GESTURE_ID, UNDERBUST_TEE_GESTURE_ID, WAISTBAND_LIFT_GESTURE_ID, applicableGestureOptions, availableGazeOptions, authoredGazeHead, closedEyeGazeLabel, gazeForHeadPosture, gazeUsesHeadOnly, gestureWardrobeIssue, withAdjustedTop, withFixedUnderbustTee, withWaistbandLift } from '../lib/engine/gazeGesture.js';\n"
+          ],
+          "before": [
+            "import { ADJUST_TOP_GESTURE_ID, UNDERBUST_TEE_GESTURE_ID, WAISTBAND_LIFT_GESTURE_ID, applicableGestureOptions, availableGazeOptions, authoredGazeHead, closedEyeGazeLabel, gazeForHeadPosture, gazeUsesHeadOnly, withAdjustedTop, withFixedUnderbustTee, withWaistbandLift } from '../lib/engine/gazeGesture.js';\n"
+          ]
+        },
+        {
+          "line": 1045,
+          "after": [
+            "        const wardrobeItem = key => findControlOption(lockControls.find(item => item.key === key), locks[key]);\n",
+            "        const gestureWardrobe = {\n",
+            "          pants: wardrobeItem('pantsId') || undefined,\n",
+            "          headphones: wardrobeItem('headphonesId'),\n",
+            "          faceCovering: wardrobeItem('faceCoveringId'),\n",
+            "        };\n",
+            "        const wardrobeIssue = option => gestureWardrobeIssue(option, gestureWardrobe);\n",
+            "        const selectedIssue = wardrobeIssue(findControlOption(control, locks.gestureId));\n",
+            "        return { ...control, ...(selectedIssue && { helpText: `手勢暫不套用：${selectedIssue}。` }),\n",
+            "          options: control.options.filter(o => ['none', 'random'].includes(o.id) || applicable.has(o.id))\n"
+          ],
+          "before": [
+            "        return { ...control, options: control.options.filter(o => ['none', 'random'].includes(o.id) || applicable.has(o.id))\n"
+          ]
+        },
+        {
+          "line": 1067,
+          "after": [
+            "            const issue = wardrobeIssue(o);\n",
+            "            if (issue) return { ...o, zh: `${o.zh}（${issue}）`, disabled: true };\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/gazeGesture.test.js",
+      "beforeHash": "269b6d7010f94f23027a39162d5ecc2938050e056d24751033f4a53c359f5f3c",
+      "afterHash": "794d2ded614d5663e6295ab370a6ae6d62f2464ad64428cf149739bfb48887fc",
+      "edits": [
+        {
+          "line": 74,
+          "after": [
+            "  assert.equal(GESTURE_OPTIONS.filter(o => o.scope).length, 50);\n"
+          ],
+          "before": [
+            "  assert.equal(GESTURE_OPTIONS.filter(o => o.scope).length, 47, '45 existing gestures plus two manual middle-finger gestures');\n"
+          ]
+        },
+        {
+          "line": 168,
+          "after": [
+            "  assert.equal(applicableGestureOptions(natural).length, 33);\n"
+          ],
+          "before": [
+            "  assert.equal(applicableGestureOptions(natural).length, 30, '28 existing + 2 manual middle-finger gestures');\n"
+          ]
+        },
+        {
+          "line": 248,
+          "after": [
+            "    assert.equal(applicableGestureOptions(a).length, 33, a.id);\n"
+          ],
+          "before": [
+            "    assert.equal(applicableGestureOptions(a).length, 30, a.id);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/gestureExpressionGaze.test.js",
+      "beforeHash": "90c18e81da31e58508113142376066adc952f8c83ef072aa6e944770eeeac157",
+      "afterHash": "aa96deda183bd6003efe34f0f13efab2562920d95fe9ea4664caf292a96eab69",
+      "edits": [
+        {
+          "line": 27,
+          "after": [
+            "\n",
+            "const waistbandGrip = 'gesture-grip-waistband-sides';\n",
+            "const mouthOops = 'gesture-cover-mouth-oops';\n",
+            "const headphoneCup = 'gesture-cup-headphone-earcups';\n",
+            "const pantsId = byZh('pantsId', '直筒牛仔褲').id;\n",
+            "const headphonesId = byZh('headphonesId', '耳罩式耳機（戴在頭上）').id;\n",
+            "const handCases = [\n",
+            "  { gestureId: waistbandGrip, lock: { pantsId }, text: /both hands gripping the sides of her trouser waistband/i },\n",
+            "  { gestureId: mouthOops, lock: {}, text: /one hand lightly covering her mouth in a playful .?oops/i },\n",
+            "  { gestureId: headphoneCup, lock: { headphonesId }, text: /cupping the left and right earcups of her headphones with both palms/i },\n",
+            "];\n",
+            "\n",
+            "test('the three added hand poses use the existing manual-only free-hand menu', () => {\n",
+            "  for (const { gestureId } of handCases) {\n",
+            "    const option = GESTURE_OPTIONS.find(item => item.id === gestureId);\n",
+            "    assert.equal(option?.meta.randomEligible, false, gestureId);\n",
+            "    for (const specifiedActionId of ['specified-standing-natural', 'specified-sitting-natural', 'specified-kneeling-seiza']) {\n",
+            "      assert.ok(applicableGestureOptions(getSpecifiedAction({ subjectCount: '1', specifiedActionId })).includes(option));\n",
+            "    }\n",
+            "    for (const specifiedActionId of ['specified-sitting-hug-knees', 'specified-squatting-natural', 'specified-lying-prone-forearms-crossed-ankles']) {\n",
+            "      assert.ok(!applicableGestureOptions(getSpecifiedAction({ subjectCount: '1', specifiedActionId })).includes(option));\n",
+            "    }\n",
+            "  }\n",
+            "});\n",
+            "\n",
+            "test('hand poses share the resolved pose across capture outputs and respect the crop', () => {\n",
+            "  for (const { gestureId, lock, text } of handCases) {\n",
+            "    for (const framing of REVIEW_FRAMINGS) {\n",
+            "      const p = generate({ gestureId, ...lock, framingId: byZh('framingId', framing).id });\n",
+            "      const tight = framing.includes('臉');\n",
+            "      const waistHidden = gestureId === waistbandGrip && /胸上|頭部主導/.test(framing);\n",
+            "      for (const output of primary(p)) (tight || waistHidden ? assert.doesNotMatch : assert.match)(output, text, framing);\n",
+            "      assert.match(getGrokImagineResult(p), text, framing);\n",
+            "      (gestureId === waistbandGrip ? assert.doesNotMatch : assert.match)(derived(p, 'chest-up-portrait'), text);\n",
+            "      assert.doesNotMatch(derived(p, 'full-body-character'), text);\n",
+            "      assert.equal(p.selection.gestureId, gestureId);\n",
+            "      if (gestureId === waistbandGrip) assert.doesNotMatch(p.grokPrompt, /waistband.*(?:pull|mid-thigh)/i);\n",
+            "    }\n",
+            "  }\n",
+            "});\n",
+            "\n",
+            "test('dependent gestures use effective pants, head-worn earcups and an uncovered mouth', () => {\n",
+            "  for (const [gestureId, itemLock, label] of [\n",
+            "    [waistbandGrip, 'pantsId', '全無'],\n",
+            "    [waistbandGrip, 'pantsId', '比基尼下身'],\n",
+            "    [headphoneCup, 'headphonesId', '全無'],\n",
+            "    [headphoneCup, 'headphonesId', '有線耳機'],\n",
+            "    [headphoneCup, 'headphonesId', '耳罩式耳機（掛在脖子上）'],\n",
+            "    [mouthOops, 'faceCoveringId', '黑色口罩'],\n",
+            "  ]) {\n",
+            "    const p = generate({ gestureId, [itemLock]: byZh(itemLock, label).id });\n",
+            "    for (const output of captureOutputs(p)) assert.doesNotMatch(output, handCases.find(item => item.gestureId === gestureId).text, label);\n",
+            "  }\n",
+            "});\n",
+            "\n",
+            "test('the added hand poses pause with either phone prop and restore from Saved Cards, Markdown and ZIP', async () => {\n",
+            "  for (const { gestureId, lock, text } of handCases) {\n",
+            "    for (const propId of ['selfie-natural-right-arm', 'selfie-mirror-phone-visible']) {\n",
+            "      const paused = generate({ gestureId, ...lock, propId });\n",
+            "      for (const output of captureOutputs(paused)) assert.doesNotMatch(output, text);\n",
+            "      assert.equal(paused.selection.gestureId, gestureId);\n",
+            "    }\n",
+            "    const p = generate({ gestureId, ...lock });\n",
+            "    const records = [deserializeFavoritePrompt(serializeFavoritePrompt(p)),\n",
+            "      parseExportedMarkdownPrompt(buildMarkdownExport(p), controls, 'three-hand-poses'),\n",
+            "      ...(await parseSavedCardsArchive(await createSavedCardsArchive([p], 0, 'uint8array'), controls))];\n",
+            "    for (const record of records) {\n",
+            "      assert.equal(record.selection.gestureId, gestureId);\n",
+            "      assert.equal(record.grokPrompt, p.grokPrompt);\n",
+            "      assert.match(generate(buildRestoreLocks(record.selection, controls)).grokPrompt, text);\n",
+            "    }\n",
+            "  }\n",
+            "});\n"
+          ],
+          "before": []
+        }
+      ]
+    }
+  ]
+}
