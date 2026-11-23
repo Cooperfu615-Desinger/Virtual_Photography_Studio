@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "documents": [
+    "AGENTS.md",
+    "README.md",
+    "Docs/current_project_state.md",
+    "Docs/session_onboarding.md",
+    "Docs/conversation_handoff.md",
+    "Docs/specs/local-prompt-copy-validation-v1.md",
+    "Docs/specs/ci-docs-only-v1.md"
+  ]
+}

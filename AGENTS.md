@@ -85,6 +85,8 @@ Read [the local copy validation spec](Docs/specs/local-prompt-copy-validation-v1
 
 ## Validation Matrix
 
+Documentation-only CI routing follows [the docs CI spec](Docs/specs/ci-docs-only-v1.md). Only explicitly listed narrative documents may skip product gates, after checking the cumulative diff against a verified successful full-test Pages deployment. Unknown files, missing evidence, mixed changes and all Prompt data still use full CI. Keep the no-cancellation queue, stale-deployment guard and always-running result summary. The local Prompt copy exception above does not enable Prompt-copy CI selection or daily scheduled tests.
+
 Run focused checks first. Classify local Prompt copy changes using the section above; otherwise expand to the full gates appropriate to the changed surface. Catalog requirements are additive even when the local copy path applies.
 
 | Change | Focused validation | Completion gates |
