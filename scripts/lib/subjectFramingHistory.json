@@ -1,0 +1,165 @@
+{
+  "files": [
+    {
+      "path": "webapp/src/lib/engine.js",
+      "beforeHash": "1df911c1a5d898ff1668dc4182eec43b9c241e15b36c3732c336e1f54719eb65",
+      "afterHash": "1869d80319a4cf8122fa136d72435441460301cf8ae552b5b3b584695c33488a",
+      "edits": [
+        {
+          "line": 154,
+          "after": [
+            "import { isSubjectFramingAvailable, normalizeSubjectFraming, subjectFramingPrompt } from './engine/subjectFraming.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 3556,
+          "after": [
+            "  Object.assign(normalizedWithLegacyColors, normalizeSubjectFraming(rawLocks));\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 16278,
+          "after": [
+            "  const subjectFraming = isSubjectFramingAvailable({\n",
+            "    subjectCount: context.subject.count,\n",
+            "    framingId: context.framing?.id,\n",
+            "    managed: fixed || isSpecialSubject(context.subject) || context.subject.reference\n",
+            "      || context.referencePersonPreview || context.characterProfilePrompt || context.observationCapture\n",
+            "      || context.rawLocks?.framingId !== context.framing?.id,\n",
+            "  }) ? subjectFramingPrompt(context.rawLocks) : '';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 16292,
+          "after": [
+            "    subjectFraming,\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 16789,
+          "after": [
+            "  Object.assign(snapshot, normalizeSubjectFraming(context.rawLocks));\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/components/Page1Workspace.jsx",
+      "beforeHash": "d66d94bc15e3baf66be5926fafe281965b66b6000d8ce39433dd28d10a8a9c46",
+      "afterHash": "96a4f54166f2accb752c7f52844b46b1266e942b1e503f35ab0422a8ceba6655",
+      "edits": [
+        {
+          "line": 35,
+          "after": [
+            "import { SUBJECT_FRAMING_CONTROLS } from '../lib/engine/subjectFraming.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 1479,
+          "after": [
+            "      subjectFraming: { locks, managed: captureActive || fixedCompositionSetActive || isDedicatedSubjectMode },\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 1491,
+          "after": [
+            "          ? setLockKeysToNone(prev, groupId === 'composition'\n",
+            "            ? [...keys, ...SUBJECT_FRAMING_CONTROLS.map(control => control.key)] : keys, lockControls)\n"
+          ],
+          "before": [
+            "          ? setLockKeysToNone(prev, keys, lockControls)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/page1/photographyEditor.js",
+      "beforeHash": "1a6349f6cd383413bff6112e2a42bcaa3402bbf336a07056b0b1fb506323295c",
+      "afterHash": "9e170e3b581e6e1cca0b3027ac81a04c75cd977593ef50ddc03618357e8c571f",
+      "edits": [
+        {
+          "line": 5,
+          "after": [
+            "import { SUBJECT_FRAMING_CONTROLS, isSubjectFramingAvailable } from '../../lib/engine/subjectFraming.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 85,
+          "after": [
+            "    const actionKeys = preparedFields.filter(field => !field.disabled).map(field => field.control.key);\n",
+            "    if (group.id === 'composition' && context.subjectFraming) {\n",
+            "      const { locks, managed } = context.subjectFraming;\n",
+            "      const enabled = isSubjectFramingAvailable({ subjectCount: locks.subjectCount, framingId: locks.framingId, managed });\n",
+            "      const framingIndex = preparedFields.findIndex(field => field.control.key === 'framingId');\n",
+            "      preparedFields.splice(framingIndex + 1, 0, ...SUBJECT_FRAMING_CONTROLS.map(control => ({\n",
+            "        control: {\n",
+            "          ...control,\n",
+            "          helpText: enabled ? '僅套用到 Grok Imagine。' : '限一般單人選定全身鏡頭時使用。',\n",
+            "        },\n",
+            "        value: locks[control.key] || '',\n",
+            "        disabled: !enabled,\n",
+            "        subjectFraming: true,\n",
+            "      })));\n",
+            "    }\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 103,
+          "after": [
+            "      summary: preparedFields.filter(field => !field.subjectFraming || !field.disabled && field.value)\n",
+            "        .map(field => field.management?.value || selectedLabel(field)).join(' / '),\n",
+            "      actionKeys,\n"
+          ],
+          "before": [
+            "      summary: preparedFields.map(field => field.management?.value || selectedLabel(field)).join(' / '),\n",
+            "      actionKeys: preparedFields.filter(field => !field.disabled).map(field => field.control.key),\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/saved-cards/page1MarkdownSnapshot.js",
+      "beforeHash": "de650fd21c239dcaa7808756be9fc5bbbdccf8d1892a07ac0fef7ef73d845473",
+      "afterHash": "4f7054461f3e41aa991ac9bcace1309ac39afebfe24de2224d9835a5d3925fce",
+      "edits": [
+        {
+          "line": 2,
+          "after": [
+            "import { SUBJECT_FRAMING_CONTROLS } from '../../lib/engine/subjectFraming.js';\n"
+          ],
+          "before": []
+        },
+        {
+          "line": 47,
+          "after": [
+            "  keys(selection, [...Object.keys(defaults), 'indoorSeatId', 'indoorLeanId', 'indoorKneelId', 'lawsonPositionMode', ...underlayerKeys,\n",
+            "    ...SUBJECT_FRAMING_CONTROLS.map(control => control.key)], Object.keys(defaults));\n"
+          ],
+          "before": [
+            "  keys(selection, [...Object.keys(defaults), 'indoorSeatId', 'indoorLeanId', 'indoorKneelId', 'lawsonPositionMode', ...underlayerKeys], Object.keys(defaults));\n"
+          ]
+        },
+        {
+          "line": 50,
+          "after": [
+            "    const framingControl = SUBJECT_FRAMING_CONTROLS.find(control => control.key === key);\n",
+            "    if (framingControl) {\n",
+            "      if (!value || !framingControl.options.some(option => option.id === value)) fail(`unknown ID: ${key}`);\n",
+            "      continue;\n",
+            "    }\n"
+          ],
+          "before": []
+        }
+      ]
+    }
+  ]
+}

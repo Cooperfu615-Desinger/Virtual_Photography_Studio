@@ -1,5 +1,6 @@
 // PAGE1 persistence metadata only; never regenerate or infer a public output.
 import { underlayerKeys } from '../../lib/engine/manualUnderlayers.js';
+import { SUBJECT_FRAMING_CONTROLS } from '../../lib/engine/subjectFraming.js';
 import { createEmptyLocks, getLockControls, normalizeLocks } from '../../lib/engine.js';
 import { CAPTURE_GROUPS } from '../../lib/observationCaptureMode.js';
 import { normalizeSpecifiedActionSceneRestore, isSupinePoseSelection, SUPINE_SCENE_NONE_LOCKS } from '../../lib/engine/poseScenePolicy.js';
@@ -44,8 +45,14 @@ function safeJson(text) {
 function validateSelection(selection, controls) {
   const defaults = normalizeLocks(createEmptyLocks(), controls);
   // Manual support fields are optional. Every original v1 key remains required.
-  keys(selection, [...Object.keys(defaults), 'indoorSeatId', 'indoorLeanId', 'indoorKneelId', 'lawsonPositionMode', ...underlayerKeys], Object.keys(defaults));
+  keys(selection, [...Object.keys(defaults), 'indoorSeatId', 'indoorLeanId', 'indoorKneelId', 'lawsonPositionMode', ...underlayerKeys,
+    ...SUBJECT_FRAMING_CONTROLS.map(control => control.key)], Object.keys(defaults));
   for (const [key, value] of Object.entries(selection)) {
+    const framingControl = SUBJECT_FRAMING_CONTROLS.find(control => control.key === key);
+    if (framingControl) {
+      if (!value || !framingControl.options.some(option => option.id === value)) fail(`unknown ID: ${key}`);
+      continue;
+    }
     if (key === 'indoorSeatId' || key === 'indoorLeanId' || key === 'indoorKneelId') {
       if (typeof value !== 'string') fail(key);
       continue;

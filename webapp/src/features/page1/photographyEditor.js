@@ -3,6 +3,7 @@ import { fixedSetAllowsLensVariation } from '../../lib/engine/stationFixedCompos
 import { fixedSetAllowsFramingVariation } from '../../lib/engine/carriageFixedComposition.js';
 import { getFixedSceneCameraStatus } from './sceneEditor.js';
 import { COMPANION_ORBIT_ID } from '../../lib/engine/phoneCapture.js';
+import { SUBJECT_FRAMING_CONTROLS, isSubjectFramingAvailable } from '../../lib/engine/subjectFraming.js';
 
 export function prepareCompanionOrbitControl(control, locks = {}, { fixedCompositionSetActive = false } = {}) {
   if (control.key !== 'orbitId' || (locks.subjectCount === '1' && locks.captureMode !== 'observation' && !fixedCompositionSetActive)) return control;
@@ -82,11 +83,27 @@ export function buildPhotographyEditorModel(fields = [], context = {}) {
   const groups = PHOTOGRAPHY_EDITOR_GROUPS.map(group => {
     const preparedFields = group.keys.filter(key => !lyingKeys.includes(key)).map(key => fieldsByKey.get(key)).filter(Boolean)
       .map(field => enrichField(field, fixedSet, Boolean(context.handLocksOrbit)));
+    const actionKeys = preparedFields.filter(field => !field.disabled).map(field => field.control.key);
+    if (group.id === 'composition' && context.subjectFraming) {
+      const { locks, managed } = context.subjectFraming;
+      const enabled = isSubjectFramingAvailable({ subjectCount: locks.subjectCount, framingId: locks.framingId, managed });
+      const framingIndex = preparedFields.findIndex(field => field.control.key === 'framingId');
+      preparedFields.splice(framingIndex + 1, 0, ...SUBJECT_FRAMING_CONTROLS.map(control => ({
+        control: {
+          ...control,
+          helpText: enabled ? '僅套用到 Grok Imagine。' : '限一般單人選定全身鏡頭時使用。',
+        },
+        value: locks[control.key] || '',
+        disabled: !enabled,
+        subjectFraming: true,
+      })));
+    }
     return {
       ...group,
       fields: preparedFields,
-      summary: preparedFields.map(field => field.management?.value || selectedLabel(field)).join(' / '),
-      actionKeys: preparedFields.filter(field => !field.disabled).map(field => field.control.key),
+      summary: preparedFields.filter(field => !field.subjectFraming || !field.disabled && field.value)
+        .map(field => field.management?.value || selectedLabel(field)).join(' / '),
+      actionKeys,
     };
   });
   return {

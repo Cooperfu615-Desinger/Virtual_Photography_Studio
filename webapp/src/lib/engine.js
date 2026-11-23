@@ -152,6 +152,7 @@ import {
 import { createPromptSectionModel } from './engine/promptModel.js';
 import { createEngineRuntimeResolver, deepFreezeRuntime } from './engine/runtimeCache.js';
 import { createSelectionSnapshot } from './engine/selectionSchema.js';
+import { isSubjectFramingAvailable, normalizeSubjectFraming, subjectFramingPrompt } from './engine/subjectFraming.js';
 import { isLawsonLocation, lawsonPositionClause, resolveLawsonScenePosition } from './engine/lawsonScenePosition.js';
 import { createZImageTurboPromptSectionModel } from './engine/zImageTurboPromptContract.js';
 import { buildZImageOnLocationCapture } from './engine/zImageOnLocationCapture.js';
@@ -3553,6 +3554,7 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
       normalizedWithLegacyColors.indoorKneelId = rawLocks.indoorKneelId;
   }
   Object.assign(normalizedWithLegacyColors, normalizeUnderlayers(rawLocks, controls));
+  Object.assign(normalizedWithLegacyColors, normalizeSubjectFraming(rawLocks));
   return normalizeAccessoryConflicts(normalizedWithLegacyColors, controls);
 }
 
@@ -16274,6 +16276,13 @@ function buildGrokImaginePrototype(context, character, wardrobe, wardrobeColors)
   const cardLead = groups?.identityAndBody?.match(/^a\s+20-year-old\s+adult\s+[^,]*?\bwoman\b/i)?.[0] || '';
   const cardIdentity = cardMode ? [cardLead, groups.facialGeometry, groups.eyeSignature, groups.noseSignature, groups.mouthSignature, groups.skinSignature, groups.makeup, groups.body, groups.distinctiveFeatures, groups.hair, buildCharacterCardHairVariantText(context.subject, context.locks)].filter(Boolean).join(', ') : '';
   if (cardMode && !cardLead) return null;
+  const subjectFraming = isSubjectFramingAvailable({
+    subjectCount: context.subject.count,
+    framingId: context.framing?.id,
+    managed: fixed || isSpecialSubject(context.subject) || context.subject.reference
+      || context.referencePersonPreview || context.characterProfilePrompt || context.observationCapture
+      || context.rawLocks?.framingId !== context.framing?.id,
+  }) ? subjectFramingPrompt(context.rawLocks) : '';
   const values = [
     duo ? `${context.subject.en}. ${duoRoles}` : cardMode ? cardIdentity : source.subjectText ? `${source.subjectLead} ${source.subjectText}` : '',
     pose,
@@ -16281,6 +16290,7 @@ function buildGrokImaginePrototype(context, character, wardrobe, wardrobeColors)
     cardMode ? [groups.outfit, groups.accessories, shouldImportCharacterCardWardrobeLayers(context.locks) ? wardrobeText : ''].filter(Boolean).join(', ') : !duo && wardrobeText ? `She wears ${wardrobeText}` : '',
     scene,
     [aspect, value(context.framing), value(context.angle), orbitText].filter(Boolean).join(', '),
+    subjectFraming,
     [value(context.lighting), value(context.lightDirection)].filter(Boolean).join(', '),
     [value(context.style), value(context.lens), value(context.aperture), value(context.shutter), value(context.opticalEffect), value(context.film)].filter(Boolean).join(', '),
     value(context.imageTypePreset),
@@ -16777,6 +16787,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
   if (context.legacyPhoneConflict?.propId) resolvedSelection.propId = context.legacyPhoneConflict.propId;
   if (isPhoneProp(context.rawLocks.propId) || context.rawLocks.orbitId === COMPANION_ORBIT_ID) resolvedSelection.orbitId = context.rawLocks.orbitId;
   const snapshot = createSelectionSnapshot(LOCK_DEFINITIONS, resolvedSelection);
+  Object.assign(snapshot, normalizeSubjectFraming(context.rawLocks));
   if (isLawsonLocation(context.location?.zh)) snapshot.lawsonPositionMode = context.locks?.lawsonPositionMode === 'free' ? 'free' : 'auto';
   for (const host of wardrobe) {
     const layer = host.meta?.underlayer;

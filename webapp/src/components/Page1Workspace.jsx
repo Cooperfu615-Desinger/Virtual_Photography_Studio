@@ -33,6 +33,7 @@ import { PROMPT_APPENDICES } from '../lib/promptAppendices.js';
 import ZImageVisibleTextControls from './ZImageVisibleTextControls';
 import SceneEnvironmentControls from './SceneEnvironmentControls';
 import PhotographyControls from './PhotographyControls';
+import { SUBJECT_FRAMING_CONTROLS } from '../lib/engine/subjectFraming.js';
 import SceneLocationField from './SceneLocationField';
 import SpecifiedActionPicker from './SpecifiedActionPicker';
 import { buildPhotographyEditorModel, PHOTOGRAPHY_EDITOR_GROUPS, prepareCompanionOrbitControl } from '../features/page1/photographyEditor.js';
@@ -1476,6 +1477,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       fixedSet: selectedFixedCompositionSetOption,
       handLocksOrbit: selectedPoseActionLocksOrbit,
       lyingActionActive: isLyingAction(activeSpecifiedAction),
+      subjectFraming: { locks, managed: captureActive || fixedCompositionSetActive || isDedicatedSubjectMode },
     });
     return <PhotographyControls
       model={model}
@@ -1487,7 +1489,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         updateLocks(prev => action === 'reset'
           ? { ...prev, ...Object.fromEntries(keys.map(key => [key, clearedLocks[key]])) }
           : action === 'none'
-          ? setLockKeysToNone(prev, keys, lockControls)
+          ? setLockKeysToNone(prev, groupId === 'composition'
+            ? [...keys, ...SUBJECT_FRAMING_CONTROLS.map(control => control.key)] : keys, lockControls)
           : randomizeLockKeys(prev, keys, clearedLocks, lockControls));
       }}
       onShowScene={() => {
