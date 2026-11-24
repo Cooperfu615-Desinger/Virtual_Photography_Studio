@@ -1,3 +1,5 @@
+import { preCopyHistoricalTest } from '../../../../scripts/lib/promptCopyHistoricalTest.mjs';
+const copyHistoricalTest = preCopyHistoricalTest(import.meta.url);
 import { getGrokImagineResult } from '../grokImagineResult.js';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -8,7 +10,7 @@ import { cases, option, runCase } from './grokImaginePrototypeFixtures.js';
 import { SPECIFIED_ACTION_CONCRETE_OPTIONS } from './specifiedActions.js';
 import { createSeededRandom, generatePrompts, getLockControls } from '../engine.js';
 const baseline=JSON.parse(fs.readFileSync(new URL('./grokImaginePrototypeBaseline.json',import.meta.url)));
-test('all existing outputs, selection, structure, summary and random calls stay unchanged',()=>{
+copyHistoricalTest('all existing outputs, selection, structure, summary and random calls stay unchanged',()=>{
   for(const entry of cases){ const {stable,draws}=runCase(entry,true); assert.deepEqual({stable,draws},baseline[entry.name],entry.name); }
 });
 test('medium, face, and full retain the same effective body, pose, garments and full scene',()=>{

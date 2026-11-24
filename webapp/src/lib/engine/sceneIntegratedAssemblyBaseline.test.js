@@ -1,3 +1,5 @@
+import { preCopyHistoricalTest } from '../../../../scripts/lib/promptCopyHistoricalTest.mjs';
+const copyHistoricalTest = preCopyHistoricalTest(import.meta.url);
 // These Markdown assertions pin the legacy prose path without PAGE1 snapshot metadata.
 import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
 const historicalTest = preA1HistoricalTest(import.meta.url);
@@ -132,7 +134,7 @@ test('fixture selectors fail closed instead of falling back or silently acceptin
 });
 
 for (const fixture of fixtures) {
-  (['R16-character-card', 'R11-dress'].includes(fixture.id) ? historicalTest : test)(`scene assembly scoped Z/MJ revisions and unchanged baseline: ${fixture.id}`, () => {
+  (['R16-character-card', 'R11-dress'].includes(fixture.id) ? historicalTest : fixture.id === 'R16-fixed' ? copyHistoricalTest : test)(`scene assembly scoped Z/MJ revisions and unchanged baseline: ${fixture.id}`, () => {
     const first = get(fixture.id);
     const repeated = runSceneFixture(fixture);
     const entry = baseline.cases[fixture.id];

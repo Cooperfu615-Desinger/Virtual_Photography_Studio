@@ -164,6 +164,7 @@ class RepositoryTests(unittest.TestCase):
 
     def test_cli_full_plan_emits_outputs_and_summary_without_external_requests(self):
         self.write('scripts/ci_docs.py', (ROOT / 'scripts/ci_docs.py').read_text())
+        self.write('scripts/ci_prompt_copy.py', (ROOT / 'scripts/ci_prompt_copy.py').read_text())
         self.write('scripts/lib/ciDocsPolicy.json', json.dumps(self.policy))
         head = self.commit()
         output, summary = self.root / 'outputs.txt', self.root / 'summary.txt'

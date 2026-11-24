@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "profiles": [
+    {
+      "id": "straight-leg-jeans-v1",
+      "source": "knowledge_base/catalog/Wardrobe/褲裝-pants.json",
+      "item": "wardrobe:褲裝-pants:直筒牛仔褲:1",
+      "name": "straight-leg jeans",
+      "fields": ["en", "desc"],
+      "section": "Wardrobe",
+      "category": "褲裝 (Pants)"
+    }
+  ]
+}

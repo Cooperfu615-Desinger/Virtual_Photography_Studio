@@ -1,3 +1,5 @@
+import { preCopyHistoricalTest } from '../../../../scripts/lib/promptCopyHistoricalTest.mjs';
+const copyHistoricalTest = preCopyHistoricalTest(import.meta.url);
 import catalogProtected from './midjourneyNaturalCatalogProtected.json' with { type: 'json' };
 import assert from 'node:assert/strict';
 import { restorePreEthnicityText } from './ethnicityRevisionTestSupport.js';
@@ -189,7 +191,7 @@ test('none remains silent and the fixed chest and full-body ratios remain unchan
   assert.match(p.extraPrompts.find(e => e.id === 'full-body-character').text, /9:16/);
 });
 
-test('60 pre-change body/framing cases keep every non-body output byte and selection', () => {
+copyHistoricalTest('60 pre-change body/framing cases keep every non-body output byte and selection', () => {
   // Generated with HEAD 6027041 before implementation, not the changed renderer.
   const baseline = catalogProtected.body;
   const hash = value => createHash('sha256').update(JSON.stringify(value)).digest('hex');

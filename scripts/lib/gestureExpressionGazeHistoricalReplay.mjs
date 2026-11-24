@@ -1,6 +1,8 @@
 // Test-only exact inverse of the seven approved additions; historical seals stay immutable.
 // Unknown source bytes pass through, so earlier strict replay continues to reject drift.
 import assert from 'node:assert/strict';
+import { promptCopyHistoricalPaths, prePromptCopySource } from './promptCopyHistoricalReplay.mjs';
+import copyInfrastructure from './ciPromptCopyInfrastructureHistory.json' with { type: 'json' };
 import { createHash } from 'node:crypto';
 import observationCaptureExpansion from './observationCaptureExpansionHistory.json' with { type: 'json' };
 import subjectFraming from './subjectFramingHistory.json' with { type: 'json' };
@@ -25,8 +27,9 @@ import page3Compression from './page3PromptCompressionHistory.json' with { type:
 import closedEyeReview from './closedEyeGazeHistory.json' with { type: 'json' };
 
 const hash = source => createHash('sha256').update(source).digest('hex');
+const copyFiles = [...promptCopyHistoricalPaths.map(path => ({ path })), ...copyInfrastructure.files];
 export const gestureExpressionGazeHistoricalPaths = [...new Set(
-  [...threeHandGestures.files, ...subjectFramingCrop.files, ...subjectFraming.files, ...observationCaptureExpansion.files, ...page3PersonPerformance.files, ...page3LocationExpansion.files, ...page3LocationPilot.files, ...waistbandStrings.files, ...waistbandHeight.files, ...biteHemGesture.files, ...bodyTightFit.files, ...adjustTopGesture.files, ...waistbandLiftGesture.files, ...underbustTeeGesture.files, ...raisedTopHem.files, ...page3FieldActions.files, ...page3Person.files, ...page3Compression.files, ...closedEyeReview.files, ...review.files].map(file => file.path)
+  [...copyFiles, ...threeHandGestures.files, ...subjectFramingCrop.files, ...subjectFraming.files, ...observationCaptureExpansion.files, ...page3PersonPerformance.files, ...page3LocationExpansion.files, ...page3LocationPilot.files, ...waistbandStrings.files, ...waistbandHeight.files, ...biteHemGesture.files, ...bodyTightFit.files, ...adjustTopGesture.files, ...waistbandLiftGesture.files, ...underbustTeeGesture.files, ...raisedTopHem.files, ...page3FieldActions.files, ...page3Person.files, ...page3Compression.files, ...closedEyeReview.files, ...review.files].map(file => file.path)
 )];
 export function preGestureExpressionGazeSource(path, source) {
   const prePage3PromptSource = reverseReviewedSource(page3Compression, path, prePage3PersonSource(path, source));
@@ -42,7 +45,7 @@ export function preSubjectFramingCropSource(path, source) {
 }
 
 export function preThreeHandGesturesSource(path, source) {
-  return reverseReviewedSource(threeHandGestures, path, source);
+  return reverseReviewedSource(threeHandGestures, path, reverseReviewedSource(copyInfrastructure, path, prePromptCopySource(path, source)));
 }
 
 export function preSubjectFramingSource(path, source) {

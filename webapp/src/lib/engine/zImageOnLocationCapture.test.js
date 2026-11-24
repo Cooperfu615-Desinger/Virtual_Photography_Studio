@@ -1,3 +1,5 @@
+import { preCopyHistoricalTest } from '../../../../scripts/lib/promptCopyHistoricalTest.mjs';
+const copyHistoricalTest = preCopyHistoricalTest(import.meta.url);
 import { preA1HistoricalTest } from '../../../../scripts/lib/a1AdultIdentityHistoricalTest.mjs';
 const historicalTest = preA1HistoricalTest(import.meta.url);
 import { restorePreOpenPalmV2 } from './openPalmTestSupport.js';
@@ -52,7 +54,7 @@ test('published test prompts are the actual main renderer outputs', () => {
     .map((id) => restorePreEthnicityText(restorePreBodyTightFitText(get(id).outputs.zImagePrompt), 'zImagePrompt')));
 });
 
-for (const fixture of fixtures) (['historical-R16-character-card', 'historical-R11-dress'].includes(fixture.id) ? historicalTest : test)(`main-Z-only source relocation: ${fixture.id}`, () => {
+for (const fixture of fixtures) (['historical-R16-character-card', 'historical-R11-dress'].includes(fixture.id) ? historicalTest : fixture.id === 'historical-R16-fixed' ? copyHistoricalTest : test)(`main-Z-only source relocation: ${fixture.id}`, () => {
   const current = get(fixture.id);
   const before = baseline.cases[fixture.id];
   const rawLocks = materializeSceneFixture(fixture);
@@ -111,7 +113,7 @@ test('fixed carriage keeps preset takeover, window/camera layout and one ambient
   assert.doesNotMatch(text, /She is photographed within/);
 });
 
-test('none and excluded paths do not acquire a fictitious capture or ambient source', () => {
+copyHistoricalTest('none and excluded paths do not acquire a fictitious capture or ambient source', () => {
   for (const id of ['no-scene', 'no-pose', ...fixtures.filter((f) => f.excluded).map((f) => f.id)]) {
     assert.equal(restorePreEthnicityText(historicalWardrobeOutputs(get(id).outputs, id, ['zImagePrompt']).zImagePrompt, 'zImagePrompt'), baseline.cases[id].zImagePrompt, id);
   }

@@ -9,6 +9,11 @@ import subprocess
 import sys
 from urllib.parse import unquote, urlsplit
 
+if __package__ in (None, ''):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from scripts.ci_prompt_copy import classify as classify_copy, CopyIneligible
+
 
 POLICY_PATH = 'scripts/lib/ciDocsPolicy.json'
 SHA = re.compile(r'^[a-f0-9]{40}$')
@@ -28,6 +33,8 @@ class Repository:
     def __init__(self, root):
         self.root = Path(root)
         self.trees = {}
+        self.validated_commits = set()
+        self.contents = {}
 
     def git(self, *args):
         try:
@@ -38,8 +45,13 @@ class Repository:
     def valid_commit(self, ref):
         if not SHA.fullmatch(ref or '') or ref == '0' * 40:
             return False
+        if ref in self.validated_commits:
+            return True
         try:
-            return self.git('rev-parse', '--verify', ref + '^{commit}').decode().strip() == ref
+            valid = self.git('rev-parse', '--verify', ref + '^{commit}').decode().strip() == ref
+            if valid:
+                self.validated_commits.add(ref)
+            return valid
         except ValidationError:
             return False
 
@@ -70,7 +82,9 @@ class Repository:
         item = self.tree(ref).get(path)
         if not item or item[:2] != ('100644', 'blob'):
             raise ValidationError('Document is not a regular tracked text file: ' + path)
-        return self.git('cat-file', 'blob', item[2]).decode('utf-8')
+        if item[2] not in self.contents:
+            self.contents[item[2]] = self.git('cat-file', 'blob', item[2]).decode('utf-8')
+        return self.contents[item[2]]
 
 
 def validate_policy(policy):
@@ -153,7 +167,26 @@ def check_documents(repo, policy, base, head):
     return checked
 
 
-def deployment_evidence(repository, get_json):
+def successful_product_run(jobs, copy=False):
+    required = dict(REQUIRED_PRODUCT_STEPS)
+    if copy:
+        required['webapp-quality'] = ['Test scoped Prompt copy', 'Lint', 'Test data sync validation',
+                                      'Validate generated database', 'Validate catalog integrity',
+                                      'Test catalog preparation tools', 'Verify formal catalog history and all generated outputs']
+        required['scope'] = ['Test CI routing', 'Classify changes and validate documentation']
+        required['ci-result'] = ['Summarize required results']
+    for name, steps in required.items():
+        matches = [job for job in jobs if job.get('name') == name]
+        if len(matches) != 1 or matches[0].get('status') != 'completed' or matches[0].get('conclusion') != 'success':
+            return False
+        for step in steps:
+            found = [s for s in (matches[0].get('steps') or []) if s.get('name') == step]
+            if len(found) != 1 or found[0].get('conclusion') != 'success':
+                return False
+    return True
+
+
+def deployment_evidence(repository, get_json, repo=None, policy=None):
     """Only the latest Pages deployment and its successful full run are evidence."""
     if not re.fullmatch(r'[\w.-]+/[\w.-]+', repository or ''):
         return None
@@ -184,16 +217,29 @@ def deployment_evidence(repository, get_json):
         jobs = listing.get('jobs', [])
         if listing.get('total_count') != len(jobs):
             return None
-        for name, required_steps in REQUIRED_PRODUCT_STEPS.items():
-            matches = [job for job in jobs if job.get('name') == name]
-            if len(matches) != 1 or matches[0].get('status') != 'completed' or matches[0].get('conclusion') != 'success':
-                return None
-            steps = matches[0].get('steps', [])
-            for required in required_steps:
-                matching_steps = [step for step in steps if step.get('name') == required]
-                if len(matching_steps) != 1 or matching_steps[0].get('conclusion') != 'success':
-                    return None
-        return {'sha': deployed['sha'], 'deployment_id': deployed['id'], 'run_id': run_id}
+        evidence = {'sha': deployed['sha'], 'deployment_id': deployed['id'], 'run_id': run_id}
+        if successful_product_run(jobs):
+            return evidence
+        if not repo or not policy or not successful_product_run(jobs, copy=True):
+            return None
+        # A copy deployment is never mislabeled as a full test run. Find a verified
+        # full ancestor and reclassify its entire delta. Bounded lookup fails closed.
+        runs = get_json(prefix + '/actions/workflows/deploy.yml/runs?branch=main&status=success&per_page=30')
+        for candidate in runs.get('workflow_runs', [])[:30]:
+            anchor = candidate.get('head_sha', '')
+            if (candidate.get('event') not in ['push', 'workflow_dispatch'] or candidate.get('head_branch') != 'main' or
+                    candidate.get('path') != '.github/workflows/deploy.yml' or candidate.get('status') != 'completed' or
+                    candidate.get('conclusion') != 'success' or not repo.ancestor(anchor, deployed['sha'])):
+                continue
+            listing = get_json(prefix + '/actions/runs/' + str(candidate['id']) + '/jobs?filter=latest&per_page=100')
+            if listing.get('total_count') != len(listing.get('jobs', [])) or not successful_product_run(listing['jobs']):
+                continue
+            try:
+                classify_copy(repo, anchor, deployed['sha'], policy['documents'])
+            except (CopyIneligible, ValidationError, ValueError, KeyError):
+                continue
+            return {**evidence, 'mode': 'copy', 'full_base': anchor}
+        return None
     except (OSError, ValueError, KeyError, TypeError, AttributeError, IndexError, subprocess.SubprocessError):
         # Missing permissions/history/evidence can only cost time, never bypass a gate.
         return None
@@ -218,6 +264,19 @@ def make_plan(repo, policy, event, base, head, evidence=None):
         plan['reason'] = 'manual_full_run'
     elif not changes or not all(approved_document(change, policy) for change in changes):
         plan['reason'] = 'non_document_or_unknown_changes'
+        try:
+            classify_copy(repo, base, head, policy['documents'])
+            if not evidence or not repo.ancestor(evidence.get('sha'), base):
+                plan['reason'] = 'unverified_deployment'
+            else:
+                # Include queued or untested product changes, never only the latest push.
+                compare = evidence.get('full_base', evidence['sha'])
+                reviews = classify_copy(repo, compare, head, policy['documents'])
+                plan.update(mode='copy', reason='verified_scoped_copy', copy_base=compare,
+                            deployed_sha=evidence['sha'], evidence=evidence,
+                            profiles=sorted({r['profile']['id'] for r in reviews}))
+        except (CopyIneligible, ValidationError, ValueError, KeyError, TypeError) as error:
+            plan['copy_rejection'] = str(error)
     elif not evidence or not repo.ancestor(evidence.get('sha'), head):
         plan['reason'] = 'unverified_deployment'
     else:
@@ -228,6 +287,9 @@ def make_plan(repo, policy, event, base, head, evidence=None):
         else:
             plan.update(mode='docs', reason='verified_document_only', deploy=False,
                         evidence=evidence)
+    if plan['mode'] in ['docs', 'copy']:
+        comparison = plan.get('copy_base', plan['deployed_sha'])
+        plan['checked_documents'] = check_documents(repo, policy, comparison, head)
     return plan
 
 
@@ -241,12 +303,12 @@ def check_deploy_revision(repo, policy, candidate, current_main):
 def result_ok(needs, event):
     scope = needs.get('scope', {})
     mode = scope.get('outputs', {}).get('mode')
-    if scope.get('result') != 'success' or mode not in ['docs', 'full']:
+    if scope.get('result') != 'success' or mode not in ['docs', 'copy', 'full']:
         return False
-    if event not in ['push', 'pull_request', 'workflow_dispatch'] or (event == 'workflow_dispatch' and mode == 'docs'):
+    if event not in ['push', 'pull_request', 'workflow_dispatch'] or (event == 'workflow_dispatch' and mode != 'full'):
         return False
     for name in REQUIRED_PRODUCT_STEPS:
-        expected = 'success' if mode == 'full' and (event != 'pull_request' or name not in ['build', 'deploy']) else 'skipped'
+        expected = 'success' if mode in ['copy', 'full'] and (event != 'pull_request' or name not in ['build', 'deploy']) else 'skipped'
         if needs.get(name, {}).get('result') != expected:
             return False
     return True
@@ -285,7 +347,8 @@ def main():
         append_summary('## CI result: ' + ('passed' if passed else 'FAILED') + '\n\nRoute: `' + mode +
                        '`\n\n| Job | Result |\n| --- | --- |\n' + rows +
                        '\n\nDocs route: product tests/build/deploy are intentionally skipped only after verified equivalence. '
-                       'Full route: every applicable product gate must succeed. No Prompt-copy selection or scheduled tests are enabled.')
+                       'Copy route: scoped comparison, catalog checks, lint/build, Functions and deployment remain required. '
+                       'Full route: every applicable product gate must succeed. Scheduled tests are not enabled.')
         return 0 if passed else 1
     repo = Repository(Path(__file__).resolve().parents[1])
     head = os.environ.get('GITHUB_SHA', '')
@@ -309,13 +372,13 @@ def main():
     # Do not request GitHub evidence for a change already known to need full tests.
     plan = make_plan(repo, policy, event, base, head)
     if plan['reason'] == 'unverified_deployment':
-        evidence = deployment_evidence(os.environ.get('GITHUB_REPOSITORY', ''), github_json)
+        evidence = deployment_evidence(os.environ.get('GITHUB_REPOSITORY', ''), github_json, repo, policy)
         plan = make_plan(repo, policy, event, base, head, evidence)
     output = os.environ.get('GITHUB_OUTPUT')
     if output:
         with open(output, 'a', encoding='utf-8') as handle:
             handle.write('mode=' + plan['mode'] + '\nreason=' + plan['reason'] +
-                         '\ndeployed_sha=' + plan['deployed_sha'] + '\n')
+                         '\ndeployed_sha=' + plan['deployed_sha'] + '\ncopy_base=' + plan.get('copy_base', '') + '\n')
     append_summary('## CI scope\n\n```json\n' + json.dumps(plan, ensure_ascii=True, indent=2).replace('`', '\\u0060') +
                    '\n```\n\nDocument checks: tracked regular text, final newline/whitespace, Markdown fences, '
                    'local link paths and committed diff. External links and heading anchors are not fetched. '

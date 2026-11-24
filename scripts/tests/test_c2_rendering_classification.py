@@ -5,6 +5,7 @@ import subprocess
 import unittest
 from scripts import check_authoring_lengths as c
 from scripts.lib.c2_rendering_history import historical_policy_context
+from scripts.lib.prompt_copy_history import pre_copy_report
 
 BASE = '2fa8fe65226903141597ab74b044a0102a6f8ca7'
 CATEGORY = 'CameraLighting/底片與相機模擬 (Camera & Film Simulation)'
@@ -13,6 +14,7 @@ COMPANION_ORBIT = 'camera:拍攝方位-orbit-angle:companion-view'
 
 
 def before_new_outfit(result):
+    result = pre_copy_report(result, c.ROOT)
     # The C2 report seals an older catalog; keep its original rows and counts.
     result = copy.deepcopy(result)
     # Approved 2026-11-17 wording revision. Preserve the frozen C2 report;

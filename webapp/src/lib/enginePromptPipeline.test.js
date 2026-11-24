@@ -1,3 +1,5 @@
+import { preCopyHistoricalTest } from '../../../scripts/lib/promptCopyHistoricalTest.mjs';
+const copyHistoricalTest = preCopyHistoricalTest(import.meta.url);
 import assert from 'node:assert/strict';
 import { assertZImagePoseProjection } from './engine/sceneIntegratedAssemblyTestSupport.js';
 import { test } from 'node:test';
@@ -269,7 +271,7 @@ test('selected image type preset drives Gpt Z-Image and AI openings without losi
   assert.equal(prompt.structured.Style[0].zh, '粉彩插畫');
 });
 
-test('Gpt single-subject prompt preserves full-fidelity normal subject and wardrobe wording', () => {
+copyHistoricalTest('Gpt single-subject prompt preserves full-fidelity normal subject and wardrobe wording', () => {
   const [prompt] = generatePrompts(1, {
     ...createAllNoneLocks(),
     subjectCount: '1',

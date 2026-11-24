@@ -1,3 +1,5 @@
+import { preCopyHistoricalTest } from '../../../../scripts/lib/promptCopyHistoricalTest.mjs';
+const copyHistoricalTest = preCopyHistoricalTest(import.meta.url);
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { cpSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
@@ -10,7 +12,7 @@ import { skirtProtectedRows } from './skirtUnderlayerFixtures.js';
 import history from '../../../../scripts/lib/raisedTopHemHistory.json' with { type: 'json' };
 import { preRaisedTopHemSource } from '../../../../scripts/lib/gestureExpressionGazeHistoricalReplay.mjs';
 
-test('850 unrelated pre-skirt cases preserve all seven outputs, selections, structured sources and RNG', () => {
+copyHistoricalTest('850 unrelated pre-skirt cases preserve all seven outputs, selections, structured sources and RNG', () => {
   assert.equal(baseline.base, '5c35c4e1a868ab815e1272142526e59794ab7e7e');
   assert.equal(Object.keys(baseline.rows).length, 870);
   const current = skirtProtectedRows();

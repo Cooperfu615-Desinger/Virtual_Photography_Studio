@@ -1,0 +1,179 @@
+{
+  "base": "782a4516dcb813c55e35c8e76f99d6a640a09122",
+  "files": [
+    {
+      "path": "scripts/tests/test_c2_rendering_classification.py",
+      "beforeHash": "37212db3128322f4d71c7ddb148cf2c7c0582a60e07acb86322ebb08e80fd76f",
+      "afterHash": "b6d635124adda79b0af838c35723f3cde784816d628a591183dbb9a43329a3b8",
+      "edits": [
+        {
+          "line": 7,
+          "before": [],
+          "after": [
+            "from scripts.lib.prompt_copy_history import pre_copy_report\n"
+          ]
+        },
+        {
+          "line": 16,
+          "before": [],
+          "after": [
+            "    result = pre_copy_report(result, c.ROOT)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/enginePromptPipeline.test.js",
+      "beforeHash": "d87fda819cf85d9b836ba7107385f87686c706f8c3483b90b5f95f667ad087d8",
+      "afterHash": "a75375bb1f1a2c0733266ce0d2e9125fed9e68ee2cd9e6e1b7db3e3f08c88b91",
+      "edits": [
+        {
+          "line": 0,
+          "before": [],
+          "after": [
+            "import { preCopyHistoricalTest } from '../../../scripts/lib/promptCopyHistoricalTest.mjs';\n",
+            "const copyHistoricalTest = preCopyHistoricalTest(import.meta.url);\n"
+          ]
+        },
+        {
+          "line": 273,
+          "before": [
+            "test('Gpt single-subject prompt preserves full-fidelity normal subject and wardrobe wording', () => {\n"
+          ],
+          "after": [
+            "copyHistoricalTest('Gpt single-subject prompt preserves full-fidelity normal subject and wardrobe wording', () => {\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/bodyTypeCatalog.test.js",
+      "beforeHash": "13b14c2620fca7e498533cfa1ba71e264a5f24742b27b079a8799b1ef61928d7",
+      "afterHash": "6d8166e234c563ed169947daecce1817c88632c937c056c311ade87b74ba1e5b",
+      "edits": [
+        {
+          "line": 0,
+          "before": [],
+          "after": [
+            "import { preCopyHistoricalTest } from '../../../../scripts/lib/promptCopyHistoricalTest.mjs';\n",
+            "const copyHistoricalTest = preCopyHistoricalTest(import.meta.url);\n"
+          ]
+        },
+        {
+          "line": 193,
+          "before": [
+            "test('60 pre-change body/framing cases keep every non-body output byte and selection', () => {\n"
+          ],
+          "after": [
+            "copyHistoricalTest('60 pre-change body/framing cases keep every non-body output byte and selection', () => {\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/grokImaginePrototype.test.js",
+      "beforeHash": "bc23e0d4d5ededbc5082f14aff1c9fb5cbcc92cef3fa366c65180ab76106c201",
+      "afterHash": "1a158adb0101260184b9c1ec3a146354b2d597ebee0e172a783b0a525c2fcf22",
+      "edits": [
+        {
+          "line": 0,
+          "before": [],
+          "after": [
+            "import { preCopyHistoricalTest } from '../../../../scripts/lib/promptCopyHistoricalTest.mjs';\n",
+            "const copyHistoricalTest = preCopyHistoricalTest(import.meta.url);\n"
+          ]
+        },
+        {
+          "line": 12,
+          "before": [
+            "test('all existing outputs, selection, structure, summary and random calls stay unchanged',()=>{\n"
+          ],
+          "after": [
+            "copyHistoricalTest('all existing outputs, selection, structure, summary and random calls stay unchanged',()=>{\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/skirtUnderlayerBaseline.test.js",
+      "beforeHash": "cec8636f0bcd97ee4ea3ad09f756f8b8d9b33c4e47f549b4999f0b0d2973a55e",
+      "afterHash": "17d2bab445983143c3a42a747ee28aa94e1d3e5383d4719119b19b9b39c07f3f",
+      "edits": [
+        {
+          "line": 0,
+          "before": [],
+          "after": [
+            "import { preCopyHistoricalTest } from '../../../../scripts/lib/promptCopyHistoricalTest.mjs';\n",
+            "const copyHistoricalTest = preCopyHistoricalTest(import.meta.url);\n"
+          ]
+        },
+        {
+          "line": 14,
+          "before": [
+            "test('850 unrelated pre-skirt cases preserve all seven outputs, selections, structured sources and RNG', () => {\n"
+          ],
+          "after": [
+            "copyHistoricalTest('850 unrelated pre-skirt cases preserve all seven outputs, selections, structured sources and RNG', () => {\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/sceneIntegratedAssemblyBaseline.test.js",
+      "beforeHash": "f92c13fa35c0aaddbb79bd00db3ad35484ad2dfe644907fc6b915e81a7d7ac3b",
+      "afterHash": "26a2194e070d8a9206cd0b11993e1047b79e049a8e334189497a69acb6ece4dc",
+      "edits": [
+        {
+          "line": 0,
+          "before": [],
+          "after": [
+            "import { preCopyHistoricalTest } from '../../../../scripts/lib/promptCopyHistoricalTest.mjs';\n",
+            "const copyHistoricalTest = preCopyHistoricalTest(import.meta.url);\n"
+          ]
+        },
+        {
+          "line": 136,
+          "before": [
+            "  (['R16-character-card', 'R11-dress'].includes(fixture.id) ? historicalTest : test)(`scene assembly scoped Z/MJ revisions and unchanged baseline: ${fixture.id}`, () => {\n"
+          ],
+          "after": [
+            "  (['R16-character-card', 'R11-dress'].includes(fixture.id) ? historicalTest : fixture.id === 'R16-fixed' ? copyHistoricalTest : test)(`scene assembly scoped Z/MJ revisions and unchanged baseline: ${fixture.id}`, () => {\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/zImageOnLocationCapture.test.js",
+      "beforeHash": "2462cafbf1f0052df23c3ea8e7e43d9ad5c701f42eba4c64f1b201e215b88702",
+      "afterHash": "a5cfc135518587e7a6e753fc8ea10cdfd46a0c9bbfaa85eba8dfc7230d1ba0d0",
+      "edits": [
+        {
+          "line": 0,
+          "before": [],
+          "after": [
+            "import { preCopyHistoricalTest } from '../../../../scripts/lib/promptCopyHistoricalTest.mjs';\n",
+            "const copyHistoricalTest = preCopyHistoricalTest(import.meta.url);\n"
+          ]
+        },
+        {
+          "line": 56,
+          "before": [
+            "for (const fixture of fixtures) (['historical-R16-character-card', 'historical-R11-dress'].includes(fixture.id) ? historicalTest : test)(`main-Z-only source relocation: ${fixture.id}`, () => {\n"
+          ],
+          "after": [
+            "for (const fixture of fixtures) (['historical-R16-character-card', 'historical-R11-dress'].includes(fixture.id) ? historicalTest : fixture.id === 'historical-R16-fixed' ? copyHistoricalTest : test)(`main-Z-only source relocation: ${fixture.id}`, () => {\n"
+          ]
+        },
+        {
+          "line": 115,
+          "before": [
+            "test('none and excluded paths do not acquire a fictitious capture or ambient source', () => {\n"
+          ],
+          "after": [
+            "copyHistoricalTest('none and excluded paths do not acquire a fictitious capture or ambient source', () => {\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
