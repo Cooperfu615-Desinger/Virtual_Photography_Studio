@@ -229,11 +229,13 @@ def result_ok(needs):
 def job_report(jobs):
     lines = ['| Job / step | Result | Wall time (s) |', '| --- | --- | --- |']
     for job in jobs:
-        for row in [job, *job.get('steps', [])]:
-            seconds = ''
-            if row.get('started_at') and row.get('completed_at'):
-                seconds = str(round((datetime.fromisoformat(row['completed_at'].replace('Z', '+00:00')) -
-                                     datetime.fromisoformat(row['started_at'].replace('Z', '+00:00'))).total_seconds(), 1))
+        for row in [job, *(job.get('steps') or [])]:
+            seconds = '—'
+            if row.get('conclusion') != 'skipped' and row.get('started_at') and row.get('completed_at'):
+                elapsed = (datetime.fromisoformat(row['completed_at'].replace('Z', '+00:00')) -
+                           datetime.fromisoformat(row['started_at'].replace('Z', '+00:00'))).total_seconds()
+                if elapsed >= 0:
+                    seconds = str(round(elapsed, 1))
             name = str(row.get('name', '?')).replace('|', '/')
             lines.append(f'| {name} | {row.get("conclusion") or row.get("status", "pending")} | {seconds} |')
     return '\n'.join(lines)

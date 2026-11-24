@@ -55,6 +55,8 @@ plan 摘要記錄候選、原因、引用證據與等待 run；等待每 30 秒�
 
 `full-evidence` 只在全部完整品質／建置成功後產生；`daily-result` 使用 always 彙整，full 要求所有必要工作成功，skip 要求明確證據及產品工作預期 skipped。deferred、失敗、取消、缺失或摘要 API 無法讀取都不會認證成功。摘要含 job／step wall time、候選是否仍為最新、失敗步驟及 run 連結；原始測試數量與 runner 時間留在 Test 日誌，不混用為 workflow 耗時。
 
+未執行、時間戳缺失或結束早於開始的工作／步驟，耗時顯示 `—`，不把平台對 skipped 工作的倒置時間戳當作負耗時；有效已執行時間仍照實呈現。
+
 失敗發出 Actions error annotation 並讓 workflow 失敗，使用 GitHub 原生通知，不寄自訂郵件／Slack、不建立 issue。收件人須開啟 Actions Email／Web 通知，可設為僅失敗；排程通知帳號受建立／修改 cron／重新啟用影響。無法由 repository 檔案保證使用者個人通知設定；推送後必須驗收實際收件。人工取消不保證觸發「僅失敗」通知，亦不留下完整成功證據。
 
 ## 驗收與效能

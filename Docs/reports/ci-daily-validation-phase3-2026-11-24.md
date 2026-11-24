@@ -56,3 +56,7 @@ actionlint 1.7.12 仍不識別已由第一階段 GitHub 驗收的 `queue: max`�
 以只驗證的手動入口啟動 [run 45321586363](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/45321586363)，實際等待同版本完整 CI 後採 `skip`／`verified_full_result`，引用上述成功 run；產品測試、build、full-evidence 全部為預期 skipped。此輪含等待共 667 秒，不能當作無需等待時的快路徑耗時。沒有新增部署，最新 Pages 紀錄仍為上述產品部署。
 
 交付檢查另以隔離案例重現「同一每日串行群組後方 queued run 被當成等待對象」的互等風險。修正為不等待同群組其他 pending daily run；保留其排隊，仍會等待產品 CI，不取消工作。新增一項回歸測試，所有原斷言保留；最新每日專項 31／31 通過，命令 47.105 秒（runner 46.692 秒）。此修正限本批判定工具、測試、規格與報告，最終提交的遠端驗證另於交付回覆確認。
+
+佇列修正 `adae68dcd3d8b1fad735efb672d2531693e4bae4` 的 [CI 45323009045](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/45323009045) 全數通過，workflow 778 秒，前端 2,470／2,470、576.439 秒，Python 143／143、catalog 33／33、Functions 156／156。Pages `8018323973` 為同 SHA 的 success，正式站 HTTP 200。連續啟動每日 [45324576910](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/45324576910) 與 [45324607544](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/45324607544)，兩輪皆引用該完整成功證據並跳過產品工作；首輪 68 秒，次輪含排隊 132 秒，沒有互等。
+
+實際摘要顯示 GitHub 對 skipped 工作偶有結束早於開始的時間戳（−1 秒）；補強顯示為 `—`，並涵蓋空步驟、未開始與有效時間。先以新案例重現，再修正純摘要呈現；不改 full／skip 判定、失敗認證或部署。每日專項 32／32 通過（runner 48.243 秒），實際首輪 API jobs 回放亦通過。最終遠端結果另於交付回覆確認。

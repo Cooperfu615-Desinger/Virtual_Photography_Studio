@@ -300,6 +300,25 @@ def full_needs(mode='full'):
 
 
 class WaitAndResultTests(unittest.TestCase):
+    def test_job_report_omits_unexecuted_and_invalid_durations(self):
+        start = '2026-11-24T00:00:01Z'
+        rows = [
+            {'name': 'successful', 'conclusion': 'success', 'started_at': start,
+             'completed_at': '2026-11-24T00:00:11Z', 'steps': [
+                 {'name': 'skipped step', 'conclusion': 'skipped', 'started_at': start,
+                  'completed_at': '2026-11-24T00:00:12Z'}]},
+            {'name': 'skipped job', 'conclusion': 'skipped', 'started_at': start,
+             'completed_at': '2026-11-24T00:00:00Z', 'steps': None},
+            {'name': 'reversed', 'conclusion': 'success', 'started_at': start,
+             'completed_at': '2026-11-24T00:00:00Z'},
+            {'name': 'pending', 'status': 'queued'},
+        ]
+        report = daily.job_report(rows)
+        self.assertIn('| successful | success | 10.0 |', report)
+        for name, result in [('skipped step', 'skipped'), ('skipped job', 'skipped'),
+                             ('reversed', 'success'), ('pending', 'queued')]:
+            self.assertIn(f'| {name} | {result} | — |', report)
+
     def test_skip_without_exact_evidence_is_not_success(self):
         for key in ('evidence_sha', 'evidence_run'):
             needs = full_needs('skip')
