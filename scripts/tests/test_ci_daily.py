@@ -199,6 +199,17 @@ class DailyTests(unittest.TestCase):
         self.jobs[10][0]['steps'].append({'name': 'Test scoped Prompt copy', 'conclusion': 'success'})
         self.assertEqual(self.plan()['mode'], 'full')
 
+    def test_queued_daily_run_cannot_block_its_own_serial_queue(self):
+        self.add_run()
+        queued = self.add_run(20, workflow=daily.DAILY)
+        for status in daily.PENDING:
+            queued.update(status=status, conclusion=None)
+            with self.subTest(status=status):
+                self.assertEqual(self.plan(current_run=99)['mode'], 'skip')
+        del self.runs[10]
+        self.assertEqual(self.plan(current_run=99)['mode'], 'full')
+        self.assertFalse(any('/runs/20/attempts/' in p for p in self.calls))
+
     def test_api_failure_and_truncation_cannot_skip(self):
         self.add_run()
         def broken(_): raise OSError('offline')

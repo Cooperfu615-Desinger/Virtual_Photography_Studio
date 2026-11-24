@@ -48,3 +48,11 @@ actionlint 1.7.12 仍不識別已由第一階段 GitHub 驗收的 `queue: max`�
 本機完整驗證、排程正式觸發、通知收件、遠端 CI／部署是不同驗收項目。本批只完成授權的本機實作與檢查，等待使用者確認。
 
 本批 11 檔：`.github/workflows/daily-validation.yml`、`.github/workflows/deploy.yml`、`AGENTS.md`、`scripts/ci_daily.py`、`scripts/ci_docs.py`、`scripts/catalog_ci_history.py`、`scripts/validate_current_copy.py`、`scripts/tests/test_ci_daily.py`、`scripts/tests/test_current_copy.py`、`Docs/specs/ci-daily-validation-v1.md`、本報告。原有未提交路徑不在交付範圍內。
+
+## 授權交付後驗證與佇列補強
+
+使用者後續已授權只提交本批、推送及確認 CI／部署／每日設定。首次提交 `cbee7499671997390d2ecc7dc5538de3b1b88082` 的 [run 45321271118](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/45321271118) 全部成功：前端 2,470／2,470、runner 554.436 秒，Python 142／142、catalog 33／33、Functions 156／156，workflow 共 783 秒。Pages deployment `8018055786` 為 success、同 SHA，正式每日 workflow 狀態 active。
+
+以只驗證的手動入口啟動 [run 45321586363](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/45321586363)，實際等待同版本完整 CI 後採 `skip`／`verified_full_result`，引用上述成功 run；產品測試、build、full-evidence 全部為預期 skipped。此輪含等待共 667 秒，不能當作無需等待時的快路徑耗時。沒有新增部署，最新 Pages 紀錄仍為上述產品部署。
+
+交付檢查另以隔離案例重現「同一每日串行群組後方 queued run 被當成等待對象」的互等風險。修正為不等待同群組其他 pending daily run；保留其排隊，仍會等待產品 CI，不取消工作。新增一項回歸測試，所有原斷言保留；最新每日專項 31／31 通過，命令 47.105 秒（runner 46.692 秒）。此修正限本批判定工具、測試、規格與報告，最終提交的遠端驗證另於交付回覆確認。

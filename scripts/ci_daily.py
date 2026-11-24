@@ -160,6 +160,11 @@ def plan_once(repo, head, repository, get_json=github_json, current_run=0):
                     or run['head_sha'] != listed['head_sha']
                     or run['run_attempt'] != listed['run_attempt']):
                 raise ValueError('Run identity changed while reading evidence')
+            # Daily runs on main share one non-cancelling serial queue. Another
+            # pending daily run cannot execute until this run releases that queue;
+            # waiting for it would deadlock until our 30-minute timeout.
+            if run['path'] == DAILY and run['status'] in PENDING:
+                continue
             jobs = run_jobs(prefix, run, get_json)
             # A known scoped-copy run cannot supply or reserve full coverage.
             test_steps = [s for j in jobs if j.get('name') == 'webapp-quality'
