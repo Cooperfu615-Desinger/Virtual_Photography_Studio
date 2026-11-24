@@ -45,7 +45,7 @@ test('two manual short fits append without changing the five old options', () =>
 
 test('every eligible top including existing cropped garments resolves one underbust length across six outputs', () => {
   const tops = controls.find(c => c.key === 'topId').options.filter(o => o.zh !== '全無' && !excluded.includes(o.zh));
-  assert.equal(tops.length, 39);
+  assert.equal(tops.length, 41);
   for (const top of tops) for (const name of names) {
     assert.ok(top.meta.topUnderbust?.baseEn, top.zh);
     const fit = option('topFitId', name);

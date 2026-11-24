@@ -5464,6 +5464,40 @@
         "legacyIds": [
           "wardrobe:上身-tops:創可貼造型胸貼:45"
         ]
+      },
+      {
+        "zh": "開釦短袖襯衫",
+        "en": "fitted short-sleeve button-up shirt, opaque stretch cotton, structured collar, upper buttons open, taut fastened placket, horizontal chest and waist creases",
+        "desc": "有挺立襯衫領與前排釦的貼身短袖襯衫，採不透明彈性棉布。上方幾顆釦子開著，其餘扣住；胸腰處可見門襟拉力與橫向布皺。",
+        "meta": {
+          "semantic": {
+            "family": "neutral",
+            "tags": []
+          }
+        },
+        "topUnderbust": {
+          "baseEn": "short-sleeve button-up shirt, opaque stretch cotton, structured collar, upper buttons open, fastened buttons below the opening"
+        },
+        "wearableColorTarget": "shirt fabric",
+        "stableId": "wardrobe:上身-tops:open-button-short-sleeve-shirt",
+        "legacyIds": []
+      },
+      {
+        "zh": "開釦長袖襯衫",
+        "en": "fitted long-sleeve button-up shirt, opaque stretch cotton, structured collar, upper buttons open, taut fastened placket, horizontal chest and waist creases",
+        "desc": "有挺立襯衫領與前排釦的貼身長袖襯衫，採不透明彈性棉布。上方幾顆釦子開著，其餘扣住；胸腰處可見門襟拉力與橫向布皺。",
+        "meta": {
+          "semantic": {
+            "family": "neutral",
+            "tags": []
+          }
+        },
+        "topUnderbust": {
+          "baseEn": "long-sleeve button-up shirt, opaque stretch cotton, structured collar, upper buttons open, fastened buttons below the opening"
+        },
+        "wearableColorTarget": "shirt fabric",
+        "stableId": "wardrobe:上身-tops:open-button-long-sleeve-shirt",
+        "legacyIds": []
       }
     ],
     "上身圖案 (Top Surface Design)": [

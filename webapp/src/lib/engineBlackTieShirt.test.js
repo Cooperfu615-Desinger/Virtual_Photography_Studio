@@ -1,6 +1,10 @@
 import catalogProtected from './engine/midjourneyNaturalCatalogProtected.json' with { type: 'json' };
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
+import { preOpenButtonShirtTopsSource } from '../../../scripts/lib/gestureExpressionGazeHistoricalReplay.mjs';
+import { prePromptCopySource } from '../../../scripts/lib/promptCopyHistoricalReplay.mjs';
+import { prepareImmutableRuntimeLibrary } from './engine/runtimeCache.js';
 import { restorePreEthnicityOutputs } from './engine/ethnicityRevisionTestSupport.js';
 import { test } from 'node:test';
 import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls, normalizeLocks } from './engine.js';
@@ -29,9 +33,9 @@ function noneLocks() {
   }
   return locks;
 }
-function generate(overrides = {}, seed = SEED) {
+function generate(overrides = {}, seed = SEED, library = []) {
   return generatePrompts(1, { ...noneLocks(), topId: ID,
-    framingId: option('framingId', '全身鏡頭 (Full Body Shot)').id, ...overrides }, [], { random: createSeededRandom(seed) })[0];
+    framingId: option('framingId', '全身鏡頭 (Full Body Shot)').id, ...overrides }, library, { random: createSeededRandom(seed) })[0];
 }
 const outputs = p => Object.fromEntries([['grokPrompt', p.grokPrompt], ['zImagePrompt', p.zImagePrompt],
   ...p.extraPrompts.map(row => [row.id, row.text])]);
@@ -44,7 +48,10 @@ const count = (text, phrase = TIE) => text.toLowerCase().split(phrase.toLowerCas
 // all five crops and explicit ordinary/special swatches. Do not regenerate this
 // hash to accommodate an unreviewed renderer change.
 test('405 explicitly selected non-target top cases preserve selection and all six output bytes', () => {
-  const topIds = controls.find(c => c.key === 'topId').options.filter(o => o.zh !== NAME).map(o => o.id);
+  const path = 'webapp/src/data/database.json';
+  const current = readFileSync(new URL('../data/database.json', import.meta.url));
+  const historicalCatalog = prepareImmutableRuntimeLibrary(JSON.parse(preOpenButtonShirtTopsSource(path, prePromptCopySource(path, current))));
+  const topIds = getLockControls(historicalCatalog).find(c => c.key === 'topId').options.filter(o => o.zh !== NAME).map(o => o.id);
   assert.equal(topIds.length, 45);
   const cases = [];
   for (const topId of topIds) for (const crop of CROPS) cases.push({ id: `${topId}/${crop}/none`,
@@ -52,7 +59,7 @@ test('405 explicitly selected non-target top cases preserve selection and all si
   for (const topId of topIds) for (const color of COLORS) cases.push({ id: `${topId}/cowboy/${color}`,
     locks: { topId, framingId: option('framingId', '牛仔中景 (Cowboy Shot)').id, topColorId: option('topColorId', color).id } });
   const captured = cases.map(row => {
-    const p = generate(row.locks);
+    const p = generate(row.locks, SEED, historicalCatalog);
     // The frozen hash predates the 2026-10-14 ethnicity revision; reverse only that rollout.
     return { ...row, selectionHash: hash(p.selection), outputHash: hash(restorePreEthnicityOutputs(outputs(p))) };
   });

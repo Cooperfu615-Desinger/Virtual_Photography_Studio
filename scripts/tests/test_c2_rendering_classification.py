@@ -38,10 +38,13 @@ def before_new_outfit(result):
                 assert row['words'] == c.word_count(effective)
                 assert row['status'] == 'within'
                 row.update(words=c.word_count(historical), sourceSha256=c.digest(historical))
-    for added_id in [NEW_OUTFIT, COMPANION_ORBIT, 'locations:生活感室內-indoor-lifestyle:indoor-lawson-store', 'locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront']:
+    shirts = json.loads((c.ROOT/'scripts/lib/openButtonShirtTopsHistory.json').read_text())['reportRows']
+    for added_id in [NEW_OUTFIT, COMPANION_ORBIT, 'locations:生活感室內-indoor-lifestyle:indoor-lawson-store', 'locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront', *shirts]:
         added = [row for row in result['rows'] if row['id'] == added_id]
         if added:
             assert len(added) == 1
+            if added_id in shirts:
+                assert added[0]['sourceSha256'] == shirts[added_id]
             result['rows'] = [row for row in result['rows'] if row['id'] != added_id]
             result['summary'][added[0]['status']] -= 1
     return result

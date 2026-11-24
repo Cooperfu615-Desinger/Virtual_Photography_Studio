@@ -1,0 +1,471 @@
+{
+  "base": "1e52f3845cff99fb9c10bfc9c1e22574eb65d03f",
+  "files": [
+    {
+      "path": "knowledge_base/catalog/Wardrobe/上身-tops.json",
+      "beforeHash": "f8f05b3ae9f120d7e67d43a54c0893043ca7673934b728cb0c628c70059b844c",
+      "afterHash": "260d164fafe27bfa04a55595c4394806b047e6c783d05b82e2b3f569fd9d5795",
+      "edits": [
+        {
+          "line": 904,
+          "after": [
+            "    },\n",
+            "    {\n",
+            "      \"id\": \"wardrobe:上身-tops:open-button-short-sleeve-shirt\",\n",
+            "      \"legacyIds\": [],\n",
+            "      \"zh\": \"開釦短袖襯衫\",\n",
+            "      \"en\": \"fitted short-sleeve button-up shirt, opaque stretch cotton, structured collar, upper buttons open, taut fastened placket, horizontal chest and waist creases\",\n",
+            "      \"desc\": \"有挺立襯衫領與前排釦的貼身短袖襯衫，採不透明彈性棉布。上方幾顆釦子開著，其餘扣住；胸腰處可見門襟拉力與橫向布皺。\",\n",
+            "      \"topUnderbust\": {\n",
+            "        \"baseEn\": \"short-sleeve button-up shirt, opaque stretch cotton, structured collar, upper buttons open, fastened buttons below the opening\"\n",
+            "      },\n",
+            "      \"wearableColorTarget\": \"shirt fabric\",\n",
+            "      \"meta\": {\n",
+            "        \"semantic\": {\n",
+            "          \"family\": \"neutral\",\n",
+            "          \"tags\": []\n",
+            "        }\n",
+            "      }\n",
+            "    },\n",
+            "    {\n",
+            "      \"id\": \"wardrobe:上身-tops:open-button-long-sleeve-shirt\",\n",
+            "      \"legacyIds\": [],\n",
+            "      \"zh\": \"開釦長袖襯衫\",\n",
+            "      \"en\": \"fitted long-sleeve button-up shirt, opaque stretch cotton, structured collar, upper buttons open, taut fastened placket, horizontal chest and waist creases\",\n",
+            "      \"desc\": \"有挺立襯衫領與前排釦的貼身長袖襯衫，採不透明彈性棉布。上方幾顆釦子開著，其餘扣住；胸腰處可見門襟拉力與橫向布皺。\",\n",
+            "      \"topUnderbust\": {\n",
+            "        \"baseEn\": \"long-sleeve button-up shirt, opaque stretch cotton, structured collar, upper buttons open, fastened buttons below the opening\"\n",
+            "      },\n",
+            "      \"wearableColorTarget\": \"shirt fabric\",\n",
+            "      \"meta\": {\n",
+            "        \"semantic\": {\n",
+            "          \"family\": \"neutral\",\n",
+            "          \"tags\": []\n",
+            "        }\n",
+            "      }\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/catalog/id_registry.json",
+      "beforeHash": "1dd5b334fa3fb39dace4750fd9d5eb459a3a3340be1ac255e64f170cb806e0d3",
+      "afterHash": "53896882fc151b42cddffa4d7972c596a1c1d8fce00e6749331f4e0172d362f1",
+      "edits": [
+        {
+          "line": 7408,
+          "after": [
+            "    },\n",
+            "    {\n",
+            "      \"id\": \"wardrobe:上身-tops:open-button-short-sleeve-shirt\",\n",
+            "      \"initialGroup\": \"wardrobe\",\n",
+            "      \"initialCategory\": \"上身 (Tops)\",\n",
+            "      \"createdFrom\": \"1e52f3845cff99fb9c10bfc9c1e22574eb65d03f\",\n",
+            "      \"status\": \"active\",\n",
+            "      \"decisionRef\": \"Docs/specs/open-button-shirt-tops-v1.md\"\n",
+            "    },\n",
+            "    {\n",
+            "      \"id\": \"wardrobe:上身-tops:open-button-long-sleeve-shirt\",\n",
+            "      \"initialGroup\": \"wardrobe\",\n",
+            "      \"initialCategory\": \"上身 (Tops)\",\n",
+            "      \"createdFrom\": \"1e52f3845cff99fb9c10bfc9c1e22574eb65d03f\",\n",
+            "      \"status\": \"active\",\n",
+            "      \"decisionRef\": \"Docs/specs/open-button-shirt-tops-v1.md\"\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/catalog/index.json",
+      "beforeHash": "d03ff5edbe7fff68b63ea03fadb6df17240f7366050fd87080a1a3428d907d97",
+      "afterHash": "b06250fb540b228c537de367c555d8fd3a4fe84b1dde4ef569c00610e18b4a31",
+      "edits": [
+        {
+          "line": 6626,
+          "after": [
+            "          \"cells\": [\n",
+            "            \"**上身 (Tops)**\",\n",
+            "            \"\",\n",
+            "            \"\",\n",
+            "            \"\"\n",
+            "          ],\n",
+            "          \"columns\": {\n",
+            "            \"1\": \"zh\",\n",
+            "            \"2\": \"en\",\n",
+            "            \"3\": \"desc\"\n",
+            "          },\n",
+            "          \"affixes\": {\n",
+            "            \"1\": [\n",
+            "              \"\",\n",
+            "              \"\"\n",
+            "            ],\n",
+            "            \"2\": [\n",
+            "              \"`\",\n",
+            "              \"`\"\n",
+            "            ],\n",
+            "            \"3\": [\n",
+            "              \"\",\n",
+            "              \"\"\n",
+            "            ]\n",
+            "          }\n",
+            "        },\n",
+            "        {\n",
+            "          \"id\": \"wardrobe:上身-tops:open-button-short-sleeve-shirt\",\n",
+            "          \"cells\": [\n",
+            "            \"**上身 (Tops)**\",\n",
+            "            \"\",\n",
+            "            \"\",\n",
+            "            \"\"\n",
+            "          ],\n",
+            "          \"columns\": {\n",
+            "            \"1\": \"zh\",\n",
+            "            \"2\": \"en\",\n",
+            "            \"3\": \"desc\"\n",
+            "          },\n",
+            "          \"affixes\": {\n",
+            "            \"1\": [\n",
+            "              \"\",\n",
+            "              \"\"\n",
+            "            ],\n",
+            "            \"2\": [\n",
+            "              \"`\",\n",
+            "              \"`\"\n",
+            "            ],\n",
+            "            \"3\": [\n",
+            "              \"\",\n",
+            "              \"\"\n",
+            "            ]\n",
+            "          }\n",
+            "        },\n",
+            "        {\n",
+            "          \"id\": \"wardrobe:上身-tops:open-button-long-sleeve-shirt\",\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/wardrobe_and_styling.md",
+      "beforeHash": "548e9e919b90fd3916938b9cafd6fc8c23fc5afad2f0ba1032d53c195d1c0baf",
+      "afterHash": "3b1a54093e9288f3a3bbe1bb9ebf0968ca119d066762be62fa803baacb2a7d5b",
+      "edits": [
+        {
+          "line": 206,
+          "after": [
+            "| **上身 (Tops)** | 開釦短袖襯衫 | `fitted short-sleeve button-up shirt, opaque stretch cotton, structured collar, upper buttons open, taut fastened placket, horizontal chest and waist creases` | 有挺立襯衫領與前排釦的貼身短袖襯衫，採不透明彈性棉布。上方幾顆釦子開著，其餘扣住；胸腰處可見門襟拉力與橫向布皺。 |\n",
+            "| **上身 (Tops)** | 開釦長袖襯衫 | `fitted long-sleeve button-up shirt, opaque stretch cotton, structured collar, upper buttons open, taut fastened placket, horizontal chest and waist creases` | 有挺立襯衫領與前排釦的貼身長袖襯衫，採不透明彈性棉布。上方幾顆釦子開著，其餘扣住；胸腰處可見門襟拉力與橫向布皺。 |\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/data/database.json",
+      "beforeHash": "d9775f72ec743812041ab510d09d14bf754a2227794f4dd746a71773d7bf6e58",
+      "afterHash": "111a631ddf919b2298fcd2c79ae3e11e7ab04c4f5a4af1cd060af613108a7698",
+      "edits": [
+        {
+          "line": 5466,
+          "after": [
+            "      },\n",
+            "      {\n",
+            "        \"zh\": \"開釦短袖襯衫\",\n",
+            "        \"en\": \"fitted short-sleeve button-up shirt, opaque stretch cotton, structured collar, upper buttons open, taut fastened placket, horizontal chest and waist creases\",\n",
+            "        \"desc\": \"有挺立襯衫領與前排釦的貼身短袖襯衫，採不透明彈性棉布。上方幾顆釦子開著，其餘扣住；胸腰處可見門襟拉力與橫向布皺。\",\n",
+            "        \"meta\": {\n",
+            "          \"semantic\": {\n",
+            "            \"family\": \"neutral\",\n",
+            "            \"tags\": []\n",
+            "          }\n",
+            "        },\n",
+            "        \"topUnderbust\": {\n",
+            "          \"baseEn\": \"short-sleeve button-up shirt, opaque stretch cotton, structured collar, upper buttons open, fastened buttons below the opening\"\n",
+            "        },\n",
+            "        \"wearableColorTarget\": \"shirt fabric\",\n",
+            "        \"stableId\": \"wardrobe:上身-tops:open-button-short-sleeve-shirt\",\n",
+            "        \"legacyIds\": []\n",
+            "      },\n",
+            "      {\n",
+            "        \"zh\": \"開釦長袖襯衫\",\n",
+            "        \"en\": \"fitted long-sleeve button-up shirt, opaque stretch cotton, structured collar, upper buttons open, taut fastened placket, horizontal chest and waist creases\",\n",
+            "        \"desc\": \"有挺立襯衫領與前排釦的貼身長袖襯衫，採不透明彈性棉布。上方幾顆釦子開著，其餘扣住；胸腰處可見門襟拉力與橫向布皺。\",\n",
+            "        \"meta\": {\n",
+            "          \"semantic\": {\n",
+            "            \"family\": \"neutral\",\n",
+            "            \"tags\": []\n",
+            "          }\n",
+            "        },\n",
+            "        \"topUnderbust\": {\n",
+            "          \"baseEn\": \"long-sleeve button-up shirt, opaque stretch cotton, structured collar, upper buttons open, fastened buttons below the opening\"\n",
+            "        },\n",
+            "        \"wearableColorTarget\": \"shirt fabric\",\n",
+            "        \"stableId\": \"wardrobe:上身-tops:open-button-long-sleeve-shirt\",\n",
+            "        \"legacyIds\": []\n"
+          ],
+          "before": []
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/catalogSnapshot.test.js",
+      "beforeHash": "5a6e7a78f2f6f9a1e73e9851354370f5dafc01de970eb5a27de9a7c7decf4675",
+      "afterHash": "23c0d86261f05d0928af5da762f043e992065b9b25747e3ff1e2792c6e6bdc10",
+      "edits": [
+        {
+          "line": 52,
+          "after": [
+            "  assert.equal(originalCount, 1059);\n"
+          ],
+          "before": [
+            "  assert.equal(originalCount, 1057);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "scripts/tests/test_catalog_cutover.py",
+      "beforeHash": "322d979a5cbcf2d8dbaeef4857ba8a820c54c3fa3420a613cb417f403238a4db",
+      "afterHash": "2556a66623503cbc0b2ade7f069fd1197b3cbd5969d3169e8029bd3483af7b63",
+      "edits": [
+        {
+          "line": 66,
+          "before": [
+            "        self.assertEqual(len(entries) - len(added) - len(companion) - len(lawson) - len(eye_expressions), 1050)\n"
+          ],
+          "after": [
+            "        shirt_ids = {\n",
+            "            'wardrobe:上身-tops:open-button-short-sleeve-shirt',\n",
+            "            'wardrobe:上身-tops:open-button-long-sleeve-shirt',\n",
+            "        }\n",
+            "        shirts = [row for row in entries if row['id'] in shirt_ids]\n",
+            "        self.assertEqual({row['id'] for row in shirts}, shirt_ids)\n",
+            "        self.assertEqual(len(entries) - len(added) - len(companion) - len(lawson) - len(eye_expressions) - len(shirts), 1050)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "scripts/tests/test_c2_rendering_classification.py",
+      "beforeHash": "b6d635124adda79b0af838c35723f3cde784816d628a591183dbb9a43329a3b8",
+      "afterHash": "72f4a896d5e319187665b272fad2653fab4336ca300189d40c118bed1c97498c",
+      "edits": [
+        {
+          "line": 40,
+          "before": [
+            "    for added_id in [NEW_OUTFIT, COMPANION_ORBIT, 'locations:生活感室內-indoor-lifestyle:indoor-lawson-store', 'locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront']:\n"
+          ],
+          "after": [
+            "    shirts = json.loads((c.ROOT/'scripts/lib/openButtonShirtTopsHistory.json').read_text())['reportRows']\n",
+            "    for added_id in [NEW_OUTFIT, COMPANION_ORBIT, 'locations:生活感室內-indoor-lifestyle:indoor-lawson-store', 'locations:城市與社群感-urban-social-snapshots:outdoor-lawson-storefront', *shirts]:\n"
+          ]
+        },
+        {
+          "line": 45,
+          "before": [],
+          "after": [
+            "            if added_id in shirts:\n",
+            "                assert added[0]['sourceSha256'] == shirts[added_id]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/catalogSemanticSource.test.js",
+      "beforeHash": "f42f72b9671b09ae1daf4d0b1a29560f47ddd3e007887a0071d5a5ec7ffbdc71",
+      "afterHash": "a79fef2f4b5f6926da95dea652e964c98db34737baa120a7fe888adccd7e2efd",
+      "edits": [
+        {
+          "line": 36,
+          "before": [
+            "  assert.equal(added.length,1);assert.equal(companion.length,1);assert.equal(rows.filter(row => row.stableId?.endsWith('lawson-store') || row.stableId?.endsWith('lawson-storefront')).length,2);assert.equal(rows.length-added.length-companion.length-2-reviewedEyes.length,1050);\n"
+          ],
+          "after": [
+            "  const shirtIds = ['short', 'long'].map(sleeve => `wardrobe:上身-tops:open-button-${sleeve}-sleeve-shirt`);\n",
+            "  const shirts = shirtIds.map(id => rows.find(row => row.stableId === id));\n",
+            "  for (const shirt of shirts) assert.deepEqual(shirt?.meta.semantic, { family: 'neutral', tags: [] });\n",
+            "  assert.equal(added.length,1);assert.equal(companion.length,1);assert.equal(rows.filter(row => row.stableId?.endsWith('lawson-store') || row.stableId?.endsWith('lawson-storefront')).length,2);assert.equal(rows.length-added.length-companion.length-2-reviewedEyes.length-shirts.length,1050);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/bandagePasties.test.js",
+      "beforeHash": "688044223f4c2c5f3e216cc41cf98d578b10e4a0d7a349ca1f5af944b8d1fd6c",
+      "afterHash": "566ee8d0fc1b1656ba2c233df2177fab853b2f772cfa8d9725937cd05f03c45c",
+      "edits": [
+        {
+          "line": 59,
+          "before": [
+            "    assert.deepEqual(options.slice(0, -1).map(o => o.id), baseline.oldTopIds);\n",
+            "    assert.equal(options.at(-1).id, id);\n",
+            "    assert.equal(options.at(-1).zh, name);\n",
+            "    assert.equal(options.at(-1).en, source);\n"
+          ],
+          "after": [
+            "    assert.deepEqual(options.slice(0, baseline.oldTopIds.length).map(o => o.id), baseline.oldTopIds);\n",
+            "    const bandage = options[baseline.oldTopIds.length];\n",
+            "    assert.equal(bandage.id, id);\n",
+            "    assert.equal(bandage.zh, name);\n",
+            "    assert.equal(bandage.en, source);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/minimalCoverageWardrobe.test.js",
+      "beforeHash": "139b0e0f54be10eaf4dbe601a5255df803d0db9c6ca0f4d19f5c68b973341bb6",
+      "afterHash": "d5018139a62574c1b97037ebfd7ad2d5494b3c7b164d1c552261ffc3be3c57a2",
+      "edits": [
+        {
+          "line": 58,
+          "before": [
+            "      assert.equal(current.length, before.length + 3);\n"
+          ],
+          "after": [
+            "      assert.equal(current.length, before.length + (key === 'topId' ? 5 : 3));\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/underbustTopFit.test.js",
+      "beforeHash": "dcb04f64a221c622d38c7ad87602fd9057d378cda032664f8c134c2c3ea6de2b",
+      "afterHash": "2db5593aaf4c3a3f43734b1db0653929a72ab8b846a8438deb014b32b531ab2a",
+      "edits": [
+        {
+          "line": 47,
+          "before": [
+            "  assert.equal(tops.length, 39);\n"
+          ],
+          "after": [
+            "  assert.equal(tops.length, 41);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engineBlackTieShirt.test.js",
+      "beforeHash": "0fefa74701c45e450e2989816aaaa270505e244a758c057dd3814988213a7399",
+      "afterHash": "99fbef849e9804a5ee872a115b595d539859338d7c78773641a117c0559a8636",
+      "edits": [
+        {
+          "line": 3,
+          "before": [],
+          "after": [
+            "import { readFileSync } from 'node:fs';\n",
+            "import { preOpenButtonShirtTopsSource } from '../../../scripts/lib/gestureExpressionGazeHistoricalReplay.mjs';\n",
+            "import { prePromptCopySource } from '../../../scripts/lib/promptCopyHistoricalReplay.mjs';\n",
+            "import { prepareImmutableRuntimeLibrary } from './engine/runtimeCache.js';\n"
+          ]
+        },
+        {
+          "line": 35,
+          "before": [
+            "function generate(overrides = {}, seed = SEED) {\n"
+          ],
+          "after": [
+            "function generate(overrides = {}, seed = SEED, library = []) {\n"
+          ]
+        },
+        {
+          "line": 37,
+          "before": [
+            "    framingId: option('framingId', '全身鏡頭 (Full Body Shot)').id, ...overrides }, [], { random: createSeededRandom(seed) })[0];\n"
+          ],
+          "after": [
+            "    framingId: option('framingId', '全身鏡頭 (Full Body Shot)').id, ...overrides }, library, { random: createSeededRandom(seed) })[0];\n"
+          ]
+        },
+        {
+          "line": 50,
+          "before": [
+            "  const topIds = controls.find(c => c.key === 'topId').options.filter(o => o.zh !== NAME).map(o => o.id);\n"
+          ],
+          "after": [
+            "  const path = 'webapp/src/data/database.json';\n",
+            "  const current = readFileSync(new URL('../data/database.json', import.meta.url));\n",
+            "  const historicalCatalog = prepareImmutableRuntimeLibrary(JSON.parse(preOpenButtonShirtTopsSource(path, prePromptCopySource(path, current))));\n",
+            "  const topIds = getLockControls(historicalCatalog).find(c => c.key === 'topId').options.filter(o => o.zh !== NAME).map(o => o.id);\n"
+          ]
+        },
+        {
+          "line": 61,
+          "before": [
+            "    const p = generate(row.locks);\n"
+          ],
+          "after": [
+            "    const p = generate(row.locks, SEED, historicalCatalog);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "scripts/lib/promptCopyHistoricalTest.mjs",
+      "beforeHash": "a6c45653561d5596b55be50f3cf469bc16bdfa2444072d000920db3ecd61b8af",
+      "afterHash": "f17e1766f2f5fc2f00322dc17584e58dc601d5de6d3e674c5e8c0a1e7659b4d6",
+      "edits": [
+        {
+          "line": 10,
+          "before": [],
+          "after": [
+            "import { preOpenButtonShirtTopsSource } from './gestureExpressionGazeHistoricalReplay.mjs';\n"
+          ]
+        },
+        {
+          "line": 12,
+          "before": [],
+          "after": [
+            "const database = 'webapp/src/data/database.json';\n"
+          ]
+        },
+        {
+          "line": 15,
+          "before": [
+            "    if (!promptCopyHistoricalPaths.length || process.env.VPS_COPY_HISTORY_CHILD === '1') return body(context);\n"
+          ],
+          "after": [
+            "    if (process.env.VPS_COPY_HISTORY_CHILD === '1') return body(context);\n",
+            "    const currentDatabase = readFileSync(join(root, database));\n",
+            "    const historicalDatabase = preOpenButtonShirtTopsSource(database, prePromptCopySource(database, currentDatabase));\n",
+            "    const paths = new Set(promptCopyHistoricalPaths);\n",
+            "    if (!historicalDatabase.equals(currentDatabase)) paths.add(database);\n",
+            "    if (!paths.size) return body(context);\n"
+          ]
+        },
+        {
+          "line": 28,
+          "before": [
+            "      for (const path of promptCopyHistoricalPaths) {\n"
+          ],
+          "after": [
+            "      for (const path of paths) {\n"
+          ]
+        },
+        {
+          "line": 30,
+          "before": [
+            "        const original = prePromptCopySource(path, current);\n"
+          ],
+          "after": [
+            "        const original = preOpenButtonShirtTopsSource(path, prePromptCopySource(path, current));\n"
+          ]
+        },
+        {
+          "line": 34,
+          "before": [
+            "      assert.ok(changed, 'Historical child must restore actual reviewed copy sources');\n"
+          ],
+          "after": [
+            "      assert.ok(changed, 'Historical child must restore actual reviewed catalog sources');\n"
+          ]
+        }
+      ]
+    }
+  ],
+  "reportRows": {
+    "wardrobe:上身-tops:open-button-short-sleeve-shirt": "d842cdb39157002599ddb616c1b8e1e6e417cbb44aab1f7bb669e6488dabed71",
+    "wardrobe:上身-tops:open-button-long-sleeve-shirt": "00e06c3ed2f8e76761cae3ae6d8bb855192244ae4a4dd77e04a4007fc70cdc05"
+  }
+}

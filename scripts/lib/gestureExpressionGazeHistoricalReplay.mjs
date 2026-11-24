@@ -25,11 +25,16 @@ import page3FieldActions from './page3FieldActionsHistory.json' with { type: 'js
 import page3Person from './page3PersonHistory.json' with { type: 'json' };
 import page3Compression from './page3PromptCompressionHistory.json' with { type: 'json' };
 import closedEyeReview from './closedEyeGazeHistory.json' with { type: 'json' };
+import openButtonShirtTops from './openButtonShirtTopsHistory.json' with { type: 'json' };
+
+export function preOpenButtonShirtTopsSource(path, source) {
+  return reverseReviewedSource(openButtonShirtTops, path, source);
+}
 
 const hash = source => createHash('sha256').update(source).digest('hex');
 const copyFiles = [...promptCopyHistoricalPaths.map(path => ({ path })), ...copyInfrastructure.files];
 export const gestureExpressionGazeHistoricalPaths = [...new Set(
-  [...copyFiles, ...threeHandGestures.files, ...subjectFramingCrop.files, ...subjectFraming.files, ...observationCaptureExpansion.files, ...page3PersonPerformance.files, ...page3LocationExpansion.files, ...page3LocationPilot.files, ...waistbandStrings.files, ...waistbandHeight.files, ...biteHemGesture.files, ...bodyTightFit.files, ...adjustTopGesture.files, ...waistbandLiftGesture.files, ...underbustTeeGesture.files, ...raisedTopHem.files, ...page3FieldActions.files, ...page3Person.files, ...page3Compression.files, ...closedEyeReview.files, ...review.files].map(file => file.path)
+  [...openButtonShirtTops.files, ...copyFiles, ...threeHandGestures.files, ...subjectFramingCrop.files, ...subjectFraming.files, ...observationCaptureExpansion.files, ...page3PersonPerformance.files, ...page3LocationExpansion.files, ...page3LocationPilot.files, ...waistbandStrings.files, ...waistbandHeight.files, ...biteHemGesture.files, ...bodyTightFit.files, ...adjustTopGesture.files, ...waistbandLiftGesture.files, ...underbustTeeGesture.files, ...raisedTopHem.files, ...page3FieldActions.files, ...page3Person.files, ...page3Compression.files, ...closedEyeReview.files, ...review.files].map(file => file.path)
 )];
 export function preGestureExpressionGazeSource(path, source) {
   const prePage3PromptSource = reverseReviewedSource(page3Compression, path, prePage3PersonSource(path, source));
@@ -45,7 +50,8 @@ export function preSubjectFramingCropSource(path, source) {
 }
 
 export function preThreeHandGesturesSource(path, source) {
-  return reverseReviewedSource(threeHandGestures, path, reverseReviewedSource(copyInfrastructure, path, prePromptCopySource(path, source)));
+  const priorCatalog = preOpenButtonShirtTopsSource(path, prePromptCopySource(path, source));
+  return reverseReviewedSource(threeHandGestures, path, reverseReviewedSource(copyInfrastructure, path, priorCatalog));
 }
 
 export function preSubjectFramingSource(path, source) {

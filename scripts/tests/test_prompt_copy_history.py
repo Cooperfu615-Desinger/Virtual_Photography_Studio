@@ -26,9 +26,16 @@ class HistoryTests(unittest.TestCase):
     def test_infrastructure_preserves_the_original_test_source(self):
         repo = Repository(ROOT)
         manifest = json.loads((ROOT / 'scripts/lib/ciPromptCopyInfrastructureHistory.json').read_text())
+        shirts = json.loads((ROOT / 'scripts/lib/openButtonShirtTopsHistory.json').read_text())
+        later_changes = {file['path']: file for file in shirts['files']}
         self.assertEqual(manifest['base'], '782a4516dcb813c55e35c8e76f99d6a640a09122')
         for record in manifest['files']:
-            self.assertEqual(reverse_file(record, (ROOT / record['path']).read_text()), repo.read(manifest['base'], record['path']))
+            path = record['path']
+            source = (ROOT / path).read_text()
+            if path in later_changes:
+                source = reverse_file(later_changes[path], source)
+                self.assertEqual(source, repo.read(shirts['base'], path))
+            self.assertEqual(reverse_file(record, source), repo.read(manifest['base'], path))
 
     def test_exact_inverse_rejects_unknown_bytes_and_round_trips_multiple_edits(self):
         before, after = 'one\ntwo\nthree\nfour\n', 'one\nnew two\nthree\nfour\nappended\n'

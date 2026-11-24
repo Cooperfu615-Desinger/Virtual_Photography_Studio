@@ -50,7 +50,7 @@ test('test export captures pre-postprocessing inference once and isolates suppli
   assert.equal(source.Character['表情 (Facial Expression)'].filter(item =>
     ['eyes-closed-enjoyment', 'wink-toothy-smile', 'squinting-toothy-smile']
       .some(slug => item.stableId === `character:表情-facial-expression:${slug}`)).length, 3);
-  assert.equal(originalCount, 1057);
+  assert.equal(originalCount, 1059);
   assert.equal(finalCount, originalCount + 2, 'accessory split adds two synthetic none entries');
   assert.notDeepEqual(first.entries.wardrobe, first.catalog.wardrobe, 'accessory split and aliases must occur after the entry capture');
   const item = Object.values(first.entries.wardrobe).flat()[0];

@@ -34,7 +34,10 @@ test('formal semantic covers all records, including Negative without tags, and l
     .map(slug => rows.find(row => row.stableId === `character:表情-facial-expression:${slug}`));
   assert.ok(reviewedEyes.every(Boolean));
   for (const row of reviewedEyes) assert.deepEqual(row.meta.semantic.tags, ['manual_only']);
-  assert.equal(added.length,1);assert.equal(companion.length,1);assert.equal(rows.filter(row => row.stableId?.endsWith('lawson-store') || row.stableId?.endsWith('lawson-storefront')).length,2);assert.equal(rows.length-added.length-companion.length-2-reviewedEyes.length,1050);
+  const shirtIds = ['short', 'long'].map(sleeve => `wardrobe:上身-tops:open-button-${sleeve}-sleeve-shirt`);
+  const shirts = shirtIds.map(id => rows.find(row => row.stableId === id));
+  for (const shirt of shirts) assert.deepEqual(shirt?.meta.semantic, { family: 'neutral', tags: [] });
+  assert.equal(added.length,1);assert.equal(companion.length,1);assert.equal(rows.filter(row => row.stableId?.endsWith('lawson-store') || row.stableId?.endsWith('lawson-storefront')).length,2);assert.equal(rows.length-added.length-companion.length-2-reviewedEyes.length-shirts.length,1050);
   assert(rows.every(r=>r.meta && Object.hasOwn(r.meta,'semantic')));
   for(const row of Object.values(source.Negative).flat()){assert(!Object.hasOwn(row.meta.semantic,'tags'));assert(Array.isArray(row.meta.semantic.conflictTags));assert(Array.isArray(row.meta.semantic.useTags));}
   source.Locations[Object.keys(source.Locations)[0]][0].meta.semantic.tags.push('fixture-only');

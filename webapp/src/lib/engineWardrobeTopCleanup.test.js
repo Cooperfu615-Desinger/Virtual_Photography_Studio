@@ -50,6 +50,8 @@ const EXPECTED_TOP_LABELS = [
   'X形胸貼',
   '小三角細繩比基尼上身',
   '創可貼造型胸貼',
+  '開釦短袖襯衫',
+  '開釦長袖襯衫',
 ];
 
 const controlOptions = (key) => getLockControls().find((control) => control.key === key).options;

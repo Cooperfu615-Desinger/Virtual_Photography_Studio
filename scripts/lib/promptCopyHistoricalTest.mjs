@@ -8,10 +8,17 @@ import { tmpdir } from 'node:os';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { prePromptCopySource, promptCopyHistoricalPaths } from './promptCopyHistoricalReplay.mjs';
+import { preOpenButtonShirtTopsSource } from './gestureExpressionGazeHistoricalReplay.mjs';
 const root = fileURLToPath(new URL('../../', import.meta.url));
+const database = 'webapp/src/data/database.json';
 export function preCopyHistoricalTest(url) {
   return (name, body) => test(name, async context => {
-    if (!promptCopyHistoricalPaths.length || process.env.VPS_COPY_HISTORY_CHILD === '1') return body(context);
+    if (process.env.VPS_COPY_HISTORY_CHILD === '1') return body(context);
+    const currentDatabase = readFileSync(join(root, database));
+    const historicalDatabase = preOpenButtonShirtTopsSource(database, prePromptCopySource(database, currentDatabase));
+    const paths = new Set(promptCopyHistoricalPaths);
+    if (!historicalDatabase.equals(currentDatabase)) paths.add(database);
+    if (!paths.size) return body(context);
     const directory = mkdtempSync(join(tmpdir(), 'vps-copy-history-'));
     try {
       mkdirSync(join(directory, 'webapp'));
@@ -19,13 +26,13 @@ export function preCopyHistoricalTest(url) {
       cpSync(join(root, 'webapp/package.json'), join(directory, 'webapp/package.json'));
       symlinkSync(join(root, 'webapp/node_modules'), join(directory, 'webapp/node_modules'), 'dir');
       let changed = 0;
-      for (const path of promptCopyHistoricalPaths) {
+      for (const path of paths) {
         const current = readFileSync(join(directory, path));
-        const original = prePromptCopySource(path, current);
+        const original = preOpenButtonShirtTopsSource(path, prePromptCopySource(path, current));
         if (!original.equals(current)) changed += 1;
         writeFileSync(join(directory, path), original);
       }
-      assert.ok(changed, 'Historical child must restore actual reviewed copy sources');
+      assert.ok(changed, 'Historical child must restore actual reviewed catalog sources');
       const gitDir = execFileSync('git', ['-C', root, 'rev-parse', '--absolute-git-dir'], { encoding: 'utf8' }).trim();
       const pattern = '^' + name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '$';
       execFileSync(process.execPath, ['--test', '--test-name-pattern=' + pattern,

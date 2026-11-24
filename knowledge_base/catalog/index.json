@@ -6651,6 +6651,62 @@
           }
         },
         {
+          "id": "wardrobe:上身-tops:open-button-short-sleeve-shirt",
+          "cells": [
+            "**上身 (Tops)**",
+            "",
+            "",
+            ""
+          ],
+          "columns": {
+            "1": "zh",
+            "2": "en",
+            "3": "desc"
+          },
+          "affixes": {
+            "1": [
+              "",
+              ""
+            ],
+            "2": [
+              "`",
+              "`"
+            ],
+            "3": [
+              "",
+              ""
+            ]
+          }
+        },
+        {
+          "id": "wardrobe:上身-tops:open-button-long-sleeve-shirt",
+          "cells": [
+            "**上身 (Tops)**",
+            "",
+            "",
+            ""
+          ],
+          "columns": {
+            "1": "zh",
+            "2": "en",
+            "3": "desc"
+          },
+          "affixes": {
+            "1": [
+              "",
+              ""
+            ],
+            "2": [
+              "`",
+              "`"
+            ],
+            "3": [
+              "",
+              ""
+            ]
+          }
+        },
+        {
           "id": "wardrobe:上身圖案-top-surface-design:全無:0",
           "cells": [
             "**上身圖案 (Top Surface Design)**",

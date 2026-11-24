@@ -7406,6 +7406,22 @@
       "createdFrom": "fd3f3bb14e15ec556021791bdda71b8fe8d8731f",
       "status": "active",
       "decisionRef": "Docs/specs/gesture-expression-gaze-additions-v1.md"
+    },
+    {
+      "id": "wardrobe:上身-tops:open-button-short-sleeve-shirt",
+      "initialGroup": "wardrobe",
+      "initialCategory": "上身 (Tops)",
+      "createdFrom": "1e52f3845cff99fb9c10bfc9c1e22574eb65d03f",
+      "status": "active",
+      "decisionRef": "Docs/specs/open-button-shirt-tops-v1.md"
+    },
+    {
+      "id": "wardrobe:上身-tops:open-button-long-sleeve-shirt",
+      "initialGroup": "wardrobe",
+      "initialCategory": "上身 (Tops)",
+      "createdFrom": "1e52f3845cff99fb9c10bfc9c1e22574eb65d03f",
+      "status": "active",
+      "decisionRef": "Docs/specs/open-button-shirt-tops-v1.md"
     }
   ]
 }

@@ -57,10 +57,11 @@ function legacyTopSnapshot(p) {
 test('bandage pasties append one independent option to single and duo catalogs without moving old IDs', () => {
   for (const key of ['topId', 'topAId', 'topBId']) {
     const options = controls.find(c => c.key === key).options;
-    assert.deepEqual(options.slice(0, -1).map(o => o.id), baseline.oldTopIds);
-    assert.equal(options.at(-1).id, id);
-    assert.equal(options.at(-1).zh, name);
-    assert.equal(options.at(-1).en, source);
+    assert.deepEqual(options.slice(0, baseline.oldTopIds.length).map(o => o.id), baseline.oldTopIds);
+    const bandage = options[baseline.oldTopIds.length];
+    assert.equal(bandage.id, id);
+    assert.equal(bandage.zh, name);
+    assert.equal(bandage.en, source);
     assert.equal(normalizeLocks({ ...noneLocks(), [key]: id })[key], id);
     assert.equal(option(key, 'X形胸貼').id, 'wardrobe:上身-tops:小罩杯細帶蕾絲胸罩:43');
   }
