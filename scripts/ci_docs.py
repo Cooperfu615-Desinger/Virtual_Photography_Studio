@@ -348,7 +348,7 @@ def main():
                        '`\n\n| Job | Result |\n| --- | --- |\n' + rows +
                        '\n\nDocs route: product tests/build/deploy are intentionally skipped only after verified equivalence. '
                        'Copy route: scoped comparison, catalog checks, lint/build, Functions and deployment remain required. '
-                       'Full route: every applicable product gate must succeed. Scheduled tests are not enabled.')
+                       'Full route: every applicable product gate must succeed. Daily validation is separate and never deploys.')
         return 0 if passed else 1
     repo = Repository(Path(__file__).resolve().parents[1])
     head = os.environ.get('GITHUB_SHA', '')

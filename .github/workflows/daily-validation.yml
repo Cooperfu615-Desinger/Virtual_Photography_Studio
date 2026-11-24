@@ -1,0 +1,235 @@
+name: Daily Full Validation
+
+on:
+  schedule:
+    # 20:17 UTC = 04:17 Asia/Taipei the following day (UTC+08:00).
+    - cron: '17 20 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+# Independent of CI and Deploy Webapp; never cancels a product deployment.
+concurrency:
+  group: daily-full-validation-${{ github.ref }}
+  cancel-in-progress: false
+  queue: max
+
+jobs:
+  plan:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    outputs:
+      mode: ${{ steps.plan.outputs.mode }}
+      reason: ${{ steps.plan.outputs.reason }}
+      head: ${{ steps.plan.outputs.head }}
+      evidence_sha: ${{ steps.plan.outputs.evidence_sha }}
+      evidence_run: ${{ steps.plan.outputs.evidence_run }}
+      pending_run: ${{ steps.plan.outputs.pending_run }}
+      last_full_sha: ${{ steps.plan.outputs.last_full_sha }}
+      last_full_run: ${{ steps.plan.outputs.last_full_run }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Test daily routing
+        run: python3 -m unittest discover -s scripts/tests -p 'test_ci_daily.py'
+
+      - name: Decide daily validation
+        id: plan
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/ci_daily.py plan
+
+  webapp-quality:
+    needs: plan
+    if: needs.plan.outputs.mode == 'full'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Select trusted catalog history
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PUSH_BEFORE: ${{ github.event.before }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+        run: python3 scripts/catalog_ci_history.py >> "$GITHUB_ENV"
+
+      - name: Test data sync validation
+        run: python3 -m unittest discover -s scripts/tests
+
+      - name: Validate generated database
+        run: python3 scripts/sync_to_json.py --check
+
+      - name: Validate public asset budget
+        run: python3 scripts/check_public_assets.py
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: webapp/package-lock.json
+
+      - name: Install dependencies
+        working-directory: webapp
+        run: npm ci
+
+      - name: Validate catalog integrity
+        run: node scripts/check_catalog_integrity.mjs --strict
+
+      - name: Test catalog preparation tools
+        run: node --test scripts/tests/catalog-integrity.test.mjs scripts/tests/catalog-semantics.test.mjs scripts/tests/catalog-legacy.test.mjs
+
+      - name: Verify formal catalog history and all generated outputs
+        run: python3 scripts/sync_to_json.py --check --report-json
+
+      - name: Test
+        working-directory: webapp
+        run: npm test
+
+      - name: Verify current Prompt copy sources
+        run: python3 scripts/validate_current_copy.py
+
+      - name: Lint
+        working-directory: webapp
+        run: npm run lint
+
+  functions-quality:
+    needs: plan
+    if: needs.plan.outputs.mode == 'full'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: functions/package-lock.json
+
+      - name: Install dependencies
+        working-directory: functions
+        run: npm ci
+
+      - name: Test
+        working-directory: functions
+        run: npm test
+
+      - name: Lint
+        working-directory: functions
+        run: npm run lint
+
+  build:
+    if: needs.plan.outputs.mode == 'full'
+    needs:
+      - plan
+      - webapp-quality
+      - functions-quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: webapp/package-lock.json
+
+      - name: Install dependencies
+        working-directory: webapp
+        run: npm ci
+
+      - name: Validate Firebase build secrets
+        env:
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+          VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}
+          VITE_FIREBASE_ALLOWED_EMAILS: ${{ secrets.VITE_FIREBASE_ALLOWED_EMAILS }}
+        run: |
+          missing=()
+          for name in \
+            VITE_FIREBASE_API_KEY \
+            VITE_FIREBASE_AUTH_DOMAIN \
+            VITE_FIREBASE_PROJECT_ID \
+            VITE_FIREBASE_STORAGE_BUCKET \
+            VITE_FIREBASE_MESSAGING_SENDER_ID \
+            VITE_FIREBASE_APP_ID \
+            VITE_FIREBASE_MEASUREMENT_ID \
+            VITE_FIREBASE_ALLOWED_EMAILS
+          do
+            if [ -z "${!name}" ]; then
+              missing+=("$name")
+            fi
+          done
+
+          if [ "${#missing[@]}" -gt 0 ]; then
+            printf 'Missing Firebase build secrets: %s\n' "${missing[*]}"
+            exit 1
+          fi
+
+      - name: Build site
+        working-directory: webapp
+        env:
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+          VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}
+          VITE_FIREBASE_ALLOWED_EMAILS: ${{ secrets.VITE_FIREBASE_ALLOWED_EMAILS }}
+        run: npm run build
+
+      - name: Validate production prompt catalog initialization
+        run: node scripts/check_prompt_bundle.mjs
+
+  full-evidence:
+    if: needs.plan.outputs.mode == 'full'
+    needs: [plan, webapp-quality, functions-quality, build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Record complete full validation
+        env:
+          DAILY_NEEDS_JSON: ${{ toJSON(needs) }}
+        run: python3 scripts/ci_daily.py record
+
+  daily-result:
+    if: ${{ always() }}
+    needs: [plan, webapp-quality, functions-quality, build, full-evidence]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Summarize daily validation
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DAILY_NEEDS_JSON: ${{ toJSON(needs) }}
+        run: python3 scripts/ci_daily.py summarize

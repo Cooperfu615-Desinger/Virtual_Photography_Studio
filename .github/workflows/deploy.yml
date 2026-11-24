@@ -105,6 +105,10 @@ jobs:
           COPY_BASE: ${{ needs.scope.outputs.copy_base }}
         run: python3 scripts/validate_prompt_copy.py --base "$COPY_BASE" --head "$GITHUB_SHA"
 
+      - name: Verify current Prompt copy sources
+        if: needs.scope.outputs.mode == 'full'
+        run: python3 scripts/validate_current_copy.py
+
       - name: Lint
         working-directory: webapp
         run: npm run lint
