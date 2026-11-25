@@ -199,6 +199,7 @@ export default function DllPicProPanel({
   let openaiError = '';
   try { if (is26) openAI26Settings({ ...openaiSettings, quality, resolution }); } catch (error) { openaiError = error.message; }
   const loraSelection = getDllPicLoraSelection(modelKey);
+  const retiredOmni = modelKey === DLL_QWEN_MODEL_KEYS.omni;
   const loraLabel = loraSelection.label || 'MOSS LoRA';
   let loraSettings = {};
   let loraError = '';
@@ -244,6 +245,7 @@ export default function DllPicProPanel({
     && activeModel.generationModel
     && isAspectRatioSupported
     && !loraError
+    && !retiredOmni
     && !openaiError && !seedreamError && !referenceBusy
     && !invalidLockedSize
     && shared.ready
@@ -350,11 +352,14 @@ export default function DllPicProPanel({
   }, [apiKeys, isApiKeyModalOpen]);
 
   const loraVariants = Object.values(DLL_QWEN_MODEL_KEYS).includes(modelKey)
-    ? [[DLL_QWEN_MODEL_KEYS.lora, 'v1.3b LoRA'], [DLL_QWEN_MODEL_KEYS.omni, 'Omni LoRA']]
+    ? [[DLL_QWEN_MODEL_KEYS.lora, 'v1.3b LoRA']]
     : Object.values(DLL_ASIAN_MIX_MODEL_KEYS).includes(modelKey)
       ? [[DLL_ASIAN_MIX_MODEL_KEYS.lora, 'Asian Mix LoKr'], [DLL_ASIAN_MIX_MODEL_KEYS.radiance, 'Radiance LoRA']]
       : null;
   const loraControls = <>
+        {retiredOmni && <div role="status">Omni LoRA 已移除；請切換為原生 Qwen 或選擇 v1.3b LoRA。
+          <button type="button" className="secondary" onClick={() => { setModelKey(DLL_QWEN_MODEL_KEYS.base); setLoraStrength(loadStoredLoraStrength(DLL_QWEN_MODEL_KEYS.base)); saveStoredGenerationSettings(DLL_QWEN_MODEL_KEYS.base, activeResolution); }}>切換為原生 Qwen</button>
+        </div>}
         {loraVariants ?
           loraVariants.map(([variant, label]) =>
             <label className="dll-pic-lora-control" key={variant}>
@@ -377,7 +382,7 @@ export default function DllPicProPanel({
             }} />
           <span>套用 {loraLabel}{!loraSelection.adjustable && <small>強度 {loraSelection.strength}</small>}</span>
         </label>}
-        {loraSelection.adjustable && loraSelection.enabled && <div className="dll-pic-lora-strength">
+        {loraSelection.adjustable && loraSelection.enabled && !retiredOmni && <div className="dll-pic-lora-strength">
           <span>{loraSelection.strengthLabel}</span>
           <div className="dll-pic-lora-strength-inputs">
             <input type="range" aria-label={`${loraSelection.strengthLabel}滑桿`} min="0" max="1" step="0.05" value={typeof loraStrength === 'number' ? loraStrength : loraSelection.strength}
@@ -395,13 +400,13 @@ export default function DllPicProPanel({
       {full && <div className="dll-generation-bar" aria-label="生成操作">
         <div className="dll-generation-buttons">
           <button className="primary-copy-btn dll-pic-generate-btn" type="button" onClick={handleGenerate} disabled={!canGenerate}><ImagePlus size={18} />{isGenerating ? '生成中...' : '生成圖像'}</button>
-          <button type="button" className="secondary" disabled={!selectedPrompt.trim() || !shared.ready || !isAspectRatioSupported || Boolean(loraError) || Boolean(openaiError) || Boolean(seedreamError) || referenceBusy || invalidLockedSize} onClick={async () => { try { await dllWorkspace.enqueue(snapshot()); setMessage('已加入待生成清單'); } catch (error) { setMessage(error.message); } }}><ListPlus size={18} />加入待生成</button>
+          <button type="button" className="secondary" disabled={retiredOmni || !selectedPrompt.trim() || !shared.ready || !isAspectRatioSupported || Boolean(loraError) || Boolean(openaiError) || Boolean(seedreamError) || referenceBusy || invalidLockedSize} onClick={async () => { try { await dllWorkspace.enqueue(snapshot()); setMessage('已加入待生成清單'); } catch (error) { setMessage(error.message); } }}><ListPlus size={18} />加入待生成</button>
 
         </div>
         <p className="dll-generation-summary">{activeModel.label} · {is55 && activeResolution === 'custom' ? `${seedreamSettings.customWidth} × ${seedreamSettings.customHeight}` : is26 && openaiSettings.outputFormat === 'gif' ? `${gifSizeLabel(openaiSettings.gifSize)}（GIF）` : is26 && activeResolution === 'auto' ? '自動尺寸' : is26 && activeResolution === 'custom' ? `${openaiSettings.customWidth} × ${openaiSettings.customHeight}` : `${aspectRatio} · ${activeModel.resolutionLabels?.[activeResolution] || activeResolution.toUpperCase()}`} · {count} 張{activeModel.provider === 'openai' && ` · 畫質：${{ auto: '自動', low: '低', medium: '中', high: '高', xhigh: '超高', max: '最高' }[quality]}`}</p>
         {faceReference && <p className="dll-face-summary"><img src={faceReference} alt="" />{hasFaceSupport ? '已套用臉部參考' : '此模型不會使用臉部參考'}</p>}
         <p className="dll-generation-context">{custom ? '自訂 Prompt' : selectedSource?.label || '尚未帶入來源'}{activeModel.provider === 'comfyCloud' && ` · Seed：${seed === '' ? '隨機' : seed}`}{loraSelection.enabled && ` · ${loraLabel} ${loraSelection.adjustable ? loraStrength : loraSelection.strength}`}</p>
-        {(modelCompatibilityNote || loraError || openaiError || invalidLockedSize || !selectedPrompt.trim() || comfyPending || (!DLL_LOCAL_ACCEPTANCE && !activeModel.usesServerProxy && !activeApiKey)) && <p className="dll-generation-notice" role="status">{modelCompatibilityNote || loraError || openaiError || (invalidLockedSize ? '來源已固定比例，請選擇 1K 或 2K 靜態圖片。' : '') || (!selectedPrompt.trim() ? '請先帶入來源或編輯本次 Prompt。' : comfyPending ? '請先查詢上次 Comfy 任務，再開始生成。' : '請先在 API Keys 設定此模型的金鑰。')}</p>}
+        {(retiredOmni || modelCompatibilityNote || loraError || openaiError || invalidLockedSize || !selectedPrompt.trim() || comfyPending || (!DLL_LOCAL_ACCEPTANCE && !activeModel.usesServerProxy && !activeApiKey)) && <p className="dll-generation-notice" role="status">{(retiredOmni ? 'Omni LoRA 已移除，請在進階設定切換模型。' : '') || modelCompatibilityNote || loraError || openaiError || (invalidLockedSize ? '來源已固定比例，請選擇 1K 或 2K 靜態圖片。' : '') || (!selectedPrompt.trim() ? '請先帶入來源或編輯本次 Prompt。' : comfyPending ? '請先查詢上次 Comfy 任務，再開始生成。' : '請先在 API Keys 設定此模型的金鑰。')}</p>}
         {activeModel.provider === 'comfyCloud' && !DLL_LOCAL_ACCEPTANCE && !loraError && <ComfyQuotaPanel compact modelKey={activeModel.comfyModel} {...loraSettings} {...(is55 ? { customWidth: seedreamSettings.customWidth, customHeight: seedreamSettings.customHeight, referenceCount: seedreamSettings.referenceImages.length } : {})} resolution={activeResolution} aspectRatio={aspectRatio} refreshToken={images} />}
       </div>}
     <section className={`dll-pic-panel ${full ? 'dll-full-settings' : ''} ${compact ? 'dll-pic-panel-compact' : ''}`} aria-label={title} aria-description={description}>

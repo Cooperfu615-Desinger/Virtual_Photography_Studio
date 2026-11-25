@@ -73,6 +73,7 @@ export function createDllWorkspaceController({ storage, execute, resume, cancel,
       await save(task, stamp);
     };
     try {
+      if (!recovery && task.snapshot?.modelKey === 'comfyQwenImage21OmniLora') throw new Error('Omni LoRA 已移除，請沿用設定並切換模型後重新加入清單。');
       if (!recovery) { task = { ...task, status: 'submitting' }; await save(task, stamp); }
       const result = await (recovery ? resume : execute)(task, { onProgress, onImages });
       check(stamp);

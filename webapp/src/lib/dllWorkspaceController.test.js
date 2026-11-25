@@ -18,6 +18,13 @@ function setup(overrides = {}) {
   return { controller, saved, storage, calls: () => calls };
 }
 const input = { prompt: ' exact prompt\n', modelKey: 'comfyZImageTurbo', sourceLabel: 'Z-Image' };
+test('retired Omni waiting task stops before submission and keeps its snapshot', async () => {
+  const { controller: c, saved, calls } = setup(); await c.setUser('u');
+  const id = await c.enqueue({ ...input, modelKey: 'comfyQwenImage21OmniLora', loraStrength: 0.35 });
+  await c.start();
+  assert.equal(calls(), 0); assert.equal(saved.get(id).status, 'failed');
+  assert.equal(saved.get(id).snapshot.loraStrength, 0.35); assert.match(saved.get(id).message, /Omni LoRA 已移除/);
+});
 test('snapshot preserves prompt exactly, excludes credentials and validates counts/seeds', () => {
   const value = generationSnapshot({ ...input, apiKey: 'secret', count: 2 });
   assert.equal(value.prompt, input.prompt); assert.equal(value.apiKey, undefined);

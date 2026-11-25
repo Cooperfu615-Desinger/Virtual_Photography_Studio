@@ -1,4 +1,5 @@
 import { preKreaV5Source } from './kreaV5Replay.mjs';
+import { preOmniRemovalSource } from './omniRemovalReplay.mjs';
 import { preH3ImageSizesSource } from './h3ImageSizesReplay.mjs';
 import { preSeedream55Source } from './seedream55Replay.mjs';
 // Only the isolated C2 historical runner needs this already-shipped DLL context.
@@ -16,7 +17,7 @@ export function prepareC2HistoricalContext(dir){
  assert.ok(!existsSync(join(dir,'.git')),'C2 historical context rejects checkout');
  const sources=new Map();
  for(const f of context.files){
-  const current=preSeedream55Source(f.path,preH3ImageSizesSource(f.path,preKreaV5Source(f.path,readFileSync(join(dir,f.path)))));assert.ok([f.beforeHash,f.afterHash,...(f.acceptedHashes ?? [])].includes(hash(current)),'C2 historical context rejects unknown source: '+f.path);
+  const current=preSeedream55Source(f.path,preH3ImageSizesSource(f.path,preKreaV5Source(f.path,preOmniRemovalSource(f.path,readFileSync(join(dir,f.path))))));assert.ok([f.beforeHash,f.afterHash,...(f.acceptedHashes ?? [])].includes(hash(current)),'C2 historical context rejects unknown source: '+f.path);
   const before=execFileSync('git',['-C',root,'show',context.beforeCommit+':'+f.path],{maxBuffer:16*1024*1024});assert.equal(hash(before),f.beforeHash,'Historical context oracle mismatch');sources.set(f.path,before);
  }
  return {sources,apply(){for(const [p,s]of sources)writeFileSync(join(dir,p),s);}};
