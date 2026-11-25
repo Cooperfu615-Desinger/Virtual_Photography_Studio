@@ -6,3 +6,14 @@
 .seedream55-references img { width: 100%; height: 96px; object-fit: contain; }
 .seedream55-references figcaption { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12px; }
 .seedream55-settings .dll-pic-settings-grid > small { grid-column: 1 / -1; color: var(--text-muted, #777); }
+
+/* These controls also render in the compact panel, without DLL workspace CSS. */
+.seedream55-settings .dll-pic-settings-grid,
+.seedream55-settings .dll-pic-settings-grid > .field { min-width: 0; }
+.seedream55-settings .field select,
+.seedream55-settings .field input { width: 100%; min-width: 0; box-sizing: border-box; }
+.seedream55-settings .dll-row { display: flex; align-items: center; min-width: 0; }
+.seedream55-settings .dll-file-button { position: relative; display: inline-flex; align-items: center; cursor: pointer; }
+.seedream55-settings .dll-file-button input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.seedream55-settings .dll-file-button:focus-within { outline: 2px solid var(--accent); }
+.seedream55-settings > * { min-width: 0; overflow-wrap: anywhere; }
