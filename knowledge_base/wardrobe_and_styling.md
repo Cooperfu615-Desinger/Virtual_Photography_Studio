@@ -282,8 +282,8 @@
 | **褲裝 (Pants)** | 乳膠短褲 | `latex shorts, high-shine latex surface, concise short-bottom block, polished synthetic finish` | 以乳膠表面、短褲比例與更直接的材質反光為主，重點在精簡下身結構。 |
 | **褲裝 (Pants)** | 比基尼下身 | `low-rise side-tie bikini bottoms, string-tied hips, minimal swimwear coverage, clean swim-bottom silhouette` | 作為泳裝下身使用時，改成更接近兩側綁帶的低腰比基尼褲型，重點是髖部綁結、簡潔包覆與俐落泳裝下身輪廓。 |
 | **褲裝 (Pants)** | 波西米亞風長褲 | `bohemian draped trousers, loose soft volume, washed rayon or crinkled cotton fabric, gathered relaxed waist, folk-pattern panels` | 褲身更寬鬆柔軟，帶自然堆疊與民俗圖案面料；整體不是俐落剪裁，而是強調鬆弛、垂墜與寬鬆份量。 |
-| **褲裝 (Pants)** | 丹寧吊帶長褲 | `denim overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally` | 丹寧吊帶長褲低掛於髖部，一條肩帶保持扣好，另一條解開並自然垂下；下身配色套用於整件吊帶褲。 |
-| **褲裝 (Pants)** | 丹寧吊帶短褲 | `denim short overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally` | 丹寧吊帶短褲低掛於髖部，一條肩帶保持扣好，另一條解開並自然垂下；下身配色套用於整件吊帶褲。 |
+| **褲裝 (Pants)** | 丹寧吊帶長褲 | `Loose, full-length denim overalls with large, frayed rips across the thighs and knees. One shoulder strap stays fastened. The other hangs loose, letting that side of the bib fall forward.` | 寬鬆丹寧吊帶長褲，大腿與膝部有大片毛邊破洞。一側肩帶扣好，另一側鬆垂，胸兜從解扣側向前垂落。 |
+| **褲裝 (Pants)** | 丹寧吊帶短褲 | `Loose denim short overalls with frayed rips across the upper thighs and raw-cut hems. One shoulder strap stays fastened. The other hangs loose, letting that side of the bib fall forward.` | 寬鬆丹寧吊帶短褲，大腿上緣有毛邊破洞，褲腳為未收邊剪裁。一側肩帶扣好，另一側鬆垂，胸兜從解扣側向前垂落。 |
 | **褲裝 (Pants)** | 喇叭褲 | `flared trousers, fitted through the hips, widening from the knees, elongated leg line` | 以臀部至大腿合身、膝下逐漸放寬與拉長腿部線條為主。 |
 | **褲裝 (Pants)** | 工裝短褲 | `cargo shorts, compact utility cut, side cargo pockets, structured casual silhouette` | 以短褲長度、側邊工裝口袋與硬挺休閒輪廓為主。 |
 | **褲裝 (Pants)** | 氣球工裝褲 | `balloon cargo pants, high-volume barrel legs, deep knee shaping, large bellows side pockets, tapered cuffs` | 以高份量氣球褲管、膝部立體剪裁、大型風箱口袋與收束褲口為主。 |

@@ -1,5 +1,5 @@
 import { MIDJOURNEY_ITEM_NAMES } from './midjourneyItemNames.js';
-import { LOW_SLUNG_OVERALLS_END } from './denimOveralls.js';
+import { LOW_SLUNG_OVERALLS_END, OVERALLS_STRAPS } from './denimOveralls.js';
 
 const clean = value => String(value || '').replace(/\s+/g, ' ').replace(/^[,\s]+|[,\s.]+$/g, '').trim();
 export const naturalSentence = value => {
@@ -77,14 +77,18 @@ export function splitNaturalWardrobeItems(value) {
 }
 
 export function naturalWardrobeSentence(value, subject = 'She') {
-  const items = splitNaturalWardrobeItems(value);
+  const items = Array.isArray(value) ? value : splitNaturalWardrobeItems(value);
+  const hasDistressedOveralls = items.some(name => name.endsWith(OVERALLS_STRAPS));
   const barefoot = items.includes('bare feet');
-  const names = items.filter(name => name !== 'bare feet').map(name =>
-    /\b(?:pants|trousers|jeans|shorts|bottoms|briefs|leggings|tights|pantyhose|stockings|socks|shoes|boots|heels|pumps|sandals|sneakers|loafers|flats|glasses|eyeglasses|sunglasses|headphones|earphones|earbuds|earrings|bracelets|bangles|rings|necklaces|gauntlets|hoops|warmers|overalls|pasties|cuffs|chainmail|armor|tape)\b$/i.test(name)
-      || LOW_SLUNG_OVERALLS_END.test(name) ? name : `${/^[aeiou]/i.test(name) ? 'an' : 'a'} ${name}`);
+  const names = items.filter(name => name !== 'bare feet').map(name => {
+    if (name.endsWith(OVERALLS_STRAPS)) return name.slice(0, -(OVERALLS_STRAPS.length + 2));
+    return /\b(?:pants|trousers|jeans|shorts|bottoms|briefs|leggings|tights|pantyhose|stockings|socks|shoes|boots|heels|pumps|sandals|sneakers|loafers|flats|glasses|eyeglasses|sunglasses|headphones|earphones|earbuds|earrings|bracelets|bangles|rings|necklaces|gauntlets|hoops|warmers|overalls|pasties|cuffs|chainmail|armor|tape)\b$/i.test(name)
+      || LOW_SLUNG_OVERALLS_END.test(name) ? name : `${/^[aeiou]/i.test(name) ? 'an' : 'a'} ${name}`;
+  });
   const list = names.length < 2 ? names[0] : `${names.slice(0, -1).join(', ')} and ${names.at(-1)}`;
   const plural = subject === 'Both';
   return [list ? naturalSentence(`${subject} ${plural ? 'wear' : 'wears'} ${list}`) : '',
+    hasDistressedOveralls ? OVERALLS_STRAPS : '',
     barefoot ? naturalSentence(`${subject} ${plural ? 'are' : 'is'} barefoot`) : ''].filter(Boolean).join(' ');
 }
 

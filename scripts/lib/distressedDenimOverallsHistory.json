@@ -1,0 +1,503 @@
+{
+  "base": "5b1cfe20c0e6e273c41e6380e138a196b40eb2c2",
+  "files": [
+    {
+      "path": "knowledge_base/catalog/Wardrobe/褲裝-pants.json",
+      "beforeHash": "e19d2834ebef5d7f4fd0d96ac5fa012e4e3895a075afd537bd324579d6183484",
+      "afterHash": "ff9676831b49b48a8aa0beb542266788496a1f8062a087f1b9e5d3c56e234726",
+      "edits": [
+        {
+          "line": 478,
+          "before": [
+            "      \"en\": \"denim overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally\",\n",
+            "      \"desc\": \"丹寧吊帶長褲低掛於髖部，一條肩帶保持扣好，另一條解開並自然垂下；下身配色套用於整件吊帶褲。\",\n"
+          ],
+          "after": [
+            "      \"en\": \"Loose, full-length denim overalls with large, frayed rips across the thighs and knees. One shoulder strap stays fastened. The other hangs loose, letting that side of the bib fall forward.\",\n",
+            "      \"desc\": \"寬鬆丹寧吊帶長褲，大腿與膝部有大片毛邊破洞。一側肩帶扣好，另一側鬆垂，胸兜從解扣側向前垂落。\",\n"
+          ]
+        },
+        {
+          "line": 492,
+          "before": [
+            "        \"denim overalls worn low on the hips, one strap unfastened\"\n"
+          ],
+          "after": [
+            "        \"denim overalls worn low on the hips, one strap unfastened\",\n",
+            "        \"denim overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally\"\n"
+          ]
+        },
+        {
+          "line": 502,
+          "before": [
+            "      \"en\": \"denim short overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally\",\n",
+            "      \"desc\": \"丹寧吊帶短褲低掛於髖部，一條肩帶保持扣好，另一條解開並自然垂下；下身配色套用於整件吊帶褲。\",\n"
+          ],
+          "after": [
+            "      \"en\": \"Loose denim short overalls with frayed rips across the upper thighs and raw-cut hems. One shoulder strap stays fastened. The other hangs loose, letting that side of the bib fall forward.\",\n",
+            "      \"desc\": \"寬鬆丹寧吊帶短褲，大腿上緣有毛邊破洞，褲腳為未收邊剪裁。一側肩帶扣好，另一側鬆垂，胸兜從解扣側向前垂落。\",\n"
+          ]
+        },
+        {
+          "line": 515,
+          "before": [
+            "        \"denim short overalls worn low on the hips, one strap unfastened\"\n"
+          ],
+          "after": [
+            "        \"denim short overalls worn low on the hips, one strap unfastened\",\n",
+            "        \"denim short overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally\"\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/wardrobe_and_styling.md",
+      "beforeHash": "3b1a54093e9288f3a3bbe1bb9ebf0968ca119d066762be62fa803baacb2a7d5b",
+      "afterHash": "2c6e85733c18f5b1811b54f3402467e1bbd0d2b780cea20c4ff4b340aeec430c",
+      "edits": [
+        {
+          "line": 284,
+          "before": [
+            "| **褲裝 (Pants)** | 丹寧吊帶長褲 | `denim overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally` | 丹寧吊帶長褲低掛於髖部，一條肩帶保持扣好，另一條解開並自然垂下；下身配色套用於整件吊帶褲。 |\n",
+            "| **褲裝 (Pants)** | 丹寧吊帶短褲 | `denim short overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally` | 丹寧吊帶短褲低掛於髖部，一條肩帶保持扣好，另一條解開並自然垂下；下身配色套用於整件吊帶褲。 |\n"
+          ],
+          "after": [
+            "| **褲裝 (Pants)** | 丹寧吊帶長褲 | `Loose, full-length denim overalls with large, frayed rips across the thighs and knees. One shoulder strap stays fastened. The other hangs loose, letting that side of the bib fall forward.` | 寬鬆丹寧吊帶長褲，大腿與膝部有大片毛邊破洞。一側肩帶扣好，另一側鬆垂，胸兜從解扣側向前垂落。 |\n",
+            "| **褲裝 (Pants)** | 丹寧吊帶短褲 | `Loose denim short overalls with frayed rips across the upper thighs and raw-cut hems. One shoulder strap stays fastened. The other hangs loose, letting that side of the bib fall forward.` | 寬鬆丹寧吊帶短褲，大腿上緣有毛邊破洞，褲腳為未收邊剪裁。一側肩帶扣好，另一側鬆垂，胸兜從解扣側向前垂落。 |\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/data/database.json",
+      "beforeHash": "111a631ddf919b2298fcd2c79ae3e11e7ab04c4f5a4af1cd060af613108a7698",
+      "afterHash": "c449f7db83bd6f5b99f7a4914ff8a4d1650a70e0279c6b6a31262694912bccf8",
+      "edits": [
+        {
+          "line": 6993,
+          "before": [
+            "        \"en\": \"denim overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally\",\n",
+            "        \"desc\": \"丹寧吊帶長褲低掛於髖部，一條肩帶保持扣好，另一條解開並自然垂下；下身配色套用於整件吊帶褲。\",\n"
+          ],
+          "after": [
+            "        \"en\": \"Loose, full-length denim overalls with large, frayed rips across the thighs and knees. One shoulder strap stays fastened. The other hangs loose, letting that side of the bib fall forward.\",\n",
+            "        \"desc\": \"寬鬆丹寧吊帶長褲，大腿與膝部有大片毛邊破洞。一側肩帶扣好，另一側鬆垂，胸兜從解扣側向前垂落。\",\n"
+          ]
+        },
+        {
+          "line": 7007,
+          "before": [
+            "          \"denim overalls worn low on the hips, one strap unfastened\"\n"
+          ],
+          "after": [
+            "          \"denim overalls worn low on the hips, one strap unfastened\",\n",
+            "          \"denim overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally\"\n"
+          ]
+        },
+        {
+          "line": 7017,
+          "before": [
+            "        \"en\": \"denim short overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally\",\n",
+            "        \"desc\": \"丹寧吊帶短褲低掛於髖部，一條肩帶保持扣好，另一條解開並自然垂下；下身配色套用於整件吊帶褲。\",\n"
+          ],
+          "after": [
+            "        \"en\": \"Loose denim short overalls with frayed rips across the upper thighs and raw-cut hems. One shoulder strap stays fastened. The other hangs loose, letting that side of the bib fall forward.\",\n",
+            "        \"desc\": \"寬鬆丹寧吊帶短褲，大腿上緣有毛邊破洞，褲腳為未收邊剪裁。一側肩帶扣好，另一側鬆垂，胸兜從解扣側向前垂落。\",\n"
+          ]
+        },
+        {
+          "line": 7030,
+          "before": [
+            "          \"denim short overalls worn low on the hips, one strap unfastened\"\n"
+          ],
+          "after": [
+            "          \"denim short overalls worn low on the hips, one strap unfastened\",\n",
+            "          \"denim short overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally\"\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine.js",
+      "beforeHash": "78bac3d9177b399e5e085432946818ec72399ea5eb89ccc6e5d268abbdf6d110",
+      "afterHash": "0eaf5d56f2039a1ab8dc097656eb2a417562618e05d9968cf34a1b32dd49d43d",
+      "edits": [
+        {
+          "line": 18,
+          "before": [
+            "import { isLowSlungDenimOveralls, LOW_SLUNG_OVERALLS_WEARING } from './engine/denimOveralls.js';\n"
+          ],
+          "after": [
+            "import { isDistressedDenimOveralls, isLowSlungDenimOveralls, OVERALLS_STRAPS, LOW_SLUNG_OVERALLS_WEARING } from './engine/denimOveralls.js';\n"
+          ]
+        },
+        {
+          "line": 3754,
+          "before": [],
+          "after": [
+            "// Apply the finish to the denim before the separate fit and strap descriptions.\n",
+            "export function colorDenimOveralls(source, color) {\n",
+            "  const garment = source.replace(/^Loose/, 'loose');\n",
+            "  return garment.replace(/denim (?:short )?overalls/, noun => composeWearableColorPrompt(noun, color).replace(/, (?=finished in|patterned with)/, ' '));\n",
+            "}\n",
+            "\n"
+          ]
+        },
+        {
+          "line": 3952,
+          "before": [
+            "  const coloredBase = composeWearableColorPrompt(base, color);\n"
+          ],
+          "after": [
+            "  const coloredBase = isDistressedDenimOveralls(bottomItem) ? colorDenimOveralls(base, color) : composeWearableColorPrompt(base, color);\n"
+          ]
+        },
+        {
+          "line": 16018,
+          "before": [
+            "      names.push(isLowSlungDenimOveralls(item)\n",
+            "        ? `${composeWearableColorPrompt(item.en.replace(` ${LOW_SLUNG_OVERALLS_WEARING}`, ''), wardrobeColors[`bottom${colorSuffix}Color`]).replace(/,\\s*/g, ' ')} ${LOW_SLUNG_OVERALLS_WEARING}`\n",
+            "        : item === FIXED_UNDERBUST_TEE ? item.en : midjourneyItemName(item));\n"
+          ],
+          "after": [
+            "      if (isDistressedDenimOveralls(item)) {\n",
+            "        names.push(colorDenimOveralls(item.en, wardrobeColors[`bottom${colorSuffix}Color`]));\n",
+            "      } else if (isLowSlungDenimOveralls(item)) {\n",
+            "        names.push(`${composeWearableColorPrompt(item.en.replace(` ${LOW_SLUNG_OVERALLS_WEARING}`, ''), wardrobeColors[`bottom${colorSuffix}Color`]).replace(/,\\s*/g, ' ')} ${LOW_SLUNG_OVERALLS_WEARING}`);\n",
+            "      } else {\n",
+            "        names.push(item === FIXED_UNDERBUST_TEE ? item.en : midjourneyItemName(item));\n",
+            "      }\n"
+          ]
+        },
+        {
+          "line": 16031,
+          "before": [
+            "    return uniqueNames(names).join(', ');\n"
+          ],
+          "after": [
+            "    return uniqueNames(names);\n"
+          ]
+        },
+        {
+          "line": 16099,
+          "before": [
+            "  return uniqueNames(names).join(', ');\n"
+          ],
+          "after": [
+            "  return uniqueNames(names).flatMap(name => name.endsWith(OVERALLS_STRAPS) ? [name] : splitNaturalWardrobeItems(name));\n"
+          ]
+        },
+        {
+          "line": 16159,
+          "before": [
+            "    const roles = ['a', 'b'].map(role => splitNaturalWardrobeItems(buildNaturalMjWardrobe(promptModel, role)));\n"
+          ],
+          "after": [
+            "    const roles = ['a', 'b'].map(role => buildNaturalMjWardrobe(promptModel, role));\n"
+          ]
+        },
+        {
+          "line": 16162,
+          "before": [
+            "      names.filter(name => !shared.includes(name)).join(', '), `The ${index === 0 ? 'first' : 'second'} woman`)),\n",
+            "    naturalWardrobeSentence(shared.join(', '), 'Both')].filter(Boolean).join(' ');\n"
+          ],
+          "after": [
+            "      names.filter(name => !shared.includes(name)), `The ${index === 0 ? 'first' : 'second'} woman`)),\n",
+            "    naturalWardrobeSentence(shared, 'Both')].filter(Boolean).join(' ');\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/denimOveralls.js",
+      "beforeHash": "8f3abfffd3fd0212b217393f32cac66eb9cac245578ea278e662d7b88f3429d1",
+      "afterHash": "4fe4308e1c70a803ca1af0bd246d7d50d7419541011893a68c307963c9e68d5b",
+      "edits": [
+        {
+          "line": 14,
+          "before": [],
+          "after": [
+            "\n",
+            "export const OVERALLS_STRAPS = 'One shoulder strap stays fastened. The other hangs loose, letting that side of the bib fall forward.';\n",
+            "\n",
+            "const DISTRESSED_OVERALLS = new Map([\n",
+            "  ['wardrobe:褲裝-pants:丹寧吊帶長褲:25', `Loose, full-length denim overalls with large, frayed rips across the thighs and knees. ${OVERALLS_STRAPS}`],\n",
+            "  ['wardrobe:褲裝-pants:丹寧吊帶短褲:26', `Loose denim short overalls with frayed rips across the upper thighs and raw-cut hems. ${OVERALLS_STRAPS}`],\n",
+            "]);\n",
+            "\n",
+            "export function isDistressedDenimOveralls(item) {\n",
+            "  const source = DISTRESSED_OVERALLS.get(String(item?.id || '').replace(/:[ab]$/, ''));\n",
+            "  return Boolean(source && source === item.en);\n",
+            "}\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/midjourneyNaturalPrompt.js",
+      "beforeHash": "4a7fa4c6ef78bbe6a53bb31e5a8ba9be449e0ce03700c1185609686f6066c7e6",
+      "afterHash": "a6d351e28c26f2d1b5ac59793750c8625bf8fbbc1d636b06a4a6125efcf9876b",
+      "edits": [
+        {
+          "line": 1,
+          "before": [
+            "import { LOW_SLUNG_OVERALLS_END } from './denimOveralls.js';\n"
+          ],
+          "after": [
+            "import { LOW_SLUNG_OVERALLS_END, OVERALLS_STRAPS } from './denimOveralls.js';\n"
+          ]
+        },
+        {
+          "line": 79,
+          "before": [
+            "  const items = splitNaturalWardrobeItems(value);\n"
+          ],
+          "after": [
+            "  const items = Array.isArray(value) ? value : splitNaturalWardrobeItems(value);\n",
+            "  const hasDistressedOveralls = items.some(name => name.endsWith(OVERALLS_STRAPS));\n"
+          ]
+        },
+        {
+          "line": 82,
+          "before": [
+            "  const names = items.filter(name => name !== 'bare feet').map(name =>\n",
+            "    /\\b(?:pants|trousers|jeans|shorts|bottoms|briefs|leggings|tights|pantyhose|stockings|socks|shoes|boots|heels|pumps|sandals|sneakers|loafers|flats|glasses|eyeglasses|sunglasses|headphones|earphones|earbuds|earrings|bracelets|bangles|rings|necklaces|gauntlets|hoops|warmers|overalls|pasties|cuffs|chainmail|armor|tape)\\b$/i.test(name)\n",
+            "      || LOW_SLUNG_OVERALLS_END.test(name) ? name : `${/^[aeiou]/i.test(name) ? 'an' : 'a'} ${name}`);\n"
+          ],
+          "after": [
+            "  const names = items.filter(name => name !== 'bare feet').map(name => {\n",
+            "    if (name.endsWith(OVERALLS_STRAPS)) return name.slice(0, -(OVERALLS_STRAPS.length + 2));\n",
+            "    return /\\b(?:pants|trousers|jeans|shorts|bottoms|briefs|leggings|tights|pantyhose|stockings|socks|shoes|boots|heels|pumps|sandals|sneakers|loafers|flats|glasses|eyeglasses|sunglasses|headphones|earphones|earbuds|earrings|bracelets|bangles|rings|necklaces|gauntlets|hoops|warmers|overalls|pasties|cuffs|chainmail|armor|tape)\\b$/i.test(name)\n",
+            "      || LOW_SLUNG_OVERALLS_END.test(name) ? name : `${/^[aeiou]/i.test(name) ? 'an' : 'a'} ${name}`;\n",
+            "  });\n"
+          ]
+        },
+        {
+          "line": 90,
+          "before": [],
+          "after": [
+            "    hasDistressedOveralls ? OVERALLS_STRAPS : '',\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/denimOveralls.test.js",
+      "beforeHash": "3168dfb8e5890bddfa624f77e17a64ac05ad75f255869f00aece08ff25849f6a",
+      "afterHash": "598ef1c32b95cebf8dc8696128cd1c948c2d62ddd4b1a55b21d66ec60106908a",
+      "edits": [
+        {
+          "line": 49,
+          "before": [
+            "      const source = `${color === '深藍色' ? 'dark blue ' : ''}${noun} worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally`;\n"
+          ],
+          "after": [
+            "      const current = option('pantsId', zh);\n",
+            "      assert.match(current.en, zh.endsWith('長褲') ? /full-length denim overalls with large, frayed rips across the thighs and knees/ : /denim short overalls with frayed rips across the upper thighs and raw-cut hems/);\n",
+            "      const source = current.en.replace(noun, color === '深藍色' ? `dark blue ${noun}` : noun).toLowerCase();\n"
+          ]
+        },
+        {
+          "line": 53,
+          "before": [
+            "      for (const card of cards(r)) assert.ok(card.value.toLowerCase().includes(source), card.title);\n",
+            "      assert.ok(r.midjourneyPrompt.includes(`She wears ${source}.`));\n",
+            "      assert.doesNotMatch(r.midjourneyPrompt, /a (?:dark blue )?denim|a one strap/);\n"
+          ],
+          "after": [
+            "      for (const card of cards(r)) {\n",
+            "        assert.ok(card.value.toLowerCase().includes(source.replace(/\\.$/, '')), card.title);\n",
+            "        assert.doesNotMatch(card.value, /worn low on the hips/);\n",
+            "      }\n",
+            "      assert.match(r.midjourneyPrompt, /She wears loose/i);\n"
+          ]
+        },
+        {
+          "line": 59,
+          "before": [
+            "      const oldPrompt = r.grokPrompt.replace(source, old);\n"
+          ],
+          "after": [
+            "      const rendered = r.grokPrompt.match(new RegExp(source.replace(/[.*+?${}()|[\\]\\\\]/g, '\\\\$&'), 'i'))[0];\n",
+            "      assert.equal(parseLocksFromStandardPrompt(r.grokPrompt, controls).locks.bottomColorId, color === '全無' ? '' : r.selection.bottomColorId);\n",
+            "      const lastSource = `${noun} worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally`;\n",
+            "      assert.equal(parseLocksFromStandardPrompt(r.grokPrompt.replace(rendered, lastSource), controls).locks.pantsId, current.id);\n",
+            "      const oldPrompt = r.grokPrompt.replace(rendered, old);\n"
+          ]
+        },
+        {
+          "line": 65,
+          "before": [
+            "      const previousPrompt = r.grokPrompt.replace(source, `${noun} worn low on the hips, one strap unfastened`);\n"
+          ],
+          "after": [
+            "      const previousPrompt = r.grokPrompt.replace(rendered, `${noun} worn low on the hips, one strap unfastened`);\n"
+          ]
+        },
+        {
+          "line": 70,
+          "before": [
+            "  test(`${zh}: conflicting rise is suppressed but saved choice restores on another garment`, () => {\n"
+          ],
+          "after": [
+            "  test(`${zh}: selected rise is enabled, rendered and saved`, () => {\n"
+          ]
+        },
+        {
+          "line": 74,
+          "before": [
+            "      for (const card of cards(r)) assert.doesNotMatch(card.value, /high-rise waistband|mid-rise waistband/);\n"
+          ],
+          "after": [
+            "      assert.ok(r.grokPrompt.toLowerCase().includes(option('bottomRiseId', rise).en));\n"
+          ]
+        },
+        {
+          "line": 76,
+          "before": [
+            "      assert.ok(!JSON.stringify(r.summaryFields).includes(rise));\n",
+            "      assert.ok(!JSON.stringify(buildWorkspaceSummary(locks, controls)).includes(rise));\n"
+          ],
+          "after": [
+            "      assert.ok(r.summaryFields.wardrobe.includes(zh));\n",
+            "      assert.ok(JSON.stringify(buildWorkspaceSummary(locks, controls)).includes(rise));\n"
+          ]
+        },
+        {
+          "line": 79,
+          "before": [
+            "      assert.equal(control.options.find(o => o.id === locks.bottomRiseId).disabled, true);\n",
+            "      assert.equal(control.closureDisplayValue, 'none');\n"
+          ],
+          "after": [
+            "      assert.notEqual(control.options.find(o => o.id === locks.bottomRiseId).disabled, true);\n",
+            "      assert.notEqual(control.closureDisplayValue, 'none');\n"
+          ]
+        },
+        {
+          "line": 93,
+          "before": [
+            "test('duo colors and rise suppression follow the correct wearer', () => {\n"
+          ],
+          "after": [
+            "test('duo colors and independent waistlines follow the correct wearer', () => {\n"
+          ]
+        },
+        {
+          "line": 98,
+          "before": [
+            "  assert.match(r.midjourneyPrompt, /The first woman wears dark blue denim overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally/);\n",
+            "  assert.match(r.midjourneyPrompt, /The second woman wears red denim short overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally/);\n",
+            "  for (const card of cards(r)) assert.doesNotMatch(card.value, /high-rise waistband|mid-rise waistband/);\n"
+          ],
+          "after": [
+            "  assert.match(r.midjourneyPrompt, /The first woman wears loose, full-length dark blue denim overalls/);\n",
+            "  assert.match(r.midjourneyPrompt, /The second woman wears loose red denim short overalls/);\n",
+            "  assert.match(r.grokPrompt, /high-rise waistband/i);\n",
+            "  assert.match(r.grokPrompt, /mid-rise waistband/i);\n"
+          ]
+        },
+        {
+          "line": 121,
+          "before": [
+            "  assert.match(r.midjourneyPrompt, /She wears a short-sleeve top, denim overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally and/);\n"
+          ],
+          "after": [
+            "  assert.match(r.midjourneyPrompt, /She wears a short-sleeve top, loose, full-length denim overalls with large, frayed rips across the thighs and knees and/);\n"
+          ]
+        },
+        {
+          "line": 128,
+          "before": [
+            "    assert.match(r.midjourneyPrompt, /She wears .*denim (?:short )?overalls.* worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally\\./);\n"
+          ],
+          "after": [
+            "    assert.match(r.midjourneyPrompt, /She wears .*denim (?:short )?overalls.*One shoulder strap stays fastened. The other hangs loose, letting that side of the bib fall forward\\./);\n"
+          ]
+        },
+        {
+          "line": 133,
+          "before": [
+            "  assert.match(duo.midjourneyPrompt, /The first woman wears denim overalls finished in mirror-chrome silver with a highly polished scene-reflective surface and crisp environment reflections worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally\\./);\n",
+            "  assert.match(duo.midjourneyPrompt, /The second woman wears denim short overalls patterned with bold multicolored horizontal stripes wide stripe bands and clearly separated random colors worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally\\./);\n"
+          ],
+          "after": [
+            "  assert.match(duo.midjourneyPrompt, /The first woman wears loose, full-length denim overalls finished in mirror-chrome silver with a highly polished scene-reflective surface and crisp environment reflections with large, frayed rips/);\n",
+            "  assert.match(duo.midjourneyPrompt, /The second woman wears loose denim short overalls patterned with bold multicolored horizontal stripes, wide stripe bands, and clearly separated random colors with frayed rips/);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/features/saved-cards/cardCodec.js",
+      "beforeHash": "57a1fd71f0b1a5682924aecfe027796c293a73a565d5674297b2e9bd61bebd17",
+      "afterHash": "80809295b3375b1448790e9fb2ad8f8e42820f458df3aabc43836bdae6b75e76",
+      "edits": [
+        {
+          "line": 0,
+          "before": [],
+          "after": [
+            "import { isDistressedDenimOveralls, OVERALLS_STRAPS } from '../../lib/engine/denimOveralls.js';\n"
+          ]
+        },
+        {
+          "line": 9,
+          "before": [],
+          "after": [
+            "  colorDenimOveralls,\n"
+          ]
+        },
+        {
+          "line": 510,
+          "before": [],
+          "after": [
+            "  // A color inside the garment name interrupts the plain catalog substring.\n",
+            "  // Recognize only a complete rendered description in the correct wearer's section.\n",
+            "  for (const role of wardrobeRecovery.duo ? ['A', 'B'] : ['']) {\n",
+            "    const text = role ? wardrobeRecovery.roles[role] : wardrobeRecovery.single;\n",
+            "    if (!text.includes(OVERALLS_STRAPS.toLowerCase())) continue;\n",
+            "    const pantsKey = `pants${role}Id`, colorKey = `bottom${role}ColorId`;\n",
+            "    const matches = [];\n",
+            "    for (const pants of controlMap.get(pantsKey)?.options.filter(isDistressedDenimOveralls) || []) {\n",
+            "      for (const color of controlMap.get(colorKey)?.options || []) {\n",
+            "        if (text.includes(normalizePromptText(colorDenimOveralls(pants.en, color)))) matches.push({ pants, color });\n",
+            "      }\n",
+            "    }\n",
+            "    if (matches.length === 1) {\n",
+            "      recoveredColors.set(pantsKey, matches[0].pants);\n",
+            "      recoveredColors.set(colorKey, matches[0].color);\n",
+            "    }\n",
+            "  }\n"
+          ]
+        }
+      ]
+    }
+  ],
+  "reportRows": {
+    "wardrobe:褲裝-pants:丹寧吊帶長褲:25": {
+      "before": {
+        "words": 19,
+        "status": "within",
+        "sourceSha256": "43ec4f00d427c55f5f210c819efbb57d31e77f881aa115f1c150b9379e65c34f"
+      },
+      "after": {
+        "words": 30,
+        "status": "over",
+        "sourceSha256": "39e90f3c5bc2ef4743bc5fce9b56f663134f2ccf5c02aa2d1d40e4e076cf37a7"
+      }
+    },
+    "wardrobe:褲裝-pants:丹寧吊帶短褲:26": {
+      "before": {
+        "words": 20,
+        "status": "within",
+        "sourceSha256": "0492c0eea05641391852abda8ed35c1ca41cbdcca7cfca46c72151ef2642189f"
+      },
+      "after": {
+        "words": 31,
+        "status": "over",
+        "sourceSha256": "9327fac9e7bfac738d7caa98e6b99d6b3e6c148fccbcc74eb92df7284d509cfc"
+      }
+    }
+  }
+}

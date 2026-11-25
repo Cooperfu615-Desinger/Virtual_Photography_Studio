@@ -20,9 +20,16 @@ def pre_copy_report(report, root):
     if not path.exists():
         return report
     reviews = reviewed_rows(str(root), path.read_text())
-    if not reviews:
-        return report
     result = copy.deepcopy(report)
+    overalls = strict_json((Path(root) / 'scripts/lib/distressedDenimOverallsHistory.json').read_text())['reportRows']
+    for row in result['rows']:
+        pair = overalls.get(row['id'])
+        if pair and row['sourceSha256'] == pair['after']['sourceSha256']:
+            current = {key: row[key] for key in pair['after']}
+            require(current == pair['after'], 'Unexpected distressed overalls diagnostic')
+            result['summary'][row['status']] -= 1
+            row.update(pair['before'])
+            result['summary'][row['status']] += 1
     for review in reversed(reviews):
         for row in result['rows']:
             if row['id'] != review['profile']['item']:

@@ -1,3 +1,4 @@
+import { isDistressedDenimOveralls, OVERALLS_STRAPS } from '../../lib/engine/denimOveralls.js';
 import { encodeSavedCardExportMetadata as encodePage1MarkdownSnapshot, decodePage1MarkdownSnapshot } from './page1MarkdownSnapshot.js';
 import { createWardrobeRecoveryContext, wardrobeItemRecoveryScope, recoverWardrobeColors } from './wardrobeColorRecovery.js';
 import { prepareLegacyDressProseRecovery, applyLegacyDressProseColors } from './legacyDressProseRecovery.js';
@@ -6,6 +7,7 @@ import { accessoryRestoreNotices } from '../../lib/engine/accessoryPolicy.js';
 import { matchResolvedOuterwear } from '../../lib/engine/outerwearModel.js';
 import { isUnderbustTopFit, matchResolvedUnderbustTop, UNDERBUST_UNTUCKED_SOURCE } from '../../lib/engine/underbustTopFit.js';
 import {
+  colorDenimOveralls,
   createEmptyLocks,
   getLockControls,
   normalizeLocks,
@@ -506,6 +508,23 @@ export function parseLocksFromStandardPrompt(promptText, controls, { legacyDress
   }
   const legacyDress = prepareLegacyDressProseRecovery(legacyDressPrompt, locks, controls);
   const recoveredColors = recoverWardrobeColors(wardrobeRecovery, locks, controls);
+  // A color inside the garment name interrupts the plain catalog substring.
+  // Recognize only a complete rendered description in the correct wearer's section.
+  for (const role of wardrobeRecovery.duo ? ['A', 'B'] : ['']) {
+    const text = role ? wardrobeRecovery.roles[role] : wardrobeRecovery.single;
+    if (!text.includes(OVERALLS_STRAPS.toLowerCase())) continue;
+    const pantsKey = `pants${role}Id`, colorKey = `bottom${role}ColorId`;
+    const matches = [];
+    for (const pants of controlMap.get(pantsKey)?.options.filter(isDistressedDenimOveralls) || []) {
+      for (const color of controlMap.get(colorKey)?.options || []) {
+        if (text.includes(normalizePromptText(colorDenimOveralls(pants.en, color)))) matches.push({ pants, color });
+      }
+    }
+    if (matches.length === 1) {
+      recoveredColors.set(pantsKey, matches[0].pants);
+      recoveredColors.set(colorKey, matches[0].color);
+    }
+  }
   const hasRecoveredLegacyDressPalette = applyLegacyDressProseColors(legacyDress, locks, controls, recoveredColors);
   for (const key of legacyDress.keys) {
     const index = matchedControls.findIndex(entry => entry.key === key);

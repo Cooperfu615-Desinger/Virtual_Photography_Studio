@@ -6991,8 +6991,8 @@
       },
       {
         "zh": "丹寧吊帶長褲",
-        "en": "denim overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally",
-        "desc": "丹寧吊帶長褲低掛於髖部，一條肩帶保持扣好，另一條解開並自然垂下；下身配色套用於整件吊帶褲。",
+        "en": "Loose, full-length denim overalls with large, frayed rips across the thighs and knees. One shoulder strap stays fastened. The other hangs loose, letting that side of the bib fall forward.",
+        "desc": "寬鬆丹寧吊帶長褲，大腿與膝部有大片毛邊破洞。一側肩帶扣好，另一側鬆垂，胸兜從解扣側向前垂落。",
         "meta": {
           "semantic": {
             "family": "retro",
@@ -7005,7 +7005,8 @@
         },
         "legacyPromptAliases": [
           "denim overalls, full-length wide-legged silhouette, casual utility straps, relaxed vintage styling",
-          "denim overalls worn low on the hips, one strap unfastened"
+          "denim overalls worn low on the hips, one strap unfastened",
+          "denim overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally"
         ],
         "stableId": "wardrobe:褲裝-pants:丹寧吊帶長褲:25",
         "legacyIds": [
@@ -7014,8 +7015,8 @@
       },
       {
         "zh": "丹寧吊帶短褲",
-        "en": "denim short overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally",
-        "desc": "丹寧吊帶短褲低掛於髖部，一條肩帶保持扣好，另一條解開並自然垂下；下身配色套用於整件吊帶褲。",
+        "en": "Loose denim short overalls with frayed rips across the upper thighs and raw-cut hems. One shoulder strap stays fastened. The other hangs loose, letting that side of the bib fall forward.",
+        "desc": "寬鬆丹寧吊帶短褲，大腿上緣有毛邊破洞，褲腳為未收邊剪裁。一側肩帶扣好，另一側鬆垂，胸兜從解扣側向前垂落。",
         "meta": {
           "semantic": {
             "family": "neutral",
@@ -7027,7 +7028,8 @@
         },
         "legacyPromptAliases": [
           "denim short overalls, casual bib-front silhouette, youthful utility styling, relaxed summer mood",
-          "denim short overalls worn low on the hips, one strap unfastened"
+          "denim short overalls worn low on the hips, one strap unfastened",
+          "denim short overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally"
         ],
         "stableId": "wardrobe:褲裝-pants:丹寧吊帶短褲:26",
         "legacyIds": [

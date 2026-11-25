@@ -12,3 +12,15 @@ export function isLowSlungDenimOveralls(item) {
 
 export const LOW_SLUNG_OVERALLS_WEARING = 'worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally';
 export const LOW_SLUNG_OVERALLS_END = /\bdenim (?:short )?overalls(?: (?:finished in|patterned with) [^,]+)? worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally$/;
+
+export const OVERALLS_STRAPS = 'One shoulder strap stays fastened. The other hangs loose, letting that side of the bib fall forward.';
+
+const DISTRESSED_OVERALLS = new Map([
+  ['wardrobe:褲裝-pants:丹寧吊帶長褲:25', `Loose, full-length denim overalls with large, frayed rips across the thighs and knees. ${OVERALLS_STRAPS}`],
+  ['wardrobe:褲裝-pants:丹寧吊帶短褲:26', `Loose denim short overalls with frayed rips across the upper thighs and raw-cut hems. ${OVERALLS_STRAPS}`],
+]);
+
+export function isDistressedDenimOveralls(item) {
+  const source = DISTRESSED_OVERALLS.get(String(item?.id || '').replace(/:[ab]$/, ''));
+  return Boolean(source && source === item.en);
+}

@@ -16,7 +16,7 @@ import { captureEligibility, resolveCapture, normalizeCaptureProfile, captureEff
 import { registerReferencePersonPreview, REFERENCE_PERSON_INSTRUCTION } from './referencePersonPreview.js';
 import { MIDJOURNEY_CARD_ITEM_NAMES } from './engine/midjourneyCardItemNames.js';
 import { bottomRiseConflict, resolveBottomRiseCompatibility } from './engine/bottomRiseCompatibility.js';
-import { isLowSlungDenimOveralls, LOW_SLUNG_OVERALLS_WEARING } from './engine/denimOveralls.js';
+import { isDistressedDenimOveralls, isLowSlungDenimOveralls, OVERALLS_STRAPS, LOW_SLUNG_OVERALLS_WEARING } from './engine/denimOveralls.js';
 import { splitNaturalWardrobeItems } from './engine/midjourneyNaturalPrompt.js';
 import { extractMidjourneyItemNames, midjourneyItemName, naturalIdentity, naturalSentence, naturalWardrobeSentence, renderNaturalMidjourney, uniqueNames } from './engine/midjourneyNaturalPrompt.js';
 import { midjourneyBodyDescription } from './engine/midjourneyBodyDescriptions.js';
@@ -3752,6 +3752,12 @@ function composeWearableColorPrompt(baseValue, color = null, { placement = '' } 
   return [naturalHead, ...details].filter(Boolean).join(', ');
 }
 
+// Apply the finish to the denim before the separate fit and strap descriptions.
+export function colorDenimOveralls(source, color) {
+  const garment = source.replace(/^Loose/, 'loose');
+  return garment.replace(/denim (?:short )?overalls/, noun => composeWearableColorPrompt(noun, color).replace(/, (?=finished in|patterned with)/, ' '));
+}
+
 function describeWearableColorTarget(target, color, { relation = 'in' } = {}) {
   const targetText = normalizeWardrobePromptText(target);
   if (!targetText || !color || isNoneLikeItem(color)) return targetText;
@@ -3944,7 +3950,7 @@ function buildBottomColoredPrompt(bottomItem, color = null, { pattern = null, fi
   const riseText = normalizeWardrobePromptText(getApplicableBottomRise(bottomItem, rise)?.en);
   const fitText = fit && !isNoneLikeItem(fit) ? normalizeWardrobePromptText(fit.en) : '';
   const patternText = pattern && !isNoneLikeItem(pattern) ? normalizeWardrobePromptText(pattern.en) : '';
-  const coloredBase = composeWearableColorPrompt(base, color);
+  const coloredBase = isDistressedDenimOveralls(bottomItem) ? colorDenimOveralls(base, color) : composeWearableColorPrompt(base, color);
 
   return (legacyWardrobeModifierOrder ? [riseText, fitText, coloredBase, patternText] : [coloredBase, riseText, fitText, patternText]).filter(Boolean).join(', ');
 }
@@ -16010,16 +16016,20 @@ function buildNaturalMjWardrobe(promptModel, role = '') {
         return;
       }
       const colorSuffix = item.meta?.wardrobeRole === 'a' ? 'A' : item.meta?.wardrobeRole === 'b' ? 'B' : '';
-      names.push(isLowSlungDenimOveralls(item)
-        ? `${composeWearableColorPrompt(item.en.replace(` ${LOW_SLUNG_OVERALLS_WEARING}`, ''), wardrobeColors[`bottom${colorSuffix}Color`]).replace(/,\s*/g, ' ')} ${LOW_SLUNG_OVERALLS_WEARING}`
-        : item === FIXED_UNDERBUST_TEE ? item.en : midjourneyItemName(item));
+      if (isDistressedDenimOveralls(item)) {
+        names.push(colorDenimOveralls(item.en, wardrobeColors[`bottom${colorSuffix}Color`]));
+      } else if (isLowSlungDenimOveralls(item)) {
+        names.push(`${composeWearableColorPrompt(item.en.replace(` ${LOW_SLUNG_OVERALLS_WEARING}`, ''), wardrobeColors[`bottom${colorSuffix}Color`]).replace(/,\s*/g, ' ')} ${LOW_SLUNG_OVERALLS_WEARING}`);
+      } else {
+        names.push(item === FIXED_UNDERBUST_TEE ? item.en : midjourneyItemName(item));
+      }
       if (item.meta?.underlayer) names.push(midjourneyItemName(item.meta.underlayer.item));
       if (wardrobeRole === 'legwear' && /lace garter belt/i.test(item.en)) names.push('lace garter belt');
     }
   };
   if (isDedicatedSpecialSubject(context.subject)) {
     if (['european-knight', 'sengoku-samurai'].includes(context.subject.id)) addSource(buildMidjourneySpecialSubjectPrompt(context.subject, context));
-    return uniqueNames(names).join(', ');
+    return uniqueNames(names);
   }
   if (role) {
     const suffix = role === 'a' ? 'A' : 'B';
@@ -16087,7 +16097,7 @@ function buildNaturalMjWardrobe(promptModel, role = '') {
     const item = slots[`${key}${suffix}`] || slots[key];
     addItem(item, ['headphones', 'faceCovering', 'nosePiercing', 'lipPiercing'].includes(key) ? 'eyewear' : key);
   }
-  return uniqueNames(names).join(', ');
+  return uniqueNames(names).flatMap(name => name.endsWith(OVERALLS_STRAPS) ? [name] : splitNaturalWardrobeItems(name));
 }
 
 function buildNaturalMjSubject(promptModel) {
@@ -16147,11 +16157,11 @@ function renderMainNaturalMidjourney(promptModel, sceneMirrorReflectionText) {
   const duo = context.subject.count === 2 && !isSpecialSubject(context.subject);
   let clothing;
   if (duo) {
-    const roles = ['a', 'b'].map(role => splitNaturalWardrobeItems(buildNaturalMjWardrobe(promptModel, role)));
+    const roles = ['a', 'b'].map(role => buildNaturalMjWardrobe(promptModel, role));
     const shared = roles[0].filter(name => roles[1].includes(name));
     clothing = [...roles.map((names, index) => naturalWardrobeSentence(
-      names.filter(name => !shared.includes(name)).join(', '), `The ${index === 0 ? 'first' : 'second'} woman`)),
-    naturalWardrobeSentence(shared.join(', '), 'Both')].filter(Boolean).join(' ');
+      names.filter(name => !shared.includes(name)), `The ${index === 0 ? 'first' : 'second'} woman`)),
+    naturalWardrobeSentence(shared, 'Both')].filter(Boolean).join(' ');
   } else clothing = naturalWardrobeSentence(buildNaturalMjWardrobe(promptModel));
   const stationFixed = isStationFixedSet(context.fixedCompositionSet) || isStationFixedSet(context.stationFixedSceneSource)
     || isCarriageFixedSet(context.fixedCompositionSet) || isCarriageFixedSet(context.carriageFixedSceneSource);

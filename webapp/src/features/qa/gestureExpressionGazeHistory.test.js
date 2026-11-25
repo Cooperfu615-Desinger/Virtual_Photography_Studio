@@ -16,14 +16,14 @@ import page3LocationExpansion from '../../../../scripts/lib/page3LocationExpansi
 import page3PersonPerformance from '../../../../scripts/lib/page3PersonPerformanceHistory.json' with { type: 'json' };
 import subjectFraming from '../../../../scripts/lib/subjectFramingHistory.json' with { type: 'json' };
 import subjectFramingCrop from '../../../../scripts/lib/subjectFramingCropHistory.json' with { type: 'json' };
-import { preSubjectFramingCropSource, preThreeHandGesturesSource } from '../../../../scripts/lib/gestureExpressionGazeHistoricalReplay.mjs';
+import { preDistressedDenimOverallsSource, preSubjectFramingCropSource, preThreeHandGesturesSource } from '../../../../scripts/lib/gestureExpressionGazeHistoricalReplay.mjs';
 import threeHandGestures from '../../../../scripts/lib/threeHandGesturesHistory.json' with { type: 'json' };
 
 const readSource = path => readFileSync(new URL(`../../../../${path}`, import.meta.url));
 const hash = value => createHash('sha256').update(value).digest('hex');
 test('the three added gestures restore the previous reviewed sources exactly', () => {
   for (const file of threeHandGestures.files) {
-    const source = readSource(file.path);
+    const source = preDistressedDenimOverallsSource(file.path, readSource(file.path));
     assert.equal(hash(source), file.afterHash, file.path);
     assert.equal(hash(preThreeHandGesturesSource(file.path, source)), file.beforeHash, file.path);
     const unknown = Buffer.concat([source, Buffer.from('\n// unreviewed change\n')]);

@@ -47,30 +47,38 @@ for (const [zh, noun, old] of cases) {
   test(`${zh}: all seven outputs retain the approved source, with and without dark blue`, () => {
     for (const color of ['全無', '深藍色']) {
       const r = generate(locksFor({ pantsId: { byZh: zh }, bottomColorId: { byZh: color } }));
-      const source = `${color === '深藍色' ? 'dark blue ' : ''}${noun} worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally`;
+      const current = option('pantsId', zh);
+      assert.match(current.en, zh.endsWith('長褲') ? /full-length denim overalls with large, frayed rips across the thighs and knees/ : /denim short overalls with frayed rips across the upper thighs and raw-cut hems/);
+      const source = current.en.replace(noun, color === '深藍色' ? `dark blue ${noun}` : noun).toLowerCase();
       assert.equal(cards(r).length, 7);
-      for (const card of cards(r)) assert.ok(card.value.toLowerCase().includes(source), card.title);
-      assert.ok(r.midjourneyPrompt.includes(`She wears ${source}.`));
-      assert.doesNotMatch(r.midjourneyPrompt, /a (?:dark blue )?denim|a one strap/);
+      for (const card of cards(r)) {
+        assert.ok(card.value.toLowerCase().includes(source.replace(/\.$/, '')), card.title);
+        assert.doesNotMatch(card.value, /worn low on the hips/);
+      }
+      assert.match(r.midjourneyPrompt, /She wears loose/i);
       assert.equal(parseLocksFromStandardPrompt(r.grokPrompt, controls).locks.pantsId, r.selection.pantsId);
-      const oldPrompt = r.grokPrompt.replace(source, old);
+      const rendered = r.grokPrompt.match(new RegExp(source.replace(/[.*+?${}()|[\]\\]/g, '\\$&'), 'i'))[0];
+      assert.equal(parseLocksFromStandardPrompt(r.grokPrompt, controls).locks.bottomColorId, color === '全無' ? '' : r.selection.bottomColorId);
+      const lastSource = `${noun} worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally`;
+      assert.equal(parseLocksFromStandardPrompt(r.grokPrompt.replace(rendered, lastSource), controls).locks.pantsId, current.id);
+      const oldPrompt = r.grokPrompt.replace(rendered, old);
       assert.equal(parseLocksFromStandardPrompt(oldPrompt, controls).locks.pantsId, r.selection.pantsId);
-      const previousPrompt = r.grokPrompt.replace(source, `${noun} worn low on the hips, one strap unfastened`);
+      const previousPrompt = r.grokPrompt.replace(rendered, `${noun} worn low on the hips, one strap unfastened`);
       assert.equal(parseLocksFromStandardPrompt(previousPrompt, controls).locks.pantsId, r.selection.pantsId);
     }
   });
 
-  test(`${zh}: conflicting rise is suppressed but saved choice restores on another garment`, () => {
+  test(`${zh}: selected rise is enabled, rendered and saved`, () => {
     for (const rise of ['高腰', '正常腰線']) {
       const locks = locksFor({ pantsId: { byZh: zh }, bottomRiseId: { byZh: rise } });
       const r = generate(locks);
-      for (const card of cards(r)) assert.doesNotMatch(card.value, /high-rise waistband|mid-rise waistband/);
+      assert.ok(r.grokPrompt.toLowerCase().includes(option('bottomRiseId', rise).en));
       assert.equal(r.selection.bottomRiseId, locks.bottomRiseId);
-      assert.ok(!JSON.stringify(r.summaryFields).includes(rise));
-      assert.ok(!JSON.stringify(buildWorkspaceSummary(locks, controls)).includes(rise));
+      assert.ok(r.summaryFields.wardrobe.includes(zh));
+      assert.ok(JSON.stringify(buildWorkspaceSummary(locks, controls)).includes(rise));
       const control = prepareBottomRiseControl(controls.find(c => c.key === 'bottomRiseId'), locks, controls);
-      assert.equal(control.options.find(o => o.id === locks.bottomRiseId).disabled, true);
-      assert.equal(control.closureDisplayValue, 'none');
+      assert.notEqual(control.options.find(o => o.id === locks.bottomRiseId).disabled, true);
+      assert.notEqual(control.closureDisplayValue, 'none');
       const saved = deserializeFavoritePrompt(serializeFavoritePrompt(r));
       assert.equal(saved.selection.bottomRiseId, locks.bottomRiseId);
       const restored = generate({ ...saved.selection, pantsId: option('pantsId', '直筒牛仔褲').id });
@@ -83,14 +91,15 @@ for (const [zh, noun, old] of cases) {
   });
 }
 
-test('duo colors and rise suppression follow the correct wearer', () => {
+test('duo colors and independent waistlines follow the correct wearer', () => {
   const locks = locksFor({ subjectCount: '2', pantsAId: { byZh: cases[0][0] }, pantsBId: { byZh: cases[1][0] },
     bottomAColorId: { byZh: '深藍色' }, bottomBColorId: { byZh: '紅色' },
     bottomRiseAId: { byZh: '高腰' }, bottomRiseBId: { byZh: '正常腰線' } });
   const r = generate(locks);
-  assert.match(r.midjourneyPrompt, /The first woman wears dark blue denim overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally/);
-  assert.match(r.midjourneyPrompt, /The second woman wears red denim short overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally/);
-  for (const card of cards(r)) assert.doesNotMatch(card.value, /high-rise waistband|mid-rise waistband/);
+  assert.match(r.midjourneyPrompt, /The first woman wears loose, full-length dark blue denim overalls/);
+  assert.match(r.midjourneyPrompt, /The second woman wears loose red denim short overalls/);
+  assert.match(r.grokPrompt, /high-rise waistband/i);
+  assert.match(r.grokPrompt, /mid-rise waistband/i);
 });
 
 test('loose-strap inverse preserves the first overalls revision and rejects unknown bytes', () => {
@@ -110,19 +119,19 @@ test('loose-strap inverse preserves the first overalls revision and rejects unkn
 test('MJ retains ordinary top and footwear grammar beside the atomic overalls phrase', () => {
   const r = generate(locksFor({ pantsId: { byZh: cases[0][0] }, topId: { byZh: '短袖上衣' },
     shoesId: { byZh: 'Dr. Martens 1460 Round Toe Lace-Up Boots' } }));
-  assert.match(r.midjourneyPrompt, /She wears a short-sleeve top, denim overalls worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally and/);
+  assert.match(r.midjourneyPrompt, /She wears a short-sleeve top, loose, full-length denim overalls with large, frayed rips across the thighs and knees and/);
   assert.doesNotMatch(r.midjourneyPrompt, /a one strap|a denim/);
 });
 
 test('every bottom color remains attached to each overalls item in single and duo MJ', () => {
   for (const [zh] of cases) for (const color of controls.find(c => c.key === 'bottomColorId').options) {
     const r = generate(locksFor({ pantsId: { byZh: zh }, bottomColorId: color.id }));
-    assert.match(r.midjourneyPrompt, /She wears .*denim (?:short )?overalls.* worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally\./);
+    assert.match(r.midjourneyPrompt, /She wears .*denim (?:short )?overalls.*One shoulder strap stays fastened. The other hangs loose, letting that side of the bib fall forward\./);
     assert.doesNotMatch(r.midjourneyPrompt, /\ba denim|\ba one strap|\ba finished in|\ba patterned with|\ba wide stripe|\ban and clearly/);
   }
   const duo = generate(locksFor({ subjectCount: '2', pantsAId: { byZh: cases[0][0] }, pantsBId: { byZh: cases[1][0] },
     bottomAColorId: 'mirror-chrome-silver', bottomBColorId: 'multicolor-horizontal-stripes' }));
-  assert.match(duo.midjourneyPrompt, /The first woman wears denim overalls finished in mirror-chrome silver with a highly polished scene-reflective surface and crisp environment reflections worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally\./);
-  assert.match(duo.midjourneyPrompt, /The second woman wears denim short overalls patterned with bold multicolored horizontal stripes wide stripe bands and clearly separated random colors worn low on the hips, one shoulder strap fastened and the other unfastened and hanging down naturally\./);
+  assert.match(duo.midjourneyPrompt, /The first woman wears loose, full-length denim overalls finished in mirror-chrome silver with a highly polished scene-reflective surface and crisp environment reflections with large, frayed rips/);
+  assert.match(duo.midjourneyPrompt, /The second woman wears loose denim short overalls patterned with bold multicolored horizontal stripes, wide stripe bands, and clearly separated random colors with frayed rips/);
   assert.doesNotMatch(duo.midjourneyPrompt, /Both wear/);
 });
