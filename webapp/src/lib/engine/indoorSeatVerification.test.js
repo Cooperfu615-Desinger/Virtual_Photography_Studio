@@ -30,7 +30,8 @@ test('seat phase 3A: current scenes, actions, frames and all seat choices use in
   const frames=getLockControls().find(c=>c.key==='framingId').options.filter(o=>o.en&&o.en!=='none'&&o.id!=='random');
   assert.deepEqual(locations.map(p=>p.id),expectations.scenes.map(p=>p.id));
   assert.deepEqual(actions.map(a=>a.id),expectations.actions.map(a=>a.id));
-  assert.deepEqual(frames.map(f=>f.id),expectations.frames.map(f=>f.id));
+  assert.deepEqual(frames.map(f=>f.id),[...expectations.frames.map(f=>f.id),
+    'camera:景別構圖-framing:portrait-headshot', 'camera:景別構圖-framing:intimate-facial-close-up']);
   assert.equal(locations.length*actions.length,1260);
   for(const p of expectations.scenes)for(const a of expectations.actions)assertSeatRule(p,a);
 });

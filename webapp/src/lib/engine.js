@@ -6008,7 +6008,13 @@ function buildProjectedScene(context) {
   });
 }
 
+function isPortraitCrop(framing) {
+  return framing?.id === 'camera:景別構圖-framing:portrait-headshot'
+    || framing?.id === 'camera:景別構圖-framing:intimate-facial-close-up';
+}
+
 function framingSupportsSubject(framing, subject, aspectRatio) {
+  if (isPortraitCrop(framing)) return true;
   const visibility = framing.meta.visibility;
 
   if (subject.count > 1) {
@@ -7420,7 +7426,7 @@ function buildWardrobe(context, locks, catalog) {
         : Boolean(dressPiece && !isNoneLikeItem(dressPiece)));
   hasBottomPiece = useDuoRoleWardrobe ? hasRoleBottomPiece : hasBottomPiece;
 
-  if (visibility === 'close' && !['半臉傾斜特寫', '全臉傾斜特寫'].includes(context.framing?.zh)) {
+  if (visibility === 'close' && !isPortraitCrop(context.framing) && !['半臉傾斜特寫', '全臉傾斜特寫'].includes(context.framing?.zh)) {
     // Resolve explicit new short fits before the close-up early return so the
     // uncropped full-body derivative still receives the same garment source.
     if (!useDuoRoleWardrobe && hasTopPiece && !hasDressPiece && !hasOutfitPresetPiece
@@ -11060,7 +11066,7 @@ function compactCameraDescriptor(item, kind) {
 
   const label = String(item.zh || '').toLowerCase();
   if (kind === 'framing') {
-    if (isHeadDominantFraming(item)) return item.en;
+    if (isHeadDominantFraming(item) || isPortraitCrop(item)) return item.en;
     if (label.includes('半臉')) return 'half-face close-up, tilted crop';
     if (label.includes('局部五官')) return 'facial-detail close-up';
     if (label.includes('臉部特寫')) return 'tight face close-up';
@@ -11692,6 +11698,7 @@ function buildGptDuoSubjectText(context, characterSlots, wardrobeSlots, wardrobe
 }
 
 function buildGptDuoFlexibleFramingText(context) {
+  if (isPortraitCrop(context.framing)) return 'a close two-person portrait crop';
   const visibility = context.framing?.meta?.visibility || '';
   if (visibility === 'wide') return 'a loose wide environmental two-person composition';
   if (visibility === 'full') return 'a loose full-body or wider two-person composition';
@@ -17216,7 +17223,7 @@ function generateSinglePrompt(index, inputLocks, runtime, runtimeOptions = {}) {
   let compositionVisibility = createCompositionVisibilityProjection(framing, {
     fixedCompositionActive: Boolean(fixedCompositionSet) && !fixedSetAllowsFramingVariation(fixedCompositionSet),
   });
-  if (['半臉傾斜特寫', '全臉傾斜特寫', '頭部主導近景', '中景鏡頭 (Medium Shot)', '牛仔中景 (Cowboy Shot)', '全身鏡頭 (Full Body Shot)'].includes(framing?.zh)) {
+  if (isPortraitCrop(framing) || ['半臉傾斜特寫', '全臉傾斜特寫', '頭部主導近景', '中景鏡頭 (Medium Shot)', '牛仔中景 (Cowboy Shot)', '全身鏡頭 (Full Body Shot)'].includes(framing?.zh)) {
     compositionVisibility = retainResolvedWardrobe(compositionVisibility);
   }
   const innerLayer = underlayerField(effectiveLocks, lockControls, 'gestureId');

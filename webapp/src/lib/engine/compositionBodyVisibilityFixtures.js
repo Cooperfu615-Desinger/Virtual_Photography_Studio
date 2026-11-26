@@ -52,6 +52,8 @@ export const BODY_VISIBILITY_PHASE4_INTEGRATION_MATRIX = Object.freeze({
     Object.freeze({ framingZh: '全身鏡頭 (Full Body Shot)', bucket: 'fullBody' }),
     Object.freeze({ framingZh: '全臉傾斜特寫', bucket: 'headShoulders' }),
     Object.freeze({ framingZh: '頭部主導近景', bucket: 'chestUp' }),
+    Object.freeze({ framingZh: '大頭照', bucket: 'headShoulders' }),
+    Object.freeze({ framingZh: '貼臉特寫', bucket: 'faceDetail' }),
   ]),
   fixedComposition: Object.freeze({
     fixedSetZh: '暖灰泥黑絲絨工業沙發棚',

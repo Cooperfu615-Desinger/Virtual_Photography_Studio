@@ -1,7 +1,7 @@
 import { SPECIFIED_ACTION_CONCRETE_OPTIONS } from './specifiedActions.js';
 import { getLockControls } from '../engine.js';
 import { resolveCapture } from '../observationCaptureMode.js';
-import { UPPER_BODY_STATE_PARIS, upperBodyStateLocks, upperBodyStateOption, runUpperBodyStateCase, upperBodyStateRow, upperBodyStateHash } from './specifiedActionUpperBodyStateFixtures.js';
+import { historicalPoseFramings, UPPER_BODY_STATE_PARIS, upperBodyStateLocks, upperBodyStateOption, runUpperBodyStateCase, upperBodyStateRow, upperBodyStateHash } from './specifiedActionUpperBodyStateFixtures.js';
 
 export const UPPER_BODY_STATE_BATCH2 = Object.freeze([
   ['specified-sitting-forward-lean', 'She is seated.', 'Her upper body leans slightly forward.'],
@@ -21,7 +21,7 @@ export function upperBodyStateBatch2Cases() {
   const add = (key, patch, target = false) => cases.push({ key, target,
     seed: 'pose-upper-body-state-batch2/' + key, locks: upperBodyStateLocks(patch) });
   for (const action of UPPER_BODY_STATE_BATCH2) {
-    for (const framing of controls.find(control => control.key === 'framingId').options) {
+    for (const framing of historicalPoseFramings) {
       for (const imported of [false, true]) {
         add(`${action.id}/${framing.zh}/${imported ? 'paris' : 'general'}`, {
           specifiedActionId:action.id, framingId:framing.id,

@@ -1,0 +1,668 @@
+{
+  "base": "79eed15ca9def5632a82e9593981ac67170770e7",
+  "files": [
+    {
+      "path": "knowledge_base/catalog/CameraLighting/景別構圖-framing.json",
+      "beforeHash": "7595f6330304fed7eaac4e864fb1afacaf09017d2d684b960dba4c372688e12a",
+      "afterHash": "adb8a2938b46d12735fa69b23ea925532a73f062890dbaa6383e2e6849d6fb03",
+      "edits": [
+        {
+          "line": 198,
+          "before": [],
+          "after": [
+            "    },\n",
+            "    {\n",
+            "      \"id\": \"camera:景別構圖-framing:portrait-headshot\",\n",
+            "      \"legacyIds\": [],\n",
+            "      \"zh\": \"大頭照\",\n",
+            "      \"en\": \"Tight portrait headshot, face dominant, chin in frame, minimal headroom, lower edge near the shoulders or collarbones.\",\n",
+            "      \"desc\": \"以臉部為主體，保留下巴與臉部輪廓，頭頂留白少，下緣在肩線或鎖骨附近。\",\n",
+            "      \"meta\": {\n",
+            "        \"semantic\": {\n",
+            "          \"visibility\": \"portrait\",\n",
+            "          \"tags\": [\n",
+            "            \"face_detail\"\n",
+            "          ]\n",
+            "        }\n",
+            "      }\n",
+            "    },\n",
+            "    {\n",
+            "      \"id\": \"camera:景別構圖-framing:intimate-facial-close-up\",\n",
+            "      \"legacyIds\": [],\n",
+            "      \"zh\": \"貼臉特寫\",\n",
+            "      \"en\": \"Intimate facial close-up, face filling most of the frame, outer hair cropped by the edges, chin near the lower edge.\",\n",
+            "      \"desc\": \"臉部佔據大部分畫面，外圍髮絲可被畫面邊緣裁去，下巴靠近下緣，肩膀最多只在邊角露出少許。\",\n",
+            "      \"meta\": {\n",
+            "        \"semantic\": {\n",
+            "          \"visibility\": \"close\",\n",
+            "          \"tags\": [\n",
+            "            \"face_detail\",\n",
+            "            \"full_face_tight\"\n",
+            "          ]\n",
+            "        }\n",
+            "      }\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/camera_and_lighting.md",
+      "beforeHash": "4eb17ae1fb5b05542a52b1415b6be0b9478c1c3129672e36e7c1eb8b606a8ac5",
+      "afterHash": "763d716cd818b13bca36ec4e24a029db1fa959ab33eefccc19624594e61c7fec",
+      "edits": [
+        {
+          "line": 20,
+          "before": [],
+          "after": [
+            "| **景別構圖 (Framing)** | 大頭照 | `Tight portrait headshot, face dominant, chin in frame, minimal headroom, lower edge near the shoulders or collarbones.` | 以臉部為主體，保留下巴與臉部輪廓，頭頂留白少，下緣在肩線或鎖骨附近。 |\n",
+            "| **景別構圖 (Framing)** | 貼臉特寫 | `Intimate facial close-up, face filling most of the frame, outer hair cropped by the edges, chin near the lower edge.` | 臉部佔據大部分畫面，外圍髮絲可被畫面邊緣裁去，下巴靠近下緣，肩膀最多只在邊角露出少許。 |\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/data/database.json",
+      "beforeHash": "c449f7db83bd6f5b99f7a4914ff8a4d1650a70e0279c6b6a31262694912bccf8",
+      "afterHash": "74e84b41f9ea89371eb661106d0d5939ad24ede35aca66224003b7b7813eeb67",
+      "edits": [
+        {
+          "line": 12091,
+          "before": [],
+          "after": [
+            "      },\n",
+            "      {\n",
+            "        \"zh\": \"大頭照\",\n",
+            "        \"en\": \"Tight portrait headshot, face dominant, chin in frame, minimal headroom, lower edge near the shoulders or collarbones.\",\n",
+            "        \"desc\": \"以臉部為主體，保留下巴與臉部輪廓，頭頂留白少，下緣在肩線或鎖骨附近。\",\n",
+            "        \"meta\": {\n",
+            "          \"semantic\": {\n",
+            "            \"visibility\": \"portrait\",\n",
+            "            \"tags\": [\n",
+            "              \"face_detail\"\n",
+            "            ]\n",
+            "          }\n",
+            "        },\n",
+            "        \"stableId\": \"camera:景別構圖-framing:portrait-headshot\",\n",
+            "        \"legacyIds\": []\n",
+            "      },\n",
+            "      {\n",
+            "        \"zh\": \"貼臉特寫\",\n",
+            "        \"en\": \"Intimate facial close-up, face filling most of the frame, outer hair cropped by the edges, chin near the lower edge.\",\n",
+            "        \"desc\": \"臉部佔據大部分畫面，外圍髮絲可被畫面邊緣裁去，下巴靠近下緣，肩膀最多只在邊角露出少許。\",\n",
+            "        \"meta\": {\n",
+            "          \"semantic\": {\n",
+            "            \"visibility\": \"close\",\n",
+            "            \"tags\": [\n",
+            "              \"face_detail\",\n",
+            "              \"full_face_tight\"\n",
+            "            ]\n",
+            "          }\n",
+            "        },\n",
+            "        \"stableId\": \"camera:景別構圖-framing:intimate-facial-close-up\",\n",
+            "        \"legacyIds\": []\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/catalog/index.json",
+      "beforeHash": "b06250fb540b228c537de367c555d8fd3a4fe84b1dde4ef569c00610e18b4a31",
+      "afterHash": "1f2459722c162b484f5065c6b59ec205038de978db00696a0e0d446d004b702e",
+      "edits": [
+        {
+          "line": 16633,
+          "before": [],
+          "after": [
+            "          \"id\": \"camera:景別構圖-framing:portrait-headshot\",\n",
+            "          \"cells\": [\n",
+            "            \"**景別構圖 (Framing)**\",\n",
+            "            \"\",\n",
+            "            \"\",\n",
+            "            \"\"\n",
+            "          ],\n",
+            "          \"columns\": {\n",
+            "            \"1\": \"zh\",\n",
+            "            \"2\": \"en\",\n",
+            "            \"3\": \"desc\"\n",
+            "          },\n",
+            "          \"affixes\": {\n",
+            "            \"1\": [\n",
+            "              \"\",\n",
+            "              \"\"\n",
+            "            ],\n",
+            "            \"2\": [\n",
+            "              \"`\",\n",
+            "              \"`\"\n",
+            "            ],\n",
+            "            \"3\": [\n",
+            "              \"\",\n",
+            "              \"\"\n",
+            "            ]\n",
+            "          }\n",
+            "        },\n",
+            "        {\n",
+            "          \"id\": \"camera:景別構圖-framing:intimate-facial-close-up\",\n",
+            "          \"cells\": [\n",
+            "            \"**景別構圖 (Framing)**\",\n",
+            "            \"\",\n",
+            "            \"\",\n",
+            "            \"\"\n",
+            "          ],\n",
+            "          \"columns\": {\n",
+            "            \"1\": \"zh\",\n",
+            "            \"2\": \"en\",\n",
+            "            \"3\": \"desc\"\n",
+            "          },\n",
+            "          \"affixes\": {\n",
+            "            \"1\": [\n",
+            "              \"\",\n",
+            "              \"\"\n",
+            "            ],\n",
+            "            \"2\": [\n",
+            "              \"`\",\n",
+            "              \"`\"\n",
+            "            ],\n",
+            "            \"3\": [\n",
+            "              \"\",\n",
+            "              \"\"\n",
+            "            ]\n",
+            "          }\n",
+            "        },\n",
+            "        {\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "knowledge_base/catalog/id_registry.json",
+      "beforeHash": "53896882fc151b42cddffa4d7972c596a1c1d8fce00e6749331f4e0172d362f1",
+      "afterHash": "2428b9bbd44949b706f96ea6658434a0ef0eb618c522a89ada654d3fd929c935",
+      "edits": [
+        {
+          "line": 7424,
+          "before": [],
+          "after": [
+            "    },\n",
+            "    {\n",
+            "      \"id\": \"camera:景別構圖-framing:portrait-headshot\",\n",
+            "      \"initialGroup\": \"camera\",\n",
+            "      \"initialCategory\": \"景別構圖 (Framing)\",\n",
+            "      \"createdFrom\": \"79eed15ca9def5632a82e9593981ac67170770e7\",\n",
+            "      \"status\": \"active\",\n",
+            "      \"decisionRef\": \"Docs/specs/portrait-crops-v1.md\"\n",
+            "    },\n",
+            "    {\n",
+            "      \"id\": \"camera:景別構圖-framing:intimate-facial-close-up\",\n",
+            "      \"initialGroup\": \"camera\",\n",
+            "      \"initialCategory\": \"景別構圖 (Framing)\",\n",
+            "      \"createdFrom\": \"79eed15ca9def5632a82e9593981ac67170770e7\",\n",
+            "      \"status\": \"active\",\n",
+            "      \"decisionRef\": \"Docs/specs/portrait-crops-v1.md\"\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine.js",
+      "beforeHash": "0eaf5d56f2039a1ab8dc097656eb2a417562618e05d9968cf34a1b32dd49d43d",
+      "afterHash": "c8047a55f3ab0c70b5d0565a44221cbaa9fda38d239f35306dddb09f2a0caf35",
+      "edits": [
+        {
+          "line": 6010,
+          "before": [],
+          "after": [
+            "function isPortraitCrop(framing) {\n",
+            "  return framing?.id === 'camera:景別構圖-framing:portrait-headshot'\n",
+            "    || framing?.id === 'camera:景別構圖-framing:intimate-facial-close-up';\n",
+            "}\n",
+            "\n"
+          ]
+        },
+        {
+          "line": 6016,
+          "before": [],
+          "after": [
+            "  if (isPortraitCrop(framing)) return true;\n"
+          ]
+        },
+        {
+          "line": 7428,
+          "before": [
+            "  if (visibility === 'close' && !['半臉傾斜特寫', '全臉傾斜特寫'].includes(context.framing?.zh)) {\n"
+          ],
+          "after": [
+            "  if (visibility === 'close' && !isPortraitCrop(context.framing) && !['半臉傾斜特寫', '全臉傾斜特寫'].includes(context.framing?.zh)) {\n"
+          ]
+        },
+        {
+          "line": 11068,
+          "before": [
+            "    if (isHeadDominantFraming(item)) return item.en;\n"
+          ],
+          "after": [
+            "    if (isHeadDominantFraming(item) || isPortraitCrop(item)) return item.en;\n"
+          ]
+        },
+        {
+          "line": 11700,
+          "before": [],
+          "after": [
+            "  if (isPortraitCrop(context.framing)) return 'a close two-person portrait crop';\n"
+          ]
+        },
+        {
+          "line": 17225,
+          "before": [
+            "  if (['半臉傾斜特寫', '全臉傾斜特寫', '頭部主導近景', '中景鏡頭 (Medium Shot)', '牛仔中景 (Cowboy Shot)', '全身鏡頭 (Full Body Shot)'].includes(framing?.zh)) {\n"
+          ],
+          "after": [
+            "  if (isPortraitCrop(framing) || ['半臉傾斜特寫', '全臉傾斜特寫', '頭部主導近景', '中景鏡頭 (Medium Shot)', '牛仔中景 (Cowboy Shot)', '全身鏡頭 (Full Body Shot)'].includes(framing?.zh)) {\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/observationCaptureMode.test.js",
+      "beforeHash": "637f91e4ffef3d6e6882bf2a727024694927f8a15da825ad4dcfbde5cf02bb3d",
+      "afterHash": "19bee696c2be1e3e05373ec73994bab2e8049a8810aae46a772eca680d38761b",
+      "edits": [
+        {
+          "line": 258,
+          "before": [
+            "  const { preObservationCaptureExpansionSource, preGestureExpressionGazeSource, gestureExpressionGazeHistoricalPaths }=await import('../../../scripts/lib/gestureExpressionGazeHistoricalReplay.mjs');\n"
+          ],
+          "after": [
+            "  const { prePortraitCropsSource, preObservationCaptureExpansionSource, preGestureExpressionGazeSource, gestureExpressionGazeHistoricalPaths }=await import('../../../scripts/lib/gestureExpressionGazeHistoricalReplay.mjs');\n"
+          ]
+        },
+        {
+          "line": 261,
+          "before": [
+            "    const current=readFileSync(new URL(`../../../${file.path}`,import.meta.url));\n"
+          ],
+          "after": [
+            "    const current=prePortraitCropsSource(file.path,readFileSync(new URL(`../../../${file.path}`,import.meta.url)));\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/sceneSemanticA5Ximending.test.js",
+      "beforeHash": "cf2ec470fe542190e433f6e4d0c8bbdda8cc095bc34ffbbaed346a1569f06006",
+      "afterHash": "ccb47bf5dacb30ce50e7805884ccfb5f3b5f7484e1d1c1797c3659d211263abf",
+      "edits": [
+        {
+          "line": 64,
+          "before": [
+            "test('836 crop/ambient/scene-attribute combinations preserve all ordered candidate IDs', () => {\n"
+          ],
+          "after": [
+            "test('988 crop/ambient/scene-attribute combinations preserve all ordered candidate IDs', () => {\n"
+          ]
+        },
+        {
+          "line": 71,
+          "before": [
+            "  assert.equal(n, 836);\n"
+          ],
+          "after": [
+            "  assert.equal(n, 988);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/ethnicityRevisionTestSupport.test.js",
+      "beforeHash": "14b0f548a93340bdf55814a01357dbbd1da549d5b9bfa091f896163685b5c8e9",
+      "afterHash": "bd65cdd1d484c1da678ccfff77ffbe3dfdfe9e91d6b7754ee7cfc1129d7276bc",
+      "edits": [
+        {
+          "line": 3,
+          "before": [
+            "import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls } from '../engine.js';\n"
+          ],
+          "after": [
+            "import { naturalFixtureLocks } from './midjourneyNaturalFixtures.js';\n",
+            "import { createSeededRandom, generatePrompts, getLockControls } from '../engine.js';\n"
+          ]
+        },
+        {
+          "line": 120,
+          "before": [
+            "  const [single] = generatePrompts(1, { ...createEmptyLocks(), subjectCount: '1', characterProfileId: 'none', specialSubjectId: 'none' }, [], { random: createSeededRandom('ethnicity-reverse-single') });\n",
+            "  const [duo] = generatePrompts(1, { ...createEmptyLocks(), subjectCount: '2' }, [], { random: createSeededRandom('ethnicity-reverse-duo') });\n"
+          ],
+          "after": [
+            "  const [single] = generatePrompts(1, naturalFixtureLocks({ subjectCount: '1' }), [], { random: createSeededRandom('ethnicity-reverse-single') });\n",
+            "  const [duo] = generatePrompts(1, naturalFixtureLocks({ subjectCount: '2' }), [], { random: createSeededRandom('ethnicity-reverse-duo') });\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "scripts/tests/test_catalog_cutover.py",
+      "beforeHash": "2556a66623503cbc0b2ade7f069fd1197b3cbd5969d3169e8029bd3483af7b63",
+      "afterHash": "ba8aa79ff5992cb6e54da8a670edb7020c45a585296bfd853b27e3a1d3a3f555",
+      "edits": [
+        {
+          "line": 72,
+          "before": [
+            "        self.assertEqual(len(entries) - len(added) - len(companion) - len(lawson) - len(eye_expressions) - len(shirts), 1050)\n"
+          ],
+          "after": [
+            "        crop_ids = {'camera:景別構圖-framing:portrait-headshot', 'camera:景別構圖-framing:intimate-facial-close-up'}\n",
+            "        crops = [row for row in entries if row['id'] in crop_ids]\n",
+            "        self.assertCountEqual([row['id'] for row in crops], crop_ids)\n",
+            "        self.assertEqual(len(entries) - len(crops) - len(added) - len(companion) - len(lawson) - len(eye_expressions) - len(shirts), 1050)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/catalogSnapshot.test.js",
+      "beforeHash": "23c0d86261f05d0928af5da762f043e992065b9b25747e3ff1e2792c6e6bdc10",
+      "afterHash": "4e0ab0a0a98e91a9a9d44ebf591cfb9ea6e0784bbf803a2d157bd1d19eba35ad",
+      "edits": [
+        {
+          "line": 52,
+          "before": [
+            "  assert.equal(originalCount, 1059);\n"
+          ],
+          "after": [
+            "  assert.equal(originalCount, 1061);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/catalogSemanticSource.test.js",
+      "beforeHash": "a79fef2f4b5f6926da95dea652e964c98db34737baa120a7fe888adccd7e2efd",
+      "afterHash": "1aed2e6e285944504f8ab452bdd8a9c543983aba09125f34dbf4811274051bb8",
+      "edits": [
+        {
+          "line": 39,
+          "before": [
+            "  assert.equal(added.length,1);assert.equal(companion.length,1);assert.equal(rows.filter(row => row.stableId?.endsWith('lawson-store') || row.stableId?.endsWith('lawson-storefront')).length,2);assert.equal(rows.length-added.length-companion.length-2-reviewedEyes.length-shirts.length,1050);\n"
+          ],
+          "after": [
+            "  const cropIds = ['portrait-headshot', 'intimate-facial-close-up'].map(slug => `camera:景別構圖-framing:${slug}`);\n",
+            "  const crops = cropIds.map(id => rows.find(row => row.stableId === id));\n",
+            "  assert.deepEqual(crops.map(row => row?.meta.semantic), [\n",
+            "    { visibility: 'portrait', tags: ['face_detail'] },\n",
+            "    { visibility: 'close', tags: ['face_detail', 'full_face_tight'] },\n",
+            "  ]);\n",
+            "  assert.equal(added.length,1);assert.equal(companion.length,1);assert.equal(rows.filter(row => row.stableId?.endsWith('lawson-store') || row.stableId?.endsWith('lawson-storefront')).length,2);assert.equal(rows.length-added.length-companion.length-2-reviewedEyes.length-shirts.length-crops.length,1050);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/nanoBananaPrompt.test.js",
+      "beforeHash": "392700d14e39aeb1f08d133e89517864c7d2edbb3c5d55f1dfd238e627ec54f8",
+      "afterHash": "50071f2cd38d7fbea566869da361cea04771e7a3732bdda7e077941791d60d17",
+      "edits": [
+        {
+          "line": 335,
+          "before": [
+            "  assert.equal(facialGenerated.filter(item => item.fixture.kind === 'facial-crop').length, 77);\n"
+          ],
+          "after": [
+            "  assert.equal(facialGenerated.filter(item => item.fixture.kind === 'facial-crop').length, 91);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/indoorSeatFixtures.js",
+      "beforeHash": "15f7f7de9e582a97f02860381921ca770160300083c6d45ed327fb882b7f470c",
+      "afterHash": "af217c21c08236b535aa91a6192cddbaf27f4b342432cf69c62098d4ac3faf49",
+      "edits": [
+        {
+          "line": 0,
+          "before": [],
+          "after": [
+            "import seatExpectations from './indoorSeatVerificationExpectations.json' with { type: 'json' };\n"
+          ]
+        },
+        {
+          "line": 35,
+          "before": [
+            "export const seatFramings = controls.find(c => c.key === 'framingId').options\n",
+            "  .filter(item => item.en && item.en !== 'none' && item.id !== 'random').map(item => item.id);\n"
+          ],
+          "after": [
+            "// The sealed seat, lean and kneel matrices use the original ordered framing IDs.\n",
+            "export const seatFramings = seatExpectations.frames.map(frame => frame.id);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/indoorSeatVerification.test.js",
+      "beforeHash": "8f76d392fa545045a56487f56d521d52f639d4c88694d577a43e9b63a56d748d",
+      "afterHash": "ded01c343380162759b9126dd7ffc38700840e141a0155e953508aba31b9c962",
+      "edits": [
+        {
+          "line": 32,
+          "before": [
+            "  assert.deepEqual(frames.map(f=>f.id),expectations.frames.map(f=>f.id));\n"
+          ],
+          "after": [
+            "  assert.deepEqual(frames.map(f=>f.id),[...expectations.frames.map(f=>f.id),\n",
+            "    'camera:景別構圖-framing:portrait-headshot', 'camera:景別構圖-framing:intimate-facial-close-up']);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/specifiedActionUpperBodyStateBatch3.test.js",
+      "beforeHash": "244e8835cca71ae8803e470476403aee1281b0b08e3600fbf4b977ac20d4eddb",
+      "afterHash": "e16d438c484e31e3b947da3da4c71cdb35917a9d2e823305ededd674839ed757",
+      "edits": [
+        {
+          "line": 181,
+          "before": [
+            "  assert.equal(cases.length,330);\n"
+          ],
+          "after": [
+            "  assert.equal(cases.length,366);\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/specifiedActionUpperBodyStateFixtures.js",
+      "beforeHash": "7e9eb90dd94963355cd0c8a926ea30e12f41a287d13747c3e3107178e4d3edb0",
+      "afterHash": "6cb04330f7d24e9b79757ec4664352ceb4b17590c882e05ac5a007ef28419605",
+      "edits": [
+        {
+          "line": 0,
+          "before": [],
+          "after": [
+            "import seatExpectations from './indoorSeatVerificationExpectations.json' with { type: 'json' };\n"
+          ]
+        },
+        {
+          "line": 16,
+          "before": [],
+          "after": [
+            "// All three published pose baselines used silence followed by these ten crops.\n",
+            "export const historicalPoseFramings = [\n",
+            "  controls.find(control => control.key === 'framingId').options.find(option => option.zh === '全無'),\n",
+            "  ...seatExpectations.frames,\n",
+            "];\n"
+          ]
+        },
+        {
+          "line": 46,
+          "before": [
+            "    for (const framing of controls.find(control => control.key === 'framingId').options) {\n"
+          ],
+          "after": [
+            "    for (const framing of historicalPoseFramings) {\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/specifiedActionUpperBodyStateBatch2Fixtures.js",
+      "beforeHash": "4bf54ddd10269d487e871df9376c5e9802bf9c884a883c6f3e7fe2926a5e448f",
+      "afterHash": "192aa36e8080497f7c4fe8fa5fc0558e6629301f96927ca347ae66c07516ec89",
+      "edits": [
+        {
+          "line": 3,
+          "before": [
+            "import { UPPER_BODY_STATE_PARIS, upperBodyStateLocks, upperBodyStateOption, runUpperBodyStateCase, upperBodyStateRow, upperBodyStateHash } from './specifiedActionUpperBodyStateFixtures.js';\n"
+          ],
+          "after": [
+            "import { historicalPoseFramings, UPPER_BODY_STATE_PARIS, upperBodyStateLocks, upperBodyStateOption, runUpperBodyStateCase, upperBodyStateRow, upperBodyStateHash } from './specifiedActionUpperBodyStateFixtures.js';\n"
+          ]
+        },
+        {
+          "line": 23,
+          "before": [
+            "    for (const framing of controls.find(control => control.key === 'framingId').options) {\n"
+          ],
+          "after": [
+            "    for (const framing of historicalPoseFramings) {\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/specifiedActionUpperBodyStateBatch3Fixtures.js",
+      "beforeHash": "96b1dbcc68ce1fece1efbd0c96672bc02147868ea27f445984e2476272e407fd",
+      "afterHash": "67e78c86b9d53501e2bf03209baaacf66efa3f119822380bd8256e89dcbe687e",
+      "edits": [
+        {
+          "line": 6,
+          "before": [
+            "import { UPPER_BODY_STATE_PARIS, upperBodyStateLocks, upperBodyStateOption, runUpperBodyStateCase, upperBodyStateRow, upperBodyStateHash } from './specifiedActionUpperBodyStateFixtures.js';\n"
+          ],
+          "after": [
+            "import { historicalPoseFramings, UPPER_BODY_STATE_PARIS, upperBodyStateLocks, upperBodyStateOption, runUpperBodyStateCase, upperBodyStateRow, upperBodyStateHash } from './specifiedActionUpperBodyStateFixtures.js';\n"
+          ]
+        },
+        {
+          "line": 43,
+          "before": [
+            "    for (const frame of controls.find(control => control.key === 'framingId').options) for (const imported of [false,true]) {\n"
+          ],
+          "after": [
+            "    for (const frame of historicalPoseFramings) for (const imported of [false,true]) {\n"
+          ]
+        },
+        {
+          "line": 74,
+          "before": [
+            "    for (const frame of controls.find(control=>control.key==='framingId').options) for (const surface of ['',...surfaces]) {\n"
+          ],
+          "after": [
+            "    for (const frame of historicalPoseFramings) for (const surface of ['',...surfaces]) {\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/compositionBodyVisibilityFixtures.js",
+      "beforeHash": "472a3aedc4e6a6cefefa465c4b9def389e3a5a0e820d24cc52f2afc08cb0bcf4",
+      "afterHash": "b8983f691bb3bd1162cb8c812ffe81150676c6ff1984c704a471569ca258af79",
+      "edits": [
+        {
+          "line": 54,
+          "before": [],
+          "after": [
+            "    Object.freeze({ framingZh: '大頭照', bucket: 'headShoulders' }),\n",
+            "    Object.freeze({ framingZh: '貼臉特寫', bucket: 'faceDetail' }),\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/enginePhotographyImagingCleanup.test.js",
+      "beforeHash": "975d629eb437e9663b302190ac186ddf9335bfc29bdb4fc1483264b194142c03",
+      "afterHash": "2dffa16961d0a2539f92ded3623f55e2800d86c8c9ff8f9e1283160134fe4618",
+      "edits": [
+        {
+          "line": 75,
+          "before": [],
+          "after": [
+            "      '大頭照',\n",
+            "      '貼臉特寫',\n"
+          ]
+        },
+        {
+          "line": 242,
+          "before": [],
+          "after": [
+            "    framingId: optionByLabel('framingId', '中景鏡頭 (Medium Shot)').id,\n"
+          ]
+        },
+        {
+          "line": 253,
+          "before": [],
+          "after": [
+            "    framingId: optionByLabel('framingId', '中景鏡頭 (Medium Shot)').id,\n"
+          ]
+        },
+        {
+          "line": 265,
+          "before": [],
+          "after": [
+            "    framingId: optionByLabel('framingId', '中景鏡頭 (Medium Shot)').id,\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/compositionVisibilityContract.js",
+      "beforeHash": "0af4d963eda7e3330cb263f5f629c052369bb5b7e69772f838910d0b5f4f7a78",
+      "afterHash": "74ca394c65987fc61b83a5f295dba2b7dcfa965578e9265fc0c26171414ffcbf",
+      "edits": [
+        {
+          "line": 226,
+          "before": [],
+          "after": [
+            "  大頭照: COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS,\n",
+            "  貼臉特寫: COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL,\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/fixedFramingDerivedPromptContract.js",
+      "beforeHash": "b8b405e879d8a22d1cbe70738abc3191e7e937ed75b35ca388d1dc4f58fc6c14",
+      "afterHash": "fac8702f21ee9c9fc16e5edda3e1e309337831844e44349a5dfba914ff8c7699",
+      "edits": [
+        {
+          "line": 26,
+          "before": [],
+          "after": [
+            "    { id: 'camera:景別構圖-framing:portrait-headshot', zh: '大頭照', randomCandidate: true },\n",
+            "    { id: 'camera:景別構圖-framing:intimate-facial-close-up', zh: '貼臉特寫', randomCandidate: true },\n"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "webapp/src/lib/engine/fixedFramingDerivedPromptContract.test.js",
+      "beforeHash": "2ac8f44ad870df7ea62ab8db02986f7bc7584e59a45ca41fee690ac5d32743d2",
+      "afterHash": "f906ff5b2dc9a74cf302dc9bec241117bee34fdc29a4445fe86ba902238e7c23",
+      "edits": [
+        {
+          "line": 115,
+          "before": [
+            "    ['半臉傾斜特寫', '全臉傾斜特寫', '中景鏡頭 (Medium Shot)', '牛仔中景 (Cowboy Shot)', '全身鏡頭 (Full Body Shot)', '頭部主導近景'],\n"
+          ],
+          "after": [
+            "    ['半臉傾斜特寫', '全臉傾斜特寫', '中景鏡頭 (Medium Shot)', '牛仔中景 (Cowboy Shot)', '全身鏡頭 (Full Body Shot)', '頭部主導近景', '大頭照', '貼臉特寫'],\n"
+          ]
+        }
+      ]
+    }
+  ],
+  "reportRows": {
+    "camera:景別構圖-framing:portrait-headshot": "13cb8b380e9d7b80d31d829afad820b25312ec9e7e8b0960893bbad09826725f",
+    "camera:景別構圖-framing:intimate-facial-close-up": "bc3e2bd0b54bc4ca0566ffbff290b5140f478b8e5a0f54042c85bf715b21c064"
+  }
+}

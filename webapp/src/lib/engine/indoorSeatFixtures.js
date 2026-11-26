@@ -1,3 +1,4 @@
+import seatExpectations from './indoorSeatVerificationExpectations.json' with { type: 'json' };
 import { withSeatFixtureReuse } from './seatFixtureReuseTestSupport.js';
 import { createHash } from 'node:crypto';
 import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls } from '../engine.js';
@@ -32,8 +33,8 @@ export function seatFixture(location, action, framing, overrides = {}) {
   return { prompt, draws, cards: buildPage1GenerationPromptCards(prompt), locks };
   });
 }
-export const seatFramings = controls.find(c => c.key === 'framingId').options
-  .filter(item => item.en && item.en !== 'none' && item.id !== 'random').map(item => item.id);
+// The sealed seat, lean and kneel matrices use the original ordered framing IDs.
+export const seatFramings = seatExpectations.frames.map(frame => frame.id);
 const hash = value => createHash('sha256').update(JSON.stringify(value)).digest('hex');
 export function seatBaselineRows() {
   return Object.fromEntries(seatCases.flatMap(([name, location, action]) => seatFramings.map(framing => {

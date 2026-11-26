@@ -333,7 +333,7 @@ test('Nano facial mapper handles canonical role IDs, silence, effective-source o
 });
 
 test('Nano faces appear once in their own role across crops, all 49 duo combinations, fixed sets, outfits and poses', () => {
-  assert.equal(facialGenerated.filter(item => item.fixture.kind === 'facial-crop').length, 77);
+  assert.equal(facialGenerated.filter(item => item.fixture.kind === 'facial-crop').length, 91);
   assert.equal(facialGenerated.filter(item => item.fixture.kind === 'facial-duo').length, 49);
   for (const { fixture, prompt } of facialGenerated) {
     const value = prompt.nanoBananaPrompt;

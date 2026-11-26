@@ -73,6 +73,8 @@ test('framing options are ordered from closest face crop to full body with legac
       '全身鏡頭 (Full Body Shot)',
       '全臉傾斜特寫',
       '頭部主導近景',
+      '大頭照',
+      '貼臉特寫',
     ]
   );
 
@@ -238,6 +240,7 @@ test('duo angle overrides stay geometric after angle cleanup', () => {
   const prompt = generatePrompts(1, {
     ...createEmptyLocks(),
     subjectCount: '2',
+    framingId: optionByLabel('framingId', '中景鏡頭 (Medium Shot)').id,
     angleId: dutchAngle.id,
   })[0].grokPrompt;
 
@@ -248,6 +251,7 @@ test('duo angle overrides stay geometric after angle cleanup', () => {
   const wormEyePrompt = generatePrompts(1, {
     ...createEmptyLocks(),
     subjectCount: '2',
+    framingId: optionByLabel('framingId', '中景鏡頭 (Medium Shot)').id,
     angleId: wormEye.id,
   })[0].grokPrompt;
 
@@ -259,6 +263,7 @@ test('duo angle overrides stay geometric after angle cleanup', () => {
   const birdEyePrompt = generatePrompts(1, {
     ...createEmptyLocks(),
     subjectCount: '2',
+    framingId: optionByLabel('framingId', '中景鏡頭 (Medium Shot)').id,
     angleId: birdEye.id,
   })[0].grokPrompt;
 

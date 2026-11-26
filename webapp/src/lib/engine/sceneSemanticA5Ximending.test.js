@@ -62,14 +62,14 @@ a2HistoricalTest('all 11 pending dual-tag rows retain entire formal records and 
     assert.deepEqual(actual, pending.source); assert.deepEqual(actual, trusted);
   }
 });
-test('836 crop/ambient/scene-attribute combinations preserve all ordered candidate IDs', () => {
+test('988 crop/ambient/scene-attribute combinations preserve all ordered candidate IDs', () => {
   const before = beforeLibrary(); let n = 0;
   for (const frame of options('framingId')) for (const sceneAttributeId of ['none', 'outdoor']) for (const lightingId of ['', ...ids(options('lightingId'))]) {
     const input = { ...locks, framingId: frame.id, sceneAttributeId, lightingId }, a = getSceneDependentOptions(before, input), b = getSceneDependentOptions([], input);
     assert.deepEqual(Object.keys(a), Object.keys(b));
     for (const key of Object.keys(a)) assert.deepEqual(ids(a[key]), ids(b[key]), key); n++;
   }
-  assert.equal(n, 836);
+  assert.equal(n, 988);
 });
 c7ColorHistoricalTest('manual and randomized Ximending selections, six outputs and RNG remain equal', () => {
   const before = beforeLibrary();

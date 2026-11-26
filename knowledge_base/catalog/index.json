@@ -16631,6 +16631,62 @@
           }
         },
         {
+          "id": "camera:景別構圖-framing:portrait-headshot",
+          "cells": [
+            "**景別構圖 (Framing)**",
+            "",
+            "",
+            ""
+          ],
+          "columns": {
+            "1": "zh",
+            "2": "en",
+            "3": "desc"
+          },
+          "affixes": {
+            "1": [
+              "",
+              ""
+            ],
+            "2": [
+              "`",
+              "`"
+            ],
+            "3": [
+              "",
+              ""
+            ]
+          }
+        },
+        {
+          "id": "camera:景別構圖-framing:intimate-facial-close-up",
+          "cells": [
+            "**景別構圖 (Framing)**",
+            "",
+            "",
+            ""
+          ],
+          "columns": {
+            "1": "zh",
+            "2": "en",
+            "3": "desc"
+          },
+          "affixes": {
+            "1": [
+              "",
+              ""
+            ],
+            "2": [
+              "`",
+              "`"
+            ],
+            "3": [
+              "",
+              ""
+            ]
+          }
+        },
+        {
           "id": "camera:相機視角-angle:全無:0",
           "cells": [
             "**相機視角 (Angle)**",

@@ -7422,6 +7422,22 @@
       "createdFrom": "1e52f3845cff99fb9c10bfc9c1e22574eb65d03f",
       "status": "active",
       "decisionRef": "Docs/specs/open-button-shirt-tops-v1.md"
+    },
+    {
+      "id": "camera:景別構圖-framing:portrait-headshot",
+      "initialGroup": "camera",
+      "initialCategory": "景別構圖 (Framing)",
+      "createdFrom": "79eed15ca9def5632a82e9593981ac67170770e7",
+      "status": "active",
+      "decisionRef": "Docs/specs/portrait-crops-v1.md"
+    },
+    {
+      "id": "camera:景別構圖-framing:intimate-facial-close-up",
+      "initialGroup": "camera",
+      "initialCategory": "景別構圖 (Framing)",
+      "createdFrom": "79eed15ca9def5632a82e9593981ac67170770e7",
+      "status": "active",
+      "decisionRef": "Docs/specs/portrait-crops-v1.md"
     }
   ]
 }

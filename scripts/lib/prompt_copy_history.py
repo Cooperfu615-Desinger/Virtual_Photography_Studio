@@ -21,6 +21,12 @@ def pre_copy_report(report, root):
         return report
     reviews = reviewed_rows(str(root), path.read_text())
     result = copy.deepcopy(report)
+    crops = strict_json((Path(root) / 'scripts/lib/portraitCropsHistory.json').read_text())['reportRows']
+    for row in list(result['rows']):
+        if row['id'] in crops:
+            require(row['sourceSha256'] == crops[row['id']], 'Unexpected portrait framing diagnostic')
+            result['summary'][row['status']] -= 1
+            result['rows'].remove(row)
     overalls = strict_json((Path(root) / 'scripts/lib/distressedDenimOverallsHistory.json').read_text())['reportRows']
     for row in result['rows']:
         pair = overalls.get(row['id'])

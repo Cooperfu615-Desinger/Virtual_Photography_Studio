@@ -4,7 +4,7 @@ import { PHONE_SELFIE_ID, COMPANION_ORBIT_ID } from './phoneCapture.js';
 import { resolveCapture } from '../observationCaptureMode.js';
 import indoorScenes from './indoorKneelScenes.json' with {type:'json'};
 import outdoorScenes from './outdoorKneelScenes.json' with {type:'json'};
-import { UPPER_BODY_STATE_PARIS, upperBodyStateLocks, upperBodyStateOption, runUpperBodyStateCase, upperBodyStateRow, upperBodyStateHash } from './specifiedActionUpperBodyStateFixtures.js';
+import { historicalPoseFramings, UPPER_BODY_STATE_PARIS, upperBodyStateLocks, upperBodyStateOption, runUpperBodyStateCase, upperBodyStateRow, upperBodyStateHash } from './specifiedActionUpperBodyStateFixtures.js';
 
 export const UPPER_BODY_STATE_BATCH3 = Object.freeze([
   ['seiza', 'She is kneeling with her torso upright.', ''],
@@ -41,7 +41,7 @@ export function upperBodyStateBatch3Cases() {
   const cases = [];
   const add = (key, patch, target = false) => cases.push({key, target, seed:'pose-upper-body-state-batch3/' + key, locks:upperBodyStateLocks(patch)});
   for (const action of UPPER_BODY_STATE_BATCH3) {
-    for (const frame of controls.find(control => control.key === 'framingId').options) for (const imported of [false,true]) {
+    for (const frame of historicalPoseFramings) for (const imported of [false,true]) {
       add(action.id + '/' + frame.zh + '/' + (imported ? 'paris' : 'general'), {
         specifiedActionId:action.id, framingId:frame.id,
         ...(imported ? UPPER_BODY_STATE_PARIS : {locationId:upperBodyStateOption('locationId','戶外：森林步道')}),
@@ -72,7 +72,7 @@ export function upperBodyStateBatch3Cases() {
 /** Every reviewed indoor/outdoor scene, each offered surface plus unspecified, every action and framing. */
 export function* upperBodyStateBatch3SupportCases() {
   for (const [locationId,surfaces] of Object.entries(UPPER_BODY_STATE_BATCH3_SCENES)) for (const target of UPPER_BODY_STATE_BATCH3) {
-    for (const frame of controls.find(control=>control.key==='framingId').options) for (const surface of ['',...surfaces]) {
+    for (const frame of historicalPoseFramings) for (const surface of ['',...surfaces]) {
       const key = [locationId,target.id,frame.id,surface||'unspecified'].join('/');
       yield {key,target:true,seed:'pose-upper-body-state-batch3-support/' + key,locks:upperBodyStateLocks({locationId,specifiedActionId:target.id,framingId:frame.id,...(surface?{indoorKneelId:surface}:{})})};
     }

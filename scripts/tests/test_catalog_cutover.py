@@ -70,7 +70,10 @@ class FormalSourceTests(unittest.TestCase):
         }
         shirts = [row for row in entries if row['id'] in shirt_ids]
         self.assertEqual({row['id'] for row in shirts}, shirt_ids)
-        self.assertEqual(len(entries) - len(added) - len(companion) - len(lawson) - len(eye_expressions) - len(shirts), 1050)
+        crop_ids = {'camera:景別構圖-framing:portrait-headshot', 'camera:景別構圖-framing:intimate-facial-close-up'}
+        crops = [row for row in entries if row['id'] in crop_ids]
+        self.assertCountEqual([row['id'] for row in crops], crop_ids)
+        self.assertEqual(len(entries) - len(crops) - len(added) - len(companion) - len(lawson) - len(eye_expressions) - len(shirts), 1050)
         outputs, proof = sync.build_outputs(self.base)
         self.assertEqual(len(outputs), 8); self.assertEqual(proof['historicalIds'], len(entries))
         self.assertEqual(list(self.records), list(sync.FILES_TO_SYNC.values()))

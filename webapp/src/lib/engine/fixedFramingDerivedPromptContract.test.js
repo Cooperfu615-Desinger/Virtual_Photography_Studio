@@ -113,7 +113,7 @@ test('phase-1 main framing policy partitions every existing option without chang
 
   assert.deepEqual(
     FIXED_FRAMING_MAIN_OPTION_POLICY.visible.filter((entry) => entry.randomCandidate).map((entry) => entry.zh),
-    ['半臉傾斜特寫', '全臉傾斜特寫', '中景鏡頭 (Medium Shot)', '牛仔中景 (Cowboy Shot)', '全身鏡頭 (Full Body Shot)', '頭部主導近景'],
+    ['半臉傾斜特寫', '全臉傾斜特寫', '中景鏡頭 (Medium Shot)', '牛仔中景 (Cowboy Shot)', '全身鏡頭 (Full Body Shot)', '頭部主導近景', '大頭照', '貼臉特寫'],
   );
   assert.deepEqual(FIXED_FRAMING_MAIN_OPTION_POLICY.legacyRestore, {
     preserveIds: true,

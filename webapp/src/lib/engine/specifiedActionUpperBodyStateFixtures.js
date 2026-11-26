@@ -1,3 +1,4 @@
+import seatExpectations from './indoorSeatVerificationExpectations.json' with { type: 'json' };
 import { createHash } from 'node:crypto';
 import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls } from '../engine.js';
 import { buildPage1GenerationPromptCards } from '../page1PromptOutputs.js';
@@ -13,6 +14,11 @@ export const UPPER_BODY_STATE_BATCH1 = Object.freeze([
 
 const targetIds = new Set(UPPER_BODY_STATE_BATCH1.map(action => action.id));
 const controls = getLockControls();
+// All three published pose baselines used silence followed by these ten crops.
+export const historicalPoseFramings = [
+  controls.find(control => control.key === 'framingId').options.find(option => option.zh === '全無'),
+  ...seatExpectations.frames,
+];
 export const upperBodyStateOption = (key, zh) => {
   const option = controls.find(control => control.key === key)?.options?.find(item => item.zh === zh);
   if (!option) throw new Error(`Unknown upper-body-state fixture option ${key}/${zh}`);
@@ -38,7 +44,7 @@ export function upperBodyStateCases() {
   const add = (key, patch, target = false) => cases.push({ key,
     locks: upperBodyStateLocks(patch), target, seed: `pose-upper-body-state-batch1/${key}` });
   for (const action of UPPER_BODY_STATE_BATCH1) {
-    for (const framing of controls.find(control => control.key === 'framingId').options) {
+    for (const framing of historicalPoseFramings) {
       for (const imported of [false, true]) {
         add(`${action.id}/${framing.zh}/${imported ? 'paris' : 'general'}`, {
           specifiedActionId: action.id, framingId: framing.id,

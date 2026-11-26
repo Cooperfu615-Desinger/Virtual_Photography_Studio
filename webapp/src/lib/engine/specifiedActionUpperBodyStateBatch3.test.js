@@ -179,7 +179,7 @@ test('all six kneels and framings retain seven saved texts and effective support
       assert.deepEqual(regenerated.cards.map(output=>[output.id,output.value]),expected,fixture.key+'/regenerated');
     }
   }
-  assert.equal(cases.length,330);
+  assert.equal(cases.length,366);
 });
 
 test('historical saved seven-output text stays verbatim until the user explicitly regenerates',()=>{

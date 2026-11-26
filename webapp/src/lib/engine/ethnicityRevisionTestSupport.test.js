@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls } from '../engine.js';
+import { naturalFixtureLocks } from './midjourneyNaturalFixtures.js';
+import { createSeededRandom, generatePrompts, getLockControls } from '../engine.js';
 import {
   ETHNICITY_REVISION_ADDED_ALIASES,
   restorePreEthnicityOutputs,
@@ -117,8 +118,8 @@ test('deep restore uses key-based fields, removes only added aliases and the add
 });
 
 test('generated outputs no longer name the old subject after the revision, and restore only reintroduces it', () => {
-  const [single] = generatePrompts(1, { ...createEmptyLocks(), subjectCount: '1', characterProfileId: 'none', specialSubjectId: 'none' }, [], { random: createSeededRandom('ethnicity-reverse-single') });
-  const [duo] = generatePrompts(1, { ...createEmptyLocks(), subjectCount: '2' }, [], { random: createSeededRandom('ethnicity-reverse-duo') });
+  const [single] = generatePrompts(1, naturalFixtureLocks({ subjectCount: '1' }), [], { random: createSeededRandom('ethnicity-reverse-single') });
+  const [duo] = generatePrompts(1, naturalFixtureLocks({ subjectCount: '2' }), [], { random: createSeededRandom('ethnicity-reverse-duo') });
   for (const prompt of [single, duo]) {
     const outputs = { grokPrompt: prompt.grokPrompt, zImagePrompt: prompt.zImagePrompt, midjourneyPrompt: prompt.midjourneyPrompt };
     const restored = restorePreEthnicityOutputs(outputs);

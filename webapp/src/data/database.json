@@ -12089,6 +12089,37 @@
         "legacyIds": [
           "camera:景別構圖-framing:頭部主導近景:10"
         ]
+      },
+      {
+        "zh": "大頭照",
+        "en": "Tight portrait headshot, face dominant, chin in frame, minimal headroom, lower edge near the shoulders or collarbones.",
+        "desc": "以臉部為主體，保留下巴與臉部輪廓，頭頂留白少，下緣在肩線或鎖骨附近。",
+        "meta": {
+          "semantic": {
+            "visibility": "portrait",
+            "tags": [
+              "face_detail"
+            ]
+          }
+        },
+        "stableId": "camera:景別構圖-framing:portrait-headshot",
+        "legacyIds": []
+      },
+      {
+        "zh": "貼臉特寫",
+        "en": "Intimate facial close-up, face filling most of the frame, outer hair cropped by the edges, chin near the lower edge.",
+        "desc": "臉部佔據大部分畫面，外圍髮絲可被畫面邊緣裁去，下巴靠近下緣，肩膀最多只在邊角露出少許。",
+        "meta": {
+          "semantic": {
+            "visibility": "close",
+            "tags": [
+              "face_detail",
+              "full_face_tight"
+            ]
+          }
+        },
+        "stableId": "camera:景別構圖-framing:intimate-facial-close-up",
+        "legacyIds": []
       }
     ],
     "相機視角 (Angle)": [

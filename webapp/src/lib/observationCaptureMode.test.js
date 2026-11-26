@@ -256,10 +256,10 @@ test('capture expansion history reconstructs trusted source and rejects unknown 
   const { readFileSync }=await import('node:fs');
   const { createHash }=await import('node:crypto');
   const { execFileSync }=await import('node:child_process');
-  const { preObservationCaptureExpansionSource, preGestureExpressionGazeSource, gestureExpressionGazeHistoricalPaths }=await import('../../../scripts/lib/gestureExpressionGazeHistoricalReplay.mjs');
+  const { prePortraitCropsSource, preObservationCaptureExpansionSource, preGestureExpressionGazeSource, gestureExpressionGazeHistoricalPaths }=await import('../../../scripts/lib/gestureExpressionGazeHistoricalReplay.mjs');
   const review=JSON.parse(readFileSync(new URL('../../../scripts/lib/observationCaptureExpansionHistory.json',import.meta.url),'utf8'));
   for(const file of review.files) {
-    const current=readFileSync(new URL(`../../../${file.path}`,import.meta.url));
+    const current=prePortraitCropsSource(file.path,readFileSync(new URL(`../../../${file.path}`,import.meta.url)));
     assert.equal(createHash('sha256').update(current).digest('hex'),file.afterHash);
     const expected=execFileSync('git',['show',`${review.baseCommit}:${file.path}`],{cwd:new URL('../../../',import.meta.url)});
     const previous=preObservationCaptureExpansionSource(file.path,current);
